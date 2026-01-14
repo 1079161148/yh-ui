@@ -1,0 +1,418 @@
+/**
+ * YhInputTag Styles
+ * @description 标签输入框组件样式 - 增强版
+ */
+
+/* ==================== 变量定义 ==================== */
+$input-tag-prefix: 'yh-input-tag';
+
+/* ==================== 基础样式 ==================== */
+.#{$input-tag-prefix} {
+  --yh-input-tag-min-height: var(--yh-component-size-default);
+  --yh-input-tag-font-size: var(--yh-font-size-base);
+  --yh-input-tag-bg-color: var(--yh-fill-color-blank);
+  --yh-input-tag-border-color: var(--yh-border-color);
+  --yh-input-tag-text-color: var(--yh-text-color-regular);
+  --yh-input-tag-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-tag-hover-border-color: var(--yh-border-color-hover);
+  --yh-input-tag-focus-border-color: var(--yh-color-primary);
+  --yh-input-tag-tag-height: 22px;
+  --yh-input-tag-gap: 4px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--yh-input-tag-min-height);
+  padding: 2px 8px;
+  font-size: var(--yh-input-tag-font-size);
+  background-color: var(--yh-input-tag-bg-color);
+  border: var(--yh-border-width) var(--yh-border-style) var(--yh-input-tag-border-color);
+  border-radius: var(--yh-radius-base);
+  box-sizing: border-box;
+  cursor: text;
+  transition: var(--yh-transition-fast);
+
+  &:hover:not(.is-disabled) {
+    border-color: var(--yh-input-tag-hover-border-color);
+  }
+
+  /* ==================== 前缀后缀 ==================== */
+  &__prefix,
+  &__suffix {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--yh-text-color-placeholder);
+  }
+
+  &__prefix {
+    margin-right: 8px;
+  }
+
+  &__suffix {
+    margin-left: 8px;
+  }
+
+  &__prefix-text,
+  &__suffix-text {
+    font-size: inherit;
+    white-space: nowrap;
+  }
+
+  /* ==================== 包装器 ==================== */
+  &__wrapper {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--yh-input-tag-gap);
+    min-width: 0;
+  }
+
+  /* ==================== 标签样式 ==================== */
+  &__tag {
+    display: inline-flex;
+    align-items: center;
+    height: var(--yh-input-tag-tag-height);
+    padding: 0 6px;
+    font-size: var(--yh-font-size-xs);
+    line-height: 1;
+    border-radius: var(--yh-radius-sm);
+    box-sizing: border-box;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    cursor: default;
+    transition: var(--yh-transition-fast);
+
+    // Light 效果 - 默认
+    &.is-light {
+      &.is-primary {
+        color: var(--yh-color-primary);
+        background-color: var(--yh-color-primary-light-9);
+        border: 1px solid var(--yh-color-primary-light-7);
+      }
+
+      &.is-success {
+        color: var(--yh-color-success);
+        background-color: var(--yh-color-success-light-9);
+        border: 1px solid var(--yh-color-success-light-7);
+      }
+
+      &.is-warning {
+        color: var(--yh-color-warning);
+        background-color: var(--yh-color-warning-light-9);
+        border: 1px solid var(--yh-color-warning-light-7);
+      }
+
+      &.is-danger {
+        color: var(--yh-color-danger);
+        background-color: var(--yh-color-danger-light-9);
+        border: 1px solid var(--yh-color-danger-light-7);
+      }
+
+      &.is-info {
+        color: var(--yh-color-info);
+        background-color: var(--yh-color-info-light-9);
+        border: 1px solid var(--yh-color-info-light-7);
+      }
+    }
+
+    // Dark 效果
+    &.is-dark {
+      color: #fff;
+
+      &.is-primary {
+        background-color: var(--yh-color-primary);
+        border: 1px solid var(--yh-color-primary);
+      }
+
+      &.is-success {
+        background-color: var(--yh-color-success);
+        border: 1px solid var(--yh-color-success);
+      }
+
+      &.is-warning {
+        background-color: var(--yh-color-warning);
+        border: 1px solid var(--yh-color-warning);
+      }
+
+      &.is-danger {
+        background-color: var(--yh-color-danger);
+        border: 1px solid var(--yh-color-danger);
+      }
+
+      &.is-info {
+        background-color: var(--yh-color-info);
+        border: 1px solid var(--yh-color-info);
+      }
+    }
+
+    // Plain 效果
+    &.is-plain {
+      background-color: transparent;
+
+      &.is-primary {
+        color: var(--yh-color-primary);
+        border: 1px solid var(--yh-color-primary-light-5);
+      }
+
+      &.is-success {
+        color: var(--yh-color-success);
+        border: 1px solid var(--yh-color-success-light-5);
+      }
+
+      &.is-warning {
+        color: var(--yh-color-warning);
+        border: 1px solid var(--yh-color-warning-light-5);
+      }
+
+      &.is-danger {
+        color: var(--yh-color-danger);
+        border: 1px solid var(--yh-color-danger-light-5);
+      }
+
+      &.is-info {
+        color: var(--yh-color-info);
+        border: 1px solid var(--yh-color-info-light-5);
+      }
+    }
+
+    // 拖拽状态
+    &.is-dragging {
+      opacity: 0.5;
+    }
+
+    &.is-drag-over {
+      transform: translateX(4px);
+    }
+
+    &[draggable='true'] {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  &__tag-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__tag-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 2px;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    &:hover {
+      background-color: currentColor;
+
+      svg {
+        color: var(--yh-fill-color-blank);
+      }
+    }
+  }
+
+  /* ==================== 折叠标签 ==================== */
+  &__collapsed {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--yh-input-tag-tag-height);
+    padding: 0 6px;
+    font-size: var(--yh-font-size-xs);
+    line-height: 1;
+    border-radius: var(--yh-radius-sm);
+    cursor: pointer;
+    transition: var(--yh-transition-fast);
+
+    &.is-light {
+      &.is-info {
+        color: var(--yh-text-color-secondary);
+        background-color: var(--yh-fill-color-light);
+        border: 1px solid var(--yh-border-color-light);
+      }
+    }
+
+    &:hover {
+      background-color: var(--yh-fill-color);
+    }
+  }
+
+  /* ==================== Tooltip ==================== */
+  &__tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 300px;
+    padding: 8px 12px;
+    background-color: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-light);
+    border-radius: var(--yh-radius-base);
+    box-shadow: var(--yh-box-shadow-light);
+    z-index: 2000;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--yh-bg-color-overlay);
+    }
+  }
+
+  &__tooltip-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: var(--yh-font-size-xs);
+    border-radius: var(--yh-radius-sm);
+
+    &.is-light.is-info {
+      color: var(--yh-color-info);
+      background-color: var(--yh-color-info-light-9);
+    }
+  }
+
+  /* ==================== 输入框 ==================== */
+  &__inner {
+    flex: 1;
+    min-width: 50px;
+    height: var(--yh-input-tag-tag-height);
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--yh-input-tag-text-color);
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--yh-input-tag-placeholder-color);
+    }
+  }
+
+  /* ==================== 清空按钮 ==================== */
+  &__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: var(--yh-text-color-placeholder);
+    cursor: pointer;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: var(--yh-text-color-secondary);
+    }
+  }
+
+  /* ==================== 聚焦状态 ==================== */
+  &.is-focused {
+    border-color: var(--yh-input-tag-focus-border-color);
+    box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+  }
+
+  /* ==================== 禁用状态 ==================== */
+  &.is-disabled {
+    background-color: var(--yh-fill-color-light);
+    cursor: not-allowed;
+
+    .#{$input-tag-prefix}__inner {
+      cursor: not-allowed;
+    }
+
+    .#{$input-tag-prefix}__tag {
+      opacity: 0.6;
+    }
+  }
+
+  /* ==================== 尺寸变体 ==================== */
+  &--large {
+    --yh-input-tag-min-height: var(--yh-component-size-large);
+    --yh-input-tag-font-size: var(--yh-font-size-md);
+    --yh-input-tag-tag-height: 26px;
+    --yh-input-tag-gap: 6px;
+
+    padding: 4px 12px;
+
+    .#{$input-tag-prefix}__tag,
+    .#{$input-tag-prefix}__collapsed {
+      padding: 0 8px;
+      font-size: var(--yh-font-size-sm);
+    }
+
+    .#{$input-tag-prefix}__tag-close {
+      width: 16px;
+      height: 16px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  &--small {
+    --yh-input-tag-min-height: var(--yh-component-size-small);
+    --yh-input-tag-font-size: var(--yh-font-size-xs);
+    --yh-input-tag-tag-height: 18px;
+    --yh-input-tag-gap: 2px;
+
+    padding: 1px 6px;
+
+    .#{$input-tag-prefix}__tag,
+    .#{$input-tag-prefix}__collapsed {
+      padding: 0 4px;
+      font-size: 11px;
+    }
+
+    .#{$input-tag-prefix}__tag-close {
+      width: 12px;
+      height: 12px;
+      margin-left: 1px;
+
+      svg {
+        width: 8px;
+        height: 8px;
+      }
+    }
+  }
+}
+
+/* ==================== 动画 ==================== */
+.yh-fade-enter-active,
+.yh-fade-leave-active {
+  transition: opacity var(--yh-duration-fast) var(--yh-timing-ease-in-out);
+}
+
+.yh-fade-enter-from,
+.yh-fade-leave-to {
+  opacity: 0;
+}

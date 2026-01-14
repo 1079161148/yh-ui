@@ -1,0 +1,40 @@
+{
+  "name": "@yh-ui/utils",
+  "version": "0.0.1",
+  "description": "YH-UI utility functions",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xxx/yh-ui.git",
+    "directory": "packages/utils"
+  },
+  "keywords": [
+    "yh-ui",
+    "utils"
+  ],
+  "license": "MIT"
+}

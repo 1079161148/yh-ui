@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "paths": {
+      "@yh-ui/*": ["./packages/*/src"]
+    }
+  },
+  "include": [
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    "**/*.md"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist"
+  ]
+}

@@ -1,0 +1,247 @@
+/**
+ * YH-UI CSS Variables
+ * 全局 CSS 变量定义
+ */
+
+:root {
+  /* ==================== 颜色系统 ==================== */
+
+  /* 主色 */
+  --yh-color-primary: #409eff;
+  --yh-color-primary-light-1: #53a8ff;
+  --yh-color-primary-light-2: #66b1ff;
+  --yh-color-primary-light-3: #79bbff;
+  --yh-color-primary-light-4: #8cc5ff;
+  --yh-color-primary-light-5: #a0cfff;
+  --yh-color-primary-light-6: #b3d8ff;
+  --yh-color-primary-light-7: #c6e2ff;
+  --yh-color-primary-light-8: #d9ecff;
+  --yh-color-primary-light-9: #ecf5ff;
+  --yh-color-primary-dark-2: #337ecc;
+
+  /* 成功色 */
+  --yh-color-success: #67c23a;
+  --yh-color-success-light-3: #95d475;
+  --yh-color-success-light-5: #b3e19d;
+  --yh-color-success-light-7: #d1edc4;
+  --yh-color-success-light-9: #f0f9eb;
+  --yh-color-success-dark-2: #529b2e;
+
+  /* 警告色 */
+  --yh-color-warning: #e6a23c;
+  --yh-color-warning-light-3: #eebe77;
+  --yh-color-warning-light-5: #f3d19e;
+  --yh-color-warning-light-7: #f8e3c5;
+  --yh-color-warning-light-9: #fdf6ec;
+  --yh-color-warning-dark-2: #b88230;
+
+  /* 危险色 */
+  --yh-color-danger: #f56c6c;
+  --yh-color-danger-light-3: #f89898;
+  --yh-color-danger-light-5: #fab6b6;
+  --yh-color-danger-light-7: #fcd3d3;
+  --yh-color-danger-light-9: #fef0f0;
+  --yh-color-danger-dark-2: #c45656;
+
+  /* 信息色 */
+  --yh-color-info: #909399;
+  --yh-color-info-light-3: #b1b3b8;
+  --yh-color-info-light-5: #c8c9cc;
+  --yh-color-info-light-7: #dedfe0;
+  --yh-color-info-light-9: #f4f4f5;
+  --yh-color-info-dark-2: #73767a;
+
+  /* 文字颜色 */
+  --yh-text-color-primary: #303133;
+  --yh-text-color-regular: #606266;
+  --yh-text-color-secondary: #909399;
+  --yh-text-color-placeholder: #a8abb2;
+  --yh-text-color-disabled: #c0c4cc;
+
+  /* 边框颜色 */
+  --yh-border-color: #dcdfe6;
+  --yh-border-color-light: #e4e7ed;
+  --yh-border-color-lighter: #ebeef5;
+  --yh-border-color-extra-light: #f2f6fc;
+  --yh-border-color-dark: #d4d7de;
+  --yh-border-color-darker: #cdd0d6;
+
+  /* 填充颜色 */
+  --yh-fill-color: #f0f2f5;
+  --yh-fill-color-light: #f5f7fa;
+  --yh-fill-color-lighter: #fafafa;
+  --yh-fill-color-extra-light: #fafcff;
+  --yh-fill-color-dark: #ebedf0;
+  --yh-fill-color-darker: #e6e8eb;
+  --yh-fill-color-blank: #ffffff;
+
+  /* 背景颜色 */
+  --yh-bg-color: #ffffff;
+  --yh-bg-color-page: #f2f3f5;
+  --yh-bg-color-overlay: #ffffff;
+
+  /* ==================== 间距系统 ==================== */
+  --yh-spacing-none: 0;
+  --yh-spacing-xs: 4px;
+  --yh-spacing-sm: 8px;
+  --yh-spacing-md: 16px;
+  --yh-spacing-lg: 24px;
+  --yh-spacing-xl: 32px;
+  --yh-spacing-xxl: 48px;
+
+  /* ==================== 圆角系统 ==================== */
+  --yh-radius-none: 0;
+  --yh-radius-sm: 2px;
+  --yh-radius-base: 4px;
+  --yh-radius-md: 8px;
+  --yh-radius-lg: 12px;
+  --yh-radius-xl: 16px;
+  --yh-radius-round: 20px;
+  --yh-radius-circle: 50%;
+
+  /* ==================== 字体系统 ==================== */
+  --yh-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* 字号 */
+  --yh-font-size-xs: 12px;
+  --yh-font-size-sm: 13px;
+  --yh-font-size-base: 14px;
+  --yh-font-size-md: 16px;
+  --yh-font-size-lg: 18px;
+  --yh-font-size-xl: 20px;
+  --yh-font-size-xxl: 24px;
+
+  /* 行高 */
+  --yh-line-height-none: 1;
+  --yh-line-height-tight: 1.25;
+  --yh-line-height-snug: 1.375;
+  --yh-line-height-normal: 1.5;
+  --yh-line-height-relaxed: 1.625;
+  --yh-line-height-loose: 2;
+
+  /* 字重 */
+  --yh-font-weight-light: 300;
+  --yh-font-weight-normal: 400;
+  --yh-font-weight-medium: 500;
+  --yh-font-weight-semibold: 600;
+  --yh-font-weight-bold: 700;
+
+  /* ==================== 阴影系统 ==================== */
+  --yh-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --yh-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --yh-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --yh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --yh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* ==================== 过渡动效 ==================== */
+  --yh-duration-fast: 150ms;
+  --yh-duration-base: 200ms;
+  --yh-duration-slow: 300ms;
+
+  --yh-timing-ease: ease;
+  --yh-timing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --yh-timing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --yh-timing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --yh-timing-linear: linear;
+
+  --yh-transition-base: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  --yh-transition-fast: all var(--yh-duration-fast) var(--yh-timing-ease-in-out);
+  --yh-transition-slow: all var(--yh-duration-slow) var(--yh-timing-ease-in-out);
+
+  /* ==================== 层级系统 ==================== */
+  --yh-z-index-normal: 1;
+  --yh-z-index-top: 1000;
+  --yh-z-index-popper: 2000;
+  --yh-z-index-overlay: 2001;
+  --yh-z-index-modal: 2002;
+  --yh-z-index-popover: 2003;
+  --yh-z-index-tooltip: 2004;
+  --yh-z-index-loading: 2005;
+
+  /* ==================== 组件尺寸 ==================== */
+  /* Large */
+  --yh-component-size-large: 40px;
+  --yh-component-size-large-font: 14px;
+  --yh-component-size-large-padding: 20px;
+
+  /* Default */
+  --yh-component-size-default: 32px;
+  --yh-component-size-default-font: 14px;
+  --yh-component-size-default-padding: 16px;
+
+  /* Small */
+  --yh-component-size-small: 24px;
+  --yh-component-size-small-font: 12px;
+  --yh-component-size-small-padding: 12px;
+
+  /* ==================== 边框 ==================== */
+  --yh-border-width: 1px;
+  --yh-border-style: solid;
+  --yh-border: var(--yh-border-width) var(--yh-border-style)
+    var(--yh-border-color);
+}
+
+/* ==================== 暗黑模式 ==================== */
+html.dark {
+  --yh-color-primary: #409eff;
+  --yh-color-primary-light-3: #3375b9;
+  --yh-color-primary-light-5: #2a598a;
+  --yh-color-primary-light-7: #213d5b;
+  --yh-color-primary-light-9: #18222c;
+  --yh-color-primary-dark-2: #66b1ff;
+
+  --yh-color-success: #67c23a;
+  --yh-color-success-light-3: #4e8e2f;
+  --yh-color-success-light-5: #3e6b27;
+  --yh-color-success-light-7: #2d481f;
+  --yh-color-success-light-9: #1d2518;
+
+  --yh-color-warning: #e6a23c;
+  --yh-color-warning-light-3: #a77730;
+  --yh-color-warning-light-5: #7d5b28;
+  --yh-color-warning-light-7: #533f20;
+  --yh-color-warning-light-9: #292218;
+
+  --yh-color-danger: #f56c6c;
+  --yh-color-danger-light-3: #b25252;
+  --yh-color-danger-light-5: #854040;
+  --yh-color-danger-light-7: #582e2e;
+  --yh-color-danger-light-9: #2b1d1d;
+
+  --yh-color-info: #909399;
+  --yh-color-info-light-3: #6b6d71;
+  --yh-color-info-light-5: #525457;
+  --yh-color-info-light-7: #393b3e;
+  --yh-color-info-light-9: #202124;
+
+  --yh-text-color-primary: #e5eaf3;
+  --yh-text-color-regular: #cfd3dc;
+  --yh-text-color-secondary: #a3a6ad;
+  --yh-text-color-placeholder: #8d9095;
+  --yh-text-color-disabled: #6c6e72;
+
+  --yh-border-color: #4c4d4f;
+  --yh-border-color-light: #414243;
+  --yh-border-color-lighter: #363637;
+  --yh-border-color-extra-light: #2b2b2c;
+  --yh-border-color-dark: #58585b;
+  --yh-border-color-darker: #636466;
+
+  --yh-fill-color: #303030;
+  --yh-fill-color-light: #262727;
+  --yh-fill-color-lighter: #1d1d1d;
+  --yh-fill-color-extra-light: #191919;
+  --yh-fill-color-dark: #39393a;
+  --yh-fill-color-darker: #424243;
+  --yh-fill-color-blank: transparent;
+
+  --yh-bg-color: #141414;
+  --yh-bg-color-page: #0a0a0a;
+  --yh-bg-color-overlay: #1d1e1f;
+}

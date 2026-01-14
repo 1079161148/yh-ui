@@ -1,0 +1,331 @@
+/**
+ * YhInputNumber Styles
+ * @description 数字输入框组件样式 - 美化版
+ */
+
+/* ==================== 变量定义 ==================== */
+$input-number-prefix: 'yh-input-number';
+
+/* ==================== 基础样式 ==================== */
+.#{$input-number-prefix} {
+  --yh-input-number-width: 150px;
+  --yh-input-number-height: var(--yh-component-size-default);
+  --yh-input-number-font-size: var(--yh-font-size-base);
+  --yh-input-number-bg-color: var(--yh-fill-color-blank);
+  --yh-input-number-border-color: var(--yh-border-color);
+  --yh-input-number-text-color: var(--yh-text-color-regular);
+  --yh-input-number-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-number-hover-border-color: var(--yh-border-color-hover);
+  --yh-input-number-focus-border-color: var(--yh-color-primary);
+  --yh-input-number-btn-bg-color: transparent;
+  --yh-input-number-btn-hover-bg-color: var(--yh-fill-color-light);
+  --yh-input-number-btn-color: var(--yh-text-color-secondary);
+  --yh-input-number-btn-hover-color: var(--yh-color-primary);
+  --yh-input-number-border-radius: var(--yh-radius-base);
+
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  width: var(--yh-input-number-width);
+  height: var(--yh-input-number-height);
+  background-color: var(--yh-input-number-bg-color);
+  border: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+  border-radius: var(--yh-input-number-border-radius);
+  transition: var(--yh-transition-fast);
+  box-sizing: border-box;
+
+  &:hover:not(.is-disabled) {
+    border-color: var(--yh-input-number-hover-border-color);
+  }
+
+  &.is-focused:not(.is-disabled) {
+    border-color: var(--yh-input-number-focus-border-color);
+    box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+  }
+
+  /* ==================== 输入框包装器 ==================== */
+  &__wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    height: 100%;
+  }
+
+  /* ==================== 输入框 ==================== */
+  &__inner {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0 8px;
+    font-size: var(--yh-input-number-font-size);
+    font-family: inherit;
+    color: var(--yh-input-number-text-color);
+    text-align: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &::placeholder {
+      color: var(--yh-input-number-placeholder-color);
+    }
+  }
+
+  /* ==================== 前缀后缀 ==================== */
+  &__prefix,
+  &__suffix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100%;
+    color: var(--yh-text-color-secondary);
+    font-size: var(--yh-input-number-font-size);
+  }
+
+  &__prefix {
+    padding-left: 8px;
+  }
+
+  &__suffix {
+    padding-right: 8px;
+  }
+
+  &__prefix-text,
+  &__suffix-text {
+    font-size: inherit;
+    white-space: nowrap;
+    color: var(--yh-text-color-secondary);
+  }
+
+  &__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    color: var(--yh-text-color-placeholder);
+    cursor: pointer;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: var(--yh-text-color-secondary);
+    }
+  }
+
+  /* ==================== 控制按钮 - 简洁风格 ==================== */
+  &__decrease,
+  &__increase {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 100%;
+    color: var(--yh-input-number-btn-color);
+    background-color: var(--yh-input-number-btn-bg-color);
+    cursor: pointer;
+    user-select: none;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 14px;
+      height: 14px;
+      transition: var(--yh-transition-fast);
+    }
+
+    &:hover:not(.is-disabled) {
+      color: var(--yh-input-number-btn-hover-color);
+      background-color: var(--yh-input-number-btn-hover-bg-color);
+
+      svg {
+        transform: scale(1.1);
+      }
+    }
+
+    &:active:not(.is-disabled) {
+      svg {
+        transform: scale(0.95);
+      }
+    }
+
+    &.is-disabled {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &__decrease {
+    border-right: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+    border-radius: calc(var(--yh-input-number-border-radius) - 1px) 0 0
+      calc(var(--yh-input-number-border-radius) - 1px);
+  }
+
+  &__increase {
+    border-left: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+    border-radius: 0 calc(var(--yh-input-number-border-radius) - 1px)
+      calc(var(--yh-input-number-border-radius) - 1px) 0;
+  }
+
+  /* ==================== 右侧控制按钮模式 ==================== */
+  &.is-controls-right {
+    .#{$input-number-prefix}__wrapper {
+      .#{$input-number-prefix}__inner {
+        text-align: left;
+        padding-left: 12px;
+      }
+    }
+
+    .#{$input-number-prefix}__controls {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-left: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+    }
+
+    .#{$input-number-prefix}__decrease,
+    .#{$input-number-prefix}__increase {
+      width: 32px;
+      height: 50%;
+      border: 0;
+      border-radius: 0;
+      flex-shrink: 0;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    .#{$input-number-prefix}__increase {
+      border-bottom: var(--yh-border-width) var(--yh-border-style)
+        var(--yh-input-number-border-color);
+      border-radius: 0 calc(var(--yh-input-number-border-radius) - 1px) 0 0;
+    }
+
+    .#{$input-number-prefix}__decrease {
+      border-radius: 0 0 calc(var(--yh-input-number-border-radius) - 1px) 0;
+    }
+  }
+
+  /* ==================== 无控制按钮模式 ==================== */
+  &.is-without-controls {
+    .#{$input-number-prefix}__inner {
+      border-radius: var(--yh-input-number-border-radius);
+    }
+  }
+
+  /* ==================== 有前缀时 ==================== */
+  &.is-has-prefix {
+    .#{$input-number-prefix}__inner {
+      text-align: left;
+      padding-left: 4px;
+    }
+  }
+
+  /* ==================== 有后缀时 ==================== */
+  &.is-has-suffix {
+    .#{$input-number-prefix}__inner {
+      padding-right: 4px;
+    }
+  }
+
+  /* ==================== 验证错误状态 ==================== */
+  &.is-error {
+    border-color: var(--yh-color-danger);
+
+    &.is-focused {
+      box-shadow: 0 0 0 2px var(--yh-color-danger-light-8);
+    }
+  }
+
+  /* ==================== 禁用状态 ==================== */
+  &.is-disabled {
+    background-color: var(--yh-fill-color-light);
+    cursor: not-allowed;
+
+    .#{$input-number-prefix}__inner {
+      color: var(--yh-text-color-placeholder);
+      cursor: not-allowed;
+    }
+
+    .#{$input-number-prefix}__decrease,
+    .#{$input-number-prefix}__increase {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  /* ==================== 尺寸变体 ==================== */
+  &--large {
+    --yh-input-number-width: 180px;
+    --yh-input-number-height: var(--yh-component-size-large);
+    --yh-input-number-font-size: var(--yh-font-size-md);
+
+    .#{$input-number-prefix}__decrease,
+    .#{$input-number-prefix}__increase {
+      width: 40px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &.is-controls-right {
+      .#{$input-number-prefix}__decrease,
+      .#{$input-number-prefix}__increase {
+        width: 36px;
+
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+
+  &--small {
+    --yh-input-number-width: 130px;
+    --yh-input-number-height: var(--yh-component-size-small);
+    --yh-input-number-font-size: var(--yh-font-size-xs);
+
+    .#{$input-number-prefix}__decrease,
+    .#{$input-number-prefix}__increase {
+      width: 24px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    &.is-controls-right {
+      .#{$input-number-prefix}__decrease,
+      .#{$input-number-prefix}__increase {
+        width: 24px;
+
+        svg {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}

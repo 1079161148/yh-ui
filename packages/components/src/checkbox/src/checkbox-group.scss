@@ -1,0 +1,16 @@
+/**
+ * YhCheckboxGroup Styles
+ * @description 复选框组组件样式
+ */
+
+/* ==================== 变量定义 ==================== */
+$checkbox-group-prefix: 'yh-checkbox-group';
+
+/* ==================== 基础样式 ==================== */
+.#{$checkbox-group-prefix} {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 0;
+  line-height: 0;
+}

@@ -1,0 +1,16 @@
+/**
+ * YhRadioGroup Styles
+ * @description 单选框组组件样式
+ */
+
+/* ==================== 变量定义 ==================== */
+$radio-group-prefix: 'yh-radio-group';
+
+/* ==================== 基础样式 ==================== */
+.#{$radio-group-prefix} {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 0;
+  line-height: 0;
+}

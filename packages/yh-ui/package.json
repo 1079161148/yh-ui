@@ -1,0 +1,52 @@
+{
+  "name": "yh-ui",
+  "version": "0.0.1",
+  "description": "YH-UI - A Modern Vue 3 Component Library",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./css": "./dist/style.css",
+    "./*": "./*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "dependencies": {
+    "@yh-ui/components": "workspace:*",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/theme": "workspace:*",
+    "@yh-ui/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xxx/yh-ui.git",
+    "directory": "packages/yh-ui"
+  },
+  "keywords": [
+    "yh-ui",
+    "vue3",
+    "component-library",
+    "ui-components",
+    "typescript"
+  ],
+  "homepage": "https://yh-ui.dev",
+  "author": "YH-UI Team",
+  "license": "MIT"
+}

@@ -1,0 +1,40 @@
+{
+  "name": "@yh-ui/theme",
+  "version": "0.0.1",
+  "description": "YH-UI theme and design tokens",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./styles/*": "./src/styles/*",
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "src/styles"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xxx/yh-ui.git",
+    "directory": "packages/theme"
+  },
+  "keywords": [
+    "yh-ui",
+    "theme",
+    "design-tokens"
+  ],
+  "license": "MIT"
+}
