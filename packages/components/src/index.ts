@@ -23,6 +23,7 @@ import { YhSwitch } from './switch'
 import { YhAutocomplete } from './autocomplete'
 import { YhSelect } from './select'
 import { YhCascader, YhCascaderPanel } from './cascader'
+import { YhSlider } from './slider'
 
 // 导出所有组件
 export * from './button'
@@ -42,6 +43,7 @@ export * from './switch'
 export * from './autocomplete'
 export * from './select'
 export * from './cascader'
+export * from './slider'
 
 // 所有组件列表
 const components = [
@@ -67,7 +69,8 @@ const components = [
   YhAutocomplete,
   YhSelect,
   YhCascader,
-  YhCascaderPanel
+  YhCascaderPanel,
+  YhSlider
 ] as Plugin[]
 
 /**

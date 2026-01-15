@@ -69,7 +69,8 @@ export default defineConfig({
             { text: 'Switch 开关', link: '/components/switch' },
             { text: 'Rate 评分', link: '/components/rate' },
             { text: 'Select 选择器', link: '/components/select' },
-            { text: 'Cascader 级联选择器', link: '/components/cascader' }
+            { text: 'Cascader 级联选择器', link: '/components/cascader' },
+            { text: 'Slider 滑块', link: '/components/slider' }
           ]
         },
         {

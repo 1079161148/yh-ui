@@ -43,7 +43,8 @@ import {
   YhAutocomplete,
   YhSelect,
   YhCascader,
-  YhCascaderPanel
+  YhCascaderPanel,
+  YhSlider
 } from '@yh-ui/components'
 
 // 导入文档组件
@@ -79,6 +80,7 @@ export default {
     app.component('YhSelect', YhSelect)
     app.component('YhCascader', YhCascader)
     app.component('YhCascaderPanel', YhCascaderPanel)
+    app.component('YhSlider', YhSlider)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)
