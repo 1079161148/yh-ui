@@ -3,8 +3,8 @@
  * YhInputNumber - 数字输入框组件
  * @description 仅允许输入标准的数字值，可定义范围
  */
-import { computed, ref, watch, useSlots } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { computed, ref, watch, useSlots, inject } from 'vue'
+import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import type { InputNumberProps, InputNumberEmits, InputNumberExpose } from './input-number'
 
 defineOptions({
@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<InputNumberProps>(), {
   max: Infinity,
   step: 1,
   stepStrictly: false,
-  size: 'default',
+  size: undefined,
   readonly: false,
   disabled: false,
   controlsPosition: '',
@@ -40,6 +40,12 @@ const focused = ref(false)
 const hovering = ref(false)
 const userInput = ref<string | null>(null)
 const validationError = ref<string>('')
+
+// 表单集成
+const { form, formItem, validate: triggerValidate } = useFormItem()
+
+const mergedDisabled = computed(() => props.disabled || form?.disabled || false)
+const mergedSize = computed(() => props.size || formItem?.size || form?.size || 'default')
 
 // 数值精度
 const numPrecision = computed(() => {
@@ -104,7 +110,7 @@ const maxDisabled = computed(() => {
 const showClear = computed(() => {
   return (
     props.clearable &&
-    !props.disabled &&
+    !mergedDisabled.value &&
     !props.readonly &&
     props.modelValue !== undefined &&
     props.modelValue !== null &&
@@ -125,14 +131,14 @@ const hasSuffix = computed(() => {
 // 类名计算
 const inputNumberClasses = computed(() => [
   ns.b(),
-  ns.m(props.size),
-  ns.is('disabled', props.disabled),
+  ns.m(mergedSize.value),
+  ns.is('disabled', mergedDisabled.value),
   ns.is('focused', focused.value),
   ns.is('controls-right', props.controlsPosition === 'right'),
   ns.is('without-controls', !props.controls),
   ns.is('has-prefix', hasPrefix.value),
   ns.is('has-suffix', hasSuffix.value),
-  ns.is('error', !!validationError.value)
+  ns.is('error', formItem?.validateStatus === 'error')
 ])
 
 // 验证
@@ -192,6 +198,11 @@ const setCurrentValue = (newValue: number | undefined, emitChange = true) => {
   userInput.value = null
   emit('update:modelValue', newValue)
 
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
+
+
   if (emitChange) {
     emit('change', newValue, oldValue)
   }
@@ -199,7 +210,7 @@ const setCurrentValue = (newValue: number | undefined, emitChange = true) => {
 
 // 增加
 const increase = () => {
-  if (props.disabled || props.readonly || maxDisabled.value) {
+  if (mergedDisabled.value || props.readonly || maxDisabled.value) {
     return
   }
 
@@ -210,7 +221,7 @@ const increase = () => {
 
 // 减少
 const decrease = () => {
-  if (props.disabled || props.readonly || minDisabled.value) {
+  if (mergedDisabled.value || props.readonly || minDisabled.value) {
     return
   }
 
@@ -221,7 +232,7 @@ const decrease = () => {
 
 // 清空
 const handleClear = () => {
-  if (props.disabled || props.readonly) return
+  if (mergedDisabled.value || props.readonly) return
 
   setCurrentValue(undefined)
   emit('clear')
@@ -272,6 +283,10 @@ const handleBlur = (event: FocusEvent) => {
   focused.value = false
   userInput.value = null
   emit('blur', event)
+
+  if (props.validateEvent) {
+    triggerValidate('blur')
+  }
 }
 
 // 鼠标事件
@@ -318,8 +333,8 @@ defineExpose<InputNumberExpose>({
   <div :class="inputNumberClasses" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave">
     <!-- 左侧减少按钮 -->
     <span v-if="controls && controlsPosition !== 'right'"
-      :class="[ns.e('decrease'), ns.is('disabled', minDisabled || disabled)]" role="button"
-      :aria-disabled="minDisabled || disabled" @click="decrease">
+      :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]" role="button"
+      :aria-disabled="minDisabled || mergedDisabled" @click="decrease">
       <slot name="decreaseIcon">
         <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
           <path fill="currentColor" d="M128 544h768a32 32 0 0 0 0-64H128a32 32 0 0 0 0 64z" />
@@ -339,10 +354,11 @@ defineExpose<InputNumberExpose>({
 
       <!-- 输入框 -->
       <input ref="inputRef" type="text" :class="ns.e('inner')" :value="displayValue" :name="name" :id="id"
-        :placeholder="placeholder" :disabled="disabled" :readonly="readonly" :tabindex="tabindex" autocomplete="off"
-        role="spinbutton" :aria-valuemax="max" :aria-valuemin="min" :aria-valuenow="modelValue"
-        :aria-disabled="disabled" @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
-        @keydown="handleKeydown" />
+        :placeholder="placeholder" :disabled="mergedDisabled" :readonly="readonly" :tabindex="tabindex"
+        autocomplete="off" role="spinbutton" :aria-valuemax="max" :aria-valuemin="min" :aria-valuenow="modelValue"
+        :aria-disabled="mergedDisabled" :aria-invalid="formItem?.validateStatus === 'error'"
+        :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined" @input="handleInput"
+        @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
 
       <!-- 后缀/清空按钮 -->
       <span v-if="hasSuffix" :class="ns.e('suffix')">
@@ -362,8 +378,8 @@ defineExpose<InputNumberExpose>({
 
     <!-- 右侧增加按钮 -->
     <span v-if="controls && controlsPosition !== 'right'"
-      :class="[ns.e('increase'), ns.is('disabled', maxDisabled || disabled)]" role="button"
-      :aria-disabled="maxDisabled || disabled" @click="increase">
+      :class="[ns.e('increase'), ns.is('disabled', maxDisabled || mergedDisabled)]" role="button"
+      :aria-disabled="maxDisabled || mergedDisabled" @click="increase">
       <slot name="increaseIcon">
         <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
           <path fill="currentColor"
@@ -374,8 +390,8 @@ defineExpose<InputNumberExpose>({
 
     <!-- 右侧控制按钮模式 -->
     <span v-if="controls && controlsPosition === 'right'" :class="ns.e('controls')">
-      <span :class="[ns.e('increase'), ns.is('disabled', maxDisabled || disabled)]" role="button"
-        :aria-disabled="maxDisabled || disabled" @click="increase">
+      <span :class="[ns.e('increase'), ns.is('disabled', maxDisabled || mergedDisabled)]" role="button"
+        :aria-disabled="maxDisabled || mergedDisabled" @click="increase">
         <slot name="increaseIcon">
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor"
@@ -383,8 +399,8 @@ defineExpose<InputNumberExpose>({
           </svg>
         </slot>
       </span>
-      <span :class="[ns.e('decrease'), ns.is('disabled', minDisabled || disabled)]" role="button"
-        :aria-disabled="minDisabled || disabled" @click="decrease">
+      <span :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]" role="button"
+        :aria-disabled="minDisabled || mergedDisabled" @click="decrease">
         <slot name="decreaseIcon">
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor"

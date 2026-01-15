@@ -30,7 +30,20 @@ import {
   YhRadioButton,
   YhTag,
   YhInputNumber,
-  YhInputTag
+  YhInputTag,
+  YhIcon,
+  YhForm,
+  YhFormItem,
+  YhFormSchema,
+  YhRow,
+  YhCol,
+  YhDivider,
+  YhRate,
+  YhSwitch,
+  YhAutocomplete,
+  YhSelect,
+  YhCascader,
+  YhCascaderPanel
 } from '@yh-ui/components'
 
 // 导入文档组件
@@ -53,6 +66,19 @@ export default {
     app.component('YhTag', YhTag)
     app.component('YhInputNumber', YhInputNumber)
     app.component('YhInputTag', YhInputTag)
+    app.component('YhIcon', YhIcon)
+    app.component('YhForm', YhForm)
+    app.component('YhFormItem', YhFormItem)
+    app.component('YhFormSchema', YhFormSchema)
+    app.component('YhRow', YhRow)
+    app.component('YhCol', YhCol)
+    app.component('YhDivider', YhDivider)
+    app.component('YhRate', YhRate)
+    app.component('YhSwitch', YhSwitch)
+    app.component('YhAutocomplete', YhAutocomplete)
+    app.component('YhSelect', YhSelect)
+    app.component('YhCascader', YhCascader)
+    app.component('YhCascaderPanel', YhCascaderPanel)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)

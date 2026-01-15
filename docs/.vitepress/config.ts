@@ -50,24 +50,34 @@ export default defineConfig({
         {
           text: '基础组件',
           items: [
+            { text: 'Layout 布局', link: '/components/layout' },
             { text: 'Button 按钮', link: '/components/button' },
+            { text: 'Icon 图标', link: '/components/icon' },
             { text: 'Tag 标签', link: '/components/tag' }
           ]
         },
         {
           text: '表单组件',
           items: [
+            { text: 'Form 表单', link: '/components/form' },
             { text: 'Input 输入框', link: '/components/input' },
             { text: 'InputNumber 数字输入框', link: '/components/input-number' },
             { text: 'InputTag 标签输入框', link: '/components/input-tag' },
+            { text: 'Autocomplete 自动补全输入框', link: '/components/autocomplete' },
             { text: 'Checkbox 复选框', link: '/components/checkbox' },
             { text: 'Radio 单选框', link: '/components/radio' },
-            { text: 'Select 选择器', link: '/components/select' }
+            { text: 'Switch 开关', link: '/components/switch' },
+            { text: 'Rate 评分', link: '/components/rate' },
+            { text: 'Select 选择器', link: '/components/select' },
+            { text: 'Cascader 级联选择器', link: '/components/cascader' }
           ]
         },
         {
           text: '数据展示',
-          items: [{ text: 'Table 表格', link: '/components/table' }]
+          items: [
+            { text: 'Table 表格', link: '/components/table' },
+            { text: 'Divider 分割线', link: '/components/divider' }
+          ]
         },
         {
           text: '反馈组件',

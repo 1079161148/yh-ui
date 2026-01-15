@@ -171,13 +171,34 @@ export const sleep = (ms: number): Promise<void> => {
 }
 
 /**
+ * 访问对象嵌套路径的值
+ */
+export const get = (obj: any, path: string, defaultValue?: any) => {
+  const result = path
+    .split('.')
+    .reduce((res, key) => (res !== null && res !== undefined ? res[key] : undefined), obj)
+  return result === undefined ? defaultValue : result
+}
+
+/**
+ * 设置对象嵌套路径的值
+ */
+export const set = (obj: any, path: string, value: any) => {
+  if (Object(obj) !== obj) return obj
+  const keys = path.split('.')
+  const lastKey = keys.pop()!
+  const node = keys.reduce((res, key) => {
+    if (res[key] === undefined) res[key] = {}
+    return res[key]
+  }, obj)
+  node[lastKey] = value
+  return obj
+}
+
+/**
  * 异步函数重试
  */
-export const retry = async <T>(
-  fn: () => Promise<T>,
-  retries = 3,
-  delay = 1000
-): Promise<T> => {
+export const retry = async <T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promise<T> => {
   try {
     return await fn()
   } catch (error) {

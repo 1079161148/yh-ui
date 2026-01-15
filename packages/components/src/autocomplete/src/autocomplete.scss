@@ -1,0 +1,285 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+$autocomplete-height: 32px;
+$autocomplete-height-large: 40px;
+$autocomplete-height-small: 24px;
+
+@include b(autocomplete) {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  font-size: 14px;
+  vertical-align: middle;
+
+  @include e(wrapper) {
+    display: inline-flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 1px 11px;
+    background-color: var(--yh-fill-color-blank, #fff);
+    border-radius: var(--yh-border-radius-base, 4px);
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: text;
+
+    &:hover {
+      border-color: var(--yh-border-color-hover, #c0c4cc);
+    }
+  }
+
+  @include e(inner) {
+    flex-grow: 1;
+    width: 100%;
+    height: calc($autocomplete-height - 2px);
+    padding: 0;
+    color: var(--yh-text-color-regular, #606266);
+    font-size: inherit;
+    line-height: calc($autocomplete-height - 2px);
+    background: none;
+    border: none;
+    outline: none;
+    appearance: none;
+    box-shadow: none;
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder, #a8abb2);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--yh-text-color-placeholder, #a8abb2);
+    }
+  }
+
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 8px;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+    flex-shrink: 0;
+  }
+
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+    flex-shrink: 0;
+  }
+
+  @include e(icon) {
+    width: 1em;
+    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include e(clear) {
+    cursor: pointer;
+    transition: color 0.2s;
+    font-size: 14px;
+
+    &:hover {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  @include e(prepend) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--yh-fill-color-light, #f5f7fa);
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    border-right: 0;
+    border-radius: var(--yh-border-radius-base, 4px) 0 0 var(--yh-border-radius-base, 4px);
+    white-space: nowrap;
+    color: var(--yh-text-color-secondary, #909399);
+  }
+
+  @include e(append) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--yh-fill-color-light, #f5f7fa);
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    border-left: 0;
+    border-radius: 0 var(--yh-border-radius-base, 4px) var(--yh-border-radius-base, 4px) 0;
+    white-space: nowrap;
+    color: var(--yh-text-color-secondary, #909399);
+  }
+
+  @include e(dropdown) {
+    position: absolute;
+    margin-top: 4px;
+    background-color: var(--yh-bg-color-overlay, #fff);
+    border: 1px solid var(--yh-border-color-light, #e4e7ed);
+    border-radius: var(--yh-border-radius-base, 4px);
+    box-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  @include e(suggestions) {
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    max-height: 280px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  @include e(suggestion) {
+    padding: 0 16px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    color: var(--yh-text-color-regular, #606266);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+    }
+
+    @include is(highlighted) {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+      color: var(--yh-color-primary, #409eff);
+    }
+  }
+
+  @include e(loading) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    color: var(--yh-text-color-secondary, #909399);
+    font-size: 14px;
+  }
+
+  @include e(empty) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+    font-size: 14px;
+  }
+
+  @include e(loading-icon) {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    animation: yh-autocomplete-loading 1s linear infinite;
+  }
+
+  // 聚焦状态
+  @include is(focused) {
+    .yh-autocomplete__wrapper {
+      border-color: var(--yh-color-primary, #409eff);
+      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+    }
+  }
+
+  // 禁用状态
+  @include is(disabled) {
+    cursor: not-allowed;
+
+    .yh-autocomplete__wrapper {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+      border-color: var(--yh-border-color-light, #e4e7ed);
+      cursor: not-allowed;
+
+      &:hover {
+        border-color: var(--yh-border-color-light, #e4e7ed);
+      }
+    }
+
+    .yh-autocomplete__inner {
+      color: var(--yh-text-color-placeholder, #a8abb2);
+      -webkit-text-fill-color: var(--yh-text-color-placeholder, #a8abb2);
+    }
+  }
+
+  // 尺寸
+  @include m(large) {
+    font-size: 14px;
+
+    .yh-autocomplete__wrapper {
+      padding: 1px 15px;
+    }
+
+    .yh-autocomplete__inner {
+      height: calc($autocomplete-height-large - 2px);
+      line-height: calc($autocomplete-height-large - 2px);
+    }
+  }
+
+  @include m(small) {
+    font-size: 12px;
+
+    .yh-autocomplete__wrapper {
+      padding: 1px 7px;
+    }
+
+    .yh-autocomplete__inner {
+      height: calc($autocomplete-height-small - 2px);
+      line-height: calc($autocomplete-height-small - 2px);
+    }
+  }
+
+  // 组合输入框
+  @include b(group) {
+    @include e(wrapper) {
+      border-radius: 0;
+      z-index: 1;
+
+      &:focus-within {
+        z-index: 2;
+      }
+    }
+
+    @include m(prepend) {
+      @include e(wrapper) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    @include m(append) {
+      @include e(wrapper) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+}
+
+// 下拉动画
+.yh-autocomplete-dropdown-enter-active,
+.yh-autocomplete-dropdown-leave-active {
+  transition:
+    opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.yh-autocomplete-dropdown-enter-from,
+.yh-autocomplete-dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scaleY(0);
+}
+
+@keyframes yh-autocomplete-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

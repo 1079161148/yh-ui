@@ -1,0 +1,61 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(divider) {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+
+  // 使用 CSS 变量控制颜色和粗细
+  --divider-border-color: var(--yh-divider-color, var(--yh-border-color-lighter, #dcdfe6));
+  --divider-border-width: var(--yh-divider-width, 1px);
+  --divider-border-style: var(--yh-border-style, solid);
+
+  @include m(horizontal) {
+    display: flex;
+    width: 100%;
+    margin: 24px 0;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-top-width: var(--divider-border-width);
+      border-top-style: var(--divider-border-style);
+      border-top-color: var(--divider-border-color);
+    }
+  }
+
+  @include m(vertical) {
+    display: inline-block;
+    width: 0;
+    min-height: 1em;
+    margin: 0 8px;
+    vertical-align: middle;
+    position: relative;
+    border-left-width: var(--divider-border-width);
+    border-left-style: var(--divider-border-style);
+    border-left-color: var(--divider-border-color);
+  }
+
+  // 内容位置
+  @include m(content-left) {
+    &::before {
+      flex: 0 0 5%;
+    }
+  }
+
+  @include m(content-right) {
+    &::after {
+      flex: 0 0 5%;
+    }
+  }
+
+  @include e(text) {
+    padding: 0 16px;
+    font-weight: 500;
+    color: var(--yh-text-color-primary, #303133);
+    font-size: 14px;
+    white-space: nowrap;
+  }
+}

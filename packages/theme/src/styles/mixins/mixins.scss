@@ -1,0 +1,78 @@
+// Mixins
+@use '../variables' as *;
+
+// BEM
+$namespace: 'yh' !default;
+$state-prefix: 'is-' !default;
+$modifier-separator: '--' !default;
+$element-separator: '__' !default;
+
+// 声明全局变量（解决 Dart Sass 2.0.0 !global 弃用警告）
+$B: null;
+$E: null;
+
+@mixin b($block) {
+  $B: $namespace + '-' + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $E: $element !global;
+  $selector: &;
+  $currentSelector: '';
+  @each $unit in $element {
+    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit + ','};
+  }
+
+  @if hitAllSpecialNestRule($selector) {
+    @at-root {
+      #{$selector} {
+        #{$currentSelector} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  $currentSelector: '';
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ','};
+  }
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}
+
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+@mixin is($state, $condition: true) {
+  @if $condition {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+// Special nest rule check (simplified)
+@function hitAllSpecialNestRule($selector) {
+  @return false;
+}

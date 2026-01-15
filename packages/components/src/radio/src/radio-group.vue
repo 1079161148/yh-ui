@@ -4,7 +4,7 @@
  * @description 用于管理多个 radio 的选中状态
  */
 import { computed, provide, toRefs } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
 import type {
   RadioGroupProps,
   RadioGroupEmits,
@@ -28,10 +28,19 @@ const emit = defineEmits<RadioGroupEmits>()
 // 命名空间
 const ns = useNamespace('radio-group')
 
+// 表单集成
+const { formItem } = useFormItem()
+const { validate } = useFormItem()
+
+const labelId = useId().value
+
 // 处理变化
 const changeEvent = (value: RadioValueType) => {
   emit('update:modelValue', value)
   emit('change', value)
+  if (props.validateEvent) {
+    validate('change')
+  }
 }
 
 // 提供上下文给子组件
@@ -64,7 +73,9 @@ const groupClasses = computed(() => [ns.b()])
 </script>
 
 <template>
-  <component :is="tag" :class="groupClasses" role="radiogroup" aria-label="radio-group">
+  <component :is="tag" :class="groupClasses" role="radiogroup" :aria-labelledby="labelId"
+    :aria-invalid="formItem?.validateStatus === 'error'"
+    :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined">
     <slot />
   </component>
 </template>

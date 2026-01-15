@@ -65,12 +65,19 @@ export const useNamespace = (block: string) => {
   }
 
   // 生成状态类名: is-disabled
-  const is = (state: string, value?: boolean) => {
-    return value !== undefined
-      ? value
-        ? `${statePrefix}${state}`
-        : ''
-      : `${statePrefix}${state}`
+  // 当只传入 state 时，返回 is-xxx 类名
+  // 当传入 state 和 value 时，只有 value 为 truthy 才返回 is-xxx 类名
+  function is(state: string, value?: boolean): string {
+    // 如果没有传入 value 参数（arguments.length === 1），返回状态类名
+    // 这用于动态绑定类名，如 :class="ns.is('disabled')"（始终添加）
+    // 如果传入了 value 参数，只有 value 为 truthy 时才返回状态类名
+    // 这用于条件绑定，如 :class="ns.is('disabled', isDisabled)"
+    if (arguments.length === 1) {
+      // 单参数模式：始终返回类名
+      return `${statePrefix}${state}`
+    }
+    // 双参数模式：只有 value 为 truthy 时返回类名
+    return value ? `${statePrefix}${state}` : ''
   }
 
   // CSS 变量命名空间: --yh-button-color

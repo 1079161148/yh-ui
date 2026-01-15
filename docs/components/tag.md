@@ -198,6 +198,48 @@ const tsColor = `<template>
 <\/template>`
 
 const jsColor = tsColor
+
+const tsIcon = `<template>
+  <!-- 使用 icon 属性（传入组件） -->
+  <yh-tag :icon="StarIcon">收藏</yh-tag>
+  
+  <!-- 使用 icon 插槽 -->
+  <yh-tag type="success">
+    <template #icon>
+      <svg viewBox="0 0 24 24" width="1em" height="1em">
+        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    </template>
+    已完成
+  </yh-tag>
+  
+  <!-- 使用 suffix-icon 插槽（右侧图标） -->
+  <yh-tag type="warning">
+    进行中
+    <template #suffixIcon>
+      <svg viewBox="0 0 24 24" width="1em" height="1em">
+        <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </template>
+  </yh-tag>
+  
+  <!-- 同时使用左右图标 -->
+  <yh-tag type="danger">
+    <template #icon>
+      <svg viewBox="0 0 24 24" width="1em" height="1em">
+        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      </svg>
+    </template>
+    警告信息
+    <template #suffixIcon>
+      <svg viewBox="0 0 24 24" width="1em" height="1em">
+        <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    </template>
+  </yh-tag>
+<\/template>`
+
+const jsIcon = tsIcon
 </script>
 
 用于标记和选择。
@@ -348,6 +390,19 @@ Tag 组件提供了三种主题效果：`dark`、`light`（默认）、`plain`�
     <yh-tag color="#EC4899">自定义粉色</yh-tag>
     <yh-tag color="#14B8A6" effect="dark">自定义蓝绿色</yh-tag>
   </div>
+</DemoBlock>
+
+## 图标配置
+
+使用 `icon` 属性或 `#icon` 插槽可以配置左侧图标，使用 `suffix-icon` 属性或 `#suffixIcon` 插槽可以配置右侧图标。
+
+<DemoBlock title="图标配置" :ts-code="tsIcon" :js-code="jsIcon">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+<yh-tag type="success"><template #icon><svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></template>已完成</yh-tag>
+<yh-tag type="warning">进行中<template #suffixIcon><svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></template></yh-tag>
+<yh-tag type="danger"><template #icon><svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></template>警告信息<template #suffixIcon><svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></template></yh-tag>
+<yh-tag type="info"><template #icon><svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></template>提示信息</yh-tag>
+</div>
 </DemoBlock>
 
 ## API

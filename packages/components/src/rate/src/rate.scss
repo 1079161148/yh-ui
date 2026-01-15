@@ -1,0 +1,58 @@
+.yh-rate {
+  display: inline-flex;
+  align-items: center;
+  line-height: normal;
+
+  &__item {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:last-child {
+      margin-right: 0;
+    }
+    &.is-hover {
+      transform: scale(1.15);
+    }
+  }
+
+  &-star-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-star-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden; // 核心：裁剪内容
+    pointer-events: none; // 防止干扰 hover 事件
+    transition: width 0.1s;
+
+    .yh-rate-star-icon {
+      // 内部 SVG 保持固定大小，从而实现父级容器变窄时被裁剪而非被压缩
+      height: 100%;
+      max-width: none;
+    }
+  }
+
+  &__text {
+    margin-left: 10px;
+    font-size: 14px;
+  }
+
+  &.is-disabled {
+    opacity: 0.8;
+    .yh-rate__item {
+      cursor: not-allowed;
+      &.is-hover {
+        transform: none;
+      }
+    }
+  }
+}

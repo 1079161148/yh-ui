@@ -1,0 +1,257 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+// 变量
+$switch-height: 20px;
+$switch-height-large: 24px;
+$switch-height-small: 16px;
+
+$switch-width: 40px;
+$switch-width-large: 50px;
+$switch-width-small: 30px;
+
+$switch-button-size: 16px;
+$switch-button-size-large: 20px;
+$switch-button-size-small: 12px;
+
+$switch-on-color: var(--yh-color-primary, #409eff);
+$switch-off-color: var(--yh-switch-off-color, #dcdfe6);
+$switch-border-color: var(--yh-switch-border-color, #dcdfe6);
+
+@include b(switch) {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-size: 14px;
+  line-height: 20px;
+  height: 32px;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+
+  // 隐藏原生 input
+  @include e(input) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    margin: 0;
+
+    &:focus-visible ~ .yh-switch__core {
+      outline: 2px solid $switch-on-color;
+      outline-offset: 1px;
+    }
+  }
+
+  // 核心部分
+  @include e(core) {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    width: $switch-width;
+    min-width: $switch-width;
+    height: $switch-height;
+    border: 1px solid $switch-border-color;
+    border-radius: calc($switch-height / 2);
+    box-sizing: border-box;
+    background: $switch-off-color;
+    cursor: pointer;
+    transition:
+      border-color 0.3s,
+      background-color 0.3s;
+    flex-shrink: 0;
+  }
+
+  // 滑块
+  @include e(action) {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $switch-button-size;
+    height: $switch-button-size;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    transition: left 0.3s;
+    color: $switch-off-color;
+    font-size: 12px;
+  }
+
+  // 内嵌内容
+  @include e(inner) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 6px;
+    transition: all 0.3s;
+    color: #fff;
+    font-size: 12px;
+    padding-left: calc($switch-button-size + 4px);
+    padding-right: 6px;
+    justify-content: flex-start;
+  }
+
+  @include e(inner-text) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Loading 图标
+  @include e(loading-icon) {
+    width: 12px;
+    height: 12px;
+    animation: yh-switch-loading 1s linear infinite;
+  }
+
+  // 外部标签
+  @include e(label) {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    vertical-align: middle;
+    color: var(--yh-text-color-primary, #303133);
+    transition: color 0.2s;
+
+    &--left {
+      margin-right: 10px;
+    }
+
+    &--right {
+      margin-left: 10px;
+    }
+
+    @include is(active) {
+      color: $switch-on-color;
+    }
+  }
+
+  @include e(icon) {
+    width: 1em;
+    height: 1em;
+  }
+
+  // 选中状态
+  @include is(checked) {
+    .yh-switch__core {
+      border-color: $switch-on-color;
+      background-color: $switch-on-color;
+    }
+
+    .yh-switch__action {
+      left: calc(100% - $switch-button-size - 1px);
+      color: $switch-on-color;
+    }
+
+    .yh-switch__inner {
+      padding-left: 6px;
+      padding-right: calc($switch-button-size + 4px);
+      justify-content: flex-end;
+    }
+  }
+
+  // 禁用状态
+  @include is(disabled) {
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    .yh-switch__core {
+      cursor: not-allowed;
+    }
+
+    .yh-switch__label {
+      cursor: not-allowed;
+    }
+  }
+
+  // Loading 状态
+  @include is(loading) {
+    cursor: wait;
+
+    .yh-switch__core {
+      cursor: wait;
+    }
+  }
+
+  // 尺寸 - large
+  @include m(large) {
+    .yh-switch__core {
+      width: $switch-width-large;
+      min-width: $switch-width-large;
+      height: $switch-height-large;
+      border-radius: calc($switch-height-large / 2);
+    }
+
+    .yh-switch__action {
+      width: $switch-button-size-large;
+      height: $switch-button-size-large;
+    }
+
+    .yh-switch__inner {
+      padding-left: calc($switch-button-size-large + 4px);
+    }
+
+    &.is-checked {
+      .yh-switch__action {
+        left: calc(100% - $switch-button-size-large - 1px);
+      }
+
+      .yh-switch__inner {
+        padding-left: 6px;
+        padding-right: calc($switch-button-size-large + 4px);
+      }
+    }
+  }
+
+  // 尺寸 - small
+  @include m(small) {
+    .yh-switch__core {
+      width: $switch-width-small;
+      min-width: $switch-width-small;
+      height: $switch-height-small;
+      border-radius: calc($switch-height-small / 2);
+    }
+
+    .yh-switch__action {
+      width: $switch-button-size-small;
+      height: $switch-button-size-small;
+    }
+
+    .yh-switch__inner {
+      padding-left: calc($switch-button-size-small + 2px);
+      font-size: 10px;
+    }
+
+    &.is-checked {
+      .yh-switch__action {
+        left: calc(100% - $switch-button-size-small - 1px);
+      }
+
+      .yh-switch__inner {
+        padding-left: 4px;
+        padding-right: calc($switch-button-size-small + 2px);
+      }
+    }
+  }
+}
+
+// Loading 动画
+@keyframes yh-switch-loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

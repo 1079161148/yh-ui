@@ -79,5 +79,8 @@
     "yh-ui"
   ],
   "author": "YH-UI Team",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "async-validator": "^4.2.5"
+  }
 }

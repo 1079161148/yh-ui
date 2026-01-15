@@ -1,0 +1,331 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+$select-height: 32px;
+$select-height-large: 40px;
+$select-height-small: 24px;
+
+@include b(select) {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  font-size: 14px;
+
+  @include e(wrapper) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    width: 100%;
+    min-height: $select-height;
+    padding: 2px 30px 2px 11px;
+    background-color: var(--yh-fill-color-blank, #fff);
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    border-radius: var(--yh-border-radius-base, 4px);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--yh-border-color-hover, #c0c4cc);
+    }
+  }
+
+  @include e(inner) {
+    flex: 1;
+    min-width: 50px;
+    height: $select-height - 6px;
+    padding: 0;
+    color: var(--yh-text-color-regular, #606266);
+    font-size: inherit;
+    line-height: $select-height - 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder, #a8abb2);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(selected-value) {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--yh-text-color-regular, #606266);
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 50px);
+  }
+
+  @include e(suffix) {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+  }
+
+  @include e(icon) {
+    width: 14px;
+    height: 14px;
+    line-height: 1;
+  }
+
+  @include e(clear) {
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  @include e(arrow) {
+    transition: transform 0.3s;
+
+    &.is-reverse {
+      transform: rotate(180deg);
+    }
+  }
+
+  @include e(tag) {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    height: 22px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: var(--yh-text-color-regular, #606266);
+    background-color: var(--yh-fill-color, #f0f2f5);
+    border-radius: var(--yh-border-radius-small, 2px);
+  }
+
+  @include e(tag-text) {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(tag-close) {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-danger, #f56c6c);
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  @include e(dropdown) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 2000;
+    margin-top: 4px;
+    padding: 6px 0;
+    background-color: var(--yh-bg-color-overlay, #fff);
+    border: 1px solid var(--yh-border-color-light, #e4e7ed);
+    border-radius: var(--yh-border-radius-base, 4px);
+    box-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    cursor: default;
+    pointer-events: auto;
+  }
+
+  @include e(options) {
+    max-height: 274px;
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+
+  @include e(option) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    color: var(--yh-text-color-regular, #606266);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    pointer-events: auto;
+    user-select: none;
+
+    &:hover:not(.is-disabled) {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+    }
+
+    @include is(selected) {
+      color: var(--yh-color-primary, #409eff);
+      font-weight: 700;
+    }
+
+    @include is(disabled) {
+      color: var(--yh-text-color-placeholder, #a8abb2);
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    @include is(hovering) {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+    }
+  }
+
+  @include e(option-check) {
+    color: var(--yh-color-primary, #409eff);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @include e(loading) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    color: var(--yh-text-color-secondary, #909399);
+    font-size: 14px;
+  }
+
+  @include e(loading-icon) {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    animation: yh-select-loading 1s linear infinite;
+  }
+
+  @include e(empty) {
+    padding: 10px 0;
+    text-align: center;
+    color: var(--yh-text-color-secondary, #909399);
+    font-size: 14px;
+  }
+
+  // 聚焦状态
+  @include is(focused) {
+    .yh-select__wrapper {
+      border-color: var(--yh-color-primary, #409eff);
+    }
+  }
+
+  // 禁用状态
+  @include is(disabled) {
+    cursor: not-allowed;
+
+    .yh-select__wrapper {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+      border-color: var(--yh-border-color-light, #e4e7ed);
+      cursor: not-allowed;
+    }
+
+    .yh-select__inner {
+      color: var(--yh-text-color-placeholder, #a8abb2);
+    }
+  }
+
+  // 多选模式
+  @include is(multiple) {
+    .yh-select__inner {
+      height: 22px;
+      line-height: 22px;
+    }
+  }
+
+  // 尺寸 - large
+  @include m(large) {
+    font-size: 14px;
+
+    .yh-select__wrapper {
+      min-height: $select-height-large;
+    }
+
+    .yh-select__inner {
+      height: $select-height-large - 6px;
+      line-height: $select-height-large - 6px;
+    }
+
+    .yh-select__tag {
+      height: 26px;
+    }
+
+    &.is-multiple .yh-select__inner {
+      height: 26px;
+      line-height: 26px;
+    }
+  }
+
+  // 尺寸 - small
+  @include m(small) {
+    font-size: 12px;
+
+    .yh-select__wrapper {
+      min-height: $select-height-small;
+    }
+
+    .yh-select__inner {
+      height: $select-height-small - 6px;
+      line-height: $select-height-small - 6px;
+    }
+
+    .yh-select__tag {
+      height: 18px;
+      font-size: 10px;
+    }
+
+    &.is-multiple .yh-select__inner {
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+}
+
+// 下拉动画
+.yh-select-dropdown-enter-active,
+.yh-select-dropdown-leave-active {
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+
+.yh-select-dropdown-enter-from,
+.yh-select-dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+@keyframes yh-select-loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

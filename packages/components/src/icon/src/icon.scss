@@ -1,0 +1,56 @@
+/**
+ * YhIcon Styles
+ * @description 图标组件样式
+ */
+
+$icon-prefix: 'yh-icon';
+
+.#{$icon-prefix} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  font-size: inherit;
+  line-height: 1;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: -0.15em;
+  outline: none;
+
+  /* SVG 样式 */
+  &__svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+
+  &__inner {
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: currentColor;
+    }
+  }
+
+  /* 旋转动画 */
+  &--spin {
+    animation: yh-icon-spin 1s linear infinite;
+  }
+}
+
+/* 旋转动画关键帧 */
+@keyframes yh-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

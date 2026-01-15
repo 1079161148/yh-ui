@@ -152,6 +152,12 @@ export interface InputTagProps {
    * @default 'light'
    */
   tagEffect?: 'dark' | 'light' | 'plain'
+
+  /**
+   * @description 是否在值改变或失去焦点时触发表单校验
+   * @default true
+   */
+  validateEvent?: boolean
 }
 
 /**

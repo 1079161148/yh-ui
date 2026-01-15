@@ -3,8 +3,8 @@
  * YhInput - 输入框组件
  * @description 通过鼠标或键盘输入内容，是最基础的表单域包装
  */
-import { computed, ref, watch, nextTick, useSlots, onMounted } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { computed, ref, watch, nextTick, useSlots, onMounted, inject } from 'vue'
+import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import type { InputProps, InputEmits, InputExpose } from './input'
 import { calcTextareaHeight } from './utils'
 import type { CSSProperties } from 'vue'
@@ -15,7 +15,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
-  size: 'default',
+  size: undefined,
   disabled: false,
   readonly: false,
   clearable: false,
@@ -38,6 +38,11 @@ const ns = useNamespace('input')
 const inputRef = ref<HTMLInputElement>()
 const textareaRef = ref<HTMLTextAreaElement>()
 const wrapperRef = ref<HTMLElement>()
+
+// 表单集成
+const { form, formItem, validate: triggerValidate } = useFormItem()
+const inputSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+
 
 // 内部状态
 const focused = ref(false)
@@ -109,7 +114,7 @@ const hasSuffix = computed(() =>
 // 类名计算
 const wrapperClasses = computed(() => [
   ns.b(),
-  ns.m(props.size),
+  ns.m(inputSize.value),
   ns.is('disabled', props.disabled),
   ns.is('focused', focused.value),
   ns.is('exceed', inputExceed.value),
@@ -160,6 +165,9 @@ const handleInput = (event: Event) => {
 const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   emit('change', target.value)
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
 }
 
 const handleFocus = (event: FocusEvent) => {
@@ -170,6 +178,9 @@ const handleFocus = (event: FocusEvent) => {
 const handleBlur = (event: FocusEvent) => {
   focused.value = false
   emit('blur', event)
+  if (props.validateEvent) {
+    triggerValidate('blur')
+  }
 }
 
 const handleMouseEnter = () => {
@@ -331,9 +342,11 @@ defineExpose<InputExpose>({
         :type="showPassword ? (passwordVisible ? 'text' : 'password') : type" :value="nativeInputValue"
         :placeholder="placeholder" :disabled="disabled" :readonly="readonly" :maxlength="maxlength"
         :minlength="minlength" :name="name" :id="id" :tabindex="tabindex" :autocomplete="autocomplete"
-        :autofocus="autofocus" :form="form" @input="handleInput" @change="handleChange" @focus="handleFocus"
-        @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup" @compositionstart="handleCompositionStart"
-        @compositionupdate="handleCompositionUpdate" @compositionend="handleCompositionEnd" />
+        :autofocus="autofocus" :aria-invalid="formItem?.validateStatus === 'error'"
+        :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined" @input="handleInput"
+        @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup"
+        @compositionstart="handleCompositionStart" @compositionupdate="handleCompositionUpdate"
+        @compositionend="handleCompositionEnd" />
 
       <!-- 后置图标/内容 -->
       <span v-if="hasSuffix" :class="ns.e('suffix')">

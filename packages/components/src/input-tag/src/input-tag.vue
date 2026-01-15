@@ -3,8 +3,8 @@
  * YhInputTag - 标签输入框组件
  * @description 用于输入和管理多个标签，支持折叠、拖拽等功能
  */
-import { computed, ref, useSlots, nextTick } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { computed, ref, useSlots, nextTick, inject } from 'vue'
+import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import type { InputTagProps, InputTagEmits, InputTagExpose } from './input-tag'
 
 defineOptions({
@@ -28,7 +28,8 @@ const props = withDefaults(defineProps<InputTagProps>(), {
   collapseTagsTooltip: false,
   maxCollapseTags: 1,
   draggable: false,
-  tagEffect: 'light'
+  tagEffect: 'light',
+  validateEvent: true
 })
 
 const emit = defineEmits<InputTagEmits>()
@@ -41,8 +42,12 @@ const ns = useNamespace('input-tag')
 const inputRef = ref<HTMLInputElement>()
 const wrapperRef = ref<HTMLDivElement>()
 
+// 表单集成
+const { validate: triggerValidate } = useFormItem()
+
 // 内部状态
 const inputValue = ref('')
+
 const focused = ref(false)
 const hovering = ref(false)
 const showTooltip = ref(false)
@@ -160,6 +165,11 @@ const addTag = (value: string) => {
   emit('change', newTags)
   emit('add', tagValue)
 
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
+
+
   return true
 }
 
@@ -174,6 +184,10 @@ const removeTag = (index: number) => {
   emit('update:modelValue', newTags)
   emit('change', newTags)
   emit('remove', removedTag, index)
+
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
 }
 
 // 清空所有标签
@@ -236,6 +250,10 @@ const handleBlur = (event: FocusEvent) => {
   }
 
   emit('blur', event)
+
+  if (props.validateEvent) {
+    triggerValidate('blur')
+  }
 }
 
 // 点击包装器聚焦输入框

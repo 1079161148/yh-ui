@@ -1,0 +1,111 @@
+# Icon 图标
+
+语义化的矢量图形。
+
+## 基础用法
+
+使用 `name` 属性来指定图标。
+
+<DemoBlock title="基础用法" ts-code="tsBasic" js-code="jsBasic">
+  <div style="display: flex; gap: 20px; font-size: 24px; color: var(--yh-text-color-primary);">
+    <yh-icon name="success" color="var(--yh-color-success)" />
+    <yh-icon name="warning" color="var(--yh-color-warning)" />
+    <yh-icon name="error" color="var(--yh-color-danger)" />
+    <yh-icon name="info" color="var(--yh-color-info)" />
+    <yh-icon name="plus" />
+    <yh-icon name="search" />
+  </div>
+</DemoBlock>
+
+<script setup>
+const tsBasic = `<template>
+  <yh-icon name="success" color="#67C23A" />
+  <yh-icon name="warning" color="#E6A23C" />
+  <yh-icon name="error" color="#f56c6c" />
+  <yh-icon name="info" color="#909399" />
+  <yh-icon name="plus" />
+  <yh-icon name="search" />
+</template>`
+const jsBasic = tsBasic
+
+const tsSize = `<template>
+  <yh-icon name="settings" :size="16" />
+  <yh-icon name="settings" :size="24" />
+  <yh-icon name="settings" :size="32" />
+  <yh-icon name="settings" size="3em" />
+</template>`
+const jsSize = tsSize
+
+const tsSpin = `<template>
+  <yh-icon name="loading" spin :size="24" />
+  <yh-icon name="settings" spin :size="24" />
+</template>`
+const jsSpin = tsSpin
+
+const tsCustom = `<template>
+  <!-- 直接传入 SVG 字符串 -->
+  <yh-icon 
+    svg='<path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>'
+    color="#f56c6c"
+    :size="24"
+  />
+</template>`
+const jsCustom = tsCustom
+</script>
+
+## 不同尺寸
+
+可以通过 `size` 属性来控制图标大小。支持数字（像素）和字符串（CSS 单位）。
+
+<DemoBlock title="不同尺寸" :ts-code="tsSize" :js-code="jsSize">
+  <div style="display: flex; gap: 20px; align-items: center; color: var(--yh-text-color-primary);">
+    <yh-icon name="settings" :size="16" />
+    <yh-icon name="settings" :size="24" />
+    <yh-icon name="settings" :size="32" />
+    <yh-icon name="settings" size="3em" />
+  </div>
+</DemoBlock>
+
+## 旋转动画
+
+使用 `spin` 属性可以让图标旋转起来，常用于加载状态。
+
+<DemoBlock title="旋转动画" :ts-code="tsSpin" :js-code="jsSpin">
+  <div style="display: flex; gap: 20px; color: var(--yh-text-color-primary);">
+    <yh-icon name="loading" spin :size="24" />
+    <yh-icon name="settings" spin :size="24" />
+  </div>
+</DemoBlock>
+
+## 自定义 SVG
+
+支持通过 `svg` 属性直接传入 SVG 的 path 内容或者使用默认插槽。
+
+<DemoBlock title="自定义 SVG" :ts-code="tsCustom" :js-code="jsCustom">
+  <div style="display: flex; gap: 20px; color: var(--yh-text-color-primary);">
+    <yh-icon 
+      svg='<path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>'
+      color="#f56c6c"
+      :size="24"
+    />
+  </div>
+</DemoBlock>
+
+## API
+
+### Props
+
+| 属性名 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| name | 图标名称（内置图标集） | `string` | — |
+| svg | 自定义 SVG 内容 (不含 `<svg>` 标签) | `string` | — |
+| size | 图标尺寸 | `number \| string` | — |
+| color | 图标颜色 | `string` | `currentColor` |
+| spin | 是否循环旋转 | `boolean` | `false` |
+| rotate | 旋转角度 | `number` | `0` |
+
+### Slots
+
+| 插槽名 | 说明 |
+| --- | --- |
+| default | 自定义 SVG 内容 |

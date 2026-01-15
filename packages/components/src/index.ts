@@ -3,17 +3,9 @@
  * @description YH-UI Vue 3 组件库
  */
 
-// 基础组件
-export * from './button'
-export * from './input'
-export * from './checkbox'
-export * from './radio'
-export * from './tag'
-export * from './input-number'
-export * from './input-tag'
-
-// 导出所有组件的安装器
 import type { App, Plugin } from 'vue'
+
+// 导入所有组件
 import { YhButton } from './button'
 import { YhInput } from './input'
 import { YhCheckbox, YhCheckboxGroup } from './checkbox'
@@ -21,6 +13,35 @@ import { YhRadio, YhRadioGroup, YhRadioButton } from './radio'
 import { YhTag } from './tag'
 import { YhInputNumber } from './input-number'
 import { YhInputTag } from './input-tag'
+import { YhIcon } from './icon'
+import { YhForm, YhFormItem, YhFormSchema } from './form'
+import { YhRow } from './row'
+import { YhCol } from './col'
+import { YhDivider } from './divider'
+import { YhRate } from './rate'
+import { YhSwitch } from './switch'
+import { YhAutocomplete } from './autocomplete'
+import { YhSelect } from './select'
+import { YhCascader, YhCascaderPanel } from './cascader'
+
+// 导出所有组件
+export * from './button'
+export * from './input'
+export * from './checkbox'
+export * from './radio'
+export * from './tag'
+export * from './input-number'
+export * from './input-tag'
+export * from './icon'
+export * from './form'
+export * from './row'
+export * from './col'
+export * from './divider'
+export * from './rate'
+export * from './switch'
+export * from './autocomplete'
+export * from './select'
+export * from './cascader'
 
 // 所有组件列表
 const components = [
@@ -33,7 +54,20 @@ const components = [
   YhRadioButton,
   YhTag,
   YhInputNumber,
-  YhInputTag
+  YhInputTag,
+  YhIcon,
+  YhForm,
+  YhFormItem,
+  YhFormSchema,
+  YhRow,
+  YhCol,
+  YhDivider,
+  YhRate,
+  YhSwitch,
+  YhAutocomplete,
+  YhSelect,
+  YhCascader,
+  YhCascaderPanel
 ] as Plugin[]
 
 /**

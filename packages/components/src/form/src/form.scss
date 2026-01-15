@@ -1,0 +1,255 @@
+$form-prefix: 'yh-form';
+$form-item-prefix: 'yh-form-item';
+
+:root {
+  --yh-form-item-height: 32px;
+  --yh-form-item-margin-bottom: 22px;
+  --yh-form-label-font-size: 14px;
+}
+
+.#{$form-prefix} {
+  // 行内表单布局
+  &--inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0 18px;
+
+    .#{$form-item-prefix} {
+      display: inline-flex;
+      align-items: flex-start;
+      margin-right: 0;
+      margin-bottom: 18px;
+      vertical-align: top;
+
+      &__label {
+        height: var(--yh-form-item-height);
+        line-height: var(--yh-form-item-height);
+      }
+
+      &__content {
+        line-height: var(--yh-form-item-height);
+      }
+    }
+  }
+
+  // 栅格布局
+  &--grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+
+    .yh-form-col {
+      padding-left: 12px;
+      padding-right: 12px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    @for $i from 1 through 24 {
+      .yh-form-col--#{$i} {
+        flex: 0 0 calc(100% / 24 * #{$i});
+        max-width: calc(100% / 24 * #{$i});
+      }
+    }
+  }
+
+  // 尺寸控制
+  &--large {
+    --yh-form-item-height: 40px;
+    --yh-form-label-font-size: 14px;
+  }
+
+  &--default {
+    --yh-form-item-height: 32px;
+    --yh-form-label-font-size: 14px;
+  }
+
+  &--small {
+    --yh-form-item-height: 24px;
+    --yh-form-label-font-size: 12px;
+  }
+}
+
+.#{$form-item-prefix} {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--yh-form-item-margin-bottom);
+  position: relative;
+
+  // 标签位置支持
+  .#{$form-prefix}--label-left & {
+    &__label {
+      justify-content: flex-start;
+    }
+  }
+
+  .#{$form-prefix}--label-top & {
+    flex-direction: column;
+    &__label {
+      justify-content: flex-start;
+      margin-bottom: 8px;
+      width: 100% !important;
+      text-align: left;
+      height: auto;
+      line-height: 1.5;
+    }
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    font-size: var(--yh-form-label-font-size);
+    color: var(--yh-text-color-regular, #606266);
+    height: var(--yh-form-item-height);
+    line-height: var(--yh-form-item-height);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    font-size: 14px;
+    min-width: 0;
+    min-height: var(--yh-form-item-height);
+    line-height: var(--yh-form-item-height);
+
+    // 确保输入框继承正确高度
+    > .yh-input,
+    > .yh-select,
+    > .yh-input-number {
+      width: 100%;
+    }
+  }
+
+  &__error {
+    color: var(--yh-color-danger, #f56c6c);
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+
+    &.is-center {
+      text-align: center;
+    }
+    &.is-right {
+      text-align: right;
+    }
+  }
+
+  // 状态图标
+  &__status-icon {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: var(--yh-form-item-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &.is-success {
+      color: var(--yh-color-success, #67c23a);
+    }
+    &.is-error {
+      color: var(--yh-color-danger, #f56c6c);
+    }
+    &.is-validating {
+      color: var(--yh-color-primary, #409eff);
+
+      svg {
+        animation: yh-rotating 2s linear infinite;
+      }
+    }
+  }
+
+  // 必填星号
+  &.is-required:not(.is-no-asterisk) {
+    > .#{$form-item-prefix}__label::before {
+      content: '*';
+      color: var(--yh-color-danger, #f56c6c);
+      margin-right: 4px;
+    }
+  }
+
+  // 校验状态
+  &.is-error {
+    .yh-input__inner,
+    .yh-input-number__wrapper,
+    .yh-select__wrapper,
+    .yh-textarea__inner {
+      border-color: var(--yh-color-danger, #f56c6c) !important;
+
+      &:hover,
+      &:focus {
+        border-color: var(--yh-color-danger, #f56c6c) !important;
+      }
+    }
+  }
+
+  &.is-success {
+    .yh-input__inner,
+    .yh-input-number__wrapper,
+    .yh-select__wrapper,
+    .yh-textarea__inner {
+      border-color: var(--yh-color-success, #67c23a) !important;
+    }
+  }
+
+  // 尺寸修饰符
+  &--large {
+    --yh-form-item-height: 40px;
+  }
+
+  &--default {
+    --yh-form-item-height: 32px;
+  }
+
+  &--small {
+    --yh-form-item-height: 24px;
+    --yh-form-label-font-size: 12px;
+  }
+}
+
+// 动画
+@keyframes yh-rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 错误提示动画
+.fade-enter-active,
+.fade-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
