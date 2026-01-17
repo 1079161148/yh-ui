@@ -70,7 +70,9 @@ export default defineConfig({
             { text: 'Rate 评分', link: '/components/rate' },
             { text: 'Select 选择器', link: '/components/select' },
             { text: 'Cascader 级联选择器', link: '/components/cascader' },
-            { text: 'Slider 滑块', link: '/components/slider' }
+            { text: 'Slider 滑块', link: '/components/slider' },
+            { text: 'TimeSelect 时间选择', link: '/components/time-select' },
+            { text: 'Transfer 穿梭框', link: '/components/transfer' }
           ]
         },
         {

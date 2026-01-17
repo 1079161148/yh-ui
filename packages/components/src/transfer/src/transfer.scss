@@ -1,0 +1,266 @@
+/**
+ * Transfer 穿梭框样式
+ */
+
+@use 'sass:map';
+
+$transfer-prefix: 'yh-transfer';
+$transfer-panel-prefix: 'yh-transfer-panel';
+
+$transfer-sizes: (
+  'default': (
+    'panel-height': 300px,
+    'panel-width': 200px,
+    'item-height': 32px
+  )
+);
+
+.#{$transfer-prefix} {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  vertical-align: middle;
+
+  &--default {
+    .#{$transfer-panel-prefix} {
+      width: 200px;
+      height: 300px;
+      &__item {
+        height: 32px;
+        line-height: 32px;
+      }
+    }
+  }
+}
+
+.#{$transfer-prefix}__buttons {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0 12px;
+  gap: 10px;
+}
+
+.#{$transfer-prefix}__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  background: #f5f7fa;
+  color: #909399;
+  cursor: pointer;
+  padding: 0 10px; // 增加 padding 适应文字
+  transition: 0.3s;
+  white-space: nowrap; // 防止文字换行
+
+  &:hover:not(:disabled) {
+    color: #409eff;
+    border-color: #409eff;
+  }
+
+  &.is-active:not(:disabled) {
+    background: #409eff;
+    color: #fff;
+    border-color: #409eff;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  // 如果有文字，稍微增加 SVG 和文字的间距
+  span {
+    margin-left: 5px;
+  }
+  // 如果是左箭头，文字在右边（通常结构是 Icon + Text），这里简单处理
+  &__text {
+    margin: 0 4px;
+  }
+}
+
+.#{$transfer-panel-prefix} {
+  display: inline-flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #ebeef5;
+  border-radius: 4px;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  &__header {
+    height: 40px;
+    background: #f5f7fa;
+    padding: 0 12px;
+    border-bottom: 1px solid #ebeef5;
+    display: flex;
+    align-items: center;
+    color: #303133;
+    box-sizing: border-box;
+  }
+
+  &__check-all {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &__title {
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__count {
+    font-size: 12px;
+    color: #909399;
+    margin-left: 4px;
+  }
+
+  &__filter {
+    padding: 10px;
+    box-sizing: border-box;
+
+    &-input {
+      width: 100%;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      font-size: 12px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #409eff;
+      }
+    }
+  }
+
+  &__body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative; // 为虚拟滚动定位做准备
+  }
+
+  &__list {
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    flex: 1;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  // 虚拟滚动容器
+  &__virtual-wrapper {
+    overflow-y: auto;
+    width: 100%;
+    flex: 1;
+  }
+
+  &__item {
+    padding: 0 12px;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #606266;
+
+    &:hover:not(.is-disabled) {
+      background: #f5f7fa;
+      color: #409eff;
+    }
+
+    &.is-checked {
+      // 保持黑色或者高亮，视设计而定，Element Plus 通常文字不高亮，只有 Checkbox 高亮
+      // 这里保持 YH-UI 之前的高亮设计
+    }
+
+    &.is-disabled {
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
+
+    &-checkbox {
+      width: 14px;
+      height: 14px;
+      border: 1px solid #dcdfe6;
+      border-radius: 2px;
+      margin-right: 8px;
+      display: inline-flex; // 关键修复：确保 span 有尺寸
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      position: relative;
+      flex-shrink: 0; // 防止被挤压
+      transition: all 0.2s;
+
+      // 选中状态
+      &.is-checked,
+      &.is-indeterminate {
+        background-color: #409eff;
+        border-color: #409eff;
+        color: #fff; // SVG 的颜色
+      }
+
+      &__icon {
+        width: 100%;
+        height: 100%;
+        transform: scale(0.8); // 稍微缩小图标
+      }
+    }
+
+    &-label {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #909399;
+    padding: 20px 0;
+
+    &-text {
+      font-size: 14px;
+    }
+
+    &-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+      color: #dcdfe6;
+    }
+  }
+
+  &__footer {
+    border-top: 1px solid #ebeef5;
+    background: #fff;
+  }
+}

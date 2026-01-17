@@ -1,0 +1,320 @@
+/**
+ * TimeSelect 时间选择器样式
+ * @description 时间选择器组件样式定义
+ */
+
+@use 'sass:map';
+
+// 组件变量
+$time-select-prefix: 'yh-time-select';
+
+// 尺寸配置
+$time-select-sizes: (
+  'large': (
+    height: 40px,
+    font-size: 14px,
+    padding: 0 16px,
+    icon-size: 16px
+  ),
+  'default': (
+    height: 32px,
+    font-size: 14px,
+    padding: 0 12px,
+    icon-size: 14px
+  ),
+  'small': (
+    height: 24px,
+    font-size: 12px,
+    padding: 0 8px,
+    icon-size: 12px
+  )
+);
+
+// 基础样式
+.#{$time-select-prefix} {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  cursor: pointer;
+
+  // 内部包裹器
+  &__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--yh-fill-color-blank, #fff);
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    border-radius: var(--yh-radius-base, 4px);
+    transition: var(--yh-transition-base, all 0.2s ease);
+    box-sizing: border-box;
+
+    &:hover {
+      border-color: var(--yh-border-color-hover, #c0c4cc);
+    }
+  }
+
+  // 前缀图标
+  &__prefix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+    margin-right: 8px;
+    margin-left: 12px;
+  }
+
+  // 输入框
+  &__inner {
+    flex: 1;
+    width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--yh-text-color-primary, #303133);
+    font-size: inherit;
+    padding: 0;
+    cursor: inherit;
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder, #a8abb2);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  // 显示值
+  &__display-value {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 38px;
+    color: var(--yh-text-color-primary, #303133);
+    font-size: inherit;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // 后缀区域
+  &__suffix {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 8px;
+    gap: 4px;
+  }
+
+  // 图标基础样式
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+    transition: var(--yh-transition-fast, all 0.15s ease);
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  // 清空按钮
+  &__clear {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  // 箭头
+  &__arrow {
+    transition: transform var(--yh-duration-base, 0.2s) ease;
+
+    &.is-reverse {
+      transform: rotate(180deg);
+    }
+  }
+
+  // 下拉框
+  &__dropdown {
+    position: absolute;
+    z-index: var(--yh-z-index-popper, 2000);
+    background-color: var(--yh-fill-color-blank, #fff);
+    border: 1px solid var(--yh-border-color-light, #e4e7ed);
+    border-radius: var(--yh-radius-base, 4px);
+    box-shadow: var(--yh-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    overflow: hidden;
+
+    &.is-dark {
+      background-color: #1f2329;
+      border-color: #3d4452;
+      color: #e5eaf3;
+    }
+  }
+
+  // 选项容器
+  &__options {
+    max-height: 274px;
+    overflow-y: auto;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--yh-border-color, #dcdfe6) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--yh-border-color, #dcdfe6);
+      border-radius: 3px;
+
+      &:hover {
+        background-color: var(--yh-border-color-dark, #c0c4cc);
+      }
+    }
+  }
+
+  // 选项
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    color: var(--yh-text-color-regular, #606266);
+    cursor: pointer;
+    transition: background-color var(--yh-duration-fast, 0.15s) ease;
+
+    &:hover,
+    &.is-hovering {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+    }
+
+    &.is-selected {
+      color: var(--yh-color-primary, #409eff);
+      font-weight: 500;
+    }
+
+    &.is-disabled {
+      color: var(--yh-text-color-disabled, #c0c4cc);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  // 选项勾选图标
+  &__option-check {
+    display: inline-flex;
+    align-items: center;
+    color: var(--yh-color-primary, #409eff);
+    margin-left: 8px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // 空状态
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    font-size: 14px;
+    color: var(--yh-text-color-placeholder, #a8abb2);
+  }
+
+  // 尺寸变体
+  @each $size, $config in $time-select-sizes {
+    &--#{$size} {
+      .#{$time-select-prefix}__wrapper {
+        height: map.get($config, height);
+        font-size: map.get($config, font-size);
+      }
+
+      .#{$time-select-prefix}__icon {
+        font-size: map.get($config, icon-size);
+      }
+
+      .#{$time-select-prefix}__prefix {
+        @if $size == 'small' {
+          margin-left: 8px;
+          margin-right: 4px;
+        }
+      }
+
+      .#{$time-select-prefix}__display-value {
+        @if $size == 'large' {
+          padding-left: 42px;
+        } @else if $size == 'small' {
+          padding-left: 30px;
+          font-size: map.get($config, font-size);
+        }
+      }
+    }
+  }
+
+  // 聚焦状态
+  &.is-focused {
+    .#{$time-select-prefix}__wrapper {
+      border-color: var(--yh-color-primary, #409eff);
+      box-shadow: 0 0 0 1px var(--yh-color-primary-light-8, rgba(64, 158, 255, 0.2));
+    }
+  }
+
+  // 禁用状态
+  &.is-disabled {
+    cursor: not-allowed;
+
+    .#{$time-select-prefix}__wrapper {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+      border-color: var(--yh-border-color-light, #e4e7ed);
+      color: var(--yh-text-color-disabled, #c0c4cc);
+
+      &:hover {
+        border-color: var(--yh-border-color-light, #e4e7ed);
+      }
+    }
+
+    .#{$time-select-prefix}__inner {
+      color: var(--yh-text-color-disabled, #c0c4cc);
+    }
+
+    .#{$time-select-prefix}__display-value {
+      color: var(--yh-text-color-disabled, #c0c4cc);
+    }
+  }
+}
+
+// 下拉框动画
+.#{$time-select-prefix}-dropdown-enter-active,
+.#{$time-select-prefix}-dropdown-leave-active {
+  transition:
+    opacity var(--yh-duration-base, 0.2s) ease,
+    transform var(--yh-duration-base, 0.2s) ease;
+}
+
+.#{$time-select-prefix}-dropdown-enter-from,
+.#{$time-select-prefix}-dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
