@@ -26,6 +26,7 @@ import { YhCascader, YhCascaderPanel } from './cascader'
 import { YhSlider } from './slider'
 import { YhTimeSelect } from './time-select'
 import { YhTransfer, YhTransferPanel } from './transfer'
+import { YhTreeSelect } from './tree-select'
 
 // 导出所有组件
 export * from './button'
@@ -48,6 +49,7 @@ export * from './cascader'
 export * from './slider'
 export * from './time-select'
 export * from './transfer'
+export * from './tree-select'
 
 // 所有组件列表
 const components = [
@@ -77,7 +79,8 @@ const components = [
   YhSlider,
   YhTimeSelect,
   YhTransfer,
-  YhTransferPanel
+  YhTransferPanel,
+  YhTreeSelect
 ] as Plugin[]
 
 /**

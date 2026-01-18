@@ -47,7 +47,8 @@ import {
   YhSlider,
   YhTimeSelect,
   YhTransfer,
-  YhTransferPanel
+  YhTransferPanel,
+  YhTreeSelect
 } from '@yh-ui/components'
 
 // 导入文档组件
@@ -87,6 +88,7 @@ export default {
     app.component('YhTimeSelect', YhTimeSelect)
     app.component('YhTransfer', YhTransfer)
     app.component('YhTransferPanel', YhTransferPanel)
+    app.component('YhTreeSelect', YhTreeSelect)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)
