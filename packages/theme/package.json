@@ -36,5 +36,8 @@
     "theme",
     "design-tokens"
   ],
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
   "license": "MIT"
 }

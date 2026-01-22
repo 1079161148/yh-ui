@@ -19,6 +19,7 @@ import { formItemProps } from './form-item'
 import type { ValidateStatus } from './form-item'
 import { FormContextKey, FormItemContextKey, useId } from '@yh-ui/hooks'
 import { useNamespace } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import { get, set } from '@yh-ui/utils'
 
 defineOptions({
@@ -31,6 +32,9 @@ const ns = useNamespace('form-item')
 
 // 注入表单上下文
 const formContext = inject(FormContextKey, undefined)
+
+// 全局配置
+const { globalSize } = useConfig()
 
 // 生成唯一 ID 用于 A11y
 const id = useId().value
@@ -74,8 +78,8 @@ const fieldValue = computed(() => {
   return get(model, props.prop)
 })
 
-// 计算尺寸：优先项配置，后由表单继承
-const itemSize = computed(() => props.size || formContext?.size || 'default')
+// 计算尺寸：优先项配置，后由表单继承，最后使用全局配置
+const itemSize = computed(() => props.size || formContext?.size || globalSize.value || 'default')
 
 // 计算禁用状态
 const isDisabled = computed(() => props.disabled || formContext?.disabled || false)

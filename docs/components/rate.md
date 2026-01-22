@@ -288,3 +288,14 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
 | icon | 自定义图标 | `{ index: number, width: string, activeColor: string, voidColor: string }` |
+
+## 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-rate-void-color` | 未选中状态颜色 | `#c6d1de` |
+| `--yh-rate-fill-color` | 选中状态颜色 | `#f7ba2a` |
+| `--yh-rate-disabled-void-color` | 禁用状态下未选中颜色 | `#eff2f7` |
+| `--yh-rate-text-color` | 辅助文字颜色 | `#1f2d3d` |
+| `--yh-rate-font-size` | 辅助文字大小 | `14px` |
+| `--yh-rate-icon-margin` | 图标间距 | `6px` |

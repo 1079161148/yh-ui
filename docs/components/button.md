@@ -37,6 +37,43 @@ const tsRound = `<template>
 
 const jsRound = tsRound
 
+const tsCircle = `<template>
+  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+    <yh-button circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="primary" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="success" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="warning" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="danger" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="info" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+  </div>
+<\/template>`
+
+const jsCircle = tsCircle
+
 const tsDisabled = `<template>
   <yh-button disabled>禁用按钮</yh-button>
   <yh-button type="primary" disabled>主要按钮</yh-button>
@@ -93,29 +130,47 @@ const tsCustomColor = `<template>
 const jsCustomColor = tsCustomColor
 
 const tsIconPosition = `<template>
-  <!-- 左侧图标（默认） -->
-  <yh-button type="primary">
-    <template #icon>
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
-    </template>
-    左侧图标
-  </yh-button>
-  
-  <!-- 右侧图标 -->
-  <yh-button type="success" icon-position="right">
-    <template #icon>
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
-    </template>
-    右侧图标
-  </yh-button>
-  
-  <!-- 后缀图标 -->
-  <yh-button type="warning">
-    <template #suffixIcon>
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
-    </template>
-    后缀图标
-  </yh-button>
+  <div style="display: flex; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+    <!-- 左侧图标 (默认) -->
+    <yh-button type="primary">
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+      左侧图标
+    </yh-button>
+
+    <!-- 右侧图标 -->
+    <yh-button type="success" icon-position="right">
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+      右侧图标
+    </yh-button>
+
+    <!-- 上置图标 (垂直布局) -->
+    <yh-button type="warning" icon-position="top">
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1.2em" height="1.2em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+      上置图标
+    </yh-button>
+
+    <!-- 下置图标 (垂直布局) -->
+    <yh-button type="danger" icon-position="bottom">
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1.2em" height="1.2em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+      下置图标
+    </yh-button>
+
+    <!-- 后缀图标 (suffixIcon 插槽) -->
+    <yh-button type="info">
+      内容
+      <template #suffixIcon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+  </div>
 <\/template>`
 
 const jsIconPosition = tsIconPosition
@@ -128,7 +183,7 @@ const jsIconPosition = tsIconPosition
 使用 `type` 属性来定义按钮的类型。
 
 <DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
-  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+  <div class="yh-demo-flex">
     <yh-button>默认按钮</yh-button>
     <yh-button type="primary">主要按钮</yh-button>
     <yh-button type="success">成功按钮</yh-button>
@@ -143,7 +198,7 @@ const jsIconPosition = tsIconPosition
 使用 `plain` 属性可以设置为朴素按钮。
 
 <DemoBlock title="朴素按钮" :ts-code="tsPlain" :js-code="jsPlain">
-  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+  <div class="yh-demo-flex">
     <yh-button plain>朴素按钮</yh-button>
     <yh-button type="primary" plain>主要按钮</yh-button>
     <yh-button type="success" plain>成功按钮</yh-button>
@@ -158,13 +213,52 @@ const jsIconPosition = tsIconPosition
 使用 `round` 属性可以设置为圆角按钮。
 
 <DemoBlock title="圆角按钮" :ts-code="tsRound" :js-code="jsRound">
-  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+  <div class="yh-demo-flex">
     <yh-button round>圆角按钮</yh-button>
     <yh-button type="primary" round>主要按钮</yh-button>
     <yh-button type="success" round>成功按钮</yh-button>
     <yh-button type="warning" round>警告按钮</yh-button>
     <yh-button type="danger" round>危险按钮</yh-button>
     <yh-button type="info" round>信息按钮</yh-button>
+  </div>
+</DemoBlock>
+
+## 圆形按钮
+
+使用 `circle` 属性来设置圆形按钮，通常用于只包含图标的按钮。
+
+<DemoBlock title="圆形按钮" :ts-code="tsCircle" :js-code="jsCircle">
+  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+    <yh-button circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="primary" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="success" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="warning" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="danger" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
+    <yh-button type="info" circle>
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+    </yh-button>
   </div>
 </DemoBlock>
 
@@ -253,35 +347,38 @@ const jsIconPosition = tsIconPosition
 
 ## 图标位置
 
-使用 `icon-position` 属性可以控制图标的位置，或使用 `#suffixIcon` 插槽添加后缀图标。
+通过 `icon-position` 属性可以控制图标相对于文字的位置。支持 `left` (默认), `right`, `top`, `bottom`。
 
 <DemoBlock title="图标位置" :ts-code="tsIconPosition" :js-code="jsIconPosition">
-  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;">
     <yh-button type="primary">
       <template #icon>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
       </template>
       左侧图标
     </yh-button>
     <yh-button type="success" icon-position="right">
       <template #icon>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="m13.172 12 -4.95 -4.95 1.414 -1.414L16 12l-6.364 6.364 -1.414 -1.414L13.172 12Z"/></svg>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
       </template>
       右侧图标
     </yh-button>
-    <yh-button type="warning">
+    <yh-button type="warning" icon-position="top">
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1.2em" height="1.2em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+      上置图标
+    </yh-button>
+    <yh-button type="danger" icon-position="bottom">
+      <template #icon>
+        <svg viewBox="0 0 1024 1024" width="1.2em" height="1.2em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
+      </template>
+      下置图标
+    </yh-button>
+    <yh-button type="info">
       内容
       <template #suffixIcon>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="m13.172 12 -4.95 -4.95 1.414 -1.414L16 12l-6.364 6.364 -1.414 -1.414L13.172 12Z"/></svg>
-      </template>
-    </yh-button>
-    <yh-button type="danger">
-      <template #icon>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>
-      </template>
-      两侧图标
-      <template #suffixIcon>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="m13.172 12 -4.95 -4.95 1.414 -1.414L16 12l-6.364 6.364 -1.414 -1.414L13.172 12Z"/></svg>
+        <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 64l512 512-512 512L0 576z"/></svg>
       </template>
     </yh-button>
   </div>
@@ -306,8 +403,8 @@ const jsIconPosition = tsIconPosition
 | native-type | 原生 type 属性 | `'button' \| 'submit' \| 'reset'` | `'button'` |
 | autofocus | 是否自动聚焦 | `boolean` | `false` |
 | icon | 左侧图标组件 | `string \| Component` | — |
-| **suffix-icon** | 右侧图标组件 | `string \| Component` | — |
-| **icon-position** | 图标位置 | `'left' \| 'right' \| 'top' \| 'bottom'` | `'left'` |
+| suffix-icon | 右侧图标组件 | `string \| Component` | — |
+| icon-position | 图标位置 | `'left' \| 'right' \| 'top' \| 'bottom'` | `'left'` |
 | color | 自定义按钮颜色 | `string` | — |
 | tag | 自定义元素标签 | `string \| Component` | `'button'` |
 
@@ -322,31 +419,31 @@ const jsIconPosition = tsIconPosition
 | 插槽名 | 说明 |
 | --- | --- |
 | default | 按钮内容 |
-| icon | 自定义左侧图标 |
-| **suffixIcon** | 自定义右侧图标 |
+| icon | 自定义内容 (受 icon-position 影响) |
+| suffixIcon | 独立后缀插槽 (固定在右侧) |
 | loading | 自定义加载图标 |
 
 ### Expose
 
 | 属性名 | 说明 | 类型 |
 | --- | --- | --- |
-| ref | 按钮 DOM 元素 | `Ref<HTMLButtonElement>` |
-| size | 按钮尺寸 | `ButtonSize` |
+| ref | 按钮 DOM 元素引用 | `HTMLButtonElement \| undefined` |
+| size | 计算后的实际尺寸 | `ButtonSize` |
 | type | 按钮类型 | `ButtonType` |
-| disabled | 是否禁用 | `boolean` |
+| disabled | 是否禁用状态 | `boolean` |
 
 ## 主题变量
 
-Button 组件使用以下 CSS 变量，你可以通过覆盖这些变量来自定义样式：
+Button 组件支持通过覆盖以下 CSS 变量来自定义局部样式：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
-| `--yh-button-bg-color` | 背景颜色 | `#ffffff` |
-| `--yh-button-text-color` | 文字颜色 | `#606266` |
-| `--yh-button-border-color` | 边框颜色 | `#dcdfe6` |
-| `--yh-button-hover-bg-color` | 悬停背景色 | — |
-| `--yh-button-hover-text-color` | 悬停文字色 | — |
-| `--yh-button-hover-border-color` | 悬停边框色 | — |
-| `--yh-button-disabled-bg-color` | 禁用背景色 | — |
-| `--yh-button-disabled-text-color` | 禁用文字色 | — |
-| `--yh-button-disabled-border-color` | 禁用边框色 | — |
+| `--yh-button-bg-color` | 按钮背景颜色 | `var(--yh-fill-color-blank)` |
+| `--yh-button-text-color` | 按钮文字颜色 | `var(--yh-text-color-regular)` |
+| `--yh-button-border-color` | 按钮边框颜色 | `var(--yh-border-color)` |
+| `--yh-button-hover-bg-color` | 悬停状态背景颜色 | `var(--yh-color-primary-light-9)` |
+| `--yh-button-hover-text-color` | 悬停状态文字颜色 | `var(--yh-color-primary)` |
+| `--yh-button-hover-border-color` | 悬停状态边框颜色 | `var(--yh-color-primary-light-8)` |
+| `--yh-button-active-bg-color` | 激活/点击状态背景颜色 | `var(--yh-color-primary-light-8)` |
+| `--yh-button-active-border-color` | 激活/点击状态边框颜色 | `var(--yh-color-primary)` |
+| `--yh-button-active-text-color` | 激活/点击状态文字颜色 | — |

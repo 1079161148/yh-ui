@@ -5,6 +5,7 @@
  */
 import { computed, provide, watch, toRefs } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type {
   CheckboxGroupProps,
   CheckboxGroupEmits,
@@ -34,6 +35,9 @@ const { formItem } = useFormItem()
 const { validate } = useFormItem()
 const labelId = useId().value
 
+// 全局配置
+const { globalSize } = useConfig()
+
 // 处理变化
 const changeEvent = (value: CheckboxValueType[]) => {
   emit('update:modelValue', value)
@@ -51,7 +55,7 @@ provide<CheckboxGroupContext>(checkboxGroupContextKey, {
     return modelValue.value
   },
   get size() {
-    return size?.value
+    return size?.value || globalSize.value || 'default'
   },
   get disabled() {
     return disabled.value

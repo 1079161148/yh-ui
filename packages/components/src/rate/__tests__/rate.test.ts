@@ -19,7 +19,7 @@ describe('YhRate', () => {
 
     // Check active items by counting contents with style width: 100%
     const activeItems = items.filter((item) => {
-      const content = item.find('.yh-rate-star-content')
+      const content = item.find('.yh-rate__star-content')
       return content.attributes('style')?.includes('width: 100%')
     })
     expect(activeItems.length).toBe(3)
@@ -47,7 +47,7 @@ describe('YhRate', () => {
     })
     const items = wrapper.findAll('.yh-rate__item')
     // 4th item should have 50% width
-    const fourthContent = items[3].find('.yh-rate-star-content')
+    const fourthContent = items[3].find('.yh-rate__star-content')
     expect(fourthContent.attributes('style')).toContain('width: 50%')
   })
 

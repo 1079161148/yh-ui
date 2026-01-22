@@ -1,18 +1,41 @@
 <script setup lang="ts">
 const tsBasic = `<template>
-  <yh-row>
+  <yh-row class="demo-row">
     <yh-col :span="24"><div class="grid-content bg-purple-dark">24</div></yh-col>
   </yh-row>
-  <yh-row>
+  <yh-row class="demo-row">
     <yh-col :span="12"><div class="grid-content bg-purple">12</div></yh-col>
     <yh-col :span="12"><div class="grid-content bg-purple-light">12</div></yh-col>
   </yh-row>
-  <yh-row>
+  <yh-row class="demo-row">
     <yh-col :span="8"><div class="grid-content bg-purple">8</div></yh-col>
     <yh-col :span="8"><div class="grid-content bg-purple-light">8</div></yh-col>
     <yh-col :span="8"><div class="grid-content bg-purple">8</div></yh-col>
   </yh-row>
-<\/template>`
+  <yh-row class="demo-row">
+    <yh-col :span="6"><div class="grid-content bg-purple">6</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">6</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">6</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">6</div></yh-col>
+  </yh-row>
+<\/template>
+
+<style scoped>
+.demo-row {
+  margin-bottom: 20px;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.bg-purple-dark { background: #99a9bf; }
+.bg-purple { background: #d3dce6; color: #5e6d82; }
+.bg-purple-light { background: #e5e9f2; color: #5e6d82; }
+<\/style>`
 
 const jsBasic = tsBasic
 
@@ -23,41 +46,92 @@ const tsGutter = `<template>
     <yh-col :span="6"><div class="grid-content bg-purple">6</div></yh-col>
     <yh-col :span="6"><div class="grid-content bg-purple">6</div></yh-col>
   </yh-row>
-<\/template>`
+<\/template>
+
+<style scoped>
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+  background: #d3dce6;
+}
+<\/style>`
 
 const jsGutter = tsGutter
 
 const tsMixed = `<template>
-  <yh-row :gutter="20">
+  <yh-row :gutter="20" class="demo-row">
     <yh-col :span="16"><div class="grid-content bg-purple">16</div></yh-col>
     <yh-col :span="8"><div class="grid-content bg-purple-light">8</div></yh-col>
   </yh-row>
-  <yh-row :gutter="20">
+  <yh-row :gutter="20" class="demo-row">
     <yh-col :span="8"><div class="grid-content bg-purple">8</div></yh-col>
     <yh-col :span="8"><div class="grid-content bg-purple-light">8</div></yh-col>
     <yh-col :span="4"><div class="grid-content bg-purple">4</div></yh-col>
     <yh-col :span="4"><div class="grid-content bg-purple-light">4</div></yh-col>
   </yh-row>
-<\/template>`
+<\/template>
+
+<style scoped>
+.demo-row { margin-bottom: 20px; }
+.grid-content { border-radius: 4px; min-height: 36px; }
+.bg-purple { background: #d3dce6; }
+.bg-purple-light { background: #e5e9f2; }
+<\/style>`
 
 const jsMixed = tsMixed
 
 const tsOffset = `<template>
-  <yh-row :gutter="20">
+  <yh-row :gutter="20" class="demo-row">
     <yh-col :span="6"><div class="grid-content bg-purple">6</div></yh-col>
     <yh-col :span="6" :offset="6"><div class="grid-content bg-purple">6 offset-6</div></yh-col>
   </yh-row>
-<\/template>`
+  <yh-row :gutter="20" class="demo-row">
+    <yh-col :span="6" :offset="6"><div class="grid-content bg-purple">6 offset-6</div></yh-col>
+    <yh-col :span="6" :offset="6"><div class="grid-content bg-purple">6 offset-6</div></yh-col>
+  </yh-row>
+<\/template>
+
+<style scoped>
+.demo-row { margin-bottom: 20px; }
+.grid-content { border-radius: 4px; min-height: 36px; background: #d3dce6; }
+<\/style>`
 
 const jsOffset = tsOffset
 
 const tsAlign = `<template>
-  <yh-row justify="center">
+  <yh-row justify="start" class="demo-row">
+    <yh-col :span="6"><div class="grid-content bg-purple">start</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">start</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">start</div></yh-col>
+  </yh-row>
+  <yh-row justify="center" class="demo-row">
     <yh-col :span="6"><div class="grid-content bg-purple">center</div></yh-col>
     <yh-col :span="6"><div class="grid-content bg-purple-light">center</div></yh-col>
     <yh-col :span="6"><div class="grid-content bg-purple">center</div></yh-col>
   </yh-row>
-<\/template>`
+  <yh-row justify="end" class="demo-row">
+    <yh-col :span="6"><div class="grid-content bg-purple">end</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">end</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">end</div></yh-col>
+  </yh-row>
+  <yh-row justify="space-between" class="demo-row">
+    <yh-col :span="6"><div class="grid-content bg-purple">space-between</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">space-between</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">space-between</div></yh-col>
+  </yh-row>
+  <yh-row justify="space-around" class="demo-row">
+    <yh-col :span="6"><div class="grid-content bg-purple">space-around</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">space-around</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">space-around</div></yh-col>
+  </yh-row>
+<\/template>
+
+<style scoped>
+.demo-row { margin-bottom: 20px; }
+.grid-content { border-radius: 4px; min-height: 36px; line-height: 36px; text-align: center; }
+.bg-purple { background: #d3dce6; color: #5e6d82; }
+.bg-purple-light { background: #e5e9f2; color: #5e6d82; }
+<\/style>`
 
 const jsAlign = tsAlign
 </script>
@@ -170,6 +244,11 @@ const jsAlign = tsAlign
 通过 `justify` 属性来控制行内元素的水平排列方式。
 
 <DemoBlock title="对齐方式" :ts-code="tsAlign" :js-code="jsAlign">
+  <yh-row class="demo-row" justify="start">
+    <yh-col :span="6"><div class="grid-content bg-purple">start</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">start</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">start</div></yh-col>
+  </yh-row>
   <yh-row class="demo-row" justify="center">
     <yh-col :span="6"><div class="grid-content bg-purple">center</div></yh-col>
     <yh-col :span="6"><div class="grid-content bg-purple-light">center</div></yh-col>
@@ -185,28 +264,61 @@ const jsAlign = tsAlign
     <yh-col :span="6"><div class="grid-content bg-purple-light">space-between</div></yh-col>
     <yh-col :span="6"><div class="grid-content bg-purple">space-between</div></yh-col>
   </yh-row>
+  <yh-row class="demo-row" justify="space-around">
+    <yh-col :span="6"><div class="grid-content bg-purple">space-around</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple-light">space-around</div></yh-col>
+    <yh-col :span="6"><div class="grid-content bg-purple">space-around</div></yh-col>
+  </yh-row>
 </DemoBlock>
 
-## Row API
+## API
+
+### Row Props
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| gutter | 栅格间隔 | number | 0 |
-| tag | 自定义元素标签 | string | div |
-| justify | flex 布局下的水平排列方式 | 'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly' | start |
-| align | flex 布局下的垂直排列方式 | 'top' \| 'middle' \| 'bottom' | top |
+| gutter | 栅格间隔 | `number` | `0` |
+| tag | 自定义元素标签 | `string` | `'div'` |
+| justify | 水平排列方式 | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
+| align | 垂直排列方式 | `'top' \| 'middle' \| 'bottom'` | `'top'` |
 
-## Col API
+### Col Props
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| span | 栅格占据的列数 | number | 24 |
-| offset | 栅格左侧的间隔格数 | number | 0 |
-| push | 栅格向右移动格数 | number | 0 |
-| pull | 栅格向左移动格数 | number | 0 |
-| xs | <768px 响应式栅格数或者栅格属性对象 | number / object | - |
-| sm | ≥768px 响应式栅格数或者栅格属性对象 | number / object | - |
-| md | ≥992px 响应式栅格数或者栅格属性对象 | number / object | - |
-| lg | ≥1200px 响应式栅格数或者栅格属性对象 | number / object | - |
-| xl | ≥1920px 响应式栅格数或者栅格属性对象 | number / object | - |
-| tag | 自定义元素标签 | string | div |
+| span | 栅格占据的列数 | `number` | `24` |
+| offset | 栅格左侧的间隔格数 | `number` | `0` |
+| push | 栅格向右移动格数 | `number` | `0` |
+| pull | 栅格向左移动格数 | `number` | `0` |
+| xs | <768px 响应式栅格数或属性对象 | `number \| object` | — |
+| sm | ≥768px 响应式栅格数或属性对象 | `number \| object` | — |
+| md | ≥992px 响应式栅格数或属性对象 | `number \| object` | — |
+| lg | ≥1200px 响应式栅格数或属性对象 | `number \| object` | — |
+| xl | ≥1920px 响应式栅格数或属性对象 | `number \| object` | — |
+| tag | 自定义元素标签 | `string` | `'div'` |
+
+### Events
+
+| 事件名 | 说明 | 回调参数 |
+| --- | --- | --- |
+| — | 该组件暂无自定义事件 | — |
+
+### Slots
+
+| 插槽名 | 说明 |
+| --- | --- |
+| default | 自定义内容 |
+
+### Expose
+
+| 属性名 | 说明 | 类型 |
+| --- | --- | --- |
+| — | 该组件暂无暴露属性 | — |
+
+## 主题变量
+
+Row/Col 组件主要基于 Flex 布局，目前暂无特定组件级全局 CSS 变量。
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| — | 暂无 | — |

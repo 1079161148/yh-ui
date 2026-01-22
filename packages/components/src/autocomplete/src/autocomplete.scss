@@ -133,24 +133,30 @@ $autocomplete-height-small: 24px;
   }
 
   @include e(suggestion) {
-    padding: 0 16px;
-    height: 34px;
-    line-height: 34px;
+    padding: 8px 16px;
+    min-height: 34px;
     font-size: 14px;
     color: var(--yh-text-color-regular, #606266);
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     transition: background-color 0.2s;
+    box-sizing: border-box;
 
     &:hover {
       background-color: var(--yh-fill-color-light, #f5f7fa);
     }
 
     @include is(highlighted) {
-      background-color: var(--yh-fill-color-light, #f5f7fa);
-      color: var(--yh-color-primary, #409eff);
+      color: var(--yh-color-white, #ffffff);
+      background-color: var(--yh-color-primary, #409eff);
+
+      /* 确保自定义内容中的所有文字都显示为白色 */
+      *,
+      span,
+      div,
+      p,
+      a {
+        color: #ffffff !important;
+      }
     }
   }
 

@@ -76,10 +76,20 @@ describe('YhButton', () => {
   // 圆形按钮测试
   it('should apply circle class', () => {
     const wrapper = mount(Button, {
-      props: { circle: true },
-      slots: { default: '' }
+      props: { circle: true }
     })
     expect(wrapper.classes()).toContain('is-circle')
+  })
+
+  it('should apply circle class with different types', () => {
+    const types = ['primary', 'success', 'warning', 'danger', 'info'] as const
+    types.forEach((type) => {
+      const wrapper = mount(Button, {
+        props: { circle: true, type }
+      })
+      expect(wrapper.classes()).toContain('is-circle')
+      expect(wrapper.classes()).toContain(`yh-button--${type}`)
+    })
   })
 
   // 点击事件测试

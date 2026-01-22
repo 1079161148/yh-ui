@@ -1,214 +1,225 @@
-/**
- * YhCheckbox Styles
- * @description 复选框组件样式
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$checkbox-prefix: 'yh-checkbox';
-
-/* ==================== 基础样式 ==================== */
-.#{$checkbox-prefix} {
+@include b(checkbox) {
+  // CSS 变量定义
   --yh-checkbox-font-size: var(--yh-font-size-base);
+  --yh-checkbox-font-weight: var(--yh-font-weight-medium);
   --yh-checkbox-text-color: var(--yh-text-color-regular);
-  --yh-checkbox-input-size: 14px;
-  --yh-checkbox-input-border-color: var(--yh-border-color);
-  --yh-checkbox-input-bg-color: var(--yh-fill-color-blank);
+  --yh-checkbox-input-height: 14px;
+  --yh-checkbox-input-width: 14px;
+  --yh-checkbox-border-radius: var(--yh-radius-sm);
+  --yh-checkbox-bg-color: var(--yh-fill-color-blank);
+  --yh-checkbox-input-border: 1px solid var(--yh-border-color);
   --yh-checkbox-input-border-color-hover: var(--yh-color-primary);
   --yh-checkbox-checked-bg-color: var(--yh-color-primary);
-  --yh-checkbox-checked-border-color: var(--yh-color-primary);
-  --yh-checkbox-checked-icon-color: var(--yh-fill-color-blank);
-  --yh-checkbox-disabled-bg-color: var(--yh-fill-color-light);
-  --yh-checkbox-disabled-border-color: var(--yh-border-color-light);
-  --yh-checkbox-disabled-text-color: var(--yh-text-color-placeholder);
-  --yh-checkbox-disabled-checked-bg-color: var(--yh-border-color-light);
+  --yh-checkbox-checked-icon-color: var(--yh-color-white, #fff);
+  --yh-checkbox-checked-text-color: var(--yh-color-primary);
+  --yh-checkbox-disabled-input-fill: var(--yh-fill-color-light);
+  --yh-checkbox-disabled-border-color: var(--yh-border-color);
+  --yh-checkbox-disabled-icon-color: var(--yh-text-color-placeholder);
+  --yh-checkbox-disabled-checked-input-fill: var(--yh-border-color);
+  --yh-checkbox-disabled-checked-input-border-color: var(--yh-border-color);
+  --yh-checkbox-disabled-checked-icon-color: #fff;
 
+  color: var(--yh-checkbox-text-color);
+  font-weight: var(--yh-checkbox-font-weight);
+  font-size: var(--yh-checkbox-font-size);
   position: relative;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  height: var(--yh-component-size-default);
-  padding-right: 20px;
-  margin-right: 0;
-  font-size: var(--yh-checkbox-font-size);
-  font-weight: var(--yh-font-weight-normal);
-  color: var(--yh-checkbox-text-color);
   white-space: nowrap;
-  cursor: pointer;
   user-select: none;
+  margin-right: 30px;
+  height: 32px;
 
-  /* ==================== 输入框区域 ==================== */
-  &__input {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
+  @include when(disabled) {
+    cursor: not-allowed;
+  }
+
+  @include e(input) {
     white-space: nowrap;
     cursor: pointer;
     outline: none;
-    vertical-align: middle;
+    display: inline-flex;
+    position: relative;
   }
 
-  /* ==================== 复选框外观 ==================== */
-  &__inner {
+  @include e(inner) {
+    display: inline-block;
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--yh-checkbox-input-size);
-    height: var(--yh-checkbox-input-size);
-    background-color: var(--yh-checkbox-input-bg-color);
-    border: var(--yh-border-width) var(--yh-border-style) var(--yh-checkbox-input-border-color);
-    border-radius: var(--yh-radius-sm);
-    transition: var(--yh-transition-fast);
+    border: var(--yh-checkbox-input-border);
+    border-radius: var(--yh-checkbox-border-radius);
     box-sizing: border-box;
+    width: var(--yh-checkbox-input-width);
+    height: var(--yh-checkbox-input-height);
+    background-color: var(--yh-checkbox-bg-color);
+    z-index: 1;
+    transition:
+      border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
+      background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
 
     &:hover {
       border-color: var(--yh-checkbox-input-border-color-hover);
     }
 
-    /* 选中状态 */
-    &.is-checked {
-      background-color: var(--yh-checkbox-checked-bg-color);
-      border-color: var(--yh-checkbox-checked-border-color);
-    }
-
-    /* 半选状态 */
-    &.is-indeterminate {
-      background-color: var(--yh-checkbox-checked-bg-color);
-      border-color: var(--yh-checkbox-checked-border-color);
-    }
-
-    /* 禁用状态 */
-    &.is-disabled {
-      background-color: var(--yh-checkbox-disabled-bg-color);
-      border-color: var(--yh-checkbox-disabled-border-color);
-      cursor: not-allowed;
-
-      &:hover {
-        border-color: var(--yh-checkbox-disabled-border-color);
-      }
-
-      &.is-checked {
-        background-color: var(--yh-checkbox-disabled-checked-bg-color);
-        border-color: var(--yh-checkbox-disabled-border-color);
-      }
-
-      &.is-indeterminate {
-        background-color: var(--yh-checkbox-disabled-checked-bg-color);
-        border-color: var(--yh-checkbox-disabled-border-color);
-      }
+    // 勾选标记使用 ::after 伪元素实现
+    &::after {
+      box-sizing: content-box;
+      content: '';
+      border: 1px solid transparent;
+      border-left: 0;
+      border-top: 0;
+      height: 7px;
+      left: 4px;
+      position: absolute;
+      top: 1px;
+      transform: rotate(45deg) scaleY(0);
+      width: 3px;
+      transition: transform 0.15s ease-in 0.05s;
+      transform-origin: center;
     }
   }
 
-  /* ==================== 图标 ==================== */
-  &__icon {
-    width: 10px;
-    height: 10px;
-    color: var(--yh-checkbox-checked-icon-color);
-  }
-
-  /* ==================== 原生 input ==================== */
-  &__original {
-    position: absolute;
-    z-index: -1;
-    width: 0;
-    height: 0;
-    margin: 0;
+  @include e(original) {
     opacity: 0;
     outline: none;
+    position: absolute;
+    margin: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
   }
 
-  /* ==================== 标签文字 ==================== */
-  &__label {
-    display: inline-flex;
+  @include e(label) {
+    display: inline-block;
     padding-left: 8px;
-    font-size: var(--yh-checkbox-font-size);
     line-height: 1;
+    font-size: var(--yh-checkbox-font-size);
+    color: var(--yh-checkbox-text-color);
   }
 
-  /* ==================== 尺寸修饰符 ==================== */
-  &--large {
-    height: var(--yh-component-size-large);
+  // 尺寸变体
+  @include m(large) {
+    --yh-checkbox-input-height: 16px;
+    --yh-checkbox-input-width: 16px;
     --yh-checkbox-font-size: var(--yh-font-size-md);
-    --yh-checkbox-input-size: 16px;
+    height: 40px;
 
-    .#{$checkbox-prefix}__icon {
-      width: 12px;
-      height: 12px;
-    }
-  }
-
-  &--small {
-    height: var(--yh-component-size-small);
-    --yh-checkbox-font-size: var(--yh-font-size-xs);
-    --yh-checkbox-input-size: 12px;
-
-    .#{$checkbox-prefix}__icon {
-      width: 8px;
+    .yh-checkbox__inner::after {
       height: 8px;
-    }
-
-    .#{$checkbox-prefix}__label {
-      padding-left: 6px;
+      width: 4px;
+      left: 5px;
     }
   }
 
-  /* ==================== 状态修饰符 ==================== */
-  &.is-disabled {
+  @include m(small) {
+    --yh-checkbox-input-height: 12px;
+    --yh-checkbox-input-width: 12px;
+    --yh-checkbox-font-size: var(--yh-font-size-xs);
+    height: 24px;
+
+    .yh-checkbox__inner::after {
+      height: 6px;
+      width: 2px;
+      left: 4px;
+    }
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+// ============== 状态样式（使用原生选择器确保正确匹配）==============
+
+// 选中状态
+.yh-checkbox__input.is-checked {
+  .yh-checkbox__inner {
+    background-color: var(--yh-checkbox-checked-bg-color);
+    border-color: var(--yh-checkbox-checked-bg-color);
+
+    &::after {
+      transform: rotate(45deg) scaleY(1);
+      border-color: var(--yh-checkbox-checked-icon-color);
+    }
+  }
+
+  & + .yh-checkbox__label {
+    color: var(--yh-checkbox-checked-text-color);
+  }
+}
+
+// 半选状态
+.yh-checkbox__input.is-indeterminate {
+  .yh-checkbox__inner {
+    background-color: var(--yh-checkbox-checked-bg-color);
+    border-color: var(--yh-checkbox-checked-bg-color);
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      background-color: var(--yh-checkbox-checked-icon-color);
+      height: 2px;
+      transform: scale(0.5);
+      left: 0;
+      right: 0;
+      top: 5px;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+// 禁用状态
+.yh-checkbox__input.is-disabled {
+  cursor: not-allowed;
+
+  .yh-checkbox__inner {
+    background-color: var(--yh-checkbox-disabled-input-fill);
+    border-color: var(--yh-checkbox-disabled-border-color);
     cursor: not-allowed;
 
-    .#{$checkbox-prefix}__input {
-      cursor: not-allowed;
-    }
-
-    .#{$checkbox-prefix}__label {
-      color: var(--yh-checkbox-disabled-text-color);
-      cursor: not-allowed;
-    }
-  }
-
-  &.is-checked {
-    .#{$checkbox-prefix}__label {
-      color: var(--yh-color-primary);
-    }
-  }
-
-  &.is-focused {
-    .#{$checkbox-prefix}__inner {
-      box-shadow: 0 0 0 2px var(--yh-color-primary-light-7);
-    }
-  }
-
-  /* ==================== 边框模式 ==================== */
-  &.is-border {
-    padding: 0 16px;
-    border: var(--yh-border-width) var(--yh-border-style) var(--yh-border-color);
-    border-radius: var(--yh-radius-base);
-    transition: var(--yh-transition-fast);
-
     &:hover {
-      border-color: var(--yh-color-primary);
+      border-color: var(--yh-checkbox-disabled-border-color);
     }
 
-    &.is-checked {
-      border-color: var(--yh-color-primary);
-    }
-
-    &.is-disabled {
-      border-color: var(--yh-border-color-light);
+    &::after {
       cursor: not-allowed;
-
-      &:hover {
-        border-color: var(--yh-border-color-light);
-      }
+      border-color: var(--yh-checkbox-disabled-icon-color);
     }
+  }
 
-    &.#{$checkbox-prefix}--large {
-      padding: 0 20px;
-      border-radius: var(--yh-radius-md);
+  & + .yh-checkbox__label {
+    color: var(--yh-text-color-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// 选中 + 禁用 状态
+.yh-checkbox__input.is-disabled.is-checked {
+  .yh-checkbox__inner {
+    background-color: var(--yh-checkbox-disabled-checked-input-fill);
+    border-color: var(--yh-checkbox-disabled-checked-input-border-color);
+
+    &::after {
+      transform: rotate(45deg) scaleY(1);
+      border-color: var(--yh-checkbox-disabled-checked-icon-color);
     }
+  }
+}
 
-    &.#{$checkbox-prefix}--small {
-      padding: 0 12px;
-      border-radius: var(--yh-radius-sm);
+// 半选 + 禁用 状态
+.yh-checkbox__input.is-disabled.is-indeterminate {
+  .yh-checkbox__inner {
+    background-color: var(--yh-checkbox-disabled-checked-input-fill);
+    border-color: var(--yh-checkbox-disabled-checked-input-border-color);
+
+    &::before {
+      background-color: var(--yh-checkbox-disabled-checked-icon-color);
     }
   }
 }

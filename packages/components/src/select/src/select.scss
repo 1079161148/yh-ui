@@ -177,23 +177,29 @@ $select-height-small: 24px;
       background-color: var(--yh-fill-color-light, #f5f7fa);
     }
 
-    @include is(selected) {
-      color: var(--yh-color-primary, #409eff);
-      font-weight: 700;
-    }
-
-    @include is(disabled) {
+    @include when(disabled) {
       color: var(--yh-text-color-placeholder, #a8abb2);
       cursor: not-allowed;
-      pointer-events: none;
-
-      &:hover {
-        background-color: transparent;
-      }
     }
 
     @include is(hovering) {
       background-color: var(--yh-fill-color-light, #f5f7fa);
+    }
+
+    @include is(selected) {
+      color: var(--yh-color-white, #ffffff) !important;
+      background-color: var(--yh-color-primary, #409eff) !important;
+      font-weight: 700;
+      z-index: 1;
+
+      &.is-hovering {
+        background-color: var(--yh-color-primary-light-3, #79bbff);
+      }
+
+      &.is-disabled {
+        background-color: var(--yh-fill-color-light, #f5f7fa) !important;
+        color: var(--yh-text-color-placeholder, #a8abb2) !important;
+      }
     }
   }
 

@@ -81,19 +81,32 @@
 
 ## API
 
+### Props
+
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| direction | 设置分割线方向 | 'horizontal' \| 'vertical' | horizontal |
-| content-position | 设置分割线文案的位置 | 'left' \| 'center' \| 'right' | center |
-| border-style | 设置分隔符样式 | 'solid' \| 'dashed' \| 'dotted' \| 'double' | solid |
-| border-width | 设置分割线粗细 | string \| number | 1px |
-| color | 设置分割线颜色 | string | - |
+| direction | 分割线方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| content-position | 文案位置 | `'left' \| 'center' \| 'right'` | `'center'` |
+| border-style | 分割线样式 | `'solid' \| 'dashed' \| 'dotted' \| 'double'` | `'solid'` |
+| border-width | 分割线宽度 | `string \| number` | `1px` |
+| color | 分割线颜色 | `string` | — |
 
-## Slots
+### Slots
 
 | 插槽名 | 说明 |
 | --- | --- |
 | default | 分割线文案内容 |
+
+### 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-divider-border-color` | 分割线边框颜色 | `var(--yh-border-color-lighter)` |
+| `--yh-divider-border-width` | 分割线边框宽度 | `1px` |
+| `--yh-divider-border-style` | 分割线边框样式 | `solid` |
+| `--yh-divider-margin-horizontal` | 水平方向外边距 | `24px 0` |
+| `--yh-divider-margin-vertical` | 垂直方向外边距 | `0 8px` |
+| `--yh-divider-text-color` | 文案颜色 | `var(--yh-text-color-primary)` |
 
 <script setup lang="ts">
 const tsBasic = `

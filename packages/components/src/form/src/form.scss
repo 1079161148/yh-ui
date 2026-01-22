@@ -1,3 +1,5 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
 $form-prefix: 'yh-form';
 $form-item-prefix: 'yh-form-item';
 
@@ -57,19 +59,22 @@ $form-item-prefix: 'yh-form-item';
   }
 
   // 尺寸控制
-  &--large {
+  @include m(large) {
     --yh-form-item-height: 40px;
     --yh-form-label-font-size: 14px;
+    --yh-component-size-default: 40px; // 透传给子组件
   }
 
-  &--default {
+  @include m(default) {
     --yh-form-item-height: 32px;
     --yh-form-label-font-size: 14px;
+    --yh-component-size-default: 32px;
   }
 
-  &--small {
+  @include m(small) {
     --yh-form-item-height: 24px;
     --yh-form-label-font-size: 12px;
+    --yh-component-size-default: 24px;
   }
 }
 
@@ -216,17 +221,20 @@ $form-item-prefix: 'yh-form-item';
   }
 
   // 尺寸修饰符
-  &--large {
+  @include m(large) {
     --yh-form-item-height: 40px;
+    --yh-component-size-default: 40px;
   }
 
-  &--default {
+  @include m(default) {
     --yh-form-item-height: 32px;
+    --yh-component-size-default: 32px;
   }
 
-  &--small {
+  @include m(small) {
     --yh-form-item-height: 24px;
     --yh-form-label-font-size: 12px;
+    --yh-component-size-default: 24px;
   }
 }
 

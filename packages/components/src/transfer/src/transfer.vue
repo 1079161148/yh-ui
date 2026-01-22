@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import TransferPanel from './transfer-panel.vue'
 import type {
   TransferProps,
@@ -44,6 +45,9 @@ const emit = defineEmits<TransferEmits>()
 
 // 命名空间
 const ns = useNamespace('transfer')
+
+// 全局配置
+const { globalSize } = useConfig()
 
 // 面板引用
 const leftPanelRef = ref<TransferPanelExpose>()
@@ -107,7 +111,7 @@ const canMoveToLeft = computed(() => {
 // 容器类名
 const containerClasses = computed(() => [
   ns.b(),
-  ns.m(props.size),
+  ns.m(props.size || globalSize.value || 'default'),
   ns.is('disabled', props.disabled)
 ])
 
@@ -205,26 +209,11 @@ defineExpose<TransferExpose>({
 <template>
   <div :class="containerClasses">
     <!-- 左侧面板 -->
-    <TransferPanel
-      ref="leftPanelRef"
-      :data="leftData"
-      :checked="leftChecked"
-      :title="leftTitle"
-      :filterable="filterable"
-      :filter-placeholder="filterPlaceholder"
-      :filter-method="filterMethod"
-      :disabled="disabled"
-      :size="size"
-      :props="props.props"
-      :render-content="renderContent"
-      :virtual="virtual"
-      :item-height="itemHeight"
-      :height="height"
-      :show-all-checkbox="showAllCheckbox"
-      :empty-text="leftEmptyText"
-      @update:checked="handleLeftCheckedChange"
-      @checked-change="handleLeftCheckedChange"
-    >
+    <TransferPanel ref="leftPanelRef" :data="leftData" :checked="leftChecked" :title="leftTitle"
+      :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
+      :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"
+      :item-height="itemHeight" :height="height" :show-all-checkbox="showAllCheckbox" :empty-text="leftEmptyText"
+      @update:checked="handleLeftCheckedChange" @checked-change="handleLeftCheckedChange">
       <template v-if="$slots['left-header']" #header>
         <slot name="left-header" />
       </template>
@@ -241,41 +230,24 @@ defineExpose<TransferExpose>({
 
     <!-- 穿梭按钮区域 -->
     <div :class="ns.e('buttons')">
-      <slot
-        name="buttons"
-        :move-to-left="moveToLeft"
-        :move-to-right="moveToRight"
-        :left-checked="leftChecked"
-        :right-checked="rightChecked"
-      >
+      <slot name="buttons" :move-to-left="moveToLeft" :move-to-right="moveToRight" :left-checked="leftChecked"
+        :right-checked="rightChecked">
         <!-- 向右按钮 -->
-        <button
-          type="button"
-          :class="[ns.e('button'), { 'is-disabled': !canMoveToRight || disabled }]"
-          :disabled="!canMoveToRight || disabled"
-          @click="moveToRight"
-        >
+        <button type="button" :class="[ns.e('button'), { 'is-disabled': !canMoveToRight || disabled }]"
+          :disabled="!canMoveToRight || disabled" @click="moveToRight">
           <svg :class="ns.e('button__icon')" viewBox="0 0 1024 1024">
-            <path
-              fill="currentColor"
-              d="M340.864 149.312a30.592 30.592 0 000 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0042.752 43.458l355.136-362.88a30.592 30.592 0 000-43.52L383.616 106.56a30.592 30.592 0 00-42.752 42.752z"
-            />
+            <path fill="currentColor"
+              d="M340.864 149.312a30.592 30.592 0 000 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0042.752 43.458l355.136-362.88a30.592 30.592 0 000-43.52L383.616 106.56a30.592 30.592 0 00-42.752 42.752z" />
           </svg>
           <span v-if="buttonTexts[0]" :class="ns.e('button__text')">{{ buttonTexts[0] }}</span>
         </button>
 
         <!-- 向左按钮 -->
-        <button
-          type="button"
-          :class="[ns.e('button'), { 'is-disabled': !canMoveToLeft || disabled }]"
-          :disabled="!canMoveToLeft || disabled"
-          @click="moveToLeft"
-        >
+        <button type="button" :class="[ns.e('button'), { 'is-disabled': !canMoveToLeft || disabled }]"
+          :disabled="!canMoveToLeft || disabled" @click="moveToLeft">
           <svg :class="ns.e('button__icon')" viewBox="0 0 1024 1024">
-            <path
-              fill="currentColor"
-              d="M685.248 104.256a30.592 30.592 0 010 42.752L373.376 512l311.872 364.992a30.592 30.592 0 11-42.752 43.458L287.38 555.52a30.592 30.592 0 010-43.52l355.136-364.93a30.592 30.592 0 0142.752 0z"
-            />
+            <path fill="currentColor"
+              d="M685.248 104.256a30.592 30.592 0 010 42.752L373.376 512l311.872 364.992a30.592 30.592 0 11-42.752 43.458L287.38 555.52a30.592 30.592 0 010-43.52l355.136-364.93a30.592 30.592 0 0142.752 0z" />
           </svg>
           <span v-if="buttonTexts[1]" :class="ns.e('button__text')">{{ buttonTexts[1] }}</span>
         </button>
@@ -283,26 +255,11 @@ defineExpose<TransferExpose>({
     </div>
 
     <!-- 右侧面板 -->
-    <TransferPanel
-      ref="rightPanelRef"
-      :data="rightData"
-      :checked="rightChecked"
-      :title="rightTitle"
-      :filterable="filterable"
-      :filter-placeholder="filterPlaceholder"
-      :filter-method="filterMethod"
-      :disabled="disabled"
-      :size="size"
-      :props="props.props"
-      :render-content="renderContent"
-      :virtual="virtual"
-      :item-height="itemHeight"
-      :height="height"
-      :show-all-checkbox="showAllCheckbox"
-      :empty-text="rightEmptyText"
-      @update:checked="handleRightCheckedChange"
-      @checked-change="handleRightCheckedChange"
-    >
+    <TransferPanel ref="rightPanelRef" :data="rightData" :checked="rightChecked" :title="rightTitle"
+      :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
+      :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"
+      :item-height="itemHeight" :height="height" :show-all-checkbox="showAllCheckbox" :empty-text="rightEmptyText"
+      @update:checked="handleRightCheckedChange" @checked-change="handleRightCheckedChange">
       <template v-if="$slots['right-header']" #header>
         <slot name="right-header" />
       </template>

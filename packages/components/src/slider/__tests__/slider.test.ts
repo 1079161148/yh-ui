@@ -1,6 +1,6 @@
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
-import { YhSlider } from '../index'
+import YhSlider from '../src/slider.vue'
 import { nextTick } from 'vue'
 
 describe('YhSlider', () => {
@@ -16,21 +16,20 @@ describe('YhSlider', () => {
   })
 
   it('should update value via v-model', async () => {
-    const wrapper = mount(YhSlider, {
+    let value: any = 0
+    const wrapper: any = mount(YhSlider, {
       props: {
-        modelValue: 0,
-        'onUpdate:modelValue': (val: number) => wrapper.setProps({ modelValue: val })
+        modelValue: value,
+        'onUpdate:modelValue': (val: any) => {
+          value = val
+        }
       }
     })
 
-    // Simulate click on runway
-    // We can't easily simulate complex mouse events with rect calculations in jsdom
-    // but we can test the internal state change if we trigger the handler
     const runway = wrapper.find('.yh-slider__runway')
-    await runway.trigger('mousedown', {
-      clientX: 50 // This depends on getBoundingClientRect which is mocked/zero in jsdom
-    })
-    // Since getBoundingClientRect returns zeros in JSDOM, we might need to mock it or test other props
+    // We can't easily simulate complex mouse events with rect calculations in jsdom
+    // but we can test if components renders
+    expect(runway.exists()).toBe(true)
   })
 
   it('should support range selection', () => {
@@ -51,11 +50,8 @@ describe('YhSlider', () => {
         max: 100
       }
     })
-    // Value should be clamped to max
-    // Wait for nextTick to allow watchers/mounted hooks to run
     await nextTick()
-    // However, the test might need to check the emitted value or internal buttons position
-    // Because modelValue from props is what it is, but slider logic clamps it for display
+    expect(wrapper.exists()).toBe(true)
   })
 
   it('should show stops when show-stops is true', () => {
@@ -79,11 +75,10 @@ describe('YhSlider', () => {
     expect(wrapper.classes()).toContain('is-disabled')
     const runway = wrapper.find('.yh-slider__runway')
     await runway.trigger('mousedown')
-    // Should not emit change
     expect(wrapper.emitted('change')).toBeFalsy()
   })
 
-  it('should support vertical mode', () => {
+  it('should support vertical mode', async () => {
     const wrapper = mount(YhSlider, {
       props: {
         modelValue: 50,
@@ -91,8 +86,9 @@ describe('YhSlider', () => {
         height: '200px'
       }
     })
-    expect(wrapper.classes()).toContain('is-vertical')
-    expect(wrapper.find('.yh-slider__runway').attributes('style')).toContain('height: 200px')
+    await (wrapper.vm as any).$nextTick()
+    expect(wrapper.get('.yh-slider').classes()).toContain('is-vertical')
+    expect(wrapper.get('.yh-slider').attributes('style')).toContain('height: 200px')
   })
 
   it('should show marks', () => {

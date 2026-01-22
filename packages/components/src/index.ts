@@ -21,12 +21,17 @@ import { YhDivider } from './divider'
 import { YhRate } from './rate'
 import { YhSwitch } from './switch'
 import { YhAutocomplete } from './autocomplete'
-import { YhSelect } from './select'
+import { YhSelect, YhOption } from './select'
 import { YhCascader, YhCascaderPanel } from './cascader'
 import { YhSlider } from './slider'
 import { YhTimeSelect } from './time-select'
 import { YhTransfer, YhTransferPanel } from './transfer'
 import { YhTreeSelect } from './tree-select'
+import { YhBadge } from './badge'
+import { YhCard } from './card'
+import { YhMessage } from './message'
+import { YhNotification } from './notification'
+import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
 export * from './button'
@@ -50,6 +55,11 @@ export * from './slider'
 export * from './time-select'
 export * from './transfer'
 export * from './tree-select'
+export * from './badge'
+export * from './card'
+export * from './message'
+export * from './notification'
+export * from './config-provider'
 
 // 所有组件列表
 const components = [
@@ -74,27 +84,39 @@ const components = [
   YhSwitch,
   YhAutocomplete,
   YhSelect,
+  YhOption,
   YhCascader,
   YhCascaderPanel,
   YhSlider,
   YhTimeSelect,
   YhTransfer,
   YhTransferPanel,
-  YhTreeSelect
+  YhTreeSelect,
+  YhBadge,
+  YhCard,
+  YhConfigProvider
 ] as Plugin[]
 
 /**
  * 全量注册所有组件
  */
 export const install = (app: App): void => {
+  // 注册所有组件
   components.forEach((component) => {
     app.use(component)
   })
+
+  // 挂载全局方法
+  app.config.globalProperties.$message = YhMessage
+  app.config.globalProperties.$notify = YhNotification
 }
 
 /**
  * 默认导出
  */
 export default {
-  install
+  install,
+  // 导出函数式 API，便于具名导入
+  YhMessage,
+  YhNotification
 }

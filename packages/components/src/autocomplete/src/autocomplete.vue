@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, nextTick, useSlots, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useZIndex } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { AutocompleteProps, AutocompleteEmits, AutocompleteExpose, AutocompleteSuggestion } from './autocomplete'
 
 defineOptions({
@@ -35,7 +36,11 @@ const { nextZIndex } = useZIndex()
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
-const autocompleteSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+
+// 全局配置
+const { globalSize } = useConfig()
+
+const autocompleteSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
 const autocompleteDisabled = computed(() => props.disabled || form?.disabled || false)
 
 // 元素引用
@@ -172,6 +177,11 @@ const fetchSuggestions = (query: string) => {
   }
 
   loading.value = true
+  // 加载中时显示下拉框
+  if (focused.value) {
+    visible.value = true
+  }
+
   props.fetchSuggestions(query, (results) => {
     loading.value = false
     suggestions.value = results || []
@@ -181,8 +191,8 @@ const fetchSuggestions = (query: string) => {
       highlightedIndex.value = -1
     }
 
-    // 如果获取到建议且当前输入框仍有焦点，则显示列表
-    if (results && results.length > 0 && focused.value) {
+    // 如果当前输入框仍有焦点，保持下拉框显示（包括无数据情况）
+    if (focused.value) {
       visible.value = true
     }
   })

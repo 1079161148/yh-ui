@@ -135,13 +135,28 @@ const value3 = ref(true)
 const jsText = tsText.replace('lang="ts"', '')
 
 const tsIcons = `<template>
-  <yh-switch v-model="value1" :active-icon="Check" :inactive-icon="Close" />
-  <yh-switch v-model="value2" inline-prompt :active-icon="Check" :inactive-icon="Close" />
+  <yh-switch v-model="value1" :active-icon="CheckIcon" :inactive-icon="CloseIcon" />
+  <yh-switch v-model="value2" inline-prompt :active-icon="CheckIcon" :inactive-icon="CloseIcon" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Check, Close } from '@element-plus/icons-vue'
+import { ref, h } from 'vue'
+
+const CheckIcon = {
+  render() {
+    return h('svg', { viewBox: '0 0 1024 1024' }, [
+      h('path', { fill: 'currentColor', d: 'M406.656 706.944L195.84 496.256a32 32 0 10-45.248 45.248l256 256 512-512a32 32 0 00-45.248-45.248L406.656 706.944z' })
+    ])
+  }
+}
+
+const CloseIcon = {
+  render() {
+    return h('svg', { viewBox: '0 0 1024 1024' }, [
+      h('path', { fill: 'currentColor', d: 'M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 00-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1045.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0045.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 10-45.12-45.184z' })
+    ])
+  }
+}
 
 const value1 = ref(true)
 const value2 = ref(true)
@@ -224,13 +239,44 @@ const beforeChange2 = () => {
 const jsBeforeChange = tsBeforeChange.replace('lang="ts"', '')
 
 const tsActionIcons = `<template>
-  <yh-switch v-model="value1" :active-action-icon="View" :inactive-action-icon="Hide" />
-  <yh-switch v-model="value2" :active-action-icon="Check" :inactive-action-icon="Close" />
+  <yh-switch v-model="value1" :active-action-icon="ViewIcon" :inactive-action-icon="HideIcon" />
+  <yh-switch v-model="value2" :active-action-icon="CheckIcon" :inactive-action-icon="CloseIcon" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { View, Hide, Check, Close } from '@element-plus/icons-vue'
+import { ref, h } from 'vue'
+
+const CheckIcon = {
+  render() {
+    return h('svg', { viewBox: '0 0 1024 1024' }, [
+      h('path', { fill: 'currentColor', d: 'M406.656 706.944L195.84 496.256a32 32 0 10-45.248 45.248l256 256 512-512a32 32 0 00-45.248-45.248L406.656 706.944z' })
+    ])
+  }
+}
+
+const CloseIcon = {
+  render() {
+    return h('svg', { viewBox: '0 0 1024 1024' }, [
+      h('path', { fill: 'currentColor', d: 'M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 00-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1045.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0045.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 10-45.12-45.184z' })
+    ])
+  }
+}
+
+const ViewIcon = {
+  render() {
+    return h('svg', { viewBox: '0 0 1024 1024' }, [
+      h('path', { fill: 'currentColor', d: 'M512 160c320 0 512 352 512 352s-192 352-512 352S0 512 0 512s192-352 512-352zM149.76 512c41.28 74.88 124.16 192 362.24 192s320.96-117.12 362.24-192c-41.28-74.88-124.16-192-362.24-192S190.08 437.12 149.76 512zM512 592a80 80 0 110-160 80 80 0 010 160z' })
+    ])
+  }
+}
+
+const HideIcon = {
+  render() {
+    return h('svg', { viewBox: '0 0 1024 1024' }, [
+      h('path', { fill: 'currentColor', d: 'M876.8 156.8c0-9.6-3.2-16-9.6-22.4-6.4-6.4-12.8-9.6-22.4-9.6s-16 3.2-22.4 9.6l-96 96c-57.6-35.2-128-57.6-214.4-57.6-320 0-512 352-512 352s73.6 134.4 192 246.4l-80 80c-6.4 6.4-9.6 12.8-9.6 22.4s3.2 16 9.6 22.4c6.4 6.4 12.8 9.6 22.4 9.6s16-3.2 22.4-9.6l688-688c6.4-6.4 9.6-12.8 9.6-22.4zM512 672c-89.6 0-160-70.4-160-160 0-25.6 6.4-48 16-70.4l214.4 214.4c-22.4 9.6-44.8 16-70.4 16zM1024 512s-73.6-134.4-192-246.4l-80 80c41.6 41.6 73.6 89.6 96 134.4-41.28 74.88-124.16 192-362.24 192-25.6 0-51.2-3.2-73.6-6.4l-64 64c44.8 12.8 89.6 22.4 137.6 22.4 320 0 512-352 512-352l-38.4-70.4-57.6 57.6c19.2 22.4 35.2 48 54.4 76.8z' })
+    ])
+  }
+}
 
 const value1 = ref(true)
 const value2 = ref(false)
@@ -343,49 +389,60 @@ const jsActionIcons = tsActionIcons.replace('lang="ts"', '')
 
 ## API
 
-### Attributes
+### Props
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| model-value / v-model | 绑定值，必须等于 `active-value` 或 `inactive-value`，默认为 `Boolean` 类型 | `boolean / string / number` | `false` |
+| model-value / v-model | 绑定值，必须等于 `active-value` 或 `inactive-value`，默认为 `Boolean` 类型 | `boolean \| string \| number` | `false` |
 | disabled | 是否禁用 | `boolean` | `false` |
 | loading | 是否显示加载中 | `boolean` | `false` |
-| size | switch 的大小 | `'large' / 'default' / 'small'` | `''` |
-| width | switch 的宽度 | `number / string` | `''` |
-| inline-prompt | 无论图标或文本是否显示在点内，只会呈现文本的第一个字符 | `boolean` | `false` |
-| active-icon | switch 状态为 on 时所显示图标，设置此项会忽略 `active-text` | `string / Component` | — |
-| inactive-icon | switch 状态为 off 时所显示图标，设置此项会忽略 `inactive-text` | `string / Component` | — |
-| active-action-icon | on 状态下显示的图标组件 | `string / Component` | — |
-| inactive-action-icon | off 状态下显示的图标组件 | `string / Component` | — |
-| active-text | switch 打开时的文字描述 | `string` | `''` |
-| inactive-text | switch 关闭时的文字描述 | `string` | `''` |
-| active-value | switch 状态为 on 时的值 | `boolean / string / number` | `true` |
-| inactive-value | switch 状态为 off 时的值 | `boolean / string / number` | `false` |
-| name | switch 对应的 name 属性 | `string` | `''` |
+| size | switch 的大小 | `'large' \| 'default' \| 'small'` | `'default'` |
+| width | switch 的宽度 | `number \| string` | — |
+| inline-prompt | 图标或文本是否显示在点内，开启时文本最多呈现 3 个字符 | `boolean` | `false` |
+| active-icon | switch 状态为 on 时所显示图标，设置此项会忽略 `active-text` | `string \| Component` | — |
+| inactive-icon | switch 状态为 off 时所显示图标，设置此项会忽略 `inactive-text` | `string \| Component` | — |
+| active-action-icon | on 状态下滑块内显示的图标组件 | `string \| Component` | — |
+| inactive-action-icon | off 状态下滑块内显示的图标组件 | `string \| Component` | — |
+| active-text | switch 打开时的文字描述 | `string` | — |
+| inactive-text | switch 关闭时的文字描述 | `string` | — |
+| active-value | switch 状态为 on 时的值 | `boolean \| string \| number` | `true` |
+| inactive-value | switch 状态为 off 时的值 | `boolean \| string \| number` | `false` |
+| name | switch 对应的 name 属性 | `string` | — |
 | validate-event | 改变 switch 状态时是否触发表单的校验 | `boolean` | `true` |
-| before-change | switch 状态改变前的钩子，返回 `false` 或者返回 `Promise` 且被 reject 则停止切换 | `() => Promise<boolean> / boolean` | — |
+| before-change | switch 状态改变前的钩子，返回 `false` 或者返回 `Promise` 且被 reject 则停止切换 | `() => Promise<boolean> \| boolean` | — |
 | id | input 的 id | `string` | — |
-| tabindex | input 的 tabindex | `string / number` | — |
+| tabindex | input 的 tabindex | `string \| number` | — |
 | aria-label | 等价于原生 input `aria-label` 属性 | `string` | — |
 
 ### Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| change | switch 状态发生变化时的回调函数 | `(value: boolean / string / number) => void` |
+| change | switch 状态发生变化时的回调函数 | `(value: boolean \| string \| number) => void` |
 
-### Switch Slots
+### Slots
 
 | 插槽名 | 说明 |
 | --- | --- |
-| active-action | 自定义 active 行为 |
-| inactive-action | 自定义 inactive 行为 |
-| active | 自定义 on 状态的内容 |
-| inactive | 自定义 off 状态的内容 |
+| active-action | 自定义打开状态下滑块（Action）的内容 |
+| inactive-action | 自定义关闭状态下滑块（Action）的内容 |
+| active | 自定义打开状态下的内容（inline-prompt 模式下在点内，否则在右侧） |
+| inactive | 自定义关闭状态下的内容（inline-prompt 模式下在点内，否则在左侧） |
 
-### Exposes
+### Expose
 
 | 名称 | 说明 | 类型 |
 | --- | --- | --- |
 | focus | 使 Switch 获取焦点 | `() => void` |
 | checked | Switch 是否选中 | `ComputedRef<boolean>` |
+
+## 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-switch-on-color` | 开启状态背景色 | `var(--yh-color-primary)` |
+| `--yh-switch-off-color` | 关闭状态背景色 | `var(--yh-border-color)` |
+| `--yh-switch-width` | 开关总宽度 | `40px` |
+| `--yh-switch-height` | 开关总高度 | `20px` |
+| `--yh-switch-button-size` | 滑块按钮大小 | `16px` |
+| `--yh-switch-font-size` | 字体大小 | `var(--yh-font-size-base)` |

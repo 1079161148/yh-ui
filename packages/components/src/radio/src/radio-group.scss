@@ -1,13 +1,6 @@
-/**
- * YhRadioGroup Styles
- * @description 单选框组组件样式
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$radio-group-prefix: 'yh-radio-group';
-
-/* ==================== 基础样式 ==================== */
-.#{$radio-group-prefix} {
+@include b(radio-group) {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 8px 16px;

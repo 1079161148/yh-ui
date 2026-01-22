@@ -1,4 +1,6 @@
-// Mixins
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:meta';
 @use '../variables' as *;
 
 // BEM
@@ -7,9 +9,21 @@ $state-prefix: 'is-' !default;
 $modifier-separator: '--' !default;
 $element-separator: '__' !default;
 
-// 声明全局变量（解决 Dart Sass 2.0.0 !global 弃用警告）
+// 声明全局变量
 $B: null;
 $E: null;
+
+@function containsSpecial($selector) {
+  $selector: meta.inspect($selector);
+  // 如果选择器包含修饰符、状态前缀或冒号（伪类）
+  @if string.index($selector, $modifier-separator) or
+    string.index($selector, '.' + $state-prefix) or
+    string.index($selector, ':')
+  {
+    @return true;
+  }
+  @return false;
+}
 
 @mixin b($block) {
   $B: $namespace + '-' + $block !global;
@@ -22,11 +36,15 @@ $E: null;
   $E: $element !global;
   $selector: &;
   $currentSelector: '';
+
   @each $unit in $element {
-    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit + ','};
+    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit};
+    @if $unit != list.nth($element, list.length($element)) {
+      $currentSelector: #{$currentSelector + ','};
+    }
   }
 
-  @if hitAllSpecialNestRule($selector) {
+  @if containsSpecial($selector) {
     @at-root {
       #{$selector} {
         #{$currentSelector} {
@@ -46,9 +64,14 @@ $E: null;
 @mixin m($modifier) {
   $selector: &;
   $currentSelector: '';
+
   @each $unit in $modifier {
-    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ','};
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit};
+    @if $unit != list.nth($modifier, list.length($modifier)) {
+      $currentSelector: #{$currentSelector + ','};
+    }
   }
+
   @at-root {
     #{$currentSelector} {
       @content;
@@ -70,9 +93,4 @@ $E: null;
       @content;
     }
   }
-}
-
-// Special nest rule check (simplified)
-@function hitAllSpecialNestRule($selector) {
-  @return false;
 }

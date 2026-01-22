@@ -1,257 +1,146 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-// 变量
-$switch-height: 20px;
-$switch-height-large: 24px;
-$switch-height-small: 16px;
-
-$switch-width: 40px;
-$switch-width-large: 50px;
-$switch-width-small: 30px;
-
-$switch-button-size: 16px;
-$switch-button-size-large: 20px;
-$switch-button-size-small: 12px;
-
-$switch-on-color: var(--yh-color-primary, #409eff);
-$switch-off-color: var(--yh-switch-off-color, #dcdfe6);
-$switch-border-color: var(--yh-switch-border-color, #dcdfe6);
-
 @include b(switch) {
+  --yh-switch-on-color: var(--yh-color-primary);
+  --yh-switch-off-color: var(--yh-border-color);
+  --yh-switch-width: 40px;
+  --yh-switch-height: 20px;
+  --yh-switch-button-size: 16px;
+  --yh-switch-font-size: var(--yh-font-size-base, 14px);
+
   display: inline-flex;
   align-items: center;
   position: relative;
-  font-size: 14px;
-  line-height: 20px;
-  height: 32px;
+  font-size: var(--yh-switch-font-size);
+  line-height: var(--yh-switch-height);
+  height: var(--yh-switch-height);
   vertical-align: middle;
   cursor: pointer;
-  user-select: none;
 
-  // 隐藏原生 input
   @include e(input) {
     position: absolute;
     width: 0;
     height: 0;
     opacity: 0;
     margin: 0;
-
-    &:focus-visible ~ .yh-switch__core {
-      outline: 2px solid $switch-on-color;
-      outline-offset: 1px;
-    }
   }
 
-  // 核心部分
-  @include e(core) {
-    display: inline-flex;
-    align-items: center;
-    position: relative;
-    width: $switch-width;
-    min-width: $switch-width;
-    height: $switch-height;
-    border: 1px solid $switch-border-color;
-    border-radius: calc($switch-height / 2);
-    box-sizing: border-box;
-    background: $switch-off-color;
-    cursor: pointer;
-    transition:
-      border-color 0.3s,
-      background-color 0.3s;
-    flex-shrink: 0;
-  }
-
-  // 滑块
-  @include e(action) {
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: $switch-button-size;
-    height: $switch-button-size;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    transition: left 0.3s;
-    color: $switch-off-color;
-    font-size: 12px;
-  }
-
-  // 内嵌内容
-  @include e(inner) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 0 6px;
-    transition: all 0.3s;
-    color: #fff;
-    font-size: 12px;
-    padding-left: calc($switch-button-size + 4px);
-    padding-right: 6px;
-    justify-content: flex-start;
-  }
-
-  @include e(inner-text) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  // Loading 图标
-  @include e(loading-icon) {
-    width: 12px;
-    height: 12px;
-    animation: yh-switch-loading 1s linear infinite;
-  }
-
-  // 外部标签
   @include e(label) {
-    display: inline-flex;
-    align-items: center;
-    height: 20px;
-    font-size: 14px;
+    transition: var(--yh-transition-base);
+    height: var(--yh-switch-height);
+    display: inline-block;
+    font-size: inherit;
     font-weight: 500;
     cursor: pointer;
     vertical-align: middle;
-    color: var(--yh-text-color-primary, #303133);
-    transition: color 0.2s;
+    color: var(--yh-text-color-primary);
 
-    &--left {
+    @include m(left) {
       margin-right: 10px;
     }
-
-    &--right {
+    @include m(right) {
       margin-left: 10px;
     }
-
-    @include is(active) {
-      color: $switch-on-color;
+    @include when(active) {
+      color: var(--yh-color-primary);
     }
   }
 
-  @include e(icon) {
-    width: 1em;
-    height: 1em;
+  @include e(core) {
+    margin: 0;
+    display: inline-block;
+    position: relative;
+    width: var(--yh-switch-width);
+    height: var(--yh-switch-height);
+    border: 1px solid var(--yh-switch-off-color);
+    outline: none;
+    border-radius: calc(var(--yh-switch-height) / 2);
+    box-sizing: border-box;
+    background: var(--yh-switch-off-color);
+    cursor: pointer;
+    transition:
+      border-color var(--yh-duration-base),
+      background-color var(--yh-duration-base);
+    vertical-align: middle;
+
+    @include e(inner) {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 4px 0 20px;
+      transition: all var(--yh-duration-base);
+      box-sizing: border-box;
+      overflow: hidden;
+
+      @include e(inner-text) {
+        font-size: 12px;
+        color: #fff;
+        white-space: nowrap;
+        user-select: none;
+      }
+    }
+
+    @include e(action) {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      border-radius: var(--yh-radius-circle);
+      transition: all var(--yh-duration-base);
+      width: var(--yh-switch-button-size);
+      height: var(--yh-switch-button-size);
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--yh-switch-off-color);
+      z-index: 1;
+
+      @include e(loading-icon) {
+        width: calc(var(--yh-switch-button-size) * 0.75);
+        height: calc(var(--yh-switch-button-size) * 0.75);
+        animation: rotating 2s linear infinite;
+      }
+    }
   }
 
-  // 选中状态
-  @include is(checked) {
+  @include when(checked) {
     .yh-switch__core {
-      border-color: $switch-on-color;
-      background-color: $switch-on-color;
-    }
+      border-color: var(--yh-switch-on-color);
+      background-color: var(--yh-switch-on-color);
 
-    .yh-switch__action {
-      left: calc(100% - $switch-button-size - 1px);
-      color: $switch-on-color;
-    }
+      .yh-switch__inner {
+        padding: 0 20px 0 4px;
+      }
 
-    .yh-switch__inner {
-      padding-left: 6px;
-      padding-right: calc($switch-button-size + 4px);
-      justify-content: flex-end;
+      .yh-switch__action {
+        left: calc(100% - var(--yh-switch-button-size) - 1px);
+        color: var(--yh-switch-on-color);
+      }
     }
   }
 
-  // 禁用状态
-  @include is(disabled) {
-    cursor: not-allowed;
+  @include when(disabled) {
     opacity: 0.6;
-
+    cursor: not-allowed;
     .yh-switch__core {
-      cursor: not-allowed;
-    }
-
-    .yh-switch__label {
       cursor: not-allowed;
     }
   }
 
-  // Loading 状态
-  @include is(loading) {
-    cursor: wait;
-
-    .yh-switch__core {
-      cursor: wait;
-    }
-  }
-
-  // 尺寸 - large
+  /* 尺寸变体 */
   @include m(large) {
-    .yh-switch__core {
-      width: $switch-width-large;
-      min-width: $switch-width-large;
-      height: $switch-height-large;
-      border-radius: calc($switch-height-large / 2);
-    }
-
-    .yh-switch__action {
-      width: $switch-button-size-large;
-      height: $switch-button-size-large;
-    }
-
-    .yh-switch__inner {
-      padding-left: calc($switch-button-size-large + 4px);
-    }
-
-    &.is-checked {
-      .yh-switch__action {
-        left: calc(100% - $switch-button-size-large - 1px);
-      }
-
-      .yh-switch__inner {
-        padding-left: 6px;
-        padding-right: calc($switch-button-size-large + 4px);
-      }
-    }
+    --yh-switch-width: 50px;
+    --yh-switch-height: 24px;
+    --yh-switch-button-size: 20px;
+    --yh-switch-font-size: var(--yh-font-size-md, 16px);
   }
 
-  // 尺寸 - small
   @include m(small) {
-    .yh-switch__core {
-      width: $switch-width-small;
-      min-width: $switch-width-small;
-      height: $switch-height-small;
-      border-radius: calc($switch-height-small / 2);
-    }
-
-    .yh-switch__action {
-      width: $switch-button-size-small;
-      height: $switch-button-size-small;
-    }
-
-    .yh-switch__inner {
-      padding-left: calc($switch-button-size-small + 2px);
-      font-size: 10px;
-    }
-
-    &.is-checked {
-      .yh-switch__action {
-        left: calc(100% - $switch-button-size-small - 1px);
-      }
-
-      .yh-switch__inner {
-        padding-left: 4px;
-        padding-right: calc($switch-button-size-small + 2px);
-      }
-    }
-  }
-}
-
-// Loading 动画
-@keyframes yh-switch-loading {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+    --yh-switch-width: 30px;
+    --yh-switch-height: 16px;
+    --yh-switch-button-size: 12px;
+    --yh-switch-font-size: var(--yh-font-size-xs, 12px);
   }
 }

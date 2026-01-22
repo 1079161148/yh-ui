@@ -1,0 +1,92 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(badge) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  width: fit-content;
+
+  // 独立模式（没有子元素）
+  @include m(standalone) {
+    display: inline-block;
+  }
+
+  // 固定模式（有子元素）
+  @include m(fixed) {
+    position: relative;
+  }
+
+  // 徽标内容
+  @include e(content) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    padding: 0 6px;
+    font-size: var(--yh-font-size-xs);
+    line-height: 18px;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: var(--yh-font-weight-normal);
+    transition: var(--yh-transition-base);
+    box-sizing: border-box;
+    background-color: var(--yh-badge-bg-color);
+    color: var(--yh-badge-text-color);
+
+    // 固定定位（有子元素时）
+    @include when(fixed) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateX(50%) translateY(-50%);
+      transform-origin: 100% 0;
+    }
+
+    // 小红点模式
+    @include when(dot) {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    // 默认边框，使用语义化变量
+    &:not(.is-no-border) {
+      border: 1px solid var(--yh-badge-border-color);
+    }
+
+    // 类型变体（仍保留快捷方式，但底层可被变量覆盖）
+    @include m(primary) {
+      background-color: var(--yh-color-primary);
+    }
+
+    @include m(success) {
+      background-color: var(--yh-color-success);
+    }
+
+    @include m(warning) {
+      background-color: var(--yh-color-warning);
+    }
+
+    @include m(danger) {
+      background-color: var(--yh-color-danger);
+    }
+
+    @include m(info) {
+      background-color: var(--yh-color-info);
+    }
+  }
+}
+
+// 动画保持不变
+.yh-zoom-in-center-enter-active,
+.yh-zoom-in-center-leave-active {
+  transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+}
+.yh-zoom-in-center-enter-from,
+.yh-zoom-in-center-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}

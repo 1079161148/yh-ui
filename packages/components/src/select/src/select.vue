@@ -5,6 +5,7 @@
  */
 import { computed, ref, nextTick, provide, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { SelectProps, SelectEmits, SelectExpose, SelectOption, SelectContext } from './select'
 import { SelectContextKey } from './select'
 
@@ -45,7 +46,11 @@ const inputId = useId()
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
-const selectSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+
+// 全局配置
+const { globalSize } = useConfig()
+
+const selectSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
 
 // 元素引用
 const wrapperRef = ref<HTMLElement>()
@@ -58,6 +63,25 @@ const hovering = ref(false)
 const query = ref('')
 const hoveredIndex = ref(-1)
 const createdOptions = ref<SelectOption[]>([])
+const slotOptions = ref<SelectOption[]>([])
+
+// 注册 Option
+const onOptionCreate = (option: SelectOption) => {
+  const index = slotOptions.value.findIndex(o => o.value === option.value)
+  if (index > -1) {
+    slotOptions.value.splice(index, 1, option)
+  } else {
+    slotOptions.value.push(option)
+  }
+}
+
+// 注销 Option
+const onOptionDestroy = (value: any) => {
+  const index = slotOptions.value.findIndex(o => o.value === value)
+  if (index > -1) {
+    slotOptions.value.splice(index, 1)
+  }
+}
 
 // 下拉框位置
 const dropdownStyle = ref<Record<string, string>>({})
@@ -99,7 +123,7 @@ onBeforeUnmount(() => {
 
 // 合并选项
 const allOptions = computed(() => {
-  return [...createdOptions.value, ...(props.options || [])]
+  return [...createdOptions.value, ...slotOptions.value, ...(props.options || [])]
 })
 
 // 过滤后的选项
@@ -442,7 +466,9 @@ provide<SelectContext>(SelectContextKey, {
   selectValue: computed(() => props.modelValue),
   hoveredIndex,
   handleOptionSelect,
-  isSelected
+  isSelected,
+  onOptionCreate,
+  onOptionDestroy
 })
 
 defineExpose<SelectExpose>({
@@ -541,8 +567,8 @@ defineExpose<SelectExpose>({
                   ns.is('disabled', option.disabled),
                   ns.is('hovering', hoveredIndex === index)
                 ]" role="option" :aria-selected="isSelected(option[valueKey])" @mousedown.prevent
-                  @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = index">
-                  <slot :option="option">
+                  @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = startIndex + index">
+                  <slot name="option" :option="option">
                     {{ option[labelKey] || option.label }}
                   </slot>
                   <span v-if="multiple && isSelected(option[valueKey])" :class="ns.e('option-check')">
@@ -564,7 +590,7 @@ defineExpose<SelectExpose>({
                 ns.is('hovering', hoveredIndex === index)
               ]" role="option" :aria-selected="isSelected(option[valueKey])" @mousedown.prevent
                 @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = index">
-                <slot :option="option">
+                <slot name="option" :option="option">
                   {{ option[labelKey] || option.label }}
                 </slot>
                 <span v-if="multiple && isSelected(option[valueKey])" :class="ns.e('option-check')">
@@ -579,6 +605,11 @@ defineExpose<SelectExpose>({
         </div>
       </Transition>
     </Teleport>
+
+    <!-- 隐藏插槽，用于注册 Option -->
+    <div v-show="false" v-if="$slots.default">
+      <slot />
+    </div>
   </div>
 </template>
 

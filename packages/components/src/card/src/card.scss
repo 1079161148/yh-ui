@@ -1,0 +1,187 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(card) {
+  // --- 组件主题变量 ---
+  --yh-card-bg-color: var(--yh-bg-color-overlay, #ffffff);
+  --yh-card-border-color: var(--yh-border-color-light, #ebeef5);
+  --yh-card-border-radius: var(--yh-border-radius-base, 4px);
+  --yh-card-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  --yh-card-header-padding: 18px 20px;
+  --yh-card-body-padding: 20px;
+  --yh-card-footer-padding: 18px 20px;
+
+  position: relative;
+  background-color: var(--yh-card-bg-color);
+  border-radius: var(--yh-card-border-radius);
+  transition: var(--yh-transition-base);
+  overflow: hidden;
+  color: var(--yh-text-color-primary);
+
+  // 边框
+  @include when(bordered) {
+    border: 1px solid var(--yh-card-border-color);
+  }
+
+  // 阴影模式
+  @include m(always) {
+    box-shadow: var(--yh-card-shadow);
+  }
+
+  @include m(hover) {
+    &:hover {
+      box-shadow: var(--yh-card-shadow);
+    }
+  }
+
+  @include m(never) {
+    box-shadow: none;
+  }
+
+  // 可悬浮效果
+  @include when(hoverable) {
+    cursor: pointer;
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--yh-shadow-lg);
+    }
+  }
+
+  // 尺寸
+  @include m(small) {
+    font-size: var(--yh-font-size-sm);
+    --yh-card-header-padding: 12px 16px;
+    --yh-card-body-padding: 16px;
+  }
+
+  @include m(default) {
+    font-size: var(--yh-font-size-base);
+  }
+
+  @include m(large) {
+    font-size: var(--yh-font-size-md);
+    --yh-card-header-padding: 24px 30px;
+    --yh-card-body-padding: 30px;
+  }
+
+  // 加载状态
+  @include when(loading) {
+    pointer-events: none;
+  }
+
+  // 卡片头部
+  @include e(header) {
+    padding: var(--yh-card-header-padding);
+    border-bottom: 1px solid var(--yh-card-border-color);
+    box-sizing: border-box;
+  }
+
+  @include e(header-wrapper) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @include e(header-title) {
+    flex: 1;
+    font-size: var(--yh-font-size-md);
+    font-weight: var(--yh-font-weight-semibold);
+    color: var(--yh-text-color-primary);
+  }
+
+  @include e(header-extra) {
+    margin-left: 16px;
+    color: var(--yh-text-color-regular);
+  }
+
+  // 卡片主体
+  @include e(body) {
+    padding: var(--yh-card-body-padding);
+    box-sizing: border-box;
+
+    @include m(no-padding) {
+      padding: 0;
+    }
+  }
+
+  // 卡片底部
+  @include e(footer) {
+    padding: var(--yh-card-footer-padding);
+    border-top: 1px solid var(--yh-card-border-color);
+    box-sizing: border-box;
+  }
+
+  // 加载容器
+  @include e(loading) {
+    padding: var(--yh-card-body-padding);
+  }
+
+  @include e(loading-content) {
+    animation: yh-card-loading 1.5s ease infinite;
+  }
+
+  // 骨架屏样式
+  @include e(skeleton-header) {
+    height: 20px;
+    width: 40%;
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color) 25%,
+      var(--yh-fill-color-light) 37%,
+      var(--yh-fill-color) 63%
+    );
+    background-size: 400% 100%;
+    animation: yh-skeleton-loading 1.4s ease infinite;
+    border-radius: var(--yh-border-radius-small);
+    margin-bottom: 16px;
+  }
+
+  @include e(skeleton-paragraph) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @include e(skeleton-line) {
+    height: 16px;
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color) 25%,
+      var(--yh-fill-color-light) 37%,
+      var(--yh-fill-color) 63%
+    );
+    background-size: 400% 100%;
+    animation: yh-skeleton-loading 1.4s ease infinite;
+    border-radius: var(--yh-border-radius-small);
+
+    &:nth-child(1) {
+      width: 100%;
+    }
+    &:nth-child(2) {
+      width: 80%;
+    }
+    &:nth-child(3) {
+      width: 60%;
+    }
+  }
+}
+
+// 动画保持不变
+@keyframes yh-skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+@keyframes yh-card-loading {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

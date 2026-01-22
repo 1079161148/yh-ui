@@ -5,6 +5,7 @@
  */
 import { computed, ref, nextTick, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { TagProps, TagEmits } from './tag'
 
 defineOptions({
@@ -30,6 +31,9 @@ const slots = useSlots()
 // 命名空间
 const ns = useNamespace('tag')
 
+// 全局配置
+const { globalSize } = useConfig()
+
 // 编辑状态
 const isEditing = ref(false)
 const editValue = ref('')
@@ -45,7 +49,7 @@ const hasSuffixIcon = computed(() => !!props.suffixIcon || !!slots.suffixIcon)
 const tagClasses = computed(() => [
   ns.b(),
   ns.m(props.type),
-  ns.m(props.size),
+  ns.m(props.size || globalSize.value || 'default'),
   ns.m(props.effect),
   ns.is('closable', props.closable),
   ns.is('hit', props.hit),

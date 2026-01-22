@@ -1,10 +1,33 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-$cascader-height: 32px;
-$cascader-height-large: 40px;
-$cascader-height-small: 24px;
-
 @include b(cascader) {
+  // --- 组件主题变量 ---
+  --yh-cascader-height: 32px;
+  --yh-cascader-height-large: 40px;
+  --yh-cascader-height-small: 24px;
+  --yh-cascader-bg-color: var(--yh-fill-color-blank, #fff);
+  --yh-cascader-border-color: var(--yh-border-color, #dcdfe6);
+  --yh-cascader-border-color-hover: var(--yh-border-color-hover, #c0c4cc);
+  --yh-cascader-border-color-focus: var(--yh-color-primary, #409eff);
+  --yh-cascader-border-radius: var(--yh-border-radius-base, 4px);
+  --yh-cascader-text-color: var(--yh-text-color-regular, #606266);
+  --yh-cascader-placeholder-color: var(--yh-text-color-placeholder, #a8abb2);
+  --yh-cascader-disabled-bg-color: var(--yh-fill-color-light, #f5f7fa);
+  --yh-cascader-disabled-text-color: var(--yh-text-color-placeholder, #a8abb2);
+
+  --yh-cascader-node-height: 34px;
+  --yh-cascader-node-bg-color-hover: var(--yh-fill-color-light, #f5f7fa);
+  --yh-cascader-node-text-color-hover: var(--yh-text-color-regular, #606266);
+  --yh-cascader-node-bg-color-active: var(--yh-fill-color-light, #f5f7fa);
+  --yh-cascader-node-text-color-active: var(--yh-color-primary, #409eff);
+
+  --yh-cascader-dropdown-bg-color: var(--yh-bg-color-overlay, #fff);
+  --yh-cascader-dropdown-border-color: var(--yh-border-color-light, #e4e7ed);
+  --yh-cascader-dropdown-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  --yh-cascader-menu-min-width: 180px;
+  --yh-cascader-menu-max-height: 274px;
+  --yh-cascader-menu-border-color: var(--yh-border-color-light, #e4e7ed);
+
   position: relative;
   display: inline-flex;
   width: 100%;
@@ -18,34 +41,34 @@ $cascader-height-small: 24px;
     gap: 4px;
     position: relative;
     width: 100%;
-    min-height: $cascader-height;
+    min-height: var(--yh-cascader-height);
     padding: 2px 30px 2px 11px;
-    background-color: var(--yh-fill-color-blank, #fff);
-    border: 1px solid var(--yh-border-color, #dcdfe6);
-    border-radius: var(--yh-border-radius-base, 4px);
+    background-color: var(--yh-cascader-bg-color);
+    border: 1px solid var(--yh-cascader-border-color);
+    border-radius: var(--yh-cascader-border-radius);
     box-sizing: border-box;
     transition: border-color 0.2s;
 
     &:hover {
-      border-color: var(--yh-border-color-hover, #c0c4cc);
+      border-color: var(--yh-cascader-border-color-hover);
     }
   }
 
   @include e(inner) {
     flex: 1;
     min-width: 50px;
-    height: $cascader-height - 6px;
+    height: calc(var(--yh-cascader-height) - 6px);
     padding: 0;
-    color: var(--yh-text-color-regular, #606266);
+    color: var(--yh-cascader-text-color);
     font-size: inherit;
-    line-height: $cascader-height - 6px;
+    line-height: calc(var(--yh-cascader-height) - 6px);
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
 
     &::placeholder {
-      color: var(--yh-text-color-placeholder, #a8abb2);
+      color: var(--yh-cascader-placeholder-color);
     }
 
     &:disabled {
@@ -58,7 +81,7 @@ $cascader-height-small: 24px;
     left: 11px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--yh-text-color-regular, #606266);
+    color: var(--yh-cascader-text-color);
     pointer-events: none;
     white-space: nowrap;
     overflow: hidden;
@@ -74,7 +97,7 @@ $cascader-height-small: 24px;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    color: var(--yh-text-color-placeholder, #a8abb2);
+    color: var(--yh-cascader-placeholder-color);
   }
 
   @include e(icon) {
@@ -137,25 +160,41 @@ $cascader-height-small: 24px;
   }
 
   @include e(dropdown) {
+    // 由于 Teleport 到 body，需要在此重新定义 CSS 变量（带硬编码回退值）
+    --yh-cascader-dropdown-bg-color: var(--yh-bg-color-overlay, #fff);
+    --yh-cascader-dropdown-border-color: var(--yh-border-color-light, #e4e7ed);
+    --yh-cascader-dropdown-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    --yh-cascader-border-radius: var(--yh-border-radius-base, 4px);
+    --yh-cascader-menu-border-color: var(--yh-border-color-light, #e4e7ed);
+    --yh-cascader-text-color: var(--yh-text-color-regular, #606266);
+    --yh-cascader-node-height: 34px;
+    --yh-cascader-node-bg-color-hover: var(--yh-fill-color-light, #f5f7fa);
+    --yh-cascader-node-text-color-active: var(--yh-color-primary, #409eff);
+    --yh-cascader-menu-min-width: 180px;
+    --yh-cascader-menu-max-height: 274px;
+
     position: absolute;
     z-index: 2000;
     margin-top: 4px;
-    background-color: var(--yh-bg-color-overlay, #fff);
-    border: 1px solid var(--yh-border-color-light, #e4e7ed);
-    border-radius: var(--yh-border-radius-base, 4px);
-    box-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    background-color: var(--yh-cascader-dropdown-bg-color, #fff);
+    border: 1px solid var(--yh-cascader-dropdown-border-color, #e4e7ed);
+    border-radius: var(--yh-cascader-border-radius, 4px);
+    box-shadow: var(--yh-cascader-dropdown-shadow, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
   }
 
   @include e(panel) {
     display: flex;
+    background-color: var(--yh-cascader-dropdown-bg-color, #fff);
+    border-radius: var(--yh-cascader-border-radius, 4px);
+    overflow: hidden;
   }
 
   @include e(menu) {
-    min-width: 180px;
-    max-height: 274px;
+    min-width: var(--yh-cascader-menu-min-width);
+    max-height: var(--yh-cascader-menu-max-height);
     padding: 6px 0;
     overflow-y: auto;
-    border-right: 1px solid var(--yh-border-color-light, #e4e7ed);
+    border-right: 1px solid var(--yh-cascader-menu-border-color);
 
     &:last-child {
       border-right: none;
@@ -166,28 +205,35 @@ $cascader-height-small: 24px;
     display: flex;
     align-items: center;
     padding: 0 30px 0 20px;
-    height: 34px;
-    line-height: 34px;
+    height: var(--yh-cascader-node-height);
+    line-height: var(--yh-cascader-node-height);
     font-size: 14px;
-    color: var(--yh-text-color-regular, #606266);
+    color: var(--yh-cascader-text-color);
     cursor: pointer;
     position: relative;
 
     &:hover {
-      background-color: var(--yh-fill-color-light, #f5f7fa);
+      background-color: var(--yh-cascader-node-bg-color-hover);
+      color: var(--yh-cascader-node-text-color-hover);
     }
 
     @include is(expanded) {
-      background-color: var(--yh-fill-color-light, #f5f7fa);
+      background-color: var(--yh-cascader-node-bg-color-active);
+      color: var(--yh-cascader-node-text-color-active);
     }
 
     @include is(checked) {
       color: var(--yh-color-primary, #409eff);
-      font-weight: 700;
+      background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      font-weight: 600;
+
+      &.is-expanded {
+        background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      }
     }
 
     @include is(disabled) {
-      color: var(--yh-text-color-placeholder, #a8abb2);
+      color: var(--yh-cascader-disabled-text-color);
       cursor: not-allowed;
 
       &:hover {
@@ -233,7 +279,7 @@ $cascader-height-small: 24px;
   @include e(expand-icon) {
     position: absolute;
     right: 10px;
-    color: var(--yh-text-color-placeholder, #a8abb2);
+    color: var(--yh-cascader-placeholder-color);
 
     svg {
       width: 12px;
@@ -242,29 +288,30 @@ $cascader-height-small: 24px;
   }
 
   @include e(suggestions) {
-    max-height: 274px;
+    max-height: var(--yh-cascader-menu-max-height);
     padding: 6px 0;
     overflow-y: auto;
   }
 
   @include e(suggestion) {
     padding: 0 20px;
-    height: 34px;
-    line-height: 34px;
+    height: var(--yh-cascader-node-height);
+    line-height: var(--yh-cascader-node-height);
     font-size: 14px;
-    color: var(--yh-text-color-regular, #606266);
+    color: var(--yh-cascader-text-color);
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
     &:hover {
-      background-color: var(--yh-fill-color-light, #f5f7fa);
+      background-color: var(--yh-cascader-node-bg-color-hover);
     }
 
     @include is(checked) {
       color: var(--yh-color-primary, #409eff);
-      font-weight: 700;
+      background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      font-weight: 600;
     }
   }
 
@@ -278,7 +325,7 @@ $cascader-height-small: 24px;
   // 聚焦状态
   @include is(focused) {
     .yh-cascader__wrapper {
-      border-color: var(--yh-color-primary, #409eff);
+      border-color: var(--yh-cascader-border-color-focus);
     }
   }
 
@@ -287,13 +334,13 @@ $cascader-height-small: 24px;
     cursor: not-allowed;
 
     .yh-cascader__wrapper {
-      background-color: var(--yh-fill-color-light, #f5f7fa);
-      border-color: var(--yh-border-color-light, #e4e7ed);
+      background-color: var(--yh-cascader-disabled-bg-color);
+      border-color: var(--yh-cascader-dropdown-border-color);
       cursor: not-allowed;
     }
 
     .yh-cascader__inner {
-      color: var(--yh-text-color-placeholder, #a8abb2);
+      color: var(--yh-cascader-disabled-text-color);
     }
   }
 
@@ -302,12 +349,12 @@ $cascader-height-small: 24px;
     font-size: 14px;
 
     .yh-cascader__wrapper {
-      min-height: $cascader-height-large;
+      min-height: var(--yh-cascader-height-large);
     }
 
     .yh-cascader__inner {
-      height: $cascader-height-large - 6px;
-      line-height: $cascader-height-large - 6px;
+      height: calc(var(--yh-cascader-height-large) - 6px);
+      line-height: calc(var(--yh-cascader-height-large) - 6px);
     }
 
     .yh-cascader__tag {
@@ -320,12 +367,12 @@ $cascader-height-small: 24px;
     font-size: 12px;
 
     .yh-cascader__wrapper {
-      min-height: $cascader-height-small;
+      min-height: var(--yh-cascader-height-small);
     }
 
     .yh-cascader__inner {
-      height: $cascader-height-small - 6px;
-      line-height: $cascader-height-small - 6px;
+      height: calc(var(--yh-cascader-height-small) - 6px);
+      line-height: calc(var(--yh-cascader-height-small) - 6px);
     }
 
     .yh-cascader__tag {

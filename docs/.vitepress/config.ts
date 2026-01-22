@@ -40,8 +40,7 @@ export default defineConfig({
         {
           text: '进阶',
           items: [
-            { text: '主题定制', link: '/guide/theming' },
-            { text: '国际化', link: '/guide/i18n' },
+            { text: 'Theme 主题系统', link: '/guide/theme' },
             { text: '设计规范', link: '/guide/design' }
           ]
         }
@@ -80,15 +79,22 @@ export default defineConfig({
           text: '数据展示',
           items: [
             { text: 'Table 表格', link: '/components/table' },
-            { text: 'Divider 分割线', link: '/components/divider' }
+            { text: 'Divider 分割线', link: '/components/divider' },
+            { text: 'Badge 徽标', link: '/components/badge' },
+            { text: 'Card 卡片', link: '/components/card' }
           ]
         },
         {
           text: '反馈组件',
           items: [
             { text: 'Dialog 对话框', link: '/components/dialog' },
-            { text: 'Message 消息', link: '/components/message' }
+            { text: 'Message 消息提示', link: '/components/message' },
+            { text: 'Notification 通知', link: '/components/notification' }
           ]
+        },
+        {
+          text: '配置组件',
+          items: [{ text: 'ConfigProvider 全局配置', link: '/components/config-provider' }]
         }
       ]
     },
@@ -154,6 +160,13 @@ export default defineConfig({
         '@yh-ui/hooks': resolve(__dirname, '../../packages/hooks/src'),
         '@yh-ui/utils': resolve(__dirname, '../../packages/utils/src'),
         '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src')
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler'
+        }
       }
     }
   }

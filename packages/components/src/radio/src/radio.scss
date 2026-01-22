@@ -1,209 +1,107 @@
-/**
- * YhRadio Styles
- * @description 单选框组件样式
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$radio-prefix: 'yh-radio';
-
-/* ==================== 基础样式 ==================== */
-.#{$radio-prefix} {
-  --yh-radio-font-size: var(--yh-font-size-base);
-  --yh-radio-text-color: var(--yh-text-color-regular);
-  --yh-radio-input-size: 14px;
-  --yh-radio-input-border-color: var(--yh-border-color);
-  --yh-radio-input-bg-color: var(--yh-fill-color-blank);
-  --yh-radio-input-border-color-hover: var(--yh-color-primary);
-  --yh-radio-checked-bg-color: var(--yh-fill-color-blank);
+@include b(radio) {
+  --yh-radio-size: 14px;
+  --yh-radio-input-border: var(--yh-border-color);
+  --yh-radio-checked-bg-color: var(--yh-color-primary);
   --yh-radio-checked-border-color: var(--yh-color-primary);
-  --yh-radio-checked-dot-color: var(--yh-color-primary);
-  --yh-radio-disabled-bg-color: var(--yh-fill-color-light);
-  --yh-radio-disabled-border-color: var(--yh-border-color-light);
-  --yh-radio-disabled-text-color: var(--yh-text-color-placeholder);
-  --yh-radio-disabled-checked-dot-color: var(--yh-text-color-placeholder);
+  --yh-radio-checked-icon-color: var(--yh-color-primary);
+  --yh-radio-text-color: var(--yh-text-color-regular);
 
-  position: relative;
   display: inline-flex;
   align-items: center;
-  height: var(--yh-component-size-default);
-  padding-right: 20px;
-  margin-right: 0;
-  font-size: var(--yh-radio-font-size);
-  font-weight: var(--yh-font-weight-normal);
-  color: var(--yh-radio-text-color);
-  white-space: nowrap;
+  position: relative;
   cursor: pointer;
+  white-space: nowrap;
   user-select: none;
+  margin-right: 32px;
+  font-size: var(--yh-font-size-base);
+  line-height: 1;
 
-  /* ==================== 输入框区域 ==================== */
-  &__input {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
+  @include e(input) {
     white-space: nowrap;
     cursor: pointer;
     outline: none;
-    vertical-align: middle;
-  }
-
-  /* ==================== 单选框外观 ==================== */
-  &__inner {
-    position: relative;
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--yh-radio-input-size);
-    height: var(--yh-radio-input-size);
-    background-color: var(--yh-radio-input-bg-color);
-    border: var(--yh-border-width) var(--yh-border-style) var(--yh-radio-input-border-color);
-    border-radius: var(--yh-radius-circle);
-    transition: var(--yh-transition-fast);
-    box-sizing: border-box;
+    position: relative;
+    vertical-align: middle;
 
-    &:hover {
-      border-color: var(--yh-radio-input-border-color-hover);
-    }
+    @include e(inner) {
+      border: 1px solid var(--yh-radio-input-border);
+      border-radius: var(--yh-radius-circle);
+      width: var(--yh-radio-size);
+      height: var(--yh-radio-size);
+      background-color: var(--yh-fill-color-blank, #fff);
+      position: relative;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      transition:
+        border-color 0.2s,
+        background-color 0.2s;
 
-    /* 选中状态 */
-    &.is-checked {
-      background-color: var(--yh-radio-checked-bg-color);
-      border-color: var(--yh-radio-checked-border-color);
-    }
-
-    /* 禁用状态 */
-    &.is-disabled {
-      background-color: var(--yh-radio-disabled-bg-color);
-      border-color: var(--yh-radio-disabled-border-color);
-      cursor: not-allowed;
-
-      &:hover {
-        border-color: var(--yh-radio-disabled-border-color);
+      @include when(checked) {
+        border-color: var(--yh-radio-checked-border-color);
+        background-color: var(--yh-radio-checked-bg-color);
       }
 
-      &.is-checked {
-        background-color: var(--yh-radio-disabled-bg-color);
-        border-color: var(--yh-radio-disabled-border-color);
+      @include when(disabled) {
+        background-color: var(--yh-fill-color-light, #f5f7fa);
+        border-color: var(--yh-border-color-light, #e4e7ed);
+        cursor: not-allowed;
       }
     }
   }
 
-  /* ==================== 选中圆点 ==================== */
-  &__dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--yh-radio-checked-dot-color);
+  @include e(dot) {
+    width: 4px;
+    height: 4px;
     border-radius: var(--yh-radius-circle);
-    transition: var(--yh-transition-fast);
+    background-color: var(--yh-fill-color-blank, #fff);
+    content: '';
+    transition: transform 0.15s ease-in;
   }
 
-  /* ==================== 原生 input ==================== */
-  &__original {
-    position: absolute;
-    z-index: -1;
-    width: 0;
-    height: 0;
-    margin: 0;
+  @include e(original) {
     opacity: 0;
     outline: none;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
   }
 
-  /* ==================== 标签文字 ==================== */
-  &__label {
-    display: inline-flex;
-    padding-left: 8px;
-    font-size: var(--yh-radio-font-size);
-    line-height: 1;
-  }
-
-  /* ==================== 尺寸修饰符 ==================== */
-  &--large {
-    height: var(--yh-component-size-large);
-    --yh-radio-font-size: var(--yh-font-size-md);
-    --yh-radio-input-size: 16px;
-
-    .#{$radio-prefix}__dot {
-      width: 8px;
-      height: 8px;
+  @include when(checked) {
+    @include e(label) {
+      color: var(--yh-radio-checked-border-color);
     }
   }
 
-  &--small {
-    height: var(--yh-component-size-small);
-    --yh-radio-font-size: var(--yh-font-size-xs);
-    --yh-radio-input-size: 12px;
-
-    .#{$radio-prefix}__dot {
-      width: 5px;
-      height: 5px;
-    }
-
-    .#{$radio-prefix}__label {
-      padding-left: 6px;
-    }
-  }
-
-  /* ==================== 状态修饰符 ==================== */
-  &.is-disabled {
+  @include when(disabled) {
     cursor: not-allowed;
-
-    .#{$radio-prefix}__input {
-      cursor: not-allowed;
-    }
-
-    .#{$radio-prefix}__label {
-      color: var(--yh-radio-disabled-text-color);
-      cursor: not-allowed;
-    }
-
-    .#{$radio-prefix}__dot {
-      background-color: var(--yh-radio-disabled-checked-dot-color);
+    @include e(label) {
+      color: var(--yh-text-color-disabled, #c0c4cc);
     }
   }
 
-  &.is-checked {
-    .#{$radio-prefix}__label {
-      color: var(--yh-color-primary);
-    }
+  @include e(label) {
+    font-size: inherit;
+    padding-left: 8px;
+    color: var(--yh-radio-text-color);
   }
 
-  &.is-focused {
-    .#{$radio-prefix}__inner {
-      box-shadow: 0 0 0 2px var(--yh-color-primary-light-7);
-    }
+  @include m(large) {
+    --yh-radio-size: 16px;
+    font-size: var(--yh-font-size-md);
   }
 
-  /* ==================== 边框模式 ==================== */
-  &.is-border {
-    padding: 0 16px;
-    border: var(--yh-border-width) var(--yh-border-style) var(--yh-border-color);
-    border-radius: var(--yh-radius-base);
-    transition: var(--yh-transition-fast);
-
-    &:hover {
-      border-color: var(--yh-color-primary);
-    }
-
-    &.is-checked {
-      border-color: var(--yh-color-primary);
-    }
-
-    &.is-disabled {
-      border-color: var(--yh-border-color-light);
-      cursor: not-allowed;
-
-      &:hover {
-        border-color: var(--yh-border-color-light);
-      }
-    }
-
-    &.#{$radio-prefix}--large {
-      padding: 0 20px;
-      border-radius: var(--yh-radius-md);
-    }
-
-    &.#{$radio-prefix}--small {
-      padding: 0 12px;
-      border-radius: var(--yh-radius-sm);
-    }
+  @include m(small) {
+    --yh-radio-size: 12px;
+    font-size: var(--yh-font-size-xs);
   }
 }

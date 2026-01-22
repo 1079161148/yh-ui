@@ -1,0 +1,227 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(notification) {
+  position: fixed;
+  display: flex;
+  width: 330px;
+  padding: 20px;
+  background-color: var(--yh-notification-bg-color);
+  border: 1px solid var(--yh-notification-border-color);
+  border-radius: var(--yh-border-radius-base);
+  box-shadow: var(--yh-notification-shadow);
+  transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: var(--yh-z-index-modal);
+
+  // 位置变体
+  @include m(top-right) {
+    right: 16px;
+  }
+
+  @include m(top-left) {
+    left: 16px;
+  }
+
+  @include m(top-center) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include m(bottom-right) {
+    right: 16px;
+  }
+
+  @include m(bottom-left) {
+    left: 16px;
+  }
+
+  @include m(bottom-center) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  // 类型样式
+  @include m(success) {
+    border-color: var(--yh-color-success-light-7);
+
+    .yh-notification__title {
+      color: var(--yh-color-success);
+    }
+  }
+
+  @include m(warning) {
+    border-color: var(--yh-color-warning-light-7);
+
+    .yh-notification__title {
+      color: var(--yh-color-warning);
+    }
+  }
+
+  @include m(info) {
+    border-color: var(--yh-color-info-light-7);
+
+    .yh-notification__title {
+      color: var(--yh-color-info);
+    }
+  }
+
+  @include m(error) {
+    border-color: var(--yh-color-danger-light-7);
+
+    .yh-notification__title {
+      color: var(--yh-color-danger);
+    }
+  }
+
+  // 图标
+  @include e(icon) {
+    margin-right: 12px;
+    font-size: 24px;
+    line-height: 24px;
+    flex-shrink: 0;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      vertical-align: top;
+    }
+
+    @include m(success) {
+      color: var(--yh-color-success);
+    }
+
+    @include m(warning) {
+      color: var(--yh-color-warning);
+    }
+
+    @include m(info) {
+      color: var(--yh-color-info);
+    }
+
+    @include m(error) {
+      color: var(--yh-color-danger);
+    }
+
+    @include m(default) {
+      color: var(--yh-text-color-regular);
+    }
+  }
+
+  // 内容区域
+  @include e(content) {
+    flex: 1;
+    padding-right: 16px;
+  }
+
+  // 标题
+  @include e(title) {
+    margin: 0 0 8px;
+    font-size: var(--yh-font-size-md);
+    font-weight: var(--yh-font-weight-semibold);
+    line-height: 24px;
+    color: var(--yh-notification-title-color);
+  }
+
+  // 消息内容
+  @include e(message) {
+    margin: 0;
+    font-size: var(--yh-font-size-base);
+    line-height: 1.5;
+  }
+
+  @include e(text) {
+    margin: 0;
+    color: var(--yh-notification-content-color);
+    word-break: break-word;
+  }
+
+  // 关闭按钮
+  @include e(close) {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    color: var(--yh-text-color-secondary);
+    transition: color var(--yh-duration-fast);
+
+    &:hover {
+      color: var(--yh-text-color-primary);
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// 动画部分保持不变...
+@include b(notification-top-right) {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+@include b(notification-top-left) {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+@include b(notification-bottom-right) {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+@include b(notification-bottom-left) {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+@include b(notification-top-center) {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%);
+  }
+}
+@include b(notification-bottom-center) {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+}

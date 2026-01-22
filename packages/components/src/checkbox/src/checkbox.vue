@@ -104,10 +104,7 @@ const checkboxClasses = computed(() => [
 ])
 
 const innerClasses = computed(() => [
-  ns.e('inner'),
-  ns.is('checked', isChecked.value),
-  ns.is('indeterminate', props.indeterminate),
-  ns.is('disabled', isDisabled.value)
+  ns.e('inner')
 ])
 
 // 处理变化
@@ -191,48 +188,16 @@ defineExpose<CheckboxExpose>({
 </script>
 
 <template>
-  <label
-    :class="checkboxClasses"
-    @mouseenter="hovering = true"
-    @mouseleave="hovering = false"
-  >
-    <span :class="ns.e('input')">
-      <span :class="innerClasses">
-        <!-- 选中图标 -->
-        <svg
-          v-if="isChecked && !indeterminate"
-          :class="ns.e('icon')"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill="currentColor"
-            d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z"
-          />
-        </svg>
-        <!-- 半选图标 -->
-        <svg
-          v-if="indeterminate"
-          :class="ns.e('icon')"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path fill="currentColor" d="M192 480h640v64H192z" />
-        </svg>
-      </span>
-      <input
-        ref="inputRef"
-        :class="ns.e('original')"
-        type="checkbox"
-        :name="name"
-        :id="id"
-        :tabindex="tabindex"
-        :disabled="isDisabled"
-        :checked="isChecked"
-        @change="handleChange"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      />
+  <label :class="checkboxClasses" @mouseenter="hovering = true" @mouseleave="hovering = false">
+    <span :class="[
+      ns.e('input'),
+      ns.is('disabled', isDisabled),
+      ns.is('checked', isChecked),
+      ns.is('indeterminate', indeterminate)
+    ]">
+      <span :class="innerClasses"></span>
+      <input ref="inputRef" :class="ns.e('original')" type="checkbox" :name="name" :id="id" :tabindex="tabindex"
+        :disabled="isDisabled" :checked="isChecked" @change="handleChange" @focus="handleFocus" @blur="handleBlur" />
     </span>
     <span v-if="$slots.default || label" :class="ns.e('label')">
       <slot>{{ label }}</slot>

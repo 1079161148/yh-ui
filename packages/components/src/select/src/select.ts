@@ -115,6 +115,18 @@ export interface SelectContext {
   hoveredIndex: Ref<number>
   handleOptionSelect: (option: SelectOption) => void
   isSelected: (value: any) => boolean
+  // 新增：注册/注销 Option
+  onOptionCreate: (option: SelectOption) => void
+  onOptionDestroy: (value: any) => void
+}
+
+export interface OptionProps {
+  /** 选项值 */
+  value: string | number | boolean
+  /** 选项标签 */
+  label?: string
+  /** 是否禁用 */
+  disabled?: boolean
 }
 
 export const SelectContextKey: InjectionKey<SelectContext> = Symbol('SelectContextKey')

@@ -1,13 +1,6 @@
-/**
- * YhCheckboxGroup Styles
- * @description 复选框组组件样式
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$checkbox-group-prefix: 'yh-checkbox-group';
-
-/* ==================== 基础样式 ==================== */
-.#{$checkbox-group-prefix} {
+@include b(checkbox-group) {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 8px 16px;

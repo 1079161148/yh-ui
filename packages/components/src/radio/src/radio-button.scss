@@ -1,13 +1,6 @@
-/**
- * YhRadioButton Styles
- * @description 单选按钮组件样式
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$radio-button-prefix: 'yh-radio-button';
-
-/* ==================== 基础样式 ==================== */
-.#{$radio-button-prefix} {
+@include b(radio-button) {
   --yh-radio-button-font-size: var(--yh-font-size-base);
   --yh-radio-button-text-color: var(--yh-text-color-regular);
   --yh-radio-button-bg-color: var(--yh-fill-color-blank);
@@ -27,27 +20,7 @@ $radio-button-prefix: 'yh-radio-button';
   padding: 0;
   cursor: pointer;
 
-  &:first-child {
-    .#{$radio-button-prefix}__inner {
-      border-left: var(--yh-border-width) var(--yh-border-style) var(--yh-radio-button-border-color);
-      border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
-    }
-  }
-
-  &:last-child {
-    .#{$radio-button-prefix}__inner {
-      border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
-    }
-  }
-
-  &:first-child:last-child {
-    .#{$radio-button-prefix}__inner {
-      border-radius: var(--yh-radius-base);
-    }
-  }
-
-  /* ==================== 原生 input ==================== */
-  &__original {
+  @include e(original) {
     position: absolute;
     z-index: -1;
     width: 0;
@@ -57,8 +30,7 @@ $radio-button-prefix: 'yh-radio-button';
     outline: none;
   }
 
-  /* ==================== 按钮外观 ==================== */
-  &__inner {
+  @include e(inner) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -69,112 +41,130 @@ $radio-button-prefix: 'yh-radio-button';
     color: var(--yh-radio-button-text-color);
     background-color: var(--yh-radio-button-bg-color);
     border: var(--yh-border-width) var(--yh-border-style) var(--yh-radio-button-border-color);
-    border-left: 0;
     line-height: 1;
     white-space: nowrap;
     transition: var(--yh-transition-fast);
     box-sizing: border-box;
+    border-radius: 0;
+  }
+
+  // 首元素设置左侧圆角
+  &:first-child {
+    .#{$namespace}-radio-button__inner {
+      border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
+    }
+  }
+
+  // 非首元素通过 margin-left 处理边框重叠
+  &:not(:first-child) {
+    .#{$namespace}-radio-button__inner {
+      margin-left: -1px;
+    }
+  }
+
+  &:last-child {
+    .#{$namespace}-radio-button__inner {
+      border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
+    }
+  }
+
+  &:first-child:last-child {
+    .#{$namespace}-radio-button__inner {
+      border-radius: var(--yh-radius-base);
+    }
   }
 
   &:hover:not(.is-disabled) {
-    .#{$radio-button-prefix}__inner {
-      color: var(--yh-radio-button-hover-text-color);
-    }
-  }
-
-  /* ==================== 选中状态 ==================== */
-  &.is-checked {
-    .#{$radio-button-prefix}__inner {
-      color: var(--yh-radio-button-checked-text-color);
-      background-color: var(--yh-radio-button-checked-bg-color);
-      border-color: var(--yh-radio-button-checked-border-color);
-      box-shadow: -1px 0 0 0 var(--yh-radio-button-checked-border-color);
-    }
-
-    &:first-child {
-      .#{$radio-button-prefix}__inner {
-        border-left-color: var(--yh-radio-button-checked-border-color);
+    @include e(inner) {
+      &:not(.is-checked) {
+        color: var(--yh-radio-button-hover-text-color);
       }
     }
   }
 
-  /* ==================== 聚焦状态 ==================== */
-  &.is-focused {
-    .#{$radio-button-prefix}__inner {
+  @include when(checked) {
+    z-index: 1;
+
+    @include e(inner) {
+      color: var(--yh-radio-button-checked-text-color) !important;
+      background-color: var(--yh-radio-button-checked-bg-color);
+      border-color: var(--yh-radio-button-checked-border-color);
+    }
+  }
+
+  @include when(focused) {
+    @include e(inner) {
       box-shadow: 0 0 0 2px var(--yh-color-primary-light-7);
     }
   }
 
-  /* ==================== 禁用状态 ==================== */
-  &.is-disabled {
+  @include when(disabled) {
     cursor: not-allowed;
 
-    .#{$radio-button-prefix}__inner {
+    @include e(inner) {
       color: var(--yh-radio-button-disabled-text-color);
       background-color: var(--yh-radio-button-disabled-bg-color);
       border-color: var(--yh-radio-button-disabled-border-color);
       cursor: not-allowed;
     }
 
-    &.is-checked {
-      .#{$radio-button-prefix}__inner {
+    @include when(checked) {
+      @include e(inner) {
         background-color: var(--yh-border-color-light);
         border-color: var(--yh-border-color-light);
-        box-shadow: -1px 0 0 0 var(--yh-border-color-light);
       }
     }
   }
 
-  /* ==================== 尺寸修饰符 ==================== */
-  &--large {
+  @include m(large) {
     --yh-radio-button-font-size: var(--yh-font-size-md);
 
-    .#{$radio-button-prefix}__inner {
+    @include e(inner) {
       height: var(--yh-component-size-large);
       padding: 0 20px;
     }
 
     &:first-child {
-      .#{$radio-button-prefix}__inner {
+      .#{$namespace}-radio-button__inner {
         border-radius: var(--yh-radius-md) 0 0 var(--yh-radius-md);
       }
     }
 
     &:last-child {
-      .#{$radio-button-prefix}__inner {
+      .#{$namespace}-radio-button__inner {
         border-radius: 0 var(--yh-radius-md) var(--yh-radius-md) 0;
       }
     }
 
     &:first-child:last-child {
-      .#{$radio-button-prefix}__inner {
+      .#{$namespace}-radio-button__inner {
         border-radius: var(--yh-radius-md);
       }
     }
   }
 
-  &--small {
+  @include m(small) {
     --yh-radio-button-font-size: var(--yh-font-size-xs);
 
-    .#{$radio-button-prefix}__inner {
+    @include e(inner) {
       height: var(--yh-component-size-small);
       padding: 0 12px;
     }
 
     &:first-child {
-      .#{$radio-button-prefix}__inner {
+      .#{$namespace}-radio-button__inner {
         border-radius: var(--yh-radius-sm) 0 0 var(--yh-radius-sm);
       }
     }
 
     &:last-child {
-      .#{$radio-button-prefix}__inner {
+      .#{$namespace}-radio-button__inner {
         border-radius: 0 var(--yh-radius-sm) var(--yh-radius-sm) 0;
       }
     }
 
     &:first-child:last-child {
-      .#{$radio-button-prefix}__inner {
+      .#{$namespace}-radio-button__inner {
         border-radius: var(--yh-radius-sm);
       }
     }

@@ -1,133 +1,77 @@
-/**
- * YhButton Styles
- * @description 按钮组件样式
- */
-
 @use 'sass:map';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$button-prefix: 'yh-button';
-
-/* 尺寸变量 */
+/* 尺寸变量映射 */
 $button-sizes: (
   'large': (
     height: var(--yh-component-size-large),
     font-size: var(--yh-component-size-large-font),
-    padding: 0 var(--yh-component-size-large-padding),
-    icon-size: 16px
-  ),
-  'default': (
-    height: var(--yh-component-size-default),
-    font-size: var(--yh-component-size-default-font),
-    padding: 0 var(--yh-component-size-default-padding),
-    icon-size: 14px
+    padding: 0 19px
   ),
   'small': (
     height: var(--yh-component-size-small),
     font-size: var(--yh-component-size-small-font),
-    padding: 0 var(--yh-component-size-small-padding),
-    icon-size: 12px
+    padding: 0 11px
   )
 );
 
-/* 类型颜色映射 */
-$button-types: (
-  'primary': (
-    bg: var(--yh-color-primary),
-    bg-light: var(--yh-color-primary-light-9),
-    text: #ffffff,
-    text-light: var(--yh-color-primary),
-    border: var(--yh-color-primary),
-    hover-bg: var(--yh-color-primary-light-3),
-    hover-border: var(--yh-color-primary-light-3),
-    active-bg: var(--yh-color-primary-dark-2),
-    active-border: var(--yh-color-primary-dark-2),
-    disabled-bg: var(--yh-color-primary-light-5),
-    disabled-border: var(--yh-color-primary-light-5)
-  ),
-  'success': (
-    bg: var(--yh-color-success),
-    bg-light: var(--yh-color-success-light-9),
-    text: #ffffff,
-    text-light: var(--yh-color-success),
-    border: var(--yh-color-success),
-    hover-bg: var(--yh-color-success-light-3),
-    hover-border: var(--yh-color-success-light-3),
-    active-bg: var(--yh-color-success-dark-2),
-    active-border: var(--yh-color-success-dark-2),
-    disabled-bg: var(--yh-color-success-light-5),
-    disabled-border: var(--yh-color-success-light-5)
-  ),
-  'warning': (
-    bg: var(--yh-color-warning),
-    bg-light: var(--yh-color-warning-light-9),
-    text: #ffffff,
-    text-light: var(--yh-color-warning),
-    border: var(--yh-color-warning),
-    hover-bg: var(--yh-color-warning-light-3),
-    hover-border: var(--yh-color-warning-light-3),
-    active-bg: var(--yh-color-warning-dark-2),
-    active-border: var(--yh-color-warning-dark-2),
-    disabled-bg: var(--yh-color-warning-light-5),
-    disabled-border: var(--yh-color-warning-light-5)
-  ),
-  'danger': (
-    bg: var(--yh-color-danger),
-    bg-light: var(--yh-color-danger-light-9),
-    text: #ffffff,
-    text-light: var(--yh-color-danger),
-    border: var(--yh-color-danger),
-    hover-bg: var(--yh-color-danger-light-3),
-    hover-border: var(--yh-color-danger-light-3),
-    active-bg: var(--yh-color-danger-dark-2),
-    active-border: var(--yh-color-danger-dark-2),
-    disabled-bg: var(--yh-color-danger-light-5),
-    disabled-border: var(--yh-color-danger-light-5)
-  ),
-  'info': (
-    bg: var(--yh-color-info),
-    bg-light: var(--yh-color-info-light-9),
-    text: #ffffff,
-    text-light: var(--yh-color-info),
-    border: var(--yh-color-info),
-    hover-bg: var(--yh-color-info-light-3),
-    hover-border: var(--yh-color-info-light-3),
-    active-bg: var(--yh-color-info-dark-2),
-    active-border: var(--yh-color-info-dark-2),
-    disabled-bg: var(--yh-color-info-light-5),
-    disabled-border: var(--yh-color-info-light-5)
-  )
-);
+/* 基础类型混入 */
+@mixin button-variant($type-color) {
+  --yh-button-bg-color: var(--yh-color-#{$type-color});
+  --yh-button-text-color: var(--yh-color-white, #ffffff);
+  --yh-button-border-color: var(--yh-color-#{$type-color});
+  --yh-button-hover-bg-color: var(--yh-color-#{$type-color}-light-3);
+  --yh-button-hover-text-color: var(--yh-color-white, #ffffff);
+  --yh-button-hover-border-color: var(--yh-color-#{$type-color}-light-3);
+  --yh-button-active-bg-color: var(--yh-color-#{$type-color}-dark-2);
+  --yh-button-active-border-color: var(--yh-color-#{$type-color}-dark-2);
 
-/* ==================== 基础样式 ==================== */
-.#{$button-prefix} {
-  /* CSS 变量（支持自定义颜色覆盖） */
+  @include when(plain) {
+    --yh-button-bg-color: var(--yh-color-#{$type-color}-light-9);
+    --yh-button-text-color: var(--yh-color-#{$type-color});
+    --yh-button-border-color: var(--yh-color-#{$type-color}-light-5);
+    --yh-button-hover-bg-color: var(--yh-color-#{$type-color});
+    --yh-button-hover-text-color: var(--yh-color-white, #ffffff);
+    --yh-button-hover-border-color: var(--yh-color-#{$type-color});
+  }
+
+  /* 针对 Text 和 Link 模式的颜色覆盖 */
+  @include when(text) {
+    --yh-button-text-color: var(--yh-color-#{$type-color});
+    --yh-button-hover-text-color: var(--yh-color-#{$type-color}-light-3);
+    --yh-button-active-text-color: var(--yh-color-#{$type-color}-dark-2);
+  }
+
+  @include when(link) {
+    --yh-button-text-color: var(--yh-color-#{$type-color});
+    --yh-button-hover-text-color: var(--yh-color-#{$type-color}-light-3);
+    --yh-button-active-text-color: var(--yh-color-#{$type-color}-dark-2);
+  }
+}
+
+@include b(button) {
+  /* 基础变量与默认行为 */
+  --yh-button-height: var(--yh-component-size-default);
   --yh-button-bg-color: var(--yh-fill-color-blank);
   --yh-button-text-color: var(--yh-text-color-regular);
   --yh-button-border-color: var(--yh-border-color);
   --yh-button-hover-bg-color: var(--yh-color-primary-light-9);
   --yh-button-hover-text-color: var(--yh-color-primary);
-  --yh-button-hover-border-color: var(--yh-color-primary-light-7);
-  --yh-button-active-bg-color: var(--yh-color-primary-light-9);
+  --yh-button-hover-border-color: var(--yh-color-primary-light-8);
+  --yh-button-active-bg-color: var(--yh-color-primary-light-8);
   --yh-button-active-border-color: var(--yh-color-primary);
-  --yh-button-disabled-bg-color: var(--yh-fill-color-blank);
-  --yh-button-disabled-text-color: var(--yh-text-color-placeholder);
-  --yh-button-disabled-border-color: var(--yh-border-color-light);
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--yh-spacing-xs);
+  gap: 8px;
   box-sizing: border-box;
-  height: var(--yh-component-size-default);
-  padding: 0 var(--yh-component-size-default-padding);
-  font-family: var(--yh-font-family);
-  font-size: var(--yh-component-size-default-font);
+  height: var(--yh-button-height);
+  padding: var(--yh-button-padding, 0 var(--yh-component-size-default-padding));
+  font-size: var(--yh-button-font-size, var(--yh-component-size-default-font));
   font-weight: var(--yh-font-weight-medium);
   line-height: 1;
   white-space: nowrap;
-  text-align: center;
-  vertical-align: middle;
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -146,183 +90,128 @@ $button-types: (
   }
 
   &:active {
-    color: var(--yh-button-hover-text-color);
     background-color: var(--yh-button-active-bg-color);
     border-color: var(--yh-button-active-border-color);
+    color: var(--yh-button-active-text-color, var(--yh-button-hover-text-color));
   }
 
-  /* ==================== 元素 ==================== */
-  &__icon,
-  &__loading-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: inherit;
-  }
-
-  &__loading-svg {
-    width: 1em;
-    height: 1em;
-    animation: yh-button-loading-rotate 2s linear infinite;
-  }
-
-  &__content {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  /* ==================== 尺寸修饰符 ==================== */
-  @each $size, $vars in $button-sizes {
-    &--#{$size} {
-      height: map.get($vars, height);
-      padding: map.get($vars, padding);
-      font-size: map.get($vars, font-size);
-
-      .#{$button-prefix}__icon,
-      .#{$button-prefix}__loading-icon {
-        font-size: map.get($vars, icon-size);
-      }
-    }
-  }
-
-  /* ==================== 类型修饰符 ==================== */
-  @each $type, $colors in $button-types {
-    &--#{$type} {
-      --yh-button-bg-color: #{map.get($colors, bg)};
-      --yh-button-text-color: #{map.get($colors, text)};
-      --yh-button-border-color: #{map.get($colors, border)};
-      --yh-button-hover-bg-color: #{map.get($colors, hover-bg)};
-      --yh-button-hover-text-color: #{map.get($colors, text)};
-      --yh-button-hover-border-color: #{map.get($colors, hover-border)};
-      --yh-button-active-bg-color: #{map.get($colors, active-bg)};
-      --yh-button-active-border-color: #{map.get($colors, active-border)};
-      --yh-button-disabled-bg-color: #{map.get($colors, disabled-bg)};
-      --yh-button-disabled-border-color: #{map.get($colors, disabled-border)};
-
-      /* Plain 模式 */
-      &.is-plain {
-        --yh-button-bg-color: #{map.get($colors, bg-light)};
-        --yh-button-text-color: #{map.get($colors, text-light)};
-        --yh-button-border-color: #{map.get($colors, hover-border)};
-        --yh-button-hover-bg-color: #{map.get($colors, bg)};
-        --yh-button-hover-text-color: #{map.get($colors, text)};
-        --yh-button-hover-border-color: #{map.get($colors, border)};
-      }
-    }
-  }
-
-  /* ==================== 状态修饰符 ==================== */
-  &.is-disabled,
-  &:disabled {
-    cursor: not-allowed;
-    color: var(--yh-button-disabled-text-color);
-    background-color: var(--yh-button-disabled-bg-color);
-    border-color: var(--yh-button-disabled-border-color);
-
+  /* 自定义颜色反馈 */
+  @include when(custom-color) {
     &:hover,
-    &:focus,
+    &:focus {
+      filter: brightness(1.1);
+    }
     &:active {
-      color: var(--yh-button-disabled-text-color);
-      background-color: var(--yh-button-disabled-bg-color);
-      border-color: var(--yh-button-disabled-border-color);
+      filter: brightness(0.9);
+    }
+    @include when(plain) {
+      &:hover {
+        background-color: var(--yh-button-border-color) !important;
+      }
     }
   }
 
-  &.is-loading {
-    position: relative;
-    pointer-events: none;
-    opacity: 0.7;
-  }
-
-  &.is-plain {
-    --yh-button-hover-bg-color: var(--yh-fill-color-light);
-  }
-
-  &.is-round {
-    border-radius: var(--yh-radius-round);
-  }
-
-  &.is-circle {
-    width: var(--yh-component-size-default);
-    padding: 0;
-    border-radius: var(--yh-radius-circle);
-
-    &.#{$button-prefix}--large {
-      width: var(--yh-component-size-large);
-    }
-
-    &.#{$button-prefix}--small {
-      width: var(--yh-component-size-small);
-    }
-  }
-
-  &.is-text {
-    --yh-button-bg-color: transparent;
-    --yh-button-border-color: transparent;
-    --yh-button-hover-bg-color: var(--yh-fill-color-light);
-    --yh-button-hover-border-color: transparent;
-    --yh-button-active-bg-color: var(--yh-fill-color);
-    --yh-button-active-border-color: transparent;
-
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  &.is-link {
-    --yh-button-bg-color: transparent;
-    --yh-button-border-color: transparent;
-    --yh-button-text-color: var(--yh-color-primary);
-    --yh-button-hover-bg-color: transparent;
-    --yh-button-hover-border-color: transparent;
-    --yh-button-hover-text-color: var(--yh-color-primary-light-3);
-    --yh-button-active-bg-color: transparent;
-    --yh-button-active-border-color: transparent;
-
-    padding-left: 0;
-    padding-right: 0;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &.is-block {
-    display: flex;
-    width: 100%;
-  }
-
-  /* ==================== 后缀图标 ==================== */
-  &__suffix-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: inherit;
-  }
-
-  /* ==================== 垂直布局 ==================== */
-  &.is-vertical {
+  /* 垂直布局 */
+  @include when(vertical) {
     flex-direction: column;
     height: auto;
-    padding: var(--yh-spacing-sm) var(--yh-spacing-md);
-    gap: var(--yh-spacing-xxs);
+    padding: 12px;
+    gap: 4px;
+    .yh-button__icon {
+      margin: 0;
+      font-size: 1.5em;
+    }
   }
 
-  /* ==================== 图标位置 ==================== */
-  &.is-icon-right {
-    flex-direction: row-reverse;
+  /* 状态控制 */
+  @include when(disabled) {
+    cursor: not-allowed !important;
+    opacity: 0.5;
+    pointer-events: none;
   }
 
-  &.is-icon-top {
-    flex-direction: column;
+  @include when(loading) {
+    cursor: default !important;
+    pointer-events: none;
   }
 
-  &.is-icon-bottom {
-    flex-direction: column-reverse;
+  /* 文字模式与链接模式（基础样式） */
+  @include when(text) {
+    border-color: transparent !important;
+    background-color: transparent !important;
+    padding-left: 0;
+    padding-right: 0;
+    &:hover {
+      background-color: var(--yh-fill-color-light) !important;
+    }
+    &:active {
+      background-color: var(--yh-fill-color) !important;
+    }
+    &.is-disabled {
+      background-color: transparent !important;
+    }
+  }
+
+  @include when(link) {
+    border-color: transparent !important;
+    background-color: transparent !important;
+    height: auto;
+    padding: 2px;
+    &:hover {
+      text-decoration: underline;
+      background-color: transparent !important;
+    }
+  }
+
+  /* 类型应用 */
+  &--primary {
+    @include button-variant(primary);
+  }
+  &--success {
+    @include button-variant(success);
+  }
+  &--warning {
+    @include button-variant(warning);
+  }
+  &--danger {
+    @include button-variant(danger);
+  }
+  &--info {
+    @include button-variant(info);
+  }
+
+  /* 尺寸应用 */
+  @each $size, $vars in $button-sizes {
+    &--#{$size} {
+      --yh-button-height: #{map.get($vars, height)};
+      --yh-button-padding: #{map.get($vars, padding)};
+      --yh-button-font-size: #{map.get($vars, font-size)};
+    }
+  }
+
+  @include when(round) {
+    border-radius: var(--yh-radius-round);
+  }
+  @include when(circle) {
+    border-radius: var(--yh-radius-circle) !important;
+    width: var(--yh-button-height);
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  /* 加载图标 */
+  @include e(loading-icon) {
+    display: inline-flex;
+  }
+  @include e(loading-svg) {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    animation: yh-rotate 1.5s linear infinite;
   }
 }
 
-/* ==================== 动画 ==================== */
-@keyframes yh-button-loading-rotate {
+@keyframes yh-rotate {
   from {
     transform: rotate(0deg);
   }

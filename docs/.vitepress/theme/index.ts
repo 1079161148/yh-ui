@@ -15,6 +15,10 @@ import type { Theme } from 'vitepress'
 // 导入组件库样式
 import '@yh-ui/theme/styles/index.scss'
 
+// 导入组件样式（用于函数式调用的组件）
+import '@yh-ui/components/message/src/message.scss'
+import '@yh-ui/components/notification/src/notification.scss'
+
 // 自定义样式
 import './styles/index.scss'
 import './styles/animations.scss'
@@ -48,7 +52,11 @@ import {
   YhTimeSelect,
   YhTransfer,
   YhTransferPanel,
-  YhTreeSelect
+  YhTreeSelect,
+  YhBadge,
+  YhCard,
+  YhOption,
+  YhConfigProvider
 } from '@yh-ui/components'
 
 // 导入文档组件
@@ -89,6 +97,10 @@ export default {
     app.component('YhTransfer', YhTransfer)
     app.component('YhTransferPanel', YhTransferPanel)
     app.component('YhTreeSelect', YhTreeSelect)
+    app.component('YhBadge', YhBadge)
+    app.component('YhCard', YhCard)
+    app.component('YhOption', YhOption)
+    app.component('YhConfigProvider', YhConfigProvider)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import { rateProps, rateEmits } from './rate'
 
 defineOptions({
@@ -10,6 +11,9 @@ defineOptions({
 const props = defineProps(rateProps)
 const emit = defineEmits(rateEmits)
 const ns = useNamespace('rate')
+
+// 全局配置
+const { globalSize } = useConfig()
 
 // 内部状态
 const currentValue = ref(props.modelValue)
@@ -84,25 +88,26 @@ const rateText = computed(() => {
 })
 
 // 基础变量
-const iconSize = computed(() => ({ large: 24, default: 20, small: 16 }[props.size] || 20))
+const actualSize = computed(() => props.size || globalSize.value || 'default')
+const iconSize = computed(() => ({ large: 24, default: 20, small: 16 }[actualSize.value] || 20))
 const starPath = 'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-37.12L512 166.08l114.88 231.04 255.04 37.12-184.64 179.2 43.52 254.08z'
 </script>
 
 <template>
   <div :class="[ns.b(), ns.is('disabled', disabled)]" @mouseleave="handleMouseLeave">
-    <div v-for="item in max" :key="item" :class="[ns.e('item'), { 'is-hover': hoverIndex === item }]"
+    <div v-for="item in max" :key="item" :class="[ns.e('item'), ns.is('hover', hoverIndex === item)]"
       :style="{ width: iconSize + 'px', height: iconSize + 'px' }" @mousemove="handleMouseMove(item, $event)"
       @click="handleItemClick(item)">
       <slot name="icon" :index="item" :width="getStarWidth(item)" :activeColor="activeColor"
         :voidColor="voidColorValue">
         <!-- 基础层：底色星星 -->
-        <svg class="yh-rate-star-icon is-void" :style="{ color: voidColorValue }" viewBox="0 0 1024 1024">
+        <svg :class="[ns.e('star-icon'), ns.is('void')]" :style="{ color: voidColorValue }" viewBox="0 0 1024 1024">
           <path :d="starPath" fill="currentColor" />
         </svg>
 
         <!-- 填充层：金色星星（带裁剪） -->
-        <div class="yh-rate-star-content" :style="{ width: getStarWidth(item), color: activeColor }">
-          <svg class="yh-rate-star-icon" :style="{ width: iconSize + 'px' }" viewBox="0 0 1024 1024">
+        <div :class="ns.e('star-content')" :style="{ width: getStarWidth(item), color: activeColor }">
+          <svg :class="ns.e('star-icon')" :style="{ width: iconSize + 'px' }" viewBox="0 0 1024 1024">
             <path :d="starPath" fill="currentColor" />
           </svg>
         </div>

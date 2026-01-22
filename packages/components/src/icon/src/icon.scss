@@ -1,11 +1,6 @@
-/**
- * YhIcon Styles
- * @description 图标组件样式
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-$icon-prefix: 'yh-icon';
-
-.#{$icon-prefix} {
+@include b(icon) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -18,14 +13,13 @@ $icon-prefix: 'yh-icon';
   vertical-align: -0.15em;
   outline: none;
 
-  /* SVG 样式 */
-  &__svg {
+  @include e(svg) {
     width: 1em;
     height: 1em;
     fill: currentColor;
   }
 
-  &__inner {
+  @include e(inner) {
     width: 1em;
     height: 1em;
     display: inline-flex;
@@ -39,13 +33,11 @@ $icon-prefix: 'yh-icon';
     }
   }
 
-  /* 旋转动画 */
-  &--spin {
-    animation: yh-icon-spin 1s linear infinite;
+  @include m(spin) {
+    animation: yh-icon-spin 2s linear infinite;
   }
 }
 
-/* 旋转动画关键帧 */
 @keyframes yh-icon-spin {
   from {
     transform: rotate(0deg);

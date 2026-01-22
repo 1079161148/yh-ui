@@ -1,0 +1,214 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(message) {
+  position: fixed;
+  // 默认居中显示
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--yh-message-bg-color);
+  border: 1px solid var(--yh-message-border-color);
+  border-radius: var(--yh-border-radius-base);
+  box-shadow: var(--yh-message-shadow);
+  transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  overflow: hidden;
+  pointer-events: all;
+  min-width: 380px;
+  box-sizing: border-box;
+  z-index: 3000;
+
+  // top 位置（默认居中，无需额外样式）
+  @include m(top) {
+    // 已继承基类的居中样式
+  }
+
+  @include m(top-left) {
+    left: 16px;
+    transform: none;
+  }
+
+  @include m(top-right) {
+    left: auto;
+    right: 16px;
+    transform: none;
+  }
+
+  // bottom 位置（居中）
+  @include m(bottom) {
+    // 已继承基类的居中样式
+  }
+
+  @include m(bottom-left) {
+    left: 16px;
+    transform: none;
+  }
+
+  @include m(bottom-right) {
+    left: auto;
+    right: 16px;
+    transform: none;
+  }
+
+  // 居中模式（文字居中）
+  @include when(center) {
+    justify-content: center;
+    text-align: center;
+
+    .yh-message__content {
+      justify-content: center;
+    }
+
+    .yh-message__text {
+      text-align: center;
+    }
+  }
+
+  // 可关闭模式
+  @include when(closable) {
+    padding-right: 42px;
+  }
+
+  // 图标
+  @include e(icon) {
+    margin-right: 10px;
+    font-size: 18px;
+    line-height: 1;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+    }
+
+    @include m(success) {
+      color: var(--yh-color-success);
+    }
+
+    @include m(warning) {
+      color: var(--yh-color-warning);
+    }
+
+    @include m(info) {
+      color: var(--yh-color-info);
+    }
+
+    @include m(error) {
+      color: var(--yh-color-danger);
+    }
+  }
+
+  // 内容
+  @include e(content) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    font-size: var(--yh-font-size-base);
+    line-height: 1.5;
+  }
+
+  @include e(text) {
+    margin: 0;
+    color: var(--yh-message-text-color);
+    word-break: break-word;
+  }
+
+  // 重复次数徽标
+  @include e(badge) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    margin-left: 8px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #ffffff;
+    background-color: var(--yh-color-danger);
+    border-radius: 10px;
+    font-weight: var(--yh-font-weight-semibold);
+  }
+
+  // 关闭按钮
+  @include e(close) {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    color: var(--yh-message-close-color);
+    transition: color var(--yh-duration-fast);
+
+    &:hover {
+      color: var(--yh-message-close-hover-color);
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // 类型样式 (仍然支持语义化背景)
+  @include m(success) {
+    background-color: var(--yh-color-success-light-9);
+    border-color: var(--yh-color-success-light-7);
+
+    .yh-message__text {
+      color: var(--yh-color-success-dark-2);
+    }
+  }
+
+  @include m(warning) {
+    background-color: var(--yh-color-warning-light-9);
+    border-color: var(--yh-color-warning-light-7);
+
+    .yh-message__text {
+      color: var(--yh-color-warning-dark-2);
+    }
+  }
+
+  @include m(info) {
+    background-color: var(--yh-color-info-light-9);
+    border-color: var(--yh-color-info-light-7);
+
+    .yh-message__text {
+      color: var(--yh-color-info-dark-2);
+    }
+  }
+
+  @include m(error) {
+    background-color: var(--yh-color-danger-light-9);
+    border-color: var(--yh-color-danger-light-7);
+
+    .yh-message__text {
+      color: var(--yh-color-danger-dark-2);
+    }
+  }
+}
+
+// 淡入淡出动画
+@include b(message-fade) {
+  &-enter-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-out);
+  }
+
+  &-leave-active {
+    transition: all var(--yh-duration-base) var(--yh-timing-ease-in);
+  }
+
+  &-enter-from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+}

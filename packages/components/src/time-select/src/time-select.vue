@@ -5,6 +5,7 @@
  */
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { TimeSelectProps, TimeSelectEmits, TimeSelectExpose, TimeOption } from './time-select'
 import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select'
 
@@ -34,7 +35,11 @@ const inputId = useId()
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
-const selectSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+
+// 全局配置
+const { globalSize } = useConfig()
+
+const selectSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
 
 // 元素引用
 const wrapperRef = ref<HTMLElement>()
@@ -58,7 +63,7 @@ const timeOptions = computed<TimeOption[]>(() => {
   if (props.options && props.options.length > 0) {
     return props.options
   }
-  
+
   // 否则根据 start/end/step 生成
   return generateTimeOptions(
     props.start,
@@ -72,7 +77,7 @@ const timeOptions = computed<TimeOption[]>(() => {
 // 过滤后的选项（支持搜索）
 const filteredOptions = computed<TimeOption[]>(() => {
   let options = timeOptions.value
-  
+
   // 应用禁用时间段
   if (props.disabledHours && props.disabledHours.length > 0) {
     options = options.map(opt => {
@@ -85,7 +90,7 @@ const filteredOptions = computed<TimeOption[]>(() => {
       return { ...opt, disabled: opt.disabled || isDisabled }
     })
   }
-  
+
   // 应用 minTime/maxTime 限制
   if (props.minTime) {
     const minMinutes = parseTimeToMinutes(props.minTime)
@@ -94,7 +99,7 @@ const filteredOptions = computed<TimeOption[]>(() => {
       disabled: opt.disabled || parseTimeToMinutes(opt.value) < minMinutes
     }))
   }
-  
+
   if (props.maxTime) {
     const maxMinutes = parseTimeToMinutes(props.maxTime)
     options = options.map(opt => ({
@@ -102,16 +107,16 @@ const filteredOptions = computed<TimeOption[]>(() => {
       disabled: opt.disabled || parseTimeToMinutes(opt.value) > maxMinutes
     }))
   }
-  
+
   // 搜索过滤
   if (query.value && props.editable) {
     const q = query.value.toLowerCase()
-    return options.filter(opt => 
-      opt.label.toLowerCase().includes(q) || 
+    return options.filter(opt =>
+      opt.label.toLowerCase().includes(q) ||
       opt.value.toLowerCase().includes(q)
     )
   }
-  
+
   return options
 })
 
@@ -132,7 +137,7 @@ const showClear = computed(() =>
 )
 
 // 是否有值
-const hasValue = computed(() => 
+const hasValue = computed(() =>
   props.modelValue !== undefined && props.modelValue !== ''
 )
 
@@ -152,10 +157,10 @@ const updateDropdownPosition = () => {
   const spaceBelow = window.innerHeight - rect.bottom
   const spaceAbove = rect.top
   const dropdownHeight = 274 // 预估高度
-  
+
   // 决定下拉框显示在上方还是下方
   const showAbove = spaceBelow < dropdownHeight && spaceAbove > spaceBelow
-  
+
   dropdownStyle.value = {
     position: 'fixed',
     left: `${rect.left}px`,
@@ -170,7 +175,7 @@ const updateDropdownPosition = () => {
 // 滚动到选中项
 const scrollToSelected = () => {
   if (!optionsRef.value || !props.modelValue) return
-  
+
   nextTick(() => {
     const selectedEl = optionsRef.value?.querySelector(`.${ns.is('selected', true).slice(1)}`) as HTMLElement
     if (selectedEl && optionsRef.value) {
@@ -343,7 +348,7 @@ const handleDropdownMouseup = () => {
 const handleOptionClick = (option: TimeOption, event: MouseEvent) => {
   event.stopPropagation()
   handleOptionSelect(option, event)
-  
+
   nextTick(() => {
     inputRef.value?.focus()
   })
@@ -374,43 +379,25 @@ defineExpose<TimeSelectExpose>({
 </script>
 
 <template>
-  <div 
-    ref="wrapperRef" 
-    :class="wrapperClasses" 
-    @mouseenter="handleMouseEnter" 
-    @mouseleave="handleMouseLeave"
-    @click="toggleDropdown"
-  >
+  <div ref="wrapperRef" :class="wrapperClasses" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
+    @click="toggleDropdown">
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 前缀图标 -->
       <span :class="ns.e('prefix')">
         <slot name="prefix">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em" :class="ns.e('icon')">
-            <path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a32 32 0 0 1 32 32v192l128 64a32 32 0 0 1-28.864 57.088l-144-72A32 32 0 0 1 480 512V288a32 32 0 0 1 32-32z" />
+            <path fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a32 32 0 0 1 32 32v192l128 64a32 32 0 0 1-28.864 57.088l-144-72A32 32 0 0 1 480 512V288a32 32 0 0 1 32-32z" />
           </svg>
         </slot>
       </span>
 
       <!-- 输入框 -->
-      <input
-        ref="inputRef"
-        :id="inputId"
-        :class="ns.e('inner')"
-        :value="editable && visible ? query : ''"
-        :placeholder="hasValue ? '' : placeholder"
-        :disabled="disabled"
-        :readonly="!editable"
-        :name="name"
-        autocomplete="off"
-        role="combobox"
-        :aria-expanded="visible"
-        :aria-controls="`${inputId}-listbox`"
-        @input="handleInput"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeydown"
-      />
+      <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="editable && visible ? query : ''"
+        :placeholder="hasValue ? '' : placeholder" :disabled="disabled" :readonly="!editable" :name="name"
+        autocomplete="off" role="combobox" :aria-expanded="visible" :aria-controls="`${inputId}-listbox`"
+        @input="handleInput" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
 
       <!-- 显示值 -->
       <span v-if="hasValue && !(editable && visible && query)" :class="ns.e('display-value')">
@@ -440,13 +427,9 @@ defineExpose<TimeSelectExpose>({
     <!-- 下拉框 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('dropdown')">
-        <div
-          v-show="visible"
-          :class="[ns.e('dropdown'), popperClass, `is-${effect}`]"
-          :style="teleported ? dropdownStyle : {}"
-          @mousedown="handleDropdownMousedown"
-          @mouseup="handleDropdownMouseup"
-        >
+        <div v-show="visible" :class="[ns.e('dropdown'), popperClass, `is-${effect}`]"
+          :style="teleported ? dropdownStyle : {}" @mousedown="handleDropdownMousedown"
+          @mouseup="handleDropdownMouseup">
           <!-- 无数据 -->
           <div v-if="filteredOptions.length === 0" :class="ns.e('empty')">
             <slot name="empty">
@@ -455,28 +438,14 @@ defineExpose<TimeSelectExpose>({
           </div>
 
           <!-- 选项列表 -->
-          <div
-            v-else
-            ref="optionsRef"
-            :id="`${inputId}-listbox`"
-            :class="ns.e('options')"
-            role="listbox"
-          >
-            <div
-              v-for="(option, index) in filteredOptions"
-              :key="option.value"
-              :class="[
-                ns.e('option'),
-                ns.is('selected', modelValue === option.value),
-                ns.is('disabled', option.disabled),
-                ns.is('hovering', hoveredIndex === index)
-              ]"
-              role="option"
-              :aria-selected="modelValue === option.value"
-              @mousedown.prevent
-              @click="handleOptionClick(option, $event)"
-              @mouseenter="hoveredIndex = index"
-            >
+          <div v-else ref="optionsRef" :id="`${inputId}-listbox`" :class="ns.e('options')" role="listbox">
+            <div v-for="(option, index) in filteredOptions" :key="option.value" :class="[
+              ns.e('option'),
+              ns.is('selected', modelValue === option.value),
+              ns.is('disabled', option.disabled),
+              ns.is('hovering', hoveredIndex === index)
+            ]" role="option" :aria-selected="modelValue === option.value" @mousedown.prevent
+              @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = index">
               <slot name="option" :option="option">
                 {{ option.label }}
               </slot>

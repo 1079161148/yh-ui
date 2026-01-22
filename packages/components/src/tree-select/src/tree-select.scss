@@ -181,8 +181,8 @@
     }
 
     &.is-selected {
-      color: var(--yh-tree-select-node-selected-color);
-      background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      color: var(--yh-color-white, #ffffff);
+      background-color: var(--yh-color-primary, #409eff);
       font-weight: 600;
     }
 

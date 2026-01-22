@@ -1,122 +1,77 @@
-/**
- * YhTag Styles
- * @description 标签组件样式 - 增强版
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$tag-prefix: 'yh-tag';
-
-/* ==================== 基础样式 ==================== */
-.#{$tag-prefix} {
-  --yh-tag-font-size: var(--yh-font-size-xs);
-  --yh-tag-border-radius: var(--yh-radius-sm);
+@include b(tag) {
   --yh-tag-bg-color: var(--yh-color-primary-light-9);
-  --yh-tag-border-color: var(--yh-color-primary-light-7);
+  --yh-tag-border-color: var(--yh-color-primary-light-8);
   --yh-tag-text-color: var(--yh-color-primary);
   --yh-tag-hover-color: var(--yh-color-primary);
 
   display: inline-flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 24px;
-  padding: 0 8px;
-  font-size: var(--yh-tag-font-size);
+  padding: 0 9px;
+  font-size: var(--yh-font-size-xs);
   line-height: 1;
   color: var(--yh-tag-text-color);
-  white-space: nowrap;
   background-color: var(--yh-tag-bg-color);
   border: 1px solid var(--yh-tag-border-color);
-  border-radius: var(--yh-tag-border-radius);
+  border-radius: var(--yh-radius-sm);
   box-sizing: border-box;
-  transition: var(--yh-transition-fast);
+  white-space: nowrap;
+  transition: all 0.2s ease;
 
-  /* ==================== 图标 ==================== */
-  &__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 4px;
-    font-size: 1em;
-
-    svg {
-      width: 1em;
-      height: 1em;
-    }
+  /* 尺寸修饰符 */
+  @include m(large) {
+    height: 32px;
+    padding: 0 12px;
+    font-size: var(--yh-font-size-base);
   }
 
-  /* ==================== 右侧图标 ==================== */
-  &__suffix-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 4px;
-    font-size: 1em;
-
-    svg {
-      width: 1em;
-      height: 1em;
-    }
-  }
-
-  /* ==================== 内容 ==================== */
-  &__content {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-
-  /* ==================== 关闭按钮 ==================== */
-  &__close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 14px;
-    height: 14px;
-    margin-left: 4px;
+  @include m(small) {
+    height: 20px;
+    padding: 0 6px;
     font-size: 12px;
-    color: var(--yh-tag-text-color);
-    cursor: pointer;
-    border-radius: 50%;
-    transition: var(--yh-transition-fast);
-
-    &:hover {
-      color: var(--yh-fill-color-blank);
-      background-color: var(--yh-tag-text-color);
-    }
-
-    svg {
-      width: 10px;
-      height: 10px;
-    }
   }
 
-  /* ==================== 编辑输入框 ==================== */
-  &__input {
-    width: 80px;
-    height: 24px;
-    padding: 0 8px;
-    font-size: var(--yh-font-size-xs);
-    color: var(--yh-text-color-regular);
-    border: 1px solid var(--yh-color-primary);
-    border-radius: var(--yh-tag-border-radius);
-    outline: none;
-    box-sizing: border-box;
-
-    &.#{$tag-prefix}--large {
-      height: 32px;
-      padding: 0 12px;
-      font-size: var(--yh-font-size-sm);
-    }
-
-    &.#{$tag-prefix}--small {
-      height: 20px;
-      padding: 0 6px;
-      font-size: 11px;
-    }
+  /* 类型修饰符 */
+  @include m(success) {
+    --yh-tag-bg-color: var(--yh-color-success-light-9);
+    --yh-tag-border-color: var(--yh-color-success-light-8);
+    --yh-tag-text-color: var(--yh-color-success);
   }
 
-  /* ==================== 可选中状态 ==================== */
-  &.is-checkable {
+  @include m(warning) {
+    --yh-tag-bg-color: var(--yh-color-warning-light-9);
+    --yh-tag-border-color: var(--yh-color-warning-light-8);
+    --yh-tag-text-color: var(--yh-color-warning);
+  }
+
+  @include m(danger) {
+    --yh-tag-bg-color: var(--yh-color-danger-light-9);
+    --yh-tag-border-color: var(--yh-color-danger-light-8);
+    --yh-tag-text-color: var(--yh-color-danger);
+  }
+
+  @include m(info) {
+    --yh-tag-bg-color: var(--yh-color-info-light-9);
+    --yh-tag-border-color: var(--yh-color-info-light-8);
+    --yh-tag-text-color: var(--yh-color-info);
+  }
+
+  /* 主题效果 */
+  @include m(dark) {
+    --yh-tag-bg-color: var(--yh-color-primary);
+    --yh-tag-border-color: var(--yh-color-primary);
+    --yh-tag-text-color: #ffffff;
+  }
+
+  @include m(plain) {
+    --yh-tag-bg-color: transparent;
+  }
+
+  /* 可选中标签 */
+  @include when(checkable) {
     cursor: pointer;
     user-select: none;
 
@@ -124,200 +79,66 @@ $tag-prefix: 'yh-tag';
       opacity: 0.85;
     }
 
-    &:not(.is-checked) {
-      background-color: var(--yh-tag-bg-color);
-      border-color: var(--yh-tag-border-color);
-      color: var(--yh-tag-text-color);
+    &:active {
+      opacity: 0.7;
     }
   }
 
-  &.is-checked {
-    background-color: var(--yh-color-primary) !important;
-    border-color: var(--yh-color-primary) !important;
-    color: #fff !important;
-
-    &.yh-tag--success {
-      background-color: var(--yh-color-success) !important;
-      border-color: var(--yh-color-success) !important;
-    }
-
-    &.yh-tag--warning {
-      background-color: var(--yh-color-warning) !important;
-      border-color: var(--yh-color-warning) !important;
-    }
-
-    &.yh-tag--danger {
-      background-color: var(--yh-color-danger) !important;
-      border-color: var(--yh-color-danger) !important;
-    }
-
-    &.yh-tag--info {
-      background-color: var(--yh-color-info) !important;
-      border-color: var(--yh-color-info) !important;
-    }
-  }
-
-  /* ==================== 可编辑状态 ==================== */
-  &.is-editable {
-    cursor: pointer;
-  }
-
-  /* ==================== 类型变体 - Light ==================== */
-  &--light {
-    &.#{$tag-prefix}--primary {
-      --yh-tag-bg-color: var(--yh-color-primary-light-9);
-      --yh-tag-border-color: var(--yh-color-primary-light-7);
-      --yh-tag-text-color: var(--yh-color-primary);
-    }
-
-    &.#{$tag-prefix}--success {
-      --yh-tag-bg-color: var(--yh-color-success-light-9);
-      --yh-tag-border-color: var(--yh-color-success-light-7);
-      --yh-tag-text-color: var(--yh-color-success);
-    }
-
-    &.#{$tag-prefix}--warning {
-      --yh-tag-bg-color: var(--yh-color-warning-light-9);
-      --yh-tag-border-color: var(--yh-color-warning-light-7);
-      --yh-tag-text-color: var(--yh-color-warning);
-    }
-
-    &.#{$tag-prefix}--danger {
-      --yh-tag-bg-color: var(--yh-color-danger-light-9);
-      --yh-tag-border-color: var(--yh-color-danger-light-7);
-      --yh-tag-text-color: var(--yh-color-danger);
-    }
-
-    &.#{$tag-prefix}--info {
-      --yh-tag-bg-color: var(--yh-color-info-light-9);
-      --yh-tag-border-color: var(--yh-color-info-light-7);
-      --yh-tag-text-color: var(--yh-color-info);
-    }
-  }
-
-  /* ==================== 类型变体 - Dark ==================== */
-  &--dark {
-    --yh-tag-text-color: var(--yh-fill-color-blank);
-
-    &.#{$tag-prefix}--primary {
-      --yh-tag-bg-color: var(--yh-color-primary);
-      --yh-tag-border-color: var(--yh-color-primary);
-    }
-
-    &.#{$tag-prefix}--success {
-      --yh-tag-bg-color: var(--yh-color-success);
-      --yh-tag-border-color: var(--yh-color-success);
-    }
-
-    &.#{$tag-prefix}--warning {
-      --yh-tag-bg-color: var(--yh-color-warning);
-      --yh-tag-border-color: var(--yh-color-warning);
-    }
-
-    &.#{$tag-prefix}--danger {
-      --yh-tag-bg-color: var(--yh-color-danger);
-      --yh-tag-border-color: var(--yh-color-danger);
-    }
-
-    &.#{$tag-prefix}--info {
-      --yh-tag-bg-color: var(--yh-color-info);
-      --yh-tag-border-color: var(--yh-color-info);
-    }
-  }
-
-  /* ==================== 类型变体 - Plain ==================== */
-  &--plain {
-    --yh-tag-bg-color: transparent;
-
-    &.#{$tag-prefix}--primary {
-      --yh-tag-border-color: var(--yh-color-primary-light-5);
-      --yh-tag-text-color: var(--yh-color-primary);
-    }
-
-    &.#{$tag-prefix}--success {
-      --yh-tag-border-color: var(--yh-color-success-light-5);
-      --yh-tag-text-color: var(--yh-color-success);
-    }
-
-    &.#{$tag-prefix}--warning {
-      --yh-tag-border-color: var(--yh-color-warning-light-5);
-      --yh-tag-text-color: var(--yh-color-warning);
-    }
-
-    &.#{$tag-prefix}--danger {
-      --yh-tag-border-color: var(--yh-color-danger-light-5);
-      --yh-tag-text-color: var(--yh-color-danger);
-    }
-
-    &.#{$tag-prefix}--info {
-      --yh-tag-border-color: var(--yh-color-info-light-5);
-      --yh-tag-text-color: var(--yh-color-info);
-    }
-  }
-
-  /* ==================== 尺寸变体 ==================== */
-  &--large {
-    height: 32px;
-    padding: 0 12px;
-    font-size: var(--yh-font-size-sm);
-
-    .#{$tag-prefix}__close {
-      width: 16px;
-      height: 16px;
-      margin-left: 6px;
-      font-size: 14px;
-
-      svg {
-        width: 12px;
-        height: 12px;
-      }
-    }
-  }
-
-  &--small {
-    height: 20px;
-    padding: 0 6px;
-    font-size: 11px;
-
-    .#{$tag-prefix}__close {
-      width: 12px;
-      height: 12px;
-      margin-left: 2px;
-      font-size: 10px;
-
-      svg {
-        width: 8px;
-        height: 8px;
-      }
-    }
-  }
-
-  /* ==================== 圆形 ==================== */
-  &.is-round {
-    border-radius: 12px;
-
-    &.#{$tag-prefix}--large {
-      border-radius: 16px;
-    }
-
-    &.#{$tag-prefix}--small {
-      border-radius: 10px;
-    }
-  }
-
-  /* ==================== 边框高亮 ==================== */
-  &.is-hit {
+  /* 选中状态 */
+  @include when(checked) {
+    background-color: var(--yh-tag-text-color);
     border-color: var(--yh-tag-text-color);
+    color: #ffffff;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
-}
 
-/* ==================== 过渡动画 ==================== */
-.yh-tag-fade-enter-active,
-.yh-tag-fade-leave-active {
-  transition: opacity var(--yh-duration-fast) var(--yh-timing-ease-in-out);
-}
+  /* 圆角标签 */
+  @include when(round) {
+    border-radius: var(--yh-radius-round);
+  }
 
-.yh-tag-fade-enter-from,
-.yh-tag-fade-leave-to {
-  opacity: 0;
+  /* 可关闭标签 */
+  @include when(closable) {
+    padding-right: 6px;
+  }
+
+  @include e(close) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.15s ease;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    &:hover {
+      color: #ffffff;
+      background-color: var(--yh-tag-text-color);
+    }
+  }
+
+  @include e(content) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @include e(icon) {
+    margin-right: 4px;
+    display: inline-flex;
+  }
+
+  @include e(suffix-icon) {
+    margin-left: 4px;
+    display: inline-flex;
+  }
 }

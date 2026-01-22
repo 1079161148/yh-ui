@@ -5,13 +5,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// 基础用法
 const val1 = ref(0)
 const val2 = ref(50)
 const val5 = ref(42)
-const val8 = ref(15)
-const val9 = ref(30)
-const val10 = ref(0)
 
+// 带有输入框
+const val8 = ref(15)
+
+// 垂直模式
+const valV1 = ref(30)
+const valV2 = ref([20, 50])
+
+// 展示标记
+const valM = ref(37)
 const marks = ref({
   0: '0°C',
   37: '37°C',
@@ -19,19 +26,30 @@ const marks = ref({
   100: '100°C'
 })
 
+// 自定义插槽
+const valS = ref(45)
+
 // 为 DemoBlock 准备的代码字符串
 const tsBasic = `<template>
-  <div class="slider-demo-block">
-    <span class="demonstration">默认</span>
-    <yh-slider v-model="val1" />
-  </div>
-  <div class="slider-demo-block">
-    <span class="demonstration">自定义初始值</span>
-    <yh-slider v-model="val2" />
-  </div>
-  <div class="slider-demo-block">
-    <span class="demonstration">禁用状态</span>
-    <yh-slider v-model="val5" disabled />
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">默认</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val1" />
+      </div>
+    </div>
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">自定义初始值</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val2" />
+      </div>
+    </div>
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">禁用状态</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val5" disabled />
+      </div>
+    </div>
   </div>
 <\/template>
 
@@ -42,9 +60,18 @@ const val2 = ref(50)
 const val5 = ref(42)
 <\/script>`
 
+const jsBasic = tsBasic.replace('lang="ts"', '')
+
+
 const tsInput = `<template>
-  <div class="slider-demo-block">
-    <yh-slider v-model="val8" show-input />
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">带输入框</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val8" show-input />
+      </div>
+    </div>
+    <div class="demo-val-badge">当前数值: {{ val8 }}</div>
   </div>
 <\/template>
 
@@ -53,86 +80,121 @@ import { ref } from 'vue'
 const val8 = ref(15)
 <\/script>`
 
+const jsInput = tsInput.replace('lang="ts"', '')
+
+
 const tsVertical = `<template>
-  <div class="slider-demo-block vertical-demo">
-    <yh-slider v-model="val9" vertical height="200px" />
-  </div>
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-const val9 = ref(30)
-<\/script>`
-
-const tsMarks = `<template>
-  <div class="slider-demo-block">
-    <yh-slider v-model="val10" :marks="marks" />
-  </div>
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-const val10 = ref(0)
-const marks = ref({
-  0: '0°C',
-  37: '37°C',
-  50: { label: '50%', style: { color: '#409eff' } },
-  100: '100°C'
-})
-<\/script>`
-
-const tsSlot = `<template>
-  <div class="slider-demo-wrapper">
-    <p class="slot-title">自定义按钮 (Thumb Slot):</p>
-    <div class="slider-demo-block">
-      <yh-slider v-model="val">
-        <template #thumb="{ value }">
-          <div class="custom-thumb">{{ value }}</div>
-        </template>
-      </yh-slider>
+  <div class="yh-demo-wrapper">
+    <div class="vertical-demo-container">
+      <yh-slider v-model="valV1" vertical height="200px" />
+      <yh-slider v-model="valV2" vertical height="200px" range />
+    </div>
+    <div style="text-align: center; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+      <div class="demo-val-badge">单选: {{ valV1 }}</div>
+      <div class="demo-val-badge">范围: {{ valV2 }}</div>
     </div>
   </div>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const val = ref(45)
+const valV1 = ref(30)
+const valV2 = ref([20, 50])
+<\/script>`
+
+const jsVertical = tsVertical.replace('lang="ts"', '')
+
+
+const tsMarks = `<template>
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">滑块标记</span>
+      <div class="yh-demo-content" style="padding: 0 20px;">
+        <yh-slider v-model="valM" :marks="marks" />
+      </div>
+    </div>
+    <div class="demo-val-badge">当前数值: {{ valM }}</div>
+  </div>
+<\/template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const valM = ref(37)
+const marks = ref({
+  0: '0°C',
+  37: '37°C',
+  50: { label: '50%' },
+  100: '100°C'
+})
+<\/script>`
+
+const jsMarks = tsMarks.replace('lang="ts"', '')
+
+
+const tsSlot = `<template>
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">自定义按钮</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="valS">
+          <template #thumb="{ value }">
+            <div class="custom-thumb">{{ value }}</div>
+          </template>
+        </yh-slider>
+      </div>
+    </div>
+  </div>
+<\/template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const valS = ref(45)
 <\/script>
 
 <style scoped>
 .custom-thumb {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   background: linear-gradient(135deg, #409eff, #a855f7);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
   cursor: grab;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
 }
 <\/style>`
+
+const jsSlot = tsSlot.replace('lang="ts"', '')
+
 </script>
 
 ## 基础用法
 
 最基本的滑块用法。
 
-<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="tsBasic">
-  <div class="slider-demo-wrapper">
-    <div class="slider-demo-block">
-      <span class="demonstration">默认</span>
-      <yh-slider v-model="val1" />
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">默认</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val1" />
+      </div>
     </div>
-    <div class="slider-demo-block">
-      <span class="demonstration">自定义初始值</span>
-      <yh-slider v-model="val2" />
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">自定义初始值</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val2" />
+      </div>
     </div>
-    <div class="slider-demo-block">
-      <span class="demonstration">禁用状态</span>
-      <yh-slider v-model="val5" disabled />
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">禁用状态</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val5" disabled />
+      </div>
     </div>
   </div>
 </DemoBlock>
@@ -141,23 +203,32 @@ const val = ref(45)
 
 配合 `show-input` 属性，可以实现数值的精确输入。
 
-<DemoBlock title="带有输入框" :ts-code="tsInput" :js-code="tsInput">
-  <div class="slider-demo-block">
-    <yh-slider v-model="val8" show-input />
+<DemoBlock title="带有输入框" :ts-code="tsInput" :js-code="jsInput">
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">带输入框</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="val8" show-input />
+      </div>
+    </div>
+    <div class="demo-val-badge">当前数值: {{ val8 }}</div>
   </div>
-  <div class="demo-val">当前数值: {{ val8 }}</div>
 </DemoBlock>
 
 ## 垂直模式
 
 配置 `vertical` 属性为 `true` 启用垂直模式。在垂直模式下，必须设置 `height` 属性。
 
-<DemoBlock title="垂直模式" :ts-code="tsVertical" :js-code="tsVertical">
-  <div class="vertical-demo-container">
-    <div class="slider-demo-block vertical-demo">
-      <yh-slider v-model="val9" vertical height="200px" />
+<DemoBlock title="垂直模式" :ts-code="tsVertical" :js-code="jsVertical">
+  <div class="yh-demo-wrapper">
+    <div class="vertical-demo-container">
+      <yh-slider v-model="valV1" vertical height="200px" />
+      <yh-slider v-model="valV2" vertical height="200px" range />
     </div>
-    <div class="demo-val" style="text-align: center;">当前数值: {{ val9 }}</div>
+    <div style="text-align: center; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+      <div class="demo-val-badge">单选: {{ valV1 }}</div>
+      <div class="demo-val-badge">范围: {{ valV2 }}</div>
+    </div>
   </div>
 </DemoBlock>
 
@@ -165,22 +236,37 @@ const val = ref(45)
 
 使用 `marks` 属性标记 Slider 的刻度。
 
-<DemoBlock title="展示标记" :ts-code="tsMarks" :js-code="tsMarks">
-  <div class="slider-demo-block">
-    <yh-slider v-model="val10" :marks="marks" />
+<DemoBlock title="展示标记" :ts-code="tsMarks" :js-code="jsMarks">
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">滑块标记</span>
+      <div class="yh-demo-content" style="padding: 0 20px;">
+        <yh-slider v-model="valM" :marks="marks" />
+      </div>
+    </div>
+    <div class="demo-val-badge">当前数值: {{ valM }}</div>
   </div>
-  <div class="demo-val">当前数值: {{ val10 }}</div>
 </DemoBlock>
 
 ## 自定义插槽
 
 通过 `thumb` 插槽自定义滑块按钮，通过 `mark` 插槽自定义标记文本。以下是示例代码：
 
-<DemoBlock title="自定义插槽" :ts-code="tsSlot" :js-code="tsSlot">
-  <div class="slider-demo-wrapper">
-    <p class="slot-desc">插槽允许您完全自定义滑块的外观。查看上方的代码示例了解如何使用。</p>
-    <div class="slider-demo-block">
-      <yh-slider v-model="val1" />
+<DemoBlock title="自定义插槽" :ts-code="tsSlot" :js-code="jsSlot">
+  <div class="yh-demo-wrapper">
+    <p class="slot-desc">
+      <span style="font-size: 1.2em; margin-right: 8px;">✨</span>
+      插槽允许您完全自定义滑块的外观，例如自定义滑块手柄 (Thumb) 或刻度标记 (Mark)。
+    </p>
+    <div class="yh-demo-row">
+      <span class="yh-demo-label">自定义按钮</span>
+      <div class="yh-demo-content">
+        <yh-slider v-model="valS">
+          <template #thumb="{ value }">
+            <div class="custom-thumb">{{ value }}</div>
+          </template>
+        </yh-slider>
+      </div>
     </div>
   </div>
 </DemoBlock>
@@ -191,15 +277,39 @@ const val = ref(45)
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `number \| number[]` | `0` |
+| model-value / v-model | 绑定值 | `number \| [number, number]` | `0` |
 | min | 最小值 | `number` | `0` |
 | max | 最大值 | `number` | `100` |
 | step | 步长 | `number` | `1` |
-| show-input | 是否显示输入框 | `boolean` | `false` |
+| size | 滑块的尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
+| show-input | 是否显示输入框，仅在非范围选择时有效 | `boolean` | `false` |
+| show-input-controls | 在显示输入框时，是否显示控制按钮 | `boolean` | `true` |
+| input-size | 输入框的大小 | `'large' \| 'default' \| 'small'` | `'default'` |
+| show-stops | 是否显示间断点 | `boolean` | `false` |
+| show-tooltip | 是否显示提示 | `boolean` | `true` |
+| format-tooltip | 格式化提示文字 | `(val: number) => string \| number` | — |
+| disabled | 是否禁用 | `boolean` | `false` |
+| range | 是否为范围选择 | `boolean` | `false` |
 | vertical | 是否垂直模式 | `boolean` | `false` |
 | height | 垂直模式下的高度 | `string` | — |
-| marks | 标记对象 | `Record<number, string \| object>` | — |
-| color | 主题颜色 | `string` | — |
+| label | 屏幕阅读器标签 | `string` | — |
+| debounce | 输入时的去抖延迟，单位为毫秒 | `number` | `300` |
+| tooltip-class | 提示的自定义类名 | `string` | — |
+| placement | 提示出现的位置 | `string` | `'top'` |
+| marks | 标记， key 的类型必须为 number ，且在 [min, max] 范围内 | `object` | — |
+| validate-event | 改变滑块值时是否触发表单的校验 | `boolean` | `true` |
+| range-start-label | 自定义范围选择时的最小值属性名，用于 aria-label | `string` | — |
+| range-end-label | 自定义范围选择时的最大值属性名，用于 aria-label | `string` | — |
+| button-class | 自定义按钮类名 | `string` | — |
+| color | 自定义主题颜色 | `string` | — |
+
+### Events
+
+| 事件名 | 说明 | 回调参数 |
+| --- | --- | --- |
+| update:modelValue | 绑定值改变时触发 | `(val: number \| [number, number]) => void` |
+| change | 值改变时触发（仅在松开鼠标或点击滑道时） | `(val: number \| [number, number]) => void` |
+| input | 数据改变时触发（实时触发） | `(val: number \| [number, number]) => void` |
 
 ### Slots
 
@@ -209,41 +319,23 @@ const val = ref(45)
 | mark | 自定义刻度文本 | `{ mark: any }` |
 | default | 组件底部预留插槽 | — |
 
-<style>
-.slider-demo-block {
-  display: flex;
-  align-items: center;
+### 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-slider-main-color` | 主题色（滑道填充、手柄边框） | `var(--yh-color-primary)` |
+| `--yh-slider-bg-color` | 滑道背景颜色 | `var(--yh-border-color-light)` |
+| `--yh-slider-hover-bg-color` | 悬停时滑道背景颜色 | `var(--yh-border-color-dark)` |
+| `--yh-slider-button-size` | 手柄按钮尺寸 | `16px` |
+| `--yh-slider-button-border` | 手柄按钮边框宽度 | `2px` |
+| `--yh-slider-runway-height` | 滑道高度（横向为高，纵向为宽） | `6px` |
+| `--yh-slider-height` | 组件整体高度（容器高度） | `32px` |
+
+<style scoped>
+.yh-demo-wrapper {
   margin-bottom: 24px;
 }
-.slider-demo-block .demonstration {
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-  line-height: 44px;
-  flex: 0 0 100px;
-}
-.slider-demo-block .yh-slider {
-  flex: 1;
-  margin-left: 20px;
-}
-.vertical-demo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 0;
-}
-.vertical-demo {
-  height: 200px;
-}
-.demo-val {
-  font-size: 14px;
-  color: var(--yh-color-primary);
-  font-weight: bold;
-}
-.slot-title {
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-  margin-bottom: 12px;
-}
+
 .slot-desc {
   font-size: 14px;
   color: var(--vp-c-text-2);
@@ -251,5 +343,21 @@ const val = ref(45)
   padding: 12px 16px;
   background: var(--vp-c-bg-soft);
   border-radius: 8px;
+  border-left: 4px solid var(--vp-c-brand-1);
+}
+
+.custom-thumb {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #409eff, #a855f7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
 }
 </style>

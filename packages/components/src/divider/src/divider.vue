@@ -11,14 +11,14 @@ const props = defineProps(dividerProps)
 const ns = useNamespace('divider')
 
 const dividerStyle = computed(() => {
-  const styles: Record<string, string> = {
-    '--yh-border-style': props.borderStyle
+  const styles: Record<string, string | number> = {
+    '--yh-divider-border-style': props.borderStyle
   }
   if (props.color) {
-    styles['--yh-divider-color'] = props.color
+    styles['--yh-divider-border-color'] = props.color
   }
   if (props.borderWidth) {
-    styles['--yh-divider-width'] = typeof props.borderWidth === 'number'
+    styles['--yh-divider-border-width'] = typeof props.borderWidth === 'number'
       ? `${props.borderWidth}px`
       : props.borderWidth
   }

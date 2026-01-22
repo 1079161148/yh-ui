@@ -1,12 +1,21 @@
-.yh-rate {
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(rate) {
+  --yh-rate-void-color: #c6d1de;
+  --yh-rate-fill-color: #f7ba2a;
+  --yh-rate-disabled-void-color: #eff2f7;
+  --yh-rate-text-color: #1f2d3d;
+  --yh-rate-font-size: 14px;
+  --yh-rate-icon-margin: 6px;
+
   display: inline-flex;
   align-items: center;
   line-height: normal;
 
-  &__item {
+  @include e(item) {
     position: relative;
     display: inline-block;
-    margin-right: 6px;
+    margin-right: var(--yh-rate-icon-margin);
     cursor: pointer;
     vertical-align: middle;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -14,43 +23,53 @@
     &:last-child {
       margin-right: 0;
     }
-    &.is-hover {
+
+    @include when(hover) {
       transform: scale(1.15);
     }
   }
 
-  &-star-icon {
+  @include e(star-icon) {
     display: block;
     width: 100%;
     height: 100%;
+    color: var(--yh-rate-void-color);
+
+    @include when(void) {
+      color: var(--yh-rate-void-color);
+    }
   }
 
-  &-star-content {
+  @include e(star-content) {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    overflow: hidden; // 核心：裁剪内容
-    pointer-events: none; // 防止干扰 hover 事件
+    overflow: hidden;
+    pointer-events: none;
     transition: width 0.1s;
+    color: var(--yh-rate-fill-color);
 
-    .yh-rate-star-icon {
-      // 内部 SVG 保持固定大小，从而实现父级容器变窄时被裁剪而非被压缩
+    .#{$namespace}-rate__star-icon {
       height: 100%;
       max-width: none;
+      color: inherit;
     }
   }
 
-  &__text {
+  @include e(text) {
     margin-left: 10px;
-    font-size: 14px;
+    font-size: var(--yh-rate-font-size);
+    color: var(--yh-rate-text-color);
   }
 
-  &.is-disabled {
+  @include when(disabled) {
     opacity: 0.8;
-    .yh-rate__item {
+    --yh-rate-void-color: var(--yh-rate-disabled-void-color);
+
+    @include e(item) {
       cursor: not-allowed;
-      &.is-hover {
+      @include when(hover) {
         transform: none;
       }
     }

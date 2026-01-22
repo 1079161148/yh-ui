@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, nextTick } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import { switchProps, switchEmits, type SwitchValueType } from './switch'
 
 defineOptions({
@@ -12,6 +13,9 @@ const emit = defineEmits(switchEmits)
 const ns = useNamespace('switch')
 
 const { form, formItem, validate } = useFormItem()
+
+// 全局配置
+const { globalSize } = useConfig()
 
 const inputRef = ref<HTMLInputElement>()
 
@@ -90,7 +94,7 @@ const switchStyle = computed(() => ({
 // 组件类名
 const switchClass = computed(() => [
   ns.b(),
-  ns.m(props.size),
+  ns.m(props.size || globalSize.value || 'default'),
   ns.is('disabled', isDisabled.value),
   ns.is('checked', isChecked.value),
   ns.is('loading', props.loading)

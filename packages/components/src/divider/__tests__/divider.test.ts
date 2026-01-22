@@ -66,9 +66,9 @@ describe('YhDivider', () => {
       }
     })
     const style = wrapper.attributes('style')
-    expect(style).toContain('--yh-border-style: dashed')
-    expect(style).toContain('--yh-divider-width: 2px')
-    expect(style).toContain('--yh-divider-color: red')
+    expect(style).toContain('--yh-divider-border-style: dashed')
+    expect(style).toContain('--yh-divider-border-width: 2px')
+    expect(style).toContain('--yh-divider-border-color: red')
   })
 
   // 边框宽度支持字符串测试
@@ -78,6 +78,6 @@ describe('YhDivider', () => {
         borderWidth: '1rem'
       }
     })
-    expect(wrapper.attributes('style')).toContain('--yh-divider-width: 1rem')
+    expect(wrapper.attributes('style')).toContain('--yh-divider-border-width: 1rem')
   })
 })

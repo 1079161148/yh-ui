@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted, provide } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, provide, toRefs } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import { sliderProps, sliderEmits } from './slider'
 import type { SliderValueType } from './slider'
 import SliderButton from './slider-button.vue'
@@ -11,10 +12,14 @@ defineOptions({
 })
 
 const props = defineProps(sliderProps)
+const { vertical, disabled, size } = toRefs(props)
 const emit = defineEmits(sliderEmits)
 
 const ns = useNamespace('slider')
 const { form, formItem, validate: triggerValidate } = useFormItem()
+
+// 全局配置
+const { globalSize } = useConfig()
 
 const sliderRef = ref<HTMLElement>()
 
@@ -22,7 +27,7 @@ const firstValue = ref(0)
 const secondValue = ref(0)
 
 const mergedDisabled = computed(() => props.disabled || form?.disabled || false)
-const mergedSize = computed(() => (props.size || formItem?.size || form?.size || 'default') as any)
+const mergedSize = computed(() => (props.size || formItem?.size || form?.size || globalSize.value || 'default') as any)
 
 // 提供给子组件
 provide('slider', {
@@ -34,10 +39,11 @@ provide('slider', {
 // 初始化值
 const initValues = () => {
   if (props.range && Array.isArray(props.modelValue)) {
-    firstValue.value = Math.max(props.min, Math.min(props.max, props.modelValue[0]))
-    secondValue.value = Math.max(props.min, Math.min(props.max, props.modelValue[1]))
+    firstValue.value = Math.max(props.min, Math.min(props.max, props.modelValue[0] || 0))
+    secondValue.value = Math.max(props.min, Math.min(props.max, props.modelValue[1] || 0))
   } else {
-    firstValue.value = Math.max(props.min, Math.min(props.max, (props.modelValue as number) || 0))
+    const val = Array.isArray(props.modelValue) ? props.modelValue[0] : props.modelValue
+    firstValue.value = Math.max(props.min, Math.min(props.max, Number(val) || 0))
     secondValue.value = props.min
   }
 }
@@ -66,7 +72,7 @@ const barStart = computed(() => {
 })
 
 const barStyle = computed(() => {
-  return props.vertical
+  const style: any = props.vertical
     ? {
       height: barSize.value,
       bottom: barStart.value,
@@ -77,6 +83,12 @@ const barStyle = computed(() => {
       left: barStart.value,
       right: 'auto'
     }
+
+  if (props.color) {
+    style.background = props.color
+  }
+
+  return style
 })
 
 const stops = computed(() => {
@@ -111,10 +123,10 @@ const markList = computed(() => {
 const sliderClasses = computed(() => [
   ns.b(),
   ns.m(mergedSize.value),
-  ns.is('vertical', props.vertical),
-  ns.is('disabled', mergedDisabled.value),
-  ns.is('with-input', props.showInput && !props.range)
-])
+  vertical.value ? ns.is('vertical') : '',
+  mergedDisabled.value ? ns.is('disabled') : '',
+  (props.showInput && !props.range) ? ns.is('with-input') : ''
+].filter(Boolean))
 
 const sliderStyle = computed(() => {
   const style: Record<string, string> = {}
@@ -208,7 +220,7 @@ onMounted(() => {
 
       <slider-button v-model="firstValue" :vertical="vertical" :disabled="mergedDisabled" :min="min" :max="max"
         :step="step" :show-tooltip="showTooltip" :format-tooltip="formatTooltip" :tooltip-class="tooltipClass"
-        :placement="placement" @change="updateValue">
+        :placement="placement" @change="updateValue" @input="updateValue">
         <template v-if="$slots.thumb" #thumb="scope">
           <slot name="thumb" v-bind="scope"></slot>
         </template>
@@ -216,7 +228,7 @@ onMounted(() => {
 
       <slider-button v-if="range" v-model="secondValue" :vertical="vertical" :disabled="mergedDisabled" :min="min"
         :max="max" :step="step" :show-tooltip="showTooltip" :format-tooltip="formatTooltip"
-        :tooltip-class="tooltipClass" :placement="placement" @change="updateValue">
+        :tooltip-class="tooltipClass" :placement="placement" @change="updateValue" @input="updateValue">
         <template v-if="$slots.thumb" #thumb="scope">
           <slot name="thumb" v-bind="scope"></slot>
         </template>

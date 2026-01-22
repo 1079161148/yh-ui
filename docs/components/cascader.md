@@ -249,6 +249,47 @@ const options = Array.from({ length: 40 }).map((_, i) => ({
 }))
 <\/script>`
 
+const tsDisabled = `<template>
+  <yh-cascader v-model="value1" :options="options1" disabled placeholder="整机禁用" />
+  <yh-cascader v-model="value2" :options="options2" placeholder="选项禁用 (休闲食品被禁用)" />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const value1 = ref(['zhejiang', 'hangzhou', 'xihu'])
+const value2 = ref([])
+
+const options1 = [
+  {
+    value: 'zhejiang', label: '浙江省',
+    children: [
+      {
+        value: 'hangzhou', label: '杭州市',
+        children: [
+          { value: 'xihu', label: '西湖区' },
+          { value: 'binjiang', label: '滨江区' }
+        ]
+      }
+    ]
+  }
+]
+
+const options2 = [
+  {
+    value: 'digital', label: '数码产品',
+    children: [
+      { value: 'phone', label: '智能手机' },
+      { value: 'laptop', label: '笔记本电脑' }
+    ]
+  },
+  {
+    value: 'food', label: '休闲食品', disabled: true,
+    children: [{ value: 'snack', label: '膨化食品' }]
+  }
+]
+<\/script>`
+
 </script>
 
 当一个数据集合有清晰的层级结构（如行政区划、部门架构、商品分类）时，可通过级联选择器逐级选择。
@@ -268,7 +309,7 @@ const options = Array.from({ length: 40 }).map((_, i) => ({
 
 可以禁用整个组件，或在数据中指定某些选项不可选。
 
-<DemoBlock title="禁用状态" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
+<DemoBlock title="禁用状态" :ts-code="tsDisabled" :js-code="toJs(tsDisabled)">
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 320px;">
     <yh-cascader v-model="v4" :options="regionData" disabled placeholder="整机禁用" />
     <yh-cascader v-model="v5" :options="categoryData" placeholder="选项禁用 (休闲食品被禁用)" />
@@ -353,8 +394,9 @@ const options = Array.from({ length: 40 }).map((_, i) => ({
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `any \| any[]` | — |
+| model-value / v-model | 绑定值 | `string \| number \| (string \| number)[] \| (string \| number)[][]` | — |
 | options | 可选项数据源 | `CascaderOption[]` | `[]` |
+| props | 配置选项，具体见下表 | `object` | — |
 | placeholder | 输入框占位文本 | `string` | — |
 | disabled | 是否禁用 | `boolean` | `false` |
 | clearable | 是否支持清空 | `boolean` | `false` |
@@ -375,6 +417,31 @@ const options = Array.from({ length: 40 }).map((_, i) => ({
 | popper-class | 下拉框自定义类名 | `string` | — |
 | teleported | 是否将下拉层挂载至 body | `boolean` | `true` |
 | tag-type | 多选标签的类型 | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
+| validate-event | 输入时是否触发表单验证 | `boolean` | `true` |
+
+### CascaderOption
+
+| 属性名 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| value | 选项的值 | `string \| number` | — |
+| label | 选项的标签名 | `string` | — |
+| children | 子选项数组 | `CascaderOption[]` | — |
+| disabled | 是否禁用该选项 | `boolean` | `false` |
+| leaf | 是否是叶子节点 | `boolean` | — |
+
+### Cascader Config (props)
+
+| 属性名 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| expandTrigger | 次级菜单的展开方式 | `'click' \| 'hover'` | `'click'` |
+| multiple | 是否多选 | `boolean` | `false` |
+| checkStrictly | 是否允许选择任意一级节点 | `boolean` | `false` |
+| emitPath | 是否返回路径数组 | `boolean` | `true` |
+| value | 指定选项的值为选项对象的某个属性值 | `string` | `'value'` |
+| label | 指定选项标签为选项对象的某个属性值 | `string` | `'label'` |
+| children | 指定选项的子选项为选项对象的某个属性值 | `string` | `'children'` |
+| disabled | 指定选项的禁用为选项对象的某个属性值 | `string` | `'disabled'` |
+| leaf | 指定选项的叶子节点为选项对象的某个属性值 | `string` | `'leaf'` |
 
 ### Events
 
@@ -402,6 +469,24 @@ const options = Array.from({ length: 40 }).map((_, i) => ({
 | blur | 使输入框失去焦点 | `() => void` |
 | getCheckedNodes | 获取当前选中的节点对象数组 | `(leafOnly?: boolean) => CascaderOption[]` |
 | inputRef | 输入框的 DOM 引用 | `HTMLInputElement` |
+
+### 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-cascader-height` | 级联选择器高度 | `32px` |
+| `--yh-cascader-bg-color` | 背景颜色 | `var(--yh-fill-color-blank)` |
+| `--yh-cascader-border-color` | 边框颜色 | `var(--yh-border-color)` |
+| `--yh-cascader-border-color-hover` | 悬停时边框颜色 | `var(--yh-border-color-hover)` |
+| `--yh-cascader-border-color-focus` | 聚焦时边框颜色 | `var(--yh-color-primary)` |
+| `--yh-cascader-text-color` | 文字颜色 | `var(--yh-text-color-regular)` |
+| `--yh-cascader-placeholder-color` | 占位文字颜色 | `var(--yh-text-color-placeholder)` |
+| `--yh-cascader-node-height` | 选项节点高度 | `34px` |
+| `--yh-cascader-node-bg-color-hover` | 选项悬停背景色 | `var(--yh-fill-color-light)` |
+| `--yh-cascader-node-bg-color-active` | 选项激活背景色 | `var(--yh-fill-color-light)` |
+| `--yh-cascader-node-text-color-active` | 选项激活文字颜色 | `var(--yh-color-primary)` |
+| `--yh-cascader-menu-min-width` | 菜单最小宽度 | `180px` |
+| `--yh-cascader-menu-max-height` | 菜单最大高度 | `274px` |
 
 <style>
 .demo-res {

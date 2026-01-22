@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, useSlots, inject } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { InputNumberProps, InputNumberEmits, InputNumberExpose } from './input-number'
 
 defineOptions({
@@ -44,8 +45,11 @@ const validationError = ref<string>('')
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
 
+// 全局配置
+const { globalSize } = useConfig()
+
 const mergedDisabled = computed(() => props.disabled || form?.disabled || false)
-const mergedSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+const mergedSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
 
 // 数值精度
 const numPrecision = computed(() => {

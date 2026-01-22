@@ -1,6 +1,7 @@
 @use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-.yh-slider {
+@include b(slider) {
   --yh-slider-main-color: var(--yh-color-primary);
   --yh-slider-main-color-rgb: 64, 158, 255;
   --yh-slider-secondary-color: var(--yh-color-primary);
@@ -19,7 +20,7 @@
   user-select: none;
   box-sizing: border-box;
 
-  &.is-vertical {
+  @include when(vertical) {
     display: inline-flex;
     width: auto;
     height: 100%;
@@ -28,7 +29,7 @@
     margin: 0 12px;
     align-items: center;
 
-    .yh-slider__runway {
+    @include e(runway) {
       width: var(--yh-slider-runway-height);
       height: 100%;
       flex: 1;
@@ -36,14 +37,14 @@
       position: relative;
     }
 
-    .yh-slider__button-wrapper {
+    @include e(button-wrapper) {
       left: 50%;
       transform: translate(-50%, 50%);
       top: auto;
       z-index: 10;
     }
 
-    .yh-slider__bar {
+    @include e(bar) {
       width: 100%;
       height: auto;
       left: 0;
@@ -56,13 +57,13 @@
       );
     }
 
-    .yh-slider__stop {
+    @include e(stop) {
       left: 50%;
       top: auto;
       transform: translate(-50%, 50%);
     }
 
-    .yh-slider__marks {
+    @include e(marks) {
       position: absolute;
       left: 18px;
       top: 0;
@@ -70,27 +71,27 @@
       width: 0;
     }
 
-    .yh-slider__mark-text {
+    @include e(mark-text) {
       left: 0;
       top: auto;
       transform: translateY(50%);
       white-space: nowrap;
     }
 
-    .yh-slider__input {
+    @include e(input) {
       margin-right: 0;
       margin-top: 20px;
       width: 50px;
     }
   }
 
-  &__input {
+  @include e(input) {
     flex-shrink: 0;
     margin-right: 20px;
     width: 120px;
   }
 
-  &__runway {
+  @include e(runway) {
     flex: 1;
     height: var(--yh-slider-runway-height);
     background-color: var(--yh-slider-bg-color);
@@ -105,8 +106,8 @@
   }
 
   // 禁用状态样式
-  &.is-disabled {
-    .yh-slider__runway {
+  @include when(disabled) {
+    @include e(runway) {
       cursor: not-allowed;
       background-color: var(--yh-fill-color-light, #e4e7ed);
 
@@ -115,12 +116,12 @@
       }
     }
 
-    .yh-slider__bar {
+    @include e(bar) {
       background: var(--yh-text-color-placeholder, #a8abb2);
       box-shadow: none;
     }
 
-    .yh-slider__button {
+    @include e(button) {
       border-color: var(--yh-text-color-placeholder, #a8abb2);
       background-color: var(--yh-bg-color, #fff);
       cursor: not-allowed;
@@ -131,12 +132,12 @@
       }
     }
 
-    .yh-slider__button-wrapper {
+    @include e(button-wrapper) {
       cursor: not-allowed;
     }
   }
 
-  &__bar {
+  @include e(bar) {
     position: absolute;
     height: 100%;
     left: 0;
@@ -155,7 +156,7 @@
       bottom var(--yh-duration-base);
   }
 
-  &__button-wrapper {
+  @include e(button-wrapper) {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -174,12 +175,12 @@
       cursor: grabbing;
     }
 
-    &.is-dragging {
+    @include when(dragging) {
       z-index: 11;
     }
   }
 
-  &__button {
+  @include e(button) {
     width: var(--yh-slider-button-size);
     height: var(--yh-slider-button-size);
     border: var(--yh-slider-button-border) solid var(--yh-slider-main-color);
@@ -188,14 +189,18 @@
     transition: var(--yh-slider-transition);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    &.is-hover,
-    &.is-dragging {
+    @include when(hover) {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 6px rgba(var(--yh-slider-main-color-rgb, 64, 158, 255), 0.15);
+    }
+
+    @include when(dragging) {
       transform: scale(1.2);
       box-shadow: 0 0 0 6px rgba(var(--yh-slider-main-color-rgb, 64, 158, 255), 0.15);
     }
   }
 
-  &__stop {
+  @include e(stop) {
     position: absolute;
     width: 4px;
     height: 4px;
@@ -206,7 +211,7 @@
     z-index: 1;
   }
 
-  &__mark-text {
+  @include e(mark-text) {
     position: absolute;
     top: 15px;
     transform: translateX(-50%);
@@ -215,7 +220,7 @@
     margin-top: 10px;
   }
 
-  &__tooltip {
+  @include e(tooltip) {
     position: absolute;
     bottom: calc(100% + 10px);
     left: 50%;
@@ -231,7 +236,7 @@
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
 
-  &__tooltip-arrow {
+  @include e(tooltip-arrow) {
     position: absolute;
     top: 100%;
     left: 50%;
@@ -241,13 +246,13 @@
   }
 
   // Sizes
-  &--large {
+  @include m(large) {
     --yh-slider-height: 48px;
     --yh-slider-runway-height: 10px;
     --yh-slider-button-size: 24px;
   }
 
-  &--small {
+  @include m(small) {
     --yh-slider-height: 24px;
     --yh-slider-runway-height: 4px;
     --yh-slider-button-size: 12px;

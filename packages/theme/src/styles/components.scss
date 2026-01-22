@@ -1,0 +1,23 @@
+/**
+ * YH-UI 组件全局样式
+ * 用于导入所有反馈类、函数式调用的组件样式
+ */
+
+/* 核心变量与混合 */
+@use 'variables' as *;
+@use 'mixins/mixins' as *;
+
+/* 导入组件基础样式 */
+@use 'reset' as *;
+
+/* Message 消息提示 */
+@use '../../../components/src/message/src/message.scss';
+
+/* Notification 通知 */
+@use '../../../components/src/notification/src/notification.scss';
+
+/* Badge 徽标 */
+@use '../../../components/src/badge/src/badge.scss';
+
+/* Card 卡片 */
+@use '../../../components/src/card/src/card.scss';

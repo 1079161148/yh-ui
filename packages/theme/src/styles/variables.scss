@@ -100,9 +100,9 @@
   --yh-radius-circle: 50%;
 
   /* ==================== 字体系统 ==================== */
-  --yh-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --yh-font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* 字号 */
   --yh-font-size-xs: 12px;
@@ -130,14 +130,10 @@
 
   /* ==================== 阴影系统 ==================== */
   --yh-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --yh-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --yh-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --yh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --yh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --yh-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --yh-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --yh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --yh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
   /* ==================== 过渡动效 ==================== */
   --yh-duration-fast: 150ms;
@@ -180,11 +176,54 @@
   --yh-component-size-small-font: 12px;
   --yh-component-size-small-padding: 12px;
 
-  /* ==================== 边框 ==================== */
+  /* ==================== 组件语义化变量 ==================== */
+  --yh-border-radius-base: var(--yh-radius-base);
+  --yh-border-radius-small: var(--yh-radius-sm);
+  --yh-border-radius-round: var(--yh-radius-round);
+
+  /* Message 消息提示 */
+  --yh-message-bg-color: var(--yh-bg-color-overlay);
+  --yh-message-border-color: var(--yh-border-color-lighter);
+  --yh-message-shadow: var(--yh-shadow-lg);
+  --yh-message-text-color: var(--yh-text-color-primary);
+  --yh-message-close-color: var(--yh-text-color-secondary);
+  --yh-message-close-hover-color: var(--yh-text-color-primary);
+
+  /* Notification 通知 */
+  --yh-notification-bg-color: var(--yh-bg-color-overlay);
+  --yh-notification-border-color: var(--yh-border-color-lighter);
+  --yh-notification-shadow: var(--yh-shadow-lg);
+  --yh-notification-title-color: var(--yh-text-color-primary);
+  --yh-notification-content-color: var(--yh-text-color-regular);
+
+  /* Badge 徽标 */
+  --yh-badge-bg-color: var(--yh-color-danger);
+  --yh-badge-text-color: #ffffff;
+  --yh-badge-border-color: var(--yh-bg-color);
+
+  /* Card 卡片 */
+  --yh-card-bg-color: var(--yh-bg-color-overlay);
+  --yh-card-border-color: var(--yh-border-color-lighter);
+  --yh-card-shadow: var(--yh-shadow-base);
+  --yh-card-header-padding: 18px 20px;
+  --yh-card-body-padding: 20px;
+
+  /* Input 输入框 */
+  --yh-input-bg-color: var(--yh-fill-color-blank);
+  --yh-input-text-color: var(--yh-text-color-regular);
+  --yh-input-border-color: var(--yh-border-color);
+  --yh-input-hover-border-color: var(--yh-color-primary);
+  --yh-input-focus-border-color: var(--yh-color-primary);
+  --yh-input-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-icon-color: var(--yh-text-color-placeholder);
+  --yh-input-disabled-bg-color: var(--yh-fill-color-light);
+  --yh-input-disabled-text-color: var(--yh-text-color-disabled);
+  --yh-input-disabled-border-color: var(--yh-border-color-light);
+
+  /* ==================== 边框基础 ==================== */
   --yh-border-width: 1px;
   --yh-border-style: solid;
-  --yh-border: var(--yh-border-width) var(--yh-border-style)
-    var(--yh-border-color);
+  --yh-border: var(--yh-border-width) var(--yh-border-style) var(--yh-border-color);
 }
 
 /* ==================== 暗黑模式 ==================== */
@@ -244,4 +283,13 @@ html.dark {
   --yh-bg-color: #141414;
   --yh-bg-color-page: #0a0a0a;
   --yh-bg-color-overlay: #1d1e1f;
+
+  /* 组件暗色模式覆盖 */
+  --yh-message-bg-color: var(--yh-bg-color-overlay);
+  --yh-message-border-color: var(--yh-border-color-lighter);
+  --yh-notification-bg-color: var(--yh-bg-color-overlay);
+  --yh-notification-border-color: var(--yh-border-color-lighter);
+  --yh-badge-border-color: var(--yh-bg-color);
+  --yh-card-bg-color: var(--yh-bg-color-overlay);
+  --yh-card-border-color: var(--yh-border-color-lighter);
 }

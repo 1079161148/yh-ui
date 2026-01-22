@@ -1,13 +1,6 @@
-/**
- * YhInputTag Styles
- * @description 标签输入框组件样式 - 增强版
- */
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$input-tag-prefix: 'yh-input-tag';
-
-/* ==================== 基础样式 ==================== */
-.#{$input-tag-prefix} {
+@include b(input-tag) {
   --yh-input-tag-min-height: var(--yh-component-size-default);
   --yh-input-tag-font-size: var(--yh-font-size-base);
   --yh-input-tag-bg-color: var(--yh-fill-color-blank);
@@ -36,31 +29,33 @@ $input-tag-prefix: 'yh-input-tag';
     border-color: var(--yh-input-tag-hover-border-color);
   }
 
-  /* ==================== 前缀后缀 ==================== */
-  &__prefix,
-  &__suffix {
+  @include e(prefix) {
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
     color: var(--yh-text-color-placeholder);
-  }
-
-  &__prefix {
     margin-right: 8px;
   }
 
-  &__suffix {
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--yh-text-color-placeholder);
     margin-left: 8px;
   }
 
-  &__prefix-text,
-  &__suffix-text {
+  @include e(prefix-text) {
     font-size: inherit;
     white-space: nowrap;
   }
 
-  /* ==================== 包装器 ==================== */
-  &__wrapper {
+  @include e(suffix-text) {
+    font-size: inherit;
+    white-space: nowrap;
+  }
+
+  @include e(wrapper) {
     flex: 1;
     display: flex;
     flex-wrap: wrap;
@@ -69,8 +64,7 @@ $input-tag-prefix: 'yh-input-tag';
     min-width: 0;
   }
 
-  /* ==================== 标签样式 ==================== */
-  &__tag {
+  @include e(tag) {
     display: inline-flex;
     align-items: center;
     height: var(--yh-input-tag-tag-height);
@@ -85,105 +79,101 @@ $input-tag-prefix: 'yh-input-tag';
     cursor: default;
     transition: var(--yh-transition-fast);
 
-    // Light 效果 - 默认
-    &.is-light {
-      &.is-primary {
+    @include when(light) {
+      @include when(primary) {
         color: var(--yh-color-primary);
         background-color: var(--yh-color-primary-light-9);
         border: 1px solid var(--yh-color-primary-light-7);
       }
 
-      &.is-success {
+      @include when(success) {
         color: var(--yh-color-success);
         background-color: var(--yh-color-success-light-9);
         border: 1px solid var(--yh-color-success-light-7);
       }
 
-      &.is-warning {
+      @include when(warning) {
         color: var(--yh-color-warning);
         background-color: var(--yh-color-warning-light-9);
         border: 1px solid var(--yh-color-warning-light-7);
       }
 
-      &.is-danger {
+      @include when(danger) {
         color: var(--yh-color-danger);
         background-color: var(--yh-color-danger-light-9);
         border: 1px solid var(--yh-color-danger-light-7);
       }
 
-      &.is-info {
+      @include when(info) {
         color: var(--yh-color-info);
         background-color: var(--yh-color-info-light-9);
         border: 1px solid var(--yh-color-info-light-7);
       }
     }
 
-    // Dark 效果
-    &.is-dark {
+    @include when(dark) {
       color: #fff;
 
-      &.is-primary {
+      @include when(primary) {
         background-color: var(--yh-color-primary);
         border: 1px solid var(--yh-color-primary);
       }
 
-      &.is-success {
+      @include when(success) {
         background-color: var(--yh-color-success);
         border: 1px solid var(--yh-color-success);
       }
 
-      &.is-warning {
+      @include when(warning) {
         background-color: var(--yh-color-warning);
         border: 1px solid var(--yh-color-warning);
       }
 
-      &.is-danger {
+      @include when(danger) {
         background-color: var(--yh-color-danger);
         border: 1px solid var(--yh-color-danger);
       }
 
-      &.is-info {
+      @include when(info) {
         background-color: var(--yh-color-info);
         border: 1px solid var(--yh-color-info);
       }
     }
 
-    // Plain 效果
-    &.is-plain {
+    @include when(plain) {
       background-color: transparent;
 
-      &.is-primary {
+      @include when(primary) {
         color: var(--yh-color-primary);
         border: 1px solid var(--yh-color-primary-light-5);
       }
 
-      &.is-success {
+      @include when(success) {
         color: var(--yh-color-success);
         border: 1px solid var(--yh-color-success-light-5);
       }
 
-      &.is-warning {
+      @include when(warning) {
         color: var(--yh-color-warning);
         border: 1px solid var(--yh-color-warning-light-5);
       }
 
-      &.is-danger {
+      @include when(danger) {
         color: var(--yh-color-danger);
         border: 1px solid var(--yh-color-danger-light-5);
       }
 
-      &.is-info {
+      @include when(info) {
         color: var(--yh-color-info);
         border: 1px solid var(--yh-color-info-light-5);
       }
     }
 
-    // 拖拽状态
-    &.is-dragging {
+    @include when(dragging) {
       opacity: 0.5;
     }
 
-    &.is-drag-over {
+    @include when(drag-over) {
       transform: translateX(4px);
     }
 
@@ -196,12 +186,12 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  &__tag-content {
+  @include e(tag-content) {
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  &__tag-close {
+  @include e(tag-close) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -227,8 +217,7 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  /* ==================== 折叠标签 ==================== */
-  &__collapsed {
+  @include e(collapsed) {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -241,8 +230,8 @@ $input-tag-prefix: 'yh-input-tag';
     cursor: pointer;
     transition: var(--yh-transition-fast);
 
-    &.is-light {
-      &.is-info {
+    @include when(light) {
+      @include when(info) {
         color: var(--yh-text-color-secondary);
         background-color: var(--yh-fill-color-light);
         border: 1px solid var(--yh-border-color-light);
@@ -254,8 +243,7 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  /* ==================== Tooltip ==================== */
-  &__tooltip {
+  @include e(tooltip) {
     position: absolute;
     bottom: calc(100% + 8px);
     left: 50%;
@@ -282,20 +270,21 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  &__tooltip-tag {
+  @include e(tooltip-tag) {
     display: inline-block;
     padding: 2px 6px;
     font-size: var(--yh-font-size-xs);
     border-radius: var(--yh-radius-sm);
 
-    &.is-light.is-info {
-      color: var(--yh-color-info);
-      background-color: var(--yh-color-info-light-9);
+    @include when(light) {
+      @include when(info) {
+        color: var(--yh-color-info);
+        background-color: var(--yh-color-info-light-9);
+      }
     }
   }
 
-  /* ==================== 输入框 ==================== */
-  &__inner {
+  @include e(inner) {
     flex: 1;
     min-width: 50px;
     height: var(--yh-input-tag-tag-height);
@@ -312,8 +301,7 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  /* ==================== 清空按钮 ==================== */
-  &__clear {
+  @include e(clear) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -333,28 +321,25 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  /* ==================== 聚焦状态 ==================== */
-  &.is-focused {
+  @include when(focused) {
     border-color: var(--yh-input-tag-focus-border-color);
     box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
   }
 
-  /* ==================== 禁用状态 ==================== */
-  &.is-disabled {
+  @include when(disabled) {
     background-color: var(--yh-fill-color-light);
     cursor: not-allowed;
 
-    .#{$input-tag-prefix}__inner {
+    @include e(inner) {
       cursor: not-allowed;
     }
 
-    .#{$input-tag-prefix}__tag {
+    @include e(tag) {
       opacity: 0.6;
     }
   }
 
-  /* ==================== 尺寸变体 ==================== */
-  &--large {
+  @include m(large) {
     --yh-input-tag-min-height: var(--yh-component-size-large);
     --yh-input-tag-font-size: var(--yh-font-size-md);
     --yh-input-tag-tag-height: 26px;
@@ -362,13 +347,17 @@ $input-tag-prefix: 'yh-input-tag';
 
     padding: 4px 12px;
 
-    .#{$input-tag-prefix}__tag,
-    .#{$input-tag-prefix}__collapsed {
+    @include e(tag) {
       padding: 0 8px;
       font-size: var(--yh-font-size-sm);
     }
 
-    .#{$input-tag-prefix}__tag-close {
+    @include e(collapsed) {
+      padding: 0 8px;
+      font-size: var(--yh-font-size-sm);
+    }
+
+    @include e(tag-close) {
       width: 16px;
       height: 16px;
 
@@ -379,7 +368,7 @@ $input-tag-prefix: 'yh-input-tag';
     }
   }
 
-  &--small {
+  @include m(small) {
     --yh-input-tag-min-height: var(--yh-component-size-small);
     --yh-input-tag-font-size: var(--yh-font-size-xs);
     --yh-input-tag-tag-height: 18px;
@@ -387,13 +376,17 @@ $input-tag-prefix: 'yh-input-tag';
 
     padding: 1px 6px;
 
-    .#{$input-tag-prefix}__tag,
-    .#{$input-tag-prefix}__collapsed {
+    @include e(tag) {
       padding: 0 4px;
       font-size: 11px;
     }
 
-    .#{$input-tag-prefix}__tag-close {
+    @include e(collapsed) {
+      padding: 0 4px;
+      font-size: 11px;
+    }
+
+    @include e(tag-close) {
       width: 12px;
       height: 12px;
       margin-left: 1px;
@@ -406,7 +399,6 @@ $input-tag-prefix: 'yh-input-tag';
   }
 }
 
-/* ==================== 动画 ==================== */
 .yh-fade-enter-active,
 .yh-fade-leave-active {
   transition: opacity var(--yh-duration-fast) var(--yh-timing-ease-in-out);

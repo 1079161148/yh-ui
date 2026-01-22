@@ -18,9 +18,11 @@ export interface CascaderOption {
   [key: string]: any
 }
 
+export type CascaderValue = string | number | (string | number)[] | (string | number)[][]
+
 export interface CascaderProps {
   /** 绑定值 */
-  modelValue?: string | number | (string | number)[] | (string | number)[][]
+  modelValue?: CascaderValue
   /** 选项数据 */
   options?: CascaderOption[]
   /** 占位文本 */

@@ -31,10 +31,23 @@ const radio = ref('1')
 const jsBasic = tsBasic.replace('lang="ts"', '')
 
 const tsDisabled = `<template>
-  <yh-radio-group v-model="radio" disabled>
-    <yh-radio value="1">选项一</yh-radio>
-    <yh-radio value="2">选项二</yh-radio>
-  </yh-radio-group>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <div>
+      <p>整组禁用：</p>
+      <yh-radio-group v-model="radio" disabled>
+        <yh-radio value="1">选项一</yh-radio>
+        <yh-radio value="2">选项二</yh-radio>
+      </yh-radio-group>
+    </div>
+    <div>
+      <p>单个禁用：</p>
+      <yh-radio-group v-model="radio">
+        <yh-radio value="1">选项一</yh-radio>
+        <yh-radio value="2" disabled>选项二（禁用）</yh-radio>
+        <yh-radio value="3">选项三</yh-radio>
+      </yh-radio-group>
+    </div>
+  </div>
 <\/template>
 
 <script setup lang="ts">
@@ -75,8 +88,12 @@ const radio = ref('1')
 const jsSizes = tsSizes.replace('lang="ts"', '')
 
 const tsSingle = `<template>
-  <yh-radio v-model="radio" value="1">选项一</yh-radio>
-  <yh-radio v-model="radio" value="2">选项二</yh-radio>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+    <yh-radio v-model="radio" value="1">选项一</yh-radio>
+    <yh-radio v-model="radio" value="2">选项二</yh-radio>
+    <yh-radio v-model="radio" value="3">选项三</yh-radio>
+  </div>
+  <p style="margin-top: 12px; color: var(--yh-text-color-secondary);">当前选中值: {{ radio }}</p>
 <\/template>
 
 <script setup lang="ts">
@@ -87,10 +104,29 @@ const radio = ref('1')
 const jsSingle = tsSingle.replace('lang="ts"', '')
 
 const tsGroupSize = `<template>
-  <yh-radio-group v-model="radio" size="large">
-    <yh-radio value="1" border>选项一</yh-radio>
-    <yh-radio value="2" border>选项二</yh-radio>
-  </yh-radio-group>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <div>
+      <p>Large:</p>
+      <yh-radio-group v-model="radio" size="large">
+        <yh-radio value="1" border>选项一</yh-radio>
+        <yh-radio value="2" border>选项二</yh-radio>
+      </yh-radio-group>
+    </div>
+    <div>
+      <p>Default:</p>
+      <yh-radio-group v-model="radio">
+        <yh-radio value="1" border>选项一</yh-radio>
+        <yh-radio value="2" border>选项二</yh-radio>
+      </yh-radio-group>
+    </div>
+    <div>
+      <p>Small:</p>
+      <yh-radio-group v-model="radio" size="small">
+        <yh-radio value="1" border>选项一</yh-radio>
+        <yh-radio value="2" border>选项二</yh-radio>
+      </yh-radio-group>
+    </div>
+  </div>
 <\/template>
 
 <script setup lang="ts">
@@ -118,12 +154,26 @@ const radio = ref('New York')
 const jsRadioButton = tsRadioButton.replace('lang="ts"', '')
 
 const tsRadioButtonCustom = `<template>
-  <yh-radio-group v-model="radio" fill="#67C23A" text-color="#fff">
-    <yh-radio-button value="New York">New York</yh-radio-button>
-    <yh-radio-button value="Washington">Washington</yh-radio-button>
-    <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
-    <yh-radio-button value="Chicago">Chicago</yh-radio-button>
-  </yh-radio-group>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <yh-radio-group v-model="radio">
+      <yh-radio-button value="New York">New York</yh-radio-button>
+      <yh-radio-button value="Washington">Washington</yh-radio-button>
+      <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
+      <yh-radio-button value="Chicago">Chicago</yh-radio-button>
+    </yh-radio-group>
+    <yh-radio-group v-model="radio" fill="#67C23A" text-color="#fff">
+      <yh-radio-button value="New York">New York</yh-radio-button>
+      <yh-radio-button value="Washington">Washington</yh-radio-button>
+      <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
+      <yh-radio-button value="Chicago">Chicago</yh-radio-button>
+    </yh-radio-group>
+    <yh-radio-group v-model="radio" fill="#8B5CF6" text-color="#fff">
+      <yh-radio-button value="New York">New York</yh-radio-button>
+      <yh-radio-button value="Washington">Washington</yh-radio-button>
+      <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
+      <yh-radio-button value="Chicago">Chicago</yh-radio-button>
+    </yh-radio-group>
+  </div>
 <\/template>
 
 <script setup lang="ts">
@@ -150,11 +200,32 @@ const radio = ref('New York')
 const jsRadioButtonDisabled = tsRadioButtonDisabled.replace('lang="ts"', '')
 
 const tsRadioButtonSizes = `<template>
-  <yh-radio-group v-model="radio" size="large">
-    <yh-radio-button value="New York">New York</yh-radio-button>
-    <yh-radio-button value="Washington">Washington</yh-radio-button>
-    <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
-  </yh-radio-group>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <div>
+      <p>Large:</p>
+      <yh-radio-group v-model="radio" size="large">
+        <yh-radio-button value="New York">New York</yh-radio-button>
+        <yh-radio-button value="Washington">Washington</yh-radio-button>
+        <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
+      </yh-radio-group>
+    </div>
+    <div>
+      <p>Default:</p>
+      <yh-radio-group v-model="radio">
+        <yh-radio-button value="New York">New York</yh-radio-button>
+        <yh-radio-button value="Washington">Washington</yh-radio-button>
+        <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
+      </yh-radio-group>
+    </div>
+    <div>
+      <p>Small:</p>
+      <yh-radio-group v-model="radio" size="small">
+        <yh-radio-button value="New York">New York</yh-radio-button>
+        <yh-radio-button value="Washington">Washington</yh-radio-button>
+        <yh-radio-button value="Los Angeles">Los Angeles</yh-radio-button>
+      </yh-radio-group>
+    </div>
+  </div>
 <\/template>
 
 <script setup lang="ts">
@@ -172,10 +243,16 @@ const jsRadioButtonSizes = tsRadioButtonSizes.replace('lang="ts"', '')
 单选框组由 `yh-radio-group` 包裹一组 `yh-radio`，绑定 `v-model` 即可实现单选功能。
 
 <DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
-  <yh-radio-group v-model="radio1">
-    <yh-radio value="1">选项一</yh-radio>
-    <yh-radio value="2">选项二</yh-radio>
-  </yh-radio-group>
+  <div class="yh-demo-wrapper">
+    <div class="yh-demo-row">
+      <div class="yh-demo-content">
+        <yh-radio-group v-model="radio1">
+          <yh-radio value="1">选项一</yh-radio>
+          <yh-radio value="2">选项二</yh-radio>
+        </yh-radio-group>
+      </div>
+    </div>
+  </div>
   <p style="margin-top: 12px; color: var(--yh-text-color-secondary);">当前选中值: {{ radio1 }}</p>
 </DemoBlock>
 
@@ -360,7 +437,7 @@ Radio 也可以单独使用，不使用 RadioGroup 包裹。
 | --- | --- | --- | --- |
 | model-value / v-model | 绑定值 | `string \| number \| boolean` | — |
 | value | 单选框的值 | `string \| number \| boolean` | — |
-| label | 显示的文本 | `string` | — |
+| label | 显示的文本内容 | `string` | — |
 | disabled | 是否禁用 | `boolean` | `false` |
 | border | 是否显示边框 | `boolean` | `false` |
 | size | 单选框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
@@ -384,7 +461,7 @@ Radio 也可以单独使用，不使用 RadioGroup 包裹。
 | --- | --- | --- | --- |
 | model-value / v-model | 绑定值 | `string \| number \| boolean` | — |
 | value | 单选按钮的值 | `string \| number \| boolean` | — |
-| label | 显示的文本 | `string` | — |
+| label | 显示的文本内容 | `string` | — |
 | disabled | 是否禁用 | `boolean` | `false` |
 | size | 单选按钮尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
 | name | 原生 name 属性 | `string` | — |

@@ -1164,3 +1164,114 @@
     padding: 24px 16px 64px !important;
   }
 }
+
+/* ============================================
+   Demo Utilities & Specific Components
+   ============================================ */
+.yh-demo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.yh-demo-row {
+  display: flex; /* 改回 flex 布局以获得更精准的起始对齐 */
+  align-items: flex-start;
+  gap: 32px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--vp-c-divider-light);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .yh-demo-label {
+    flex: 0 0 120px;
+    font-size: 14px;
+    color: var(--vp-c-text-2);
+    font-weight: 500;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* 默认高度锁定为 32px (默认输入框高度) */
+    height: 32px;
+    transition: all var(--yh-anim-fast) ease;
+
+    &::after {
+      display: none; /* 彻底移除点号 */
+    }
+  }
+
+  /* 尺寸适配：同步锁定标签高度与对应尺寸的输入框一致 */
+  &--large .yh-demo-label {
+    height: 40px;
+  }
+
+  &--small .yh-demo-label {
+    height: 24px;
+  }
+
+  .yh-demo-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* 允许内容堆叠而不影响 Label */
+    gap: 8px;
+    min-width: 0;
+
+    /* 内部第一行如果是行内容器，也保持对齐 */
+    .yh-input,
+    .yh-select {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+}
+
+.yh-demo-flex {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 覆盖 demo-box 的预览区域背景，增加设计感 */
+.demo-box__preview {
+  background-image: radial-gradient(var(--vp-c-divider-light) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center;
+}
+
+/* 针对 Slider 在文档中的特殊对齐 */
+.vp-doc .slider-demo-block {
+  margin-bottom: 0;
+}
+
+.vp-doc .slider-demo-block .yh-slider {
+  margin-left: 0;
+}
+
+/* 垂直模式容器 */
+.vertical-demo-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 60px;
+  padding: 20px 0;
+  justify-content: center;
+}
+
+.demo-val-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 16px;
+  border: 1px solid var(--vp-c-brand-soft);
+  box-shadow: 0 2px 10px rgba(64, 158, 255, 0.1);
+}

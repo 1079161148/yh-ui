@@ -1,12 +1,14 @@
 # Checkbox 复选框
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // Demo 状态
 const checked1 = ref(true)
 const checked2 = ref(false)
-const checked3 = ref(true)
+const checkedDisabled1 = ref(false)
+const checkedDisabled2 = ref(true)
+const customValue = ref('yes')
 const indeterminate = ref(true)
 const checkAll = ref(false)
 const checkedCities = ref(['上海', '北京'])
@@ -14,7 +16,17 @@ const cities = ['上海', '北京', '广州', '深圳']
 const checkedList = ref(['选项A'])
 const disabledChecked = ref(true)
 const borderChecked = ref(true)
+const borderUnchecked = ref(false)
 const sizeChecked = ref(true)
+
+// 确保客户端正确初始化 VitePress 的服务端渲染（SSR）机制可能导致 ref() 的初始值在客户端 hydration 时被意外重置为默认值（false）
+onMounted(() => {
+  checked1.value = true
+  checkedDisabled2.value = true
+  borderChecked.value = true
+  sizeChecked.value = true
+  customValue.value = 'yes'
+})
 
 // 全选处理
 const handleCheckAllChange = (val: boolean) => {
@@ -30,32 +42,31 @@ const handleCheckedCitiesChange = (value: string[]) => {
 
 // TypeScript 代码示例
 const tsBasic = `<template>
-  <yh-checkbox v-model="checked">选项</yh-checkbox>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+    <yh-checkbox v-model="checked1">选项一</yh-checkbox>
+    <yh-checkbox v-model="checked2">选项二</yh-checkbox>
+  </div>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const checked = ref(true)
+const checked1 = ref(true)
+const checked2 = ref(false)
 <\/script>`
 
-const jsBasic = `<template>
-  <yh-checkbox v-model="checked">选项</yh-checkbox>
-<\/template>
-
-<script setup>
-import { ref } from 'vue'
-const checked = ref(true)
-<\/script>`
+const jsBasic = tsBasic.replace('lang="ts"', '')
 
 const tsDisabled = `<template>
-  <yh-checkbox v-model="checked1" disabled>禁用</yh-checkbox>
-  <yh-checkbox v-model="checked2" disabled>禁用选中</yh-checkbox>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+    <yh-checkbox v-model="checkedDisabled1" disabled>未选中禁用</yh-checkbox>
+    <yh-checkbox v-model="checkedDisabled2" disabled>选中禁用</yh-checkbox>
+  </div>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const checked1 = ref(false)
-const checked2 = ref(true)
+const checkedDisabled1 = ref(false)
+const checkedDisabled2 = ref(true)
 <\/script>`
 
 const jsDisabled = tsDisabled.replace('lang="ts"', '')
@@ -114,26 +125,32 @@ const handleCheckedCitiesChange = (value: string[]) => {
 const jsIndeterminate = tsIndeterminate.replace('lang="ts"', '').replace(': boolean', '').replace(': string[]', '')
 
 const tsBorder = `<template>
-  <yh-checkbox v-model="checked" border>边框模式</yh-checkbox>
-  <yh-checkbox v-model="checked" border disabled>禁用边框</yh-checkbox>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+    <yh-checkbox v-model="borderChecked" border>边框模式</yh-checkbox>
+    <yh-checkbox v-model="borderUnchecked" border>未选中边框</yh-checkbox>
+    <yh-checkbox v-model="borderChecked" border disabled>禁用边框</yh-checkbox>
+  </div>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const checked = ref(true)
+const borderChecked = ref(true)
+const borderUnchecked = ref(false)
 <\/script>`
 
 const jsBorder = tsBorder.replace('lang="ts"', '')
 
 const tsSizes = `<template>
-  <yh-checkbox v-model="checked" size="large" border>大尺寸</yh-checkbox>
-  <yh-checkbox v-model="checked" border>默认尺寸</yh-checkbox>
-  <yh-checkbox v-model="checked" size="small" border>小尺寸</yh-checkbox>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+    <yh-checkbox v-model="sizeChecked" size="large" border>大尺寸</yh-checkbox>
+    <yh-checkbox v-model="sizeChecked" border>默认尺寸</yh-checkbox>
+    <yh-checkbox v-model="sizeChecked" size="small" border>小尺寸</yh-checkbox>
+  </div>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const checked = ref(true)
+const sizeChecked = ref(true)
 <\/script>`
 
 const jsSizes = tsSizes.replace('lang="ts"', '')
@@ -156,17 +173,17 @@ const jsMinMax = tsMinMax.replace('lang="ts"', '')
 
 const tsTrueValue = `<template>
   <yh-checkbox
-    v-model="value"
+    v-model="customValue"
     true-value="yes"
     false-value="no"
   >
-    自定义值 (当前值: {{ value }})
+    自定义值 (当前值: {{ customValue }})
   </yh-checkbox>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const value = ref('yes')
+const customValue = ref('yes')
 <\/script>`
 
 const jsTrueValue = tsTrueValue.replace('lang="ts"', '')
@@ -191,8 +208,8 @@ const jsTrueValue = tsTrueValue.replace('lang="ts"', '')
 
 <DemoBlock title="禁用状态" :ts-code="tsDisabled" :js-code="jsDisabled">
   <div style="display: flex; flex-wrap: wrap; gap: 16px;">
-    <yh-checkbox v-model="checked2" disabled>未选中禁用</yh-checkbox>
-    <yh-checkbox v-model="disabledChecked" disabled>选中禁用</yh-checkbox>
+    <yh-checkbox v-model="checkedDisabled1" disabled>未选中禁用</yh-checkbox>
+    <yh-checkbox v-model="checkedDisabled2" disabled>选中禁用</yh-checkbox>
   </div>
 </DemoBlock>
 
@@ -239,7 +256,7 @@ const jsTrueValue = tsTrueValue.replace('lang="ts"', '')
 <DemoBlock title="带边框" :ts-code="tsBorder" :js-code="jsBorder">
   <div style="display: flex; flex-wrap: wrap; gap: 16px;">
     <yh-checkbox v-model="borderChecked" border>边框模式</yh-checkbox>
-    <yh-checkbox v-model="checked2" border>未选中边框</yh-checkbox>
+    <yh-checkbox v-model="borderUnchecked" border>未选中边框</yh-checkbox>
     <yh-checkbox v-model="borderChecked" border disabled>禁用边框</yh-checkbox>
   </div>
 </DemoBlock>
@@ -277,13 +294,13 @@ const jsTrueValue = tsTrueValue.replace('lang="ts"', '')
 
 <DemoBlock title="自定义选中值" :ts-code="tsTrueValue" :js-code="jsTrueValue">
   <yh-checkbox
-    v-model="checked3"
+    v-model="customValue"
     true-value="yes"
     false-value="no"
   >
     自定义值
   </yh-checkbox>
-  <p style="margin-top: 12px; color: var(--yh-text-color-secondary);">当前绑定值类型: {{ typeof checked3 }}, 值: {{ checked3 }}</p>
+  <p style="margin-top: 12px; color: var(--yh-text-color-secondary);">当前绑定值类型: {{ typeof customValue }}, 值: {{ customValue }}</p>
 </DemoBlock>
 
 ## API

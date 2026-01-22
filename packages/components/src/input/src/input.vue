@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, nextTick, useSlots, onMounted, inject } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { InputProps, InputEmits, InputExpose } from './input'
 import { calcTextareaHeight } from './utils'
 import type { CSSProperties } from 'vue'
@@ -41,7 +42,12 @@ const wrapperRef = ref<HTMLElement>()
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
-const inputSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+
+// 全局配置
+const { globalSize } = useConfig()
+
+// 输入框尺寸：组件 props > formItem > form > globalConfig
+const inputSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
 
 
 // 内部状态
@@ -117,6 +123,7 @@ const wrapperClasses = computed(() => [
   ns.m(inputSize.value),
   ns.is('disabled', props.disabled),
   ns.is('focused', focused.value),
+  ns.is('textarea', isTextarea.value),
   ns.is('exceed', inputExceed.value),
   {
     [ns.b('group')]: hasPrepend.value || hasAppend.value,
@@ -262,9 +269,7 @@ const resizeTextarea = () => {
   if (type !== 'textarea') return
 
   if (!autosize) {
-    textareaCalcStyle.value = {
-      minHeight: calcTextareaHeight(textareaRef.value!, 1, 1).minHeight,
-    }
+    textareaCalcStyle.value = {}
     return
   }
 
@@ -395,7 +400,7 @@ defineExpose<InputExpose>({
     </div>
 
     <!-- 字数统计 (Textarea 外部右下角) -->
-    <span v-if="showWordLimitCount && isTextarea" :class="ns.e('count')">
+    <span v-if="showWordLimitCount && isTextarea" :class="[ns.e('count'), ns.em('count', 'textarea')]">
       {{ textLength }} / {{ maxlength }}
     </span>
   </div>

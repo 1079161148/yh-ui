@@ -18,7 +18,6 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<RadioButtonProps>(), {
-  size: 'default',
   disabled: false
 })
 
@@ -83,7 +82,7 @@ const activeStyle = computed(() => {
 // 类名计算
 const buttonClasses = computed(() => [
   ns.b(),
-  ns.m(buttonSize.value),
+  buttonSize.value !== 'default' ? ns.m(buttonSize.value) : '',
   ns.is('disabled', isDisabled.value),
   ns.is('checked', isChecked.value),
   ns.is('focused', focused.value)
@@ -122,7 +121,7 @@ const blur = () => {
   inputRef.value?.blur()
 }
 
-// 暴露的属性和方法
+// 暴露的属性 and 方法
 defineExpose<RadioButtonExpose>({
   ref: inputRef.value,
   focus,

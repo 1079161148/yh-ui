@@ -5,6 +5,7 @@
  */
 import { computed, ref, useSlots, nextTick, inject } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { InputTagProps, InputTagEmits, InputTagExpose } from './input-tag'
 
 defineOptions({
@@ -37,6 +38,9 @@ const slots = useSlots()
 
 // 命名空间
 const ns = useNamespace('input-tag')
+
+// 全局配置
+const { globalSize } = useConfig()
 
 // 元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -113,7 +117,7 @@ const separators = computed(() => {
 // 类名计算
 const inputTagClasses = computed(() => [
   ns.b(),
-  ns.m(props.size),
+  ns.m(props.size || globalSize.value || 'default'),
   ns.is('disabled', props.disabled),
   ns.is('focused', focused.value),
   ns.is('has-prefix', hasPrefix.value),

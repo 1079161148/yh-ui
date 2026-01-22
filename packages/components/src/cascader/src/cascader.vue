@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useConfig } from '../../hooks/use-config'
 import type { CascaderProps, CascaderEmits, CascaderExpose, CascaderOption, CascaderContext } from './cascader'
 import { CascaderContextKey, defaultCascaderConfig } from './cascader'
 import CascaderPanel from './cascader-panel.vue'
@@ -40,7 +41,11 @@ const inputId = useId()
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
-const cascaderSize = computed(() => props.size || formItem?.size || form?.size || 'default')
+
+// 全局配置
+const { globalSize } = useConfig()
+
+const cascaderSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
 
 // 合并配置 - 直接属性优先于 props 配置
 const config = computed(() => ({

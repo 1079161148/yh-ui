@@ -1,284 +1,244 @@
-/**
- * YhInput Styles
- * @description 输入框组件样式
- */
+@use 'sass:map';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
-/* ==================== 变量定义 ==================== */
-$input-prefix: 'yh-input';
+@include b(input) {
+  --yh-input-height: var(--yh-component-size-default);
+  --yh-input-font-size: var(--yh-font-size-base);
+  --yh-input-padding: 0 var(--yh-spacing-md);
 
-/* ==================== 基础样式 ==================== */
-.#{$input-prefix} {
-  --yh-input-text-color: var(--yh-text-color-regular);
-  --yh-input-bg-color: var(--yh-fill-color-blank);
   --yh-input-border-color: var(--yh-border-color);
-  --yh-input-placeholder-color: var(--yh-text-color-placeholder);
-  --yh-input-hover-border-color: var(--yh-border-color-dark);
+  --yh-input-hover-border-color: var(--yh-border-color-hover);
   --yh-input-focus-border-color: var(--yh-color-primary);
-  --yh-input-disabled-bg-color: var(--yh-fill-color-light);
-  --yh-input-disabled-border-color: var(--yh-border-color-light);
-  --yh-input-disabled-text-color: var(--yh-text-color-disabled);
+  --yh-input-bg-color: var(--yh-fill-color-blank);
 
   position: relative;
   display: inline-flex;
-  flex-wrap: wrap;
   width: 100%;
-  font-size: var(--yh-font-size-base);
-  line-height: var(--yh-line-height-normal);
   vertical-align: middle;
+  box-sizing: border-box;
+  font-size: var(--yh-input-font-size);
 
-  /* ==================== 输入框包装器 ==================== */
-  &__wrapper {
-    position: relative;
+  @include e(wrapper) {
     display: inline-flex;
-    flex-grow: 1;
     align-items: center;
     justify-content: center;
-    padding: 1px 12px;
+    flex-grow: 1;
+    padding: var(--yh-input-padding);
     background-color: var(--yh-input-bg-color);
-    background-image: none;
-    border: var(--yh-border-width) var(--yh-border-style) var(--yh-input-border-color);
+    border: 1px solid var(--yh-input-border-color);
     border-radius: var(--yh-radius-base);
-    cursor: text;
-    transition: var(--yh-transition-fast);
+    transition: var(--yh-transition-base);
+    box-sizing: border-box;
+    position: relative;
 
     &:hover {
       border-color: var(--yh-input-hover-border-color);
     }
-  }
 
-  /* ==================== 输入框内部元素 ==================== */
-  &__inner {
-    flex-grow: 1;
-    width: 100%;
-    height: var(--yh-component-size-default);
-    padding: 0;
-    color: var(--yh-input-text-color);
-    font-size: inherit;
-    font-family: inherit;
-    line-height: inherit;
-    background: none;
-    border: none;
-    outline: none;
-    appearance: none;
-    box-shadow: none;
-    -webkit-appearance: none;
-
-    &::placeholder {
-      color: var(--yh-input-placeholder-color);
-    }
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      margin: 0;
-      -webkit-appearance: none;
-    }
-
-    &[type='number'] {
-      -moz-appearance: textfield;
-    }
-  }
-
-  /* Textarea */
-  textarea.#{$input-prefix}__inner {
-    height: auto;
-    min-height: calc(var(--yh-component-size-default) * 2);
-    padding: 8px 0;
-    line-height: var(--yh-line-height-normal);
-    resize: vertical;
-    vertical-align: top;
-  }
-
-  /* ==================== 前后缀 ==================== */
-  &__prefix,
-  &__suffix {
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    color: var(--yh-text-color-placeholder);
-    white-space: nowrap;
-  }
-
-  &__prefix {
-    margin-right: 8px;
-  }
-
-  &__suffix {
-    margin-left: 8px;
-    gap: 6px;
-  }
-
-  &__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1em;
-    height: 1em;
-    font-size: 14px;
-    line-height: 1;
-    vertical-align: middle;
-
-    svg {
-      width: 1em;
-      height: 1em;
-    }
-  }
-
-  &__clear,
-  &__password {
-    cursor: pointer;
-    transition: color var(--yh-duration-fast);
-
-    &:hover {
-      color: var(--yh-text-color-secondary);
-    }
-  }
-
-  /* 字数统计 - 仿 Element Plus 样式 */
-  &__count {
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-    color: var(--yh-text-color-placeholder);
-    flex-shrink: 0;
-  }
-
-  /* 输入框内字数统计 */
-  &__wrapper > &__count {
-    margin-left: 8px;
-  }
-
-  /* Textarea 外部字数统计 - 右下角定位 */
-  & > &__count {
-    position: absolute;
-    right: 12px;
-    bottom: 8px;
-    font-size: 12px;
-    line-height: 14px;
-    color: var(--yh-text-color-placeholder);
-  }
-
-  /* ==================== 前后置元素 ==================== */
-  &__prepend,
-  &__append {
-    display: inline-flex;
-    align-items: center;
-    padding: 0 12px;
-    color: var(--yh-text-color-regular);
-    white-space: nowrap;
-    background-color: var(--yh-fill-color-light);
-    border: var(--yh-border-width) var(--yh-border-style) var(--yh-input-border-color);
-  }
-
-  &__prepend {
-    border-right: 0;
-    border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
-  }
-
-  &__append {
-    border-left: 0;
-    border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
-  }
-
-  /* ==================== 尺寸修饰符 ==================== */
-  &--large {
-    font-size: var(--yh-font-size-md);
-
-    .#{$input-prefix}__wrapper {
-      padding: 1px 16px;
-    }
-
-    .#{$input-prefix}__inner {
-      height: var(--yh-component-size-large);
-    }
-
-    .#{$input-prefix}__icon {
-      font-size: 16px;
-    }
-  }
-
-  &--small {
-    font-size: var(--yh-font-size-xs);
-
-    .#{$input-prefix}__wrapper {
-      padding: 1px 8px;
-    }
-
-    .#{$input-prefix}__inner {
-      height: var(--yh-component-size-small);
-    }
-
-    .#{$input-prefix}__icon {
-      font-size: 12px;
-    }
-  }
-
-  /* ==================== 状态修饰符 ==================== */
-  &.is-focused {
-    .#{$input-prefix}__wrapper {
+    @include when(focus) {
       border-color: var(--yh-input-focus-border-color);
-      box-shadow: 0 0 0 1px var(--yh-color-primary-light-7);
+      box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+      z-index: 2;
     }
-  }
 
-  &.is-disabled {
-    cursor: not-allowed;
-
-    .#{$input-prefix}__wrapper {
+    @include when(disabled) {
       background-color: var(--yh-input-disabled-bg-color);
       border-color: var(--yh-input-disabled-border-color);
       cursor: not-allowed;
+      .yh-input__inner {
+        color: var(--yh-text-color-disabled);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  @include e(inner) {
+    flex: 1;
+    height: calc(var(--yh-input-height) - 2px);
+    line-height: calc(var(--yh-input-height) - 2px);
+    color: var(--yh-text-color-regular);
+    font-size: inherit;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    appearance: none;
+    &::placeholder {
+      color: var(--yh-text-color-placeholder);
+    }
+  }
+
+  /* 文本域整体容器布局 */
+  &.is-textarea {
+    flex-direction: column;
+    align-items: stretch;
+    display: inline-flex;
+    vertical-align: bottom;
+
+    .yh-input__wrapper {
+      padding: 0;
+      box-shadow: none;
+      border: none;
+
+      &:hover,
+      &.is-focus {
+        border-color: transparent;
+      }
+    }
+
+    .yh-input__inner {
+      border: 1px solid var(--yh-input-border-color);
+      border-radius: var(--yh-radius-base);
+      transition: var(--yh-transition-base);
+      padding: 8px 12px;
+      line-height: 1.5;
+      height: auto;
+      min-height: 32px;
+      width: 100%;
+      box-sizing: border-box;
 
       &:hover {
-        border-color: var(--yh-input-disabled-border-color);
+        border-color: var(--yh-input-hover-border-color);
       }
-    }
 
-    .#{$input-prefix}__inner {
-      color: var(--yh-input-disabled-text-color);
-      cursor: not-allowed;
-
-      &::placeholder {
-        color: var(--yh-input-disabled-text-color);
+      &:focus {
+        border-color: var(--yh-input-focus-border-color);
+        box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
       }
-    }
-
-    .#{$input-prefix}__prefix,
-    .#{$input-prefix}__suffix {
-      color: var(--yh-input-disabled-text-color);
     }
   }
 
-  &.is-exceed {
-    .#{$input-prefix}__wrapper {
-      border-color: var(--yh-color-danger);
-    }
-
-    .#{$input-prefix}__count {
-      color: var(--yh-color-danger);
-    }
-  }
-
-  /* ==================== 输入框组 ==================== */
-  &-group {
+  @include e(count) {
     display: inline-flex;
-    width: 100%;
+    align-items: center;
+    color: var(--yh-text-color-placeholder);
+    font-size: 12px;
+    margin-left: 8px;
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
 
-    .#{$input-prefix}__wrapper {
+    @include m(textarea) {
+      position: relative;
+      display: block;
+      text-align: right;
+      margin-top: 4px;
+      margin-left: 0;
+      padding: 0;
+      line-height: 1;
+      background: transparent;
+    }
+  }
+
+  /* 前后置插槽：复合输入框核心样式 */
+  @include e(prepend) {
+    background-color: var(--yh-fill-color-light);
+    color: var(--yh-text-color-secondary);
+    border: 1px solid var(--yh-input-border-color);
+    border-right: 0;
+    border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
+    padding: 0 20px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+
+    .yh-button,
+    .yh-select {
+      margin: -1px -20px;
       border-radius: 0;
+      border-color: transparent !important;
+      background-color: transparent !important;
+      color: inherit;
+      height: var(--yh-input-height);
     }
 
-    &--prepend {
-      .#{$input-prefix}__wrapper {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+    /* 纠正 Select 内部 wrapper 的内边距，确保文字不偏移 */
+    .yh-select {
+      .yh-select__wrapper {
+        padding-left: 11px;
+        padding-right: 25px; // 为箭头留点位置
       }
     }
+  }
 
-    &--append {
-      .#{$input-prefix}__wrapper {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+  @include e(append) {
+    background-color: var(--yh-fill-color-light);
+    color: var(--yh-text-color-secondary);
+    border: 1px solid var(--yh-input-border-color);
+    border-left: 0;
+    border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
+    padding: 0 20px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    .yh-button,
+    .yh-select {
+      margin: -1px -20px;
+      border-radius: 0;
+      border-color: transparent !important;
+      background-color: transparent !important;
+      color: inherit;
+      height: var(--yh-input-height);
+    }
+  }
+
+  /* 嵌套组件背景强制透明 */
+  @at-root {
+    .yh-input__prepend,
+    .yh-input__append {
+      .yh-select,
+      .yh-button {
+        .yh-input__wrapper,
+        .yh-select__wrapper {
+          background-color: transparent !important;
+          border-color: transparent !important;
+          box-shadow: none !important;
+        }
       }
     }
+  }
+
+  /* Group 联动逻辑修正 */
+  @at-root {
+    .yh-input-group {
+      display: inline-flex;
+      width: 100%;
+      align-items: stretch;
+
+      @include when(prepend) {
+        .yh-input__wrapper {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+      @include when(append) {
+        .yh-input__wrapper {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+      &:hover {
+        .yh-input__prepend,
+        .yh-input__append {
+          border-color: var(--yh-input-hover-border-color);
+        }
+      }
+    }
+  }
+
+  /* 尺寸修饰符 */
+  @include m(large) {
+    --yh-input-height: var(--yh-component-size-large);
+  }
+  @include m(small) {
+    --yh-input-height: var(--yh-component-size-small);
+    font-size: var(--yh-font-size-xs);
   }
 }

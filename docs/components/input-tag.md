@@ -60,22 +60,34 @@ const tags = ref(['JavaScript', 'TypeScript'])
 const jsClearable = tsClearable.replace('lang="ts"', '')
 
 const tsCollapse = `<template>
-  <!-- 基础折叠 -->
-  <yh-input-tag v-model="tags" collapse-tags />
-  
-  <!-- 折叠 + Tooltip -->
-  <yh-input-tag v-model="tags" collapse-tags collapse-tags-tooltip />
-  
-  <!-- 最大折叠数量 -->
-  <yh-input-tag v-model="tags" collapse-tags :max-collapse-tags="3" />
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <!-- 基础折叠 -->
+    <div>
+      <p>use collapse-tags:</p>
+      <yh-input-tag v-model="tags" collapse-tags />
+    </div>
+
+    <!-- 折叠 + Tooltip -->
+    <div>
+      <p>use collapse-tags-tooltip:</p>
+      <yh-input-tag v-model="tags" collapse-tags collapse-tags-tooltip />
+    </div>
+
+    <!-- 最大折叠数量 -->
+    <div>
+      <p>use max-collapse-tags:</p>
+      <yh-input-tag v-model="tags" collapse-tags :max-collapse-tags="3" />
+    </div>
+  </div>
 <\/template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const tags = ref(['标签1', '标签2', '标签3', '标签4', '标签5'])
+const tags = ref(['234324', '123213123', '12312312', '12312313', '12313123'])
 <\/script>`
 
 const jsCollapse = tsCollapse.replace('lang="ts"', '')
+
 
 const tsDraggable = `<template>
   <yh-input-tag v-model="tags" draggable placeholder="可拖拽排序" />
@@ -130,6 +142,21 @@ const tags = ref(['自定义1', '自定义2'])
 <\/script>`
 
 const jsSlot = tsSlot.replace('lang="ts"', '')
+
+const tsSizes = `<template>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <yh-input-tag v-model="tags" size="large" placeholder="大尺寸" />
+    <yh-input-tag v-model="tags" placeholder="默认尺寸" />
+    <yh-input-tag v-model="tags" size="small" placeholder="小尺寸" />
+  </div>
+<\/template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const tags = ref(['标签一'])
+<\/script>`
+
+const jsSizes = tsSizes.replace('lang="ts"', '')
 </script>
 
 用于输入和管理多个标签。
@@ -225,7 +252,7 @@ const jsSlot = tsSlot.replace('lang="ts"', '')
 
 使用 `size` 属性控制输入框尺寸。
 
-<DemoBlock title="不同尺寸" :ts-code="tsBasic" :js-code="jsBasic">
+<DemoBlock title="不同尺寸" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="display: flex; flex-direction: column; gap: 16px;">
     <yh-input-tag v-model="tags5" size="large" placeholder="大尺寸" style="width: 400px;" />
     <yh-input-tag v-model="tags5" placeholder="默认尺寸" style="width: 400px;" />

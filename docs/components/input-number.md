@@ -74,7 +74,10 @@ const num = ref(1.5)
 const jsPrecision = tsPrecision.replace('lang="ts"', '')
 
 const tsControlsPosition = `<template>
-  <yh-input-number v-model="num" controls-position="right" />
+  <div style="display: flex; gap: 16px;">
+    <yh-input-number v-model="num" />
+    <yh-input-number v-model="num" controls-position="right" />
+  </div>
 <\/template>
 
 <script setup lang="ts">
@@ -83,6 +86,7 @@ const num = ref(1)
 <\/script>`
 
 const jsControlsPosition = tsControlsPosition.replace('lang="ts"', '')
+
 
 const tsSizes = `<template>
   <yh-input-number v-model="num" size="large" />
