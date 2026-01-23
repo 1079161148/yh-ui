@@ -134,6 +134,30 @@ const tsAlign = `<template>
 <\/style>`
 
 const jsAlign = tsAlign
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <yh-row :gutter="20">
+    <yh-col :span="12">
+      <div style="background: var(--yh-color-primary-light-8); padding: 20px; border-radius: 8px; text-align: center; border: 1px dashed var(--yh-color-primary);">
+        <yh-icon name="success" :size="24" color="var(--yh-color-primary)" />
+        <p style="margin: 8px 0 0; color: var(--yh-color-primary-dark-2);">Nuxt Auto Import</p>
+      </div>
+    </yh-col>
+    <yh-col :span="12">
+      <div style="background: var(--yh-color-success-light-8); padding: 20px; border-radius: 8px; text-align: center; border: 1px dashed var(--yh-color-success);">
+        <yh-icon name="star" :size="24" color="var(--yh-color-success)" />
+        <p style="margin: 8px 0 0; color: var(--yh-color-success-dark-2);">SSR Optimized</p>
+      </div>
+    </yh-col>
+  </yh-row>
+</template>
+
+<script setup lang="ts">
+// 布局组件已完成 Nuxt 自动导入配置
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 <style>
@@ -270,6 +294,38 @@ const jsAlign = tsAlign
     <yh-col :span="6"><div class="grid-content bg-purple">space-around</div></yh-col>
   </yh-row>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Row 和 Col 组件在 Nuxt 3/4 环境下表现卓越。布局系统的 HTML 结构在服务端即根据 `span`、`gutter` 等参数精准生成，确保了首屏布局的高稳定性和响应式一致性。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <yh-row :gutter="20">
+    <yh-col :span="12">
+      <div style="background: var(--yh-color-primary-light-8); padding: 20px; border-radius: 8px; text-align: center; border: 1px dashed var(--yh-color-primary);">
+        <yh-icon name="success" :size="24" color="var(--yh-color-primary)" />
+        <p style="margin: 8px 0 0; color: var(--yh-color-primary-dark-2);">Nuxt Auto Import</p>
+      </div>
+    </yh-col>
+    <yh-col :span="12">
+      <div style="background: var(--yh-color-success-light-8); padding: 20px; border-radius: 8px; text-align: center; border: 1px dashed var(--yh-color-success);">
+        <yh-icon name="star" :size="24" color="var(--yh-color-success)" />
+        <p style="margin: 8px 0 0; color: var(--yh-color-success-dark-2);">SSR Optimized</p>
+      </div>
+    </yh-col>
+  </yh-row>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 24 分栏比例在服务端直接生成相应的 CSS 类名
+- ✅ Gutter 间隔通过服务端的负 Margin 和内补丁 (Padding) 完美实现，首屏无对齐抖动
+- ✅ 响应式配置 (xs, sm, md, lg, xl) 在服务端生成对应的媒体查询类
+- ✅ 对齐 (justify) 和垂直对齐 (align) 在服务端生效
+
+::: tip 布局一致性
+由于 Layout 组件完全基于 CSS (Flexbox) 样式控制，它天生具备 100% 的 SSR 一致性。在 Nuxt 页面中使用 Row/Col 几乎不需要担心任何水合冲突。
+:::
 
 ## API
 

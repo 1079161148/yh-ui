@@ -22,7 +22,7 @@ export default defineConfig({
         text: '0.0.1',
         items: [
           { text: '更新日志', link: '/changelog' },
-          { text: 'GitHub', link: 'https://github.com/xxx/yh-ui' }
+          { text: 'GitHub', link: 'https://github.com/1079161148/yh-ui' }
         ]
       }
     ],
@@ -99,7 +99,7 @@ export default defineConfig({
       ]
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/xxx/yh-ui' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/1079161148/yh-ui' }],
 
     footer: {
       message: 'Released under the MIT License.',

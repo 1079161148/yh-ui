@@ -65,6 +65,34 @@ const btnData = [
   { key: 3, label: 'Item C' }
 ]
 
+// Nuxt 使用示例
+const nuxtValue = ref([2])
+const nuxtData = [
+  { key: 1, label: 'Nuxt 2' },
+  { key: 2, label: 'Nuxt 3' },
+  { key: 3, label: 'Nuxt 4' }
+]
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 600px;">
+    <!-- 组件自动导入，直接使用 -->
+    <yh-transfer v-model="nuxtValue" :data="nuxtData" />
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需手动导入 YhTransfer
+const nuxtValue = ref([2])
+const nuxtData = [
+  { key: 1, label: 'Nuxt 2' },
+  { key: 2, label: 'Nuxt 3' },
+  { key: 3, label: 'Nuxt 4' }
+]
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // ==============================
 // 代码字符串定义 (恢复正常写法，使用拼接避开编译检测)
 // ==============================
@@ -385,6 +413,28 @@ const data = [
     </template>
   </yh-transfer>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Transfer 组件完全支持 Nuxt 3/4 环境。在服务器端渲染（SSR）时，组件会预先渲染左右两个列表面板的基础 HTML 结构，确保首屏加载时内容可见，无水合闪烁。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 600px;">
+    <yh-transfer v-model="nuxtValue" :data="nuxtData" />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 初始选中的状态（modelValue）在服务端正确渲染至右侧列表
+- ✅ 列表项的标签（label）和禁用状态支持 SSR 渲染
+- ✅ 虚拟滚动（virtual）支持首屏基础节点渲染
+- ⚠️ 按钮交互、列表搜索匹配、选中状态切换在客户端激活（Hydration）后生效
+- 💡 下拉或浮层提示（如 Tooltip）通过 Teleport 挂载，不影响主 HTML 结构
+
+::: tip 渲染性能
+对于万级数据，Transfer 内部采用了高效的组件模板编译优化。即便在没有开启 `virtual` 的情况下，首屏生成的 HTML 也是经过精简的，确保了 SSR 性能。
+:::
 
 ## API
 

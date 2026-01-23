@@ -181,8 +181,8 @@
     }
 
     &.is-selected {
-      color: var(--yh-color-white, #ffffff);
-      background-color: var(--yh-color-primary, #409eff);
+      color: var(--yh-color-primary, #409eff);
+      background-color: var(--yh-fill-color-light, #f5f7fa);
       font-weight: 600;
     }
 

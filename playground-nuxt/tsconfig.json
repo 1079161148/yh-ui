@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@yh-ui/nuxt": ["../packages/nuxt/src/module.ts"],
+      "@yh-ui/components": ["../packages/components/src"],
+      "@yh-ui/hooks": ["../packages/hooks/src"],
+      "@yh-ui/utils": ["../packages/utils/src"],
+      "@yh-ui/theme": ["../packages/theme/src"]
+    }
+  }
+}

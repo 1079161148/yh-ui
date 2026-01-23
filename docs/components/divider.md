@@ -79,6 +79,35 @@
   </div>
 </DemoBlock>
 
+## 在 Nuxt 中使用
+
+Divider 组件完全支持 Nuxt 3/4 环境。作为纯表现型组件，其 HTML 结构在服务端直接生成，并配合内联或外部样式表实现首屏的完美视觉分割。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div>
+    <p style="margin: 0; color: var(--yh-text-color-secondary); font-size: 14px;">YH-UI 在 Nuxt 中可以极致流畅地运行。</p>
+    <yh-divider border-style="dashed">Nuxt SSR</yh-divider>
+    <div style="display: flex; align-items: center; font-size: 14px; color: var(--yh-text-color-primary);">
+      <span>组件 1</span>
+      <yh-divider direction="vertical" border-width="2" color="var(--yh-color-primary)" />
+      <span>组件 2</span>
+      <yh-divider direction="vertical" border-width="2" color="var(--yh-color-success)" />
+      <span>组件 3</span>
+    </div>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 水平 (horizontal) 和垂直 (vertical) 方向在服务端正确生成
+- ✅ 文案位置 (content-position) 在 SSR 阶段即已正确定位
+- ✅ 虚线样式 (dashed/dotted) 和自定义粗细通过样式在服务端生效
+- ✅ 自动导入功能让开发体验更爽快
+
+::: tip 性能小贴士
+由于 Divider 组件结构极简，它在 SSR 场景下几乎不产生任何多余的 JS 负载，非常适合在追求加载速度的内容型 Nuxt 页面中使用。
+:::
+
 ## API
 
 ### Props
@@ -180,4 +209,25 @@ const tsCustom = `
 </template>
 `.trim()
 const jsCustom = tsCustom
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div>
+    <p style="margin: 0; color: var(--yh-text-color-secondary); font-size: 14px;">YH-UI 在 Nuxt 中可以极致流畅地运行。</p>
+    <yh-divider border-style="dashed">Nuxt SSR</yh-divider>
+    <div style="display: flex; align-items: center; font-size: 14px; color: var(--yh-text-color-primary);">
+      <span>组件 1</span>
+      <yh-divider direction="vertical" border-width="2" color="var(--yh-color-primary)" />
+      <span>组件 2</span>
+      <yh-divider direction="vertical" border-width="2" color="var(--yh-color-success)" />
+      <span>组件 3</span>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 自动导入，无需配置
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>

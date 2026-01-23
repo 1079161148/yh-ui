@@ -108,6 +108,31 @@ const tsStandalone = `<template>
 <\/template>`
 
 const jsStandalone = tsStandalone
+
+// Nuxt 使用示例
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+    <!-- 基础徽标，自动导入 -->
+    <yh-badge :value="8">
+      <yh-button>Nuxt 消息</yh-button>
+    </yh-badge>
+    
+    <!-- 结合 Nuxt 状态管理 -->
+    <yh-badge :value="unreadCount" type="danger">
+      <yh-button type="primary">未读通知</yh-button>
+    </yh-badge>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhBadge
+const unreadCount = ref(12)
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 出现在按钮、图标旁的数字或状态标记。
@@ -252,6 +277,32 @@ const jsStandalone = tsStandalone
     <yh-badge is-dot type="warning" />
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Badge 组件完全支持 Nuxt 3/4 的 SSR 渲染。在服务端渲染时，徽标的内容和位置将直接包含在生成的 HTML 中，确保用户在首屏加载时即可看到实时的通知状态，增强用户体验。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+    <yh-badge :value="8">
+      <yh-button>Nuxt 消息</yh-button>
+    </yh-badge>
+    <yh-badge :value="12" type="danger">
+      <yh-button type="primary">未读通知</yh-button>
+    </yh-badge>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 初始值（value）、最大值限制（max）在服务端渲染正确
+- ✅ 小红点（is-dot）和独立使用模式支持 SSR
+- ✅ 自定义颜色 (color) 和偏移量 (offset) 首屏生效
+- 💡 动态更新（如通过 WebSocket 实时更新未读数）将在客户端激活后通过响应式系统自动完成
+
+::: tip 状态同步建议
+在 Nuxt 生态中，建议将徽标的数值存储在 `useState` 或 `Pinia` 中，以实现跨路由和 SSR -> Client 的状态零成本同步。
+:::
 
 ## API
 

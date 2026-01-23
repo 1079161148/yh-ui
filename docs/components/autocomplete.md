@@ -311,6 +311,34 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
 \x3C/style>`.replace(/\\/g, '')
 
 const jsSlots = tsSlots.replace('lang="ts"', '').replace(': string', '').replace(': (suggestions: any[]) => void', '')
+
+// Nuxt 使用示例
+const nuxtValue = ref('')
+const nuxtSuggestions = (q: string, cb: any) => {
+  cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
+}
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 300px;">
+    <!-- 自动注册，直接使用 -->
+    <yh-autocomplete
+      v-model="nuxtValue"
+      :fetch-suggestions="nuxtSuggestions"
+      placeholder="Nuxt 自动导入演示"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需手动导入 YhAutocomplete
+const nuxtValue = ref('')
+const nuxtSuggestions = (q: string, cb: any) => {
+  cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
+}
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 根据输入内容提供对应的输入建议。
@@ -420,6 +448,32 @@ const jsSlots = tsSlots.replace('lang="ts"', '').replace(': string', '').replace
     </yh-autocomplete>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Autocomplete 组件在 Nuxt 3/4 环境下运行良好。由于支持自动导入，你只需直接编写组件名即可。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 300px;">
+    <yh-autocomplete
+      v-model="nuxtValue"
+      :fetch-suggestions="nuxtSuggestions"
+      placeholder="Nuxt 自动导入演示"
+    />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 输入框的初始状态（包含 `v-model` 值）在服务端正确渲染
+- ✅ 尺寸（size）、占位符（placeholder）支持 SSR
+- ✅ 前后缀插槽在 SSR 阶段即已生成 HTML
+- ⚠️ 候选建议列表（Dropdown）仅在客户端交互（输入或聚焦）时弹出，不影响首屏 HTML 结构
+- 💡 搜索防抖和下拉定位在客户端激活（Hydration）后生效
+
+::: tip SSR 安全性
+Autocomplete 组件内部封装了 `YhInput` 和 `Popper` 系统，通过 `useId` 确保了首屏渲染时 Input 与下拉关联 ID 的稳定性，完美避免了 SSR 下常见的 ID 冲突警报。
+:::
 
 ## API
 

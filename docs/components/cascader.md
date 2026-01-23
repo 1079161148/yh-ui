@@ -290,6 +290,44 @@ const options2 = [
 ]
 <\/script>`
 
+// Nuxt 使用示例
+const nuxtCascader = ref([])
+const nuxtOptions = [
+  {
+    value: 'guide', label: '指南',
+    children: [
+      { value: 'design', label: '设计原则' },
+      { value: 'nav', label: '导航' }
+    ]
+  }
+]
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 320px;">
+    <!-- 组件自动导入，直接使用 -->
+    <yh-cascader v-model="nuxtCascader" :options="nuxtOptions" placeholder="Nuxt 自动导入" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhCascader
+const nuxtCascader = ref([])
+const nuxtOptions = [
+  {
+    value: 'guide', label: '指南',
+    children: [
+      { value: 'design', label: '设计原则' },
+      { value: 'nav', label: '导航' }
+    ]
+  }
+]
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 </script>
 
 当一个数据集合有清晰的层级结构（如行政区划、部门架构、商品分类）时，可通过级联选择器逐级选择。
@@ -387,6 +425,29 @@ const options2 = [
     <yh-cascader v-model="v9" :options="bigData" virtual placeholder="开启虚拟显示（2500节点）" />
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Cascader 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入，无需手动注册。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 320px;">
+    <yh-cascader v-model="nuxtCascader" :options="nuxtOptions" placeholder="Nuxt 自动导入" />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础级联等级展示完全支持
+- ✅ 多选（multiple）及折叠标签支持
+- ✅ 任意级选择（check-strictly）在 SSR 中有效
+- ✅ 搜索过滤功能在客户端激活后自动开启
+- ✅ 虚拟滚动（virtual）支持首屏基础渲染
+- 💡 下拉菜单通过 Teleport 渲染，不会干扰服务端生成的 HTML 结构
+
+::: tip SSR 安全性
+Cascader 的递归节点系统已针对 SSR 进行了深度优化，确保了在复杂的深层嵌套数据下，服务端和客户端生成的节点 ID 和结构保持强一致性，有效防止水合冲突。
+:::
 
 ## API
 

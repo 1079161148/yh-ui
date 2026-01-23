@@ -170,4 +170,4 @@ export default defineConfig({
 | `--yh-spacing-lg` | 大间距 | `24px` |
 | `--yh-spacing-xl` | 超大间距 | `32px` |
 
-更多变量请参考 [设计规范](/guide/design) 或查看 [源代码](https://github.com/xxx/yh-ui/blob/main/packages/theme/src/styles/variables.scss)。
+更多变量请参考 [设计规范](/guide/design) 或查看 [源代码](https://github.com/1079161148/yh-ui/blob/main/packages/theme/src/styles/variables.scss)。

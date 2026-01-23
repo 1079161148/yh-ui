@@ -20,6 +20,24 @@ const numClearable = ref(50)
 // 验证示例 - 独立变量
 const numValidator = ref(50)
 
+// Nuxt 使用示例
+const nuxtNum = ref(1)
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 240px;">
+    <!-- 数字输入框，自动导入 -->
+    <yh-input-number v-model="nuxtNum" :min="1" :max="100" />
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需导入 InputNumber 组件
+const nuxtNum = ref(1)
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // 验证函数
 const validateNum = (value) => {
   if (value === undefined) return true
@@ -235,6 +253,27 @@ const jsValidator = tsValidator.replace('lang="ts"', '').replace(': number | und
   <yh-input-number v-model="numValidator" :validator="validateNum" />
   <p style="margin-top: 12px; color: var(--yh-text-color-secondary);">验证范围: 0 ~ 100</p>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+InputNumber 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 240px;">
+    <yh-input-number v-model="nuxtNum" :min="1" :max="100" />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础数值输入、步长计算完全支持
+- ✅ 精度处理（precision）在服务器端即完成格式化
+- ✅ 控制按钮样式及位置在 SSR 中一致支持
+- ⚠️ 键盘事件监听仅在客户端激活后生效
+
+::: tip SSR 安全性
+InputNumber 组件在 SSR 阶段会自动处理数值的精度和边界值约束，确保首屏加载时显示的数值是符合预期的，避免水合时的数值跳变。
+:::
 
 ## API
 

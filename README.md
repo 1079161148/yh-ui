@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/yh-ui"><img src="https://img.shields.io/npm/v/yh-ui.svg" alt="npm version"></a>
-  <a href="https://github.com/xxx/yh-ui/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/yh-ui.svg" alt="license"></a>
+  <a href="https://github.com/1079161148/yh-ui/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/yh-ui.svg" alt="license"></a>
   <a href="https://www.npmjs.com/package/yh-ui"><img src="https://img.shields.io/npm/dm/yh-ui.svg" alt="npm downloads"></a>
 </p>
 

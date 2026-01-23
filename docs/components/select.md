@@ -78,6 +78,35 @@ const selectLarge = ref('')
 const selectDefault = ref('')
 const selectSmall = ref('')
 
+// Nuxt 使用示例
+const nuxtValue = ref('')
+const nuxtOptions = [
+  { value: 'apple', label: '苹果' },
+  { value: 'banana', label: '香蕉' },
+  { value: 'orange', label: '橙子' }
+]
+
+const tsNuxt = `<template>
+  <div style="max-width: 240px;">
+    <!-- 组件自动导入，直接使用 -->
+    <yh-select v-model="nuxtValue" :options="nuxtOptions" placeholder="Nuxt 自动导入" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhSelect
+const nuxtValue = ref('')
+const nuxtOptions = [
+  { value: 'apple', label: '苹果' },
+  { value: 'banana', label: '香蕉' },
+  { value: 'orange', label: '橙子' }
+]
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // 代码示例
 const tsBasic = `<template>
   <yh-select v-model="value" :options="options" placeholder="请选择" />
@@ -100,7 +129,7 @@ const jsBasic = `<template>
   <yh-select v-model="value" :options="options" placeholder="请选择" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -134,7 +163,7 @@ const jsDisabledOption = `<template>
   <yh-select v-model="value" :options="options" placeholder="请选择" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -168,7 +197,7 @@ const jsDisabled = `<template>
   <yh-select v-model="value" :options="options" disabled placeholder="请选择" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('option1')
@@ -202,7 +231,7 @@ const jsClearable = `<template>
   <yh-select v-model="value" :options="options" clearable placeholder="请选择" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('option1')
@@ -236,7 +265,7 @@ const jsMultiple = `<template>
   <yh-select v-model="value" :options="options" multiple placeholder="请选择" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref([])
@@ -284,7 +313,7 @@ const jsCollapse = `<template>
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref(['option1', 'option2', 'option3'])
@@ -318,7 +347,7 @@ const jsFilterable = `<template>
   <yh-select v-model="value" :options="options" filterable placeholder="请选择" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -387,7 +416,7 @@ const jsRemote = `<template>
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -454,7 +483,7 @@ const jsCreate = `<template>
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref([])
@@ -497,7 +526,7 @@ const jsVirtual = `<template>
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -578,7 +607,7 @@ const jsVirtualCustom = `<template>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const value1 = ref('')
@@ -630,7 +659,7 @@ const jsSizes = `<template>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const large = ref('')
@@ -801,6 +830,29 @@ const options = [
     <yh-select v-model="selectSmall" :options="basicOptions" size="small" placeholder="小型" />
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Select 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入，无需手动注册。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 240px;">
+    <yh-select v-model="nuxtValue" :options="nuxtOptions" placeholder="Nuxt 自动导入" />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础选择功能完全支持
+- ✅ 多选及折叠标签支持
+- ✅ 选项分组及搜索支持
+- ✅ 远程搜索支持
+- ✅ 虚拟滚动（SSR 时初始化为基础模式，客户端激活后自动开启优化）
+- ⚠️ DOM 方法如 `focus()`、`blur()` 必须在 `onMounted` 中调用
+
+::: tip SSR 安全性
+Select 组件已通过完整的 SSR 测试，确保服务端和客户端渲染的 HTML 结构完全一致，兼容 Nuxt 的 Hydration 流程。
+:::
 
 ## API
 

@@ -94,6 +94,27 @@ const beforeChange2 = () => {
 const actionIconValue1 = ref(true)
 const actionIconValue2 = ref(false)
 
+// Nuxt 使用示例
+const nuxtSwitch = ref(true)
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; gap: 16px;">
+    <!-- 基础开关，自动导入 -->
+    <yh-switch v-model="nuxtSwitch" />
+    
+    <!-- 带文字描述 -->
+    <yh-switch v-model="nuxtSwitch" active-text="开启" inactive-text="关闭" />
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需导入 Switch 组件
+const nuxtSwitch = ref(true)
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // 代码示例
 const tsBasic = `<template>
   <yh-switch v-model="value" />
@@ -386,6 +407,28 @@ const jsActionIcons = tsActionIcons.replace('lang="ts"', '')
     <yh-switch v-model="actionIconValue2" :active-action-icon="CheckIcon" :inactive-action-icon="CloseIcon" />
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Switch 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; gap: 16px;">
+    <yh-switch v-model="nuxtSwitch" />
+    <yh-switch v-model="nuxtSwitch" active-text="开启" inactive-text="关闭" />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础开关状态、尺寸样式完全支持
+- ✅ 文字描述及图标在 SSR 中渲染一致
+- ✅ 扩展 Value 类型（active-value）支持
+- ⚠️ 初始状态在 SSR 完成后与客户端激活一致
+
+::: tip SSR 安全性
+Switch 组件针对 SSR 进行了深度适配，确保滑块位置和颜色在服务端渲染时就被正确计算，提供流畅的视觉体验。
+:::
 
 ## API
 

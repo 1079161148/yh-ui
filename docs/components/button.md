@@ -174,6 +174,52 @@ const tsIconPosition = `<template>
 <\/template>`
 
 const jsIconPosition = tsIconPosition
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+    <!-- 组件自动导入，直接使用 -->
+    <yh-button type="primary" @click="nuxtHandleClick">
+      提交表单
+    </yh-button>
+    
+    <!-- 结合 Nuxt 的异步操作 -->
+    <yh-button :loading="nuxtPending" @click="nuxtFetchData">
+      {{ nuxtPending ? '加载中...' : '获取数据' }}
+    </yh-button>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需导入 Button 组件
+const nuxtPending = ref(false)
+
+const nuxtHandleClick = () => {
+  // YhMessage 也是自动导入的
+  YhMessage.success('表单提交成功！')
+}
+
+const nuxtFetchData = () => {
+  nuxtPending.value = true
+  setTimeout(() => {
+    nuxtPending.value = false
+  }, 2000)
+}
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
+// Demo 状态
+const nuxtPending = ref(false)
+const nuxtHandleClick = () => {
+  alert('表单提交成功！')
+}
+const nuxtFetchData = () => {
+  nuxtPending.value = true
+  setTimeout(() => {
+    nuxtPending.value = false
+  }, 2000)
+}
 </script>
 
 常用的操作按钮。
@@ -383,6 +429,33 @@ const jsIconPosition = tsIconPosition
     </yh-button>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Button 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入，无需手动注册。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+    <yh-button type="primary" @click="nuxtHandleClick">
+      提交表单
+    </yh-button>
+    <yh-button :loading="nuxtPending" @click="nuxtFetchData">
+      {{ nuxtPending ? '加载中...' : '获取数据' }}
+    </yh-button>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 所有 Props 和样式完全支持
+- ✅ 事件绑定正常工作
+- ✅ 插槽内容完整渲染
+- ✅ 动态状态（loading、disabled 等）
+- ⚠️ `autofocus` 属性仅客户端生效
+
+::: tip SSR 安全性
+Button 组件已通过完整的 SSR 测试，确保服务端和客户端渲染完全一致。
+:::
 
 ## API
 

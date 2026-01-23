@@ -240,6 +240,35 @@ const tsIcon = `<template>
 <\/template>`
 
 const jsIcon = tsIcon
+
+// Nuxt 使用示例
+const nuxtTags = ref(['Nuxt', 'Vue', 'Vite'])
+
+const tsNuxt = `<template>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <!-- 基础标签，自动导入 -->
+    <yh-tag type="primary">Nuxt 自动导入</yh-tag>
+    
+    <!-- 动态渲染标签 -->
+    <yh-tag 
+      v-for="item in tags" 
+      :key="item" 
+      type="success" 
+      effect="dark"
+    >
+      {{ item }}
+    </yh-tag>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhTag
+const tags = ref(['Nuxt', 'Vue', 'Vite'])
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 用于标记和选择。
@@ -404,6 +433,28 @@ Tag 组件提供了三种主题效果：`dark`、`light`（默认）、`plain`�
 <yh-tag type="info"><template #icon><svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></template>提示信息</yh-tag>
 </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Tag 组件完全支持 Nuxt 3/4 环境下的 SSR 渲染。由于其轻量级的设计，非常适合在 Nuxt 项目中用于状态展示、分类标记等场景。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <yh-tag type="primary">Nuxt 自动导入</yh-tag>
+    <yh-tag v-for="tag in nuxtTags" :key="tag" type="success" effect="dark">{{ tag }}</yh-tag>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 所有类型 (type)、尺寸 (size) 和主题效果 (effect) 均在服务端离线生成 HTML
+- ✅ 自定义颜色 (color) 和圆角 (round) 支持 SSR
+- ✅ 前后缀图标插槽在服务端正确填充
+- 💡 交互事件（如点击关闭、动态编辑切换）在客户端激活（Hydration）后生效
+
+::: tip 极致轻量
+Tag 组件的 CSS 经过高度原子化优化，生成在 SSR 页面中的额外样式负荷极低，是 Nuxt 极致性能优化的理想选择。
+:::
 
 ## API
 

@@ -801,7 +801,7 @@ git push origin v1.0.0
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/xxx/yh-ui.git
+git clone https://github.com/1079161148/yh-ui.git
 
 # 2. 安装依赖
 pnpm install

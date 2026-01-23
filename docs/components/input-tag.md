@@ -157,6 +157,30 @@ const tags = ref(['标签一'])
 <\/script>`
 
 const jsSizes = tsSizes.replace('lang="ts"', '')
+
+// Nuxt 使用示例
+const nuxtTags = ref(['SSR', 'Nuxt 3'])
+
+const tsNuxt = `<template>
+  <div style="max-width: 400px;">
+    <!-- 组件自动导入 -->
+    <yh-input-tag 
+      v-model="tags" 
+      placeholder="Nuxt 自动导入" 
+      tag-type="success"
+      clearable
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhInputTag
+const tags = ref(['SSR', 'Nuxt 3'])
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 用于输入和管理多个标签。
@@ -259,6 +283,33 @@ const jsSizes = tsSizes.replace('lang="ts"', '')
     <yh-input-tag v-model="tags5" size="small" placeholder="小尺寸" style="width: 400px;" />
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+InputTag 组件完全兼容 Nuxt 3/4。在 SSR 场景下，已有的标签（modelValue）会在服务端被直接渲染为静态 HTML 标签，确保首屏视觉的一致性，同时也对搜索引擎爬虫友好。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 400px;">
+    <yh-input-tag 
+      v-model="nuxtTags" 
+      placeholder="Nuxt 自动导入演示" 
+      tag-type="success"
+      clearable
+    />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 初始标签数组完全支持 SSR 同步渲染
+- ✅ 标签的样式、主题 (tag-effect) 和尺寸支持服务端渲染
+- ✅ 前后缀文本和图标在服务端即已占位并显示
+- ⚠️ 动态添加（回车确认）、拖拽排序、删除标签等交互在客户端激活（Hydration）后生效
+- 💡 虚拟滚动（针对超长标签列表，如果开启）在服务端渲染基础可见部分
+
+::: tip SSR 性能优化
+InputTag 组件在服务端渲染时，会根据 `modelValue` 的长度动态生成优化过的 HTML 片段，减少了客户端激活时的 DOM 差量计算，从而提升了页面的交互响应速度。
+:::
 
 ## API
 

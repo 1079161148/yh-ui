@@ -25,6 +25,26 @@ const inputSizeSmall = ref('')
 const inputFormatter = ref('')
 const selectValue = ref('1')
 
+// Nuxt 使用示例
+const nuxtInput = ref('')
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 240px;">
+    <!-- 基础输入框，自动导入 -->
+    <yh-input v-model="nuxtInput" placeholder="Nuxt 自动导入" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhInput
+const nuxtInput = ref('')
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 const formatNumber = (value: string | number) => {
   if (!value) return ''
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -551,6 +571,27 @@ const jsFormatter = tsFormatter.replace('lang="ts"', '')
     </div>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Input 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 240px;">
+    <yh-input v-model="nuxtInput" placeholder="Nuxt 自动导入" />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础输入、文本域模式完全支持
+- ✅ 样式及布局在服务器和浏览器保持一致
+- ✅ 动态 ID 生成在 SSR 中是安全的（基于 `useId`）
+- ⚠️ `autofocus` 属性仅在客户端激活后生效
+
+::: tip SSR 安全性
+Input 组件针对 SSR 进行了优化，特别是 ID 生成机制确保了服务端渲染和客户端激活的一致性，有效避免了属性不匹配错误。
+:::
 
 ## API
 

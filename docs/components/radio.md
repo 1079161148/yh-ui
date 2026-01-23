@@ -15,6 +15,37 @@ const radioButton2 = ref('New York')
 const radioButton3 = ref('New York')
 const radioButtonSize = ref('New York')
 
+// Nuxt 使用示例
+const nuxtRadio = ref('1')
+const nuxtTab = ref('New York')
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <!-- 单选框组，自动导入 -->
+    <yh-radio-group v-model="nuxtRadio">
+      <yh-radio value="1">选项1</yh-radio>
+      <yh-radio value="2">选项2</yh-radio>
+    </yh-radio-group>
+    
+    <!-- 按钮样式单选 -->
+    <yh-radio-group v-model="nuxtTab" size="small">
+      <yh-radio-button value="New York">New York</yh-radio-button>
+      <yh-radio-button value="Washington">Washington</yh-radio-button>
+    </yh-radio-group>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhRadio、YhRadioGroup 和 YhRadioButton
+const nuxtRadio = ref('1')
+const nuxtTab = ref('New York')
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // TypeScript 代码示例
 const tsBasic = `<template>
   <yh-radio-group v-model="radio">
@@ -428,6 +459,34 @@ Radio 也可以单独使用，不使用 RadioGroup 包裹。
     </div>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Radio 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <yh-radio-group v-model="nuxtRadio">
+      <yh-radio value="1">选项1</yh-radio>
+      <yh-radio value="2">选项2</yh-radio>
+    </yh-radio-group>
+    <yh-radio-group v-model="nuxtTab" size="small">
+      <yh-radio-button value="New York">New York</yh-radio-button>
+      <yh-radio-button value="Washington">Washington</yh-radio-button>
+    </yh-radio-group>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础单选、按钮样式、单选组完全支持
+- ✅ 样式及选中状态在 SSR 环境中渲染准确
+- ✅ 自定义颜色（fill、text-color）支持
+
+::: tip SSR 安全性
+Radio 组件已通过完整的 SSR 测试，确保在服务端预选状态与客户端激活后保持一致。
+:::
 
 ## API
 

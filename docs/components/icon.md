@@ -6,7 +6,7 @@
 
 使用 `name` 属性来指定图标。
 
-<DemoBlock title="基础用法" ts-code="tsBasic" js-code="jsBasic">
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="display: flex; gap: 20px; font-size: 24px; color: var(--yh-text-color-primary);">
     <yh-icon name="success" color="var(--yh-color-success)" />
     <yh-icon name="warning" color="var(--yh-color-warning)" />
@@ -17,12 +17,15 @@
   </div>
 </DemoBlock>
 
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
+const isConnected = ref(true)
+
 const tsBasic = `<template>
-  <yh-icon name="success" color="#67C23A" />
-  <yh-icon name="warning" color="#E6A23C" />
-  <yh-icon name="error" color="#f56c6c" />
-  <yh-icon name="info" color="#909399" />
+  <yh-icon name="success" color="var(--yh-color-success)" />
+  <yh-icon name="warning" color="var(--yh-color-warning)" />
+  <yh-icon name="error" color="var(--yh-color-danger)" />
+  <yh-icon name="info" color="var(--yh-color-info)" />
   <yh-icon name="plus" />
   <yh-icon name="search" />
 </template>`
@@ -51,6 +54,30 @@ const tsCustom = `<template>
   />
 </template>`
 const jsCustom = tsCustom
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; gap: 20px; font-size: 24px;">
+    <!-- 基础图标，自动导入 -->
+    <yh-icon name="user" color="var(--yh-color-primary)" />
+    
+    <!-- 加载动画图标 -->
+    <yh-icon name="loading" spin color="var(--yh-color-info)" />
+    
+    <!-- 配合 Nuxt 状态 -->
+    <yh-icon :name="isConnected ? 'success' : 'error'" :color="isConnected ? 'var(--yh-color-success)' : 'var(--yh-color-danger)'" />
+    <yh-button size="small" @click="isConnected = !isConnected">切换演示状态</yh-button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhIcon
+const isConnected = ref(true)
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 ## 不同尺寸
@@ -90,6 +117,30 @@ const jsCustom = tsCustom
     />
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Icon 组件在 Nuxt 3/4 中集成非常简单。由于 Icon 底层基于轻量的内联 SVG 渲染，SSR 阶段即可生成完整的矢量图形代码。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; gap: 20px; font-size: 24px; color: var(--yh-text-color-primary);">
+    <yh-icon name="user" color="var(--yh-color-primary)" />
+    <yh-icon name="loading" spin color="var(--yh-color-info)" />
+    <yh-icon :name="isConnected ? 'success' : 'error'" :color="isConnected ? 'var(--yh-color-success)' : 'var(--yh-color-danger)'" />
+    <yh-button size="small" @click="isConnected = !isConnected">切换演示状态</yh-button>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 内置图标在服务端直接渲染为精简的 SVG 路径，无首屏网络请求
+- ✅ 尺寸 (size) 和颜色 (color) 通过内联样式在服务端正确定位
+- ✅ 加载动画 (spin) 通过 CSS 动画在服务端即保持运动状态（或首屏即准备就绪）
+- ✅ 自动导入支持，提升开发效率
+
+::: tip 矢量优势
+相比于字体图标（Icon Font），YH-UI 的 SVG Icon 方案更符合现代 Web 标准，且能完美避开 SSR 中常见的字体加载闪烁（FOIT/FOUT）问题。
+:::
 
 ## API
 

@@ -17,7 +17,7 @@ hero:
       link: /components/button
     - theme: alt
       text: GitHub
-      link: https://github.com/xxx/yh-ui
+      link: https://github.com/1079161148/yh-ui
 
 features:
   - icon: 🚀

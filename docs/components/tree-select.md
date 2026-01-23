@@ -103,6 +103,37 @@ const generateData = (count: number) => {
 }
 const virtualData = generateData(100)
 
+// Nuxt 使用示例
+const nuxtTree = ref('')
+const nuxtData = [
+  { label: 'Nuxt 3', value: 'nuxt3', children: [{ label: 'App.vue', value: 'app' }] },
+  { label: 'Nuxt 4', value: 'nuxt4' }
+]
+
+const tsNuxt = `<template>
+  <div style="max-width: 320px;">
+    <!-- 组件自动导入 -->
+    <yh-tree-select
+      v-model="value"
+      :data="data"
+      placeholder="Nuxt 自动导入演示"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhTreeSelect
+const value = ref('')
+const data = [
+  { label: 'Nuxt 3', value: 'nuxt3', children: [{ label: 'App.vue', value: 'app' }] },
+  { label: 'Nuxt 4', value: 'nuxt4' }
+]
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // ==============================
 // 示例代码字符串 (100% 完整，无省略)
 // ==============================
@@ -334,7 +365,7 @@ const data = [
   },
   { label: 'package.json', key: 'package.json' }
 ]
-<\/script>`
+<\/script>`.replace(/\\/g, '')
 
 const tsVirtual = `<template>
   <yh-tree-select
@@ -368,7 +399,7 @@ const generateData = (count: number) => {
   return data
 }
 const data = generateData(100)
-<\/script>`
+<\/script>`.replace(/\\/g, '')
 
 const tsVirtualCheckbox = `<template>
   <yh-tree-select
@@ -402,7 +433,7 @@ const generateData = (count: number) => {
   return data
 }
 const data = generateData(100)
-<\/script>`
+<\/script>`.replace(/\\/g, '')
 
 </script>
 
@@ -603,6 +634,32 @@ const data = generateData(100)
     <p class="demo-res">Checked Count: <code>{{ v13.length }}</code></p>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+TreeSelect 组件完全兼容 Nuxt 3/4。在 Nuxt 环境下，得益于组件自动导入（Auto Import）功能，你可以直接在模板中使用而无需手动注册。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 320px;">
+    <yh-tree-select
+      v-model="nuxtTree"
+      :data="nuxtData"
+      placeholder="Nuxt 自动导入演示"
+    />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 树形结构的首屏渲染（包含展开/收起状态）完全支持
+- ✅ 选中的 Token 标签在服务端正确展示
+- ✅ 虚拟滚动（virtual）支持 SSR 首屏基础节点渲染
+- ✅ 懒加载（lazy）初始数据支持 SSR
+- 💡 搜索过滤和异步加载通过客户端激活（Hydration）后生效
+
+::: tip SSR 安全性
+TreeSelect 使用了 Vue 3.5 的原生 `useId` 机制，确保了在复杂的递归树结构中，服务端和客户端生成的节点 ID、ARIA 属性保持绝对一致，消除了深层嵌套结构中常见的水合一致性报错。
+:::
 
 ## API
 

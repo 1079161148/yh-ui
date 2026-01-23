@@ -19,6 +19,34 @@ const borderChecked = ref(true)
 const borderUnchecked = ref(false)
 const sizeChecked = ref(true)
 
+// Nuxt 使用示例
+const nuxtChecked = ref(false)
+const nuxtItems = ref(['选项1'])
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <!-- 单个复选框，自动导入 -->
+    <yh-checkbox v-model="nuxtChecked">同意协议</yh-checkbox>
+    
+    <!-- 复选框组 -->
+    <yh-checkbox-group v-model="nuxtItems">
+      <yh-checkbox value="选项1">选项1</yh-checkbox>
+      <yh-checkbox value="选项2">选项2</yh-checkbox>
+    </yh-checkbox-group>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhCheckbox 和 YhCheckboxGroup
+const nuxtChecked = ref(false)
+const nuxtItems = ref(['选项1'])
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // 确保客户端正确初始化 VitePress 的服务端渲染（SSR）机制可能导致 ref() 的初始值在客户端 hydration 时被意外重置为默认值（false）
 onMounted(() => {
   checked1.value = true
@@ -302,6 +330,30 @@ const jsTrueValue = tsTrueValue.replace('lang="ts"', '')
   </yh-checkbox>
   <p style="margin-top: 12px; color: var(--yh-text-color-secondary);">当前绑定值类型: {{ typeof customValue }}, 值: {{ customValue }}</p>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Checkbox 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <yh-checkbox v-model="nuxtChecked">同意协议</yh-checkbox>
+    <yh-checkbox-group v-model="nuxtItems">
+      <yh-checkbox value="选项1">选项1</yh-checkbox>
+      <yh-checkbox value="选项2">选项2</yh-checkbox>
+    </yh-checkbox-group>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 单选及复选框组完全支持
+- ✅ 所有视觉状态（选中、禁用、边框等）在 SSR 中一致
+- ✅ 不确定状态（indeterminate）样式支持
+
+::: tip SSR 安全性
+Checkbox 组件已通过完整的 SSR 测试，确保服务端渲染结果与客户端激活后的结构一致，避免 Hydration 警告。
+:::
 
 ## API
 

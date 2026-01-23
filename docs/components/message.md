@@ -11,6 +11,14 @@ const showSuccess = () => {
   YhMessage.success('恭喜你，这是一条成功消息')
 }
 
+// Nuxt Demo 方法
+const onNuxtMessage = () => {
+  YhMessage('Nuxt 自动导入成功！')
+}
+const onNuxtSuccessTip = () => {
+  YhMessage.success('SSR 环境兼容已就绪')
+}
+
 const showWarning = () => {
   YhMessage.warning('警告哦，这是一条警告消息')
 }
@@ -77,7 +85,7 @@ const jsBasic = `<template>
   <yh-button @click="showMessage">显示消息</yh-button>
 <\/template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showMessage = () => {
@@ -119,7 +127,7 @@ const jsTypes = `<template>
   <yh-button type="danger" @click="showError">Error</yh-button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showSuccess = () => {
@@ -159,7 +167,7 @@ const jsClosable = `<template>
   <yh-button @click="showClosable">可关闭的消息</yh-button>
 <\/template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showClosable = () => {
@@ -190,7 +198,7 @@ const jsCenter = `<template>
   <yh-button @click="showCenter">居中消息</yh-button>
 <\/template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showCenter = () => {
@@ -220,7 +228,7 @@ const jsHtml = `<template>
   <yh-button @click="showHtml">使用 HTML 片段</yh-button>
 <\/template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showHtml = () => {
@@ -255,7 +263,7 @@ const jsCloseAll = `<template>
   <yh-button @click="closeAll">关闭所有</yh-button>
 <\/template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showMultiple = () => {
@@ -316,7 +324,7 @@ const jsPlacement = `<template>
   <yh-button @click="showPlacement('bottom-right')">Bottom Right</yh-button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { YhMessage } from 'yh-ui'
 
 const showPlacement = (placement) => {
@@ -326,6 +334,30 @@ const showPlacement = (placement) => {
   })
 }
 <\/script>`
+
+// Nuxt 使用示例
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; gap: 12px;">
+    <!-- 在 Nuxt 中直接调用即可，组件自动导入 -->
+    <yh-button @click="onMessage">基础消息</yh-button>
+    
+    <yh-button type="success" @click="onSuccess">成功提示</yh-button>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 在 Nuxt 中 YhMessage 会被自动导入
+const onMessage = () => {
+  YhMessage('Nuxt 自动导入成功！')
+}
+
+const onSuccess = () => {
+  YhMessage.success('SSR 环境兼容已就绪')
+}
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 用于主动操作后的反馈提示。与 Notification 的区别是后者更多用于系统级通知的被动提醒。
@@ -401,6 +433,29 @@ const showPlacement = (placement) => {
     <yh-button @click="showPlacement('bottom-right')">Bottom Right</yh-button>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Message 组件完全支持 Nuxt 3/4 环境。作为一个函数调用的指令式组件，它在 SSR（服务端渲染）时会自动进行环境检测，确保消息弹出逻辑仅在 Web 浏览器端执行。
+
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; gap: 12px;">
+    <yh-button @click="onNuxtMessage">基础消息</yh-button>
+    <yh-button type="success" @click="onNuxtSuccessTip">成功提示</yh-button>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ **安全调用**：在模板或 `setup` 顶层直接调用函数是安全的，内部已处理 `window` 检测
+- ✅ **自动导入**：在 Nuxt 项目中，`YhMessage` 函数及其调用别名会自动导入，无需手动 `import`
+- ⚠️ **服务端限制**：在 Nuxt 的 `asyncData` 或 `fetch` 服务端执行阶段调用消息提示是无效的（因为此时没有 DOM 容器）
+- 💡 **样式一致性**：Message 的样式会伴随 CSS 异步加载，确保首屏激活后的视觉风格与 SSR 页面保持高度统一
+
+::: tip 错误捕获建议
+在 Nuxt 的 `useFetch` 拦截器或 `onError` 钩子中，可以直接使用 `YhMessage.error` 来为用户提供友好的服务端报错信息提示。
+:::
 
 ## 调用方式
 

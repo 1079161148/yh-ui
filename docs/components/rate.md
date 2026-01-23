@@ -16,6 +16,30 @@ const val6 = ref(3)
 const val7 = ref(3.7)
 const val8 = ref(3.5)
 
+// Nuxt 使用示例
+const nuxtRate = ref(4)
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <!-- 评分组件，自动导入 -->
+    <yh-rate v-model="nuxtRate" />
+    
+    <!-- 结合 Nuxt 的数据展示 -->
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 14px; color: var(--yh-text-color-regular);">平均得分:</span>
+      <yh-rate :model-value="4.5" disabled show-score />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需导入 Rate 组件
+const nuxtRate = ref(4)
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // TypeScript 代码示例
 const tsBasic = `<template>
   <div class="demo-rate-block">
@@ -255,6 +279,31 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
   width: 1em;
 }
 </style>
+
+## 在 Nuxt 中使用
+
+Rate 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <yh-rate v-model="nuxtRate" />
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 14px; color: var(--yh-text-color-regular);">平均得分:</span>
+      <yh-rate :model-value="4.5" disabled show-score />
+    </div>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 星级显示、半星（allow-half）完全支持
+- ✅ 自定义文本及分数显示在 SSR 中渲染准确
+- ✅ 颜色配置（colors 数组）支持服务器端计算
+- ✅ 样式在不同尺寸下保持一致
+
+::: tip SSR 安全性
+Rate 组件在服务端渲染时会静态生成对应的星星位图/SVG 路径，确保用户在 JS 加载前就能看到完整的评分状态。
+:::
 
 ## API
 

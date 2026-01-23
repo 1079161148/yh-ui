@@ -1,16 +1,8 @@
-/**
- * useId - 唯一 ID 生成 Hook
- * @description 生成组件唯一标识符
- */
-import { computed, inject, unref } from 'vue'
+import { computed, inject, unref, useId as useVueId } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
-import { generateId } from '@yh-ui/utils'
 
 // ID 前缀注入 Key
 export const idInjectionKey: InjectionKey<Ref<string | undefined>> = Symbol('idInjectionKey')
-
-// 全局 ID 计数器
-let idCounter = 0
 
 /**
  * useId - 生成唯一 ID
@@ -18,11 +10,12 @@ let idCounter = 0
  * @returns 唯一 ID
  *
  * @example
- * const id = useId() // 'yh-id-1'
+ * const id = useId() // 'yh-id-1' (or vue native id)
  * const customId = useId(ref('custom')) // 'custom'
  */
 export const useId = (idOverrides?: Ref<string | undefined>): Ref<string> => {
   const injectedId = inject(idInjectionKey, undefined)
+  const nativeId = useVueId()
 
   const id = computed(() => {
     const override = unref(idOverrides)
@@ -31,7 +24,7 @@ export const useId = (idOverrides?: Ref<string | undefined>): Ref<string> => {
     const injected = unref(injectedId)
     if (injected) return injected
 
-    return `yh-id-${++idCounter}`
+    return nativeId
   })
 
   return id
@@ -44,7 +37,7 @@ export const useId = (idOverrides?: Ref<string | undefined>): Ref<string> => {
 export const useIdInjection = () => {
   return {
     prefix: computed(() => `yh-${Date.now()}`),
-    current: idCounter
+    current: 0 // No longer using counter
   }
 }
 

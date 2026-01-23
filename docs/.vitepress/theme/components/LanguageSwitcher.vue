@@ -62,6 +62,7 @@ const switchLanguage = (lang: Language) => {
   align-items: center;
   gap: 0;
   padding: 4px;
+  margin-left: 20px;
   background: var(--vp-c-bg-soft);
   border-radius: 10px;
   position: relative;
@@ -70,8 +71,8 @@ const switchLanguage = (lang: Language) => {
   &__btn {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 6px 12px;
+    gap: 6px;
+    padding: 6px 16px;
     font-size: 13px;
     font-weight: 500;
     color: var(--vp-c-text-2);

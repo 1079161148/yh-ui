@@ -68,21 +68,9 @@ const tsLoading = `<template>
 <script setup lang="ts">
 import { ref } from 'vue'
 const loading = ref(true)
-<\/script>`
+<\/script>`.replace(/\\/g, '')
 
-const jsLoading = `<template>
-  <div style="display: flex; gap: 16px; align-items: start;">
-    <yh-card :loading="loading" header="加载中的卡片" style="flex: 1;">
-      <p>这是卡片内容。</p>
-    </yh-card>
-    <yh-button @click="loading = !loading">切换加载状态</yh-button>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-const loading = ref(true)
-<\/script>`
+const jsLoading = tsLoading.replace('lang="ts"', '')
 
 const tsFooter = `<template>
   <yh-card header="带底部的卡片">
@@ -123,6 +111,32 @@ const tsBordered = `<template>
 </template>`
 
 const jsBordered = tsBordered
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 480px;">
+    <!-- 卡片组件，自动导入 -->
+    <yh-card header="Nuxt 项目实战">
+      <template #extra>
+        <yh-button type="primary" text>更多</yh-button>
+      </template>
+      
+      <p>在 Nuxt 3 中使用 YH-UI 的卡片组件非常简单。</p>
+      
+      <!-- 嵌套其它组件 -->
+      <div style="margin-top: 16px;">
+        <yh-tag type="success">SSR Ready</yh-tag>
+        <yh-tag type="info" style="margin-left: 8px;">Auto Import</yh-tag>
+      </div>
+    </yh-card>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需手动导入 Component
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 通用卡片容器，承载文字、列表、图片、段落等内容。
@@ -247,6 +261,37 @@ const jsBordered = tsBordered
     </yh-card>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Card 组件完美支持 Nuxt 3/4 环境。由于它主要用于结构化布局，服务端渲染（SSR）可以预先生成完整的 DOM 结构，有利于 SEO 优化和首屏渲染性能。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 480px;">
+    <yh-card header="Nuxt 项目实战">
+      <template #extra>
+        <yh-button type="primary" text>更多</yh-button>
+      </template>
+      <p style="margin: 0 0 12px;">在 Nuxt 中，Card 组件及其内部的所有子组件（如 Button, Tag）均已预置自动导入支持。</p>
+      <div style="display: flex; gap: 8px;">
+        <yh-tag type="success">SSR Ready</yh-tag>
+        <yh-tag type="info">Auto Import</yh-tag>
+      </div>
+    </yh-card>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 标题 (header)、底部 (footer) 和内容区域在服务端完整渲染
+- ✅ 阴影效果 (always/hover/never) 支持 SSR
+- ✅ 骨架屏加载状态 (loading) 在服务端即展示首屏骨架，避免白屏
+- ✅ 尺寸 (size) 和边框 (bordered) 配置通过 CSS 类名在服务端生效
+- 💡 交互逻辑及动态加载状态切换在客户端激活（Hydration）后恢复响应性
+
+::: tip SEO 优化
+Card 组件生成的 HTML 语义清晰，建议在 `header` 插槽中使用合适的标题标签（如 `h3`），以进一步提升搜索引擎对页面内容的理解。
+:::
 
 ## API
 

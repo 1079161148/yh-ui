@@ -45,6 +45,32 @@ const customOptions = [
 // 完整功能演示
 const timeFull = ref('')
 
+// Nuxt 使用示例
+const nuxtTime = ref('')
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="max-width: 240px;">
+    <!-- 时间选择，自动导入 -->
+    <yh-time-select 
+      v-model="nuxtTime" 
+      start="08:30" 
+      step="00:15" 
+      end="18:30" 
+      placeholder="Nuxt 自动导入"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 无需手动导入 YhTimeSelect
+const nuxtTime = ref('09:00')
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // 代码示例
 // 代码示例
 const tsBasic = `<` + `template>
@@ -701,6 +727,34 @@ const handleClear = () => {
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">当前选择: {{ timeFull || '未选择' }}</p>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+TimeSelect 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="max-width: 240px;">
+    <yh-time-select 
+      v-model="nuxtTime" 
+      start="08:30" 
+      step="00:15" 
+      end="18:30" 
+      placeholder="Nuxt 自动导入"
+    />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 时间选项列表及初始值完全支持
+- ✅ 格式化（format）在服务器端正确渲染
+- ✅ 禁用时段（disabled-hours）及范围限制支持
+- ✅ 下拉列表通过 Teleport 渲染，兼容 SSR 首屏
+- ⚠️ 滚动定位、输入搜索匹配在客户端激活后生效
+
+::: tip SSR 安全性
+TimeSelect 的时间列表在服务端即根据 start/end/step 参数预生成，确保了首屏加载时下拉列表即包含完整的可用选项，提供了极佳的 SEO 和首屏交换体验。
+:::
 
 ## API
 

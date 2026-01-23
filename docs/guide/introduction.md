@@ -58,7 +58,7 @@ API 设计遵循"约定大于配置"的原则，常用功能开箱即用，减�
 
 ## 贡献
 
-欢迎参与 YH-UI 的开发！请阅读我们的 [贡献指南](https://github.com/xxx/yh-ui/blob/main/CONTRIBUTING.md) 了解如何参与贡献。
+欢迎参与 YH-UI 的开发！请阅读我们的 [贡献指南](https://github.com/1079161148/yh-ui/blob/main/CONTRIBUTING.md) 了解如何参与贡献。
 
 ## 开源协议
 

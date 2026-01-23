@@ -29,6 +29,29 @@ const marks = ref({
 // 自定义插槽
 const valS = ref(45)
 
+// Nuxt 使用示例
+const nuxtSlider1 = ref(30)
+const nuxtSlider2 = ref([20, 50])
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px 0;">
+    <!-- 基础滑块，自动导入 -->
+    <yh-slider v-model="nuxtSlider1" />
+    
+    <!-- 范围选择 -->
+    <yh-slider v-model="nuxtSlider2" range />
+  </div>
+</template>
+
+<script setup lang="ts">
+// 无需导入 Slider 组件
+const nuxtSlider1 = ref(30)
+const nuxtSlider2 = ref([20, 50])
+<\/script>`
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
+
 // 为 DemoBlock 准备的代码字符串
 const tsBasic = `<template>
   <div class="yh-demo-wrapper">
@@ -270,6 +293,29 @@ const jsSlot = tsSlot.replace('lang="ts"', '')
     </div>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+Slider 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px 0;">
+    <yh-slider v-model="nuxtSlider1" />
+    <yh-slider v-model="nuxtSlider2" range />
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 基础滑动选择、范围选择完全支持
+- ✅ 步长（step）、标记（marks）在服务器端正确渲染
+- ✅ 垂直模式布局在 SSR 中保持一致
+- ✅ 插槽（thumb/mark）支持 SSR 渲染
+- ⚠️ 拖拽交互、Tooltip 提示仅在客户端激活后可用
+
+::: tip SSR 安全性
+Slider 组件针对 SSR 优化的样式系统，确保了滑块导轨和填充条在首屏加载时就具备正确的视觉效果，消除了 Hydration 时的视觉抖动。
+:::
 
 ## API
 

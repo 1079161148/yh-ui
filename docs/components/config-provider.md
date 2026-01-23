@@ -155,6 +155,25 @@ const size = ref('default')
 <\/script>`
 
 const jsFull = tsFull.replace('lang="ts"', '')
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <yh-config-provider theme="purple">
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 24px;">
+      <p>当前处于 Nuxt 配置预览模式 (紫色主题):</p>
+      <div style="display: flex; gap: 12px;">
+        <yh-button type="primary">确认提交</yh-button>
+        <yh-tag type="primary">Nuxt Integrated</yh-tag>
+      </div>
+    </div>
+  </yh-config-provider>
+</template>
+
+<script setup lang="ts">
+// 在 Nuxt 中无需手动导入 YhConfigProvider
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 `YhConfigProvider` 为组件库提供全局配置，包括主题配色、国际化语言、组件尺寸等。
@@ -344,6 +363,35 @@ const jsFull = tsFull.replace('lang="ts"', '')
     </div>
   </div>
 </DemoBlock>
+
+## 在 Nuxt 中使用
+
+`YhConfigProvider` 是在 Nuxt 3/4 应用中实现全局主题和国际化的核心组件。建议在 `app.vue` 中将其作为根容器包裹 `NuxtPage` 或 `NuxtLayout`。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="padding: 24px; background: var(--yh-bg-color-page); border-radius: 8px;">
+    <yh-config-provider theme="purple" :global="false">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="margin: 0; color: var(--yh-text-color-secondary);">当前处于 Nuxt 配置预览模式 (紫色主题):</p>
+        <div style="display: flex; gap: 12px;">
+          <yh-button type="primary">确认提交</yh-button>
+          <yh-tag type="primary">Nuxt Integrated</yh-tag>
+        </div>
+      </div>
+    </yh-config-provider>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ **CSS 变量同步**：在服务端渲染时，CSS 变量会自动注入，确保首屏加载时主题色即刻生效，无颜色跳变
+- ✅ **自动导入集成**：Nuxt 模块会自动导入 `YhConfigProvider` 及其关联的语言包
+- ✅ **ID 稳定性**：配合 Nuxt 的 `useId` 机制，ConfigProvider 确保了弹出层 z-index 逻辑在 Hydration 阶段的稳定性
+- 💡 **全局注入建议**：在 `app.vue` 中使用时，设置 `global` 为 `true`。如果在局部演示中使用，建议设置为 `false` 以避免影响全局样式
+
+::: tip 状态同步
+在 Nuxt 生态中，可以将 `theme` 和 `locale` 与 `useState` 结合使用，从而轻松实现跨页面的持久化配置同步。
+:::
 
 ## API 参考
 

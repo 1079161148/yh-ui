@@ -9,9 +9,9 @@
 <DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="margin-bottom: 20px;">
     <yh-radio-group v-model="formSize">
-      <yh-radio-button label="large">Large</yh-radio-button>
-      <yh-radio-button label="default">Default</yh-radio-button>
-      <yh-radio-button label="small">Small</yh-radio-button>
+      <yh-radio-button value="large">Large</yh-radio-button>
+      <yh-radio-button value="default">Default</yh-radio-button>
+      <yh-radio-button value="small">Small</yh-radio-button>
     </yh-radio-group>
   </div>
   <yh-form 
@@ -241,6 +241,36 @@ const proSchema = [
     ]
   }
 ]
+
+// Nuxt 使用示例
+const nuxtForm = reactive({ username: '', role: 'admin' })
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <yh-form :model="form" label-width="80px">
+    <yh-form-item label="用户名">
+      <yh-input v-model="form.username" placeholder="自动导入组件" />
+    </yh-form-item>
+    <yh-form-item label="角色">
+      <yh-radio-group v-model="form.role">
+        <yh-radio value="admin">管理员</yh-radio>
+        <yh-radio value="user">用户</yh-radio>
+      </yh-radio-group>
+    </yh-form-item>
+  </yh-form>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue'
+
+// 无需导入 Form, FormItem 等组件
+const form = reactive({ 
+  username: '', 
+  role: 'admin' 
+})
+<\/script>`.replace(/\\/g, '')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 // 代码定义 (使用 \u003C 规避 VPC 潜在冲突并修复 &lt; 显示问题)
 const tsBasic = `
@@ -510,6 +540,36 @@ const schema = [
 `.trim()
 const jsAdvancedSchema = tsAdvancedSchema.replace('lang="ts"', '')
 </script>
+
+## 在 Nuxt 中使用
+
+Form 组件及其子组件（FormItem, FormSchema）完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，所有表单组件均会自动导入。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <yh-form :model="nuxtForm" label-width="80px">
+    <yh-form-item label="用户名">
+      <yh-input v-model="nuxtForm.username" placeholder="自动导入组件" />
+    </yh-form-item>
+    <yh-form-item label="角色">
+      <yh-radio-group v-model="nuxtForm.role">
+        <yh-radio value="admin">管理员</yh-radio>
+        <yh-radio value="user">用户</yh-radio>
+      </yh-radio-group>
+    </yh-form-item>
+  </yh-form>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 表单布局（水平、垂直、行内）在 SSR 中完全保持一致
+- ✅ 校验错误状态（is-error）及错误信息支持服务端渲染
+- ✅ 静态验证规则在服务器端即可生效（首屏即有错误样式）
+- ⚠️ 提交验证（validate 方法）及动态异步验证仅在客户端激活后可用
+- 💡 建议在 Nuxt 页面中使用 `reactive` 定义表单模型以保持响应式连贯
+
+::: tip SSR 安全性
+Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高度嵌套的表单结构中，服务端和客户端的 HTML 关联完全一致，不会触发水合警告。
+:::
 
 ## API
 
