@@ -25,15 +25,17 @@
     "version:patch": "pnpm -r exec npm version patch",
     "version:minor": "pnpm -r exec npm version minor",
     "version:major": "pnpm -r exec npm version major",
-    "publish:all": "pnpm -r publish --access public"
+    "publish:all": "pnpm -r publish --access public",
+    "perf:components": "pnpm -C packages/components build",
+    "perf:nuxt": "pnpm -C playground-nuxt build"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vitejs/plugin-vue-jsx": "^4.1.1",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue-jsx": "^5.0.0",
+    "@vitest/coverage-v8": "^3.0.2",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.18.0",
     "eslint-plugin-vue": "^9.32.0",
@@ -43,12 +45,13 @@
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "rollup": "^4.56.0",
+    "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.83.1",
     "typescript": "^5.7.3",
     "unbuild": "^3.3.1",
     "vite": "^6.0.7",
     "vite-plugin-dts": "^4.4.0",
-    "vitest": "^2.1.8",
+    "vitest": "^3.0.2",
     "vue": "^3.5.13",
     "vue-tsc": "^2.2.0"
   },
@@ -83,5 +86,10 @@
   "license": "MIT",
   "dependencies": {
     "async-validator": "^4.2.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "^6.0.7"
+    }
   }
 }

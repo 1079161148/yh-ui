@@ -13,6 +13,9 @@ dist
 *.local
 .output
 .cache
+.nuxt
+.nitro
+stats.html
 
 # Editor directories
 .idea

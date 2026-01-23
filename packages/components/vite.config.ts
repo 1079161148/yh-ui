@@ -1,7 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { resolve } from 'node:path'
+import crypto from 'node:crypto'
+
+// Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
+if (typeof (crypto as any).hash !== 'function') {
+  ;(crypto as any).hash = (
+    algorithm: string,
+    data: string | Buffer,
+    outputEncoding: any = 'hex'
+  ) => {
+    return crypto.createHash(algorithm).update(data).digest(outputEncoding)
+  }
+}
 
 export default defineConfig({
   plugins: [
@@ -12,6 +25,11 @@ export default defineConfig({
       entryRoot: 'src',
       staticImport: true,
       insertTypesEntry: true
+    }),
+    visualizer({
+      filename: 'stats.html',
+      gzipSize: true,
+      brotliSize: true
     })
   ],
   build: {

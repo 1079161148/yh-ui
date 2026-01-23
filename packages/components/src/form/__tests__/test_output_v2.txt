@@ -1,6 +1,0 @@
-'test' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
-»òÅú´¦ÀíÎÄ¼ş¡£
-undefined
-â€‰ERR_PNPM_RECURSIVE_EXEC_FIRST_FAILâ€‰ Command "test" not found
-
-Did you mean "pnpm vitest"?
