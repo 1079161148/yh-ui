@@ -28,9 +28,31 @@ export default defineNuxtConfig({
 })
 ```
 
-就这么简单！所有组件和 Composables 都会自动导入。
+## 核心优势
 
-## 配置选项
+为什么选择 YH-UI 与 Nuxt 配合使用？
+
+1.  **🚀 SSR 零配置支持**：所有组件均经过深度 SSR 优化，确保 HTML 在服务端生成，提升 SEO 和首屏加载速度，且无需繁琐配置。
+2.  **🧩 语义化自动导入**：模块自动注册所有 `Yh` 组件、Composables 和全局方法。你只管写代码，IDE 提供完美提示，无需任何 `import`。
+3.  **⚡ 性能极致优化**：支持 Tree Shaking，配合 Nuxt 的代码分割机制，仅打包你真正使用的组件，让包体积维持在最小。
+4.  **🔒 状态隔离与安全**：针对 SSR 环境下的全局状态污染风险，我们提供了请求级的 `useZIndex` 和 `useId` 隔离机制，确保多用户并发访问的安全。
+5.  **🎨 样式按需加载**：样式系统支持 SCSS/CSS 按需注入，支持与 Nuxt 主题系统深度集成。
+
+## 注意事项 (Precautions)
+
+在使用过程中，请务必关注以下几点以避免常见的 SSR 陷阱：
+
+### 1. 客户端专用逻辑 (Client-only)
+由于代码会在服务端和客户端同时执行，直接访问 `window`、`document` 或 `localStorage` 会导致服务端报错。
+*   **推荐做法**：使用 `onMounted` 钩子或 Nuxt 提供的 `import { isClient } from '@yh-ui/utils'` 进行环境检查。
+
+### 2. 水合不匹配 (Hydration Mismatch)
+如果服务端生成的 HTML 与客户端初次渲染的 HTML 不一致（例如直接在 setup 中生成随机数或获取实时时间并渲染），会导致 Vue 报错。
+*   **推荐做法**：确保渲染数据的一致性，或使用 `<ClientOnly>` 组件包裹动态内容。
+
+### 3. 组件 Ref 获取
+在 Nuxt 中，建议使用 `ref<InstanceType<typeof YhButton>>()` 获取组件实例，以获得最佳的类型支持。
+
 
 您可以通过 `yhUI` 配置键来自定义模块行为：
 

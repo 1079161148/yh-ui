@@ -1,4 +1,17 @@
+import crypto from 'node:crypto'
 import { defineNuxtModule, addComponent, addImports, addPlugin, createResolver } from '@nuxt/kit'
+
+// Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
+if (typeof (crypto as any).hash !== 'function') {
+  ;(crypto as any).hash = (
+    algorithm: string,
+    data: string | Buffer,
+    outputEncoding: any = 'hex'
+  ) => {
+    return crypto.createHash(algorithm).update(data).digest(outputEncoding)
+  }
+}
+
 import type { NuxtModule } from '@nuxt/schema'
 
 export interface ModuleOptions {
@@ -7,9 +20,24 @@ export interface ModuleOptions {
    * @default true
    */
   importStyle?: boolean
+  /**
+   * 是否转译依赖
+   * @default true
+   */
+  buildTranspile?: boolean
+  /**
+   * SSR 优化配置
+   */
+  ssrOptimization?: {
+    /**
+     * 是否启用组件缓存提示
+     * @default true
+     */
+    componentCache?: boolean
+  }
 }
 
-const yhNuxtModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
+const yhNuxtModule = defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@yh-ui/nuxt',
     configKey: 'yhUI',
@@ -18,7 +46,11 @@ const yhNuxtModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>(
     }
   },
   defaults: {
-    importStyle: true
+    importStyle: true,
+    buildTranspile: true,
+    ssrOptimization: {
+      componentCache: true
+    }
   },
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -87,7 +119,6 @@ const yhNuxtModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>(
     // 3. 自动注册 Composables (Hooks)
     const hooks = [
       'useNamespace',
-      'useId',
       'useZIndex',
       'useLocale',
       'useFormItem',
@@ -114,6 +145,42 @@ const yhNuxtModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>(
       })
     })
   }
-}) as unknown as NuxtModule<ModuleOptions>
+})
 
-export default yhNuxtModule as NuxtModule<ModuleOptions>
+declare module '@nuxt/schema' {
+  interface NuxtConfig {
+    yhUI?: ModuleOptions
+  }
+  interface NuxtOptions {
+    yhUI?: ModuleOptions
+  }
+  interface RuntimeConfig {
+    yhUI: ModuleOptions
+  }
+  interface PublicRuntimeConfig {
+    yhUI: ModuleOptions
+  }
+}
+
+declare module 'nuxt/schema' {
+  interface NuxtConfig {
+    yhUI?: ModuleOptions
+  }
+  interface NuxtOptions {
+    yhUI?: ModuleOptions
+  }
+  interface RuntimeConfig {
+    yhUI: ModuleOptions
+  }
+  interface PublicRuntimeConfig {
+    yhUI: ModuleOptions
+  }
+}
+
+declare module 'nuxt/config' {
+  interface NuxtConfig {
+    yhUI?: ModuleOptions
+  }
+}
+
+export default yhNuxtModule

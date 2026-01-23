@@ -1,6 +1,7 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@yh-ui/nuxt": ["../packages/nuxt/src/module.ts"],
       "@yh-ui/components": ["../packages/components/src"],
@@ -8,5 +9,6 @@
       "@yh-ui/utils": ["../packages/utils/src"],
       "@yh-ui/theme": ["../packages/theme/src"]
     }
-  }
+  },
+  "include": [".nuxt/nuxt.d.ts", "**/*", "../packages/nuxt/src/module.ts"]
 }

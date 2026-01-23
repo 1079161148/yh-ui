@@ -16,6 +16,7 @@ export default defineConfig({
     logo: '/logo.svg',
 
     nav: [
+      { text: '首页', link: '/' },
       { text: '指南', link: '/guide/introduction', activeMatch: '/guide/' },
       { text: '组件', link: '/components/button', activeMatch: '/components/' },
       {
@@ -34,7 +35,8 @@ export default defineConfig({
           items: [
             { text: '简介', link: '/guide/introduction' },
             { text: '安装', link: '/guide/installation' },
-            { text: '快速开始', link: '/guide/quickstart' }
+            { text: '快速开始', link: '/guide/quickstart' },
+            { text: '在 Nuxt 中使用', link: '/guide/nuxt' }
           ]
         },
         {
