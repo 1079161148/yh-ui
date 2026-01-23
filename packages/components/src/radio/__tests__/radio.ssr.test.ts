@@ -30,7 +30,8 @@ describe('YhRadio SSR', () => {
       Radio,
       {
         modelValue: 'selected',
-        label: 'selected'
+        label: 'selected',
+        value: 'selected'
       },
       {
         default: () => 'Selected'
@@ -146,14 +147,15 @@ describe('YhRadioButton SSR', () => {
       RadioButton,
       {
         modelValue: 'active',
-        label: 'active'
+        label: 'active',
+        value: 'active'
       },
       {
         default: () => 'Active Button'
       }
     )
 
-    expectSSRHasClass(html, 'is-active')
+    expectSSRHasClass(html, 'is-checked')
   })
 })
 

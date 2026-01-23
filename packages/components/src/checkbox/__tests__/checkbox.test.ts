@@ -26,8 +26,8 @@ describe('YhCheckbox', () => {
     const wrapper = mount(YhCheckbox, {
       props: {
         modelValue: modelValue.value,
-        'onUpdate:modelValue': (val: boolean) => {
-          modelValue.value = val
+        'onUpdate:modelValue': (val: unknown) => {
+          modelValue.value = val as boolean
         }
       }
     })

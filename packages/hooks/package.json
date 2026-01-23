@@ -24,6 +24,9 @@
   "dependencies": {
     "@yh-ui/utils": "workspace:*"
   },
+  "devDependencies": {
+    "vue": "^3.5.0"
+  },
   "peerDependencies": {
     "vue": "^3.5.0"
   },

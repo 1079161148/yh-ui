@@ -21,9 +21,9 @@ describe('YhRate SSR', () => {
     })
 
     expectSSRHasClass(html, 'yh-rate')
-    // 应该有3个激活的星星
-    const activeStars = (html.match(/yh-rate__item--active/g) || []).length
-    expect(activeStars).toBeGreaterThan(0)
+    // 应该有3个激活的星星 (width:100%)
+    const activeStars = (html.match(/width:100%/g) || []).length
+    expect(activeStars).toBe(3)
   })
 
   it('should render disabled state in SSR', async () => {

@@ -3,16 +3,16 @@
  * @description 测试 useZIndex 在 SSR 环境下的行为，确保状态隔离
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { defineComponent, h, provide } from 'vue'
+import { defineComponent, h, provide, ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { renderSSR } from '../../components/src/__tests__/utils/ssr'
+import { renderSSR } from '../../../../components/src/__tests__/utils/ssr'
 import {
   useZIndex,
   createZIndexCounter,
   zIndexCounterKey,
   getNextZIndex,
   resetZIndex
-} from '../src/use-z-index'
+} from '../index'
 
 // 测试组件
 const TestComponent = defineComponent({
@@ -27,20 +27,26 @@ const TestComponent = defineComponent({
   }
 })
 
-// 带 Provider 的组件
-const TestComponentWithProvider = defineComponent({
+// 消费者组件
+const ChildComponent = defineComponent({
   setup() {
-    const counter = createZIndexCounter(3000)
-    provide(zIndexCounterKey, counter)
-
     const { nextZIndex } = useZIndex()
-
     return () =>
       h('div', {}, [
         h('div', { 'data-z-index-1': nextZIndex() }),
         h('div', { 'data-z-index-2': nextZIndex() }),
         h('div', { 'data-z-index-3': nextZIndex() })
       ])
+  }
+})
+
+// 带 Provider 的组件
+const TestComponentWithProvider = defineComponent({
+  setup() {
+    const counter = createZIndexCounter(3000)
+    provide(zIndexCounterKey, counter)
+
+    return () => h(ChildComponent)
   }
 })
 
@@ -139,7 +145,7 @@ describe('useZIndex SSR', () => {
   })
 
   it('should handle custom z-index override', () => {
-    const customZIndex = { value: 9999 }
+    const customZIndex = ref(9999)
     const { nextZIndex } = useZIndex(customZIndex)
 
     const z = nextZIndex()

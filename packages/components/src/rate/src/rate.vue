@@ -94,7 +94,7 @@ const starPath = 'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-3
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.is('disabled', disabled)]" @mouseleave="handleMouseLeave">
+  <div :class="[ns.b(), ns.m(actualSize), ns.is('disabled', disabled)]" @mouseleave="handleMouseLeave">
     <div v-for="item in max" :key="item" :class="[ns.e('item'), ns.is('hover', hoverIndex === item)]"
       :style="{ width: iconSize + 'px', height: iconSize + 'px' }" @mousemove="handleMouseMove(item, $event)"
       @click="handleItemClick(item)">

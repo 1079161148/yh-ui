@@ -77,12 +77,12 @@ describe('YhInputNumber', () => {
     const increaseBtn = wrapper.find('.yh-input-number__increase')
     await increaseBtn.trigger('click')
 
-    // In current implementation, toPrecision returns a number, so 1.10 becomes 1.1
+    // Value emitted is a number
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1.1])
 
-    // Display value is toPrecision(val).toString()
+    // Display value uses toFixed when precision is specified, showing trailing zeros
     await wrapper.setProps({ modelValue: 1.1 })
-    expect(wrapper.find('input').element.value).toBe('1.1')
+    expect(wrapper.find('input').element.value).toBe('1.10')
   })
 
   it('should be disabled when disabled prop is true', async () => {

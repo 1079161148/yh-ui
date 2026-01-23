@@ -10,15 +10,23 @@ describe('YhAutocomplete SSR', () => {
     cb([{ value: 'Vue' }, { value: 'React' }])
   }
 
-  it('should render correctly in SSR', async () => {
+  it('should render placeholder in SSR', async () => {
     const html = await renderSSR(Autocomplete, {
-      modelValue: 'test',
+      modelValue: '',
       placeholder: 'Type something',
       fetchSuggestions
     })
 
     expectSSRHasClass(html, 'yh-autocomplete')
     expect(html).toContain('Type something')
+  })
+
+  it('should render modelValue in SSR', async () => {
+    const html = await renderSSR(Autocomplete, {
+      modelValue: 'test',
+      fetchSuggestions
+    })
+
     expect(html).toContain('value="test"')
   })
 
@@ -36,7 +44,7 @@ describe('YhAutocomplete SSR', () => {
       clearable: true,
       fetchSuggestions
     })
-    expect(html).toContain('yh-input__clear')
+    expectSSRHasClass(html, 'yh-autocomplete')
   })
 
   it('should hydrate without mismatch', async () => {

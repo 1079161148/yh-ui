@@ -7,7 +7,7 @@ import { ref, watch, reactive, onMounted, computed } from 'vue'
 import YhForm from './form.vue'
 import YhFormItem from './form-item.vue'
 import { formSchemaProps } from './form-schema'
-import type { FormSchemaItem, FormSchemaGroup } from './form-schema'
+import type { FormSchemaItem, FormSchemaGroup, FormSchema } from './form-schema'
 import { useNamespace } from '@yh-ui/hooks'
 import { get, set } from '@yh-ui/utils'
 
@@ -29,8 +29,8 @@ watch(() => props.modelValue, (val) => {
 }, { deep: true })
 
 // 辅助函数：判断是否为分组
-const isGroup = (item: any): item is FormSchemaGroup => {
-  return item && Array.isArray(item.items)
+const isGroup = (item: FormSchemaItem | FormSchemaGroup): item is FormSchemaGroup => {
+  return 'items' in item && Array.isArray(item.items)
 }
 
 // 异步选项状态
@@ -40,19 +40,20 @@ const collapsedMap = reactive<Record<string, boolean>>({})
 
 // 初始化异步选项
 const initAsyncOptions = async () => {
-  const traverse = async (items: any[]) => {
+  const traverse = async (items: FormSchema) => {
     for (const item of items) {
       if (isGroup(item)) {
         await traverse(item.items)
       } else {
-        if (item.asyncOptions) {
+        const schemaItem = item as FormSchemaItem
+        if (schemaItem.asyncOptions) {
           try {
             // 防止重复加载
-            if (!optionMap[item.field]) {
-              optionMap[item.field] = await item.asyncOptions()
+            if (!optionMap[schemaItem.field]) {
+              optionMap[schemaItem.field] = await schemaItem.asyncOptions()
             }
           } catch (e) {
-            console.error(`[YhFormSchema] Failed to load options for ${item.field}`, e)
+            console.error(`[YhFormSchema] Failed to load options for ${schemaItem.field}`, e)
           }
         }
       }
@@ -62,8 +63,8 @@ const initAsyncOptions = async () => {
 }
 
 // 初始化折叠状态
-watch(() => props.schema, (val) => {
-  val.forEach((item: any) => {
+watch(() => props.schema, (val: FormSchema) => {
+  val.forEach((item) => {
     if (isGroup(item) && item.title) {
       if (collapsedMap[item.title] === undefined) {
         collapsedMap[item.title] = item.collapsed ?? false
@@ -119,11 +120,13 @@ const getComponent = (comp: string | any) => {
 }
 
 // 判断项是否隐藏
-const isItemHidden = (item: FormSchemaItem) => {
-  if (typeof item.hidden === 'function') {
-    return item.hidden(localModel.value)
+const isItemHidden = (item: FormSchemaItem | FormSchemaGroup) => {
+  if (isGroup(item)) return false
+  const schemaItem = item as FormSchemaItem
+  if (typeof schemaItem.hidden === 'function') {
+    return schemaItem.hidden(localModel.value)
   }
-  return item.hidden || false
+  return schemaItem.hidden || false
 }
 
 // 处理组件值更新
@@ -192,10 +195,10 @@ defineExpose({
                     <component v-if="subItem.render" :is="RenderComponent(subItem)" />
                     <component v-else :is="getComponent(subItem.component)" v-bind="resolveProps(subItem)"
                       :model-value="get(localModel, subItem.field)"
-                      @update:model-value="(val: any) => handleUpdate(subItem.field, val)">
+                      @update:model-value="(val: unknown) => handleUpdate(subItem.field, val)">
                       <template v-for="(slotContent, slotName) in subItem.slots" :key="slotName"
                         #[slotName]="slotProps">
-                        <component v-if="slotName !== 'label'" :is="slotContent" v-bind="slotProps" />
+                        <component v-if="String(slotName) !== 'label'" :is="slotContent" v-bind="slotProps" />
                       </template>
                     </component>
                   </template>
@@ -206,35 +209,34 @@ defineExpose({
         </fieldset>
 
         <!-- 普通项渲染 -->
-        <div v-else-if="!isItemHidden(item)"
-          :class="['yh-form-col', (item as any).col ? `yh-form-col--${(item as any).col}` : 'yh-form-col--24']">
-          <yh-form-item v-bind="(item as any).formItemProps" :label="(item as any).label" :prop="(item as any).field"
-            :required="(item as any).required" :rules="(item as any).rules">
+        <div v-else :class="['yh-form-col', item.col ? `yh-form-col--${item.col}` : 'yh-form-col--24']">
+          <div v-if="!isItemHidden(item)">
+            <yh-form-item v-bind="item.formItemProps" :label="item.label" :prop="item.field" :required="item.required"
+              :rules="item.rules">
 
-            <template #label
-              v-if="!$slots[`field-${(item as any).field}`] && ((item as any).slots?.label || $slots[`label-${(item as any).field}`])">
-              <slot :name="`label-${(item as any).field}`" :model="localModel" :item="item">
-                <component :is="(item as any).slots?.label" :model="localModel" :field="(item as any).field" />
-              </slot>
-            </template>
+              <template #label
+                v-if="!$slots[`field-${item.field}`] && (item.slots?.label || $slots[`label-${item.field}`])">
+                <slot :name="`label-${item.field}`" :model="localModel" :item="item">
+                  <component :is="item.slots?.label" :model="localModel" :field="item.field" />
+                </slot>
+              </template>
 
-            <template v-if="$slots[`field-${(item as any).field}`]">
-              <slot :name="`field-${(item as any).field}`" :model="localModel" :item="item"
-                :handle-update="handleUpdate" />
-            </template>
+              <template v-if="$slots[`field-${item.field}`]">
+                <slot :name="`field-${item.field}`" :model="localModel" :item="item" :handle-update="handleUpdate" />
+              </template>
 
-            <template v-else>
-              <component v-if="(item as any).render" :is="RenderComponent(item as any)" />
-              <component v-else :is="getComponent((item as any).component)" v-bind="resolveProps(item as any)"
-                :model-value="get(localModel, (item as any).field)"
-                @update:model-value="(val: any) => handleUpdate((item as any).field, val)">
-                <template v-for="(slotContent, slotName) in (item as any).slots" :key="slotName"
-                  #[slotName]="slotProps">
-                  <component v-if="slotName !== 'label'" :is="slotContent" v-bind="slotProps" />
-                </template>
-              </component>
-            </template>
-          </yh-form-item>
+              <template v-else>
+                <component v-if="item.render" :is="RenderComponent(item)" />
+                <component v-else :is="getComponent(item.component)" v-bind="resolveProps(item)"
+                  :model-value="get(localModel, item.field)"
+                  @update:model-value="(val: unknown) => handleUpdate(item.field, val)">
+                  <template v-for="(slotContent, slotName) in item.slots" :key="slotName" #[slotName]="slotProps">
+                    <component v-if="String(slotName) !== 'label'" :is="slotContent" v-bind="slotProps" />
+                  </template>
+                </component>
+              </template>
+            </yh-form-item>
+          </div>
         </div>
       </template>
     </div>

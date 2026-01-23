@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /**
  * YhForm - 高性能高度扩展表单组件
- * @description 支持各种布局、校验方式，完美融合组件库
+ * @description 支持各种布局、校验方式，完美融合组件库，已实现类型安全
  */
-import { provide, reactive, toRefs, ref } from 'vue'
+import { provide, reactive, toRefs } from 'vue'
 import { formProps, FormContextKey } from './form'
-import type { FormContext, FormRules } from './form'
+import type { FormContext } from './form'
 import type { FormItemContext } from './form-item'
 import { useNamespace } from '@yh-ui/hooks'
 
@@ -14,7 +14,9 @@ defineOptions({
 })
 
 const props = defineProps(formProps)
-const emit = defineEmits(['validate'])
+const emit = defineEmits<{
+  (e: 'validate', isValid: boolean, invalidFields?: Record<string, unknown>): void
+}>()
 const ns = useNamespace('form')
 
 // 存储所有 FormItem 的实例上下文
@@ -30,41 +32,51 @@ const addField = (field: FormItemContext) => {
 // 移除字段
 const removeField = (field: FormItemContext) => {
   if (field.prop) {
-    fields.splice(fields.indexOf(field), 1)
+    const index = fields.indexOf(field)
+    if (index > -1) fields.splice(index, 1)
   }
 }
 
-// 验证表单
+/**
+ * 验证表单
+ * @param props 指定校验的字段，或者作为回调函数
+ * @param callback 校验完成后的回调
+ */
 const validate = async (
-  props: string | string[] | ((isValid: boolean, invalidFields?: any) => void) = [],
-  callback?: (isValid: boolean, invalidFields?: any) => void
-) => {
-  // 如果第一个参数是回调函数
-  if (typeof props === 'function') {
-    callback = props
-    props = []
+  propsToValidateOrCb: string | string[] | ((isValid: boolean, invalidFields?: Record<string, unknown>) => void) = [],
+  callback?: (isValid: boolean, invalidFields?: Record<string, unknown>) => void
+): Promise<boolean> => {
+  let innerCallback = callback
+  let propsToValidate: string | string[] = []
+
+  // 参数归一化
+  if (typeof propsToValidateOrCb === 'function') {
+    innerCallback = propsToValidateOrCb
+    propsToValidate = []
+  } else {
+    propsToValidate = propsToValidateOrCb
   }
 
-  const propsToValidate = Array.isArray(props)
-    ? props
-    : (props ? [props as string] : [])
+  const propList = Array.isArray(propsToValidate)
+    ? propsToValidate
+    : (propsToValidate ? [propsToValidate as string] : [])
 
-  let isValid = true
-  let invalidFields: any = {}
-
-  const fieldsToValidate = propsToValidate.length > 0
-    ? fields.filter(field => propsToValidate.includes(field.prop))
+  const fieldsToValidate = propList.length > 0
+    ? fields.filter(field => propList.includes(field.prop))
     : fields
 
-  if (fieldsToValidate.length === 0 && propsToValidate.length === 0) {
-    callback?.(true)
+  if (fieldsToValidate.length === 0 && propList.length === 0) {
+    innerCallback?.(true)
     return true
   }
+
+  let isValid = true
+  const invalidFields: Record<string, unknown> = {}
 
   for (const field of fieldsToValidate) {
     try {
       await field.validate('')
-    } catch (error: any) {
+    } catch (error) {
       isValid = false
       if (field.prop) {
         invalidFields[field.prop] = error
@@ -74,13 +86,20 @@ const validate = async (
 
   if (context.scrollToError && !isValid) {
     const firstProp = Object.keys(invalidFields)[0]
-    scrollToField(firstProp)
+    if (firstProp) scrollToField(firstProp)
   }
 
-  callback?.(isValid, invalidFields)
+  innerCallback?.(isValid, invalidFields)
   emit('validate', isValid, invalidFields)
 
-  if (!isValid) return Promise.reject(invalidFields)
+  if (!isValid) {
+    // 如果有回调函数，则不 reject 掉这个 Promise，由回调函数处理结果
+    // 这是为了防止在使用回调模式时出现 Uncaught (in promise)
+    if (innerCallback) {
+      return false
+    }
+    return Promise.reject(invalidFields)
+  }
   return true
 }
 
@@ -95,8 +114,9 @@ const resetFields = (props: string | string[] = []) => {
 
 // 清除验证结果
 const clearValidate = (props: string | string[] = []) => {
-  const fieldsToClear = props.length
-    ? fields.filter(field => field.prop && (typeof props === 'string' ? props === field.prop : props.includes(field.prop)))
+  const propsArray = Array.isArray(props) ? props : (props ? [props] : [])
+  const fieldsToClear = propsArray.length > 0
+    ? fields.filter(field => field.prop && (typeof propsArray === 'string' ? propsArray === field.prop : propsArray.includes(field.prop)))
     : fields
 
   fieldsToClear.forEach(field => field.clearValidate())
@@ -123,7 +143,8 @@ const context = reactive({
   removeField
 })
 
-provide(FormContextKey, context as any as FormContext)
+// 使用类型安全的 provide
+provide(FormContextKey, context as unknown as FormContext)
 
 // 暴露 API
 defineExpose({

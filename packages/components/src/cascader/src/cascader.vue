@@ -1,12 +1,19 @@
 <script setup lang="ts">
 /**
  * YhCascader - 级联选择器组件
- * @description 从层级数据中选择一个或多个值
+ * @description 从层级数据中选择一个或多个值，严格类型化
  */
 import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
-import type { CascaderProps, CascaderEmits, CascaderExpose, CascaderOption, CascaderContext } from './cascader'
+import type {
+  CascaderProps,
+  CascaderEmits,
+  CascaderExpose,
+  CascaderOption,
+  CascaderContext,
+  CascaderValue
+} from './cascader'
 import { CascaderContextKey, defaultCascaderConfig } from './cascader'
 import CascaderPanel from './cascader-panel.vue'
 
@@ -118,10 +125,14 @@ const getPathLabels = (path: (string | number)[]): string[] => {
   let currentOptions = props.options || []
 
   for (const value of path) {
-    const option = currentOptions.find(o => o[config.value.value] === value)
+    const valKey = config.value.value
+    const labelKey = config.value.label
+    const childrenKey = config.value.children
+
+    const option = currentOptions.find(o => o[valKey] === value)
     if (option) {
-      labels.push(option[config.value.label])
-      currentOptions = option[config.value.children] || []
+      labels.push(String(option[labelKey] || ''))
+      currentOptions = (option[childrenKey] as CascaderOption[]) || []
     }
   }
 
@@ -130,9 +141,12 @@ const getPathLabels = (path: (string | number)[]): string[] => {
 
 // 根据值查找完整路径
 const findPathByValue = (targetValue: string | number, options: CascaderOption[]): (string | number)[] | null => {
+  const valKey = config.value.value
+  const childrenKey = config.value.children
+
   for (const option of options) {
-    const val = option[config.value.value]
-    const children = option[config.value.children]
+    const val = option[valKey] as string | number
+    const children = option[childrenKey] as CascaderOption[]
     if (val === targetValue) return [val]
     if (children && children.length > 0) {
       const path = findPathByValue(targetValue, children)
@@ -170,7 +184,7 @@ const presentTags = computed(() => {
   const values = props.modelValue
   if (!Array.isArray(values) || values.length === 0) return []
 
-  return (values as any[]).map(v => {
+  return (values as (string | number | (string | number)[])[]).map(v => {
     let path: (string | number)[] = []
     if (Array.isArray(v)) {
       path = v as (string | number)[]
@@ -195,7 +209,7 @@ const displayTags = computed(() => {
 
 // 折叠的标签数量
 const collapsedCount = computed(() => {
-  if (!props.collapseTags) return 0
+  if (!isMultiple.value || !props.collapseTags) return 0
   return Math.max(0, presentTags.value.length - props.maxCollapseTags)
 })
 
@@ -228,15 +242,19 @@ const filteredSuggestions = computed(() => {
   const keyword = query.value.toLowerCase()
 
   const traverse = (options: CascaderOption[], path: (string | number)[], labels: string[]) => {
+    const valKey = config.value.value
+    const labelKey = config.value.label
+    const childrenKey = config.value.children
+
     for (const option of options) {
-      const value = option[config.value.value]
-      const label = String(option[config.value.label] || '')
-      const children = option[config.value.children]
+      const value = option[valKey] as string | number
+      const label = String(option[labelKey] || '')
+      const children = option[childrenKey] as CascaderOption[]
       const currentPath = [...path, value]
       const currentLabels = [...labels, label]
 
       // 搜索项判断：匹配完整路径中的任何一段名称
-      const fullPathLabel = currentLabels.join(props.separator).toLowerCase()
+      const fullPathLabel = currentLabels.join(props.separator || ' / ').toLowerCase()
       const matches = props.filterMethod
         ? props.filterMethod(option, query.value)
         : fullPathLabel.includes(keyword)
@@ -267,14 +285,15 @@ const wrapperClasses = computed(() => [
 
 // 展开节点
 const handleExpand = (option: CascaderOption, level: number) => {
-  const value = option[config.value.value]
+  const value = option[config.value.value] as string | number
   expandedPath.value = [...expandedPath.value.slice(0, level), value]
   emit('expand-change', expandedPath.value)
 }
 
 // 选中节点
 const handleCheck = (option: CascaderOption, path: (string | number)[]) => {
-  if (option[config.value.disabled]) return
+  const disabledKey = config.value.disabled
+  if (option[disabledKey]) return
 
   if (isMultiple.value) {
     const values = (props.modelValue as (string | number)[][] || []).slice()
@@ -291,8 +310,8 @@ const handleCheck = (option: CascaderOption, path: (string | number)[]) => {
     emit('change', values)
   } else {
     const value = config.value.emitPath ? path : path[path.length - 1]
-    emit('update:modelValue', value)
-    emit('change', value)
+    emit('update:modelValue', value as CascaderValue)
+    emit('change', value as CascaderValue)
     visible.value = false
   }
 
@@ -317,7 +336,7 @@ const isChecked = (path: (string | number)[]) => {
 
   if (config.value.emitPath) {
     if (!Array.isArray(value)) return false
-    return value.join(',') === path.join(',')
+    return (value as (string | number)[]).join(',') === path.join(',')
   } else {
     // 非路径模式下，比较末尾值
     return value === path[path.length - 1]
@@ -346,7 +365,7 @@ const handleRemoveTag = (path: (string | number)[], event: Event) => {
 // 清空
 const handleClear = (event: Event) => {
   event.stopPropagation()
-  const value = isMultiple.value ? [] : []
+  const value = (isMultiple.value || config.value.emitPath) ? [] : undefined
   emit('update:modelValue', value)
   emit('change', value)
   emit('clear')
@@ -385,8 +404,8 @@ const handleSelectSuggestion = (suggestion: { path: (string | number)[]; labels:
     }
   } else {
     const value = config.value.emitPath ? suggestion.path : suggestion.path[suggestion.path.length - 1]
-    emit('update:modelValue', value)
-    emit('change', value)
+    emit('update:modelValue', value as CascaderValue)
+    emit('change', value as CascaderValue)
     visible.value = false
   }
 
@@ -455,28 +474,34 @@ const getCheckedNodes = (leafOnly = false): CascaderOption[] => {
 
   const findNode = (options: CascaderOption[], path: (string | number)[], index: number): CascaderOption | null => {
     if (index >= path.length) return null
-    const option = options.find(o => o[config.value.value] === path[index])
+    const valKey = config.value.value
+    const childrenKey = config.value.children
+
+    const option = options.find(o => o[valKey] === path[index])
     if (!option) return null
     if (index === path.length - 1) return option
-    return findNode(option[config.value.children] || [], path, index + 1)
+    return findNode((option[childrenKey] as CascaderOption[]) || [], path, index + 1)
   }
 
   if (isMultiple.value) {
     const values = props.modelValue as (string | number)[][] | undefined
-    if (values) {
+    if (values && Array.isArray(values)) {
       for (const path of values) {
         const node = findNode(props.options || [], path, 0)
-        if (node && (!leafOnly || !node[config.value.children]?.length)) {
+        if (node && (!leafOnly || !(node[config.value.children] as CascaderOption[])?.length)) {
           nodes.push(node)
         }
       }
     }
   } else {
-    const value = props.modelValue as (string | number)[] | undefined
+    const value = props.modelValue
     if (value) {
-      const node = findNode(props.options || [], value, 0)
-      if (node && (!leafOnly || !node[config.value.children]?.length)) {
-        nodes.push(node)
+      const path = Array.isArray(value) ? value : findPathByValue(value as string | number, props.options || [])
+      if (path) {
+        const node = findNode(props.options || [], path as (string | number)[], 0)
+        if (node && (!leafOnly || !(node[config.value.children] as CascaderOption[])?.length)) {
+          nodes.push(node)
+        }
       }
     }
   }

@@ -1,23 +1,24 @@
 /**
  * Select Types & Props
- * @description 选择器组件类型定义
+ * @description 选择器组件类型定义，严格类型化
  */
 
 import type { InjectionKey, Ref } from 'vue'
 
 export type SelectSize = 'large' | 'default' | 'small'
 export type SelectTagType = 'success' | 'info' | 'warning' | 'danger' | ''
+export type SelectValue = string | number | boolean
 
 export interface SelectOption {
-  value: string | number | boolean
+  value: SelectValue
   label: string
   disabled?: boolean
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export interface SelectProps {
   /** 绑定值 */
-  modelValue?: string | number | boolean | (string | number | boolean)[]
+  modelValue?: SelectValue | SelectValue[]
   /** 选项数据 */
   options?: SelectOption[]
   /** 占位文本 */
@@ -79,24 +80,24 @@ export interface SelectProps {
 }
 
 export interface SelectEmits {
-  (e: 'update:modelValue', value: any): void
-  (e: 'change', value: any): void
+  (e: 'update:modelValue', value: SelectValue | SelectValue[]): void
+  (e: 'change', value: SelectValue | SelectValue[]): void
   (e: 'focus', event: FocusEvent): void
   (e: 'blur', event: FocusEvent): void
   (e: 'clear'): void
   (e: 'visible-change', visible: boolean): void
-  (e: 'remove-tag', value: any): void
+  (e: 'remove-tag', value: SelectValue): void
 }
 
 export interface SelectSlots {
   /** 自定义选项内容 */
-  default?: () => any
+  default?: () => unknown
   /** 自定义前缀 */
-  prefix?: () => any
+  prefix?: () => unknown
   /** 无数据时的内容 */
-  empty?: () => any
+  empty?: () => unknown
   /** 标签内容 */
-  tag?: (props: { value: any }) => any
+  tag?: (props: { value: SelectValue }) => unknown
 }
 
 export interface SelectExpose {
@@ -111,18 +112,18 @@ export interface SelectExpose {
 // Select 上下文
 export interface SelectContext {
   props: SelectProps
-  selectValue: any
+  selectValue: Ref<SelectValue | SelectValue[] | undefined>
   hoveredIndex: Ref<number>
-  handleOptionSelect: (option: SelectOption) => void
-  isSelected: (value: any) => boolean
-  // 新增：注册/注销 Option
+  handleOptionSelect: (option: SelectOption, event?: MouseEvent) => void
+  isSelected: (value: SelectValue) => boolean
+  // 注册/注销 Option
   onOptionCreate: (option: SelectOption) => void
-  onOptionDestroy: (value: any) => void
+  onOptionDestroy: (value: SelectValue) => void
 }
 
 export interface OptionProps {
   /** 选项值 */
-  value: string | number | boolean
+  value: SelectValue
   /** 选项标签 */
   label?: string
   /** 是否禁用 */

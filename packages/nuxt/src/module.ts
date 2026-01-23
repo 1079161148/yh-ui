@@ -1,4 +1,5 @@
 import { defineNuxtModule, addComponent, addImports, addPlugin, createResolver } from '@nuxt/kit'
+import type { NuxtModule } from '@nuxt/schema'
 
 export interface ModuleOptions {
   /**
@@ -8,7 +9,7 @@ export interface ModuleOptions {
   importStyle?: boolean
 }
 
-export default defineNuxtModule<ModuleOptions>({
+const yhNuxtModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@yh-ui/nuxt',
     configKey: 'yhUI',
@@ -104,7 +105,6 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     // 4. 自动注册指令或全局方法 (如 Message, Notification)
-    // 对于这类需要手动调用的方法，可以通过注入插件或 addImports 解决
     const globalMethods = ['YhMessage', 'YhNotification']
     globalMethods.forEach((name) => {
       addImports({
@@ -114,4 +114,6 @@ export default defineNuxtModule<ModuleOptions>({
       })
     })
   }
-})
+}) as unknown as NuxtModule<ModuleOptions>
+
+export default yhNuxtModule as NuxtModule<ModuleOptions>

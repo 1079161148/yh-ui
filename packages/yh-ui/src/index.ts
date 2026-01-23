@@ -14,6 +14,10 @@ export * from '@yh-ui/hooks'
 // 导出所有工具函数
 export * from '@yh-ui/utils'
 
+// 解决命名冲突
+export type { Language } from '@yh-ui/components'
+export type { ComponentSize } from '@yh-ui/components'
+
 // 导出设计令牌
 export * from '@yh-ui/theme'
 

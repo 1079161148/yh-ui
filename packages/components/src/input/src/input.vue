@@ -173,7 +173,9 @@ const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   emit('change', target.value)
   if (props.validateEvent) {
-    triggerValidate('change')
+    nextTick(() => {
+      triggerValidate('change')
+    })
   }
 }
 
@@ -186,7 +188,9 @@ const handleBlur = (event: FocusEvent) => {
   focused.value = false
   emit('blur', event)
   if (props.validateEvent) {
-    triggerValidate('blur')
+    nextTick(() => {
+      triggerValidate('blur')
+    })
   }
 }
 

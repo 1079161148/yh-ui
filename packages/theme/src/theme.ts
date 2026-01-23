@@ -1,7 +1,7 @@
 /**
  * YH-UI Theme Configuration
  * 主题配置系统
- * @description 提供主题切换、自定义主题色等功能
+ * @description 提供主题切换、自定义主题色等功能，严格类型化
  */
 
 import type { App } from 'vue'
@@ -153,7 +153,7 @@ function generateColorScale(baseColor: string, isDark: boolean = false): Record<
 function setCssVar(
   name: string,
   value: string,
-  el: HTMLElement | null = document.documentElement
+  el: HTMLElement | null = typeof document !== 'undefined' ? document.documentElement : null
 ): void {
   if (el) {
     el.style.setProperty(name, value)
@@ -163,7 +163,10 @@ function setCssVar(
 /**
  * 移除 CSS 变量
  */
-function removeCssVar(name: string, el: HTMLElement | null = document.documentElement): void {
+function removeCssVar(
+  name: string,
+  el: HTMLElement | null = typeof document !== 'undefined' ? document.documentElement : null
+): void {
   if (el) {
     el.style.removeProperty(name)
   }
@@ -173,6 +176,7 @@ function removeCssVar(name: string, el: HTMLElement | null = document.documentEl
  * 获取目标元素
  */
 function getTargetElement(scope?: string | HTMLElement): HTMLElement | null {
+  if (typeof document === 'undefined') return null
   if (!scope) return document.documentElement
   if (typeof scope === 'string') {
     return document.querySelector(scope)
@@ -233,7 +237,6 @@ export class ThemeManager {
    */
   setPreset(preset: PresetTheme): void {
     const colors = presetThemes[preset]
-    // 安全检查：仅当 preset 是有效的预设名称时才应用
     if (!colors) {
       console.warn(
         `[YH-UI Theme] Invalid preset theme: "${preset}". Available presets: ${Object.keys(presetThemes).join(', ')}`
@@ -278,6 +281,8 @@ export class ThemeManager {
    */
   setDarkMode(dark: boolean): void {
     this.isDark = dark
+    if (typeof document === 'undefined') return
+
     if (dark) {
       document.documentElement.classList.add('dark')
     } else {
@@ -317,9 +322,26 @@ export class ThemeManager {
    * 应用颜色到 CSS 变量
    */
   private applyColors(colors: ThemeColors): void {
-    const el = this.targetEl || document.documentElement
+    const el = this.targetEl || (typeof document !== 'undefined' ? document.documentElement : null)
+    if (!el) return
 
-    // 定义颜色类型映射
+    const styles = this.getThemeStyles(colors)
+    Object.entries(styles).forEach(([name, value]) => {
+      setCssVar(name, value, el)
+    })
+  }
+
+  /**
+   * 获取当前主题的 CSS 变量对象
+   */
+  public getThemeStyles(colors: ThemeColors = {}): Record<string, string> {
+    const styles: Record<string, string> = {}
+    const themeColors = {
+      ...presetThemes[this.currentTheme],
+      ...this.customColors,
+      ...colors
+    }
+
     const colorTypes = [
       { key: 'primary', cssVar: 'primary' },
       { key: 'success', cssVar: 'success' },
@@ -329,34 +351,43 @@ export class ThemeManager {
     ] as const
 
     colorTypes.forEach(({ key, cssVar }) => {
-      const baseColor = colors[key]
+      const baseColor = themeColors[key as keyof ThemeColors]
       if (baseColor) {
         const colorScale = generateColorScale(baseColor, this.isDark)
         Object.entries(colorScale).forEach(([suffix, value]) => {
           const varName = suffix ? `--yh-color-${cssVar}-${suffix}` : `--yh-color-${cssVar}`
-          setCssVar(varName, value, el)
+          styles[varName] = value
         })
       }
     })
+
+    return styles
   }
 
   /**
    * 应用所有设计令牌到 CSS 变量
    */
   private applyTokens(): void {
-    const el = this.targetEl || document.documentElement
+    const el = this.targetEl || (typeof document !== 'undefined' ? document.documentElement : null)
+    if (!el) return
 
     // 应用颜色
     Object.entries(designTokens.colors).forEach(([type, colors]) => {
-      setCssVar(`--yh-color-${type}`, (colors as any).DEFAULT, el)
-      if ((colors as any).light) {
-        Object.entries((colors as any).light).forEach(([level, value]) => {
-          setCssVar(`--yh-color-${type}-light-${level}`, value as string, el)
+      const colorObj = colors as {
+        DEFAULT: string
+        light?: Record<string, string>
+        dark?: Record<string, string>
+      }
+      setCssVar(`--yh-color-${type}`, colorObj.DEFAULT, el)
+
+      if (colorObj.light) {
+        Object.entries(colorObj.light).forEach(([level, value]) => {
+          setCssVar(`--yh-color-${type}-light-${level}`, value, el)
         })
       }
-      if ((colors as any).dark) {
-        Object.entries((colors as any).dark).forEach(([level, value]) => {
-          setCssVar(`--yh-color-${type}-dark-${level}`, value as string, el)
+      if (colorObj.dark) {
+        Object.entries(colorObj.dark).forEach(([level, value]) => {
+          setCssVar(`--yh-color-${type}-dark-${level}`, value, el)
         })
       }
     })
@@ -388,7 +419,7 @@ export class ThemeManager {
       setCssVar(`--yh-z-index-${key}`, value, el)
     })
 
-    // 特殊处理语义化变量 (例如 Message)
+    // 特殊处理语义化变量
     setCssVar('--yh-message-bg-color', designTokens.bgColors.overlay, el)
     setCssVar('--yh-message-text-color', designTokens.textColors.primary, el)
   }
@@ -397,12 +428,13 @@ export class ThemeManager {
    * 重置为默认主题
    */
   reset(): void {
+    if (typeof document === 'undefined') return
+
     this.currentTheme = 'default'
     this.customColors = {}
     this.isDark = false
     document.documentElement.classList.remove('dark')
 
-    // 移除所有自定义颜色
     const el = this.targetEl || document.documentElement
     const colorTypes = ['primary', 'success', 'warning', 'danger', 'info']
     const suffixes = [
@@ -431,9 +463,6 @@ export class ThemeManager {
 // 全局主题管理器实例
 let globalThemeManager: ThemeManager | null = null
 
-/**
- * 获取全局主题管理器
- */
 export function useTheme(): ThemeManager {
   if (!globalThemeManager) {
     globalThemeManager = new ThemeManager()
@@ -441,30 +470,18 @@ export function useTheme(): ThemeManager {
   return globalThemeManager
 }
 
-/**
- * 一键切换主题色
- */
 export function setThemeColor(color: string): void {
   useTheme().setPrimaryColor(color)
 }
 
-/**
- * 切换暗色模式
- */
 export function toggleDarkMode(): boolean {
   return useTheme().toggleDarkMode()
 }
 
-/**
- * 设置预设主题
- */
 export function setThemePreset(preset: PresetTheme): void {
   useTheme().setPreset(preset)
 }
 
-/**
- * 初始化主题
- */
 export function initTheme(options?: ThemeOptions): ThemeManager {
   globalThemeManager = new ThemeManager(options)
   return globalThemeManager
@@ -476,11 +493,7 @@ export function initTheme(options?: ThemeOptions): ThemeManager {
 export const ThemePlugin = {
   install(app: App, options?: ThemeOptions) {
     const themeManager = initTheme(options)
-
-    // 注入全局属性
     app.config.globalProperties.$theme = themeManager
-
-    // 提供依赖注入
     app.provide('theme', themeManager)
   }
 }

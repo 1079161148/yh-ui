@@ -32,7 +32,7 @@ describe('YhConfigProvider SSR', () => {
     })
     // In SSR, variables are usually injected via style tags or inline styles if handled by the component
     // ConfigProvider uses a style tag or div wrapper for theme variables
-    expect(html).toContain('--yh-color-primary: #ff0000')
+    expect(html).toContain('--yh-color-primary:#ff0000')
   })
 
   it('should hydrate without mismatch', async () => {

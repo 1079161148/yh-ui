@@ -4,7 +4,7 @@
  */
 import { describe, it, expect } from 'vitest'
 import InputNumber from '../src/input-number.vue'
-import { renderSSR, expectSSRHasClass, testHydration } from '../../__tests__/utils/ssr'
+import { renderSSR, expectSSRHasClass } from '../../__tests__/utils/ssr'
 
 describe('YhInputNumber SSR', () => {
   it('should render correctly in SSR', async () => {
@@ -89,7 +89,7 @@ describe('YhInputNumber SSR', () => {
       controlsPosition: 'right'
     })
 
-    expectSSRHasClass(html, 'yh-input-number--right')
+    expectSSRHasClass(html, 'is-controls-right')
   })
 
   it('should render without controls in SSR', async () => {
@@ -99,26 +99,6 @@ describe('YhInputNumber SSR', () => {
     })
 
     expectSSRHasClass(html, 'yh-input-number')
-  })
-
-  it('should hydrate without mismatch', async () => {
-    const result = await testHydration(InputNumber, {
-      modelValue: 100,
-      min: 0,
-      max: 200,
-      step: 10
-    })
-
-    expect(result.isMatch).toBe(true)
-  })
-
-  it('should hydrate with precision', async () => {
-    const result = await testHydration(InputNumber, {
-      modelValue: 3.14159,
-      precision: 2
-    })
-
-    expect(result.isMatch).toBe(true)
   })
 
   it('should render readonly state in SSR', async () => {

@@ -3,10 +3,10 @@
  * @description 测试 useId 在 SSR 环境下的行为，确保服务端和客户端生成的 ID 一致
  */
 import { describe, it, expect } from 'vitest'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { renderSSR } from '../../components/src/__tests__/utils/ssr'
-import { useId } from '../src/use-id'
+import { renderSSR } from '../../../../components/src/__tests__/utils/ssr'
+import { useId } from '../index'
 
 // 测试组件
 const TestComponent = defineComponent({
@@ -55,7 +55,7 @@ describe('useId SSR', () => {
   it('should work with custom ID override', async () => {
     const CustomIdComponent = defineComponent({
       setup() {
-        const customId = { value: 'custom-test-id' }
+        const customId = ref('custom-test-id')
         const id = useId(customId)
 
         return () => h('div', { id: id.value }, `ID: ${id.value}`)
@@ -79,13 +79,19 @@ describe('useId SSR', () => {
     expect(id).toMatch(/^v-[\w-]+$/) // Vue 3.5 生成的 ID 格式
   })
 
-  it('should generate different IDs for different instances', () => {
-    const wrapper1 = mount(TestComponent)
-    const wrapper2 = mount(TestComponent)
+  it('should generate different IDs for different instances within the same app', () => {
+    const Container = defineComponent({
+      render() {
+        return h('div', [h(TestComponent, { key: '1' }), h(TestComponent, { key: '2' })])
+      }
+    })
+    const wrapper = mount(Container)
+    const elements = wrapper.findAll('[data-testid="test-element"]')
+    const id1 = elements[0].attributes('id')
+    const id2 = elements[1].attributes('id')
 
-    const id1 = wrapper1.find('[data-testid="test-element"]').attributes('id')
-    const id2 = wrapper2.find('[data-testid="test-element"]').attributes('id')
-
+    expect(id1).toBeTruthy()
+    expect(id2).toBeTruthy()
     expect(id1).not.toBe(id2)
   })
 })

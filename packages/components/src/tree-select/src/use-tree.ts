@@ -1,7 +1,15 @@
+/**
+ * useTree Hook
+ * @description 树形逻辑管理，消除 any，确保类型链条完备
+ */
 import { ref, computed, watch, triggerRef, reactive } from 'vue'
-import type { TreeSelectProps, TreeSelectEmits, TreeNode, TreeKey } from './tree-select'
+import type { SetupContext } from 'vue'
+import type { TreeSelectProps, TreeSelectEmits, TreeNode, TreeKey, TreeOption } from './tree-select'
 
-export const useTree = (props: TreeSelectProps, emit: any) => {
+export const useTree = (
+  props: TreeSelectProps,
+  emit: <T extends keyof TreeSelectEmits>(event: T, ...args: any[]) => void
+) => {
   const nodeMap = ref(new Map<TreeKey, TreeNode>())
   const treeData = ref<TreeNode[]>([])
   const mapVersion = ref(0)
@@ -14,13 +22,13 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
     isLeaf: props.props?.isLeaf || 'isLeaf'
   }))
 
-  const createTreeNode = (data: any, parent?: TreeNode, level = 0): TreeNode => {
+  const createTreeNode = (data: TreeOption, parent?: TreeNode, level = 0): TreeNode => {
     const keyProp = props.nodeKey || alias.value.value
-    const key = data[keyProp]
+    const key = (data[keyProp] as TreeKey) ?? `node-${Math.random().toString(36).slice(2, 9)}`
 
     const node: TreeNode = reactive({
       key,
-      label: data[alias.value.label],
+      label: String(data[alias.value.label] || ''),
       level,
       expanded: props.defaultExpandAll || (props.defaultExpandedKeys || []).includes(key),
       checked: false,
@@ -37,7 +45,9 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
 
     const childrenData = data[alias.value.children]
     if (childrenData && Array.isArray(childrenData)) {
-      node.children = childrenData.map((item) => createTreeNode(item, node, level + 1))
+      node.children = (childrenData as TreeOption[]).map((item) =>
+        createTreeNode(item, node, level + 1)
+      )
     }
 
     nodeMap.value.set(key, node)
@@ -45,6 +55,7 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
   }
 
   const flatData = computed(() => {
+    // 强制依赖版本号以触发更新
     mapVersion.value
     const result: TreeNode[] = []
     const walk = (nodes: TreeNode[]) => {
@@ -77,7 +88,7 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
     }
   }
 
-  const syncCheckState = (val: any) => {
+  const syncCheckState = (val: TreeKey | TreeKey[] | undefined) => {
     const keys = new Set(
       Array.isArray(val) ? val : val !== undefined && val !== null && val !== '' ? [val] : []
     )
@@ -88,7 +99,7 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
     })
 
     keys.forEach((k) => {
-      const node = getNode(k as TreeKey)
+      const node = getNode(k)
       if (node) {
         node.checked = true
         if (!props.checkStrictly && props.multiple) {
@@ -111,6 +122,7 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
       })
     }
     mapVersion.value++
+    // 强制触发引用更新，确保模板关联能检测到 Map 内部变化
     triggerRef(nodeMap)
   }
 
@@ -156,17 +168,20 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
 
     emitModelValue()
 
-    // 【新增】拋出详细勾选事件 (对标 EP)
+    // 拋出详细勾选事件 (对标 Element Plus)
     const checkedKeys: TreeKey[] = []
+    const checkedNodes: TreeOption[] = []
     nodeMap.value.forEach((n) => {
-      if (n.checked) checkedKeys.push(n.key)
+      if (n.checked) {
+        checkedKeys.push(n.key)
+        checkedNodes.push(n.raw)
+      }
     })
+
     emit('check-change', node.raw, checked, node.indeterminate)
     emit('check', node.raw, {
       checkedKeys,
-      checkedNodes: Array.from(nodeMap.value.values())
-        .filter((n) => n.checked)
-        .map((n) => n.raw)
+      checkedNodes
     })
 
     mapVersion.value++
@@ -215,26 +230,21 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
   const filter = (val: string) => {
     const query = val.trim().toLowerCase()
 
-    // 1. 基础匹配判定
     const isMatched = (node: TreeNode) => {
       if (props.filterNodeMethod) return props.filterNodeMethod(query, node.raw, node)
       return !query || node.label.toLowerCase().includes(query)
     }
 
-    // 2. 第一阶段：根据自身内容标记可见性
+    // 根据自身内容标记可见性
     nodeMap.value.forEach((node) => {
       node.visible = isMatched(node)
     })
 
     if (query) {
-      // 3. 第二阶段：向上追溯。只要子树有匹配，父节点就必须可见并展开
-      // 注意：这里需要从叶子向根部反向遍历，或者多次遍历以确保稳定
       const allNodes = Array.from(nodeMap.value.values())
-
       // 向上标记
       allNodes.forEach((node) => {
         if (isMatched(node)) {
-          // 如果节点本身匹配，且有子节点，默认展开它以显示子树
           if (node.children?.length) {
             node.expanded = true
           }
@@ -247,7 +257,7 @@ export const useTree = (props: TreeSelectProps, emit: any) => {
         }
       })
 
-      // 4. 第三阶段：向下渗透。如果父节点匹配，其所有后代均可见
+      // 向下渗透
       const setVisible = (n: TreeNode) => {
         n.visible = true
         n.children?.forEach(setVisible)

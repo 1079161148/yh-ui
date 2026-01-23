@@ -1,9 +1,69 @@
+/**
+ * TreeSelect Types & Props
+ * @description 树形选择器组件类型定义，确保严格类型安全
+ */
 import type { ExtractPropTypes, PropType } from 'vue'
+
+/**
+ * 树节点的基本格式
+ */
+export interface TreeOption {
+  value?: TreeKey
+  label?: string
+  children?: TreeOption[]
+  disabled?: boolean
+  isLeaf?: boolean
+  [key: string]: unknown // 使用 unknown 替代 any
+}
+
+/**
+ * 树节点的键类型
+ */
+export type TreeKey = string | number
+
+/**
+ * 字段别名配置
+ */
+export interface TreePropsAlias {
+  label?: string
+  value?: string
+  children?: string
+  disabled?: string
+  isLeaf?: string
+}
+
+/**
+ * 内部节点状态结构 (ViewModel)
+ */
+export interface TreeNode {
+  key: TreeKey
+  label: string
+  level: number
+  raw: TreeOption
+  parent?: TreeNode
+  children?: TreeNode[]
+  isLeaf: boolean
+  disabled: boolean
+  visible: boolean
+  expanded: boolean
+  checked: boolean
+  indeterminate: boolean
+  loading: boolean
+  loaded: boolean
+}
+
+/**
+ * 下拉树多项信息反馈
+ */
+export interface TreeCheckedInfo {
+  checkedKeys: TreeKey[]
+  checkedNodes: TreeOption[]
+}
 
 export const treeSelectProps = {
   // 基础属性
   modelValue: {
-    type: [String, Number, Array] as PropType<string | number | (string | number)[]>,
+    type: [String, Number, Array] as PropType<TreeKey | TreeKey[]>,
     default: undefined
   },
   data: {
@@ -33,7 +93,9 @@ export const treeSelectProps = {
     default: 'default'
   },
   filterable: Boolean,
-  filterNodeMethod: Function as PropType<(value: string, data: TreeOption, node: any) => boolean>,
+  filterNodeMethod: Function as PropType<
+    (value: string, data: TreeOption, node: TreeNode) => boolean
+  >,
   collapseTags: Boolean,
   collapseTagsTooltip: Boolean,
   maxCollapseTags: {
@@ -99,48 +161,14 @@ export const treeSelectProps = {
 } as const
 
 export const treeSelectEmits = {
-  'update:modelValue': (value: any) => true,
-  change: (value: any) => true,
+  'update:modelValue': (value: TreeKey | TreeKey[] | undefined) => true,
+  change: (value: TreeKey | TreeKey[] | undefined) => true,
   clear: () => true,
   'visible-change': (visible: boolean) => true,
-  'node-click': (data: TreeOption, node: any, e: MouseEvent) => true,
+  'node-click': (data: TreeOption, node: TreeNode, e: MouseEvent) => true,
   'check-change': (data: TreeOption, checked: boolean, indeterminate: boolean) => true,
-  check: (data: TreeOption, info: any) => true
+  check: (data: TreeOption, info: TreeCheckedInfo) => true
 }
 
 export type TreeSelectEmits = typeof treeSelectEmits
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>
-export type TreeKey = string | number
-export interface TreeOption {
-  value?: TreeKey
-  label?: string
-  children?: TreeOption[]
-  disabled?: boolean
-  isLeaf?: boolean
-  [key: string]: any
-}
-
-export interface TreePropsAlias {
-  label?: string
-  value?: string
-  children?: string
-  disabled?: string
-  isLeaf?: string
-}
-
-export interface TreeNode {
-  key: TreeKey
-  label: string
-  level: number
-  raw: TreeOption
-  parent?: TreeNode
-  children?: TreeNode[]
-  isLeaf: boolean
-  disabled: boolean
-  visible: boolean
-  expanded: boolean
-  checked: boolean
-  indeterminate: boolean
-  loading: boolean
-  loaded: boolean
-}

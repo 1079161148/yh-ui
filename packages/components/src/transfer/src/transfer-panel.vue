@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * YhTransferPanel - 穿梭框面板组件
- * @description Transfer 内部面板组件，支持虚拟滚动
+ * @description Transfer 内部面板组件，支持虚拟滚动，严格类型化
  */
 import { computed, ref, watch, provide } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
@@ -53,7 +53,7 @@ const disabledProp = computed(() => props.props?.disabled || 'disabled')
 
 // 获取数据项的 key
 const getKey = (item: TransferData): TransferKey => {
-  return item[keyProp.value] as TransferKey
+  return (item[keyProp.value] as TransferKey) ?? ''
 }
 
 // 获取数据项的 label
@@ -63,11 +63,11 @@ const getLabel = (item: TransferData): string => {
 
 // 获取数据项的 disabled
 const isItemDisabled = (item: TransferData): boolean => {
-  return Boolean(item[disabledProp.value]) || props.disabled
+  return Boolean(item[disabledProp.value]) || (props.disabled ?? false)
 }
 
 // 过滤后的数据
-const filteredData = computed(() => {
+const filteredData = computed<TransferData[]>(() => {
   if (!query.value) return props.data
 
   const q = query.value.toLowerCase()
@@ -83,7 +83,7 @@ const filteredData = computed(() => {
 })
 
 // 可选项（非禁用）
-const checkableData = computed(() => {
+const checkableData = computed<TransferData[]>(() => {
   return filteredData.value.filter(item => !isItemDisabled(item))
 })
 
@@ -108,14 +108,14 @@ const isIndeterminate = computed(() => {
 })
 
 // 统计信息
-const checkedCount = computed(() => {
+const totalCheckedCount = computed(() => {
   return props.data.filter(item => isChecked(getKey(item))).length
 })
 
 // 虚拟滚动配置
 const virtualConfig = computed(() => {
-  const itemHeight = props.itemHeight
-  const containerHeight = props.height
+  const itemHeight = props.itemHeight || 40
+  const containerHeight = props.height || 280
   const overscan = 3
   const items = filteredData.value
 
@@ -235,13 +235,12 @@ watch(query, () => {
     <!-- 头部 -->
     <div :class="ns.e('header')">
       <slot name="header">
-        <div :class="[ns.e('check-all'), { 'is-disabled': disabled || checkableData.length === 0 }]" @click="handleCheckAll">
-          <span
-            :class="[
-              ns.e('item-checkbox'),
-              { 'is-checked': isAllChecked, 'is-indeterminate': isIndeterminate }
-            ]"
-          >
+        <div :class="[ns.e('check-all'), { 'is-disabled': disabled || checkableData.length === 0 }]"
+          @click="handleCheckAll">
+          <span :class="[
+            ns.e('item-checkbox'),
+            { 'is-checked': isAllChecked, 'is-indeterminate': isIndeterminate }
+          ]">
             <!-- 选中图标 -->
             <svg v-if="isAllChecked" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
               <path fill="currentColor" d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
@@ -254,20 +253,15 @@ watch(query, () => {
         </div>
         <div :class="ns.e('title')">
           <span>{{ title }}</span>
-          <span :class="ns.e('count')">{{ checkedCount }}/{{ data.length }}</span>
+          <span :class="ns.e('count')">{{ totalCheckedCount }}/{{ data.length }}</span>
         </div>
       </slot>
     </div>
 
     <!-- 搜索框 -->
     <div v-if="filterable" :class="ns.e('filter')">
-      <input
-        v-model="query"
-        type="text"
-        :class="ns.e('filter-input')"
-        :placeholder="filterPlaceholder"
-        :disabled="disabled"
-      />
+      <input v-model="query" type="text" :class="ns.e('filter-input')" :placeholder="filterPlaceholder"
+        :disabled="disabled" />
     </div>
 
     <!-- 列表区域 -->
@@ -276,11 +270,10 @@ watch(query, () => {
       <div v-if="filteredData.length === 0" :class="ns.e('empty')">
         <slot name="empty">
           <svg :class="ns.e('empty-icon')" viewBox="0 0 1024 1024">
-            <path
-              fill="currentColor"
-              d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-            />
-            <path fill="currentColor" d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zM464 512v176c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V512c0-8.8-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16z" />
+            <path fill="currentColor"
+              d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
+            <path fill="currentColor"
+              d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zM464 512v176c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V512c0-8.8-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16z" />
           </svg>
           <span :class="ns.e('empty-text')">{{ emptyText }}</span>
         </slot>
@@ -288,32 +281,18 @@ watch(query, () => {
 
       <!-- 虚拟滚动列表 -->
       <template v-else-if="virtual">
-        <div
-          ref="virtualWrapperRef"
-          :class="ns.e('virtual-wrapper')"
-          :style="{ height: height + 'px' }"
-          @scroll="handleVirtualScroll"
-        >
+        <div ref="virtualWrapperRef" :class="ns.e('virtual-wrapper')" :style="{ height: height + 'px' }"
+          @scroll="handleVirtualScroll">
           <div :style="{ height: virtualConfig.totalHeight + 'px', position: 'relative' }">
-            <ul
-              :class="ns.e('virtual-list')"
-              :style="{ transform: `translateY(${virtualConfig.offsetY}px)` }"
-            >
-              <li
-                v-for="item in displayItems"
-                :key="getKey(item)"
-                :class="[
-                  ns.e('item'),
-                  { 'is-checked': isChecked(getKey(item)), 'is-disabled': isItemDisabled(item) }
-                ]"
-                :style="{ height: itemHeight + 'px' }"
-                @click="handleItemClick(item)"
-              >
-                <span
-                  :class="[ns.e('item-checkbox'), { 'is-checked': isChecked(getKey(item)) }]"
-                >
+            <ul :class="ns.e('list')" :style="{ transform: `translateY(${virtualConfig.offsetY}px)` }">
+              <li v-for="item in displayItems" :key="getKey(item)" :class="[
+                ns.e('item'),
+                { 'is-checked': isChecked(getKey(item)), 'is-disabled': isItemDisabled(item) }
+              ]" :style="{ height: itemHeight + 'px' }" @click="handleItemClick(item)">
+                <span :class="[ns.e('item-checkbox'), { 'is-checked': isChecked(getKey(item)) }]">
                   <svg v-if="isChecked(getKey(item))" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
-                    <path fill="currentColor" d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
+                    <path fill="currentColor"
+                      d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
                   </svg>
                 </span>
                 <span :class="ns.e('item-label')">
@@ -327,18 +306,11 @@ watch(query, () => {
 
       <!-- 普通列表 -->
       <ul v-else :class="ns.e('list')">
-        <li
-          v-for="item in displayItems"
-          :key="getKey(item)"
-          :class="[
-            ns.e('item'),
-            { 'is-checked': isChecked(getKey(item)), 'is-disabled': isItemDisabled(item) }
-          ]"
-          @click="handleItemClick(item)"
-        >
-          <span
-            :class="[ns.e('item-checkbox'), { 'is-checked': isChecked(getKey(item)) }]"
-          >
+        <li v-for="item in displayItems" :key="getKey(item)" :class="[
+          ns.e('item'),
+          { 'is-checked': isChecked(getKey(item)), 'is-disabled': isItemDisabled(item) }
+        ]" @click="handleItemClick(item)">
+          <span :class="[ns.e('item-checkbox'), { 'is-checked': isChecked(getKey(item)) }]">
             <svg v-if="isChecked(getKey(item))" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
               <path fill="currentColor" d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
             </svg>

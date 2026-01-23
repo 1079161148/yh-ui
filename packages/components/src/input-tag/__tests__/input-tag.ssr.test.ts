@@ -8,13 +8,20 @@ import { renderSSR, expectSSRHasClass, testHydration } from '../../__tests__/uti
 describe('YhInputTag SSR', () => {
   it('should render correctly in SSR', async () => {
     const html = await renderSSR(InputTag, {
-      modelValue: ['Tag 1', 'Tag 2'],
-      placeholder: 'Add tag'
+      modelValue: ['Tag 1', 'Tag 2']
     })
 
     expectSSRHasClass(html, 'yh-input-tag')
     expect(html).toContain('Tag 1')
     expect(html).toContain('Tag 2')
+  })
+
+  it('should render placeholder when no tags in SSR', async () => {
+    const html = await renderSSR(InputTag, {
+      modelValue: [],
+      placeholder: 'Add tag'
+    })
+
     expect(html).toContain('Add tag')
   })
 
@@ -28,8 +35,8 @@ describe('YhInputTag SSR', () => {
   it('should render different types in SSR', async () => {
     const types = ['success', 'warning', 'danger'] as const
     for (const type of types) {
-      const html = await renderSSR(InputTag, { tagType: type, modelValue: ['tag'] })
-      expectSSRHasClass(html, `yh-tag--${type}`)
+      const html = await renderSSR(InputTag, { type, modelValue: ['tag'] })
+      expectSSRHasClass(html, `is-${type}`)
     }
   })
 

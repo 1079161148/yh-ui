@@ -6,10 +6,10 @@
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "rootDir": "../../",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM"],
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
   "exclude": ["**/__tests__", "**/*.test.ts"],
-  "references": [{ "path": "../hooks" }, { "path": "../utils" }]
+  "references": [{ "path": "../utils" }]
 }

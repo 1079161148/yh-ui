@@ -116,10 +116,11 @@ const menus = computed(() => {
   let currentOptions = props.options || []
 
   for (const value of props.expandedPath) {
-    const option = currentOptions.find(o => o[props.config.value] === value)
-    if (option && option[props.config.children]?.length) {
-      result.push(option[props.config.children])
-      currentOptions = option[props.config.children]
+    const option = currentOptions.find(o => (o[props.config.value] as string | number) === value)
+    const children = option ? (option[props.config.children] as CascaderOption[] | undefined) : undefined
+    if (option && children && children.length) {
+      result.push(children)
+      currentOptions = children
     } else {
       break
     }
@@ -130,15 +131,16 @@ const menus = computed(() => {
 
 // 工具方法保持 setup 作用域
 const isExpanded = (option: CascaderOption, level: number) =>
-  props.expandedPath[level] === option[props.config.value]
+  props.expandedPath[level] === (option[props.config.value] as string | number)
 
 const hasChildren = (option: CascaderOption) => {
-  const children = option[props.config.children]
-  return children && children.length > 0
+  const children = option[props.config.children] as CascaderOption[] | undefined
+  return !!(children && children.length > 0)
 }
 
 const isLeaf = (option: CascaderOption) => {
-  if (option[props.config.leaf] !== undefined) return option[props.config.leaf]
+  const leaf = option[props.config.leaf] as boolean | undefined
+  if (leaf !== undefined) return leaf
   return !hasChildren(option)
 }
 
@@ -146,17 +148,17 @@ const isSelectable = (option: CascaderOption) =>
   props.config.checkStrictly ? true : isLeaf(option)
 
 const getPath = (option: CascaderOption, level: number) =>
-  [...props.expandedPath.slice(0, level), option[props.config.value]]
+  [...props.expandedPath.slice(0, level), option[props.config.value] as string | number]
 
 const handleCheckboxClick = (option: CascaderOption, level: number, event: MouseEvent) => {
   event.stopPropagation()
-  if (option[props.config.disabled] || !isSelectable(option)) return
+  if ((option[props.config.disabled] as boolean) || !isSelectable(option)) return
   emit('check', option, getPath(option, level))
 }
 
 const handleClick = (option: CascaderOption, level: number, event: MouseEvent) => {
   event.stopPropagation()
-  if (option[props.config.disabled]) return
+  if (option[props.config.disabled] as boolean) return
 
   const path = getPath(option, level)
   if (hasChildren(option)) emit('expand', option, level)
@@ -169,7 +171,7 @@ const handleClick = (option: CascaderOption, level: number, event: MouseEvent) =
 }
 
 const handleMouseEnter = (option: CascaderOption, level: number) => {
-  if (props.config.expandTrigger !== 'hover' || option[props.config.disabled]) return
+  if (props.config.expandTrigger !== 'hover' || (option[props.config.disabled] as boolean)) return
   if (hasChildren(option)) emit('expand', option, level)
 }
 </script>
@@ -186,10 +188,10 @@ const handleMouseEnter = (option: CascaderOption, level: number) => {
           ns.is('disabled', option[config.disabled]),
           ns.is('selectable', isSelectable(option))
         ]" :style="virtual ? {
-            position: 'absolute',
-            top: `${(startIndex + idx) * itemHeight}px`,
-            left: 0, right: 0, height: `${itemHeight}px`
-          } : {}" @mousedown.prevent @click="handleClick(option, menuLevel, $event)"
+          position: 'absolute',
+          top: `${(startIndex + idx) * itemHeight}px`,
+          left: 0, right: 0, height: `${itemHeight}px`
+        } : {}" @mousedown.prevent @click="handleClick(option, menuLevel, $event)"
           @mouseenter="handleMouseEnter(option, menuLevel)">
           <!-- 多选复选框 -->
           <span v-if="isMultiple && isSelectable(option)" :class="ns.e('checkbox')"

@@ -72,8 +72,14 @@ provide<RadioGroupContext>(radioGroupContextKey, {
   changeEvent
 })
 
+// 实际尺寸
+const groupSize = computed(() => props.size || globalSize.value || 'default')
+
 // 类名
-const groupClasses = computed(() => [ns.b()])
+const groupClasses = computed(() => [
+  ns.b(),
+  groupSize.value !== 'default' ? ns.m(groupSize.value) : ''
+])
 </script>
 
 <template>

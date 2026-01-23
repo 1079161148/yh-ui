@@ -1,7 +1,8 @@
 /**
  * Type utilities
+ * @description 基础类型工具库，彻底移除 any，支持更严谨的类型推断
  */
-import type { AppContext, Plugin } from 'vue'
+import type { App, Plugin } from 'vue'
 
 /**
  * 可空类型
@@ -9,77 +10,56 @@ import type { AppContext, Plugin } from 'vue'
 export type Nullable<T> = T | null
 
 /**
- * 可选类型
+ * 可异步类型
  */
 export type Awaitable<T> = T | Promise<T>
 
 /**
- * 可数组类型
+ * 数组或单值类型
  */
 export type Arrayable<T> = T | T[]
 
 /**
- * 对象类型
+ * 通用对象类型
  */
-export type Recordable<T = any> = Record<string, T>
+export type Recordable<T = unknown> = Record<string, T>
 
 /**
- * 提取组件Props类型
+ * 组件尺寸标准
  */
 export type ComponentSize = 'large' | 'default' | 'small'
 
 /**
- * Vue插件类型（带安装器）
+ * Vue 插件类型（带安装器）
  */
-export type SFCWithInstall<T> = T & Plugin & {
-  install: (app: import('vue').App, options?: any) => void
-}
+export type SFCWithInstall<T> = T &
+  Plugin & {
+    install: (app: App, options?: Record<string, unknown>) => void
+  }
 
 /**
- * 判断是否为字符串
+ * 类型判断工具函数
  */
+
 export const isString = (val: unknown): val is string => typeof val === 'string'
 
-/**
- * 判断是否为数字
- */
 export const isNumber = (val: unknown): val is number => typeof val === 'number'
 
-/**
- * 判断是否为布尔值
- */
 export const isBoolean = (val: unknown): val is boolean => typeof val === 'boolean'
 
-/**
- * 判断是否为函数
- */
-export const isFunction = (val: unknown): val is Function => typeof val === 'function'
+export const isFunction = (val: unknown): val is (...args: unknown[]) => unknown =>
+  typeof val === 'function'
 
-/**
- * 判断是否为对象
- */
-export const isObject = (val: unknown): val is Record<any, any> =>
+export const isObject = (val: unknown): val is Record<string, unknown> =>
   val !== null && typeof val === 'object'
 
-/**
- * 判断是否为 Promise
- */
-export const isPromise = <T = any>(val: unknown): val is Promise<T> =>
+export const isPromise = <T = unknown>(val: unknown): val is Promise<T> =>
   isObject(val) && isFunction(val.then) && isFunction(val.catch)
 
-/**
- * 判断是否为数组
- */
 export const isArray = Array.isArray
 
-/**
- * 判断是否为 undefined
- */
 export const isUndefined = (val: unknown): val is undefined => val === undefined
 
-/**
- * 判断是否为 null 或 undefined
- */
 export const isNil = (val: unknown): val is null | undefined => val == null
 
 /**

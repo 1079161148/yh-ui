@@ -32,7 +32,7 @@ describe('YhDivider SSR', () => {
     const borderStyles = ['solid', 'dashed', 'dotted'] as const
     for (const borderStyle of borderStyles) {
       const html = await renderSSR(Divider, { borderStyle })
-      expectSSRHasClass(html, `yh-divider--${borderStyle}`)
+      expect(html).toContain(`--yh-divider-border-style:${borderStyle}`)
     }
   })
 

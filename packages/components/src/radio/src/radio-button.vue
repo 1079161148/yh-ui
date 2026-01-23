@@ -55,10 +55,11 @@ const radioName = computed(() => {
 
 // 是否选中
 const isChecked = computed(() => {
+  const value = props.value ?? props.label
   if (isGroup.value && radioGroup) {
-    return radioGroup.modelValue === props.value
+    return radioGroup.modelValue === value
   }
-  return props.modelValue === props.value
+  return props.modelValue === value
 })
 
 // 自定义样式（fill 和 textColor）

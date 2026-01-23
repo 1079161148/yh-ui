@@ -6,7 +6,7 @@
 import { computed, ref, nextTick, provide, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
-import type { SelectProps, SelectEmits, SelectExpose, SelectOption, SelectContext } from './select'
+import type { SelectProps, SelectEmits, SelectExpose, SelectOption, SelectContext, SelectValue } from './select'
 import { SelectContextKey } from './select'
 
 defineOptions({
@@ -76,7 +76,7 @@ const onOptionCreate = (option: SelectOption) => {
 }
 
 // 注销 Option
-const onOptionDestroy = (value: any) => {
+const onOptionDestroy = (value: SelectValue) => {
   const index = slotOptions.value.findIndex(o => o.value === value)
   if (index > -1) {
     slotOptions.value.splice(index, 1)
@@ -133,7 +133,7 @@ const filteredOptions = computed(() => {
   }
   const q = query.value.toLowerCase()
   return allOptions.value.filter(opt => {
-    const label = String(opt[props.labelKey] || opt.label || '')
+    const label = String(opt[props.labelKey || 'label'] || opt.label || '')
     return label.toLowerCase().includes(q)
   })
 })
@@ -143,8 +143,8 @@ const scrollTop = ref(0)
 
 // 虚拟滚动计算
 const virtualConfig = computed(() => {
-  const itemHeight = props.itemHeight
-  const containerHeight = props.height
+  const itemHeight = props.itemHeight || 34
+  const containerHeight = props.height || 274
   const overscan = 3
   const items = filteredOptions.value
 
@@ -189,17 +189,20 @@ const totalHeight = computed(() => virtualConfig.value.totalHeight)
 // 虚拟滚动偏移量
 const offsetY = computed(() => virtualConfig.value.offsetY)
 
+// 虚拟滚动起始索引
+const startIndex = computed(() => virtualConfig.value.startIndex)
+
 // 选中的标签
 const selectedLabels = computed(() => {
   if (props.multiple) {
     const values = Array.isArray(props.modelValue) ? props.modelValue : []
     return values.map(v => {
-      const opt = allOptions.value.find(o => o[props.valueKey] === v)
-      return opt ? (opt[props.labelKey] || opt.label) : v
+      const opt = allOptions.value.find(o => o[props.valueKey || 'value'] === v)
+      return opt ? (opt[props.labelKey || 'label'] as string || opt.label) : String(v)
     })
   }
-  const opt = allOptions.value.find(o => o[props.valueKey] === props.modelValue)
-  return opt ? (opt[props.labelKey] || opt.label) : props.modelValue
+  const opt = allOptions.value.find(o => o[props.valueKey || 'value'] === props.modelValue)
+  return opt ? (opt[props.labelKey || 'label'] as string || opt.label) : String(props.modelValue ?? '')
 })
 
 // 显示的标签（折叠）
@@ -214,7 +217,7 @@ const displayTags = computed(() => {
 // 折叠的标签数量
 const collapsedCount = computed(() => {
   if (!props.multiple || !props.collapseTags || !Array.isArray(selectedLabels.value)) return 0
-  return Math.max(0, selectedLabels.value.length - props.maxCollapseTags)
+  return Math.max(0, selectedLabels.value.length - (props.maxCollapseTags || 1))
 })
 
 // 是否显示清空按钮
@@ -243,7 +246,7 @@ const wrapperClasses = computed(() => [
 ])
 
 // 判断是否选中
-const isSelected = (value: any) => {
+const isSelected = (value: SelectValue) => {
   if (props.multiple) {
     return Array.isArray(props.modelValue) && props.modelValue.includes(value)
   }
@@ -259,7 +262,7 @@ const handleOptionSelect = (option: SelectOption, event?: MouseEvent) => {
     event.stopPropagation()
   }
 
-  const value = option[props.valueKey]
+  const value = option[props.valueKey || 'value'] as SelectValue
 
   if (props.multiple) {
     const values = Array.isArray(props.modelValue) ? [...props.modelValue] : []
@@ -267,7 +270,7 @@ const handleOptionSelect = (option: SelectOption, event?: MouseEvent) => {
     if (index > -1) {
       values.splice(index, 1)
     } else {
-      if (props.multipleLimit > 0 && values.length >= props.multipleLimit) {
+      if (props.multipleLimit && props.multipleLimit > 0 && values.length >= props.multipleLimit) {
         return
       }
       values.push(value)
@@ -288,7 +291,7 @@ const handleOptionSelect = (option: SelectOption, event?: MouseEvent) => {
 }
 
 // 移除标签
-const handleRemoveTag = (value: any, event: Event) => {
+const handleRemoveTag = (value: SelectValue, event: Event) => {
   event.stopPropagation()
   if (props.disabled) return
 
@@ -309,8 +312,8 @@ const handleRemoveTag = (value: any, event: Event) => {
 const handleClear = (event: Event) => {
   event.stopPropagation()
   const value = props.multiple ? [] : undefined
-  emit('update:modelValue', value)
-  emit('change', value)
+  emit('update:modelValue', value as any)
+  emit('change', value as any)
   emit('clear')
   query.value = ''
   if (props.validateEvent) {
@@ -368,8 +371,8 @@ const handleKeydown = (event: KeyboardEvent) => {
         const newOption: SelectOption = {
           value: query.value,
           label: query.value,
-          [props.valueKey]: query.value,
-          [props.labelKey]: query.value
+          [props.valueKey || 'value']: query.value,
+          [props.labelKey || 'label']: query.value
         }
         createdOptions.value.push(newOption)
         handleOptionSelect(newOption)
@@ -383,9 +386,11 @@ const handleKeydown = (event: KeyboardEvent) => {
       if (props.multiple && !query.value && Array.isArray(props.modelValue) && props.modelValue.length > 0) {
         const values = [...props.modelValue]
         const removed = values.pop()
-        emit('update:modelValue', values)
-        emit('change', values)
-        emit('remove-tag', removed)
+        if (removed !== undefined) {
+          emit('update:modelValue', values)
+          emit('change', values)
+          emit('remove-tag', removed)
+        }
       }
       break
   }
@@ -465,7 +470,7 @@ provide<SelectContext>(SelectContextKey, {
   props,
   selectValue: computed(() => props.modelValue),
   hoveredIndex,
-  handleOptionSelect,
+  handleOptionSelect: (option, event) => handleOptionSelect(option, event),
   isSelected,
   onOptionCreate,
   onOptionDestroy
@@ -489,7 +494,7 @@ defineExpose<SelectExpose>({
           :class="[ns.e('tag'), tagType ? `yh-tag--${tagType}` : '']">
           <span :class="ns.e('tag-text')">{{ label }}</span>
           <span :class="ns.e('tag-close')"
-            @click="handleRemoveTag(Array.isArray(modelValue) ? modelValue[index] : modelValue, $event)">
+            @click="handleRemoveTag(Array.isArray(modelValue) ? modelValue[index] : (modelValue as SelectValue), $event)">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path fill="currentColor"
                 d="M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z" />
@@ -561,17 +566,19 @@ defineExpose<SelectExpose>({
             <!-- 虚拟滚动占位 -->
             <div v-if="virtualScroll" :style="{ height: `${totalHeight}px`, position: 'relative' }">
               <div :style="{ transform: `translateY(${offsetY}px)` }">
-                <div v-for="(option, index) in displayOptions" :key="option[valueKey]" :class="[
+                <div v-for="(option, index) in displayOptions" :key="(String(option[valueKey || 'value']))" :class="[
                   ns.e('option'),
-                  ns.is('selected', isSelected(option[valueKey])),
+                  ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
                   ns.is('disabled', option.disabled),
                   ns.is('hovering', hoveredIndex === index)
-                ]" role="option" :aria-selected="isSelected(option[valueKey])" @mousedown.prevent
-                  @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = startIndex + index">
+                ]" role="option" :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"
+                  @mousedown.prevent @click="handleOptionClick(option, $event)"
+                  @mouseenter="hoveredIndex = startIndex + index">
                   <slot name="option" :option="option">
-                    {{ option[labelKey] || option.label }}
+                    {{ option[labelKey || 'label'] || option.label }}
                   </slot>
-                  <span v-if="multiple && isSelected(option[valueKey])" :class="ns.e('option-check')">
+                  <span v-if="multiple && isSelected(option[valueKey || 'value'] as SelectValue)"
+                    :class="ns.e('option-check')">
                     <svg viewBox="0 0 1024 1024" width="1em" height="1em">
                       <path fill="currentColor"
                         d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z" />
@@ -583,17 +590,18 @@ defineExpose<SelectExpose>({
 
             <!-- 普通列表 -->
             <template v-else>
-              <div v-for="(option, index) in displayOptions" :key="option[valueKey]" :class="[
+              <div v-for="(option, index) in displayOptions" :key="(String(option[valueKey || 'value']))" :class="[
                 ns.e('option'),
-                ns.is('selected', isSelected(option[valueKey])),
+                ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
                 ns.is('disabled', option.disabled),
                 ns.is('hovering', hoveredIndex === index)
-              ]" role="option" :aria-selected="isSelected(option[valueKey])" @mousedown.prevent
-                @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = index">
+              ]" role="option" :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"
+                @mousedown.prevent @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = index">
                 <slot name="option" :option="option">
-                  {{ option[labelKey] || option.label }}
+                  {{ option[labelKey || 'label'] || option.label }}
                 </slot>
-                <span v-if="multiple && isSelected(option[valueKey])" :class="ns.e('option-check')">
+                <span v-if="multiple && isSelected(option[valueKey || 'value'] as SelectValue)"
+                  :class="ns.e('option-check')">
                   <svg viewBox="0 0 1024 1024" width="1em" height="1em">
                     <path fill="currentColor"
                       d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z" />

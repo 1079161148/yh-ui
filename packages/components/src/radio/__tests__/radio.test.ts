@@ -57,7 +57,7 @@ describe('YhRadio', () => {
         border: true
       }
     })
-    expect(wrapper.classes()).toContain('is-border')
+    expect(wrapper.classes()).toContain('is-bordered')
   })
 
   it('applies size', () => {

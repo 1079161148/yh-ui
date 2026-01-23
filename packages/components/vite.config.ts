@@ -9,6 +9,7 @@ export default defineConfig({
     dts({
       include: ['src/**/*.ts', 'src/**/*.vue'],
       outDir: 'dist',
+      entryRoot: 'src',
       staticImport: true,
       insertTypesEntry: true
     })

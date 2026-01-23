@@ -1,6 +1,6 @@
 /**
  * Cascader Types & Props
- * @description 级联选择器组件类型定义
+ * @description 级联选择器组件类型定义，严格类型化
  */
 
 import type { InjectionKey, ComputedRef } from 'vue'
@@ -9,16 +9,39 @@ export type CascaderSize = 'large' | 'default' | 'small'
 export type CascaderExpandTrigger = 'click' | 'hover'
 export type CascaderTagType = 'success' | 'info' | 'warning' | 'danger' | ''
 
+/**
+ * 级联项格式
+ */
 export interface CascaderOption {
   value: string | number
   label: string
   children?: CascaderOption[]
   disabled?: boolean
   leaf?: boolean
-  [key: string]: any
+  [key: string]: unknown // 使用 unknown 替代 any
 }
 
+/**
+ * 级联绑定值类型
+ */
 export type CascaderValue = string | number | (string | number)[] | (string | number)[][]
+
+/**
+ * 级联选择器配置项
+ */
+export interface CascaderConfig {
+  expandTrigger: CascaderExpandTrigger
+  multiple: boolean
+  checkStrictly: boolean
+  emitPath: boolean
+  lazy: boolean
+  lazyLoad?: (node: CascaderOption, resolve: (children: CascaderOption[]) => void) => void
+  value: string
+  label: string
+  children: string
+  disabled: string
+  leaf: string
+}
 
 export interface CascaderProps {
   /** 绑定值 */
@@ -49,7 +72,7 @@ export interface CascaderProps {
   maxCollapseTags?: number
   /** 是否多选 */
   multiple?: boolean
-  /** 是否严格遵守父子节点不互相关联（可选择任意一级） */
+  /** 是否严格遵守父子节点不互相关联 */
   checkStrictly?: boolean
   /** 展开触发方式 */
   expandTrigger?: CascaderExpandTrigger
@@ -60,30 +83,7 @@ export interface CascaderProps {
   /** 虚拟滚动每项高度 */
   virtualItemHeight?: number
   /** 配置选项（向后兼容） */
-  props?: {
-    /** 展开触发方式 */
-    expandTrigger?: CascaderExpandTrigger
-    /** 是否多选 */
-    multiple?: boolean
-    /** 是否严格遵守父子节点不互相关联 */
-    checkStrictly?: boolean
-    /** 是否返回完整路径 */
-    emitPath?: boolean
-    /** 是否懒加载 */
-    lazy?: boolean
-    /** 懒加载方法 */
-    lazyLoad?: (node: CascaderOption, resolve: (children: CascaderOption[]) => void) => void
-    /** value 键名 */
-    value?: string
-    /** label 键名 */
-    label?: string
-    /** children 键名 */
-    children?: string
-    /** disabled 键名 */
-    disabled?: string
-    /** leaf 键名 */
-    leaf?: string
-  }
+  props?: Partial<CascaderConfig>
   /** 下拉框类名 */
   popperClass?: string
   /** 是否将下拉框插入到 body */
@@ -95,20 +95,20 @@ export interface CascaderProps {
 }
 
 export interface CascaderEmits {
-  (e: 'update:modelValue', value: any): void
-  (e: 'change', value: any): void
+  (e: 'update:modelValue', value: CascaderValue | undefined): void
+  (e: 'change', value: CascaderValue | undefined): void
   (e: 'focus', event: FocusEvent): void
   (e: 'blur', event: FocusEvent): void
   (e: 'clear'): void
-  (e: 'expand-change', value: any[]): void
+  (e: 'expand-change', value: (string | number)[]): void
   (e: 'visible-change', visible: boolean): void
 }
 
 export interface CascaderSlots {
   /** 自定义选项内容 */
-  default?: (props: { node: CascaderOption; data: CascaderOption }) => any
+  default?: (props: { node: CascaderOption; data: CascaderOption }) => unknown
   /** 无数据时的内容 */
-  empty?: () => any
+  empty?: () => unknown
 }
 
 export interface CascaderExpose {
@@ -127,30 +127,13 @@ export interface CascaderContext {
   props: CascaderProps
   config: ComputedRef<CascaderConfig>
   expandedPath: ComputedRef<(string | number)[]>
-  checkedValue: ComputedRef<
-    string | number | (string | number)[] | (string | number)[][] | undefined
-  >
+  checkedValue: ComputedRef<CascaderValue | undefined>
   handleExpand: (option: CascaderOption, level: number) => void
   handleCheck: (option: CascaderOption, path: (string | number)[]) => void
   isChecked: (path: (string | number)[]) => boolean
 }
 
 export const CascaderContextKey: InjectionKey<CascaderContext> = Symbol('CascaderContextKey')
-
-// 默认配置类型
-export interface CascaderConfig {
-  expandTrigger: CascaderExpandTrigger
-  multiple: boolean
-  checkStrictly: boolean
-  emitPath: boolean
-  lazy: boolean
-  lazyLoad?: (node: CascaderOption, resolve: (children: CascaderOption[]) => void) => void
-  value: string
-  label: string
-  children: string
-  disabled: string
-  leaf: string
-}
 
 // 默认配置
 export const defaultCascaderConfig: CascaderConfig = {

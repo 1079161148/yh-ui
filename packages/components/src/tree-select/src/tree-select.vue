@@ -1,5 +1,5 @@
 <template>
-  <div :class="[ns.b(), ns.is('disabled', disabled)]" ref="selectRef">
+  <div :class="[ns.b(), ns.is('disabled', disabled), ns.is('multiple', multiple)]" ref="selectRef">
     <div :class="[ns.e('trigger'), ns.is('active', visible)]" @click="handleTriggerClick" @mouseenter="showClear = true"
       @mouseleave="showClear = false">
       <div :class="ns.e('tags')">
@@ -112,9 +112,13 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * YhTreeSelect - 树形选择器组件
+ * @description 集成树形结构与下拉选择，已实现严格类型化并杜绝 any
+ */
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
-import { treeSelectProps, treeSelectEmits, type TreeNode } from './tree-select'
+import { treeSelectProps, treeSelectEmits, type TreeNode, type TreeKey } from './tree-select'
 import { useTree } from './use-tree'
 
 defineOptions({ name: 'YhTreeSelect' })
@@ -125,7 +129,7 @@ const emit = defineEmits(treeSelectEmits)
 const ns = useNamespace('tree-select')
 const visible = ref(false)
 const query = ref('')
-const dropdownStyle = ref({})
+const dropdownStyle = ref<Record<string, string>>({})
 const inputRef = ref<HTMLInputElement | null>(null)
 const selectRef = ref<HTMLElement | null>(null)
 const popperRef = ref<HTMLElement | null>(null)
@@ -183,7 +187,7 @@ const hasValue = computed(() => {
 const singleLabel = computed(() => {
   mapVersion.value
   if (props.multiple || !hasValue.value) return ''
-  const node = getNode(props.modelValue as any)
+  const node = getNode(props.modelValue as TreeKey)
   return node ? node.label : String(props.modelValue ?? '')
 })
 
@@ -198,7 +202,7 @@ const selectedLabels = computed(() => {
   const value = props.modelValue
   const keys = Array.isArray(value) ? value : (value !== undefined && value !== null && value !== '' ? [value] : [])
   return keys.map(k => {
-    const node = getNode(k as any)
+    const node = getNode(k)
     return { value: k, label: node ? node.label : String(k) }
   })
 })
@@ -225,7 +229,7 @@ const handleOutsideClick = (e: MouseEvent) => {
 const handleNodeClick = (node: TreeNode, e?: MouseEvent) => {
   if (node.disabled) return
 
-  // 抛出节点点击事件 (对标 EP，透出事件对象)
+  // 抛出节点点击事件 (对标 Element Plus，透出事件对象)
   emit('node-click', node.raw, node, e as MouseEvent)
 
   // 1. 如果是懒加载且尚未加载，点击行即触发加载并展开
@@ -250,7 +254,7 @@ const handleNodeClick = (node: TreeNode, e?: MouseEvent) => {
   }
 }
 
-const removeTag = (key: any) => {
+const removeTag = (key: TreeKey) => {
   const node = getNode(key)
   if (node) checkNode(node, false)
   else if (Array.isArray(props.modelValue)) {
@@ -285,7 +289,7 @@ const updatePopper = () => {
         position: 'fixed',
         top: `${rect.bottom + 4}px`,
         left: `${rect.left}px`,
-        zIndex: 2000
+        zIndex: '2000'
       }
     }
   })

@@ -57,10 +57,11 @@ const radioName = computed(() => {
 
 // 是否选中
 const isChecked = computed(() => {
+  const value = props.value ?? props.label
   if (isGroup.value && radioGroup) {
-    return radioGroup.modelValue === props.value
+    return radioGroup.modelValue === value
   }
-  return props.modelValue === props.value
+  return props.modelValue === value
 })
 
 // 类名计算
@@ -70,7 +71,7 @@ const radioClasses = computed(() => [
   ns.is('disabled', isDisabled.value),
   ns.is('checked', isChecked.value),
   ns.is('focused', focused.value),
-  ns.is('border', props.border)
+  ns.is('bordered', props.border)
 ])
 
 const innerClasses = computed(() => [

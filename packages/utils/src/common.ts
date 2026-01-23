@@ -1,5 +1,6 @@
 /**
  * Common utilities
+ * @description 通用工具函数库，严格类型化
  */
 
 /**
@@ -11,9 +12,14 @@ export const generateId = (prefix = 'yh'): string => {
 }
 
 /**
+ * 函数类型定义
+ */
+type AnyFunction = (...args: unknown[]) => unknown
+
+/**
  * 防抖函数
  */
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends AnyFunction>(
   fn: T,
   delay: number
 ): ((...args: Parameters<T>) => void) & { cancel: () => void } => {
@@ -40,7 +46,7 @@ export const debounce = <T extends (...args: any[]) => any>(
 /**
  * 节流函数
  */
-export const throttle = <T extends (...args: any[]) => any>(
+export const throttle = <T extends AnyFunction>(
   fn: T,
   delay: number
 ): ((...args: Parameters<T>) => void) & { cancel: () => void } => {
@@ -88,11 +94,11 @@ export const deepClone = <T>(obj: T): T => {
     return obj.map((item) => deepClone(item)) as unknown as T
   }
   if (obj instanceof Object) {
-    const copy = {} as Record<string, any>
+    const copy = {} as Record<string, unknown>
     Object.keys(obj).forEach((key) => {
-      copy[key] = deepClone((obj as Record<string, any>)[key])
+      copy[key] = deepClone((obj as Record<string, unknown>)[key])
     })
-    return copy as T
+    return copy as unknown as T
   }
   return obj
 }
@@ -122,7 +128,7 @@ export const deepMerge = <T extends Record<string, any>>(
         !Array.isArray(targetValue) &&
         !Array.isArray(sourceValue)
       ) {
-        target[key] = deepMerge({ ...targetValue }, sourceValue)
+        target[key] = deepMerge({ ...targetValue }, sourceValue as any)
       } else {
         target[key] = sourceValue as T[Extract<keyof T, string>]
       }
@@ -173,7 +179,7 @@ export const sleep = (ms: number): Promise<void> => {
 /**
  * 访问对象嵌套路径的值
  */
-export const get = (obj: any, path: string, defaultValue?: any) => {
+export const get = (obj: any, path: string, defaultValue?: unknown): any => {
   const result = path
     .split('.')
     .reduce((res, key) => (res !== null && res !== undefined ? res[key] : undefined), obj)
@@ -183,7 +189,7 @@ export const get = (obj: any, path: string, defaultValue?: any) => {
 /**
  * 设置对象嵌套路径的值
  */
-export const set = (obj: any, path: string, value: any) => {
+export const set = (obj: any, path: string, value: unknown): any => {
   if (Object(obj) !== obj) return obj
   const keys = path.split('.')
   const lastKey = keys.pop()!

@@ -1,7 +1,7 @@
 import { defineComponent, provide, renderSlot, watch, computed, ref, h, onMounted } from 'vue'
 import type { PropType, InjectionKey, ExtractPropTypes, ComputedRef } from 'vue'
 import { useTheme, ThemeManager } from '@yh-ui/theme'
-import type { PresetTheme } from '@yh-ui/theme'
+import type { PresetTheme, ThemeColors } from '@yh-ui/theme'
 import type { Language } from './locale'
 import { zhCn } from './locale'
 
@@ -140,6 +140,16 @@ export default defineComponent({
       message: props.message
     }))
 
+    // 为 SSR 提供主题样式
+    const themeStyles = computed(() => {
+      const manager = getThemeManager()
+      const colors: ThemeColors = {}
+      if (!isValidPreset(props.theme) && props.theme.startsWith('#')) {
+        colors.primary = props.theme
+      }
+      return manager.getThemeStyles(colors)
+    })
+
     // 注意：提供 computed 本身而不是 .value，确保子组件能响应式获取更新
     provide(configProviderContextKey, config)
 
@@ -150,7 +160,8 @@ export default defineComponent({
         'div',
         {
           ref: containerRef,
-          class: 'yh-config-provider'
+          class: 'yh-config-provider',
+          style: themeStyles.value
         },
         [renderSlot(slots, 'default')]
       )

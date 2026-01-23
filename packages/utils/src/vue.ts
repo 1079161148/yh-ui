@@ -1,7 +1,8 @@
 /**
- * Vue utilities
+ * Vue 相关的工具函数
+ * @description 获取组件名、添加安装方法等
  */
-import type { App, Component, Plugin } from 'vue'
+import type { App, Component, Plugin, Directive } from 'vue'
 import type { SFCWithInstall } from './types'
 
 /**
@@ -14,7 +15,9 @@ export const withInstall = <T extends Component>(
   const comp = component as SFCWithInstall<T>
 
   comp.install = (app: App): void => {
-    const name = (component as any).name || (component as any).__name
+    // 优先从组件定义中获取名称
+    const name = (component as { name?: string }).name || (component as { __name?: string }).__name
+
     if (name) {
       app.component(name, component)
       if (alias) {
@@ -27,7 +30,7 @@ export const withInstall = <T extends Component>(
 }
 
 /**
- * 为组件添加 install 方法（带附属组件）
+ * 为函数式组件或工具添加 install 方法
  */
 export const withInstallFunction = <T>(fn: T, name: string): SFCWithInstall<T> => {
   const func = fn as SFCWithInstall<T>
@@ -40,16 +43,17 @@ export const withInstallFunction = <T>(fn: T, name: string): SFCWithInstall<T> =
 }
 
 /**
- * 批量注册组件
+ * 批量注册组件和指令
  */
 export const withInstallAll = (
   components: Component[],
-  directives?: Record<string, any>
+  directives?: Record<string, Directive>
 ): Plugin => {
   return {
     install(app: App): void {
       components.forEach((component) => {
-        const name = (component as any).name || (component as any).__name
+        const name =
+          (component as { name?: string }).name || (component as { __name?: string }).__name
         if (name) {
           app.component(name, component)
         }

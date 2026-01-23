@@ -91,8 +91,8 @@ describe('YhTreeSelect', () => {
     expect(wrapper.emitted('check-change')).toBeDefined()
     const checkEvent = wrapper.emitted('check')?.[0]
     expect(checkEvent?.[0]).toMatchObject({ id: '1' })
-    expect(checkEvent?.[1].checkedKeys).toContain('1')
-    expect(checkEvent?.[1].checkedKeys).toContain('1-1-1')
+    expect((checkEvent?.[1] as any).checkedKeys).toContain('1')
+    expect((checkEvent?.[1] as any).checkedKeys).toContain('1-1-1')
   })
 
   it('respects disabled property of specific nodes', async () => {

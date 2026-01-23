@@ -114,10 +114,13 @@ const markList = computed(() => {
   const marksKeys = Object.keys(props.marks)
     .map(Number)
     .filter((n) => !isNaN(n) && n >= props.min && n <= props.max)
-  return marksKeys.map((key) => ({
-    point: ((key - props.min) / (props.max - props.min)) * 100,
-    label: (props.marks as any)[key]
-  }))
+  return marksKeys.map((key) => {
+    const mark = (props.marks as any)[key]
+    return {
+      point: ((key - props.min) / (props.max - props.min)) * 100,
+      label: typeof mark === 'string' ? { label: mark } : mark
+    }
+  })
 })
 
 const sliderClasses = computed(() => [
@@ -247,13 +250,8 @@ onMounted(() => {
         <div :class="ns.e('marks')">
           <div v-for="(item, index) in markList" :key="index" :class="ns.e('mark-text')"
             :style="vertical ? { bottom: item.point + '%' } : { left: item.point + '%' }">
-            <slot name="mark" :mark="item.label">
-              <template v-if="typeof item.label === 'string'">
-                {{ item.label }}
-              </template>
-              <template v-else>
-                <div :style="item.label.style">{{ item.label.label }}</div>
-              </template>
+            <slot name="mark" :mark="item.label.label">
+              <div :style="item.label.style">{{ item.label.label }}</div>
             </slot>
           </div>
         </div>

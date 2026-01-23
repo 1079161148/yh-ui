@@ -38,6 +38,65 @@
   </yh-form>
 </DemoBlock>
 
+## 典型表单
+
+包含多种类型的表单域，展示复杂的交互与联动校验。
+
+<DemoBlock title="典型表单" :ts-code="tsTypical" :js-code="jsTypical">
+  <yh-form 
+    ref="typicalFormRef"
+    :model="typicalForm" 
+    :rules="typicalRules" 
+    label-width="120px"
+  >
+    <yh-form-item label="活动名称" prop="name">
+      <yh-input v-model="typicalForm.name" />
+    </yh-form-item>
+    <yh-form-item label="活动区域" prop="region">
+      <yh-select v-model="typicalForm.region" placeholder="请选择活动区域">
+        <yh-option label="上海" value="shanghai" />
+        <yh-option label="北京" value="beijing" />
+      </yh-select>
+    </yh-form-item>
+    <yh-form-item label="活动地点" prop="location">
+      <yh-cascader 
+        v-model="typicalForm.location" 
+        :options="locationOptions" 
+        placeholder="请选择地点"
+      />
+    </yh-form-item>
+    <yh-form-item label="即时配送" prop="delivery">
+      <yh-switch v-model="typicalForm.delivery" />
+    </yh-form-item>
+    <yh-form-item label="活动性质" prop="type">
+      <yh-checkbox-group v-model="typicalForm.type">
+        <yh-checkbox value="Online" name="type">美食/餐厅线上活动</yh-checkbox>
+        <yh-checkbox value="Promotion" name="type">地推活动</yh-checkbox>
+        <yh-checkbox value="Offline" name="type">线下主题活动</yh-checkbox>
+      </yh-checkbox-group>
+    </yh-form-item>
+    <yh-form-item label="特殊资源" prop="resource">
+      <yh-radio-group v-model="typicalForm.resource">
+        <yh-radio value="Sponsor">线上品牌商赞助</yh-radio>
+        <yh-radio value="Venue">线下场地免费</yh-radio>
+      </yh-radio-group>
+    </yh-form-item>
+    <yh-form-item label="满意度评分" prop="rate">
+      <yh-rate v-model="typicalForm.rate" />
+    </yh-form-item>
+    <yh-form-item label="活动人数" prop="count">
+      <yh-slider v-model="typicalForm.count" :step="10" show-stops />
+    </yh-form-item>
+    <yh-form-item label="活动形式" prop="desc">
+      <yh-input v-model="typicalForm.desc" type="textarea" />
+    </yh-form-item>
+    <yh-form-item>
+      <yh-button type="primary" @click="onTypicalSubmit">立即创建</yh-button>
+      <yh-button @click="onTypicalReset">取消</yh-button>
+    </yh-form-item>
+  </yh-form>
+</DemoBlock>
+
 ## 行内表单
 
 设置 `layout="inline"` 可以让表单项在一行内水平排列。Label 与 Input 已通过 Flex 布局实现了精准的垂直居中对齐。
@@ -158,11 +217,45 @@ const formSize = ref('default')
 const form = reactive({ username: '', age: 18, email: '' })
 const rules = {
   username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
-  email: [{ type: 'email', message: '格式不正确', trigger: 'change' }]
+  age: [{ required: true, type: 'number', message: '请输入年龄', trigger: 'change' }],
+  email: [
+    { required: true, message: '邮箱不能为空', trigger: ['blur', 'change'] },
+    { type: 'email', message: '格式不正确', trigger: ['blur', 'change'] }
+  ]
 }
 const formRef = ref()
-const onSubmit = () => formRef.value.validate((v) => v && alert('OK'))
+const onSubmit = () => formRef.value.validate((v) => v && alert('Success!'))
 const onReset = () => formRef.value.resetFields()
+
+const typicalForm = reactive({
+  name: '',
+  region: '',
+  location: [],
+  delivery: false,
+  type: [],
+  resource: '',
+  rate: 0,
+  count: 30,
+  desc: ''
+})
+
+const typicalRules = {
+  name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
+  region: [{ required: true, message: '请选择活动区域', trigger: 'change' }],
+  location: [{ required: true, type: 'array', message: '请选择活动地点', trigger: 'change' }],
+  type: [{ type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }],
+  resource: [{ required: true, message: '请选择特殊资源', trigger: 'change' }],
+  desc: [{ required: true, message: '请填写活动形式', trigger: 'blur' }]
+}
+
+const locationOptions = [
+  { value: 'pudong', label: '浦东', children: [{ value: 'lujiazui', label: '陆家嘴' }] },
+  { value: 'puxi', label: '浦西', children: [{ value: 'waitan', label: '外滩' }] }
+]
+
+const typicalFormRef = ref()
+const onTypicalSubmit = () => typicalFormRef.value.validate((v) => v && alert('Success!'))
+const onTypicalReset = () => typicalFormRef.value.resetFields()
 
 const formInline = reactive({ user: '', region: '' })
 
@@ -313,7 +406,11 @@ const size = ref('default')
 const form = reactive({ username: '', age: 18, email: '' })
 const rules = {
   username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
-  email: [{ type: 'email', message: '格式不正确', trigger: 'change' }]
+  age: [{ required: true, message: '请输入年龄', trigger: 'change' }],
+  email: [
+    { required: true, message: '邮箱不能为空', trigger: 'blur' },
+    { type: 'email', message: '格式不正确', trigger: 'change' }
+  ]
 }
 const formRef = ref()
 
@@ -326,6 +423,71 @@ const reset = () => formRef.value.resetFields()
 \u003C/script>
 `.trim()
 const jsBasic = tsBasic.replace('lang="ts"', '')
+
+const tsTypical = `
+<template>
+  <yh-form 
+    ref="typicalFormRef"
+    :model="typicalForm" 
+    :rules="typicalRules" 
+    label-width="120px"
+  >
+    <yh-form-item label="活动名称" prop="name">
+      <yh-input v-model="typicalForm.name" />
+    </yh-form-item>
+    <yh-form-item label="活动区域" prop="region">
+      <yh-select v-model="typicalForm.region" placeholder="请选择活动区域">
+        <yh-option label="上海" value="shanghai" />
+        <yh-option label="北京" value="beijing" />
+      </yh-select>
+    </yh-form-item>
+    <yh-form-item label="活动地点" prop="location">
+      <yh-cascader v-model="typicalForm.location" :options="locationOptions" />
+    </yh-form-item>
+    <yh-form-item label="即时配送" prop="delivery">
+      <yh-switch v-model="typicalForm.delivery" />
+    </yh-form-item>
+    <yh-form-item label="活动性质" prop="type">
+      <yh-checkbox-group v-model="typicalForm.type">
+        <yh-checkbox value="Online">线上活动</yh-checkbox>
+        <yh-checkbox value="Promotion">地推活动</yh-checkbox>
+      </yh-checkbox-group>
+    </yh-form-item>
+    <yh-form-item label="满意度" prop="rate">
+      <yh-rate v-model="typicalForm.rate" />
+    </yh-form-item>
+    <yh-form-item>
+      <yh-button type="primary" @click="onSubmit">提交</yh-button>
+    </yh-form-item>
+  </yh-form>
+</template>
+
+\u003Cscript setup lang="ts">
+import { reactive, ref } from 'vue'
+
+const typicalForm = reactive({
+  name: '',
+  region: '',
+  location: [],
+  delivery: false,
+  type: [],
+  rate: 0
+})
+
+const typicalRules = {
+  name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+  region: [{ required: true, message: '请选择区域', trigger: 'change' }]
+}
+
+const locationOptions = [
+  { value: 'pudong', label: '浦东', children: [{ value: 'lujiazui', label: '陆家嘴' }] }
+]
+
+const typicalFormRef = ref()
+const onSubmit = () => typicalFormRef.value.validate((v) => v && alert('Success!'))
+\u003C/script>
+`.trim()
+const jsTypical = tsTypical.replace('lang="ts"', '')
 
 const tsInline = `
 <template>

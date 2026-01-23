@@ -35,7 +35,11 @@ export interface FormRule {
   max?: number
   len?: number
   pattern?: RegExp
-  validator?: (rule: any, value: any, callback: any) => void | Promise<void>
+  validator?: (
+    rule: FormRule,
+    value: unknown,
+    callback: (error?: string | Error) => void
+  ) => void | Promise<void>
   type?: string
 }
 
@@ -49,7 +53,7 @@ export const formProps = {
    * 表单数据对象
    */
   model: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     required: true
   },
   /**

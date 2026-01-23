@@ -26,7 +26,7 @@ describe('YhCard SSR', () => {
     const shadows = ['always', 'hover', 'never'] as const
     for (const shadow of shadows) {
       const html = await renderSSR(Card, { shadow })
-      expectSSRHasClass(html, `is-${shadow}-shadow`)
+      expectSSRHasClass(html, `yh-card--${shadow}`)
     }
   })
 

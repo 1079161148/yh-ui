@@ -1,13 +1,13 @@
 /**
  * useLocale - 国际化 Hook
- * @description 提供组件国际化支持
+ * @description 提供组件国际化支持，已严格类型化
  */
 import { computed, inject, ref, unref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 
 export interface Language {
   name: string
-  yh: Record<string, any>
+  yh: Record<string, unknown>
 }
 
 // 默认语言
@@ -64,10 +64,6 @@ export const localeContextKey: InjectionKey<Ref<Language>> = Symbol('localeConte
  * useLocale - 国际化
  * @param localeOverrides - 可选的自定义语言包
  * @returns 国际化相关方法
- *
- * @example
- * const { t, locale } = useLocale()
- * t('button.loading') // '加载中...'
  */
 export const useLocale = (localeOverrides?: Ref<Language>) => {
   const injectedLocale = inject(localeContextKey, ref(defaultLanguage))
@@ -83,12 +79,17 @@ export const useLocale = (localeOverrides?: Ref<Language>) => {
    * @param path - 翻译键路径，如 'button.loading'
    * @param options - 插值参数
    */
-  const t = (path: string, options?: Record<string, any>): string => {
+  const t = (path: string, options?: Record<string, string | number>): string => {
     const keys = path.split('.')
-    let result: any = locale.value.yh
+    let result: unknown = locale.value.yh
 
     for (const key of keys) {
-      result = result?.[key]
+      if (result && typeof result === 'object') {
+        result = (result as Record<string, unknown>)[key]
+      } else {
+        result = undefined
+      }
+
       if (result === undefined) return path
     }
 
@@ -97,7 +98,8 @@ export const useLocale = (localeOverrides?: Ref<Language>) => {
     // 处理插值 {xxx}
     if (options) {
       return result.replace(/\{(\w+)\}/g, (_, key) => {
-        return String(options[key] ?? `{${key}}`)
+        const val = options[key]
+        return val !== undefined ? String(val) : `{${key}}`
       })
     }
 

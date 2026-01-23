@@ -22,8 +22,8 @@ describe('YhRow SSR', () => {
     expectSSRHasClass(html, 'yh-row')
     expectSSRHasClass(html, 'is-justify-center')
     expectSSRHasClass(html, 'is-align-middle')
-    expect(html).toContain('margin-left: -10px')
-    expect(html).toContain('margin-right: -10px')
+    expect(html).toContain('margin-left:-10px')
+    expect(html).toContain('margin-right:-10px')
   })
 
   it('should hydrate without mismatch', async () => {

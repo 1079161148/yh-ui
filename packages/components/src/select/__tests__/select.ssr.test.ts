@@ -10,7 +10,7 @@ import { renderSSR, expectSSRHasClass, testHydration } from '../../__tests__/uti
 describe('YhSelect SSR', () => {
   it('should render correctly in SSR', async () => {
     const html = await renderSSR(Select, {
-      modelValue: '1',
+      modelValue: '',
       placeholder: 'Please select'
     })
 

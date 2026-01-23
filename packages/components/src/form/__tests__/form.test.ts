@@ -73,7 +73,8 @@ describe('YhForm', () => {
     // 验证不通过
     try {
       await form.validate()
-    } catch (errors) {
+    } catch (e: unknown) {
+      const errors = e as Record<string, any>
       expect(errors.name).toBeTruthy()
     }
     await nextTick()

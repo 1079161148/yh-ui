@@ -83,6 +83,20 @@ export const formItemProps = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  /**
+   * 表单项校验状态
+   */
+  validateStatus: {
+    type: String as PropType<ValidateStatus>,
+    default: ''
+  },
+  /**
+   * 自定义错误信息
+   */
+  error: {
+    type: String,
+    default: ''
   }
 } as const
 

@@ -34,7 +34,7 @@ describe('YhForm SSR', () => {
 
   it('should render inline form in SSR', async () => {
     const html = await renderSSR(Form, {
-      inline: true,
+      layout: 'inline',
       model: {}
     })
     expectSSRHasClass(html, 'yh-form--inline')
@@ -75,7 +75,8 @@ describe('YhForm SSR', () => {
     const html = await renderSSR(FormItem, {
       label: 'Email',
       error: 'Invalid email',
-      showMessage: true
+      showMessage: true,
+      validateStatus: 'error'
     })
     expectSSRHasClass(html, 'is-error')
     expect(html).toContain('Invalid email')
