@@ -54,8 +54,7 @@ export default defineConfig({
             { text: 'Button 按钮', link: '/components/button' },
             { text: 'Link 链接', link: '/components/link' },
             { text: 'Icon 图标', link: '/components/icon' },
-            { text: 'Skeleton 骨架屏', link: '/components/skeleton' },
-            { text: 'ColorPicker 颜色选择器', link: '/components/color-picker' }
+            { text: 'Skeleton 骨架屏', link: '/components/skeleton' }
           ]
         },
         {
@@ -102,6 +101,7 @@ export default defineConfig({
           items: [
             { text: 'Alert 警告提示', link: '/components/alert' },
             { text: 'Dialog 对话框', link: '/components/dialog' },
+            { text: 'Tooltip 文字提示', link: '/components/tooltip' },
             { text: 'Message 消息提示', link: '/components/message' },
             { text: 'Notification 通知', link: '/components/notification' }
           ]

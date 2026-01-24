@@ -39,6 +39,7 @@ import { YhBackTop } from './back-top'
 import { YhAlert } from './alert'
 import { YhSkeleton, YhSkeletonItem } from './skeleton'
 import { YhProgress } from './progress'
+import { YhTooltip } from './tooltip'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -75,6 +76,7 @@ export * from './back-top'
 export * from './alert'
 export * from './skeleton'
 export * from './progress'
+export * from './tooltip'
 export * from './config-provider'
 
 // 所有组件列表
@@ -120,6 +122,7 @@ const components = [
   YhSkeleton,
   YhSkeletonItem,
   YhProgress,
+  YhTooltip,
   YhConfigProvider
 ] as Plugin[]
 

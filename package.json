@@ -89,6 +89,7 @@
   "author": "YH-UI Team",
   "license": "MIT",
   "dependencies": {
+    "@floating-ui/dom": "^1.7.4",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.19"
   },
