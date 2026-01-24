@@ -91,6 +91,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhCascader',
       'YhCascaderPanel',
       'YhSlider',
+      'YhTimePicker',
       'YhTimeSelect',
       'YhTransfer',
       'YhTransferPanel',
@@ -174,12 +175,6 @@ declare module 'nuxt/schema' {
   }
   interface PublicRuntimeConfig {
     yhUI: ModuleOptions
-  }
-}
-
-declare module 'nuxt/config' {
-  interface NuxtConfig {
-    yhUI?: ModuleOptions
   }
 }
 

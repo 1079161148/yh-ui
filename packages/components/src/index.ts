@@ -25,6 +25,7 @@ import { YhSelect, YhOption } from './select'
 import { YhCascader, YhCascaderPanel } from './cascader'
 import { YhSlider } from './slider'
 import { YhTimeSelect } from './time-select'
+import { YhTimePicker } from './time-picker'
 import { YhTransfer, YhTransferPanel } from './transfer'
 import { YhTreeSelect } from './tree-select'
 import { YhBadge } from './badge'
@@ -53,6 +54,7 @@ export * from './select'
 export * from './cascader'
 export * from './slider'
 export * from './time-select'
+export * from './time-picker'
 export * from './transfer'
 export * from './tree-select'
 export * from './badge'
@@ -89,6 +91,7 @@ const components = [
   YhCascaderPanel,
   YhSlider,
   YhTimeSelect,
+  YhTimePicker,
   YhTransfer,
   YhTransferPanel,
   YhTreeSelect,

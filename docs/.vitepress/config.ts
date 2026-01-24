@@ -72,6 +72,7 @@ export default defineConfig({
             { text: 'Select 选择器', link: '/components/select' },
             { text: 'Cascader 级联选择器', link: '/components/cascader' },
             { text: 'Slider 滑块', link: '/components/slider' },
+            { text: 'TimePicker 时间选择器', link: '/components/time-picker' },
             { text: 'TimeSelect 时间选择', link: '/components/time-select' },
             { text: 'Transfer 穿梭框', link: '/components/transfer' },
             { text: 'TreeSelect 树形选择', link: '/components/tree-select' } // TreeSelect Component

@@ -49,6 +49,7 @@ import {
   YhCascader,
   YhCascaderPanel,
   YhSlider,
+  YhTimePicker,
   YhTimeSelect,
   YhTransfer,
   YhTransferPanel,
@@ -93,6 +94,7 @@ export default {
     app.component('YhCascader', YhCascader)
     app.component('YhCascaderPanel', YhCascaderPanel)
     app.component('YhSlider', YhSlider)
+    app.component('YhTimePicker', YhTimePicker)
     app.component('YhTimeSelect', YhTimeSelect)
     app.component('YhTransfer', YhTransfer)
     app.component('YhTransferPanel', YhTransferPanel)
