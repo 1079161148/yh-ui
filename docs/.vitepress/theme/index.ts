@@ -59,6 +59,8 @@ import {
   YhCard,
   YhOption,
   YhColorPicker,
+  YhBreadcrumb,
+  YhBreadcrumbItem,
   YhConfigProvider
 } from '@yh-ui/components'
 
@@ -107,6 +109,8 @@ export default {
     app.component('YhOption', YhOption)
     app.component('YhColorPicker', YhColorPicker)
     app.component('yh-color-picker', YhColorPicker)
+    app.component('YhBreadcrumb', YhBreadcrumb)
+    app.component('YhBreadcrumbItem', YhBreadcrumbItem)
     app.component('YhConfigProvider', YhConfigProvider)
 
     // 注册文档组件

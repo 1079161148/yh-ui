@@ -8,25 +8,35 @@ import type { SFCWithInstall } from './types'
 /**
  * 为组件添加 install 方法，使其可以作为 Vue 插件使用
  */
-export const withInstall = <T extends Component>(
-  component: T,
-  alias?: string
-): SFCWithInstall<T> => {
-  const comp = component as SFCWithInstall<T>
-
-  comp.install = (app: App): void => {
-    // 优先从组件定义中获取名称
-    const name = (component as { name?: string }).name || (component as { __name?: string }).__name
-
-    if (name) {
-      app.component(name, component)
-      if (alias) {
-        app.component(alias, component)
+export const withInstall = <T extends Component, E extends Record<string, any>>(
+  main: T,
+  extra?: E
+): SFCWithInstall<T> & E => {
+  ;(main as SFCWithInstall<T>).install = (app: App): void => {
+    for (const comp of [main, ...Object.values(extra ?? {})]) {
+      const name = (comp as { name?: string }).name || (comp as { __name?: string }).__name
+      if (name) {
+        app.component(name, comp)
       }
     }
   }
 
-  return comp
+  if (extra) {
+    for (const [key, comp] of Object.entries(extra)) {
+      ;(main as any)[key] = comp
+    }
+  }
+  return main as SFCWithInstall<T> & E
+}
+
+/**
+ * 空安装方法，用于不需要独立安装的子组件
+ */
+export const withNoopInstall = <T extends Component>(component: T): SFCWithInstall<T> => {
+  ;(component as SFCWithInstall<T>).install = () => {
+    // Noop
+  }
+  return component as SFCWithInstall<T>
 }
 
 /**

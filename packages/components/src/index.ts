@@ -34,6 +34,7 @@ import { YhCard } from './card'
 import { YhMessage } from './message'
 import { YhNotification } from './notification'
 import { YhColorPicker } from './color-picker'
+import { YhBreadcrumb, YhBreadcrumbItem } from './breadcrumb'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -65,6 +66,7 @@ export * from './card'
 export * from './message'
 export * from './notification'
 export * from './color-picker'
+export * from './breadcrumb'
 export * from './config-provider'
 
 // 所有组件列表
@@ -103,6 +105,8 @@ const components = [
   YhBadge,
   YhCard,
   YhColorPicker,
+  YhBreadcrumb,
+  YhBreadcrumbItem,
   YhConfigProvider
 ] as Plugin[]
 

@@ -90,6 +90,10 @@ export default defineConfig({
           ]
         },
         {
+          text: 'Navigation 导航组件',
+          items: [{ text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' }]
+        },
+        {
           text: '反馈组件',
           items: [
             { text: 'Dialog 对话框', link: '/components/dialog' },

@@ -1,0 +1,72 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(breadcrumb) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 14px;
+  line-height: normal;
+  color: var(--yh-text-color-regular);
+
+  @include e(ellipsis) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    cursor: pointer;
+    color: var(--yh-text-color-placeholder);
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+  }
+
+  /* 最后一个子项隐藏分隔符 */
+  & > span:last-child {
+    .yh-breadcrumb-item__separator {
+      display: none;
+    }
+    .yh-breadcrumb-item__link {
+      color: var(--yh-text-color-primary);
+      font-weight: 500;
+      cursor: default;
+      &:hover {
+        color: var(--yh-text-color-primary);
+      }
+    }
+  }
+}
+
+@include b(breadcrumb-item) {
+  display: inline-flex;
+  align-items: center;
+
+  @include e(link) {
+    transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    color: var(--yh-text-color-regular);
+    cursor: default;
+
+    @include is(link) {
+      font-weight: 500;
+      cursor: pointer;
+      &:hover {
+        color: var(--yh-color-primary);
+      }
+    }
+  }
+
+  @include e(separator) {
+    margin: 0 8px;
+    color: var(--yh-text-color-placeholder);
+    display: inline-flex;
+    align-items: center;
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}
