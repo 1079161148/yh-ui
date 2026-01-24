@@ -97,9 +97,14 @@ export const generateCalendar = (
 }
 
 /**
+ * 日期配置类型，兼容 Dayjs 的所有合法输入
+ */
+export type DateInput = string | number | Date | Dayjs | null | undefined
+
+/**
  * 格式化日期
  */
-export const formatDate = (date: any, format: string): string => {
+export const formatDate = (date: DateInput, format: string): string => {
   if (!date) return ''
   return dayjs(date).format(format)
 }
@@ -107,7 +112,7 @@ export const formatDate = (date: any, format: string): string => {
 /**
  * 解析日期
  */
-export const parseDate = (date: any, format?: string): Dayjs | null => {
+export const parseDate = (date: DateInput, format?: string): Dayjs | null => {
   if (!date) return null
   const d = format ? dayjs(date, format) : dayjs(date)
   return d.isValid() ? d : null

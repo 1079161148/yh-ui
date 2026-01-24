@@ -2,6 +2,18 @@ import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'node:path'
+import crypto from 'node:crypto'
+
+// Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
+if (typeof (crypto as any).hash !== 'function') {
+  ;(crypto as any).hash = (
+    algorithm: string,
+    data: string | Buffer,
+    outputEncoding: any = 'hex'
+  ) => {
+    return crypto.createHash(algorithm).update(data).digest(outputEncoding)
+  }
+}
 
 export default defineConfig({
   plugins: [vue(), vueJsx()],
@@ -16,7 +28,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'happy-dom',
     // 包含普通测试和 SSR 测试
     include: ['packages/**/__tests__/**/*.test.ts', 'packages/**/__tests__/**/*.ssr.test.ts'],
     // 排除 Nuxt 集成测试（需要单独运行）

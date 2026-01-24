@@ -33,6 +33,7 @@ import { YhBadge } from './badge'
 import { YhCard } from './card'
 import { YhMessage } from './message'
 import { YhNotification } from './notification'
+import { YhColorPicker } from './color-picker'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -63,6 +64,7 @@ export * from './badge'
 export * from './card'
 export * from './message'
 export * from './notification'
+export * from './color-picker'
 export * from './config-provider'
 
 // 所有组件列表
@@ -100,6 +102,7 @@ const components = [
   YhTreeSelect,
   YhBadge,
   YhCard,
+  YhColorPicker,
   YhConfigProvider
 ] as Plugin[]
 
