@@ -17,6 +17,7 @@ const props = defineProps<{
   disabledDate?: (date: Date) => boolean
   firstDayOfWeek?: number
   cellShape?: 'round' | 'square'
+  cellRender?: (date: Date) => string | { text: string; className?: string }
 }>()
 
 const emit = defineEmits<{
@@ -25,6 +26,13 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('date-picker')
+
+// 获取单元格额外信息
+const getCellExtra = (date: Date) => {
+  if (!props.cellRender) return null
+  const res = props.cellRender(date)
+  return typeof res === 'string' ? { text: res } : res
+}
 
 const rows = computed(() => {
   return generateCalendar(props.date, props.firstDayOfWeek, props.disabledDate)
@@ -130,7 +138,12 @@ const handleMouseEnter = (cell: CalendarCell) => {
         <td v-for="(cell, j) in row" :key="j" :class="getCellClasses(cell)" @click="handleClick(cell)"
           @mouseenter="handleMouseEnter(cell)">
           <div :class="ns.e('cell-content')">
-            {{ cell.text }}
+            <slot name="date-cell" :cell="cell">
+              <span :class="ns.e('cell-date')">{{ cell.text }}</span>
+              <span v-if="getCellExtra(cell.date)" :class="[ns.e('cell-extra'), getCellExtra(cell.date)?.className]">
+                {{ getCellExtra(cell.date)?.text }}
+              </span>
+            </slot>
           </div>
         </td>
       </tr>

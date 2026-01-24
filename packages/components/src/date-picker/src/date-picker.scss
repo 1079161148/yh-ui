@@ -279,21 +279,37 @@ $date-picker-sizes: (
     cursor: pointer;
 
     @include e(cell-content) {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 44px; /* 提升高度，给间距留出空间 */
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      border-radius: 10px;
-      font-weight: 600;
+      border-radius: 12px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       z-index: 2;
+
+      @include e(cell-date) {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      @include e(cell-extra) {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 1.2;
+        margin-top: 4px; /* 增加文案间距 */
+        opacity: 0.8;
+      }
     }
 
-    /* 范围背景条 - 适配 48px Cell / 38px Content */
-    &.is-in-range::before {
+    /* 范围背景条 - 统一背景逻辑 */
+    &.is-in-range::before,
+    &.is-range-start::before,
+    &.is-range-end::before {
       content: '';
       position: absolute;
       top: 5px;
@@ -304,13 +320,17 @@ $date-picker-sizes: (
       z-index: 1;
     }
 
+    &.is-in-range {
+      @include e(cell-content) {
+        color: var(--yh-date-picker-primary);
+      }
+    }
+
     &.is-range-start::before {
       border-radius: 10px 0 0 10px;
-      left: 4px;
     }
     &.is-range-end::before {
       border-radius: 0 10px 10px 0;
-      right: 4px;
     }
 
     /* 选中效果 */
@@ -350,7 +370,7 @@ $date-picker-sizes: (
         &::after {
           content: '';
           position: absolute;
-          bottom: 4px;
+          bottom: 0px; /* 向下微调，增加点与文字的距离 */
           left: 50%;
           transform: translateX(-50%);
           width: 4px;
@@ -376,13 +396,14 @@ $date-picker-sizes: (
   @include e(table--month) {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
-    gap: 12px;
+    gap: 0; /* 移除 gap 保证范围背景连贯 */
     padding: 12px 0;
     .yh-date-picker__cell {
       height: 74px;
       @include e(cell-content) {
         width: 100%;
-        height: 50px;
+        max-width: 68px; /* 约束宽度避免过扁 */
+        height: 48px;
         border-radius: 14px;
       }
     }
@@ -391,13 +412,14 @@ $date-picker-sizes: (
   @include e(table--year) {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
-    gap: 12px;
+    gap: 0;
     padding: 12px 0;
     .yh-date-picker__cell {
       height: 74px;
       @include e(cell-content) {
         width: 100%;
-        height: 50px;
+        max-width: 68px;
+        height: 48px;
         border-radius: 14px;
       }
     }
@@ -405,14 +427,15 @@ $date-picker-sizes: (
 
   @include e(table--quarter) {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0;
     padding: 12px 0;
     .yh-date-picker__cell {
-      height: 96px;
+      height: 90px;
       @include e(cell-content) {
         width: 100%;
-        height: 68px;
+        max-width: 68px;
+        height: 64px;
         border-radius: 18px;
       }
     }

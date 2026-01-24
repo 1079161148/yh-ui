@@ -82,7 +82,7 @@ const showcaseTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const type = ref('date')
 const shape = ref('round')
@@ -97,7 +97,7 @@ const types = [
   { value: 'daterange', label: '日期范围' },
   { value: 'monthrange', label: '月范围' }
 ]
-<\/script>`
+<` + `/script>`
 
 const baseTS = `<template>
   <div class="yh-demo-row">
@@ -107,12 +107,12 @@ const baseTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const d1 = ref('')
 const d2 = ref('')
 const d3 = ref('')
-<\/script>`
+<` + `/script>`
 
 const statusTS = `<template>
   <div class="yh-demo-row">
@@ -121,11 +121,11 @@ const statusTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const d4 = ref('2026-01-24')
 const d5 = ref('2026-01-24')
-<\/script>`
+<` + `/script>`
 
 const sizeTS = `<template>
   <div class="yh-demo-row">
@@ -135,12 +135,12 @@ const sizeTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const s1 = ref('')
 const s2 = ref('')
 const s3 = ref('')
-<\/script>`
+<` + `/script>`
 
 const shapeTS = `<template>
   <div class="yh-demo-row">
@@ -149,11 +149,11 @@ const shapeTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const d8 = ref('')
 const d9 = ref('')
-<\/script>`
+<` + `/script>`
 
 const rangeTS = `<template>
   <div class="yh-demo-column">
@@ -162,17 +162,17 @@ const rangeTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const r1 = ref(null)
 const r2 = ref(null)
-<\/script>`
+<` + `/script>`
 
 const presetsTS = `<template>
   <yh-date-picker v-model="d6" :presets="presets" placeholder="点击查看预设" />
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 import dayjs from 'dayjs'
 const d6 = ref(null)
@@ -181,20 +181,20 @@ const presets = [
   { label: '昨天', value: () => dayjs().subtract(1, 'day').toDate() },
   { label: '一周前', value: () => dayjs().subtract(1, 'week').toDate() }
 ]
-<\/script>`
+<` + `/script>`
 
 const disabledTS = `<template>
   <yh-date-picker v-model="d7" :disabled-date="disabledDate" placeholder="今天之前不可选" />
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 import dayjs from 'dayjs'
 const d7 = ref(null)
 const disabledDate = (date: Date) => {
   return dayjs(date).isBefore(dayjs(), 'day')
 }
-<\/script>`
+<` + `/script>`
 
 const customTS = `<template>
   <div class="yh-demo-column">
@@ -208,13 +208,13 @@ const customTS = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 import { ref } from 'vue'
 const dv1 = ref(new Date())
 const dv2 = ref(new Date())
 const dv3 = ref(null)
 const defaultDate = new Date(2025, 0, 1)
-<\/script>`
+<` + `/script>`
 
 const tsNuxt = `<template>
   <div class="yh-demo-row">
@@ -222,15 +222,73 @@ const tsNuxt = `<template>
   </div>
 </template>
 
-<script setup lang="ts">
+<` + `script setup lang="ts">
 // 在 Nuxt 中无需 import，直接定义响应式数据即可
 const date = ref('')
-<\/script>`
+<` + `/script>`
 
 const dv1 = ref(new Date())
 const dv2 = ref(new Date())
 const dv3 = ref(null)
+const d10 = ref(null)
 const defaultDate = new Date(2025, 0, 1)
+
+// 自定义渲染逻辑演示
+const cellRender = (date: Date) => {
+  const day = dayjs(date).format('MM-DD')
+  const holidays: Record<string, string> = {
+    '01-01': '元旦',
+    '01-20': '大寒',
+    '02-16': '除夕',
+    '02-17': '春节',
+    '02-14': '情人节'
+  }
+  if (holidays[day]) {
+    const isHoliday = day === '02-16' || day === '02-17'
+    return {
+      text: holidays[day],
+      className: isHoliday ? 'is-holiday' : 'is-solar-term'
+    }
+  }
+  return ''
+}
+
+const renderTS = `<template>
+  <yh-date-picker 
+    v-model="value" 
+    :cell-render="cellRender" 
+    placeholder="渲染节日与节气" 
+  />
+</template>
+
+<` + `script setup lang="ts">
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+const value = ref(null)
+const cellRender = (date: Date) => {
+  const day = dayjs(date).format('MM-DD')
+  const holidays = {
+    '01-01': '元旦',
+    '01-20': '大寒',
+    '02-16': '除夕',
+    '02-17': '春节',
+    '02-14': '情人节'
+  }
+  if (holidays[day]) {
+    const isHoliday = day === '02-16' || day === '02-17'
+    return {
+      text: holidays[day],
+      className: isHoliday ? 'is-holiday' : 'is-solar-term'
+    }
+  }
+  return ''
+}
+<` + `/script>
+<` + `style>
+.is-holiday { color: var(--yh-color-danger); font-weight: bold; }
+.is-solar-term { color: #0ea5e9; }
+<` + `/style>`
 
 </script>
 
@@ -304,6 +362,21 @@ DatePicker 提供了丰富的属性来满足精细化的定制需求，如自定
   <div class="yh-demo-row">
     <yh-date-picker v-model="d8" cell-shape="round" placeholder="默认圆形" />
     <yh-date-picker v-model="d9" cell-shape="square" placeholder="经典方形" />
+  </div>
+</DemoBlock>
+
+## 自定义单元格内容
+
+通过 `cell-render` 属性或 `date-cell` 插槽，可以自定义日期单元格的显示内容，例如添加农历、节日、节气或业务标记。
+
+<DemoBlock title="节日与节气" :ts-code="renderTS">
+  <div class="yh-demo-row">
+    <yh-date-picker 
+      v-model="d10" 
+      :cell-render="cellRender" 
+      placeholder="渲染节日与节气" 
+      style="width: 280px"
+    />
   </div>
 </DemoBlock>
 
@@ -404,6 +477,7 @@ DatePicker 内部已对 Hydration 进行了优化，确保在 SSR 场景下服�
 | default-value | 选择器打开时默认显示的日期 | `Date \| Date[]` | — |
 | default-time | 默认时间（datetime 模式下） | `Date \| Date[]` | — |
 | panel-only | 是否内联显示（只显示面板） | `boolean` | `false` |
+| cell-render | 自定义单元格渲染函数 | `(date: Date) => string \| { text: string; className?: string }` | — |
 | teleported | 是否将面板插入到 body | `boolean` | `true` |
 | popper-class | 下拉框类名 | `string` | — |
 | validate-event | 是否触发表单验证 | `boolean` | `true` |
@@ -428,6 +502,7 @@ DatePicker 内部已对 Hydration 进行了优化，确保在 SSR 场景下服�
 | prefix-icon | 自定义输入框前缀图标 |
 | clear-icon | 自定义清除图标 |
 | extra | 面板中的额外内容 |
+| date-cell | 自定义日期单元格 (Scope: `{ cell: CalendarCell }`) |
 | footer | 自定义底部区域 |
 
 ## 主题变量
@@ -488,4 +563,13 @@ DatePicker 内部已对 Hydration 进行了优化，确保在 SSR 场景下服�
 .yh-demo-column { display: flex; flex-direction: column; gap: 16px; width: 440px; }
 
 @keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+/* 自定义渲染样式穿透 */
+:deep(.is-holiday) {
+  color: var(--yh-color-danger) !important;
+  font-weight: bold;
+}
+:deep(.is-solar-term) {
+  color: #0ea5e9 !important;
+}
 </style>

@@ -332,7 +332,11 @@ onBeforeUnmount(() => {
               :selection-mode="type === 'week' ? 'week' : 'date'"
               :range-state="isRange ? { from: (modelValue as any)?.[0], to: (modelValue as any)?.[1], hovering: rangeHoverDate } : undefined"
               :disabled-date="disabledDate" :first-day-of-week="firstDayOfWeek" :cell-shape="cellShape"
-              @select="handleSelect" @hover="val => rangeHoverDate = val" />
+              :cell-render="cellRender" @select="handleSelect" @hover="val => rangeHoverDate = val">
+              <template #date-cell="slotProps">
+                <slot name="date-cell" v-bind="slotProps" />
+              </template>
+            </DateTable>
             <MonthTable v-else-if="currentView === 'month'" :date="innerDate" :selected-date="modelValue as any"
               :range-state="isRange ? { from: (modelValue as any)?.[0], to: (modelValue as any)?.[1], hovering: rangeHoverDate } : undefined"
               :disabled-date="disabledDate" :cell-shape="cellShape" @select="handleSelect"

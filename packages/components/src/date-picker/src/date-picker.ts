@@ -197,6 +197,11 @@ export const datePickerProps = {
   cellShape: {
     type: String as PropType<'round' | 'square'>,
     default: 'round'
+  },
+  /** 自定义单元格渲染函数 */
+  cellRender: {
+    type: Function as PropType<(date: Date) => string | { text: string; className?: string }>,
+    default: undefined
   }
 } as const
 
