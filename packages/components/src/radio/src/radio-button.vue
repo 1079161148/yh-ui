@@ -133,7 +133,7 @@ defineExpose<RadioButtonExpose>({
 <template>
   <label :class="buttonClasses" :style="activeStyle">
     <input ref="inputRef" :class="ns.e('original')" type="radio" :name="radioName" :id="id" :tabindex="tabindex"
-      :disabled="isDisabled" :checked="isChecked" :value="value" @change="handleChange" @focus="handleFocus"
+      :disabled="isDisabled" :checked="isChecked" :value="value ?? label" @change="handleChange" @focus="handleFocus"
       @blur="handleBlur" />
     <span :class="ns.e('inner')">
       <slot>{{ label }}</slot>

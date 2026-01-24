@@ -11,6 +11,7 @@
   "dependencies": {
     "@yh-ui/components": "workspace:*",
     "@yh-ui/theme": "workspace:*",
+    "dayjs": "^1.11.19",
     "yh-ui": "workspace:*"
   },
   "devDependencies": {

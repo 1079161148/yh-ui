@@ -93,6 +93,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhSlider',
       'YhTimePicker',
       'YhTimeSelect',
+      'YhDatePicker',
       'YhTransfer',
       'YhTransferPanel',
       'YhTreeSelect',

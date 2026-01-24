@@ -187,7 +187,7 @@ $autocomplete-height-small: 24px;
 
   // 聚焦状态
   @include is(focused) {
-    .yh-autocomplete__wrapper {
+    @include e(wrapper) {
       border-color: var(--yh-color-primary, #409eff);
       box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
     }
@@ -197,7 +197,7 @@ $autocomplete-height-small: 24px;
   @include is(disabled) {
     cursor: not-allowed;
 
-    .yh-autocomplete__wrapper {
+    @include e(wrapper) {
       background-color: var(--yh-fill-color-light, #f5f7fa);
       border-color: var(--yh-border-color-light, #e4e7ed);
       cursor: not-allowed;
@@ -207,7 +207,7 @@ $autocomplete-height-small: 24px;
       }
     }
 
-    .yh-autocomplete__inner {
+    @include e(inner) {
       color: var(--yh-text-color-placeholder, #a8abb2);
       -webkit-text-fill-color: var(--yh-text-color-placeholder, #a8abb2);
     }
@@ -217,11 +217,11 @@ $autocomplete-height-small: 24px;
   @include m(large) {
     font-size: 14px;
 
-    .yh-autocomplete__wrapper {
+    @include e(wrapper) {
       padding: 1px 15px;
     }
 
-    .yh-autocomplete__inner {
+    @include e(inner) {
       height: calc($autocomplete-height-large - 2px);
       line-height: calc($autocomplete-height-large - 2px);
     }
@@ -230,11 +230,11 @@ $autocomplete-height-small: 24px;
   @include m(small) {
     font-size: 12px;
 
-    .yh-autocomplete__wrapper {
+    @include e(wrapper) {
       padding: 1px 7px;
     }
 
-    .yh-autocomplete__inner {
+    @include e(inner) {
       height: calc($autocomplete-height-small - 2px);
       line-height: calc($autocomplete-height-small - 2px);
     }

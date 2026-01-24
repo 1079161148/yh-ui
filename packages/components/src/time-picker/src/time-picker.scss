@@ -1,5 +1,5 @@
-// TimePicker Variables
-$time-picker-prefix: 'yh-time-picker';
+@use 'sass:map';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
 
 :root {
   --yh-time-picker-width: 220px;
@@ -11,8 +11,7 @@ $time-picker-prefix: 'yh-time-picker';
   --yh-time-picker-border-radius: var(--yh-border-radius-base);
 }
 
-// Input wrapper
-.#{$time-picker-prefix} {
+@include b(time-picker) {
   position: relative;
   display: inline-flex;
   width: var(--yh-time-picker-width);
@@ -21,69 +20,66 @@ $time-picker-prefix: 'yh-time-picker';
   cursor: pointer;
 
   // Sizes
-  &--large {
+  @include m(large) {
     width: 240px;
     font-size: 16px;
 
-    .#{$time-picker-prefix}__wrapper {
+    @include e(wrapper) {
       padding: 10px 12px;
     }
 
-    .#{$time-picker-prefix}__inner,
-    .#{$time-picker-prefix}__range-input {
+    @include e((inner, range-input)) {
       font-size: 16px;
     }
   }
 
-  &--small {
+  @include m(small) {
     width: 180px;
     font-size: 12px;
 
-    .#{$time-picker-prefix}__wrapper {
+    @include e(wrapper) {
       padding: 4px 8px;
     }
 
-    .#{$time-picker-prefix}__inner,
-    .#{$time-picker-prefix}__range-input {
+    @include e((inner, range-input)) {
       font-size: 12px;
     }
   }
 
   // Range mode
-  &.is-range {
-    width: 360px;
+  @include is(range) {
+    width: var(--yh-time-picker-range-width);
 
-    .#{$time-picker-prefix}__wrapper {
+    @include e(wrapper) {
       justify-content: space-between;
     }
   }
 
   // Disabled state
-  &.is-disabled {
+  @include is(disabled) {
     cursor: not-allowed;
 
-    .#{$time-picker-prefix}__wrapper {
+    @include e(wrapper) {
       background-color: var(--yh-fill-color-light);
       border-color: var(--yh-border-color-light);
     }
 
-    .#{$time-picker-prefix}__inner,
-    .#{$time-picker-prefix}__range-input {
+    @include e((inner, range-input)) {
       color: var(--yh-text-color-disabled);
       cursor: not-allowed;
     }
   }
 
   // Focused state
-  &.is-focused {
-    .#{$time-picker-prefix}__wrapper {
+  @include is(focused) {
+    @include e(wrapper) {
       border-color: var(--yh-color-primary);
       box-shadow: 0 0 0 2px rgba(var(--yh-color-primary-rgb), 0.15);
     }
   }
 
   // Wrapper
-  &__wrapper {
+  @include e(wrapper) {
     display: flex;
     align-items: center;
     width: 100%;
@@ -99,7 +95,7 @@ $time-picker-prefix: 'yh-time-picker';
   }
 
   // Prefix
-  &__prefix {
+  @include e(prefix) {
     display: flex;
     align-items: center;
     margin-right: 8px;
@@ -107,7 +103,7 @@ $time-picker-prefix: 'yh-time-picker';
   }
 
   // Input
-  &__inner {
+  @include e(inner) {
     flex: 1;
     width: 100%;
     min-width: 0;
@@ -119,7 +115,7 @@ $time-picker-prefix: 'yh-time-picker';
     background: transparent;
     border: none;
     outline: none;
-    font-variant-numeric: tabular-nums; // 确保数字等宽
+    font-variant-numeric: tabular-nums;
     font-feature-settings: 'tnum';
 
     &::placeholder {
@@ -128,7 +124,7 @@ $time-picker-prefix: 'yh-time-picker';
   }
 
   // Range inputs
-  &__range-input {
+  @include e(range-input) {
     flex: 1;
     width: 0;
     min-width: 60px;
@@ -141,7 +137,7 @@ $time-picker-prefix: 'yh-time-picker';
     background: transparent;
     border: none;
     outline: none;
-    font-variant-numeric: tabular-nums; // 确保数字等宽
+    font-variant-numeric: tabular-nums;
     font-feature-settings: 'tnum';
 
     &::placeholder {
@@ -149,28 +145,28 @@ $time-picker-prefix: 'yh-time-picker';
     }
   }
 
-  &__range-separator {
+  @include e(range-separator) {
     display: inline-flex;
     align-items: center;
     padding: 0 8px;
     color: var(--yh-text-color-secondary);
     font-weight: 500;
-    flex-shrink: 0; // 防止被挤压
+    flex-shrink: 0;
   }
 
   // Suffix
-  &__suffix {
+  @include e(suffix) {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 4px;
     margin-left: 8px;
-    width: 40px; // 预留两个图标的空间 (14px + 14px + 4px gap + margin)，防止 showClear 切换时挤压 flex
+    width: 40px;
     flex-shrink: 0;
   }
 
   // Icons
-  &__icon {
+  @include e(icon) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -182,7 +178,7 @@ $time-picker-prefix: 'yh-time-picker';
     flex-shrink: 0;
   }
 
-  &__clear {
+  @include e(clear) {
     cursor: pointer;
 
     &:hover {
@@ -190,16 +186,16 @@ $time-picker-prefix: 'yh-time-picker';
     }
   }
 
-  &__arrow {
+  @include e(arrow) {
     transition: transform 0.2s;
 
-    &.is-reverse {
+    @include is(reverse) {
       transform: rotate(180deg);
     }
   }
 
   // Panel
-  &__panel {
+  @include e(panel) {
     position: absolute;
     z-index: var(--yh-z-index-popup);
     min-width: 200px;
@@ -209,7 +205,7 @@ $time-picker-prefix: 'yh-time-picker';
     box-shadow: var(--yh-box-shadow-light);
     border: 1px solid var(--yh-border-color-light);
 
-    // Animation
+    // Animation classes for Vue Transition
     &-enter-active,
     &-leave-active {
       transition:
@@ -225,17 +221,17 @@ $time-picker-prefix: 'yh-time-picker';
   }
 
   // Range panel
-  &__range-panel {
+  @include e(range-panel) {
     display: flex;
     align-items: flex-start;
     padding: 0 8px;
   }
 
-  &__range-panel-item {
+  @include e(range-panel-item) {
     flex: 1;
   }
 
-  &__range-panel-title {
+  @include e(range-panel-title) {
     padding: 8px 0;
     font-size: 12px;
     font-weight: 500;
@@ -243,7 +239,7 @@ $time-picker-prefix: 'yh-time-picker';
     text-align: center;
   }
 
-  &__range-panel-separator {
+  @include e(range-panel-separator) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -257,7 +253,7 @@ $time-picker-prefix: 'yh-time-picker';
   }
 
   // Footer
-  &__footer {
+  @include e(footer) {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -266,12 +262,12 @@ $time-picker-prefix: 'yh-time-picker';
     margin-top: 8px;
   }
 
-  &__footer-actions {
+  @include e(footer-actions) {
     display: flex;
     gap: 8px;
   }
 
-  &__footer-btn {
+  @include e(footer-btn) {
     padding: 6px 16px;
     font-size: 13px;
     font-weight: 500;
@@ -287,7 +283,7 @@ $time-picker-prefix: 'yh-time-picker';
       color: var(--yh-color-primary);
     }
 
-    &--cancel {
+    @include m(cancel) {
       border-color: var(--yh-border-color);
       background-color: var(--yh-bg-color);
 
@@ -297,15 +293,14 @@ $time-picker-prefix: 'yh-time-picker';
       }
     }
 
-    &--confirm {
-      color: #fff !important; // 强制白色
+    @include m(confirm) {
+      color: #fff !important;
       font-weight: 600;
       background-color: var(--yh-color-primary);
       border-color: var(--yh-color-primary);
       box-shadow: 0 2px 4px rgba(64, 158, 255, 0.3);
 
       &:hover {
-        // 使用明显更深的蓝色
         background-color: #1d79d8 !important;
         border-color: #1d79d8 !important;
         color: #fff !important;

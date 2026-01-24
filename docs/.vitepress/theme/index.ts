@@ -51,6 +51,7 @@ import {
   YhSlider,
   YhTimePicker,
   YhTimeSelect,
+  YhDatePicker,
   YhTransfer,
   YhTransferPanel,
   YhTreeSelect,
@@ -96,6 +97,7 @@ export default {
     app.component('YhSlider', YhSlider)
     app.component('YhTimePicker', YhTimePicker)
     app.component('YhTimeSelect', YhTimeSelect)
+    app.component('YhDatePicker', YhDatePicker)
     app.component('YhTransfer', YhTransfer)
     app.component('YhTransferPanel', YhTransferPanel)
     app.component('YhTreeSelect', YhTreeSelect)

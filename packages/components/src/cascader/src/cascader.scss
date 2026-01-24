@@ -118,7 +118,7 @@
   @include e(arrow) {
     transition: transform 0.3s;
 
-    &.is-reverse {
+    @include is(reverse) {
       transform: rotate(180deg);
     }
   }
@@ -178,7 +178,7 @@
     margin-top: 4px;
     background-color: var(--yh-cascader-dropdown-bg-color, #fff);
     border: 1px solid var(--yh-cascader-dropdown-border-color, #e4e7ed);
-    border-radius: var(--yh-cascader-border-radius, 4px);
+    border-radius: var(--yh-border-radius-base, 4px);
     box-shadow: var(--yh-cascader-dropdown-shadow, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
   }
 
@@ -227,7 +227,7 @@
       background-color: var(--yh-color-primary-light-9, #ecf5ff);
       font-weight: 600;
 
-      &.is-expanded {
+      @include is(expanded) {
         background-color: var(--yh-color-primary-light-9, #ecf5ff);
       }
     }
@@ -324,7 +324,7 @@
 
   // 聚焦状态
   @include is(focused) {
-    .yh-cascader__wrapper {
+    @include e(wrapper) {
       border-color: var(--yh-cascader-border-color-focus);
     }
   }
@@ -333,13 +333,13 @@
   @include is(disabled) {
     cursor: not-allowed;
 
-    .yh-cascader__wrapper {
+    @include e(wrapper) {
       background-color: var(--yh-cascader-disabled-bg-color);
       border-color: var(--yh-cascader-dropdown-border-color);
       cursor: not-allowed;
     }
 
-    .yh-cascader__inner {
+    @include e(inner) {
       color: var(--yh-cascader-disabled-text-color);
     }
   }
@@ -348,16 +348,16 @@
   @include m(large) {
     font-size: 14px;
 
-    .yh-cascader__wrapper {
+    @include e(wrapper) {
       min-height: var(--yh-cascader-height-large);
     }
 
-    .yh-cascader__inner {
+    @include e(inner) {
       height: calc(var(--yh-cascader-height-large) - 6px);
       line-height: calc(var(--yh-cascader-height-large) - 6px);
     }
 
-    .yh-cascader__tag {
+    @include e(tag) {
       height: 26px;
     }
   }
@@ -366,16 +366,16 @@
   @include m(small) {
     font-size: 12px;
 
-    .yh-cascader__wrapper {
+    @include e(wrapper) {
       min-height: var(--yh-cascader-height-small);
     }
 
-    .yh-cascader__inner {
+    @include e(inner) {
       height: calc(var(--yh-cascader-height-small) - 6px);
       line-height: calc(var(--yh-cascader-height-small) - 6px);
     }
 
-    .yh-cascader__tag {
+    @include e(tag) {
       height: 18px;
       font-size: 10px;
     }

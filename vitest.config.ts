@@ -16,7 +16,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'happy-dom',
+    environment: 'jsdom',
     // 包含普通测试和 SSR 测试
     include: ['packages/**/__tests__/**/*.test.ts', 'packages/**/__tests__/**/*.ssr.test.ts'],
     // 排除 Nuxt 集成测试（需要单独运行）
