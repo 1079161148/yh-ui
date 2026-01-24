@@ -37,6 +37,7 @@ import { YhColorPicker } from './color-picker'
 import { YhBreadcrumb, YhBreadcrumbItem } from './breadcrumb'
 import { YhBackTop } from './back-top'
 import { YhAlert } from './alert'
+import { YhSkeleton, YhSkeletonItem } from './skeleton'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -71,6 +72,7 @@ export * from './color-picker'
 export * from './breadcrumb'
 export * from './back-top'
 export * from './alert'
+export * from './skeleton'
 export * from './config-provider'
 
 // 所有组件列表
@@ -113,6 +115,8 @@ const components = [
   YhBreadcrumbItem,
   YhBackTop,
   YhAlert,
+  YhSkeleton,
+  YhSkeletonItem,
   YhConfigProvider
 ] as Plugin[]
 

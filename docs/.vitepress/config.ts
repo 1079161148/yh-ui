@@ -51,10 +51,11 @@ export default defineConfig({
         {
           text: '基础组件',
           items: [
-            { text: 'Layout 布局', link: '/components/layout' },
             { text: 'Button 按钮', link: '/components/button' },
+            { text: 'Link 链接', link: '/components/link' },
             { text: 'Icon 图标', link: '/components/icon' },
-            { text: 'Tag 标签', link: '/components/tag' }
+            { text: 'Skeleton 骨架屏', link: '/components/skeleton' },
+            { text: 'ColorPicker 颜色选择器', link: '/components/color-picker' }
           ]
         },
         {

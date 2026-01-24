@@ -63,6 +63,8 @@ import {
   YhBreadcrumbItem,
   YhBackTop,
   YhAlert,
+  YhSkeleton,
+  YhSkeletonItem,
   YhConfigProvider
 } from '@yh-ui/components'
 
@@ -115,6 +117,8 @@ export default {
     app.component('YhBreadcrumbItem', YhBreadcrumbItem)
     app.component('YhBackTop', YhBackTop)
     app.component('YhAlert', YhAlert)
+    app.component('YhSkeleton', YhSkeleton)
+    app.component('YhSkeletonItem', YhSkeletonItem)
     app.component('YhConfigProvider', YhConfigProvider)
 
     // 注册文档组件
