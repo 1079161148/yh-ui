@@ -1,0 +1,225 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(alert) {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+
+  @include is(center) {
+    justify-content: center;
+    text-align: center;
+    .yh-alert__icon {
+      margin-right: 8px;
+    }
+  }
+
+  @include is(with-description) {
+    padding: 16px;
+    align-items: flex-start;
+    .yh-alert__icon {
+      font-size: 24px;
+      margin-right: 12px;
+    }
+    .yh-alert__title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+  }
+
+  /* 状态颜色定义 */
+  @each $type in (success, info, warning, error) {
+    @include m($type) {
+      $color-key: $type;
+      @if $type == 'error' {
+        $color-key: 'danger';
+      }
+      $color: var(--yh-color-#{$color-key});
+      $bg: var(--yh-color-#{$color-key}-light-9);
+      $border: var(--yh-color-#{$color-key}-light-8);
+
+      color: $color;
+      background-color: $bg;
+      border: 1px solid transparent;
+
+      @include m(outline) {
+        background-color: transparent;
+        border-color: $color;
+      }
+
+      @include m(dark) {
+        background-color: $color;
+        color: #fff;
+        .yh-alert__description {
+          color: rgba(255, 255, 255, 0.9);
+        }
+      }
+
+      @include m(glass) {
+        background: rgba($bg, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba($color, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+      }
+
+      .yh-alert__progress-bar {
+        background-color: $color;
+        opacity: 0.3;
+      }
+
+      /* 自动适配侧边渐变，用于提升滚动丝滑感 */
+      .yh-alert__description-wrapper {
+        &::before {
+          background: linear-gradient(to right, $bg, transparent);
+        }
+        &::after {
+          background: linear-gradient(to left, $bg, transparent);
+        }
+      }
+      &.yh-alert--dark .yh-alert__description-wrapper {
+        &::before {
+          background: linear-gradient(to right, $color, transparent);
+        }
+        &::after {
+          background: linear-gradient(to left, $color, transparent);
+        }
+      }
+    }
+  }
+
+  @include e(icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  @include e(content) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  @include e(description-wrapper) {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    &::before {
+      left: 0;
+    }
+    &::after {
+      right: 0;
+    }
+  }
+
+  @include is(scrollable) {
+    .yh-alert__description-content {
+      display: inline-flex;
+      animation: yh-alert-marquee-endless var(--yh-alert-scroll-speed, 15s) linear infinite;
+      will-change: transform;
+      padding-left: 20px; /* 给起始位置一点呼吸空间 */
+    }
+    .yh-alert__description {
+      white-space: nowrap;
+      padding-right: 50px; /* 两个拷贝之间的间距 */
+      display: inline-block;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    @include is(pause-on-hover) {
+      &:hover .yh-alert__description-content {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @include e(title) {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+  @include e(description) {
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
+    color: inherit;
+    opacity: 0.85;
+  }
+  @include e(action) {
+    margin-top: 8px;
+    display: flex;
+    gap: 12px;
+  }
+
+  @include e(close) {
+    cursor: pointer;
+    margin-left: 12px;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+    opacity: 0.6;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    line-height: normal;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  @include e(progress-track) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.03);
+  }
+  @include e(progress-bar) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@keyframes yh-alert-marquee-endless {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.yh-alert-fade-enter-active,
+.yh-alert-fade-leave-active {
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.yh-alert-fade-enter-from,
+.yh-alert-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-20px) scaleY(0.5);
+}

@@ -91,11 +91,15 @@ export default defineConfig({
         },
         {
           text: 'Navigation 导航组件',
-          items: [{ text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' }]
+          items: [
+            { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
+            { text: 'BackTop 回到顶部', link: '/components/back-top' }
+          ]
         },
         {
           text: '反馈组件',
           items: [
+            { text: 'Alert 警告提示', link: '/components/alert' },
             { text: 'Dialog 对话框', link: '/components/dialog' },
             { text: 'Message 消息提示', link: '/components/message' },
             { text: 'Notification 通知', link: '/components/notification' }

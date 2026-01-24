@@ -110,7 +110,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhIcon',
       'YhColorPicker',
       'YhBreadcrumb',
-      'YhBreadcrumbItem'
+      'YhBreadcrumbItem',
+      'YhBackTop',
+      'YhAlert'
     ]
 
     components.forEach((name) => {

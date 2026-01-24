@@ -35,6 +35,8 @@ import { YhMessage } from './message'
 import { YhNotification } from './notification'
 import { YhColorPicker } from './color-picker'
 import { YhBreadcrumb, YhBreadcrumbItem } from './breadcrumb'
+import { YhBackTop } from './back-top'
+import { YhAlert } from './alert'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -67,6 +69,8 @@ export * from './message'
 export * from './notification'
 export * from './color-picker'
 export * from './breadcrumb'
+export * from './back-top'
+export * from './alert'
 export * from './config-provider'
 
 // 所有组件列表
@@ -107,6 +111,8 @@ const components = [
   YhColorPicker,
   YhBreadcrumb,
   YhBreadcrumbItem,
+  YhBackTop,
+  YhAlert,
   YhConfigProvider
 ] as Plugin[]
 
