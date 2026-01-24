@@ -81,6 +81,15 @@ import { ref } from 'vue'
 const color = ref('#8b5cf6')
 <` + `/script>`
 
+const tsDisabled = `<template>
+  <yh-color-picker v-model="color" disabled />
+</template>
+
+<` + `script setup lang="ts">
+import { ref } from 'vue'
+const color = ref('#6366f1')
+<` + `/script>`
+
 const tsNuxt = `<template>
   <div class="yh-demo-row">
     <yh-color-picker v-model="color" />
@@ -161,7 +170,7 @@ ColorPicker 提供全功能的交互演示，您可以实时切换透明度支�
 
 设置 `disabled` 属性后颜色选择器将无法进行交互。
 
-<DemoBlock title="禁用状态">
+<DemoBlock title="禁用状态" :ts-code="tsDisabled">
   <yh-color-picker v-model="color1" disabled />
 </DemoBlock>
 
