@@ -84,10 +84,10 @@ export default defineConfig({
         {
           text: '数据展示',
           items: [
-            { text: 'Table 表格', link: '/components/table' },
-            { text: 'Divider 分割线', link: '/components/divider' },
             { text: 'Badge 徽标', link: '/components/badge' },
-            { text: 'Card 卡片', link: '/components/card' }
+            { text: 'Card 卡片', link: '/components/card' },
+            { text: 'Tag 标签', link: '/components/tag' },
+            { text: 'Progress 进度条', link: '/components/progress' }
           ]
         },
         {

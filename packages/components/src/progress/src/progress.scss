@@ -1,0 +1,283 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(progress) {
+  position: relative;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+
+  @include e(text) {
+    font-size: 14px;
+    color: var(--yh-text-color-regular);
+    margin-left: 10px;
+    min-width: 40px;
+    flex-shrink: 0;
+  }
+
+  /* 线型布局 */
+  @include m(line) {
+    width: 100%;
+
+    @include is(without-text) {
+      @include e(bar) {
+        padding-right: 0;
+        margin-right: 0;
+      }
+      @include e(text) {
+        display: none;
+      }
+    }
+
+    @include is(text-inside) {
+      @include e(bar) {
+        padding-right: 0;
+        margin-right: 0;
+      }
+    }
+  }
+
+  @include e(bar) {
+    flex: 1;
+    margin-right: -45px;
+    padding-right: 45px;
+    box-sizing: border-box;
+  }
+
+  @include e(outer) {
+    width: 100%;
+    background-color: var(--yh-fill-color-darker);
+    border-radius: 100px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  @include e(inner) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--yh-color-primary);
+    border-radius: 100px;
+    transition: width 0.6s ease;
+    text-align: right;
+    line-height: normal;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 1;
+
+    /* 条纹模式 */
+    @include is(striped) {
+      background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+      );
+      background-size: 40px 40px;
+    }
+
+    /* 条纹流动动画 (自创极致优化) */
+    @include is(striped-flow) {
+      animation-name: yh-progress-stripes;
+      animation-duration: var(--yh-progress-duration, 2s);
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    /* 未确定状态 (左右滑动) */
+    @include is(indeterminate) {
+      animation-name: yh-progress-indeterminate;
+      animation-duration: var(--yh-progress-duration, 3s);
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  @include e(secondary-inner) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--yh-fill-color-dark);
+    opacity: 0.5;
+    border-radius: 100px;
+    transition: width 0.6s ease;
+  }
+
+  @include e(innerText) {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 12px;
+    margin: 0 5px;
+  }
+
+  @include e(steps) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  @include e(step-item) {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: #fff;
+    transform: translateX(-50%);
+    opacity: 0.3;
+  }
+
+  /* 环型/仪表盘 */
+  @include m(circle) {
+    display: inline-block;
+
+    @include e(text) {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  @include m(dashboard) {
+    display: inline-block;
+
+    @include e(text) {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  @include e(circle) {
+    position: relative;
+  }
+
+  @include e(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include e(icon) {
+    vertical-align: middle;
+    font-size: 1.2em;
+  }
+
+  /* 动画效果 (Animated) */
+  @include is(animated) {
+    @include e(circle-path) {
+      animation: yh-progress-rotate var(--yh-progress-duration, 3s) linear infinite;
+      transform-origin: center;
+    }
+    @include e(text) {
+      animation: yh-progress-pulse 2s ease-in-out infinite;
+    }
+  }
+
+  /* 语义化状态颜色覆盖 */
+  @include is(success) {
+    @include e(inner) {
+      background-color: var(--yh-color-success);
+    }
+    @include e(circle-path) {
+      stroke: var(--yh-color-success);
+    }
+    @include e(text) {
+      color: var(--yh-color-success);
+    }
+  }
+  @include is(exception) {
+    @include e(inner) {
+      background-color: var(--yh-color-danger);
+    }
+    @include e(circle-path) {
+      stroke: var(--yh-color-danger);
+    }
+    @include e(text) {
+      color: var(--yh-color-danger);
+    }
+  }
+  @include is(warning) {
+    @include e(inner) {
+      background-color: var(--yh-color-warning);
+    }
+    @include e(circle-path) {
+      stroke: var(--yh-color-warning);
+    }
+    @include e(text) {
+      color: var(--yh-color-warning);
+    }
+  }
+}
+
+/* 动效关键帧 */
+@keyframes yh-progress-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes yh-progress-indeterminate {
+  0% {
+    left: -35%;
+    width: 35%;
+  }
+  100% {
+    left: 100%;
+    width: 35%;
+  }
+}
+
+@keyframes yh-progress-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes yh-progress-pulse {
+  0% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}

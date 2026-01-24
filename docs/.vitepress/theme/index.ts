@@ -65,6 +65,7 @@ import {
   YhAlert,
   YhSkeleton,
   YhSkeletonItem,
+  YhProgress,
   YhConfigProvider
 } from '@yh-ui/components'
 
@@ -119,6 +120,7 @@ export default {
     app.component('YhAlert', YhAlert)
     app.component('YhSkeleton', YhSkeleton)
     app.component('YhSkeletonItem', YhSkeletonItem)
+    app.component('YhProgress', YhProgress)
     app.component('YhConfigProvider', YhConfigProvider)
 
     // 注册文档组件

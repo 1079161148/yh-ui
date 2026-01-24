@@ -114,7 +114,8 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhBackTop',
       'YhAlert',
       'YhSkeleton',
-      'YhSkeletonItem'
+      'YhSkeletonItem',
+      'YhProgress'
     ]
 
     components.forEach((name) => {
