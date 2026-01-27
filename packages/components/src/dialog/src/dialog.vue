@@ -35,6 +35,7 @@ const visible = ref(false)
 const closed = ref(true)
 const dialogRef = ref<HTMLElement | null>(null)
 const headerRef = ref<HTMLElement | null>(null)
+const rendered = ref(false)
 
 // 锁屏逻辑
 useScrollLock(computed(() => props.modelValue && props.lockScroll))
@@ -280,6 +281,7 @@ const handleWrapperClick = (e: MouseEvent) => {
 
 watch(() => props.modelValue, async (val) => {
   if (val) {
+    rendered.value = true
     closed.value = false
     visible.value = true
     emit('open')
@@ -338,8 +340,8 @@ defineExpose({
 <template>
   <Teleport :to="teleportTo">
     <Transition :name="ns.b('fade')" @after-leave="afterLeave">
-      <div v-if="modelValue" :class="ns.e('wrapper')" :style="{ zIndex }" @mousedown="handleWrapperMouseDown"
-        @click.self="handleWrapperClick">
+      <div v-if="rendered" v-show="modelValue" :class="ns.e('wrapper')" :style="{ zIndex }"
+        @mousedown="handleWrapperMouseDown" @click.self="handleWrapperClick">
         <div ref="dialogRef" :role="'dialog'" :aria-modal="true" :aria-labelledby="dialogId" :class="dialogClasses"
           :style="style" tabindex="-1">
           <!-- 头部 -->
@@ -362,7 +364,7 @@ defineExpose({
             <div v-if="loading" :class="ns.e('loading')">
               <YhSpin :show="true" size="small" />
             </div>
-            <slot v-if="!destroyOnClose || modelValue">
+            <slot v-if="!destroyOnClose || !closed">
               <template v-if="content">
                 <template v-if="typeof content === 'string'">{{ content }}</template>
                 <component v-else :is="content" />

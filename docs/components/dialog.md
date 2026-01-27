@@ -24,8 +24,9 @@ const visibleSwap = ref(false)
 const visibleFooterLeft = ref(false)
 const visibleFooterCenter = ref(false)
 const visibleFooterRight = ref(false)
-const visibleHeaderAlign = ref(false)
 const visibleContentAlign = ref(false)
+const visibleDestroy = ref(false)
+const visibleDestroyNormal = ref(false)
 
 // 函数式调用示例
 import { useDialog, YhDialogMethod, YhMessage } from '@yh-ui/components'
@@ -789,6 +790,95 @@ const handleFunctionalSwap = () => {
 }
 \x3c/script>`
 
+const tsFullscreen = `<template>
+  <yh-button type="primary" @click="visible = true">打开全屏弹窗</yh-button>
+
+  <yh-dialog v-model="visible" title="全屏视界" fullscreen>
+    <div style="padding: 24px;">
+      <h3>旗舰级全屏体验</h3>
+      <p>在开启 <code>fullscreen</code> 属性后，对话框将占据整个屏幕视口。这适用于复杂表单、沉浸式预览或大型数据展示场景。</p>
+    </div>
+  </yh-dialog>
+</template>
+
+\x3cscript setup lang="ts">
+import { ref } from 'vue'
+const visible = ref(false)
+\x3c/script>`
+
+const jsFullscreen = `<template>
+  <yh-button type="primary" @click="visible = true">打开全屏弹窗</yh-button>
+
+  <yh-dialog v-model="visible" title="全屏视界" fullscreen>
+    <div style="padding: 24px;">
+      <p>全屏模式下，弹窗将自动适配视口尺寸，并保持头尾固定（通过内置的 Flex 布局实现）。</p>
+    </div>
+  </yh-dialog>
+</template>
+
+\x3cscript setup>
+import { ref } from 'vue'
+const visible = ref(false)
+\x3c/script>`
+
+const tsDestroy = `<template>
+  <div style="display: flex; gap: 12px;">
+    <yh-button @click="visibleNormal = true">常规模式</yh-button>
+    <yh-button type="primary" plain @click="visibleDestroy = true">开启销毁模式</yh-button>
+  </div>
+
+  <!-- 常规模式：状态保留 -->
+  <yh-dialog v-model="visibleNormal" title="状态保留中">
+    <div style="padding: 10px 0;">
+      <p style="margin-bottom: 12px;">在该输入框中输入任何内容，关闭后再打开，内容<strong>依然存在</strong>：</p>
+      <input style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 100%; outline: none;" placeholder="我是持久状态..." />
+    </div>
+  </yh-dialog>
+
+  <!-- 销毁模式：性能优化 -->
+  <yh-dialog v-model="visibleDestroy" title="状态销毁演示" destroy-on-close>
+    <div style="padding: 10px 0;">
+      <p style="margin-bottom: 12px;">在该输入框中输入内容，关闭后再打开，由于 DOM 已被卸载，内容会<strong>清空重置</strong>：</p>
+      <input style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 100%; outline: none;" placeholder="我是瞬时状态..." />
+      <p style="margin-top: 20px; color: #909399; font-size: 14px; line-height: 1.6;">
+        💡 <strong>性能贴士</strong>：<br/>
+        当弹窗内包含重量级组件时，开启此项可确保页面处于极低内存负载。
+      </p>
+    </div>
+  </yh-dialog>
+</template>
+
+\x3cscript setup lang="ts">
+import { ref } from 'vue'
+const visibleNormal = ref(false)
+const visibleDestroy = ref(false)
+\x3c/script>`
+
+const jsDestroy = `<template>
+  <div style="display: flex; gap: 12px;">
+    <yh-button @click="visibleNormal = true">常规模式</yh-button>
+    <yh-button type="primary" plain @click="visibleDestroy = true">开启销毁模式</yh-button>
+  </div>
+
+  <yh-dialog v-model="visibleNormal" title="状态保留中">
+    <div style="padding: 10px 0;">
+      <input style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 100%;" placeholder="我是持久状态..." />
+    </div>
+  </yh-dialog>
+
+  <yh-dialog v-model="visibleDestroy" title="状态销毁演示" destroy-on-close>
+    <div style="padding: 10px 0;">
+      <input style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 100%;" placeholder="我是瞬时状态..." />
+    </div>
+  </yh-dialog>
+</template>
+
+\x3cscript setup>
+import { ref } from 'vue'
+const visibleNormal = ref(false)
+const visibleDestroy = ref(false)
+\x3c/script>`
+
 </script>
 
 # Dialog 对话框
@@ -833,6 +923,16 @@ const handleFunctionalSwap = () => {
 <yh-button type="primary" @click="visibleCenter = false">立即提交</yh-button>
 </template>
 </YhDialog>
+</DemoBlock>
+
+<DemoBlock title="全屏展示" :ts-code="tsFullscreen" :js-code="jsFullscreen">
+  <yh-button type="primary" @click="visibleFullscreen = true">打开全屏弹窗</yh-button>
+  <YhDialog v-model="visibleFullscreen" title="全屏视界" fullscreen @confirm="visibleFullscreen = false" @cancel="visibleFullscreen = false">
+    <div style="padding: 24px;">
+      <h3>旗舰级全屏体验</h3>
+      <p>在开启 <code>fullscreen</code> 属性后，对话框将占据整个屏幕视口。这适用于复杂表单、沉浸式预览或大型数据展示场景。</p>
+    </div>
+  </YhDialog>
 </DemoBlock>
 
 ## 底部对齐
@@ -915,6 +1015,33 @@ YH-UI 提供了丰富的增强配置，支持语义化类型映射、原子级�
   :content="renderContent"
   :action="renderAction"
 />
+</DemoBlock>
+
+<DemoBlock title="关闭销毁 (性能优化)" :ts-code="tsDestroy" :js-code="jsDestroy">
+  <div style="display: flex; gap: 12px;">
+    <yh-button @click="visibleDestroyNormal = true">常规模式</yh-button>
+    <yh-button type="primary" plain @click="visibleDestroy = true">开启销毁模式</yh-button>
+  </div>
+
+  <!-- 常规模组 -->
+  <YhDialog v-model="visibleDestroyNormal" title="状态保留中">
+    <div style="padding: 10px 0;">
+      <p style="margin-bottom: 12px;">在该输入框中输入任何内容，关闭后再打开，内容<strong>依然存在</strong>：</p>
+      <input style="border: 1px solid var(--yh-border-color); padding: 10px; border-radius: 8px; width: 100%; outline: none;" placeholder="我是持久状态..." />
+    </div>
+  </YhDialog>
+
+  <!-- 销毁模块 -->
+  <YhDialog v-model="visibleDestroy" title="状态销毁演示" destroy-on-close>
+    <div style="padding: 10px 0;">
+      <p style="margin-bottom: 12px;">在该输入框中输入内容，关闭后再打开，由于 DOM 已被卸载，内容会<strong>清空重置</strong>：</p>
+      <input style="border: 1px solid var(--yh-border-color); padding: 10px; border-radius: 8px; width: 100%; outline: none;" placeholder="我是瞬时状态..." />
+      <p style="margin-top: 20px; color: #909399; font-size: 14px; line-height: 1.6;">
+        💡 <strong>性能贴士</strong>：<br/>
+        当弹窗内包含重量级组件时，开启此项可确保页面处于极低内存负载。
+      </p>
+    </div>
+  </YhDialog>
 </DemoBlock>
 
 <DemoBlock title="鼠标起源动画" :ts-code="tsOrigin" :js-code="jsOrigin">
