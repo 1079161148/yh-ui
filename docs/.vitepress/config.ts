@@ -77,7 +77,8 @@ export default defineConfig({
             { text: 'DatePicker 日期选择器', link: '/components/date-picker' },
             { text: 'ColorPicker 颜色选择器', link: '/components/color-picker' },
             { text: 'Transfer 穿梭框', link: '/components/transfer' },
-            { text: 'TreeSelect 树形选择', link: '/components/tree-select' } // TreeSelect Component
+            { text: 'TreeSelect 树形选择', link: '/components/tree-select' },
+            { text: 'Upload 上传', link: '/components/upload' }
           ]
         },
         {
@@ -87,6 +88,7 @@ export default defineConfig({
             { text: 'Card 卡片', link: '/components/card' },
             { text: 'Tag 标签', link: '/components/tag' },
             { text: 'Progress 进度条', link: '/components/progress' },
+            { text: 'Watermark 水印', link: '/components/watermark' },
             { text: 'Marquee 跑马灯', link: '/components/marquee' }
           ]
         },
@@ -109,7 +111,8 @@ export default defineConfig({
             { text: 'Loading 加载', link: '/components/loading' },
             { text: 'Message 消息提示', link: '/components/message' },
             { text: 'MessageBox 消息弹框', link: '/components/message-box' },
-            { text: 'Notification 通知', link: '/components/notification' }
+            { text: 'Notification 通知', link: '/components/notification' },
+            { text: 'Drawer 抽屉', link: '/components/drawer' }
           ]
         },
         {

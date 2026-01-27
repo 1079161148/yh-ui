@@ -46,6 +46,9 @@ import { YhTooltip } from './tooltip'
 import { YhPopconfirm } from './popconfirm'
 import { YhPopover } from './popover'
 import { YhDialog, YhDialogMethod } from './dialog'
+import { YhDrawer } from './drawer'
+import { YhWatermark } from './watermark'
+import { YhUpload } from './upload'
 import { YhMarquee } from './marquee'
 import { YhConfigProvider } from './config-provider'
 
@@ -90,6 +93,9 @@ export * from './tooltip'
 export * from './popconfirm'
 export * from './popover'
 export * from './dialog'
+export * from './drawer'
+export * from './watermark'
+export * from './upload'
 export * from './marquee'
 export * from './config-provider'
 
@@ -144,6 +150,9 @@ const components = [
   YhPopover,
   YhDialog,
   YhDialogMethod,
+  YhDrawer,
+  YhWatermark,
+  YhUpload,
   YhMarquee,
   YhConfigProvider
 ] as Plugin[]

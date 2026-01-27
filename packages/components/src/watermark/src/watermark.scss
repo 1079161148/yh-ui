@@ -1,0 +1,14 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(watermark) {
+  position: var(--yh-watermark-container-position, relative);
+  width: var(--yh-watermark-width, 100%);
+  height: var(--yh-watermark-height, 100%);
+
+  @include m(fullscreen) {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--yh-watermark-fullscreen-z-index, 9999);
+  }
+}

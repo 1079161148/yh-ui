@@ -1,0 +1,203 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(drawer) {
+  position: fixed;
+  background: var(--yh-bg-color-overlay, #ffffff);
+  box-shadow: var(--yh-shadow-lg, 0 8px 32px rgba(0, 0, 0, 0.12));
+  display: flex;
+  flex-direction: column;
+  transition: all var(--yh-transition-duration, 0.3s) var(--yh-transition-function-ease, ease);
+  overflow: hidden;
+  z-index: 2000;
+
+  @include e(wrapper) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    margin: 0;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    background: transparent;
+
+    @include is(active) {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @include is(with-modal) {
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    @include is(inner) {
+      position: absolute;
+    }
+  }
+
+  @include is(inner) {
+    position: absolute;
+  }
+
+  @include m(left) {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    @include is(round) {
+      border-radius: 0 16px 16px 0;
+    }
+  }
+  @include m(right) {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(100%);
+    @include is(round) {
+      border-radius: 16px 0 0 16px;
+    }
+  }
+  @include m(top) {
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(-100%);
+    @include is(round) {
+      border-radius: 0 0 16px 16px;
+    }
+  }
+  @include m(bottom) {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    @include is(round) {
+      border-radius: 16px 16px 0 0;
+    }
+  }
+
+  @include is(open) {
+    transform: translate(0, 0);
+  }
+
+  @include m(glass) {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(24px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    @media (prefers-color-scheme: dark) {
+      background: rgba(25, 25, 30, 0.8) !important;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  @include e(header) {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--yh-border-color-lighter, #f0f0f0);
+  }
+
+  @include e(title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary, #1a1a1a);
+    margin: 0;
+  }
+
+  @include e(close) {
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: var(--yh-text-color-secondary, #909399);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: var(--yh-fill-color-light, rgba(0, 0, 0, 0.05));
+      color: var(--yh-color-danger, #f56c6c);
+    }
+  }
+
+  @include e(body) {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    color: var(--yh-text-color-regular, #4a4a4a);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  @include e(footer) {
+    padding: 16px 24px;
+    border-top: 1px solid var(--yh-border-color-lighter, #f0f0f0);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  @include e(handle) {
+    position: absolute;
+    z-index: 10;
+    background: transparent;
+    transition: background 0.2s;
+
+    &:hover,
+    &:active {
+      background: var(--yh-color-primary-light-5, #a0cfff);
+    }
+
+    @include m(left) {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      cursor: col-resize;
+    }
+    @include m(right) {
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      cursor: col-resize;
+    }
+    @include m(top) {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      cursor: row-resize;
+    }
+    @include m(bottom) {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      cursor: row-resize;
+    }
+  }
+}
+
+// 动效
+.yh-drawer-fade-enter-active,
+.yh-drawer-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.yh-drawer-fade-enter-from,
+.yh-drawer-fade-leave-to {
+  opacity: 0;
+}

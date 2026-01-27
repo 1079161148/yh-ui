@@ -1,0 +1,430 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use 'viewerjs/dist/viewer.css';
+
+@include b(upload) {
+  --yh-upload-dragger-bg: var(--yh-bg-color, #ffffff);
+  --yh-upload-dragger-border: var(--yh-border-color-light, #dcdfe6);
+  --yh-upload-item-bg: var(--yh-fill-color-blank, #ffffff);
+  --yh-upload-progress-bg: var(--yh-color-primary, #409eff);
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include m(pos-bottom) {
+    flex-direction: column-reverse;
+  }
+  @include m(pos-left) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+  @include m(pos-right) {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  @include m(picture-card) {
+    display: flex;
+    flex-direction: row; // 即使是 pos-top，在照片墙下也优先保持行流
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+
+    .yh-upload__header {
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    .yh-upload__trigger {
+      display: flex;
+    }
+  }
+
+  @include e(input) {
+    display: none !important;
+  }
+
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 4px;
+
+    .yh-upload--picture-card & {
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    &:has(.yh-upload__dragger) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @include e(trigger) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: fit-content;
+  }
+
+  @include e(tip) {
+    margin-top: 0; // Handled by header gap
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+  }
+
+  // Dragger Area
+  @include e(dragger) {
+    width: 100% !important;
+    display: block; // Override inline-flex behavior if any
+    background-color: var(--yh-upload-dragger-bg);
+    border: 1px dashed var(--yh-upload-dragger-border);
+    border-radius: 12px;
+    padding: 32px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    & > * {
+      pointer-events: none; // 防止拖拽时子元素干扰 drag 入/出事件
+    }
+
+    &:hover {
+      border-color: var(--yh-color-primary);
+      background-color: var(--yh-color-primary-light-9);
+    }
+
+    @include is(dragover) {
+      border-color: var(--yh-color-primary);
+      background-color: var(--yh-color-primary-light-8);
+      border-width: 2px;
+    }
+
+    @include e(icon) {
+      color: var(--yh-text-color-placeholder);
+      margin-bottom: 12px;
+    }
+
+    &:hover .yh-upload__icon {
+      color: var(--yh-color-primary);
+    }
+
+    @include e(text) {
+      color: var(--yh-text-color-regular);
+      font-size: 14px;
+
+      em {
+        color: var(--yh-color-primary);
+        font-style: normal;
+        margin: 0 4px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  @include e(picture-card-plus) {
+    background-color: var(--yh-fill-color-light, #f5f7fa);
+    border: 1px dashed var(--yh-border-color, #dcdfe6);
+    border-radius: 12px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--yh-text-color-placeholder);
+
+    &:hover {
+      border-color: var(--yh-color-primary);
+      color: var(--yh-color-primary);
+    }
+  }
+
+  // Common List Reset
+  @include e(list) {
+    margin: 0;
+    padding: 0;
+    list-style: none !important;
+    font-size: 14px;
+
+    & li {
+      list-style-type: none !important;
+      margin: 0;
+      padding: 0;
+      &::before {
+        display: none !important;
+      }
+    }
+
+    @include m(text) {
+      margin-top: 8px;
+    }
+
+    @include m(picture) {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @include m(picture-card) {
+      display: contents; // 让 li 直接成为父级 flex 容器的子元素，确保对齐
+    }
+  }
+
+  @include e(item) {
+    position: relative;
+    box-sizing: border-box;
+    list-style: none !important;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+
+    // Status color overrides
+    @include is(success) {
+      .yh-upload__name {
+        color: var(--yh-color-success);
+      }
+    }
+    @include is(fail) {
+      background-color: #fff1f0 !important;
+      .yh-upload__name {
+        color: var(--yh-color-danger);
+      }
+      &:hover {
+        background-color: #ffccc7 !important;
+      }
+    }
+
+    // Modes
+    .yh-upload--text &,
+    .yh-upload--picture & {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      gap: 12px;
+
+      &:hover {
+        background-color: var(--yh-fill-color-light, #f5f7fa);
+      }
+    }
+
+    .yh-upload--picture & {
+      border: 1px solid var(--yh-border-color-lighter);
+      background: #fff;
+      padding: 8px;
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-color: var(--yh-color-primary-light-5);
+      }
+    }
+
+    // Picture Card Mode Item
+    .yh-upload--picture-card & {
+      display: inline-flex;
+      width: 120px;
+      height: 120px;
+      margin: 0;
+      border: 1px solid var(--yh-border-color-lighter);
+      border-radius: 8px;
+      overflow: hidden;
+      vertical-align: top;
+    }
+  }
+
+  @include e(thumbnail) {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @include e(thumbnail-box) {
+    width: 48px;
+    height: 48px;
+    background: var(--yh-fill-color-light, #f5f7fa);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  @include e(thumbnail-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @include e(thumbnail-icon) {
+    color: var(--yh-text-color-placeholder);
+  }
+
+  @include e(file-icon) {
+    color: var(--yh-text-color-secondary);
+    flex-shrink: 0;
+  }
+
+  @include e(actions) {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    color: #fff;
+    z-index: 2;
+
+    span {
+      cursor: pointer;
+      &:hover {
+        color: var(--yh-color-primary-light-3);
+      }
+    }
+
+    .yh-upload__item:hover & {
+      opacity: 1;
+    }
+  }
+
+  @include e(info) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  @include e(details) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @include e(name) {
+    font-size: 14px;
+    color: var(--yh-text-color-regular);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+  }
+
+  @include e(status-icon-wrapper) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  @include e(actions-inline) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    .yh-upload__item:hover & {
+      opacity: 1;
+    }
+  }
+
+  @include e(delete-btn) {
+    cursor: pointer;
+    color: var(--yh-text-color-secondary);
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+  }
+
+  @include e(retry-btn) {
+    cursor: pointer;
+    color: var(--yh-text-color-secondary);
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+  }
+
+  @include e(delete-btn) {
+    &:hover {
+      color: var(--yh-color-danger) !important;
+    }
+  }
+
+  @include e(bottom-progress) {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 2px;
+    background: var(--yh-fill-color-light, #f5f7fa); // 增加底色轨道，使其不像悬浮边框
+    z-index: 10;
+  }
+
+  @include e(bottom-progress-bar) {
+    height: 100%;
+    background: var(--yh-color-primary);
+    transition: width 0.3s linear;
+  }
+
+  @include is(disabled) {
+    cursor: not-allowed;
+    .yh-upload__dragger,
+    .yh-upload__picture-card-plus {
+      cursor: not-allowed;
+      border-color: var(--yh-border-color-lighter) !important;
+      background-color: var(--yh-fill-color-lighter) !important;
+    }
+  }
+}
+
+// Transitions
+.yh-list-enter-active,
+.yh-list-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.yh-list-enter-from,
+.yh-list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.yh-list-leave-active {
+  position: absolute;
+}

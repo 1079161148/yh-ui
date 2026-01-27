@@ -35,7 +35,8 @@
     "@yh-ui/hooks": "workspace:*",
     "@yh-ui/theme": "workspace:*",
     "@yh-ui/utils": "workspace:*",
-    "dayjs": "^1.11.19"
+    "dayjs": "^1.11.19",
+    "viewerjs": "^1.11.7"
   },
   "peerDependencies": {
     "vue": "^3.5.0"

@@ -70,6 +70,9 @@ import {
   YhPopconfirm,
   YhPopover,
   YhDialog,
+  YhDrawer,
+  YhWatermark,
+  YhUpload,
   YhMarquee,
   YhSpin,
   YhLoading,
@@ -137,6 +140,12 @@ export default {
     app.component('yh-popover', YhPopover)
     app.component('YhDialog', YhDialog)
     app.component('yh-dialog', YhDialog)
+    app.component('YhDrawer', YhDrawer)
+    app.component('yh-drawer', YhDrawer)
+    app.component('YhWatermark', YhWatermark)
+    app.component('yh-watermark', YhWatermark)
+    app.component('YhUpload', YhUpload)
+    app.component('yh-upload', YhUpload)
     app.component('YhMarquee', YhMarquee)
     app.component('yh-marquee', YhMarquee)
     app.component('YhSpin', YhSpin)

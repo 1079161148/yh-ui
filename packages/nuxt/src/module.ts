@@ -121,6 +121,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhPopconfirm',
       'YhPopover',
       'YhDialog',
+      'YhDrawer',
+      'YhWatermark',
+      'YhUpload',
       'YhSpin',
       'YhLoading',
       'YhMessageBox'
