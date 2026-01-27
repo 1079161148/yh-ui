@@ -46,6 +46,7 @@ import { YhTooltip } from './tooltip'
 import { YhPopconfirm } from './popconfirm'
 import { YhPopover } from './popover'
 import { YhDialog, YhDialogMethod } from './dialog'
+import { YhMarquee } from './marquee'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -89,6 +90,7 @@ export * from './tooltip'
 export * from './popconfirm'
 export * from './popover'
 export * from './dialog'
+export * from './marquee'
 export * from './config-provider'
 
 // 所有组件列表
@@ -142,6 +144,7 @@ const components = [
   YhPopover,
   YhDialog,
   YhDialogMethod,
+  YhMarquee,
   YhConfigProvider
 ] as Plugin[]
 

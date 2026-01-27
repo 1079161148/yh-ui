@@ -100,6 +100,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhDivider',
       'YhBadge',
       'YhCard',
+      'YhMarquee',
       'YhRow',
       'YhCol',
       'YhConfigProvider',

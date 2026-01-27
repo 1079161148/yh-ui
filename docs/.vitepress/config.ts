@@ -86,7 +86,8 @@ export default defineConfig({
             { text: 'Badge 徽标', link: '/components/badge' },
             { text: 'Card 卡片', link: '/components/card' },
             { text: 'Tag 标签', link: '/components/tag' },
-            { text: 'Progress 进度条', link: '/components/progress' }
+            { text: 'Progress 进度条', link: '/components/progress' },
+            { text: 'Marquee 跑马灯', link: '/components/marquee' }
           ]
         },
         {

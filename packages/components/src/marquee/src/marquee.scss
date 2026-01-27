@@ -1,0 +1,138 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(marquee) {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  // 基础变量
+  --yh-marquee-gap: 0px;
+  --yh-marquee-duration: 20s;
+  --yh-marquee-iteration-count: infinite;
+  --yh-marquee-direction: normal;
+  --yh-marquee-play-state: running;
+  --yh-marquee-gradient-color: #ffffff;
+  --yh-marquee-gradient-width: 40px;
+
+  @include m(horizontal) {
+    flex-direction: row;
+
+    .yh-marquee__content {
+      flex-direction: row;
+      min-width: 100%;
+      animation: marquee-horizontal var(--yh-marquee-duration) linear
+        var(--yh-marquee-iteration-count);
+      animation-direction: var(--yh-marquee-direction);
+      animation-play-state: var(--yh-marquee-play-state);
+    }
+
+    .yh-marquee__item {
+      flex-direction: row;
+      gap: var(--yh-marquee-gap);
+      margin-right: var(--yh-marquee-gap);
+    }
+  }
+
+  @include m(vertical) {
+    flex-direction: column;
+    height: 100%;
+    min-height: 100px;
+
+    .yh-marquee__content {
+      flex-direction: column;
+      height: max-content;
+      min-height: 100%;
+      animation: marquee-vertical var(--yh-marquee-duration) linear
+        var(--yh-marquee-iteration-count);
+      animation-direction: var(--yh-marquee-direction);
+      animation-play-state: var(--yh-marquee-play-state);
+    }
+
+    .yh-marquee__item {
+      flex-direction: column;
+      gap: var(--yh-marquee-gap);
+      margin-bottom: var(--yh-marquee-gap);
+    }
+  }
+
+  @include e(content) {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  @include e(item) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  @include m(pause-on-hover) {
+    &:hover {
+      .yh-marquee__content {
+        animation-play-state: paused !important;
+      }
+    }
+  }
+
+  @include m(pause-on-click) {
+    &:active {
+      .yh-marquee__content {
+        animation-play-state: paused !important;
+      }
+    }
+  }
+
+  @include e(overlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    .yh-marquee--horizontal & {
+      background: linear-gradient(
+        to right,
+        var(--yh-marquee-gradient-color) 0%,
+        transparent var(--yh-marquee-gradient-width),
+        transparent calc(100% - var(--yh-marquee-gradient-width)),
+        var(--yh-marquee-gradient-color) 100%
+      );
+    }
+
+    .yh-marquee--vertical & {
+      background: linear-gradient(
+        to bottom,
+        var(--yh-marquee-gradient-color) 0%,
+        transparent var(--yh-marquee-gradient-width),
+        transparent calc(100% - var(--yh-marquee-gradient-width)),
+        var(--yh-marquee-gradient-color) 100%
+      );
+    }
+  }
+
+  // 关键帧定义放在 BEM 块内部
+  .yh-marquee__content {
+    @keyframes marquee-horizontal {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-100% / (var(--yh-marquee-clone-count) + 1)));
+      }
+    }
+
+    @keyframes marquee-vertical {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(calc(-100% / (var(--yh-marquee-clone-count) + 1)));
+      }
+    }
+  }
+}

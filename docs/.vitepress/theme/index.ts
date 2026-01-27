@@ -70,6 +70,7 @@ import {
   YhPopconfirm,
   YhPopover,
   YhDialog,
+  YhMarquee,
   YhSpin,
   YhLoading,
   YhMessageBox,
@@ -136,6 +137,8 @@ export default {
     app.component('yh-popover', YhPopover)
     app.component('YhDialog', YhDialog)
     app.component('yh-dialog', YhDialog)
+    app.component('YhMarquee', YhMarquee)
+    app.component('yh-marquee', YhMarquee)
     app.component('YhSpin', YhSpin)
     app.component('yh-spin', YhSpin)
     app.component('YhLoading', YhLoading as any)
