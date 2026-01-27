@@ -1,0 +1,227 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(dialog) {
+  position: relative;
+  margin: var(--yh-dialog-margin-top, 15vh) auto 50px;
+  background: var(--yh-bg-color-overlay, #ffffff);
+  border-radius: var(--yh-radius-lg, 16px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.15),
+    0 10px 20px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+
+  @include m(fullscreen) {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  @include m(align-center) {
+    margin: auto !important;
+  }
+
+  @include m(center) {
+    text-align: center;
+    @include e(header) {
+      border-bottom: none;
+    }
+    @include e(footer) {
+      border-top: none;
+    }
+  }
+
+  @include m(glass) {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(24px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    @media (prefers-color-scheme: dark) {
+      background: rgba(25, 25, 30, 0.8) !important;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  @include is(draggable) {
+    @include e(header) {
+      cursor: move;
+      user-select: none;
+    }
+  }
+
+  @include e(wrapper) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include e(header) {
+    padding: 24px 24px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    &.yh-dialog__header--center {
+      justify-content: center;
+      .yh-dialog__title {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  @include e(title) {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--yh-text-color-primary, #1a1a1a);
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  @include e(type-icon) {
+    font-size: 24px;
+    flex-shrink: 0;
+
+    @include m(success) {
+      color: var(--yh-color-success, #67c23a);
+    }
+    @include m(warning) {
+      color: var(--yh-color-warning, #e6a23c);
+    }
+    @include m(error) {
+      color: var(--yh-color-danger, #f56c6c);
+    }
+    @include m(info) {
+      color: var(--yh-color-info, #909399);
+    }
+  }
+
+  @include e(headerbtn) {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 22px;
+    color: var(--yh-text-color-secondary, #909399);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: var(--yh-border-color-light, rgba(0, 0, 0, 0.05));
+      color: var(--yh-color-danger, #f56c6c);
+    }
+  }
+
+  @include e(body) {
+    padding: 8px 24px 32px;
+    color: var(--yh-text-color-regular, #4a4a4a);
+    font-size: 15px;
+    line-height: 1.6;
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+  }
+
+  @include e(loading) {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    backdrop-filter: blur(2px);
+
+    @media (prefers-color-scheme: dark) {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  @include e(footer) {
+    padding: 16px 24px 24px;
+    text-align: right;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    &.yh-dialog__footer--center {
+      justify-content: center;
+    }
+  }
+}
+
+// 旗舰级动效
+@include b(dialog-fade) {
+  &-enter-active {
+    transition: opacity 0.3s ease-out;
+    .yh-dialog {
+      animation: yh-dialog-zoom-in 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+  }
+  &-leave-active {
+    transition: opacity 0.2s ease-in;
+    .yh-dialog {
+      animation: yh-dialog-zoom-out 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    }
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+@keyframes yh-dialog-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes yh-dialog-zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+}

@@ -108,7 +108,7 @@ const updatePosition = async () => {
     arrowStyle.value = {
       left: ax != null ? `${ax}px` : '',
       top: ay != null ? `${ay}px` : '',
-      [staticSide]: '-4px'
+      [staticSide]: '-12px'
     }
   }
 }
@@ -147,23 +147,42 @@ const handleMouseMove = async (e: MouseEvent) => {
 const toggleVisible = (value: boolean) => {
   if (props.disabled) return
 
-  if (showTimer) clearTimeout(showTimer)
-  if (hideTimer) clearTimeout(hideTimer)
+  // 立即清除所有待执行的计时器
+  if (showTimer) { clearTimeout(showTimer); showTimer = null }
+  if (hideTimer) { clearTimeout(hideTimer); hideTimer = null }
 
+  // 受控模式下（props.visible !== null），我们优先依赖外部状态
+  // 但为了响应灵敏度，我们依然需要立即同步内部 visible.value 并通过 nextTick 触发定位
   if (value) {
-    showTimer = setTimeout(() => {
+    const delay = props.showAfter
+    if (delay <= 0) {
       visible.value = true
       emit('update:visible', true)
       emit('show')
       nextTick(startAutoUpdate)
-    }, props.showAfter)
+    } else {
+      showTimer = setTimeout(() => {
+        visible.value = true
+        emit('update:visible', true)
+        emit('show')
+        nextTick(startAutoUpdate)
+      }, delay)
+    }
   } else {
-    hideTimer = setTimeout(() => {
+    const delay = props.hideAfter
+    if (delay <= 0) {
       visible.value = false
       emit('update:visible', false)
       emit('hide')
       stopAutoUpdate()
-    }, props.hideAfter)
+    } else {
+      hideTimer = setTimeout(() => {
+        visible.value = false
+        emit('update:visible', false)
+        emit('hide')
+        stopAutoUpdate()
+      }, delay)
+    }
   }
 }
 
@@ -193,7 +212,8 @@ const handleTrigger = (e: Event, type: TooltipTrigger) => {
   if (type === 'hover') {
     toggleVisible(true)
   } else if (type === 'click') {
-    toggleVisible(!visible.value)
+    const isShowing = (visible.value && !hideTimer) || showTimer
+    toggleVisible(!isShowing)
   } else if (type === 'contextmenu') {
     e.preventDefault()
     toggleVisible(true)
@@ -202,14 +222,27 @@ const handleTrigger = (e: Event, type: TooltipTrigger) => {
   }
 }
 
-// 全局点击关闭
+// 全局点击/右键以外区域关闭
 useEventListener(() => window, 'click', (e: MouseEvent) => {
-  if (!visible.value || !triggers.value.has('click')) return
+  if (!visible.value) return
+  // 只有 click 和 contextmenu 模式需要全局外部点击关闭
+  const needsClose = triggers.value.has('click') || triggers.value.has('contextmenu')
+  if (!needsClose) return
+
   const target = e.target as HTMLElement
   if (!triggerRef.value?.contains(target) && !popperRef.value?.contains(target)) {
     toggleVisible(false)
   }
 })
+
+// 监听外部可见性变化 (受控模式)
+watch(() => props.visible, (val) => {
+  if (val !== null && val !== visible.value) {
+    visible.value = val
+    if (val) nextTick(startAutoUpdate)
+    else stopAutoUpdate()
+  }
+}, { immediate: true })
 
 // 鼠标跟随监听
 watch(() => props.followCursor, (val) => {
@@ -236,7 +269,9 @@ onUnmounted(() => {
 
 defineExpose({
   updatePosition,
-  visible
+  visible,
+  triggerRef,
+  popperRef
 })
 </script>
 
@@ -259,9 +294,11 @@ defineExpose({
               <span v-else>{{ content }}</span>
             </slot>
           </div>
-          <div v-if="showArrow" ref="arrowRef" :class="[ns.e('arrow-wrapper'), props.arrowWrapperClass]"
-            :style="[arrowStyle, props.arrowWrapperStyle]">
-            <div :class="[ns.e('arrow'), props.arrowClass]" :style="props.arrowStyle" />
+          <!-- 小三角 - 使用 Floating UI 官方推荐的 SVG 路径方案 -->
+          <div v-if="showArrow" ref="arrowRef" :class="ns.e('arrow-wrapper')" :style="arrowStyle">
+            <svg :class="ns.e('arrow')" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,0 L6,6 L12,0" />
+            </svg>
           </div>
         </div>
       </Transition>

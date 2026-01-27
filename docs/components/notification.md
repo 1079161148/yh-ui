@@ -147,10 +147,17 @@ const showDynamicMessage = () => {
   })
 }
 
+const toJs = (code: string) => code
+  .replace(/setup lang="ts"/g, 'setup')
+  .replace(/lang="ts"/g, '')
+  .replace(/:\s*[A-Z][a-zA-Z<>| | \[]+/g, '')
+  .replace(/<[A-Z][a-zA-Z<>| ]+>/g, '')
+  .replace(/as\s+[A-Z][a-zA-Z<>| ]+/g, '')
+
 // 代码示例
 const tsBasic = `<template>
   <yh-button @click="showNotification">显示通知</yh-button>
-<\/template>
+</template>
 
 <script setup lang="ts">
 import { YhNotification } from 'yh-ui'
@@ -163,20 +170,7 @@ const showNotification = () => {
 }
 <\/script>`
 
-const jsBasic = `<template>
-  <yh-button @click="showNotification">显示通知</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showNotification = () => {
-  YhNotification({
-    title: '标题',
-    message: '这是一条通知消息'
-  })
-}
-<\/script>`
+const jsBasic = toJs(tsBasic)
 
 const tsTypes = `<template>
   <yh-button type="success" @click="showSuccess">Success</yh-button>
@@ -205,32 +199,7 @@ const showError = () => {
 }
 <\/script>`
 
-const jsTypes = `<template>
-  <yh-button type="success" @click="showSuccess">Success</yh-button>
-  <yh-button type="warning" @click="showWarning">Warning</yh-button>
-  <yh-button type="info" @click="showInfo">Info</yh-button>
-  <yh-button type="danger" @click="showError">Error</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showSuccess = () => {
-  YhNotification.success('成功', '恭喜你，这是一条成功消息')
-}
-
-const showWarning = () => {
-  YhNotification.warning('警告', '这是一条警告消息')
-}
-
-const showInfo = () => {
-  YhNotification.info('消息', '这是一条消息提示')
-}
-
-const showError = () => {
-  YhNotification.error('错误', '这是一条错误消息')
-}
-<\/script>`
+const jsTypes = toJs(tsTypes)
 
 const tsPosition = `<template>
   <yh-button @click="showTopLeft">左上</yh-button>
@@ -293,66 +262,7 @@ const showBottomCenter = () => {
 }
 <\/script>`
 
-const jsPosition = `<template>
-  <yh-button @click="showTopLeft">左上</yh-button>
-  <yh-button @click="showTopRight">右上</yh-button>
-  <yh-button @click="showBottomLeft">左下</yh-button>
-  <yh-button @click="showBottomRight">右下</yh-button>
-  <yh-button @click="showBottomCenter">下</yh-button>
-  <yh-button @click="showTopCenter">上</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showTopRight = () => {
-  YhNotification({
-    title: '右上角',
-    message: '这是一条通知消息',
-    position: 'top-right'
-  })
-}
-
-const showTopLeft = () => {
-  YhNotification({
-    title: '左上角',
-    message: '这是一条通知消息',
-    position: 'top-left'
-  })
-}
-
-const showTopCenter = () => {
-  YhNotification({
-    title: '顶部居中',
-    message: '这是一条通知消息',
-    position: 'top-center'
-  })
-}
-
-const showBottomRight = () => {
-  YhNotification({
-    title: '右下角',
-    message: '这是一条通知消息',
-    position: 'bottom-right'
-  })
-}
-
-const showBottomLeft = () => {
-  YhNotification({
-    title: '左下角',
-    message: '这是一条通知消息',
-    position: 'bottom-left'
-  })
-}
-
-const showBottomCenter = () => {
-  YhNotification({
-    title: '底部居中',
-    message: '这是一条通知消息',
-    position: 'bottom-center'
-  })
-}
-<\/script>`
+const jsPosition = toJs(tsPosition)
 
 const tsDuration = `<template>
   <yh-button @click="showNotification">不自动关闭</yh-button>
@@ -370,21 +280,7 @@ const showNotification = () => {
 }
 <\/script>`
 
-const jsDuration = `<template>
-  <yh-button @click="showNotification">不自动关闭</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showNotification = () => {
-  YhNotification({
-    title: '不自动关闭',
-    message: '这条通知不会自动关闭',
-    duration: 0
-  })
-}
-<\/script>`
+const jsDuration = toJs(tsDuration)
 
 const tsHtml = `<template>
   <yh-button @click="showHtml">使用 HTML 片段</yh-button>
@@ -402,21 +298,7 @@ const showHtml = () => {
 }
 <\/script>`
 
-const jsHtml = `<template>
-  <yh-button @click="showHtml">使用 HTML 片段</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showHtml = () => {
-  YhNotification({
-    title: 'HTML 内容',
-    message: '<strong>这是 <i>HTML</i> 内容</strong>',
-    dangerouslyUseHTMLString: true
-  })
-}
-<\/script>`
+const jsHtml = toJs(tsHtml)
 
 const tsHideClose = `<template>
   <yh-button @click="showNotification">隐藏关闭按钮</yh-button>
@@ -434,21 +316,7 @@ const showNotification = () => {
 }
 <\/script>`
 
-const jsHideClose = `<template>
-  <yh-button @click="showNotification">隐藏关闭按钮</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showNotification = () => {
-  YhNotification({
-    title: '隐藏关闭按钮',
-    message: '这条通知没有关闭按钮',
-    showClose: false
-  })
-}
-<\/script>`
+const jsHideClose = toJs(tsHideClose)
 
 const tsMaxLimit = `<template>
   <yh-button type="success" @click="showMaxLimit">最多允许 3 个通知</yh-button>
@@ -467,22 +335,7 @@ const showMaxLimit = () => {
 }
 <\/script>`
 
-const jsMaxLimit = `<template>
-  <yh-button type="success" @click="showMaxLimit">最多允许 3 个通知</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { YhNotification } from 'yh-ui'
-
-const showMaxLimit = () => {
-  YhNotification({
-    title: '限制数量',
-    message: '最多显示 3 个通知',
-    position: 'top-right',
-    max: 3
-  })
-}
-<\/script>`
+const jsMaxLimit = toJs(tsMaxLimit)
 
 const tsVNodeMessage = `<template>
   <yh-button @click="open">Common VNode</yh-button>
@@ -521,41 +374,7 @@ const open1 = () => {
 }
 <\/script>`
 
-const jsVNodeMessage = `<template>
-  <yh-button @click="open">Common VNode</yh-button>
-  <yh-button @click="open1">Dynamic props</yh-button>
-<\/template>
-
-<script setup lang="ts">
-import { h, ref } from 'vue'
-import { YhNotification, YhSwitch } from 'yh-ui'
-
-const open = () => {
-  YhNotification({
-    title: 'Use Vnode',
-    message: h('p', null, [
-      h('span', null, 'Message can be '),
-      h('i', { style: 'color: teal' }, 'VNode'),
-    ]),
-  })
-}
-
-const open1 = () => {
-  const checked = ref(false)
-  YhNotification({
-    title: 'Use Vnode',
-    // Should pass a function if VNode contains dynamic props
-    message: () =>
-      h(YhSwitch, {
-        modelValue: checked.value,
-        'onUpdate:modelValue': (val) => {
-          checked.value = val
-        },
-      }),
-    duration: 0
-  })
-}
-<\/script>`
+const jsVNodeMessage = toJs(tsVNodeMessage)
 
 // Nuxt 使用示例
 // Nuxt 使用示例
@@ -582,7 +401,7 @@ const onSuccess = () => {
 }
 <\/script>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
 </script>
 
 悬浮出现在页面角落，显示全局的通知提醒消息。

@@ -7,7 +7,7 @@ import { h } from 'vue'
 import YhTooltip from '../src/tooltip.vue'
 
 describe('YhTooltip SSR', () => {
-  it('should render trigger on server and suppress popper', async () => {
+  it('should render trigger on server and suppress popper by default', async () => {
     const html = await renderToString(
       h(
         YhTooltip,
@@ -26,15 +26,35 @@ describe('YhTooltip SSR', () => {
     expect(html).not.toContain('yh-tooltip__popper')
   })
 
-  it('should handle light effect on server', async () => {
+  it('should render content on server when visible is true', async () => {
     const html = await renderToString(
       h(
         YhTooltip,
         {
-          content: 'light content',
-          effect: 'light',
+          content: 'SSR Visible Content',
           visible: true,
-          teleported: false // Disable teleport so it stays in HTML for verification
+          teleported: false
+        },
+        {
+          default: () => h('button', 'Trigger')
+        }
+      )
+    )
+
+    expect(html).toContain('yh-tooltip__popper')
+    expect(html).toContain('SSR Visible Content')
+  })
+
+  it('should support effect and custom class on server', async () => {
+    const html = await renderToString(
+      h(
+        YhTooltip,
+        {
+          content: 'theme test',
+          effect: 'light',
+          popperClass: 'custom-ssr-class',
+          visible: true,
+          teleported: false
         },
         {
           default: () => h('button', 'Trigger')
@@ -43,6 +63,26 @@ describe('YhTooltip SSR', () => {
     )
 
     expect(html).toContain('yh-tooltip__popper--light')
-    expect(html).toContain('light content')
+    expect(html).toContain('custom-ssr-class')
+  })
+
+  it('should support raw HTML content on server', async () => {
+    const html = await renderToString(
+      h(
+        YhTooltip,
+        {
+          content: '<span class="html-content">HTML</span>',
+          rawContent: true,
+          visible: true,
+          teleported: false
+        },
+        {
+          default: () => h('button', 'Trigger')
+        }
+      )
+    )
+
+    expect(html).toContain('class="html-content"')
+    expect(html).toContain('HTML')
   })
 })

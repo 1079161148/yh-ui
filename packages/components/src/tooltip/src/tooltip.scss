@@ -1,123 +1,119 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
 @use '@yh-ui/theme/styles/variables' as *;
 
+/* 
+  YH-UI 智能自适应主题引擎
+  逻辑优先级：显式强制设置 > 全局环境感应 (html.dark) > 默认浅色
+*/
+
 @include b(tooltip) {
   display: inline-block;
   line-height: var(--yh-line-height-none, 1);
 
   @include e(popper) {
     position: absolute;
-    top: 0;
-    left: 0;
     z-index: var(--yh-z-index-tooltip, 2004);
-    padding: 8px 12px;
-    font-size: var(--yh-font-size-sm, 13px);
-    line-height: var(--yh-line-height-normal, 1.5);
-    border-radius: var(--yh-radius-md, 8px);
-    max-width: 300px;
+    font-size: 13px;
+    line-height: 1.6;
+    border-radius: 8px;
+    max-width: 350px;
     word-wrap: break-word;
-    box-shadow: var(--yh-shadow-xl);
+    box-shadow: var(--yh-shadow-lg);
     pointer-events: none;
-
-    // Glassmorphism
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px) saturate(180%);
     transition:
-      transform var(--yh-duration-slow, 0.25s) var(--yh-timing-ease-out),
-      opacity var(--yh-duration-slow, 0.25s) var(--yh-timing-ease-out);
+      transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+      opacity 0.2s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+    overflow: visible;
+
+    /* 默认共享变量：确保 SVG 始终引用同一套变量 */
+    --yh-tooltip-bg: #ffffff;
+    --yh-tooltip-border: #e2e2e7;
+    --yh-tooltip-text: #1d1d1f;
 
     @include is(interactive) {
       pointer-events: auto;
     }
 
-    @include is(dark) {
-      background: rgba(30, 30, 35, 0.85);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    @include m(dark) {
-      background: rgba(30, 30, 35, 0.85);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    /* --- 1. 基础亮色样式 --- */
+    background: var(--yh-tooltip-bg);
+    color: var(--yh-tooltip-text);
+    border: 1px solid var(--yh-tooltip-border);
+
+    /* --- 2. 强行设定：暗黑模式 (Explicit) --- */
+    &.is-dark,
+    &.yh-popover__popper--dark {
+      --yh-tooltip-bg: #2c2c2e;
+      --yh-tooltip-border: rgba(255, 255, 255, 0.12);
+      --yh-tooltip-text: #ffffff;
+      background: var(--yh-tooltip-bg);
+      color: var(--yh-tooltip-text);
+      border: 1px solid var(--yh-tooltip-border);
     }
 
-    @include is(light) {
-      background: rgba(255, 255, 255, 0.85);
-      color: var(--yh-text-color-primary, #303133);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    @include m(light) {
-      background: rgba(255, 255, 255, 0.85);
-      color: var(--yh-text-color-primary, #303133);
-      border: 1px solid rgba(0, 0, 0, 0.05);
+    /* --- 3. 核心：全局环境感应方案 --- */
+    /* 当 HTML 或 Body 带有 .dark 类名时，强制切换变量，即使带了 is-light 也要被环境同化 */
+    :root.dark &,
+    html.dark &,
+    body.dark & {
+      --yh-tooltip-bg: #2c2c2e;
+      --yh-tooltip-border: rgba(255, 255, 255, 0.12);
+      --yh-tooltip-text: #ffffff;
+      background: var(--yh-tooltip-bg);
+      color: var(--yh-tooltip-text);
+      border: 1px solid var(--yh-tooltip-border);
+
+      /* 重写阴影，增强对比 */
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
     }
   }
 
+  /* 内容区域适配 */
+  @include e(content) {
+    padding: 8px 12px;
+    box-sizing: border-box;
+    color: inherit;
+  }
+
+  /* SVG 小三角：通过 fill/stroke 强制同步变量 */
   @include e(arrow-wrapper) {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    z-index: -1;
+    width: 12px;
+    height: 12px;
+    z-index: 5;
+    fill: var(--yh-tooltip-bg) !important;
+    stroke: var(--yh-tooltip-border) !important;
+    pointer-events: none;
   }
 
   @include e(arrow) {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    transform: rotate(45deg);
-    border: inherit;
-    border-bottom: none;
-    border-right: none;
+    display: block;
+    fill: inherit !important;
+    stroke: inherit !important;
+    stroke-width: 1px;
+    margin-top: -1px;
+    transform-origin: center;
   }
 }
 
-// Transition
+/* 动画系统 */
+[data-placement^='top'] .yh-tooltip__arrow {
+  transform: rotate(0deg);
+}
+[data-placement^='bottom'] .yh-tooltip__arrow {
+  transform: rotate(180deg);
+}
+[data-placement^='left'] .yh-tooltip__arrow {
+  transform: rotate(-90deg);
+}
+[data-placement^='right'] .yh-tooltip__arrow {
+  transform: rotate(90deg);
+}
+
 .yh-tooltip-fade-enter-from,
 .yh-tooltip-fade-leave-to {
   opacity: 0;
-  transform: scale(0.9) translateY(4px);
-}
-
-.yh-tooltip-fade-enter-to,
-.yh-tooltip-fade-leave-from {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
-// Arrow Placement Logic
-[data-placement^='top'] > .yh-tooltip__arrow-wrapper {
-  bottom: -4px;
-  .yh-tooltip__arrow {
-    border-top: none;
-    border-left: none;
-    border-bottom: inherit;
-    border-right: inherit;
-  }
-}
-[data-placement^='bottom'] > .yh-tooltip__arrow-wrapper {
-  top: -4px;
-  .yh-tooltip__arrow {
-    border-bottom: none;
-    border-right: none;
-    border-top: inherit;
-    border-left: inherit;
-  }
-}
-[data-placement^='left'] > .yh-tooltip__arrow-wrapper {
-  right: -4px;
-  .yh-tooltip__arrow {
-    border-top: none;
-    border-right: none;
-    border-bottom: inherit;
-    border-left: inherit;
-  }
-}
-[data-placement^='right'] > .yh-tooltip__arrow-wrapper {
-  left: -4px;
-  .yh-tooltip__arrow {
-    border-bottom: none;
-    border-left: none;
-    border-top: inherit;
-    border-right: inherit;
-  }
+  transform: scale(0.96);
 }

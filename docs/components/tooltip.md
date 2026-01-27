@@ -197,6 +197,18 @@ const tsOuterLink = '<template>\n' +
     </template>
   </yh-tooltip>
 ` + '\n</template>'
+
+const jsBasic = tsBasic
+const jsEffect = tsEffect
+const jsCustomStyle = tsCustomStyle
+const jsHtml = tsHtml
+const jsTrigger = tsTrigger
+const jsFollow = tsFollow
+const jsInteractive = tsInteractive
+const jsNuxt = tsNuxt
+const jsInput = tsInput
+const jsCustomTheme = tsCustomTheme.replace('lang="ts"', '')
+const jsOuterLink = tsOuterLink
 </script>
 
 <style scoped>
@@ -251,7 +263,7 @@ const tsOuterLink = '<template>\n' +
 
 提供 12 个方向的弹出位置，通过 `placement` 属性配置。
 
-<DemoBlock title="基础用法" :ts-code="tsBasic">
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="tooltip-base-box">
     <div class="row center">
       <yh-tooltip content="Top Start prompts info" placement="top-start">
@@ -306,7 +318,7 @@ const tsOuterLink = '<template>\n' +
 
 除了内置的 `dark` / `light` 主题外，你还可以通过自定义 `effect` 的值来轻松定义专属主题样式。
 
-<DemoBlock title="主题风格" :ts-code="tsEffect">
+<DemoBlock title="主题风格" :ts-code="tsEffect" :js-code="jsEffect">
   <div style="display: flex; gap: 16px">
     <yh-tooltip content="Dark Theme" effect="dark">
       <yh-button>深色模式 (默认)</yh-button>
@@ -321,7 +333,7 @@ const tsOuterLink = '<template>\n' +
 
 通过设置 `effect="customized"` 并编写对应的 CSS，可以获得极致的视觉效果。
 
-<DemoBlock title="自定义主题" :ts-code="tsCustomTheme">
+<DemoBlock title="自定义主题" :ts-code="tsCustomTheme" :js-code="jsCustomTheme">
   <div style="padding: 10px 0;">
     <yh-tooltip content="Bottom center" effect="customized" placement="bottom">
       <yh-button class="custom-theme-btn">Customized theme</yh-button>
@@ -333,7 +345,7 @@ const tsOuterLink = '<template>\n' +
 
 支持自定义宽度、最大高度，并支持长内容滚动。
 
-<DemoBlock title="尺寸与自由样式" :ts-code="tsCustomStyle">
+<DemoBlock title="尺寸与自由样式" :ts-code="tsCustomStyle" :js-code="jsCustomStyle">
   <div style="display: flex; gap: 16px; padding: 20px 0;">
     <yh-tooltip content="这是一个固定宽度且可滚动的 Tooltip，当内容非常多的时候，它会自动出现滚动条，从而保证布局的整洁性。" :width="200" :max-height="80" scrollable>
       <yh-button>固定宽度/滚动</yh-button>
@@ -348,7 +360,7 @@ const tsOuterLink = '<template>\n' +
 
 内容属性可以设置为 HTML 字符串，通过 `raw-content` 开启。
 
-<DemoBlock title="HTML 渲染" :ts-code="tsHtml">
+<DemoBlock title="HTML 渲染" :ts-code="tsHtml" :js-code="jsHtml">
   <yh-tooltip content="<span>The content can be <strong style='color: #409eff'>HTML</strong></span>" raw-content>
     <yh-button>hover me</yh-button>
   </yh-tooltip>
@@ -358,7 +370,7 @@ const tsOuterLink = '<template>\n' +
 
 支持悬停、点击、焦点以及右键菜单触发，默认为 `hover`。
 
-<DemoBlock title="触发方式" :ts-code="tsTrigger">
+<DemoBlock title="触发方式" :ts-code="tsTrigger" :js-code="jsTrigger">
   <div style="display: flex; gap: 16px">
     <yh-tooltip content="Hovered" trigger="hover">
       <yh-button>悬停</yh-button>
@@ -376,7 +388,7 @@ const tsOuterLink = '<template>\n' +
 
 ### 鼠标跟随 (Follow Cursor)
 
-<DemoBlock title="鼠标跟随" :ts-code="tsFollow">
+<DemoBlock title="鼠标跟随" :ts-code="tsFollow" :js-code="jsFollow">
   <yh-tooltip content="Shadow following..." follow-cursor>
     <div class="follow-box">体验鼠标跟随效果</div>
   </yh-tooltip>
@@ -384,7 +396,7 @@ const tsOuterLink = '<template>\n' +
 
 ### 内容交互 (Interactive)
 
-<DemoBlock title="允许交互" :ts-code="tsInteractive">
+<DemoBlock title="允许交互" :ts-code="tsInteractive" :js-code="jsInteractive">
   <div style="padding: 20px 0;">
     <yh-tooltip interactive placement="top">
       <yh-button type="primary">交互提示</yh-button>
@@ -402,7 +414,7 @@ const tsOuterLink = '<template>\n' +
 
 YH-UI 完美兼容 Nuxt 3。你可以直接在组件中使用，无需手动导入。
 
-<DemoBlock title="Nuxt 3 支持" :ts-code="tsNuxt">
+<DemoBlock title="Nuxt 3 支持" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-tooltip content="Nuxt 3 Auto Import">
     <yh-button>Nuxt 3 自动导入演示</yh-button>
   </yh-tooltip>
@@ -414,7 +426,7 @@ YH-UI 完美兼容 Nuxt 3。你可以直接在组件中使用，无需手动导�
 
 当 Tooltip 包含一个输入框时，在 YH-UI 中，我们确保了交互逻辑不会干扰正常的输入行为。你可以直接在触发层嵌套输入框，空格键将正常工作。
 
-<DemoBlock title="嵌套输入框示例" :ts-code="tsInput">
+<DemoBlock title="嵌套输入框示例" :ts-code="tsInput" :js-code="jsInput">
   <div style="padding: 10px 0;">
     <yh-tooltip content="聚焦输入框以查看提示" trigger="focus">
       <input 
@@ -430,7 +442,7 @@ YH-UI 完美兼容 Nuxt 3。你可以直接在组件中使用，无需手动导�
 
 你可以通过 `content` 插槽在 Tooltip 内部嵌入复杂的交互元素。请确保开启了 `interactive` 属性。
 
-<DemoBlock title="嵌入外部链接" :ts-code="tsOuterLink">
+<DemoBlock title="嵌入外部链接" :ts-code="tsOuterLink" :js-code="jsOuterLink">
   <div style="padding: 10px 0;">
     <yh-tooltip interactive placement="top">
       <yh-button>查看项目源码</yh-button>
@@ -460,6 +472,7 @@ YH-UI 完美兼容 Nuxt 3。你可以直接在组件中使用，无需手动导�
 | hide-after | 消失延迟 (ms) | `number` | `200` |
 | show-arrow | 是否显示小三角 | `boolean` | `true` |
 | interactive | 是否允许鼠标进入提示框 | `boolean` | `true` |
+| visible | 手动控制可见性 | `boolean \| null` | `null` |
 | raw-content | 是否渲染 HTML 字符串 | `boolean` | `false` |
 | follow-cursor | 是否跟随鼠标移动 | `boolean` | `false` |
 | persistent | 隐藏时是否销毁 DOM | `boolean` | `true` |

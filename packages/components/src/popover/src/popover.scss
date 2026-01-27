@@ -1,0 +1,95 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+/* 
+  YH-Popover 深度布局优化与主题自适应
+  自动感知 html.dark 环境变色
+*/
+
+.yh-popover.yh-tooltip__popper {
+  border-radius: 12px;
+  box-shadow:
+    0 10px 32px -8px rgba(0, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+
+  /* 自动感应暗黑模式阴影 */
+  :root.dark &,
+  html.dark &,
+  body.dark & {
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  }
+
+  .yh-tooltip__content {
+    padding: 0;
+  }
+}
+
+.yh-popover {
+  @include e(content) {
+    display: block;
+    box-sizing: border-box;
+    padding: 24px 28px;
+    min-width: 240px;
+    color: inherit;
+  }
+
+  @include e(main) {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+
+    @include e(inner) {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    @include e(icon) {
+      font-size: 22px;
+      line-height: 1.4;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+  }
+
+  @include e(header) {
+    margin-bottom: 8px;
+  }
+
+  @include e(title) {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: inherit;
+  }
+
+  @include e(body) {
+    font-size: 14px;
+    line-height: 1.65;
+    opacity: 0.9;
+    color: inherit;
+  }
+
+  @include e(footer) {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+
+/* 动画系统同步 */
+.yh-popover-fade-enter-active,
+.yh-popover-fade-leave-active {
+  transition:
+    opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.yh-popover-fade-enter-from,
+.yh-popover-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.97) translateY(6px);
+}

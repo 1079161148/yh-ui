@@ -30,7 +30,7 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     // 包含普通测试和 SSR 测试
-    include: ['packages/**/__tests__/**/*.test.ts', 'packages/**/__tests__/**/*.ssr.test.ts'],
+    include: ['packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}'],
     // 排除 Nuxt 集成测试（需要单独运行）
     exclude: [
       '**/node_modules/**',

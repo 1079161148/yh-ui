@@ -116,7 +116,13 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhSkeleton',
       'YhSkeletonItem',
       'YhProgress',
-      'YhTooltip'
+      'YhTooltip',
+      'YhPopconfirm',
+      'YhPopover',
+      'YhDialog',
+      'YhSpin',
+      'YhLoading',
+      'YhMessageBox'
     ]
 
     components.forEach((name) => {

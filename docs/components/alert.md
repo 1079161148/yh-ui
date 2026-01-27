@@ -92,13 +92,20 @@ const tsNuxt = `<template>
   <yh-alert title="Nuxt 开箱即用" type="success" show-icon />
 </template>`
 
+const toJs = (code: string) => code.replace('setup lang="ts"', 'setup').replace('lang="ts"', '')
+const jsBasic = toJs(tsBasic)
+const jsClosable = toJs(tsClosable)
+const jsScrollable = toJs(tsScrollable)
+const jsProgress = tsProgress.replace('lang="ts"', '')
+const jsGlass = toJs(tsGlass)
+const jsNuxt = toJs(tsNuxt)
 </script>
 
 ## 展示模式
 
 警告提示支持多种语义化状态和视觉主题。
 
-<DemoBlock title="基础用法" :ts-code="tsBasic">
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="demo-list">
     <yh-alert title="成功提示的文案" type="success" />
     <yh-alert title="消息提示的文案" type="info" />
@@ -111,7 +118,7 @@ const tsNuxt = `<template>
 
 组件默认不可关闭，可通过 `closable` 开启。同时支持显示状态图标及其位置。
 
-<DemoBlock title="按钮与图标" :ts-code="tsClosable">
+<DemoBlock title="按钮与图标" :ts-code="tsClosable" :js-code="jsClosable">
   <div class="demo-list">
     <yh-alert title="默认不可关闭" type="success" />
     <yh-alert title="手动开启关闭" type="info" closable />
@@ -125,7 +132,7 @@ const tsNuxt = `<template>
 对于内容较长的公告信息，可以开启 `scrollable` 属性实现跑马灯滚动效果。
 我们通过 `will-change: transform` 和 `translate3d` 硬件加速，将滚动细腻度优化到了极致。
 
-<DemoBlock title="滚动通知" :ts-code="tsScrollable">
+<DemoBlock title="滚动通知" :ts-code="tsScrollable" :js-code="jsScrollable">
   <div class="demo-list">
     <yh-alert 
       type="error" 
@@ -148,7 +155,7 @@ const tsNuxt = `<template>
 
 `YhAlert` 支持定时关闭。开启 `show-progress` 后，底部会出现一条灵动的进度条演化倒计时。
 
-<DemoBlock title="自动消失展示" :ts-code="tsProgress">
+<DemoBlock title="自动消失展示" :ts-code="tsProgress" :js-code="jsProgress">
   <div class="demo-column">
     <yh-alert 
       v-if="showAlert"
@@ -172,7 +179,7 @@ const tsNuxt = `<template>
 ### 1. 智能辅助毛玻璃 (Glassmorphism)
 通过 `effect="glass"` 开启。组件会自动应用背景模糊（Backdrop Blur）和半透明蒙版，非常适合在具有强烈视觉背景的现代化仪表盘中使用。
 
-<DemoBlock title="毛玻璃效果" :ts-code="tsGlass">
+<DemoBlock title="毛玻璃效果" :ts-code="tsGlass" :js-code="jsGlass">
   <div class="glass-container">
     <yh-alert 
       title="高级毛玻璃效果" 
@@ -193,7 +200,7 @@ const tsNuxt = `<template>
 
 `YhAlert` 已全面适配 Nuxt 3/4。组件支持全自动导入，且所有动画策略均针对 SSR 环境进行了优化。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt">
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-alert title="Nuxt 开箱即用" type="success" show-icon />
 </DemoBlock>
 

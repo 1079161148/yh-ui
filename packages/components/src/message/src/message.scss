@@ -14,10 +14,10 @@
   box-shadow: var(--yh-message-shadow);
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
   overflow: hidden;
-  pointer-events: all;
+  pointer-events: auto; /* 改为 auto，更符合常规交互 */
   min-width: 380px;
   box-sizing: border-box;
-  z-index: 3000;
+  z-index: var(--yh-z-index-message, 3000);
 
   // top 位置（默认居中，无需额外样式）
   @include m(top) {

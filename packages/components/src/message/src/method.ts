@@ -79,6 +79,7 @@ const createMessage = (options: MessageOptions): MessageHandler => {
 
   const container = document.createElement('div')
   container.className = `yh-message-container_${id}`
+  container.style.pointerEvents = 'none'
 
   const onDestroy = () => {
     render(null, container)

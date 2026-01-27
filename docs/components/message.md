@@ -81,11 +81,13 @@ const showMessage = () => {
 }
 <\/script>`
 
+const toJs = (code: string) => code.replace('setup lang="ts"', 'setup').replace('lang="ts"', '').replace(/:\s*[A-Z][a-zA-Z]+/g, '').replace(/as\s+[A-Z][a-zA-Z]+/g, '')
+
 const jsBasic = `<template>
   <yh-button @click="showMessage">显示消息</yh-button>
-<\/template>
+</template>
 
-<script setup lang="ts">
+<script setup>
 import { YhMessage } from 'yh-ui'
 
 const showMessage = () => {
@@ -120,32 +122,7 @@ const showError = () => {
 }
 <\/script>`
 
-const jsTypes = `<template>
-  <yh-button type="success" @click="showSuccess">Success</yh-button>
-  <yh-button type="warning" @click="showWarning">Warning</yh-button>
-  <yh-button type="info" @click="showInfo">Info</yh-button>
-  <yh-button type="danger" @click="showError">Error</yh-button>
-</template>
-
-<script setup lang="ts">
-import { YhMessage } from 'yh-ui'
-
-const showSuccess = () => {
-  YhMessage.success('恭喜你，这是一条成功消息')
-}
-
-const showWarning = () => {
-  YhMessage.warning('警告哦，这是一条警告消息')
-}
-
-const showInfo = () => {
-  YhMessage.info('这是一条消息提示')
-}
-
-const showError = () => {
-  YhMessage.error('错了哦，这是一条错误消息')
-}
-<\/script>`
+const jsTypes = toJs(tsTypes)
 
 const tsClosable = `<template>
   <yh-button @click="showClosable">可关闭的消息</yh-button>
@@ -165,9 +142,9 @@ const showClosable = () => {
 
 const jsClosable = `<template>
   <yh-button @click="showClosable">可关闭的消息</yh-button>
-<\/template>
+</template>
 
-<script setup lang="ts">
+<script setup>
 import { YhMessage } from 'yh-ui'
 
 const showClosable = () => {
@@ -196,9 +173,9 @@ const showCenter = () => {
 
 const jsCenter = `<template>
   <yh-button @click="showCenter">居中消息</yh-button>
-<\/template>
+</template>
 
-<script setup lang="ts">
+<script setup>
 import { YhMessage } from 'yh-ui'
 
 const showCenter = () => {
@@ -226,9 +203,9 @@ const showHtml = () => {
 
 const jsHtml = `<template>
   <yh-button @click="showHtml">使用 HTML 片段</yh-button>
-<\/template>
+</template>
 
-<script setup lang="ts">
+<script setup>
 import { YhMessage } from 'yh-ui'
 
 const showHtml = () => {
@@ -261,9 +238,9 @@ const closeAll = () => {
 const jsCloseAll = `<template>
   <yh-button @click="showMultiple">显示多条消息</yh-button>
   <yh-button @click="closeAll">关闭所有</yh-button>
-<\/template>
+</template>
 
-<script setup lang="ts">
+<script setup>
 import { YhMessage } from 'yh-ui'
 
 const showMultiple = () => {
@@ -324,7 +301,7 @@ const jsPlacement = `<template>
   <yh-button @click="showPlacement('bottom-right')">Bottom Right</yh-button>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { YhMessage } from 'yh-ui'
 
 const showPlacement = (placement) => {

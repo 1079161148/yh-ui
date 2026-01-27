@@ -20,8 +20,8 @@
   --vp-c-brand-soft: rgba(64, 158, 255, 0.14);
 
   /* ===== Naive UI Style Layout ===== */
-  /* 左侧侧边栏 - 更窄 */
-  --vp-sidebar-width: 180px;
+  /* 左侧侧边栏 - 增加宽度 */
+  --vp-sidebar-width: 230px;
 
   /* 右侧大纲 - 更窄 */
   --vp-aside-width: 140px;
@@ -106,6 +106,11 @@
   /* 滚动时添加阴影 */
   &.scrolled {
     box-shadow: var(--yh-shadow-soft);
+  }
+
+  // 锁定状态下的偏移补偿
+  html.yh-popup-parent--hidden & {
+    padding-right: var(--yh-scrollbar-width, 0) !important;
   }
 }
 
@@ -222,6 +227,59 @@
   &.is-collapsed {
     transform: translateX(-100%);
     width: 0 !important;
+  }
+
+  // 锁定状态下的偏移补偿
+  html.yh-popup-parent--hidden & {
+    padding-right: var(--yh-scrollbar-width, 0) !important;
+  }
+
+  // 优化滚动条体验：对标 Element Plus / Naive UI 的 hover 显式逻辑
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: var(--vp-c-divider);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--vp-c-text-3);
+    }
+  }
+}
+
+// 补偿右侧大纲及其他站站点级固定元素
+html.yh-popup-parent--hidden {
+  .VPDocAside,
+  .aside-container,
+  .VPLocalNav,
+  .back-to-top {
+    padding-right: var(--yh-scrollbar-width, 0) !important;
+  }
+}
+
+// 右侧大纲也应用同样的滚动条逻辑
+.VPDocAside {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: var(--vp-c-divider);
+    }
   }
 }
 
@@ -1117,7 +1175,7 @@
 /* 大屏幕优化 */
 @media (min-width: 1440px) {
   :root {
-    --vp-sidebar-width: 200px;
+    --vp-sidebar-width: 250px;
     --vp-aside-width: 160px;
   }
 }
@@ -1125,7 +1183,7 @@
 /* 超大屏幕 */
 @media (min-width: 1920px) {
   :root {
-    --vp-sidebar-width: 220px;
+    --vp-sidebar-width: 270px;
     --vp-aside-width: 180px;
   }
 

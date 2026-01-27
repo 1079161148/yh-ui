@@ -1,0 +1,355 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(spin-wrapper) {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+@include b(spin) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--yh-color-primary, #409eff);
+
+  @include m(small) {
+    font-size: 12px;
+  }
+  @include m(default) {
+    font-size: 14px;
+  }
+  @include m(large) {
+    font-size: 16px;
+  }
+
+  @include when(vertical) {
+    flex-direction: column;
+    @include e(tip) {
+      margin-left: 0;
+      margin-top: 8px;
+    }
+  }
+
+  @include when(glass) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+    /* 核心：模糊与背景必须连带应用，且避开 3D transform 冲突 */
+    background: var(--yh-spin-mask-bg, rgba(255, 255, 255, 0.65));
+    backdrop-filter: blur(var(--yh-spin-blur-radius, 4px));
+    -webkit-backdrop-filter: blur(var(--yh-spin-blur-radius, 4px));
+
+    @media (prefers-color-scheme: dark) {
+      background: var(--yh-spin-mask-bg-dark, rgba(0, 0, 0, 0.5));
+    }
+  }
+
+  /* 独立增强层：仅处理噪点纹理，确保不干扰模糊捕获 */
+  @include e(mask) {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+  }
+
+  @include e(container) {
+    display: flex;
+    flex-direction: inherit;
+    align-items: center;
+    justify-content: center;
+    /* 容器独立加速，确保旋转图标在滤镜上方丝滑运行 */
+    transform: translateZ(0);
+    will-change: transform;
+    z-index: 1;
+  }
+
+  @include e(svg) {
+    animation: yh-spin-rotate 2s linear infinite;
+    shape-rendering: geometricPrecision;
+    will-change: transform;
+  }
+
+  @include e(circle) {
+    stroke: currentColor;
+    stroke-linecap: round;
+    animation: yh-spin-dash 1.5s ease-in-out infinite;
+  }
+
+  @include e(tip) {
+    margin-left: 10px;
+    color: inherit;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  /* 渐变状态下的特殊处理 */
+  @include when(gradient) {
+    @include e(tip) {
+      background: var(--yh-spin-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    @include e(dots) {
+      i {
+        background: var(--yh-spin-gradient);
+        background-color: transparent;
+      }
+    }
+  }
+
+  /* Dot 模式样式 */
+  @include e(dots) {
+    width: 1em;
+    height: 1em;
+    position: relative;
+    display: inline-block;
+    transform: rotate(45deg);
+    animation: yh-spin-rotate 1.2s infinite linear;
+
+    i {
+      width: 0.45em;
+      height: 0.45em;
+      position: absolute;
+      display: block;
+      background-color: currentColor;
+      border-radius: 100%;
+      transform: scale(0.75);
+      transform-origin: 50% 50%;
+      opacity: 0.3;
+      animation: yh-spin-move 1s infinite linear alternate;
+
+      &:nth-child(1) {
+        top: 0;
+        left: 0;
+      }
+      &:nth-child(2) {
+        top: 0;
+        right: 0;
+        animation-delay: 0.4s;
+      }
+      &:nth-child(3) {
+        right: 0;
+        bottom: 0;
+        animation-delay: 0.8s;
+      }
+      &:nth-child(4) {
+        left: 0;
+        bottom: 0;
+        animation-delay: 1.2s;
+      }
+    }
+  }
+
+  /* Chaser 模式 (追逐点) - 模拟彗星拖尾效果 */
+  @include e(chaser) {
+    position: relative;
+    i {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      &::after {
+        content: '';
+        display: block;
+        margin: 0 auto;
+        width: 18%;
+        height: 18%;
+        background-color: currentColor;
+        border-radius: 100%;
+        animation: yh-spin-chaser 1.2s infinite ease-in-out both;
+      }
+      @for $i from 1 through 8 {
+        &:nth-child(#{$i}) {
+          transform: rotate(45deg * ($i - 1));
+          &::after {
+            animation-delay: -0.15s * (8 - $i);
+          }
+        }
+      }
+    }
+  }
+
+  /* Gear 模式 (齿轮线) - 经典 Spinner */
+  @include e(gear) {
+    position: relative;
+    i {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      &::after {
+        content: '';
+        display: block;
+        margin: 0 auto;
+        width: 8%;
+        height: 25%;
+        background-color: currentColor;
+        border-radius: 5px;
+        animation: yh-spin-fade 1.1s infinite ease-in-out both;
+      }
+      @for $i from 1 through 12 {
+        &:nth-child(#{$i}) {
+          transform: rotate(30deg * ($i - 1));
+          &::after {
+            animation-delay: -0.091s * (12 - $i);
+          }
+        }
+      }
+    }
+  }
+
+  /* Dual Ring 模式 - 极简之美 */
+  @include e(dual-ring) {
+    display: inline-block;
+    &::after {
+      content: ' ';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      border-color: currentColor transparent currentColor transparent;
+      animation: yh-spin-rotate 1s linear infinite;
+    }
+  }
+
+  /* Rect 模式 (矩阵块) - 灵动跳跃 */
+  @include e(rect) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12%;
+    i {
+      width: 100%;
+      height: 100%;
+      background: currentColor;
+      border-radius: 15%;
+      animation: yh-spin-rect 1.2s infinite ease-in-out;
+
+      @for $i from 1 through 9 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{(($i - 1) % 3 + math.floor(math.div(($i - 1), 3))) * 0.15}s;
+        }
+      }
+    }
+  }
+
+  /* 渐变支持增强 - 修复: 仅应用到可见元素，不应用到定位容器 i 上 */
+  @include when(gradient) {
+    @include e((chaser, gear)) {
+      i::after {
+        background: var(--yh-spin-gradient);
+      }
+    }
+    @include e(rect) {
+      i {
+        background: var(--yh-spin-gradient);
+      }
+    }
+    @include e(dual-ring) {
+      &::after {
+        /* 这里的技巧：即使是渐变，我们也取第一个颜色作为边框回退，
+           或者通过 mask 增强，但基础修复是确保它不是全圆 */
+        border-color: var(--yh-color-primary, #00d2ff) transparent;
+      }
+    }
+  }
+}
+
+@keyframes yh-spin-chaser {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.1;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes yh-spin-rect {
+  0%,
+  70%,
+  100% {
+    transform: scale3D(1, 1, 1);
+    opacity: 1;
+  }
+  35% {
+    transform: scale3D(0.4, 0.4, 1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes yh-spin-fade {
+  0%,
+  39%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes yh-spin-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes yh-spin-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes yh-spin-move {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.yh-spin-fade-enter-active,
+.yh-spin-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.yh-spin-fade-enter-from,
+.yh-spin-fade-leave-to {
+  opacity: 0;
+}

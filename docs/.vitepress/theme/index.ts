@@ -67,6 +67,12 @@ import {
   YhSkeletonItem,
   YhProgress,
   YhTooltip,
+  YhPopconfirm,
+  YhPopover,
+  YhDialog,
+  YhSpin,
+  YhLoading,
+  YhMessageBox,
   YhConfigProvider
 } from '@yh-ui/components'
 
@@ -124,6 +130,16 @@ export default {
     app.component('YhProgress', YhProgress)
     app.component('YhTooltip', YhTooltip)
     app.component('yh-tooltip', YhTooltip)
+    app.component('YhPopconfirm', YhPopconfirm)
+    app.component('yh-popconfirm', YhPopconfirm)
+    app.component('YhPopover', YhPopover)
+    app.component('yh-popover', YhPopover)
+    app.component('YhDialog', YhDialog)
+    app.component('yh-dialog', YhDialog)
+    app.component('YhSpin', YhSpin)
+    app.component('yh-spin', YhSpin)
+    app.component('YhLoading', YhLoading as any)
+    app.component('YhMessageBox', YhMessageBox as any)
     app.component('YhConfigProvider', YhConfigProvider)
 
     // 注册文档组件

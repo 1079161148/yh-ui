@@ -53,6 +53,20 @@ export const withInstallFunction = <T>(fn: T, name: string): SFCWithInstall<T> =
 }
 
 /**
+ * 为指令添加 install 方法
+ */
+export const withInstallDirective = <T extends Directive>(
+  directive: T,
+  name: string
+): SFCWithInstall<T> => {
+  const dir = directive as SFCWithInstall<T>
+  dir.install = (app: App): void => {
+    app.directive(name, dir)
+  }
+  return dir
+}
+
+/**
  * 批量注册组件和指令
  */
 export const withInstallAll = (

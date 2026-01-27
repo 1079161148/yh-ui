@@ -1,0 +1,66 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+.yh-popconfirm__popper {
+  /* 与 Popover 空间感保持绝对对齐 */
+  border-radius: 12px !important;
+  box-shadow:
+    0 12px 32px -4px rgba(0, 0, 0, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  padding: 0 !important;
+  min-width: 200px;
+  overflow: visible !important;
+
+  .yh-popconfirm__content {
+    padding: 20px 24px;
+
+    .yh-popconfirm__main {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .yh-popconfirm__icon {
+      font-size: 20px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    .yh-popconfirm__inner {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .yh-popconfirm__title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    .yh-popconfirm__description {
+      font-size: 14px;
+      line-height: 1.62;
+      opacity: 0.88;
+    }
+
+    /* 底部按钮排版 */
+    .yh-popconfirm__footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+  }
+
+  /* 消除基座自带的 padding */
+  .yh-tooltip__content {
+    padding: 0 !important;
+  }
+}
+
+@include b(popconfirm) {
+  display: inline-block;
+  line-height: 1;
+}

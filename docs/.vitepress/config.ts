@@ -102,7 +102,12 @@ export default defineConfig({
             { text: 'Alert 警告提示', link: '/components/alert' },
             { text: 'Dialog 对话框', link: '/components/dialog' },
             { text: 'Tooltip 文字提示', link: '/components/tooltip' },
+            { text: 'Popconfirm 气泡确认框', link: '/components/popconfirm' },
+            { text: 'Popover 气泡卡片', link: '/components/popover' },
+            { text: 'Spin 加载中', link: '/components/spin' },
+            { text: 'Loading 加载', link: '/components/loading' },
             { text: 'Message 消息提示', link: '/components/message' },
+            { text: 'MessageBox 消息弹框', link: '/components/message-box' },
             { text: 'Notification 通知', link: '/components/notification' }
           ]
         },

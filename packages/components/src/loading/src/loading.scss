@@ -1,0 +1,70 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+.yh-loading-mask {
+  position: absolute;
+  z-index: 2000;
+  background-color: var(--yh-bg-color-overlay, rgba(255, 255, 255, 0.7));
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  &.is-fullscreen {
+    position: fixed;
+  }
+
+  /* 旗舰级亚克力（玻璃）效果 */
+  &.is-glass {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(0, 0, 0, 0.3) !important;
+    }
+
+    /* 玻璃质感的高光边缘 */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: -1;
+    }
+  }
+
+  .yh-loading-spinner {
+    text-align: center;
+    position: relative;
+    user-select: none;
+    z-index: 1;
+  }
+}
+
+/* 动画过渡类 - 独立于嵌套以确保 Vue 正确识别 */
+.yh-loading-fade-enter-active,
+.yh-loading-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.yh-loading-fade-enter-from,
+.yh-loading-fade-leave-to {
+  opacity: 0 !important;
+}
+
+/* 宿主元素状态 */
+.yh-loading-parent--relative {
+  position: relative !important;
+}
+
+.yh-loading-parent--hidden {
+  overflow: hidden !important;
+}

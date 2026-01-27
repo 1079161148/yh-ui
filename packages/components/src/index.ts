@@ -34,12 +34,18 @@ import { YhCard } from './card'
 import { YhMessage } from './message'
 import { YhNotification } from './notification'
 import { YhColorPicker } from './color-picker'
+import { YhSpin } from './spin'
+import { YhLoading } from './loading'
+import { YhMessageBox } from './message-box'
 import { YhBreadcrumb, YhBreadcrumbItem } from './breadcrumb'
 import { YhBackTop } from './back-top'
 import { YhAlert } from './alert'
 import { YhSkeleton, YhSkeletonItem } from './skeleton'
 import { YhProgress } from './progress'
 import { YhTooltip } from './tooltip'
+import { YhPopconfirm } from './popconfirm'
+import { YhPopover } from './popover'
+import { YhDialog, YhDialogMethod } from './dialog'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -71,12 +77,18 @@ export * from './card'
 export * from './message'
 export * from './notification'
 export * from './color-picker'
+export * from './spin'
+export * from './loading'
+export * from './message-box'
 export * from './breadcrumb'
 export * from './back-top'
 export * from './alert'
 export * from './skeleton'
 export * from './progress'
 export * from './tooltip'
+export * from './popconfirm'
+export * from './popover'
+export * from './dialog'
 export * from './config-provider'
 
 // 所有组件列表
@@ -115,6 +127,9 @@ const components = [
   YhBadge,
   YhCard,
   YhColorPicker,
+  YhSpin,
+  YhLoading,
+  YhMessageBox,
   YhBreadcrumb,
   YhBreadcrumbItem,
   YhBackTop,
@@ -123,6 +138,10 @@ const components = [
   YhSkeletonItem,
   YhProgress,
   YhTooltip,
+  YhPopconfirm,
+  YhPopover,
+  YhDialog,
+  YhDialogMethod,
   YhConfigProvider
 ] as Plugin[]
 
@@ -138,6 +157,7 @@ export const install = (app: App): void => {
   // 挂载全局方法
   app.config.globalProperties.$message = YhMessage
   app.config.globalProperties.$notify = YhNotification
+  app.config.globalProperties.$dialog = YhDialogMethod
 }
 
 /**
@@ -147,5 +167,6 @@ export default {
   install,
   // 导出函数式 API，便于具名导入
   YhMessage,
-  YhNotification
+  YhNotification,
+  YhDialogMethod
 }
