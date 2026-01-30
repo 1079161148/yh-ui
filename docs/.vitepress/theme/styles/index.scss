@@ -997,14 +997,113 @@ html.yh-popup-parent--hidden {
 }
 
 /* ============================================
-   Component Display Area
+   Component Specific Fixes (Documentation Site Only)
    ============================================ */
-.vp-doc .yh-button + .yh-button {
-  margin-left: 12px;
-}
+.vp-doc {
+  /* Pagination 适配：防止 VitePress 的 li, ul 样式破坏分页布局 */
+  .yh-pagination {
+    ul,
+    li {
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      line-height: normal !important;
 
-.vp-doc .yh-input {
-  margin-bottom: 12px;
+      &::before {
+        display: none !important;
+      }
+    }
+
+    .yh-pagination__item {
+      display: inline-flex !important;
+    }
+
+    /* 绝对锁定跳转输入框宽度 */
+    .yh-pagination__jumper {
+      .yh-input {
+        width: 50px !important;
+        max-width: 50px !important;
+        flex: none !important; // 彻底禁止弹性伸展
+
+        input {
+          width: 100% !important;
+          padding: 0 !important;
+          text-align: center !important;
+        }
+      }
+    }
+  }
+
+  /* Descriptions 适配：强制主权回归，确保尺寸切换与边框完美对齐 */
+  .yh-descriptions {
+    display: block !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+
+    .yh-descriptions__body {
+      background-color: transparent !important;
+      border-radius: 0 !important;
+    }
+
+    table {
+      display: table !important;
+      width: 100% !important;
+      border-collapse: collapse !important;
+      table-layout: auto !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      background-color: transparent !important;
+      // 移除强制 border:none，允许组件 bordered 逻辑自行生效
+    }
+
+    /* 只清除行的背景（杀掉 VitePress 默认斑马纹） */
+    .vp-doc & tr,
+    .vp-doc & tr:nth-child(2n),
+    tr {
+      display: table-row !important;
+      background-color: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+    }
+
+    /* 旗舰级修正：强制单元格跟随组件变量走，彻底解决尺寸切换无效问题 */
+    th,
+    td {
+      display: table-cell !important;
+      border-radius: 0 !important;
+      vertical-align: middle !important;
+      // 核心修复：强制跟随组件变量，不受 VitePress 硬编码影响
+      padding: var(--yh-descriptions-padding) !important;
+      font-size: var(--yh-descriptions-item-font-size) !important;
+      color: inherit !important;
+    }
+
+    /* 必须显式捕获无边框状态，杀掉 VitePress 的默认细线 */
+    &:not(.is-bordered) {
+      &,
+      table,
+      tr,
+      th,
+      td {
+        border: none !important;
+      }
+    }
+
+    /* 响应式样式保持 */
+    @media (max-width: 768px) {
+      table {
+        table-layout: auto !important;
+        border-radius: 0 !important;
+      }
+    }
+  }
+
+  /* 统一修复演示区域可能存在的边距干扰 */
+  .demo-box__preview {
+    .yh-button + .yh-button {
+      margin-left: 12px;
+    }
+  }
 }
 
 /* ============================================

@@ -1,0 +1,117 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(descriptions) {
+  // 核心变量锁定：通过 Size 修饰符动态计算
+  --yh-descriptions-item-font-size: var(--yh-component-size-default-font, 14px);
+  --yh-descriptions-padding: var(--yh-component-size-default-padding, 16px);
+  --yh-descriptions-border-color: var(--yh-border-color-lighter, #ebeef5);
+
+  box-sizing: border-box;
+  color: var(--yh-text-color-primary, #303133);
+
+  @include m(large) {
+    --yh-descriptions-item-font-size: var(--yh-component-size-large-font);
+    --yh-descriptions-padding: var(--yh-component-size-large-padding);
+  }
+  @include m(small) {
+    --yh-descriptions-item-font-size: var(--yh-component-size-small-font);
+    --yh-descriptions-padding: var(--yh-component-size-small-padding);
+  }
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--yh-spacing-md, 16px);
+  }
+
+  @include e(title) {
+    color: var(--yh-text-color-primary);
+    font-weight: 700;
+    font-size: var(--yh-font-size-md, 16px);
+  }
+
+  @include e(body) {
+    background-color: transparent;
+    border-radius: 0;
+  }
+
+  @include e(table) {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    table-layout: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    @include is(fixed) {
+      table-layout: fixed;
+    }
+  }
+
+  @include e(label) {
+    box-sizing: border-box;
+    color: var(--yh-text-color-regular);
+    font-weight: 400;
+    font-size: var(--yh-descriptions-item-font-size);
+    padding: var(--yh-descriptions-padding);
+    text-align: left;
+    vertical-align: middle;
+    background-color: transparent;
+    border-radius: 0;
+    white-space: nowrap; // 旗舰修复：禁绝 Label 换行
+  }
+
+  @include e(content) {
+    box-sizing: border-box;
+    color: var(--yh-text-color-primary);
+    font-size: var(--yh-descriptions-item-font-size);
+    padding: var(--yh-descriptions-padding);
+    vertical-align: middle;
+    word-break: break-all;
+    border-radius: 0;
+  }
+
+  // ===========================================
+  // 旗舰级无边框模式：文字对齐优化
+  // ===========================================
+  &:not(.is-bordered) {
+    @include e(label) {
+      padding-left: 0; // 无边框时 Label 与边缘对齐
+    }
+  }
+
+  // ===========================================
+  // 旗舰级边框模式：斑马纹对比与宽度锚定
+  // ===========================================
+  @include is(bordered) {
+    @include e(table) {
+      border: 1px solid var(--yh-descriptions-border-color);
+    }
+
+    @include e((label, content)) {
+      border: 1px solid var(--yh-descriptions-border-color);
+    }
+
+    @include e(label) {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+      font-weight: 700;
+      color: var(--yh-text-color-primary);
+      width: 150px; // 锚定参考宽度
+    }
+
+    @include e(content) {
+      background-color: var(--yh-fill-color-blank, #ffffff);
+    }
+  }
+
+  // 垂直布局
+  @include is(vertical) {
+    @include e(label) {
+      width: auto;
+      padding-left: var(--yh-descriptions-padding);
+    }
+  }
+}
