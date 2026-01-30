@@ -50,6 +50,11 @@ import { YhDrawer } from './drawer'
 import { YhWatermark } from './watermark'
 import { YhUpload } from './upload'
 import { YhMarquee } from './marquee'
+import { YhPagination } from './pagination'
+import { YhImage, YhImageViewer } from './image'
+import { YhDescriptions, YhDescriptionsItem } from './descriptions'
+import { YhTabs, YhTabPane } from './tabs'
+import { YhSteps, YhStep } from './steps'
 import { YhConfigProvider } from './config-provider'
 
 // 导出所有组件
@@ -97,6 +102,11 @@ export * from './drawer'
 export * from './watermark'
 export * from './upload'
 export * from './marquee'
+export * from './pagination'
+export * from './image'
+export * from './descriptions'
+export * from './tabs'
+export * from './steps'
 export * from './config-provider'
 
 // 所有组件列表
@@ -154,6 +164,15 @@ const components = [
   YhWatermark,
   YhUpload,
   YhMarquee,
+  YhPagination,
+  YhImage,
+  YhImageViewer,
+  YhDescriptions,
+  YhDescriptionsItem,
+  YhTabs,
+  YhTabPane,
+  YhSteps,
+  YhStep,
   YhConfigProvider
 ] as Plugin[]
 

@@ -15,7 +15,7 @@ import type { Theme } from 'vitepress'
 // 导入组件库样式
 import '@yh-ui/theme/styles/index.scss'
 
-// 导入组件样式（用于函数式调用的组件）
+// 导入组件样式（仅用于函数式调用的组件，这些组件可能不通过模板引用所以需要预加载样式）
 import '@yh-ui/components/message/src/message.scss'
 import '@yh-ui/components/notification/src/notification.scss'
 
@@ -77,6 +77,15 @@ import {
   YhSpin,
   YhLoading,
   YhMessageBox,
+  YhPagination,
+  YhImage,
+  YhImageViewer,
+  YhDescriptions,
+  YhDescriptionsItem,
+  YhTabs,
+  YhTabPane,
+  YhSteps,
+  YhStep,
   YhConfigProvider
 } from '@yh-ui/components'
 
@@ -152,7 +161,25 @@ export default {
     app.component('yh-spin', YhSpin)
     app.component('YhLoading', YhLoading as any)
     app.component('YhMessageBox', YhMessageBox as any)
+    app.component('YhPagination', YhPagination)
+    app.component('yh-pagination', YhPagination)
+    app.component('YhImage', YhImage)
+    app.component('yh-image', YhImage)
+    app.component('YhImageViewer', YhImageViewer)
+    app.component('yh-image-viewer', YhImageViewer)
+    app.component('YhDescriptions', YhDescriptions)
+    app.component('yh-descriptions', YhDescriptions)
+    app.component('YhDescriptionsItem', YhDescriptionsItem)
+    app.component('yh-descriptions-item', YhDescriptionsItem)
     app.component('YhConfigProvider', YhConfigProvider)
+    app.component('YhTabs', YhTabs)
+    app.component('yh-tabs', YhTabs)
+    app.component('YhTabPane', YhTabPane)
+    app.component('yh-tab-pane', YhTabPane)
+    app.component('YhSteps', YhSteps)
+    app.component('yh-steps', YhSteps)
+    app.component('YhStep', YhStep)
+    app.component('yh-step', YhStep)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)

@@ -72,6 +72,8 @@ export default defineNuxtConfig({
 | 选项 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | `importStyle` | `boolean` | `true` | 是否自动导入组件样式 |
+| `prefix` | `string` | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton` |
+| `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖 |
 
 ## 自动导入
 

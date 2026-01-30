@@ -51,9 +51,10 @@ export default defineConfig({
         {
           text: '基础组件',
           items: [
+            { text: 'Layout 布局', link: '/components/layout' },
             { text: 'Button 按钮', link: '/components/button' },
-            { text: 'Link 链接', link: '/components/link' },
             { text: 'Icon 图标', link: '/components/icon' },
+            { text: 'Divider 分割线', link: '/components/divider' },
             { text: 'Skeleton 骨架屏', link: '/components/skeleton' }
           ]
         },
@@ -87,7 +88,10 @@ export default defineConfig({
             { text: 'Badge 徽标', link: '/components/badge' },
             { text: 'Card 卡片', link: '/components/card' },
             { text: 'Tag 标签', link: '/components/tag' },
+            { text: 'Pagination 分页', link: '/components/pagination' },
             { text: 'Progress 进度条', link: '/components/progress' },
+            { text: 'Image 图片', link: '/components/image' },
+            { text: 'Descriptions 描述列表', link: '/components/descriptions' },
             { text: 'Watermark 水印', link: '/components/watermark' },
             { text: 'Marquee 跑马灯', link: '/components/marquee' }
           ]
@@ -95,6 +99,8 @@ export default defineConfig({
         {
           text: 'Navigation 导航组件',
           items: [
+            { text: 'Tabs 标签页', link: '/components/tabs' },
+            { text: 'Steps 步骤条', link: '/components/steps' },
             { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
             { text: 'BackTop 回到顶部', link: '/components/back-top' }
           ]

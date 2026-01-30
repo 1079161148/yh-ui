@@ -1,6 +1,6 @@
 # YH-UI 组件库设计规范
 
-> 融合 Element Plus 的简洁性 + Ant Design 的系统性 + Naive UI 的现代性
+> 融合 市面组件库 的简洁性 + Ant Design 的系统性 + Naive UI 的现代性
 
 ## 一、设计理念
 

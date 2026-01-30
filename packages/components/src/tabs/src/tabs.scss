@@ -1,0 +1,295 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(tabs) {
+  --yh-tabs-header-height: 40px;
+  --yh-tabs-active-color: var(--yh-color-primary);
+  --yh-tabs-text-color: var(--yh-text-color-primary);
+  --yh-tabs-disabled-color: var(--yh-text-color-disabled);
+  --yh-tabs-border-color: var(--yh-border-color-light);
+  --yh-tabs-indicator-width: 40px;
+  --yh-tabs-indicator-height: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  @include e(nav) {
+    position: relative;
+    display: flex;
+    background-color: transparent;
+  }
+
+  @include e(nav-wrap) {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  @include e(nav-list) {
+    display: flex;
+    position: relative;
+    transition: transform 0.3s;
+    white-space: nowrap;
+  }
+
+  @include e(item) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: var(--yh-tabs-header-height);
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-size: var(--yh-font-size-base);
+    color: var(--yh-tabs-text-color);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      color var(--yh-duration-fast),
+      background-color var(--yh-duration-fast);
+
+    &:hover:not(.is-disabled) {
+      color: var(--yh-tabs-active-color);
+    }
+
+    @include is(active) {
+      color: var(--yh-tabs-active-color);
+      font-weight: 500;
+    }
+
+    @include is(disabled) {
+      color: var(--yh-tabs-disabled-color);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(icon) {
+    font-size: 16px;
+  }
+
+  @include e(label) {
+    line-height: 1;
+  }
+
+  @include e(close) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    color: var(--yh-text-color-secondary);
+    transition: all var(--yh-duration-fast);
+    margin-left: 4px;
+
+    &:hover {
+      background-color: var(--yh-color-danger-light-9);
+      color: var(--yh-color-danger);
+    }
+  }
+
+  @include e(add) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--yh-tabs-header-height);
+    height: var(--yh-tabs-header-height);
+    color: var(--yh-text-color-secondary);
+    cursor: pointer;
+    transition: color var(--yh-duration-fast);
+
+    &:hover {
+      color: var(--yh-tabs-active-color);
+    }
+  }
+
+  @include e(indicator) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: var(--yh-tabs-active-color);
+    transition:
+      transform var(--yh-duration-base),
+      width var(--yh-duration-base);
+    border-radius: 1px;
+  }
+
+  @include e(content) {
+    padding: 16px 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  // ============= Line 类型 =============
+  @include m(line) {
+    @include e(nav) {
+      border-bottom: 1px solid var(--yh-tabs-border-color);
+    }
+  }
+
+  // ============= Card 类型 =============
+  @include m(card) {
+    @include e(nav) {
+      border-bottom: 1px solid var(--yh-tabs-border-color);
+    }
+
+    @include e(item) {
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: var(--yh-radius-base) var(--yh-radius-base) 0 0;
+      margin-bottom: -1px;
+
+      @include is(active) {
+        border-color: var(--yh-tabs-border-color);
+        background-color: var(--yh-bg-color);
+      }
+    }
+
+    @include e(indicator) {
+      display: none;
+    }
+  }
+
+  // ============= Border-Card 类型 =============
+  @include m(border-card) {
+    border: 1px solid var(--yh-tabs-border-color);
+    border-radius: var(--yh-radius-base);
+    box-shadow: var(--yh-shadow-sm);
+
+    @include e(nav) {
+      background-color: var(--yh-fill-color-light);
+      border-bottom: 1px solid var(--yh-tabs-border-color);
+    }
+
+    @include e(item) {
+      margin: -1px 0 0 -1px;
+      border: 1px solid transparent;
+
+      @include is(active) {
+        background-color: var(--yh-bg-color);
+        border-color: var(--yh-tabs-border-color);
+        border-bottom-color: transparent;
+      }
+    }
+
+    @include e(indicator) {
+      display: none;
+    }
+
+    @include e(content) {
+      padding: 16px;
+    }
+  }
+
+  // ============= Segment 类型 (Premium) =============
+  @include m(segment) {
+    @include e(nav) {
+      background-color: var(--yh-fill-color-light);
+      border-radius: var(--yh-radius-md);
+      padding: 4px;
+    }
+
+    @include e(item) {
+      border-radius: var(--yh-radius-base);
+      height: calc(var(--yh-tabs-header-height) - 8px);
+
+      @include is(active) {
+        background-color: var(--yh-bg-color);
+        box-shadow: var(--yh-shadow-sm);
+      }
+    }
+
+    @include e(indicator) {
+      display: none;
+    }
+  }
+
+  // ============= 位置变体 =============
+  @include m(left) {
+    flex-direction: row;
+
+    @include e(nav) {
+      flex-direction: column;
+      border-right: 1px solid var(--yh-tabs-border-color);
+      border-bottom: none;
+    }
+
+    @include e(nav-list) {
+      flex-direction: column;
+    }
+
+    @include e(item) {
+      justify-content: flex-start;
+    }
+
+    @include e(indicator) {
+      top: 0;
+      right: 0;
+      left: auto;
+      bottom: auto;
+      width: 2px;
+      height: auto;
+    }
+
+    @include e(content) {
+      padding: 0 16px;
+    }
+  }
+
+  @include m(right) {
+    flex-direction: row-reverse;
+
+    @include e(nav) {
+      flex-direction: column;
+      border-left: 1px solid var(--yh-tabs-border-color);
+      border-bottom: none;
+    }
+
+    @include e(nav-list) {
+      flex-direction: column;
+    }
+
+    @include e(item) {
+      justify-content: flex-start;
+    }
+
+    @include e(indicator) {
+      top: 0;
+      left: 0;
+      bottom: auto;
+      width: 2px;
+      height: auto;
+    }
+
+    @include e(content) {
+      padding: 0 16px;
+    }
+  }
+
+  @include m(bottom) {
+    flex-direction: column-reverse;
+
+    @include e(nav) {
+      border-top: 1px solid var(--yh-tabs-border-color);
+      border-bottom: none;
+    }
+
+    @include e(indicator) {
+      top: 0;
+      bottom: auto;
+    }
+  }
+
+  // ============= Stretch =============
+  @include is(stretch) {
+    @include e(nav-list) {
+      display: flex;
+      width: 100%;
+    }
+
+    @include e(item) {
+      flex: 1;
+    }
+  }
+}

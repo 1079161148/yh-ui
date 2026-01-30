@@ -168,7 +168,7 @@ export const useTree = (
 
     emitModelValue()
 
-    // 拋出详细勾选事件 (对标 Element Plus)
+    // 拋出详细勾选事件 (对标 市面组件库)
     const checkedKeys: TreeKey[] = []
     const checkedNodes: TreeOption[] = []
     nodeMap.value.forEach((n) => {

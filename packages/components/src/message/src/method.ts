@@ -1,7 +1,7 @@
 /**
  * Message 方法
  * @description 函数式调用消息提示
- * @reference Element Plus Message 实现
+ * @reference 市面组件库 Message 实现
  */
 
 import { createVNode, render, shallowReactive } from 'vue'
@@ -64,7 +64,7 @@ const createMessage = (options: MessageOptions): MessageHandler => {
   const id = `message_${seed++}`
   const userOnClose = options.onClose
 
-  // 使用 shallowReactive 创建可变的 props 对象（Element Plus 方式）
+  // 使用 shallowReactive 创建可变的 props 对象（市面组件库 方式）
   const props = shallowReactive<MessageOptions>({
     ...options,
     id,

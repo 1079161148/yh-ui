@@ -177,3 +177,7 @@ const descriptionsClasses = computed(() => [
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@use './descriptions.scss';
+</style>

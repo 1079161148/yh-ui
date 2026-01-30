@@ -1,0 +1,289 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(pagination) {
+  --yh-pagination-font-size: 14px;
+  --yh-pagination-bg-color: transparent;
+  --yh-pagination-text-color: var(--yh-text-color-regular);
+  --yh-pagination-border-radius: 2px;
+  --yh-pagination-btn-width: 32px;
+  --yh-pagination-btn-height: 32px;
+  --yh-pagination-btn-bg-color: transparent; // 基础模式默认为透明
+  --yh-pagination-btn-hover-color: var(--yh-color-primary);
+  --yh-pagination-item-active-bg-color: var(--yh-color-primary);
+  --yh-pagination-item-active-color: #ffffff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap; // 强制不换行
+  color: var(--yh-pagination-text-color);
+  font-size: var(--yh-pagination-font-size);
+  user-select: none;
+  gap: 8px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  line-height: 1;
+
+  &,
+  & * {
+    box-sizing: border-box;
+  }
+
+  @include is(small) {
+    --yh-pagination-font-size: 12px;
+    --yh-pagination-btn-width: 24px;
+    --yh-pagination-btn-height: 24px;
+    gap: 4px;
+  }
+
+  @include e(total) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    color: var(--yh-text-color-regular);
+    height: var(--yh-pagination-btn-height);
+    white-space: nowrap;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  @include e(sizes) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    height: var(--yh-pagination-btn-height);
+    vertical-align: middle;
+    flex-shrink: 0;
+
+    .yh-select {
+      width: 110px; // 锁定选择器宽度
+      margin: 0 !important;
+    }
+  }
+
+  @include e(prev) {
+    @extend %btn-style;
+  }
+
+  @include e(next) {
+    @extend %btn-style;
+  }
+
+  @include e(pager) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 8px;
+    height: var(--yh-pagination-btn-height);
+    flex-shrink: 0;
+  }
+
+  @include e(item) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--yh-pagination-btn-width);
+    height: var(--yh-pagination-btn-height);
+    margin: 0;
+    padding: 0 4px;
+    background-color: var(--yh-pagination-btn-bg-color);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: var(--yh-pagination-border-radius);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s;
+    color: inherit;
+    box-sizing: border-box;
+    line-height: normal;
+    flex-shrink: 0;
+
+    &:hover {
+      color: var(--yh-pagination-btn-hover-color);
+      border-color: var(--yh-pagination-btn-hover-color);
+    }
+
+    @include is(active) {
+      color: var(--yh-pagination-item-active-color);
+      background-color: var(--yh-pagination-item-active-bg-color);
+      border-color: var(--yh-pagination-item-active-bg-color);
+      font-weight: bold;
+      cursor: default;
+    }
+  }
+
+  @include e(more) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--yh-pagination-btn-width);
+    height: var(--yh-pagination-btn-height);
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: var(--yh-text-color-secondary);
+    cursor: pointer;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  @include e(jumper) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+    height: var(--yh-pagination-btn-height);
+    color: var(--yh-text-color-regular);
+    white-space: nowrap;
+    vertical-align: middle;
+    flex-shrink: 0;
+
+    .yh-input {
+      width: 50px !important; // 强制锁定宽度
+      margin: 0 4px !important;
+
+      input {
+        padding: 0 !important; // 移除内边距，确保数字在窄框内居中
+        text-align: center;
+      }
+    }
+  }
+
+  // 组件内部通用覆盖
+  .yh-select,
+  .yh-input,
+  .yh-button {
+    margin: 0 !important;
+    vertical-align: middle;
+  }
+
+  // Common button style
+  %btn-style {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--yh-pagination-btn-width);
+    height: var(--yh-pagination-btn-height);
+    margin: 0;
+    padding: 0;
+    background-color: var(--yh-pagination-btn-bg-color);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: var(--yh-pagination-border-radius);
+    cursor: pointer;
+    color: inherit;
+    transition: all 0.2s;
+    line-height: 1;
+
+    svg {
+      display: block;
+      width: 14px;
+      height: 14px;
+      margin: 0;
+    }
+
+    &:hover:not(:disabled) {
+      color: var(--yh-pagination-btn-hover-color);
+      border-color: var(--yh-pagination-btn-hover-color);
+    }
+
+    &:disabled {
+      color: var(--yh-text-color-placeholder);
+      background-color: var(--yh-fill-color-light);
+      cursor: not-allowed;
+    }
+  }
+
+  // 1. 基础模式（无 background 属性时）
+  &:not(.is-background) {
+    @include e(item) {
+      background-color: transparent;
+      border: 1px solid var(--yh-border-color-lighter);
+      color: var(--yh-text-color-regular);
+
+      &:not(.is-active):hover {
+        color: var(--yh-pagination-btn-hover-color);
+        border-color: var(--yh-pagination-btn-hover-color);
+      }
+
+      &.is-active {
+        color: var(--yh-color-primary); // 基础模式激活：文字变色
+        border-color: var(--yh-color-primary); // 边框变色
+        background-color: transparent; // 确保没有背景
+        font-weight: bold;
+        cursor: default;
+      }
+    }
+    %btn-style {
+      background-color: transparent;
+      border: 1px solid var(--yh-border-color-lighter);
+      &:not(:disabled):hover {
+        color: var(--yh-pagination-btn-hover-color);
+        border-color: var(--yh-pagination-btn-hover-color);
+      }
+    }
+  }
+
+  // 2. 带背景色模式（background 属性为 true 时）
+  @include is(background) {
+    @include e(item) {
+      background-color: var(--yh-fill-color-light);
+      border: none;
+      color: var(--yh-text-color-regular);
+
+      &:not(.is-active):hover {
+        background-color: var(--yh-fill-color-darker);
+        color: var(--yh-color-primary);
+      }
+
+      &.is-active {
+        background-color: var(--yh-pagination-item-active-bg-color); // 背景模式激活：背景变色
+        color: #ffffff; // 文字变白
+        border: none;
+        font-weight: bold;
+        cursor: default;
+      }
+    }
+
+    @include e((prev, next)) {
+      background-color: var(--yh-fill-color-light);
+      border: none;
+
+      &:not(:disabled):hover {
+        background-color: var(--yh-fill-color-darker);
+        color: var(--yh-pagination-btn-hover-color);
+      }
+    }
+
+    @include e(more) {
+      background-color: var(--yh-fill-color-light);
+      border-radius: var(--yh-pagination-border-radius);
+    }
+  }
+
+  // 圆形模式
+  @include is(circle) {
+    @include e((item, prev, next)) {
+      border-radius: 50% !important;
+    }
+  }
+
+  // 禁用状态
+  @include is(disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    @include e((item, prev, next, more)) {
+      cursor: not-allowed !important;
+    }
+  }
+}

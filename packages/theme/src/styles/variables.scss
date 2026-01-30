@@ -220,6 +220,18 @@
   --yh-input-disabled-text-color: var(--yh-text-color-disabled);
   --yh-input-disabled-border-color: var(--yh-border-color-light);
 
+  /* Image 图片 */
+  --yh-image-placeholder-bg-color: var(--yh-fill-color-light);
+  --yh-image-placeholder-text-color: var(--yh-text-color-placeholder);
+  --yh-image-error-bg-color: var(--yh-fill-color-extra-light);
+  --yh-image-error-text-color: var(--yh-text-color-placeholder);
+
+  /* Image Viewer 预览器 */
+  --yh-image-viewer-mask-bg-color: rgba(0, 0, 0, 0.5);
+  --yh-image-viewer-btn-bg-color: var(--yh-text-color-regular);
+  --yh-image-viewer-btn-color: #ffffff;
+  --yh-image-viewer-btn-hover-bg-color: var(--yh-color-primary);
+
   /* ==================== 边框基础 ==================== */
   --yh-border-width: 1px;
   --yh-border-style: solid;

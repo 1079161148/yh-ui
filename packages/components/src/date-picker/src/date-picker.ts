@@ -1,7 +1,7 @@
 /**
  * DatePicker Types & Props
  * @description 日期选择器组件类型定义
- * 设计参考: Element Plus, Naive UI, Ant Design Vue
+ * 设计参考: 市面组件库, Naive UI, Ant Design Vue
  */
 
 import type { Component, ExtractPropTypes, PropType } from 'vue'

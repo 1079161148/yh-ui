@@ -193,7 +193,7 @@ export const generateTimeOptions = (
 
   if (stepMinutes <= 0) return options
 
-  // 始终包含结束时间点，与 Element Plus 保持一致
+  // 始终包含结束时间点，与 市面组件库 保持一致
   for (let m = startMinutes; m <= endMinutes; m += stepMinutes) {
     if (m > 24 * 60) break // 不超过 24 小时
     const value = formatMinutesToTime(m, 'HH:mm')

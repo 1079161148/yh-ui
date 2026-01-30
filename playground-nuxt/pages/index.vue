@@ -37,6 +37,33 @@
         <YhSwitch v-model="switchValue" />
         <p>当前状态: {{ switchValue }}</p>
       </div>
+
+      <div class="demo-block">
+        <h3>Image 图片</h3>
+        <YhImage 
+          src="https://picsum.photos/200/200" 
+          style="width: 100px; height: 100px; border-radius: 8px;"
+          :preview-src-list="['https://picsum.photos/800/800']"
+        />
+      </div>
+
+      <div class="demo-block">
+        <h3>Pagination 分页</h3>
+        <YhPagination 
+          v-model:current-page="currentPage" 
+          :total="100" 
+          layout="prev, pager, next"
+        />
+      </div>
+
+      <div class="demo-block">
+        <h3>Descriptions 描述列表</h3>
+        <YhDescriptions title="用户信息" border>
+          <YhDescriptionsItem label="用户名">YH-UI</YhDescriptionsItem>
+          <YhDescriptionsItem label="版本">0.0.1</YhDescriptionsItem>
+          <YhDescriptionsItem label="环境">Nuxt 3</YhDescriptionsItem>
+        </YhDescriptions>
+      </div>
     </section>
 
     <section class="section">
@@ -101,6 +128,7 @@ const { currentZIndex, nextZIndex } = useZIndex()
 const inputValue = ref('')
 const selectValue = ref('')
 const switchValue = ref(false)
+const currentPage = ref(1)
 
 const form = ref({
   username: '',

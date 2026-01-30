@@ -229,7 +229,7 @@ const handleOutsideClick = (e: MouseEvent) => {
 const handleNodeClick = (node: TreeNode, e?: MouseEvent) => {
   if (node.disabled) return
 
-  // 抛出节点点击事件 (对标 Element Plus，透出事件对象)
+  // 抛出节点点击事件 (对标 市面组件库，透出事件对象)
   emit('node-click', node.raw, node, e as MouseEvent)
 
   // 1. 如果是懒加载且尚未加载，点击行即触发加载并展开

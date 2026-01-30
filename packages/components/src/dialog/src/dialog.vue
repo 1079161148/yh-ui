@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * YhDialog - 对话框
- * @description 旗舰级弹窗组件，深度对标 Element Plus / Naive UI。支持亚克力玻璃态、智能拖拽、锁定滚动、焦点捕获等顶级能力。
+ * @description 旗舰级弹窗组件，深度对标 市面组件库 / Naive UI。支持亚克力玻璃态、智能拖拽、锁定滚动、焦点捕获等顶级能力。
  */
 import { ref, watch, onMounted, computed, nextTick, onUnmounted, type CSSProperties } from 'vue'
 import { useNamespace, useEventListener, useId, useScrollLock } from '@yh-ui/hooks'

@@ -1,7 +1,7 @@
 /**
  * useZIndex - Z-Index 管理 Hook
  * @description 统一管理组件的 z-index 值，SSR 安全
- * @reference 参考 Element Plus 的最佳实践实现
+ * @reference 参考 市面组件库 的最佳实践实现
  */
 import { computed, inject, ref, unref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
