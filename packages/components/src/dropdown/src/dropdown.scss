@@ -1,0 +1,289 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(dropdown) {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  color: var(--yh-color-text-primary, #1d1d1f);
+
+  @include when(disabled) {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  @include e(trigger) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    outline: none;
+    color: var(--yh-color-primary, #409eff);
+    font-size: 14px;
+
+    &:hover {
+      color: var(--yh-color-primary-light-3, #79bbff);
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px var(--yh-color-primary-light-5, rgba(64, 158, 255, 0.2));
+      border-radius: 4px;
+    }
+  }
+
+  @include e(icon) {
+    font-size: 12px;
+    transition:
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.2s ease;
+
+    @include when(active) {
+      transform: rotate(180deg);
+    }
+
+    // 确保图标颜色正确 - 需要覆盖 .yh-icon 的 color: inherit
+    &.yh-icon {
+      color: var(--yh-color-primary, #409eff);
+    }
+  }
+
+  // 触发器 hover 时，图标也变浅
+  @include e(trigger) {
+    &:hover {
+      .yh-dropdown__icon.yh-icon {
+        color: var(--yh-color-primary-light-3, #79bbff);
+      }
+    }
+  }
+
+  // 当在按钮内部时，继承按钮颜色
+  .yh-button .yh-dropdown__icon.yh-icon {
+    color: inherit;
+  }
+
+  // Split button 样式 - 整体容器
+  // 使用 .yh-tooltip 作为分割按钮的直接父容器
+  > .yh-tooltip {
+    display: inline-flex;
+    align-items: stretch;
+  }
+
+  // Split button 样式 - 下拉箭头按钮
+  @include e(caret-button) {
+    padding: 0 12px !important;
+    min-width: auto !important;
+    margin-left: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    // 分割线：使用左边框模拟
+    border-left: 1px solid var(--yh-color-primary-light-5, #a0cfff) !important;
+
+    // 当按钮是 primary 类型时，分割线颜色更深
+    &.yh-button--primary:not(.is-plain) {
+      border-left-color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    // 当按钮是 plain 类型时，分割线使用主色
+    &.is-plain {
+      border-left-color: var(--yh-color-primary-light-5, #a0cfff) !important;
+    }
+  }
+
+  // Split button 第一个按钮 - 去掉右侧圆角和右边框
+  > .yh-tooltip > .yh-button:first-child,
+  > .yh-button:first-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    margin-right: 0 !important;
+    border-right: none !important;
+  }
+
+  @include e(popper) {
+    background: var(--yh-bg-color, #ffffff);
+    border-radius: 12px;
+    box-shadow:
+      0 12px 32px -4px rgba(0, 0, 0, 0.12),
+      0 4px 12px rgba(0, 0, 0, 0.04);
+    padding: 6px 0;
+    min-width: 120px;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+    // 毛玻璃效果
+    @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+      background: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  @include e(menu) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @include e(menu-wrapper) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    margin: 2px 6px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--yh-color-text-primary, #1d1d1f);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    > span {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &:hover {
+      background: var(--yh-color-primary-light-9, #ecf5ff);
+      color: var(--yh-color-primary, #409eff);
+    }
+
+    &:active {
+      background: var(--yh-color-primary-light-8, #d9ecff);
+    }
+
+    @include when(disabled) {
+      cursor: not-allowed;
+      color: var(--yh-color-text-placeholder, #c0c4cc);
+
+      &:hover {
+        background: transparent;
+        color: var(--yh-color-text-placeholder, #c0c4cc);
+      }
+    }
+
+    // 危险项样式
+    @include when(danger) {
+      color: var(--yh-color-danger, #f56c6c);
+
+      &:hover {
+        background: var(--yh-color-danger-light-9, #fef0f0);
+        color: var(--yh-color-danger, #f56c6c);
+      }
+
+      &:active {
+        background: var(--yh-color-danger-light-8, #fde2e2);
+      }
+    }
+
+    // 选中项样式
+    @include when(checked) {
+      color: var(--yh-color-primary, #409eff);
+      font-weight: 500;
+    }
+  }
+
+  @include e(item-icon) {
+    font-size: 16px;
+    flex-shrink: 0;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+  }
+
+  @include e(check-icon) {
+    font-size: 14px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yh-color-primary, #409eff);
+    margin-right: 4px;
+  }
+
+  @include e(divider) {
+    height: 1px;
+    margin: 6px 12px;
+    background: var(--yh-border-color-light, #e4e7ed);
+  }
+
+  // 加载状态
+  @include e(loading) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 16px;
+    color: var(--yh-color-text-secondary, #909399);
+    font-size: 14px;
+
+    .yh-icon {
+      font-size: 16px;
+      color: var(--yh-color-primary, #409eff);
+    }
+  }
+
+  // 空状态
+  @include e(empty) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    color: var(--yh-color-text-placeholder, #c0c4cc);
+    font-size: 14px;
+  }
+}
+
+// 暗黑模式
+:root.dark,
+html.dark,
+body.dark {
+  .yh-dropdown {
+    color: var(--yh-color-text-primary, #e5eaf3);
+
+    @include e(popper) {
+      background: rgba(30, 30, 30, 0.9);
+      box-shadow:
+        0 12px 32px -4px rgba(0, 0, 0, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @include e(item) {
+      color: var(--yh-color-text-primary, #e5eaf3);
+
+      &:hover {
+        background: rgba(64, 158, 255, 0.15);
+      }
+
+      &:active {
+        background: rgba(64, 158, 255, 0.2);
+      }
+    }
+
+    @include e(divider) {
+      background: var(--yh-border-color-dark, #4c4d4f);
+    }
+  }
+}
+
+// 动画
+.yh-dropdown-fade-enter-active,
+.yh-dropdown-fade-leave-active {
+  transition:
+    opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.yh-dropdown-fade-enter-from,
+.yh-dropdown-fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.9) translateY(-4px);
+}

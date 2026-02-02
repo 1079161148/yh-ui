@@ -1,0 +1,89 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(infinite-scroll) {
+  display: flex;
+  flex-direction: column;
+
+  @include when(horizontal) {
+    flex-direction: row;
+  }
+
+  @include e(content) {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  @include e(placeholder) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 16px;
+  }
+
+  @include e(loading) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--yh-color-text-secondary, #86868b);
+  }
+
+  @include e(finished) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yh-color-text-placeholder, #c0c4cc);
+    font-size: 13px;
+  }
+
+  @include e(error) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yh-color-danger, #f56c6c);
+    font-size: 13px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  @include e(text) {
+    display: inline-block;
+    line-height: 1.5;
+  }
+
+  // 水平方向样式调整
+  @include when(horizontal) {
+    .yh-infinite-scroll__placeholder {
+      min-height: auto;
+      min-width: 50px;
+      padding: 16px 8px;
+      flex-direction: column;
+    }
+
+    .yh-infinite-scroll__loading {
+      flex-direction: column;
+    }
+  }
+}
+
+// 暗黑模式适配
+:root.dark,
+html.dark,
+body.dark {
+  .yh-infinite-scroll {
+    @include e(loading) {
+      color: var(--yh-color-text-secondary, #909399);
+    }
+
+    @include e(finished) {
+      color: var(--yh-color-text-placeholder, #6b6b6b);
+    }
+  }
+}

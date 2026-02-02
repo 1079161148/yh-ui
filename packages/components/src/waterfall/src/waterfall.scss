@@ -1,0 +1,128 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(waterfall) {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include e(column) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; // 核心：防止子元素溢出撑大 flex 项
+  }
+
+  @include e(item) {
+    width: 100%;
+    box-sizing: border-box;
+    will-change: transform, opacity;
+
+    @include m(animated) {
+      animation: yh-waterfall-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+    @include m(skeleton) {
+      background: var(--yh-bg-color-page);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: yh-skeleton-loading 1.5s infinite;
+      }
+    }
+  }
+
+  @include e(empty) {
+    width: 100%;
+    padding: 40px 0;
+    text-align: center;
+    color: var(--yh-color-text-secondary);
+    font-size: 14px;
+  }
+
+  // 加载状态相关
+  position: relative;
+  transition: min-height 0.3s ease;
+
+  @include when(loading) {
+    cursor: wait;
+  }
+
+  @include when(refreshing) {
+    // 刷新态时不隐藏旧内容，而是通过蒙层处理
+  }
+
+  @include e(refresh-overlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: inherit;
+    animation: yh-fade-in 0.3s ease;
+  }
+
+  @include e(loading-spinner) {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--yh-color-primary-light-8);
+    border-top-color: var(--yh-color-primary);
+    border-radius: 50%;
+    animation: yh-rotate 0.8s linear infinite;
+  }
+}
+
+@keyframes yh-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes yh-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 骨架屏动画
+@keyframes yh-skeleton-loading {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+// 瀑布流优雅入场动画
+@keyframes yh-waterfall-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

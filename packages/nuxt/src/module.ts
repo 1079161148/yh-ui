@@ -149,7 +149,19 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Tabs',
       'TabPane',
       'Steps',
-      'Step'
+      'Step',
+      'Affix',
+      'InfiniteScroll',
+      'Dropdown',
+      'DropdownItem',
+      'DropdownMenu',
+      'Menu',
+      'MenuItem',
+      'MenuItemGroup',
+      'SubMenu',
+      'Waterfall',
+      'Tree',
+      'TreeNode'
     ]
 
     components.forEach((name) => {

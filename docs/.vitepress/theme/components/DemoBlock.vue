@@ -80,6 +80,24 @@ const tokenizeVueCode = (code: string): Token[] => {
       continue
     }
 
+    // 单行注释 //
+    if (code[i] === '/' && code[i + 1] === '/') {
+      const end = code.indexOf('\n', i + 2)
+      const endPos = end === -1 ? len : end
+      tokens.push({ type: 'comment', value: code.slice(i, endPos) })
+      i = endPos
+      continue
+    }
+
+    // 多行注释 /* */
+    if (code[i] === '/' && code[i + 1] === '*') {
+      const end = code.indexOf('*/', i + 2)
+      const endPos = end === -1 ? len : end + 2
+      tokens.push({ type: 'comment', value: code.slice(i, endPos) })
+      i = endPos
+      continue
+    }
+
     // 模板字符串（反引号）
     if (code[i] === '`') {
       let j = i + 1
@@ -189,8 +207,16 @@ const tokenizeVueCode = (code: string): Token[] => {
       continue
     }
 
-    // 属性名或标识符（以字母、:、@、v- 开头）
-    if (/[a-zA-Z_$:@]/.test(code[i]) || (code[i] === 'v' && code[i + 1] === '-')) {
+    // 标点符号和运算符
+    if (/[=(){}[\];,.:|&<>]/.test(code[i])) {
+      // 特殊处理泛型中的 < 和 >
+      tokens.push({ type: 'punctuation', value: code[i] })
+      i++
+      continue
+    }
+
+    // 属性名或标识符（以字母、@、v- 开头）
+    if (/[a-zA-Z_$@]/.test(code[i]) || (code[i] === 'v' && code[i + 1] === '-')) {
       let j = i
       while (j < len && /[\w\-:@.$]/.test(code[j])) {
         j++
@@ -198,14 +224,22 @@ const tokenizeVueCode = (code: string): Token[] => {
       const word = code.slice(i, j)
 
       // 判断是否是关键字
-      const keywords = ['import', 'export', 'from', 'const', 'let', 'var', 'function', 'return',
+      const keywords = [
+        'import', 'export', 'from', 'const', 'let', 'var', 'function', 'return',
         'if', 'else', 'for', 'while', 'switch', 'case', 'break', 'continue', 'new', 'this',
         'class', 'extends', 'async', 'await', 'try', 'catch', 'throw', 'typeof', 'instanceof',
-        'true', 'false', 'null', 'undefined', 'void', 'delete', 'in', 'of']
+        'true', 'false', 'null', 'undefined', 'void', 'delete', 'in', 'of',
+        // TypeScript keywords
+        'interface', 'type', 'readonly', 'any', 'unknown', 'never', 'keyof', 'string', 'number', 'boolean', 'symbol', 'object', 'as'
+      ]
 
-      const functions = ['ref', 'computed', 'watch', 'watchEffect', 'onMounted', 'onUnmounted',
+      const functions = [
+        'ref', 'computed', 'watch', 'watchEffect', 'onMounted', 'onUnmounted',
         'defineProps', 'defineEmits', 'withDefaults', 'nextTick', 'provide', 'inject',
-        'console', 'Array', 'Object', 'String', 'Number', 'Boolean', 'Date']
+        'console', 'Array', 'Object', 'String', 'Number', 'Boolean', 'Date', 'JSON',
+        // TS Utility Types
+        'Record', 'Partial', 'Readonly', 'Required', 'Pick', 'Omit', 'Exclude', 'Extract', 'NonNullable', 'ReturnType', 'InstanceType'
+      ]
 
       if (keywords.includes(word)) {
         tokens.push({ type: 'keyword', value: word })
@@ -219,28 +253,13 @@ const tokenizeVueCode = (code: string): Token[] => {
       } else if (['setup', 'lang', 'scoped', 'name'].includes(word)) {
         // 特殊属性名
         tokens.push({ type: 'attr-name', value: word })
+      } else if (/^[A-Z]/.test(word)) {
+        // 类型或组件（大写开头）
+        tokens.push({ type: 'component', value: word })
       } else {
         tokens.push({ type: 'text', value: word })
       }
       i = j
-      continue
-    }
-
-    // 数字
-    if (/\d/.test(code[i])) {
-      let j = i
-      while (j < len && /[\d.]/.test(code[j])) {
-        j++
-      }
-      tokens.push({ type: 'number', value: code.slice(i, j) })
-      i = j
-      continue
-    }
-
-    // 标点符号和运算符
-    if (/[=(){}[\];,.]/.test(code[i])) {
-      tokens.push({ type: 'punctuation', value: code[i] })
-      i++
       continue
     }
 

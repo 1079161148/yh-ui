@@ -93,16 +93,22 @@ export default defineConfig({
             { text: 'Image 图片', link: '/components/image' },
             { text: 'Descriptions 描述列表', link: '/components/descriptions' },
             { text: 'Watermark 水印', link: '/components/watermark' },
-            { text: 'Marquee 跑马灯', link: '/components/marquee' }
+            { text: 'Marquee 跑马灯', link: '/components/marquee' },
+            { text: 'Waterfall 瀑布流', link: '/components/waterfall' },
+            { text: 'Tree 树形控件', link: '/components/tree' }
           ]
         },
         {
           text: 'Navigation 导航组件',
           items: [
+            { text: 'Menu 菜单', link: '/components/menu' },
+            { text: 'Dropdown 下拉菜单', link: '/components/dropdown' },
             { text: 'Tabs 标签页', link: '/components/tabs' },
             { text: 'Steps 步骤条', link: '/components/steps' },
             { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
-            { text: 'BackTop 回到顶部', link: '/components/back-top' }
+            { text: 'BackTop 回到顶部', link: '/components/back-top' },
+            { text: 'Affix 固钉', link: '/components/affix' },
+            { text: 'InfiniteScroll 无限滚动', link: '/components/infinite-scroll' }
           ]
         },
         {

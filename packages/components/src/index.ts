@@ -56,6 +56,12 @@ import { YhDescriptions, YhDescriptionsItem } from './descriptions'
 import { YhTabs, YhTabPane } from './tabs'
 import { YhSteps, YhStep } from './steps'
 import { YhConfigProvider } from './config-provider'
+import { YhAffix } from './affix'
+import { YhInfiniteScroll } from './infinite-scroll'
+import { YhDropdown, YhDropdownItem, YhDropdownMenu } from './dropdown'
+import { YhMenu, YhMenuItem, YhMenuItemGroup, YhSubMenu } from './menu'
+import { YhWaterfall } from './waterfall'
+import { YhTree, YhTreeNode } from './tree'
 
 // 导出所有组件
 export * from './button'
@@ -108,6 +114,12 @@ export * from './descriptions'
 export * from './tabs'
 export * from './steps'
 export * from './config-provider'
+export * from './affix'
+export * from './infinite-scroll'
+export * from './dropdown'
+export * from './menu'
+export * from './waterfall'
+export * from './tree'
 
 // 所有组件列表
 const components = [
@@ -173,7 +185,19 @@ const components = [
   YhTabPane,
   YhSteps,
   YhStep,
-  YhConfigProvider
+  YhConfigProvider,
+  YhAffix,
+  YhInfiniteScroll,
+  YhDropdown,
+  YhDropdownItem,
+  YhDropdownMenu,
+  YhMenu,
+  YhMenuItem,
+  YhMenuItemGroup,
+  YhSubMenu,
+  YhWaterfall,
+  YhTree,
+  YhTreeNode
 ] as Plugin[]
 
 /**

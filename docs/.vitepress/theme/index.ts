@@ -86,7 +86,20 @@ import {
   YhTabPane,
   YhSteps,
   YhStep,
-  YhConfigProvider
+  YhAffix,
+  YhInfiniteScroll,
+  YhDropdown,
+  YhDropdownItem,
+  YhDropdownMenu,
+  YhMenu,
+  YhMenuItem,
+  YhMenuItemGroup,
+  YhSubMenu,
+  YhConfigProvider,
+  YhWaterfall,
+  YhTree,
+  YhTreeNode,
+  vInfiniteScroll
 } from '@yh-ui/components'
 
 // 导入文档组件
@@ -101,15 +114,19 @@ export default {
     // 注册全局组件用于文档演示
     app.component('YhButton', YhButton)
     app.component('YhInput', YhInput)
+    app.component('yh-input', YhInput)
     app.component('YhCheckbox', YhCheckbox)
+    app.component('yh-checkbox', YhCheckbox)
     app.component('YhCheckboxGroup', YhCheckboxGroup)
     app.component('YhRadio', YhRadio)
     app.component('YhRadioGroup', YhRadioGroup)
     app.component('YhRadioButton', YhRadioButton)
     app.component('YhTag', YhTag)
+    app.component('yh-tag', YhTag)
     app.component('YhInputNumber', YhInputNumber)
     app.component('YhInputTag', YhInputTag)
     app.component('YhIcon', YhIcon)
+    app.component('yh-icon', YhIcon)
     app.component('YhForm', YhForm)
     app.component('YhFormItem', YhFormItem)
     app.component('YhFormSchema', YhFormSchema)
@@ -180,6 +197,35 @@ export default {
     app.component('yh-steps', YhSteps)
     app.component('YhStep', YhStep)
     app.component('yh-step', YhStep)
+
+    // 新增组件
+    app.component('YhAffix', YhAffix)
+    app.component('yh-affix', YhAffix)
+    app.component('YhInfiniteScroll', YhInfiniteScroll)
+    app.component('yh-infinite-scroll', YhInfiniteScroll)
+    app.component('YhDropdown', YhDropdown)
+    app.component('yh-dropdown', YhDropdown)
+    app.component('YhDropdownItem', YhDropdownItem)
+    app.component('yh-dropdown-item', YhDropdownItem)
+    app.component('YhDropdownMenu', YhDropdownMenu)
+    app.component('yh-dropdown-menu', YhDropdownMenu)
+    app.component('YhMenu', YhMenu)
+    app.component('yh-menu', YhMenu)
+    app.component('YhMenuItem', YhMenuItem)
+    app.component('yh-menu-item', YhMenuItem)
+    app.component('YhMenuItemGroup', YhMenuItemGroup)
+    app.component('yh-menu-item-group', YhMenuItemGroup)
+    app.component('YhSubMenu', YhSubMenu)
+    app.component('yh-sub-menu', YhSubMenu)
+    app.component('YhWaterfall', YhWaterfall)
+    app.component('yh-waterfall', YhWaterfall)
+    app.component('YhTree', YhTree)
+    app.component('yh-tree', YhTree)
+    app.component('YhTreeNode', YhTreeNode)
+    app.component('yh-tree-node', YhTreeNode)
+
+    // 注册指令
+    app.directive('infinite-scroll', vInfiniteScroll)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)

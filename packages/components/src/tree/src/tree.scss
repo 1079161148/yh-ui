@@ -1,0 +1,197 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(tree) {
+  --yh-tree-node-height: 28px;
+  --yh-tree-text-color: var(--yh-color-text-primary, #1d1d1f);
+  --yh-tree-hover-bg: var(--yh-color-primary-light-9, #ecf5ff);
+  --yh-tree-current-bg: var(--yh-color-primary-light-8, #d9ecff);
+
+  font-size: 14px;
+  color: var(--yh-tree-text-color);
+  user-select: none;
+
+  @include e(node) {
+    position: relative;
+
+    @include when(disabled) {
+      .yh-tree__label {
+        color: var(--yh-color-text-disabled, #c0c4cc);
+        cursor: not-allowed;
+      }
+    }
+
+    @include when(dragging) {
+      opacity: 0.5;
+    }
+
+    @include when(drop-inner) {
+      background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      .yh-tree__content {
+        background-color: var(--yh-color-primary-light-8, #d9ecff);
+      }
+    }
+
+    @include when(drop-before) {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--yh-color-primary, #409eff);
+        z-index: 10;
+      }
+    }
+
+    @include when(drop-after) {
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--yh-color-primary, #409eff);
+        z-index: 10;
+      }
+    }
+  }
+
+  @include e(content) {
+    display: flex;
+    align-items: center;
+    height: var(--yh-tree-node-height);
+    padding-right: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      background-color: var(--yh-tree-hover-bg);
+    }
+
+    .yh-tree__node.is-current > & {
+      background-color: var(--yh-tree-current-bg);
+      color: var(--yh-color-primary, #409eff);
+      font-weight: 500;
+    }
+  }
+
+  @include e(expand-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--yh-color-text-placeholder, #c0c4cc);
+    cursor: pointer;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.3s ease;
+
+    &:hover {
+      color: var(--yh-color-primary, #409eff);
+    }
+
+    @include when(expanded) {
+      color: var(--yh-color-text-secondary, #86868b);
+    }
+
+    @include when(loading) {
+      animation: yh-tree-rotate 1s linear infinite;
+      color: var(--yh-color-primary, #409eff) !important;
+    }
+
+    svg {
+      transition: fill 0.3s ease;
+    }
+  }
+
+  @include e(expand-placeholder) {
+    display: inline-block;
+    width: 24px;
+  }
+
+  @include e(label) {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: var(--yh-tree-node-height);
+  }
+
+  @include e(icon) {
+    margin-right: 4px;
+    color: var(--yh-color-text-secondary);
+  }
+
+  @include e(children) {
+    // 子节点区域
+  }
+
+  @include e(empty) {
+    padding: 20px;
+    text-align: center;
+    color: var(--yh-color-text-secondary);
+    font-size: 13px;
+  }
+
+  // 连接线模式
+  @include m(show-line) {
+    .yh-tree__node {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 11px;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background-color: var(--yh-border-color-light, #dcdfe6);
+      }
+
+      &:last-child::before {
+        height: 14px;
+      }
+    }
+
+    .yh-tree__content::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 14px;
+      width: 12px;
+      height: 1px;
+      background-color: var(--yh-border-color-light, #dcdfe6);
+    }
+
+    // 根节点不需要连接线
+    > .yh-tree__node::before {
+      display: none;
+    }
+
+    > .yh-tree__node > .yh-tree__content::before {
+      display: none;
+    }
+  }
+
+  // Checkbox 样式调整
+  .yh-checkbox {
+    margin-right: 8px;
+  }
+}
+
+@keyframes yh-tree-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
