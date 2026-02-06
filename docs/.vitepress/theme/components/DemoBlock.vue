@@ -53,6 +53,7 @@ const tokenizeVueCode = (code: string): Token[] => {
   const tokens: Token[] = []
   let i = 0
   const len = code.length
+  let inStyleBlock = false
 
   // 辅助函数：跳过空白字符
   const skipWhitespace = (): string => {
@@ -140,6 +141,12 @@ const tokenizeVueCode = (code: string): Token[] => {
 
       // 处理结束标签 </
       if (nextChar === '/') {
+        let tagEnd = code.indexOf('>', i)
+        if (tagEnd !== -1) {
+          const tagContent = code.slice(i + 2, tagEnd).trim()
+          if (tagContent === 'style') inStyleBlock = false
+        }
+
         tokens.push({ type: 'punctuation', value: '</' })
         i += 2
 
@@ -176,6 +183,7 @@ const tokenizeVueCode = (code: string): Token[] => {
         }
 
         if (tagName) {
+          if (tagName === 'style') inStyleBlock = true
           // 判断标签类型
           if (tagName.includes('-') || /^[A-Z]/.test(tagName)) {
             tokens.push({ type: 'component', value: tagName })
@@ -194,6 +202,17 @@ const tokenizeVueCode = (code: string): Token[] => {
       continue
     }
 
+    // 处理 CSS 类名选择器 .class 或 ID 选择器 #id 或伪类 :hover
+    if (inStyleBlock && (code[i] === '.' || code[i] === '#' || (code[i] === ':' && !/\s/.test(code[i - 1] || '')))) {
+      let start = i
+      i++
+      while (i < len && /[\w-]/.test(code[i])) {
+        i++
+      }
+      tokens.push({ type: 'keyword', value: code.slice(start, i) }) // 选择器作为关键词高亮
+      continue
+    }
+
     // 标签结束 > 或 />
     if (code[i] === '>') {
       tokens.push({ type: 'punctuation', value: '>' })
@@ -209,13 +228,12 @@ const tokenizeVueCode = (code: string): Token[] => {
 
     // 标点符号和运算符
     if (/[=(){}[\];,.:|&<>]/.test(code[i])) {
-      // 特殊处理泛型中的 < 和 >
       tokens.push({ type: 'punctuation', value: code[i] })
       i++
       continue
     }
 
-    // 属性名或标识符（以字母、@、v- 开头）
+    // 属性名或标识符
     if (/[a-zA-Z_$@]/.test(code[i]) || (code[i] === 'v' && code[i + 1] === '-')) {
       let j = i
       while (j < len && /[\w\-:@.$]/.test(code[j])) {
@@ -223,13 +241,17 @@ const tokenizeVueCode = (code: string): Token[] => {
       }
       const word = code.slice(i, j)
 
+      // 跳过空白看后面是否有 ':' (CSS 属性模式)
+      let nextIdx = j
+      while (nextIdx < len && /\s/.test(code[nextIdx])) nextIdx++
+      const isCssProperty = inStyleBlock && code[nextIdx] === ':'
+
       // 判断是否是关键字
       const keywords = [
         'import', 'export', 'from', 'const', 'let', 'var', 'function', 'return',
         'if', 'else', 'for', 'while', 'switch', 'case', 'break', 'continue', 'new', 'this',
         'class', 'extends', 'async', 'await', 'try', 'catch', 'throw', 'typeof', 'instanceof',
         'true', 'false', 'null', 'undefined', 'void', 'delete', 'in', 'of',
-        // TypeScript keywords
         'interface', 'type', 'readonly', 'any', 'unknown', 'never', 'keyof', 'string', 'number', 'boolean', 'symbol', 'object', 'as'
       ]
 
@@ -237,7 +259,6 @@ const tokenizeVueCode = (code: string): Token[] => {
         'ref', 'computed', 'watch', 'watchEffect', 'onMounted', 'onUnmounted',
         'defineProps', 'defineEmits', 'withDefaults', 'nextTick', 'provide', 'inject',
         'console', 'Array', 'Object', 'String', 'Number', 'Boolean', 'Date', 'JSON',
-        // TS Utility Types
         'Record', 'Partial', 'Readonly', 'Required', 'Pick', 'Omit', 'Exclude', 'Extract', 'NonNullable', 'ReturnType', 'InstanceType'
       ]
 
@@ -245,20 +266,36 @@ const tokenizeVueCode = (code: string): Token[] => {
         tokens.push({ type: 'keyword', value: word })
       } else if (functions.includes(word)) {
         tokens.push({ type: 'function', value: word })
+      } else if (isCssProperty) {
+        tokens.push({ type: 'attr-name', value: word }) // CSS 属性名
       } else if (word.startsWith('v-') || word.startsWith('@') || word.startsWith(':')) {
         tokens.push({ type: 'attr-name', value: word })
       } else if (code[j] === '=') {
-        // 后面跟着 = 的是属性名
         tokens.push({ type: 'attr-name', value: word })
       } else if (['setup', 'lang', 'scoped', 'name'].includes(word)) {
-        // 特殊属性名
         tokens.push({ type: 'attr-name', value: word })
       } else if (/^[A-Z]/.test(word)) {
-        // 类型或组件（大写开头）
         tokens.push({ type: 'component', value: word })
       } else {
         tokens.push({ type: 'text', value: word })
       }
+      i = j
+      continue
+    }
+
+    // 数字处理
+    if (/[0-9]/.test(code[i])) {
+      let j = i
+      while (j < len && /[0-9.]/.test(code[j])) {
+        j++
+      }
+      // 处理单位
+      if (inStyleBlock) {
+        while (j < len && /[a-z%]/.test(code[j])) {
+          j++
+        }
+      }
+      tokens.push({ type: 'number', value: code.slice(i, j) })
       i = j
       continue
     }
@@ -270,6 +307,7 @@ const tokenizeVueCode = (code: string): Token[] => {
 
   return tokens
 }
+
 
 // 渲染高亮代码
 const renderHighlightedCode = (code: string): string => {

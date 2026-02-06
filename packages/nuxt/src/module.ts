@@ -161,7 +161,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'SubMenu',
       'Waterfall',
       'Tree',
-      'TreeNode'
+      'TreeNode',
+      'Calendar',
+      'Countdown'
     ]
 
     components.forEach((name) => {

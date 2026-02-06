@@ -60,8 +60,10 @@ import { YhAffix } from './affix'
 import { YhInfiniteScroll } from './infinite-scroll'
 import { YhDropdown, YhDropdownItem, YhDropdownMenu } from './dropdown'
 import { YhMenu, YhMenuItem, YhMenuItemGroup, YhSubMenu } from './menu'
+import { YhCalendar } from './calendar'
 import { YhWaterfall } from './waterfall'
 import { YhTree, YhTreeNode } from './tree'
+import { YhCountdown } from './countdown'
 
 // 导出所有组件
 export * from './button'
@@ -118,8 +120,10 @@ export * from './affix'
 export * from './infinite-scroll'
 export * from './dropdown'
 export * from './menu'
+export * from './calendar'
 export * from './waterfall'
 export * from './tree'
+export * from './countdown'
 
 // 所有组件列表
 const components = [
@@ -195,9 +199,11 @@ const components = [
   YhMenuItem,
   YhMenuItemGroup,
   YhSubMenu,
+  YhCalendar,
   YhWaterfall,
   YhTree,
-  YhTreeNode
+  YhTreeNode,
+  YhCountdown
 ] as Plugin[]
 
 /**

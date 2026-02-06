@@ -1,0 +1,367 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+// ===================== Calendar 日历组件 (工业级纯净版) =====================
+@include b(calendar) {
+  // --- 样式令牌 (CSS Variables) ---
+  --yh-calendar-primary: var(--yh-color-primary, #409eff);
+  --yh-calendar-primary-light: var(--yh-color-primary-light-9, #ecf5ff);
+  --yh-calendar-primary-dark: var(--yh-color-primary-dark-2, #337ecc);
+  --yh-calendar-bg: var(--yh-bg-color, #ffffff);
+  --yh-calendar-text: var(--yh-text-color-primary, #1e293b);
+
+  --yh-calendar-cell-height: 100px;
+  --yh-calendar-cell-radius: 14px;
+  --yh-calendar-head-height: 80px;
+  --yh-calendar-title-size: 22px;
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary, #64748b);
+  --yh-calendar-week-number-color: #94a3b8;
+  --yh-calendar-holiday-color: #ef4444;
+
+  background: var(--yh-calendar-bg);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 650px;
+  overflow: hidden;
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+
+  // ===================== 结构布局 =====================
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+    background: #ffffff;
+    flex: none;
+    height: var(--yh-calendar-head-height);
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  @include e(title) {
+    font-size: var(--yh-calendar-title-size);
+    font-weight: 900;
+    color: var(--yh-calendar-text);
+    letter-spacing: 1px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 15%;
+      right: 15%;
+      height: 4px;
+      background: var(--yh-calendar-primary);
+      border-radius: 10px;
+      opacity: 0.8;
+    }
+  }
+
+  @include e(controls) {
+    position: absolute;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 8px;
+  }
+
+  @include e(body) {
+    padding: 20px 24px 28px;
+    flex: 1;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ===================== 表格系统 =====================
+  @include e(table) {
+    display: table;
+    width: 100%;
+    height: auto;
+    border-collapse: separate;
+    border-spacing: 12px 10px;
+    table-layout: fixed;
+    margin: 0;
+
+    tr {
+      display: table-row;
+      background: transparent;
+      border: none;
+    }
+    th,
+    td {
+      display: table-cell;
+      padding: 0;
+      border: none;
+      background: transparent;
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  @include e(weekday) {
+    height: 64px;
+    color: var(--yh-calendar-weekday-color);
+    font-weight: 800;
+    font-size: 15px;
+    position: relative;
+    & > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      z-index: 0;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  // ===================== 单元格 =====================
+  @include e(day) {
+    --yh-day-bg: #ffffff;
+    --yh-day-color: var(--yh-calendar-text);
+    --yh-day-radius: var(--yh-calendar-cell-radius);
+    --yh-day-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    --yh-day-scale: 1;
+
+    height: var(--yh-calendar-cell-height);
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--yh-day-bg);
+      border-radius: var(--yh-day-radius);
+      box-shadow: var(--yh-day-shadow);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 0;
+    }
+
+    &:hover:not(.is-disabled):not(.is-selected):not(.is-in-range) {
+      --yh-day-color: var(--yh-calendar-primary);
+      --yh-day-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      --yh-day-scale: 1.05;
+      z-index: 2;
+    }
+
+    &.is-in-range {
+      --yh-day-bg: var(--yh-calendar-primary-light);
+      --yh-day-radius: 0;
+      --yh-day-shadow: none;
+      &::before {
+        margin: 0 -7px;
+      }
+    }
+    &.is-range-start {
+      --yh-day-radius: var(--yh-calendar-cell-radius) 0 0 var(--yh-calendar-cell-radius);
+      &::before {
+        margin: 0 -7px 0 0;
+      }
+    }
+    &.is-range-end {
+      --yh-day-radius: 0 var(--yh-calendar-cell-radius) var(--yh-calendar-cell-radius) 0;
+      &::before {
+        margin: 0 0 0 -7px;
+      }
+    }
+
+    &.is-selected {
+      z-index: 5;
+      --yh-day-bg: var(--yh-calendar-primary-light);
+      --yh-day-color: var(--yh-calendar-primary);
+      --yh-day-shadow: 0 10px 25px rgba(64, 158, 255, 0.15);
+
+      &::before {
+        border: 2.5px solid var(--yh-calendar-primary); // 强化选中边框
+      }
+
+      .yh-calendar__day-value {
+        color: var(--yh-calendar-primary);
+        font-weight: 900;
+        font-size: 19px;
+      }
+      &.is-today .yh-calendar__day-value::after {
+        background-color: var(--yh-calendar-primary);
+      }
+    }
+
+    @include when(today) {
+      &:not(.is-selected) .yh-calendar__day-value {
+        color: var(--yh-calendar-primary);
+        font-weight: 800;
+      }
+      .yh-calendar__day-value::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 4px;
+        background: var(--yh-calendar-primary);
+        border-radius: 4px;
+      }
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      pointer-events: none !important;
+      &::before {
+        background-color: #f1f5f9;
+        box-shadow: none;
+      }
+      .yh-calendar__day-value {
+        color: #94a3b8;
+      }
+    }
+  }
+
+  @include e(day-inner) {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    gap: 8px; // 增加数字和内容之间的垂直间距
+    z-index: 1;
+    color: var(--yh-day-color);
+    transform: scale(var(--yh-day-scale));
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @include e(day-value) {
+    font-size: 17px;
+    position: relative;
+    line-height: 1;
+  }
+  @include e(day-badge) {
+    position: static;
+    order: -1;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    transform: scale(0.85);
+    @include m(holiday) {
+      color: #ef4444;
+    }
+    @include m(workday) {
+      color: #64748b;
+    }
+  }
+
+  @include e(day-content) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // ===================== 全屏模式 =====================
+  @include when(fullscreen) {
+    height: 100%;
+    width: 100%;
+    .yh-calendar__body {
+      padding: 0 16px 16px;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .yh-calendar__table {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-spacing: 0;
+      gap: 12px;
+      min-height: 0;
+
+      thead {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 8px;
+        tr {
+          display: flex;
+          width: 100%;
+          gap: 12px;
+        }
+        th {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      tbody {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        min-height: 0;
+        tr {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          flex: 1;
+          gap: 12px;
+          min-height: 0;
+        }
+        td {
+          flex: 1;
+          display: flex;
+          align-items: stretch;
+          justify-content: center;
+          min-height: 0;
+        }
+      }
+    }
+    .yh-calendar__day {
+      height: 100%;
+    }
+    .yh-calendar__weekday {
+      height: 60px;
+    }
+  }
+
+  @include m(small) {
+    --yh-calendar-cell-height: 56px;
+    min-width: 550px;
+    .yh-calendar__header {
+      height: 64px;
+    }
+  }
+  @include m(large) {
+    --yh-calendar-cell-height: 120px;
+    min-width: 850px;
+  }
+}

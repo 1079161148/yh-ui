@@ -232,6 +232,52 @@
   --yh-image-viewer-btn-color: #ffffff;
   --yh-image-viewer-btn-hover-bg-color: var(--yh-color-primary);
 
+  /* Calendar 日历 */
+  --yh-calendar-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --yh-calendar-border-color: rgba(0, 0, 0, 0.06);
+  --yh-calendar-border-radius: var(--yh-radius-xl);
+  --yh-calendar-header-bg: rgba(255, 255, 255, 0.95);
+  --yh-calendar-header-border: rgba(0, 0, 0, 0.04);
+  --yh-calendar-header-padding: 18px 22px;
+  --yh-calendar-body-padding: 14px 18px 18px;
+
+  /* Calendar 尺寸 */
+  --yh-calendar-cell-height: 85px;
+  --yh-calendar-cell-height-small: 52px;
+  --yh-calendar-cell-height-large: 110px;
+  --yh-calendar-cell-radius: 10px;
+  --yh-calendar-cell-radius-small: 6px;
+  --yh-calendar-cell-radius-large: 12px;
+
+  /* Calendar 颜色 */
+  --yh-calendar-primary: var(--yh-color-primary);
+  --yh-calendar-primary-light: rgba(59, 130, 246, 0.1);
+  --yh-calendar-selected-bg: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  --yh-calendar-selected-border: rgba(59, 130, 246, 0.4);
+  --yh-calendar-today-dot: var(--yh-color-primary);
+  --yh-calendar-weekend-color: #f97316;
+  --yh-calendar-disabled-color: var(--yh-text-color-disabled);
+  --yh-calendar-other-month-opacity: 0.35;
+
+  /* Calendar 假日 */
+  --yh-calendar-holiday-color: var(--yh-color-success);
+  --yh-calendar-holiday-bg: rgba(16, 185, 129, 0.12);
+  --yh-calendar-holiday-border: rgba(16, 185, 129, 0.25);
+  --yh-calendar-workday-color: var(--yh-color-warning);
+  --yh-calendar-workday-bg: rgba(245, 158, 11, 0.12);
+  --yh-calendar-workday-border: rgba(245, 158, 11, 0.25);
+
+  /* Calendar 范围选择 */
+  --yh-calendar-range-bg: rgba(59, 130, 246, 0.08);
+  --yh-calendar-range-border: rgba(59, 130, 246, 0.2);
+
+  /* Calendar 字体 */
+  --yh-calendar-weekday-font-size: var(--yh-font-size-sm);
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-day-font-size: 15px;
+  --yh-calendar-day-color: var(--yh-text-color-primary);
+  --yh-calendar-badge-font-size: 9px;
+
   /* ==================== 边框基础 ==================== */
   --yh-border-width: 1px;
   --yh-border-style: solid;
@@ -304,4 +350,17 @@ html.dark {
   --yh-badge-border-color: var(--yh-bg-color);
   --yh-card-bg-color: var(--yh-bg-color-overlay);
   --yh-card-border-color: var(--yh-border-color-lighter);
+
+  /* Calendar 暗黑模式 */
+  --yh-calendar-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --yh-calendar-border-color: rgba(255, 255, 255, 0.08);
+  --yh-calendar-header-bg: rgba(30, 30, 30, 0.95);
+  --yh-calendar-header-border: rgba(255, 255, 255, 0.06);
+  --yh-calendar-day-color: var(--yh-text-color-primary);
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-selected-bg: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
 }

@@ -1,0 +1,241 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(countdown) {
+  // ===================== 设计令牌 =====================
+  --yh-countdown-font-size: 24px;
+  --yh-countdown-value-color: #1e293b;
+  --yh-countdown-label-color: #64748b;
+  --yh-countdown-separator-color: #94a3b8;
+  --yh-countdown-warning-color: #ef4444;
+  --yh-countdown-finished-color: #10b981;
+  --yh-countdown-bg: transparent;
+  --yh-countdown-block-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --yh-countdown-block-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --yh-countdown-block-radius: 8px;
+  --yh-countdown-block-padding-y: 12px;
+  --yh-countdown-block-padding-x: 16px;
+  --yh-countdown-block-padding: var(--yh-countdown-block-padding-y)
+    var(--yh-countdown-block-padding-x);
+  --yh-countdown-gap: 8px;
+  --yh-countdown-font-family:
+    'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --yh-countdown-monospace-font:
+    'JetBrains Mono', 'SF Mono', 'Roboto Mono', 'Fira Code', 'Consolas', monospace;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--yh-countdown-gap);
+  font-family: var(--yh-countdown-font-family);
+  background: var(--yh-countdown-bg);
+  line-height: 1;
+
+  // ===================== 等宽字体模式 =====================
+  @include when(monospace) {
+    .yh-countdown__value {
+      font-family: var(--yh-countdown-monospace-font);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  // ===================== 标题区域 =====================
+  @include e(title) {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--yh-countdown-label-color);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  // ===================== 内容区域 =====================
+  @include e(content) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--yh-countdown-gap);
+  }
+
+  // ===================== 数值样式 =====================
+  @include e(value) {
+    font-size: var(--yh-countdown-font-size);
+    font-weight: 700;
+    color: var(--yh-countdown-value-color);
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+    line-height: 1;
+  }
+
+  // ===================== 分隔符 =====================
+  @include e(separator) {
+    font-size: calc(var(--yh-countdown-font-size) * 0.8);
+    font-weight: 600;
+    color: var(--yh-countdown-separator-color);
+    margin: 0 2px;
+    opacity: 0.7;
+    animation: countdown-blink 1s infinite;
+    transition: margin-top 0.3s ease;
+  }
+
+  // ===================== 时间块样式（翻牌模式） =====================
+  @include e(block) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  @include e(flip-card) {
+    background: var(--yh-countdown-block-bg);
+    border-radius: var(--yh-countdown-block-radius);
+    padding: var(--yh-countdown-block-padding);
+    box-shadow: var(--yh-countdown-block-shadow);
+    position: relative;
+    overflow: hidden;
+    min-width: 52px;
+    text-align: center;
+
+    // 渐变分割线效果
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.06) 20%,
+        rgba(0, 0, 0, 0.06) 80%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+  }
+
+  @include e(label) {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--yh-countdown-label-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  // ===================== 后缀区域 =====================
+  @include e(suffix) {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--yh-countdown-label-color);
+    margin-left: 4px;
+    white-space: nowrap;
+  }
+
+  // ===================== 翻牌动画模式 =====================
+  @include when(flip) {
+    @include e(content) {
+      align-items: flex-start;
+    }
+
+    @include e(separator) {
+      // 计算偏移量：(卡牌高度 - 分隔符高度) / 2
+      // 卡牌高度 = font-size + 2 * padding-y
+      // 分隔符高度 = 0.8 * font-size
+      // 偏移 = 0.1 * font-size + padding-y
+      margin-top: calc(0.15 * var(--yh-countdown-font-size) + var(--yh-countdown-block-padding-y));
+    }
+
+    .yh-countdown__flip-card {
+      perspective: 400px;
+
+      .yh-countdown__value {
+        display: block;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+      }
+    }
+  }
+
+  // ===================== 状态样式 =====================
+  // 预警状态
+  @include when(warning) {
+    .yh-countdown__value {
+      color: var(--yh-countdown-warning-color);
+      animation: countdown-pulse 0.5s infinite alternate;
+    }
+
+    .yh-countdown__flip-card {
+      box-shadow:
+        var(--yh-countdown-block-shadow),
+        0 0 0 2px rgba(239, 68, 68, 0.2);
+    }
+  }
+
+  // 结束状态
+  @include when(finished) {
+    .yh-countdown__value {
+      color: var(--yh-countdown-finished-color);
+    }
+
+    .yh-countdown__separator {
+      animation: none;
+      opacity: 0.5;
+    }
+  }
+
+  // 暂停状态
+  @include when(paused) {
+    .yh-countdown__value {
+      opacity: 0.6;
+    }
+
+    .yh-countdown__separator {
+      animation: none;
+    }
+
+    .yh-countdown__flip-card {
+      opacity: 0.7;
+    }
+  }
+}
+
+// ===================== 动画定义 =====================
+@keyframes countdown-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes countdown-pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+// ===================== 翻牌动画（进阶） =====================
+@keyframes countdown-flip-down {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes countdown-flip-up {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}

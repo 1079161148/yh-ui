@@ -99,6 +99,8 @@ import {
   YhWaterfall,
   YhTree,
   YhTreeNode,
+  YhCalendar,
+  YhCountdown,
   vInfiniteScroll
 } from '@yh-ui/components'
 
@@ -223,6 +225,10 @@ export default {
     app.component('yh-tree', YhTree)
     app.component('YhTreeNode', YhTreeNode)
     app.component('yh-tree-node', YhTreeNode)
+    app.component('YhCalendar', YhCalendar)
+    app.component('yh-calendar', YhCalendar)
+    app.component('YhCountdown', YhCountdown)
+    app.component('yh-countdown', YhCountdown)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

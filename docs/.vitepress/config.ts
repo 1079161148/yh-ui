@@ -95,7 +95,9 @@ export default defineConfig({
             { text: 'Watermark 水印', link: '/components/watermark' },
             { text: 'Marquee 跑马灯', link: '/components/marquee' },
             { text: 'Waterfall 瀑布流', link: '/components/waterfall' },
-            { text: 'Tree 树形控件', link: '/components/tree' }
+            { text: 'Tree 树形控件', link: '/components/tree' },
+            { text: 'Calendar 日历', link: '/components/calendar' },
+            { text: 'Countdown 倒计时', link: '/components/countdown' }
           ]
         },
         {
