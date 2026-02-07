@@ -1,0 +1,724 @@
+/**
+ * Table 表格组件样式
+ * 极致网格修复方案 (Pseudo-Frame Strategy)
+ * 所有视觉属性均通过主题变量驱动，支持主题定制与暗黑模式
+ */
+
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(table) {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--yh-table-row-bg);
+  font-size: var(--yh-table-font-size);
+  color: var(--yh-table-text-color);
+  overflow: hidden;
+
+  // ==================== 2. 基础对齐 ====================
+  table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  @include e(toolbar) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    min-height: 40px;
+    box-sizing: border-box;
+  }
+
+  @include e(toolbar-left) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @include e(toolbar-right) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: 16px;
+  }
+
+  @include e(header-wrapper) {
+    overflow: hidden;
+    background-color: var(--yh-table-header-bg);
+  }
+  @include e(body-wrapper) {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+
+    // 虚拟滚动模式：body-wrapper 开启包含块
+    &--virtual {
+      position: relative;
+    }
+  }
+
+  // 虚拟滚动：phantom div 在文档流中撑起滚动区域高度
+  @include e(virtual-phantom) {
+    width: 100%;
+    pointer-events: none;
+  }
+
+  // 虚拟滚动：table 通过 GPU 加速 transform 定位（零 layout/paint 开销）
+  @include e(body) {
+    &--virtual {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      will-change: transform;
+      contain: layout style;
+    }
+  }
+
+  // ==================== 3. 单元格 (锐利刻线) ====================
+  @include e(header-cell) {
+    box-sizing: border-box;
+    padding: var(--yh-table-cell-padding);
+    background-color: var(--yh-table-header-bg);
+    color: var(--yh-table-header-text-color);
+    font-weight: var(--yh-table-header-font-weight);
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    background-clip: padding-box;
+
+    // 分组表头（有子列的父列）居中显示
+    &.is-group {
+      text-align: center;
+    }
+
+    @include is(fixed-left) {
+      position: sticky;
+      z-index: 10;
+      background-color: var(--yh-table-header-bg);
+    }
+    @include is(fixed-right) {
+      position: sticky;
+      z-index: 10;
+      background-color: var(--yh-table-header-bg);
+    }
+  }
+
+  @include e(cell) {
+    box-sizing: border-box;
+    padding: var(--yh-table-cell-padding);
+    background-color: var(--yh-table-row-bg);
+    vertical-align: middle;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    transition: background-color var(--yh-duration-base) var(--yh-timing-ease);
+    background-clip: padding-box;
+
+    @include is(fixed-left) {
+      position: sticky;
+      z-index: 2;
+      background-color: var(--yh-table-row-bg);
+    }
+    @include is(fixed-right) {
+      position: sticky;
+      z-index: 2;
+      background-color: var(--yh-table-row-bg);
+    }
+  }
+
+  @include e(cell-content) {
+    padding: 0 var(--yh-table-cell-spacing);
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    word-break: break-all;
+    line-height: var(--yh-line-height-normal);
+    @include is(ellipsis) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // ==================== 特殊列对齐（选择 / 展开 / 序号） ====================
+  @include e(selection-cell) {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+
+    input[type='checkbox'],
+    input[type='radio'] {
+      margin: 0;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+  }
+
+  @include e(expand-cell) {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @include e(index-cell) {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  // ==================== 4. 完美格栅框架 (is-border) ====================
+  // 核心：使用全尺寸伪元素框架，确保外框稳固且 1px 细线不重叠
+  @include is(border) {
+    // 每一个单元格负责右边垂直线
+    .yh-table__header-cell,
+    .yh-table__cell {
+      border-right: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    }
+
+    // 绘制 4 边封顶框架（利用绝对定位层盖在最上方）
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+      pointer-events: none;
+      z-index: 20; // 必须高于内容和滚动条
+    }
+
+    // 针对表头衔接处的补强
+    .yh-table__header-wrapper {
+      border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    }
+  }
+
+  // ==================== 5. 斑马纹与状态 ====================
+  @include is(stripe) {
+    .yh-table__row:nth-child(even) {
+      background-color: var(--yh-table-row-stripe-bg);
+      .yh-table__cell {
+        background-color: var(--yh-table-row-stripe-bg);
+      }
+    }
+  }
+
+  @include e(row) {
+    &:hover {
+      background-color: var(--yh-table-row-hover-bg);
+      .yh-table__cell {
+        background-color: var(--yh-table-row-hover-bg);
+      }
+    }
+    @include is(current) {
+      background-color: var(--yh-table-row-current-bg) !important;
+      .yh-table__cell {
+        background-color: var(--yh-table-row-current-bg) !important;
+      }
+    }
+  }
+
+  // ==================== 6. 尺寸修饰符 ====================
+  @include m(large) {
+    --yh-table-cell-padding: 14px 0;
+    --yh-table-cell-spacing: 14px;
+    --yh-table-font-size: var(--yh-font-size-md);
+  }
+
+  @include m(small) {
+    --yh-table-cell-padding: 8px 0;
+    --yh-table-cell-spacing: 8px;
+    --yh-table-font-size: var(--yh-font-size-sm);
+  }
+
+  @include m(mini) {
+    --yh-table-cell-padding: 4px 0;
+    --yh-table-cell-spacing: 6px;
+    --yh-table-font-size: var(--yh-font-size-xs);
+  }
+
+  // ==================== 7. 排序图标 ====================
+  @include e(sort-icon) {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    height: 14px;
+    width: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 4px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: initial;
+
+    .sort-caret {
+      width: 0;
+      height: 0;
+      border: solid 5px transparent;
+      position: absolute;
+      left: 7px;
+
+      &.ascending {
+        border-bottom-color: var(--yh-text-color-placeholder, #c0c4cc);
+        top: -5px;
+
+        &.is-active {
+          border-bottom-color: var(--yh-color-primary, #409eff);
+        }
+      }
+
+      &.descending {
+        border-top-color: var(--yh-text-color-placeholder, #c0c4cc);
+        bottom: -3px;
+
+        &.is-active {
+          border-top-color: var(--yh-color-primary, #409eff);
+        }
+      }
+    }
+  }
+
+  // 可排序表头交互
+  @include e(header-cell) {
+    &.is-sortable {
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: var(--yh-table-row-hover-bg, rgba(0, 0, 0, 0.02));
+      }
+    }
+  }
+
+  // ==================== 8. 树形数据 ====================
+  @include e(tree-indent) {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  @include e(tree-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+    color: var(--yh-text-color-secondary, #909399);
+    margin-right: 4px;
+    flex-shrink: 0;
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @include e(tree-leaf-spacer) {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
+
+  // ==================== 9. 展开行 ====================
+  @include e(expand-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+    color: var(--yh-text-color-secondary, #909399);
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @include e(expanded-row) {
+    td {
+      padding: 0;
+      border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+      background-color: var(--yh-table-row-bg);
+    }
+  }
+
+  // ==================== 10. 汇总行 ====================
+  @include e(footer-wrapper) {
+    overflow: hidden;
+    border-top: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    flex-shrink: 0;
+  }
+
+  @include e(summary-row) {
+    .yh-table__cell {
+      font-weight: 600;
+      background-color: var(--yh-table-header-bg, #fafafa);
+    }
+  }
+
+  // ==================== 11. 列宽调整 ====================
+  @include e(resize-handle) {
+    position: absolute;
+    right: -3px;
+    top: 0;
+    bottom: 0;
+    width: 7px;
+    cursor: col-resize;
+    z-index: 11;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 25%;
+      right: 3px;
+      bottom: 25%;
+      width: 1px;
+      background-color: transparent;
+      transition: background-color 0.15s ease;
+    }
+
+    &:hover::after {
+      background-color: var(--yh-color-primary, #409eff);
+    }
+  }
+
+  // 表头单元格需要相对定位来包含 resize-handle
+  @include e(header-cell) {
+    position: relative;
+  }
+
+  // 调整指示线
+  @include e(resize-line) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--yh-color-primary, #409eff);
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  // 调整中禁用选择
+  &.is-resizing {
+    cursor: col-resize !important;
+    user-select: none;
+  }
+
+  // ==================== 12. 行拖拽 ====================
+  @include e(row) {
+    // 可拖拽行
+    &.is-row-draggable {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
+    // 正在拖拽的行
+    &.is-dragging {
+      opacity: 0.4;
+      background-color: var(--yh-color-primary-light-9, #ecf5ff) !important;
+
+      .yh-table__cell {
+        background-color: var(--yh-color-primary-light-9, #ecf5ff) !important;
+      }
+    }
+
+    // 放置目标 - 上方（使用 box-shadow 避免 position:relative 破坏 sticky 布局）
+    &.is-drop-target-above {
+      box-shadow: inset 0 2px 0 0 var(--yh-color-primary, #409eff);
+
+      .yh-table__cell {
+        box-shadow: inset 0 2px 0 0 var(--yh-color-primary, #409eff);
+      }
+    }
+
+    // 放置目标 - 下方
+    &.is-drop-target-below {
+      box-shadow: inset 0 -2px 0 0 var(--yh-color-primary, #409eff);
+
+      .yh-table__cell {
+        box-shadow: inset 0 -2px 0 0 var(--yh-color-primary, #409eff);
+      }
+    }
+  }
+
+  // 拖拽手柄
+  @include e(drag-handle) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    color: var(--yh-text-color-placeholder, #c0c4cc);
+    margin-right: 8px;
+    flex-shrink: 0;
+
+    &:hover {
+      color: var(--yh-color-primary, #409eff);
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // ==================== 13. 列拖拽 ====================
+  @include e(header-cell) {
+    &.is-column-draggable {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
+    &.is-column-dragging {
+      opacity: 0.4;
+      background-color: var(--yh-color-primary-light-9, #ecf5ff) !important;
+    }
+
+    &.is-column-drop-left {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--yh-color-primary, #409eff);
+        z-index: 10;
+      }
+    }
+
+    &.is-column-drop-right {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: -1px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--yh-color-primary, #409eff);
+        z-index: 10;
+      }
+    }
+  }
+
+  // ==================== 14. 空状态 ====================
+  @include e(empty) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    padding: 24px 0;
+  }
+
+  @include e(empty-content) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  @include e(empty-image) {
+    img {
+      max-width: 160px;
+      max-height: 100px;
+      object-fit: contain;
+    }
+  }
+
+  @include e(empty-text) {
+    font-size: 14px;
+    color: var(--yh-text-color-secondary, #909399);
+  }
+
+  // ==================== 15. 表头前缀/后缀图标 ====================
+  @include e(header-icon-prefix) {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 4px;
+    flex-shrink: 0;
+    font-size: inherit;
+    line-height: 1;
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  @include e(header-icon-suffix) {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    flex-shrink: 0;
+    font-size: inherit;
+    line-height: 1;
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  // ==================== 16. 对齐方式 ====================
+  .is-center {
+    text-align: center;
+
+    .yh-table__cell-content {
+      justify-content: center;
+    }
+  }
+
+  .is-right {
+    text-align: right;
+
+    .yh-table__cell-content {
+      justify-content: flex-end;
+    }
+  }
+
+  // ==================== 17. 溢出与换行 ====================
+  @include e(cell-text) {
+    @include is(ellipsis) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+      display: block;
+    }
+  }
+
+  // 自动换行模式
+  &.is-auto-wrap {
+    .yh-table__cell-content {
+      white-space: normal;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+  }
+
+  // 溢出隐藏模式（全局）
+  &.is-overflow-hidden {
+    .yh-table__cell-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // ==================== 18. 列高亮 ====================
+  .is-column-highlight {
+    background-color: var(--yh-color-primary-light-9, #ecf5ff) !important;
+  }
+
+  // ==================== 19. 加载状态 ====================
+  @include e(loading) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 20;
+    transition: opacity 0.3s ease;
+  }
+
+  @include e(loading-content) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @include e(loading-spinner) {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--yh-color-primary-light-5, #a0cfff);
+    border-top-color: var(--yh-color-primary, #409eff);
+    border-radius: 50%;
+    animation: yh-table-spin 0.8s linear infinite;
+  }
+
+  @include e(loading-text) {
+    font-size: 14px;
+    color: var(--yh-color-primary, #409eff);
+  }
+
+  @keyframes yh-table-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // ==================== 15. 固定列阴影修复 ====================
+  @include is(scrolling-middle) {
+    .is-last-fixed-left::after {
+      box-shadow: var(--yh-table-fixed-left-shadow);
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      transform: translateX(100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .is-first-fixed-right::before {
+      box-shadow: var(--yh-table-fixed-right-shadow);
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      transform: translateX(-100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+}

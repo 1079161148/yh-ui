@@ -12,16 +12,17 @@ import { App, h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
 
-// 导入组件库样式
+// 导入组件库主题变量
 import '@yh-ui/theme/styles/index.scss'
 
-// 导入组件样式（仅用于函数式调用的组件，这些组件可能不通过模板引用所以需要预加载样式）
-import '@yh-ui/components/message/src/message.scss'
-import '@yh-ui/components/notification/src/notification.scss'
-
-// 自定义样式
+// 自定义文档样式（先导入，优先级较低）
 import './styles/index.scss'
 import './styles/animations.scss'
+
+// 导入组件样式（后导入，优先级较高，不会被文档样式覆盖）
+import '@yh-ui/components/message/src/message.scss'
+import '@yh-ui/components/notification/src/notification.scss'
+import '@yh-ui/components/table/src/table.scss'
 
 // 导入组件
 import {
@@ -101,6 +102,8 @@ import {
   YhTreeNode,
   YhCalendar,
   YhCountdown,
+  YhTable,
+  YhTableColumn,
   vInfiniteScroll
 } from '@yh-ui/components'
 
@@ -229,6 +232,10 @@ export default {
     app.component('yh-calendar', YhCalendar)
     app.component('YhCountdown', YhCountdown)
     app.component('yh-countdown', YhCountdown)
+    app.component('YhTable', YhTable)
+    app.component('yh-table', YhTable)
+    app.component('YhTableColumn', YhTableColumn)
+    app.component('yh-table-column', YhTableColumn)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

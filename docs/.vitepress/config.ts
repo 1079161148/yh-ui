@@ -19,6 +19,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: '指南', link: '/guide/introduction', activeMatch: '/guide/' },
       { text: '组件', link: '/components/button', activeMatch: '/components/' },
+      { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' },
       {
         text: '0.0.1',
         items: [
@@ -47,6 +48,34 @@ export default defineConfig({
           ]
         }
       ],
+      '/table/': [
+        {
+          text: 'Table 表格',
+          items: [
+            { text: '基础用法', link: '/table/basic' },
+            { text: '选择功能', link: '/table/selection' },
+            { text: '排序与筛选', link: '/table/sort-filter' },
+            { text: '自定义模板', link: '/table/custom' },
+            { text: '树形数据与展开行', link: '/table/tree-expand' },
+            { text: '合并与汇总', link: '/table/merge-summary' },
+            { text: '高亮与样式', link: '/table/highlight-style' },
+            { text: '空数据提示', link: '/table/empty' },
+            { text: '对齐方式', link: '/table/alignment' },
+            { text: '加载状态', link: '/table/loading' },
+            { text: '虚拟滚动', link: '/table/virtual-scroll' },
+            { text: '行拖拽', link: '/table/row-drag' },
+            { text: '列宽调整', link: '/table/column-resize' },
+            { text: '列拖拽', link: '/table/column-drag' },
+            { text: '导入功能', link: '/table/import' },
+            { text: '导出功能', link: '/table/export' },
+            { text: '打印功能', link: '/table/print' },
+            { text: '自定义插槽模板', link: '/table/custom-slots' },
+            { text: '列配置', link: '/table/column-config' },
+            { text: 'API 参考', link: '/table/api' }
+          ]
+        }
+      ],
+
       '/components/': [
         {
           text: '基础组件',

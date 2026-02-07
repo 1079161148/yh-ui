@@ -64,6 +64,7 @@ import { YhCalendar } from './calendar'
 import { YhWaterfall } from './waterfall'
 import { YhTree, YhTreeNode } from './tree'
 import { YhCountdown } from './countdown'
+import { YhTable, YhTableColumn } from './table'
 
 // 导出所有组件
 export * from './button'
@@ -124,6 +125,7 @@ export * from './calendar'
 export * from './waterfall'
 export * from './tree'
 export * from './countdown'
+export * from './table'
 
 // 所有组件列表
 const components = [
@@ -203,7 +205,9 @@ const components = [
   YhWaterfall,
   YhTree,
   YhTreeNode,
-  YhCountdown
+  YhCountdown,
+  YhTable,
+  YhTableColumn
 ] as Plugin[]
 
 /**

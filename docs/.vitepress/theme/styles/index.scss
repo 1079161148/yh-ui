@@ -675,9 +675,16 @@ html.yh-popup-parent--hidden {
 }
 
 /* ============================================
-   Table Styling - Modern Look
+   Table Styling - 样式隔离方案
    ============================================ */
-.vp-doc table {
+
+/* 
+ * 方案：直接使用 .vp-doc > table 选择 Markdown 原生表格
+ * YhTable 组件不是直接子元素，所以不会被选中
+ */
+
+/* Markdown 原生表格样式（直接子元素选择器，不会影响 YhTable 内部的 table） */
+.vp-doc > table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -687,19 +694,18 @@ html.yh-popup-parent--hidden {
   margin: 20px 0;
 }
 
-.vp-doc th,
-.vp-doc td {
+.vp-doc > table th,
+.vp-doc > table td {
   padding: 14px 18px;
   text-align: left;
   border: none;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
-.vp-doc th {
+.vp-doc > table th {
   background: var(--yh-glass-bg);
   font-weight: 600;
   color: var(--vp-c-text-1);
-  position: relative;
 
   &:first-child {
     border-top-left-radius: 12px;
@@ -710,7 +716,11 @@ html.yh-popup-parent--hidden {
   }
 }
 
-.vp-doc tr {
+.vp-doc > table td {
+  background: var(--vp-c-bg);
+}
+
+.vp-doc > table tr {
   transition: background var(--yh-anim-fast) ease;
 
   &:hover td {
@@ -730,8 +740,316 @@ html.yh-popup-parent--hidden {
   }
 }
 
-.vp-doc td {
-  background: var(--vp-c-bg);
+/*
+ * ------------------------------------------------------------
+ * YhTable 工业级环境隔离层 (VitePress Specialized)
+ *
+ * 原理：VitePress 默认 .vp-doc 对 table/tr/th/td 有强制样式
+ * （display:block, padding:8px 16px, border, striped-bg 等），
+ * 权重 0,1,1 高于组件 BEM 的 0,1,0。
+ *
+ * 解决策略（三层级权重管控）：
+ *   Layer 1 (0,2,1) — 用原生元素选择器中和 VitePress 默认样式
+ *   Layer 2 (0,3,0) — 用 BEM 类选择器重新施加组件自身样式
+ *   Layer 3 (0,4,0+)— 让组件修饰符(.is-border/.is-stripe)自然胜出
+ *
+ * 不使用 !important，不使用 :where()（其零权重会被组件自身反超）
+ * ------------------------------------------------------------
+ */
+.vp-doc .yh-table {
+  box-sizing: border-box;
+  margin: 1.5rem 0;
+
+  // ==================== Layer 1: 中和 VitePress 原始样式 ====================
+  // .vp-doc .yh-table table = 0,2,1 → 胜过 .vp-doc table = 0,1,1
+  table {
+    display: table;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    width: 100%;
+  }
+
+  // .vp-doc .yh-table tr = 0,2,1 → 胜过 .vp-doc tr = 0,1,1
+  tr {
+    background-color: transparent;
+    border: none;
+    transition: none;
+  }
+
+  // .vp-doc .yh-table tr:nth-child(2n) = 0,3,1
+  // → 胜过 .vp-doc tr:nth-child(2n) = 0,2,1
+  tr:nth-child(2n) {
+    background-color: transparent;
+  }
+
+  // .vp-doc .yh-table th / td = 0,2,1
+  th,
+  td {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-align: inherit;
+    line-height: inherit;
+  }
+
+  thead,
+  tbody,
+  tfoot {
+    background-color: transparent;
+    border: none;
+  }
+
+  // ==================== Layer 2: 重新施加组件 BEM 样式 ====================
+  // 权重 0,3,0 → 胜过 Layer 1 的 0,2,1
+
+  .yh-table__header,
+  .yh-table__body,
+  .yh-table__footer {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    display: table;
+  }
+
+  .yh-table__header-cell {
+    box-sizing: border-box;
+    padding: var(--yh-table-cell-padding);
+    background-color: var(--yh-table-header-bg);
+    color: var(--yh-table-header-text-color);
+    font-weight: var(--yh-table-header-font-weight);
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    background-clip: padding-box;
+  }
+
+  .yh-table__cell {
+    box-sizing: border-box;
+    padding: var(--yh-table-cell-padding);
+    background-color: var(--yh-table-row-bg);
+    vertical-align: middle;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    transition: background-color var(--yh-duration-base) var(--yh-timing-ease);
+    background-clip: padding-box;
+  }
+
+  .yh-table__cell-content {
+    padding: 0 var(--yh-table-cell-spacing);
+    display: block;
+    box-sizing: border-box;
+    word-break: break-all;
+    line-height: var(--yh-line-height-normal);
+
+    &.is-ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // 特殊列居中对齐
+  .yh-table__selection-cell,
+  .yh-table__expand-cell,
+  .yh-table__index-cell {
+    text-align: center;
+  }
+
+  // ==================== 排序图标 ====================
+  .yh-table__sort-icon {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 4px;
+    flex-shrink: 0;
+
+    .sort-caret {
+      width: 0;
+      height: 0;
+      border: solid 5px transparent;
+
+      &.ascending {
+        border-bottom-color: var(--yh-text-color-placeholder, #c0c4cc);
+
+        &.is-active {
+          border-bottom-color: var(--yh-color-primary, #409eff);
+        }
+      }
+
+      &.descending {
+        border-top-color: var(--yh-text-color-placeholder, #c0c4cc);
+
+        &.is-active {
+          border-top-color: var(--yh-color-primary, #409eff);
+        }
+      }
+    }
+  }
+
+  // 表头 cell-content 需要 flex 以对齐排序图标
+  .yh-table__header-cell .yh-table__cell-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .yh-table__header-cell.is-sortable {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  // ==================== 树形 / 展开图标 ====================
+  .yh-table__tree-indent {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .yh-table__tree-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+    color: var(--yh-text-color-secondary, #909399);
+    margin-right: 4px;
+    flex-shrink: 0;
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .yh-table__tree-leaf-spacer {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
+
+  .yh-table__expand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+    color: var(--yh-text-color-secondary, #909399);
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .yh-table__expanded-row td {
+    padding: 0;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    background-color: var(--yh-table-row-bg);
+  }
+
+  // ==================== 汇总行 ====================
+  .yh-table__footer-wrapper {
+    overflow: hidden;
+    border-top: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    flex-shrink: 0;
+  }
+
+  .yh-table__summary-row .yh-table__cell {
+    font-weight: 600;
+    background-color: var(--yh-table-header-bg, #fafafa);
+  }
+
+  // ==================== Layer 3: 行状态与染色 ====================
+  .yh-table__row {
+    background-color: var(--yh-table-row-bg);
+
+    &:hover .yh-table__cell {
+      background-color: var(--yh-table-row-hover-bg);
+    }
+
+    &.is-current .yh-table__cell {
+      background-color: var(--yh-table-row-current-bg);
+    }
+
+    &.success-row .yh-table__cell {
+      background-color: var(--yh-table-row-success-bg);
+    }
+
+    &.warning-row .yh-table__cell {
+      background-color: var(--yh-table-row-warning-bg);
+    }
+  }
+
+  // ==================== Sticky 布局护航 ====================
+  // 固定列必须使用显式不透明背景，防止滚动内容穿透
+  td.is-fixed-left,
+  td.is-fixed-right {
+    position: sticky;
+    z-index: 5;
+    background-color: var(--yh-table-row-bg);
+  }
+
+  th.is-fixed-left,
+  th.is-fixed-right {
+    position: sticky;
+    z-index: 10;
+    background-color: var(--yh-table-header-bg);
+  }
+
+  // 斑马纹行的固定列背景跟随
+  .yh-table__row:nth-child(even) td.is-fixed-left,
+  .yh-table__row:nth-child(even) td.is-fixed-right {
+    background-color: var(--yh-table-row-stripe-bg, var(--yh-table-row-bg));
+  }
+
+  // 悬浮行的固定列背景跟随
+  .yh-table__row:hover td.is-fixed-left,
+  .yh-table__row:hover td.is-fixed-right {
+    background-color: var(--yh-table-row-hover-bg);
+  }
+
+  // ==================== 滚动容器 ====================
+  .yh-table__body-wrapper {
+    overflow: auto;
+    flex: 1;
+    min-height: 0;
+  }
+
+  // ==================== 边框模式 ====================
+  // 不在此处重复 border，组件通过 ::after 伪元素绘制外框
+  // .is-border 的 cell border-right 权重为 0,3,0 (.yh-table.is-border .cell)
+  // 已自然胜过 Layer 1 的 0,2,1，无需额外覆盖
 }
 
 /* Props table specific */
@@ -1122,12 +1440,12 @@ html.yh-popup-parent--hidden {
     }
   }
 
-  .vp-doc table {
+  .vp-doc > table {
     border-radius: 8px;
   }
 
-  .vp-doc th,
-  .vp-doc td {
+  .vp-doc > table th,
+  .vp-doc > table td {
     padding: 10px 12px;
     font-size: 13px;
   }

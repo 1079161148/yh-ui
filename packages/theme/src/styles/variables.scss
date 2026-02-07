@@ -278,6 +278,26 @@
   --yh-calendar-day-color: var(--yh-text-color-primary);
   --yh-calendar-badge-font-size: 9px;
 
+  /* Table 表格 */
+  --yh-table-border-color: var(--yh-border-color-lighter);
+  --yh-table-header-bg: var(--yh-fill-color-light);
+  --yh-table-header-text-color: var(--yh-text-color-primary);
+  --yh-table-header-font-weight: var(--yh-font-weight-semibold);
+  --yh-table-row-bg: var(--yh-bg-color);
+  --yh-table-row-hover-bg: var(--yh-fill-color-light);
+  --yh-table-row-stripe-bg: var(--yh-fill-color-lighter);
+  --yh-table-row-current-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-selected-bg: var(--yh-color-primary-light-8);
+  --yh-table-row-success-bg: var(--yh-color-success-light-9);
+  --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
+  --yh-table-text-color: var(--yh-text-color-regular);
+  --yh-table-empty-text-color: var(--yh-text-color-secondary);
+  --yh-table-font-size: var(--yh-font-size-base);
+  --yh-table-cell-padding: 12px 0;
+  --yh-table-cell-spacing: 12px;
+  --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+  --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
+
   /* ==================== 边框基础 ==================== */
   --yh-border-width: 1px;
   --yh-border-style: solid;
@@ -363,4 +383,18 @@ html.dark {
     rgba(59, 130, 246, 0.2) 0%,
     rgba(59, 130, 246, 0.1) 100%
   );
+
+  /* Table 暗黑模式 */
+  --yh-table-border-color: var(--yh-border-color-lighter);
+  --yh-table-header-bg: var(--yh-fill-color-dark);
+  --yh-table-header-text-color: var(--yh-text-color-primary);
+  --yh-table-row-bg: var(--yh-bg-color);
+  --yh-table-row-hover-bg: var(--yh-fill-color);
+  --yh-table-row-stripe-bg: var(--yh-fill-color-light);
+  --yh-table-row-current-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-selected-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-success-bg: var(--yh-color-success-light-9);
+  --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
+  --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3);
+  --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.3);
 }
