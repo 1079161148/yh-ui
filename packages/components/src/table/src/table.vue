@@ -2,7 +2,7 @@
 /**
  * YhTable - 高性能表格组件
  * 融合 vxe-table、Element Plus、Naive UI、Ant Design 各家之长
- * 支持虚拟滚动、树形数据、可编辑、拖拽、固定列/行、汇总行等高级功能
+ * 支持虚拟滚动、树形数据、拖拽、固定列/行、汇总行等高级功能
  */
 import {
   computed,
@@ -47,6 +47,8 @@ import { useTableExport } from './use-table-export'
 import { useTableImport } from './use-table-import'
 import { useTablePrint } from './use-table-print'
 import { YhTooltip } from '../../tooltip'
+import { YhPagination } from '../../pagination'
+
 
 defineOptions({
   name: 'YhTable'
@@ -72,18 +74,30 @@ const treeExpandedKeys = ref<Set<string | number>>(new Set())
 const isFullscreen = ref(false)
 const resizingColumn = ref<TableColumn | null>(null)
 const scrollState = ref<'left' | 'middle' | 'right' | 'none'>('left')
+const collectedColumns = ref<TableColumn[]>([])
 
 // ==================== 计算属性 ====================
 
 // 获取行 key 的方法
-const getRowKeyFn = (row: Record<string, unknown>) => getRowKey(row, props.rowKey)
+const getRowKeyFn = (row: Record<string, unknown>) => {
+  if (!row) return Math.random().toString(36).slice(2)
+  return getRowKey(row, props.rowKey)
+}
+
+// 获取所有列（合并 props.columns 和收集到的列）
+const allColumns = computed(() => {
+  if (props.columns && props.columns.length > 0) {
+    return props.columns
+  }
+  return collectedColumns.value
+})
 
 // 展平后的列
-const flatColumns = computed(() => flattenColumns(props.columns))
+const flatColumns = computed(() => flattenColumns(allColumns.value))
 
 // 多级表头行 (仅嵌套列时有值)
-const headerRows = computed(() => buildHeaderRows(props.columns))
-const columnDepth = computed(() => getColumnDepth(props.columns))
+const headerRows = computed(() => buildHeaderRows(allColumns.value))
+const columnDepth = computed(() => getColumnDepth(allColumns.value))
 
 // 可见列
 const visibleColumns = computed(() => {
@@ -174,7 +188,18 @@ const indexWidth = computed(() => props.showIndex ? parseInt(String(props.indexC
 const isAnyColumnFixedLeft = computed(() => visibleColumns.value.some(col => col.fixed === 'left' || col.fixed === true))
 
 // 最终表格数据
-const tableData = computed(() => filteredData.value)
+const tableData = computed(() => {
+  const data = filteredData.value
+  if (!props.pagination || (typeof props.pagination === 'object' && props.pagination.remote)) {
+    return data
+  }
+
+  const currentPage = typeof props.pagination === 'object' ? (props.pagination.currentPage || 1) : 1
+  const pageSize = typeof props.pagination === 'object' ? (props.pagination.pageSize || 10) : 10
+  const start = (currentPage - 1) * pageSize
+  const end = start + pageSize
+  return data.slice(start, end)
+})
 
 // ==================== 虚拟滚动 ====================
 const virtualConfig = computed(() => props.virtualConfig)
@@ -264,7 +289,7 @@ const {
   getHeaderDragAttrs,
   getHeaderDragClass
 } = useColumnDrag({
-  columns: computed(() => props.columns),
+  columns: allColumns,
   dragConfig: dragConfigRef,
   flatColumns: visibleColumns,
   emit: emit as (event: string, ...args: unknown[]) => void
@@ -317,6 +342,7 @@ const showToolbar = computed(() => {
   return toolbarSlotNames.some(name => !!slots[name])
 })
 
+
 // ==================== 样式计算 ====================
 const tableClasses = computed(() => [
   ns.b(),
@@ -328,6 +354,11 @@ const tableClasses = computed(() => [
   ns.is('fixed-header', !!(props.height || props.maxHeight)),
   ns.is('fixed-column', fixedLeftColumns.value.length > 0 || fixedRightColumns.value.length > 0),
   ns.is(`scrolling-${scrollState.value}`, true)
+])
+
+const innerWrapperClasses = computed(() => [
+  ns.e('inner-wrapper'),
+  ns.is('border', !!props.border)
 ])
 
 const tableStyle = computed<CSSProperties>(() => {
@@ -440,6 +471,18 @@ const handleCellClick = (
 ) => {
   emit('cell-click', row, column, cell, event)
 }
+
+// 单元格双击
+const handleCellDblclick = (
+  row: Record<string, unknown>,
+  column: TableColumn,
+  cell: HTMLElement,
+  event: MouseEvent
+) => {
+  emit('cell-dblclick', row, column, cell, event)
+}
+
+
 
 // 表头点击
 const handleHeaderClick = (column: TableColumn, event: MouseEvent) => {
@@ -625,6 +668,7 @@ const getCellClass = (
     }
   }
 
+
   return classes.join(' ')
 }
 
@@ -692,16 +736,31 @@ const getCellStyle = (
 
 // 获取单元格内容
 const getCellContent = (row: Record<string, unknown>, column: TableColumn, rowIndex: number) => {
+  if (!row) return ''
   const prop = column.prop
   if (!prop) return ''
 
   const cellValue = row[prop]
 
+  // 1. 如果有自定义格式化函数，优先级最高
   if (column.formatter) {
     return column.formatter(row, column, cellValue, rowIndex)
   }
 
-  return cellValue ?? ''
+  // 2. 如果配置了 displayMap (文案映射)，优先级第二
+  if (column.displayMap && cellValue !== undefined && cellValue !== null) {
+    const mappedValue = column.displayMap[String(cellValue)]
+    if (mappedValue !== undefined) return mappedValue
+  }
+
+
+
+  // 兜底布尔值处理
+  if (typeof cellValue === 'boolean') {
+    return cellValue ? '是' : '否'
+  }
+
+  return cellValue !== undefined && cellValue !== null ? String(cellValue) : ''
 }
 
 // 获取排序状态
@@ -731,6 +790,8 @@ const scrollTo = (options: {
   top?: number
   row?: Record<string, unknown>
   rowIndex?: number
+  column?: TableColumn
+  columnIndex?: number
 }) => {
   const container = bodyRef.value
   if (!container) return
@@ -809,23 +870,7 @@ const getTableData = () => ({
   tableData: tableData.value
 })
 
-const validate = async () => {
-  // TODO: 实现编辑验证
-  return true
-}
-
-const validateRow = async (_row: Record<string, unknown>) => {
-  // TODO: 实现行验证
-  return true
-}
-
-const activateEdit = (_row: Record<string, unknown>, _column: TableColumn) => {
-  // TODO: 实现编辑激活
-}
-
-const cancelEdit = () => {
-  // TODO: 实现取消编辑
-}
+// ==================== 导出/打印包装 ====================
 
 const exportData = async (config?: Record<string, unknown>) => {
   return doExportData(config as never)
@@ -903,10 +948,7 @@ const expose: TableExpose = {
   refresh,
   scrollTo,
   getTableData,
-  validate,
-  validateRow,
-  activateEdit,
-  cancelEdit,
+
   exportData,
   print,
   openImport,
@@ -923,14 +965,24 @@ const expose: TableExpose = {
   updateRow
 }
 
+
 defineExpose(expose)
 
 // ==================== Provide Context ====================
 provide(tableContextKey, {
   props,
   slots,
-  registerColumn: () => { },
-  unregisterColumn: () => { }
+  registerColumn: (column: TableColumn) => {
+    if (!collectedColumns.value.includes(column)) {
+      collectedColumns.value.push(column)
+    }
+  },
+  unregisterColumn: (column: TableColumn) => {
+    const index = collectedColumns.value.indexOf(column)
+    if (index > -1) {
+      collectedColumns.value.splice(index, 1)
+    }
+  }
 })
 
 // ==================== 生命周期 ====================
@@ -963,322 +1015,230 @@ watch(selectedRowKeys, () => {
 
 <template>
   <div ref="tableRef" :class="tableClasses" :style="tableStyle">
-    <!-- 工具栏 -->
-    <div v-if="showToolbar" :class="ns.e('toolbar')">
-      <slot name="toolbar">
-        <div :class="ns.e('toolbar-left')">
-          <slot name="toolbar-left-prefix" />
-          <slot name="toolbar-left" />
-          <slot name="toolbar-left-suffix" />
-        </div>
-        <div :class="ns.e('toolbar-right')">
-          <slot name="toolbar-right-prefix" />
-          <slot name="toolbar-right" />
-          <slot name="toolbar-right-suffix" />
-        </div>
-      </slot>
-    </div>
-
-    <!-- 表头 -->
-    <div v-if="showHeader" ref="headerRef" :class="ns.e('header-wrapper')">
-      <table :class="ns.e('header')" :style="{ tableLayout }">
-        <colgroup>
-          <col v-if="selectionConfig" :style="{ width: formatSize(selectionConfig.columnWidth || 50) }" />
-          <col v-if="expandConfig" :style="{ width: formatSize(expandConfig.columnWidth || 50) }" />
-          <col v-if="showIndex" :style="{ width: formatSize(indexConfig?.width || 50) }" />
-          <col v-for="column in visibleColumns" :key="column.prop || column.key"
-            :style="{ width: formatSize(column.width) }" />
-        </colgroup>
-        <thead>
-          <!-- 多级表头 -->
-          <template v-if="headerRows.length > 0">
-            <tr v-for="(hRow, rowIdx) in headerRows" :key="rowIdx" :class="ns.e('header-row')">
-              <!-- 选择列（仅第一行，跨所有行） -->
-              <th v-if="selectionConfig && rowIdx === 0"
-                :rowspan="columnDepth"
-                :class="[ns.e('header-cell'), ns.e('selection-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-                :style="{ width: formatSize(selectionConfig.columnWidth || 50), ...getSpecialFixedStyle('selection') }">
-                <template v-if="selectionType === 'checkbox' && selectionConfig.showSelectAll !== false">
-                  <input type="checkbox" :checked="isAllSelected" :indeterminate="isIndeterminate"
-                    @change="toggleAllSelection" />
-                </template>
-              </th>
-
-              <!-- 展开列（仅第一行，跨所有行） -->
-              <th v-if="expandConfig && rowIdx === 0"
-                :rowspan="columnDepth"
-                :class="[ns.e('header-cell'), ns.e('expand-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-                :style="{ width: formatSize(expandConfig.columnWidth || 50), ...getSpecialFixedStyle('expand') }" />
-
-              <!-- 序号列（仅第一行，跨所有行） -->
-              <th v-if="showIndex && rowIdx === 0"
-                :rowspan="columnDepth"
-                :class="[ns.e('header-cell'), ns.e('index-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-                :style="{ width: formatSize(indexConfig?.width || 50), ...getSpecialFixedStyle('index') }">
-                {{ indexConfig?.label || '#' }}
-              </th>
-
-              <!-- 数据列 -->
-              <th v-for="(cell, cellIdx) in hRow" :key="cell.column.prop || cell.column.key || cellIdx"
-                :colspan="cell.colspan > 1 ? cell.colspan : undefined"
-                :rowspan="cell.rowspan > 1 ? cell.rowspan : undefined"
-                :class="[
-                  ns.e('header-cell'),
-                  cell.column.headerClassName,
-                  cell.column.headerAlign ? `is-${cell.column.headerAlign}` : '',
-                  cell.column.sortable ? 'is-sortable' : '',
-                  cell.column.fixed ? `is-fixed-${cell.column.fixed === true ? 'left' : cell.column.fixed}` : '',
-                  cell.column.children?.length ? 'is-group' : '',
-                  isColumnDraggable(cell.column) ? 'is-column-draggable' : ''
-                ]" :style="{
-                  ...cell.column.headerStyle,
-                  textAlign: cell.column.headerAlign || cell.column.align || (cell.column.children?.length ? 'center' : 'left')
-                }" @click="handleHeaderClick(cell.column, $event)">
-                <div :class="ns.e('cell-content')">
-                  <!-- 表头前缀图标 -->
-                  <component v-if="cell.column.headerPrefixIcon && typeof cell.column.headerPrefixIcon !== 'string'"
-                    :is="cell.column.headerPrefixIcon" :class="ns.e('header-icon-prefix')" />
-                  <span v-else-if="cell.column.headerPrefixIcon" :class="ns.e('header-icon-prefix')">{{ cell.column.headerPrefixIcon }}</span>
-
-                  <slot v-if="$slots[`header-${cell.column.prop}`]" :name="`header-${cell.column.prop}`"
-                    :column="cell.column" :column-index="cellIdx" />
-                  <template v-else>
-                    {{ cell.column.label }}
-                  </template>
-
-                  <!-- 表头后缀图标 -->
-                  <component v-if="cell.column.headerSuffixIcon && typeof cell.column.headerSuffixIcon !== 'string'"
-                    :is="cell.column.headerSuffixIcon" :class="ns.e('header-icon-suffix')" />
-                  <span v-else-if="cell.column.headerSuffixIcon" :class="ns.e('header-icon-suffix')">{{ cell.column.headerSuffixIcon }}</span>
-
-                  <span v-if="cell.column.sortable" :class="ns.e('sort-icon')">
-                    <span :class="['sort-caret', 'ascending', getSortOrder(cell.column) === 'asc' ? 'is-active' : '']" />
-                    <span :class="['sort-caret', 'descending', getSortOrder(cell.column) === 'desc' ? 'is-active' : '']" />
-                  </span>
-                </div>
-
-                <!-- 列宽调整手柄（仅叶子列） -->
-                <span v-if="!cell.column.children?.length && isColumnResizable(cell.column)"
-                  :class="ns.e('resize-handle')"
-                  @pointerdown.stop="handleResizeStart($event, cell.column, ($event.currentTarget as HTMLElement).parentElement as HTMLElement)" />
-              </th>
-            </tr>
-          </template>
-
-          <!-- 单层表头（原有逻辑） -->
-          <tr v-else :class="ns.e('header-row')">
-            <!-- 选择列 -->
-            <th v-if="selectionConfig"
-              :class="[ns.e('header-cell'), ns.e('selection-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-              :style="{ width: formatSize(selectionConfig.columnWidth || 50), ...getSpecialFixedStyle('selection') }">
-              <template v-if="selectionType === 'checkbox' && selectionConfig.showSelectAll !== false">
-                <input type="checkbox" :checked="isAllSelected" :indeterminate="isIndeterminate"
-                  @change="toggleAllSelection" />
-              </template>
-            </th>
-
-            <!-- 展开列 -->
-            <th v-if="expandConfig"
-              :class="[ns.e('header-cell'), ns.e('expand-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-              :style="{ width: formatSize(expandConfig.columnWidth || 50), ...getSpecialFixedStyle('expand') }" />
-
-            <!-- 序号列 -->
-            <th v-if="showIndex"
-              :class="[ns.e('header-cell'), ns.e('index-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-              :style="{ width: formatSize(indexConfig?.width || 50), ...getSpecialFixedStyle('index') }">
-              {{ indexConfig?.label || '#' }}
-            </th>
-
-            <!-- 数据列 -->
-            <th v-for="(column, columnIndex) in visibleColumns" :key="column.prop || column.key || columnIndex" :class="[
-              ns.e('header-cell'),
-              column.headerClassName,
-              column.headerAlign ? `is-${column.headerAlign}` : '',
-              column.sortable ? 'is-sortable' : '',
-              column.fixed ? `is-fixed-${column.fixed === true ? 'left' : column.fixed}` : '',
-              isColumnDragEnabled ? getHeaderDragClass(columnIndex) : '',
-              isColumnDraggable(column) ? 'is-column-draggable' : ''
-            ]" :style="{
-              ...column.headerStyle,
-              ...getFixedStyle(column, columnIndex),
-              width: formatSize(column.width),
-              textAlign: column.headerAlign || column.align || 'left'
-            }" v-bind="getHeaderDragAttrs(column, columnIndex)"
-              @click="handleHeaderClick(column, $event)">
-              <div :class="ns.e('cell-content')">
-                <!-- 表头前缀图标 -->
-                <component v-if="column.headerPrefixIcon && typeof column.headerPrefixIcon !== 'string'"
-                  :is="column.headerPrefixIcon" :class="ns.e('header-icon-prefix')" />
-                <span v-else-if="column.headerPrefixIcon" :class="ns.e('header-icon-prefix')">{{ column.headerPrefixIcon }}</span>
-
-                <!-- 自定义表头 -->
-                <slot v-if="$slots[`header-${column.prop}`]" :name="`header-${column.prop}`" :column="column"
-                  :column-index="columnIndex" />
-                <template v-else>
-                  {{ column.label }}
-                </template>
-
-                <!-- 表头后缀图标 -->
-                <component v-if="column.headerSuffixIcon && typeof column.headerSuffixIcon !== 'string'"
-                  :is="column.headerSuffixIcon" :class="ns.e('header-icon-suffix')" />
-                <span v-else-if="column.headerSuffixIcon" :class="ns.e('header-icon-suffix')">{{ column.headerSuffixIcon }}</span>
-
-                <!-- 排序图标 -->
-                <span v-if="column.sortable" :class="ns.e('sort-icon')">
-                  <span :class="['sort-caret', 'ascending', getSortOrder(column) === 'asc' ? 'is-active' : '']" />
-                  <span :class="['sort-caret', 'descending', getSortOrder(column) === 'desc' ? 'is-active' : '']" />
-                </span>
-              </div>
-
-              <!-- 列宽调整手柄 -->
-              <span v-if="isColumnResizable(column)"
-                :class="ns.e('resize-handle')"
-                @pointerdown.stop="handleResizeStart($event, column, ($event.currentTarget as HTMLElement).parentElement as HTMLElement)" />
-            </th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-
-    <!-- 表体 -->
-    <div ref="bodyRef" :class="[ns.e('body-wrapper'), isVirtual ? ns.em('body-wrapper', 'virtual') : '']" :style="bodyStyle" @scroll="handleScroll">
-      <!-- 虚拟滚动：单一 phantom div 撑起滚动条高度 -->
-      <div v-if="isVirtual" :class="ns.e('virtual-phantom')" :style="{ height: `${totalHeight}px` }" />
-
-      <!-- 空数据 -->
-      <div v-if="tableData.length === 0" :class="ns.e('empty')">
-        <slot name="empty">
-          <div :class="ns.e('empty-content')">
-            <template v-if="emptyConfig?.render">
-              <component :is="emptyConfig.render()" />
-            </template>
-            <template v-else>
-              <div v-if="emptyConfig?.image" :class="ns.e('empty-image')">
-                <img :src="emptyConfig.image" alt="empty" />
-              </div>
-              <div :class="ns.e('empty-text')">
-                {{ emptyConfig?.description || emptyText }}
-              </div>
-            </template>
+    <div :class="innerWrapperClasses">
+      <!-- 工具栏 -->
+      <div v-if="showToolbar" :class="ns.e('toolbar')">
+        <slot name="toolbar">
+          <div :class="ns.e('toolbar-left')">
+            <slot name="toolbar-left-prefix" />
+            <slot name="toolbar-left" />
+            <slot name="toolbar-left-suffix" />
+          </div>
+          <div :class="ns.e('toolbar-right')">
+            <slot name="toolbar-right-prefix" />
+            <slot name="toolbar-right" />
+            <slot name="toolbar-right-suffix" />
           </div>
         </slot>
       </div>
 
-      <!-- 数据表格（虚拟模式下通过 transform 定位，GPU 加速无重排） -->
-      <table v-else :class="[ns.e('body'), isVirtual ? ns.em('body', 'virtual') : '']" :style="{
-        tableLayout,
-        ...(isVirtual ? { transform: `translate3d(0, ${offsetTop}px, 0)` } : {})
-      }">
-        <colgroup>
-          <col v-if="selectionConfig" :style="{ width: formatSize(selectionConfig.columnWidth || 50) }" />
-          <col v-if="expandConfig" :style="{ width: formatSize(expandConfig.columnWidth || 50) }" />
-          <col v-if="showIndex" :style="{ width: formatSize(indexConfig?.width || 50) }" />
-          <col v-for="column in visibleColumns" :key="column.prop || column.key"
-            :style="{ width: formatSize(column.width) }" />
-        </colgroup>
-        <tbody>
-          <template v-for="(row, rowIndex) in renderData" :key="getRowKeyFn(row)">
-            <tr :class="getRowClass(row, rowIndex)" :style="getRowStyle(row, rowIndex)"
-              v-bind="getRowDragAttrs(rowIndex)"
-              @click="handleRowClick(row, visibleColumns[0], $event)"
-              @dblclick="handleRowDblclick(row, visibleColumns[0], $event)">
-              <!-- 选择列 -->
-              <td v-if="selectionConfig"
-                :class="[ns.e('cell'), ns.e('selection-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-                :style="getSpecialFixedStyle('selection')" @click.stop>
-                <input :type="selectionType === 'radio' ? 'radio' : 'checkbox'" :checked="isRowSelected(row)"
-                  :disabled="!isRowSelectable(row, rowIndex)" @change="toggleRowSelection(row)" />
-              </td>
-
-              <!-- 展开列 -->
-              <td v-if="expandConfig"
-                :class="[ns.e('cell'), ns.e('expand-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-                :style="getSpecialFixedStyle('expand')" @click.stop="handleToggleExpand(row)">
-                <span :class="[
-                  ns.e('expand-icon'),
-                  expandedRowKeys.has(getRowKeyFn(row)) ? 'is-expanded' : ''
-                ]">
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-                  </svg>
-                </span>
-              </td>
-
-              <!-- 序号列 -->
-              <td v-if="showIndex"
-                :class="[ns.e('cell'), ns.e('index-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
-                :style="getSpecialFixedStyle('index')">
-                {{ indexConfig?.method ? indexConfig.method(rowIndex) : rowIndex + 1 }}
-              </td>
-
-              <!-- 数据列 (合并单元格时跳过 span=0 的单元格) -->
-              <template v-for="(column, columnIndex) in visibleColumns" :key="column.prop || column.key || columnIndex">
-                <td v-if="isSpanVisible(row, column, rowIndex, columnIndex)"
-                  :class="getCellClass(row, column, rowIndex, columnIndex)"
-                  :style="getCellStyle(row, column, rowIndex, columnIndex)"
-                  :colspan="calculateSpan(row, column, rowIndex, columnIndex, spanMethod).colspan || undefined"
-                  :rowspan="calculateSpan(row, column, rowIndex, columnIndex, spanMethod).rowspan || undefined"
-                  @click="handleCellClick(row, column, $event.currentTarget as HTMLElement, $event)">
-                  <div :class="ns.e('cell-content')">
-                    <!-- 树形缩进 (所有树行都需要缩进，包括叶子节点) -->
-                    <span v-if="treeConfig && column.treeNode"
-                      :class="[ns.e('tree-indent')]"
-                      :style="{ paddingLeft: `${((row as Record<string, unknown>)._level as number || 0) * (treeConfig.indent || 16)}px` }">
-                      <!-- 有子节点才显示展开箭头 -->
-                      <span v-if="(row as Record<string, unknown>)._hasChildren" :class="[
-                        ns.e('tree-icon'),
-                        (row as Record<string, unknown>)._isExpanded ? 'is-expanded' : ''
-                      ]" @click.stop="handleToggleTreeExpand(row)">
-                        <svg viewBox="0 0 24 24" width="16" height="16">
-                          <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-                        </svg>
-                      </span>
-                      <!-- 叶子节点占位，保持对齐 -->
-                      <span v-else :class="ns.e('tree-leaf-spacer')" />
-                    </span>
-
-                    <!-- 自定义列内容 -->
-                    <slot v-if="$slots[column.prop || '']" :name="column.prop" :row="row" :column="column"
-                      :row-index="rowIndex" :cell-value="column.prop ? row[column.prop] : undefined" />
-                    <!-- 自定义渲染 -->
-                    <component v-else-if="column.render"
-                      :is="column.render({ row, column, rowIndex, cellValue: column.prop ? row[column.prop] : undefined })" />
-                    <!-- 默认内容 -->
-                    <template v-else>
-                      <yh-tooltip v-if="column.showOverflowTooltip"
-                        :content="String(getCellContent(row, column, rowIndex))"
-                        :effect="typeof column.showOverflowTooltip === 'object' ? (column.showOverflowTooltip.effect || tooltipEffect) : tooltipEffect"
-                        :placement="(typeof column.showOverflowTooltip === 'object' ? (column.showOverflowTooltip.placement || 'top') : 'top') as any">
-                        <div :class="[ns.e('cell-text'), ns.is('ellipsis', true)]">{{ getCellContent(row, column,
-                          rowIndex) }}</div>
-                      </yh-tooltip>
-                      <template v-else>
-                        {{ getCellContent(row, column, rowIndex) }}
-                      </template>
+      <!-- 表头 -->
+      <div v-if="showHeader" ref="headerRef" :class="ns.e('header-wrapper')">
+        <table :class="ns.e('header')" :style="{ tableLayout }">
+          <colgroup>
+            <col v-if="selectionConfig" :style="{ width: formatSize(selectionConfig.columnWidth || 50) }" />
+            <col v-if="expandConfig" :style="{ width: formatSize(expandConfig.columnWidth || 50) }" />
+            <col v-if="showIndex" :style="{ width: formatSize(indexConfig?.width || 50) }" />
+            <col v-for="column in visibleColumns" :key="column.prop || column.key"
+              :style="{ width: formatSize(column.width) }" />
+          </colgroup>
+          <thead>
+            <!-- 多级表头 -->
+            <template v-if="headerRows.length > 0">
+              <tr v-for="(hRow, rowIdx) in headerRows" :key="rowIdx" :class="ns.e('header-row')">
+                <!-- 选择列（仅第一行，跨所有行） -->
+                <th v-if="selectionConfig && rowIdx === 0" :rowspan="columnDepth"
+                  :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                  :style="{ width: formatSize(selectionConfig.columnWidth || 50), ...getSpecialFixedStyle('selection') }">
+                  <div :class="ns.e('selection-cell')">
+                    <template v-if="selectionType === 'checkbox' && selectionConfig.showSelectAll !== false">
+                      <input type="checkbox" :checked="isAllSelected" :indeterminate="isIndeterminate"
+                        @change="toggleAllSelection" />
                     </template>
                   </div>
-                </td>
+                </th>
+
+                <!-- 展开列（仅第一行，跨所有行） -->
+                <th v-if="expandConfig && rowIdx === 0" :rowspan="columnDepth"
+                  :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                  :style="{ width: formatSize(expandConfig.columnWidth || 50), ...getSpecialFixedStyle('expand') }">
+                  <div :class="ns.e('expand-cell')" />
+                </th>
+
+                <!-- 序号列（仅第一行，跨所有行） -->
+                <th v-if="showIndex && rowIdx === 0" :rowspan="columnDepth"
+                  :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                  :style="{ width: formatSize(indexConfig?.width || 50), ...getSpecialFixedStyle('index') }">
+                  <div :class="ns.e('index-cell')">
+                    {{ indexConfig?.label || '#' }}
+                  </div>
+                </th>
+
+                <!-- 数据列 -->
+                <th v-for="(cell, cellIdx) in hRow" :key="cell.column.prop || cell.column.key || cellIdx"
+                  :colspan="cell.colspan > 1 ? cell.colspan : undefined"
+                  :rowspan="cell.rowspan > 1 ? cell.rowspan : undefined" :class="[
+                    ns.e('header-cell'),
+                    cell.column.headerClassName,
+                    cell.column.headerAlign ? `is-${cell.column.headerAlign}` : '',
+                    cell.column.sortable ? 'is-sortable' : '',
+                    cell.column.fixed ? `is-fixed-${cell.column.fixed === true ? 'left' : cell.column.fixed}` : '',
+                    cell.column.children?.length ? 'is-group' : '',
+                    isColumnDraggable(cell.column) ? 'is-column-draggable' : ''
+                  ]" :style="{
+                    ...cell.column.headerStyle,
+                    textAlign: cell.column.headerAlign || cell.column.align || (cell.column.children?.length ? 'center' : 'left')
+                  }" @click="handleHeaderClick(cell.column, $event)">
+                  <div :class="ns.e('cell-content')">
+                    <!-- 表头前缀图标 -->
+                    <component v-if="cell.column.headerPrefixIcon && typeof cell.column.headerPrefixIcon !== 'string'"
+                      :is="cell.column.headerPrefixIcon" :class="ns.e('header-icon-prefix')" />
+                    <span v-else-if="cell.column.headerPrefixIcon" :class="ns.e('header-icon-prefix')">{{
+                      cell.column.headerPrefixIcon
+                    }}</span>
+
+                    <slot v-if="$slots[`header-${cell.column.prop}`]" :name="`header-${cell.column.prop}`"
+                      :column="cell.column" :column-index="cellIdx" />
+                    <template v-else>
+                      {{ cell.column.label }}
+                    </template>
+
+
+                    <!-- 表头后缀图标 -->
+                    <component v-if="cell.column.headerSuffixIcon && typeof cell.column.headerSuffixIcon !== 'string'"
+                      :is="cell.column.headerSuffixIcon" :class="ns.e('header-icon-suffix')" />
+                    <span v-else-if="cell.column.headerSuffixIcon" :class="ns.e('header-icon-suffix')">{{
+                      cell.column.headerSuffixIcon
+                    }}</span>
+
+                    <span v-if="cell.column.sortable" :class="ns.e('sort-icon')">
+                      <span
+                        :class="['sort-caret', 'ascending', getSortOrder(cell.column) === 'asc' ? 'is-active' : '']" />
+                      <span
+                        :class="['sort-caret', 'descending', getSortOrder(cell.column) === 'desc' ? 'is-active' : '']" />
+                    </span>
+                  </div>
+
+                  <!-- 列宽调整手柄（仅叶子列） -->
+                  <span v-if="!cell.column.children?.length && isColumnResizable(cell.column)"
+                    :class="ns.e('resize-handle')"
+                    @pointerdown.stop="handleResizeStart($event, cell.column, ($event.currentTarget as HTMLElement).parentElement as HTMLElement)" />
+                </th>
+              </tr>
+            </template>
+
+            <!-- 单层表头（原有逻辑） -->
+            <tr v-else :class="ns.e('header-row')">
+              <!-- 选择列 -->
+              <th v-if="selectionConfig" :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                :style="{ width: formatSize(selectionConfig.columnWidth || 50), ...getSpecialFixedStyle('selection') }">
+                <div :class="ns.e('selection-cell')">
+                  <template v-if="selectionType === 'checkbox' && selectionConfig.showSelectAll !== false">
+                    <input type="checkbox" :checked="isAllSelected" :indeterminate="isIndeterminate"
+                      @change="toggleAllSelection" />
+                  </template>
+                </div>
+              </th>
+
+              <!-- 展开列 -->
+              <th v-if="expandConfig" :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                :style="{ width: formatSize(expandConfig.columnWidth || 50), ...getSpecialFixedStyle('expand') }">
+                <div :class="ns.e('expand-cell')" />
+              </th>
+
+              <!-- 序号列 -->
+              <th v-if="showIndex" :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                :style="{ width: formatSize(indexConfig?.width || 50), ...getSpecialFixedStyle('index') }">
+                <div :class="ns.e('index-cell')">
+                  {{ indexConfig?.label || '#' }}
+                </div>
+              </th>
+
+              <!-- 数据列 -->
+              <th v-for="(column, columnIndex) in visibleColumns" :key="column.prop || column.key || columnIndex"
+                :class="[
+                  ns.e('header-cell'),
+                  column.headerClassName,
+                  column.headerAlign ? `is-${column.headerAlign}` : '',
+                  column.sortable ? 'is-sortable' : '',
+                  column.fixed ? `is-fixed-${column.fixed === true ? 'left' : column.fixed}` : '',
+                  isColumnDragEnabled ? getHeaderDragClass(columnIndex) : '',
+                  isColumnDraggable(column) ? 'is-column-draggable' : ''
+                ]" :style="{
+                  ...column.headerStyle,
+                  ...getFixedStyle(column, columnIndex),
+                  width: formatSize(column.width),
+                  textAlign: column.headerAlign || column.align || 'left'
+                }" v-bind="getHeaderDragAttrs(column, columnIndex)" @click="handleHeaderClick(column, $event)">
+                <div :class="ns.e('cell-content')">
+                  <!-- 表头前缀图标 -->
+                  <component v-if="column.headerPrefixIcon && typeof column.headerPrefixIcon !== 'string'"
+                    :is="column.headerPrefixIcon" :class="ns.e('header-icon-prefix')" />
+                  <span v-else-if="column.headerPrefixIcon" :class="ns.e('header-icon-prefix')">{{
+                    column.headerPrefixIcon
+                  }}</span>
+
+                  <!-- 自定义表头 -->
+                  <slot v-if="$slots[`header-${column.prop}`]" :name="`header-${column.prop}`" :column="column"
+                    :column-index="columnIndex" />
+                  <template v-else>
+                    {{ column.label }}
+                  </template>
+
+
+                  <!-- 表头后缀图标 -->
+                  <component v-if="column.headerSuffixIcon && typeof column.headerSuffixIcon !== 'string'"
+                    :is="column.headerSuffixIcon" :class="ns.e('header-icon-suffix')" />
+                  <span v-else-if="column.headerSuffixIcon" :class="ns.e('header-icon-suffix')">{{
+                    column.headerSuffixIcon
+                  }}</span>
+
+                  <!-- 排序图标 -->
+                  <span v-if="column.sortable" :class="ns.e('sort-icon')">
+                    <span :class="['sort-caret', 'ascending', getSortOrder(column) === 'asc' ? 'is-active' : '']" />
+                    <span :class="['sort-caret', 'descending', getSortOrder(column) === 'desc' ? 'is-active' : '']" />
+                  </span>
+                </div>
+
+                <!-- 列宽调整手柄 -->
+                <span v-if="isColumnResizable(column)" :class="ns.e('resize-handle')"
+                  @pointerdown.stop="handleResizeStart($event, column, ($event.currentTarget as HTMLElement).parentElement as HTMLElement)" />
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <!-- 表体 -->
+      <div ref="bodyRef" :class="[ns.e('body-wrapper'), isVirtual ? ns.em('body-wrapper', 'virtual') : '']"
+        :style="bodyStyle" @scroll="handleScroll">
+        <!-- 虚拟滚动：单一 phantom div 撑起滚动条高度 -->
+        <div v-if="isVirtual" :class="ns.e('virtual-phantom')" :style="{ height: `${totalHeight}px` }" />
+
+        <!-- 空数据 -->
+        <div v-if="tableData.length === 0" :class="ns.e('empty')">
+          <slot name="empty">
+            <div :class="ns.e('empty-content')">
+              <template v-if="emptyConfig?.render">
+                <component :is="emptyConfig.render()" />
               </template>
-            </tr>
+              <template v-else>
+                <div v-if="emptyConfig?.image" :class="ns.e('empty-image')">
+                  <img :src="emptyConfig.image" alt="empty" />
+                </div>
+                <div :class="ns.e('empty-text')">
+                  {{ emptyConfig?.description || emptyText }}
+                </div>
+              </template>
+            </div>
+          </slot>
+        </div>
 
-            <!-- 展开行内容 -->
-            <tr v-if="expandConfig && expandedRowKeys.has(getRowKeyFn(row))" :class="ns.e('expanded-row')">
-              <td :colspan="visibleColumns.length + (selectionConfig ? 1 : 0) + (showIndex ? 1 : 0) + 1">
-                <slot name="expand" :row="row" :row-index="rowIndex">
-                  <component v-if="expandConfig.render" :is="expandConfig.render({ row, rowIndex })" />
-                </slot>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-
-    </div>
-
-    <!-- 汇总行 -->
-    <div v-if="summaryConfig" ref="footerRef" :class="ns.e('footer-wrapper')">
-      <slot name="summary">
-        <table :class="ns.e('footer')" :style="{ tableLayout }">
+        <!-- 数据表格（虚拟模式下通过 transform 定位，GPU 加速无重排） -->
+        <table v-else :class="[ns.e('body'), isVirtual ? ns.em('body', 'virtual') : '']" :style="{
+          tableLayout,
+          ...(isVirtual ? { transform: `translate3d(0, ${offsetTop}px, 0)` } : {})
+        }">
           <colgroup>
             <col v-if="selectionConfig" :style="{ width: formatSize(selectionConfig.columnWidth || 50) }" />
             <col v-if="expandConfig" :style="{ width: formatSize(expandConfig.columnWidth || 50) }" />
@@ -1287,54 +1247,175 @@ watch(selectedRowKeys, () => {
               :style="{ width: formatSize(column.width) }" />
           </colgroup>
           <tbody>
-            <tr :class="[ns.e('row'), ns.e('summary-row'), summaryConfig.className]">
-              <!-- 选择列占位 -->
-              <td v-if="selectionConfig"
-                :class="[ns.e('cell'), ns.e('selection-cell')]"
-                :style="getSpecialFixedStyle('selection')" />
-              <!-- 展开列占位 -->
-              <td v-if="expandConfig"
-                :class="[ns.e('cell'), ns.e('expand-cell')]"
-                :style="getSpecialFixedStyle('expand')" />
-              <!-- 序号列占位 -->
-              <td v-if="showIndex"
-                :class="[ns.e('cell'), ns.e('index-cell')]"
-                :style="getSpecialFixedStyle('index')" />
-              <!-- 数据列 -->
-              <td v-for="(column, columnIndex) in visibleColumns" :key="column.prop || column.key || columnIndex"
-                :class="getCellClass({}, column, 0, columnIndex)" :style="getCellStyle({}, column, 0, columnIndex)">
-                <div :class="ns.e('cell-content')">
-                  <slot :name="`summary-${column.prop}`" :column="column" :column-index="columnIndex" :data="tableData">
-                    {{ summaryValues.length > 0 ? summaryValues[columnIndex] : (columnIndex === 0 ? (summaryConfig.text || '合计') : '') }}
+            <template v-for="(row, rowIndex) in renderData" :key="getRowKeyFn(row)">
+              <tr :class="getRowClass(row, rowIndex)" :style="getRowStyle(row, rowIndex)"
+                v-bind="getRowDragAttrs(rowIndex)" @click="handleRowClick(row, visibleColumns[0], $event)"
+                @dblclick="handleRowDblclick(row, visibleColumns[0], $event)">
+                <!-- 选择列 -->
+                <td v-if="selectionConfig"
+                  :class="[ns.e('cell'), ns.e('selection-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                  :style="getSpecialFixedStyle('selection')" @click.stop>
+                  <input :type="selectionType === 'radio' ? 'radio' : 'checkbox'" :checked="isRowSelected(row)"
+                    :disabled="!isRowSelectable(row, rowIndex)" @change="toggleRowSelection(row)" />
+                </td>
+
+                <!-- 展开列 -->
+                <td v-if="expandConfig"
+                  :class="[ns.e('cell'), ns.e('expand-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                  :style="getSpecialFixedStyle('expand')" @click.stop="handleToggleExpand(row)">
+                  <span :class="[
+                    ns.e('expand-icon'),
+                    expandedRowKeys.has(getRowKeyFn(row)) ? 'is-expanded' : ''
+                  ]">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                      <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+                    </svg>
+                  </span>
+                </td>
+
+                <!-- 序号列 -->
+                <td v-if="showIndex"
+                  :class="[ns.e('cell'), ns.e('index-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
+                  :style="getSpecialFixedStyle('index')">
+                  {{ indexConfig?.method ? indexConfig.method(rowIndex) : rowIndex + 1 }}
+                </td>
+
+                <!-- 数据列 (合并单元格时跳过 span=0 的单元格) -->
+                <template v-for="(column, columnIndex) in visibleColumns"
+                  :key="column.prop || column.key || columnIndex">
+                  <td v-if="isSpanVisible(row, column, rowIndex, columnIndex)" :class="[
+                    getCellClass(row, column, rowIndex, columnIndex)
+                  ]" :style="getCellStyle(row, column, rowIndex, columnIndex)"
+                    :colspan="calculateSpan(row, column, rowIndex, columnIndex, spanMethod).colspan || undefined"
+                    :rowspan="calculateSpan(row, column, rowIndex, columnIndex, spanMethod).rowspan || undefined"
+                    :data-row-key="getRowKeyFn(row)" :data-prop="column.prop"
+                    @click="handleCellClick(row, column, $event.currentTarget as HTMLElement, $event)"
+                    @dblclick="handleCellDblclick(row, column, $event.currentTarget as HTMLElement, $event)">
+                    <div :class="ns.e('cell-content')">
+                      <!-- 树形缩进 -->
+                      <span v-if="treeConfig && column.treeNode" :class="[ns.e('tree-indent')]"
+                        :style="{ paddingLeft: `${((row as Record<string, unknown>)._level as number || 0) * (treeConfig.indent || 16)}px` }">
+                        <span v-if="(row as Record<string, unknown>)._hasChildren" :class="[
+                          ns.e('tree-icon'),
+                          (row as Record<string, unknown>)._isExpanded ? 'is-expanded' : ''
+                        ]" @click.stop="handleToggleTreeExpand(row)">
+                          <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+                          </svg>
+                        </span>
+                        <span v-else :class="ns.e('tree-leaf-spacer')" />
+                      </span>
+
+                      <!-- 内容展示 -->
+                      <slot v-if="row && column.prop && $slots[column.prop]" :name="column.prop" :row="row"
+                        :column="column" :row-index="rowIndex"
+                        :cell-value="column.prop ? row[column.prop] : undefined" />
+                      <component v-else-if="row && column.render"
+                        :is="column.render({ row, column, rowIndex, cellValue: column.prop ? row[column.prop] : undefined })" />
+                      <template v-else>
+                        <yh-tooltip v-if="column.showOverflowTooltip"
+                          :content="String(getCellContent(row, column, rowIndex))"
+                          :effect="typeof column.showOverflowTooltip === 'object' ? (column.showOverflowTooltip.effect || tooltipEffect) : tooltipEffect"
+                          :placement="typeof column.showOverflowTooltip === 'object' ? (column.showOverflowTooltip.placement || 'top') : 'top'">
+                          <div :class="[ns.e('cell-text'), ns.is('ellipsis', true)]">
+                            {{ getCellContent(row, column, rowIndex) }}
+                          </div>
+                        </yh-tooltip>
+                        <template v-else>
+                          {{ getCellContent(row, column, rowIndex) }}
+                        </template>
+                      </template>
+                    </div>
+                  </td>
+                </template>
+              </tr>
+
+              <!-- 展开行内容 -->
+              <tr v-if="expandConfig && expandedRowKeys.has(getRowKeyFn(row))" :class="ns.e('expanded-row')">
+                <td :colspan="visibleColumns.length + (selectionConfig ? 1 : 0) + (showIndex ? 1 : 0) + 1">
+                  <slot name="expand" :row="row" :row-index="rowIndex">
+                    <component v-if="expandConfig.render" :is="expandConfig.render({ row, rowIndex })" />
                   </slot>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
-      </slot>
+
+      </div>
+
+      <!-- 汇总行 -->
+      <div v-if="summaryConfig" ref="footerRef" :class="ns.e('footer-wrapper')">
+        <slot name="summary">
+          <table :class="ns.e('footer')" :style="{ tableLayout }">
+            <colgroup>
+              <col v-if="selectionConfig" :style="{ width: formatSize(selectionConfig.columnWidth || 50) }" />
+              <col v-if="expandConfig" :style="{ width: formatSize(expandConfig.columnWidth || 50) }" />
+              <col v-if="showIndex" :style="{ width: formatSize(indexConfig?.width || 50) }" />
+              <col v-for="column in visibleColumns" :key="column.prop || column.key"
+                :style="{ width: formatSize(column.width) }" />
+            </colgroup>
+            <tbody>
+              <tr :class="[ns.e('row'), ns.e('summary-row'), summaryConfig.className]">
+                <!-- 选择列占位 -->
+                <td v-if="selectionConfig" :class="[ns.e('cell'), ns.e('selection-cell')]"
+                  :style="getSpecialFixedStyle('selection')" />
+                <!-- 展开列占位 -->
+                <td v-if="expandConfig" :class="[ns.e('cell'), ns.e('expand-cell')]"
+                  :style="getSpecialFixedStyle('expand')" />
+                <!-- 序号列占位 -->
+                <td v-if="showIndex" :class="[ns.e('cell'), ns.e('index-cell')]"
+                  :style="getSpecialFixedStyle('index')" />
+                <!-- 数据列 -->
+                <td v-for="(column, columnIndex) in visibleColumns" :key="column.prop || column.key || columnIndex"
+                  :class="getCellClass({}, column, 0, columnIndex)" :style="getCellStyle({}, column, 0, columnIndex)">
+                  <div :class="ns.e('cell-content')">
+                    <slot :name="`summary-${column.prop}`" :column="column" :column-index="columnIndex"
+                      :data="tableData">
+                      {{ summaryValues.length > 0 ? summaryValues[columnIndex] : (columnIndex === 0 ?
+                        (summaryConfig.text
+                          ||
+                          '合计') : '') }}
+                    </slot>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </slot>
+      </div>
+
+      <!-- 列宽调整指示线 -->
+      <div v-if="resizeLineVisible" :class="ns.e('resize-line')" :style="{ left: `${resizeLineLeft}px` }" />
+
+      <!-- 加载状态 -->
+      <div v-if="typeof loading === 'object' ? loading.visible !== false : !!loading" :class="ns.e('loading')"
+        :style="typeof loading === 'object' && loading.background ? { backgroundColor: loading.background } : {}">
+        <slot name="loading">
+          <div :class="ns.e('loading-content')">
+            <span :class="ns.e('loading-spinner')" />
+            <span v-if="typeof loading === 'object' && loading.text" :class="ns.e('loading-text')">
+              {{ loading.text }}
+            </span>
+            <span v-else-if="typeof loading === 'boolean'" :class="ns.e('loading-text')">
+              加载中...
+            </span>
+          </div>
+        </slot>
+      </div>
     </div>
 
-    <!-- 列宽调整指示线 -->
-    <div v-if="resizeLineVisible"
-      :class="ns.e('resize-line')"
-      :style="{ left: `${resizeLineLeft}px` }" />
+    <!-- 分页 -->
+    <div v-if="pagination"
+      :class="[ns.e('pagination-wrapper'), typeof pagination === 'object' && pagination.align ? ns.is('align-' + pagination.align) : '']">
+      <YhPagination v-bind="typeof pagination === 'object' ? pagination : {}" :class="ns.e('pagination')"
+        @update:current-page="(val) => emit('page-change', { currentPage: val, pageSize: (typeof pagination === 'object' ? pagination.pageSize : 10) || 10 })"
+        @update:page-size="(val) => emit('page-change', { currentPage: (typeof pagination === 'object' ? pagination.currentPage : 1) || 1, pageSize: val })" />
+    </div>
 
-    <!-- 加载状态 -->
-    <div v-if="typeof loading === 'object' ? loading.visible !== false : !!loading"
-      :class="ns.e('loading')"
-      :style="typeof loading === 'object' && loading.background ? { backgroundColor: loading.background } : {}">
-      <slot name="loading">
-        <div :class="ns.e('loading-content')">
-          <span :class="ns.e('loading-spinner')" />
-          <span v-if="typeof loading === 'object' && loading.text" :class="ns.e('loading-text')">
-            {{ loading.text }}
-          </span>
-          <span v-else-if="typeof loading === 'boolean'" :class="ns.e('loading-text')">
-            加载中...
-          </span>
-        </div>
-      </slot>
+    <!-- 渲染隐藏的默认插槽，用于收集列配置(仅渲染 YhTableColumn 子组件) -->
+    <div v-if="$slots.default && (!columns || columns.length === 0)" style="display: none" aria-hidden="true">
+      <slot />
     </div>
   </div>
 </template>

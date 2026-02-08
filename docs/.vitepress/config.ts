@@ -55,6 +55,7 @@ export default defineConfig({
             { text: '基础用法', link: '/table/basic' },
             { text: '选择功能', link: '/table/selection' },
             { text: '排序与筛选', link: '/table/sort-filter' },
+            { text: '表格分页', link: '/table/pagination' },
             { text: '自定义模板', link: '/table/custom' },
             { text: '树形数据与展开行', link: '/table/tree-expand' },
             { text: '合并与汇总', link: '/table/merge-summary' },
@@ -65,12 +66,15 @@ export default defineConfig({
             { text: '虚拟滚动', link: '/table/virtual-scroll' },
             { text: '行拖拽', link: '/table/row-drag' },
             { text: '列宽调整', link: '/table/column-resize' },
+            { text: '多级表头', link: '/table/grouped-header' },
+            { text: '动态列渲染', link: '/table/dynamic-column' },
             { text: '列拖拽', link: '/table/column-drag' },
             { text: '导入功能', link: '/table/import' },
             { text: '导出功能', link: '/table/export' },
             { text: '打印功能', link: '/table/print' },
             { text: '自定义插槽模板', link: '/table/custom-slots' },
             { text: '列配置', link: '/table/column-config' },
+            { text: 'Nuxt 集成', link: '/table/nuxt' },
             { text: 'API 参考', link: '/table/api' }
           ]
         }

@@ -16,7 +16,17 @@
   background-color: var(--yh-table-row-bg);
   font-size: var(--yh-table-font-size);
   color: var(--yh-table-text-color);
-  overflow: hidden;
+  // 移除根元素的 overflow: hidden，由 inner-wrapper 处理
+  // overflow: hidden;
+
+  @include e(inner-wrapper) {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
 
   // ==================== 2. 基础对齐 ====================
   table {
@@ -185,8 +195,8 @@
       border-right: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
     }
 
-    // 绘制 4 边封顶框架（利用绝对定位层盖在最上方）
-    &::after {
+    // 绘制 4 边封顶框架（应用到 inner-wrapper 上）
+    .yh-table__inner-wrapper::after {
       content: '';
       position: absolute;
       left: 0;
@@ -195,7 +205,7 @@
       bottom: 0;
       border: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
       pointer-events: none;
-      z-index: 20; // 必须高于内容和滚动条
+      z-index: 20;
     }
 
     // 针对表头衔接处的补强
@@ -240,12 +250,6 @@
     --yh-table-cell-padding: 8px 0;
     --yh-table-cell-spacing: 8px;
     --yh-table-font-size: var(--yh-font-size-sm);
-  }
-
-  @include m(mini) {
-    --yh-table-cell-padding: 4px 0;
-    --yh-table-cell-spacing: 6px;
-    --yh-table-font-size: var(--yh-font-size-xs);
   }
 
   // ==================== 7. 排序图标 ====================
@@ -694,7 +698,7 @@
     }
   }
 
-  // ==================== 15. 固定列阴影修复 ====================
+  // ==================== 21. 固定列阴影修复 ====================
   @include is(scrolling-middle) {
     .is-last-fixed-left::after {
       box-shadow: var(--yh-table-fixed-left-shadow);
@@ -719,6 +723,25 @@
       transform: translateX(-100%);
       pointer-events: none;
       z-index: 1;
+    }
+  }
+
+  // ==================== 22. 分页 ====================
+  @include e(pagination-wrapper) {
+    padding: 16px 0;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+
+    @include is(align-left) {
+      justify-content: flex-start;
+    }
+    @include is(align-center) {
+      justify-content: center;
+    }
+    @include is(align-right) {
+      justify-content: flex-end;
     }
   }
 }

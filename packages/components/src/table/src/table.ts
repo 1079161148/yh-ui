@@ -6,9 +6,11 @@
 
 import type { ExtractPropTypes, PropType, InjectionKey, CSSProperties, VNode, Component } from 'vue'
 
+import type { TooltipPlacement } from '../../tooltip'
+
 // ====================== 基础类型定义 ======================
 
-export type TableSize = 'large' | 'default' | 'small' | 'mini'
+export type TableSize = 'large' | 'default' | 'small'
 export type TableAlign = 'left' | 'center' | 'right'
 export type SortOrder = 'asc' | 'desc' | null
 export type FixedPosition = 'left' | 'right' | true
@@ -56,7 +58,9 @@ export interface TableColumn<T = Record<string, unknown>> {
   /** 是否可拖拽排序 */
   draggable?: boolean
   /** 是否显示溢出提示 */
-  showOverflowTooltip?: boolean | { effect?: 'dark' | 'light'; placement?: string; offset?: number }
+  showOverflowTooltip?:
+    | boolean
+    | { effect?: 'dark' | 'light'; placement?: TooltipPlacement; offset?: number }
   /** 列类名 */
   className?: string
   /** 表头类名 */
@@ -86,8 +90,6 @@ export interface TableColumn<T = Record<string, unknown>> {
   headerSuffixIcon?: string | Component
   /** 格式化方法 */
   formatter?: (row: T, column: TableColumn<T>, cellValue: unknown, rowIndex: number) => string
-  /** 可编辑配置 */
-  editable?: boolean | TableEditableConfig
   /** 合并单元格 */
   colSpan?: number
   /** 自定义排序字段 */
@@ -96,49 +98,13 @@ export interface TableColumn<T = Record<string, unknown>> {
   treeNode?: boolean
   /** 省略号配置 */
   ellipsis?: boolean | { tooltip?: boolean; lineClamp?: number }
-}
-
-// ====================== 可编辑配置 ======================
-
-export interface TableEditableConfig {
-  /** 触发方式 */
-  trigger?: 'click' | 'dblclick' | 'manual'
-  /** 编辑器类型 */
-  type?: 'input' | 'select' | 'date' | 'number' | 'textarea' | 'custom'
-  /** 编辑器组件 */
-  component?: Component
-  /** 编辑器属性 */
-  props?: Record<string, unknown>
-  /** 验证规则 */
-  rules?: TableEditableRule[]
-  /** 编辑前钩子 */
-  beforeEdit?: (params: {
-    row: Record<string, unknown>
-    column: TableColumn
-    rowIndex: number
-  }) => boolean | Promise<boolean>
-  /** 编辑后钩子 */
-  afterEdit?: (params: {
-    row: Record<string, unknown>
-    column: TableColumn
-    rowIndex: number
-    oldValue: unknown
-    newValue: unknown
-  }) => void | Promise<void>
-}
-
-export interface TableEditableRule {
-  required?: boolean
-  message?: string
-  validator?: (
-    value: unknown,
-    row: Record<string, unknown>,
-    column: TableColumn
-  ) => boolean | Promise<boolean>
-  pattern?: RegExp
-  min?: number
-  max?: number
-  type?: 'string' | 'number' | 'email' | 'url'
+  /**
+   * 非编辑态显示文案映射。
+   * - 当列没有 formatter 时，Table 会优先使用该映射把值转换成可读文本。
+   * - key 使用 String(value) 进行匹配（支持 boolean/number/string）。
+   * 例：{ 'true': '是', 'false': '否' } / { '1': '男', '2': '女' }
+   */
+  displayMap?: Record<string, string>
 }
 
 // ====================== 排序配置 ======================
@@ -197,6 +163,8 @@ export interface TablePaginationConfig {
   background?: boolean
   /** 隐藏单页 */
   hideOnSinglePage?: boolean
+  /** 对齐方式 */
+  align?: 'left' | 'center' | 'right'
 }
 
 // ====================== 选择配置 ======================
@@ -703,16 +671,6 @@ export const tableProps = {
     type: Boolean,
     default: false
   },
-  /** 表格是否可编辑 */
-  editable: {
-    type: Boolean,
-    default: false
-  },
-  /** 编辑模式 */
-  editMode: {
-    type: String as PropType<'cell' | 'row'>,
-    default: 'cell'
-  },
   /** 保持滚动位置 */
   keepScroll: {
     type: Boolean,
@@ -781,20 +739,7 @@ export const tableEmits = {
   'select-all': (selection: Record<string, unknown>[]) => true,
   /** 选择行 */
   select: (selection: Record<string, unknown>[], row: Record<string, unknown>) => true,
-  /** 编辑变化 */
-  'edit-change': (params: {
-    row: Record<string, unknown>
-    column: TableColumn
-    value: unknown
-    oldValue: unknown
-  }) => true,
-  /** 编辑验证失败 */
-  'edit-validate-fail': (params: {
-    row: Record<string, unknown>
-    column: TableColumn
-    value: unknown
-    rule: TableEditableRule
-  }) => true,
+
   /** 滚动事件 */
   scroll: (params: { scrollTop: number; scrollLeft: number; isEnd: boolean }) => true,
   /** 拖拽结束 */
@@ -871,14 +816,6 @@ export interface TableExpose {
   }) => void
   /** 获取表格数据 */
   getTableData: () => { fullData: Record<string, unknown>[]; tableData: Record<string, unknown>[] }
-  /** 验证所有编辑单元格 */
-  validate: () => Promise<boolean>
-  /** 验证指定行 */
-  validateRow: (row: Record<string, unknown>) => Promise<boolean>
-  /** 激活编辑 */
-  activateEdit: (row: Record<string, unknown>, column: TableColumn) => void
-  /** 取消编辑 */
-  cancelEdit: () => void
   /** 导出数据（支持 csv / json / txt / xml / html） */
   exportData: (config?: Record<string, unknown>) => Promise<string | void>
   /** 打印（支持自定义标题、列、页眉页脚、分页等） */
@@ -888,9 +825,20 @@ export interface TableExpose {
   /** 从 File 对象导入 */
   importFile: (file: File, config?: Record<string, unknown>) => Promise<Record<string, unknown>[]>
   /** 从文本/数组导入 */
-  importData: (content: string | Record<string, unknown>[], config?: Record<string, unknown>) => Promise<Record<string, unknown>[]>
+  importData: (
+    content: string | Record<string, unknown>[],
+    config?: Record<string, unknown>
+  ) => Promise<Record<string, unknown>[]>
   /** 打印多张表格 */
-  printMultiple: (tables: Array<{ title?: string; data: Record<string, unknown>[]; columns?: TableColumn[]; config?: Record<string, unknown> }>, config?: Record<string, unknown>) => Promise<void>
+  printMultiple: (
+    tables: Array<{
+      title?: string
+      data: Record<string, unknown>[]
+      columns?: TableColumn[]
+      config?: Record<string, unknown>
+    }>,
+    config?: Record<string, unknown>
+  ) => Promise<void>
   /** 打印自定义模板 */
   printTemplate: (templateHtml: string, config?: Record<string, unknown>) => Promise<void>
   /** 全屏切换 */
