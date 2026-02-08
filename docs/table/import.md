@@ -1,6 +1,6 @@
 # Table 表格 - 导入数据
 
-通过内置的导入功能，可以将 CSV、JSON、TXT、XML、HTML 等格式的文件数据导入到表格中，支持多种导入模式和数据校验。
+通过内置的导入功能，可以将 CSV、JSON、TXT、XML、HTML、XLSX 等格式的文件数据导入到表格中，支持多种导入模式和数据校验。
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
@@ -111,14 +111,24 @@ const handleAdvancedImport = async () => {
   })
 }
 
-// ==================== 8. 服务端导入 ====================
+// ==================== 8. 导入 Excel ====================
 const data8 = ref([...baseRows])
-const uploadLoading = ref(false)
+const tableRef8 = ref()
 const importResult8 = ref('')
+
+const handleImport8 = async () => {
+  const rows = await tableRef8.value?.openImport({ type: 'xlsx', mode: 'insertBottom' })
+  if (rows?.length) importResult8.value = '成功导入 ' + rows.length + ' 条数据'
+}
+
+// ==================== 9. 服务端导入 ====================
+const data9 = ref([...baseRows])
+const uploadLoading = ref(false)
+const importResult9 = ref('')
 
 const handleServerImport = async () => {
   uploadLoading.value = true
-  importResult8.value = ''
+  importResult9.value = ''
   // 模拟上传到服务端处理后返回数据
   setTimeout(() => {
     const serverData = [
@@ -126,9 +136,9 @@ const handleServerImport = async () => {
       { name: '周九', age: 27, dept: '人事部', status: '在职', address: '武汉市武昌区' },
       { name: '吴十', age: 36, dept: '法务部', status: '在职', address: '南京市鼓楼区' }
     ]
-    data8.value = [...data8.value, ...serverData]
+    data9.value = [...data9.value, ...serverData]
     uploadLoading.value = false
-    importResult8.value = '服务端返回 ' + serverData.length + ' 条数据已加载'
+    importResult9.value = '服务端返回 ' + serverData.length + ' 条数据已加载'
   }, 1500)
 }
 
@@ -337,6 +347,43 @@ const handleImport = async () => {
 </${_S}>`
 const jsImportJson = toJs(tsImportJson)
 
+const tsImportExcel = `<${_T}>
+  <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center;">
+    <yh-button type="primary" @click="handleImport">导入 Excel</yh-button>
+    <span v-if="result" style="color: #67c23a; font-size: 13px;">{{ result }}</span>
+  </div>
+  <yh-table ref="tableRef" :data="data" :columns="columns" border show-index @update:data="data = $event" />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const tableRef = ref()
+const result = ref('')
+const data = ref([
+  { name: '张三', age: 28, dept: '技术部', status: '在职', address: '北京市朝阳区' },
+  { name: '李四', age: 32, dept: '产品部', status: '在职', address: '上海市浦东新区' }
+])
+const columns = [
+  { prop: 'name', label: '姓名', width: 120 },
+  { prop: 'age', label: '年龄', width: 100 },
+  { prop: 'dept', label: '部门', width: 120 },
+  { prop: 'status', label: '状态', width: 100 },
+  { prop: 'address', label: '地址' }
+]
+
+// Excel 文件需要包含表头行，列名对应表格列的 label 或 prop
+const handleImport = async () => {
+  const rows = await tableRef.value?.openImport({
+    type: 'xlsx',
+    mode: 'insertBottom',
+    numberFields: ['age'] // 自动将 age 字段转为数字
+  })
+  if (rows?.length) result.value = '成功导入 ' + rows.length + ' 条'
+}
+</${_S}>`
+const jsImportExcel = toJs(tsImportExcel)
+
 const tsAdvancedImport = `<${_T}>
   <div style="margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
     <span style="font-size: 13px; color: #606266;">格式：</span>
@@ -346,6 +393,7 @@ const tsAdvancedImport = `<${_T}>
       <option value="txt">TXT</option>
       <option value="xml">XML</option>
       <option value="html">HTML</option>
+      <option value="xlsx">Excel</option>
     </select>
     <span style="font-size: 13px; color: #606266;">模式：</span>
     <select v-model="importMode" style="padding: 4px 8px; border: 1px solid #dcdfe6; border-radius: 4px;">
@@ -446,12 +494,11 @@ const handleServerImport = async () => {
   setTimeout(() => {
     const serverData = [
       { name: '孙八', age: 31, dept: '财务部', status: '在职', address: '成都市锦江区' },
-      { name: '周九', age: 27, dept: '人事部', status: '在职', address: '武汉市武昌区' },
-      { name: '吴十', age: 36, dept: '法务部', status: '在职', address: '南京市鼓楼区' }
+      { name: '周九', age: 27, dept: '人事部', status: '在职', address: '武汉市武昌区' }
     ]
     data.value = [...data.value, ...serverData]
     loading.value = false
-    result.value = '服务端返回 ' + serverData.length + ' 条数据已加载'
+    result.value = '服务端返回 ' + serverData.length + ' 条数据'
   }, 1500)
 }
 </${_S}>`
@@ -595,6 +642,20 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
   <yh-table ref="tableRef6" :data="data6" :columns="columns" border show-index @update:data="data6 = $event" />
 </DemoBlock>
 
+## 导入 Excel 格式
+
+支持导入 `.xlsx`、`.xls`、`.xlsm` 格式的 Excel 文件，第一行为表头，列名需与表格列的 `label` 或 `prop` 对应。
+
+> **提示：** Excel 导入依赖 `xlsx` 库进行解析，功能强大且兼容性好。
+
+<DemoBlock title="导入 Excel" :ts-code="tsImportExcel" :js-code="jsImportExcel">
+  <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center;">
+    <yh-button type="primary" @click="handleImport8">导入 Excel</yh-button>
+    <span v-if="importResult8" style="color: #67c23a; font-size: 13px;">{{ importResult8 }}</span>
+  </div>
+  <yh-table ref="tableRef8" :data="data8" :columns="columns" border show-index @update:data="data8 = $event" />
+</DemoBlock>
+
 ## 高级导入
 
 可配置导入格式、导入模式、最大行数限制，并通过 `beforeImport` / `afterImport` 进行数据校验和回调。
@@ -608,6 +669,7 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
       <option value="txt">TXT</option>
       <option value="xml">XML</option>
       <option value="html">HTML</option>
+      <option value="xlsx">Excel</option>
     </select>
     <span style="font-size: 13px; color: #606266;">模式：</span>
     <select v-model="importMode7" style="padding: 4px 8px; border: 1px solid #dcdfe6; border-radius: 4px;">
@@ -633,9 +695,9 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
     <yh-button type="primary" :loading="uploadLoading" @click="handleServerImport">
       {{ uploadLoading ? '上传中...' : '服务端导入' }}
     </yh-button>
-    <span v-if="importResult8" style="color: #67c23a; font-size: 13px;">{{ importResult8 }}</span>
+    <span v-if="importResult9" style="color: #67c23a; font-size: 13px;">{{ importResult9 }}</span>
   </div>
-  <yh-table :data="data8" :columns="columns" border show-index />
+  <yh-table :data="data9" :columns="columns" border show-index />
 </DemoBlock>
 
 ## 导入模式说明
@@ -655,6 +717,7 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
 | TXT | `.txt` | Tab 分隔值（TSV），第一行为表头 |
 | XML | `.xml` | 标准 XML 格式，含 `<columns>` 和 `<rows>` |
 | HTML | `.html` | 标准 `<table>` 结构，含 `<thead>` 和 `<tbody>` |
+| XLSX | `.xlsx` | Excel 格式，支持 `.xlsx`、`.xls`、`.xlsm` |
 
 ## 数据映射规则
 
@@ -673,7 +736,7 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 导入格式 | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html'` | 自动推断 |
+| type | 导入格式 | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | 自动推断 |
 | mode | 导入模式 | `'covering' \| 'insertTop' \| 'insertBottom'` | `'insertBottom'` |
 | separator | CSV 分隔符 | `string` | `','` |
 | fieldMapping | 字段映射：文件列名 → prop | `Record<string, string>` | — |
@@ -683,6 +746,9 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
 | encoding | 文件编码 | `string` | `'utf-8'` |
 | beforeImport | 导入前校验 | `(rows) => boolean \| rows[]` | — |
 | afterImport | 导入后回调 | `(rows, mode) => void` | — |
+| sheetIndex | 读取的工作表索引（仅 XLSX） | `number` | `0` |
+| sheetName | 读取的工作表名称（仅 XLSX，优先于 sheetIndex） | `string` | — |
+| headerRow | 是否将第一行作为表头（仅 XLSX） | `boolean` | `true` |
 
 ### importFile(file, config?) 方法
 

@@ -55,3 +55,4 @@ docs/.vitepress/dist
 # Internal Tool Directories
 .agent/
 .kiro/
+.claude/

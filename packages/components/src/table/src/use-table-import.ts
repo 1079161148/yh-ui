@@ -1,11 +1,12 @@
 /**
  * useTableImport - 表格导入组合式函数
- * 支持 CSV / JSON / TXT / XML / HTML 等多种格式导入
+ * 支持 CSV / JSON / TXT / XML / HTML / XLSX 等多种格式导入
  */
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
+import * as XLSX from 'xlsx'
 
-export type ImportType = 'csv' | 'json' | 'txt' | 'xml' | 'html'
+export type ImportType = 'csv' | 'json' | 'txt' | 'xml' | 'html' | 'xlsx'
 export type ImportMode = 'covering' | 'insertTop' | 'insertBottom'
 
 export interface ImportConfig {
@@ -24,17 +25,23 @@ export interface ImportConfig {
   /** 数据行数限制 */
   maxRows?: number
   /** 导入前校验 */
-  beforeImport?: (rows: Record<string, unknown>[]) => boolean | Record<string, unknown>[] | Promise<boolean | Record<string, unknown>[]>
+  beforeImport?: (
+    rows: Record<string, unknown>[]
+  ) => boolean | Record<string, unknown>[] | Promise<boolean | Record<string, unknown>[]>
   /** 导入后回调 */
   afterImport?: (rows: Record<string, unknown>[], mode: ImportMode) => void
   /** 读取文件编码 */
   encoding?: string
+  // ========== XLSX 专用配置 ==========
+  /** 读取的工作表索引（仅XLSX，默认 0） */
+  sheetIndex?: number
+  /** 读取的工作表名称（仅XLSX，优先于 sheetIndex） */
+  sheetName?: string
+  /** 是否将第一行作为表头（仅XLSX，默认 true） */
+  headerRow?: boolean
 }
 
-export function useTableImport(
-  data: Ref<Record<string, unknown>[]>,
-  columns: Ref<TableColumn[]>
-) {
+export function useTableImport(data: Ref<Record<string, unknown>[]>, columns: Ref<TableColumn[]>) {
   /**
    * 根据列配置构建 label→prop 映射
    */
@@ -253,36 +260,99 @@ export function useTableImport(
     }
   }
 
+  // ================== XLSX 解析 ==================
+
+  function parseXLSX(buffer: ArrayBuffer, config: ImportConfig = {}): Record<string, unknown>[] {
+    try {
+      const labelMap = buildLabelMap()
+
+      // 读取工作簿
+      const wb = XLSX.read(buffer, { type: 'array' })
+
+      // 获取工作表
+      let sheetName = config.sheetName
+      if (!sheetName) {
+        const idx = config.sheetIndex ?? 0
+        sheetName = wb.SheetNames[idx]
+      }
+      const ws = wb.Sheets[sheetName]
+      if (!ws) {
+        console.warn('[YhTable] XLSX 工作表不存在:', sheetName)
+        return []
+      }
+
+      // 转换为 JSON
+      const useHeader = config.headerRow !== false
+      const jsonData = XLSX.utils.sheet_to_json<Record<string, unknown>>(ws, {
+        header: useHeader ? undefined : 1,
+        defval: ''
+      })
+
+      // 映射字段名
+      let rows = jsonData.map((item) => mapRow(item, labelMap, config))
+      if (config.maxRows) rows = rows.slice(0, config.maxRows)
+
+      return rows
+    } catch (err) {
+      console.warn('[YhTable] XLSX 解析失败', err)
+      return []
+    }
+  }
+
   // ================== 类型推断 ==================
 
   function guessType(filename: string): ImportType {
     const ext = filename.split('.').pop()?.toLowerCase()
     switch (ext) {
-      case 'csv': return 'csv'
-      case 'json': return 'json'
-      case 'txt': return 'txt'
-      case 'xml': return 'xml'
-      case 'html': case 'htm': return 'html'
-      default: return 'csv'
+      case 'csv':
+        return 'csv'
+      case 'json':
+        return 'json'
+      case 'txt':
+        return 'txt'
+      case 'xml':
+        return 'xml'
+      case 'html':
+      case 'htm':
+        return 'html'
+      case 'xlsx':
+      case 'xls':
+      case 'xlsm':
+        return 'xlsx'
+      default:
+        return 'csv'
     }
   }
 
   // ================== 解析文本内容 ==================
 
-  function parseContent(text: string, type: ImportType, config: ImportConfig = {}): Record<string, unknown>[] {
+  function parseContent(
+    text: string,
+    type: ImportType,
+    config: ImportConfig = {}
+  ): Record<string, unknown>[] {
     switch (type) {
-      case 'csv': return parseCSV(text, config)
-      case 'txt': return parseTXT(text, config)
-      case 'json': return parseJSON(text, config)
-      case 'xml': return parseXML(text, config)
-      case 'html': return parseHTML(text, config)
-      default: return parseCSV(text, config)
+      case 'csv':
+        return parseCSV(text, config)
+      case 'txt':
+        return parseTXT(text, config)
+      case 'json':
+        return parseJSON(text, config)
+      case 'xml':
+        return parseXML(text, config)
+      case 'html':
+        return parseHTML(text, config)
+      default:
+        return parseCSV(text, config)
     }
   }
 
   // ================== 主入口：从文件导入 ==================
 
-  async function importFile(file: File, config: ImportConfig = {}): Promise<Record<string, unknown>[]> {
+  async function importFile(
+    file: File,
+    config: ImportConfig = {}
+  ): Promise<Record<string, unknown>[]> {
     const type = config.type || guessType(file.name)
     const encoding = config.encoding || 'utf-8'
     const mode = config.mode || 'insertBottom'
@@ -290,8 +360,16 @@ export function useTableImport(
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = async (ev) => {
-        const text = ev.target?.result as string
-        let rows = parseContent(text, type, config)
+        let rows: Record<string, unknown>[]
+
+        // XLSX 需要二进制读取
+        if (type === 'xlsx') {
+          const buffer = ev.target?.result as ArrayBuffer
+          rows = parseXLSX(buffer, config)
+        } else {
+          const text = ev.target?.result as string
+          rows = parseContent(text, type, config)
+        }
 
         // 导入前校验
         if (config.beforeImport) {
@@ -310,7 +388,13 @@ export function useTableImport(
         resolve(rows)
       }
       reader.onerror = () => reject(new Error('文件读取失败'))
-      reader.readAsText(file, encoding)
+
+      // 根据类型选择读取方式
+      if (type === 'xlsx') {
+        reader.readAsArrayBuffer(file)
+      } else {
+        reader.readAsText(file, encoding)
+      }
     })
   }
 
@@ -354,11 +438,12 @@ export function useTableImport(
         json: '.json',
         txt: '.txt',
         xml: '.xml',
-        html: '.html,.htm'
+        html: '.html,.htm',
+        xlsx: '.xlsx,.xls,.xlsm'
       }
       input.accept = config.type
         ? acceptMap[config.type] || '*'
-        : '.csv,.json,.txt,.xml,.html'
+        : '.csv,.json,.txt,.xml,.html,.xlsx,.xls'
 
       input.onchange = async (e) => {
         const file = (e.target as HTMLInputElement).files?.[0]
@@ -382,8 +467,8 @@ export function useTableImport(
     parseJSON,
     parseXML,
     parseHTML,
+    parseXLSX,
     parseContent,
     applyImport
   }
 }
-

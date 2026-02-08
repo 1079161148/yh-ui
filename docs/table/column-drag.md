@@ -191,7 +191,7 @@ const handleDragEnd = (params: DragEndParams) => {
 }
 </${_S}>`
 
-const jsBasicColDrag = toJs(tsBasicColDrag)
+const jsBasicColDrag = toJs(tsBasicColDrag);
 
 const tsFixedColDrag = `<${_T}>
   <p style="margin-bottom: 12px; color: #909399; font-size: 13px;">
@@ -235,7 +235,7 @@ const columns = ref<ColumnType[]>([
 ])
 </${_S}>`
 
-const jsFixedColDrag = toJs(tsFixedColDrag)
+const jsFixedColDrag = toJs(tsFixedColDrag);
 
 const tsPersonalize = `<${_T}>
   <div style="margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px;">
@@ -285,7 +285,7 @@ const toggleVisible = (col: ColConfig) => {
 }
 </${_S}>`
 
-const jsPersonalize = toJs(tsPersonalize)
+const jsPersonalize = toJs(tsPersonalize);
 
 const tsEventColDrag = `<${_T}>
   <div style="display: flex; gap: 24px;">
@@ -356,7 +356,7 @@ const handleDragEnd = (params: DragEndParams) => {
 }
 </${_S}>`
 
-const jsEventColDrag = toJs(tsEventColDrag)
+const jsEventColDrag = toJs(tsEventColDrag);
 
 const tsGroupColDrag = `<${_T}>
   <yh-table
@@ -398,7 +398,7 @@ const columns = ref([
 ])
 </${_S}>`
 
-const jsGroupColDrag = toJs(tsGroupColDrag)
+const jsGroupColDrag = toJs(tsGroupColDrag);
 
 const tsBothDrag = `<${_T}>
   <p style="margin-bottom: 12px; color: #909399; font-size: 13px;">
@@ -433,7 +433,7 @@ const columns = ref([
 ])
 </${_S}>`
 
-const jsBothDrag = toJs(tsBothDrag)
+const jsBothDrag = toJs(tsBothDrag);
 </script>
 
 ## 拖拽调整列顺序
@@ -583,7 +583,6 @@ const jsBothDrag = toJs(tsBothDrag)
 | 事件名 | 说明 | 参数 |
 | --- | --- | --- |
 | drag-end | 拖拽结束时触发 | `{ type: 'row' \| 'column', oldIndex: number, newIndex: number, data: unknown[] }` |
-| column-visible-change | 列可见性变化时触发 | `columns: TableColumn[]` |
 
 ### 方法（通过 ref 调用）
 

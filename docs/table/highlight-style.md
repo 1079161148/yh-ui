@@ -426,13 +426,13 @@ const jsOverflow = toJs(tsOverflow)
 
 ### 换行与溢出
 
-| 用法 | 说明 |
-| --- | --- |
-| `class="is-auto-wrap"` | 表格级别的自动换行（添加到 `yh-table`） |
-| `showOverflowTooltip: true` | 列级别的溢出隐藏，悬浮显示 Tooltip |
-| `ellipsis: true` | 列级别的省略号 |
+| 用法 | 说明 | 类型 |
+| --- | --- | --- |
+| `class="is-auto-wrap"` | 表格级别的自动换行（添加到 `yh-table`） | `string` |
+| `showOverflowTooltip` | 列级别的溢出隐藏，悬浮显示 Tooltip | `boolean \| TooltipConfig` |
+| `ellipsis` | 列级别的省略号 | `boolean \| EllipsisConfig` |
 
-### showOverflowTooltip 配置
+### showOverflowTooltip 配置 (TooltipConfig)
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -440,3 +440,9 @@ const jsOverflow = toJs(tsOverflow)
 | placement | Tooltip 位置 | `string` | `'top'` |
 | offset | Tooltip 偏移 | `number` | — |
 
+### ellipsis 配置 (EllipsisConfig)
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| tooltip | 是否在省略时显示 Tooltip | `boolean` | `false` |
+| lineClamp | 限制显示的行数 | `number` | — |

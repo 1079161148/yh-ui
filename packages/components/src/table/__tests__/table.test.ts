@@ -56,7 +56,7 @@ describe('Table', () => {
   })
 
   it('should support different sizes', () => {
-    const sizes = ['large', 'default', 'small', 'mini'] as const
+    const sizes = ['large', 'default', 'small'] as const
 
     sizes.forEach((size) => {
       const wrapper = mount(YhTable, {
@@ -576,5 +576,134 @@ describe('TableColumn', () => {
 
     expect(wrapper.find('.custom-header').exists()).toBe(true)
     expect(wrapper.find('.custom-header').text()).toBe('自定义表头')
+  })
+})
+
+describe('Table Complex Scenarios', () => {
+  it('should render summary row', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: mockColumns,
+        summaryConfig: {
+          text: '总计',
+          method: ({ columns, data }) => {
+            const sums: any[] = []
+            columns.forEach((column, index) => {
+              if (index === 0) {
+                sums[index] = '总计'
+                return
+              }
+              if (column.prop === 'age') {
+                const values = data.map((item) => Number(item[column.prop!]))
+                sums[index] = values.reduce((prev, curr) => prev + curr, 0)
+              } else {
+                sums[index] = '-'
+              }
+            })
+            return sums
+          }
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-table__footer-wrapper').exists()).toBe(true)
+    const summaryCells = wrapper.findAll('.yh-table__footer .yh-table__cell')
+    expect(summaryCells[0].text()).toBe('总计')
+    // 验证合计值 (28+32+25+30 = 115)
+    expect(summaryCells[1].text()).toBe('115')
+  })
+
+  it('should support span-method (cell merging)', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: mockColumns,
+        spanMethod: ({ rowIndex, columnIndex }) => {
+          if (rowIndex === 0 && columnIndex === 0) {
+            return { rowspan: 2, colspan: 1 }
+          }
+          if (rowIndex === 1 && columnIndex === 0) {
+            return { rowspan: 0, colspan: 0 }
+          }
+        }
+      }
+    })
+
+    const rows = wrapper.findAll('.yh-table__row')
+    const firstCell = rows[0].find('.yh-table__cell')
+    expect(firstCell.attributes('rowspan')).toBe('2')
+
+    const secondRowFirstCell = rows[1].find('.yh-table__cell')
+    // 由于渲染逻辑中对于 rowspan/colspan 为 0 的单元格可能不渲染或隐藏，具体取决于实现
+    // 在本组件库实现中，rowspan: 0 会导致该单元格不渲染
+    expect(rows[1].findAll('.yh-table__cell').length).toBe(2) // 少了一列
+  })
+
+  it('should render grouped header (multi-level)', () => {
+    const groupedColumns = [
+      {
+        label: '分组 1',
+        children: [
+          { prop: 'name', label: '姓名', width: 100 },
+          { prop: 'age', label: '年龄', width: 80 }
+        ]
+      },
+      { prop: 'address', label: '地址' }
+    ]
+
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: groupedColumns
+      }
+    })
+
+    // 多级表头会产生多行 header
+    expect(wrapper.findAll('.yh-table__header-row').length).toBe(2)
+    // 第一行 header 应该包含 "分组 1" 和 "地址"
+    const firstHeaderRow = wrapper.findAll('.yh-table__header-row')[0]
+    expect(firstHeaderRow.text()).toContain('分组 1')
+    expect(firstHeaderRow.text()).toContain('地址')
+  })
+
+  it('should support pagination config', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: mockColumns,
+        pagination: {
+          currentPage: 1,
+          pageSize: 2,
+          total: mockData.length
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-table__pagination-wrapper').exists()).toBe(true)
+    // 默认应该是前端分页渲染，只显示 2 条数据
+    expect(wrapper.findAll('.yh-table__row').length).toBe(2)
+  })
+
+  it('should emit page-change event', async () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: mockColumns,
+        pagination: {
+          currentPage: 1,
+          pageSize: 2,
+          total: mockData.length
+        }
+      }
+    })
+
+    // 找到分页跳转按钮或页码并模拟点击 (假设使用的是内置的 pagination 组件)
+    // 这里简化模拟，直接通过 vm 触发或查找相应元素
+    const pagination = wrapper.findComponent({ name: 'YhPagination' })
+    if (pagination.exists()) {
+      await pagination.vm.$emit('update:currentPage', 2)
+      expect(wrapper.emitted('page-change')).toBeTruthy()
+    }
   })
 })

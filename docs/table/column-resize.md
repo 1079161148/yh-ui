@@ -171,7 +171,7 @@ const handleResize = (column: ColumnType, width: number) => {
 }
 </${_S}>`
 
-const jsBasicResize = toJs(tsBasicResize)
+const jsBasicResize = toJs(tsBasicResize);
 
 const tsGroupResize = `<${_T}>
   <yh-table
@@ -212,7 +212,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsGroupResize = toJs(tsGroupResize)
+const jsGroupResize = toJs(tsGroupResize);
 
 const tsFixedResize = `<${_T}>
   <yh-table
@@ -251,7 +251,7 @@ const columns: ColumnType[] = [
 ]
 </${_S}>`
 
-const jsFixedResize = toJs(tsFixedResize)
+const jsFixedResize = toJs(tsFixedResize);
 
 const tsMinWidth = `<${_T}>
   <p style="margin-bottom: 12px; color: #909399; font-size: 13px;">
@@ -283,7 +283,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsMinWidth = toJs(tsMinWidth)
+const jsMinWidth = toJs(tsMinWidth);
 
 const tsPerColumn = `<${_T}>
   <p style="margin-bottom: 12px; color: #909399; font-size: 13px;">
@@ -315,7 +315,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsPerColumn = toJs(tsPerColumn)
+const jsPerColumn = toJs(tsPerColumn);
 
 const tsEventResize = `<${_T}>
   <div style="display: flex; gap: 24px;">
@@ -367,7 +367,7 @@ const handleResize = (column: ColumnType, width: number) => {
 }
 </${_S}>`
 
-const jsEventResize = toJs(tsEventResize)
+const jsEventResize = toJs(tsEventResize);
 </script>
 
 ## 拖拽模式

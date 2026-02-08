@@ -4,7 +4,7 @@ Table 组件支持自定义列内容和表头。
 
 <script setup lang="ts">
 import { ref, h } from 'vue'
-import { YhTag } from '@yh-ui/components'
+import { YhTag, YhButton } from '@yh-ui/components'
 
 // --- 1. 自定义列数据 ---
 const customData = ref([
@@ -50,7 +50,10 @@ const customRenderColumns = [
   { 
     prop: 'status', 
     label: '状态',
-    render: ({ row }: { row: CustomRowData }) => h(YhTag, { type: row.status, size: 'small' }, () => row.status)
+    render: ({ row }: { row: CustomRowData }) => {
+      if (!row) return ''
+      return h(YhTag, { type: row.status, size: 'small' }, () => row.status)
+    }
   }
 ]
 
@@ -85,10 +88,10 @@ const _S = 'script'
 const tsCustomColumn = `<${_T}>
   <yh-table :data="tableData" :columns="columns" border>
     <${_T} #status="{ row }">
-      <yh-tag :type="row.status" size="small">{{ row.status }}</yh-tag>
+      <yh-tag v-if="row" :type="row.status" size="small">{{ row.status }}</yh-tag>
     </${_T}>
     <${_T} #tag="{ row }">
-      <yh-tag size="small" effect="plain">{{ row.tag }}</yh-tag>
+      <yh-tag v-if="row" size="small" effect="plain">{{ row.tag }}</yh-tag>
     </${_T}>
   </yh-table>
 </${_T}>
@@ -261,11 +264,11 @@ const jsRender = toJs(tsRender)
 <DemoBlock title="自定义列模板" :ts-code="tsCustomColumn" :js-code="jsCustomColumn">
   <yh-table :data="customData" :columns="customColumns" border>
     <template #status="{ row }">
-      <yh-tag :type="row.status" size="small">{{ row.status }}</yh-tag>
+      <yh-tag v-if="row" :type="row.status" size="small">{{ row.status }}</yh-tag>
     </template>
     
     <template #tag="{ row }">
-      <yh-tag size="small" effect="plain">{{ row.tag }}</yh-tag>
+      <yh-tag v-if="row" size="small" effect="plain">{{ row.tag }}</yh-tag>
     </template>
   </yh-table>
 </DemoBlock>
@@ -291,10 +294,10 @@ const jsRender = toJs(tsRender)
 <DemoBlock title="操作列" :ts-code="tsActions" :js-code="jsActions">
   <yh-table :data="customData" :columns="customActionColumns" border>
     <template #actions="{ row }">
-      <yh-button type="primary" size="small" @click="handleCustomEdit(row)">
+      <yh-button v-if="row" type="primary" size="small" @click="handleCustomEdit(row)">
         编辑
       </yh-button>
-      <yh-button type="danger" size="small" @click="handleCustomDelete(row)" style="margin-left: 8px">
+      <yh-button v-if="row" type="danger" size="small" @click="handleCustomDelete(row)" style="margin-left: 8px">
         删除
       </yh-button>
     </template>

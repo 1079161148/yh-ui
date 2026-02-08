@@ -1,11 +1,12 @@
 /**
  * useTableExport - 表格导出组合式函数
- * 支持 CSV / JSON / TXT / XML / HTML 等多种格式导出
+ * 支持 CSV / JSON / TXT / XML / HTML / XLSX 等多种格式导出
  */
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
+import * as XLSX from 'xlsx'
 
-export type ExportType = 'csv' | 'json' | 'txt' | 'xml' | 'html'
+export type ExportType = 'csv' | 'json' | 'txt' | 'xml' | 'html' | 'xlsx'
 
 export interface ExportConfig {
   /** 导出格式 */
@@ -40,19 +41,23 @@ export interface ExportConfig {
   afterExport?: (type: ExportType) => void
   /** 导出模式：download 下载 / string 返回内容 */
   mode?: 'download' | 'string'
+  // ========== XLSX 专用配置 ==========
+  /** 工作表名称（仅XLSX） */
+  sheetName?: string
+  /** 列宽配置（仅XLSX），如 { name: 15, address: 30 } */
+  columnWidths?: Record<string, number>
+  /** 默认列宽（仅XLSX） */
+  defaultColWidth?: number
+  /** 是否自动调整列宽（仅XLSX） */
+  autoWidth?: boolean
 }
 
-export function useTableExport(
-  data: Ref<Record<string, unknown>[]>,
-  columns: Ref<TableColumn[]>
-) {
+export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Ref<TableColumn[]>) {
   /**
    * 获取导出用的列配置
    */
   function getExportColumns(config: ExportConfig = {}): TableColumn[] {
-    let cols = columns.value.filter(
-      (col) => col.visible !== false && col.prop
-    )
+    let cols = columns.value.filter((col) => col.visible !== false && col.prop)
 
     if (config.visibleOnly !== false) {
       cols = cols.filter((c) => c.visible !== false)
@@ -147,7 +152,9 @@ export function useTableExport(
         const key = getLabel(col, config)
         obj[key] = config.formatCell
           ? config.formatCell(col.prop ? row[col.prop] : '', col, row)
-          : (col.prop ? row[col.prop] : '')
+          : col.prop
+            ? row[col.prop]
+            : ''
       })
       return obj
     })
@@ -164,7 +171,8 @@ export function useTableExport(
 
     if (config.includeHeader !== false) {
       lines.push('  <columns>')
-      if (config.showIndex) lines.push(`    <column name="${escapeXML(config.indexTitle || '序号')}" />`)
+      if (config.showIndex)
+        lines.push(`    <column name="${escapeXML(config.indexTitle || '序号')}" />`)
       cols.forEach((col) => {
         lines.push(`    <column name="${escapeXML(getLabel(col, config))}" />`)
       })
@@ -187,8 +195,12 @@ export function useTableExport(
   }
 
   function escapeXML(str: string): string {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&apos;')
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;')
   }
 
   // ================== HTML ==================
@@ -232,6 +244,87 @@ export function useTableExport(
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   }
 
+  // ================== XLSX ==================
+
+  /**
+   * 导出为 XLSX 格式
+   */
+  function toXLSX(config: ExportConfig = {}): ArrayBuffer {
+    const cols = getExportColumns(config)
+    const rows = config.data || data.value
+    const sheetName = config.sheetName || 'Sheet1'
+
+    // 构建表头
+    const headers: string[] = []
+    if (config.showIndex) headers.push(config.indexTitle || '序号')
+    cols.forEach((col) => headers.push(getLabel(col, config)))
+
+    // 构建数据行
+    const dataRows = rows.map((row, idx) => {
+      const rowData: (string | number)[] = []
+      if (config.showIndex) rowData.push(idx + 1)
+      cols.forEach((col) => {
+        const val = col.prop ? row[col.prop] : ''
+        if (config.formatCell) {
+          rowData.push(config.formatCell(val, col, row))
+        } else {
+          rowData.push(val == null ? '' : (val as string | number))
+        }
+      })
+      return rowData
+    })
+
+    // 创建工作表
+    const wsData = [headers, ...dataRows]
+    const ws = XLSX.utils.aoa_to_sheet(wsData)
+
+    // 设置列宽
+    const colWidths: XLSX.ColInfo[] = []
+    headers.forEach((h, i) => {
+      let width = config.defaultColWidth || 12
+
+      // 使用自定义列宽
+      const col = cols[config.showIndex ? i - 1 : i]
+      if (col?.prop && config.columnWidths?.[col.prop]) {
+        width = config.columnWidths[col.prop]
+      } else if (config.autoWidth !== false) {
+        // 自动计算列宽（基于表头和内容）
+        let maxLen = h.length
+        dataRows.forEach((row) => {
+          const cellVal = String(row[i] ?? '')
+          maxLen = Math.max(maxLen, cellVal.length)
+        })
+        width = Math.min(Math.max(maxLen + 2, 8), 50) // 限制在8-50之间
+      }
+      colWidths.push({ wch: width })
+    })
+    ws['!cols'] = colWidths
+
+    // 创建工作簿并添加工作表
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, sheetName)
+
+    // 导出为二进制
+    return XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+  }
+
+  /**
+   * 下载 XLSX 文件
+   */
+  function downloadXLSX(buffer: ArrayBuffer, filename: string) {
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   // ================== 通用导出 ==================
 
   function downloadFile(content: string, filename: string, mime: string) {
@@ -251,7 +344,8 @@ export function useTableExport(
     json: 'application/json;charset=utf-8',
     txt: 'text/plain;charset=utf-8',
     xml: 'application/xml;charset=utf-8',
-    html: 'text/html;charset=utf-8'
+    html: 'text/html;charset=utf-8',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   }
 
   const EXT_MAP: Record<ExportType, string> = {
@@ -259,7 +353,8 @@ export function useTableExport(
     json: '.json',
     txt: '.txt',
     xml: '.xml',
-    html: '.html'
+    html: '.html',
+    xlsx: '.xlsx'
   }
 
   /**
@@ -272,6 +367,24 @@ export function useTableExport(
     if (config.beforeExport) {
       const ok = await config.beforeExport()
       if (!ok) return
+    }
+
+    // XLSX 单独处理（二进制格式）
+    if (type === 'xlsx') {
+      const buffer = toXLSX(config)
+      if (config.mode === 'string') {
+        // XLSX 不支持 string 模式，返回 base64
+        const uint8 = new Uint8Array(buffer)
+        let binary = ''
+        for (let i = 0; i < uint8.length; i++) {
+          binary += String.fromCharCode(uint8[i])
+        }
+        config.afterExport?.(type)
+        return btoa(binary)
+      }
+      downloadXLSX(buffer, `${filename}.xlsx`)
+      config.afterExport?.(type)
+      return
     }
 
     let content: string
@@ -311,7 +424,7 @@ export function useTableExport(
     toTXT,
     toXML,
     toHTML,
+    toXLSX,
     getExportColumns
   }
 }
-

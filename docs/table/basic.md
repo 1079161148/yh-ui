@@ -122,7 +122,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsBasic = toJs(tsBasic)
+const jsBasic = toJs(tsBasic);
 
 const tsStripe = `<${_T}>
   <yh-table :data="tableData" :columns="columns" stripe />
@@ -145,7 +145,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsStripe = toJs(tsStripe)
+const jsStripe = toJs(tsStripe);
 
 const tsBorder = `<${_T}>
   <yh-table :data="tableData" :columns="columns" border />
@@ -168,7 +168,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsBorder = toJs(tsBorder)
+const jsBorder = toJs(tsBorder);
 
 const tsStatus = `<${_T}>
   <yh-table 
@@ -208,7 +208,7 @@ const rowClassName = ({ row }: { row: Record<string, unknown> }) => {
 .danger-row td { background-color: #fef0f0 !important; }
 </${_ST}>`
 
-const jsStatus = toJs(tsStatus)
+const jsStatus = toJs(tsStatus);
 
 const tsOverflow = `<${_T}>
   <yh-table :data="tableData" :columns="columns" />
@@ -229,7 +229,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsOverflow = toJs(tsOverflow)
+const jsOverflow = toJs(tsOverflow);
 
 const tsHeight = `<${_T}>
   <yh-table :data="tableData" :columns="columns" height="300" border />
@@ -254,7 +254,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsHeight = toJs(tsHeight)
+const jsHeight = toJs(tsHeight);
 
 const tsFixed = `<${_T}>
   <yh-table :data="tableData" :columns="columns" border />
@@ -280,14 +280,13 @@ const columns = [
 ]
 </${_S}>`
 
-const jsFixed = toJs(tsFixed)
+const jsFixed = toJs(tsFixed);
 
 const tsSize = `<${_T}>
   <yh-radio-group v-model="tableSize" style="margin-bottom: 16px">
     <yh-radio value="large">Large</yh-radio>
     <yh-radio value="default">Default</yh-radio>
     <yh-radio value="small">Small</yh-radio>
-    <yh-radio value="mini">Mini</yh-radio>
   </yh-radio-group>
   <yh-table :data="tableData" :columns="columns" :size="tableSize" border />
 </${_T}>
@@ -311,7 +310,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsSize = toJs(tsSize)
+const jsSize = toJs(tsSize);
 
 const tsHighlight = `<${_T}>
   <yh-table 
@@ -354,7 +353,7 @@ const handleCurrentChange = (row: RowItem) => {
 }
 </${_S}>`
 
-const jsHighlight = toJs(tsHighlight)
+const jsHighlight = toJs(tsHighlight);
 
 const tsIndex = `<${_T}>
   <yh-table 
@@ -385,7 +384,7 @@ const columns = [
 ]
 </${_S}>`
 
-const jsIndex = toJs(tsIndex)
+const jsIndex = toJs(tsIndex);
 
 </script>
 
@@ -457,14 +456,13 @@ const jsIndex = toJs(tsIndex)
 
 ## 不同尺寸
 
-提供 `large`、`default`、`small`、`mini`。
+提供 `large`、`default`、`small`。
 
 <DemoBlock title="不同尺寸" :ts-code="tsSize" :js-code="jsSize">
   <yh-radio-group v-model="tableSize" style="margin-bottom: 16px">
     <yh-radio value="large">Large</yh-radio>
     <yh-radio value="default">Default</yh-radio>
     <yh-radio value="small">Small</yh-radio>
-    <yh-radio value="mini">Mini</yh-radio>
   </yh-radio-group>
   <yh-table :data="basicData" :columns="basicColumns" :size="tableSize" border />
 </DemoBlock>

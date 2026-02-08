@@ -282,7 +282,7 @@ const handlePrint = () => {
     title: '员工信息表',
     showIndex: true,
     headerHtml: '<div style="display:flex;justify-content:space-between;font-size:12px;color:#909399"><span>XX 公司人力资源部</span><span>机密文件</span></div>',
-    footerHtml: '<div style="text-align:center;font-size:12px;color:#909399;margin-top:8px">此报表仅供内部使用，禁止外传 — 人力资源部</div>'
+    footerHtml: '<div style="text-align:center;font-size:12px;color:#909399;margin-top:8px">此报表仅供内部使用 — 人力资源部</div>'
   })
 }
 </${_S}>`
@@ -580,8 +580,7 @@ const data = ref([
   { name: '张三', age: 28, dept: '技术部', salary: 15000, status: '在职', address: '北京市朝阳区' },
   { name: '李四', age: 32, dept: '产品部', salary: 18000, status: '在职', address: '上海市浦东新区' },
   { name: '王五', age: 25, dept: '设计部', salary: 14000, status: '离职', address: '广州市天河区' },
-  { name: '赵六', age: 35, dept: '运营部', salary: 22000, status: '在职', address: '深圳市南山区' },
-  { name: '钱七', age: 29, dept: '市场部', salary: 16000, status: '在职', address: '杭州市西湖区' }
+  { name: '赵六', age: 35, dept: '运营部', salary: 22000, status: '在职', address: '深圳市南山区' }
 ])
 const columns = [
   { prop: 'name', label: '姓名', width: 100 },
@@ -805,6 +804,7 @@ const jsOrderPrint = toJs(tsOrderPrint)
 | columnTitles | 自定义列标题 | `Record<string, string>` | — |
 | pageSize | 每页最大行数 | `number` | — |
 | showPageNumber | 是否显示页码 | `boolean` | `false` |
+| tableStyle | 自定义表格样式 | `string` | — |
 | extraCss | 额外 CSS | `string` | — |
 | autoPrint | 自动弹出打印对话框 | `boolean` | `false` |
 | beforePrint | 打印前回调 | `() => boolean` | — |

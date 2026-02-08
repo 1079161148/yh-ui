@@ -1,6 +1,6 @@
 # Table 表格 - 导出数据
 
-通过内置的导出功能，可以将表格数据导出为 CSV、JSON、TXT、XML、HTML 等多种格式，支持自定义列、格式化内容、排除列等高级配置。
+通过内置的导出功能，可以将表格数据导出为 CSV、JSON、TXT、XML、HTML、XLSX 等多种格式，支持自定义列、格式化内容、排除列等高级配置。
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
@@ -63,6 +63,17 @@ const handleExport5 = () => {
 const tableRef6 = ref()
 const handleExport6 = () => {
   tableRef6.value?.exportData({ type: 'json', filename: '员工数据' })
+}
+
+// ==================== 6.5. 导出 Excel ====================
+const tableRef6_5 = ref()
+const handleExport6_5 = () => {
+  tableRef6_5.value?.exportData({
+    type: 'xlsx',
+    filename: '员工数据',
+    sheetName: '员工表',
+    autoWidth: true
+  })
 }
 
 // ==================== 7. 自定义数据导出 ====================
@@ -386,6 +397,44 @@ const handleExport = () => {
 </${_S}>`
 const jsExportJson = toJs(tsExportJson)
 
+const tsExportExcel = `<${_T}>
+  <div style="margin-bottom: 12px;">
+    <yh-button type="primary" @click="handleExport">导出 Excel</yh-button>
+  </div>
+  <yh-table ref="tableRef" :data="data" :columns="columns" border show-index />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const tableRef = ref()
+const data = ref([
+  { name: '张三', age: 28, dept: '技术部', salary: 15000, status: '在职', address: '北京市朝阳区' },
+  { name: '李四', age: 32, dept: '产品部', salary: 18000, status: '在职', address: '上海市浦东新区' },
+  { name: '王五', age: 25, dept: '设计部', salary: 14000, status: '离职', address: '广州市天河区' },
+  { name: '赵六', age: 35, dept: '运营部', salary: 22000, status: '在职', address: '深圳市南山区' },
+  { name: '钱七', age: 29, dept: '市场部', salary: 16000, status: '在职', address: '杭州市西湖区' }
+])
+const columns = [
+  { prop: 'name', label: '姓名', width: 100 },
+  { prop: 'age', label: '年龄', width: 80 },
+  { prop: 'dept', label: '部门', width: 100 },
+  { prop: 'salary', label: '薪资', width: 100 },
+  { prop: 'status', label: '状态', width: 80 },
+  { prop: 'address', label: '地址' }
+]
+
+const handleExport = () => {
+  tableRef.value?.exportData({
+    type: 'xlsx',
+    filename: '员工数据',
+    sheetName: '员工表', // 工作表名称
+    autoWidth: true      // 自动计算列宽
+  })
+}
+</${_S}>`
+const jsExportExcel = toJs(tsExportExcel)
+
 const tsCustomData = `<${_T}>
   <div style="margin-bottom: 12px; display: flex; gap: 8px;">
     <yh-button type="primary" @click="handleExport">仅导出在职员工</yh-button>
@@ -477,6 +526,7 @@ const tsAdvancedExport = `<${_T}>
       <option value="txt">TXT</option>
       <option value="xml">XML</option>
       <option value="html">HTML</option>
+      <option value="xlsx">Excel</option>
     </select>
     <span style="font-size: 13px; color: #606266;">文件名：</span>
     <input v-model="filename" style="padding: 4px 8px; border: 1px solid #dcdfe6; border-radius: 4px; width: 120px;" />
@@ -655,6 +705,7 @@ const tsCustomExportType = `<${_T}>
       <option value="txt">TXT</option>
       <option value="xml">XML</option>
       <option value="html">HTML</option>
+      <option value="xlsx">Excel</option>
     </select>
     <yh-button type="primary" @click="handleExport">导出</yh-button>
   </div>
@@ -733,7 +784,7 @@ const handleExport = async () => {
   // a.href = url; a.download = 'export.xlsx'; a.click()
   setTimeout(() => {
     loading.value = false
-    result.value = '服务端已生成文件，模拟下载完成'
+    result.value = '服务端导出完成'
   }, 1500)
 }
 </${_S}>`
@@ -751,7 +802,7 @@ const tsExportMode = `<${_T}>
 import { ref } from 'vue'
 
 const tableRef = ref()
-const result = ref("")
+const result = ref('')
 const data = ref([
   { name: '张三', age: 28, dept: '技术部', salary: 15000, status: '在职', address: '北京市朝阳区' },
   { name: '李四', age: 32, dept: '产品部', salary: 18000, status: '在职', address: '上海市浦东新区' },
@@ -775,7 +826,7 @@ const handleExport = async () => {
     mode: 'string',
     filename: 'test'
   })
-  if (content) result.value = content.substring(0, 200) + "…"
+  result.value = content || ''
 }
 </${_S}>`
 const jsExportMode = toJs(tsExportMode)
@@ -847,6 +898,19 @@ CSV 导出支持含序号列，自动添加 BOM 头确保 Excel 正确显示中�
   <yh-table ref="tableRef6" :data="baseData" :columns="columns" border show-index />
 </DemoBlock>
 
+## 导出 Excel 格式
+
+导出为 `.xlsx` 格式的 Excel 文件，支持自动计算列宽、自定义工作表名称等高级功能。
+
+> **提示：** Excel 导出依赖 `xlsx` 库，导出的文件可直接用 Microsoft Excel、WPS 等软件打开。
+
+<DemoBlock title="导出 Excel" :ts-code="tsExportExcel" :js-code="jsExportExcel">
+  <div style="margin-bottom: 12px;">
+    <yh-button type="primary" @click="handleExport6_5">导出 Excel</yh-button>
+  </div>
+  <yh-table ref="tableRef6_5" :data="baseData" :columns="columns" border show-index />
+</DemoBlock>
+
 ## 自定义数据
 
 通过 `data` 参数指定导出的数据，可以实现筛选导出。
@@ -882,6 +946,7 @@ CSV 导出支持含序号列，自动添加 BOM 头确保 Excel 正确显示中�
       <option value="txt">TXT</option>
       <option value="xml">XML</option>
       <option value="html">HTML</option>
+      <option value="xlsx">Excel</option>
     </select>
     <span style="font-size: 13px; color: #606266;">文件名：</span>
     <input v-model="exportFilename9" style="padding: 4px 8px; border: 1px solid #dcdfe6; border-radius: 4px; width: 120px;" />
@@ -943,6 +1008,7 @@ CSV 导出支持含序号列，自动添加 BOM 头确保 Excel 正确显示中�
       <option value="txt">TXT</option>
       <option value="xml">XML</option>
       <option value="html">HTML</option>
+      <option value="xlsx">Excel</option>
     </select>
     <yh-button type="primary" @click="handleExport13">导出</yh-button>
   </div>
@@ -981,13 +1047,14 @@ CSV 导出支持含序号列，自动添加 BOM 头确保 Excel 正确显示中�
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 导出格式 | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html'` | `'csv'` |
+| type | 导出格式 | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | `'csv'` |
 | filename | 文件名（不含扩展名） | `string` | `'export'` |
 | includeHeader | 是否包含表头 | `boolean` | `true` |
 | showIndex | 是否包含序号列 | `boolean` | `false` |
 | indexTitle | 序号列标题 | `string` | `'序号'` |
 | columns | 指定导出列（prop 数组） | `string[]` | 全部可见列 |
 | excludeColumns | 排除列（prop 数组） | `string[]` | — |
+| visibleOnly | 是否只导出可见列 | `boolean` | `true` |
 | data | 自定义导出数据 | `Record<string, unknown>[]` | 当前表格数据 |
 | columnTitles | 自定义列标题映射 | `Record<string, string>` | — |
 | formatCell | 格式化单元格内容 | `(value, column, row) => string` | — |
@@ -996,6 +1063,10 @@ CSV 导出支持含序号列，自动添加 BOM 头确保 Excel 正确显示中�
 | mode | 导出模式 | `'download' \| 'string'` | `'download'` |
 | beforeExport | 导出前回调 | `() => boolean` | — |
 | afterExport | 导出后回调 | `(type) => void` | — |
+| sheetName | 工作表名称（仅 XLSX） | `string` | `'Sheet1'` |
+| columnWidths | 列宽配置（仅 XLSX），如 `{ name: 15, address: 30 }` | `Record<string, number>` | — |
+| defaultColWidth | 默认列宽（仅 XLSX） | `number` | `12` |
+| autoWidth | 是否自动调整列宽（仅 XLSX） | `boolean` | `true` |
 
 ### 各格式说明
 
@@ -1006,4 +1077,5 @@ CSV 导出支持含序号列，自动添加 BOM 头确保 Excel 正确显示中�
 | TXT | `.txt` | `text/plain` | Tab 分隔，可直接粘贴到 Excel |
 | XML | `.xml` | `application/xml` | 标准 XML 结构，适合系统集成 |
 | HTML | `.html` | `text/html` | 带样式的表格，浏览器可直接查看 |
+| XLSX | `.xlsx` | `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` | Excel 格式，支持自动列宽、多工作表 |
 

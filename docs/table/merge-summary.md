@@ -720,9 +720,11 @@ const jsPermission = toJs(tsPermission)
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | text | 汇总行第一列的文本 | `string` | `'合计'` |
-| method | 汇总计算方法 | `({ columns, data }) => string[]` | — |
-| className | 汇总行类名 | `string` | — |
-| style | 汇总行样式 | `CSSProperties` | — |
+| position | 汇总行位置 | `'top' \| 'bottom'` | `'bottom'` |
+| fixed | 是否固定汇总行 | `boolean` | `false` |
+| method | 汇总计算方法 | `({ columns, data }) => Array<string \| number \| VNode>` | — |
+| className | 汇总行类名 | `string \| ((params) => string)` | — |
+| style | 汇总行样式 | `CSSProperties \| ((params) => CSSProperties)` | — |
 
 ### Column render 渲染函数
 
