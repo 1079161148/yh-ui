@@ -128,7 +128,7 @@ export const treeProps = {
   /** 是否为空选择 */
   emptyText: {
     type: String,
-    default: '暂无数据'
+    default: ''
   },
   /** 过滤方法 */
   filterMethod: {
@@ -223,3 +223,9 @@ export interface TreeContext {
 }
 
 export const TREE_INJECTION_KEY: InjectionKey<TreeContext> = Symbol('tree')
+
+/** TreeNode 插槽数据类型 */
+export interface TreeNodeSlotData {
+  node: TreeNode
+  data: TreeNodeData
+}

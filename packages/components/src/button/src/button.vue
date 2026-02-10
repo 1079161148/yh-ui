@@ -76,10 +76,10 @@ const buttonStyles = computed(() => {
   // 基础变量映射，具体点击/悬浮效果交由 CSS filter 处理以保证响应
   return {
     '--yh-button-bg-color': props.plain ? 'transparent' : color,
-    '--yh-button-text-color': props.plain ? color : '#ffffff',
+    '--yh-button-text-color': props.plain ? color : 'var(--yh-color-white)',
     '--yh-button-border-color': color,
     '--yh-button-hover-bg-color': color,
-    '--yh-button-hover-text-color': '#ffffff',
+    '--yh-button-hover-text-color': 'var(--yh-color-white)',
     '--yh-button-hover-border-color': color,
     '--yh-button-active-bg-color': color,
     '--yh-button-active-border-color': color

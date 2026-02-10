@@ -3,7 +3,7 @@
 
 @include b(tree) {
   --yh-tree-node-height: 28px;
-  --yh-tree-text-color: var(--yh-color-text-primary, #1d1d1f);
+  --yh-tree-text-color: var(--yh-text-color-primary, #1d1d1f);
   --yh-tree-hover-bg: var(--yh-color-primary-light-9, #ecf5ff);
   --yh-tree-current-bg: var(--yh-color-primary-light-8, #d9ecff);
 
@@ -16,7 +16,7 @@
 
     @include when(disabled) {
       .yh-tree__label {
-        color: var(--yh-color-text-disabled, #c0c4cc);
+        color: var(--yh-text-color-disabled, #c0c4cc);
         cursor: not-allowed;
       }
     }
@@ -88,7 +88,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: var(--yh-color-text-placeholder, #c0c4cc);
+    color: var(--yh-text-color-placeholder, #c0c4cc);
     cursor: pointer;
     transition:
       transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -99,7 +99,7 @@
     }
 
     @include when(expanded) {
-      color: var(--yh-color-text-secondary, #86868b);
+      color: var(--yh-text-color-secondary, #86868b);
     }
 
     @include when(loading) {
@@ -127,7 +127,7 @@
 
   @include e(icon) {
     margin-right: 4px;
-    color: var(--yh-color-text-secondary);
+    color: var(--yh-text-color-secondary);
   }
 
   @include e(children) {
@@ -137,7 +137,7 @@
   @include e(empty) {
     padding: 20px;
     text-align: center;
-    color: var(--yh-color-text-secondary);
+    color: var(--yh-text-color-secondary);
     font-size: 13px;
   }
 

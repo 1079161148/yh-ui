@@ -28,14 +28,14 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: var(--yh-color-text-secondary, #86868b);
+    color: var(--yh-text-color-secondary, #86868b);
   }
 
   @include e(finished) {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--yh-color-text-placeholder, #c0c4cc);
+    color: var(--yh-text-color-placeholder, #c0c4cc);
     font-size: 13px;
   }
 
@@ -79,11 +79,11 @@ html.dark,
 body.dark {
   .yh-infinite-scroll {
     @include e(loading) {
-      color: var(--yh-color-text-secondary, #909399);
+      color: var(--yh-text-color-secondary, #909399);
     }
 
     @include e(finished) {
-      color: var(--yh-color-text-placeholder, #6b6b6b);
+      color: var(--yh-text-color-placeholder, #6b6b6b);
     }
   }
 }

@@ -4,7 +4,7 @@
  * @description 级联选择器的面板部分，支持虚拟滚动和任意级选择
  */
 import { computed, ref, watch, defineComponent, h } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import type { CascaderOption, CascaderConfig } from './cascader'
 
 defineOptions({
@@ -35,6 +35,7 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('cascader')
+const { t } = useLocale()
 
 /**
  * 局部子组件：处理单列菜单及其虚拟滚动逻辑
@@ -105,7 +106,7 @@ const CascaderMenu = defineComponent({
           level: menuProps.level
         })),
       // 空状态处理
-      menuProps.menu.length === 0 ? h('div', { class: ns.e('empty') }, '无数据') : null
+      menuProps.menu.length === 0 ? h('div', { class: ns.e('empty') }, t('cascader.noData')) : null
     ])
   }
 })
