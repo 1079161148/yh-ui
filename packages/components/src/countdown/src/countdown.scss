@@ -4,22 +4,21 @@
 @include b(countdown) {
   // ===================== 设计令牌 =====================
   --yh-countdown-font-size: 24px;
-  --yh-countdown-value-color: #1e293b;
-  --yh-countdown-label-color: #64748b;
-  --yh-countdown-separator-color: #94a3b8;
-  --yh-countdown-warning-color: #ef4444;
-  --yh-countdown-finished-color: #10b981;
+  --yh-countdown-value-color: var(--yh-text-color-primary);
+  --yh-countdown-label-color: var(--yh-text-color-secondary);
+  --yh-countdown-separator-color: var(--yh-text-color-placeholder);
+  --yh-countdown-warning-color: var(--yh-color-danger);
+  --yh-countdown-finished-color: var(--yh-color-success);
   --yh-countdown-bg: transparent;
-  --yh-countdown-block-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  --yh-countdown-block-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --yh-countdown-block-radius: 8px;
+  --yh-countdown-block-bg: var(--yh-fill-color-light);
+  --yh-countdown-block-shadow: var(--yh-shadow-sm);
+  --yh-countdown-block-radius: var(--yh-radius-md);
   --yh-countdown-block-padding-y: 12px;
   --yh-countdown-block-padding-x: 16px;
   --yh-countdown-block-padding: var(--yh-countdown-block-padding-y)
     var(--yh-countdown-block-padding-x);
   --yh-countdown-gap: 8px;
-  --yh-countdown-font-family:
-    'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --yh-countdown-font-family: var(--yh-font-family);
   --yh-countdown-monospace-font:
     'JetBrains Mono', 'SF Mono', 'Roboto Mono', 'Fira Code', 'Consolas', monospace;
 
@@ -168,7 +167,7 @@
     .yh-countdown__flip-card {
       box-shadow:
         var(--yh-countdown-block-shadow),
-        0 0 0 2px rgba(239, 68, 68, 0.2);
+        0 0 0 2px var(--yh-color-danger-light-5);
     }
   }
 

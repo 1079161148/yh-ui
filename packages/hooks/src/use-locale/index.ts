@@ -1,64 +1,16 @@
 /**
  * useLocale - 国际化 Hook
- * @description 提供组件国际化支持，已严格类型化
+ * @description 提供组件国际化支持，已严格类型化，同时同步 dayjs locale
  */
-import { computed, inject, ref, unref } from 'vue'
-import type { InjectionKey, Ref } from 'vue'
+import { computed, unref, watch } from 'vue'
+import type { Ref } from 'vue'
+import { zhCn } from '@yh-ui/locale'
+import type { Language } from '@yh-ui/locale'
+import { useConfig } from '../use-config'
+import { setDayjsLocale } from './dayjs-locale'
 
-export interface Language {
-  name: string
-  yh: Record<string, unknown>
-}
-
-// 默认语言
-const defaultLanguage: Language = {
-  name: 'zh-CN',
-  yh: {
-    button: {
-      loading: '加载中...'
-    },
-    input: {
-      placeholder: '请输入'
-    },
-    select: {
-      placeholder: '请选择',
-      noData: '暂无数据',
-      loading: '加载中...'
-    },
-    pagination: {
-      goto: '前往',
-      page: '页',
-      total: '共 {total} 条'
-    },
-    dialog: {
-      confirm: '确定',
-      cancel: '取消',
-      close: '关闭'
-    },
-    table: {
-      emptyText: '暂无数据',
-      loading: '加载中...'
-    },
-    datepicker: {
-      selectDate: '选择日期',
-      selectTime: '选择时间',
-      today: '今天',
-      now: '此刻',
-      confirm: '确定',
-      clear: '清除'
-    },
-    upload: {
-      upload: '点击上传',
-      tip: '将文件拖到此处，或点击上传'
-    },
-    message: {
-      close: '关闭'
-    }
-  }
-}
-
-// 语言注入 Key
-export const localeContextKey: InjectionKey<Ref<Language>> = Symbol('localeContextKey')
+export type { Language }
+export { setDayjsLocale, getDayjsLocale, setDayjsLocaleSync } from './dayjs-locale'
 
 /**
  * useLocale - 国际化
@@ -66,13 +18,22 @@ export const localeContextKey: InjectionKey<Ref<Language>> = Symbol('localeConte
  * @returns 国际化相关方法
  */
 export const useLocale = (localeOverrides?: Ref<Language>) => {
-  const injectedLocale = inject(localeContextKey, ref(defaultLanguage))
+  const { globalLocale } = useConfig()
 
   const locale = computed<Language>(() => {
-    return unref(localeOverrides) ?? unref(injectedLocale)
+    return unref(localeOverrides) ?? unref(globalLocale) ?? zhCn
   })
 
   const lang = computed(() => locale.value.name)
+
+  // 自动同步 dayjs locale
+  watch(
+    lang,
+    (newLang) => {
+      setDayjsLocale(newLang)
+    },
+    { immediate: true }
+  )
 
   /**
    * 翻译函数
@@ -106,10 +67,32 @@ export const useLocale = (localeOverrides?: Ref<Language>) => {
     return result
   }
 
+  /**
+   * 获取原始翻译值（支持数组等非字符串类型）
+   * @param path - 翻译键路径，如 'rate.texts'
+   */
+  const tRaw = <T = unknown>(path: string): T => {
+    const keys = path.split('.')
+    let result: unknown = locale.value.yh
+
+    for (const key of keys) {
+      if (result && typeof result === 'object') {
+        result = (result as Record<string, unknown>)[key]
+      } else {
+        result = undefined
+      }
+
+      if (result === undefined) return path as unknown as T
+    }
+
+    return result as T
+  }
+
   return {
     locale,
     lang,
-    t
+    t,
+    tRaw
   }
 }
 

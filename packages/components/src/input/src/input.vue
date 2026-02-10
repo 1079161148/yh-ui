@@ -4,7 +4,7 @@
  * @description 通过鼠标或键盘输入内容，是最基础的表单域包装
  */
 import { computed, ref, watch, nextTick, useSlots, onMounted, inject } from 'vue'
-import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type { InputProps, InputEmits, InputExpose } from './input'
 import { calcTextareaHeight } from './utils'
@@ -34,6 +34,7 @@ const slots = useSlots()
 
 // 命名空间
 const ns = useNamespace('input')
+const { t } = useLocale()
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -340,18 +341,19 @@ defineExpose<InputExpose>({
 
       <!-- 文本域 -->
       <textarea v-if="isTextarea" ref="textareaRef" :class="inputClasses" :value="nativeInputValue"
-        :placeholder="placeholder" :disabled="disabled" :readonly="readonly" :maxlength="maxlength"
-        :minlength="minlength" :rows="rows" :name="name" :id="id" :tabindex="tabindex" :autocomplete="autocomplete"
-        :autofocus="autofocus" :style="textareaStyle" @input="handleInput" @change="handleChange" @focus="handleFocus"
-        @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup" @compositionstart="handleCompositionStart"
-        @compositionupdate="handleCompositionUpdate" @compositionend="handleCompositionEnd" />
+        :placeholder="placeholder || t('input.placeholder')" :disabled="disabled" :readonly="readonly"
+        :maxlength="maxlength" :minlength="minlength" :rows="rows" :name="name" :id="id" :tabindex="tabindex"
+        :autocomplete="autocomplete" :autofocus="autofocus" :style="textareaStyle" @input="handleInput"
+        @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup"
+        @compositionstart="handleCompositionStart" @compositionupdate="handleCompositionUpdate"
+        @compositionend="handleCompositionEnd" />
 
       <!-- 普通输入框 -->
       <input v-else ref="inputRef" :class="inputClasses"
         :type="showPassword ? (passwordVisible ? 'text' : 'password') : type" :value="nativeInputValue"
-        :placeholder="placeholder" :disabled="disabled" :readonly="readonly" :maxlength="maxlength"
-        :minlength="minlength" :name="name" :id="id" :tabindex="tabindex" :autocomplete="autocomplete"
-        :autofocus="autofocus" :aria-invalid="formItem?.validateStatus === 'error'"
+        :placeholder="placeholder || t('input.placeholder')" :disabled="disabled" :readonly="readonly"
+        :maxlength="maxlength" :minlength="minlength" :name="name" :id="id" :tabindex="tabindex"
+        :autocomplete="autocomplete" :autofocus="autofocus" :aria-invalid="formItem?.validateStatus === 'error'"
         :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined" @input="handleInput"
         @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup"
         @compositionstart="handleCompositionStart" @compositionupdate="handleCompositionUpdate"

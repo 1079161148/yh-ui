@@ -10,7 +10,7 @@
  *   - 完美支持 SSR
  */
 import { ref, computed, provide, toRef, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { YhTooltip } from '../../tooltip'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
@@ -28,6 +28,7 @@ const props = defineProps(dropdownProps)
 const emit = defineEmits(dropdownEmits)
 
 const ns = useNamespace('dropdown')
+const { t } = useLocale()
 
 // 内部可见性状态
 const internalVisible = ref(false)
@@ -151,7 +152,7 @@ defineExpose({
             <!-- 加载状态 -->
             <div v-if="loading" :class="ns.e('loading')">
               <YhIcon name="loading" spin />
-              <span>加载中...</span>
+              <span>{{ t('dropdown.loading') || t('select.loading') || 'Loading...' }}</span>
             </div>
 
             <!-- 快捷数据模式 -->
@@ -176,7 +177,7 @@ defineExpose({
 
             <!-- 空状态 - 当既没有插槽又没有数据时显示 -->
             <div v-else :class="ns.e('empty')">
-              <slot name="empty">{{ emptyText }}</slot>
+              <slot name="empty">{{ emptyText || t('select.noData') }}</slot>
             </div>
           </slot>
         </div>

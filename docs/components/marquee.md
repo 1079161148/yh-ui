@@ -595,6 +595,8 @@ YH-UI 完美适配 Nuxt 3。你可以直接在 `app.vue` 或 any 页面中使用
 
 ## 主题变量 (CSS Variables)
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 默认值 | 说明 |
 | --- | --- | --- |
 | `--yh-marquee-gap` | `0px` | 内容项之间的间距 |
@@ -602,7 +604,7 @@ YH-UI 完美适配 Nuxt 3。你可以直接在 `app.vue` 或 any 页面中使用
 | `--yh-marquee-iteration-count` | `infinite` | 动画循环次数 |
 | `--yh-marquee-direction` | `normal` | 动画播放方向 |
 | `--yh-marquee-play-state` | `running` | 动画播放状态 |
-| `--yh-marquee-gradient-color` | `#ffffff` | 边际渐变颜色 |
+| `--yh-marquee-gradient-color` | `var(--yh-bg-color)` | 边际渐变颜色 (自动跟随主题背景色) |
 | `--yh-marquee-gradient-width` | `40px` | 边际渐变宽度 |
 | `--yh-marquee-clone-count` | `1` | 内部计算的克隆倍数 (只读) |
 

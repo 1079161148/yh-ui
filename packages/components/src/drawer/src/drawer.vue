@@ -30,7 +30,8 @@
                 <slot v-else name="title" />
               </span>
             </slot>
-            <button v-if="showClose" type="button" :class="ns.e('close')" aria-label="close" @click="handleClose()">
+            <button v-if="showClose" type="button" :class="ns.e('close')" :aria-label="t('dialog.close')"
+              @click="handleClose()">
               <slot name="close-icon">
                 <yh-icon :name="closeIcon" />
               </slot>
@@ -54,7 +55,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type CSSProperties } from 'vue'
 import { drawerProps, drawerEmits } from './drawer'
 import { YhIcon } from '../../icon'
-import { useNamespace, useZIndex, useScrollLock } from '@yh-ui/hooks'
+import { useNamespace, useZIndex, useScrollLock, useLocale } from '@yh-ui/hooks'
 
 defineOptions({
   name: 'YhDrawer'
@@ -64,6 +65,7 @@ const props = defineProps(drawerProps)
 const emit = defineEmits(drawerEmits)
 
 const ns = useNamespace('drawer')
+const { t } = useLocale()
 const { nextZIndex } = useZIndex()
 
 const drawerRef = ref<HTMLElement | null>(null)

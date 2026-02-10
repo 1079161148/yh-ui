@@ -4,7 +4,7 @@
  * @description 核心采用最短列平衡算法，支持图片感知、入场动画与响应式断点
  */
 import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 
 defineOptions({
   name: 'YhWaterfall'
@@ -45,6 +45,7 @@ const props = withDefaults(defineProps<{
 })
 
 const ns = useNamespace('waterfall')
+const { t } = useLocale()
 
 const containerRef = ref<HTMLElement>()
 const containerWidth = ref(0)
@@ -202,7 +203,7 @@ defineExpose({
 
     <!-- 空状态 -->
     <div v-else :class="ns.e('empty')">
-      <slot name="empty">暂无数据</slot>
+      <slot name="empty">{{ t('table.emptyText') }}</slot>
     </div>
 
     <!-- 刷新态蒙层：当有数据且正在加载时显示 -->

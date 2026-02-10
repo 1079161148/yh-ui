@@ -8,7 +8,7 @@
   --yh-time-picker-active-bg: var(--yh-color-primary-light-9);
   --yh-time-picker-hover-bg: var(--yh-fill-color-light);
   --yh-time-picker-panel-bg: var(--yh-bg-color);
-  --yh-time-picker-border-radius: var(--yh-border-radius-base);
+  --yh-time-picker-border-radius: var(--yh-radius-md);
 }
 
 @include b(time-picker) {
@@ -294,23 +294,23 @@
     }
 
     @include m(confirm) {
-      color: #fff !important;
+      color: var(--yh-color-white) !important;
       font-weight: 600;
       background-color: var(--yh-color-primary);
       border-color: var(--yh-color-primary);
-      box-shadow: 0 2px 4px rgba(64, 158, 255, 0.3);
+      box-shadow: var(--yh-shadow-sm);
 
       &:hover {
-        background-color: #1d79d8 !important;
-        border-color: #1d79d8 !important;
-        color: #fff !important;
-        box-shadow: 0 4px 12px rgba(29, 121, 216, 0.4);
+        background-color: var(--yh-color-primary-light-3) !important;
+        border-color: var(--yh-color-primary-light-3) !important;
+        color: var(--yh-color-white) !important;
+        box-shadow: var(--yh-shadow-md);
         transform: translateY(-1px);
       }
 
       &:active {
-        background-color: #1a6ab9 !important;
-        border-color: #1a6ab9 !important;
+        background-color: var(--yh-color-primary-dark-2) !important;
+        border-color: var(--yh-color-primary-dark-2) !important;
         transform: translateY(0);
       }
     }

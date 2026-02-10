@@ -507,15 +507,21 @@ DatePicker 内部已对 Hydration 进行了优化，确保在 SSR 场景下服�
 
 ## 主题变量
 
-| 变量名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
 | `--yh-date-picker-width` | 普通输入框宽度 | `220px` |
 | `--yh-date-picker-range-width` | 范围输入框宽度 | `400px` |
 | `--yh-date-picker-primary` | 主题主颜色 | `var(--yh-color-primary)` |
 | `--yh-date-picker-text-main` | 主要文字颜色 | `var(--yh-text-color-primary)` |
+| `--yh-date-picker-text-secondary` | 次要文字颜色 | `var(--yh-text-color-secondary)` |
 | `--yh-date-picker-border` | 边框颜色 | `var(--yh-border-color)` |
 | `--yh-date-picker-panel-width` | 面板物理宽度 | `380px` |
-| `--yh-date-picker-panel-shadow` | 面板阴影 | `0 12px 32px rgba(0,0,0,0.1)` |
+| `--yh-date-picker-panel-bg` | 面板背景颜色 | `var(--yh-bg-color-overlay)` |
+| `--yh-date-picker-panel-shadow` | 面板阴影 | `var(--yh-shadow-lg)` |
+| `--yh-date-picker-item-hover` | 悬停背景颜色 | `var(--yh-fill-color-light)` |
+| `--yh-date-picker-range-bg` | 范围选择背景 | `var(--yh-color-primary-light-9)` |
 
 <style scoped>
 .demo-showcase {

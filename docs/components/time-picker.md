@@ -638,6 +638,8 @@ TimePicker 的核心逻辑已针对 SSR 进行优化，所有可能导致 Hydrat
 
 ## 主题变量
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--yh-time-picker-width` | 选择器宽度 | `220px` |
@@ -645,7 +647,11 @@ TimePicker 的核心逻辑已针对 SSR 进行优化，所有可能导致 Hydrat
 | `--yh-time-picker-active-color` | 高亮文字颜色 | `var(--yh-color-primary)` |
 | `--yh-time-picker-active-bg` | 高亮背景颜色 | `var(--yh-color-primary-light-9)` |
 | `--yh-time-picker-hover-bg` | 悬停背景颜色 | `var(--yh-fill-color-light)` |
-| `--yh-time-picker-panel-bg` | 面板背景色 | `var(--yh-bg-color)` |
+| `--yh-time-picker-panel-bg` | 面板背景色 | `var(--yh-bg-color-overlay)` |
+| `--yh-time-picker-panel-shadow` | 面板阴影 | `var(--yh-shadow-lg)` |
+| `--yh-time-picker-text-color` | 文字颜色 | `var(--yh-text-color-primary)` |
+| `--yh-time-picker-text-secondary` | 次要文字颜色 | `var(--yh-text-color-secondary)` |
+| `--yh-time-picker-border` | 边框颜色 | `var(--yh-border-color-light)` |
 | `--yh-time-picker-item-height` | 选项高度 | `32px` |
 | `--yh-time-picker-spinner-height` | 滚轮高度 | `192px` |
 | `--yh-time-picker-border-radius` | 圆角大小 | `var(--yh-border-radius-base)` |

@@ -82,7 +82,7 @@ export const treeSelectProps = {
   },
   placeholder: {
     type: String,
-    default: '请选择'
+    default: undefined
   },
   // Select 相关属性
   multiple: Boolean,
@@ -156,7 +156,7 @@ export const treeSelectProps = {
   },
   emptyText: {
     type: String,
-    default: '暂无数据'
+    default: undefined
   }
 } as const
 

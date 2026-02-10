@@ -918,12 +918,19 @@ const handlePreview = (file) => {
 
 ### 主题变量 (CSS Variables)
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
-| `--yh-upload-dragger-bg` | 拖拽区域背景色 | `var(--yh-bg-color, #ffffff)` |
-| `--yh-upload-dragger-border` | 拖拽区域边框颜色 | `var(--yh-border-color-light, #dcdfe6)` |
-| `--yh-upload-item-bg` | 列表项背景色 | `var(--yh-fill-color-blank, #ffffff)` |
-| `--yh-upload-progress-bg` | 进度条背景色 | `var(--yh-color-primary, #409eff)` |
+| `--yh-upload-dragger-bg` | 拖拽区域背景色 | `var(--yh-bg-color)` |
+| `--yh-upload-dragger-border` | 拖拽区域边框颜色 | `var(--yh-border-color-light)` |
+| `--yh-upload-dragger-hover-border` | 拖拽区域悬停边框颜色 | `var(--yh-color-primary)` |
+| `--yh-upload-item-bg` | 列表项背景色 | `var(--yh-fill-color-blank)` |
+| `--yh-upload-item-hover-bg` | 列表项悬停背景色 | `var(--yh-fill-color-light)` |
+| `--yh-upload-text-color` | 文字颜色 | `var(--yh-text-color-regular)` |
+| `--yh-upload-text-secondary` | 次要文字颜色 | `var(--yh-text-color-secondary)` |
+| `--yh-upload-progress-bg` | 进度条背景色 | `var(--yh-color-primary)` |
+| `--yh-upload-card-radius` | 照片墙卡片圆角 | `var(--yh-radius-md)` |
 
 
 <style scoped>

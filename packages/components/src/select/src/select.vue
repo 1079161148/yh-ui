@@ -4,7 +4,7 @@
  * @description 从预定义选项中选择一个或多个值
  */
 import { computed, ref, nextTick, provide, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type { SelectProps, SelectEmits, SelectExpose, SelectOption, SelectContext, SelectValue } from './select'
 import { SelectContextKey } from './select'
@@ -22,9 +22,9 @@ const props = withDefaults(defineProps<SelectProps>(), {
   filterable: false,
   remote: false,
   loading: false,
-  loadingText: '加载中...',
-  noMatchText: '无匹配数据',
-  noDataText: '无数据',
+  loadingText: '',
+  noMatchText: '',
+  noDataText: '',
   allowCreate: false,
   collapseTags: false,
   collapseTagsTooltip: false,
@@ -42,6 +42,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
 
 const emit = defineEmits<SelectEmits>()
 const ns = useNamespace('select')
+const { t } = useLocale()
 const inputId = useId()
 
 // 表单集成
@@ -51,6 +52,11 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 const { globalSize } = useConfig()
 
 const selectSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+
+// 默认文案翻译
+const translatedLoadingText = computed(() => props.loadingText || t('select.loading'))
+const translatedNoMatchText = computed(() => props.noMatchText || t('select.noMatch'))
+const translatedNoDataText = computed(() => props.noDataText || t('select.noData'))
 
 // 元素引用
 const wrapperRef = ref<HTMLElement>()
@@ -91,11 +97,22 @@ const updateDropdownPosition = () => {
   if (!wrapperRef.value || !props.teleported) return
 
   const rect = wrapperRef.value.getBoundingClientRect()
+
+  // 从所在容器提取当前有效的主题变量，支持局部主题覆盖（如内联样式设置的紫色）
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+  const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
+
   dropdownStyle.value = {
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
-    minWidth: props.fitInputWidth ? `${rect.width}px` : undefined
+    minWidth: props.fitInputWidth ? `${rect.width}px` : undefined,
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
+    '--yh-color-primary-light-9': primaryLight9
   } as Record<string, string>
 }
 
@@ -508,9 +525,10 @@ defineExpose<SelectExpose>({
 
       <!-- 输入框 -->
       <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="filterable ? query : ''"
-        :placeholder="hasValue ? '' : placeholder" :disabled="disabled" :readonly="!filterable" autocomplete="off"
-        role="combobox" :aria-expanded="visible" :aria-controls="`${inputId}-listbox`" @input="handleInput"
-        @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+        :placeholder="hasValue ? '' : (placeholder || t('select.placeholder'))" :disabled="disabled"
+        :readonly="!filterable" autocomplete="off" role="combobox" :aria-expanded="visible"
+        :aria-controls="`${inputId}-listbox`" @input="handleInput" @focus="handleFocus" @blur="handleBlur"
+        @keydown="handleKeydown" />
 
       <!-- 单选显示值 -->
       <span v-if="!multiple && hasValue && !query" :class="ns.e('selected-value')">
@@ -549,13 +567,13 @@ defineExpose<SelectExpose>({
               <path fill="currentColor"
                 d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32z" />
             </svg>
-            <span>{{ loadingText }}</span>
+            <span>{{ translatedLoadingText }}</span>
           </div>
 
           <!-- 无数据 -->
           <div v-else-if="filteredOptions.length === 0" :class="ns.e('empty')">
             <slot name="empty">
-              {{ query ? noMatchText : noDataText }}
+              {{ query ? translatedNoMatchText : translatedNoDataText }}
             </slot>
           </div>
 

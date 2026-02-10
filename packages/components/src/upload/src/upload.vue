@@ -14,8 +14,7 @@
           <slot>
             <div :class="ns.e('content')">
               <yh-icon name="plus" :size="32" :class="ns.e('icon')" />
-              <div :class="ns.e('text')">
-                点击或拖拽文件到此处<em>上传</em>
+              <div :class="ns.e('text')" v-html="t('upload.tip')">
               </div>
             </div>
           </slot>
@@ -126,7 +125,7 @@
 <script setup lang="ts">
 import { ref, type CSSProperties, onBeforeUnmount } from 'vue'
 import { uploadProps, uploadEmits, type UploadFile, type UploadRawFile, type UploadRequestOptions, type UploadProgressEvent } from './upload'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { YhIcon } from '../../icon'
 import Viewer from 'viewerjs'
 
@@ -137,6 +136,7 @@ defineOptions({
 const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
 const ns = useNamespace('upload')
+const { t } = useLocale()
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const dragOver = ref(false)
@@ -304,15 +304,15 @@ const handleFiles = async (files: File[]) => {
   for (const file of files) {
     const rawFile = file as UploadRawFile
 
-    // 1. 自动移除：格式校验（按 accept 过滤）
+    // 1. Auto remove: format validation (by accept)
     if (props.accept && !attrAccept(rawFile, props.accept)) {
-      console.warn(`[YhUpload] 自动移除：文件格式不符合 \"${props.accept}\" - ${rawFile.name}`)
+      console.warn(`[YhUpload] Auto Remove: File format does not match \"${props.accept}\" - ${rawFile.name}`)
       continue
     }
 
-    // 2. 自动移除：大小校验
+    // 2. Auto remove: size validation
     if (props.maxSize && rawFile.size / 1024 > props.maxSize) {
-      console.warn(`[YhUpload] 自动移除：文件大小超过限制 - ${rawFile.name}`)
+      console.warn(`[YhUpload] Auto Remove: File size exceeds limit - ${rawFile.name}`)
       continue
     }
 
@@ -576,9 +576,8 @@ const handleDownload = async (file: UploadFile) => {
     // 释放 URL 内存
     setTimeout(() => URL.revokeObjectURL(blobUrl), 1000)
   } catch (err) {
-    // 最终降级：如果 Fetch 失败（通常是目标服务器没有开启 CORS 允许跨域下载）
-    // 只能尝试在新窗口打开。
-    console.warn('[YhUpload] 跨域下载受限 (可能由服务器 CORS 策略引起)，降级为预览模式', err)
+    // Fallback: If fetch fails (usually server CORS), try opening in new window
+    console.warn('[YhUpload] CORS download restricted, falling back to preview mode', err)
     const link = document.createElement('a')
     link.href = file.url
     link.target = '_blank'

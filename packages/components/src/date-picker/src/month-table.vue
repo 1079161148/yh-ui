@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, watchEffect } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
-import dayjs from 'dayjs'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 
 const props = defineProps<{
   date: Date
@@ -21,8 +22,22 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('date-picker')
+const { t } = useLocale()
 
-const months = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+const months = computed(() => [
+  t('datepicker.months.jan'),
+  t('datepicker.months.feb'),
+  t('datepicker.months.mar'),
+  t('datepicker.months.apr'),
+  t('datepicker.months.may'),
+  t('datepicker.months.jun'),
+  t('datepicker.months.jul'),
+  t('datepicker.months.aug'),
+  t('datepicker.months.sep'),
+  t('datepicker.months.oct'),
+  t('datepicker.months.nov'),
+  t('datepicker.months.dec')
+])
 
 const getCellClasses = (month: number) => {
   const classes: any[] = [

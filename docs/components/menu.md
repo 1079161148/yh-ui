@@ -773,15 +773,28 @@ const menuOptions = [
 
 ### 主题变量 (CSS Variables)
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 默认值 | 描述 |
 | --- | --- | --- |
-| `--yh-menu-bg-color` | `#ffffff` | 菜单背景色 |
-| `--yh-menu-text-color` | `#303133` | 菜单文字颜色 |
-| `--yh-menu-active-text-color` | `#409eff` | 激活状态文字颜色 |
-| `--yh-menu-hover-bg-color` | `#ecf5ff` | 悬停背景色 |
-| `--yh-menu-active-bg-color` | `#ecf5ff` | 激活背景色 |
+| `--yh-menu-bg-color` | `var(--yh-bg-color)` | 菜单背景色 |
+| `--yh-menu-text-color` | `var(--yh-text-color-primary)` | 菜单文字颜色 |
+| `--yh-menu-active-text-color` | `var(--yh-color-primary)` | 激活状态文字颜色 |
+| `--yh-menu-hover-bg-color` | `var(--yh-color-primary-light-9)` | 悬停背景色 |
+| `--yh-menu-active-bg-color` | `var(--yh-color-primary-light-9)` | 激活背景色 |
+| `--yh-menu-border-color` | `var(--yh-border-color-light)` | 菜单边框颜色 |
+| `--yh-menu-item-height` | `50px` | 菜单项高度 |
+| `--yh-menu-icon-size` | `18px` | 菜单图标大小 |
+| `--yh-menu-base-padding` | `20px` | 菜单基础内边距 |
 | `--yh-menu-indicator-width` | `3px` | 指示条宽度 |
 | `--yh-menu-indicator-color` | `var(--yh-menu-active-text-color)` | 指示条颜色 |
+
+::: tip Inverted 模式
+开启 `inverted` 属性后，菜单会自动切换为深色主题，使用以下覆盖变量：
+- `--yh-menu-bg-color`: `var(--yh-bg-color-overlay-dark)`
+- `--yh-menu-text-color`: `var(--yh-text-color-secondary)`
+- `--yh-menu-hover-bg-color`: `var(--yh-fill-color-dark)`
+:::
 
 ---
 

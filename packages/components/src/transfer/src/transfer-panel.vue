@@ -4,7 +4,7 @@
  * @description Transfer 内部面板组件，支持虚拟滚动，严格类型化
  */
 import { computed, ref, watch, provide } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import type {
   TransferPanelProps,
   TransferPanelEmits,
@@ -24,20 +24,19 @@ const props = withDefaults(defineProps<TransferPanelProps>(), {
   checked: () => [],
   title: '',
   filterable: false,
-  filterPlaceholder: '请输入关键词',
   disabled: false,
   size: 'default',
   virtual: false,
   itemHeight: 40,
   height: 280,
-  showAllCheckbox: true,
-  emptyText: '暂无数据'
+  showAllCheckbox: true
 })
 
 const emit = defineEmits<TransferPanelEmits>()
 
 // 命名空间
 const ns = useNamespace('transfer-panel')
+const { t } = useLocale()
 
 // 搜索关键词
 const query = ref('')
@@ -253,15 +252,21 @@ watch(query, () => {
         </div>
         <div :class="ns.e('title')">
           <span>{{ title }}</span>
-          <span :class="ns.e('count')">{{ totalCheckedCount }}/{{ data.length }}</span>
+          <span :class="ns.e('count')">
+            {{
+              totalCheckedCount > 0
+                ? t('transfer.hasCheckedFormat', { checked: totalCheckedCount, total: data.length })
+                : t('transfer.noCheckedFormat', { total: data.length })
+            }}
+          </span>
         </div>
       </slot>
     </div>
 
     <!-- 搜索框 -->
     <div v-if="filterable" :class="ns.e('filter')">
-      <input v-model="query" type="text" :class="ns.e('filter-input')" :placeholder="filterPlaceholder"
-        :disabled="disabled" />
+      <input v-model="query" type="text" :class="ns.e('filter-input')"
+        :placeholder="filterPlaceholder || t('transfer.filterPlaceholder')" :disabled="disabled" />
     </div>
 
     <!-- 列表区域 -->
@@ -275,7 +280,7 @@ watch(query, () => {
             <path fill="currentColor"
               d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zM464 512v176c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V512c0-8.8-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16z" />
           </svg>
-          <span :class="ns.e('empty-text')">{{ emptyText }}</span>
+          <span :class="ns.e('empty-text')">{{ emptyText || t('transfer.noData') }}</span>
         </slot>
       </div>
 

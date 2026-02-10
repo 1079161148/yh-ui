@@ -4,7 +4,7 @@
  * @description 融合了业内顶级 UI 的交互优点，提供异步拦截、不再提示等功能
  */
 import { ref, watch, computed } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { YhButton } from '../../button'
 import { YhCheckbox } from '../../checkbox'
 import { YhIcon } from '../../icon'
@@ -18,6 +18,7 @@ defineOptions({
 const props = defineProps(popconfirmProps)
 const emit = defineEmits(popconfirmEmits)
 const ns = useNamespace('popconfirm')
+const { t } = useLocale()
 
 // 内部状态
 const internalVisible = ref(false)
@@ -97,7 +98,7 @@ defineExpose({
         <!-- YH-UI 自创高级功能：不再提示 -->
         <div v-if="showDontAskAgain" :class="ns.e('extra')">
           <YhCheckbox v-model="dontAskAgainChecked">
-            {{ dontAskAgainText }}
+            {{ dontAskAgainText || t('popconfirm.dontAskAgain') }}
           </YhCheckbox>
         </div>
 
@@ -105,20 +106,20 @@ defineExpose({
           <!-- 自创高级功能：交换按钮位置 -->
           <template v-if="swapButtons">
             <YhButton size="small" :type="confirmButtonType" :loading="confirmLoading" @click.stop="handleConfirm">
-              {{ confirmButtonText }}
+              {{ confirmButtonText || t('popconfirm.confirm') }}
             </YhButton>
             <YhButton v-if="!hideCancel" size="small" :type="cancelButtonType" :disabled="confirmLoading"
               @click.stop="handleCancel">
-              {{ cancelButtonText }}
+              {{ cancelButtonText || t('popconfirm.cancel') }}
             </YhButton>
           </template>
           <template v-else>
             <YhButton v-if="!hideCancel" size="small" :type="cancelButtonType" :disabled="confirmLoading"
               @click.stop="handleCancel">
-              {{ cancelButtonText }}
+              {{ cancelButtonText || t('popconfirm.cancel') }}
             </YhButton>
             <YhButton size="small" :type="confirmButtonType" :loading="confirmLoading" @click.stop="handleConfirm">
-              {{ confirmButtonText }}
+              {{ confirmButtonText || t('popconfirm.confirm') }}
             </YhButton>
           </template>
         </div>

@@ -4,7 +4,7 @@
  * @description 从层级数据中选择一个或多个值，严格类型化
  */
 import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type {
   CascaderProps,
@@ -44,6 +44,7 @@ const props = withDefaults(defineProps<CascaderProps>(), {
 
 const emit = defineEmits<CascaderEmits>()
 const ns = useNamespace('cascader')
+const { t } = useLocale()
 const inputId = useId()
 
 // 表单集成
@@ -86,11 +87,22 @@ const updateDropdownPosition = () => {
   if (!wrapperRef.value || !props.teleported) return
 
   const rect = wrapperRef.value.getBoundingClientRect()
+
+  // 从所在容器提取当前有效的主题变量，支持局部主题覆盖
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+  const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
+
   dropdownStyle.value = {
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
-    minWidth: `${rect.width}px`
+    minWidth: `${rect.width}px`,
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
+    '--yh-color-primary-light-9': primaryLight9
   }
 }
 
@@ -561,8 +573,9 @@ defineExpose<CascaderExpose>({
 
       <!-- 输入框 -->
       <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="filterable ? query : ''"
-        :placeholder="hasValue ? '' : placeholder" :disabled="disabled" :readonly="!filterable" autocomplete="off"
-        role="combobox" :aria-expanded="visible" @input="handleInput" @focus="handleFocus" @blur="handleBlur" />
+        :placeholder="hasValue ? '' : (placeholder || t('cascader.placeholder'))" :disabled="disabled"
+        :readonly="!filterable" autocomplete="off" role="combobox" :aria-expanded="visible" @input="handleInput"
+        @focus="handleFocus" @blur="handleBlur" />
 
       <!-- 单选显示值 -->
       <span v-if="!isMultiple && hasValue && !query" :class="ns.e('selected-value')">
@@ -606,7 +619,7 @@ defineExpose<CascaderExpose>({
 
           <!-- 无匹配数据 -->
           <div v-else-if="filterable && query && filteredSuggestions.length === 0" :class="ns.e('empty')">
-            <slot name="empty">无匹配数据</slot>
+            <slot name="empty">{{ t('cascader.noMatch') }}</slot>
           </div>
 
           <!-- 级联面板 -->

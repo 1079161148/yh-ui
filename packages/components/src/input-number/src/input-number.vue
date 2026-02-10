@@ -4,7 +4,7 @@
  * @description 已修复失去焦点时的校验时序问题
  */
 import { computed, ref, watch, useSlots, inject, nextTick } from 'vue'
-import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type { InputNumberProps, InputNumberEmits, InputNumberExpose } from './input-number'
 
@@ -31,6 +31,7 @@ const emit = defineEmits<InputNumberEmits>()
 const slots = useSlots()
 
 const ns = useNamespace('input-number')
+const { t } = useLocale()
 const inputRef = ref<HTMLInputElement>()
 const inputId = useId()
 
@@ -105,7 +106,7 @@ const validate = (value: number | undefined): boolean => {
       return false
     }
     if (!result) {
-      validationError.value = '验证失败'
+      validationError.value = t('form.validationFailed')
       return false
     }
   }
@@ -228,8 +229,9 @@ defineExpose({
         </slot>
       </span>
       <input ref="inputRef" type="text" :class="ns.e('inner')" :value="displayValue" :name="name" :id="id || inputId"
-        :placeholder="placeholder" :disabled="mergedDisabled" :readonly="readonly" autocomplete="off"
-        @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+        :placeholder="placeholder || t('input.placeholder')" :disabled="mergedDisabled" :readonly="readonly"
+        autocomplete="off" @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
+        @keydown="handleKeydown" />
       <span v-if="hasSuffix" :class="ns.e('suffix')">
         <span v-if="showClear" :class="ns.e('clear')" @click.stop="handleClear">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">

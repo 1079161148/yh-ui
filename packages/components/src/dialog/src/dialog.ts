@@ -141,15 +141,13 @@ export const dialogProps = {
     type: Boolean,
     default: true
   },
-  /** 取消按钮文案 */
   cancelText: {
     type: String,
-    default: '取消'
+    default: ''
   },
-  /** 确定按钮文案 */
   confirmText: {
     type: String,
-    default: '确定'
+    default: ''
   },
   /** 遮罩层自定义类名 */
   modalClass: String,

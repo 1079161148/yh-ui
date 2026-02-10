@@ -71,17 +71,17 @@ export const datePickerProps = {
   /** 占位符 */
   placeholder: {
     type: String,
-    default: '请选择日期'
+    default: undefined
   },
   /** 范围选择时的开始占位符 */
   startPlaceholder: {
     type: String,
-    default: '开始日期'
+    default: undefined
   },
   /** 范围选择时的结束占位符 */
   endPlaceholder: {
     type: String,
-    default: '结束日期'
+    default: undefined
   },
   /** 格式化显示 */
   format: {

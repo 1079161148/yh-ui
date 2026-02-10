@@ -61,7 +61,7 @@ export const rateProps = {
   },
   texts: {
     type: Array as PropType<string[]>,
-    default: () => ['极差', '失望', '一般', '满意', '惊喜']
+    default: () => []
   },
   scoreTemplate: {
     type: String,

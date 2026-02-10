@@ -12,15 +12,13 @@ export const popconfirmProps = {
     type: String,
     default: ''
   },
-  /** 确认按钮文字 */
   confirmButtonText: {
     type: String,
-    default: '确定'
+    default: ''
   },
-  /** 取消按钮文字 */
   cancelButtonText: {
     type: String,
-    default: '取消'
+    default: ''
   },
   /** 确认按钮类型 */
   confirmButtonType: {
@@ -107,10 +105,9 @@ export const popconfirmProps = {
     type: Boolean,
     default: false
   },
-  /** “不再提示”的文本 */
   dontAskAgainText: {
     type: String,
-    default: '不再提示'
+    default: ''
   },
   /** 是否反置确认和取消按钮位置 (高级自创功能) */
   swapButtons: {

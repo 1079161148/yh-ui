@@ -585,7 +585,7 @@ const openViewerManual = (m: string) => {
 
 ## 主题变量
 
-`Image` 组件支持通过覆盖以下 CSS 变量来自定义局部样式：
+`Image` 组件支持通过覆盖以下 CSS 变量来自定义局部样式。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -593,7 +593,8 @@ const openViewerManual = (m: string) => {
 | `--yh-image-placeholder-text-color` | 占位区域文字颜色 | `var(--yh-text-color-placeholder)` |
 | `--yh-image-error-bg-color` | 错误区域背景颜色 | `var(--yh-fill-color-extra-light)` |
 | `--yh-image-error-text-color` | 错误区域文字颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-image-viewer-mask-bg-color` | 预览遮罩背景颜色 | `rgba(0, 0, 0, 0.5)` |
+| `--yh-image-border-radius` | 图片圆角 | `var(--yh-radius-md)` |
+| `--yh-image-viewer-mask-bg-color` | 预览遮罩背景颜色 | `var(--yh-mask-color)` |
 | `--yh-image-viewer-btn-bg-color` | 预览控制器按钮背景颜色 | `var(--yh-text-color-regular)` |
-| `--yh-image-viewer-btn-color` | 预览控制器按钮图标颜色 | `#ffffff` |
+| `--yh-image-viewer-btn-color` | 预览控制器按钮图标颜色 | `var(--yh-color-white)` |
 | `--yh-image-viewer-btn-hover-bg-color` | 预览控制器按钮悬停颜色 | `var(--yh-color-primary)` |

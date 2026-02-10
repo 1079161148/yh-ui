@@ -1,9 +1,6 @@
 <script setup lang="ts">
-/**
- * YhPagination - 分页组件
- */
 import { computed, ref, watch } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { paginationProps } from './pagination'
 import type { PaginationEmits, PaginationExpose } from './pagination'
 
@@ -15,6 +12,7 @@ const props = defineProps(paginationProps)
 const emit = defineEmits<PaginationEmits>()
 
 const ns = useNamespace('pagination')
+const { t } = useLocale()
 
 // 计算总页数
 const pageCount = computed(() => {
@@ -133,14 +131,14 @@ defineExpose<PaginationExpose>({
     <template v-for="item in layoutComponents" :key="item">
       <!-- Total -->
       <span v-if="item === 'total'" :class="ns.e('total')">
-        共 {{ total }} 条
+        {{ t('pagination.total', { total }) }}
       </span>
 
       <!-- Sizes -->
       <div v-if="item === 'sizes'" :class="ns.e('sizes')">
         <yh-select :model-value="pageSize" :disabled="disabled" :size="small ? 'small' : 'default'"
           @update:model-value="handleSizeChange">
-          <yh-option v-for="size in pageSizes" :key="size" :label="`${size}条/页`" :value="size" />
+          <yh-option v-for="size in pageSizes" :key="size" :label="`${size}${t('pagination.pageSize')}`" :value="size" />
         </yh-select>
       </div>
 
@@ -197,8 +195,10 @@ defineExpose<PaginationExpose>({
 
       <!-- Jumper -->
       <div v-if="item === 'jumper'" :class="ns.e('jumper')">
-        前往 <yh-input v-model="jumpValue" :size="small ? 'small' : 'default'" :disabled="disabled" @blur="handleJump"
-          @keyup.enter="handleJump" /> 页
+        {{ t('pagination.goto') }}
+        <yh-input v-model="jumpValue" :size="small ? 'small' : 'default'" :disabled="disabled" @blur="handleJump"
+          @keyup.enter="handleJump" />
+        {{ t('pagination.page') }}
       </div>
 
       <!-- Slot -->

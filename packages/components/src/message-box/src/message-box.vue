@@ -4,7 +4,7 @@
  * @description 集成拖拽、亚克力、校验、滚动锁定等市面最全功能
  */
 import { ref, reactive, computed, watch, h, onMounted, onUnmounted, markRaw, nextTick, shallowRef, shallowReactive, type ComponentPublicInstance } from 'vue'
-import { useNamespace, useScrollLock } from '@yh-ui/hooks'
+import { useNamespace, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { YhButton } from '../../button'
 import { YhInput } from '../../input'
 import { YhIcon, IconClose, IconSuccess, IconWarning, IconError, IconInfo } from '../../icon'
@@ -18,6 +18,7 @@ defineOptions({
 })
 
 const ns = useNamespace('message-box')
+const { t } = useLocale()
 
 const DEFAULT_OPTIONS: Partial<MessageBoxOptions> = {
   confirmButtonLoading: false,
@@ -136,7 +137,7 @@ const validate = () => {
   const value = state.inputValue
 
   if (inputPattern && !inputPattern.test(value)) {
-    state.validateError = inputErrorMessage || '格式错误'
+    state.validateError = inputErrorMessage || t('messagebox.error')
     return false
   }
   if (inputValidator) {
@@ -145,7 +146,7 @@ const validate = () => {
       state.validateError = result
       return false
     } else if (result === false) {
-      state.validateError = inputErrorMessage || '校验失败'
+      state.validateError = inputErrorMessage || t('messagebox.error')
       return false
     }
   }
@@ -275,9 +276,9 @@ const getStatusIcon = (type: string) => {
         <div v-if="state.options.glass" :class="ns.e('bg')" />
 
         <div :class="[ns.e('header'), { 'is-draggable': state.options.draggable }]" @mousedown="onMousedown">
-          <div :class="ns.e('title')">{{ state.options.title || '温馨提示' }}</div>
+          <div :class="ns.e('title')">{{ state.options.title || t('messagebox.title') }}</div>
           <button v-if="state.options.showClose !== false" :class="ns.e('close')" @click="handleAction('close')"
-            aria-label="Close">
+            :aria-label="t('messagebox.close')">
             <YhIcon :svg="IconClose.svg" :view-box="IconClose.viewBox" />
           </button>
         </div>
@@ -312,13 +313,13 @@ const getStatusIcon = (type: string) => {
           <YhButton v-if="state.options.showCancelButton !== false" size="small" :round="state.options.roundButton"
             :loading="state.cancelLoading || state.options.cancelButtonLoading"
             :disabled="state.confirmLoading || state.cancelLoading" @click="handleAction('cancel')">
-            {{ state.options.cancelButtonText || '取消' }}
+            {{ state.options.cancelButtonText || t('messagebox.cancel') }}
           </YhButton>
           <YhButton v-if="state.options.showConfirmButton !== false" ref="confirmRef" type="primary" size="small"
             :loading="state.confirmLoading || state.options.confirmButtonLoading"
             :disabled="state.confirmLoading || state.cancelLoading" :round="state.options.roundButton"
             @click="handleAction('confirm')">
-            {{ state.options.confirmButtonText || '确定' }}
+            {{ state.options.confirmButtonText || t('messagebox.confirm') }}
           </YhButton>
         </div>
       </div>

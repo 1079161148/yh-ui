@@ -11,5 +11,5 @@
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
   "exclude": ["**/__tests__", "**/*.test.ts"],
-  "references": [{ "path": "../hooks" }, { "path": "../utils" }]
+  "references": [{ "path": "../locale" }, { "path": "../hooks" }, { "path": "../utils" }]
 }

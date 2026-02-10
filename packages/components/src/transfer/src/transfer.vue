@@ -4,7 +4,7 @@
  * @description 双栏穿梭选择框，严谨类型化，已修复 BEM 类名导致布局坍塌的问题
  */
 import { computed, ref, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import TransferPanel from './transfer-panel.vue'
 import type {
@@ -24,9 +24,7 @@ const props = withDefaults(defineProps<TransferProps>(), {
   modelValue: () => [],
   data: () => [],
   filterable: false,
-  filterPlaceholder: '请输入关键词',
   targetOrder: 'original',
-  titles: () => ['列表 1', '列表 2'],
   buttonTexts: () => [],
   leftDefaultChecked: () => [],
   rightDefaultChecked: () => [],
@@ -36,12 +34,12 @@ const props = withDefaults(defineProps<TransferProps>(), {
   virtual: false,
   itemHeight: 40,
   height: 280,
-  showAllCheckbox: true,
-  emptyText: '暂无数据'
+  showAllCheckbox: true
 })
 
 const emit = defineEmits<TransferEmits>()
 const ns = useNamespace('transfer')
+const { t } = useLocale()
 const { globalSize } = useConfig()
 
 // 面板引用
@@ -79,10 +77,12 @@ const rightData = computed<TransferData[]>(() => {
     .filter((item): item is TransferData => item !== undefined)
 })
 
-const leftTitle = computed(() => props.leftTitle || props.titles[0] || '列表 1')
-const rightTitle = computed(() => props.rightTitle || props.titles[1] || '列表 2')
-const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || '暂无数据')
-const rightEmptyText = computed(() => props.rightEmptyText || props.emptyText || '暂无数据')
+const leftTitle = computed(() => props.leftTitle || props.titles?.[0] || t('transfer.titles.0'))
+const rightTitle = computed(() => props.rightTitle || props.titles?.[1] || t('transfer.titles.1'))
+const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || t('transfer.noData'))
+const rightEmptyText = computed(() => props.rightEmptyText || props.emptyText || t('transfer.noData'))
+
+const filterPlaceholder = computed(() => props.filterPlaceholder || t('transfer.filterPlaceholder'))
 
 const canMoveToRight = computed(() => leftChecked.value.length > 0)
 const canMoveToLeft = computed(() => rightChecked.value.length > 0)

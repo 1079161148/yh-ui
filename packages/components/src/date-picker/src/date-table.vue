@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { generateCalendar } from './panel-utils'
 import type { CalendarCell } from './panel-utils'
-import dayjs from 'dayjs'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 
 const props = defineProps<{
   date: Date
@@ -26,6 +27,7 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('date-picker')
+const { t } = useLocale()
 
 // 获取单元格额外信息
 const getCellExtra = (date: Date) => {
@@ -39,7 +41,15 @@ const rows = computed(() => {
 })
 
 const weekDays = computed(() => {
-  const days = ['日', '一', '二', '三', '四', '五', '六']
+  const days = [
+    t('datepicker.weeks.sun'),
+    t('datepicker.weeks.mon'),
+    t('datepicker.weeks.tue'),
+    t('datepicker.weeks.wed'),
+    t('datepicker.weeks.thu'),
+    t('datepicker.weeks.fri'),
+    t('datepicker.weeks.sat')
+  ]
   const start = props.firstDayOfWeek ? props.firstDayOfWeek % 7 : 0
   const result = []
   for (let i = 0; i < 7; i++) {

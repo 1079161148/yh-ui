@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted, toRef } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import {
   countdownProps,
   countdownEmits,
@@ -21,6 +21,7 @@ defineOptions({
 const props = defineProps(countdownProps)
 const emit = defineEmits(countdownEmits)
 const ns = useNamespace('countdown')
+const { t } = useLocale()
 
 // --- 状态管理 ---
 const status = ref<CountdownStatus>('pending')
@@ -287,19 +288,19 @@ const digits = computed(() => {
   const result: Array<{ key: string; value: string; label?: string }> = []
 
   if (shouldShowDays.value) {
-    result.push({ key: 'days', value: ctx.DD, label: props.labels?.days })
+    result.push({ key: 'days', value: ctx.DD, label: props.labels?.days || t('countdown.days') })
   }
   if (props.showHours) {
-    result.push({ key: 'hours', value: ctx.HH, label: props.labels?.hours })
+    result.push({ key: 'hours', value: ctx.HH, label: props.labels?.hours || t('countdown.hours') })
   }
   if (props.showMinutes) {
-    result.push({ key: 'minutes', value: ctx.mm, label: props.labels?.minutes })
+    result.push({ key: 'minutes', value: ctx.mm, label: props.labels?.minutes || t('countdown.minutes') })
   }
   if (props.showSeconds) {
-    result.push({ key: 'seconds', value: ctx.ss, label: props.labels?.seconds })
+    result.push({ key: 'seconds', value: ctx.ss, label: props.labels?.seconds || t('countdown.seconds') })
   }
   if (props.showMilliseconds) {
-    result.push({ key: 'milliseconds', value: ctx.SSS, label: props.labels?.milliseconds })
+    result.push({ key: 'milliseconds', value: ctx.SSS, label: props.labels?.milliseconds || t('countdown.milliseconds') })
   }
 
   return result

@@ -9,7 +9,7 @@
  * - 无障碍：完整的 ARIA 标签支持
  */
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import TimeSpinner from './time-spinner.vue'
 import type { TimePickerProps, TimePickerEmits, TimePickerExpose, TimeState, TimeValue, TimeRangeValue, DisabledTimeConfig } from './time-picker'
@@ -24,9 +24,9 @@ const props = withDefaults(defineProps<TimePickerProps>(), {
   editable: true,
   clearable: true,
   size: undefined,
-  placeholder: '选择时间',
-  startPlaceholder: '开始时间',
-  endPlaceholder: '结束时间',
+  placeholder: '',
+  startPlaceholder: '',
+  endPlaceholder: '',
   isRange: false,
   format: 'HH:mm:ss',
   use12Hours: false,
@@ -39,9 +39,9 @@ const props = withDefaults(defineProps<TimePickerProps>(), {
   popperOffset: 4,
   rangeSeparator: '-',
   hideOnBlur: true,
-  confirmText: '确定',
-  cancelText: '取消',
-  nowText: '此刻',
+  confirmText: '',
+  cancelText: '',
+  nowText: '',
   showFooter: true,
   showNow: true,
   arrowControl: false,
@@ -51,6 +51,7 @@ const props = withDefaults(defineProps<TimePickerProps>(), {
 
 const emit = defineEmits<TimePickerEmits>()
 const ns = useNamespace('time-picker')
+const { t } = useLocale()
 const inputId = useId()
 
 // 表单集成
@@ -158,10 +159,18 @@ const updateDropdownPosition = () => {
   // 决定下拉框显示在上方还是下方
   const showAbove = spaceBelow < panelHeight && rect.top > spaceBelow
 
+  // 提取主题变量
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+
   dropdownStyle.value = {
     position: 'fixed',
     left: `${rect.left}px`,
     minWidth: `${rect.width}px`,
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
     ...(showAbove
       ? { bottom: `${window.innerHeight - rect.top + props.popperOffset}px` }
       : { top: `${rect.bottom + props.popperOffset}px` }
@@ -471,22 +480,22 @@ defineExpose<TimePickerExpose>({
       <!-- 单选输入框 -->
       <template v-if="!isRange">
         <input ref="inputRef" :id="id || inputId" :class="ns.e('inner')" :value="displayValue"
-          :placeholder="placeholder" :disabled="disabled" :readonly="!editable" :name="name" :tabindex="tabindex"
-          autocomplete="off" role="combobox" :aria-expanded="visible" @focus="handleFocus" @blur="handleBlur"
-          @keydown="handleKeydown" />
+          :placeholder="placeholder || t('timepicker.placeholder')" :disabled="disabled" :readonly="!editable"
+          :name="name" :tabindex="tabindex" autocomplete="off" role="combobox" :aria-expanded="visible"
+          @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
       </template>
 
       <!-- 范围选择输入框 -->
       <template v-else>
         <input ref="startInputRef" :class="ns.e('range-input')" :value="rangeStartDisplayValue"
-          :placeholder="startPlaceholder" :disabled="disabled" :readonly="!editable" :tabindex="tabindex"
-          autocomplete="off" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+          :placeholder="startPlaceholder || t('timepicker.startPlaceholder')" :disabled="disabled" :readonly="!editable"
+          :tabindex="tabindex" autocomplete="off" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
         <span :class="ns.e('range-separator')">
           <slot name="rangeSeparator">{{ rangeSeparator }}</slot>
         </span>
         <input ref="endInputRef" :class="ns.e('range-input')" :value="rangeEndDisplayValue"
-          :placeholder="endPlaceholder" :disabled="disabled" :readonly="!editable" :tabindex="tabindex"
-          autocomplete="off" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+          :placeholder="endPlaceholder || t('timepicker.endPlaceholder')" :disabled="disabled" :readonly="!editable"
+          :tabindex="tabindex" autocomplete="off" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
       </template>
 
       <!-- 后缀图标 -->
@@ -526,7 +535,7 @@ defineExpose<TimePickerExpose>({
           <template v-else>
             <div :class="ns.e('range-panel')">
               <div :class="ns.e('range-panel-item')">
-                <div :class="ns.e('range-panel-title')">{{ startPlaceholder }}</div>
+                <div :class="ns.e('range-panel-title')">{{ startPlaceholder || t('timepicker.startPlaceholder') }}</div>
                 <TimeSpinner v-model="internalStartTimeState" :show-seconds="showSeconds" :arrow-control="arrowControl"
                   :hour-step="hourStep" :minute-step="minuteStep" :second-step="secondStep"
                   :disabled-time="getDisabledStartTime(disabledTime)" :use12-hours="use12Hours" />
@@ -537,7 +546,7 @@ defineExpose<TimePickerExpose>({
                 </svg>
               </div>
               <div :class="ns.e('range-panel-item')">
-                <div :class="ns.e('range-panel-title')">{{ endPlaceholder }}</div>
+                <div :class="ns.e('range-panel-title')">{{ endPlaceholder || t('timepicker.endPlaceholder') }}</div>
                 <TimeSpinner v-model="internalEndTimeState" :show-seconds="showSeconds" :arrow-control="arrowControl"
                   :hour-step="hourStep" :minute-step="minuteStep" :second-step="secondStep"
                   :disabled-time="getDisabledEndTime(disabledTime)" :use12-hours="use12Hours" />
@@ -548,14 +557,14 @@ defineExpose<TimePickerExpose>({
           <!-- 底部操作栏 -->
           <div v-if="showFooter" :class="ns.e('footer')">
             <button v-if="showNow" type="button" :class="ns.e('footer-btn')" @click="handleNow">
-              {{ nowText }}
+              {{ nowText || t('timepicker.now') }}
             </button>
             <div :class="ns.e('footer-actions')">
               <button type="button" :class="[ns.e('footer-btn'), ns.e('footer-btn--cancel')]" @click="handleCancel">
-                {{ cancelText }}
+                {{ cancelText || t('timepicker.cancel') }}
               </button>
               <button type="button" :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]" @click="handleConfirm">
-                {{ confirmText }}
+                {{ confirmText || t('timepicker.confirm') }}
               </button>
             </div>
           </div>

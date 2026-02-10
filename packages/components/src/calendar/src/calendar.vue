@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, toRef } from 'vue'
-import dayjs from 'dayjs'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 import type { Dayjs } from 'dayjs'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import { useNamespace } from '@yh-ui/hooks'
+import * as _isoWeek from 'dayjs/plugin/isoWeek'
+const isoWeek = (_isoWeek as any).default || _isoWeek
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import {
   calendarProps,
   calendarEmits,
@@ -23,6 +25,7 @@ defineOptions({
 const props = defineProps(calendarProps)
 const emit = defineEmits(calendarEmits)
 const ns = useNamespace('calendar')
+const { t, locale } = useLocale()
 
 // --- 状态管理 ---
 const now = dayjs()
@@ -56,11 +59,47 @@ const mergedHolidays = computed<HolidayMap>(() => {
 })
 
 // --- 逻辑计算 ---
-const title = computed(() => displayDate.value.format(props.monthHeaderFormat))
+// 月份 key 用于从语言包获取月份名称
+const monthKeys = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'] as const
+
+const title = computed(() => {
+  // 1. 优先使用 props 传入的格式
+  if (props.monthHeaderFormat) {
+    return displayDate.value.format(props.monthHeaderFormat)
+  }
+  
+  // 2. 其次使用语言包中定义的日历专属格式 (如 'YYYY年MM月')
+  const calendarLocale = (locale.value.yh as any).calendar
+  if (calendarLocale?.monthHeaderFormat) {
+    return displayDate.value.format(calendarLocale.monthHeaderFormat)
+  }
+
+  // 3. 最后回退到默认组合逻辑，确保国际化
+  const dateLocale = (locale.value.yh as any).datepicker
+  const monthName = dateLocale.months[monthKeys[displayDate.value.month()]]
+  const year = displayDate.value.year()
+  
+  // 对于东亚语言（通常 monthBeforeYear 为 false 且有 '年' 定义），移除冗余空格
+  if (!dateLocale.monthBeforeYear && dateLocale.year) {
+    return `${year}${dateLocale.year}${monthName}`
+  }
+  
+  return dateLocale.monthBeforeYear
+    ? `${monthName} ${year}`
+    : `${year} ${dateLocale.year} ${monthName}`
+})
 
 // 星期标题行 (根据 firstDayOfWeek 排序)
 const weekDays = computed(() => {
-  const days = ['日', '一', '二', '三', '四', '五', '六']
+  const days = [
+    t('calendar.weeks.sun'),
+    t('calendar.weeks.mon'),
+    t('calendar.weeks.tue'),
+    t('calendar.weeks.wed'),
+    t('calendar.weeks.thu'),
+    t('calendar.weeks.fri'),
+    t('calendar.weeks.sat')
+  ]
   const start = props.firstDayOfWeek % 7
   return [...days.slice(start), ...days.slice(0, start)]
 })
@@ -358,13 +397,13 @@ defineExpose({
       <div :class="ns.e('controls')">
         <div :class="ns.e('nav-group')">
           <yh-button class="yh-calendar__nav-btn" size="small" @click="moveMonth(-1)">
-            上个月
+            {{ t('calendar.prevMonth') }}
           </yh-button>
           <yh-button class="yh-calendar__nav-btn yh-calendar__nav-btn--today" size="small" @click="goToday">
-            今天
+            {{ t('calendar.today') }}
           </yh-button>
           <yh-button class="yh-calendar__nav-btn" size="small" @click="moveMonth(1)">
-            下个月
+            {{ t('calendar.nextMonth') }}
           </yh-button>
         </div>
       </div>
@@ -376,7 +415,7 @@ defineExpose({
         <thead>
           <tr>
             <th v-if="showWeekNumber" :class="ns.e('week-number-header')">
-              周
+              {{ t('calendar.week') }}
             </th>
             <th v-for="(day, idx) in weekDays" :key="day" :class="[
               ns.e('weekday'),
@@ -418,7 +457,7 @@ defineExpose({
                   ns.e('day-badge'),
                   cell.isHoliday ? ns.em('day-badge', 'holiday') : ns.em('day-badge', 'workday')
                 ]">
-                  {{ cell.isHoliday ? '休' : '班' }}
+                  {{ cell.isHoliday ? t('calendar.holiday') : t('calendar.workday') }}
                 </div>
 
                 <!-- 自定义内容插槽 -->

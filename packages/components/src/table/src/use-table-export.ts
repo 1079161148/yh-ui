@@ -1,10 +1,7 @@
-/**
- * useTableExport - 表格导出组合式函数
- * 支持 CSV / JSON / TXT / XML / HTML / XLSX 等多种格式导出
- */
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
 import * as XLSX from 'xlsx'
+import { useLocale } from '@yh-ui/hooks'
 
 export type ExportType = 'csv' | 'json' | 'txt' | 'xml' | 'html' | 'xlsx'
 
@@ -53,6 +50,7 @@ export interface ExportConfig {
 }
 
 export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Ref<TableColumn[]>) {
+  const { t } = useLocale()
   /**
    * 获取导出用的列配置
    */
@@ -86,6 +84,9 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
     if (config.formatCell) {
       return config.formatCell(raw, col, row)
     }
+    if (typeof raw === 'boolean') {
+      return raw ? t('table.yes') : t('table.no')
+    }
     return raw == null ? '' : String(raw)
   }
 
@@ -117,7 +118,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
 
     if (config.includeHeader !== false) {
       const headerCells: string[] = []
-      if (config.showIndex) headerCells.push(escapeCSV(config.indexTitle || '序号'))
+      if (config.showIndex) headerCells.push(escapeCSV(config.indexTitle || t('table.index')))
       cols.forEach((col) => headerCells.push(escapeCSV(getLabel(col, config))))
       lines.push(headerCells.join(sep))
     }
@@ -147,7 +148,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
 
     const result = rows.map((row, idx) => {
       const obj: Record<string, unknown> = {}
-      if (config.showIndex) obj[config.indexTitle || '序号'] = idx + 1
+      if (config.showIndex) obj[config.indexTitle || t('table.index')] = idx + 1
       cols.forEach((col) => {
         const key = getLabel(col, config)
         obj[key] = config.formatCell
@@ -172,7 +173,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
     if (config.includeHeader !== false) {
       lines.push('  <columns>')
       if (config.showIndex)
-        lines.push(`    <column name="${escapeXML(config.indexTitle || '序号')}" />`)
+        lines.push(`    <column name="${escapeXML(config.indexTitle || t('table.index'))}" />`)
       cols.forEach((col) => {
         lines.push(`    <column name="${escapeXML(getLabel(col, config))}" />`)
       })
@@ -223,7 +224,8 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
 
     if (config.includeHeader !== false) {
       lines.push('<thead><tr>')
-      if (config.showIndex) lines.push(`<th>${escapeHTML(config.indexTitle || '序号')}</th>`)
+      if (config.showIndex)
+        lines.push(`<th>${escapeHTML(config.indexTitle || t('table.index'))}</th>`)
       cols.forEach((col) => lines.push(`<th>${escapeHTML(getLabel(col, config))}</th>`))
       lines.push('</tr></thead>')
     }
@@ -256,7 +258,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
 
     // 构建表头
     const headers: string[] = []
-    if (config.showIndex) headers.push(config.indexTitle || '序号')
+    if (config.showIndex) headers.push(config.indexTitle || t('table.index'))
     cols.forEach((col) => headers.push(getLabel(col, config)))
 
     // 构建数据行

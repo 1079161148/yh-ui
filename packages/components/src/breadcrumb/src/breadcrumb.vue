@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, toRefs, useSlots, computed, h, Fragment } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { breadcrumbProps } from './breadcrumb'
 
 defineOptions({
@@ -9,6 +9,7 @@ defineOptions({
 
 const props = defineProps(breadcrumbProps)
 const ns = useNamespace('breadcrumb')
+const { t } = useLocale()
 const slots = useSlots()
 
 // 向子组件提供配置
@@ -37,7 +38,7 @@ const breadcrumbItems = computed(() => {
   const collapsedCount = items.length - props.maxItems + 1
 
   // 创建一个特殊的 Ellipsis 项
-  const ellipsisItem = h('span', { class: ns.e('ellipsis'), title: 'More' }, '...')
+  const ellipsisItem = h('span', { class: ns.e('ellipsis'), title: t('breadcrumb.more') }, '...')
 
   // 这里简化处理：保留第一个和最后几个
   const result = [first, ellipsisItem, ...items.slice(items.length - (props.maxItems - 1))]
@@ -48,7 +49,7 @@ const breadcrumbItems = computed(() => {
 </script>
 
 <template>
-  <div :class="ns.b()" role="navigation" aria-label="Breadcrumb">
+  <div :class="ns.b()" role="navigation" :aria-label="t('breadcrumb.label')">
     <component :is="item" v-for="(item, index) in breadcrumbItems" :key="index" />
   </div>
 </template>

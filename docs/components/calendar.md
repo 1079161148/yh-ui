@@ -454,7 +454,7 @@ const jsBooking = tsBooking.replace('lang="ts"', '')
 设置 `fullscreen` 使日历占满父容器高度，适合用于日程管理页面。
 
 <DemoBlock title="全屏模式" :ts-code="tsFullscreen" :js-code="jsFullscreen">
-  <div style="height: 600px; border-radius: 16px; overflow: hidden;">
+  <div class="fullscreen-calendar-container">
     <yh-calendar fullscreen show-holiday />
   </div>
 </DemoBlock>
@@ -586,7 +586,7 @@ type HolidayMap = Record<string, {
 
 ## 主题变量
 
-Calendar 组件支持通过覆盖以下 CSS 变量来自定义局部样式：
+Calendar 组件支持通过覆盖以下 CSS 变量来自定义局部样式。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -596,11 +596,12 @@ Calendar 组件支持通过覆盖以下 CSS 变量来自定义局部样式：
 | `--yh-calendar-primary-light` | 范围/悬浮背景色 | `var(--yh-color-primary-light-9)` |
 | `--yh-calendar-primary-dark` | 选中悬浮加深色 | `var(--yh-color-primary-dark-2)` |
 | `--yh-calendar-cell-height` | 单元格高度 | `100px` |
-| `--yh-calendar-cell-radius` | 单元格圆角 | `14px` |
+| `--yh-calendar-cell-radius` | 单元格圆角 | `var(--yh-radius-lg)` |
+| `--yh-calendar-head-height` | 头部高度 | `80px` |
 | `--yh-calendar-title-size` | 顶部标题字号 | `22px` |
-| `--yh-calendar-weekday-color` | 星期表头颜色 | `#64748b` |
-| `--yh-calendar-holiday-color` | 假期标记颜色 | `#ef4444` |
-| `--yh-calendar-week-number-color` | 周数文字颜色 | `#94a3b8` |
+| `--yh-calendar-weekday-color` | 星期表头颜色 | `var(--yh-text-color-secondary)` |
+| `--yh-calendar-holiday-color` | 假期标记颜色 | `var(--yh-color-danger)` |
+| `--yh-calendar-week-number-color` | 周数文字颜色 | `var(--yh-text-color-placeholder)` |
 
 ## 样式兼容性说明
 
@@ -627,6 +628,13 @@ YH-UI 遵循**源码纯净原则**，组件 SCSS 中不包含任何针对特定�
 :::
 
 <style>
+/* 全屏模式容器 */
+.fullscreen-calendar-container {
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden !important;
+}
+
 /* 仅用于文档站预览环境的补丁，不包含在组件库源码中 */
 .vp-doc .yh-calendar__table, 
 .markdown-body .yh-calendar__table {
@@ -647,16 +655,47 @@ YH-UI 遵循**源码纯净原则**，组件 SCSS 中不包含任何针对特定�
   vertical-align: middle !important;
 }
 
+/* 确保所有行和单元格有一致的高度 */
+.vp-doc .yh-calendar__table tbody tr {
+  height: auto !important;
+}
+
+.vp-doc .yh-calendar__table tbody td.yh-calendar__day {
+  height: var(--yh-calendar-cell-height, 100px) !important;
+  min-height: var(--yh-calendar-cell-height, 100px) !important;
+  max-height: var(--yh-calendar-cell-height, 100px) !important;
+}
+
+/* 隐藏非当月日期时保持占位 */
+.vp-doc .yh-calendar__table tbody td.yh-calendar__day.is-hidden {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 非当月日期样式 */
+.vp-doc .yh-calendar__table tbody td.yh-calendar__day.is-other-month {
+  opacity: 0.4 !important;
+}
+
 .vp-doc .yh-calendar__table tr:nth-child(2n) { 
   background-color: transparent !important; 
 }
 
 /* 针对全屏模式在文档环境下的强制布局重写 */
+.vp-doc .yh-calendar.is-fullscreen {
+  overflow: hidden !important;
+}
+
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__body {
+  overflow: hidden !important;
+}
+
 .vp-doc .yh-calendar.is-fullscreen .yh-calendar__table {
   display: flex !important; 
   flex-direction: column !important; 
   height: 100% !important;
   min-height: 0 !important;
+  overflow: hidden !important;
 }
 
 .vp-doc .yh-calendar.is-fullscreen .yh-calendar__table thead { 
@@ -664,6 +703,7 @@ YH-UI 遵循**源码纯净原则**，组件 SCSS 中不包含任何针对特定�
   flex-direction: column !important; 
   width: 100% !important; 
   flex: none !important;
+  overflow: hidden !important;
 }
 
 .vp-doc .yh-calendar.is-fullscreen .yh-calendar__table tbody { 
@@ -672,36 +712,84 @@ YH-UI 遵循**源码纯净原则**，组件 SCSS 中不包含任何针对特定�
   width: 100% !important; 
   flex: 1 !important; 
   min-height: 0 !important;
+  gap: 6px !important;
+  overflow: hidden !important;
 }
 
-.vp-doc .yh-calendar.is-fullscreen .yh-calendar__table tr { 
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__table thead tr { 
   display: flex !important; 
   flex-direction: row !important; 
   width: 100% !important; 
-  flex: 1 !important;
-  height: auto !important; 
+  flex: none !important;
+  height: 48px !important; 
+  min-height: 50px !important;
   align-items: stretch !important;
   gap: 12px !important;
   margin: 0 !important;
 }
 
-.vp-doc .yh-calendar.is-fullscreen .yh-calendar__table td { 
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__table tbody tr { 
+  display: flex !important; 
+  flex-direction: row !important; 
+  width: 100% !important; 
+  flex: 1 !important;
+  height: auto !important; 
+  min-height: 0 !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__weekday {
+  height: 48px !important;
+  min-height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__table thead th {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__table td.yh-calendar__day { 
   display: flex !important; 
   flex: 1 !important; 
   align-items: stretch !important; 
   justify-content: center !important;
-  height: auto !important; 
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
   padding: 0 !important;
   margin: 0 !important;
+  overflow: hidden !important;
 }
 
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__day {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__day-inner,
 .yh-calendar.is-fullscreen .yh-calendar__day-inner {
   flex: 1 !important; 
   height: 100% !important;
   display: flex !important; 
   flex-direction: column !important;
-  justify-content: center !important; /* 全屏下改为居中对齐，更显大气 */
-  padding-top: 0 !important; /* 移除顶部固定间距 */
+  justify-content: center !important;
+  padding: 6px 4px !important;
+  overflow: hidden !important;
+}
+
+.vp-doc .yh-calendar.is-fullscreen .yh-calendar__day-content,
+.yh-calendar.is-fullscreen .yh-calendar__day-content {
+  display: none !important;
 }
 
 /* 强制覆盖全屏下的今日标志位置 */

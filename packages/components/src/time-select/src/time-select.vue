@@ -4,7 +4,7 @@
  * @description 用于选择或输入固定时间点的组件
  */
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type { TimeSelectProps, TimeSelectEmits, TimeSelectExpose, TimeOption } from './time-select'
 import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select'
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<TimeSelectProps>(), {
   editable: true,
   clearable: true,
   size: undefined,
-  placeholder: '请选择时间',
+  placeholder: '',
   effect: 'light',
   start: '09:00',
   end: '18:00',
@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<TimeSelectProps>(), {
 
 const emit = defineEmits<TimeSelectEmits>()
 const ns = useNamespace('time-select')
+const { t } = useLocale()
 const inputId = useId()
 
 // 表单集成
@@ -161,10 +162,18 @@ const updateDropdownPosition = () => {
   // 决定下拉框显示在上方还是下方
   const showAbove = spaceBelow < dropdownHeight && spaceAbove > spaceBelow
 
+  // 提取主题变量
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+
   dropdownStyle.value = {
     position: 'fixed',
     left: `${rect.left}px`,
     width: `${rect.width}px`,
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
     ...(showAbove
       ? { bottom: `${window.innerHeight - rect.top + 4}px` }
       : { top: `${rect.bottom + 4}px` }
@@ -395,9 +404,10 @@ defineExpose<TimeSelectExpose>({
 
       <!-- 输入框 -->
       <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="editable && visible ? query : ''"
-        :placeholder="hasValue ? '' : placeholder" :disabled="disabled" :readonly="!editable" :name="name"
-        autocomplete="off" role="combobox" :aria-expanded="visible" :aria-controls="`${inputId}-listbox`"
-        @input="handleInput" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+        :placeholder="hasValue ? '' : (placeholder || t('timeselect.placeholder'))" :disabled="disabled"
+        :readonly="!editable" :name="name" autocomplete="off" role="combobox" :aria-expanded="visible"
+        :aria-controls="`${inputId}-listbox`" @input="handleInput" @focus="handleFocus" @blur="handleBlur"
+        @keydown="handleKeydown" />
 
       <!-- 显示值 -->
       <span v-if="hasValue && !(editable && visible && query)" :class="ns.e('display-value')">
@@ -433,7 +443,7 @@ defineExpose<TimeSelectExpose>({
           <!-- 无数据 -->
           <div v-if="filteredOptions.length === 0" :class="ns.e('empty')">
             <slot name="empty">
-              暂无可选时间
+              {{ t('select.noData') }}
             </slot>
           </div>
 

@@ -35,6 +35,7 @@
     "@yh-ui/hooks": "workspace:*",
     "@yh-ui/theme": "workspace:*",
     "@yh-ui/utils": "workspace:*",
+    "@yh-ui/locale": "workspace:*",
     "dayjs": "^1.11.19",
     "viewerjs": "^1.11.7"
   },

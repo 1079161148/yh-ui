@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: center;
   position: relative;
-  color: var(--yh-color-text-primary, #1d1d1f);
+  color: var(--yh-text-color-primary);
 
   @include when(disabled) {
     cursor: not-allowed;
@@ -18,16 +18,16 @@
     gap: 6px;
     cursor: pointer;
     outline: none;
-    color: var(--yh-color-primary, #409eff);
-    font-size: 14px;
+    color: var(--yh-color-primary);
+    font-size: var(--yh-font-size-base);
 
     &:hover {
-      color: var(--yh-color-primary-light-3, #79bbff);
+      color: var(--yh-color-primary-light-3);
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 2px var(--yh-color-primary-light-5, rgba(64, 158, 255, 0.2));
-      border-radius: 4px;
+      box-shadow: 0 0 0 2px var(--yh-color-primary-light-5);
+      border-radius: var(--yh-radius-sm);
     }
   }
 
@@ -43,7 +43,7 @@
 
     // 确保图标颜色正确 - 需要覆盖 .yh-icon 的 color: inherit
     &.yh-icon {
-      color: var(--yh-color-primary, #409eff);
+      color: var(--yh-color-primary);
     }
   }
 
@@ -51,7 +51,7 @@
   @include e(trigger) {
     &:hover {
       .yh-dropdown__icon.yh-icon {
-        color: var(--yh-color-primary-light-3, #79bbff);
+        color: var(--yh-color-primary-light-3);
       }
     }
   }
@@ -76,7 +76,7 @@
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     // 分割线：使用左边框模拟
-    border-left: 1px solid var(--yh-color-primary-light-5, #a0cfff) !important;
+    border-left: 1px solid var(--yh-color-primary-light-5) !important;
 
     // 当按钮是 primary 类型时，分割线颜色更深
     &.yh-button--primary:not(.is-plain) {
@@ -85,7 +85,7 @@
 
     // 当按钮是 plain 类型时，分割线使用主色
     &.is-plain {
-      border-left-color: var(--yh-color-primary-light-5, #a0cfff) !important;
+      border-left-color: var(--yh-color-primary-light-5) !important;
     }
   }
 
@@ -99,20 +99,13 @@
   }
 
   @include e(popper) {
-    background: var(--yh-bg-color, #ffffff);
-    border-radius: 12px;
-    box-shadow:
-      0 12px 32px -4px rgba(0, 0, 0, 0.12),
-      0 4px 12px rgba(0, 0, 0, 0.04);
+    background: var(--yh-bg-color-overlay);
+    border-radius: var(--yh-radius-lg);
+    box-shadow: var(--yh-shadow-lg);
     padding: 6px 0;
     min-width: 120px;
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-
-    // 毛玻璃效果
-    @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-      background: rgba(255, 255, 255, 0.85);
-    }
   }
 
   @include e(menu) {
@@ -133,10 +126,10 @@
     gap: 8px;
     padding: 10px 16px;
     margin: 2px 6px;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: var(--yh-radius-md);
+    font-size: var(--yh-font-size-base);
     line-height: 1.4;
-    color: var(--yh-color-text-primary, #1d1d1f);
+    color: var(--yh-text-color-primary);
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
@@ -147,41 +140,41 @@
     }
 
     &:hover {
-      background: var(--yh-color-primary-light-9, #ecf5ff);
-      color: var(--yh-color-primary, #409eff);
+      background: var(--yh-color-primary-light-9);
+      color: var(--yh-color-primary);
     }
 
     &:active {
-      background: var(--yh-color-primary-light-8, #d9ecff);
+      background: var(--yh-color-primary-light-8);
     }
 
     @include when(disabled) {
       cursor: not-allowed;
-      color: var(--yh-color-text-placeholder, #c0c4cc);
+      color: var(--yh-text-color-placeholder);
 
       &:hover {
         background: transparent;
-        color: var(--yh-color-text-placeholder, #c0c4cc);
+        color: var(--yh-text-color-placeholder);
       }
     }
 
     // 危险项样式
     @include when(danger) {
-      color: var(--yh-color-danger, #f56c6c);
+      color: var(--yh-color-danger);
 
       &:hover {
-        background: var(--yh-color-danger-light-9, #fef0f0);
-        color: var(--yh-color-danger, #f56c6c);
+        background: var(--yh-color-danger-light-9);
+        color: var(--yh-color-danger);
       }
 
       &:active {
-        background: var(--yh-color-danger-light-8, #fde2e2);
+        background: var(--yh-color-danger-light-8);
       }
     }
 
     // 选中项样式
     @include when(checked) {
-      color: var(--yh-color-primary, #409eff);
+      color: var(--yh-color-primary);
       font-weight: 500;
     }
   }
@@ -205,14 +198,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--yh-color-primary, #409eff);
+    color: var(--yh-color-primary);
     margin-right: 4px;
   }
 
   @include e(divider) {
     height: 1px;
     margin: 6px 12px;
-    background: var(--yh-border-color-light, #e4e7ed);
+    background: var(--yh-border-color-light);
   }
 
   // 加载状态
@@ -222,12 +215,12 @@
     justify-content: center;
     gap: 8px;
     padding: 24px 16px;
-    color: var(--yh-color-text-secondary, #909399);
-    font-size: 14px;
+    color: var(--yh-text-color-secondary);
+    font-size: var(--yh-font-size-base);
 
     .yh-icon {
       font-size: 16px;
-      color: var(--yh-color-primary, #409eff);
+      color: var(--yh-color-primary);
     }
   }
 
@@ -237,8 +230,8 @@
     align-items: center;
     justify-content: center;
     padding: 24px 16px;
-    color: var(--yh-color-text-placeholder, #c0c4cc);
-    font-size: 14px;
+    color: var(--yh-text-color-placeholder);
+    font-size: var(--yh-font-size-base);
   }
 }
 
@@ -247,29 +240,27 @@
 html.dark,
 body.dark {
   .yh-dropdown {
-    color: var(--yh-color-text-primary, #e5eaf3);
+    color: var(--yh-text-color-primary);
 
-    @include e(popper) {
-      background: rgba(30, 30, 30, 0.9);
-      box-shadow:
-        0 12px 32px -4px rgba(0, 0, 0, 0.4),
-        0 4px 12px rgba(0, 0, 0, 0.2);
+    .yh-dropdown__popper {
+      background: var(--yh-bg-color-overlay);
+      box-shadow: var(--yh-shadow-xl);
     }
 
-    @include e(item) {
-      color: var(--yh-color-text-primary, #e5eaf3);
+    .yh-dropdown__item {
+      color: var(--yh-text-color-primary);
 
       &:hover {
-        background: rgba(64, 158, 255, 0.15);
+        background: var(--yh-color-primary-light-9);
       }
 
       &:active {
-        background: rgba(64, 158, 255, 0.2);
+        background: var(--yh-color-primary-light-8);
       }
     }
 
-    @include e(divider) {
-      background: var(--yh-border-color-dark, #4c4d4f);
+    .yh-dropdown__divider {
+      background: var(--yh-border-color);
     }
   }
 }

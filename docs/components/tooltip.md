@@ -508,10 +508,20 @@ YH-UI 完美兼容 Nuxt 3。你可以直接在组件中使用，无需手动导�
 
 ### 主题变量 (CSS Variables)
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
+| `--yh-tooltip-bg` | Tooltip 背景色 (浅色模式) | `var(--yh-bg-color-overlay)` |
+| `--yh-tooltip-border` | Tooltip 边框色 | `var(--yh-border-color-light)` |
+| `--yh-tooltip-text` | Tooltip 文字颜色 | `var(--yh-text-color-primary)` |
 | `--yh-z-index-tooltip` | Tooltip 层级 | `2004` |
-| `--yh-font-size-sm` | 文字大小 | `13px` |
-| `--yh-radius-md` | 圆角 | `8px` |
-| `--yh-duration-slow` |动画持续时间 | `0.25s` |
-| `--yh-shadow-xl` | 阴影效果 | (YH-UI 预设阴影) |
+| `--yh-font-size-sm` | 文字大小 | `var(--yh-font-size-sm)` |
+| `--yh-radius-md` | 圆角 | `var(--yh-radius-md)` |
+| `--yh-shadow-lg` | 阴影效果 | (YH-UI 预设阴影) |
+
+::: tip 暗黑模式
+当 `html.dark` 或使用 `effect="dark"` 时，Tooltip 会自动切换为深色主题变量：
+- `--yh-tooltip-bg`: `var(--yh-bg-color-overlay-dark)`
+- `--yh-tooltip-text`: `var(--yh-text-color-primary-dark)`
+:::

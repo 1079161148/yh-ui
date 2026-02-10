@@ -17,6 +17,7 @@ import {
   type Ref
 } from 'vue'
 import { useNamespace } from '../../hooks/use-config'
+import { useLocale } from '@yh-ui/hooks'
 import {
   tableProps,
   tableEmits,
@@ -58,6 +59,7 @@ const props = defineProps(tableProps)
 const emit = defineEmits(tableEmits)
 const slots = useSlots()
 const ns = useNamespace('table')
+const { t } = useLocale()
 
 // ==================== Refs ====================
 const tableRef = ref<HTMLDivElement | null>(null)
@@ -757,7 +759,7 @@ const getCellContent = (row: Record<string, unknown>, column: TableColumn, rowIn
 
   // 兜底布尔值处理
   if (typeof cellValue === 'boolean') {
-    return cellValue ? '是' : '否'
+    return cellValue ? t('table.yes') : t('table.no')
   }
 
   return cellValue !== undefined && cellValue !== null ? String(cellValue) : ''
@@ -1070,7 +1072,7 @@ watch(selectedRowKeys, () => {
                   :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
                   :style="{ width: formatSize(indexConfig?.width || 50), ...getSpecialFixedStyle('index') }">
                   <div :class="ns.e('index-cell')">
-                    {{ indexConfig?.label || '#' }}
+                    {{ indexConfig?.label || t('table.index') }}
                   </div>
                 </th>
 
@@ -1150,7 +1152,7 @@ watch(selectedRowKeys, () => {
               <th v-if="showIndex" :class="[ns.e('header-cell'), isAnyColumnFixedLeft ? 'is-fixed-left' : '']"
                 :style="{ width: formatSize(indexConfig?.width || 50), ...getSpecialFixedStyle('index') }">
                 <div :class="ns.e('index-cell')">
-                  {{ indexConfig?.label || '#' }}
+                  {{ indexConfig?.label || t('table.index') }}
                 </div>
               </th>
 
@@ -1224,10 +1226,10 @@ watch(selectedRowKeys, () => {
               </template>
               <template v-else>
                 <div v-if="emptyConfig?.image" :class="ns.e('empty-image')">
-                  <img :src="emptyConfig.image" alt="empty" />
+                  <img :src="emptyConfig.image" :alt="t('yh.common.noData')" />
                 </div>
                 <div :class="ns.e('empty-text')">
-                  {{ emptyConfig?.description || emptyText }}
+                  {{ emptyConfig?.description || emptyText || t('table.emptyText') }}
                 </div>
               </template>
             </div>
@@ -1375,7 +1377,7 @@ watch(selectedRowKeys, () => {
                       {{ summaryValues.length > 0 ? summaryValues[columnIndex] : (columnIndex === 0 ?
                         (summaryConfig.text
                           ||
-                          '合计') : '') }}
+                          t('table.sumText')) : '') }}
                     </slot>
                   </div>
                 </td>
@@ -1398,7 +1400,7 @@ watch(selectedRowKeys, () => {
               {{ loading.text }}
             </span>
             <span v-else-if="typeof loading === 'boolean'" :class="ns.e('loading-text')">
-              加载中...
+              {{ t('table.loading') }}
             </span>
           </div>
         </slot>

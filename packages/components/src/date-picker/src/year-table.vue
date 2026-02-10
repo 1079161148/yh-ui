@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
-import dayjs from 'dayjs'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 
 const props = defineProps<{
   date: Date

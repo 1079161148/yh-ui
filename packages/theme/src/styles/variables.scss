@@ -1,9 +1,21 @@
 /**
  * YH-UI CSS Variables
- * 全局 CSS 变量定义
+ * 全局 CSS 变量定义 - 业内最佳主题系统
  */
 
 :root {
+  /* ==================== 密度/紧凑度系统 ==================== */
+  --yh-density-factor: 1;
+  --yh-component-size-default: 32px;
+  --yh-component-size-small: 24px;
+  --yh-component-size-large: 40px;
+  --yh-padding-default: 12px 16px;
+  --yh-padding-small: 8px 12px;
+  --yh-padding-large: 16px 20px;
+  --yh-spacing-unit: 8px;
+  /* ==================== 基础颜色 ==================== */
+  --yh-color-white: #ffffff;
+  --yh-color-black: #000000;
   /* ==================== 颜色系统 ==================== */
 
   /* 主色 */
@@ -302,6 +314,44 @@
   --yh-border-width: 1px;
   --yh-border-style: solid;
   --yh-border: var(--yh-border-width) var(--yh-border-style) var(--yh-border-color);
+
+  /* ==================== 断点系统 ==================== */
+  --yh-breakpoint-xs: 0;
+  --yh-breakpoint-sm: 576px;
+  --yh-breakpoint-md: 768px;
+  --yh-breakpoint-lg: 992px;
+  --yh-breakpoint-xl: 1200px;
+  --yh-breakpoint-xxl: 1400px;
+
+  /* ==================== 字体系统扩展 ==================== */
+  --yh-font-family-monospace:
+    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --yh-font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+
+  /* ==================== 无障碍/聚焦系统 ==================== */
+  --yh-focus-ring-color: var(--yh-color-primary);
+  --yh-focus-ring-width: 2px;
+  --yh-focus-ring-offset: 2px;
+  --yh-focus-ring-opacity: 0.2;
+  --yh-focus-ring:
+    0 0 0 var(--yh-focus-ring-offset) var(--yh-bg-color),
+    0 0 0 calc(var(--yh-focus-ring-offset) + var(--yh-focus-ring-width)) var(--yh-focus-ring-color);
+
+  /* 高对比度模式支持 */
+  --yh-high-contrast-outline: 2px solid transparent;
+  --yh-high-contrast-outline-offset: 2px;
+
+  /* ==================== 滚动条样式 ==================== */
+  --yh-scrollbar-width: 6px;
+  --yh-scrollbar-thumb-color: var(--yh-text-color-disabled);
+  --yh-scrollbar-thumb-hover-color: var(--yh-text-color-secondary);
+  --yh-scrollbar-track-color: transparent;
+  --yh-scrollbar-thumb-radius: 3px;
+
+  /* ==================== 遮罩层 ==================== */
+  --yh-mask-color: rgba(0, 0, 0, 0.5);
+  --yh-mask-color-light: rgba(0, 0, 0, 0.3);
+  --yh-mask-color-extra-light: rgba(0, 0, 0, 0.1);
 }
 
 /* ==================== 暗黑模式 ==================== */
@@ -397,4 +447,66 @@ html.dark {
   --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
   --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3);
   --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.3);
+
+  /* 遮罩层暗黑模式 */
+  --yh-mask-color: rgba(0, 0, 0, 0.7);
+  --yh-mask-color-light: rgba(0, 0, 0, 0.5);
+  --yh-mask-color-extra-light: rgba(0, 0, 0, 0.3);
+
+  /* 滚动条暗黑模式 */
+  --yh-scrollbar-thumb-color: var(--yh-fill-color-darker);
+  --yh-scrollbar-thumb-hover-color: var(--yh-text-color-placeholder);
+}
+
+/* ==================== 减少动画偏好支持 ==================== */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  html.dark {
+    --yh-duration-fast: 0ms;
+    --yh-duration-base: 0ms;
+    --yh-duration-slow: 0ms;
+    --yh-transition-base: none;
+    --yh-transition-fast: none;
+    --yh-transition-slow: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==================== 高对比度模式支持 ==================== */
+@media (prefers-contrast: high) {
+  :root {
+    --yh-border-color: #000000;
+    --yh-border-color-light: #333333;
+    --yh-text-color-primary: #000000;
+    --yh-text-color-regular: #1a1a1a;
+    --yh-focus-ring-width: 3px;
+    --yh-focus-ring-color: #000000;
+  }
+
+  html.dark {
+    --yh-border-color: #ffffff;
+    --yh-border-color-light: #cccccc;
+    --yh-text-color-primary: #ffffff;
+    --yh-text-color-regular: #e5e5e5;
+    --yh-focus-ring-color: #ffffff;
+  }
+}
+
+/* ==================== 强制颜色模式支持 (Windows 高对比度) ==================== */
+@media (forced-colors: active) {
+  :root {
+    --yh-color-primary: LinkText;
+    --yh-border-color: ButtonBorder;
+    --yh-bg-color: Canvas;
+    --yh-text-color-primary: CanvasText;
+    --yh-focus-ring-color: Highlight;
+  }
 }

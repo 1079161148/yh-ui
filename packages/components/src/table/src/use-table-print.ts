@@ -1,9 +1,6 @@
-/**
- * useTablePrint - 表格打印组合式函数
- * 支持自定义标题、页眉页脚、选择列、多页切割等
- */
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
+import { useLocale } from '@yh-ui/hooks'
 
 export interface PrintConfig {
   /** 打印标题 */
@@ -50,17 +47,13 @@ export interface PrintConfig {
   autoPrint?: boolean
 }
 
-export function useTablePrint(
-  data: Ref<Record<string, unknown>[]>,
-  columns: Ref<TableColumn[]>
-) {
+export function useTablePrint(data: Ref<Record<string, unknown>[]>, columns: Ref<TableColumn[]>) {
+  const { t } = useLocale()
   /**
    * 获取打印用的列
    */
   function getPrintColumns(config: PrintConfig = {}): TableColumn[] {
-    let cols = columns.value.filter(
-      (col) => col.visible !== false && col.prop
-    )
+    let cols = columns.value.filter((col) => col.visible !== false && col.prop)
 
     if (config.columns?.length) {
       cols = cols.filter((c) => config.columns!.includes(c.prop!))
@@ -80,7 +73,11 @@ export function useTablePrint(
     return col.label || col.prop || ''
   }
 
-  function getCellValue(row: Record<string, unknown>, col: TableColumn, config: PrintConfig): string {
+  function getCellValue(
+    row: Record<string, unknown>,
+    col: TableColumn,
+    config: PrintConfig
+  ): string {
     const raw = col.prop ? row[col.prop] : ''
     if (config.formatCell) {
       return config.formatCell(raw, col, row)
@@ -135,7 +132,7 @@ export function useTablePrint(
   function buildTableHead(cols: TableColumn[], config: PrintConfig): string {
     let html = '<thead><tr>'
     if (config.showIndex) {
-      html += `<th style="width:50px;text-align:center">${escapeHTML(config.indexTitle || '序号')}</th>`
+      html += `<th style="width:50px;text-align:center">${escapeHTML(config.indexTitle || t('table.index'))}</th>`
     }
     cols.forEach((col) => {
       const align = col.headerAlign || col.align || 'left'
@@ -175,10 +172,10 @@ export function useTablePrint(
   function buildInfoFooter(config: PrintConfig, totalRows: number): string {
     const parts: string[] = []
     if (config.showTime !== false) {
-      parts.push('打印时间：' + new Date().toLocaleString())
+      parts.push(t('table.printTime') + new Date().toLocaleString())
     }
     if (config.showCount !== false) {
-      parts.push('共 ' + totalRows + ' 条数据')
+      parts.push(t('table.total', { total: totalRows }))
     }
     if (parts.length === 0) return ''
     return '<div class="print-footer">' + parts.join('&nbsp;&nbsp;') + '</div>'
@@ -218,7 +215,7 @@ export function useTablePrint(
         body += '</table>'
 
         if (config.showPageNumber) {
-          body += `<div class="page-number">第 ${p + 1} 页 / 共 ${totalPages} 页</div>`
+          body += `<div class="page-number">${t('table.page', { page: p + 1, total: totalPages })}</div>`
         }
 
         if (config.footerHtml) body += `<div class="print-footer">${config.footerHtml}</div>`
@@ -242,8 +239,8 @@ export function useTablePrint(
 
     // 操作按钮
     body += '<div class="no-print">'
-    body += '<button class="btn-print" onclick="window.print()">打 印</button>'
-    body += '<button class="btn-cancel" onclick="window.close()">取 消</button>'
+    body += `<button class="btn-print" onclick="window.print()">${t('table.print')}</button>`
+    body += `<button class="btn-cancel" onclick="window.close()">${t('table.cancel')}</button>`
     body += '</div>'
 
     // 打开新窗口
@@ -256,7 +253,7 @@ export function useTablePrint(
     // 使用字符串拼接避免 SFC 解析问题
     const html = [
       '<!DOCTYPE html><html><head><meta charset="UTF-8">',
-      '<title>' + escapeHTML(title || '打印预览') + '</title>',
+      '<title>' + escapeHTML(title || t('table.preview')) + '</title>',
       '<' + 'style>' + styles + '</' + 'style>',
       '</head><body>',
       body,
@@ -320,8 +317,8 @@ export function useTablePrint(
     })
 
     body += '<div class="no-print">'
-    body += '<button class="btn-print" onclick="window.print()">打 印</button>'
-    body += '<button class="btn-cancel" onclick="window.close()">取 消</button>'
+    body += `<button class="btn-print" onclick="window.print()">${t('table.print')}</button>`
+    body += `<button class="btn-cancel" onclick="window.close()">${t('table.cancel')}</button>`
     body += '</div>'
 
     const printWin = window.open('', '_blank')
@@ -329,7 +326,7 @@ export function useTablePrint(
 
     const html = [
       '<!DOCTYPE html><html><head><meta charset="UTF-8">',
-      '<title>' + escapeHTML(globalConfig.title || '打印预览') + '</title>',
+      '<title>' + escapeHTML(globalConfig.title || t('table.preview')) + '</title>',
       '<' + 'style>' + styles + '</' + 'style>',
       '</head><body>',
       body,
@@ -360,13 +357,13 @@ export function useTablePrint(
 
     const html = [
       '<!DOCTYPE html><html><head><meta charset="UTF-8">',
-      '<title>' + escapeHTML(config.title || '打印预览') + '</title>',
+      '<title>' + escapeHTML(config.title || t('table.preview')) + '</title>',
       '<' + 'style>' + styles + '</' + 'style>',
       '</head><body>',
       templateHtml,
       '<div class="no-print">',
-      '<button class="btn-print" onclick="window.print()">打 印</button>',
-      '<button class="btn-cancel" onclick="window.close()">取 消</button>',
+      `<button class="btn-print" onclick="window.print()">${t('table.print')}</button>`,
+      `<button class="btn-cancel" onclick="window.close()">${t('table.cancel')}</button>`,
       '</div>',
       '</' + 'body></html>'
     ].join('')
@@ -387,4 +384,3 @@ export function useTablePrint(
     getPrintColumns
   }
 }
-

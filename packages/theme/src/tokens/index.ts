@@ -198,6 +198,47 @@ export const zIndexTokens = {
   loading: '2005'
 } as const
 
+// 断点令牌
+export const breakpointTokens = {
+  xs: '0',
+  sm: '576px',
+  md: '768px',
+  lg: '992px',
+  xl: '1200px',
+  xxl: '1400px'
+} as const
+
+// 字体族令牌
+export const fontFamilyTokens = {
+  base: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif",
+  monospace: "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+  serif: "Georgia, Cambria, 'Times New Roman', Times, serif"
+} as const
+
+// 无障碍/聚焦令牌
+export const accessibilityTokens = {
+  focusRingColor: '#409eff',
+  focusRingWidth: '2px',
+  focusRingOffset: '2px',
+  focusRingOpacity: '0.2'
+} as const
+
+// 遮罩令牌
+export const maskTokens = {
+  DEFAULT: 'rgba(0, 0, 0, 0.5)',
+  light: 'rgba(0, 0, 0, 0.3)',
+  extraLight: 'rgba(0, 0, 0, 0.1)'
+} as const
+
+// 滚动条令牌
+export const scrollbarTokens = {
+  width: '6px',
+  thumbColor: '#c0c4cc',
+  thumbHoverColor: '#909399',
+  trackColor: 'transparent',
+  thumbRadius: '3px'
+} as const
+
 // 组件尺寸令牌
 export const componentSizeTokens = {
   large: {
@@ -229,11 +270,38 @@ export const designTokens = {
   fontSize: fontSizeTokens,
   lineHeight: lineHeightTokens,
   fontWeight: fontWeightTokens,
+  fontFamily: fontFamilyTokens,
   shadow: shadowTokens,
   duration: durationTokens,
   timing: timingTokens,
   zIndex: zIndexTokens,
-  componentSize: componentSizeTokens
+  componentSize: componentSizeTokens,
+  breakpoints: breakpointTokens,
+  accessibility: accessibilityTokens,
+  mask: maskTokens,
+  scrollbar: scrollbarTokens
 } as const
 
 export type DesignTokens = typeof designTokens
+
+// 导出单独的令牌类型
+export type ColorTokens = typeof colorTokens
+export type TextColorTokens = typeof textColorTokens
+export type BorderColorTokens = typeof borderColorTokens
+export type FillColorTokens = typeof fillColorTokens
+export type BgColorTokens = typeof bgColorTokens
+export type SpacingTokens = typeof spacingTokens
+export type RadiusTokens = typeof radiusTokens
+export type FontSizeTokens = typeof fontSizeTokens
+export type LineHeightTokens = typeof lineHeightTokens
+export type FontWeightTokens = typeof fontWeightTokens
+export type FontFamilyTokens = typeof fontFamilyTokens
+export type ShadowTokens = typeof shadowTokens
+export type DurationTokens = typeof durationTokens
+export type TimingTokens = typeof timingTokens
+export type ZIndexTokens = typeof zIndexTokens
+export type ComponentSizeTokens = typeof componentSizeTokens
+export type BreakpointTokens = typeof breakpointTokens
+export type AccessibilityTokens = typeof accessibilityTokens
+export type MaskTokens = typeof maskTokens
+export type ScrollbarTokens = typeof scrollbarTokens

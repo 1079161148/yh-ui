@@ -5,6 +5,7 @@
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
 import * as XLSX from 'xlsx'
+import { useLocale } from '@yh-ui/hooks'
 
 export type ImportType = 'csv' | 'json' | 'txt' | 'xml' | 'html' | 'xlsx'
 export type ImportMode = 'covering' | 'insertTop' | 'insertBottom'
@@ -42,6 +43,7 @@ export interface ImportConfig {
 }
 
 export function useTableImport(data: Ref<Record<string, unknown>[]>, columns: Ref<TableColumn[]>) {
+  const { t } = useLocale()
   /**
    * 根据列配置构建 label→prop 映射
    */
@@ -387,7 +389,7 @@ export function useTableImport(data: Ref<Record<string, unknown>[]>, columns: Re
         config.afterImport?.(rows, mode)
         resolve(rows)
       }
-      reader.onerror = () => reject(new Error('文件读取失败'))
+      reader.onerror = () => reject(new Error(t('yh.upload.error')))
 
       // 根据类型选择读取方式
       if (type === 'xlsx') {

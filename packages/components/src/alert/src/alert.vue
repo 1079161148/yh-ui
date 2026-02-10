@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { ref, computed, onMounted, onBeforeUnmount, useSlots } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { alertProps, alertEmits } from './alert'
 
 defineOptions({
@@ -11,6 +11,8 @@ const props = defineProps(alertProps)
 const emit = defineEmits(alertEmits)
 
 const ns = useNamespace('alert')
+const { t } = useLocale()
+const slots = useSlots()
 const visible = ref(true)
 const progress = ref(100)
 const startTime = ref(0)
@@ -25,7 +27,7 @@ const alertClass = computed(() => [
   ns.is('center', props.center),
   ns.is('scrollable', props.scrollable),
   ns.is('pause-on-hover', props.pauseOnHover),
-  ns.is('with-description', !!props.description || !!useSlots().default)
+  ns.is('with-description', !!props.description || !!slots.default)
 ])
 
 // 动态样式映射
@@ -83,10 +85,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   clearAutoClose()
 })
-
-import { useSlots } from 'vue'
-const slots = useSlots()
-
 </script>
 
 <template>
@@ -134,7 +132,7 @@ const slots = useSlots()
       </div>
 
       <!-- 关闭按钮 -->
-      <div v-if="closable" :class="ns.e('close')" @click="handleClose">
+      <div v-if="closable" :class="ns.e('close')" :aria-label="t('dialog.close')" @click="handleClose">
         <slot name="close">
           <span v-if="closeText">{{ closeText }}</span>
           <component :is="closeIcon" v-else-if="closeIcon" style="width: 16px; height: 16px" />

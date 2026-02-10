@@ -4,7 +4,7 @@
  * @description 应用于页面局部或容器的加载反馈
  */
 import { ref, watch, computed, useSlots, useId } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { spinProps } from './spin'
 
 defineOptions({
@@ -14,6 +14,7 @@ defineOptions({
 
 const props = defineProps(spinProps)
 const ns = useNamespace('spin')
+const { t } = useLocale()
 const gradientId = useId()
 
 const emit = defineEmits(['show', 'hide'])
@@ -182,7 +183,7 @@ defineExpose({
           </svg>
 
           <div v-if="tip || $slots.tip" :class="ns.e('tip')">
-            <slot name="tip">{{ tip }}</slot>
+            <slot name="tip">{{ tip || t('spin.text') }}</slot>
           </div>
         </div>
       </div>
@@ -226,7 +227,7 @@ defineExpose({
 
         <div v-if="tip || $slots.default || $slots.tip" :class="ns.e('tip')">
           <slot name="tip">
-            <slot>{{ tip }}</slot>
+            <slot>{{ tip || t('spin.text') }}</slot>
           </slot>
         </div>
       </div>

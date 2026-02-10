@@ -4,6 +4,7 @@
  */
 
 import type { App, Plugin } from 'vue'
+import type { Language } from '@yh-ui/locale'
 
 // 导出所有组件
 export * from '@yh-ui/components'
@@ -14,12 +15,11 @@ export * from '@yh-ui/hooks'
 // 导出所有工具函数
 export * from '@yh-ui/utils'
 
-// 解决命名冲突
-export type { Language } from '@yh-ui/components'
-export type { ComponentSize } from '@yh-ui/components'
-
 // 导出设计令牌
 export * from '@yh-ui/theme'
+
+// 导出国际化
+export * from '@yh-ui/locale'
 
 // 导入组件安装器
 import components from '@yh-ui/components'
@@ -40,6 +40,10 @@ export interface YhUIOptions {
    * 命名空间
    */
   namespace?: string
+  /**
+   * 国际化配置
+   */
+  locale?: Language
 }
 
 /**
@@ -52,6 +56,7 @@ export const createYhUI = (options: YhUIOptions = {}): Plugin => {
       app.use(components)
 
       // 注入全局配置
+      // 注意：这里可以根据需要注入到不同的 Key，或者统一使用 ConfigProvider 的注入逻辑
       app.provide('yh-ui-options', options)
     }
   }

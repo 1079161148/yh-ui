@@ -5,7 +5,7 @@
 import { computed, inject } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { TREE_INJECTION_KEY } from './tree'
-import type { TreeNode, TreeNodeData } from './tree'
+import type { TreeNode, TreeNodeData, TreeNodeSlotData } from './tree'
 import { YhIcon } from '../../icon'
 import { YhCheckbox } from '../../checkbox'
 
@@ -93,17 +93,11 @@ const handleCheckChange = (checked: boolean | string | number) => {
   tree.handleNodeCheck(props.node, Boolean(checked))
 }
 
-// 插槽数据
-interface SlotData {
-  node: TreeNode
-  data: TreeNodeData
-}
-
 defineSlots<{
-  default?: (props: SlotData) => any
-  icon?: (props: SlotData) => any
-  prefix?: (props: SlotData) => any
-  suffix?: (props: SlotData) => any
+  default?: (props: TreeNodeSlotData) => any
+  icon?: (props: TreeNodeSlotData) => any
+  prefix?: (props: TreeNodeSlotData) => any
+  suffix?: (props: TreeNodeSlotData) => any
 }>()
 </script>
 

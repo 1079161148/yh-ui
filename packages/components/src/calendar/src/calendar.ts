@@ -90,10 +90,10 @@ export const calendarProps = {
     type: Boolean,
     default: false
   },
-  /** 标题格式化（月份视图） */
+  /** 标题格式化（月份视图），默认使用国际化配置 */
   monthHeaderFormat: {
     type: String,
-    default: 'YYYY 年 MM 月'
+    default: undefined
   },
   /** 是否显示假期标记 */
   showHoliday: {

@@ -13,7 +13,7 @@
   --yh-marquee-iteration-count: infinite;
   --yh-marquee-direction: normal;
   --yh-marquee-play-state: running;
-  --yh-marquee-gradient-color: #ffffff;
+  --yh-marquee-gradient-color: var(--yh-bg-color);
   --yh-marquee-gradient-width: 40px;
 
   @include m(horizontal) {

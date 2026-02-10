@@ -5,9 +5,9 @@
   position: relative;
 
   // 核心样式令牌
-  --yh-affix-z-index: 100;
-  --yh-affix-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  --yh-affix-transition-duration: 0.2s;
+  --yh-affix-z-index: var(--yh-z-index-fixed);
+  --yh-affix-shadow: var(--yh-shadow-md);
+  --yh-affix-transition-duration: var(--yh-duration-base);
   --yh-affix-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 
   @include e(inner) {
@@ -25,6 +25,6 @@
 html.dark,
 body.dark {
   @include b(affix) {
-    --yh-affix-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+    --yh-affix-shadow: var(--yh-shadow-lg);
   }
 }

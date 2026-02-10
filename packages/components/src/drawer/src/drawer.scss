@@ -3,13 +3,13 @@
 
 @include b(drawer) {
   position: fixed;
-  background: var(--yh-bg-color-overlay, #ffffff);
-  box-shadow: var(--yh-shadow-lg, 0 8px 32px rgba(0, 0, 0, 0.12));
+  background: var(--yh-bg-color-overlay);
+  box-shadow: var(--yh-shadow-lg);
   display: flex;
   flex-direction: column;
-  transition: all var(--yh-transition-duration, 0.3s) var(--yh-transition-function-ease, ease);
+  transition: all var(--yh-duration-base) ease;
   overflow: hidden;
-  z-index: 2000;
+  z-index: var(--yh-z-index-modal);
 
   @include e(wrapper) {
     position: fixed;
@@ -100,13 +100,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--yh-border-color-lighter, #f0f0f0);
+    border-bottom: 1px solid var(--yh-border-color-lighter);
   }
 
   @include e(title) {
-    font-size: 18px;
+    font-size: var(--yh-font-size-lg);
     font-weight: 600;
-    color: var(--yh-text-color-primary, #1a1a1a);
+    color: var(--yh-text-color-primary);
     margin: 0;
   }
 
@@ -116,19 +116,19 @@
     border: none;
     outline: none;
     cursor: pointer;
-    color: var(--yh-text-color-secondary, #909399);
+    color: var(--yh-text-color-secondary);
     font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
-    border-radius: 8px;
+    border-radius: var(--yh-radius-md);
     transition: all 0.2s;
 
     &:hover {
-      background: var(--yh-fill-color-light, rgba(0, 0, 0, 0.05));
-      color: var(--yh-color-danger, #f56c6c);
+      background: var(--yh-fill-color-light);
+      color: var(--yh-color-danger);
     }
   }
 
@@ -136,14 +136,14 @@
     flex: 1;
     padding: 24px;
     overflow-y: auto;
-    color: var(--yh-text-color-regular, #4a4a4a);
-    font-size: 14px;
+    color: var(--yh-text-color-regular);
+    font-size: var(--yh-font-size-base);
     line-height: 1.6;
   }
 
   @include e(footer) {
     padding: 16px 24px;
-    border-top: 1px solid var(--yh-border-color-lighter, #f0f0f0);
+    border-top: 1px solid var(--yh-border-color-lighter);
     display: flex;
     justify-content: flex-end;
     gap: 12px;
@@ -157,7 +157,7 @@
 
     &:hover,
     &:active {
-      background: var(--yh-color-primary-light-5, #a0cfff);
+      background: var(--yh-color-primary-light-5);
     }
 
     @include m(left) {

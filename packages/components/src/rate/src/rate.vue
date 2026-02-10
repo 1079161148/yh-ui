@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import { rateProps, rateEmits } from './rate'
 
@@ -11,6 +11,7 @@ defineOptions({
 const props = defineProps(rateProps)
 const emit = defineEmits(rateEmits)
 const ns = useNamespace('rate')
+const { t, tRaw } = useLocale()
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -83,7 +84,10 @@ const handleItemClick = (item: number) => {
 // 辅助文本
 const rateText = computed(() => {
   if (props.showScore) return props.scoreTemplate.replace('{value}', String(currentValue.value))
-  if (props.showText) return props.texts[Math.ceil(currentValue.value) - 1] || ''
+  if (props.showText) {
+    const texts = props.texts.length > 0 ? props.texts : tRaw<string[]>('rate.texts')
+    return texts[Math.ceil(currentValue.value) - 1] || ''
+  }
   return ''
 })
 

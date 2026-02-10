@@ -489,12 +489,16 @@ Drawer 组件支持多级嵌套，通过 `z-index` 自动管理确保内层抽�
 
 ## 主题变量 (CSS Variables)
 
-组件深度集成 YH-UI 设计系统，您可以通过全局 CSS 变量或在局部覆盖这些变量来自定义样式。
+组件深度集成 YH-UI 设计系统，所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
-| `--yh-bg-color-overlay` | 抽屉面板背景色 | `var(--yh-bg-color, #ffffff)` |
-| `--yh-shadow-lg` | 抽屉阴影强度 | `0 8px 32px rgba(0, 0, 0, 0.12)` |
-| `--yh-text-color-primary` | 标题文本颜色 | `#1a1a1a` |
-| `--yh-border-color-lighter` | 分割线颜色 | `#f0f0f0` |
-| `--yh-transition-duration` | 动画持续时间 | `0.3s` |
+| `--yh-drawer-bg-color` | 抽屉面板背景色 | `var(--yh-bg-color-overlay)` |
+| `--yh-drawer-shadow` | 抽屉阴影强度 | `var(--yh-shadow-lg)` |
+| `--yh-drawer-title-color` | 标题文本颜色 | `var(--yh-text-color-primary)` |
+| `--yh-drawer-border-color` | 分割线/边框颜色 | `var(--yh-border-color-lighter)` |
+| `--yh-drawer-header-height` | 头部高度 | `56px` |
+| `--yh-drawer-footer-height` | 底部高度 | `60px` |
+| `--yh-drawer-padding` | 内容区内边距 | `20px` |
+| `--yh-drawer-radius` | 圆角大小 | `var(--yh-radius-xl)` |
+| `--yh-drawer-transition` | 动画持续时间 | `var(--yh-transition-duration)` |

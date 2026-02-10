@@ -4,7 +4,7 @@
  * @description 高性能树形组件，支持虚拟滚动、懒加载、拖拽等特性
  */
 import { ref, computed, provide, watch, shallowRef } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { treeProps, treeEmits, TREE_INJECTION_KEY } from './tree'
 import type { TreeNode, TreeNodeData, TreeContext } from './tree'
 import TreeNodeComponent from './tree-node.vue'
@@ -14,6 +14,7 @@ defineOptions({ name: 'YhTree' })
 const props = defineProps(treeProps)
 const emit = defineEmits(treeEmits)
 const ns = useNamespace('tree')
+const { t } = useLocale()
 
 // 内部状态
 const expandedKeys = ref<Set<string | number>>(new Set(props.defaultExpandedKeys))
@@ -552,7 +553,7 @@ defineExpose({
       </TreeNodeComponent>
     </template>
     <div v-else :class="ns.e('empty')">
-      <slot name="empty">{{ emptyText }}</slot>
+      <slot name="empty">{{ emptyText || t('tree.emptyText') }}</slot>
     </div>
   </div>
 </template>

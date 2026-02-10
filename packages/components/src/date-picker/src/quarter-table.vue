@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { useNamespace } from '@yh-ui/hooks'
-import dayjs from 'dayjs'
+import { computed } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 
 const props = defineProps<{
   date: Date
@@ -20,13 +22,14 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('date-picker')
+const { t } = useLocale()
 
-const quarters = [
-  { text: '第一季度', value: 1 },
-  { text: '第二季度', value: 2 },
-  { text: '第三季度', value: 3 },
-  { text: '第四季度', value: 4 }
-]
+const quarters = computed(() => [
+  { text: t('datepicker.quarters.q1'), value: 1 },
+  { text: t('datepicker.quarters.q2'), value: 2 },
+  { text: t('datepicker.quarters.q3'), value: 3 },
+  { text: t('datepicker.quarters.q4'), value: 4 }
+])
 
 const getCellClasses = (quarter: number) => {
   const classes: any[] = [

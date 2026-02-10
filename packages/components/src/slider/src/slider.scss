@@ -109,21 +109,21 @@
   @include when(disabled) {
     @include e(runway) {
       cursor: not-allowed;
-      background-color: var(--yh-fill-color-light, #e4e7ed);
+      background-color: var(--yh-fill-color-light);
 
       &:hover {
-        background-color: var(--yh-fill-color-light, #e4e7ed);
+        background-color: var(--yh-fill-color-light);
       }
     }
 
     @include e(bar) {
-      background: var(--yh-text-color-placeholder, #a8abb2);
+      background: var(--yh-text-color-placeholder);
       box-shadow: none;
     }
 
     @include e(button) {
-      border-color: var(--yh-text-color-placeholder, #a8abb2);
-      background-color: var(--yh-bg-color, #fff);
+      border-color: var(--yh-text-color-placeholder);
+      background-color: var(--yh-bg-color);
       cursor: not-allowed;
 
       &:hover {
@@ -184,10 +184,10 @@
     width: var(--yh-slider-button-size);
     height: var(--yh-slider-button-size);
     border: var(--yh-slider-button-border) solid var(--yh-slider-main-color);
-    background-color: #fff;
+    background-color: var(--yh-bg-color);
     border-radius: 50%;
     transition: var(--yh-slider-transition);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--yh-shadow-sm);
 
     @include when(hover) {
       transform: scale(1.2);
@@ -204,7 +204,7 @@
     position: absolute;
     width: 4px;
     height: 4px;
-    background-color: #fff;
+    background-color: var(--yh-bg-color);
     border-radius: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -215,8 +215,8 @@
     position: absolute;
     top: 15px;
     transform: translateX(-50%);
-    font-size: 14px;
-    color: #64748b;
+    font-size: var(--yh-font-size-base);
+    color: var(--yh-text-color-secondary);
     margin-top: 10px;
   }
 
@@ -226,14 +226,14 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 6px 10px;
-    background: rgba(15, 23, 42, 0.9);
+    background: var(--yh-text-color-primary);
     backdrop-filter: blur(4px);
-    color: #fff;
-    border-radius: 6px;
-    font-size: 12px;
+    color: var(--yh-bg-color);
+    border-radius: var(--yh-radius-base);
+    font-size: var(--yh-font-size-xs);
     white-space: nowrap;
     z-index: 20;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--yh-shadow-md);
   }
 
   @include e(tooltip-arrow) {
@@ -242,7 +242,7 @@
     left: 50%;
     transform: translateX(-50%);
     border: 5px solid transparent;
-    border-top-color: rgba(15, 23, 42, 0.9);
+    border-top-color: var(--yh-text-color-primary);
   }
 
   // Sizes

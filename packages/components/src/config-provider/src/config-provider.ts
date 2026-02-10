@@ -2,23 +2,11 @@ import { defineComponent, provide, renderSlot, watch, computed, ref, h, onMounte
 import type { PropType, InjectionKey, ExtractPropTypes, ComputedRef } from 'vue'
 import { useTheme, ThemeManager } from '@yh-ui/theme'
 import type { PresetTheme, ThemeColors } from '@yh-ui/theme'
-import type { Language } from './locale'
-import { zhCn } from './locale'
+import { zhCn } from '@yh-ui/locale'
+import type { Language } from '@yh-ui/locale'
 
-export interface ConfigProviderContext {
-  size?: 'small' | 'default' | 'large'
-  zIndex?: number
-  locale?: Language
-  message?: {
-    max?: number
-    duration?: number
-    offset?: number
-  }
-}
-
-export const configProviderContextKey: InjectionKey<ComputedRef<ConfigProviderContext>> = Symbol(
-  'configProviderContextKey'
-)
+import { configProviderContextKey } from '@yh-ui/hooks'
+import type { ConfigProviderContext } from '@yh-ui/hooks'
 
 export const configProviderProps = {
   theme: {

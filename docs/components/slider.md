@@ -367,6 +367,8 @@ Slider 组件针对 SSR 优化的样式系统，确保了滑块导轨和填充�
 
 ### 主题变量
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--yh-slider-main-color` | 主题色（滑道填充、手柄边框） | `var(--yh-color-primary)` |
@@ -376,6 +378,9 @@ Slider 组件针对 SSR 优化的样式系统，确保了滑块导轨和填充�
 | `--yh-slider-button-border` | 手柄按钮边框宽度 | `2px` |
 | `--yh-slider-runway-height` | 滑道高度（横向为高，纵向为宽） | `6px` |
 | `--yh-slider-height` | 组件整体高度（容器高度） | `32px` |
+| `--yh-slider-tooltip-bg` | Tooltip 背景色 | `var(--yh-bg-color-overlay-dark)` |
+| `--yh-slider-tooltip-text` | Tooltip 文字颜色 | `var(--yh-text-color-primary-dark)` |
+| `--yh-slider-mark-text-color` | 刻度文字颜色 | `var(--yh-text-color-secondary)` |
 
 <style scoped>
 .yh-demo-wrapper {

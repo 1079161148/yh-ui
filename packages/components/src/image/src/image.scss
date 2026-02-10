@@ -100,7 +100,7 @@
     width: 44px;
     height: 44px;
     font-size: 24px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--yh-image-viewer-btn-bg-color);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
@@ -111,12 +111,12 @@
     width: 44px;
     height: 44px;
     font-size: 24px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--yh-image-viewer-btn-bg-color);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   @include e(actions) {
-    position: absolute; // 之前缺失这个！
+    position: absolute;
     z-index: 10;
     left: 50%;
     bottom: 30px;
@@ -124,8 +124,8 @@
     width: 282px;
     height: 44px;
     padding: 0 23px;
-    background-color: rgba(0, 0, 0, 0.5); // 增加透明背景
-    backdrop-filter: blur(4px); // 加点高斯模糊更高级
+    background-color: var(--yh-image-viewer-btn-bg-color);
+    backdrop-filter: blur(4px);
     border-radius: 22px;
     display: flex;
     align-items: center;
@@ -137,7 +137,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color: #fff;
+    color: var(--yh-image-viewer-btn-color);
     font-size: 20px;
 
     i {
@@ -145,7 +145,7 @@
       display: flex;
       transition: color 0.2s;
       &:hover {
-        color: var(--yh-color-primary, #409eff);
+        color: var(--yh-color-primary);
       }
     }
   }

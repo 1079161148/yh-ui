@@ -3,7 +3,7 @@
  * YhImage - 图片组件
  */
 import { computed, ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { isClient, getScrollContainer } from '@yh-ui/utils'
 import { imageProps } from './image'
 import type { ImageEmits } from './image'
@@ -19,6 +19,7 @@ const props = defineProps(imageProps)
 const emit = defineEmits<ImageEmits>()
 
 const ns = useNamespace('image')
+const { t } = useLocale()
 
 const isLoading = ref(true)
 const error = ref(false)
@@ -212,10 +213,10 @@ const handleSwitch = (index: number) => {
 <template>
   <div ref="container" :class="ns.b()">
     <slot v-if="isLoading" name="placeholder">
-      <div :class="ns.e('placeholder')">加载中...</div>
+      <div :class="ns.e('placeholder')">{{ t('button.loading') }}</div>
     </slot>
     <slot v-else-if="error" name="error">
-      <div :class="ns.e('error')">加载失败</div>
+      <div :class="ns.e('error')">{{ t('image.error') }}</div>
     </slot>
     <img v-else :src="src" :alt="alt" :class="[ns.e('inner'), preview && ns.is('preview')]" :style="imageStyle"
       :crossorigin="crossorigin" :loading="props.loading" @click="clickHandler" />

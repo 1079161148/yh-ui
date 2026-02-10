@@ -330,14 +330,17 @@ Popover 组件使用了 Backdrop-filter 亚克力效果，在 SSR 环境下会�
 
 ### 主题变量 (CSS Variables)
 
-组件支持通过以下 CSS 变量深度定制外观，同时支持全局暗黑模式自动感知。
+组件支持通过以下 CSS 变量深度定制外观。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
 | 变量名 | 默认值 | 描述 |
 | --- | --- | --- |
-| `--yh-tooltip-bg` | `#ffffff` | 气泡背景色 (暗黑模式下自动切换) |
-| `--yh-tooltip-border` | `#e2e2e7` | 边框颜色 |
-| `--yh-tooltip-text` | `#1d1d1f` | 主要文字颜色 |
-| `--yh-popover-radius` | `12px` | 气泡圆角 (建议通过 `.yh-popover__popper` 覆盖) |
+| `--yh-popover-bg` | `var(--yh-bg-color-overlay)` | 气泡背景色 (暗黑模式下自动切换) |
+| `--yh-popover-border` | `var(--yh-border-color-light)` | 边框颜色 |
+| `--yh-popover-text` | `var(--yh-text-color-primary)` | 主要文字颜色 |
+| `--yh-popover-text-secondary` | `var(--yh-text-color-secondary)` | 次要文字颜色 |
+| `--yh-popover-radius` | `var(--yh-radius-lg)` | 气泡圆角 |
+| `--yh-popover-shadow` | `var(--yh-shadow-lg)` | 气泡阴影 |
+| `--yh-popover-title-size` | `var(--yh-font-size-md)` | 标题字号 |
 
 ---
 

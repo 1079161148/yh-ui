@@ -4,32 +4,35 @@
 /* 尺寸变量映射 - 统一对接 YH-UI 全局主题变量 */
 $date-picker-sizes: (
   'large': (
-    height: var(--yh-component-size-large, 40px),
-    font-size: var(--yh-font-size-large, 16px)
+    height: var(--yh-component-size-large),
+    font-size: var(--yh-font-size-lg)
   ),
   'default': (
-    height: var(--yh-component-size-default, 32px),
-    font-size: var(--yh-font-size-base, 14px)
+    height: var(--yh-component-size-default),
+    font-size: var(--yh-font-size-base)
   ),
   'small': (
-    height: var(--yh-component-size-small, 24px),
-    font-size: var(--yh-font-size-small, 12px)
+    height: var(--yh-component-size-small),
+    font-size: var(--yh-font-size-sm)
   )
 );
 
-:root {
-  --yh-date-picker-primary: var(--yh-color-primary, #007aff);
-  --yh-date-picker-primary-rgb: 0, 122, 255;
-  --yh-date-picker-text-main: var(--yh-text-color-primary, #1d1d1f);
-  --yh-date-picker-text-secondary: var(--yh-text-color-secondary, #86868b);
-  --yh-date-picker-border: var(--yh-border-color, #d2d2d7);
-  --yh-date-picker-panel-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.15);
-  --yh-date-picker-item-hover: var(--yh-fill-color-light, #f5f5f7);
-  --yh-date-picker-range-bg: rgba(var(--yh-date-picker-primary-rgb), 0.08);
-  --yh-date-picker-panel-width: 380px; /* 最终平衡宽度 */
-}
-
 @include b(date-picker) {
+  /* 局部变量定义 - 允许通过作用域或内联样式覆盖 */
+  --yh-date-picker-primary: var(--yh-color-primary);
+  --yh-date-picker-primary-rgb: var(--yh-color-primary-rgb);
+  --yh-date-picker-text-main: var(--yh-text-color-primary);
+  --yh-date-picker-text-secondary: var(--yh-text-color-secondary);
+  --yh-date-picker-border: var(--yh-border-color);
+  --yh-date-picker-panel-shadow: var(--yh-shadow-lg);
+  --yh-date-picker-item-hover: var(--yh-fill-color-light);
+  --yh-date-picker-range-bg: var(--yh-color-primary-light-9);
+  --yh-date-picker-panel-width: 380px;
+  --yh-date-picker-panel-bg: var(--yh-bg-color-overlay);
+  --yh-date-picker-hover-bg: var(--yh-date-picker-item-hover);
+  --yh-date-picker-active-bg: var(--yh-date-picker-primary);
+  --yh-date-picker-active-color: var(--yh-color-white);
+
   position: relative;
   display: inline-flex;
   width: var(--yh-date-picker-width, 220px);
@@ -53,14 +56,14 @@ $date-picker-sizes: (
   }
 
   @include e(wrapper) {
-    position: relative; /* 核心：为绝对定位的 suffix 提供基准 */
+    position: relative;
     display: inline-flex;
     align-items: center;
     width: 100%;
     padding: 0 12px;
-    background: var(--yh-bg-color, #fff);
+    background: var(--yh-bg-color);
     border: 1px solid var(--yh-date-picker-border);
-    border-radius: var(--yh-border-radius-base, 8px);
+    border-radius: var(--yh-radius-md);
     transition:
       border-color 0.25s,
       box-shadow 0.25s;
@@ -154,13 +157,27 @@ $date-picker-sizes: (
 
   /* 面板 - 彻底隔离文档样式干扰 */
   @include e(panel) {
+    /* 核心修复：确保面板在 Teleport 后也能解析局部变量 */
+    --yh-date-picker-primary: var(--yh-color-primary);
+    --yh-date-picker-primary-rgb: var(--yh-color-primary-rgb);
+    --yh-date-picker-text-main: var(--yh-text-color-primary);
+    --yh-date-picker-text-secondary: var(--yh-text-color-secondary);
+    --yh-date-picker-border: var(--yh-border-color);
+    --yh-date-picker-panel-shadow: var(--yh-shadow-lg);
+    --yh-date-picker-item-hover: var(--yh-fill-color-light);
+    --yh-date-picker-range-bg: var(--yh-color-primary-light-9);
+    --yh-date-picker-panel-bg: var(--yh-bg-color-overlay);
+    --yh-date-picker-hover-bg: var(--yh-date-picker-item-hover);
+    --yh-date-picker-active-bg: var(--yh-date-picker-primary);
+    --yh-date-picker-active-color: var(--yh-color-white);
+
     position: fixed;
-    background: #fff;
-    border-radius: 20px;
+    background: var(--yh-date-picker-panel-bg);
+    border-radius: var(--yh-radius-xl);
     box-shadow: var(--yh-date-picker-panel-shadow);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--yh-border-color-extra-light);
     margin-top: 12px;
-    z-index: 2000;
+    z-index: var(--yh-z-index-popper);
     width: var(--yh-date-picker-panel-width) !important;
     box-sizing: border-box !important;
     display: inline-block;
@@ -216,9 +233,9 @@ $date-picker-sizes: (
       font-size: 14px;
       color: var(--yh-date-picker-text-main);
       &:hover {
-        background: #fff;
+        background: var(--yh-bg-color);
         color: var(--yh-date-picker-primary);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: var(--yh-shadow-sm);
       }
     }
   }
@@ -337,8 +354,8 @@ $date-picker-sizes: (
     &.is-selected {
       @include e(cell-content) {
         background: var(--yh-date-picker-primary);
-        color: #fff !important;
-        box-shadow: 0 10px 20px -5px rgba(var(--yh-date-picker-primary-rgb), 0.5);
+        color: var(--yh-color-white) !important;
+        box-shadow: var(--yh-shadow-md);
       }
     }
 
@@ -456,16 +473,16 @@ $date-picker-sizes: (
     font-size: 13px;
     font-weight: 600;
     color: var(--yh-date-picker-text-secondary);
-    background: #fff;
+    background: var(--yh-bg-color);
     border: 1px solid var(--yh-date-picker-border);
-    border-radius: 8px;
+    border-radius: var(--yh-radius-md);
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
       color: var(--yh-date-picker-primary);
       border-color: var(--yh-date-picker-primary);
-      box-shadow: 0 4px 10px rgba(var(--yh-date-picker-primary-rgb), 0.1);
+      box-shadow: var(--yh-shadow-sm);
       transform: translateY(-1px);
     }
   }
@@ -496,13 +513,14 @@ $date-picker-sizes: (
 
     @include e(footer-btn) {
       padding: 10px 22px;
-      border-radius: 12px;
+      border-radius: var(--yh-radius-lg);
       font-weight: 600;
-      font-size: 14px;
+      font-size: var(--yh-font-size-base);
       cursor: pointer;
       transition: all 0.2s;
       border: 1px solid var(--yh-date-picker-border);
-      background: #fff;
+      background: var(--yh-bg-color);
+      color: var(--yh-date-picker-text-main);
       &:hover {
         border-color: var(--yh-date-picker-primary);
         color: var(--yh-date-picker-primary);
@@ -510,9 +528,9 @@ $date-picker-sizes: (
       }
       @include m(confirm) {
         background: var(--yh-date-picker-primary);
-        color: #fff !important;
+        color: var(--yh-color-white) !important;
         border: none;
-        box-shadow: 0 8px 16px -4px rgba(var(--yh-date-picker-primary-rgb), 0.4);
+        box-shadow: var(--yh-shadow-md);
       }
     }
   }

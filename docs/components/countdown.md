@@ -710,21 +710,21 @@ interface CountdownFormatContext {
 
 ## 主题变量
 
-Countdown 组件支持通过覆盖以下 CSS 变量来自定义局部样式：
+Countdown 组件支持通过覆盖以下 CSS 变量来自定义局部样式。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--yh-countdown-font-size` | 数字字体大小 | `24px` |
-| `--yh-countdown-value-color` | 数字颜色 | `#1e293b` |
-| `--yh-countdown-label-color` | 标签颜色 | `#64748b` |
-| `--yh-countdown-separator-color` | 分隔符颜色 | `#94a3b8` |
-| `--yh-countdown-warning-color` | 预警状态颜色 | `#ef4444` |
-| `--yh-countdown-finished-color` | 结束状态颜色 | `#10b981` |
+| `--yh-countdown-value-color` | 数字颜色 | `var(--yh-text-color-primary)` |
+| `--yh-countdown-label-color` | 标签颜色 | `var(--yh-text-color-secondary)` |
+| `--yh-countdown-separator-color` | 分隔符颜色 | `var(--yh-text-color-placeholder)` |
+| `--yh-countdown-warning-color` | 预警状态颜色 | `var(--yh-color-danger)` |
+| `--yh-countdown-finished-color` | 结束状态颜色 | `var(--yh-color-success)` |
 | `--yh-countdown-bg` | 组件根背景 | `transparent` |
-| `--yh-countdown-block-bg` | 翻牌块背景 | `linear-gradient(...)` |
-| `--yh-countdown-block-shadow` | 翻牌块阴影 | `0 2px 8px rgba(...)` |
-| `--yh-countdown-block-radius` | 翻牌块圆角 | `8px` |
+| `--yh-countdown-block-bg` | 翻牌块背景 | `var(--yh-fill-color-light)` |
+| `--yh-countdown-block-shadow` | 翻牌块阴影 | `var(--yh-shadow-sm)` |
+| `--yh-countdown-block-radius` | 翻牌块圆角 | `var(--yh-radius-md)` |
 | `--yh-countdown-block-padding` | 翻牌块内边距 | `12px 16px` |
 | `--yh-countdown-gap` | 组件内部元素间距 | `8px` |
-| `--yh-countdown-font-family` | 默认字体族 | `Inter, -apple-system...` |
-| `--yh-countdown-monospace-font` | 等宽字体族 (用于防止跳变) | `JetBrains Mono...` |
+| `--yh-countdown-font-family` | 默认字体族 | `var(--yh-font-family)` |
+| `--yh-countdown-monospace-font` | 等宽字体族 (用于防止跳变) | `JetBrains Mono, SF Mono...` |

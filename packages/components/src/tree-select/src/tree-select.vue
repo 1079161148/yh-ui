@@ -102,7 +102,7 @@
                 </div>
               </div>
 
-              <div v-else :class="ns.e('empty')">{{ emptyText }}</div>
+              <div v-else :class="ns.e('empty')">{{ emptyText || t('treeselect.emptyText') }}</div>
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@
  * @description 集成树形结构与下拉选择，已实现严格类型化并杜绝 any
  */
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { treeSelectProps, treeSelectEmits, type TreeNode, type TreeKey } from './tree-select'
 import { useTree } from './use-tree'
 
@@ -127,6 +127,7 @@ const props = defineProps(treeSelectProps)
 const emit = defineEmits(treeSelectEmits)
 
 const ns = useNamespace('tree-select')
+const { t } = useLocale()
 const visible = ref(false)
 const query = ref('')
 const dropdownStyle = ref<Record<string, string>>({})
@@ -192,9 +193,9 @@ const singleLabel = computed(() => {
 })
 
 const inputPlaceholder = computed(() => {
-  if (props.multiple) return hasValue.value ? '' : props.placeholder
+  if (props.multiple) return hasValue.value ? '' : (props.placeholder || t('treeselect.placeholder'))
   if (hasValue.value && props.filterable && visible.value) return singleLabel.value
-  return props.placeholder
+  return props.placeholder || t('treeselect.placeholder')
 })
 
 const selectedLabels = computed(() => {
@@ -284,12 +285,20 @@ const updatePopper = () => {
   nextTick(() => {
     if (selectRef.value) {
       const rect = selectRef.value.getBoundingClientRect()
+
+      // 提取主题变量
+      const styles = window.getComputedStyle(selectRef.value)
+      const primary = styles.getPropertyValue('--yh-color-primary').trim()
+      const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+
       dropdownStyle.value = {
         width: `${rect.width}px`,
         position: 'fixed',
         top: `${rect.bottom + 4}px`,
         left: `${rect.left}px`,
-        zIndex: '2000'
+        zIndex: '2000',
+        '--yh-color-primary': primary,
+        '--yh-color-primary-rgb': primaryRgb
       }
     }
   })

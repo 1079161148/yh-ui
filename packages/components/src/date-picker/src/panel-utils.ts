@@ -1,11 +1,19 @@
-import dayjs from 'dayjs'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 import type { Dayjs } from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
+import * as _isBetween from 'dayjs/plugin/isBetween'
+import * as _weekOfYear from 'dayjs/plugin/weekOfYear'
+import * as _isoWeek from 'dayjs/plugin/isoWeek'
+import * as _quarterOfYear from 'dayjs/plugin/quarterOfYear'
+import * as _advancedFormat from 'dayjs/plugin/advancedFormat'
+import * as _customParseFormat from 'dayjs/plugin/customParseFormat'
+
+const isBetween = (_isBetween as any).default || _isBetween
+const weekOfYear = (_weekOfYear as any).default || _weekOfYear
+const isoWeek = (_isoWeek as any).default || _isoWeek
+const quarterOfYear = (_quarterOfYear as any).default || _quarterOfYear
+const advancedFormat = (_advancedFormat as any).default || _advancedFormat
+const customParseFormat = (_customParseFormat as any).default || _customParseFormat
 
 dayjs.extend(isBetween)
 dayjs.extend(weekOfYear)

@@ -4,7 +4,7 @@
  * @description 融合日期、时间、范围、年、月、季度等多种模式于一体。采用业内最佳实践设计。
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import DateTable from './date-table.vue'
 import MonthTable from './month-table.vue'
@@ -12,7 +12,8 @@ import YearTable from './year-table.vue'
 import QuarterTable from './quarter-table.vue'
 import { datePickerProps, type DateValue, type DateRangeValue, type PanelView, type DatePickerType } from './date-picker'
 import { DEFAULT_FORMATS, formatDate } from './panel-utils'
-import dayjs from 'dayjs'
+import * as _dayjs from 'dayjs'
+const dayjs = (_dayjs as any).default || _dayjs
 
 defineOptions({
   name: 'YhDatePicker'
@@ -31,6 +32,7 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('date-picker')
+const { t, locale } = useLocale()
 const { form, formItem, validate: triggerValidate } = useFormItem()
 const { globalSize } = useConfig()
 
@@ -96,16 +98,32 @@ const wrapperClasses = computed(() => [
 ])
 
 // --- 头部导航逻辑 ---
+const monthKeys = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'] as const
+
 const headerLabel = computed(() => {
   const d = dayjs(innerDate.value)
+  const dateLocale = (locale.value.yh as any).datepicker
+
   if (currentView.value === 'year') {
     const start = Math.floor(d.year() / 10) * 10
     return `${start} - ${start + 9}`
   }
+
   if (currentView.value === 'month' || currentView.value === 'quarter') {
-    return d.format('YYYY 年')
+    return dateLocale.monthBeforeYear
+      ? d.format('YYYY')
+      : `${d.year()}${dateLocale.year || ''}`
   }
-  return d.format('YYYY 年 MM 月')
+
+  // 使用语言包中的月份名称
+  const monthName = dateLocale.months[monthKeys[d.month()]]
+
+  if (!dateLocale.monthBeforeYear) {
+    // 典型如 中/日/韩：2024年3月 或 2024年三月
+    return `${d.year()}${dateLocale.year || ''}${monthName}`
+  }
+
+  return `${monthName} ${d.year()}`
 })
 
 const moveMonth = (offset: number) => {
@@ -189,15 +207,26 @@ const performFinalSelect = (date: Date) => {
 }
 
 // --- 下拉定位 ---
-const dropdownStyle = ref<Record<string, string>>({})
+const dropdownStyle = ref<Record<string, any>>({})
 const updatePosition = () => {
   if (!wrapperRef.value || !props.teleported || props.panelOnly) return
   const rect = wrapperRef.value.getBoundingClientRect()
+
+  // 核心修复：从所在容器提取当前有效的主题变量
+  // 确保 popper 被 teleport 到 body 后，依然能维持所在作用域的主题色（如紫色）
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+  const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
+
   dropdownStyle.value = {
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
-    zIndex: '2000'
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
+    '--yh-color-primary-light-9': primaryLight9
   }
 }
 
@@ -287,13 +316,16 @@ onBeforeUnmount(() => {
       </span>
 
       <template v-if="!isRange">
-        <input :class="ns.e('inner')" :placeholder="placeholder" :value="displayValue" readonly />
+        <input :class="ns.e('inner')" :placeholder="placeholder ?? t('datepicker.selectDate')" :value="displayValue"
+          readonly />
       </template>
       <template v-else>
         <div :class="ns.e('range-input-wrapper')">
-          <input :class="ns.e('range-input')" :placeholder="startPlaceholder" :value="rangeDisplayValue[0]" readonly />
+          <input :class="ns.e('range-input')" :placeholder="startPlaceholder ?? t('datepicker.startDate')"
+            :value="rangeDisplayValue[0]" readonly />
           <span :class="ns.e('range-separator')">{{ rangeSeparator }}</span>
-          <input :class="ns.e('range-input')" :placeholder="endPlaceholder" :value="rangeDisplayValue[1]" readonly />
+          <input :class="ns.e('range-input')" :placeholder="endPlaceholder ?? t('datepicker.endDate')"
+            :value="rangeDisplayValue[1]" readonly />
         </div>
       </template>
 
@@ -369,9 +401,10 @@ onBeforeUnmount(() => {
               </div>
               <div :class="ns.e('footer-btns')">
                 <button v-if="isRange || type.includes('datetime')" :class="ns.e('footer-btn')"
-                  @click="visible = false">取消</button>
+                  @click="visible = false">{{
+                    t('datepicker.cancel') }}</button>
                 <button :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
-                  @click="emit('confirm', modelValue as any); visible = false">确定</button>
+                  @click="emit('confirm', modelValue as any); visible = false">{{ t('datepicker.confirm') }}</button>
               </div>
             </slot>
           </div>

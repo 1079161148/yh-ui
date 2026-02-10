@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
-import { useNamespace, useZIndex } from '@yh-ui/hooks'
+import { useNamespace, useZIndex, useLocale } from '@yh-ui/hooks'
 import { backTopProps, backTopEmits } from './back-top'
 
 defineOptions({
@@ -11,6 +11,7 @@ const props = defineProps(backTopProps)
 const emit = defineEmits(backTopEmits)
 
 const ns = useNamespace('back-top')
+const { t } = useLocale()
 const { nextZIndex } = useZIndex()
 
 const visible = ref(false)
@@ -114,7 +115,8 @@ onBeforeUnmount(() => {
 
 <template>
   <Transition :name="`${ns.namespace.value}-fade-in`">
-    <div v-if="visible" ref="elRef" :class="ns.b()" :style="containerStyle" @click.stop="handleClick">
+    <div v-if="visible" ref="elRef" :class="ns.b()" :style="containerStyle" :aria-label="t('backtop.text')"
+      @click.stop="handleClick">
       <slot>
         <div :class="ns.e('content')">
           <svg viewBox="0 0 1024 1024" width="20" height="20">

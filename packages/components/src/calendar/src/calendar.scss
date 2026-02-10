@@ -4,23 +4,25 @@
 // ===================== Calendar 日历组件 (工业级纯净版) =====================
 @include b(calendar) {
   // --- 样式令牌 (CSS Variables) ---
-  --yh-calendar-primary: var(--yh-color-primary, #409eff);
-  --yh-calendar-primary-light: var(--yh-color-primary-light-9, #ecf5ff);
-  --yh-calendar-primary-dark: var(--yh-color-primary-dark-2, #337ecc);
-  --yh-calendar-bg: var(--yh-bg-color, #ffffff);
-  --yh-calendar-text: var(--yh-text-color-primary, #1e293b);
+  --yh-calendar-primary: var(--yh-color-primary);
+  --yh-calendar-primary-light: var(--yh-color-primary-light-9);
+  --yh-calendar-primary-dark: var(--yh-color-primary-dark-2);
+  --yh-calendar-bg: var(--yh-bg-color);
+  --yh-calendar-text: var(--yh-text-color-primary);
 
   --yh-calendar-cell-height: 100px;
-  --yh-calendar-cell-radius: 14px;
+  --yh-calendar-cell-radius: var(--yh-radius-lg);
   --yh-calendar-head-height: 80px;
   --yh-calendar-title-size: 22px;
-  --yh-calendar-weekday-color: var(--yh-text-color-secondary, #64748b);
-  --yh-calendar-week-number-color: #94a3b8;
-  --yh-calendar-holiday-color: #ef4444;
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-week-number-color: var(--yh-text-color-placeholder);
+  --yh-calendar-holiday-color: var(--yh-color-danger);
+  --yh-calendar-disabled-bg: var(--yh-fill-color-light);
+  --yh-calendar-disabled-text: var(--yh-text-color-placeholder);
 
   background: var(--yh-calendar-bg);
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  border-radius: var(--yh-radius-xl);
+  box-shadow: var(--yh-shadow-lg);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -37,14 +39,16 @@
   // ===================== 结构布局 =====================
   @include e(header) {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 32px;
-    background: #ffffff;
+    padding: 16px 32px 20px;
+    background: var(--yh-bg-color);
     flex: none;
-    height: var(--yh-calendar-head-height);
+    min-height: var(--yh-calendar-head-height);
     position: relative;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid var(--yh-border-color-extra-light);
+    gap: 16px;
   }
 
   @include e(title) {
@@ -67,18 +71,15 @@
   }
 
   @include e(controls) {
-    position: absolute;
-    right: 32px;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
-    gap: 8px;
+    gap: 12px;
+    margin-top: 4px;
   }
 
   @include e(body) {
     padding: 20px 24px 28px;
     flex: 1;
-    background: #f8fafc;
+    background: var(--yh-bg-color-page);
     display: flex;
     flex-direction: column;
   }
@@ -138,10 +139,10 @@
 
   // ===================== 单元格 =====================
   @include e(day) {
-    --yh-day-bg: #ffffff;
+    --yh-day-bg: var(--yh-bg-color);
     --yh-day-color: var(--yh-calendar-text);
     --yh-day-radius: var(--yh-calendar-cell-radius);
-    --yh-day-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    --yh-day-shadow: var(--yh-shadow-sm);
     --yh-day-scale: 1;
 
     height: var(--yh-calendar-cell-height);
@@ -162,7 +163,7 @@
 
     &:hover:not(.is-disabled):not(.is-selected):not(.is-in-range) {
       --yh-day-color: var(--yh-calendar-primary);
-      --yh-day-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      --yh-day-shadow: var(--yh-shadow-lg);
       --yh-day-scale: 1.05;
       z-index: 2;
     }
@@ -192,7 +193,7 @@
       z-index: 5;
       --yh-day-bg: var(--yh-calendar-primary-light);
       --yh-day-color: var(--yh-calendar-primary);
-      --yh-day-shadow: 0 10px 25px rgba(64, 158, 255, 0.15);
+      --yh-day-shadow: var(--yh-shadow-md);
 
       &::before {
         border: 2.5px solid var(--yh-calendar-primary); // 强化选中边框
@@ -226,16 +227,30 @@
       }
     }
 
+    // 非当月日期 (淡化显示)
+    &.is-other-month {
+      opacity: 0.4;
+      .yh-calendar__day-value {
+        color: var(--yh-text-color-secondary);
+      }
+    }
+
+    // 隐藏日期 (保持占位但不可见)
+    &.is-hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     &.is-disabled {
       cursor: not-allowed;
       opacity: 0.45;
       pointer-events: none !important;
       &::before {
-        background-color: #f1f5f9;
+        background-color: var(--yh-calendar-disabled-bg);
         box-shadow: none;
       }
       .yh-calendar__day-value {
-        color: #94a3b8;
+        color: var(--yh-calendar-disabled-text);
       }
     }
   }
@@ -269,10 +284,10 @@
     margin-bottom: 6px;
     transform: scale(0.85);
     @include m(holiday) {
-      color: #ef4444;
+      color: var(--yh-calendar-holiday-color);
     }
     @include m(workday) {
-      color: #64748b;
+      color: var(--yh-text-color-secondary);
     }
   }
 
@@ -288,9 +303,11 @@
   @include when(fullscreen) {
     height: 100%;
     width: 100%;
+    overflow: hidden;
+    
     .yh-calendar__body {
       padding: 0 16px 16px;
-      height: 100%;
+      height: calc(100% - var(--yh-calendar-head-height) - 36px);
       overflow: hidden;
     }
 
@@ -299,25 +316,28 @@
       flex-direction: column;
       height: 100%;
       border-spacing: 0;
-      gap: 12px;
+      gap: 6px;
       min-height: 0;
+      overflow: hidden;
 
       thead {
         flex: none;
         display: flex;
         flex-direction: column;
         width: 100%;
-        margin-bottom: 8px;
+        margin-bottom: 2px;
         tr {
           display: flex;
           width: 100%;
-          gap: 12px;
+          gap: 10px;
         }
         th {
           flex: 1;
           display: flex;
           align-items: center;
           justify-content: center;
+          min-width: 0;
+          overflow: hidden;
         }
       }
 
@@ -326,14 +346,15 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        gap: 12px;
+        gap: 6px;
         min-height: 0;
+        overflow: hidden;
         tr {
           display: flex;
           flex-direction: row;
           width: 100%;
           flex: 1;
-          gap: 12px;
+          gap: 10px;
           min-height: 0;
         }
         td {
@@ -342,14 +363,26 @@
           align-items: stretch;
           justify-content: center;
           min-height: 0;
+          min-width: 0;
+          overflow: hidden;
         }
       }
     }
     .yh-calendar__day {
       height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .yh-calendar__day-inner {
+      padding-top: 10px;
     }
     .yh-calendar__weekday {
-      height: 60px;
+      height: 48px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
   }
 

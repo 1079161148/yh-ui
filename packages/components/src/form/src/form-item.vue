@@ -18,7 +18,7 @@ import { formItemProps } from './form-item'
 import type { ValidateStatus } from './form-item'
 import type { FormRule } from './form'
 import { FormContextKey, FormItemContextKey, useId } from '@yh-ui/hooks'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import { get, set } from '@yh-ui/utils'
 
@@ -28,6 +28,7 @@ defineOptions({
 
 const props = defineProps(formItemProps)
 const ns = useNamespace('form-item')
+const { t } = useLocale()
 
 // 注入表单上下文
 const formContext = inject(FormContextKey, undefined)
@@ -125,9 +126,9 @@ const validate = async (trigger: string = '', callback?: (isValid: boolean) => v
       // 提取错误信息
       const { errors } = errorData || {}
       if (errors && errors.length > 0) {
-        innerValidateMessage.value = errors[0].message || '校验失败'
+        innerValidateMessage.value = errors[0].message || t('form.validationFailed')
       } else {
-        innerValidateMessage.value = typeof errorData === 'string' ? errorData : '校验失败'
+        innerValidateMessage.value = typeof errorData === 'string' ? errorData : t('form.validationFailed')
       }
 
       callback?.(false)

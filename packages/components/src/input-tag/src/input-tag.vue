@@ -4,7 +4,7 @@
  * @description 用于输入和管理多个标签，支持折叠、拖拽等功能
  */
 import { computed, ref, useSlots, nextTick, inject } from 'vue'
-import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type { InputTagProps, InputTagEmits, InputTagExpose } from './input-tag'
 
@@ -38,6 +38,7 @@ const slots = useSlots()
 
 // 命名空间
 const ns = useNamespace('input-tag')
+const { t } = useLocale()
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -414,8 +415,9 @@ defineExpose<InputTagExpose>({
 
       <!-- 输入框 -->
       <input ref="inputRef" type="text" :class="ns.e('inner')" :value="inputValue"
-        :placeholder="tags.length === 0 ? placeholder : ''" :disabled="disabled" :readonly="readonly || isMaxReached"
-        @input="handleInput" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" />
+        :placeholder="tags.length === 0 ? (placeholder || t('inputtag.placeholder')) : ''" :disabled="disabled"
+        :readonly="readonly || isMaxReached" @input="handleInput" @keydown="handleKeydown" @focus="handleFocus"
+        @blur="handleBlur" />
     </div>
 
     <!-- 后缀/清空按钮 -->

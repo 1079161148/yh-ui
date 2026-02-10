@@ -205,9 +205,12 @@ YhAffix 采用了双层观察系统：
 
 ### 主题变量 (CSS Variables)
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 默认值 | 说明 |
 | --- | --- | --- |
 | `--yh-affix-z-index` | `100` | 固定状态下的默认层级 |
-| `--yh-affix-shadow` | `0 2px 12px 0 rgba(0, 0, 0, 0.1)` | 固定状态下的阴影效果 |
-| `--yh-affix-transition-duration` | `0.2s` | 进入固定状态时的动画持续时间 |
-| `--yh-affix-transition-timing` | `cubic-bezier(0.4, 0, 0.2, 1)` | 动画过渡曲线 |
+| `--yh-affix-bg-color` | `var(--yh-bg-color-overlay)` | 固钉内容背景色 |
+| `--yh-affix-shadow` | `var(--yh-shadow-md)` | 固定状态下的阴影效果 |
+| `--yh-affix-transition-duration` | `var(--yh-transition-duration)` | 进入固定状态时的动画持续时间 |
+| `--yh-affix-transition-timing` | `var(--yh-transition-timing)` | 动画过渡曲线 |

@@ -628,20 +628,20 @@ interface DropdownItemData {
 
 ### 主题变量 (CSS Variables)
 
+所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+
 | 变量名 | 默认值 | 描述 |
 | --- | --- | --- |
-| `--yh-color-text-primary` | `#1d1d1f` | 文字颜色 |
-| `--yh-color-primary` | `#409eff` | 主色调 |
-| `--yh-color-primary-light-3` | `#79bbff` | 主色调 hover 状态 |
-| `--yh-color-primary-light-5` | `#a0cfff` | 分割线颜色 |
-| `--yh-color-primary-light-8` | `#d9ecff` | 菜单项 active 背景 |
-| `--yh-color-primary-light-9` | `#ecf5ff` | 菜单项 hover 背景 |
-| `--yh-bg-color` | `#ffffff` | 弹出层背景色 |
-| `--yh-border-color-light` | `#e4e7ed` | 分割线颜色 |
-| `--yh-color-text-placeholder` | `#c0c4cc` | 禁用项文字颜色 |
-| `--yh-color-danger` | `#f56c6c` | 危险项文字颜色 |
-| `--yh-color-danger-light-8` | `#fde2e2` | 危险项 active 背景 |
-| `--yh-color-danger-light-9` | `#fef0f0` | 危险项 hover 背景 |
+| `--yh-dropdown-text-color` | `var(--yh-text-color-primary)` | 菜单文字颜色 |
+| `--yh-dropdown-bg-color` | `var(--yh-bg-color-overlay)` | 弹出层背景色 |
+| `--yh-dropdown-border-color` | `var(--yh-border-color-light)` | 边框/分割线颜色 |
+| `--yh-dropdown-hover-bg` | `var(--yh-color-primary-light-9)` | 菜单项 hover 背景 |
+| `--yh-dropdown-active-bg` | `var(--yh-color-primary-light-8)` | 菜单项 active 背景 |
+| `--yh-dropdown-disabled-color` | `var(--yh-text-color-placeholder)` | 禁用项文字颜色 |
+| `--yh-dropdown-danger-color` | `var(--yh-color-danger)` | 危险项文字颜色 |
+| `--yh-dropdown-danger-hover-bg` | `var(--yh-color-danger-light-9)` | 危险项 hover 背景 |
+| `--yh-dropdown-shadow` | `var(--yh-shadow-lg)` | 弹出层阴影 |
+| `--yh-dropdown-radius` | `var(--yh-radius-md)` | 弹出层圆角 |
 
 ---
 

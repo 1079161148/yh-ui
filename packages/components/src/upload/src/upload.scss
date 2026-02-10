@@ -2,10 +2,12 @@
 @use 'viewerjs/dist/viewer.css';
 
 @include b(upload) {
-  --yh-upload-dragger-bg: var(--yh-bg-color, #ffffff);
-  --yh-upload-dragger-border: var(--yh-border-color-light, #dcdfe6);
-  --yh-upload-item-bg: var(--yh-fill-color-blank, #ffffff);
-  --yh-upload-progress-bg: var(--yh-color-primary, #409eff);
+  --yh-upload-dragger-bg: var(--yh-bg-color);
+  --yh-upload-dragger-border: var(--yh-border-color-light);
+  --yh-upload-item-bg: var(--yh-fill-color-blank);
+  --yh-upload-progress-bg: var(--yh-color-primary);
+  --yh-upload-error-bg: var(--yh-color-danger-light-9);
+  --yh-upload-error-hover-bg: var(--yh-color-danger-light-7);
 
   display: flex;
   flex-direction: column;
@@ -137,8 +139,8 @@
   }
 
   @include e(picture-card-plus) {
-    background-color: var(--yh-fill-color-light, #f5f7fa);
-    border: 1px dashed var(--yh-border-color, #dcdfe6);
+    background-color: var(--yh-fill-color-light);
+    border: 1px dashed var(--yh-border-color);
     border-radius: 12px;
     width: 120px;
     height: 120px;
@@ -200,12 +202,12 @@
       }
     }
     @include is(fail) {
-      background-color: #fff1f0 !important;
+      background-color: var(--yh-upload-error-bg) !important;
       .yh-upload__name {
         color: var(--yh-color-danger);
       }
       &:hover {
-        background-color: #ffccc7 !important;
+        background-color: var(--yh-upload-error-hover-bg) !important;
       }
     }
 
@@ -221,16 +223,16 @@
       gap: 12px;
 
       &:hover {
-        background-color: var(--yh-fill-color-light, #f5f7fa);
+        background-color: var(--yh-fill-color-light);
       }
     }
 
     .yh-upload--picture & {
       border: 1px solid var(--yh-border-color-lighter);
-      background: #fff;
+      background: var(--yh-bg-color);
       padding: 8px;
       &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        box-shadow: var(--yh-shadow-sm);
         border-color: var(--yh-color-primary-light-5);
       }
     }
@@ -266,8 +268,8 @@
   @include e(thumbnail-box) {
     width: 48px;
     height: 48px;
-    background: var(--yh-fill-color-light, #f5f7fa);
-    border-radius: 6px;
+    background: var(--yh-fill-color-light);
+    border-radius: var(--yh-radius-base);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -394,7 +396,7 @@
     left: 0px;
     right: 0px;
     height: 2px;
-    background: var(--yh-fill-color-light, #f5f7fa); // 增加底色轨道，使其不像悬浮边框
+    background: var(--yh-fill-color-light);
     z-index: 10;
   }
 

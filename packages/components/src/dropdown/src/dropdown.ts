@@ -78,7 +78,7 @@ export const dropdownProps = {
   /** 空状态文本 */
   emptyText: {
     type: String,
-    default: '暂无数据'
+    default: undefined
   },
   /** 是否可勾选 */
   checkable: {

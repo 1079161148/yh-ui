@@ -31,17 +31,17 @@ export const infiniteScrollProps = {
   /** 加载中的提示文字 */
   loadingText: {
     type: String,
-    default: '加载中...'
+    default: ''
   },
   /** 加载完成的提示文字 */
   finishedText: {
     type: String,
-    default: '没有更多了'
+    default: ''
   },
   /** 加载失败的提示文字 */
   errorText: {
     type: String,
-    default: '加载失败，点击重试'
+    default: ''
   },
   /** 是否在初始化时立即检查是否需要加载 */
   immediateCheck: {

@@ -37,13 +37,16 @@ export default defineConfig({
             { text: '简介', link: '/guide/introduction' },
             { text: '安装', link: '/guide/installation' },
             { text: '快速开始', link: '/guide/quickstart' },
-            { text: '在 Nuxt 中使用', link: '/guide/nuxt' }
+            { text: '在 Nuxt 中使用', link: '/guide/nuxt' },
+            { text: '国际化 (i18n)', link: '/guide/i18n' }
           ]
         },
         {
           text: '进阶',
           items: [
             { text: 'Theme 主题系统', link: '/guide/theme' },
+            { text: '主题系统示例', link: '/guide/theme-examples' },
+            { text: '主题定制', link: '/guide/theming' },
             { text: '设计规范', link: '/guide/design' }
           ]
         }
@@ -229,7 +232,8 @@ export default defineConfig({
         '@yh-ui/components': resolve(__dirname, '../../packages/components/src'),
         '@yh-ui/hooks': resolve(__dirname, '../../packages/hooks/src'),
         '@yh-ui/utils': resolve(__dirname, '../../packages/utils/src'),
-        '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src')
+        '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
+        '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src')
       }
     },
     css: {

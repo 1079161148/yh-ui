@@ -489,7 +489,7 @@ export const tableProps = {
   /** 空数据显示文本 */
   emptyText: {
     type: String,
-    default: '暂无数据'
+    default: ''
   },
   /** 是否自适应父容器 */
   fit: {

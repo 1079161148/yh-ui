@@ -23,7 +23,8 @@
     "dev": "unbuild --stub"
   },
   "dependencies": {
-    "@yh-ui/utils": "workspace:*"
+    "@yh-ui/utils": "workspace:*",
+    "@yh-ui/locale": "workspace:*"
   },
   "devDependencies": {
     "vue": "^3.5.0"

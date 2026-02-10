@@ -8,14 +8,14 @@
 
 @include b(tooltip) {
   display: inline-block;
-  line-height: var(--yh-line-height-none, 1);
+  line-height: var(--yh-line-height-none);
 
   @include e(popper) {
     position: absolute;
-    z-index: var(--yh-z-index-tooltip, 2004);
-    font-size: 13px;
+    z-index: var(--yh-z-index-tooltip);
+    font-size: var(--yh-font-size-sm);
     line-height: 1.6;
-    border-radius: 8px;
+    border-radius: var(--yh-radius-md);
     max-width: 350px;
     word-wrap: break-word;
     box-shadow: var(--yh-shadow-lg);
@@ -29,9 +29,9 @@
     overflow: visible;
 
     /* 默认共享变量：确保 SVG 始终引用同一套变量 */
-    --yh-tooltip-bg: #ffffff;
-    --yh-tooltip-border: #e2e2e7;
-    --yh-tooltip-text: #1d1d1f;
+    --yh-tooltip-bg: var(--yh-bg-color-overlay);
+    --yh-tooltip-border: var(--yh-border-color-light);
+    --yh-tooltip-text: var(--yh-text-color-primary);
 
     @include is(interactive) {
       pointer-events: auto;
@@ -45,28 +45,28 @@
     /* --- 2. 强行设定：暗黑模式 (Explicit) --- */
     &.is-dark,
     &.yh-popover__popper--dark {
-      --yh-tooltip-bg: #2c2c2e;
-      --yh-tooltip-border: rgba(255, 255, 255, 0.12);
-      --yh-tooltip-text: #ffffff;
+      --yh-tooltip-bg: var(--yh-text-color-primary);
+      --yh-tooltip-border: transparent;
+      --yh-tooltip-text: var(--yh-bg-color);
       background: var(--yh-tooltip-bg);
       color: var(--yh-tooltip-text);
       border: 1px solid var(--yh-tooltip-border);
     }
 
     /* --- 3. 核心：全局环境感应方案 --- */
-    /* 当 HTML 或 Body 带有 .dark 类名时，强制切换变量，即使带了 is-light 也要被环境同化 */
+    /* 当 HTML 或 Body 带有 .dark 类名时，强制切换变量 */
     :root.dark &,
     html.dark &,
     body.dark & {
-      --yh-tooltip-bg: #2c2c2e;
-      --yh-tooltip-border: rgba(255, 255, 255, 0.12);
-      --yh-tooltip-text: #ffffff;
+      --yh-tooltip-bg: var(--yh-bg-color-overlay);
+      --yh-tooltip-border: var(--yh-border-color-light);
+      --yh-tooltip-text: var(--yh-text-color-primary);
       background: var(--yh-tooltip-bg);
       color: var(--yh-tooltip-text);
       border: 1px solid var(--yh-tooltip-border);
 
       /* 重写阴影，增强对比 */
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--yh-shadow-xl);
     }
   }
 

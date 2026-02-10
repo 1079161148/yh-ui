@@ -11,7 +11,7 @@
  *   - 支持 SSR
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { YhSpin } from '../../spin'
 import { infiniteScrollProps, infiniteScrollEmits } from './infinite-scroll'
 
@@ -23,6 +23,7 @@ const props = defineProps(infiniteScrollProps)
 const emit = defineEmits(infiniteScrollEmits)
 
 const ns = useNamespace('infinite-scroll')
+const { t } = useLocale()
 
 // Refs
 const rootRef = ref<HTMLElement>()
@@ -230,21 +231,21 @@ defineExpose({
       <div v-if="loading" :class="ns.e('loading')">
         <slot name="loading">
           <YhSpin size="small" />
-          <span :class="ns.e('text')">{{ loadingText }}</span>
+          <span :class="ns.e('text')">{{ loadingText || t('infinitescroll.loading') }}</span>
         </slot>
       </div>
 
       <!-- 加载完成 -->
       <div v-else-if="finished" :class="ns.e('finished')">
         <slot name="finished">
-          <span :class="ns.e('text')">{{ finishedText }}</span>
+          <span :class="ns.e('text')">{{ finishedText || t('infinitescroll.finished') }}</span>
         </slot>
       </div>
 
       <!-- 加载失败 -->
       <div v-else-if="error" :class="ns.e('error')" @click="handleRetry">
         <slot name="error">
-          <span :class="ns.e('text')">{{ errorText }}</span>
+          <span :class="ns.e('text')">{{ errorText || t('infinitescroll.error') }}</span>
         </slot>
       </div>
     </div>

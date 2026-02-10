@@ -1641,6 +1641,144 @@ html.yh-popup-parent--hidden {
 }
 
 /* ============================================
+   Calendar 日历组件适配
+   ============================================ */
+.vp-doc .yh-calendar {
+  /* 确保日历有足够的最小宽度 */
+  min-width: 100% !important;
+  overflow: visible !important;
+  
+  /* 头部布局修复 */
+  .yh-calendar__header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 16px 20px !important;
+    height: auto !important;
+    min-height: 80px !important;
+  }
+  
+  .yh-calendar__title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+  
+  .yh-calendar__controls {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  
+  .yh-calendar__nav-group {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  
+  /* 重置 VitePress 对 table 的干扰 */
+  .yh-calendar__table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 6px 6px !important;
+    table-layout: fixed !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  thead,
+  tbody {
+    display: table-header-group !important;
+    background: transparent !important;
+    border: none !important;
+  }
+  
+  tbody {
+    display: table-row-group !important;
+  }
+
+  tr {
+    display: table-row !important;
+    background: transparent !important;
+    border: none !important;
+
+    &:nth-child(2n) {
+      background: transparent !important;
+    }
+
+    &:hover td {
+      background: transparent !important;
+    }
+  }
+
+  th,
+  td {
+    display: table-cell !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  /* 星期标题行 */
+  .yh-calendar__weekday {
+    height: 44px !important;
+    color: var(--yh-calendar-weekday-color, #64748b) !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    position: relative !important;
+    white-space: nowrap !important;
+
+    &::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-radius: 8px !important;
+      z-index: 0 !important;
+      border: 1px solid rgba(0, 0, 0, 0.02) !important;
+    }
+  }
+
+  /* 日期单元格 */
+  .yh-calendar__day {
+    height: 60px !important;
+    cursor: pointer !important;
+    position: relative !important;
+
+    &::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background-color: #ffffff !important;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+      z-index: 0 !important;
+    }
+  }
+  
+  /* 周数列 */
+  .yh-calendar__week-number,
+  .yh-calendar__week-number-header {
+    min-width: 36px !important;
+    width: 36px !important;
+  }
+}
+
+/* ============================================
    Demo Utilities & Specific Components
    ============================================ */
 .yh-demo-wrapper {
