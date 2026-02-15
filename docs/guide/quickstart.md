@@ -1,28 +1,33 @@
 # 快速开始
 
-本节将介绍如何在项目中使用 YH-UI。
+本节将引导您如何在最短时间内让 YH-UI 在您的项目中运行起来。
 
-## 完整引入
+## 1. 完整引入
 
-如果你对打包后的文件大小不是很在乎，使用完整导入会更方便。
+最简单的方式是在入口文件中直接全局注册所有组件。这种方式开发体验最佳，但会使得初始包体积较大。
 
 ```ts
 // main.ts
 import { createApp } from 'vue'
 import YhUI from 'yh-ui'
-import 'yh-ui/css'
+
+// 引入全局样式
+import 'yh-ui/dist/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
+
+// 注册插件
 app.use(YhUI)
 app.mount('#app')
 ```
 
-## 按需引入
+## 2. 手动按需引入
 
-YH-UI 提供了基于 ES Module 的开箱即用的 Tree Shaking 功能。
+借助 Vue 3 的 **Composition API**，您可以仅在需要的页面中引入组件包，享受极致的 Tree Shaking 优化。
 
 ```vue
+<!-- App.vue -->
 <script setup lang="ts">
 import { YhButton } from 'yh-ui'
 </script>
@@ -32,25 +37,24 @@ import { YhButton } from 'yh-ui'
 </template>
 ```
 
-## 使用 createYhUI
+## 3. 全局配置
 
-`createYhUI` 方法允许你在安装时传入全局配置：
+YH-UI 提供了一个全局配置方法 `createYhUI`，允许您自定义库的行为（如默认组件尺寸、Z-Index 等）。
 
 ```ts
 // main.ts
 import { createApp } from 'vue'
 import { createYhUI } from 'yh-ui'
-import 'yh-ui/css'
 import App from './App.vue'
 
 const app = createApp(App)
 
 const yhUI = createYhUI({
-  // 全局组件尺寸
+  // 全局定义组件的默认尺寸：'small' | 'default' | 'large'
   size: 'default',
-  // z-index 基数
-  zIndex: 2000,
-  // 命名空间
+  // 弹窗类组件的基准 z-index
+  zIndex: 3000,
+  // 样式类名前缀 (默认 "yh")
   namespace: 'yh'
 })
 
@@ -58,45 +62,16 @@ app.use(yhUI)
 app.mount('#app')
 ```
 
-## 开始使用
+## 4. 在 Nuxt 3 中使用 (推荐)
 
-现在你可以开始使用 YH-UI 组件了！
+如果您使用的是 Nuxt 3 框架，我们提供了专属的模块支持，只需单步安装即可享受自动按需加载和 SSR 优化。
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
+👉 [查看 Nuxt 集成指南](/guide/nuxt)
 
-const count = ref(0)
-</script>
+## 🏁 下一步
 
-<template>
-  <div class="demo">
-    <h1>欢迎使用 YH-UI</h1>
-    <p>点击次数: {{ count }}</p>
-    <yh-button type="primary" @click="count++">
-      点击我
-    </yh-button>
-    <yh-button @click="count = 0">重置</yh-button>
-  </div>
-</template>
+恭喜！您已经成功运行了 YH-UI。接下来：
 
-<style scoped>
-.demo {
-  padding: 24px;
-}
-
-.demo h1 {
-  margin-bottom: 16px;
-}
-
-.demo p {
-  margin-bottom: 16px;
-}
-</style>
-```
-
-## 下一步
-
-- 浏览 [组件文档](/components/button) 了解所有可用组件
-- 了解如何 [定制主题](/guide/theming)
-- 查看 [设计规范](/guide/design) 了解设计理念
+- 🛠️ [浏览组件库](/components/button) - 探索所有可用组件。
+- 🎨 [定制主题](/guide/theming) - 打造您专属的设计风格。
+- ⚡ [性能优化](/guide/design) - 学习如何进一步优化应用。

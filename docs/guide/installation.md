@@ -1,8 +1,16 @@
 # 安装
 
+## 环境要求
+
+在开始之前，请确保您的开发环境满足以下要求：
+
+- **Vue**: >= 3.5.0
+- **Node.js**: >= 18.12.0 (建议使用最新的 LTS 版本)
+- **包管理器**: 推荐使用 [pnpm](https://pnpm.io/)
+
 ## 使用包管理器
 
-我们推荐使用包管理器（如 pnpm、npm 或 yarn）来安装 YH-UI。
+我们推荐使用包管理器来安装 YH-UI，以便获得完善的类型支持和构建优化。
 
 ::: code-group
 
@@ -22,94 +30,86 @@ yarn add yh-ui
 
 ## 浏览器直接引入
 
-如果你的项目不使用构建工具，可以直接通过 CDN 引入。
+你可以通过 CDN 直接在 HTML 中使用 YH-UI。我们支持 `unpkg` 和 `jsDelivr`。
 
-### unpkg
+::: code-group
 
-```html
+```html [unpkg]
 <head>
-  <!-- 引入样式 -->
+  <!-- 样式文件 -->
   <link rel="stylesheet" href="https://unpkg.com/yh-ui/dist/style.css" />
-  <!-- 引入 Vue -->
+  <!-- 依赖库 Vue -->
   <script src="https://unpkg.com/vue@3"></script>
-  <!-- 引入组件库 -->
+  <!-- 组件库 JS -->
   <script src="https://unpkg.com/yh-ui"></script>
 </head>
 ```
 
-### jsDelivr
-
-```html
+```html [jsDelivr]
 <head>
-  <!-- 引入样式 -->
+  <!-- 样式文件 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yh-ui/dist/style.css" />
-  <!-- 引入 Vue -->
+  <!-- 依赖库 Vue -->
   <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
-  <!-- 引入组件库 -->
+  <!-- 组件库 JS -->
   <script src="https://cdn.jsdelivr.net/npm/yh-ui"></script>
 </head>
 ```
 
-::: warning 注意
-使用 CDN 引入时，版本号建议锁定到具体版本，以避免未来版本升级带来的不兼容问题。
+:::
+
+::: tip 提示
+生产环境下，建议在 URL 中锁定具体的版本号（例如 `yh-ui@1.0.0`），以避免非预期内的破坏性更新。
 :::
 
 ## 按需引入
 
-YH-UI 支持基于 ES Modules 的 Tree Shaking，你可以直接按需引入组件。
+YH-UI 天生支持 **Tree Shaking**。只需直接引入组件，构建工具（如 Vite 或 Webpack）会自动剔除未使用的代码。
 
-```ts
+```vue
+<script setup lang="ts">
 import { YhButton } from 'yh-ui'
+</script>
 ```
 
 ### 自动按需引入（推荐）
 
-使用 [unplugin-vue-components](https://github.com/unplugin/unplugin-vue-components) 可以实现自动按需引入。
+通过配合插件，你可以像使用原生 HTML 标签一样使用 YH-UI 组件，无需手动 `import`。
 
-#### 安装
+#### 1. 安装插件
 
-::: code-group
-
-```bash [pnpm]
+```bash
 pnpm add -D unplugin-vue-components
 ```
 
-```bash [npm]
-npm install -D unplugin-vue-components
-```
+#### 2. 配置 Vite
 
-:::
-
-#### 配置 Vite
+在 `vite.config.ts` 中注册解析器：
 
 ```ts
-// vite.config.ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { YhUIResolver } from '@yh-ui/components/resolver'
+import { YhUIResolver } from 'yh-ui/resolver' // 确保您已安装 yh-ui
 
 export default defineConfig({
   plugins: [
     vue(),
     Components({
-      resolvers: [YhUIResolver()]
+      resolvers: [
+        YhUIResolver({
+          // 如果需要自动引入样式
+          importStyle: 'sass' 
+        })
+      ]
     })
   ]
 })
 ```
 
-配置完成后，你可以直接在模板中使用组件，无需手动引入：
+## TypeScript 支持
 
-```vue
-<template>
-  <yh-button type="primary">按钮</yh-button>
-</template>
-```
-
-## Volar 类型支持
-
-如果你使用 Volar，请在 `tsconfig.json` 中添加以下配置以获得完整的类型提示：
+如果您正在使用 TypeScript，建议在 `tsconfig.json` 中配置 `compilerOptions.types`，以确保全局组件拥有完善的类型推导：
 
 ```json
 {
