@@ -13,10 +13,6 @@ export const YhFormSchema = withInstall(FormSchema)
 
 export default YhForm
 
-declare module 'vue' {
-  export interface GlobalComponents {
-    YhForm: typeof YhForm
-    YhFormItem: typeof YhFormItem
-    YhFormSchema: typeof YhFormSchema
-  }
-}
+export type FormInstance = InstanceType<typeof Form>
+export type FormItemInstance = InstanceType<typeof FormItem>
+export type FormSchemaInstance = InstanceType<typeof FormSchema>

@@ -10,3 +10,7 @@ export const YhDropdownMenu = withInstall(DropdownMenu)
 export default YhDropdown
 
 export * from './src/dropdown'
+
+export type DropdownInstance = InstanceType<typeof Dropdown>
+export type DropdownItemInstance = InstanceType<typeof DropdownItem>
+export type DropdownMenuInstance = InstanceType<typeof DropdownMenu>

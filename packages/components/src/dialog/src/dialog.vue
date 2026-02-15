@@ -162,7 +162,7 @@ const style = computed<CSSProperties>(() => {
 })
 
 const parseStyle = (str: string): CSSProperties => {
-  const obj: any = {}
+  const obj: Record<string, string> = {}
   str.split(';').forEach((item) => {
     if (!item) return
     const [key, val] = item.split(':')

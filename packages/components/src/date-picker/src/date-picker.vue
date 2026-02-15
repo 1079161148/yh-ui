@@ -244,7 +244,7 @@ const syncInnerDate = () => {
   }
 }
 
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val) {
     currentView.value = getInitialView(props.type)
     updatePosition()

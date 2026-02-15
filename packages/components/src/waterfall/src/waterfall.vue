@@ -151,7 +151,7 @@ const isRefreshing = computed(() => props.loading && props.items && props.items.
 // 维护一个最小高度，防止切换时抖动
 const minContainerHeight = ref<string>('auto')
 
-watch(() => props.loading, (val) => {
+watch(() => props.loading, (val: boolean) => {
   if (val && containerRef.value) {
     // 开启加载时切换，记录当前高度作为最小高度，防止塌陷
     const height = containerRef.value.offsetHeight

@@ -5,3 +5,5 @@ export const YhPopover = withInstall(Popover)
 export default YhPopover
 
 export * from './src/popover'
+
+export type PopoverInstance = InstanceType<typeof Popover>

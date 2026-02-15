@@ -26,3 +26,6 @@ export * from './src/transfer'
 
 // 默认导出
 export default YhTransfer
+
+export type TransferInstance = InstanceType<typeof Transfer>
+export type TransferPanelInstance = InstanceType<typeof TransferPanel>

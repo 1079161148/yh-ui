@@ -4,14 +4,20 @@
  */
 import { ref, computed, watch, triggerRef, reactive } from 'vue'
 import type { SetupContext } from 'vue'
-import type { TreeSelectProps, TreeSelectEmits, TreeNode, TreeKey, TreeOption } from './tree-select'
+import type {
+  TreeSelectProps,
+  TreeSelectEmits,
+  TreeSelectNode,
+  TreeKey,
+  TreeOption
+} from './tree-select'
 
 export const useTree = (
   props: TreeSelectProps,
-  emit: <T extends keyof TreeSelectEmits>(event: T, ...args: any[]) => void
+  emit: <T extends keyof TreeSelectEmits>(event: T, ...args: Parameters<TreeSelectEmits[T]>) => void
 ) => {
-  const nodeMap = ref(new Map<TreeKey, TreeNode>())
-  const treeData = ref<TreeNode[]>([])
+  const nodeMap = ref(new Map<TreeKey, TreeSelectNode>())
+  const treeData = ref<TreeSelectNode[]>([])
   const mapVersion = ref(0)
 
   const alias = computed(() => ({
@@ -22,11 +28,11 @@ export const useTree = (
     isLeaf: props.props?.isLeaf || 'isLeaf'
   }))
 
-  const createTreeNode = (data: TreeOption, parent?: TreeNode, level = 0): TreeNode => {
+  const createTreeNode = (data: TreeOption, parent?: TreeSelectNode, level = 0): TreeSelectNode => {
     const keyProp = props.nodeKey || alias.value.value
     const key = (data[keyProp] as TreeKey) ?? `node-${Math.random().toString(36).slice(2, 9)}`
 
-    const node: TreeNode = reactive({
+    const node: TreeSelectNode = reactive({
       key,
       label: String(data[alias.value.label] || ''),
       level,
@@ -57,8 +63,8 @@ export const useTree = (
   const flatData = computed(() => {
     // 强制依赖版本号以触发更新
     mapVersion.value
-    const result: TreeNode[] = []
-    const walk = (nodes: TreeNode[]) => {
+    const result: TreeSelectNode[] = []
+    const walk = (nodes: TreeSelectNode[]) => {
       nodes.forEach((node) => {
         if (node.visible) {
           result.push(node)
@@ -72,7 +78,7 @@ export const useTree = (
 
   const getNode = (key: TreeKey) => nodeMap.value.get(key)
 
-  const updateParentState = (node: TreeNode) => {
+  const updateParentState = (node: TreeSelectNode) => {
     let p = node.parent
     while (p) {
       const children = p.children || []
@@ -103,7 +109,7 @@ export const useTree = (
       if (node) {
         node.checked = true
         if (!props.checkStrictly && props.multiple) {
-          const setChild = (n: TreeNode) => {
+          const setChild = (n: TreeSelectNode) => {
             if (n.disabled) return
             n.checked = true
             n.indeterminate = false
@@ -142,7 +148,7 @@ export const useTree = (
     }
   }
 
-  const checkNode = (node: TreeNode, checked: boolean) => {
+  const checkNode = (node: TreeSelectNode, checked: boolean) => {
     if (node.disabled) return
 
     if (!props.multiple) {
@@ -156,7 +162,7 @@ export const useTree = (
     node.indeterminate = false
 
     if (!props.checkStrictly && props.multiple) {
-      const setChild = (n: TreeNode, v: boolean) => {
+      const setChild = (n: TreeSelectNode, v: boolean) => {
         if (n.disabled) return
         n.checked = v
         n.indeterminate = false
@@ -188,7 +194,7 @@ export const useTree = (
     triggerRef(nodeMap)
   }
 
-  const toggleExpand = (node: TreeNode) => {
+  const toggleExpand = (node: TreeSelectNode) => {
     if (node.isLeaf && !props.lazy) return
     if (props.lazy && !node.loaded) {
       loadNode(node)
@@ -199,7 +205,7 @@ export const useTree = (
     }
   }
 
-  const loadNode = async (node: TreeNode) => {
+  const loadNode = async (node: TreeSelectNode) => {
     if (!props.load || node.loading) return
     node.loading = true
     try {
@@ -230,7 +236,7 @@ export const useTree = (
   const filter = (val: string) => {
     const query = val.trim().toLowerCase()
 
-    const isMatched = (node: TreeNode) => {
+    const isMatched = (node: TreeSelectNode) => {
       if (props.filterNodeMethod) return props.filterNodeMethod(query, node.raw, node)
       return !query || node.label.toLowerCase().includes(query)
     }
@@ -258,7 +264,7 @@ export const useTree = (
       })
 
       // 向下渗透
-      const setVisible = (n: TreeNode) => {
+      const setVisible = (n: TreeSelectNode) => {
         n.visible = true
         n.children?.forEach(setVisible)
       }

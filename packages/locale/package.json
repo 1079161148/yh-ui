@@ -4,16 +4,17 @@
   "description": "YH-UI internationalization locale files",
   "type": "module",
   "sideEffects": false,
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     },
-    "./lang/*": "./dist/lang/*"
+    "./lang/*": {
+      "import": "./dist/lang/*.mjs"
+    }
   },
   "files": [
     "dist"
@@ -26,5 +27,17 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/locale"
+  },
+  "keywords": [
+    "yh-ui",
+    "locale",
+    "i18n"
+  ],
+  "homepage": "https://yh-ui.dev",
+  "author": "YH-UI Team",
   "license": "MIT"
 }

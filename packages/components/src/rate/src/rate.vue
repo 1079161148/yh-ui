@@ -23,7 +23,7 @@ const hoverIndex = ref(-1)
 const isPointerAtLeftHalf = ref(props.modelValue !== Math.floor(props.modelValue))
 
 // 同步外部绑定值
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, (val: number) => {
   currentValue.value = val
   isPointerAtLeftHalf.value = val !== Math.floor(val)
 }, { immediate: true })

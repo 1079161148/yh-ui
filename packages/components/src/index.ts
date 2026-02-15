@@ -223,6 +223,10 @@ export const install = (app: App): void => {
   app.config.globalProperties.$message = YhMessage
   app.config.globalProperties.$notify = YhNotification
   app.config.globalProperties.$dialog = YhDialogMethod
+  app.config.globalProperties.$msgbox = YhMessageBox
+  app.config.globalProperties.$alert = YhMessageBox.alert
+  app.config.globalProperties.$confirm = YhMessageBox.confirm
+  app.config.globalProperties.$prompt = YhMessageBox.prompt
 }
 
 /**

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, toRefs, useSlots, computed, h, Fragment } from 'vue'
+import { provide, toRefs, useSlots, computed, h, Fragment, type VNodeChild } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { breadcrumbProps } from './breadcrumb'
 
@@ -24,7 +24,7 @@ const breadcrumbItems = computed(() => {
 
   // 展平 Fragment
   const items = children.flatMap(child => {
-    if (child.type === Fragment) return (child.children as any[]) || []
+    if (child.type === Fragment) return (child.children as VNodeChild[]) || []
     return [child]
   })
 

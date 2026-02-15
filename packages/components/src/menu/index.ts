@@ -12,3 +12,8 @@ export const YhSubMenu = withInstall(SubMenu)
 export default YhMenu
 
 export * from './src/menu'
+
+export type MenuInstance = InstanceType<typeof Menu>
+export type MenuItemInstance = InstanceType<typeof MenuItem>
+export type MenuItemGroupInstance = InstanceType<typeof MenuItemGroup>
+export type SubMenuInstance = InstanceType<typeof SubMenu>

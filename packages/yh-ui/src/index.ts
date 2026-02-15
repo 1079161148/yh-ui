@@ -21,6 +21,12 @@ export * from '@yh-ui/theme'
 // 导出国际化
 export * from '@yh-ui/locale'
 
+// 解决重导出冲突 - 强制指定来源
+export { zhCn, en } from '@yh-ui/locale'
+export type { Language } from '@yh-ui/locale'
+export { hexToRgb, rgbToHex } from '@yh-ui/utils'
+export type { ComponentSize } from '@yh-ui/utils'
+
 // 导入组件安装器
 import components from '@yh-ui/components'
 

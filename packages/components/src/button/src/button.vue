@@ -40,7 +40,7 @@ const { globalSize } = useConfig()
 const actualSize = computed(() => props.size || globalSize.value || 'default')
 
 // 按钮元素引用
-const buttonRef = ref<HTMLButtonElement>()
+const buttonRef = ref<HTMLElement>()
 
 // 是否有图标
 const hasIcon = computed(() => props.icon || slots.icon)
@@ -95,8 +95,8 @@ const handleClick = (event: MouseEvent) => {
 }
 
 defineExpose<ButtonExpose>({
-  ref: buttonRef as any,
-  size: actualSize.value as any,
+  ref: buttonRef.value,
+  size: actualSize.value,
   type: props.type,
   disabled: props.disabled
 })

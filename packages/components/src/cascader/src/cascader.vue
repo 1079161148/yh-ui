@@ -107,7 +107,7 @@ const updateDropdownPosition = () => {
 }
 
 // 监听 visible 变化更新位置
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val && props.teleported) {
     nextTick(updateDropdownPosition)
   }

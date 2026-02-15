@@ -25,7 +25,7 @@ const pageCount = computed(() => {
 // 当前内部页码
 const internalCurrentPage = ref(props.currentPage)
 
-watch(() => props.currentPage, (val) => {
+watch(() => props.currentPage, (val: number) => {
   internalCurrentPage.value = val
 })
 
@@ -94,7 +94,7 @@ const handleSizeChange = (val: number) => {
 }
 
 const jumpValue = ref<string | number>(internalCurrentPage.value)
-watch(internalCurrentPage, (val) => {
+watch(internalCurrentPage, (val: number) => {
   jumpValue.value = val
 })
 
@@ -137,8 +137,9 @@ defineExpose<PaginationExpose>({
       <!-- Sizes -->
       <div v-if="item === 'sizes'" :class="ns.e('sizes')">
         <yh-select :model-value="pageSize" :disabled="disabled" :size="small ? 'small' : 'default'"
-          @update:model-value="handleSizeChange">
-          <yh-option v-for="size in pageSizes" :key="size" :label="`${size}${t('pagination.pageSize')}`" :value="size" />
+          @update:model-value="(val: number | unknown) => handleSizeChange(Number(val))">
+          <yh-option v-for="size in pageSizes" :key="size" :label="`${size}${t('pagination.pageSize')}`"
+            :value="size" />
         </yh-select>
       </div>
 

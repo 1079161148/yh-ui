@@ -5,3 +5,5 @@ export const YhMarquee = withInstall(Marquee)
 export default YhMarquee
 
 export * from './src/marquee'
+
+export type MarqueeInstance = InstanceType<typeof Marquee>

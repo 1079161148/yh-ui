@@ -5,8 +5,15 @@
 import * as _dayjs from 'dayjs'
 const dayjs = (_dayjs as any).default || _dayjs
 
-// 动态导入的 locale 缓存
-const loadedLocales = new Set<string>(['en'])
+// 静态导入常用语言包，确保打包时包含
+import 'dayjs/locale/en'
+import 'dayjs/locale/zh-cn'
+import 'dayjs/locale/zh-tw'
+import 'dayjs/locale/ja'
+import 'dayjs/locale/ko'
+
+// 已加载的 locale 缓存（静态导入的语言包已自动注册）
+const loadedLocales = new Set<string>(['en', 'zh-cn', 'zh-tw', 'ja', 'ko'])
 
 // 组件库 locale name 到 dayjs locale code 的映射
 const localeMapping: Record<string, string> = {
@@ -93,7 +100,7 @@ export const getDayjsLocale = (localeCode: string): string => {
 export const setDayjsLocale = async (localeCode: string): Promise<void> => {
   const dayjsLocale = getDayjsLocale(localeCode)
 
-  // 如果已加载，直接切换
+  // 如果已加载（静态导入的或之前动态加载过的），直接切换
   if (loadedLocales.has(dayjsLocale)) {
     dayjs.locale(dayjsLocale)
     return
@@ -101,7 +108,8 @@ export const setDayjsLocale = async (localeCode: string): Promise<void> => {
 
   // 动态导入 locale
   try {
-    await import(/* @vite-ignore */ `dayjs/locale/${dayjsLocale}.js`)
+    // 使用相对路径，确保 Vite/Rollup 能正确静态分析
+    await import(`../../../../node_modules/dayjs/locale/${dayjsLocale}.js`)
     loadedLocales.add(dayjsLocale)
     dayjs.locale(dayjsLocale)
   } catch {

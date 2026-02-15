@@ -59,7 +59,7 @@ const weekDays = computed(() => {
 })
 
 const getCellClasses = (cell: CalendarCell) => {
-  const classes: any[] = [
+  const classes: string[] = [
     ns.e('cell'),
     ns.is(cell.type),
     ns.is(props.cellShape || 'round')

@@ -57,10 +57,10 @@ const loadImage = () => {
     isLoading.value = false
     emit('load', e)
   }
-  img.onerror = (e) => {
+  img.onerror = (e: Event | string) => {
     isLoading.value = false
     error.value = true
-    emit('error', e as any)
+    emit('error', e)
   }
 }
 

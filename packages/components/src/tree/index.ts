@@ -7,3 +7,6 @@ export const YhTreeNode = withInstall(TreeNode)
 export default YhTree
 
 export * from './src/tree'
+
+export type TreeInstance = InstanceType<typeof Tree>
+export type TreeNodeInstance = InstanceType<typeof TreeNode>

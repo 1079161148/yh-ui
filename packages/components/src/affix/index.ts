@@ -5,3 +5,5 @@ export const YhAffix = withInstall(Affix)
 export default YhAffix
 
 export * from './src/affix'
+
+export type AffixInstance = InstanceType<typeof Affix>

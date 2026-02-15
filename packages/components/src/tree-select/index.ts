@@ -5,3 +5,5 @@ export const YhTreeSelect = withInstall(TreeSelect)
 export default YhTreeSelect
 
 export * from './src/tree-select'
+
+export type TreeSelectInstance = InstanceType<typeof TreeSelect>

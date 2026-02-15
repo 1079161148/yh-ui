@@ -118,7 +118,7 @@
  */
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { treeSelectProps, treeSelectEmits, type TreeNode, type TreeKey } from './tree-select'
+import { treeSelectProps, treeSelectEmits, type TreeSelectNode, type TreeKey } from './tree-select'
 import { useTree } from './use-tree'
 
 defineOptions({ name: 'YhTreeSelect' })
@@ -227,7 +227,7 @@ const handleOutsideClick = (e: MouseEvent) => {
   }
 }
 
-const handleNodeClick = (node: TreeNode, e?: MouseEvent) => {
+const handleNodeClick = (node: TreeSelectNode, e?: MouseEvent) => {
   if (node.disabled) return
 
   // 抛出节点点击事件 (对标 市面组件库，透出事件对象)
@@ -304,7 +304,7 @@ const updatePopper = () => {
   })
 }
 
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   emit('visible-change', val)
   if (val) {
     scrollTop.value = 0

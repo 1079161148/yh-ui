@@ -16,7 +16,7 @@ const uiLoading = ref(props.loading && props.throttle <= 0)
 let timeout: ReturnType<typeof setTimeout> | null = null
 
 // 节流显示逻辑
-watch(() => props.loading, (val) => {
+watch(() => props.loading, (val: boolean) => {
   if (timeout) clearTimeout(timeout)
   if (val) {
     if (props.throttle <= 0) {

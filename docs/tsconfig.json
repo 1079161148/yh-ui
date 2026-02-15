@@ -9,7 +9,8 @@
   "include": [
     ".vitepress/**/*.ts",
     ".vitepress/**/*.vue",
-    "**/*.md"
+    "**/*.md",
+    "../typings/env.d.ts"
   ],
   "exclude": [
     "node_modules",

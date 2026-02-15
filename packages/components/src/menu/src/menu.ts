@@ -18,7 +18,7 @@ export interface MenuItemData {
   children?: MenuItemData[]
   /** 分组标题（仅用于分组） */
   group?: boolean
-  /** 允许自定义扩展属性 */
+  /** 允许自定义扩展属性 - 使用 any 以支持动态属性访问 */
   [key: string]: any
 }
 
@@ -211,6 +211,8 @@ export const menuProps = {
 } as const
 
 export const menuEmits = {
+  /** v-model:value */
+  'update:value': (value: string) => true,
   /** 菜单激活回调 */
   select: (
     index: string,

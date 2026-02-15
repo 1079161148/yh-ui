@@ -5,3 +5,5 @@ export const YhSlider = withInstall(Slider)
 export default YhSlider
 
 export * from './src/slider'
+
+export type SliderInstance = InstanceType<typeof Slider>

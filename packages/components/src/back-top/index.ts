@@ -5,3 +5,5 @@ export const YhBackTop = withInstall(BackTop)
 export default YhBackTop
 
 export * from './src/back-top'
+
+export type BackTopInstance = InstanceType<typeof BackTop>

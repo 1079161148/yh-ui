@@ -8,7 +8,7 @@ import type { SFCWithInstall } from './types'
 /**
  * 为组件添加 install 方法，使其可以作为 Vue 插件使用
  */
-export const withInstall = <T extends Component, E extends Record<string, any>>(
+export const withInstall = <T extends Component, E extends Record<string, unknown>>(
   main: T,
   extra?: E
 ): SFCWithInstall<T> & E => {
@@ -16,14 +16,14 @@ export const withInstall = <T extends Component, E extends Record<string, any>>(
     for (const comp of [main, ...Object.values(extra ?? {})]) {
       const name = (comp as { name?: string }).name || (comp as { __name?: string }).__name
       if (name) {
-        app.component(name, comp)
+        app.component(name, comp as Component)
       }
     }
   }
 
   if (extra) {
     for (const [key, comp] of Object.entries(extra)) {
-      ;(main as any)[key] = comp
+      ;(main as Record<string, unknown>)[key] = comp
     }
   }
   return main as SFCWithInstall<T> & E

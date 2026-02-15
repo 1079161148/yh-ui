@@ -9,8 +9,13 @@ export default defineConfig({
       '@yh-ui/components': resolve(__dirname, '../packages/components/src'),
       '@yh-ui/hooks': resolve(__dirname, '../packages/hooks/src'),
       '@yh-ui/utils': resolve(__dirname, '../packages/utils/src'),
-      '@yh-ui/theme': resolve(__dirname, '../packages/theme/src')
+      '@yh-ui/theme': resolve(__dirname, '../packages/theme/src'),
+      'dayjs': resolve(__dirname, '../node_modules/dayjs')
     }
+  },
+  // 优化依赖预构建，确保 dayjs locale 能正确加载
+  optimizeDeps: {
+    include: ['dayjs']
   },
   server: {
     port: 3000,

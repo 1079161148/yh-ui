@@ -13,7 +13,7 @@ import {
   computed,
   toRefs
 } from 'vue'
-import AsyncValidator from 'async-validator'
+import AsyncValidator, { type Rules } from 'async-validator'
 import { formItemProps } from './form-item'
 import type { ValidateStatus } from './form-item'
 import type { FormRule } from './form'
@@ -31,7 +31,7 @@ const ns = useNamespace('form-item')
 const { t } = useLocale()
 
 // 注入表单上下文
-const formContext = inject(FormContextKey, undefined)
+const formContext = inject(FormContextKey, null)
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -45,7 +45,7 @@ const errorId = `yh-error-${id}`
 // 内部状态
 const innerValidateStatus = ref<ValidateStatus>('')
 const innerValidateMessage = ref('')
-const initialValue = ref<any>(undefined)
+const initialValue = ref<unknown>(undefined)
 
 // 最终展现给 UI 的状态
 const currentValidateStatus = computed(() => props.validateStatus || innerValidateStatus.value)
@@ -60,7 +60,7 @@ const itemRules = computed(() => {
   }
   const formRules = formContext?.rules
   if (formRules && props.prop) {
-    const fRules = (formRules as any)[props.prop]
+    const fRules = (formRules as Record<string, FormRule | FormRule[]>)[props.prop]
     if (fRules) {
       const fRulesArray = Array.isArray(fRules) ? fRules : [fRules]
       rules.push(...fRulesArray)
@@ -98,7 +98,7 @@ const isDisabled = computed(() => props.disabled || formContext?.disabled || fal
  */
 const validate = async (trigger: string = '', callback?: (isValid: boolean) => void) => {
   const rules = trigger
-    ? itemRules.value.filter(rule => !rule.trigger || (Array.isArray(rule.trigger) ? rule.trigger.includes(trigger as any) : rule.trigger === trigger))
+    ? itemRules.value.filter(rule => !rule.trigger || (Array.isArray(rule.trigger) ? rule.trigger.includes(trigger as import('./form').FormValidateTrigger) : rule.trigger === trigger))
     : itemRules.value
 
   if (rules.length === 0) {
@@ -109,8 +109,8 @@ const validate = async (trigger: string = '', callback?: (isValid: boolean) => v
   // 开始校验，清除旧消息
   innerValidateStatus.value = 'validating'
 
-  const descriptor = { [props.prop]: rules }
-  const validator = new AsyncValidator(descriptor as any)
+  const descriptor = { [props.prop]: rules } as Rules
+  const validator = new AsyncValidator(descriptor)
   const model = { [props.prop]: fieldValue.value }
 
   return validator.validate(model, { firstFields: true })
@@ -165,7 +165,7 @@ const context = reactive({
   inputId: contentId
 })
 
-provide(FormItemContextKey, context as any)
+provide(FormItemContextKey, context)
 
 onMounted(() => {
   if (props.prop) {

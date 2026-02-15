@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { progressProps } from './progress'
 
@@ -46,7 +47,7 @@ const getGradientStops = computed(() => {
 
 // 为进度条计算背景样式
 const barStyle = computed(() => {
-  const style: any = {
+  const style: CSSProperties = {
     width: props.indeterminate ? undefined : `${percentages.value[0]}%`,
     '--yh-progress-duration': `${props.duration}s`
   }

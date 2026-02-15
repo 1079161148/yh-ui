@@ -5,7 +5,7 @@
 import { ref, computed, provide, toRef, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { menuProps, menuEmits, MENU_INJECTION_KEY } from './menu'
-import type { MenuContext } from './menu'
+import type { MenuContext, MenuEmits } from './menu'
 import YhMenuRecursiveItem from './menu-recursive-item.vue'
 
 defineOptions({
@@ -13,7 +13,7 @@ defineOptions({
 })
 
 const props = defineProps(menuProps)
-const emit = defineEmits([...Object.keys(menuEmits), 'update:value'] as any)
+const emit = defineEmits(menuEmits as MenuEmits)
 
 const ns = useNamespace('menu')
 

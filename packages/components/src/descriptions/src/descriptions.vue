@@ -18,13 +18,20 @@ const ns = useNamespace('descriptions')
 
 provide(descriptionsKey, { props })
 
+// 自定义 VNode 项类型，用于存储额外的布局信息
+interface DescriptionsItemData {
+  props: Record<string, unknown>
+  slots: Record<string, () => VNode | string>
+  actualSpan: number
+}
+
 // 辅助函数：深度展平节点
 const getFlattenChildren = (nodes: VNode[]): VNode[] => {
   const result: VNode[] = []
   nodes.forEach((node) => {
     if (node.type === Fragment && Array.isArray(node.children)) {
       result.push(...getFlattenChildren(node.children as VNode[]))
-    } else if (node.type && (node.type as any).name === 'YhDescriptionsItem') {
+    } else if (node.type && typeof node.type === 'object' && 'name' in node.type && (node.type as { name?: string }).name === 'YhDescriptionsItem') {
       result.push(node)
     }
   })
@@ -34,8 +41,8 @@ const getFlattenChildren = (nodes: VNode[]): VNode[] => {
 // 核心：对标 EP 的高鲁棒性行分配算法
 const rows = computed(() => {
   const children = slots.default ? getFlattenChildren(slots.default()) : []
-  const rows: any[][] = []
-  let tempRow: any[] = []
+  const rows: DescriptionsItemData[][] = []
+  let tempRow: DescriptionsItemData[] = []
   let occupiedSpan = 0
   const totalColumn = Number(props.column)
 
@@ -56,9 +63,9 @@ const rows = computed(() => {
     }
 
     // 每一项自带 span 的数据引用，使用 actualSpan 避免修改 props
-    const item = {
+    const item: DescriptionsItemData = {
       props: itemProps,
-      slots: node.children || {},
+      slots: (node.children as Record<string, () => VNode | string>) || {},
       actualSpan: span
     }
 

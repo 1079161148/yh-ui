@@ -1,5 +1,6 @@
 import { type Directive, type DirectiveBinding } from 'vue'
 import { Loading, type LoadingInstance } from './service'
+import type { LoadingSpinnerType } from '../../spin'
 
 const INSTANCE_KEY = Symbol('LoadingInstance')
 
@@ -26,7 +27,7 @@ export const vLoading: Directive = {
         (el.getAttribute('yh-loading-dot') !== 'false' &&
           el.getAttribute('yh-loading-dot') !== null),
       color: el.getAttribute('yh-loading-color') || undefined,
-      spinnerType: (el.getAttribute('yh-loading-type') as any) || undefined
+      spinnerType: (el.getAttribute('yh-loading-type') as LoadingSpinnerType) || undefined
     })
 
     if (binding.value) {
@@ -56,7 +57,7 @@ export const vLoading: Directive = {
             (el.getAttribute('yh-loading-dot') !== 'false' &&
               el.getAttribute('yh-loading-dot') !== null),
           color: el.getAttribute('yh-loading-color') || undefined,
-          spinnerType: (el.getAttribute('yh-loading-type') as any) || undefined
+          spinnerType: (el.getAttribute('yh-loading-type') as LoadingSpinnerType) || undefined
         }
         el[INSTANCE_KEY] = Loading.service(options)
       } else {

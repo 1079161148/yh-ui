@@ -5,3 +5,5 @@ export const YhCountdown = withInstall(Countdown)
 export default YhCountdown
 
 export * from './src/countdown'
+
+export type CountdownInstance = InstanceType<typeof Countdown>

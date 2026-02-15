@@ -173,7 +173,7 @@ export interface ButtonExpose {
   /**
    * 按钮 DOM 元素引用
    */
-  ref: HTMLButtonElement | undefined
+  ref: HTMLElement | undefined
 
   /**
    * 按钮尺寸

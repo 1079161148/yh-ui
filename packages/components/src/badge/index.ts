@@ -5,3 +5,5 @@ export const YhBadge = withInstall(Badge)
 export default YhBadge
 
 export * from './src/badge'
+
+export type BadgeInstance = InstanceType<typeof Badge>

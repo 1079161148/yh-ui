@@ -132,7 +132,8 @@ export type ImageProps = ExtractPropTypes<typeof imageProps>
 
 export interface ImageEmits {
   (e: 'load', event: Event): void
-  (e: 'error', event: Event): void
+  // img.onerror 的类型是 OnErrorEventHandler，参数可能是 Event 或 string
+  (e: 'error', event: Event | string): void
   (e: 'switch', index: number): void
   (e: 'close'): void
   (e: 'show'): void

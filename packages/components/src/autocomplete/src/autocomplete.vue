@@ -128,7 +128,7 @@ const updateDropdownPosition = () => {
 }
 
 // 监听建议列表显示状态
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val) {
     dropdownZIndex.value = nextZIndex()
     if (props.teleported) {

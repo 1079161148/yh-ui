@@ -1,15 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": true,
-    "noEmit": false,
-    "emitDeclarationOnly": true,
-    "outDir": "dist",
+    "composite": false,
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "baseUrl": ".",
     "rootDir": "../../",
-    "lib": ["ESNext", "DOM"],
-    "types": ["node"]
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "paths": {
+      "@yh-ui/utils": ["../utils/src"],
+      "@yh-ui/locale": ["../locale/src"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"],
-  "exclude": ["**/__tests__", "**/*.test.ts"],
-  "references": [{ "path": "../locale" }, { "path": "../utils" }]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/__tests__", "**/*.test.ts"]
 }

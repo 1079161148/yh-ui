@@ -24,7 +24,8 @@ import {
   tableContextKey,
   type TableColumn,
   type SortOrder,
-  type TableExpose
+  type TableExpose,
+  type TablePaginationConfig
 } from './table'
 import {
   getRowKey,
@@ -1411,8 +1412,8 @@ watch(selectedRowKeys, () => {
     <div v-if="pagination"
       :class="[ns.e('pagination-wrapper'), typeof pagination === 'object' && pagination.align ? ns.is('align-' + pagination.align) : '']">
       <YhPagination v-bind="typeof pagination === 'object' ? pagination : {}" :class="ns.e('pagination')"
-        @update:current-page="(val) => emit('page-change', { currentPage: val, pageSize: (typeof pagination === 'object' ? pagination.pageSize : 10) || 10 })"
-        @update:page-size="(val) => emit('page-change', { currentPage: (typeof pagination === 'object' ? pagination.currentPage : 1) || 1, pageSize: val })" />
+        @update:current-page="(val: number) => emit('page-change', { currentPage: val, pageSize: (typeof pagination === 'object' ? (pagination as TablePaginationConfig).pageSize : 10) || 10 })"
+        @update:page-size="(val: number) => emit('page-change', { currentPage: (typeof pagination === 'object' ? (pagination as TablePaginationConfig).currentPage : 1) || 1, pageSize: val })" />
     </div>
 
     <!-- 渲染隐藏的默认插槽，用于收集列配置(仅渲染 YhTableColumn 子组件) -->

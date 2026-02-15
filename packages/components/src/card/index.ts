@@ -5,3 +5,5 @@ export const YhCard = withInstall(Card)
 export default YhCard
 
 export * from './src/card'
+
+export type CardInstance = InstanceType<typeof Card>

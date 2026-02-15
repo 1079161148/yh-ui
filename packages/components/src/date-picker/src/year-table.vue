@@ -37,7 +37,7 @@ const years = computed(() => {
 })
 
 const getCellClasses = (year: number) => {
-  const classes: any[] = [
+  const classes: string[] = [
     ns.e('cell'),
     ns.is(props.cellShape || 'round')
   ]
@@ -47,7 +47,7 @@ const getCellClasses = (year: number) => {
   if (cellDate.isSame(today, 'year')) classes.push('is-today')
   if (props.disabledDate && props.disabledDate(cellDate.toDate())) classes.push('is-disabled')
 
-  const isSelected = (val: any) => {
+  const isSelected = (val: Date | Date[] | null | undefined) => {
     if (!val) return false
     const d = dayjs(val)
     return d.year() === year

@@ -196,7 +196,7 @@ const scrollToSelected = () => {
 }
 
 // 监听 visible 变化更新位置
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val) {
     if (props.teleported) {
       nextTick(updateDropdownPosition)

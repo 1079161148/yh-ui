@@ -14,3 +14,5 @@ export default YhDialog
 export * from './src/dialog'
 export * from './src/use-dialog'
 export type { DialogMethod } from './src/method'
+
+export type DialogInstance = InstanceType<typeof Dialog>

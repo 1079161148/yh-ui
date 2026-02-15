@@ -80,8 +80,8 @@ export interface SelectProps {
 }
 
 export interface SelectEmits {
-  (e: 'update:modelValue', value: SelectValue | SelectValue[]): void
-  (e: 'change', value: SelectValue | SelectValue[]): void
+  (e: 'update:modelValue', value: SelectValue | SelectValue[] | undefined): void
+  (e: 'change', value: SelectValue | SelectValue[] | undefined): void
   (e: 'focus', event: FocusEvent): void
   (e: 'blur', event: FocusEvent): void
   (e: 'clear'): void

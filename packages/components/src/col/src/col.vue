@@ -36,17 +36,23 @@ const classes = computed(() => {
 
   // Responsive
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
+  // 使用 unknown 代替 any，并通过类型守卫确保类型安全
+  type ColSizeProps = { span?: number; offset?: number; push?: number; pull?: number; [key: string]: unknown }
   sizes.forEach((size) => {
     if (typeof props[size] === 'number') {
       classes.push(ns.b(`${size}-${props[size]}`))
-    } else if (typeof props[size] === 'object') {
-      const sizeProps = props[size] as any
+    } else if (typeof props[size] === 'object' && props[size] !== null) {
+      const sizeProps = props[size] as ColSizeProps
       Object.keys(sizeProps).forEach((prop) => {
-        classes.push(
-          prop !== 'span'
-            ? ns.b(`${size}-${prop}-${sizeProps[prop]}`)
-            : ns.b(`${size}-${sizeProps[prop]}`)
-        )
+        const propValue = sizeProps[prop]
+        // 类型守卫：确保值是 number 类型才进行处理
+        if (typeof propValue === 'number') {
+          classes.push(
+            prop !== 'span'
+              ? ns.b(`${size}-${prop}-${propValue}`)
+              : ns.b(`${size}-${propValue}`)
+          )
+        }
       })
     }
   })

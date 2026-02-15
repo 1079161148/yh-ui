@@ -117,7 +117,7 @@ const updateDropdownPosition = () => {
 }
 
 // 监听 visible 变化更新位置
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val && props.teleported) {
     nextTick(updateDropdownPosition)
   }
@@ -328,9 +328,9 @@ const handleRemoveTag = (value: SelectValue, event: Event) => {
 // 清空
 const handleClear = (event: Event) => {
   event.stopPropagation()
-  const value = props.multiple ? [] : undefined
-  emit('update:modelValue', value as any)
-  emit('change', value as any)
+  const value: SelectValue | SelectValue[] | undefined = props.multiple ? [] : undefined
+  emit('update:modelValue', value)
+  emit('change', value)
   emit('clear')
   query.value = ''
   if (props.validateEvent) {

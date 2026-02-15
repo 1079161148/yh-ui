@@ -4,6 +4,7 @@
  * @description 展示比 Tooltip 更丰富的承载内容
  */
 import { ref, computed, watch, nextTick } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { YhTooltip } from '../../tooltip'
 import { YhIcon } from '../../icon'
@@ -25,12 +26,12 @@ const visible = computed({
   }
 })
 
-const tooltipRef = ref<any>(null)
+const tooltipRef = ref<InstanceType<typeof import('../../tooltip').YhTooltip> | null>(null)
 const triggerWidth = ref<string>('auto')
 
 // 计算内容区域样式
 const contentStyle = computed(() => {
-  const styles: any = {}
+  const styles: CSSProperties = {}
 
   if (props.matchTriggerWidth) {
     styles.width = triggerWidth.value
@@ -65,7 +66,7 @@ const handleHide = () => {
 }
 
 // 监听 matchTriggerWidth 变化
-watch(() => props.matchTriggerWidth, (val) => {
+watch(() => props.matchTriggerWidth, (val: boolean) => {
   if (val) updateTriggerWidth()
 })
 

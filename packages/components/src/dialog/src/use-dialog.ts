@@ -64,8 +64,8 @@ export interface UseDialogReturn {
  */
 export function useDialog(): UseDialogReturn {
   const instance = getCurrentInstance()
-  const appContext =
-    instance?.appContext || ((instance?.proxy?.$root as any)?._context as AppContext)
+  const appContext: AppContext | null =
+    instance?.appContext || (((instance?.proxy?.$root as unknown) as { _context?: AppContext })?._context ?? null)
 
   /**
    * 显示对话框
@@ -78,7 +78,7 @@ export function useDialog(): UseDialogReturn {
       // 2. 状态驱动渲染
       const renderDialog = (visible: boolean) => {
         // 构造属性
-        const props: any = {
+        const props: UseDialogOptions & { modelValue: boolean; onClosed: () => void; onConfirm: () => void; onCancel: () => void; 'onUpdate:modelValue': (val: boolean) => void } = {
           ...options,
           modelValue: visible,
           // 核心：监听彻底销毁事件，清理 DOM
@@ -112,19 +112,19 @@ export function useDialog(): UseDialogReturn {
         const slots: Record<string, Slot> = {}
         if (options.header) {
           slots.header = (
-            typeof options.header === 'function' ? options.header : () => [h(options.header as any)]
+            typeof options.header === 'function' ? options.header : () => [h(options.header as string | Component)]
           ) as Slot
         }
         if (options.default) {
           slots.default = (
             typeof options.default === 'function'
               ? options.default
-              : () => [h(options.default as any)]
+              : () => [h(options.default as string | Component)]
           ) as Slot
         }
         if (options.footer) {
           slots.footer = (
-            typeof options.footer === 'function' ? options.footer : () => [h(options.footer as any)]
+            typeof options.footer === 'function' ? options.footer : () => [h(options.footer as string | Component)]
           ) as Slot
         }
 

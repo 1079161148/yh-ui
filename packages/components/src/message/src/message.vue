@@ -4,6 +4,7 @@
  * @description 常用于主动操作后的反馈提示，轻量级，浮于页面之上
  */
 import { computed, onMounted, ref, watch, toRef } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import type { MessageProps, MessageEmits } from './message'
 
@@ -47,7 +48,7 @@ const messageClasses = computed(() => [
 
 // 消息样式
 const messageStyles = computed(() => {
-  const styles: any = {
+  const styles: CSSProperties = {
     zIndex: props.zIndex
   }
 

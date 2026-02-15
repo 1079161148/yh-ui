@@ -10,6 +10,18 @@ import HueSlider from './hue-slider.vue'
 import AlphaSlider from './alpha-slider.vue'
 import { parseColor, formatColor, hsvToRgb, getLuminance, getContrastRatio } from './utils'
 
+// EyeDropper API 类型声明（实验性 API）
+interface EyeDropper {
+  open(): Promise<{ sRGBHex: string }>
+  abort(): void
+}
+
+declare global {
+  interface Window {
+    EyeDropper: new () => EyeDropper
+  }
+}
+
 defineOptions({
   name: 'YhColorPicker'
 })
@@ -42,7 +54,7 @@ const contrastInfo = computed(() => {
 })
 
 // --- Sync state ---
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, (val: string) => {
   const parsed = parseColor(val)
   if (JSON.stringify(parsed) !== JSON.stringify(color.value)) {
     color.value = parsed
@@ -50,7 +62,7 @@ watch(() => props.modelValue, (val) => {
   inputValue.value = val || ''
 })
 
-watch(currentColor, (val) => {
+watch(currentColor, (val: string) => {
   inputValue.value = val
 })
 
@@ -84,16 +96,16 @@ const handleClear = () => {
 // --- Innovation: EyeDropper ---
 const isEyeDropperSupported = ref(false)
 onMounted(() => {
-  isEyeDropperSupported.value = typeof (window as any).EyeDropper !== 'undefined'
+  isEyeDropperSupported.value = typeof window.EyeDropper !== 'undefined'
 })
 const handleEyeDropper = async () => {
   if (!isEyeDropperSupported.value) return
-  const eyeDropper = new (window as any).EyeDropper()
+  const eyeDropper = new window.EyeDropper()
   try {
     const result = await eyeDropper.open()
     color.value = parseColor(result.sRGBHex)
     updateColor()
-  } catch (e) {
+  } catch {
     // user cancelled
   }
 }
@@ -122,7 +134,7 @@ onBeforeUnmount(() => {
 
 // --- Positioning ---
 const popperStyle = ref<any>({})
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val && triggerRef.value) {
     const rect = triggerRef.value.getBoundingClientRect()
 

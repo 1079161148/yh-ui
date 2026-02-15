@@ -144,6 +144,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Spin',
       'Pagination',
       'Image',
+      'ImageViewer',
       'Descriptions',
       'DescriptionsItem',
       'Tabs',
@@ -163,7 +164,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Tree',
       'TreeNode',
       'Calendar',
-      'Countdown'
+      'Countdown',
+      'Table',
+      'TableColumn'
     ]
 
     components.forEach((name) => {
@@ -186,7 +189,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'useVirtualScroll',
       'useCache',
       'useEventListener',
-      'useScrollLock'
+      'useScrollLock',
+      'useClickOutside',
+      'useConfig'
     ]
 
     hooks.forEach((name) => {
@@ -218,7 +223,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       config.optimizeDeps ||= {}
       config.optimizeDeps.include ||= []
       const include = config.optimizeDeps.include as string[]
-      const dependencies = ['@yh-ui/components', '@yh-ui/hooks', '@yh-ui/utils']
+      const dependencies = ['@yh-ui/components', '@yh-ui/hooks', '@yh-ui/utils', 'dayjs']
       dependencies.forEach((dep) => {
         if (!include.includes(dep)) {
           include.push(dep)

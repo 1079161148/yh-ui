@@ -5,3 +5,5 @@ export const YhWatermark = withInstall(Watermark)
 export default YhWatermark
 
 export * from './src/watermark'
+
+export type WatermarkInstance = InstanceType<typeof Watermark>

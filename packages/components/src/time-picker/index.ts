@@ -5,3 +5,5 @@ export const YhTimePicker = withInstall(TimePicker)
 export default YhTimePicker
 
 export * from './src/time-picker'
+
+export type TimePickerInstance = InstanceType<typeof TimePicker>

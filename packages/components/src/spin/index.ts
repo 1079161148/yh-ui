@@ -5,3 +5,5 @@ export const YhSpin = withInstall(Spin)
 export default YhSpin
 
 export * from './src/spin'
+
+export type SpinInstance = InstanceType<typeof Spin>

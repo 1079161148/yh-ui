@@ -149,7 +149,7 @@ export interface InputProps {
   /**
    * @description 输入框行内样式
    */
-  inputStyle?: Record<string, any>
+  inputStyle?: Record<string, string | number>
 
   /**
    * @description 格式化函数（用于显示）

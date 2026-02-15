@@ -77,7 +77,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
                             ? h('i', { class: resolvedOptions.spinner })
                             : isVNode(resolvedOptions.spinner)
                               ? resolvedOptions.spinner
-                              : h(resolvedOptions.spinner as any)
+                              : h(resolvedOptions.spinner as Component)
                           : h(YhSpin, {
                               tip: resolvedOptions.text,
                               size: resolvedOptions.fullscreen ? 'large' : 'default',

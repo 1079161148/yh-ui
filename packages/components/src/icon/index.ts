@@ -9,9 +9,4 @@ export * from './src/icon'
 export const YhIcon = withInstall(Icon)
 export default YhIcon
 
-// 类型声明
-declare module 'vue' {
-  export interface GlobalComponents {
-    YhIcon: typeof YhIcon
-  }
-}
+export type IconInstance = InstanceType<typeof Icon>

@@ -49,9 +49,9 @@ const createDialog = (
 
     // 2. 状态渲染逻辑
     const renderDialog = (visible: boolean) => {
-      const props: any = {
+      const props = {
         ...defaults,
-        ...options,
+        ...(options as Record<string, unknown>),
         modelValue: visible,
         // 动画结束清理
         onClosed: () => {
@@ -81,19 +81,19 @@ const createDialog = (
       const slots: Record<string, Slot> = {}
       if (options.header) {
         slots.header = (
-          typeof options.header === 'function' ? options.header : () => [h(options.header as any)]
+          typeof options.header === 'function' ? options.header : () => [h(options.header as string | Component)]
         ) as Slot
       }
       if (options.default) {
         slots.default = (
           typeof options.default === 'function'
             ? options.default
-            : () => [h(options.default as any)]
+            : () => [h(options.default as string | Component)]
         ) as Slot
       }
       if (options.footer) {
         slots.footer = (
-          typeof options.footer === 'function' ? options.footer : () => [h(options.footer as any)]
+          typeof options.footer === 'function' ? options.footer : () => [h(options.footer as string | Component)]
         ) as Slot
       }
 

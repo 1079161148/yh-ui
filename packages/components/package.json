@@ -8,21 +8,21 @@
     "**/*.scss",
     "**/*.sass"
   ],
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     },
     "./resolver": {
       "types": "./dist/resolver.d.ts",
-      "import": "./dist/resolver.mjs",
-      "require": "./dist/resolver.cjs"
+      "import": "./dist/resolver.mjs"
     },
-    "./*": "./*"
+    "./*": {
+      "import": "./dist/*/*.mjs"
+    }
   },
   "files": [
     "dist"
@@ -36,17 +36,17 @@
     "@yh-ui/theme": "workspace:*",
     "@yh-ui/utils": "workspace:*",
     "@yh-ui/locale": "workspace:*",
-    "dayjs": "^1.11.19",
+    "dayjs": "catalog:",
     "viewerjs": "^1.11.7"
   },
   "peerDependencies": {
-    "vue": "^3.5.0"
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
-    "vite": "^6.0.7",
+    "vite": "catalog:",
     "vite-plugin-dts": "^4.4.0",
-    "vue": "^3.5.0"
+    "vue": "catalog:"
   },
   "publishConfig": {
     "access": "public"
@@ -61,5 +61,7 @@
     "vue3",
     "components"
   ],
+  "homepage": "https://yh-ui.dev",
+  "author": "YH-UI Team",
   "license": "MIT"
 }

@@ -5,3 +5,5 @@ export const YhTooltip = withInstall(Tooltip)
 export default YhTooltip
 
 export * from './src/tooltip'
+
+export type TooltipInstance = InstanceType<typeof Tooltip>

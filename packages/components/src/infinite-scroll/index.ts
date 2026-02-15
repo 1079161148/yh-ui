@@ -12,3 +12,5 @@ export default YhInfiniteScroll
 
 export * from './src/infinite-scroll'
 export * from './src/directive'
+
+export type InfiniteScrollInstance = InstanceType<typeof InfiniteScroll>

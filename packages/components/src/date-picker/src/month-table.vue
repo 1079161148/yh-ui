@@ -40,7 +40,7 @@ const months = computed(() => [
 ])
 
 const getCellClasses = (month: number) => {
-  const classes: any[] = [
+  const classes: string[] = [
     ns.e('cell'),
     ns.is(props.cellShape || 'round')
   ]
@@ -50,7 +50,7 @@ const getCellClasses = (month: number) => {
   if (cellDate.isSame(today, 'month')) classes.push('is-today')
   if (props.disabledDate && props.disabledDate(cellDate.toDate())) classes.push('is-disabled')
 
-  const isSelected = (val: any) => {
+  const isSelected = (val: Date | Date[] | null | undefined) => {
     if (!val) return false
     const d = dayjs(val)
     return d.year() === dayjs(props.date).year() && d.month() === month

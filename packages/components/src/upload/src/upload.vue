@@ -229,9 +229,10 @@ const onDrop = async (e: DragEvent) => {
   const files: File[] = []
 
   // 递归读取 Entry
-  const readEntry = async (entry: any, path = '') => {
+  const readEntry = async (entry: FileSystemEntry, path = '') => {
     if (entry.isFile) {
-      const file = await new Promise<File>((resolve) => entry.file(resolve))
+      const fileEntry = entry as FileSystemFileEntry
+      const file = await new Promise<File>((resolve) => fileEntry.file(resolve))
       if (path) {
         // 模拟 directory 模式下的 webkitRelativePath
         Object.defineProperty(file, 'webkitRelativePath', {
@@ -241,8 +242,9 @@ const onDrop = async (e: DragEvent) => {
       }
       files.push(file)
     } else if (entry.isDirectory) {
-      const reader = entry.createReader()
-      const entries = await new Promise<any[]>((resolve) => reader.readEntries(resolve))
+      const dirEntry = entry as FileSystemDirectoryEntry
+      const reader = dirEntry.createReader()
+      const entries = await new Promise<FileSystemEntry[]>((resolve) => reader.readEntries(resolve))
       for (const subEntry of entries) {
         await readEntry(subEntry, `${path}${entry.name}/`)
       }

@@ -4,7 +4,7 @@
  * @reference 市面组件库 Message 实现
  */
 
-import { createVNode, render, shallowReactive } from 'vue'
+import { createVNode, render, shallowReactive, type VNodeProps } from 'vue'
 import MessageConstructor from './message.vue'
 import type {
   MessageOptions,
@@ -88,10 +88,12 @@ const createMessage = (options: MessageOptions): MessageHandler => {
     }
   }
 
-  const vnode = createVNode(MessageConstructor, props as any, null)
-
-  // 将 onDestroy 绑定到 vnode 上
-  ;(vnode.props as any).onDestroy = onDestroy
+  // 使用 VNodeProps 类型来创建 VNode
+  const vnodeProps = {
+    ...props,
+    onDestroy
+  } as VNodeProps & { onDestroy: () => void }
+  const vnode = createVNode(MessageConstructor, vnodeProps, null)
 
   render(vnode, container)
   document.body.appendChild(container)
@@ -99,11 +101,17 @@ const createMessage = (options: MessageOptions): MessageHandler => {
   // 获取组件实例用于调用 close 方法
   const vm = vnode.component!
 
+  // 定义 exposed 的类型
+  interface MessageExposed {
+    visible: import('vue').Ref<boolean>
+    close: () => void
+  }
+
   // 创建处理器
   const handler: MessageHandler = {
     close: () => {
       handler.closed = true
-      ;(vm.exposed as any).close()
+      ;(vm.exposed as MessageExposed).close()
     },
     get el() {
       return vm.proxy?.$el as HTMLElement

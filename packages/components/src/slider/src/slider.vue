@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, onMounted, provide, toRefs } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import { sliderProps, sliderEmits } from './slider'
-import type { SliderValueType } from './slider'
+import type { SliderValueType, InputNumberSize } from './slider'
 import SliderButton from './slider-button.vue'
 import YhInputNumber from '../../input-number/src/input-number.vue'
 
@@ -27,7 +28,10 @@ const firstValue = ref(0)
 const secondValue = ref(0)
 
 const mergedDisabled = computed(() => props.disabled || form?.disabled || false)
-const mergedSize = computed(() => (props.size || formItem?.size || form?.size || globalSize.value || 'default') as any)
+const mergedSize = computed((): InputNumberSize => {
+  const size = props.size || formItem?.size || form?.size || globalSize.value || 'default'
+  return size === '' ? 'default' : size as InputNumberSize
+})
 
 // 提供给子组件
 provide('slider', {
@@ -72,7 +76,7 @@ const barStart = computed(() => {
 })
 
 const barStyle = computed(() => {
-  const style: any = props.vertical
+  const style: CSSProperties = props.vertical
     ? {
       height: barSize.value,
       bottom: barStart.value,
@@ -115,10 +119,10 @@ const markList = computed(() => {
     .map(Number)
     .filter((n) => !isNaN(n) && n >= props.min && n <= props.max)
   return marksKeys.map((key) => {
-    const mark = (props.marks as any)[key]
+    const mark = props.marks?.[key]
     return {
       point: ((key - props.min) / (props.max - props.min)) * 100,
-      label: typeof mark === 'string' ? { label: mark } : mark
+      label: typeof mark === 'string' ? { label: mark, style: undefined } : (mark ?? { label: '', style: undefined })
     }
   })
 })
@@ -215,7 +219,7 @@ onMounted(() => {
   <div :class="sliderClasses" :style="sliderStyle">
     <div :class="ns.e('input')" v-if="showInput && !range">
       <yh-input-number :model-value="firstValue" :min="min" :max="max" :step="step" :disabled="mergedDisabled"
-        :size="(inputSize || mergedSize) as any" :controls="showInputControls" @change="handleInputChange" />
+        :size="(inputSize || mergedSize)" :controls="showInputControls" @change="handleInputChange" />
     </div>
 
     <div ref="sliderRef" :class="ns.e('runway')" @mousedown="onSliderClick">

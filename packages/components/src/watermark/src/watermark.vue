@@ -132,7 +132,7 @@ const createOrUpdateWatermark = () => {
  * 极致防删除监控中心
  */
 let observer: MutationObserver | null = null
-let checkTimer: any = null
+let checkTimer: ReturnType<typeof setInterval> | null = null
 
 const initGuard = () => {
   if (!props.antiTamper || !containerRef.value) return

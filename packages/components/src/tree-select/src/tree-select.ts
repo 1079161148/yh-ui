@@ -35,13 +35,13 @@ export interface TreePropsAlias {
 /**
  * 内部节点状态结构 (ViewModel)
  */
-export interface TreeNode {
+export interface TreeSelectNode {
   key: TreeKey
   label: string
   level: number
   raw: TreeOption
-  parent?: TreeNode
-  children?: TreeNode[]
+  parent?: TreeSelectNode
+  children?: TreeSelectNode[]
   isLeaf: boolean
   disabled: boolean
   visible: boolean
@@ -94,7 +94,7 @@ export const treeSelectProps = {
   },
   filterable: Boolean,
   filterNodeMethod: Function as PropType<
-    (value: string, data: TreeOption, node: TreeNode) => boolean
+    (value: string, data: TreeOption, node: TreeSelectNode) => boolean
   >,
   collapseTags: Boolean,
   collapseTagsTooltip: Boolean,
@@ -165,7 +165,7 @@ export const treeSelectEmits = {
   change: (value: TreeKey | TreeKey[] | undefined) => true,
   clear: () => true,
   'visible-change': (visible: boolean) => true,
-  'node-click': (data: TreeOption, node: TreeNode, e: MouseEvent) => true,
+  'node-click': (data: TreeOption, node: TreeSelectNode, e: MouseEvent) => true,
   'check-change': (data: TreeOption, checked: boolean, indeterminate: boolean) => true,
   check: (data: TreeOption, info: TreeCheckedInfo) => true
 }

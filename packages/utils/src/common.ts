@@ -106,7 +106,7 @@ export const deepClone = <T>(obj: T): T => {
 /**
  * 深度合并对象
  */
-export const deepMerge = <T extends Record<string, any>>(
+export const deepMerge = <T extends Record<string, unknown>>(
   target: T,
   ...sources: Partial<T>[]
 ): T => {
@@ -128,7 +128,10 @@ export const deepMerge = <T extends Record<string, any>>(
         !Array.isArray(targetValue) &&
         !Array.isArray(sourceValue)
       ) {
-        target[key] = deepMerge({ ...targetValue }, sourceValue as any)
+        target[key] = deepMerge(
+          { ...targetValue } as Record<string, unknown>,
+          sourceValue as Partial<Record<string, unknown>>
+        ) as T[Extract<keyof T, string>]
       } else {
         target[key] = sourceValue as T[Extract<keyof T, string>]
       }
@@ -179,24 +182,34 @@ export const sleep = (ms: number): Promise<void> => {
 /**
  * 访问对象嵌套路径的值
  */
-export const get = (obj: any, path: string, defaultValue?: unknown): any => {
-  const result = path
-    .split('.')
-    .reduce((res, key) => (res !== null && res !== undefined ? res[key] : undefined), obj)
-  return result === undefined ? defaultValue : result
+export const get = <T = unknown>(
+  obj: Record<string, unknown>,
+  path: string,
+  defaultValue?: T
+): T => {
+  const result = path.split('.').reduce<unknown>((res, key) => {
+    if (res !== null && res !== undefined && typeof res === 'object') {
+      return (res as Record<string, unknown>)[key]
+    }
+    return undefined
+  }, obj)
+  return (result === undefined ? defaultValue : result) as T
 }
 
 /**
  * 设置对象嵌套路径的值
  */
-export const set = (obj: any, path: string, value: unknown): any => {
+export const set = <T extends Record<string, unknown>>(obj: T, path: string, value: unknown): T => {
   if (Object(obj) !== obj) return obj
   const keys = path.split('.')
   const lastKey = keys.pop()!
-  const node = keys.reduce((res, key) => {
-    if (res[key] === undefined) res[key] = {}
-    return res[key]
-  }, obj)
+  const node = keys.reduce<Record<string, unknown>>(
+    (res, key) => {
+      if (res[key] === undefined) res[key] = {}
+      return res[key] as Record<string, unknown>
+    },
+    obj as Record<string, unknown>
+  )
   node[lastKey] = value
   return obj
 }

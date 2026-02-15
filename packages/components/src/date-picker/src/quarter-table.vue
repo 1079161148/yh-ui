@@ -32,7 +32,7 @@ const quarters = computed(() => [
 ])
 
 const getCellClasses = (quarter: number) => {
-  const classes: any[] = [
+  const classes: string[] = [
     ns.e('cell'),
     ns.is(props.cellShape || 'round')
   ]
@@ -46,7 +46,7 @@ const getCellClasses = (quarter: number) => {
 
   if (props.disabledDate && props.disabledDate(cellDate.toDate())) classes.push('is-disabled')
 
-  const isSelected = (val: any) => {
+  const isSelected = (val: Date | Date[] | null | undefined) => {
     if (!val) return false
     const d = dayjs(val)
     return d.year() === dayjs(props.date).year() && Math.floor(d.month() / 3) === (quarter - 1)

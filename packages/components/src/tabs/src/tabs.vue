@@ -18,7 +18,7 @@ const navRef = ref<HTMLElement>()
 const indicatorRef = ref<HTMLElement>()
 
 // 同步外部 v-model
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, (val: string | number) => {
   activeTab.value = val
 })
 

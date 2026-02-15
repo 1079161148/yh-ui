@@ -4,6 +4,12 @@
  * @description 基于 Floating UI 引擎，融合 Glassmorphism 设计风格
  */
 import { ref, computed, watch, onMounted, onUnmounted, nextTick, useSlots, Teleport } from 'vue'
+import type { CSSProperties } from 'vue'
+
+// 自定义虚拟元素类型，用于跟随鼠标
+interface VirtualElement {
+  getBoundingClientRect(): DOMRect
+}
 import { computePosition, offset, flip, shift, arrow, autoUpdate } from '@floating-ui/dom'
 import { useNamespace, useId, useEventListener } from '@yh-ui/hooks'
 import { tooltipProps, tooltipEmits } from './tooltip'
@@ -26,11 +32,11 @@ const arrowRef = ref<HTMLElement | null>(null)
 
 // 内部状态
 const visible = ref(false)
-const popperStyle = ref<any>({})
-const arrowStyle = ref<any>({})
+const popperStyle = ref<CSSProperties>({})
+const arrowStyle = ref<CSSProperties>({})
 
 const computedPopperStyle = computed(() => {
-  const styles: any = { ...popperStyle.value }
+  const styles: CSSProperties = { ...popperStyle.value }
   if (typeof props.popperStyle === 'object') {
     Object.assign(styles, props.popperStyle)
   }
@@ -38,7 +44,7 @@ const computedPopperStyle = computed(() => {
 })
 
 const computedContentStyle = computed(() => {
-  const styles: any = {
+  const styles: CSSProperties = {
     width: typeof props.width === 'number' ? `${props.width}px` : props.width,
     maxHeight: typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight,
     overflowY: props.scrollable ? 'auto' : 'visible'
@@ -84,7 +90,7 @@ const updatePosition = async () => {
         flip(),
         shift({ padding: 5 }),
         props.showArrow ? arrow({ element: arrowRef.value! }) : null
-      ].filter(Boolean) as any
+      ].filter((item): item is NonNullable<typeof item> => item !== null)
     }
   )
 
@@ -118,20 +124,24 @@ const handleMouseMove = async (e: MouseEvent) => {
   if (!props.followCursor || !visible.value || typeof window === 'undefined') return
 
   // 虚拟元素定位
-  const virtualElement = {
-    getBoundingClientRect: () => ({
-      width: 0,
-      height: 0,
-      x: e.clientX,
-      y: e.clientY,
-      top: e.clientY,
-      left: e.clientX,
-      right: e.clientX,
-      bottom: e.clientY
-    })
+  const virtualElement: VirtualElement = {
+    getBoundingClientRect: () => {
+      const rect = {
+        width: 0,
+        height: 0,
+        x: e.clientX,
+        y: e.clientY,
+        top: e.clientY,
+        left: e.clientX,
+        right: e.clientX,
+        bottom: e.clientY,
+        toJSON: () => ({})
+      }
+      return rect as unknown as DOMRect
+    }
   }
 
-  const { x, y } = await computePosition(virtualElement as any, popperRef.value!, {
+  const { x, y } = await computePosition(virtualElement, popperRef.value!, {
     placement: props.placement,
     middleware: [offset(10), flip(), shift()]
   })
@@ -236,7 +246,7 @@ useEventListener(() => window, 'click', (e: MouseEvent) => {
 })
 
 // 监听外部可见性变化 (受控模式)
-watch(() => props.visible, (val) => {
+watch(() => props.visible, (val: boolean | null) => {
   if (val !== null && val !== visible.value) {
     visible.value = val
     if (val) nextTick(startAutoUpdate)
@@ -245,7 +255,7 @@ watch(() => props.visible, (val) => {
 }, { immediate: true })
 
 // 鼠标跟随监听
-watch(() => props.followCursor, (val) => {
+watch(() => props.followCursor, (val: boolean) => {
   if (typeof window === 'undefined') return
   if (val) {
     window.addEventListener('mousemove', handleMouseMove)

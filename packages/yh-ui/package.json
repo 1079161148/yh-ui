@@ -3,17 +3,18 @@
   "version": "0.0.1",
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     },
     "./css": "./dist/style.css",
-    "./*": "./*"
+    "./*": {
+      "import": "./dist/*.mjs"
+    }
   },
   "files": [
     "dist"
@@ -29,7 +30,7 @@
     "@yh-ui/utils": "workspace:*"
   },
   "peerDependencies": {
-    "vue": "^3.5.0"
+    "vue": "catalog:"
   },
   "publishConfig": {
     "access": "public"

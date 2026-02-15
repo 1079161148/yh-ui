@@ -48,7 +48,7 @@ const state = shallowReactive({
 })
 
 // 监听 props 变化以支持组件化用法
-watch(props, (val) => {
+watch(props, (val: Record<string, unknown>) => {
   state.options = { ...state.options, ...val }
 }, { deep: true })
 

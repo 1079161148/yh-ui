@@ -9,3 +9,6 @@ export const YhBreadcrumbItem = withNoopInstall(BreadcrumbItem)
 
 export default YhBreadcrumb
 export * from './src/breadcrumb'
+
+export type BreadcrumbInstance = InstanceType<typeof Breadcrumb>
+export type BreadcrumbItemInstance = InstanceType<typeof BreadcrumbItem>

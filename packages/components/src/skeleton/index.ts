@@ -8,3 +8,6 @@ export const YhSkeletonItem = withInstall(SkeletonItem)
 export default YhSkeleton
 
 export * from './src/skeleton'
+
+export type SkeletonInstance = InstanceType<typeof Skeleton>
+export type SkeletonItemInstance = InstanceType<typeof SkeletonItem>

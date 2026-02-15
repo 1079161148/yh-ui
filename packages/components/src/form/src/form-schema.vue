@@ -24,7 +24,7 @@ const formRef = ref()
 // 内部维护一份 model 拷贝以保证响应式流畅性
 const localModel = ref({ ...props.modelValue })
 
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, (val: Record<string, unknown>) => {
   localModel.value = { ...val }
 }, { deep: true })
 
@@ -34,7 +34,7 @@ const isGroup = (item: FormSchemaItem | FormSchemaGroup): item is FormSchemaGrou
 }
 
 // 异步选项状态
-const optionMap = reactive<Record<string, any[]>>({})
+const optionMap = reactive<Record<string, Record<string, unknown>[]>>({})
 // 折叠状态
 const collapsedMap = reactive<Record<string, boolean>>({})
 
@@ -83,7 +83,7 @@ const toggleCollapse = (title: string) => {
 
 // 解析属性 (支持动态 props 和异步 options)
 const resolveProps = (item: FormSchemaItem) => {
-  let finalProps: Record<string, any> = {}
+  let finalProps: Record<string, unknown> = {}
 
   // 基础 Props
   if (typeof item.props === 'function') {
@@ -102,7 +102,7 @@ const resolveProps = (item: FormSchemaItem) => {
 }
 
 // 获取组件映射（支持库内置简写）
-const getComponent = (comp: string | any) => {
+const getComponent = (comp: string | import('vue').Component) => {
   if (typeof comp === 'string') {
     const map: Record<string, string> = {
       'input': 'yh-input',
@@ -130,7 +130,7 @@ const isItemHidden = (item: FormSchemaItem | FormSchemaGroup) => {
 }
 
 // 处理组件值更新
-const handleUpdate = (field: string, val: any) => {
+const handleUpdate = (field: string, val: unknown) => {
   set(localModel.value, field, val)
   emit('update:modelValue', { ...localModel.value })
   emit('change', field, val)
@@ -146,9 +146,9 @@ const RenderComponent = (item: FormSchemaItem) => {
 
 // 暴露 API 给父组件
 defineExpose({
-  validate: (props?: any, callback?: any) => formRef.value?.validate(props, callback),
-  resetFields: (props?: any) => formRef.value?.resetFields(props),
-  clearValidate: (props?: any) => formRef.value?.clearValidate(props),
+  validate: (props?: string | string[], callback?: (isValid: boolean) => void) => formRef.value?.validate(props, callback),
+  resetFields: (props?: string | string[]) => formRef.value?.resetFields(props),
+  clearValidate: (props?: string | string[]) => formRef.value?.clearValidate(props),
   scrollToField: (prop: string) => formRef.value?.scrollToField(prop),
   formRef
 })

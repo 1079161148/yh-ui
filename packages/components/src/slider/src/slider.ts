@@ -1,5 +1,7 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { CSSProperties, ExtractPropTypes, PropType } from 'vue'
+import type { InputNumberSize } from '../../input-number'
 
+export type { InputNumberSize }
 export type SliderValueType = number | [number, number]
 
 export const sliderProps = {
@@ -113,7 +115,7 @@ export const sliderProps = {
   },
   /** 标记， key 的类型必须为 number ，且在 [min, max] 范围内，每个标记可以是一个对象或字符串 */
   marks: {
-    type: Object as PropType<Record<number, string | { style?: any; label: string }>>,
+    type: Object as PropType<Record<number, string | { style?: CSSProperties; label: string }>>,
     default: undefined
   },
   /** 改变滑块值时是否触发表单的校验 */

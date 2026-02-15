@@ -99,12 +99,12 @@ const reset = () => {
   rotate.value = 0
 }
 
-watch(index, (val) => {
+watch(index, (val: number) => {
   reset()
   emit('switch', val)
 })
 
-watch(() => props.initialIndex, (val) => {
+watch(() => props.initialIndex, (val: number) => {
   index.value = val
 })
 

@@ -80,7 +80,8 @@ const bodyId = `yh-drawer-body-${Math.random().toString(36).slice(2, 9)}`
 const isHorizontal = computed(() => ['left', 'right'].includes(props.placement))
 
 const drawerStyles = computed<CSSProperties>(() => {
-  const styles: CSSProperties = { ...((props.drawerStyle as any) || {}) }
+  const baseStyle = typeof props.drawerStyle === 'object' ? props.drawerStyle : {}
+  const styles: CSSProperties = { ...baseStyle }
   const sizeValue = typeof currentSize.value === 'number' ? `${currentSize.value}px` : currentSize.value
 
   if (isHorizontal.value) {
@@ -95,7 +96,7 @@ const drawerStyles = computed<CSSProperties>(() => {
 useScrollLock(computed(() => props.modelValue && props.lockScroll))
 
 // Visibility logic
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, (val: boolean) => {
   if (val) {
     rendered.value = true
     drawerZIndex.value = props.zIndex || nextZIndex()

@@ -6,7 +6,7 @@ export default defineBuildConfig({
   clean: true,
   failOnWarn: false,
   rollup: {
-    emitCJS: true
+    emitCJS: false
   },
   externals: ['vue', '@yh-ui/utils', '@yh-ui/locale', 'dayjs']
 })

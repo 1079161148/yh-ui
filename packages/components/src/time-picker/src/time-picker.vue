@@ -414,7 +414,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 // 监听 visible 变化
-watch(visible, (val) => {
+watch(visible, (val: boolean) => {
   if (val && props.teleported) {
     nextTick(updateDropdownPosition)
   }

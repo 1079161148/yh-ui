@@ -6,7 +6,7 @@ export default defineBuildConfig({
   clean: true,
   failOnWarn: false,
   rollup: {
-    emitCJS: true
+    emitCJS: false
   },
   externals: ['vue', '@yh-ui/components', '@yh-ui/hooks', '@yh-ui/utils', '@yh-ui/theme', '@yh-ui/locale']
 })

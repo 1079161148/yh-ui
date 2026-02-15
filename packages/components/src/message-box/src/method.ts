@@ -87,43 +87,43 @@ const MessageBox: MessageBoxHandler = ((
   return showMessage(opts, appContext)
 }) as MessageBoxHandler
 
-MessageBox.alert = (message, title, options, appContext) => {
+MessageBox.alert = (message, title, options, appContext): Promise<void> => {
   if (typeof title === 'object') {
     appContext = options as AppContext | null
     options = title
     title = ''
-  } else if (typeof options === 'object' && (options as any).app) {
+  } else if (typeof options === 'object' && 'app' in options && options.app) {
     appContext = options as AppContext | null
     options = undefined
   }
   return showMessage(
-    { ...options, message, title: title as string, type: 'alert', showCancelButton: false },
+    { ...(options as MessageBoxOptions), message, title: title as string, type: 'alert', showCancelButton: false },
     appContext
-  ) as any
+  ) as unknown as Promise<void>
 }
 
-MessageBox.confirm = (message, title, options, appContext) => {
+MessageBox.confirm = (message, title, options, appContext): Promise<MessageBoxAction> => {
   if (typeof title === 'object') {
     appContext = options as AppContext | null
     options = title
     title = ''
   }
   return showMessage(
-    { ...options, message, title: title as string, type: 'confirm', showCancelButton: true },
+    { ...(options as MessageBoxOptions), message, title: title as string, type: 'confirm', showCancelButton: true },
     appContext
-  ) as any
+  ) as unknown as Promise<MessageBoxAction>
 }
 
-MessageBox.prompt = (message, title, options, appContext) => {
+MessageBox.prompt = (message, title, options, appContext): Promise<{ value: string; action: 'confirm' }> => {
   if (typeof title === 'object') {
     appContext = options as AppContext | null
     options = title
     title = ''
   }
   return showMessage(
-    { ...options, message, title: title as string, type: 'prompt', showCancelButton: true },
+    { ...(options as MessageBoxOptions), message, title: title as string, type: 'prompt', showCancelButton: true },
     appContext
-  ) as any
+  ) as unknown as Promise<{ value: string; action: 'confirm' }>
 }
 
 MessageBox.setDefaults = (newDefaults: MessageBoxOptions) => {

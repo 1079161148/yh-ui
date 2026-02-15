@@ -5,3 +5,5 @@ export const YhAlert = withInstall(Alert)
 export default YhAlert
 
 export * from './src/alert'
+
+export type AlertInstance = InstanceType<typeof Alert>

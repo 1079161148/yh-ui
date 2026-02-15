@@ -3,7 +3,7 @@
  * @description 函数式调用通知
  */
 
-import { createVNode, render, shallowReactive } from 'vue'
+import { createVNode, render, shallowReactive, type VNodeProps } from 'vue'
 import NotificationConstructor from './notification.vue'
 import type {
   NotificationOptions,
@@ -87,13 +87,12 @@ const createNotification = (options: NotificationOptions): NotificationHandler =
     }
   }
 
-  // 创建 VNode
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const vnode = createVNode(NotificationConstructor, props as any, null)
-
-  // 将 onDestroy 绑定到 vnode 上
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;(vnode.props as any).onDestroy = onDestroy
+  // 使用 VNodeProps 类型来创建 VNode
+  const vnodeProps = {
+    ...props,
+    onDestroy
+  } as VNodeProps & { onDestroy: () => void }
+  const vnode = createVNode(NotificationConstructor, vnodeProps, null)
 
   // 渲染
   render(vnode, container)
@@ -102,11 +101,15 @@ const createNotification = (options: NotificationOptions): NotificationHandler =
   // 获取组件实例
   const vm = vnode.component!
 
+  // 定义 exposed 的类型
+  interface NotificationExposed {
+    close: () => void
+  }
+
   // 创建处理器
   const handler: NotificationHandler = {
     close: () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ;(vm.exposed as any).close()
+      ;(vm.exposed as NotificationExposed).close()
     },
     get el() {
       return vm.proxy?.$el as HTMLElement

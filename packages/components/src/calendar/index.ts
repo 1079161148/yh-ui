@@ -5,3 +5,5 @@ export const YhCalendar = withInstall(Calendar)
 export default YhCalendar
 
 export * from './src/calendar'
+
+export type CalendarInstance = InstanceType<typeof Calendar>

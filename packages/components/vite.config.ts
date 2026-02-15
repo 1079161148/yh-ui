@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
-import { visualizer } from 'rollup-plugin-visualizer'
 import { resolve } from 'node:path'
 import crypto from 'node:crypto'
 
@@ -24,12 +23,8 @@ export default defineConfig({
       outDir: 'dist',
       entryRoot: 'src',
       staticImport: true,
-      insertTypesEntry: true
-    }),
-    visualizer({
-      filename: 'stats.html',
-      gzipSize: true,
-      brotliSize: true
+      insertTypesEntry: true,
+      skipDiagnostics: true
     })
   ],
   build: {
@@ -38,20 +33,43 @@ export default defineConfig({
         index: resolve(__dirname, 'src/index.ts'),
         resolver: resolve(__dirname, 'src/resolver.ts')
       },
-      formats: ['es', 'cjs']
+      formats: ['es']
     },
     rollupOptions: {
-      external: ['vue', '@yh-ui/hooks', '@yh-ui/utils', '@yh-ui/theme'],
+      external: [
+        'vue',
+        '@yh-ui/hooks',
+        '@yh-ui/utils',
+        '@yh-ui/theme',
+        '@yh-ui/locale',
+        'dayjs',
+        'viewerjs',
+        'async-validator',
+        '@floating-ui/dom'
+      ],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
         exports: 'named',
         entryFileNames: '[name].mjs',
-        chunkFileNames: '[name].mjs'
+        chunkFileNames: '[name]/[name].mjs',
+        dir: 'dist'
       }
     },
     cssCodeSplit: true,
-    minify: false
+    minify: 'esbuild',
+    target: 'esnext',
+    sourcemap: false,
+    // 启用更高强度的 tree-shaking
+    treeShaking: true,
+    // 压缩配置
+    chunkSizeWarningLimit: 1000,
+    // 清理构建目录
+    cleanDir: true,
+    // 禁用临时文件
+    write: true,
+    // 启用 reportCompressedSize 以便分析
+    reportCompressedSize: true
   },
   resolve: {
     alias: {
@@ -59,5 +77,15 @@ export default defineConfig({
       '@yh-ui/utils': resolve(__dirname, '../utils/src'),
       '@yh-ui/theme': resolve(__dirname, '../theme/src')
     }
+  },
+  // 优化依赖预构建
+  optimizeDeps: {
+    include: ['vue', 'dayjs']
+  },
+  esbuild: {
+    // 移除控制台和调试语句
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+    // 压缩属性名
+    legalComments: 'none'
   }
 })

@@ -26,7 +26,7 @@ const shouldRender = computed(() => {
 })
 
 // 监听激活状态
-watch(isActive, (val) => {
+watch(isActive, (val: boolean) => {
   if (val && !hasRendered.value) {
     hasRendered.value = true
   }
