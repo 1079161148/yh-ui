@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@yh-ui/icons": ["./src/index.ts"],
+      "@yh-ui/icons/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue.ts"],
+  "exclude": ["node_modules", "dist"]
+}

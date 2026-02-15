@@ -19,6 +19,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: '指南', link: '/guide/introduction', activeMatch: '/guide/' },
       { text: '组件', link: '/components/button', activeMatch: '/components/' },
+      { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
       { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' },
       {
         text: '0.0.1',
@@ -169,6 +170,19 @@ export default defineConfig({
           text: '配置组件',
           items: [{ text: 'ConfigProvider 全局配置', link: '/components/config-provider' }]
         }
+      ],
+
+      '/icons/': [
+        {
+          text: '图标集合',
+          items: [
+            { text: '图标集合介绍', link: '/icons/' },
+            { text: '快速开始', link: '/icons/getting-started' },
+            { text: '图标集', link: '/icons/collections' },
+            { text: '图标展示', link: '/icons/showcase' },
+            { text: 'API 参考', link: '/icons/api' }
+          ]
+        }
       ]
     },
 
@@ -233,7 +247,8 @@ export default defineConfig({
         '@yh-ui/hooks': resolve(__dirname, '../../packages/hooks/src'),
         '@yh-ui/utils': resolve(__dirname, '../../packages/utils/src'),
         '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
-        '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src')
+        '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
+        '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src')
       }
     },
     css: {

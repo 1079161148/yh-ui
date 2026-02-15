@@ -23,6 +23,13 @@ import './styles/animations.scss'
 import '@yh-ui/components/message/src/message.scss'
 import '@yh-ui/components/notification/src/notification.scss'
 import '@yh-ui/components/table/src/table.scss'
+import '@yh-ui/components/icon/src/icon.scss'
+
+// 导入 icon spin 动画样式（修复文档中 spin 属性不生效的问题）
+import './styles/icon-spin.css'
+
+// 导入 @yh-ui/icons 的 Icon 组件
+import { Icon as YhIconify } from '@yh-ui/icons'
 
 // 导入组件
 import {
@@ -109,6 +116,7 @@ import {
 
 // 导入文档组件
 import DemoBlock from './components/DemoBlock.vue'
+import IconDemo from './components/IconDemo.vue'
 import CustomLayout from './components/CustomLayout.vue'
 
 export default {
@@ -279,5 +287,9 @@ export default {
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)
+    app.component('IconDemo', IconDemo)
+
+    // 注册 @yh-ui/icons 的 Icon 组件
+    app.component('Icon', YhIconify)
   }
 } satisfies Theme
