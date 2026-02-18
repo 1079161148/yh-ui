@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 
 // --- 预览用状态（用于文档中的实时演示） ---
 const deadline = ref(Date.now() + 2 * 60 * 60 * 1000)
@@ -54,60 +55,34 @@ const flashSaleProducts = ref([
   { id: 3, name: '机械键盘 G9', deadline: Date.now() + 1800000, price: '¥599' }
 ])
 
-
-// --- 代码清洗工具：移除 TypeScript 类型标注以生成 JavaScript 示例 ---
-const toJs = (tsCode) => {
-  return tsCode
-    .replace('lang="ts"', '')
-    // 1. 移除 Ref/Computed 等泛型：ref<number>() -> ref()
-    .replace(/(ref|computed|reactive|shallowRef|toRef|toRefs)<.*?>/g, '$1')
-    // 2. 移除类型断言：as string
-    .replace(/\s+as\s+[A-Za-z0-9_|[\] ]+/g, '')
-    // 3. 核心修复：移除类型标注，但必须避开 HTML 属性内部的“冒号+值”（如 style="display:flex"）
-    // 逻辑：仅在 Ref 定义、变量声明、函数参数处匹配冒号。
-    // 匹配规则：冒号后是非 (引号, 数字, { , [ ) 的字母开头字符串，且该冒号不在双引号包裹的属性内
-    .replace(/:\s*([A-Za-z][A-Za-z0-9_|[\] ]*)(?=[,=;\)\n]|\s*=)/g, (match, type) => {
-      // 如果匹配到的类型是以小写字母开头且不是基础类型，可能误触了某些 key/value，但通常 TS 类型是大写或特定基础类型
-      const basicTypes = ['string', 'number', 'boolean', 'any', 'void', 'unknown', 'object', 'symbol', 'bigint', 'any[]']
-      const isBasic = basicTypes.includes(type.trim())
-      const isCapitalized = /^[A-Z]/.test(type.trim())
-      
-      if (isBasic || isCapitalized) return ''
-      return match
-    })
-    // 4. 清理 interface 和 type
-    .replace(/interface\s+\w+\s*{[\s\S]+?}\n?/g, '')
-    .replace(/type\s+\w+\s*=\s*[\s\S]+?(?=;|\n\n|$);?\n?/g, '')
-}
-
 // --- 代码示例定义 ---
 
 // 1. 基础用法
-const tsBasic = `<template>
+const tsBasic = `<${_T}>
   <yh-countdown :value="deadline" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 // 目标时间：传入 Date 对象或毫秒时间戳
 const deadline = ref(Date.now() + 2 * 60 * 60 * 1000)
-<\/script>`
+</${_S}>`
 
 const jsBasic = toJs(tsBasic)
 
 // 2. 持续时间模式
-const tsDuration = `<template>
+const tsDuration = `<${_T}>
   <div style="display: flex; gap: 32px; align-items: center;">
     <!-- 传入毫秒数（小于 978307200000）视为时长 -->
     <yh-countdown :value="60000" format="mm:ss" />
     <yh-countdown :value="300000" format="mm分ss秒" />
   </div>
-</template>`
+</${_T}>`
 
-const jsDuration = tsDuration
+const jsDuration = toJs(tsDuration)
 
 // 3. 自定义格式
-const tsFormat = `<template>
+const tsFormat = `<${_T}>
   <div style="display: flex; flex-direction: column; gap: 16px;">
     <!-- 天、时、分、秒 -->
     <yh-countdown :value="90061000" format="DD天HH:mm:ss" />
@@ -116,23 +91,23 @@ const tsFormat = `<template>
     <!-- 前缀和后缀 -->
     <yh-countdown :value="3600000" title="剩余：" suffix="秒" />
   </div>
-</template>`
+</${_T}>`
 
-const jsFormat = tsFormat
+const jsFormat = toJs(tsFormat)
 
 // 4. 翻牌样式
-const tsFlip = `<template>
+const tsFlip = `<${_T}>
   <yh-countdown
     :value="3661000"
     flip-animation
     :labels="{ hours: '时', minutes: '分', seconds: '秒' }"
   />
-</template>`
+</${_T}>`
 
-const jsFlip = tsFlip
+const jsFlip = toJs(tsFlip)
 
 // 5. 控制倒计时
-const tsControl = `<template>
+const tsControl = `<${_T}>
   <div>
     <yh-countdown
       ref="countdownRef"
@@ -147,9 +122,9 @@ const tsControl = `<template>
       <yh-button size="small" @click="resetCountdown">重置</yh-button>
     </div>
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const countdownRef = ref()
@@ -171,29 +146,29 @@ const resetCountdown = () => {
 
 const onStart = () => console.log('Started')
 const onStatusChange = (status: string) => console.log('Status:', status)
-<\/script>`
+</${_S}>`
 
 const jsControl = toJs(tsControl)
 
 // 6. 预警状态
-const tsWarning = `<template>
+const tsWarning = `<${_T}>
   <yh-countdown
     :value="15000"
     :warning-threshold="10000"
     @warning="handleWarning"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 const handleWarning = () => {
   console.log('倒计时不足 10 秒，进入预警状态！')
 }
-<\/script>`
+</${_S}>`
 
 const jsWarning = toJs(tsWarning)
 
 // 7. 完全自定义
-const tsCustom = `<template>
+const tsCustom = `<${_T}>
   <yh-countdown :value="3600000">
     <template #default="{ current, isWarning }">
       <div :class="['custom-countdown', { 'is-warning': isWarning }]">
@@ -205,9 +180,9 @@ const tsCustom = `<template>
       </div>
     </template>
   </yh-countdown>
-</template>
+</${_T}>
 
-<style scoped>
+<${_St} scoped>
 .custom-countdown {
   display: flex;
   align-items: center;
@@ -231,19 +206,19 @@ const tsCustom = `<template>
 .is-warning .time-block {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
-<\/style>`
+</${_St}>`
 
-const jsCustom = tsCustom
+const jsCustom = toJs(tsCustom)
 
 // 8. 服务器时间校准
-const tsServerTime = `<template>
+const tsServerTime = `<${_T}>
   <yh-countdown
     :value="serverDeadline"
     :server-time-offset="serverTimeOffset"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref, onMounted } from 'vue'
 
 const serverDeadline = ref(0)
@@ -256,12 +231,12 @@ onMounted(async () => {
   serverDeadline.value = deadline
   serverTimeOffset.value = serverTime - Date.now()
 })
-<\/script>`
+</${_S}>`
 
 const jsServerTime = toJs(tsServerTime)
 
 // 综合场景：限时抢购
-const tsFlashSale = `<template>
+const tsFlashSale = `<${_T}>
   <div class="flash-sale">
     <span class="flash-sale__label">限时抢购</span>
     <yh-countdown
@@ -271,15 +246,15 @@ const tsFlashSale = `<template>
       :labels="{ hours: '时', minutes: '分', seconds: '秒' }"
     />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const flashSaleEnd = ref(Date.now() + 3600000)
-<\/script>
+</${_S}>
 
-<style scoped>
+<${_St} scoped>
 .flash-sale {
   display: flex;
   align-items: center;
@@ -293,25 +268,25 @@ const flashSaleEnd = ref(Date.now() + 3600000)
   font-weight: bold;
   font-size: 16px;
 }
-<\/style>`
+</${_St}>`
 
 const jsFlashSale = toJs(tsFlashSale)
 
 // 9. Nuxt 使用
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <yh-countdown :value="deadline" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 // Nuxt 环境下组件自动导入，无需配置
 const deadline = ref(Date.now() + 60000)
-<\/script>`
+</${_S}>`
 
 const jsNuxt = toJs(tsNuxt)
 
 // 10. 弹框同步
-const tsShared = `\x3Ctemplate>
+const tsShared = `<${_T}>
   <div class="demo-sync">
     <div class="demo-sync__main" style="display: flex; align-items: center; gap: 12px;">
       <span>页面倒计时：</span>
@@ -327,19 +302,19 @@ const tsShared = `\x3Ctemplate>
       </div>
     </yh-dialog>
   </div>
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const showModal = ref(false)
 const sharedDeadline = ref(Date.now() + 10 * 60 * 1000)
-\x3C/script>`
+</${_S}>`
 
 const jsShared = toJs(tsShared)
 
 // 11. 秒杀列表
-const tsList = `\x3Ctemplate>
+const tsList = `<${_T}>
   <div class="flash-sale-list">
     <div v-for="item in products" :key="item.id" class="flash-sale-item">
       <div class="item-info">
@@ -353,9 +328,9 @@ const tsList = `\x3Ctemplate>
       <yh-button type="danger" size="small" round>立即抢购</yh-button>
     </div>
   </div>
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const products = ref([
@@ -363,9 +338,9 @@ const products = ref([
   { id: 2, name: '降噪耳机 Max', deadline: Date.now() + 7200000, price: '¥1,899' },
   { id: 3, name: '机械键盘 G9', deadline: Date.now() + 1800000, price: '¥599' }
 ])
-\x3C/script>
+</${_S}>
 
-\x3Cstyle scoped>
+<${_St} scoped>
 .flash-sale-list {
   display: flex;
   flex-direction: column;
@@ -402,7 +377,7 @@ const products = ref([
   color: #64748b;
   margin-bottom: 4px;
 }
-\x3C/style>`
+</${_St}>`
 
 const jsList = toJs(tsList)
 </script>

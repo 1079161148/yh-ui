@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, h } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 
 const visibleBasic = ref(false)
 const visibleAlignCenter = ref(false)
@@ -27,6 +28,7 @@ const visibleFooterRight = ref(false)
 const visibleContentAlign = ref(false)
 const visibleDestroy = ref(false)
 const visibleDestroyNormal = ref(false)
+const visibleHeaderAlign = ref(false)
 
 // 函数式调用示例
 import { useDialog, YhDialogMethod, YhMessage } from '@yh-ui/components'
@@ -103,33 +105,22 @@ const renderAction = () => h('div', { style: 'display: flex; gap: 8px; justify-c
   }, '我知道了')
 ])
 
-const tsBasic = `<template>
-  <yh-button @click="visible = true">打开对话框</yh-button>
-
-  <yh-dialog v-model="visible" title="标准设计预览">
-    <span>YH-UI 的对话框采用了定制的贝塞尔动效，开启感极其轻盈，配合 16px 的大圆圆角设计，兼顾了现代感与亲和力。</span>
-  </yh-dialog>
-</template>
-
-\x3cscript setup lang="ts">
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const jsBasic = `<template>
+const tsBasic = `<${_T}>
   <yh-button @click="visible = true">打开对话框</yh-button>
 
   <yh-dialog v-model="visible" title="标准设计预览">
     <span>YH-UI 的对话框采用了定制的贝塞尔动效，开启感极其轻盈，配合 16px 的大圆角设计，兼顾了现代感与亲和力。</span>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup>
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const tsCenter = `<template>
+const jsBasic = toJs(tsBasic)
+
+const tsCenter = `<${_T}>
   <div style="display: flex; gap: 16px;">
     <yh-button @click="visibleAlignCenter = true">垂直居中</yh-button>
     <yh-button @click="visibleCenter = true" type="primary">全居中模式</yh-button>
@@ -158,52 +149,17 @@ const tsCenter = `<template>
       <yh-button type="primary" @click="visibleCenter = false">立即提交</yh-button>
     </template>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visibleAlignCenter = ref(false)
 const visibleCenter = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsCenter = `<template>
-  <div style="display: flex; gap: 16px;">
-    <yh-button @click="visibleAlignCenter = true">垂直居中</yh-button>
-    <yh-button @click="visibleCenter = true" type="primary">全居中模式</yh-button>
-  </div>
+const jsCenter = toJs(tsCenter)
 
-  <!-- 仅垂直居中 (自带智能页脚) -->
-  <yh-dialog 
-    v-model="visibleAlignCenter" 
-    title="内容垂直居中" 
-    align-center 
-  >
-    <p>通过属性 <code>align-center</code>，对话框将忽略 <code>top</code> 设置并垂直居中。</p>
-  </yh-dialog>
-
-  <!-- 全居中模式 (Header, Body, Footer 全部垂直/水平均称) -->
-  <yh-dialog v-model="visibleCenter" title="Center Mode" center align-center>
-    <div style="text-align: center; padding: 20px 0;">
-      <div style="width: 64px; height: 64px; border-radius: 50%; background: #f0f9eb; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-        <yh-icon name="check" style="color: #67c23a; font-size: 32px;" />
-      </div>
-      <h3 style="margin-bottom: 12px; font-weight: 700;">操作确认</h3>
-      <p style="color: var(--yh-text-color-regular); font-size: 15px;">当 <code>center</code> 设为 true 时，弹窗的头部、底部以及主体内容会自动水平均中对齐。</p>
-    </div>
-    <template #footer>
-      <yh-button @click="visibleCenter = false">取消</yh-button>
-      <yh-button type="primary" @click="visibleCenter = false">立即提交</yh-button>
-    </template>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visibleAlignCenter = ref(false)
-const visibleCenter = ref(false)
-\x3c/script>`
-
-const tsFooterAlign = `<template>
+const tsFooterAlign = `<${_T}>
   <div style="display: flex; gap: 12px;">
     <yh-button @click="visibleLeft = true">居左对齐</yh-button>
     <yh-button @click="visibleCenter = true">居中对齐</yh-button>
@@ -221,69 +177,33 @@ const tsFooterAlign = `<template>
   <yh-dialog v-model="visibleRight" title="居右对齐" footer-align="right">
     <span>这是默认的排列方式。</span>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visibleLeft = ref(false)
 const visibleCenter = ref(false)
 const visibleRight = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsFooterAlign = `<template>
-  <div style="display: flex; gap: 12px;">
-    <yh-button @click="visibleLeft = true">居左对齐</yh-button>
-    <yh-button @click="visibleCenter = true">居中对齐</yh-button>
-    <yh-button @click="visibleRight = true">居右对齐</yh-button>
-  </div>
+const jsFooterAlign = toJs(tsFooterAlign)
 
-  <yh-dialog v-model="visibleLeft" title="居左对齐" footer-align="left">
-    <span>底部按钮现在排列在左侧。</span>
-  </yh-dialog>
-
-  <yh-dialog v-model="visibleCenter" title="居中对齐" footer-align="center">
-    <span>底部按钮现在排列在中间。</span>
-  </yh-dialog>
-
-  <yh-dialog v-model="visibleRight" title="居右对齐" footer-align="right">
-    <span>这是默认的排列方式。</span>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visibleLeft = ref(false)
-const visibleCenter = ref(false)
-const visibleRight = ref(false)
-\x3c/script>`
-
-const tsHeaderAlign = `<template>
+const tsHeaderAlign = `<${_T}>
   <yh-button @click="visible = true">标题居右对齐</yh-button>
 
   <yh-dialog v-model="visible" title="居右对齐标题" header-align="right">
     <span>通过 header-align 属性，你可以独立控制标题的排列位置。</span>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsHeaderAlign = `<template>
-  <yh-button @click="visible = true">标题居右对齐</yh-button>
+const jsHeaderAlign = toJs(tsHeaderAlign)
 
-  <yh-dialog v-model="visible" title="居右对齐标题" header-align="right">
-    <span>通过 header-align 属性，你可以独立控制标题的排列位置。</span>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const tsContentAlign = `<template>
+const tsContentAlign = `<${_T}>
   <yh-button @click="visible = true">内容居中对齐</yh-button>
 
   <yh-dialog v-model="visible" title="内容对齐" content-align="center">
@@ -292,30 +212,16 @@ const tsContentAlign = `<template>
       <p>对于一些声明式或展示性的弹窗，居中对齐可以提供更好的阅读体验。</p>
     </div>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsContentAlign = `<template>
-  <yh-button @click="visible = true">内容居中对齐</yh-button>
+const jsContentAlign = toJs(tsContentAlign)
 
-  <yh-dialog v-model="visible" title="内容对齐" content-align="center">
-    <div style="padding: 10px 0;">
-      <p>这是居中对齐的内容区域。</p>
-      <p>对于一些声明式或展示性的弹窗，居中对齐可以提供更好的阅读体验。</p>
-    </div>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const tsTypes = `<template>
+const tsTypes = `<${_T}>
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
     <yh-button type="success" plain @click="visibleSuccess = true">成功类型</yh-button>
     <yh-button type="warning" plain @click="visibleWarning = true">警告类型</yh-button>
@@ -327,39 +233,19 @@ const tsTypes = `<template>
   <yh-dialog v-model="visibleWarning" type="warning" title="删除确认" content="删除后数据将无法恢复，请谨慎操作。" />
   <yh-dialog v-model="visibleError" type="error" title="系统错误" content="网络连接中断，请检查您的网络设置。" />
   <yh-dialog v-model="visibleInfo" type="info" title="系统通知" content="新版本已发布，点击下方按钮了解更多。" />
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visibleSuccess = ref(false)
 const visibleWarning = ref(false)
 const visibleError = ref(false)
 const visibleInfo = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsTypes = `<template>
-  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <yh-button type="success" plain @click="visibleSuccess = true">成功类型</yh-button>
-    <yh-button type="warning" plain @click="visibleWarning = true">警告类型</yh-button>
-    <yh-button type="danger" plain @click="visibleError = true">错误类型</yh-button>
-    <yh-button type="info" plain @click="visibleInfo = true">信息类型</yh-button>
-  </div>
+const jsTypes = toJs(tsTypes)
 
-  <yh-dialog v-model="visibleSuccess" type="success" title="提交成功" content="您的申请已提交，我们将于 24 小时内处理。" />
-  <yh-dialog v-model="visibleWarning" type="warning" title="删除确认" content="删除后数据将无法恢复，请谨慎操作。" />
-  <yh-dialog v-model="visibleError" type="error" title="系统错误" content="网络连接中断，请检查您的网络设置。" />
-  <yh-dialog v-model="visibleInfo" type="info" title="系统通知" content="新版本已发布，点击下方按钮了解更多。" />
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visibleSuccess = ref(false)
-const visibleWarning = ref(false)
-const visibleError = ref(false)
-const visibleInfo = ref(false)
-\x3c/script>`
-
-const tsLoading = `<template>
+const tsLoading = `<${_T}>
   <yh-button @click="visible = true">演示异步提交</yh-button>
 
   <yh-dialog v-model="visible" title="数据处理中" :loading="loading" content="正在同步云端数据，请稍后...">
@@ -368,9 +254,9 @@ const tsLoading = `<template>
       <yh-button type="primary" :loading="loading" @click="submit">确定提交</yh-button>
     </template>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
 const loading = ref(false)
@@ -378,30 +264,11 @@ const submit = () => {
   loading.value = true
   setTimeout(() => { loading.value = false; visible.value = false }, 2000)
 }
-\x3c/script>`
+</${_S}>`
 
-const jsLoading = `<template>
-  <yh-button @click="visible = true">演示异步提交</yh-button>
+const jsLoading = toJs(tsLoading)
 
-  <yh-dialog v-model="visible" title="数据处理中" :loading="loading" content="正在同步云端数据，请稍后...">
-    <template #footer>
-      <yh-button @click="visible = false">取消</yh-button>
-      <yh-button type="primary" :loading="loading" @click="submit">确定提交</yh-button>
-    </template>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-const loading = ref(false)
-const submit = () => {
-  loading.value = true
-  setTimeout(() => { loading.value = false; visible.value = false }, 2000)
-}
-\x3c/script>`
-
-const tsRender = `<template>
+const tsRender = `<${_T}>
   <yh-button type="primary" plain @click="visible = true">渲染函数 Demo</yh-button>
 
   <yh-dialog 
@@ -410,9 +277,9 @@ const tsRender = `<template>
     :content="renderContent"
     :action="renderAction"
   />
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref, h } from 'vue'
 const visible = ref(false)
 
@@ -426,58 +293,24 @@ const renderContent = () => h('div', { style: 'padding: 20px; background: #f0f7f
 const renderAction = () => h('div', { style: 'display: flex; gap: 8px; justify-content: flex-end' }, [
   h('yh-button', { onClick: () => { visible.value = false } }, '我知道了')
 ])
-\x3c/script>`
+</${_S}>`
 
-const jsRender = `<template>
-  <yh-button type="primary" plain @click="visible = true">渲染函数 Demo</yh-button>
+const jsRender = toJs(tsRender)
 
-  <yh-dialog 
-    v-model="visible" 
-    :title="renderTitle"
-    :content="renderContent"
-    :action="renderAction"
-  />
-</template>
-
-\x3cscript setup>
-import { ref, h } from 'vue'
-const visible = ref(false)
-
-const renderTitle = () => h('div', { style: 'display:flex; align-items:center; color:#409eff' }, [
-  h('span', '🚀 渲染函数标题')
-])
-const renderContent = () => h('div', { style: 'padding: 20px; background: #f0f7ff; border-radius: 8px;' }, [
-  h('h4', '通过 h() 函数动态生成的内容'),
-  h('p', { style: 'color: #666' }, '这种方式在需要极高动态性的业务配置场景下非常有用。')
-])
-const renderAction = () => h('div', { style: 'display: flex; gap: 8px; justify-content: flex-end' }, [
-  h('yh-button', { onClick: () => { visible.value = false } }, '我知道了')
-])
-\x3c/script>`
-
-const tsOrigin = `<template>
+const tsOrigin = `<${_T}>
   <yh-button @click="visible = true">从点击位置展开</yh-button>
 
   <yh-dialog v-model="visible" transform-origin="mouse" title="动画体验" content="弹窗会基于鼠标点击的位置智能计算 origin，提供极致的视觉连贯性。" />
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsOrigin = `<template>
-  <yh-button @click="visible = true">从点击位置展开</yh-button>
+const jsOrigin = toJs(tsOrigin)
 
-  <yh-dialog v-model="visible" transform-origin="mouse" title="动画体验" content="弹窗会基于鼠标点击的位置智能计算 origin，提供极致的视觉连贯性。" />
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const tsAdvanced = `<template>
+const tsAdvanced = `<${_T}>
   <div style="display: flex; gap: 16px;">
     <yh-button @click="visibleDrag = true">智能拖拽</yh-button>
     <yh-button @click="visibleGlass = true" type="primary" plain>旗舰级玻璃态</yh-button>
@@ -497,43 +330,17 @@ const tsAdvanced = `<template>
       </ul>
     </div>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visibleDrag = ref(false)
 const visibleGlass = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsAdvanced = `<template>
-  <div style="display: flex; gap: 16px;">
-    <yh-button @click="visibleDrag = true">智能拖拽</yh-button>
-    <yh-button @click="visibleGlass = true" type="primary" plain>旗舰级玻璃态</yh-button>
-  </div>
+const jsAdvanced = toJs(tsAdvanced)
 
-  <yh-dialog v-model="visibleDrag" title="可自由移动的头" draggable>
-    <p>按住此对话框的头部区域即可进行移动。我们内部计算了物理安全区，防止用户误将关闭按钮移出屏幕导致无法操作。</p>
-  </yh-dialog>
-
-  <yh-dialog v-model="visibleGlass" title="Premium 亚克力材质" glass>
-    <div style="min-height: 120px;">
-      <p>亚克力玻璃（Glassmorphism）不仅是透明，它包含：</p>
-      <ul style="margin-top: 15px; color: #4a4a4a; line-height: 2;">
-        <li>💎 动态模糊：24px 的高级动态背景虚化。</li>
-        <li>🎨 色彩保真：通过 saturate 增加 190% 饱和度，使背景模糊更明亮。</li>
-        <li>🎯 暗色自适应：自动从磨砂白切换到极客黑材质。</li>
-      </ul>
-    </div>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visibleDrag = ref(false)
-const visibleGlass = ref(false)
-\x3c/script>`
-
-const tsNested = `<template>
+const tsNested = `<${_T}>
   <yh-button @click="visibleOuter = true" type="primary" plain>打开外部弹窗</yh-button>
   
   <yh-dialog v-model="visibleOuter" title="分步操作 (1/2)">
@@ -552,66 +359,31 @@ const tsNested = `<template>
       </template>
     </yh-dialog>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visibleOuter = ref(false)
 const visibleInner = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsNested = `<template>
-  <yh-button @click="visibleOuter = true" type="primary" plain>打开外部弹窗</yh-button>
-  
-  <yh-dialog v-model="visibleOuter" title="分步操作 (1/2)">
-    <p>在 YH-UI 中嵌套对话框是安全的。即便打开多层，锁定滚动条的补偿逻辑也能确保背景不跳动。</p>
-    <div style="margin-top: 32px;">
-      <yh-button type="primary" @click="visibleInner = true">确认提交数据</yh-button>
-    </div>
+const jsNested = toJs(tsNested)
 
-    <yh-dialog v-model="visibleInner" title="分步操作 (2/2)" width="400px" align-center>
-      <div style="padding: 10px 0;">
-        您确定要提交当前变更吗？此操作无法撤销。
-      </div>
-      <template #footer>
-        <yh-button @click="visibleInner = false">返回修改</yh-button>
-        <yh-button type="danger" @click="visibleInner = false; visibleOuter = false">确定提交</yh-button>
-      </template>
-    </yh-dialog>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visibleOuter = ref(false)
-const visibleInner = ref(false)
-\x3c/script>`
-
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <yh-button @click="visible = true">Nuxt 弹窗</yh-button>
   <yh-dialog v-model="visible" title="Nuxt 适配力">
     100% 兼容 Nuxt 3 的 SSR 渲染。
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsNuxt = `<template>
-  <yh-button @click="visible = true">Nuxt 弹窗</yh-button>
-  <yh-dialog v-model="visible" title="Nuxt 适配力">
-    100% 兼容 Nuxt 3 的 SSR 渲染。
-  </yh-dialog>
-</template>
+const jsNuxt = toJs(tsNuxt)
 
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const tsSwap = `<template>
+const tsSwap = `<${_T}>
   <yh-button @click="visible = true">交换按钮位置</yh-button>
 
   <yh-dialog 
@@ -620,37 +392,23 @@ const tsSwap = `<template>
     swap-footer-buttons
     content="确认按钮现在位于左侧，取消按钮位于右侧。"
   />
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsSwap = `<template>
-  <yh-button @click="visible = true">交换按钮位置</yh-button>
+const jsSwap = toJs(tsSwap)
 
-  <yh-dialog 
-    v-model="visible" 
-    title="操作确认" 
-    swap-footer-buttons
-    content="确认按钮现在位于左侧，取消按钮位于右侧。"
-  />
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const tsFunctional = `<template>
+const tsFunctional = `<${_T}>
   <div style="display: flex; gap: 16px;">
     <yh-button @click="handleHookCall">useDialog Hook</yh-button>
     <yh-button type="primary" @click="handleMethodCall">YhDialogMethod</yh-button>
   </div>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { useDialog, YhDialogMethod } from '@yh-ui/components'
 
 const { showDialog } = useDialog()
@@ -671,40 +429,15 @@ const handleMethodCall = () => {
     confirmText: '太棒了'
   })
 }
-\x3c/script>`
+</${_S}>`
 
-const jsFunctional = `<template>
-  <div style="display: flex; gap: 16px;">
-    <yh-button @click="handleHookCall">useDialog Hook</yh-button>
-    <yh-button type="primary" @click="handleMethodCall">YhDialogMethod</yh-button>
-  </div>
-</template>
+const jsFunctional = toJs(tsFunctional)
 
-\x3cscript setup>
-import { useDialog, YhDialogMethod } from '@yh-ui/components'
-
-const { showDialog } = useDialog()
-
-const handleHookCall = async () => {
-  await showDialog({
-    title: 'Hook 方式调用',
-    content: '这是通过 useDialog Hook 发起的弹窗。'
-  })
-}
-
-const handleMethodCall = () => {
-  YhDialogMethod.success({
-    title: '指令式调用',
-    content: '这是通过 YhDialogMethod.success 直接发起的弹窗。'
-  })
-}
-\x3c/script>`
-
-const tsCallback = `<template>
+const tsCallback = `<${_T}>
   <yh-button type="primary" plain @click="handleCallbackCall">异步反馈演示</yh-button>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { useDialog, YhMessage } from '@yh-ui/components'
 
 const { showDialog } = useDialog()
@@ -727,38 +460,15 @@ const handleCallbackCall = async () => {
     YhMessage.info('您关闭了弹窗')
   }
 }
-\x3c/script>`
+</${_S}>`
 
-const jsCallback = `<template>
-  <yh-button type="primary" plain @click="handleCallbackCall">异步反馈演示</yh-button>
-</template>
+const jsCallback = toJs(tsCallback)
 
-\x3cscript setup>
-import { useDialog, YhMessage } from '@yh-ui/components'
-
-const { showDialog } = useDialog()
-
-const handleCallbackCall = async () => {
-  const { action } = await showDialog({
-    title: '动作确认',
-    content: '请选择您的操作。',
-    confirmText: '我要确定',
-    cancelText: '我要取消'
-  })
-  
-  if (action === 'confirm') {
-    YhMessage.success('您点击了确定按钮')
-  } else if (action === 'cancel') {
-    YhMessage.warning('您点击了取消按钮')
-  }
-}
-\x3c/script>`
-
-const tsFunctionalSwap = `<template>
+const tsFunctionalSwap = `<${_T}>
   <yh-button type="primary" plain @click="handleFunctionalSwap">函数式按钮互换</yh-button>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { useDialog } from '@yh-ui/components'
 
 const { showDialog } = useDialog()
@@ -770,27 +480,11 @@ const handleFunctionalSwap = () => {
     swapFooterButtons: true
   })
 }
-\x3c/script>`
+</${_S}>`
 
-const jsFunctionalSwap = `<template>
-  <yh-button type="primary" plain @click="handleFunctionalSwap">函数式按钮互换</yh-button>
-</template>
+const jsFunctionalSwap = toJs(tsFunctionalSwap)
 
-\x3cscript setup>
-import { useDialog } from '@yh-ui/components'
-
-const { showDialog } = useDialog()
-
-const handleFunctionalSwap = () => {
-  showDialog({
-    title: '操作确认',
-    content: '该示例演示了在函数式调用中交换按钮位置。',
-    swapFooterButtons: true
-  })
-}
-\x3c/script>`
-
-const tsFullscreen = `<template>
+const tsFullscreen = `<${_T}>
   <yh-button type="primary" @click="visible = true">打开全屏弹窗</yh-button>
 
   <yh-dialog v-model="visible" title="全屏视界" fullscreen>
@@ -799,29 +493,16 @@ const tsFullscreen = `<template>
       <p>在开启 <code>fullscreen</code> 属性后，对话框将占据整个屏幕视口。这适用于复杂表单、沉浸式预览或大型数据展示场景。</p>
     </div>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visible = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsFullscreen = `<template>
-  <yh-button type="primary" @click="visible = true">打开全屏弹窗</yh-button>
+const jsFullscreen = toJs(tsFullscreen)
 
-  <yh-dialog v-model="visible" title="全屏视界" fullscreen>
-    <div style="padding: 24px;">
-      <p>全屏模式下，弹窗将自动适配视口尺寸，并保持头尾固定（通过内置的 Flex 布局实现）。</p>
-    </div>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visible = ref(false)
-\x3c/script>`
-
-const tsDestroy = `<template>
+const tsDestroy = `<${_T}>
   <div style="display: flex; gap: 12px;">
     <yh-button @click="visibleNormal = true">常规模式</yh-button>
     <yh-button type="primary" plain @click="visibleDestroy = true">开启销毁模式</yh-button>
@@ -846,38 +527,15 @@ const tsDestroy = `<template>
       </p>
     </div>
   </yh-dialog>
-</template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const visibleNormal = ref(false)
 const visibleDestroy = ref(false)
-\x3c/script>`
+</${_S}>`
 
-const jsDestroy = `<template>
-  <div style="display: flex; gap: 12px;">
-    <yh-button @click="visibleNormal = true">常规模式</yh-button>
-    <yh-button type="primary" plain @click="visibleDestroy = true">开启销毁模式</yh-button>
-  </div>
-
-  <yh-dialog v-model="visibleNormal" title="状态保留中">
-    <div style="padding: 10px 0;">
-      <input style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 100%;" placeholder="我是持久状态..." />
-    </div>
-  </yh-dialog>
-
-  <yh-dialog v-model="visibleDestroy" title="状态销毁演示" destroy-on-close>
-    <div style="padding: 10px 0;">
-      <input style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; width: 100%;" placeholder="我是瞬时状态..." />
-    </div>
-  </yh-dialog>
-</template>
-
-\x3cscript setup>
-import { ref } from 'vue'
-const visibleNormal = ref(false)
-const visibleDestroy = ref(false)
-\x3c/script>`
+const jsDestroy = toJs(tsDestroy)
 
 </script>
 

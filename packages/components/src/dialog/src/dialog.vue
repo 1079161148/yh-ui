@@ -288,6 +288,8 @@ watch(() => props.modelValue, async (val) => {
     emit('open')
     offset.value = { x: 0, y: 0 }
 
+    if (typeof window === 'undefined') return
+
     // 聚焦管理
     prevFocusedElement = document.activeElement as HTMLElement
     await nextTick()
@@ -308,12 +310,11 @@ watch(() => props.modelValue, async (val) => {
     emit('opened')
   } else {
     visible.value = false
-    // 恢复之前的焦点
-    if (prevFocusedElement) {
+    if (typeof window !== 'undefined' && prevFocusedElement) {
       prevFocusedElement.focus()
     }
   }
-})
+}, { immediate: true })
 
 const afterLeave = () => {
   closed.value = true

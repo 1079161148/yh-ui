@@ -3,7 +3,7 @@
  * SidebarToggle - 侧边栏折叠按钮
  * @description Naive UI 风格的侧边栏折叠按钮
  */
-import { ref, onMounted, watch, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, watch, onUnmounted, nextTick, computed } from 'vue'
 
 const isCollapsed = ref(false)
 const buttonLeft = ref(220)
@@ -97,6 +97,10 @@ const updateSidebarState = (collapsed: boolean) => {
 const toggle = () => {
   isCollapsed.value = !isCollapsed.value
 }
+
+import { useData } from 'vitepress'
+const { lang } = useData()
+const isEn = computed(() => lang.value === 'en-US')
 </script>
 
 <template>
@@ -104,7 +108,7 @@ const toggle = () => {
     'sidebar-toggle--collapsed': isCollapsed,
     'sidebar-toggle--visible': isHovering || isCollapsed
   }" :style="{ left: isCollapsed ? '0px' : `${buttonLeft}px` }" @click="toggle" @mouseenter="isHovering = true"
-    @mouseleave="isHovering = false" :title="isCollapsed ? '展开侧边栏' : '收起侧边栏'">
+    @mouseleave="isHovering = false" :title="isCollapsed ? (isEn ? 'Expand sidebar' : '展开侧边栏') : (isEn ? 'Collapse sidebar' : '收起侧边栏')">
     <svg class="sidebar-toggle__icon" viewBox="0 0 24 24" width="12" height="12">
       <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
     </svg>

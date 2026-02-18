@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, computed, type ToRefs } from 'vue'
-import { useRouter } from 'vue-router'
+import { routerKey } from 'vue-router'
 import { useNamespace } from '@yh-ui/hooks'
 import { breadcrumbItemProps, type BreadcrumbProps } from './breadcrumb'
 
@@ -14,7 +14,7 @@ const ns = useNamespace('breadcrumb-item')
 // 注入父组件配置
 const breadcrumbContext = inject<ToRefs<BreadcrumbProps>>('breadcrumbProps')
 
-const router = useRouter()
+const router = inject(routerKey, null)
 const linkRef = ref<HTMLElement>()
 
 const linkClass = computed(() => [

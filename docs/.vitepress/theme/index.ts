@@ -111,7 +111,8 @@ import {
   YhCountdown,
   YhTable,
   YhTableColumn,
-  vInfiniteScroll
+  vInfiniteScroll,
+  vYhLoading
 } from '@yh-ui/components'
 
 // 导入文档组件
@@ -284,6 +285,7 @@ export default {
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)
+    app.directive('yh-loading', vYhLoading)
 
     // 注册文档组件
     app.component('DemoBlock', DemoBlock)

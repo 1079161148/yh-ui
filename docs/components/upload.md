@@ -1,5 +1,7 @@
 ﻿<script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
+import type { UploadFile, UploadRawFile, UploadInstance, UploadRequestOptions } from '@yh-ui/components'
 
 const fileListStandard = ref([
   { name: 'yh-ui-manual.pdf', status: 'success', uid: 1, url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
@@ -16,12 +18,9 @@ const fileListCard = ref([
 ])
 
 const fileListDrag = ref([])
-
 const fileListDirectory = ref([])
-
 const fileListManual = ref([])
 const uploadManualRef = ref()
-
 const fileListAdvanced = ref([])
 const fileListIcons = ref([
   { name: '财务报表.xlsx', status: 'success', uid: 1 },
@@ -47,18 +46,57 @@ const fileListPos = ref([
   { name: 'mountain.jpg', status: 'success', uid: 1, url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200' }
 ])
 
-// Business: Image Compression
+// --- 处理器 ---
+const handleAvatarExceed = (files: File[]) => {
+  fileListAvatar.value = []
+  uploadAvatarRef.value?.handleFiles(files)
+}
+
+const handleOverwriteExceed = (files: File[]) => {
+  fileListOverwrite.value = []
+  uploadOverwriteRef.value?.handleFiles(files)
+}
+
+const handleCustomRequest = (options: UploadRequestOptions) => {
+  console.log('执行自定义请求', options)
+  options.onSuccess({ status: 'ok' })
+}
+
+const handleDownloadLog = (file: UploadFile) => {
+  console.log('触发下载：', file)
+}
+
+const handleThumbnailRequest = (file: UploadRawFile) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result as string)
+  })
+}
+
+const handlePreviewItem = (file: UploadFile) => {
+  alert('正在预览：' + file.name)
+}
+
+const handleRemoveItem = (file: UploadFile) => {
+  fileListAdvanced.value = fileListAdvanced.value.filter((f: UploadFile) => f.uid !== file.uid)
+}
+
+// 业务进阶：预览压缩逻辑
 const beforeUploadCompress = (file: File) => {
-  console.log('Original size:', file.size / 1024, 'KB')
-  // Basic check - in real app would use a library like browser-image-compression
+  console.log('原始大小:', file.size / 1024, 'KB')
   if (file.size > 2 * 1024 * 1024) {
-    alert('文件太大，演示已通过 beforeUpload 拦截')
+    alert('文件过大，被 beforeUpload 拦截')
     return false
   }
   return true
 }
 
-const tsBasic = `<template>
+// JSON 预览辅助函数
+const json = (val: unknown) => JSON.stringify(val, null, 2)
+
+// --- 代码片段 ---
+const tsBasic = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -69,18 +107,18 @@ const tsBasic = `<template>
       <div class="yh-upload__tip">只能上传 pdf/png 文件，且不超过 2MB</div>
     </template>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
   { name: 'yh-ui-design.pdf', status: 'success', uid: 1 },
   { name: 'logo.png', status: 'uploading', percentage: 65, uid: 2 }
 ])
-<\/script>`
+</${_S}>`
 
-const tsPicture = `<template>
+const tsPicture = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -89,9 +127,9 @@ const tsPicture = `<template>
   >
     <yh-button type="primary">点击上传</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
@@ -102,18 +140,18 @@ const fileList = ref([
     uid: 1 
   }
 ])
-<\/script>`
+</${_S}>`
 
-const tsCard = `<template>
+const tsCard = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
     list-type="picture-card"
     accept="image/*"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
@@ -124,9 +162,9 @@ const fileList = ref([
     uid: 1 
   }
 ])
-<\/script>`
+</${_S}>`
 
-const tsDrag = `<template>
+const tsDrag = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     drag
@@ -137,15 +175,15 @@ const tsDrag = `<template>
     <yh-icon name="upload" class="yh-upload__icon" :size="48" />
     <div class="yh-upload__text">将文件拖到此处，或 <em>点击上传</em></div>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([])
-<\/script>`
+</${_S}>`
 
-const tsDirectory = `<template>
+const tsDirectory = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -153,15 +191,15 @@ const tsDirectory = `<template>
   >
     <yh-button type="primary">上传目录</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([])
-<\/script>`
+</${_S}>`
 
-const tsManual = `\x3Ctemplate>
+const tsManual = `<${_T}>
   <yh-upload
     ref="uploadRef"
     v-model:file-list="fileList"
@@ -172,7 +210,7 @@ const tsManual = `\x3Ctemplate>
       <yh-button type="primary">选取文件</yh-button>
     </template>
     <yh-button 
-      style="margin-left: 12px" 
+      class="upload-submit-btn"
       type="success" 
       @click="submitUpload"
     >
@@ -182,9 +220,9 @@ const tsManual = `\x3Ctemplate>
       <div class="yh-upload__tip">只能上传 pdf/png 文件，且不超过 2MB</div>
     </template>
   </yh-upload>
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import type { UploadInstance } from '@yh-ui/components'
 
@@ -194,19 +232,24 @@ const fileList = ref([])
 const submitUpload = () => {
   uploadRef.value?.submit()
 }
-\x3C/script>`
+</${_S}>
 
+<${_St} scoped>
+.upload-submit-btn {
+  margin-left: 12px;
+}
+</${_St}>`
 
-const tsCustomUpload = `<template>
+const tsCustomUpload = `<${_T}>
   <yh-upload
     action="#"
     :http-request="customUpload"
   >
     <yh-button type="primary">自定义上传</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 const customUpload = (options) => {
   const { file, onProgress, onSuccess, onError } = options
   console.log('开始自定义上传...', file)
@@ -222,9 +265,9 @@ const customUpload = (options) => {
     }
   }, 200)
 }
-<\/script>`
+</${_S}>`
 
-const tsDownload = `<template>
+const tsDownload = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -233,9 +276,9 @@ const tsDownload = `<template>
   >
     <yh-button type="primary">点击上传</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
@@ -246,11 +289,10 @@ const fileList = ref([
 
 const handleDownload = (file) => {
   console.log('正在下载文件：', file.name)
-  // 你可以在这里执行自定义下载逻辑，如通过 API 下载
 }
-<\/script>`
+</${_S}>`
 
-const tsAdvanced = `<template>
+const tsAdvanced = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -258,14 +300,13 @@ const tsAdvanced = `<template>
   >
     <yh-button type="primary">点击上传 (校验测试)</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([])
 
-// 利用 beforeUpload 钩子进行拦截
 const beforeUpload = (file: File) => {
   const isJPG = file.type === 'image/jpeg';
   const isLt2M = file.size / 1024 / 1024 < 2;
@@ -278,9 +319,9 @@ const beforeUpload = (file: File) => {
   }
   return isJPG && isLt2M;
 }
-<\/script>`
+</${_S}>`
 
-const tsThumb = `<template>
+const tsThumb = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -289,27 +330,25 @@ const tsThumb = `<template>
   >
     <yh-button type="primary">自定义缩略图</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([])
 
-// 自定义缩略图生成逻辑（例如在前端进行裁剪或添加水印后再预览）
 const generateThumb = (file: File) => {
   return new Promise((resolve) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => {
-      // 可以在这里对 Base64 进行处理，演示直接返回
       resolve(reader.result)
     }
   })
 }
-<\/script>`
+</${_S}>`
 
-const tsAvatar = `<template>
+const tsAvatar = `<${_T}>
   <yh-upload
     ref="uploadRef"
     v-model:file-list="fileList"
@@ -320,9 +359,9 @@ const tsAvatar = `<template>
   >
     <yh-icon v-if="fileList.length === 0" name="plus" :size="28" />
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import type { UploadInstance } from '@yh-ui/components'
 
@@ -331,15 +370,13 @@ const fileList = ref([
   { name: 'avatar.png', status: 'success', uid: 1, url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200' }
 ])
 
-// 当超出 1 个时，替换原有头像
 const handleExceed = (files) => {
   fileList.value = []
-  // 关键：清空后重新处理新选择的文件
   uploadRef.value?.handleFiles(files)
 }
-<\/script>`
+</${_S}>`
 
-const tsPositionDemo = `<template>
+const tsPositionDemo = `<${_T}>
   <div class="pos-demo">
     <yh-upload
       v-model:file-list="fileList"
@@ -349,17 +386,17 @@ const tsPositionDemo = `<template>
       show-download
     />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
   { name: 'mountain.jpg', status: 'success', uid: 1, url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200' }
 ])
-<\/script>`
+</${_S}>`
 
-const tsOverwrite = `<template>
+const tsOverwrite = `<${_T}>
   <yh-upload
     ref="uploadRef"
     v-model:file-list="fileList"
@@ -369,9 +406,9 @@ const tsOverwrite = `<template>
   >
     <yh-button type="primary">选择新文件覆盖旧文件</yh-button>
   </yh-upload>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import type { UploadInstance } from '@yh-ui/components'
 
@@ -382,16 +419,14 @@ const handleExceed = (files) => {
   fileList.value = []
   uploadRef.value?.handleFiles(files)
 }
-<\/script>`
+</${_S}>`
 
-const tsIconsDemo = `\x3Ctemplate>
-  <div style="display: flex; flex-direction: column; gap: 40px;">
-    <!-- 自动匹配模式 -->
+const tsIconsDemo = `<${_T}>
+  <div class="upload-icons-demo">
     <yh-upload v-model:file-list="fileList" action="https://httpbin.org/post">
       <yh-button type="primary">自动图标匹配演示</yh-button>
     </yh-upload>
 
-    <!-- 插槽自定义模式 -->
     <yh-upload v-model:file-list="fileList" action="https://httpbin.org/post">
       <template #file-icon="{ file }">
         <yh-icon v-if="file.name.endsWith('.xlsx')" name="search" color="#67c23a" :size="20" />
@@ -401,23 +436,26 @@ const tsIconsDemo = `\x3Ctemplate>
       <yh-button type="success">插槽自定义图标演示</yh-button>
     </yh-upload>
   </div>
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
   { name: '财务报表.xlsx', status: 'success', uid: 1 },
-  { name: '项目规范.pdf', status: 'success', uid: 2 },
-  { name: '需求文档.docx', status: 'success', uid: 3 },
-  { name: '演示视频.mp4', status: 'success', uid: 4 },
-  { name: '背景音乐.mp3', status: 'success', uid: 5 },
-  { name: 'readme.txt', status: 'success', uid: 6 },
-  { name: '未知文件.dat', status: 'success', uid: 7 }
+  { name: '项目规范.pdf', status: 'success', uid: 2 }
 ])
-\x3C/script>`
+</${_S}>
 
-const tsCustomSlot = `\x3Ctemplate>
+<${_St} scoped>
+.upload-icons-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+</${_St}>`
+
+const tsCustomSlot = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
@@ -436,9 +474,9 @@ const tsCustomSlot = `\x3Ctemplate>
       </div>
     </template>
   </yh-upload>
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
@@ -452,9 +490,9 @@ const handlePreview = (file) => {
 const handleRemove = (file) => {
   fileList.value = fileList.value.filter(f => f.uid !== file.uid)
 }
-\x3C/script>
+</${_S}>
 
-\x3Cstyle scoped>
+<${_St} scoped>
 .custom-item {
   display: flex;
   align-items: center;
@@ -478,18 +516,18 @@ const handleRemove = (file) => {
   display: flex;
   gap: 8px;
 }
-\x3C/style>`
+</${_St}>`
 
-const tsPreview = `\x3Ctemplate>
+const tsPreview = `<${_T}>
   <yh-upload
     v-model:file-list="fileList"
     action="https://httpbin.org/post"
     list-type="picture-card"
     @preview="handlePreview"
   />
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const fileList = ref([
@@ -503,12 +541,25 @@ const fileList = ref([
 
 const handlePreview = (file) => {
   console.log('点击预览:', file)
-  // 如果是图片且有 url，组件内部已集成 viewerjs 自动预览
 }
-\x3C/script>`
+</${_S}>`
 
-
-
+const jsBasic = toJs(tsBasic)
+const jsPicture = toJs(tsPicture)
+const jsCard = toJs(tsCard)
+const jsDrag = toJs(tsDrag)
+const jsDirectory = toJs(tsDirectory)
+const jsManual = toJs(tsManual)
+const jsCustomUpload = toJs(tsCustomUpload)
+const jsDownload = toJs(tsDownload)
+const jsAdvanced = toJs(tsAdvanced)
+const jsThumb = toJs(tsThumb)
+const jsAvatar = toJs(tsAvatar)
+const jsPositionDemo = toJs(tsPositionDemo)
+const jsOverwrite = toJs(tsOverwrite)
+const jsIconsDemo = toJs(tsIconsDemo)
+const jsCustomSlot = toJs(tsCustomSlot)
+const jsPreview = toJs(tsPreview)
 </script>
 
 # Upload 上传
@@ -519,7 +570,7 @@ const handlePreview = (file) => {
 
 最常规的上传方式，支持多选。
 
-<DemoBlock :tsCode="tsBasic" :jsCode="tsBasic">
+<DemoBlock :tsCode="tsBasic" :jsCode="jsBasic">
   <yh-upload
     v-model:file-list="fileListStandard"
     action="https://httpbin.org/post"
@@ -532,8 +583,8 @@ const handlePreview = (file) => {
   </yh-upload>
   
   <div class="data-preview">
-    <div class="data-preview__header">FileList Data</div>
-    <pre class="data-preview__content">{{ JSON.stringify(fileListStandard, null, 2) }}</pre>
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListStandard)"></pre>
   </div>
 </DemoBlock>
 
@@ -542,7 +593,7 @@ const handlePreview = (file) => {
 
 适用于头像或商品图上传。
 
-<DemoBlock :tsCode="tsCard" :jsCode="tsCard">
+<DemoBlock :tsCode="tsCard" :jsCode="jsCard">
   <yh-upload
     v-model:file-list="fileListCard"
     action="https://httpbin.org/post"
@@ -550,15 +601,15 @@ const handlePreview = (file) => {
     accept="image/*"
   />
   <div class="data-preview">
-    <div class="data-preview__header">FileList Data</div>
-    <pre class="data-preview__content">{{ JSON.stringify(fileListCard, null, 2) }}</pre>
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListCard)"></pre>
   </div>
 </DemoBlock>
 
 
 ## 拖拽上传
 
-<DemoBlock :tsCode="tsDrag" :jsCode="tsDrag">
+<DemoBlock :tsCode="tsDrag" :jsCode="jsDrag">
   <yh-upload
     v-model:file-list="fileListDrag"
     drag
@@ -572,8 +623,8 @@ const handlePreview = (file) => {
     </div>
   </yh-upload>
   <div class="data-preview">
-    <div class="data-preview__header">FileList Data</div>
-    <pre class="data-preview__content">{{ JSON.stringify(fileListDrag, null, 2) }}</pre>
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListDrag)"></pre>
   </div>
 </DemoBlock>
 
@@ -582,7 +633,7 @@ const handlePreview = (file) => {
 
 通过 `directory` 属性启用文件夹上传。开启后，只能选择文件夹；选择文件夹后，文件夹内的文件将被展开并依次上传。
 
-<DemoBlock :tsCode="tsDirectory" :jsCode="tsDirectory">
+<DemoBlock :tsCode="tsDirectory" :jsCode="jsDirectory">
   <yh-upload
     v-model:file-list="fileListDirectory"
     action="https://httpbin.org/post"
@@ -591,8 +642,8 @@ const handlePreview = (file) => {
     <yh-button type="primary">上传目录</yh-button>
   </yh-upload>
   <div class="data-preview">
-    <div class="data-preview__header">FileList Data</div>
-    <pre class="data-preview__content">{{ JSON.stringify(fileListDirectory, null, 2) }}</pre>
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListDirectory)"></pre>
   </div>
 </DemoBlock>
 
@@ -601,7 +652,7 @@ const handlePreview = (file) => {
 
 通过设置 `auto-upload` 属性为 `false` 来关闭自动上传，然后通过调用组件实例的 `submit` 方法来手动触发上传。
 
-<DemoBlock :tsCode="tsManual" :jsCode="tsManual">
+<DemoBlock :tsCode="tsManual" :jsCode="jsManual">
   <yh-upload
     ref="uploadManualRef"
     v-model:file-list="fileListManual"
@@ -623,15 +674,15 @@ const handlePreview = (file) => {
     </template>
   </yh-upload>
   <div class="data-preview">
-    <div class="data-preview__header">FileList Data</div>
-    <pre class="data-preview__content">{{ JSON.stringify(fileListManual, null, 2) }}</pre>
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListManual)"></pre>
   </div>
 </DemoBlock>
 
 
 ## 图片列表模式
 
-<DemoBlock :tsCode="tsPicture" :jsCode="tsPicture">
+<DemoBlock :tsCode="tsPicture" :jsCode="jsPicture">
   <yh-upload
     v-model:file-list="fileListPicture"
     action="https://httpbin.org/post"
@@ -640,9 +691,9 @@ const handlePreview = (file) => {
   >
     <yh-button type="primary">点击上传</yh-button>
   </yh-upload>
-  <div style="margin-top: 20px; padding: 12px; background: rgba(0,0,0,0.04); border-radius: 8px;">
-    <div style="font-size: 12px; color: #666; margin-bottom: 8px; font-weight: bold;">FileList Data:</div>
-    <pre style="font-size: 12px; margin: 0;">{{ JSON.stringify(fileListPicture, null, 2) }}</pre>
+  <div class="data-preview">
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListPicture)"></pre>
   </div>
 </DemoBlock>
 
@@ -650,13 +701,10 @@ const handlePreview = (file) => {
 
 通过 `http-request` 属性可以完全自定义上传的实现逻辑，如使用自己的 axios 实例或者对接特定的云存储 SDK。
 
-<DemoBlock :tsCode="tsCustomUpload" :jsCode="tsCustomUpload">
+<DemoBlock :tsCode="tsCustomUpload" :jsCode="jsCustomUpload">
   <yh-upload
     action="#"
-    :http-request="(opt) => {
-      console.log('Custom Request Executed', opt)
-      opt.onSuccess({status: 'ok'})
-    }"
+    :http-request="handleCustomRequest"
   >
     <yh-button type="primary">自定义上传测试</yh-button>
   </yh-upload>
@@ -669,12 +717,12 @@ const handlePreview = (file) => {
 > [!TIP]
 > **关于下载功能：** 组件内置了基于 Blob 的强制下载逻辑。但请注意，如果文件存储在第三方服务器且未开启跨域资源共享 (CORS)，浏览器出于安全策略可能会降级为“在新窗口打开预览”模式。建议在生产环境中确保静态资源服务器已配置 `Access-Control-Allow-Origin` 响应头。
 
-<DemoBlock :tsCode="tsDownload" :jsCode="tsDownload">
+<DemoBlock :tsCode="tsDownload" :jsCode="jsDownload">
   <yh-upload
     v-model:file-list="fileListStandard"
     action="https://httpbin.org/post"
     show-download
-    @download="(file) => console.log('Download triggered:', file)"
+    @download="handleDownloadLog"
   >
     <yh-button type="primary">点击上传</yh-button>
   </yh-upload>
@@ -684,7 +732,7 @@ const handlePreview = (file) => {
 
 在实际业务中，我们通常需要在上传前检查文件大小、类型，甚至进行图片压缩。
 
-<DemoBlock :tsCode="tsAdvanced" :jsCode="tsAdvanced">
+<DemoBlock :tsCode="tsAdvanced" :jsCode="jsAdvanced">
   <yh-upload
     v-model:file-list="fileListAdvanced"
     action="https://httpbin.org/post"
@@ -692,9 +740,9 @@ const handlePreview = (file) => {
   >
     <yh-button type="primary">点击上传 (校验测试)</yh-button>
   </yh-upload>
-  <div style="margin-top: 20px; padding: 12px; background: rgba(0,0,0,0.04); border-radius: 8px;">
-    <div style="font-size: 12px; color: #666; margin-bottom: 8px; font-weight: bold;">FileList Data:</div>
-    <pre style="font-size: 12px; margin: 0;">{{ JSON.stringify(fileListAdvanced, null, 2) }}</pre>
+  <div class="data-preview">
+    <div class="data-preview__header">FileList 数据预览</div>
+    <pre class="data-preview__content" v-text="json(fileListAdvanced)"></pre>
   </div>
 </DemoBlock>
 
@@ -702,18 +750,12 @@ const handlePreview = (file) => {
 
 通过 `thumbnail-request` 属性您可以完全控制预览图的生成逻辑。例如在前端对大图进行质量压缩后再展示，或者根据文件扩展名返回不同的默认占位图。
 
-<DemoBlock :tsCode="tsThumb" :jsCode="tsThumb">
+<DemoBlock :tsCode="tsThumb" :jsCode="jsThumb">
   <yh-upload
     v-model:file-list="fileListThumb"
     action="https://httpbin.org/post"
     list-type="picture"
-    :thumbnail-request="(file) => {
-      return new Promise((resolve) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => resolve(reader.result as string)
-      })
-    }"
+    :thumbnail-request="handleThumbnailRequest"
   >
     <yh-button type="primary">自定义缩略图</yh-button>
   </yh-upload>
@@ -723,18 +765,14 @@ const handlePreview = (file) => {
 
 这是一个非常实用的案例。通过 `limit="1"` 限制上传数量，并结合 `exceed` 事件实现新图直接替换旧图的“头像上传”效果。
 
-<DemoBlock :tsCode="tsAvatar" :jsCode="tsAvatar">
+<DemoBlock :tsCode="tsAvatar" :jsCode="jsAvatar">
   <yh-upload
     ref="uploadAvatarRef"
     v-model:file-list="fileListAvatar"
     action="https://httpbin.org/post"
     list-type="picture-card"
     :limit="1"
-    @exceed="(files) => {
-       // 实现“替换模式”：清空旧列表，注入新文件
-       fileListAvatar = []
-       uploadAvatarRef?.handleFiles(files)
-    }"
+    @exceed="handleAvatarExceed"
   >
     <yh-icon v-if="fileListAvatar.length === 0" name="plus" :size="28" />
   </yh-upload>
@@ -742,11 +780,11 @@ const handlePreview = (file) => {
 
 ## 照片墙位置与预览下载
 
-通过 `trigger-position` 属性可以控制上传按钮相对于列表的位置（`top` \| `bottom` \| `left` \| `right`）。
+通过 `trigger-position` 属性可以控制上传按钮相对于列表的位置（`top` | `bottom` | `left` | `right`）。
 同时，在 `picture-card` 模式下，开启 `show-download` 后，鼠标悬浮预览图中也会出现下载按钮。
 
-<DemoBlock :tsCode="tsPositionDemo" :jsCode="tsPositionDemo">
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+<DemoBlock :tsCode="tsPositionDemo" :jsCode="jsPositionDemo">
+  <div class="demo-upload-vertical-20">
     <yh-upload
       v-model:file-list="fileListPos"
       action="https://httpbin.org/post"
@@ -761,18 +799,15 @@ const handlePreview = (file) => {
 
 通过设置 `limit="1"` 并监听 `exceed` 事件，可以实现在选择新文件时自动替换掉前一个文件的效果。
 
-<DemoBlock :tsCode="tsOverwrite" :jsCode="tsOverwrite">
+<DemoBlock :tsCode="tsOverwrite" :jsCode="jsOverwrite">
   <yh-upload
     ref="uploadOverwriteRef"
     v-model:file-list="fileListOverwrite"
     action="https://httpbin.org/post"
     :limit="1"
-    @exceed="(files) => {
-      fileListOverwrite = []
-      uploadOverwriteRef?.handleFiles(files)
-    }"
+    @exceed="handleOverwriteExceed"
   >
-    <yh-button type="primary">选择新文件覆盖旧文件</yh-button>
+    <yh-button type="primary">选择文件进行覆盖</yh-button>
   </yh-upload>
 </DemoBlock>
 
@@ -780,8 +815,8 @@ const handlePreview = (file) => {
 
 组件会自动根据文件后缀名匹配对应的图标（Word、Excel、PDF、视频、音频、文本等）。对于未知类型，默认展示“附件”图标。您也可以通过 `file-icon` 插槽进行完全自定义。
 
-<DemoBlock :tsCode="tsIconsDemo" :jsCode="tsIconsDemo">
-  <div style="display: flex; flex-direction: column; gap: 40px;">
+<DemoBlock :tsCode="tsIconsDemo" :jsCode="jsIconsDemo">
+  <div class="demo-upload-vertical-40">
     <yh-upload v-model:file-list="fileListIcons" action="https://httpbin.org/post">
       <yh-button type="primary">自动图标匹配演示</yh-button>
     </yh-upload>
@@ -800,7 +835,7 @@ const handlePreview = (file) => {
 
 使用 `file` 作用域插槽可以完全自定义文件列表的每一项，满足更复杂的 UI 需求。
 
-<DemoBlock :tsCode="tsCustomSlot" :jsCode="tsCustomSlot">
+<DemoBlock :tsCode="tsCustomSlot" :jsCode="jsCustomSlot">
   <yh-upload
     v-model:file-list="fileListAdvanced"
     action="https://httpbin.org/post"
@@ -813,8 +848,8 @@ const handlePreview = (file) => {
           <span class="custom-name">{{ file.name }}</span>
         </div>
         <div class="custom-actions">
-           <yh-button type="primary" size="small" plain @click="() => alert('预览：' + file.name)">预览</yh-button>
-           <yh-button type="danger" size="small" plain @click="() => fileListAdvanced = fileListAdvanced.filter(f => f.uid !== file.uid)">移除</yh-button>
+           <yh-button type="primary" size="small" plain @click="handlePreviewItem(file)">预览</yh-button>
+           <yh-button type="danger" size="small" plain @click="handleRemoveItem(file)">移除</yh-button>
         </div>
       </div>
     </template>
@@ -825,7 +860,7 @@ const handlePreview = (file) => {
 
 通过监听 `preview` 事件，您可以实现点击文件时的预览逻辑。对于图片文件，组件已经内置了 `viewerjs` 预览引擎。
 
-<DemoBlock :tsCode="tsPreview" :jsCode="tsPreview">
+<DemoBlock :tsCode="tsPreview" :jsCode="jsPreview">
   <yh-upload
     v-model:file-list="fileListCard"
     action="https://httpbin.org/post"
@@ -942,49 +977,6 @@ const handlePreview = (file) => {
   min-height: 180px;
 }
 
-.yh-upload__icon {
-  display: inline-block;
-  transition: color 0.3s ease;
-  color: #909399;
-  pointer-events: none;
-}
-
-.yh-upload__dragger:hover .yh-upload__icon {
-  color: #409eff;
-}
-
-.yh-upload__text {
-  margin-top: 16px;
-  color: #606266;
-  font-size: 14px;
-  pointer-events: none;
-}
-
-.yh-upload__text em {
-  color: #409eff;
-  font-style: normal;
-  font-weight: 500;
-  margin-left: 4px;
-  transition: text-decoration 0.3s;
-}
-
-.yh-upload__dragger:hover .yh-upload__text em {
-  text-decoration: underline;
-}
-
-/* 按钮对齐优化 */
-.yh-button--primary {
-  margin: 0;
-}
-
-.yh-upload__trigger {
-  display: flex !important;
-  align-items: center;
-  margin-bottom: 0;
-  line-height: normal; /* 消除行高引起的亚像素偏移 */
-}
-
-/* 增强 Dragger 内部布局 */
 .dragger-content {
   display: flex;
   flex-direction: column;
@@ -1017,6 +1009,23 @@ const handlePreview = (file) => {
   font-style: normal;
   font-weight: 500;
   margin-left: 4px;
+  transition: text-decoration 0.3s;
+}
+
+.yh-upload__dragger:hover .yh-upload__text em {
+  text-decoration: underline;
+}
+
+/* 按钮对齐优化 */
+.yh-button--primary {
+  margin: 0;
+}
+
+.yh-upload__trigger {
+  display: flex !important;
+  align-items: center;
+  margin-bottom: 0;
+  line-height: normal;
 }
 
 /* Data Preview Styling */
@@ -1092,6 +1101,18 @@ const handlePreview = (file) => {
 
 .yh-upload__download-btn:hover {
   color: #409eff !important;
+}
+
+.demo-upload-vertical-20 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.demo-upload-vertical-40 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 /* 悬浮位置微调 */

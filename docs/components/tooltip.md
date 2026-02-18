@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 
 const customContentStyle = { 
   backgroundColor: '#fdf6ec', 
@@ -25,8 +26,8 @@ const customArrowStyle = {
   backgroundColor: '#fdf6ec' 
 }
 
-const tsBasic = '<template>\n' +
-`  <div class="tooltip-base-box">
+const tsBasic = `<${_T}>
+  <div class="tooltip-base-box">
     <div class="row center">
       <yh-tooltip content="Top Start prompts info" placement="top-start">
         <yh-button>top-start</yh-button>
@@ -74,10 +75,10 @@ const tsBasic = '<template>\n' +
       </yh-tooltip>
     </div>
   </div>
-` + '\n</template>'
+</${_T}>`
 
-const tsEffect = '<template>\n' +
-`  <div style="display: flex; gap: 16px">
+const tsEffect = `<${_T}>
+  <div style="display: flex; gap: 16px">
     <yh-tooltip content="Dark Theme" effect="dark">
       <yh-button>深色模式 (默认)</yh-button>
     </yh-tooltip>
@@ -85,10 +86,10 @@ const tsEffect = '<template>\n' +
       <yh-button>浅色模式</yh-button>
     </yh-tooltip>
   </div>
-` + '\n</template>'
+</${_T}>`
 
-const tsCustomStyle = '<template>\n' +
-`  <div style="display: flex; gap: 16px; padding: 20px 0;">
+const tsCustomStyle = `<${_T}>
+  <div style="display: flex; gap: 16px; padding: 20px 0;">
     <yh-tooltip 
       content="这是一个固定宽度且可滚动的 Tooltip，当内容非常多的时候，它会自动出现滚动条。" 
       :width="200" 
@@ -105,19 +106,19 @@ const tsCustomStyle = '<template>\n' +
       <yh-button>自定义样式</yh-button>
     </yh-tooltip>
   </div>
-` + '\n</template>'
+</${_T}>`
 
-const tsHtml = '<template>\n' +
-`  <yh-tooltip 
+const tsHtml = `<${_T}>
+  <yh-tooltip 
     content="<span>The content can be <strong style='color: #409eff'>HTML</strong></span>" 
     raw-content
   >
     <yh-button>hover me</yh-button>
   </yh-tooltip>
-` + '\n</template>'
+</${_T}>`
 
-const tsTrigger = '<template>\n' +
-`  <div style="display: flex; gap: 16px">
+const tsTrigger = `<${_T}>
+  <div style="display: flex; gap: 16px">
     <yh-tooltip content="Hovered" trigger="hover">
       <yh-button>悬停</yh-button>
     </yh-tooltip>
@@ -128,51 +129,51 @@ const tsTrigger = '<template>\n' +
       <yh-button>右键触发</yh-button>
     </yh-tooltip>
   </div>
-` + '\n</template>'
+</${_T}>`
 
-const tsFollow = '<template>\n' +
-`  <yh-tooltip content="Shadow following..." follow-cursor>
+const tsFollow = `<${_T}>
+  <yh-tooltip content="Shadow following..." follow-cursor>
     <div class="follow-box">体验鼠标跟随效果</div>
   </yh-tooltip>
-` + '\n</template>'
+</${_T}>`
 
-const tsInteractive = '<template>\n' +
-`  <div style="padding: 20px 0;">
+const tsInteractive = `<${_T}>
+  <div style="padding: 20px 0;">
     <yh-tooltip interactive placement="top">
       <yh-button type="primary">交互提示</yh-button>
-      <template #content>
+      <${_T} #content>
         <div style="padding: 4px">
           <div style="margin-bottom: 8px">在此处进行交互：</div>
           <yh-button size="small" type="primary">确认操作</yh-button>
         </div>
-      </template>
+      </${_T}>
     </yh-tooltip>
   </div>
-` + '\n</template>'
+</${_T}>`
 
-const tsNuxt = '<template>\n' +
-`  <yh-tooltip content="Nuxt 3 Auto Import">
+const tsNuxt = `<${_T}>
+  <yh-tooltip content="Nuxt 3 Auto Import">
     <yh-button>Nuxt 3 自动导入演示</yh-button>
   </yh-tooltip>
-` + '\n</template>'
+</${_T}>`
 
-const tsInput = '<template>\n' +
-`  <yh-tooltip content="聚焦输入框以查看提示" trigger="focus">
+const tsInput = `<${_T}>
+  <yh-tooltip content="聚焦输入框以查看提示" trigger="focus">
     <input 
       type="text" 
       placeholder="在此输入空格测试..." 
       style="padding: 8px 12px; border: 1px solid #dcdfe6; border-radius: 4px; outline: none;"
     />
   </yh-tooltip>
-` + '\n</template>'
+</${_T}>`
 
-const tsCustomTheme = `\x3ctemplate>
-  \x3cyh-tooltip content="Bottom center" effect="customized" placement="bottom">
-    \x3cyh-button class="custom-theme-btn">Customized theme\x3c/yh-button>
-  \x3c/yh-tooltip>
-\x3c/template>
+const tsCustomTheme = `<${_T}>
+  <yh-tooltip content="Bottom center" effect="customized" placement="bottom">
+    <yh-button class="custom-theme-btn">Customized theme</yh-button>
+  </yh-tooltip>
+</${_T}>
 
-\x3cstyle>
+<${_St}>
 .yh-tooltip__popper.is-customized {
   background: linear-gradient(90deg, #95d475 0%, #b3e19d 100%) !important;
   color: #303133 !important;
@@ -184,31 +185,31 @@ const tsCustomTheme = `\x3ctemplate>
   background: inherit !important;
   border: none !important;
 }
-\x3c/style>`
+</${_St}>`
 
-const tsOuterLink = '<template>\n' +
-`  <yh-tooltip interactive placement="top">
+const tsOuterLink = `<${_T}>
+  <yh-tooltip interactive placement="top">
     <yh-button>查看项目源码</yh-button>
-    <template #content>
+    <${_T} #content>
       <div style="padding: 4px">
         <span>更多详情请点击 </span>
         <a href="https://github.com/1079161148/yh-ui" target="_blank" style="color: #409eff; text-decoration: none; font-weight: bold;">GitHub 仓库</a>
       </div>
-    </template>
+    </${_T}>
   </yh-tooltip>
-` + '\n</template>'
+</${_T}>`
 
-const jsBasic = tsBasic
-const jsEffect = tsEffect
-const jsCustomStyle = tsCustomStyle
-const jsHtml = tsHtml
-const jsTrigger = tsTrigger
-const jsFollow = tsFollow
-const jsInteractive = tsInteractive
-const jsNuxt = tsNuxt
-const jsInput = tsInput
-const jsCustomTheme = tsCustomTheme.replace('lang="ts"', '')
-const jsOuterLink = tsOuterLink
+const jsBasic = toJs(tsBasic)
+const jsEffect = toJs(tsEffect)
+const jsCustomStyle = toJs(tsCustomStyle)
+const jsHtml = toJs(tsHtml)
+const jsTrigger = toJs(tsTrigger)
+const jsFollow = toJs(tsFollow)
+const jsInteractive = toJs(tsInteractive)
+const jsNuxt = toJs(tsNuxt)
+const jsInput = toJs(tsInput)
+const jsCustomTheme = toJs(tsCustomTheme)
+const jsOuterLink = toJs(tsOuterLink)
 </script>
 
 <style scoped>

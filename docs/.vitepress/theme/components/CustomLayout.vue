@@ -5,13 +5,19 @@
  */
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import LanguageSwitcher from './LanguageSwitcher.vue'
+// import LanguageSwitcher from './LanguageSwitcher.vue'
 import SidebarToggle from './SidebarToggle.vue'
 import BackToTop from './BackToTop.vue'
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, computed } from 'vue'
+import { zhCn, en } from '@yh-ui/locale'
 
 const { Layout } = DefaultTheme
-const { frontmatter } = useData()
+const { lang } = useData()
+
+// 计算当前 YH-UI 语言包
+const currentLocale = computed(() => {
+  return lang.value === 'en-US' ? en : zhCn
+})
 
 // 滚动处理相关变量
 let scrollHandler: (() => void) | null = null
@@ -49,31 +55,33 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Layout>
-    <!-- 导航栏右侧插槽 - 语言切换 -->
-    <template #nav-bar-content-after>
-      <LanguageSwitcher />
-    </template>
-
-    <!-- 侧边栏切换按钮 -->
-    <template #sidebar-nav-after>
-      <!-- 可以在这里添加侧边栏底部内容 -->
-    </template>
-
-    <!-- 页面内容前的装饰 -->
-    <template #doc-before>
-      <div class="doc-decoration">
-        <div class="doc-decoration__gradient" />
-      </div>
-    </template>
-
-    <!-- 页面底部 -->
-    <template #doc-footer-before>
-      <div class="doc-footer-decoration">
-        <div class="doc-footer-decoration__line" />
-      </div>
-    </template>
-  </Layout>
+  <yh-config-provider :locale="currentLocale">
+    <Layout>
+      <!-- 导航栏右侧插槽 - 语言切换 (使用 VitePress 自带的，这里注释掉自定义的) -->
+      <!-- <template #nav-bar-content-after>
+        <LanguageSwitcher />
+      </template> -->
+  
+      <!-- 侧边栏切换按钮 -->
+      <template #sidebar-nav-after>
+        <!-- 可以在这里添加侧边栏底部内容 -->
+      </template>
+  
+      <!-- 页面内容前的装饰 -->
+      <template #doc-before>
+        <div class="doc-decoration">
+          <div class="doc-decoration__gradient" />
+        </div>
+      </template>
+  
+      <!-- 页面底部 -->
+      <template #doc-footer-before>
+        <div class="doc-footer-decoration">
+          <div class="doc-footer-decoration__line" />
+        </div>
+      </template>
+    </Layout>
+  </yh-config-provider>
 
   <!-- 侧边栏折叠按钮 -->
   <SidebarToggle />

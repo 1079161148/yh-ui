@@ -9,6 +9,7 @@
 /** 标签辅助变量（避免 Vue 模板解析冲突） */
 export const _T = 'template'
 export const _S = 'script'
+export const _St = 'style'
 
 /**
  * toJs - 将 TypeScript 示例代码转换为 JavaScript
@@ -43,7 +44,10 @@ export function toJs(tsCode: string): string {
   code = code.replace(/\{\s*type\s+\w+,\s*/g, '{ ')
 
   // 3. 移除 interface 块（支持 extends、泛型、多行）
-  code = code.replace(/\n*(?:export\s+)?interface\s+\w+\s*(?:<[^>]*>\s*)?(?:extends\s+[\w,\s<>]+)?\s*\{[\s\S]*?\}\n*/g, '\n')
+  code = code.replace(
+    /\n*(?:export\s+)?interface\s+\w+\s*(?:<[^>]*>\s*)?(?:extends\s+[\w,\s<>]+)?\s*\{[\s\S]*?\}\n*/g,
+    '\n'
+  )
 
   // 4. 移除 type 别名（先处理多行 {}，再处理单行）
   code = code.replace(/\n*(?:export\s+)?type\s+\w+(?:<[^>]*>)?\s*=\s*\{[\s\S]*?\}\n*/g, '\n')
@@ -79,12 +83,7 @@ export function toJs(tsCode: string): string {
  * 找到匹配的闭合括号位置（支持嵌套，跳过字符串）
  * @returns 闭合字符位置，未找到返回 -1
  */
-function findBalancedEnd(
-  code: string,
-  start: number,
-  open: string,
-  close: string
-): number {
+function findBalancedEnd(code: string, start: number, open: string, close: string): number {
   let depth = 0
   let i = start
 
@@ -117,12 +116,18 @@ function skipString(code: string, start: number): number {
   if (q === '`') {
     // 模板字符串：需处理 ${...} 嵌套
     while (i < code.length) {
-      if (code[i] === '\\') { i += 2; continue }
+      if (code[i] === '\\') {
+        i += 2
+        continue
+      }
       if (code[i] === '`') return i + 1
       if (code[i] === '$' && code[i + 1] === '{') {
         // 跳过模板表达式
         const end = findBalancedEnd(code, i + 1, '{', '}')
-        if (end !== -1) { i = end + 1; continue }
+        if (end !== -1) {
+          i = end + 1
+          continue
+        }
       }
       i++
     }
@@ -146,18 +151,36 @@ function copyString(code: string, i: number, result: string): [string, number] {
   i++
   if (q === '`') {
     while (i < code.length) {
-      if (code[i] === '\\') { result += code[i]; i++; if (i < code.length) { result += code[i]; i++ }; continue }
-      if (code[i] === '`') { result += code[i]; i++; return [result, i] }
+      if (code[i] === '\\') {
+        result += code[i]
+        i++
+        if (i < code.length) {
+          result += code[i]
+          i++
+        }
+        continue
+      }
+      if (code[i] === '`') {
+        result += code[i]
+        i++
+        return [result, i]
+      }
       result += code[i]
       i++
     }
   } else {
     while (i < code.length && code[i] !== q) {
-      if (code[i] === '\\') { result += code[i]; i++ }
+      if (code[i] === '\\') {
+        result += code[i]
+        i++
+      }
       result += code[i]
       i++
     }
-    if (i < code.length) { result += code[i]; i++ }
+    if (i < code.length) {
+      result += code[i]
+      i++
+    }
   }
   return [result, i]
 }
@@ -414,7 +437,12 @@ function removeTypeAnnotations(code: string): string {
         result += code[i]
         i++
       }
-      if (i < code.length) { result += code[i]; i++; result += code[i]; i++ } // */
+      if (i < code.length) {
+        result += code[i]
+        i++
+        result += code[i]
+        i++
+      } // */
       continue
     }
 
@@ -445,7 +473,11 @@ function removeTypeAnnotations(code: string): string {
       }
 
       // ——— 场景 B: 解构参数类型 }: Type 或 ]: Type（在函数参数内） ———
-      if ((lastChar === '}' || lastChar === ']') && stack.length > 0 && stack[stack.length - 1] === '(') {
+      if (
+        (lastChar === '}' || lastChar === ']') &&
+        stack.length > 0 &&
+        stack[stack.length - 1] === '('
+      ) {
         const closeBracket = lastChar
         const openBracket = closeBracket === '}' ? '{' : '['
         // 在 result 中向前找到匹配的开括号
@@ -479,7 +511,9 @@ function removeTypeAnnotations(code: string): string {
         const beforeQuestion = before.slice(0, -1).trimEnd()
         const identMatch = beforeQuestion.match(/\w+$/)
         if (identMatch) {
-          const beforeIdent = beforeQuestion.slice(0, beforeQuestion.length - identMatch[0].length).trimEnd()
+          const beforeIdent = beforeQuestion
+            .slice(0, beforeQuestion.length - identMatch[0].length)
+            .trimEnd()
           const precedingChar = beforeIdent[beforeIdent.length - 1]
           const inParens = stack.length > 0 && stack[stack.length - 1] === '('
           const isParam = precedingChar === '(' || (precedingChar === ',' && inParens)
@@ -530,7 +564,9 @@ function removeTypeAnnotations(code: string): string {
         const beforeBang = before.slice(0, -1).trimEnd()
         const identMatch = beforeBang.match(/\w+$/)
         if (identMatch) {
-          const beforeIdent = beforeBang.slice(0, beforeBang.length - identMatch[0].length).trimEnd()
+          const beforeIdent = beforeBang
+            .slice(0, beforeBang.length - identMatch[0].length)
+            .trimEnd()
           const isVarDecl = /\b(?:let|var)\s*$/.test(beforeIdent)
           if (isVarDecl) {
             // 回退 result 中的 '!' 字符

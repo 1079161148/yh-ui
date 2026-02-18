@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 
 const marqueePlay = ref(true)
 const cycleCount = ref(0)
@@ -7,39 +8,25 @@ const handleCycle = () => {
   cycleCount.value++
 }
 
-const tsBasic = `\x3ctemplate>
+const tsBasic = `<${_T}>
   <yh-marquee>
     <div v-for="i in 10" :key="i" class="marquee-item">
       🔥 瞬间灵感 {{ i }}
     </div>
   </yh-marquee>
-\x3c/template>
+</${_T}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .marquee-item {
   padding: 0 20px;
   font-size: 18px;
   font-weight: 600;
 }
-\x3c/style>`
+</${_St}>`
 
-const jsBasic = `\x3ctemplate>
-  <yh-marquee>
-    <div v-for="i in 10" :key="i" class="marquee-item">
-      🔥 瞬间灵感 {{ i }}
-    </div>
-  </yh-marquee>
-\x3c/template>
+const jsBasic = toJs(tsBasic)
 
-\x3cstyle scoped>
-.marquee-item {
-  padding: 0 20px;
-  font-size: 18px;
-  font-weight: 600;
-}
-\x3c/style>`
-
-const tsVertical = `\x3ctemplate>
+const tsVertical = `<${_T}>
   <div class="vertical-container">
     <yh-marquee direction="vertical" :duration="8" gap="12px">
       <div v-for="i in 5" :key="i" class="marquee-message">
@@ -47,9 +34,9 @@ const tsVertical = `\x3ctemplate>
       </div>
     </yh-marquee>
   </div>
-\x3c/template>
+</${_T}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .vertical-container {
   height: 180px;
   width: 100%;
@@ -67,48 +54,20 @@ const tsVertical = `\x3ctemplate>
   justify-content: center;
   font-weight: 500;
 }
-\x3c/style>`
+</${_St}>`
 
-const jsVertical = `\x3ctemplate>
-  <div class="vertical-container">
-    <yh-marquee direction="vertical" :duration="8" gap="12px">
-      <div v-for="i in 5" :key="i" class="marquee-message">
-        公告消息 #{{ i }}：系统将在今晚进行维护
-      </div>
-    </yh-marquee>
-  </div>
-\x3c/template>
+const jsVertical = toJs(tsVertical)
 
-\x3cstyle scoped>
-.vertical-container {
-  height: 180px;
-  width: 100%;
-  border: 1px solid var(--yh-border-color);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.marquee-message {
-  width: 100%;
-  height: 60px;
-  background: var(--yh-bg-color-page);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-}
-\x3c/style>`
-
-const tsGradient = `\x3ctemplate>
+const tsGradient = `<${_T}>
   <yh-marquee gradient gradient-width="80px" gap="40px">
     <div v-for="i in 8" :key="i" class="user-item">
       <img :src="\`https://api.dicebear.com/7.x/pixel-art/svg?seed=\${i}\`" class="avatar" />
       <span class="username">User {{i}}</span>
     </div>
   </yh-marquee>
-\x3c/template>
+</${_T}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .user-item {
   display: flex;
   flex-direction: column;
@@ -124,11 +83,11 @@ const tsGradient = `\x3ctemplate>
   font-size: 12px;
   color: #666;
 }
-\x3c/style>`
+</${_St}>`
 
-const jsGradient = tsGradient
+const jsGradient = toJs(tsGradient)
 
-const tsCustom = `\x3ctemplate>
+const tsCustom = `<${_T}>
   <div class="stock-container">
     <yh-marquee 
       :duration="25" 
@@ -147,9 +106,9 @@ const tsCustom = `\x3ctemplate>
       </div>
     </yh-marquee>
   </div>
-\x3c/template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 const stockData = [
   { name: 'AAPL', price: '189.43', change: '+1.2%', trend: 'up' },
   { name: 'TSLA', price: '238.45', change: '-2.4%', trend: 'down' },
@@ -158,9 +117,9 @@ const stockData = [
   { name: 'AMZN', price: '145.20', change: '+1.5%', trend: 'up' },
   { name: 'GOOGL', price: '132.40', change: '-0.3%', trend: 'down' }
 ]
-\x3c/script>
+</${_S}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .stock-container {
   background: #000;
   padding: 15px;
@@ -186,9 +145,9 @@ const stockData = [
 }
 .change.up { color: #b7eb8f; }
 .change.down { color: #ffa39e; }
-\x3c/style>`
+</${_St}>`
 
-const jsCustom = tsCustom.replace('lang="ts"', '')
+const jsCustom = toJs(tsCustom)
 
 const stockData = [
   { name: 'AAPL', price: '189.43', change: '+1.2%', trend: 'up' },
@@ -199,7 +158,7 @@ const stockData = [
   { name: 'GOOGL', price: '132.40', change: '-0.3%', trend: 'down' }
 ]
 
-const tsControl = `\x3ctemplate>
+const tsControl = `<${_T}>
   <div class="control-wrapper">
     <div class="header">
       <yh-button size="small" @click="marqueePlay = !marqueePlay">
@@ -220,18 +179,18 @@ const tsControl = `\x3ctemplate>
       </div>
     </yh-marquee>
   </div>
-\x3c/template>
+</${_T}>
 
-\x3cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const marqueePlay = ref(true)
 const cycleCount = ref(0)
 const handleCycle = () => {
   cycleCount.value++
 }
-\x3c/script>
+</${_S}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .control-wrapper {
   display: flex;
   flex-direction: column;
@@ -253,19 +212,19 @@ const handleCycle = () => {
   border-radius: 20px;
   font-weight: bold;
 }
-\x3c/style>`
+</${_St}>`
 
-const jsControl = tsControl.replace('lang="ts"', '')
+const jsControl = toJs(tsControl)
 
-const tsNuxt = `\x3ctemplate>
-  \x3cClientOnly>
-    \x3cyh-marquee>Nuxt 3 SSR 适配演示\x3c/yh-marquee>
-  \x3c/ClientOnly>
-\x3c/template>`
+const tsNuxt = `<${_T}>
+  <ClientOnly>
+    <yh-marquee>Nuxt 3 SSR 适配演示</yh-marquee>
+  </ClientOnly>
+</${_T}>`
 
-const jsNuxt = tsNuxt
+const jsNuxt = toJs(tsNuxt)
 
-const tsSpeed = `\x3ctemplate>
+const tsSpeed = `<${_T}>
   <div class="speed-container">
     <yh-marquee :speed="40" gap="20px">
       <div v-for="i in 3" :key="i" class="speed-item-short">短内容项 {{ i }}</div>
@@ -274,9 +233,9 @@ const tsSpeed = `\x3ctemplate>
       <div v-for="i in 10" :key="i" class="speed-item-long">这是一段非常长长长长长长长长长长长内容项 {{ i }}</div>
     </yh-marquee>
   </div>
-\x3c/template>
+</${_T}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .speed-container {
   display: flex;
   flex-direction: column;
@@ -284,20 +243,20 @@ const tsSpeed = `\x3ctemplate>
 }
 .speed-item-short { padding: 10px 20px; background: #e6f7ff; border-radius: 4px; }
 .speed-item-long { padding: 10px 20px; background: #f6ffed; border-radius: 4px; }
-\x3c/style>`
+</${_St}>`
 
-const jsSpeed = tsSpeed
+const jsSpeed = toJs(tsSpeed)
 
-const tsDelay = `\x3ctemplate>
+const tsDelay = `<${_T}>
   <yh-marquee :speed="60" :delay="1" :loop-delay="2" pause-on-hidden>
     <div v-for="i in 6" :key="i" class="delay-card">
       <yh-icon name="info" />
       <span>重要公告：第 {{ i }} 条消息，每阶段将停顿 2 秒进行阅读</span>
     </div>
   </yh-marquee>
-\x3c/template>
+</${_T}>
 
-\x3cstyle scoped>
+<${_St} scoped>
 .delay-card {
   display: flex;
   align-items: center;
@@ -308,9 +267,9 @@ const tsDelay = `\x3ctemplate>
   border-radius: 8px;
   color: #856404;
 }
-\x3c/style>`
+</${_St}>`
 
-const jsDelay = tsDelay
+const jsDelay = toJs(tsDelay)
 </script>
 
 # Marquee 跑马灯

@@ -2,6 +2,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 
 // --- 基础用法 (Demo 1) ---
 const value1 = ref('')
@@ -76,16 +77,15 @@ const querySearch7 = (queryString: string, cb: (suggestions: any[]) => void) => 
 }
 
 // --- 代码示例字符串 ---
-// 使用更安全的转义方式，避免 Vue 编译器解析内部模板
-const tsBasic = `\x3Ctemplate>
-  \x3Cyh-autocomplete
+const tsBasic = `<${_T}>
+  <yh-autocomplete
     v-model="value"
     :fetch-suggestions="querySearch"
     placeholder="请输入内容"
   />
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -107,27 +107,27 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
     : suggestions
   cb(results)
 }
-\x3C/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsBasic = tsBasic.replace('lang="ts"', '').replace(': string', '').replace(': (suggestions: any[]) => void', '')
+const jsBasic = toJs(tsBasic)
 
-const tsCustom = `\x3Ctemplate>
-  \x3Cyh-autocomplete
+const tsCustom = `<${_T}>
+  <yh-autocomplete
     v-model="value"
     :fetch-suggestions="querySearch"
     placeholder="请输入餐厅名"
     @select="handleSelect"
   >
-    \x3Ctemplate #default="{ item }">
-      \x3Cdiv class="custom-item">
-        \x3Cspan class="name">\x7B\x7B item.value \x7D\x7D\x3C/span>
-        \x3Cspan class="addr">\x7B\x7B item.address \x7D\x7D\x3C/span>
-      \x3C/div>
-    \x3C/template>
-  \x3C/yh-autocomplete>
-\x3C/template>
+    <${_T} #default="{ item }">
+      <div class="custom-item">
+        <span class="name">{{ item.value }}</span>
+        <span class="addr">{{ item.address }}</span>
+      </div>
+    </${_T}>
+  </yh-autocomplete>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -150,9 +150,9 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
 const handleSelect = (item: any) => {
   console.log('选中:', item)
 }
-\x3C/script>
+</${_S}>
 
-\x3Cstyle scoped>
+<${_St} scoped>
 .custom-item {
   display: flex;
   justify-content: space-between;
@@ -165,19 +165,19 @@ const handleSelect = (item: any) => {
   font-size: 12px;
   color: #999;
 }
-\x3C/style>`.replace(/\\/g, '')
+</${_St}>`
 
-const jsCustom = tsCustom.replace('lang="ts"', '').replace(': any', '')
+const jsCustom = toJs(tsCustom)
 
-const tsRemote = `\x3Ctemplate>
-  \x3Cyh-autocomplete
+const tsRemote = `<${_T}>
+  <yh-autocomplete
     v-model="value"
     :fetch-suggestions="remoteSearch"
     placeholder="请输入内容 (远程搜素)"
   />
-\x3C/template>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -202,55 +202,55 @@ const remoteSearch = (queryString: string, cb: (suggestions: any[]) => void) => 
     cb(results)
   }, 500)
 }
-\x3C/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsRemote = tsRemote.replace('lang="ts"', '').replace(': string', '').replace(': (suggestions: any[]) => void', '')
+const jsRemote = toJs(tsRemote)
 
-const tsDisabled = `\x3Ctemplate>
-  \x3Cyh-autocomplete v-model="value" disabled placeholder="禁用状态" />
-\x3C/template>
+const tsDisabled = `<${_T}>
+  <yh-autocomplete v-model="value" disabled placeholder="禁用状态" />
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref('')
-\x3C/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsDisabled = tsDisabled.replace('lang="ts"', '')
+const jsDisabled = toJs(tsDisabled)
 
-const tsClearable = `\x3Ctemplate>
-  \x3Cyh-autocomplete v-model="value" clearable placeholder="可清空" />
-\x3C/template>
+const tsClearable = `<${_T}>
+  <yh-autocomplete v-model="value" clearable placeholder="可清空" />
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref('YH-UI')
-\x3C/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsClearable = tsClearable.replace('lang="ts"', '')
+const jsClearable = toJs(tsClearable)
 
-const tsSizes = `\x3Ctemplate>
-  \x3Cdiv class="flex-column gap-4">
-    \x3Cyh-autocomplete 
+const tsSizes = `<${_T}>
+  <div class="flex-column gap-4">
+    <yh-autocomplete 
       v-model="large" 
       :fetch-suggestions="querySearch"
       size="large" 
       placeholder="大型 (40px)" 
     />
-    \x3Cyh-autocomplete 
+    <yh-autocomplete 
       v-model="defaultValue" 
       :fetch-suggestions="querySearch"
       placeholder="默认 (32px)" 
     />
-    \x3Cyh-autocomplete 
+    <yh-autocomplete 
       v-model="small" 
       :fetch-suggestions="querySearch"
       size="small" 
       placeholder="小型 (24px)" 
     />
-  \x3C/div>
-\x3C/template>
+  </div>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const large = ref('Vue.js')
@@ -272,26 +272,26 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
     : suggestions
   cb(results)
 }
-\x3C/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsSizes = tsSizes.replace('lang="ts"', '').replace(': string', '').replace(': (suggestions: any[]) => void', '')
+const jsSizes = toJs(tsSizes)
 
-const tsSlots = `\x3Ctemplate>
-  \x3Cyh-autocomplete
+const tsSlots = `<${_T}>
+  <yh-autocomplete
     v-model="value"
     :fetch-suggestions="querySearch"
     placeholder="尝试搜索无匹配项"
   >
-    \x3Ctemplate #loading>
-      \x3Cdiv class="custom-loading">正在拼命加载中...\x3C/div>
-    \x3C/template>
-    \x3Ctemplate #empty>
-      \x3Cdiv class="custom-empty">哎呀，什么也没搜到\x3C/div>
-    \x3C/template>
-  \x3C/yh-autocomplete>
-\x3C/template>
+    <${_T} #loading>
+      <div class="custom-loading">正在拼命加载中...</div>
+    </${_T}>
+    <${_T} #empty>
+      <div class="custom-empty">哎呀，什么也没搜到</div>
+    </${_T}>
+  </yh-autocomplete>
+</${_T}>
 
-\x3Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -299,18 +299,18 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
   // 模拟延时空数据
   setTimeout(() => cb([]), 1000)
 }
-\x3C/script>
+</${_S}>
 
-\x3Cstyle scoped>
+<${_St} scoped>
 .custom-loading, .custom-empty {
   padding: 10px;
   text-align: center;
 }
 .custom-loading { color: var(--yh-color-primary); }
 .custom-empty { color: var(--yh-color-danger); }
-\x3C/style>`.replace(/\\/g, '')
+</${_St}>`
 
-const jsSlots = tsSlots.replace('lang="ts"', '').replace(': string', '').replace(': (suggestions: any[]) => void', '')
+const jsSlots = toJs(tsSlots)
 
 // Nuxt 使用示例
 const nuxtValue = ref('')
@@ -318,8 +318,7 @@ const nuxtSuggestions = (q: string, cb: any) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
 
-// Nuxt 使用示例
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <div style="max-width: 300px;">
     <!-- 自动注册，直接使用 -->
     <yh-autocomplete
@@ -328,17 +327,17 @@ const tsNuxt = `<template>
       placeholder="Nuxt 自动导入演示"
     />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 // 无需手动导入 YhAutocomplete
 const nuxtValue = ref('')
 const nuxtSuggestions = (q: string, cb: any) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
-<\/script>`
+</${_S}>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
 </script>
 
 根据输入内容提供对应的输入建议。

@@ -4,11 +4,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
 // --- Showcase 状态 ---
 const maxItems = ref(4)
 
-const tsOverflow = `<template>
+const tsOverflow = `<${_T}>
   <div class="demo-showcase">
     <div class="demo-ctrl">
       <div class="ctrl-row">
@@ -27,22 +28,22 @@ const tsOverflow = `<template>
       </yh-breadcrumb>
     </div>
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const maxItems = ref(4)
-<` + `/script>`
+</${_S}>`
 
-const tsBasic = `<template>
+const tsBasic = `<${_T}>
   <yh-breadcrumb>
     <yh-breadcrumb-item to="/">首页</yh-breadcrumb-item>
     <yh-breadcrumb-item to="/components">组件</yh-breadcrumb-item>
     <yh-breadcrumb-item>面包屑</yh-breadcrumb-item>
   </yh-breadcrumb>
-</template>`
+</${_T}>`
 
-const tsSeparator = `<template>
+const tsSeparator = `<${_T}>
   <div class="yh-demo-column">
     <yh-breadcrumb separator=">">
       <yh-breadcrumb-item to="/">首页</yh-breadcrumb-item>
@@ -56,18 +57,18 @@ const tsSeparator = `<template>
       <yh-breadcrumb-item>层级二</yh-breadcrumb-item>
     </yh-breadcrumb>
   </div>
-</template>`
+</${_T}>`
 
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <yh-breadcrumb>
     <yh-breadcrumb-item to="/">首页</yh-breadcrumb-item>
     <yh-breadcrumb-item to="/dashboard">仪表盘</yh-breadcrumb-item>
   </yh-breadcrumb>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 // 在 Nuxt 中会自动降级为 NuxtLink 实现无刷新跳转
-<` + `/script>`
+</${_S}>`
 
 </script>
 
@@ -75,7 +76,7 @@ const tsNuxt = `<template>
 
 面包屑组件支持动态层级管理和智能路径折叠。
 
-<DemoBlock title="智能溢出展示" :ts-code="tsOverflow">
+<DemoBlock title="智能溢出展示" :ts-code="tsOverflow" :js-code="toJs(tsOverflow)">
   <div class="demo-showcase">
     <div class="demo-ctrl">
       <div class="ctrl-row">
@@ -100,7 +101,7 @@ const tsNuxt = `<template>
 
 最基础的用法，通过 `to` 属性设置跳转路径。
 
-<DemoBlock title="基础用法" :ts-code="tsBasic">
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
   <yh-breadcrumb>
     <yh-breadcrumb-item to="/">首页</yh-breadcrumb-item>
     <yh-breadcrumb-item to="/components">组件</yh-breadcrumb-item>
@@ -112,7 +113,7 @@ const tsNuxt = `<template>
 
 通过 `separator` 属性可自定义分隔符字符串。
 
-<DemoBlock title="自定义分隔符" :ts-code="tsSeparator">
+<DemoBlock title="自定义分隔符" :ts-code="tsSeparator" :js-code="toJs(tsSeparator)">
   <div class="yh-demo-column">
     <yh-breadcrumb separator=">">
       <yh-breadcrumb-item to="/">首页</yh-breadcrumb-item>
@@ -139,7 +140,7 @@ const tsNuxt = `<template>
 
 `YhBreadcrumb` 完美支持 Nuxt 自动导入。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt">
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="toJs(tsNuxt)">
   <yh-breadcrumb>
     <yh-breadcrumb-item to="/">首页</yh-breadcrumb-item>
     <yh-breadcrumb-item to="/dashboard">仪表盘</yh-breadcrumb-item>

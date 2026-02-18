@@ -1,11 +1,15 @@
 <script setup lang="ts">
 /**
  * LanguageSwitcher - 语言切换组件
- * @description 支持中英文切换，带动画效果
+ * @description 支持中英文切换，带动画效果，点击切换到对应语言版本
  */
 import { ref, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vitepress'
 
 type Language = 'zh-CN' | 'en-US'
+
+const router = useRouter()
+const route = useRoute()
 
 const currentLang = ref<Language>('zh-CN')
 const isAnimating = ref(false)
@@ -20,6 +24,11 @@ onMounted(() => {
   const savedLang = localStorage.getItem('yh-ui-lang') as Language | null
   if (savedLang && (savedLang === 'zh-CN' || savedLang === 'en-US')) {
     currentLang.value = savedLang
+  } else {
+    // 根据当前路径判断语言
+    if (route.path.startsWith('/en/')) {
+      currentLang.value = 'en-US'
+    }
   }
 })
 
@@ -29,6 +38,34 @@ watch(currentLang, (newLang) => {
   document.documentElement.setAttribute('lang', newLang)
 })
 
+// 获取当前页面对应的其他语言版本路径
+function getOppositePath(lang: Language): string {
+  const currentPath = route.path
+
+  if (lang === 'en-US') {
+    // 切换到英文
+    if (currentPath.startsWith('/en')) {
+      return currentPath
+    }
+    // 首页单独处理
+    if (currentPath === '/') {
+      return '/en/'
+    }
+    // 其他页面：在开头插入 /en
+    // 例如 /guide/introduction -> /en/guide/introduction
+    return `/en${currentPath}`
+  } else {
+    // 切换到中文
+    if (currentPath.startsWith('/en/')) {
+      return currentPath.replace('/en/', '/')
+    }
+    if (currentPath === '/en/' || currentPath === '/en') {
+      return '/'
+    }
+    return currentPath
+  }
+}
+
 // 切换语言
 const switchLanguage = (lang: Language) => {
   if (lang === currentLang.value || isAnimating.value) return
@@ -36,10 +73,24 @@ const switchLanguage = (lang: Language) => {
   isAnimating.value = true
   currentLang.value = lang
 
+  // 获取目标语言版本的路径
+  const targetPath = getOppositePath(lang)
+
+  // 跳转到对应语言版本
+  router.go(targetPath)
+
   // 动画结束后重置状态
   setTimeout(() => {
     isAnimating.value = false
   }, 300)
+}
+
+// 计算当前语言
+function isCurrentLang(lang: Language): boolean {
+  if (lang === 'en-US') {
+    return route.path.startsWith('/en/')
+  }
+  return !route.path.startsWith('/en/')
 }
 </script>
 
@@ -47,7 +98,7 @@ const switchLanguage = (lang: Language) => {
   <div class="lang-switcher">
     <button v-for="lang in languages" :key="lang.code" :class="[
       'lang-switcher__btn',
-      { 'lang-switcher__btn--active': currentLang === lang.code }
+      { 'lang-switcher__btn--active': isCurrentLang(lang.code) }
     ]" @click="switchLanguage(lang.code)" :title="lang.name">
       <span class="lang-switcher__flag">{{ lang.flag }}</span>
       <span class="lang-switcher__text">{{ lang.name }}</span>

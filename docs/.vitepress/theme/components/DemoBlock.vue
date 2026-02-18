@@ -4,6 +4,7 @@
  * @description 用于展示组件示例，支持 TypeScript/JavaScript 切换，代码语法高亮
  */
 import { ref, computed, watch, nextTick } from 'vue'
+import { useData } from 'vitepress'
 
 interface Props {
   title?: string
@@ -26,6 +27,9 @@ const showCode = ref(false)
 const codeType = ref<'ts' | 'js'>('ts')
 const copied = ref(false)
 const highlightedCode = ref('')
+
+const { lang } = useData()
+const isEn = computed(() => lang.value === 'en-US')
 
 // 当前显示的代码
 const currentCode = computed(() => {
@@ -405,8 +409,10 @@ const openInStackBlitz = () => {
           </svg>
         </button>
 
+
+
         <!-- 复制代码 -->
-        <button class="demo-box__action-btn" :title="copied ? '已复制!' : '复制代码'" @click="copyCode">
+        <button class="demo-box__action-btn" :title="copied ? (isEn ? 'Copied!' : '已复制!') : (isEn ? 'Copy Code' : '复制代码')" @click="copyCode">
           <svg v-if="!copied" viewBox="0 0 24 24" width="16" height="16">
             <path fill="currentColor"
               d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
@@ -417,7 +423,7 @@ const openInStackBlitz = () => {
         </button>
 
         <!-- 展开/收起代码 -->
-        <button class="demo-box__action-btn" :title="showCode ? '收起代码' : '展开代码'" @click="toggleCode">
+        <button class="demo-box__action-btn" :title="showCode ? (isEn ? 'Collapse Code' : '收起代码') : (isEn ? 'Expand Code' : '展开代码')" @click="toggleCode">
           <svg viewBox="0 0 24 24" width="16" height="16">
             <path fill="currentColor"
               d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
