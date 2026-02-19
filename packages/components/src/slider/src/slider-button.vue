@@ -188,3 +188,7 @@ defineExpose({
     </transition>
   </div>
 </template>
+
+<style lang="scss">
+@use './slider.scss';
+</style>

@@ -165,3 +165,7 @@ defineExpose({
     <slot />
   </form>
 </template>
+
+<style lang="scss">
+@use './form.scss';
+</style>

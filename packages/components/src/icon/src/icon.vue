@@ -109,3 +109,7 @@ const useIconComponent = computed(() => {
     </template>
   </i>
 </template>
+
+<style lang="scss">
+@use './icon.scss';
+</style>

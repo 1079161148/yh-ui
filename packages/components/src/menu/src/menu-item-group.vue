@@ -24,3 +24,7 @@ const ns = useNamespace('menu-item-group')
     </ul>
   </li>
 </template>
+
+<style lang="scss">
+@use './menu.scss';
+</style>

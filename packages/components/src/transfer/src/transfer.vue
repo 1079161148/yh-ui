@@ -229,3 +229,7 @@ defineExpose<TransferExpose>({
     </TransferPanel>
   </div>
 </template>
+
+<style lang="scss">
+@use './transfer.scss';
+</style>

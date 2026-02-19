@@ -6,36 +6,45 @@
   "sideEffects": [
     "**/*.css",
     "**/*.scss",
-    "**/*.sass"
+    "**/*.sass",
+    "dist/**/index.mjs"
   ],
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./resolver": {
       "types": "./dist/resolver.d.ts",
-      "import": "./dist/resolver.mjs"
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
     },
     "./*": {
-      "import": "./dist/*/*.mjs"
-    }
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.4",
     "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/locale": "workspace:*",
     "@yh-ui/theme": "workspace:*",
     "@yh-ui/utils": "workspace:*",
-    "@yh-ui/locale": "workspace:*",
+    "async-validator": "^4.2.5",
     "dayjs": "catalog:",
     "viewerjs": "^1.11.7"
   },
@@ -44,9 +53,12 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
-    "vite": "catalog:",
-    "vite-plugin-dts": "^4.4.0",
-    "vue": "catalog:"
+    "sass": "^1.83.1",
+    "typescript": "catalog:",
+    "unbuild": "^3.3.1",
+    "vue": "catalog:",
+    "vue-sfc-transformer": "^0.1.17",
+    "vue-tsc": "^2.2.0"
   },
   "publishConfig": {
     "access": "public"

@@ -15,3 +15,7 @@ defineProps(descriptionsItemProps)
 <template>
   <slot />
 </template>
+
+<style lang="scss">
+@use './descriptions.scss';
+</style>

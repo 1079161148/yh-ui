@@ -3,16 +3,21 @@
   "version": "0.0.1",
   "description": "YH-UI theme and design tokens",
   "type": "module",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./styles/*": "./src/styles/*",
-    "./*": "./*"
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    }
   },
   "files": [
     "dist",
@@ -40,5 +45,8 @@
   "peerDependencies": {
     "vue": "catalog:"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "viewerjs": "^1.11.7"
+  }
 }

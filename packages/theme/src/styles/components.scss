@@ -1,35 +1,9 @@
 /**
  * YH-UI 组件全局样式
- * 用于导入所有反馈类、函数式调用的组件样式
+ * 注意：组件样式已由各 Vue SFC <style> 块自行携带
+ * 此文件仅保留基础变量和 mixin 的引用，供外部按需导入
  */
 
-/* 核心变量与混合 */
 @use 'variables' as *;
 @use 'mixins/mixins' as *;
-
-/* 导入组件基础样式 */
 @use 'reset' as *;
-
-/* Message 消息提示 */
-@use '../../../components/src/message/src/message.scss';
-
-/* Notification 通知 */
-@use '../../../components/src/notification/src/notification.scss';
-
-/* Badge 徽标 */
-@use '../../../components/src/badge/src/badge.scss';
-
-/* Card 卡片 */
-@use '../../../components/src/card/src/card.scss';
-
-/* Tooltip 文字提示 */
-@use '../../../components/src/tooltip/src/tooltip.scss';
-
-/* Waterfall 瀑布流 */
-@use '../../../components/src/waterfall/src/waterfall.scss';
-
-/* Calendar 日历 */
-@use '../../../components/src/calendar/src/calendar.scss';
-
-/* Countdown 倒计时 */
-@use '../../../components/src/countdown/src/countdown.scss';

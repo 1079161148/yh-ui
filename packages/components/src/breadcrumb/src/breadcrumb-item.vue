@@ -47,3 +47,7 @@ const handleLinkClick = (e: MouseEvent) => {
     </span>
   </span>
 </template>
+
+<style lang="scss">
+@use './breadcrumb.scss';
+</style>

@@ -14,7 +14,27 @@ export default defineConfig({
       lang: 'zh-CN',
       title: 'YH-UI',
       description: '一个现代化的 Vue 3 组件库',
-      link: '/'
+      link: '/',
+      themeConfig: {
+        nav: [
+          { text: '首页', link: '/', activeMatch: '^/$' },
+          { text: '指南', link: '/guide/introduction', activeMatch: '/guide/' },
+          { text: '组件', link: '/components/button', activeMatch: '/components/' },
+          { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
+          { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' }
+        ],
+        outline: {
+          label: '页面导航',
+          level: [2, 3]
+        },
+        docFooter: {
+          prev: '上一页',
+          next: '下一页'
+        },
+        lastUpdated: {
+          text: '最后更新于'
+        }
+      }
     },
     en: {
       label: 'English',
@@ -22,20 +42,33 @@ export default defineConfig({
       title: 'YH-UI',
       description: 'A modern Vue 3 UI Library',
       link: '/en/',
-      nav: [
-        { text: 'Home', link: '/en/' },
-        { text: 'Guide', link: '/en/guide/introduction', activeMatch: '/en/guide/' },
-        { text: 'Components', link: '/en/components/button', activeMatch: '/en/components/' },
-        { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
-        { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
-        {
-          text: 'v0.0.1',
-          items: [
-            { text: 'Changelog', link: '/en/changelog' },
-            { text: 'GitHub', link: 'https://github.com/1079161148/yh-ui' }
-          ]
+      themeConfig: {
+        nav: [
+          { text: 'Home', link: '/en/', activeMatch: '^/en/$' },
+          { text: 'Guide', link: '/en/guide/introduction', activeMatch: '/en/guide/' },
+          { text: 'Components', link: '/en/components/button', activeMatch: '/en/components/' },
+          { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
+          { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
+          {
+            text: 'v0.0.1',
+            items: [
+              { text: 'Changelog', link: '/en/changelog' },
+              { text: 'GitHub', link: 'https://github.com/1079161148/yh-ui' }
+            ]
+          }
+        ],
+        outline: {
+          label: 'On this page',
+          level: [2, 3]
+        },
+        docFooter: {
+          prev: 'Previous page',
+          next: 'Next page'
+        },
+        lastUpdated: {
+          text: 'Last updated at'
         }
-      ]
+      }
     }
   },
 
@@ -47,14 +80,6 @@ export default defineConfig({
   themeConfig: {
     logo: '/logo.svg',
 
-    nav: [
-      { text: '首页', link: '/', activeMatch: '^/(?!en)' },
-      { text: '指南', link: '/guide/introduction', activeMatch: '/guide/' },
-      { text: '组件', link: '/components/button', activeMatch: '/components/' },
-      { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
-      { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' }
-    ],
-
     sidebar: {
       // 中文侧边栏
       '/guide/': [
@@ -64,6 +89,7 @@ export default defineConfig({
             { text: '简介', link: '/guide/introduction' },
             { text: '安装', link: '/guide/installation' },
             { text: '快速开始', link: '/guide/quickstart' },
+            { text: '构建指南', link: '/guide/build' },
             { text: '在 Nuxt 中使用', link: '/guide/nuxt' },
             { text: '国际化 (i18n)', link: '/guide/i18n' }
           ]
@@ -86,6 +112,7 @@ export default defineConfig({
             { text: 'Introduction', link: '/en/guide/introduction' },
             { text: 'Installation', link: '/en/guide/installation' },
             { text: 'Quick Start', link: '/en/guide/quickstart' },
+            { text: 'Build Guide', link: '/en/guide/build' },
             { text: 'Use in Nuxt', link: '/en/guide/nuxt' },
             { text: 'Internationalization', link: '/en/guide/i18n' }
           ]
@@ -248,9 +275,7 @@ export default defineConfig({
         },
         {
           text: 'Config',
-          items: [
-            { text: 'ConfigProvider', link: '/en/components/config-provider' }
-          ]
+          items: [{ text: 'ConfigProvider', link: '/en/components/config-provider' }]
         }
       ],
 
@@ -398,24 +423,6 @@ export default defineConfig({
           }
         }
       }
-    },
-
-    outline: {
-      label: '页面导航',
-      level: [2, 3]
-    },
-
-    docFooter: {
-      prev: '上一页',
-      next: '下一页'
-    },
-
-    lastUpdated: {
-      text: '最后更新于',
-      formatOptions: {
-        dateStyle: 'short',
-        timeStyle: 'short'
-      }
     }
   },
 
@@ -429,6 +436,7 @@ export default defineConfig({
         '@yh-ui/components': resolve(__dirname, '../../packages/components/src'),
         '@yh-ui/hooks': resolve(__dirname, '../../packages/hooks/src'),
         '@yh-ui/utils': resolve(__dirname, '../../packages/utils/src'),
+        '@yh-ui/theme/styles': resolve(__dirname, '../../packages/theme/src/styles'),
         '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
         '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
         '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src')

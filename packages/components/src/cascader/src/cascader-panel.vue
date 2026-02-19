@@ -222,3 +222,7 @@ const handleMouseEnter = (option: CascaderOption, level: number) => {
     </CascaderMenu>
   </div>
 </template>
+
+<style lang="scss">
+@use './cascader.scss';
+</style>

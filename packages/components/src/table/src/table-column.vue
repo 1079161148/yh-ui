@@ -101,3 +101,7 @@ onUnmounted(() => {
 <template>
   <slot />
 </template>
+
+<style lang="scss">
+@use './table.scss';
+</style>

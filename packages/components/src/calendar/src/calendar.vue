@@ -477,3 +477,7 @@ defineExpose({
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@use './calendar.scss';
+</style>

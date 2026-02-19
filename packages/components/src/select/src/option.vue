@@ -61,3 +61,7 @@ onBeforeUnmount(() => {
     <slot />
   </div>
 </template>
+
+<style lang="scss">
+@use './select.scss';
+</style>

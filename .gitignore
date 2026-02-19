@@ -17,6 +17,9 @@ dist
 .nitro
 stats.html
 
+# Symlinks / Junctions (auto-created by postinstall)
+packages/theme/styles
+
 # Editor directories
 .idea
 .vscode/*

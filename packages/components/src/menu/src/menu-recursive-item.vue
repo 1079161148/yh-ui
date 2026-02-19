@@ -46,3 +46,7 @@ const labelField = menu?.labelField.value || 'label'
     </template>
   </yh-menu-item>
 </template>
+
+<style lang="scss">
+@use './menu.scss';
+</style>

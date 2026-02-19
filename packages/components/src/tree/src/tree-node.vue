@@ -178,3 +178,7 @@ defineSlots<{
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@use './tree.scss';
+</style>

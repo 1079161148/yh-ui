@@ -355,3 +355,7 @@ const digits = computed(() => {
     </slot>
   </div>
 </template>
+
+<style lang="scss">
+@use './countdown.scss';
+</style>

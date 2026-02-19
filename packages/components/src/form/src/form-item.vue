@@ -237,3 +237,7 @@ defineExpose({
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@use './form.scss';
+</style>

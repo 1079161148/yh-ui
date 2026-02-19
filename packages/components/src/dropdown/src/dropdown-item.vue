@@ -40,3 +40,7 @@ const handleClick = () => {
     <slot />
   </div>
 </template>
+
+<style lang="scss">
+@use './dropdown.scss';
+</style>

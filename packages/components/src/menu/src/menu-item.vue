@@ -138,3 +138,7 @@ const renderLabelContent = computed(() => {
     </YhTooltip>
   </li>
 </template>
+
+<style lang="scss">
+@use './menu.scss';
+</style>

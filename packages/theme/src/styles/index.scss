@@ -1,8 +1,8 @@
 /**
  * YH-UI Base Styles
- * 主入口文件
+ * 主入口文件 —— 仅包含基础主题层
+ * 组件样式由各组件的 Vue SFC <style> 块自行携带
  */
 
 @use 'variables';
 @use 'reset';
-@use 'components';

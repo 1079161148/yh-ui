@@ -330,3 +330,7 @@ onBeforeUnmount(() => {
     </template>
   </li>
 </template>
+
+<style lang="scss">
+@use './menu.scss';
+</style>
