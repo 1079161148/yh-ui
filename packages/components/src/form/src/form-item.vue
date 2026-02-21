@@ -19,7 +19,7 @@ import type { FormRule } from './form'
 import type { ValidateStatus } from './form-item'
 import { useNamespace, useLocale, FormContextKey, FormItemContextKey, useId } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import { get, set } from '@yh-ui/utils'
 
 defineOptions({

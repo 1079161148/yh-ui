@@ -4,9 +4,8 @@
  * @description 从预定义选项中选择一个或多个值
  */
 import { computed, ref, nextTick, provide, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
 import type { SelectProps, SelectEmits, SelectExpose, SelectOption, SelectContext, SelectValue } from './select'
 import { SelectContextKey } from './select'
 

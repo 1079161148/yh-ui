@@ -12,8 +12,7 @@
  *   7. CountConfig  - 自定义字数计算
  */
 import { computed, ref, watch, nextTick, useSlots, onMounted } from 'vue'
-import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
-import { useConfig } from '../../hooks/use-config'
+import { useNamespace, useFormItem, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { InputProps, InputEmits, InputExpose } from './input'

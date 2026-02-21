@@ -4,7 +4,7 @@
  * @description 设置组件之间的间距，类比 Ant Design Space
  */
 import { computed, useSlots, type VNode, Fragment, Comment, Text, type CSSProperties } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { SpaceProps } from './space'
 

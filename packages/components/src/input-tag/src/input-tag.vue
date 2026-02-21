@@ -6,7 +6,7 @@
 import { computed, ref, useSlots, nextTick, inject } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import type { InputTagProps, InputTagEmits, InputTagExpose } from './input-tag'
 
 defineOptions({

@@ -23,7 +23,7 @@ vi.mock('@yh-ui/hooks', () => ({
   useLocale: () => ({ t: (key: string) => key })
 }))
 
-vi.mock('../../hooks/use-config', () => ({
+vi.mock('@yh-ui/hooks', () => ({
   useConfig: () => ({
     globalSize: { value: 'default' }
   })

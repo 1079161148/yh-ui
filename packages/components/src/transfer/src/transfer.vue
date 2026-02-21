@@ -6,7 +6,7 @@
 import { computed, ref, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import TransferPanel from './transfer-panel.vue'
 import type {
   TransferProps,

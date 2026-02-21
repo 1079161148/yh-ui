@@ -3,7 +3,7 @@
  * YhButton - 按钮组件
  */
 import { computed, ref, useSlots } from 'vue'
-import { useNamespace, useConfig } from '../../hooks/use-config'
+import { useNamespace, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ButtonProps, ButtonEmits, ButtonExpose } from './button'
 import type { ComponentThemeVars } from '@yh-ui/theme'

@@ -3,7 +3,7 @@
  * YhTypographyTitle - 标题组件
  */
 import { computed } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { TypographyTitleProps } from './typography'
 

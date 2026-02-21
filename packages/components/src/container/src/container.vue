@@ -3,7 +3,7 @@
  * YhContainer - 布局容器
  */
 import { computed, useSlots, type VNode } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ContainerProps } from './container'
 

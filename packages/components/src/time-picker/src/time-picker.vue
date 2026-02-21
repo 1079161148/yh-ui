@@ -11,7 +11,7 @@
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import TimeSpinner from './time-spinner.vue'
 import type { TimePickerProps, TimePickerEmits, TimePickerExpose, TimeState, TimeValue, TimeRangeValue, DisabledTimeConfig } from './time-picker'
 import { parseTimeValue, formatTimeState, getCurrentTimeState, isTimeStateEqual } from './time-picker'

@@ -6,7 +6,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import DateTable from './date-table.vue'
 import MonthTable from './month-table.vue'
 import YearTable from './year-table.vue'

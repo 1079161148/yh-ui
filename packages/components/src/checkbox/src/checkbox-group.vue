@@ -6,7 +6,7 @@
 import { computed, provide, watch, toRefs } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import type {
   CheckboxGroupProps,
   CheckboxGroupEmits,

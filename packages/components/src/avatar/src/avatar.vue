@@ -3,7 +3,7 @@
  * YhAvatar - 头像组件
  */
 import { computed, ref } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { AvatarProps, AvatarEmits } from './avatar'
 

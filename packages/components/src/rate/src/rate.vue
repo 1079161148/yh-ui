@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { rateProps, rateEmits } from './rate'
 

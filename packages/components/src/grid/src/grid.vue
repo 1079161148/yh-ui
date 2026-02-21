@@ -3,7 +3,7 @@
  * YhGrid - CSS Grid 网格布局
  */
 import { computed, provide, type CSSProperties } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { GridProps } from './grid'
 

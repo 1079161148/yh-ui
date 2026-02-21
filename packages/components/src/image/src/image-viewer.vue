@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { imageViewerProps, imageViewerEmits } from './image-viewer'
 import Viewer from 'viewerjs'
 import 'viewerjs/dist/viewer.css'

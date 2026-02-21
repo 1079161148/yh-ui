@@ -5,7 +5,7 @@
  */
 import { computed, useSlots, Fragment, provide } from 'vue'
 import type { VNode, CSSProperties } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
+import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { descriptionsProps, descriptionsKey } from './descriptions'
 

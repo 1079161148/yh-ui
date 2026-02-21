@@ -6,7 +6,7 @@
 import { computed, ref, watch, useSlots, inject, nextTick } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import type { InputNumberProps, InputNumberEmits, InputNumberExpose } from './input-number'
 
 defineOptions({

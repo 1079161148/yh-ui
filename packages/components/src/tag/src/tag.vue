@@ -5,7 +5,7 @@
  */
 import { computed, ref, nextTick, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { TagProps, TagEmits } from './tag'

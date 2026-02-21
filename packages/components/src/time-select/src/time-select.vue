@@ -6,7 +6,7 @@
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import type { TimeSelectProps, TimeSelectEmits, TimeSelectExpose, TimeOption } from './time-select'
 import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select'
 

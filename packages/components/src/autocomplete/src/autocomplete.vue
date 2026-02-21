@@ -4,9 +4,8 @@
  * @description 根据用户输入提供建议选项
  */
 import { computed, ref, watch, nextTick, useSlots, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId, useZIndex, useLocale } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useId, useZIndex, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '../../hooks/use-config'
 import type { AutocompleteProps, AutocompleteEmits, AutocompleteExpose, AutocompleteSuggestion } from './autocomplete'
 
 defineOptions({

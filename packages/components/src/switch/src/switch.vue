@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, nextTick } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
-import { useConfig } from '../../hooks/use-config'
+import { useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { switchProps, switchEmits, type SwitchValueType } from './switch'
 
