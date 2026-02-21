@@ -166,7 +166,11 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Calendar',
       'Countdown',
       'Table',
-      'TableColumn'
+      'TableColumn',
+      // 新增组件
+      'Space',
+      'Avatar',
+      'Empty'
     ]
 
     components.forEach((name) => {

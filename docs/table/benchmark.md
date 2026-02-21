@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
 // ==================== 压测控制状态 ====================
 
