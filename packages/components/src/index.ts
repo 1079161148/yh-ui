@@ -68,6 +68,15 @@ import { YhTable, YhTableColumn } from './table'
 import { YhSpace } from './space'
 import { YhAvatar } from './avatar'
 import { YhEmpty } from './empty'
+import {
+  YhTypographyTitle,
+  YhTypographyText,
+  YhTypographyParagraph,
+  YhTypographyLink
+} from './typography'
+import { YhContainer, YhHeader, YhAside, YhMain, YhFooter } from './container'
+import { YhResult } from './result'
+import { YhGrid, YhGridItem } from './grid'
 
 // 导出所有组件
 export * from './button'
@@ -132,6 +141,10 @@ export * from './table'
 export * from './space'
 export * from './avatar'
 export * from './empty'
+export * from './typography'
+export * from './container'
+export * from './result'
+export * from './grid'
 
 // 所有组件列表
 const components = [
@@ -216,7 +229,19 @@ const components = [
   YhTableColumn,
   YhSpace,
   YhAvatar,
-  YhEmpty
+  YhEmpty,
+  YhTypographyTitle,
+  YhTypographyText,
+  YhTypographyParagraph,
+  YhTypographyLink,
+  YhContainer,
+  YhHeader,
+  YhAside,
+  YhMain,
+  YhFooter,
+  YhResult,
+  YhGrid,
+  YhGridItem
 ] as Plugin[]
 
 /**

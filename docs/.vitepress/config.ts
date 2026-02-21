@@ -198,8 +198,11 @@ export default defineConfig({
           text: 'Basic',
           items: [
             { text: 'Layout', link: '/en/components/layout' },
+            { text: 'Container', link: '/en/components/container' },
+            { text: 'Grid', link: '/en/components/grid' },
             { text: 'Button', link: '/en/components/button' },
             { text: 'Icon', link: '/en/components/icon' },
+            { text: 'Typography', link: '/en/components/typography' },
             { text: 'Space', link: '/en/components/space' },
             { text: 'Avatar', link: '/en/components/avatar' },
             { text: 'Empty', link: '/en/components/empty' },
@@ -266,6 +269,7 @@ export default defineConfig({
           text: 'Feedback',
           items: [
             { text: 'Alert', link: '/en/components/alert' },
+            { text: 'Result', link: '/en/components/result' },
             { text: 'Dialog', link: '/en/components/dialog' },
             { text: 'Tooltip', link: '/en/components/tooltip' },
             { text: 'Popconfirm', link: '/en/components/popconfirm' },
@@ -289,8 +293,11 @@ export default defineConfig({
           text: '基础组件',
           items: [
             { text: 'Layout 布局', link: '/components/layout' },
+            { text: 'Container 布局容器', link: '/components/container' },
+            { text: 'Grid 网格布局', link: '/components/grid' },
             { text: 'Button 按钮', link: '/components/button' },
             { text: 'Icon 图标', link: '/components/icon' },
+            { text: 'Typography 排版', link: '/components/typography' },
             { text: 'Space 间距', link: '/components/space' },
             { text: 'Avatar 头像', link: '/components/avatar' },
             { text: 'Empty 空状态', link: '/components/empty' },
@@ -357,6 +364,7 @@ export default defineConfig({
           text: '反馈组件',
           items: [
             { text: 'Alert 警告提示', link: '/components/alert' },
+            { text: 'Result 结果', link: '/components/result' },
             { text: 'Dialog 对话框', link: '/components/dialog' },
             { text: 'Tooltip 文字提示', link: '/components/tooltip' },
             { text: 'Popconfirm 气泡确认框', link: '/components/popconfirm' },

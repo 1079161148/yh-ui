@@ -1,0 +1,70 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(result) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--yh-result-padding, 40px 30px);
+  text-align: center;
+
+  @include e(icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--yh-result-icon-margin, 20px);
+
+    svg {
+      width: var(--yh-result-icon-size, 72px);
+      height: var(--yh-result-icon-size, 72px);
+    }
+
+    @include m(success) {
+      svg {
+        fill: var(--yh-color-success, #67c23a);
+      }
+    }
+    @include m(warning) {
+      svg {
+        fill: var(--yh-color-warning, #e6a23c);
+      }
+    }
+    @include m(error) {
+      svg {
+        fill: var(--yh-color-danger, #f56c6c);
+      }
+    }
+    @include m(info) {
+      svg {
+        fill: var(--yh-color-info, #909399);
+      }
+    }
+  }
+
+  @include e(title) {
+    font-size: var(--yh-result-title-size, 20px);
+    font-weight: 500;
+    color: var(--yh-result-title-color, var(--yh-text-color-primary, #303133));
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  @include e(subtitle) {
+    font-size: var(--yh-result-subtitle-size, 14px);
+    color: var(--yh-result-subtitle-color, var(--yh-text-color-secondary, #909399));
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  @include e(extra) {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  @include e(actions) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 4px;
+  }
+}

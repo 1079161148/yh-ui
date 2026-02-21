@@ -1,0 +1,20 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(grid) {
+  display: grid;
+  width: 100%;
+  box-sizing: border-box;
+  gap: var(--yh-grid-gap, 0);
+  column-gap: var(--yh-grid-col-gap, var(--yh-grid-gap, 0));
+  row-gap: var(--yh-grid-row-gap, var(--yh-grid-gap, 0));
+}
+
+@include b(grid-item) {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--yh-grid-item-padding, 0);
+
+  @include when(suffix) {
+    justify-self: end;
+  }
+}

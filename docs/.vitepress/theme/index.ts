@@ -114,6 +114,22 @@ import {
   YhSpace,
   YhAvatar,
   YhEmpty,
+  // Typography
+  YhTypographyTitle,
+  YhTypographyText,
+  YhTypographyParagraph,
+  YhTypographyLink,
+  // Container
+  YhContainer,
+  YhHeader,
+  YhAside,
+  YhMain,
+  YhFooter,
+  // Result
+  YhResult,
+  // Grid
+  YhGrid,
+  YhGridItem,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -291,6 +307,38 @@ export default {
     app.component('yh-avatar', YhAvatar)
     app.component('YhEmpty', YhEmpty)
     app.component('yh-empty', YhEmpty)
+
+    // Typography 排版
+    app.component('YhTypographyTitle', YhTypographyTitle)
+    app.component('yh-typography-title', YhTypographyTitle)
+    app.component('YhTypographyText', YhTypographyText)
+    app.component('yh-typography-text', YhTypographyText)
+    app.component('YhTypographyParagraph', YhTypographyParagraph)
+    app.component('yh-typography-paragraph', YhTypographyParagraph)
+    app.component('YhTypographyLink', YhTypographyLink)
+    app.component('yh-typography-link', YhTypographyLink)
+
+    // Container 布局容器
+    app.component('YhContainer', YhContainer)
+    app.component('yh-container', YhContainer)
+    app.component('YhHeader', YhHeader)
+    app.component('yh-header', YhHeader)
+    app.component('YhAside', YhAside)
+    app.component('yh-aside', YhAside)
+    app.component('YhMain', YhMain)
+    app.component('yh-main', YhMain)
+    app.component('YhFooter', YhFooter)
+    app.component('yh-footer', YhFooter)
+
+    // Result 结果
+    app.component('YhResult', YhResult)
+    app.component('yh-result', YhResult)
+
+    // Grid 网格布局
+    app.component('YhGrid', YhGrid)
+    app.component('yh-grid', YhGrid)
+    app.component('YhGridItem', YhGridItem)
+    app.component('yh-grid-item', YhGridItem)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

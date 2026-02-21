@@ -1,0 +1,240 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(typography) {
+  // =================== Title ===================
+  @include e(title) {
+    margin: 0 0 0.5em;
+    color: var(--yh-typography-title-color, var(--yh-text-color-primary, #303133));
+    font-weight: var(--yh-typography-title-weight, 600);
+    line-height: var(--yh-typography-line-height, 1.5);
+
+    @include m(h1) {
+      font-size: var(--yh-typography-h1-size, 32px);
+    }
+    @include m(h2) {
+      font-size: var(--yh-typography-h2-size, 28px);
+    }
+    @include m(h3) {
+      font-size: var(--yh-typography-h3-size, 24px);
+    }
+    @include m(h4) {
+      font-size: var(--yh-typography-h4-size, 20px);
+    }
+    @include m(h5) {
+      font-size: var(--yh-typography-h5-size, 16px);
+    }
+    @include m(h6) {
+      font-size: var(--yh-typography-h6-size, 14px);
+    }
+
+    @include m(primary) {
+      color: var(--yh-color-primary);
+    }
+    @include m(success) {
+      color: var(--yh-color-success);
+    }
+    @include m(warning) {
+      color: var(--yh-color-warning);
+    }
+    @include m(danger) {
+      color: var(--yh-color-danger);
+    }
+    @include m(info) {
+      color: var(--yh-color-info);
+    }
+    @include m(secondary) {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  // =================== Text ===================
+  @include e(text) {
+    color: var(--yh-typography-text-color, var(--yh-text-color-regular, #606266));
+    font-size: var(--yh-typography-text-size, 14px);
+    line-height: var(--yh-typography-line-height, 1.5);
+
+    @include m(small) {
+      font-size: 12px;
+    }
+    @include m(default) {
+      font-size: 14px;
+    }
+    @include m(large) {
+      font-size: 16px;
+    }
+
+    @include m(primary) {
+      color: var(--yh-color-primary);
+    }
+    @include m(success) {
+      color: var(--yh-color-success);
+    }
+    @include m(warning) {
+      color: var(--yh-color-warning);
+    }
+    @include m(danger) {
+      color: var(--yh-color-danger);
+    }
+    @include m(info) {
+      color: var(--yh-color-info);
+    }
+    @include m(secondary) {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  // =================== Paragraph ===================
+  @include e(paragraph) {
+    margin: 0 0 1em;
+    color: var(--yh-typography-text-color, var(--yh-text-color-regular, #606266));
+    font-size: var(--yh-typography-text-size, 14px);
+    line-height: var(--yh-typography-paragraph-line-height, 1.8);
+
+    @include m(left) {
+      text-align: left;
+    }
+    @include m(center) {
+      text-align: center;
+    }
+    @include m(right) {
+      text-align: right;
+    }
+    @include m(justify) {
+      text-align: justify;
+    }
+
+    @include m(compact) {
+      margin-bottom: 0.5em;
+    }
+    @include m(default) {
+      margin-bottom: 1em;
+    }
+    @include m(loose) {
+      margin-bottom: 1.5em;
+    }
+
+    @include m(primary) {
+      color: var(--yh-color-primary);
+    }
+    @include m(success) {
+      color: var(--yh-color-success);
+    }
+    @include m(warning) {
+      color: var(--yh-color-warning);
+    }
+    @include m(danger) {
+      color: var(--yh-color-danger);
+    }
+    @include m(info) {
+      color: var(--yh-color-info);
+    }
+    @include m(secondary) {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  // =================== Link ===================
+  @include e(link) {
+    display: inline;
+    color: var(--yh-typography-link-color, var(--yh-color-primary, #409eff));
+    font-size: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      opacity 0.2s;
+
+    &:hover {
+      color: var(--yh-typography-link-hover-color, var(--yh-color-primary-light-3, #79bbff));
+    }
+
+    @include when(underline) {
+      text-decoration: underline;
+    }
+
+    @include when(disabled) {
+      color: var(--yh-text-color-disabled, #c0c4cc);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    @include m(success) {
+      color: var(--yh-color-success);
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    @include m(warning) {
+      color: var(--yh-color-warning);
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    @include m(danger) {
+      color: var(--yh-color-danger);
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    @include m(info) {
+      color: var(--yh-color-info);
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  // =================== 通用修饰 ===================
+  .is-bold {
+    font-weight: 700;
+  }
+  .is-delete {
+    text-decoration: line-through;
+  }
+  .is-underline {
+    text-decoration: underline;
+  }
+  .is-italic {
+    font-style: italic;
+  }
+  .is-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .is-code code,
+  .is-keyboard kbd {
+    padding: 2px 6px;
+    font-size: 0.875em;
+    font-family: var(
+      --yh-font-family-monospace,
+      'SFMono-Regular',
+      Consolas,
+      'Liberation Mono',
+      Menlo,
+      monospace
+    );
+    border-radius: var(--yh-border-radius-small, 2px);
+  }
+
+  .is-code code {
+    background: var(--yh-fill-color-light, #f5f7fa);
+    border: 1px solid var(--yh-border-color-lighter, #e4e7ed);
+    color: var(--yh-color-danger, #f56c6c);
+  }
+
+  .is-keyboard kbd {
+    background: var(--yh-fill-color-lighter, #fafcff);
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    box-shadow: 0 1px 0 var(--yh-border-color-light, #e4e7ed);
+    color: var(--yh-text-color-regular, #606266);
+  }
+
+  mark {
+    padding: 0 2px;
+    background-color: var(--yh-typography-mark-bg, #ffe58f);
+    color: inherit;
+  }
+}

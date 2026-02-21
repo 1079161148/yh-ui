@@ -1,0 +1,53 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(container) {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-basis: auto;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 0;
+
+  @include when(vertical) {
+    flex-direction: column;
+  }
+}
+
+@include b(header) {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--yh-header-padding, 0 20px);
+  display: flex;
+  align-items: center;
+  background-color: var(--yh-header-bg-color, transparent);
+  border-bottom: var(--yh-header-border-bottom, none);
+}
+
+@include b(aside) {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: auto;
+  background-color: var(--yh-aside-bg-color, transparent);
+  border-right: var(--yh-aside-border-right, none);
+}
+
+@include b(main) {
+  display: block;
+  flex: 1;
+  flex-basis: auto;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: var(--yh-main-padding, 20px);
+  background-color: var(--yh-main-bg-color, transparent);
+}
+
+@include b(footer) {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--yh-footer-padding, 0 20px);
+  display: flex;
+  align-items: center;
+  background-color: var(--yh-footer-bg-color, transparent);
+  border-top: var(--yh-footer-border-top, none);
+}

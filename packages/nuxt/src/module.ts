@@ -170,7 +170,23 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       // 新增组件
       'Space',
       'Avatar',
-      'Empty'
+      'Empty',
+      // Typography
+      'TypographyTitle',
+      'TypographyText',
+      'TypographyParagraph',
+      'TypographyLink',
+      // Container
+      'Container',
+      'Header',
+      'Aside',
+      'Main',
+      'Footer',
+      // Result
+      'Result',
+      // Grid
+      'Grid',
+      'GridItem'
     ]
 
     components.forEach((name) => {
