@@ -1631,7 +1631,9 @@ html.yh-popup-parent--hidden {
     }
   }
 
-  .VPContent {
+  /* 增加权重确保覆盖层级 1475 行的样式 */
+  .VPContent,
+  .VPContent.has-sidebar {
     padding-left: 0 !important;
   }
 
@@ -1647,7 +1649,7 @@ html.yh-popup-parent--hidden {
   /* 确保日历有足够的最小宽度 */
   min-width: 100% !important;
   overflow: visible !important;
-  
+
   /* 头部布局修复 */
   .yh-calendar__header {
     display: flex !important;
@@ -1658,7 +1660,7 @@ html.yh-popup-parent--hidden {
     height: auto !important;
     min-height: 80px !important;
   }
-  
+
   .yh-calendar__title {
     font-size: 20px !important;
     font-weight: 700 !important;
@@ -1666,7 +1668,7 @@ html.yh-popup-parent--hidden {
     text-align: center !important;
     width: 100% !important;
   }
-  
+
   .yh-calendar__controls {
     position: static !important;
     transform: none !important;
@@ -1674,14 +1676,14 @@ html.yh-popup-parent--hidden {
     justify-content: center !important;
     width: 100% !important;
   }
-  
+
   .yh-calendar__nav-group {
     display: flex !important;
     gap: 8px !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
   }
-  
+
   /* 重置 VitePress 对 table 的干扰 */
   .yh-calendar__table {
     display: table !important;
@@ -1703,7 +1705,7 @@ html.yh-popup-parent--hidden {
     background: transparent !important;
     border: none !important;
   }
-  
+
   tbody {
     display: table-row-group !important;
   }
@@ -1769,7 +1771,7 @@ html.yh-popup-parent--hidden {
       z-index: 0 !important;
     }
   }
-  
+
   /* 周数列 */
   .yh-calendar__week-number,
   .yh-calendar__week-number-header {

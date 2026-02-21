@@ -11,6 +11,7 @@
 
 html,
 body {
+  /* 仅在变量未定义时应用默认值，防止干扰宿主框架 */
   margin: 0;
   padding: 0;
 }
@@ -20,14 +21,10 @@ html {
   font-size: var(--yh-font-size-base);
   line-height: var(--yh-line-height-normal);
   color: var(--yh-text-color-primary);
-  background-color: var(--yh-bg-color);
+  /* 移除强制背景色，允许 VitePress 暗黑模式控制 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-body {
-  min-height: 100vh;
 }
 
 a {

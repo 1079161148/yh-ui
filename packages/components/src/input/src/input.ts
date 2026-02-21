@@ -3,7 +3,7 @@
  * @description 输入框组件类型定义
  */
 
-import type { Component, ExtractPropTypes } from 'vue'
+import type { Component, VNodeChild } from 'vue'
 
 /**
  * 输入框类型
@@ -24,8 +24,32 @@ export const inputTypes = [
  */
 export const inputSizes = ['large', 'default', 'small'] as const
 
+/**
+ * 输入框视觉变体 (Feature 1: Variant)
+ */
+export const inputVariants = ['default', 'filled', 'borderless', 'underlined'] as const
+
+/**
+ * 输入框独立状态 (Feature 3: Status)
+ */
+export const inputStatuses = ['', 'success', 'warning', 'error'] as const
+
 export type InputType = (typeof inputTypes)[number]
 export type InputSize = (typeof inputSizes)[number]
+export type InputVariant = (typeof inputVariants)[number]
+export type InputStatus = (typeof inputStatuses)[number]
+
+/**
+ * 字数统计配置 (Feature 7: Count Config)
+ */
+export interface InputCountConfig {
+  /**
+   * 自定义字数计算函数
+   * @param value 当前输入值
+   * @returns 计算结果数字
+   */
+  calculate?: (value: string) => number
+}
 
 /**
  * Input Props 定义
@@ -47,6 +71,24 @@ export interface InputProps {
    * @default 'default'
    */
   size?: InputSize
+
+  /**
+   * @description 视觉变体：default(带边框) | filled(填充色背景) | borderless(无边框) | underlined(下划线)
+   * @default 'default'
+   */
+  variant?: InputVariant
+
+  /**
+   * @description 独立状态反馈，不依赖 FormItem 即可显示颜色
+   * @default ''
+   */
+  status?: InputStatus
+
+  /**
+   * @description 是否展示加载中状态（异步校验、搜索等场景）
+   * @default false
+   */
+  loading?: boolean
 
   /**
    * @description 占位文本
@@ -72,6 +114,18 @@ export interface InputProps {
   clearable?: boolean
 
   /**
+   * @description 按 Esc 键时是否清空内容
+   * @default false
+   */
+  clearOnEscape?: boolean
+
+  /**
+   * @description 获取焦点时是否自动选中所有文字
+   * @default false
+   */
+  selectOnFocus?: boolean
+
+  /**
    * @description 是否显示密码切换按钮
    * @default false
    */
@@ -82,6 +136,11 @@ export interface InputProps {
    * @default false
    */
   showWordLimit?: boolean
+
+  /**
+   * @description 自定义字数统计配置（可自定义计算函数）
+   */
+  countConfig?: InputCountConfig
 
   /**
    * @description 最大输入长度
@@ -107,6 +166,21 @@ export interface InputProps {
    * @description 清除图标
    */
   clearIcon?: string | Component
+
+  /**
+   * @description 前置文本（字符串快捷方式，与 #prefix 插槽等效）
+   */
+  prefix?: string
+
+  /**
+   * @description 后置文本（字符串快捷方式，与 #suffix 插槽等效）
+   */
+  suffix?: string
+
+  /**
+   * @description 原生 list 属性，绑定 datalist 元素的 id
+   */
+  list?: string
 
   /**
    * @description 自动获取焦点
@@ -141,15 +215,36 @@ export interface InputProps {
   tabindex?: string | number
 
   /**
-   * @description 验证事件
-   * @default 'change'
+   * @description 等价于原生 input aria-label 属性
+   */
+  ariaLabel?: string
+
+  /**
+   * @description (已过时) 等价于原生 input aria-label 属性，建议使用 aria-label
+   */
+  label?: string
+
+  /**
+   * @description 等价于原生 input inputmode 属性
+   */
+  inputmode?: 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+
+  /**
+   * v-model 修饰符
+   * @description Vue 的 v-model 修饰符值永远是布尔类型
+   */
+  modelModifiers?: Record<string, boolean>
+
+  /**
+   * @description 输入时是否触发表单的校验
+   * @default true
    */
   validateEvent?: boolean
 
   /**
-   * @description 输入框行内样式
+   * @description input 元素或 textarea 元素的 style
    */
-  inputStyle?: Record<string, string | number>
+  inputStyle?: string | Record<string, string | number>
 
   /**
    * @description 格式化函数（用于显示）
@@ -183,9 +278,9 @@ export interface InputProps {
  * Input Emits 定义
  */
 export interface InputEmits {
-  (e: 'update:modelValue', value: string): void
-  (e: 'input', value: string): void
-  (e: 'change', value: string): void
+  (e: 'update:modelValue', value: string | number): void
+  (e: 'input', value: string | number): void
+  (e: 'change', value: string | number): void
   (e: 'focus', event: FocusEvent): void
   (e: 'blur', event: FocusEvent): void
   (e: 'clear'): void
@@ -201,62 +296,38 @@ export interface InputEmits {
  */
 export interface InputSlots {
   /**
-   * 前置内容
+   * 前置内容（图标或文本）
+   * 返回 VNodeChild 而非 any，以保持类型安全
    */
-  prefix?: () => any
-
-  /**
-   * 后置内容
-   */
-  suffix?: () => any
-
-  /**
-   * 前置元素
-   */
-  prepend?: () => any
-
-  /**
-   * 后置元素
-   */
-  append?: () => any
-
-  /**
-   * 清除图标
-   */
-  clearIcon?: () => any
+  prefix?: () => VNodeChild
+  /** 后置内容（图标或文本） */
+  suffix?: () => VNodeChild
+  /** 前置元素（复合输入框） */
+  prepend?: () => VNodeChild
+  /** 后置元素（复合输入框） */
+  append?: () => VNodeChild
+  /** 自定义清除图标 */
+  clearIcon?: () => VNodeChild
+  /** 自定义加载图标 */
+  loadingIcon?: () => VNodeChild
 }
 
 /**
  * Input Expose 定义
  */
 export interface InputExpose {
-  /**
-   * 输入框 DOM 元素
-   */
+  /** 输入框 DOM 元素 */
   ref: HTMLInputElement | HTMLTextAreaElement | undefined
-
-  /**
-   * 包裹元素
-   */
+  /** 包裹元素 DOM */
   wrapperRef: HTMLElement | undefined
-
-  /**
-   * 获取焦点
-   */
+  /** 获取焦点 */
   focus: () => void
-
-  /**
-   * 失去焦点
-   */
+  /** 失去焦点 */
   blur: () => void
-
-  /**
-   * 选中文本
-   */
+  /** 选中文本 */
   select: () => void
-
-  /**
-   * 清空内容
-   */
+  /** 清空内容 */
   clear: () => void
+  /** 当前输入值的显示字数（应用 countConfig 后的结果） */
+  textLength: number
 }

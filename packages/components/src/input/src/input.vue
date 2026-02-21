@@ -2,8 +2,16 @@
 /**
  * YhInput - 输入框组件
  * @description 通过鼠标或键盘输入内容，是最基础的表单域包装
+ * Features:
+ *   1. Variant  - 视觉变体 (default/filled/borderless/underlined)
+ *   2. Loading  - 加载状态
+ *   3. Status   - 独立状态色 (success/warning/error)
+ *   4. SelectOnFocus - 聚焦自选
+ *   5. ClearOnEscape - Esc 清空
+ *   6. List / prefix/suffix 字符串 - 原生 datalist + 前后缀字符串
+ *   7. CountConfig  - 自定义字数计算
  */
-import { computed, ref, watch, nextTick, useSlots, onMounted, inject } from 'vue'
+import { computed, ref, watch, nextTick, useSlots, onMounted } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
 import type { InputProps, InputEmits, InputExpose } from './input'
@@ -17,14 +25,23 @@ defineOptions({
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
   size: undefined,
+  variant: 'default',
+  status: '',
+  loading: false,
   disabled: false,
   readonly: false,
   clearable: false,
+  clearOnEscape: false,
+  selectOnFocus: false,
   showPassword: false,
   showWordLimit: false,
   autofocus: false,
   autocomplete: 'off',
   validateEvent: true,
+  ariaLabel: undefined,
+  label: undefined,
+  inputmode: undefined,
+  modelModifiers: () => ({}),
   rows: 2
 })
 
@@ -47,9 +64,8 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 // 全局配置
 const { globalSize } = useConfig()
 
-// 输入框尺寸：组件 props > formItem > form > globalConfig
+// 输入框尺寸
 const inputSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
-
 
 // 内部状态
 const focused = ref(false)
@@ -66,7 +82,6 @@ const nativeInputValue = computed(() => {
   const value = props.modelValue === null || props.modelValue === undefined
     ? ''
     : String(props.modelValue)
-  // 应用 formatter
   if (props.formatter && !isTextarea.value) {
     return props.formatter(value)
   }
@@ -88,6 +103,17 @@ const showPasswordIcon = computed(() =>
   !!nativeInputValue.value
 )
 
+// Feature 7: 自定义字数计算
+const textLength = computed(() => {
+  const value = props.modelValue === null || props.modelValue === undefined
+    ? ''
+    : String(props.modelValue)
+  if (props.countConfig?.calculate) {
+    return props.countConfig.calculate(value)
+  }
+  return value.length
+})
+
 const showWordLimitCount = computed(() =>
   props.showWordLimit &&
   !!props.maxlength &&
@@ -96,27 +122,33 @@ const showWordLimitCount = computed(() =>
   !props.readonly
 )
 
-const textLength = computed(() => {
-  const value = props.modelValue === null || props.modelValue === undefined
-    ? ''
-    : String(props.modelValue)
-  return value.length
-})
-
 const inputExceed = computed(() =>
   showWordLimitCount.value && textLength.value > Number(props.maxlength)
 )
 
+// Feature 2: 加载状态 — 推导 hasSuffix 时应计及 loading
+const isLoading = computed(() => props.loading && !props.disabled)
+
 // 插槽检测
 const hasPrepend = computed(() => !!slots.prepend)
 const hasAppend = computed(() => !!slots.append)
-const hasPrefix = computed(() => !!slots.prefix || !!props.prefixIcon)
+const hasPrefix = computed(() => !!slots.prefix || !!props.prefixIcon || !!props.prefix)
 const hasSuffix = computed(() =>
   !!slots.suffix ||
   !!props.suffixIcon ||
+  !!props.suffix ||
   showClear.value ||
-  showPasswordIcon.value
+  showPasswordIcon.value ||
+  isLoading.value
 )
+
+// Feature 3: 独立 status 计算 + 表单校验状态合并
+const mergedStatus = computed(() => {
+  if (props.status) return props.status
+  if (formItem?.validateStatus === 'error') return 'error'
+  if (formItem?.validateStatus === 'success') return 'success'
+  return ''
+})
 
 // 类名计算
 const wrapperClasses = computed(() => [
@@ -126,10 +158,15 @@ const wrapperClasses = computed(() => [
   ns.is('focused', focused.value),
   ns.is('textarea', isTextarea.value),
   ns.is('exceed', inputExceed.value),
+  ns.is('loading', isLoading.value),
+  // Feature 1: Variant
+  props.variant && props.variant !== 'default' ? ns.m(`variant-${props.variant}`) : '',
+  // Feature 3: Status
+  mergedStatus.value ? ns.m(`status-${mergedStatus.value}`) : '',
   {
     [ns.b('group')]: hasPrepend.value || hasAppend.value,
-    [ns.bem('group', '', 'prepend')]: hasPrepend.value,
-    [ns.bem('group', '', 'append')]: hasAppend.value
+    [ns.is('prepend')]: hasPrepend.value,
+    [ns.is('append')]: hasAppend.value
   }
 ])
 
@@ -158,16 +195,25 @@ const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement
   let value = target.value
 
-  // 输入法编辑中不触发
   if (isComposing.value) return
 
-  // 应用 parser
   if (props.parser) {
     value = props.parser(value)
   }
 
-  emit('update:modelValue', value)
-  emit('input', value)
+  // v-model 修饰符
+  if (props.modelModifiers?.trim) {
+    value = value.trim()
+  }
+
+  if (props.modelModifiers?.number) {
+    const n = parseFloat(value)
+    emit('update:modelValue', isNaN(n) ? value : n)
+    emit('input', isNaN(n) ? value : n)
+  } else {
+    emit('update:modelValue', value)
+    emit('input', value)
+  }
 }
 
 const handleChange = (event: Event) => {
@@ -183,6 +229,12 @@ const handleChange = (event: Event) => {
 const handleFocus = (event: FocusEvent) => {
   focused.value = true
   emit('focus', event)
+  // Feature 4: selectOnFocus
+  if (props.selectOnFocus) {
+    nextTick(() => {
+      inputOrTextarea.value?.select()
+    })
+  }
 }
 
 const handleBlur = (event: FocusEvent) => {
@@ -208,15 +260,25 @@ const handleClear = () => {
   emit('change', '')
   emit('clear')
   emit('input', '')
-  // 直接清空原生输入框的值
   const input = inputOrTextarea.value
   if (input) {
     input.value = ''
   }
-  // 清空后重新获取焦点
   nextTick(() => {
     focus()
   })
+}
+
+// Feature 5: clearOnEscape
+const handleKeydown = (event: KeyboardEvent) => {
+  if (props.clearOnEscape && event.key === 'Escape' && !props.disabled && !props.readonly) {
+    handleClear()
+  }
+  emit('keydown', event)
+}
+
+const handleKeyup = (event: KeyboardEvent) => {
+  emit('keyup', event)
 }
 
 const handlePasswordToggle = () => {
@@ -224,14 +286,6 @@ const handlePasswordToggle = () => {
   nextTick(() => {
     focus()
   })
-}
-
-const handleKeydown = (event: KeyboardEvent) => {
-  emit('keydown', event)
-}
-
-const handleKeyup = (event: KeyboardEvent) => {
-  emit('keyup', event)
 }
 
 const handleCompositionStart = (event: CompositionEvent) => {
@@ -270,28 +324,22 @@ const clear = () => {
 
 const resizeTextarea = () => {
   const { type, autosize } = props
-
   if (type !== 'textarea') return
-
   if (!autosize) {
     textareaCalcStyle.value = {}
     return
   }
-
   const minRows = typeof autosize === 'object' ? autosize.minRows : undefined
   const maxRows = typeof autosize === 'object' ? autosize.maxRows : undefined
   const textarea = textareaRef.value
   if (!textarea) return
-
   const style = calcTextareaHeight(textarea, minRows, maxRows)
-
   textareaCalcStyle.value = {
     height: style.height,
     minHeight: style.minHeight,
   }
 }
 
-// 监听 modelValue 变化
 watch(
   () => props.modelValue,
   () => {
@@ -302,7 +350,6 @@ watch(
   }
 )
 
-// 挂载时设置初始值
 onMounted(() => {
   setNativeInputValue()
   resizeTextarea()
@@ -318,7 +365,8 @@ defineExpose<InputExpose>({
   focus,
   blur,
   select,
-  clear
+  clear,
+  get textLength() { return textLength.value }
 })
 </script>
 
@@ -331,10 +379,12 @@ defineExpose<InputExpose>({
 
     <!-- 输入框包装器 -->
     <div :class="ns.e('wrapper')">
-      <!-- 前置图标/内容 -->
+      <!-- 前置图标/文本/内容 -->
       <span v-if="hasPrefix" :class="ns.e('prefix')">
         <slot name="prefix">
-          <component v-if="prefixIcon && typeof prefixIcon !== 'string'" :is="prefixIcon" :class="ns.e('icon')" />
+          <!-- Feature 6: prefix string prop -->
+          <span v-if="prefix" :class="ns.e('prefix-text')">{{ prefix }}</span>
+          <component v-else-if="prefixIcon && typeof prefixIcon !== 'string'" :is="prefixIcon" :class="ns.e('icon')" />
           <span v-else-if="prefixIcon" :class="ns.e('icon')">{{ prefixIcon }}</span>
         </slot>
       </span>
@@ -343,53 +393,67 @@ defineExpose<InputExpose>({
       <textarea v-if="isTextarea" ref="textareaRef" :class="inputClasses" :value="nativeInputValue"
         :placeholder="placeholder || t('input.placeholder')" :disabled="disabled" :readonly="readonly"
         :maxlength="maxlength" :minlength="minlength" :rows="rows" :name="name" :id="id" :tabindex="tabindex"
-        :autocomplete="autocomplete" :autofocus="autofocus" :style="textareaStyle" @input="handleInput"
-        @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup"
-        @compositionstart="handleCompositionStart" @compositionupdate="handleCompositionUpdate"
-        @compositionend="handleCompositionEnd" />
+        :autocomplete="autocomplete" :autofocus="autofocus" :aria-label="ariaLabel || label" :inputmode="inputmode"
+        :style="textareaStyle" @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
+        @keydown="handleKeydown" @keyup="handleKeyup" @compositionstart="handleCompositionStart"
+        @compositionupdate="handleCompositionUpdate" @compositionend="handleCompositionEnd" />
 
       <!-- 普通输入框 -->
       <input v-else ref="inputRef" :class="inputClasses"
         :type="showPassword ? (passwordVisible ? 'text' : 'password') : type" :value="nativeInputValue"
         :placeholder="placeholder || t('input.placeholder')" :disabled="disabled" :readonly="readonly"
-        :maxlength="maxlength" :minlength="minlength" :name="name" :id="id" :tabindex="tabindex"
-        :autocomplete="autocomplete" :autofocus="autofocus" :aria-invalid="formItem?.validateStatus === 'error'"
-        :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined" @input="handleInput"
+        :maxlength="maxlength" :minlength="minlength" :name="name" :id="id" :tabindex="tabindex" :list="list"
+        :autocomplete="autocomplete" :autofocus="autofocus" :style="inputStyle" :aria-label="ariaLabel || label"
+        :inputmode="inputmode" :aria-invalid="mergedStatus === 'error'"
+        :aria-describedby="mergedStatus === 'error' ? formItem?.errorId : undefined" @input="handleInput"
         @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup"
         @compositionstart="handleCompositionStart" @compositionupdate="handleCompositionUpdate"
         @compositionend="handleCompositionEnd" />
 
-      <!-- 后置图标/内容 -->
+      <!-- 后置图标/文本/内容 -->
       <span v-if="hasSuffix" :class="ns.e('suffix')">
-        <!-- 清空按钮 -->
-        <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @mousedown.prevent @click.stop="handleClear">
-          <slot name="clearIcon">
-            <component v-if="clearIcon && typeof clearIcon !== 'string'" :is="clearIcon" />
-            <svg v-else viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+        <!-- Feature 2: 加载状态图标 -->
+        <span v-if="isLoading" :class="[ns.e('icon'), ns.e('loading')]">
+          <slot name="loadingIcon">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+              class="yh-input__loading-spin">
               <path fill="currentColor"
-                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+                d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z" />
+            </svg>
+          </slot>
+        </span>
+
+        <!-- 清空按钮 -->
+        <span v-if="showClear && !isLoading" :class="[ns.e('icon'), ns.e('clear')]" @mousedown.prevent
+          @click.stop="handleClear">
+          <slot name="clearIcon">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+              <path fill="currentColor"
+                d="m466.752 512-90.496-90.496a32 32 0 0 1 45.248-45.248L512 466.752l90.496-90.496a32 32 0 1 1 45.248 45.248L557.248 512l90.496 90.496a32 32 0 1 1-45.248 45.248L512 557.248l-90.496 90.496a32 32 0 0 1-45.248-45.248L466.752 512zM512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768z" />
             </svg>
           </slot>
         </span>
 
         <!-- 密码切换按钮 -->
         <span v-if="showPasswordIcon" :class="[ns.e('icon'), ns.e('password')]" @click.stop="handlePasswordToggle">
-          <!-- View icon (eye open) -->
-          <svg v-if="passwordVisible" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em"
-            height="1em">
-            <path fill="currentColor"
-              d="M512 160c320 0 512 352 512 352S832 864 512 864 0 512 0 512s192-352 512-352zm0 64c-225.28 0-384.128 233.472-429.056 288 44.928 54.528 203.776 288 429.056 288s384.128-233.472 429.056-288C896.128 457.472 737.28 224 512 224zm0 64a224 224 0 1 1 0 448 224 224 0 0 1 0-448zm0 64a160 160 0 1 0 0 320 160 160 0 0 0 0-320z" />
+          <svg v-if="passwordVisible" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" />
+            <circle cx="12" cy="12" r="3" />
           </svg>
-          <!-- Hide icon (eye closed) -->
-          <svg v-else viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M876.8 156.8c0-9.6-3.2-16-9.6-22.4-6.4-6.4-12.8-9.6-22.4-9.6-9.6 0-16 3.2-22.4 9.6L736 220.8c-64-32-137.6-51.2-224-51.2-160 0-288 64-400 192-19.2 22.4-32 38.4-32 54.4s12.8 32 32 54.4c25.6 32 54.4 64 86.4 89.6l-86.4 86.4c-6.4 6.4-9.6 12.8-9.6 22.4s3.2 16 9.6 22.4c6.4 6.4 12.8 9.6 22.4 9.6 9.6 0 16-3.2 22.4-9.6l745.6-745.6c6.4-6.4 9.6-12.8 9.6-22.4zM512 352c35.2 0 67.2 9.6 96 25.6l-96 96c-32 0-57.6 25.6-57.6 57.6l-96 96c-16-28.8-25.6-60.8-25.6-96 0-99.2 80-179.2 179.2-179.2z" />
+          <svg v-else viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+            <path
+              d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+            <line x1="3" y1="3" x2="21" y2="21" />
           </svg>
         </span>
 
-        <!-- 后置图标插槽 -->
+        <!-- 后置图标/文本插槽 -->
         <slot name="suffix">
-          <component v-if="suffixIcon && typeof suffixIcon !== 'string'" :is="suffixIcon" :class="ns.e('icon')" />
+          <!-- Feature 6: suffix string prop -->
+          <span v-if="suffix" :class="ns.e('suffix-text')">{{ suffix }}</span>
+          <component v-else-if="suffixIcon && typeof suffixIcon !== 'string'" :is="suffixIcon" :class="ns.e('icon')" />
           <span v-else-if="suffixIcon" :class="ns.e('icon')">{{ suffixIcon }}</span>
         </slot>
       </span>

@@ -1,11 +1,20 @@
 @use 'sass:map';
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
 
+// ─── 全局动画：必须在组件块外定义，避免嵌套导致编译失效 ─────────────────────
+@keyframes yh-input-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @include b(input) {
   --yh-input-height: var(--yh-component-size-default);
   --yh-input-font-size: var(--yh-font-size-base);
   --yh-input-padding: 0 var(--yh-spacing-md);
-
   --yh-input-border-color: var(--yh-border-color);
   --yh-input-hover-border-color: var(--yh-border-color-hover);
   --yh-input-focus-border-color: var(--yh-color-primary);
@@ -34,22 +43,163 @@
     &:hover {
       border-color: var(--yh-input-hover-border-color);
     }
+  }
 
-    @include when(focus) {
+  // 聚焦状态
+  @include when(focused) {
+    @include e(wrapper) {
       border-color: var(--yh-input-focus-border-color);
       box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
       z-index: 2;
     }
+  }
 
-    @include when(disabled) {
-      background-color: var(--yh-input-disabled-bg-color);
-      border-color: var(--yh-input-disabled-border-color);
+  // 禁用状态
+  @include when(disabled) {
+    @include e(wrapper) {
+      background-color: var(--yh-fill-color-light);
+      border-color: var(--yh-border-color-light);
       cursor: not-allowed;
-      .yh-input__inner {
-        color: var(--yh-text-color-disabled);
-        cursor: not-allowed;
+    }
+
+    @include e(inner) {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  // ─── Feature 1: 视觉变体 ──────────────────────────────────────────────────
+  @include m(variant-filled) {
+    @include e(wrapper) {
+      background-color: var(--yh-fill-color-light);
+      border-color: transparent;
+
+      &:hover {
+        background-color: var(--yh-fill-color);
+        border-color: transparent;
       }
     }
+
+    &.is-focused {
+      @include e(wrapper) {
+        background-color: var(--yh-fill-color-blank);
+        border-color: var(--yh-input-focus-border-color);
+        box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+      }
+    }
+  }
+
+  @include m(variant-borderless) {
+    @include e(wrapper) {
+      border-color: transparent !important;
+      box-shadow: none !important;
+      background-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @include m(variant-underlined) {
+    @include e(wrapper) {
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-radius: 0;
+      background-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+
+      &:hover {
+        border-bottom-color: var(--yh-input-hover-border-color);
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-right-color: transparent;
+      }
+    }
+
+    &.is-focused {
+      @include e(wrapper) {
+        border-bottom-color: var(--yh-input-focus-border-color);
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        box-shadow: 0 2px 0 0 var(--yh-color-primary-light-8);
+      }
+    }
+  }
+
+  // ─── Feature 3: 独立状态色 ───────────────────────────────────────────────
+  // 注意：仅影响直接子 __wrapper，不影响 prepend/append 内的嵌套组件边框
+  @include m(status-success) {
+    & > .yh-input__wrapper,
+    & > .yh-input__wrapper:hover {
+      border-color: var(--yh-color-success) !important;
+    }
+
+    &.is-focused > .yh-input__wrapper {
+      box-shadow: 0 0 0 2px rgba(103, 194, 58, 0.2);
+    }
+  }
+
+  @include m(status-warning) {
+    & > .yh-input__wrapper,
+    & > .yh-input__wrapper:hover {
+      border-color: var(--yh-color-warning) !important;
+    }
+
+    &.is-focused > .yh-input__wrapper {
+      box-shadow: 0 0 0 2px rgba(230, 162, 60, 0.2);
+    }
+  }
+
+  @include m(status-error) {
+    & > .yh-input__wrapper,
+    & > .yh-input__wrapper:hover {
+      border-color: var(--yh-color-danger) !important;
+    }
+
+    &.is-focused > .yh-input__wrapper {
+      box-shadow: 0 0 0 2px rgba(245, 108, 108, 0.2);
+    }
+  }
+
+  // ─── Feature 2: 加载状态 ──────────────────────────────────────────────────
+  @include when(loading) {
+    cursor: wait;
+
+    @include e(inner) {
+      cursor: wait;
+    }
+  }
+
+  @include e(loading) {
+    color: var(--yh-text-color-placeholder);
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+
+    .yh-input__loading-spin {
+      animation: yh-input-spin 1s linear infinite;
+    }
+  }
+
+  // ─── Feature 6: prefix/suffix 字符串文本 ─────────────────────────────────
+  @include e(prefix-text) {
+    color: var(--yh-text-color-secondary);
+    font-size: inherit;
+    white-space: nowrap;
+    margin-right: 4px;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  @include e(suffix-text) {
+    color: var(--yh-text-color-secondary);
+    font-size: inherit;
+    white-space: nowrap;
+    margin-left: 4px;
+    user-select: none;
+    pointer-events: none;
   }
 
   @include e(inner) {
@@ -64,27 +214,25 @@
     padding: 0;
     box-sizing: border-box;
     appearance: none;
+
     &::placeholder {
       color: var(--yh-text-color-placeholder);
     }
   }
 
-  /* 文本域整体容器布局 */
+  // ─── Textarea ─────────────────────────────────────────────────────────────
   &.is-textarea {
     flex-direction: column;
     align-items: stretch;
     display: inline-flex;
     vertical-align: bottom;
 
+    // textarea 模式下 wrapper 本身只作布局容器，不显示边框
     .yh-input__wrapper {
       padding: 0;
-      box-shadow: none;
       border: none;
-
-      &:hover,
-      &.is-focus {
-        border-color: transparent;
-      }
+      box-shadow: none;
+      background-color: transparent;
     }
 
     .yh-input__inner {
@@ -101,10 +249,59 @@
       &:hover {
         border-color: var(--yh-input-hover-border-color);
       }
+    }
 
-      &:focus {
-        border-color: var(--yh-input-focus-border-color);
-        box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+    &.is-focused .yh-input__inner {
+      border-color: var(--yh-input-focus-border-color);
+      box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+    }
+
+    &.yh-input--status-success .yh-input__inner {
+      border-color: var(--yh-color-success) !important;
+    }
+    &.yh-input--status-warning .yh-input__inner {
+      border-color: var(--yh-color-warning) !important;
+    }
+    &.yh-input--status-error .yh-input__inner {
+      border-color: var(--yh-color-danger) !important;
+    }
+  }
+
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  @include e(icon) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--yh-duration-base);
+    color: var(--yh-text-color-placeholder);
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+
+    // 特定图标状态
+    &.yh-input__clear,
+    &.yh-input__password {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--yh-text-color-regular);
       }
     }
   }
@@ -120,7 +317,6 @@
     pointer-events: none;
 
     @include m(textarea) {
-      position: relative;
       display: block;
       text-align: right;
       margin-top: 4px;
@@ -131,114 +327,108 @@
     }
   }
 
-  /* 前后置插槽：复合输入框核心样式 */
-  @include e(prepend) {
-    background-color: var(--yh-fill-color-light);
-    color: var(--yh-text-color-secondary);
-    border: 1px solid var(--yh-input-border-color);
-    border-right: 0;
-    border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
-    padding: 0 20px;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    position: relative;
-
-    .yh-button,
-    .yh-select {
-      margin: -1px -20px;
-      border-radius: 0;
-      border-color: transparent !important;
-      background-color: transparent !important;
-      color: inherit;
-      height: var(--yh-input-height);
-    }
-
-    /* 纠正 Select 内部 wrapper 的内边距，确保文字不偏移 */
-    .yh-select {
-      .yh-select__wrapper {
-        padding-left: 11px;
-        padding-right: 25px; // 为箭头留点位置
-      }
-    }
-  }
-
-  @include e(append) {
-    background-color: var(--yh-fill-color-light);
-    color: var(--yh-text-color-secondary);
-    border: 1px solid var(--yh-input-border-color);
-    border-left: 0;
-    border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
-    padding: 0 20px;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-
-    .yh-button,
-    .yh-select {
-      margin: -1px -20px;
-      border-radius: 0;
-      border-color: transparent !important;
-      background-color: transparent !important;
-      color: inherit;
-      height: var(--yh-input-height);
-    }
-  }
-
-  /* 嵌套组件背景强制透明 */
-  @at-root {
-    .yh-input__prepend,
-    .yh-input__append {
-      .yh-select,
-      .yh-button {
-        .yh-input__wrapper,
-        .yh-select__wrapper {
-          background-color: transparent !important;
-          border-color: transparent !important;
-          box-shadow: none !important;
-        }
-      }
-    }
-  }
-
-  /* Group 联动逻辑修正 */
-  @at-root {
-    .yh-input-group {
-      display: inline-flex;
-      width: 100%;
-      align-items: stretch;
-
-      @include when(prepend) {
-        .yh-input__wrapper {
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
-        }
-      }
-      @include when(append) {
-        .yh-input__wrapper {
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-      }
-      &:hover {
-        .yh-input__prepend,
-        .yh-input__append {
-          border-color: var(--yh-input-hover-border-color);
-        }
-      }
-    }
-  }
-
-  /* 尺寸修饰符 */
+  // 尺寸修饰符
   @include m(large) {
     --yh-input-height: var(--yh-component-size-large);
   }
+
   @include m(small) {
     --yh-input-height: var(--yh-component-size-small);
     font-size: var(--yh-font-size-xs);
+  }
+}
+
+// ─── 复合输入框 (Group) ────────────────────────────────────────────────────
+// 与 .yh-input 共存于同一根元素，必须写成双类组合而非顶层独立类
+// 确保 group 样式不干扰其他普通 .yh-input
+.yh-input.yh-input-group {
+  display: inline-flex;
+  align-items: stretch;
+
+  // prepend / append 外层框架
+  > .yh-input__prepend,
+  > .yh-input__append {
+    padding: 0 16px;
+    white-space: nowrap;
+    background-color: var(--yh-fill-color-light);
+    color: var(--yh-text-color-secondary);
+    border: 1px solid var(--yh-input-border-color);
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    transition: border-color var(--yh-duration-base);
+
+    // ⚠️ 嵌套 Button/Select 重置为透明，防止自身边框外泄
+    .yh-button,
+    .yh-select {
+      margin: -1px -16px;
+      border-radius: 0;
+      height: var(--yh-input-height, 32px);
+
+      // 仅处理直接子 wrapper，不递归影响更深层
+      > .yh-input__wrapper,
+      > .yh-select__wrapper {
+        background-color: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0;
+      }
+    }
+  }
+
+  > .yh-input__prepend {
+    border-right: none;
+    border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
+  }
+
+  > .yh-input__append {
+    border-left: none;
+    border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
+  }
+
+  // 中间 wrapper
+  > .yh-input__wrapper {
+    flex: 1;
+    border-radius: 0;
+    z-index: 1;
+    transition:
+      border-color var(--yh-duration-base),
+      box-shadow var(--yh-duration-base);
+
+    &:hover,
+    &:focus-within {
+      z-index: 2;
+    }
+  }
+
+  // 仅有 prepend（无 append）：右侧恢复圆角
+  &.is-prepend:not(.is-append) > .yh-input__wrapper {
+    border-radius: 0 var(--yh-radius-base) var(--yh-radius-base) 0;
+  }
+
+  // 仅有 append（无 prepend）：左侧恢复圆角
+  &.is-append:not(.is-prepend) > .yh-input__wrapper {
+    border-radius: var(--yh-radius-base) 0 0 var(--yh-radius-base);
+  }
+
+  // hover 同步边框色（仅影响直接子 prepend/append 边框，不影响其内部组件）
+  &:hover {
+    > .yh-input__prepend,
+    > .yh-input__append {
+      border-color: var(--yh-input-hover-border-color);
+    }
+
+    > .yh-input__wrapper {
+      border-color: var(--yh-input-hover-border-color);
+    }
+  }
+
+  // 聚焦提升 z-index，防止阴影被遮挡
+  &.is-focused > .yh-input__wrapper {
+    z-index: 3;
   }
 }
