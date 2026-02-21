@@ -111,6 +111,9 @@ import {
   YhCountdown,
   YhTable,
   YhTableColumn,
+  YhSpace,
+  YhAvatar,
+  YhEmpty,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -282,6 +285,12 @@ export default {
     app.component('yh-table', YhTable)
     app.component('YhTableColumn', YhTableColumn)
     app.component('yh-table-column', YhTableColumn)
+    app.component('YhSpace', YhSpace)
+    app.component('yh-space', YhSpace)
+    app.component('YhAvatar', YhAvatar)
+    app.component('yh-avatar', YhAvatar)
+    app.component('YhEmpty', YhEmpty)
+    app.component('yh-empty', YhEmpty)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

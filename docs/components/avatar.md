@@ -1,7 +1,5 @@
 # Avatar 头像
 
-用图标、图片或字符的形式展示用户或事物。
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -11,7 +9,7 @@ const tsBasic = `<template>
     <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
     <yh-avatar>USER</yh-avatar>
   </div>
-</template>`
+<\/template>`
 
 const jsBasic = tsBasic
 
@@ -23,7 +21,7 @@ const tsSizes = `<template>
     <yh-avatar size="large" icon="user" />
     <yh-avatar :size="80" icon="user" />
   </div>
-</template>`
+<\/template>`
 
 const jsSizes = tsSizes
 
@@ -32,9 +30,31 @@ const tsShapes = `<template>
     <yh-avatar shape="circle" icon="user" />
     <yh-avatar shape="square" icon="user" />
   </div>
-</template>`
+<\/template>`
 
 const jsShapes = tsShapes
+
+const tsFit = `<template>
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="fill" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="contain" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="cover" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="none" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="scale-down" />
+  </div>
+<\/template>`
+
+const jsFit = tsFit
+
+const tsColor = `<template>
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <yh-avatar background-color="#67C23A" icon="user" />
+    <yh-avatar background-color="#E6A23C" icon="user" />
+    <yh-avatar background-color="#F56C6C">YH</yh-avatar>
+  </div>
+<\/template>`
+
+const jsColor = tsColor
 
 const tsError = `<template>
   <yh-avatar src="https://invalid-url.com/avatar.png" @error="handleError">
@@ -48,9 +68,45 @@ const handleError = () => {
 }
 <\/script>`
 
-const jsError = tsError
+const jsError = `<template>
+  <yh-avatar src="https://invalid-url.com/avatar.png" @error="handleError">
+    <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+  </yh-avatar>
+</template>
 
+<script setup>
+const handleError = () => {
+  console.log('Avatar load error')
+}
+<\/script>`
+
+// Nuxt 使用示例
+const tsNuxt = `<template>
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <!-- 基础头像，自动导入 -->
+    <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+
+    <!-- 结合 Nuxt 用户状态 -->
+    <yh-avatar :size="48" :src="userAvatar">
+      {{ userInitial }}
+    </yh-avatar>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+
+// 无需手动导入 YhAvatar
+const userName = ref('张三')
+const userAvatar = ref('')
+
+const userInitial = computed(() => userName.value.charAt(0))
+<\/script>`.replace(/\\\//g, '/')
+
+const jsNuxt = tsNuxt.replace('lang="ts"', '').replace(/import { computed } from 'vue'/, "import { computed } from 'vue'")
 </script>
+
+用图标、图片或字符的形式展示用户或事物。
 
 ## 基础用法
 
@@ -68,7 +124,7 @@ const jsError = tsError
 
 ## 不同尺寸
 
-通过 `size` 属性设置头像大小。
+通过 `size` 属性设置头像大小，支持预设值 `small` (28px)、`default` (40px)、`large` (56px) 或自定义像素数值。
 
 <DemoBlock title="不同尺寸" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="display: flex; gap: 20px; align-items: center;">
@@ -105,9 +161,39 @@ const jsError = tsError
   </div>
 </DemoBlock>
 
+## 图片适配
+
+通过 `fit` 属性设置图片在头像中的适配方式，与 CSS `object-fit` 一致。
+
+<DemoBlock title="图片适配" :ts-code="tsFit" :js-code="jsFit">
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="fill" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="contain" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="cover" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="none" />
+    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="scale-down" />
+  </div>
+</DemoBlock>
+
+## 自定义颜色
+
+通过 `background-color` 属性自定义头像背景色。
+
+<DemoBlock title="自定义颜色" :ts-code="tsColor" :js-code="jsColor">
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <yh-avatar background-color="#67C23A">
+      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
+    </yh-avatar>
+    <yh-avatar background-color="#E6A23C">
+      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
+    </yh-avatar>
+    <yh-avatar background-color="#F56C6C">YH</yh-avatar>
+  </div>
+</DemoBlock>
+
 ## 加载失败
 
-当图片加载失败时，可以通过 `error` 事件进行处理。
+当图片加载失败时，可以通过 `error` 事件进行处理，默认插槽可作为降级展示。
 
 <DemoBlock title="加载失败" :ts-code="tsError" :js-code="jsError">
   <yh-avatar src="https://invalid-url.com/avatar.png">
@@ -115,19 +201,44 @@ const jsError = tsError
   </yh-avatar>
 </DemoBlock>
 
+## 在 Nuxt 中使用
+
+Avatar 组件完全支持 Nuxt 3/4 的 SSR 渲染。头像的尺寸、形状和图片在服务端渲染时即可正确展示，确保首屏即呈现完整的用户头像信息。
+
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+    <yh-avatar :size="48">张</yh-avatar>
+  </div>
+</DemoBlock>
+
+**SSR 注意事项**：
+
+- ✅ 头像尺寸 (size)、形状 (shape)、图片适配 (fit) 首屏正确渲染
+- ✅ 自定义背景色 (background-color) 和文字内容支持 SSR
+- ✅ 图片 src / srcset 在服务端即包含在 HTML 中
+- 💡 图片加载失败的降级处理在客户端激活后自动完成
+
+::: tip Nuxt 自动导入
+在安装 `@yh-ui/nuxt` 模块后，`YhAvatar` 组件会被自动注册，无需手动导入。
+:::
+
 ## API
 
 ### Props
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| size | 头像大小 | `number \| 'large' \| 'default' \| 'small'` | `'default'` |
 | shape | 头像形状 | `'circle' \| 'square'` | `'circle'` |
-| src | 头像图片地址 | `string` | — |
-| alt | 头像图片描述 | `string` | — |
-| icon | 头像图标 | `string \| Component` | — |
-| background | 自定义背景色 | `string` | — |
-| color | 自定义文字显色 | `string` | — |
+| size | 头像大小，支持预设值或像素数值 | `number \| 'large' \| 'default' \| 'small'` | `'default'` |
+| src | 图片地址 | `string` | — |
+| src-set | 图片懒加载地址列表（srcset） | `string` | — |
+| alt | 图片 alt 描述文字 | `string` | — |
+| fit | 图片适配方式 | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
+| icon | 图标组件，当无图片时显示 | `string \| Component` | — |
+| color | 背景色（兼容旧 API） | `string` | — |
+| background-color | 背景颜色 | `string` | — |
+| theme-overrides | 主题覆盖变量 | `ComponentThemeVars` | — |
 
 ### Events
 
@@ -139,4 +250,12 @@ const jsError = tsError
 
 | 插槽名 | 说明 |
 | --- | --- |
-| default | 自定义内容 (如文字或图标) |
+| default | 自定义内容（文字或图标） |
+
+## 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-avatar-bg-color` | 背景颜色 | `var(--yh-color-primary-light-8, #d9ecff)` |
+| `--yh-avatar-text-color` | 文字颜色 | `var(--yh-color-primary, #409eff)` |
+| `--yh-avatar-radius` | 方形头像圆角 | `var(--yh-border-radius-base, 4px)` |

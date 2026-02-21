@@ -1,11 +1,13 @@
-.yh-empty {
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(empty) {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--yh-empty-padding, 40px 0);
 
-  &__image {
+  @include e(image) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,12 +20,12 @@
     }
   }
 
-  &__svg {
+  @include e(svg) {
     width: 100%;
     height: 100%;
   }
 
-  &__description {
+  @include e(description) {
     color: var(--yh-empty-description-color, var(--yh-text-color-secondary, #909399));
     font-size: var(--yh-empty-description-font-size, 14px);
     text-align: center;
@@ -34,7 +36,7 @@
     }
   }
 
-  &__bottom {
+  @include e(bottom) {
     margin-top: 20px;
     display: flex;
     align-items: center;
