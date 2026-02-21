@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment node
+ */
 import { describe, it, expect, vi } from 'vitest'
 import { renderToString } from 'vue/server-renderer'
 import { createSSRApp, h } from 'vue'
@@ -16,7 +19,8 @@ vi.mock('@yh-ui/hooks', () => ({
     formItem: null,
     validate: vi.fn()
   }),
-  useId: () => 'ssr-test-id'
+  useId: () => 'ssr-test-id',
+  useLocale: () => ({ t: (key: string) => key })
 }))
 
 vi.mock('../../hooks/use-config', () => ({
@@ -96,8 +100,7 @@ describe('YhTimePicker SSR', () => {
 
     const html = await renderToString(app)
 
-    // 面板应该存在但是隐藏的（v-show）
-    expect(html).toContain('yh-time-picker__panel')
-    expect(html).toContain('display: none')
+    // 面板不应该渲染（因为 visible 为 false，且使用了 v-if）
+    expect(html).not.toContain('yh-time-picker__panel')
   })
 })

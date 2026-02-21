@@ -1,35 +1,65 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import YhImage from '../src/image.vue'
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
+
+// Mock hooks
+vi.mock('@yh-ui/hooks', async () => {
+  const actual = await vi.importActual<any>('@yh-ui/hooks')
+  return {
+    ...actual,
+    useNamespace: (name: string) => ({
+      b: (suffix?: string) => (suffix ? `yh-${name}-${suffix}` : `yh-${name}`),
+      e: (element: string) => `yh-${name}__${element}`,
+      m: (modifier: string) => `yh-${name}--${modifier}`,
+      is: (state: string, value?: boolean) => (value !== false ? `is-${state}` : '')
+    }),
+    useLocale: () => ({ t: (key: string) => key })
+  }
+})
 
 // Mock IntersectionObserver
-const IntersectionObserverMock = vi.fn(() => ({
-  disconnect: vi.fn(),
-  observe: vi.fn(),
-  takeRecords: vi.fn(),
-  unobserve: vi.fn()
-}))
+const observeSpy = vi.fn()
+class IntersectionObserverMock {
+  constructor() {}
+  observe = observeSpy
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+  takeRecords = vi.fn()
+}
 vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
-// Mock internal Image loading
-const originalImage = window.Image
+// Mock global Image constructor to simulate load/error events
+class MockImage extends EventTarget {
+  src = ''
+  crossOrigin: string | null = null
+  onload: (() => void) | null = null
+  onerror: (() => void) | null = null
+  width = 400
+  height = 300
+  naturalWidth = 400
+  naturalHeight = 300
+  complete = false
+
+  constructor() {
+    super()
+    setTimeout(() => {
+      this.complete = true
+      if (this.onload) this.onload()
+      this.dispatchEvent(new Event('load'))
+    }, 10)
+  }
+}
 
 describe('YhImage', () => {
-  let imageConstructorSpy: any
-
   beforeEach(() => {
-    imageConstructorSpy = vi.spyOn(window, 'Image').mockImplementation(() => {
-      const img = new originalImage()
-      setTimeout(() => {
-        img.dispatchEvent(new Event('load'))
-      }, 50)
-      return img
-    })
+    vi.stubGlobal('Image', MockImage)
+    vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+    observeSpy.mockClear()
   })
 
   afterEach(() => {
-    imageConstructorSpy.mockRestore()
+    vi.unstubAllGlobals()
   })
 
   const src = 'https://picsum.photos/400/300'
@@ -68,14 +98,27 @@ describe('YhImage', () => {
   })
 
   it('load error slot', async () => {
-    // Mock Image to fail
-    imageConstructorSpy.mockImplementation(() => {
-      const img = new originalImage()
-      setTimeout(() => {
-        img.dispatchEvent(new Event('error'))
-      }, 50)
-      return img
-    })
+    // Mock Image to fail by overriding with error-triggering version
+    class ErrorImage extends EventTarget {
+      src = ''
+      crossOrigin: string | null = null
+      onload: (() => void) | null = null
+      onerror: (() => void) | null = null
+      width = 0
+      height = 0
+      naturalWidth = 0
+      naturalHeight = 0
+      complete = false
+
+      constructor() {
+        super()
+        setTimeout(() => {
+          if (this.onerror) this.onerror()
+          this.dispatchEvent(new Event('error'))
+        }, 10)
+      }
+    }
+    vi.stubGlobal('Image', ErrorImage)
 
     const wrapper = mount(YhImage, {
       props: { src },
@@ -91,13 +134,14 @@ describe('YhImage', () => {
   })
 
   it('lazy load', async () => {
-    const wrapper = mount(YhImage, {
+    mount(YhImage, {
       props: {
-        src,
+        src: 'https://example.com/test.jpg',
         lazy: true
       }
     })
-    expect(IntersectionObserverMock).toHaveBeenCalled()
+    await nextTick()
+    expect(observeSpy).toHaveBeenCalled()
   })
 
   it('test preview click opens viewer', async () => {

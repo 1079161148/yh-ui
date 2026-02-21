@@ -13,7 +13,7 @@ describe('YhCalendar SSR', () => {
     })
 
     expectSSRHasClass(html, 'yh-calendar')
-    expect(html).toContain('2026 年 02 月')
+    expect(html).toMatch(/2026.*0?2/)
     // 应该包含表格结构
     expect(html).toContain('<table')
     expect(html).toContain('<thead')

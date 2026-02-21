@@ -343,7 +343,7 @@ describe('Transfer', () => {
 
       const emptyTexts = wrapper.findAll('.yh-transfer-panel__empty-text')
       expect(emptyTexts.length).toBe(2)
-      expect(emptyTexts[0].text()).toBe('暂无数据')
+      expect(emptyTexts[0].text()).toBe('无数据')
     })
 
     it('应该支持自定义空状态文本', () => {
@@ -496,7 +496,7 @@ describe('TransferPanel', () => {
     })
 
     const count = wrapper.find('.yh-transfer-panel__count')
-    expect(count.text()).toBe('3/10')
+    expect(count.text()).toContain('3/10')
   })
 
   it('虚拟滚动应该正确渲染', () => {

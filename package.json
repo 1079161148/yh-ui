@@ -1,6 +1,6 @@
 {
   "name": "yh-ui-monorepo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",

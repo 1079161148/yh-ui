@@ -22,31 +22,26 @@ describe('Affix Bottom Logic', () => {
       toJSON: () => {}
     })) as any
 
-    // 模拟 IntersectionObserver
-    vi.stubGlobal(
-      'IntersectionObserver',
-      vi.fn((callback) => {
-        // 模拟立即触发相交
-        setTimeout(() => {
-          callback([{ isIntersecting: true }])
-        }, 0)
-        return {
-          observe: vi.fn(),
-          unobserve: vi.fn(),
-          disconnect: vi.fn()
-        }
-      })
-    )
+    // Mock IntersectionObserver
+    class IntersectionObserverMock {
+      constructor(private callback: any) {}
+      observe() {
+        // 模拟触发相交
+        this.callback([{ isIntersecting: true }])
+      }
+      unobserve() {}
+      disconnect() {}
+    }
 
-    // 模拟 ResizeObserver
-    vi.stubGlobal(
-      'ResizeObserver',
-      vi.fn(() => ({
-        observe: vi.fn(),
-        unobserve: vi.fn(),
-        disconnect: vi.fn()
-      }))
-    )
+    // Mock ResizeObserver
+    class ResizeObserverMock {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    }
+
+    vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+    vi.stubGlobal('ResizeObserver', ResizeObserverMock)
   })
 
   afterEach(() => {

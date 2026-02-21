@@ -4,28 +4,40 @@ import { nextTick, ref } from 'vue'
 import DatePicker from '../src/date-picker.vue'
 import dayjs from 'dayjs'
 
-// Mock useNamespace
-vi.mock('@yh-ui/hooks', () => ({
-  useNamespace: (name: string) => ({
-    b: (suffix?: string) => (suffix ? `yh-${name}-${suffix}` : `yh-${name}`),
-    e: (element: string) => `yh-${name}__${element}`,
-    m: (modifier: string) => `yh-${name}--${modifier}`,
-    is: (state: string, value?: boolean) => (value !== false ? `is-${state}` : '')
-  }),
-  useFormItem: () => ({
-    form: null,
-    formItem: null,
-    validate: vi.fn()
-  }),
-  useId: () => 'test-id'
-}))
+import { zhCn } from '@yh-ui/locale'
 
-// Mock useConfig
-vi.mock('../../hooks/use-config', () => ({
-  useConfig: () => ({
-    globalSize: ref('default')
-  })
-}))
+// Mock hooks
+vi.mock('@yh-ui/hooks', async () => {
+  const actual = await vi.importActual<any>('@yh-ui/hooks')
+  return {
+    ...actual,
+    useNamespace: (name: string) => ({
+      b: (suffix?: string) => (suffix ? `yh-${name}-${suffix}` : `yh-${name}`),
+      e: (element: string) => `yh-${name}__${element}`,
+      m: (modifier: string) => `yh-${name}--${modifier}`,
+      is: (state: string, value?: boolean) => (value !== false ? `is-${state}` : '')
+    }),
+    useFormItem: () => ({
+      form: null,
+      formItem: null,
+      validate: vi.fn()
+    }),
+    useId: () => 'test-id',
+    useLocale: () => ({
+      t: (key: string) => key,
+      locale: ref(zhCn),
+      lang: ref('zh-cn')
+    }),
+    useConfig: () => ({
+      globalSize: ref('default'),
+      globalLocale: ref(zhCn)
+    }),
+    useZIndex: () => ({
+      currentZIndex: ref(2000),
+      nextZIndex: () => 2000
+    })
+  }
+})
 
 describe('YhDatePicker', () => {
   beforeEach(() => {
@@ -69,9 +81,7 @@ describe('YhDatePicker', () => {
       const wrapper = mount(DatePicker, { props: { teleported: false } })
       await wrapper.trigger('click')
       await nextTick()
-      expect(wrapper.find('.yh-date-picker__panel').attributes('style')).not.toContain(
-        'display: none'
-      )
+      expect(wrapper.find('.yh-date-picker__panel').exists()).toBe(true)
     })
 
     it('单选日期应该更新值并关闭面板', async () => {

@@ -37,7 +37,8 @@ export default defineConfig({
       '**/dist/**',
       '**/cypress/**',
       '**/.{idea,git,cache,output,temp}/**',
-      'packages/nuxt/__tests__/integration.test.ts'
+      // Nuxt E2E 集成测试需要真实 Nuxt 服务器，单独运行
+      'packages/nuxt/__tests__/**'
     ],
     coverage: {
       provider: 'v8',

@@ -1,10 +1,28 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick, h } from 'vue'
 import { YhAffix } from '../index'
 
 // 模拟 window 滚动和尺寸
 const mockGetBoundingClientRect = vi.fn()
+
+// Mock Observers
+class IntersectionObserverMock {
+  constructor(private callback: any) {}
+  observe = vi.fn(() => {
+    this.callback([{ isIntersecting: true }])
+  })
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+class ResizeObserverMock {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+vi.stubGlobal('ResizeObserver', ResizeObserverMock)
 
 describe('Affix', () => {
   beforeEach(() => {

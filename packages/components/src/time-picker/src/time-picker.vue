@@ -521,7 +521,7 @@ defineExpose<TimePickerExpose>({
     <!-- 下拉面板 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('panel')">
-        <div v-show="visible" :class="[ns.e('panel'), popperClass]" :style="teleported ? dropdownStyle : {}"
+        <div v-if="visible" :class="[ns.e('panel'), popperClass]" :style="teleported ? dropdownStyle : {}"
           @mousedown="handlePanelMousedown" @mouseup="handlePanelMouseup">
           <!-- 单选面板 -->
           <template v-if="!isRange">

@@ -3,28 +3,40 @@ import { mount } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import TimePicker from '../src/time-picker.vue'
 
-// Mock useNamespace hook
-vi.mock('@yh-ui/hooks', () => ({
-  useNamespace: (name: string) => ({
-    b: (suffix?: string) => (suffix ? `yh-${name}-${suffix}` : `yh-${name}`),
-    e: (element: string) => `yh-${name}__${element}`,
-    m: (modifier: string) => `yh-${name}--${modifier}`,
-    is: (state: string, value?: boolean) => (value !== false ? `is-${state}` : '')
-  }),
-  useFormItem: () => ({
-    form: null,
-    formItem: null,
-    validate: vi.fn()
-  }),
-  useId: () => 'test-id'
-}))
+import { zhCn } from '@yh-ui/locale'
 
-// Mock useConfig
-vi.mock('../../hooks/use-config', () => ({
-  useConfig: () => ({
-    globalSize: ref('default')
-  })
-}))
+// Mock hooks
+vi.mock('@yh-ui/hooks', async () => {
+  const actual = await vi.importActual<any>('@yh-ui/hooks')
+  return {
+    ...actual,
+    useNamespace: (name: string) => ({
+      b: (suffix?: string) => (suffix ? `yh-${name}-${suffix}` : `yh-${name}`),
+      e: (element: string) => `yh-${name}__${element}`,
+      m: (modifier: string) => `yh-${name}--${modifier}`,
+      is: (state: string, value?: boolean) => (value !== false ? `is-${state}` : '')
+    }),
+    useFormItem: () => ({
+      form: null,
+      formItem: null,
+      validate: vi.fn()
+    }),
+    useId: () => 'test-id',
+    useLocale: () => ({
+      t: (key: string) => key,
+      locale: ref(zhCn),
+      lang: ref('zh-cn')
+    }),
+    useConfig: () => ({
+      globalSize: ref('default'),
+      globalLocale: ref(zhCn)
+    }),
+    useZIndex: () => ({
+      currentZIndex: ref(2000),
+      nextZIndex: () => 2000
+    })
+  }
+})
 
 describe('YhTimePicker', () => {
   beforeEach(() => {
@@ -96,10 +108,8 @@ describe('YhTimePicker', () => {
       })
       await wrapper.find('.yh-time-picker').trigger('click')
       await nextTick()
-      await nextTick()
       const panel = wrapper.find('.yh-time-picker__panel')
       expect(panel.exists()).toBe(true)
-      expect(panel.attributes('style')).not.toContain('display: none')
     })
 
     it('禁用时不应该打开面板', async () => {
@@ -112,9 +122,7 @@ describe('YhTimePicker', () => {
       await wrapper.find('.yh-time-picker').trigger('click')
       await nextTick()
       const panel = wrapper.find('.yh-time-picker__panel')
-      if (panel.exists()) {
-        expect(panel.attributes('style')).toContain('display: none')
-      }
+      expect(panel.exists()).toBe(false)
     })
   })
 
@@ -212,9 +220,8 @@ describe('YhTimePicker', () => {
       const input = wrapper.find('input')
       await input.trigger('keydown', { key: 'Enter' })
       await nextTick()
-      await nextTick()
       const panel = wrapper.find('.yh-time-picker__panel')
-      expect(panel.attributes('style')).not.toContain('display: none')
+      expect(panel.exists()).toBe(true)
     })
   })
 

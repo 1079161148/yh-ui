@@ -16,20 +16,27 @@ import {
 } from '../src/time-select'
 
 // Mock useFormItem hook
-vi.mock('@yh-ui/hooks', () => ({
-  useNamespace: (name: string) => ({
-    b: (modifier?: string) => (modifier ? `yh-${name}--${modifier}` : `yh-${name}`),
-    e: (element: string) => `yh-${name}__${element}`,
-    m: (modifier: string) => `yh-${name}--${modifier}`,
-    is: (state: string, val?: boolean) => (val !== false ? `is-${state}` : '')
-  }),
-  useFormItem: () => ({
-    form: null,
-    formItem: null,
-    validate: vi.fn()
-  }),
-  useId: () => 'test-id'
-}))
+vi.mock('@yh-ui/hooks', async () => {
+  const actual = await vi.importActual<any>('@yh-ui/hooks')
+  return {
+    ...actual,
+    useNamespace: (name: string) => ({
+      b: (modifier?: string) => (modifier ? `yh-${name}--${modifier}` : `yh-${name}`),
+      e: (element: string) => `yh-${name}__${element}`,
+      m: (modifier: string) => `yh-${name}--${modifier}`,
+      is: (state: string, val?: boolean) => (val !== false ? `is-${state}` : '')
+    }),
+    useFormItem: () => ({
+      form: null,
+      formItem: null,
+      validate: vi.fn()
+    }),
+    useId: () => 'test-id',
+    useLocale: () => ({ t: (key: string) => key }),
+    useConfig: () => ({ globalSize: 'default' }),
+    useZIndex: () => ({ currentZIndex: 2000, nextZIndex: () => 2000 })
+  }
+})
 
 describe('TimeSelect 工具函数测试', () => {
   describe('parseTimeToMinutes', () => {
