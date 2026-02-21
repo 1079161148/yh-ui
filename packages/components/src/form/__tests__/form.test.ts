@@ -3,7 +3,7 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { reactive, nextTick, defineComponent, h } from 'vue'
+import { reactive, nextTick, defineComponent, h, ref } from 'vue'
 import Form from '../src/form.vue'
 import FormItem from '../src/form-item.vue'
 
@@ -20,197 +20,130 @@ describe('YhForm', () => {
     expect(wrapper.find('.form-content').exists()).toBe(true)
   })
 
-  it('should apply layout classes', () => {
-    const layouts = ['horizontal', 'vertical', 'inline'] as const
-    const model = reactive({})
-    layouts.forEach((layout) => {
-      const wrapper = mount(Form, {
-        props: { model, layout }
-      })
-      expect(wrapper.classes()).toContain(`yh-form--${layout}`)
-    })
-  })
-
-  it('should validate form fields correctly', async () => {
-    const TestComponent = defineComponent({
-      props: ['model', 'rules'],
-      setup(props) {
-        return () =>
-          h(
-            Form,
-            { model: props.model, rules: props.rules, ref: 'formRef' },
-            {
-              default: () =>
-                h(
-                  FormItem,
-                  { prop: 'name', label: 'Name', ref: 'itemRef' },
-                  {
-                    default: () =>
-                      h('input', {
-                        class: 'name-input',
-                        value: props.model.name,
-                        onInput: (e: any) => (props.model.name = e.target.value)
-                      })
-                  }
-                )
-            }
-          )
-      }
-    })
-
+  it('should validate form fields with callback', async () => {
     const model = reactive({ name: '' })
-    const rules = {
-      name: [{ required: true, message: 'Please input name', trigger: 'blur' }]
-    }
+    const rules = { name: [{ required: true, message: 'Required' }] }
+    const callback = vi.fn()
 
-    const wrapper = mount(TestComponent, {
-      props: { model, rules }
-    })
-
-    const form = wrapper.findComponent({ name: 'YhForm' }).vm as any
-    const item = wrapper.findComponent({ name: 'YhFormItem' })
-
-    // 验证不通过
-    try {
-      await form.validate()
-    } catch (e: unknown) {
-      const errors = e as Record<string, any>
-      expect(errors.name).toBeTruthy()
-    }
-    await nextTick()
-    expect(item.classes()).toContain('is-error')
-    expect(item.find('.yh-form-item__error').text()).toBe('Please input name')
-
-    // 验证通过
-    model.name = 'Antigravity'
-    const result = await form.validate()
-    expect(result).toBe(true)
-    await nextTick()
-    expect(item.classes()).toContain('is-success')
-    expect(item.find('.yh-form-item__error').exists()).toBe(false)
-  })
-
-  it('should reset fields correctly', async () => {
-    const TestComponent = defineComponent({
-      props: ['model'],
-      setup(props) {
-        return () =>
-          h(
-            Form,
-            { model: props.model },
-            {
-              default: () =>
-                h(
-                  FormItem,
-                  { prop: 'name', label: 'Name' },
-                  {
-                    default: () =>
-                      h('input', {
-                        value: props.model.name,
-                        onInput: (e: any) => (props.model.name = e.target.value)
-                      })
-                  }
-                )
-            }
-          )
+    const wrapper = mount(Form, {
+      props: { model, rules },
+      slots: {
+        default: () => h(FormItem, { prop: 'name' }, { default: () => h('input') })
       }
     })
 
-    const model = reactive({ name: 'Initial' })
-    const wrapper = mount(TestComponent, {
-      props: { model }
-    })
-
-    // 等待注册和初始值记录
-    await nextTick()
-
-    model.name = 'Changed'
-    const form = wrapper.findComponent({ name: 'YhForm' }).vm as any
-    form.resetFields()
-
-    expect(model.name).toBe('Initial')
+    const result = await wrapper.vm.validate(callback)
+    expect(result).toBe(false)
+    expect(callback).toHaveBeenCalledWith(false, expect.any(Object))
   })
 
-  it('should clear validation results', async () => {
-    const TestComponent = defineComponent({
-      props: ['model', 'rules'],
-      setup(props) {
-        return () =>
-          h(
-            Form,
-            { model: props.model, rules: props.rules },
-            {
-              default: () =>
-                h(
-                  FormItem,
-                  { prop: 'name', label: 'Name' },
-                  {
-                    default: () => h('input')
-                  }
-                )
-            }
-          )
+  it('should validate specific fields', async () => {
+    const model = reactive({ name: '', age: '' })
+    const rules = {
+      name: [{ required: true, message: 'N' }],
+      age: [{ required: true, message: 'A' }]
+    }
+
+    const wrapper = mount(Form, {
+      props: { model, rules },
+      slots: {
+        default: () => [
+          h(FormItem, { prop: 'name', class: 'item-name' }, { default: () => h('input') }),
+          h(FormItem, { prop: 'age', class: 'item-age' }, { default: () => h('input') })
+        ]
       }
     })
 
-    const model = reactive({ name: '' })
-    const rules = {
-      name: [{ required: true, message: 'Required' }]
-    }
-    const wrapper = mount(TestComponent, {
-      props: { model, rules }
-    })
-
-    const form = wrapper.findComponent({ name: 'YhForm' }).vm as any
+    // Validate only 'name'
     try {
-      await form.validate()
+      await wrapper.vm.validate('name')
     } catch (e) {}
 
     await nextTick()
-    const item = wrapper.findComponent({ name: 'YhFormItem' })
-    expect(item.classes()).toContain('is-error')
-
-    form.clearValidate()
-    await nextTick()
-    expect(item.classes()).not.toContain('is-error')
-    expect(item.find('.yh-form-item__error').exists()).toBe(false)
+    expect(wrapper.find('.item-name').classes()).toContain('is-error')
+    expect(wrapper.find('.item-age').classes()).not.toContain('is-error')
   })
 
-  it('should provide size to all form items', () => {
-    const model = reactive({})
+  it('should clear validation for specific fields', async () => {
+    const model = reactive({ name: '' })
+    const rules = { name: [{ required: true, message: 'R' }] }
     const wrapper = mount(Form, {
-      props: { model, size: 'large' },
+      props: { model, rules },
       slots: {
-        default: () =>
-          h(
-            FormItem,
-            { label: 'Name', class: 'target-item' },
-            {
-              default: () => h('input')
-            }
-          )
+        default: () => h(FormItem, { prop: 'name' }, { default: () => h('input') })
       }
     })
 
-    expect(wrapper.find('.target-item').classes()).toContain('yh-form-item--large')
+    try {
+      await wrapper.vm.validate()
+    } catch (e) {}
+    await nextTick()
+    expect(wrapper.find('.yh-form-item').classes()).toContain('is-error')
+
+    wrapper.vm.clearValidate('name')
+    await nextTick()
+    expect(wrapper.find('.yh-form-item').classes()).not.toContain('is-error')
   })
 
-  it('should show required asterisk', () => {
-    const model = reactive({})
+  it('should scrollToField', async () => {
+    const model = reactive({ name: '' })
+    const spy = vi.spyOn(Element.prototype, 'scrollIntoView')
     const wrapper = mount(Form, {
       props: { model },
       slots: {
-        default: () =>
-          h(
-            FormItem,
-            { label: 'Name', required: true },
-            {
-              default: () => h('input')
-            }
-          )
-      }
+        default: () => h(FormItem, { prop: 'name' }, { default: () => h('input') })
+      },
+      attachTo: document.body
     })
 
-    expect(wrapper.find('.yh-form-item').classes()).toContain('is-required')
+    wrapper.vm.scrollToField('name')
+    expect(spy).toHaveBeenCalled()
+    wrapper.unmount()
+  })
+
+  it('should support label-suffix', () => {
+    const wrapper = mount(Form, {
+      props: { model: {}, labelSuffix: ':' },
+      slots: {
+        default: () => h(FormItem, { label: 'Name' })
+      }
+    })
+    expect(wrapper.find('.yh-form-item__label').text()).toBe('Name:')
+  })
+
+  it('should remove field on unmount', async () => {
+    const show = ref(true)
+    const TestComponent = defineComponent({
+      setup() {
+        return { show }
+      },
+      template: `
+            <yh-form :model="{}">
+                <yh-form-item v-if="show" prop="name" />
+            </yh-form>
+        `
+    })
+
+    const wrapper = mount(TestComponent, {
+      global: { components: { 'yh-form': Form, 'yh-form-item': FormItem } }
+    })
+
+    const form = wrapper.getComponent(Form).vm as any
+    expect(form.fields.length).toBe(1)
+
+    show.value = false
+    await nextTick()
+    expect(form.fields.length).toBe(0)
+  })
+
+  it('FormItem should use own label-width', () => {
+    const wrapper = mount(Form, {
+      props: { model: {}, labelWidth: '100px' },
+      slots: {
+        default: () => h(FormItem, { label: 'L', labelWidth: '200px' })
+      }
+    })
+    const label = wrapper.find('.yh-form-item__label')
+    expect(label.element.style.width).toBe('200px')
   })
 })

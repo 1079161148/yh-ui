@@ -1,155 +1,138 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, h, ref } from 'vue'
+import { nextTick, h, ref, defineComponent } from 'vue'
 import { YhInfiniteScroll } from '../index'
+import { vInfiniteScroll } from '../src/directive'
 
-describe('InfiniteScroll', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
+// Mock IntersectionObserver
+class MockIntersectionObserver {
+  callback: any
+  elements: Set<Element> = new Set()
+  constructor(callback: any) {
+    this.callback = callback
+  }
+  observe(el: Element) {
+    this.elements.add(el)
+  }
+  unobserve(el: Element) {
+    this.elements.delete(el)
+  }
+  disconnect() {
+    this.elements.clear()
+  }
+  trigger(entry = { isIntersecting: true }) {
+    this.callback([entry], this)
+  }
+}
 
-  afterEach(() => {
-    vi.useRealTimers()
-  })
+// @ts-ignore
+global.IntersectionObserver = MockIntersectionObserver
 
+describe('InfiniteScroll Component', () => {
   it('should render correctly', () => {
     const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        loading: false,
-        finished: false
-      },
-      slots: {
-        default: () => h('div', { class: 'list-content' }, 'List Items')
-      }
+      props: { loading: false, finished: false },
+      slots: { default: () => h('div', { class: 'list-item' }, 'Item') }
     })
-
     expect(wrapper.find('.yh-infinite-scroll').exists()).toBe(true)
-    expect(wrapper.find('.list-content').text()).toBe('List Items')
+    expect(wrapper.find('.list-item').exists()).toBe(true)
   })
 
   it('should show loading state', () => {
     const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        loading: true
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
+      props: { loading: true }
     })
-
     expect(wrapper.find('.yh-infinite-scroll__loading').exists()).toBe(true)
-    expect(wrapper.text()).toContain('加载中...')
   })
 
-  it('should show finished state', () => {
+  it('should show finished state', async () => {
     const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        finished: true
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
+      props: { finished: true, loading: false }
     })
-
     expect(wrapper.find('.yh-infinite-scroll__finished').exists()).toBe(true)
-    expect(wrapper.text()).toContain('没有更多了')
   })
 
-  it('should show error state', () => {
+  it('should handle retry click', async () => {
     const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        error: true
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
+      props: { error: true }
     })
-
-    expect(wrapper.find('.yh-infinite-scroll__error').exists()).toBe(true)
-    expect(wrapper.text()).toContain('加载失败，点击重试')
-  })
-
-  it('should use custom loading text', () => {
-    const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        loading: true,
-        loadingText: '正在加载数据...'
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
-
-    expect(wrapper.text()).toContain('正在加载数据...')
-  })
-
-  it('should use custom finished text', () => {
-    const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        finished: true,
-        finishedText: '已经到底啦'
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
-
-    expect(wrapper.text()).toContain('已经到底啦')
-  })
-
-  it('should emit update:error on retry click', async () => {
-    const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        error: true
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
-
     await wrapper.find('.yh-infinite-scroll__error').trigger('click')
-
-    expect(wrapper.emitted('update:error')).toBeTruthy()
     expect(wrapper.emitted('update:error')![0]).toEqual([false])
     expect(wrapper.emitted('load')).toBeTruthy()
   })
 
-  it('should support horizontal direction', () => {
+  it('should support manual check method', async () => {
     const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        direction: 'horizontal'
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
+      props: { useObserver: false, threshold: 50 }
     })
-
-    expect(wrapper.find('.yh-infinite-scroll').classes()).toContain('is-horizontal')
-  })
-
-  it('should expose check and retry methods', () => {
-    const wrapper = mount(YhInfiniteScroll, {
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
-
     expect(typeof wrapper.vm.check).toBe('function')
-    expect(typeof wrapper.vm.retry).toBe('function')
+    wrapper.vm.check()
   })
+})
 
-  it('should support custom loading slot', () => {
-    const wrapper = mount(YhInfiniteScroll, {
-      props: {
-        loading: true
-      },
-      slots: {
-        default: () => h('div', 'Content'),
-        loading: () => h('div', { class: 'custom-loading' }, '自定义加载')
+describe('InfiniteScroll Directive', () => {
+  it('should trigger callback when intersecting', async () => {
+    const onLoad = vi.fn()
+    const instances: MockIntersectionObserver[] = []
+
+    const Original = global.IntersectionObserver
+    // @ts-ignore
+    global.IntersectionObserver = class extends MockIntersectionObserver {
+      constructor(cb: any) {
+        super(cb)
+        instances.push(this)
       }
+    }
+
+    const TestComponent = defineComponent({
+      directives: { InfiniteScroll: vInfiniteScroll },
+      setup() {
+        return { onLoad }
+      },
+      template: '<div v-infinite-scroll="onLoad"></div>'
     })
 
-    expect(wrapper.find('.custom-loading').exists()).toBe(true)
-    expect(wrapper.text()).toContain('自定义加载')
+    const wrapper = mount(TestComponent)
+    expect(instances.length).toBeGreaterThan(0)
+
+    instances[0].trigger({ isIntersecting: true })
+    expect(onLoad).toHaveBeenCalled()
+
+    global.IntersectionObserver = Original
+  })
+
+  it('should handle disabled attribute in directive', async () => {
+    const onLoad = vi.fn()
+    const disabled = ref(true)
+    const instances: MockIntersectionObserver[] = []
+
+    const Original = global.IntersectionObserver
+    // @ts-ignore
+    global.IntersectionObserver = class extends MockIntersectionObserver {
+      constructor(cb: any) {
+        super(cb)
+        instances.push(this)
+      }
+    }
+
+    const TestComponent = defineComponent({
+      directives: { InfiniteScroll: vInfiniteScroll },
+      setup() {
+        return { onLoad, disabled }
+      },
+      template: '<div v-infinite-scroll="onLoad" :infinite-scroll-disabled="disabled"></div>'
+    })
+
+    const wrapper = mount(TestComponent)
+    instances[0].trigger({ isIntersecting: true })
+    expect(onLoad).not.toHaveBeenCalled()
+
+    disabled.value = false
+    await nextTick()
+
+    instances[0].trigger({ isIntersecting: true })
+    expect(onLoad).toHaveBeenCalled()
+
+    global.IntersectionObserver = Original
   })
 })

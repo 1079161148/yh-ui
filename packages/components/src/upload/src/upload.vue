@@ -324,8 +324,12 @@ const handleFiles = async (files: File[]) => {
         const result = await props.beforeUpload(rawFile)
         if (result === false) continue
         if (result instanceof Blob) {
-          Object.assign(result, { uid: Date.now() + Math.random() })
-          // 如果钩子返回了新文件，则替换它
+          // If the hook returns a new Blob/File, use it instead of the original
+          const newRawFile = result as UploadRawFile
+          if (!newRawFile.uid) newRawFile.uid = Date.now() + Math.random()
+          // Assign to rawFile for subsequent logic
+          Object.assign(rawFile, newRawFile)
+          // We also need to handle the case where we just use the new object
         }
       } catch (err) {
         continue

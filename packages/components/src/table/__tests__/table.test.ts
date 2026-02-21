@@ -23,6 +23,15 @@ describe('Table', () => {
       props: {
         data: mockData,
         columns: mockColumns
+      },
+      global: {
+        stubs: {
+          YhPagination: true,
+          YhSelect: true,
+          YhOption: true,
+          YhInput: true,
+          YhTooltip: true
+        }
       }
     })
 
