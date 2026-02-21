@@ -4,13 +4,15 @@
  */
 import { computed, ref, useSlots } from 'vue'
 import { useNamespace, useConfig } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
 import type { ButtonProps, ButtonEmits, ButtonExpose } from './button'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhButton'
 })
 
-const props = withDefaults(defineProps<ButtonProps>(), {
+const props = withDefaults(defineProps<ButtonProps & { themeOverrides?: ComponentThemeVars }>(), {
   type: 'default',
   nativeType: 'button',
   disabled: false,
@@ -35,6 +37,9 @@ const ns = useNamespace('button')
 
 // 获取全局配置
 const { globalSize } = useConfig()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('button', computed(() => props.themeOverrides))
 
 // 最终尺寸
 const actualSize = computed(() => props.size || globalSize.value || 'default')
@@ -70,11 +75,11 @@ const buttonClasses = computed(() => [
 
 // 自定义颜色样式增强
 const buttonStyles = computed(() => {
-  if (!props.color) return {}
+  const base = themeStyle.value
+  if (!props.color) return base
   const color = props.color
-
-  // 基础变量映射，具体点击/悬浮效果交由 CSS filter 处理以保证响应
   return {
+    ...base,
     '--yh-button-bg-color': props.plain ? 'transparent' : color,
     '--yh-button-text-color': props.plain ? color : 'var(--yh-color-white)',
     '--yh-button-border-color': color,

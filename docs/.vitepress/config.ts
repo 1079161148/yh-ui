@@ -143,6 +143,7 @@ export default defineConfig({
             { text: '对齐方式', link: '/table/alignment' },
             { text: '加载状态', link: '/table/loading' },
             { text: '虚拟滚动', link: '/table/virtual-scroll' },
+            { text: '⚡ 性能基准压测', link: '/table/benchmark' },
             { text: '行拖拽', link: '/table/row-drag' },
             { text: '列宽调整', link: '/table/column-resize' },
             { text: '多级表头', link: '/table/grouped-header' },
@@ -175,6 +176,7 @@ export default defineConfig({
             { text: 'Alignment', link: '/en/table/alignment' },
             { text: 'Loading State', link: '/en/table/loading' },
             { text: 'Virtual Scroll', link: '/en/table/virtual-scroll' },
+            { text: '⚡ Performance Benchmark', link: '/en/table/benchmark' },
             { text: 'Row Drag', link: '/en/table/row-drag' },
             { text: 'Column Resize', link: '/en/table/column-resize' },
             { text: 'Grouped Header', link: '/en/table/grouped-header' },
@@ -198,6 +200,9 @@ export default defineConfig({
             { text: 'Layout', link: '/en/components/layout' },
             { text: 'Button', link: '/en/components/button' },
             { text: 'Icon', link: '/en/components/icon' },
+            { text: 'Space', link: '/en/components/space' },
+            { text: 'Avatar', link: '/en/components/avatar' },
+            { text: 'Empty', link: '/en/components/empty' },
             { text: 'Divider', link: '/en/components/divider' },
             { text: 'Skeleton', link: '/en/components/skeleton' }
           ]
@@ -286,6 +291,9 @@ export default defineConfig({
             { text: 'Layout 布局', link: '/components/layout' },
             { text: 'Button 按钮', link: '/components/button' },
             { text: 'Icon 图标', link: '/components/icon' },
+            { text: 'Space 间距', link: '/components/space' },
+            { text: 'Avatar 头像', link: '/components/avatar' },
+            { text: 'Empty 空状态', link: '/components/empty' },
             { text: 'Divider 分割线', link: '/components/divider' },
             { text: 'Skeleton 骨架屏', link: '/components/skeleton' }
           ]

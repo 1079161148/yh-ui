@@ -6,13 +6,15 @@
 import { computed, ref, nextTick, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { TagProps, TagEmits } from './tag'
 
 defineOptions({
   name: 'YhTag'
 })
 
-const props = withDefaults(defineProps<TagProps>(), {
+const props = withDefaults(defineProps<TagProps & { themeOverrides?: ComponentThemeVars }>(), {
   type: 'primary',
   size: 'default',
   effect: 'light',
@@ -33,6 +35,9 @@ const ns = useNamespace('tag')
 
 // 全局配置
 const { globalSize } = useConfig()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('tag', computed(() => props.themeOverrides))
 
 // 编辑状态
 const isEditing = ref(false)
@@ -63,7 +68,8 @@ const tagClasses = computed(() => [
 
 // 自定义颜色样式
 const tagStyle = computed(() => {
-  if (!props.color) return {}
+  const base = themeStyle.value
+  if (!props.color) return base
 
   const style: Record<string, string> = {}
 
@@ -81,7 +87,7 @@ const tagStyle = computed(() => {
     style['--yh-tag-text-color'] = props.color
   }
 
-  return style
+  return { ...base, ...style }
 })
 
 // 事件处理

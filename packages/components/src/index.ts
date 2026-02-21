@@ -65,6 +65,9 @@ import { YhWaterfall } from './waterfall'
 import { YhTree, YhTreeNode } from './tree'
 import { YhCountdown } from './countdown'
 import { YhTable, YhTableColumn } from './table'
+import { YhSpace } from './space'
+import { YhAvatar } from './avatar'
+import { YhEmpty } from './empty'
 
 // 导出所有组件
 export * from './button'
@@ -126,6 +129,9 @@ export * from './waterfall'
 export * from './tree'
 export * from './countdown'
 export * from './table'
+export * from './space'
+export * from './avatar'
+export * from './empty'
 
 // 所有组件列表
 const components = [
@@ -207,7 +213,10 @@ const components = [
   YhTreeNode,
   YhCountdown,
   YhTable,
-  YhTableColumn
+  YhTableColumn,
+  YhSpace,
+  YhAvatar,
+  YhEmpty
 ] as Plugin[]
 
 /**
