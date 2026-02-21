@@ -1,6 +1,7 @@
-import { defineComponent, h, computed, provide, toRefs } from 'vue'
+import { defineComponent, h, computed, provide } from 'vue'
 import type { PropType, ExtractPropTypes, InjectionKey, ComputedRef } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 
 export const rowProps = {
   tag: {
@@ -20,6 +21,11 @@ export const rowProps = {
   align: {
     type: String as PropType<'top' | 'middle' | 'bottom'>,
     default: 'top'
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 
@@ -38,12 +44,20 @@ export default defineComponent({
     const ns = useNamespace('row')
     const gutter = computed(() => props.gutter)
 
+    // 组件级 themeOverrides
+    const { themeStyle } = useComponentTheme(
+      'row',
+      computed(() => props.themeOverrides)
+    )
+
     provide(rowContextKey, {
       gutter
     })
 
     const style = computed(() => {
-      const styles: Record<string, string> = {}
+      const styles: Record<string, string> = {
+        ...(themeStyle.value as any)
+      }
       if (!props.gutter) {
         return styles
       }

@@ -109,6 +109,11 @@ export interface NotificationProps {
    * @description 同一位置最多显示的通知数量
    */
   max?: number
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

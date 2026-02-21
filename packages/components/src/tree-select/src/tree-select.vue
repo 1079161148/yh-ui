@@ -1,5 +1,5 @@
 <template>
-  <div :class="[ns.b(), ns.is('disabled', disabled), ns.is('multiple', multiple)]" ref="selectRef">
+  <div :class="[ns.b(), ns.is('disabled', disabled), ns.is('multiple', multiple)]" :style="themeStyle" ref="selectRef">
     <div :class="[ns.e('trigger'), ns.is('active', visible)]" @click="handleTriggerClick" @mouseenter="showClear = true"
       @mouseleave="showClear = false">
       <div :class="ns.e('tags')">
@@ -118,6 +118,7 @@
  */
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { treeSelectProps, treeSelectEmits, type TreeSelectNode, type TreeKey } from './tree-select'
 import { useTree } from './use-tree'
 
@@ -128,6 +129,9 @@ const emit = defineEmits(treeSelectEmits)
 
 const ns = useNamespace('tree-select')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('tree-select', computed(() => props.themeOverrides))
 const visible = ref(false)
 const query = ref('')
 const dropdownStyle = ref<Record<string, string>>({})

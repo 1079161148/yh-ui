@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
 import { rateProps, rateEmits } from './rate'
 
 defineOptions({
@@ -12,6 +13,9 @@ const props = defineProps(rateProps)
 const emit = defineEmits(rateEmits)
 const ns = useNamespace('rate')
 const { t, tRaw } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('rate', computed(() => props.themeOverrides))
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -98,7 +102,8 @@ const starPath = 'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-3
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(actualSize), ns.is('disabled', disabled)]" @mouseleave="handleMouseLeave">
+  <div :class="[ns.b(), ns.m(actualSize), ns.is('disabled', disabled)]" :style="themeStyle"
+    @mouseleave="handleMouseLeave">
     <div v-for="item in max" :key="item" :class="[ns.e('item'), ns.is('hover', hoverIndex === item)]"
       :style="{ width: iconSize + 'px', height: iconSize + 'px' }" @mousemove="handleMouseMove(item, $event)"
       @click="handleItemClick(item)">

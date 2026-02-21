@@ -12,7 +12,7 @@ defineOptions({
   name: 'YhButton'
 })
 
-const props = withDefaults(defineProps<ButtonProps & { themeOverrides?: ComponentThemeVars }>(), {
+const props = withDefaults(defineProps<ButtonProps>(), {
   type: 'default',
   nativeType: 'button',
   disabled: false,

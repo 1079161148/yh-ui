@@ -132,6 +132,11 @@ export interface ButtonProps {
    * @default false
    */
   block?: boolean
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, useSlots, inject, nextTick } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type { InputNumberProps, InputNumberEmits, InputNumberExpose } from './input-number'
 
@@ -32,6 +33,9 @@ const slots = useSlots()
 
 const ns = useNamespace('input-number')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('input-number', computed(() => props.themeOverrides))
 const inputRef = ref<HTMLInputElement>()
 const inputId = useId()
 
@@ -211,7 +215,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="inputNumberClasses" @mouseenter="hovering = true" @mouseleave="hovering = false">
+  <div :class="inputNumberClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
     <span v-if="controls && controlsPosition !== 'right'"
       :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]" @click="decrease">
       <slot name="decreaseIcon">

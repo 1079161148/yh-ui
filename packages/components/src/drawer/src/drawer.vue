@@ -56,6 +56,7 @@ import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type CSSPro
 import { drawerProps, drawerEmits } from './drawer'
 import { YhIcon } from '../../icon'
 import { useNamespace, useZIndex, useScrollLock, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhDrawer'
@@ -67,6 +68,9 @@ const emit = defineEmits(drawerEmits)
 const ns = useNamespace('drawer')
 const { t } = useLocale()
 const { nextZIndex } = useZIndex()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('drawer', computed(() => props.themeOverrides))
 
 const drawerRef = ref<HTMLElement | null>(null)
 const rendered = ref(false)
@@ -81,7 +85,10 @@ const isHorizontal = computed(() => ['left', 'right'].includes(props.placement))
 
 const drawerStyles = computed<CSSProperties>(() => {
   const baseStyle = typeof props.drawerStyle === 'object' ? props.drawerStyle : {}
-  const styles: CSSProperties = { ...baseStyle }
+  const styles: CSSProperties = {
+    ...themeStyle.value as any,
+    ...baseStyle
+  }
   const sizeValue = typeof currentSize.value === 'number' ? `${currentSize.value}px` : currentSize.value
 
   if (isHorizontal.value) {

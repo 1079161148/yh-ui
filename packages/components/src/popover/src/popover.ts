@@ -114,6 +114,11 @@ export const popoverProps = {
   persistent: {
     type: Boolean,
     default: true
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 

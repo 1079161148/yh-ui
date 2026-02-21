@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { provide, toRefs, useSlots, computed, h, Fragment, type VNodeChild } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { breadcrumbProps } from './breadcrumb'
 
 defineOptions({
@@ -11,6 +12,9 @@ const props = defineProps(breadcrumbProps)
 const ns = useNamespace('breadcrumb')
 const { t } = useLocale()
 const slots = useSlots()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('breadcrumb', computed(() => props.themeOverrides))
 
 // 向子组件提供配置
 provide('breadcrumbProps', toRefs(props))
@@ -49,7 +53,7 @@ const breadcrumbItems = computed(() => {
 </script>
 
 <template>
-  <div :class="ns.b()" role="navigation" :aria-label="t('breadcrumb.label')">
+  <div :class="ns.b()" :style="themeStyle" role="navigation" :aria-label="t('breadcrumb.label')">
     <component :is="item" v-for="(item, index) in breadcrumbItems" :key="index" />
   </div>
 </template>

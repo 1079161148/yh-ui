@@ -63,6 +63,8 @@ export interface AutocompleteProps {
   name?: string
   /** 原生属性 */
   autocomplete?: string
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface AutocompleteEmits {

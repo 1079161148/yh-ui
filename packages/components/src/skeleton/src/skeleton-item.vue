@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { skeletonItemProps } from './skeleton'
 
 defineOptions({
@@ -10,8 +11,13 @@ defineOptions({
 const props = defineProps(skeletonItemProps)
 const ns = useNamespace('skeleton-item')
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('skeleton-item', computed(() => props.themeOverrides))
+
 const style = computed(() => {
-  const s: Record<string, string> = {}
+  const s: Record<string, any> = {
+    ...themeStyle.value
+  }
   if (props.width) {
     s.width = typeof props.width === 'number' ? `${props.width}px` : props.width
   }

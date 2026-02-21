@@ -110,6 +110,8 @@ export interface TransferProps {
   leftEmptyText?: string
   /** 右侧列表为空时显示的文本 */
   rightEmptyText?: string
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

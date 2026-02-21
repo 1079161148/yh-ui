@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { skeletonProps } from './skeleton'
 import YhSkeletonItem from './skeleton-item.vue'
 
@@ -10,6 +11,10 @@ defineOptions({
 
 const props = defineProps(skeletonProps)
 const ns = useNamespace('skeleton')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('skeleton', computed(() => props.themeOverrides))
+
 const slots = useSlots()
 
 const uiLoading = ref(props.loading && props.throttle <= 0)
@@ -56,7 +61,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="uiLoading" ref="skeletonRef" :class="containerClass">
+  <div v-if="uiLoading" ref="skeletonRef" :class="containerClass" :style="themeStyle">
     <slot name="template">
       <!-- 默认布局：Avatar + Title + Rows -->
       <div v-if="avatar" :class="ns.e('header')">

@@ -6,6 +6,7 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhTooltip } from '../../tooltip'
 import { YhIcon } from '../../icon'
 import { popoverProps, popoverEmits } from './popover'
@@ -17,6 +18,9 @@ defineOptions({
 const props = defineProps(popoverProps)
 const emit = defineEmits(popoverEmits)
 const ns = useNamespace('popover')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('popover', computed(() => props.themeOverrides))
 const internalVisible = ref(false)
 const visible = computed({
   get: () => (props.visible !== null ? props.visible : internalVisible.value),
@@ -31,7 +35,9 @@ const triggerWidth = ref<string>('auto')
 
 // 计算内容区域样式
 const contentStyle = computed(() => {
-  const styles: CSSProperties = {}
+  const styles: CSSProperties = {
+    ...themeStyle.value as any
+  }
 
   if (props.matchTriggerWidth) {
     styles.width = triggerWidth.value

@@ -5,6 +5,7 @@
  */
 import { ref, computed, provide, watch, shallowRef } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { treeProps, treeEmits, TREE_INJECTION_KEY } from './tree'
 import type { TreeNode, TreeNodeData, TreeContext } from './tree'
 import TreeNodeComponent from './tree-node.vue'
@@ -15,6 +16,9 @@ const props = defineProps(treeProps)
 const emit = defineEmits(treeEmits)
 const ns = useNamespace('tree')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('tree', computed(() => props.themeOverrides))
 
 // 内部状态
 const expandedKeys = ref<Set<string | number>>(new Set(props.defaultExpandedKeys))
@@ -514,7 +518,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="[ns.b(), showLine && ns.m('show-line')]" role="tree">
+  <div :class="[ns.b(), showLine && ns.m('show-line')]" :style="themeStyle" role="tree">
     <div v-if="props.virtual" ref="innerScrollRef" :style="{ height: props.height + 'px', overflowY: 'auto' }"
       @scroll="handleScroll">
       <div :style="{ height: totalHeight + 'px', position: 'relative' }">

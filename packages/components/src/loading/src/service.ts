@@ -8,8 +8,10 @@ import {
   Transition,
   type AppContext,
   type VNode,
-  type Component
+  type Component,
+  computed
 } from 'vue'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhSpin, type LoadingSpinnerType } from '../../spin'
 
 export interface LoadingOptions {
@@ -25,6 +27,8 @@ export interface LoadingOptions {
   color?: string | string[] | Record<string, string>
   dot?: boolean
   spinnerType?: LoadingSpinnerType
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface LoadingInstance {
@@ -48,6 +52,11 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
 
   const component = {
     setup() {
+      const { themeStyle } = useComponentTheme(
+        'loading',
+        computed(() => resolvedOptions.themeOverrides)
+      )
+
       return () =>
         h(
           Transition,
@@ -66,9 +75,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
                           'is-glass': resolvedOptions.glass
                         }
                       ],
-                      style: {
-                        backgroundColor: resolvedOptions.background
-                      }
+                      style: [{ backgroundColor: resolvedOptions.background }, themeStyle.value]
                     },
                     [
                       h('div', { class: 'yh-loading-spinner' }, [

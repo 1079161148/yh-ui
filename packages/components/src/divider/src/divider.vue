@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { dividerProps } from './divider'
 
 defineOptions({
@@ -9,6 +10,9 @@ defineOptions({
 
 const props = defineProps(dividerProps)
 const ns = useNamespace('divider')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('divider', computed(() => props.themeOverrides))
 
 const dividerStyle = computed(() => {
   const styles: Record<string, string | number> = {
@@ -22,7 +26,7 @@ const dividerStyle = computed(() => {
       ? `${props.borderWidth}px`
       : props.borderWidth
   }
-  return styles
+  return { ...themeStyle.value, ...styles }
 })
 
 const classes = computed(() => [

@@ -4,6 +4,7 @@
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { colorPickerProps, colorPickerEmits } from './color-picker'
 import SVPanel from './sv-panel.vue'
 import HueSlider from './hue-slider.vue'
@@ -32,6 +33,9 @@ const emit = defineEmits(colorPickerEmits)
 const ns = useNamespace('color-picker')
 const { t } = useLocale()
 const { formItem } = useFormItem()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('color-picker', computed(() => props.themeOverrides))
 
 // --- Internal State ---
 const visible = ref(false)
@@ -160,7 +164,7 @@ watch(visible, (val: boolean) => {
     ns.b(),
     ns.m(size),
     ns.is('disabled', disabled)
-  ]" @click="togglePopper">
+  ]" :style="themeStyle" @click="togglePopper">
     <div :class="ns.e('trigger')">
       <div :class="ns.e('color')" :style="{ backgroundColor: modelValue || 'transparent' }">
         <svg v-if="!modelValue" viewBox="0 0 1024 1024" width="1em" height="1em" class="yh-color-picker__empty">

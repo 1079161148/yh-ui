@@ -3,11 +3,12 @@
  * YhForm - 高性能高度扩展表单组件
  * @description 支持各种布局、校验方式，完美融合组件库，已实现类型安全
  */
-import { provide, reactive, toRefs } from 'vue'
+import { provide, reactive, toRefs, computed } from 'vue'
 import { formProps, FormContextKey } from './form'
 import type { FormContext } from './form'
 import type { FormItemContext } from './form-item'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhForm'
@@ -18,6 +19,9 @@ const emit = defineEmits<{
   (e: 'validate', isValid: boolean, invalidFields?: Record<string, unknown>): void
 }>()
 const ns = useNamespace('form')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('form', computed(() => props.themeOverrides))
 
 // 存储所有 FormItem 的实例上下文
 const fields: FormItemContext[] = []
@@ -161,7 +165,7 @@ defineExpose({
     ns.m(layout),
     ns.m(size),
     ns.m(`label-${labelPosition}`)
-  ]" @submit.prevent>
+  ]" :style="themeStyle" @submit.prevent>
     <slot />
   </form>
 </template>

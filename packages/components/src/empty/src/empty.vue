@@ -4,6 +4,7 @@
  */
 import { computed } from 'vue'
 import { useNamespace } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
 import type { EmptyProps } from './empty'
 
 defineOptions({ name: 'YhEmpty' })
@@ -15,6 +16,9 @@ const props = withDefaults(defineProps<EmptyProps>(), {
 
 const ns = useNamespace('empty')
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('empty', computed(() => props.themeOverrides))
+
 const imageStyle = computed(() => ({
   width: `${props.imageSize}px`,
   height: `${props.imageSize}px`
@@ -22,7 +26,7 @@ const imageStyle = computed(() => ({
 </script>
 
 <template>
-  <div :class="ns.b()" role="status" aria-label="empty">
+  <div :class="ns.b()" :style="themeStyle" role="status" aria-label="empty">
     <!-- 图像区域 -->
     <div :class="ns.e('image')" :style="imageStyle">
       <slot name="image">

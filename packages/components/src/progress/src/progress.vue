@@ -2,6 +2,7 @@
 import { computed, useId } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { progressProps } from './progress'
 
 defineOptions({
@@ -11,6 +12,9 @@ defineOptions({
 const props = defineProps(progressProps)
 const ns = useNamespace('progress')
 const componentId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('progress', computed(() => props.themeOverrides))
 
 // 归一化百分比数据，支持单数值或数组（多环）
 const percentages = computed(() => {
@@ -142,7 +146,8 @@ const progressClass = computed(() => [
 </script>
 
 <template>
-  <div :class="progressClass" role="progressbar" :aria-valuenow="percentages[0]" aria-valuemin="0" aria-valuemax="100">
+  <div :class="progressClass" :style="themeStyle" role="progressbar" :aria-valuenow="percentages[0]" aria-valuemin="0"
+    aria-valuemax="100">
     <!-- 线型进度条 -->
     <div v-if="type === 'line'" :class="ns.e('bar')">
       <div :class="ns.e('outer')" :style="{ height: `${strokeWidth}px`, backgroundColor: defineBackgroundColor }">

@@ -15,10 +15,10 @@ import {
 } from 'vue'
 import AsyncValidator, { type Rules } from 'async-validator'
 import { formItemProps } from './form-item'
-import type { ValidateStatus } from './form-item'
 import type { FormRule } from './form'
-import { FormContextKey, FormItemContextKey, useId } from '@yh-ui/hooks'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
+import type { ValidateStatus } from './form-item'
+import { useNamespace, useLocale, FormContextKey, FormItemContextKey, useId } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import { get, set } from '@yh-ui/utils'
 
@@ -35,6 +35,9 @@ const formContext = inject(FormContextKey, null)
 
 // 全局配置
 const { globalSize } = useConfig()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('form-item', computed(() => props.themeOverrides || formContext?.themeOverrides))
 
 // 生成唯一 ID
 const id = useId().value
@@ -205,7 +208,7 @@ defineExpose({
     ns.is('success', currentValidateStatus === 'success'),
     ns.is('required', isRequired),
     ns.is('disabled', isDisabled)
-  ]" :data-prop="prop">
+  ]" :style="themeStyle" :data-prop="prop">
     <!-- 标签 -->
     <label v-if="label || $slots.label" :id="labelId" :for="contentId" :class="ns.e('label')" :style="labelStyle">
       <slot name="label">{{ label }}{{ formContext?.labelSuffix }}</slot>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, provide, watch, onMounted, nextTick } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { tabsProps, tabsEmits, TABS_INJECTION_KEY } from './tabs'
 import type { TabPaneConfig } from './tabs'
 
@@ -11,6 +12,9 @@ defineOptions({
 const props = defineProps(tabsProps)
 const emit = defineEmits(tabsEmits)
 const ns = useNamespace('tabs')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('tabs', computed(() => props.themeOverrides))
 
 const panes = ref<TabPaneConfig[]>([])
 const activeTab = ref<string | number>(props.modelValue)
@@ -208,7 +212,9 @@ const tabsClass = computed(() => [
 
 // CSS 变量样式（颜色自定义）
 const tabsStyle = computed(() => {
-  const style: Record<string, string> = {}
+  const style: Record<string, string> = {
+    ...themeStyle.value as any
+  }
   if (props.activeColor) {
     style['--yh-tabs-active-color'] = props.activeColor
   }

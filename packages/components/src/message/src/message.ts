@@ -110,6 +110,11 @@ export interface MessageProps {
    * @default 'top'
    */
   placement?: MessagePlacement
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

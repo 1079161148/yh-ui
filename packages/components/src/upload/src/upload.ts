@@ -132,6 +132,11 @@ export const uploadProps = {
   /** 原生属性 crossorigin */
   crossorigin: {
     type: String as PropType<'' | 'anonymous' | 'use-credentials'>
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 

@@ -5,6 +5,7 @@
  */
 import { computed, ref, inject } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import type {
   RadioProps,
   RadioEmits,
@@ -29,6 +30,9 @@ const ns = useNamespace('radio')
 
 // 注入 radio-group 上下文
 const radioGroup = inject(radioGroupContextKey, undefined)
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('radio', computed(() => props.themeOverrides || radioGroup?.themeOverrides))
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -122,7 +126,7 @@ defineExpose<RadioExpose>({
 </script>
 
 <template>
-  <label :class="radioClasses" @mouseenter="hovering = true" @mouseleave="hovering = false">
+  <label :class="radioClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
     <span :class="ns.e('input')">
       <span :class="innerClasses">
         <!-- 选中圆点 -->

@@ -122,7 +122,12 @@ export const drawerProps = {
     default: false
   },
   /** 抽屉主体样式 */
-  drawerStyle: [Object, String] as PropType<CSSProperties | string>
+  drawerStyle: [Object, String] as PropType<CSSProperties | string>,
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
+  }
 } as const
 
 export const drawerEmits = {

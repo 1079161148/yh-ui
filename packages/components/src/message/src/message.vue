@@ -6,6 +6,7 @@
 import { computed, onMounted, ref, watch, toRef } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import type { MessageProps, MessageEmits } from './message'
 
 defineOptions({
@@ -29,6 +30,9 @@ const emit = defineEmits<MessageEmits>()
 // 命名空间
 const ns = useNamespace('message')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('message', computed(() => props.themeOverrides))
 
 // 可见状态
 const visible = ref(false)
@@ -150,8 +154,8 @@ defineExpose({
 
 <template>
   <transition :name="ns.b('fade')" @after-leave="onDestroy">
-    <div v-show="visible" :class="messageClasses" :style="messageStyles" role="alert" @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave">
+    <div v-show="visible" :class="messageClasses" :style="[themeStyle, messageStyles]" role="alert"
+      @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <!-- 图标 -->
       <div :class="ns.e('icon')">
         <slot name="icon">

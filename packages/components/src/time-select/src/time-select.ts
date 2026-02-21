@@ -71,6 +71,8 @@ export interface TimeSelectProps {
   options?: TimeOption[]
   /** 禁用的时间段（二维数组，如 [['08:00', '09:00'], ['12:00', '13:00']]） */
   disabledHours?: string[][]
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

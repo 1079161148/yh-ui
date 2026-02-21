@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { paginationProps } from './pagination'
 import type { PaginationEmits, PaginationExpose } from './pagination'
 
@@ -13,6 +14,9 @@ const emit = defineEmits<PaginationEmits>()
 
 const ns = useNamespace('pagination')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('pagination', computed(() => props.themeOverrides))
 
 // 计算总页数
 const pageCount = computed(() => {
@@ -127,7 +131,7 @@ defineExpose<PaginationExpose>({
 </script>
 
 <template>
-  <nav v-if="!hideOnSinglePage || pageCount > 1" :class="paginationClasses">
+  <nav v-if="!hideOnSinglePage || pageCount > 1" :class="paginationClasses" :style="themeStyle">
     <template v-for="item in layoutComponents" :key="item">
       <!-- Total -->
       <span v-if="item === 'total'" :class="ns.e('total')">

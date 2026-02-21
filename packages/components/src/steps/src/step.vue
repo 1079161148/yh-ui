@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onUnmounted, getCurrentInstance, watch, ref } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { stepProps } from './step'
 import { STEPS_INJECTION_KEY } from './steps'
 import type { StepsStatus } from './steps'
@@ -11,6 +12,9 @@ defineOptions({
 
 const props = defineProps(stepProps)
 const ns = useNamespace('step')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('step', computed(() => props.themeOverrides))
 
 const instance = getCurrentInstance()
 const uid = instance?.uid ?? 0
@@ -78,13 +82,18 @@ const actualDirection = computed(() => {
 
 // 计算样式
 const stepStyle = computed(() => {
-  const space = stepsContext?.props.space
-  if (!space) return {}
-  const spaceValue = typeof space === 'number' ? `${space}px` : space
-  return {
-    flexBasis: spaceValue,
-    maxWidth: isLast.value ? '' : spaceValue
+  const styles: Record<string, string> = {
+    ...themeStyle.value as any
   }
+  const space = stepsContext?.props.space
+  if (!space) return styles
+  const spaceValue = typeof space === 'number' ? `${space}px` : space
+
+  styles.flexBasis = spaceValue
+  if (!isLast.value) {
+    styles.maxWidth = spaceValue
+  }
+  return styles
 })
 
 // 处理点击

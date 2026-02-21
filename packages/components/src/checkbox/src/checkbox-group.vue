@@ -5,6 +5,7 @@
  */
 import { computed, provide, watch, toRefs } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type {
   CheckboxGroupProps,
@@ -47,6 +48,9 @@ const changeEvent = (value: CheckboxValueType[]) => {
   }
 }
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('checkbox-group', computed(() => props.themeOverrides))
+
 // 提供上下文给子组件
 const { modelValue, size, disabled, min, max } = toRefs(props)
 
@@ -66,6 +70,9 @@ provide<CheckboxGroupContext>(checkboxGroupContextKey, {
   get max() {
     return max?.value
   },
+  get themeOverrides() {
+    return props.themeOverrides
+  },
   changeEvent
 })
 
@@ -74,7 +81,7 @@ const groupClasses = computed(() => [ns.b()])
 </script>
 
 <template>
-  <component :is="tag" :class="groupClasses" role="group" :aria-labelledby="labelId"
+  <component :is="tag" :class="groupClasses" :style="themeStyle" role="group" :aria-labelledby="labelId"
     :aria-invalid="formItem?.validateStatus === 'error'"
     :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined">
     <slot />

@@ -10,6 +10,7 @@
  */
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import TimeSpinner from './time-spinner.vue'
 import type { TimePickerProps, TimePickerEmits, TimePickerExpose, TimeState, TimeValue, TimeRangeValue, DisabledTimeConfig } from './time-picker'
@@ -53,6 +54,9 @@ const emit = defineEmits<TimePickerEmits>()
 const ns = useNamespace('time-picker')
 const { t } = useLocale()
 const inputId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('time-picker', computed(() => props.themeOverrides))
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -388,6 +392,7 @@ const handleMouseEnter = () => {
   hovering.value = true
 }
 
+// 鼠标事件
 const handleMouseLeave = () => {
   hovering.value = false
 }
@@ -463,8 +468,8 @@ defineExpose<TimePickerExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
-    @click="togglePanel">
+  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave" @click="togglePanel">
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 前缀图标 -->

@@ -11,6 +11,7 @@
  */
 import { ref, computed, provide, toRef, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhTooltip } from '../../tooltip'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
@@ -30,6 +31,9 @@ const emit = defineEmits(dropdownEmits)
 const ns = useNamespace('dropdown')
 const { t } = useLocale()
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('dropdown', computed(() => props.themeOverrides))
+
 // 内部可见性状态
 const internalVisible = ref(false)
 const visible = computed({
@@ -44,7 +48,9 @@ const tooltipRef = ref<InstanceType<typeof YhTooltip> | null>(null)
 
 // 弹出层样式
 const popperStyle = computed(() => {
-  const styles: Record<string, string | number> = {}
+  const styles: Record<string, string | number> = {
+    ...themeStyle.value as any
+  }
   // 安全复制 popperStyle
   if (props.popperStyle) {
     Object.entries(props.popperStyle).forEach(([key, value]) => {
@@ -124,7 +130,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.is('disabled', disabled)]" @keydown="handleKeydown">
+  <div :class="[ns.b(), ns.is('disabled', disabled)]" :style="themeStyle" @keydown="handleKeydown">
     <YhTooltip ref="tooltipRef" v-model:visible="visible" :trigger="trigger" :placement="placement" :disabled="disabled"
       :show-after="showAfter" :hide-after="hideAfter" :z-index="zIndex" :teleported="teleported"
       :popper-class="`${ns.e('popper')} ${popperClass}`" :popper-style="popperStyle" :offset="offset"

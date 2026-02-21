@@ -2,6 +2,7 @@
 import { computed, ref, nextTick } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
 import { switchProps, switchEmits, type SwitchValueType } from './switch'
 
 defineOptions({
@@ -13,6 +14,9 @@ const emit = defineEmits(switchEmits)
 const ns = useNamespace('switch')
 
 const { form, formItem, validate } = useFormItem()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('switch', computed(() => props.themeOverrides))
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -88,6 +92,7 @@ const focus = () => {
 
 // 样式变量
 const switchStyle = computed(() => ({
+  ...themeStyle.value,
   '--yh-switch-width': actualWidth.value
 }))
 

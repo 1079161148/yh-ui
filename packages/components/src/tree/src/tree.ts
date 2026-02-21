@@ -169,6 +169,11 @@ export const treeProps = {
   itemHeight: {
     type: Number,
     default: 30
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').TreeThemeVars>,
+    default: undefined
   }
 } as const
 

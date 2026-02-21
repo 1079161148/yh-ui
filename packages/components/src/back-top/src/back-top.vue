@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import { useNamespace, useZIndex, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { backTopProps, backTopEmits } from './back-top'
 
 defineOptions({
@@ -14,6 +15,9 @@ const ns = useNamespace('back-top')
 const { t } = useLocale()
 const { nextZIndex } = useZIndex()
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('back-top', computed(() => props.themeOverrides))
+
 const visible = ref(false)
 const progress = ref(0)
 const scrollContainer = shallowRef<HTMLElement | Window>()
@@ -21,6 +25,7 @@ const elRef = ref<HTMLElement>()
 
 // 样式计算
 const containerStyle = computed(() => ({
+  ...themeStyle.value as any,
   right: `${props.right}px`,
   bottom: `${props.bottom}px`,
   zIndex: nextZIndex()

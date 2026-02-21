@@ -5,6 +5,8 @@
  */
 import { computed, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { BadgeProps } from './badge'
 
 defineOptions({
@@ -19,6 +21,9 @@ const props = withDefaults(defineProps<BadgeProps>(), {
   showBorder: true,
   showZero: false
 })
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('badge', computed(() => props.themeOverrides))
 
 const slots = useSlots()
 
@@ -45,7 +50,7 @@ const isShow = computed(() => {
   if (props.hidden) return false
   if (props.isDot) return true
   if (slots.content) return true
-  
+
   const hasContent = content.value !== '' && content.value !== null && content.value !== undefined
   return hasContent
 })
@@ -83,7 +88,7 @@ const contentStyles = computed(() => {
     styles.transform = `translate(${x}px, ${y}px)`
   }
 
-  return styles
+  return { ...themeStyle.value, ...styles }
 })
 </script>
 

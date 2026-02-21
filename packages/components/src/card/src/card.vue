@@ -6,6 +6,8 @@
 import { computed } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { CardProps } from './card'
 
 defineOptions({
@@ -26,6 +28,9 @@ const ns = useNamespace('card')
 
 // 全局配置
 const { globalSize } = useConfig()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('card', computed(() => props.themeOverrides))
 
 // 卡片类名
 const cardClasses = computed(() => [
@@ -51,7 +56,7 @@ const footerClasses = computed(() => [ns.e('footer')])
 </script>
 
 <template>
-  <div :class="cardClasses">
+  <div :class="cardClasses" :style="themeStyle">
     <!-- 加载状态 -->
     <div v-if="loading" :class="ns.e('loading')">
       <div :class="ns.e('loading-content')">

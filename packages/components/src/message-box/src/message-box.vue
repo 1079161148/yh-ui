@@ -5,6 +5,7 @@
  */
 import { ref, reactive, computed, watch, h, onMounted, onUnmounted, markRaw, nextTick, shallowRef, shallowReactive, type ComponentPublicInstance } from 'vue'
 import { useNamespace, useScrollLock, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhButton } from '../../button'
 import { YhInput } from '../../input'
 import { YhIcon, IconClose, IconSuccess, IconWarning, IconError, IconInfo } from '../../icon'
@@ -33,6 +34,9 @@ const DEFAULT_OPTIONS: Partial<MessageBoxOptions> = {
 }
 
 const props = defineProps<MessageBoxOptions>()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('message-box', computed(() => state.options.themeOverrides))
 
 // 如果在服务端渲染或传入了 props (测试环境下)，则初始化可见性为 true
 const visible = ref(typeof window === 'undefined' || !!props.title || !!props.message || !!props.type || !!props.glass)
@@ -272,7 +276,7 @@ const getStatusIcon = (type: string) => {
         { [ns.m('glass')]: state.options.glass },
         { [ns.m('center')]: state.options.center },
         { 'is-dragging': isDragging }
-      ]" :style="boxStyle">
+      ]" :style="[boxStyle, themeStyle]">
         <div v-if="state.options.glass" :class="ns.e('bg')" />
 
         <div :class="[ns.e('header'), { 'is-draggable': state.options.draggable }]" @mousedown="onMousedown">

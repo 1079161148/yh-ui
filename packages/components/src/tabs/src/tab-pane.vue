@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { tabPaneProps } from './tab-pane'
 import { TABS_INJECTION_KEY } from './tabs'
 
@@ -10,6 +11,9 @@ defineOptions({
 
 const props = defineProps(tabPaneProps)
 const ns = useNamespace('tab-pane')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('tab-pane', computed(() => props.themeOverrides))
 
 const tabsContext = inject(TABS_INJECTION_KEY)
 const hasRendered = ref(false)
@@ -73,7 +77,8 @@ watch(
 </script>
 
 <template>
-  <div v-if="shouldRender" v-show="isActive" :class="[ns.b(), ns.is('active', isActive)]" role="tabpanel">
+  <div v-if="shouldRender" v-show="isActive" :class="[ns.b(), ns.is('active', isActive)]" :style="themeStyle"
+    role="tabpanel">
     <slot></slot>
   </div>
 </template>

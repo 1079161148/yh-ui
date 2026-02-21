@@ -202,6 +202,11 @@ export const datePickerProps = {
   cellRender: {
     type: Function as PropType<(date: Date) => string | { text: string; className?: string }>,
     default: undefined
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 

@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type {
   CascaderProps,
@@ -46,6 +47,9 @@ const emit = defineEmits<CascaderEmits>()
 const ns = useNamespace('cascader')
 const { t } = useLocale()
 const inputId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('cascader', computed(() => props.themeOverrides))
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -550,8 +554,8 @@ defineExpose<CascaderExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
-    @click="toggleDropdown">
+  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave" @click="toggleDropdown">
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 多选标签 -->

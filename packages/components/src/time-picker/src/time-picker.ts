@@ -114,6 +114,8 @@ export interface TimePickerProps {
   id?: string
   /** 范围选择时，如果结束时间早于开始时间，是否自动排序 */
   orderOnConfirm?: boolean
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

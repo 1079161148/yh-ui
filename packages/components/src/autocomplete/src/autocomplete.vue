@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch, nextTick, useSlots, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useZIndex, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type { AutocompleteProps, AutocompleteEmits, AutocompleteExpose, AutocompleteSuggestion } from './autocomplete'
 
@@ -34,6 +35,9 @@ const ns = useNamespace('autocomplete')
 const inputId = useId()
 const { t } = useLocale()
 const { nextZIndex } = useZIndex()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('autocomplete', computed(() => props.themeOverrides))
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -103,6 +107,7 @@ const updateDropdownPosition = () => {
   const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
 
   const style: Record<string, string> = {
+    ...themeStyle.value as any,
     position: 'fixed',
     zIndex: String(dropdownZIndex.value),
     minWidth: props.fitInputWidth ? `${rect.width}px` : 'auto',
@@ -382,7 +387,8 @@ defineExpose<AutocompleteExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave">
     <!-- 前置元素 -->
     <div v-if="hasPrepend" :class="ns.e('prepend')">
       <slot name="prepend" />

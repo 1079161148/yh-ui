@@ -4,6 +4,7 @@
  */
 import { computed, ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { isClient, getScrollContainer } from '@yh-ui/utils'
 import { imageProps } from './image'
 import type { ImageEmits } from './image'
@@ -20,6 +21,9 @@ const emit = defineEmits<ImageEmits>()
 
 const ns = useNamespace('image')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('image', computed(() => props.themeOverrides))
 
 const isLoading = ref(true)
 const error = ref(false)
@@ -211,7 +215,7 @@ const handleSwitch = (index: number) => {
 </script>
 
 <template>
-  <div ref="container" :class="ns.b()">
+  <div ref="container" :class="ns.b()" :style="themeStyle">
     <slot v-if="isLoading" name="placeholder">
       <div :class="ns.e('placeholder')">{{ t('button.loading') }}</div>
     </slot>

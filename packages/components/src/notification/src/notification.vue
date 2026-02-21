@@ -5,6 +5,7 @@
  */
 import { computed, onMounted, ref, watch, isVNode, type VNode } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import type { NotificationProps, NotificationEmits } from './notification'
 
 defineOptions({
@@ -24,6 +25,9 @@ const emit = defineEmits<NotificationEmits>()
 // 命名空间
 const ns = useNamespace('notification')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('notification', computed(() => props.themeOverrides))
 
 // 可见状态
 const visible = ref(false)
@@ -165,8 +169,8 @@ defineExpose({
 
 <template>
   <transition :name="`${ns.b()}-${positionClass}`" @after-leave="onDestroy">
-    <div v-show="visible" :class="notificationClasses" :style="notificationStyles" role="alert" @click="handleClick"
-      @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+    <div v-show="visible" :class="notificationClasses" :style="[themeStyle, notificationStyles]" role="alert"
+      @click="handleClick" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <!-- 图标 -->
       <div v-if="type || icon || $slots.icon" :class="ns.e('icon')">
         <slot name="icon">

@@ -5,6 +5,7 @@
  */
 import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type { TimeSelectProps, TimeSelectEmits, TimeSelectExpose, TimeOption } from './time-select'
 import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select'
@@ -33,6 +34,9 @@ const emit = defineEmits<TimeSelectEmits>()
 const ns = useNamespace('time-select')
 const { t } = useLocale()
 const inputId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('time-select', computed(() => props.themeOverrides))
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -388,8 +392,8 @@ defineExpose<TimeSelectExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
-    @click="toggleDropdown">
+  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave" @click="toggleDropdown">
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 前缀图标 -->

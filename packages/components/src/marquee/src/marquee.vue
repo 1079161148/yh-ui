@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, nextTick, type CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { marqueeProps, marqueeEmits } from './marquee'
 
 /**
@@ -14,6 +15,9 @@ defineOptions({
 const props = defineProps(marqueeProps)
 const emit = defineEmits(marqueeEmits)
 const ns = useNamespace('marquee')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('marquee', computed(() => props.themeOverrides))
 
 const containerRef = ref<HTMLElement | null>(null)
 const contentRef = ref<HTMLElement | null>(null)
@@ -130,7 +134,7 @@ defineExpose({
       [ns.m('pause-on-click')]: pauseOnClick,
       [ns.m('gradient')]: gradient
     }
-  ]" :style="[marqueeStyle, overlayStyle]">
+  ]" :style="[themeStyle, marqueeStyle, overlayStyle]">
     <div :class="ns.e('content')" @animationiteration="handleAnimationIteration">
       <div ref="contentRef" :class="ns.e('item')">
         <slot />

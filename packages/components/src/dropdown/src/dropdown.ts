@@ -149,6 +149,11 @@ export const dropdownProps = {
   tabindex: {
     type: [Number, String] as PropType<number | string>,
     default: 0
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 
@@ -198,13 +203,24 @@ export const dropdownItemProps = {
   checked: {
     type: Boolean,
     default: false
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 
 export type DropdownItemProps = ExtractPropTypes<typeof dropdownItemProps>
 
 // DropdownMenu Props
-export const dropdownMenuProps = {} as const
+export const dropdownMenuProps = {
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
+  }
+} as const
 
 // Dropdown Context
 export interface DropdownContext {

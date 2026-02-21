@@ -147,6 +147,10 @@ export interface InputNumberProps {
    * @description 自定义验证规则
    */
   validator?: (value: number | undefined) => boolean | string
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

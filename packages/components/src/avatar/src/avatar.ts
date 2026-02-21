@@ -58,6 +58,11 @@ export interface AvatarProps {
 
   /** 自定义样式 */
   style?: CSSProperties
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface AvatarEmits {

@@ -92,6 +92,8 @@ export interface CascaderProps {
   tagType?: CascaderTagType
   /** 是否触发表单验证 */
   validateEvent?: boolean
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface CascaderEmits {

@@ -68,6 +68,11 @@ export interface RadioProps {
    * @description 单选框 tabindex
    */
   tabindex?: string | number
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
@@ -154,6 +159,11 @@ export interface RadioGroupProps {
    * @default 'div'
    */
   tag?: string | Component
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
@@ -175,6 +185,7 @@ export interface RadioGroupContext {
   fill?: string
   textColor?: string
   changeEvent?: (value: RadioValueType) => void
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
@@ -227,6 +238,11 @@ export interface RadioButtonProps {
    * @description 单选按钮 tabindex
    */
   tabindex?: string | number
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

@@ -61,6 +61,11 @@ export interface SpaceProps {
    * @description 自定义样式
    */
   style?: CSSProperties | string
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface SpaceSlots {

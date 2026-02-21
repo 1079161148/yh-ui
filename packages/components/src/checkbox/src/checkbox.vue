@@ -5,6 +5,7 @@
  */
 import { computed, ref, inject, onMounted, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import type {
   CheckboxProps,
   CheckboxEmits,
@@ -34,6 +35,9 @@ const ns = useNamespace('checkbox')
 
 // 注入 checkbox-group 上下文
 const checkboxGroup = inject(checkboxGroupContextKey, undefined)
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('checkbox', computed(() => props.themeOverrides || checkboxGroup?.themeOverrides))
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -188,7 +192,7 @@ defineExpose<CheckboxExpose>({
 </script>
 
 <template>
-  <label :class="checkboxClasses" @mouseenter="hovering = true" @mouseleave="hovering = false">
+  <label :class="checkboxClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
     <span :class="[
       ns.e('input'),
       ns.is('disabled', isDisabled),

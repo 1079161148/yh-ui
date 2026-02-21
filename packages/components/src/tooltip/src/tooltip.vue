@@ -12,6 +12,7 @@ interface VirtualElement {
 }
 import { computePosition, offset, flip, shift, arrow, autoUpdate } from '@floating-ui/dom'
 import { useNamespace, useId, useEventListener } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { tooltipProps, tooltipEmits } from './tooltip'
 import type { TooltipTrigger } from './tooltip'
 
@@ -25,6 +26,9 @@ const ns = useNamespace('tooltip')
 const tooltipId = useId()
 const slots = useSlots()
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('tooltip', computed(() => props.themeOverrides))
+
 // 元素引用
 const triggerRef = ref<HTMLElement | null>(null)
 const popperRef = ref<HTMLElement | null>(null)
@@ -36,7 +40,10 @@ const popperStyle = ref<CSSProperties>({})
 const arrowStyle = ref<CSSProperties>({})
 
 const computedPopperStyle = computed(() => {
-  const styles: CSSProperties = { ...popperStyle.value }
+  const styles: CSSProperties = {
+    ...themeStyle.value as any,
+    ...popperStyle.value
+  }
   if (typeof props.popperStyle === 'object') {
     Object.assign(styles, props.popperStyle)
   }

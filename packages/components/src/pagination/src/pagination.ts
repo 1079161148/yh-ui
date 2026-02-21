@@ -112,7 +112,12 @@ export const paginationProps = {
   /**
    * @description 替代图标的文字 - 下一页
    */
-  nextText: String
+  nextText: String,
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
+  }
 } as const
 
 export type PaginationProps = ExtractPropTypes<typeof paginationProps>

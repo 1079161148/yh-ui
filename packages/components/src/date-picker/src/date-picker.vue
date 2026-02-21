@@ -5,6 +5,7 @@
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import DateTable from './date-table.vue'
 import MonthTable from './month-table.vue'
@@ -35,6 +36,9 @@ const ns = useNamespace('date-picker')
 const { t, locale } = useLocale()
 const { form, formItem, validate: triggerValidate } = useFormItem()
 const { globalSize } = useConfig()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('date-picker', computed(() => props.themeOverrides))
 
 // --- 状态控制 ---
 const visible = ref(props.panelOnly)
@@ -220,6 +224,7 @@ const updatePosition = () => {
   const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
 
   dropdownStyle.value = {
+    ...themeStyle.value as any,
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
@@ -302,7 +307,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" @click="togglePanel" @mouseenter="hovering = true"
+  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @click="togglePanel" @mouseenter="hovering = true"
     @mouseleave="hovering = false">
     <!-- 输入框部分 -->
     <div v-if="!panelOnly" :class="ns.e('wrapper')">

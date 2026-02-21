@@ -2,6 +2,7 @@
 import { ref, computed, watch, nextTick, onMounted, provide, toRefs } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import { sliderProps, sliderEmits } from './slider'
 import type { SliderValueType, InputNumberSize } from './slider'
@@ -18,6 +19,9 @@ const emit = defineEmits(sliderEmits)
 
 const ns = useNamespace('slider')
 const { form, formItem, validate: triggerValidate } = useFormItem()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('slider', computed(() => props.themeOverrides))
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -144,7 +148,10 @@ const sliderStyle = computed(() => {
   if (props.vertical && props.height) {
     style.height = props.height
   }
-  return style
+  return {
+    ...themeStyle.value,
+    ...style
+  }
 })
 
 const emitValue = (val: SliderValueType) => {

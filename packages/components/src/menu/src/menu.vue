@@ -4,6 +4,7 @@
  */
 import { ref, computed, provide, toRef, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { menuProps, menuEmits, MENU_INJECTION_KEY } from './menu'
 import type { MenuContext, MenuEmits } from './menu'
 import YhMenuRecursiveItem from './menu-recursive-item.vue'
@@ -16,6 +17,9 @@ const props = defineProps(menuProps)
 const emit = defineEmits(menuEmits as MenuEmits)
 
 const ns = useNamespace('menu')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('menu', computed(() => props.themeOverrides))
 
 // 状态
 const activeIndex = ref(props.value ?? props.defaultActive)
@@ -36,7 +40,10 @@ const menuStyle = computed(() => {
   if (props.iconSize) {
     styles['--yh-menu-icon-size'] = typeof props.iconSize === 'number' ? `${props.iconSize}px` : props.iconSize
   }
-  return styles
+  return {
+    ...styles,
+    ...themeStyle.value as any
+  }
 })
 
 // 计算类名

@@ -5,6 +5,7 @@
  */
 import { computed, ref, useSlots, nextTick, inject } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type { InputTagProps, InputTagEmits, InputTagExpose } from './input-tag'
 
@@ -39,6 +40,9 @@ const slots = useSlots()
 // 命名空间
 const ns = useNamespace('input-tag')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('input-tag', computed(() => props.themeOverrides))
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -366,8 +370,8 @@ defineExpose<InputTagExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="inputTagClasses" @click="handleWrapperClick" @mouseenter="handleMouseenter"
-    @mouseleave="handleMouseleave">
+  <div ref="wrapperRef" :class="inputTagClasses" :style="themeStyle" @click="handleWrapperClick"
+    @mouseenter="handleMouseenter" @mouseleave="handleMouseleave">
     <!-- 前缀 -->
     <span v-if="hasPrefix" :class="ns.e('prefix')">
       <slot name="prefix">

@@ -12,6 +12,7 @@
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhSpin } from '../../spin'
 import { infiniteScrollProps, infiniteScrollEmits } from './infinite-scroll'
 
@@ -24,6 +25,9 @@ const emit = defineEmits(infiniteScrollEmits)
 
 const ns = useNamespace('infinite-scroll')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('infinite-scroll', computed(() => props.themeOverrides))
 
 // Refs
 const rootRef = ref<HTMLElement>()
@@ -219,7 +223,7 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="rootRef" :class="[ns.b(), ns.is(direction)]">
+  <div ref="rootRef" :class="[ns.b(), ns.is(direction)]" :style="themeStyle">
     <!-- 内容区域 -->
     <div :class="ns.e('content')">
       <slot />

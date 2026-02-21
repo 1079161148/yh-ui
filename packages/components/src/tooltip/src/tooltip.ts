@@ -160,6 +160,11 @@ export const tooltipProps = {
   arrowWrapperStyle: {
     type: Object as PropType<Record<string, any>>,
     default: () => ({})
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 

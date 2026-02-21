@@ -5,6 +5,7 @@
  */
 import { ref, watch, computed, useSlots, useId } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { spinProps } from './spin'
 
 defineOptions({
@@ -16,6 +17,9 @@ const props = defineProps(spinProps)
 const ns = useNamespace('spin')
 const { t } = useLocale()
 const gradientId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('spin', computed(() => props.themeOverrides))
 
 const emit = defineEmits(['show', 'hide'])
 
@@ -106,7 +110,10 @@ const spinStyle = computed(() => {
   } else {
     style.color = props.color
   }
-  return style
+  return {
+    ...themeStyle.value,
+    ...style
+  }
 })
 
 watch(

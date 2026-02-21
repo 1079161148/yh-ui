@@ -8,6 +8,7 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick, type CSSProperties } from 'vue'
 import { watermarkProps } from './watermark'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhWatermark'
@@ -16,6 +17,9 @@ defineOptions({
 const props = defineProps(watermarkProps)
 const ns = useNamespace('watermark')
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('watermark', computed(() => props.themeOverrides))
+
 const containerRef = ref<HTMLElement | null>(null)
 let watermarkRef: HTMLElement | null = null
 const watermarkUrl = ref('')
@@ -23,6 +27,7 @@ const watermarkUrl = ref('')
 const containerStyle = computed(() => {
   if (props.fullScreen) return {}
   return {
+    ...themeStyle.value,
     position: 'relative' as const,
     overflow: 'hidden'
   }

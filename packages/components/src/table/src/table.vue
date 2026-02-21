@@ -16,8 +16,8 @@ import {
   type CSSProperties,
   type Ref
 } from 'vue'
-import { useNamespace } from '../../hooks/use-config'
-import { useLocale } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import {
   tableProps,
   tableEmits,
@@ -61,6 +61,9 @@ const emit = defineEmits(tableEmits)
 const slots = useSlots()
 const ns = useNamespace('table')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('table', computed(() => props.themeOverrides))
 
 // ==================== Refs ====================
 const tableRef = ref<HTMLDivElement | null>(null)
@@ -365,7 +368,9 @@ const innerWrapperClasses = computed(() => [
 ])
 
 const tableStyle = computed<CSSProperties>(() => {
-  const style: CSSProperties = {}
+  const style: CSSProperties = {
+    ...themeStyle.value as any
+  }
   if (props.width) {
     style.width = formatSize(props.width)
   }

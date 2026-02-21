@@ -14,6 +14,8 @@
 import { computed, ref, watch, nextTick, useSlots, onMounted } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useConfig } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { InputProps, InputEmits, InputExpose } from './input'
 import { calcTextareaHeight } from './utils'
 import type { CSSProperties } from 'vue'
@@ -60,6 +62,9 @@ const wrapperRef = ref<HTMLElement>()
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('input', computed(() => props.themeOverrides))
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -169,6 +174,10 @@ const wrapperClasses = computed(() => [
     [ns.is('append')]: hasAppend.value
   }
 ])
+
+const wrapperStyle = computed(() => ({
+  ...themeStyle.value
+}))
 
 const inputClasses = computed(() => [
   ns.e('inner'),
@@ -371,7 +380,8 @@ defineExpose<InputExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <div ref="wrapperRef" :class="wrapperClasses" :style="wrapperStyle" @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave">
     <!-- 前置元素 -->
     <div v-if="hasPrepend" :class="ns.e('prepend')">
       <slot name="prepend" />

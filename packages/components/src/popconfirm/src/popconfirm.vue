@@ -9,6 +9,7 @@ import { YhButton } from '../../button'
 import { YhCheckbox } from '../../checkbox'
 import { YhIcon } from '../../icon'
 import { YhTooltip } from '../../tooltip'
+import { useComponentTheme } from '@yh-ui/theme'
 import { popconfirmProps, popconfirmEmits } from './popconfirm'
 
 defineOptions({
@@ -18,6 +19,9 @@ defineOptions({
 const props = defineProps(popconfirmProps)
 const emit = defineEmits(popconfirmEmits)
 const ns = useNamespace('popconfirm')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('popconfirm', computed(() => props.themeOverrides))
 const { t } = useLocale()
 
 // 内部状态
@@ -77,7 +81,7 @@ defineExpose({
 
     <!-- 气泡框内容 -->
     <template #content>
-      <div :class="ns.e('content')" :style="{ width: typeof width === 'number' ? `${width}px` : width }">
+      <div :class="ns.e('content')" :style="[{ width: typeof width === 'number' ? `${width}px` : width }, themeStyle]">
         <div :class="ns.e('main')">
           <div v-if="!hideIcon" :class="ns.e('icon')" :style="{ color: iconColor }">
             <slot name="icon">

@@ -5,6 +5,7 @@
  */
 import { computed, ref, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import TransferPanel from './transfer-panel.vue'
 import type {
@@ -41,6 +42,9 @@ const emit = defineEmits<TransferEmits>()
 const ns = useNamespace('transfer')
 const { t } = useLocale()
 const { globalSize } = useConfig()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('transfer', computed(() => props.themeOverrides))
 
 // 面板引用
 const leftPanelRef = ref<TransferPanelExpose>()
@@ -166,7 +170,7 @@ defineExpose<TransferExpose>({
 </script>
 
 <template>
-  <div :class="containerClasses">
+  <div :class="containerClasses" :style="themeStyle">
     <TransferPanel ref="leftPanelRef" :data="leftData" :checked="leftChecked" :title="leftTitle"
       :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
       :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"

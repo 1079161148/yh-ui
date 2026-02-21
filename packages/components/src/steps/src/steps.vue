@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, ref, onMounted, onUnmounted } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { stepsProps, stepsEmits, STEPS_INJECTION_KEY } from './steps'
 import type { StepConfig } from './steps'
 
@@ -11,6 +12,9 @@ defineOptions({
 const props = defineProps(stepsProps)
 const emit = defineEmits(stepsEmits)
 const ns = useNamespace('steps')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('steps', computed(() => props.themeOverrides))
 
 const steps = ref<StepConfig[]>([])
 
@@ -99,7 +103,7 @@ const stepsClass = computed(() => [
 </script>
 
 <template>
-  <div :class="stepsClass">
+  <div :class="stepsClass" :style="themeStyle">
     <slot></slot>
   </div>
 </template>

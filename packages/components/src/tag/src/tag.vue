@@ -14,7 +14,7 @@ defineOptions({
   name: 'YhTag'
 })
 
-const props = withDefaults(defineProps<TagProps & { themeOverrides?: ComponentThemeVars }>(), {
+const props = withDefaults(defineProps<TagProps>(), {
   type: 'primary',
   size: 'default',
   effect: 'light',

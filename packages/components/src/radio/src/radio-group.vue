@@ -5,6 +5,7 @@
  */
 import { computed, provide, toRefs } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '../../hooks/use-config'
 import type {
   RadioGroupProps,
@@ -28,6 +29,9 @@ const emit = defineEmits<RadioGroupEmits>()
 
 // 命名空间
 const ns = useNamespace('radio-group')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('radio-group', computed(() => props.themeOverrides))
 
 // 表单集成
 const { formItem } = useFormItem()
@@ -69,6 +73,9 @@ provide<RadioGroupContext>(radioGroupContextKey, {
   get textColor() {
     return textColor?.value
   },
+  get themeOverrides() {
+    return props.themeOverrides
+  },
   changeEvent
 })
 
@@ -83,7 +90,7 @@ const groupClasses = computed(() => [
 </script>
 
 <template>
-  <component :is="tag" :class="groupClasses" role="radiogroup" :aria-labelledby="labelId"
+  <component :is="tag" :class="groupClasses" :style="themeStyle" role="radiogroup" :aria-labelledby="labelId"
     :aria-invalid="formItem?.validateStatus === 'error'"
     :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined">
     <slot />

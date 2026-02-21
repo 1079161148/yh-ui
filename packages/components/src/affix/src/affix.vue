@@ -5,6 +5,7 @@
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { affixProps, affixEmits } from './affix'
 import type { CSSProperties } from 'vue'
 
@@ -16,6 +17,9 @@ const props = defineProps(affixProps)
 const emit = defineEmits(affixEmits)
 
 const ns = useNamespace('affix')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('affix', computed(() => props.themeOverrides))
 
 // 引用
 const root = shallowRef<HTMLElement>()
@@ -149,6 +153,7 @@ watch(() => [props.offset, props.position, props.target, props.disabled], () => 
 // 样式与动画系统的统一合并
 const placeholderStyle = computed<CSSProperties>(() => {
   return {
+    ...themeStyle.value as any,
     height: fixed.value ? `${rootRect.value.height}px` : '',
     width: fixed.value ? `${rootRect.value.width}px` : ''
   }

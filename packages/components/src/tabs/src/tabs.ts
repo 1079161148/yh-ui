@@ -96,6 +96,11 @@ export const tabsProps = {
   trigger: {
     type: String as PropType<'click' | 'hover'>,
     default: 'click'
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 

@@ -265,6 +265,33 @@ export interface FormThemeVars extends ComponentThemeVars {
   itemMarginBottom?: string
 }
 
+/** Calendar 组件主题变量 */
+export interface CalendarThemeVars extends ComponentThemeVars {
+  headerBgColor?: string
+  headerTextColor?: string
+  titleFontSize?: string
+  dayFontSize?: string
+  dayTextColor?: string
+  dayHoverBgColor?: string
+  daySelectedBgColor?: string
+  daySelectedTextColor?: string
+  todayTextColor?: string
+  weekendTextColor?: string
+}
+
+/** Tree 组件主题变量 */
+export interface TreeThemeVars extends ComponentThemeVars {
+  nodeHoverBgColor?: string
+  nodeSelectedBgColor?: string
+  nodeSelectedTextColor?: string
+  nodeHeight?: string
+  indentSize?: string
+  labelFontSize?: string
+  labelTextColor?: string
+  expandIconColor?: string
+  expandIconHoverColor?: string
+}
+
 // ==================== 导出所有组件主题类型 ====================
 
 export interface AllComponentThemes {
@@ -282,6 +309,8 @@ export interface AllComponentThemes {
   alert?: AlertThemeVars
   tabs?: TabsThemeVars
   form?: FormThemeVars
+  calendar?: CalendarThemeVars
+  tree?: TreeThemeVars
   [key: string]: ComponentThemeVars | undefined
 }
 
@@ -316,4 +345,3 @@ export function mergeComponentThemes(
 
   return result
 }
-

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, useSlots } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 import { alertProps, alertEmits } from './alert'
 
 defineOptions({
@@ -12,6 +14,9 @@ const emit = defineEmits(alertEmits)
 
 const ns = useNamespace('alert')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('alert', computed(() => props.themeOverrides))
 const slots = useSlots()
 const visible = ref(true)
 const progress = ref(100)
@@ -32,6 +37,7 @@ const alertClass = computed(() => [
 
 // 动态样式映射
 const alertStyle = computed(() => ({
+  ...themeStyle.value,
   '--yh-alert-scroll-speed': `${props.scrollSpeed}s`
 }))
 

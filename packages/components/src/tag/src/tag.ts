@@ -102,6 +102,11 @@ export interface TagProps {
    * @description 右侧图标（显示在关闭按钮之前）
    */
   suffixIcon?: string | Component
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

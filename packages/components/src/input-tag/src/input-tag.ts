@@ -158,6 +158,10 @@ export interface InputTagProps {
    * @default true
    */
   validateEvent?: boolean
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

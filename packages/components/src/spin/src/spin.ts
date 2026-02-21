@@ -50,6 +50,11 @@ export const spinProps = {
   /** 自定义颜色 (支持十六进制、RGB、CSS 渐变字符串或渐变配置对象) */
   color: {
     type: [String, Object, Array] as PropType<string | string[] | Record<string, string>>
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 

@@ -77,6 +77,8 @@ export interface SelectProps {
   valueKey?: string
   /** 标签的键名 */
   labelKey?: string
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface SelectEmits {

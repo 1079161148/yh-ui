@@ -98,6 +98,11 @@ export interface CheckboxProps {
    * @default true
    */
   checked?: boolean
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
@@ -194,6 +199,11 @@ export interface CheckboxGroupProps {
    * @default 'div'
    */
   tag?: string | Component
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
@@ -214,6 +224,7 @@ export interface CheckboxGroupContext {
   min?: number
   max?: number
   changeEvent?: (value: CheckboxValueType[]) => void
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

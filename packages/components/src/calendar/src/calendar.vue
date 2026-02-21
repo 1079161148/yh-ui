@@ -6,6 +6,7 @@ import type { Dayjs } from 'dayjs'
 import * as _isoWeek from 'dayjs/plugin/isoWeek'
 const isoWeek = (_isoWeek as any).default || _isoWeek
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import {
   calendarProps,
   calendarEmits,
@@ -26,6 +27,9 @@ const props = defineProps(calendarProps)
 const emit = defineEmits(calendarEmits)
 const ns = useNamespace('calendar')
 const { t, locale } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('calendar', computed(() => props.themeOverrides))
 
 // --- 状态管理 ---
 const now = dayjs()
@@ -67,7 +71,7 @@ const title = computed(() => {
   if (props.monthHeaderFormat) {
     return displayDate.value.format(props.monthHeaderFormat)
   }
-  
+
   // 2. 其次使用语言包中定义的日历专属格式 (如 'YYYY年MM月')
   const calendarLocale = (locale.value.yh as any).calendar
   if (calendarLocale?.monthHeaderFormat) {
@@ -78,12 +82,12 @@ const title = computed(() => {
   const dateLocale = (locale.value.yh as any).datepicker
   const monthName = dateLocale.months[monthKeys[displayDate.value.month()]]
   const year = displayDate.value.year()
-  
+
   // 对于东亚语言（通常 monthBeforeYear 为 false 且有 '年' 定义），移除冗余空格
   if (!dateLocale.monthBeforeYear && dateLocale.year) {
     return `${year}${dateLocale.year}${monthName}`
   }
-  
+
   return dateLocale.monthBeforeYear
     ? `${monthName} ${year}`
     : `${year} ${dateLocale.year} ${monthName}`
@@ -387,7 +391,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="rootClass">
+  <div :class="rootClass" :style="themeStyle">
     <!-- 顶栏 -->
     <div :class="ns.e('header')">
       <div :class="ns.e('title')">

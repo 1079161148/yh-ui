@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted, toRef } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import {
   countdownProps,
   countdownEmits,
@@ -22,6 +23,9 @@ const props = defineProps(countdownProps)
 const emit = defineEmits(countdownEmits)
 const ns = useNamespace('countdown')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('countdown', computed(() => props.themeOverrides))
 
 // --- 状态管理 ---
 const status = ref<CountdownStatus>('pending')
@@ -308,7 +312,7 @@ const digits = computed(() => {
 </script>
 
 <template>
-  <div :class="rootClass">
+  <div :class="rootClass" :style="themeStyle">
     <!-- 标题 -->
     <slot name="prefix">
       <span v-if="title" :class="ns.e('title')">{{ title }}</span>

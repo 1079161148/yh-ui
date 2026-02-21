@@ -6,6 +6,7 @@
 import { computed, h, useSlots } from 'vue'
 import { iconProps, getIcon } from './icon'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhIcon',
@@ -16,9 +17,14 @@ const props = defineProps(iconProps)
 const slots = useSlots()
 const ns = useNamespace('icon')
 
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('icon', computed(() => props.themeOverrides))
+
 // 计算样式
 const iconStyle = computed(() => {
-  const style: Record<string, string> = {}
+  const style: Record<string, string> = {
+    ...themeStyle.value as any
+  }
 
   if (props.size) {
     const size = typeof props.size === 'number' ? `${props.size}px` : props.size

@@ -64,6 +64,11 @@ export interface CardProps {
    * @default true
    */
   bodyPadding?: boolean
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

@@ -5,6 +5,7 @@
  */
 import { computed, ref, inject } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import type {
   RadioButtonProps,
   RadioButtonEmits,
@@ -28,6 +29,9 @@ const ns = useNamespace('radio-button')
 
 // 注入 radio-group 上下文
 const radioGroup = inject(radioGroupContextKey, undefined)
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('radio-button', computed(() => props.themeOverrides || radioGroup?.themeOverrides))
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -131,7 +135,7 @@ defineExpose<RadioButtonExpose>({
 </script>
 
 <template>
-  <label :class="buttonClasses" :style="activeStyle">
+  <label :class="buttonClasses" :style="[activeStyle, themeStyle]">
     <input ref="inputRef" :class="ns.e('original')" type="radio" :name="radioName" :id="id" :tabindex="tabindex"
       :disabled="isDisabled" :checked="isChecked" :value="value ?? label" @change="handleChange" @focus="handleFocus"
       @blur="handleBlur" />

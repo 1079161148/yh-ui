@@ -272,6 +272,11 @@ export interface InputProps {
    * @description 是否允许调整大小 (type="textarea" 时有效)
    */
   resize?: 'none' | 'both' | 'horizontal' | 'vertical'
+
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**

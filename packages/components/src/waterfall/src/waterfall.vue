@@ -5,6 +5,7 @@
  */
 import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhWaterfall'
@@ -31,6 +32,8 @@ const props = withDefaults(defineProps<{
   heightProperty?: string
   /** 内部图片的选择器，用于在图片加载后自动计算布局 */
   imgSelector?: string
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }>(), {
   items: () => [],
   cols: 2,
@@ -46,6 +49,9 @@ const props = withDefaults(defineProps<{
 
 const ns = useNamespace('waterfall')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('waterfall', computed(() => props.themeOverrides))
 
 const containerRef = ref<HTMLElement>()
 const containerWidth = ref(0)
@@ -177,7 +183,7 @@ defineExpose({
 
 <template>
   <div ref="containerRef" :class="[ns.b(), ns.is('loading', loading), ns.is('refreshing', isRefreshing)]"
-    :style="{ gap: `${gap}px`, minHeight: minContainerHeight }" @load.capture="handleImageLoad">
+    :style="[themeStyle, { gap: `${gap}px`, minHeight: minContainerHeight }]" @load.capture="handleImageLoad">
     <!-- 内容区域：不管是数据还是骨架屏，都保持 DOM 结构一致性 -->
     <template v-if="(loading && items.length === 0) || items.length > 0">
       <div v-for="(col, colIdx) in columnsData" :key="colIdx" :class="ns.e('column')" :style="{ gap: `${gap}px` }">

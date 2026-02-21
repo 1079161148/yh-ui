@@ -1,5 +1,6 @@
 <template>
-  <div :class="[ns.b(), ns.m(listType), ns.m(`pos-${triggerPosition}`), { [ns.is('disabled')]: disabled }]">
+  <div :class="[ns.b(), ns.m(listType), ns.m(`pos-${triggerPosition}`), { [ns.is('disabled')]: disabled }]"
+    :style="themeStyle">
     <!-- Hidden Input moved to top for better focus/click reliability in some browsers -->
     <input ref="inputRef" type="file" :class="ns.e('input')" :accept="accept" :multiple="multiple || directory"
       v-bind="directory ? { webkitdirectory: '', directory: '', mozdirectory: '' } : {}" style="display: none"
@@ -123,9 +124,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type CSSProperties, onBeforeUnmount } from 'vue'
+import { ref, type CSSProperties, onBeforeUnmount, computed } from 'vue'
 import { uploadProps, uploadEmits, type UploadFile, type UploadRawFile, type UploadRequestOptions, type UploadProgressEvent } from './upload'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
 import Viewer from 'viewerjs'
 
@@ -137,6 +139,9 @@ const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
 const ns = useNamespace('upload')
 const { t } = useLocale()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('upload', computed(() => props.themeOverrides))
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const dragOver = ref(false)

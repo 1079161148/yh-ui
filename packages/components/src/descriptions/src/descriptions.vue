@@ -6,6 +6,7 @@
 import { computed, useSlots, Fragment, provide } from 'vue'
 import type { VNode, CSSProperties } from 'vue'
 import { useNamespace } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
 import { descriptionsProps, descriptionsKey } from './descriptions'
 
 defineOptions({
@@ -15,6 +16,9 @@ defineOptions({
 const props = defineProps(descriptionsProps)
 const slots = useSlots()
 const ns = useNamespace('descriptions')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('descriptions', computed(() => props.themeOverrides))
 
 provide(descriptionsKey, { props })
 
@@ -130,7 +134,7 @@ const descriptionsClasses = computed(() => [
 </script>
 
 <template>
-  <div :class="descriptionsClasses">
+  <div :class="descriptionsClasses" :style="themeStyle">
     <div v-if="title || extra || $slots.title || $slots.extra" :class="ns.e('header')">
       <div :class="ns.e('title')">
         <slot name="title">{{ title }}</slot>

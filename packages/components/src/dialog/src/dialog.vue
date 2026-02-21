@@ -5,6 +5,7 @@
  */
 import { ref, watch, onMounted, computed, nextTick, onUnmounted, type CSSProperties } from 'vue'
 import { useNamespace, useEventListener, useId, useScrollLock, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
 import { YhSpin } from '../../spin'
 import { YhButton } from '../../button'
@@ -31,6 +32,9 @@ const emit = defineEmits(dialogEmits)
 const ns = useNamespace('dialog')
 const { t } = useLocale()
 const dialogId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle: themeVars } = useComponentTheme('dialog', computed(() => props.themeOverrides))
 
 const visible = ref(false)
 const closed = ref(true)
@@ -154,11 +158,8 @@ const style = computed<CSSProperties>(() => {
     }
   }
 
-  // 合并外部 style
-  if (typeof props.style === 'string') {
-    return { ...styles, ...parseStyle(props.style) }
-  }
-  return { ...styles, ...props.style }
+  // 合并 themeOverrides
+  return { ...themeVars.value, ...styles, ...(typeof props.style === 'string' ? parseStyle(props.style) : props.style) }
 })
 
 const parseStyle = (str: string): CSSProperties => {

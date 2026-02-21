@@ -82,6 +82,8 @@ export interface MessageBoxOptions {
   cancelButtonLoading?: boolean
   /** 自定义加载图标 */
   loadingIcon?: string | Component | VNode
+  /** 主题覆盖变量 */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 export interface MessageBoxHandler {

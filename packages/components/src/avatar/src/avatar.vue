@@ -4,6 +4,7 @@
  */
 import { computed, ref } from 'vue'
 import { useNamespace } from '../../hooks/use-config'
+import { useComponentTheme } from '@yh-ui/theme'
 import type { AvatarProps, AvatarEmits } from './avatar'
 
 defineOptions({ name: 'YhAvatar' })
@@ -17,6 +18,10 @@ const props = withDefaults(defineProps<AvatarProps>(), {
 const emit = defineEmits<AvatarEmits>()
 
 const ns = useNamespace('avatar')
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme('avatar', computed(() => props.themeOverrides))
+
 const imgError = ref(false)
 
 const sizeMap: Record<string, number> = {
@@ -31,7 +36,8 @@ const avatarSize = computed(() => {
 })
 
 const avatarStyle = computed(() => {
-  const style: Record<string, string> = {
+  const style: Record<string, any> = {
+    ...themeStyle.value,
     width: avatarSize.value,
     height: avatarSize.value,
     lineHeight: avatarSize.value,
