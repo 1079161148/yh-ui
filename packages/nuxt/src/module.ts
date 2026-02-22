@@ -186,7 +186,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Result',
       // Grid
       'Grid',
-      'GridItem'
+      'GridItem',
+      // Mention
+      'Mention'
     ]
 
     components.forEach((name) => {

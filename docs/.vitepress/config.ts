@@ -231,7 +231,8 @@ export default defineConfig({
             { text: 'ColorPicker', link: '/en/components/color-picker' },
             { text: 'Transfer', link: '/en/components/transfer' },
             { text: 'TreeSelect', link: '/en/components/tree-select' },
-            { text: 'Upload', link: '/en/components/upload' }
+            { text: 'Upload', link: '/en/components/upload' },
+            { text: 'Mention', link: '/en/components/mention' }
           ]
         },
         {
@@ -326,7 +327,8 @@ export default defineConfig({
             { text: 'ColorPicker 颜色选择器', link: '/components/color-picker' },
             { text: 'Transfer 穿梭框', link: '/components/transfer' },
             { text: 'TreeSelect 树形选择', link: '/components/tree-select' },
-            { text: 'Upload 上传', link: '/components/upload' }
+            { text: 'Upload 上传', link: '/components/upload' },
+            { text: 'Mention 提及', link: '/components/mention' }
           ]
         },
         {

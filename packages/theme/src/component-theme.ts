@@ -292,6 +292,14 @@ export interface TreeThemeVars extends ComponentThemeVars {
   expandIconHoverColor?: string
 }
 
+/** Mention 组件主题变量 */
+export interface MentionThemeVars extends ComponentThemeVars {
+  dropdownShadow?: string
+  dropdownBgColor?: string
+  optionHoverBgColor?: string
+  optionActiveTextColor?: string
+}
+
 // ==================== 导出所有组件主题类型 ====================
 
 export interface AllComponentThemes {
@@ -311,6 +319,7 @@ export interface AllComponentThemes {
   form?: FormThemeVars
   calendar?: CalendarThemeVars
   tree?: TreeThemeVars
+  mention?: MentionThemeVars
   [key: string]: ComponentThemeVars | undefined
 }
 

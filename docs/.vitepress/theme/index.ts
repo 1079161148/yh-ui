@@ -130,6 +130,7 @@ import {
   // Grid
   YhGrid,
   YhGridItem,
+  YhMention,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -339,6 +340,10 @@ export default {
     app.component('yh-grid', YhGrid)
     app.component('YhGridItem', YhGridItem)
     app.component('yh-grid-item', YhGridItem)
+
+    // Mention 提及
+    app.component('YhMention', YhMention)
+    app.component('yh-mention', YhMention)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

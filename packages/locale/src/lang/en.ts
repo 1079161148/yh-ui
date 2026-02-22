@@ -589,7 +589,13 @@ export const en: Language = {
     // Affix
     affix: {},
     // Anchor
-    anchor: {}
+    anchor: {},
+    // Mention
+    mention: {
+      placeholder: 'Please input',
+      loading: 'Loading...',
+      noData: 'No Data'
+    }
   }
 }
 

@@ -77,6 +77,7 @@ import {
 import { YhContainer, YhHeader, YhAside, YhMain, YhFooter } from './container'
 import { YhResult } from './result'
 import { YhGrid, YhGridItem } from './grid'
+import { YhMention } from './mention'
 
 // 导出所有组件
 export * from './button'
@@ -145,6 +146,7 @@ export * from './typography'
 export * from './container'
 export * from './result'
 export * from './grid'
+export * from './mention'
 
 // 所有组件列表
 const components = [
@@ -241,7 +243,8 @@ const components = [
   YhFooter,
   YhResult,
   YhGrid,
-  YhGridItem
+  YhGridItem,
+  YhMention
 ] as Plugin[]
 
 /**

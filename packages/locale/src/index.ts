@@ -606,6 +606,12 @@ export interface Language {
     anchor: {
       // 暂无特定文案
     }
+    // 提及
+    mention: {
+      placeholder: string
+      loading: string
+      noData: string
+    }
   }
 }
 

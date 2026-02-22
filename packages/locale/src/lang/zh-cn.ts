@@ -589,7 +589,13 @@ export const zhCn: Language = {
     // 固钉
     affix: {},
     // 锚点
-    anchor: {}
+    anchor: {},
+    // 提及
+    mention: {
+      placeholder: '请输入',
+      loading: '加载中...',
+      noData: '暂无数据'
+    }
   }
 }
 
