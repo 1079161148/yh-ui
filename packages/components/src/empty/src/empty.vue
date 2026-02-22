@@ -3,16 +3,19 @@
  * YhEmpty - 空状态组件
  */
 import { computed } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { EmptyProps } from './empty'
 
 defineOptions({ name: 'YhEmpty' })
 
+const { t } = useLocale()
+
 const props = withDefaults(defineProps<EmptyProps>(), {
-  imageSize: 100,
-  description: '暂无数据'
+  imageSize: 100
 })
+
+const description = computed(() => props.description || t('empty.description'))
 
 const ns = useNamespace('empty')
 

@@ -3,7 +3,7 @@
  * YhResult - 结果反馈组件
  */
 import { computed } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ResultProps } from './result'
 
@@ -13,8 +13,11 @@ const props = withDefaults(defineProps<ResultProps>(), {
   icon: 'info'
 })
 
+const { t } = useLocale()
 const ns = useNamespace('result')
 const { themeStyle } = useComponentTheme('result', computed(() => props.themeOverrides))
+
+const resultTitle = computed(() => props.title || t(`result.${props.icon}`))
 
 const iconColorMap: Record<string, string> = {
   success: 'var(--yh-color-success, #67c23a)',
@@ -46,8 +49,8 @@ const iconPaths: Record<string, string> = {
     </div>
 
     <!-- 标题区 -->
-    <div v-if="title || $slots.title" :class="ns.e('title')">
-      <slot name="title">{{ title }}</slot>
+    <div :class="ns.e('title')">
+      <slot name="title">{{ resultTitle }}</slot>
     </div>
 
     <!-- 副标题区 -->
