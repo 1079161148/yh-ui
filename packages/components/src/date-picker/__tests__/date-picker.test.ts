@@ -15,6 +15,7 @@ vi.mock('@yh-ui/hooks', async () => {
       b: (suffix?: string) => (suffix ? `yh-${name}-${suffix}` : `yh-${name}`),
       e: (element: string) => `yh-${name}__${element}`,
       m: (modifier: string) => `yh-${name}--${modifier}`,
+      em: (element: string, modifier: string) => `yh-${name}__${element}--${modifier}`,
       is: (state: string, value?: boolean) => (value !== false ? `is-${state}` : '')
     }),
     useFormItem: () => ({

@@ -252,6 +252,7 @@ const doClose = () => {
 }
 
 const handleClose = () => {
+  emit('close')
   if (props.beforeClose) {
     props.beforeClose(doClose)
   } else {

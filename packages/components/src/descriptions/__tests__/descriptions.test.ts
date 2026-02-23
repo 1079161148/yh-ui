@@ -70,4 +70,74 @@ describe('Descriptions', () => {
     expect(wrapper.findAll('tr').length).toBe(1)
     expect(wrapper.findAll('.yh-descriptions__content')[0].attributes('colspan')).toBe('3') // span 2 * 2 - 1 = 3
   })
+
+  it('DescriptionsItem should render slot', () => {
+    const wrapper = mount(YhDescriptionsItem, {
+      slots: {
+        default: () => 'Test Content'
+      }
+    })
+    expect(wrapper.text()).toBe('Test Content')
+  })
+
+  it('should support various alignments and styles', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        labelAlign: 'right',
+        align: 'center',
+        labelStyle: { color: 'red' }
+      },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'L1', labelAlign: 'left', align: 'right' }, () => 'C1')
+        ]
+      }
+    })
+    const label = wrapper.find('.yh-descriptions__label')
+    const content = wrapper.find('.yh-descriptions__content')
+    expect((label.element as HTMLElement).style.textAlign).toBe('left')
+    expect((content.element as HTMLElement).style.textAlign).toBe('right')
+    expect((label.element as HTMLElement).style.color).toBe('red')
+  })
+
+  it('should handle span overflow and fill remaining', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { column: 3 },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'L1', span: 2 }, () => 'C1'),
+          h(YhDescriptionsItem, { label: 'L2', span: 2 }, () => 'C2'),
+          h(YhDescriptionsItem, { label: 'L3' }, () => 'C3')
+        ]
+      }
+    })
+    // L1(2) + L2(2) -> L1(2)+fill(1), then L2(2)+L3(1)
+    expect(wrapper.findAll('tr').length).toBe(2)
+  })
+
+  it('should support custom class names', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        labelClassName: 'custom-label-global',
+        contentClassName: 'custom-content-global'
+      },
+      slots: {
+        default: [
+          h(
+            YhDescriptionsItem,
+            {
+              label: 'L1',
+              labelClassName: 'custom-label-item',
+              className: 'custom-content-item'
+            },
+            () => 'C1'
+          )
+        ]
+      }
+    })
+    expect(wrapper.find('.custom-label-global').exists()).toBe(true)
+    expect(wrapper.find('.custom-content-global').exists()).toBe(true)
+    expect(wrapper.find('.custom-label-item').exists()).toBe(true)
+    expect(wrapper.find('.custom-content-item').exists()).toBe(true)
+  })
 })

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { YhIcon } from '../index'
-import { registerIcon, createIconComponent } from '../src/icon'
+import { registerIcon, createIconComponent, registerIconSet } from '../src/icon'
 import { h, markRaw } from 'vue'
 
 describe('Icon', () => {
@@ -80,6 +80,11 @@ describe('Icon', () => {
   it('icon component test', () => {
     // 1. With extracted SVG (createIconComponent)
     const iconComp = markRaw(createIconComponent('<rect width="10" height="10" />'))
+
+    // Call render to cover line 160 in icon.ts
+    const renderResult = (iconComp as any).render()
+    expect(renderResult).toBeNull()
+
     const wrapper = mount(YhIcon, {
       props: {
         icon: iconComp
@@ -99,6 +104,33 @@ describe('Icon', () => {
       }
     })
     expect(wrapper2.find('.user-icon').exists()).toBe(true)
+  })
+
+  it('registerIcons and registerIconSet test', async () => {
+    const { registerIcons, registerIconSet } = await import('../src/icon')
+
+    // Test registerIcons
+    registerIcons([
+      { name: 'batch-1', svg: '<path d="M1" />' },
+      { name: 'batch-2', svg: '<path d="M2" />' }
+    ])
+
+    // Test registerIconSet
+    const iconSet = {
+      prefix: 'custom',
+      icons: {
+        'icon-1': { name: 'icon-1', svg: '<path d="M1 1" />' },
+        'icon-2': { name: 'icon-2', svg: '<path d="M2 2" />' }
+      }
+    }
+    registerIconSet(iconSet)
+
+    const wrapper = mount(YhIcon, {
+      props: {
+        name: 'custom:icon-1'
+      }
+    })
+    expect(wrapper.find('svg').html()).toContain('d="M1 1"')
   })
 
   it('slot test', () => {

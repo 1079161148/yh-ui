@@ -96,14 +96,14 @@ describe('utils/common', () => {
       expect(fn).toHaveBeenCalledTimes(1)
     })
 
-    it('should skip calls within delay window', () => {
+    it('should skip calls within delay window but fire the trailing call', () => {
       const fn = vi.fn()
       const throttled = throttle(fn, 100)
       throttled()
       throttled()
       throttled()
-      vi.advanceTimersByTime(50)
-      expect(fn).toHaveBeenCalledTimes(1)
+      vi.advanceTimersByTime(100)
+      expect(fn).toHaveBeenCalledTimes(2) // 尾部调用会被触发
     })
 
     it('should allow call after delay', () => {
@@ -115,14 +115,33 @@ describe('utils/common', () => {
       expect(fn).toHaveBeenCalledTimes(2)
     })
 
-    it('should support cancel', () => {
+    it('should support cancel and clear pending timer', () => {
       const fn = vi.fn()
       const throttled = throttle(fn, 100)
-      throttled()
-      throttled.cancel()
+      throttled() // call immediately
+      throttled() // register timer
+      throttled.cancel() // clear timer and reset lastTime
+      vi.advanceTimersByTime(100)
+      expect(fn).toHaveBeenCalledTimes(1) // the trailing call shouldn't fire
+
       // after cancel, should allow immediate call
-      vi.advanceTimersByTime(0)
-      expect(fn).toHaveBeenCalledTimes(1)
+      throttled()
+      expect(fn).toHaveBeenCalledTimes(2)
+    })
+
+    it('should handle remaining <= 0 with active timer', () => {
+      const fn = vi.fn()
+      const throttled = throttle(fn, 100)
+      throttled() // fn called, lastTime = 0
+      throttled() // timer set to fire in 100ms
+      vi.setSystemTime(Date.now() + 150)
+      throttled() // remaining <= 0, timer exists
+      expect(fn).toHaveBeenCalledTimes(2)
+    })
+
+    it('cancel should do nothing if no timer', () => {
+      const throttled = throttle(vi.fn(), 100)
+      expect(() => throttled.cancel()).not.toThrow()
     })
   })
 
@@ -162,6 +181,13 @@ describe('utils/common', () => {
       const cloned = deepClone(obj)
       cloned.nested.val = 999
       expect(obj.nested.val).toBe(1)
+    })
+
+    it('should handle Object.create(null) or other objects', () => {
+      const obj = Object.create(null)
+      obj.a = 1
+      const cloned = deepClone(obj)
+      expect(cloned.a).toBe(1)
     })
   })
 

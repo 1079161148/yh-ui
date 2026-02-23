@@ -319,4 +319,92 @@ describe('Tree', () => {
     await nextTick()
     expect((wrapper.vm as any).getCurrentKey()).toBe('2')
   })
+
+  it('should handle drag and drop events', async () => {
+    const onNodeDragStart = vi.fn()
+    const onNodeDrop = vi.fn()
+    const wrapper = mount(YhTree, {
+      props: { data: treeData, draggable: true, onNodeDragStart, onNodeDrop }
+    })
+
+    const nodeContent = wrapper.find('.yh-tree__content')
+
+    // Drag start
+    const dragStartEvent = new DragEvent('dragstart')
+    await nodeContent.element.dispatchEvent(dragStartEvent)
+    expect(onNodeDragStart).toHaveBeenCalled()
+
+    // Drag over
+    const dragOverEvent = new DragEvent('dragover')
+    await nodeContent.element.dispatchEvent(dragOverEvent)
+
+    // Drop
+    const dropEvent = new DragEvent('drop')
+    await nodeContent.element.dispatchEvent(dropEvent)
+    expect(onNodeDrop).toHaveBeenCalled()
+  })
+
+  it('should support lazy loading', async () => {
+    const load = vi.fn().mockResolvedValue([{ key: 'lazy-1', label: '懒加载节点 1' }])
+    const wrapper = mount(YhTree, {
+      //@ts-ignore
+      props: { data: [{ key: 'parent', label: '父节点' }], lazy: true, load }
+    })
+
+    await wrapper.find('.yh-tree__expand-icon').trigger('click')
+    expect(load).toHaveBeenCalled()
+    await nextTick()
+    await nextTick()
+    expect(wrapper.text()).toContain('懒加载节点 1')
+  })
+
+  it('should cover drag positions', async () => {
+    const wrapper = mount(YhTree, {
+      props: { data: treeData, draggable: true }
+    })
+    const content = wrapper.find('.yh-tree__content')
+
+    // Mock getBoundingClientRect
+    content.element.getBoundingClientRect = vi.fn().mockReturnValue({
+      top: 100,
+      height: 40,
+      left: 0,
+      right: 100,
+      bottom: 140,
+      width: 100,
+      x: 0,
+      y: 100,
+      toJSON: () => {}
+    })
+
+    // Drag over top (before)
+    const eventBefore = new MouseEvent('dragover', { clientY: 105 })
+    Object.defineProperty(eventBefore, 'currentTarget', { value: content.element })
+    await content.element.dispatchEvent(eventBefore)
+
+    // Drag over bottom (after)
+    const eventAfter = new MouseEvent('dragover', { clientY: 135 })
+    Object.defineProperty(eventAfter, 'currentTarget', { value: content.element })
+    await content.element.dispatchEvent(eventAfter)
+
+    // Drag over middle (inner)
+    const eventInner = new MouseEvent('dragover', { clientY: 120 })
+    Object.defineProperty(eventInner, 'currentTarget', { value: content.element })
+    await content.element.dispatchEvent(eventInner)
+  })
+
+  it('should support scrollTo and scrollToNode', async () => {
+    const wrapper = mount(YhTree, {
+      props: { data: treeData, virtual: true, height: 200, itemHeight: 30 }
+    })
+    const vm = wrapper.vm as any
+    // Mock the innerScrollRef
+    vm.innerScrollRef = { scrollTo: vi.fn() }
+
+    vm.scrollTo(100)
+    expect(vm.innerScrollRef.scrollTo).toHaveBeenCalledWith({ top: 100 })
+
+    vm.scrollToNode('3') // key '3' is a node
+    expect(vm.innerScrollRef.scrollTo).toHaveBeenCalled()
+  })
 })

@@ -186,7 +186,13 @@ const handleScroll = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', event: Eve
 // 箭头控制
 const handleArrowClick = (type: 'hours' | 'minutes' | 'seconds', direction: 'up' | 'down') => {
   const list = type === 'hours' ? hoursList.value : type === 'minutes' ? minutesList.value : secondsList.value
-  const currentValue = props.modelValue[type]
+  let currentValue = props.modelValue[type]
+
+  // 12 小时制转换 (获取正确的 index)
+  if (type === 'hours' && props.use12Hours) {
+    currentValue = currentValue % 12 || 12
+  }
+
   const currentIndex = list.findIndex(item => item.value === currentValue)
 
   let newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1

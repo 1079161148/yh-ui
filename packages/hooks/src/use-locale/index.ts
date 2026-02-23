@@ -10,7 +10,12 @@ import { useConfig } from '../use-config'
 import { setDayjsLocale } from './dayjs-locale'
 
 export type { Language }
-export { setDayjsLocale, getDayjsLocale, setDayjsLocaleSync } from './dayjs-locale'
+export {
+  setDayjsLocale,
+  getDayjsLocale,
+  setDayjsLocaleSync,
+  updateDayjsMonths
+} from './dayjs-locale'
 
 /**
  * useLocale - 国际化

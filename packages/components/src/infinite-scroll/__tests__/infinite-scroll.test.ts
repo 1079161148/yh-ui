@@ -68,6 +68,98 @@ describe('InfiniteScroll Component', () => {
     expect(typeof wrapper.vm.check).toBe('function')
     wrapper.vm.check()
   })
+
+  it('should fallback to scroll listener when useObserver is false', async () => {
+    const wrapper = mount(YhInfiniteScroll, {
+      attachTo: document.body,
+      props: { useObserver: false, target: '.yh-infinite-scroll', threshold: 100 }
+    })
+    await nextTick()
+
+    const container = wrapper.element as HTMLElement
+
+    // 模拟 vertical scroll
+    Object.defineProperty(container, 'scrollHeight', { value: 1000, configurable: true })
+    Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true })
+    Object.defineProperty(container, 'scrollTop', {
+      value: 490,
+      configurable: true,
+      writable: true
+    })
+
+    // trigger load directly
+    wrapper.vm.check()
+    expect(wrapper.emitted('load')).toBeTruthy()
+  })
+
+  it('should handle horizontal scroll correctly', async () => {
+    const wrapper = mount(YhInfiniteScroll, {
+      attachTo: document.body,
+      props: {
+        useObserver: false,
+        target: '.yh-infinite-scroll',
+        direction: 'horizontal',
+        threshold: 100
+      }
+    })
+    await nextTick()
+
+    // 模拟 horizontal scroll
+    const container = wrapper.element as HTMLElement
+    Object.defineProperty(container, 'scrollWidth', { value: 1000, configurable: true })
+    Object.defineProperty(container, 'clientWidth', { value: 500, configurable: true })
+    Object.defineProperty(container, 'scrollLeft', {
+      value: 490,
+      configurable: true,
+      writable: true
+    })
+
+    wrapper.vm.check()
+    expect(wrapper.emitted('load')).toBeTruthy()
+  })
+
+  it('should handle dynamic useObserver switching', async () => {
+    const wrapper = mount(YhInfiniteScroll, {
+      attachTo: document.body,
+      props: { useObserver: false, target: '.yh-infinite-scroll', threshold: 100 }
+    })
+    // 切换到 true
+    await wrapper.setProps({ useObserver: true })
+    // 这里会调用断开传统事件并重新挂载 IntersectionObserver
+    expect(wrapper.vm).toBeDefined()
+
+    // 再切回 false
+    await wrapper.setProps({ useObserver: false })
+  })
+
+  it('should handle loading change and re-evaluate', async () => {
+    const wrapper = mount(YhInfiniteScroll, {
+      attachTo: document.body,
+      props: {
+        loading: true,
+        immediateCheck: true,
+        useObserver: false,
+        target: '.yh-infinite-scroll',
+        threshold: 100
+      }
+    })
+    await nextTick()
+
+    const container = wrapper.element as HTMLElement
+    Object.defineProperty(container, 'scrollHeight', { value: 1000, configurable: true })
+    Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true })
+    Object.defineProperty(container, 'scrollTop', {
+      value: 490,
+      configurable: true,
+      writable: true
+    })
+
+    await wrapper.setProps({ loading: false })
+    await nextTick() // evaluate watcher callback
+    await nextTick() // evaluating checkLoad from nextTick inside watcher handler
+
+    expect(wrapper.emitted('load')).toBeTruthy()
+  })
 })
 
 describe('InfiniteScroll Directive', () => {

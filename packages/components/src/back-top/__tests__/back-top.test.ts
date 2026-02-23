@@ -2,46 +2,98 @@
  * @vitest-environment happy-dom
  */
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { nextTick } from 'vue'
 import YhBackTop from '../src/back-top.vue'
 
 describe('YhBackTop', () => {
+  let container: HTMLElement
+
+  beforeEach(() => {
+    vi.useFakeTimers()
+
+    container = document.createElement('div')
+    container.id = 'scroll-container'
+    Object.defineProperty(container, 'scrollTop', { value: 0, writable: true })
+    Object.defineProperty(container, 'scrollHeight', { value: 2000, writable: true })
+    Object.defineProperty(container, 'clientHeight', { value: 500, writable: true })
+    document.body.appendChild(container)
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.unstubAllGlobals()
+    document.body.removeChild(container)
+  })
+
   it('should be invisible initially', () => {
     const wrapper = mount(YhBackTop, {
-      props: { visibilityHeight: 200 }
+      props: {
+        target: '#scroll-container',
+        visibilityHeight: 200
+      }
     })
     expect(wrapper.find('.yh-back-top').exists()).toBe(false)
   })
 
-  it('should render when visible is true', async () => {
-    // 直接测试组件在可见状态下的渲染，避开复杂的 window 滚动模拟
+  it('should be visible after scrolling down', async () => {
     const wrapper = mount(YhBackTop, {
-      props: { visibilityHeight: -1 } // 强制任何高度都可见 (if logic follows)
-    })
-    // 或者更直接地：
-    const wrapperVisible = mount(YhBackTop, {
-      global: {
-        stubs: { Transition: false }
+      props: {
+        target: '#scroll-container',
+        visibilityHeight: 100
       }
     })
-    // 手动设置内部状态（如果可能）或者触发逻辑
-    // 由于无法直接修改内部 visible，我们通过 props 间接尝试
 
-    // 实际上，我们可以在组件挂载后手动触发一次逻辑
-    // 但为了确保通过，我们检查至少基础逻辑
-    expect(wrapper.exists()).toBe(true)
+    container.scrollTop = 150
+    // @ts-ignore
+    wrapper.vm.handleScroll()
+    vi.advanceTimersByTime(16)
+    await nextTick()
+    expect(wrapper.find('.yh-back-top').exists()).toBe(true)
   })
 
-  it('should emit click event if forced to show', async () => {
+  it('should show progress circle when showProgress is true', async () => {
     const wrapper = mount(YhBackTop, {
-      props: { visibilityHeight: 0 }
+      props: {
+        target: '#scroll-container',
+        visibilityHeight: 0,
+        showProgress: true
+      }
     })
-    // 触发内部逻辑
-    vi.stubGlobal('requestAnimationFrame', (cb: any) => cb())
-    // @ts-ignore
-    wrapper.vm.handleScroll?.()
 
-    // 如果 handleScroll 没暴露，我们就跳过点击测试，或者用更轻量级的方式
-    expect(true).toBe(true)
+    container.scrollTop = 500 // 50% progress
+    // @ts-ignore
+    wrapper.vm.handleScroll()
+    vi.advanceTimersByTime(16)
+    await nextTick()
+
+    expect(wrapper.find('.yh-back-top__progress').exists()).toBe(true)
+  })
+
+  it('should scroll to top on click', async () => {
+    const wrapper = mount(YhBackTop, {
+      props: {
+        target: '#scroll-container',
+        visibilityHeight: 0,
+        duration: 100
+      }
+    })
+
+    container.scrollTop = 500
+    // @ts-ignore
+    wrapper.vm.handleScroll()
+    vi.advanceTimersByTime(16)
+    await nextTick()
+
+    const scrollToSpy = vi.fn()
+    container.scrollTo = scrollToSpy
+
+    await wrapper.find('.yh-back-top').trigger('click')
+
+    // Fast-forward animation
+    vi.advanceTimersByTime(200)
+
+    expect(scrollToSpy).toHaveBeenCalled()
+    expect(wrapper.emitted('click')).toBeTruthy()
   })
 })

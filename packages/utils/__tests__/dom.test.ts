@@ -1,7 +1,7 @@
 /**
  * utils/src/dom.ts 单元测试
  */
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import {
   isClient,
   isServer,
@@ -42,6 +42,16 @@ describe('utils/dom', () => {
     it('should return empty string when styleName is falsy', () => {
       const el = document.createElement('div')
       expect(getStyle(el, null as unknown as keyof CSSStyleDeclaration)).toBe('')
+    })
+
+    it('should catch error in getStyle and return inline style', () => {
+      const el = document.createElement('div')
+      el.style.color = 'pink'
+      const getComputedStyleSpy = vi.spyOn(window, 'getComputedStyle').mockImplementation(() => {
+        throw new Error('mock error')
+      })
+      expect(getStyle(el, 'color')).toBe('pink')
+      getComputedStyleSpy.mockRestore()
     })
   })
 

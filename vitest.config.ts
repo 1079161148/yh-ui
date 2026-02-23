@@ -38,13 +38,14 @@ export default defineConfig({
       '**/cypress/**',
       '**/.{idea,git,cache,output,temp}/**',
       // Nuxt E2E 集成测试需要真实 Nuxt 服务器，单独运行
-      'packages/nuxt/__tests__/**'
+      'packages/nuxt/__tests__/e2e/**'
     ],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'clover', 'lcov'],
       include: ['packages/*/src/**/*.{ts,vue}'],
-      exclude: ['**/*.d.ts', '**/index.ts', '**/__tests__/**']
+      exclude: ['**/*.d.ts', '**/index.ts', '**/__tests__/**'],
+      clean: true
     },
     // SSR 相关配置
     server: {

@@ -20,9 +20,29 @@ const { themeStyle } = useComponentTheme('alert', computed(() => props.themeOver
 const slots = useSlots()
 const visible = ref(true)
 const progress = ref(100)
-const startTime = ref(0)
+const remainingTime = ref(props.duration)
+const lastUpdate = ref(0)
+const isPaused = ref(false)
+
 let timer: ReturnType<typeof setTimeout> | null = null
 let rafId: number | null = null
+
+const updateProgress = () => {
+  if (isPaused.value || !visible.value) return
+
+  const now = Date.now()
+  const elapsed = now - lastUpdate.value
+  lastUpdate.value = now
+
+  remainingTime.value = Math.max(0, remainingTime.value - elapsed)
+  progress.value = (remainingTime.value / props.duration) * 100
+
+  if (remainingTime.value > 0) {
+    rafId = requestAnimationFrame(updateProgress)
+  } else {
+    visible.value = false
+  }
+}
 
 // 主题类名计算
 const alertClass = computed(() => [
@@ -59,33 +79,37 @@ const clearAutoClose = () => {
   if (rafId) cancelAnimationFrame(rafId)
 }
 
-// 自动关闭与进度条逻辑
-const startAutoClose = () => {
-  if (props.duration > 0) {
-    startTime.value = Date.now()
+const handleMouseEnter = () => {
+  if (props.pauseOnHover && props.duration > 0) {
+    isPaused.value = true
+    if (timer) clearTimeout(timer)
+  }
+}
 
+const handleMouseLeave = () => {
+  if (props.pauseOnHover && props.duration > 0 && visible.value) {
+    isPaused.value = false
+    lastUpdate.value = Date.now()
     if (props.showProgress) {
-      const updateProgress = () => {
-        const elapsed = Date.now() - startTime.value
-        const remaining = Math.max(0, 100 - (elapsed / props.duration) * 100)
-        progress.value = remaining
-
-        if (remaining > 0 && visible.value) {
-          rafId = requestAnimationFrame(updateProgress)
-        }
-      }
       rafId = requestAnimationFrame(updateProgress)
     }
-
     timer = setTimeout(() => {
       visible.value = false
-      // 注意：由于是内部自动关闭，不手动触发 emit('close') 以防重复，如果需要可在这里触发。
-    }, props.duration)
+    }, remainingTime.value)
   }
 }
 
 onMounted(() => {
-  startAutoClose()
+  if (props.duration > 0) {
+    remainingTime.value = props.duration
+    lastUpdate.value = Date.now()
+    if (props.showProgress) {
+      rafId = requestAnimationFrame(updateProgress)
+    }
+    timer = setTimeout(() => {
+      visible.value = false
+    }, props.duration)
+  }
 })
 
 onBeforeUnmount(() => {
@@ -95,7 +119,8 @@ onBeforeUnmount(() => {
 
 <template>
   <Transition :name="`${ns.namespace.value}-fade`">
-    <div v-if="visible" :class="alertClass" :style="alertStyle" role="alert">
+    <div v-if="visible" :class="alertClass" :style="alertStyle" role="alert" @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave">
       <!-- 图标部分 -->
       <div v-if="showIcon" :class="ns.e('icon')">
         <slot name="icon">

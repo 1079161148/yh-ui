@@ -4,7 +4,7 @@
  * @description 在一组备选项中进行多选
  */
 import { computed, ref, inject, onMounted, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type {
   CheckboxProps,
@@ -46,20 +46,23 @@ const inputRef = ref<HTMLInputElement>()
 const focused = ref(false)
 const hovering = ref(false)
 
+const { globalSize } = useConfig()
+
 // 判断是 group 还是单独使用
 const isGroup = computed(() => !!checkboxGroup)
 
 // 获取实际的 size
 const checkboxSize = computed(() => {
-  return props.size || checkboxGroup?.size || 'default'
+  return (props.size !== 'default' ? props.size : checkboxGroup?.size) || globalSize.value || 'default'
 })
 
 // 获取实际的 disabled
 const isDisabled = computed(() => {
-  if (props.disabled) return true
-  if (checkboxGroup?.disabled) return true
+  return props.disabled || checkboxGroup?.disabled || false
+})
 
-  // 检查 min/max 限制
+// 检查 min/max 限制
+const isLimitDisabled = computed(() => {
   if (isGroup.value && checkboxGroup) {
     const modelValue = checkboxGroup.modelValue || []
     const isChecked = modelValue.includes(props.value as CheckboxValueType)
@@ -86,6 +89,8 @@ const isDisabled = computed(() => {
   return false
 })
 
+const actualDisabled = computed(() => isDisabled.value || isLimitDisabled.value)
+
 // 是否选中
 const isChecked = computed(() => {
   if (isGroup.value && checkboxGroup) {
@@ -100,7 +105,7 @@ const isChecked = computed(() => {
 const checkboxClasses = computed(() => [
   ns.b(),
   ns.m(checkboxSize.value),
-  ns.is('disabled', isDisabled.value),
+  ns.is('disabled', actualDisabled.value),
   ns.is('checked', isChecked.value),
   ns.is('indeterminate', props.indeterminate),
   ns.is('focused', focused.value),
@@ -113,7 +118,7 @@ const innerClasses = computed(() => [
 
 // 处理变化
 const handleChange = (event: Event) => {
-  if (isDisabled.value) return
+  if (actualDisabled.value) return
 
   const target = event.target as HTMLInputElement
 
@@ -184,8 +189,12 @@ onMounted(() => {
 
 // 暴露的属性和方法
 defineExpose<CheckboxExpose>({
-  ref: inputRef.value,
-  checked: isChecked.value,
+  get ref() {
+    return inputRef.value
+  },
+  get checked() {
+    return isChecked.value
+  },
   focus,
   blur
 })
@@ -195,13 +204,14 @@ defineExpose<CheckboxExpose>({
   <label :class="checkboxClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
     <span :class="[
       ns.e('input'),
-      ns.is('disabled', isDisabled),
+      ns.is('disabled', actualDisabled),
       ns.is('checked', isChecked),
-      ns.is('indeterminate', indeterminate)
+      ns.is('indeterminate', props.indeterminate)
     ]">
       <span :class="innerClasses"></span>
       <input ref="inputRef" :class="ns.e('original')" type="checkbox" :name="name" :id="id" :tabindex="tabindex"
-        :disabled="isDisabled" :checked="isChecked" @change="handleChange" @focus="handleFocus" @blur="handleBlur" />
+        :disabled="actualDisabled" :checked="isChecked" @change="handleChange" @focus="handleFocus"
+        @blur="handleBlur" />
     </span>
     <span v-if="$slots.default || label" :class="ns.e('label')">
       <slot>{{ label }}</slot>

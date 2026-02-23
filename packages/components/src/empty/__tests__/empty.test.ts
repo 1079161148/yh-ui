@@ -109,4 +109,9 @@ describe('YhEmpty 组件', () => {
     })
     expect(wrapper.find('.yh-empty__image img').attributes('alt')).toBe('暂无订单')
   })
+  it('应该支持国际化默认描述文字', async () => {
+    // 默认 zh-cn
+    const wrapper = mount(Empty)
+    expect(wrapper.find('.yh-empty__description').text()).toBe('暂无数据')
+  })
 })

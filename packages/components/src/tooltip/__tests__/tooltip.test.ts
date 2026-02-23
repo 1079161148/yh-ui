@@ -2,34 +2,43 @@
  * @vitest-environment happy-dom
  */
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, vi, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import YhTooltip from '../src/tooltip.vue'
 import { nextTick } from 'vue'
 
-describe('YhTooltip', () => {
-  afterEach(() => {
-    document.body.innerHTML = ''
-  })
-
-  it('should render content correctly', async () => {
-    const wrapper = mount(YhTooltip, {
-      props: {
-        content: 'test content'
-      },
-      slots: {
-        default: '<button id="trigger">trigger</button>'
-      }
+// Mock Floating UI
+vi.mock('@floating-ui/dom', () => ({
+  computePosition: vi.fn(() =>
+    Promise.resolve({
+      x: 0,
+      y: 0,
+      placement: 'top',
+      middlewareData: { arrow: { x: 0, y: 0 } }
     })
+  ),
+  offset: vi.fn(),
+  flip: vi.fn(),
+  shift: vi.fn(),
+  arrow: vi.fn(),
+  autoUpdate: vi.fn(() => vi.fn())
+}))
 
-    expect(wrapper.find('#trigger').exists()).toBe(true)
+describe('YhTooltip', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    document.body.innerHTML = ''
+    vi.clearAllMocks()
   })
 
-  it('should show popper on hover', async () => {
-    vi.useFakeTimers()
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('should render content correctly via prop and slot', async () => {
     const wrapper = mount(YhTooltip, {
       props: {
-        content: 'hover content',
-        trigger: 'hover',
+        content: 'prop content',
+        visible: true,
         showAfter: 0
       },
       slots: {
@@ -37,61 +46,108 @@ describe('YhTooltip', () => {
       }
     })
 
-    const trigger = wrapper.find('#trigger')
-    await trigger.trigger('mouseenter')
-
-    vi.runAllTimers()
     await nextTick()
-
-    // Check if teleported content exists in body
-    const popper = document.querySelector('.yh-tooltip__popper')
+    await nextTick()
+    const popper = document.querySelector('.yh-tooltip__popper') as HTMLElement
     expect(popper).toBeTruthy()
-    expect(popper?.textContent).toContain('hover content')
-
-    vi.useRealTimers()
+    expect(popper.textContent).toContain('prop content')
   })
 
-  it('should handle click trigger', async () => {
+  it('should handle show-after and hide-after delays', async () => {
     const wrapper = mount(YhTooltip, {
       props: {
-        content: 'click content',
-        trigger: 'click'
+        content: 'delayed',
+        showAfter: 500,
+        hideAfter: 500,
+        persistent: false
       },
       slots: {
         default: '<button id="trigger">trigger</button>'
       }
     })
 
-    const trigger = wrapper.find('#trigger')
-    await trigger.trigger('click')
+    // Trigger mouseenter on the ROOT div since mouseenter doesn't bubble
+    await wrapper.find('.yh-tooltip').trigger('mouseenter')
+
+    // Timer is set but not fired
+    expect(document.querySelector('.yh-tooltip__popper')).toBeFalsy()
+
+    // Fire timer
+    vi.advanceTimersByTime(510)
+    await nextTick()
     await nextTick()
 
-    const popper = document.querySelector('.yh-tooltip__popper')
-    expect(popper).toBeTruthy()
+    expect(document.querySelector('.yh-tooltip__popper')).toBeTruthy()
 
-    // Click again to hide - just verify the second click doesn't error
-    await trigger.trigger('click')
+    // Mouse leave
+    await wrapper.find('.yh-tooltip').trigger('mouseleave')
+    expect(document.querySelector('.yh-tooltip__popper')).toBeTruthy()
+
+    // Fire hide timer
+    vi.advanceTimersByTime(510)
     await nextTick()
-    // After second click, component should still be functional
-    expect(wrapper.find('#trigger').exists()).toBe(true)
+    await nextTick()
+
+    expect(document.querySelector('.yh-tooltip__popper')).toBeFalsy()
   })
 
-  it('should obey disabled prop', async () => {
+  it('should support manual trigger via visible prop', async () => {
     const wrapper = mount(YhTooltip, {
       props: {
-        content: 'disabled content',
-        disabled: true
+        content: 'manual',
+        visible: false,
+        persistent: false
+      },
+      slots: {
+        default: '<button>trigger</button>'
+      }
+    })
+
+    expect(document.querySelector('.yh-tooltip__popper')).toBeFalsy()
+
+    await wrapper.setProps({ visible: true })
+    await nextTick()
+    await nextTick()
+    expect(document.querySelector('.yh-tooltip__popper')).toBeTruthy()
+  })
+
+  it('should support follow-cursor mode', async () => {
+    const floating = await import('@floating-ui/dom')
+
+    const wrapper = mount(YhTooltip, {
+      props: {
+        content: 'following',
+        followCursor: true,
+        showAfter: 0,
+        visible: true
       },
       slots: {
         default: '<button id="trigger">trigger</button>'
       }
     })
 
-    await wrapper.find('#trigger').trigger('mouseenter')
     await nextTick()
-    // Disabled tooltip should not show visible popper
-    const popper = document.querySelector('.yh-tooltip__popper')
-    const isVisible = popper ? !popper.getAttribute('style')?.includes('display: none') : false
-    expect(isVisible).toBe(false)
+    await nextTick()
+
+    window.dispatchEvent(new MouseEvent('mousemove', { clientX: 100, clientY: 100 }))
+
+    expect(floating.computePosition).toHaveBeenCalled()
+  })
+
+  it('should not show when disabled', async () => {
+    const wrapper = mount(YhTooltip, {
+      props: {
+        content: 'disabled',
+        disabled: true,
+        persistent: false
+      },
+      slots: {
+        default: '<button id="trigger">trigger</button>'
+      }
+    })
+
+    await wrapper.find('.yh-tooltip').trigger('mouseenter')
+    await nextTick()
+    expect(document.querySelector('.yh-tooltip__popper')).toBeFalsy()
   })
 })

@@ -256,4 +256,95 @@ describe('YhAutocomplete', () => {
     expect(typeof vm.close).toBe('function')
     expect(typeof vm.highlight).toBe('function')
   })
+
+  it('should highlight first item when highlightFirstItem is true', async () => {
+    const mockFetch = vi.fn((query, cb) => cb(suggestions))
+    const wrapper = mount(Autocomplete, {
+      props: {
+        fetchSuggestions: mockFetch,
+        highlightFirstItem: true,
+        triggerOnFocus: true
+      }
+    })
+
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+
+    // Check internal state via vm
+    expect((wrapper.vm as any).highlightedIndex).toBe(0)
+  })
+
+  it('should support custom valueKey', async () => {
+    const customSuggestions = [{ id: 1, name: 'vue' }]
+    const wrapper = mount(Autocomplete, {
+      props: {
+        fetchSuggestions: (q: any, cb: any) => cb(customSuggestions),
+        valueKey: 'name',
+        triggerOnFocus: true,
+        teleported: false
+      }
+    })
+
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+
+    const items = wrapper.findAll('.yh-autocomplete__suggestion')
+    expect(items[0].text()).toBe('vue')
+  })
+
+  it('should scroll to highlighted item', async () => {
+    const manySuggestions = Array.from({ length: 20 }, (_, i) => ({ value: `item ${i}` }))
+    const wrapper = mount(Autocomplete, {
+      props: {
+        fetchSuggestions: (q: any, cb: any) => cb(manySuggestions),
+        triggerOnFocus: true,
+        teleported: false
+      }
+    })
+
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+
+    const vm = wrapper.vm as any
+    vm.highlight(15)
+    await nextTick()
+
+    // scrollToHighlighted should have been called
+    expect(vm.highlightedIndex).toBe(15)
+  })
+
+  it('should render loading and empty slots', async () => {
+    const wrapper = mount(Autocomplete, {
+      props: {
+        fetchSuggestions: (q: any, cb: any) => {
+          /* never calls cb to stay loading */
+        },
+        teleported: false
+      },
+      slots: {
+        loading: '<div class="custom-loading">Loading...</div>'
+      }
+    })
+
+    await wrapper.find('input').trigger('focus')
+    await wrapper.find('input').setValue('a')
+    await nextTick()
+
+    expect(wrapper.find('.custom-loading').exists()).toBe(true)
+
+    const wrapperEmpty = mount(Autocomplete, {
+      props: {
+        fetchSuggestions: (q: any, cb: any) => cb([]),
+        teleported: false
+      },
+      slots: {
+        empty: '<div class="custom-empty">No Data</div>'
+      }
+    })
+
+    await wrapperEmpty.find('input').trigger('focus')
+    await wrapperEmpty.find('input').setValue('a')
+    await nextTick()
+    expect(wrapperEmpty.find('.custom-empty').exists()).toBe(true)
+  })
 })

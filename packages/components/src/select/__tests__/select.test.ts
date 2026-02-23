@@ -3,7 +3,7 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { nextTick, h } from 'vue'
 import Select from '../src/select.vue'
 
 describe('YhSelect', () => {
@@ -418,5 +418,33 @@ describe('YhSelect', () => {
       // 值不应该增加
       expect((wrapper.props('modelValue') as any[]).length).toBe(2)
     }
+  })
+
+  it('should work with slot mode (YhOption)', async () => {
+    const { YhOption } = await import('../index')
+    const wrapper = mount(Select, {
+      props: {
+        modelValue: 'v1',
+        'onUpdate:modelValue': (val: any) => wrapper.setProps({ modelValue: val })
+      },
+      slots: {
+        default: () => [
+          h(YhOption, { value: 'v1', label: 'L1' }),
+          h(YhOption, { value: 'v2', label: 'L2', disabled: true })
+        ]
+      },
+      global: {
+        components: { YhOption }
+      }
+    })
+
+    await wrapper.trigger('click')
+    await nextTick()
+
+    expect(wrapper.find('.yh-select__selected-value').text()).toBe('L1')
+
+    // Test Option.vue logic indirectly via Select behavior
+    // 卸载组件触发 onBeforeUnmount
+    wrapper.unmount()
   })
 })

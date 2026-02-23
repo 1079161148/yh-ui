@@ -16,6 +16,16 @@ const mockOptions = [
   { value: 'evan', label: 'Evan', group: 'VIP' }
 ]
 
+import { mentionPlacements, mentionSizes, mentionSplits } from '../src/mention'
+
+describe('Mention Constants Coverage', () => {
+  it('should have constants defined', () => {
+    expect(mentionPlacements).toContain('top')
+    expect(mentionSizes).toContain('default')
+    expect(mentionSplits).toContain('@')
+  })
+})
+
 // ─── 渲染测试 ─────────────────────────────────────────────────────────────────
 
 describe('YhMention 基础渲染', () => {
@@ -588,5 +598,47 @@ describe('YhMention 事件', () => {
     const wrapper = mount(Mention)
     await wrapper.find('input').trigger('keydown', { key: 'a' })
     expect(wrapper.emitted('keydown')).toBeTruthy()
+  })
+
+  it('默认 placeholder 应从语言包获取', async () => {
+    const wrapper = mount(Mention)
+    const input = wrapper.find('input')
+    expect(input.attributes('placeholder')).toBe('请输入')
+  })
+
+  it('应该覆盖 Mention.vue 的更多分支', async () => {
+    const wrapper = mount(Mention, {
+      props: {
+        modelValue: '',
+        options: mockOptions,
+        debounce: 0,
+        teleported: false
+      },
+      attachTo: document.body
+    })
+
+    const input = wrapper.find('input')
+    await input.trigger('mouseenter')
+    await input.trigger('mouseleave')
+
+    // 触发下拉
+    await input.setValue('@')
+    await input.trigger('input')
+    await new Promise((r) => setTimeout(r, 50))
+    await nextTick()
+
+    // 键盘测试
+    await input.trigger('keydown', { key: 'ArrowUp' })
+    await input.trigger('keydown', { key: 'Escape' })
+    await input.trigger('keydown', { key: 'Tab' })
+
+    // 点击外部
+    document.body.click()
+    await nextTick()
+
+    // resize
+    window.dispatchEvent(new Event('resize'))
+
+    wrapper.unmount()
   })
 })

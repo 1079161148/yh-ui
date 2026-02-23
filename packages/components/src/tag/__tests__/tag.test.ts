@@ -206,4 +206,12 @@ describe('YhTag', () => {
     expect(wrapper.find('.custom-icon').exists()).toBe(true)
     expect(wrapper.get('span').classes()).toContain('is-has-icon')
   })
+
+  // 导出常量测试
+  it('should export constants', async () => {
+    const { tagTypes, tagSizes, tagEffects } = await import('../src/tag')
+    expect(tagTypes).toBeTruthy()
+    expect(tagSizes).toBeTruthy()
+    expect(tagEffects).toBeTruthy()
+  })
 })

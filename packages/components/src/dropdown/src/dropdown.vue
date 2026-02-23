@@ -130,7 +130,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.is('disabled', disabled)]" :style="themeStyle" @keydown="handleKeydown">
+  <div :class="[ns.b(), ns.is('disabled', disabled), ns.is('split', splitButton)]" :style="themeStyle" @keydown="handleKeydown">
     <YhTooltip ref="tooltipRef" v-model:visible="visible" :trigger="trigger" :placement="placement" :disabled="disabled"
       :show-after="showAfter" :hide-after="hideAfter" :z-index="zIndex" :teleported="teleported"
       :popper-class="`${ns.e('popper')} ${popperClass}`" :popper-style="popperStyle" :offset="offset"

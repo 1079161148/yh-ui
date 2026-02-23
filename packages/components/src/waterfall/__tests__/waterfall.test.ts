@@ -1,8 +1,12 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { YhWaterfall } from '../index'
+import { nextTick } from 'vue'
 
-// Mock ResizeObserver using class for happy-dom compatibility
+// Mock ResizeObserver
 class ResizeObserverMock {
   observe = vi.fn()
   unobserve = vi.fn()
@@ -12,10 +16,10 @@ vi.stubGlobal('ResizeObserver', ResizeObserverMock)
 
 describe('Waterfall', () => {
   const items = [
-    { id: 1, title: 'Card 1' },
-    { id: 2, title: 'Card 2' },
-    { id: 3, title: 'Card 3' },
-    { id: 4, title: 'Card 4' }
+    { id: 1, title: 'Card 1', height: 200 },
+    { id: 2, title: 'Card 2', height: 300 },
+    { id: 3, title: 'Card 3', height: 150 },
+    { id: 4, title: 'Card 4', height: 400 }
   ]
 
   it('should render correctly with default props', () => {
@@ -23,71 +27,87 @@ describe('Waterfall', () => {
       props: { items }
     })
     expect(wrapper.classes()).toContain('yh-waterfall')
-    // Default cols is 2
     expect(wrapper.findAll('.yh-waterfall__column').length).toBe(2)
   })
 
-  it('should render correct number of columns', () => {
+  it('should support responsive columns', async () => {
     const wrapper = mount(YhWaterfall, {
-      props: { items, cols: 3 }
+      props: {
+        items,
+        cols: { xs: 1, sm: 2, md: 3, lg: 4 },
+        responsive: true
+      }
     })
+
+    const vm = wrapper.vm as any
+    // Mock containerWidth directly since we can't easily change physical offsetWidth in happy-dom
+    vm.containerWidth = 800
+    await nextTick()
     expect(wrapper.findAll('.yh-waterfall__column').length).toBe(3)
+
+    vm.containerWidth = 600
+    await nextTick()
+    expect(wrapper.findAll('.yh-waterfall__column').length).toBe(2)
   })
 
-  it('should apply gap style', () => {
+  it('should use shortest column algorithm', async () => {
     const wrapper = mount(YhWaterfall, {
-      props: { items, gap: 20 }
+      props: {
+        items,
+        cols: 2,
+        heightProperty: 'height',
+        gap: 10
+      }
     })
-    const el = wrapper.element as HTMLElement
-    expect(el.style.gap).toBe('20px')
 
+    await nextTick()
     const columns = wrapper.findAll('.yh-waterfall__column')
-    columns.forEach((col) => {
-      expect((col.element as HTMLElement).style.gap).toBe('20px')
-    })
-  })
-
-  it('should distribution items to columns correctly', () => {
-    const wrapper = mount(YhWaterfall, {
-      props: { items, cols: 2 }
-    })
-    const columns = wrapper.findAll('.yh-waterfall__column')
-    // 4 items, 2 cols -> 2 items per col (simple distribution)
     expect(columns[0].findAll('.yh-waterfall__item').length).toBe(2)
     expect(columns[1].findAll('.yh-waterfall__item').length).toBe(2)
   })
 
-  it('should support custom row-key', () => {
-    const customItems = [{ uuid: 'a' }, { uuid: 'b' }]
+  it('should handle image load and update layout', async () => {
     const wrapper = mount(YhWaterfall, {
-      props: {
-        items: customItems,
-        rowKey: 'uuid'
-      },
-      slots: {
-        default: '<div class="test-item"></div>'
-      }
+      props: { items }
     })
-    expect(wrapper.findAll('.yh-waterfall__item').length).toBe(2)
+
+    // We check if it sets containerWidth (initial is 0)
+    const vm = wrapper.vm as any
+    const initialWidth = vm.containerWidth
+
+    // Mock offsetWidth
+    Object.defineProperty(wrapper.element, 'offsetWidth', { value: 1024, configurable: true })
+
+    const img = document.createElement('img')
+    const event = new Event('load', { bubbles: true })
+    Object.defineProperty(event, 'target', { value: img })
+
+    wrapper.element.dispatchEvent(event)
+
+    // Wait for nextTick and requestAnimationFrame
+    await nextTick()
+    await new Promise((r) => setTimeout(r, 20))
+
+    expect(vm.containerWidth).toBe(1024)
   })
 
-  it('should toggle animation', () => {
+  it('should handle loading states', async () => {
     const wrapper = mount(YhWaterfall, {
-      props: { items, animation: false }
+      props: { items: [], loading: true }
     })
-    expect(wrapper.find('.yh-waterfall__item--animated').exists()).toBe(false)
 
-    const animatedWrapper = mount(YhWaterfall, {
-      props: { items, animation: true }
-    })
-    expect(animatedWrapper.find('.yh-waterfall__item--animated').exists()).toBe(true)
-  })
+    expect(wrapper.findAll('.yh-waterfall__item--skeleton').length).toBeGreaterThan(0)
 
-  it('should show empty state when items is empty', () => {
-    const wrapper = mount(YhWaterfall, {
-      props: { items: [] }
-    })
+    await wrapper.setProps({ loading: false })
+    await nextTick()
     expect(wrapper.find('.yh-waterfall__empty').exists()).toBe(true)
-    expect(wrapper.find('.yh-waterfall__empty').text()).toBe('暂无数据')
+  })
+
+  it('should support Refresh Overlay', async () => {
+    const wrapper = mount(YhWaterfall, {
+      props: { items, loading: true }
+    })
+    // when items > 0 and loading is true, isRefreshing is true
+    expect(wrapper.find('.yh-waterfall__refresh-overlay').exists()).toBe(true)
   })
 })

@@ -1,5 +1,5 @@
 import { unref } from 'vue'
-import { useEventListener } from './use-event-listener'
+import { useEventListener } from '../use-event-listener'
 import type { MaybeRef } from 'vue'
 
 export function useClickOutside(

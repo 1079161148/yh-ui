@@ -292,4 +292,27 @@ describe('Dropdown', () => {
     expect(wrapper.find('.yh-dropdown__item').exists()).toBe(true)
     expect(wrapper.find('.yh-dropdown__item').text()).toBe('Test Item')
   })
+
+  it('should support splitButton mode', async () => {
+    const wrapper = mount(YhDropdown, {
+      props: {
+        splitButton: true,
+        type: 'primary',
+        items: [{ key: 'edit', label: '编辑' }]
+      },
+      slots: {
+        default: () => 'Dropdown'
+      },
+      global: globalConfig
+    })
+    await nextTick()
+
+    expect(wrapper.find('.is-split').exists()).toBe(true)
+    const btns = wrapper.findAll('.yh-button')
+    expect(btns.length).toBeGreaterThanOrEqual(2)
+
+    // Click left button
+    await btns[0].trigger('click')
+    expect(wrapper.emitted('click')).toBeTruthy()
+  })
 })

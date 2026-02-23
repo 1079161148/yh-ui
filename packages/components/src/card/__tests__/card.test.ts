@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Card from '../src/card.vue'
+import { cardShadows } from '../src/card'
 
 describe('Card 组件', () => {
   it('应该正确渲染', () => {
@@ -128,5 +129,10 @@ describe('Card 组件', () => {
       }
     })
     expect(wrapper.find('.yh-card__body').classes()).toContain('yh-card__body--no-padding')
+  })
+
+  it('应该导出有效的常量', () => {
+    expect(cardShadows).toBeTruthy()
+    expect(cardShadows.length).toBe(3)
   })
 })

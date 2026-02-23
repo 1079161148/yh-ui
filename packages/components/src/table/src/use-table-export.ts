@@ -55,7 +55,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
    * 获取导出用的列配置
    */
   function getExportColumns(config: ExportConfig = {}): TableColumn[] {
-    let cols = columns.value.filter((col) => col.visible !== false && col.prop)
+    let cols = columns.value.filter((col) => col.prop)
 
     if (config.visibleOnly !== false) {
       cols = cols.filter((c) => c.visible !== false)

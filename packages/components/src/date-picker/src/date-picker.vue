@@ -92,13 +92,38 @@ const rangeDisplayValue = computed(() => {
   ]
 })
 
+// --- 核心修复：属性合规性转换 ---
+// 针对用户在模板中使用 v-model="" 或 ref('') 初始化的情况，将其转换为子组件能接受的 Date | null | Array
+const parsedSelectedDate = computed(() => {
+  const val = props.modelValue
+  if (val === '' || val === null || val === undefined) return null
+  if (Array.isArray(val)) {
+    return val.map(v => (v && v !== '') ? dayjs(v as any).toDate() : null).filter(v => v !== null) as Date[]
+  }
+  const d = dayjs(val as any)
+  return d.isValid() ? d.toDate() : null
+})
+
+const parsedRangeState = computed(() => {
+  if (!isRange.value) return undefined
+  const val = props.modelValue as any[]
+  const from = (Array.isArray(val) && val[0] && val[0] !== '') ? dayjs(val[0]).toDate() : null
+  const to = (Array.isArray(val) && val[1] && val[1] !== '') ? dayjs(val[1]).toDate() : null
+  return {
+    from,
+    to,
+    hovering: rangeHoverDate.value
+  }
+})
+
 const wrapperClasses = computed(() => [
   ns.b(),
   ns.m(selectSize.value),
   ns.is('disabled', props.disabled),
   ns.is('focused', visible.value),
   ns.is('range', isRange.value),
-  ns.is('panel-only', props.panelOnly)
+  ns.is('panel-only', props.panelOnly),
+  ns.m(props.status)
 ])
 
 // --- 头部导航逻辑 ---
@@ -146,8 +171,20 @@ const handleHeaderClick = () => {
 
 // --- 选择逻辑 ---
 const emitChange = (val: DateValue | DateRangeValue) => {
-  emit('update:modelValue', val)
-  emit('change', val)
+  const fmt = props.valueFormat || ''
+  let result: any = val
+  if (fmt && val) {
+    if (Array.isArray(val)) {
+      result = [
+        val[0] ? formatDate(val[0], fmt) : null,
+        val[1] ? formatDate(val[1], fmt) : null
+      ]
+    } else {
+      result = formatDate(val as Date, fmt)
+    }
+  }
+  emit('update:modelValue', result)
+  emit('change', result)
   if (props.validateEvent) triggerValidate('change')
 }
 
@@ -313,7 +350,8 @@ onBeforeUnmount(() => {
     <div v-if="!panelOnly" :class="ns.e('wrapper')">
       <span :class="ns.e('icon')">
         <slot name="prefix-icon">
-          <svg viewBox="0 0 24 24" width="1em" height="1em">
+          <component :is="prefixIcon" v-if="prefixIcon" />
+          <svg v-else viewBox="0 0 24 24" width="1em" height="1em">
             <path fill="currentColor"
               d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V10h14zM9 14H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zm-8 4H7v-2h2zm4 4H11V16h2z" />
           </svg>
@@ -354,38 +392,38 @@ onBeforeUnmount(() => {
           :style="(!panelOnly && teleported) ? dropdownStyle : {}" @click.stop>
           <div :class="ns.e('header')">
             <div :class="ns.e('header-group')">
-              <button :class="ns.e('header-btns')" @click="moveYear(-1)">«</button>
-              <button v-if="currentView === 'date'" :class="ns.e('header-btns')" @click="moveMonth(-1)">‹</button>
+              <button :class="[ns.e('header-btns'), ns.em('header-btns', 'double-left')]"
+                @click="moveYear(-1)">«</button>
+              <button v-if="currentView === 'date'" :class="[ns.e('header-btns'), ns.em('header-btns', 'left')]"
+                @click="moveMonth(-1)">‹</button>
             </div>
             <span :class="ns.e('header-label')" @click="handleHeaderClick">{{ headerLabel }}</span>
             <div :class="ns.e('header-group')">
-              <button v-if="currentView === 'date'" :class="ns.e('header-btns')" @click="moveMonth(1)">›</button>
-              <button :class="ns.e('header-btns')" @click="moveYear(1)">»</button>
+              <button v-if="currentView === 'date'" :class="[ns.e('header-btns'), ns.em('header-btns', 'right')]"
+                @click="moveMonth(1)">›</button>
+              <button :class="[ns.e('header-btns'), ns.em('header-btns', 'double-right')]"
+                @click="moveYear(1)">»</button>
             </div>
           </div>
 
           <div :class="ns.e('content')">
-            <DateTable v-if="currentView === 'date'" :date="innerDate" :selected-date="modelValue as any"
-              :selection-mode="type === 'week' ? 'week' : 'date'"
-              :range-state="isRange ? { from: (modelValue as any)?.[0], to: (modelValue as any)?.[1], hovering: rangeHoverDate } : undefined"
+            <DateTable v-if="currentView === 'date'" :date="innerDate" :selected-date="parsedSelectedDate as any"
+              :selection-mode="type === 'week' ? 'week' : 'date'" :range-state="parsedRangeState"
               :disabled-date="disabledDate" :first-day-of-week="firstDayOfWeek" :cell-shape="cellShape"
               :cell-render="cellRender" @select="handleSelect" @hover="val => rangeHoverDate = val">
               <template #date-cell="slotProps">
                 <slot name="date-cell" v-bind="slotProps" />
               </template>
             </DateTable>
-            <MonthTable v-else-if="currentView === 'month'" :date="innerDate" :selected-date="modelValue as any"
-              :range-state="isRange ? { from: (modelValue as any)?.[0], to: (modelValue as any)?.[1], hovering: rangeHoverDate } : undefined"
-              :disabled-date="disabledDate" :cell-shape="cellShape" @select="handleSelect"
-              @hover="val => rangeHoverDate = val" />
-            <YearTable v-else-if="currentView === 'year'" :date="innerDate" :selected-date="modelValue as any"
-              :range-state="isRange ? { from: (modelValue as any)?.[0], to: (modelValue as any)?.[1], hovering: rangeHoverDate } : undefined"
-              :disabled-date="disabledDate" :cell-shape="cellShape" @select="handleSelect"
-              @hover="val => rangeHoverDate = val" />
-            <QuarterTable v-else-if="currentView === 'quarter'" :date="innerDate" :selected-date="modelValue as any"
-              :range-state="isRange ? { from: (modelValue as any)?.[0], to: (modelValue as any)?.[1], hovering: rangeHoverDate } : undefined"
-              :disabled-date="disabledDate" :cell-shape="cellShape" @select="handleSelect"
-              @hover="val => rangeHoverDate = val" />
+            <MonthTable v-else-if="currentView === 'month'" :date="innerDate" :selected-date="parsedSelectedDate as any"
+              :range-state="parsedRangeState" :disabled-date="disabledDate" :cell-shape="cellShape"
+              @select="handleSelect" @hover="val => rangeHoverDate = val" />
+            <YearTable v-else-if="currentView === 'year'" :date="innerDate" :selected-date="parsedSelectedDate as any"
+              :range-state="parsedRangeState" :disabled-date="disabledDate" :cell-shape="cellShape"
+              @select="handleSelect" @hover="val => rangeHoverDate = val" />
+            <QuarterTable v-else-if="currentView === 'quarter'" :date="innerDate"
+              :selected-date="parsedSelectedDate as any" :range-state="parsedRangeState" :disabled-date="disabledDate"
+              :cell-shape="cellShape" @select="handleSelect" @hover="val => rangeHoverDate = val" />
           </div>
 
           <div v-if="$slots.extra" :class="ns.e('extra')">

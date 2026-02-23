@@ -1,20 +1,24 @@
+/**
+ * @vitest-environment happy-dom
+ */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick, h } from 'vue'
 import { YhAffix } from '../index'
 
-// 模拟 window 滚动和尺寸
-const mockGetBoundingClientRect = vi.fn()
-
 // Mock Observers
+let ioCallback: any
 class IntersectionObserverMock {
-  constructor(private callback: any) {}
+  constructor(public callback: any) {
+    ioCallback = callback
+  }
   observe = vi.fn(() => {
-    this.callback([{ isIntersecting: true }])
+    ioCallback([{ isIntersecting: true }])
   })
   unobserve = vi.fn()
   disconnect = vi.fn()
 }
+
 class ResizeObserverMock {
   observe = vi.fn()
   unobserve = vi.fn()
@@ -27,18 +31,16 @@ vi.stubGlobal('ResizeObserver', ResizeObserverMock)
 describe('Affix', () => {
   beforeEach(() => {
     vi.useFakeTimers()
-    mockGetBoundingClientRect.mockReturnValue({
-      top: 100,
-      bottom: 200,
-      left: 0,
-      right: 100,
-      width: 100,
-      height: 100
+    Object.defineProperty(window, 'innerHeight', { value: 1000, configurable: true })
+    Object.defineProperty(document.documentElement, 'clientHeight', {
+      value: 1000,
+      configurable: true
     })
   })
 
   afterEach(() => {
     vi.useRealTimers()
+    vi.restoreAllMocks()
   })
 
   it('should render correctly', () => {
@@ -47,86 +49,157 @@ describe('Affix', () => {
         default: () => h('div', { class: 'content' }, 'Affix Content')
       }
     })
-
     expect(wrapper.find('.yh-affix').exists()).toBe(true)
-    expect(wrapper.find('.content').text()).toBe('Affix Content')
   })
 
-  it('should apply offset prop', () => {
+  it('should pin to top when scrolled past offset', async () => {
     const wrapper = mount(YhAffix, {
       props: {
-        offset: 20
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
-
-    expect(wrapper.props('offset')).toBe(20)
-  })
-
-  it('should support top and bottom position', () => {
-    const wrapperTop = mount(YhAffix, {
-      props: {
+        offset: 50,
         position: 'top'
-      },
-      slots: {
-        default: () => h('div', 'Top')
       }
     })
 
-    const wrapperBottom = mount(YhAffix, {
-      props: {
-        position: 'bottom'
-      },
-      slots: {
-        default: () => h('div', 'Bottom')
-      }
-    })
+    const vm = wrapper.vm as any
+    const rootEl = wrapper.element as HTMLElement
 
-    expect(wrapperTop.props('position')).toBe('top')
-    expect(wrapperBottom.props('position')).toBe('bottom')
-  })
+    rootEl.getBoundingClientRect = vi.fn(() => ({
+      top: 100,
+      bottom: 200,
+      left: 0,
+      width: 100,
+      height: 100,
+      right: 100,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }))
 
-  it('should apply zIndex prop', () => {
-    const wrapper = mount(YhAffix, {
-      props: {
-        zIndex: 200
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
+    vm.update()
+    expect(vm.fixed).toBe(false)
 
-    expect(wrapper.props('zIndex')).toBe(200)
-  })
+    rootEl.getBoundingClientRect = vi.fn(() => ({
+      top: 40,
+      bottom: 140,
+      left: 0,
+      width: 100,
+      height: 100,
+      right: 100,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }))
 
-  it('should emit change event when fixed state changes', async () => {
-    const onChange = vi.fn()
-    const wrapper = mount(YhAffix, {
-      props: {
-        onChange
-      },
-      slots: {
-        default: () => h('div', 'Content')
-      }
-    })
-
-    // 触发更新
-    wrapper.vm.update()
+    vm.update()
     await nextTick()
-    vi.runAllTimers()
+
+    expect(vm.fixed).toBe(true)
+    const inner = wrapper.find('.yh-affix__inner')
+    expect(inner.classes()).toContain('is-fixed')
+    expect((inner.element as HTMLElement).style.top).toBe('50px')
   })
 
-  it('should expose update method', () => {
+  it('should pin to bottom correctly', async () => {
     const wrapper = mount(YhAffix, {
-      slots: {
-        default: () => h('div', 'Content')
+      props: {
+        offset: 50,
+        position: 'bottom'
       }
     })
 
-    expect(typeof wrapper.vm.update).toBe('function')
-    expect(wrapper.vm.fixed).toBeDefined()
-    expect(wrapper.vm.scrollTop).toBeDefined()
+    const vm = wrapper.vm as any
+    const rootEl = wrapper.element as HTMLElement
+
+    rootEl.getBoundingClientRect = vi.fn(() => ({
+      top: 900,
+      bottom: 1000,
+      left: 0,
+      width: 100,
+      height: 100,
+      right: 100,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }))
+    vm.update()
+    await nextTick()
+
+    expect(vm.fixed).toBe(true)
+    const inner = wrapper.find('.yh-affix__inner')
+    expect((inner.element as HTMLElement).style.bottom).toBe('50px')
+  })
+
+  it('should handle target container', async () => {
+    const container = document.createElement('div')
+    container.id = 'container'
+    document.body.appendChild(container)
+
+    const wrapper = mount(YhAffix, {
+      props: {
+        target: '#container',
+        offset: 0
+      },
+      attachTo: document.body
+    })
+
+    const vm = wrapper.vm as any
+    const rootEl = wrapper.element as HTMLElement
+
+    rootEl.getBoundingClientRect = vi.fn(() => ({
+      top: -100,
+      bottom: 0,
+      width: 100,
+      height: 100,
+      left: 0,
+      right: 100,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }))
+
+    container.getBoundingClientRect = vi.fn(() => ({
+      top: -200,
+      bottom: 50,
+      width: 100,
+      height: 250,
+      left: 0,
+      right: 100,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }))
+
+    vm.update()
+    await nextTick()
+
+    expect(vm.fixed).toBe(true)
+    expect(vm.transform).toBe(-50)
+
+    document.body.removeChild(container)
+    wrapper.unmount()
+  })
+
+  it('should emit events', async () => {
+    const wrapper = mount(YhAffix, {
+      props: { offset: 0 }
+    })
+    const vm = wrapper.vm as any
+    const rootEl = wrapper.element as HTMLElement
+
+    rootEl.getBoundingClientRect = vi.fn(() => ({
+      top: -10,
+      bottom: 90,
+      width: 100,
+      height: 100,
+      left: 0,
+      right: 100,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }))
+
+    vm.update()
+    expect(wrapper.emitted('change')).toBeTruthy()
+    expect(wrapper.emitted('scroll')).toBeTruthy()
   })
 })

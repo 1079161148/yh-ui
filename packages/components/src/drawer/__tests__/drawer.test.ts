@@ -92,4 +92,50 @@ describe('Drawer', () => {
     expect(beforeClose).toHaveBeenCalled()
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
   })
+
+  it('size test', async () => {
+    mount(YhDrawer, {
+      props: { modelValue: true, size: 400, placement: 'right' }
+    })
+    await nextTick()
+    const drawer = document.querySelector('.yh-drawer') as HTMLElement
+    expect(drawer.style.width).toBe('400px')
+  })
+
+  it('header visibility and close button test', async () => {
+    mount(YhDrawer, {
+      props: { modelValue: true, showHeader: false }
+    })
+    await nextTick()
+    expect(document.querySelector('.yh-drawer__header')).toBeFalsy()
+
+    mount(YhDrawer, {
+      props: { modelValue: true, showClose: false }
+    })
+    await nextTick()
+    expect(document.querySelector('.yh-drawer__close')).toBeFalsy()
+  })
+
+  it('zIndex and customClass test', async () => {
+    mount(YhDrawer, {
+      props: { modelValue: true, zIndex: 3000, customClass: 'my-drawer' }
+    })
+    await nextTick()
+    const wrapper = document.querySelector('.yh-drawer__wrapper') as HTMLElement
+    // wrapper z-index is drawerZIndex - 1
+    expect(wrapper.style.zIndex).toBe('2999')
+    expect(document.querySelector('.my-drawer')).toBeTruthy()
+  })
+
+  it('destroyOnClose test', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: { modelValue: true, destroyOnClose: true },
+      slots: { default: '<div class="content">Content</div>' }
+    })
+    await nextTick()
+    expect(document.querySelector('.content')).toBeTruthy()
+
+    await wrapper.setProps({ modelValue: false })
+    await nextTick()
+  })
 })

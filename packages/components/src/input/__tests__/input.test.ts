@@ -5,6 +5,8 @@ import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import Input from '../src/input.vue'
+import { YhInput } from '../index'
+import { inputTypes, inputSizes, inputVariants, inputStatuses } from '../src/input'
 
 describe('YhInput', () => {
   // 基础渲染测试
@@ -93,6 +95,12 @@ describe('YhInput', () => {
     expect(wrapper.find('input').attributes('type')).toBe('text')
   })
 
+  it('should export valid constants', () => {
+    expect(inputTypes).toBeTruthy()
+    expect(inputSizes).toBeTruthy()
+    expect(inputVariants).toBeTruthy()
+    expect(inputStatuses).toBeTruthy()
+  })
   // 字数统计测试
   it('should show word limit count', () => {
     const wrapper = mount(Input, {

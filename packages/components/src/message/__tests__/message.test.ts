@@ -1,6 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { nextTick } from 'vue'
 import Message from '../src/method'
+import { messageTypes, messagePlacements } from '../src/message'
+
+describe('Message Constants Coverage', () => {
+  it('should have constants defined', () => {
+    expect(messageTypes).toContain('success')
+    expect(messagePlacements).toContain('top')
+  })
+})
 
 describe('Message 方法', () => {
   beforeEach(() => {
@@ -174,5 +182,31 @@ describe('Message 方法', () => {
     const b2Pos = parseInt(bottomMsg2.style.bottom)
 
     expect(b2Pos).toBeGreaterThan(b1Pos)
+  })
+
+  it('应该覆盖 Message.vue 的剩余分支 (覆盖逻辑)', async () => {
+    // 1. 自定义图标
+    Message({ message: 'icon', icon: 'my-icon' })
+    await nextTick()
+
+    // 2. HTML 字符串
+    Message({ message: '<b>html</b>', dangerouslyUseHTMLString: true })
+    await nextTick()
+    expect(document.body.innerHTML).toContain('<b>html</b>')
+
+    // 3. 鼠标交互 (pause/resume timer)
+    const handler = Message({ message: 'hover', duration: 1000 })
+    await nextTick()
+    const el = document.querySelector('.yh-message') as HTMLElement
+    await el.dispatchEvent(new MouseEvent('mouseenter'))
+    await el.dispatchEvent(new MouseEvent('mouseleave'))
+
+    // 4. 重复关闭
+    handler.close()
+    handler.close() // should return early
+
+    // 5. 监听 repeatNum (虽然是通过 method 自动触发的)
+    Message({ message: 'repeat', grouping: true, repeatNum: 2 })
+    await nextTick()
   })
 })

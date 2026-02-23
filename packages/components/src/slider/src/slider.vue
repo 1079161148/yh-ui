@@ -162,13 +162,16 @@ const emitValue = (val: SliderValueType) => {
   }
 }
 
-const updateValue = () => {
-  if (props.range) {
-    emitValue([minValue.value, maxValue.value])
-  } else {
-    emitValue(firstValue.value)
+const updateValue = (isChange = false) => {
+  const val = props.range ? [minValue.value, maxValue.value] : firstValue.value
+  emitValue(val as SliderValueType)
+  if (isChange) {
+    emit('change', val as SliderValueType)
   }
 }
+
+const handleButtonChange = () => updateValue(true)
+const handleButtonInput = () => updateValue(false)
 
 const onSliderClick = (event: MouseEvent) => {
   if (mergedDisabled.value) return
@@ -234,7 +237,7 @@ onMounted(() => {
 
       <slider-button v-model="firstValue" :vertical="vertical" :disabled="mergedDisabled" :min="min" :max="max"
         :step="step" :show-tooltip="showTooltip" :format-tooltip="formatTooltip" :tooltip-class="tooltipClass"
-        :placement="placement" @change="updateValue" @input="updateValue">
+        :placement="placement" @change="handleButtonChange" @input="handleButtonInput">
         <template v-if="$slots.thumb" #thumb="scope">
           <slot name="thumb" v-bind="scope"></slot>
         </template>
@@ -242,7 +245,7 @@ onMounted(() => {
 
       <slider-button v-if="range" v-model="secondValue" :vertical="vertical" :disabled="mergedDisabled" :min="min"
         :max="max" :step="step" :show-tooltip="showTooltip" :format-tooltip="formatTooltip"
-        :tooltip-class="tooltipClass" :placement="placement" @change="updateValue" @input="updateValue">
+        :tooltip-class="tooltipClass" :placement="placement" @change="handleButtonChange" @input="handleButtonInput">
         <template v-if="$slots.thumb" #thumb="scope">
           <slot name="thumb" v-bind="scope"></slot>
         </template>

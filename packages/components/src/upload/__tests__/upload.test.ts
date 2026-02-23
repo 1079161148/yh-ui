@@ -115,6 +115,58 @@ describe('Upload', () => {
     warnSpy.mockRestore()
   })
 
+  it('handle limit and exceed event', async () => {
+    const file1 = new File(['1'], '1.png', { type: 'image/png' })
+    const file2 = new File(['2'], '2.png', { type: 'image/png' })
+    const wrapper = mount(YhUpload, {
+      props: {
+        fileList: [{ name: 'existing.png', uid: 99, status: 'success' } as any],
+        limit: 2
+      }
+    })
+
+    const input = wrapper.find('input[type="file"]')
+    Object.defineProperty(input.element, 'files', {
+      value: [file1, file2]
+    })
+    await input.trigger('change')
+
+    expect(wrapper.emitted('exceed')).toBeTruthy()
+    expect(wrapper.emitted('update:fileList')).toBeFalsy()
+  })
+
+  it('beforeUpload returning false should cancel upload', async () => {
+    const file = new File(['test'], 'test.png', { type: 'image/png' })
+    const beforeUpload = vi.fn().mockReturnValue(false)
+    const wrapper = mount(YhUpload, {
+      props: { fileList: [], beforeUpload }
+    })
+
+    const input = wrapper.find('input[type="file"]')
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await nextTick()
+
+    expect(beforeUpload).toHaveBeenCalled()
+    expect(wrapper.emitted('update:fileList')).toBeFalsy()
+  })
+
+  it('beforeUpload throwing error should cancel upload', async () => {
+    const file = new File(['test'], 'test.png', { type: 'image/png' })
+    const beforeUpload = vi.fn().mockRejectedValue(new Error('error'))
+    const wrapper = mount(YhUpload, {
+      props: { fileList: [], beforeUpload }
+    })
+
+    const input = wrapper.find('input[type="file"]')
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.emitted('update:fileList')).toBeFalsy()
+  })
+
   it('beforeUpload can transform files', async () => {
     const file = new File(['test'], 'test.png', { type: 'image/png' })
     const newBlob = new Blob(['transformed-content'], { type: 'image/png' })
@@ -138,14 +190,22 @@ describe('Upload', () => {
     expect(emitted[0].raw.size).toBe(newBlob.size)
   })
 
-  it('handle file removal', async () => {
+  it('handle file removal with beforeRemove', async () => {
     const file = { name: 'test.png', uid: 1, status: 'success', url: 'blob:test' } as any
+    const beforeRemove = vi.fn().mockResolvedValue(false)
     const wrapper = mount(YhUpload, {
       props: {
-        fileList: [file]
+        fileList: [file],
+        beforeRemove
       }
     })
 
+    await wrapper.find('.yh-upload__delete-btn').trigger('click')
+    expect(beforeRemove).toHaveBeenCalled()
+    expect(wrapper.emitted('update:fileList')).toBeFalsy()
+
+    // Test allowing removal
+    await wrapper.setProps({ beforeRemove: () => true })
     await wrapper.find('.yh-upload__delete-btn').trigger('click')
     expect(wrapper.emitted('update:fileList')).toBeTruthy()
   })
@@ -270,5 +330,77 @@ describe('Upload', () => {
 
     wrapper.vm.submit()
     expect(httpRequest).toHaveBeenCalled()
+  })
+
+  it('handle upload progress and error', async () => {
+    let onProgressCb: any
+    let onErrorCb: any
+    let onSuccessCb: any
+
+    const httpRequest = (options: any) => {
+      onProgressCb = options.onProgress
+      onErrorCb = options.onError
+      onSuccessCb = options.onSuccess
+    }
+
+    const file = { name: 'test.png', uid: 1, status: 'ready', raw: new File([], 'test.png') } as any
+    const wrapper = mount(YhUpload, {
+      props: { fileList: [file], httpRequest, action: '/upload' }
+    })
+
+    wrapper.vm.submit()
+
+    onProgressCb({ percent: 50 })
+    expect(file.percentage).toBe(50)
+    expect(wrapper.emitted('progress')).toBeTruthy()
+
+    onErrorCb(new Error('fail'))
+    expect(file.status).toBe('fail')
+    expect(wrapper.emitted('error')).toBeTruthy()
+
+    file.status = 'ready'
+    wrapper.vm.submit()
+    onSuccessCb({ data: 'ok' })
+    expect(file.status).toBe('success')
+    expect(wrapper.emitted('success')).toBeTruthy()
+  })
+
+  it('handle download', async () => {
+    const file = { name: 'test.png', uid: 1, status: 'success', url: 'blob:test' } as any
+    const wrapper = mount(YhUpload, {
+      props: { fileList: [file], showDownload: true }
+    })
+
+    const spy = vi.spyOn(document, 'createElement')
+    await wrapper.find('.yh-upload__download-btn').trigger('click')
+    expect(wrapper.emitted('download')).toBeTruthy()
+    expect(spy).toHaveBeenCalledWith('a')
+  })
+
+  it('support thumbnailRequest', async () => {
+    const file = new File([''], 'test.png', { type: 'image/png' })
+    const thumbnailRequest = vi.fn().mockResolvedValue('custom-thumb')
+    const wrapper = mount(YhUpload, {
+      props: { fileList: [], listType: 'picture', thumbnailRequest }
+    })
+
+    const input = wrapper.find('input[type="file"]')
+    Object.defineProperty(input.element, 'files', { value: [file] })
+    await input.trigger('change')
+    await nextTick()
+    await nextTick()
+    await nextTick()
+
+    const emitted = (wrapper.emitted('update:fileList')![0] as any)[0]
+    expect(emitted[0].url).toBe('custom-thumb')
+  })
+
+  it('support fileIcon as function', () => {
+    const file = { name: 'test.txt', uid: 1, status: 'success' } as any
+    const fileIcon = vi.fn().mockReturnValue('func-icon')
+    mount(YhUpload, {
+      props: { fileList: [file], fileIcon }
+    })
+    expect(fileIcon).toHaveBeenCalled()
   })
 })
