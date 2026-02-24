@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 
 const tsBasic = `<${_T}>
   <yh-row class="demo-row">
@@ -22,7 +22,7 @@ const tsBasic = `<${_T}>
   </yh-row>
 </${_T}>
 
-<style scoped>
+<${_St} scoped>
 .demo-row {
   margin-bottom: 20px;
 }
@@ -37,9 +37,9 @@ const tsBasic = `<${_T}>
 .bg-purple-dark { background: #99a9bf; }
 .bg-purple { background: #d3dce6; color: #5e6d82; }
 .bg-purple-light { background: #e5e9f2; color: #5e6d82; }
-</style>`
+</${_St}>`
 
-const jsBasic = tsBasic
+const jsBasic = toJs(tsBasic)
 
 const tsGutter = `<${_T}>
   <yh-row :gutter="20">
@@ -50,15 +50,15 @@ const tsGutter = `<${_T}>
   </yh-row>
 </${_T}>
 
-<style scoped>
+<${_St} scoped>
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
   background: #d3dce6;
 }
-</style>`
+</${_St}>`
 
-const jsGutter = tsGutter
+const jsGutter = toJs(tsGutter)
 
 const tsMixed = `<${_T}>
   <yh-row :gutter="20" class="demo-row">
@@ -73,14 +73,14 @@ const tsMixed = `<${_T}>
   </yh-row>
 </${_T}>
 
-<style scoped>
+<${_St} scoped>
 .demo-row { margin-bottom: 20px; }
 .grid-content { border-radius: 4px; min-height: 36px; }
 .bg-purple { background: #d3dce6; }
 .bg-purple-light { background: #e5e9f2; }
-</style>`
+</${_St}>`
 
-const jsMixed = tsMixed
+const jsMixed = toJs(tsMixed)
 
 const tsOffset = `<${_T}>
   <yh-row :gutter="20" class="demo-row">
@@ -93,12 +93,12 @@ const tsOffset = `<${_T}>
   </yh-row>
 </${_T}>
 
-<style scoped>
+<${_St} scoped>
 .demo-row { margin-bottom: 20px; }
 .grid-content { border-radius: 4px; min-height: 36px; background: #d3dce6; }
-</style>`
+</${_St}>`
 
-const jsOffset = tsOffset
+const jsOffset = toJs(tsOffset)
 
 const tsAlign = `<${_T}>
   <yh-row justify="start" class="demo-row">
@@ -128,14 +128,14 @@ const tsAlign = `<${_T}>
   </yh-row>
 </${_T}>
 
-<style scoped>
+<${_St} scoped>
 .demo-row { margin-bottom: 20px; }
 .grid-content { border-radius: 4px; min-height: 36px; line-height: 36px; text-align: center; }
 .bg-purple { background: #d3dce6; color: #5e6d82; }
 .bg-purple-light { background: #e5e9f2; color: #5e6d82; }
-</style>`
+</${_St}>`
 
-const jsAlign = tsAlign
+const jsAlign = toJs(tsAlign)
 
 // Nuxt usage example
 const tsNuxt = `<${_T}>
@@ -159,7 +159,7 @@ const tsNuxt = `<${_T}>
 // Layout components are already configured for Nuxt auto-import
 </${_S}>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
 </script>
 
 <style>
@@ -333,50 +333,50 @@ Since the Layout components are based entirely on CSS (Flexbox) styling, they in
 
 ### Row Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| gutter | Grid spacing | `number` | `0` |
-| tag | Custom element tag | `string` | `'div'` |
+| Prop    | Description          | Type                                                                                  | Default   |
+| ------- | -------------------- | ------------------------------------------------------------------------------------- | --------- |
+| gutter  | Grid spacing         | `number`                                                                              | `0`       |
+| tag     | Custom element tag   | `string`                                                                              | `'div'`   |
 | justify | Horizontal alignment | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| align | Vertical alignment | `'top' \| 'middle' \| 'bottom'` | `'top'` |
+| align   | Vertical alignment   | `'top' \| 'middle' \| 'bottom'`                                                       | `'top'`   |
 
 ### Col Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| span | Number of grid columns occupied | `number` | `24` |
-| offset | Number of grid columns to offset from the left | `number` | `0` |
-| push | Number of grid columns to move right | `number` | `0` |
-| pull | Number of grid columns to move left | `number` | `0` |
-| xs | Responsive grid columns or attribute object for <768px | `number \| object` | — |
-| sm | Responsive grid columns or attribute object for ≥768px | `number \| object` | — |
-| md | Responsive grid columns or attribute object for ≥992px | `number \| object` | — |
-| lg | Responsive grid columns or attribute object for ≥1200px | `number \| object` | — |
-| xl | Responsive grid columns or attribute object for ≥1920px | `number \| object` | — |
-| tag | Custom element tag | `string` | `'div'` |
+| Prop   | Description                                             | Type               | Default |
+| ------ | ------------------------------------------------------- | ------------------ | ------- |
+| span   | Number of grid columns occupied                         | `number`           | `24`    |
+| offset | Number of grid columns to offset from the left          | `number`           | `0`     |
+| push   | Number of grid columns to move right                    | `number`           | `0`     |
+| pull   | Number of grid columns to move left                     | `number`           | `0`     |
+| xs     | Responsive grid columns or attribute object for <768px  | `number \| object` | —       |
+| sm     | Responsive grid columns or attribute object for ≥768px  | `number \| object` | —       |
+| md     | Responsive grid columns or attribute object for ≥992px  | `number \| object` | —       |
+| lg     | Responsive grid columns or attribute object for ≥1200px | `number \| object` | —       |
+| xl     | Responsive grid columns or attribute object for ≥1920px | `number \| object` | —       |
+| tag    | Custom element tag                                      | `string`           | `'div'` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| — | This component currently has no custom events | — |
+| Event Name | Description                                   | Callback Parameters |
+| ---------- | --------------------------------------------- | ------------------- |
+| —          | This component currently has no custom events | —                   |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Custom content |
+| Slot Name | Description    |
+| --------- | -------------- |
+| default   | Custom content |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| — | This component currently has no exposed properties | — |
+| Name | Description                                        | Type |
+| ---- | -------------------------------------------------- | ---- |
+| —    | This component currently has no exposed properties | —    |
 
 ## Theme Variables
 
 Row/Col components are primarily based on Flex layout and currently have no specific component-level global CSS variables.
 
 | Variable | Description | Default |
-| --- | --- | --- |
-| — | None | — |
+| -------- | ----------- | ------- |
+| —        | None        | —       |

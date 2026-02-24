@@ -212,6 +212,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 
 const formSize = ref('default')
 const form = reactive({ username: '', age: 18, email: '' })
@@ -339,7 +340,7 @@ const proSchema = [
 const nuxtForm = reactive({ username: '', role: 'admin' })
 
 // Nuxt 使用示例
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <yh-form :model="form" label-width="80px">
     <yh-form-item label="用户名">
       <yh-input v-model="form.username" placeholder="自动导入组件" />
@@ -351,9 +352,9 @@ const tsNuxt = `<template>
       </yh-radio-group>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 
 // 无需导入 Form, FormItem 等组件
@@ -361,13 +362,13 @@ const form = reactive({
   username: '', 
   role: 'admin' 
 })
-<\/script>`.replace(/\\/g, '')
+<\/script>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
 
 // 代码定义 (使用 \u003C 规避 VPC 潜在冲突并修复 &lt; 显示问题)
 const tsBasic = `
-<template>
+<${_T}>
   <div style="margin-bottom: 20px;">
     <yh-radio-group v-model="size">
       <yh-radio-button label="large">Large</yh-radio-button>
@@ -397,9 +398,9 @@ const tsBasic = `
       <yh-button @click="reset">重置</yh-button>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive, ref } from 'vue'
 
 const size = ref('default')
@@ -420,12 +421,12 @@ const submit = () => {
   })
 }
 const reset = () => formRef.value.resetFields()
-\u003C/script>
+</${_S}>
 `.trim()
-const jsBasic = tsBasic.replace('lang="ts"', '')
+const jsBasic = toJs(tsBasic)
 
 const tsTypical = `
-<template>
+<${_T}>
   <yh-form 
     ref="typicalFormRef"
     :model="typicalForm" 
@@ -460,9 +461,9 @@ const tsTypical = `
       <yh-button type="primary" @click="onSubmit">提交</yh-button>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive, ref } from 'vue'
 
 const typicalForm = reactive({
@@ -485,12 +486,12 @@ const locationOptions = [
 
 const typicalFormRef = ref()
 const onSubmit = () => typicalFormRef.value.validate((v) => v && alert('Success!'))
-\u003C/script>
+</${_S}>
 `.trim()
-const jsTypical = tsTypical.replace('lang="ts"', '')
+const jsTypical = toJs(tsTypical)
 
 const tsInline = `
-<template>
+<${_T}>
   <yh-form layout="inline" :model="form">
     <yh-form-item label="审批人">
       <yh-input v-model="form.user" placeholder="审批人" />
@@ -502,17 +503,17 @@ const tsInline = `
       <yh-button type="primary">查询</yh-button>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 const form = reactive({ user: '', region: '' })
-\u003C/script>
+</${_S}>
 `.trim()
-const jsInline = tsInline.replace('lang="ts"', '')
+const jsInline = toJs(tsInline)
 
 const tsGrid = `
-<template>
+<${_T}>
   <yh-form :model="model" label-position="top">
     <div class="yh-form--grid">
       <div class="yh-form-col yh-form-col--12">
@@ -532,17 +533,17 @@ const tsGrid = `
       </div>
     </div>
   </yh-form>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 const model = reactive({ firstName: '', lastName: '', address: '' })
-\u003C/script>
+</${_S}>
 `.trim()
-const jsGrid = tsGrid.replace('lang="ts"', '')
+const jsGrid = toJs(tsGrid)
 
 const tsStatus = `
-<template>
+<${_T}>
   <yh-form :model="model" :rules="rules" status-icon label-width="120px">
     <yh-form-item label="成功状态" prop="success">
       <yh-input v-model="model.success" />
@@ -554,9 +555,9 @@ const tsStatus = `
       <yh-input v-model="model.error" />
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 
 const model = reactive({ success: 'Valid Content', loading: '', error: 'invalid' })
@@ -565,12 +566,12 @@ const rules = {
   loading: [{ asyncValidator: () => new Promise(res => setTimeout(res, 3000)) }],
   error: [{ validator: (r, v, cb) => cb(new Error('Invalid Value')) }]
 }
-\u003C/script>
+</${_S}>
 `.trim()
-const jsStatus = tsStatus.replace('lang="ts"', '')
+const jsStatus = toJs(tsStatus)
 
 const tsNested = `
-<template>
+<${_T}>
   <yh-form :model="model">
     <yh-form-item label="地区" prop="address.city">
       <yh-input v-model="model.address.city" />
@@ -579,19 +580,19 @@ const tsNested = `
       <yh-input v-model="model.address.street" />
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 const model = reactive({ 
   address: { city: 'Shanghai', street: '' } 
 })
-\u003C/script>
+</${_S}>
 `.trim()
-const jsNested = tsNested.replace('lang="ts"', '')
+const jsNested = toJs(tsNested)
 
 const tsRules = `
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 const rules = {
   // 正则校验
   phone: [{ pattern: /^1\\d{10}$/, message: '格式错误' }],
@@ -605,12 +606,12 @@ const rules = {
     return Promise.resolve() // 或 reject('已占用')
   }}]
 }
-\u003C/script>
+</${_S}>
 `.trim()
-const jsRules = tsRules.replace('lang="ts"', '')
+const jsRules = toJs(tsRules)
 
 const tsSchema = `
-<template>
+<${_T}>
   <yh-form-schema 
     v-model="model" 
     :schema="schema" 
@@ -618,17 +619,17 @@ const tsSchema = `
   >
     <template #field-custom="{ handleUpdate, model }">
        <yh-input :model-value="model.custom" @update:model-value="v => handleUpdate('custom', v)">
-         <template #prepend>Slot</template>
+         <template #prepend>Slot</${_T}>
        </yh-input>
-    </template>
+    </${_T}>
     <template #footer="{ formRef }">
       <yh-button type="primary" @click="() => formRef.validate()">验证 Schema</yh-button>
       <yh-button @click="addConfig">动态增加项</yh-button>
-    </template>
+    </${_T}>
   </yh-form-schema>
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const model = ref({ email: '', custom: 'Initial Value', type: 'base' })
@@ -651,16 +652,16 @@ const addConfig = () => {
     col: 12
   })
 }
-\u003C/script>
+</${_S}>
 `.trim()
-const jsSchema = tsSchema.replace('lang="ts"', '')
+const jsSchema = toJs(tsSchema)
 
 const tsAdvancedSchema = `
-<template>
+<${_T}>
   <yh-form-schema v-model="model" :schema="schema" />
-</template>
+</${_T}>
 
-\u003Cscript setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const model = ref({ category: '', product: '', remark: '' })
@@ -698,9 +699,9 @@ const schema = [
     ]
   }
 ]
-\u003C/script>
+</${_S}>
 `.trim()
-const jsAdvancedSchema = tsAdvancedSchema.replace('lang="ts"', '')
+const jsAdvancedSchema = toJs(tsAdvancedSchema)
 </script>
 
 ## 在 Nuxt 中使用
@@ -737,72 +738,72 @@ Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高
 
 ### Form Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model | 表单数据对象 | `object` | — |
-| rules | 表单验证规则 | `object` | — |
-| label-width | 标签宽度 | `string \| number` | — |
-| label-position | 标签位置 | `'left' \| 'right' \| 'top'` | `'right'` |
-| layout | 布局模式 | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` |
-| disabled | 是否禁用表单全部组件 | `boolean` | `false` |
-| size | 统一尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| status-icon | 是否在输入框中显示校验结果反馈图标 | `boolean` | `false` |
-| scroll-to-error | 校验失败时是否滚动到第一个错误项 | `boolean` | `false` |
-| scroll-into-view-options | 滚动配置项 | `object \| boolean` | `{ behavior: 'smooth', block: 'center' }` |
+| 属性名                   | 说明                               | 类型                                     | 默认值                                    |
+| ------------------------ | ---------------------------------- | ---------------------------------------- | ----------------------------------------- |
+| model                    | 表单数据对象                       | `object`                                 | —                                         |
+| rules                    | 表单验证规则                       | `object`                                 | —                                         |
+| label-width              | 标签宽度                           | `string \| number`                       | —                                         |
+| label-position           | 标签位置                           | `'left' \| 'right' \| 'top'`             | `'right'`                                 |
+| layout                   | 布局模式                           | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'`                            |
+| disabled                 | 是否禁用表单全部组件               | `boolean`                                | `false`                                   |
+| size                     | 统一尺寸                           | `'large' \| 'default' \| 'small'`        | `'default'`                               |
+| status-icon              | 是否在输入框中显示校验结果反馈图标 | `boolean`                                | `false`                                   |
+| scroll-to-error          | 校验失败时是否滚动到第一个错误项   | `boolean`                                | `false`                                   |
+| scroll-into-view-options | 滚动配置项                         | `object \| boolean`                      | `{ behavior: 'smooth', block: 'center' }` |
 
 ### Form Methods
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| validate | 验证表单，支持只校验部分规则 | `(props?: string \| string[], callback?: Function)` |
-| resetFields | 重置表单，支持只重置部分字段 | `(props?: string \| string[])` |
-| clearValidate | 移除表单项的校验结果 | `(props?: string \| string[])` |
-| scrollToField | 滚动到指定字段 | `(prop: string)` |
+| 方法名        | 说明                         | 参数                                                |
+| ------------- | ---------------------------- | --------------------------------------------------- |
+| validate      | 验证表单，支持只校验部分规则 | `(props?: string \| string[], callback?: Function)` |
+| resetFields   | 重置表单，支持只重置部分字段 | `(props?: string \| string[])`                      |
+| clearValidate | 移除表单项的校验结果         | `(props?: string \| string[])`                      |
+| scrollToField | 滚动到指定字段               | `(prop: string)`                                    |
 
 ### FormItem Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| prop | 表单域 model 字段，支持嵌套路径 (a.b.c) | `string` | — |
-| label | 标签文本 | `string` | — |
-| label-width | 标签宽度 | `string \| number` | — |
-| required | 是否必填 | `boolean` | `false` |
-| rules | 验证规则 | `object \| array` | — |
-| size | 给表单项配置尺寸（覆盖 Form 的设置） | `'large' \| 'default' \| 'small'` | — |
-| error-position | 错误信息对齐方式 | `'left' \| 'center' \| 'right'` | `'left'` |
-| show-message | 是否显示校验错误信息 | `boolean` | `true` |
-| disabled | 禁用当前项（覆盖 Form 的设置） | `boolean` | `false` |
+| 属性名         | 说明                                    | 类型                              | 默认值   |
+| -------------- | --------------------------------------- | --------------------------------- | -------- |
+| prop           | 表单域 model 字段，支持嵌套路径 (a.b.c) | `string`                          | —        |
+| label          | 标签文本                                | `string`                          | —        |
+| label-width    | 标签宽度                                | `string \| number`                | —        |
+| required       | 是否必填                                | `boolean`                         | `false`  |
+| rules          | 验证规则                                | `object \| array`                 | —        |
+| size           | 给表单项配置尺寸（覆盖 Form 的设置）    | `'large' \| 'default' \| 'small'` | —        |
+| error-position | 错误信息对齐方式                        | `'left' \| 'center' \| 'right'`   | `'left'` |
+| show-message   | 是否显示校验错误信息                    | `boolean`                         | `true`   |
+| disabled       | 禁用当前项（覆盖 Form 的设置）          | `boolean`                         | `false`  |
 
 ### FormSchema Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| modelValue | 绑定值 | `object` | — |
-| schema | 表单配置项，支持分组、栅格等 | `array` | `[]` |
-| formProps | 透传给 YhForm 的属性 | `object` | `{}` |
+| 属性名     | 说明                         | 类型     | 默认值 |
+| ---------- | ---------------------------- | -------- | ------ |
+| modelValue | 绑定值                       | `object` | —      |
+| schema     | 表单配置项，支持分组、栅格等 | `array`  | `[]`   |
+| formProps  | 透传给 YhForm 的属性         | `object` | `{}`   |
 
 ### FormSchemaItem (配置项)
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| field | 字段名 | `string` | — |
-| label | 标签名 | `string` | — |
-| component | 组件名 (input, radio 等) | `string \| Component` | — |
-| col | 栅格占位 (1-24) | `number` | `24` |
-| props | 透传给内部组件的属性或动态函数 | `object \| (model) => object` | — |
-| formItemProps | 透传给 form-item 的属性 | `object` | — |
-| hidden | 是否隐藏 (支持函数) | `boolean \| (model) => boolean` | `false` |
-| slots | 组件内部插槽配置 | `object` | — |
-| render | 自定义渲染函数 | `(model) => VNode` | — |
-| asyncOptions | 异步选项加载函数 | `() => Promise<any[]>` | — |
-| optionProp | 接收选项的属性名 | `string` | `'options'` |
+| 属性名        | 说明                           | 类型                            | 默认值      |
+| ------------- | ------------------------------ | ------------------------------- | ----------- |
+| field         | 字段名                         | `string`                        | —           |
+| label         | 标签名                         | `string`                        | —           |
+| component     | 组件名 (input, radio 等)       | `string \| Component`           | —           |
+| col           | 栅格占位 (1-24)                | `number`                        | `24`        |
+| props         | 透传给内部组件的属性或动态函数 | `object \| (model) => object`   | —           |
+| formItemProps | 透传给 form-item 的属性        | `object`                        | —           |
+| hidden        | 是否隐藏 (支持函数)            | `boolean \| (model) => boolean` | `false`     |
+| slots         | 组件内部插槽配置               | `object`                        | —           |
+| render        | 自定义渲染函数                 | `(model) => VNode`              | —           |
+| asyncOptions  | 异步选项加载函数               | `() => Promise<any[]>`          | —           |
+| optionProp    | 接收选项的属性名               | `string`                        | `'options'` |
 
 ### FormSchemaGroup (分组配置)
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 分组标题 | `string` | — |
-| items | 分组内的表单项 | `FormSchemaItem[]` | `[]` |
-| props | 透传给 fieldset 的属性 | `object` | — |
-| collapsible | 是否开启折叠功能 | `boolean` | `false` |
-| collapsed | 默认折叠状态 | `boolean` | `false` |
+| 属性名      | 说明                   | 类型               | 默认值  |
+| ----------- | ---------------------- | ------------------ | ------- |
+| title       | 分组标题               | `string`           | —       |
+| items       | 分组内的表单项         | `FormSchemaItem[]` | `[]`    |
+| props       | 透传给 fieldset 的属性 | `object`           | —       |
+| collapsible | 是否开启折叠功能       | `boolean`          | `false` |
+| collapsed   | 默认折叠状态           | `boolean`          | `false` |

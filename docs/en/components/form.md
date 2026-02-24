@@ -186,8 +186,8 @@ When configuring regular expression validation rules in Schema, due to JSON seri
 
 <DemoBlock title="Basic Schema Usage" :ts-code="tsSchema" :js-code="jsSchema">
   <yh-form-schema 
-    v-model="dynamicModel" 
-    :schema="dynamicSchema" 
+    v-model="model" 
+    :schema="schema" 
     :form-props="{ labelPosition: 'top' }"
   >
     <template #field-custom="{ model, handleUpdate }">
@@ -212,6 +212,7 @@ Supports `asyncOptions` for asynchronous option loading, functional dynamic comp
 
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
+import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 
 const formSize = ref('default')
 const form = reactive({ username: '', age: 18, email: '' })
@@ -279,8 +280,8 @@ const advancedRules = {
   username: [{ asyncValidator: (r, v) => new Promise((res, rej) => setTimeout(() => v === 'admin' ? rej('Occupied') : res(), 1000)) }]
 }
 
-const dynamicModel = ref({ email: '', custom: 'Initial Value', type: 'base' })
-const dynamicSchema = ref([
+const model = ref({ email: '', custom: 'Initial Value', type: 'base' })
+const schema = ref([
   {
     title: 'Basic Info',
     items: [
@@ -291,7 +292,7 @@ const dynamicSchema = ref([
   { field: 'custom', label: 'Custom Slot', component: 'input' }
 ])
 const addConfig = () => {
-  dynamicSchema.value.push({
+  schema.value.push({
     field: `ext_${Date.now()}`, 
     label: 'Extension', 
     component: 'input',
@@ -320,7 +321,7 @@ const proSchema = [
         col: 12,
         props: (model) => ({
           disabled: !model.category,
-          placeholder: model.category ? 'Please enter product name' : 'Pelase select category first'
+          placeholder: model.category ? 'Please enter product name' : 'Please select category first'
         })
       }
     ]
@@ -336,7 +337,7 @@ const proSchema = [
 // Nuxt usage example
 const nuxtForm = reactive({ username: '', role: 'admin' })
 
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <yh-form :model="form" label-width="80px">
     <yh-form-item label="Username">
       <yh-input v-model="form.username" placeholder="Auto-imported component" />
@@ -348,9 +349,9 @@ const tsNuxt = `<template>
       </yh-radio-group>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 
 // No need to import Form, FormItem, etc.
@@ -358,12 +359,12 @@ const form = reactive({
   username: '', 
   role: 'admin' 
 })
-<\/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
 
 const tsBasic = `
-<template>
+<${_T}>
   <div style="margin-bottom: 20px;">
     <yh-radio-group v-model="size">
       <yh-radio-button label="large">Large</yh-radio-button>
@@ -393,9 +394,9 @@ const tsBasic = `
       <yh-button @click="reset">Reset</yh-button>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive, ref } from 'vue'
 
 const size = ref('default')
@@ -416,12 +417,12 @@ const submit = () => {
   })
 }
 const reset = () => formRef.value.resetFields()
-<\/script>
+</${_S}>
 `.trim()
-const jsBasic = tsBasic.replace('lang="ts"', '')
+const jsBasic = toJs(tsBasic)
 
 const tsTypical = `
-<template>
+<${_T}>
   <yh-form 
     ref="typicalFormRef"
     :model="typicalForm" 
@@ -456,9 +457,9 @@ const tsTypical = `
       <yh-button type="primary" @click="onSubmit">Submit</yh-button>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive, ref } from 'vue'
 
 const typicalForm = reactive({
@@ -481,12 +482,12 @@ const locationOptions = [
 
 const typicalFormRef = ref()
 const onSubmit = () => typicalFormRef.value.validate((v) => v && alert('Success!'))
-</script>
+</${_S}>
 `.trim()
-const jsTypical = tsTypical.replace('lang="ts"', '')
+const jsTypical = toJs(tsTypical)
 
 const tsInline = `
-<template>
+<${_T}>
   <yh-form layout="inline" :model="form">
     <yh-form-item label="Approver">
       <yh-input v-model="form.user" placeholder="Approver" />
@@ -498,17 +499,17 @@ const tsInline = `
       <yh-button type="primary">Query</yh-button>
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 const form = reactive({ user: '', region: '' })
-</script>
+</${_S}>
 `.trim()
-const jsInline = tsInline.replace('lang="ts"', '')
+const jsInline = toJs(tsInline)
 
 const tsGrid = `
-<template>
+<${_T}>
   <yh-form :model="model" label-position="top">
     <div class="yh-form--grid">
       <div class="yh-form-col yh-form-col--12">
@@ -528,17 +529,17 @@ const tsGrid = `
       </div>
     </div>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 const model = reactive({ firstName: '', lastName: '', address: '' })
-</script>
+</${_S}>
 `.trim()
-const jsGrid = tsGrid.replace('lang="ts"', '')
+const jsGrid = toJs(tsGrid)
 
 const tsStatus = `
-<template>
+<${_T}>
   <yh-form :model="model" :rules="rules" status-icon label-width="120px">
     <yh-form-item label="Success Status" prop="success">
       <yh-input v-model="model.success" />
@@ -550,9 +551,9 @@ const tsStatus = `
       <yh-input v-model="model.error" />
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 
 const model = reactive({ success: 'Valid Content', loading: '', error: 'invalid' })
@@ -561,12 +562,12 @@ const rules = {
   loading: [{ asyncValidator: () => new Promise(res => setTimeout(res, 3000)) }],
   error: [{ validator: (r, v, cb) => cb(new Error('Invalid Value')) }]
 }
-</script>
+</${_S}>
 `.trim()
-const jsStatus = tsStatus.replace('lang="ts"', '')
+const jsStatus = toJs(tsStatus)
 
 const tsNested = `
-<template>
+<${_T}>
   <yh-form :model="model">
     <yh-form-item label="City" prop="address.city">
       <yh-input v-model="model.address.city" />
@@ -575,19 +576,19 @@ const tsNested = `
       <yh-input v-model="model.address.street" />
     </yh-form-item>
   </yh-form>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { reactive } from 'vue'
 const model = reactive({ 
   address: { city: 'Shanghai', street: '' } 
 })
-</script>
+</${_S}>
 `.trim()
-const jsNested = tsNested.replace('lang="ts"', '')
+const jsNested = toJs(tsNested)
 
 const tsRules = `
-<script setup lang="ts">
+<${_S} setup lang="ts">
 const rules = {
   // Regex validation
   phone: [{ pattern: /^1\\d{10}$/, message: 'Invalid format' }],
@@ -601,12 +602,12 @@ const rules = {
     return Promise.resolve() // or reject('Occupied')
   }}]
 }
-</script>
+</${_S}>
 `.trim()
-const jsRules = tsRules.replace('lang="ts"', '')
+const jsRules = toJs(tsRules)
 
 const tsSchema = `
-<template>
+<${_T}>
   <yh-form-schema 
     v-model="model" 
     :schema="schema" 
@@ -614,17 +615,17 @@ const tsSchema = `
   >
     <template #field-custom="{ handleUpdate, model }">
        <yh-input :model-value="model.custom" @update:model-value="v => handleUpdate('custom', v)">
-         <template #prepend>Slot</template>
+         <template #prepend>Slot</${_T}>
        </yh-input>
-    </template>
+    </${_T}>
     <template #footer="{ formRef }">
       <yh-button type="primary" @click="() => formRef.validate()">Validate Schema</yh-button>
       <yh-button @click="addConfig">Add Item Dynamically</yh-button>
-    </template>
+    </${_T}>
   </yh-form-schema>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const model = ref({ email: '', custom: 'Initial Value', type: 'base' })
@@ -647,16 +648,16 @@ const addConfig = () => {
     col: 12
   })
 }
-</script>
+</${_S}>
 `.trim()
-const jsSchema = tsSchema.replace('lang="ts"', '')
+const jsSchema = toJs(tsSchema)
 
 const tsAdvancedSchema = `
-<template>
+<${_T}>
   <yh-form-schema v-model="model" :schema="schema" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const model = ref({ category: '', product: '', remark: '' })
@@ -694,9 +695,9 @@ const schema = [
     ]
   }
 ]
-</script>
+</${_S}>
 `.trim()
-const jsAdvancedSchema = tsAdvancedSchema.replace('lang="ts"', '')
+const jsAdvancedSchema = toJs(tsAdvancedSchema)
 </script>
 
 ## Use in Nuxt
@@ -733,72 +734,72 @@ The internal IDs and ARIA attributes generated by the Form component are based o
 
 ### Form Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model | Form data object | `object` | — |
-| rules | Form validation rules | `object` | — |
-| label-width | Label width | `string \| number` | — |
-| label-position | Label position | `'left' \| 'right' \| 'top'` | `'right'` |
-| layout | Layout mode | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` |
-| disabled | Whether to disable all components in the form | `boolean` | `false` |
-| size | Unified size | `'large' \| 'default' \| 'small'` | `'default'` |
-| status-icon | Whether to display validation result feedback icons in input fields | `boolean` | `false` |
-| scroll-to-error | Whether to scroll to the first error item when validation fails | `boolean` | `false` |
-| scroll-into-view-options | Scroll configuration items | `object \| boolean` | `{ behavior: 'smooth', block: 'center' }` |
+| Prop                     | Description                                                         | Type                                     | Default                                   |
+| ------------------------ | ------------------------------------------------------------------- | ---------------------------------------- | ----------------------------------------- |
+| model                    | Form data object                                                    | `object`                                 | —                                         |
+| rules                    | Form validation rules                                               | `object`                                 | —                                         |
+| label-width              | Label width                                                         | `string \| number`                       | —                                         |
+| label-position           | Label position                                                      | `'left' \| 'right' \| 'top'`             | `'right'`                                 |
+| layout                   | Layout mode                                                         | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'`                            |
+| disabled                 | Whether to disable all components in the form                       | `boolean`                                | `false`                                   |
+| size                     | Unified size                                                        | `'large' \| 'default' \| 'small'`        | `'default'`                               |
+| status-icon              | Whether to display validation result feedback icons in input fields | `boolean`                                | `false`                                   |
+| scroll-to-error          | Whether to scroll to the first error item when validation fails     | `boolean`                                | `false`                                   |
+| scroll-into-view-options | Scroll configuration items                                          | `object \| boolean`                      | `{ behavior: 'smooth', block: 'center' }` |
 
 ### Form Methods
 
-| Method | Description | Parameters |
-| --- | --- | --- |
-| validate | Validates the form, supports partial validation | `(props?: string \| string[], callback?: Function)` |
-| resetFields | Resets the form, supports partial reset | `(props?: string \| string[])` |
-| clearValidate | Removes validation results for form items | `(props?: string \| string[])` |
-| scrollToField | Scrolls to a specified field | `(prop: string)` |
+| Method        | Description                                     | Parameters                                          |
+| ------------- | ----------------------------------------------- | --------------------------------------------------- |
+| validate      | Validates the form, supports partial validation | `(props?: string \| string[], callback?: Function)` |
+| resetFields   | Resets the form, supports partial reset         | `(props?: string \| string[])`                      |
+| clearValidate | Removes validation results for form items       | `(props?: string \| string[])`                      |
+| scrollToField | Scrolls to a specified field                    | `(prop: string)`                                    |
 
 ### FormItem Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| prop | Form field model key, supports nested paths (a.b.c) | `string` | — |
-| label | Label text | `string` | — |
-| label-width | Label width | `string \| number` | — |
-| required | Whether it is required | `boolean` | `false` |
-| rules | Validation rules | `object \| array` | — |
-| size | Configure size for the form item (overrides Form setting) | `'large' \| 'default' \| 'small'` | — |
-| error-position | Error message alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| show-message | Whether to show validation error messages | `boolean` | `true` |
-| disabled | Disables current item (overrides Form setting) | `boolean` | `false` |
+| Prop           | Description                                               | Type                              | Default  |
+| -------------- | --------------------------------------------------------- | --------------------------------- | -------- |
+| prop           | Form field model key, supports nested paths (a.b.c)       | `string`                          | —        |
+| label          | Label text                                                | `string`                          | —        |
+| label-width    | Label width                                               | `string \| number`                | —        |
+| required       | Whether it is required                                    | `boolean`                         | `false`  |
+| rules          | Validation rules                                          | `object \| array`                 | —        |
+| size           | Configure size for the form item (overrides Form setting) | `'large' \| 'default' \| 'small'` | —        |
+| error-position | Error message alignment                                   | `'left' \| 'center' \| 'right'`   | `'left'` |
+| show-message   | Whether to show validation error messages                 | `boolean`                         | `true`   |
+| disabled       | Disables current item (overrides Form setting)            | `boolean`                         | `false`  |
 
 ### FormSchema Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| modelValue | Binding value | `object` | — |
-| schema | Form configuration items, supports grouping, grids, etc. | `array` | `[]` |
-| formProps | Props passed through to YhForm | `object` | `{}` |
+| Prop       | Description                                              | Type     | Default |
+| ---------- | -------------------------------------------------------- | -------- | ------- |
+| modelValue | Binding value                                            | `object` | —       |
+| schema     | Form configuration items, supports grouping, grids, etc. | `array`  | `[]`    |
+| formProps  | Props passed through to YhForm                           | `object` | `{}`    |
 
 ### FormSchemaItem (Configuration Item)
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| field | Field name | `string` | — |
-| label | Label name | `string` | — |
-| component | Component name (input, radio, etc.) | `string \| Component` | — |
-| col | Grid span (1-24) | `number` | `24` |
-| props | Props passed through to internal component or dynamic function | `object \| (model) => object` | — |
-| formItemProps | Props passed through to form-item | `object` | — |
-| hidden | Whether to hide (supports function) | `boolean \| (model) => boolean` | `false` |
-| slots | Internal component slot configuration | `object` | — |
-| render | Custom render function | `(model) => VNode` | — |
-| asyncOptions | Async options loading function | `() => Promise<any[]>` | — |
-| optionProp | Prop name for receiving options | `string` | `'options'` |
+| Prop          | Description                                                    | Type                            | Default     |
+| ------------- | -------------------------------------------------------------- | ------------------------------- | ----------- |
+| field         | Field name                                                     | `string`                        | —           |
+| label         | Label name                                                     | `string`                        | —           |
+| component     | Component name (input, radio, etc.)                            | `string \| Component`           | —           |
+| col           | Grid span (1-24)                                               | `number`                        | `24`        |
+| props         | Props passed through to internal component or dynamic function | `object \| (model) => object`   | —           |
+| formItemProps | Props passed through to form-item                              | `object`                        | —           |
+| hidden        | Whether to hide (supports function)                            | `boolean \| (model) => boolean` | `false`     |
+| slots         | Internal component slot configuration                          | `object`                        | —           |
+| render        | Custom render function                                         | `(model) => VNode`              | —           |
+| asyncOptions  | Async options loading function                                 | `() => Promise<any[]>`          | —           |
+| optionProp    | Prop name for receiving options                                | `string`                        | `'options'` |
 
 ### FormSchemaGroup (Group Config)
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Group title | `string` | — |
-| items | Form items within the group | `FormSchemaItem[]` | `[]` |
-| props | Props passed through to fieldset | `object` | — |
-| collapsible | Whether to enable collapsible feature | `boolean` | `false` |
-| collapsed | Default collapsed state | `boolean` | `false` |
+| Prop        | Description                           | Type               | Default |
+| ----------- | ------------------------------------- | ------------------ | ------- |
+| title       | Group title                           | `string`           | —       |
+| items       | Form items within the group           | `FormSchemaItem[]` | `[]`    |
+| props       | Props passed through to fieldset      | `object`           | —       |
+| collapsible | Whether to enable collapsible feature | `boolean`          | `false` |
+| collapsed   | Default collapsed state               | `boolean`          | `false` |

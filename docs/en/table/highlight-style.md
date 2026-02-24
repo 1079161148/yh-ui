@@ -4,7 +4,7 @@ Through table properties and column configuration, implement row highlight, colu
 
 <script setup lang="ts">
 import { ref, h, computed } from 'vue'
-import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 // ==================== Common Data ====================
 
@@ -398,51 +398,51 @@ Configure column with `showOverflowTooltip: true` to automatically ellipsis cont
 
 ### Highlight Properties
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| highlight-current-row | Whether to highlight the currently clicked row | `boolean` | `false` |
-| current-row-key / v-model:current-row-key | Key value of the currently highlighted row | `string \| number` | — |
+| Property                                  | Description                                    | Type               | Default |
+| ----------------------------------------- | ---------------------------------------------- | ------------------ | ------- |
+| highlight-current-row                     | Whether to highlight the currently clicked row | `boolean`          | `false` |
+| current-row-key / v-model:current-row-key | Key value of the currently highlighted row     | `string \| number` | —       |
 
 ### Highlight Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event          | Description                            | Parameters             |
+| -------------- | -------------------------------------- | ---------------------- |
 | current-change | Triggered when the current row changes | `(currentRow, oldRow)` |
 
 ### Column Highlight
 
 Implement column highlight by dynamically setting the `is-column-highlight` class name through the column `className` property.
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| className | Custom class name for the column | `string` | — |
+| Property  | Description                      | Type     | Default |
+| --------- | -------------------------------- | -------- | ------- |
+| className | Custom class name for the column | `string` | —       |
 
 ### Header Icon Properties
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| headerPrefixIcon | Header prefix icon (Vue component or string) | `string \| Component` | — |
-| headerSuffixIcon | Header suffix icon (Vue component or string) | `string \| Component` | — |
+| Property         | Description                                  | Type                  | Default |
+| ---------------- | -------------------------------------------- | --------------------- | ------- |
+| headerPrefixIcon | Header prefix icon (Vue component or string) | `string \| Component` | —       |
+| headerSuffixIcon | Header suffix icon (Vue component or string) | `string \| Component` | —       |
 
 ### Wrapping & Overflow
 
-| Usage | Description | Type |
-| --- | --- | --- |
-| `class="is-auto-wrap"` | Table-level auto wrap (add to `yh-table`) | `string` |
-| `showOverflowTooltip` | Column-level overflow hidden, show tooltip on hover | `boolean \| TooltipConfig` |
-| `ellipsis` | Column-level ellipsis | `boolean \| EllipsisConfig` |
+| Usage                  | Description                                         | Type                        |
+| ---------------------- | --------------------------------------------------- | --------------------------- |
+| `class="is-auto-wrap"` | Table-level auto wrap (add to `yh-table`)           | `string`                    |
+| `showOverflowTooltip`  | Column-level overflow hidden, show tooltip on hover | `boolean \| TooltipConfig`  |
+| `ellipsis`             | Column-level ellipsis                               | `boolean \| EllipsisConfig` |
 
 ### showOverflowTooltip Config (TooltipConfig)
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| effect | Tooltip theme | `'dark' \| 'light'` | `'dark'` |
-| placement | Tooltip placement | `string` | `'top'` |
-| offset | Tooltip offset | `number` | — |
+| Property  | Description       | Type                | Default  |
+| --------- | ----------------- | ------------------- | -------- |
+| effect    | Tooltip theme     | `'dark' \| 'light'` | `'dark'` |
+| placement | Tooltip placement | `string`            | `'top'`  |
+| offset    | Tooltip offset    | `number`            | —        |
 
 ### ellipsis Config (EllipsisConfig)
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| tooltip | Whether to show tooltip when truncated | `boolean` | `false` |
-| lineClamp | Limit the number of displayed rows | `number` | — |
+| Property  | Description                            | Type      | Default |
+| --------- | -------------------------------------- | --------- | ------- |
+| tooltip   | Whether to show tooltip when truncated | `boolean` | `false` |
+| lineClamp | Limit the number of displayed rows     | `number`  | —       |
