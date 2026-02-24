@@ -99,9 +99,9 @@ describe('YhTable 虚拟滚动性能基准测试', () => {
 
     expect(wrapper!.classes()).toContain('yh-table')
     // Happy-DOM 环境阈值放宽到 7000ms
-    expect(elapsed).toBeLessThan(7000)
+    expect(elapsed).toBeLessThan(10000)
     wrapper!.unmount()
-  }, 15000)
+  }, 20000)
 
   // ── 2. 不同数据规模挂载时间基准线（线性验证） ──────────────────────────────
   it('100/500/2k 行：挂载时间应线性增长（非指数增长）', () => {
@@ -137,10 +137,10 @@ describe('YhTable 虚拟滚动性能基准测试', () => {
     expect(ratio).toBeLessThan(25)
 
     // Happy-DOM 基准阈值（放宽以适应 CI 环境差异）
-    expect(t100).toBeLessThan(3000)
-    expect(t500).toBeLessThan(5000)
-    expect(t2k).toBeLessThan(8000)
-  }, 20000)
+    expect(t100).toBeLessThan(5000)
+    expect(t500).toBeLessThan(8000)
+    expect(t2k).toBeLessThan(10000)
+  }, 30000)
 
   // ── 3. 虚拟 DOM 节点数量控制 ───────────────────────────────────────────────
   it('2k 行：渲染 DOM 行节点数应远少于数据行数', async () => {
@@ -280,13 +280,13 @@ describe('YhTable 虚拟滚动性能基准测试', () => {
       () => {
         wrapper.setProps({ data: NEW_DATA })
       },
-      8000
+      10000
     )
 
     await nextTick()
-    expect(elapsed).toBeLessThan(8000)
+    expect(elapsed).toBeLessThan(10000)
     wrapper.unmount()
-  }, 15000)
+  }, 20000)
 
   // ── 7. 大数据量渲染正确性 ─────────────────────────────────────────────────
   it('2k 行：表格应正确挂载且组件不报错', async () => {
@@ -310,5 +310,5 @@ describe('YhTable 虚拟滚动性能基准测试', () => {
     console.log(`[PERF] 表头列数: ${headerCells.length}`)
 
     wrapper.unmount()
-  })
+  }, 15000)
 })

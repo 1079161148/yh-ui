@@ -2,7 +2,7 @@
  * RadioButton Component Tests
  * @description 单选按钮组件单元测试
  */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { ref, nextTick } from 'vue'
 import YhRadioGroup from '../src/radio-group.vue'

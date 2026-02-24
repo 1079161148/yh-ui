@@ -6,7 +6,6 @@
 import { computed, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { BadgeProps } from './badge'
 
 defineOptions({
@@ -27,7 +26,10 @@ import { badgeTypes } from './badge'
 const _types = badgeTypes // 确保常量被引入以计入覆盖率
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('badge', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'badge',
+  computed(() => props.themeOverrides)
+)
 
 const slots = useSlots()
 

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import YhFormSchema from '../src/form-schema.vue'
-import { nextTick, ref, h } from 'vue'
+import { nextTick, h } from 'vue'
 
 // Mock components
 const YhInput = {

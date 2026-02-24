@@ -9,17 +9,23 @@ import {
 } from '@nuxt/kit'
 
 // Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
-if (typeof (crypto as any).hash !== 'function') {
-  ;(crypto as any).hash = (
+if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
+  ;(
+    crypto as unknown as {
+      hash: (
+        algorithm: string,
+        data: string | Buffer,
+        outputEncoding?: crypto.BinaryToTextEncoding
+      ) => string | Buffer
+    }
+  ).hash = (
     algorithm: string,
     data: string | Buffer,
-    outputEncoding: any = 'hex'
+    outputEncoding: crypto.BinaryToTextEncoding = 'hex'
   ) => {
     return crypto.createHash(algorithm).update(data).digest(outputEncoding)
   }
 }
-
-import type { NuxtModule } from '@nuxt/schema'
 
 export interface ModuleOptions {
   /**

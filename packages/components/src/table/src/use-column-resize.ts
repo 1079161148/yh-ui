@@ -47,7 +47,6 @@ export const useColumnResize = (options: UseColumnResizeOptions): UseColumnResiz
   let startX = 0
   let startWidth = 0
   let currentColumn: TableColumn | null = null
-  let columnEl: HTMLElement | null = null
 
   // ==================== 方法 ====================
 
@@ -66,7 +65,6 @@ export const useColumnResize = (options: UseColumnResizeOptions): UseColumnResiz
     isResizing.value = true
     resizingColumn.value = column
     currentColumn = column
-    columnEl = el
 
     startX = event.clientX
     startWidth = el.offsetWidth
@@ -127,7 +125,6 @@ export const useColumnResize = (options: UseColumnResizeOptions): UseColumnResiz
     resizingColumn.value = null
     resizeLineVisible.value = false
     currentColumn = null
-    columnEl = null
 
     // 恢复光标
     document.body.style.cursor = ''
@@ -155,4 +152,3 @@ export const useColumnResize = (options: UseColumnResizeOptions): UseColumnResiz
     handleResizeStart
   }
 }
-

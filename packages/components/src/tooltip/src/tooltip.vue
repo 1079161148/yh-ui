@@ -3,7 +3,7 @@
  * YhTooltip - 极致性能的文字提示组件
  * @description 基于 Floating UI 引擎，融合 Glassmorphism 设计风格
  */
-import { ref, computed, watch, onMounted, onUnmounted, nextTick, useSlots, Teleport } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import type { CSSProperties } from 'vue'
 
 // 自定义虚拟元素类型，用于跟随鼠标
@@ -24,10 +24,12 @@ const props = defineProps(tooltipProps)
 const emit = defineEmits(tooltipEmits)
 const ns = useNamespace('tooltip')
 const tooltipId = useId()
-const slots = useSlots()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('tooltip', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'tooltip',
+  computed(() => props.themeOverrides)
+)
 
 // 元素引用
 const triggerRef = ref<HTMLElement | null>(null)
@@ -41,7 +43,7 @@ const arrowStyle = ref<CSSProperties>({})
 
 const computedPopperStyle = computed(() => {
   const styles: CSSProperties = {
-    ...themeStyle.value as any,
+    ...(themeStyle.value as CSSProperties),
     ...popperStyle.value
   }
   if (typeof props.popperStyle === 'object') {
@@ -165,8 +167,14 @@ const toggleVisible = (value: boolean) => {
   if (props.disabled) return
 
   // 立即清除所有待执行的计时器
-  if (showTimer) { clearTimeout(showTimer); showTimer = null }
-  if (hideTimer) { clearTimeout(hideTimer); hideTimer = null }
+  if (showTimer) {
+    clearTimeout(showTimer)
+    showTimer = null
+  }
+  if (hideTimer) {
+    clearTimeout(hideTimer)
+    hideTimer = null
+  }
 
   // 受控模式下（props.visible !== null），我们优先依赖外部状态
   // 但为了响应灵敏度，我们依然需要立即同步内部 visible.value 并通过 nextTick 触发定位
@@ -240,36 +248,47 @@ const handleTrigger = (e: Event, type: TooltipTrigger) => {
 }
 
 // 全局点击/右键以外区域关闭
-useEventListener(() => window, 'click', (e: MouseEvent) => {
-  if (!visible.value) return
-  // 只有 click 和 contextmenu 模式需要全局外部点击关闭
-  const needsClose = triggers.value.has('click') || triggers.value.has('contextmenu')
-  if (!needsClose) return
+useEventListener(
+  () => window,
+  'click',
+  (e: MouseEvent) => {
+    if (!visible.value) return
+    // 只有 click 和 contextmenu 模式需要全局外部点击关闭
+    const needsClose = triggers.value.has('click') || triggers.value.has('contextmenu')
+    if (!needsClose) return
 
-  const target = e.target as HTMLElement
-  if (!triggerRef.value?.contains(target) && !popperRef.value?.contains(target)) {
-    toggleVisible(false)
+    const target = e.target as HTMLElement
+    if (!triggerRef.value?.contains(target) && !popperRef.value?.contains(target)) {
+      toggleVisible(false)
+    }
   }
-})
+)
 
 // 监听外部可见性变化 (受控模式)
-watch(() => props.visible, (val: boolean | null) => {
-  if (val !== null && val !== visible.value) {
-    visible.value = val
-    if (val) nextTick(startAutoUpdate)
-    else stopAutoUpdate()
-  }
-}, { immediate: true })
+watch(
+  () => props.visible,
+  (val: boolean | null) => {
+    if (val !== null && val !== visible.value) {
+      visible.value = val
+      if (val) nextTick(startAutoUpdate)
+      else stopAutoUpdate()
+    }
+  },
+  { immediate: true }
+)
 
 // 鼠标跟随监听
-watch(() => props.followCursor, (val: boolean) => {
-  if (typeof window === 'undefined') return
-  if (val) {
-    window.addEventListener('mousemove', handleMouseMove)
-  } else {
-    window.removeEventListener('mousemove', handleMouseMove)
+watch(
+  () => props.followCursor,
+  (val: boolean) => {
+    if (typeof window === 'undefined') return
+    if (val) {
+      window.addEventListener('mousemove', handleMouseMove)
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
   }
-})
+)
 
 onMounted(() => {
   if (props.followCursor && typeof window !== 'undefined') {
@@ -293,27 +312,47 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="ns.b()" ref="triggerRef" @mouseenter="handleTrigger($event, 'hover')"
-    @mouseleave="triggers.has('hover') && toggleVisible(false)" @click="handleTrigger($event, 'click')"
-    @contextmenu="handleTrigger($event, 'contextmenu')" @focusin="handleTrigger($event, 'focus')"
-    @focusout="triggers.has('focus') && toggleVisible(false)">
+  <div
+    :class="ns.b()"
+    ref="triggerRef"
+    @mouseenter="handleTrigger($event, 'hover')"
+    @mouseleave="triggers.has('hover') && toggleVisible(false)"
+    @click="handleTrigger($event, 'click')"
+    @contextmenu="handleTrigger($event, 'contextmenu')"
+    @focusin="handleTrigger($event, 'focus')"
+    @focusout="triggers.has('focus') && toggleVisible(false)"
+  >
     <slot />
 
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="transition">
-        <div v-if="shouldRender" v-show="showPopper" :id="tooltipId" ref="popperRef" :class="popperClasses"
-          :style="computedPopperStyle" :data-placement="actualPlacement"
+        <div
+          v-if="shouldRender"
+          v-show="showPopper"
+          :id="tooltipId"
+          ref="popperRef"
+          :class="popperClasses"
+          :style="computedPopperStyle"
+          :data-placement="actualPlacement"
           @mouseenter="interactive && toggleVisible(true)"
-          @mouseleave="interactive && triggers.has('hover') && toggleVisible(false)">
+          @mouseleave="interactive && triggers.has('hover') && toggleVisible(false)"
+        >
           <div :class="[ns.e('content'), props.contentClass]" :style="computedContentStyle">
             <slot name="content">
+              <!-- eslint-disable-next-line vue/no-v-html -->
               <span v-if="rawContent" v-html="content" />
               <span v-else>{{ content }}</span>
             </slot>
           </div>
           <!-- 小三角 - 使用 Floating UI 官方推荐的 SVG 路径方案 -->
           <div v-if="showArrow" ref="arrowRef" :class="ns.e('arrow-wrapper')" :style="arrowStyle">
-            <svg :class="ns.e('arrow')" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              :class="ns.e('arrow')"
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M0,0 L6,6 L12,0" />
             </svg>
           </div>

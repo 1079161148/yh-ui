@@ -163,10 +163,10 @@ describe('Theme System Comprehensive', () => {
 
   it('Responsive variables & MatchMedia follower', () => {
     let mockMatches = true
-    let registeredCallback: Function | null = null
-    const matchMediaMock = vi.fn().mockImplementation((query) => ({
+    let registeredCallback: ((...args: any[]) => any) | null = null
+    const matchMediaMock = vi.fn().mockImplementation((_query) => ({
       matches: mockMatches,
-      addEventListener: (event: string, cb: Function) => {
+      addEventListener: (_event: string, cb: (...args: any[]) => any) => {
         registeredCallback = cb
       },
       removeEventListener: vi.fn()

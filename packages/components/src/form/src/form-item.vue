@@ -3,16 +3,7 @@
  * YhFormItem - 表单项组件
  * @description 彻底修复：1. 实时校验反馈失效；2. 控制台报错异常；3. 动画与显示步调不一致
  */
-import {
-  inject,
-  onMounted,
-  onBeforeUnmount,
-  provide,
-  reactive,
-  ref,
-  computed,
-  toRefs
-} from 'vue'
+import { inject, onMounted, onBeforeUnmount, provide, reactive, ref, computed, toRefs } from 'vue'
 import AsyncValidator, { type Rules } from 'async-validator'
 import { formItemProps } from './form-item'
 import type { FormRule } from './form'
@@ -37,7 +28,10 @@ const formContext = inject(FormContextKey, null)
 const { globalSize } = useConfig()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('form-item', computed(() => props.themeOverrides || formContext?.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'form-item',
+  computed(() => props.themeOverrides || formContext?.themeOverrides)
+)
 
 // 生成唯一 ID
 const id = useId().value
@@ -75,7 +69,7 @@ const itemRules = computed(() => {
 // 是否必填
 const isRequired = computed(() => {
   if (props.required) return true
-  return itemRules.value.some(rule => !!rule.required)
+  return itemRules.value.some((rule) => !!rule.required)
 })
 
 // 获取当前字段的值（响应式）
@@ -101,7 +95,13 @@ const isDisabled = computed(() => props.disabled || formContext?.disabled || fal
  */
 const validate = async (trigger: string = '', callback?: (isValid: boolean) => void) => {
   const rules = trigger
-    ? itemRules.value.filter(rule => !rule.trigger || (Array.isArray(rule.trigger) ? rule.trigger.includes(trigger as import('./form').FormValidateTrigger) : rule.trigger === trigger))
+    ? itemRules.value.filter(
+        (rule) =>
+          !rule.trigger ||
+          (Array.isArray(rule.trigger)
+            ? rule.trigger.includes(trigger as import('./form').FormValidateTrigger)
+            : rule.trigger === trigger)
+      )
     : itemRules.value
 
   if (rules.length === 0) {
@@ -116,7 +116,8 @@ const validate = async (trigger: string = '', callback?: (isValid: boolean) => v
   const validator = new AsyncValidator(descriptor)
   const model = { [props.prop]: fieldValue.value }
 
-  return validator.validate(model, { firstFields: true })
+  return validator
+    .validate(model, { firstFields: true })
     .then(() => {
       innerValidateStatus.value = 'success'
       innerValidateMessage.value = ''
@@ -131,7 +132,8 @@ const validate = async (trigger: string = '', callback?: (isValid: boolean) => v
       if (errors && errors.length > 0) {
         innerValidateMessage.value = errors[0].message || t('form.validationFailed')
       } else {
-        innerValidateMessage.value = typeof errorData === 'string' ? errorData : t('form.validationFailed')
+        innerValidateMessage.value =
+          typeof errorData === 'string' ? errorData : t('form.validationFailed')
       }
 
       callback?.(false)
@@ -176,7 +178,7 @@ onMounted(() => {
     if (fieldValue.value !== undefined) {
       try {
         initialValue.value = JSON.parse(JSON.stringify(fieldValue.value))
-      } catch (e) {
+      } catch {
         initialValue.value = fieldValue.value
       }
     }
@@ -200,17 +202,27 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="[
-    ns.b(),
-    ns.m(itemSize),
-    ns.is('error', currentValidateStatus === 'error'),
-    ns.is('validating', currentValidateStatus === 'validating'),
-    ns.is('success', currentValidateStatus === 'success'),
-    ns.is('required', isRequired),
-    ns.is('disabled', isDisabled)
-  ]" :style="themeStyle" :data-prop="prop">
+  <div
+    :class="[
+      ns.b(),
+      ns.m(itemSize),
+      ns.is('error', currentValidateStatus === 'error'),
+      ns.is('validating', currentValidateStatus === 'validating'),
+      ns.is('success', currentValidateStatus === 'success'),
+      ns.is('required', isRequired),
+      ns.is('disabled', isDisabled)
+    ]"
+    :style="themeStyle"
+    :data-prop="prop"
+  >
     <!-- 标签 -->
-    <label v-if="label || $slots.label" :id="labelId" :for="contentId" :class="ns.e('label')" :style="labelStyle">
+    <label
+      v-if="label || $slots.label"
+      :id="labelId"
+      :for="contentId"
+      :class="ns.e('label')"
+      :style="labelStyle"
+    >
       <slot name="label">{{ label }}{{ formContext?.labelSuffix }}</slot>
     </label>
 
@@ -218,22 +230,45 @@ defineExpose({
       <slot />
 
       <!-- 状态图标 -->
-      <div v-if="formContext?.statusIcon && currentValidateStatus"
-        :class="[ns.e('status-icon'), ns.is(currentValidateStatus)]">
-        <svg v-if="currentValidateStatus === 'success'" viewBox="0 0 1024 1024" width="16" height="16">
-          <path fill="currentColor"
-            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.32l-114.944-114.88a32 32 0 1 0-45.248 45.248l137.536 137.472a32 32 0 0 0 45.248 0l310.4-310.272a32 32 0 1 0-45.248-45.248L456.192 600.32z" />
+      <div
+        v-if="formContext?.statusIcon && currentValidateStatus"
+        :class="[ns.e('status-icon'), ns.is(currentValidateStatus)]"
+      >
+        <svg
+          v-if="currentValidateStatus === 'success'"
+          viewBox="0 0 1024 1024"
+          width="16"
+          height="16"
+        >
+          <path
+            fill="currentColor"
+            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.32l-114.944-114.88a32 32 0 1 0-45.248 45.248l137.536 137.472a32 32 0 0 0 45.248 0l310.4-310.272a32 32 0 1 0-45.248-45.248L456.192 600.32z"
+          />
         </svg>
-        <svg v-else-if="currentValidateStatus === 'error'" viewBox="0 0 1024 1024" width="16" height="16">
-          <path fill="currentColor"
-            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+        <svg
+          v-else-if="currentValidateStatus === 'error'"
+          viewBox="0 0 1024 1024"
+          width="16"
+          height="16"
+        >
+          <path
+            fill="currentColor"
+            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+          />
         </svg>
       </div>
 
       <!-- 校验提示 - 确保即使没有点击提交，通过触发 blur/change 也能即时显示 -->
       <Transition name="yh-fade">
-        <div v-if="currentValidateStatus === 'error' && showMessage && (formContext?.showMessage ?? true)" :id="errorId"
-          :class="[ns.e('error'), ns.is(errorPosition)]" role="alert" aria-live="polite">
+        <div
+          v-if="
+            currentValidateStatus === 'error' && showMessage && (formContext?.showMessage ?? true)
+          "
+          :id="errorId"
+          :class="[ns.e('error'), ns.is(errorPosition)]"
+          role="alert"
+          aria-live="polite"
+        >
           {{ currentValidateMessage }}
         </div>
       </Transition>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import * as _dayjs from 'dayjs'
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from 'dayjs'
 
 const props = defineProps<{
   date: Date
@@ -32,24 +31,21 @@ const quarters = computed(() => [
 ])
 
 const getCellClasses = (quarter: number) => {
-  const classes: string[] = [
-    ns.e('cell'),
-    ns.is(props.cellShape || 'round')
-  ]
+  const classes: string[] = [ns.e('cell'), ns.is(props.cellShape || 'round')]
   const month = (quarter - 1) * 3
   const cellDate = dayjs(props.date).month(month).startOf('month')
   const today = dayjs().startOf('month')
 
-  if (today.year() === cellDate.year() && Math.floor(today.month() / 3) === (quarter - 1)) {
+  if (today.year() === cellDate.year() && Math.floor(today.month() / 3) === quarter - 1) {
     classes.push('is-today')
   }
 
   if (props.disabledDate && props.disabledDate(cellDate.toDate())) classes.push('is-disabled')
 
   const isSelected = (val: Date | Date[] | null | undefined) => {
-    if (!val) return false
-    const d = dayjs(val)
-    return d.year() === dayjs(props.date).year() && Math.floor(d.month() / 3) === (quarter - 1)
+    if (!val || Array.isArray(val)) return false
+    const d = dayjs(val as Date)
+    return d.year() === dayjs(props.date).year() && Math.floor(d.month() / 3) === quarter - 1
   }
 
   // 单选
@@ -62,10 +58,20 @@ const getCellClasses = (quarter: number) => {
   // 范围
   if (props.rangeState) {
     const { from, to, hovering } = props.rangeState
-    const start = from ? dayjs(from).startOf('month').month(Math.floor(dayjs(from).month() / 3) * 3) : null
+    const start = from
+      ? dayjs(from)
+          .startOf('month')
+          .month(Math.floor(dayjs(from).month() / 3) * 3)
+      : null
     const end = to
-      ? dayjs(to).startOf('month').month(Math.floor(dayjs(to).month() / 3) * 3)
-      : (hovering ? dayjs(hovering).startOf('month').month(Math.floor(dayjs(hovering).month() / 3) * 3) : null)
+      ? dayjs(to)
+          .startOf('month')
+          .month(Math.floor(dayjs(to).month() / 3) * 3)
+      : hovering
+        ? dayjs(hovering)
+            .startOf('month')
+            .month(Math.floor(dayjs(hovering).month() / 3) * 3)
+        : null
 
     const current = cellDate.startOf('month')
 
@@ -94,8 +100,21 @@ const handleClick = (quarter: number) => {
 
 <template>
   <div :class="[ns.e('table'), ns.em('table', 'quarter')]">
-    <div v-for="q in quarters" :key="q.value" :class="getCellClasses(q.value)" @click="handleClick(q.value)"
-      @mouseenter="emit('hover', dayjs(date).month((q.value - 1) * 3).startOf('month').toDate())">
+    <div
+      v-for="q in quarters"
+      :key="q.value"
+      :class="getCellClasses(q.value)"
+      @click="handleClick(q.value)"
+      @mouseenter="
+        emit(
+          'hover',
+          dayjs(date)
+            .month((q.value - 1) * 3)
+            .startOf('month')
+            .toDate()
+        )
+      "
+    >
       <span :class="ns.e('cell-content')">{{ q.text }}</span>
     </div>
   </div>

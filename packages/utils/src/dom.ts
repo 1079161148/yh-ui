@@ -15,19 +15,15 @@ export const isServer = !isClient
 /**
  * 获取元素的样式
  */
-export const getStyle = (
-  element: HTMLElement,
-  styleName: keyof CSSStyleDeclaration
-): string => {
+export const getStyle = (element: HTMLElement, styleName: string): string => {
   if (!isClient || !element || !styleName) return ''
-  const key = styleName as string
   try {
-    const style = element.style[styleName as any]
-    if (style) return style as string
+    const style = (element.style as unknown as Record<string, string>)[styleName]
+    if (style) return style
     const computed = document.defaultView?.getComputedStyle(element, '')
-    return computed ? (computed[key as any] as string) : ''
+    return computed ? (computed as unknown as Record<string, string>)[styleName] : ''
   } catch {
-    return element.style[key as any] as string
+    return (element.style as unknown as Record<string, string>)[styleName]
   }
 }
 
@@ -46,7 +42,7 @@ export const setStyle = (
       setStyle(element, key, val)
     })
   } else {
-    element.style[styleName as any] = value ?? ''
+    ;(element.style as unknown as Record<string, string>)[styleName] = value ?? ''
   }
 }
 
@@ -97,9 +93,7 @@ export const getScrollContainer = (
     if ([document.documentElement, document.body].includes(parent)) {
       return window
     }
-    const overflow = isVertical
-      ? getStyle(parent, 'overflowY')
-      : getStyle(parent, 'overflow')
+    const overflow = isVertical ? getStyle(parent, 'overflowY') : getStyle(parent, 'overflow')
     if (/(scroll|auto)/.test(overflow)) {
       return parent
     }

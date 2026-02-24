@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
-import { YhTable, YhTableColumn } from '../index'
+import { YhTable } from '../index'
 
 // 测试数据
 const mockData = [

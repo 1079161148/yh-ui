@@ -8,7 +8,7 @@
  */
 
 import { Icon as IconifyIcon } from '@iconify/vue'
-import { h, type VNode, computed } from 'vue'
+import { h, type VNode } from 'vue'
 import type { IconName, IconSize, IconColor, IconRotate } from './types'
 
 /**
@@ -133,8 +133,7 @@ export function parseIconName(name: string): string {
  */
 export async function iconExists(name: string): Promise<boolean> {
   try {
-    const icon = await import('@iconify/vue')
-    const IconComponent = icon.Icon
+    await import('@iconify/vue')
     // 尝试加载图标
     const parsedName = parseIconName(name)
     // Iconify 会自动处理加载，这里简单返回 true

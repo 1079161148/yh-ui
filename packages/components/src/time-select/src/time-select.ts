@@ -186,7 +186,7 @@ export const generateTimeOptions = (
   end: string,
   step: string,
   format = 'HH:mm',
-  includeEnd = false
+  _includeEnd = false
 ): TimeOption[] => {
   const options: TimeOption[] = []
   const startMinutes = parseTimeToMinutes(start)

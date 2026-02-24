@@ -153,9 +153,9 @@ export const sliderProps = {
 export type SliderProps = ExtractPropTypes<typeof sliderProps>
 
 export const sliderEmits = {
-  'update:modelValue': (val: SliderValueType) => true,
-  change: (val: SliderValueType) => true,
-  input: (val: SliderValueType) => true
+  'update:modelValue': (_val: SliderValueType) => true,
+  change: (_val: SliderValueType) => true,
+  input: (_val: SliderValueType) => true
 }
 
 export type SliderEmits = typeof sliderEmits

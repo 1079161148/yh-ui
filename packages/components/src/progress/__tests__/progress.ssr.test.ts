@@ -3,7 +3,7 @@
  */
 import { renderToString } from '@vue/server-renderer'
 import { describe, it, expect } from 'vitest'
-import { defineComponent, h } from 'vue'
+import { h } from 'vue'
 import YhProgress from '../src/progress.vue'
 
 describe('YhProgress SSR', () => {

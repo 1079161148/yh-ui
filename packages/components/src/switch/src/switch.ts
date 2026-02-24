@@ -113,8 +113,8 @@ export const switchProps = {
 export type SwitchProps = ExtractPropTypes<typeof switchProps>
 
 export const switchEmits = {
-  'update:modelValue': (val: SwitchValueType) => true,
-  change: (val: SwitchValueType) => true
+  'update:modelValue': (_val: SwitchValueType) => true,
+  change: (_val: SwitchValueType) => true
 }
 
 export type SwitchEmits = typeof switchEmits

@@ -33,7 +33,6 @@ describe('calcTextareaHeight', () => {
         }
         return map[prop] ?? ''
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any)
 
     // mock scrollHeight
@@ -80,7 +79,6 @@ describe('calcTextareaHeight', () => {
         if (prop === 'border-bottom-width') return '1'
         return ''
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any)
     const result = calcTextareaHeight(textarea, 1)
     expect(result.height).toMatch(/px$/)

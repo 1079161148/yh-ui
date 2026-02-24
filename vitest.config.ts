@@ -5,11 +5,19 @@ import { resolve } from 'node:path'
 import crypto from 'node:crypto'
 
 // Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
-if (typeof (crypto as any).hash !== 'function') {
-  ;(crypto as any).hash = (
+if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
+  ;(
+    crypto as unknown as {
+      hash: (
+        algorithm: string,
+        data: string | Buffer,
+        outputEncoding?: crypto.BinaryToTextEncoding
+      ) => string | Buffer
+    }
+  ).hash = (
     algorithm: string,
     data: string | Buffer,
-    outputEncoding: any = 'hex'
+    outputEncoding: crypto.BinaryToTextEncoding = 'hex'
   ) => {
     return crypto.createHash(algorithm).update(data).digest(outputEncoding)
   }
@@ -42,7 +50,7 @@ export default defineConfig({
     ],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'clover', 'lcov'],
+      reporter: ['text', 'json', 'html', 'clover', 'lcov', 'json-summary'],
       include: ['packages/*/src/**/*.{ts,vue}'],
       exclude: ['**/*.d.ts', '**/index.ts', '**/__tests__/**'],
       clean: true

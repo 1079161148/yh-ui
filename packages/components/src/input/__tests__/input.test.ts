@@ -1,11 +1,10 @@
 /**
  * Input Component Unit Tests
  */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import Input from '../src/input.vue'
-import { YhInput } from '../index'
 import { inputTypes, inputSizes, inputVariants, inputStatuses } from '../src/input'
 
 describe('YhInput', () => {

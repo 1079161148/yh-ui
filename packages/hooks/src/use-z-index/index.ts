@@ -3,7 +3,7 @@
  * @description 统一管理组件的 z-index 值，SSR 安全
  * @reference 参考 市面组件库 的最佳实践实现
  */
-import { computed, inject, ref, unref } from 'vue'
+import { computed, inject, unref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 
 // 默认初始 z-index
@@ -16,12 +16,12 @@ export const zIndexContextKey: InjectionKey<Ref<number | undefined>> = Symbol('z
 export const zIndexCounterKey: InjectionKey<{ current: number }> = Symbol('zIndexCounterKey')
 
 // 全局计数器（仅在客户端使用）
-let globalZIndexCounter: number | undefined
+// 使用 window.__YH_Z_INDEX__ 统一管理，不再需要本地变量
 
 export const getNextZIndex = (): number => {
   // 在客户端环境使用全局计数器，支持 window 存储以跨组件共享
   if (typeof window !== 'undefined') {
-    const windowContext = window as any
+    const windowContext = window as unknown as Record<string, number | undefined>
     if (windowContext.__YH_Z_INDEX__ === undefined) {
       windowContext.__YH_Z_INDEX__ = defaultInitialZIndex
     }
@@ -36,9 +36,9 @@ export const getNextZIndex = (): number => {
  * 重置 z-index 计数器
  */
 export const resetZIndex = (value = defaultInitialZIndex): void => {
-  globalZIndexCounter = value
+  // globalZIndexCounter = value
   if (typeof window !== 'undefined') {
-    ;(window as any).__YH_Z_INDEX__ = value
+    ;(window as unknown as Record<string, number | undefined>).__YH_Z_INDEX__ = value
   }
 }
 

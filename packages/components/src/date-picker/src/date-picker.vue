@@ -4,17 +4,22 @@
  * @description 融合日期、时间、范围、年、月、季度等多种模式于一体。采用业内最佳实践设计。
  */
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
 import DateTable from './date-table.vue'
 import MonthTable from './month-table.vue'
 import YearTable from './year-table.vue'
 import QuarterTable from './quarter-table.vue'
-import { datePickerProps, type DateValue, type DateRangeValue, type PanelView, type DatePickerType } from './date-picker'
+import {
+  datePickerProps,
+  type DateValue,
+  type DateRangeValue,
+  type PanelView,
+  type DatePickerType
+} from './date-picker'
 import { DEFAULT_FORMATS, formatDate } from './panel-utils'
-import * as _dayjs from 'dayjs'
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from 'dayjs'
 
 defineOptions({
   name: 'YhDatePicker'
@@ -38,7 +43,10 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 const { globalSize } = useConfig()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('date-picker', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'date-picker',
+  computed(() => props.themeOverrides)
+)
 
 // --- 状态控制 ---
 const visible = ref(props.panelOnly)
@@ -64,7 +72,9 @@ const wrapperRef = ref<HTMLElement>()
 
 // --- 计算属性 ---
 const isRange = computed(() => props.type.includes('range'))
-const selectSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const selectSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 
 const getFormat = () => {
   if (props.format) return props.format
@@ -86,10 +96,7 @@ const rangeDisplayValue = computed(() => {
   if (!isRange.value || !Array.isArray(props.modelValue)) return ['', '']
   const fmt = getFormat()
   const [start, end] = props.modelValue
-  return [
-    start ? formatDate(start, fmt) : '',
-    end ? formatDate(end, fmt) : ''
-  ]
+  return [start ? formatDate(start, fmt) : '', end ? formatDate(end, fmt) : '']
 })
 
 // --- 核心修复：属性合规性转换 ---
@@ -98,17 +105,19 @@ const parsedSelectedDate = computed(() => {
   const val = props.modelValue
   if (val === '' || val === null || val === undefined) return null
   if (Array.isArray(val)) {
-    return val.map(v => (v && v !== '') ? dayjs(v as any).toDate() : null).filter(v => v !== null) as Date[]
+    return val
+      .map((v) => (v && v !== '' ? dayjs(v as string | number | Date).toDate() : null))
+      .filter((v) => v !== null) as Date[]
   }
-  const d = dayjs(val as any)
+  const d = dayjs(val as string | number | Date)
   return d.isValid() ? d.toDate() : null
 })
 
 const parsedRangeState = computed(() => {
   if (!isRange.value) return undefined
-  const val = props.modelValue as any[]
-  const from = (Array.isArray(val) && val[0] && val[0] !== '') ? dayjs(val[0]).toDate() : null
-  const to = (Array.isArray(val) && val[1] && val[1] !== '') ? dayjs(val[1]).toDate() : null
+  const val = props.modelValue as Date[]
+  const from = Array.isArray(val) && val[0] ? dayjs(val[0] as Date).toDate() : null
+  const to = Array.isArray(val) && val[1] ? dayjs(val[1] as Date).toDate() : null
   return {
     from,
     to,
@@ -127,11 +136,24 @@ const wrapperClasses = computed(() => [
 ])
 
 // --- 头部导航逻辑 ---
-const monthKeys = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'] as const
+const monthKeys = [
+  'jan',
+  'feb',
+  'mar',
+  'apr',
+  'may',
+  'jun',
+  'jul',
+  'aug',
+  'sep',
+  'oct',
+  'nov',
+  'dec'
+] as const
 
 const headerLabel = computed(() => {
   const d = dayjs(innerDate.value)
-  const dateLocale = (locale.value.yh as any).datepicker
+  const dateLocale = (locale.value.yh as Record<string, Record<string, unknown>>).datepicker
 
   if (currentView.value === 'year') {
     const start = Math.floor(d.year() / 10) * 10
@@ -139,13 +161,13 @@ const headerLabel = computed(() => {
   }
 
   if (currentView.value === 'month' || currentView.value === 'quarter') {
-    return dateLocale.monthBeforeYear
-      ? d.format('YYYY')
-      : `${d.year()}${dateLocale.year || ''}`
+    return dateLocale.monthBeforeYear ? d.format('YYYY') : `${d.year()}${dateLocale.year || ''}`
   }
 
   // 使用语言包中的月份名称
-  const monthName = dateLocale.months[monthKeys[d.month()]]
+  const monthName = (dateLocale as Record<string, Record<string, string>>).months[
+    monthKeys[d.month()]
+  ]
 
   if (!dateLocale.monthBeforeYear) {
     // 典型如 中/日/韩：2024年3月 或 2024年三月
@@ -161,7 +183,9 @@ const moveMonth = (offset: number) => {
 
 const moveYear = (offset: number) => {
   const step = currentView.value === 'year' ? 10 : 1
-  innerDate.value = dayjs(innerDate.value).add(offset * step, 'year').toDate()
+  innerDate.value = dayjs(innerDate.value)
+    .add(offset * step, 'year')
+    .toDate()
 }
 
 const handleHeaderClick = () => {
@@ -172,13 +196,10 @@ const handleHeaderClick = () => {
 // --- 选择逻辑 ---
 const emitChange = (val: DateValue | DateRangeValue) => {
   const fmt = props.valueFormat || ''
-  let result: any = val
+  let result: DateValue | DateRangeValue = val
   if (fmt && val) {
     if (Array.isArray(val)) {
-      result = [
-        val[0] ? formatDate(val[0], fmt) : null,
-        val[1] ? formatDate(val[1], fmt) : null
-      ]
+      result = [val[0] ? formatDate(val[0], fmt) : null, val[1] ? formatDate(val[1], fmt) : null]
     } else {
       result = formatDate(val as Date, fmt)
     }
@@ -215,7 +236,9 @@ const handleSelect = (val: Date | number | Date[]) => {
         currentView.value = 'date'
       }
     } else if (currentView.value === 'quarter') {
-      targetDate = dayjs(innerDate.value).month((val - 1) * 3).toDate()
+      targetDate = dayjs(innerDate.value)
+        .month((val - 1) * 3)
+        .toDate()
       performFinalSelect(targetDate)
     }
   } else {
@@ -229,13 +252,16 @@ const performFinalSelect = (date: Date) => {
     if (!current[0] || (current[0] && current[1])) {
       emit('update:modelValue', [date, null])
     } else {
-      let start: Date = dayjs(current[0] as any).toDate()
-      let end: Date = date
+      let start: Date = dayjs(current[0] as string | number | Date).toDate()
+      let end: Date | null = date
       if (dayjs(end).isBefore(dayjs(start))) {
-        if (props.orderOnConfirm) [start, end] = [end, start]
-        else { start = date; end = null as any }
+        if (props.orderOnConfirm) [start, end] = [end as Date, start]
+        else {
+          start = date
+          end = null
+        }
       }
-      emitChange([start, end])
+      emitChange([start, end] as DateRangeValue)
       if (end && !props.panelOnly) visible.value = false
     }
   } else {
@@ -248,7 +274,7 @@ const performFinalSelect = (date: Date) => {
 }
 
 // --- 下拉定位 ---
-const dropdownStyle = ref<Record<string, any>>({})
+const dropdownStyle = ref<Record<string, string>>({})
 const updatePosition = () => {
   if (!wrapperRef.value || !props.teleported || props.panelOnly) return
   const rect = wrapperRef.value.getBoundingClientRect()
@@ -261,7 +287,7 @@ const updatePosition = () => {
   const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
 
   dropdownStyle.value = {
-    ...themeStyle.value as any,
+    ...(themeStyle.value as Record<string, string | number>),
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
@@ -277,10 +303,10 @@ const syncInnerDate = () => {
   const modelVal = Array.isArray(props.modelValue) ? props.modelValue[0] : props.modelValue
   const defaultVal = Array.isArray(props.defaultValue) ? props.defaultValue[0] : props.defaultValue
 
-  if (modelVal && dayjs(modelVal as any).isValid()) {
-    innerDate.value = dayjs(modelVal as any).toDate()
-  } else if (defaultVal && dayjs(defaultVal as any).isValid()) {
-    innerDate.value = dayjs(defaultVal as any).toDate()
+  if (modelVal && dayjs(modelVal as Date | string | number).isValid()) {
+    innerDate.value = dayjs(modelVal as Date | string | number).toDate()
+  } else if (defaultVal && dayjs(defaultVal as Date | string | number).isValid()) {
+    innerDate.value = dayjs(defaultVal as Date | string | number).toDate()
   } else {
     innerDate.value = new Date()
   }
@@ -344,41 +370,67 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @click="togglePanel" @mouseenter="hovering = true"
-    @mouseleave="hovering = false">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @click="togglePanel"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
+  >
     <!-- 输入框部分 -->
     <div v-if="!panelOnly" :class="ns.e('wrapper')">
       <span :class="ns.e('icon')">
         <slot name="prefix-icon">
           <component :is="prefixIcon" v-if="prefixIcon" />
           <svg v-else viewBox="0 0 24 24" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V10h14zM9 14H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zm-8 4H7v-2h2zm4 4H11V16h2z" />
+            <path
+              fill="currentColor"
+              d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V10h14zM9 14H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zm-8 4H7v-2h2zm4 4H11V16h2z"
+            />
           </svg>
         </slot>
       </span>
 
       <template v-if="!isRange">
-        <input :class="ns.e('inner')" :placeholder="placeholder ?? t('datepicker.selectDate')" :value="displayValue"
-          readonly />
+        <input
+          :class="ns.e('inner')"
+          :placeholder="placeholder ?? t('datepicker.selectDate')"
+          :value="displayValue"
+          readonly
+        />
       </template>
       <template v-else>
         <div :class="ns.e('range-input-wrapper')">
-          <input :class="ns.e('range-input')" :placeholder="startPlaceholder ?? t('datepicker.startDate')"
-            :value="rangeDisplayValue[0]" readonly />
+          <input
+            :class="ns.e('range-input')"
+            :placeholder="startPlaceholder ?? t('datepicker.startDate')"
+            :value="rangeDisplayValue[0]"
+            readonly
+          />
           <span :class="ns.e('range-separator')">{{ rangeSeparator }}</span>
-          <input :class="ns.e('range-input')" :placeholder="endPlaceholder ?? t('datepicker.endDate')"
-            :value="rangeDisplayValue[1]" readonly />
+          <input
+            :class="ns.e('range-input')"
+            :placeholder="endPlaceholder ?? t('datepicker.endDate')"
+            :value="rangeDisplayValue[1]"
+            readonly
+          />
         </div>
       </template>
 
       <span :class="ns.e('suffix')">
-        <span v-if="clearable && modelValue && hovering && !disabled" :class="ns.e('clear')" @click.stop="handleClear">
+        <span
+          v-if="clearable && modelValue && hovering && !disabled"
+          :class="ns.e('clear')"
+          @click.stop="handleClear"
+        >
           <slot name="clear-icon">
             <component :is="clearIcon" v-if="clearIcon" />
             <svg v-else viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+              <path
+                fill="currentColor"
+                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+              />
             </svg>
           </slot>
         </span>
@@ -388,42 +440,94 @@ onBeforeUnmount(() => {
     <!-- 弹窗面板 -->
     <component :is="panelOnly ? 'div' : 'Teleport'" to="body" :disabled="!teleported || panelOnly">
       <Transition :name="panelOnly ? '' : ns.b('panel')">
-        <div v-if="visible" :class="[ns.e('panel'), popperClass, ns.is('plain', panelOnly)]"
-          :style="(!panelOnly && teleported) ? dropdownStyle : {}" @click.stop>
+        <div
+          v-if="visible"
+          :class="[ns.e('panel'), popperClass, ns.is('plain', panelOnly)]"
+          :style="!panelOnly && teleported ? dropdownStyle : {}"
+          @click.stop
+        >
           <div :class="ns.e('header')">
             <div :class="ns.e('header-group')">
-              <button :class="[ns.e('header-btns'), ns.em('header-btns', 'double-left')]"
-                @click="moveYear(-1)">«</button>
-              <button v-if="currentView === 'date'" :class="[ns.e('header-btns'), ns.em('header-btns', 'left')]"
-                @click="moveMonth(-1)">‹</button>
+              <button
+                :class="[ns.e('header-btns'), ns.em('header-btns', 'double-left')]"
+                @click="moveYear(-1)"
+              >
+                «
+              </button>
+              <button
+                v-if="currentView === 'date'"
+                :class="[ns.e('header-btns'), ns.em('header-btns', 'left')]"
+                @click="moveMonth(-1)"
+              >
+                ‹
+              </button>
             </div>
             <span :class="ns.e('header-label')" @click="handleHeaderClick">{{ headerLabel }}</span>
             <div :class="ns.e('header-group')">
-              <button v-if="currentView === 'date'" :class="[ns.e('header-btns'), ns.em('header-btns', 'right')]"
-                @click="moveMonth(1)">›</button>
-              <button :class="[ns.e('header-btns'), ns.em('header-btns', 'double-right')]"
-                @click="moveYear(1)">»</button>
+              <button
+                v-if="currentView === 'date'"
+                :class="[ns.e('header-btns'), ns.em('header-btns', 'right')]"
+                @click="moveMonth(1)"
+              >
+                ›
+              </button>
+              <button
+                :class="[ns.e('header-btns'), ns.em('header-btns', 'double-right')]"
+                @click="moveYear(1)"
+              >
+                »
+              </button>
             </div>
           </div>
 
           <div :class="ns.e('content')">
-            <DateTable v-if="currentView === 'date'" :date="innerDate" :selected-date="parsedSelectedDate as any"
-              :selection-mode="type === 'week' ? 'week' : 'date'" :range-state="parsedRangeState"
-              :disabled-date="disabledDate" :first-day-of-week="firstDayOfWeek" :cell-shape="cellShape"
-              :cell-render="cellRender" @select="handleSelect" @hover="val => rangeHoverDate = val">
+            <DateTable
+              v-if="currentView === 'date'"
+              :date="innerDate"
+              :selected-date="parsedSelectedDate"
+              :selection-mode="type === 'week' ? 'week' : 'date'"
+              :range-state="parsedRangeState"
+              :disabled-date="disabledDate"
+              :first-day-of-week="firstDayOfWeek"
+              :cell-shape="cellShape"
+              :cell-render="cellRender"
+              @select="handleSelect"
+              @hover="(val) => (rangeHoverDate = val)"
+            >
               <template #date-cell="slotProps">
                 <slot name="date-cell" v-bind="slotProps" />
               </template>
             </DateTable>
-            <MonthTable v-else-if="currentView === 'month'" :date="innerDate" :selected-date="parsedSelectedDate as any"
-              :range-state="parsedRangeState" :disabled-date="disabledDate" :cell-shape="cellShape"
-              @select="handleSelect" @hover="val => rangeHoverDate = val" />
-            <YearTable v-else-if="currentView === 'year'" :date="innerDate" :selected-date="parsedSelectedDate as any"
-              :range-state="parsedRangeState" :disabled-date="disabledDate" :cell-shape="cellShape"
-              @select="handleSelect" @hover="val => rangeHoverDate = val" />
-            <QuarterTable v-else-if="currentView === 'quarter'" :date="innerDate"
-              :selected-date="parsedSelectedDate as any" :range-state="parsedRangeState" :disabled-date="disabledDate"
-              :cell-shape="cellShape" @select="handleSelect" @hover="val => rangeHoverDate = val" />
+            <MonthTable
+              v-else-if="currentView === 'month'"
+              :date="innerDate"
+              :selected-date="parsedSelectedDate"
+              :range-state="parsedRangeState"
+              :disabled-date="disabledDate"
+              :cell-shape="cellShape"
+              @select="handleSelect"
+              @hover="(val) => (rangeHoverDate = val)"
+            />
+            <YearTable
+              v-else-if="currentView === 'year'"
+              :date="innerDate"
+              :selected-date="parsedSelectedDate"
+              :range-state="parsedRangeState"
+              :disabled-date="disabledDate"
+              :cell-shape="cellShape"
+              @select="handleSelect"
+              @hover="(val) => (rangeHoverDate = val)"
+            />
+            <QuarterTable
+              v-else-if="currentView === 'quarter'"
+              :date="innerDate"
+              :selected-date="parsedSelectedDate"
+              :range-state="parsedRangeState"
+              :disabled-date="disabledDate"
+              :cell-shape="cellShape"
+              @select="handleSelect"
+              @hover="(val) => (rangeHoverDate = val)"
+            />
           </div>
 
           <div v-if="$slots.extra" :class="ns.e('extra')">
@@ -431,8 +535,12 @@ onBeforeUnmount(() => {
           </div>
 
           <div v-if="presets.length > 0" :class="ns.e('presets')">
-            <button v-for="p in presets" :key="p.label" :class="ns.e('preset-item')"
-              @click="handleSelect(typeof p.value === 'function' ? p.value() : p.value)">
+            <button
+              v-for="p in presets"
+              :key="p.label"
+              :class="ns.e('preset-item')"
+              @click="handleSelect(typeof p.value === 'function' ? p.value() : p.value)"
+            >
               {{ p.label }}
             </button>
           </div>
@@ -440,14 +548,25 @@ onBeforeUnmount(() => {
           <div v-if="shouldShowFooter" :class="ns.e('footer')">
             <slot name="footer">
               <div v-if="type.includes('datetime') && !isRange" :class="ns.e('footer-time')">
-                {{ dayjs(modelValue as any || new Date()).format(timeFormat || 'HH:mm:ss') }}
+                {{ dayjs((modelValue as any) || new Date()).format(timeFormat || 'HH:mm:ss') }}
               </div>
               <div :class="ns.e('footer-btns')">
-                <button v-if="isRange || type.includes('datetime')" :class="ns.e('footer-btn')"
-                  @click="visible = false">{{
-                    t('datepicker.cancel') }}</button>
-                <button :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
-                  @click="emit('confirm', modelValue as any); visible = false">{{ t('datepicker.confirm') }}</button>
+                <button
+                  v-if="isRange || type.includes('datetime')"
+                  :class="ns.e('footer-btn')"
+                  @click="visible = false"
+                >
+                  {{ t('datepicker.cancel') }}
+                </button>
+                <button
+                  :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
+                  @click="
+                    emit('confirm', modelValue as any)
+                    visible = false
+                  "
+                >
+                  {{ t('datepicker.confirm') }}
+                </button>
               </div>
             </slot>
           </div>

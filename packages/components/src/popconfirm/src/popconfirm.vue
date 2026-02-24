@@ -3,7 +3,7 @@
  * YhPopconfirm - 气泡确认框 (基于极速 Tooltip 引擎重构)
  * @description 融合了业内顶级 UI 的交互优点，提供异步拦截、不再提示等功能
  */
-import { ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { YhButton } from '../../button'
 import { YhCheckbox } from '../../checkbox'
@@ -21,7 +21,10 @@ const emit = defineEmits(popconfirmEmits)
 const ns = useNamespace('popconfirm')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('popconfirm', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'popconfirm',
+  computed(() => props.themeOverrides)
+)
 const { t } = useLocale()
 
 // 内部状态
@@ -48,7 +51,7 @@ const handleConfirm = async () => {
         visible.value = false // 先尝试关闭，提供即时反馈
         emit('confirm', dontAskAgainChecked.value)
       }
-    } catch (e) {
+    } catch {
       // 捕获异常
     } finally {
       confirmLoading.value = false
@@ -73,15 +76,32 @@ defineExpose({
 </script>
 
 <template>
-  <YhTooltip v-model:visible="visible" :class="ns.b()" trigger="click" :placement="placement" :disabled="disabled"
-    :teleported="teleported" :offset="offset" :z-index="zIndex" :show-arrow="showArrow" :show-after="0" :hide-after="0"
-    :popper-class="`${ns.e('popper')} ${popperClass}`" :popper-style="popperStyle" persistent interactive>
+  <YhTooltip
+    v-model:visible="visible"
+    :class="ns.b()"
+    trigger="click"
+    :placement="placement"
+    :disabled="disabled"
+    :teleported="teleported"
+    :offset="offset"
+    :z-index="zIndex"
+    :show-arrow="showArrow"
+    :show-after="0"
+    :hide-after="0"
+    :popper-class="`${ns.e('popper')} ${popperClass}`"
+    :popper-style="popperStyle"
+    persistent
+    interactive
+  >
     <!-- 触发触发元素 -->
     <slot />
 
     <!-- 气泡框内容 -->
     <template #content>
-      <div :class="ns.e('content')" :style="[{ width: typeof width === 'number' ? `${width}px` : width }, themeStyle]">
+      <div
+        :class="ns.e('content')"
+        :style="[{ width: typeof width === 'number' ? `${width}px` : width }, themeStyle]"
+      >
         <div :class="ns.e('main')">
           <div v-if="!hideIcon" :class="ns.e('icon')" :style="{ color: iconColor }">
             <slot name="icon">
@@ -109,20 +129,40 @@ defineExpose({
         <div :class="ns.e('footer')" @click.stop>
           <!-- 自创高级功能：交换按钮位置 -->
           <template v-if="swapButtons">
-            <YhButton size="small" :type="confirmButtonType" :loading="confirmLoading" @click.stop="handleConfirm">
+            <YhButton
+              size="small"
+              :type="confirmButtonType"
+              :loading="confirmLoading"
+              @click.stop="handleConfirm"
+            >
               {{ confirmButtonText || t('popconfirm.confirm') }}
             </YhButton>
-            <YhButton v-if="!hideCancel" size="small" :type="cancelButtonType" :disabled="confirmLoading"
-              @click.stop="handleCancel">
+            <YhButton
+              v-if="!hideCancel"
+              size="small"
+              :type="cancelButtonType"
+              :disabled="confirmLoading"
+              @click.stop="handleCancel"
+            >
               {{ cancelButtonText || t('popconfirm.cancel') }}
             </YhButton>
           </template>
           <template v-else>
-            <YhButton v-if="!hideCancel" size="small" :type="cancelButtonType" :disabled="confirmLoading"
-              @click.stop="handleCancel">
+            <YhButton
+              v-if="!hideCancel"
+              size="small"
+              :type="cancelButtonType"
+              :disabled="confirmLoading"
+              @click.stop="handleCancel"
+            >
               {{ cancelButtonText || t('popconfirm.cancel') }}
             </YhButton>
-            <YhButton size="small" :type="confirmButtonType" :loading="confirmLoading" @click.stop="handleConfirm">
+            <YhButton
+              size="small"
+              :type="confirmButtonType"
+              :loading="confirmLoading"
+              @click.stop="handleConfirm"
+            >
               {{ confirmButtonText || t('popconfirm.confirm') }}
             </YhButton>
           </template>

@@ -1,7 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { renderToString } from '@vue/server-renderer'
 import { createApp, h } from 'vue'
-import type { App } from 'vue'
 import { YhPagination } from '../index'
 import { YhSelect, YhOption } from '../../select'
 import { YhInput } from '../../input'

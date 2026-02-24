@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ref, nextTick, h } from 'vue'
+import { nextTick, h } from 'vue'
 import { YhTable, YhTableColumn } from '../index'
 
 // Mock URL and Blob for download testing

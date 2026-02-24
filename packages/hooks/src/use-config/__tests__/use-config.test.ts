@@ -2,9 +2,9 @@
  * useConfig Hook Tests
  * @description 测试 useConfig hook 在不同场景下的行为
  */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { defineComponent, h, provide, computed, ref, nextTick } from 'vue'
+import { defineComponent, h, provide, computed, nextTick } from 'vue'
 import { useConfig, configProviderContextKey, type ConfigProviderContext } from '../index'
 
 describe('useConfig', () => {

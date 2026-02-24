@@ -45,7 +45,18 @@ const hasBothTypes = computed(() => {
 })
 
 // Token 类型定义
-type TokenType = 'comment' | 'tag' | 'component' | 'attr-name' | 'attr-value' | 'string' | 'keyword' | 'function' | 'number' | 'punctuation' | 'text'
+type TokenType =
+  | 'comment'
+  | 'tag'
+  | 'component'
+  | 'attr-name'
+  | 'attr-value'
+  | 'string'
+  | 'keyword'
+  | 'function'
+  | 'number'
+  | 'punctuation'
+  | 'text'
 
 interface Token {
   type: TokenType
@@ -207,7 +218,10 @@ const tokenizeVueCode = (code: string): Token[] => {
     }
 
     // 处理 CSS 类名选择器 .class 或 ID 选择器 #id 或伪类 :hover
-    if (inStyleBlock && (code[i] === '.' || code[i] === '#' || (code[i] === ':' && !/\s/.test(code[i - 1] || '')))) {
+    if (
+      inStyleBlock &&
+      (code[i] === '.' || code[i] === '#' || (code[i] === ':' && !/\s/.test(code[i - 1] || '')))
+    ) {
       let start = i
       i++
       while (i < len && /[\w-]/.test(code[i])) {
@@ -252,18 +266,88 @@ const tokenizeVueCode = (code: string): Token[] => {
 
       // 判断是否是关键字
       const keywords = [
-        'import', 'export', 'from', 'const', 'let', 'var', 'function', 'return',
-        'if', 'else', 'for', 'while', 'switch', 'case', 'break', 'continue', 'new', 'this',
-        'class', 'extends', 'async', 'await', 'try', 'catch', 'throw', 'typeof', 'instanceof',
-        'true', 'false', 'null', 'undefined', 'void', 'delete', 'in', 'of',
-        'interface', 'type', 'readonly', 'any', 'unknown', 'never', 'keyof', 'string', 'number', 'boolean', 'symbol', 'object', 'as'
+        'import',
+        'export',
+        'from',
+        'const',
+        'let',
+        'var',
+        'function',
+        'return',
+        'if',
+        'else',
+        'for',
+        'while',
+        'switch',
+        'case',
+        'break',
+        'continue',
+        'new',
+        'this',
+        'class',
+        'extends',
+        'async',
+        'await',
+        'try',
+        'catch',
+        'throw',
+        'typeof',
+        'instanceof',
+        'true',
+        'false',
+        'null',
+        'undefined',
+        'void',
+        'delete',
+        'in',
+        'of',
+        'interface',
+        'type',
+        'readonly',
+        'any',
+        'unknown',
+        'never',
+        'keyof',
+        'string',
+        'number',
+        'boolean',
+        'symbol',
+        'object',
+        'as'
       ]
 
       const functions = [
-        'ref', 'computed', 'watch', 'watchEffect', 'onMounted', 'onUnmounted',
-        'defineProps', 'defineEmits', 'withDefaults', 'nextTick', 'provide', 'inject',
-        'console', 'Array', 'Object', 'String', 'Number', 'Boolean', 'Date', 'JSON',
-        'Record', 'Partial', 'Readonly', 'Required', 'Pick', 'Omit', 'Exclude', 'Extract', 'NonNullable', 'ReturnType', 'InstanceType'
+        'ref',
+        'computed',
+        'watch',
+        'watchEffect',
+        'onMounted',
+        'onUnmounted',
+        'defineProps',
+        'defineEmits',
+        'withDefaults',
+        'nextTick',
+        'provide',
+        'inject',
+        'console',
+        'Array',
+        'Object',
+        'String',
+        'Number',
+        'Boolean',
+        'Date',
+        'JSON',
+        'Record',
+        'Partial',
+        'Readonly',
+        'Required',
+        'Pick',
+        'Omit',
+        'Exclude',
+        'Extract',
+        'NonNullable',
+        'ReturnType',
+        'InstanceType'
       ]
 
       if (keywords.includes(word)) {
@@ -312,25 +396,23 @@ const tokenizeVueCode = (code: string): Token[] => {
   return tokens
 }
 
-
 // 渲染高亮代码
 const renderHighlightedCode = (code: string): string => {
   if (!code) return ''
 
   const tokens = tokenizeVueCode(code)
 
-  return tokens.map(token => {
-    const escaped = token.value
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
+  return tokens
+    .map((token) => {
+      const escaped = token.value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-    if (token.type === 'text') {
-      return escaped
-    }
+      if (token.type === 'text') {
+        return escaped
+      }
 
-    return `<span class="token ${token.type}">${escaped}</span>`
-  }).join('')
+      return `<span class="token ${token.type}">${escaped}</span>`
+    })
+    .join('')
 }
 
 // 更新高亮代码
@@ -339,13 +421,17 @@ const updateHighlight = () => {
 }
 
 // 监听代码变化
-watch([currentCode, showCode], () => {
-  if (showCode.value) {
-    nextTick(() => {
-      updateHighlight()
-    })
-  }
-}, { immediate: true })
+watch(
+  [currentCode, showCode],
+  () => {
+    if (showCode.value) {
+      nextTick(() => {
+        updateHighlight()
+      })
+    }
+  },
+  { immediate: true }
+)
 
 // 切换代码显示
 const toggleCode = () => {
@@ -397,25 +483,34 @@ const openInStackBlitz = () => {
         <!-- 在线编辑 -->
         <button class="demo-box__action-btn" title="Edit in StackBlitz" @click="openInStackBlitz">
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor" d="M10.797 14.182H3.635L16.728 0l-3.525 9.818h7.162L7.272 24l3.525-9.818z" />
+            <path
+              fill="currentColor"
+              d="M10.797 14.182H3.635L16.728 0l-3.525 9.818h7.162L7.272 24l3.525-9.818z"
+            />
           </svg>
         </button>
 
         <!-- 在 CodeSandbox 中打开 -->
         <button class="demo-box__action-btn" title="Edit in CodeSandbox" @click="openInCodeSandbox">
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M2 6l10.455-6L22.91 6 22.9 18 12.455 24 2 18zm2.088 2.481v4.757l3.345 1.86v3.516l3.972 2.296v-8.272zm16.739 0l-7.317 4.157v8.272l3.972-2.296V15.1l3.345-1.861zM5.134 6.957l7.321 4.12 7.321-4.12-3.792-2.161-3.529 1.995-3.529-1.995z" />
+            <path
+              fill="currentColor"
+              d="M2 6l10.455-6L22.91 6 22.9 18 12.455 24 2 18zm2.088 2.481v4.757l3.345 1.86v3.516l3.972 2.296v-8.272zm16.739 0l-7.317 4.157v8.272l3.972-2.296V15.1l3.345-1.861zM5.134 6.957l7.321 4.12 7.321-4.12-3.792-2.161-3.529 1.995-3.529-1.995z"
+            />
           </svg>
         </button>
 
-
-
         <!-- 复制代码 -->
-        <button class="demo-box__action-btn" :title="copied ? (isEn ? 'Copied!' : '已复制!') : (isEn ? 'Copy Code' : '复制代码')" @click="copyCode">
+        <button
+          class="demo-box__action-btn"
+          :title="copied ? (isEn ? 'Copied!' : '已复制!') : isEn ? 'Copy Code' : '复制代码'"
+          @click="copyCode"
+        >
           <svg v-if="!copied" viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+            <path
+              fill="currentColor"
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
+            />
           </svg>
           <svg v-else viewBox="0 0 24 24" width="16" height="16">
             <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
@@ -423,10 +518,18 @@ const openInStackBlitz = () => {
         </button>
 
         <!-- 展开/收起代码 -->
-        <button class="demo-box__action-btn" :title="showCode ? (isEn ? 'Collapse Code' : '收起代码') : (isEn ? 'Expand Code' : '展开代码')" @click="toggleCode">
+        <button
+          class="demo-box__action-btn"
+          :title="
+            showCode ? (isEn ? 'Collapse Code' : '收起代码') : isEn ? 'Expand Code' : '展开代码'
+          "
+          @click="toggleCode"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+            <path
+              fill="currentColor"
+              d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"
+            />
           </svg>
         </button>
       </div>
@@ -437,16 +540,23 @@ const openInStackBlitz = () => {
       <div v-show="showCode" class="demo-box__code">
         <!-- TypeScript/JavaScript 切换 -->
         <div v-if="hasBothTypes" class="demo-box__code-tabs">
-          <button :class="['demo-box__code-tab', { active: codeType === 'ts' }]" @click="switchCodeType('ts')">
+          <button
+            :class="['demo-box__code-tab', { active: codeType === 'ts' }]"
+            @click="switchCodeType('ts')"
+          >
             TypeScript
           </button>
-          <button :class="['demo-box__code-tab', { active: codeType === 'js' }]" @click="switchCodeType('js')">
+          <button
+            :class="['demo-box__code-tab', { active: codeType === 'js' }]"
+            @click="switchCodeType('js')"
+          >
             JavaScript
           </button>
         </div>
 
         <!-- 代码内容（高亮显示） -->
         <div class="demo-box__code-content">
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <pre><code class="language-vue" v-html="highlightedCode"></code></pre>
         </div>
       </div>
@@ -563,7 +673,8 @@ const openInStackBlitz = () => {
     }
 
     code {
-      font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas, Monaco, 'Andale Mono', monospace;
+      font-family:
+        'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas, Monaco, 'Andale Mono', monospace;
       font-size: 13px;
       line-height: 1.6;
       white-space: pre;

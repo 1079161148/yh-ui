@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
+import { computed } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import * as _dayjs from 'dayjs'
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from 'dayjs'
 
 const props = defineProps<{
   date: Date
@@ -40,10 +39,7 @@ const months = computed(() => [
 ])
 
 const getCellClasses = (month: number) => {
-  const classes: string[] = [
-    ns.e('cell'),
-    ns.is(props.cellShape || 'round')
-  ]
+  const classes: string[] = [ns.e('cell'), ns.is(props.cellShape || 'round')]
   const cellDate = dayjs(props.date).month(month).startOf('month')
   const today = dayjs().startOf('month')
 
@@ -51,8 +47,8 @@ const getCellClasses = (month: number) => {
   if (props.disabledDate && props.disabledDate(cellDate.toDate())) classes.push('is-disabled')
 
   const isSelected = (val: Date | Date[] | null | undefined) => {
-    if (!val) return false
-    const d = dayjs(val)
+    if (!val || Array.isArray(val)) return false
+    const d = dayjs(val as Date)
     return d.year() === dayjs(props.date).year() && d.month() === month
   }
 
@@ -67,7 +63,7 @@ const getCellClasses = (month: number) => {
   if (props.rangeState) {
     const { from, to, hovering } = props.rangeState
     const start = from ? dayjs(from).startOf('month') : null
-    const end = to ? dayjs(to).startOf('month') : (hovering ? dayjs(hovering).startOf('month') : null)
+    const end = to ? dayjs(to).startOf('month') : hovering ? dayjs(hovering).startOf('month') : null
 
     if (start && cellDate.isSame(start, 'month')) classes.push('is-range-start', 'is-selected')
     if (end && cellDate.isSame(end, 'month')) classes.push('is-range-end', 'is-selected')
@@ -93,8 +89,13 @@ const handleClick = (month: number) => {
 
 <template>
   <div :class="[ns.e('table'), ns.em('table', 'month')]">
-    <div v-for="(m, i) in months" :key="i" :class="getCellClasses(i)" @click="handleClick(i)"
-      @mouseenter="emit('hover', dayjs(date).month(i).startOf('month').toDate())">
+    <div
+      v-for="(m, i) in months"
+      :key="i"
+      :class="getCellClasses(i)"
+      @click="handleClick(i)"
+      @mouseenter="emit('hover', dayjs(date).month(i).startOf('month').toDate())"
+    >
       <span :class="ns.e('cell-content')">{{ m }}</span>
     </div>
   </div>

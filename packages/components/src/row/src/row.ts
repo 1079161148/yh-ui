@@ -56,7 +56,7 @@ export default defineComponent({
 
     const style = computed(() => {
       const styles: Record<string, string> = {
-        ...(themeStyle.value as any)
+        ...(themeStyle.value as Record<string, string>)
       }
       if (!props.gutter) {
         return styles

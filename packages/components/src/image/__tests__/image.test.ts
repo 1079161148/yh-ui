@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import YhImage from '../src/image.vue'
-import { nextTick, ref } from 'vue'
+import { nextTick } from 'vue'
 
 // Mock hooks
 vi.mock('@yh-ui/hooks', async () => {

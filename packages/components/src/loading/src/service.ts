@@ -3,7 +3,6 @@ import {
   render,
   reactive,
   h,
-  markRaw,
   isVNode,
   Transition,
   type AppContext,

@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, ref } from 'vue'
+import { nextTick } from 'vue'
 import Transfer from '../src/transfer.vue'
 import TransferPanel from '../src/transfer-panel.vue'
 import type { TransferData, TransferKey } from '../src/transfer'

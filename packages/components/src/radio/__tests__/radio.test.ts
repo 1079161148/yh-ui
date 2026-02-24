@@ -4,7 +4,7 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ref, h, nextTick } from 'vue'
+import { ref, h } from 'vue'
 import YhRadio from '../src/radio.vue'
 import YhRadioGroup from '../src/radio-group.vue'
 import type { RadioValueType } from '../src/radio'

@@ -79,19 +79,19 @@ export interface AutocompleteEmits {
 
 export interface AutocompleteSlots {
   /** 自定义输入框前缀 */
-  prefix?: () => any
+  prefix?: () => unknown
   /** 自定义输入框后缀 */
-  suffix?: () => any
+  suffix?: () => unknown
   /** 自定义建议项 */
-  default?: (props: { item: AutocompleteSuggestion }) => any
+  default?: (props: { item: AutocompleteSuggestion }) => unknown
   /** 前置内容 */
-  prepend?: () => any
+  prepend?: () => unknown
   /** 后置内容 */
-  append?: () => any
+  append?: () => unknown
   /** 正在加载内容 */
-  loading?: () => any
+  loading?: () => unknown
   /** 无数据内容 */
-  empty?: () => any
+  empty?: () => unknown
 }
 
 export interface AutocompleteExpose {

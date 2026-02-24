@@ -14,7 +14,10 @@ const ns = useNamespace('progress')
 const componentId = useId()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('progress', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'progress',
+  computed(() => props.themeOverrides)
+)
 
 // 归一化百分比数据，支持单数值或数组（多环）
 const percentages = computed(() => {
@@ -57,7 +60,7 @@ const barStyle = computed(() => {
   }
 
   if (isGradient.value) {
-    const stops = getGradientStops.value.map(s => `${s.color} ${s.offset}`).join(', ')
+    const stops = getGradientStops.value.map((s) => `${s.color} ${s.offset}`).join(', ')
     style.backgroundImage = `linear-gradient(to right, ${stops})`
   } else {
     style.backgroundColor = getColor(percentages.value[0], 0)
@@ -83,7 +86,7 @@ const getColor = (percentage: number, index?: number) => {
 const getCircleParams = (index: number) => {
   const layerGap = 4 // 多环之间的间距
   const layerStrokeWidth = props.strokeWidth
-  const r = (props.width / 2) - (props.strokeWidth / 2) - (index * (layerStrokeWidth + layerGap))
+  const r = props.width / 2 - props.strokeWidth / 2 - index * (layerStrokeWidth + layerGap)
   const p = 2 * Math.PI * r
   const isDashboard = props.type === 'dashboard'
   const rate = isDashboard ? 0.75 : 1
@@ -146,30 +149,58 @@ const progressClass = computed(() => [
 </script>
 
 <template>
-  <div :class="progressClass" :style="themeStyle" role="progressbar" :aria-valuenow="percentages[0]" aria-valuemin="0"
-    aria-valuemax="100">
+  <div
+    :class="progressClass"
+    :style="themeStyle"
+    role="progressbar"
+    :aria-valuenow="percentages[0]"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
     <!-- 线型进度条 -->
     <div v-if="type === 'line'" :class="ns.e('bar')">
-      <div :class="ns.e('outer')" :style="{ height: `${strokeWidth}px`, backgroundColor: defineBackgroundColor }">
-        <div v-if="secondaryPercentage > 0" :class="ns.e('secondary-inner')" :style="secondaryBarStyle"></div>
-        <div :class="[
-          ns.e('inner'),
-          ns.is('indeterminate', indeterminate),
-          ns.is('striped', striped),
-          ns.is('striped-flow', stripedFlow)
-        ]" :style="barStyle">
+      <div
+        :class="ns.e('outer')"
+        :style="{ height: `${strokeWidth}px`, backgroundColor: defineBackgroundColor }"
+      >
+        <div
+          v-if="secondaryPercentage > 0"
+          :class="ns.e('secondary-inner')"
+          :style="secondaryBarStyle"
+        ></div>
+        <div
+          :class="[
+            ns.e('inner'),
+            ns.is('indeterminate', indeterminate),
+            ns.is('striped', striped),
+            ns.is('striped-flow', stripedFlow)
+          ]"
+          :style="barStyle"
+        >
           <div v-if="showText && textInside && !indeterminate" :class="ns.e('innerText')">
             <slot name="default" :percentage="percentages[0]">
               <i v-if="icon" :class="icon"></i>
-              <svg v-else-if="statusIconSvg" viewBox="0 0 1024 1024" width="16" height="16"
-                style="vertical-align: middle;" v-html="statusIconSvg"></svg>
+              <!-- eslint-disable vue/no-v-html -->
+              <svg
+                v-else-if="statusIconSvg"
+                viewBox="0 0 1024 1024"
+                width="16"
+                height="16"
+                style="vertical-align: middle"
+                v-html="statusIconSvg"
+              ></svg>
+              <!-- eslint-enable vue/no-v-html -->
               <span v-else>{{ content }}</span>
             </slot>
           </div>
         </div>
         <div v-if="steps > 0" :class="ns.e('steps')">
-          <div v-for="step in steps" :key="step" :class="ns.e('step-item')"
-            :style="{ left: `${(100 / steps) * step}%` }"></div>
+          <div
+            v-for="step in steps"
+            :key="step"
+            :class="ns.e('step-item')"
+            :style="{ left: `${(100 / steps) * step}%` }"
+          ></div>
         </div>
       </div>
     </div>
@@ -180,46 +211,92 @@ const progressClass = computed(() => [
         <!-- 定义渐变 -->
         <defs v-if="isGradient">
           <linearGradient :id="`${componentId}-gradient`" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop v-for="(stop, i) in getGradientStops" :key="i" :offset="stop.offset" :stop-color="stop.color" />
+            <stop
+              v-for="(stop, i) in getGradientStops"
+              :key="i"
+              :offset="stop.offset"
+              :stop-color="stop.color"
+            />
           </linearGradient>
         </defs>
 
         <!-- 循环渲染多环 -->
         <g v-for="(p, index) in percentages" :key="index">
-          <path :class="ns.e('circle-track')" :d="getCircleParams(index).path"
-            :stroke="defineBackgroundColor || '#e5e9f2'" :stroke-width="strokeWidth" fill="none"
-            :stroke-linecap="strokeLinecap" :style="getCircleParams(index).trackStyle" />
-          <path :class="ns.e('circle-path')" :d="getCircleParams(index).path" :stroke="getColor(p, index)" fill="none"
-            :stroke-linecap="strokeLinecap" :stroke-width="p > 0 ? strokeWidth : 0"
-            :style="getCircleParams(index).pathStyle" />
+          <path
+            :class="ns.e('circle-track')"
+            :d="getCircleParams(index).path"
+            :stroke="defineBackgroundColor || '#e5e9f2'"
+            :stroke-width="strokeWidth"
+            fill="none"
+            :stroke-linecap="strokeLinecap"
+            :style="getCircleParams(index).trackStyle"
+          />
+          <path
+            :class="ns.e('circle-path')"
+            :d="getCircleParams(index).path"
+            :stroke="getColor(p, index)"
+            fill="none"
+            :stroke-linecap="strokeLinecap"
+            :stroke-width="p > 0 ? strokeWidth : 0"
+            :style="getCircleParams(index).pathStyle"
+          />
         </g>
       </svg>
 
       <!-- 环型中心内容区 -->
-      <div v-if="showText && !indeterminate" :class="ns.e('text')" :style="{ fontSize: `${width * 0.16}px` }">
+      <div
+        v-if="showText && !indeterminate"
+        :class="ns.e('text')"
+        :style="{ fontSize: `${width * 0.16}px` }"
+      >
         <slot name="default" :percentage="percentages[0]">
-          <i v-if="icon" :class="[icon, ns.e('icon')]" :style="{ color: getColor(percentages[0], 0) }"></i>
-          <svg v-else-if="statusIconSvg" viewBox="0 0 1024 1024" :width="width * 0.22" :height="width * 0.22"
-            :style="{ color: getColor(percentages[0], 0), verticalAlign: 'middle' }" v-html="statusIconSvg"></svg>
+          <i
+            v-if="icon"
+            :class="[icon, ns.e('icon')]"
+            :style="{ color: getColor(percentages[0], 0) }"
+          ></i>
+          <!-- eslint-disable vue/no-v-html -->
+          <svg
+            v-else-if="statusIconSvg"
+            viewBox="0 0 1024 1024"
+            :width="width * 0.22"
+            :height="width * 0.22"
+            :style="{ color: getColor(percentages[0], 0), verticalAlign: 'middle' }"
+            v-html="statusIconSvg"
+          ></svg>
+          <!-- eslint-enable vue/no-v-html -->
           <span v-else>{{ content }}</span>
         </slot>
       </div>
     </div>
 
     <!-- 外部文字区 -->
-    <div v-if="type === 'line' && showText && !textInside && !indeterminate" :class="ns.e('text')"
-      :style="{ fontSize: `${Math.max(12, strokeWidth * 0.8)}px` }">
+    <div
+      v-if="type === 'line' && showText && !textInside && !indeterminate"
+      :class="ns.e('text')"
+      :style="{ fontSize: `${Math.max(12, strokeWidth * 0.8)}px` }"
+    >
       <slot name="default" :percentage="percentages[0]">
-        <i v-if="icon" :class="[icon, ns.e('icon')]" :style="{ color: getColor(percentages[0], 0) }"></i>
-        <svg v-else-if="statusIconSvg" viewBox="0 0 1024 1024" width="16" height="16"
-          :style="{ color: getColor(percentages[0], 0), verticalAlign: 'middle' }" v-html="statusIconSvg"></svg>
+        <i
+          v-if="icon"
+          :class="[icon, ns.e('icon')]"
+          :style="{ color: getColor(percentages[0], 0) }"
+        ></i>
+        <!-- eslint-disable vue/no-v-html -->
+        <svg
+          v-else-if="statusIconSvg"
+          viewBox="0 0 1024 1024"
+          width="16"
+          height="16"
+          :style="{ color: getColor(percentages[0], 0), verticalAlign: 'middle' }"
+          v-html="statusIconSvg"
+        ></svg>
+        <!-- eslint-enable vue/no-v-html -->
         <span v-else>{{ content }}</span>
       </slot>
     </div>
   </div>
 </template>
-
-
 
 <style lang="scss">
 @use './progress.scss';

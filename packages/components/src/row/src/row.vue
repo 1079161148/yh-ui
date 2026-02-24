@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, toRefs } from 'vue'
+import { computed, provide } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { rowProps, rowContextKey } from './row'
@@ -13,7 +13,10 @@ const props = defineProps(rowProps)
 const ns = useNamespace('row')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('row', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'row',
+  computed(() => props.themeOverrides)
+)
 
 const gutter = computed(() => props.gutter)
 
@@ -23,7 +26,7 @@ provide(rowContextKey, {
 
 const style = computed<CSSProperties>(() => {
   const styles: CSSProperties = {
-    ...themeStyle.value as any
+    ...(themeStyle.value as CSSProperties)
   }
   if (!props.gutter) {
     return styles

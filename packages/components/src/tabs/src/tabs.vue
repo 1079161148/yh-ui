@@ -14,7 +14,10 @@ const emit = defineEmits(tabsEmits)
 const ns = useNamespace('tabs')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('tabs', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'tabs',
+  computed(() => props.themeOverrides)
+)
 
 const panes = ref<TabPaneConfig[]>([])
 const activeTab = ref<string | number>(props.modelValue)
@@ -22,13 +25,16 @@ const navRef = ref<HTMLElement>()
 const indicatorRef = ref<HTMLElement>()
 
 // 同步外部 v-model
-watch(() => props.modelValue, (val: string | number) => {
-  activeTab.value = val
-})
+watch(
+  () => props.modelValue,
+  (val: string | number) => {
+    activeTab.value = val
+  }
+)
 
 // 注册/注销面板
 const registerPane = (pane: TabPaneConfig) => {
-  const index = panes.value.findIndex(p => p.name === pane.name)
+  const index = panes.value.findIndex((p) => p.name === pane.name)
   if (index === -1) {
     panes.value.push(pane)
   } else {
@@ -37,7 +43,7 @@ const registerPane = (pane: TabPaneConfig) => {
 }
 
 const unregisterPane = (name: string) => {
-  const index = panes.value.findIndex(p => p.name === name)
+  const index = panes.value.findIndex((p) => p.name === name)
   if (index > -1) {
     panes.value.splice(index, 1)
   }
@@ -99,7 +105,9 @@ const handleTabAdd = () => {
 // 更新指示器位置
 const updateIndicator = () => {
   if (!navRef.value || !indicatorRef.value || props.type !== 'line') return
-  const activeEl = navRef.value.querySelector(`.${ns.e('item')}.${ns.is('active', true)}`) as HTMLElement
+  const activeEl = navRef.value.querySelector(
+    `.${ns.e('item')}.${ns.is('active', true)}`
+  ) as HTMLElement
   if (!activeEl) return
 
   const isVertical = props.tabPosition === 'left' || props.tabPosition === 'right'
@@ -111,8 +119,10 @@ const updateIndicator = () => {
 
   // 获取 CSS 变量默认值
   const computedStyle = getComputedStyle(navRef.value.closest(`.${ns.b()}`) as HTMLElement)
-  const defaultIndicatorWidth = computedStyle.getPropertyValue('--yh-tabs-indicator-width').trim() || '40px'
-  const defaultIndicatorHeight = computedStyle.getPropertyValue('--yh-tabs-indicator-height').trim() || '20px'
+  const defaultIndicatorWidth =
+    computedStyle.getPropertyValue('--yh-tabs-indicator-width').trim() || '40px'
+  const defaultIndicatorHeight =
+    computedStyle.getPropertyValue('--yh-tabs-indicator-height').trim() || '20px'
 
   // 使用 getBoundingClientRect 获取更准确的位置
   const navRect = navRef.value.getBoundingClientRect()
@@ -125,7 +135,8 @@ const updateIndicator = () => {
 
     // 设置尺寸
     indicatorRef.value.style.width = indicatorWidth
-    indicatorRef.value.style.height = indicatorHeight === 'auto' ? `${activeRect.height}px` : indicatorHeight
+    indicatorRef.value.style.height =
+      indicatorHeight === 'auto' ? `${activeRect.height}px` : indicatorHeight
 
     // 强制重排以获取准确的尺寸
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -134,9 +145,10 @@ const updateIndicator = () => {
     // 计算位置
     const indicatorActualHeight = indicatorRef.value.offsetHeight
     const relativeTop = activeRect.top - navRect.top
-    const offset = indicatorHeight === 'auto'
-      ? relativeTop
-      : relativeTop + (activeRect.height - indicatorActualHeight) / 2
+    const offset =
+      indicatorHeight === 'auto'
+        ? relativeTop
+        : relativeTop + (activeRect.height - indicatorActualHeight) / 2
 
     indicatorRef.value.style.transform = `translateY(${offset}px)`
   } else {
@@ -146,7 +158,8 @@ const updateIndicator = () => {
 
     // 设置尺寸
     indicatorRef.value.style.height = indicatorHeight
-    indicatorRef.value.style.width = indicatorWidth === 'auto' ? `${activeRect.width}px` : indicatorWidth
+    indicatorRef.value.style.width =
+      indicatorWidth === 'auto' ? `${activeRect.width}px` : indicatorWidth
 
     // 强制重排以获取准确的尺寸
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -155,9 +168,10 @@ const updateIndicator = () => {
     // 计算位置
     const indicatorActualWidth = indicatorRef.value.offsetWidth
     const relativeLeft = activeRect.left - navRect.left
-    const offset = indicatorWidth === 'auto'
-      ? relativeLeft
-      : relativeLeft + (activeRect.width - indicatorActualWidth) / 2
+    const offset =
+      indicatorWidth === 'auto'
+        ? relativeLeft
+        : relativeLeft + (activeRect.width - indicatorActualWidth) / 2
 
     indicatorRef.value.style.transform = `translateX(${offset}px)`
   }
@@ -166,7 +180,7 @@ const updateIndicator = () => {
 onMounted(() => {
   // 默认激活第一个未禁用的标签
   if (!activeTab.value && panes.value.length > 0) {
-    const firstEnabled = panes.value.find(p => !p.disabled)
+    const firstEnabled = panes.value.find((p) => !p.disabled)
     if (firstEnabled) {
       activeTab.value = firstEnabled.name
       emit('update:modelValue', firstEnabled.name)
@@ -179,16 +193,22 @@ watch(panes, () => nextTick(updateIndicator), { deep: true })
 
 // 监听 tabPosition 变化，重新计算指示器位置
 // 需要等待 DOM 布局完成，使用双层 nextTick + requestAnimationFrame
-watch(() => props.tabPosition, () => {
-  nextTick(() => {
-    requestAnimationFrame(() => {
-      updateIndicator()
+watch(
+  () => props.tabPosition,
+  () => {
+    nextTick(() => {
+      requestAnimationFrame(() => {
+        updateIndicator()
+      })
     })
-  })
-})
+  }
+)
 
 // 监听指示器尺寸变化
-watch(() => [props.indicatorWidth, props.indicatorHeight], () => nextTick(updateIndicator))
+watch(
+  () => [props.indicatorWidth, props.indicatorHeight],
+  () => nextTick(updateIndicator)
+)
 
 // 提供上下文给子组件
 provide(TABS_INJECTION_KEY, {
@@ -212,8 +232,8 @@ const tabsClass = computed(() => [
 
 // CSS 变量样式（颜色自定义）
 const tabsStyle = computed(() => {
-  const style: Record<string, string> = {
-    ...themeStyle.value as any
+  const style: Record<string, string | number> = {
+    ...(themeStyle.value as Record<string, string | number>)
   }
   if (props.activeColor) {
     style['--yh-tabs-active-color'] = props.activeColor
@@ -241,14 +261,22 @@ defineExpose({
     <div ref="navRef" :class="[ns.e('nav'), navClass]">
       <div :class="ns.e('nav-wrap')">
         <div :class="ns.e('nav-list')">
-          <div v-for="pane in panes" :key="pane.name" :class="[
-            ns.e('item'),
-            ns.is('active', activeTab === pane.name),
-            ns.is('disabled', pane.disabled),
-            ns.is('closable', pane.closable !== false && isClosable)
-          ]" role="tab" :tabindex="pane.disabled ? -1 : 0" :aria-selected="activeTab === pane.name"
-            @click="handleTabClick(pane, $event)" @keydown.enter="handleTabClick(pane, $event)"
-            @mouseenter="handleTabHover(pane)">
+          <div
+            v-for="pane in panes"
+            :key="pane.name"
+            :class="[
+              ns.e('item'),
+              ns.is('active', activeTab === pane.name),
+              ns.is('disabled', pane.disabled),
+              ns.is('closable', pane.closable !== false && isClosable)
+            ]"
+            role="tab"
+            :tabindex="pane.disabled ? -1 : 0"
+            :aria-selected="activeTab === pane.name"
+            @click="handleTabClick(pane, $event)"
+            @keydown.enter="handleTabClick(pane, $event)"
+            @mouseenter="handleTabHover(pane)"
+          >
             <!-- 图标 -->
             <span v-if="pane.icon" :class="[ns.e('icon'), pane.icon]"></span>
             <!-- 标签插槽 -->
@@ -256,11 +284,16 @@ defineExpose({
               <span :class="ns.e('label')">{{ pane.label }}</span>
             </slot>
             <!-- 关闭按钮 -->
-            <span v-if="pane.closable !== false && isClosable && !pane.disabled" :class="ns.e('close')"
-              @click.stop="handleTabRemove(pane, $event)">
+            <span
+              v-if="pane.closable !== false && isClosable && !pane.disabled"
+              :class="ns.e('close')"
+              @click.stop="handleTabRemove(pane, $event)"
+            >
               <svg viewBox="0 0 1024 1024" width="14" height="14">
-                <path fill="currentColor"
-                  d="M764.3 260.3a32 32 0 0 0-45.3 0L512 467.2 305 260.3a32 32 0 0 0-45.3 45.2L466.8 512 259.7 718.5a32 32 0 0 0 45.3 45.3L512 556.7l207 207a32 32 0 0 0 45.3-45.2L557.2 512l207-206.5a32 32 0 0 0 0-45.2z" />
+                <path
+                  fill="currentColor"
+                  d="M764.3 260.3a32 32 0 0 0-45.3 0L512 467.2 305 260.3a32 32 0 0 0-45.3 45.2L466.8 512 259.7 718.5a32 32 0 0 0 45.3 45.3L512 556.7l207 207a32 32 0 0 0 45.3-45.2L557.2 512l207-206.5a32 32 0 0 0 0-45.2z"
+                />
               </svg>
             </span>
           </div>
@@ -268,8 +301,10 @@ defineExpose({
           <div v-if="isAddable" :class="ns.e('add')" @click="handleTabAdd">
             <slot name="add-icon">
               <svg viewBox="0 0 1024 1024" width="16" height="16">
-                <path fill="currentColor"
-                  d="M544 480V256a32 32 0 0 0-64 0v224H256a32 32 0 0 0 0 64h224v224a32 32 0 0 0 64 0V544h224a32 32 0 0 0 0-64H544z" />
+                <path
+                  fill="currentColor"
+                  d="M544 480V256a32 32 0 0 0-64 0v224H256a32 32 0 0 0 0 64h224v224a32 32 0 0 0 64 0V544h224a32 32 0 0 0 0-64H544z"
+                />
               </svg>
             </slot>
           </div>

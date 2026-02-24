@@ -13,8 +13,16 @@ import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
 import TimeSpinner from './time-spinner.vue'
-import type { TimePickerProps, TimePickerEmits, TimePickerExpose, TimeState, TimeValue, TimeRangeValue, DisabledTimeConfig } from './time-picker'
-import { parseTimeValue, formatTimeState, getCurrentTimeState, isTimeStateEqual } from './time-picker'
+import type {
+  TimePickerProps,
+  TimePickerEmits,
+  TimePickerExpose,
+  TimeState,
+  TimeValue,
+  TimeRangeValue,
+  DisabledTimeConfig
+} from './time-picker'
+import { parseTimeValue, formatTimeState, getCurrentTimeState } from './time-picker'
 
 defineOptions({
   name: 'YhTimePicker'
@@ -56,7 +64,10 @@ const { t } = useLocale()
 const inputId = useId()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('time-picker', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'time-picker',
+  computed(() => props.themeOverrides)
+)
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -64,7 +75,9 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 // 全局配置
 const { globalSize } = useConfig()
 
-const selectSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const selectSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 
 // 元素引用
 const wrapperRef = ref<HTMLElement>()
@@ -83,11 +96,6 @@ const internalTimeState = ref<TimeState>({ hours: 0, minutes: 0, seconds: 0 })
 const internalStartTimeState = ref<TimeState>({ hours: 0, minutes: 0, seconds: 0 })
 const internalEndTimeState = ref<TimeState>({ hours: 0, minutes: 0, seconds: 0 })
 
-// 输入框的文本值
-const inputValue = ref('')
-const startInputValue = ref('')
-const endInputValue = ref('')
-
 // 下拉框位置
 const dropdownStyle = ref<Record<string, string>>({})
 
@@ -98,7 +106,7 @@ const parsedValue = computed(() => {
     if (!rangeValue || !Array.isArray(rangeValue)) return [null, null]
     return [
       parseTimeValue(rangeValue[0], props.format),
-      parseTimeValue(rangeValue[1], (rangeValue.length > 1 ? props.format : undefined))
+      parseTimeValue(rangeValue[1], rangeValue.length > 1 ? props.format : undefined)
     ]
   }
   return parseTimeValue(props.modelValue as TimeValue, props.format)
@@ -136,11 +144,8 @@ const hasValue = computed(() => {
 })
 
 // 是否显示清空按钮
-const showClear = computed(() =>
-  props.clearable &&
-  !props.disabled &&
-  hasValue.value &&
-  (focused.value || hovering.value)
+const showClear = computed(
+  () => props.clearable && !props.disabled && hasValue.value && (focused.value || hovering.value)
 )
 
 // 类名
@@ -177,8 +182,7 @@ const updateDropdownPosition = () => {
     '--yh-color-primary-rgb': primaryRgb,
     ...(showAbove
       ? { bottom: `${window.innerHeight - rect.top + props.popperOffset}px` }
-      : { top: `${rect.bottom + props.popperOffset}px` }
-    )
+      : { top: `${rect.bottom + props.popperOffset}px` })
   }
 }
 
@@ -191,12 +195,17 @@ const syncInternalState = () => {
     internalEndTimeState.value = end || { hours: 0, minutes: 0, seconds: 0 }
   } else {
     const state = parsedValue.value as TimeState | null
-    internalTimeState.value = state || (props.defaultValue ? parseTimeValue(props.defaultValue as TimeValue, props.format) : null) || { hours: 0, minutes: 0, seconds: 0 }
+    internalTimeState.value = state ||
+      (props.defaultValue
+        ? parseTimeValue(props.defaultValue as TimeValue, props.format)
+        : null) || { hours: 0, minutes: 0, seconds: 0 }
   }
 }
 
 // 自动计算禁用时间的增强逻辑：当禁用自动排序时，实时约束用户选择
-const getDisabledStartTime = (originalConfig: DisabledTimeConfig | undefined): DisabledTimeConfig | undefined => {
+const getDisabledStartTime = (
+  originalConfig: DisabledTimeConfig | undefined
+): DisabledTimeConfig | undefined => {
   if (props.orderOnConfirm || !props.isRange) return originalConfig
 
   return {
@@ -209,7 +218,9 @@ const getDisabledStartTime = (originalConfig: DisabledTimeConfig | undefined): D
   }
 }
 
-const getDisabledEndTime = (originalConfig: DisabledTimeConfig | undefined): DisabledTimeConfig | undefined => {
+const getDisabledEndTime = (
+  originalConfig: DisabledTimeConfig | undefined
+): DisabledTimeConfig | undefined => {
   if (props.orderOnConfirm || !props.isRange) return originalConfig
 
   return {
@@ -273,8 +284,14 @@ const handleConfirm = () => {
   let valueToEmit: TimeValue | TimeRangeValue
 
   if (props.isRange) {
-    const startSec = internalStartTimeState.value.hours * 3600 + internalStartTimeState.value.minutes * 60 + internalStartTimeState.value.seconds
-    const endSec = internalEndTimeState.value.hours * 3600 + internalEndTimeState.value.minutes * 60 + internalEndTimeState.value.seconds
+    const startSec =
+      internalStartTimeState.value.hours * 3600 +
+      internalStartTimeState.value.minutes * 60 +
+      internalStartTimeState.value.seconds
+    const endSec =
+      internalEndTimeState.value.hours * 3600 +
+      internalEndTimeState.value.minutes * 60 +
+      internalEndTimeState.value.seconds
 
     let finalStart = { ...internalStartTimeState.value }
     let finalEnd = { ...internalEndTimeState.value }
@@ -468,39 +485,80 @@ defineExpose<TimePickerExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave" @click="togglePanel">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+    @click="togglePanel"
+  >
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 前缀图标 -->
       <span :class="ns.e('prefix')">
         <slot name="prefix">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em" :class="ns.e('icon')">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a32 32 0 0 1 32 32v192l128 64a32 32 0 0 1-28.864 57.088l-144-72A32 32 0 0 1 480 512V288a32 32 0 0 1 32-32z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a32 32 0 0 1 32 32v192l128 64a32 32 0 0 1-28.864 57.088l-144-72A32 32 0 0 1 480 512V288a32 32 0 0 1 32-32z"
+            />
           </svg>
         </slot>
       </span>
 
       <!-- 单选输入框 -->
       <template v-if="!isRange">
-        <input ref="inputRef" :id="id || inputId" :class="ns.e('inner')" :value="displayValue"
-          :placeholder="placeholder || t('timepicker.placeholder')" :disabled="disabled" :readonly="!editable"
-          :name="name" :tabindex="tabindex" autocomplete="off" role="combobox" :aria-expanded="visible"
-          @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+        <input
+          ref="inputRef"
+          :id="id || inputId"
+          :class="ns.e('inner')"
+          :value="displayValue"
+          :placeholder="placeholder || t('timepicker.placeholder')"
+          :disabled="disabled"
+          :readonly="!editable"
+          :name="name"
+          :tabindex="tabindex"
+          autocomplete="off"
+          role="combobox"
+          :aria-expanded="visible"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          @keydown="handleKeydown"
+        />
       </template>
 
       <!-- 范围选择输入框 -->
       <template v-else>
-        <input ref="startInputRef" :class="ns.e('range-input')" :value="rangeStartDisplayValue"
-          :placeholder="startPlaceholder || t('timepicker.startPlaceholder')" :disabled="disabled" :readonly="!editable"
-          :tabindex="tabindex" autocomplete="off" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+        <input
+          ref="startInputRef"
+          :class="ns.e('range-input')"
+          :value="rangeStartDisplayValue"
+          :placeholder="startPlaceholder || t('timepicker.startPlaceholder')"
+          :disabled="disabled"
+          :readonly="!editable"
+          :tabindex="tabindex"
+          autocomplete="off"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          @keydown="handleKeydown"
+        />
         <span :class="ns.e('range-separator')">
           <slot name="rangeSeparator">{{ rangeSeparator }}</slot>
         </span>
-        <input ref="endInputRef" :class="ns.e('range-input')" :value="rangeEndDisplayValue"
-          :placeholder="endPlaceholder || t('timepicker.endPlaceholder')" :disabled="disabled" :readonly="!editable"
-          :tabindex="tabindex" autocomplete="off" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+        <input
+          ref="endInputRef"
+          :class="ns.e('range-input')"
+          :value="rangeEndDisplayValue"
+          :placeholder="endPlaceholder || t('timepicker.endPlaceholder')"
+          :disabled="disabled"
+          :readonly="!editable"
+          :tabindex="tabindex"
+          autocomplete="off"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          @keydown="handleKeydown"
+        />
       </template>
 
       <!-- 后缀图标 -->
@@ -508,16 +566,20 @@ defineExpose<TimePickerExpose>({
         <!-- 清空按钮 -->
         <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @click.stop="handleClear">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+            />
           </svg>
         </span>
 
         <!-- 箭头图标 -->
         <span :class="[ns.e('icon'), ns.e('arrow'), { 'is-reverse': visible }]">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+            />
           </svg>
         </span>
       </span>
@@ -526,24 +588,47 @@ defineExpose<TimePickerExpose>({
     <!-- 下拉面板 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('panel')">
-        <div v-if="visible" :class="[ns.e('panel'), popperClass]" :style="teleported ? dropdownStyle : {}"
-          @mousedown="handlePanelMousedown" @mouseup="handlePanelMouseup">
+        <div
+          v-if="visible"
+          :class="[ns.e('panel'), popperClass]"
+          :style="teleported ? dropdownStyle : {}"
+          @mousedown="handlePanelMousedown"
+          @mouseup="handlePanelMouseup"
+        >
           <!-- 单选面板 -->
           <template v-if="!isRange">
-            <TimeSpinner v-model="internalTimeState" :show-seconds="showSeconds" :arrow-control="arrowControl"
-              :hour-step="hourStep" :minute-step="minuteStep" :second-step="secondStep" :disabled-time="disabledTime"
-              :use12-hours="use12Hours" :hour-options="hourOptions" :minute-options="minuteOptions"
-              :second-options="secondOptions" />
+            <TimeSpinner
+              v-model="internalTimeState"
+              :show-seconds="showSeconds"
+              :arrow-control="arrowControl"
+              :hour-step="hourStep"
+              :minute-step="minuteStep"
+              :second-step="secondStep"
+              :disabled-time="disabledTime"
+              :use12-hours="use12Hours"
+              :hour-options="hourOptions"
+              :minute-options="minuteOptions"
+              :second-options="secondOptions"
+            />
           </template>
 
           <!-- 范围选择面板 -->
           <template v-else>
             <div :class="ns.e('range-panel')">
               <div :class="ns.e('range-panel-item')">
-                <div :class="ns.e('range-panel-title')">{{ startPlaceholder || t('timepicker.startPlaceholder') }}</div>
-                <TimeSpinner v-model="internalStartTimeState" :show-seconds="showSeconds" :arrow-control="arrowControl"
-                  :hour-step="hourStep" :minute-step="minuteStep" :second-step="secondStep"
-                  :disabled-time="getDisabledStartTime(disabledTime)" :use12-hours="use12Hours" />
+                <div :class="ns.e('range-panel-title')">{{
+                  startPlaceholder || t('timepicker.startPlaceholder')
+                }}</div>
+                <TimeSpinner
+                  v-model="internalStartTimeState"
+                  :show-seconds="showSeconds"
+                  :arrow-control="arrowControl"
+                  :hour-step="hourStep"
+                  :minute-step="minuteStep"
+                  :second-step="secondStep"
+                  :disabled-time="getDisabledStartTime(disabledTime)"
+                  :use12-hours="use12Hours"
+                />
               </div>
               <div :class="ns.e('range-panel-separator')">
                 <svg viewBox="0 0 1024 1024" width="1em" height="1em">
@@ -551,10 +636,19 @@ defineExpose<TimePickerExpose>({
                 </svg>
               </div>
               <div :class="ns.e('range-panel-item')">
-                <div :class="ns.e('range-panel-title')">{{ endPlaceholder || t('timepicker.endPlaceholder') }}</div>
-                <TimeSpinner v-model="internalEndTimeState" :show-seconds="showSeconds" :arrow-control="arrowControl"
-                  :hour-step="hourStep" :minute-step="minuteStep" :second-step="secondStep"
-                  :disabled-time="getDisabledEndTime(disabledTime)" :use12-hours="use12Hours" />
+                <div :class="ns.e('range-panel-title')">{{
+                  endPlaceholder || t('timepicker.endPlaceholder')
+                }}</div>
+                <TimeSpinner
+                  v-model="internalEndTimeState"
+                  :show-seconds="showSeconds"
+                  :arrow-control="arrowControl"
+                  :hour-step="hourStep"
+                  :minute-step="minuteStep"
+                  :second-step="secondStep"
+                  :disabled-time="getDisabledEndTime(disabledTime)"
+                  :use12-hours="use12Hours"
+                />
               </div>
             </div>
           </template>
@@ -565,10 +659,18 @@ defineExpose<TimePickerExpose>({
               {{ nowText || t('timepicker.now') }}
             </button>
             <div :class="ns.e('footer-actions')">
-              <button type="button" :class="[ns.e('footer-btn'), ns.e('footer-btn--cancel')]" @click="handleCancel">
+              <button
+                type="button"
+                :class="[ns.e('footer-btn'), ns.e('footer-btn--cancel')]"
+                @click="handleCancel"
+              >
                 {{ cancelText || t('timepicker.cancel') }}
               </button>
-              <button type="button" :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]" @click="handleConfirm">
+              <button
+                type="button"
+                :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
+                @click="handleConfirm"
+              >
                 {{ confirmText || t('timepicker.confirm') }}
               </button>
             </div>

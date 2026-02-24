@@ -1,4 +1,4 @@
-import { h, render, type AppContext, type Component, type VNode, type Slots, type Slot } from 'vue'
+import { h, render, type AppContext, type Component, type Slots, type Slot } from 'vue'
 import Dialog from './dialog.vue'
 import type { DialogProps } from './dialog'
 import type { UseDialogOptions, DialogAction } from './use-dialog'
@@ -81,7 +81,9 @@ const createDialog = (
       const slots: Record<string, Slot> = {}
       if (options.header) {
         slots.header = (
-          typeof options.header === 'function' ? options.header : () => [h(options.header as string | Component)]
+          typeof options.header === 'function'
+            ? options.header
+            : () => [h(options.header as string | Component)]
         ) as Slot
       }
       if (options.default) {
@@ -93,7 +95,9 @@ const createDialog = (
       }
       if (options.footer) {
         slots.footer = (
-          typeof options.footer === 'function' ? options.footer : () => [h(options.footer as string | Component)]
+          typeof options.footer === 'function'
+            ? options.footer
+            : () => [h(options.footer as string | Component)]
         ) as Slot
       }
 

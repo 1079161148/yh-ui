@@ -9,17 +9,14 @@
  *   - 键盘导航支持
  *   - 完美支持 SSR
  */
-import { ref, computed, provide, toRef, watch } from 'vue'
+import { ref, computed, provide, toRef } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
+import type { CSSProperties } from 'vue'
 import { YhTooltip } from '../../tooltip'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
-import {
-  dropdownProps,
-  dropdownEmits,
-  DROPDOWN_INJECTION_KEY
-} from './dropdown'
+import { dropdownProps, dropdownEmits, DROPDOWN_INJECTION_KEY } from './dropdown'
 import type { DropdownContext } from './dropdown'
 
 defineOptions({
@@ -32,7 +29,10 @@ const ns = useNamespace('dropdown')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('dropdown', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'dropdown',
+  computed(() => props.themeOverrides)
+)
 
 // 内部可见性状态
 const internalVisible = ref(false)
@@ -47,20 +47,15 @@ const visible = computed({
 const tooltipRef = ref<InstanceType<typeof YhTooltip> | null>(null)
 
 // 弹出层样式
-const popperStyle = computed(() => {
-  const styles: Record<string, string | number> = {
-    ...themeStyle.value as any
+const popperStyle = computed<CSSProperties>(() => {
+  const styles: CSSProperties = {
+    ...(themeStyle.value as CSSProperties)
   }
-  // 安全复制 popperStyle
-  if (props.popperStyle) {
-    Object.entries(props.popperStyle).forEach(([key, value]) => {
-      if (value !== undefined) {
-        styles[key] = value as string | number
-      }
-    })
-  }
+  // 安全混合 popperStyle
+  Object.assign(styles, props.popperStyle)
   if (props.maxHeight) {
-    styles.maxHeight = typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight
+    styles.maxHeight =
+      typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight
     styles.overflowY = 'auto'
   }
   return styles
@@ -130,24 +125,51 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.is('disabled', disabled), ns.is('split', splitButton)]" :style="themeStyle" @keydown="handleKeydown">
-    <YhTooltip ref="tooltipRef" v-model:visible="visible" :trigger="trigger" :placement="placement" :disabled="disabled"
-      :show-after="showAfter" :hide-after="hideAfter" :z-index="zIndex" :teleported="teleported"
-      :popper-class="`${ns.e('popper')} ${popperClass}`" :popper-style="popperStyle" :offset="offset"
-      :show-arrow="popperArrow" effect="light" @show="handleShow" @hide="handleHide">
+  <div
+    :class="[ns.b(), ns.is('disabled', disabled), ns.is('split', splitButton)]"
+    :style="themeStyle"
+    @keydown="handleKeydown"
+  >
+    <YhTooltip
+      ref="tooltipRef"
+      v-model:visible="visible"
+      :trigger="trigger"
+      :placement="placement"
+      :disabled="disabled"
+      :show-after="showAfter"
+      :hide-after="hideAfter"
+      :z-index="zIndex"
+      :teleported="teleported"
+      :popper-class="`${ns.e('popper')} ${popperClass}`"
+      :popper-style="popperStyle"
+      :offset="offset"
+      :show-arrow="popperArrow"
+      effect="light"
+      @show="handleShow"
+      @hide="handleHide"
+    >
       <template v-if="splitButton">
         <YhButton :type="type || undefined" :size="size" :plain="plain" @click="handleButtonClick">
           <slot />
         </YhButton>
-        <YhButton :type="type || undefined" :size="size" :plain="plain" :class="ns.e('caret-button')"
-          @click.stop="handleDropdownClick">
+        <YhButton
+          :type="type || undefined"
+          :size="size"
+          :plain="plain"
+          :class="ns.e('caret-button')"
+          @click.stop="handleDropdownClick"
+        >
           <YhIcon name="arrow-down" :class="[ns.e('icon'), { [ns.is('active')]: visible }]" />
         </YhButton>
       </template>
       <template v-else>
         <div :class="ns.e('trigger')" :tabindex="disabled ? undefined : tabindex">
           <slot />
-          <YhIcon v-if="showArrow" name="arrow-down" :class="[ns.e('icon'), { [ns.is('active')]: visible }]" />
+          <YhIcon
+            v-if="showArrow"
+            name="arrow-down"
+            :class="[ns.e('icon'), { [ns.is('active')]: visible }]"
+          />
         </div>
       </template>
 
@@ -165,16 +187,23 @@ defineExpose({
             <template v-else-if="items && items.length > 0">
               <template v-for="item in items" :key="item.key">
                 <div v-if="item.divided" :class="ns.e('divider')" />
-                <div :class="[
-                  ns.e('item'),
-                  item.class,
-                  {
-                    [ns.is('disabled')]: item.disabled,
-                    [ns.is('danger')]: item.danger,
-                    [ns.is('checked')]: checkable && item.checked
-                  }
-                ]" @click="!item.disabled && handleItemClick(item.key)">
-                  <YhIcon v-if="checkable" :name="item.checked ? 'check' : ''" :class="ns.e('check-icon')" />
+                <div
+                  :class="[
+                    ns.e('item'),
+                    item.class,
+                    {
+                      [ns.is('disabled')]: item.disabled,
+                      [ns.is('danger')]: item.danger,
+                      [ns.is('checked')]: checkable && item.checked
+                    }
+                  ]"
+                  @click="!item.disabled && handleItemClick(item.key)"
+                >
+                  <YhIcon
+                    v-if="checkable"
+                    :name="item.checked ? 'check' : ''"
+                    :class="ns.e('check-icon')"
+                  />
                   <YhIcon v-if="item.icon" :name="item.icon" :class="ns.e('item-icon')" />
                   <span>{{ item.label }}</span>
                 </div>

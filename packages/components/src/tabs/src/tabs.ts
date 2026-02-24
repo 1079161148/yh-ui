@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, InjectionKey, ComputedRef, Ref } from 'vue'
+import type { ExtractPropTypes, PropType, InjectionKey, Ref } from 'vue'
 
 export const tabsTypes = ['line', 'card', 'border-card', 'segment'] as const
 export type TabsType = (typeof tabsTypes)[number]
@@ -109,7 +109,7 @@ export type TabsProps = ExtractPropTypes<typeof tabsProps>
 export const tabsEmits = {
   'update:modelValue': (name: string | number) =>
     typeof name === 'string' || typeof name === 'number',
-  'tab-click': (pane: TabPaneConfig, ev: Event) => pane !== undefined,
+  'tab-click': (pane: TabPaneConfig, _ev: Event) => pane !== undefined,
   'tab-change': (name: string | number) => typeof name === 'string' || typeof name === 'number',
   'tab-remove': (name: string | number) => typeof name === 'string' || typeof name === 'number',
   'tab-add': () => true,

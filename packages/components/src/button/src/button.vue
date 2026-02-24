@@ -6,7 +6,6 @@ import { computed, ref, useSlots } from 'vue'
 import { useNamespace, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ButtonProps, ButtonEmits, ButtonExpose } from './button'
-import type { ComponentThemeVars } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhButton'
@@ -39,7 +38,10 @@ const ns = useNamespace('button')
 const { globalSize } = useConfig()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('button', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'button',
+  computed(() => props.themeOverrides)
+)
 
 // 最终尺寸
 const actualSize = computed(() => props.size || globalSize.value || 'default')
@@ -52,9 +54,7 @@ const hasIcon = computed(() => props.icon || slots.icon)
 const hasSuffixIcon = computed(() => props.suffixIcon || slots.suffixIcon)
 
 // 是否为垂直布局
-const isVertical = computed(() =>
-  props.iconPosition === 'top' || props.iconPosition === 'bottom'
-)
+const isVertical = computed(() => props.iconPosition === 'top' || props.iconPosition === 'bottom')
 
 // 按钮类名
 const buttonClasses = computed(() => [
@@ -108,23 +108,35 @@ defineExpose<ButtonExpose>({
 </script>
 
 <template>
-  <component :is="tag" ref="buttonRef" :class="buttonClasses" :style="buttonStyles"
-    :type="tag === 'button' ? nativeType : undefined" :disabled="disabled || loading" :autofocus="autofocus"
-    @click="handleClick">
+  <component
+    :is="tag"
+    ref="buttonRef"
+    :class="buttonClasses"
+    :style="buttonStyles"
+    :type="tag === 'button' ? nativeType : undefined"
+    :disabled="disabled || loading"
+    :autofocus="autofocus"
+    @click="handleClick"
+  >
     <!-- 1. 加载图标 (优先级最高，存在时通常隐藏原图标) -->
     <template v-if="loading">
       <slot name="loading">
         <span :class="ns.e('loading-icon')">
           <svg :class="ns.e('loading-svg')" viewBox="0 0 1024 1024">
-            <path fill="currentColor"
-              d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z" />
+            <path
+              fill="currentColor"
+              d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z"
+            />
           </svg>
         </span>
       </slot>
     </template>
 
     <!-- 2. 前置/上置图标 -->
-    <span v-if="!loading && hasIcon && (iconPosition === 'left' || iconPosition === 'top')" :class="ns.e('icon')">
+    <span
+      v-if="!loading && hasIcon && (iconPosition === 'left' || iconPosition === 'top')"
+      :class="ns.e('icon')"
+    >
       <slot name="icon">
         <component :is="icon" v-if="icon && typeof icon !== 'string'" />
       </slot>
@@ -136,7 +148,10 @@ defineExpose<ButtonExpose>({
     </span>
 
     <!-- 4. 后置/下置图标 -->
-    <span v-if="!loading && hasIcon && (iconPosition === 'right' || iconPosition === 'bottom')" :class="ns.e('icon')">
+    <span
+      v-if="!loading && hasIcon && (iconPosition === 'right' || iconPosition === 'bottom')"
+      :class="ns.e('icon')"
+    >
       <slot name="icon">
         <component :is="icon" v-if="icon && typeof icon !== 'string'" />
       </slot>

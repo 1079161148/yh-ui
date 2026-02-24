@@ -3,6 +3,7 @@
  * @description 将组件库的 locale 映射到 dayjs 的 locale，并自动同步
  */
 import * as _dayjs from 'dayjs'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dayjs = (_dayjs as any).default || _dayjs
 
 // 静态导入常用语言包，确保打包时包含

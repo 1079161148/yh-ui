@@ -160,7 +160,7 @@ export const dropdownProps = {
 export const dropdownEmits = {
   'update:visible': (visible: boolean) => typeof visible === 'boolean',
   /** 点击菜单项 */
-  command: (command: string | number | object) => true,
+  command: (_command: string | number | object) => true,
   /** 菜单显示 */
   show: () => true,
   /** 菜单隐藏 */

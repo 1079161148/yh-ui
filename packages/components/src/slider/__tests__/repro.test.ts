@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import YhSlider from '../src/slider.vue'
-import { nextTick } from 'vue'
 
 describe('YhSlider Range Bug Repro', () => {
   it('should initialize firstValue and secondValue correctly in range mode', async () => {

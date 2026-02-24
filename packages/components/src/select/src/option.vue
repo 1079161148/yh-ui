@@ -4,7 +4,6 @@
  * @description Select 组件的子项，用于 slot 嵌套模式
  */
 import { computed, inject, onMounted, onBeforeUnmount, useSlots } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
 import type { OptionProps } from './select'
 import { SelectContextKey } from './select'
 
@@ -16,7 +15,6 @@ const props = withDefaults(defineProps<OptionProps>(), {
   disabled: false
 })
 
-const ns = useNamespace('select')
 const select = inject(SelectContextKey, null)
 const slots = useSlots()
 
@@ -27,18 +25,6 @@ const optionData = computed(() => ({
   label: props.label || (slots.default ? ' ' : String(props.value)),
   disabled: props.disabled
 }))
-
-// 是否选中
-const selected = computed(() => {
-  if (!select) return false
-  return select.isSelected(props.value)
-})
-
-// 处理点击
-const handleClick = (e: MouseEvent) => {
-  if (props.disabled || !select) return
-  select.handleOptionSelect(optionData.value)
-}
 
 // 注册
 onMounted(() => {

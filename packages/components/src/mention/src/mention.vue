@@ -3,15 +3,7 @@
  * YhMention - 提及组件
  * @description 在输入中通过触发符号（@、#等）选择提及对象，支持 input/textarea 双模式
  */
-import {
-  ref,
-  computed,
-  watch,
-  nextTick,
-  onMounted,
-  onBeforeUnmount,
-  useSlots
-} from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount, useSlots } from 'vue'
 import { useNamespace, useFormItem, useId, useZIndex, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { MentionProps, MentionEmits, MentionExpose, MentionOption } from './mention'
@@ -50,7 +42,10 @@ const ns = useNamespace('mention')
 const inputId = useId()
 const { t } = useLocale()
 const { nextZIndex } = useZIndex()
-const { themeStyle } = useComponentTheme('mention', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'mention',
+  computed(() => props.themeOverrides)
+)
 const { form, formItem, validate: triggerValidate } = useFormItem()
 const { globalSize } = useConfig()
 
@@ -190,9 +185,8 @@ const handleInput = (event: Event) => {
   // Happy-DOM / JSDOM 中 selectionStart 可能为 null 或 0（尚未更新）
   // 当选择位置为 0 且字符串非空时，以 value.length 作为光标位置
   const rawCursor = target.selectionStart
-  const cursor = rawCursor === null || (rawCursor === 0 && value.length > 0)
-    ? value.length
-    : rawCursor
+  const cursor =
+    rawCursor === null || (rawCursor === 0 && value.length > 0) ? value.length : rawCursor
 
   emit('update:modelValue', value)
   emit('input', value)
@@ -385,38 +379,92 @@ const textLength = computed(() => (props.modelValue ?? '').length)
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="hovering = true"
-    @mouseleave="hovering = false">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
+  >
     <!-- 前缀 -->
     <span v-if="slots.prefix || prefixIcon" :class="ns.e('prefix')">
       <slot name="prefix">
-        <component v-if="prefixIcon && typeof prefixIcon !== 'string'" :is="prefixIcon" :class="ns.e('icon')" />
+        <component
+          v-if="prefixIcon && typeof prefixIcon !== 'string'"
+          :is="prefixIcon"
+          :class="ns.e('icon')"
+        />
         <span v-else-if="prefixIcon" :class="ns.e('icon')">{{ prefixIcon }}</span>
       </slot>
     </span>
 
     <!-- 输入框 -->
-    <textarea v-if="type === 'textarea'" :id="inputId" ref="inputRef" :class="ns.e('inner')" :value="modelValue"
-      :placeholder="placeholder || t('mention.placeholder')" :disabled="mentionDisabled" :readonly="readonly"
-      :maxlength="maxlength" :rows="rows" :autofocus="autofocus" role="combobox" :aria-expanded="dropdownVisible"
-      :aria-autocomplete="'list'" :aria-controls="`${inputId}-listbox`" :aria-activedescendant="highlightedIndex >= 0 ? `${inputId}-option-${highlightedIndex}` : undefined
-        " @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
-      @keydown="handleKeydown" />
-    <input v-else :id="inputId" ref="inputRef" :class="ns.e('inner')" type="text" :value="modelValue"
-      :placeholder="placeholder || t('mention.placeholder')" :disabled="mentionDisabled" :readonly="readonly"
-      :maxlength="maxlength" :autofocus="autofocus" role="combobox" :aria-expanded="dropdownVisible"
-      :aria-autocomplete="'list'" :aria-controls="`${inputId}-listbox`" :aria-activedescendant="highlightedIndex >= 0 ? `${inputId}-option-${highlightedIndex}` : undefined
-        " @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
-      @keydown="handleKeydown" />
+    <textarea
+      v-if="type === 'textarea'"
+      :id="inputId"
+      ref="inputRef"
+      :class="ns.e('inner')"
+      :value="modelValue"
+      :placeholder="placeholder || t('mention.placeholder')"
+      :disabled="mentionDisabled"
+      :readonly="readonly"
+      :maxlength="maxlength"
+      :rows="rows"
+      :autofocus="autofocus"
+      role="combobox"
+      :aria-expanded="dropdownVisible"
+      :aria-autocomplete="'list'"
+      :aria-controls="`${inputId}-listbox`"
+      :aria-activedescendant="
+        highlightedIndex >= 0 ? `${inputId}-option-${highlightedIndex}` : undefined
+      "
+      @input="handleInput"
+      @change="handleChange"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @keydown="handleKeydown"
+    />
+    <input
+      v-else
+      :id="inputId"
+      ref="inputRef"
+      :class="ns.e('inner')"
+      type="text"
+      :value="modelValue"
+      :placeholder="placeholder || t('mention.placeholder')"
+      :disabled="mentionDisabled"
+      :readonly="readonly"
+      :maxlength="maxlength"
+      :autofocus="autofocus"
+      role="combobox"
+      :aria-expanded="dropdownVisible"
+      :aria-autocomplete="'list'"
+      :aria-controls="`${inputId}-listbox`"
+      :aria-activedescendant="
+        highlightedIndex >= 0 ? `${inputId}-option-${highlightedIndex}` : undefined
+      "
+      @input="handleInput"
+      @change="handleChange"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @keydown="handleKeydown"
+    />
 
     <!-- 后缀 / 清空 -->
     <span v-if="slots.suffix || suffixIcon || showClear || showWordLimit" :class="ns.e('suffix')">
       <!-- 清空按钮 -->
-      <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @mousedown.prevent @click.stop="handleClear"
-        aria-label="Clear">
+      <span
+        v-if="showClear"
+        :class="[ns.e('icon'), ns.e('clear')]"
+        @mousedown.prevent
+        @click.stop="handleClear"
+        aria-label="Clear"
+      >
         <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-          <path fill="currentColor"
-            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+          <path
+            fill="currentColor"
+            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+          />
         </svg>
       </span>
       <!-- 字数统计 -->
@@ -425,7 +473,11 @@ const textLength = computed(() => (props.modelValue ?? '').length)
       </span>
       <!-- 自定义后缀 -->
       <slot name="suffix">
-        <component v-if="suffixIcon && typeof suffixIcon !== 'string'" :is="suffixIcon" :class="ns.e('icon')" />
+        <component
+          v-if="suffixIcon && typeof suffixIcon !== 'string'"
+          :is="suffixIcon"
+          :class="ns.e('icon')"
+        />
         <span v-else-if="suffixIcon" :class="ns.e('icon')">{{ suffixIcon }}</span>
       </slot>
     </span>
@@ -433,16 +485,28 @@ const textLength = computed(() => (props.modelValue ?? '').length)
     <!-- 下拉面板 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('dropdown')">
-        <div v-show="dropdownVisible" ref="dropdownRef" :id="`${inputId}-listbox`"
+        <div
+          v-show="dropdownVisible"
+          ref="dropdownRef"
+          :id="`${inputId}-listbox`"
           :class="[ns.e('dropdown'), popperClass]"
-          :style="teleported ? { ...themeStyle, ...dropdownStyle } : themeStyle" role="listbox"
-          @mousedown="isClickingDropdown = true" @mouseup="isClickingDropdown = false">
+          :style="teleported ? { ...themeStyle, ...dropdownStyle } : themeStyle"
+          role="listbox"
+          @mousedown="isClickingDropdown = true"
+          @mouseup="isClickingDropdown = false"
+        >
           <!-- 加载中 -->
           <div v-if="loading" :class="ns.e('loading')">
             <slot name="loading">
-              <svg :class="ns.e('loading-icon')" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor"
-                  d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32z" />
+              <svg
+                :class="ns.e('loading-icon')"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="currentColor"
+                  d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32z"
+                />
               </svg>
               <span>{{ loadingText || t('mention.loading') }}</span>
             </slot>
@@ -461,21 +525,35 @@ const textLength = computed(() => (props.modelValue ?? '').length)
               <!-- 分组标题 -->
               <div v-if="group" :class="ns.e('group-label')">{{ group }}</div>
               <!-- 选项条目 -->
-              <div v-for="(option, idx) in groupOpts" :key="option.value"
-                :id="`${inputId}-option-${filteredOptions.indexOf(option)}`" :class="[
+              <div
+                v-for="option in groupOpts"
+                :key="option.value"
+                :id="`${inputId}-option-${filteredOptions.indexOf(option)}`"
+                :class="[
                   ns.e('option'),
                   ns.is('highlighted', filteredOptions.indexOf(option) === highlightedIndex),
                   ns.is('disabled', !!option.disabled)
-                ]" role="option" :aria-selected="filteredOptions.indexOf(option) === highlightedIndex"
-                :aria-disabled="option.disabled" @mousedown.prevent @click="selectOption(option)"
-                @mouseenter="highlightedIndex = filteredOptions.indexOf(option)">
+                ]"
+                role="option"
+                :aria-selected="filteredOptions.indexOf(option) === highlightedIndex"
+                :aria-disabled="option.disabled"
+                @mousedown.prevent
+                @click="selectOption(option)"
+                @mouseenter="highlightedIndex = filteredOptions.indexOf(option)"
+              >
                 <slot name="option" :option="option" :keyword="triggerPos?.keyword ?? ''">
                   <!-- 头像 -->
-                  <img v-if="option.avatar" :src="option.avatar" :class="ns.e('option-avatar')"
-                    :alt="option.label ?? option.value" />
+                  <img
+                    v-if="option.avatar"
+                    :src="option.avatar"
+                    :class="ns.e('option-avatar')"
+                    :alt="option.label ?? option.value"
+                  />
                   <div :class="ns.e('option-content')">
                     <span :class="ns.e('option-label')">{{ option.label ?? option.value }}</span>
-                    <span v-if="option.description" :class="ns.e('option-desc')">{{ option.description }}</span>
+                    <span v-if="option.description" :class="ns.e('option-desc')">{{
+                      option.description
+                    }}</span>
                   </div>
                 </slot>
               </div>

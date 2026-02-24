@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, inject } from 'vue'
 import { YhConfigProvider, configProviderContextKey } from '../index'
-import { YhButton } from '../../button'
 
 const ChildComponent = defineComponent({
   setup() {
@@ -56,6 +55,7 @@ describe('ConfigProvider', () => {
       props: { size: 'large' },
       slots: {
         default: defineComponent({
+          components: { 'yh-config-provider': YhConfigProvider, 'deep-child': DeepChild },
           setup() {
             return {}
           },
@@ -63,8 +63,7 @@ describe('ConfigProvider', () => {
             <yh-config-provider size="small">
               <deep-child />
             </yh-config-provider>
-          `,
-          components: { 'yh-config-provider': YhConfigProvider, 'deep-child': DeepChild }
+          `
         })
       }
     })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted, toRef } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import {
@@ -8,8 +8,6 @@ import {
   createFormatContext,
   formatCountdown,
   isTargetTimestamp,
-  parseTimeUnits,
-  padZero,
   type CountdownStatus,
   type CountdownFormatContext,
   type CountdownExpose
@@ -25,7 +23,10 @@ const ns = useNamespace('countdown')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('countdown', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'countdown',
+  computed(() => props.themeOverrides)
+)
 
 // --- 状态管理 ---
 const status = ref<CountdownStatus>('pending')
@@ -106,7 +107,8 @@ function tick() {
   const newRemain = Math.max(0, pausedRemain.value - elapsed)
 
   // 节流：根据精度控制更新频率
-  const shouldUpdate = now - prevUpdateTime.value >= props.interval ||
+  const shouldUpdate =
+    now - prevUpdateTime.value >= props.interval ||
     newRemain === 0 ||
     Math.floor(remain.value / props.precision) !== Math.floor(newRemain / props.precision)
 
@@ -298,13 +300,25 @@ const digits = computed(() => {
     result.push({ key: 'hours', value: ctx.HH, label: props.labels?.hours || t('countdown.hours') })
   }
   if (props.showMinutes) {
-    result.push({ key: 'minutes', value: ctx.mm, label: props.labels?.minutes || t('countdown.minutes') })
+    result.push({
+      key: 'minutes',
+      value: ctx.mm,
+      label: props.labels?.minutes || t('countdown.minutes')
+    })
   }
   if (props.showSeconds) {
-    result.push({ key: 'seconds', value: ctx.ss, label: props.labels?.seconds || t('countdown.seconds') })
+    result.push({
+      key: 'seconds',
+      value: ctx.ss,
+      label: props.labels?.seconds || t('countdown.seconds')
+    })
   }
   if (props.showMilliseconds) {
-    result.push({ key: 'milliseconds', value: ctx.SSS, label: props.labels?.milliseconds || t('countdown.milliseconds') })
+    result.push({
+      key: 'milliseconds',
+      value: ctx.SSS,
+      label: props.labels?.milliseconds || t('countdown.milliseconds')
+    })
   }
 
   return result
@@ -321,8 +335,14 @@ const digits = computed(() => {
     <!-- 主体内容 -->
     <div :class="ns.e('content')">
       <!-- 默认插槽：完全自定义渲染 -->
-      <slot :current="formatContext" :remaining="remain" :formatted="displayText" :status="status"
-        :is-warning="isWarning" :is-finished="isFinished">
+      <slot
+        :current="formatContext"
+        :remaining="remain"
+        :formatted="displayText"
+        :status="status"
+        :is-warning="isWarning"
+        :is-finished="isFinished"
+      >
         <!-- 翻牌模式 -->
         <template v-if="flipAnimation">
           <template v-for="(digit, idx) in digits" :key="digit.key">

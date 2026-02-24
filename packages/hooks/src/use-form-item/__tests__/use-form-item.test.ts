@@ -4,7 +4,7 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { defineComponent, h, ref, provide, nextTick } from 'vue'
+import { defineComponent, h, provide, nextTick } from 'vue'
 import { useFormItem, FormContextKey, FormItemContextKey } from '../../use-form-item'
 
 describe('useFormItem', () => {

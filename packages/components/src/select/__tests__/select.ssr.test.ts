@@ -4,7 +4,6 @@
  */
 import { describe, it, expect } from 'vitest'
 import Select from '../src/select.vue'
-import Option from '../src/option.vue'
 import { renderSSR, expectSSRHasClass, testHydration } from '../../__tests__/utils/ssr'
 
 describe('YhSelect SSR', () => {

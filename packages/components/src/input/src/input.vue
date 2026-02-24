@@ -14,7 +14,6 @@
 import { computed, ref, watch, nextTick, useSlots, onMounted } from 'vue'
 import { useNamespace, useFormItem, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { InputProps, InputEmits, InputExpose } from './input'
 import { calcTextareaHeight } from './utils'
 import type { CSSProperties } from 'vue'
@@ -63,13 +62,18 @@ const wrapperRef = ref<HTMLElement>()
 const { form, formItem, validate: triggerValidate } = useFormItem()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('input', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'input',
+  computed(() => props.themeOverrides)
+)
 
 // 全局配置
 const { globalSize } = useConfig()
 
 // 输入框尺寸
-const inputSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const inputSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 
 // 内部状态
 const focused = ref(false)
@@ -83,51 +87,48 @@ const inputOrTextarea = computed(() => inputRef.value || textareaRef.value)
 const isTextarea = computed(() => props.type === 'textarea')
 
 const nativeInputValue = computed(() => {
-  const value = props.modelValue === null || props.modelValue === undefined
-    ? ''
-    : String(props.modelValue)
+  const value =
+    props.modelValue === null || props.modelValue === undefined ? '' : String(props.modelValue)
   if (props.formatter && !isTextarea.value) {
     return props.formatter(value)
   }
   return value
 })
 
-const showClear = computed(() =>
-  props.clearable &&
-  !props.disabled &&
-  !props.readonly &&
-  !!nativeInputValue.value &&
-  (focused.value || hovering.value)
+const showClear = computed(
+  () =>
+    props.clearable &&
+    !props.disabled &&
+    !props.readonly &&
+    !!nativeInputValue.value &&
+    (focused.value || hovering.value)
 )
 
-const showPasswordIcon = computed(() =>
-  props.showPassword &&
-  !props.disabled &&
-  !props.readonly &&
-  !!nativeInputValue.value
+const showPasswordIcon = computed(
+  () => props.showPassword && !props.disabled && !props.readonly && !!nativeInputValue.value
 )
 
 // Feature 7: 自定义字数计算
 const textLength = computed(() => {
-  const value = props.modelValue === null || props.modelValue === undefined
-    ? ''
-    : String(props.modelValue)
+  const value =
+    props.modelValue === null || props.modelValue === undefined ? '' : String(props.modelValue)
   if (props.countConfig?.calculate) {
     return props.countConfig.calculate(value)
   }
   return value.length
 })
 
-const showWordLimitCount = computed(() =>
-  props.showWordLimit &&
-  !!props.maxlength &&
-  (props.type === 'text' || props.type === 'textarea') &&
-  !props.disabled &&
-  !props.readonly
+const showWordLimitCount = computed(
+  () =>
+    props.showWordLimit &&
+    !!props.maxlength &&
+    (props.type === 'text' || props.type === 'textarea') &&
+    !props.disabled &&
+    !props.readonly
 )
 
-const inputExceed = computed(() =>
-  showWordLimitCount.value && textLength.value > Number(props.maxlength)
+const inputExceed = computed(
+  () => showWordLimitCount.value && textLength.value > Number(props.maxlength)
 )
 
 // Feature 2: 加载状态 — 推导 hasSuffix 时应计及 loading
@@ -137,13 +138,14 @@ const isLoading = computed(() => props.loading && !props.disabled)
 const hasPrepend = computed(() => !!slots.prepend)
 const hasAppend = computed(() => !!slots.append)
 const hasPrefix = computed(() => !!slots.prefix || !!props.prefixIcon || !!props.prefix)
-const hasSuffix = computed(() =>
-  !!slots.suffix ||
-  !!props.suffixIcon ||
-  !!props.suffix ||
-  showClear.value ||
-  showPasswordIcon.value ||
-  isLoading.value
+const hasSuffix = computed(
+  () =>
+    !!slots.suffix ||
+    !!props.suffixIcon ||
+    !!props.suffix ||
+    showClear.value ||
+    showPasswordIcon.value ||
+    isLoading.value
 )
 
 // Feature 3: 独立 status 计算 + 表单校验状态合并
@@ -178,17 +180,10 @@ const wrapperStyle = computed(() => ({
   ...themeStyle.value
 }))
 
-const inputClasses = computed(() => [
-  ns.e('inner'),
-  ns.is('disabled', props.disabled)
-])
+const inputClasses = computed(() => [ns.e('inner'), ns.is('disabled', props.disabled)])
 
 const textareaStyle = computed(() => {
-  return [
-    props.inputStyle,
-    textareaCalcStyle.value,
-    { resize: props.resize }
-  ] as CSSProperties[]
+  return [props.inputStyle, textareaCalcStyle.value, { resize: props.resize }] as CSSProperties[]
 })
 
 // 同步原生输入框值
@@ -344,7 +339,7 @@ const resizeTextarea = () => {
   const style = calcTextareaHeight(textarea, minRows, maxRows)
   textareaCalcStyle.value = {
     height: style.height,
-    minHeight: style.minHeight,
+    minHeight: style.minHeight
   }
 }
 
@@ -374,13 +369,20 @@ defineExpose<InputExpose>({
   blur,
   select,
   clear,
-  get textLength() { return textLength.value }
+  get textLength() {
+    return textLength.value
+  }
 })
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="wrapperStyle" @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="wrapperStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <!-- 前置元素 -->
     <div v-if="hasPrepend" :class="ns.e('prepend')">
       <slot name="prepend" />
@@ -393,67 +395,158 @@ defineExpose<InputExpose>({
         <slot name="prefix">
           <!-- Feature 6: prefix string prop -->
           <span v-if="prefix" :class="ns.e('prefix-text')">{{ prefix }}</span>
-          <component v-else-if="prefixIcon && typeof prefixIcon !== 'string'" :is="prefixIcon" :class="ns.e('icon')" />
+          <component
+            v-else-if="prefixIcon && typeof prefixIcon !== 'string'"
+            :is="prefixIcon"
+            :class="ns.e('icon')"
+          />
           <span v-else-if="prefixIcon" :class="ns.e('icon')">{{ prefixIcon }}</span>
         </slot>
       </span>
 
       <!-- 文本域 -->
-      <textarea v-if="isTextarea" ref="textareaRef" :class="inputClasses" :value="nativeInputValue"
-        :placeholder="placeholder || t('input.placeholder')" :disabled="disabled" :readonly="readonly"
-        :maxlength="maxlength" :minlength="minlength" :rows="rows" :name="name" :id="id" :tabindex="tabindex"
-        :autocomplete="autocomplete" :autofocus="autofocus" :aria-label="ariaLabel || label" :inputmode="inputmode"
-        :style="textareaStyle" @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
-        @keydown="handleKeydown" @keyup="handleKeyup" @compositionstart="handleCompositionStart"
-        @compositionupdate="handleCompositionUpdate" @compositionend="handleCompositionEnd" />
+      <textarea
+        v-if="isTextarea"
+        ref="textareaRef"
+        :class="inputClasses"
+        :value="nativeInputValue"
+        :placeholder="placeholder || t('input.placeholder')"
+        :disabled="disabled"
+        :readonly="readonly"
+        :maxlength="maxlength"
+        :minlength="minlength"
+        :rows="rows"
+        :name="name"
+        :id="id"
+        :tabindex="tabindex"
+        :autocomplete="autocomplete"
+        :autofocus="autofocus"
+        :aria-label="ariaLabel || label"
+        :inputmode="inputmode"
+        :style="textareaStyle"
+        @input="handleInput"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
+        @keyup="handleKeyup"
+        @compositionstart="handleCompositionStart"
+        @compositionupdate="handleCompositionUpdate"
+        @compositionend="handleCompositionEnd"
+      />
 
       <!-- 普通输入框 -->
-      <input v-else ref="inputRef" :class="inputClasses"
-        :type="showPassword ? (passwordVisible ? 'text' : 'password') : type" :value="nativeInputValue"
-        :placeholder="placeholder || t('input.placeholder')" :disabled="disabled" :readonly="readonly"
-        :maxlength="maxlength" :minlength="minlength" :name="name" :id="id" :tabindex="tabindex" :list="list"
-        :autocomplete="autocomplete" :autofocus="autofocus" :style="inputStyle" :aria-label="ariaLabel || label"
-        :inputmode="inputmode" :aria-invalid="mergedStatus === 'error'"
-        :aria-describedby="mergedStatus === 'error' ? formItem?.errorId : undefined" @input="handleInput"
-        @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" @keyup="handleKeyup"
-        @compositionstart="handleCompositionStart" @compositionupdate="handleCompositionUpdate"
-        @compositionend="handleCompositionEnd" />
+      <input
+        v-else
+        ref="inputRef"
+        :class="inputClasses"
+        :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
+        :value="nativeInputValue"
+        :placeholder="placeholder || t('input.placeholder')"
+        :disabled="disabled"
+        :readonly="readonly"
+        :maxlength="maxlength"
+        :minlength="minlength"
+        :name="name"
+        :id="id"
+        :tabindex="tabindex"
+        :list="list"
+        :autocomplete="autocomplete"
+        :autofocus="autofocus"
+        :style="inputStyle"
+        :aria-label="ariaLabel || label"
+        :inputmode="inputmode"
+        :aria-invalid="mergedStatus === 'error'"
+        :aria-describedby="mergedStatus === 'error' ? formItem?.errorId : undefined"
+        @input="handleInput"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
+        @keyup="handleKeyup"
+        @compositionstart="handleCompositionStart"
+        @compositionupdate="handleCompositionUpdate"
+        @compositionend="handleCompositionEnd"
+      />
 
       <!-- 后置图标/文本/内容 -->
       <span v-if="hasSuffix" :class="ns.e('suffix')">
         <!-- Feature 2: 加载状态图标 -->
         <span v-if="isLoading" :class="[ns.e('icon'), ns.e('loading')]">
           <slot name="loadingIcon">
-            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-              class="yh-input__loading-spin">
-              <path fill="currentColor"
-                d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z" />
+            <svg
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              class="yh-input__loading-spin"
+            >
+              <path
+                fill="currentColor"
+                d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z"
+              />
             </svg>
           </slot>
         </span>
 
         <!-- 清空按钮 -->
-        <span v-if="showClear && !isLoading" :class="[ns.e('icon'), ns.e('clear')]" @mousedown.prevent
-          @click.stop="handleClear">
+        <span
+          v-if="showClear && !isLoading"
+          :class="[ns.e('icon'), ns.e('clear')]"
+          @mousedown.prevent
+          @click.stop="handleClear"
+        >
           <slot name="clearIcon">
-            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-              <path fill="currentColor"
-                d="m466.752 512-90.496-90.496a32 32 0 0 1 45.248-45.248L512 466.752l90.496-90.496a32 32 0 1 1 45.248 45.248L557.248 512l90.496 90.496a32 32 0 1 1-45.248 45.248L512 557.248l-90.496 90.496a32 32 0 0 1-45.248-45.248L466.752 512zM512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768z" />
+            <svg
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+            >
+              <path
+                fill="currentColor"
+                d="m466.752 512-90.496-90.496a32 32 0 0 1 45.248-45.248L512 466.752l90.496-90.496a32 32 0 1 1 45.248 45.248L557.248 512l90.496 90.496a32 32 0 1 1-45.248 45.248L512 557.248l-90.496 90.496a32 32 0 0 1-45.248-45.248L466.752 512zM512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768z"
+              />
             </svg>
           </slot>
         </span>
 
         <!-- 密码切换按钮 -->
-        <span v-if="showPasswordIcon" :class="[ns.e('icon'), ns.e('password')]" @click.stop="handlePasswordToggle">
-          <svg v-if="passwordVisible" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+        <span
+          v-if="showPasswordIcon"
+          :class="[ns.e('icon'), ns.e('password')]"
+          @click.stop="handlePasswordToggle"
+        >
+          <svg
+            v-if="passwordVisible"
+            viewBox="0 0 24 24"
+            width="1em"
+            height="1em"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            style="overflow: visible"
+          >
             <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" />
             <circle cx="12" cy="12" r="3" />
           </svg>
-          <svg v-else viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+          <svg
+            v-else
+            viewBox="0 0 24 24"
+            width="1em"
+            height="1em"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            style="overflow: visible"
+          >
             <path
-              d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+              d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+            />
             <line x1="3" y1="3" x2="21" y2="21" />
           </svg>
         </span>
@@ -462,7 +555,11 @@ defineExpose<InputExpose>({
         <slot name="suffix">
           <!-- Feature 6: suffix string prop -->
           <span v-if="suffix" :class="ns.e('suffix-text')">{{ suffix }}</span>
-          <component v-else-if="suffixIcon && typeof suffixIcon !== 'string'" :is="suffixIcon" :class="ns.e('icon')" />
+          <component
+            v-else-if="suffixIcon && typeof suffixIcon !== 'string'"
+            :is="suffixIcon"
+            :class="ns.e('icon')"
+          />
           <span v-else-if="suffixIcon" :class="ns.e('icon')">{{ suffixIcon }}</span>
         </slot>
       </span>
@@ -479,7 +576,10 @@ defineExpose<InputExpose>({
     </div>
 
     <!-- 字数统计 (Textarea 外部右下角) -->
-    <span v-if="showWordLimitCount && isTextarea" :class="[ns.e('count'), ns.em('count', 'textarea')]">
+    <span
+      v-if="showWordLimitCount && isTextarea"
+      :class="[ns.e('count'), ns.em('count', 'textarea')]"
+    >
       {{ textLength }} / {{ maxlength }}
     </span>
   </div>

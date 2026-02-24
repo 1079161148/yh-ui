@@ -19,7 +19,9 @@ const props = withDefaults(defineProps<Props>(), {
   vertical: false,
   disabled: false,
   showTooltip: true,
-  placement: 'top'
+  placement: 'top',
+  formatTooltip: undefined,
+  tooltipClass: undefined
 })
 
 const emit = defineEmits<{
@@ -29,7 +31,7 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('slider')
-const slider = inject<any>('slider')
+const slider = inject<{ sliderRef?: import('vue').Ref<HTMLElement | undefined> }>('slider')
 
 const dragging = ref(false)
 const hovering = ref(false)
@@ -50,7 +52,6 @@ const wrapperStyle = computed(() => {
     ? { bottom: currentPosition.value, top: 'auto' }
     : { left: currentPosition.value, top: '50%' }
 })
-
 
 const displayValue = computed(() => {
   if (props.formatTooltip) {
@@ -172,13 +173,19 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="button" :class="[ns.e('button-wrapper'), ns.is('dragging', dragging)]" :style="wrapperStyle"
-    @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @mousedown="onButtonDown" @touchstart="onButtonDown">
+  <div
+    ref="button"
+    :class="[ns.e('button-wrapper'), ns.is('dragging', dragging)]"
+    :style="wrapperStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+    @mousedown="onButtonDown"
+    @touchstart="onButtonDown"
+  >
     <slot name="thumb" :value="modelValue">
       <div :class="[ns.e('button'), ns.is('hover', hovering), ns.is('dragging', dragging)]"></div>
     </slot>
     <transition name="yh-fade">
-
       <div v-if="tooltipVisible" :class="[ns.e('tooltip'), tooltipClass]">
         <div :class="ns.e('tooltip-content')">
           {{ displayValue }}

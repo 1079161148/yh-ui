@@ -2,7 +2,7 @@
 /**
  * YhSubMenu - 子菜单组件
  */
-import { ref, inject, computed, provide, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, inject, computed, provide, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { YhIcon } from '../../icon'
 import { YhTooltip } from '../../tooltip'
@@ -91,12 +91,11 @@ const mergedPopperClass = computed(() => {
   if (props.popperClass) classes.push(props.popperClass)
   return classes.join(' ')
 })
-const mergedPopperStyle = computed(() => {
+const mergedPopperStyle = computed<Record<string, unknown>>(() => {
   const style = menu?.popperStyle.value ?? {}
-  return typeof style === 'string' ? {} : style // 强制返回对象以匹配 YhTooltip 类型
+  return typeof style === 'string' ? {} : (style as Record<string, unknown>) // 强制返回对象以匹配 YhTooltip 类型
 })
 const mergedPopperEffect = computed(() => menu?.popperEffect.value ?? 'light')
-const mergedCloseOnClickOutside = computed(() => menu?.closeOnClickOutside.value ?? true)
 
 const clearTimers = () => {
   if (showTimer) {
@@ -228,24 +227,49 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <li :class="[
-    ns.b(),
-    ns.is('opened', isOpened),
-    ns.is('active', isActive),
-    ns.is('disabled', disabled),
-    ns.is('popup', isPopup)
-  ]" role="menuitem" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <li
+    :class="[
+      ns.b(),
+      ns.is('opened', isOpened),
+      ns.is('active', isActive),
+      ns.is('disabled', disabled),
+      ns.is('popup', isPopup)
+    ]"
+    role="menuitem"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <!-- 弹出模式 -->
     <template v-if="isPopup">
-      <YhTooltip :visible="isOpened" :placement="popperPlacement" :z-index="menu?.popperZIndex.value"
-        :teleported="menu?.teleported.value" :popper-class="mergedPopperClass" :popper-style="mergedPopperStyle"
-        :offset="[0, mergedPopperOffset]" :show-arrow="false" :effect="mergedPopperEffect" trigger="click"
-        :persistent="menu?.persistent.value">
-        <div :class="ns.e('title')" :style="titleStyle" @click="handleTitleClick" @mouseenter="handleMouseEnterHeader">
-          <YhTooltip :disabled="menu?.collapse.value || !isTitleOverflow" placement="top" effect="dark"
-            :show-after="200" :show-arrow="true" style="flex: 1; min-width: 0; overflow: hidden;">
+      <YhTooltip
+        :visible="isOpened"
+        :placement="popperPlacement"
+        :z-index="menu?.popperZIndex.value"
+        :teleported="menu?.teleported.value"
+        :popper-class="mergedPopperClass"
+        :popper-style="mergedPopperStyle"
+        :offset="[0, mergedPopperOffset]"
+        :show-arrow="false"
+        :effect="mergedPopperEffect"
+        trigger="click"
+        :persistent="menu?.persistent.value"
+      >
+        <div
+          :class="ns.e('title')"
+          :style="titleStyle"
+          @click="handleTitleClick"
+          @mouseenter="handleMouseEnterHeader"
+        >
+          <YhTooltip
+            :disabled="menu?.collapse.value || !isTitleOverflow"
+            placement="top"
+            effect="dark"
+            :show-after="200"
+            :show-arrow="true"
+            style="flex: 1; min-width: 0; overflow: hidden"
+          >
             <template #content>
-              <div style="max-width: 300px; word-break: break-all;">
+              <div style="max-width: 300px; word-break: break-all">
                 <template v-if="renderLabelContent">
                   <template v-if="typeof renderLabelContent === 'string'">
                     {{ renderLabelContent }}
@@ -273,8 +297,10 @@ onBeforeUnmount(() => {
               </template>
             </div>
           </YhTooltip>
-          <YhIcon :name="arrowIcon"
-            :class="[ns.e('icon-arrow'), { [ns.is('opened')]: isOpened && shouldIconRotate }]" />
+          <YhIcon
+            :name="arrowIcon"
+            :class="[ns.e('icon-arrow'), { [ns.is('opened')]: isOpened && shouldIconRotate }]"
+          />
         </div>
 
         <template #content>
@@ -287,11 +313,22 @@ onBeforeUnmount(() => {
 
     <!-- 内联模式 -->
     <template v-else>
-      <div :class="ns.e('title')" :style="titleStyle" @click="handleTitleClick" @mouseenter="handleMouseEnterHeader">
-        <YhTooltip :disabled="menu?.collapse.value || !isTitleOverflow" placement="top" effect="dark" :show-after="200"
-          :show-arrow="true" style="flex: 1; min-width: 0; overflow: hidden;">
+      <div
+        :class="ns.e('title')"
+        :style="titleStyle"
+        @click="handleTitleClick"
+        @mouseenter="handleMouseEnterHeader"
+      >
+        <YhTooltip
+          :disabled="menu?.collapse.value || !isTitleOverflow"
+          placement="top"
+          effect="dark"
+          :show-after="200"
+          :show-arrow="true"
+          style="flex: 1; min-width: 0; overflow: hidden"
+        >
           <template #content>
-            <div style="max-width: 300px; word-break: break-all;">
+            <div style="max-width: 300px; word-break: break-all">
               <template v-if="renderLabelContent">
                 <template v-if="typeof renderLabelContent === 'string'">
                   {{ renderLabelContent }}
@@ -319,7 +356,10 @@ onBeforeUnmount(() => {
             </template>
           </div>
         </YhTooltip>
-        <YhIcon :name="arrowIcon" :class="[ns.e('icon-arrow'), { [ns.is('opened')]: isOpened && shouldIconRotate }]" />
+        <YhIcon
+          :name="arrowIcon"
+          :class="[ns.e('icon-arrow'), { [ns.is('opened')]: isOpened && shouldIconRotate }]"
+        />
       </div>
 
       <Transition name="yh-collapse">

@@ -3,7 +3,7 @@
  * YhPopover - 气泡卡片
  * @description 展示比 Tooltip 更丰富的承载内容
  */
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -20,7 +20,10 @@ const emit = defineEmits(popoverEmits)
 const ns = useNamespace('popover')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('popover', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'popover',
+  computed(() => props.themeOverrides)
+)
 const internalVisible = ref(false)
 const visible = computed({
   get: () => (props.visible !== null ? props.visible : internalVisible.value),
@@ -36,7 +39,7 @@ const triggerWidth = ref<string>('auto')
 // 计算内容区域样式
 const contentStyle = computed(() => {
   const styles: CSSProperties = {
-    ...themeStyle.value as any
+    ...(themeStyle.value as CSSProperties)
   }
 
   if (props.matchTriggerWidth) {
@@ -46,7 +49,8 @@ const contentStyle = computed(() => {
   }
 
   if (props.maxHeight !== 'none') {
-    styles.maxHeight = typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight
+    styles.maxHeight =
+      typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight
     styles.overflowY = props.scrollable ? 'auto' : 'hidden'
   }
 
@@ -72,9 +76,12 @@ const handleHide = () => {
 }
 
 // 监听 matchTriggerWidth 变化
-watch(() => props.matchTriggerWidth, (val: boolean) => {
-  if (val) updateTriggerWidth()
-})
+watch(
+  () => props.matchTriggerWidth,
+  (val: boolean) => {
+    if (val) updateTriggerWidth()
+  }
+)
 
 defineExpose({
   /** 手动控制可见性 */
@@ -85,11 +92,28 @@ defineExpose({
 </script>
 
 <template>
-  <YhTooltip ref="tooltipRef" v-model:visible="visible" :class="ns.b()" :trigger="trigger" :placement="placement"
-    :disabled="disabled" :show-arrow="showArrow" :show-after="showAfter" :hide-after="hideAfter" :offset="offset"
-    :z-index="zIndex" :effect="effect" :teleported="teleported" :transition="transition" :persistent="persistent"
-    :interactive="interactive" :popper-class="`${ns.e('popper')} ${popperClass}`" :popper-style="popperStyle"
-    @show="handleShow" @hide="handleHide">
+  <YhTooltip
+    ref="tooltipRef"
+    v-model:visible="visible"
+    :class="ns.b()"
+    :trigger="trigger"
+    :placement="placement"
+    :disabled="disabled"
+    :show-arrow="showArrow"
+    :show-after="showAfter"
+    :hide-after="hideAfter"
+    :offset="offset"
+    :z-index="zIndex"
+    :effect="effect"
+    :teleported="teleported"
+    :transition="transition"
+    :persistent="persistent"
+    :interactive="interactive"
+    :popper-class="`${ns.e('popper')} ${popperClass}`"
+    :popper-style="popperStyle"
+    @show="handleShow"
+    @hide="handleHide"
+  >
     <!-- 默认插槽：触发元素 -->
     <slot />
 

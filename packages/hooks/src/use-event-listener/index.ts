@@ -4,7 +4,7 @@ import type { MaybeRef } from 'vue'
 export function useEventListener(
   target: MaybeRef<EventTarget | null | undefined> | (() => EventTarget | null | undefined),
   event: string,
-  handler: (e: any) => void,
+  handler: (e: Event) => void,
   options?: boolean | AddEventListenerOptions
 ) {
   if (typeof window === 'undefined') return

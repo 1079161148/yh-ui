@@ -133,7 +133,7 @@ export const tooltipProps = {
   },
   /** 弹出内容自定义样式 */
   contentStyle: {
-    type: [Object, String] as PropType<string | Record<string, any>>,
+    type: [Object, String] as PropType<string | Record<string, unknown>>,
     default: () => ({})
   },
   /** 箭头自定义类名 */
@@ -143,12 +143,12 @@ export const tooltipProps = {
   },
   /** 箭头自定义样式 */
   arrowStyle: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     default: () => ({})
   },
   /** 弹出层自定义样式 */
   popperStyle: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     default: () => ({})
   },
   /** 箭头容器自定义类名 */
@@ -158,7 +158,7 @@ export const tooltipProps = {
   },
   /** 箭头容器自定义样式 */
   arrowWrapperStyle: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     default: () => ({})
   },
   /** 主题覆盖变量 */

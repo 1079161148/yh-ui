@@ -14,13 +14,16 @@ const props = defineProps(colProps)
 const ns = useNamespace('col')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('col', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'col',
+  computed(() => props.themeOverrides)
+)
 
 const { gutter } = inject(rowContextKey, { gutter: computed(() => 0) })
 
 const style = computed<CSSProperties>(() => {
   const styles: CSSProperties = {
-    ...themeStyle.value as any
+    ...(themeStyle.value as Record<string, string | number>)
   }
   if (gutter.value) {
     styles.paddingLeft = `${gutter.value / 2}px`
@@ -44,7 +47,13 @@ const classes = computed(() => {
   // Responsive
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
   // 使用 unknown 代替 any，并通过类型守卫确保类型安全
-  type ColSizeProps = { span?: number; offset?: number; push?: number; pull?: number;[key: string]: unknown }
+  type ColSizeProps = {
+    span?: number
+    offset?: number
+    push?: number
+    pull?: number
+    [key: string]: unknown
+  }
   sizes.forEach((size) => {
     if (typeof props[size] === 'number') {
       classes.push(ns.b(`${size}-${props[size]}`))
@@ -55,19 +64,14 @@ const classes = computed(() => {
         // 类型守卫：确保值是 number 类型才进行处理
         if (typeof propValue === 'number') {
           classes.push(
-            prop !== 'span'
-              ? ns.b(`${size}-${prop}-${propValue}`)
-              : ns.b(`${size}-${propValue}`)
+            prop !== 'span' ? ns.b(`${size}-${prop}-${propValue}`) : ns.b(`${size}-${propValue}`)
           )
         }
       })
     }
   })
 
-  return [
-    ns.b(),
-    ...classes
-  ]
+  return [ns.b(), ...classes]
 })
 </script>
 

@@ -34,8 +34,11 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   icons: () => [],
+  icon: '',
   size: 24,
+  color: '',
   spin: false,
+  rotate: 0,
   title: '示例'
 })
 
@@ -53,7 +56,7 @@ const tsCode = computed(() => {
     return `<template>\n  ${parts.join(' ')}\n</template>`
   } else if (props.icons.length > 0) {
     // 图标列表用法
-    const lines = props.icons.map(item => {
+    const lines = props.icons.map((item) => {
       const parts = ['<icon']
       parts.push(`icon="${item.icon}"`)
       if (item.size) parts.push(`:size="${item.size}"`)
@@ -74,13 +77,15 @@ const jsCode = computed(() => tsCode.value)
 // 获取图标列表
 const iconList = computed(() => {
   if (props.icon) {
-    return [{
-      icon: props.icon,
-      size: props.size,
-      color: props.color,
-      spin: props.spin,
-      rotate: props.rotate
-    }]
+    return [
+      {
+        icon: props.icon,
+        size: props.size,
+        color: props.color,
+        spin: props.spin,
+        rotate: props.rotate
+      }
+    ]
   }
   return props.icons
 })

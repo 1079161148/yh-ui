@@ -19,7 +19,10 @@ const { t } = useLocale()
 const gradientId = useId()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('spin', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'spin',
+  computed(() => props.themeOverrides)
+)
 
 const emit = defineEmits(['show', 'hide'])
 
@@ -69,8 +72,11 @@ const gradientStops = computed(() => {
   if (!isGradient.value || !color) return []
 
   if (typeof color === 'string') {
-    const colorRegex = /(?:#[a-fA-F0-9]{3,8}|rgba?\s*\([^)]+\)|hsla?\s*\([^)]+\)|(?:\b[a-z]{3,}\b))/gi
-    const matchedColors = color.match(colorRegex)?.filter(c => !/gradient|deg|to|top|bottom|left|right/i.test(c))
+    const colorRegex =
+      /(?:#[a-fA-F0-9]{3,8}|rgba?\s*\([^)]+\)|hsla?\s*\([^)]+\)|(?:\b[a-z]{3,}\b))/gi
+    const matchedColors = color
+      .match(colorRegex)
+      ?.filter((c) => !/gradient|deg|to|top|bottom|left|right/i.test(c))
     if (matchedColors && matchedColors.length > 0) {
       const len = matchedColors.length
       return matchedColors.map((c, i) => ({
@@ -96,7 +102,7 @@ const gradientStops = computed(() => {
 })
 
 const spinStyle = computed(() => {
-  const style: Record<string, any> = {}
+  const style: import('vue').CSSProperties = {}
   if (!props.color) return style
 
   if (isGradient.value) {
@@ -108,7 +114,7 @@ const spinStyle = computed(() => {
       style['--yh-spin-gradient'] = `linear-gradient(135deg, ${stops})`
     }
   } else {
-    style.color = props.color
+    style.color = props.color as string
   }
   return {
     ...themeStyle.value,
@@ -141,11 +147,18 @@ defineExpose({
 </script>
 
 <template>
-  <svg v-if="visible && isGradient"
-    style="width: 0; height: 0; position: absolute; visibility: hidden; pointer-events: none;">
+  <svg
+    v-if="visible && isGradient"
+    style="width: 0; height: 0; position: absolute; visibility: hidden; pointer-events: none"
+  >
     <defs>
       <linearGradient :id="gradientId" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop v-for="(stop, i) in gradientStops" :key="i" :offset="stop.offset" :stop-color="stop.color" />
+        <stop
+          v-for="(stop, i) in gradientStops"
+          :key="i"
+          :offset="stop.offset"
+          :stop-color="stop.color"
+        />
       </linearGradient>
     </defs>
   </svg>
@@ -162,31 +175,55 @@ defineExpose({
           </div>
 
           <!-- Chaser 模式 (追逐点) -->
-          <div v-else-if="type === 'chaser'" :class="ns.e('chaser')"
-            :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
+          <div
+            v-else-if="type === 'chaser'"
+            :class="ns.e('chaser')"
+            :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+          >
             <i v-for="i in 8" :key="i" />
           </div>
 
           <!-- Gear 模式 (齿轮线) -->
-          <div v-else-if="type === 'gear'" :class="ns.e('gear')"
-            :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
+          <div
+            v-else-if="type === 'gear'"
+            :class="ns.e('gear')"
+            :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+          >
             <i v-for="i in 12" :key="i" />
           </div>
 
           <!-- Dual Ring 模式 -->
-          <div v-else-if="type === 'dual-ring'" :class="ns.e('dual-ring')"
-            :style="{ width: sizePx + 'px', height: sizePx + 'px' }" />
+          <div
+            v-else-if="type === 'dual-ring'"
+            :class="ns.e('dual-ring')"
+            :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+          />
 
           <!-- Rect 模式 (矩阵块) -->
-          <div v-else-if="type === 'rect'" :class="ns.e('rect')"
-            :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
+          <div
+            v-else-if="type === 'rect'"
+            :class="ns.e('rect')"
+            :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+          >
             <i v-for="i in 9" :key="i" />
           </div>
 
           <!-- 默认 Circle 模式 (SVG) -->
-          <svg v-else :class="ns.e('svg')" viewBox="0 0 50 50" :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
-            <circle :class="ns.e('circle')" cx="25" cy="25" r="20" fill="none" stroke-width="5"
-              :style="{ stroke: isGradient ? `url(#${gradientId})` : 'currentColor' }"></circle>
+          <svg
+            v-else
+            :class="ns.e('svg')"
+            viewBox="0 0 50 50"
+            :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+          >
+            <circle
+              :class="ns.e('circle')"
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke-width="5"
+              :style="{ stroke: isGradient ? `url(#${gradientId})` : 'currentColor' }"
+            ></circle>
           </svg>
 
           <div v-if="tip || $slots.tip" :class="ns.e('tip')">
@@ -207,29 +244,55 @@ defineExpose({
         </div>
 
         <!-- Chaser 模式 -->
-        <div v-else-if="type === 'chaser'" :class="ns.e('chaser')"
-          :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
+        <div
+          v-else-if="type === 'chaser'"
+          :class="ns.e('chaser')"
+          :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+        >
           <i v-for="i in 8" :key="i" />
         </div>
 
         <!-- Gear 模式 -->
-        <div v-else-if="type === 'gear'" :class="ns.e('gear')" :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
+        <div
+          v-else-if="type === 'gear'"
+          :class="ns.e('gear')"
+          :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+        >
           <i v-for="i in 12" :key="i" />
         </div>
 
         <!-- Dual Ring 模式 -->
-        <div v-else-if="type === 'dual-ring'" :class="ns.e('dual-ring')"
-          :style="{ width: sizePx + 'px', height: sizePx + 'px' }" />
+        <div
+          v-else-if="type === 'dual-ring'"
+          :class="ns.e('dual-ring')"
+          :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+        />
 
         <!-- Rect 模式 -->
-        <div v-else-if="type === 'rect'" :class="ns.e('rect')" :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
+        <div
+          v-else-if="type === 'rect'"
+          :class="ns.e('rect')"
+          :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+        >
           <i v-for="i in 9" :key="i" />
         </div>
 
         <!-- 默认 Circle 模式 -->
-        <svg v-else :class="ns.e('svg')" viewBox="0 0 50 50" :style="{ width: sizePx + 'px', height: sizePx + 'px' }">
-          <circle :class="ns.e('circle')" cx="25" cy="25" r="20" fill="none" stroke-width="5"
-            :style="{ stroke: isGradient ? `url(#${gradientId})` : 'currentColor' }"></circle>
+        <svg
+          v-else
+          :class="ns.e('svg')"
+          viewBox="0 0 50 50"
+          :style="{ width: sizePx + 'px', height: sizePx + 'px' }"
+        >
+          <circle
+            :class="ns.e('circle')"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+            :style="{ stroke: isGradient ? `url(#${gradientId})` : 'currentColor' }"
+          ></circle>
         </svg>
 
         <div v-if="tip || $slots.default || $slots.tip" :class="ns.e('tip')">

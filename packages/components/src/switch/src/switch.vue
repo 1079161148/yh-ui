@@ -13,10 +13,13 @@ const props = defineProps(switchProps)
 const emit = defineEmits(switchEmits)
 const ns = useNamespace('switch')
 
-const { form, formItem, validate } = useFormItem()
+const { form, validate } = useFormItem()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('switch', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'switch',
+  computed(() => props.themeOverrides)
+)
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -28,7 +31,7 @@ const isChecked = computed(() => props.modelValue === props.activeValue)
 
 // 是否禁用（组件 disabled 或 表单 disabled，不包括 loading）
 const isDisabled = computed(() => {
-  return props.disabled || (form?.disabled === true)
+  return props.disabled || form?.disabled === true
 })
 
 // 是否可交互（非禁用且非加载中）
@@ -122,15 +125,33 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="switchClass" :style="switchStyle" role="switch" :aria-checked="isChecked" :aria-disabled="isDisabled"
-    @click="handleClick">
-    <input ref="inputRef" :class="ns.e('input')" type="checkbox" :id="props.id" :name="props.name"
-      :disabled="!isInteractive" :checked="isChecked" :tabindex="props.tabindex" :aria-label="props.ariaLabel"
-      @change.stop @keydown.enter="handleClick" />
+  <div
+    :class="switchClass"
+    :style="switchStyle"
+    role="switch"
+    :aria-checked="isChecked"
+    :aria-disabled="isDisabled"
+    @click="handleClick"
+  >
+    <input
+      ref="inputRef"
+      :class="ns.e('input')"
+      type="checkbox"
+      :id="props.id"
+      :name="props.name"
+      :disabled="!isInteractive"
+      :checked="isChecked"
+      :tabindex="props.tabindex"
+      :aria-label="props.ariaLabel"
+      @change.stop
+      @keydown.enter="handleClick"
+    />
 
     <!-- 左侧标签（非内嵌模式） -->
-    <span v-if="!props.inlinePrompt && (props.inactiveIcon || props.inactiveText)"
-      :class="[ns.e('label'), ns.e('label--left'), ns.is('active', !isChecked)]">
+    <span
+      v-if="!props.inlinePrompt && (props.inactiveIcon || props.inactiveText)"
+      :class="[ns.e('label'), ns.e('label--left'), ns.is('active', !isChecked)]"
+    >
       <slot name="inactive">
         <component v-if="props.inactiveIcon" :is="props.inactiveIcon" :class="ns.e('icon')" />
         <span v-else-if="props.inactiveText">{{ props.inactiveText }}</span>
@@ -162,10 +183,16 @@ defineExpose({
       <!-- 滑块（action） -->
       <div :class="ns.e('action')">
         <!-- Loading 图标 -->
-        <svg v-if="props.loading" :class="ns.e('loading-icon')" viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill="currentColor"
-            d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z" />
+        <svg
+          v-if="props.loading"
+          :class="ns.e('loading-icon')"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="currentColor"
+            d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z"
+          />
         </svg>
         <!-- 自定义 action 图标 -->
         <template v-else>
@@ -180,8 +207,10 @@ defineExpose({
     </span>
 
     <!-- 右侧标签（非内嵌模式） -->
-    <span v-if="!props.inlinePrompt && (props.activeIcon || props.activeText)"
-      :class="[ns.e('label'), ns.e('label--right'), ns.is('active', isChecked)]">
+    <span
+      v-if="!props.inlinePrompt && (props.activeIcon || props.activeText)"
+      :class="[ns.e('label'), ns.e('label--right'), ns.is('active', isChecked)]"
+    >
       <slot name="active">
         <component v-if="props.activeIcon" :is="props.activeIcon" :class="ns.e('icon')" />
         <span v-else-if="props.activeText">{{ props.activeText }}</span>

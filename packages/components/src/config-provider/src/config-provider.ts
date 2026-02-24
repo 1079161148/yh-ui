@@ -1,5 +1,5 @@
 import { defineComponent, provide, renderSlot, watch, computed, ref, h, onMounted } from 'vue'
-import type { PropType, InjectionKey, ExtractPropTypes, ComputedRef } from 'vue'
+import type { PropType, ExtractPropTypes } from 'vue'
 import { useTheme, ThemeManager } from '@yh-ui/theme'
 import type { PresetTheme, ThemeColors } from '@yh-ui/theme'
 import { zhCn } from '@yh-ui/locale'

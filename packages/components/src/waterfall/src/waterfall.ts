@@ -3,7 +3,7 @@ import type { ExtractPropTypes, PropType } from 'vue'
 export const waterfallProps = {
   /** 数据源 */
   items: {
-    type: Array as PropType<any[]>,
+    type: Array as PropType<unknown[]>,
     default: () => []
   },
   /** 列数，支持响应式对象 { xs, sm, md, lg, xl } */

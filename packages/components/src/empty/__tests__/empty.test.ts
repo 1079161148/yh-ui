@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h } from 'vue'
 import Empty from '../src/empty.vue'
 
 describe('YhEmpty 组件', () => {

@@ -166,13 +166,13 @@ export const treeSelectProps = {
 } as const
 
 export const treeSelectEmits = {
-  'update:modelValue': (value: TreeKey | TreeKey[] | undefined) => true,
-  change: (value: TreeKey | TreeKey[] | undefined) => true,
+  'update:modelValue': (_value: TreeKey | TreeKey[] | undefined) => true,
+  change: (_value: TreeKey | TreeKey[] | undefined) => true,
   clear: () => true,
-  'visible-change': (visible: boolean) => true,
-  'node-click': (data: TreeOption, node: TreeSelectNode, e: MouseEvent) => true,
-  'check-change': (data: TreeOption, checked: boolean, indeterminate: boolean) => true,
-  check: (data: TreeOption, info: TreeCheckedInfo) => true
+  'visible-change': (_visible: boolean) => true,
+  'node-click': (_data: TreeOption, _node: TreeSelectNode, _e: MouseEvent) => true,
+  'check-change': (_data: TreeOption, _checked: boolean, _indeterminate: boolean) => true,
+  check: (_data: TreeOption, _info: TreeCheckedInfo) => true
 }
 
 export type TreeSelectEmits = typeof treeSelectEmits

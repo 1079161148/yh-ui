@@ -12,10 +12,13 @@ defineOptions({
 const props = defineProps(rateProps)
 const emit = defineEmits(rateEmits)
 const ns = useNamespace('rate')
-const { t, tRaw } = useLocale()
+const { tRaw } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('rate', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'rate',
+  computed(() => props.themeOverrides)
+)
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -27,10 +30,14 @@ const hoverIndex = ref(-1)
 const isPointerAtLeftHalf = ref(props.modelValue !== Math.floor(props.modelValue))
 
 // 同步外部绑定值
-watch(() => props.modelValue, (val: number) => {
-  currentValue.value = val
-  isPointerAtLeftHalf.value = val !== Math.floor(val)
-}, { immediate: true })
+watch(
+  () => props.modelValue,
+  (val: number) => {
+    currentValue.value = val
+    isPointerAtLeftHalf.value = val !== Math.floor(val)
+  },
+  { immediate: true }
+)
 
 // 计算颜色系统
 const activeColor = computed(() => {
@@ -44,13 +51,13 @@ const activeColor = computed(() => {
   return '#F7BA2A'
 })
 
-const voidColorValue = computed(() => props.disabled ? props.disabledVoidColor : props.voidColor)
+const voidColorValue = computed(() => (props.disabled ? props.disabledVoidColor : props.voidColor))
 
 // 计算每个星星的填充宽度
 const getStarWidth = (item: number) => {
   if (item <= Math.floor(currentValue.value)) return '100%'
   if (item === Math.ceil(currentValue.value) && currentValue.value % 1 !== 0) {
-    return (currentValue.value % 1 * 100) + '%'
+    return (currentValue.value % 1) * 100 + '%'
   }
   return '0%'
 }
@@ -97,26 +104,51 @@ const rateText = computed(() => {
 
 // 基础变量
 const actualSize = computed(() => props.size || globalSize.value || 'default')
-const iconSize = computed(() => ({ large: 24, default: 20, small: 16 }[actualSize.value] || 20))
-const starPath = 'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-37.12L512 166.08l114.88 231.04 255.04 37.12-184.64 179.2 43.52 254.08z'
+const iconSize = computed(() => ({ large: 24, default: 20, small: 16 })[actualSize.value] || 20)
+const starPath =
+  'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-37.12L512 166.08l114.88 231.04 255.04 37.12-184.64 179.2 43.52 254.08z'
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(actualSize), ns.is('disabled', disabled)]" :style="themeStyle"
-    @mouseleave="handleMouseLeave">
-    <div v-for="item in max" :key="item" :class="[ns.e('item'), ns.is('hover', hoverIndex === item)]"
-      :style="{ width: iconSize + 'px', height: iconSize + 'px' }" @mousemove="handleMouseMove(item, $event)"
-      @click="handleItemClick(item)">
-      <slot name="icon" :index="item" :width="getStarWidth(item)" :activeColor="activeColor"
-        :voidColor="voidColorValue">
+  <div
+    :class="[ns.b(), ns.m(actualSize), ns.is('disabled', disabled)]"
+    :style="themeStyle"
+    @mouseleave="handleMouseLeave"
+  >
+    <div
+      v-for="item in max"
+      :key="item"
+      :class="[ns.e('item'), ns.is('hover', hoverIndex === item)]"
+      :style="{ width: iconSize + 'px', height: iconSize + 'px' }"
+      @mousemove="handleMouseMove(item, $event)"
+      @click="handleItemClick(item)"
+    >
+      <slot
+        name="icon"
+        :index="item"
+        :width="getStarWidth(item)"
+        :active-color="activeColor"
+        :void-color="voidColorValue"
+      >
         <!-- 基础层：底色星星 -->
-        <svg :class="[ns.e('star-icon'), ns.is('void')]" :style="{ color: voidColorValue }" viewBox="0 0 1024 1024">
+        <svg
+          :class="[ns.e('star-icon'), ns.is('void')]"
+          :style="{ color: voidColorValue }"
+          viewBox="0 0 1024 1024"
+        >
           <path :d="starPath" fill="currentColor" />
         </svg>
 
         <!-- 填充层：金色星星（带裁剪） -->
-        <div :class="ns.e('star-content')" :style="{ width: getStarWidth(item), color: activeColor }">
-          <svg :class="ns.e('star-icon')" :style="{ width: iconSize + 'px' }" viewBox="0 0 1024 1024">
+        <div
+          :class="ns.e('star-content')"
+          :style="{ width: getStarWidth(item), color: activeColor }"
+        >
+          <svg
+            :class="ns.e('star-icon')"
+            :style="{ width: iconSize + 'px' }"
+            viewBox="0 0 1024 1024"
+          >
             <path :d="starPath" fill="currentColor" />
           </svg>
         </div>
@@ -130,5 +162,5 @@ const starPath = 'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-3
 </template>
 
 <style lang="scss">
-@use "./rate.scss";
+@use './rate.scss';
 </style>

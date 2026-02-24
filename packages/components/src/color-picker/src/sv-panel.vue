@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps<{
   h: number
@@ -12,7 +12,6 @@ const emit = defineEmits<{
 }>()
 
 const panelRef = ref<HTMLElement>()
-const cursorRef = ref<HTMLElement>()
 
 const cursorStyle = computed(() => ({
   left: `${props.s}%`,
@@ -51,7 +50,12 @@ const handleMouseDown = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div ref="panelRef" class="yh-color-sv-panel" :style="backgroundStyle" @mousedown="handleMouseDown">
+  <div
+    ref="panelRef"
+    class="yh-color-sv-panel"
+    :style="backgroundStyle"
+    @mousedown="handleMouseDown"
+  >
     <div class="yh-color-sv-panel__white"></div>
     <div class="yh-color-sv-panel__black"></div>
     <div class="yh-color-sv-panel__cursor" :style="cursorStyle"></div>
@@ -89,7 +93,10 @@ const handleMouseDown = (event: MouseEvent) => {
     position: absolute;
     width: 6px;
     height: 6px;
-    box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0, 0, 0, 0.3), 0 0 1px 2px rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 0 0 1.5px #fff,
+      inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
+      0 0 1px 2px rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     transform: translate(-3px, -3px);
   }

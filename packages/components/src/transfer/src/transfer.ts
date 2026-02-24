@@ -3,7 +3,7 @@
  * @description 穿梭框组件类型定义，严格类型化
  */
 
-import type { Component, InjectionKey, VNode, Ref } from 'vue'
+import type { InjectionKey, VNode } from 'vue'
 
 /**
  * 穿梭框尺寸

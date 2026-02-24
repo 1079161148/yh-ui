@@ -3,7 +3,19 @@
  * YhMessageBox - 极尽完善的消息弹框
  * @description 集成拖拽、亚克力、校验、滚动锁定等市面最全功能
  */
-import { ref, reactive, computed, watch, h, onMounted, onUnmounted, markRaw, nextTick, shallowRef, shallowReactive, type ComponentPublicInstance } from 'vue'
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  h,
+  onMounted,
+  onUnmounted,
+  markRaw,
+  nextTick,
+  shallowReactive,
+  type ComponentPublicInstance
+} from 'vue'
 import { useNamespace, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhButton } from '../../button'
@@ -30,16 +42,21 @@ const DEFAULT_OPTIONS: Partial<MessageBoxOptions> = {
   autofocus: true,
   closeOnClickModal: true,
   closeOnPressEscape: true,
-  width: 420,
+  width: 420
 }
 
 const props = defineProps<MessageBoxOptions>()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('message-box', computed(() => state.options.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'message-box',
+  computed(() => state.options.themeOverrides)
+)
 
 // 如果在服务端渲染或传入了 props (测试环境下)，则初始化可见性为 true
-const visible = ref(typeof window === 'undefined' || !!props.title || !!props.message || !!props.type || !!props.glass)
+const visible = ref(
+  typeof window === 'undefined' || !!props.title || !!props.message || !!props.type || !!props.glass
+)
 const boxRef = ref<HTMLElement | null>(null)
 const inputRef = ref<InputInstance | null>(null)
 const confirmRef = ref<ButtonInstance | null>(null)
@@ -52,23 +69,32 @@ const state = shallowReactive({
 })
 
 // 监听 props 变化以支持组件化用法
-watch(props, (val: Record<string, unknown>) => {
-  state.options = { ...state.options, ...val }
-}, { deep: true })
+watch(
+  props,
+  (val: Record<string, unknown>) => {
+    state.options = { ...state.options, ...val }
+  },
+  { deep: true }
+)
 
 // 自动聚焦逻辑
-watch(() => visible.value, async (val) => {
-  if (val && state.options.autofocus !== false) {
-    await nextTick()
-    if (state.options.type === 'prompt') {
-      inputRef.value?.focus?.()
-    } else {
-      // 尝试对组件或其内部按钮元素获取焦点
-      const el = (confirmRef.value as unknown as ComponentPublicInstance)?.$el || confirmRef.value as unknown as HTMLElement
-      el?.focus?.()
+watch(
+  () => visible.value,
+  async (val) => {
+    if (val && state.options.autofocus !== false) {
+      await nextTick()
+      if (state.options.type === 'prompt') {
+        inputRef.value?.focus?.()
+      } else {
+        // 尝试对组件或其内部按钮元素获取焦点
+        const el =
+          (confirmRef.value as unknown as ComponentPublicInstance)?.$el ||
+          (confirmRef.value as unknown as HTMLElement)
+        el?.focus?.()
+      }
     }
   }
-})
+)
 
 // 滚动锁定管理
 const shouldLockScroll = computed(() => !!(visible.value && state.options.lockScroll))
@@ -159,11 +185,14 @@ const validate = () => {
 }
 
 // 实时校验：当用户输入时，如果已经存在错误，则实时重新校验
-watch(() => state.inputValue, () => {
-  if (state.options.type === 'prompt' && state.validateError) {
-    validate()
+watch(
+  () => state.inputValue,
+  () => {
+    if (state.options.type === 'prompt' && state.validateError) {
+      validate()
+    }
   }
-})
+)
 
 const open = (options: MessageBoxOptions) => {
   const { appContext, ...rest } = options
@@ -248,54 +277,90 @@ const exposed = reactive<MessageBoxInstance>({
   open,
   close,
   setCallback,
-  get confirmLoading() { return state.confirmLoading },
-  set confirmLoading(val) { state.confirmLoading = val },
-  get cancelLoading() { return state.cancelLoading },
-  set cancelLoading(val) { state.cancelLoading = val }
+  get confirmLoading() {
+    return state.confirmLoading
+  },
+  set confirmLoading(val) {
+    state.confirmLoading = val
+  },
+  get cancelLoading() {
+    return state.cancelLoading
+  },
+  set cancelLoading(val) {
+    state.cancelLoading = val
+  }
 })
 
 defineExpose(exposed)
 
 const getStatusIcon = (type: string) => {
   switch (type) {
-    case 'success': return IconSuccess
-    case 'warning': return IconWarning
-    case 'error': return IconError
-    default: return IconInfo
+    case 'success':
+      return IconSuccess
+    case 'warning':
+      return IconWarning
+    case 'error':
+      return IconError
+    default:
+      return IconInfo
   }
 }
 </script>
 
 <template>
   <Transition :name="ns.b('fade')">
-    <div v-if="visible" :class="ns.b('wrapper')" @mousedown="handleWrapperMousedown" @click="handleWrapperClick"
-      role="dialog" aria-modal="true">
-      <div ref="boxRef" :class="[
-        ns.b(),
-        state.options.customClass,
-        { [ns.m('glass')]: state.options.glass },
-        { [ns.m('center')]: state.options.center },
-        { 'is-dragging': isDragging }
-      ]" :style="[boxStyle, themeStyle]">
+    <div
+      v-if="visible"
+      :class="ns.b('wrapper')"
+      @mousedown="handleWrapperMousedown"
+      @click="handleWrapperClick"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        ref="boxRef"
+        :class="[
+          ns.b(),
+          state.options.customClass,
+          { [ns.m('glass')]: state.options.glass },
+          { [ns.m('center')]: state.options.center },
+          { 'is-dragging': isDragging }
+        ]"
+        :style="[boxStyle, themeStyle]"
+      >
         <div v-if="state.options.glass" :class="ns.e('bg')" />
 
-        <div :class="[ns.e('header'), { 'is-draggable': state.options.draggable }]" @mousedown="onMousedown">
+        <div
+          :class="[ns.e('header'), { 'is-draggable': state.options.draggable }]"
+          @mousedown="onMousedown"
+        >
           <div :class="ns.e('title')">{{ state.options.title || t('messagebox.title') }}</div>
-          <button v-if="state.options.showClose !== false" :class="ns.e('close')" @click="handleAction('close')"
-            :aria-label="t('messagebox.close')">
+          <button
+            v-if="state.options.showClose !== false"
+            :class="ns.e('close')"
+            @click="handleAction('close')"
+            :aria-label="t('messagebox.close')"
+          >
             <YhIcon :svg="IconClose.svg" :view-box="IconClose.viewBox" />
           </button>
         </div>
 
         <div :class="ns.e('content')">
-          <div v-if="state.options.iconType || state.options.icon"
-            :class="[ns.e('status'), ns.is(state.options.iconType || '')]">
+          <div
+            v-if="state.options.iconType || state.options.icon"
+            :class="[ns.e('status'), ns.is(state.options.iconType || '')]"
+          >
             <template v-if="state.options.icon">
-              <component :is="typeof state.options.icon === 'string' ? YhIcon : state.options.icon"
-                v-bind="typeof state.options.icon === 'string' ? { name: state.options.icon } : {}" />
+              <component
+                :is="typeof state.options.icon === 'string' ? YhIcon : state.options.icon"
+                v-bind="typeof state.options.icon === 'string' ? { name: state.options.icon } : {}"
+              />
             </template>
-            <YhIcon v-else-if="state.options.iconType" :svg="getStatusIcon(state.options.iconType).svg"
-              :view-box="getStatusIcon(state.options.iconType).viewBox" />
+            <YhIcon
+              v-else-if="state.options.iconType"
+              :svg="getStatusIcon(state.options.iconType).svg"
+              :view-box="getStatusIcon(state.options.iconType).viewBox"
+            />
           </div>
           <div :class="ns.e('message')">
             <MessageContent />
@@ -303,9 +368,15 @@ const getStatusIcon = (type: string) => {
         </div>
 
         <div v-if="state.options.type === 'prompt'" :class="ns.e('input')">
-          <YhInput ref="inputRef" v-model="state.inputValue" :placeholder="state.options.inputPlaceholder"
-            :class="{ 'is-error': !!state.validateError }" @keyup.enter="handleAction('confirm')" @blur="validate"
-            @input="state.validateError && validate()" />
+          <YhInput
+            ref="inputRef"
+            v-model="state.inputValue"
+            :placeholder="state.options.inputPlaceholder"
+            :class="{ 'is-error': !!state.validateError }"
+            @keyup.enter="handleAction('confirm')"
+            @blur="validate"
+            @input="state.validateError && validate()"
+          />
           <Transition name="yh-zoom-in-top">
             <div v-show="state.validateError" :class="ns.e('err-msg')">
               {{ state.validateError }}
@@ -314,15 +385,26 @@ const getStatusIcon = (type: string) => {
         </div>
 
         <div :class="ns.e('footer')">
-          <YhButton v-if="state.options.showCancelButton !== false" size="small" :round="state.options.roundButton"
+          <YhButton
+            v-if="state.options.showCancelButton !== false"
+            size="small"
+            :round="state.options.roundButton"
             :loading="state.cancelLoading || state.options.cancelButtonLoading"
-            :disabled="state.confirmLoading || state.cancelLoading" @click="handleAction('cancel')">
+            :disabled="state.confirmLoading || state.cancelLoading"
+            @click="handleAction('cancel')"
+          >
             {{ state.options.cancelButtonText || t('messagebox.cancel') }}
           </YhButton>
-          <YhButton v-if="state.options.showConfirmButton !== false" ref="confirmRef" type="primary" size="small"
+          <YhButton
+            v-if="state.options.showConfirmButton !== false"
+            ref="confirmRef"
+            type="primary"
+            size="small"
             :loading="state.confirmLoading || state.options.confirmButtonLoading"
-            :disabled="state.confirmLoading || state.cancelLoading" :round="state.options.roundButton"
-            @click="handleAction('confirm')">
+            :disabled="state.confirmLoading || state.cancelLoading"
+            :round="state.options.roundButton"
+            @click="handleAction('confirm')"
+          >
             {{ state.options.confirmButtonText || t('messagebox.confirm') }}
           </YhButton>
         </div>

@@ -12,37 +12,44 @@ defineOptions({
   name: 'YhTimeSpinner'
 })
 
-const props = withDefaults(defineProps<{
-  /** 当前时间状态 */
-  modelValue: TimeState
-  /** 是否显示秒 */
-  showSeconds?: boolean
-  /** 是否使用箭头控制 */
-  arrowControl?: boolean
-  /** 小时步长 */
-  hourStep?: number
-  /** 分钟步长 */
-  minuteStep?: number
-  /** 秒步长 */
-  secondStep?: number
-  /** 禁用时间配置 */
-  disabledTime?: DisabledTimeConfig
-  /** 是否使用 12 小时制 */
-  use12Hours?: boolean
-  /** 自定义小时选项 */
-  hourOptions?: number[]
-  /** 自定义分钟选项 */
-  minuteOptions?: number[]
-  /** 自定义秒选项 */
-  secondOptions?: number[]
-}>(), {
-  showSeconds: true,
-  arrowControl: false,
-  hourStep: 1,
-  minuteStep: 1,
-  secondStep: 1,
-  use12Hours: false
-})
+const props = withDefaults(
+  defineProps<{
+    /** 当前时间状态 */
+    modelValue: TimeState
+    /** 是否显示秒 */
+    showSeconds?: boolean
+    /** 是否使用箭头控制 */
+    arrowControl?: boolean
+    /** 小时步长 */
+    hourStep?: number
+    /** 分钟步长 */
+    minuteStep?: number
+    /** 秒步长 */
+    secondStep?: number
+    /** 禁用时间配置 */
+    disabledTime?: DisabledTimeConfig
+    /** 是否使用 12 小时制 */
+    use12Hours?: boolean
+    /** 自定义小时选项 */
+    hourOptions?: number[]
+    /** 自定义分钟选项 */
+    minuteOptions?: number[]
+    /** 自定义秒选项 */
+    secondOptions?: number[]
+  }>(),
+  {
+    showSeconds: true,
+    arrowControl: false,
+    hourStep: 1,
+    minuteStep: 1,
+    secondStep: 1,
+    use12Hours: false,
+    disabledTime: undefined,
+    hourOptions: undefined,
+    minuteOptions: undefined,
+    secondOptions: undefined
+  }
+)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: TimeState): void
@@ -70,7 +77,9 @@ const disabledMinutes = computed(() => {
 })
 
 const disabledSeconds = computed(() => {
-  return props.disabledTime?.disabledSeconds?.(props.modelValue.hours, props.modelValue.minutes) || []
+  return (
+    props.disabledTime?.disabledSeconds?.(props.modelValue.hours, props.modelValue.minutes) || []
+  )
 })
 
 // 生成选项列表
@@ -79,7 +88,7 @@ const hoursList = computed(() => {
   const list = generateNumberList(max, props.hourStep, disabledHours.value, props.hourOptions)
   if (props.use12Hours) {
     // 12 小时制：显示 12, 1, 2, ... 11
-    return list.map(item => ({
+    return list.map((item) => ({
       ...item,
       value: item.value === 0 ? 12 : item.value
     }))
@@ -101,7 +110,7 @@ const ampmList = computed(() => [
 ])
 
 // 当前 AM/PM
-const currentAmpm = computed(() => props.modelValue.hours >= 12 ? 'PM' : 'AM')
+const currentAmpm = computed(() => (props.modelValue.hours >= 12 ? 'PM' : 'AM'))
 
 // 格式化显示数字
 const formatNumber = (n: number): string => String(n).padStart(2, '0')
@@ -126,7 +135,10 @@ const adjustScrollPosition = (container: HTMLElement | undefined) => {
 }
 
 // 处理滚动结束
-const handleScrollEnd = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', container: HTMLElement | undefined) => {
+const handleScrollEnd = (
+  type: 'hours' | 'minutes' | 'seconds' | 'ampm',
+  container: HTMLElement | undefined
+) => {
   if (!container) return
 
   const scrollTop = container.scrollTop
@@ -135,8 +147,12 @@ const handleScrollEnd = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', contain
   if (type === 'ampm') {
     const isAM = index === 0
     const newHours = isAM
-      ? (props.modelValue.hours >= 12 ? props.modelValue.hours - 12 : props.modelValue.hours)
-      : (props.modelValue.hours < 12 ? props.modelValue.hours + 12 : props.modelValue.hours)
+      ? props.modelValue.hours >= 12
+        ? props.modelValue.hours - 12
+        : props.modelValue.hours
+      : props.modelValue.hours < 12
+        ? props.modelValue.hours + 12
+        : props.modelValue.hours
 
     if (newHours !== props.modelValue.hours) {
       const newState = { ...props.modelValue, hours: newHours }
@@ -144,7 +160,12 @@ const handleScrollEnd = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', contain
       emit('change', newState)
     }
   } else {
-    const list = type === 'hours' ? hoursList.value : type === 'minutes' ? minutesList.value : secondsList.value
+    const list =
+      type === 'hours'
+        ? hoursList.value
+        : type === 'minutes'
+          ? minutesList.value
+          : secondsList.value
     if (index >= 0 && index < list.length) {
       const item = list[index]
       if (item && !item.disabled) {
@@ -153,7 +174,7 @@ const handleScrollEnd = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', contain
         // 12 小时制转换
         if (type === 'hours' && props.use12Hours) {
           const isPM = props.modelValue.hours >= 12
-          value = value === 12 ? (isPM ? 12 : 0) : (isPM ? value + 12 : value)
+          value = value === 12 ? (isPM ? 12 : 0) : isPM ? value + 12 : value
         }
 
         if (props.modelValue[type] !== value) {
@@ -185,7 +206,8 @@ const handleScroll = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', event: Eve
 
 // 箭头控制
 const handleArrowClick = (type: 'hours' | 'minutes' | 'seconds', direction: 'up' | 'down') => {
-  const list = type === 'hours' ? hoursList.value : type === 'minutes' ? minutesList.value : secondsList.value
+  const list =
+    type === 'hours' ? hoursList.value : type === 'minutes' ? minutesList.value : secondsList.value
   let currentValue = props.modelValue[type]
 
   // 12 小时制转换 (获取正确的 index)
@@ -193,7 +215,7 @@ const handleArrowClick = (type: 'hours' | 'minutes' | 'seconds', direction: 'up'
     currentValue = currentValue % 12 || 12
   }
 
-  const currentIndex = list.findIndex(item => item.value === currentValue)
+  const currentIndex = list.findIndex((item) => item.value === currentValue)
 
   let newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1
 
@@ -216,7 +238,7 @@ const handleArrowClick = (type: 'hours' | 'minutes' | 'seconds', direction: 'up'
     // 12 小时制转换
     if (type === 'hours' && props.use12Hours) {
       const isPM = props.modelValue.hours >= 12
-      value = value === 12 ? (isPM ? 12 : 0) : (isPM ? value + 12 : value)
+      value = value === 12 ? (isPM ? 12 : 0) : isPM ? value + 12 : value
     }
 
     const newState = { ...props.modelValue, [type]: value }
@@ -226,7 +248,11 @@ const handleArrowClick = (type: 'hours' | 'minutes' | 'seconds', direction: 'up'
 }
 
 // 点击选择
-const handleItemClick = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', value: number | string, disabled: boolean) => {
+const handleItemClick = (
+  type: 'hours' | 'minutes' | 'seconds' | 'ampm',
+  value: number | string,
+  disabled: boolean
+) => {
   if (disabled) return
 
   if (type === 'ampm') {
@@ -251,7 +277,7 @@ const handleItemClick = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', value: 
     // 12 小时制转换
     if (type === 'hours' && props.use12Hours) {
       const isPM = props.modelValue.hours >= 12
-      numValue = numValue === 12 ? (isPM ? 12 : 0) : (isPM ? numValue + 12 : numValue)
+      numValue = numValue === 12 ? (isPM ? 12 : 0) : isPM ? numValue + 12 : numValue
     }
 
     if (props.modelValue[type] !== numValue) {
@@ -264,7 +290,8 @@ const handleItemClick = (type: 'hours' | 'minutes' | 'seconds' | 'ampm', value: 
 
 // 获取当前值在列表中的索引
 const getCurrentIndex = (type: 'hours' | 'minutes' | 'seconds'): number => {
-  const list = type === 'hours' ? hoursList.value : type === 'minutes' ? minutesList.value : secondsList.value
+  const list =
+    type === 'hours' ? hoursList.value : type === 'minutes' ? minutesList.value : secondsList.value
   let value = props.modelValue[type]
 
   // 12 小时制转换
@@ -272,7 +299,7 @@ const getCurrentIndex = (type: 'hours' | 'minutes' | 'seconds'): number => {
     value = value % 12 || 12
   }
 
-  return list.findIndex(item => item.value === value)
+  return list.findIndex((item) => item.value === value)
 }
 
 // 滚动到当前选中值
@@ -290,9 +317,13 @@ const scrollToCurrentValues = (smooth = false) => {
 }
 
 // 监听值变化，自动滚动
-watch(() => props.modelValue, () => {
-  scrollToCurrentValues(true)
-}, { deep: true })
+watch(
+  () => props.modelValue,
+  () => {
+    scrollToCurrentValues(true)
+  },
+  { deep: true }
+)
 
 // 初始化滚动位置
 onMounted(() => {
@@ -312,27 +343,42 @@ defineExpose({
       <template v-if="arrowControl">
         <button :class="ns.e('arrow')" type="button" @click="handleArrowClick('hours', 'up')">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 683.136L512 371.328 192.128 683.136a30.592 30.592 0 0 1-42.752 0 29.12 29.12 0 0 1 0-41.6l340.288-331.712a32 32 0 0 1 44.672 0l340.288 331.776a29.12 29.12 0 0 1 0 41.6 30.592 30.592 0 0 1-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 683.136L512 371.328 192.128 683.136a30.592 30.592 0 0 1-42.752 0 29.12 29.12 0 0 1 0-41.6l340.288-331.712a32 32 0 0 1 44.672 0l340.288 331.776a29.12 29.12 0 0 1 0 41.6 30.592 30.592 0 0 1-42.752 0z"
+            />
           </svg>
         </button>
-        <div :class="ns.e('value')">{{ formatNumber(use12Hours ? (modelValue.hours % 12 || 12) : modelValue.hours) }}
+        <div :class="ns.e('value')">
+          {{ formatNumber(use12Hours ? modelValue.hours % 12 || 12 : modelValue.hours) }}
         </div>
         <button :class="ns.e('arrow')" type="button" @click="handleArrowClick('hours', 'down')">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+            />
           </svg>
         </button>
       </template>
       <template v-else>
         <div ref="hoursRef" :class="ns.e('list')" @scroll="handleScroll('hours', $event)">
           <div :class="ns.e('list-inner')">
-            <div v-for="item in hoursList" :key="item.value" :class="[
-              ns.e('item'),
-              ns.is('selected', use12Hours ? (modelValue.hours % 12 || 12) === item.value : modelValue.hours === item.value),
-              ns.is('disabled', item.disabled)
-            ]" @click="handleItemClick('hours', item.value, item.disabled)">
+            <div
+              v-for="item in hoursList"
+              :key="item.value"
+              :class="[
+                ns.e('item'),
+                ns.is(
+                  'selected',
+                  use12Hours
+                    ? (modelValue.hours % 12 || 12) === item.value
+                    : modelValue.hours === item.value
+                ),
+                ns.is('disabled', item.disabled)
+              ]"
+              @click="handleItemClick('hours', item.value, item.disabled)"
+            >
               {{ formatNumber(item.value) }}
             </div>
           </div>
@@ -348,26 +394,35 @@ defineExpose({
       <template v-if="arrowControl">
         <button :class="ns.e('arrow')" type="button" @click="handleArrowClick('minutes', 'up')">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 683.136L512 371.328 192.128 683.136a30.592 30.592 0 0 1-42.752 0 29.12 29.12 0 0 1 0-41.6l340.288-331.712a32 32 0 0 1 44.672 0l340.288 331.776a29.12 29.12 0 0 1 0 41.6 30.592 30.592 0 0 1-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 683.136L512 371.328 192.128 683.136a30.592 30.592 0 0 1-42.752 0 29.12 29.12 0 0 1 0-41.6l340.288-331.712a32 32 0 0 1 44.672 0l340.288 331.776a29.12 29.12 0 0 1 0 41.6 30.592 30.592 0 0 1-42.752 0z"
+            />
           </svg>
         </button>
         <div :class="ns.e('value')">{{ formatNumber(modelValue.minutes) }}</div>
         <button :class="ns.e('arrow')" type="button" @click="handleArrowClick('minutes', 'down')">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+            />
           </svg>
         </button>
       </template>
       <template v-else>
         <div ref="minutesRef" :class="ns.e('list')" @scroll="handleScroll('minutes', $event)">
           <div :class="ns.e('list-inner')">
-            <div v-for="item in minutesList" :key="item.value" :class="[
-              ns.e('item'),
-              ns.is('selected', modelValue.minutes === item.value),
-              ns.is('disabled', item.disabled)
-            ]" @click="handleItemClick('minutes', item.value, item.disabled)">
+            <div
+              v-for="item in minutesList"
+              :key="item.value"
+              :class="[
+                ns.e('item'),
+                ns.is('selected', modelValue.minutes === item.value),
+                ns.is('disabled', item.disabled)
+              ]"
+              @click="handleItemClick('minutes', item.value, item.disabled)"
+            >
               {{ formatNumber(item.value) }}
             </div>
           </div>
@@ -384,26 +439,35 @@ defineExpose({
         <template v-if="arrowControl">
           <button :class="ns.e('arrow')" type="button" @click="handleArrowClick('seconds', 'up')">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M831.872 683.136L512 371.328 192.128 683.136a30.592 30.592 0 0 1-42.752 0 29.12 29.12 0 0 1 0-41.6l340.288-331.712a32 32 0 0 1 44.672 0l340.288 331.776a29.12 29.12 0 0 1 0 41.6 30.592 30.592 0 0 1-42.752 0z" />
+              <path
+                fill="currentColor"
+                d="M831.872 683.136L512 371.328 192.128 683.136a30.592 30.592 0 0 1-42.752 0 29.12 29.12 0 0 1 0-41.6l340.288-331.712a32 32 0 0 1 44.672 0l340.288 331.776a29.12 29.12 0 0 1 0 41.6 30.592 30.592 0 0 1-42.752 0z"
+              />
             </svg>
           </button>
           <div :class="ns.e('value')">{{ formatNumber(modelValue.seconds) }}</div>
           <button :class="ns.e('arrow')" type="button" @click="handleArrowClick('seconds', 'down')">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z" />
+              <path
+                fill="currentColor"
+                d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+              />
             </svg>
           </button>
         </template>
         <template v-else>
           <div ref="secondsRef" :class="ns.e('list')" @scroll="handleScroll('seconds', $event)">
             <div :class="ns.e('list-inner')">
-              <div v-for="item in secondsList" :key="item.value" :class="[
-                ns.e('item'),
-                ns.is('selected', modelValue.seconds === item.value),
-                ns.is('disabled', item.disabled)
-              ]" @click="handleItemClick('seconds', item.value, item.disabled)">
+              <div
+                v-for="item in secondsList"
+                :key="item.value"
+                :class="[
+                  ns.e('item'),
+                  ns.is('selected', modelValue.seconds === item.value),
+                  ns.is('disabled', item.disabled)
+                ]"
+                @click="handleItemClick('seconds', item.value, item.disabled)"
+              >
                 {{ formatNumber(item.value) }}
               </div>
             </div>
@@ -417,11 +481,16 @@ defineExpose({
       <div :class="ns.e('column')">
         <div ref="ampmRef" :class="ns.e('list')" @scroll="handleScroll('ampm', $event)">
           <div :class="ns.e('list-inner')">
-            <div v-for="item in ampmList" :key="item.value" :class="[
-              ns.e('item'),
-              ns.is('selected', currentAmpm === item.value),
-              ns.is('disabled', item.disabled)
-            ]" @click="handleItemClick('ampm', item.value, item.disabled)">
+            <div
+              v-for="item in ampmList"
+              :key="item.value"
+              :class="[
+                ns.e('item'),
+                ns.is('selected', currentAmpm === item.value),
+                ns.is('disabled', item.disabled)
+              ]"
+              @click="handleItemClick('ampm', item.value, item.disabled)"
+            >
               {{ item.label }}
             </div>
           </div>
@@ -477,13 +546,15 @@ $item-height: 32px;
     text-align: center;
     font-size: 14px;
     font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum";
+    font-feature-settings: 'tnum';
     color: var(--yh-text-color-regular);
     cursor: pointer;
     scroll-snap-align: center;
     border-radius: 4px;
     margin: 0 auto;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
 
     &:hover:not(.is-disabled):not(.is-selected) {
       background-color: var(--yh-time-picker-hover-bg);

@@ -220,7 +220,7 @@ export const countdownProps = {
 
 export const countdownEmits = {
   /** 倒计时更新时触发 */
-  change: (ctx: CountdownFormatContext) => true,
+  change: (_ctx: CountdownFormatContext) => true,
   /** 倒计时结束时触发 */
   finish: () => true,
   /** 倒计时开始时触发 */
@@ -232,7 +232,7 @@ export const countdownEmits = {
   /** 倒计时重置时触发 */
   reset: () => true,
   /** 进入预警状态时触发 */
-  warning: (ctx: CountdownFormatContext) => true,
+  warning: (_ctx: CountdownFormatContext) => true,
   /** 状态变化时触发 */
   statusChange: (status: CountdownStatus) =>
     ['pending', 'running', 'paused', 'finished'].includes(status)

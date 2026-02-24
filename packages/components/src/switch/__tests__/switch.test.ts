@@ -4,7 +4,6 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ref, nextTick } from 'vue'
 import YhSwitch from '../src/switch.vue'
 
 describe('YhSwitch', () => {

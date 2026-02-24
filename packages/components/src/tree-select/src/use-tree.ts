@@ -3,7 +3,6 @@
  * @description 树形逻辑管理，消除 any，确保类型链条完备
  */
 import { ref, computed, watch, triggerRef, reactive } from 'vue'
-import type { SetupContext } from 'vue'
 import type {
   TreeSelectProps,
   TreeSelectEmits,
@@ -62,7 +61,8 @@ export const useTree = (
 
   const flatData = computed(() => {
     // 强制依赖版本号以触发更新
-    mapVersion.value
+
+    void mapVersion.value
     const result: TreeSelectNode[] = []
     const walk = (nodes: TreeSelectNode[]) => {
       nodes.forEach((node) => {

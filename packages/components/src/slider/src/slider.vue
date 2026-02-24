@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted, provide, toRefs } from 'vue'
+import { ref, computed, watch, onMounted, provide, toRefs } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -14,14 +14,17 @@ defineOptions({
 })
 
 const props = defineProps(sliderProps)
-const { vertical, disabled, size } = toRefs(props)
+const { vertical } = toRefs(props)
 const emit = defineEmits(sliderEmits)
 
 const ns = useNamespace('slider')
 const { form, formItem, validate: triggerValidate } = useFormItem()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('slider', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'slider',
+  computed(() => props.themeOverrides)
+)
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -34,7 +37,7 @@ const secondValue = ref(0)
 const mergedDisabled = computed(() => props.disabled || form?.disabled || false)
 const mergedSize = computed((): InputNumberSize => {
   const size = props.size || formItem?.size || form?.size || globalSize.value || 'default'
-  return size === '' ? 'default' : size as InputNumberSize
+  return size === '' ? 'default' : (size as InputNumberSize)
 })
 
 // 提供给子组件
@@ -66,8 +69,12 @@ watch(
 
 initValues()
 
-const minValue = computed(() => (props.range ? Math.min(firstValue.value, secondValue.value) : props.min))
-const maxValue = computed(() => (props.range ? Math.max(firstValue.value, secondValue.value) : firstValue.value))
+const minValue = computed(() =>
+  props.range ? Math.min(firstValue.value, secondValue.value) : props.min
+)
+const maxValue = computed(() =>
+  props.range ? Math.max(firstValue.value, secondValue.value) : firstValue.value
+)
 
 const barSize = computed(() => {
   return props.range
@@ -82,15 +89,15 @@ const barStart = computed(() => {
 const barStyle = computed(() => {
   const style: CSSProperties = props.vertical
     ? {
-      height: barSize.value,
-      bottom: barStart.value,
-      top: 'auto'
-    }
+        height: barSize.value,
+        bottom: barStart.value,
+        top: 'auto'
+      }
     : {
-      width: barSize.value,
-      left: barStart.value,
-      right: 'auto'
-    }
+        width: barSize.value,
+        left: barStart.value,
+        right: 'auto'
+      }
 
   if (props.color) {
     style.background = props.color
@@ -113,7 +120,9 @@ const stops = computed(() => {
       return val < minValue.value || val > maxValue.value
     })
   } else {
-    return result.filter((step) => props.min + (step * (props.max - props.min)) / 100 > firstValue.value)
+    return result.filter(
+      (step) => props.min + (step * (props.max - props.min)) / 100 > firstValue.value
+    )
   }
 })
 
@@ -126,18 +135,23 @@ const markList = computed(() => {
     const mark = props.marks?.[key]
     return {
       point: ((key - props.min) / (props.max - props.min)) * 100,
-      label: typeof mark === 'string' ? { label: mark, style: undefined } : (mark ?? { label: '', style: undefined })
+      label:
+        typeof mark === 'string'
+          ? { label: mark, style: undefined }
+          : (mark ?? { label: '', style: undefined })
     }
   })
 })
 
-const sliderClasses = computed(() => [
-  ns.b(),
-  ns.m(mergedSize.value),
-  vertical.value ? ns.is('vertical') : '',
-  mergedDisabled.value ? ns.is('disabled') : '',
-  (props.showInput && !props.range) ? ns.is('with-input') : ''
-].filter(Boolean))
+const sliderClasses = computed(() =>
+  [
+    ns.b(),
+    ns.m(mergedSize.value),
+    vertical.value ? ns.is('vertical') : '',
+    mergedDisabled.value ? ns.is('disabled') : '',
+    props.showInput && !props.range ? ns.is('with-input') : ''
+  ].filter(Boolean)
+)
 
 const sliderStyle = computed(() => {
   const style: Record<string, string> = {}
@@ -228,42 +242,85 @@ onMounted(() => {
 <template>
   <div :class="sliderClasses" :style="sliderStyle">
     <div :class="ns.e('input')" v-if="showInput && !range">
-      <yh-input-number :model-value="firstValue" :min="min" :max="max" :step="step" :disabled="mergedDisabled"
-        :size="(inputSize || mergedSize)" :controls="showInputControls" @change="handleInputChange" />
+      <yh-input-number
+        :model-value="firstValue"
+        :min="min"
+        :max="max"
+        :step="step"
+        :disabled="mergedDisabled"
+        :size="inputSize || mergedSize"
+        :controls="showInputControls"
+        @change="handleInputChange"
+      />
     </div>
 
     <div ref="sliderRef" :class="ns.e('runway')" @mousedown="onSliderClick">
       <div :class="ns.e('bar')" :style="barStyle"></div>
 
-      <slider-button v-model="firstValue" :vertical="vertical" :disabled="mergedDisabled" :min="min" :max="max"
-        :step="step" :show-tooltip="showTooltip" :format-tooltip="formatTooltip" :tooltip-class="tooltipClass"
-        :placement="placement" @change="handleButtonChange" @input="handleButtonInput">
+      <slider-button
+        v-model="firstValue"
+        :vertical="vertical"
+        :disabled="mergedDisabled"
+        :min="min"
+        :max="max"
+        :step="step"
+        :show-tooltip="showTooltip"
+        :format-tooltip="formatTooltip"
+        :tooltip-class="tooltipClass"
+        :placement="placement"
+        @change="handleButtonChange"
+        @input="handleButtonInput"
+      >
         <template v-if="$slots.thumb" #thumb="scope">
           <slot name="thumb" v-bind="scope"></slot>
         </template>
       </slider-button>
 
-      <slider-button v-if="range" v-model="secondValue" :vertical="vertical" :disabled="mergedDisabled" :min="min"
-        :max="max" :step="step" :show-tooltip="showTooltip" :format-tooltip="formatTooltip"
-        :tooltip-class="tooltipClass" :placement="placement" @change="handleButtonChange" @input="handleButtonInput">
+      <slider-button
+        v-if="range"
+        v-model="secondValue"
+        :vertical="vertical"
+        :disabled="mergedDisabled"
+        :min="min"
+        :max="max"
+        :step="step"
+        :show-tooltip="showTooltip"
+        :format-tooltip="formatTooltip"
+        :tooltip-class="tooltipClass"
+        :placement="placement"
+        @change="handleButtonChange"
+        @input="handleButtonInput"
+      >
         <template v-if="$slots.thumb" #thumb="scope">
           <slot name="thumb" v-bind="scope"></slot>
         </template>
       </slider-button>
 
       <template v-if="showStops">
-        <div v-for="(stop, index) in stops" :key="index" :class="ns.e('stop')"
-          :style="vertical ? { bottom: stop + '%' } : { left: stop + '%' }"></div>
+        <div
+          v-for="(stop, index) in stops"
+          :key="index"
+          :class="ns.e('stop')"
+          :style="vertical ? { bottom: stop + '%' } : { left: stop + '%' }"
+        ></div>
       </template>
 
       <template v-if="markList.length > 0">
         <div>
-          <div v-for="(item, index) in markList" :key="index" :class="ns.e('stop')"
-            :style="vertical ? { bottom: item.point + '%' } : { left: item.point + '%' }"></div>
+          <div
+            v-for="(item, index) in markList"
+            :key="index"
+            :class="ns.e('stop')"
+            :style="vertical ? { bottom: item.point + '%' } : { left: item.point + '%' }"
+          ></div>
         </div>
         <div :class="ns.e('marks')">
-          <div v-for="(item, index) in markList" :key="index" :class="ns.e('mark-text')"
-            :style="vertical ? { bottom: item.point + '%' } : { left: item.point + '%' }">
+          <div
+            v-for="(item, index) in markList"
+            :key="index"
+            :class="ns.e('mark-text')"
+            :style="vertical ? { bottom: item.point + '%' } : { left: item.point + '%' }"
+          >
             <slot name="mark" :mark="item.label.label">
               <div :style="item.label.style">{{ item.label.label }}</div>
             </slot>

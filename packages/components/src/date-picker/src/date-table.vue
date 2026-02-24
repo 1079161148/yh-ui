@@ -3,8 +3,7 @@ import { computed } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { generateCalendar } from './panel-utils'
 import type { CalendarCell } from './panel-utils'
-import * as _dayjs from 'dayjs'
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from 'dayjs'
 
 const props = defineProps<{
   date: Date
@@ -59,11 +58,7 @@ const weekDays = computed(() => {
 })
 
 const getCellClasses = (cell: CalendarCell) => {
-  const classes: string[] = [
-    ns.e('cell'),
-    ns.is(cell.type),
-    ns.is(props.cellShape || 'round')
-  ]
+  const classes: string[] = [ns.e('cell'), ns.is(cell.type), ns.is(props.cellShape || 'round')]
 
   if (cell.isToday) classes.push('is-today')
   if (cell.disabled) classes.push('is-disabled')
@@ -137,7 +132,10 @@ const handleMouseEnter = (cell: CalendarCell) => {
 </script>
 
 <template>
-  <table :class="[ns.e('table'), ns.is('week-mode', selectionMode === 'week')]" @mouseleave="emit('hover', null)">
+  <table
+    :class="[ns.e('table'), ns.is('week-mode', selectionMode === 'week')]"
+    @mouseleave="emit('hover', null)"
+  >
     <thead>
       <tr>
         <th v-for="day in weekDays" :key="day">{{ day }}</th>
@@ -145,12 +143,20 @@ const handleMouseEnter = (cell: CalendarCell) => {
     </thead>
     <tbody>
       <tr v-for="(row, i) in rows" :key="i" :class="ns.e('table-row')">
-        <td v-for="(cell, j) in row" :key="j" :class="getCellClasses(cell)" @click="handleClick(cell)"
-          @mouseenter="handleMouseEnter(cell)">
+        <td
+          v-for="(cell, j) in row"
+          :key="j"
+          :class="getCellClasses(cell)"
+          @click="handleClick(cell)"
+          @mouseenter="handleMouseEnter(cell)"
+        >
           <div :class="ns.e('cell-content')">
             <slot name="date-cell" :cell="cell">
               <span :class="ns.e('cell-date')">{{ cell.text }}</span>
-              <span v-if="getCellExtra(cell.date)" :class="[ns.e('cell-extra'), getCellExtra(cell.date)?.className]">
+              <span
+                v-if="getCellExtra(cell.date)"
+                :class="[ns.e('cell-extra'), getCellExtra(cell.date)?.className]"
+              >
                 {{ getCellExtra(cell.date)?.text }}
               </span>
             </slot>

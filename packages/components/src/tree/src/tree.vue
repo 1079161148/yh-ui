@@ -18,7 +18,10 @@ const ns = useNamespace('tree')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('tree', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'tree',
+  computed(() => props.themeOverrides)
+)
 
 // 内部状态
 const expandedKeys = ref<Set<string | number>>(new Set(props.defaultExpandedKeys))
@@ -40,7 +43,9 @@ const totalHeight = computed(() => flattenedNodes.value.length * props.itemHeigh
 const startIndex = computed(() => Math.floor(scrollTop.value / props.itemHeight))
 const visibleCount = computed(() => Math.ceil(props.height / props.itemHeight))
 const endIndex = computed(() => startIndex.value + visibleCount.value)
-const visibleNodes = computed(() => flattenedNodes.value.slice(startIndex.value, endIndex.value + 1))
+const visibleNodes = computed(() =>
+  flattenedNodes.value.slice(startIndex.value, endIndex.value + 1)
+)
 const offset = computed(() => startIndex.value * props.itemHeight)
 
 // 将原始数据转换为内部节点结构
@@ -49,10 +54,16 @@ const buildTree = (
   parent: TreeNode | null = null,
   level: number = 0
 ): TreeNode[] => {
-  const { label: labelKey = 'label', children: childrenKey = 'children', disabled: disabledKey = 'disabled' } = props.props || {}
+  const {
+    label: labelKey = 'label',
+    children: childrenKey = 'children',
+    disabled: disabledKey = 'disabled'
+  } = props.props || {}
 
   return data.map((item) => {
-    const key = (item[props.nodeKey as keyof TreeNodeData] ?? item.key ?? item.id) as string | number
+    const key = (item[props.nodeKey as keyof TreeNodeData] ?? item.key ?? item.id) as
+      | string
+      | number
     const node: TreeNode = {
       ...item,
       key,
@@ -133,7 +144,7 @@ const handleNodeClick = (node: TreeNode, e: MouseEvent) => {
   emit('update:currentNodeKey', node.key)
   emit('current-change', node)
 
-  if (props.expandOnClickNode && (!node.isLeaf && (node.children?.length || props.lazy))) {
+  if (props.expandOnClickNode && !node.isLeaf && (node.children?.length || props.lazy)) {
     handleNodeExpand(node)
   }
 
@@ -355,7 +366,7 @@ const handleDragLeave = (node: TreeNode, e: DragEvent) => {
   emit('node-drag-leave', node, e)
 }
 
-const handleDragEnd = (node: TreeNode, e: DragEvent) => {
+const handleDragEnd = (_node: TreeNode, _e: DragEvent) => {
   dragNode.value = null
   draggingNodeKey.value = undefined
   dropTargetNodeKey.value = undefined
@@ -419,19 +430,20 @@ const getNode = (key: string | number): TreeNode | undefined => {
 // 获取半选节点
 const getHalfCheckedNodes = (): TreeNode[] => {
   const result: TreeNode[] = []
-  nodeMap.value.forEach(node => {
+  nodeMap.value.forEach((node) => {
     if (node.indeterminate) result.push(node)
   })
   return result
 }
 
 const getHalfCheckedKeys = (): (string | number)[] => {
-  return getHalfCheckedNodes().map(node => node.key)
+  return getHalfCheckedNodes().map((node) => node.key)
 }
 
 // 获取当前选中
 const getCurrentKey = () => currentNodeKey.value
-const getCurrentNode = () => (currentNodeKey.value ? nodeMap.value.get(currentNodeKey.value) : undefined)
+const getCurrentNode = () =>
+  currentNodeKey.value ? nodeMap.value.get(currentNodeKey.value) : undefined
 
 // 手动设置展开
 const setExpandedKeys = (keys: (string | number)[]) => {
@@ -476,14 +488,16 @@ const scrollTo = (options: number | ScrollToOptions) => {
 
 const scrollToNode = (key: string | number) => {
   if (!props.virtual) return
-  const index = flattenedNodes.value.findIndex(n => n.key === key)
+  const index = flattenedNodes.value.findIndex((n) => n.key === key)
   if (index !== -1) {
     scrollTo(index * props.itemHeight)
   }
 }
 
 const setCheckedNodes = (nodes: TreeNodeData[]) => {
-  const keys = nodes.map(node => (node[props.nodeKey as keyof TreeNodeData] ?? node.key ?? node.id) as string | number)
+  const keys = nodes.map(
+    (node) => (node[props.nodeKey as keyof TreeNodeData] ?? node.key ?? node.id) as string | number
+  )
   setCheckedKeys(keys)
 }
 
@@ -519,8 +533,12 @@ defineExpose({
 
 <template>
   <div :class="[ns.b(), showLine && ns.m('show-line')]" :style="themeStyle" role="tree">
-    <div v-if="props.virtual" ref="innerScrollRef" :style="{ height: props.height + 'px', overflowY: 'auto' }"
-      @scroll="handleScroll">
+    <div
+      v-if="props.virtual"
+      ref="innerScrollRef"
+      :style="{ height: props.height + 'px', overflowY: 'auto' }"
+      @scroll="handleScroll"
+    >
       <div :style="{ height: totalHeight + 'px', position: 'relative' }">
         <div :style="{ transform: `translateY(${offset}px)` }">
           <TreeNodeComponent v-for="node in visibleNodes" :key="node.key" :node="node">

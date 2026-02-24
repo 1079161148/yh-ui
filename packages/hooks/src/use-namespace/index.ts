@@ -2,7 +2,7 @@
  * useNamespace - BEM 命名空间 Hook
  * @description 生成符合 BEM 规范的 CSS 类名
  */
-import { computed, inject, ref, unref } from 'vue'
+import { inject, ref, unref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 
 // 默认命名空间配置

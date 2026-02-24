@@ -1,7 +1,4 @@
-import { defineComponent, h, computed, inject } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
-import { rowContextKey } from '../../row/src/row'
-import { useNamespace } from '@yh-ui/hooks'
 
 export const colProps = {
   tag: {

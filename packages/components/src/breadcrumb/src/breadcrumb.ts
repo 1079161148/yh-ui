@@ -28,7 +28,7 @@ export type BreadcrumbProps = ExtractPropTypes<typeof breadcrumbProps>
 export const breadcrumbItemProps = {
   /** 路由跳转目标样式 */
   to: {
-    type: [String, Object] as PropType<string | any>,
+    type: [String, Object] as PropType<string | Record<string, unknown>>,
     default: ''
   },
   /** 是否替换路由 */

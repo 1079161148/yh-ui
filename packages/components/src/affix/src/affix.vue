@@ -19,17 +19,19 @@ const emit = defineEmits(affixEmits)
 const ns = useNamespace('affix')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('affix', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'affix',
+  computed(() => props.themeOverrides)
+)
 
 // 引用
 const root = shallowRef<HTMLElement>()
 const content = shallowRef<HTMLElement>()
 const target = shallowRef<HTMLElement>()
-const scrollContainer = shallowRef<HTMLElement | Window>()
 
 // 状态
 const fixed = ref(false)
-const scrollTop = ref(0)
+const _scrollTop = ref(0)
 const transform = ref(0)
 const isIntersecting = ref(false)
 
@@ -80,7 +82,8 @@ const update = () => {
     // 底部固定逻辑
     if (props.target) {
       const targetRect = target.value!.getBoundingClientRect()
-      shouldFix = viewportHeight - props.offset < rootRect.value.bottom && targetRect.top < viewportHeight
+      shouldFix =
+        viewportHeight - props.offset < rootRect.value.bottom && targetRect.top < viewportHeight
       const diff = viewportHeight - targetRect.top - props.offset - rootRect.value.height
       transform.value = diff < 0 ? diff : 0
     } else {
@@ -94,7 +97,7 @@ const update = () => {
   }
 
   const currentScrollTop = window.scrollY || document.documentElement.scrollTop
-  scrollTop.value = currentScrollTop
+  _scrollTop.value = currentScrollTop
   emit('scroll', { scrollTop: currentScrollTop, fixed: fixed.value })
 }
 
@@ -110,12 +113,15 @@ let ro: ResizeObserver | null = null
 const initObservers = () => {
   // 1. 性能：IntersectionObserver (IO)
   // 仅在元素出现在视口上下 500px 范围内时才监听高频滚动更新
-  io = new IntersectionObserver((entries) => {
-    isIntersecting.value = entries[0].isIntersecting
-    if (isIntersecting.value) update()
-  }, {
-    rootMargin: '500px 0px 500px 0px'
-  })
+  io = new IntersectionObserver(
+    (entries) => {
+      isIntersecting.value = entries[0].isIntersecting
+      if (isIntersecting.value) update()
+    },
+    {
+      rootMargin: '500px 0px 500px 0px'
+    }
+  )
   if (root.value) io.observe(root.value)
 
   // 2. 准确：ResizeObserver (RO)
@@ -146,14 +152,18 @@ onBeforeUnmount(() => {
 })
 
 // 监听响应式属性
-watch(() => [props.offset, props.position, props.target, props.disabled], () => {
-  nextTick(update)
-}, { deep: true })
+watch(
+  () => [props.offset, props.position, props.target, props.disabled],
+  () => {
+    nextTick(update)
+  },
+  { deep: true }
+)
 
 // 样式与动画系统的统一合并
 const placeholderStyle = computed<CSSProperties>(() => {
   return {
-    ...themeStyle.value as any,
+    ...(themeStyle.value as CSSProperties),
     height: fixed.value ? `${rootRect.value.height}px` : '',
     width: fixed.value ? `${rootRect.value.width}px` : ''
   }
@@ -186,14 +196,14 @@ const affixStyle = computed<CSSProperties>(() => {
 defineExpose({
   update,
   fixed,
-  scrollTop
+  scrollTop: _scrollTop
 })
 </script>
 
 <template>
   <div ref="root" :class="ns.b()" :style="placeholderStyle">
     <!-- 使用 Teleport 解决父级 transform 导致的定位降级（超越标准实现） -->
-    <Teleport :to="props.appendTo" :disabled="!teleported || !fixed">
+    <Teleport :to="props.appendTo" :disabled="!props.teleported || !fixed">
       <div ref="content" :class="[ns.e('inner'), { [ns.is('fixed')]: fixed }]" :style="affixStyle">
         <slot :fixed="fixed" />
       </div>

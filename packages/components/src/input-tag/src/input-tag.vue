@@ -3,7 +3,7 @@
  * YhInputTag - 标签输入框组件
  * @description 用于输入和管理多个标签，支持折叠、拖拽等功能
  */
-import { computed, ref, useSlots, nextTick, inject } from 'vue'
+import { computed, ref, useSlots } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
@@ -42,7 +42,10 @@ const ns = useNamespace('input-tag')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('input-tag', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'input-tag',
+  computed(() => props.themeOverrides)
+)
 
 // 全局配置
 const { globalSize } = useConfig()
@@ -177,7 +180,6 @@ const addTag = (value: string) => {
   if (props.validateEvent) {
     triggerValidate('change')
   }
-
 
   return true
 }
@@ -370,8 +372,14 @@ defineExpose<InputTagExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="inputTagClasses" :style="themeStyle" @click="handleWrapperClick"
-    @mouseenter="handleMouseenter" @mouseleave="handleMouseleave">
+  <div
+    ref="wrapperRef"
+    :class="inputTagClasses"
+    :style="themeStyle"
+    @click="handleWrapperClick"
+    @mouseenter="handleMouseenter"
+    @mouseleave="handleMouseleave"
+  >
     <!-- 前缀 -->
     <span v-if="hasPrefix" :class="ns.e('prefix')">
       <slot name="prefix">
@@ -385,14 +393,31 @@ defineExpose<InputTagExpose>({
       <!-- 已有标签 -->
       <template v-for="(tag, index) in displayTags" :key="index">
         <slot name="tag" :tag="tag" :index="index" :close="() => removeTag(index)">
-          <span :class="getTagClasses(index)" :draggable="draggable && !disabled && !readonly"
-            @dragstart="handleDragStart($event, index)" @dragover="handleDragOver($event, index)"
-            @dragleave="handleDragLeave" @drop="handleDrop($event, index)" @dragend="handleDragEnd">
+          <span
+            :class="getTagClasses(index)"
+            :draggable="draggable && !disabled && !readonly"
+            @dragstart="handleDragStart($event, index)"
+            @dragover="handleDragOver($event, index)"
+            @dragleave="handleDragLeave"
+            @drop="handleDrop($event, index)"
+            @dragend="handleDragEnd"
+          >
             <span :class="ns.e('tag-content')">{{ tag }}</span>
-            <span v-if="closable && !disabled && !readonly" :class="ns.e('tag-close')" @click.stop="removeTag(index)">
-              <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-                <path fill="currentColor"
-                  d="M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z" />
+            <span
+              v-if="closable && !disabled && !readonly"
+              :class="ns.e('tag-close')"
+              @click.stop="removeTag(index)"
+            >
+              <svg
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+              >
+                <path
+                  fill="currentColor"
+                  d="M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z"
+                />
               </svg>
             </span>
           </span>
@@ -400,8 +425,12 @@ defineExpose<InputTagExpose>({
       </template>
 
       <!-- 折叠标签 -->
-      <span v-if="collapseTags && collapsedCount > 0" :class="[ns.e('collapsed'), `is-${type}`, `is-${tagEffect}`]"
-        @mouseenter="handleCollapseMouseenter" @mouseleave="handleCollapseMouseleave">
+      <span
+        v-if="collapseTags && collapsedCount > 0"
+        :class="[ns.e('collapsed'), `is-${type}`, `is-${tagEffect}`]"
+        @mouseenter="handleCollapseMouseenter"
+        @mouseleave="handleCollapseMouseleave"
+      >
         <slot name="collapseTag" :count="collapsedCount" :tags="collapsedTags">
           + {{ collapsedCount }}
         </slot>
@@ -409,8 +438,11 @@ defineExpose<InputTagExpose>({
         <!-- Tooltip -->
         <transition name="yh-fade">
           <div v-if="showTooltip && collapseTagsTooltip" :class="ns.e('tooltip')">
-            <span v-for="(tag, index) in collapsedTags" :key="index"
-              :class="[ns.e('tooltip-tag'), `is-${type}`, `is-${tagEffect}`]">
+            <span
+              v-for="(tag, index) in collapsedTags"
+              :key="index"
+              :class="[ns.e('tooltip-tag'), `is-${type}`, `is-${tagEffect}`]"
+            >
               {{ tag }}
             </span>
           </div>
@@ -418,10 +450,19 @@ defineExpose<InputTagExpose>({
       </span>
 
       <!-- 输入框 -->
-      <input ref="inputRef" type="text" :class="ns.e('inner')" :value="inputValue"
-        :placeholder="tags.length === 0 ? (placeholder || t('inputtag.placeholder')) : ''" :disabled="disabled"
-        :readonly="readonly || isMaxReached" @input="handleInput" @keydown="handleKeydown" @focus="handleFocus"
-        @blur="handleBlur" />
+      <input
+        ref="inputRef"
+        type="text"
+        :class="ns.e('inner')"
+        :value="inputValue"
+        :placeholder="tags.length === 0 ? placeholder || t('inputtag.placeholder') : ''"
+        :disabled="disabled"
+        :readonly="readonly || isMaxReached"
+        @input="handleInput"
+        @keydown="handleKeydown"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
     </div>
 
     <!-- 后缀/清空按钮 -->
@@ -430,8 +471,10 @@ defineExpose<InputTagExpose>({
       <span v-if="showClear" :class="ns.e('clear')" @click.stop="clearTags">
         <slot name="clearIcon">
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm-160-448l128 128-128 128 45.248 45.248L525.248 621.248l128 128L698.496 704l-128-128 128-128L653.248 402.752 525.248 530.752l-128-128z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm-160-448l128 128-128 128 45.248 45.248L525.248 621.248l128 128L698.496 704l-128-128 128-128L653.248 402.752 525.248 530.752l-128-128z"
+            />
           </svg>
         </slot>
       </span>

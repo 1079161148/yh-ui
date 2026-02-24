@@ -20,7 +20,7 @@ export interface FormContext {
   layout?: string
   addField: (field: FormItemContext) => void
   removeField: (field: FormItemContext) => void
-  themeOverrides?: any
+  themeOverrides?: Record<string, unknown>
 }
 
 export interface FormItemContext {

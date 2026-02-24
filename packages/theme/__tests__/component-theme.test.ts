@@ -3,10 +3,9 @@ import {
   provideComponentThemes,
   createComponentThemes,
   mergeComponentThemes,
-  useComponentTheme,
-  COMPONENT_THEME_KEY
+  useComponentTheme
 } from '../src/component-theme'
-import { defineComponent, h, provide, ref, nextTick } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 
 describe('component-theme', () => {

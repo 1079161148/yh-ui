@@ -1,7 +1,7 @@
 /**
  * Tag Component Unit Tests
  */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Tag from '../src/tag.vue'
 

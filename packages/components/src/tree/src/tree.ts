@@ -180,27 +180,27 @@ export const treeProps = {
 export type TreeProps = ExtractPropTypes<typeof treeProps>
 
 export const treeEmits = {
-  'node-click': (node: TreeNode, e: MouseEvent) => true,
-  'node-expand': (node: TreeNode, expanded: boolean) => true,
-  check: (node: TreeNode, checked: boolean, checkedKeys: (string | number)[]) => true,
-  'current-change': (node: TreeNode | null) => true,
-  'node-drag-start': (node: TreeNode, e: DragEvent) => true,
+  'node-click': (_node: TreeNode, _e: MouseEvent) => true,
+  'node-expand': (_node: TreeNode, _expanded: boolean) => true,
+  check: (_node: TreeNode, _checked: boolean, _checkedKeys: (string | number)[]) => true,
+  'current-change': (_node: TreeNode | null) => true,
+  'node-drag-start': (_node: TreeNode, _e: DragEvent) => true,
   'node-drag-end': (
-    node: TreeNode,
-    dropNode: TreeNode | null,
-    position: 'before' | 'after' | 'inner',
-    e: DragEvent
+    _node: TreeNode,
+    _dropNode: TreeNode | null,
+    _position: 'before' | 'after' | 'inner',
+    _e: DragEvent
   ) => true,
-  'node-drag-over': (node: TreeNode, e: DragEvent) => true,
-  'node-drag-enter': (node: TreeNode, e: DragEvent) => true,
-  'node-drag-leave': (node: TreeNode, e: DragEvent) => true,
+  'node-drag-over': (_node: TreeNode, _e: DragEvent) => true,
+  'node-drag-enter': (_node: TreeNode, _e: DragEvent) => true,
+  'node-drag-leave': (_node: TreeNode, _e: DragEvent) => true,
   'node-drop': (
-    node: TreeNode,
-    dropNode: TreeNode,
-    position: 'before' | 'after' | 'inner',
-    e: DragEvent
+    _node: TreeNode,
+    _dropNode: TreeNode,
+    _position: 'before' | 'after' | 'inner',
+    _e: DragEvent
   ) => true,
-  'update:currentNodeKey': (key: string | number | undefined) => true
+  'update:currentNodeKey': (_key: string | number | undefined) => true
 }
 
 export type TreeEmits = typeof treeEmits

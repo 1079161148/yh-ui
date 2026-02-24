@@ -5,7 +5,7 @@
 import { computed, inject } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { TREE_INJECTION_KEY } from './tree'
-import type { TreeNode, TreeNodeData, TreeNodeSlotData } from './tree'
+import type { TreeNode, TreeNodeSlotData } from './tree'
 import { YhIcon } from '../../icon'
 import { YhCheckbox } from '../../checkbox'
 
@@ -37,9 +37,12 @@ const nodeClass = computed(() => [
     [ns.is('checked')]: props.node.checked,
     [ns.is('leaf')]: props.node.isLeaf || !props.node.children?.length,
     [ns.is('dragging')]: tree.draggingNodeKey.value === props.node.key,
-    [ns.is('drop-inner')]: tree.dropTargetNodeKey.value === props.node.key && tree.dropPosition.value === 'inner',
-    [ns.is('drop-before')]: tree.dropTargetNodeKey.value === props.node.key && tree.dropPosition.value === 'before',
-    [ns.is('drop-after')]: tree.dropTargetNodeKey.value === props.node.key && tree.dropPosition.value === 'after'
+    [ns.is('drop-inner')]:
+      tree.dropTargetNodeKey.value === props.node.key && tree.dropPosition.value === 'inner',
+    [ns.is('drop-before')]:
+      tree.dropTargetNodeKey.value === props.node.key && tree.dropPosition.value === 'before',
+    [ns.is('drop-after')]:
+      tree.dropTargetNodeKey.value === props.node.key && tree.dropPosition.value === 'after'
   }
 ])
 
@@ -94,27 +97,42 @@ const handleCheckChange = (checked: boolean | string | number) => {
 }
 
 defineSlots<{
-  default?: (props: TreeNodeSlotData) => any
-  icon?: (props: TreeNodeSlotData) => any
-  prefix?: (props: TreeNodeSlotData) => any
-  suffix?: (props: TreeNodeSlotData) => any
+  default?: (props: TreeNodeSlotData) => unknown
+  icon?: (props: TreeNodeSlotData) => unknown
+  prefix?: (props: TreeNodeSlotData) => unknown
+  suffix?: (props: TreeNodeSlotData) => unknown
 }>()
 </script>
 
 <template>
   <div v-show="node.visible" :class="nodeClass" role="treeitem">
-    <div :class="ns.e('content')" :style="nodeStyle" :draggable="tree.props.draggable && !node.disabled"
-      @click="handleContentClick" @dragstart="handleDragStart" @dragover="handleDragOver" @dragenter="handleDragEnter"
-      @dragleave="handleDragLeave" @dragend="handleDragEnd" @drop="handleDrop">
+    <div
+      :class="ns.e('content')"
+      :style="nodeStyle"
+      :draggable="tree.props.draggable && !node.disabled"
+      @click="handleContentClick"
+      @dragstart="handleDragStart"
+      @dragover="handleDragOver"
+      @dragenter="handleDragEnter"
+      @dragleave="handleDragLeave"
+      @dragend="handleDragEnd"
+      @drop="handleDrop"
+    >
       <!-- 展开图标 -->
-      <span :class="[ns.e('expand-icon'), { [ns.is('expanded')]: node.expanded, [ns.is('loading')]: node.loading }]"
-        @click="handleExpandClick">
+      <span
+        :class="[
+          ns.e('expand-icon'),
+          { [ns.is('expanded')]: node.expanded, [ns.is('loading')]: node.loading }
+        ]"
+        @click="handleExpandClick"
+      >
         <slot name="icon" :node="node" :data="node.rawData">
           <template v-if="node.loading">
             <svg class="loading-icon" viewBox="0 0 1024 1024" width="14" height="14">
               <path
                 d="M512 1024c-282.77 0-512-229.23-512-512s229.23-512 512-512c28.28 0 51.2 22.92 51.2 51.2s-22.92 51.2-51.2 51.2c-226.28 0-409.6 183.32-409.6 409.6s183.32 409.6 409.6 409.6 409.6-183.32 409.6-409.6c0-28.28 22.92-51.2 51.2-51.2s51.2 22.92 51.2 51.2c0 282.77-229.23 512-512 512z"
-                fill="currentColor"></path>
+                fill="currentColor"
+              ></path>
             </svg>
           </template>
           <template v-else-if="!node.isLeaf && (node.children?.length || tree.props.lazy)">
@@ -132,9 +150,14 @@ defineSlots<{
       </span>
 
       <!-- 左侧复选框 -->
-      <yh-checkbox v-if="tree.props.showCheckbox && tree.props.checkboxPosition === 'left'" :model-value="node.checked"
-        :indeterminate="node.indeterminate" :disabled="node.disabled" @update:model-value="handleCheckChange"
-        @click.stop />
+      <yh-checkbox
+        v-if="tree.props.showCheckbox && tree.props.checkboxPosition === 'left'"
+        :model-value="node.checked"
+        :indeterminate="node.indeterminate"
+        :disabled="node.disabled"
+        @update:model-value="handleCheckChange"
+        @click.stop
+      />
 
       <!-- 前缀插槽 -->
       <slot name="prefix" :node="node" :data="node.rawData" />
@@ -153,14 +176,23 @@ defineSlots<{
       <slot name="suffix" :node="node" :data="node.rawData" />
 
       <!-- 右侧复选框 -->
-      <yh-checkbox v-if="tree.props.showCheckbox && tree.props.checkboxPosition === 'right'" :model-value="node.checked"
-        :indeterminate="node.indeterminate" :disabled="node.disabled" @update:model-value="handleCheckChange"
-        @click.stop />
+      <yh-checkbox
+        v-if="tree.props.showCheckbox && tree.props.checkboxPosition === 'right'"
+        :model-value="node.checked"
+        :indeterminate="node.indeterminate"
+        :disabled="node.disabled"
+        @update:model-value="handleCheckChange"
+        @click.stop
+      />
     </div>
 
     <!-- 子节点 (非虚拟滚动模式下递归渲染) -->
-    <div v-if="!tree.props.virtual && node.children && node.children.length > 0" v-show="node.expanded"
-      :class="ns.e('children')" role="group">
+    <div
+      v-if="!tree.props.virtual && node.children && node.children.length > 0"
+      v-show="node.expanded"
+      :class="ns.e('children')"
+      role="group"
+    >
       <yh-tree-node v-for="child in node.children" :key="child.key" :node="child">
         <template #default="{ node: childNode, data: childData }">
           <slot name="default" :node="childNode" :data="childData" />

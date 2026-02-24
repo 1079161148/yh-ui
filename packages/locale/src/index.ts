@@ -548,7 +548,7 @@ export interface Language {
     }
     // 单选框
     radio: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 菜单
     menu: {
@@ -567,15 +567,15 @@ export interface Language {
     }
     // 工具提示
     tooltip: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 气泡卡片
     popover: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 徽标
     badge: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 头像
     avatar: {
@@ -583,11 +583,11 @@ export interface Language {
     }
     // 水印
     watermark: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 分割线
     divider: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 走马灯
     carousel: {
@@ -596,15 +596,15 @@ export interface Language {
     }
     // 跑马灯
     marquee: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 固钉
     affix: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 锚点
     anchor: {
-      // 暂无特定文案
+      [key: string]: never
     }
     // 提及
     mention: {

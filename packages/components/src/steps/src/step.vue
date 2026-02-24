@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onUnmounted, getCurrentInstance, watch, ref } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { stepProps } from './step'
@@ -14,7 +15,10 @@ const props = defineProps(stepProps)
 const ns = useNamespace('step')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('step', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'step',
+  computed(() => props.themeOverrides)
+)
 
 const instance = getCurrentInstance()
 const uid = instance?.uid ?? 0
@@ -25,7 +29,7 @@ const hasRendered = ref(!props.lazy)
 
 // 当前步骤索引
 const stepIndex = computed(() => {
-  return stepsContext?.steps.value.findIndex(s => s.uid === uid) ?? 0
+  return stepsContext?.steps.value.findIndex((s) => s.uid === uid) ?? 0
 })
 
 // 计算当前状态
@@ -75,15 +79,15 @@ const progressPercent = computed(() => {
 })
 
 // 实际方向
-const actualDirection = computed(() => {
+const _actualDirection = computed(() => {
   if (stepsContext?.isResponsiveVertical.value) return 'vertical'
   return stepsContext?.props.direction ?? 'horizontal'
 })
 
 // 计算样式
-const stepStyle = computed(() => {
-  const styles: Record<string, string> = {
-    ...themeStyle.value as any
+const stepStyle = computed<CSSProperties>(() => {
+  const styles: CSSProperties = {
+    ...(themeStyle.value as CSSProperties)
   }
   const space = stepsContext?.props.space
   if (!space) return styles
@@ -173,8 +177,10 @@ const stepClass = computed(() => [
 
     <!-- 连接线 -->
     <div v-if="!isLast" :class="ns.e('line')">
-      <i :class="ns.e('line-inner')"
-        :style="stepsContext?.props.showProgress ? { width: `${progressPercent}%` } : {}"></i>
+      <i
+        :class="ns.e('line-inner')"
+        :style="stepsContext?.props.showProgress ? { width: `${progressPercent}%` } : {}"
+      ></i>
     </div>
 
     <!-- 图标区 -->
@@ -183,7 +189,14 @@ const stepClass = computed(() => [
         <!-- 自定义图标 -->
         <span v-if="icon" :class="[ns.e('icon'), icon]"></span>
         <!-- 内置状态图标 -->
-        <svg v-else-if="statusIconSvg" :class="ns.e('icon-inner')" viewBox="0 0 1024 1024" width="20" height="20">
+        <svg
+          v-else-if="statusIconSvg"
+          :class="ns.e('icon-inner')"
+          viewBox="0 0 1024 1024"
+          width="20"
+          height="20"
+        >
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <g v-html="statusIconSvg"></g>
         </svg>
         <!-- 数字 -->

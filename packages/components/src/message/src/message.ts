@@ -3,7 +3,7 @@
  * @description 消息提示组件类型定义
  */
 
-import type { App, Plugin, VNode, ComponentPublicInstance } from 'vue'
+import type { VNode, ComponentPublicInstance } from 'vue'
 
 /**
  * 消息类型

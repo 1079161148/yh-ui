@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
-import * as _dayjs from 'dayjs'
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from 'dayjs'
 
 const props = defineProps<{
   date: Date
@@ -37,10 +36,7 @@ const years = computed(() => {
 })
 
 const getCellClasses = (year: number) => {
-  const classes: string[] = [
-    ns.e('cell'),
-    ns.is(props.cellShape || 'round')
-  ]
+  const classes: string[] = [ns.e('cell'), ns.is(props.cellShape || 'round')]
   const cellDate = dayjs().year(year).startOf('year')
   const today = dayjs().startOf('year')
 
@@ -48,8 +44,8 @@ const getCellClasses = (year: number) => {
   if (props.disabledDate && props.disabledDate(cellDate.toDate())) classes.push('is-disabled')
 
   const isSelected = (val: Date | Date[] | null | undefined) => {
-    if (!val) return false
-    const d = dayjs(val)
+    if (!val || Array.isArray(val)) return false
+    const d = dayjs(val as Date)
     return d.year() === year
   }
 
@@ -64,7 +60,7 @@ const getCellClasses = (year: number) => {
   if (props.rangeState) {
     const { from, to, hovering } = props.rangeState
     const start = from ? dayjs(from).startOf('year') : null
-    const end = to ? dayjs(to).startOf('year') : (hovering ? dayjs(hovering).startOf('year') : null)
+    const end = to ? dayjs(to).startOf('year') : hovering ? dayjs(hovering).startOf('year') : null
 
     if (start && cellDate.isSame(start)) classes.push('is-range-start', 'is-selected')
     if (end && cellDate.isSame(end)) classes.push('is-range-end', 'is-selected')
@@ -90,8 +86,13 @@ const handleClick = (year: number) => {
 
 <template>
   <div :class="[ns.e('table'), ns.em('table', 'year')]">
-    <div v-for="year in years" :key="year" :class="getCellClasses(year)" @click="handleClick(year)"
-      @mouseenter="emit('hover', dayjs().year(year).startOf('year').toDate())">
+    <div
+      v-for="year in years"
+      :key="year"
+      :class="getCellClasses(year)"
+      @click="handleClick(year)"
+      @mouseenter="emit('hover', dayjs().year(year).startOf('year').toDate())"
+    >
       <span :class="ns.e('cell-content')">{{ year }}</span>
     </div>
   </div>

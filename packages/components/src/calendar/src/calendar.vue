@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, toRef } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import * as _dayjs from 'dayjs'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dayjs = (_dayjs as any).default || _dayjs
 import type { Dayjs } from 'dayjs'
 import * as _isoWeek from 'dayjs/plugin/isoWeek'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isoWeek = (_isoWeek as any).default || _isoWeek
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -29,16 +31,17 @@ const ns = useNamespace('calendar')
 const { t, locale } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('calendar', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'calendar',
+  computed(() => props.themeOverrides)
+)
 
 // --- 状态管理 ---
 const now = dayjs()
 // 当前显示的视口日期（年月）
 const displayDate = ref<Dayjs>(props.modelValue ? dayjs(props.modelValue) : now)
 // 当前选中的日期（单选）
-const selectedDate = ref<Dayjs | undefined>(
-  props.modelValue ? dayjs(props.modelValue) : undefined
-)
+const selectedDate = ref<Dayjs | undefined>(props.modelValue ? dayjs(props.modelValue) : undefined)
 
 // 范围选择状态
 const rangeStart = ref<Dayjs | undefined>(
@@ -50,9 +53,7 @@ const rangeEnd = ref<Dayjs | undefined>(
 const hoverDate = ref<Dayjs | undefined>(undefined)
 
 // 多选状态
-const multipleSelected = ref<Dayjs[]>(
-  props.multipleValue?.map((d) => dayjs(d)) || []
-)
+const multipleSelected = ref<Dayjs[]>(props.multipleValue?.map((d) => dayjs(d)) || [])
 
 // --- 计算假期数据 ---
 const mergedHolidays = computed<HolidayMap>(() => {
@@ -64,7 +65,20 @@ const mergedHolidays = computed<HolidayMap>(() => {
 
 // --- 逻辑计算 ---
 // 月份 key 用于从语言包获取月份名称
-const monthKeys = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'] as const
+const monthKeys = [
+  'jan',
+  'feb',
+  'mar',
+  'apr',
+  'may',
+  'jun',
+  'jul',
+  'aug',
+  'sep',
+  'oct',
+  'nov',
+  'dec'
+] as const
 
 const title = computed(() => {
   // 1. 优先使用 props 传入的格式
@@ -73,13 +87,13 @@ const title = computed(() => {
   }
 
   // 2. 其次使用语言包中定义的日历专属格式 (如 'YYYY年MM月')
-  const calendarLocale = (locale.value.yh as any).calendar
+  const calendarLocale = locale.value.yh.calendar
   if (calendarLocale?.monthHeaderFormat) {
     return displayDate.value.format(calendarLocale.monthHeaderFormat)
   }
 
   // 3. 最后回退到默认组合逻辑，确保国际化
-  const dateLocale = (locale.value.yh as any).datepicker
+  const dateLocale = locale.value.yh.datepicker
   const monthName = dateLocale.months[monthKeys[displayDate.value.month()]]
   const year = displayDate.value.year()
 
@@ -168,9 +182,7 @@ const rows = computed(() => {
       // 判断选中逻辑
       let isSelected = false
       if (props.selectionMode === 'single') {
-        isSelected = selectedDate.value
-          ? current.isSame(selectedDate.value, 'day')
-          : false
+        isSelected = selectedDate.value ? current.isSame(selectedDate.value, 'day') : false
       } else if (props.selectionMode === 'multiple') {
         isSelected = isMultipleSelected(current)
       } else if (props.selectionMode === 'range') {
@@ -193,12 +205,8 @@ const rows = computed(() => {
         holidayName: holidayInfo?.name,
         isWorkday: holidayInfo?.isOffDay === false,
         isInRange: isInRange(current),
-        isRangeStart:
-          props.selectionMode === 'range' &&
-          rangeStart.value?.isSame(current, 'day'),
-        isRangeEnd:
-          props.selectionMode === 'range' &&
-          rangeEnd.value?.isSame(current, 'day'),
+        isRangeStart: props.selectionMode === 'range' && rangeStart.value?.isSame(current, 'day'),
+        isRangeEnd: props.selectionMode === 'range' && rangeEnd.value?.isSame(current, 'day'),
         dateStr
       }
       row.push(cell)
@@ -209,9 +217,7 @@ const rows = computed(() => {
   return matrix
 })
 
-function getDayType(
-  date: Dayjs
-): 'prev-month' | 'current-month' | 'next-month' {
+function getDayType(date: Dayjs): 'prev-month' | 'current-month' | 'next-month' {
   if (date.isBefore(displayDate.value, 'month')) return 'prev-month'
   if (date.isAfter(displayDate.value, 'month')) return 'next-month'
   return 'current-month'
@@ -253,14 +259,8 @@ const selectDate = (cell: CalendarDateCell) => {
       } else {
         rangeEnd.value = date
       }
-      emit('update:rangeValue', [
-        rangeStart.value.toDate(),
-        rangeEnd.value.toDate()
-      ])
-      emit('range-change', [
-        rangeStart.value.toDate(),
-        rangeEnd.value.toDate()
-      ])
+      emit('update:rangeValue', [rangeStart.value.toDate(), rangeEnd.value.toDate()])
+      emit('range-change', [rangeStart.value.toDate(), rangeEnd.value.toDate()])
     }
     emit('select', date.toDate(), cell)
   } else if (props.selectionMode === 'multiple') {
@@ -292,9 +292,7 @@ const moveMonth = (delta: number) => {
 const goToday = () => {
   displayDate.value = now
   if (props.selectionMode === 'single' && !props.readonly && !props.disabled) {
-    const todayCell = rows.value
-      .flatMap((r) => r.cells)
-      .find((c) => c.isToday)
+    const todayCell = rows.value.flatMap((r) => r.cells).find((c) => c.isToday)
     if (todayCell && !todayCell.isDisabled) {
       selectDate(todayCell)
     }
@@ -403,7 +401,11 @@ defineExpose({
           <yh-button class="yh-calendar__nav-btn" size="small" @click="moveMonth(-1)">
             {{ t('calendar.prevMonth') }}
           </yh-button>
-          <yh-button class="yh-calendar__nav-btn yh-calendar__nav-btn--today" size="small" @click="goToday">
+          <yh-button
+            class="yh-calendar__nav-btn yh-calendar__nav-btn--today"
+            size="small"
+            @click="goToday"
+          >
             {{ t('calendar.today') }}
           </yh-button>
           <yh-button class="yh-calendar__nav-btn" size="small" @click="moveMonth(1)">
@@ -421,10 +423,14 @@ defineExpose({
             <th v-if="showWeekNumber" :class="ns.e('week-number-header')">
               {{ t('calendar.week') }}
             </th>
-            <th v-for="(day, idx) in weekDays" :key="day" :class="[
-              ns.e('weekday'),
-              { [ns.em('weekday', 'weekend')]: highlightWeekends && (idx === 0 || idx === 6) }
-            ]">
+            <th
+              v-for="(day, idx) in weekDays"
+              :key="day"
+              :class="[
+                ns.e('weekday'),
+                { [ns.em('weekday', 'weekend')]: highlightWeekends && (idx === 0 || idx === 6) }
+              ]"
+            >
               {{ day }}
             </th>
           </tr>
@@ -434,22 +440,28 @@ defineExpose({
             <td v-if="showWeekNumber" :class="ns.e('week-number')">
               {{ row.weekNumber }}
             </td>
-            <td v-for="(cell, cellIndex) in row.cells" :key="cellIndex" :class="[
-              ns.e('day'),
-              ns.is('today', cell.isToday),
-              ns.is('selected', cell.isSelected),
-              ns.is('disabled', cell.isDisabled),
-              ns.is('weekend', highlightWeekends && cell.isWeekend),
-              ns.is('holiday', cell.isHoliday),
-              ns.is('workday', cell.isWorkday),
-              ns.is('in-range', cell.isInRange),
-              ns.is('range-start', cell.isRangeStart),
-              ns.is('range-end', cell.isRangeEnd),
-              ns.is('other-month', cell.type !== 'current-month'),
-              ns.is('hidden', !showOtherMonths && cell.type !== 'current-month'),
-              ns.is(cell.type, true),
-              getCellExtraClass(cell)
-            ]" @click="selectDate(cell)" @mouseenter="handleCellHover(cell)">
+            <td
+              v-for="(cell, cellIndex) in row.cells"
+              :key="cellIndex"
+              :class="[
+                ns.e('day'),
+                ns.is('today', cell.isToday),
+                ns.is('selected', cell.isSelected),
+                ns.is('disabled', cell.isDisabled),
+                ns.is('weekend', highlightWeekends && cell.isWeekend),
+                ns.is('holiday', cell.isHoliday),
+                ns.is('workday', cell.isWorkday),
+                ns.is('in-range', cell.isInRange),
+                ns.is('range-start', cell.isRangeStart),
+                ns.is('range-end', cell.isRangeEnd),
+                ns.is('other-month', cell.type !== 'current-month'),
+                ns.is('hidden', !showOtherMonths && cell.type !== 'current-month'),
+                ns.is(cell.type, true),
+                getCellExtraClass(cell)
+              ]"
+              @click="selectDate(cell)"
+              @mouseenter="handleCellHover(cell)"
+            >
               <div :class="ns.e('day-inner')">
                 <!-- 日期数字 -->
                 <div :class="ns.e('day-value')">
@@ -457,10 +469,13 @@ defineExpose({
                 </div>
 
                 <!-- 假期/补班标记 -->
-                <div v-if="showHoliday && (cell.isHoliday || cell.isWorkday)" :class="[
-                  ns.e('day-badge'),
-                  cell.isHoliday ? ns.em('day-badge', 'holiday') : ns.em('day-badge', 'workday')
-                ]">
+                <div
+                  v-if="showHoliday && (cell.isHoliday || cell.isWorkday)"
+                  :class="[
+                    ns.e('day-badge'),
+                    cell.isHoliday ? ns.em('day-badge', 'holiday') : ns.em('day-badge', 'workday')
+                  ]"
+                >
                   {{ cell.isHoliday ? t('calendar.holiday') : t('calendar.workday') }}
                 </div>
 

@@ -3,11 +3,11 @@
  * YhInputNumber - 数字输入框组件
  * @description 已修复失去焦点时的校验时序问题
  */
-import { computed, ref, watch, useSlots, inject, nextTick } from 'vue'
+import { computed, ref, useSlots, nextTick } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
-import type { InputNumberProps, InputNumberEmits, InputNumberExpose } from './input-number'
+import type { InputNumberProps, InputNumberEmits } from './input-number'
 
 defineOptions({
   name: 'YhInputNumber'
@@ -35,7 +35,10 @@ const ns = useNamespace('input-number')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('input-number', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'input-number',
+  computed(() => props.themeOverrides)
+)
 const inputRef = ref<HTMLInputElement>()
 const inputId = useId()
 
@@ -48,7 +51,9 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 const { globalSize } = useConfig()
 
 const mergedDisabled = computed(() => props.disabled || form?.disabled || false)
-const mergedSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const mergedSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 
 const numPrecision = computed(() => {
   if (props.precision !== undefined) return props.precision
@@ -82,13 +87,20 @@ const displayValue = computed(() => {
 const minDisabled = computed(() => props.modelValue !== undefined && props.modelValue <= props.min)
 const maxDisabled = computed(() => props.modelValue !== undefined && props.modelValue >= props.max)
 
-const showClear = computed(() =>
-  props.clearable && !mergedDisabled.value && !props.readonly &&
-  props.modelValue !== undefined && props.modelValue !== null && (focused.value || hovering.value)
+const showClear = computed(
+  () =>
+    props.clearable &&
+    !mergedDisabled.value &&
+    !props.readonly &&
+    props.modelValue !== undefined &&
+    props.modelValue !== null &&
+    (focused.value || hovering.value)
 )
 
 const hasPrefix = computed(() => !!props.prefix || !!props.prefixIcon || !!slots.prefix)
-const hasSuffix = computed(() => !!props.suffix || !!props.suffixIcon || !!slots.suffix || showClear.value)
+const hasSuffix = computed(
+  () => !!props.suffix || !!props.suffixIcon || !!slots.suffix || showClear.value
+)
 
 const inputNumberClasses = computed(() => [
   ns.b(),
@@ -173,7 +185,12 @@ const handleChange = (event: Event) => {
   const value = target.value
   userInput.value = null
   if (value === '') {
-    const clearVal = props.valueOnClear === 'min' ? props.min : (props.valueOnClear === 'max' ? props.max : props.valueOnClear)
+    const clearVal =
+      props.valueOnClear === 'min'
+        ? props.min
+        : props.valueOnClear === 'max'
+          ? props.max
+          : props.valueOnClear
     setCurrentValue(clearVal === null ? undefined : (clearVal as number))
     return
   }
@@ -215,9 +232,17 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="inputNumberClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
-    <span v-if="controls && controlsPosition !== 'right'"
-      :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]" @click="decrease">
+  <div
+    :class="inputNumberClasses"
+    :style="themeStyle"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
+  >
+    <span
+      v-if="controls && controlsPosition !== 'right'"
+      :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]"
+      @click="decrease"
+    >
       <slot name="decreaseIcon">
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
           <path fill="currentColor" d="M128 544h768a32 32 0 0 0 0-64H128a32 32 0 0 0 0 64z" />
@@ -232,15 +257,30 @@ defineExpose({
           <component v-if="prefixIcon && typeof prefixIcon !== 'string'" :is="prefixIcon" />
         </slot>
       </span>
-      <input ref="inputRef" type="text" :class="ns.e('inner')" :value="displayValue" :name="name" :id="id || inputId"
-        :placeholder="placeholder || t('input.placeholder')" :disabled="mergedDisabled" :readonly="readonly"
-        autocomplete="off" @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur"
-        @keydown="handleKeydown" />
+      <input
+        ref="inputRef"
+        type="text"
+        :class="ns.e('inner')"
+        :value="displayValue"
+        :name="name"
+        :id="id || inputId"
+        :placeholder="placeholder || t('input.placeholder')"
+        :disabled="mergedDisabled"
+        :readonly="readonly"
+        autocomplete="off"
+        @input="handleInput"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
+      />
       <span v-if="hasSuffix" :class="ns.e('suffix')">
         <span v-if="showClear" :class="ns.e('clear')" @click.stop="handleClear">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm-160-448l128 128-128 128 45.248 45.248L525.248 621.248l128 128L698.496 704l-128-128 128-128L653.248 402.752 525.248 530.752l-128-128z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm-160-448l128 128-128 128 45.248 45.248L525.248 621.248l128 128L698.496 704l-128-128 128-128L653.248 402.752 525.248 530.752l-128-128z"
+            />
           </svg>
         </span>
         <slot name="suffix">
@@ -250,27 +290,42 @@ defineExpose({
       </span>
     </div>
 
-    <span v-if="controls && controlsPosition !== 'right'"
-      :class="[ns.e('increase'), ns.is('disabled', maxDisabled || mergedDisabled)]" @click="increase">
+    <span
+      v-if="controls && controlsPosition !== 'right'"
+      :class="[ns.e('increase'), ns.is('disabled', maxDisabled || mergedDisabled)]"
+      @click="increase"
+    >
       <slot name="increaseIcon">
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-          <path fill="currentColor"
-            d="M544 128v352h352a32 32 0 0 1 0 64H544v352a32 32 0 0 1-64 0V544H128a32 32 0 0 1 0-64h352V128a32 32 0 0 1 64 0z" />
+          <path
+            fill="currentColor"
+            d="M544 128v352h352a32 32 0 0 1 0 64H544v352a32 32 0 0 1-64 0V544H128a32 32 0 0 1 0-64h352V128a32 32 0 0 1 64 0z"
+          />
         </svg>
       </slot>
     </span>
 
     <span v-if="controls && controlsPosition === 'right'" :class="ns.e('controls')">
-      <span :class="[ns.e('increase'), ns.is('disabled', maxDisabled || mergedDisabled)]" @click="increase">
+      <span
+        :class="[ns.e('increase'), ns.is('disabled', maxDisabled || mergedDisabled)]"
+        @click="increase"
+      >
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-          <path fill="currentColor"
-            d="M488.832 344.32l-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z" />
+          <path
+            fill="currentColor"
+            d="M488.832 344.32l-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z"
+          />
         </svg>
       </span>
-      <span :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]" @click="decrease">
+      <span
+        :class="[ns.e('decrease'), ns.is('disabled', minDisabled || mergedDisabled)]"
+        @click="decrease"
+      >
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-          <path fill="currentColor"
-            d="M488.832 679.68l-339.84-356.672a32 32 0 0 1 0-44.16l.384-.384a29.44 29.44 0 0 1 42.688 0l320 335.872 319.872-335.872a29.44 29.44 0 0 1 42.688 0l.384.384a32 32 0 0 1 0 44.16L535.168 679.68a32 32 0 0 1-46.336 0z" />
+          <path
+            fill="currentColor"
+            d="M488.832 679.68l-339.84-356.672a32 32 0 0 1 0-44.16l.384-.384a29.44 29.44 0 0 1 42.688 0l320 335.872 319.872-335.872a29.44 29.44 0 0 1 42.688 0l.384.384a32 32 0 0 1 0 44.16L535.168 679.68a32 32 0 0 1-46.336 0z"
+          />
         </svg>
       </span>
     </span>

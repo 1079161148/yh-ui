@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { defineComponent, h, nextTick, createApp, ref, withDirectives, resolveDirective } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 import { YhLoading, vYhLoading } from '../index'
 
 describe('Loading Service', () => {
@@ -65,7 +65,7 @@ describe('v-yh-loading Directive', () => {
   it('should toggle directive loading', async () => {
     const Comp = defineComponent({
       directives: { YhLoading: vYhLoading },
-      props: ['loading'],
+      props: { loading: { type: Boolean, default: false } },
       template: '<div v-yh-loading="loading"></div>'
     })
 

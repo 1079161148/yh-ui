@@ -1,5 +1,5 @@
 import { inject, computed, unref } from 'vue'
-import type { InjectionKey, ComputedRef, Ref } from 'vue'
+import type { InjectionKey, ComputedRef } from 'vue'
 import type { Language } from '@yh-ui/locale'
 
 export interface ConfigProviderContext {

@@ -19,7 +19,10 @@ const emit = defineEmits(menuEmits as MenuEmits)
 const ns = useNamespace('menu')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('menu', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'menu',
+  computed(() => props.themeOverrides)
+)
 
 // 状态
 const activeIndex = ref(props.value ?? props.defaultActive)
@@ -38,11 +41,12 @@ const menuStyle = computed(() => {
     styles['--yh-menu-active-text-color'] = props.activeTextColor
   }
   if (props.iconSize) {
-    styles['--yh-menu-icon-size'] = typeof props.iconSize === 'number' ? `${props.iconSize}px` : props.iconSize
+    styles['--yh-menu-icon-size'] =
+      typeof props.iconSize === 'number' ? `${props.iconSize}px` : props.iconSize
   }
   return {
     ...styles,
-    ...themeStyle.value as any
+    ...(themeStyle.value as Record<string, string>)
   }
 })
 
@@ -68,7 +72,8 @@ const handleSelect = (index: string, indexPath: string[]) => {
 const handleOpen = (index: string, indexPath: string[]) => {
   if (props.uniqueOpened) {
     openedMenus.value = openedMenus.value.filter(
-      (openedIndex) => indexPath.includes(openedIndex) || openedMenus.value.indexOf(openedIndex) === -1
+      (openedIndex) =>
+        indexPath.includes(openedIndex) || openedMenus.value.indexOf(openedIndex) === -1
     )
   }
 
@@ -159,7 +164,11 @@ defineExpose({
 <template>
   <ul :class="menuClass" :style="menuStyle" role="menu">
     <slot>
-      <yh-menu-recursive-item v-for="item in options" :key="item[keyField] || item.index" :item="item" />
+      <yh-menu-recursive-item
+        v-for="item in options"
+        :key="item[keyField] || item.index"
+        :item="item"
+      />
     </slot>
   </ul>
 </template>

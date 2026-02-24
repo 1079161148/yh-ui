@@ -18,8 +18,8 @@ export interface MenuItemData {
   children?: MenuItemData[]
   /** 分组标题（仅用于分组） */
   group?: boolean
-  /** 允许自定义扩展属性 - 使用 any 以支持动态属性访问 */
-  [key: string]: any
+  /** 允许自定义扩展属性 - 使用 unknown 以支持动态属性访问 */
+  [key: string]: unknown
 }
 
 export const menuProps = {
@@ -217,18 +217,18 @@ export const menuProps = {
 
 export const menuEmits = {
   /** v-model:value */
-  'update:value': (value: string) => true,
+  'update:value': (_value: string) => true,
   /** 菜单激活回调 */
   select: (
-    index: string,
-    indexPath: string[],
-    item: MenuItemData | undefined,
-    routeResult?: Promise<void>
+    _index: string,
+    _indexPath: string[],
+    _item: MenuItemData | undefined,
+    _routeResult?: Promise<void>
   ) => true,
   /** 子菜单展开回调 */
-  open: (index: string, indexPath: string[]) => true,
+  open: (_index: string, _indexPath: string[]) => true,
   /** 子菜单收起回调 */
-  close: (index: string, indexPath: string[]) => true
+  close: (_index: string, _indexPath: string[]) => true
 }
 
 export type MenuProps = ExtractPropTypes<typeof menuProps>

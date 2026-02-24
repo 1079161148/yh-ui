@@ -14,7 +14,10 @@ const { t } = useLocale()
 const slots = useSlots()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('breadcrumb', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'breadcrumb',
+  computed(() => props.themeOverrides)
+)
 
 // 向子组件提供配置
 provide('breadcrumbProps', toRefs(props))
@@ -27,7 +30,7 @@ const breadcrumbItems = computed(() => {
   const children = slots.default?.() || []
 
   // 展平 Fragment
-  const items = children.flatMap(child => {
+  const items = children.flatMap((child) => {
     if (child.type === Fragment) return (child.children as VNodeChild[]) || []
     return [child]
   })
@@ -38,8 +41,6 @@ const breadcrumbItems = computed(() => {
 
   // 计算需要隐藏的部分 (保留头和尾，中间折叠)
   const first = items[0]
-  const last = items[items.length - 1]
-  const collapsedCount = items.length - props.maxItems + 1
 
   // 创建一个特殊的 Ellipsis 项
   const ellipsisItem = h('span', { class: ns.e('ellipsis'), title: t('breadcrumb.more') }, '...')
@@ -49,7 +50,6 @@ const breadcrumbItems = computed(() => {
 
   return result
 })
-
 </script>
 
 <template>

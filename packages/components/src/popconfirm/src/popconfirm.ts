@@ -92,7 +92,7 @@ export const popconfirmProps = {
   },
   /** 弹出层自定义样式 */
   popperStyle: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     default: () => ({})
   },
   /** 挂载节点 */
@@ -127,7 +127,7 @@ export const popconfirmProps = {
 } as const
 
 export const popconfirmEmits = {
-  confirm: (dontAskAgain?: boolean) => true,
+  confirm: (_dontAskAgain?: boolean) => true,
   cancel: () => true,
   'update:visible': (visible: boolean) => typeof visible === 'boolean'
 }

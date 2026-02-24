@@ -11,23 +11,26 @@ defineOptions({
   name: 'YhCascaderPanel'
 })
 
-const props = withDefaults(defineProps<{
-  options?: CascaderOption[]
-  expandedPath: (string | number)[]
-  config: CascaderConfig
-  isMultiple: boolean
-  isChecked: (path: (string | number)[]) => boolean
-  /** 是否启用虚拟滚动 */
-  virtual?: boolean
-  /** 虚拟滚动每项高度 */
-  itemHeight?: number
-}>(), {
-  options: () => [],
-  expandedPath: () => [],
-  isMultiple: false,
-  virtual: false,
-  itemHeight: 34
-})
+const props = withDefaults(
+  defineProps<{
+    options?: CascaderOption[]
+    expandedPath: (string | number)[]
+    config: CascaderConfig
+    isMultiple: boolean
+    isChecked: (path: (string | number)[]) => boolean
+    /** 是否启用虚拟滚动 */
+    virtual?: boolean
+    /** 虚拟滚动每项高度 */
+    itemHeight?: number
+  }>(),
+  {
+    options: () => [],
+    expandedPath: () => [],
+    isMultiple: false,
+    virtual: false,
+    itemHeight: 34
+  }
+)
 
 const emit = defineEmits<{
   (e: 'expand', option: CascaderOption, level: number): void
@@ -79,35 +82,51 @@ const CascaderMenu = defineComponent({
     }
 
     // 当菜单内容变化（即切换了父级节点）时，尝试重置滚动位置
-    watch(() => menuProps.menu, () => {
-      scrollTop.value = 0
-    })
+    watch(
+      () => menuProps.menu,
+      () => {
+        scrollTop.value = 0
+      }
+    )
 
-    return () => h('div', {
-      class: [ns.e('menu'), menuProps.virtual && ns.is('virtual')],
-      onScroll: handleScroll
-    }, [
-      menuProps.virtual
-        ? h('div', {
-          style: {
-            height: `${menuProps.menu.length * menuProps.itemHeight}px`,
-            position: 'relative'
-          }
-        }, visibleInfo.value.options.map((option, idx) => {
-          return slots.default?.({
-            option,
-            level: menuProps.level,
-            startIndex: visibleInfo.value.startIndex,
-            idx
-          })
-        }))
-        : menuProps.menu.map((option) => slots.default?.({
-          option,
-          level: menuProps.level
-        })),
-      // 空状态处理
-      menuProps.menu.length === 0 ? h('div', { class: ns.e('empty') }, t('cascader.noData')) : null
-    ])
+    return () =>
+      h(
+        'div',
+        {
+          class: [ns.e('menu'), menuProps.virtual && ns.is('virtual')],
+          onScroll: handleScroll
+        },
+        [
+          menuProps.virtual
+            ? h(
+                'div',
+                {
+                  style: {
+                    height: `${menuProps.menu.length * menuProps.itemHeight}px`,
+                    position: 'relative'
+                  }
+                },
+                visibleInfo.value.options.map((option, idx) => {
+                  return slots.default?.({
+                    option,
+                    level: menuProps.level,
+                    startIndex: visibleInfo.value.startIndex,
+                    idx
+                  })
+                })
+              )
+            : menuProps.menu.map((option) =>
+                slots.default?.({
+                  option,
+                  level: menuProps.level
+                })
+              ),
+          // 空状态处理
+          menuProps.menu.length === 0
+            ? h('div', { class: ns.e('empty') }, t('cascader.noData'))
+            : null
+        ]
+      )
   }
 })
 
@@ -117,8 +136,10 @@ const menus = computed(() => {
   let currentOptions = props.options || []
 
   for (const value of props.expandedPath) {
-    const option = currentOptions.find(o => (o[props.config.value] as string | number) === value)
-    const children = option ? (option[props.config.children] as CascaderOption[] | undefined) : undefined
+    const option = currentOptions.find((o) => (o[props.config.value] as string | number) === value)
+    const children = option
+      ? (option[props.config.children] as CascaderOption[] | undefined)
+      : undefined
     if (option && children && children.length) {
       result.push(children)
       currentOptions = children
@@ -148,8 +169,10 @@ const isLeaf = (option: CascaderOption) => {
 const isSelectable = (option: CascaderOption) =>
   props.config.checkStrictly ? true : isLeaf(option)
 
-const getPath = (option: CascaderOption, level: number) =>
-  [...props.expandedPath.slice(0, level), option[props.config.value] as string | number]
+const getPath = (option: CascaderOption, level: number) => [
+  ...props.expandedPath.slice(0, level),
+  option[props.config.value] as string | number
+]
 
 const handleCheckboxClick = (option: CascaderOption, level: number, event: MouseEvent) => {
   event.stopPropagation()
@@ -179,28 +202,61 @@ const handleMouseEnter = (option: CascaderOption, level: number) => {
 
 <template>
   <div :class="ns.e('panel')">
-    <CascaderMenu v-for="(menu, level) in menus" :key="level" :menu="menu" :level="level" :virtual="virtual"
-      :item-height="itemHeight">
+    <CascaderMenu
+      v-for="(colMenu, colLevel) in menus"
+      :key="colLevel"
+      :menu="colMenu"
+      :level="colLevel"
+      :virtual="virtual"
+      :item-height="itemHeight"
+    >
       <template #default="{ option, level: menuLevel, startIndex, idx }">
-        <div :key="option[config.value]" :class="[
-          ns.e('node'),
-          ns.is('expanded', isExpanded(option, menuLevel)),
-          ns.is('checked', isChecked(getPath(option, menuLevel))),
-          ns.is('disabled', option[config.disabled]),
-          ns.is('selectable', isSelectable(option))
-        ]" :style="virtual ? {
-          position: 'absolute',
-          top: `${(startIndex + idx) * itemHeight}px`,
-          left: 0, right: 0, height: `${itemHeight}px`
-        } : {}" @mousedown.prevent @click="handleClick(option, menuLevel, $event)"
-          @mouseenter="handleMouseEnter(option, menuLevel)">
+        <div
+          :key="option[config.value]"
+          :class="[
+            ns.e('node'),
+            ns.is('expanded', isExpanded(option, menuLevel)),
+            ns.is('checked', isChecked(getPath(option, menuLevel))),
+            ns.is('disabled', option[config.disabled]),
+            ns.is('selectable', isSelectable(option))
+          ]"
+          :style="
+            virtual
+              ? {
+                  position: 'absolute',
+                  top: `${(startIndex + idx) * itemHeight}px`,
+                  left: 0,
+                  right: 0,
+                  height: `${itemHeight}px`
+                }
+              : {}
+          "
+          @mousedown.prevent
+          @click="handleClick(option, menuLevel, $event)"
+          @mouseenter="handleMouseEnter(option, menuLevel)"
+        >
           <!-- 多选复选框 -->
-          <span v-if="isMultiple && isSelectable(option)" :class="ns.e('checkbox')"
-            @click.stop="handleCheckboxClick(option, menuLevel, $event)">
-            <span :class="[ns.e('checkbox-inner'), ns.is('checked', isChecked(getPath(option, menuLevel)))]">
-              <svg v-if="isChecked(getPath(option, menuLevel))" viewBox="0 0 1024 1024" width="1em" height="1em">
-                <path fill="currentColor"
-                  d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z" />
+          <span
+            v-if="isMultiple && isSelectable(option)"
+            :class="ns.e('checkbox')"
+            @click.stop="handleCheckboxClick(option, menuLevel, $event)"
+          >
+            <span
+              :class="[
+                ns.e('checkbox-inner'),
+                ns.is('checked', isChecked(getPath(option, menuLevel)))
+              ]"
+            >
+              <svg
+                v-if="isChecked(getPath(option, menuLevel))"
+                viewBox="0 0 1024 1024"
+                width="1em"
+                height="1em"
+              >
+                <path
+                  fill="currentColor"
+                  d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z"
+                />
               </svg>
             </span>
           </span>
@@ -213,8 +269,10 @@ const handleMouseEnter = (option: CascaderOption, level: number) => {
           <!-- 展开图标 -->
           <span v-if="hasChildren(option)" :class="ns.e('expand-icon')">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M340.864 149.312a30.592 30.592 0 0 0 0 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0 0 0 42.752 29.12 29.12 0 0 0 41.728 0L714.24 534.336a32 32 0 0 0 0-44.672L382.592 149.376a29.12 29.12 0 0 0-41.728 0z" />
+              <path
+                fill="currentColor"
+                d="M340.864 149.312a30.592 30.592 0 0 0 0 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0 0 0 42.752 29.12 29.12 0 0 0 41.728 0L714.24 534.336a32 32 0 0 0 0-44.672L382.592 149.376a29.12 29.12 0 0 0-41.728 0z"
+              />
             </svg>
           </span>
         </div>

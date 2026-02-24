@@ -2,7 +2,6 @@
 /**
  * YhDescriptionsItem - 描述列表项组件
  */
-import { defineComponent } from 'vue'
 import { descriptionsItemProps } from './descriptions'
 
 defineOptions({

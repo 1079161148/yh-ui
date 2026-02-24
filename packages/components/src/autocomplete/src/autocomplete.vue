@@ -6,7 +6,12 @@
 import { computed, ref, watch, nextTick, useSlots, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useZIndex, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { AutocompleteProps, AutocompleteEmits, AutocompleteExpose, AutocompleteSuggestion } from './autocomplete'
+import type {
+  AutocompleteProps,
+  AutocompleteEmits,
+  AutocompleteExpose,
+  AutocompleteSuggestion
+} from './autocomplete'
 
 defineOptions({
   name: 'YhAutocomplete'
@@ -36,7 +41,10 @@ const { t } = useLocale()
 const { nextZIndex } = useZIndex()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('autocomplete', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'autocomplete',
+  computed(() => props.themeOverrides)
+)
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -44,7 +52,9 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 // 全局配置
 const { globalSize } = useConfig()
 
-const autocompleteSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const autocompleteSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 const autocompleteDisabled = computed(() => props.disabled || form?.disabled || false)
 
 // 元素引用
@@ -69,11 +79,12 @@ const dropdownStyle = ref<Record<string, string>>({})
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
 // 计算属性
-const showClear = computed(() =>
-  props.clearable &&
-  !autocompleteDisabled.value &&
-  !!props.modelValue &&
-  (focused.value || hovering.value)
+const showClear = computed(
+  () =>
+    props.clearable &&
+    !autocompleteDisabled.value &&
+    !!props.modelValue &&
+    (focused.value || hovering.value)
 )
 
 const hasPrefix = computed(() => !!slots.prefix || !!props.prefixIcon)
@@ -106,7 +117,7 @@ const updateDropdownPosition = () => {
   const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
 
   const style: Record<string, string> = {
-    ...themeStyle.value as any,
+    ...(themeStyle.value as Record<string, unknown>),
     position: 'fixed',
     zIndex: String(dropdownZIndex.value),
     minWidth: props.fitInputWidth ? `${rect.width}px` : 'auto',
@@ -315,7 +326,8 @@ const handleKeydown = (event: KeyboardEvent) => {
     case 'ArrowUp':
       event.preventDefault()
       if (visible.value) {
-        highlightedIndex.value = (highlightedIndex.value - 1 + suggestions.value.length) % suggestions.value.length
+        highlightedIndex.value =
+          (highlightedIndex.value - 1 + suggestions.value.length) % suggestions.value.length
         scrollToHighlighted()
       }
       break
@@ -386,8 +398,13 @@ defineExpose<AutocompleteExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <!-- 前置元素 -->
     <div v-if="hasPrepend" :class="ns.e('prepend')">
       <slot name="prepend" />
@@ -398,32 +415,64 @@ defineExpose<AutocompleteExpose>({
       <!-- 前置图标 -->
       <span v-if="hasPrefix" :class="ns.e('prefix')">
         <slot name="prefix">
-          <component v-if="prefixIcon && typeof prefixIcon !== 'string'" :is="prefixIcon" :class="ns.e('icon')" />
+          <component
+            v-if="prefixIcon && typeof prefixIcon !== 'string'"
+            :is="prefixIcon"
+            :class="ns.e('icon')"
+          />
           <span v-else-if="prefixIcon" :class="ns.e('icon')">{{ prefixIcon }}</span>
         </slot>
       </span>
 
       <!-- 输入框 -->
-      <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="modelValue"
-        :placeholder="placeholder || t('autocomplete.placeholder')" :disabled="autocompleteDisabled" :name="name"
-        :autocomplete="autocomplete" :autofocus="autofocus" role="combobox" :aria-expanded="visible"
-        :aria-autocomplete="'list'" :aria-controls="`${inputId}-listbox`"
-        :aria-activedescendant="highlightedIndex >= 0 ? `${inputId}-option-${highlightedIndex}` : undefined"
-        @input="handleInput" @change="handleChange" @focus="handleFocus" @blur="handleBlur" @keydown="handleKeydown" />
+      <input
+        ref="inputRef"
+        :id="inputId"
+        :class="ns.e('inner')"
+        :value="modelValue"
+        :placeholder="placeholder || t('autocomplete.placeholder')"
+        :disabled="autocompleteDisabled"
+        :name="name"
+        :autocomplete="autocomplete"
+        :autofocus="autofocus"
+        role="combobox"
+        :aria-expanded="visible"
+        :aria-autocomplete="'list'"
+        :aria-controls="`${inputId}-listbox`"
+        :aria-activedescendant="
+          highlightedIndex >= 0 ? `${inputId}-option-${highlightedIndex}` : undefined
+        "
+        @input="handleInput"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
+      />
 
       <!-- 后置图标 -->
       <span v-if="hasSuffix" :class="ns.e('suffix')">
         <!-- 清空按钮 -->
-        <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @mousedown.prevent @click.stop="handleClear">
+        <span
+          v-if="showClear"
+          :class="[ns.e('icon'), ns.e('clear')]"
+          @mousedown.prevent
+          @click.stop="handleClear"
+        >
           <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+            />
           </svg>
         </span>
 
         <!-- 后置图标插槽 -->
         <slot name="suffix">
-          <component v-if="suffixIcon && typeof suffixIcon !== 'string'" :is="suffixIcon" :class="ns.e('icon')" />
+          <component
+            v-if="suffixIcon && typeof suffixIcon !== 'string'"
+            :is="suffixIcon"
+            :class="ns.e('icon')"
+          />
           <span v-else-if="suffixIcon" :class="ns.e('icon')">{{ suffixIcon }}</span>
         </slot>
       </span>
@@ -437,28 +486,50 @@ defineExpose<AutocompleteExpose>({
     <!-- 下拉建议列表 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('dropdown')">
-        <div v-show="visible && (suggestions.length > 0 || loading || slots.empty)" ref="dropdownRef"
-          :class="[ns.e('dropdown'), popperClass]" :style="teleported ? dropdownStyle : {}"
-          @mousedown="isClickingDropdown = true" @mouseup="isClickingDropdown = false">
+        <div
+          v-show="visible && (suggestions.length > 0 || loading || slots.empty)"
+          ref="dropdownRef"
+          :class="[ns.e('dropdown'), popperClass]"
+          :style="teleported ? dropdownStyle : {}"
+          @mousedown="isClickingDropdown = true"
+          @mouseup="isClickingDropdown = false"
+        >
           <!-- 加载状态 -->
           <div v-if="loading" :class="ns.e('loading')">
             <slot name="loading">
-              <svg :class="ns.e('loading-icon')" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor"
-                  d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z" />
+              <svg
+                :class="ns.e('loading-icon')"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="currentColor"
+                  d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32zM195.2 195.2a32 32 0 0 1 45.248 0L376.32 331.008a32 32 0 0 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm452.544 452.544a32 32 0 0 1 45.248 0L828.8 783.552a32 32 0 0 1-45.248 45.248L647.744 692.992a32 32 0 0 1 0-45.248zM828.8 195.264a32 32 0 0 1 0 45.184L692.992 376.32a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0zm-452.544 452.48a32 32 0 0 1 0 45.248L240.448 828.8a32 32 0 0 1-45.248-45.248l135.808-135.808a32 32 0 0 1 45.248 0z"
+                />
               </svg>
               <span>{{ t('autocomplete.loading') }}</span>
             </slot>
           </div>
 
           <!-- 建议列表 -->
-          <ul v-else-if="suggestions.length > 0" ref="listRef" :id="`${inputId}-listbox`" :class="ns.e('suggestions')"
-            role="listbox">
-            <li v-for="(item, index) in suggestions" :key="index" :id="`${inputId}-option-${index}`" :class="[
-              ns.e('suggestion'),
-              ns.is('highlighted', highlightedIndex === index)
-            ]" role="option" :aria-selected="highlightedIndex === index" @mousedown.prevent @click="handleSelect(item)"
-              @mouseenter="highlightedIndex = index">
+          <ul
+            v-else-if="suggestions.length > 0"
+            ref="listRef"
+            :id="`${inputId}-listbox`"
+            :class="ns.e('suggestions')"
+            role="listbox"
+          >
+            <li
+              v-for="(item, index) in suggestions"
+              :key="index"
+              :id="`${inputId}-option-${index}`"
+              :class="[ns.e('suggestion'), ns.is('highlighted', highlightedIndex === index)]"
+              role="option"
+              :aria-selected="highlightedIndex === index"
+              @mousedown.prevent
+              @click="handleSelect(item)"
+              @mouseenter="highlightedIndex = index"
+            >
               <slot :item="item">
                 {{ item[valueKey] || item.value }}
               </slot>

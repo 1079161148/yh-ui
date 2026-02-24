@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import DatePicker from '../src/date-picker.vue'
-import dayjs from 'dayjs'
 
 import { zhCn } from '@yh-ui/locale'
 

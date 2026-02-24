@@ -5,7 +5,7 @@
 
 import { ref, computed, type Ref, type ComputedRef } from 'vue'
 
-export interface VirtualScrollOptions<T = any> {
+export interface VirtualScrollOptions<T = unknown> {
   /** 每项高度 */
   itemHeight: number
   /** 容器高度 */
@@ -16,7 +16,7 @@ export interface VirtualScrollOptions<T = any> {
   overscan?: number
 }
 
-export interface VirtualScrollReturn<T = any> {
+export interface VirtualScrollReturn<T = unknown> {
   /** 可见项列表 */
   visibleItems: ComputedRef<T[]>
   /** 总高度 */
@@ -35,7 +35,7 @@ export interface VirtualScrollReturn<T = any> {
   containerRef: Ref<HTMLElement | null>
 }
 
-export function useVirtualScroll<T = any>(
+export function useVirtualScroll<T = unknown>(
   options: VirtualScrollOptions<T>
 ): VirtualScrollReturn<T> {
   const { itemHeight, containerHeight, overscan = 3 } = options

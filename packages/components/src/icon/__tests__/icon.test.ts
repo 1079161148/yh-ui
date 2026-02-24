@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { YhIcon } from '../index'
-import { registerIcon, createIconComponent, registerIconSet } from '../src/icon'
+import { registerIcon, createIconComponent } from '../src/icon'
 import { h, markRaw } from 'vue'
 
 describe('Icon', () => {

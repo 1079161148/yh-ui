@@ -4,7 +4,7 @@
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { defineComponent, h, ref, nextTick, provide } from 'vue'
+import { defineComponent, h, ref, nextTick } from 'vue'
 import {
   useLocale,
   setDayjsLocale,
@@ -13,9 +13,8 @@ import {
   updateDayjsMonths
 } from '../index'
 import { zhCn } from '@yh-ui/locale'
-import { useConfig, configProviderContextKey } from '../../use-config'
-import type { ConfigProviderContext } from '../../use-config'
-import { computed, watch } from 'vue'
+import { configProviderContextKey } from '../../use-config'
+import { computed } from 'vue'
 import { en } from '@yh-ui/locale'
 import dayjs from 'dayjs'
 

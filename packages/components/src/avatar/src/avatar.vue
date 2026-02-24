@@ -20,7 +20,10 @@ const emit = defineEmits<AvatarEmits>()
 const ns = useNamespace('avatar')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('avatar', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'avatar',
+  computed(() => props.themeOverrides)
+)
 
 const imgError = ref(false)
 
@@ -36,7 +39,7 @@ const avatarSize = computed(() => {
 })
 
 const avatarStyle = computed(() => {
-  const style: Record<string, any> = {
+  const style: import('vue').CSSProperties = {
     ...themeStyle.value,
     width: avatarSize.value,
     height: avatarSize.value,
@@ -67,8 +70,15 @@ const handleError = (event: Event) => {
 <template>
   <span :class="avatarClasses" :style="avatarStyle" role="img" :aria-label="alt">
     <!-- 图片模式 -->
-    <img v-if="showImg" :src="src" :srcset="srcSet" :alt="alt" :style="{ objectFit: fit }" :class="ns.e('img')"
-      @error="handleError" />
+    <img
+      v-if="showImg"
+      :src="src"
+      :srcset="srcSet"
+      :alt="alt"
+      :style="{ objectFit: fit }"
+      :class="ns.e('img')"
+      @error="handleError"
+    />
     <!-- 图标模式 -->
     <component :is="icon" v-else-if="icon && !$slots.default" :class="ns.e('icon')" />
     <!-- 默认插槽（文字/自定义） -->

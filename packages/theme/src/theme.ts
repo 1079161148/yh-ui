@@ -4,8 +4,8 @@
  * @description 提供主题切换、自定义主题色、持久化、响应式主题等功能
  */
 
-import type { App, InjectionKey, Ref } from 'vue'
-import { ref, reactive, computed, watch, toRefs } from 'vue'
+import type { App, InjectionKey } from 'vue'
+import { reactive, toRefs } from 'vue'
 import { designTokens } from './tokens'
 
 // ==================== 类型定义 ====================
@@ -325,12 +325,24 @@ function ensureContrast(foreground: string, background: string, minRatio: number
   // 根据背景亮度调整前景色
   if (bgLuminance > 0.5) {
     // 浅色背景，加深前景色
-    while (hsl.l > 0 && getContrastRatio(rgbToHex(...Object.values(hslToRgb(hsl.h, hsl.s, hsl.l)) as [number, number, number]), background) < minRatio) {
+    while (
+      hsl.l > 0 &&
+      getContrastRatio(
+        rgbToHex(...(Object.values(hslToRgb(hsl.h, hsl.s, hsl.l)) as [number, number, number])),
+        background
+      ) < minRatio
+    ) {
       hsl.l -= 5
     }
   } else {
     // 深色背景，提亮前景色
-    while (hsl.l < 100 && getContrastRatio(rgbToHex(...Object.values(hslToRgb(hsl.h, hsl.s, hsl.l)) as [number, number, number]), background) < minRatio) {
+    while (
+      hsl.l < 100 &&
+      getContrastRatio(
+        rgbToHex(...(Object.values(hslToRgb(hsl.h, hsl.s, hsl.l)) as [number, number, number])),
+        background
+      ) < minRatio
+    ) {
       hsl.l += 5
     }
   }
@@ -430,7 +442,10 @@ function generateColorScaleWithAlgorithm(
 }
 
 /** 生成语义化状态颜色 */
-function generateSemanticColors(baseColor: string, isDark: boolean = false): Record<string, string> {
+function generateSemanticColors(
+  baseColor: string,
+  isDark: boolean = false
+): Record<string, string> {
   return {
     hover: isDark ? adjustLightness(baseColor, 10) : adjustLightness(baseColor, -5),
     active: isDark ? adjustLightness(baseColor, -5) : adjustLightness(baseColor, -10),
@@ -530,27 +545,27 @@ const colorBlindPalettes: Record<ColorBlindMode, Record<string, string>> = {
   none: {},
   // 红色盲（无法区分红绿）
   protanopia: {
-    primary: '#0072B2',    // 蓝色
-    success: '#009E73',    // 蓝绿色
-    warning: '#E69F00',    // 橙色
-    danger: '#D55E00',     // 深橙色
-    info: '#56B4E9'        // 浅蓝色
+    primary: '#0072B2', // 蓝色
+    success: '#009E73', // 蓝绿色
+    warning: '#E69F00', // 橙色
+    danger: '#D55E00', // 深橙色
+    info: '#56B4E9' // 浅蓝色
   },
   // 绿色盲（无法区分红绿）
   deuteranopia: {
     primary: '#0072B2',
     success: '#009E73',
     warning: '#E69F00',
-    danger: '#CC79A7',     // 粉紫色
+    danger: '#CC79A7', // 粉紫色
     info: '#56B4E9'
   },
   // 蓝色盲（无法区分蓝黄）
   tritanopia: {
-    primary: '#CC79A7',    // 粉紫色
-    success: '#009E73',    // 蓝绿色
-    warning: '#D55E00',    // 深橙色
-    danger: '#E69F00',     // 橙色
-    info: '#999999'        // 灰色
+    primary: '#CC79A7', // 粉紫色
+    success: '#009E73', // 蓝绿色
+    warning: '#D55E00', // 深橙色
+    danger: '#E69F00', // 橙色
+    info: '#999999' // 灰色
   },
   // 全色盲（只能看到灰度）
   achromatopsia: {
@@ -568,7 +583,10 @@ const THEME_TRANSITION_CLASS = 'yh-theme-transitioning'
 const DEFAULT_TRANSITION_DURATION = 300
 const DEFAULT_TRANSITION_TIMING = 'cubic-bezier(0.4, 0, 0.2, 1)'
 
-function enableThemeTransition(duration: number = DEFAULT_TRANSITION_DURATION, timing: string = DEFAULT_TRANSITION_TIMING): void {
+function enableThemeTransition(
+  duration: number = DEFAULT_TRANSITION_DURATION,
+  timing: string = DEFAULT_TRANSITION_TIMING
+): void {
   if (typeof document === 'undefined') return
 
   const style = document.createElement('style')
@@ -613,17 +631,14 @@ function getAnalogousColors(hex: string): [string, string] {
   const rgb = hexToRgb(hex)
   if (!rgb) return [hex, hex]
   const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b)
-  
+
   const hsl1 = { ...hsl, h: (hsl.h + 30) % 360 }
   const hsl2 = { ...hsl, h: (hsl.h - 30 + 360) % 360 }
-  
+
   const result1 = hslToRgb(hsl1.h, hsl1.s, hsl1.l)
   const result2 = hslToRgb(hsl2.h, hsl2.s, hsl2.l)
-  
-  return [
-    rgbToHex(result1.r, result1.g, result1.b),
-    rgbToHex(result2.r, result2.g, result2.b)
-  ]
+
+  return [rgbToHex(result1.r, result1.g, result1.b), rgbToHex(result2.r, result2.g, result2.b)]
 }
 
 /** 获取三角色 */
@@ -631,17 +646,14 @@ function getTriadicColors(hex: string): [string, string] {
   const rgb = hexToRgb(hex)
   if (!rgb) return [hex, hex]
   const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b)
-  
+
   const hsl1 = { ...hsl, h: (hsl.h + 120) % 360 }
   const hsl2 = { ...hsl, h: (hsl.h + 240) % 360 }
-  
+
   const result1 = hslToRgb(hsl1.h, hsl1.s, hsl1.l)
   const result2 = hslToRgb(hsl2.h, hsl2.s, hsl2.l)
-  
-  return [
-    rgbToHex(result1.r, result1.g, result1.b),
-    rgbToHex(result2.r, result2.g, result2.b)
-  ]
+
+  return [rgbToHex(result1.r, result1.g, result1.b), rgbToHex(result2.r, result2.g, result2.b)]
 }
 
 /** 从主色自动生成完整调色板 */
@@ -650,19 +662,19 @@ function generatePaletteFromPrimary(primaryColor: string): ThemeColors {
   if (!rgb) return { primary: primaryColor }
 
   const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b)
-  
+
   // Success: 绿色调，与主色同等饱和度
   const successHsl = { h: 142, s: Math.min(hsl.s, 70), l: 45 }
   const successRgb = hslToRgb(successHsl.h, successHsl.s, successHsl.l)
-  
+
   // Warning: 橙黄色调
   const warningHsl = { h: 36, s: Math.min(hsl.s + 10, 85), l: 50 }
   const warningRgb = hslToRgb(warningHsl.h, warningHsl.s, warningHsl.l)
-  
+
   // Danger: 红色调
   const dangerHsl = { h: 0, s: Math.min(hsl.s + 5, 75), l: 55 }
   const dangerRgb = hslToRgb(dangerHsl.h, dangerHsl.s, dangerHsl.l)
-  
+
   // Info: 主色的低饱和度版本
   const infoHsl = { h: hsl.h, s: Math.max(hsl.s - 40, 10), l: 60 }
   const infoRgb = hslToRgb(infoHsl.h, infoHsl.s, infoHsl.l)
@@ -1177,9 +1189,22 @@ export class ThemeManager {
     const el = this.targetEl || document.documentElement
     const colorTypes = ['primary', 'success', 'warning', 'danger', 'info']
     const suffixes = [
-      '', 'light-1', 'light-2', 'light-3', 'light-4', 'light-5',
-      'light-6', 'light-7', 'light-8', 'light-9', 'dark-2',
-      'hover', 'active', 'disabled', 'focus', 'rgb'
+      '',
+      'light-1',
+      'light-2',
+      'light-3',
+      'light-4',
+      'light-5',
+      'light-6',
+      'light-7',
+      'light-8',
+      'light-9',
+      'dark-2',
+      'hover',
+      'active',
+      'disabled',
+      'focus',
+      'rgb'
     ]
 
     colorTypes.forEach((type) => {
@@ -1347,9 +1372,10 @@ export class ThemeManager {
   /** 应用完整主题配置 */
   applyFullConfig(config: FullThemeConfig): void {
     if (this.transitionEnabled || config.transition) {
-      const transitionConfig = typeof config.transition === 'object'
-        ? config.transition
-        : { duration: DEFAULT_TRANSITION_DURATION, timing: DEFAULT_TRANSITION_TIMING }
+      const transitionConfig =
+        typeof config.transition === 'object'
+          ? config.transition
+          : { duration: DEFAULT_TRANSITION_DURATION, timing: DEFAULT_TRANSITION_TIMING }
       enableThemeTransition(transitionConfig.duration!, transitionConfig.timing!)
     }
 
@@ -1451,13 +1477,9 @@ export class ThemeManager {
   // ==================== 响应式主题变量 ====================
 
   /** 设置响应式变量 (根据断点自动切换) */
-  setResponsiveVar(
-    name: string,
-    values: Partial<Record<Breakpoint, string>>
-  ): void {
+  setResponsiveVar(name: string, values: Partial<Record<Breakpoint, string>>): void {
+    // 为响应式变量创建样式标签 (仅在客户端)
     if (typeof document === 'undefined') return
-
-    const el = this.targetEl || document.documentElement
 
     // 创建或更新 CSS 媒体查询
     let style = document.getElementById('yh-responsive-vars') as HTMLStyleElement

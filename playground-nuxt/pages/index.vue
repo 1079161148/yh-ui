@@ -40,20 +40,16 @@
 
       <div class="demo-block">
         <h3>Image 图片</h3>
-        <YhImage 
-          src="https://picsum.photos/200/200" 
-          style="width: 100px; height: 100px; border-radius: 8px;"
+        <YhImage
+          src="https://picsum.photos/200/200"
+          style="width: 100px; height: 100px; border-radius: 8px"
           :preview-src-list="['https://picsum.photos/800/800']"
         />
       </div>
 
       <div class="demo-block">
         <h3>Pagination 分页</h3>
-        <YhPagination 
-          v-model:current-page="currentPage" 
-          :total="100" 
-          layout="prev, pager, next"
-        />
+        <YhPagination v-model:current-page="currentPage" :total="100" layout="prev, pager, next" />
       </div>
 
       <div class="demo-block">
@@ -120,9 +116,9 @@
 
 <script setup lang="ts">
 // 这些 hooks 会被自动导入
-const ns = useNamespace('test-page')
+// const ns = useNamespace('test-page')
 const componentId = useId()
-const { currentZIndex, nextZIndex } = useZIndex()
+const { currentZIndex } = useZIndex()
 
 // 响应式数据
 const inputValue = ref('')

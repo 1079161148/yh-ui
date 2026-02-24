@@ -3,7 +3,8 @@
  * YhIcon - 轻量级高性能图标组件
  * @description 支持 SVG 直接渲染、图标组件、图标注册等多种方式
  */
-import { computed, h, useSlots } from 'vue'
+import { computed, useSlots } from 'vue'
+import type { CSSProperties } from 'vue'
 import { iconProps, getIcon } from './icon'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -18,12 +19,15 @@ const slots = useSlots()
 const ns = useNamespace('icon')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('icon', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'icon',
+  computed(() => props.themeOverrides)
+)
 
 // 计算样式
-const iconStyle = computed(() => {
-  const style: Record<string, string> = {
-    ...themeStyle.value as any
+const iconStyle = computed<CSSProperties>(() => {
+  const style: CSSProperties = {
+    ...(themeStyle.value as CSSProperties)
   }
 
   if (props.size) {
@@ -106,8 +110,16 @@ const useIconComponent = computed(() => {
     <component v-if="useIconComponent" :is="icon" class="yh-icon__inner" />
 
     <!-- 使用 SVG 字符串渲染 -->
-    <svg v-else-if="svgContent && !hasSlot" class="yh-icon__svg" :viewBox="viewBox" xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true" v-html="svgContent" />
+    <!-- eslint-disable vue/no-v-html -->
+    <svg
+      v-else-if="svgContent && !hasSlot"
+      class="yh-icon__svg"
+      :viewBox="viewBox"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      v-html="svgContent"
+    />
+    <!-- eslint-enable vue/no-v-html -->
 
     <!-- 使用插槽自定义内容 -->
     <template v-else-if="hasSlot">

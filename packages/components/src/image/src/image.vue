@@ -2,7 +2,7 @@
 /**
  * YhImage - 图片组件
  */
-import { computed, ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { isClient, getScrollContainer } from '@yh-ui/utils'
@@ -23,7 +23,10 @@ const ns = useNamespace('image')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('image', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'image',
+  computed(() => props.themeOverrides)
+)
 
 const isLoading = ref(true)
 const error = ref(false)
@@ -143,7 +146,7 @@ const initViewerJS = () => {
   if (props.previewSrcList && props.previewSrcList.length > 0) {
     const list = document.createElement('div')
     list.style.display = 'none'
-    props.previewSrcList.forEach(src => {
+    props.previewSrcList.forEach((src) => {
       const img = document.createElement('img')
       img.src = src
       list.appendChild(img)
@@ -168,14 +171,17 @@ const initViewerJS = () => {
   }
 }
 
-watch(() => props.src, () => {
-  if (isLazy.value) {
-    stopLazyLoad()
-    initLazyLoad()
-  } else {
-    loadImage()
+watch(
+  () => props.src,
+  () => {
+    if (isLazy.value) {
+      stopLazyLoad()
+      initLazyLoad()
+    } else {
+      loadImage()
+    }
   }
-})
+)
 
 onMounted(() => {
   handleLazyLoad()
@@ -222,14 +228,32 @@ const handleSwitch = (index: number) => {
     <slot v-else-if="error" name="error">
       <div :class="ns.e('error')">{{ t('image.error') }}</div>
     </slot>
-    <img v-else :src="src" :alt="alt" :class="[ns.e('inner'), preview && ns.is('preview')]" :style="imageStyle"
-      :crossorigin="crossorigin" :loading="props.loading" @click="clickHandler" />
+    <img
+      v-else
+      :src="src"
+      :alt="alt"
+      :class="[ns.e('inner'), preview && ns.is('preview')]"
+      :style="imageStyle"
+      :crossorigin="crossorigin"
+      :loading="props.loading"
+      @click="clickHandler"
+    />
 
     <!-- Viewer -->
-    <yh-image-viewer v-if="preview && showViewer" :url-list="previewSrcList" :z-index="zIndex"
-      :initial-index="initialIndex" :infinite="infinite" :hide-on-click-modal="hideOnClickModal"
-      :close-on-press-escape="closeOnPressEscape" :show-progress="showProgress" :zoom-rate="zoomRate"
-      :teleported="previewTeleported" @close="closeViewer" @switch="handleSwitch" />
+    <yh-image-viewer
+      v-if="preview && showViewer"
+      :url-list="previewSrcList"
+      :z-index="zIndex"
+      :initial-index="initialIndex"
+      :infinite="infinite"
+      :hide-on-click-modal="hideOnClickModal"
+      :close-on-press-escape="closeOnPressEscape"
+      :show-progress="showProgress"
+      :zoom-rate="zoomRate"
+      :teleported="previewTeleported"
+      @close="closeViewer"
+      @switch="handleSwitch"
+    />
   </div>
 </template>
 

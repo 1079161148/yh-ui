@@ -3,7 +3,7 @@
  * YhDialog - 对话框
  * @description 旗舰级弹窗组件，深度对标 市面组件库 / Naive UI。支持亚克力玻璃态、智能拖拽、锁定滚动、焦点捕获等顶级能力。
  */
-import { ref, watch, onMounted, computed, nextTick, onUnmounted, type CSSProperties } from 'vue'
+import { ref, watch, computed, nextTick, type CSSProperties } from 'vue'
 import { useNamespace, useEventListener, useId, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
@@ -34,7 +34,10 @@ const { t } = useLocale()
 const dialogId = useId()
 
 // 组件级 themeOverrides
-const { themeStyle: themeVars } = useComponentTheme('dialog', computed(() => props.themeOverrides))
+const { themeStyle: themeVars } = useComponentTheme(
+  'dialog',
+  computed(() => props.themeOverrides)
+)
 
 const visible = ref(false)
 const closed = ref(true)
@@ -159,7 +162,11 @@ const style = computed<CSSProperties>(() => {
   }
 
   // 合并 themeOverrides
-  return { ...themeVars.value, ...styles, ...(typeof props.style === 'string' ? parseStyle(props.style) : props.style) }
+  return {
+    ...themeVars.value,
+    ...styles,
+    ...(typeof props.style === 'string' ? parseStyle(props.style) : props.style)
+  }
 })
 
 const parseStyle = (str: string): CSSProperties => {
@@ -282,41 +289,45 @@ const handleWrapperClick = (e: MouseEvent) => {
   }
 }
 
-watch(() => props.modelValue, async (val) => {
-  if (val) {
-    rendered.value = true
-    closed.value = false
-    visible.value = true
-    emit('open')
-    offset.value = { x: 0, y: 0 }
+watch(
+  () => props.modelValue,
+  async (val) => {
+    if (val) {
+      rendered.value = true
+      closed.value = false
+      visible.value = true
+      emit('open')
+      offset.value = { x: 0, y: 0 }
 
-    if (typeof window === 'undefined') return
+      if (typeof window === 'undefined') return
 
-    // 聚焦管理
-    prevFocusedElement = document.activeElement as HTMLElement
-    await nextTick()
+      // 聚焦管理
+      prevFocusedElement = document.activeElement as HTMLElement
+      await nextTick()
 
-    if (props.autoFocus && dialogRef.value) {
-      const focusableEls = dialogRef.value.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-      if (focusableEls.length > 0) {
-        ; (focusableEls[0] as HTMLElement).focus()
+      if (props.autoFocus && dialogRef.value) {
+        const focusableEls = dialogRef.value.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (focusableEls.length > 0) {
+          ;(focusableEls[0] as HTMLElement).focus()
+        } else {
+          dialogRef.value.focus()
+        }
       } else {
-        dialogRef.value.focus()
+        dialogRef.value?.focus()
       }
-    } else {
-      dialogRef.value?.focus()
-    }
 
-    emit('opened')
-  } else {
-    visible.value = false
-    if (typeof window !== 'undefined' && prevFocusedElement) {
-      prevFocusedElement.focus()
+      emit('opened')
+    } else {
+      visible.value = false
+      if (typeof window !== 'undefined' && prevFocusedElement) {
+        prevFocusedElement.focus()
+      }
     }
-  }
-}, { immediate: true })
+  },
+  { immediate: true }
+)
 
 const afterLeave = () => {
   closed.value = true
@@ -324,13 +335,17 @@ const afterLeave = () => {
 }
 
 // ESC 与 焦点捕获
-useEventListener(() => window, 'keydown', (e: KeyboardEvent) => {
-  if (!props.modelValue) return
-  if (props.closeOnPressEscape && e.key === 'Escape') {
-    handleClose()
+useEventListener(
+  () => window,
+  'keydown',
+  (e: KeyboardEvent) => {
+    if (!props.modelValue) return
+    if (props.closeOnPressEscape && e.key === 'Escape') {
+      handleClose()
+    }
+    trapFocus(e)
   }
-  trapFocus(e)
-})
+)
 
 defineExpose({
   visible,
@@ -344,16 +359,37 @@ defineExpose({
 <template>
   <Teleport :to="teleportTo">
     <Transition :name="ns.b('fade')" @after-leave="afterLeave">
-      <div v-if="rendered" v-show="modelValue" :class="ns.e('wrapper')" :style="{ zIndex }"
-        @mousedown="handleWrapperMouseDown" @click.self="handleWrapperClick">
-        <div ref="dialogRef" :role="'dialog'" :aria-modal="true" :aria-labelledby="dialogId" :class="dialogClasses"
-          :style="style" tabindex="-1">
+      <div
+        v-if="rendered"
+        v-show="modelValue"
+        :class="ns.e('wrapper')"
+        :style="{ zIndex }"
+        @mousedown="handleWrapperMouseDown"
+        @click.self="handleWrapperClick"
+      >
+        <div
+          ref="dialogRef"
+          :role="'dialog'"
+          :aria-modal="true"
+          :aria-labelledby="dialogId"
+          :class="dialogClasses"
+          :style="style"
+          tabindex="-1"
+        >
           <!-- 头部 -->
-          <div ref="headerRef" :class="headerClasses" :style="headerStyle" @mousedown="handleMouseDown">
+          <div
+            ref="headerRef"
+            :class="headerClasses"
+            :style="headerStyle"
+            @mousedown="handleMouseDown"
+          >
             <slot name="header">
               <div :id="dialogId" :class="[ns.e('title'), titleClass]" :style="titleStyle">
-                <YhIcon v-if="showIcon && typeIcon" :name="typeIcon"
-                  :class="[ns.e('type-icon'), ns.em('type-icon', type)]" />
+                <YhIcon
+                  v-if="showIcon && typeIcon"
+                  :name="typeIcon"
+                  :class="[ns.e('type-icon'), ns.em('type-icon', type)]"
+                />
                 <template v-if="typeof title === 'string'">{{ title }}</template>
                 <component v-else-if="title" :is="title" />
               </div>
@@ -377,15 +413,20 @@ defineExpose({
           </div>
 
           <!-- 底部 -->
-          <div v-if="$slots.footer || action || showFooter" :class="[footerClasses, actionClass]"
-            :style="[actionStyle, footerStyle]">
+          <div
+            v-if="$slots.footer || action || showFooter"
+            :class="[footerClasses, actionClass]"
+            :style="[actionStyle, footerStyle]"
+          >
             <slot name="footer">
               <template v-if="action">
                 <component :is="action" />
               </template>
               <template v-else-if="showFooter">
                 <YhButton @click="handleCancel">{{ cancelText || t('dialog.cancel') }}</YhButton>
-                <YhButton type="primary" @click="handleConfirm">{{ confirmText || t('dialog.confirm') }}</YhButton>
+                <YhButton type="primary" @click="handleConfirm">{{
+                  confirmText || t('dialog.confirm')
+                }}</YhButton>
               </template>
             </slot>
           </div>

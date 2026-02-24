@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useNamespace, useZIndex, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { backTopProps, backTopEmits } from './back-top'
@@ -16,7 +17,10 @@ const { t } = useLocale()
 const { nextZIndex } = useZIndex()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('back-top', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'back-top',
+  computed(() => props.themeOverrides)
+)
 
 const visible = ref(false)
 const progress = ref(0)
@@ -25,7 +29,7 @@ const elRef = ref<HTMLElement>()
 
 // 样式计算
 const containerStyle = computed(() => ({
-  ...themeStyle.value as any,
+  ...(themeStyle.value as CSSProperties),
   right: `${props.right}px`,
   bottom: `${props.bottom}px`,
   zIndex: nextZIndex()
@@ -89,7 +93,8 @@ const scrollToTop = () => {
   rAF(frameFunc)
 }
 
-const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
 
 const handleClick = (event: MouseEvent) => {
   scrollToTop()
@@ -115,13 +120,18 @@ onBeforeUnmount(() => {
     scrollContainer.value.removeEventListener('scroll', handleScroll)
   }
 })
-
 </script>
 
 <template>
   <Transition :name="`${ns.namespace.value}-fade-in`">
-    <div v-if="visible" ref="elRef" :class="ns.b()" :style="containerStyle" :aria-label="t('backtop.text')"
-      @click.stop="handleClick">
+    <div
+      v-if="visible"
+      ref="elRef"
+      :class="ns.b()"
+      :style="containerStyle"
+      :aria-label="t('backtop.text')"
+      @click.stop="handleClick"
+    >
       <slot>
         <div :class="ns.e('content')">
           <svg viewBox="0 0 1024 1024" width="20" height="20">

@@ -6,7 +6,14 @@
 import { computed, ref, nextTick, provide, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { SelectProps, SelectEmits, SelectExpose, SelectOption, SelectContext, SelectValue } from './select'
+import type {
+  SelectProps,
+  SelectEmits,
+  SelectExpose,
+  SelectOption,
+  SelectContext,
+  SelectValue
+} from './select'
 import { SelectContextKey } from './select'
 
 defineOptions({
@@ -46,7 +53,10 @@ const { t } = useLocale()
 const inputId = useId()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('select', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'select',
+  computed(() => props.themeOverrides)
+)
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -54,7 +64,9 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 // 全局配置
 const { globalSize } = useConfig()
 
-const selectSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const selectSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 
 // 默认文案翻译
 const translatedLoadingText = computed(() => props.loadingText || t('select.loading'))
@@ -76,7 +88,7 @@ const slotOptions = ref<SelectOption[]>([])
 
 // 注册 Option
 const onOptionCreate = (option: SelectOption) => {
-  const index = slotOptions.value.findIndex(o => o.value === option.value)
+  const index = slotOptions.value.findIndex((o) => o.value === option.value)
   if (index > -1) {
     slotOptions.value.splice(index, 1, option)
   } else {
@@ -86,7 +98,7 @@ const onOptionCreate = (option: SelectOption) => {
 
 // 注销 Option
 const onOptionDestroy = (value: SelectValue) => {
-  const index = slotOptions.value.findIndex(o => o.value === value)
+  const index = slotOptions.value.findIndex((o) => o.value === value)
   if (index > -1) {
     slotOptions.value.splice(index, 1)
   }
@@ -108,7 +120,7 @@ const updateDropdownPosition = () => {
   const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
 
   dropdownStyle.value = {
-    ...themeStyle.value as any,
+    ...(themeStyle.value as Record<string, string>),
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
@@ -153,7 +165,7 @@ const filteredOptions = computed(() => {
     return allOptions.value
   }
   const q = query.value.toLowerCase()
-  return allOptions.value.filter(opt => {
+  return allOptions.value.filter((opt) => {
     const label = String(opt[props.labelKey || 'label'] || opt.label || '')
     return label.toLowerCase().includes(q)
   })
@@ -217,13 +229,15 @@ const startIndex = computed(() => virtualConfig.value.startIndex)
 const selectedLabels = computed(() => {
   if (props.multiple) {
     const values = Array.isArray(props.modelValue) ? props.modelValue : []
-    return values.map(v => {
-      const opt = allOptions.value.find(o => o[props.valueKey || 'value'] === v)
-      return opt ? (opt[props.labelKey || 'label'] as string || opt.label) : String(v)
+    return values.map((v) => {
+      const opt = allOptions.value.find((o) => o[props.valueKey || 'value'] === v)
+      return opt ? (opt[props.labelKey || 'label'] as string) || opt.label : String(v)
     })
   }
-  const opt = allOptions.value.find(o => o[props.valueKey || 'value'] === props.modelValue)
-  return opt ? (opt[props.labelKey || 'label'] as string || opt.label) : String(props.modelValue ?? '')
+  const opt = allOptions.value.find((o) => o[props.valueKey || 'value'] === props.modelValue)
+  return opt
+    ? (opt[props.labelKey || 'label'] as string) || opt.label
+    : String(props.modelValue ?? '')
 })
 
 // 显示的标签（折叠）
@@ -242,11 +256,14 @@ const collapsedCount = computed(() => {
 })
 
 // 是否显示清空按钮
-const showClear = computed(() =>
-  props.clearable &&
-  !props.disabled &&
-  (props.multiple ? (Array.isArray(props.modelValue) && props.modelValue.length > 0) : props.modelValue !== undefined && props.modelValue !== '') &&
-  (focused.value || hovering.value)
+const showClear = computed(
+  () =>
+    props.clearable &&
+    !props.disabled &&
+    (props.multiple
+      ? Array.isArray(props.modelValue) && props.modelValue.length > 0
+      : props.modelValue !== undefined && props.modelValue !== '') &&
+    (focused.value || hovering.value)
 )
 
 // 是否有值
@@ -404,7 +421,12 @@ const handleKeydown = (event: KeyboardEvent) => {
       emit('visible-change', false)
       break
     case 'Backspace':
-      if (props.multiple && !query.value && Array.isArray(props.modelValue) && props.modelValue.length > 0) {
+      if (
+        props.multiple &&
+        !query.value &&
+        Array.isArray(props.modelValue) &&
+        props.modelValue.length > 0
+      ) {
         const values = [...props.modelValue]
         const removed = values.pop()
         if (removed !== undefined) {
@@ -426,7 +448,7 @@ const handleFocus = (event: FocusEvent) => {
   emit('focus', event)
 }
 
-// 失焦处理  
+// 失焦处理
 const handleBlur = (event: FocusEvent) => {
   // 如果正在点击下拉框，不处理 blur
   if (isClickingDropdown.value) {
@@ -505,34 +527,62 @@ defineExpose<SelectExpose>({
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave" @click="toggleDropdown">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+    @click="toggleDropdown"
+  >
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 多选标签 -->
       <template v-if="multiple">
-        <span v-for="(label, index) in displayTags" :key="index"
-          :class="[ns.e('tag'), tagType ? `yh-tag--${tagType}` : '']">
+        <span
+          v-for="(label, index) in displayTags"
+          :key="index"
+          :class="[ns.e('tag'), tagType ? `yh-tag--${tagType}` : '']"
+        >
           <span :class="ns.e('tag-text')">{{ label }}</span>
-          <span :class="ns.e('tag-close')"
-            @click="handleRemoveTag(Array.isArray(modelValue) ? modelValue[index] : (modelValue as SelectValue), $event)">
+          <span
+            :class="ns.e('tag-close')"
+            @click="
+              handleRemoveTag(
+                Array.isArray(modelValue) ? modelValue[index] : (modelValue as SelectValue),
+                $event
+              )
+            "
+          >
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z" />
+              <path
+                fill="currentColor"
+                d="M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
+              />
             </svg>
           </span>
         </span>
-        <span v-if="collapsedCount > 0" :class="ns.e('tag')">
-          +{{ collapsedCount }}
-        </span>
+        <span v-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
       </template>
 
       <!-- 输入框 -->
-      <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="filterable ? query : ''"
-        :placeholder="hasValue ? '' : (placeholder || t('select.placeholder'))" :disabled="disabled"
-        :readonly="!filterable" autocomplete="off" role="combobox" :aria-expanded="visible"
-        :aria-controls="`${inputId}-listbox`" @input="handleInput" @focus="handleFocus" @blur="handleBlur"
-        @keydown="handleKeydown" />
+      <input
+        ref="inputRef"
+        :id="inputId"
+        :class="ns.e('inner')"
+        :value="filterable ? query : ''"
+        :placeholder="hasValue ? '' : placeholder || t('select.placeholder')"
+        :disabled="disabled"
+        :readonly="!filterable"
+        autocomplete="off"
+        role="combobox"
+        :aria-expanded="visible"
+        :aria-controls="`${inputId}-listbox`"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
+      />
 
       <!-- 单选显示值 -->
       <span v-if="!multiple && hasValue && !query" :class="ns.e('selected-value')">
@@ -544,16 +594,20 @@ defineExpose<SelectExpose>({
         <!-- 清空按钮 -->
         <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @click.stop="handleClear">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+            />
           </svg>
         </span>
 
         <!-- 箭头图标 -->
         <span :class="[ns.e('icon'), ns.e('arrow'), { 'is-reverse': visible }]">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+            />
           </svg>
         </span>
       </span>
@@ -562,14 +616,26 @@ defineExpose<SelectExpose>({
     <!-- 下拉框 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('dropdown')">
-        <div v-show="visible" :class="[ns.e('dropdown'), popperClass]"
-          :style="teleported ? dropdownStyle : { minWidth: fitInputWidth && wrapperRef ? `${wrapperRef.offsetWidth}px` : undefined }"
-          @mousedown="handleDropdownMousedown" @mouseup="handleDropdownMouseup">
+        <div
+          v-show="visible"
+          :class="[ns.e('dropdown'), popperClass]"
+          :style="
+            teleported
+              ? dropdownStyle
+              : {
+                  minWidth: fitInputWidth && wrapperRef ? `${wrapperRef.offsetWidth}px` : undefined
+                }
+          "
+          @mousedown="handleDropdownMousedown"
+          @mouseup="handleDropdownMouseup"
+        >
           <!-- 加载状态 -->
           <div v-if="loading" :class="ns.e('loading')">
             <svg :class="ns.e('loading-icon')" viewBox="0 0 1024 1024">
-              <path fill="currentColor"
-                d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32z" />
+              <path
+                fill="currentColor"
+                d="M512 64a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32zm0 640a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V736a32 32 0 0 1 32-32zm448-192a32 32 0 0 1-32 32H736a32 32 0 1 1 0-64h192a32 32 0 0 1 32 32zm-640 0a32 32 0 0 1-32 32H96a32 32 0 0 1 0-64h192a32 32 0 0 1 32 32z"
+              />
             </svg>
             <span>{{ translatedLoadingText }}</span>
           </div>
@@ -582,28 +648,44 @@ defineExpose<SelectExpose>({
           </div>
 
           <!-- 选项列表 -->
-          <div v-else :id="`${inputId}-listbox`" :class="ns.e('options')" role="listbox"
+          <div
+            v-else
+            :id="`${inputId}-listbox`"
+            :class="ns.e('options')"
+            role="listbox"
             :style="virtualScroll ? { height: `${height}px`, overflow: 'auto' } : {}"
-            @scroll="virtualScroll ? handleVirtualScroll($event) : undefined">
+            @scroll="virtualScroll ? handleVirtualScroll($event) : undefined"
+          >
             <!-- 虚拟滚动占位 -->
             <div v-if="virtualScroll" :style="{ height: `${totalHeight}px`, position: 'relative' }">
               <div :style="{ transform: `translateY(${offsetY}px)` }">
-                <div v-for="(option, index) in displayOptions" :key="(String(option[valueKey || 'value']))" :class="[
-                  ns.e('option'),
-                  ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
-                  ns.is('disabled', option.disabled),
-                  ns.is('hovering', hoveredIndex === index)
-                ]" role="option" :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"
-                  @mousedown.prevent @click="handleOptionClick(option, $event)"
-                  @mouseenter="hoveredIndex = startIndex + index">
+                <div
+                  v-for="(option, index) in displayOptions"
+                  :key="String(option[valueKey || 'value'])"
+                  :class="[
+                    ns.e('option'),
+                    ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
+                    ns.is('disabled', option.disabled),
+                    ns.is('hovering', hoveredIndex === index)
+                  ]"
+                  role="option"
+                  :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"
+                  @mousedown.prevent
+                  @click="handleOptionClick(option, $event)"
+                  @mouseenter="hoveredIndex = startIndex + index"
+                >
                   <slot name="option" :option="option">
                     {{ option[labelKey || 'label'] || option.label }}
                   </slot>
-                  <span v-if="multiple && isSelected(option[valueKey || 'value'] as SelectValue)"
-                    :class="ns.e('option-check')">
+                  <span
+                    v-if="multiple && isSelected(option[valueKey || 'value'] as SelectValue)"
+                    :class="ns.e('option-check')"
+                  >
                     <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-                      <path fill="currentColor"
-                        d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z" />
+                      <path
+                        fill="currentColor"
+                        d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z"
+                      />
                     </svg>
                   </span>
                 </div>
@@ -612,21 +694,33 @@ defineExpose<SelectExpose>({
 
             <!-- 普通列表 -->
             <template v-else>
-              <div v-for="(option, index) in displayOptions" :key="(String(option[valueKey || 'value']))" :class="[
-                ns.e('option'),
-                ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
-                ns.is('disabled', option.disabled),
-                ns.is('hovering', hoveredIndex === index)
-              ]" role="option" :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"
-                @mousedown.prevent @click="handleOptionClick(option, $event)" @mouseenter="hoveredIndex = index">
+              <div
+                v-for="(option, index) in displayOptions"
+                :key="String(option[valueKey || 'value'])"
+                :class="[
+                  ns.e('option'),
+                  ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
+                  ns.is('disabled', option.disabled),
+                  ns.is('hovering', hoveredIndex === index)
+                ]"
+                role="option"
+                :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"
+                @mousedown.prevent
+                @click="handleOptionClick(option, $event)"
+                @mouseenter="hoveredIndex = index"
+              >
                 <slot name="option" :option="option">
                   {{ option[labelKey || 'label'] || option.label }}
                 </slot>
-                <span v-if="multiple && isSelected(option[valueKey || 'value'] as SelectValue)"
-                  :class="ns.e('option-check')">
+                <span
+                  v-if="multiple && isSelected(option[valueKey || 'value'] as SelectValue)"
+                  :class="ns.e('option-check')"
+                >
                   <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-                    <path fill="currentColor"
-                      d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z" />
+                    <path
+                      fill="currentColor"
+                      d="M406.656 706.944L195.84 496.256a32 32 0 1 0-45.248 45.248l256 256 512-512a32 32 0 0 0-45.248-45.248L406.592 706.944z"
+                    />
                   </svg>
                 </span>
               </div>

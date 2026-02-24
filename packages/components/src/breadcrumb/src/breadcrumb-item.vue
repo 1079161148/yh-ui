@@ -13,23 +13,30 @@ const props = defineProps(breadcrumbItemProps)
 const ns = useNamespace('breadcrumb-item')
 
 // 注入父组件配置
-const breadcrumbContext = inject<ToRefs<BreadcrumbProps & { themeOverrides?: any }>>('breadcrumbProps')
+const breadcrumbContext =
+  inject<ToRefs<BreadcrumbProps & { themeOverrides?: import('@yh-ui/theme').ComponentThemeVars }>>(
+    'breadcrumbProps'
+  )
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('breadcrumb-item', computed(() => props.themeOverrides || breadcrumbContext?.themeOverrides?.value))
+const { themeStyle } = useComponentTheme(
+  'breadcrumb-item',
+  computed(() => props.themeOverrides || breadcrumbContext?.themeOverrides?.value)
+)
 
 const router = inject(routerKey, null)
 const linkRef = ref<HTMLElement>()
 
-const linkClass = computed(() => [
-  ns.e('link'),
-  ns.is('link', !!props.to)
-])
+const linkClass = computed(() => [ns.e('link'), ns.is('link', !!props.to)])
 
 const handleLinkClick = (e: MouseEvent) => {
   if (!props.to || !router) return
   e.preventDefault()
-  props.replace ? router.replace(props.to) : router.push(props.to)
+  if (props.replace) {
+    router.replace(props.to)
+  } else {
+    router.push(props.to)
+  }
 }
 </script>
 

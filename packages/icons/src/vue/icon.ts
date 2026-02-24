@@ -145,7 +145,7 @@ export const YhIcon = defineComponent({
      * 图标组件（传入 Vue 组件）
      */
     component: {
-      type: [Object, Function] as PropType<object | Function>,
+      type: [Object, Function] as PropType<object | ((...args: unknown[]) => unknown)>,
       default: undefined
     },
     /**

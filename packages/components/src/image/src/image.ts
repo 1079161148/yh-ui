@@ -123,7 +123,7 @@ export const imageProps = {
    * @description 传递给 viewerjs 的配置项
    */
   viewerOptions: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     default: () => ({})
   },
   /** 主题覆盖变量 */

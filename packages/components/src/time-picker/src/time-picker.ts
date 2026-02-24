@@ -172,7 +172,7 @@ export interface TimeState {
 /**
  * 解析时间字符串或 Date 对象为 TimeState
  */
-export const parseTimeValue = (value: TimeValue, format = 'HH:mm:ss'): TimeState | null => {
+export const parseTimeValue = (value: TimeValue, _format = 'HH:mm:ss'): TimeState | null => {
   if (value === null || value === undefined || value === '') {
     return null
   }

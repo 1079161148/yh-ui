@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, CSSProperties } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export type UploadStatus = 'ready' | 'uploading' | 'success' | 'fail'
 
@@ -142,14 +142,14 @@ export const uploadProps = {
 
 export const uploadEmits = {
   'update:fileList': (fileList: UploadFile[]) => Array.isArray(fileList),
-  change: (file: UploadFile, fileList: UploadFile[]) => true,
-  success: (response: unknown, file: UploadFile, fileList: UploadFile[]) => true,
-  error: (error: Error, file: UploadFile, fileList: UploadFile[]) => true,
-  progress: (evt: UploadProgressEvent, file: UploadFile, fileList: UploadFile[]) => true,
-  remove: (file: UploadFile, fileList: UploadFile[]) => true,
-  exceed: (files: File[], fileList: UploadFile[]) => true,
-  preview: (file: UploadFile) => true,
-  download: (file: UploadFile) => true
+  change: (_file: UploadFile, _fileList: UploadFile[]) => true,
+  success: (_response: unknown, _file: UploadFile, _fileList: UploadFile[]) => true,
+  error: (_error: Error, _file: UploadFile, _fileList: UploadFile[]) => true,
+  progress: (_evt: UploadProgressEvent, _file: UploadFile, _fileList: UploadFile[]) => true,
+  remove: (_file: UploadFile, _fileList: UploadFile[]) => true,
+  exceed: (_files: File[], _fileList: UploadFile[]) => true,
+  preview: (_file: UploadFile) => true,
+  download: (_file: UploadFile) => true
 }
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>

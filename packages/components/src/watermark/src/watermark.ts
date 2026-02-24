@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, CSSProperties } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export const watermarkProps = {
   /** 宽度 */

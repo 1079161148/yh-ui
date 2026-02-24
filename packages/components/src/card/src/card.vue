@@ -7,7 +7,6 @@ import { computed } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { CardProps } from './card'
 
 defineOptions({
@@ -30,7 +29,10 @@ const ns = useNamespace('card')
 const { globalSize } = useConfig()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('card', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'card',
+  computed(() => props.themeOverrides)
+)
 
 // 卡片类名
 const cardClasses = computed(() => [
@@ -72,7 +74,11 @@ const footerClasses = computed(() => [ns.e('footer')])
     <!-- 正常内容 -->
     <template v-else>
       <!-- 卡片头部 -->
-      <div v-if="$slots.header || header || $slots.extra" :class="headerClasses" :style="headerStyle">
+      <div
+        v-if="$slots.header || header || $slots.extra"
+        :class="headerClasses"
+        :style="headerStyle"
+      >
         <div :class="ns.e('header-wrapper')">
           <div :class="ns.e('header-title')">
             <slot name="header">{{ header }}</slot>

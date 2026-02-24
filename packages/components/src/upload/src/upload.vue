@@ -1,22 +1,43 @@
 <template>
-  <div :class="[ns.b(), ns.m(listType), ns.m(`pos-${triggerPosition}`), { [ns.is('disabled')]: disabled }]"
-    :style="themeStyle">
+  <div
+    :class="[
+      ns.b(),
+      ns.m(listType),
+      ns.m(`pos-${triggerPosition}`),
+      { [ns.is('disabled')]: disabled }
+    ]"
+    :style="themeStyle"
+  >
     <!-- Hidden Input moved to top for better focus/click reliability in some browsers -->
-    <input ref="inputRef" type="file" :class="ns.e('input')" :accept="accept" :multiple="multiple || directory"
-      v-bind="directory ? { webkitdirectory: '', directory: '', mozdirectory: '' } : {}" style="display: none"
-      @change="onInputChange" @click.stop />
+    <input
+      ref="inputRef"
+      type="file"
+      :class="ns.e('input')"
+      :accept="accept"
+      :multiple="multiple || directory"
+      v-bind="directory ? { webkitdirectory: '', directory: '', mozdirectory: '' } : {}"
+      style="display: none"
+      @change="onInputChange"
+      @click.stop
+    />
 
     <div :class="ns.e('header')">
       <!-- Trigger Area -->
-      <div v-if="drag" :class="[ns.e('dragger'), { [ns.is('dragover')]: dragOver }]" @drop.prevent="onDrop"
-        @dragover.prevent="onDragOver" @dragenter.prevent="onDragOver" @dragleave.prevent="dragOver = false"
-        @click="triggerInput">
+      <div
+        v-if="drag"
+        :class="[ns.e('dragger'), { [ns.is('dragover')]: dragOver }]"
+        @drop.prevent="onDrop"
+        @dragover.prevent="onDragOver"
+        @dragenter.prevent="onDragOver"
+        @dragleave.prevent="dragOver = false"
+        @click="triggerInput"
+      >
         <slot name="trigger">
           <slot>
             <div :class="ns.e('content')">
               <yh-icon name="plus" :size="32" :class="ns.e('icon')" />
-              <div :class="ns.e('text')" v-html="t('upload.tip')">
-              </div>
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div :class="ns.e('text')" v-html="t('upload.tip')"> </div>
             </div>
           </slot>
         </slot>
@@ -53,7 +74,12 @@
     </div>
 
     <!-- File List -->
-    <transition-group v-if="showFileList" name="yh-list" tag="ul" :class="[ns.e('list'), ns.em('list', listType)]">
+    <transition-group
+      v-if="showFileList"
+      name="yh-list"
+      tag="ul"
+      :class="[ns.e('list'), ns.em('list', listType)]"
+    >
       <li v-for="file in fileList" :key="file.uid" :class="[ns.e('item'), ns.is(file.status)]">
         <slot name="file" :file="file">
           <!-- Picture Card Layout -->
@@ -73,7 +99,10 @@
               </div>
               <!-- Progress Bar overlay -->
               <div v-if="file.status === 'uploading'" :class="ns.e('progress-overlay')">
-                <div :class="ns.e('progress-inner')" :style="{ width: (file.percentage || 0) + '%' }"></div>
+                <div
+                  :class="ns.e('progress-inner')"
+                  :style="{ width: (file.percentage || 0) + '%' }"
+                ></div>
               </div>
             </div>
           </template>
@@ -82,7 +111,12 @@
           <template v-else>
             <div :class="ns.e('info')">
               <div v-if="listType === 'picture'" :class="ns.e('thumbnail-box')">
-                <img v-if="file.url" :src="file.url" :class="ns.e('thumbnail-img')" :crossorigin="crossorigin" />
+                <img
+                  v-if="file.url"
+                  :src="file.url"
+                  :class="ns.e('thumbnail-img')"
+                  :crossorigin="crossorigin"
+                />
                 <yh-icon v-else name="image" :size="24" :class="ns.e('thumbnail-icon')" />
               </div>
               <slot name="file-icon" :file="file">
@@ -96,36 +130,70 @@
               </div>
 
               <div :class="ns.e('status-icon-wrapper')">
-                <yh-icon v-if="file.status === 'success'" name="check" :size="14" :class="ns.e('status-icon')"
-                  color="var(--yh-color-success)" />
-                <yh-icon v-if="file.status === 'fail'" name="error" :size="14" :class="ns.e('status-icon')"
-                  color="var(--yh-color-danger)" />
+                <yh-icon
+                  v-if="file.status === 'success'"
+                  name="check"
+                  :size="14"
+                  :class="ns.e('status-icon')"
+                  color="var(--yh-color-success)"
+                />
+                <yh-icon
+                  v-if="file.status === 'fail'"
+                  name="error"
+                  :size="14"
+                  :class="ns.e('status-icon')"
+                  color="var(--yh-color-danger)"
+                />
 
                 <div v-if="!disabled" :class="ns.e('actions-inline')">
-                  <yh-icon v-if="showDownload" name="download" :size="16" :class="ns.e('download-btn')"
-                    @click.stop="handleDownload(file)" />
-                  <yh-icon v-if="file.status === 'fail'" name="refresh" :size="16" :class="ns.e('retry-btn')"
-                    @click.stop="startUpload(file)" />
-                  <yh-icon name="delete" :size="16" :class="ns.e('delete-btn')" @click.stop="handleRemove(file)" />
+                  <yh-icon
+                    v-if="showDownload"
+                    name="download"
+                    :size="16"
+                    :class="ns.e('download-btn')"
+                    @click.stop="handleDownload(file)"
+                  />
+                  <yh-icon
+                    v-if="file.status === 'fail'"
+                    name="refresh"
+                    :size="16"
+                    :class="ns.e('retry-btn')"
+                    @click.stop="startUpload(file)"
+                  />
+                  <yh-icon
+                    name="delete"
+                    :size="16"
+                    :class="ns.e('delete-btn')"
+                    @click.stop="handleRemove(file)"
+                  />
                 </div>
               </div>
 
               <!-- Full width bottom progress for non-card modes -->
               <div v-if="file.status === 'uploading'" :class="ns.e('bottom-progress')">
-                <div :class="ns.e('bottom-progress-bar')" :style="{ width: (file.percentage || 0) + '%' }"></div>
+                <div
+                  :class="ns.e('bottom-progress-bar')"
+                  :style="{ width: (file.percentage || 0) + '%' }"
+                ></div>
               </div>
             </div>
           </template>
         </slot>
       </li>
     </transition-group>
-
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, type CSSProperties, onBeforeUnmount, computed } from 'vue'
-import { uploadProps, uploadEmits, type UploadFile, type UploadRawFile, type UploadRequestOptions, type UploadProgressEvent } from './upload'
+import { ref, onBeforeUnmount, computed } from 'vue'
+import {
+  uploadProps,
+  uploadEmits,
+  type UploadFile,
+  type UploadRawFile,
+  type UploadRequestOptions,
+  type UploadProgressEvent
+} from './upload'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
@@ -141,7 +209,10 @@ const ns = useNamespace('upload')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('upload', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'upload',
+  computed(() => props.themeOverrides)
+)
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const dragOver = ref(false)
@@ -175,29 +246,29 @@ const getFileIcon = (file: UploadFile) => {
   const ext = fileName.split('.').pop()?.toLowerCase() || ''
   const map: Record<string, string> = {
     // 图片
-    'jpg': 'image',
-    'jpeg': 'image',
-    'png': 'image',
-    'gif': 'image',
-    'webp': 'image',
-    'svg': 'image',
+    jpg: 'image',
+    jpeg: 'image',
+    png: 'image',
+    gif: 'image',
+    webp: 'image',
+    svg: 'image',
     // 文档
-    'pdf': 'file-pdf',
-    'doc': 'file-word',
-    'docx': 'file-word',
-    'xls': 'file-excel',
-    'xlsx': 'file-excel',
-    'ppt': 'file-word',
-    'pptx': 'file-word',
-    'txt': 'file-txt',
+    pdf: 'file-pdf',
+    doc: 'file-word',
+    docx: 'file-word',
+    xls: 'file-excel',
+    xlsx: 'file-excel',
+    ppt: 'file-word',
+    pptx: 'file-word',
+    txt: 'file-txt',
     // 媒体
-    'mp4': 'file-video',
-    'mkv': 'file-video',
-    'avi': 'file-video',
-    'mov': 'file-video',
-    'mp3': 'file-audio',
-    'wav': 'file-audio',
-    'flac': 'file-audio',
+    mp4: 'file-video',
+    mkv: 'file-video',
+    avi: 'file-video',
+    mov: 'file-video',
+    mp3: 'file-audio',
+    wav: 'file-audio',
+    flac: 'file-audio'
   }
 
   return map[ext] || 'attachment'
@@ -216,7 +287,7 @@ const onInputChange = (e: Event) => {
 /**
  * 拖拽进入
  */
-const onDragOver = (e: DragEvent) => {
+const onDragOver = () => {
   if (props.disabled || !props.drag) return
   dragOver.value = true
 }
@@ -279,13 +350,13 @@ const onDrop = async (e: DragEvent) => {
  */
 const attrAccept = (file: File, accept: string) => {
   if (!accept) return true
-  const acceptList = accept.split(',').map(item => item.trim())
+  const acceptList = accept.split(',').map((item) => item.trim())
   if (acceptList.length === 0) return true
 
   const fileName = file.name
   const type = file.type
 
-  return acceptList.some(item => {
+  return acceptList.some((item) => {
     if (item.startsWith('.')) {
       return fileName.toLowerCase().endsWith(item.toLowerCase())
     } else if (item.endsWith('/*')) {
@@ -313,7 +384,9 @@ const handleFiles = async (files: File[]) => {
 
     // 1. Auto remove: format validation (by accept)
     if (props.accept && !attrAccept(rawFile, props.accept)) {
-      console.warn(`[YhUpload] Auto Remove: File format does not match \"${props.accept}\" - ${rawFile.name}`)
+      console.warn(
+        `[YhUpload] Auto Remove: File format does not match \"${props.accept}\" - ${rawFile.name}`
+      )
       continue
     }
 
@@ -336,7 +409,7 @@ const handleFiles = async (files: File[]) => {
           Object.assign(rawFile, newRawFile)
           // We also need to handle the case where we just use the new object
         }
-      } catch (err) {
+      } catch {
         continue
       }
     }
@@ -345,7 +418,8 @@ const handleFiles = async (files: File[]) => {
     if (!rawFile.uid) rawFile.uid = Date.now() + Math.random()
 
     const uploadFile: UploadFile = {
-      name: props.directory && rawFile.webkitRelativePath ? rawFile.webkitRelativePath : rawFile.name,
+      name:
+        props.directory && rawFile.webkitRelativePath ? rawFile.webkitRelativePath : rawFile.name,
       percentage: 0,
       status: 'ready',
       size: rawFile.size,
@@ -370,7 +444,7 @@ const handleFiles = async (files: File[]) => {
     const newFileList = [...props.fileList, ...validFiles]
     emit('update:fileList', newFileList)
 
-    validFiles.forEach(file => {
+    validFiles.forEach((file) => {
       emit('change', file, newFileList)
       if (props.autoUpload) {
         startUpload(file)
@@ -427,7 +501,7 @@ const ajaxUpload = (options: UploadRequestOptions) => {
   const formData = new FormData()
 
   if (options.data) {
-    Object.keys(options.data).forEach(key => {
+    Object.keys(options.data).forEach((key) => {
       formData.append(key, options.data[key] as string | Blob)
     })
   }
@@ -445,7 +519,7 @@ const ajaxUpload = (options: UploadRequestOptions) => {
       let response = xhr.responseText
       try {
         response = JSON.parse(response)
-      } catch (e) { }
+      } catch {}
       options.onSuccess(response)
     } else {
       options.onError(new Error(`Upload failed with status ${xhr.status}`))
@@ -463,7 +537,7 @@ const ajaxUpload = (options: UploadRequestOptions) => {
   }
 
   if (options.headers) {
-    Object.keys(options.headers).forEach(key => {
+    Object.keys(options.headers).forEach((key) => {
       xhr.setRequestHeader(key, options.headers[key])
     })
   }
@@ -482,7 +556,7 @@ const handleRemove = async (file: UploadFile) => {
     if (result === false) return
   }
 
-  const newFileList = props.fileList.filter(f => f.uid !== file.uid)
+  const newFileList = props.fileList.filter((f) => f.uid !== file.uid)
   emit('update:fileList', newFileList)
   emit('remove', file, newFileList)
 
@@ -498,21 +572,27 @@ const handlePreview = (file: UploadFile) => {
   emit('preview', file)
 
   // 仅对图片类型进行内置预览处理
-  const isImage = file.url && (
-    file.url.startsWith('blob:') ||
-    file.url.startsWith('data:') ||
-    /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(file.name)
-  )
+  const isImage =
+    file.url &&
+    (file.url.startsWith('blob:') ||
+      file.url.startsWith('data:') ||
+      /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(file.name))
 
   if (isImage) {
     const images = props.fileList
-      .filter(f => f.url && (f.url.startsWith('blob:') || f.url.startsWith('data:') || /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(f.name)))
-      .map(f => f.url!)
+      .filter(
+        (f) =>
+          f.url &&
+          (f.url.startsWith('blob:') ||
+            f.url.startsWith('data:') ||
+            /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(f.name))
+      )
+      .map((f) => f.url!)
 
     if (images.length === 0) return
 
     const container = document.createElement('div')
-    const imgList = images.map(src => `<img src="${src}" style="display:none">`).join('')
+    const imgList = images.map((src) => `<img src="${src}" style="display:none">`).join('')
     container.innerHTML = imgList
 
     const initialIndex = images.indexOf(file.url!)
@@ -533,14 +613,14 @@ const handlePreview = (file: UploadFile) => {
         prev: images.length > 1 ? 4 : 0,
         play: {
           show: 4,
-          size: 'large',
+          size: 'large'
         },
         next: images.length > 1 ? 4 : 0,
         rotateLeft: 4,
         rotateRight: 4,
         flipHorizontal: 4,
-        flipVertical: 4,
-      },
+        flipVertical: 4
+      }
     })
 
     viewer.view(initialIndex !== -1 ? initialIndex : 0)
@@ -568,7 +648,7 @@ const handleDownload = async (file: UploadFile) => {
     // 强制通过 Fetch 请求资源，并转为 Blob 对象
     const response = await fetch(file.url, {
       method: 'GET',
-      mode: 'cors', // 必须开启 CORS 模式
+      mode: 'cors' // 必须开启 CORS 模式
     })
 
     if (!response.ok) throw new Error('Network response was not ok')
@@ -611,7 +691,7 @@ defineExpose({
   handleDownload,
   handleFiles,
   submit: () => {
-    props.fileList.filter(f => f.status === 'ready').forEach(startUpload)
+    props.fileList.filter((f) => f.status === 'ready').forEach(startUpload)
   }
 })
 </script>

@@ -699,69 +699,71 @@ export type TableProps = ExtractPropTypes<typeof tableProps>
 
 export const tableEmits = {
   /** 排序变化 */
-  'sort-change': (params: { column: TableColumn; prop: string; order: SortOrder }) => true,
+  'sort-change': (_params: { column: TableColumn; prop: string; order: SortOrder }) => true,
   /** 筛选变化 */
-  'filter-change': (filters: Record<string, unknown[]>) => true,
+  'filter-change': (_filters: Record<string, unknown[]>) => true,
   /** 分页变化 */
-  'page-change': (params: { currentPage: number; pageSize: number }) => true,
+  'page-change': (_params: { currentPage: number; pageSize: number }) => true,
   /** 选择变化 */
   'selection-change': (
-    selectedRows: Record<string, unknown>[],
-    selectedRowKeys: Array<string | number>
+    _selectedRows: Record<string, unknown>[],
+    _selectedRowKeys: Array<string | number>
   ) => true,
   /** 当前行变化 */
   'current-change': (
-    currentRow: Record<string, unknown> | null,
-    oldRow: Record<string, unknown> | null
+    _currentRow: Record<string, unknown> | null,
+    _oldRow: Record<string, unknown> | null
   ) => true,
   /** 展开变化 */
-  'expand-change': (row: Record<string, unknown>, expandedRows: Record<string, unknown>[]) => true,
+  'expand-change': (_row: Record<string, unknown>, _expandedRows: Record<string, unknown>[]) =>
+    true,
   /** 行点击 */
-  'row-click': (row: Record<string, unknown>, column: TableColumn, event: MouseEvent) => true,
+  'row-click': (_row: Record<string, unknown>, _column: TableColumn, _event: MouseEvent) => true,
   /** 行双击 */
-  'row-dblclick': (row: Record<string, unknown>, column: TableColumn, event: MouseEvent) => true,
+  'row-dblclick': (_row: Record<string, unknown>, _column: TableColumn, _event: MouseEvent) => true,
   /** 行右键 */
-  'row-contextmenu': (row: Record<string, unknown>, column: TableColumn, event: MouseEvent) => true,
+  'row-contextmenu': (_row: Record<string, unknown>, _column: TableColumn, _event: MouseEvent) =>
+    true,
   /** 单元格点击 */
   'cell-click': (
-    row: Record<string, unknown>,
-    column: TableColumn,
-    cell: HTMLElement,
-    event: MouseEvent
+    _row: Record<string, unknown>,
+    _column: TableColumn,
+    _cell: HTMLElement,
+    _event: MouseEvent
   ) => true,
   /** 单元格双击 */
   'cell-dblclick': (
-    row: Record<string, unknown>,
-    column: TableColumn,
-    cell: HTMLElement,
-    event: MouseEvent
+    _row: Record<string, unknown>,
+    _column: TableColumn,
+    _cell: HTMLElement,
+    _event: MouseEvent
   ) => true,
   /** 表头点击 */
-  'header-click': (column: TableColumn, event: MouseEvent) => true,
+  'header-click': (_column: TableColumn, _event: MouseEvent) => true,
   /** 表头右键 */
-  'header-contextmenu': (column: TableColumn, event: MouseEvent) => true,
+  'header-contextmenu': (_column: TableColumn, _event: MouseEvent) => true,
   /** 全选 */
-  'select-all': (selection: Record<string, unknown>[]) => true,
+  'select-all': (_selection: Record<string, unknown>[]) => true,
   /** 选择行 */
-  select: (selection: Record<string, unknown>[], row: Record<string, unknown>) => true,
+  select: (_selection: Record<string, unknown>[], _row: Record<string, unknown>) => true,
 
   /** 滚动事件 */
-  scroll: (params: { scrollTop: number; scrollLeft: number; isEnd: boolean }) => true,
+  scroll: (_params: { scrollTop: number; scrollLeft: number; isEnd: boolean }) => true,
   /** 拖拽结束 */
-  'drag-end': (params: {
+  'drag-end': (_params: {
     type: 'row' | 'column'
     oldIndex: number
     newIndex: number
     data: unknown[]
   }) => true,
   /** 列宽变化 */
-  'column-resize': (column: TableColumn, width: number) => true,
+  'column-resize': (_column: TableColumn, _width: number) => true,
   /** 列可见性变化 */
-  'column-visible-change': (columns: TableColumn[]) => true,
+  'column-visible-change': (_columns: TableColumn[]) => true,
   /** 数据更新 */
-  'update:data': (data: Record<string, unknown>[]) => true,
+  'update:data': (_data: Record<string, unknown>[]) => true,
   /** 当前行 key 更新 */
-  'update:currentRowKey': (key: string | number | undefined) => true
+  'update:currentRowKey': (_key: string | number | undefined) => true
 } as const
 
 export type TableEmits = typeof tableEmits

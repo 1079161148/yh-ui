@@ -7,7 +7,6 @@ import { computed, ref, nextTick, useSlots } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { TagProps, TagEmits } from './tag'
 
 defineOptions({
@@ -37,7 +36,10 @@ const ns = useNamespace('tag')
 const { globalSize } = useConfig()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('tag', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'tag',
+  computed(() => props.themeOverrides)
+)
 
 // 编辑状态
 const isEditing = ref(false)
@@ -139,8 +141,15 @@ const handleEditKeydown = (event: KeyboardEvent) => {
 
 <template>
   <!-- 编辑模式 -->
-  <input v-if="editable && isEditing" ref="inputRef" :class="[ns.e('input'), ns.m(size)]" :value="editValue"
-    @input="handleEditInput" @blur="handleEditConfirm" @keydown="handleEditKeydown" />
+  <input
+    v-if="editable && isEditing"
+    ref="inputRef"
+    :class="[ns.e('input'), ns.m(size)]"
+    :value="editValue"
+    @input="handleEditInput"
+    @blur="handleEditConfirm"
+    @keydown="handleEditKeydown"
+  />
 
   <!-- 普通模式 -->
   <span v-else :class="tagClasses" :style="tagStyle" @click="handleClick" @dblclick="startEdit">
@@ -167,8 +176,10 @@ const handleEditKeydown = (event: KeyboardEvent) => {
     <span v-if="closable" :class="ns.e('close')" @click="handleClose">
       <slot name="closeIcon">
         <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
-          <path fill="currentColor"
-            d="M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z" />
+          <path
+            fill="currentColor"
+            d="M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z"
+          />
         </svg>
       </slot>
     </span>

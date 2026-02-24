@@ -1,25 +1,44 @@
 <template>
   <teleport :to="teleportTo" :disabled="!teleportTo || inner">
     <transition name="yh-drawer-fade" @after-leave="onAfterLeave">
-      <div v-if="rendered" v-show="modelValue" :class="[
-        ns.e('wrapper'),
-        modalClass,
-        { [ns.is('active')]: modelValue },
-        { [ns.is('with-modal')]: modal },
-        { [ns.is('inner')]: inner }
-      ]" :style="{ zIndex: drawerZIndex - 1 }" @click.self="handleClose(true)">
-        <div ref="drawerRef" v-show="modelValue" :class="[
-          ns.b(),
-          ns.m(placement),
-          { [ns.is('open')]: modelValue },
-          { [ns.m('glass')]: glass },
-          { [ns.is('round')]: round },
-          { [ns.is('inner')]: inner },
-          customClass
-        ]" :style="[drawerStyles, { zIndex: drawerZIndex }]" role="dialog" aria-modal="true" :aria-labelledby="titleId"
-          :aria-describedby="bodyId" @mousedown.stop>
+      <div
+        v-if="rendered"
+        v-show="modelValue"
+        :class="[
+          ns.e('wrapper'),
+          modalClass,
+          { [ns.is('active')]: modelValue },
+          { [ns.is('with-modal')]: modal },
+          { [ns.is('inner')]: inner }
+        ]"
+        :style="{ zIndex: drawerZIndex - 1 }"
+        @click.self="handleClose(true)"
+      >
+        <div
+          ref="drawerRef"
+          v-show="modelValue"
+          :class="[
+            ns.b(),
+            ns.m(placement),
+            { [ns.is('open')]: modelValue },
+            { [ns.m('glass')]: glass },
+            { [ns.is('round')]: round },
+            { [ns.is('inner')]: inner },
+            customClass
+          ]"
+          :style="[drawerStyles, { zIndex: drawerZIndex }]"
+          role="dialog"
+          aria-modal="true"
+          :aria-labelledby="titleId"
+          :aria-describedby="bodyId"
+          @mousedown.stop
+        >
           <!-- Resizable Handle -->
-          <div v-if="resizable" :class="[ns.e('handle'), ns.em('handle', placement)]" @mousedown="handleResizeStart">
+          <div
+            v-if="resizable"
+            :class="[ns.e('handle'), ns.em('handle', placement)]"
+            @mousedown="handleResizeStart"
+          >
           </div>
 
           <div v-if="showHeader" :class="ns.e('header')" :style="titleStyle">
@@ -30,8 +49,13 @@
                 <slot v-else name="title" />
               </span>
             </slot>
-            <button v-if="showClose" type="button" :class="ns.e('close')" :aria-label="t('dialog.close')"
-              @click="handleClose()">
+            <button
+              v-if="showClose"
+              type="button"
+              :class="ns.e('close')"
+              :aria-label="t('dialog.close')"
+              @click="handleClose()"
+            >
               <slot name="close-icon">
                 <yh-icon :name="closeIcon" />
               </slot>
@@ -70,7 +94,10 @@ const { t } = useLocale()
 const { nextZIndex } = useZIndex()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('drawer', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'drawer',
+  computed(() => props.themeOverrides)
+)
 
 const drawerRef = ref<HTMLElement | null>(null)
 const rendered = ref(false)
@@ -86,10 +113,11 @@ const isHorizontal = computed(() => ['left', 'right'].includes(props.placement))
 const drawerStyles = computed<CSSProperties>(() => {
   const baseStyle = typeof props.drawerStyle === 'object' ? props.drawerStyle : {}
   const styles: CSSProperties = {
-    ...themeStyle.value as any,
+    ...(themeStyle.value as CSSProperties),
     ...baseStyle
   }
-  const sizeValue = typeof currentSize.value === 'number' ? `${currentSize.value}px` : currentSize.value
+  const sizeValue =
+    typeof currentSize.value === 'number' ? `${currentSize.value}px` : currentSize.value
 
   if (isHorizontal.value) {
     styles.width = sizeValue
@@ -103,19 +131,23 @@ const drawerStyles = computed<CSSProperties>(() => {
 useScrollLock(computed(() => props.modelValue && props.lockScroll))
 
 // Visibility logic
-watch(() => props.modelValue, (val: boolean) => {
-  if (val) {
-    rendered.value = true
-    drawerZIndex.value = props.zIndex || nextZIndex()
-    emit('open')
+watch(
+  () => props.modelValue,
+  (val: boolean) => {
+    if (val) {
+      rendered.value = true
+      drawerZIndex.value = props.zIndex || nextZIndex()
+      emit('open')
 
-    nextTick(() => {
-      emit('opened')
-    })
-  } else {
-    emit('close')
-  }
-}, { immediate: true })
+      nextTick(() => {
+        emit('opened')
+      })
+    } else {
+      emit('close')
+    }
+  },
+  { immediate: true }
+)
 
 const handleClose = (isClickModal = false) => {
   if (isClickModal && !props.closeOnClickModal) return

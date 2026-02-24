@@ -63,7 +63,7 @@ export const useLocale = (localeOverrides?: Ref<Language>) => {
 
     // 处理插值 {xxx}
     if (options) {
-      return result.replace(/\{(\w+)\}/g, (_, key) => {
+      return result.replace(/\{(\w+)\}/g, (_match, key) => {
         const val = options[key]
         return val !== undefined ? String(val) : `{${key}}`
       })
