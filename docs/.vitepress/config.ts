@@ -4,6 +4,7 @@ import { resolve } from 'node:path'
 export default defineConfig({
   title: 'YH-UI',
   description: '一个现代化的 Vue 3 组件库',
+  base: '/yh-ui/',
 
   lang: 'zh-CN',
 

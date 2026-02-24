@@ -103,7 +103,7 @@ jobs:
             })
 
             const tag = '${{ steps.version.outputs.VERSION }}'
-            const body = `## YH-UI v${tag}\n\n📦 [npm package](https://www.npmjs.com/package/yh-ui)\n📖 [Documentation](https://yh-ui.dev)\n\nSee [CHANGELOG.md](./CHANGELOG.md) for full details.`
+            const body = `## YH-UI v${tag}\n\n📦 [npm package](https://www.npmjs.com/package/@yh-ui/yh-ui)\n📖 [Documentation](https://1079161148.github.io/yh-ui/)\n\nSee [CHANGELOG.md](./CHANGELOG.md) for full details.`
 
             await github.rest.repos.createRelease({
               owner: context.repo.owner,
