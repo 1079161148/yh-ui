@@ -195,7 +195,7 @@ const loading = ref(true)
 </${_S}>`
 
 const tsComposition = `<${_S} setup lang="ts">
-import { YhLoading } from 'yh-ui'
+import { YhLoading } from '@yh-ui/yh-ui'
 
 const openLoading = () => {
   const loading = YhLoading.service({
@@ -222,7 +222,7 @@ const tsPremium = `<${_T}>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { YhLoading } from 'yh-ui'
+import { YhLoading } from '@yh-ui/yh-ui'
 
 const openPremium = (type) => {
   YhLoading.service({
@@ -235,7 +235,7 @@ const openPremium = (type) => {
 
 const tsCustomSpinner = `<${_S} setup lang="ts">
 import { h } from 'vue'
-import { YhLoading } from 'yh-ui'
+import { YhLoading } from '@yh-ui/yh-ui'
 
 const openCustom = () => {
   YhLoading.service({
@@ -252,7 +252,7 @@ const openCustom = () => {
 </${_T}>`
 
 const tsAxios = `import axios from 'axios'
-import { YhLoading } from 'yh-ui'
+import { YhLoading } from '@yh-ui/yh-ui'
 
 let loadingInstance = null
 let requestCount = 0
@@ -296,7 +296,7 @@ service.interceptors.response.use(response => {
 
 const tsContext = `<${_S} setup lang="ts">
 import { getCurrentInstance } from 'vue'
-import { YhLoading } from 'yh-ui'
+import { YhLoading } from '@yh-ui/yh-ui'
 
 const { appContext } = getCurrentInstance()!
 
@@ -320,8 +320,8 @@ const jsContext = toJs(tsContext)
 
 `Loading` is the directive and service encapsulation provided by YH-UI, while `Spin` is its core UI component.
 
--   **Underlying Core (`Spin`)**: Responsible for the visual presentation and text arrangement of loading animations (SVG/Dot/Chaser/Gear). It is a pure Vue component.
--   **High-level Encapsulation (`Loading`)**: An enhanced solution built on `Spin`, providing **directives** and **command-style services**, specifically for handling full-screen masks, scroll locking, dynamic mounting, etc.
+- **Underlying Core (`Spin`)**: Responsible for the visual presentation and text arrangement of loading animations (SVG/Dot/Chaser/Gear). It is a pure Vue component.
+- **High-level Encapsulation (`Loading`)**: An enhanced solution built on `Spin`, providing **directives** and **command-style services**, specifically for handling full-screen masks, scroll locking, dynamic mounting, etc.
 
 ## Usage
 
@@ -490,63 +490,64 @@ If you register the YhLoading component globally, it will automatically inherit 
 
 ### LoadingOptions (Service Config)
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| target | Mounting target. Supports DOM or CSS selector | `string | HTMLElement` | `document.body` |
-| body | Whether to insert mask into body element (same as target: body) | `boolean` | `false` |
-| fullscreen | Whether full screen (`position: fixed`) | `boolean` | `true` |
-| lock | Whether to lock host element scrolling | `boolean` | `false` |
-| text | Loading text | `string` | - |
-| glass | Whether to enable flagship mode (acrylic glass effect) | `boolean` | `false` |
-| background | Mask layer background color | `string` | - |
-| customClass | Custom mask layer class name | `string` | - |
-| spinner | Custom icon/component (takes precedence over `spinnerType`) | `string | Component | VNode` | - |
-| spinnerType | Loading animation type. Options: `circle`, `chaser`, `gear`, `dual-ring`, `rect` | `LoadingSpinnerType` | `circle` |
-| color | Loading icon color, supports gradient color arrays or CSS variables | `string | string[] | object` | - |
-| dot | Whether to use dot loading style (Antd style) | `boolean` | `false` |
+| Prop        | Description                                                                      | Type                 | Default      |
+| ----------- | -------------------------------------------------------------------------------- | -------------------- | ------------ | --------------- | --- |
+| target      | Mounting target. Supports DOM or CSS selector                                    | `string              | HTMLElement` | `document.body` |
+| body        | Whether to insert mask into body element (same as target: body)                  | `boolean`            | `false`      |
+| fullscreen  | Whether full screen (`position: fixed`)                                          | `boolean`            | `true`       |
+| lock        | Whether to lock host element scrolling                                           | `boolean`            | `false`      |
+| text        | Loading text                                                                     | `string`             | -            |
+| glass       | Whether to enable flagship mode (acrylic glass effect)                           | `boolean`            | `false`      |
+| background  | Mask layer background color                                                      | `string`             | -            |
+| customClass | Custom mask layer class name                                                     | `string`             | -            |
+| spinner     | Custom icon/component (takes precedence over `spinnerType`)                      | `string              | Component    | VNode`          | -   |
+| spinnerType | Loading animation type. Options: `circle`, `chaser`, `gear`, `dual-ring`, `rect` | `LoadingSpinnerType` | `circle`     |
+| color       | Loading icon color, supports gradient color arrays or CSS variables              | `string              | string[]     | object`         | -   |
+| dot         | Whether to use dot loading style (Antd style)                                    | `boolean`            | `false`      |
 
 ### Directive Attributes (v-yh-loading)
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `yh-loading-text` | Loading text | `string` |
-| `yh-loading-background` | Mask background color | `string` |
-| `yh-loading-custom-class` | Custom class name | `string` |
-| `yh-loading-glass` | Whether to enable acrylic effect | `boolean` |
-| `yh-loading-dot` | Whether to use dot mode | `boolean` |
-| `yh-loading-color` | Icon color | `string` |
-| `yh-loading-type` | Animation type (`circle`, `chaser`, etc.) | `LoadingSpinnerType` |
+| Name                      | Description                               | Type                 |
+| ------------------------- | ----------------------------------------- | -------------------- |
+| `yh-loading-text`         | Loading text                              | `string`             |
+| `yh-loading-background`   | Mask background color                     | `string`             |
+| `yh-loading-custom-class` | Custom class name                         | `string`             |
+| `yh-loading-glass`        | Whether to enable acrylic effect          | `boolean`            |
+| `yh-loading-dot`          | Whether to use dot mode                   | `boolean`            |
+| `yh-loading-color`        | Icon color                                | `string`             |
+| `yh-loading-type`         | Animation type (`circle`, `chaser`, etc.) | `LoadingSpinnerType` |
 
 ### Directive Modifiers
 
-| Name | Description |
-| --- | --- |
+| Name          | Description                      |
+| ------------- | -------------------------------- |
 | `.fullscreen` | Equivalent to `fullscreen: true` |
-| `.lock` | Equivalent to `lock: true` |
-| `.glass` | Equivalent to `glass: true` |
+| `.lock`       | Equivalent to `lock: true`       |
+| `.glass`      | Equivalent to `glass: true`      |
 
 ### LoadingInstance (Service Instance Methods)
 
-| Prop | Description | Type |
-| --- | --- | --- |
-| `service` | Create and show loading mask | `(options: LoadingOptions, appContext?: AppContext) => LoadingInstance` |
-| `close` | Close and destroy mask instance | `() => void` |
-| `visible` | (Readonly) Get current mask visibility status | `boolean` |
+| Prop      | Description                                   | Type                                                                    |
+| --------- | --------------------------------------------- | ----------------------------------------------------------------------- |
+| `service` | Create and show loading mask                  | `(options: LoadingOptions, appContext?: AppContext) => LoadingInstance` |
+| `close`   | Close and destroy mask instance               | `() => void`                                                            |
+| `visible` | (Readonly) Get current mask visibility status | `boolean`                                                               |
 
 ### Slots (Available when injected via spinner property)
 
 When using `<yh-spin>` or referencing the component alone, the following slots are supported:
+
 - `default`: Mask host content
 - `tip`: Custom text content
 - `icon`: Replace built-in loading icon
 
 ## Theme Variables (CSS Variables)
 
-| Variable | Description | Default |
-| --- | --- | --- |
+| Variable                | Description                | Default                    |
+| ----------------------- | -------------------------- | -------------------------- |
 | `--yh-bg-color-overlay` | Base mask background color | `rgba(255, 255, 255, 0.7)` |
-| `--yh-spin-blur-radius` | Acrylic blur radius | `20px` |
-| `--yh-loading-z-index` | Mask z-index | `2000` |
+| `--yh-spin-blur-radius` | Acrylic blur radius        | `20px`                     |
+| `--yh-loading-z-index`  | Mask z-index               | `2000`                     |
 
 <style>
 .custom-logo-loading {

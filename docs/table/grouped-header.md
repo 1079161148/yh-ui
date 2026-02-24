@@ -144,7 +144,7 @@ const tsBasicGroup = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { date: '2024-05-01', name: '张三', province: '广东', city: '深圳', address: '南山区', zip: 518000 },
@@ -180,7 +180,7 @@ const tsMultiLevel = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { project: '核心引擎', devProgress: 88, testProgress: 75, bugCount: 12, quality: 'A' },
@@ -224,7 +224,7 @@ const tsSpanGroup = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { category: '办公用品', type: '书写工具', name: '签字笔', price: 5, stock: 100 },
@@ -283,7 +283,7 @@ const tsDynamicGroup = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref, computed } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const isExpanded = ref(false)
 const data = ref([
@@ -352,36 +352,37 @@ const jsDynamicGroup = toJs(tsDynamicGroup);
 
 在 `TableColumn` 接口中，支持以下属性配置：
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| key | 列唯一标识 | `string` | — |
-| prop | 列字段名 | `string` | — |
-| label | 列标题 | `string` | — |
-| width | 列宽 | `number \| string` | — |
-| minWidth | 最小列宽 | `number \| string` | — |
-| maxWidth | 最大列宽 | `number \| string` | — |
-| align | 内容对齐方式 | `'left' \| 'center' \| 'right'` | `'left'` |
-| headerAlign | 表头对齐方式 | `'left' \| 'center' \| 'right'` | — |
-| fixed | 固定列 | `'left' \| 'right' \| true` | — |
-| sortable | 是否可排序 | `boolean \| 'custom'` | `false` |
-| resizable | 是否可调整列宽 | `boolean` | `true` |
-| showOverflowTooltip | 是否显示溢出提示 | `boolean \| object` | `false` |
-| className | 列类名 | `string` | — |
-| headerClassName | 表头类名 | `string` | — |
-| style | 列样式 | `CSSProperties` | — |
-| headerStyle | 表头样式 | `CSSProperties` | — |
-| visible | 是否可见 | `boolean` | `true` |
-| children | 子列配置（实现多级表头） | `TableColumn[]` | — |
-| type | 列类型 | `'selection' \| 'index' \| 'expand' \| 'radio'` | — |
-| render | 自定义单元格渲染 | `(params) => VNode` | — |
-| headerRender | 自定义表头渲染 | `(params) => VNode` | — |
-| indexMethod | 序号列自定义方法 | `(index: number) => number \| string` | — |
-| selectable | 勾选框是否可选判断函数 | `(row, index) => boolean` | — |
-| sortBy | 指定排序字段 | `string \| ((row) => unknown)` | — |
-| sortMethod | 自定义排序方法 | `(a, b, order) => number` | — |
-| ellipsis | 省略号配置 | `boolean \| EllipsisConfig` | `false` |
-| formatter | 单元格格式化方法 | `(row, column, cellValue, index) => string \| VNode` | — |
+| 属性                | 说明                     | 类型                                                 | 默认值   |
+| ------------------- | ------------------------ | ---------------------------------------------------- | -------- |
+| key                 | 列唯一标识               | `string`                                             | —        |
+| prop                | 列字段名                 | `string`                                             | —        |
+| label               | 列标题                   | `string`                                             | —        |
+| width               | 列宽                     | `number \| string`                                   | —        |
+| minWidth            | 最小列宽                 | `number \| string`                                   | —        |
+| maxWidth            | 最大列宽                 | `number \| string`                                   | —        |
+| align               | 内容对齐方式             | `'left' \| 'center' \| 'right'`                      | `'left'` |
+| headerAlign         | 表头对齐方式             | `'left' \| 'center' \| 'right'`                      | —        |
+| fixed               | 固定列                   | `'left' \| 'right' \| true`                          | —        |
+| sortable            | 是否可排序               | `boolean \| 'custom'`                                | `false`  |
+| resizable           | 是否可调整列宽           | `boolean`                                            | `true`   |
+| showOverflowTooltip | 是否显示溢出提示         | `boolean \| object`                                  | `false`  |
+| className           | 列类名                   | `string`                                             | —        |
+| headerClassName     | 表头类名                 | `string`                                             | —        |
+| style               | 列样式                   | `CSSProperties`                                      | —        |
+| headerStyle         | 表头样式                 | `CSSProperties`                                      | —        |
+| visible             | 是否可见                 | `boolean`                                            | `true`   |
+| children            | 子列配置（实现多级表头） | `TableColumn[]`                                      | —        |
+| type                | 列类型                   | `'selection' \| 'index' \| 'expand' \| 'radio'`      | —        |
+| render              | 自定义单元格渲染         | `(params) => VNode`                                  | —        |
+| headerRender        | 自定义表头渲染           | `(params) => VNode`                                  | —        |
+| indexMethod         | 序号列自定义方法         | `(index: number) => number \| string`                | —        |
+| selectable          | 勾选框是否可选判断函数   | `(row, index) => boolean`                            | —        |
+| sortBy              | 指定排序字段             | `string \| ((row) => unknown)`                       | —        |
+| sortMethod          | 自定义排序方法           | `(a, b, order) => number`                            | —        |
+| ellipsis            | 省略号配置               | `boolean \| EllipsisConfig`                          | `false`  |
+| formatter           | 单元格格式化方法         | `(row, column, cellValue, index) => string \| VNode` | —        |
 
 > **注意事项：**
+>
 > 1. 设置了 `children` 的列，其 `prop` 属性通常会被忽略，因为该列仅作为分组容器。
 > 2. `fixed` 属性建议设置在最外层（如示例中的“日期”列）或是最底层的具体数据列，中间的分组列不要重复设置固定属性。

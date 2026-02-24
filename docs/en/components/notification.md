@@ -160,7 +160,7 @@ const tsBasic = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification({
@@ -180,7 +180,7 @@ const tsTypes = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showSuccess = () => {
   YhNotification.success('Success', 'Congrats, this is a success message')
@@ -211,7 +211,7 @@ const tsPosition = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showTopRight = () => {
   YhNotification({
@@ -269,7 +269,7 @@ const tsDuration = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification({
@@ -287,7 +287,7 @@ const tsHtml = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showHtml = () => {
   YhNotification({
@@ -305,7 +305,7 @@ const tsHideClose = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification({
@@ -323,7 +323,7 @@ const tsMaxLimit = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showMaxLimit = () => {
   YhNotification({
@@ -344,7 +344,7 @@ const tsVNodeMessage = `<template>
 
 <script setup lang="ts">
 import { h, ref } from 'vue'
-import { YhNotification, YhSwitch } from 'yh-ui'
+import { YhNotification, YhSwitch } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhNotification({
@@ -528,7 +528,7 @@ Import and use directly in `<script setup>`:
 </template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification.success('Success', 'This is a success message')
@@ -559,47 +559,47 @@ export default {
 ### Individual Import
 
 ```typescript
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 ```
 
 ## API
 
 ### Methods
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `YhNotification` | Show notification | `options` |
-| `YhNotification.success` | Show success notification | `(title, message \| options)` |
-| `YhNotification.warning` | Show warning notification | `(title, message \| options)` |
-| `YhNotification.info` | Show info notification | `(title, message \| options)` |
-| `YhNotification.error` | Show error notification | `(title, message \| options)` |
-| `YhNotification.closeAll` | Close all notifications | — |
+| Name                      | Description               | Parameters                    |
+| ------------------------- | ------------------------- | ----------------------------- |
+| `YhNotification`          | Show notification         | `options`                     |
+| `YhNotification.success`  | Show success notification | `(title, message \| options)` |
+| `YhNotification.warning`  | Show warning notification | `(title, message \| options)` |
+| `YhNotification.info`     | Show info notification    | `(title, message \| options)` |
+| `YhNotification.error`    | Show error notification   | `(title, message \| options)` |
+| `YhNotification.closeAll` | Close all notifications   | —                             |
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `title` | Title | `string` | — |
-| `message` | Notification content | `string \| VNode \| (() => VNode)` | — |
-| `type` | Notification type | `'success' \| 'warning' \| 'info' \| 'error'` | — |
-| `icon` | Custom icon | `string \| VNode` | — |
-| `showClose` | Whether to show close button | `boolean` | `true` |
-| `duration` | Display duration (ms), set to 0 to prevent auto-close | `number` | `4500` |
-| `offset` | Offset from the window edge (px) | `number` | `16` |
-| `position` | Popup position | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'top-right'` |
-| `dangerouslyUseHTMLString` | Whether to treat message as an HTML snippet | `boolean` | `false` |
-| `onClose` | Callback function when closing | `() => void` | — |
-| `onClick` | Callback function when clicking the notification | `() => void` | — |
-| `zIndex` | z-index level | `number` | — |
-| `customClass` | Custom class name | `string` | — |
-| `max` | Limit the number of notifications shown at the same position | `number` | — |
+| Prop                       | Description                                                  | Type                                                                                              | Default       |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | ------------- |
+| `title`                    | Title                                                        | `string`                                                                                          | —             |
+| `message`                  | Notification content                                         | `string \| VNode \| (() => VNode)`                                                                | —             |
+| `type`                     | Notification type                                            | `'success' \| 'warning' \| 'info' \| 'error'`                                                     | —             |
+| `icon`                     | Custom icon                                                  | `string \| VNode`                                                                                 | —             |
+| `showClose`                | Whether to show close button                                 | `boolean`                                                                                         | `true`        |
+| `duration`                 | Display duration (ms), set to 0 to prevent auto-close        | `number`                                                                                          | `4500`        |
+| `offset`                   | Offset from the window edge (px)                             | `number`                                                                                          | `16`          |
+| `position`                 | Popup position                                               | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'top-right'` |
+| `dangerouslyUseHTMLString` | Whether to treat message as an HTML snippet                  | `boolean`                                                                                         | `false`       |
+| `onClose`                  | Callback function when closing                               | `() => void`                                                                                      | —             |
+| `onClick`                  | Callback function when clicking the notification             | `() => void`                                                                                      | —             |
+| `zIndex`                   | z-index level                                                | `number`                                                                                          | —             |
+| `customClass`              | Custom class name                                            | `string`                                                                                          | —             |
+| `max`                      | Limit the number of notifications shown at the same position | `number`                                                                                          | —             |
 
 ### Return Value
 
 Calling `YhNotification` returns an instance of the current Notification. If you need to manually close the instance, call its `close` method.
 
-| Method | Description |
-| --- | --- |
+| Method  | Description                |
+| ------- | -------------------------- |
 | `close` | Close current Notification |
 
 ```typescript
@@ -611,32 +611,32 @@ handler.close()
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
+| Slot Name | Description         |
+| --------- | ------------------- |
 | `default` | Custom content area |
-| `icon` | Custom icon area |
+| `icon`    | Custom icon area    |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name      | Description                    | Type           |
+| --------- | ------------------------------ | -------------- |
 | `visible` | Notification visibility status | `Ref<boolean>` |
-| `close` | Close current notification | `() => void` |
+| `close`   | Close current notification     | `() => void`   |
 
 ### Theme Variables
 
 The Notification component use following CSS variables, which can be overridden to customize the style:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-notification-bg-color` | Background color | `var(--yh-color-bg-elevated)` |
-| `--yh-notification-border-color` | Border color | `var(--yh-border-color-light)` |
-| `--yh-notification-shadow` | Shadow | `var(--yh-box-shadow-small)` |
-| `--yh-notification-title-color` | Title color | `var(--yh-color-text-primary)` |
-| `--yh-notification-text-color` | Content text color | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-color` | Close button color | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-hover-color` | Close button hover color | `var(--yh-color-text-primary)` |
-| `--yh-notification-icon-size` | Icon size | `24px` |
-| `--yh-notification-width` | Notification width | `330px` |
-| `--yh-notification-padding` | Padding | `20px` |
-| `--yh-notification-radius` | Border radius | `var(--yh-border-radius-base)` |
+| Variable                              | Description              | Default                          |
+| ------------------------------------- | ------------------------ | -------------------------------- |
+| `--yh-notification-bg-color`          | Background color         | `var(--yh-color-bg-elevated)`    |
+| `--yh-notification-border-color`      | Border color             | `var(--yh-border-color-light)`   |
+| `--yh-notification-shadow`            | Shadow                   | `var(--yh-box-shadow-small)`     |
+| `--yh-notification-title-color`       | Title color              | `var(--yh-color-text-primary)`   |
+| `--yh-notification-text-color`        | Content text color       | `var(--yh-color-text-secondary)` |
+| `--yh-notification-close-color`       | Close button color       | `var(--yh-color-text-secondary)` |
+| `--yh-notification-close-hover-color` | Close button hover color | `var(--yh-color-text-primary)`   |
+| `--yh-notification-icon-size`         | Icon size                | `24px`                           |
+| `--yh-notification-width`             | Notification width       | `330px`                          |
+| `--yh-notification-padding`           | Padding                  | `20px`                           |
+| `--yh-notification-radius`            | Border radius            | `var(--yh-border-radius-base)`   |

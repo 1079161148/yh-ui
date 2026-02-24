@@ -74,7 +74,7 @@ const tsBasic = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMessage = () => {
   YhMessage('This is a message tip')
@@ -88,7 +88,7 @@ const jsBasic = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMessage = () => {
   YhMessage('This is a message tip')
@@ -103,7 +103,7 @@ const tsTypes = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showSuccess = () => {
   YhMessage.success('Congrats, this is a success message')
@@ -129,7 +129,7 @@ const tsClosable = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showClosable = () => {
   YhMessage({
@@ -145,7 +145,7 @@ const jsClosable = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showClosable = () => {
   YhMessage({
@@ -161,7 +161,7 @@ const tsCenter = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showCenter = () => {
   YhMessage({
@@ -176,7 +176,7 @@ const jsCenter = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showCenter = () => {
   YhMessage({
@@ -191,7 +191,7 @@ const tsHtml = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showHtml = () => {
   YhMessage({
@@ -206,7 +206,7 @@ const jsHtml = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showHtml = () => {
   YhMessage({
@@ -222,7 +222,7 @@ const tsCloseAll = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMultiple = () => {
   YhMessage.success('Message One')
@@ -241,7 +241,7 @@ const jsCloseAll = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMultiple = () => {
   YhMessage.success('Message One')
@@ -258,7 +258,7 @@ const tsGrouping = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showGrouping = () => {
   YhMessage({
@@ -281,8 +281,8 @@ const tsPlacement = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
-import type { MessagePlacement } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
+import type { MessagePlacement } from '@yh-ui/yh-ui'
 
 const showPlacement = (placement: MessagePlacement) => {
   YhMessage({
@@ -302,7 +302,7 @@ const jsPlacement = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showPlacement = (placement) => {
   YhMessage({
@@ -446,7 +446,7 @@ Import and use directly in `<script setup>`:
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMessage = () => {
   YhMessage.success('This is a success message')
@@ -477,63 +477,63 @@ export default {
 ### Individual Import
 
 ```typescript
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 ```
 
 ## API
 
 ### Methods
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| YhMessage | Show message | `options \| string` |
-| YhMessage.success | Show success message | `options \| string` |
-| YhMessage.warning | Show warning message | `options \| string` |
-| YhMessage.info | Show info message | `options \| string` |
-| YhMessage.error | Show error message | `options \| string` |
-| YhMessage.closeAll | Close all messages | — |
+| Name               | Description          | Parameters          |
+| ------------------ | -------------------- | ------------------- |
+| YhMessage          | Show message         | `options \| string` |
+| YhMessage.success  | Show success message | `options \| string` |
+| YhMessage.warning  | Show warning message | `options \| string` |
+| YhMessage.info     | Show info message    | `options \| string` |
+| YhMessage.error    | Show error message   | `options \| string` |
+| YhMessage.closeAll | Close all messages   | —                   |
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| message | Message content | `string \| VNode` | — |
-| type | Message type | `'success' \| 'warning' \| 'info' \| 'error'` | `'info'` |
-| icon | Custom icon | `string \| VNode` | — |
-| show-close | Whether to show close button | `boolean` | `false` |
-| duration | Display duration (ms), set to 0 for no auto-close | `number` | `3000` |
-| offset | Offset from the top (px) | `number` | `64` |
-| dangerously-use-html-string | Whether to treat message as an HTML snippet | `boolean` | `false` |
-| center | Whether to center content | `boolean` | `false` |
-| on-close | Callback function when closing | `() => void` | — |
-| z-index | z-index level | `number` | — |
-| custom-class | Custom class name | `string` | — |
-| grouping | Whether to support grouping merge | `boolean` | `false` |
-| placement | Message placement | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'` |
+| Prop                        | Description                                       | Type                                                                                | Default  |
+| --------------------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------- | -------- |
+| message                     | Message content                                   | `string \| VNode`                                                                   | —        |
+| type                        | Message type                                      | `'success' \| 'warning' \| 'info' \| 'error'`                                       | `'info'` |
+| icon                        | Custom icon                                       | `string \| VNode`                                                                   | —        |
+| show-close                  | Whether to show close button                      | `boolean`                                                                           | `false`  |
+| duration                    | Display duration (ms), set to 0 for no auto-close | `number`                                                                            | `3000`   |
+| offset                      | Offset from the top (px)                          | `number`                                                                            | `64`     |
+| dangerously-use-html-string | Whether to treat message as an HTML snippet       | `boolean`                                                                           | `false`  |
+| center                      | Whether to center content                         | `boolean`                                                                           | `false`  |
+| on-close                    | Callback function when closing                    | `() => void`                                                                        | —        |
+| z-index                     | z-index level                                     | `number`                                                                            | —        |
+| custom-class                | Custom class name                                 | `string`                                                                            | —        |
+| grouping                    | Whether to support grouping merge                 | `boolean`                                                                           | `false`  |
+| placement                   | Message placement                                 | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'`  |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Message content (used when the message property is insufficient) |
-| icon | Custom icon content |
+| Slot Name | Description                                                      |
+| --------- | ---------------------------------------------------------------- |
+| default   | Message content (used when the message property is insufficient) |
+| icon      | Custom icon content                                              |
 
 ### Expose
 
 Calling `YhMessage` returns an instance of the current Message. If you need to manually close the instance, call its `close` method.
 
-| Name | Description | Type |
-| --- | --- | --- |
-| close | Close current Message | `() => void` |
+| Name    | Description                            | Type           |
+| ------- | -------------------------------------- | -------------- |
+| close   | Close current Message                  | `() => void`   |
 | visible | Whether the current message is visible | `Ref<boolean>` |
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-message-bg-color` | Background color | `var(--yh-bg-color-overlay)` |
-| `--yh-message-border-color` | Border color | `var(--yh-border-color-lighter)` |
-| `--yh-message-shadow` | Message box shadow | `var(--yh-box-shadow-light)` |
-| `--yh-message-text-color` | Text color | `var(--yh-text-color-primary)` |
-| `--yh-message-close-color` | Close button color | `var(--yh-text-color-placeholder)` |
-| `--yh-message-close-hover-color` | Close button hover color | `var(--yh-text-color-regular)` |
+| Variable                         | Description              | Default                            |
+| -------------------------------- | ------------------------ | ---------------------------------- |
+| `--yh-message-bg-color`          | Background color         | `var(--yh-bg-color-overlay)`       |
+| `--yh-message-border-color`      | Border color             | `var(--yh-border-color-lighter)`   |
+| `--yh-message-shadow`            | Message box shadow       | `var(--yh-box-shadow-light)`       |
+| `--yh-message-text-color`        | Text color               | `var(--yh-text-color-primary)`     |
+| `--yh-message-close-color`       | Close button color       | `var(--yh-text-color-placeholder)` |
+| `--yh-message-close-hover-color` | Close button hover color | `var(--yh-text-color-regular)`     |

@@ -160,7 +160,7 @@ const tsBasic = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification({
@@ -180,7 +180,7 @@ const tsTypes = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showSuccess = () => {
   YhNotification.success('成功', '恭喜你，这是一条成功消息')
@@ -211,7 +211,7 @@ const tsPosition = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showTopRight = () => {
   YhNotification({
@@ -269,7 +269,7 @@ const tsDuration = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification({
@@ -287,7 +287,7 @@ const tsHtml = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showHtml = () => {
   YhNotification({
@@ -305,7 +305,7 @@ const tsHideClose = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification({
@@ -323,7 +323,7 @@ const tsMaxLimit = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showMaxLimit = () => {
   YhNotification({
@@ -344,8 +344,8 @@ const tsVNodeMessage = `<template>
 
 <script setup lang="ts">
 import { h, ref } from 'vue'
-import { YhNotification } from 'yh-ui'
-import { YhSwitch } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
+import { YhSwitch } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhNotification({
@@ -497,7 +497,6 @@ const jsNuxt = toJs(tsNuxt)
 
 Notification 组件与 Nuxt 3/4 深度集成。作为指令式组件，它会自动识别服务端/客户端环境，确保通知弹窗仅在客户端浏览器中执行，避免 SSR 阶段的报错。
 
-
 <DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; gap: 12px;">
     <yh-button @click="onNuxtNotify">基础通知</yh-button>
@@ -531,7 +530,7 @@ YhNotification 支持多种调用方式，可以根据项目需求选择合适�
 </template>
 
 <script setup lang="ts">
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 
 const showNotification = () => {
   YhNotification.success('成功', '这是一条成功消息')
@@ -562,47 +561,47 @@ export default {
 ### 单独引用
 
 ```typescript
-import { YhNotification } from 'yh-ui'
+import { YhNotification } from '@yh-ui/yh-ui'
 ```
 
 ## API
 
 ### 方法
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| `YhNotification` | 显示通知 | `options` |
-| `YhNotification.success` | 显示成功通知 | `(title, message \| options)` |
-| `YhNotification.warning` | 显示警告通知 | `(title, message \| options)` |
-| `YhNotification.info` | 显示信息通知 | `(title, message \| options)` |
-| `YhNotification.error` | 显示错误通知 | `(title, message \| options)` |
-| `YhNotification.closeAll` | 关闭所有通知 | — |
+| 方法名                    | 说明         | 参数                          |
+| ------------------------- | ------------ | ----------------------------- |
+| `YhNotification`          | 显示通知     | `options`                     |
+| `YhNotification.success`  | 显示成功通知 | `(title, message \| options)` |
+| `YhNotification.warning`  | 显示警告通知 | `(title, message \| options)` |
+| `YhNotification.info`     | 显示信息通知 | `(title, message \| options)` |
+| `YhNotification.error`    | 显示错误通知 | `(title, message \| options)` |
+| `YhNotification.closeAll` | 关闭所有通知 | —                             |
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `title` | 标题 | `string` | — |
-| `message` | 通知内容 | `string \| VNode \| (() => VNode)` | — |
-| `type` | 通知类型 | `'success' \| 'warning' \| 'info' \| 'error'` | — |
-| `icon` | 自定义图标 | `string \| VNode` | — |
-| `showClose` | 是否显示关闭按钮 | `boolean` | `true` |
-| `duration` | 显示时间（毫秒），设为 0 不自动关闭 | `number` | `4500` |
-| `offset` | 距离窗口边缘的偏移量（px） | `number` | `16` |
-| `position` | 弹出位置 | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'top-right'` |
-| `dangerouslyUseHTMLString` | 是否将 message 作为 HTML 片段处理 | `boolean` | `false` |
-| `onClose` | 关闭时的回调函数 | `() => void` | — |
-| `onClick` | 点击通知时的回调函数 | `() => void` | — |
-| `zIndex` | z-index 层级 | `number` | — |
-| `customClass` | 自定义类名 | `string` | — |
-| `max` | 同一位置最多显示的通知数量 | `number` | — |
+| 属性名                     | 说明                                | 类型                                                                                              | 默认值        |
+| -------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
+| `title`                    | 标题                                | `string`                                                                                          | —             |
+| `message`                  | 通知内容                            | `string \| VNode \| (() => VNode)`                                                                | —             |
+| `type`                     | 通知类型                            | `'success' \| 'warning' \| 'info' \| 'error'`                                                     | —             |
+| `icon`                     | 自定义图标                          | `string \| VNode`                                                                                 | —             |
+| `showClose`                | 是否显示关闭按钮                    | `boolean`                                                                                         | `true`        |
+| `duration`                 | 显示时间（毫秒），设为 0 不自动关闭 | `number`                                                                                          | `4500`        |
+| `offset`                   | 距离窗口边缘的偏移量（px）          | `number`                                                                                          | `16`          |
+| `position`                 | 弹出位置                            | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'top-right'` |
+| `dangerouslyUseHTMLString` | 是否将 message 作为 HTML 片段处理   | `boolean`                                                                                         | `false`       |
+| `onClose`                  | 关闭时的回调函数                    | `() => void`                                                                                      | —             |
+| `onClick`                  | 点击通知时的回调函数                | `() => void`                                                                                      | —             |
+| `zIndex`                   | z-index 层级                        | `number`                                                                                          | —             |
+| `customClass`              | 自定义类名                          | `string`                                                                                          | —             |
+| `max`                      | 同一位置最多显示的通知数量          | `number`                                                                                          | —             |
 
 ### 返回值
 
 调用 `YhNotification` 会返回当前 Notification 的实例。如果需要手动关闭实例，可以调用它的 `close` 方法。
 
-| 方法 | 说明 |
-| --- | --- |
+| 方法    | 说明                  |
+| ------- | --------------------- |
 | `close` | 关闭当前 Notification |
 
 ```typescript
@@ -614,32 +613,32 @@ handler.close()
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名    | 说明           |
+| --------- | -------------- |
 | `default` | 自定义内容区域 |
-| `icon` | 自定义图标区域 |
+| `icon`    | 自定义图标区域 |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
+| 名称      | 说明         | 类型           |
+| --------- | ------------ | -------------- |
 | `visible` | 通知可见状态 | `Ref<boolean>` |
-| `close` | 关闭当前通知 | `() => void` |
+| `close`   | 关闭当前通知 | `() => void`   |
 
 ### 主题变量
 
 Notification 组件使用以下 CSS 变量，可以通过覆盖这些变量来自定义样式：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-notification-bg-color` | 背景颜色 | `var(--yh-color-bg-elevated)` |
-| `--yh-notification-border-color` | 边框颜色 | `var(--yh-border-color-light)` |
-| `--yh-notification-shadow` | 阴影 | `var(--yh-box-shadow-small)` |
-| `--yh-notification-title-color` | 标题颜色 | `var(--yh-color-text-primary)` |
-| `--yh-notification-text-color` | 内容文字颜色 | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-color` | 关闭按钮颜色 | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-hover-color` | 关闭按钮悬浮颜色 | `var(--yh-color-text-primary)` |
-| `--yh-notification-icon-size` | 图标大小 | `24px` |
-| `--yh-notification-width` | 通知宽度 | `330px` |
-| `--yh-notification-padding` | 内边距 | `20px` |
-| `--yh-notification-radius` | 圆角大小 | `var(--yh-border-radius-base)` |
+| 变量名                                | 说明             | 默认值                           |
+| ------------------------------------- | ---------------- | -------------------------------- |
+| `--yh-notification-bg-color`          | 背景颜色         | `var(--yh-color-bg-elevated)`    |
+| `--yh-notification-border-color`      | 边框颜色         | `var(--yh-border-color-light)`   |
+| `--yh-notification-shadow`            | 阴影             | `var(--yh-box-shadow-small)`     |
+| `--yh-notification-title-color`       | 标题颜色         | `var(--yh-color-text-primary)`   |
+| `--yh-notification-text-color`        | 内容文字颜色     | `var(--yh-color-text-secondary)` |
+| `--yh-notification-close-color`       | 关闭按钮颜色     | `var(--yh-color-text-secondary)` |
+| `--yh-notification-close-hover-color` | 关闭按钮悬浮颜色 | `var(--yh-color-text-primary)`   |
+| `--yh-notification-icon-size`         | 图标大小         | `24px`                           |
+| `--yh-notification-width`             | 通知宽度         | `330px`                          |
+| `--yh-notification-padding`           | 内边距           | `20px`                           |
+| `--yh-notification-radius`            | 圆角大小         | `var(--yh-border-radius-base)`   |

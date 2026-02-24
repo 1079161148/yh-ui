@@ -9,10 +9,10 @@ The easiest way is to register all components globally in the entry file. This p
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import YhUI from 'yh-ui'
+import YhUI from '@yh-ui/yh-ui'
 
 // Import global styles
-import 'yh-ui/dist/style.css'
+import '@yh-ui/yh-ui/dist/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -29,7 +29,7 @@ Leveraging Vue 3's **Composition API**, you can import component packages only o
 ```vue
 <!-- App.vue -->
 <script setup lang="ts">
-import { YhButton } from 'yh-ui'
+import { YhButton } from '@yh-ui/yh-ui'
 </script>
 
 <template>
@@ -44,7 +44,7 @@ YH-UI provides a global configuration method `createYhUI` that allows you to cus
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { createYhUI } from 'yh-ui'
+import { createYhUI } from '@yh-ui/yh-ui'
 import App from './App.vue'
 
 const app = createApp(App)

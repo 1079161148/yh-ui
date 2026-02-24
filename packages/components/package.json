@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [

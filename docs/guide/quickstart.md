@@ -9,10 +9,10 @@
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import YhUI from 'yh-ui'
+import YhUI from '@yh-ui/yh-ui'
 
 // 引入全局样式
-import 'yh-ui/dist/style.css'
+import '@yh-ui/yh-ui/dist/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -29,7 +29,7 @@ app.mount('#app')
 ```vue
 <!-- App.vue -->
 <script setup lang="ts">
-import { YhButton } from 'yh-ui'
+import { YhButton } from '@yh-ui/yh-ui'
 </script>
 
 <template>
@@ -44,7 +44,7 @@ YH-UI 提供了一个全局配置方法 `createYhUI`，允许您自定义库的�
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { createYhUI } from 'yh-ui'
+import { createYhUI } from '@yh-ui/yh-ui'
 import App from './App.vue'
 
 const app = createApp(App)

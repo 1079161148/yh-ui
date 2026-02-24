@@ -15,15 +15,15 @@ We recommend using a package manager to install YH-UI to benefit from full type 
 ::: code-group
 
 ```bash [pnpm]
-pnpm add yh-ui
+pnpm add @yh-ui/yh-ui
 ```
 
 ```bash [npm]
-npm install yh-ui
+npm install @yh-ui/yh-ui
 ```
 
 ```bash [yarn]
-yarn add yh-ui
+yarn add @yh-ui/yh-ui
 ```
 
 :::
@@ -37,29 +37,29 @@ You can use YH-UI directly in HTML via CDN. We support `unpkg` and `jsDelivr`.
 ```html [unpkg]
 <head>
   <!-- Style file -->
-  <link rel="stylesheet" href="https://unpkg.com/yh-ui/dist/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@yh-ui/yh-ui/dist/style.css" />
   <!-- Dependency Vue -->
   <script src="https://unpkg.com/vue@3"></script>
   <!-- Component Library JS -->
-  <script src="https://unpkg.com/yh-ui"></script>
+  <script src="https://unpkg.com/@yh-ui/yh-ui"></script>
 </head>
 ```
 
 ```html [jsDelivr]
 <head>
   <!-- Style file -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yh-ui/dist/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui/dist/style.css" />
   <!-- Dependency Vue -->
   <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
   <!-- Component Library JS -->
-  <script src="https://cdn.jsdelivr.net/npm/yh-ui"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui"></script>
 </head>
 ```
 
 :::
 
 ::: tip Note
-In production environments, it is recommended to lock specific version numbers in the URL (e.g., `yh-ui@1.0.0`) to avoid unintentional breaking changes.
+In production environments, it is recommended to lock specific version numbers in the URL (e.g., `@yh-ui/yh-ui@1.0.0`) to avoid unintentional breaking changes.
 :::
 
 ## On-demand Import
@@ -68,7 +68,7 @@ YH-UI supports **Tree Shaking** out of the box. By importing components directly
 
 ```vue
 <script setup lang="ts">
-import { YhButton } from 'yh-ui'
+import { YhButton } from '@yh-ui/yh-ui'
 </script>
 ```
 
@@ -90,7 +90,7 @@ Register the resolver in `vite.config.ts`:
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { YhUIResolver } from 'yh-ui/resolver' // Ensure you have installed yh-ui
+import { YhUIResolver } from '@yh-ui/@yh-ui/@yh-ui/yh-ui/resolver' // Ensure you have installed @yh-ui/yh-ui
 
 export default defineConfig({
   plugins: [
@@ -99,7 +99,7 @@ export default defineConfig({
       resolvers: [
         YhUIResolver({
           // If automatic style import is required
-          importStyle: 'sass' 
+          importStyle: 'sass'
         })
       ]
     })
@@ -114,7 +114,7 @@ If you are using TypeScript, we recommend configuring `compilerOptions.types` in
 ```json
 {
   "compilerOptions": {
-    "types": ["yh-ui/global"]
+    "types": ["@yh-ui/yh-ui/global"]
   }
 }
 ```

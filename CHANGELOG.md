@@ -8,8 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - 完整的 GitHub Actions CI/CD 流水线（代码质量、测试覆盖率、构建验证、自动发布）
 - 单元测试覆盖所有核心组件（Button、Input、Form、Select、Dialog、Table 等）
+- **重大变更**: 主包名由 `yh-ui` 变更为 `@yh-ui/yh-ui` 以规避 npm 命名冲突防护机制。
 
 ---
 
@@ -22,10 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🧩 组件（61 个）
 
 #### 基础组件
+
 - **Button** - 按钮，支持 6 种类型、3 种尺寸、plain/round/circle/text/link/block 等变体
 - **Icon** - 图标，基于 SVG 的图标系统
 
 #### 表单组件
+
 - **Input** - 输入框，支持视觉变体（default/filled/borderless/underlined）、加载状态、状态反馈、聚焦自选、Esc清空、datalist、字数统计自定义
 - **InputNumber** - 数字输入框
 - **InputTag** - 标签输入框，支持动态标签创建
@@ -44,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Upload** - 上传，支持拖拽/多文件/自定义请求
 
 #### 数据展示
+
 - **Table** - 表格，媲美 vxe-table 的功能密度：
   - 虚拟滚动（万行性能保障）
   - 行/列拖拽排序（原生拖拽 API）
@@ -75,6 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Watermark** - 水印
 
 #### 反馈组件
+
 - **Alert** - 警告提示
 - **Dialog** - 对话框
 - **Drawer** - 抽屉
@@ -86,6 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Spin** - 加载旋转
 
 #### 导航组件
+
 - **Menu** - 导航菜单（水平/垂直/折叠）
 - **Tabs** - 标签页
 - **Breadcrumb** - 面包屑
@@ -95,14 +102,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BackTop** - 返回顶部
 
 #### 布局组件
+
 - **Row** + **Col** - 栅格布局（24列系统，响应式断点）
 - **Divider** - 分割线
 - **Marquee** - 滚动公告（特色组件）
 
 #### 配置提供
+
 - **ConfigProvider** - 全局配置提供（locale/size/zIndex/theme）
 
 ### 🎨 主题系统（行业领先）
+
 - 12 种预设主题（default/dark/blue/green/purple/orange/rose/amber/teal/indigo/slate/zinc）
 - 色盲友好模式（protanopia/deuteranopia/tritanopia/achromatopsia）
 - WCAG 2.1 对比度自动校验
@@ -114,12 +124,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 从主色自动推导完整调色板
 
 ### 🌍 国际化（67 种语言）
+
 超越 Element Plus(43种)、Naive UI(25种)，与 Ant Design 持平。
 
 ### 🔌 Nuxt 3 原生支持
+
 提供 `@yh-ui/nuxt` 模块，零配置支持 SSR。
 
 ### 🛠️ Hooks
+
 - `useNamespace` - BEM 命名工具
 - `useLocale` - 国际化
 - `useFormItem` - 表单集成

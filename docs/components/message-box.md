@@ -155,7 +155,7 @@ const tsAlert = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('这是一条基础的消息提示内容。', '系统提示')
@@ -167,7 +167,7 @@ const tsConfirm = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm(
@@ -187,7 +187,7 @@ const tsPrompt = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.prompt('请输入邮箱', '提示', {
@@ -205,7 +205,7 @@ const tsVNode = `<template>
 
 <script setup lang="ts">
 import { h } from 'vue'
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox({
@@ -223,7 +223,7 @@ const tsHTML = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert(
@@ -241,7 +241,7 @@ const tsCenter = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm(
@@ -262,7 +262,7 @@ const tsDraggable = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('内容可以自由拖拽', '提示', {
@@ -276,7 +276,7 @@ const tsBeforeClose = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('提交请求大约需要 2 秒。', '异步拦截', {
@@ -311,7 +311,7 @@ const tsSuccess = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('订单已成功提交。', '成功', {
@@ -326,7 +326,7 @@ const tsWarning = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('检测到异常登录，请确认是否为您本人操作。', '安全警告', {
@@ -342,7 +342,7 @@ const tsError = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('系统发生预期外的运行错误，请刷新重试。', '系统错误', {
@@ -357,7 +357,7 @@ const tsInfo = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('当前服务器正在进行例行维护。', '提示', {
@@ -371,7 +371,7 @@ const tsSetDefaults = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   // 设置全局默认配置
@@ -395,7 +395,7 @@ const tsLoading = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('提交操作可能需要较长时间。', '加载状态', {
@@ -548,7 +548,7 @@ YH-UI 旗舰级特性，提供磨砂玻璃质感、拖拽定位以及全方位�
 
 ```ts
 import { getCurrentInstance } from 'vue'
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 // 在你的 setup 方法中
 const { appContext } = getCurrentInstance()!
@@ -562,65 +562,65 @@ YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 
 ### 方法
 
-| 方法名 | 说明 | 参数类型 | 返回值 |
-| --- | --- | --- | --- |
-| `alert` | 弹出消息提示框 | `(message, title?, options?, appContext?)` | `Promise<void>` |
-| `confirm` | 弹出操作确认框 | `(message, title?, options?, appContext?)` | `Promise<MessageBoxAction>` |
-| `prompt` | 弹出内容输入框 | `(message, title?, options?, appContext?)` | `Promise<{ value, action }>` |
-| `setDefaults` | 修改全局默认配置项 | `(defaults: MessageBoxOptions)` | — |
+| 方法名        | 说明               | 参数类型                                   | 返回值                       |
+| ------------- | ------------------ | ------------------------------------------ | ---------------------------- |
+| `alert`       | 弹出消息提示框     | `(message, title?, options?, appContext?)` | `Promise<void>`              |
+| `confirm`     | 弹出操作确认框     | `(message, title?, options?, appContext?)` | `Promise<MessageBoxAction>`  |
+| `prompt`      | 弹出内容输入框     | `(message, title?, options?, appContext?)` | `Promise<{ value, action }>` |
+| `setDefaults` | 修改全局默认配置项 | `(defaults: MessageBoxOptions)`            | —                            |
 
 ### MessageBoxOptions
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 标题 | `string` | `提示` |
-| message | 内容 | `string \| VNode \| (() => VNode)` | — |
-| type | 弹窗类型 | `'alert' \| 'confirm' \| 'prompt'` | — |
-| iconType | 状态图标类型 | `'success' \| 'warning' \| 'info' \| 'error'` | — |
-| icon | 自定义图标 | `string \| Component \| VNode` | — |
-| width | 弹窗宽度 | `string \| number` | `420` |
-| dangerouslyUseHTMLString | 是否将 message 渲染为 HTML | `boolean` | `false` |
-| showClose | 是否显示右上角关闭按钮 | `boolean` | `true` |
-| showConfirmButton | 是否显示确认按钮 | `boolean` | `true` |
-| showCancelButton | 是否显示取消按钮 | `boolean` | `true` |
-| confirmButtonText | 确认按钮文案 | `string` | `确定` |
-| cancelButtonText | 取消按钮文案 | `string` | `取消` |
-| closeOnClickModal | 点击遮罩层是否关闭 | `boolean` | `true` |
-| closeOnPressEscape | 按下 ESC 是否关闭 | `boolean` | `true` |
-| lockScroll | 是否锁定滚动条 | `boolean` | `true` |
-| glass | 是否开启亚克力玻璃模式 | `boolean` | `false` |
-| center | 是否将内容居中排列 | `boolean` | `false` |
-| roundButton | 是否采用圆角按钮 | `boolean` | `false` |
-| draggable | 是否支持拖拽弹窗 | `boolean` | `false` |
-| draggableBoundary | 是否防止拖拽超出可视区域 | `boolean` | `true` |
-| customClass | 自定义类名 | `string` | — |
-| inputPlaceholder | 输入框占位符 (仅 prompt) | `string` | — |
-| inputValue | 输入框初始值 (仅 prompt) | `string` | — |
-| inputPattern | 输入框校验正则表达式 (仅 prompt) | `RegExp` | — |
-| inputValidator | 输入框自定义校验函数 (仅 prompt) | `(value: string) => boolean \| string` | — |
-| inputErrorMessage | 校验错误提示 (仅 prompt) | `string` | — |
-| beforeClose | 关闭前的钩子 | `(action, instance, done) => void` | — |
-| callback | 关闭后的回调 | `(action, instance) => void` | — |
-| appContext | 应用上下文 (Vue Context) | `AppContext` | — |
-| autofocus | 是否在打开时自动获取焦点 | `boolean` | `true` |
-| appendTo | 设置组件的根元素 | `string \| HTMLElement` | `document.body` |
-| confirmButtonLoading | 确认按钮是否显示加载中状态 | `boolean` | `false` |
-| cancelButtonLoading | 取消按钮是否显示加载中状态 | `boolean` | `false` |
-| loadingIcon | 自定义加载图标 | `string \| Component \| VNode` | — |
+| 参数                     | 说明                             | 类型                                          | 默认值          |
+| ------------------------ | -------------------------------- | --------------------------------------------- | --------------- |
+| title                    | 标题                             | `string`                                      | `提示`          |
+| message                  | 内容                             | `string \| VNode \| (() => VNode)`            | —               |
+| type                     | 弹窗类型                         | `'alert' \| 'confirm' \| 'prompt'`            | —               |
+| iconType                 | 状态图标类型                     | `'success' \| 'warning' \| 'info' \| 'error'` | —               |
+| icon                     | 自定义图标                       | `string \| Component \| VNode`                | —               |
+| width                    | 弹窗宽度                         | `string \| number`                            | `420`           |
+| dangerouslyUseHTMLString | 是否将 message 渲染为 HTML       | `boolean`                                     | `false`         |
+| showClose                | 是否显示右上角关闭按钮           | `boolean`                                     | `true`          |
+| showConfirmButton        | 是否显示确认按钮                 | `boolean`                                     | `true`          |
+| showCancelButton         | 是否显示取消按钮                 | `boolean`                                     | `true`          |
+| confirmButtonText        | 确认按钮文案                     | `string`                                      | `确定`          |
+| cancelButtonText         | 取消按钮文案                     | `string`                                      | `取消`          |
+| closeOnClickModal        | 点击遮罩层是否关闭               | `boolean`                                     | `true`          |
+| closeOnPressEscape       | 按下 ESC 是否关闭                | `boolean`                                     | `true`          |
+| lockScroll               | 是否锁定滚动条                   | `boolean`                                     | `true`          |
+| glass                    | 是否开启亚克力玻璃模式           | `boolean`                                     | `false`         |
+| center                   | 是否将内容居中排列               | `boolean`                                     | `false`         |
+| roundButton              | 是否采用圆角按钮                 | `boolean`                                     | `false`         |
+| draggable                | 是否支持拖拽弹窗                 | `boolean`                                     | `false`         |
+| draggableBoundary        | 是否防止拖拽超出可视区域         | `boolean`                                     | `true`          |
+| customClass              | 自定义类名                       | `string`                                      | —               |
+| inputPlaceholder         | 输入框占位符 (仅 prompt)         | `string`                                      | —               |
+| inputValue               | 输入框初始值 (仅 prompt)         | `string`                                      | —               |
+| inputPattern             | 输入框校验正则表达式 (仅 prompt) | `RegExp`                                      | —               |
+| inputValidator           | 输入框自定义校验函数 (仅 prompt) | `(value: string) => boolean \| string`        | —               |
+| inputErrorMessage        | 校验错误提示 (仅 prompt)         | `string`                                      | —               |
+| beforeClose              | 关闭前的钩子                     | `(action, instance, done) => void`            | —               |
+| callback                 | 关闭后的回调                     | `(action, instance) => void`                  | —               |
+| appContext               | 应用上下文 (Vue Context)         | `AppContext`                                  | —               |
+| autofocus                | 是否在打开时自动获取焦点         | `boolean`                                     | `true`          |
+| appendTo                 | 设置组件的根元素                 | `string \| HTMLElement`                       | `document.body` |
+| confirmButtonLoading     | 确认按钮是否显示加载中状态       | `boolean`                                     | `false`         |
+| cancelButtonLoading      | 取消按钮是否显示加载中状态       | `boolean`                                     | `false`         |
+| loadingIcon              | 自定义加载图标                   | `string \| Component \| VNode`                | —               |
 
 ### MessageBoxInstance (instance in beforeClose)
 
-| 属性/方法 | 说明 | 类型 |
-| --- | --- | --- |
-| `confirmLoading` | 确认按钮的加载状态 | `boolean` |
-| `cancelLoading` | 取消按钮的加载状态 | `boolean` |
-| `open` | 打开弹窗 | `(options: MessageBoxOptions) => void` |
-| `close` | 关闭弹窗 | `() => void` |
+| 属性/方法        | 说明               | 类型                                   |
+| ---------------- | ------------------ | -------------------------------------- |
+| `confirmLoading` | 确认按钮的加载状态 | `boolean`                              |
+| `cancelLoading`  | 取消按钮的加载状态 | `boolean`                              |
+| `open`           | 打开弹窗           | `(options: MessageBoxOptions) => void` |
+| `close`          | 关闭弹窗           | `() => void`                           |
 
 ### 主题变量 (CSS Variables)
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-scrollbar-width` | 当前系统的滚动条宽度 (自动注入) | — |
-| `--yh-bg-color-overlay` | 弹窗背景色 | `var(--yh-bg-color-overlay)` |
-| `--yh-text-color-primary` | 标题颜色 | `var(--yh-text-color-primary)` |
+| 变量名                    | 说明                            | 默认值                         |
+| ------------------------- | ------------------------------- | ------------------------------ |
+| `--yh-scrollbar-width`    | 当前系统的滚动条宽度 (自动注入) | —                              |
+| `--yh-bg-color-overlay`   | 弹窗背景色                      | `var(--yh-bg-color-overlay)`   |
+| `--yh-text-color-primary` | 标题颜色                        | `var(--yh-text-color-primary)` |

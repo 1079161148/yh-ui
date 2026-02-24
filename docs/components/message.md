@@ -74,7 +74,7 @@ const tsBasic = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMessage = () => {
   YhMessage('这是一条消息提示')
@@ -88,7 +88,7 @@ const jsBasic = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMessage = () => {
   YhMessage('这是一条消息提示')
@@ -103,7 +103,7 @@ const tsTypes = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showSuccess = () => {
   YhMessage.success('恭喜你，这是一条成功消息')
@@ -129,7 +129,7 @@ const tsClosable = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showClosable = () => {
   YhMessage({
@@ -145,7 +145,7 @@ const jsClosable = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showClosable = () => {
   YhMessage({
@@ -161,7 +161,7 @@ const tsCenter = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showCenter = () => {
   YhMessage({
@@ -176,7 +176,7 @@ const jsCenter = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showCenter = () => {
   YhMessage({
@@ -191,7 +191,7 @@ const tsHtml = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showHtml = () => {
   YhMessage({
@@ -206,7 +206,7 @@ const jsHtml = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showHtml = () => {
   YhMessage({
@@ -222,7 +222,7 @@ const tsCloseAll = `<template>
 <\/template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMultiple = () => {
   YhMessage.success('消息一')
@@ -241,7 +241,7 @@ const jsCloseAll = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMultiple = () => {
   YhMessage.success('消息一')
@@ -258,7 +258,7 @@ const tsGrouping = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showGrouping = () => {
   YhMessage({
@@ -281,8 +281,8 @@ const tsPlacement = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
-import type { MessagePlacement } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
+import type { MessagePlacement } from '@yh-ui/yh-ui'
 
 const showPlacement = (placement: MessagePlacement) => {
   YhMessage({
@@ -302,7 +302,7 @@ const jsPlacement = `<template>
 </template>
 
 <script setup>
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showPlacement = (placement) => {
   YhMessage({
@@ -415,7 +415,6 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 Message 组件完全支持 Nuxt 3/4 环境。作为一个函数调用的指令式组件，它在 SSR（服务端渲染）时会自动进行环境检测，确保消息弹出逻辑仅在 Web 浏览器端执行。
 
-
 <DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; gap: 12px;">
     <yh-button @click="onNuxtMessage">基础消息</yh-button>
@@ -448,7 +447,7 @@ YhMessage 支持多种调用方式，可以根据项目需求选择合适的方�
 </template>
 
 <script setup lang="ts">
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 
 const showMessage = () => {
   YhMessage.success('这是一条成功消息')
@@ -479,63 +478,63 @@ export default {
 ### 单独引用
 
 ```typescript
-import { YhMessage } from 'yh-ui'
+import { YhMessage } from '@yh-ui/yh-ui'
 ```
 
 ## API
 
 ### 方法
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| YhMessage | 显示消息 | `options \| string` |
-| YhMessage.success | 显示成功消息 | `options \| string` |
-| YhMessage.warning | 显示警告消息 | `options \| string` |
-| YhMessage.info | 显示信息消息 | `options \| string` |
-| YhMessage.error | 显示错误消息 | `options \| string` |
-| YhMessage.closeAll | 关闭所有消息 | — |
+| 方法名             | 说明         | 参数                |
+| ------------------ | ------------ | ------------------- |
+| YhMessage          | 显示消息     | `options \| string` |
+| YhMessage.success  | 显示成功消息 | `options \| string` |
+| YhMessage.warning  | 显示警告消息 | `options \| string` |
+| YhMessage.info     | 显示信息消息 | `options \| string` |
+| YhMessage.error    | 显示错误消息 | `options \| string` |
+| YhMessage.closeAll | 关闭所有消息 | —                   |
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| message | 消息内容 | `string \| VNode` | — |
-| type | 消息类型 | `'success' \| 'warning' \| 'info' \| 'error'` | `'info'` |
-| icon | 自定义图标 | `string \| VNode` | — |
-| show-close | 是否显示关闭按钮 | `boolean` | `false` |
-| duration | 显示时间（毫秒），设为 0 不自动关闭 | `number` | `3000` |
-| offset | 距离顶部的偏移量（px） | `number` | `64` |
-| dangerously-use-html-string | 是否将 message 作为 HTML 片段处理 | `boolean` | `false` |
-| center | 是否居中显示 | `boolean` | `false` |
-| on-close | 关闭时的回调函数 | `() => void` | — |
-| z-index | z-index 层级 | `number` | — |
-| custom-class | 自定义类名 | `string` | — |
-| grouping | 是否支持分组合并 | `boolean` | `false` |
-| placement | 消息展示位置 | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'` |
+| 属性名                      | 说明                                | 类型                                                                                | 默认值   |
+| --------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------- | -------- |
+| message                     | 消息内容                            | `string \| VNode`                                                                   | —        |
+| type                        | 消息类型                            | `'success' \| 'warning' \| 'info' \| 'error'`                                       | `'info'` |
+| icon                        | 自定义图标                          | `string \| VNode`                                                                   | —        |
+| show-close                  | 是否显示关闭按钮                    | `boolean`                                                                           | `false`  |
+| duration                    | 显示时间（毫秒），设为 0 不自动关闭 | `number`                                                                            | `3000`   |
+| offset                      | 距离顶部的偏移量（px）              | `number`                                                                            | `64`     |
+| dangerously-use-html-string | 是否将 message 作为 HTML 片段处理   | `boolean`                                                                           | `false`  |
+| center                      | 是否居中显示                        | `boolean`                                                                           | `false`  |
+| on-close                    | 关闭时的回调函数                    | `() => void`                                                                        | —        |
+| z-index                     | z-index 层级                        | `number`                                                                            | —        |
+| custom-class                | 自定义类名                          | `string`                                                                            | —        |
+| grouping                    | 是否支持分组合并                    | `boolean`                                                                           | `false`  |
+| placement                   | 消息展示位置                        | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'`  |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明                                        |
+| ------- | ------------------------------------------- |
 | default | 消息内容（当 message 属性不满足需求时使用） |
-| icon | 自定义图标内容 |
+| icon    | 自定义图标内容                              |
 
 ### Expose
 
 调用 `YhMessage` 会返回当前 Message 的实例。如果需要手动关闭实例，可以调用它的 `close` 方法。
 
-| 方法名 | 说明 | 类型 |
-| --- | --- | --- |
-| close | 关闭当前 Message | `() => void` |
+| 方法名  | 说明             | 类型           |
+| ------- | ---------------- | -------------- |
+| close   | 关闭当前 Message | `() => void`   |
 | visible | 当前消息是否可见 | `Ref<boolean>` |
 
 ### 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-message-bg-color` | 背景颜色 | `var(--yh-bg-color-overlay)` |
-| `--yh-message-border-color` | 边框颜色 | `var(--yh-border-color-lighter)` |
-| `--yh-message-shadow` | 消息框阴影 | `var(--yh-box-shadow-light)` |
-| `--yh-message-text-color` | 文字颜色 | `var(--yh-text-color-primary)` |
-| `--yh-message-close-color` | 关闭按钮颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-message-close-hover-color` | 关闭按钮悬停颜色 | `var(--yh-text-color-regular)` |
+| 变量名                           | 说明             | 默认值                             |
+| -------------------------------- | ---------------- | ---------------------------------- |
+| `--yh-message-bg-color`          | 背景颜色         | `var(--yh-bg-color-overlay)`       |
+| `--yh-message-border-color`      | 边框颜色         | `var(--yh-border-color-lighter)`   |
+| `--yh-message-shadow`            | 消息框阴影       | `var(--yh-box-shadow-light)`       |
+| `--yh-message-text-color`        | 文字颜色         | `var(--yh-text-color-primary)`     |
+| `--yh-message-close-color`       | 关闭按钮颜色     | `var(--yh-text-color-placeholder)` |
+| `--yh-message-close-hover-color` | 关闭按钮悬停颜色 | `var(--yh-text-color-regular)`     |

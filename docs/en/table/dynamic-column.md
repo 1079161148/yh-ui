@@ -137,7 +137,7 @@ const tsFetchExample = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { id: 1, name: 'John', age: 28, city: 'Beijing', hobby: 'Programming' },
@@ -174,7 +174,7 @@ const tsMixExample = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 // Fixed columns
 const fixedPart: TableColumn[] = [
@@ -215,7 +215,7 @@ const tsComplexExample = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { project: 'YH-UI', q1_val: 100, q1_inc: 10, q2_val: 120, q2_inc: 20 },
@@ -253,7 +253,7 @@ const tsPivotExample = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const columns = ref<TableColumn[]>([
   { prop: 'category', label: 'Region', width: 120, fixed: 'left' }
@@ -282,7 +282,7 @@ const tsVerticalExample = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 // Source data is typically a single object
 const rawUser = { id: 'U001', nick: 'Dev Wang', email: 'wang@example.com', level: 'VIP' }

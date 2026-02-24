@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/icons",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "YH-UI Icons - High performance icon library with Iconify integration",
   "type": "module",
   "main": "./dist/index.mjs",

@@ -144,7 +144,7 @@ const tsBasicGroup = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { date: '2024-05-01', name: 'John', province: 'Guangdong', city: 'Shenzhen', address: 'Nanshan', zip: 518000 },
@@ -180,7 +180,7 @@ const tsMultiLevel = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { project: 'Core Engine', devProgress: 88, testProgress: 75, bugCount: 12, quality: 'A' },
@@ -224,7 +224,7 @@ const tsSpanGroup = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const data = ref([
   { category: 'Office Supplies', type: 'Writing Tools', name: 'Pen', price: 5, stock: 100 },
@@ -283,7 +283,7 @@ const tsDynamicGroup = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref, computed } from 'vue'
-import type { TableColumn } from 'yh-ui'
+import type { TableColumn } from '@yh-ui/yh-ui'
 
 const isExpanded = ref(false)
 const data = ref([
@@ -352,36 +352,37 @@ Using Vue reactive features and `computed` properties, you can implement dynamic
 
 The following properties are supported in the `TableColumn` interface:
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| key | Column unique identifier | `string` | — |
-| prop | Column field name | `string` | — |
-| label | Column title | `string` | — |
-| width | Column width | `number \| string` | — |
-| minWidth | Min column width | `number \| string` | — |
-| maxWidth | Max column width | `number \| string` | — |
-| align | Content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| headerAlign | Header alignment | `'left' \| 'center' \| 'right'` | — |
-| fixed | Fixed column | `'left' \| 'right' \| true` | — |
-| sortable | Whether sortable | `boolean \| 'custom'` | `false` |
-| resizable | Whether column width is resizable | `boolean` | `true` |
-| showOverflowTooltip | Whether to show overflow tooltip | `boolean \| object` | `false` |
-| className | Column class name | `string` | — |
-| headerClassName | Header class name | `string` | — |
-| style | Column style | `CSSProperties` | — |
-| headerStyle | Header style | `CSSProperties` | — |
-| visible | Whether visible | `boolean` | `true` |
-| children | Sub-column configuration (for grouped headers) | `TableColumn[]` | — |
-| type | Column type | `'selection' \| 'index' \| 'expand' \| 'radio'` | — |
-| render | Custom cell render | `(params) => VNode` | — |
-| headerRender | Custom header render | `(params) => VNode` | — |
-| indexMethod | Custom method for index column | `(index: number) => number \| string` | — |
-| selectable | Checkbox selectable function | `(row, index) => boolean` | — |
-| sortBy | Specify sort field | `string \| ((row) => unknown)` | — |
-| sortMethod | Custom sort method | `(a, b, order) => number` | — |
-| ellipsis | Ellipsis configuration | `boolean \| EllipsisConfig` | `false` |
-| formatter | Cell formatter method | `(row, column, cellValue, index) => string \| VNode` | — |
+| Property            | Description                                    | Type                                                 | Default  |
+| ------------------- | ---------------------------------------------- | ---------------------------------------------------- | -------- |
+| key                 | Column unique identifier                       | `string`                                             | —        |
+| prop                | Column field name                              | `string`                                             | —        |
+| label               | Column title                                   | `string`                                             | —        |
+| width               | Column width                                   | `number \| string`                                   | —        |
+| minWidth            | Min column width                               | `number \| string`                                   | —        |
+| maxWidth            | Max column width                               | `number \| string`                                   | —        |
+| align               | Content alignment                              | `'left' \| 'center' \| 'right'`                      | `'left'` |
+| headerAlign         | Header alignment                               | `'left' \| 'center' \| 'right'`                      | —        |
+| fixed               | Fixed column                                   | `'left' \| 'right' \| true`                          | —        |
+| sortable            | Whether sortable                               | `boolean \| 'custom'`                                | `false`  |
+| resizable           | Whether column width is resizable              | `boolean`                                            | `true`   |
+| showOverflowTooltip | Whether to show overflow tooltip               | `boolean \| object`                                  | `false`  |
+| className           | Column class name                              | `string`                                             | —        |
+| headerClassName     | Header class name                              | `string`                                             | —        |
+| style               | Column style                                   | `CSSProperties`                                      | —        |
+| headerStyle         | Header style                                   | `CSSProperties`                                      | —        |
+| visible             | Whether visible                                | `boolean`                                            | `true`   |
+| children            | Sub-column configuration (for grouped headers) | `TableColumn[]`                                      | —        |
+| type                | Column type                                    | `'selection' \| 'index' \| 'expand' \| 'radio'`      | —        |
+| render              | Custom cell render                             | `(params) => VNode`                                  | —        |
+| headerRender        | Custom header render                           | `(params) => VNode`                                  | —        |
+| indexMethod         | Custom method for index column                 | `(index: number) => number \| string`                | —        |
+| selectable          | Checkbox selectable function                   | `(row, index) => boolean`                            | —        |
+| sortBy              | Specify sort field                             | `string \| ((row) => unknown)`                       | —        |
+| sortMethod          | Custom sort method                             | `(a, b, order) => number`                            | —        |
+| ellipsis            | Ellipsis configuration                         | `boolean \| EllipsisConfig`                          | `false`  |
+| formatter           | Cell formatter method                          | `(row, column, cellValue, index) => string \| VNode` | —        |
 
 > **Notes:**
+>
 > 1. Columns with `children` set will have their `prop` property ignored, as the column only serves as a grouping container.
 > 2. The `fixed` property is recommended to be set on the outermost layer (e.g., "Date" column in the example) or the bottom-most data columns; do not repeat the fixed property for middle grouping columns.

@@ -13,7 +13,7 @@
     "@yh-ui/icons": "workspace:*",
     "@yh-ui/theme": "workspace:*",
     "dayjs": "^1.11.19",
-    "yh-ui": "workspace:*"
+    "@yh-ui/yh-ui": "workspace:*"
   },
   "devDependencies": {
     "sass": "^1.83.1",

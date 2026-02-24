@@ -23,7 +23,7 @@ Create a `yh-ui.ts` file in the `plugins` directory:
 ```ts
 // plugins/yh-ui.ts
 import { defineNuxtPlugin } from '#app'
-import YhUI from 'yh-ui'
+import YhUI from '@yh-ui/yh-ui'
 import 'yh-ui/dist/index.css'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -57,9 +57,7 @@ After plugin configuration, you can use `<yh-table>` directly in any `.vue` page
 </template>
 
 <script setup lang="ts">
-const tableData = ref([
-  { id: 1, name: 'Nuxt User', role: 'Developer' }
-])
+const tableData = ref([{ id: 1, name: 'Nuxt User', role: 'Developer' }])
 
 const columns = [
   { prop: 'id', label: 'ID', width: 80 },
@@ -78,11 +76,7 @@ Some table component features involving DOM operations (such as **virtual scroll
 ```vue
 <template>
   <ClientOnly>
-    <yh-table 
-      :data="data" 
-      :columns="columns"
-      :virtual-config="{ enabled: true }"
-    />
+    <yh-table :data="data" :columns="columns" :virtual-config="{ enabled: true }" />
     <template #fallback>
       <!-- Loading placeholder content -->
       <div class="loading-placeholder">Loading...</div>
@@ -112,10 +106,13 @@ Then import this file in `nuxt.config.ts`.
 ## FAQ
 
 ### 1. Auto-import not working?
+
 Make sure `yh-ui` is included in `build.transpile`, which ensures Nuxt can correctly parse the component library's ESM exports.
 
 ### 2. Hydration Mismatch warnings?
+
 This usually happens when using randomly generated mock data. Ensure the `key` used in `v-for` is consistent between server and client, or use `<ClientOnly>`.
 
 ### 3. Icon library missing?
+
 `YH-UI` table icons depend on the built-in icon library. If icons don't display properly, check that `yh-ui/dist/index.css` has been correctly imported.

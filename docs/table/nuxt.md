@@ -23,7 +23,7 @@ pnpm add yh-ui
 ```ts
 // plugins/yh-ui.ts
 import { defineNuxtPlugin } from '#app'
-import YhUI from 'yh-ui'
+import YhUI from '@yh-ui/yh-ui'
 import 'yh-ui/dist/index.css'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -57,9 +57,7 @@ export default defineNuxtConfig({
 </template>
 
 <script setup lang="ts">
-const tableData = ref([
-  { id: 1, name: 'Nuxt User', role: 'Developer' }
-])
+const tableData = ref([{ id: 1, name: 'Nuxt User', role: 'Developer' }])
 
 const columns = [
   { prop: 'id', label: 'ID', width: 80 },
@@ -78,11 +76,7 @@ const columns = [
 ```vue
 <template>
   <ClientOnly>
-    <yh-table 
-      :data="data" 
-      :columns="columns"
-      :virtual-config="{ enabled: true }"
-    />
+    <yh-table :data="data" :columns="columns" :virtual-config="{ enabled: true }" />
     <template #fallback>
       <!-- 加载中的占位内容 -->
       <div class="loading-placeholder">加载中...</div>
@@ -112,10 +106,13 @@ const columns = [
 ## 常见问题
 
 ### 1. 自动导入不生效？
+
 请确保在 `build.transpile` 中包含 `yh-ui`，这能保证 Nuxt 能够正确解析组件库的 ESM 导出。
 
 ### 2. Hydration Mismatch 警告？
+
 通常发生在使用随机生成的模拟数据时。请确保 `v-for` 使用的 `key` 在服务端和客户端保持一致，或者使用 `<ClientOnly>`。
 
 ### 3. 图标库丢失？
+
 `YH-UI` 的表格图标依赖内置图标库，如果图标无法正常显示，请检查 `yh-ui/dist/index.css` 是否已正确引入。

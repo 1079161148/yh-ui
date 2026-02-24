@@ -15,15 +15,15 @@
 ::: code-group
 
 ```bash [pnpm]
-pnpm add yh-ui
+pnpm add @yh-ui/yh-ui
 ```
 
 ```bash [npm]
-npm install yh-ui
+npm install @yh-ui/yh-ui
 ```
 
 ```bash [yarn]
-yarn add yh-ui
+yarn add @yh-ui/yh-ui
 ```
 
 :::
@@ -37,29 +37,29 @@ yarn add yh-ui
 ```html [unpkg]
 <head>
   <!-- 样式文件 -->
-  <link rel="stylesheet" href="https://unpkg.com/yh-ui/dist/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@yh-ui/yh-ui/dist/style.css" />
   <!-- 依赖库 Vue -->
   <script src="https://unpkg.com/vue@3"></script>
   <!-- 组件库 JS -->
-  <script src="https://unpkg.com/yh-ui"></script>
+  <script src="https://unpkg.com/@yh-ui/yh-ui"></script>
 </head>
 ```
 
 ```html [jsDelivr]
 <head>
   <!-- 样式文件 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yh-ui/dist/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui/dist/style.css" />
   <!-- 依赖库 Vue -->
   <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
   <!-- 组件库 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/yh-ui"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui"></script>
 </head>
 ```
 
 :::
 
 ::: tip 提示
-生产环境下，建议在 URL 中锁定具体的版本号（例如 `yh-ui@1.0.0`），以避免非预期内的破坏性更新。
+生产环境下，建议在 URL 中锁定具体的版本号（例如 `@yh-ui/yh-ui@1.0.0`），以避免非预期内的破坏性更新。
 :::
 
 ## 按需引入
@@ -68,7 +68,7 @@ YH-UI 天生支持 **Tree Shaking**。只需直接引入组件，构建工具（
 
 ```vue
 <script setup lang="ts">
-import { YhButton } from 'yh-ui'
+import { YhButton } from '@yh-ui/yh-ui'
 </script>
 ```
 
@@ -90,7 +90,7 @@ pnpm add -D unplugin-vue-components
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { YhUIResolver } from 'yh-ui/resolver' // 确保您已安装 yh-ui
+import { YhUIResolver } from '@yh-ui/@yh-ui/@yh-ui/yh-ui/resolver' // 确保您已安装 @yh-ui/yh-ui
 
 export default defineConfig({
   plugins: [
@@ -99,7 +99,7 @@ export default defineConfig({
       resolvers: [
         YhUIResolver({
           // 如果需要自动引入样式
-          importStyle: 'sass' 
+          importStyle: 'sass'
         })
       ]
     })
@@ -114,7 +114,7 @@ export default defineConfig({
 ```json
 {
   "compilerOptions": {
-    "types": ["yh-ui/global"]
+    "types": ["@yh-ui/yh-ui/global"]
   }
 }
 ```

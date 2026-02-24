@@ -1,6 +1,6 @@
 {
-  "name": "yh-ui",
-  "version": "0.1.0",
+  "name": "@yh-ui/yh-ui",
+  "version": "0.1.1",
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
   "main": "./dist/index.mjs",

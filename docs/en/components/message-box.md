@@ -155,7 +155,7 @@ const tsAlert = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('This is a basic message alert content.', 'System Tip')
@@ -167,7 +167,7 @@ const tsConfirm = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm(
@@ -187,7 +187,7 @@ const tsPrompt = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.prompt('Please input your email', 'Tip', {
@@ -205,7 +205,7 @@ const tsVNode = `<template>
 
 <script setup lang="ts">
 import { h } from 'vue'
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox({
@@ -223,7 +223,7 @@ const tsHTML = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert(
@@ -241,7 +241,7 @@ const tsCenter = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm(
@@ -262,7 +262,7 @@ const tsDraggable = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('The content can be dragged freely', 'Tip', {
@@ -276,7 +276,7 @@ const tsBeforeClose = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('Submitting request takes about 2 seconds.', 'Async Interception', {
@@ -311,7 +311,7 @@ const tsSuccess = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('Order has been successfully submitted.', 'Success', {
@@ -326,7 +326,7 @@ const tsWarning = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('Unusual login detected. Please confirm if it was you.', 'Security Warning', {
@@ -342,7 +342,7 @@ const tsError = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('An unexpected system error occurred. Please refresh.', 'System Error', {
@@ -357,7 +357,7 @@ const tsInfo = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.alert('The server is currently under maintenance.', 'Tip', {
@@ -371,7 +371,7 @@ const tsSetDefaults = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   // Set global defaults
@@ -395,7 +395,7 @@ const tsLoading = `<template>
 </template>
 
 <script setup lang="ts">
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
   YhMessageBox.confirm('Submission might take some time.', 'Loading State', {
@@ -548,7 +548,7 @@ Now `MessageBox` accepts the constructor's `context` as the second parameter (if
 
 ```ts
 import { getCurrentInstance } from 'vue'
-import { YhMessageBox } from 'yh-ui'
+import { YhMessageBox } from '@yh-ui/yh-ui'
 
 // In your setup method
 const { appContext } = getCurrentInstance()!
@@ -562,65 +562,65 @@ YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 
 ### Methods
 
-| Method | Description | Parameter Type | Return Value |
-| --- | --- | --- | --- |
-| `alert` | Pops up an alert message box | `(message, title?, options?, appContext?)` | `Promise<void>` |
-| `confirm` | Pops up an operation confirmation box | `(message, title?, options?, appContext?)` | `Promise<MessageBoxAction>` |
-| `prompt` | Pops up a content input box | `(message, title?, options?, appContext?)` | `Promise<{ value, action }>` |
-| `setDefaults` | Modifies global default configuration items | `(defaults: MessageBoxOptions)` | — |
+| Method        | Description                                 | Parameter Type                             | Return Value                 |
+| ------------- | ------------------------------------------- | ------------------------------------------ | ---------------------------- |
+| `alert`       | Pops up an alert message box                | `(message, title?, options?, appContext?)` | `Promise<void>`              |
+| `confirm`     | Pops up an operation confirmation box       | `(message, title?, options?, appContext?)` | `Promise<MessageBoxAction>`  |
+| `prompt`      | Pops up a content input box                 | `(message, title?, options?, appContext?)` | `Promise<{ value, action }>` |
+| `setDefaults` | Modifies global default configuration items | `(defaults: MessageBoxOptions)`            | —                            |
 
 ### MessageBoxOptions
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Title | `string` | `Tip` |
-| message | Content | `string \| VNode \| (() => VNode)` | — |
-| type | Popup type | `'alert' \| 'confirm' \| 'prompt'` | — |
-| iconType | State icon type | `'success' \| 'warning' \| 'info' \| 'error'` | — |
-| icon | Custom icon | `string \| Component \| VNode` | — |
-| width | Popup width | `string \| number` | `420` |
-| dangerouslyUseHTMLString | Whether to render message as HTML | `boolean` | `false` |
-| showClose | Whether to show close button at top-right | `boolean` | `true` |
-| showConfirmButton | Whether to show confirm button | `boolean` | `true` |
-| showCancelButton | Whether to show cancel button | `boolean` | `true` |
-| confirmButtonText | Confirm button text | `string` | `OK` |
-| cancelButtonText | Cancel button text | `string` | `Cancel` |
-| closeOnClickModal | Whether to close when clicking the overlay | `boolean` | `true` |
-| closeOnPressEscape | Whether to close when pressing ESC | `boolean` | `true` |
-| lockScroll | Whether to lock scrollbar | `boolean` | `true` |
-| glass | Whether to enable acrylic glass mode | `boolean` | `false` |
-| center | Whether to center content layout | `boolean` | `false` |
-| roundButton | Whether to use rounded buttons | `boolean` | `false` |
-| draggable | Whether popup is draggable | `boolean` | `false` |
-| draggableBoundary | Whether to prevent dragging out of viewport | `boolean` | `true` |
-| customClass | Custom class name | `string` | — |
-| inputPlaceholder | Input placeholder (prompt only) | `string` | — |
-| inputValue | Initial input value (prompt only) | `string` | — |
-| inputPattern | Input validation regex (prompt only) | `RegExp` | — |
-| inputValidator | Custom input validation function (prompt only) | `(value: string) => boolean \| string` | — |
-| inputErrorMessage | Validation error message (prompt only) | `string` | — |
-| beforeClose | Hook before closing | `(action, instance, done) => void` | — |
-| callback | Callback after closing | `(action, instance) => void` | — |
-| appContext | Application context (Vue Context) | `AppContext` | — |
-| autofocus | Whether to autofocus on opening | `boolean` | `true` |
-| appendTo | Sets the root element for the component | `string \| HTMLElement` | `document.body` |
-| confirmButtonLoading | Whether confirm button shows loading status | `boolean` | `false` |
-| cancelButtonLoading | Whether cancel button shows loading status | `boolean` | `false` |
-| loadingIcon | Custom loading icon | `string \| Component \| VNode` | — |
+| Prop                     | Description                                    | Type                                          | Default         |
+| ------------------------ | ---------------------------------------------- | --------------------------------------------- | --------------- |
+| title                    | Title                                          | `string`                                      | `Tip`           |
+| message                  | Content                                        | `string \| VNode \| (() => VNode)`            | —               |
+| type                     | Popup type                                     | `'alert' \| 'confirm' \| 'prompt'`            | —               |
+| iconType                 | State icon type                                | `'success' \| 'warning' \| 'info' \| 'error'` | —               |
+| icon                     | Custom icon                                    | `string \| Component \| VNode`                | —               |
+| width                    | Popup width                                    | `string \| number`                            | `420`           |
+| dangerouslyUseHTMLString | Whether to render message as HTML              | `boolean`                                     | `false`         |
+| showClose                | Whether to show close button at top-right      | `boolean`                                     | `true`          |
+| showConfirmButton        | Whether to show confirm button                 | `boolean`                                     | `true`          |
+| showCancelButton         | Whether to show cancel button                  | `boolean`                                     | `true`          |
+| confirmButtonText        | Confirm button text                            | `string`                                      | `OK`            |
+| cancelButtonText         | Cancel button text                             | `string`                                      | `Cancel`        |
+| closeOnClickModal        | Whether to close when clicking the overlay     | `boolean`                                     | `true`          |
+| closeOnPressEscape       | Whether to close when pressing ESC             | `boolean`                                     | `true`          |
+| lockScroll               | Whether to lock scrollbar                      | `boolean`                                     | `true`          |
+| glass                    | Whether to enable acrylic glass mode           | `boolean`                                     | `false`         |
+| center                   | Whether to center content layout               | `boolean`                                     | `false`         |
+| roundButton              | Whether to use rounded buttons                 | `boolean`                                     | `false`         |
+| draggable                | Whether popup is draggable                     | `boolean`                                     | `false`         |
+| draggableBoundary        | Whether to prevent dragging out of viewport    | `boolean`                                     | `true`          |
+| customClass              | Custom class name                              | `string`                                      | —               |
+| inputPlaceholder         | Input placeholder (prompt only)                | `string`                                      | —               |
+| inputValue               | Initial input value (prompt only)              | `string`                                      | —               |
+| inputPattern             | Input validation regex (prompt only)           | `RegExp`                                      | —               |
+| inputValidator           | Custom input validation function (prompt only) | `(value: string) => boolean \| string`        | —               |
+| inputErrorMessage        | Validation error message (prompt only)         | `string`                                      | —               |
+| beforeClose              | Hook before closing                            | `(action, instance, done) => void`            | —               |
+| callback                 | Callback after closing                         | `(action, instance) => void`                  | —               |
+| appContext               | Application context (Vue Context)              | `AppContext`                                  | —               |
+| autofocus                | Whether to autofocus on opening                | `boolean`                                     | `true`          |
+| appendTo                 | Sets the root element for the component        | `string \| HTMLElement`                       | `document.body` |
+| confirmButtonLoading     | Whether confirm button shows loading status    | `boolean`                                     | `false`         |
+| cancelButtonLoading      | Whether cancel button shows loading status     | `boolean`                                     | `false`         |
+| loadingIcon              | Custom loading icon                            | `string \| Component \| VNode`                | —               |
 
 ### MessageBoxInstance (instance in beforeClose)
 
-| Prop/Method | Description | Type |
-| --- | --- | --- |
-| `confirmLoading` | Loading state of the confirm button | `boolean` |
-| `cancelLoading` | Loading state of the cancel button | `boolean` |
-| `open` | Opens the popup | `(options: MessageBoxOptions) => void` |
-| `close` | Closes the popup | `() => void` |
+| Prop/Method      | Description                         | Type                                   |
+| ---------------- | ----------------------------------- | -------------------------------------- |
+| `confirmLoading` | Loading state of the confirm button | `boolean`                              |
+| `cancelLoading`  | Loading state of the cancel button  | `boolean`                              |
+| `open`           | Opens the popup                     | `(options: MessageBoxOptions) => void` |
+| `close`          | Closes the popup                    | `() => void`                           |
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-scrollbar-width` | Scrollbar width of the current system (auto-injected) | — |
-| `--yh-bg-color-overlay` | Popup background color | `var(--yh-bg-color-overlay)` |
-| `--yh-text-color-primary` | Title color | `var(--yh-text-color-primary)` |
+| Variable                  | Description                                           | Default                        |
+| ------------------------- | ----------------------------------------------------- | ------------------------------ |
+| `--yh-scrollbar-width`    | Scrollbar width of the current system (auto-injected) | —                              |
+| `--yh-bg-color-overlay`   | Popup background color                                | `var(--yh-bg-color-overlay)`   |
+| `--yh-text-color-primary` | Title color                                           | `var(--yh-text-color-primary)` |
