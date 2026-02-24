@@ -22,7 +22,7 @@
     <img src="https://img.shields.io/npm/dm/@yh-ui/yh-ui.svg?style=flat-square&colorB=409eff" alt="npm downloads">
   </a>
   <a href="https://github.com/1079161148/yh-ui/blob/main/LICENSE">
-    <img src="https://img.shields.io/npm/l/yh-ui.svg?style=flat-square" alt="license">
+    <img src="https://img.shields.io/npm/l/@yh-ui/yh-ui.svg?style=flat-square" alt="license">
   </a>
 </p>
 
