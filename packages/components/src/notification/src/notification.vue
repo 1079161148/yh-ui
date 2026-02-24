@@ -240,12 +240,13 @@ defineExpose({
             <!-- VNode 类型（包括函数返回的 VNode） -->
             <component v-if="isMessageVNode" :is="renderMessage" :class="ns.e('text')" />
             <!-- HTML 字符串 -->
-            <!-- eslint-disable-next-line vue/no-v-html -->
+            <!-- eslint-disable vue/no-v-html -->
             <p
               v-else-if="dangerouslyUseHTMLString"
               :class="ns.e('text')"
               v-html="renderMessage"
             ></p>
+            <!-- eslint-enable vue/no-v-html -->
             <!-- 普通字符串 -->
             <p v-else :class="ns.e('text')">
               {{ renderMessage }}

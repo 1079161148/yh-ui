@@ -51,9 +51,11 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'clover', 'lcov', 'json-summary'],
+      reportsDirectory: './coverage',
       include: ['packages/*/src/**/*.{ts,vue}'],
-      exclude: ['**/*.d.ts', '**/index.ts', '**/__tests__/**'],
-      clean: true
+      exclude: ['**/*.d.ts', '**/index.ts', '**/__tests__/**', '**/dist/**'],
+      clean: true,
+      reportOnFailure: true
     },
     // SSR 相关配置
     server: {
