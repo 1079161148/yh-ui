@@ -94,6 +94,7 @@
     "ui-components",
     "yh-ui"
   ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
   "author": "YH-UI Team",
   "license": "MIT",
   "dependencies": {

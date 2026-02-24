@@ -27,8 +27,8 @@
 </p>
 
 <p align="center">
-  <a href="https://yh-ui.dev">📖 文档</a> ·
-  <a href="https://yh-ui.dev/guide/quickstart">🚀 快速开始</a> ·
+  <a href="https://1079161148.github.io/yh-ui/">📖 文档</a> ·
+  <a href="https://1079161148.github.io/yh-ui/guide/quickstart">🚀 快速开始</a> ·
   <a href="https://github.com/1079161148/yh-ui/releases">📝 更新日志</a>
 </p>
 

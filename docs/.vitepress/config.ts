@@ -51,7 +51,7 @@ export default defineConfig({
           { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
           { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
           {
-            text: 'v0.0.1',
+            text: 'v0.1.7',
             items: [
               { text: 'Changelog', link: '/en/changelog' },
               { text: 'GitHub', link: 'https://github.com/1079161148/yh-ui' }
