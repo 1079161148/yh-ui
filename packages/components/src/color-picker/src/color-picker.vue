@@ -137,6 +137,11 @@ const handleClickOutside = (e: MouseEvent) => {
   }
 }
 
+const handlePredefineClick = (c: string) => {
+  color.value = parseColor(c)
+  updateColor()
+}
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 })
@@ -260,10 +265,7 @@ watch(visible, (val: boolean) => {
               :key="c"
               :class="ns.e('predefine-item')"
               :style="{ backgroundColor: c }"
-              @click="
-                color = parseColor(c)
-                updateColor()
-              "
+              @click="handlePredefineClick(c)"
             ></div>
           </div>
 
@@ -290,12 +292,12 @@ watch(visible, (val: boolean) => {
               />
             </div>
             <div :class="ns.e('btns')">
-              <button :class="ns.e('btn-clear')" @click="handleClear">{{
-                t('colorpicker.clear')
-              }}</button>
-              <button :class="ns.e('btn-confirm')" @click="handleConfirm">{{
-                t('colorpicker.confirm')
-              }}</button>
+              <button :class="ns.e('btn-clear')" @click="handleClear">
+                {{ t('colorpicker.clear') }}
+              </button>
+              <button :class="ns.e('btn-confirm')" @click="handleConfirm">
+                {{ t('colorpicker.confirm') }}
+              </button>
             </div>
           </div>
         </div>

@@ -424,9 +424,9 @@ defineExpose({
               </template>
               <template v-else-if="showFooter">
                 <YhButton @click="handleCancel">{{ cancelText || t('dialog.cancel') }}</YhButton>
-                <YhButton type="primary" @click="handleConfirm">{{
-                  confirmText || t('dialog.confirm')
-                }}</YhButton>
+                <YhButton type="primary" @click="handleConfirm">
+                  {{ confirmText || t('dialog.confirm') }}
+                </YhButton>
               </template>
             </slot>
           </div>

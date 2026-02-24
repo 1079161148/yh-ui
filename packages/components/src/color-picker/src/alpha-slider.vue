@@ -25,7 +25,7 @@ const handleDrag = (event: MouseEvent | TouchEvent) => {
   const rect = sliderRef.value.getBoundingClientRect()
   const clientX = (event as MouseEvent).clientX ?? (event as TouchEvent).touches[0].clientX
 
-  let left = ((clientX - rect.left) / rect.width)
+  let left = (clientX - rect.left) / rect.width
   left = Math.max(0, Math.min(1, left))
 
   emit('update', Number(left.toFixed(2)))
@@ -45,7 +45,12 @@ const handleMouseDown = (event: MouseEvent) => {
 
 <template>
   <div class="yh-color-alpha-slider">
-    <div ref="sliderRef" class="yh-color-alpha-slider__bar" :style="backgroundStyle" @mousedown="handleMouseDown"></div>
+    <div
+      ref="sliderRef"
+      class="yh-color-alpha-slider__bar"
+      :style="backgroundStyle"
+      @mousedown="handleMouseDown"
+    ></div>
     <div class="yh-color-alpha-slider__handle" :style="handleStyle"></div>
   </div>
 </template>
@@ -56,7 +61,18 @@ const handleMouseDown = (event: MouseEvent) => {
   width: 100%;
   height: 12px;
   border-radius: 6px;
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADohU2HAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAStandardS/B6AAAAXklEQVQoU2P4//8/A6UApsGs+P///wMNoAAmwakApsGs+P///wMNoAAmwakApsGs+P///wMNoAAmwakApsGs+P///wMNoAAmwakApsGs+P///wMNoAAmwakApsGs+P///wMNoAAmwakAAAAASUVORK5CYII=');
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(135deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(135deg, transparent 75%, #ccc 75%);
+  background-size: 12px 12px;
+  background-position:
+    0 0,
+    6px 0,
+    6px -6px,
+    0px 6px;
+  background-color: white;
   cursor: pointer;
 
   &__bar {

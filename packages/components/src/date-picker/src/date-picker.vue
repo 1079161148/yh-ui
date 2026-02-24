@@ -351,6 +351,11 @@ const shouldShowFooter = computed(() => {
   return props.type.includes('datetime') || isRange.value || props.presets.length > 0
 })
 
+const handleConfirmClick = () => {
+  emit('confirm', props.modelValue as DateValue | DateRangeValue)
+  visible.value = false
+}
+
 onMounted(() => {
   syncInnerDate() // 初始同步一次日期，确保 panel-only 或初始状态正确
   if (!props.panelOnly) {
@@ -560,10 +565,7 @@ onBeforeUnmount(() => {
                 </button>
                 <button
                   :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
-                  @click="
-                    emit('confirm', modelValue as any)
-                    visible = false
-                  "
+                  @click="handleConfirmClick"
                 >
                   {{ t('datepicker.confirm') }}
                 </button>

@@ -119,8 +119,8 @@ describe('Table Interactions', () => {
     await nextTick()
 
     const rowCheckboxes = wrapper.findAll('.yh-table__row .yh-table__selection-cell input')
-    expect(rowCheckboxes[0].element.disabled).toBe(true)
-    expect(rowCheckboxes[1].element.disabled).toBe(false)
+    expect((rowCheckboxes[0].element as HTMLInputElement).disabled).toBe(true)
+    expect((rowCheckboxes[1].element as HTMLInputElement).disabled).toBe(false)
   })
 
   it('should handle pagination page-size change', async () => {
@@ -168,7 +168,7 @@ describe('Table Interactions', () => {
       const upEvent = new CustomEvent('pointerup', { bubbles: true }) as any
       document.dispatchEvent(upEvent)
 
-      expect(vm.isResizing).toBe(false)
+      expect(wrapper.emitted('column-resize')).toBeTruthy()
     })
 
     it('should handle tree expansion', async () => {
