@@ -465,18 +465,59 @@ const openInCodeSandbox = () => {
 const openInStackBlitz = () => {
   console.log('Open in StackBlitz')
 }
+
+// 刷新演示
+const demoKey = ref(0)
+const refreshDemo = () => {
+  demoKey.value++
+}
+
+// 复制锚点
+const copyAnchor = async () => {
+  try {
+    const url = new URL(window.location.href)
+    url.hash = props.title || ''
+    await navigator.clipboard.writeText(url.toString())
+  } catch (err) {
+    console.error('Failed to copy anchor:', err)
+  }
+}
 </script>
 
 <template>
   <div class="demo-box">
     <!-- 演示区域 -->
-    <div class="demo-box__preview">
+    <div :key="demoKey" class="demo-box__preview">
       <slot />
     </div>
 
     <!-- 操作栏 -->
     <div class="demo-box__actions">
       <div class="demo-box__actions-left">
+        <button
+          class="demo-box__action-btn"
+          :title="isEn ? 'Copy link' : '复制锚点'"
+          @click="copyAnchor"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16">
+            <path
+              fill="currentColor"
+              d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"
+            />
+          </svg>
+        </button>
+        <button
+          class="demo-box__action-btn"
+          :title="isEn ? 'Refresh' : '重置演示'"
+          @click="refreshDemo"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16">
+            <path
+              fill="currentColor"
+              d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+            />
+          </svg>
+        </button>
         <span v-if="title" class="demo-box__title">{{ title }}</span>
       </div>
       <div class="demo-box__actions-right">

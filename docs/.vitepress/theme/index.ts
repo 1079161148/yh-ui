@@ -138,6 +138,9 @@ import {
   YhAiThoughtChain,
   YhAiCodeBlock,
   YhAiThinking,
+  YhAiWelcome,
+  YhAiActionGroup,
+  YhAiEditorSender,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -267,6 +270,9 @@ export default {
     app.component('YhAiThoughtChain', YhAiThoughtChain)
     app.component('YhAiCodeBlock', YhAiCodeBlock)
     app.component('YhAiThinking', YhAiThinking)
+    app.component('YhAiWelcome', YhAiWelcome)
+    app.component('YhAiActionGroup', YhAiActionGroup)
+    app.component('YhAiEditorSender', YhAiEditorSender)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

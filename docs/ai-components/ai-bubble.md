@@ -66,7 +66,7 @@ const isTypingMode = ref(false)
 const currentText = ref('')
 const fullText = '打字机特效能够在文字按顺序输出的同时，提供一个跟在末尾的光标闪烁指示器（Cursor）。它生动地刻画了模型思考与返回片段的过程，配合 loading 状态食用体验极佳。'
 
-let timer: any = null
+let timer: ReturnType<typeof setInterval> | null = null
 
 const startTyping = () => {
   if (timer) clearInterval(timer)
@@ -93,7 +93,7 @@ const isTypingMode = ref(false)
 const currentText = ref('')
 const fullText = '打字机特效能够在文字按顺序输出的同时，提供一个跟在末尾的光标闪烁指示器（Cursor）。它生动地刻画了模型思考与返回片段的过程，配合 loading 状态食用体验极佳。'
 
-let timer: any = null
+let timer: ReturnType<typeof setInterval> | null = null
 
 const startTyping = () => {
   if (timer) clearInterval(timer)

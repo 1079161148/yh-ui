@@ -348,7 +348,7 @@ Using Vue reactive features and `computed` properties, you can implement dynamic
   <yh-table :data="data4" :columns="columns4" border />
 </DemoBlock>
 
-## API Reference
+## API
 
 The following properties are supported in the `TableColumn` interface:
 

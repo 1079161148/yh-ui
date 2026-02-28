@@ -206,7 +206,10 @@ export default defineConfig({
             { text: 'AiSender', link: '/en/ai-components/ai-sender' },
             { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
             { text: 'AiThoughtChain', link: '/en/ai-components/ai-thought-chain' },
-            { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' }
+            { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' },
+            { text: 'AiWelcome', link: '/en/ai-components/ai-welcome' },
+            { text: 'AiActionGroup', link: '/en/ai-components/ai-action-group' },
+            { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' }
           ]
         }
       ],
@@ -315,9 +318,12 @@ export default defineConfig({
             { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
             { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
             { text: 'AiSender 智能输入', link: '/ai-components/ai-sender' },
+            { text: 'AiEditorSender 面板输入', link: '/ai-components/ai-editor-sender' },
             { text: 'AiThinking 思考中', link: '/ai-components/ai-thinking' },
             { text: 'AiThoughtChain 思维链', link: '/ai-components/ai-thought-chain' },
-            { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' }
+            { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' },
+            { text: 'AiWelcome 欢迎页面', link: '/ai-components/ai-welcome' },
+            { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' }
           ]
         }
       ],
@@ -438,7 +444,7 @@ export default defineConfig({
             { text: 'Getting Started', link: '/en/icons/getting-started' },
             { text: 'Collections', link: '/en/icons/collections' },
             { text: 'Showcase', link: '/en/icons/showcase' },
-            { text: 'API Reference', link: '/en/icons/api' }
+            { text: 'API', link: '/en/icons/api' }
           ]
         }
       ]

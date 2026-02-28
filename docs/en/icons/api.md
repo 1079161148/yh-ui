@@ -1,4 +1,4 @@
-# API Reference
+# API
 
 Complete API documentation, including components, types, and functions.
 
@@ -6,21 +6,21 @@ Complete API documentation, including components, types, and functions.
 
 ### Props
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| `name` | Icon name, supports the `prefix:icon-name` format. | `string` | `''` |
-| `icon` | Icon name (equivalent to `name`, but with higher priority). | `string` | `''` |
-| `svg` | Custom SVG string (excluding the `<svg>` tag). | `string` | `''` |
-| `component` | Vue component | `Component` | `undefined` |
-| `size` | Icon size | `number \| string` | `undefined` |
-| `color` | Icon color | `string` | `undefined` |
-| `spin` | Whether to show a spin animation. | `boolean` | `false` |
-| `rotate` | Rotation angle (0, 90, 180, 270). | `number` | `0` |
+| Property    | Description                                                 | Type               | Default     |
+| ----------- | ----------------------------------------------------------- | ------------------ | ----------- |
+| `name`      | Icon name, supports the `prefix:icon-name` format.          | `string`           | `''`        |
+| `icon`      | Icon name (equivalent to `name`, but with higher priority). | `string`           | `''`        |
+| `svg`       | Custom SVG string (excluding the `<svg>` tag).              | `string`           | `''`        |
+| `component` | Vue component                                               | `Component`        | `undefined` |
+| `size`      | Icon size                                                   | `number \| string` | `undefined` |
+| `color`     | Icon color                                                  | `string`           | `undefined` |
+| `spin`      | Whether to show a spin animation.                           | `boolean`          | `false`     |
+| `rotate`    | Rotation angle (0, 90, 180, 270).                           | `number`           | `0`         |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
+| Slot Name | Description          |
+| --------- | -------------------- |
 | `default` | Custom icon content. |
 
 ### Events
@@ -61,6 +61,7 @@ type IconName = string
 ```
 
 Supported formats:
+
 - Short name: `'home'`
 - With prefix: `'mdi:home'`
 - Slash separator: `'mdi/home'`
@@ -74,6 +75,7 @@ type IconSize = number | string
 ```
 
 Examples:
+
 - Number: `24`
 - Pixel string: `'24px'`
 - CSS unit: `'2em'`
@@ -87,6 +89,7 @@ type IconColor = string
 ```
 
 Examples:
+
 - Hexadecimal: `'#409EFF'`
 - Color name: `'red'`
 - CSS variable: `'var(--yh-color-primary)'`
@@ -154,6 +157,7 @@ function parseIconName(name: string): string
 ```
 
 **Parameters**:
+
 - `name`: Icon name
 
 **Return Value**: The parsed icon name.
@@ -163,9 +167,9 @@ function parseIconName(name: string): string
 ```typescript
 import { parseIconName } from '@yh-ui/icons'
 
-parseIconName('home')        // 'mdi:home'
-parseIconName('mdi:home')    // 'mdi:home'
-parseIconName('mdi/home')    // 'mdi:home'
+parseIconName('home') // 'mdi:home'
+parseIconName('mdi:home') // 'mdi:home'
+parseIconName('mdi/home') // 'mdi:home'
 ```
 
 ### iconExists
@@ -177,6 +181,7 @@ async function iconExists(name: string): Promise<boolean>
 ```
 
 **Parameters**:
+
 - `name`: Icon name
 
 **Return Value**: Whether the icon exists.
@@ -199,6 +204,7 @@ async function getIconData(name: string): Promise<IconifyIcon>
 ```
 
 **Parameters**:
+
 - `name`: Icon name
 
 **Return Value**: The SVG data of the icon.
@@ -239,7 +245,7 @@ A complete list of all available icon collections.
 const AVAILABLE_COLLECTIONS = [
   { prefix: 'mdi', name: 'Material Design Icons', count: 7000 },
   { prefix: 'ep', name: 'Element Plus', count: 200 },
-  { prefix: 'lucide', name: 'Lucide', count: 1500 },
+  { prefix: 'lucide', name: 'Lucide', count: 1500 }
   // ...
 ] as const
 ```
@@ -260,9 +266,9 @@ A mapping of common icon aliases.
 const COMMON_ICONS = {
   'arrow-up': 'mdi:arrow-up',
   'arrow-down': 'mdi:arrow-down',
-  'close': 'mdi:close',
-  'check': 'mdi:check',
-  'search': 'mdi:magnify',
+  close: 'mdi:close',
+  check: 'mdi:check',
+  search: 'mdi:magnify'
   // ...
 } as const
 ```

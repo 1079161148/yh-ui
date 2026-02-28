@@ -66,7 +66,7 @@ const isTypingMode = ref(false)
 const currentText = ref('')
 const fullText = 'The typing effect provides a dynamically blinking cursor indicator appending at the very end of the string. It vividly portrays the stepwise output process of large models.'
 
-let timer: any = null
+let timer: ReturnType<typeof setInterval> | null = null
 
 const startTyping = () => {
   if (timer) clearInterval(timer)
@@ -93,7 +93,7 @@ const isTypingMode = ref(false)
 const currentText = ref('')
 const fullText = 'The typing effect provides a dynamically blinking cursor indicator appending at the very end of the string. It vividly portrays the stepwise output process of large models.'
 
-let timer: any = null
+let timer: ReturnType<typeof setInterval> | null = null
 
 const startTyping = () => {
   if (timer) clearInterval(timer)

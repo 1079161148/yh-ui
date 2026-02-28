@@ -240,27 +240,27 @@ Set `pagination.remote` to `true` to disable automatic slicing. Users need to li
   />
 </DemoBlock>
 
-## API Reference
+## API
 
 ### PaginationConfig
 
 Pagination configuration options:
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| currentPage | Current page number | `number` | `1` |
-| pageSize | Number of items per page | `number` | `10` |
-| total | Total number of items | `number` | `0` |
-| pageSizes | Items per page options | `number[]` | `[10, 20, 50, 100]` |
-| layout | Pagination layout | `string` | `'total, sizes, prev, pager, next, jumper'` |
-| remote | **Whether remote pagination** | `boolean` | `false` |
-| align | **Alignment** | `'left' \| 'center' \| 'right'` | `'left'` |
-| background | Show background | `boolean` | `false` |
-| small | Use small pagination | `boolean` | `false` |
-| hideOnSinglePage | Hide on single page | `boolean` | `false` |
+| Property         | Description                   | Type                            | Default                                     |
+| ---------------- | ----------------------------- | ------------------------------- | ------------------------------------------- |
+| currentPage      | Current page number           | `number`                        | `1`                                         |
+| pageSize         | Number of items per page      | `number`                        | `10`                                        |
+| total            | Total number of items         | `number`                        | `0`                                         |
+| pageSizes        | Items per page options        | `number[]`                      | `[10, 20, 50, 100]`                         |
+| layout           | Pagination layout             | `string`                        | `'total, sizes, prev, pager, next, jumper'` |
+| remote           | **Whether remote pagination** | `boolean`                       | `false`                                     |
+| align            | **Alignment**                 | `'left' \| 'center' \| 'right'` | `'left'`                                    |
+| background       | Show background               | `boolean`                       | `false`                                     |
+| small            | Use small pagination          | `boolean`                       | `false`                                     |
+| hideOnSinglePage | Hide on single page           | `boolean`                       | `false`                                     |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
+| Event Name  | Description                                 | Callback Parameters                                           |
+| ----------- | ------------------------------------------- | ------------------------------------------------------------- |
 | page-change | Triggered when pagination parameters change | `(params: { currentPage: number, pageSize: number }) => void` |

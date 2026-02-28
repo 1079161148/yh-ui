@@ -614,6 +614,19 @@ export const zhCn: Language = {
         thinking: '思考中...',
         complete: '已完成思考',
         error: '思考出错了'
+      },
+      welcome: {
+        title: '你好，我是 YH AI',
+        description: '我可以帮你写代码、翻译文档或进行创意写作。今天我能为你做点什么？'
+      },
+      action: {
+        copy: '复制',
+        regenerate: '重新生成',
+        share: '分享',
+        like: '赞同',
+        dislike: '反对',
+        edit: '编辑',
+        delete: '删除'
       }
     }
   }

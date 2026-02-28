@@ -341,6 +341,41 @@ export const IconMicrophone: IconData = {
   svg: '<path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>'
 }
 
+// ThumbUp 点赞图标
+export const IconThumbUp: IconData = {
+  name: 'thumb-up',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>'
+}
+
+// ThumbDown 点踩图标
+export const IconThumbDown: IconData = {
+  name: 'thumb-down',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.37-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>'
+}
+
+// Sparkles 闪烁图标
+export const IconSparkles: IconData = {
+  name: 'sparkles',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M11,1L12.5,4L15.5,5.5L12.5,7L11,10L9.5,7L6.5,5.5L9.5,4L11,1M5,10L6.5,13L9.5,14.5L6.5,16L5,19L3.5,16L0.5,14.5L3.5,13L5,10M17.5,12L19,15L22,16.5L19,18L17.5,21L16,18L13,16.5L16,15L17.5,12Z"/>'
+}
+
+// Share 分享图标
+export const IconShare: IconData = {
+  name: 'share',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>'
+}
+
+// Chat 对话气泡图标
+export const IconChat: IconData = {
+  name: 'chat',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>'
+}
+
 // 所有内置图标
 export const builtInIcons: IconData[] = [
   IconClose,
@@ -390,7 +425,12 @@ export const builtInIcons: IconData[] = [
   IconSendArrow,
   IconClean,
   IconPaperclip,
-  IconMicrophone
+  IconMicrophone,
+  IconThumbUp,
+  IconThumbDown,
+  IconSparkles,
+  IconShare,
+  IconChat
 ]
 
 // 自动注册所有内置图标

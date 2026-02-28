@@ -199,16 +199,16 @@ Demonstrates how to configure theme, language, and size together in a local envi
 </div>
 </DemoBlock>
 
-## API Reference
+## API
 
 ### Props
 
-| Prop | Description | Type | Options | Default |
-| --- | --- | --- | --- | --- |
-| theme | Global theme | `string` | Hex color / `purple` | `default` |
-| locale | Locale config | `Language` | — | `zhCn` |
-| size | Global size | `'large' \| 'default' \| 'small'` | — | `'default'` |
-| global | Inject into `:root` | `boolean` | — | `true` |
+| Prop   | Description         | Type                              | Options              | Default     |
+| ------ | ------------------- | --------------------------------- | -------------------- | ----------- |
+| theme  | Global theme        | `string`                          | Hex color / `purple` | `default`   |
+| locale | Locale config       | `Language`                        | —                    | `zhCn`      |
+| size   | Global size         | `'large' \| 'default' \| 'small'` | —                    | `'default'` |
+| global | Inject into `:root` | `boolean`                         | —                    | `true`      |
 
 <style scoped>
 .demo-items-inline {

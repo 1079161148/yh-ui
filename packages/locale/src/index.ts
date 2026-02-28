@@ -631,6 +631,19 @@ export interface Language {
         complete: string
         error: string
       }
+      welcome: {
+        title: string
+        description: string
+      }
+      action: {
+        copy: string
+        regenerate: string
+        share: string
+        like: string
+        dislike: string
+        edit: string
+        delete: string
+      }
     }
   }
 }
