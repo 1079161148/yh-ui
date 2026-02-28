@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 const input1 = ref('')
 const input2 = ref('')
