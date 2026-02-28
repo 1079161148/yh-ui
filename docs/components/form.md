@@ -213,7 +213,12 @@
 `asyncOptions` 异步加载选项（自动注入 `loading`），`props` 函数联动字段状态，`collapsible` 可折叠分组，`tooltip` 字段提示文案。
 
 <DemoBlock title="高级特性" :ts-code="tsAdvancedSchema" :js-code="jsAdvancedSchema">
-  <yh-form-schema v-model="proModel" :schema="proSchema" />
+  <yh-form-schema v-model="proModel" :schema="proSchema">
+    <template #footer="{ formRef }">
+      <yh-button type="primary" @click="handleProValidate(formRef)">验证联动</yh-button>
+      <yh-button @click="formRef.resetFields()">重置表单</yh-button>
+    </template>
+  </yh-form-schema>
 </DemoBlock>
 
 ### 字段类型扩展 (divider / text / list / render)
@@ -251,11 +256,20 @@
 
 在带有固定顶部导航栏的页面中，校验失败后滚动到第一个错误项时，可能会被 `sticky` 头部遮挡。配置 `scroll-to-error-offset` 即可设置顶部偏移量（单位 px）：
 
-```html
-<yh-form scroll-to-error :scroll-to-error-offset="64" :model="form" :rules="rules">
-  <!-- 表单内容 -->
-</yh-form>
-```
+<DemoBlock title="滚动偏移" :ts-code="tsScrollOffset" :js-code="jsScrollOffset">
+  <div style="padding: 12px; background: var(--yh-bg-color-page); border-radius: 6px; margin-bottom: 12px; font-size: 13px; color: var(--yh-text-color-secondary);">
+    以下为一个超长表单。当您滚动到底部点击提交时，由于部分必填项未填，页面会平滑回滚至第一个报错字段。得益于 <code>scroll-to-error-offset="64"</code> 配置，该报错字段不会被浏览器顶部遮挡。
+  </div>
+  <yh-form-schema
+    v-model="offsetModel"
+    :schema="offsetSchema"
+    :form-props="{ scrollToError: true, scrollToErrorOffset: 64, labelPosition: 'top' }"
+  >
+    <template #footer="{ formRef }">
+      <yh-button type="primary" style="width: 100%" @click="formRef.validate()">提交校验并回滚顶部</yh-button>
+    </template>
+  </yh-form-schema>
+</DemoBlock>
 
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
@@ -362,7 +376,16 @@ const addConfig = () => {
   })
 }
 
-const proModel = ref({ category: '', product: '', agree: false, remark: '' })
+const proModel = ref({ category: '', product: '', agree: false, remark: '', reasonType: '', otherReason: '', idCard: '' })
+
+const handleProValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('验证通过！此部分具有复杂联动，校验已成功通过。')
+  } catch (err) {
+    window.alert('验证失败：部分字段被强关联为必填项且不符合规制。')
+  }
+}
 const proSchema = [
   {
     title: '产品配置 (可折叠)',
@@ -401,6 +424,52 @@ const proSchema = [
     title: '备注信息',
     items: [
       { field: 'remark', label: '备注', component: 'input', props: { type: 'textarea', rows: 3 } }
+    ]
+  },
+  {
+    title: '动态联动演示',
+    items: [
+      {
+        field: 'reasonType',
+        label: '申请原因类型',
+        component: 'select',
+        col: 12,
+        props: {
+          options: [
+            { label: '事假', value: 'personal' },
+            { label: '病假', value: 'sick' },
+            { label: '其他', value: 'other' }
+          ]
+        },
+        required: true
+      },
+      {
+        field: 'otherReason',
+        label: '其他原因说明',
+        component: 'input',
+        col: 12,
+        // 动态隐藏：仅 reasonType 为 other 时显示
+        hidden: (model) => model.reasonType !== 'other',
+        // 动态必填和动态规则：如果是 other 则原因必填，且必须超过 5 个字
+        required: (model) => model.reasonType === 'other',
+        rules: (model) => {
+          if (model.reasonType === 'other') {
+            return [{ min: 5, message: '其他原因说明至少需要 5 个字', trigger: 'blur' }]
+          }
+          return []
+        }
+      },
+      {
+        field: 'idCard',
+        label: '身份证号',
+        component: 'input',
+        col: 12,
+        // 动态禁用：如果是病假不需要录入
+        disabled: (model) => model.reasonType === 'sick',
+        props: (model) => ({
+          placeholder: model.reasonType === 'sick' ? '病假免填身份证' : '请输入身份证号'
+        })
+      }
     ]
   }
 ]
@@ -815,13 +884,29 @@ const jsSchema = toJs(tsSchema)
 
 const tsAdvancedSchema = `
 <${_T}>
-  <yh-form-schema v-model="model" :schema="schema" />
+  <yh-form-schema v-model="model" :schema="schema">
+    <template #footer="{ formRef }">
+      <yh-button type="primary" @click="handleProValidate(formRef)">验证联动</yh-button>
+      <yh-button @click="formRef.resetFields()">重置表单</yh-button>
+    </template>
+  </yh-form-schema>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { FormSchemaInstance } from '@yh-ui/components'
 
-const model = ref({ category: '', product: '', agree: false, remark: '' })
+const model = ref({ category: '', product: '', agree: false, remark: '', reasonType: '', otherReason: '', idCard: '' })
+
+const handleProValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('验证通过！此部分具有复杂联动，校验已成功通过。')
+  } catch (err) {
+    window.alert('验证失败：部分字段被强关联为必填项且不符合规制。')
+  }
+}
+
 const schema = [
   {
     title: '产品配置 (可折叠)',
@@ -862,6 +947,52 @@ const schema = [
     title: '备注信息',
     items: [
       { field: 'remark', label: '备注', component: 'input', props: { type: 'textarea', rows: 3 } }
+    ]
+  },
+  {
+    title: '动态联动演示',
+    items: [
+      {
+        field: 'reasonType',
+        label: '申请原因类型',
+        component: 'select',
+        col: 12,
+        props: {
+          options: [
+            { label: '事假', value: 'personal' },
+            { label: '病假', value: 'sick' },
+            { label: '其他', value: 'other' }
+          ]
+        },
+        required: true
+      },
+      {
+        field: 'otherReason',
+        label: '其他原因说明',
+        component: 'input',
+        col: 12,
+        // 动态隐藏：仅 reasonType 为 other 时显示
+        hidden: (model) => model.reasonType !== 'other',
+        // 动态必填和动态规则
+        required: (model) => model.reasonType === 'other',
+        rules: (model) => {
+          if (model.reasonType === 'other') {
+            return [{ min: 5, message: '其他原因说明至少需要 5 个字', trigger: 'blur' }]
+          }
+          return []
+        }
+      },
+      {
+        field: 'idCard',
+        label: '身份证号',
+        component: 'input',
+        col: 12,
+        // 动态禁用：病假无需填写
+        disabled: (model) => model.reasonType === 'sick',
+        props: (model) => ({
+          placeholder: model.reasonType === 'sick' ? '病假免填身份证' : '请输入身份证号'
+        })
+      }
     ]
   }
 ]
@@ -972,6 +1103,43 @@ const handleValidate = async (formRef: FormSchemaInstance) => {
 </${_S}>
 `.trim()
 const jsListSchema = toJs(tsListSchema)
+const offsetModel = ref<Record<string, unknown>>({})
+const offsetSchema = Array.from({ length: 10 }).map((_, i) => ({
+  field: `field_${i}`,
+  label: `表单项 ${i + 1} ${i === 1 ? '（我将触发报错并被滚动定位）' : ''}`,
+  component: 'input',
+  required: i === 1 || i === 5 || i === 9
+}))
+
+const tsScrollOffset = `
+<${_T}>
+  <div style="padding: 12px; background: var(--yh-bg-color-page); border-radius: 6px; margin-bottom: 12px; font-size: 13px; color: var(--yh-text-color-secondary);">
+    以下为一个超长表单。当您滚动到底部点击提交时，由于部分必填项未填，页面会平滑回滚至第一个报错字段。得益于 <code>scroll-to-error-offset="64"</code> 配置，该报错字段不会被浏览器顶部遮挡。
+  </div>
+  <yh-form-schema
+    v-model="model"
+    :schema="schema"
+    :form-props="{ scrollToError: true, scrollToErrorOffset: 64, labelPosition: 'top' }"
+  >
+    <template #footer="{ formRef }">
+      <yh-button type="primary" style="width: 100%" @click="formRef.validate()">提交校验并回滚顶部</yh-button>
+    </template>
+  </yh-form-schema>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const model = ref<Record<string, unknown>>({})
+const schema = Array.from({ length: 10 }).map((_, i) => ({
+  field: \`field_\${i}\`,
+  label: \`表单项 \${i + 1} \${i === 1 ? '（我将触发报错并被滚动定位）' : ''}\`,
+  component: 'input',
+  required: i === 1 || i === 5 || i === 9
+}))
+</${_S}>
+`.trim()
+const jsScrollOffset = toJs(tsScrollOffset)
 </script>
 
 ## 在 Nuxt 中使用

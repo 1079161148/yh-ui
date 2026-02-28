@@ -213,7 +213,12 @@ Configure the `schema` array to generate a form with `required` shorthand and `f
 `asyncOptions` loads options asynchronously (auto-injects `loading`), `props` functions for field linkage, `collapsible` for collapsible groups, `tooltip` for field hints.
 
 <DemoBlock title="Advanced Features" :ts-code="tsAdvancedSchema" :js-code="jsAdvancedSchema">
-  <yh-form-schema v-model="proModel" :schema="proSchema" />
+  <yh-form-schema v-model="proModel" :schema="proSchema">
+    <template #footer="{ formRef }">
+      <yh-button type="primary" @click="handleProValidate(formRef)">Validate Form</yh-button>
+      <yh-button @click="formRef.resetFields()">Reset</yh-button>
+    </template>
+  </yh-form-schema>
 </DemoBlock>
 
 ### Field Type Extensions (divider / text / list / render)
@@ -251,11 +256,20 @@ Use `type: 'list'` to handle scenarios like a "contacts" dynamic list. `listProp
 
 In pages with a fixed top navigation bar, scrolling to the first error item after validation failure might be obscured by the `sticky` header. Configure `scroll-to-error-offset` to set the top offset (in px):
 
-```html
-<yh-form scroll-to-error :scroll-to-error-offset="64" :model="form" :rules="rules">
-  <!-- form items -->
-</yh-form>
-```
+<DemoBlock title="Scroll Offset" :ts-code="tsScrollOffset" :js-code="jsScrollOffset">
+  <div style="padding: 12px; background: var(--yh-bg-color-page); border-radius: 6px; margin-bottom: 12px; font-size: 13px; color: var(--yh-text-color-secondary);">
+    The following is a long form. When you scroll to the bottom and click validate, the page will smoothly scroll back to the first error field. Thanks to the <code>scroll-to-error-offset="64"</code> configuration, the error field will not be obscured by the browser's top bar.
+  </div>
+  <yh-form-schema
+    v-model="offsetModel"
+    :schema="offsetSchema"
+    :form-props="{ scrollToError: true, scrollToErrorOffset: 64, labelPosition: 'top' }"
+  >
+    <template #footer="{ formRef }">
+      <yh-button type="primary" style="width: 100%" @click="formRef.validate()">Validate and Scroll Back</yh-button>
+    </template>
+  </yh-form-schema>
+</DemoBlock>
 
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
@@ -362,7 +376,16 @@ const addConfig = () => {
   })
 }
 
-const proModel = ref({ category: '', product: '', agree: false, remark: '' })
+const proModel = ref({ category: '', product: '', agree: false, remark: '', reasonType: '', otherReason: '', idCard: '' })
+
+const handleProValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('Validation passed! Dynamic linkage constraints are met.')
+  } catch (err) {
+    window.alert('Validation failed: Missing conditionally required fields or failing dynamic rules.')
+  }
+}
 const proSchema = [
   {
     title: 'Product Config (Collapsible)',
@@ -401,6 +424,52 @@ const proSchema = [
     title: 'Remarks',
     items: [
       { field: 'remark', label: 'Remark', component: 'input', props: { type: 'textarea', rows: 3 } }
+    ]
+  },
+  {
+    title: 'Dynamic Linkage Demo',
+    items: [
+      {
+        field: 'reasonType',
+        label: 'Reason Type',
+        component: 'select',
+        col: 12,
+        props: {
+          options: [
+            { label: 'Personal', value: 'personal' },
+            { label: 'Sick', value: 'sick' },
+            { label: 'Other', value: 'other' }
+          ]
+        },
+        required: true
+      },
+      {
+        field: 'otherReason',
+        label: 'Other Reason',
+        component: 'input',
+        col: 12,
+        // Dynamic hidden: only show when reasonType is 'other'
+        hidden: (model) => model.reasonType !== 'other',
+        // Dynamic required and rules
+        required: (model) => model.reasonType === 'other',
+        rules: (model) => {
+          if (model.reasonType === 'other') {
+            return [{ min: 5, message: 'Please provide at least 5 characters', trigger: 'blur' }]
+          }
+          return []
+        }
+      },
+      {
+        field: 'idCard',
+        label: 'ID Card',
+        component: 'input',
+        col: 12,
+        // Dynamic disabled: disabled if reasonType is 'sick'
+        disabled: (model) => model.reasonType === 'sick',
+        props: (model) => ({
+          placeholder: model.reasonType === 'sick' ? 'Not needed for sick leave' : 'Enter your ID Card'
+        })
+      }
     ]
   }
 ]
@@ -770,13 +839,29 @@ const jsSchema = toJs(tsSchema)
 
 const tsAdvancedSchema = `
 <${_T}>
-  <yh-form-schema v-model="model" :schema="schema" />
+  <yh-form-schema v-model="model" :schema="schema">
+    <template #footer="{ formRef }">
+      <yh-button type="primary" @click="handleProValidate(formRef)">Validate Form</yh-button>
+      <yh-button @click="formRef.resetFields()">Reset</yh-button>
+    </template>
+  </yh-form-schema>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { FormSchemaInstance } from '@yh-ui/components'
 
-const model = ref({ category: '', product: '', agree: false, remark: '' })
+const model = ref({ category: '', product: '', agree: false, remark: '', reasonType: '', otherReason: '', idCard: '' })
+
+const handleProValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('Validation passed! Dynamic linkage constraints are met.')
+  } catch (err) {
+    window.alert('Validation failed: Missing conditionally required fields or failing dynamic rules.')
+  }
+}
+
 const schema = [
   {
     title: 'Product Config (Collapsible)',
@@ -817,6 +902,52 @@ const schema = [
     title: 'Remarks',
     items: [
       { field: 'remark', label: 'Remark', component: 'input', props: { type: 'textarea', rows: 3 } }
+    ]
+  },
+  {
+    title: 'Dynamic Linkage Demo',
+    items: [
+      {
+        field: 'reasonType',
+        label: 'Reason Type',
+        component: 'select',
+        col: 12,
+        props: {
+          options: [
+            { label: 'Personal', value: 'personal' },
+            { label: 'Sick', value: 'sick' },
+            { label: 'Other', value: 'other' }
+          ]
+        },
+        required: true
+      },
+      {
+        field: 'otherReason',
+        label: 'Other Reason',
+        component: 'input',
+        col: 12,
+        // Dynamic hidden: only show when reasonType is 'other'
+        hidden: (model) => model.reasonType !== 'other',
+        // Dynamic required and rules
+        required: (model) => model.reasonType === 'other',
+        rules: (model) => {
+          if (model.reasonType === 'other') {
+            return [{ min: 5, message: 'Please provide at least 5 characters', trigger: 'blur' }]
+          }
+          return []
+        }
+      },
+      {
+        field: 'idCard',
+        label: 'ID Card',
+        component: 'input',
+        col: 12,
+        // Dynamic disabled: disabled if reasonType is 'sick'
+        disabled: (model) => model.reasonType === 'sick',
+        props: (model) => ({
+          placeholder: model.reasonType === 'sick' ? 'Not needed for sick leave' : 'Enter your ID Card'
+        })
+      }
     ]
   }
 ]
@@ -945,6 +1076,43 @@ const handleValidate = async (formRef: FormSchemaInstance) => {
 </${_S}>
 `.trim()
 const jsListSchema = toJs(tsListSchema)
+const offsetModel = ref<Record<string, unknown>>({})
+const offsetSchema = Array.from({ length: 10 }).map((_, i) => ({
+  field: `field_${i}`,
+  label: `Form Item ${i + 1} ${i === 1 ? '(I will trigger an error and be targeted)' : ''}`,
+  component: 'input',
+  required: i === 1 || i === 5 || i === 9
+}))
+
+const tsScrollOffset = `
+<${_T}>
+  <div style="padding: 12px; background: var(--yh-bg-color-page); border-radius: 6px; margin-bottom: 12px; font-size: 13px; color: var(--yh-text-color-secondary);">
+    The following is a long form. When you scroll to the bottom and click validate, the page will smoothly scroll back to the first error field. Thanks to the <code>scroll-to-error-offset="64"</code> configuration, the error field will not be obscured by the browser's top bar.
+  </div>
+  <yh-form-schema
+    v-model="model"
+    :schema="schema"
+    :form-props="{ scrollToError: true, scrollToErrorOffset: 64, labelPosition: 'top' }"
+  >
+    <template #footer="{ formRef }">
+      <yh-button type="primary" style="width: 100%" @click="formRef.validate()">Validate and Scroll Back</yh-button>
+    </template>
+  </yh-form-schema>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const model = ref<Record<string, unknown>>({})
+const schema = Array.from({ length: 10 }).map((_, i) => ({
+  field: \`field_\${i}\`,
+  label: \`Form Item \${i + 1} \${i === 1 ? '(I will trigger an error and be targeted)' : ''}\`,
+  component: 'input',
+  required: i === 1 || i === 5 || i === 9
+}))
+</${_S}>
+`.trim()
+const jsScrollOffset = toJs(tsScrollOffset)
 </script>
 
 ## Use in Nuxt
