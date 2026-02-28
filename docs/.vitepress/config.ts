@@ -49,14 +49,7 @@ export default defineConfig({
           { text: 'Guide', link: '/en/guide/introduction', activeMatch: '/en/guide/' },
           { text: 'Components', link: '/en/components/button', activeMatch: '/en/components/' },
           { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
-          { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
-          {
-            text: 'v0.1.7',
-            items: [
-              { text: 'Changelog', link: '/en/changelog' },
-              { text: 'GitHub', link: 'https://github.com/1079161148/yh-ui' }
-            ]
-          }
+          { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' }
         ],
         outline: {
           label: 'On this page',
@@ -88,10 +81,11 @@ export default defineConfig({
           text: '开始',
           items: [
             { text: '简介', link: '/guide/introduction' },
-            { text: '安装', link: '/guide/installation' },
             { text: '快速开始', link: '/guide/quickstart' },
-            { text: '构建指南', link: '/guide/build' },
+            { text: '安装', link: '/guide/installation' },
             { text: '在 Nuxt 中使用', link: '/guide/nuxt' },
+            { text: '更新日志', link: '/guide/changelog' },
+            { text: '构建指南', link: '/guide/build' },
             { text: '表单设计优势', link: '/guide/form-best-practices' },
             { text: '国际化 (i18n)', link: '/guide/i18n' }
           ]
@@ -112,10 +106,11 @@ export default defineConfig({
           text: 'Getting Started',
           items: [
             { text: 'Introduction', link: '/en/guide/introduction' },
-            { text: 'Installation', link: '/en/guide/installation' },
             { text: 'Quick Start', link: '/en/guide/quickstart' },
-            { text: 'Build Guide', link: '/en/guide/build' },
+            { text: 'Installation', link: '/en/guide/installation' },
             { text: 'Use in Nuxt', link: '/en/guide/nuxt' },
+            { text: 'Changelog', link: '/en/guide/changelog' },
+            { text: 'Build Guide', link: '/en/guide/build' },
             { text: 'Form Design Advantages', link: '/en/guide/form-best-practices' },
             { text: 'Internationalization', link: '/en/guide/i18n' }
           ]
