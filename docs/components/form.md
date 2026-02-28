@@ -216,13 +216,46 @@
   <yh-form-schema v-model="proModel" :schema="proSchema" />
 </DemoBlock>
 
-### 字段类型扩展 (divider / text / render)
+### 字段类型扩展 (divider / text / list / render)
 
-`type: 'divider'` 插入分隔线，`type: 'text'` 只读展示值，`render` 函数完全自定义渲染。
+- `type: 'divider'`：插入分隔线，可配置标题
+- `type: 'text'`：只读展示字段值，支持 `emptyValue` 自定义空态占位符（默认 `'-'`）
+- `type: 'list'`：动态增减列表，通过 `listSchema` 定义子字段结构，`listProps` 控制增删行为
+- `render`：函数式自定义渲染，返回 VNode
 
-<DemoBlock title="字段类型扩展" :ts-code="tsSchemaTypes" :js-code="jsSchemaTypes">
-  <yh-form-schema v-model="typeModel" :schema="typeSchema" :form-props="{ labelWidth: '80px' }" />
+<DemoBlock title="字段类型扩展（divider / text / emptyValue / render）" :ts-code="tsSchemaTypes" :js-code="jsSchemaTypes">
+  <yh-form-schema v-model="typeModel" :schema="typeSchema" :form-props="{ labelWidth: '100px' }" />
 </DemoBlock>
+
+### 动态增减列表 (type: 'list')
+
+配置 `type: 'list'` 实现"联系人"等动态增减场景。`listProps.max`/`min` 约束可增删项数上下限，超限时按钮自动禁用。列表行内子字段完整支持所有 `FormSchemaItem` 配置（分列栅格、联动 `props`、校验 `rules` 等），校验路径会自动拼接为 `contacts.0.name`。
+
+<DemoBlock title="动态增减列表" :ts-code="tsListSchema" :js-code="jsListSchema">
+  <yh-form-schema
+    v-model="listModel"
+    :schema="listSchemaDemo"
+    :form-props="{ labelWidth: '80px' }"
+  >
+    <template #footer="{ formRef }">
+      <yh-button type="primary" @click="handleListValidate(formRef)">提交</yh-button>
+      <yh-button @click="formRef.resetFields()">重置</yh-button>
+      <span style="margin-left: 12px; color: var(--yh-text-color-secondary); font-size: 13px;">
+        当前共 {{ listModel.contacts?.length ?? 0 }} 条联系人（最多 5 条）
+      </span>
+    </template>
+  </yh-form-schema>
+</DemoBlock>
+
+### 滚动偏移 (scroll-to-error-offset)
+
+在带有固定顶部导航栏的页面中，校验失败后滚动到第一个错误项时，可能会被 `sticky` 头部遮挡。配置 `scroll-to-error-offset` 即可设置顶部偏移量（单位 px）：
+
+```html
+<yh-form scroll-to-error :scroll-to-error-offset="64" :model="form" :rules="rules">
+  <!-- 表单内容 -->
+</yh-form>
+```
 
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
@@ -372,12 +405,14 @@ const proSchema = [
   }
 ]
 
-// 字段类型扩展演示
-const typeModel = ref({ name: 'Alice', dept: '研发部', city: '' })
+// 字段类型扩展演示（含 emptyValue 空态）
+const typeModel = ref({ name: 'Alice', dept: '研发部', city: '', phone: null as null | string })
 const typeSchema = [
   { type: 'divider', label: '基本信息', field: '_d1' },
   { field: 'name', label: '姓名', type: 'text' },
   { field: 'dept', label: '部门', type: 'text' },
+  // emptyValue: phone 为 null 时显示 '暂无'
+  { field: 'phone', label: '手机号', type: 'text', emptyValue: '暂无' },
   { type: 'divider', label: '可编辑内容', field: '_d2' },
   { field: 'city', label: '城市', component: 'input', placeholder: '请输入城市', col: 12 },
   {
@@ -389,6 +424,48 @@ const typeSchema = [
     }, `当前城市：${model.city || '未设置'}`)
   }
 ]
+
+// 动态列表演示
+const listModel = ref<{ contacts: { name: string; phone: string; type: string }[] }>({ contacts: [] })
+const listSchemaDemo = [
+  {
+    field: 'contacts',
+    label: '联系人',
+    type: 'list',
+    listSchema: [
+      { field: 'name', label: '姓名', component: 'input', col: 8, required: true },
+      {
+        field: 'phone',
+        label: '手机号',
+        component: 'input',
+        col: 8,
+        rules: [{ pattern: /^1\d{10}$/, message: '手机号格式不正确', trigger: 'blur' }]
+      },
+      {
+        field: 'type',
+        label: '类型',
+        component: 'select',
+        col: 8,
+        props: { options: [{ label: '家人', value: 'family' }, { label: '朋友', value: 'friend' }, { label: '同事', value: 'colleague' }] }
+      }
+    ],
+    listProps: {
+      addButtonText: '添加联系人',
+      max: 5,
+      min: 0
+    }
+  }
+]
+
+const handleListValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert(`提交成功！共 ${listModel.value.contacts.length} 条联系人`)
+  } catch {
+    window.alert('请检查联系人信息是否填写完整')
+  }
+}
+
 
 // Nuxt 使用示例
 const nuxtForm = reactive({ username: '', role: 'admin' })
@@ -794,19 +871,21 @@ const jsAdvancedSchema = toJs(tsAdvancedSchema)
 
 const tsSchemaTypes = `
 <${_T}>
-  <yh-form-schema v-model="model" :schema="schema" :form-props="{ labelWidth: '80px' }" />
+  <yh-form-schema v-model="model" :schema="schema" :form-props="{ labelWidth: '100px' }" />
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref, h } from 'vue'
 
-const model = ref({ name: 'Alice', dept: '研发部', city: '' })
+const model = ref({ name: 'Alice', dept: '研发部', city: '', phone: null })
 const schema = [
   // type: 'divider' 插入分隔线
   { type: 'divider', label: '基本信息', field: '_d1' },
   // type: 'text' 只读展示字段值
   { field: 'name', label: '姓名', type: 'text' },
   { field: 'dept', label: '部门', type: 'text' },
+  // emptyValue: 值为 null/undefined 时显示自定义占位符，默认 '-'
+  { field: 'phone', label: '手机号', type: 'text', emptyValue: '暂无' },
   { type: 'divider', label: '可编辑内容', field: '_d2' },
   { field: 'city', label: '城市', component: 'input', col: 12 },
   // render 函数完全自定义渲染
@@ -822,6 +901,77 @@ const schema = [
 </${_S}>
 `.trim()
 const jsSchemaTypes = toJs(tsSchemaTypes)
+
+const tsListSchema = `
+<${_T}>
+  <yh-form-schema
+    v-model="model"
+    :schema="schema"
+    :form-props="{ labelWidth: '80px' }"
+  >
+    <template #footer="{ formRef }">
+      <yh-button type="primary" @click="handleValidate(formRef)">提交</yh-button>
+      <yh-button @click="formRef.resetFields()">重置</yh-button>
+      <span style="margin-left: 12px; color: var(--yh-text-color-secondary); font-size: 13px;">
+        当前共 {{ model.contacts?.length ?? 0 }} 条（最多 5 条）
+      </span>
+    </template>
+  </yh-form-schema>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import type { FormSchemaInstance } from '@yh-ui/components'
+
+const model = ref({ contacts: [] })
+
+const schema = [
+  {
+    field: 'contacts',
+    label: '联系人',
+    type: 'list',
+    listSchema: [
+      { field: 'name', label: '姓名', component: 'input', col: 8, required: true },
+      {
+        field: 'phone',
+        label: '手机号',
+        component: 'input',
+        col: 8,
+        rules: [{ pattern: /^1\\d{10}$/, message: '手机号格式不正确', trigger: 'blur' }]
+      },
+      {
+        field: 'type',
+        label: '类型',
+        component: 'select',
+        col: 8,
+        props: {
+          options: [
+            { label: '家人', value: 'family' },
+            { label: '朋友', value: 'friend' },
+            { label: '同事', value: 'colleague' }
+          ]
+        }
+      }
+    ],
+    listProps: {
+      addButtonText: '添加联系人',
+      max: 5,  // 最多 5 条
+      min: 0
+    }
+  }
+]
+
+const handleValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) alert(\`提交成功！共 \${model.value.contacts.length} 条联系人\`)
+  } catch {
+    alert('请检查联系人信息是否填写完整')
+  }
+}
+</${_S}>
+`.trim()
+const jsListSchema = toJs(tsListSchema)
 </script>
 
 ## 在 Nuxt 中使用

@@ -223,8 +223,8 @@ Configure the `schema` array to generate a form with `required` shorthand and `f
 - `type: 'list'` enables dynamic add/remove sub-item lists. Use `listSchema` to define sub-fields and `listProps` for controls.
 - `render` function for fully custom rendering
 
-<DemoBlock title="Field Type Extensions" :ts-code="tsSchemaTypes" :js-code="jsSchemaTypes">
-  <yh-form-schema v-model="typeModel" :schema="typeSchema" :form-props="{ labelWidth: '80px' }" />
+<DemoBlock title="Field Type Extensions (divider / text / emptyValue / render)" :ts-code="tsSchemaTypes" :js-code="jsSchemaTypes">
+  <yh-form-schema v-model="typeModel" :schema="typeSchema" :form-props="{ labelWidth: '100px' }" />
 </DemoBlock>
 
 ### Dynamic List (type: 'list')
@@ -234,15 +234,28 @@ Use `type: 'list'` to handle scenarios like a "contacts" dynamic list. `listProp
 <DemoBlock title="Dynamic List" :ts-code="tsListSchema" :js-code="jsListSchema">
   <yh-form-schema
     v-model="listModel"
-    :schema="listSchema"
+    :schema="listSchemaDemo"
     :form-props="{ labelWidth: '80px' }"
   >
     <template #footer="{ formRef }">
       <yh-button type="primary" @click="handleListValidate(formRef)">Submit</yh-button>
       <yh-button @click="formRef.resetFields()">Reset</yh-button>
+      <span style="margin-left: 12px; color: var(--yh-text-color-secondary); font-size: 13px;">
+        Total {{ listModel.contacts?.length ?? 0 }} contacts (max 5)
+      </span>
     </template>
   </yh-form-schema>
 </DemoBlock>
+
+### Scroll Offset (scroll-to-error-offset)
+
+In pages with a fixed top navigation bar, scrolling to the first error item after validation failure might be obscured by the `sticky` header. Configure `scroll-to-error-offset` to set the top offset (in px):
+
+```html
+<yh-form scroll-to-error :scroll-to-error-offset="64" :model="form" :rules="rules">
+  <!-- form items -->
+</yh-form>
+```
 
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
@@ -392,12 +405,14 @@ const proSchema = [
   }
 ]
 
-// Field type extensions demo
-const typeModel = ref({ name: 'Alice', dept: 'Engineering', city: '' })
+// Field type extensions demo (including emptyValue)
+const typeModel = ref({ name: 'Alice', dept: 'Engineering', city: '', phone: null as null | string })
 const typeSchema = [
   { type: 'divider', label: 'Basic Info', field: '_d1' },
   { field: 'name', label: 'Name', type: 'text' },
   { field: 'dept', label: 'Department', type: 'text' },
+  // emptyValue: show 'Not set' when phone is null
+  { field: 'phone', label: 'Phone', type: 'text', emptyValue: 'Not set' },
   { type: 'divider', label: 'Editable Content', field: '_d2' },
   { field: 'city', label: 'City', component: 'input', col: 12 },
   {
@@ -811,19 +826,21 @@ const jsAdvancedSchema = toJs(tsAdvancedSchema)
 
 const tsSchemaTypes = `
 <${_T}>
-  <yh-form-schema v-model="model" :schema="schema" :form-props="{ labelWidth: '80px' }" />
+  <yh-form-schema v-model="model" :schema="schema" :form-props="{ labelWidth: '100px' }" />
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref, h } from 'vue'
 
-const model = ref({ name: 'Alice', dept: 'Engineering', city: '' })
+const model = ref({ name: 'Alice', dept: 'Engineering', city: '', phone: null })
 const schema = [
   // type: 'divider' inserts a divider line
   { type: 'divider', label: 'Basic Info', field: '_d1' },
   // type: 'text' renders field value as read-only text
   { field: 'name', label: 'Name', type: 'text' },
   { field: 'dept', label: 'Department', type: 'text' },
+  // emptyValue: placeholder when value is null/undefined
+  { field: 'phone', label: 'Phone', type: 'text', emptyValue: 'Not set' },
   { type: 'divider', label: 'Editable Content', field: '_d2' },
   { field: 'city', label: 'City', component: 'input', col: 12 },
   // render function for fully custom rendering
@@ -842,7 +859,7 @@ const jsSchemaTypes = toJs(tsSchemaTypes)
 const listModel = ref({
   contacts: [] as { name: string; phone: string; type: string }[]
 })
-const listSchema = [
+const listSchemaDemo = [
   {
     field: 'contacts',
     label: 'Contacts',
@@ -885,6 +902,9 @@ const tsListSchema = `
     <template #footer="{ formRef }">
       <yh-button type="primary" @click="handleValidate(formRef)">Submit</yh-button>
       <yh-button @click="formRef.resetFields()">Reset</yh-button>
+      <span style="margin-left: 12px; color: var(--yh-text-color-secondary); font-size: 13px;">
+        Total {{ model.contacts?.length ?? 0 }} contacts (max 5)
+      </span>
     </template>
   </yh-form-schema>
 </${_T}>
