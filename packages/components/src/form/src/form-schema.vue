@@ -14,12 +14,14 @@
  * - 字段禁用 (disabled 支持函数)
  * - tooltip 提示
  * - 分隔线 (type: 'divider')
- * - 纯文本展示 (type: 'text')
+ * - 纯文本展示 (type: 'text', 支持 emptyValue)
+ * - 动态列表 (type: 'list')
  */
 import { ref, watch, reactive, toRaw } from 'vue'
 import YhForm from './form.vue'
 import type { FormInstance } from './form'
 import YhFormItem from './form-item.vue'
+import YhButton from '../../button/src/button.vue'
 import { formSchemaProps } from './form-schema'
 import type { FormSchemaItem, FormSchemaGroup } from './form-schema'
 import { useNamespace } from '@yh-ui/hooks'
@@ -240,6 +242,55 @@ const isItemHidden = (item: FormSchemaItem) => {
     return item.hidden(localModel)
   }
   return item.hidden === true
+}
+
+// 获取空态值
+const getEmptyValue = (item: FormSchemaItem) => {
+  const val = get(localModel, item.field)
+  if (val === null || val === undefined || val === '') {
+    return item.emptyValue ?? '-'
+  }
+  return val
+}
+
+// 处理列表项添加
+const handleAddListItem = (item: FormSchemaItem) => {
+  const currentList = (get(localModel, item.field) as Record<string, unknown>[]) || []
+  const max = item.listProps?.max
+  if (max !== undefined && currentList.length >= max) return
+
+  const canAdd = item.listProps?.allowAdd
+  if (canAdd !== undefined) {
+    const allow = typeof canAdd === 'function' ? canAdd(localModel) : canAdd
+    if (!allow) return
+  }
+
+  const newItem: Record<string, unknown> = {}
+  item.listSchema?.forEach((sub) => {
+    if (sub.defaultValue !== undefined) {
+      newItem[sub.field] = sub.defaultValue
+    }
+  })
+
+  const newList = [...currentList, newItem]
+  handleUpdate(item.field, newList)
+}
+
+// 处理列表项删除
+const handleDeleteListItem = (item: FormSchemaItem, index: number) => {
+  const currentList = (get(localModel, item.field) as Record<string, unknown>[]) || []
+  const min = item.listProps?.min
+  if (min !== undefined && currentList.length <= min) return
+
+  const canDelete = item.listProps?.allowDelete
+  if (canDelete !== undefined) {
+    const allow = typeof canDelete === 'function' ? canDelete(localModel, index) : canDelete
+    if (!allow) return
+  }
+
+  const newList = [...currentList]
+  newList.splice(index, 1)
+  handleUpdate(item.field, newList)
 }
 
 // 处理组件值更新
@@ -474,8 +525,104 @@ defineExpose({
                 v-bind="(item as FormSchemaItem).formItemProps"
               >
                 <span :class="ns.e('text-value')">
-                  {{ get(localModel, (item as FormSchemaItem).field) }}
+                  {{ getEmptyValue(item as FormSchemaItem) }}
                 </span>
+              </yh-form-item>
+            </template>
+
+            <!-- 动态列表 -->
+            <template v-else-if="(item as FormSchemaItem).type === 'list'">
+              <yh-form-item
+                :label="(item as FormSchemaItem).label"
+                v-bind="(item as FormSchemaItem).formItemProps"
+              >
+                <div :class="ns.e('list')">
+                  <div
+                    v-for="(row, rowIdx) in (get(
+                      localModel,
+                      (item as FormSchemaItem).field
+                    ) as Record<string, unknown>[]) || []"
+                    :key="rowIdx"
+                    :class="ns.e('list-row')"
+                  >
+                    <div class="yh-form--grid" style="flex: 1">
+                      <template v-for="sub in (item as FormSchemaItem).listSchema" :key="sub.field">
+                        <div
+                          :class="[
+                            'yh-form-col',
+                            sub.col ? `yh-form-col--${sub.col}` : 'yh-form-col--24'
+                          ]"
+                        >
+                          <yh-form-item
+                            :label="sub.label"
+                            :prop="`${(item as FormSchemaItem).field}.${rowIdx}.${sub.field}`"
+                            :rules="resolveRules(sub)"
+                          >
+                            <component
+                              v-if="sub.component"
+                              :is="getComponent(sub.component)"
+                              v-bind="resolveProps(sub)"
+                              :model-value="row[sub.field]"
+                              @update:model-value="
+                                (val: unknown) =>
+                                  handleUpdate(
+                                    `${(item as FormSchemaItem).field}.${rowIdx}.${sub.field}`,
+                                    val
+                                  )
+                              "
+                            />
+                            <slot
+                              v-else
+                              :name="`field-${(item as FormSchemaItem).field}-${sub.field}`"
+                              :row="row"
+                              :index="rowIdx"
+                              :item="sub"
+                            />
+                          </yh-form-item>
+                        </div>
+                      </template>
+                    </div>
+                    <yh-button
+                      type="danger"
+                      text
+                      :class="ns.e('list-delete')"
+                      :disabled="
+                        (item as FormSchemaItem).listProps?.min !== undefined &&
+                        (
+                          (get(localModel, (item as FormSchemaItem).field) as Record<
+                            string,
+                            unknown
+                          >[]) || []
+                        ).length <= (item as FormSchemaItem).listProps!.min!
+                      "
+                      @click="handleDeleteListItem(item as FormSchemaItem, rowIdx)"
+                    >
+                      {{ (item as FormSchemaItem).listProps?.addButtonText ? '删除' : '删除' }}
+                    </yh-button>
+                  </div>
+
+                  <yh-button
+                    :class="ns.e('list-add')"
+                    :disabled="
+                      (item as FormSchemaItem).listProps?.max !== undefined &&
+                      (
+                        (get(localModel, (item as FormSchemaItem).field) as Record<
+                          string,
+                          unknown
+                        >[]) || []
+                      ).length >= (item as FormSchemaItem).listProps!.max!
+                    "
+                    @click="handleAddListItem(item as FormSchemaItem)"
+                  >
+                    + {{ (item as FormSchemaItem).listProps?.addButtonText ?? '添加一项' }}
+                  </yh-button>
+
+                  <slot
+                    :name="`list-footer-${(item as FormSchemaItem).field}`"
+                    :model="localModel"
+                    :item="item"
+                  />
+                </div>
               </yh-form-item>
             </template>
 
@@ -653,6 +800,38 @@ defineExpose({
     margin-left: 4px;
     cursor: help;
     flex-shrink: 0;
+  }
+
+  &__list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 12px;
+      background: var(--yh-fill-color-light, #f5f7fa);
+      border-radius: 6px;
+      border: 1px solid var(--yh-border-color-lighter, #ebeef5);
+      transition: border-color 0.2s;
+
+      &:hover {
+        border-color: var(--yh-border-color, #dcdfe6);
+      }
+    }
+
+    &-delete {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    &-add {
+      align-self: flex-start;
+      margin-top: 4px;
+    }
   }
 }
 </style>

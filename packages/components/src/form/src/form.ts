@@ -106,6 +106,13 @@ export const formProps = {
     default: false
   },
   /**
+   * 滚动到错误表单项时的偏移量 (仅当 scrollToError 为 true 时有效)
+   */
+  scrollToErrorOffset: {
+    type: Number,
+    default: 0
+  },
+  /**
    * 是否禁用该表单内所有组件
    */
   disabled: {

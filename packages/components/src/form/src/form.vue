@@ -21,7 +21,10 @@ const emit = defineEmits<{
 const ns = useNamespace('form')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('form', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'form',
+  computed(() => props.themeOverrides)
+)
 
 // 存储所有 FormItem 的实例上下文
 const fields: FormItemContext[] = []
@@ -47,7 +50,10 @@ const removeField = (field: FormItemContext) => {
  * @param callback 校验完成后的回调
  */
 const validate = async (
-  propsToValidateOrCb: string | string[] | ((isValid: boolean, invalidFields?: Record<string, unknown>) => void) = [],
+  propsToValidateOrCb:
+    | string
+    | string[]
+    | ((isValid: boolean, invalidFields?: Record<string, unknown>) => void) = [],
   callback?: (isValid: boolean, invalidFields?: Record<string, unknown>) => void
 ): Promise<boolean> => {
   let innerCallback = callback
@@ -63,11 +69,12 @@ const validate = async (
 
   const propList = Array.isArray(propsToValidate)
     ? propsToValidate
-    : (propsToValidate ? [propsToValidate as string] : [])
+    : propsToValidate
+      ? [propsToValidate as string]
+      : []
 
-  const fieldsToValidate = propList.length > 0
-    ? fields.filter(field => propList.includes(field.prop))
-    : fields
+  const fieldsToValidate =
+    propList.length > 0 ? fields.filter((field) => propList.includes(field.prop)) : fields
 
   if (fieldsToValidate.length === 0 && propList.length === 0) {
     innerCallback?.(true)
@@ -109,33 +116,52 @@ const validate = async (
 
 // 重置字段
 const resetFields = (props: string | string[] = []) => {
-  const propsToReset = Array.isArray(props) ? props : (props ? [props] : [])
-  const fieldsToReset = propsToReset.length > 0
-    ? fields.filter(field => propsToReset.includes(field.prop))
-    : fields
-  fieldsToReset.forEach(field => field.resetField())
+  const propsToReset = Array.isArray(props) ? props : props ? [props] : []
+  const fieldsToReset =
+    propsToReset.length > 0 ? fields.filter((field) => propsToReset.includes(field.prop)) : fields
+  fieldsToReset.forEach((field) => field.resetField())
 }
 
 // 清除验证结果
 const clearValidate = (props: string | string[] = []) => {
-  const propsArray = Array.isArray(props) ? props : (props ? [props] : [])
-  const fieldsToClear = propsArray.length > 0
-    ? fields.filter(field => field.prop && (typeof propsArray === 'string' ? propsArray === field.prop : propsArray.includes(field.prop)))
-    : fields
+  const propsArray = Array.isArray(props) ? props : props ? [props] : []
+  const fieldsToClear =
+    propsArray.length > 0
+      ? fields.filter(
+          (field) =>
+            field.prop &&
+            (typeof propsArray === 'string'
+              ? propsArray === field.prop
+              : propsArray.includes(field.prop))
+        )
+      : fields
 
-  fieldsToClear.forEach(field => field.clearValidate())
+  fieldsToClear.forEach((field) => field.clearValidate())
 }
 
 // 滚动到指定字段
 const scrollToField = (prop: string) => {
-  const field = fields.find(f => f.prop === prop)
+  const field = fields.find((f) => f.prop === prop)
   if (field) {
-    const el = document.querySelector(`[data-prop="${prop}"]`)
+    const el = document.querySelector(`[data-prop="${prop}"]`) as HTMLElement
     if (el) {
-      const options = (typeof context.scrollIntoViewOptions === 'object'
-        ? context.scrollIntoViewOptions
-        : { behavior: 'smooth', block: 'center' }) as ScrollIntoViewOptions
-      el.scrollIntoView(options)
+      if (props.scrollToErrorOffset) {
+        const top = el.getBoundingClientRect().top + window.pageYOffset - props.scrollToErrorOffset
+        window.scrollTo({
+          top,
+          behavior:
+            typeof context.scrollIntoViewOptions === 'object'
+              ? (context.scrollIntoViewOptions as ScrollIntoViewOptions).behavior
+              : 'smooth'
+        })
+      } else {
+        const options = (
+          typeof context.scrollIntoViewOptions === 'object'
+            ? context.scrollIntoViewOptions
+            : { behavior: 'smooth', block: 'center' }
+        ) as ScrollIntoViewOptions
+        el.scrollIntoView(options)
+      }
     }
   }
 }
@@ -160,12 +186,11 @@ defineExpose({
 </script>
 
 <template>
-  <form :class="[
-    ns.b(),
-    ns.m(layout),
-    ns.m(size),
-    ns.m(`label-${labelPosition}`)
-  ]" :style="themeStyle" @submit.prevent>
+  <form
+    :class="[ns.b(), ns.m(layout), ns.m(size), ns.m(`label-${labelPosition}`)]"
+    :style="themeStyle"
+    @submit.prevent
+  >
     <slot />
   </form>
 </template>

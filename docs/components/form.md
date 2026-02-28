@@ -858,18 +858,19 @@ Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高
 
 ### Form Props
 
-| 属性名                   | 说明                               | 类型                                     | 默认值                                    |
-| ------------------------ | ---------------------------------- | ---------------------------------------- | ----------------------------------------- |
-| model                    | 表单数据对象                       | `object`                                 | —                                         |
-| rules                    | 表单验证规则                       | `object`                                 | —                                         |
-| label-width              | 标签宽度                           | `string \| number`                       | —                                         |
-| label-position           | 标签位置                           | `'left' \| 'right' \| 'top'`             | `'right'`                                 |
-| layout                   | 布局模式                           | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'`                            |
-| disabled                 | 是否禁用表单全部组件               | `boolean`                                | `false`                                   |
-| size                     | 统一尺寸                           | `'large' \| 'default' \| 'small'`        | `'default'`                               |
-| status-icon              | 是否在输入框中显示校验结果反馈图标 | `boolean`                                | `false`                                   |
-| scroll-to-error          | 校验失败时是否滚动到第一个错误项   | `boolean`                                | `false`                                   |
-| scroll-into-view-options | 滚动配置项                         | `object \| boolean`                      | `{ behavior: 'smooth', block: 'center' }` |
+| 属性名                   | 说明                                          | 类型                                     | 默认值                                    |
+| ------------------------ | --------------------------------------------- | ---------------------------------------- | ----------------------------------------- |
+| model                    | 表单数据对象                                  | `object`                                 | —                                         |
+| rules                    | 表单验证规则                                  | `object`                                 | —                                         |
+| label-width              | 标签宽度                                      | `string \| number`                       | —                                         |
+| label-position           | 标签位置                                      | `'left' \| 'right' \| 'top'`             | `'right'`                                 |
+| layout                   | 布局模式                                      | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'`                            |
+| disabled                 | 是否禁用表单全部组件                          | `boolean`                                | `false`                                   |
+| size                     | 统一尺寸                                      | `'large' \| 'default' \| 'small'`        | `'default'`                               |
+| status-icon              | 是否在输入框中显示校验结果反馈图标            | `boolean`                                | `false`                                   |
+| scroll-to-error          | 校验失败时是否滚动到第一个错误项              | `boolean`                                | `false`                                   |
+| scroll-into-view-options | 滚动配置项                                    | `object \| boolean`                      | `{ behavior: 'smooth', block: 'center' }` |
+| scroll-to-error-offset   | 滚动到错误项的顶部偏移 (px)，防止被固定头遮挡 | `number`                                 | `0`                                       |
 
 ### Form Methods
 
@@ -916,33 +917,38 @@ Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高
 
 ### FormSchema Slots
 
-| 插槽名              | 说明                   | 作用域参数                      |
-| ------------------- | ---------------------- | ------------------------------- |
-| `field-{fieldName}` | 自定义某字段的完整渲染 | `{ model, item, handleUpdate }` |
-| `label-{fieldName}` | 自定义某字段的标签渲染 | `{ model, item }`               |
-| `footer`            | 表单底部操作区         | `{ model, formRef }`            |
+| 插槽名                         | 说明                              | 作用域参数                      |
+| ------------------------------ | --------------------------------- | ------------------------------- |
+| `field-{fieldName}`            | 自定义某字段的完整渲染            | `{ model, item, handleUpdate }` |
+| `label-{fieldName}`            | 自定义某字段的标签渲染            | `{ model, item }`               |
+| `footer`                       | 表单底部操作区                    | `{ model, formRef }`            |
+| `field-{listField}-{subField}` | list 类型行内自定义子字段渲染     | `{ row, index, item }`          |
+| `list-footer-{listField}`      | list 类型列表底部（添加按钮后方） | `{ model, item }`               |
 
 ### FormSchemaItem (配置项)
 
-| 属性名        | 说明                                                              | 类型                               | 默认值      |
-| ------------- | ----------------------------------------------------------------- | ---------------------------------- | ----------- |
-| field         | 字段名，支持嵌套路径 (a.b.c)                                      | `string`                           | —           |
-| label         | 标签名                                                            | `string`                           | —           |
-| type          | 字段类型：`'default'` 普通，`'divider'` 分隔线，`'text'` 只读展示 | `'default' \| 'divider' \| 'text'` | `'default'` |
-| component     | 组件名 (input, radio, select, switch 等) 或 Vue 组件对象          | `string \| Component`              | —           |
-| col           | 栅格占位 (1-24)                                                   | `number`                           | `24`        |
-| props         | 透传给内部组件的属性，**支持函数式联动**                          | `object \| (model) => object`      | —           |
-| formItemProps | 透传给 form-item 的属性                                           | `object`                           | —           |
-| required      | 是否必填（自动添加必填规则，无需手动写 rules）                    | `boolean`                          | `false`     |
-| rules         | 校验规则（与 required 合并生效）                                  | `FormRule \| FormRule[]`           | —           |
-| disabled      | 是否禁用（**支持函数式联动**）                                    | `boolean \| (model) => boolean`    | —           |
-| hidden        | 是否隐藏（**支持函数式联动**）                                    | `boolean \| (model) => boolean`    | `false`     |
-| defaultValue  | 字段默认值（在该字段值为 undefined 时自动填入）                   | `unknown`                          | —           |
-| tooltip       | 字段 Label 旁显示的提示文案                                       | `string`                           | —           |
-| slots         | 组件内部插槽配置（key 为插槽名，value 为组件对象）                | `object`                           | —           |
-| render        | 自定义渲染函数（优先级低于 `field-{name}` 具名插槽）              | `(model) => VNode \| Component`    | —           |
-| asyncOptions  | 异步选项加载函数（自动注入 `loading` 状态）                       | `() => Promise<object[]>`          | —           |
-| optionProp    | 接收异步选项数据的 prop 名                                        | `string`                           | `'options'` |
+| 属性名        | 说明                                                                                 | 类型                                         | 默认值      |
+| ------------- | ------------------------------------------------------------------------------------ | -------------------------------------------- | ----------- |
+| field         | 字段名，支持嵌套路径 (a.b.c)                                                         | `string`                                     | —           |
+| label         | 标签名                                                                               | `string`                                     | —           |
+| type          | 字段类型：`'default'` 普通，`'divider'` 分隔线，`'text'` 只读展示，`'list'` 动态列表 | `'default' \| 'divider' \| 'text' \| 'list'` | `'default'` |
+| component     | 组件名 (input, radio, select, switch 等) 或 Vue 组件对象                             | `string \| Component`                        | —           |
+| col           | 栅格占位 (1-24)                                                                      | `number`                                     | `24`        |
+| props         | 透传给内部组件的属性，**支持函数式联动**                                             | `object \| (model) => object`                | —           |
+| formItemProps | 透传给 form-item 的属性                                                              | `object`                                     | —           |
+| required      | 是否必填（自动添加必填规则，无需手动写 rules）                                       | `boolean`                                    | `false`     |
+| rules         | 校验规则（与 required 合并生效）                                                     | `FormRule \| FormRule[]`                     | —           |
+| disabled      | 是否禁用（**支持函数式联动**）                                                       | `boolean \| (model) => boolean`              | —           |
+| hidden        | 是否隐藏（**支持函数式联动**）                                                       | `boolean \| (model) => boolean`              | `false`     |
+| defaultValue  | 字段默认值（在该字段值为 undefined 时自动填入）                                      | `unknown`                                    | —           |
+| tooltip       | 字段 Label 旁显示的提示文案                                                          | `string`                                     | —           |
+| slots         | 组件内部插槽配置（key 为插槽名，value 为组件对象）                                   | `object`                                     | —           |
+| render        | 自定义渲染函数（优先级低于 `field-{name}` 具名插槽）                                 | `(model) => VNode \| Component`              | —           |
+| asyncOptions  | 异步选项加载函数（自动注入 `loading` 状态）                                          | `() => Promise<object[]>`                    | —           |
+| optionProp    | 接收异步选项数据的 prop 名                                                           | `string`                                     | `'options'` |
+| emptyValue    | `type: 'text'` 时值为空时的占位文本                                                  | `string`                                     | `'-'`       |
+| listSchema    | `type: 'list'` 时的子字段 schema 配置                                                | `FormSchemaItem[]`                           | —           |
+| listProps     | `type: 'list'` 时的操作控制，含 max/min/addButtonText/allowAdd/allowDelete           | `object`                                     | —           |
 
 ### FormSchemaGroup (分组配置)
 

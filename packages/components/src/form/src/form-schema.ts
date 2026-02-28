@@ -6,7 +6,7 @@ import type { FormRule } from './form'
 /**
  * FormSchema 字段特殊类型
  */
-export type FormSchemaItemType = 'default' | 'divider' | 'text'
+export type FormSchemaItemType = 'default' | 'divider' | 'text' | 'list'
 
 /**
  * FormSchema 单项配置
@@ -21,8 +21,33 @@ export interface FormSchemaItem {
    * - 'default'：普通表单项（默认）
    * - 'divider'：分隔线，仅展示 label 作为标题
    * - 'text'：只读文本，直接显示字段值
+   * - 'list'：动态列表项，支持增减一组子字段
    */
   type?: FormSchemaItemType
+  /**
+   * 只读文本 ('text') 为空时的占位符
+   * @default '-'
+   */
+  emptyValue?: string
+  /**
+   * type 为 'list' 时的表单项 schema 配置
+   */
+  listSchema?: FormSchemaItem[]
+  /**
+   * type 为 'list' 时的操作项配置
+   */
+  listProps?: {
+    /** 添加按钮文案 */
+    addButtonText?: string
+    /** 是否显示删除按钮 @default true */
+    allowDelete?: boolean | ((model: Record<string, unknown>, index: number) => boolean)
+    /** 是否显示添加按钮 @default true */
+    allowAdd?: boolean | ((model: Record<string, unknown>) => boolean)
+    /** 最大项数 */
+    max?: number
+    /** 最小项数 */
+    min?: number
+  }
   /**
    * 组件名，支持：
    * - 内置简写: 'input' | 'input-number' | 'select' | 'radio' | 'checkbox' |
