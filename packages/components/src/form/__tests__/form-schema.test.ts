@@ -119,6 +119,36 @@ describe('FormSchema', () => {
     expect(wrapper.text()).toContain('Extra Label')
   })
 
+  it('动态联动 - required 和 rules 支持传入函数计算', async () => {
+    const schema = [
+      { field: 'type', component: 'input' },
+      {
+        field: 'reason',
+        component: 'input',
+        required: (model: Record<string, unknown>) => model.type === 'other',
+        rules: (model: Record<string, unknown>) => {
+          return model.type === 'other'
+            ? [{ min: 5, message: '至少 5 个字符', trigger: 'blur' }]
+            : []
+        }
+      }
+    ]
+
+    const wrapper = mount(YhFormSchema, {
+      props: { modelValue: { type: 'normal', reason: '' }, schema },
+      global: { components: globalComponents }
+    })
+
+    // 初始化时不应该有必填星号 (yh-form-item 层面有 is-required 类)
+    const reasonItem = wrapper.findAll('.yh-form-item')[1]
+    expect(reasonItem.classes()).not.toContain('is-required')
+
+    // 更新 type 为 'other'
+    await wrapper.setProps({ modelValue: { type: 'other', reason: '' } })
+    // 这时 computed rules 会触发，应该添加必填规则
+    expect(reasonItem.classes()).toContain('is-required')
+  })
+
   it('分组渲染 - 展示 group title 并支持折叠', async () => {
     const schema = [
       {

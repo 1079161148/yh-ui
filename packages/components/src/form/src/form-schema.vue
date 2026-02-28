@@ -186,12 +186,28 @@ const resolveProps = (item: FormSchemaItem) => {
   return finalProps
 }
 
-// 解析字段级规则（合并 required 简写 → rule 对象）
+// 解析字段级是否必填 (支持函数联动)
+const resolveRequired = (item: FormSchemaItem) => {
+  if (typeof item.required === 'function') {
+    return !!item.required(localModel)
+  }
+  return !!item.required
+}
+
+// 解析字段级规则（支持函数联动，合并 required 简写 → rule 对象）
 const resolveRules = (item: FormSchemaItem) => {
-  const rules = [...(item.rules || [])]
+  let sourceRules: import('./form').FormRule[] = []
+  if (typeof item.rules === 'function') {
+    sourceRules = item.rules(localModel) || []
+  } else {
+    sourceRules = item.rules || []
+  }
+
+  const rules = [...sourceRules]
+  const isRequired = resolveRequired(item)
 
   // 将 required: true 自动补充一条必填规则（如果未手动写）
-  if (item.required && !rules.some((r) => r.required)) {
+  if (isRequired && !rules.some((r) => r.required)) {
     const isBoolean = typeof item.defaultValue === 'boolean' || item.component === 'switch'
     rules.unshift({
       required: true,
@@ -423,7 +439,7 @@ defineExpose({
                         v-bind="subItem.formItemProps"
                         :label="subItem.label"
                         :prop="subItem.field"
-                        :required="subItem.required"
+                        :required="resolveRequired(subItem)"
                         :rules="resolveRules(subItem)"
                       >
                         <!-- 自定义标签插槽 -->
@@ -556,6 +572,7 @@ defineExpose({
                           <yh-form-item
                             :label="sub.label"
                             :prop="`${(item as FormSchemaItem).field}.${rowIdx}.${sub.field}`"
+                            :required="resolveRequired(sub)"
                             :rules="resolveRules(sub)"
                           >
                             <component
@@ -632,7 +649,7 @@ defineExpose({
                 v-bind="(item as FormSchemaItem).formItemProps"
                 :label="(item as FormSchemaItem).label"
                 :prop="(item as FormSchemaItem).field"
-                :required="(item as FormSchemaItem).required"
+                :required="resolveRequired(item as FormSchemaItem)"
                 :rules="resolveRules(item as FormSchemaItem)"
               >
                 <!-- 自定义 label 插槽 -->

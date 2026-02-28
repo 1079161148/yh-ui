@@ -64,13 +64,17 @@ export interface FormSchemaItem {
   props?: Record<string, unknown> | ((model: Record<string, unknown>) => Record<string, unknown>)
   /** 绑定到 form-item 的 props */
   formItemProps?: Partial<FormItemProps>
-  /** 校验规则 */
-  rules?: FormRule[]
   /**
-   * 是否必填（简写，等价于自动添加一条 required: true 的 rule）
-   * 会在 label/field 缺失时使用 field 名称作为错误提示前缀
+   * 校验规则（支持函数式联动，根据 model 返回不同规则）
+   * @param model 当前表单数据
    */
-  required?: boolean
+  rules?: FormRule[] | ((model: Record<string, unknown>) => FormRule[])
+  /**
+   * 是否必填（简写，等价于自动添加一条 required: true 的 rule，支持函数式联动）
+   * 会在 label/field 缺失时使用 field 名称作为错误提示前缀
+   * @param model 当前表单数据
+   */
+  required?: boolean | ((model: Record<string, unknown>) => boolean)
   /**
    * 是否隐藏（支持函数式联动）
    * @param model 当前表单数据
