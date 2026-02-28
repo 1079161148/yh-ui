@@ -148,3 +148,23 @@ export const formProps = {
 } as const
 
 export type FormProps = ExtractPropTypes<typeof formProps>
+
+/**
+ * YhForm 组件实例暴露的 API 类型
+ */
+export interface FormInstance {
+  /** 触发校验 */
+  validate: (
+    props?:
+      | string
+      | string[]
+      | ((isValid: boolean, invalidFields?: Record<string, unknown>) => void),
+    callback?: (isValid: boolean, invalidFields?: Record<string, unknown>) => void
+  ) => Promise<boolean>
+  /** 重置字段 */
+  resetFields: (props?: string | string[]) => void
+  /** 清除校验结果 */
+  clearValidate: (props?: string | string[]) => void
+  /** 滚动到指定字段 */
+  scrollToField: (prop: string) => void
+}

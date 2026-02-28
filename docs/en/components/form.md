@@ -176,18 +176,23 @@ Supports nested object path configuration, such as `user.info.name`.
 
 ## Schema Driven (Dynamic Form)
 
-Easily achieve dynamic addition/deletion, grouped display, and grid spanning via `schema` configuration. Supports scoped slots for custom field rendering.
+Schema-driven form rendering with full support for grouping, grid layout, async data, conditional visibility, and custom slots.
 
-::: tip Validation Rule Configuration
-When configuring regular expression validation rules in Schema, due to JSON serialization issues, it is recommended to pass a RegExp object directly. For example: `pattern: /^1[3-9]\d{9}$/`. If it doesn't take effect, check if it was incorrectly converted to a string.
-:::
+::: tip Validation Notes
+
+- `required: true` automatically adds mandatory constraints. For components like **Switch (Boolean)**, it is recommended to use `validator` within `rules` for precise control and to avoid message conflicts.
+- `rules` array supports fine-grained configuration of regex, length, custom functions, and other logic.
+- `formRef.validate()` triggers complete validation for all registered fields.
+  :::
 
 ### Basic Schema
 
+Configure the `schema` array to generate a form with `required` shorthand and `footer` slot bound to `formRef.validate()` for form validation.
+
 <DemoBlock title="Basic Schema Usage" :ts-code="tsSchema" :js-code="jsSchema">
-  <yh-form-schema 
-    v-model="model" 
-    :schema="schema" 
+  <yh-form-schema
+    v-model="dynamicModel"
+    :schema="dynamicSchema"
     :form-props="{ labelPosition: 'top' }"
   >
     <template #field-custom="{ model, handleUpdate }">
@@ -196,23 +201,33 @@ When configuring regular expression validation rules in Schema, due to JSON seri
       </yh-input>
     </template>
     <template #footer="{ formRef }">
-      <yh-button type="primary" @click="() => formRef.validate()">Validate Schema</yh-button>
+      <yh-button type="primary" @click="handleValidate(formRef)">Validate Schema</yh-button>
       <yh-button @click="addConfig">Add Item Dynamically</yh-button>
+      <yh-button @click="() => formRef.resetFields()">Reset</yh-button>
     </template>
   </yh-form-schema>
 </DemoBlock>
 
-### Advanced Schema (Async/Linkage/Collapse)
+### Advanced Schema (Async/Linkage/Collapse/Tooltip)
 
-Supports `asyncOptions` for asynchronous option loading, functional dynamic computation for `props`, and group folding via `collapsible`.
+`asyncOptions` loads options asynchronously (auto-injects `loading`), `props` functions for field linkage, `collapsible` for collapsible groups, `tooltip` for field hints.
 
 <DemoBlock title="Advanced Features" :ts-code="tsAdvancedSchema" :js-code="jsAdvancedSchema">
   <yh-form-schema v-model="proModel" :schema="proSchema" />
 </DemoBlock>
 
+### Field Type Extensions (divider / text / render)
+
+`type: 'divider'` inserts a divider line, `type: 'text'` renders field value as read-only text, `render` function for fully custom rendering.
+
+<DemoBlock title="Field Type Extensions" :ts-code="tsSchemaTypes" :js-code="jsSchemaTypes">
+  <yh-form-schema v-model="typeModel" :schema="typeSchema" :form-props="{ labelWidth: '80px' }" />
+</DemoBlock>
+
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
 import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
+import type { FormSchemaInstance } from '@yh-ui/components'
 
 const formSize = ref('default')
 const form = reactive({ username: '', age: 18, email: '' })
@@ -262,7 +277,6 @@ const formInline = reactive({ user: '', region: '' })
 
 const gridModel = reactive({ firstName: '', lastName: '', address: '' })
 
-const rulesForm = reactive({ phone: '', desc: '', count: 0, password: '', username: '' })
 const statusModel = reactive({ success: 'Valid Content', loading: '', error: 'invalid' })
 const nestedModel = reactive({ address: { city: 'Shanghai', street: '' } })
 
@@ -272,47 +286,64 @@ const statusRules = {
   error: [{ validator: (r, v, cb) => cb(new Error('Invalid Value')) }]
 }
 
-const advancedRules = {
-  phone: [{ pattern: /^1[3-9]\d{9}$/, message: 'Invalid phone number', trigger: 'blur' }],
-  desc: [{ min: 3, max: 5, message: 'Length must be between 3 and 5', trigger: 'change' }],
-  count: [{ type: 'number', min: 10, max: 20, message: 'Must be between 10-20', trigger: 'change' }],
-  password: [{ validator: (r, v, cb) => !v ? cb(new Error('Required')) : (v.length < 6 ? cb(new Error('Too short')) : cb()) }],
-  username: [{ asyncValidator: (r, v) => new Promise((res, rej) => setTimeout(() => v === 'admin' ? rej('Occupied') : res(), 1000)) }]
+const dynamicModel = ref({ email: '', custom: 'Initial Value', type: 'base' })
+
+const handleValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('Validation Passed!')
+  } catch (err) {
+    console.warn('Validation Failed:', err)
+  }
 }
 
-const model = ref({ email: '', custom: 'Initial Value', type: 'base' })
-const schema = ref([
+const dynamicSchema = ref([
   {
     title: 'Basic Info',
     items: [
-      { field: 'email', label: 'Email', component: 'input', col: 12, required: true },
-      { field: 'type', label: 'Account Type', component: 'radio', col: 12, props: { options: [{ label: 'Basic', value: 'base' }, { label: 'Pro', value: 'pro' }] } }
+      {
+        field: 'email',
+        label: 'Email',
+        component: 'input',
+        col: 12,
+        required: true,
+        rules: [{ type: 'email', message: 'Valid email format required', trigger: ['blur', 'change'] }]
+      },
+      {
+        field: 'type',
+        label: 'Account Type',
+        component: 'radio',
+        col: 12,
+        props: { options: [{ label: 'Basic', value: 'base' }, { label: 'Pro', value: 'pro' }] }
+      }
     ]
   },
   { field: 'custom', label: 'Custom Slot', component: 'input' }
 ])
 const addConfig = () => {
-  schema.value.push({
-    field: `ext_${Date.now()}`, 
-    label: 'Extension', 
+  dynamicSchema.value.push({
+    field: `ext_${Date.now()}`,
+    label: 'Extension',
     component: 'input',
     col: 12
   })
 }
 
-const proModel = ref({ category: '', product: '', remark: '' })
+const proModel = ref({ category: '', product: '', agree: false, remark: '' })
 const proSchema = [
   {
     title: 'Product Config (Collapsible)',
     collapsible: true,
     items: [
-      { 
-        field: 'category', 
-        label: 'Category', 
-        component: 'select', 
+      {
+        field: 'category',
+        label: 'Category',
+        component: 'select',
         col: 12,
+        tooltip: 'Select a product category to filter the product list',
         asyncOptions: () => new Promise(r => setTimeout(() => r([{ label: 'Electronics', value: 'elec' }, { label: 'Home', value: 'home' }]), 1000)),
-        props: { placeholder: 'Loading...' }
+        props: { placeholder: 'Loading async...' },
+        required: true
       },
       {
         field: 'product',
@@ -323,14 +354,39 @@ const proSchema = [
           disabled: !model.category,
           placeholder: model.category ? 'Please enter product name' : 'Please select category first'
         })
+      },
+      {
+        field: 'agree',
+        label: 'Agree to Terms',
+        component: 'switch',
+        col: 12,
+        rules: [{ validator: (r, v, cb) => v ? cb() : cb(new Error('Please read and agree to the terms')) }]
       }
     ]
   },
   {
-    title: 'Other Info',
+    title: 'Remarks',
     items: [
-      { field: 'remark', label: 'Remark', component: 'input', props: { type: 'textarea' } }
+      { field: 'remark', label: 'Remark', component: 'input', props: { type: 'textarea', rows: 3 } }
     ]
+  }
+]
+
+// Field type extensions demo
+const typeModel = ref({ name: 'Alice', dept: 'Engineering', city: '' })
+const typeSchema = [
+  { type: 'divider', label: 'Basic Info', field: '_d1' },
+  { field: 'name', label: 'Name', type: 'text' },
+  { field: 'dept', label: 'Department', type: 'text' },
+  { type: 'divider', label: 'Editable Content', field: '_d2' },
+  { field: 'city', label: 'City', component: 'input', col: 12 },
+  {
+    field: 'custom_render',
+    label: 'Render',
+    col: 12,
+    render: (model) => h('div', {
+      style: 'color: var(--yh-color-primary); font-weight: bold; line-height: 32px;'
+    }, `Current City: ${model.city || 'Not set'}`)
   }
 ]
 
@@ -614,27 +670,52 @@ const tsSchema = `
     :form-props="{ labelPosition: 'top' }"
   >
     <template #field-custom="{ handleUpdate, model }">
-       <yh-input :model-value="model.custom" @update:model-value="v => handleUpdate('custom', v)">
-         <template #prepend>Slot</${_T}>
-       </yh-input>
-    </${_T}>
+      <yh-input :model-value="model.custom" @update:model-value="v => handleUpdate('custom', v)">
+        <template #prepend>Slot</template>
+      </yh-input>
+    </template>
     <template #footer="{ formRef }">
-      <yh-button type="primary" @click="() => formRef.validate()">Validate Schema</yh-button>
+      <yh-button type="primary" @click="handleValidate(formRef)">Validate Schema</yh-button>
       <yh-button @click="addConfig">Add Item Dynamically</yh-button>
-    </${_T}>
+      <yh-button @click="() => formRef.resetFields()">Reset</yh-button>
+    </template>
   </yh-form-schema>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { FormSchemaInstance } from '@yh-ui/components'
 
 const model = ref({ email: '', custom: 'Initial Value', type: 'base' })
+
+const handleValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('Validation Passed!')
+  } catch (err) {
+    console.warn('Validation Failed:', err)
+  }
+}
+
 const schema = ref([
   {
     title: 'Basic Info',
     items: [
-      { field: 'email', label: 'Email', component: 'input', col: 12, required: true },
-      { field: 'type', label: 'Account Type', component: 'radio', col: 12, props: { options: [{ label: 'Basic', value: 'base' }, { label: 'Pro', value: 'pro' }] } }
+      {
+        field: 'email',
+        label: 'Email',
+        component: 'input',
+        col: 12,
+        required: true,
+        rules: [{ type: 'email', message: 'Valid email format required', trigger: ['blur', 'change'] }]
+      },
+      {
+        field: 'type',
+        label: 'Account Type',
+        component: 'radio',
+        col: 12,
+        props: { options: [{ label: 'Basic', value: 'base' }, { label: 'Pro', value: 'pro' }] }
+      }
     ]
   },
   { field: 'custom', label: 'Custom Slot', component: 'input' }
@@ -642,8 +723,8 @@ const schema = ref([
 
 const addConfig = () => {
   schema.value.push({
-    field: \`ext_\${Date.now()}\`, 
-    label: 'Extension', 
+    field: \`ext_\${Date.now()}\`,
+    label: 'Extension',
     component: 'input',
     col: 12
   })
@@ -660,44 +741,82 @@ const tsAdvancedSchema = `
 <${_S} setup lang="ts">
 import { ref } from 'vue'
 
-const model = ref({ category: '', product: '', remark: '' })
+const model = ref({ category: '', product: '', agree: false, remark: '' })
 const schema = [
   {
     title: 'Product Config (Collapsible)',
     collapsible: true,
     items: [
-      { 
-        field: 'category', 
-        label: 'Category', 
-        component: 'select', 
+      {
+        field: 'category',
+        label: 'Category',
+        component: 'select',
         col: 12,
-        // Mock async loading
+        tooltip: 'Select a product category to filter the product list',
+        // Async options loading, auto-injects loading state
         asyncOptions: () => new Promise(r => setTimeout(() => r([{ label: 'Electronics', value: 'elec' }, { label: 'Home', value: 'home' }]), 1000)),
-        props: { placeholder: 'Loading...' }
+        props: { placeholder: 'Loading async...' },
+        required: true
       },
       {
         field: 'product',
         label: 'Product',
         component: 'input',
         col: 12,
-        // Dynamic Props: dependent on category
+        // props function for field linkage
         props: (model) => ({
           disabled: !model.category,
           placeholder: model.category ? 'Please enter product name' : 'Please select category first'
         })
+      },
+      {
+        field: 'agree',
+        label: 'Agree to Terms',
+        component: 'switch',
+        col: 12,
+        rules: [{ validator: (r, v, cb) => v ? cb() : cb(new Error('Please read and agree to the terms')) }]
       }
     ]
   },
   {
-    title: 'Other Info',
+    title: 'Remarks',
     items: [
-      { field: 'remark', label: 'Remark', component: 'input', props: { type: 'textarea' } }
+      { field: 'remark', label: 'Remark', component: 'input', props: { type: 'textarea', rows: 3 } }
     ]
   }
 ]
 </${_S}>
 `.trim()
 const jsAdvancedSchema = toJs(tsAdvancedSchema)
+
+const tsSchemaTypes = `
+<${_T}>
+  <yh-form-schema v-model="model" :schema="schema" :form-props="{ labelWidth: '80px' }" />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref, h } from 'vue'
+
+const model = ref({ name: 'Alice', dept: 'Engineering', city: '' })
+const schema = [
+  // type: 'divider' inserts a divider line
+  { type: 'divider', label: 'Basic Info', field: '_d1' },
+  // type: 'text' renders field value as read-only text
+  { field: 'name', label: 'Name', type: 'text' },
+  { field: 'dept', label: 'Department', type: 'text' },
+  { type: 'divider', label: 'Editable Content', field: '_d2' },
+  { field: 'city', label: 'City', component: 'input', col: 12 },
+  // render function for fully custom rendering
+  {
+    field: 'custom_render',
+    label: 'Render',
+    col: 12,
+    render: (model) => h('div', { style: 'color: var(--yh-color-primary); font-weight: bold;' }, \`Current City: \${model.city || 'Not set'}\`)
+  }
+]
+</${_S}>
+`.trim()
+const jsSchemaTypes = toJs(tsSchemaTypes)
 </script>
 
 ## Use in Nuxt
@@ -772,27 +891,53 @@ The internal IDs and ARIA attributes generated by the Form component are based o
 
 ### FormSchema Props
 
-| Prop       | Description                                              | Type     | Default |
-| ---------- | -------------------------------------------------------- | -------- | ------- |
-| modelValue | Binding value                                            | `object` | —       |
-| schema     | Form configuration items, supports grouping, grids, etc. | `array`  | `[]`    |
-| formProps  | Props passed through to YhForm                           | `object` | `{}`    |
+| Prop       | Description                                           | Type     | Default |
+| ---------- | ----------------------------------------------------- | -------- | ------- |
+| modelValue | Binding value (v-model)                               | `object` | —       |
+| schema     | Form configuration items, supports grouping and grids | `array`  | `[]`    |
+| formProps  | Props passed through to YhForm (same as Form Props)   | `object` | `{}`    |
+| gutter     | Grid column spacing (px)                              | `number` | `20`    |
+
+### FormSchema Methods
+
+| Method        | Description                                 | Parameters                                           |
+| ------------- | ------------------------------------------- | ---------------------------------------------------- |
+| validate      | Triggers form validation, supports partial  | `(fields?: string \| string[], callback?: Function)` |
+| resetFields   | Resets field values and validation state    | `(fields?: string \| string[])`                      |
+| clearValidate | Clears validation results, supports partial | `(fields?: string \| string[])`                      |
+| scrollToField | Scrolls to specified field                  | `(field: string)`                                    |
+| getModel      | Returns current form data snapshot          | `() => Record<string, unknown>`                      |
+| setFieldValue | Dynamically updates a single field value    | `(field: string, value: unknown)`                    |
+
+### FormSchema Slots
+
+| Slot Name           | Description                           | Slot Props                      |
+| ------------------- | ------------------------------------- | ------------------------------- |
+| `field-{fieldName}` | Custom rendering for a specific field | `{ model, item, handleUpdate }` |
+| `label-{fieldName}` | Custom label rendering for a field    | `{ model, item }`               |
+| `footer`            | Form footer action area               | `{ model, formRef }`            |
 
 ### FormSchemaItem (Configuration Item)
 
-| Prop          | Description                                                    | Type                            | Default     |
-| ------------- | -------------------------------------------------------------- | ------------------------------- | ----------- |
-| field         | Field name                                                     | `string`                        | —           |
-| label         | Label name                                                     | `string`                        | —           |
-| component     | Component name (input, radio, etc.)                            | `string \| Component`           | —           |
-| col           | Grid span (1-24)                                               | `number`                        | `24`        |
-| props         | Props passed through to internal component or dynamic function | `object \| (model) => object`   | —           |
-| formItemProps | Props passed through to form-item                              | `object`                        | —           |
-| hidden        | Whether to hide (supports function)                            | `boolean \| (model) => boolean` | `false`     |
-| slots         | Internal component slot configuration                          | `object`                        | —           |
-| render        | Custom render function                                         | `(model) => VNode`              | —           |
-| asyncOptions  | Async options loading function                                 | `() => Promise<any[]>`          | —           |
-| optionProp    | Prop name for receiving options                                | `string`                        | `'options'` |
+| Prop          | Description                                                               | Type                               | Default     |
+| ------------- | ------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| field         | Field name, supports nested paths (a.b.c)                                 | `string`                           | —           |
+| label         | Label name                                                                | `string`                           | —           |
+| type          | Field type: `'default'` normal, `'divider'` separator, `'text'` read-only | `'default' \| 'divider' \| 'text'` | `'default'` |
+| component     | Component name (input, radio, select, etc.) or Vue Component object       | `string \| Component`              | —           |
+| col           | Grid span (1-24)                                                          | `number`                           | `24`        |
+| props         | Props for internal component, **supports functional linkage**             | `object \| (model) => object`      | —           |
+| formItemProps | Props passed through to form-item                                         | `object`                           | —           |
+| required      | Required (auto-adds required rule, no need to write `rules`)              | `boolean`                          | `false`     |
+| rules         | Validation rules (merged with required)                                   | `FormRule \| FormRule[]`           | —           |
+| disabled      | Whether disabled (**supports functional linkage**)                        | `boolean \| (model) => boolean`    | —           |
+| hidden        | Whether hidden (**supports functional linkage**)                          | `boolean \| (model) => boolean`    | `false`     |
+| defaultValue  | Default field value (applied when field value is undefined)               | `unknown`                          | —           |
+| tooltip       | Tooltip text shown next to field label                                    | `string`                           | —           |
+| slots         | Component slot config (key: slot name, value: component object)           | `object`                           | —           |
+| render        | Custom render function (lower priority than `field-{name}` slot)          | `(model) => VNode \| Component`    | —           |
+| asyncOptions  | Async options loader (auto-injects `loading` state)                       | `() => Promise<object[]>`          | —           |
+| optionProp    | Prop name for receiving async options data                                | `string`                           | `'options'` |
 
 ### FormSchemaGroup (Group Config)
 

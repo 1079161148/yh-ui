@@ -176,18 +176,23 @@
 
 ## Schema 驱动 (动态表单)
 
-通过 `schema` 配置轻松实现动态增删、分组展示和栅格占位。支持作用域插槽自定义字段渲染。
+通过 `schema` 配置驱动表单渲染，支持分组、栅格、异步数据、联动显隐、自定义插槽等完整特性。
 
-::: tip 校验规则配置
-在 Schema 中配置正则校验规则时，由于 JSON 序列化问题，建议直接传入 RegExp 对象。例如：`pattern: /^1[3-9]\d{9}$/`。如果不生效，请检查是否被错误转换为字符串。
-:::
+::: tip 校验说明
+
+- `required: true` 会自动在校验规则中补充必填约束。对于 **Switch (布尔值)** 等组件，建议直接在 `rules` 中配置 `validator` 以实现精准逻辑，避免简写属性导致的提示冲突。
+- `rules` 数组可精细配置正则、长度、自定义函数等校验逻辑。
+- `formRef.validate()` 会触发所有已注册字段的完整校验。
+  :::
 
 ### 基础 Schema
 
+配置 `schema` 数组即可生成表单，支持 `required` 简写和 `footer` 插槽绑定 `formRef.validate()` 进行表单校验。
+
 <DemoBlock title="Schema 基本用法" :ts-code="tsSchema" :js-code="jsSchema">
-  <yh-form-schema 
-    v-model="dynamicModel" 
-    :schema="dynamicSchema" 
+  <yh-form-schema
+    v-model="dynamicModel"
+    :schema="dynamicSchema"
     :form-props="{ labelPosition: 'top' }"
   >
     <template #field-custom="{ model, handleUpdate }">
@@ -196,23 +201,33 @@
       </yh-input>
     </template>
     <template #footer="{ formRef }">
-      <yh-button type="primary" @click="() => formRef.validate()">验证 Schema</yh-button>
+      <yh-button type="primary" @click="handleValidate(formRef)">验证 Schema</yh-button>
       <yh-button @click="addConfig">动态增加项</yh-button>
+      <yh-button @click="() => formRef.resetFields()">重置</yh-button>
     </template>
   </yh-form-schema>
 </DemoBlock>
 
-### 高级 Schema (异步/联动/折叠)
+### 高级 Schema (异步/联动/折叠/Tooltip)
 
-支持 `asyncOptions` 异步加载选项，`props` 支持函数式动态计算，以及 `collapsible` 分组折叠。
+`asyncOptions` 异步加载选项（自动注入 `loading`），`props` 函数联动字段状态，`collapsible` 可折叠分组，`tooltip` 字段提示文案。
 
 <DemoBlock title="高级特性" :ts-code="tsAdvancedSchema" :js-code="jsAdvancedSchema">
   <yh-form-schema v-model="proModel" :schema="proSchema" />
 </DemoBlock>
 
+### 字段类型扩展 (divider / text / render)
+
+`type: 'divider'` 插入分隔线，`type: 'text'` 只读展示值，`render` 函数完全自定义渲染。
+
+<DemoBlock title="字段类型扩展" :ts-code="tsSchemaTypes" :js-code="jsSchemaTypes">
+  <yh-form-schema v-model="typeModel" :schema="typeSchema" :form-props="{ labelWidth: '80px' }" />
+</DemoBlock>
+
 <script setup lang="ts">
 import { reactive, ref, h } from 'vue'
 import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
+import type { FormSchemaInstance } from '@yh-ui/components'
 
 const formSize = ref('default')
 const form = reactive({ username: '', age: 18, email: '' })
@@ -262,7 +277,6 @@ const formInline = reactive({ user: '', region: '' })
 
 const gridModel = reactive({ firstName: '', lastName: '', address: '' })
 
-const rulesForm = reactive({ phone: '', desc: '', count: 0, password: '', username: '' })
 const statusModel = reactive({ success: 'Valid Content', loading: '', error: 'invalid' })
 const nestedModel = reactive({ address: { city: 'Shanghai', street: '' } })
 
@@ -272,67 +286,107 @@ const statusRules = {
   error: [{ validator: (r, v, cb) => cb(new Error('Invalid Value')) }]
 }
 
-const advancedRules = {
-  phone: [{ pattern: /^1[3-9]\d{9}$/, message: '不合法的手机号', trigger: 'blur' }],
-  desc: [{ min: 3, max: 5, message: '长度需在3到5之间', trigger: 'change' }],
-  count: [{ type: 'number', min: 10, max: 20, message: '需在10-20之间', trigger: 'change' }],
-  password: [{ validator: (r, v, cb) => !v ? cb(new Error('必填')) : (v.length < 6 ? cb(new Error('太短')) : cb()) }],
-  username: [{ asyncValidator: (r, v) => new Promise((res, rej) => setTimeout(() => v === 'admin' ? rej('占用') : res(), 1000)) }]
+const dynamicModel = ref({ email: '', custom: 'Initial Value', type: 'base' })
+
+const handleValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('验证通过！')
+  } catch (err) {
+    console.warn('验证失败:', err)
+  }
 }
 
-const dynamicModel = ref({ email: '', custom: 'Initial Value', type: 'base' })
 const dynamicSchema = ref([
   {
     title: '基础信息',
     items: [
-      { field: 'email', label: '邮箱地址', component: 'input', col: 12, required: true },
-      { field: 'type', label: '账户类型', component: 'radio', col: 12, props: { options: [{ label: '基础', value: 'base' }, { label: '高级', value: 'pro' }] } }
+      {
+        field: 'email',
+        label: '邮箱地址',
+        component: 'input',
+        col: 12,
+        required: true,
+        rules: [{ type: 'email', message: '正确的邮箱格式', trigger: ['blur', 'change'] }]
+      },
+      {
+        field: 'type',
+        label: '账户类型',
+        component: 'radio',
+        col: 12,
+        props: { options: [{ label: '基础', value: 'base' }, { label: '高级', value: 'pro' }] }
+      }
     ]
   },
   { field: 'custom', label: '自定义插槽', component: 'input' }
 ])
 const addConfig = () => {
   dynamicSchema.value.push({
-    field: `ext_${Date.now()}`, 
-    label: '扩展项', 
+    field: `ext_${Date.now()}`,
+    label: '扩展项',
     component: 'input',
     col: 12
   })
 }
 
-const proModel = ref({ category: '', product: '', remark: '' })
+const proModel = ref({ category: '', product: '', agree: false, remark: '' })
 const proSchema = [
   {
     title: '产品配置 (可折叠)',
-    collapsible: true, // 开启折叠
+    collapsible: true,
     items: [
-      { 
-        field: 'category', 
-        label: '产品分类', 
-        component: 'select', // 假设 select 组件存在，或者使用 input 模拟
+      {
+        field: 'category',
+        label: '产品分类',
+        component: 'select',
         col: 12,
-        // 模拟异步加载
+        tooltip: '请选择一个产品分类，将影响具体产品列表',
         asyncOptions: () => new Promise(r => setTimeout(() => r([{ label: '电子', value: 'elec' }, { label: '家居', value: 'home' }]), 1000)),
-        props: { placeholder: '异步加载中...' }
+        props: { placeholder: '异步加载中...' },
+        required: true
       },
       {
         field: 'product',
         label: '具体产品',
         component: 'input',
         col: 12,
-        // 动态 Props：依赖 category 的值
         props: (model) => ({
           disabled: !model.category,
           placeholder: model.category ? '请输入产品名' : '请先选择分类'
         })
+      },
+      {
+        field: 'agree',
+        label: '同意协议',
+        component: 'switch',
+        col: 12,
+        rules: [{ validator: (r, v, cb) => v ? cb() : cb(new Error('请阅读并同意协议')) }]
       }
     ]
   },
   {
-    title: '其他信息',
+    title: '备注信息',
     items: [
-      { field: 'remark', label: '备注', component: 'input', props: { type: 'textarea' } }
+      { field: 'remark', label: '备注', component: 'input', props: { type: 'textarea', rows: 3 } }
     ]
+  }
+]
+
+// 字段类型扩展演示
+const typeModel = ref({ name: 'Alice', dept: '研发部', city: '' })
+const typeSchema = [
+  { type: 'divider', label: '基本信息', field: '_d1' },
+  { field: 'name', label: '姓名', type: 'text' },
+  { field: 'dept', label: '部门', type: 'text' },
+  { type: 'divider', label: '可编辑内容', field: '_d2' },
+  { field: 'city', label: '城市', component: 'input', placeholder: '请输入城市', col: 12 },
+  {
+    field: 'custom_render',
+    label: 'Render',
+    col: 12,
+    render: (model) => h('div', {
+      style: 'color: var(--yh-color-primary); font-weight: bold; line-height: 32px;'
+    }, `当前城市：${model.city || '未设置'}`)
   }
 ]
 
@@ -618,27 +672,52 @@ const tsSchema = `
     :form-props="{ labelPosition: 'top' }"
   >
     <template #field-custom="{ handleUpdate, model }">
-       <yh-input :model-value="model.custom" @update:model-value="v => handleUpdate('custom', v)">
-         <template #prepend>Slot</${_T}>
-       </yh-input>
-    </${_T}>
+      <yh-input :model-value="model.custom" @update:model-value="v => handleUpdate('custom', v)">
+        <template #prepend>Slot</template>
+      </yh-input>
+    </template>
     <template #footer="{ formRef }">
-      <yh-button type="primary" @click="() => formRef.validate()">验证 Schema</yh-button>
+      <yh-button type="primary" @click="handleValidate(formRef)">验证 Schema</yh-button>
       <yh-button @click="addConfig">动态增加项</yh-button>
-    </${_T}>
+      <yh-button @click="() => formRef.resetFields()">重置</yh-button>
+    </template>
   </yh-form-schema>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { FormSchemaInstance } from '@yh-ui/components'
 
 const model = ref({ email: '', custom: 'Initial Value', type: 'base' })
+
+const handleValidate = async (formRef: FormSchemaInstance) => {
+  try {
+    const valid = await formRef.validate()
+    if (valid) window.alert('验证通过！')
+  } catch (err) {
+    console.warn('验证失败:', err)
+  }
+}
+
 const schema = ref([
   {
     title: '基础信息',
     items: [
-      { field: 'email', label: '邮箱地址', component: 'input', col: 12, required: true },
-      { field: 'type', label: '账户类型', component: 'radio', col: 12, props: { options: [{ label: '基础', value: 'base' }, { label: '高级', value: 'pro' }] } }
+      {
+        field: 'email',
+        label: '邮箱地址',
+        component: 'input',
+        col: 12,
+        required: true,
+        rules: [{ type: 'email', message: '正确的邮箱格式', trigger: ['blur', 'change'] }]
+      },
+      {
+        field: 'type',
+        label: '账户类型',
+        component: 'radio',
+        col: 12,
+        props: { options: [{ label: '基础', value: 'base' }, { label: '高级', value: 'pro' }] }
+      }
     ]
   },
   { field: 'custom', label: '自定义插槽', component: 'input' }
@@ -646,8 +725,8 @@ const schema = ref([
 
 const addConfig = () => {
   schema.value.push({
-    field: \`ext_\${Date.now()}\`, 
-    label: '扩展项', 
+    field: \`ext_\${Date.now()}\`,
+    label: '扩展项',
     component: 'input',
     col: 12
   })
@@ -655,6 +734,7 @@ const addConfig = () => {
 </${_S}>
 `.trim()
 const jsSchema = toJs(tsSchema)
+
 
 const tsAdvancedSchema = `
 <${_T}>
@@ -664,44 +744,84 @@ const tsAdvancedSchema = `
 <${_S} setup lang="ts">
 import { ref } from 'vue'
 
-const model = ref({ category: '', product: '', remark: '' })
+const model = ref({ category: '', product: '', agree: false, remark: '' })
 const schema = [
   {
     title: '产品配置 (可折叠)',
-    collapsible: true, // 开启折叠
+    collapsible: true,
     items: [
-      { 
-        field: 'category', 
-        label: '产品分类', 
-        component: 'select', 
+      {
+        field: 'category',
+        label: '产品分类',
+        component: 'select',
         col: 12,
-        // 模拟异步加载
+        tooltip: '请选择一个产品分类，将影响具体产品列表',
+        // 异步加载选项，自动注入 loading 状态
         asyncOptions: () => new Promise(r => setTimeout(() => r([{ label: '电子', value: 'elec' }, { label: '家居', value: 'home' }]), 1000)),
-        props: { placeholder: '异步加载中...' }
+        props: { placeholder: '异步加载中...' },
+        required: true
       },
       {
         field: 'product',
         label: '具体产品',
         component: 'input',
         col: 12,
-        // 动态 Props：依赖 category 的值
+        // props 函数实现字段联动
         props: (model) => ({
           disabled: !model.category,
           placeholder: model.category ? '请输入产品名' : '请先选择分类'
         })
+      },
+      {
+        field: 'agree',
+        label: '同意协议',
+        component: 'switch',
+        col: 12,
+        rules: [{ validator: (r, v, cb) => v ? cb() : cb(new Error('请阅读并同意协议')) }]
       }
     ]
   },
   {
-    title: '其他信息',
+    title: '备注信息',
     items: [
-      { field: 'remark', label: '备注', component: 'input', props: { type: 'textarea' } }
+      { field: 'remark', label: '备注', component: 'input', props: { type: 'textarea', rows: 3 } }
     ]
   }
 ]
 </${_S}>
 `.trim()
 const jsAdvancedSchema = toJs(tsAdvancedSchema)
+
+const tsSchemaTypes = `
+<${_T}>
+  <yh-form-schema v-model="model" :schema="schema" :form-props="{ labelWidth: '80px' }" />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref, h } from 'vue'
+
+const model = ref({ name: 'Alice', dept: '研发部', city: '' })
+const schema = [
+  // type: 'divider' 插入分隔线
+  { type: 'divider', label: '基本信息', field: '_d1' },
+  // type: 'text' 只读展示字段值
+  { field: 'name', label: '姓名', type: 'text' },
+  { field: 'dept', label: '部门', type: 'text' },
+  { type: 'divider', label: '可编辑内容', field: '_d2' },
+  { field: 'city', label: '城市', component: 'input', col: 12 },
+  // render 函数完全自定义渲染
+  {
+    field: 'custom_render',
+    label: 'Render',
+    col: 12,
+    render: (model) => h('div', {
+      style: 'color: var(--yh-color-primary); font-weight: bold; line-height: 32px;'
+    }, \`当前城市：\${model.city || '未设置'}\`)
+  }
+]
+</${_S}>
+`.trim()
+const jsSchemaTypes = toJs(tsSchemaTypes)
 </script>
 
 ## 在 Nuxt 中使用
@@ -776,27 +896,53 @@ Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高
 
 ### FormSchema Props
 
-| 属性名     | 说明                         | 类型     | 默认值 |
-| ---------- | ---------------------------- | -------- | ------ |
-| modelValue | 绑定值                       | `object` | —      |
-| schema     | 表单配置项，支持分组、栅格等 | `array`  | `[]`   |
-| formProps  | 透传给 YhForm 的属性         | `object` | `{}`   |
+| 属性名     | 说明                                  | 类型     | 默认值 |
+| ---------- | ------------------------------------- | -------- | ------ |
+| modelValue | 绑定值（v-model）                     | `object` | —      |
+| schema     | 表单配置项，支持普通项和分组          | `array`  | `[]`   |
+| formProps  | 透传给 YhForm 的属性（同 Form Props） | `object` | `{}`   |
+| gutter     | 栅格列间距（px）                      | `number` | `20`   |
+
+### FormSchema Methods
+
+| 方法名        | 说明                               | 参数                                                 |
+| ------------- | ---------------------------------- | ---------------------------------------------------- |
+| validate      | 触发表单校验，支持指定字段         | `(fields?: string \| string[], callback?: Function)` |
+| resetFields   | 重置字段值和校验状态，支持指定字段 | `(fields?: string \| string[])`                      |
+| clearValidate | 清除校验结果，支持指定字段         | `(fields?: string \| string[])`                      |
+| scrollToField | 滚动到指定字段                     | `(field: string)`                                    |
+| getModel      | 获取当前表单数据快照               | `() => Record<string, unknown>`                      |
+| setFieldValue | 动态更新单个字段值                 | `(field: string, value: unknown)`                    |
+
+### FormSchema Slots
+
+| 插槽名              | 说明                   | 作用域参数                      |
+| ------------------- | ---------------------- | ------------------------------- |
+| `field-{fieldName}` | 自定义某字段的完整渲染 | `{ model, item, handleUpdate }` |
+| `label-{fieldName}` | 自定义某字段的标签渲染 | `{ model, item }`               |
+| `footer`            | 表单底部操作区         | `{ model, formRef }`            |
 
 ### FormSchemaItem (配置项)
 
-| 属性名        | 说明                           | 类型                            | 默认值      |
-| ------------- | ------------------------------ | ------------------------------- | ----------- |
-| field         | 字段名                         | `string`                        | —           |
-| label         | 标签名                         | `string`                        | —           |
-| component     | 组件名 (input, radio 等)       | `string \| Component`           | —           |
-| col           | 栅格占位 (1-24)                | `number`                        | `24`        |
-| props         | 透传给内部组件的属性或动态函数 | `object \| (model) => object`   | —           |
-| formItemProps | 透传给 form-item 的属性        | `object`                        | —           |
-| hidden        | 是否隐藏 (支持函数)            | `boolean \| (model) => boolean` | `false`     |
-| slots         | 组件内部插槽配置               | `object`                        | —           |
-| render        | 自定义渲染函数                 | `(model) => VNode`              | —           |
-| asyncOptions  | 异步选项加载函数               | `() => Promise<any[]>`          | —           |
-| optionProp    | 接收选项的属性名               | `string`                        | `'options'` |
+| 属性名        | 说明                                                              | 类型                               | 默认值      |
+| ------------- | ----------------------------------------------------------------- | ---------------------------------- | ----------- |
+| field         | 字段名，支持嵌套路径 (a.b.c)                                      | `string`                           | —           |
+| label         | 标签名                                                            | `string`                           | —           |
+| type          | 字段类型：`'default'` 普通，`'divider'` 分隔线，`'text'` 只读展示 | `'default' \| 'divider' \| 'text'` | `'default'` |
+| component     | 组件名 (input, radio, select, switch 等) 或 Vue 组件对象          | `string \| Component`              | —           |
+| col           | 栅格占位 (1-24)                                                   | `number`                           | `24`        |
+| props         | 透传给内部组件的属性，**支持函数式联动**                          | `object \| (model) => object`      | —           |
+| formItemProps | 透传给 form-item 的属性                                           | `object`                           | —           |
+| required      | 是否必填（自动添加必填规则，无需手动写 rules）                    | `boolean`                          | `false`     |
+| rules         | 校验规则（与 required 合并生效）                                  | `FormRule \| FormRule[]`           | —           |
+| disabled      | 是否禁用（**支持函数式联动**）                                    | `boolean \| (model) => boolean`    | —           |
+| hidden        | 是否隐藏（**支持函数式联动**）                                    | `boolean \| (model) => boolean`    | `false`     |
+| defaultValue  | 字段默认值（在该字段值为 undefined 时自动填入）                   | `unknown`                          | —           |
+| tooltip       | 字段 Label 旁显示的提示文案                                       | `string`                           | —           |
+| slots         | 组件内部插槽配置（key 为插槽名，value 为组件对象）                | `object`                           | —           |
+| render        | 自定义渲染函数（优先级低于 `field-{name}` 具名插槽）              | `(model) => VNode \| Component`    | —           |
+| asyncOptions  | 异步选项加载函数（自动注入 `loading` 状态）                       | `() => Promise<object[]>`          | —           |
+| optionProp    | 接收异步选项数据的 prop 名                                        | `string`                           | `'options'` |
 
 ### FormSchemaGroup (分组配置)
 

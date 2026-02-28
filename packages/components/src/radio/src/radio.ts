@@ -114,6 +114,15 @@ export interface RadioExpose {
 }
 
 /**
+ * RadioGroup 选项定义
+ */
+export interface RadioGroupOption {
+  value: RadioValueType
+  label?: string
+  disabled?: boolean
+}
+
+/**
  * RadioGroup Props 定义
  */
 export interface RadioGroupProps {
@@ -121,6 +130,11 @@ export interface RadioGroupProps {
    * @description 绑定值
    */
   modelValue?: RadioValueType
+
+  /**
+   * @description 单选配置项
+   */
+  options?: RadioGroupOption[]
 
   /**
    * @description 单选框组尺寸

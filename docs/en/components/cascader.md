@@ -2,9 +2,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
-// --- Helper: Convert TS code to JS code ---
-const toJs = (ts: string) => ts.replace(' lang="ts"', '').replace(' setup lang="ts"', ' setup')
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 // ==============================
 // Shared demo data (for doc rendering only, code blocks redefine for 1:1 copy)
@@ -65,23 +63,39 @@ const categoryData = [
   }
 ]
 
+const customFieldData = [
+  {
+    code: 'res', name: 'Resource Library',
+    sub: [
+      { code: 'img', name: 'Image Area' },
+      { code: 'video', name: 'Video Area' }
+    ]
+  },
+  {
+    code: 'doc', name: 'Document Library',
+    sub: [
+      { code: 'pdf', name: 'PDF Document' },
+      { code: 'word', name: 'Word Document' }
+    ]
+  }
+]
+
 // Demo variables
 const v1 = ref([])
 const v2 = ref([])
 const v3 = ref([])
 const v4 = ref(['zhejiang', 'hangzhou', 'xihu'])
 const v5 = ref([])
-const v6 = ref([])
+const v6 = ref([
+  ['zhejiang', 'hangzhou', 'binjiang'],
+  ['jiangsu', 'nanjing', 'xuanwu']
+])
 const v7 = ref([])
 const v8 = ref([])
 const v9 = ref([])
 const v10 = ref([])
 const v11 = ref('xihu')
-
-// Search config
-const filterMethod = (node: any, keyword: string) => {
-  return node.label.toLowerCase().includes(keyword.toLowerCase())
-}
+const v12 = ref([])
 
 // Big data
 const bigData = Array.from({ length: 40 }).map((_, i) => ({
@@ -121,18 +135,18 @@ const code_regionData = `const options = [
   }
 ]`
 
-const tsBasic = `<template>
+const tsBasic = `<${_T}>
   <yh-cascader v-model="value" :options="options" placeholder="Select a region" />
   <p class="demo-value">Value: {{ value }}</p>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref([])
 ${code_regionData}
-<\/script>`
+</${_S}>`
 
-const tsMultiple = `<template>
+const tsMultiple = `<${_T}>
   <yh-cascader 
     v-model="value" 
     :options="options" 
@@ -141,9 +155,9 @@ const tsMultiple = `<template>
     placeholder="Multi-select with collapsed tags" 
   />
   <p class="demo-value">Value: {{ value }}</p>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref([])
 const options = [
@@ -159,9 +173,9 @@ const options = [
     children: [{ value: 'recruit', label: 'Recruiting Lead' }]
   }
 ]
-<\/script>`
+</${_S}>`
 
-const tsStrictly = `<template>
+const tsStrictly = `<${_T}>
   <yh-cascader 
     v-model="value" 
     :options="options" 
@@ -169,9 +183,9 @@ const tsStrictly = `<template>
     placeholder="Select any level" 
   />
   <p class="demo-value">Value: {{ value }}</p>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref([])
 const options = [
@@ -183,9 +197,9 @@ const options = [
     ]
   }
 ]
-<\/script>`
+</${_S}>`
 
-const tsSearch = `<template>
+const tsSearch = `<${_T}>
   <yh-cascader 
     v-model="value" 
     :options="options" 
@@ -193,15 +207,15 @@ const tsSearch = `<template>
     placeholder="Try searching: West Lake" 
   />
   <p class="demo-value">Value: {{ value }}</p>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref([])
 ${code_regionData}
-<\/script>`
+</${_S}>`
 
-const tsEmitPath = `<template>
+const tsEmitPath = `<${_T}>
   <yh-cascader 
     v-model="value" 
     :options="options" 
@@ -209,15 +223,15 @@ const tsEmitPath = `<template>
     placeholder="Return leaf node value only" 
   />
   <p class="demo-value">Value: {{ value }}</p>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref('xihu')
 ${code_regionData}
-<\/script>`
+</${_S}>`
 
-const tsSlot = `<template>
+const tsSlot = `<${_T}>
   <yh-cascader v-model="value" :options="options" placeholder="Custom content">
     <template #default="{ node, data }">
       <span>{{ data.label }}</span>
@@ -226,19 +240,79 @@ const tsSlot = `<template>
       </span>
     </template>
   </yh-cascader>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref([])
 ${code_regionData}
-<\/script>`
+</${_S}>`
 
-const tsBigData = `<template>
+const tsInitValue = `<${_T}>
+  <div style="display: flex; flex-direction: column; gap: 16px; max-width: 320px;">
+    <!-- Single Select Initial Value -->
+    <yh-cascader v-model="value1" :options="options" placeholder="Single Selection" />
+    <p class="demo-value">Single: {{ value1 }}</p>
+
+    <!-- Multiple Select Initial Value -->
+    <yh-cascader v-model="value2" :options="options" multiple placeholder="Multiple Selection" />
+    <p class="demo-value">Multiple: {{ value2 }}</p>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const value1 = ref(['zhejiang', 'hangzhou', 'xihu'])
+const value2 = ref([
+  ['zhejiang', 'hangzhou', 'binjiang'],
+  ['jiangsu', 'nanjing', 'xuanwu']
+])
+
+${code_regionData}
+</${_S}>`
+
+const tsCustomProps = `<${_T}>
+  <yh-cascader 
+    v-model="value" 
+    :options="options" 
+    :props="props"
+    placeholder="Custom field names" 
+  />
+  <p class="demo-value">Value: {{ value }}</p>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+const value = ref([])
+const props = {
+  value: 'code',
+  label: 'name',
+  children: 'sub'
+}
+const options = [
+  {
+    code: 'res', name: 'Resource Library',
+    sub: [
+      { code: 'img', name: 'Image Area' },
+      { code: 'video', name: 'Video Area' }
+    ]
+  },
+  {
+    code: 'doc', name: 'Document Library',
+    sub: [
+      { code: 'pdf', name: 'PDF Document' },
+      { code: 'word', name: 'Word Document' }
+    ]
+  }
+]
+</${_S}>`
+
+const tsBigData = `<${_T}>
   <yh-cascader v-model="value" :options="options" virtual placeholder="Large dataset display" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const value = ref([])
 const options = Array.from({ length: 40 }).map((_, i) => ({
@@ -247,14 +321,14 @@ const options = Array.from({ length: 40 }).map((_, i) => ({
     value: \`point-\${i}-\${j}\`, label: \`Device Node \${i + 1}-\${j + 1}\`
   }))
 }))
-<\/script>`
+</${_S}>`
 
-const tsDisabled = `<template>
+const tsDisabled = `<${_T}>
   <yh-cascader v-model="value1" :options="options1" disabled placeholder="Fully disabled" />
   <yh-cascader v-model="value2" :options="options2" placeholder="Option disabled (Snack Foods disabled)" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value1 = ref(['zhejiang', 'hangzhou', 'xihu'])
@@ -288,7 +362,7 @@ const options2 = [
     children: [{ value: 'snack', label: 'Puffed Snacks' }]
   }
 ]
-<\/script>`
+</${_S}>`
 
 // Nuxt usage example
 const nuxtCascader = ref([])
@@ -302,14 +376,15 @@ const nuxtOptions = [
   }
 ]
 
-const tsNuxt = `<template>
+// Nuxt usage example
+const tsNuxt = `<${_T}>
   <div style="max-width: 320px;">
     <!-- Auto-imported, use directly -->
     <yh-cascader v-model="nuxtCascader" :options="nuxtOptions" placeholder="Nuxt Auto Import" />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 // No need to manually import YhCascader
@@ -323,9 +398,21 @@ const nuxtOptions = [
     ]
   }
 ]
-<\/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
+
+// Export JS versions
+const jsBasic = toJs(tsBasic)
+const jsMultiple = toJs(tsMultiple)
+const jsStrictly = toJs(tsStrictly)
+const jsSearch = toJs(tsSearch)
+const jsEmitPath = toJs(tsEmitPath)
+const jsSlot = toJs(tsSlot)
+const jsInitValue = toJs(tsInitValue)
+const jsCustomProps = toJs(tsCustomProps)
+const jsBigData = toJs(tsBigData)
+const jsDisabled = toJs(tsDisabled)
 
 </script>
 
@@ -335,10 +422,23 @@ When a dataset has a clear hierarchical structure (e.g., administrative regions,
 
 A widely applicable basic single-select cascader.
 
-<DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
+<DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="max-width: 320px;">
     <yh-cascader v-model="v1" :options="regionData" placeholder="Select a region" />
     <p class="demo-res">Value: <code>{{ v1 }}</code></p>
+  </div>
+</DemoBlock>
+
+## Initial Value
+
+By binding an initial array to `v-model`, you can pre-select nodes in the Cascader.
+
+<DemoBlock title="Initial Value" :ts-code="tsInitValue" :js-code="jsInitValue">
+  <div style="display: flex; flex-direction: column; gap: 16px; max-width: 320px;">
+    <yh-cascader v-model="v4" :options="regionData" placeholder="Single selection" />
+    <yh-cascader v-model="v6" :options="regionData" multiple placeholder="Multiple selection" />
+    <p class="demo-res">Value (Single): <code>{{ v4 }}</code></p>
+    <p class="demo-res">Value (Multiple): <code>{{ v6 }}</code></p>
   </div>
 </DemoBlock>
 
@@ -346,7 +446,7 @@ A widely applicable basic single-select cascader.
 
 You can disable the entire component or specify certain options as unselectable in the data.
 
-<DemoBlock title="Disabled" :ts-code="tsDisabled" :js-code="toJs(tsDisabled)">
+<DemoBlock title="Disabled" :ts-code="tsDisabled" :js-code="jsDisabled">
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 320px;">
     <yh-cascader v-model="v4" :options="regionData" disabled placeholder="Fully disabled" />
     <yh-cascader v-model="v5" :options="categoryData" placeholder="Option disabled (Snack Foods disabled)" />
@@ -358,7 +458,7 @@ You can disable the entire component or specify certain options as unselectable 
 
 Set `multiple` to enable multi-select; use `collapse-tags` to collapse displayed tags.
 
-<DemoBlock title="Multiple Select" :ts-code="tsMultiple" :js-code="toJs(tsMultiple)">
+<DemoBlock title="Multiple Select" :ts-code="tsMultiple" :js-code="jsMultiple">
   <div style="max-width: 400px;">
     <yh-cascader v-model="v2" :options="orgData" multiple collapse-tags placeholder="Select multiple departments" />
     <p class="demo-res">Value: <code>{{ v2 }}</code></p>
@@ -369,7 +469,7 @@ Set `multiple` to enable multi-select; use `collapse-tags` to collapse displayed
 
 With `check-strictly` enabled, users can select nodes at any level.
 
-<DemoBlock title="Select Any Level" :ts-code="tsStrictly" :js-code="toJs(tsStrictly)">
+<DemoBlock title="Select Any Level" :ts-code="tsStrictly" :js-code="jsStrictly">
   <div style="max-width: 320px;">
     <yh-cascader v-model="v3" :options="orgData" check-strictly placeholder="Allow selecting parent" />
     <p class="demo-res">Value: <code>{{ v3 }}</code></p>
@@ -380,7 +480,7 @@ With `check-strictly` enabled, users can select nodes at any level.
 
 By default, the full path array is returned. Set `emit-path="false"` to return only the selected node's `value`.
 
-<DemoBlock title="Non-Path Mode" :ts-code="tsEmitPath" :js-code="toJs(tsEmitPath)">
+<DemoBlock title="Non-Path Mode" :ts-code="tsEmitPath" :js-code="jsEmitPath">
   <div style="max-width: 320px;">
     <yh-cascader v-model="v11" :options="regionData" :emit-path="false" placeholder="Return leaf value only" />
     <p class="demo-res">Value: <code>{{ v11 }}</code></p>
@@ -391,7 +491,7 @@ By default, the full path array is returned. Set `emit-path="false"` to return o
 
 Enable `filterable` for quick search suggestions. Supports matching any segment in the full path.
 
-<DemoBlock title="Searchable" :ts-code="tsSearch" :js-code="toJs(tsSearch)">
+<DemoBlock title="Searchable" :ts-code="tsSearch" :js-code="jsSearch">
   <div style="max-width: 320px;">
     <yh-cascader v-model="v8" :options="regionData" filterable placeholder="Search: e.g. 'Hangzhou' or 'West Lake'" />
     <p class="demo-res">Value: <code>{{ v8 }}</code></p>
@@ -402,7 +502,7 @@ Enable `filterable` for quick search suggestions. Supports matching any segment 
 
 Use the `#default` slot to fully customize menu item rendering.
 
-<DemoBlock title="Custom Slot" :ts-code="tsSlot" :js-code="toJs(tsSlot)">
+<DemoBlock title="Custom Slot" :ts-code="tsSlot" :js-code="jsSlot">
   <div style="max-width: 320px;">
     <yh-cascader v-model="v10" :options="regionData" placeholder="Custom rendering">
       <template #default="{ node, data }">
@@ -415,11 +515,27 @@ Use the `#default` slot to fully customize menu item rendering.
   </div>
 </DemoBlock>
 
+## Custom Fields
+
+Use the `props` attribute to specify the field names in the option object, such as `value`, `label`, `children`, etc.
+
+<DemoBlock title="Custom Fields" :ts-code="tsCustomProps" :js-code="jsCustomProps">
+  <div style="max-width: 320px;">
+    <yh-cascader 
+      v-model="v12" 
+      :options="customFieldData" 
+      :props="{ value: 'code', label: 'name', children: 'sub' }"
+      placeholder="Custom field names" 
+    />
+    <p class="demo-res">Value: <code>{{ v12 }}</code></p>
+  </div>
+</DemoBlock>
+
 ## Large Data Optimization
 
 Enable `virtual` for virtual scrolling. Handles tens of thousands of nodes with smooth interaction.
 
-<DemoBlock title="Virtual Scroll" :ts-code="tsBigData" :js-code="toJs(tsBigData)">
+<DemoBlock title="Virtual Scroll" :ts-code="tsBigData" :js-code="jsBigData">
   <div style="max-width: 320px;">
     <yh-cascader v-model="v9" :options="bigData" virtual placeholder="Virtual display (2500 nodes)" />
   </div>
@@ -452,101 +568,101 @@ Cascader's recursive node system is deeply optimized for SSR, ensuring strong co
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `string \| number \| (string \| number)[] \| (string \| number)[][]` | — |
-| options | Data source of options | `CascaderOption[]` | `[]` |
-| props | Configuration options, see table below | `object` | — |
-| placeholder | Input placeholder text | `string` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| clearable | Whether clearable | `boolean` | `false` |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| filterable | Whether search filter is supported | `boolean` | `false` |
-| filter-method | Custom filter method | `(node: CascaderOption, keyword: string) => boolean` | — |
-| separator | Option path separator | `string` | `' / '` |
-| show-all-levels | Whether to show full path labels | `boolean` | `true` |
-| multiple | Whether multi-select is enabled | `boolean` | `false` |
-| check-strictly | Whether to allow selecting any level node | `boolean` | `false` |
-| expand-trigger | Sub-menu expand trigger | `'click' \| 'hover'` | `'click'` |
-| emit-path | Whether to return path array when selection changes | `boolean` | `true` |
-| collapse-tags | Whether to collapse tags in multi-select | `boolean` | `false` |
-| collapse-tags-tooltip | Whether to show tooltip for collapsed tags | `boolean` | `false` |
-| max-collapse-tags | Max visible tags before collapsing | `number` | `1` |
-| virtual | Whether to enable virtual scroll | `boolean` | `false` |
-| virtual-item-height | Virtual scroll item height | `number` | `34` |
-| popper-class | Dropdown custom class | `string` | — |
-| teleported | Whether to mount dropdown to body | `boolean` | `true` |
-| tag-type | Multi-select tag type | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
-| validate-event | Whether to trigger form validation on input | `boolean` | `true` |
+| Prop                  | Description                                         | Type                                                                 | Default     |
+| --------------------- | --------------------------------------------------- | -------------------------------------------------------------------- | ----------- |
+| model-value / v-model | Binding value                                       | `string \| number \| (string \| number)[] \| (string \| number)[][]` | —           |
+| options               | Data source of options                              | `CascaderOption[]`                                                   | `[]`        |
+| props                 | Configuration options, see table below              | `object`                                                             | —           |
+| placeholder           | Input placeholder text                              | `string`                                                             | —           |
+| disabled              | Whether disabled                                    | `boolean`                                                            | `false`     |
+| clearable             | Whether clearable                                   | `boolean`                                                            | `false`     |
+| size                  | Size                                                | `'large' \| 'default' \| 'small'`                                    | `'default'` |
+| filterable            | Whether search filter is supported                  | `boolean`                                                            | `false`     |
+| filter-method         | Custom filter method                                | `(node: CascaderOption, keyword: string) => boolean`                 | —           |
+| separator             | Option path separator                               | `string`                                                             | `' / '`     |
+| show-all-levels       | Whether to show full path labels                    | `boolean`                                                            | `true`      |
+| multiple              | Whether multi-select is enabled                     | `boolean`                                                            | `false`     |
+| check-strictly        | Whether to allow selecting any level node           | `boolean`                                                            | `false`     |
+| expand-trigger        | Sub-menu expand trigger                             | `'click' \| 'hover'`                                                 | `'click'`   |
+| emit-path             | Whether to return path array when selection changes | `boolean`                                                            | `true`      |
+| collapse-tags         | Whether to collapse tags in multi-select            | `boolean`                                                            | `false`     |
+| collapse-tags-tooltip | Whether to show tooltip for collapsed tags          | `boolean`                                                            | `false`     |
+| max-collapse-tags     | Max visible tags before collapsing                  | `number`                                                             | `1`         |
+| virtual               | Whether to enable virtual scroll                    | `boolean`                                                            | `false`     |
+| virtual-item-height   | Virtual scroll item height                          | `number`                                                             | `34`        |
+| popper-class          | Dropdown custom class                               | `string`                                                             | —           |
+| teleported            | Whether to mount dropdown to body                   | `boolean`                                                            | `true`      |
+| tag-type              | Multi-select tag type                               | `'success' \| 'info' \| 'warning' \| 'danger' \| ''`                 | `''`        |
+| validate-event        | Whether to trigger form validation on input         | `boolean`                                                            | `true`      |
 
 ### CascaderOption
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| value | Option value | `string \| number` | — |
-| label | Option label | `string` | — |
-| children | Child options array | `CascaderOption[]` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| leaf | Whether leaf node | `boolean` | — |
+| Prop     | Description         | Type               | Default |
+| -------- | ------------------- | ------------------ | ------- |
+| value    | Option value        | `string \| number` | —       |
+| label    | Option label        | `string`           | —       |
+| children | Child options array | `CascaderOption[]` | —       |
+| disabled | Whether disabled    | `boolean`          | `false` |
+| leaf     | Whether leaf node   | `boolean`          | —       |
 
 ### Cascader Config (props)
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| expandTrigger | Sub-menu expand trigger | `'click' \| 'hover'` | `'click'` |
-| multiple | Whether multi-select | `boolean` | `false` |
-| checkStrictly | Whether to allow selecting any level | `boolean` | `false` |
-| emitPath | Whether to return path array | `boolean` | `true` |
-| value | Property name for option value | `string` | `'value'` |
-| label | Property name for option label | `string` | `'label'` |
-| children | Property name for child options | `string` | `'children'` |
-| disabled | Property name for disabled state | `string` | `'disabled'` |
-| leaf | Property name for leaf node | `string` | `'leaf'` |
+| Prop          | Description                          | Type                 | Default      |
+| ------------- | ------------------------------------ | -------------------- | ------------ |
+| expandTrigger | Sub-menu expand trigger              | `'click' \| 'hover'` | `'click'`    |
+| multiple      | Whether multi-select                 | `boolean`            | `false`      |
+| checkStrictly | Whether to allow selecting any level | `boolean`            | `false`      |
+| emitPath      | Whether to return path array         | `boolean`            | `true`       |
+| value         | Property name for option value       | `string`             | `'value'`    |
+| label         | Property name for option label       | `string`             | `'label'`    |
+| children      | Property name for child options      | `string`             | `'children'` |
+| disabled      | Property name for disabled state     | `string`             | `'disabled'` |
+| leaf          | Property name for leaf node          | `string`             | `'leaf'`     |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when selection changes | `(value: any) => void` |
-| expand-change | Triggered when expanded node changes | `(value: any[]) => void` |
-| visible-change | Triggered when dropdown shows/hides | `(visible: boolean) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered when clear button is clicked | — |
+| Event Name     | Description                            | Parameters                    |
+| -------------- | -------------------------------------- | ----------------------------- |
+| change         | Triggered when selection changes       | `(value: any) => void`        |
+| expand-change  | Triggered when expanded node changes   | `(value: any[]) => void`      |
+| visible-change | Triggered when dropdown shows/hides    | `(visible: boolean) => void`  |
+| focus          | Triggered on focus                     | `(event: FocusEvent) => void` |
+| blur           | Triggered on blur                      | `(event: FocusEvent) => void` |
+| clear          | Triggered when clear button is clicked | —                             |
 
 ### Slots
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom node content | `{ node: CascaderOption, data: CascaderOption }` |
-| empty | Content when no matching data | — |
+| Slot Name | Description                   | Parameters                                       |
+| --------- | ----------------------------- | ------------------------------------------------ |
+| default   | Custom node content           | `{ node: CascaderOption, data: CascaderOption }` |
+| empty     | Content when no matching data | —                                                |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| focus | Focus the input | `() => void` |
-| blur | Blur the input | `() => void` |
+| Name            | Description                        | Type                                       |
+| --------------- | ---------------------------------- | ------------------------------------------ |
+| focus           | Focus the input                    | `() => void`                               |
+| blur            | Blur the input                     | `() => void`                               |
 | getCheckedNodes | Get currently checked node objects | `(leafOnly?: boolean) => CascaderOption[]` |
-| inputRef | Input DOM reference | `HTMLInputElement` |
+| inputRef        | Input DOM reference                | `HTMLInputElement`                         |
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-cascader-height` | Cascader height | `32px` |
-| `--yh-cascader-bg-color` | Background color | `var(--yh-fill-color-blank)` |
-| `--yh-cascader-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-cascader-border-color-hover` | Hover border color | `var(--yh-border-color-hover)` |
-| `--yh-cascader-border-color-focus` | Focus border color | `var(--yh-color-primary)` |
-| `--yh-cascader-text-color` | Text color | `var(--yh-text-color-regular)` |
-| `--yh-cascader-placeholder-color` | Placeholder color | `var(--yh-text-color-placeholder)` |
-| `--yh-cascader-node-height` | Option node height | `34px` |
-| `--yh-cascader-node-bg-color-hover` | Option hover background | `var(--yh-fill-color-light)` |
-| `--yh-cascader-node-bg-color-active` | Option active background | `var(--yh-fill-color-light)` |
-| `--yh-cascader-node-text-color-active` | Option active text color | `var(--yh-color-primary)` |
-| `--yh-cascader-menu-min-width` | Menu min width | `180px` |
-| `--yh-cascader-menu-max-height` | Menu max height | `274px` |
+| Variable                               | Description              | Default                            |
+| -------------------------------------- | ------------------------ | ---------------------------------- |
+| `--yh-cascader-height`                 | Cascader height          | `32px`                             |
+| `--yh-cascader-bg-color`               | Background color         | `var(--yh-fill-color-blank)`       |
+| `--yh-cascader-border-color`           | Border color             | `var(--yh-border-color)`           |
+| `--yh-cascader-border-color-hover`     | Hover border color       | `var(--yh-border-color-hover)`     |
+| `--yh-cascader-border-color-focus`     | Focus border color       | `var(--yh-color-primary)`          |
+| `--yh-cascader-text-color`             | Text color               | `var(--yh-text-color-regular)`     |
+| `--yh-cascader-placeholder-color`      | Placeholder color        | `var(--yh-text-color-placeholder)` |
+| `--yh-cascader-node-height`            | Option node height       | `34px`                             |
+| `--yh-cascader-node-bg-color-hover`    | Option hover background  | `var(--yh-fill-color-light)`       |
+| `--yh-cascader-node-bg-color-active`   | Option active background | `var(--yh-fill-color-light)`       |
+| `--yh-cascader-node-text-color-active` | Option active text color | `var(--yh-color-primary)`          |
+| `--yh-cascader-menu-min-width`         | Menu min width           | `180px`                            |
+| `--yh-cascader-menu-max-height`        | Menu max height          | `274px`                            |
 
 <style>
 .demo-res {

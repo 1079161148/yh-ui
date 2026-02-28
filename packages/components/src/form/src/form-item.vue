@@ -9,7 +9,7 @@ import { formItemProps } from './form-item'
 import type { FormRule } from './form'
 import type { ValidateStatus } from './form-item'
 import { useNamespace, useLocale, FormContextKey, FormItemContextKey, useId } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
+import { useComponentTheme, type ComponentThemeVars } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
 import { get, set } from '@yh-ui/utils'
 
@@ -30,7 +30,9 @@ const { globalSize } = useConfig()
 // 组件级 themeOverrides
 const { themeStyle } = useComponentTheme(
   'form-item',
-  computed(() => props.themeOverrides || formContext?.themeOverrides)
+  computed(
+    () => (props.themeOverrides || formContext?.themeOverrides) as ComponentThemeVars | undefined
+  )
 )
 
 // 生成唯一 ID

@@ -6,6 +6,7 @@ import './src/form.scss'
 
 export * from './src/form'
 export * from './src/form-item'
+export * from './src/form-schema'
 
 export const YhForm = withInstall(Form)
 export const YhFormItem = withInstall(FormItem)
@@ -15,4 +16,4 @@ export default YhForm
 
 export type FormInstance = InstanceType<typeof Form>
 export type FormItemInstance = InstanceType<typeof FormItem>
-export type FormSchemaInstance = InstanceType<typeof FormSchema>
+// FormSchemaInstance 现在统一从 ./src/form-schema 导出接口定义

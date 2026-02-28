@@ -149,6 +149,15 @@ export interface CheckboxExpose {
 }
 
 /**
+ * CheckboxGroup 选项定义
+ */
+export interface CheckboxGroupOption {
+  value: CheckboxValueType
+  label?: string
+  disabled?: boolean
+}
+
+/**
  * CheckboxGroup Props 定义
  */
 export interface CheckboxGroupProps {
@@ -156,6 +165,11 @@ export interface CheckboxGroupProps {
    * @description 绑定值
    */
   modelValue?: CheckboxValueType[]
+
+  /**
+   * @description 复选配置项
+   */
+  options?: CheckboxGroupOption[]
 
   /**
    * @description 复选框组尺寸

@@ -13,6 +13,7 @@ import type {
   CheckboxGroupContext,
   CheckboxValueType
 } from './checkbox'
+import YhCheckbox from './checkbox.vue'
 import { checkboxGroupContextKey } from './checkbox'
 
 defineOptions({
@@ -93,7 +94,17 @@ const groupClasses = computed(() => [ns.b()])
     :aria-invalid="formItem?.validateStatus === 'error'"
     :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined"
   >
-    <slot />
+    <slot>
+      <template v-if="options && options.length">
+        <yh-checkbox
+          v-for="item in options"
+          :key="String(item.value)"
+          :value="item.value"
+          :label="item.label"
+          :disabled="item.disabled"
+        />
+      </template>
+    </slot>
   </component>
 </template>
 

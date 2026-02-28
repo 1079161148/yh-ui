@@ -92,6 +92,7 @@ export default defineConfig({
             { text: '快速开始', link: '/guide/quickstart' },
             { text: '构建指南', link: '/guide/build' },
             { text: '在 Nuxt 中使用', link: '/guide/nuxt' },
+            { text: '表单设计优势', link: '/guide/form-best-practices' },
             { text: '国际化 (i18n)', link: '/guide/i18n' }
           ]
         },
@@ -115,6 +116,7 @@ export default defineConfig({
             { text: 'Quick Start', link: '/en/guide/quickstart' },
             { text: 'Build Guide', link: '/en/guide/build' },
             { text: 'Use in Nuxt', link: '/en/guide/nuxt' },
+            { text: 'Form Design Advantages', link: '/en/guide/form-best-practices' },
             { text: 'Internationalization', link: '/en/guide/i18n' }
           ]
         },

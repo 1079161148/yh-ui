@@ -2,6 +2,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 // Basic Usage
 const selectBasic = ref('')
@@ -84,14 +85,14 @@ const nuxtOptions = [
   { value: 'orange', label: 'Orange' }
 ]
 
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <div style="max-width: 240px;">
     <!-- Components are auto-imported in Nuxt -->
     <yh-select v-model="nuxtValue" :options="nuxtOptions" placeholder="Nuxt Auto Import" />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 // No need to manually import YhSelect
@@ -101,16 +102,16 @@ const nuxtOptions = [
   { value: 'banana', label: 'Banana' },
   { value: 'orange', label: 'Orange' }
 ]
-<\/script>`.replace(/\\/g, '')
+</${_S}>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const jsNuxt = toJs(tsNuxt)
 
 // Code Snippets
-const tsBasic = `<template>
+const tsBasic = `<${_T}>
   <yh-select v-model="value" :options="options" placeholder="Please select" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -121,15 +122,15 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsBasic = tsBasic.replace('lang="ts"', '')
+const jsBasic = toJs(tsBasic)
 
-const tsDisabledOption = `<template>
+const tsDisabledOption = `<${_T}>
   <yh-select v-model="value" :options="options" placeholder="Please select" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -140,15 +141,15 @@ const options = [
   { value: 'option4', label: 'Option 4', disabled: true },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsDisabledOption = tsDisabledOption.replace('lang="ts"', '')
+const jsDisabledOption = toJs(tsDisabledOption)
 
-const tsDisabled = `<template>
+const tsDisabled = `<${_T}>
   <yh-select v-model="value" :options="options" disabled placeholder="Please select" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('option1')
@@ -159,15 +160,15 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsDisabled = tsDisabled.replace('lang="ts"', '')
+const jsDisabled = toJs(tsDisabled)
 
-const tsClearable = `<template>
+const tsClearable = `<${_T}>
   <yh-select v-model="value" :options="options" clearable placeholder="Please select" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('option1')
@@ -178,15 +179,15 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsClearable = tsClearable.replace('lang="ts"', '')
+const jsClearable = toJs(tsClearable)
 
-const tsMultiple = `<template>
+const tsMultiple = `<${_T}>
   <yh-select v-model="value" :options="options" multiple placeholder="Please select" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref([])
@@ -197,11 +198,11 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsMultiple = tsMultiple.replace('lang="ts"', '')
+const jsMultiple = toJs(tsMultiple)
 
-const tsCollapse = `<template>
+const tsCollapse = `<${_T}>
   <yh-select
     v-model="value"
     :options="options"
@@ -210,9 +211,9 @@ const tsCollapse = `<template>
     :max-collapse-tags="2"
     placeholder="Please select"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref(['option1', 'option2', 'option3'])
@@ -223,15 +224,15 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsCollapse = tsCollapse.replace('lang="ts"', '')
+const jsCollapse = toJs(tsCollapse)
 
-const tsFilterable = `<template>
+const tsFilterable = `<${_T}>
   <yh-select v-model="value" :options="options" filterable placeholder="Please select" />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -242,11 +243,11 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsFilterable = tsFilterable.replace('lang="ts"', '')
+const jsFilterable = toJs(tsFilterable)
 
-const tsRemote = `<template>
+const tsRemote = `<${_T}>
   <yh-select
     v-model="value"
     :options="options"
@@ -256,9 +257,9 @@ const tsRemote = `<template>
     :loading="loading"
     placeholder="Enter keywords"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -288,52 +289,11 @@ const remoteMethod = (query: string) => {
     options.value = []
   }
 }
-<\/script>`
+</${_S}>`
 
-const jsRemote = `<template>
-  <yh-select
-    v-model="value"
-    :options="options"
-    filterable
-    remote
-    :remote-method="remoteMethod"
-    :loading="loading"
-    placeholder="Enter keywords"
-  />
-</template>
+const jsRemote = toJs(tsRemote)
 
-<script setup>
-import { ref } from 'vue'
-
-const value = ref('')
-const options = ref([])
-const loading = ref(false)
-
-// Mock remote data source
-const allOptions = [
-  { value: 'option1', label: 'Option 1' },
-  { value: 'option2', label: 'Option 2' },
-  { value: 'option3', label: 'Option 3' },
-  { value: 'option4', label: 'Option 4' },
-  { value: 'option5', label: 'Option 5' }
-]
-
-const remoteMethod = (query) => {
-  if (query) {
-    loading.value = true
-    setTimeout(() => {
-      options.value = allOptions.filter(item =>
-        item.label.toLowerCase().includes(query.toLowerCase())
-      )
-      loading.value = false
-    }, 500)
-  } else {
-    options.value = []
-  }
-}
-<\/script>`
-
-const tsCreate = `<template>
+const tsCreate = `<${_T}>
   <yh-select
     v-model="value"
     :options="options"
@@ -342,9 +302,9 @@ const tsCreate = `<template>
     allow-create
     placeholder="Select or enter"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref([])
@@ -355,11 +315,11 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsCreate = tsCreate.replace('lang="ts"', '')
+const jsCreate = toJs(tsCreate)
 
-const tsVirtual = `<template>
+const tsVirtual = `<${_T}>
   <yh-select
     v-model="value"
     :options="options"
@@ -367,9 +327,9 @@ const tsVirtual = `<template>
     filterable
     placeholder="10,000 options"
   />
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value = ref('')
@@ -377,11 +337,11 @@ const options = Array.from({ length: 10000 }, (_, i) => ({
   value: \`option\${i}\`,
   label: \`Option \${i + 1}\`
 }))
-<\/script>`
+</${_S}>`
 
-const jsVirtual = tsVirtual.replace('lang="ts"', '')
+const jsVirtual = toJs(tsVirtual)
 
-const tsVirtualCustom = `<template>
+const tsVirtualCustom = `<${_T}>
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 240px;">
     <!-- Normal Mode -->
     <yh-select v-model="value1" :options="options" placeholder="Normal Mode" />
@@ -404,9 +364,9 @@ const tsVirtualCustom = `<template>
       placeholder="Custom Params (item height 40px, height 300px)"
     />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const value1 = ref('')
@@ -425,19 +385,19 @@ const largeOptions = Array.from({ length: 10000 }, (_, i) => ({
   value: \`option\${i}\`,
   label: \`Option \${i + 1}\`
 }))
-<\/script>`
+</${_S}>`
 
-const jsVirtualCustom = tsVirtualCustom.replace('lang="ts"', '')
+const jsVirtualCustom = toJs(tsVirtualCustom)
 
-const tsSizes = `<template>
+const tsSizes = `<${_T}>
   <div style="display: flex; flex-direction: column; gap: 16px;">
     <yh-select v-model="large" :options="options" size="large" placeholder="Large" />
     <yh-select v-model="defaultVal" :options="options" placeholder="Default" />
     <yh-select v-model="small" :options="options" size="small" placeholder="Small" />
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 
 const large = ref('')
@@ -450,9 +410,9 @@ const options = [
   { value: 'option4', label: 'Option 4' },
   { value: 'option5', label: 'Option 5' }
 ]
-<\/script>`
+</${_S}>`
 
-const jsSizes = tsSizes.replace('lang="ts"', '')
+const jsSizes = toJs(tsSizes)
 </script>
 
 Use drop-down menus to display and select content from many options.
@@ -638,78 +598,78 @@ The Select component has passed comprehensive SSR tests, ensuring that server-si
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `string \| number \| boolean \| array` | — |
-| options | Option data | `SelectOption[]` | `[]` |
-| placeholder | Placeholder text | `string` | — |
-| disabled | Whether to disable | `boolean` | `false` |
-| clearable | Whether it is clearable | `boolean` | `false` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
-| multiple | Whether multiple selection is enabled | `boolean` | `false` |
-| multiple-limit | Max number of labels in multiple selection, 0 for unlimited | `number` | `0` |
-| filterable | Whether search is enabled | `boolean` | `false` |
-| filter-method | Custom filter method | `(query: string) => void` | — |
-| remote | Whether to load options from a remote server | `boolean` | `false` |
-| remote-method | Remote search method | `(query: string) => void` | — |
-| loading | Whether data is loading | `boolean` | `false` |
-| loading-text | Loading text | `string` | `'Loading...'` |
-| no-match-text | Text displayed when no data matches the search | `string` | `'No matching data'` |
-| no-data-text | Text displayed when there is no data | `string` | `'No data'` |
-| allow-create | Whether to allow creating new options | `boolean` | `false` |
-| collapse-tags | Whether to collapse tags in multiple selection | `boolean` | `false` |
-| max-collapse-tags | Max number of visible tags before collapsing | `number` | `1` |
-| virtual-scroll | Whether to enable virtual scrolling | `boolean` | `false` |
-| item-height | Height for each virtual scroll item | `number` | `34` |
-| height | Height for the virtual scroll container | `number` | `274` |
-| teleported | Whether to insert the dropdown into body | `boolean` | `true` |
-| fit-input-width | Whether the dropdown width matches the input width | `boolean` | `true` |
-| tag-type | Type of tags | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
-| value-key | Key name for the value | `string` | `'value'` |
-| label-key | Key name for the label | `string` | `'label'` |
+| Prop                  | Description                                                 | Type                                                 | Default              |
+| --------------------- | ----------------------------------------------------------- | ---------------------------------------------------- | -------------------- |
+| model-value / v-model | Binding value                                               | `string \| number \| boolean \| array`               | —                    |
+| options               | Option data                                                 | `SelectOption[]`                                     | `[]`                 |
+| placeholder           | Placeholder text                                            | `string`                                             | —                    |
+| disabled              | Whether to disable                                          | `boolean`                                            | `false`              |
+| clearable             | Whether it is clearable                                     | `boolean`                                            | `false`              |
+| size                  | Input size                                                  | `'large' \| 'default' \| 'small'`                    | `'default'`          |
+| multiple              | Whether multiple selection is enabled                       | `boolean`                                            | `false`              |
+| multiple-limit        | Max number of labels in multiple selection, 0 for unlimited | `number`                                             | `0`                  |
+| filterable            | Whether search is enabled                                   | `boolean`                                            | `false`              |
+| filter-method         | Custom filter method                                        | `(query: string) => void`                            | —                    |
+| remote                | Whether to load options from a remote server                | `boolean`                                            | `false`              |
+| remote-method         | Remote search method                                        | `(query: string) => void`                            | —                    |
+| loading               | Whether data is loading                                     | `boolean`                                            | `false`              |
+| loading-text          | Loading text                                                | `string`                                             | `'Loading...'`       |
+| no-match-text         | Text displayed when no data matches the search              | `string`                                             | `'No matching data'` |
+| no-data-text          | Text displayed when there is no data                        | `string`                                             | `'No data'`          |
+| allow-create          | Whether to allow creating new options                       | `boolean`                                            | `false`              |
+| collapse-tags         | Whether to collapse tags in multiple selection              | `boolean`                                            | `false`              |
+| max-collapse-tags     | Max number of visible tags before collapsing                | `number`                                             | `1`                  |
+| virtual-scroll        | Whether to enable virtual scrolling                         | `boolean`                                            | `false`              |
+| item-height           | Height for each virtual scroll item                         | `number`                                             | `34`                 |
+| height                | Height for the virtual scroll container                     | `number`                                             | `274`                |
+| teleported            | Whether to insert the dropdown into body                    | `boolean`                                            | `true`               |
+| fit-input-width       | Whether the dropdown width matches the input width          | `boolean`                                            | `true`               |
+| tag-type              | Type of tags                                                | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''`                 |
+| value-key             | Key name for the value                                      | `string`                                             | `'value'`            |
+| label-key             | Key name for the label                                      | `string`                                             | `'label'`            |
 
 ### SelectOption
 
-| Prop | Description | Type | Required |
-| --- | --- | --- | --- |
-| value | Option value | `string \| number \| boolean` | Yes |
-| label | Option label | `string` | Yes |
-| disabled | Whether the option is disabled | `boolean` | No |
+| Prop     | Description                    | Type                          | Required |
+| -------- | ------------------------------ | ----------------------------- | -------- |
+| value    | Option value                   | `string \| number \| boolean` | Yes      |
+| label    | Option label                   | `string`                      | Yes      |
+| disabled | Whether the option is disabled | `boolean`                     | No       |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| change | Triggered when the selected value changes | `(value: any) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered when the clear button is clicked | `() => void` |
-| visible-change | Triggered when the dropdown visibility changes | `(visible: boolean) => void` |
-| remove-tag | Triggered when a tag is removed in multiple selection | `(value: any) => void` |
+| Event Name     | Description                                           | Callback Parameters           |
+| -------------- | ----------------------------------------------------- | ----------------------------- |
+| change         | Triggered when the selected value changes             | `(value: any) => void`        |
+| focus          | Triggered on focus                                    | `(event: FocusEvent) => void` |
+| blur           | Triggered on blur                                     | `(event: FocusEvent) => void` |
+| clear          | Triggered when the clear button is clicked            | `() => void`                  |
+| visible-change | Triggered when the dropdown visibility changes        | `(visible: boolean) => void`  |
+| remove-tag     | Triggered when a tag is removed in multiple selection | `(value: any) => void`        |
 
 ### Slots
 
-| Slot Name | Description | Scope |
-| --- | --- | --- |
-| default | Custom option content | `{ option: SelectOption }` |
-| prefix | Content before the input | — |
-| empty | Content when there is no data | — |
+| Slot Name | Description                   | Scope                      |
+| --------- | ----------------------------- | -------------------------- |
+| default   | Custom option content         | `{ option: SelectOption }` |
+| prefix    | Content before the input      | —                          |
+| empty     | Content when there is no data | —                          |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name  | Description            | Type         |
+| ----- | ---------------------- | ------------ |
 | focus | Focus the Select input | `() => void` |
-| blur | Blur the Select input | `() => void` |
+| blur  | Blur the Select input  | `() => void` |
 
 ## Theme Variables
 
 The Select component uses the following CSS variables, which can be overridden for custom styling:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-select-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-select-hover-border-color` | Hover border color | `var(--yh-border-color-hover)` |
-| `--yh-select-focus-border-color` | Focus border color | `var(--yh-color-primary)` |
-| `--yh-select-disabled-bg-color` | Disabled background color | `var(--yh-fill-color-light)` |
-| `--yh-select-tag-bg-color` | Tag background color | `var(--yh-fill-color)` |
+| Variable                         | Description               | Default                        |
+| -------------------------------- | ------------------------- | ------------------------------ |
+| `--yh-select-border-color`       | Border color              | `var(--yh-border-color)`       |
+| `--yh-select-hover-border-color` | Hover border color        | `var(--yh-border-color-hover)` |
+| `--yh-select-focus-border-color` | Focus border color        | `var(--yh-color-primary)`      |
+| `--yh-select-disabled-bg-color`  | Disabled background color | `var(--yh-fill-color-light)`   |
+| `--yh-select-tag-bg-color`       | Tag background color      | `var(--yh-fill-color)`         |

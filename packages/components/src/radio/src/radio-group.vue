@@ -7,12 +7,8 @@ import { computed, provide, toRefs } from 'vue'
 import { useNamespace, useFormItem, useId } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
-import type {
-  RadioGroupProps,
-  RadioGroupEmits,
-  RadioGroupContext,
-  RadioValueType
-} from './radio'
+import type { RadioGroupProps, RadioGroupEmits, RadioGroupContext, RadioValueType } from './radio'
+import YhRadio from './radio.vue'
 import { radioGroupContextKey } from './radio'
 
 defineOptions({
@@ -31,7 +27,10 @@ const emit = defineEmits<RadioGroupEmits>()
 const ns = useNamespace('radio-group')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('radio-group', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'radio-group',
+  computed(() => props.themeOverrides)
+)
 
 // 表单集成
 const { formItem } = useFormItem()
@@ -90,10 +89,26 @@ const groupClasses = computed(() => [
 </script>
 
 <template>
-  <component :is="tag" :class="groupClasses" :style="themeStyle" role="radiogroup" :aria-labelledby="labelId"
+  <component
+    :is="tag"
+    :class="groupClasses"
+    :style="themeStyle"
+    role="radiogroup"
+    :aria-labelledby="labelId"
     :aria-invalid="formItem?.validateStatus === 'error'"
-    :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined">
-    <slot />
+    :aria-describedby="formItem?.validateStatus === 'error' ? formItem?.errorId : undefined"
+  >
+    <slot>
+      <template v-if="options && options.length">
+        <yh-radio
+          v-for="item in options"
+          :key="String(item.value)"
+          :value="item.value"
+          :label="item.label"
+          :disabled="item.disabled"
+        />
+      </template>
+    </slot>
   </component>
 </template>
 
