@@ -285,6 +285,62 @@ export const IconFolderOpened: IconData = {
   svg: '<path fill="currentColor" d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>'
 }
 
+// Robot 机器人图标 (AI)
+export const IconRobot: IconData = {
+  name: 'robot',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M22,10h-2V7c0-1.66-1.34-3-3-3H7C5.34,4,4,5.34,4,7v3H2C1.45,10,1,10.45,1,11v4c0,0.55,0.45,1,1,1h2v3c0,1.66,1.34,3,3,3h10c1.66,0,3-1.34,3-3v-3h2c0.55,0,1-0.45,1-1v-4C23,10.45,22.55,10,22,10z M8,11c0.55,0,1,0.45,1,1c0,0.55-0.45,1-1,1S7,12.55,7,12C7,11.45,7.45,11,8,11z M16,11c0.55,0,1,0.45,1,1c0,0.55-0.45,1-1,1s-1-0.45-1-1C15,11.45,15.45,11,16,11z M16,18H8v-2h8V18z"/>'
+}
+
+// Close Circle 关闭圆圈图标
+export const IconCloseCircle: IconData = {
+  name: 'close-circle',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>'
+}
+
+// Check Circle 成功圆圈图标 (alias)
+export const IconCheckCircle: IconData = {
+  name: 'check-circle',
+  viewBox: '0 0 24 24',
+  svg: IconSuccess.svg
+}
+
+// Send 发送图标
+export const IconSend: IconData = {
+  name: 'send',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>'
+}
+
+// Send Arrow 发送(向上箭头)图标
+export const IconSendArrow: IconData = {
+  name: 'send-arrow',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M11 4.586V20h2V4.586l6.29 6.294 1.414-1.414L12 0.758 3.293 9.466l1.414 1.414z"/>'
+}
+
+// Clean 清空扫帚图标
+export const IconClean: IconData = {
+  name: 'clean',
+  viewBox: '0 0 1024 1024',
+  svg: '<path fill="currentColor" d="M899.1 869.6l-53-305.6H864c14.4 0 26-11.6 26-26V342c0-14.4-11.6-26-26-26H611.8l-4.8-27.4c-9.6-55.6-58.4-96.6-114.7-96.6s-105.1 41-114.7 96.6l-4.8 27.4H160c-14.4 0-26 11.6-26 26v196c0 14.4 11.6 26 26 26h17.9l-53 305.6c-.3 1.5-.4 3-.4 4.4 0 14.4 11.6 26 26 26h723c1.5 0 3-.1 4.4-.4 14.2-2.4 23.7-15.9 21.2-30.4zM492.2 263.3c3.2-18.4 19.2-31.3 37.8-31.3s34.6 12.9 37.8 31.3l2.8 52.7h-81.2l2.8-52.7zm321 563.3H210.7l41.5-238h519.5l41.5 238zM206 518v-84h612v84H206z"></path>'
+}
+
+// Paperclip 别针图标 (alias)
+export const IconPaperclip: IconData = {
+  name: 'paperclip',
+  viewBox: '0 0 24 24',
+  svg: IconAttachment.svg
+}
+
+// Microphone 麦克风图标
+export const IconMicrophone: IconData = {
+  name: 'microphone',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>'
+}
+
 // 所有内置图标
 export const builtInIcons: IconData[] = [
   IconClose,
@@ -326,7 +382,15 @@ export const builtInIcons: IconData[] = [
   IconCopy,
   IconStar,
   IconFolder,
-  IconFolderOpened
+  IconFolderOpened,
+  IconRobot,
+  IconCloseCircle,
+  IconCheckCircle,
+  IconSend,
+  IconSendArrow,
+  IconClean,
+  IconPaperclip,
+  IconMicrophone
 ]
 
 // 自动注册所有内置图标

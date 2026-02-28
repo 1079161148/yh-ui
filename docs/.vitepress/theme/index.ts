@@ -131,6 +131,13 @@ import {
   YhGrid,
   YhGridItem,
   YhMention,
+  // AI Components
+  YhAiChat,
+  YhAiBubble,
+  YhAiSender,
+  YhAiThoughtChain,
+  YhAiCodeBlock,
+  YhAiThinking,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -252,6 +259,14 @@ export default {
 
     // Mention 提及
     app.component('YhMention', YhMention)
+
+    // AI 组件
+    app.component('YhAiChat', YhAiChat)
+    app.component('YhAiBubble', YhAiBubble)
+    app.component('YhAiSender', YhAiSender)
+    app.component('YhAiThoughtChain', YhAiThoughtChain)
+    app.component('YhAiCodeBlock', YhAiCodeBlock)
+    app.component('YhAiThinking', YhAiThinking)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

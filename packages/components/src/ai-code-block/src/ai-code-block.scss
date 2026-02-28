@@ -1,0 +1,82 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-code-block) {
+  --yh-ai-code-block-bg: #282c34;
+  --yh-ai-code-block-header-bg: #21252b;
+  --yh-ai-code-block-border-color: #181a1f;
+  --yh-ai-code-block-color: #abb2bf;
+  --yh-ai-code-block-lang-color: #828997;
+  --yh-ai-code-block-border-radius: 8px;
+  --yh-ai-code-block-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  margin: 16px 0;
+  border-radius: var(--yh-ai-code-block-border-radius);
+  overflow: hidden;
+  background-color: var(--yh-ai-code-block-bg);
+  color: var(--yh-ai-code-block-color);
+  box-shadow: var(--yh-ai-code-block-shadow);
+  font-family: var(--yh-font-family-mono);
+  font-size: 14px;
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--yh-ai-code-block-header-bg);
+    border-bottom: 1px solid var(--yh-ai-code-block-border-color);
+  }
+
+  @include e(lang) {
+    font-size: 12px;
+    color: var(--yh-ai-code-block-lang-color);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  @include e(actions) {
+    display: flex;
+    align-items: center;
+
+    // Override button theme to fit dark bg
+    .yh-button {
+      --yh-button-text-color: #828997;
+      --yh-button-hover-text-color: #c8cdd4;
+      --yh-button-active-text-color: #fff;
+    }
+  }
+
+  @include e(body) {
+    padding: 16px;
+    overflow-x: auto;
+
+    pre {
+      margin: 0;
+      white-space: pre;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    .hljs {
+      padding: 0;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #4b5263;
+      border-radius: 4px;
+    }
+  }
+}

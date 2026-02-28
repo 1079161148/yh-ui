@@ -79,6 +79,14 @@ import { YhResult } from './result'
 import { YhGrid, YhGridItem } from './grid'
 import { YhMention } from './mention'
 
+// AI Components
+import { YhAiChat } from './ai-chat'
+import { YhAiBubble } from './ai-bubble'
+import { YhAiSender } from './ai-sender'
+import { YhAiThoughtChain } from './ai-thought-chain'
+import { YhAiCodeBlock } from './ai-code-block'
+import { YhAiThinking } from './ai-thinking'
+
 // 导出所有组件
 export * from './button'
 export * from './input'
@@ -147,6 +155,14 @@ export * from './container'
 export * from './result'
 export * from './grid'
 export * from './mention'
+
+// AI Components
+export * from './ai-chat'
+export * from './ai-bubble'
+export * from './ai-sender'
+export * from './ai-thought-chain'
+export * from './ai-code-block'
+export * from './ai-thinking'
 
 // 所有组件列表
 const components = [
@@ -244,7 +260,13 @@ const components = [
   YhResult,
   YhGrid,
   YhGridItem,
-  YhMention
+  YhMention,
+  YhAiChat,
+  YhAiBubble,
+  YhAiSender,
+  YhAiThoughtChain,
+  YhAiCodeBlock,
+  YhAiThinking
 ] as Plugin[]
 
 /**

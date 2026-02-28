@@ -20,6 +20,7 @@ export default defineConfig({
         nav: [
           { text: '首页', link: '/', activeMatch: '^/$' },
           { text: '指南', link: '/guide/introduction', activeMatch: '/guide/' },
+          { text: 'AI 组件', link: '/ai-components/ai-chat', activeMatch: '/ai-components/' },
           { text: '组件', link: '/components/button', activeMatch: '/components/' },
           { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
           { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' }
@@ -47,6 +48,11 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/en/', activeMatch: '^/en/$' },
           { text: 'Guide', link: '/en/guide/introduction', activeMatch: '/en/guide/' },
+          {
+            text: 'AI Components',
+            link: '/en/ai-components/ai-chat',
+            activeMatch: '/en/ai-components/'
+          },
           { text: 'Components', link: '/en/components/button', activeMatch: '/en/components/' },
           { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
           { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' }
@@ -190,6 +196,20 @@ export default defineConfig({
           ]
         }
       ],
+      // 英文 AI 组件侧边栏
+      '/en/ai-components/': [
+        {
+          text: 'AI Components',
+          items: [
+            { text: 'AiChat', link: '/en/ai-components/ai-chat' },
+            { text: 'AiBubble', link: '/en/ai-components/ai-bubble' },
+            { text: 'AiSender', link: '/en/ai-components/ai-sender' },
+            { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
+            { text: 'AiThoughtChain', link: '/en/ai-components/ai-thought-chain' },
+            { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' }
+          ]
+        }
+      ],
       // 英文组件侧边栏
       '/en/components/': [
         {
@@ -287,6 +307,20 @@ export default defineConfig({
         }
       ],
 
+      // AI 组件侧边栏
+      '/ai-components/': [
+        {
+          text: 'AI 组件',
+          items: [
+            { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
+            { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
+            { text: 'AiSender 智能输入', link: '/ai-components/ai-sender' },
+            { text: 'AiThinking 思考中', link: '/ai-components/ai-thinking' },
+            { text: 'AiThoughtChain 思维链', link: '/ai-components/ai-thought-chain' },
+            { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' }
+          ]
+        }
+      ],
       '/components/': [
         {
           text: '基础组件',

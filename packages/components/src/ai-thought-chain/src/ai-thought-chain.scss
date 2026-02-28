@@ -1,0 +1,234 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-thought-chain) {
+  margin: 12px 0;
+  border-left: 3px solid var(--yh-color-info-light-5);
+  padding-left: 12px;
+  max-width: 100%;
+  transition: all 0.3s ease;
+
+  // Single mode (legacy)
+  @include when(thinking) {
+    border-left-color: var(--yh-color-primary);
+  }
+
+  // Header and single mode content
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--yh-text-color-secondary);
+    user-select: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+  }
+
+  @include e(icon) {
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include e(status-icon) {
+    font-size: 14px;
+    color: var(--yh-color-success);
+
+    &.is-loading {
+      color: var(--yh-color-primary);
+      animation: yh-spin 1s linear infinite;
+    }
+  }
+
+  @include e(title) {
+    font-weight: 500;
+    flex: 1;
+  }
+
+  @include e(arrow) {
+    transition: transform 0.3s;
+    margin-left: 8px;
+
+    &.is-expanded {
+      transform: rotate(180deg);
+    }
+  }
+
+  @include e(content) {
+    margin-top: 8px;
+    padding: 12px;
+    background-color: var(--yh-fill-color-light);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yh-text-color-regular);
+    line-height: 1.6;
+    animation: yh-fade-in 0.3s ease;
+  }
+
+  @include e(text) {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  // --- Multi item Timeline Mode ---
+  @include when(timeline) {
+    border-left: none; // Disable left border in timeline mode
+    padding-left: 0;
+
+    @include e(item) {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      padding-bottom: 20px;
+
+      @include when(last) {
+        padding-bottom: 0;
+      }
+
+      @include e(item-dot-wrapper) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 20px;
+        flex-shrink: 0;
+      }
+
+      @include e(item-dot) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        z-index: 1;
+        background: var(--yh-bg-color);
+
+        // Dots for different statuses
+        @include m(thinking) {
+          color: var(--yh-color-primary);
+          .yh-icon.is-loading {
+            animation: yh-spin 1s linear infinite;
+          }
+        }
+        @include m(loading) {
+          color: var(--yh-color-primary);
+          .yh-icon.is-loading {
+            animation: yh-spin 1s linear infinite;
+          }
+        }
+        @include m(success) {
+          color: var(--yh-color-success);
+        }
+        @include m(complete) {
+          color: var(--yh-color-success);
+        }
+        @include m(error) {
+          color: var(--yh-color-danger);
+        }
+        @include m(none) {
+          color: var(--yh-color-info-light-3);
+        }
+
+        // Sizes
+        @include m(small) {
+          width: 14px;
+          height: 14px;
+          font-size: 12px;
+        }
+        @include m(default) {
+          width: 20px;
+          height: 20px;
+          font-size: 14px;
+        }
+        @include m(large) {
+          width: 26px;
+          height: 26px;
+          font-size: 18px;
+        }
+      }
+
+      @include e(item-line) {
+        position: absolute;
+        top: 20px; // Offset from DOT center
+        bottom: 0;
+        left: 9px; // Roughly half of 20px width
+        width: 2px;
+        background: var(--yh-border-color-lighter);
+        z-index: 0;
+
+        &.is-gradient {
+          background: linear-gradient(
+            to bottom,
+            var(--yh-color-primary),
+            var(--yh-border-color-lighter)
+          );
+        }
+
+        // Adjusted left for small/large dot sizes if needed, but 20px width is fixed wrapper center
+      }
+
+      @include e(item-main) {
+        flex: 1;
+      }
+
+      @include e(item-header) {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--yh-text-color-primary);
+        height: 20px; // Center vertically with DOT
+        transition: color 0.2s;
+
+        &:hover {
+          color: var(--yh-color-primary);
+        }
+      }
+
+      @include e(item-arrow) {
+        margin-left: 6px;
+        font-size: 12px;
+        color: var(--yh-text-color-secondary);
+        transition: transform 0.3s;
+        &.is-expanded {
+          transform: rotate(180deg);
+        }
+      }
+
+      @include e(item-content) {
+        margin-top: 8px;
+        padding: 10px;
+        background: var(--yh-fill-color-light);
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 1.5;
+        animation: yh-fade-in 0.3s ease;
+      }
+
+      @include e(item-text) {
+        white-space: pre-wrap;
+      }
+    }
+  }
+}
+
+@keyframes yh-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes yh-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

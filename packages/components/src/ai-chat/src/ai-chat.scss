@@ -1,0 +1,60 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-chat) {
+  --yh-ai-chat-bg: var(--yh-bg-color);
+  --yh-ai-chat-header-bg: var(--yh-bg-color-page);
+  --yh-ai-chat-footer-bg: var(--yh-bg-color);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  background-color: var(--yh-ai-chat-bg);
+
+  @include e(header) {
+    padding: var(--yh-spacing-sm) var(--yh-spacing-lg);
+    border-bottom: 1px solid var(--yh-border-color-light);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--yh-ai-chat-header-bg);
+  }
+
+  @include e(header-tools) {
+    display: flex;
+    gap: var(--yh-spacing-sm);
+  }
+
+  @include e(content) {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--yh-spacing-lg);
+    scroll-behavior: smooth;
+
+    // 自定义滚动条
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--yh-scrollbar-thumb-color);
+      border-radius: 3px;
+    }
+  }
+
+  @include e(suggestions) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--yh-spacing-sm);
+    margin-bottom: var(--yh-spacing-lg);
+    justify-content: center;
+    margin-top: 10vh;
+  }
+
+  @include e(footer) {
+    padding: var(--yh-spacing-lg);
+    background-color: var(--yh-ai-chat-footer-bg);
+    border-top: 1px solid var(--yh-border-color-light);
+  }
+}

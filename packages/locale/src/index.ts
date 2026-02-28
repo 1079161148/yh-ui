@@ -612,6 +612,26 @@ export interface Language {
       loading: string
       noData: string
     }
+    // AI Components
+    ai: {
+      codeBlock: {
+        copyCode: string
+        copied: string
+      }
+      sender: {
+        placeholder: string
+      }
+      thoughtChain: {
+        thoughtProcess: string
+        thinking: string
+      }
+      thinking: {
+        start: string
+        thinking: string
+        complete: string
+        error: string
+      }
+    }
   }
 }
 

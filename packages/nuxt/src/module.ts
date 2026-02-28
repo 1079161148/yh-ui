@@ -194,7 +194,14 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Grid',
       'GridItem',
       // Mention
-      'Mention'
+      'Mention',
+      // AI Components
+      'AiChat',
+      'AiBubble',
+      'AiSender',
+      'AiThoughtChain',
+      'AiCodeBlock',
+      'AiThinking'
     ]
 
     components.forEach((name) => {

@@ -589,7 +589,33 @@ export const ja: Language = {
     // Affix
     affix: {},
     // Anchor
-    anchor: {}
+    anchor: {},
+    // 提及
+    mention: {
+      placeholder: '入力してください',
+      loading: 'ロード中...',
+      noData: 'データなし'
+    },
+    // AI Components
+    ai: {
+      codeBlock: {
+        copyCode: 'コードをコピー',
+        copied: 'コピーしました！'
+      },
+      sender: {
+        placeholder: 'メッセージを送信...'
+      },
+      thoughtChain: {
+        thoughtProcess: '思考プロセス',
+        thinking: '思考中...'
+      },
+      thinking: {
+        start: '思考開始',
+        thinking: '思考中...',
+        complete: '思考完了',
+        error: '思考エラー'
+      }
+    }
   }
 }
 

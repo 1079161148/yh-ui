@@ -595,6 +595,26 @@ export const en: Language = {
       placeholder: 'Please input',
       loading: 'Loading...',
       noData: 'No Data'
+    },
+    // AI Components
+    ai: {
+      codeBlock: {
+        copyCode: 'Copy code',
+        copied: 'Copied!'
+      },
+      sender: {
+        placeholder: 'Send a message...'
+      },
+      thoughtChain: {
+        thoughtProcess: 'Thought process',
+        thinking: 'Thinking...'
+      },
+      thinking: {
+        start: 'Start thinking',
+        thinking: 'Thinking...',
+        complete: 'Thinking complete',
+        error: 'Thinking error'
+      }
     }
   }
 }

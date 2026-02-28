@@ -1,0 +1,293 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-bubble) {
+  --yh-ai-bubble-user-bg: var(--yh-color-primary);
+  --yh-ai-bubble-user-color: var(--yh-color-white);
+  --yh-ai-bubble-assistant-bg: var(--yh-fill-color-light);
+  --yh-ai-bubble-assistant-color: var(--yh-text-color-primary);
+  --yh-ai-bubble-border-radius: 12px;
+
+  display: flex;
+  margin-bottom: var(--yh-spacing-lg);
+  gap: var(--yh-spacing-md);
+  animation: yh-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  /* Placement */
+  @include m(placement-start) {
+    flex-direction: row;
+    @include e(content-wrapper) {
+      align-items: flex-start;
+    }
+  }
+
+  @include m(placement-end) {
+    flex-direction: row-reverse;
+    @include e(content-wrapper) {
+      align-items: flex-end;
+    }
+  }
+
+  @include e(avatar) {
+    flex-shrink: 0;
+  }
+
+  @include e(content-wrapper) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    max-width: 85%;
+  }
+
+  @include e(header) {
+    font-size: 12px;
+    color: var(--yh-text-color-placeholder);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  @include e(time) {
+    opacity: 0.8;
+  }
+
+  @include e(body) {
+    line-height: 1.6;
+    word-break: break-word;
+    border-radius: var(--yh-ai-bubble-border-radius);
+    transition: all 0.3s;
+    overflow: hidden;
+
+    /* Base padding */
+    padding: 12px 16px;
+  }
+
+  /* Shape Modifiers */
+  @include m(shape-corner) {
+    // We adjust the tight corner based on placement
+    &.yh-ai-bubble--placement-start {
+      @include e(body) {
+        border-top-left-radius: 2px;
+      }
+    }
+    &.yh-ai-bubble--placement-end {
+      @include e(body) {
+        border-top-right-radius: 2px;
+      }
+    }
+  }
+  @include m(shape-round) {
+    @include e(body) {
+      border-radius: 24px;
+      padding: 12px 20px;
+    }
+  }
+
+  /* Variant Modifiers */
+  @include m(variant-filled) {
+    &.yh-ai-bubble--user {
+      @include e(body) {
+        background-color: var(--yh-ai-bubble-user-bg);
+        color: var(--yh-ai-bubble-user-color);
+      }
+    }
+    &.yh-ai-bubble--assistant {
+      @include e(body) {
+        background-color: var(--yh-ai-bubble-assistant-bg);
+        color: var(--yh-ai-bubble-assistant-color);
+        border: 1px solid var(--yh-fill-color-blank);
+      }
+    }
+  }
+
+  @include m(variant-outlined) {
+    @include e(body) {
+      background-color: transparent;
+      border: 1px solid var(--yh-border-color);
+      color: var(--yh-text-color-primary);
+    }
+    &.yh-ai-bubble--user {
+      @include e(body) {
+        border-color: var(--yh-color-primary);
+      }
+    }
+  }
+
+  @include m(variant-shadow) {
+    @include e(body) {
+      background-color: var(--yh-bg-color-overlay);
+      color: var(--yh-text-color-primary);
+      box-shadow: var(--yh-shadow-light);
+    }
+    &.yh-ai-bubble--user {
+      @include e(body) {
+        color: var(--yh-color-primary);
+      }
+    }
+  }
+
+  @include m(variant-borderless) {
+    @include e(body) {
+      background-color: transparent;
+      padding: 0;
+      color: var(--yh-text-color-primary);
+    }
+  }
+
+  @include e(text) {
+    white-space: pre-wrap;
+  }
+
+  /* Markdown Advanced Rendering */
+  @include e(markdown) {
+    white-space: normal;
+
+    p {
+      margin: 0 0 8px 0;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    strong {
+      font-weight: 600;
+    }
+
+    pre,
+    code {
+      font-family: var(--yh-font-family-mono);
+    }
+
+    /* Inline code */
+    code {
+      background: rgba(127, 127, 127, 0.15);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    /* Blocks code */
+    pre {
+      background: #282c34;
+      color: #abb2bf;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 12px 0;
+
+      code {
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+    }
+
+    blockquote {
+      margin: 8px 0;
+      padding-left: 12px;
+      border-left: 4px solid rgba(127, 127, 127, 0.3);
+      color: var(--yh-text-color-secondary);
+    }
+  }
+
+  @include e(footer) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  @include e(typing-indicator) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    padding: 0 4px;
+
+    span {
+      width: 4px;
+      height: 4px;
+      background-color: currentColor;
+      border-radius: 50%;
+      animation: yh-typing-bounce 1.4s infinite ease-in-out both;
+
+      &:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      &:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0s;
+      }
+    }
+  }
+
+  &.is-typing {
+    @include e(text) {
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 1.1em;
+        background-color: currentColor;
+        vertical-align: text-bottom;
+        margin-left: 4px;
+        animation: yh-blink 1s step-end infinite;
+      }
+    }
+
+    @include e(markdown) {
+      &::after {
+        display: none;
+      }
+      & > *:last-child::after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 1.1em;
+        background-color: currentColor;
+        vertical-align: text-bottom;
+        margin-left: 4px;
+        animation: yh-blink 1s step-end infinite;
+      }
+    }
+  }
+}
+
+@keyframes yh-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes yh-typing-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes yh-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

@@ -595,6 +595,26 @@ export const zhCn: Language = {
       placeholder: '请输入',
       loading: '加载中...',
       noData: '暂无数据'
+    },
+    // AI 组件
+    ai: {
+      codeBlock: {
+        copyCode: '复制代码',
+        copied: '已复制！'
+      },
+      sender: {
+        placeholder: '发送消息...'
+      },
+      thoughtChain: {
+        thoughtProcess: '思考过程',
+        thinking: '思考中...'
+      },
+      thinking: {
+        start: '开始思考',
+        thinking: '思考中...',
+        complete: '已完成思考',
+        error: '思考出错了'
+      }
     }
   }
 }

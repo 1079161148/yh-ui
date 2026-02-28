@@ -514,9 +514,34 @@ export const ko: Language = {
     },
     marquee: {},
     affix: {},
-    anchor: {}
+    anchor: {},
+    // 提及
+    mention: {
+      placeholder: '입력하세요',
+      loading: '로딩 중...',
+      noData: '데이터 없음'
+    },
+    // AI Components
+    ai: {
+      codeBlock: {
+        copyCode: '코드 복사',
+        copied: '복사됨!'
+      },
+      sender: {
+        placeholder: '메시지 보내기...'
+      },
+      thoughtChain: {
+        thoughtProcess: '생각 과정',
+        thinking: '생각 중...'
+      },
+      thinking: {
+        start: '생각 시작',
+        thinking: '생각 중...',
+        complete: '생각 완료',
+        error: '생각 오류'
+      }
+    }
   }
 }
 
 export default ko
-

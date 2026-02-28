@@ -60,6 +60,11 @@ import type { YhTree, YhTreeNode } from './tree'
 import type { YhCountdown } from './countdown'
 import type { YhTable, YhTableColumn } from './table'
 import type { YhLoading } from './loading'
+import type { YhAiChat } from './ai-chat'
+import type { YhAiBubble } from './ai-bubble'
+import type { YhAiSender } from './ai-sender'
+import type { YhAiThoughtChain } from './ai-thought-chain'
+import type { YhAiCodeBlock } from './ai-code-block'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -153,6 +158,13 @@ declare module 'vue' {
     YhInfiniteScroll: typeof YhInfiniteScroll
     YhMarquee: typeof YhMarquee
     YhConfigProvider: typeof YhConfigProvider
+
+    // =================== AI 组件 ===================
+    YhAiChat: typeof YhAiChat
+    YhAiBubble: typeof YhAiBubble
+    YhAiSender: typeof YhAiSender
+    YhAiThoughtChain: typeof YhAiThoughtChain
+    YhAiCodeBlock: typeof YhAiCodeBlock
   }
 
   export interface GlobalDirectives {

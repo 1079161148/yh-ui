@@ -46,12 +46,15 @@
     "@yh-ui/utils": "workspace:*",
     "async-validator": "^4.2.5",
     "dayjs": "catalog:",
+    "highlight.js": "^11.11.1",
+    "markdown-it": "^14.1.1",
     "viewerjs": "^1.11.7"
   },
   "peerDependencies": {
     "vue": "catalog:"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^6.0.0",
     "sass": "^1.83.1",
     "typescript": "catalog:",
