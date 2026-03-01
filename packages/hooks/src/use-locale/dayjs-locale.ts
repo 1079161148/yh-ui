@@ -6,22 +6,25 @@ import * as _dayjs from 'dayjs'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dayjs = (_dayjs as any).default || _dayjs
 
-// 静态导入常用语言包，确保打包时包含
+// 仅静态导入默认语言包
 import 'dayjs/locale/en'
-import 'dayjs/locale/zh-cn'
-import 'dayjs/locale/zh-tw'
-import 'dayjs/locale/ja'
-import 'dayjs/locale/ko'
 
-// 已加载的 locale 缓存（静态导入的语言包已自动注册）
-const loadedLocales = new Set<string>(['en', 'zh-cn', 'zh-tw', 'ja', 'ko'])
+// 使用 Vite 的 glob 导入所有可用语言包（按需加载）
+// 显式排除已静态导入的 en.js，解决打包冲突并减轻构建压力
+const dayjsLocales = import.meta.glob([
+  '../../../../node_modules/dayjs/locale/*.js',
+  '!../../../../node_modules/dayjs/locale/en.js'
+])
+
+// 已加载的 locale 缓存（en 已默认注入）
+const loadedLocales = new Set<string>(['en'])
 
 // 组件库 locale name 到 dayjs locale code 的映射
 const localeMapping: Record<string, string> = {
   'zh-cn': 'zh-cn',
   'zh-tw': 'zh-tw',
   'zh-hk': 'zh-hk',
-  'zh-mo': 'zh-tw', // 澳门使用繁体
+  'zh-mo': 'zh-tw',
   en: 'en',
   ja: 'ja',
   ko: 'ko',
@@ -96,33 +99,35 @@ export const getDayjsLocale = (localeCode: string): string => {
 
 /**
  * 动态加载并设置 dayjs locale
- * 使用动态导入来按需加载，避免打包所有语言
  */
 export const setDayjsLocale = async (localeCode: string): Promise<void> => {
   const dayjsLocale = getDayjsLocale(localeCode)
 
-  // 如果已加载（静态导入的或之前动态加载过的），直接切换
   if (loadedLocales.has(dayjsLocale)) {
     dayjs.locale(dayjsLocale)
     return
   }
 
-  // 动态导入 locale
-  try {
-    // 使用相对路径，确保 Vite/Rollup 能正确静态分析
-    await import(`../../../../node_modules/dayjs/locale/${dayjsLocale}.js`)
-    loadedLocales.add(dayjsLocale)
-    dayjs.locale(dayjsLocale)
-  } catch {
-    // 如果加载失败，回退到英文
-    console.warn(`[yh-ui] Failed to load dayjs locale: ${dayjsLocale}, falling back to 'en'`)
+  // 计算路径并获取 loader
+  const path = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`
+  const loader = dayjsLocales[path]
+
+  if (loader) {
+    try {
+      await loader()
+      loadedLocales.add(dayjsLocale)
+      dayjs.locale(dayjsLocale)
+    } catch {
+      console.warn(`[yh-ui] Failed to load dayjs locale content: ${dayjsLocale}`)
+      dayjs.locale('en')
+    }
+  } else {
     dayjs.locale('en')
   }
 }
 
 /**
- * 同步设置 dayjs locale（不推荐，会阻塞）
- * 用于需要立即同步的场景
+ * 同步设置 dayjs locale
  */
 export const setDayjsLocaleSync = (localeCode: string): void => {
   const dayjsLocale = getDayjsLocale(localeCode)
@@ -130,7 +135,6 @@ export const setDayjsLocaleSync = (localeCode: string): void => {
   if (loadedLocales.has(dayjsLocale)) {
     dayjs.locale(dayjsLocale)
   } else {
-    // 如果未加载，使用英文并在后台加载
     dayjs.locale('en')
     setDayjsLocale(localeCode)
   }
@@ -138,7 +142,6 @@ export const setDayjsLocaleSync = (localeCode: string): void => {
 
 /**
  * 使用自定义月份名称更新 dayjs locale
- * 这样可以确保 dayjs 使用我们语言包中定义的月份名称
  */
 export const updateDayjsMonths = (
   localeCode: string,
@@ -174,7 +177,6 @@ export const updateDayjsMonths = (
   ]
 
   try {
-    // 使用 updateLocale 插件（如果可用）
     if (dayjs.updateLocale) {
       dayjs.updateLocale(dayjsLocale, {
         months: monthsArray,
