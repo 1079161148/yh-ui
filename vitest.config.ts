@@ -62,6 +62,7 @@ export default defineConfig({
       deps: {
         inline: ['vue', '@vue']
       }
-    }
+    },
+    pool: 'threads'
   }
 })

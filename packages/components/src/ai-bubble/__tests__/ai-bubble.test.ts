@@ -7,6 +7,11 @@ import { mount } from '@vue/test-utils'
 // Must mock before importing component to intercept module resolution
 vi.mock('markdown-it', async () => {
   class MockMd {
+    inline = {
+      ruler: {
+        after: vi.fn()
+      }
+    }
     render(content: string) {
       return `<p>${content}</p>`
     }

@@ -1,0 +1,156 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-voice-trigger) {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-family: var(--yh-font-family);
+
+  @include e(body) {
+    display: flex;
+    align-items: center;
+    background-color: var(--yh-bg-color, #ffffff);
+    border-radius: 20px;
+    padding: 4px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  /* Trigger Button */
+  @include e(trigger) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: var(--yh-text-color-primary, #303133);
+    transition: all 0.2s;
+    flex-shrink: 0;
+
+    .yh-icon {
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+
+    &:hover {
+      background-color: var(--yh-fill-color-light, #f5f7fa);
+      color: var(--yh-color-primary, #409eff);
+    }
+
+    &.is-active {
+      background-color: var(--yh-color-danger, #f56c6c);
+      color: #fff;
+      animation: yh-pulse-mic 2s infinite;
+
+      .yh-icon {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  @include e(label) {
+    margin-left: 6px;
+    font-size: 14px;
+    display: none; // Default dot-only, but leaves room for future expansion
+  }
+
+  /* Waveform Visualizer Area */
+  @include e(visualizer) {
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 8px;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  @include e(bars) {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 24px;
+    width: 140px;
+  }
+
+  @include e(bar) {
+    width: 3px;
+    background-color: var(--yh-color-danger, #f56c6c);
+    border-radius: 2px;
+    transition: height 0.15s ease-out;
+    min-height: 4px;
+    opacity: 0.8;
+  }
+
+  @include e(hint) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary, #909399);
+    white-space: nowrap;
+    animation: yh-fade-breath 2s infinite;
+  }
+
+  @include e(cancel) {
+    background: transparent;
+    border: none;
+    color: var(--yh-text-color-secondary, #909399);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: all 0.2s;
+
+    &:hover {
+      background: var(--yh-fill-color, #f0f2f5);
+      opacity: 1;
+      color: var(--yh-color-danger, #f56c6c);
+    }
+  }
+
+  /* Animations */
+  .yh-voice-expand-enter-active,
+  .yh-voice-expand-leave-active {
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .yh-voice-expand-enter-from,
+  .yh-voice-expand-leave-to {
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  @keyframes yh-pulse-mic {
+    0% {
+      box-shadow: 0 0 0 0 rgba(245, 108, 108, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(245, 108, 108, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(245, 108, 108, 0);
+    }
+  }
+
+  @keyframes yh-fade-breath {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}

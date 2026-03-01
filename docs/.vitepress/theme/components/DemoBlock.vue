@@ -69,6 +69,7 @@ const tokenizeVueCode = (code: string): Token[] => {
   let i = 0
   const len = code.length
   let inStyleBlock = false
+  let inTag = false
 
   // 辅助函数：跳过空白字符
   const skipWhitespace = (): string => {
@@ -126,22 +127,11 @@ const tokenizeVueCode = (code: string): Token[] => {
       continue
     }
 
-    // 字符串（双引号）
-    if (code[i] === '"') {
+    // 字符串（双引号 / 单引号）
+    if (code[i] === '"' || code[i] === "'") {
+      const quote = code[i]
       let j = i + 1
-      while (j < len && code[j] !== '"') {
-        if (code[j] === '\\') j++
-        j++
-      }
-      tokens.push({ type: 'string', value: code.slice(i, j + 1) })
-      i = j + 1
-      continue
-    }
-
-    // 字符串（单引号）
-    if (code[i] === "'") {
-      let j = i + 1
-      while (j < len && code[j] !== "'") {
+      while (j < len && code[j] !== quote) {
         if (code[j] === '\\') j++
         j++
       }
@@ -156,9 +146,13 @@ const tokenizeVueCode = (code: string): Token[] => {
 
       // 处理结束标签 </
       if (nextChar === '/') {
+        inTag = false
         let tagEnd = code.indexOf('>', i)
         if (tagEnd !== -1) {
-          const tagContent = code.slice(i + 2, tagEnd).trim()
+          const tagContent = code
+            .slice(i + 2, tagEnd)
+            .replace(/\/>$/, '')
+            .trim()
           if (tagContent === 'style') inStyleBlock = false
         }
 
@@ -173,11 +167,10 @@ const tokenizeVueCode = (code: string): Token[] => {
         }
 
         if (tagName) {
-          // 判断标签类型
-          if (tagName.includes('-') || /^[A-Z]/.test(tagName)) {
-            tokens.push({ type: 'component', value: tagName })
-          } else if (['template', 'script', 'style'].includes(tagName)) {
+          if (['template', 'script', 'style'].includes(tagName)) {
             tokens.push({ type: 'keyword', value: tagName })
+          } else if (tagName.includes('-') || /^[A-Z]/.test(tagName)) {
+            tokens.push({ type: 'component', value: tagName })
           } else {
             tokens.push({ type: 'tag', value: tagName })
           }
@@ -187,6 +180,7 @@ const tokenizeVueCode = (code: string): Token[] => {
 
       // 处理开始标签 <
       if (/[a-zA-Z]/.test(nextChar)) {
+        inTag = true
         tokens.push({ type: 'punctuation', value: '<' })
         i++
 
@@ -199,27 +193,22 @@ const tokenizeVueCode = (code: string): Token[] => {
 
         if (tagName) {
           if (tagName === 'style') inStyleBlock = true
-          // 判断标签类型
-          if (tagName.includes('-') || /^[A-Z]/.test(tagName)) {
-            tokens.push({ type: 'component', value: tagName })
-          } else if (['template', 'script', 'style'].includes(tagName)) {
+          if (['template', 'script', 'style'].includes(tagName)) {
             tokens.push({ type: 'keyword', value: tagName })
+          } else if (tagName.includes('-') || /^[A-Z]/.test(tagName)) {
+            tokens.push({ type: 'component', value: tagName })
           } else {
             tokens.push({ type: 'tag', value: tagName })
           }
         }
         continue
       }
-
-      // 其他情况，按普通字符处理
-      tokens.push({ type: 'punctuation', value: '<' })
-      i++
-      continue
     }
 
-    // 处理 CSS 类名选择器 .class 或 ID 选择器 #id 或伪类 :hover
+    // 处理 CSS
     if (
       inStyleBlock &&
+      !inTag &&
       (code[i] === '.' || code[i] === '#' || (code[i] === ':' && !/\s/.test(code[i - 1] || '')))
     ) {
       let start = i
@@ -227,44 +216,40 @@ const tokenizeVueCode = (code: string): Token[] => {
       while (i < len && /[\w-]/.test(code[i])) {
         i++
       }
-      tokens.push({ type: 'keyword', value: code.slice(start, i) }) // 选择器作为关键词高亮
+      tokens.push({ type: 'keyword', value: code.slice(start, i) })
       continue
     }
 
     // 标签结束 > 或 />
     if (code[i] === '>') {
+      inTag = false
       tokens.push({ type: 'punctuation', value: '>' })
       i++
       continue
     }
 
     if (code[i] === '/' && code[i + 1] === '>') {
+      inTag = false
       tokens.push({ type: 'punctuation', value: '/>' })
       i += 2
       continue
     }
 
-    // 标点符号和运算符
-    if (/[=(){}[\];,.:|&<>]/.test(code[i])) {
+    // 标点符号
+    if (/[(){}[\];,.:|&<>=!@?]/.test(code[i])) {
       tokens.push({ type: 'punctuation', value: code[i] })
       i++
       continue
     }
 
-    // 属性名或标识符
-    if (/[a-zA-Z_$@]/.test(code[i]) || (code[i] === 'v' && code[i + 1] === '-')) {
+    // 标识符（变量、属性、函数、关键字）
+    if (/[a-zA-Z_$]/.test(code[i])) {
       let j = i
-      while (j < len && /[\w\-:@.$]/.test(code[j])) {
+      while (j < len && /[\w-:@.$]/.test(code[j])) {
         j++
       }
       const word = code.slice(i, j)
 
-      // 跳过空白看后面是否有 ':' (CSS 属性模式)
-      let nextIdx = j
-      while (nextIdx < len && /\s/.test(code[nextIdx])) nextIdx++
-      const isCssProperty = inStyleBlock && code[nextIdx] === ':'
-
-      // 判断是否是关键字
       const keywords = [
         'import',
         'export',
@@ -297,71 +282,48 @@ const tokenizeVueCode = (code: string): Token[] => {
         'false',
         'null',
         'undefined',
-        'void',
-        'delete',
-        'in',
-        'of',
         'interface',
         'type',
-        'readonly',
+        'as',
+        'satisfies',
+        'in',
+        'of',
         'any',
         'unknown',
-        'never',
-        'keyof',
-        'string',
-        'number',
-        'boolean',
-        'symbol',
-        'object',
-        'as'
+        'never'
       ]
 
-      const functions = [
+      const reactiveFunctions = [
         'ref',
         'computed',
         'watch',
         'watchEffect',
+        'reactive',
+        'toRefs',
+        'toRef',
         'onMounted',
         'onUnmounted',
         'defineProps',
         'defineEmits',
-        'withDefaults',
-        'nextTick',
-        'provide',
-        'inject',
-        'console',
-        'Array',
-        'Object',
-        'String',
-        'Number',
-        'Boolean',
-        'Date',
-        'JSON',
-        'Record',
-        'Partial',
-        'Readonly',
-        'Required',
-        'Pick',
-        'Omit',
-        'Exclude',
-        'Extract',
-        'NonNullable',
-        'ReturnType',
-        'InstanceType'
+        'withDefaults'
       ]
 
-      if (keywords.includes(word)) {
+      if (
+        inTag &&
+        (word.startsWith('v-') ||
+          word.startsWith('@') ||
+          word.startsWith(':') ||
+          ['setup', 'lang', 'scoped'].includes(word))
+      ) {
+        tokens.push({ type: 'attr-name', value: word })
+      } else if (keywords.includes(word)) {
         tokens.push({ type: 'keyword', value: word })
-      } else if (functions.includes(word)) {
+      } else if (reactiveFunctions.includes(word)) {
         tokens.push({ type: 'function', value: word })
-      } else if (isCssProperty) {
-        tokens.push({ type: 'attr-name', value: word }) // CSS 属性名
-      } else if (word.startsWith('v-') || word.startsWith('@') || word.startsWith(':')) {
+      } else if (inTag && code[j] === '=') {
         tokens.push({ type: 'attr-name', value: word })
-      } else if (code[j] === '=') {
-        tokens.push({ type: 'attr-name', value: word })
-      } else if (['setup', 'lang', 'scoped', 'name'].includes(word)) {
-        tokens.push({ type: 'attr-name', value: word })
+      } else if (code[j] === '(') {
+        tokens.push({ type: 'function', value: word })
       } else if (/^[A-Z]/.test(word)) {
         tokens.push({ type: 'component', value: word })
       } else {
@@ -371,45 +333,30 @@ const tokenizeVueCode = (code: string): Token[] => {
       continue
     }
 
-    // 数字处理
+    // 数字
     if (/[0-9]/.test(code[i])) {
       let j = i
-      while (j < len && /[0-9.]/.test(code[j])) {
-        j++
-      }
-      // 处理单位
-      if (inStyleBlock) {
-        while (j < len && /[a-z%]/.test(code[j])) {
-          j++
-        }
-      }
+      while (j < len && /[0-9.]/.test(code[j])) j++
+      if (inStyleBlock) while (j < len && /[a-z%]/.test(code[j])) j++
       tokens.push({ type: 'number', value: code.slice(i, j) })
       i = j
       continue
     }
 
-    // 其他字符
     tokens.push({ type: 'text', value: code[i] })
     i++
   }
-
   return tokens
 }
 
 // 渲染高亮代码
 const renderHighlightedCode = (code: string): string => {
   if (!code) return ''
-
   const tokens = tokenizeVueCode(code)
-
   return tokens
     .map((token) => {
       const escaped = token.value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-
-      if (token.type === 'text') {
-        return escaped
-      }
-
+      if (token.type === 'text') return escaped
       return `<span class="token ${token.type}">${escaped}</span>`
     })
     .join('')
@@ -492,7 +439,7 @@ const copyAnchor = async () => {
     </div>
 
     <!-- 操作栏 -->
-    <div class="demo-box__actions">
+    <div :class="['demo-box__actions', { 'is-open': showCode }]">
       <div class="demo-box__actions-left">
         <button
           class="demo-box__action-btn"
@@ -610,12 +557,14 @@ const copyAnchor = async () => {
   margin: 16px 0;
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
-  overflow: hidden;
   background: var(--vp-c-bg);
+  /* 移除 overflow: hidden 以允许弹窗溢出 */
 
   &__preview {
     padding: 24px;
     background: var(--vp-c-bg);
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
   }
 
   &__actions {
@@ -625,6 +574,14 @@ const copyAnchor = async () => {
     padding: 8px 16px;
     border-top: 1px solid var(--vp-c-divider);
     background: var(--vp-c-bg-soft);
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    transition: border-radius 0.2s;
+
+    &.is-open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   &__actions-left {
@@ -672,6 +629,8 @@ const copyAnchor = async () => {
   &__code {
     border-top: 1px solid var(--vp-c-divider);
     background: #1e1e1e;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
   }
 
   &__code-tabs {

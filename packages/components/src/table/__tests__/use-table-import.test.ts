@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { ref } from 'vue'
 import { useTableImport } from '../src/use-table-import'
 import type { TableColumn } from '../src/table'
@@ -14,6 +14,14 @@ describe('useTableImport hook', () => {
     { prop: 'name', label: 'Name' },
     { prop: 'age', label: 'Age' }
   ])
+
+  beforeEach(() => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
 
   it('parseCSV / parseTXT should map rows correctly', () => {
     const { parseCSV, parseTXT } = useTableImport(mockData, mockColumns)

@@ -376,6 +376,20 @@ export const IconChat: IconData = {
   svg: '<path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>'
 }
 
+// VideoPlay 视频/音频播放图标
+export const IconVideoPlay: IconData = {
+  name: 'video-play',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M8 5v14l11-7L8 5z"/>'
+}
+
+// VideoPause 视频/音频暂停图标
+export const IconVideoPause: IconData = {
+  name: 'video-pause',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+}
+
 // 所有内置图标
 export const builtInIcons: IconData[] = [
   IconClose,
@@ -430,7 +444,9 @@ export const builtInIcons: IconData[] = [
   IconThumbDown,
   IconSparkles,
   IconShare,
-  IconChat
+  IconChat,
+  IconVideoPlay,
+  IconVideoPause
 ]
 
 // 自动注册所有内置图标

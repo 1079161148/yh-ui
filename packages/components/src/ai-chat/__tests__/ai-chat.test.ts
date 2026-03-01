@@ -6,6 +6,11 @@ import { mount } from '@vue/test-utils'
 
 vi.mock('markdown-it', async () => {
   class MockMd {
+    inline = {
+      ruler: {
+        after: vi.fn()
+      }
+    }
     render(content: string) {
       return `<p>${content}</p>`
     }

@@ -598,6 +598,9 @@ export const en: Language = {
     },
     // AI Components
     ai: {
+      bubble: {
+        citations: 'Citations'
+      },
       codeBlock: {
         copyCode: 'Copy code',
         copied: 'Copied!'
@@ -628,6 +631,16 @@ export const en: Language = {
         dislike: 'Dislike',
         edit: 'Edit',
         delete: 'Delete'
+      },
+      artifacts: {
+        preview: 'Preview',
+        code: 'Source',
+        versions: 'Versions',
+        rendering: 'Rendering component...'
+      },
+      voice: {
+        trigger: 'Click to Speak',
+        listening: 'Listening...'
       }
     }
   }

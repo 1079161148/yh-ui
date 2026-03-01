@@ -131,6 +131,14 @@ describe('YhAiEditorSender', () => {
     expect(wrapper.emitted('send')).toBeFalsy()
   })
 
+  it('should NOT emit send on Enter key when empty (prevents default)', async () => {
+    const wrapper = mount(AiEditorSender, {
+      props: { modelValue: '   ' }
+    })
+    await wrapper.find('textarea').trigger('keydown', { key: 'Enter', shiftKey: false })
+    expect(wrapper.emitted('send')).toBeFalsy()
+  })
+
   // ─── Clear after send ────────────────────────────────────
   it('should clear value after send', async () => {
     const wrapper = mount(AiEditorSender, {
@@ -248,5 +256,21 @@ describe('YhAiEditorSender', () => {
     await wrapper.setProps({ modelValue: 'new text' })
     await nextTick()
     expect((wrapper.find('textarea').element as HTMLTextAreaElement).value).toBe('new text')
+  })
+
+  // ─── Emits Validators ────────────────────────────────────
+  describe('aiEditorSenderEmits', () => {
+    it('should validate send event', async () => {
+      const { aiEditorSenderEmits } = await import('../src/ai-editor-sender')
+      expect(aiEditorSenderEmits.send('hello')).toBe(true)
+      expect(aiEditorSenderEmits.send('')).toBe(false)
+    })
+    it('should pass-through other event validators', async () => {
+      const { aiEditorSenderEmits } = await import('../src/ai-editor-sender')
+      expect(aiEditorSenderEmits['update:modelValue']('text')).toBe(true)
+      expect(aiEditorSenderEmits.change('text')).toBe(true)
+      expect(aiEditorSenderEmits['remove-attachment'](0, { name: 'f' })).toBe(true)
+      expect(aiEditorSenderEmits.clear()).toBe(true)
+    })
   })
 })

@@ -1,7 +1,7 @@
 /**
  * @vitest-environment happy-dom
  */
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import AiSender from '../src/ai-sender.vue'
@@ -187,5 +187,126 @@ describe('YhAiSender', () => {
     await wrapper.setProps({ modelValue: 'new text' })
     await nextTick()
     expect((wrapper.find('textarea').element as HTMLTextAreaElement).value).toBe('new text')
+  })
+
+  // ─── Slash Commands ──────────────────────────────────────
+  describe('Slash Commands', () => {
+    const commands = [
+      { key: 'help', label: 'Help' },
+      { key: 'settings', label: 'Settings', prompt: 'Show Settings ' }
+    ]
+
+    it('should show slash commands panel when triggering /', async () => {
+      const wrapper = mount(AiSender, { props: { commands } })
+      const textarea = wrapper.find('textarea')
+
+      await textarea.setValue('/h')
+      textarea.element.selectionStart = 2
+      await textarea.trigger('input')
+
+      expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(true)
+      expect(wrapper.findAll('.yh-ai-sender__command-item').length).toBe(1)
+    })
+
+    it('should navigate and select command with keyboard', async () => {
+      const wrapper = mount(AiSender, { props: { commands } })
+      const textarea = wrapper.find('textarea')
+      await textarea.setValue('/')
+      textarea.element.selectionStart = 1
+      await textarea.trigger('input')
+
+      expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(true)
+
+      await textarea.trigger('keydown', { key: 'ArrowDown' })
+      await textarea.trigger('keydown', { key: 'ArrowUp' })
+      await textarea.trigger('keydown', { key: 'Enter' })
+
+      expect(wrapper.emitted('command')![0][0]).toEqual(commands[0])
+      expect(textarea.element.value).toBe('/help ')
+    })
+
+    it('should select command via mouse click', async () => {
+      const wrapper = mount(AiSender, { props: { commands } })
+      const textarea = wrapper.find('textarea')
+      await textarea.setValue('/')
+      textarea.element.selectionStart = 1
+      await textarea.trigger('input')
+
+      await wrapper.find('.yh-ai-sender__command-item').trigger('click')
+      expect(wrapper.emitted('command')).toBeTruthy()
+    })
+
+    it('should hide commands on Escape', async () => {
+      const wrapper = mount(AiSender, { props: { commands } })
+      const textarea = wrapper.find('textarea')
+      await textarea.setValue('/')
+      textarea.element.selectionStart = 1
+      await textarea.trigger('input')
+
+      await textarea.trigger('keydown', { key: 'Escape' })
+      expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(false)
+    })
+
+    it('should hide commands on blur after delay', async () => {
+      vi.useFakeTimers()
+      const wrapper = mount(AiSender, { props: { commands } })
+      const textarea = wrapper.find('textarea')
+      await textarea.setValue('/')
+      textarea.element.selectionStart = 1
+      await textarea.trigger('input')
+
+      await textarea.trigger('blur')
+      vi.advanceTimersByTime(250)
+      await nextTick()
+      expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(false)
+      vi.useRealTimers()
+    })
+  })
+
+  // ─── Attachments ─────────────────────────────────────────
+  describe('Attachments', () => {
+    it('should render attachments and emit remove event', async () => {
+      const attachments = [
+        { id: '1', name: 'img.png', type: 'image/png', url: 'img.png' },
+        {
+          id: '2',
+          name: 'doc.pdf',
+          type: 'application/pdf',
+          url: 'doc.pdf',
+          status: 'uploading' as const,
+          progress: 50
+        }
+      ]
+      const wrapper = mount(AiSender, { props: { attachments } })
+
+      const items = wrapper.findAll('.yh-ai-sender__attachment-item')
+      expect(items.length).toBe(2)
+
+      expect(wrapper.find('.yh-ai-sender__progress-bar').exists()).toBe(true)
+
+      await wrapper.find('.yh-ai-sender__attachment-remove').trigger('click')
+      expect(wrapper.emitted('remove-attachment')![0][0]).toEqual(attachments[0])
+    })
+  })
+
+  // ─── Emits Validators ────────────────────────────────────
+  describe('aiSenderEmits', () => {
+    it('should validate send event', async () => {
+      const { aiSenderEmits } = await import('../src/ai-sender')
+      expect(aiSenderEmits.send('hello')).toBe(true)
+      expect(aiSenderEmits.send('')).toBe(true)
+    })
+    it('should pass-through other event validators', async () => {
+      const { aiSenderEmits } = await import('../src/ai-sender')
+      expect(aiSenderEmits['update:modelValue']('text')).toBe(true)
+      expect(aiSenderEmits.change('text')).toBe(true)
+      expect(aiSenderEmits.command({ key: 'a', label: 'b' })).toBe(true)
+      expect(aiSenderEmits.blur(new FocusEvent('blur'))).toBe(true)
+      expect(aiSenderEmits.focus(new FocusEvent('focus'))).toBe(true)
+      expect(aiSenderEmits.clear()).toBe(true)
+      expect(
+        aiSenderEmits['remove-attachment']({ id: '1', name: 'f', type: 'doc', url: 'doc' })
+      ).toBe(true)
+    })
   })
 })

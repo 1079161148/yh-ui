@@ -1,42 +1,130 @@
-export interface AiBubbleProps {
+import type { ExtractPropTypes, PropType } from 'vue'
+
+export interface AiCitation {
   /**
-   * @description 气泡内容，支持Markdown
+   * 引用索引，对应文本中的 [1], [2] 等
    */
-  content?: string
+  id: string | number
   /**
-   * @description 开启 markdown 解析
+   * 标题
    */
-  markdown?: boolean
+  title: string
   /**
-   * @description 角色：用户或AI
+   * 链接 URL
    */
-  role?: 'user' | 'assistant' | 'system'
+  url?: string
   /**
-   * @description 气泡位置：开始侧还是末尾端，默认跟据role定义，user在end，assistant在start
+   * 来源站点名称或域名
    */
-  placement?: 'start' | 'end'
+  source?: string
   /**
-   * @description 气泡变体形制：圆角(round)或是方角(corner)
+   * 来源图标
    */
-  shape?: 'round' | 'corner'
-  /**
-   * @description 视觉变体
-   */
-  variant?: 'filled' | 'outlined' | 'borderless' | 'shadow'
-  /**
-   * @description 显示发送时间，如 '10:23 AM'
-   */
-  time?: string
-  /**
-   * @description 头像地址图片
-   */
-  avatar?: string
-  /**
-   * @description 是否在加载中
-   */
-  loading?: boolean
-  /**
-   * @description 打字机特效(仅assistant有效)
-   */
-  typing?: boolean
+  icon?: string
 }
+
+export interface AiMultimodal {
+  /**
+   * 类型：图片、语音、文件（表格/PDF等）
+   */
+  type: 'image' | 'audio' | 'file' | 'video'
+  /**
+   * 资源标题或名称
+   */
+  title?: string
+  /**
+   * 资源链接
+   */
+  url: string
+  /**
+   * 资源大小描述
+   */
+  size?: string
+  /**
+   * 额外属性（如语音时长等）
+   */
+  extra?: Record<string, unknown>
+}
+
+export const aiBubbleProps = {
+  /**
+   * 气泡内容，支持 Markdown
+   */
+  content: {
+    type: String,
+    default: ''
+  },
+  /**
+   * 是否开启 Markdown 解析
+   */
+  markdown: {
+    type: Boolean,
+    default: true
+  },
+  /**
+   * 角色：用户、助手或系统
+   */
+  role: {
+    type: String as PropType<'user' | 'assistant' | 'system'>,
+    default: 'assistant'
+  },
+  /**
+   * 气泡位置
+   */
+  placement: {
+    type: String as PropType<'start' | 'end'>
+  },
+  /**
+   * 气泡形状
+   */
+  shape: {
+    type: String as PropType<'round' | 'corner'>,
+    default: 'round'
+  },
+  /**
+   * 视觉变体
+   */
+  variant: {
+    type: String as PropType<'filled' | 'outlined' | 'borderless' | 'shadow'>,
+    default: 'filled'
+  },
+  /**
+   * 显示时间
+   */
+  time: String,
+  /**
+   * 头像地址
+   */
+  avatar: String,
+  /**
+   * 是否在加载中
+   */
+  loading: Boolean,
+  /**
+   * 打字机特效
+   */
+  typing: Boolean,
+  /**
+   * 引用来源列表 (Citations)
+   */
+  citations: {
+    type: Array as PropType<AiCitation[]>,
+    default: () => []
+  },
+  /**
+   * 多模态内容 (图片、音频、文件等)
+   */
+  multimodal: {
+    type: Array as PropType<AiMultimodal[]>,
+    default: () => []
+  },
+  /**
+   * 主题覆盖变量
+   */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
+  }
+} as const
+
+export type AiBubbleProps = ExtractPropTypes<typeof aiBubbleProps>

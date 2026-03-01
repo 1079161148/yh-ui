@@ -614,6 +614,9 @@ export interface Language {
     }
     // AI Components
     ai: {
+      bubble: {
+        citations: string
+      }
       codeBlock: {
         copyCode: string
         copied: string
@@ -643,6 +646,16 @@ export interface Language {
         dislike: string
         edit: string
         delete: string
+      }
+      artifacts?: {
+        preview?: string
+        code?: string
+        versions?: string
+        rendering?: string
+      }
+      voice?: {
+        trigger?: string
+        listening?: string
       }
     }
   }

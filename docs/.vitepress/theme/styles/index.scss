@@ -460,8 +460,8 @@ html.yh-popup-parent--hidden {
   margin: 20px 0;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  overflow: hidden;
   background: var(--vp-c-bg);
+  /* 移除 overflow: hidden 允许内容超出盒子 */
   box-shadow: var(--yh-shadow-soft);
   transition: all var(--yh-anim-normal) ease;
 
@@ -474,6 +474,8 @@ html.yh-popup-parent--hidden {
     padding: 28px;
     background: var(--vp-c-bg);
     position: relative;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
 
     &::before {
       content: '';
@@ -485,6 +487,8 @@ html.yh-popup-parent--hidden {
       background: var(--yh-gradient-primary);
       opacity: 0;
       transition: opacity var(--yh-anim-normal) ease;
+      border-top-left-radius: 11px;
+      border-top-right-radius: 11px;
     }
   }
 
@@ -500,6 +504,14 @@ html.yh-popup-parent--hidden {
     border-top: 1px solid var(--vp-c-divider);
     background: var(--yh-glass-bg);
     backdrop-filter: blur(8px);
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    transition: border-radius 0.2s;
+
+    &.is-open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   &__actions-left {
@@ -572,6 +584,8 @@ html.yh-popup-parent--hidden {
     border-top: 1px solid var(--vp-c-divider);
     background: var(--vp-c-bg-alt);
     animation: slideDown var(--yh-anim-normal) ease-out;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
   }
 
   &__code-tabs {

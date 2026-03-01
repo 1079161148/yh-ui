@@ -598,6 +598,9 @@ export const zhCn: Language = {
     },
     // AI 组件
     ai: {
+      bubble: {
+        citations: '参考引用'
+      },
       codeBlock: {
         copyCode: '复制代码',
         copied: '已复制！'
@@ -627,6 +630,16 @@ export const zhCn: Language = {
         dislike: '反对',
         edit: '编辑',
         delete: '删除'
+      },
+      artifacts: {
+        preview: '预览',
+        code: '源码',
+        versions: '版本历史',
+        rendering: '正在渲染组件...'
+      },
+      voice: {
+        trigger: '点击说话',
+        listening: '聆听中...'
       }
     }
   }

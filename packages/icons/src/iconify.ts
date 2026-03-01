@@ -7,7 +7,7 @@
  * - SSR 支持
  */
 
-import { Icon as IconifyIcon } from '@iconify/vue'
+import { Icon as IconifyIcon, loadIcon, getIcon } from '@iconify/vue'
 import { h, type VNode } from 'vue'
 import type { IconName, IconSize, IconColor, IconRotate } from './types'
 
@@ -133,8 +133,6 @@ export function parseIconName(name: string): string {
  */
 export async function iconExists(name: string): Promise<boolean> {
   try {
-    await import('@iconify/vue')
-    // 尝试加载图标
     const parsedName = parseIconName(name)
     // Iconify 会自动处理加载，这里简单返回 true
     return !!parsedName
@@ -149,7 +147,6 @@ export async function iconExists(name: string): Promise<boolean> {
  * @returns 图标的 SVG 数据
  */
 export async function getIconData(name: string) {
-  const { loadIcon, getIcon } = await import('@iconify/vue')
   const parsedName = parseIconName(name)
 
   // 先尝试从缓存获取

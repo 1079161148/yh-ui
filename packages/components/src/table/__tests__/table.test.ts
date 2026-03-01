@@ -686,6 +686,15 @@ describe('Table Complex Scenarios', () => {
           pageSize: 2,
           total: mockData.length
         }
+      },
+      global: {
+        stubs: {
+          YhPagination: true,
+          YhSelect: true,
+          YhOption: true,
+          YhInput: true,
+          YhTooltip: true
+        }
       }
     })
 
@@ -703,6 +712,15 @@ describe('Table Complex Scenarios', () => {
           currentPage: 1,
           pageSize: 2,
           total: mockData.length
+        }
+      },
+      global: {
+        stubs: {
+          YhPagination: true,
+          YhSelect: true,
+          YhOption: true,
+          YhInput: true,
+          YhTooltip: true
         }
       }
     })

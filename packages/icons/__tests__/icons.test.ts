@@ -6,7 +6,7 @@ import { getCollectionPrefixes } from '../src/config'
 import { ICON_COLLECTIONS, getCollection, getAllPrefixes } from '../src/collections'
 import { AVAILABLE_COLLECTIONS, RECOMMENDED_COLLECTIONS } from '../src/types'
 import { mount } from '@vue/test-utils'
-import { h } from 'vue'
+import { h, markRaw } from 'vue'
 
 // Mock @iconify/vue
 vi.mock('@iconify/vue', () => ({
@@ -127,7 +127,7 @@ describe('Icons Package', () => {
     })
 
     it('should render custom component', () => {
-      const Custom = { render: () => h('div', 'custom') }
+      const Custom = markRaw({ render: () => h('div', 'custom') })
       const wrapper = mount(YhIcon, {
         props: { component: Custom }
       })

@@ -2,11 +2,14 @@
 @use '@yh-ui/theme/styles/variables' as *;
 
 @include b(ai-bubble) {
-  --yh-ai-bubble-user-bg: var(--yh-color-primary);
-  --yh-ai-bubble-user-color: var(--yh-color-white);
-  --yh-ai-bubble-assistant-bg: var(--yh-fill-color-light);
-  --yh-ai-bubble-assistant-color: var(--yh-text-color-primary);
-  --yh-ai-bubble-border-radius: 12px;
+  --yh-ai-bubble-user-bg: var(--yh-ai-bubble-user-bg-color, var(--yh-color-primary));
+  --yh-ai-bubble-user-color: var(--yh-ai-bubble-user-text-color, var(--yh-color-white));
+  --yh-ai-bubble-assistant-bg: var(--yh-ai-bubble-assistant-bg-color, var(--yh-fill-color-light));
+  --yh-ai-bubble-assistant-color: var(
+    --yh-ai-bubble-assistant-text-color,
+    var(--yh-text-color-primary)
+  );
+  --yh-ai-bubble-border-radius: var(--yh-ai-bubble-border-radius, 12px);
 
   display: flex;
   margin-bottom: var(--yh-spacing-lg);
@@ -57,14 +60,18 @@
     border-radius: var(--yh-ai-bubble-border-radius);
     transition: all 0.3s;
     overflow: hidden;
-
-    /* Base padding */
     padding: 12px 16px;
+    position: relative;
+    border: 1px solid transparent;
+
+    /* Theme-specific adjustments for quality */
+    :html.dark & {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
   }
 
   /* Shape Modifiers */
   @include m(shape-corner) {
-    // We adjust the tight corner based on placement
     &.yh-ai-bubble--placement-start {
       @include e(body) {
         border-top-left-radius: 2px;
@@ -95,7 +102,7 @@
       @include e(body) {
         background-color: var(--yh-ai-bubble-assistant-bg);
         color: var(--yh-ai-bubble-assistant-color);
-        border: 1px solid var(--yh-fill-color-blank);
+        border-color: var(--yh-border-color-extra-light);
       }
     }
   }
@@ -117,20 +124,7 @@
     @include e(body) {
       background-color: var(--yh-bg-color-overlay);
       color: var(--yh-text-color-primary);
-      box-shadow: var(--yh-shadow-light);
-    }
-    &.yh-ai-bubble--user {
-      @include e(body) {
-        color: var(--yh-color-primary);
-      }
-    }
-  }
-
-  @include m(variant-borderless) {
-    @include e(body) {
-      background-color: transparent;
-      padding: 0;
-      color: var(--yh-text-color-primary);
+      box-shadow: var(--yh-shadow-md);
     }
   }
 
@@ -138,38 +132,37 @@
     white-space: pre-wrap;
   }
 
-  /* Markdown Advanced Rendering */
   @include e(markdown) {
     white-space: normal;
-
     p {
       margin: 0 0 8px 0;
     }
     p:last-child {
       margin-bottom: 0;
     }
-    a {
-      color: inherit;
-      text-decoration: underline;
-    }
-    strong {
-      font-weight: 600;
-    }
 
-    pre,
-    code {
-      font-family: var(--yh-font-family-mono);
-    }
-
-    /* Inline code */
-    code {
-      background: rgba(127, 127, 127, 0.15);
-      padding: 2px 4px;
+    /* 学术脚注气泡角标样式 */
+    .yh-ai-citation {
+      color: var(--yh-color-primary);
+      background-color: var(--yh-color-primary-light-9);
+      border: 1px solid var(--yh-color-primary-light-5);
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      padding: 0 4px;
+      margin: 0 2px;
       border-radius: 4px;
-      font-size: 0.9em;
-    }
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--yh-transition-duration-fast) ease;
+      vertical-align: super;
 
-    /* Blocks code */
+      &:hover {
+        background-color: var(--yh-color-primary);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(var(--yh-color-primary-rgb), 0.3);
+      }
+    }
     pre {
       background: #282c34;
       color: #abb2bf;
@@ -177,19 +170,241 @@
       border-radius: 8px;
       overflow-x: auto;
       margin: 12px 0;
+    }
+    code {
+      background: rgba(127, 127, 127, 0.15);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  }
 
-      code {
-        background: transparent;
-        padding: 0;
-        border-radius: 0;
+  /* Multimodal: Image Grid */
+  @include e(image-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+
+  @include e(image-item) {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--yh-border-color-lighter);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+      cursor: zoom-in;
+
+      &:hover {
+        transform: scale(1.05);
       }
     }
+  }
 
-    blockquote {
-      margin: 8px 0;
-      padding-left: 12px;
-      border-left: 4px solid rgba(127, 127, 127, 0.3);
-      color: var(--yh-text-color-secondary);
+  /* Multimodal: Assets (Audio, Files) */
+  @include e(multimodal-assets) {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @include e(audio-player) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 20px;
+    width: fit-content;
+    min-width: 200px;
+    border: 1px solid var(--yh-border-color-extra-light);
+
+    :html.dark & {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  @include e(audio-waveform) {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 16px;
+    flex: 1;
+
+    span {
+      width: 2px;
+      height: 60%;
+      background: currentColor;
+      border-radius: 1px;
+      opacity: 0.4;
+      animation: yh-waveform 1.2s ease-in-out infinite;
+      animation-play-state: paused;
+      animation-delay: var(--delay);
+
+      .is-active & {
+        animation-play-state: running;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @include e(audio-duration) {
+    font-size: 12px;
+    opacity: 0.7;
+    font-family: var(--yh-font-family-mono);
+  }
+
+  @include e(file-card) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: 10px;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: var(--yh-color-primary);
+      box-shadow: var(--yh-shadow-sm);
+    }
+  }
+
+  @include e(file-icon) {
+    width: 36px;
+    height: 36px;
+    background: var(--yh-fill-color-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yh-color-primary);
+    font-size: 20px;
+  }
+
+  @include e(file-info) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @include e(file-name) {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--yh-text-color-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(file-meta) {
+    font-size: 11px;
+    color: var(--yh-text-color-placeholder);
+    margin-top: 2px;
+  }
+
+  /* Citations Section - Correctly placed */
+  @include e(citations) {
+    margin-top: var(--yh-spacing-md);
+    padding-top: var(--yh-spacing-sm);
+    border-top: 1px solid var(--yh-border-color-lighter);
+    display: flex;
+    flex-direction: column;
+    gap: var(--yh-spacing-xs);
+  }
+
+  @include e(citations-title) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--yh-text-color-secondary);
+    font-weight: 500;
+  }
+
+  @include e(citations-count) {
+    background: var(--yh-fill-color-light);
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  @include e(citations-list) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @include e(citation-item) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 6px;
+    background: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+    color: var(--yh-text-color-primary);
+    max-width: 220px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: var(--yh-fill-color-light);
+      border-color: var(--yh-color-primary-light-5);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      @include e(citation-index) {
+        background: var(--yh-color-primary);
+        color: white;
+      }
+    }
+  }
+
+  @include e(citation-index) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    background: var(--yh-fill-color-dark);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(citation-text) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.9;
+  }
+
+  @include e(typing-indicator) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    span {
+      width: 4px;
+      height: 4px;
+      background-color: currentColor;
+      border-radius: 50%;
+      animation: yh-typing-bounce 1.4s infinite ease-in-out both;
+      &:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      &:nth-child(2) {
+        animation-delay: -0.16s;
+      }
     }
   }
 
@@ -198,73 +413,6 @@
     align-items: center;
     gap: 8px;
     margin-top: 4px;
-  }
-
-  @include e(typing-indicator) {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    height: 24px;
-    padding: 0 4px;
-
-    span {
-      width: 4px;
-      height: 4px;
-      background-color: currentColor;
-      border-radius: 50%;
-      animation: yh-typing-bounce 1.4s infinite ease-in-out both;
-
-      &:nth-child(1) {
-        animation-delay: -0.32s;
-      }
-      &:nth-child(2) {
-        animation-delay: -0.16s;
-      }
-      &:nth-child(3) {
-        animation-delay: 0s;
-      }
-    }
-  }
-
-  &.is-typing {
-    @include e(text) {
-      &::after {
-        content: '';
-        display: inline-block;
-        width: 2px;
-        height: 1.1em;
-        background-color: currentColor;
-        vertical-align: text-bottom;
-        margin-left: 4px;
-        animation: yh-blink 1s step-end infinite;
-      }
-    }
-
-    @include e(markdown) {
-      &::after {
-        display: none;
-      }
-      & > *:last-child::after {
-        content: '';
-        display: inline-block;
-        width: 2px;
-        height: 1.1em;
-        background-color: currentColor;
-        vertical-align: text-bottom;
-        margin-left: 4px;
-        animation: yh-blink 1s step-end infinite;
-      }
-    }
-  }
-}
-
-@keyframes yh-blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
   }
 }
 
@@ -281,6 +429,16 @@
   }
 }
 
+@keyframes yh-waveform {
+  0%,
+  100% {
+    height: 40%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
 @keyframes yh-fade-in-up {
   0% {
     opacity: 0;
@@ -290,4 +448,69 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* 引用专属独立悬浮卡片 (Teleported 到 Body) */
+.yh-ai-bubble__citation-tooltip-wrapper {
+  position: fixed;
+  padding-bottom: 10px; // 用于扩展触发范围和下边距
+  z-index: 9999;
+  pointer-events: auto;
+
+  .yh-ai-bubble__citation-tooltip {
+    min-width: 260px;
+    max-width: 380px;
+    background: var(--yh-bg-color-overlay, #ffffff);
+    border: 1px solid var(--yh-border-color-light, #ebeef5);
+    border-radius: var(--yh-border-radius-large, 8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    padding: 12px 16px;
+    position: relative;
+
+    // 小箭头
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 12px;
+      height: 12px;
+      background: inherit;
+      border-right: 1px solid var(--yh-border-color-light, #ebeef5);
+      border-bottom: 1px solid var(--yh-border-color-light, #ebeef5);
+    }
+  }
+
+  .yh-ai-bubble__citation-tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    color: var(--yh-text-color-secondary, #909399);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .yh-ai-bubble__citation-tooltip-body h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--yh-text-color-primary, #303133);
+  }
+}
+
+// 悬浮动画
+.yh-fade-in-scale-up-enter-active,
+.yh-fade-in-scale-up-leave-active {
+  transition:
+    opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: bottom center;
+}
+.yh-fade-in-scale-up-enter-from,
+.yh-fade-in-scale-up-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -85%) scale(0.95) !important; // 因为 Vue template setup binding 中有 translate 行内样式，覆盖之
 }

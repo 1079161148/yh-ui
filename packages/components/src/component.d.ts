@@ -165,6 +165,7 @@ declare module 'vue' {
     YhAiSender: typeof YhAiSender
     YhAiThoughtChain: typeof YhAiThoughtChain
     YhAiCodeBlock: typeof YhAiCodeBlock
+    YhAiVoiceTrigger: (typeof import('./ai-voice-trigger'))['YhAiVoiceTrigger']
   }
 
   export interface GlobalDirectives {

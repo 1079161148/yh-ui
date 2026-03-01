@@ -101,16 +101,21 @@ describe('useZIndex SSR', () => {
   })
 
   it('should increment z-index correctly in client', () => {
-    const wrapper = mount(TestComponent)
+    let z1, z2, z3
+    mount(
+      defineComponent({
+        setup() {
+          const { nextZIndex } = useZIndex()
+          z1 = nextZIndex()
+          z2 = nextZIndex()
+          z3 = nextZIndex()
+          return () => h('div')
+        }
+      })
+    )
 
-    const { nextZIndex } = useZIndex()
-
-    const z1 = nextZIndex()
-    const z2 = nextZIndex()
-    const z3 = nextZIndex()
-
-    expect(z2).toBe(z1 + 1)
-    expect(z3).toBe(z2 + 1)
+    expect(z2).toBe(z1! + 1)
+    expect(z3).toBe(z2! + 1)
   })
 
   it('should use window storage in client environment', () => {
@@ -145,10 +150,17 @@ describe('useZIndex SSR', () => {
   })
 
   it('should handle custom z-index override', () => {
-    const customZIndex = ref(9999)
-    const { nextZIndex } = useZIndex(customZIndex)
-
-    const z = nextZIndex()
+    let z = 0
+    mount(
+      defineComponent({
+        setup() {
+          const customZIndex = ref(9999)
+          const { nextZIndex } = useZIndex(customZIndex)
+          z = nextZIndex()
+          return () => h('div')
+        }
+      })
+    )
     expect(z).toBe(9999)
   })
 })

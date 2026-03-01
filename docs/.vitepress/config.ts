@@ -209,7 +209,9 @@ export default defineConfig({
             { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' },
             { text: 'AiWelcome', link: '/en/ai-components/ai-welcome' },
             { text: 'AiActionGroup', link: '/en/ai-components/ai-action-group' },
-            { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' }
+            { text: 'AiArtifacts', link: '/en/ai-components/ai-artifacts' },
+            { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' },
+            { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' }
           ]
         }
       ],
@@ -323,7 +325,9 @@ export default defineConfig({
             { text: 'AiThoughtChain 思维链', link: '/ai-components/ai-thought-chain' },
             { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' },
             { text: 'AiWelcome 欢迎页面', link: '/ai-components/ai-welcome' },
-            { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' }
+            { text: 'AiArtifacts 智能组件', link: '/ai-components/ai-artifacts' },
+            { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' },
+            { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' }
           ]
         }
       ],
