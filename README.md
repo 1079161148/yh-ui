@@ -48,6 +48,7 @@
 | 颜色算法        | ✅ **4 种**         | ❌           | ❌       |
 | Table 虚拟滚动  | ✅                  | 部分         | 部分     |
 | Table 打印/导出 | ✅ **CSV/XLSX/PDF** | ❌           | ❌       |
+| **AI 交互基础** | ✅ **完整套件**     | ❌           | ❌       |
 
 ## 🌟 核心亮点
 
@@ -101,6 +102,16 @@ export default defineNuxtConfig({
     locale: 'zh-CN'
   }
 })
+```
+
+### 🤖 工业级 AI 组件套件 (Next-Gen AI UI)
+
+```vue
+<template>
+  <yh-ai-provider :token="apiKey">
+    <yh-ai-chat :messages="messages" />
+  </yh-ai-provider>
+</template>
 ```
 
 ---
@@ -169,7 +180,7 @@ export default {
 ```
 yh-ui/
 ├── packages/
-│   ├── components/    # 61 个组件
+│   ├── components/    # 77 个组件 (含 16 个 AI 组件)
 │   ├── hooks/         # 11 个 Composition Hooks
 │   ├── icons/         # 图标系统
 │   ├── locale/        # 67 种国际化语言包

@@ -5,13 +5,38 @@ All notable changes to YH-UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.11] - 2026-03-01
 
-### Added
+### 🤖 新增 AI 工业级全套组件 (Alpha)
 
-- 完整的 GitHub Actions CI/CD 流水线（代码质量、测试覆盖率、构建验证、自动发布）
-- 单元测试覆盖所有核心组件（Button、Input、Form、Select、Dialog、Table 等）
-- **重大变更**: 主包名由 `yh-ui` 变更为 `@yh-ui/yh-ui` 以规避 npm 命名冲突防护机制。
+- **AiProvider**: AI 全局配置中心，支持 base-url、token 注入及打字机配置。
+- **AiChat**: 开箱即用的智能对话流容器。
+- **AiBubble**: 高性能对话气泡，支持多模态及思维链展示。
+- **AiSender**: 增强型 AI 输入框，内置附件上传与指令集支持。
+- **AiArtifacts**: AI 多版本工件管理系统。
+- **AiAgentCard / AiSources / AiThoughtChain**: 完善 Agent 的深度分析。
+- **AiWelcome / AiPrompts**: 提升落地后的首次交互引导。
+
+### 📄 文档与开发者体验
+
+- **文档三位一体标准**: 开发并应用 `demo-utils.ts` 实现文档示例的 TS/JS 100% 自动对齐转换。
+- **AiProvider 文档**: 完善的中英文档，包含身份配置及动态交互 Demo。
+- **i18n**: 补全所有 AI 组件的 67 种国际化词条，强制类型校验。
+
+### 🧪 稳定性与质量
+
+- **全量测试提升**: 覆盖所有 AI 组件的单测与 SSR 测试（312 个用例全部通过）。
+- **组件注册**: 完善 `component.d.ts` 为 Volar 提供精准的全局组件映射。
+- **Lint 修正**: 全量修复 AI 组件及测试目录中的 13 个重要 Lint 警告及错误。
+
+---
+
+## [0.1.10] - 2026-02-23
+
+### Fixed
+
+- 修复了若干 AI 交互场景下的 CSS 样式隔离问题。
+- 补全了部分包路径错误导致的构建失败问题。
 
 ---
 
@@ -127,7 +152,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 超越 Element Plus(43种)、Naive UI(25种)，与 Ant Design 持平。
 
-### 🔌 Nuxt 3 原生支持
+### 🔌 原生 Nuxt 3 支持
 
 提供 `@yh-ui/nuxt` 模块，零配置支持 SSR。
 
@@ -147,5 +172,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/1079161148/yh-ui/compare/v0.1.0...HEAD
+[0.1.11]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.11
+[0.1.10]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.10
 [0.1.0]: https://github.com/1079161148/yh-ui/releases/tag/v0.1.0
