@@ -27,8 +27,9 @@
     "dev": "unbuild --stub"
   },
   "dependencies": {
+    "@yh-ui/locale": "workspace:*",
     "@yh-ui/utils": "workspace:*",
-    "@yh-ui/locale": "workspace:*"
+    "dayjs": "catalog:"
   },
   "devDependencies": {
     "vue": "catalog:",

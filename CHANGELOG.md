@@ -5,6 +5,22 @@ All notable changes to YH-UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.12] - 2026-03-01
+
+### 🐛 Bug Fixes
+
+- **AiVoiceTrigger**: 修复波形动画 SCSS 样式不生效的问题，优化波形条 transform 动画表现
+- **AiBubble**: 修复气泡组件 SCSS 作用域样式隔离问题
+- **useLocale / dayjs-locale**: 修复 `Failed to load dayjs locale` 控制台警告，改用静态 import map 替代动态 import，彻底消除 Vite dev 下的 404 请求
+- **SSR**: 修复多处 `setInterval` / `setInterval` 在 SSR 环境下未被 `onMounted`/`onUnmounted` 包裹导致的进程挂起问题
+- **文档**: 修复 `ai-voice-trigger` 文档示例中 HTML 转义格式错误，补充与 `AiBubble` 组合使用的实战场景 Demo
+
+### 📦 依赖
+
+- 同步更新 `pnpm-lock.yaml` 及 `pnpm-workspace.yaml`
+
+---
+
 ## [0.1.11] - 2026-03-01
 
 ### 🤖 新增 AI 工业级全套组件 (Alpha)
@@ -172,6 +188,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.1.12]: https://github.com/1079161148/yh-ui/compare/v0.1.11...v0.1.12
 [0.1.11]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.11
 [0.1.10]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.10
 [0.1.0]: https://github.com/1079161148/yh-ui/releases/tag/v0.1.0

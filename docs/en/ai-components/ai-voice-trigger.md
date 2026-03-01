@@ -8,7 +8,7 @@ description: AiVoiceTrigger is a smart voice wake-up component featuring engagin
 An intelligent voice interaction component that provides a sleek, float-over experience and supports custom audio waveform tracking to showcase multi-modal feedback.
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils';
 
 const isRecordingBasic = ref(false);
@@ -16,11 +16,19 @@ const isRecordingBasic = ref(false);
 const isRecordingAmplitudes = ref(false);
 const amplitudes = ref<number[]>([10, 25, 15, 30, 20, 35, 10, 20, 15, 25, 15, 20]);
 
-setInterval(() => {
-  if(isRecordingAmplitudes.value) {
-     amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
-  }
-}, 100);
+let ampsTimer: ReturnType<typeof setInterval> | null = null;
+
+onMounted(() => {
+  ampsTimer = setInterval(() => {
+    if(isRecordingAmplitudes.value) {
+       amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
+    }
+  }, 100);
+});
+
+onUnmounted(() => {
+  if (ampsTimer) clearInterval(ampsTimer);
+});
 
 const isRecordingEvent = ref(false)
 
@@ -58,17 +66,25 @@ const tsAmplitudes = `<${_T}>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const isRecording = ref(false);
 const amplitudes = ref<number[]>([10, 25, 15, 30, 20, 35, 10, 20, 15, 25, 15, 20]);
 
-// Simulating real-time waveform feed
-setInterval(() => {
-  if(isRecording.value) {
-     amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
-  }
-}, 100);
+let timer: ReturnType<typeof setInterval> | null = null;
+
+onMounted(() => {
+  // Simulating real-time waveform feed
+  timer = setInterval(() => {
+    if(isRecording.value) {
+       amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
+    }
+  }, 100);
+});
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer);
+});
 </${_S}>`;
 
 const tsEvent = `<${_T}>

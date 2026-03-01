@@ -226,6 +226,9 @@ importers:
       '@yh-ui/utils':
         specifier: workspace:*
         version: link:../utils
+      dayjs:
+        specifier: ^1.11.19
+        version: 1.11.19
     devDependencies:
       vue:
         specifier: ^3.5.27

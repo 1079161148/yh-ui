@@ -8,7 +8,7 @@ description: AiVoiceTrigger 智能语音唤醒组件，提供炫酷的麦克风�
 智能语音唤醒组件，提供悬浮式交互体验，支持自定义音轨波形以展示多模态大模型的聆听反馈。
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils';
 
 const isRecordingBasic = ref(false);
@@ -16,11 +16,19 @@ const isRecordingBasic = ref(false);
 const isRecordingAmplitudes = ref(false);
 const amplitudes = ref<number[]>([10, 25, 15, 30, 20, 35, 10, 20, 15, 25, 15, 20]);
 
-setInterval(() => {
-  if(isRecordingAmplitudes.value) {
-     amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
-  }
-}, 100);
+let ampsTimer: ReturnType<typeof setInterval> | null = null;
+
+onMounted(() => {
+  ampsTimer = setInterval(() => {
+    if(isRecordingAmplitudes.value) {
+       amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
+    }
+  }, 100);
+});
+
+onUnmounted(() => {
+  if (ampsTimer) clearInterval(ampsTimer);
+});
 
 const isRecordingEvent = ref(false)
 
@@ -58,17 +66,25 @@ const tsAmplitudes = `<${_T}>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const isRecording = ref(false);
 const amplitudes = ref<number[]>([10, 25, 15, 30, 20, 35, 10, 20, 15, 25, 15, 20]);
 
-// 模拟实时波形数据接收
-setInterval(() => {
-  if(isRecording.value) {
-     amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
-  }
-}, 100);
+let timer: ReturnType<typeof setInterval> | null = null;
+
+onMounted(() => {
+  // 模拟实时波形数据接收
+  timer = setInterval(() => {
+    if(isRecording.value) {
+       amplitudes.value = Array.from({length: 12}, () => 10 + Math.random() * 25);
+    }
+  }, 100);
+});
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer);
+});
 </${_S}>`;
 
 const tsEvent = `<${_T}>

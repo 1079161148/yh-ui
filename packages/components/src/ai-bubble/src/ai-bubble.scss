@@ -2,14 +2,13 @@
 @use '@yh-ui/theme/styles/variables' as *;
 
 @include b(ai-bubble) {
-  --yh-ai-bubble-user-bg: var(--yh-ai-bubble-user-bg-color, var(--yh-color-primary));
-  --yh-ai-bubble-user-color: var(--yh-ai-bubble-user-text-color, var(--yh-color-white));
-  --yh-ai-bubble-assistant-bg: var(--yh-ai-bubble-assistant-bg-color, var(--yh-fill-color-light));
-  --yh-ai-bubble-assistant-color: var(
-    --yh-ai-bubble-assistant-text-color,
-    var(--yh-text-color-primary)
-  );
-  --yh-ai-bubble-border-radius: var(--yh-ai-bubble-border-radius, 12px);
+  // NOTE: 不使用自引用（cyclic）变量，cssVar: var(cssVar, fallback) 会造成循环依赖而失效
+  // themeOverrides 通过 inline style 覆盖这里的 block 定义
+  --yh-ai-bubble-user-bg: var(--yh-color-primary);
+  --yh-ai-bubble-user-color: var(--yh-color-white);
+  --yh-ai-bubble-assistant-bg: var(--yh-fill-color-light);
+  --yh-ai-bubble-assistant-color: var(--yh-text-color-primary);
+  --yh-ai-bubble-border-radius: 12px;
 
   display: flex;
   margin-bottom: var(--yh-spacing-lg);

@@ -1,17 +1,57 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
 @use '@yh-ui/theme/styles/variables' as *;
 
+// ─── Keyframe Animations (must be at top-level, not nested inside selectors) ───
+@keyframes yh-pulse-mic {
+  0% {
+    box-shadow: 0 0 0 0 var(--yh-ai-voice-trigger-active-color, #f56c6c);
+    opacity: 0.4;
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+    opacity: 0;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes yh-fade-breath {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+// ─── Vue Transition Classes (must be at top-level to match injected class names) ───
+.yh-voice-expand-enter-active,
+.yh-voice-expand-leave-active {
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.yh-voice-expand-enter-from,
+.yh-voice-expand-leave-to {
+  width: 0 !important;
+  padding: 0 !important;
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+// ─── Component Styles ───────────────────────────────────────────────────────
 @include b(ai-voice-trigger) {
-  --yh-ai-voice-trigger-btn-size: var(--yh-ai-voice-trigger-btn-size, 32px);
-  --yh-ai-voice-trigger-bg: var(--yh-ai-voice-trigger-bg, var(--yh-bg-color, #ffffff));
-  --yh-ai-voice-trigger-active-color: var(
-    --yh-ai-voice-trigger-active-color,
-    var(--yh-color-danger, #f56c6c)
-  );
-  --yh-ai-voice-trigger-wave-color: var(
-    --yh-ai-voice-trigger-wave-color,
-    var(--yh-color-danger, #f56c6c)
-  );
+  // NOTE: 不能使用自引用（cyclic），如 --x: var(--x, fallback），
+  // CSS 会将其视为循环依赖而失效。此处直接引用全局 Token 作为默认值。
+  // themeOverrides 通过 inline style 写在根元素上，可以覆盖这里的 block 级定义。
+  --yh-ai-voice-trigger-btn-size: 32px;
+  --yh-ai-voice-trigger-bg: var(--yh-bg-color-overlay, var(--yh-bg-color, #ffffff));
+  --yh-ai-voice-trigger-active-color: var(--yh-color-danger, #f56c6c);
+  --yh-ai-voice-trigger-wave-color: var(--yh-color-danger, #f56c6c);
 
   display: inline-flex;
   align-items: center;
@@ -126,44 +166,6 @@
       background: var(--yh-fill-color, #f0f2f5);
       opacity: 1;
       color: var(--yh-color-danger, #f56c6c);
-    }
-  }
-
-  /* Animations */
-  .yh-voice-expand-enter-active,
-  .yh-voice-expand-leave-active {
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .yh-voice-expand-enter-from,
-  .yh-voice-expand-leave-to {
-    width: 0;
-    padding: 0;
-    opacity: 0;
-    transform: translateX(10px);
-  }
-
-  @keyframes yh-pulse-mic {
-    0% {
-      box-shadow: 0 0 0 0 var(--yh-ai-voice-trigger-active-color);
-      opacity: 0.4;
-    }
-    70% {
-      box-shadow: 0 0 0 8px transparent;
-      opacity: 0;
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(245, 108, 108, 0);
-    }
-  }
-
-  @keyframes yh-fade-breath {
-    0%,
-    100% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
     }
   }
 }

@@ -1,17 +1,17 @@
 packages:
-  - 'packages/*'
-  - 'docs'
-  - 'playground'
-  - 'playground-nuxt'
+  - packages/*
+  - docs
+  - playground
+  - playground-nuxt
 
 catalog:
-  vue: ^3.5.27
-  vite: ^6.0.7
-  vitest: ^4.0.18
-  dayjs: ^1.11.19
   '@floating-ui/dom': ^1.7.4
-  async-validator: ^4.2.5
   '@vue/server-renderer': ^3.5.27
   '@vue/test-utils': ^2.4.6
-  vue-router: ^4.6.4
+  async-validator: ^4.2.5
+  dayjs: ^1.11.19
   typescript: ^5.7.3
+  vite: ^6.0.7
+  vitest: ^4.0.18
+  vue: ^3.5.27
+  vue-router: ^4.6.4

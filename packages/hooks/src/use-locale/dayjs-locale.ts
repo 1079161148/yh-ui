@@ -6,15 +6,16 @@ import * as _dayjs from 'dayjs'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dayjs = (_dayjs as any).default || _dayjs
 
-// 仅静态导入默认语言包
+// 仅静态导入默认语言包（en 永远不走动态加载）
 import 'dayjs/locale/en'
 
-// 使用 Vite 的 glob 导入所有可用语言包（按需加载）
-// 显式排除已静态导入的 en.js，解决打包冲突并减轻构建压力
-const dayjsLocales = import.meta.glob([
-  '../../../../node_modules/dayjs/locale/*.js',
-  '!../../../../node_modules/dayjs/locale/en.js'
-])
+// 使用 Vite 的 glob 导入所有可用语言包（按需懒加载）
+// 路径相对于当前文件，向上 4 层至 monorepo 根部 node_modules
+// 显式排除 en.js（已静态导入）
+const dayjsLocales = import.meta.glob(
+  ['../../../../node_modules/dayjs/locale/*.js', '!../../../../node_modules/dayjs/locale/en.js'],
+  { eager: false }
+)
 
 // 已加载的 locale 缓存（en 已默认注入）
 const loadedLocales = new Set<string>(['en'])
@@ -103,12 +104,19 @@ export const getDayjsLocale = (localeCode: string): string => {
 export const setDayjsLocale = async (localeCode: string): Promise<void> => {
   const dayjsLocale = getDayjsLocale(localeCode)
 
+  // 已经加载过，直接切换
   if (loadedLocales.has(dayjsLocale)) {
     dayjs.locale(dayjsLocale)
     return
   }
 
-  // 计算路径并获取 loader
+  // en 默认已经静态导入
+  if (dayjsLocale === 'en') {
+    dayjs.locale('en')
+    return
+  }
+
+  // 计算路径并获取 lazy loader
   const path = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`
   const loader = dayjsLocales[path]
 
@@ -118,16 +126,17 @@ export const setDayjsLocale = async (localeCode: string): Promise<void> => {
       loadedLocales.add(dayjsLocale)
       dayjs.locale(dayjsLocale)
     } catch {
-      console.warn(`[yh-ui] Failed to load dayjs locale content: ${dayjsLocale}`)
+      // 加载失败，静默降级到英文
       dayjs.locale('en')
     }
   } else {
+    // glob 未收录此 locale（极少数语言），静默降级
     dayjs.locale('en')
   }
 }
 
 /**
- * 同步设置 dayjs locale
+ * 同步设置 dayjs locale（立即生效，异步加载后会更新）
  */
 export const setDayjsLocaleSync = (localeCode: string): void => {
   const dayjsLocale = getDayjsLocale(localeCode)
