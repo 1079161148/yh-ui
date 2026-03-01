@@ -42,14 +42,15 @@ const { messages, isGenerating, sendMessage, clear } = useAiChat({
 </${_S}>`
 
 const tsStream = `<${_T}>
-  <div style="height: 520px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
+  <div style="height: 520px; border: 1px solid var(--yh-border-color); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden;">
     <yh-ai-chat 
+      style="flex: 1; min-height: 0;"
       :messages="messages" 
       :loading="isGenerating" 
       @send="sendMessage" 
       @clear="clear" 
     />
-    <div style="padding: 12px; border-top: 1px solid var(--yh-border-color); display: flex; gap: 8px;">
+    <div style="padding: 12px; border-top: 1px solid var(--yh-border-color); display: flex; gap: 8px; background: var(--yh-bg-color-page);">
       <yh-button type="danger" :disabled="!isGenerating" @click="stop">强制中断生成</yh-button>
     </div>
   </div>
@@ -114,7 +115,7 @@ const handleCreate = () => {
 </${_S}>`
 
 // ----- 以下是供页面真实运行使用的状态 -----
-import { useAiChat, useAiConversations } from '../../packages/hooks/src'
+import { useAiChat, useAiConversations } from '@yh-ui/hooks'
 
 const mockRequest = async (message: string, history: any[], abortSignal: AbortSignal) => {
   return new Promise<string>((resolve, reject) => {
@@ -184,14 +185,15 @@ const handleCreate = () => {
 并在调用 `stop()` API 的同时利用原生 `AbortController` 立即拦截接口和后续 DOM 的渲染。
 
 <DemoBlock title="流式生成与强制中止" :ts-code="tsStream" :js-code="toJs(tsStream)">
-  <div style="height: 520px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
+  <div style="height: 520px; border: 1px solid var(--yh-border-color); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden;">
     <yh-ai-chat 
+      style="flex: 1; min-height: 0;"
       :messages="chat2.messages.value" 
       :loading="chat2.isGenerating.value" 
       @send="chat2.sendMessage" 
       @clear="chat2.clear" 
     />
-    <div style="padding: 12px; border-top: 1px solid var(--yh-border-color); display: flex; gap: 8px;">
+    <div style="padding: 12px; border-top: 1px solid var(--yh-border-color); display: flex; gap: 8px; background: var(--yh-bg-color-page);">
       <yh-button type="danger" :disabled="!chat2.isGenerating.value" @click="chat2.stop">强制中断生成</yh-button>
     </div>
   </div>
@@ -204,22 +206,21 @@ const handleCreate = () => {
 
 <DemoBlock title="历史会话无头管理" :ts-code="tsConv" :js-code="toJs(tsConv)">
   <div style="display: flex; gap: 16px;">
-    <div style="width: 260px; border: 1px solid var(--yh-border-color); border-radius: 8px; padding: 12px;">
-      <div style="font-weight: bold; margin-bottom: 12px;">我的会话</div>
-      <yh-button type="primary" style="width: 100%; margin-bottom: 12px;" @click="handleCreate">新会话 +</yh-button>
-      <div 
-        v-for="conv in convHook.conversations.value" 
-        :key="conv.id" 
-        style="padding: 8px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; background: var(--yh-bg-color-page); display: flex; justify-content: space-between;"
-      >
-        <span>{{ conv.title }}</span>
-        <span @click.prevent="convHook.removeConversation(conv.id)" style="color: var(--yh-color-danger)">删除</span>
-      </div>
-    </div>
-    
-    <div style="flex: 1; border: 1px solid var(--yh-border-color); border-radius: 8px; padding: 24px; display: flex; align-items: center; justify-content: center;">
-      <span style="color: var(--yh-text-color-secondary)">左侧由 <code>useAiConversations</code> 管理</span>
-    </div>
+  <div style="width: 260px; border: 1px solid var(--yh-border-color); border-radius: 8px; padding: 12px;">
+  <div style="font-weight: bold; margin-bottom: 12px;">我的会话</div>
+  <yh-button type="primary" style="width: 100%; margin-bottom: 12px;" @click="handleCreate">新会话 +</yh-button>
+  <div 
+    v-for="conv in convHook.conversations.value" 
+    :key="conv.id" 
+    style="padding: 8px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; background: var(--yh-bg-color-page); display: flex; justify-content: space-between;"
+  >
+  <span>{{ conv.title }}</span>
+  <span @click.prevent="convHook.removeConversation(conv.id)" style="color: var(--yh-color-danger)">删除</span>
+  </div>
+  </div>
+  <div style="flex: 1; border: 1px solid var(--yh-border-color); border-radius: 8px; padding: 24px; display: flex; align-items: center; justify-content: center;">
+  <span style="color: var(--yh-text-color-secondary)">左侧由 <code>useAiConversations</code> 管理</span>
+  </div>
   </div>
 </DemoBlock>
 
