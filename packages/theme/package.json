@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/theme",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "YH-UI theme and design tokens",
   "type": "module",
   "main": "./dist/index.cjs",
