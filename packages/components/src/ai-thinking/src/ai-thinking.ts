@@ -1,28 +1,47 @@
+import type { ExtractPropTypes, PropType } from 'vue'
+
 export type AiThinkingStatus = 'start' | 'thinking' | 'end' | 'error'
 
-export interface AiThinkingProps {
+export const aiThinkingProps = {
   /**
    * @description 思考状态
    */
-  status?: AiThinkingStatus
+  status: {
+    type: String as PropType<AiThinkingStatus>,
+    default: 'thinking'
+  },
   /**
    * @description 思考标题
    */
-  title?: string
+  title: String,
   /**
    * @description 思考详情内容
    */
-  content?: string
+  content: String,
   /**
    * @description 是否展开详情 (v-model)
    */
-  modelValue?: boolean
+  modelValue: Boolean,
   /**
    * @description 完成后是否自动收起
    */
-  autoCollapse?: boolean
+  autoCollapse: {
+    type: Boolean,
+    default: true
+  },
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
+  }
+} as const
+
+export type AiThinkingProps = ExtractPropTypes<typeof aiThinkingProps>
+
+export const aiThinkingEmits = {
+  'update:modelValue': (value: boolean) => typeof value === 'boolean'
 }
 
-export interface AiThinkingEmits {
-  (e: 'update:modelValue', value: boolean): void
-}
+export type AiThinkingEmits = typeof aiThinkingEmits

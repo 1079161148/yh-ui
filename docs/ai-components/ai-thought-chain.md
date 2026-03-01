@@ -59,21 +59,11 @@ const thoughtSteps = ref([
 </div>
 </DemoBlock>
 
-## 多节点时间轴
-
-通过 `items` 属性传入步骤列表，展示完整的思维链路。
-
 <DemoBlock title="多节点时间轴" :ts-code="tsTimeline" :js-code="toJs(tsTimeline)">
 <div style="background:var(--yh-bg-color-page); padding:24px;">
   <yh-ai-thought-chain :items="thoughtSteps" :line-gradient="true" />
 </div>
 </DemoBlock>
-
-## 在 Nuxt 中使用
-
-折叠展开思维链的行为可完美衔接至各种异步流，其客户端状态变更在 Nuxt 的挂载阶段兼容稳定。
-
-有关详细配置和使用方法，请阅读 [Nuxt 集成文档](/guide/nuxt)。
 
 ## API
 
@@ -105,13 +95,19 @@ const thoughtSteps = ref([
 | ------- | ---------------------- |
 | default | 单节点模式下的内容区域 |
 
+## 在 Nuxt 中使用
+
+该组件完美支持 Nuxt 3/4。在 Nuxt 项目中，组件会被自动按需导入。
+
+有关详细配置，请阅读 [Nuxt 集成文档](/guide/nuxt)。
+
 ## 主题变量
 
-思维链组件 `YhAiThoughtChain` 深度集成了全球化设计体系：
+思维链组件 `YhAiThoughtChain` 深度集成了全球化设计体系。
 
-**AI 思维链局部 CSS 变量指引**
-
-| 变量名                               | 默认值                           |
-| ------------------------------------ | -------------------------------- |
-| `--yh-ai-thought-chain-line-color`   | `var(--yh-border-color-lighter)` |
-| `--yh-ai-thought-chain-active-color` | `var(--yh-color-primary)`        |
+| 变量名                                 | 说明             | 默认值                           |
+| -------------------------------------- | ---------------- | -------------------------------- |
+| `--yh-ai-thought-chain-line-color`     | 引导线颜色       | `var(--yh-border-color-lighter)` |
+| `--yh-ai-thought-chain-active-color`   | 活跃状态时的颜色 | `var(--yh-color-primary)`        |
+| `--yh-ai-thought-chain-content-bg`     | 内容区域背景色   | `var(--yh-fill-color-light)`     |
+| `--yh-ai-thought-chain-content-radius` | 内容区域圆角     | `8px`                            |

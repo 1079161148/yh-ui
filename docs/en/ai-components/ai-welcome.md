@@ -2,10 +2,6 @@
 
 `AiWelcome` is a component designed for the start page of AI chat conversations, providing a friendly first impression and interaction guide through beautiful gradients and glassmorphism design.
 
-## Basic Usage
-
-Display Logo, title, and a list of suggested Prompts.
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
@@ -105,6 +101,22 @@ You can customize the Logo icon or completely customize the header content throu
   </YhAiWelcome>
 </DemoBlock>
 
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
+
+## Theme Variables
+
+| Variable Name                      | Description                | Default Value                                                       |
+| ---------------------------------- | -------------------------- | ------------------------------------------------------------------- |
+| `--yh-ai-welcome-padding`          | Container padding          | `var(--yh-spacing-xl)`                                              |
+| `--yh-ai-welcome-max-width`        | Max width                  | `800px`                                                             |
+| `--yh-ai-welcome-primary-gradient` | Brand gradient color       | `linear-gradient(135deg, var(--yh-color-primary) 0%, #a855f7 100%)` |
+| `--yh-ai-welcome-card-bg`          | Suggestion card background | `var(--yh-bg-color-overlay)`                                        |
+| `--yh-ai-welcome-card-radius`      | Card border radius         | `var(--yh-border-radius-base)`                                      |
+
 ## API
 
 ### Props
@@ -140,12 +152,3 @@ You can customize the Logo icon or completely customize the header content throu
 | `icon`        | Custom Logo           |
 | `title`       | Custom Title          |
 | `description` | Custom Description    |
-
-## Theme Variables
-
-| Variable Name                      | Default Value                                                       |
-| ---------------------------------- | ------------------------------------------------------------------- |
-| `--yh-ai-welcome-padding`          | `var(--yh-spacing-xl)`                                              |
-| `--yh-ai-welcome-max-width`        | `800px`                                                             |
-| `--yh-ai-welcome-primary-gradient` | `linear-gradient(135deg, var(--yh-color-primary) 0%, #a855f7 100%)` |
-| `--yh-ai-welcome-card-bg`          | `var(--yh-bg-color-overlay)`                                        |

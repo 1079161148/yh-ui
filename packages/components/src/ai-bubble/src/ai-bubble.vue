@@ -287,7 +287,7 @@ const handleTooltipLeave = () => {
           </div>
 
           <slot>
-            <!-- eslint-disable-next-line vue/no-v-html -->
+            <!-- eslint-disable vue/no-v-html -->
             <div
               v-if="markdown"
               :class="[ns.e('text'), ns.e('markdown')]"
@@ -295,6 +295,7 @@ const handleTooltipLeave = () => {
               @mouseover="handleCitationHover"
               @mouseout="handleCitationLeave"
             ></div>
+            <!-- eslint-enable vue/no-v-html -->
             <div v-else :class="ns.e('text')">{{ content }}</div>
           </slot>
 

@@ -314,3 +314,18 @@ By combining the `AiVoiceTrigger` and `AiBubble` components, we can easily build
 | Slot Name | Description                                             | Parameters |
 | --------- | ------------------------------------------------------- | ---------- |
 | default   | Placeholder label text accompanying the minimal mic dot | —          |
+
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
+
+## Theme Variables
+
+| Variable Name                        | Description                   | Default Value                |
+| ------------------------------------ | ----------------------------- | ---------------------------- |
+| `--yh-ai-voice-trigger-btn-size`     | Button size                   | `48px`                       |
+| `--yh-ai-voice-trigger-active-color` | Active color during recording | `var(--yh-color-primary)`    |
+| `--yh-ai-voice-trigger-wave-color`   | Waveform color                | `var(--yh-color-primary)`    |
+| `--yh-ai-voice-trigger-bg`           | Panel background color        | `var(--yh-bg-color-overlay)` |

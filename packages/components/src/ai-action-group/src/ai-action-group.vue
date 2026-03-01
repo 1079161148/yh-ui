@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { computed } from 'vue'
-import { aiActionGroupProps, type ActionItem } from './ai-action-group'
+import { aiActionGroupProps, aiActionGroupEmits, type ActionItem } from './ai-action-group'
 import { YhIcon } from '../../icon'
 import { YhTooltip } from '../../tooltip'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhAiActionGroup'
 })
 
 const props = defineProps(aiActionGroupProps)
-const emit = defineEmits<{
-  (e: 'click', key: string, item: ActionItem): void
-}>()
+const emit = defineEmits(aiActionGroupEmits)
 
 const ns = useNamespace('ai-action-group')
 const { t } = useLocale()
+const { themeStyle } = useComponentTheme('ai-action-group', props.themeOverrides)
 
 // 默认图标映射
 const defaultIcons: Record<string, string> = {
@@ -66,7 +66,7 @@ const handleClick = (item: ActionItem) => {
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(direction), ns.m(size)]">
+  <div :class="[ns.b(), ns.m(direction), ns.m(size)]" :style="themeStyle">
     <template v-for="(item, index) in actionItems" :key="index">
       <div :class="[ns.e('item'), ns.is('disabled', item.disabled)]" @click="handleClick(item)">
         <!-- 使用 Tooltip 装饰 -->

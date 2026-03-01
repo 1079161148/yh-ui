@@ -228,4 +228,19 @@ By setting `mode="inline"`, the component will appear as a standard block elemen
 | Name             | Description                      | Parameters                     |
 | ---------------- | -------------------------------- | ------------------------------ |
 | `version-change` | Triggered when switching version | `(v: ArtifactVersion) => void` |
-| `close`          | Triggered on panel close         | —                              |
+| `close`          | Emitted when closing the panel   | —                              |
+
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
+
+## Theme Variables
+
+| Variable Name                     | Description            | Default Value                    |
+| --------------------------------- | ---------------------- | -------------------------------- |
+| `--yh-ai-artifacts-bg`            | Panel background color | `var(--yh-bg-color)`             |
+| `--yh-ai-artifacts-header-height` | Header height          | `56px`                           |
+| `--yh-ai-artifacts-border-color`  | Divider color          | `var(--yh-border-color-lighter)` |
+| `--yh-ai-artifacts-shadow`        | Panel shadow           | `var(--yh-box-shadow-light)`     |

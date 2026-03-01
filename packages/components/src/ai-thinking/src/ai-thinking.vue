@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { computed, watch } from 'vue'
-import type { AiThinkingProps, AiThinkingEmits } from './ai-thinking'
 import { YhIcon } from '../../icon'
+
+import { aiThinkingProps, aiThinkingEmits } from './ai-thinking'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhAiThinking'
 })
 
-const props = withDefaults(defineProps<AiThinkingProps>(), {
-  status: 'thinking',
-  title: '',
-  content: '',
-  modelValue: false,
-  autoCollapse: false
-})
-
-const emit = defineEmits<AiThinkingEmits>()
+const props = defineProps(aiThinkingProps)
+const emit = defineEmits(aiThinkingEmits)
 const ns = useNamespace('ai-thinking')
 const { t } = useLocale()
+const { themeStyle } = useComponentTheme('ai-thinking', props.themeOverrides)
 
 const isExpanded = computed({
   get: () => props.modelValue,
@@ -71,7 +67,7 @@ const toggleExpand = () => {
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(status), ns.is('expanded', isExpanded)]">
+  <div :class="[ns.b(), ns.m(status), ns.is('expanded', isExpanded)]" :style="themeStyle">
     <div :class="ns.e('header')" @click="toggleExpand">
       <div :class="ns.e('icon-wrapper')">
         <YhIcon

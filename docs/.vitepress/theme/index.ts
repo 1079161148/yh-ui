@@ -143,6 +143,8 @@ import {
   YhAiEditorSender,
   YhAiArtifacts,
   YhAiVoiceTrigger,
+  YhAiConversations,
+  YhAiPrompts,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -277,6 +279,8 @@ export default {
     app.component('YhAiEditorSender', YhAiEditorSender)
     app.component('YhAiArtifacts', YhAiArtifacts)
     app.component('YhAiVoiceTrigger', YhAiVoiceTrigger)
+    app.component('YhAiConversations', YhAiConversations)
+    app.component('YhAiPrompts', YhAiPrompts)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

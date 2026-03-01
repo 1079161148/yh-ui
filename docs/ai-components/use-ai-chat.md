@@ -2,7 +2,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { AiChatMessage } from '@yh-ui/hooks'
 import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+
 
 const tsBasic = `<${_T}>
   <div style="height: 480px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
@@ -18,11 +20,13 @@ const tsBasic = `<${_T}>
 
 <${_S} setup lang="ts">
 import { useAiChat } from '@yh-ui/hooks'
+import type { AiChatMessage } from '@yh-ui/hooks'
+
 
 // 模拟后端的 AI 流式 / 异步响应适配器
-const mockRequest = async (message: string, history: any[], abortSignal: AbortSignal) => {
+const mockRequest = async (message: string, history: AiChatMessage[], abortSignal: AbortSignal) => {
   return new Promise<string>((resolve, reject) => {
-    let timeout: any
+    let timeout: ReturnType<typeof setTimeout> | undefined
     // 监听打断事件
     abortSignal.addEventListener('abort', () => {
       clearTimeout(timeout)
@@ -60,7 +64,7 @@ const tsStream = `<${_T}>
 import { useAiChat } from '@yh-ui/hooks'
 
 // 模拟纯正的 Generator 流式（打字机）
-const mockStreamRequest = async function* (message: string, history: any[], abortSignal: AbortSignal) {
+const mockStreamRequest = async function* (message: string, history: AiChatMessage[], abortSignal: AbortSignal) {
   const chars = ('基于您的提问 [' + message + ']，下面是我实时流式生成的思考过程：\n\n' + '我是一只在前端漫游的人工智能，很高兴为您服务。').split('')
   
   for (let i = 0; i < chars.length; i++) {
@@ -117,9 +121,9 @@ const handleCreate = () => {
 // ----- 以下是供页面真实运行使用的状态 -----
 import { useAiChat, useAiConversations } from '@yh-ui/hooks'
 
-const mockRequest = async (message: string, history: any[], abortSignal: AbortSignal) => {
+const mockRequest = async (message: string, history: AiChatMessage[], abortSignal: AbortSignal) => {
   return new Promise<string>((resolve, reject) => {
-    let timeout: any
+    let timeout: ReturnType<typeof setTimeout> | undefined
     abortSignal.addEventListener('abort', () => {
       clearTimeout(timeout)
       reject(new DOMException('Aborted', 'AbortError'))
@@ -133,7 +137,7 @@ const mockRequest = async (message: string, history: any[], abortSignal: AbortSi
 
 const chat1 = useAiChat({ request: mockRequest })
 
-const mockStreamRequest = async function* (message: string, history: any[], abortSignal: AbortSignal) {
+const mockStreamRequest = async function* (message: string, history: AiChatMessage[], abortSignal: AbortSignal) {
   const chars = ('基于您的提问 [' + message + ']，下面是我实时流式生成的思考过程：\n\n' + '我是一只在前端漫游的人工智能，很高兴为您服务。').split('')
   
   for (let i = 0; i < chars.length; i++) {

@@ -294,10 +294,28 @@ export interface TreeThemeVars extends ComponentThemeVars {
 
 /** Mention 组件主题变量 */
 export interface MentionThemeVars extends ComponentThemeVars {
-  dropdownShadow?: string
-  dropdownBgColor?: string
   optionHoverBgColor?: string
   optionActiveTextColor?: string
+}
+
+/** AiConversations 组件主题变量 */
+export interface AiConversationsThemeVars extends ComponentThemeVars {
+  headerPadding?: string
+  itemPadding?: string
+  activeBgColor?: string
+  activeTextColor?: string
+  hoverBgColor?: string
+  titleFontSize?: string
+  timeFontSize?: string
+}
+
+/** AiPrompts 组件主题变量 */
+export interface AiPromptsThemeVars extends ComponentThemeVars {
+  headerFontSize?: string
+  itemMinHeight?: string
+  iconSize?: string
+  itemHoverBgColor?: string
+  itemActiveBorderColor?: string
 }
 
 // ==================== 导出所有组件主题类型 ====================
@@ -320,6 +338,8 @@ export interface AllComponentThemes {
   calendar?: CalendarThemeVars
   tree?: TreeThemeVars
   mention?: MentionThemeVars
+  aiConversations?: AiConversationsThemeVars
+  aiPrompts?: AiPromptsThemeVars
   [key: string]: ComponentThemeVars | undefined
 }
 

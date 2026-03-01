@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { useNamespace } from '@yh-ui/hooks'
-import { aiWelcomeProps, type AiSuggestion } from './ai-welcome'
+import { aiWelcomeProps, aiWelcomeEmits, type AiSuggestion } from './ai-welcome'
 import { YhIcon } from '../../icon'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhAiWelcome'
 })
 
-defineProps(aiWelcomeProps)
-const emit = defineEmits<{
-  (e: 'select', suggestion: AiSuggestion): void
-}>()
-
+const props = defineProps(aiWelcomeProps)
+const emit = defineEmits(aiWelcomeEmits)
 const ns = useNamespace('ai-welcome')
+const { themeStyle } = useComponentTheme('ai-welcome', props.themeOverrides)
 
 const handleSelect = (suggestion: AiSuggestion) => {
   emit('select', suggestion)
@@ -20,7 +19,7 @@ const handleSelect = (suggestion: AiSuggestion) => {
 </script>
 
 <template>
-  <div :class="ns.b()">
+  <div :class="ns.b()" :style="themeStyle">
     <!-- Header -->
     <div :class="ns.e('header')">
       <!-- Icon/Logo Area -->

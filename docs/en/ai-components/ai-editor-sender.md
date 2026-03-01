@@ -154,6 +154,22 @@ Through `toolbar` and `actions` slots, you can freely extend the business logic 
   </div>
 </DemoBlock>
 
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
+
+## Theme Variables
+
+| Variable Name                        | Description            | Default Value                       |
+| ------------------------------------ | ---------------------- | ----------------------------------- |
+| `--yh-ai-editor-sender-bg`           | Panel background color | `var(--yh-bg-color-overlay)`        |
+| `--yh-ai-editor-sender-radius`       | Border radius          | `12px`                              |
+| `--yh-ai-editor-sender-border`       | Border style           | `1px solid var(--yh-border-color)`  |
+| `--yh-ai-editor-sender-shadow`       | Panel shadow           | `0 4px 16px rgba(0, 0, 0, 0.08)`    |
+| `--yh-ai-editor-sender-focus-border` | Focus border style     | `1px solid var(--yh-color-primary)` |
+
 ## API
 
 ### Props
@@ -187,13 +203,3 @@ Through `toolbar` and `actions` slots, you can freely extend the business logic 
 | `toolbar` | Bottom left shortcut toolbar slot                                             |
 | `actions` | Bottom right additional operation slot (after word count, before send button) |
 | `submit`  | Custom send button                                                            |
-
-## Theme Variables
-
-| Variable                             | Default                             |
-| ------------------------------------ | ----------------------------------- |
-| `--yh-ai-editor-sender-bg`           | `var(--yh-bg-color-overlay)`        |
-| `--yh-ai-editor-sender-radius`       | `12px`                              |
-| `--yh-ai-editor-sender-border`       | `1px solid var(--yh-border-color)`  |
-| `--yh-ai-editor-sender-shadow`       | `0 4px 16px rgba(0, 0, 0, 0.08)`    |
-| `--yh-ai-editor-sender-focus-border` | `1px solid var(--yh-color-primary)` |

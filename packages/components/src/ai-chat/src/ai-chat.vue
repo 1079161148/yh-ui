@@ -1,25 +1,23 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, watch, nextTick } from 'vue'
-import type { AiChatProps, AiChatEmits } from './ai-chat'
 import YhAiSender from '../../ai-sender/src/ai-sender.vue'
 import YhAiBubble from '../../ai-bubble/src/ai-bubble.vue'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
 
+import { aiChatProps, aiChatEmits } from './ai-chat'
+import { useComponentTheme } from '@yh-ui/theme'
+
 defineOptions({
   name: 'YhAiChat'
 })
 
-const props = withDefaults(defineProps<AiChatProps>(), {
-  messages: () => [],
-  suggestions: () => [],
-  loading: false
-})
-
-const emit = defineEmits<AiChatEmits>()
+const props = defineProps(aiChatProps)
+const emit = defineEmits(aiChatEmits)
 const ns = useNamespace('ai-chat')
 const { t } = useLocale()
+const { themeStyle } = useComponentTheme('ai-chat', props.themeOverrides)
 
 const contentRef = ref<HTMLElement>()
 
@@ -46,7 +44,7 @@ const handleClear = () => {
 </script>
 
 <template>
-  <div :class="ns.b()">
+  <div :class="ns.b()" :style="themeStyle">
     <!-- Header Tools (optional) -->
     <div :class="ns.e('header')" v-if="$slots.header || props.messages.length > 0">
       <slot name="header">
@@ -84,7 +82,7 @@ const handleClear = () => {
           <YhAiBubble
             :content="msg.content"
             :role="msg.role"
-            :loading="msg.status === 'loading'"
+            :loading="msg.status === 'generating' || msg.status === 'loading'"
             :variant="msg.role === 'assistant' ? 'borderless' : 'filled'"
             :time="msg.time"
             :markdown="true"
@@ -99,7 +97,8 @@ const handleClear = () => {
           props.loading &&
           (!props.messages.length ||
             props.messages[props.messages.length - 1].role !== 'assistant' ||
-            props.messages[props.messages.length - 1].status !== 'loading')
+            (props.messages[props.messages.length - 1].status !== 'generating' &&
+              props.messages[props.messages.length - 1].status !== 'loading'))
         "
       >
         <YhAiBubble role="assistant" loading typing variant="borderless" />

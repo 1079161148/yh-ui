@@ -1,25 +1,20 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed, watch } from 'vue'
-import type { AiThoughtChainProps, AiThoughtStatus } from './ai-thought-chain'
+import type { AiThoughtStatus } from './ai-thought-chain'
 import { YhIcon } from '../../icon'
+
+import { aiThoughtChainProps } from './ai-thought-chain'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhAiThoughtChain'
 })
 
-const props = withDefaults(defineProps<AiThoughtChainProps>(), {
-  title: '',
-  thinking: undefined,
-  content: '',
-  status: 'none',
-  items: () => [],
-  autoCollapse: false,
-  dotSize: 'default'
-})
-
+const props = defineProps(aiThoughtChainProps)
 const ns = useNamespace('ai-thought-chain')
 const { t } = useLocale()
+const { themeStyle } = useComponentTheme('ai-thought-chain', props.themeOverrides)
 const isExpanded = ref(false)
 
 // 跟踪每个节点的展开状态
@@ -98,6 +93,7 @@ const toggleItemExpand = (index: number) => {
       ns.is('thinking', currentStatus === 'thinking' || currentStatus === 'loading'),
       ns.is('timeline', items && items.length > 0)
     ]"
+    :style="themeStyle"
   >
     <!-- 多节点时间轴模式 -->
     <template v-if="items && items.length > 0">

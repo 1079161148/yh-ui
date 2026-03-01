@@ -60,11 +60,32 @@ import type { YhTree, YhTreeNode } from './tree'
 import type { YhCountdown } from './countdown'
 import type { YhTable, YhTableColumn } from './table'
 import type { YhLoading } from './loading'
+import type { YhSpace } from './space'
+import type { YhAvatar } from './avatar'
+import type { YhEmpty } from './empty'
+import type {
+  YhTypographyTitle,
+  YhTypographyText,
+  YhTypographyParagraph,
+  YhTypographyLink
+} from './typography'
+import type { YhContainer, YhHeader, YhAside, YhMain, YhFooter } from './container'
+import type { YhResult } from './result'
+import type { YhGrid, YhGridItem } from './grid'
+import type { YhMention } from './mention'
 import type { YhAiChat } from './ai-chat'
 import type { YhAiBubble } from './ai-bubble'
 import type { YhAiSender } from './ai-sender'
 import type { YhAiThoughtChain } from './ai-thought-chain'
 import type { YhAiCodeBlock } from './ai-code-block'
+import type { YhAiThinking } from './ai-thinking'
+import type { YhAiWelcome } from './ai-welcome'
+import type { YhAiActionGroup } from './ai-action-group'
+import type { YhAiEditorSender } from './ai-editor-sender'
+import type { YhAiArtifacts } from './ai-artifacts'
+import type { YhAiVoiceTrigger } from './ai-voice-trigger'
+import type { YhAiConversations } from './ai-conversations'
+import type { YhAiPrompts } from './ai-prompts'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -72,10 +93,24 @@ declare module 'vue' {
     YhButton: typeof YhButton
     YhIcon: typeof YhIcon
     YhDivider: typeof YhDivider
+    YhSpace: typeof YhSpace
+    YhAvatar: typeof YhAvatar
+    YhEmpty: typeof YhEmpty
+    YhTypographyTitle: typeof YhTypographyTitle
+    YhTypographyText: typeof YhTypographyText
+    YhTypographyParagraph: typeof YhTypographyParagraph
+    YhTypographyLink: typeof YhTypographyLink
 
     // =================== 布局组件 ===================
     YhRow: typeof YhRow
     YhCol: typeof YhCol
+    YhContainer: typeof YhContainer
+    YhHeader: typeof YhHeader
+    YhAside: typeof YhAside
+    YhMain: typeof YhMain
+    YhFooter: typeof YhFooter
+    YhGrid: typeof YhGrid
+    YhGridItem: typeof YhGridItem
 
     // =================== 表单组件 ===================
     YhInput: typeof YhInput
@@ -105,6 +140,7 @@ declare module 'vue' {
     YhForm: typeof YhForm
     YhFormItem: typeof YhFormItem
     YhFormSchema: typeof YhFormSchema
+    YhMention: typeof YhMention
 
     // =================== 数据展示 ===================
     YhTag: typeof YhTag
@@ -136,6 +172,7 @@ declare module 'vue' {
     YhPopconfirm: typeof YhPopconfirm
     YhSpin: typeof YhSpin
     YhLoading: typeof YhLoading
+    YhResult: typeof YhResult
 
     // =================== 导航组件 ===================
     YhBreadcrumb: typeof YhBreadcrumb
@@ -165,7 +202,14 @@ declare module 'vue' {
     YhAiSender: typeof YhAiSender
     YhAiThoughtChain: typeof YhAiThoughtChain
     YhAiCodeBlock: typeof YhAiCodeBlock
-    YhAiVoiceTrigger: (typeof import('./ai-voice-trigger'))['YhAiVoiceTrigger']
+    YhAiThinking: typeof YhAiThinking
+    YhAiWelcome: typeof YhAiWelcome
+    YhAiActionGroup: typeof YhAiActionGroup
+    YhAiEditorSender: typeof YhAiEditorSender
+    YhAiArtifacts: typeof YhAiArtifacts
+    YhAiVoiceTrigger: typeof YhAiVoiceTrigger
+    YhAiConversations: typeof YhAiConversations
+    YhAiPrompts: typeof YhAiPrompts
   }
 
   export interface GlobalDirectives {

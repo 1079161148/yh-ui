@@ -61,12 +61,6 @@ const tsAutoCollapse = `<${_T}>
 </div>
 </DemoBlock>
 
-## 在 Nuxt 中使用
-
-该组件全面支持 Nuxt 3/4 SSR 渲染。在 Nuxt 项目中组件会自动按需导入，无需手动注册。
-
-有关详细配置和使用方法，请阅读 [Nuxt 集成文档](/guide/nuxt)。
-
 ## API
 
 ### Props
@@ -85,13 +79,18 @@ const tsAutoCollapse = `<${_T}>
 | ------- | ------------------ |
 | default | 自定义详情显示内容 |
 
+## 在 Nuxt 中使用
+
+该组件完美支持 Nuxt 3/4。在 Nuxt 项目中，组件会被自动按需导入。
+
+有关详细配置，请阅读 [Nuxt 集成文档](/guide/nuxt)。
+
 ## 主题变量
 
-AiThinking 采用了紧致的布局设计，旨在于消息流中占用最小的空间并提供最大的信息清晰度：
+AiThinking 采用了紧致的布局设计，旨在以最小的空间提供清晰的思维状态。
 
-**AI 思考组件 CSS 变量**
-
-| 变量名                           | 默认值                       |
-| -------------------------------- | ---------------------------- |
-| `--yh-ai-thinking-bg`            | `var(--yh-fill-color-light)` |
-| `--yh-ai-thinking-border-radius` | `8px`                        |
+| 变量名                           | 说明           | 默认值                       |
+| -------------------------------- | -------------- | ---------------------------- |
+| `--yh-ai-thinking-bg`            | 思考内容背景色 | `var(--yh-fill-color-light)` |
+| `--yh-ai-thinking-border-radius` | 圆角大小       | `8px`                        |
+| `--yh-ai-thinking-icon-color`    | 状态图标颜色   | `var(--yh-color-primary)`    |

@@ -206,7 +206,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'AiActionGroup',
       'AiEditorSender',
       'AiArtifacts',
-      'AiVoiceTrigger'
+      'AiVoiceTrigger',
+      'AiConversations',
+      'AiPrompts'
     ]
 
     components.forEach((name) => {

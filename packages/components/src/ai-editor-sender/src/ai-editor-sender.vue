@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import { useNamespace } from '@yh-ui/hooks'
 import { ref, computed, nextTick, watch } from 'vue'
-import { aiEditorSenderProps, type AttachmentItem } from './ai-editor-sender'
+import { aiEditorSenderProps, aiEditorSenderEmits, type AttachmentItem } from './ai-editor-sender'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
+import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
   name: 'YhAiEditorSender'
 })
 
 const props = defineProps(aiEditorSenderProps)
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-  (e: 'send', value: string): void
-  (e: 'change', value: string): void
-  (e: 'remove-attachment', index: number, item: AttachmentItem): void
-  (e: 'clear'): void
-}>()
+const emit = defineEmits(aiEditorSenderEmits)
 
 const ns = useNamespace('ai-editor-sender')
+const { themeStyle } = useComponentTheme('ai-editor-sender', props.themeOverrides)
 
 const textareaRef = ref<HTMLTextAreaElement>()
 const localValue = ref(props.modelValue)
@@ -32,8 +28,8 @@ watch(
 )
 
 const innerValue = computed({
-  get: () => localValue.value,
-  set: (val) => {
+  get: () => localValue.value as string,
+  set: (val: string) => {
     localValue.value = val
     emit('update:modelValue', val)
     emit('change', val)
@@ -87,6 +83,7 @@ const handleRemoveAttachment = (index: number, item: AttachmentItem) => {
       ns.is('loading', loading),
       ns.is('focused', isFocused)
     ]"
+    :style="themeStyle"
   >
     <!-- Header (Attachments bar) -->
     <div

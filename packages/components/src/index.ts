@@ -91,6 +91,8 @@ import { YhAiActionGroup } from './ai-action-group'
 import { YhAiEditorSender } from './ai-editor-sender'
 import { YhAiArtifacts } from './ai-artifacts'
 import { YhAiVoiceTrigger } from './ai-voice-trigger'
+import { YhAiConversations } from './ai-conversations'
+import { YhAiPrompts } from './ai-prompts'
 
 // 导出所有组件
 export * from './button'
@@ -173,6 +175,8 @@ export * from './ai-action-group'
 export * from './ai-editor-sender'
 export * from './ai-artifacts'
 export * from './ai-voice-trigger'
+export * from './ai-conversations'
+export * from './ai-prompts'
 
 // 所有组件列表
 const components = [
@@ -281,7 +285,9 @@ const components = [
   YhAiActionGroup,
   YhAiEditorSender,
   YhAiArtifacts,
-  YhAiVoiceTrigger
+  YhAiVoiceTrigger,
+  YhAiConversations,
+  YhAiPrompts
 ] as Plugin[]
 
 /**

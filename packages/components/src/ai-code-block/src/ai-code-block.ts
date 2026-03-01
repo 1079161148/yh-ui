@@ -1,22 +1,44 @@
-export interface AiCodeBlockProps {
+import type { ExtractPropTypes, PropType } from 'vue'
+
+export const aiCodeBlockProps = {
   /**
    * @description 代码语言
    */
-  language?: string
+  language: {
+    type: String,
+    default: 'text'
+  },
   /**
    * @description 代码内容
    */
-  code?: string
+  code: {
+    type: String,
+    default: ''
+  },
   /**
    * @description 文件名称
    */
-  filename?: string
+  filename: String,
   /**
    * @description 是否高亮显示
    */
-  highlight?: boolean
+  highlight: {
+    type: Boolean,
+    default: true
+  },
+  /**
+   * @description 主题覆盖变量
+   */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
+  }
+} as const
+
+export type AiCodeBlockProps = ExtractPropTypes<typeof aiCodeBlockProps>
+
+export const aiCodeBlockEmits = {
+  copy: (code: string) => typeof code === 'string'
 }
 
-export interface AiCodeBlockEmits {
-  (e: 'copy', code: string): void
-}
+export type AiCodeBlockEmits = typeof aiCodeBlockEmits

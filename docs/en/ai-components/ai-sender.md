@@ -310,6 +310,23 @@ Supports previewing images and files before sending, with built-in upload progre
 | `command`           | Fired when command is selected     | `(command: AiCommand) => void` |
 | `remove-attachment` | Fired when attachment is removed   | `(file: AiAttachment) => void` |
 
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
+
+## Theme Variables
+
+| Variable Name                       | Description            | Default Value                      |
+| ----------------------------------- | ---------------------- | ---------------------------------- |
+| `--yh-ai-sender-bg`                 | Input background color | `var(--yh-bg-color)`               |
+| `--yh-ai-sender-border-color`       | Border color           | `var(--yh-border-color)`           |
+| `--yh-ai-sender-border-radius`      | Border radius          | `var(--yh-border-radius-base)`     |
+| `--yh-ai-sender-focus-border-color` | Focus border color     | `var(--yh-color-primary)`          |
+| `--yh-ai-sender-text-color`         | Input text color       | `var(--yh-text-color-primary)`     |
+| `--yh-ai-sender-placeholder-color`  | Placeholder text color | `var(--yh-text-color-placeholder)` |
+
 ### Slots
 
 | Name      | Description                                                   |
@@ -317,3 +334,7 @@ Supports previewing images and files before sending, with built-in upload progre
 | `prefix`  | Prefix content at top-left                                    |
 | `actions` | Wrapper around send button                                    |
 | `submit`  | Custom submit button, exposes `disabled`, `loading`, `submit` |
+
+```
+
+```

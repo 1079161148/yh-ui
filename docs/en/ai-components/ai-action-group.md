@@ -140,10 +140,17 @@ If it's a string, presets are supported: `'copy' | 'refresh' | 'regenerate' | 's
 | --------- | ------------------------------------------- |
 | `default` | Append custom content after the action list |
 
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
+
 ## Theme Variables
 
-| Variable Name              | Default Value                |
-| -------------------------- | ---------------------------- |
-| `--yh-ai-action-gap`       | `8px`                        |
-| `--yh-ai-action-icon-size` | `16px`                       |
-| `--yh-ai-action-hover-bg`  | `var(--yh-fill-color-light)` |
+| Variable Name               | Description            | Default Value                |
+| --------------------------- | ---------------------- | ---------------------------- |
+| `--yh-ai-action-gap`        | Button spacing         | `8px`                        |
+| `--yh-ai-action-icon-size`  | Icon size              | `16px`                       |
+| `--yh-ai-action-hover-bg`   | Hover background color | `var(--yh-fill-color-light)` |
+| `--yh-ai-action-btn-radius` | Button radius          | `4px`                        |

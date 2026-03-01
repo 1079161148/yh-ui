@@ -47,19 +47,6 @@ const onCopy = (text: string) => {
 </div>
 </DemoBlock>
 
-## 在 Nuxt 中使用
-
-能够在 Nuxt 以及服务端同构渲染中保持与 highlight.js 计算高亮样式的兼容合并，提供顺畅的一键复制体验并开箱即用地支持 Vite 热更新词法高亮。详见 [Nuxt 集成文档](/guide/nuxt)。
-
-**SSR 注意事项**：
-
-- ✅ highlighter 纯净提取支持
-- ✅ v-html 挂载无闪烁 (No hydration mismatches)
-
-::: tip SSR 安全性
-AiCodeBlock 首屏骨架在同构环境中无忧渲染。
-:::
-
 ## API
 
 ### Props
@@ -82,6 +69,19 @@ AiCodeBlock 首屏骨架在同构环境中无忧渲染。
 | ------- | ------------------------------------------ |
 | default | 手动写代码内容                             |
 | actions | 添加其他操作按钮，例如『在编辑器中打开』等 |
+
+## 在 Nuxt 中使用
+
+能够在 Nuxt 以及服务端同构渲染中保持与 highlight.js 计算高亮样式的兼容合并，提供顺畅的一键复制体验并开箱即用地支持 Vite 热更新词法高亮。详见 [Nuxt 集成文档](/guide/nuxt)。
+
+**SSR 注意事项**：
+
+- ✅ highlighter 纯净提取支持
+- ✅ v-html 挂载无闪烁 (No hydration mismatches)
+
+::: tip SSR 安全性
+AiCodeBlock 首屏骨架在同构环境中无忧渲染。
+:::
 
 ## 主题变量
 

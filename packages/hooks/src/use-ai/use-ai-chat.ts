@@ -16,7 +16,7 @@ export interface AiChatMessage {
   /**
    * 消息状态
    */
-  status?: 'sending' | 'success' | 'error' | 'generating' | 'stopped'
+  status?: 'loading' | 'sending' | 'success' | 'error' | 'generating' | 'stopped'
   createAt: number
 }
 

@@ -202,7 +202,6 @@ export default defineConfig({
           text: 'AI Components',
           items: [
             { text: 'AiChat', link: '/en/ai-components/ai-chat' },
-            { text: 'useAiChat (Hooks)', link: '/en/ai-components/use-ai-chat' },
             { text: 'AiBubble', link: '/en/ai-components/ai-bubble' },
             { text: 'AiSender', link: '/en/ai-components/ai-sender' },
             { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
@@ -212,8 +211,14 @@ export default defineConfig({
             { text: 'AiActionGroup', link: '/en/ai-components/ai-action-group' },
             { text: 'AiArtifacts', link: '/en/ai-components/ai-artifacts' },
             { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' },
+            { text: 'AiConversations', link: '/en/ai-components/ai-conversations' },
+            { text: 'AiPrompts', link: '/en/ai-components/ai-prompts' },
             { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' }
           ]
+        },
+        {
+          text: 'Tools',
+          items: [{ text: 'useAiChat (Hooks) 🌳', link: '/en/ai-components/use-ai-chat' }]
         }
       ],
       // 英文组件侧边栏
@@ -319,7 +324,6 @@ export default defineConfig({
           text: 'AI 组件',
           items: [
             { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
-            { text: 'useAiChat 数据响应流', link: '/ai-components/use-ai-chat' },
             { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
             { text: 'AiSender 智能输入', link: '/ai-components/ai-sender' },
             { text: 'AiEditorSender 面板输入', link: '/ai-components/ai-editor-sender' },
@@ -329,8 +333,14 @@ export default defineConfig({
             { text: 'AiWelcome 欢迎页面', link: '/ai-components/ai-welcome' },
             { text: 'AiArtifacts 智能组件', link: '/ai-components/ai-artifacts' },
             { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' },
+            { text: 'AiConversations 会话记录', link: '/ai-components/ai-conversations' },
+            { text: 'AiPrompts 提示词推荐', link: '/ai-components/ai-prompts' },
             { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' }
           ]
+        },
+        {
+          text: '工具',
+          items: [{ text: 'useAiChat 数据响应流 🌳', link: '/ai-components/use-ai-chat' }]
         }
       ],
       '/components/': [

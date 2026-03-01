@@ -1,26 +1,23 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed } from 'vue'
-import type { AiCodeBlockProps, AiCodeBlockEmits } from './ai-code-block'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 
+import { aiCodeBlockProps, aiCodeBlockEmits } from './ai-code-block'
+import { useComponentTheme } from '@yh-ui/theme'
+
 defineOptions({
   name: 'YhAiCodeBlock'
 })
 
-const props = withDefaults(defineProps<AiCodeBlockProps>(), {
-  language: 'text',
-  code: '',
-  filename: '',
-  highlight: true
-})
-
-const emit = defineEmits<AiCodeBlockEmits>()
+const props = defineProps(aiCodeBlockProps)
+const emit = defineEmits(aiCodeBlockEmits)
 const ns = useNamespace('ai-code-block')
 const { t } = useLocale()
+const { themeStyle } = useComponentTheme('ai-code-block', props.themeOverrides)
 const copied = ref(false)
 
 const highlightedCode = computed(() => {
@@ -53,7 +50,7 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div :class="ns.b()">
+  <div :class="ns.b()" :style="themeStyle">
     <div :class="ns.e('header')">
       <span :class="ns.e('lang')">{{ filename || language }}</span>
       <div :class="ns.e('actions')">

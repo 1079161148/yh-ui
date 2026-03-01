@@ -263,6 +263,23 @@ const jsPreset = toJs(tsPreset)
   </div>
 </DemoBlock>
 
+## 在 Nuxt 中使用
+
+该组件完美支持 Nuxt 3/4。在 Nuxt 项目中，组件会被自动按需导入。
+
+有关详细配置，请阅读 [Nuxt 集成文档](/guide/nuxt)。
+
+## 主题变量
+
+| 变量名                              | 说明           | 默认值                             |
+| ----------------------------------- | -------------- | ---------------------------------- |
+| `--yh-ai-sender-bg`                 | 输入框背景色   | `var(--yh-bg-color)`               |
+| `--yh-ai-sender-border-color`       | 边框颜色       | `var(--yh-border-color)`           |
+| `--yh-ai-sender-border-radius`      | 圆角大小       | `var(--yh-border-radius-base)`     |
+| `--yh-ai-sender-focus-border-color` | 聚焦时的边框色 | `var(--yh-color-primary)`          |
+| `--yh-ai-sender-text-color`         | 输入文字颜色   | `var(--yh-text-color-primary)`     |
+| `--yh-ai-sender-placeholder-color`  | 占位文字颜色   | `var(--yh-text-color-placeholder)` |
+
 ## API
 
 ### Props
@@ -297,7 +314,7 @@ const jsPreset = toJs(tsPreset)
 | `id`       | 唯一标识         | `string`                              |
 | `name`     | 文件名           | `string`                              |
 | `type`     | 文件类型         | `string`                              |
-| `url`      | 预览图或 URL     | `string`                              |
+| `url`      | 预览图 or URL    | `string`                              |
 | `status`   | 状态             | `'uploading' \| 'success' \| 'error'` |
 | `progress` | 上传进度 (0-100) | `number`                              |
 

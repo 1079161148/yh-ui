@@ -52,6 +52,13 @@ export const aiEditorSenderProps = {
   rows: {
     type: Number,
     default: 1
+  },
+  /**
+   * 主题覆盖变量
+   */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    default: undefined
   }
 } as const
 
