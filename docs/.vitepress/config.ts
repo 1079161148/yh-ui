@@ -202,6 +202,7 @@ export default defineConfig({
           text: 'AI Components',
           items: [
             { text: 'AiChat', link: '/en/ai-components/ai-chat' },
+            { text: 'useAiChat (Hooks)', link: '/en/ai-components/use-ai-chat' },
             { text: 'AiBubble', link: '/en/ai-components/ai-bubble' },
             { text: 'AiSender', link: '/en/ai-components/ai-sender' },
             { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
@@ -318,6 +319,7 @@ export default defineConfig({
           text: 'AI 组件',
           items: [
             { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
+            { text: 'useAiChat 数据响应流', link: '/ai-components/use-ai-chat' },
             { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
             { text: 'AiSender 智能输入', link: '/ai-components/ai-sender' },
             { text: 'AiEditorSender 面板输入', link: '/ai-components/ai-editor-sender' },

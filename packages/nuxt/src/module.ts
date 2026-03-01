@@ -231,7 +231,10 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'useEventListener',
       'useScrollLock',
       'useClickOutside',
-      'useConfig'
+      'useConfig',
+      'useAiChat',
+      'useAiStream',
+      'useAiConversations'
     ]
 
     hooks.forEach((name) => {
