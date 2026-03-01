@@ -30,8 +30,10 @@ describe('dayjs-locale', () => {
     expect(dayjs.locale()).toBe('en')
   })
 
-  it('setDayjsLocaleSync should work', () => {
+  it('setDayjsLocaleSync should work', async () => {
     setDayjsLocaleSync('zh-tw')
+    // Wait for the async loading triggered by fallback to complete
+    await new Promise((resolve) => setTimeout(resolve, 50))
     expect(dayjs.locale()).toBe('zh-tw')
 
     // Try an unloaded one

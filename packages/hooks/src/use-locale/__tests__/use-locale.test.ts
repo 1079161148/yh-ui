@@ -184,8 +184,9 @@ describe('setDayjsLocale', () => {
     expect(getDayjsLocale('unknown')).toBe('en')
   })
 
-  it('setDayjsLocaleSync should work with known locale', () => {
+  it('setDayjsLocaleSync should work with known locale', async () => {
     setDayjsLocaleSync('zh-tw')
+    await new Promise((resolve) => setTimeout(resolve, 50))
     expect(dayjs.locale()).toBe('zh-tw')
   })
 
