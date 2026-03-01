@@ -199,7 +199,11 @@ export default defineConfig({
       // 英文 AI 组件侧边栏
       '/en/ai-components/': [
         {
-          text: 'AI Components',
+          text: 'Global Configuration',
+          items: [{ text: 'AiProvider 🌍', link: '/en/ai-components/ai-provider' }]
+        },
+        {
+          text: 'Basic AI Components',
           items: [
             { text: 'AiChat', link: '/en/ai-components/ai-chat' },
             { text: 'AiBubble', link: '/en/ai-components/ai-bubble' },
@@ -213,12 +217,18 @@ export default defineConfig({
             { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' },
             { text: 'AiConversations', link: '/en/ai-components/ai-conversations' },
             { text: 'AiPrompts', link: '/en/ai-components/ai-prompts' },
-            { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' }
+            { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' },
+            { text: 'AiAgentCard 🤖', link: '/en/ai-components/ai-agent-card' },
+            { text: 'AiSources 🔗', link: '/en/ai-components/ai-sources' }
           ]
         },
         {
           text: 'Tools',
-          items: [{ text: 'useAiChat (Hooks) 🌳', link: '/en/ai-components/use-ai-chat' }]
+          items: [
+            { text: 'useAiChat 🌳', link: '/en/ai-components/use-ai-chat' },
+            { text: 'useAiStream 🌊', link: '/en/ai-components/use-ai-stream' },
+            { text: 'useAiConversations 💾', link: '/en/ai-components/use-ai-conversations' }
+          ]
         }
       ],
       // 英文组件侧边栏
@@ -321,7 +331,11 @@ export default defineConfig({
       // AI 组件侧边栏
       '/ai-components/': [
         {
-          text: 'AI 组件',
+          text: '全局配置组件',
+          items: [{ text: 'AiProvider 全局配置 🌍', link: '/ai-components/ai-provider' }]
+        },
+        {
+          text: '基础 AI 组件',
           items: [
             { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
             { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
@@ -335,12 +349,21 @@ export default defineConfig({
             { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' },
             { text: 'AiConversations 会话记录', link: '/ai-components/ai-conversations' },
             { text: 'AiPrompts 提示词推荐', link: '/ai-components/ai-prompts' },
-            { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' }
+            { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' },
+            { text: 'AiAgentCard 智能体名片 🤖', link: '/ai-components/ai-agent-card' },
+            { text: 'AiSources 知识库溯源 🔗', link: '/ai-components/ai-sources' }
           ]
         },
         {
           text: '工具',
-          items: [{ text: 'useAiChat 数据响应流 🌳', link: '/ai-components/use-ai-chat' }]
+          items: [
+            { text: 'useAiChat 会话管理 🌳', link: '/ai-components/use-ai-chat' },
+            { text: 'useAiStream 流式引擎 🌊', link: '/ai-components/use-ai-stream' },
+            {
+              text: 'useAiConversations 历史持久化 💾',
+              link: '/ai-components/use-ai-conversations'
+            }
+          ]
         }
       ],
       '/components/': [

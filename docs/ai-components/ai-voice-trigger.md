@@ -314,3 +314,20 @@ const jsChat = toJs(tsChat);
 | 插槽名  | 说明                                   | 参数 |
 | ------- | -------------------------------------- | ---- |
 | default | 未展开录音状态时的图标后置辅助说明文本 | —    |
+
+## 在 Nuxt 中使用
+
+该组件完全支持 Nuxt 3/4。在 Nuxt 项目中，该组件将被自动导入。
+
+有关详细配置，请参阅 [Nuxt 集成](/guide/nuxt)。
+
+## 主题变量
+
+通过 `themeOverrides` prop 或 CSS 变量对组件进行深度定制：
+
+| 变量名                               | 说明               | 默认值                       |
+| ------------------------------------ | ------------------ | ---------------------------- |
+| `--yh-ai-voice-trigger-btn-size`     | 触发按钮尺寸       | `32px`                       |
+| `--yh-ai-voice-trigger-active-color` | 录音激活时的背景色 | `var(--yh-color-danger)`     |
+| `--yh-ai-voice-trigger-wave-color`   | 音轨波形颜色       | `var(--yh-color-danger)`     |
+| `--yh-ai-voice-trigger-bg`           | 展开面板背景色     | `var(--yh-bg-color-overlay)` |

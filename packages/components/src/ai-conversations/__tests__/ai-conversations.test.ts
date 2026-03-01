@@ -49,7 +49,7 @@ describe('AiConversations', () => {
     const input = document.createElement('input')
     vi.spyOn(document, 'querySelector').mockReturnValue(input)
 
-    await wrapper.find('.yh-ai-conversations__action-btn:first-child').trigger('click')
+    await wrapper.find('.yh-ai-conversations__action-btn:nth-child(2)').trigger('click')
     expect(wrapper.find('input').exists()).toBe(true)
 
     const inputEl = wrapper.find('input')

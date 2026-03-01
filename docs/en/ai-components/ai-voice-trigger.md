@@ -325,7 +325,7 @@ For detailed configuration, please see [Nuxt Integration](/guide/nuxt).
 
 | Variable Name                        | Description                   | Default Value                |
 | ------------------------------------ | ----------------------------- | ---------------------------- |
-| `--yh-ai-voice-trigger-btn-size`     | Button size                   | `48px`                       |
-| `--yh-ai-voice-trigger-active-color` | Active color during recording | `var(--yh-color-primary)`    |
-| `--yh-ai-voice-trigger-wave-color`   | Waveform color                | `var(--yh-color-primary)`    |
+| `--yh-ai-voice-trigger-btn-size`     | Trigger button size           | `32px`                       |
+| `--yh-ai-voice-trigger-active-color` | Active color during recording | `var(--yh-color-danger)`     |
+| `--yh-ai-voice-trigger-wave-color`   | Waveform color                | `var(--yh-color-danger)`     |
 | `--yh-ai-voice-trigger-bg`           | Panel background color        | `var(--yh-bg-color-overlay)` |

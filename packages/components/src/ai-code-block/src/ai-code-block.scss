@@ -26,6 +26,28 @@
     padding: 8px 16px;
     background-color: var(--yh-ai-code-block-header-bg);
     border-bottom: 1px solid var(--yh-ai-code-block-border-color);
+    user-select: none;
+  }
+
+  @include when(collapsible) {
+    @include e(header) {
+      cursor: pointer;
+      &:hover {
+        background-color: var(--yh-ai-code-block-border-color);
+      }
+    }
+  }
+
+  @include e(header-left) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @include e(collapse-icon) {
+    font-size: 14px;
+    color: var(--yh-ai-code-block-lang-color);
+    transition: transform 0.3s;
   }
 
   @include e(lang) {
@@ -39,35 +61,27 @@
     display: flex;
     align-items: center;
 
-    // Override button theme to fit dark bg
     .yh-button {
       --yh-button-text-color: #828997;
       --yh-button-hover-text-color: #c8cdd4;
       --yh-button-active-text-color: #fff;
+      --yh-button-bg-color: transparent;
+      --yh-button-hover-bg-color: rgba(255, 255, 255, 0.08);
+      --yh-button-active-bg-color: rgba(255, 255, 255, 0.12);
+
+      // Special style for run button
+      .yh-icon-video-play {
+        color: var(--yh-color-primary);
+        margin-right: 4px;
+      }
     }
   }
 
   @include e(body) {
-    padding: 16px;
+    display: flex;
+    position: relative;
     overflow-x: auto;
-
-    pre {
-      margin: 0;
-      white-space: pre;
-      word-break: normal;
-      word-wrap: normal;
-      line-height: 1.5;
-    }
-
-    code {
-      font-family: inherit;
-      color: inherit;
-    }
-
-    .hljs {
-      padding: 0;
-      background: transparent;
-    }
+    background-color: var(--yh-ai-code-block-bg);
 
     &::-webkit-scrollbar {
       height: 8px;
@@ -77,6 +91,66 @@
     &::-webkit-scrollbar-thumb {
       background-color: #4b5263;
       border-radius: 4px;
+    }
+  }
+
+  @include e(line-numbers) {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    background-color: var(--yh-ai-code-block-header-bg);
+    border-right: 1px solid var(--yh-ai-code-block-border-color);
+    user-select: none;
+    text-align: right;
+    min-width: 40px;
+    flex-shrink: 0;
+  }
+
+  @include e(line-number) {
+    padding: 0 10px;
+    color: #4b5263;
+    font-size: 12px;
+    line-height: 1.6;
+
+    @include when(active) {
+      color: #abb2bf;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  @include e(content) {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 0;
+
+    pre {
+      margin: 0;
+      white-space: pre;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.6;
+    }
+
+    code {
+      display: block;
+      font-family: inherit;
+      color: inherit;
+    }
+
+    .hljs {
+      padding: 0;
+      background: transparent;
+    }
+
+    @include e(line) {
+      padding: 0 16px;
+      min-height: 1.6em;
+
+      &.is-active {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-left: 2px solid var(--yh-color-primary);
+        padding-left: 14px;
+      }
     }
   }
 }

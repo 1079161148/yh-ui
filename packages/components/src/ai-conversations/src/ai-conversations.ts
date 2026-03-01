@@ -29,6 +29,13 @@ export const aiConversationsProps = {
   themeOverrides: {
     type: Object as PropType<import('@yh-ui/theme').AiConversationsThemeVars>,
     default: undefined
+  },
+  /**
+   * @description 是否按时间分组显示对话
+   */
+  grouped: {
+    type: Boolean,
+    default: true
   }
 }
 
@@ -55,7 +62,12 @@ export const aiConversationsEmits = {
   /**
    * @description User clicks an item
    */
-  click: (conversation: AiConversation) => typeof conversation === 'object'
+  click: (conversation: AiConversation) => typeof conversation === 'object',
+  /**
+   * @description User pins/unpins a conversation
+   */
+  pin: (conversation: AiConversation, pinned: boolean) =>
+    typeof conversation === 'object' && typeof pinned === 'boolean'
 }
 
 export type AiConversationsEmits = typeof aiConversationsEmits

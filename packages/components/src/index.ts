@@ -93,6 +93,9 @@ import { YhAiArtifacts } from './ai-artifacts'
 import { YhAiVoiceTrigger } from './ai-voice-trigger'
 import { YhAiConversations } from './ai-conversations'
 import { YhAiPrompts } from './ai-prompts'
+import { YhAiAgentCard } from './ai-agent-card'
+import { YhAiSources } from './ai-sources'
+import { YhAiProvider } from './ai-provider'
 
 // 导出所有组件
 export * from './button'
@@ -177,6 +180,9 @@ export * from './ai-artifacts'
 export * from './ai-voice-trigger'
 export * from './ai-conversations'
 export * from './ai-prompts'
+export * from './ai-agent-card'
+export * from './ai-sources'
+export * from './ai-provider'
 
 // 所有组件列表
 const components = [
@@ -287,7 +293,10 @@ const components = [
   YhAiArtifacts,
   YhAiVoiceTrigger,
   YhAiConversations,
-  YhAiPrompts
+  YhAiPrompts,
+  YhAiAgentCard,
+  YhAiSources,
+  YhAiProvider
 ] as Plugin[]
 
 /**

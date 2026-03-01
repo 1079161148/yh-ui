@@ -169,4 +169,83 @@
     color: var(--yh-text-color-secondary);
     font-size: 14px;
   }
+
+  // ── 时间分组标签 ──────────────────────────────────────
+  @include e(group-label) {
+    padding: 8px 16px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--yh-text-color-disabled);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    user-select: none;
+  }
+
+  // ── 置顶图标 ──────────────────────────────────────────
+  @include e(pin-icon) {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    color: var(--yh-color-primary-light-3);
+    flex-shrink: 0;
+  }
+
+  @include e(item) {
+    @include is(pinned) {
+      background-color: var(--yh-color-primary-light-9);
+      border-left: 2px solid var(--yh-color-primary-light-4);
+    }
+  }
+
+  @include e(action-btn) {
+    @include is(active) {
+      color: var(--yh-color-primary) !important;
+    }
+  }
+
+  // ── 骨架屏 ────────────────────────────────────────────
+  @include e(skeleton-item) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: var(--yh-border-radius-base);
+  }
+
+  @include e(skeleton-line) {
+    height: 13px;
+    border-radius: 7px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color) 25%,
+      var(--yh-fill-color-light) 50%,
+      var(--yh-fill-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: yh-conv-shimmer 1.5s infinite;
+  }
+}
+
+// ── TransitionGroup 动画 ──────────────────────────────────
+.yh-conversation-item-enter-active,
+.yh-conversation-item-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.yh-conversation-item-enter-from {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.yh-conversation-item-leave-to {
+  opacity: 0;
+  transform: translateX(12px);
+}
+
+@keyframes yh-conv-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }

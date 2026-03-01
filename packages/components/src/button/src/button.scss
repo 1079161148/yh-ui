@@ -138,14 +138,14 @@ $button-sizes: (
   /* 文字模式与链接模式（基础样式） */
   @include when(text) {
     border-color: transparent !important;
-    background-color: transparent !important;
+    background-color: var(--yh-button-bg-color, transparent) !important;
     padding-left: 0;
     padding-right: 0;
     &:hover {
-      background-color: var(--yh-fill-color-light) !important;
+      background-color: var(--yh-button-hover-bg-color, var(--yh-fill-color-light)) !important;
     }
     &:active {
-      background-color: var(--yh-fill-color) !important;
+      background-color: var(--yh-button-active-bg-color, var(--yh-fill-color)) !important;
     }
     &.is-disabled {
       background-color: transparent !important;

@@ -383,6 +383,69 @@ export const IconVideoPlay: IconData = {
   svg: '<path fill="currentColor" d="M8 5v14l11-7L8 5z"/>'
 }
 
+// Globe 全球/网页图标
+export const IconGlobe: IconData = {
+  name: 'globe',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>'
+}
+
+// Table 表格图标
+export const IconTable: IconData = {
+  name: 'table',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M10 10.02h5V21h-5V10.02zM17 21h3c1.1 0 2-.9 2-2v-9h-5v11zm3-18H5c-1.1 0-2 .9-2 2v3h19V5c0-1.1-.9-2-2-2zM3 19c0 1.1.9 2 2 2h3V10H3v9zm12-11H9V3h6v5zm2 0h5V3h-5v5zM7 3H4c-1.1 0-2 .9-2 2v3h5V3z"/>'
+}
+
+// Chart Bar 统计图表
+export const IconChartBar: IconData = {
+  name: 'chart-bar',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8h2.8v6h-2.8v-6z"/>'
+}
+
+// Launch 外部链接图标
+export const IconLaunch: IconData = {
+  name: 'launch',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>'
+}
+
+// Code 代码图标
+export const IconCode: IconData = {
+  name: 'code',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>'
+}
+
+// Star Filled 填充星号 (alias)
+export const IconStarFilled: IconData = {
+  name: 'star-filled',
+  viewBox: '0 0 24 24',
+  svg: IconStar.svg
+}
+
+// Check Circle 勾选圆圈 (alias)
+export const IconCheckmarkCircle: IconData = {
+  name: 'checkmark-circle',
+  viewBox: '0 0 24 24',
+  svg: IconCheckCircle.svg
+}
+
+// Presentation 演示幻灯片
+export const IconPresentation: IconData = {
+  name: 'presentation',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM21 17H3V5h18v12zM10 7l6 4-6 4V7z"/>'
+}
+
+// Document Text 文档摘要
+export const IconDocumentText: IconData = {
+  name: 'document-text',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>'
+}
+
 // VideoPause 视频/音频暂停图标
 export const IconVideoPause: IconData = {
   name: 'video-pause',
@@ -446,7 +509,16 @@ export const builtInIcons: IconData[] = [
   IconShare,
   IconChat,
   IconVideoPlay,
-  IconVideoPause
+  IconVideoPause,
+  IconGlobe,
+  IconTable,
+  IconChartBar,
+  IconLaunch,
+  IconCode,
+  IconStarFilled,
+  IconCheckmarkCircle,
+  IconPresentation,
+  IconDocumentText
 ]
 
 // 自动注册所有内置图标

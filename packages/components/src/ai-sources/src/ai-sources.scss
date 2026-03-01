@@ -1,0 +1,401 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-sources) {
+  // ── badge 模式 ──────────────────────────────────────
+  @include m(badge) {
+    @include e(badge-row) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+  }
+
+  @include e(badge) {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 7px;
+    border: 1px solid var(--yh-color-primary-light-5);
+    border-radius: 100px;
+    background: var(--yh-color-primary-light-9);
+    color: var(--yh-color-primary);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    .yh-icon {
+      font-size: 11px;
+    }
+
+    &:hover {
+      background: var(--yh-color-primary);
+      color: #fff;
+      border-color: var(--yh-color-primary);
+    }
+  }
+
+  // ── 侧边抽屉 ────────────────────────────────────────
+  @include e(drawer) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 380px;
+    max-width: 90vw;
+    background: var(--yh-bg-color);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include e(drawer-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--yh-border-color-light);
+  }
+
+  @include e(drawer-title) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+  }
+
+  @include e(drawer-close) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    color: var(--yh-text-color-secondary);
+    transition: all 0.15s;
+
+    &:hover {
+      background: var(--yh-fill-color);
+      color: var(--yh-text-color-primary);
+    }
+  }
+
+  @include e(drawer-content) {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  @include e(drawer-overlay) {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+  }
+
+  // ── inline 模式 ─────────────────────────────────────
+  @include m(inline) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @include e(inline-header) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    font-weight: 500;
+  }
+
+  @include e(inline-list) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  @include e(inline-item) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s;
+
+    &:hover {
+      background: var(--yh-fill-color-light);
+    }
+  }
+
+  @include e(inline-index) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 4px;
+    background: var(--yh-color-primary-light-8);
+    color: var(--yh-color-primary);
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  @include e(file-icon) {
+    font-size: 13px;
+    color: var(--yh-text-color-secondary);
+    flex-shrink: 0;
+  }
+
+  @include e(inline-title) {
+    flex: 1;
+    font-size: 13px;
+    color: var(--yh-text-color-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(inline-score) {
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  @include e(inline-open) {
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+    border: none;
+    background: transparent;
+    color: var(--yh-text-color-secondary);
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all 0.15s;
+
+    .yh-ai-sources__inline-item:hover & {
+      opacity: 1;
+    }
+
+    &:hover {
+      color: var(--yh-color-primary);
+      background: var(--yh-color-primary-light-9);
+    }
+  }
+
+  // ── Tooltip ──────────────────────────────────────────
+  @include e(tooltip-content) {
+    width: 280px;
+    max-width: 90vw;
+    /* Redundant styles removed to rely on YhTooltip base styles */
+  }
+
+  @include e(tooltip-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  @include e(tooltip-title-wrap) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  @include e(tooltip-title) {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(tooltip-score) {
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @include e(tooltip-excerpt) {
+    font-size: 12px;
+    color: var(--yh-text-color-regular);
+    line-height: 1.6;
+    margin: 0 0 8px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  @include e(tooltip-source) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--yh-text-color-secondary);
+  }
+
+  // ── card 模式 ────────────────────────────────────────
+  @include m(card) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @include e(card-list-header) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--yh-border-color-extra-light);
+  }
+
+  @include e(count-badge) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: var(--yh-color-primary-light-8);
+    color: var(--yh-color-primary);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  @include e(card-list) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @include e(source-card) {
+    padding: 12px 14px;
+    border: 1px solid var(--yh-border-color-extra-light);
+    border-radius: 10px;
+    background: var(--yh-bg-color);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: var(--yh-color-primary-light-5);
+      background: var(--yh-color-primary-light-9);
+    }
+
+    @include is(active) {
+      border-color: var(--yh-color-primary-light-5);
+      background: var(--yh-color-primary-light-9);
+    }
+  }
+
+  @include e(card-header) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  @include e(card-title-row) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  @include e(card-title) {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(card-meta) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @include e(source-name) {
+    font-size: 11px;
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(score-badge) {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  @include e(excerpt) {
+    font-size: 12px;
+    color: var(--yh-text-color-regular);
+    line-height: 1.6;
+    margin: 0 0 8px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  @include e(open-btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--yh-color-primary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: var(--yh-color-primary-light-8);
+    }
+  }
+
+  @include e(expand-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+    border: 1px dashed var(--yh-border-color);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--yh-text-color-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      border-color: var(--yh-color-primary);
+      color: var(--yh-color-primary);
+      background: var(--yh-color-primary-light-9);
+    }
+  }
+}

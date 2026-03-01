@@ -603,7 +603,8 @@ export const en: Language = {
       },
       codeBlock: {
         copyCode: 'Copy code',
-        copied: 'Copied!'
+        copied: 'Copied!',
+        run: 'Run Code'
       },
       sender: {
         placeholder: 'Send a message...'
@@ -641,6 +642,54 @@ export const en: Language = {
       voice: {
         trigger: 'Click to Speak',
         listening: 'Listening...'
+      },
+      // AiAgentCard
+      agent: {
+        uses: 'uses',
+        use: 'Use Now',
+        favorite: 'Favorite',
+        unfavorite: 'Unfavorite',
+        share: 'Share',
+        online: 'Online',
+        offline: 'Offline',
+        busy: 'Busy',
+        verified: 'Verified',
+        rating: 'Rating',
+        reviews: 'reviews',
+        responseTime: 'Avg. Response',
+        ms: 'ms'
+      },
+      // AiSources
+      sources: {
+        references: 'References',
+        referencedSources: 'Referenced Sources',
+        relevant: 'Relevance',
+        viewOriginal: 'View Original',
+        showAll: 'Show All',
+        more: 'more sources',
+        drawerTitle: 'References',
+        expandMore: 'Show More',
+        collapseMore: 'Collapse',
+        noSources: 'No sources',
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned'
+      },
+      // AiConversations groups
+      conversations: {
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned',
+        pin: 'Pin',
+        unpin: 'Unpin',
+        newConversation: 'New Conversation',
+        rename: 'Rename',
+        delete: 'Delete',
+        deleteConfirm: 'Confirm delete this conversation?'
       }
     }
   }

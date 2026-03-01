@@ -620,6 +620,7 @@ export interface Language {
       codeBlock: {
         copyCode: string
         copied: string
+        run: string
       }
       sender: {
         placeholder: string
@@ -647,15 +648,63 @@ export interface Language {
         edit: string
         delete: string
       }
-      artifacts?: {
-        preview?: string
-        code?: string
-        versions?: string
-        rendering?: string
+      artifacts: {
+        preview: string
+        code: string
+        versions: string
+        rendering: string
       }
-      voice?: {
-        trigger?: string
-        listening?: string
+      voice: {
+        trigger: string
+        listening: string
+      }
+      // AiAgentCard
+      agent: {
+        uses: string
+        use: string
+        favorite: string
+        unfavorite: string
+        share: string
+        online: string
+        offline: string
+        busy: string
+        verified: string
+        rating: string
+        reviews: string
+        responseTime: string
+        ms: string
+      }
+      // AiSources
+      sources: {
+        references: string
+        referencedSources: string
+        relevant: string
+        viewOriginal: string
+        showAll: string
+        more: string
+        drawerTitle: string
+        expandMore: string
+        collapseMore: string
+        noSources: string
+        today: string
+        last7Days: string
+        last30Days: string
+        earlier: string
+        pinned: string
+      }
+      // AiConversations
+      conversations: {
+        today: string
+        last7Days: string
+        last30Days: string
+        earlier: string
+        pinned: string
+        pin: string
+        unpin: string
+        newConversation: string
+        rename: string
+        delete: string
+        deleteConfirm: string
       }
     }
   }

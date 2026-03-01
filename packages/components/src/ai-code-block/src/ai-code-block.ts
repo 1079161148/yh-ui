@@ -20,7 +20,42 @@ export const aiCodeBlockProps = {
    */
   filename: String,
   /**
-   * @description 是否高亮显示
+   * @description 是否显示行号
+   */
+  showLineNumbers: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 高亮行号列表
+   */
+  highlightLines: {
+    type: Array as PropType<number[]>,
+    default: () => []
+  },
+  /**
+   * @description 是否可折叠
+   */
+  collapsible: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 默认是否折叠
+   */
+  defaultCollapsed: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 是否显示运行按钮
+   */
+  showRun: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 是否高亮语法
    */
   highlight: {
     type: Boolean,
@@ -38,7 +73,8 @@ export const aiCodeBlockProps = {
 export type AiCodeBlockProps = ExtractPropTypes<typeof aiCodeBlockProps>
 
 export const aiCodeBlockEmits = {
-  copy: (code: string) => typeof code === 'string'
+  copy: (code: string) => typeof code === 'string',
+  run: (code: string) => typeof code === 'string'
 }
 
 export type AiCodeBlockEmits = typeof aiCodeBlockEmits

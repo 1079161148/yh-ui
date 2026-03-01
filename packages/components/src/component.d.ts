@@ -86,6 +86,9 @@ import type { YhAiArtifacts } from './ai-artifacts'
 import type { YhAiVoiceTrigger } from './ai-voice-trigger'
 import type { YhAiConversations } from './ai-conversations'
 import type { YhAiPrompts } from './ai-prompts'
+import type { YhAiAgentCard } from './ai-agent-card'
+import type { YhAiSources } from './ai-sources'
+import type { YhAiProvider } from './ai-provider'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -210,6 +213,9 @@ declare module 'vue' {
     YhAiVoiceTrigger: typeof YhAiVoiceTrigger
     YhAiConversations: typeof YhAiConversations
     YhAiPrompts: typeof YhAiPrompts
+    YhAiAgentCard: typeof YhAiAgentCard
+    YhAiSources: typeof YhAiSources
+    YhAiProvider: typeof YhAiProvider
   }
 
   export interface GlobalDirectives {

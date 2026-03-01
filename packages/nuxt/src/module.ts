@@ -208,7 +208,11 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'AiArtifacts',
       'AiVoiceTrigger',
       'AiConversations',
-      'AiPrompts'
+      'AiPrompts',
+      // New AI Components (Phase 2-5)
+      'AiAgentCard',
+      'AiSources',
+      'AiProvider'
     ]
 
     components.forEach((name) => {
@@ -236,7 +240,12 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'useConfig',
       'useAiChat',
       'useAiStream',
-      'useAiConversations'
+      'useAiConversations',
+      // Adapters / parsers
+      'openaiParser',
+      'ernieParser',
+      'qwenParser',
+      'plainTextParser'
     ]
 
     hooks.forEach((name) => {

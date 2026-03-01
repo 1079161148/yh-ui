@@ -603,7 +603,8 @@ export const zhCn: Language = {
       },
       codeBlock: {
         copyCode: '复制代码',
-        copied: '已复制！'
+        copied: '已复制！',
+        run: '运行代码'
       },
       sender: {
         placeholder: '发送消息...'
@@ -640,6 +641,54 @@ export const zhCn: Language = {
       voice: {
         trigger: '点击说话',
         listening: '聆听中...'
+      },
+      // AiAgentCard
+      agent: {
+        uses: '次调用',
+        use: '立即使用',
+        favorite: '收藏',
+        unfavorite: '取消收藏',
+        share: '分享',
+        online: '在线',
+        offline: '离线',
+        busy: '忙碌',
+        verified: '官方认证',
+        rating: '评分',
+        reviews: '条评价',
+        responseTime: '响应时间',
+        ms: 'ms'
+      },
+      // AiSources
+      sources: {
+        references: '参考来源',
+        referencedSources: '引用来源',
+        relevant: '相关度',
+        viewOriginal: '查看原文',
+        showAll: '显示全部',
+        more: '更多来源',
+        drawerTitle: '参考来源',
+        expandMore: '展开更多',
+        collapseMore: '收起',
+        noSources: '暂无来源',
+        today: '今天',
+        last7Days: '最近 7 天',
+        last30Days: '最近 30 天',
+        earlier: '更早',
+        pinned: '已置顶'
+      },
+      // AiConversations groups
+      conversations: {
+        today: '今天',
+        last7Days: '最近 7 天',
+        last30Days: '最近 30 天',
+        earlier: '更早',
+        pinned: '置顶',
+        pin: '置顶',
+        unpin: '取消置顶',
+        newConversation: '新建对话',
+        rename: '重命名',
+        delete: '删除',
+        deleteConfirm: '确认删除此对话？'
       }
     }
   }
