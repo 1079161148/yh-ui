@@ -96,6 +96,7 @@ import { YhAiPrompts } from './ai-prompts'
 import { YhAiAgentCard } from './ai-agent-card'
 import { YhAiSources } from './ai-sources'
 import { YhAiProvider } from './ai-provider'
+import { YhAiMention } from './ai-mention'
 
 // 导出所有组件
 export * from './button'
@@ -183,6 +184,7 @@ export * from './ai-prompts'
 export * from './ai-agent-card'
 export * from './ai-sources'
 export * from './ai-provider'
+export * from './ai-mention'
 
 // 所有组件列表
 const components = [
@@ -296,7 +298,8 @@ const components = [
   YhAiPrompts,
   YhAiAgentCard,
   YhAiSources,
-  YhAiProvider
+  YhAiProvider,
+  YhAiMention
 ] as Plugin[]
 
 /**

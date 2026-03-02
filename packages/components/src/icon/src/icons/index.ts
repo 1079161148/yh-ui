@@ -453,6 +453,13 @@ export const IconVideoPause: IconData = {
   svg: '<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
 }
 
+// Book 知识库图标
+export const IconBook: IconData = {
+  name: 'book',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM10 9h8v2h-8V9zm0 3h4v2h-4v-2zm0-6h8v2h-8V6z"/>'
+}
+
 // 所有内置图标
 export const builtInIcons: IconData[] = [
   IconClose,
@@ -518,7 +525,8 @@ export const builtInIcons: IconData[] = [
   IconStarFilled,
   IconCheckmarkCircle,
   IconPresentation,
-  IconDocumentText
+  IconDocumentText,
+  IconBook
 ]
 
 // 自动注册所有内置图标

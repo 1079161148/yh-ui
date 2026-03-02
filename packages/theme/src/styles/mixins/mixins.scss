@@ -3,6 +3,13 @@
 @use 'sass:meta';
 @use '../variables' as *;
 
+// Utilities
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 // BEM
 $namespace: 'yh' !default;
 $state-prefix: 'is-' !default;

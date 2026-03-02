@@ -109,6 +109,13 @@ export const aiSenderProps = {
     default: () => []
   },
   /**
+   * AI 提及配置
+   */
+  mentionOptions: {
+    type: Array as PropType<import('../../ai-mention').AiMentionOption[]>,
+    default: () => []
+  },
+  /**
    * 已选附件列表
    */
   attachments: {

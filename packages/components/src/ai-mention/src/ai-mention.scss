@@ -1,0 +1,96 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-mention) {
+  width: 100%;
+
+  @include e(option-item) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 4px;
+    width: 100%;
+  }
+
+  @include e(option-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--yh-color-primary-light-9);
+    color: var(--yh-color-primary);
+    font-size: 18px;
+
+    @include m(agent) {
+      background: var(--yh-color-success-light-9);
+      color: var(--yh-color-success);
+    }
+
+    @include m(document) {
+      background: var(--yh-color-warning-light-9);
+      color: var(--yh-color-warning);
+    }
+
+    @include m(table) {
+      background: var(--yh-color-info-light-9);
+      color: var(--yh-color-info);
+    }
+
+    @include m(knowledge) {
+      background: var(--yh-color-danger-light-9);
+      color: var(--yh-color-danger);
+    }
+  }
+
+  @include e(option-info) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @include e(option-label) {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--yh-text-color-primary);
+    line-height: 1.4;
+    @include ellipsis;
+  }
+
+  @include e(option-desc) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    line-height: 1.2;
+    margin-top: 2px;
+    @include ellipsis;
+  }
+
+  @include e(option-tag) {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--yh-fill-color-light);
+    color: var(--yh-text-color-placeholder);
+    text-transform: capitalize;
+
+    @include m(agent) {
+      background: var(--yh-color-success-light-9);
+      color: var(--yh-color-success);
+    }
+
+    @include m(document) {
+      background: var(--yh-color-warning-light-9);
+      color: var(--yh-color-warning);
+    }
+
+    @include m(table) {
+      background: var(--yh-color-info-light-9);
+      color: var(--yh-color-info);
+    }
+
+    @include m(knowledge) {
+      background: var(--yh-color-danger-light-9);
+      color: var(--yh-color-danger);
+    }
+  }
+}

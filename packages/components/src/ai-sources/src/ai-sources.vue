@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import { aiSourcesProps, aiSourcesEmits, type AiSourceItem } from './ai-sources'
 import { YhIcon } from '../../icon'
 import { YhTooltip } from '../../tooltip'
+import { YhDrawer } from '../../drawer'
 import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
@@ -87,67 +88,50 @@ const openDrawer = (source: AiSourceItem) => {
       </div>
 
       <!-- 抽屉：来源详情 -->
-      <Teleport to="body">
-        <Transition name="yh-slide-right">
-          <div v-if="drawerVisible" :class="ns.e('drawer')">
-            <div :class="ns.e('drawer-header')">
-              <span :class="ns.e('drawer-title')">
-                <YhIcon name="document" />
-                {{ t('ai.sources.drawerTitle') || '参考来源' }}
-              </span>
-              <button :class="ns.e('drawer-close')" @click="drawerVisible = false">
-                <YhIcon name="close" />
-              </button>
-            </div>
-            <div :class="ns.e('drawer-content')">
-              <div
-                v-for="source in sources"
-                :key="source.id"
-                :class="[ns.e('source-card'), ns.is('active', activeSource?.id === source.id)]"
-                @click="handleClick(source)"
-              >
-                <div :class="ns.e('card-header')">
-                  <div :class="ns.e('card-title-row')">
-                    <YhIcon :name="getFileIcon(source.fileType)" :class="ns.e('file-icon')" />
-                    <span :class="ns.e('card-title')">{{ source.title }}</span>
-                  </div>
-                  <div :class="ns.e('card-meta')">
-                    <span v-if="source.source" :class="ns.e('source-name')">{{
-                      source.source
-                    }}</span>
-                    <span
-                      v-if="showScore && source.score !== undefined"
-                      :class="ns.e('score-badge')"
-                      :style="{ color: scoreColor(source.score) }"
-                    >
-                      {{ Math.round(source.score * 100) }}%
-                      {{ t('ai.sources.relevant') || '相关度' }}
-                    </span>
-                  </div>
-                </div>
-                <p v-if="source.excerpt" :class="ns.e('excerpt')">{{ source.excerpt }}</p>
-                <button
-                  v-if="source.url"
-                  :class="ns.e('open-btn')"
-                  @click="handleOpen($event, source)"
+      <YhDrawer
+        v-model="drawerVisible"
+        :title="t('ai.sources.drawerTitle') || '参考来源'"
+        size="40%"
+        :theme-overrides="themeOverrides"
+      >
+        <template #title>
+          <div :class="ns.e('drawer-title-wrap')">
+            <YhIcon name="document" />
+            <span>{{ t('ai.sources.drawerTitle') || '参考来源' }}</span>
+          </div>
+        </template>
+        <div :class="ns.e('drawer-content')">
+          <div
+            v-for="source in sources"
+            :key="source.id"
+            :class="[ns.e('source-card'), ns.is('active', activeSource?.id === source.id)]"
+            @click="handleClick(source)"
+          >
+            <div :class="ns.e('card-header')">
+              <div :class="ns.e('card-title-row')">
+                <YhIcon :name="getFileIcon(source.fileType)" :class="ns.e('file-icon')" />
+                <span :class="ns.e('card-title')">{{ source.title }}</span>
+              </div>
+              <div :class="ns.e('card-meta')">
+                <span v-if="source.source" :class="ns.e('source-name')">{{ source.source }}</span>
+                <span
+                  v-if="showScore && source.score !== undefined"
+                  :class="ns.e('score-badge')"
+                  :style="{ color: scoreColor(source.score) }"
                 >
-                  <YhIcon name="arrow-right" />
-                  {{ t('ai.sources.viewOriginal') || '查看原文' }}
-                </button>
+                  {{ Math.round(source.score * 100) }}%
+                  {{ t('ai.sources.relevant') || '相关度' }}
+                </span>
               </div>
             </div>
+            <p v-if="source.excerpt" :class="ns.e('excerpt')">{{ source.excerpt }}</p>
+            <button v-if="source.url" :class="ns.e('open-btn')" @click="handleOpen($event, source)">
+              <YhIcon name="arrow-right" />
+              {{ t('ai.sources.viewOriginal') || '查看原文' }}
+            </button>
           </div>
-        </Transition>
-
-        <!-- 遮罩 -->
-        <Transition name="yh-fade">
-          <div
-            v-if="drawerVisible"
-            :class="ns.e('drawer-overlay')"
-            @click="drawerVisible = false"
-          ></div>
-        </Transition>
-      </Teleport>
+        </div>
+      </YhDrawer>
     </template>
 
     <!-- ── inline 模式：内联气泡列表 ── -->

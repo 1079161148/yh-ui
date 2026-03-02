@@ -148,6 +148,7 @@ import {
   YhAiAgentCard,
   YhAiSources,
   YhAiProvider,
+  YhAiMention,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -287,6 +288,7 @@ export default {
     app.component('YhAiAgentCard', YhAiAgentCard)
     app.component('YhAiSources', YhAiSources)
     app.component('YhAiProvider', YhAiProvider)
+    app.component('YhAiMention', YhAiMention)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

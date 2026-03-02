@@ -212,7 +212,8 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       // New AI Components (Phase 2-5)
       'AiAgentCard',
       'AiSources',
-      'AiProvider'
+      'AiProvider',
+      'AiMention'
     ]
 
     components.forEach((name) => {

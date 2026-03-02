@@ -601,6 +601,13 @@ export const zhCn: Language = {
       bubble: {
         citations: '参考引用'
       },
+      mention: {
+        placeholder: '@ 呼叫 Agent、文档或表格...',
+        agent: '智能体',
+        document: '文档',
+        table: '表格',
+        knowledge: '知识库'
+      },
       codeBlock: {
         copyCode: '复制代码',
         copied: '已复制！',

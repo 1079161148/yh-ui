@@ -1,6 +1,15 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 
-export type ArtifactType = 'code' | 'html' | 'markdown' | 'react' | 'vue' | 'diagram'
+export type ArtifactType =
+  | 'code'
+  | 'html'
+  | 'markdown'
+  | 'react'
+  | 'vue'
+  | 'diagram'
+  | 'chart'
+  | 'sandbox'
+  | 'canvas'
 
 export interface ArtifactVersion {
   /**

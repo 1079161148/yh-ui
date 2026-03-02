@@ -32,6 +32,35 @@ onUnmounted(() => {
 
 const isRecordingEvent = ref(false)
 
+const variant = ref('inline');
+const isRecordingVariant = ref(false);
+
+const tsVariant = `<${_T}>
+  <div style="height: 120px; display: flex; align-items: center; justify-content: center; background: var(--yh-bg-color-page); border-radius: 8px;">
+    <yh-radio-group v-model="variant" style="margin-bottom: 20px;">
+      <yh-radio label="inline">行内 (Inline)</yh-radio>
+      <yh-radio label="floating">悬浮 (Floating)</yh-radio>
+      <yh-radio label="sphere">拟物球 (Sphere)</yh-radio>
+    </yh-radio-group>
+    
+    <yh-ai-voice-trigger 
+      v-model:recording="isRecording" 
+      :variant="variant"
+      position="bottom-right"
+      :offset="[40, 40]"
+    />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue';
+
+const variant = ref('inline');
+const isRecording = ref(false);
+</${_S}>`;
+
+const jsVariant = toJs(tsVariant);
+
 const onStart = () => {
   console.log('Voice recording started...');
 };
@@ -310,11 +339,14 @@ const jsChat = toJs(tsChat);
 
 ### Props
 
-| 属性名                        | 说明                                     | 类型                 | 默认值        |
-| ----------------------------- | ---------------------------------------- | -------------------- | ------------- |
-| recording / v-model:recording | 是否处于展开录音状态                     | `boolean`            | `false`       |
-| amplitudes                    | 音轨高度波分布数组(需内部响应式轮询传入) | `number[]`           | `[5,5,5,...]` |
-| theme-overrides               | 组件级别的局部主题定制覆盖变量           | `ComponentThemeVars` | —             |
+| 属性名                        | 说明                                       | 类型                 | 默认值           |
+| ----------------------------- | ------------------------------------------ | -------------------- | ---------------- |
+| recording / v-model:recording | 是否处于展开录音状态                       | `boolean`            | `false`          |
+| variant                       | 展示模式：`inline` / `floating` / `sphere` | `string`             | `'inline'`       |
+| position                      | 悬浮位置：`top-left` / `top-right` / ...   | `string`             | `'bottom-right'` |
+| offset                        | 偏移距离 `[x, y]`                          | `[number, number]`   | `[24, 24]`       |
+| amplitudes                    | 音轨高度波分布数组(需内部响应式轮询传入)   | `number[]`           | `[5,5,5,...]`    |
+| theme-overrides               | 组件级别的局部主题定制覆盖变量             | `ComponentThemeVars` | —                |
 
 ### Events
 

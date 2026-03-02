@@ -219,7 +219,8 @@ export default defineConfig({
             { text: 'AiPrompts', link: '/en/ai-components/ai-prompts' },
             { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' },
             { text: 'AiAgentCard 🤖', link: '/en/ai-components/ai-agent-card' },
-            { text: 'AiSources 🔗', link: '/en/ai-components/ai-sources' }
+            { text: 'AiSources 🔗', link: '/en/ai-components/ai-sources' },
+            { text: 'AiMention 🏷️', link: '/en/ai-components/ai-mention' }
           ]
         },
         {
@@ -227,7 +228,8 @@ export default defineConfig({
           items: [
             { text: 'useAiChat 🌳', link: '/en/ai-components/use-ai-chat' },
             { text: 'useAiStream 🌊', link: '/en/ai-components/use-ai-stream' },
-            { text: 'useAiConversations 💾', link: '/en/ai-components/use-ai-conversations' }
+            { text: 'useAiConversations 💾', link: '/en/ai-components/use-ai-conversations' },
+            { text: 'useAiVoice 🎙️', link: '/en/ai-components/use-ai-voice' }
           ]
         }
       ],
@@ -351,7 +353,8 @@ export default defineConfig({
             { text: 'AiPrompts 提示词推荐', link: '/ai-components/ai-prompts' },
             { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' },
             { text: 'AiAgentCard 智能体名片 🤖', link: '/ai-components/ai-agent-card' },
-            { text: 'AiSources 知识库溯源 🔗', link: '/ai-components/ai-sources' }
+            { text: 'AiSources 知识库溯源 🔗', link: '/ai-components/ai-sources' },
+            { text: 'AiMention AI 提及 🏷️', link: '/ai-components/ai-mention' }
           ]
         },
         {
@@ -362,7 +365,8 @@ export default defineConfig({
             {
               text: 'useAiConversations 历史持久化 💾',
               link: '/ai-components/use-ai-conversations'
-            }
+            },
+            { text: 'useAiVoice 语音交互 🎙️', link: '/ai-components/use-ai-voice' }
           ]
         }
       ],

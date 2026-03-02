@@ -1,18 +1,16 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
 @use '@yh-ui/theme/styles/variables' as *;
 
-// ─── Keyframe Animations (must be at top-level, not nested inside selectors) ───
+// ─── Keyframe Animations ───
 @keyframes yh-pulse-mic {
   0% {
     box-shadow: 0 0 0 0 var(--yh-ai-voice-trigger-active-color, #f56c6c);
     opacity: 0.4;
   }
-
   70% {
     box-shadow: 0 0 0 8px transparent;
     opacity: 0;
   }
-
   100% {
     box-shadow: 0 0 0 0 transparent;
   }
@@ -23,13 +21,55 @@
   100% {
     opacity: 0.5;
   }
-
   50% {
     opacity: 1;
   }
 }
 
-// ─── Vue Transition Classes (must be at top-level to match injected class names) ───
+@keyframes yh-sphere-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes yh-sphere-glow {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+}
+
+@keyframes yh-sphere-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes yh-sphere-inner-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+// ─── Vue Transition Classes ───
 .yh-voice-expand-enter-active,
 .yh-voice-expand-leave-active {
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -45,9 +85,6 @@
 
 // ─── Component Styles ───────────────────────────────────────────────────────
 @include b(ai-voice-trigger) {
-  // NOTE: 不能使用自引用（cyclic），如 --x: var(--x, fallback），
-  // CSS 会将其视为循环依赖而失效。此处直接引用全局 Token 作为默认值。
-  // themeOverrides 通过 inline style 写在根元素上，可以覆盖这里的 block 级定义。
   --yh-ai-voice-trigger-btn-size: 32px;
   --yh-ai-voice-trigger-bg: var(--yh-bg-color-overlay, var(--yh-bg-color, #ffffff));
   --yh-ai-voice-trigger-active-color: var(--yh-color-danger, #f56c6c);
@@ -57,6 +94,67 @@
   align-items: center;
   position: relative;
   font-family: var(--yh-font-family);
+
+  @include m(floating) {
+    z-index: 2000;
+    @include e(body) {
+      box-shadow: var(--yh-box-shadow-dark);
+      border: 1px solid var(--yh-border-color-lighter);
+    }
+  }
+
+  @include m(sphere) {
+    --yh-ai-voice-trigger-btn-size: 56px;
+    z-index: 2000;
+
+    @include e(body) {
+      padding: 0;
+      background: transparent !important;
+      box-shadow: none !important;
+      overflow: visible;
+    }
+
+    @include e(trigger) {
+      background: var(--yh-color-primary) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 12px rgba(var(--yh-color-primary-rgb), 0.4);
+      z-index: 2;
+
+      &.is-active {
+        animation: yh-sphere-float 3s ease-in-out infinite;
+      }
+    }
+
+    @include e(sphere-glow) {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, var(--yh-color-primary-light-3) 0%, transparent 70%);
+      filter: blur(10px);
+      opacity: 0.6;
+      animation: yh-sphere-glow 2s infinite alternate;
+    }
+
+    @include e(sphere-pulse) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid var(--yh-color-primary-light-5);
+      opacity: 0;
+      animation: yh-sphere-pulse 2s infinite;
+    }
+
+    @include e(sphere-inner) {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      animation: yh-sphere-inner-pulse 1s infinite alternate;
+    }
+  }
 
   @include e(body) {
     display: flex;
@@ -74,7 +172,6 @@
     }
   }
 
-  /* Trigger Button */
   @include e(trigger) {
     display: inline-flex;
     align-items: center;
@@ -83,11 +180,13 @@
     background: transparent;
     cursor: pointer;
     border-radius: 50%;
-    width: var(--yh-ai-voice-trigger-btn-size);
+    min-width: var(--yh-ai-voice-trigger-btn-size);
     height: var(--yh-ai-voice-trigger-btn-size);
     color: var(--yh-text-color-primary, #303133);
     transition: all 0.2s;
     flex-shrink: 0;
+    position: relative;
+    padding: 0;
 
     .yh-icon {
       font-size: 16px;
@@ -101,22 +200,31 @@
 
     &.is-active {
       background-color: var(--yh-ai-voice-trigger-active-color);
-      color: #fff;
+      color: #fff !important;
       animation: yh-pulse-mic 2s infinite;
-
       .yh-icon {
         transform: scale(0.9);
       }
     }
   }
 
-  @include e(label) {
-    margin-left: 6px;
-    font-size: 14px;
-    display: none; // Default dot-only, but leaves room for future expansion
+  @include m(inline) {
+    @include e(trigger) {
+      &:not(.is-active) {
+        width: auto;
+        padding: 0 12px;
+        border-radius: 16px;
+        border: 1px solid var(--yh-border-color-lighter);
+        background-color: var(--yh-bg-color);
+
+        &:hover {
+          border-color: var(--yh-color-primary);
+          background-color: var(--yh-color-primary-light-9);
+        }
+      }
+    }
   }
 
-  /* Waveform Visualizer Area */
   @include e(visualizer) {
     display: flex;
     align-items: center;

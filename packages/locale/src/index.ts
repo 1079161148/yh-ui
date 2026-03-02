@@ -617,6 +617,13 @@ export interface Language {
       bubble: {
         citations: string
       }
+      mention: {
+        placeholder: string
+        agent: string
+        document: string
+        table: string
+        knowledge: string
+      }
       codeBlock: {
         copyCode: string
         copied: string

@@ -208,12 +208,12 @@ Artifact 允许用户在不同的迭代版本之间自由切换，通过 `versio
 
 ### ArtifactData
 
-| 属性名     | 说明        | 类型                                                 |
-| ---------- | ----------- | ---------------------------------------------------- |
-| `id`       | 唯一标识    | `string`                                             |
-| `title`    | 标题/文件名 | `string`                                             |
-| `type`     | 类型        | `'code' \| 'html' \| 'markdown' \| 'vue' \| 'react'` |
-| `versions` | 版本列表    | `ArtifactVersion[]`                                  |
+| 属性名     | 说明        | 类型                                                                                                  |
+| ---------- | ----------- | ----------------------------------------------------------------------------------------------------- |
+| `id`       | 唯一标识    | `string`                                                                                              |
+| `title`    | 标题/文件名 | `string`                                                                                              |
+| `type`     | 类型        | `'code' \| 'html' \| 'markdown' \| 'vue' \| 'react' \| 'diagram' \| 'chart' \| 'sandbox' \| 'canvas'` |
+| `versions` | 版本列表    | `ArtifactVersion[]`                                                                                   |
 
 ### ArtifactVersion
 

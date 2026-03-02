@@ -41,6 +41,15 @@ watch(
   }
 )
 
+const getIcon = (type?: string) => {
+  if (type === 'code') return 'code'
+  if (type === 'chart') return 'chart-bar'
+  if (type === 'canvas') return 'edit'
+  if (type === 'sandbox') return 'play'
+  if (type === 'diagram') return 'connection'
+  return 'document'
+}
+
 const currentVersionData = computed(() => {
   if (!props.data || props.data.versions.length === 0) return null
   return (
@@ -111,7 +120,7 @@ const highlightedCode = computed(() => {
       <!-- Header -->
       <div :class="ns.e('header')">
         <div :class="ns.e('title-area')">
-          <YhIcon :name="data?.type === 'code' ? 'code' : 'document'" />
+          <YhIcon :name="getIcon(data?.type)" />
           <span :class="ns.e('title')">{{ data?.title || 'Artifact' }}</span>
         </div>
 
@@ -167,7 +176,27 @@ const highlightedCode = computed(() => {
       <!-- Content area -->
       <div :class="ns.e('content')">
         <template v-if="internalMode === 'preview' || internalMode === 'inline'">
-          <iframe v-if="data?.type === 'html'" :src="sandboxSrc" :class="ns.e('sandbox')"></iframe>
+          <iframe
+            v-if="data?.type === 'html' || data?.type === 'sandbox'"
+            :src="sandboxSrc"
+            :class="ns.e('sandbox')"
+          ></iframe>
+          <div v-else-if="data?.type === 'chart'" :class="ns.e('chart-container')">
+            <slot name="chart" :data="currentVersionData" :title="data.title">
+              <div :class="ns.e('placeholder')">
+                <YhIcon name="chart-bar" />
+                <p>{{ t('ai.artifacts.renderingChart') || '正在渲染图表...' }}</p>
+              </div>
+            </slot>
+          </div>
+          <div v-else-if="data?.type === 'canvas'" :class="ns.e('canvas-container')">
+            <slot name="canvas" :data="currentVersionData">
+              <div :class="ns.e('placeholder')">
+                <YhIcon name="edit" />
+                <p>{{ t('ai.artifacts.renderingCanvas') || '正在准备画板...' }}</p>
+              </div>
+            </slot>
+          </div>
           <div v-else :class="ns.e('placeholder')">
             <YhIcon name="sparkles" />
             <p>{{ t('ai.artifacts.rendering') || '正在渲染组件...' }}</p>

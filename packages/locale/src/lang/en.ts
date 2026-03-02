@@ -601,6 +601,13 @@ export const en: Language = {
       bubble: {
         citations: 'Citations'
       },
+      mention: {
+        placeholder: '@ Mention Agent, Doc or Table...',
+        agent: 'Agent',
+        document: 'Document',
+        table: 'Table',
+        knowledge: 'Knowledge'
+      },
       codeBlock: {
         copyCode: 'Copy code',
         copied: 'Copied!',

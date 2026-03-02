@@ -16,6 +16,38 @@ export const aiVoiceTriggerProps = {
     default: () => Array(20).fill(5)
   },
   /**
+   * 展示模式
+   * - inline: 行内按钮
+   * - floating: 悬浮按钮
+   * - sphere: 拟物音量球
+   */
+  variant: {
+    type: String as PropType<'inline' | 'floating' | 'sphere'>,
+    default: 'inline'
+  },
+  /**
+   * 悬浮位置（仅在 floating/sphere 模式有效）
+   */
+  position: {
+    type: String as PropType<'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'>,
+    default: 'bottom-right'
+  },
+  /**
+   * 偏移量
+   */
+  offset: {
+    type: Array as unknown as PropType<[number, number]>,
+    default: () => [24, 24]
+  },
+  /**
+   * 是否挂载到 body (Teleport)
+   * 仅在 floating/sphere 模式有效
+   */
+  teleport: {
+    type: Boolean,
+    default: true
+  },
+  /**
    * 主题覆盖变量
    */
   themeOverrides: {

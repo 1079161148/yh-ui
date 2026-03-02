@@ -68,6 +68,50 @@ export const qwenParser: StreamChunkParser = (raw) => {
 }
 
 /**
+ * Anthropic / Claude 格式解析器
+ * data: {"type":"content_block_delta","delta":{"type":"text_delta","text":"hello"}}
+ */
+export const claudeParser: StreamChunkParser = (raw) => {
+  const lines = raw.split('\n')
+  let text = ''
+  for (const line of lines) {
+    if (!line.startsWith('data: ')) continue
+    const data = line.slice(6).trim()
+    try {
+      const json = JSON.parse(data)
+      if (json?.type === 'content_block_delta' && json?.delta?.text) {
+        text += json.delta.text
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return text || null
+}
+
+/**
+ * Google / Gemini 格式解析器
+ * data: {"candidates":[{"content":{"parts":[{"text":"hello"}]}}]}
+ */
+export const geminiParser: StreamChunkParser = (raw) => {
+  const lines = raw.split('\n')
+  let text = ''
+  for (const line of lines) {
+    // Gemini Stream 可能是简单的 JSON 块，也可能带 data:
+    const content = line.startsWith('data: ') ? line.slice(6).trim() : line.trim()
+    if (!content) continue
+    try {
+      const json = JSON.parse(content)
+      const part = json?.candidates?.[0]?.content?.parts?.[0]?.text
+      if (part) text += part
+    } catch {
+      // ignore
+    }
+  }
+  return text || null
+}
+
+/**
  * 纯文本流解析器（AsyncGenerator 输出的原始字符串）
  */
 export const plainTextParser: StreamChunkParser = (raw) => raw || null
@@ -269,6 +313,13 @@ export function useAiStream(options: AiStreamOptions) {
     fetchStream,
     stop,
     // 暴露解析器供测试/自定义使用
-    parsers: { openaiParser, ernieParser, qwenParser, plainTextParser }
+    parsers: {
+      openaiParser,
+      ernieParser,
+      qwenParser,
+      claudeParser,
+      geminiParser,
+      plainTextParser
+    }
   }
 }

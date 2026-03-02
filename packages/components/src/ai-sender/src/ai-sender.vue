@@ -5,6 +5,7 @@ import { aiSenderProps, aiSenderEmits, type AiCommand } from './ai-sender'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
 import { YhImage } from '../../image'
+import { YhAiMention } from '../../ai-mention'
 import { useComponentTheme } from '@yh-ui/theme'
 
 defineOptions({
@@ -23,7 +24,7 @@ const { themeStyle } = useComponentTheme(
   computed(() => props.themeOverrides)
 )
 
-const textareaRef = ref<HTMLTextAreaElement>()
+const textareaRef = ref<InstanceType<typeof YhAiMention> | null>(null)
 const localValue = ref(props.modelValue)
 const isFocused = ref(false)
 
@@ -58,7 +59,7 @@ const filteredCommands = computed(() => {
 })
 
 const autoResize = () => {
-  const el = textareaRef.value
+  const el = textareaRef.value?.getRef() as HTMLTextAreaElement
   if (!el) return
   el.style.height = 'auto'
   el.style.height = `${el.scrollHeight}px`
@@ -100,7 +101,8 @@ const handleInput = (e: Event) => {
 
 const handleSelectCommand = (command: AiCommand) => {
   const val = innerValue.value
-  const cursorPosition = textareaRef.value?.selectionStart || 0
+  const el = textareaRef.value?.getRef() as HTMLTextAreaElement
+  const cursorPosition = el?.selectionStart || 0
   const textBeforeCursor = val.slice(0, cursorPosition)
   const lastSlashIndex = textBeforeCursor.lastIndexOf('/')
 
@@ -152,8 +154,9 @@ const handleSend = () => {
   emit('send', innerValue.value)
   innerValue.value = ''
   nextTick(() => {
-    if (textareaRef.value) {
-      textareaRef.value.style.height = 'auto'
+    const el = textareaRef.value?.getRef() as HTMLTextAreaElement
+    if (el) {
+      el.style.height = 'auto'
     }
   })
 }
@@ -253,21 +256,24 @@ const handleFocus = (e: FocusEvent) => {
       </div>
 
       <div :class="ns.e('textarea-container')">
-        <textarea
+        <YhAiMention
           ref="textareaRef"
           v-model="innerValue"
+          type="textarea"
           :class="ns.e('textarea')"
           :placeholder="
             placeholder === 'Send a message...' ? t('ai.sender.placeholder') : placeholder
           "
           :disabled="disabled || loading"
-          :maxlength="maxLength"
-          rows="1"
+          :max-length="maxLength"
+          :rows="1"
+          :options="mentionOptions"
+          :trigger="['@', '#']"
           @focus="handleFocus"
           @blur="handleBlur"
           @input="handleInput"
           @keydown="handleKeyDown"
-        ></textarea>
+        />
       </div>
 
       <div :class="ns.e('suffix')">
