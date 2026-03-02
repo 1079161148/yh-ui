@@ -366,8 +366,12 @@ const blur = () => inputRef.value?.blur()
 const clear = () => handleClear()
 
 defineExpose<MentionExpose>({
-  ref: inputRef.value,
-  wrapperRef: wrapperRef.value,
+  get ref() {
+    return inputRef.value
+  },
+  get wrapperRef() {
+    return wrapperRef.value
+  },
   focus,
   blur,
   clear,

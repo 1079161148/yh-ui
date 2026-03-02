@@ -95,11 +95,13 @@ export type AiMentionProps = ExtractPropTypes<typeof aiMentionProps>
 
 export const aiMentionEmits = {
   'update:modelValue': (value: string) => typeof value === 'string',
+  input: (value: string) => typeof value === 'string',
   change: (value: string) => typeof value === 'string',
   select: (option: AiMentionOption, trigger: string) => !!option && !!trigger,
   search: (keyword: string, trigger: string) => typeof keyword === 'string' && !!trigger,
   focus: (event: FocusEvent) => event instanceof FocusEvent,
-  blur: (event: FocusEvent) => event instanceof FocusEvent
+  blur: (event: FocusEvent) => event instanceof FocusEvent,
+  keydown: (event: KeyboardEvent) => event instanceof KeyboardEvent
 }
 
 export type AiMentionEmits = typeof aiMentionEmits

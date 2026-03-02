@@ -7,6 +7,14 @@ import { nextTick } from 'vue'
 import AiSender from '../src/ai-sender.vue'
 
 describe('YhAiSender', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   // ─── Rendering ───────────────────────────────────────────
   it('should render with base class', () => {
     const wrapper = mount(AiSender)
@@ -46,7 +54,7 @@ describe('YhAiSender', () => {
   // ─── Disabled ────────────────────────────────────────────
   it('should apply is-disabled class when disabled=true', () => {
     const wrapper = mount(AiSender, { props: { disabled: true } })
-    expect(wrapper.classes()).toContain('is-disabled')
+    expect(wrapper.find('.yh-ai-sender').classes()).toContain('is-disabled')
   })
 
   it('should disable textarea when disabled=true', () => {
@@ -57,7 +65,7 @@ describe('YhAiSender', () => {
   // ─── Loading ─────────────────────────────────────────────
   it('should apply is-loading class when loading=true', () => {
     const wrapper = mount(AiSender, { props: { loading: true } })
-    expect(wrapper.classes()).toContain('is-loading')
+    expect(wrapper.find('.yh-ai-sender').classes()).toContain('is-loading')
   })
 
   it('should disable textarea when loading=true', () => {
@@ -149,14 +157,16 @@ describe('YhAiSender', () => {
   it('should apply is-focused on textarea focus', async () => {
     const wrapper = mount(AiSender)
     await wrapper.find('textarea').trigger('focus')
-    expect(wrapper.classes()).toContain('is-focused')
+    expect(wrapper.find('.yh-ai-sender').classes()).toContain('is-focused')
   })
 
   it('should remove is-focused on textarea blur', async () => {
     const wrapper = mount(AiSender)
-    await wrapper.find('textarea').trigger('focus')
-    await wrapper.find('textarea').trigger('blur')
-    expect(wrapper.classes()).not.toContain('is-focused')
+    await wrapper.get('textarea').trigger('focus')
+    await wrapper.get('textarea').trigger('blur')
+    vi.advanceTimersByTime(400)
+    await nextTick()
+    expect(wrapper.find('.yh-ai-sender').classes()).not.toContain('is-focused')
   })
 
   // ─── Slots ───────────────────────────────────────────────
@@ -198,11 +208,12 @@ describe('YhAiSender', () => {
 
     it('should show slash commands panel when triggering /', async () => {
       const wrapper = mount(AiSender, { props: { commands } })
-      const textarea = wrapper.find('textarea')
+      const textarea = wrapper.get('textarea')
 
       await textarea.setValue('/h')
       textarea.element.selectionStart = 2
       await textarea.trigger('input')
+      await nextTick()
 
       expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(true)
       expect(wrapper.findAll('.yh-ai-sender__command-item').length).toBe(1)
@@ -248,7 +259,6 @@ describe('YhAiSender', () => {
     })
 
     it('should hide commands on blur after delay', async () => {
-      vi.useFakeTimers()
       const wrapper = mount(AiSender, { props: { commands } })
       const textarea = wrapper.find('textarea')
       await textarea.setValue('/')
@@ -256,10 +266,9 @@ describe('YhAiSender', () => {
       await textarea.trigger('input')
 
       await textarea.trigger('blur')
-      vi.advanceTimersByTime(250)
+      vi.advanceTimersByTime(400)
       await nextTick()
       expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(false)
-      vi.useRealTimers()
     })
   })
 

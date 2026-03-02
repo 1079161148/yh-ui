@@ -1,0 +1,371 @@
+{
+  "numTotalTestSuites": 5,
+  "numPassedTestSuites": 2,
+  "numFailedTestSuites": 3,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 35,
+  "numPassedTests": 27,
+  "numFailedTests": 8,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1772467412372,
+  "success": false,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should render with base class",
+          "status": "passed",
+          "title": "should render with base class",
+          "duration": 28.180199999999786,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should render textarea",
+          "status": "passed",
+          "title": "should render textarea",
+          "duration": 5.892800000000079,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should render send button",
+          "status": "passed",
+          "title": "should render send button",
+          "duration": 4.1271999999999025,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should display modelValue in textarea",
+          "status": "passed",
+          "title": "should display modelValue in textarea",
+          "duration": 3.835399999999936,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should emit update:modelValue on input",
+          "status": "failed",
+          "title": "should emit update:modelValue on input",
+          "duration": 11.14469999999983,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should emit change on input",
+          "status": "failed",
+          "title": "should emit change on input",
+          "duration": 5.48070000000007,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should apply is-disabled class when disabled=true",
+          "status": "passed",
+          "title": "should apply is-disabled class when disabled=true",
+          "duration": 5.302200000000084,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should disable textarea when disabled=true",
+          "status": "passed",
+          "title": "should disable textarea when disabled=true",
+          "duration": 3.544800000000123,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should apply is-loading class when loading=true",
+          "status": "passed",
+          "title": "should apply is-loading class when loading=true",
+          "duration": 4.634500000000116,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should disable textarea when loading=true",
+          "status": "passed",
+          "title": "should disable textarea when loading=true",
+          "duration": 3.457100000000082,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should emit send when button clicked with text",
+          "status": "passed",
+          "title": "should emit send when button clicked with text",
+          "duration": 7.216600000000199,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should NOT emit send when textarea is empty",
+          "status": "passed",
+          "title": "should NOT emit send when textarea is empty",
+          "duration": 6.137699999999768,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should NOT emit send when disabled",
+          "status": "passed",
+          "title": "should NOT emit send when disabled",
+          "duration": 3.550699999999779,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should NOT emit send when loading",
+          "status": "passed",
+          "title": "should NOT emit send when loading",
+          "duration": 3.6786999999999352,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should emit send on Enter (without Shift)",
+          "status": "passed",
+          "title": "should emit send on Enter (without Shift)",
+          "duration": 4.807800000000043,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should NOT emit send on Shift+Enter",
+          "status": "passed",
+          "title": "should NOT emit send on Shift+Enter",
+          "duration": 4.126099999999951,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should clear value after send",
+          "status": "passed",
+          "title": "should clear value after send",
+          "duration": 5.679099999999835,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should show clear button when clearable=true and has text",
+          "status": "passed",
+          "title": "should show clear button when clearable=true and has text",
+          "duration": 8.649199999999837,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should NOT show clear button when clearable=true but empty",
+          "status": "passed",
+          "title": "should NOT show clear button when clearable=true but empty",
+          "duration": 4.180499999999938,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should emit clear when clear button clicked",
+          "status": "passed",
+          "title": "should emit clear when clear button clicked",
+          "duration": 8.265800000000127,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should show word limit when showWordLimit=true and maxLength set",
+          "status": "passed",
+          "title": "should show word limit when showWordLimit=true and maxLength set",
+          "duration": 4.743199999999888,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should apply is-focused on textarea focus",
+          "status": "passed",
+          "title": "should apply is-focused on textarea focus",
+          "duration": 3.9865999999997257,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should remove is-focused on textarea blur",
+          "status": "failed",
+          "title": "should remove is-focused on textarea blur",
+          "duration": 5.001600000000053,
+          "failureMessages": [
+            "Error: A function to advance timers was called but the timers APIs are not mocked. Call `vi.useFakeTimers()` in the test file first.\n    at FakeTimers._checkFakeTimers (file:///E:/YH-UI/node_modules/.pnpm/vitest@4.0.18_@types+node@2_34c83435e8cc3f97b2e5a43baa1607e9/node_modules/vitest/dist/chunks/vi.2VT5v0um.js:3601:32)\n    at FakeTimers.advanceTimersByTime (file:///E:/YH-UI/node_modules/.pnpm/vitest@4.0.18_@types+node@2_34c83435e8cc3f97b2e5a43baa1607e9/node_modules/vitest/dist/chunks/vi.2VT5v0um.js:3529:12)\n    at Object.advanceTimersByTime (file:///E:/YH-UI/node_modules/.pnpm/vitest@4.0.18_@types+node@2_34c83435e8cc3f97b2e5a43baa1607e9/node_modules/vitest/dist/chunks/vi.2VT5v0um.js:3760:13)\n    at E:/YH-UI/packages/components/src/ai-sender/__tests__/ai-sender.test.ts:159:8\n    at file:///E:/YH-UI/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:915:20"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should render prefix slot",
+          "status": "passed",
+          "title": "should render prefix slot",
+          "duration": 8.27430000000004,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should render actions slot",
+          "status": "passed",
+          "title": "should render actions slot",
+          "duration": 4.159500000000207,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should render submit slot overriding default send button",
+          "status": "passed",
+          "title": "should render submit slot overriding default send button",
+          "duration": 3.16170000000011,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender"],
+          "fullName": "YhAiSender should update when modelValue prop changes",
+          "status": "passed",
+          "title": "should update when modelValue prop changes",
+          "duration": 10.771400000000085,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "Slash Commands"],
+          "fullName": "YhAiSender Slash Commands should show slash commands panel when triggering /",
+          "status": "failed",
+          "title": "should show slash commands panel when triggering /",
+          "duration": 5.933400000000347,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "Slash Commands"],
+          "fullName": "YhAiSender Slash Commands should navigate and select command with keyboard",
+          "status": "failed",
+          "title": "should navigate and select command with keyboard",
+          "duration": 4.130400000000009,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "Slash Commands"],
+          "fullName": "YhAiSender Slash Commands should select command via mouse click",
+          "status": "failed",
+          "title": "should select command via mouse click",
+          "duration": 4.402099999999791,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "Slash Commands"],
+          "fullName": "YhAiSender Slash Commands should hide commands on Escape",
+          "status": "failed",
+          "title": "should hide commands on Escape",
+          "duration": 4.044300000000021,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "Slash Commands"],
+          "fullName": "YhAiSender Slash Commands should hide commands on blur after delay",
+          "status": "failed",
+          "title": "should hide commands on blur after delay",
+          "duration": 4.837799999999788,
+          "failureMessages": [
+            "TypeError: $setup.innerValue.trim is not a function\n    at Proxy._sfc_render (E:/YH-UI/packages/components/src/ai-sender/src/ai-sender.vue:261:52)\n    at renderComponentRoot (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:4475:16)\n    at ReactiveEffect.componentUpdateFn [as fn] (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:6062:26)\n    at ReactiveEffect.run (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:241:19)\n    at ReactiveEffect.runIfDirty (E:\\YH-UI\\node_modules\\.pnpm\\@vue+reactivity@3.5.27\\node_modules\\@vue\\reactivity\\dist\\reactivity.cjs.js:279:12)\n    at callWithErrorHandling (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:200:33)\n    at flushJobs (E:\\YH-UI\\node_modules\\.pnpm\\@vue+runtime-core@3.5.27\\node_modules\\@vue\\runtime-core\\dist\\runtime-core.cjs.js:405:9)"
+          ],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "Attachments"],
+          "fullName": "YhAiSender Attachments should render attachments and emit remove event",
+          "status": "passed",
+          "title": "should render attachments and emit remove event",
+          "duration": 7.971800000000258,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "aiSenderEmits"],
+          "fullName": "YhAiSender aiSenderEmits should validate send event",
+          "status": "passed",
+          "title": "should validate send event",
+          "duration": 0.18289999999979045,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": ["YhAiSender", "aiSenderEmits"],
+          "fullName": "YhAiSender aiSenderEmits should pass-through other event validators",
+          "status": "passed",
+          "title": "should pass-through other event validators",
+          "duration": 0.22260000000005675,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1772467414394,
+      "endTime": 1772467414599.2227,
+      "status": "failed",
+      "message": "",
+      "name": "E:/YH-UI/packages/components/src/ai-sender/__tests__/ai-sender.test.ts"
+    }
+  ]
+}

@@ -25,7 +25,7 @@ const { themeStyle } = useComponentTheme(
 )
 
 const textareaRef = ref<InstanceType<typeof YhAiMention> | null>(null)
-const localValue = ref(props.modelValue)
+const localValue = ref<string>(props.modelValue ?? '')
 const isFocused = ref(false)
 
 // Slash Command State
@@ -65,12 +65,14 @@ const autoResize = () => {
   el.style.height = `${el.scrollHeight}px`
 }
 
-const handleInput = (e: Event) => {
-  const val = (e.target as HTMLTextAreaElement).value
+const handleInput = (val: string) => {
   innerValue.value = val
 
+  const el = textareaRef.value?.getRef() as HTMLTextAreaElement
+  if (!el) return
+
   // Detect Slash Command
-  const cursorPosition = (e.target as HTMLTextAreaElement).selectionStart
+  const cursorPosition = el.selectionStart || 0
   const textBeforeCursor = val.slice(0, cursorPosition)
   const lastSlashIndex = textBeforeCursor.lastIndexOf('/')
 
@@ -140,7 +142,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 
   if (e.key === 'Enter' && !e.shiftKey) {
-    if (!innerValue.value.trim() || props.loading || props.disabled) {
+    if (!innerValue.value?.trim() || props.loading || props.disabled) {
       e.preventDefault()
     } else {
       e.preventDefault()
@@ -150,7 +152,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 const handleSend = () => {
-  if (!innerValue.value.trim() || props.loading || props.disabled) return
+  if (!innerValue.value?.trim() || props.loading || props.disabled) return
   emit('send', innerValue.value)
   innerValue.value = ''
   nextTick(() => {
@@ -299,14 +301,14 @@ const handleFocus = (e: FocusEvent) => {
 
         <slot
           name="submit"
-          :disabled="!innerValue.trim() || disabled"
+          :disabled="!innerValue?.trim() || disabled"
           :loading="loading"
           :submit="handleSend"
         >
           <YhButton
-            :type="innerValue.trim() && !disabled && !loading ? 'primary' : 'default'"
+            :type="innerValue?.trim() && !disabled && !loading ? 'primary' : 'default'"
             :class="ns.e('send-btn')"
-            :disabled="!innerValue.trim() || disabled"
+            :disabled="!innerValue?.trim() || disabled"
             :loading="loading"
             @click="handleSend"
             circle

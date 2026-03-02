@@ -83,6 +83,8 @@ defineExpose({
       @search="handleSearch"
       @focus="emit('focus', $event)"
       @blur="emit('blur', $event)"
+      @input="emit('input', $event)"
+      @keydown="emit('keydown', $event)"
     >
       <!-- 自定义选项渲染 -->
       <template #option="{ option }: { option: AiMentionOption }">
@@ -92,9 +94,9 @@ defineExpose({
           </div>
           <div :class="ns.e('option-info')">
             <div :class="ns.e('option-label')">{{ option.label || option.value }}</div>
-            <div v-if="option.description" :class="ns.e('option-desc')">{{
-              option.description
-            }}</div>
+            <div v-if="option.description" :class="ns.e('option-desc')">
+              {{ option.description }}
+            </div>
           </div>
           <div v-if="option.type" :class="[ns.e('option-tag'), ns.em('option-tag', option.type)]">
             {{ t(`ai.mention.${option.type}`) || option.type }}
