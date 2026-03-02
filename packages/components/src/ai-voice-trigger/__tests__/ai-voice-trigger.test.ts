@@ -28,9 +28,9 @@ describe('YhAiVoiceTrigger', () => {
   // ─── Props ───────────────────────────────────────────────
   it('should apply recording class when recording is true', () => {
     const wrapper = mount(AiVoiceTrigger, {
-      props: { recording: true }
+      props: { recording: true, teleport: false }
     })
-    expect(wrapper.classes()).toContain('is-recording')
+    expect(wrapper.find('.yh-ai-voice-trigger').classes()).toContain('is-recording')
     expect(wrapper.find('.yh-ai-voice-trigger__visualizer').exists()).toBe(true)
   })
 
@@ -130,5 +130,17 @@ describe('YhAiVoiceTrigger', () => {
     })
 
     expect(wrapper.find('.yh-ai-voice-trigger__label').text()).toBe('Custom Trigger Text')
+  })
+
+  it('should respect teleport prop', () => {
+    const wrapper = mount(AiVoiceTrigger, {
+      props: { variant: 'sphere', teleport: true }
+    })
+    expect(wrapper.props('teleport')).toBe(true)
+
+    const wrapperNoTeleport = mount(AiVoiceTrigger, {
+      props: { variant: 'sphere', teleport: false }
+    })
+    expect(wrapperNoTeleport.props('teleport')).toBe(false)
   })
 })
