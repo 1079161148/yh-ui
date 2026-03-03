@@ -178,10 +178,12 @@ export function useAiVoice(options: UseAiVoiceOptions = {}): UseAiVoiceReturn {
     }
 
     recorder.onstop = () => {
-      audioBlob.value = new Blob(chunks, { type: 'audio/webm' })
-      // 仅在非取消的情况下触发 onStop 业务回调
-      if (isRecording.value === false && chunks.length > 0) {
-        options.onStop?.(transcript.value, audioBlob.value)
+      const blob = chunks.length > 0 ? new Blob(chunks, { type: 'audio/webm' }) : null
+      audioBlob.value = blob
+      // 仅在非取消的情况下（isRecording 变为 false 且不是 abort 触发）响应业务回调
+      // 此时 transcript 可能已经有值了
+      if (!isRecording.value) {
+        options.onStop?.(transcript.value, blob)
       }
     }
 
@@ -291,7 +293,8 @@ export function useAiVoice(options: UseAiVoiceOptions = {}): UseAiVoiceReturn {
 
   // ── 4. API 导出函数 ─────────────────────────────────────────────────────
   const start = async () => {
-    if (isRecording.value) return
+    // 改为检查 stream 是否存在，因为 v-model 可能已经提前把 isRecording 置为 true 了
+    if (stream.value) return
 
     try {
       transcript.value = ''
@@ -326,13 +329,14 @@ export function useAiVoice(options: UseAiVoiceOptions = {}): UseAiVoiceReturn {
   }
 
   const stop = () => {
-    if (!isRecording.value) return
+    // 改为检查 stream 是否存在，因为 v-model 可能已经提前把 isRecording 置为 false 了
+    if (!stream.value) return
     isRecording.value = false
 
-    // 停止所有音频轨道以关闭浏览器话筒图标
-    if (stream.value) {
-      stream.value.getTracks().forEach((track) => track.stop())
-      stream.value = null
+    if (mediaRecorder.value && mediaRecorder.value.state !== 'inactive') {
+      try {
+        mediaRecorder.value.stop()
+      } catch {}
     }
 
     if (recognition.value) {
@@ -341,23 +345,19 @@ export function useAiVoice(options: UseAiVoiceOptions = {}): UseAiVoiceReturn {
       } catch {}
     }
 
-    if (mediaRecorder.value && mediaRecorder.value.state !== 'inactive') {
-      try {
-        mediaRecorder.value.stop()
-      } catch {}
+    // 停止所有音频轨道以关闭浏览器话筒图标
+    if (stream.value) {
+      stream.value.getTracks().forEach((track) => track.stop())
+      stream.value = null
     }
 
     cleanup()
   }
 
   const cancel = () => {
-    if (!isRecording.value) return
+    // 改为检查 stream 是否存在，防止 v-model 已同步修改 isRecording
+    if (!isRecording.value && !stream.value) return
     isRecording.value = false
-
-    if (stream.value) {
-      stream.value.getTracks().forEach((track) => track.stop())
-      stream.value = null
-    }
 
     if (recognition.value) {
       try {
@@ -369,6 +369,11 @@ export function useAiVoice(options: UseAiVoiceOptions = {}): UseAiVoiceReturn {
       try {
         mediaRecorder.value.stop()
       } catch {}
+    }
+
+    if (stream.value) {
+      stream.value.getTracks().forEach((track) => track.stop())
+      stream.value = null
     }
 
     cleanup()
