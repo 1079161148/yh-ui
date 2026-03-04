@@ -39,7 +39,7 @@ export const mg: Language = {
     },
     // Mpanoratra daty
     datepicker: {
-      now: 'Amin\'izao fotoana izao',
+      now: "Amin'izao fotoana izao",
       today: 'Androany',
       cancel: 'Atsahatra',
       clear: 'Fafana',
@@ -93,7 +93,7 @@ export const mg: Language = {
     timepicker: {
       confirm: 'OK',
       cancel: 'Atsahatra',
-      now: 'Amin\'izao fotoana izao',
+      now: "Amin'izao fotoana izao",
       placeholder: 'Misafidy fotoana',
       startPlaceholder: 'Fotoana fanombohana',
       endPlaceholder: 'Fotoana fiafarana',
@@ -179,14 +179,14 @@ export const mg: Language = {
       confirmFilter: 'Manamarina',
       resetFilter: 'Averina',
       clearFilter: 'Rehetra',
-      sumText: 'Fitambaran\'ny',
+      sumText: "Fitambaran'ny",
       loading: 'Ampidirina...',
       index: 'Fampidirana',
       print: 'Fampirinty',
       cancel: 'Atsahatra',
       preview: 'Fijerena mialoha ny fampirinty',
       printTime: 'Fotoana fampirinty',
-      total: 'Fitambaran\'ny {total} zavatra',
+      total: "Fitambaran'ny {total} zavatra",
       page: 'Pejy {page}',
       yes: 'Eny',
       no: 'Tsia',
@@ -199,7 +199,7 @@ export const mg: Language = {
         densitySmall: 'Kely',
         columnSetting: 'Fikiraketana tsanganana',
         fullscreen: 'Efijery feno',
-        exitFullscreen: 'Mivoaka amin\'ny efijery feno',
+        exitFullscreen: "Mivoaka amin'ny efijery feno",
         export: 'Famoahana',
         import: 'Fampidirana',
         search: 'Karohina',
@@ -215,11 +215,11 @@ export const mg: Language = {
         notContains: 'Tsy misy',
         equals: 'Mitovy',
         notEquals: 'Tsy mitovy',
-        startsWith: 'Manomboka amin\'ny',
-        endsWith: 'Miafara amin\'ny',
+        startsWith: "Manomboka amin'ny",
+        endsWith: "Miafara amin'ny",
         greaterThan: 'Lehibe kokoa noho',
         lessThan: 'Kely kokoa noho',
-        between: 'Eo anelanelan\'ny'
+        between: "Eo anelanelan'ny"
       },
       // Sort
       sort: {
@@ -230,7 +230,7 @@ export const mg: Language = {
       // Export
       export: {
         title: 'Export angona',
-        filename: 'Anaran\'ny rakitra',
+        filename: "Anaran'ny rakitra",
         type: 'Karazana rakitra',
         scope: 'Fampidirana export',
         scopeAll: 'Angona rehetra',
@@ -255,7 +255,7 @@ export const mg: Language = {
       // Print
       printConfig: {
         title: 'Fikiraketana fampirinty',
-        pageTitle: 'Lohatenin\'ny pejy',
+        pageTitle: "Lohatenin'ny pejy",
         pageHeader: 'Lohateny',
         pageFooter: 'Tongotra',
         printAll: 'Fampirinty ny rehetra',
@@ -271,8 +271,8 @@ export const mg: Language = {
         showAll: 'Asehoy ny rehetra',
         hideAll: 'Afeno ny rehetra',
         reset: 'Averina',
-        fixedLeft: 'Mametraka amin\'ny ankavia',
-        fixedRight: 'Mametraka amin\'ny ankavanana',
+        fixedLeft: "Mametraka amin'ny ankavia",
+        fixedRight: "Mametraka amin'ny ankavanana",
         unfixed: 'Manafoana ny fametrahana'
       },
       // Context Menu
@@ -303,7 +303,7 @@ export const mg: Language = {
       tree: {
         expandAll: 'Ampitomboina ny rehetra',
         collapseAll: 'Ahena ny rehetra',
-        expandLevel: 'Ampitomboina amin\'ny ambaratonga {level}'
+        expandLevel: "Ampitomboina amin'ny ambaratonga {level}"
       },
       // Drag
       drag: {
@@ -329,7 +329,7 @@ export const mg: Language = {
       preview: 'Fijerena mialoha',
       continue: 'Manohy',
       upload: 'Tsindrio mba hampitondraina',
-      tip: 'Tsindrio na sinty rakitra amin\'ity faritra ity mba <em>hampitondraina</em>',
+      tip: "Tsindrio na sinty rakitra amin'ity faritra ity mba <em>hampitondraina</em>",
       dragTip: 'Avelao rakitra eto na tsindrio mba hampitondraina',
       uploading: 'Ampitondraina...',
       success: 'Fampitondraina nahomby',
@@ -338,7 +338,7 @@ export const mg: Language = {
       cancel: 'Atsahatra ny fampitondraina',
       fileTypeError: 'Karazana rakitra tsy voarohirohy',
       fileSizeError: 'Habe rakitra mihoatra ny fetra',
-      fileCountError: 'Isan\'ny rakitra mihoatra ny fetra'
+      fileCountError: "Isan'ny rakitra mihoatra ny fetra"
     },
     // Form
     form: {
@@ -394,7 +394,7 @@ export const mg: Language = {
     pagination: {
       goto: 'Mandeha',
       page: '',
-      total: 'Fitambaran\'ny {total}',
+      total: "Fitambaran'ny {total}",
       pageSize: '/pejy',
       prev: 'Teo aloha',
       next: 'Manaraka',
@@ -449,7 +449,7 @@ export const mg: Language = {
       rotateRight: 'Averina miankavanana',
       reset: 'Averina',
       fullscreen: 'Efijery feno',
-      exitFullscreen: 'Mivoaka amin\'ny efijery feno'
+      exitFullscreen: "Mivoaka amin'ny efijery feno"
     },
     // Infinite Scroll
     infinitescroll: {
@@ -589,7 +589,129 @@ export const mg: Language = {
     // Affix
     affix: {},
     // Anchor
-    anchor: {}
+    anchor: {},
+    // Mention
+    mention: {
+      placeholder: 'Please input',
+      loading: 'Loading...',
+      noData: 'No Data'
+    },
+    // AI Components
+    ai: {
+      bubble: {
+        citations: 'Citations'
+      },
+      mention: {
+        placeholder: '@ Mention Agent, Doc or Table...',
+        agent: 'Agent',
+        document: 'Document',
+        table: 'Table',
+        knowledge: 'Knowledge'
+      },
+      codeBlock: {
+        copyCode: 'Copy code',
+        copied: 'Copied!',
+        run: 'Run Code',
+        edit: 'Edit',
+        save: 'Save',
+        cancel: 'Cancel'
+      },
+      codeRunner: {
+        run: 'Run',
+        stop: 'Stop',
+        clear: 'Clear',
+        reset: 'Reset',
+        placeholder: 'Click Run to execute the code...'
+      },
+      sender: {
+        placeholder: 'Send a message...',
+        dragTip: 'Release to upload files'
+      },
+      thoughtChain: {
+        thoughtProcess: 'Thought process',
+        thinking: 'Thinking...',
+        defaultTitle: 'New step',
+        addNode: 'Add step'
+      },
+      thinking: {
+        start: 'Start thinking',
+        thinking: 'Thinking...',
+        complete: 'Thinking complete',
+        error: 'Thinking error'
+      },
+      welcome: {
+        title: 'Hello, I am YH AI',
+        description:
+          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+      },
+      action: {
+        copy: 'Copy',
+        regenerate: 'Regenerate',
+        share: 'Share',
+        like: 'Like',
+        dislike: 'Dislike',
+        edit: 'Edit',
+        delete: 'Delete'
+      },
+      artifacts: {
+        preview: 'Preview',
+        inline: 'Inline',
+        code: 'Source',
+        versions: 'Versions',
+        rendering: 'Rendering component...',
+        renderingChart: 'Rendering chart...',
+        renderingCanvas: 'Preparing canvas...'
+      },
+      voice: {
+        trigger: 'Click to Speak',
+        listening: 'Listening...'
+      },
+      agent: {
+        uses: 'uses',
+        use: 'Use Now',
+        favorite: 'Favorite',
+        unfavorite: 'Unfavorite',
+        share: 'Share',
+        online: 'Online',
+        offline: 'Offline',
+        busy: 'Busy',
+        verified: 'Verified',
+        rating: 'Rating',
+        reviews: 'reviews',
+        responseTime: 'Avg. Response',
+        ms: 'ms'
+      },
+      sources: {
+        references: 'References',
+        referencedSources: 'Referenced Sources',
+        relevant: 'Relevance',
+        viewOriginal: 'View Original',
+        showAll: 'Show All',
+        more: 'more sources',
+        drawerTitle: 'References',
+        expandMore: 'Show More',
+        collapseMore: 'Collapse',
+        noSources: 'No sources',
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned'
+      },
+      conversations: {
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned',
+        pin: 'Pin',
+        unpin: 'Unpin',
+        newConversation: 'New Conversation',
+        rename: 'Rename',
+        delete: 'Delete',
+        deleteConfirm: 'Confirm delete this conversation?'
+      }
+    }
   }
 }
 

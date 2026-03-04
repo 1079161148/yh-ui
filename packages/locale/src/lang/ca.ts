@@ -29,7 +29,7 @@ export const ca: Language = {
     },
     // Selector de color
     colorpicker: {
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       clear: 'Netejar',
       eyeDropper: 'Comptagotes',
       suggestionDark: 'El text blanc és millor',
@@ -43,11 +43,11 @@ export const ca: Language = {
       today: 'Avui',
       cancel: 'Cancel·lar',
       clear: 'Netejar',
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       selectDate: 'Seleccionar data',
       selectTime: 'Seleccionar hora',
-      startDate: 'Data d\'inici',
-      startTime: 'Hora d\'inici',
+      startDate: "Data d'inici",
+      startTime: "Hora d'inici",
       endDate: 'Data de fi',
       endTime: 'Hora de fi',
       year: '',
@@ -91,11 +91,11 @@ export const ca: Language = {
     },
     // Selector d'hora
     timepicker: {
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       cancel: 'Cancel·lar',
       now: 'Ara',
       placeholder: 'Seleccionar hora',
-      startPlaceholder: 'Hora d\'inici',
+      startPlaceholder: "Hora d'inici",
       endPlaceholder: 'Hora de fi',
       selectTime: 'Seleccionar hora'
     },
@@ -184,8 +184,8 @@ export const ca: Language = {
       index: 'Índex',
       print: 'Imprimir',
       cancel: 'Cancel·lar',
-      preview: 'Vista prèvia d\'impressió',
-      printTime: 'Hora d\'impressió',
+      preview: "Vista prèvia d'impressió",
+      printTime: "Hora d'impressió",
       total: 'Total {total} elements',
       page: 'Pàgina {page}',
       yes: 'Sí',
@@ -232,14 +232,14 @@ export const ca: Language = {
         title: 'Exportar dades',
         filename: 'Nom del fitxer',
         type: 'Tipus de fitxer',
-        scope: 'Abast d\'exportació',
+        scope: "Abast d'exportació",
         scopeAll: 'Totes les dades',
         scopeSelected: 'Dades seleccionades',
         scopeCurrentPage: 'Pàgina actual',
         includeHeader: 'Incloure capçalera',
         exporting: 'Exportant...',
         success: 'Exportació exitosa',
-        error: 'Error en l\'exportació'
+        error: "Error en l'exportació"
       },
       // Importació
       import: {
@@ -248,13 +248,13 @@ export const ca: Language = {
         dragTip: 'Feu clic o arrossegueu el fitxer aquí per pujar-lo',
         importing: 'Important...',
         success: 'Importació exitosa',
-        error: 'Error en l\'importació',
+        error: "Error en l'importació",
         preview: 'Vista prèvia de dades',
         confirm: 'Confirmar importació'
       },
       // Impressió
       printConfig: {
-        title: 'Configuració d\'impressió',
+        title: "Configuració d'impressió",
         pageTitle: 'Títol de la pàgina',
         pageHeader: 'Capçalera',
         pageFooter: 'Peu de pàgina',
@@ -271,7 +271,7 @@ export const ca: Language = {
         showAll: 'Mostrar tot',
         hideAll: 'Ocultar tot',
         reset: 'Restablir',
-        fixedLeft: 'Fixar a l\'esquerra',
+        fixedLeft: "Fixar a l'esquerra",
         fixedRight: 'Fixar a la dreta',
         unfixed: 'Desfixar'
       },
@@ -314,7 +314,7 @@ export const ca: Language = {
     // Quadre de missatge
     messagebox: {
       title: 'Missatge',
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       cancel: 'Cancel·lar',
       close: 'Tancar',
       error: 'Entrada no vàlida',
@@ -404,13 +404,13 @@ export const ca: Language = {
     },
     // Confirmació emergent
     popconfirm: {
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       cancel: 'Cancel·lar',
       dontAskAgain: 'No tornar a preguntar'
     },
     // Diàleg
     dialog: {
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       cancel: 'Cancel·lar',
       close: 'Tancar',
       maximize: 'Maximitzar',
@@ -419,7 +419,7 @@ export const ca: Language = {
     // Calaix
     drawer: {
       close: 'Tancar',
-      confirm: 'D\'acord',
+      confirm: "D'acord",
       cancel: 'Cancel·lar'
     },
     // Menú desplegable
@@ -433,7 +433,7 @@ export const ca: Language = {
       preview: 'Vista prèvia',
       zoomIn: 'Ampliar',
       zoomOut: 'Reduir',
-      rotateLeft: 'Girar cap a l\'esquerra',
+      rotateLeft: "Girar cap a l'esquerra",
       rotateRight: 'Girar cap a la dreta',
       originalSize: 'Mida original',
       fullscreen: 'Pantalla completa'
@@ -445,7 +445,7 @@ export const ca: Language = {
       next: 'Següent',
       zoomIn: 'Ampliar',
       zoomOut: 'Reduir',
-      rotateLeft: 'Girar cap a l\'esquerra',
+      rotateLeft: "Girar cap a l'esquerra",
       rotateRight: 'Girar cap a la dreta',
       reset: 'Restablir',
       fullscreen: 'Pantalla completa',
@@ -523,7 +523,7 @@ export const ca: Language = {
       error: 'Error',
       warning: 'Advertència',
       info: 'Informació',
-      backHome: 'Tornar a l\'inici'
+      backHome: "Tornar a l'inici"
     },
     // Cascada
     waterfall: {
@@ -589,7 +589,129 @@ export const ca: Language = {
     // Fixació
     affix: {},
     // Àncora
-    anchor: {}
+    anchor: {},
+    // Mention
+    mention: {
+      placeholder: 'Please input',
+      loading: 'Loading...',
+      noData: 'No Data'
+    },
+    // AI Components
+    ai: {
+      bubble: {
+        citations: 'Citations'
+      },
+      mention: {
+        placeholder: '@ Mention Agent, Doc or Table...',
+        agent: 'Agent',
+        document: 'Document',
+        table: 'Table',
+        knowledge: 'Knowledge'
+      },
+      codeBlock: {
+        copyCode: 'Copy code',
+        copied: 'Copied!',
+        run: 'Run Code',
+        edit: 'Edit',
+        save: 'Save',
+        cancel: 'Cancel'
+      },
+      codeRunner: {
+        run: 'Run',
+        stop: 'Stop',
+        clear: 'Clear',
+        reset: 'Reset',
+        placeholder: 'Click Run to execute the code...'
+      },
+      sender: {
+        placeholder: 'Send a message...',
+        dragTip: 'Release to upload files'
+      },
+      thoughtChain: {
+        thoughtProcess: 'Thought process',
+        thinking: 'Thinking...',
+        defaultTitle: 'New step',
+        addNode: 'Add step'
+      },
+      thinking: {
+        start: 'Start thinking',
+        thinking: 'Thinking...',
+        complete: 'Thinking complete',
+        error: 'Thinking error'
+      },
+      welcome: {
+        title: 'Hello, I am YH AI',
+        description:
+          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+      },
+      action: {
+        copy: 'Copy',
+        regenerate: 'Regenerate',
+        share: 'Share',
+        like: 'Like',
+        dislike: 'Dislike',
+        edit: 'Edit',
+        delete: 'Delete'
+      },
+      artifacts: {
+        preview: 'Preview',
+        inline: 'Inline',
+        code: 'Source',
+        versions: 'Versions',
+        rendering: 'Rendering component...',
+        renderingChart: 'Rendering chart...',
+        renderingCanvas: 'Preparing canvas...'
+      },
+      voice: {
+        trigger: 'Click to Speak',
+        listening: 'Listening...'
+      },
+      agent: {
+        uses: 'uses',
+        use: 'Use Now',
+        favorite: 'Favorite',
+        unfavorite: 'Unfavorite',
+        share: 'Share',
+        online: 'Online',
+        offline: 'Offline',
+        busy: 'Busy',
+        verified: 'Verified',
+        rating: 'Rating',
+        reviews: 'reviews',
+        responseTime: 'Avg. Response',
+        ms: 'ms'
+      },
+      sources: {
+        references: 'References',
+        referencedSources: 'Referenced Sources',
+        relevant: 'Relevance',
+        viewOriginal: 'View Original',
+        showAll: 'Show All',
+        more: 'more sources',
+        drawerTitle: 'References',
+        expandMore: 'Show More',
+        collapseMore: 'Collapse',
+        noSources: 'No sources',
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned'
+      },
+      conversations: {
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned',
+        pin: 'Pin',
+        unpin: 'Unpin',
+        newConversation: 'New Conversation',
+        rename: 'Rename',
+        delete: 'Delete',
+        deleteConfirm: 'Confirm delete this conversation?'
+      }
+    }
   }
 }
 

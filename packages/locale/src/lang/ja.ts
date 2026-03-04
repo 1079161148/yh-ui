@@ -598,22 +598,118 @@ export const ja: Language = {
     },
     // AI Components
     ai: {
+      bubble: {
+        citations: 'Citations'
+      },
+      mention: {
+        placeholder: '@ Mention Agent, Doc or Table...',
+        agent: 'Agent',
+        document: 'Document',
+        table: 'Table',
+        knowledge: 'Knowledge'
+      },
       codeBlock: {
-        copyCode: 'コードをコピー',
-        copied: 'コピーしました！'
+        copyCode: 'Copy code',
+        copied: 'Copied!',
+        run: 'Run Code',
+        edit: 'Edit',
+        save: 'Save',
+        cancel: 'Cancel'
+      },
+      codeRunner: {
+        run: 'Run',
+        stop: 'Stop',
+        clear: 'Clear',
+        reset: 'Reset',
+        placeholder: 'Click Run to execute the code...'
       },
       sender: {
-        placeholder: 'メッセージを送信...'
+        placeholder: 'Send a message...',
+        dragTip: 'Release to upload files'
       },
       thoughtChain: {
-        thoughtProcess: '思考プロセス',
-        thinking: '思考中...'
+        thoughtProcess: 'Thought process',
+        thinking: 'Thinking...',
+        defaultTitle: 'New step',
+        addNode: 'Add step'
       },
       thinking: {
-        start: '思考開始',
-        thinking: '思考中...',
-        complete: '思考完了',
-        error: '思考エラー'
+        start: 'Start thinking',
+        thinking: 'Thinking...',
+        complete: 'Thinking complete',
+        error: 'Thinking error'
+      },
+      welcome: {
+        title: 'Hello, I am YH AI',
+        description:
+          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+      },
+      action: {
+        copy: 'Copy',
+        regenerate: 'Regenerate',
+        share: 'Share',
+        like: 'Like',
+        dislike: 'Dislike',
+        edit: 'Edit',
+        delete: 'Delete'
+      },
+      artifacts: {
+        preview: 'Preview',
+        inline: 'Inline',
+        code: 'Source',
+        versions: 'Versions',
+        rendering: 'Rendering component...',
+        renderingChart: 'Rendering chart...',
+        renderingCanvas: 'Preparing canvas...'
+      },
+      voice: {
+        trigger: 'Click to Speak',
+        listening: 'Listening...'
+      },
+      agent: {
+        uses: 'uses',
+        use: 'Use Now',
+        favorite: 'Favorite',
+        unfavorite: 'Unfavorite',
+        share: 'Share',
+        online: 'Online',
+        offline: 'Offline',
+        busy: 'Busy',
+        verified: 'Verified',
+        rating: 'Rating',
+        reviews: 'reviews',
+        responseTime: 'Avg. Response',
+        ms: 'ms'
+      },
+      sources: {
+        references: 'References',
+        referencedSources: 'Referenced Sources',
+        relevant: 'Relevance',
+        viewOriginal: 'View Original',
+        showAll: 'Show All',
+        more: 'more sources',
+        drawerTitle: 'References',
+        expandMore: 'Show More',
+        collapseMore: 'Collapse',
+        noSources: 'No sources',
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned'
+      },
+      conversations: {
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned',
+        pin: 'Pin',
+        unpin: 'Unpin',
+        newConversation: 'New Conversation',
+        rename: 'Rename',
+        delete: 'Delete',
+        deleteConfirm: 'Confirm delete this conversation?'
       }
     }
   }

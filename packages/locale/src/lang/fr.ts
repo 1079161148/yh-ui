@@ -171,7 +171,7 @@ export const fr: Language = {
       index: 'N°',
       print: 'Imprimer',
       cancel: 'Annuler',
-      preview: "Aperçu avant impression",
+      preview: 'Aperçu avant impression',
       printTime: "Heure d'impression",
       total: 'Total {total}',
       page: 'Page {page}',
@@ -222,7 +222,7 @@ export const fr: Language = {
         includeHeader: "Inclure l'en-tête",
         exporting: 'Exportation...',
         success: 'Export réussi',
-        error: 'Échec de l\'export'
+        error: "Échec de l'export"
       },
       import: {
         title: 'Importer des données',
@@ -230,9 +230,9 @@ export const fr: Language = {
         dragTip: 'Glisser-déposer ou cliquer pour téléverser',
         importing: 'Importation...',
         success: 'Import réussi',
-        error: 'Échec de l\'import',
+        error: "Échec de l'import",
         preview: 'Aperçu des données',
-        confirm: 'Confirmer l\'import'
+        confirm: "Confirmer l'import"
       },
       printConfig: {
         title: "Paramètres d'impression",
@@ -279,7 +279,7 @@ export const fr: Language = {
       tree: {
         expandAll: 'Tout développer',
         collapseAll: 'Tout réduire',
-        expandLevel: 'Développer jusqu\'au niveau {level}'
+        expandLevel: "Développer jusqu'au niveau {level}"
       },
       drag: {
         dragTip: 'Glisser pour réorganiser',
@@ -341,7 +341,7 @@ export const fr: Language = {
       remove: 'Supprimer'
     },
     breadcrumb: {
-      label: 'Fil d\'Ariane',
+      label: "Fil d'Ariane",
       more: 'Plus'
     },
     backtop: {
@@ -467,7 +467,7 @@ export const fr: Language = {
       error: 'Erreur',
       warning: 'Avertissement',
       info: 'Information',
-      backHome: 'Retour à l\'accueil'
+      backHome: "Retour à l'accueil"
     },
     waterfall: {
       loading: 'Chargement...',
@@ -514,9 +514,130 @@ export const fr: Language = {
     },
     marquee: {},
     affix: {},
-    anchor: {}
+    anchor: {},
+    // Mention
+    mention: {
+      placeholder: 'Please input',
+      loading: 'Loading...',
+      noData: 'No Data'
+    },
+    // AI Components
+    ai: {
+      bubble: {
+        citations: 'Citations'
+      },
+      mention: {
+        placeholder: '@ Mention Agent, Doc or Table...',
+        agent: 'Agent',
+        document: 'Document',
+        table: 'Table',
+        knowledge: 'Knowledge'
+      },
+      codeBlock: {
+        copyCode: 'Copy code',
+        copied: 'Copied!',
+        run: 'Run Code',
+        edit: 'Edit',
+        save: 'Save',
+        cancel: 'Cancel'
+      },
+      codeRunner: {
+        run: 'Run',
+        stop: 'Stop',
+        clear: 'Clear',
+        reset: 'Reset',
+        placeholder: 'Click Run to execute the code...'
+      },
+      sender: {
+        placeholder: 'Send a message...',
+        dragTip: 'Release to upload files'
+      },
+      thoughtChain: {
+        thoughtProcess: 'Thought process',
+        thinking: 'Thinking...',
+        defaultTitle: 'New step',
+        addNode: 'Add step'
+      },
+      thinking: {
+        start: 'Start thinking',
+        thinking: 'Thinking...',
+        complete: 'Thinking complete',
+        error: 'Thinking error'
+      },
+      welcome: {
+        title: 'Hello, I am YH AI',
+        description:
+          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+      },
+      action: {
+        copy: 'Copy',
+        regenerate: 'Regenerate',
+        share: 'Share',
+        like: 'Like',
+        dislike: 'Dislike',
+        edit: 'Edit',
+        delete: 'Delete'
+      },
+      artifacts: {
+        preview: 'Preview',
+        inline: 'Inline',
+        code: 'Source',
+        versions: 'Versions',
+        rendering: 'Rendering component...',
+        renderingChart: 'Rendering chart...',
+        renderingCanvas: 'Preparing canvas...'
+      },
+      voice: {
+        trigger: 'Click to Speak',
+        listening: 'Listening...'
+      },
+      agent: {
+        uses: 'uses',
+        use: 'Use Now',
+        favorite: 'Favorite',
+        unfavorite: 'Unfavorite',
+        share: 'Share',
+        online: 'Online',
+        offline: 'Offline',
+        busy: 'Busy',
+        verified: 'Verified',
+        rating: 'Rating',
+        reviews: 'reviews',
+        responseTime: 'Avg. Response',
+        ms: 'ms'
+      },
+      sources: {
+        references: 'References',
+        referencedSources: 'Referenced Sources',
+        relevant: 'Relevance',
+        viewOriginal: 'View Original',
+        showAll: 'Show All',
+        more: 'more sources',
+        drawerTitle: 'References',
+        expandMore: 'Show More',
+        collapseMore: 'Collapse',
+        noSources: 'No sources',
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned'
+      },
+      conversations: {
+        today: 'Today',
+        last7Days: 'Last 7 Days',
+        last30Days: 'Last 30 Days',
+        earlier: 'Earlier',
+        pinned: 'Pinned',
+        pin: 'Pin',
+        unpin: 'Unpin',
+        newConversation: 'New Conversation',
+        rename: 'Rename',
+        delete: 'Delete',
+        deleteConfirm: 'Confirm delete this conversation?'
+      }
+    }
   }
 }
 
 export default fr
-
