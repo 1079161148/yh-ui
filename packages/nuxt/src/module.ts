@@ -201,6 +201,8 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'AiSender',
       'AiThoughtChain',
       'AiCodeBlock',
+      'AiCodeEditor',
+      'AiCodeRunner',
       'AiThinking',
       'AiWelcome',
       'AiActionGroup',

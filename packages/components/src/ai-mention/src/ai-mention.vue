@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { computed, ref, useSlots } from 'vue'
-import { aiMentionProps, aiMentionEmits, type AiMentionOption } from './ai-mention'
+import {
+  aiMentionProps,
+  aiMentionEmits,
+  type AiMentionOption,
+  type AiMentionExpose
+} from './ai-mention'
 import { YhMention } from '../../mention'
 import { YhIcon } from '../../icon'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -52,7 +57,7 @@ const getIcon = (type?: string) => {
   }
 }
 
-defineExpose({
+defineExpose<AiMentionExpose>({
   focus: () => mentionRef.value?.focus(),
   blur: () => mentionRef.value?.blur(),
   clear: () => mentionRef.value?.clear(),

@@ -1,0 +1,71 @@
+{
+  "name": "@yh-ui/ai-sdk",
+  "version": "1.0.0",
+  "description": "YH-UI AI SDK integration for Vercel AI SDK and LangChain",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./vue": {
+      "types": "./dist/vue/index.d.ts",
+      "import": "./dist/vue/index.mjs",
+      "require": "./dist/vue/index.cjs"
+    },
+    "./langchain": {
+      "types": "./dist/langchain.d.ts",
+      "import": "./dist/langchain.mjs",
+      "require": "./dist/langchain.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@langchain/core": ">=0.3.0",
+    "ai": "catalog:",
+    "zod": "^3.25.76"
+  },
+  "peerDependencies": {
+    "vue": "catalog:",
+    "@yh-ui/components": "workspace:*"
+  },
+  "devDependencies": {
+    "@yh-ui/components": "workspace:*",
+    "typescript": "catalog:",
+    "unbuild": "^3.3.1",
+    "vue": "catalog:",
+    "vue-tsc": "^2.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/ai-sdk"
+  },
+  "keywords": [
+    "yh-ui",
+    "ai",
+    "chat",
+    "vercel-ai-sdk",
+    "langchain",
+    "llm"
+  ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
+  "author": "YH-UI Team",
+  "license": "MIT"
+}

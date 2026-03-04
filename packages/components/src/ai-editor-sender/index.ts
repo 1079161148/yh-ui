@@ -5,3 +5,5 @@ export const YhAiEditorSender = withInstall(AiEditorSender)
 export default YhAiEditorSender
 
 export * from './src/ai-editor-sender'
+
+export type AiEditorSenderInstance = InstanceType<typeof AiEditorSender>

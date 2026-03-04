@@ -442,3 +442,78 @@ const { conversations } = useAiConversations({ storage: apiAdapter })
 | `updateConversation`   | `(id, updates) => Promise<void>`            | 更新会话                |
 | `pinConversation`      | `(id, pinned?) => Promise<void>`            | 置顶/取消               |
 | `clear`                | `() => Promise<void>`                       | 清空所有                |
+
+## 远程同步
+
+支持与后端 API 同步，实现多端数据一致性。
+
+```ts
+import { useAiConversations } from '@yh-ui/hooks'
+
+// 定义远程同步适配器
+const remoteSyncAdapter = {
+  async fetchConversations() {
+    const res = await fetch('/api/conversations')
+    return res.json()
+  },
+  async createConversation(conv) {
+    const res = await fetch('/api/conversations', {
+      method: 'POST',
+      body: JSON.stringify(conv)
+    })
+    return res.json()
+  },
+  async updateConversation(id, updates) {
+    const res = await fetch(`/api/conversations/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updates)
+    })
+    return res.json()
+  },
+  async deleteConversation(id) {
+    await fetch(`/api/conversations/${id}`, { method: 'DELETE' })
+  },
+  async batchUpdate(conversations) {
+    const res = await fetch('/api/conversations/batch', {
+      method: 'PUT',
+      body: JSON.stringify(conversations)
+    })
+    return res.json()
+  }
+}
+
+const { conversations, isSyncing, syncError, syncToRemote, fetchFromRemote, startSync, stopSync } =
+  useAiConversations({
+    storage: 'localStorage',
+    remoteSync: remoteSyncAdapter,
+    autoSync: true,
+    syncInterval: 30000 // 30 秒同步一次
+  })
+```
+
+### 远程同步 Options 扩展
+
+| 参数           | 类型                | 默认值  | 说明             |
+| -------------- | ------------------- | ------- | ---------------- |
+| `remoteSync`   | `RemoteSyncAdapter` | -       | 远程同步适配器   |
+| `autoSync`     | `boolean`           | `false` | 是否自动同步     |
+| `syncInterval` | `number`            | `30000` | 同步间隔（毫秒） |
+
+### 远程同步返回值
+
+| 字段              | 类型                  | 说明           |
+| ----------------- | --------------------- | -------------- | -------- |
+| `isSyncing`       | `Ref<boolean>`        | 同步中状态     |
+| `lastSyncTime`    | `Ref<number>`         | 上次同步时间戳 |
+| `syncError`       | `Ref<Error            | null>`         | 同步错误 |
+| `syncToRemote`    | `() => Promise<void>` | 手动同步到远程 |
+| `fetchFromRemote` | `() => Promise<void>` | 从远程拉取     |
+| `startSync`       | `() => void`          | 启动定时同步   |
+| `stopSync`        | `() => void`          | 停止定时同步   |
+
+::: tip 远程同步注意事项
+
+1. **autoSync** 和 **syncInterval** 仅在设置了 **remoteSync** 时有效
+2. **同步是增量的**，本地新建的数据会合并到列表，不会覆盖远程已有数据
+3. 建议在页面卸载时调用 **stopSync** 停止定时同步
+   :::

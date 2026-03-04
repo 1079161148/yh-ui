@@ -628,13 +628,26 @@ export interface Language {
         copyCode: string
         copied: string
         run: string
+        edit: string
+        save: string
+        cancel: string
+      }
+      codeRunner: {
+        run: string
+        stop: string
+        clear: string
+        reset: string
+        placeholder: string
       }
       sender: {
         placeholder: string
+        dragTip: string
       }
       thoughtChain: {
         thoughtProcess: string
         thinking: string
+        defaultTitle: string
+        addNode: string
       }
       thinking: {
         start: string
@@ -657,9 +670,12 @@ export interface Language {
       }
       artifacts: {
         preview: string
+        inline: string
         code: string
         versions: string
         rendering: string
+        renderingChart: string
+        renderingCanvas: string
       }
       voice: {
         trigger: string

@@ -147,7 +147,11 @@ export const aiSenderEmits = {
   /**
    * 附件移除时触发
    */
-  'remove-attachment': (_attachment: AiAttachment) => true
+  'remove-attachment': (_attachment: AiAttachment) => true,
+  /**
+   * 文件上传/拖入时触发
+   */
+  upload: (_files: File[]) => true
 }
 
 export type AiSenderEmits = typeof aiSenderEmits

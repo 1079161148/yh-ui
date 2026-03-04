@@ -82,3 +82,7 @@ export const aiSourcesEmits = {
 }
 
 export type AiSourcesEmits = typeof aiSourcesEmits
+
+export interface AiSourcesExpose {
+  scrollToSource: (id: string | number) => void
+}

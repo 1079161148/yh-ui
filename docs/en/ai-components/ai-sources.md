@@ -2,6 +2,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { YhAiSources } from '@yh-ui/components'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 const mockSources = [
@@ -69,6 +70,35 @@ const sources = [
   { id: 2, title: 'Difference between ref and reactive', fileType: 'pdf', score: 0.87 }
 ]
 </${_S}>`
+
+const sourcesRef = ref<InstanceType<typeof YhAiSources> | null>(null)
+const handleJump = (id: number | string) => {
+  sourcesRef.value?.scrollToSource(id)
+}
+
+const tsJump = `<${_T}>
+  <div style="max-width: 600px;">
+    <div style="padding: 12px 16px; background: var(--yh-fill-color-light); border-radius: 8px; margin-bottom: 12px; line-height: 1.8;">
+      Click these citations to jump and highlight:
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(1)">[1]</sup>
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(3)">[3]</sup>
+    </div>
+    <yh-ai-sources ref="sourcesRef" :sources="sources" mode="card" />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+const sourcesRef = ref(null)
+const sources = [
+  { id: 1, title: 'Vue 3 Reactivity Principle', source: 'vuejs.org', fileType: 'web', score: 0.95, excerpt: 'Vue 3 introduced a reactivity system based on Proxy...' },
+  { id: 2, title: 'Understanding ref and reactive', source: 'Juejin', fileType: 'web', score: 0.87, excerpt: 'ref is used for primitive types...' },
+  { id: 3, title: 'Vue3 Best Practices.pdf', source: 'Internal Knowledge Base', fileType: 'pdf', score: 0.72, excerpt: 'Chapter 3 Composition API...' }
+]
+const handleJump = (id: number | string) => {
+  sourcesRef.value?.scrollToSource(id)
+}
+</${_S}>`
 </script>
 
 ## inline mode
@@ -128,6 +158,21 @@ Minimalist badge, click to pop up side drawer for details, suitable for space-co
   </div>
 </DemoBlock>
 
+## Citation Jump & Highlight
+
+By getting the component instance and calling the `scrollToSource(id)` method, you can precisely jump from the citation in the main text to the corresponding source item and trigger a highlight micro-animation.
+
+<DemoBlock :ts-code="tsJump" :js-code="toJs(tsJump)">
+  <div style="max-width: 600px;">
+    <div style="padding: 12px 16px; background: var(--yh-fill-color-light); border-radius: 8px; margin-bottom: 12px; line-height: 1.8;">
+      Click these citations to jump and highlight:
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(1)">[1]</sup>
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(3)">[3]</sup>
+    </div>
+    <yh-ai-sources ref="sourcesRef" :sources="mockSources.slice(0, 3)" mode="card" />
+  </div>
+</DemoBlock>
+
 ## API
 
 ### Props
@@ -159,6 +204,12 @@ Minimalist badge, click to pop up side drawer for details, suitable for space-co
 | ---------- | ------------------------ | ------------------------------- |
 | `click`    | `(source: AiSourceItem)` | Clicked source item             |
 | `open`     | `(source: AiSourceItem)` | Clicked to view original source |
+
+### Methods
+
+| Method Name      | Params                   | Description                                                   |
+| ---------------- | ------------------------ | ------------------------------------------------------------- |
+| `scrollToSource` | `(id: string \| number)` | Scroll to the specified source item and trigger the highlight |
 
 ## Theme Variables
 

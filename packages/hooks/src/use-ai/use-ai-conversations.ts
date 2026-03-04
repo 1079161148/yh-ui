@@ -143,6 +143,21 @@ function getGroupLabel(updatedAt: number): string {
 const GROUP_ORDER = ['today', 'last7Days', 'last30Days', 'earlier'] as const
 type GroupKey = (typeof GROUP_ORDER)[number]
 
+// ─── 远程同步适配器 ─────────────────────────────────────────────────────────
+
+export interface RemoteSyncAdapter {
+  /** 获取所有会话 */
+  fetchConversations(): Promise<AiConversation[]>
+  /** 创建会话 */
+  createConversation(conversation: AiConversation): Promise<AiConversation>
+  /** 更新会话 */
+  updateConversation(id: string, updates: Partial<AiConversation>): Promise<AiConversation>
+  /** 删除会话 */
+  deleteConversation(id: string): Promise<void>
+  /** 批量更新（用于同步） */
+  batchUpdate(conversations: AiConversation[]): Promise<AiConversation[]>
+}
+
 // ─── Hook Options ─────────────────────────────────────────────────────────────
 
 export interface UseAiConversationsOptions {
@@ -165,6 +180,15 @@ export interface UseAiConversationsOptions {
    * @default 20
    */
   pageSize?: number
+  /**
+   * 远程同步适配器（用于与后端同步）
+   * 设置后会自动进行本地与远程的数据同步
+   */
+  remoteSync?: RemoteSyncAdapter
+  /** 是否自动同步（仅在设置了 remoteSync 时有效） */
+  autoSync?: boolean
+  /** 同步间隔（毫秒），0 表示实时同步 */
+  syncInterval?: number
 }
 
 // ─── Hook 主体 ────────────────────────────────────────────────────────────────
@@ -183,7 +207,10 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
     idGenerator = () => Math.random().toString(36).substring(2, 9),
     storage = 'localStorage',
     storageKey = 'yh-ui-ai-conversations',
-    pageSize = 20
+    pageSize = 20,
+    remoteSync,
+    autoSync = false,
+    syncInterval = 30000
   } = options
 
   // 确定持久化适配器
@@ -343,6 +370,79 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
     }
   }
 
+  // ── 远程同步 ─────────────────────────────────────────────────────────────
+  const isSyncing = ref(false)
+  const lastSyncTime = ref<number>(0)
+  const syncError = ref<Error | null>(null)
+
+  // 同步到远程
+  const syncToRemote = async (): Promise<void> => {
+    if (!remoteSync || isSyncing.value) return
+
+    isSyncing.value = true
+    syncError.value = null
+
+    try {
+      await remoteSync.batchUpdate(conversations.value)
+      lastSyncTime.value = Date.now()
+    } catch (err) {
+      syncError.value = err instanceof Error ? err : new Error(String(err))
+    } finally {
+      isSyncing.value = false
+    }
+  }
+
+  // 从远程拉取
+  const fetchFromRemote = async (): Promise<void> => {
+    if (!remoteSync || isSyncing.value) return
+
+    isSyncing.value = true
+    syncError.value = null
+
+    try {
+      const remoteConversations = await remoteSync.fetchConversations()
+      // 合并：以本地数据为准，但添加远程新增的
+      for (const rc of remoteConversations) {
+        if (!conversations.value.find((c) => c.id === rc.id)) {
+          conversations.value.push(rc)
+        }
+      }
+      // 排序
+      conversations.value.sort((a, b) => {
+        if (a.pinned !== b.pinned) return a.pinned ? -1 : 1
+        return b.updatedAt - a.updatedAt
+      })
+      lastSyncTime.value = Date.now()
+      await persist()
+    } catch (err) {
+      syncError.value = err instanceof Error ? err : new Error(String(err))
+    } finally {
+      isSyncing.value = false
+    }
+  }
+
+  // 定时同步
+  let syncTimer: ReturnType<typeof setInterval> | null = null
+
+  const startSync = (): void => {
+    if (!remoteSync || syncTimer) return
+    if (syncInterval > 0) {
+      syncTimer = setInterval(syncToRemote, syncInterval)
+    }
+  }
+
+  const stopSync = (): void => {
+    if (syncTimer) {
+      clearInterval(syncTimer)
+      syncTimer = null
+    }
+  }
+
+  // 自动同步
+  if (remoteSync && autoSync) {
+    startSync()
+  }
+
   return {
     /** 完整会话列表 */
     conversations,
@@ -367,6 +467,15 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
     /** 置顶/取消置顶 */
     pinConversation,
     /** 清空全部 */
-    clear
+    clear,
+    /** 远程同步状态 */
+    isSyncing,
+    lastSyncTime,
+    syncError,
+    /** 远程同步方法 */
+    syncToRemote,
+    fetchFromRemote,
+    startSync,
+    stopSync
   }
 }

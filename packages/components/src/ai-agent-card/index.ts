@@ -5,3 +5,5 @@ export const YhAiAgentCard = withInstall(AiAgentCard)
 export default YhAiAgentCard
 
 export * from './src/ai-agent-card'
+
+export type AiAgentCardInstance = InstanceType<typeof AiAgentCard>

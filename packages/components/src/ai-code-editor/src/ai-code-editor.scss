@@ -1,0 +1,32 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-code-editor) {
+  display: block;
+  border: 1px solid var(--yh-border-color);
+  border-radius: var(--yh-radius-md);
+  overflow: hidden;
+
+  @include e(container) {
+    width: 100%;
+    // height 由组件内联样式传入，不依赖 flex 布局
+
+    // 兜底：即便 Monaco 官方 CSS 没有生效/被覆盖，也保证编辑器可见
+    // Monaco 会把 .monaco-editor 挂在该容器内
+    :deep(.monaco-editor) {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    :deep(.monaco-editor .overflow-guard) {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    :deep(.monaco-editor-background),
+    :deep(.monaco-editor .margin),
+    :deep(.monaco-editor .inputarea.ime-input) {
+      background: transparent;
+    }
+  }
+}

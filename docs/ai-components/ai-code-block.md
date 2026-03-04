@@ -71,6 +71,26 @@ const onRun = (code: string) => {
 }
 </${_S}>`
 
+const tsEditDemo = `<${_T}>
+  <yh-ai-code-block 
+    filename="script.ts" 
+    language="typescript" 
+    :code="editDemoCode"
+    show-edit
+    @update="(code) => editDemoCode = code"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const editDemoCode = ref(\`function greet(name: string): string {
+  return \\\`Hello, \${name}!\\\`;
+}
+
+console.log(greet('YH-UI'));\`)
+</${_S}>`
+
 const exampleCode = ref("function greeting() {\n  console.log('Hello World!');\n}")
 const advancedCode = ref(`function sum(a, b) {
   // 这两行将被高亮
@@ -84,6 +104,13 @@ const onCopy = (text: string) => {
 const onRun = (code: string) => {
   alert('执行代码: ' + code);
 }
+
+// 编辑功能示例：用 ref 绑定 code，保存时通过 @update 写回，编辑才会生效
+const editDemoCode = ref(`function greet(name: string): string {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(greet('YH-UI'));`)
 </script>
 
 支持代码高亮、自动复制、行号显示及交互扩展的智能代码展示组件。
@@ -142,6 +169,22 @@ const onRun = (code: string) => {
 </div>
 </DemoBlock>
 
+## 编辑功能
+
+支持点击"编辑"按钮打开 Monaco 编辑器进行代码修改。
+
+<DemoBlock title="编辑功能" :ts-code="tsEditDemo" :js-code="toJs(tsEditDemo)">
+<div style="background:var(--yh-bg-color-page); padding:16px;">
+  <yh-ai-code-block 
+    filename="script.ts" 
+    language="typescript" 
+    :code="editDemoCode"
+    show-edit
+    @update="(code) => editDemoCode = code"
+  />
+</div>
+</DemoBlock>
+
 ## API
 
 ### Props
@@ -156,15 +199,19 @@ const onRun = (code: string) => {
 | `collapsible`       | 是否开启折叠功能           | `boolean`            | `false`  |
 | `default-collapsed` | 默认是否折叠               | `boolean`            | `false`  |
 | `show-run`          | 是否显示运行按钮           | `boolean`            | `false`  |
+| `show-edit`         | 是否显示编辑按钮           | `boolean`            | `false`  |
+| `editable`          | 是否可编辑                 | `boolean`            | `false`  |
 | `highlight`         | 是否开启语法高亮           | `boolean`            | `true`   |
 | `theme-overrides`   | 组件级别的主题定制覆盖变量 | `ComponentThemeVars` | —        |
 
 ### Events
 
-| 事件名 | 说明               | 回调参数                 |
-| ------ | ------------------ | ------------------------ |
-| `copy` | 复制代码时触发     | `(code: string) => void` |
-| `run`  | 点击运行按钮时触发 | `(code: string) => void` |
+| 事件名   | 说明               | 回调参数                 |
+| -------- | ------------------ | ------------------------ |
+| `copy`   | 复制代码时触发     | `(code: string) => void` |
+| `run`    | 点击运行按钮时触发 | `(code: string) => void` |
+| `edit`   | 点击编辑按钮时触发 | `(code: string) => void` |
+| `update` | 保存编辑时触发     | `(code: string) => void` |
 
 ### Slots
 

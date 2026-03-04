@@ -611,14 +611,27 @@ export const zhCn: Language = {
       codeBlock: {
         copyCode: '复制代码',
         copied: '已复制！',
-        run: '运行代码'
+        run: '运行代码',
+        edit: '编辑',
+        save: '保存',
+        cancel: '取消'
+      },
+      codeRunner: {
+        run: '运行',
+        stop: '停止',
+        clear: '清空',
+        reset: '重置',
+        placeholder: '点击运行按钮执行代码...'
       },
       sender: {
-        placeholder: '发送消息...'
+        placeholder: '发送消息...',
+        dragTip: '释放鼠标以上传文件'
       },
       thoughtChain: {
         thoughtProcess: '思考过程',
-        thinking: '思考中...'
+        thinking: '思考中...',
+        defaultTitle: '新步骤',
+        addNode: '添加节点'
       },
       thinking: {
         start: '开始思考',
@@ -641,9 +654,12 @@ export const zhCn: Language = {
       },
       artifacts: {
         preview: '预览',
+        inline: '行内',
         code: '源码',
         versions: '版本历史',
-        rendering: '正在渲染组件...'
+        rendering: '正在渲染组件...',
+        renderingChart: '正在渲染图表...',
+        renderingCanvas: '正在准备画板...'
       },
       voice: {
         trigger: '点击说话',

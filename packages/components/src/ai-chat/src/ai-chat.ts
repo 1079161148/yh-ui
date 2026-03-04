@@ -43,6 +43,27 @@ export const aiChatProps = {
     default: () => []
   },
   /**
+   * @description 是否启用虚拟滚动 (大数据量时开启)
+   */
+  virtualScroll: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 虚拟滚动 - 容器高度
+   */
+  virtualHeight: {
+    type: Number,
+    default: 400
+  },
+  /**
+   * @description 虚拟滚动 - 每一项的预估高度
+   */
+  estimatedItemHeight: {
+    type: Number,
+    default: 80
+  },
+  /**
    * @description 主题覆盖变量
    */
   themeOverrides: {

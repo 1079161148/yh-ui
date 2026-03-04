@@ -11,6 +11,7 @@ const valMulti = ref('');
 const valSlot = ref('');
 const input3 = ref('');
 const input4 = ref('');
+const input5 = ref('');
 
 const onSend = (v: string) => {
   alert('你想发送：' + v);
@@ -29,6 +30,37 @@ const attachments = ref([
 
 const handleRemove = (file: { id: string }) => {
   attachments.value = attachments.value.filter(a => a.id !== file.id);
+};
+
+const attachments2 = ref([]);
+const handleUpload = (files: File[]) => {
+  files.forEach(file => {
+    const isImage = file.type.startsWith('image/');
+    const newAttach = {
+      id: Math.random().toString(36).substring(7),
+      name: file.name,
+      type: file.type,
+      status: 'uploading',
+      progress: 0,
+      url: isImage ? URL.createObjectURL(file) : undefined
+    };
+    attachments2.value.push(newAttach);
+    
+    // 模拟上传
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 10;
+      newAttach.progress = p;
+      if (p >= 100) {
+        newAttach.status = 'success';
+        clearInterval(interval);
+      }
+    }, 200);
+  });
+};
+
+const handleRemove2 = (file: { id: string }) => {
+  attachments2.value = attachments2.value.filter(a => a.id !== file.id);
 };
 
 const tsBasic = `<${_T}>
@@ -128,11 +160,60 @@ const tsPreset = `<${_T}>
   </yh-ai-sender>
 </${_T}>`
 
+const tsUpload = `<${_T}>
+  <yh-ai-sender 
+    v-model="input5" 
+    placeholder="尝试拖拽图片或 PDF 到这里..."
+    :attachments="attachments2"
+    @upload="handleUpload"
+    @remove-attachment="handleRemove2"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue';
+import type { AiAttachment } from '@yh-ui/components';
+
+const input5 = ref('');
+const attachments2 = ref<AiAttachment[]>([]);
+
+const handleUpload = (files: File[]) => {
+  files.forEach(file => {
+    // 实际项目中这里调用上传接口
+    const newAttach: AiAttachment = {
+      id: Math.random().toString(36).substring(7),
+      name: file.name,
+      type: file.type,
+      status: 'uploading',
+      progress: 0,
+      url: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined
+    };
+    attachments2.value.push(newAttach);
+    
+    // 模拟进度
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 10;
+      newAttach.progress = p;
+      if (p >= 100) {
+        newAttach.status = 'success';
+        clearInterval(interval);
+      }
+    }, 200);
+  });
+};
+
+const handleRemove2 = (file: AiAttachment) => {
+  attachments2.value = attachments2.value.filter(a => a.id !== file.id);
+};
+</${_S}>`;
+
 const jsBasic = toJs(tsBasic)
 const jsLoading = toJs(tsLoading)
 const jsAdvanced = toJs(tsAdvanced)
 const jsCommand = toJs(tsCommand)
 const jsAttach = toJs(tsAttach)
+const jsUpload = toJs(tsUpload)
 const jsPreset = toJs(tsPreset)
 </script>
 
@@ -248,7 +329,7 @@ const jsPreset = toJs(tsPreset)
   </div>
 </DemoBlock>
 
-## 附件预览 (Attachments)
+## 附件与多模态 (Attachments)
 
 支持在发送前预览图片及文件列表，内置上传进度显示及一键移除能力。
 
@@ -259,6 +340,22 @@ const jsPreset = toJs(tsPreset)
       placeholder="带有附件的输入..." 
       :attachments="attachments"
       @remove-attachment="handleRemove"
+    />
+  </div>
+</DemoBlock>
+
+## 多模态拖拽上传 (Drag & Drop)
+
+`AiSender` 内置了文件拖拽检测。当用户将外部文件拖入输入框区域时，会自动显示遮罩层引导，并触发 `upload` 事件。
+
+<DemoBlock title="多模态拖拽上传" :ts-code="tsUpload" :js-code="jsUpload">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-sender 
+      v-model="input5" 
+      placeholder="尝试拖拽图片或 PDF 到这里..."
+      :attachments="attachments2"
+      @upload="handleUpload"
+      @remove-attachment="handleRemove2"
     />
   </div>
 </DemoBlock>
@@ -326,6 +423,7 @@ const jsPreset = toJs(tsPreset)
 | `clear`             | 点击清空按钮时触发     | `() => void`                   |
 | `command`           | 选中快捷命令时触发     | `(command: AiCommand) => void` |
 | `remove-attachment` | 移除附件时触发         | `(file: AiAttachment) => void` |
+| `upload`            | 拖入或选择文件时触发   | `(files: File[]) => void`      |
 
 ### Slots
 

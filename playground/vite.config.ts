@@ -10,7 +10,7 @@ export default defineConfig({
       '@yh-ui/hooks': resolve(__dirname, '../packages/hooks/src'),
       '@yh-ui/utils': resolve(__dirname, '../packages/utils/src'),
       '@yh-ui/theme': resolve(__dirname, '../packages/theme/src'),
-      'dayjs': resolve(__dirname, '../node_modules/dayjs')
+      dayjs: resolve(__dirname, '../node_modules/dayjs')
     }
   },
   // 优化依赖预构建，确保 dayjs locale 能正确加载
@@ -19,6 +19,11 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
+    // WebContainer 需要这些响应头才能在浏览器中运行
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin'
+    }
   }
 })

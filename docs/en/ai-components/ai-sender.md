@@ -11,6 +11,7 @@ const valMulti = ref('');
 const valSlot = ref('');
 const input3 = ref('');
 const input4 = ref('');
+const input5 = ref('');
 
 const onSend = (v: string) => {
   alert('You want to send: ' + v);
@@ -29,6 +30,37 @@ const attachments = ref([
 
 const handleRemove = (file: { id: string }) => {
   attachments.value = attachments.value.filter(a => a.id !== file.id);
+};
+
+const attachments2 = ref([]);
+const handleUpload = (files: File[]) => {
+  files.forEach(file => {
+    const isImage = file.type.startsWith('image/');
+    const newAttach = {
+      id: Math.random().toString(36).substring(7),
+      name: file.name,
+      type: file.type,
+      status: 'uploading',
+      progress: 0,
+      url: isImage ? URL.createObjectURL(file) : undefined
+    };
+    attachments2.value.push(newAttach);
+    
+    // Simulate upload
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 10;
+      newAttach.progress = p;
+      if (p >= 100) {
+        newAttach.status = 'success';
+        clearInterval(interval);
+      }
+    }, 200);
+  });
+};
+
+const handleRemove2 = (file: { id: string }) => {
+  attachments2.value = attachments2.value.filter(a => a.id !== file.id);
 };
 
 const tsBasic = `<${_T}>
@@ -128,11 +160,60 @@ const tsPreset = `<${_T}>
   </yh-ai-sender>
 </${_T}>`
 
+const tsUpload = `<${_T}>
+  <yh-ai-sender 
+    v-model="input5" 
+    placeholder="Try dragging images or PDFs here..."
+    :attachments="attachments2"
+    @upload="handleUpload"
+    @remove-attachment="handleRemove2"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue';
+import type { AiAttachment } from '@yh-ui/components';
+
+const input5 = ref('');
+const attachments2 = ref<AiAttachment[]>([]);
+
+const handleUpload = (files: File[]) => {
+  files.forEach(file => {
+    // In actual project, call your upload API here
+    const newAttach: AiAttachment = {
+      id: Math.random().toString(36).substring(7),
+      name: file.name,
+      type: file.type,
+      status: 'uploading',
+      progress: 0,
+      url: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined
+    };
+    attachments2.value.push(newAttach);
+    
+    // Simulate progress
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 10;
+      newAttach.progress = p;
+      if (p >= 100) {
+        newAttach.status = 'success';
+        clearInterval(interval);
+      }
+    }, 200);
+  });
+};
+
+const handleRemove2 = (file: AiAttachment) => {
+  attachments2.value = attachments2.value.filter(a => a.id !== file.id);
+};
+</${_S}>`;
+
 const jsBasic = toJs(tsBasic)
 const jsLoading = toJs(tsLoading)
 const jsAdvanced = toJs(tsAdvanced)
 const jsCommand = toJs(tsCommand)
 const jsAttach = toJs(tsAttach)
+const jsUpload = toJs(tsUpload)
 const jsPreset = toJs(tsPreset)
 </script>
 
@@ -248,17 +329,33 @@ Type `/` to trigger the command panel. Quickly select preset Prompt templates.
   </div>
 </DemoBlock>
 
-## Attachments Preview
+## Attachments & Multimodal
 
 Supports previewing images and files before sending, with built-in upload progress and removal capability.
 
-<DemoBlock title="Attachments" :ts-code="tsAttach" :js-code="jsAttach">
+<DemoBlock title="Attachments Preview" :ts-code="tsAttach" :js-code="jsAttach">
   <div style="background:var(--yh-bg-color-page); padding:16px;">
     <yh-ai-sender 
       v-model="input4" 
       placeholder="Input with attachments..." 
       :attachments="attachments"
       @remove-attachment="handleRemove"
+    />
+  </div>
+</DemoBlock>
+
+## Multimodal Drag & Drop
+
+`AiSender` has built-in file drag detection. When a user drags external files into the input area, an overlay will automatically appear, and the `upload` event will be triggered.
+
+<DemoBlock title="Multimodal Drag & Drop" :ts-code="tsUpload" :js-code="jsUpload">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-sender 
+      v-model="input5" 
+      placeholder="Try dragging images or PDFs here..."
+      :attachments="attachments2"
+      @upload="handleUpload"
+      @remove-attachment="handleRemove2"
     />
   </div>
 </DemoBlock>
@@ -303,12 +400,13 @@ Supports previewing images and files before sending, with built-in upload progre
 
 ### Events
 
-| Name                | Description                        | Parameters                     |
-| ------------------- | ---------------------------------- | ------------------------------ |
-| `send`              | Fired on send button or Enter      | `(value: string) => void`      |
-| `clear`             | Fired when clear button is clicked | —                              |
-| `command`           | Fired when command is selected     | `(command: AiCommand) => void` |
-| `remove-attachment` | Fired when attachment is removed   | `(file: AiAttachment) => void` |
+| Name                | Description                            | Parameters                     |
+| ------------------- | -------------------------------------- | ------------------------------ |
+| `send`              | Fired on send button or Enter          | `(value: string) => void`      |
+| `clear`             | Fired when clear button is clicked     | —                              |
+| `command`           | Fired when command is selected         | `(command: AiCommand) => void` |
+| `remove-attachment` | Fired when attachment is removed       | `(file: AiAttachment) => void` |
+| `upload`            | Fired when files are dragged or chosen | `(files: File[]) => void`      |
 
 ## Use in Nuxt
 

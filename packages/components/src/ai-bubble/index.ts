@@ -5,3 +5,5 @@ export const YhAiBubble = withInstall(AiBubble)
 export default YhAiBubble
 
 export * from './src/ai-bubble'
+
+export type AiBubbleInstance = InstanceType<typeof AiBubble>

@@ -5,3 +5,5 @@ export const YhAiThinking = withInstall(AiThinking)
 export default YhAiThinking
 
 export * from './src/ai-thinking'
+
+export type AiThinkingInstance = InstanceType<typeof AiThinking>

@@ -86,9 +86,12 @@ import type { YhAiArtifacts } from './ai-artifacts'
 import type { YhAiVoiceTrigger } from './ai-voice-trigger'
 import type { YhAiConversations } from './ai-conversations'
 import type { YhAiPrompts } from './ai-prompts'
+import type { YhAiCodeEditor } from './ai-code-editor'
+import type { YhAiCodeRunner } from './ai-code-runner'
 import type { YhAiAgentCard } from './ai-agent-card'
 import type { YhAiSources } from './ai-sources'
 import type { YhAiProvider } from './ai-provider'
+import type { YhAiMention } from './ai-mention'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -205,6 +208,8 @@ declare module 'vue' {
     YhAiSender: typeof YhAiSender
     YhAiThoughtChain: typeof YhAiThoughtChain
     YhAiCodeBlock: typeof YhAiCodeBlock
+    YhAiCodeEditor: typeof YhAiCodeEditor
+    YhAiCodeRunner: typeof YhAiCodeRunner
     YhAiThinking: typeof YhAiThinking
     YhAiWelcome: typeof YhAiWelcome
     YhAiActionGroup: typeof YhAiActionGroup
@@ -216,6 +221,7 @@ declare module 'vue' {
     YhAiAgentCard: typeof YhAiAgentCard
     YhAiSources: typeof YhAiSources
     YhAiProvider: typeof YhAiProvider
+    YhAiMention: typeof YhAiMention
   }
 
   export interface GlobalDirectives {

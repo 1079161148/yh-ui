@@ -5,3 +5,5 @@ export const YhAiConversations = withInstall(AiConversations)
 
 export default YhAiConversations
 export * from './src/ai-conversations'
+
+export type AiConversationsInstance = InstanceType<typeof AiConversations>

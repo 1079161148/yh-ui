@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed } from 'vue'
-import { aiSourcesProps, aiSourcesEmits, type AiSourceItem } from './ai-sources'
+import {
+  aiSourcesProps,
+  aiSourcesEmits,
+  type AiSourceItem,
+  type AiSourcesExpose
+} from './ai-sources'
 import { YhIcon } from '../../icon'
 import { YhTooltip } from '../../tooltip'
 import { YhDrawer } from '../../drawer'
@@ -20,6 +25,8 @@ const { themeStyle } = useComponentTheme('ai-sources', props.themeOverrides)
 const isExpanded = ref(false)
 const drawerVisible = ref(false)
 const activeSource = ref<AiSourceItem | null>(null)
+const highlightedSourceId = ref<string | number | null>(null)
+const sourceRefs = ref<Record<string | number, HTMLElement | null>>({})
 
 // 文件类型图标映射 - 对应内置图标库中的名称
 const fileTypeIcons: Record<string, string> = {
@@ -68,6 +75,23 @@ const openDrawer = (source: AiSourceItem) => {
   activeSource.value = source
   drawerVisible.value = true
 }
+
+const scrollToSource = (id: string | number) => {
+  highlightedSourceId.value = id
+  const el = sourceRefs.value[id]
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    el.classList.add(ns.is('highlighted'))
+    setTimeout(() => {
+      el.classList.remove(ns.is('highlighted'))
+      highlightedSourceId.value = null
+    }, 2000)
+  }
+}
+
+defineExpose<AiSourcesExpose>({
+  scrollToSource
+})
 </script>
 
 <template>
@@ -75,16 +99,33 @@ const openDrawer = (source: AiSourceItem) => {
     <!-- ── badge 模式：仅显示角标 ── -->
     <template v-if="mode === 'badge'">
       <div :class="ns.e('badge-row')">
-        <button
+        <YhTooltip
           v-for="source in sources"
           :key="source.id"
-          :class="ns.e('badge')"
-          :title="source.title"
-          @click="openDrawer(source)"
+          placement="top"
+          effect="light"
+          popper-class="yh-ai-sources__tooltip-popper"
         >
-          <YhIcon v-if="showFileType" :name="getFileIcon(source.fileType)" />
-          {{ source.id }}
-        </button>
+          <button :class="ns.e('badge')" @click="openDrawer(source)">
+            <YhIcon v-if="showFileType" :name="getFileIcon(source.fileType)" />
+            {{ source.id }}
+          </button>
+
+          <template #content>
+            <div :class="ns.e('tooltip-content')">
+              <div :class="ns.e('tooltip-header')">
+                <div :class="ns.e('tooltip-title-wrap')">
+                  <YhIcon :name="getFileIcon(source.fileType)" />
+                  <span :class="ns.e('tooltip-title')">{{ source.title }}</span>
+                </div>
+              </div>
+              <p v-if="source.excerpt" :class="ns.e('tooltip-excerpt')">{{ source.excerpt }}</p>
+              <div v-if="source.source" :class="ns.e('tooltip-source')">
+                <YhIcon name="globe" /> {{ source.source }}
+              </div>
+            </div>
+          </template>
+        </YhTooltip>
       </div>
 
       <!-- 抽屉：来源详情 -->
@@ -104,7 +145,12 @@ const openDrawer = (source: AiSourceItem) => {
           <div
             v-for="source in sources"
             :key="source.id"
-            :class="[ns.e('source-card'), ns.is('active', activeSource?.id === source.id)]"
+            :ref="(el) => (sourceRefs[source.id] = el as HTMLElement)"
+            :class="[
+              ns.e('source-card'),
+              ns.is('active', activeSource?.id === source.id),
+              ns.is('highlighted', highlightedSourceId === source.id)
+            ]"
             @click="handleClick(source)"
           >
             <div :class="ns.e('card-header')">
@@ -150,7 +196,11 @@ const openDrawer = (source: AiSourceItem) => {
           tabindex="-1"
           popper-class="yh-ai-sources__tooltip-popper"
         >
-          <div :class="ns.e('inline-item')" @click="handleClick(source)">
+          <div
+            :class="[ns.e('inline-item'), ns.is('highlighted', highlightedSourceId === source.id)]"
+            :ref="(el) => (sourceRefs[source.id] = el as HTMLElement)"
+            @click="handleClick(source)"
+          >
             <span :class="ns.e('inline-index')">{{ source.id }}</span>
             <YhIcon
               v-if="showFileType"
@@ -220,7 +270,8 @@ const openDrawer = (source: AiSourceItem) => {
         <div
           v-for="source in visibleSources"
           :key="source.id"
-          :class="ns.e('source-card')"
+          :ref="(el) => (sourceRefs[source.id] = el as HTMLElement)"
+          :class="[ns.e('source-card'), ns.is('highlighted', highlightedSourceId === source.id)]"
           @click="handleClick(source)"
         >
           <div :class="ns.e('card-header')">

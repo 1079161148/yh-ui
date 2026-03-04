@@ -5,3 +5,5 @@ export const YhAiMention = withInstall(AiMention)
 export default YhAiMention
 
 export * from './src/ai-mention'
+
+export type AiMentionInstance = InstanceType<typeof AiMention>

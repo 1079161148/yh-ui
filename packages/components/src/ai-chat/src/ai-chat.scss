@@ -26,6 +26,35 @@
     gap: var(--yh-spacing-sm);
   }
 
+  @include e(clear-btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--yh-text-color-secondary);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+
+    .yh-icon {
+      font-size: 14px;
+      color: inherit;
+    }
+
+    &:hover {
+      color: var(--yh-text-color-primary);
+      background-color: var(--yh-fill-color-light);
+      border-radius: 999px;
+    }
+  }
+
   @include e(content) {
     flex: 1;
     overflow-y: auto;

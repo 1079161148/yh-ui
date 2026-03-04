@@ -6,12 +6,7 @@
 import { computed, ref, inject } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type {
-  RadioButtonProps,
-  RadioButtonEmits,
-  RadioButtonExpose,
-  RadioValueType
-} from './radio'
+import type { RadioButtonProps, RadioButtonEmits, RadioButtonExpose, RadioValueType } from './radio'
 import { radioGroupContextKey } from './radio'
 
 defineOptions({
@@ -31,7 +26,10 @@ const ns = useNamespace('radio-button')
 const radioGroup = inject(radioGroupContextKey, undefined)
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('radio-button', computed(() => props.themeOverrides || radioGroup?.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'radio-button',
+  computed(() => props.themeOverrides || radioGroup?.themeOverrides)
+)
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -97,7 +95,7 @@ const buttonClasses = computed(() => [
 const handleChange = () => {
   if (isDisabled.value) return
 
-  const value = props.value as RadioValueType
+  const value = (props.value ?? props.label) as RadioValueType
 
   if (isGroup.value && radioGroup) {
     // group 模式
@@ -136,9 +134,20 @@ defineExpose<RadioButtonExpose>({
 
 <template>
   <label :class="buttonClasses" :style="[activeStyle, themeStyle]">
-    <input ref="inputRef" :class="ns.e('original')" type="radio" :name="radioName" :id="id" :tabindex="tabindex"
-      :disabled="isDisabled" :checked="isChecked" :value="value ?? label" @change="handleChange" @focus="handleFocus"
-      @blur="handleBlur" />
+    <input
+      ref="inputRef"
+      :class="ns.e('original')"
+      type="radio"
+      :name="radioName"
+      :id="id"
+      :tabindex="tabindex"
+      :disabled="isDisabled"
+      :checked="isChecked"
+      :value="value ?? label"
+      @change="handleChange"
+      @focus="handleFocus"
+      @blur="handleBlur"
+    />
     <span :class="ns.e('inner')">
       <slot>{{ label }}</slot>
     </span>

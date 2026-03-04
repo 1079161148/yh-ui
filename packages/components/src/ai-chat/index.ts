@@ -5,3 +5,5 @@ export const YhAiChat = withInstall(AiChat)
 export default YhAiChat
 
 export * from './src/ai-chat'
+
+export type AiChatInstance = InstanceType<typeof AiChat>

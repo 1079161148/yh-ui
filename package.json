@@ -8,6 +8,7 @@
     "dev": "pnpm -C playground dev",
     "build": "pnpm run -r --filter=./packages/* build",
     "build:components": "pnpm -C packages/components build",
+    "build:ai-sdk": "pnpm -C packages/ai-sdk build",
     "build:theme": "pnpm -C packages/theme build",
     "build:utils": "pnpm -C packages/utils build",
     "build:hooks": "pnpm -C packages/hooks build",

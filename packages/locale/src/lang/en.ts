@@ -611,14 +611,27 @@ export const en: Language = {
       codeBlock: {
         copyCode: 'Copy code',
         copied: 'Copied!',
-        run: 'Run Code'
+        run: 'Run Code',
+        edit: 'Edit',
+        save: 'Save',
+        cancel: 'Cancel'
+      },
+      codeRunner: {
+        run: 'Run',
+        stop: 'Stop',
+        clear: 'Clear',
+        reset: 'Reset',
+        placeholder: 'Click Run to execute the code...'
       },
       sender: {
-        placeholder: 'Send a message...'
+        placeholder: 'Send a message...',
+        dragTip: 'Release to upload files'
       },
       thoughtChain: {
         thoughtProcess: 'Thought process',
-        thinking: 'Thinking...'
+        thinking: 'Thinking...',
+        defaultTitle: 'New step',
+        addNode: 'Add step'
       },
       thinking: {
         start: 'Start thinking',
@@ -642,9 +655,12 @@ export const en: Language = {
       },
       artifacts: {
         preview: 'Preview',
+        inline: 'Inline',
         code: 'Source',
         versions: 'Versions',
-        rendering: 'Rendering component...'
+        rendering: 'Rendering component...',
+        renderingChart: 'Rendering chart...',
+        renderingCanvas: 'Preparing canvas...'
       },
       voice: {
         trigger: 'Click to Speak',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed, nextTick, watch } from 'vue'
-import { aiSenderProps, aiSenderEmits, type AiCommand } from './ai-sender'
+import { aiSenderProps, aiSenderEmits, type AiCommand, type AiAttachment } from './ai-sender'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
 import { YhImage } from '../../image'
@@ -28,11 +28,58 @@ const textareaRef = ref<InstanceType<typeof YhAiMention> | null>(null)
 const localValue = ref<string>(props.modelValue ?? '')
 const isFocused = ref(false)
 
+const commandPanelRef = ref<HTMLElement>()
+const isDragging = ref(false)
+
 // Slash Command State
 const showCommands = ref(false)
 const commandSearch = ref('')
 const selectedCommandIndex = ref(0)
-const commandPanelRef = ref<HTMLElement>()
+
+const handleDragEnter = (e: DragEvent) => {
+  if (props.disabled || props.loading) return
+  e.preventDefault()
+  isDragging.value = true
+}
+
+const handleDragOver = (e: DragEvent) => {
+  if (props.disabled || props.loading) return
+  e.preventDefault()
+  isDragging.value = true
+}
+
+const handleDragLeave = (e: DragEvent) => {
+  e.preventDefault()
+  // Check if actually leaving the container
+  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+  if (
+    e.clientX <= rect.left ||
+    e.clientX >= rect.right ||
+    e.clientY <= rect.top ||
+    e.clientY >= rect.bottom
+  ) {
+    isDragging.value = false
+  }
+}
+
+const handleDrop = (e: DragEvent) => {
+  if (props.disabled || props.loading) return
+  e.preventDefault()
+  isDragging.value = false
+
+  const files = e.dataTransfer?.files
+  if (files && files.length > 0) {
+    handleFiles(Array.from(files))
+  }
+}
+
+const handleFiles = (files: File[]) => {
+  emit('upload', files)
+}
+
+const handleRemoveAttachment = (attachment: AiAttachment) => {
+  emit('remove-attachment', attachment)
+}
 
 watch(
   () => props.modelValue,
@@ -193,7 +240,20 @@ const handleFocus = (e: FocusEvent) => {
       ns.is('focused', isFocused)
     ]"
     :style="themeStyle"
+    @dragenter="handleDragEnter"
+    @dragover="handleDragOver"
+    @dragleave="handleDragLeave"
+    @drop="handleDrop"
   >
+    <!-- Drag Overlay -->
+    <Transition name="yh-fade-in">
+      <div v-if="isDragging" :class="ns.e('drag-overlay')">
+        <div :class="ns.e('drag-message')">
+          <YhIcon name="upload" />
+          <span>{{ t('ai.sender.dragTip') || '释放鼠标以上传文件' }}</span>
+        </div>
+      </div>
+    </Transition>
     <!-- Slash Commands Panel -->
     <Transition name="yh-zoom-in-bottom">
       <div
@@ -251,7 +311,7 @@ const handleFocus = (e: FocusEvent) => {
               ></div>
             </div>
           </div>
-          <button :class="ns.e('attachment-remove')" @click="emit('remove-attachment', file)">
+          <button :class="ns.e('attachment-remove')" @click="handleRemoveAttachment(file)">
             <YhIcon name="close" />
           </button>
         </div>

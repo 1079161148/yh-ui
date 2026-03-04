@@ -153,4 +153,29 @@
       }
     }
   }
+
+  @include e(editor-wrapper) {
+    width: 100%;
+    min-height: 300px;
+    padding: 12px;
+  }
+
+  @include e(editor-actions) {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--yh-ai-code-block-border-color);
+  }
+
+  @include when(editing) {
+    @include e(body) {
+      display: block;
+      background-color: #1e1e1e;
+    }
+
+    @include e(header) {
+      background-color: #2d2d2d;
+    }
+  }
 }

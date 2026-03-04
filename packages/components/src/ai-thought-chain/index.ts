@@ -5,3 +5,5 @@ export const YhAiThoughtChain = withInstall(AiThoughtChain)
 export default YhAiThoughtChain
 
 export * from './src/ai-thought-chain'
+
+export type AiThoughtChainInstance = InstanceType<typeof AiThoughtChain>

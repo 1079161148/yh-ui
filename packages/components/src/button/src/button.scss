@@ -137,18 +137,28 @@ $button-sizes: (
 
   /* 文字模式与链接模式（基础样式） */
   @include when(text) {
-    border-color: transparent !important;
-    background-color: var(--yh-button-bg-color, transparent) !important;
+    /* 纯文本按钮：移除背景与边框，仅保留文字色变化 */
+    --yh-button-bg-color: transparent;
+    --yh-button-hover-bg-color: transparent;
+    --yh-button-active-bg-color: transparent;
+
+    border-color: transparent;
+    background-color: transparent;
     padding-left: 0;
     padding-right: 0;
-    &:hover {
-      background-color: var(--yh-button-hover-bg-color, var(--yh-fill-color-light)) !important;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      text-decoration: none;
     }
+
     &:active {
-      background-color: var(--yh-button-active-bg-color, var(--yh-fill-color)) !important;
+      background-color: transparent;
     }
+
     &.is-disabled {
-      background-color: transparent !important;
+      background-color: transparent;
     }
   }
 

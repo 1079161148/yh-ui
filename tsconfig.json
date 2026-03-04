@@ -31,6 +31,7 @@
     { "path": "./packages/hooks" },
     { "path": "./packages/components" },
     { "path": "./packages/yh-ui" },
-    { "path": "./packages/nuxt" }
+    { "path": "./packages/nuxt" },
+    { "path": "./packages/ai-sdk" }
   ]
 }

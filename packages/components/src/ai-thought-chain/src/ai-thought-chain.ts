@@ -17,6 +17,14 @@ export interface AiThoughtItem {
   icon?: string
   /** 详细内容的别名 */
   description?: string
+  /** 节点 ID（用于拖拽和操作） */
+  id?: string
+  /** 额外数据（可用于自定义渲染） */
+  extra?: Record<string, unknown>
+  /** 进度百分比（0-100） */
+  progress?: number
+  /** 是否可点击 */
+  clickable?: boolean
 }
 
 export const aiThoughtChainProps = {
@@ -71,6 +79,34 @@ export const aiThoughtChainProps = {
     default: false
   },
   /**
+   * @description 是否显示进度百分比
+   */
+  showProgress: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 是否启用拖拽排序
+   */
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 是否启用节点操作（添加/删除）
+   */
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 是否支持 Markdown 渲染节点内容
+   */
+  markdown: {
+    type: Boolean,
+    default: true
+  },
+  /**
    * @description 主题覆盖变量
    */
   themeOverrides: {
@@ -82,7 +118,11 @@ export const aiThoughtChainProps = {
 export type AiThoughtChainProps = ExtractPropTypes<typeof aiThoughtChainProps>
 
 export const aiThoughtChainEmits = {
-  'update:items': (items: AiThoughtItem[]) => Array.isArray(items)
+  'update:items': (items: AiThoughtItem[]) => Array.isArray(items),
+  'node-click': (item: AiThoughtItem, index: number) => typeof index === 'number',
+  'node-delete': (item: AiThoughtItem, index: number) => typeof index === 'number',
+  'node-add': (index: number) => typeof index === 'number',
+  reorder: (items: AiThoughtItem[]) => Array.isArray(items)
 }
 
 export type AiThoughtChainEmits = typeof aiThoughtChainEmits

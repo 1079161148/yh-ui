@@ -5,3 +5,5 @@ export const YhAiVoiceTrigger = withInstall(AiVoiceTrigger)
 export default YhAiVoiceTrigger
 
 export * from './src/ai-voice-trigger'
+
+export type AiVoiceTriggerInstance = InstanceType<typeof AiVoiceTrigger>

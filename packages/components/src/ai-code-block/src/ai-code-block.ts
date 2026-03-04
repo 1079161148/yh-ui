@@ -1,4 +1,5 @@
 import type { ExtractPropTypes, PropType } from 'vue'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 
 export const aiCodeBlockProps = {
   /**
@@ -55,6 +56,13 @@ export const aiCodeBlockProps = {
     default: false
   },
   /**
+   * @description 是否显示编辑按钮
+   */
+  showEdit: {
+    type: Boolean,
+    default: false
+  },
+  /**
    * @description 是否高亮语法
    */
   highlight: {
@@ -62,10 +70,17 @@ export const aiCodeBlockProps = {
     default: true
   },
   /**
+   * @description 是否可编辑
+   */
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  /**
    * @description 主题覆盖变量
    */
   themeOverrides: {
-    type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
+    type: Object as PropType<ComponentThemeVars>,
     default: undefined
   }
 } as const
@@ -74,7 +89,9 @@ export type AiCodeBlockProps = ExtractPropTypes<typeof aiCodeBlockProps>
 
 export const aiCodeBlockEmits = {
   copy: (code: string) => typeof code === 'string',
-  run: (code: string) => typeof code === 'string'
+  run: (code: string) => typeof code === 'string',
+  edit: (code: string) => typeof code === 'string',
+  update: (code: string) => typeof code === 'string'
 }
 
 export type AiCodeBlockEmits = typeof aiCodeBlockEmits

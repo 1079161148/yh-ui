@@ -19,6 +19,11 @@ import '@yh-ui/theme/styles/index.scss'
 import './styles/index.scss'
 import './styles/animations.scss'
 
+// Monaco Editor（AiCodeEditor）在文档站中需要其基础样式，否则只会显示一条输入线
+// 注意：monaco-editor 0.55.x 的 min 版本不包含 codicons，如需图标可使用 @vscode/codicons
+import 'monaco-editor/min/vs/editor/editor.main.css'
+// import '@vscode/codicons/dist/codicon.css'
+
 // 导入组件样式（后导入，优先级较高，不会被文档样式覆盖）
 import '@yh-ui/components/message/src/message.scss'
 import '@yh-ui/components/notification/src/notification.scss'

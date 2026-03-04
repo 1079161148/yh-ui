@@ -5,3 +5,5 @@ export const YhAiActionGroup = withInstall(AiActionGroup)
 export default YhAiActionGroup
 
 export * from './src/ai-action-group'
+
+export type AiActionGroupInstance = InstanceType<typeof AiActionGroup>

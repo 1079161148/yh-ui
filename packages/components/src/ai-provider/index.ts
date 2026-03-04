@@ -6,3 +6,5 @@ export default YhAiProvider
 
 export * from './src/ai-provider'
 export * from './src/use-ai-provider'
+
+export type AiProviderInstance = InstanceType<typeof AiProvider>

@@ -318,6 +318,39 @@ export interface AiPromptsThemeVars extends ComponentThemeVars {
   itemActiveBorderColor?: string
 }
 
+/** AiChat 组件主题变量 */
+export interface AiChatThemeVars extends ComponentThemeVars {
+  chatPadding?: string
+  messageGap?: string
+}
+
+/** AiBubble 组件主题变量 */
+export interface AiBubbleThemeVars extends ComponentThemeVars {
+  userBgColor?: string
+  userTextColor?: string
+  assistantBgColor?: string
+  assistantTextColor?: string
+  avatarSize?: string
+}
+
+/** AiSender 组件主题变量 */
+export interface AiSenderThemeVars extends ComponentThemeVars {
+  inputBgColor?: string
+  focusBorderColor?: string
+}
+
+/** AiCodeEditor 组件主题变量 */
+export interface AiCodeEditorThemeVars extends ComponentThemeVars {
+  editorHeight?: string
+}
+
+/** AiCodeRunner 组件主题变量 */
+export interface AiCodeRunnerThemeVars extends ComponentThemeVars {
+  terminalHeight?: string
+  terminalBgColor?: string
+  terminalTextColor?: string
+}
+
 // ==================== 导出所有组件主题类型 ====================
 
 export interface AllComponentThemes {
@@ -338,6 +371,11 @@ export interface AllComponentThemes {
   calendar?: CalendarThemeVars
   tree?: TreeThemeVars
   mention?: MentionThemeVars
+  aiChat?: AiChatThemeVars
+  aiBubble?: AiBubbleThemeVars
+  aiSender?: AiSenderThemeVars
+  aiCodeEditor?: AiCodeEditorThemeVars
+  aiCodeRunner?: AiCodeRunnerThemeVars
   aiConversations?: AiConversationsThemeVars
   aiPrompts?: AiPromptsThemeVars
   [key: string]: ComponentThemeVars | undefined

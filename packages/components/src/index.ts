@@ -85,6 +85,8 @@ import { YhAiBubble } from './ai-bubble'
 import { YhAiSender } from './ai-sender'
 import { YhAiThoughtChain } from './ai-thought-chain'
 import { YhAiCodeBlock } from './ai-code-block'
+import { YhAiCodeEditor } from './ai-code-editor'
+import { YhAiCodeRunner } from './ai-code-runner'
 import { YhAiThinking } from './ai-thinking'
 import { YhAiWelcome } from './ai-welcome'
 import { YhAiActionGroup } from './ai-action-group'
@@ -173,6 +175,8 @@ export * from './ai-bubble'
 export * from './ai-sender'
 export * from './ai-thought-chain'
 export * from './ai-code-block'
+export * from './ai-code-editor'
+export * from './ai-code-runner'
 export * from './ai-thinking'
 export * from './ai-welcome'
 export * from './ai-action-group'
@@ -288,6 +292,8 @@ const components = [
   YhAiSender,
   YhAiThoughtChain,
   YhAiCodeBlock,
+  YhAiCodeEditor,
+  YhAiCodeRunner,
   YhAiThinking,
   YhAiWelcome,
   YhAiActionGroup,

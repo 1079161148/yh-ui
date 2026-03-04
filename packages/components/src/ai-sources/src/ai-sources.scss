@@ -309,6 +309,13 @@
       border-color: var(--yh-color-primary-light-5);
       background: var(--yh-color-primary-light-9);
     }
+
+    @include when(highlighted) {
+      border-color: var(--yh-color-primary) !important;
+      background-color: var(--yh-color-primary-light-9) !important;
+      box-shadow: 0 0 0 2px var(--yh-color-primary-light-8) !important;
+      animation: yh-source-highlight-pulse 2s ease-in-out;
+    }
   }
 
   @include e(card-header) {
@@ -397,5 +404,23 @@
       color: var(--yh-color-primary);
       background: var(--yh-color-primary-light-9);
     }
+  }
+}
+
+@keyframes yh-source-highlight-pulse {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.02);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.01);
+  }
+  40% {
+    transform: scale(1);
   }
 }

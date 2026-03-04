@@ -5,3 +5,5 @@ export const YhAiWelcome = withInstall(AiWelcome)
 export default YhAiWelcome
 
 export * from './src/ai-welcome'
+
+export type AiWelcomeInstance = InstanceType<typeof AiWelcome>

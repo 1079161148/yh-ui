@@ -5,3 +5,5 @@ export const YhAiPrompts = withInstall(AiPrompts)
 
 export default YhAiPrompts
 export * from './src/ai-prompts'
+
+export type AiPromptsInstance = InstanceType<typeof AiPrompts>

@@ -70,6 +70,26 @@ const onRun = (code: string) => {
 }
 </${_S}>`
 
+const tsEditDemo = `<${_T}>
+  <yh-ai-code-block 
+    filename="script.ts" 
+    language="typescript" 
+    :code="editDemoCode"
+    show-edit
+    @update="(code) => editDemoCode = code"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const editDemoCode = ref(\`function greet(name: string): string {
+  return \\\`Hello, \${name}!\\\`;
+}
+
+console.log(greet('YH-UI'));\`)
+</${_S}>`
+
 const exampleCode = ref("function greeting() {\n  console.log('Hello World!');\n}")
 const advancedCode = ref(`function sum(a, b) {
   // These lines will be highlighted
@@ -83,6 +103,13 @@ const onCopy = (text: string) => {
 const onRun = (code: string) => {
   alert('Execute Code: ' + code);
 }
+
+// Edit demo: bind code to a ref and assign on @update so saved edits persist
+const editDemoCode = ref(`function greet(name: string): string {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(greet('YH-UI'));`)
 </script>
 
 An intelligent code snippet component supporting syntax highlighting, clipboard integration, line numbers, and interactive expansions.
@@ -141,29 +168,49 @@ Supports collapsible states (`collapsible`) and a built-in run action (`show-run
 </div>
 </DemoBlock>
 
+## Edit Function
+
+Supports clicking the "Edit" button to open Monaco editor for code modification.
+
+<DemoBlock title="Edit Function" :ts-code="tsEditDemo" :js-code="toJs(tsEditDemo)">
+<div style="background:var(--yh-bg-color-page); padding:16px;">
+  <yh-ai-code-block 
+    filename="script.ts" 
+    language="typescript" 
+    :code="editDemoCode"
+    show-edit
+    @update="(code) => editDemoCode = code"
+  />
+</div>
+</DemoBlock>
+
 ## API
 
 ### Props
 
-| Prop Name           | Description                       | Type                 | Default  |
-| ------------------- | --------------------------------- | -------------------- | -------- |
-| `code`              | Code content string               | `string`             | `''`     |
-| `filename`          | Filename to display in header     | `string`             | `''`     |
-| `language`          | Programming language identifier   | `string`             | `'text'` |
-| `show-line-numbers` | Whether to show line numbers      | `boolean`            | `false`  |
-| `highlight-lines`   | List of line numbers to highlight | `number[]`           | `[]`     |
-| `collapsible`       | Enable collapsible feature        | `boolean`            | `false`  |
-| `default-collapsed` | Initial collapsed state           | `boolean`            | `false`  |
-| `show-run`          | Whether to show the run button    | `boolean`            | `false`  |
-| `highlight`         | Enable syntax highlighting        | `boolean`            | `true`   |
-| `theme-overrides`   | Component-level theme overrides   | `ComponentThemeVars` | —        |
+| Prop Name           | Description                       | Type                         | Default  |
+| ------------------- | --------------------------------- | ---------------------------- | -------- |
+| `code`              | Code content string               | `string`                     | `''`     |
+| `filename`          | in header                         | `string` Filename to display | `''`     |
+| `language`          | Programming language identifier   | `string`                     | `'text'` |
+| `show-line-numbers` | Whether to show line numbers      | `boolean`                    | `false`  |
+| `highlight-lines`   | List of line numbers to highlight | `number[]`                   | `[]`     |
+| `collapsible`       | Enable collapsible feature        | `boolean`                    | `false`  |
+| `default-collapsed` | Initial collapsed state           | `boolean`                    | `false`  |
+| `show-run`          | Whether to show the run button    | `boolean`                    | `false`  |
+| `show-edit`         | Whether to show the edit button   | `boolean`                    | `false`  |
+| `editable`          | Whether the code is editable      | `boolean`                    | `false`  |
+| `highlight`         | Enable syntax highlighting        | `boolean`                    | `true`   |
+| `theme-overrides`   | Component-level theme overrides   | `ComponentThemeVars`         | —        |
 
 ### Events
 
-| Event Name | Description                              | Callback Parameters      |
-| ---------- | ---------------------------------------- | ------------------------ |
-| `copy`     | Triggered when code is copied            | `(code: string) => void` |
-| `run`      | Triggered when the run button is clicked | `(code: string) => void` |
+| Event Name | Description                               | Callback Parameters      |
+| ---------- | ----------------------------------------- | ------------------------ |
+| `copy`     | Triggered when code is copied             | `(code: string) => void` |
+| `run`      | Triggered when the run button is clicked  | `(code: string) => void` |
+| `edit`     | Triggered when the edit button is clicked | `(code: string) => void` |
+| `update`   | Triggered when code is saved              | `(code: string) => void` |
 
 ### Slots
 

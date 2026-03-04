@@ -321,3 +321,45 @@
     transform: translateY(0);
   }
 }
+
+@include b(ai-sender) {
+  @include e(drag-overlay) {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--yh-color-primary-rgb), 0.1);
+    backdrop-filter: blur(4px);
+    border: 2px dashed var(--yh-color-primary);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  @include e(drag-message) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--yh-color-primary);
+    font-size: 14px;
+    font-weight: 500;
+
+    .yh-icon {
+      font-size: 32px;
+    }
+  }
+}
+
+@keyframes yh-sender-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

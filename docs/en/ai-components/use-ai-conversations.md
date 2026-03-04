@@ -441,4 +441,59 @@ const { conversations } = useAiConversations({ storage: apiAdapter })
 | `removeConversation`   | `(id) => Promise<void>`                     | Delete history                      |
 | `updateConversation`   | `(id, updates) => Promise<void>`            | Update history                      |
 | `pinConversation`      | `(id, pinned?) => Promise<void>`            | Toggle pinning                      |
-| `clear`                | `() => Promise<void>`                       | Clear all                           |
+
+## Remote Sync
+
+Support syncing with backend API for multi-device data consistency.
+
+```ts
+import { useAiConversations } from '@yh-ui/hooks'
+
+const remoteSyncAdapter = {
+  async fetchConversations() {
+    const res = await fetch('/api/conversations')
+    return res.json()
+  },
+  async batchUpdate(conversations) {
+    const res = await fetch('/api/conversations/batch', {
+      method: 'PUT',
+      body: JSON.stringify(conversations)
+    })
+    return res.json()
+  }
+}
+
+const { conversations, isSyncing, syncToRemote, startSync, stopSync } = useAiConversations({
+  storage: 'localStorage',
+  remoteSync: remoteSyncAdapter,
+  autoSync: true,
+  syncInterval: 30000
+})
+```
+
+### Remote Sync Options
+
+| Param          | Type                | Default | Description         |
+| -------------- | ------------------- | ------- | ------------------- |
+| `remoteSync`   | `RemoteSyncAdapter` | -       | Remote sync adapter |
+| `autoSync`     | `boolean`           | `false` | Enable auto sync    |
+| `syncInterval` | `number`            | `30000` | Sync interval (ms)  |
+
+### Remote Sync Returns
+
+| Field             | Type                  | Description           |
+| ----------------- | --------------------- | --------------------- | ---------- |
+| `isSyncing`       | `Ref<boolean>`        | Syncing state         |
+| `lastSyncTime`    | `Ref<number>`         | Last sync timestamp   |
+| `syncError`       | `Ref<Error            | null>`                | Sync error |
+| `syncToRemote`    | `() => Promise<void>` | Manual sync to remote |
+| `fetchFromRemote` | `() => Promise<void>` | Fetch from remote     |
+| `startSync`       | `() => void`          | Start scheduled sync  |
+| `stopSync`        | `() => void`          | Stop scheduled sync   |
+
+::: tip Remote Sync Notes
+
+1. **autoSync** and **syncInterval** only work when **remoteSync** is configured
+2. **Sync is incremental** - local new data will be merged to the list
+3. Recommend calling **stopSync** when unmounting
+   :::

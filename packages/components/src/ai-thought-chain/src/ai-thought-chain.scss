@@ -8,9 +8,116 @@
   max-width: 100%;
   transition: all 0.3s ease;
 
+  // 进度条
+  @include e(progress-bar) {
+    height: 4px;
+    background: var(--yh-border-color-lighter);
+    border-radius: 2px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  @include e(progress-fill) {
+    height: 100%;
+    background: linear-gradient(90deg, var(--yh-color-primary), var(--yh-color-success));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
   // Single mode (legacy)
   @include when(thinking) {
     border-left-color: var(--yh-color-primary);
+  }
+
+  // 拖拽相关
+  @include when(draggable) {
+    @include e(item) {
+      cursor: move;
+
+      &.is-dragging {
+        opacity: 0.5;
+      }
+
+      &.is-drag-over {
+        background: var(--yh-color-primary-light-9);
+      }
+    }
+
+    @include e(drag-handle) {
+      margin-right: 8px;
+      cursor: grab;
+      color: var(--yh-text-color-placeholder);
+      font-size: 12px;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  // 节点操作按钮
+  @include e(item-actions) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  // 悬浮节点头部时展示操作按钮
+  @include e(item-header) {
+    &:hover {
+      @include e(item-actions) {
+        opacity: 1;
+      }
+    }
+  }
+
+  @include e(action-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    color: var(--yh-text-color-secondary);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s ease-out;
+
+    &:hover {
+      color: var(--yh-color-primary);
+      background: var(--yh-fill-color-light);
+      transform: scale(1.05);
+    }
+  }
+
+  // 节点进度
+  @include e(item-progress) {
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--yh-color-primary);
+    font-weight: 500;
+  }
+
+  // 添加节点按钮
+  @include e(add-node) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-left: 32px;
+    color: var(--yh-text-color-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+      background: var(--yh-fill-color-light);
+    }
   }
 
   // Header and single mode content
@@ -166,8 +273,6 @@
             var(--yh-border-color-lighter)
           );
         }
-
-        // Adjusted left for small/large dot sizes if needed, but 20px width is fixed wrapper center
       }
 
       @include e(item-main) {
@@ -231,4 +336,21 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.yh-ai-thought-collapse-enter-active,
+.yh-ai-thought-collapse-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.yh-ai-thought-collapse-enter-from,
+.yh-ai-thought-collapse-leave-to {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  transform: translateY(-10px);
 }

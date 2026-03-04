@@ -2,6 +2,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { YhAiSources } from '@yh-ui/components'
 import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
 const mockSources = [
@@ -69,6 +70,35 @@ const sources = [
   { id: 2, title: 'ref 与 reactive 区别', fileType: 'pdf', score: 0.87 }
 ]
 </${_S}>`
+
+const sourcesRef = ref<InstanceType<typeof YhAiSources> | null>(null)
+const handleJump = (id: number | string) => {
+  sourcesRef.value?.scrollToSource(id)
+}
+
+const tsJump = `<${_T}>
+  <div style="max-width: 600px;">
+    <div style="padding: 12px 16px; background: var(--yh-fill-color-light); border-radius: 8px; margin-bottom: 12px; line-height: 1.8;">
+      点击这些角标可以跳转到下方的来源并高亮：
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(1)">[1]</sup>
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(3)">[3]</sup>
+    </div>
+    <yh-ai-sources ref="sourcesRef" :sources="sources" mode="card" />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+const sourcesRef = ref(null)
+const sources = [
+  { id: 1, title: 'Vue 3 响应式原理', source: 'vuejs.org', fileType: 'web', score: 0.95, excerpt: 'Vue 3 引入了基于 Proxy 的响应式系统...' },
+  { id: 2, title: '深入理解 ref 与 reactive', source: '掘金', fileType: 'web', score: 0.87, excerpt: 'ref 用于基本类型...' },
+  { id: 3, title: 'Vue3 最佳实践指南.pdf', source: '内部知识库', fileType: 'pdf', score: 0.72, excerpt: '第三章 组合式 API 最佳实践...' }
+]
+const handleJump = (id: number | string) => {
+  sourcesRef.value?.scrollToSource(id)
+}
+</${_S}>`
 </script>
 
 ## inline 内联模式
@@ -128,6 +158,21 @@ const sources = [
   </div>
 </DemoBlock>
 
+## 引用跳转与高亮
+
+通过获取组件实例并调用 `scrollToSource(id)` 方法，可以从正文引用点精准跳转到对应的来源项并触发高亮微动效。
+
+<DemoBlock :ts-code="tsJump" :js-code="toJs(tsJump)">
+  <div style="max-width: 600px;">
+    <div style="padding: 12px 16px; background: var(--yh-fill-color-light); border-radius: 8px; margin-bottom: 12px; line-height: 1.8;">
+      点击这些角标可以跳转到下方的来源并高亮：
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(1)">[1]</sup>
+      <sup style="cursor:pointer; color: var(--yh-color-primary); font-weight: bold;" @click="handleJump(3)">[3]</sup>
+    </div>
+    <yh-ai-sources ref="sourcesRef" :sources="mockSources.slice(0, 3)" mode="card" />
+  </div>
+</DemoBlock>
+
 ## API
 
 ### Props
@@ -159,6 +204,12 @@ const sources = [
 | ------- | ------------------------ | ------------ |
 | `click` | `(source: AiSourceItem)` | 点击来源项   |
 | `open`  | `(source: AiSourceItem)` | 点击查看原文 |
+
+### Methods
+
+| 方法名           | 参数                     | 说明                                   |
+| ---------------- | ------------------------ | -------------------------------------- |
+| `scrollToSource` | `(id: string \| number)` | 滚动到指定 ID 的来源项并触发高亮微动效 |
 
 ## 主题变量
 

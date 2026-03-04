@@ -105,3 +105,11 @@ export const aiMentionEmits = {
 }
 
 export type AiMentionEmits = typeof aiMentionEmits
+
+export interface AiMentionExpose {
+  focus: () => void
+  blur: () => void
+  clear: () => void
+  getRef: () => HTMLTextAreaElement | HTMLInputElement | undefined | null
+  insertMention: (option: AiMentionOption, trigger?: string) => void
+}

@@ -211,6 +211,8 @@ export default defineConfig({
             { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
             { text: 'AiThoughtChain', link: '/en/ai-components/ai-thought-chain' },
             { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' },
+            { text: 'AiCodeEditor', link: '/en/ai-components/ai-code-editor' },
+            { text: 'AiCodeRunner', link: '/en/ai-components/ai-code-runner' },
             { text: 'AiWelcome', link: '/en/ai-components/ai-welcome' },
             { text: 'AiActionGroup', link: '/en/ai-components/ai-action-group' },
             { text: 'AiArtifacts', link: '/en/ai-components/ai-artifacts' },
@@ -229,7 +231,8 @@ export default defineConfig({
             { text: 'useAiChat 🌳', link: '/en/ai-components/use-ai-chat' },
             { text: 'useAiStream 🌊', link: '/en/ai-components/use-ai-stream' },
             { text: 'useAiConversations 💾', link: '/en/ai-components/use-ai-conversations' },
-            { text: 'useAiVoice 🎙️', link: '/en/ai-components/use-ai-voice' }
+            { text: 'useAiVoice 🎙️', link: '/en/ai-components/use-ai-voice' },
+            { text: 'AI SDK 🤖', link: '/en/ai-components/ai-sdk' }
           ]
         }
       ],
@@ -346,6 +349,8 @@ export default defineConfig({
             { text: 'AiThinking 思考中', link: '/ai-components/ai-thinking' },
             { text: 'AiThoughtChain 思维链', link: '/ai-components/ai-thought-chain' },
             { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' },
+            { text: 'AiCodeEditor 智能代码编辑器', link: '/ai-components/ai-code-editor' },
+            { text: 'AiCodeRunner 智能代码运行器', link: '/ai-components/ai-code-runner' },
             { text: 'AiWelcome 欢迎页面', link: '/ai-components/ai-welcome' },
             { text: 'AiArtifacts 智能组件', link: '/ai-components/ai-artifacts' },
             { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' },
@@ -366,7 +371,8 @@ export default defineConfig({
               text: 'useAiConversations 历史持久化 💾',
               link: '/ai-components/use-ai-conversations'
             },
-            { text: 'useAiVoice 语音交互 🎙️', link: '/ai-components/use-ai-voice' }
+            { text: 'useAiVoice 语音交互 🎙️', link: '/ai-components/use-ai-voice' },
+            { text: 'AI SDK 官方集成 🤖', link: '/ai-components/ai-sdk' }
           ]
         }
       ],
@@ -539,6 +545,35 @@ export default defineConfig({
         '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
         '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
         '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src')
+      }
+    },
+    optimizeDeps: {
+      include: ['monaco-editor']
+    },
+    server: {
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp'
+      },
+      // Ensure headers are applied via middleware as well
+      proxy: {}
+    },
+    plugins: [
+      {
+        name: 'set-coop-coep',
+        configureServer(server: any) {
+          server.middlewares.use((_req: any, res: any, next: any) => {
+            res.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
+            res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
+            next()
+          })
+        }
+      }
+    ],
+    preview: {
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp'
       }
     },
     css: {

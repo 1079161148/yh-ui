@@ -5,3 +5,5 @@ export const YhAiSender = withInstall(AiSender)
 export default YhAiSender
 
 export * from './src/ai-sender'
+
+export type AiSenderInstance = InstanceType<typeof AiSender>

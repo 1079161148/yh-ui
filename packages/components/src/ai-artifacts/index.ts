@@ -5,3 +5,5 @@ export const YhAiArtifacts = withInstall(AiArtifacts)
 export default YhAiArtifacts
 
 export * from './src/ai-artifacts'
+
+export type AiArtifactsInstance = InstanceType<typeof AiArtifacts>

@@ -6,7 +6,7 @@ import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 const tsBasic = `<${_T}>
   <div style="height: 400px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
-    <yh-ai-chat :messages="messages" :loading="loading" @send="handleSend" />
+    <yh-ai-chat v-model:messages="messages" :loading="loading" @send="handleSend" />
   </div>
 </${_T}>
 
@@ -127,7 +127,7 @@ const advHandleClear = () => {
 const tsGen = `<${_T}>
   <div style="height: 500px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
     <!-- Magical #message slot enabling conditional component mounting for Generative UI -->
-    <yh-ai-chat :messages="genMessages" :loading="genLoading" @send="genHandleSend">
+    <yh-ai-chat v-model:messages="genMessages" :loading="genLoading" @send="genHandleSend">
       <template #message="{ message }">
         <yh-ai-bubble
           :role="message.role"
@@ -215,6 +215,101 @@ const genHandleSend = (text: string) => {
   }, 3500)
 }
 
+// ============================================
+// Virtual Scroll Demo
+// ============================================
+const tsVirtualScroll = `<${_T}>
+  <div style="height: 400px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
+    <yh-ai-chat
+      v-model:messages="virtualMessages"
+      :loading="virtualLoading"
+      :virtual-scroll="true"
+      :virtual-height="380"
+      :estimated-item-height="80"
+      @send="virtualHandleSend"
+    />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const virtualLoading = ref(false)
+
+// Generate 100 messages (large dataset scenario)
+const generateMessages = () => {
+  const msgs = []
+  for (let i = 0; i < 100; i++) {
+    msgs.push({
+      id: String(i + 1),
+      role: i % 2 === 0 ? 'user' : 'assistant',
+      content: i % 2 === 0
+        ? \`User message #\${i + 1}\`
+        : \`AI response #\${i + 1}, which may be longer to test virtual scroll.\`
+    })
+  }
+  return msgs
+}
+
+const virtualMessages = ref(generateMessages())
+
+const virtualHandleSend = (text: string) => {
+  virtualMessages.value.push({
+    id: Date.now().toString(),
+    role: 'user',
+    content: text
+  })
+  virtualLoading.value = true
+
+  setTimeout(() => {
+    virtualMessages.value.push({
+      id: (Date.now() + 1).toString(),
+      role: 'assistant',
+      content: 'Received: ' + text
+    })
+    virtualLoading.value = false
+  }, 500)
+}
+</${_S}>`
+
+const jsVirtualScroll = toJs(tsVirtualScroll)
+
+const virtualLoading = ref(false)
+const virtualMessages = ref([])
+
+const generateMessages = () => {
+  const msgs = []
+  for (let i = 0; i < 100; i++) {
+    msgs.push({
+      id: String(i + 1),
+      role: i % 2 === 0 ? 'user' : 'assistant',
+      content: i % 2 === 0
+        ? 'User message #' + (i + 1)
+        : 'AI response #' + (i + 1) + ', which may be longer to test virtual scroll.'
+    })
+  }
+  return msgs
+}
+
+virtualMessages.value = generateMessages()
+
+const virtualHandleSend = (text) => {
+  virtualMessages.value.push({
+    id: Date.now().toString(),
+    role: 'user',
+    content: text
+  })
+  virtualLoading.value = true
+
+  setTimeout(() => {
+    virtualMessages.value.push({
+      id: (Date.now() + 1).toString(),
+      role: 'assistant',
+      content: 'Received: ' + text
+    })
+    virtualLoading.value = false
+  }, 500)
+}
 
 </script>
 
@@ -226,7 +321,7 @@ Renders the conversation flow based on the `messages` array.
 
 <DemoBlock title="Basic Chat Flow" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
   <div style="height: 400px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
-    <yh-ai-chat :messages="messages" :loading="loading" @send="handleSend" />
+    <yh-ai-chat v-model:messages="messages" :loading="loading" @send="handleSend" />
   </div>
 </DemoBlock>
 
@@ -254,7 +349,7 @@ Experiment by sending a message below to witness the seamless internal transitio
 
 <DemoBlock title="Generative Component Rendering" :ts-code="tsGen" :js-code="toJs(tsGen)">
   <div style="height: 500px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
-    <yh-ai-chat :messages="genMessages" :loading="genLoading" @send="genHandleSend">
+    <yh-ai-chat v-model:messages="genMessages" :loading="genLoading" @send="genHandleSend">
       <template #message="{ message }">
         <yh-ai-bubble
           :role="message.role"
@@ -280,6 +375,32 @@ Experiment by sending a message below to witness the seamless internal transitio
   </div>
 </DemoBlock>
 
+## Virtual Scroll
+
+When dealing with large numbers of messages (e.g., more than 50), traditional rendering may cause performance issues. AiChat has built-in virtual scrolling functionality to efficiently render large message lists by only rendering items within the visible area, significantly improving performance.
+
+- Auto-enable: Virtual scroll is automatically enabled when message count > 50
+- Manual enable: Can be manually enabled via `virtual-scroll` prop
+- Configurable: Supports custom container height and estimated item height
+- Clear support: The header “Clear” action also works under virtual scroll mode to reset the entire history
+
+<DemoBlock title="Virtual Scroll Demo" :ts-code="tsVirtualScroll" :js-code="jsVirtualScroll">
+  <div style="height: 400px; border: 1px solid var(--yh-border-color); border-radius: 8px;">
+    <yh-ai-chat
+      v-model:messages="virtualMessages"
+      :loading="virtualLoading"
+      :virtual-scroll="true"
+      :virtual-height="380"
+      :estimated-item-height="80"
+      @send="virtualHandleSend"
+    />
+  </div>
+</DemoBlock>
+
+::: tip Performance Tip
+Virtual scroll is automatically enabled when message count exceeds 50. For chat scenarios dealing with thousands of messages, it is recommended to enable this feature for a smooth scrolling experience.
+:::
+
 ## Use in Nuxt
 
 This container wrapper perfectly embraces Nuxt 3/4 SSR and lazy hydrated behaviors. Works flawlessly under Nuxt's auto-importing environments.
@@ -299,11 +420,14 @@ AiChat wrapper natively passes SSR compliance checks across major frameworks.
 
 ### Props
 
-| Name        | Description                     | Type                                                                                 | Default |
-| ----------- | ------------------------------- | ------------------------------------------------------------------------------------ | ------- |
-| messages    | Message List                    | `Array<{id: string, role: string, content: string, status?: string, time?: string}>` | `[]`    |
-| loading     | Indicates if the AI is replying | `boolean`                                                                            | `false` |
-| suggestions | Bottom default suggestion pills | `string[]`                                                                           | `[]`    |
+| Name                | Description                                             | Type                                                                                 | Default |
+| ------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------- |
+| messages            | Message List                                            | `Array<{id: string, role: string, content: string, status?: string, time?: string}>` | `[]`    |
+| loading             | Indicates if the AI is replying                         | `boolean`                                                                            | `false` |
+| suggestions         | Bottom default suggestion pills                         | `string[]`                                                                           | `[]`    |
+| virtualScroll       | Enable virtual scroll (auto-enabled when messages > 50) | `boolean`                                                                            | `false` |
+| virtualHeight       | Virtual scroll container height                         | `number`                                                                             | `400`   |
+| estimatedItemHeight | Estimated item height for virtual scroll                | `number`                                                                             | `80`    |
 
 ### Events
 
