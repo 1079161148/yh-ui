@@ -592,124 +592,124 @@ export const mn: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Оруулна уу',
+      loading: 'Ачааллаж байна...',
+      noData: 'Өгөгдөл байхгүй'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Лавлагаа'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Агент, Баримт эсвэл Хүснэгтийг дурдах...',
+        agent: 'Агент',
+        document: 'Баримт',
+        table: 'Хүснэгт',
+        knowledge: 'Мэдлэг'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Код хуулах',
+        copied: 'Хуулсан!',
+        run: 'Код ажиллуулах',
+        edit: 'Засах',
+        save: 'Хадгалах',
+        cancel: 'Цуцлах'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Ажиллуулах',
+        stop: 'Зогсоох',
+        clear: 'Цэвэрлэх',
+        reset: 'Дахин тохируулах',
+        placeholder: 'Код ажиллуулахын тулд Ажиллуулах дээр товшино уу...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Зурвас илгээх...',
+        dragTip: 'Файлуудыг оруулахын тулд суллаарай'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Бодох үйл явц',
+        thinking: 'Бодож байна...',
+        defaultTitle: 'Шинэ алхам',
+        addNode: 'Алхам нэмэх'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Болох эхлэх',
+        thinking: 'Бодож байна...',
+        complete: 'Бодох явц дууслаа',
+        error: 'Бодох алдаа'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Сайн уу, би YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Би танд програмчлал, баримт орчуулах эсвэл бүтээлч бичихэд туслах болно. Өнөөдөр би танд юу хийх вэ?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Хуулах',
+        regenerate: 'Дахин үүсгэх',
+        share: 'Хуваалцах',
+        like: 'Таалагдах',
+        dislike: 'Таалагдахгүй',
+        edit: 'Засах',
+        delete: 'Устгах'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Урьдчилан харах',
+        inline: 'Мөрөнд',
+        code: 'Эх код',
+        versions: 'Хувилбарууд',
+        rendering: 'Компонент рендерлэж байна...',
+        renderingChart: 'График рендерлэж байна...',
+        renderingCanvas: 'Хэвлэх талбар бэлдэж байна...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Ярихын тулд товшино уу',
+        listening: 'Сонсож байна...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'ашиглалт',
+        use: 'Одоо ашиглах',
+        favorite: 'Дуртай',
+        unfavorite: 'Дуртайгаас хасах',
+        share: 'Хуваалцах',
+        online: 'Онлайн',
+        offline: 'Офлайн',
+        busy: 'Зoccupp',
+        verified: 'Баталгаажсан',
+        rating: 'Үнэлгээ',
+        reviews: 'сэтгэгдэл',
+        responseTime: 'Дундаж хариу цаг',
+        ms: 'мс'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Лавлагаа',
+        referencedSources: 'Лавласан эх сурвалж',
+        relevant: 'Холбоотой',
+        viewOriginal: 'Эхлэлийг харах',
+        showAll: 'Бүгдийг харах',
+        more: 'илүү эх сурвалж',
+        drawerTitle: 'Лавлагаа',
+        expandMore: 'Илүү харах',
+        collapseMore: 'Хурах',
+        noSources: 'Эх сурвалж байхгүй',
+        today: 'Өнөөдөр',
+        last7Days: 'Сүүлийн 7 хоног',
+        last30Days: 'Сүүлийн 30 хоног',
+        earlier: 'Өмнөх',
+        pinned: 'Зүүгдсэн'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Өнөөдөр',
+        last7Days: 'Сүүлийн 7 хоног',
+        last30Days: 'Сүүлийн 30 хоног',
+        earlier: 'Өмнөх',
+        pinned: 'Зүүгдсэн',
+        pin: 'Зүүх',
+        unpin: 'Зүүлтийг авах',
+        newConversation: 'Шинэ яриа',
+        rename: 'Нэр өөрчлөх',
+        delete: 'Устгах',
+        deleteConfirm: 'Энэ яриаг устгахаа баталгаажуулах уу?'
       }
     }
   }

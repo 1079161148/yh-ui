@@ -592,124 +592,124 @@ export const my: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'ဝင်စားပါနော်',
+      loading: 'ဖွင့်လှိုင်းဆွဲနေပါတယ်...',
+      noData: 'ဒေတာမရှိပါ'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'ကိုးကားချက်များ'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Agent၊ စာရွက်စာတမ်း သို့မဟုတ် ဇယားကို ရည်ညွှန်းပါနော်...',
+        agent: 'အေးဂျင့်',
+        document: 'စာရွက်စာတမ်း',
+        table: 'ဇယား',
+        knowledge: 'အသိပညာ'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'ကုဒ်ကူးယူပါ',
+        copied: 'ကူးယူပါပါတယ်!',
+        run: 'ကုဒ်ဖွင့်ပါ',
+        edit: 'ပြင်ဆင်ပါ',
+        save: 'သိမ်းဆည်းပါ',
+        cancel: 'ဖျက်လိုက်ပါ'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'ဖွင့်ပါ',
+        stop: 'ရပ်ပါ',
+        clear: 'ရှင်းလင်းပါ',
+        reset: 'ပြန်လည်သတ်မှတ်ပါ',
+        placeholder: 'ကုဒ်ဖွင့်ရန် ဖွင့်ပါ ခလုတ်ကို နှိပ်ပါ...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'မေးခွန်းပို့လိုက်ပါ...',
+        dragTip: 'ဖိုင်များအား အပ်လုဒ်လုပ်ရန် လွှတ်လိုက်ပါ'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'အတွေးအခြောက်လုပ်ငန်းစဉ်',
+        thinking: 'အတွေးတွေးနေပါတယ်...',
+        defaultTitle: 'အဆင့်အသစ်',
+        addNode: 'အဆင့်ထည့်ပါ'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'အတွေးအားလုပ်ပါ',
+        thinking: 'အတွေးတွေးနေပါတယ်...',
+        complete: 'အတွေးအားလုပ်ပြီးပါ',
+        error: 'အတွေးအားလုပ်ချက်ပါ'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'မင်္ဂလာပါ၊ ကျွန်မ/ကျွန်တော်မှာ YH AI ဖြစ်ပါတယ်',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'ကျွန်မ/ကျွန်တော်သည် ကုဒ်ရေးသားခြင်း၊ စာရွက်စာတမ်းများကို ဘာသာပြန်ခြင်း၊ သို့မဟုတ် ဖန်တီးကြံစည်မှု ရေးသားခြင်းတို့တွင် သင်္ဂာယုတ်ပါတယ်။ ယနေ့သင်္ဂာယုတ်လုပ်ပါလိမ့်မည်။'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'ကူးယူပါ',
+        regenerate: 'ပြန်လည်ဖန်တီးပါ',
+        share: 'မျှဝေပါ',
+        like: 'ကြိုက်ပါ',
+        dislike: 'မကြိုက်ပါ',
+        edit: 'ပြင်ဆင်ပါ',
+        delete: 'ဖျက်လိုက်ပါ'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'ကြိုတင်ကြည့်ရှုပါ',
+        inline: 'အောက်ခြေ',
+        code: 'သင်္ကေတကုဒ်',
+        versions: 'ဗားရှင်းများ',
+        rendering: 'အစိတ်ပိုင်းပါ ပြန်လည်တည်ဆောက်နေပါတယ်...',
+        renderingChart: 'ဂရပ်ဖါပါ ပြန်လည်တည်ဆောက်နေပါတယ်...',
+        renderingCanvas: 'ကန်ဗားပါ ပြန်လည်တည်ဆောက်နေပါတယ်...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'ပါးစပ်ဖွင့်ရန် နှိပ်ပါ',
+        listening: 'နားထောင်နေပါတယ်...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'အသုံးပါဝါများ',
+        use: 'အသုံးပါဦးပါ',
+        favorite: 'အသိုက်',
+        unfavorite: 'အသိုက်မှဖယ်ရှားပါ',
+        share: 'မျှဝေပါ',
+        online: 'အွန်လိုင်း',
+        offline: 'အွန်လိုင်းမဟုတ်ပါ',
+        busy: 'အလုပ်များ',
+        verified: 'အတည်ပါ',
+        rating: 'အဆင့်သတ်မှတ်ချက်',
+        reviews: 'သုံးသပ်ချက်များ',
+        responseTime: 'ပါးစပ်ပါ အလယ်အလတ်အချိန်',
+        ms: 'မီလီစက္ကန့်'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'ကိုးကားချက်များ',
+        referencedSources: 'ကိုးကားပါသော ရင်းမြစ်များ',
+        relevant: 'သက်ဆိုင်ရာ',
+        viewOriginal: 'မူလအားကြည့်ပါ',
+        showAll: 'အားလုံးပြပါ',
+        more: 'ရင်းမြစ်များစွာ',
+        drawerTitle: 'ကိုးကားချက်များ',
+        expandMore: 'ပိုမိုပါသော ပြပါ',
+        collapseMore: 'ရှို့ပါ',
+        noSources: 'ရင်းမြစ်မရှိပါ',
+        today: 'ယနေ့',
+        last7Days: 'ပါတ်၇ရက်အတွင်း',
+        last30Days: 'ပါတ်၃၀ရက်အတွင်း',
+        earlier: 'ယခင်က',
+        pinned: 'ချိတ်ပါ'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'ယနေ့',
+        last7Days: 'ပါတ်၇ရက်အတွင်း',
+        last30Days: 'ပါတ်၃၀ရက်အတွင်း',
+        earlier: 'ယခင်က',
+        pinned: 'ချိတ်ပါ',
+        pin: 'ချိတ်ပါ',
+        unpin: 'ချိတ်ဖြုတ်ပါ',
+        newConversation: 'စကားဝိုင်းအသစ်',
+        rename: 'နာမည်ပြန်လည်သတ်မှတ်ပါ',
+        delete: 'ဖျက်လိုက်ပါ',
+        deleteConfirm: 'ဤစကားဝိုင်းကို ဖျက်လိုက်ကြောင်း အတည်ပါလိမ့်မည်။'
       }
     }
   }

@@ -321,7 +321,7 @@ const jsSchedule = tsSchedule.replace('lang="ts"', '')
 // --- 高级用法：会议室预约数据 ---
 const bookingRange = ref(['2026-02-08', '2026-02-12']);
 const occupiedDates = ['2026-02-14', '2026-02-15', '2026-02-18'];
-const isOccupied = (date: any) => occupiedDates.includes(dayjs(date).format('YYYY-MM-DD'));
+const isOccupied = (date: Date | string) => occupiedDates.includes(dayjs(date).format('YYYY-MM-DD'));
 
 const tsBooking = `<template>
   <yh-calendar
@@ -503,105 +503,107 @@ Calendar 内部采用静态日期缓存逻辑，即使在 SSR 环境下频繁刷
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| v-model | 绑定值（单选模式） | `Date` | — |
-| default-value | 默认选中的日期 | `Date` | — |
-| mode | 视图模式 | `'month' \| 'year'` | `'month'` |
-| first-day-of-week | 每周的第一天（1-7，1为周一） | `number` | `7` (周日) |
-| min-date | 可选择的最小日期 | `Date` | — |
-| max-date | 可选择的最大日期 | `Date` | — |
-| readonly | 是否只读 | `boolean` | `false` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| disabled-date | 自定义禁用日期函数 | `(date: Date) => boolean` | — |
-| show-holiday | 是否显示节假日标记 | `boolean` | `false` |
-| holidays | 自定义假期数据 | `HolidayMap` | `{}` |
-| show-week-number | 是否显示周数 | `boolean` | `false` |
-| fullscreen | 是否全屏模式（占满容器） | `boolean` | `false` |
-| selection-mode | 选择模式 | `'single' \| 'range' \| 'multiple'` | `'single'` |
-| range-value | 范围选择值 | `[Date?, Date?]` | — |
-| multiple-value | 多选值 | `Date[]` | `[]` |
-| show-other-months | 是否显示非当月日期 | `boolean` | `true` |
-| highlight-weekends | 是否高亮周末 | `boolean` | `true` |
-| size | 日历尺寸 | `'small' \| 'default' \| 'large'` | `'default'` |
-| cell-class-name | 单元格自定义类名函数 | `(date: Date) => string \| string[] \| object` | — |
-| month-header-format | 标题格式化 | `string` | `'YYYY 年 MM 月'` |
+| 属性名              | 说明                         | 类型                                           | 默认值            |
+| ------------------- | ---------------------------- | ---------------------------------------------- | ----------------- |
+| v-model             | 绑定值（单选模式）           | `Date`                                         | —                 |
+| default-value       | 默认选中的日期               | `Date`                                         | —                 |
+| mode                | 视图模式                     | `'month' \| 'year'`                            | `'month'`         |
+| first-day-of-week   | 每周的第一天（1-7，1为周一） | `number`                                       | `7` (周日)        |
+| min-date            | 可选择的最小日期             | `Date`                                         | —                 |
+| max-date            | 可选择的最大日期             | `Date`                                         | —                 |
+| readonly            | 是否只读                     | `boolean`                                      | `false`           |
+| disabled            | 是否禁用                     | `boolean`                                      | `false`           |
+| disabled-date       | 自定义禁用日期函数           | `(date: Date) => boolean`                      | —                 |
+| show-holiday        | 是否显示节假日标记           | `boolean`                                      | `false`           |
+| holidays            | 自定义假期数据               | `HolidayMap`                                   | `{}`              |
+| show-week-number    | 是否显示周数                 | `boolean`                                      | `false`           |
+| fullscreen          | 是否全屏模式（占满容器）     | `boolean`                                      | `false`           |
+| selection-mode      | 选择模式                     | `'single' \| 'range' \| 'multiple'`            | `'single'`        |
+| range-value         | 范围选择值                   | `[Date?, Date?]`                               | —                 |
+| multiple-value      | 多选值                       | `Date[]`                                       | `[]`              |
+| show-other-months   | 是否显示非当月日期           | `boolean`                                      | `true`            |
+| highlight-weekends  | 是否高亮周末                 | `boolean`                                      | `true`            |
+| size                | 日历尺寸                     | `'small' \| 'default' \| 'large'`              | `'default'`       |
+| cell-class-name     | 单元格自定义类名函数         | `(date: Date) => string \| string[] \| object` | —                 |
+| month-header-format | 标题格式化                   | `string`                                       | `'YYYY 年 MM 月'` |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| change | 选中日期发生变化时触发 | `(date: Date) => void` |
-| select | 点击日期单元格时触发 | `(date: Date, cell: CalendarDateCell) => void` |
-| panel-change | 面板显示的年月或模式发生变化时触发 | `(date: Date, mode: 'month' | 'year') => void` |
-| range-change | 范围选择完成时触发 | `(range: [Date, Date]) => void` |
+| 事件名       | 说明                               | 回调参数                                       |
+| ------------ | ---------------------------------- | ---------------------------------------------- | ---------------- |
+| change       | 选中日期发生变化时触发             | `(date: Date) => void`                         |
+| select       | 点击日期单元格时触发               | `(date: Date, cell: CalendarDateCell) => void` |
+| panel-change | 面板显示的年月或模式发生变化时触发 | `(date: Date, mode: 'month'                    | 'year') => void` |
+| range-change | 范围选择完成时触发                 | `(range: [Date, Date]) => void`                |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| header | 自定义日历头部 | `{ date: string }` |
+| 插槽名    | 说明                 | 参数                         |
+| --------- | -------------------- | ---------------------------- |
+| header    | 自定义日历头部       | `{ date: string }`           |
 | date-cell | 自定义日期单元格内容 | `{ data: CalendarDateCell }` |
-| footer | 自定义日历底部 | — |
+| footer    | 自定义日历底部       | —                            |
 
 ### Expose
 
 通过 ref 可以访问到组件内部暴露的方法和属性：
 
-| 方法/属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| displayDate | 当前显示的视口日期对象 (Dayjs) | `Ref<Dayjs>` |
-| selectedDate | 当前选中的日期（单选模式, Dayjs） | `Ref<Dayjs | undefined>` |
-| moveMonth | 切换月份 (参数 delta 为 1 或 -1) | `(delta: number) => void` |
-| goToday | 组件跳转至今天 | `() => void` |
-| selectDate | 手动选中某个日期单元格 | `(cell: CalendarDateCell) => void` |
+| 方法/属性名  | 说明                              | 类型                               |
+| ------------ | --------------------------------- | ---------------------------------- | ----------- |
+| displayDate  | 当前显示的视口日期对象 (Dayjs)    | `Ref<Dayjs>`                       |
+| selectedDate | 当前选中的日期（单选模式, Dayjs） | `Ref<Dayjs                         | undefined>` |
+| moveMonth    | 切换月份 (参数 delta 为 1 或 -1)  | `(delta: number) => void`          |
+| goToday      | 组件跳转至今天                    | `() => void`                       |
+| selectDate   | 手动选中某个日期单元格            | `(cell: CalendarDateCell) => void` |
 
 ### CalendarDateCell 类型
 
-| 属性 | 说明 | 类型 |
-| --- | --- | --- |
-| day | 格式化的日期字符串（YYYY-MM-DD） | `string` |
-| date | 原始 Date 对象 | `Date` |
-| type | 日期类型 | `'prev-month' \| 'current-month' \| 'next-month'` |
-| isSelected | 是否选中 | `boolean` |
-| isToday | 是否今天 | `boolean` |
-| isDisabled | 是否禁用 | `boolean` |
-| isWeekend | 是否周末 | `boolean` |
-| isHoliday | 是否假期 | `boolean` |
-| holidayName | 假期名称 | `string \| undefined` |
-| isWorkday | 是否补班日 | `boolean` |
-| isInRange | 是否在范围内 | `boolean` |
-| isRangeStart | 是否范围起始 | `boolean` |
-| isRangeEnd | 是否范围结束 | `boolean` |
+| 属性         | 说明                             | 类型                                              |
+| ------------ | -------------------------------- | ------------------------------------------------- |
+| day          | 格式化的日期字符串（YYYY-MM-DD） | `string`                                          |
+| date         | 原始 Date 对象                   | `Date`                                            |
+| type         | 日期类型                         | `'prev-month' \| 'current-month' \| 'next-month'` |
+| isSelected   | 是否选中                         | `boolean`                                         |
+| isToday      | 是否今天                         | `boolean`                                         |
+| isDisabled   | 是否禁用                         | `boolean`                                         |
+| isWeekend    | 是否周末                         | `boolean`                                         |
+| isHoliday    | 是否假期                         | `boolean`                                         |
+| holidayName  | 假期名称                         | `string \| undefined`                             |
+| isWorkday    | 是否补班日                       | `boolean`                                         |
+| isInRange    | 是否在范围内                     | `boolean`                                         |
+| isRangeStart | 是否范围起始                     | `boolean`                                         |
+| isRangeEnd   | 是否范围结束                     | `boolean`                                         |
 
 ### HolidayMap 类型
 
 ```typescript
-type HolidayMap = Record<string, {
-  name: string      // 假期名称
-  isOffDay: boolean // true=放假, false=补班
-}>
+type HolidayMap = Record<
+  string,
+  {
+    name: string // 假期名称
+    isOffDay: boolean // true=放假, false=补班
+  }
+>
 ```
-
 
 ## 主题变量
 
 Calendar 组件支持通过覆盖以下 CSS 变量来自定义局部样式。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-calendar-bg` | 日历基础背景 | `var(--yh-bg-color)` |
-| `--yh-calendar-text` | 默认文字颜色 | `var(--yh-text-color-primary)` |
-| `--yh-calendar-primary` | 选中/今天主题色 | `var(--yh-color-primary)` |
-| `--yh-calendar-primary-light` | 范围/悬浮背景色 | `var(--yh-color-primary-light-9)` |
-| `--yh-calendar-primary-dark` | 选中悬浮加深色 | `var(--yh-color-primary-dark-2)` |
-| `--yh-calendar-cell-height` | 单元格高度 | `100px` |
-| `--yh-calendar-cell-radius` | 单元格圆角 | `var(--yh-radius-lg)` |
-| `--yh-calendar-head-height` | 头部高度 | `80px` |
-| `--yh-calendar-title-size` | 顶部标题字号 | `22px` |
-| `--yh-calendar-weekday-color` | 星期表头颜色 | `var(--yh-text-color-secondary)` |
-| `--yh-calendar-holiday-color` | 假期标记颜色 | `var(--yh-color-danger)` |
-| `--yh-calendar-week-number-color` | 周数文字颜色 | `var(--yh-text-color-placeholder)` |
+| 变量名                            | 说明            | 默认值                             |
+| --------------------------------- | --------------- | ---------------------------------- |
+| `--yh-calendar-bg`                | 日历基础背景    | `var(--yh-bg-color)`               |
+| `--yh-calendar-text`              | 默认文字颜色    | `var(--yh-text-color-primary)`     |
+| `--yh-calendar-primary`           | 选中/今天主题色 | `var(--yh-color-primary)`          |
+| `--yh-calendar-primary-light`     | 范围/悬浮背景色 | `var(--yh-color-primary-light-9)`  |
+| `--yh-calendar-primary-dark`      | 选中悬浮加深色  | `var(--yh-color-primary-dark-2)`   |
+| `--yh-calendar-cell-height`       | 单元格高度      | `100px`                            |
+| `--yh-calendar-cell-radius`       | 单元格圆角      | `var(--yh-radius-lg)`              |
+| `--yh-calendar-head-height`       | 头部高度        | `80px`                             |
+| `--yh-calendar-title-size`        | 顶部标题字号    | `22px`                             |
+| `--yh-calendar-weekday-color`     | 星期表头颜色    | `var(--yh-text-color-secondary)`   |
+| `--yh-calendar-holiday-color`     | 假期标记颜色    | `var(--yh-color-danger)`           |
+| `--yh-calendar-week-number-color` | 周数文字颜色    | `var(--yh-text-color-placeholder)` |
 
 ## 样式兼容性说明
 

@@ -592,124 +592,124 @@ export const ku: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Ji kerema xwe binivîse',
+      loading: 'Tê barkirin...',
+      noData: 'Agahî tune'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Gotar'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Agente, Dokument an Tablo bibêjin...',
+        agent: 'Ajent',
+        document: 'Dokument',
+        table: 'Tablo',
+        knowledge: 'Zanîn'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Koda kopî bike',
+        copied: 'Hat kopîkirin!',
+        run: 'Kodê bimeşînin',
+        edit: 'Biguherîne',
+        save: 'Tomar bike',
+        cancel: 'Betal bike'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Bimeşîne',
+        stop: 'Rawestîne',
+        clear: 'Paqij bike',
+        reset: 'Sifir bike',
+        placeholder: 'Klikê li ser Bimeşîne bike da ku kodê bimeşîne...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Mesaj bişîne...',
+        dragTip: 'Ji bo barkirina pelan berhem bike'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Proseya ramînê',
+        thinking: 'Tê ramîn...',
+        defaultTitle: 'Gav nû',
+        addNode: 'Gavê zêde bike'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Ramînê destpê bike',
+        thinking: 'Tê ramîn...',
+        complete: 'Ramîn qediya',
+        error: 'Çewtî ramînê'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Silav, ez YH AI im',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Ez dikarim alî te bikim bi kodkirin, wergerandina belgeyan an nivîsandinê çêkirin. Ez çi dikarim ji te re îro bikim?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopî',
+        regenerate: 'Nûve bike',
+        share: 'Parve bike',
+        like: 'Pêşniyar kirin',
+        dislike: 'Pêşniyar nekirin',
+        edit: 'Biguherîne',
+        delete: 'Jê bibe'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Pêşbibartin',
+        inline: 'Nivîsî',
+        code: 'Koda çavkaniyê',
+        versions: 'Guherto',
+        rendering: 'Komponent tê çêkirin...',
+        renderingChart: 'şirove tê çêkirin...',
+        renderingCanvas: 'Perde tê amade kirin...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klik ji bo axaftin',
+        listening: 'Guherandin...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'karaninan',
+        use: 'Niha bi kar bîne',
+        favorite: 'Herbû',
+        unfavorite: 'Ji herbûan derxe',
+        share: 'Parve bike',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Meşgul',
+        verified: 'Rasthatî',
+        rating: 'Nirxandin',
+        reviews: 'pirtûk',
+        responseTime: 'Nihaverage bersiv dan',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referansan',
+        referencedSources: 'Çavkaniyên hatiye referans kirin',
+        relevant: 'Gele',
+        viewOriginal: 'Orjînalê bibîne',
+        showAll: 'Hemûyan nîşan bide',
+        more: 'çavkaniyên zêdetir',
+        drawerTitle: 'Referansan',
+        expandMore: 'Zêdetir nîşan bide',
+        collapseMore: 'Qelandin',
+        noSources: 'Çavkanî tune',
+        today: 'Îro',
+        last7Days: 'Rojên dawî 7',
+        last30Days: 'Rojên dawî 30',
+        earlier: 'Pêş',
+        pinned: 'Pênc'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Îro',
+        last7Days: 'Rojên dawî 7',
+        last30Days: 'Rojên dawî 30',
+        earlier: 'Pêş',
+        pinned: 'Pênc',
+        pin: 'Pênc bike',
+        unpin: 'Pêncê rake',
+        newConversation: 'Gotara nû',
+        rename: 'Nav biguherîne',
+        delete: 'Jê bibe',
+        deleteConfirm: 'Te gelo vî gotarî jê bibin?'
       }
     }
   }

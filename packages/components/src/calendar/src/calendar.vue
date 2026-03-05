@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import * as _dayjs from 'dayjs'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from 'dayjs'
+import isoWeek from 'dayjs/plugin/isoWeek'
 import type { Dayjs } from 'dayjs'
-import * as _isoWeek from 'dayjs/plugin/isoWeek'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isoWeek = (_isoWeek as any).default || _isoWeek
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import {

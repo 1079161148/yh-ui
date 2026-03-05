@@ -592,124 +592,124 @@ export const vi: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Vui lòng nhập',
+      loading: 'Đang tải...',
+      noData: 'Không có dữ liệu'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Trích dẫn'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Đề cập Agent, Tài liệu hoặc Bảng...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Tài liệu',
+        table: 'Bảng',
+        knowledge: 'Kiến thức'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Sao chép mã',
+        copied: 'Đã sao chép!',
+        run: 'Chạy mã',
+        edit: 'Chỉnh sửa',
+        save: 'Lưu',
+        cancel: 'Hủy'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Chạy',
+        stop: 'Dừng',
+        clear: 'Xóa',
+        reset: 'Đặt lại',
+        placeholder: 'Nhấn Chạy để thực thi mã...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Gửi tin nhắn...',
+        dragTip: 'Thả để tải tệp lên'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Quá trình suy nghĩ',
+        thinking: 'Đang suy nghĩ...',
+        defaultTitle: 'Bước mới',
+        addNode: 'Thêm bước'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Bắt đầu suy nghĩ',
+        thinking: 'Đang suy nghĩ...',
+        complete: 'Suy nghĩ hoàn tất',
+        error: 'Lỗi suy nghĩ'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Xin chào, tôi là YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Tôi có thể giúp bạn với lập trình, dịch tài liệu hoặc viết sáng tạo. Tôi có thể giúp gì cho bạn hôm nay?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Sao chép',
+        regenerate: 'Tạo lại',
+        share: 'Chia sẻ',
+        like: 'Thích',
+        dislike: 'Không thích',
+        edit: 'Chỉnh sửa',
+        delete: 'Xóa'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Xem trước',
+        inline: 'Nội dòng',
+        code: 'Mã nguồn',
+        versions: 'Phiên bản',
+        rendering: 'Đang hiển thị component...',
+        renderingChart: 'Đang hiển thị biểu đồ...',
+        renderingCanvas: 'Đang chuẩn bị canvas...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Nhấn để nói',
+        listening: 'Đang nghe...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'sử dụng',
+        use: 'Sử dụng ngay',
+        favorite: 'Yêu thích',
+        unfavorite: 'Bỏ yêu thích',
+        share: 'Chia sẻ',
+        online: 'Trực tuyến',
+        offline: 'Ngoại tuyến',
+        busy: 'Bận',
+        verified: 'Đã xác minh',
+        rating: 'Đánh giá',
+        reviews: 'đánh giá',
+        responseTime: 'Thời gian phản hồi TB',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Tài liệu tham khảo',
+        referencedSources: 'Nguồn được trích dẫn',
+        relevant: 'Mức độ liên quan',
+        viewOriginal: 'Xem bản gốc',
+        showAll: 'Hiển thị tất cả',
+        more: 'nguồn khác',
+        drawerTitle: 'Tài liệu tham khảo',
+        expandMore: 'Hiển thị thêm',
+        collapseMore: 'Thu gọn',
+        noSources: 'Không có nguồn',
+        today: 'Hôm nay',
+        last7Days: '7 ngày trước',
+        last30Days: '30 ngày trước',
+        earlier: 'Trước đó',
+        pinned: 'Đã ghim'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Hôm nay',
+        last7Days: '7 ngày trước',
+        last30Days: '30 ngày trước',
+        earlier: 'Trước đó',
+        pinned: 'Đã ghim',
+        pin: 'Ghim',
+        unpin: 'Bỏ ghim',
+        newConversation: 'Cuộc trò chuyện mới',
+        rename: 'Đổi tên',
+        delete: 'Xóa',
+        deleteConfirm: 'Xác nhận xóa cuộc trò chuyện này?'
       }
     }
   }

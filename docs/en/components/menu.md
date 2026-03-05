@@ -7,7 +7,7 @@ const handleSelect = (index: string) => {
   console.log('Selected menu:', index)
 }
 
-const renderLabel = (option: any) => {
+const renderLabel = (option: MenuItemData) => {
   if (option.index === '2') {
     return h('div', { style: 'display: flex; align-items: center; gap: 8px;' }, [
       h('span', 'System Messages'),
@@ -661,140 +661,141 @@ The `Menu` component supports the `router` attribute and can be used with Nuxt's
 
 ### Menu Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| mode | Menu mode | `'vertical' \| 'horizontal'` | `'vertical'` |
-| default-active | Index of the currently active menu | `string` | `''` |
-| default-openeds | Array of indices for currently open sub-menus | `string[]` | `[]` |
-| expand-all | Whether to expand all menus | `boolean` | `false` |
-| unique-opened | Whether to only keep one submenu expanded | `boolean` | `false` |
-| menu-trigger | Sub-menu opening trigger method (valid in Popup mode) | `'hover' \| 'click'` | `'hover'` |
-| collapse | Whether to enable collapsed mode (vertical mode only) | `boolean` | `false` |
-| collapse-transition | Whether collapse animation is enabled | `boolean` | `true` |
-| router | Whether to use vue-router mode | `boolean` | `false` |
-| root-indent | Indentation for the first level of the menu, defaults to `indent` | `number` | — |
-| render-extra | Batch processing of extra menu part rendering (VNode) | `Function` | — |
-| render-icon | Batch processing of menu icon rendering (VNode) | `Function` | — |
-| render-label | Batch processing of menu label rendering (VNode) | `Function` | — |
-| responsive | Whether to automatically collapse overflowing menus (horizontal mode) | `boolean` | `false` |
-| value | Current selected value of the menu (supports `v-model`) | `string \| null` | — |
-| options | Menu configuration entries, supports generating menu from data | `MenuItemData[]` | `[]` |
-| background-color | Background color | `string` | `''` |
-| text-color | Text color | `string` | `''` |
-| active-text-color | Active item text color | `string` | `''` |
-| ellipsis | Whether to enable ellipsis mode (horizontal mode) | `boolean` | `true` |
-| popper-z-index | Z-index for sub-menu popper | `number` | `2000` |
-| teleported | Whether to teleport the popup menu to body | `boolean` | `true` |
-| gap | Menu item gap | `number` | `4` |
-| icon-size | Icon size when menu is not collapsed | `number` | `20` |
-| indent | Indentation per menu level | `number` | `32` |
-| inverted | Whether to use inverted style (dark background) | `boolean` | `false` |
-| key-field | Field name for key in data source | `string` | `'key'` |
-| label-field | Field name for label in data source | `string` | `'label'` |
-| ellipsis-icon | Custom ellipsis icon (horizontal mode) | `string \| Component` | — |
-| popper-offset | Offset for the popper | `number` | `6` |
-| popper-effect | Tooltip theme | `'dark' \| 'light'` | `'light'` |
-| close-on-click-outside | Whether to collapse menu when clicking outside | `boolean` | `true` |
-| popper-class | Custom class for the popup menu | `string` | `''` |
-| popper-style | Custom style for the popup menu | `string \| object` | `''` |
-| show-timeout | Delay before menu appearance | `number` | `300` |
-| hide-timeout | Delay before menu disappearance | `number` | `300` |
-| persistent | Whether to keep sub-menu DOM when hidden | `boolean` | `true` |
+| Prop                   | Description                                                           | Type                         | Default      |
+| ---------------------- | --------------------------------------------------------------------- | ---------------------------- | ------------ |
+| mode                   | Menu mode                                                             | `'vertical' \| 'horizontal'` | `'vertical'` |
+| default-active         | Index of the currently active menu                                    | `string`                     | `''`         |
+| default-openeds        | Array of indices for currently open sub-menus                         | `string[]`                   | `[]`         |
+| expand-all             | Whether to expand all menus                                           | `boolean`                    | `false`      |
+| unique-opened          | Whether to only keep one submenu expanded                             | `boolean`                    | `false`      |
+| menu-trigger           | Sub-menu opening trigger method (valid in Popup mode)                 | `'hover' \| 'click'`         | `'hover'`    |
+| collapse               | Whether to enable collapsed mode (vertical mode only)                 | `boolean`                    | `false`      |
+| collapse-transition    | Whether collapse animation is enabled                                 | `boolean`                    | `true`       |
+| router                 | Whether to use vue-router mode                                        | `boolean`                    | `false`      |
+| root-indent            | Indentation for the first level of the menu, defaults to `indent`     | `number`                     | —            |
+| render-extra           | Batch processing of extra menu part rendering (VNode)                 | `Function`                   | —            |
+| render-icon            | Batch processing of menu icon rendering (VNode)                       | `Function`                   | —            |
+| render-label           | Batch processing of menu label rendering (VNode)                      | `Function`                   | —            |
+| responsive             | Whether to automatically collapse overflowing menus (horizontal mode) | `boolean`                    | `false`      |
+| value                  | Current selected value of the menu (supports `v-model`)               | `string \| null`             | —            |
+| options                | Menu configuration entries, supports generating menu from data        | `MenuItemData[]`             | `[]`         |
+| background-color       | Background color                                                      | `string`                     | `''`         |
+| text-color             | Text color                                                            | `string`                     | `''`         |
+| active-text-color      | Active item text color                                                | `string`                     | `''`         |
+| ellipsis               | Whether to enable ellipsis mode (horizontal mode)                     | `boolean`                    | `true`       |
+| popper-z-index         | Z-index for sub-menu popper                                           | `number`                     | `2000`       |
+| teleported             | Whether to teleport the popup menu to body                            | `boolean`                    | `true`       |
+| gap                    | Menu item gap                                                         | `number`                     | `4`          |
+| icon-size              | Icon size when menu is not collapsed                                  | `number`                     | `20`         |
+| indent                 | Indentation per menu level                                            | `number`                     | `32`         |
+| inverted               | Whether to use inverted style (dark background)                       | `boolean`                    | `false`      |
+| key-field              | Field name for key in data source                                     | `string`                     | `'key'`      |
+| label-field            | Field name for label in data source                                   | `string`                     | `'label'`    |
+| ellipsis-icon          | Custom ellipsis icon (horizontal mode)                                | `string \| Component`        | —            |
+| popper-offset          | Offset for the popper                                                 | `number`                     | `6`          |
+| popper-effect          | Tooltip theme                                                         | `'dark' \| 'light'`          | `'light'`    |
+| close-on-click-outside | Whether to collapse menu when clicking outside                        | `boolean`                    | `true`       |
+| popper-class           | Custom class for the popup menu                                       | `string`                     | `''`         |
+| popper-style           | Custom style for the popup menu                                       | `string \| object`           | `''`         |
+| show-timeout           | Delay before menu appearance                                          | `number`                     | `300`        |
+| hide-timeout           | Delay before menu disappearance                                       | `number`                     | `300`        |
+| persistent             | Whether to keep sub-menu DOM when hidden                              | `boolean`                    | `true`       |
 
 ### MenuItem Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| index | Unique identifier | `string` | — (Required) |
-| label | Display text | `string` | `''` |
-| route | vue-router route object | `string \| object` | `''` |
-| disabled | Whether disabled | `boolean` | `false` |
+| Prop     | Description             | Type               | Default      |
+| -------- | ----------------------- | ------------------ | ------------ |
+| index    | Unique identifier       | `string`           | — (Required) |
+| label    | Display text            | `string`           | `''`         |
+| route    | vue-router route object | `string \| object` | `''`         |
+| disabled | Whether disabled        | `boolean`          | `false`      |
 
 ### MenuItemGroup Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Group title | `string` | `''` |
+| Prop  | Description | Type     | Default |
+| ----- | ----------- | -------- | ------- |
+| title | Group title | `string` | `''`    |
 
 ### SubMenu Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| index | Unique identifier | `string` | — (Required) |
-| label | Display text | `string` | `''` |
-| popper-class | Custom class for the popup menu | `string` | `''` |
-| disabled | Whether disabled | `boolean` | `false` |
-| show-timeout | Delay for expanding/collapsing | `number` | `300` |
-| hide-timeout | Delay for collapsing | `number` | `300` |
-| popper-offset | Offset for the popper | `number` | `6` |
+| Prop          | Description                     | Type      | Default      |
+| ------------- | ------------------------------- | --------- | ------------ |
+| index         | Unique identifier               | `string`  | — (Required) |
+| label         | Display text                    | `string`  | `''`         |
+| popper-class  | Custom class for the popup menu | `string`  | `''`         |
+| disabled      | Whether disabled                | `boolean` | `false`      |
+| show-timeout  | Delay for expanding/collapsing  | `number`  | `300`        |
+| hide-timeout  | Delay for collapsing            | `number`  | `300`        |
+| popper-offset | Offset for the popper           | `number`  | `6`          |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| select | Callback for menu activation | `(index: string, indexPath: string[], item: MenuItemData \| undefined, routeResult?: Promise<void>)` |
-| open | Callback for sub-menu expansion | `(index: string, indexPath: string[])` |
-| close | Callback for sub-menu collapse | `(index: string, indexPath: string[])` |
-| update:value | Callback when value changes (supports v-model) | `(value: string) => void` |
+| Event Name   | Description                                    | Callback Parameters                                                                                  |
+| ------------ | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| select       | Callback for menu activation                   | `(index: string, indexPath: string[], item: MenuItemData \| undefined, routeResult?: Promise<void>)` |
+| open         | Callback for sub-menu expansion                | `(index: string, indexPath: string[])`                                                               |
+| close        | Callback for sub-menu collapse                 | `(index: string, indexPath: string[])`                                                               |
+| update:value | Callback when value changes (supports v-model) | `(value: string) => void`                                                                            |
 
 ### Slots
 
-| Slot Name | Description | Component |
-| --- | --- | --- |
-| default | Menu content | Menu |
-| default | Menu item content | MenuItem |
-| title | Group title | MenuItemGroup |
-| default | Group content | MenuItemGroup |
-| title | Sub-menu title | SubMenu |
-| default | Sub-menu content | SubMenu |
+| Slot Name | Description       | Component     |
+| --------- | ----------------- | ------------- |
+| default   | Menu content      | Menu          |
+| default   | Menu item content | MenuItem      |
+| title     | Group title       | MenuItemGroup |
+| default   | Group content     | MenuItemGroup |
+| title     | Sub-menu title    | SubMenu       |
+| default   | Sub-menu content  | SubMenu       |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| open | Expand specified sub-menu | `(index: string) => void` |
-| close | Collapse specified sub-menu | `(index: string) => void` |
-| activeIndex | Currently active item | `Ref<string>` |
-| openedMenus | Currently expanded sub-menus | `Ref<string[]>` |
+| Name        | Description                  | Type                      |
+| ----------- | ---------------------------- | ------------------------- |
+| open        | Expand specified sub-menu    | `(index: string) => void` |
+| close       | Collapse specified sub-menu  | `(index: string) => void` |
+| activeIndex | Currently active item        | `Ref<string>`             |
+| openedMenus | Currently expanded sub-menus | `Ref<string[]>`           |
 
 ### MenuItemData
 
 Data structure for `options` prop:
 
-| Prop | Description | Type |
-| --- | --- | --- |
-| key | Unique identifier (same as index) | `string` |
-| index | Unique identifier (same as key) | `string` |
-| label | Display text | `string` |
-| icon | Icon name | `string` |
-| disabled | Whether disabled | `boolean` |
-| children | Sub-menu data | `MenuItemData[]` |
-| group | Whether it is a group item | `boolean` |
+| Prop     | Description                       | Type             |
+| -------- | --------------------------------- | ---------------- |
+| key      | Unique identifier (same as index) | `string`         |
+| index    | Unique identifier (same as key)   | `string`         |
+| label    | Display text                      | `string`         |
+| icon     | Icon name                         | `string`         |
+| disabled | Whether disabled                  | `boolean`        |
+| children | Sub-menu data                     | `MenuItemData[]` |
+| group    | Whether it is a group item        | `boolean`        |
 
 ### Theme Variables
 
 All color variables are integrated with the global theme system and support dark mode:
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `--yh-menu-bg-color` | `var(--yh-bg-color)` | Menu background color |
-| `--yh-menu-text-color` | `var(--yh-text-color-primary)` | Menu text color |
-| `--yh-menu-active-text-color` | `var(--yh-color-primary)` | Text color in active state |
-| `--yh-menu-hover-bg-color` | `var(--yh-color-primary-light-9)` | Hover background color |
-| `--yh-menu-active-bg-color` | `var(--yh-color-primary-light-9)` | Active background color |
-| `--yh-menu-border-color` | `var(--yh-border-color-light)` | Menu border color |
-| `--yh-menu-item-height` | `50px` | Menu item height |
-| `--yh-menu-icon-size` | `18px` | Menu icon size |
-| `--yh-menu-base-padding` | `20px` | Menu base padding |
-| `--yh-menu-indicator-width` | `3px` | Indicator width |
-| `--yh-menu-indicator-color` | `var(--yh-menu-active-text-color)` | Indicator color |
+| Variable                      | Default                            | Description                |
+| ----------------------------- | ---------------------------------- | -------------------------- |
+| `--yh-menu-bg-color`          | `var(--yh-bg-color)`               | Menu background color      |
+| `--yh-menu-text-color`        | `var(--yh-text-color-primary)`     | Menu text color            |
+| `--yh-menu-active-text-color` | `var(--yh-color-primary)`          | Text color in active state |
+| `--yh-menu-hover-bg-color`    | `var(--yh-color-primary-light-9)`  | Hover background color     |
+| `--yh-menu-active-bg-color`   | `var(--yh-color-primary-light-9)`  | Active background color    |
+| `--yh-menu-border-color`      | `var(--yh-border-color-light)`     | Menu border color          |
+| `--yh-menu-item-height`       | `50px`                             | Menu item height           |
+| `--yh-menu-icon-size`         | `18px`                             | Menu icon size             |
+| `--yh-menu-base-padding`      | `20px`                             | Menu base padding          |
+| `--yh-menu-indicator-width`   | `3px`                              | Indicator width            |
+| `--yh-menu-indicator-color`   | `var(--yh-menu-active-text-color)` | Indicator color            |
 
 ::: tip Inverted Mode
 After enabling the `inverted` attribute, the menu automatically switches to a dark theme, using the following override variables:
+
 - `--yh-menu-bg-color`: `var(--yh-bg-color-overlay-dark)`
 - `--yh-menu-text-color`: `var(--yh-text-color-secondary)`
 - `--yh-menu-hover-bg-color`: `var(--yh-fill-color-dark)`
-:::
+  :::
 
 ---
 

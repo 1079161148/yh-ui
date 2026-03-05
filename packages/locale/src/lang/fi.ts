@@ -592,124 +592,124 @@ export const fi: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Syötä',
+      loading: 'Ladataan...',
+      noData: 'Ei tietoja'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Lainaukset'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Mainitse agentti, dokumentti tai taulukko...',
+        agent: 'Agentti',
+        document: 'Dokumentti',
+        table: 'Taulukko',
+        knowledge: 'Tieto'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopioi koodi',
+        copied: 'Kopioitu!',
+        run: 'Suorita koodi',
+        edit: 'Muokkaa',
+        save: 'Tallenna',
+        cancel: 'Peru'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Suorita',
+        stop: 'Pysäytä',
+        clear: 'Tyhjennä',
+        reset: 'Nollaa',
+        placeholder: 'Klikkaa Suorita suorittaaksesi koodin...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Lähetä viesti...',
+        dragTip: 'Vapauta ladataksesi tiedostoja'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Ajatteluprosessi',
+        thinking: 'Ajattelee...',
+        defaultTitle: 'Uusi vaihe',
+        addNode: 'Lisää vaihe'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Aloita ajattelu',
+        thinking: 'Ajattelee...',
+        complete: 'Ajattelu valmis',
+        error: 'Ajatteluvirhe'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Hei, olen YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Voin auttaa sinua koodaamisessa, dokumenttien kääntämisessä tai luovassa kirjoittamisessa. Mitä voin tehdä sinulle tänään?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopioi',
+        regenerate: 'Luo uudelleen',
+        share: 'Jaa',
+        like: 'Tykkää',
+        dislike: 'Älä tykkää',
+        edit: 'Muokkaa',
+        delete: 'Poista'
       },
       artifacts: {
-        preview: 'Preview',
+        preview: 'Esikatselu',
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Koodi',
+        versions: 'Versiot',
+        rendering: 'Renderoidaan komponenttia...',
+        renderingChart: 'Renderoidaan kaaviota...',
+        renderingCanvas: 'Valmistellaan canvasta...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klikkaa puhuaksesi',
+        listening: 'Kuunnellaan...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'käyttää',
+        use: 'Käytä nyt',
+        favorite: 'Suosikki',
+        unfavorite: 'Poista suosikki',
+        share: 'Jaa',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Varattu',
+        verified: 'Vahvistettu',
+        rating: 'Arvosana',
+        reviews: 'arvostelua',
+        responseTime: 'Keskim. vastausaika',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Viitteet',
+        referencedSources: 'Viitatut lähteet',
+        relevant: 'Osuvuus',
+        viewOriginal: 'Näytä alkuperäinen',
+        showAll: 'Näytä kaikki',
+        more: 'lisää lähteitä',
+        drawerTitle: 'Viitteet',
+        expandMore: 'Näytä lisää',
+        collapseMore: 'Tiivistä',
+        noSources: 'Ei lähteitä',
+        today: 'Tänään',
+        last7Days: 'Viimeiset 7 päivää',
+        last30Days: 'Viimeiset 30 päivää',
+        earlier: 'Aiemmat',
+        pinned: 'Kiinnitetty'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Tänään',
+        last7Days: 'Viimeiset 7 päivää',
+        last30Days: 'Viimeiset 30 päivää',
+        earlier: 'Aiemmat',
+        pinned: 'Kiinnitetty',
+        pin: 'Kiinnitä',
+        unpin: 'Poista kiinnitys',
+        newConversation: 'Uusi keskustelu',
+        rename: 'Nimeä uudelleen',
+        delete: 'Poista',
+        deleteConfirm: 'Vahvista tämän keskustelun poistaminen?'
       }
     }
   }

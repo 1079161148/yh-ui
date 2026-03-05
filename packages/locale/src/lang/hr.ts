@@ -592,124 +592,124 @@ export const hr: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Molimo unesite',
+      loading: 'Učitavanje...',
+      noData: 'Nema podataka'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citati'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Spomeni Agenta, Dokument ili Tablicu...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokument',
+        table: 'Tablica',
+        knowledge: 'Znanje'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopiraj kod',
+        copied: 'Kopirano!',
+        run: 'Pokreni kod',
+        edit: 'Uredi',
+        save: 'Spremi',
+        cancel: 'Odustani'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Pokreni',
+        stop: 'Zaustavi',
+        clear: 'Očisti',
+        reset: 'Resetiraj',
+        placeholder: 'Kliknite Pokreni za izvršavanje koda...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Pošalji poruku...',
+        dragTip: 'Otpušteno za prijenos datoteka'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Proces razmišljanja',
+        thinking: 'Razmišljam...',
+        defaultTitle: 'Novi korak',
+        addNode: 'Dodaj korak'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Počni razmišljati',
+        thinking: 'Razmišljam...',
+        complete: 'Razmišljanje završeno',
+        error: 'Pogreška u razmišljanju'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Pozdrav, ja sam YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Mogu vam pomoći s kodiranjem, prevođenjem dokumenata ili kreativnim pisanjem. Što mogu učiniti za vas danas?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopiraj',
+        regenerate: 'Regeneriraj',
+        share: 'Podijeli',
+        like: 'Sviđa mi se',
+        dislike: 'Ne sviđa mi se',
+        edit: 'Uredi',
+        delete: 'Izbriši'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Pregled',
+        inline: 'Ugrađeno',
+        code: 'Izvorni kod',
+        versions: 'Verzije',
+        rendering: 'Renderiranje komponente...',
+        renderingChart: 'Renderiranje grafikona...',
+        renderingCanvas: 'Priprema platna...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Kliknite za govor',
+        listening: 'Slušam...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'korištenja',
+        use: 'Koristi sada',
+        favorite: 'Favorit',
+        unfavorite: 'Ukloni iz favorita',
+        share: 'Podijeli',
+        online: 'Na mreži',
+        offline: 'Izvan mreže',
+        busy: 'Zauzet',
+        verified: 'Provjereno',
+        rating: 'Ocjena',
+        reviews: 'recenzija',
+        responseTime: 'Prosječno vrijeme odgovora',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Reference',
+        referencedSources: 'Referencirani izvori',
+        relevant: 'Relevantnost',
+        viewOriginal: 'Pogledaj izvorno',
+        showAll: 'Prikaži sve',
+        more: 'više izvora',
+        drawerTitle: 'Reference',
+        expandMore: 'Prikaži više',
+        collapseMore: 'Sažmi',
+        noSources: 'Nema izvora',
+        today: 'Danas',
+        last7Days: 'Zadnjih 7 dana',
+        last30Days: 'Zadnjih 30 dana',
+        earlier: 'Prije',
+        pinned: 'Prikačeno'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Danas',
+        last7Days: 'Zadnjih 7 dana',
+        last30Days: 'Zadnjih 30 dana',
+        earlier: 'Prije',
+        pinned: 'Prikačeno',
+        pin: 'Prikači',
+        unpin: 'Odprikači',
+        newConversation: 'Novi razgovor',
+        rename: 'Preimenuj',
+        delete: 'Izbriši',
+        deleteConfirm: 'Potvrdite brisanje ovog razgovora?'
       }
     }
   }

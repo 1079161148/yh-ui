@@ -145,7 +145,7 @@ onBeforeUnmount(() => {
             </div>
 
             <span v-if="props.variant !== 'sphere'" :class="ns.e('hint')">{{
-              t('ai.voice.listening') || 'Listening...'
+              t('ai.voice.listening')
             }}</span>
 
             <!-- Cancel Button -->
@@ -173,7 +173,7 @@ onBeforeUnmount(() => {
             v-if="!(props.recording || localRecording) && props.variant === 'inline'"
             :class="ns.e('label')"
           >
-            <slot>{{ t('ai.voice.trigger') || '' }}</slot>
+            <slot>{{ t('ai.voice.trigger') }}</slot>
           </span>
         </button>
       </div>

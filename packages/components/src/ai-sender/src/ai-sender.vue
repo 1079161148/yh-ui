@@ -250,7 +250,7 @@ const handleFocus = (e: FocusEvent) => {
       <div v-if="isDragging" :class="ns.e('drag-overlay')">
         <div :class="ns.e('drag-message')">
           <YhIcon name="upload" />
-          <span>{{ t('ai.sender.dragTip') || '释放鼠标以上传文件' }}</span>
+          <span>{{ t('ai.sender.dragTip') }}</span>
         </div>
       </div>
     </Transition>

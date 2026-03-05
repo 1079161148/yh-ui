@@ -5,6 +5,7 @@ import { describe, it, expect } from 'vitest'
 import { renderToString } from '@vue/server-renderer'
 import { h } from 'vue'
 import AiThoughtChain from '../src/ai-thought-chain.vue'
+import type { AiThoughtItem } from '../src/ai-thought-chain'
 
 describe('YhAiThoughtChain SSR', () => {
   it('should render to string on server', async () => {
@@ -24,7 +25,7 @@ describe('YhAiThoughtChain SSR', () => {
   })
 
   it('should render timeline items on server', async () => {
-    const items = [
+    const items: AiThoughtItem[] = [
       { title: 'Step One', status: 'complete', content: 'Done' },
       { title: 'Step Two', status: 'thinking', content: 'In progress' }
     ]
@@ -36,7 +37,7 @@ describe('YhAiThoughtChain SSR', () => {
   })
 
   it('should render is-last class on last item on server', async () => {
-    const items = [
+    const items: AiThoughtItem[] = [
       { title: 'First', status: 'complete' },
       { title: 'Last', status: 'complete' }
     ]
@@ -45,18 +46,21 @@ describe('YhAiThoughtChain SSR', () => {
   })
 
   it('should render is-active class for thinking item on server', async () => {
-    const items = [{ title: 'Running', status: 'thinking' }]
+    const items: AiThoughtItem[] = [{ title: 'Running', status: 'thinking' }]
     const html = await renderToString(h(AiThoughtChain, { items }))
     expect(html).toContain('is-active')
   })
 
   it('should render content text on server', async () => {
-    const html = await renderToString(h(AiThoughtChain, { content: 'SSR thought content' }))
+    const items: AiThoughtItem[] = [
+      { title: 'Item', content: 'SSR thought content', expanded: true }
+    ]
+    const html = await renderToString(h(AiThoughtChain, { items }))
     expect(html).toContain('SSR thought content')
   })
 
   it('should render status icon wrappers on server in timeline mode', async () => {
-    const items = [{ title: 'Done', status: 'complete' }]
+    const items: AiThoughtItem[] = [{ title: 'Done', status: 'complete' }]
     const html = await renderToString(h(AiThoughtChain, { items }))
     expect(html).toContain('yh-ai-thought-chain__item-dot-wrapper')
   })

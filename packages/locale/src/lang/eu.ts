@@ -592,124 +592,124 @@ export const eu: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Sartu mesedez',
+      loading: 'Kargatzen...',
+      noData: 'Daturik ez'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Aipuak'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Aipu Agentz, Dokumentu edo Taula...',
+        agent: 'Agentzia',
+        document: 'Dokumentua',
+        table: 'Taula',
+        knowledge: 'Ezagutza'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopiatu kodea',
+        copied: 'Kopiatuta!',
+        run: 'Exekutatu kodea',
+        edit: 'Editatu',
+        save: 'Gorde',
+        cancel: 'Utzi'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Exekutatu',
+        stop: 'Gelditu',
+        clear: 'Garbitu',
+        reset: 'Berrezarri',
+        placeholder: 'Egin klik Exekutatu kodea exekutatzeko...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Bidali mezua...',
+        dragTip: 'Askatu fitxategiak igotzeko'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Pentsamendu prozesua',
+        thinking: 'Pentsatzen...',
+        defaultTitle: 'Urrats berria',
+        addNode: 'Gehitu urratsa'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Hasi pentsatzen',
+        thinking: 'Pentsatzen...',
+        complete: 'Pentsamendua amaituta',
+        error: 'Pentsamendu akatsa'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Kaixo, ni YH AI naiz',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Lagun zaitzaket programming, dokumentuen itzulpena edo idazketa sortzailean. Zer egin dezaket gaur zuretzat?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopiatu',
+        regenerate: 'Berrezarri',
+        share: 'Partekatu',
+        like: 'Atsegina',
+        dislike: 'Atsegina ez',
+        edit: 'Editatu',
+        delete: 'Ezabatu'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Aurrikuspena',
+        inline: 'Lerroan',
+        code: 'Iturburu kodea',
+        versions: 'Bertsiok',
+        rendering: 'Osagaia renderizatzen...',
+        renderingChart: 'Grafikoa renderizatzen...',
+        renderingCanvas: 'Oihala prestatzen...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Egin klik hitz egiteko',
+        listening: 'Entzuten...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'erabilerak',
+        use: 'Erabili orain',
+        favorite: 'Gogokoa',
+        unfavorite: 'Kendu gogokoetatik',
+        share: 'Partekatu',
+        online: 'Linean',
+        offline: 'Lineaz kanpo',
+        busy: 'Ocupatuta',
+        verified: 'Egiaztatua',
+        rating: 'Balorazioa',
+        reviews: 'berrikuspenak',
+        responseTime: 'Erantzun denbora media',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Erreferentziak',
+        referencedSources: 'Aipatutako iturburuak',
+        relevant: 'Errelevantzia',
+        viewOriginal: 'Jatorrizko ikusi',
+        showAll: 'Erakutsi dena',
+        more: 'iturburu gehiago',
+        drawerTitle: 'Erreferentziak',
+        expandMore: 'Erakutsi gehiago',
+        collapseMore: 'Tolestu',
+        noSources: 'Iturbururik ez',
+        today: 'Gaur',
+        last7Days: 'Azken 7 egun',
+        last30Days: 'Azken 30 egun',
+        earlier: 'Lehen',
+        pinned: 'Finkatua'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Gaur',
+        last7Days: 'Azken 7 egun',
+        last30Days: 'Azken 30 egun',
+        earlier: 'Lehen',
+        pinned: 'Finkatua',
+        pin: 'Finkatu',
+        unpin: 'Desfinkatu',
+        newConversation: 'Elkarrizketa berria',
+        rename: 'Berrizendatu',
+        delete: 'Ezabatu',
+        deleteConfirm: 'Ziur zaude elkarrizketa hau ezabatu nahi duzula?'
       }
     }
   }

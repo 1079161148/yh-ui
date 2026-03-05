@@ -76,7 +76,7 @@ defineExpose<AiMentionExpose>({
       :options="filteredOptions"
       :triggers="triggers"
       :type="type"
-      :placeholder="placeholder || t('ai.mention.placeholder') || '@ 呼叫 Agent、文档或表格...'"
+      :placeholder="placeholder || t('ai.mention.placeholder')"
       :disabled="disabled"
       :size="size"
       :loading="loading"

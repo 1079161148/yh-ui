@@ -25,15 +25,15 @@ const displayTitle = computed(() => {
   if (props.title) return props.title
   switch (props.status) {
     case 'start':
-      return t('ai.thinking.start') || '开始思考'
+      return t('ai.thinking.start')
     case 'thinking':
-      return t('ai.thinking.thinking') || '思考中...'
+      return t('ai.thinking.thinking')
     case 'end':
-      return t('ai.thinking.complete') || '已完成思考'
+      return t('ai.thinking.complete')
     case 'error':
-      return t('ai.thinking.error') || '思考出错了'
+      return t('ai.thinking.error')
     default:
-      return t('ai.thinking.thinking') || '思考中...'
+      return t('ai.thinking.thinking')
   }
 })
 

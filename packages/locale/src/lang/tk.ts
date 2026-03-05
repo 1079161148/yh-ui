@@ -592,124 +592,124 @@ export const tk: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Giriziň',
+      loading: 'Ýüklenýär...',
+      noData: 'Maglumat ýok'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Sitatlar'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Agent, Resminama ýa-da Tablisany belläň...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Resminama',
+        table: 'Tablisa',
+        knowledge: 'Bilim'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
+        copyCode: 'Kody göçür',
+        copied: 'Göçürildi!',
+        run: 'Kody işlet',
+        edit: 'Üýtget',
+        save: 'Sakla',
         cancel: 'Cancel'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Işlet',
+        stop: 'Dur',
+        clear: 'Täzele',
+        reset: 'Resetle',
+        placeholder: 'Kody işletmek üçin Işlet düwmesine basyň...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Habarlar ugrat...',
+        dragTip: 'Faýllary ýüklemek üçin goýberiň'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Oýlanma prosesi',
+        thinking: 'Oýlanýar...',
+        defaultTitle: 'Täze ädim',
+        addNode: 'Ädim goş'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Oýlanmaga başla',
+        thinking: 'Oýlanýar...',
+        complete: 'Oýlanma tamamlandy',
+        error: 'Oýlanma säwligi'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Salam, men YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Kodlamada, resminamalary terjime etmekde ýa-da dörediji ýazuwda size kömek edip bilerin. Bu gün size näme edip bilerin?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Göçür',
+        regenerate: 'Täzeden döret',
+        share: 'Paýlaş',
+        like: 'Halan',
+        dislike: 'Halanma',
+        edit: 'Üýtget',
+        delete: 'Poz'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Öňünden görmek',
+        inline: 'Setirde',
+        code: 'Çeşme kody',
+        versions: 'Wersiýalar',
+        rendering: 'Komponent görkezilýär...',
+        renderingChart: 'Grafik görkezilýär...',
+        renderingCanvas: 'Tuwralyk taýýarlanylýär...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Söýlemek üçin basyň',
+        listening: 'Diňleýär...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'ulanyşlar',
+        use: 'Şimdi ulan',
+        favorite: 'Halanan',
+        unfavorite: 'Halananlardan aýyr',
+        share: 'Paýlaş',
+        online: 'Onlaýn',
+        offline: 'Oflaýn',
+        busy: 'Meşgul',
+        verified: 'Tassyklanan',
+        rating: 'Reýting',
+        reviews: 'teswirlar',
+        responseTime: 'Orta jogap wagty',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Ssalgalar',
+        referencedSources: 'Ssalga berilen çeşmeler',
+        relevant: 'Baglanyşykly',
+        viewOriginal: 'Aslyny gör',
+        showAll: 'Hemmesini gör',
+        more: 'käbir çeşmeler',
+        drawerTitle: 'Ssalgalar',
+        expandMore: 'Köpräk gör',
+        collapseMore: 'Ýygyş',
+        noSources: 'Çeşme ýok',
+        today: 'Şu gün',
+        last7Days: 'Soňky 7 gün',
+        last30Days: 'Soňky 30 gün',
+        earlier: 'Öň',
+        pinned: 'Pipet'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Şu gün',
+        last7Days: 'Soňky 7 gün',
+        last30Days: 'Soňky 30 gün',
+        earlier: 'Öň',
+        pinned: 'Pipet',
+        pin: 'Pip et',
+        unpin: 'Pipden aýyr',
+        newConversation: 'Täze söhbet',
+        rename: 'Ady üýtget',
+        delete: 'Poz',
+        deleteConfirm: 'Şu söhbeti pozmagy tassyklaň?'
       }
     }
   }

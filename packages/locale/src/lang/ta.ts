@@ -592,124 +592,124 @@ export const ta: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'தயவுச் சுட்டவும்',
+      loading: 'ஏற்றுகிறது...',
+      noData: 'தரவு இல்லை'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'மேற்கோள்கள்'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ முகவர், ஆவணம் அல்லது அட்டவணையைக் குறிப்பிடவும்...',
+        agent: 'முகவர்',
+        document: 'ஆவணம்',
+        table: 'அட்டவணை',
+        knowledge: 'அறிவு'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'குறியீட்டை நகலெடு',
+        copied: 'நகல் எடுக்கப்பட்டது!',
+        run: 'குறியீட்டை இயக்கு',
+        edit: 'திருத்து',
+        save: 'சேமி',
+        cancel: 'ரத்து'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'இயக்கு',
+        stop: 'நிறுத்து',
+        clear: 'தெளிவாக்கு',
+        reset: 'மீட்டமை',
+        placeholder: 'குறியீட்டை இயக்க இயக்கு பட்டனைக் கிளிக் செய்யவும்...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'செய்தி அனுப்பு...',
+        dragTip: 'கோப்புகளை பதிவேற்ற விடுங்கள்'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'சிந்தனை செயல்முறை',
+        thinking: 'சிந்திக்கிறது...',
+        defaultTitle: 'புதிய படி',
+        addNode: 'படியைச் சேர்க்க'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'சிந்தனையைத் தொடங்கு',
+        thinking: 'சிந்திக்கிறது...',
+        complete: 'சிந்தித்து முடித்தது',
+        error: 'சிந்தனை பிழை'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'வணக்கம், நான் YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'நான் உங்களுக்கு குறியீடு எழுதுதல், ஆவணங்கள் மொழிபெயர்த்தல் அல்லது படைப்பாக்கம் ஆகியவற்றில் உதவ முடியும். இன்று உங்களுக்கு என்ன செய்ய முடியும்?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'நகல்',
+        regenerate: 'மீள உருவாக்கு',
+        share: 'பகிர்',
+        like: 'விரும்புகிறேன்',
+        dislike: 'விரும்பவில்லை',
+        edit: 'திருத்து',
+        delete: 'நீக்கு'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'முன்னோட்டம்',
+        inline: 'இன்-லைன்',
+        code: 'மூல குறியீடு',
+        versions: 'பதிப்புகள்',
+        rendering: 'கூறு வழங்குகிறது...',
+        renderingChart: 'வரைபடம் வழங்குகிறது...',
+        renderingCanvas: 'கேன்வாஸ் தயாராகிறது...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'பேச கிளிக் செய்க',
+        listening: 'கேட்கிறது...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'பயன்பாடுகள்',
+        use: 'இப்போது பயன்படுத்து',
+        favorite: 'பிடித்த',
+        unfavorite: 'பிடித்ததிலிருந்து நீக்கு',
+        share: 'பகிர்',
+        online: 'ஆன்லைன்',
+        offline: 'ஆஃப்லைன்',
+        busy: ' занят',
+        verified: 'சரிபார்க்கப்பட்ட',
+        rating: 'மதிப்பீடு',
+        reviews: 'மதிப்புரைகள்',
+        responseTime: 'சராசரி பதில் நேரம்',
+        ms: 'மி.வி'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'குறிப்புகள்',
+        referencedSources: 'குறிப்பிடப்பட்ட மூலங்கள்',
+        relevant: 'பொருத்தம்',
+        viewOriginal: 'அசலைக் காண்க',
+        showAll: 'அனைத்தையும் காண்பி',
+        more: 'மூலங்கள் மேலும்',
+        drawerTitle: 'குறிப்புகள்',
+        expandMore: 'மேலும் காண்பி',
+        collapseMore: 'சுருக்கு',
+        noSources: 'மூலங்கள் இல்லை',
+        today: 'இன்று',
+        last7Days: 'கடந்த 7 நாட்கள்',
+        last30Days: 'கடந்த 30 நாட்கள்',
+        earlier: 'முன்பு',
+        pinned: 'பின் வைக்கப்பட்ட'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'இன்று',
+        last7Days: 'கடந்த 7 நாட்கள்',
+        last30Days: 'கடந்த 30 நாட்கள்',
+        earlier: 'முன்பு',
+        pinned: 'பின் வைக்கப்பட்ட',
+        pin: 'பின் வை',
+        unpin: 'பின் நீக்கு',
+        newConversation: 'புதிய உரையாடல்',
+        rename: 'பெயர் மாற்று',
+        delete: 'நீக்கு',
+        deleteConfirm: 'இந்த உரையாடலை நீக்க விரும்புகிறீர்களா?'
       }
     }
   }

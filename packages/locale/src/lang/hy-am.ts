@@ -592,124 +592,124 @@ export const hyAm: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Խնդրում եմ մուտքագրեք',
+      loading: 'Բեռնվում է...',
+      noData: 'Տվյալներ չկան'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Մեջբերումներ'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Նշել Ագենտ, Փաստաթուղթ կամ Աղյուսակ...',
+        agent: 'Ագենտ',
+        document: 'Փաստաթուղթ',
+        table: 'Աղյուսակ',
+        knowledge: 'Գիտելիք'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Պատճենել կոդը',
+        copied: 'Պատճենվեց!',
+        run: 'Գործարկել կոդը',
+        edit: 'Խմբագրել',
+        save: 'Պահպանել',
+        cancel: 'Չեղարկել'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Գործարկել',
+        stop: 'Կանգնեցնել',
+        clear: 'Մաքրել',
+        reset: 'Վերագործել',
+        placeholder: 'Սեղմեք Գործարկել կոդը գործարկելու համար...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Ուղարկել հաղորդագրություն...',
+        dragTip: 'Ազատեք ֆայլերը վերբեռնելու համար'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Մտքի ընթացքը',
+        thinking: 'Մտորում...',
+        defaultTitle: 'Նոր քայլ',
+        addNode: 'Ավելացնել քայլ'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Սկսել մտորել',
+        thinking: 'Մտորում...',
+        complete: 'Մտորումը ավարտվեց',
+        error: 'Մտորման սխալ'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Ողջույն, ես YH AI եմ',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Կարող եմ օգնել ձեզ ծրագրավորման, փաստաթղթերի թարգմանության կամ ստեղծագործ գրելու հետ: Ի՞նչ կարող եմ անել ձեզ համար այսօր:'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Պատճենել',
+        regenerate: 'Վերագործել',
+        share: 'Կիսվել',
+        like: 'Հավանել',
+        dislike: 'Չհավանել',
+        edit: 'Խմբագրել',
+        delete: 'Ջնջել'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Նախադիտում',
+        inline: 'Տողում',
+        code: 'Աղբյուրի կոդ',
+        versions: 'Տարբերակներ',
+        rendering: 'Կոմպոնենտը մատուցվում է...',
+        renderingChart: 'Գծապատկերը մատուցվում է...',
+        renderingCanvas: 'Նկարի վահանակը պատրաստվում է...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Սեղմեք խոսելու համար',
+        listening: 'Լսում է...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'օգտագործում',
+        use: 'Օգտագործել հիմա',
+        favorite: 'Սիրված',
+        unfavorite: 'Հեռացնել սիրվածներից',
+        share: 'Կիսվել',
+        online: 'Առցանց',
+        offline: 'Անցանց',
+        busy: 'Զբաղված',
+        verified: 'Հաստատված',
+        rating: 'Գնահատական',
+        reviews: 'կարծիք',
+        responseTime: 'Միջին պատասխանի ժամանակ',
+        ms: 'մլվ'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Հղումներ',
+        referencedSources: 'Մեջբերված աղբյուրներ',
+        relevant: 'Նշանակություն',
+        viewOriginal: 'Դիտել օրիգինալը',
+        showAll: 'Ցույց տալ բոլորը',
+        more: 'ավելի աղբյուրներ',
+        drawerTitle: 'Հղումներ',
+        expandMore: 'Ցույց տալ ավելին',
+        collapseMore: 'Քչացնել',
+        noSources: 'Աղբյուրներ չկան',
+        today: 'Այսօր',
+        last7Days: 'Վերջին 7 օր',
+        last30Days: 'Վերջին 30 օր',
+        earlier: 'Ավելի վաղ',
+        pinned: 'Ամրակցված'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Այսօր',
+        last7Days: 'Վերջին 7 օր',
+        last30Days: 'Վերջին 30 օր',
+        earlier: 'Ավելի վաղ',
+        pinned: 'Ամրակցված',
+        pin: 'Ամրակցել',
+        unpin: 'Ազատել',
+        newConversation: 'Նոր խոսակցություն',
+        rename: 'Վերանվանել',
+        delete: 'Ջնջել',
+        deleteConfirm: 'Հաստատե՞լ ջնջել այս խոսակցությունը:'
       }
     }
   }

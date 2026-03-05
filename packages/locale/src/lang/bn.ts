@@ -592,124 +592,124 @@ export const bn: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'অনুগ্রহ করে লিখুন',
+      loading: 'লোড হচ্ছে...',
+      noData: 'কোনো তথ্য নেই'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'উদ্ধৃতি'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ এজেন্ট, ডকুমেন্ট বা টেবিল উল্লেখ করুন...',
+        agent: 'এজেন্ট',
+        document: 'ডকুমেন্ট',
+        table: 'টেবিল',
+        knowledge: 'জ্ঞান'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'কোড কপি করুন',
+        copied: 'কপি হয়েছে!',
+        run: 'কোড চালান',
+        edit: 'সম্পাদনা',
+        save: 'সংরক্ষণ',
+        cancel: 'বাতিল'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'চালান',
+        stop: 'বন্ধ',
+        clear: 'মুছুন',
+        reset: 'পুনরায় সেট',
+        placeholder: 'কোড চালাতে রান বাটনে ক্লিক করুন...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'মেসেজ পাঠান...',
+        dragTip: 'ফাইল আপলোড করতে ছেড়ে দিন'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'চিন্তা প্রক্রিয়া',
+        thinking: 'চিন্তা করছি...',
+        defaultTitle: 'নতুন ধাপ',
+        addNode: 'ধাপ যোগ করুন'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'চিন্তা শুরু করুন',
+        thinking: 'চিন্তা করছি...',
+        complete: 'চিন্তা সম্পন্ন',
+        error: 'চিন্তায় ত্রুটি'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'হ্যালো, আমি YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'আমি কোডিং, ডকুমেন্ট অনুবাদ বা সৃজনমূলক লেখায় আপনাকে সাহায্য করতে পারি। আজ আমি আপনার জন্য কী করতে পারি?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'কপি',
+        regenerate: 'পুনরায় তৈরি',
+        share: 'শেয়ার',
+        like: 'পছন্দ',
+        dislike: 'পছন্দ নয়',
+        edit: 'সম্পাদনা',
+        delete: 'মুছুন'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'প্রিভিউ',
+        inline: 'ইনলাইন',
+        code: 'সোর্স কোড',
+        versions: 'সংস্করণ',
+        rendering: 'কম্পোনেন্ট রেন্ডার হচ্ছে...',
+        renderingChart: 'চার্ট রেন্ডার হচ্ছে...',
+        renderingCanvas: 'ক্যানভাস প্রস্তুত হচ্ছে...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'কথা বলতে ক্লিক করুন',
+        listening: 'শুনছি...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'ব্যবহার',
+        use: 'এখন ব্যবহার করুন',
+        favorite: 'প্রিয়',
+        unfavorite: 'প্রিয় থেকে সরান',
+        share: 'শেয়ার',
+        online: 'অনলাইন',
+        offline: 'অফলাইন',
+        busy: 'ব্যস্ত',
+        verified: 'যাচাইকৃত',
+        rating: 'রেটিং',
+        reviews: 'টি পর্যালোচনা',
+        responseTime: 'গড় প্রতিক্রিয়া সময়',
+        ms: 'মি.সে.'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'তথ্যসূত্র',
+        referencedSources: 'উদ্ধৃত উৎস',
+        relevant: 'প্রাসঙ্গিকতা',
+        viewOriginal: 'মূল দেখুন',
+        showAll: 'সব দেখান',
+        more: 'আরো উৎস',
+        drawerTitle: 'তথ্যসূত্র',
+        expandMore: 'আরো দেখান',
+        collapseMore: 'সংকুচিত করুন',
+        noSources: 'কোনো উৎস নেই',
+        today: 'আজ',
+        last7Days: 'শেষ ৭ দিন',
+        last30Days: 'শেষ ৩০ দিন',
+        earlier: 'আগে',
+        pinned: 'পিন করা'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'আজ',
+        last7Days: 'শেষ ৭ দিন',
+        last30Days: 'শেষ ৩০ দিন',
+        earlier: 'আগে',
+        pinned: 'পিন করা',
+        pin: 'পিন করুন',
+        unpin: 'পিন সরান',
+        newConversation: 'নতুন কথোপকথন',
+        rename: 'নাম পরিবর্তন',
+        delete: 'মুছুন',
+        deleteConfirm: 'এই কথোপকথন মুছে ফেলতে নিশ্চিত করুন?'
       }
     }
   }

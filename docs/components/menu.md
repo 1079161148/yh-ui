@@ -7,7 +7,7 @@ const handleSelect = (index: string) => {
   console.log('选中菜单:', index)
 }
 
-const renderLabel = (option: any) => {
+const renderLabel = (option: MenuItemData) => {
   if (option.index === '2') {
     return h('div', { style: 'display: flex; align-items: center; gap: 8px;' }, [
       h('span', '系统消息'),
@@ -661,140 +661,141 @@ const menuOptions = [
 
 ### Menu Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| mode | 菜单模式 | `'vertical' \| 'horizontal'` | `'vertical'` |
-| default-active | 当前激活菜单的 index | `string` | `''` |
-| default-openeds | 当前打开的 sub-menu 的 index 数组 | `string[]` | `[]` |
-| expand-all | 是否展开全部菜单 | `boolean` | `false` |
-| unique-opened | 是否只保持一个子菜单展开 | `boolean` | `false` |
-| menu-trigger | 子菜单打开触发方式 (Popup 模式有效) | `'hover' \| 'click'` | `'hover'` |
-| collapse | 是否开启折叠模式（仅 vertical 模式） | `boolean` | `false` |
-| collapse-transition | 折叠动画是否开启 | `boolean` | `true` |
-| router | 是否启用 vue-router 模式 | `boolean` | `false` |
-| root-indent | 菜单第一级的缩进，缺省时使用 `indent` | `number` | — |
-| render-extra | 批量处理菜单额外部分渲染 (VNode) | `Function` | — |
-| render-icon | 批量处理菜单图标渲染 (VNode) | `Function` | — |
-| render-label | 批量处理菜单标签渲染 (VNode) | `Function` | — |
-| responsive | 是否自动收起溢出的菜单 (水平模式) | `boolean` | `false` |
-| value | 菜单当前的选中值 (支持 `v-model`) | `string \| null` | — |
-| options | 菜单配置项，支持从数据驱动生成菜单 | `MenuItemData[]` | `[]` |
-| background-color | 背景色 | `string` | `''` |
-| text-color | 文字颜色 | `string` | `''` |
-| active-text-color | 激活项文字颜色 | `string` | `''` |
-| ellipsis | 是否开启省略模式（水平模式下） | `boolean` | `true` |
-| popper-z-index | 子菜单弹出层层级 | `number` | `2000` |
-| teleported | 是否将弹出菜单挂载至 body | `boolean` | `true` |
-| gap | 菜单项间距 | `number` | `4` |
-| icon-size | 菜单未折叠时图标的大小 | `number` | `20` |
-| indent | 菜单每级的缩进 | `number` | `32` |
-| inverted | 是否使用反转样式 (深色背景) | `boolean` | `false` |
-| key-field | 数据源中 key 的字段名 | `string` | `'key'` |
-| label-field | 数据源中 label 的字段名 | `string` | `'label'` |
-| ellipsis-icon | 自定义省略图标 (水平模式) | `string \| Component` | — |
-| popper-offset | 弹出层的偏移量 | `number` | `6` |
-| popper-effect | Tooltip 主题 | `'dark' \| 'light'` | `'light'` |
-| close-on-click-outside | 单击外部时是否折叠菜单 | `boolean` | `true` |
-| popper-class | 弹出菜单的自定义类名 | `string` | `''` |
-| popper-style | 弹出菜单的自定义样式 | `string \| object` | `''` |
-| show-timeout | 菜单出现前的延迟 | `number` | `300` |
-| hide-timeout | 菜单消失前的延迟 | `number` | `300` |
-| persistent | 隐藏时是否保留子菜单 DOM | `boolean` | `true` |
+| 属性                   | 说明                                  | 类型                         | 默认值       |
+| ---------------------- | ------------------------------------- | ---------------------------- | ------------ |
+| mode                   | 菜单模式                              | `'vertical' \| 'horizontal'` | `'vertical'` |
+| default-active         | 当前激活菜单的 index                  | `string`                     | `''`         |
+| default-openeds        | 当前打开的 sub-menu 的 index 数组     | `string[]`                   | `[]`         |
+| expand-all             | 是否展开全部菜单                      | `boolean`                    | `false`      |
+| unique-opened          | 是否只保持一个子菜单展开              | `boolean`                    | `false`      |
+| menu-trigger           | 子菜单打开触发方式 (Popup 模式有效)   | `'hover' \| 'click'`         | `'hover'`    |
+| collapse               | 是否开启折叠模式（仅 vertical 模式）  | `boolean`                    | `false`      |
+| collapse-transition    | 折叠动画是否开启                      | `boolean`                    | `true`       |
+| router                 | 是否启用 vue-router 模式              | `boolean`                    | `false`      |
+| root-indent            | 菜单第一级的缩进，缺省时使用 `indent` | `number`                     | —            |
+| render-extra           | 批量处理菜单额外部分渲染 (VNode)      | `Function`                   | —            |
+| render-icon            | 批量处理菜单图标渲染 (VNode)          | `Function`                   | —            |
+| render-label           | 批量处理菜单标签渲染 (VNode)          | `Function`                   | —            |
+| responsive             | 是否自动收起溢出的菜单 (水平模式)     | `boolean`                    | `false`      |
+| value                  | 菜单当前的选中值 (支持 `v-model`)     | `string \| null`             | —            |
+| options                | 菜单配置项，支持从数据驱动生成菜单    | `MenuItemData[]`             | `[]`         |
+| background-color       | 背景色                                | `string`                     | `''`         |
+| text-color             | 文字颜色                              | `string`                     | `''`         |
+| active-text-color      | 激活项文字颜色                        | `string`                     | `''`         |
+| ellipsis               | 是否开启省略模式（水平模式下）        | `boolean`                    | `true`       |
+| popper-z-index         | 子菜单弹出层层级                      | `number`                     | `2000`       |
+| teleported             | 是否将弹出菜单挂载至 body             | `boolean`                    | `true`       |
+| gap                    | 菜单项间距                            | `number`                     | `4`          |
+| icon-size              | 菜单未折叠时图标的大小                | `number`                     | `20`         |
+| indent                 | 菜单每级的缩进                        | `number`                     | `32`         |
+| inverted               | 是否使用反转样式 (深色背景)           | `boolean`                    | `false`      |
+| key-field              | 数据源中 key 的字段名                 | `string`                     | `'key'`      |
+| label-field            | 数据源中 label 的字段名               | `string`                     | `'label'`    |
+| ellipsis-icon          | 自定义省略图标 (水平模式)             | `string \| Component`        | —            |
+| popper-offset          | 弹出层的偏移量                        | `number`                     | `6`          |
+| popper-effect          | Tooltip 主题                          | `'dark' \| 'light'`          | `'light'`    |
+| close-on-click-outside | 单击外部时是否折叠菜单                | `boolean`                    | `true`       |
+| popper-class           | 弹出菜单的自定义类名                  | `string`                     | `''`         |
+| popper-style           | 弹出菜单的自定义样式                  | `string \| object`           | `''`         |
+| show-timeout           | 菜单出现前的延迟                      | `number`                     | `300`        |
+| hide-timeout           | 菜单消失前的延迟                      | `number`                     | `300`        |
+| persistent             | 隐藏时是否保留子菜单 DOM              | `boolean`                    | `true`       |
 
 ### MenuItem Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| index | 唯一标识 | `string` | — (必填) |
-| label | 显示文本 | `string` | `''` |
-| route | vue-router 路由对象 | `string \| object` | `''` |
-| disabled | 是否禁用 | `boolean` | `false` |
+| 属性     | 说明                | 类型               | 默认值   |
+| -------- | ------------------- | ------------------ | -------- |
+| index    | 唯一标识            | `string`           | — (必填) |
+| label    | 显示文本            | `string`           | `''`     |
+| route    | vue-router 路由对象 | `string \| object` | `''`     |
+| disabled | 是否禁用            | `boolean`          | `false`  |
 
 ### MenuItemGroup Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 分组标题 | `string` | `''` |
+| 属性  | 说明     | 类型     | 默认值 |
+| ----- | -------- | -------- | ------ |
+| title | 分组标题 | `string` | `''`   |
 
 ### SubMenu Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| index | 唯一标识 | `string` | — (必填) |
-| label | 显示文本 | `string` | `''` |
-| popper-class | 弹出菜单的自定义类名 | `string` | `''` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| show-timeout | 展开收起的延时 | `number` | `300` |
-| hide-timeout | 收起的延时 | `number` | `300` |
-| popper-offset | 弹出层偏移量 | `number` | `6` |
+| 属性          | 说明                 | 类型      | 默认值   |
+| ------------- | -------------------- | --------- | -------- |
+| index         | 唯一标识             | `string`  | — (必填) |
+| label         | 显示文本             | `string`  | `''`     |
+| popper-class  | 弹出菜单的自定义类名 | `string`  | `''`     |
+| disabled      | 是否禁用             | `boolean` | `false`  |
+| show-timeout  | 展开收起的延时       | `number`  | `300`    |
+| hide-timeout  | 收起的延时           | `number`  | `300`    |
+| popper-offset | 弹出层偏移量         | `number`  | `6`      |
 
 ### Events
 
-| 事件名称 | 说明 | 回调参数 |
-| --- | --- | --- |
-| select | 菜单激活回调 | `(index: string, indexPath: string[], item: MenuItemData \| undefined, routeResult?: Promise<void>)` |
-| open | 子菜单展开回调 | `(index: string, indexPath: string[])` |
-| close | 子菜单收起回调 | `(index: string, indexPath: string[])` |
-| update:value | value 改变时的回调 (支持 v-model) | `(value: string) => void` |
+| 事件名称     | 说明                              | 回调参数                                                                                             |
+| ------------ | --------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| select       | 菜单激活回调                      | `(index: string, indexPath: string[], item: MenuItemData \| undefined, routeResult?: Promise<void>)` |
+| open         | 子菜单展开回调                    | `(index: string, indexPath: string[])`                                                               |
+| close        | 子菜单收起回调                    | `(index: string, indexPath: string[])`                                                               |
+| update:value | value 改变时的回调 (支持 v-model) | `(value: string) => void`                                                                            |
 
 ### Slots
 
-| 插槽名 | 说明 | 组件 |
-| --- | --- | --- |
-| default | 菜单内容 | Menu |
-| default | 菜单项内容 | MenuItem |
-| title | 分组标题 | MenuItemGroup |
-| default | 分组内容 | MenuItemGroup |
-| title | 子菜单标题 | SubMenu |
-| default | 子菜单内容 | SubMenu |
+| 插槽名  | 说明       | 组件          |
+| ------- | ---------- | ------------- |
+| default | 菜单内容   | Menu          |
+| default | 菜单项内容 | MenuItem      |
+| title   | 分组标题   | MenuItemGroup |
+| default | 分组内容   | MenuItemGroup |
+| title   | 子菜单标题 | SubMenu       |
+| default | 子菜单内容 | SubMenu       |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| open | 展开指定子菜单 | `(index: string) => void` |
-| close | 收起指定子菜单 | `(index: string) => void` |
-| activeIndex | 当前激活项 | `Ref<string>` |
-| openedMenus | 当前展开的子菜单 | `Ref<string[]>` |
+| 名称        | 说明             | 类型                      |
+| ----------- | ---------------- | ------------------------- |
+| open        | 展开指定子菜单   | `(index: string) => void` |
+| close       | 收起指定子菜单   | `(index: string) => void` |
+| activeIndex | 当前激活项       | `Ref<string>`             |
+| openedMenus | 当前展开的子菜单 | `Ref<string[]>`           |
 
 ### MenuItemData
 
 这是用于 `options` 属性的数据结构：
 
-| 属性 | 说明 | 类型 |
-| --- | --- | --- |
-| key | 唯一标识 (同 index) | `string` |
-| index | 唯一标识 (同 key) | `string` |
-| label | 显示文本 | `string` |
-| icon | 图标名称 | `string` |
-| disabled | 是否禁用 | `boolean` |
-| children | 子菜单数据 | `MenuItemData[]` |
-| group | 是否为分组项 | `boolean` |
+| 属性     | 说明                | 类型             |
+| -------- | ------------------- | ---------------- |
+| key      | 唯一标识 (同 index) | `string`         |
+| index    | 唯一标识 (同 key)   | `string`         |
+| label    | 显示文本            | `string`         |
+| icon     | 图标名称            | `string`         |
+| disabled | 是否禁用            | `boolean`        |
+| children | 子菜单数据          | `MenuItemData[]` |
+| group    | 是否为分组项        | `boolean`        |
 
 ### 主题变量 (CSS Variables)
 
 所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| `--yh-menu-bg-color` | `var(--yh-bg-color)` | 菜单背景色 |
-| `--yh-menu-text-color` | `var(--yh-text-color-primary)` | 菜单文字颜色 |
-| `--yh-menu-active-text-color` | `var(--yh-color-primary)` | 激活状态文字颜色 |
-| `--yh-menu-hover-bg-color` | `var(--yh-color-primary-light-9)` | 悬停背景色 |
-| `--yh-menu-active-bg-color` | `var(--yh-color-primary-light-9)` | 激活背景色 |
-| `--yh-menu-border-color` | `var(--yh-border-color-light)` | 菜单边框颜色 |
-| `--yh-menu-item-height` | `50px` | 菜单项高度 |
-| `--yh-menu-icon-size` | `18px` | 菜单图标大小 |
-| `--yh-menu-base-padding` | `20px` | 菜单基础内边距 |
-| `--yh-menu-indicator-width` | `3px` | 指示条宽度 |
-| `--yh-menu-indicator-color` | `var(--yh-menu-active-text-color)` | 指示条颜色 |
+| 变量名                        | 默认值                             | 描述             |
+| ----------------------------- | ---------------------------------- | ---------------- |
+| `--yh-menu-bg-color`          | `var(--yh-bg-color)`               | 菜单背景色       |
+| `--yh-menu-text-color`        | `var(--yh-text-color-primary)`     | 菜单文字颜色     |
+| `--yh-menu-active-text-color` | `var(--yh-color-primary)`          | 激活状态文字颜色 |
+| `--yh-menu-hover-bg-color`    | `var(--yh-color-primary-light-9)`  | 悬停背景色       |
+| `--yh-menu-active-bg-color`   | `var(--yh-color-primary-light-9)`  | 激活背景色       |
+| `--yh-menu-border-color`      | `var(--yh-border-color-light)`     | 菜单边框颜色     |
+| `--yh-menu-item-height`       | `50px`                             | 菜单项高度       |
+| `--yh-menu-icon-size`         | `18px`                             | 菜单图标大小     |
+| `--yh-menu-base-padding`      | `20px`                             | 菜单基础内边距   |
+| `--yh-menu-indicator-width`   | `3px`                              | 指示条宽度       |
+| `--yh-menu-indicator-color`   | `var(--yh-menu-active-text-color)` | 指示条颜色       |
 
 ::: tip Inverted 模式
 开启 `inverted` 属性后，菜单会自动切换为深色主题，使用以下覆盖变量：
+
 - `--yh-menu-bg-color`: `var(--yh-bg-color-overlay-dark)`
 - `--yh-menu-text-color`: `var(--yh-text-color-secondary)`
 - `--yh-menu-hover-bg-color`: `var(--yh-fill-color-dark)`
-:::
+  :::
 
 ---
 

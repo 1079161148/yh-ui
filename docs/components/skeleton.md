@@ -4,31 +4,32 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
 const loading = ref(true)
 
-const tsBasic = `<template>
+const tsBasic = `<${_T}>
   <yh-skeleton />
-</template>`
+</${_T}>`
 
-const tsLayout = `<template>
+const tsLayout = `<${_T}>
   <yh-skeleton avatar title :rows="3" animated />
-</template>`
+</${_T}>`
 
-const tsItem = `<template>
-  <div style="display: flex; gap: 20px; align-items: center">
+const tsItem = `<${_T}>
+  <div style="display: flex; gap: 20px; align-items: center; overflow: hidden">
     <yh-skeleton-item variant="circle" :width="64" :height="64" />
     <div style="flex: 1">
       <yh-skeleton-item variant="h3" style="width: 30%" />
       <yh-skeleton-item variant="text" style="width: 80%" />
     </div>
   </div>
-</template>`
+</${_T}>`
 
-const tsCreative = `<template>
+const tsCreative = `<${_T}>
   <!-- 场景：卡片骨架 -->
   <div class="skeleton-card">
-    <yh-skeleton-item variant="image" style="width: 100%; height: 200px" />
+    <yh-skeleton-item variant="rect" style="width: 100%; height: 200px; border-radius: 12px 12px 0 0;" />
     <div style="padding: 16px">
       <yh-skeleton-item variant="h3" style="width: 50%" />
       <yh-skeleton-item variant="text" repeat="2" />
@@ -38,9 +39,9 @@ const tsCreative = `<template>
       </div>
     </div>
   </div>
-</template>`
+</${_T}>`
 
-const tsThrottle = `<template>
+const tsThrottle = `<${_T}>
   <yh-button @click="reloadData">触发极速加载</yh-button>
   <!-- throttle=500 会在 loading 持续 500ms 后才显示骨架，避免闪烁 -->
   <yh-skeleton :loading="loading" :throttle="500">
@@ -48,20 +49,26 @@ const tsThrottle = `<template>
       真实数据已加载，由于加载极快（<500ms），骨架屏从未出现，保障了视觉连贯性。
     </div>
   </yh-skeleton>
-</template>`
+</${_T}>`
 
-const tsNuxt = `<template>
+const tsNuxt = `<${_T}>
   <!-- Nuxt 环境下自动感应，SSR 安全 -->
   <yh-skeleton avatar title />
-</template>`
+</${_T}>`
 
+const jsBasic = toJs(tsBasic)
+const jsLayout = toJs(tsLayout)
+const jsItem = toJs(tsItem)
+const jsCreative = toJs(tsCreative)
+const jsThrottle = toJs(tsThrottle)
+const jsNuxt = toJs(tsNuxt)
 </script>
 
 ## 基础用法
 
 最基础的纯文本行骨架屏。
 
-<DemoBlock title="基础用法" :ts-code="tsBasic">
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <yh-skeleton />
 </DemoBlock>
 
@@ -69,7 +76,7 @@ const tsNuxt = `<template>
 
 通过 `avatar`、`title` 和 `rows` 快速构建常见的列表项布局。
 
-<DemoBlock title="常见布局" :ts-code="tsLayout">
+<DemoBlock title="常见布局" :ts-code="tsLayout" :js-code="jsLayout">
   <yh-skeleton avatar title :rows="3" />
 </DemoBlock>
 
@@ -77,8 +84,8 @@ const tsNuxt = `<template>
 
 当内置布局无法满足时，可以使用 `YhSkeletonItem` 自由组装。支持 `circle`、`rect`、`text`、`button`、`image` 等多种语义化变体。
 
-<DemoBlock title="项控演示" :ts-code="tsItem">
-  <div style="display: flex; gap: 20px; align-items: center">
+<DemoBlock title="项控演示" :ts-code="tsItem" :js-code="jsItem">
+  <div style="display: flex; gap: 20px; align-items: center; overflow: hidden">
     <yh-skeleton-item variant="circle" :width="64" :height="64" />
     <div style="flex: 1">
       <yh-skeleton-item variant="h3" style="width: 30%" />
@@ -89,11 +96,11 @@ const tsNuxt = `<template>
 
 ## 创意组合：高级卡片
 
-利用 `variant="image"` 和 `repeat` 属性，可以轻松实现复杂的卡片流式骨架。
+利用 `variant="rect"` 和 `repeat` 属性，可以轻松实现复杂的卡片流式骨架。
 
-<DemoBlock title="卡片骨架" :ts-code="tsCreative">
+<DemoBlock title="卡片骨架" :ts-code="tsCreative" :js-code="jsCreative">
   <div class="skeleton-card">
-    <yh-skeleton-item variant="image" style="width: 100%; height: 180px" />
+    <yh-skeleton-item variant="rect" style="width: 100%; height: 180px; border-radius: 12px 12px 0 0;" />
     <div style="padding: 16px">
       <yh-skeleton-item variant="h3" style="width: 50%" />
       <yh-skeleton :rows="2" />
@@ -108,19 +115,22 @@ const tsNuxt = `<template>
 ## 自创高级特性
 
 ### 1. 智能节流 (Throttle)
-通过 `throttle` 属性设置延迟显示时间。如果异步数据在设定时间内加载完成，骨架屏将**永不出现**。这能有效消除网络状况良好时骨架屏瞬间闪烁带来的“焦虑感”。
+
+通过 `throttle` 属性设置延迟显示时间。如果异步数据在设定时间内加载完成，骨架屏将**永不出现**。这能有效消除网络状况良好时骨架屏瞬间闪烁带来的"焦虑感"。
 
 ### 2. 视口感应 (Lazy Animation)
+
 开启 `lazy` 后，骨架屏的闪烁动画仅会在元素进入视口（Viewport）时才正式启动。这大幅减少了长列表页面中不可见元素的 GPU 占用，是**性能优化**的极致实践。
 
 ### 3. 多态渲染 (Polymorphic)
+
 `SkeletonItem` 的 `variant` 覆盖了所有主流交互设计稿中的原子元素，确保了从设计到代码的高还原度。
 
 ## 在 Nuxt 中使用
 
 `YhSkeleton` 完全优化了 Nuxt/SSR 环境，自动降级至安全渲染模式。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt">
+<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-skeleton avatar title />
 </DemoBlock>
 
@@ -128,41 +138,43 @@ const tsNuxt = `<template>
 
 ### Skeleton Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| loading | 是否显示加载中渲染 | `boolean` | `true` |
-| animated | 是否开启闪烁动画 | `boolean` | `true` |
-| rows | 默认布局渲染的行数 | `number` | `3` |
-| title | 是否渲染标题占位 | `boolean` | `false` |
-| avatar | 是否渲染圆形头衔占位 | `boolean` | `false` |
-| throttle | 延迟显示毫秒数，防止闪烁 | `number` | `0` |
-| lazy | 仅在视口内才启动动画 (自创高级) | `boolean` | `false` |
+| 属性名   | 说明                            | 类型      | 默认值  |
+| -------- | ------------------------------- | --------- | ------- |
+| loading  | 是否显示加载中渲染              | `boolean` | `true`  |
+| animated | 是否开启闪烁动画                | `boolean` | `true`  |
+| rows     | 默认布局渲染的行数              | `number`  | `3`     |
+| title    | 是否渲染标题占位                | `boolean` | `false` |
+| avatar   | 是否渲染圆形头衔占位            | `boolean` | `false` |
+| throttle | 延迟显示毫秒数，防止闪烁        | `number`  | `0`     |
+| lazy     | 仅在视口内才启动动画 (自创高级) | `boolean` | `false` |
 
 ### SkeletonItem Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| variant | 变体种类 (`circle`, `rect`, `h1`, `h3`, `text`, `button`, `image`) | `string` | `'text'` |
-| width | 宽度 | `string \| number` | — |
-| height | 高度 | `string \| number` | — |
-| animated | 是否开启闪烁动画 | `boolean` | `true` |
-| round | 是否为圆角 | `boolean` | `false` |
-| sharp | 为 true 时，显式设为直角 | `boolean` | `false` |
-| repeat | 循环渲染次数 (自创实用) | `number` | `1` |
+| 属性名   | 说明                                                               | 类型               | 默认值   |
+| -------- | ------------------------------------------------------------------ | ------------------ | -------- |
+| variant  | 变体种类 (`circle`, `rect`, `h1`, `h3`, `text`, `button`, `image`) | `string`           | `'text'` |
+| width    | 宽度                                                               | `string \| number` | —        |
+| height   | 高度                                                               | `string \| number` | —        |
+| animated | 是否开启闪烁动画                                                   | `boolean`          | `true`   |
+| round    | 是否为圆角                                                         | `boolean`          | `false`  |
+| sharp    | 为 true 时，显式设为直角                                           | `boolean`          | `false`  |
+| repeat   | 循环渲染次数 (自创实用)                                            | `number`           | `1`      |
 
 ## 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-skeleton-bg-color` | 骨架基础背景色 | `var(--yh-fill-color-dark)` |
-| `--yh-skeleton-shimmer-color` | 动画扫光颜色 | `var(--yh-fill-color-light)` |
+| 变量名                        | 说明           | 默认值                       |
+| ----------------------------- | -------------- | ---------------------------- |
+| `--yh-skeleton-bg-color`      | 骨架基础背景色 | `var(--yh-fill-color-dark)`  |
+| `--yh-skeleton-shimmer-color` | 动画扫光颜色   | `var(--yh-fill-color-light)` |
 
 <style scoped>
 .skeleton-card {
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   background: var(--yh-bg-color-overlay);
   border-radius: 12px;
   border: 1px solid var(--yh-border-color-lighter);
   overflow: hidden;
+  box-sizing: border-box;
 }
 </style>

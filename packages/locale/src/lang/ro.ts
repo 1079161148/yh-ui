@@ -592,124 +592,124 @@ export const ro: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Vă rugăm să introduceți',
+      loading: 'Se încarcă...',
+      noData: 'Nu există date'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citări'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Menționează Agent, Document sau Tabel...',
         agent: 'Agent',
         document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        table: 'Tabel',
+        knowledge: 'Cunoștințe'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Copiază codul',
+        copied: 'Copiat!',
+        run: 'Rulează codul',
+        edit: 'Editează',
+        save: 'Salvează',
+        cancel: 'Anulează'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Rulează',
+        stop: 'Oprește',
+        clear: 'Șterge',
+        reset: 'Resetează',
+        placeholder: 'Faceți clic pe Rulează pentru a executa codul...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Trimite un mesaj...',
+        dragTip: 'Eliberați pentru a încărca fișiere'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Proces de Gândire',
+        thinking: 'Se gândește...',
+        defaultTitle: 'Pas Nou',
+        addNode: 'Adaugă Pas'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Începe să te gândești',
+        thinking: 'Se gândește...',
+        complete: 'Gândire completă',
+        error: 'Eroare de gândire'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Bună, sunt YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Vă pot ajuta cu programarea, traducerea documentelor sau scrierea creativă. Ce pot face pentru dumneavoastră astăzi?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Copiază',
+        regenerate: 'Regenerează',
+        share: 'Distribuie',
+        like: 'Apreciază',
+        dislike: 'Nu apreciază',
+        edit: 'Editează',
+        delete: 'Șterge'
       },
       artifacts: {
-        preview: 'Preview',
+        preview: 'Previzualizare',
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Sursă',
+        versions: 'Versiuni',
+        rendering: 'Se redă componenta...',
+        renderingChart: 'Se redă graficul...',
+        renderingCanvas: 'Se pregătește pânza...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Faceți clic pentru a vorbi',
+        listening: 'Ascultă...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'folosește',
+        use: 'Folosește Acum',
+        favorite: 'Preferat',
+        unfavorite: 'Elimină din Preferate',
+        share: 'Distribuie',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Ocupat',
+        verified: 'Verificat',
+        rating: 'Evaluare',
+        reviews: 'recenzii',
+        responseTime: 'Timp Mediu de Răspuns',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referințe',
+        referencedSources: 'Surse Referențiate',
+        relevant: 'Relevanță',
+        viewOriginal: 'Vezi Originalul',
+        showAll: 'Arată Tot',
+        more: 'mai multe surse',
+        drawerTitle: 'Referințe',
+        expandMore: 'Arată Mai Mult',
+        collapseMore: 'Restrânge',
+        noSources: 'Fără surse',
+        today: 'Astăzi',
+        last7Days: 'Ultimele 7 Zile',
+        last30Days: 'Ultimele 30 Zile',
+        earlier: 'Mai Devreme',
+        pinned: 'Fixat'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Astăzi',
+        last7Days: 'Ultimele 7 Zile',
+        last30Days: 'Ultimele 30 Zile',
+        earlier: 'Mai Devreme',
+        pinned: 'Fixat',
+        pin: 'Fixează',
+        unpin: 'Eliberează',
+        newConversation: 'Conversație Nouă',
+        rename: 'Redenumește',
+        delete: 'Șterge',
+        deleteConfirm: 'Confirmați ștergerea acestei conversații?'
       }
     }
   }

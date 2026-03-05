@@ -622,9 +622,9 @@ Cascader's recursive node system is deeply optimized for SSR, ensuring strong co
 ### Events
 
 | Event Name     | Description                            | Parameters                    |
-| -------------- | -------------------------------------- | ----------------------------- |
-| change         | Triggered when selection changes       | `(value: any) => void`        |
-| expand-change  | Triggered when expanded node changes   | `(value: any[]) => void`      |
+| -------------- | -------------------------------------- | ----------------------------- | ------------------- | ------- | --------- | ------- | ----------- | ------------------- |
+| change         | Triggered when selection changes       | `(value: string               | number              | (string | number)[] | (string | number)[][] | undefined) => void` |
+| expand-change  | Triggered when expanded node changes   | `(value: (string              | number)[]) => void` |
 | visible-change | Triggered when dropdown shows/hides    | `(visible: boolean) => void`  |
 | focus          | Triggered on focus                     | `(event: FocusEvent) => void` |
 | blur           | Triggered on blur                      | `(event: FocusEvent) => void` |

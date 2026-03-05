@@ -11,6 +11,14 @@ vi.mock('markdown-it', async () => {
         after: vi.fn()
       }
     }
+    block = {
+      ruler: {
+        before: vi.fn()
+      }
+    }
+    renderer = {
+      rules: {}
+    }
     render(content: string) {
       return `<p>${content}</p>`
     }

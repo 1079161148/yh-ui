@@ -592,124 +592,124 @@ export const fa: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'لطفاً وارد کنید',
+      loading: 'در حال بارگذاری...',
+      noData: 'داده ای نیست'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'citations'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ اشاره به عامل، سند یا جدول...',
+        agent: 'عامل',
+        document: 'سند',
+        table: 'جدول',
+        knowledge: 'دانش'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'کپی کد',
+        copied: 'کپی شد!',
+        run: 'اجرای کد',
+        edit: 'ویرایش',
+        save: 'ذخیره',
+        cancel: 'لغو'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'اجرا',
+        stop: 'توقف',
+        clear: 'پاک کردن',
+        reset: 'بازنشانی',
+        placeholder: 'برای اجرای کد روی اجرا کلیک کنید...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'پیام ارسال کنید...',
+        dragTip: 'برای آپلود فایل رها کنید'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'فرآیند تفکر',
+        thinking: 'در حال تفکر...',
+        defaultTitle: 'مرحله جدید',
+        addNode: 'افزودن مرحله'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'شروع به تفکر',
+        thinking: 'در حال تفکر...',
+        complete: 'تفکر تکمیل شد',
+        error: 'خطای تفکر'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'سلام، من YH AI هستم',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'می توانم در برنامه نویسی، ترجمه اسناد یا نوشتن خلاقانه کمک کنم. امروز چه کمکی می توانم به شما بکنم؟'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'کپی',
+        regenerate: 'بازتولید',
+        share: 'اشتراک گذاری',
+        like: 'پسندیدن',
+        dislike: 'نپسندیدن',
+        edit: 'ویرایش',
+        delete: 'حذف'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'پیش نمایش',
+        inline: 'درون خطی',
+        code: 'سورس',
+        versions: 'نسخه ها',
+        rendering: 'در حال رندر کامپوننت...',
+        renderingChart: 'در حال رندر نمودار...',
+        renderingCanvas: 'آماده سازی بوم...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'کلیک برای صحبت',
+        listening: 'در حال گوش دادن...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'استفاده می کند',
+        use: 'استفاده کنید',
+        favorite: 'مورد علاقه',
+        unfavorite: 'حذف از علاقه مندی',
+        share: 'اشتراک گذاری',
+        online: 'آنلاین',
+        offline: 'آفلاین',
+        busy: 'مشغول',
+        verified: 'تأیید شده',
+        rating: 'رتبه',
+        reviews: 'نظرات',
+        responseTime: 'میانگین زمان پاسخ',
+        ms: 'میلی ثانیه'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'references',
+        referencedSources: 'references',
+        relevant: 'مرتبط',
+        viewOriginal: 'مشاهده اصل',
+        showAll: 'نمایش همه',
+        more: 'references بیشتر',
+        drawerTitle: 'references',
+        expandMore: 'نمایش بیشتر',
+        collapseMore: 'بستن',
+        noSources: 'بدون منبع',
+        today: 'امروز',
+        last7Days: '7 روز گذشته',
+        last30Days: '30 روز گذشته',
+        earlier: 'قبل تر',
+        pinned: 'پین شده'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'امروز',
+        last7Days: '7 روز گذشته',
+        last30Days: '30 روز گذشته',
+        earlier: 'قبل تر',
+        pinned: 'پین شده',
+        pin: 'پین',
+        unpin: 'حذف پین',
+        newConversation: 'گفتگوی جدید',
+        rename: 'تغییر نام',
+        delete: 'حذف',
+        deleteConfirm: 'تایید حذف این گفتگو؟'
       }
     }
   }

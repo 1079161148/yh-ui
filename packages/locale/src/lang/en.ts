@@ -628,10 +628,10 @@ export const en: Language = {
         dragTip: 'Release to upload files'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
+        thoughtProcess: 'Thought Process',
         thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        defaultTitle: 'New Step',
+        addNode: 'Add Step'
       },
       thinking: {
         start: 'Start thinking',

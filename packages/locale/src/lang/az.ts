@@ -592,124 +592,124 @@ export const az: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Daxil edin',
+      loading: 'Yüklənir...',
+      noData: 'Məlumat yoxdur'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'İstinadlar'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Agent, Sənəd və ya Cədvəl qeyd edin...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Sənəd',
+        table: 'Cədvəl',
+        knowledge: 'Bilik'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kodu kopyala',
+        copied: 'Kopyalandı!',
+        run: 'Kodu işlet',
+        edit: 'Redaktə et',
+        save: 'Saxla',
+        cancel: 'Ləğv et'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'İşlet',
+        stop: 'Dayandır',
+        clear: 'Təmizlə',
+        reset: 'Sıfırla',
+        placeholder: 'Kodu işlətmək üçün İşlet düyməsinə klikləyin...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Mesaj göndərin...',
+        dragTip: 'Faylları yükləmək üçün buraxın'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Düşüncə prosesi',
+        thinking: 'Düşünür...',
+        defaultTitle: 'Yeni addım',
+        addNode: 'Addım əlavə et'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Düşünməyə başla',
+        thinking: 'Düşünür...',
+        complete: 'Düşünmə tamamlandı',
+        error: 'Düşünmə xətası'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Salam, mən YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Sizə kodlaşdırma, sənədlərin tərcüməsi və ya yaradıcı yazı işində kömək edə bilərəm. Bu gün sizə nə edə bilərəm?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopyala',
+        regenerate: 'Yenidən yarat',
+        share: 'Paylaş',
+        like: 'Bəyən',
+        dislike: 'Bəyənmə',
+        edit: 'Redaktə et',
+        delete: 'Sil'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Öncədən baxış',
+        inline: 'Sətir içi',
+        code: 'Mənbə kodu',
+        versions: 'Versiyalar',
+        rendering: 'Komponent render edilir...',
+        renderingChart: 'Qrafik render edilir...',
+        renderingCanvas: 'Kətan hazırlanır...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Danışmaq üçün klikləyin',
+        listening: 'Dinləyir...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'istifadə',
+        use: 'İndi istifadə et',
+        favorite: 'Sevimli',
+        unfavorite: 'Sevimlidən çıxar',
+        share: 'Paylaş',
+        online: 'Onlayn',
+        offline: 'Oflayn',
+        busy: 'Məşğul',
+        verified: 'Təsdiqlənmiş',
+        rating: 'Reytinq',
+        reviews: 'rəy',
+        responseTime: 'Orta cavab müddəti',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'İstinadlar',
+        referencedSources: 'İstinad edilən mənbələr',
+        relevant: 'Uyğunluq',
+        viewOriginal: 'Orijinala bax',
+        showAll: 'Hamısını göstər',
+        more: 'daha çox mənbə',
+        drawerTitle: 'İstinadlar',
+        expandMore: 'Daha çox göstər',
+        collapseMore: 'Yığ',
+        noSources: 'Mənbə yoxdur',
+        today: 'Bu gün',
+        last7Days: 'Son 7 gün',
+        last30Days: 'Son 30 gün',
+        earlier: 'Əvvəlki',
+        pinned: 'Sabitlənmiş'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Bu gün',
+        last7Days: 'Son 7 gün',
+        last30Days: 'Son 30 gün',
+        earlier: 'Əvvəlki',
+        pinned: 'Sabitlənmiş',
+        pin: 'Sabitlə',
+        unpin: 'Sabitləməni götür',
+        newConversation: 'Yeni söhbət',
+        rename: 'Adını dəyiş',
+        delete: 'Sil',
+        deleteConfirm: 'Bu söhbəti silməyi təsdiqləyin?'
       }
     }
   }

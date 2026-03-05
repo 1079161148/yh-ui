@@ -1148,9 +1148,9 @@ onBeforeUnmount(() => {
               <table>
                 <thead>
                   <tr>
-                    <th v-for="(header, i) in structuredData.data.headers" :key="i">{{
-                      header
-                    }}</th>
+                    <th v-for="(header, i) in structuredData.data.headers" :key="i">
+                      {{ header }}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1228,7 +1228,7 @@ onBeforeUnmount(() => {
           <div v-if="citations && citations.length > 0" :class="ns.e('citations')">
             <div :class="ns.e('citations-title')">
               <YhIcon name="document" />
-              <span>{{ t('ai.bubble.citations') || '参考引用' }}</span>
+              <span>{{ t('ai.bubble.citations') }}</span>
               <span :class="ns.e('citations-count')">{{ citations.length }}</span>
             </div>
             <div :class="ns.e('citations-list')">

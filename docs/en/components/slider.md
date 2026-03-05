@@ -321,66 +321,66 @@ The Slider component's style system is optimized for SSR, ensuring the runway an
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `number \| [number, number]` | `0` |
-| min | Minimum value | `number` | `0` |
-| max | Maximum value | `number` | `100` |
-| step | Step size | `number` | `1` |
-| size | Slider size | `'large' \| 'default' \| 'small'` | `'default'` |
-| show-input | Whether to show an input box (only for non-range mode) | `boolean` | `false` |
-| show-input-controls | Whether to show control buttons in the input box | `boolean` | `true` |
-| input-size | Size of the input box | `'large' \| 'default' \| 'small'` | `'default'` |
-| show-stops | Whether to show discrete points | `boolean` | `false` |
-| show-tooltip | Whether to show a tooltip | `boolean` | `true` |
-| format-tooltip | Formatter for the tooltip text | `(val: number) => string \| number` | — |
-| disabled | Whether to disable the slider | `boolean` | `false` |
-| range | Whether to enable range selection | `boolean` | `false` |
-| vertical | Whether to enable vertical mode | `boolean` | `false` |
-| height | Height in vertical mode | `string` | — |
-| label | Screen reader label | `string` | — |
-| debounce | Debounce delay for input (ms) | `number` | `300` |
-| tooltip-class | Custom class name for the tooltip | `string` | — |
-| placement | Tooltip placement | `string` | `'top'` |
-| marks | Marks; keys must be numbers within range [min, max] | `object` | — |
-| validate-event | Whether to trigger form validation when value changes | `boolean` | `true` |
-| range-start-label | Custom aria-label for the start of the range | `string` | — |
-| range-end-label | Custom aria-label for the end of the range | `string` | — |
-| button-class | Custom class for the slider button | `string` | — |
-| color | Custom theme color | `string` | — |
+| Name                  | Description                                            | Type                                | Default     |
+| --------------------- | ------------------------------------------------------ | ----------------------------------- | ----------- |
+| model-value / v-model | Binding value                                          | `number \| [number, number]`        | `0`         |
+| min                   | Minimum value                                          | `number`                            | `0`         |
+| max                   | Maximum value                                          | `number`                            | `100`       |
+| step                  | Step size                                              | `number`                            | `1`         |
+| size                  | Slider size                                            | `'large' \| 'default' \| 'small'`   | `'default'` |
+| show-input            | Whether to show an input box (only for non-range mode) | `boolean`                           | `false`     |
+| show-input-controls   | Whether to show control buttons in the input box       | `boolean`                           | `true`      |
+| input-size            | Size of the input box                                  | `'large' \| 'default' \| 'small'`   | `'default'` |
+| show-stops            | Whether to show discrete points                        | `boolean`                           | `false`     |
+| show-tooltip          | Whether to show a tooltip                              | `boolean`                           | `true`      |
+| format-tooltip        | Formatter for the tooltip text                         | `(val: number) => string \| number` | —           |
+| disabled              | Whether to disable the slider                          | `boolean`                           | `false`     |
+| range                 | Whether to enable range selection                      | `boolean`                           | `false`     |
+| vertical              | Whether to enable vertical mode                        | `boolean`                           | `false`     |
+| height                | Height in vertical mode                                | `string`                            | —           |
+| label                 | Screen reader label                                    | `string`                            | —           |
+| debounce              | Debounce delay for input (ms)                          | `number`                            | `300`       |
+| tooltip-class         | Custom class name for the tooltip                      | `string`                            | —           |
+| placement             | Tooltip placement                                      | `string`                            | `'top'`     |
+| marks                 | Marks; keys must be numbers within range [min, max]    | `object`                            | —           |
+| validate-event        | Whether to trigger form validation when value changes  | `boolean`                           | `true`      |
+| range-start-label     | Custom aria-label for the start of the range           | `string`                            | —           |
+| range-end-label       | Custom aria-label for the end of the range             | `string`                            | —           |
+| button-class          | Custom class for the slider button                     | `string`                            | —           |
+| color                 | Custom theme color                                     | `string`                            | —           |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggers when the bound value changes | `(val: number \| [number, number]) => void` |
-| change | Triggers when value changes (on mouse release or track click) | `(val: number \| [number, number]) => void` |
-| input | Triggers in real-time as data changes | `(val: number \| [number, number]) => void` |
+| Name              | Description                                                   | Parameters                                  |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------------- |
+| update:modelValue | Triggers when the bound value changes                         | `(val: number \| [number, number]) => void` |
+| change            | Triggers when value changes (on mouse release or track click) | `(val: number \| [number, number]) => void` |
+| input             | Triggers in real-time as data changes                         | `(val: number \| [number, number]) => void` |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| thumb | Custom slider handle | `{ value: number }` |
-| mark | Custom tick text | `{ mark: any }` |
-| default | Bottom reserved slot | — |
+| Name    | Description          | Parameters          |
+| ------- | -------------------- | ------------------- | ------------------------------------------- |
+| thumb   | Custom slider handle | `{ value: number }` |
+| mark    | Custom tick text     | `{ mark: string     | { style?: CSSProperties; label: string } }` |
+| default | Bottom reserved slot | —                   |
 
 ### Theme Variables
 
 Color variables are integrated with the global theme system and support dark mode:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-slider-main-color` | Main color (bar filling, handle border) | `var(--yh-color-primary)` |
-| `--yh-slider-bg-color` | Slider runway background color | `var(--yh-border-color-light)` |
-| `--yh-slider-hover-bg-color` | Runway background color on hover | `var(--yh-border-color-dark)` |
-| `--yh-slider-button-size` | Handle button size | `16px` |
-| `--yh-slider-button-border` | Handle button border width | `2px` |
-| `--yh-slider-runway-height` | Runway height (width if vertical) | `6px` |
-| `--yh-slider-height` | Overall component height (container) | `32px` |
-| `--yh-slider-tooltip-bg` | Tooltip background color | `var(--yh-bg-color-overlay-dark)` |
-| `--yh-slider-tooltip-text` | Tooltip text color | `var(--yh-text-color-primary-dark)` |
-| `--yh-slider-mark-text-color` | Mark text color | `var(--yh-text-color-secondary)` |
+| Variable                      | Description                             | Default                             |
+| ----------------------------- | --------------------------------------- | ----------------------------------- |
+| `--yh-slider-main-color`      | Main color (bar filling, handle border) | `var(--yh-color-primary)`           |
+| `--yh-slider-bg-color`        | Slider runway background color          | `var(--yh-border-color-light)`      |
+| `--yh-slider-hover-bg-color`  | Runway background color on hover        | `var(--yh-border-color-dark)`       |
+| `--yh-slider-button-size`     | Handle button size                      | `16px`                              |
+| `--yh-slider-button-border`   | Handle button border width              | `2px`                               |
+| `--yh-slider-runway-height`   | Runway height (width if vertical)       | `6px`                               |
+| `--yh-slider-height`          | Overall component height (container)    | `32px`                              |
+| `--yh-slider-tooltip-bg`      | Tooltip background color                | `var(--yh-bg-color-overlay-dark)`   |
+| `--yh-slider-tooltip-text`    | Tooltip text color                      | `var(--yh-text-color-primary-dark)` |
+| `--yh-slider-mark-text-color` | Mark text color                         | `var(--yh-text-color-secondary)`    |
 
 <style scoped>
 .yh-demo-wrapper {

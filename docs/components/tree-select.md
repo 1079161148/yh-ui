@@ -77,7 +77,7 @@ const lazyData = ref([
 ])
 
 // 懒加载函数
-const loadNode = (node: any, resolve: any) => {
+const loadNode = (node: TreeNode, resolve: (data: TreeOption[]) => void) => {
   // 模拟网络延迟
   setTimeout(() => {
     const nodes = Array.from({ length: 15 }).map((_, i) => ({
@@ -665,75 +665,75 @@ TreeSelect 使用了 Vue 3.5 的原生 `useId` 机制，确保了在复杂的递
 
 ### TreeSelect Attributes
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `string \| number \| (string \| number)[]` | — |
-| data | 展示数据 | `TreeOption[]` | `[]` |
-| props | 配置选项，详见下表 | `object` | — |
-| node-key | 每个树节点用来作为唯一标识的属性，整棵树应该是唯一的 | `string` | `'value'` |
-| multiple | 是否多选 | `boolean` | `false` |
-| clearable | 是否可以清空选项 | `boolean` | `false` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| placeholder | 输入框占位文本 | `string` | `'请选择'` |
-| empty-text | 无数据时显示的文本 | `string` | `'暂无数据'` |
-| filterable | 是否可搜索 | `boolean` | `false` |
-| filter-node-method | 自定义过滤方法 | `(value: string, data: TreeOption, node: any) => boolean` | — |
-| collapse-tags | 多选时是否折叠标签 | `boolean` | `false` |
-| collapse-tags-tooltip | 是否在折叠标签时显示 tooltip (仅展示数量) | `boolean` | `false` |
-| max-collapse-tags | 标签折叠前的最大展示数量 | `number` | `1` |
-| check-strictly | 是否遵循父子不互相关的原则 | `boolean` | `false` |
-| show-checkbox | 节点前是否显示复选框 | `boolean` | `false` |
-| default-expand-all | 是否默认展开所有节点 | `boolean` | `false` |
-| default-expanded-keys | 默认展开的节点的 key 的数组 | `TreeKey[]` | `[]` |
-| accordion | 是否每次只打开一个同级树节点展开 | `boolean` | `false` |
-| indent | 相邻级节点间的水平缩进 | `number` | `16` |
-| check-on-click-node | 是否在点击节点时选中复选框 | `boolean` | `false` |
-| expand-on-click-node | 是否在点击节点时展开/收起 | `boolean` | `true` |
-| lazy | 是否懒加载子节点 | `boolean` | `false` |
-| load | 加载子树数据的方法 | `Function` | — |
-| virtual | 是否开启虚拟滚动渲染 | `boolean` | `false` |
-| height | 下拉菜单的最大高度 | `string \| number` | `274` |
-| item-size | 虚拟滚动时每一项的高度 | `number` | `34` |
-| teleported | 是否直接将下拉层挂载至 body | `boolean` | `true` |
-| popper-class | 下拉菜单的自定义类名 | `string` | — |
-| status | 设置输入框的校验状态 | `'success' \| 'warning' \| 'error' \| ''` | — |
+| 属性名                | 说明                                                 | 类型                                                           | 默认值       |
+| --------------------- | ---------------------------------------------------- | -------------------------------------------------------------- | ------------ |
+| model-value / v-model | 绑定值                                               | `string \| number \| (string \| number)[]`                     | —            |
+| data                  | 展示数据                                             | `TreeOption[]`                                                 | `[]`         |
+| props                 | 配置选项，详见下表                                   | `object`                                                       | —            |
+| node-key              | 每个树节点用来作为唯一标识的属性，整棵树应该是唯一的 | `string`                                                       | `'value'`    |
+| multiple              | 是否多选                                             | `boolean`                                                      | `false`      |
+| clearable             | 是否可以清空选项                                     | `boolean`                                                      | `false`      |
+| disabled              | 是否禁用                                             | `boolean`                                                      | `false`      |
+| size                  | 输入框尺寸                                           | `'large' \| 'default' \| 'small'`                              | `'default'`  |
+| placeholder           | 输入框占位文本                                       | `string`                                                       | `'请选择'`   |
+| empty-text            | 无数据时显示的文本                                   | `string`                                                       | `'暂无数据'` |
+| filterable            | 是否可搜索                                           | `boolean`                                                      | `false`      |
+| filter-node-method    | 自定义过滤方法                                       | `(value: string, data: TreeOption, node: TreeNode) => boolean` | —            |
+| collapse-tags         | 多选时是否折叠标签                                   | `boolean`                                                      | `false`      |
+| collapse-tags-tooltip | 是否在折叠标签时显示 tooltip (仅展示数量)            | `boolean`                                                      | `false`      |
+| max-collapse-tags     | 标签折叠前的最大展示数量                             | `number`                                                       | `1`          |
+| check-strictly        | 是否遵循父子不互相关的原则                           | `boolean`                                                      | `false`      |
+| show-checkbox         | 节点前是否显示复选框                                 | `boolean`                                                      | `false`      |
+| default-expand-all    | 是否默认展开所有节点                                 | `boolean`                                                      | `false`      |
+| default-expanded-keys | 默认展开的节点的 key 的数组                          | `TreeKey[]`                                                    | `[]`         |
+| accordion             | 是否每次只打开一个同级树节点展开                     | `boolean`                                                      | `false`      |
+| indent                | 相邻级节点间的水平缩进                               | `number`                                                       | `16`         |
+| check-on-click-node   | 是否在点击节点时选中复选框                           | `boolean`                                                      | `false`      |
+| expand-on-click-node  | 是否在点击节点时展开/收起                            | `boolean`                                                      | `true`       |
+| lazy                  | 是否懒加载子节点                                     | `boolean`                                                      | `false`      |
+| load                  | 加载子树数据的方法                                   | `Function`                                                     | —            |
+| virtual               | 是否开启虚拟滚动渲染                                 | `boolean`                                                      | `false`      |
+| height                | 下拉菜单的最大高度                                   | `string \| number`                                             | `274`        |
+| item-size             | 虚拟滚动时每一项的高度                               | `number`                                                       | `34`         |
+| teleported            | 是否直接将下拉层挂载至 body                          | `boolean`                                                      | `true`       |
+| popper-class          | 下拉菜单的自定义类名                                 | `string`                                                       | —            |
+| status                | 设置输入框的校验状态                                 | `'success' \| 'warning' \| 'error' \| ''`                      | —            |
 
 ### TreeSelect Props (配置选项)
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| label | 指定节点标签为节点对象的某个属性值 | `string` |
-| value | 指定节点选择值为节点对象的某个属性值 | `string` |
-| children | 指定子树为节点对象的某个属性值 | `string` |
-| disabled | 指定节点选择框是否禁用的属性值 | `string` |
-| isLeaf | 指定节点是否为叶子节点 (仅懒加载有效) | `string` |
+| 属性名   | 说明                                  | 类型     |
+| -------- | ------------------------------------- | -------- |
+| label    | 指定节点标签为节点对象的某个属性值    | `string` |
+| value    | 指定节点选择值为节点对象的某个属性值  | `string` |
+| children | 指定子树为节点对象的某个属性值        | `string` |
+| disabled | 指定节点选择框是否禁用的属性值        | `string` |
+| isLeaf   | 指定节点是否为叶子节点 (仅懒加载有效) | `string` |
 
 ### TreeSelect Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| change | 选中值发生变化时触发 | `(value: any) => void` |
-| visible-change | 下拉框出现/隐藏时触发 | `(visible: boolean) => void` |
-| clear | 点击清空按钮时触发 | — |
-| node-click | 节点被点击时的回调 | `(data: TreeOption, node: TreeNode, e: MouseEvent) => void` |
-| check-change | 节点复选框状态改变时的回调 | `(data: TreeOption, checked: boolean, indeterminate: boolean) => void` |
-| check | 点击复选框时的回调 | `(data: TreeOption, info: any) => void` |
+| 事件名         | 说明                       | 回调参数                                                               |
+| -------------- | -------------------------- | ---------------------------------------------------------------------- | ------ | ------- | --------- | ------------------- |
+| change         | 选中值发生变化时触发       | `(value: string                                                        | number | (string | number)[] | undefined) => void` |
+| visible-change | 下拉框出现/隐藏时触发      | `(visible: boolean) => void`                                           |
+| clear          | 点击清空按钮时触发         | —                                                                      |
+| node-click     | 节点被点击时的回调         | `(data: TreeOption, node: TreeNode, e: MouseEvent) => void`            |
+| check-change   | 节点复选框状态改变时的回调 | `(data: TreeOption, checked: boolean, indeterminate: boolean) => void` |
+| check          | 点击复选框时的回调         | `(data: TreeOption, info: TreeCheckedInfo) => void`                    |
 
 ### TreeSelect Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 自定义树节点的内容 | `{ node: TreeNode, data: TreeOption }` |
-| prefix | 自定义输入框前缀内容 | — |
-| empty | 无匹配数据时的显示内容 | — |
+| 插槽名  | 说明                   | 参数                                   |
+| ------- | ---------------------- | -------------------------------------- |
+| default | 自定义树节点的内容     | `{ node: TreeNode, data: TreeOption }` |
+| prefix  | 自定义输入框前缀内容   | —                                      |
+| empty   | 无匹配数据时的显示内容 | —                                      |
 
 ## 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-tree-select-node-hover-bg` | 节点悬停时的背景颜色 | `var(--yh-fill-color-light)` |
-| `--yh-tree-select-node-selected-color` | 选中节点时的文字颜色 | `var(--yh-color-primary)` |
+| 变量名                                 | 说明                 | 默认值                       |
+| -------------------------------------- | -------------------- | ---------------------------- |
+| `--yh-tree-select-node-hover-bg`       | 节点悬停时的背景颜色 | `var(--yh-fill-color-light)` |
+| `--yh-tree-select-node-selected-color` | 选中节点时的文字颜色 | `var(--yh-color-primary)`    |
 
 <style>
 .demo-res {

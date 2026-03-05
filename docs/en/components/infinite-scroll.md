@@ -64,8 +64,15 @@ const onSlotLoad = () => {
   }, 1000)
 }
 
+interface Post {
+  userId: number
+  id: number
+  title: string
+  body: string
+}
+
 // Nuxt SSR Mock
-const nuxtItems = ref<any[]>([])
+const nuxtItems = ref<Post[]>([])
 const nuxtLoading = ref(false)
 const nuxtFinished = ref(false)
 const page = ref(1)
@@ -88,8 +95,16 @@ const onNuxtLoad = async () => {
   }
 }
 
+interface Product {
+  id: number
+  title: string
+  price: string
+  desc: string
+  tag: string
+}
+
 // Real-world scenario: E-commerce Product List
-const shopItems = ref<any[]>([])
+const shopItems = ref<Product[]>([])
 const shopLoading = ref(false)
 const shopFinished = ref(false)
 const shopError = ref(false)
@@ -105,7 +120,7 @@ const onShopLoad = async () => {
     const data = await res.json()
     
     if (data.length > 0) {
-      const products = data.map((item: any) => ({
+      const products = data.map((item: Record<string, unknown>) => ({
         id: item.id,
         name: 'Premium Product #' + item.id,
         price: (Math.random() * 1000 + 100).toFixed(2),
@@ -553,50 +568,50 @@ In real e-commerce scenarios, lists often contain complex card layouts. Combinin
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| loading | Whether it is loading (supports `v-model`) | `boolean` | `false` |
-| finished | Whether all data has been loaded | `boolean` | `false` |
-| error | Whether loading failed (supports `v-model`) | `boolean` | `false` |
-| threshold | Distance threshold (px) to trigger loading | `number` | `100` |
-| direction | Scroll direction | `'vertical' \| 'horizontal'` | `'vertical'` |
-| loading-text | Loading tip text | `string` | `'Loading...'` |
-| finished-text | Finished tip text | `string` | `'No more items'` |
-| error-text | Error tip text | `string` | `'Load failed, click to retry'` |
-| immediate-check | Whether to check loading immediately on initialization | `boolean` | `true` |
-| disabled | Whether to disable scroll loading | `boolean` | `false` |
-| target | Specifies the scroll container selector | `string` | `''` |
-| use-observer | Whether to use IntersectionObserver (recommended) | `boolean` | `true` |
-| root-margin | IntersectionObserver rootMargin config | `string` | `'0px'` |
+| Prop            | Description                                            | Type                         | Default                         |
+| --------------- | ------------------------------------------------------ | ---------------------------- | ------------------------------- |
+| loading         | Whether it is loading (supports `v-model`)             | `boolean`                    | `false`                         |
+| finished        | Whether all data has been loaded                       | `boolean`                    | `false`                         |
+| error           | Whether loading failed (supports `v-model`)            | `boolean`                    | `false`                         |
+| threshold       | Distance threshold (px) to trigger loading             | `number`                     | `100`                           |
+| direction       | Scroll direction                                       | `'vertical' \| 'horizontal'` | `'vertical'`                    |
+| loading-text    | Loading tip text                                       | `string`                     | `'Loading...'`                  |
+| finished-text   | Finished tip text                                      | `string`                     | `'No more items'`               |
+| error-text      | Error tip text                                         | `string`                     | `'Load failed, click to retry'` |
+| immediate-check | Whether to check loading immediately on initialization | `boolean`                    | `true`                          |
+| disabled        | Whether to disable scroll loading                      | `boolean`                    | `false`                         |
+| target          | Specifies the scroll container selector                | `string`                     | `''`                            |
+| use-observer    | Whether to use IntersectionObserver (recommended)      | `boolean`                    | `true`                          |
+| root-margin     | IntersectionObserver rootMargin config                 | `string`                     | `'0px'`                         |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| load | Called when more data should be loaded | `()` |
-| update:loading | Updates loading status | `(val: boolean)` |
-| update:error | Updates error status | `(val: boolean)` |
+| Event Name     | Description                            | Callback Parameters |
+| -------------- | -------------------------------------- | ------------------- |
+| load           | Called when more data should be loaded | `()`                |
+| update:loading | Updates loading status                 | `(val: boolean)`    |
+| update:error   | Updates error status                   | `(val: boolean)`    |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Main list content |
-| loading | Custom content for loading status |
-| finished | Custom content for finished status |
-| error | Custom content for error status (click to retry) |
+| Slot Name | Description                                      |
+| --------- | ------------------------------------------------ |
+| default   | Main list content                                |
+| loading   | Custom content for loading status                |
+| finished  | Custom content for finished status               |
+| error     | Custom content for error status (click to retry) |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| check | Manually check if loading is needed | `() => void` |
+| Name  | Description                                          | Type         |
+| ----- | ---------------------------------------------------- | ------------ |
+| check | Manually check if loading is needed                  | `() => void` |
 | retry | Retry loading (clears error state and triggers load) | `() => void` |
 
 ### Theme Variables (CSS Variables)
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `--yh-color-text-secondary` | `#86868b` | Loading text color |
-| `--yh-color-text-placeholder` | `#c0c4cc` | Finished text color |
-| `--yh-color-danger` | `#f56c6c` | Error state text color |
+| Variable                      | Default   | Description            |
+| ----------------------------- | --------- | ---------------------- |
+| `--yh-color-text-secondary`   | `#86868b` | Loading text color     |
+| `--yh-color-text-placeholder` | `#c0c4cc` | Finished text color    |
+| `--yh-color-danger`           | `#f56c6c` | Error state text color |

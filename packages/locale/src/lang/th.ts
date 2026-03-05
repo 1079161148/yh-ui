@@ -592,124 +592,124 @@ export const th: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'กรุณากรอก',
+      loading: 'กำลังโหลด...',
+      noData: 'ไม่มีข้อมูล'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'การอ้างอิง'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ ระบุเอเจนต์ เอกสาร หรือตาราง...',
+        agent: 'เอเจนต์',
+        document: 'เอกสาร',
+        table: 'ตาราง',
+        knowledge: 'ความรู้'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'คัดลอกโค้ด',
+        copied: 'คัดลอกแล้ว!',
+        run: 'รันโค้ด',
+        edit: 'แก้ไข',
+        save: 'บันทึก',
+        cancel: 'ยกเลิก'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'รัน',
+        stop: 'หยุด',
+        clear: 'ล้าง',
+        reset: 'รีเซ็ต',
+        placeholder: 'คลิกรันเพื่อทำงานโค้ด...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'ส่งข้อความ...',
+        dragTip: 'ปล่อยเพื่ออัปโหลดไฟล์'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'กระบวนการคิด',
+        thinking: 'กำลังคิด...',
+        defaultTitle: 'ขั้นตอนใหม่',
+        addNode: 'เพิ่มขั้นตอน'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'เริ่มคิด',
+        thinking: 'กำลังคิด...',
+        complete: 'คิดเสร็จแล้ว',
+        error: 'ข้อผิดพลาดในการคิด'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'สวัสดี ฉันคือ YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'ฉันสามารถช่วยคุณเขียนโค้ด แปลเอกสาร หรือเขียนเชิงสร้างสรรค์ได้ วันนี้ฉันช่วยอะไรคุณได้บ้าง?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'คัดลอก',
+        regenerate: 'สร้างใหม่',
+        share: 'แชร์',
+        like: 'ถูกใจ',
+        dislike: 'ไม่ถูกใจ',
+        edit: 'แก้ไข',
+        delete: 'ลบ'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'ตัวอย่าง',
+        inline: 'แบบอินไลน์',
+        code: 'ซอร์สโค้ด',
+        versions: 'เวอร์ชัน',
+        rendering: 'กำลังเรนเดอร์คอมโพเนนต์...',
+        renderingChart: 'กำลังเรนเดอร์แผนภูมิ...',
+        renderingCanvas: 'กำลังเตรียมแคนวาส...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'คลิกเพื่อพูด',
+        listening: 'กำลังฟัง...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'ใช้',
+        use: 'ใช้ตอนนี้',
+        favorite: 'ชื่นชอบ',
+        unfavorite: 'ยกเลิกชื่นชอบ',
+        share: 'แชร์',
+        online: 'ออนไลน์',
+        offline: 'ออฟไลน์',
+        busy: 'ไม่ว่าง',
+        verified: 'ได้รับการยืนยัน',
+        rating: 'คะแนน',
+        reviews: 'รีวิว',
+        responseTime: 'เวลาตอบกลับเฉลี่ย',
+        ms: 'มิลลิวินาที'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'การอ้างอิง',
+        referencedSources: 'แหล่งที่มาที่อ้างถึง',
+        relevant: 'ความเกี่ยวข้อง',
+        viewOriginal: 'ดูต้นฉบับ',
+        showAll: 'แสดงทั้งหมด',
+        more: 'แหล่งที่มาเพิ่มเติม',
+        drawerTitle: 'การอ้างอิง',
+        expandMore: 'แสดงเพิ่มเติม',
+        collapseMore: 'ย่อ',
+        noSources: 'ไม่มีแหล่งที่มา',
+        today: 'วันนี้',
+        last7Days: '7 วันที่ผ่านมา',
+        last30Days: '30 วันที่ผ่านมา',
+        earlier: 'ก่อนหน้า',
+        pinned: 'ปักหมุด'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'วันนี้',
+        last7Days: '7 วันที่ผ่านมา',
+        last30Days: '30 วันที่ผ่านมา',
+        earlier: 'ก่อนหน้า',
+        pinned: 'ปักหมุด',
+        pin: 'ปักหมุด',
+        unpin: 'ถอนหมุด',
+        newConversation: 'การสนทนาใหม่',
+        rename: 'เปลี่ยนชื่อ',
+        delete: 'ลบ',
+        deleteConfirm: 'ยืนยันการลบการสนทนานี้?'
       }
     }
   }

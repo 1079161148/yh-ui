@@ -592,124 +592,124 @@ export const eo: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Bonvolu enigi',
+      loading: 'Ŝarĝante...',
+      noData: 'Neniuj datumoj'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citaĵoj'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Mencioni Agenton, Dokumenton aŭ Tabelon...',
+        agent: 'Agento',
+        document: 'Dokumento',
+        table: 'Tabelo',
+        knowledge: 'Scio'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopii kodon',
+        copied: 'Kopiita!',
+        run: 'Ruli kodon',
+        edit: 'Redakti',
+        save: 'Konservi',
+        cancel: 'Nuligi'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Ruli',
+        stop: 'Halti',
+        clear: 'Vakigi',
+        reset: 'Restarigi',
+        placeholder: 'Alklaku Ruli por plenumi la kodon...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Sendi mesaĝon...',
+        dragTip: 'Lasu por alŝuti dosierojn'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Pensa procezo',
+        thinking: 'Pensante...',
+        defaultTitle: 'Nova paŝo',
+        addNode: 'Aldoni paŝon'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Komenci pensi',
+        thinking: 'Pensante...',
+        complete: 'Penso kompleta',
+        error: 'Pensa eraro'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Saluton, mi estas YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Mi povas helpi vin kun kodado, tradukado de dokumentoj aŭ kreiva skribado. Kion mi povas fari por vi hodiaŭ?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopii',
+        regenerate: 'Regeneri',
+        share: 'Kondi',
+        like: 'Ŝati',
+        dislike: 'Ne ŝati',
+        edit: 'Redakti',
+        delete: 'Forigi'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Antaŭrigardo',
+        inline: 'Enlinia',
+        code: 'Fontkodo',
+        versions: 'Versioj',
+        rendering: 'Renderante komponenton...',
+        renderingChart: 'Renderante diagramon...',
+        renderingCanvas: 'Preparante kanvason...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Alklaku por paroli',
+        listening: 'Aŭskultante...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'uzoj',
+        use: 'Uzi nun',
+        favorite: 'Favorato',
+        unfavorite: 'Forigi el favoratoj',
+        share: 'Kondi',
+        online: 'Interrete',
+        offline: 'Senrete',
+        busy: 'Okupita',
+        verified: 'Verifikita',
+        rating: 'Taksado',
+        reviews: 'recenzoj',
+        responseTime: 'Averaĝa responda tempo',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referencoj',
+        referencedSources: 'Referencitaj fontoj',
+        relevant: 'Pertinento',
+        viewOriginal: 'Vidi originalon',
+        showAll: 'Montri ĉion',
+        more: 'pli da fontoj',
+        drawerTitle: 'Referencoj',
+        expandMore: 'Montri pli',
+        collapseMore: 'Faldi',
+        noSources: 'Neniuj fontoj',
+        today: 'Hodiaŭ',
+        last7Days: 'Pasintaj 7 tagoj',
+        last30Days: 'Pasintaj 30 tagoj',
+        earlier: 'Antaŭe',
+        pinned: 'Alpingita'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Hodiaŭ',
+        last7Days: 'Pasintaj 7 tagoj',
+        last30Days: 'Pasintaj 30 tagoj',
+        earlier: 'Antaŭe',
+        pinned: 'Alpingita',
+        pin: 'Alpingi',
+        unpin: 'Malalpingi',
+        newConversation: 'Nova konversacio',
+        rename: 'Alinomi',
+        delete: 'Forigi',
+        deleteConfirm: 'Ĉu vi certas, ke vi volas forigi tiun ĉi konversacion?'
       }
     }
   }

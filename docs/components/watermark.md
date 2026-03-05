@@ -36,12 +36,17 @@ const config = reactive({
   lineHeight: 24
 })
 
+interface FontStyle {
+  fontStyle: string
+  textAlign: string
+}
+
 const fontConfig = computed(() => ({
   color: config.color,
   fontSize: config.fontSize,
   fontWeight: config.fontWeight,
-  fontStyle: config.fontStyle as any,
-  textAlign: config.textAlign as any,
+  fontStyle: config.fontStyle as FontStyle['fontStyle'],
+  textAlign: config.textAlign as FontStyle['textAlign'],
   lineHeight: config.lineHeight
 }))
 
@@ -311,32 +316,32 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| width | 水印每个单元的宽度 | `number` | `120` |
-| height | 水印每个单元的高度 | `number` | `64` |
-| rotate | 单元格旋转角度 | `number` | `-22` |
-| globalRotate | 整体旋转角度 | `number` | `0` |
-| zIndex | 水印层级 | `number` | `9` |
-| image | 图片源，设置后 content 将失效 | `string` | - |
-| content | 水印文字内容，支持多行 | `string \| string[]` | `'YH-UI'` |
-| font | 字体样式设置对象 | `Font` | 见下文 |
-| gap | 水印之间的间距 [x, y] | `[number, number]` | `[100, 100]` |
-| offset | 水印距离容器起始点的偏移 [x, y] | `[number, number]` | `[0, 0]` |
-| fullScreen | 是否将水印挂载到 body 下全屏展示 | `boolean` | `false` |
-| antiTamper | 是否开启防篡改模式（监控 DOM 变更并强制恢复） | `boolean` | `true` |
+| 属性名       | 说明                                          | 类型                 | 默认值       |
+| ------------ | --------------------------------------------- | -------------------- | ------------ |
+| width        | 水印每个单元的宽度                            | `number`             | `120`        |
+| height       | 水印每个单元的高度                            | `number`             | `64`         |
+| rotate       | 单元格旋转角度                                | `number`             | `-22`        |
+| globalRotate | 整体旋转角度                                  | `number`             | `0`          |
+| zIndex       | 水印层级                                      | `number`             | `9`          |
+| image        | 图片源，设置后 content 将失效                 | `string`             | -            |
+| content      | 水印文字内容，支持多行                        | `string \| string[]` | `'YH-UI'`    |
+| font         | 字体样式设置对象                              | `Font`               | 见下文       |
+| gap          | 水印之间的间距 [x, y]                         | `[number, number]`   | `[100, 100]` |
+| offset       | 水印距离容器起始点的偏移 [x, y]               | `[number, number]`   | `[0, 0]`     |
+| fullScreen   | 是否将水印挂载到 body 下全屏展示              | `boolean`            | `false`      |
+| antiTamper   | 是否开启防篡改模式（监控 DOM 变更并强制恢复） | `boolean`            | `true`       |
 
 #### Font 对象说明
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| color | 文字颜色 | `string` | `'rgba(0,0,0,0.15)'` |
-| fontSize | 字体大小 | `number \| string` | `16` |
-| fontWeight | 字重 | `string \| number` | `'normal'` |
-| fontFamily | 字体库 | `string` | `'sans-serif'` |
-| fontStyle | 字体样式 | `'normal' \| 'italic' \| 'oblique'` | `'normal'` |
-| textAlign | 文本对齐方式 | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'` |
-| lineHeight | 行高 | `number` | `22` |
+| 属性名     | 说明         | 类型                                                | 默认值               |
+| ---------- | ------------ | --------------------------------------------------- | -------------------- |
+| color      | 文字颜色     | `string`                                            | `'rgba(0,0,0,0.15)'` |
+| fontSize   | 字体大小     | `number \| string`                                  | `16`                 |
+| fontWeight | 字重         | `string \| number`                                  | `'normal'`           |
+| fontFamily | 字体库       | `string`                                            | `'sans-serif'`       |
+| fontStyle  | 字体样式     | `'normal' \| 'italic' \| 'oblique'`                 | `'normal'`           |
+| textAlign  | 文本对齐方式 | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'`           |
+| lineHeight | 行高         | `number`                                            | `22`                 |
 
 ### Events
 
@@ -344,23 +349,23 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明               |
+| ------- | ------------------ |
 | default | 水印覆盖的内容区域 |
 
 ### Expose
 
-| 方法名 | 说明 | 类型 |
-| --- | --- | --- |
+| 方法名          | 说明                                                     | 类型         |
+| --------------- | -------------------------------------------------------- | ------------ |
 | renderWatermark | 强制重新渲染水印（在容器大小动态变化但未触发监听时使用） | `() => void` |
 
 ## 主题变量 (CSS Variables)
 
 组件使用 CSS 变量来定义基础样式，您可以在本地或全局进行覆盖。
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-watermark-container-position` | 包裹容器的定位方式 | `relative` |
-| `--yh-watermark-width` | 组件宽度 | `100%` |
-| `--yh-watermark-height` | 组件高度 | `100%` |
-| `--yh-watermark-fullscreen-z-index` | 全屏模式下的强制层级 | `9999` |
+| 变量名                              | 说明                 | 默认值     |
+| ----------------------------------- | -------------------- | ---------- |
+| `--yh-watermark-container-position` | 包裹容器的定位方式   | `relative` |
+| `--yh-watermark-width`              | 组件宽度             | `100%`     |
+| `--yh-watermark-height`             | 组件高度             | `100%`     |
+| `--yh-watermark-fullscreen-z-index` | 全屏模式下的强制层级 | `9999`     |

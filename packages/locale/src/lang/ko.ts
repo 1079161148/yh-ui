@@ -521,120 +521,120 @@ export const ko: Language = {
       loading: '로딩 중...',
       noData: '데이터 없음'
     },
-    // AI Components
+    // AI 컴포넌트
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: '인용'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ 에이전트, 문서 또는 테이블 멘션...',
+        agent: '에이전트',
+        document: '문서',
+        table: '테이블',
+        knowledge: '지식'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: '코드 복사',
+        copied: '복사됨!',
+        run: '코드 실행',
+        edit: '편집',
+        save: '저장',
+        cancel: '취소'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: '실행',
+        stop: '중지',
+        clear: '지우기',
+        reset: '초기화',
+        placeholder: '실행 버튼을 클릭하여 코드 실행...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: '메시지 전송...',
+        dragTip: '파일을 업로드하려면 놓으세요'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: '사고 과정',
+        thinking: '생각 중...',
+        defaultTitle: '새 단계',
+        addNode: '단계 추가'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: '생각 시작',
+        thinking: '생각 중...',
+        complete: '생각 완료',
+        error: '생각 오류'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: '안녕하세요, YH AI입니다',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          '코딩, 문서 번역, 창작 작문 등을 도와드릴 수 있습니다. 오늘 무엇을 도와드릴까요?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: '복사',
+        regenerate: '다시 생성',
+        share: '공유',
+        like: '좋아요',
+        dislike: '싫어요',
+        edit: '편집',
+        delete: '삭제'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: '미리보기',
+        inline: '인라인',
+        code: '소스',
+        versions: '버전',
+        rendering: '컴포넌트 렌더링 중...',
+        renderingChart: '차트 렌더링 중...',
+        renderingCanvas: '캔버스 준비 중...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: '클릭하여 말하기',
+        listening: '듣는 중...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: '회 사용',
+        use: '지금 사용',
+        favorite: '즐겨찾기',
+        unfavorite: '즐겨찾기 해제',
+        share: '공유',
+        online: '온라인',
+        offline: '오프라인',
+        busy: '바쁨',
+        verified: '인증됨',
+        rating: '평점',
+        reviews: '후기',
+        responseTime: '평균 응답시간',
+        ms: '밀리초'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: '참고문헌',
+        referencedSources: '참조된 소스',
+        relevant: '관련성',
+        viewOriginal: '원문 보기',
+        showAll: '모두 보기',
+        more: '더 많은 소스',
+        drawerTitle: '참고문헌',
+        expandMore: '더보기',
+        collapseMore: '접기',
+        noSources: '소스 없음',
+        today: '오늘',
+        last7Days: '최근 7일',
+        last30Days: '최근 30일',
+        earlier: '이전',
+        pinned: '고정됨'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: '오늘',
+        last7Days: '최근 7일',
+        last30Days: '최근 30일',
+        earlier: '이전',
+        pinned: '고정됨',
+        pin: '고정',
+        unpin: '고정 해제',
+        newConversation: '새 대화',
+        rename: '이름 변경',
+        delete: '삭제',
+        deleteConfirm: '이 대화를 삭제하시겠습니까?'
       }
     }
   }

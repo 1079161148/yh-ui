@@ -592,124 +592,124 @@ export const ckb: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'تکایە بنووسە',
+      loading: 'بارکردن...',
+      noData: 'هیچ داتایەک نییە'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'بەستەرەکان'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ ئەیجێنت، دۆکومێنت یان خشتە ئاماژە بکە...',
+        agent: 'ئەیجێنت',
+        document: 'دۆکومێنت',
+        table: 'خشتە',
+        knowledge: 'زانیاری'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'کۆد کۆپی بکە',
+        copied: 'کۆپی کرا!',
+        run: 'کۆد بەرێنە',
+        edit: 'دەستکاری',
+        save: 'پاشەکەوت',
+        cancel: 'هەڵوەشاندنەوە'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'بەرێنە',
+        stop: 'وەستێنە',
+        clear: 'پاکبکەوە',
+        reset: 'دووبارە دانانەوە',
+        placeholder: 'بۆ بەرێنانی کۆد کلیک لەسەر بەرێنە بکە...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'پەیام بنێرە...',
+        dragTip: 'بۆ ئەپلۆدکردنی فایلەکان ئازادی بکە'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'پرۆسەی ئەندێشە',
+        thinking: 'ئەندێشەدەکات...',
+        defaultTitle: 'هەنگاوێکی نوێ',
+        addNode: 'هەنگاو زیاد بکە'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'دەست بکە بە ئەندێشە',
+        thinking: 'ئەندێشەدەکات...',
+        complete: 'ئەندێشەکە تەواو بوو',
+        error: 'هەڵەیەک لە ئەندێشە'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'سڵاو، من YH AI یم',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'دەتوانم یارمەتیت بدەم لە کۆدنووسین، وەرگێڕانی دۆکومێنت یان نووسینی داهێنەرانە. ئەمرۆ دەتوانم چی بکەم بۆ تۆ؟'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'کۆپی',
+        regenerate: 'دووبارە دروستکردن',
+        share: 'هاوبەشی',
+        like: 'بەدڵنیایی',
+        dislike: 'بەدڵنیایی نییە',
+        edit: 'دەستکاری',
+        delete: 'سڕینەوە'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'پێشەنگانە',
+        inline: 'ناو هێڵ',
+        code: 'سەرچاوەی کۆد',
+        versions: 'وەشانەکان',
+        rendering: 'بەستەرەکە دەردەکەوێت...',
+        renderingChart: 'وێنەیەکە دەردەکەوێت...',
+        renderingCanvas: 'سێڵا دەست دەکەوێت...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'کلیک بکە بۆ قسەکردن',
+        listening: 'گوێدەدات...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'بەکارهێنان',
+        use: 'ئێستا بەکاربێنە',
+        favorite: 'دڵخواز',
+        unfavorite: 'لابردنی دڵخواز',
+        share: 'هاوبەشی',
+        online: 'ئۆنلاین',
+        offline: 'ئۆفلاین',
+        busy: '_BUSY_',
+        verified: 'دڵنیاکراوە',
+        rating: 'پلە',
+        reviews: 'رەخنە',
+        responseTime: 'کاتی وەڵامدانەوەی مامناوەند',
+        ms: 'میلیۆنیەکان'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'سەرچاوەکان',
+        referencedSources: 'سەرچاوە ئاماژەپێکراوەکان',
+        relevant: 'پەیوەندیدار',
+        viewOriginal: 'ئەسڵی ببینە',
+        showAll: 'هەمووی ببینە',
+        more: 'سەرچاوەی تر',
+        drawerTitle: 'سەرچاوەکان',
+        expandMore: 'زیاتر ببینە',
+        collapseMore: 'کۆکردنەوە',
+        noSources: 'هیچ سەرچاوەیەک نییە',
+        today: 'ئەمرۆ',
+        last7Days: '7 ڕۆژی پێشوو',
+        last30Days: '30 ڕۆژی پێشوو',
+        earlier: 'پێشتر',
+        pinned: 'پینکراو'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'ئەمرۆ',
+        last7Days: '7 ڕۆژی پێشوو',
+        last30Days: '30 ڕۆژی پێشوو',
+        earlier: 'پێشتر',
+        pinned: 'پینکراو',
+        pin: 'پینک بکە',
+        unpin: 'پینکەکە لاببە',
+        newConversation: 'گفتوگۆیەکی نوێ',
+        rename: 'ناو بگۆڕە',
+        delete: 'سڕینەوە',
+        deleteConfirm: 'دڵنیایی لە سڕینەوەی ئەم گفتوگۆیە؟'
       }
     }
   }

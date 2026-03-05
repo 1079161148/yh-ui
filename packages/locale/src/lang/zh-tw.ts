@@ -590,126 +590,125 @@ export const zhTw: Language = {
     affix: {},
     // 錨點
     anchor: {},
-    // Mention
+    // 提及
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: '請輸入',
+      loading: '載入中...',
+      noData: '暫無資料'
     },
-    // AI Components
+    // AI 组件
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: '引用'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ 提及 Agent、文件或表格...',
+        agent: '智慧體',
+        document: '文件',
+        table: '表格',
+        knowledge: '知識庫'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: '複製代碼',
+        copied: '已複製！',
+        run: '執行代碼',
+        edit: '編輯',
+        save: '儲存',
+        cancel: '取消'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: '執行',
+        stop: '停止',
+        clear: '清空',
+        reset: '重置',
+        placeholder: '點選執行按鈕執行代碼...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: '傳送訊息...',
+        dragTip: '釋放滑鼠以上傳檔案'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: '思考過程',
+        thinking: '思考中...',
+        defaultTitle: '新步驟',
+        addNode: '新增節點'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: '開始思考',
+        thinking: '思考中...',
+        complete: '已完成思考',
+        error: '思考出錯了'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
-        description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+        title: '你好，我是 YH AI',
+        description: '我可以幫你寫程式、翻譯文件或進行創意寫作。今天我能為你做點什麼？'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: '複製',
+        regenerate: '重新生成',
+        share: '分享',
+        like: '讚',
+        dislike: '倒讚',
+        edit: '編輯',
+        delete: '刪除'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: '預覽',
+        inline: '行內',
+        code: '原始碼',
+        versions: '版本歷史',
+        rendering: '正在渲染元件...',
+        renderingChart: '正在渲染圖表...',
+        renderingCanvas: '正在準備畫板...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: '點選說話',
+        listening: '聆聽中...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: '次呼叫',
+        use: '立即使用',
+        favorite: '收藏',
+        unfavorite: '取消收藏',
+        share: '分享',
+        online: '線上',
+        offline: '離線',
+        busy: '忙碌',
+        verified: '官方認證',
+        rating: '評分',
+        reviews: '則評價',
+        responseTime: '回應時間',
+        ms: '毫秒'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: '參考來源',
+        referencedSources: '引用來源',
+        relevant: '相關度',
+        viewOriginal: '查看原文',
+        showAll: '顯示全部',
+        more: '更多來源',
+        drawerTitle: '參考來源',
+        expandMore: '展開更多',
+        collapseMore: '收起',
+        noSources: '暫無來源',
+        today: '今天',
+        last7Days: '最近 7 天',
+        last30Days: '最近 30 天',
+        earlier: '更早',
+        pinned: '已置頂'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: '今天',
+        last7Days: '最近 7 天',
+        last30Days: '最近 30 天',
+        earlier: '更早',
+        pinned: '置頂',
+        pin: '置頂',
+        unpin: '取消置頂',
+        newConversation: '新建對話',
+        rename: '重新命名',
+        delete: '刪除',
+        deleteConfirm: '確認刪除此對話？'
       }
     }
   }

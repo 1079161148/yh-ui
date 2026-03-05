@@ -64,8 +64,15 @@ const onSlotLoad = () => {
   }, 1000)
 }
 
+interface Post {
+  userId: number
+  id: number
+  title: string
+  body: string
+}
+
 // Nuxt SSR 模拟
-const nuxtItems = ref<any[]>([])
+const nuxtItems = ref<Post[]>([])
 const nuxtLoading = ref(false)
 const nuxtFinished = ref(false)
 const page = ref(1)
@@ -88,8 +95,15 @@ const onNuxtLoad = async () => {
   }
 }
 
+interface Product {
+  id: number
+  title: string
+  price: number
+  image: string
+}
+
 // 业务实战：电商商品列表
-const shopItems = ref<any[]>([])
+const shopItems = ref<Product[]>([])
 const shopLoading = ref(false)
 const shopFinished = ref(false)
 const shopError = ref(false)
@@ -105,7 +119,7 @@ const onShopLoad = async () => {
     const data = await res.json()
     
     if (data.length > 0) {
-      const products = data.map((item: any) => ({
+      const products = data.map((item: Record<string, unknown>) => ({
         id: item.id,
         name: '高级定制商品 #' + item.id,
         price: (Math.random() * 1000 + 100).toFixed(2),
@@ -553,50 +567,50 @@ const jsBusiness = tsBusiness.replace('lang="ts"', '')
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| loading | 是否正在加载（支持 `v-model`） | `boolean` | `false` |
-| finished | 是否已加载完全部数据 | `boolean` | `false` |
-| error | 是否加载失败（支持 `v-model`） | `boolean` | `false` |
-| threshold | 触发加载的距离阈值 (px) | `number` | `100` |
-| direction | 滚动方向 | `'vertical' \| 'horizontal'` | `'vertical'` |
-| loading-text | 加载中的提示文字 | `string` | `'加载中...'` |
-| finished-text | 加载完成的提示文字 | `string` | `'没有更多了'` |
-| error-text | 加载失败的提示文字 | `string` | `'加载失败，点击重试'` |
-| immediate-check | 是否在初始化时立即检查是否需要加载 | `boolean` | `true` |
-| disabled | 是否禁用滚动加载 | `boolean` | `false` |
-| target | 指定滚动容器选择器 | `string` | `''` |
-| use-observer | 是否使用 IntersectionObserver（推荐开启） | `boolean` | `true` |
-| root-margin | IntersectionObserver 的 rootMargin 配置 | `string` | `'0px'` |
+| 属性名          | 说明                                      | 类型                         | 默认值                 |
+| --------------- | ----------------------------------------- | ---------------------------- | ---------------------- |
+| loading         | 是否正在加载（支持 `v-model`）            | `boolean`                    | `false`                |
+| finished        | 是否已加载完全部数据                      | `boolean`                    | `false`                |
+| error           | 是否加载失败（支持 `v-model`）            | `boolean`                    | `false`                |
+| threshold       | 触发加载的距离阈值 (px)                   | `number`                     | `100`                  |
+| direction       | 滚动方向                                  | `'vertical' \| 'horizontal'` | `'vertical'`           |
+| loading-text    | 加载中的提示文字                          | `string`                     | `'加载中...'`          |
+| finished-text   | 加载完成的提示文字                        | `string`                     | `'没有更多了'`         |
+| error-text      | 加载失败的提示文字                        | `string`                     | `'加载失败，点击重试'` |
+| immediate-check | 是否在初始化时立即检查是否需要加载        | `boolean`                    | `true`                 |
+| disabled        | 是否禁用滚动加载                          | `boolean`                    | `false`                |
+| target          | 指定滚动容器选择器                        | `string`                     | `''`                   |
+| use-observer    | 是否使用 IntersectionObserver（推荐开启） | `boolean`                    | `true`                 |
+| root-margin     | IntersectionObserver 的 rootMargin 配置   | `string`                     | `'0px'`                |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| load | 触发加载更多时调用 | `()` |
-| update:loading | 更新 loading 状态 | `(val: boolean)` |
-| update:error | 更新 error 状态 | `(val: boolean)` |
+| 事件名         | 说明               | 回调参数         |
+| -------------- | ------------------ | ---------------- |
+| load           | 触发加载更多时调用 | `()`             |
+| update:loading | 更新 loading 状态  | `(val: boolean)` |
+| update:error   | 更新 error 状态    | `(val: boolean)` |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| default | 列表主体内容 |
-| loading | 自定义加载中状态的内容 |
-| finished | 自定义加载完成状态的内容 |
-| error | 自定义加载失败状态的内容（点击可触发重试） |
+| 插槽名   | 说明                                       |
+| -------- | ------------------------------------------ |
+| default  | 列表主体内容                               |
+| loading  | 自定义加载中状态的内容                     |
+| finished | 自定义加载完成状态的内容                   |
+| error    | 自定义加载失败状态的内容（点击可触发重试） |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| check | 手动检查是否需要加载 | `() => void` |
+| 名称  | 说明                                   | 类型         |
+| ----- | -------------------------------------- | ------------ |
+| check | 手动检查是否需要加载                   | `() => void` |
 | retry | 重试加载（清除 error 状态并触发 load） | `() => void` |
 
 ### 主题变量 (CSS Variables)
 
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| `--yh-color-text-secondary` | `#86868b` | 加载中文字颜色 |
+| 变量名                        | 默认值    | 描述             |
+| ----------------------------- | --------- | ---------------- |
+| `--yh-color-text-secondary`   | `#86868b` | 加载中文字颜色   |
 | `--yh-color-text-placeholder` | `#c0c4cc` | 加载完成文字颜色 |
-| `--yh-color-danger` | `#f56c6c` | 错误状态文字颜色 |
+| `--yh-color-danger`           | `#f56c6c` | 错误状态文字颜色 |

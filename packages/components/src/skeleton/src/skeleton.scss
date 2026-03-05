@@ -6,6 +6,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
 
   @include e(header) {
     margin-bottom: 20px;
@@ -21,9 +24,14 @@
   display: inline-block;
   vertical-align: middle;
   border-radius: var(--yh-radius-base);
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden !important;
+  position: relative;
 
   @include m(circle) {
-    border-radius: 50%;
+    border-radius: 50% !important;
+    overflow: hidden !important;
   }
 
   @include m(rect) {
@@ -43,6 +51,7 @@
   @include m(text) {
     height: 16px;
     border-radius: 8px;
+    overflow: hidden !important;
   }
 
   @include m(caption) {
@@ -62,6 +71,7 @@
     width: 100px;
     height: 100px;
     color: var(--yh-text-color-placeholder);
+    overflow: hidden !important;
     svg {
       opacity: 0.5;
     }
@@ -69,6 +79,7 @@
 
   @include is(round) {
     border-radius: 999px;
+    overflow: hidden !important;
   }
 
   @include is(sharp) {

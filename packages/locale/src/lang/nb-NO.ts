@@ -592,124 +592,124 @@ export const nbNo: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Vennligst skriv inn',
+      loading: 'Laster...',
+      noData: 'Ingen data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Sitater'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Nevn Agent, Dokument eller Tabell...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokument',
+        table: 'Tabell',
+        knowledge: 'Kunnskap'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopier kode',
+        copied: 'Kopiert!',
+        run: 'Kjør kode',
+        edit: 'Rediger',
+        save: 'Lagre',
+        cancel: 'Avbryt'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Kjør',
+        stop: 'Stopp',
+        clear: 'Tøm',
+        reset: 'Tilbakestill',
+        placeholder: 'Klikk Kjør for å utføre koden...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Send melding...',
+        dragTip: 'Slipp for å laste opp filer'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Tenkningsprosess',
+        thinking: 'Tenker...',
+        defaultTitle: 'Nytt trinn',
+        addNode: 'Legg til trinn'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Begynn å tenke',
+        thinking: 'Tenker...',
+        complete: 'Tenking fullført',
+        error: 'Tenkefeil'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Hei, jeg er YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Jeg kan hjelpe deg med koding, oversetting av dokumenter eller kreativ skriving. Hva kan jeg gjøre for deg i dag?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopier',
+        regenerate: 'Regenerer',
+        share: 'Del',
+        like: 'Liker',
+        dislike: 'Liker ikke',
+        edit: 'Rediger',
+        delete: 'Slett'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Forhåndsvisning',
+        inline: 'Innkapslet',
+        code: 'Kildekode',
+        versions: 'Versjoner',
+        rendering: 'Renderer komponent...',
+        renderingChart: 'Renderer diagram...',
+        renderingCanvas: 'Forbereder lerret...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klikk for å snakke',
+        listening: 'Lytter...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'bruksområder',
+        use: 'Bruk nå',
+        favorite: 'Favoritt',
+        unfavorite: 'Fjern fra favoritter',
+        share: 'Del',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Opptatt',
+        verified: 'Verifisert',
+        rating: 'Vurdering',
+        reviews: 'anmeldelser',
+        responseTime: 'Gjennomsnittlig responstid',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referanser',
+        referencedSources: 'Refererte kilder',
+        relevant: 'Relevans',
+        viewOriginal: 'Se original',
+        showAll: 'Vis alle',
+        more: 'flere kilder',
+        drawerTitle: 'Referanser',
+        expandMore: 'Vis mer',
+        collapseMore: 'Skjul',
+        noSources: 'Ingen kilder',
+        today: 'I dag',
+        last7Days: 'Siste 7 dager',
+        last30Days: 'Siste 30 dager',
+        earlier: 'Tidligere',
+        pinned: 'Festet'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'I dag',
+        last7Days: 'Siste 7 dager',
+        last30Days: 'Siste 30 dager',
+        earlier: 'Tidligere',
+        pinned: 'Festet',
+        pin: 'Fest',
+        unpin: 'Løsne',
+        newConversation: 'Ny samtale',
+        rename: 'Gi nytt navn',
+        delete: 'Slett',
+        deleteConfirm: 'Bekreft sletting av denne samtalen?'
       }
     }
   }

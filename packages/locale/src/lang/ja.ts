@@ -596,120 +596,120 @@ export const ja: Language = {
       loading: 'ロード中...',
       noData: 'データなし'
     },
-    // AI Components
+    // AI コンポーネント
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: '引用'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Agent、ドキュメント、表をメンション...',
+        agent: 'エージェント',
+        document: 'ドキュメント',
+        table: 'テーブル',
+        knowledge: 'ナレッジ'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'コードをコピー',
+        copied: 'コピーしました！',
+        run: 'コードを実行',
+        edit: '編集',
+        save: '保存',
+        cancel: 'キャンセル'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: '実行',
+        stop: '停止',
+        clear: 'クリア',
+        reset: 'リセット',
+        placeholder: '実行ボタンをクリックしてコードを実行...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'メッセージを送信...',
+        dragTip: 'ファイルをアップロードするにはリリース'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: '思考プロセス',
+        thinking: '思考中...',
+        defaultTitle: '新しいステップ',
+        addNode: 'ステップを追加'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: '思考を開始',
+        thinking: '思考中...',
+        complete: '思考完了',
+        error: '思考エラー'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'こんにちは、YH AIです',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'コーディング、ドキュメント翻訳、クリエイティブライティングをお手伝いできます。今日は何をしますか？'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'コピー',
+        regenerate: '再生成',
+        share: '共有',
+        like: 'いいね',
+        dislike: 'よくないね',
+        edit: '編集',
+        delete: '削除'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'プレビュー',
+        inline: 'インライン',
+        code: 'ソース',
+        versions: 'バージョン',
+        rendering: 'コンポーネントをレンダリング中...',
+        renderingChart: 'チャートをレンダリング中...',
+        renderingCanvas: 'キャンバスを準備中...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'クリックして話す',
+        listening: 'リスニング中...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: '回使用',
+        use: '今すぐ使用',
+        favorite: 'お気に入り',
+        unfavorite: 'お気に入り解除',
+        share: '共有',
+        online: 'オンライン',
+        offline: 'オフライン',
+        busy: '取り込み中',
+        verified: '認証済み',
+        rating: '評価',
+        reviews: 'レビュー',
+        responseTime: '平均応答時間',
+        ms: 'ミリ秒'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: '参考文献',
+        referencedSources: '参照元',
+        relevant: '関連性',
+        viewOriginal: '原文を表示',
+        showAll: 'すべて表示',
+        more: '詳細',
+        drawerTitle: '参考文献',
+        expandMore: 'もっと見る',
+        collapseMore: '閉じる',
+        noSources: 'ソースなし',
+        today: '今日',
+        last7Days: '過去7日間',
+        last30Days: '過去30日間',
+        earlier: 'それ以前',
+        pinned: 'ピン留め'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: '今日',
+        last7Days: '過去7日間',
+        last30Days: '過去30日間',
+        earlier: 'それ以前',
+        pinned: 'ピン留め',
+        pin: 'ピン留め',
+        unpin: 'ピン解除',
+        newConversation: '新規会話',
+        rename: '名前を変更',
+        delete: '削除',
+        deleteConfirm: 'この会話を削除しますか？'
       }
     }
   }

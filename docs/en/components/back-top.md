@@ -4,31 +4,39 @@ Used for long pages. Clicking the button smoothly scrolls back to the top of the
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 
-const tsBasic = `<template>
+// Basic Usage
+const tsBasic = `<${_T}>
   <yh-back-top :visibility-height="100" />
   <div class="demo-info">
     <span class="dot"></span>
     Scroll down the page to see the button in the bottom right corner
   </div>
-</template>`
+</${_T}>`
 
-const tsProgress = `<template>
+const jsBasic = toJs(tsBasic)
+
+// Progress Indicator
+const tsProgress = `<${_T}>
   <yh-back-top :visibility-height="100" />
   <div class="demo-info">
     <span class="dot"></span>
     Watch the ring progress change around the button
   </div>
-</template>`
+</${_T}>`
 
-const tsCustom = `<template>
+const jsProgress = toJs(tsProgress)
+
+// Custom Content & Styles
+const tsCustom = `<${_T}>
   <yh-back-top :bottom="100" :right="100" progress-color="#ec4899">
     <div class="custom-bt">UP</div>
   </yh-back-top>
   <div class="demo-info">Observe the pink progress bar at the bottom right</div>
-</template>
+</${_T}>
 
-<` + `style scoped>
+<${_St} scoped>
 .custom-bt {
   width: 44px;
   height: 44px;
@@ -42,15 +50,20 @@ const tsCustom = `<template>
   font-weight: bold;
   font-size: 12px;
 }
-<` + `/style>`
+</${_St}>`
 
-const tsNuxt = `<template>
+const jsCustom = toJs(tsCustom)
+
+// Nuxt Usage
+const tsNuxt = `<${_T}>
   <yh-back-top :visibility-height="100" />
   <div class="demo-info">
     <span class="dot"></span>
     Works out-of-the-box in Nuxt projects with SSR static fault tolerance
   </div>
-</template>`
+</${_T}>`
+
+const jsNuxt = toJs(tsNuxt)
 
 </script>
 
@@ -58,7 +71,7 @@ const tsNuxt = `<template>
 
 The simplest usage, shown by default after scrolling 200px.
 
-<DemoBlock title="Basic Usage" :ts-code="tsBasic">
+<DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="demo-info">
     <span class="dot"></span>
     Scroll down the page to see the button in the bottom right corner
@@ -70,7 +83,7 @@ The simplest usage, shown by default after scrolling 200px.
 
 `YhBackTop` features an industry-leading progress ring. Through the dynamic ring bar around the button, users can intuitively perceive the current physical position relative to the top of the article.
 
-<DemoBlock title="Progress Preview" :ts-code="tsProgress">
+<DemoBlock title="Progress Preview" :ts-code="tsProgress" :js-code="jsProgress">
   <div class="demo-info">
     <span class="dot"></span>
     Watch the ring progress change around the button
@@ -81,7 +94,7 @@ The simplest usage, shown by default after scrolling 200px.
 
 Customize button content through slots and adjust display position and progress bar color through props.
 
-<DemoBlock title="Custom Content" :ts-code="tsCustom">
+<DemoBlock title="Custom Content" :ts-code="tsCustom" :js-code="jsCustom">
   <yh-back-top :bottom="100" :right="100" progress-color="#ec4899">
     <div class="custom-bt">UP</div>
   </yh-back-top>
@@ -91,19 +104,22 @@ Customize button content through slots and adjust display position and progress 
 ## Advanced Features
 
 ### 1. Kinetic Progress Ring
+
 By syncing the page scroll height with the SVG ring circumference at high frequency, an immersive "scroll equals feedback" experience is achieved. The ring uses `stroke-dashoffset` linear mapping, ensuring the ultimate balance between performance and visuals.
 
 ### 2. Smart Viewport Adaptation
+
 Not limited to `window` global scrolling. When placed inside a container with `overflow: scroll` combined with the `target` prop, it can precisely control the return logic for local areas.
 
 ### 3. Cubic Easing Animation
+
 Built-in `Cubic Easing` function makes the scroll-back action more aligned with physical perception, giving more "weight" than simple linear displacement.
 
 ## Use in Nuxt
 
 `YhBackTop` is perfectly adapted for Nuxt auto-import.
 
-<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div class="demo-info">
     <span class="dot"></span>
     Works out-of-the-box in Nuxt projects with SSR static fault tolerance
@@ -114,28 +130,28 @@ Built-in `Cubic Easing` function makes the scroll-back action more aligned with 
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| visibility-height | Only shown when scroll height reaches this value | `number` | `200` |
-| target | Container selector, not needed for full-screen scrolling | `string` | — |
-| right | Distance from the right | `number` | `40` |
-| bottom | Distance from the bottom | `number` | `40` |
-| show-progress | Whether to show the progress ring | `boolean` | `true` |
-| progress-color | Progress ring color | `string` | `var(--yh-color-primary)` |
-| duration | Scroll-back animation duration (ms) | `number` | `400` |
+| Prop              | Description                                              | Type      | Default                   |
+| ----------------- | -------------------------------------------------------- | --------- | ------------------------- |
+| visibility-height | Only shown when scroll height reaches this value         | `number`  | `200`                     |
+| target            | Container selector, not needed for full-screen scrolling | `string`  | —                         |
+| right             | Distance from the right                                  | `number`  | `40`                      |
+| bottom            | Distance from the bottom                                 | `number`  | `40`                      |
+| show-progress     | Whether to show the progress ring                        | `boolean` | `true`                    |
+| progress-color    | Progress ring color                                      | `string`  | `var(--yh-color-primary)` |
+| duration          | Scroll-back animation duration (ms)                      | `number`  | `400`                     |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| click | Triggered when button is clicked | `(evt: MouseEvent)` |
+| Event Name | Description                      | Parameters          |
+| ---------- | -------------------------------- | ------------------- |
+| click      | Triggered when button is clicked | `(evt: MouseEvent)` |
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-back-top-bg-color` | Background color | `#ffffff` |
-| `--yh-back-top-text-color` | Text/icon color | `var(--yh-color-primary)` |
+| Variable                   | Description      | Default                   |
+| -------------------------- | ---------------- | ------------------------- |
+| `--yh-back-top-bg-color`   | Background color | `#ffffff`                 |
+| `--yh-back-top-text-color` | Text/icon color  | `var(--yh-color-primary)` |
 
 <style scoped>
 .demo-info {

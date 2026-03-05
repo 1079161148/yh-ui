@@ -592,124 +592,124 @@ export const el: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Παρακαλώ εισάγετε',
+      loading: 'Φόρτωση...',
+      noData: 'Δεν υπάρχουν δεδομένα'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Αναφορές'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Αναφέρετε Agent, Έγγραφο ή Πίνακα...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Έγγραφο',
+        table: 'Πίνακας',
+        knowledge: 'Γνώση'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Αντιγραφή κώδικα',
+        copied: 'Αντιγράφηκε!',
+        run: 'Εκτέλεση κώδικα',
+        edit: 'Επεξεργασία',
+        save: 'Αποθήκευση',
+        cancel: 'Ακύρωση'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Εκτέλεση',
+        stop: 'Διακοπή',
+        clear: 'Καθαρισμός',
+        reset: 'Επαναφορά',
+        placeholder: 'Κάντε κλικ στην Εκτέλεση για να εκτελέσετε τον κώδικα...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Στείλτε μήνυμα...',
+        dragTip: 'Αφήστε για να ανεβάσετε αρχεία'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Διαδικασία Σκέψης',
+        thinking: 'Σκέψη...',
+        defaultTitle: 'Νέο Βήμα',
+        addNode: 'Προσθήκη Βήματος'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Ξεκινήστε να σκέφτεστε',
+        thinking: 'Σκέψη...',
+        complete: 'Η σκέψη ολοκληρώθηκε',
+        error: 'Σφάλμα σκέψης'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Γεια σας, είμαι ο YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Μπορώ να σας βοηθήσω με τον προγραμματισμό, τη μετάφραση εγγράφων ή τη δημιουργική γραφή. Τι μπορώ να κάνω για εσάς σήμερα;'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Αντιγραφή',
+        regenerate: 'Αναγέννηση',
+        share: 'Κοινοποίηση',
+        like: 'Μου αρέσει',
+        dislike: 'Δεν μου αρέσει',
+        edit: 'Επεξεργασία',
+        delete: 'Διαγραφή'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Προεπισκόπηση',
+        inline: 'Ενσωματωμένο',
+        code: 'Πηγαίος κώδικας',
+        versions: 'Εκδόσεις',
+        rendering: 'Απόδοση στοιχείου...',
+        renderingChart: 'Απόδοση γραφήματος...',
+        renderingCanvas: 'Προετοιμασία καμβά...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Κλικ για Ομιλία',
+        listening: 'Ακρόαση...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'χρησιμοποιεί',
+        use: 'Χρήση τώρα',
+        favorite: 'Αγαπημένο',
+        unfavorite: 'Κατάργηση αγαπημένου',
+        share: 'Κοινοποίηση',
+        online: 'Σε σύνδεση',
+        offline: 'Εκτός σύνδεσης',
+        busy: 'Απασχολημένος',
+        verified: 'Επαληθευμένος',
+        rating: 'Βαθμολογία',
+        reviews: 'κριτικές',
+        responseTime: 'Μέσος χρόνος απόκρισης',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Αναφορές',
+        referencedSources: 'Αναφερόμενες πηγές',
+        relevant: 'Σχετικότητα',
+        viewOriginal: 'Προβολή πρωτότυπου',
+        showAll: 'Εμφάνιση όλων',
+        more: 'περισσότερες πηγές',
+        drawerTitle: 'Αναφορές',
+        expandMore: 'Εμφάνιση περισσότερων',
+        collapseMore: 'Σύμπτυξη',
+        noSources: 'Χωρίς πηγές',
+        today: 'Σήμερα',
+        last7Days: 'Τελευταίες 7 ημέρες',
+        last30Days: 'Τελευταίες 30 ημέρες',
+        earlier: 'Παλαιότερα',
+        pinned: 'Καρφιτσωμένο'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Σήμερα',
+        last7Days: 'Τελευταίες 7 ημέρες',
+        last30Days: 'Τελευταίες 30 ημέρες',
+        earlier: 'Παλαιότερα',
+        pinned: 'Καρφιτσωμένο',
+        pin: 'Καρφίτσωμα',
+        unpin: 'Ξεκαρφίτσωμα',
+        newConversation: 'Νέα συνομιλία',
+        rename: 'Μετονομασία',
+        delete: 'Διαγραφή',
+        deleteConfirm: 'Επιβεβαίωση διαγραφής αυτής της συνομιλίας;'
       }
     }
   }

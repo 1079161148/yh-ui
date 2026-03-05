@@ -592,124 +592,124 @@ export const lt: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Prašome įvesti',
+      loading: 'Kraunama...',
+      noData: 'Nėra duomenų'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citatos'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Paminėti Agentą, Dokumentą ar Lentelę...',
+        agent: 'Agentas',
+        document: 'Dokumentas',
+        table: 'Lentelė',
+        knowledge: 'Žinios'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopijuoti kodą',
+        copied: 'Nukopijuota!',
+        run: 'Vykdyti kodą',
+        edit: 'Redaguoti',
+        save: 'Išsaugoti',
+        cancel: 'Atšaukti'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Vykdyti',
+        stop: 'Stabdyti',
+        clear: 'Išvalyti',
+        reset: 'Atstatyti',
+        placeholder: 'Spustelėkite Vykdyti norėdami vykdyti kodą...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Siųsti žinutę...',
+        dragTip: 'Atleiskite, norėdami įkelti failus'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Mąstymo procesas',
+        thinking: 'Mąsto...',
+        defaultTitle: 'Naujas žingsnis',
+        addNode: 'Pridėti žingsnį'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Pradėti mąstyti',
+        thinking: 'Mąsto...',
+        complete: 'Mąstymas baigtas',
+        error: 'Mąstymo klaida'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Sveiki, aš esu YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Galiu padėti jums su programavimu, dokumentų vertimu ar kūrybiniu rašymu. Ką galiu padaryti jums šiandien?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopijuoti',
+        regenerate: 'Regeneruoti',
+        share: 'Dalintis',
+        like: 'Patinka',
+        dislike: 'Nepatinka',
+        edit: 'Redaguoti',
+        delete: 'Ištrinti'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Peržiūra',
+        inline: 'Eilutėje',
+        code: 'Šaltinis',
+        versions: 'Versijos',
+        rendering: 'Atvaizduojamas komponentas...',
+        renderingChart: 'Atvaizduojamas grafikas...',
+        renderingCanvas: 'Ruošiamas drobė...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Spustelėkite kalbėti',
+        listening: 'Klauso...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'naudojimai',
+        use: 'Naudoti dabar',
+        favorite: 'Mėgstamas',
+        unfavorite: 'Pašalinti iš mėgstamų',
+        share: 'Dalintis',
+        online: 'Prisijungęs',
+        offline: 'Atsijungęs',
+        busy: 'Užimtas',
+        verified: 'Patvirtintas',
+        rating: 'Įvertinimas',
+        reviews: 'atsiliepimai',
+        responseTime: 'Vidutinis atsakymo laikas',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Nuorodos',
+        referencedSources: 'Nurodyti šaltiniai',
+        relevant: 'Tinkamumas',
+        viewOriginal: 'Žiūrėti originalą',
+        showAll: 'Rodyti visus',
+        more: 'daugiau šaltinių',
+        drawerTitle: 'Nuorodos',
+        expandMore: 'Rodyti daugiau',
+        collapseMore: 'Sutraukti',
+        noSources: 'Nėra šaltinių',
+        today: 'Šiandien',
+        last7Days: 'Paskutinės 7 dienos',
+        last30Days: 'Paskutinės 30 dienų',
+        earlier: 'Anksčiau',
+        pinned: 'Pritvirtinta'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Šiandien',
+        last7Days: 'Paskutinės 7 dienos',
+        last30Days: 'Paskutinės 30 dienų',
+        earlier: 'Anksčiau',
+        pinned: 'Pritvirtinta',
+        pin: 'Pritvirtinti',
+        unpin: 'Atitraukti',
+        newConversation: 'Naujas pokalbis',
+        rename: 'Pervadinti',
+        delete: 'Ištrinti',
+        deleteConfirm: 'Ar tikrai norite ištrinti šį pokalbį?'
       }
     }
   }

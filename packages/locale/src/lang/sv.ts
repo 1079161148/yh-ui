@@ -592,124 +592,124 @@ export const sv: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Var god ange',
+      loading: 'Laddar...',
+      noData: 'Ingen data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citat'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Nämna Agent, Dokument eller Tabell...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokument',
+        table: 'Tabell',
+        knowledge: 'Kunskap'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopiera kod',
+        copied: 'Kopierad!',
+        run: 'Kör kod',
+        edit: 'Redigera',
+        save: 'Spara',
+        cancel: 'Avbryt'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Kör',
+        stop: 'Stopp',
+        clear: 'Rensa',
+        reset: 'Återställ',
+        placeholder: 'Klicka på Kör för att köra koden...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Skicka ett meddelande...',
+        dragTip: 'Släpp för att ladda upp filer'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Tankeprocess',
+        thinking: 'Tänker...',
+        defaultTitle: 'Nytt steg',
+        addNode: 'Lägg till steg'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Börja tänka',
+        thinking: 'Tänker...',
+        complete: 'Tänkande klart',
+        error: 'Tänkfel'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Hej, jag är YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Jag kan hjälpa dig med kodning, översättning av dokument eller kreativt skrivande. Vad kan jag hjälpa dig med idag?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopiera',
+        regenerate: 'Regenerera',
+        share: 'Dela',
+        like: 'Gillar',
+        dislike: 'Gillar inte',
+        edit: 'Redigera',
+        delete: 'Radera'
       },
       artifacts: {
-        preview: 'Preview',
+        preview: 'Förhandsvisning',
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Källa',
+        versions: 'Versioner',
+        rendering: 'Renderar komponent...',
+        renderingChart: 'Renderar diagram...',
+        renderingCanvas: 'Förbereder canvas...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klicka för att tala',
+        listening: 'Lyssnar...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'använder',
+        use: 'Använd nu',
+        favorite: 'Favorit',
+        unfavorite: 'Ta bort favorit',
+        share: 'Dela',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Upptagen',
+        verified: 'Verifierad',
+        rating: 'Betyg',
+        reviews: 'recensioner',
+        responseTime: 'Genomsnittlig svarstid',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referenser',
+        referencedSources: 'Refererade källor',
+        relevant: 'Relevans',
+        viewOriginal: 'Visa original',
+        showAll: 'Visa alla',
+        more: 'fler källor',
+        drawerTitle: 'Referenser',
+        expandMore: 'Visa mer',
+        collapseMore: 'Dölj',
+        noSources: 'Inga källor',
+        today: 'Idag',
+        last7Days: 'Senaste 7 dagarna',
+        last30Days: 'Senaste 30 dagarna',
+        earlier: 'Tidigare',
+        pinned: 'Nålad'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Idag',
+        last7Days: 'Senaste 7 dagarna',
+        last30Days: 'Senaste 30 dagarna',
+        earlier: 'Tidigare',
+        pinned: 'Nålad',
+        pin: 'Nåla',
+        unpin: 'Ta bort nål',
+        newConversation: 'Ny konversation',
+        rename: 'Döpa om',
+        delete: 'Radera',
+        deleteConfirm: 'Bekräfta radering av denna konversation?'
       }
     }
   }

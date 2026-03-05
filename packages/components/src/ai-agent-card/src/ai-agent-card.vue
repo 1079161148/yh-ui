@@ -80,9 +80,7 @@ const handleShare = (e: MouseEvent) => {
     <div :class="ns.e('overlay-actions')">
       <YhTooltip
         v-if="favoritable"
-        :content="
-          localFavorited ? t('ai.agent.unfavorite') || '取消收藏' : t('ai.agent.favorite') || '收藏'
-        "
+        :content="localFavorited ? t('ai.agent.unfavorite') : t('ai.agent.favorite')"
         placement="top"
       >
         <button :class="[ns.e('fav-btn'), ns.is('active', localFavorited)]" @click="handleFavorite">
@@ -90,7 +88,7 @@ const handleShare = (e: MouseEvent) => {
         </button>
       </YhTooltip>
 
-      <YhTooltip :content="t('ai.agent.share') || '分享'" placement="top">
+      <YhTooltip :content="t('ai.agent.share')" placement="top">
         <button :class="ns.e('share-btn')" @click="handleShare">
           <YhIcon name="share" />
         </button>
@@ -140,7 +138,7 @@ const handleShare = (e: MouseEvent) => {
       <div v-if="showStats && data.stats" :class="ns.e('stats')">
         <span v-if="data.stats.uses !== undefined" :class="ns.e('stat-item')">
           <YhIcon name="chart-bar" />
-          {{ formattedUses }} {{ t('ai.agent.uses') || '次调用' }}
+          {{ formattedUses }} {{ t('ai.agent.uses') }}
         </span>
         <span v-if="data.stats.rating !== undefined" :class="ns.e('stat-item')">
           <span :class="ns.e('stars')">
@@ -168,7 +166,7 @@ const handleShare = (e: MouseEvent) => {
       <slot name="actions" :data="data" :use="handleUse">
         <button :class="ns.e('use-btn')" @click="handleUse">
           <YhIcon name="sparkles" />
-          {{ t('ai.agent.use') || '立即使用' }}
+          {{ t('ai.agent.use') }}
         </button>
       </slot>
     </div>

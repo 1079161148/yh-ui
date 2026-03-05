@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
 const percentage = ref(20)
 const secondary = ref(45)
@@ -17,24 +18,31 @@ onMounted(() => {
   }, 300)
 })
 
-const tsBasic = `<template>
+// 基础用法
+const tsBasic = `<${_T}>
   <div class="demo-progress">
     <yh-progress :percentage="50" />
     <yh-progress :percentage="100" status="success" />
     <yh-progress :percentage="80" status="warning" />
     <yh-progress :percentage="50" status="exception" />
   </div>
-</template>`
+</${_T}>`
 
-const tsCircle = `<template>
+const jsBasic = toJs(tsBasic)
+
+// 环形与仪表盘
+const tsCircle = `<${_T}>
   <div class="demo-progress-row">
     <yh-progress type="circle" :percentage="25" />
     <yh-progress type="circle" :percentage="100" status="success" />
     <yh-progress type="dashboard" :percentage="75" status="warning" />
   </div>
-</template>`
+</${_T}>`
 
-const tsGradient = `<template>
+const jsCircle = toJs(tsCircle)
+
+// 视觉增强（渐变）
+const tsGradient = `<${_T}>
   <div class="demo-progress-row">
     <!-- SVG 渐变 -->
     <yh-progress 
@@ -56,9 +64,12 @@ const tsGradient = `<template>
       :color="['#409eff', '#67c23a']" 
     />
   </div>
-</template>`
+</${_T}>`
 
-const tsMulti = `<template>
+const jsGradient = toJs(tsGradient)
+
+// 多环嵌套
+const tsMulti = `<${_T}>
   <div class="demo-progress-row">
     <yh-progress 
       type="circle" 
@@ -73,34 +84,46 @@ const tsMulti = `<template>
       </div>
     </yh-progress>
   </div>
-</template>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const multiPercentages = ref([85, 70, 55, 40])
-<\/script>`
+</${_S}>`
 
-const tsStriped = `<template>
+const jsMulti = toJs(tsMulti)
+
+// 条纹与流动
+const tsStriped = `<${_T}>
   <div class="demo-progress">
     <yh-progress :percentage="60" striped />
     <yh-progress :percentage="80" striped striped-flow :duration="1" />
   </div>
-</template>`
+</${_T}>`
 
-const tsSecondary = `<template>
+const jsStriped = toJs(tsStriped)
+
+// 双态感应进度
+const tsSecondary = `<${_T}>
   <yh-progress :percentage="percentage" :secondary-percentage="secondary" />
-</template>`
+</${_T}>`
 
-const tsTextInside = `<template>
+const jsSecondary = toJs(tsSecondary)
+
+// 进度条内显示百分比标识
+const tsTextInside = `<${_T}>
   <div class="demo-progress">
     <yh-progress :stroke-width="26" :percentage="70" text-inside />
     <yh-progress :stroke-width="24" :percentage="100" status="success" text-inside />
     <yh-progress :stroke-width="22" :percentage="80" status="warning" text-inside />
     <yh-progress :stroke-width="20" :percentage="50" status="exception" text-inside />
   </div>
-</template>`
+</${_T}>`
 
-const tsCustomContent = `<template>
+const jsTextInside = toJs(tsTextInside)
+
+// 自定义内容
+const tsCustomContent = `<${_T}>
   <div class="demo-progress">
     <!-- 外部自定义内容 -->
     <yh-progress :percentage="50">
@@ -131,27 +154,38 @@ const tsCustomContent = `<template>
       </yh-progress>
     </div>
   </div>
-</template>`
+</${_T}>`
 
-const tsSteps = `<template>
+const jsCustomContent = toJs(tsCustomContent)
+
+// 精准分段
+const tsSteps = `<${_T}>
   <yh-progress :percentage="60" :steps="5" :stroke-width="15" />
-</template>`
+</${_T}>`
 
-const tsIndeterminate = `<template>
+const jsSteps = toJs(tsSteps)
+
+// 未确定状态
+const tsIndeterminate = `<${_T}>
   <yh-progress indeterminate :duration="2" />
-</template>`
+</${_T}>`
 
-const tsNuxt = `<template>
+const jsIndeterminate = toJs(tsIndeterminate)
+
+// Nuxt 使用
+const tsNuxt = `<${_T}>
   <!-- 直接使用，支持自动导入 -->
   <YhProgress :percentage="50" striped striped-flow />
-</template>`
+</${_T}>`
+
+const jsNuxt = toJs(tsNuxt)
 </script>
 
 ## 基础用法
 
 线形进度条，支持多种内置语义化颜色及自动状态图标。
 
-<DemoBlock title="基础用法指标" :ts-code="tsBasic">
+<DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="demo-progress">
     <yh-progress :percentage="50" />
     <yh-progress :percentage="100" status="success" />
@@ -164,7 +198,7 @@ const tsNuxt = `<template>
 
 百分比不占用额外空间，适用于文件上传等场景。可以通过 `stroke-width` 更改进度条的高度，并通过 `text-inside` 属性来改变进度条内部的文字。
 
-<DemoBlock title="内显百分比" :ts-code="tsTextInside">
+<DemoBlock title="内显百分比" :ts-code="tsTextInside" :js-code="jsTextInside">
   <div class="demo-progress">
     <yh-progress :stroke-width="26" :percentage="70" text-inside />
     <yh-progress :stroke-width="24" :percentage="100" status="success" text-inside />
@@ -177,7 +211,7 @@ const tsNuxt = `<template>
 
 通过默认插槽添加自定义内容。针对环形进度条，还支持作用域插槽（Scoped Slot）来获取实时进度。
 
-<DemoBlock title="自定义内容演示" :ts-code="tsCustomContent">
+<DemoBlock title="自定义内容演示" :ts-code="tsCustomContent" :js-code="jsCustomContent">
   <div class="demo-progress">
     <yh-progress :percentage="50">
       <span style="margin-left: 10px; color: #909399; font-size: 13px">Content</span>
@@ -207,7 +241,7 @@ const tsNuxt = `<template>
 
 通过 `type="circle"` 或 `dashboard` 开启。支持**旋转动画**与自定义 **SVG 渐变**。
 
-<DemoBlock title="视觉增强" :ts-code="tsGradient">
+<DemoBlock title="视觉增强" :ts-code="tsGradient" :js-code="jsGradient">
   <div class="demo-progress-row">
     <yh-progress type="circle" :percentage="80" :color="{ '0%': '#3f5efb', '100%': '#fc466b' }" />
     <yh-progress type="circle" :percentage="70" status="success" animated />
@@ -219,7 +253,7 @@ const tsNuxt = `<template>
 
 通过向 `percentage` 传递数组，可以实现类似 Apple Watch 的多环嵌套效果。
 
-<DemoBlock title="多圈赛跑" :ts-code="tsMulti">
+<DemoBlock title="多圈赛跑" :ts-code="tsMulti" :js-code="jsMulti">
   <div class="demo-progress-row">
     <yh-progress 
       type="circle" 
@@ -238,9 +272,9 @@ const tsNuxt = `<template>
 
 ## 条纹与流动
 
-开启 `striped` 增加设计感，开启 `striped-flow` 让进度条“动”起来。
+开启 `striped` 增加设计感，开启 `striped-flow` 让进度条"动"起来。
 
-<DemoBlock title="动态条纹" :ts-code="tsStriped">
+<DemoBlock title="动态条纹" :ts-code="tsStriped" :js-code="jsStriped">
   <div class="demo-progress">
     <yh-progress :percentage="60" striped />
     <yh-progress :percentage="80" striped striped-flow :duration="1" />
@@ -250,23 +284,26 @@ const tsNuxt = `<template>
 ## 高级特性
 
 ### 1. 双态感应进度 (Secondary Percentage)
+
 支持 `secondary-percentage` 属性。非常适合视频播放缓冲。
 
-<DemoBlock title="双态演示" :ts-code="tsSecondary">
+<DemoBlock title="双态演示" :ts-code="tsSecondary" :js-code="jsSecondary">
   <yh-progress :percentage="percentage" :secondary-percentage="secondary" />
 </DemoBlock>
 
 ### 2. 精准分段 (Steps)
+
 通过 `steps` 属性可以将进度条通过物理刻度进行切分。
 
-<DemoBlock title="分段刻度" :ts-code="tsSteps">
+<DemoBlock title="分段刻度" :ts-code="tsSteps" :js-code="jsSteps">
   <yh-progress :percentage="60" :steps="5" :stroke-width="15" />
 </DemoBlock>
 
 ### 3. 未确定状态 (Indeterminate)
+
 当无法预知确切数值（如正在扫描、正在连接）时。
 
-<DemoBlock title="加载中状态" :ts-code="tsIndeterminate">
+<DemoBlock title="加载中状态" :ts-code="tsIndeterminate" :js-code="jsIndeterminate">
   <yh-progress indeterminate :duration="2" />
 </DemoBlock>
 
@@ -274,7 +311,7 @@ const tsNuxt = `<template>
 
 组件已完美适配 Nuxt 3，支持自动导入与 SSR 渐变 ID 唯一化。
 
-<DemoBlock title="Nuxt 适配" :ts-code="tsNuxt">
+<DemoBlock title="Nuxt 适配" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-progress :percentage="50" striped striped-flow />
 </DemoBlock>
 
@@ -282,47 +319,42 @@ const tsNuxt = `<template>
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| type | 进度类型 | `'line' \| 'circle' \| 'dashboard'` | `'line'` |
-| percentage | 百分比 | `number \| number[]` | `0` |
-| secondary-percentage | 二级百分比（带缓冲感） | `number` | `0` |
-| status | 内置状态，自动匹配颜色与图标 | `'success' \| 'exception' \| 'warning' \| 'info'` | — |
-| stroke-width | 进度条宽度 | `number` | `6` |
-| text-inside | 文字内显（仅限 line 类型） | `boolean` | `false` |
-| width | 环形画布宽度 | `number` | `126` |
-| show-text | 是否显示进度文字/图标 | `boolean` | `true` |
-| color | 进度条颜色，支持函数/数组渐变/对象渐变 | `string \| function \| string[] \| Record<string, string>` | — |
-| define-background-color | 背景轨道颜色 | `string` | — |
-| icon | 自定义状态图标 | `string` | — |
-| animated | 开启环形旋转动效 | `boolean` | `false` |
-| steps | 分段数量 | `number` | `0` |
-| stroke-linecap | 进度条末端形状 | `'butt' \| 'round' \| 'square'` | `'round'` |
-| format | 文字定制化函数 | `function(percentage)` | — |
-| striped | 开启条纹样式 | `boolean` | `false` |
-| striped-flow | 开启条纹流动动画 | `boolean` | `false` |
-| indeterminate | 开启未确定滑动模式 | `boolean` | `false` |
-| duration | 动画周期时长 (s) | `number` | `3` |
+| 属性名                  | 说明                                   | 类型                                                       | 默认值    |
+| ----------------------- | -------------------------------------- | ---------------------------------------------------------- | --------- |
+| type                    | 进度类型                               | `'line' \| 'circle' \| 'dashboard'`                        | `'line'`  |
+| percentage              | 百分比                                 | `number \| number[]`                                       | `0`       |
+| secondary-percentage    | 二级百分比（带缓冲感）                 | `number`                                                   | `0`       |
+| status                  | 内置状态，自动匹配颜色与图标           | `'success' \| 'exception' \| 'warning' \| 'info'`          | —         |
+| stroke-width            | 进度条宽度                             | `number`                                                   | `6`       |
+| text-inside             | 文字内显（仅限 line 类型）             | `boolean`                                                  | `false`   |
+| width                   | 环形画布宽度                           | `number`                                                   | `126`     |
+| show-text               | 是否显示进度文字/图标                  | `boolean`                                                  | `true`    |
+| color                   | 进度条颜色，支持函数/数组渐变/对象渐变 | `string \| function \| string[] \| Record<string, string>` | —         |
+| define-background-color | 背景轨道颜色                           | `string`                                                   | —         |
+| icon                    | 自定义状态图标                         | `string`                                                   | —         |
+| animated                | 开启环形旋转动效                       | `boolean`                                                  | `false`   |
+| steps                   | 分段数量                               | `number`                                                   | `0`       |
+| stroke-linecap          | 进度条末端形状                         | `'butt' \| 'round' \| 'square'`                            | `'round'` |
+| format                  | 文字定制化函数                         | `function(percentage)`                                     | —         |
+| striped                 | 开启条纹样式                           | `boolean`                                                  | `false`   |
+| striped-flow            | 开启条纹流动动画                       | `boolean`                                                  | `false`   |
+| indeterminate           | 开启未确定滑动模式                     | `boolean`                                                  | `false`   |
+| duration                | 动画周期时长 (s)                       | `number`                                                   | `3`       |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
+| 插槽名  | 说明                         | 参数                     |
+| ------- | ---------------------------- | ------------------------ |
 | default | 自定义进度条中心或右侧的内容 | `{ percentage: number }` |
 
 ## 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-progress-bar-bg` | 轨道背景 | `var(--yh-fill-color-darker)` |
-| `--yh-progress-duration` | 默认动画周期 | `3s` |
+| 变量名                   | 说明         | 默认值                        |
+| ------------------------ | ------------ | ----------------------------- |
+| `--yh-progress-bar-bg`   | 轨道背景     | `var(--yh-fill-color-darker)` |
+| `--yh-progress-duration` | 默认动画周期 | `3s`                          |
 
 <style scoped>
 .demo-progress { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 .demo-progress-row { display: flex; gap: 24px; align-items: center; justify-content: center; padding: 20px; flex-wrap: wrap; }
-</style>
-
-<style scoped>
-.demo-progress { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-.demo-progress-row { display: flex; gap: 24px; align-items: center; justify-content: center; padding: 20px; }
 </style>

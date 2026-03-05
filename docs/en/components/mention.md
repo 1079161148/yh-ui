@@ -268,7 +268,7 @@ const options = [
   { value: 'bob', label: 'Bob' },
   { value: 'carol', label: 'Carol' }
 ]
-const customFilter = (keyword: string, opt: any) => {
+const customFilter = (keyword: string, opt: MentionOption) => {
   const lower = keyword.toLowerCase()
   return (
     opt.label.toLowerCase().includes(lower) ||
@@ -538,100 +538,100 @@ In SSR scenarios, Mention's initial render only includes the input itself. The d
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `string` | `''` |
-| options | Candidate options list | `MentionOption[]` | `[]` |
-| triggers | Trigger characters | `string[]` | `['@']` |
-| type | Input type | `'input' \| 'textarea'` | `'input'` |
-| placement | Dropdown direction | `'top' \| 'bottom'` | `'bottom'` |
-| placeholder | Placeholder text | `string` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| readonly | Whether readonly | `boolean` | `false` |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| maxlength | Max input length | `number` | — |
-| clearable | Whether clearable | `boolean` | `false` |
-| show-word-limit | Whether to show word limit | `boolean` | `false` |
-| prefix-icon | Prefix icon | `Component` | — |
-| suffix-icon | Suffix icon | `Component` | — |
-| filter-option | Custom filter function, set to `false` to disable | `((keyword, option) => boolean) \| false` | — |
-| loading | Whether loading | `boolean` | `false` |
-| loading-text | Loading text | `string` | `'Loading...'` |
-| no-data-text | No data text | `string` | `'No Data'` |
-| teleported | Mount dropdown to body | `boolean` | `true` |
-| popper-class | Custom dropdown class | `string` | `''` |
-| split | Separator appended after selection | `string` | `' '` |
-| whole-word | Whether to insert as whole word | `boolean` | `false` |
-| autofocus | Auto focus | `boolean` | `false` |
-| rows | Textarea rows | `number` | `3` |
-| debounce | Search debounce delay (ms) | `number` | `100` |
-| validate-event | Whether to trigger form validation | `boolean` | `true` |
-| theme-overrides | Theme override variables | `ComponentThemeVars` | — |
+| Prop                  | Description                                       | Type                                      | Default        |
+| --------------------- | ------------------------------------------------- | ----------------------------------------- | -------------- |
+| model-value / v-model | Binding value                                     | `string`                                  | `''`           |
+| options               | Candidate options list                            | `MentionOption[]`                         | `[]`           |
+| triggers              | Trigger characters                                | `string[]`                                | `['@']`        |
+| type                  | Input type                                        | `'input' \| 'textarea'`                   | `'input'`      |
+| placement             | Dropdown direction                                | `'top' \| 'bottom'`                       | `'bottom'`     |
+| placeholder           | Placeholder text                                  | `string`                                  | —              |
+| disabled              | Whether disabled                                  | `boolean`                                 | `false`        |
+| readonly              | Whether readonly                                  | `boolean`                                 | `false`        |
+| size                  | Size                                              | `'large' \| 'default' \| 'small'`         | `'default'`    |
+| maxlength             | Max input length                                  | `number`                                  | —              |
+| clearable             | Whether clearable                                 | `boolean`                                 | `false`        |
+| show-word-limit       | Whether to show word limit                        | `boolean`                                 | `false`        |
+| prefix-icon           | Prefix icon                                       | `Component`                               | —              |
+| suffix-icon           | Suffix icon                                       | `Component`                               | —              |
+| filter-option         | Custom filter function, set to `false` to disable | `((keyword, option) => boolean) \| false` | —              |
+| loading               | Whether loading                                   | `boolean`                                 | `false`        |
+| loading-text          | Loading text                                      | `string`                                  | `'Loading...'` |
+| no-data-text          | No data text                                      | `string`                                  | `'No Data'`    |
+| teleported            | Mount dropdown to body                            | `boolean`                                 | `true`         |
+| popper-class          | Custom dropdown class                             | `string`                                  | `''`           |
+| split                 | Separator appended after selection                | `string`                                  | `' '`          |
+| whole-word            | Whether to insert as whole word                   | `boolean`                                 | `false`        |
+| autofocus             | Auto focus                                        | `boolean`                                 | `false`        |
+| rows                  | Textarea rows                                     | `number`                                  | `3`            |
+| debounce              | Search debounce delay (ms)                        | `number`                                  | `100`          |
+| validate-event        | Whether to trigger form validation                | `boolean`                                 | `true`         |
+| theme-overrides       | Theme override variables                          | `ComponentThemeVars`                      | —              |
 
 ### MentionOption
 
-| Field | Description | Type |
-| --- | --- | --- |
-| value | Unique identifier (required) | `string` |
-| label | Display label | `string` |
-| disabled | Whether disabled | `boolean` |
-| avatar | Avatar URL | `string` |
-| description | Description info | `string` |
-| group | Group name | `string` |
+| Field       | Description                  | Type      |
+| ----------- | ---------------------------- | --------- |
+| value       | Unique identifier (required) | `string`  |
+| label       | Display label                | `string`  |
+| disabled    | Whether disabled             | `boolean` |
+| avatar      | Avatar URL                   | `string`  |
+| description | Description info             | `string`  |
+| group       | Group name                   | `string`  |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered on value change | `(value: string) => void` |
-| input | Triggered on input | `(value: string) => void` |
-| change | Triggered on blur | `(value: string) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered on clear | `() => void` |
-| **search** | Triggered on search | `(keyword: string, trigger: string) => void` |
-| **select** | Triggered on selecting an option | `(option: MentionOption, trigger: string) => void` |
-| **open** | Triggered when opening dropdown | `() => void` |
-| **close** | Triggered when closing dropdown | `() => void` |
-| keydown | Triggered on keydown | `(event: KeyboardEvent) => void` |
+| Event             | Description                      | Parameters                                         |
+| ----------------- | -------------------------------- | -------------------------------------------------- |
+| update:modelValue | Triggered on value change        | `(value: string) => void`                          |
+| input             | Triggered on input               | `(value: string) => void`                          |
+| change            | Triggered on blur                | `(value: string) => void`                          |
+| focus             | Triggered on focus               | `(event: FocusEvent) => void`                      |
+| blur              | Triggered on blur                | `(event: FocusEvent) => void`                      |
+| clear             | Triggered on clear               | `() => void`                                       |
+| **search**        | Triggered on search              | `(keyword: string, trigger: string) => void`       |
+| **select**        | Triggered on selecting an option | `(option: MentionOption, trigger: string) => void` |
+| **open**          | Triggered when opening dropdown  | `() => void`                                       |
+| **close**         | Triggered when closing dropdown  | `() => void`                                       |
+| keydown           | Triggered on keydown             | `(event: KeyboardEvent) => void`                   |
 
 ### Slots
 
-| Slot | Description | Scope |
-| --- | --- | --- |
-| **option** | Custom option rendering | `{ option: MentionOption, keyword: string }` |
-| **empty** | Custom no data content | — |
-| **loading** | Custom loading content | — |
-| prefix | Custom prefix content | — |
-| suffix | Custom suffix content | — |
+| Slot        | Description             | Scope                                        |
+| ----------- | ----------------------- | -------------------------------------------- |
+| **option**  | Custom option rendering | `{ option: MentionOption, keyword: string }` |
+| **empty**   | Custom no data content  | —                                            |
+| **loading** | Custom loading content  | —                                            |
+| prefix      | Custom prefix content   | —                                            |
+| suffix      | Custom suffix content   | —                                            |
 
 ### Expose
 
-| Prop/Method | Description | Type |
-| --- | --- | --- |
-| ref | Input/Textarea DOM element | `HTMLInputElement \| HTMLTextAreaElement` |
-| wrapperRef | Wrapper DOM element | `HTMLElement` |
-| focus | Focus the input | `() => void` |
-| blur | Blur the input | `() => void` |
-| clear | Clear the input | `() => void` |
+| Prop/Method       | Description                     | Type                                                |
+| ----------------- | ------------------------------- | --------------------------------------------------- |
+| ref               | Input/Textarea DOM element      | `HTMLInputElement \| HTMLTextAreaElement`           |
+| wrapperRef        | Wrapper DOM element             | `HTMLElement`                                       |
+| focus             | Focus the input                 | `() => void`                                        |
+| blur              | Blur the input                  | `() => void`                                        |
+| clear             | Clear the input                 | `() => void`                                        |
 | **insertMention** | Programmatically insert mention | `(option: MentionOption, trigger?: string) => void` |
 
 ## Keyboard Operations
 
-| Key | Description |
-| --- | --- |
-| `↑` / `↓` | Navigate highlight options |
-| `Enter` | Select highlighted option |
-| `Tab` | Select highlighted option (closes if none) |
-| `Escape` | Close dropdown panel |
+| Key       | Description                                |
+| --------- | ------------------------------------------ |
+| `↑` / `↓` | Navigate highlight options                 |
+| `Enter`   | Select highlighted option                  |
+| `Tab`     | Select highlighted option (closes if none) |
+| `Escape`  | Close dropdown panel                       |
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-mention-font-size` | Font size | `var(--yh-font-size-base)` |
-| `--yh-mention-bg-color` | Background color | `var(--yh-fill-color-blank)` |
-| `--yh-mention-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-mention-border-radius` | Border radius | `var(--yh-border-radius-base)` |
-| `--yh-mention-height-default` | Default height | `var(--yh-component-size-default)` |
-| `--yh-mention-dropdown-shadow` | Dropdown shadow | `var(--yh-box-shadow-light)` |
+| Variable                       | Description      | Default                            |
+| ------------------------------ | ---------------- | ---------------------------------- |
+| `--yh-mention-font-size`       | Font size        | `var(--yh-font-size-base)`         |
+| `--yh-mention-bg-color`        | Background color | `var(--yh-fill-color-blank)`       |
+| `--yh-mention-border-color`    | Border color     | `var(--yh-border-color)`           |
+| `--yh-mention-border-radius`   | Border radius    | `var(--yh-border-radius-base)`     |
+| `--yh-mention-height-default`  | Default height   | `var(--yh-component-size-default)` |
+| `--yh-mention-dropdown-shadow` | Dropdown shadow  | `var(--yh-box-shadow-light)`       |

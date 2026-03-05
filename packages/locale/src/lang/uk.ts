@@ -592,124 +592,124 @@ export const uk: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Будь ласка, введіть',
+      loading: 'Завантаження...',
+      noData: 'Немає даних'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Цитати'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Згадати Агента, Документ або Таблицю...',
+        agent: 'Агент',
+        document: 'Документ',
+        table: 'Таблиця',
+        knowledge: 'Знання'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Копіювати код',
+        copied: 'Скопійовано!',
+        run: 'Запустити код',
+        edit: 'Редагувати',
+        save: 'Зберегти',
+        cancel: 'Скасувати'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Запустити',
+        stop: 'Зупинити',
+        clear: 'Очистити',
+        reset: 'Скинути',
+        placeholder: 'Натисніть Запустити для виконання коду...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Надіслати повідомлення...',
+        dragTip: 'Відпустіть для завантаження файлів'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Процес мислення',
+        thinking: 'Мислення...',
+        defaultTitle: 'Новий крок',
+        addNode: 'Додати крок'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Почати мислити',
+        thinking: 'Мислення...',
+        complete: 'Мислення завершено',
+        error: 'Помилка мислення'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Привіт, я YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Я можу допомогти вам з програмуванням, перекладом документів або творчим письмом. Що я можу зробити для вас сьогодні?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Копіювати',
+        regenerate: 'Регенерувати',
+        share: 'Поділитися',
+        like: 'Подобається',
+        dislike: 'Не подобається',
+        edit: 'Редагувати',
+        delete: 'Видалити'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Попередній перегляд',
+        inline: 'Вбудований',
+        code: 'Код',
+        versions: 'Версії',
+        rendering: 'Рендеринг компонента...',
+        renderingChart: 'Рендеринг діаграми...',
+        renderingCanvas: 'Підготовка полотна...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Клік для голосу',
+        listening: 'Слухання...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'використовує',
+        use: 'Використати зараз',
+        favorite: 'Обране',
+        unfavorite: 'Видалити з обраного',
+        share: 'Поділитися',
+        online: 'Онлайн',
+        offline: 'Офлайн',
+        busy: 'Зайнятий',
+        verified: 'Перевірений',
+        rating: 'Рейтинг',
+        reviews: 'відгуків',
+        responseTime: 'Середній час відповіді',
+        ms: 'мс'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Посилання',
+        referencedSources: 'Джерела посилань',
+        relevant: 'Релевантність',
+        viewOriginal: 'Переглянути оригінал',
+        showAll: 'Показати всі',
+        more: 'більше джерел',
+        drawerTitle: 'Посилання',
+        expandMore: 'Показати більше',
+        collapseMore: 'Згорнути',
+        noSources: 'Немає джерел',
+        today: 'Сьогодні',
+        last7Days: 'Останні 7 днів',
+        last30Days: 'Останні 30 днів',
+        earlier: 'Раніше',
+        pinned: 'Закріплені'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Сьогодні',
+        last7Days: 'Останні 7 днів',
+        last30Days: 'Останні 30 днів',
+        earlier: 'Раніше',
+        pinned: 'Закріплені',
+        pin: 'Закріпити',
+        unpin: 'Відкріпити',
+        newConversation: 'Нова розмова',
+        rename: 'Перейменувати',
+        delete: 'Видалити',
+        deleteConfirm: 'Підтвердити видалення цієї розмови?'
       }
     }
   }

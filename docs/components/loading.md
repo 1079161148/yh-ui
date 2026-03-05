@@ -41,7 +41,7 @@ const openCustomSpinner = () => {
   setTimeout(() => instance.close(), 2000)
 }
 
-const openPremium = (type: any) => {
+const openPremium = (type: LoadingSpinnerType) => {
   const instance = YhLoading.service({
     fullscreen: true,
     spinnerType: type,
@@ -52,7 +52,7 @@ const openPremium = (type: any) => {
   setTimeout(() => instance.close(), 2000)
 }
 
-const openPremiumColored = (type: any, colors: string[]) => {
+const openPremiumColored = (type: LoadingSpinnerType, colors: string[]) => {
   const instance = YhLoading.service({
     fullscreen: true,
     spinnerType: type,

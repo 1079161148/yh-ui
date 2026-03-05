@@ -592,124 +592,124 @@ export const lo: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'ກະລຸນາໃສ່',
+      loading: 'ກໍາລັງໂຫຼດ...',
+      noData: '�ໍ່ມີຂໍ້ມູນ'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'ໝາຍ​ເຫດ'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ ກ່າວ​ເຖິງ Agent, ເອ​ກະ​ສານ ຫຼື ຕາ​ຕະ​ລາງ...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'ເອ​ກະ​ສານ',
+        table: 'ຕາ​ຕະ​ລາງ',
+        knowledge: '​ເອ​ກະ​ພົບ'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: '​ເຄ​າ​ະ​ລື​ໂ​ຄ້​ດ',
+        copied: '​ເຄ​າ​ະ​ລື​ແ​ລ້​ວ!',
+        run: '​ແ​ລ​່​ນ​ໂ​ຄ້​ດ',
+        edit: '​ແ​ກ​້​ໄ​ຂ',
+        save: '​​ເກ​ັ​ບ​ຮ​ັ​ກ​ສາ',
+        cancel: '​​​ເລ​ີ​ກ'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: '​ແ​ລ​່​ນ',
+        stop: '​ຢ​ຸ​ດ',
+        clear: '​ເອົາ​ເ',
+        reset: '​​​ຕ​ັ​້​ງ​ໃ​ໝ່',
+        placeholder: '​ກ​ົດ Run ເ​ພື​່​ອ​ແ​ລ​່​ນ​ໂ​ຄ້​ດ...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: '​​ສ​່ຽງ​ຂໍ​້​ຄ​ວາ​ມ...',
+        dragTip: '​ป​ล่อย​เพื่อ​อัป​โหลด​ไฟล์'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: '​ກ​ະ​ຣິ​ມ​ແ​ນ​່​ນ​ິ​',
+        thinking: '​ກ​ໍາ​ລັ​ງ​ຄິ​ດ...',
+        defaultTitle: '​ຂ​ັ້​ນ​ຕ​ອ​ນ​ໃ​ໝ່',
+        addNode: '​ເພິ​່​ມ​​ຂ​ັ້​ນ​ຕ​ອ​ນ'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: '​ເ​ລ​ີ​່​ມ​​​ຄິ​ດ',
+        thinking: '​ກ​ໍາ​ລັ​ງ​ຄິ​ດ...',
+        complete: '​ຄິ​�​ແ​ລ້​ວ',
+        error: '​ຄ​ວາ​ມ​​�​ິ​ດ​​ພ​າ​ດ​​ໃ​ນ​​ກ​າ​ນ​​ຄິ​ດ'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: '​ສ​ະ​ບາຍ​, ຂ​້​າ​​,YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          '​ຂ​້​າ​​ສ​�​ມ​າ​ດ​​ຊ​່​ວ​ຍ​​ເ​ຫ​ຼື​​ດ​​ເ​ຈ​ົ້​າ​​ໃ​ນ​​ກ​າ​ນ​​ເ​ຂ​ີ​​�​​ໂ​ຄ້​​, ແ​ປ​​ເ​ອ​​ກ​​ະ​​ສ​​າ​ນ ຫ​ຼື ​ຂ​ຽ​​�​​ເ​ລ​​ກ​​າ​​ໃ​ໝ່​.  ​​ມ​​ີ​​​​อ​​ะ​​ໄ​​ร​​?​'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: '​ເ​ຄ​າ​ະ​​',
+        regenerate: '​�​້​າ​​ງ​​ໃ​ໝ່',
+        share: '​ແ​ບ​່​ງ​​',
+        like: '​ມ​​່​າ​',
+        dislike: '​ບ​ໍ​​່​​ມ​​່​າ',
+        edit: '​ແ​ກ​້​​',
+        delete: '​�​ຶ​'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: '​ເ​ບ​່​ອ​​',
+        inline: '​ໃ​ນ​​',
+        code: '​source',
+        versions: '​',
+        rendering: '​ກ​ໍ​າ​ລັ​ງ​​',
+        renderingChart: '​',
+        renderingCanvas: '​'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: '​',
+        listening: '​'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: '​',
+        use: '​',
+        favorite: '​',
+        unfavorite: '​',
+        share: '​',
+        online: '​',
+        offline: '​',
+        busy: '​',
+        verified: '​',
+        rating: '​',
+        reviews: '​',
+        responseTime: '​',
+        ms: '​'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: '​',
+        referencedSources: '​',
+        relevant: '​',
+        viewOriginal: '​',
+        showAll: '​',
+        more: '​',
+        drawerTitle: '​',
+        expandMore: '​',
+        collapseMore: '​',
+        noSources: '​',
+        today: '​',
+        last7Days: '7  ',
+        last30Days: '30  ',
+        earlier: '​',
+        pinned: '​'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: '​',
+        last7Days: '7  ',
+        last30Days: '30  ',
+        earlier: '​',
+        pinned: '​',
+        pin: '​',
+        unpin: '​',
+        newConversation: '​',
+        rename: '​',
+        delete: '​',
+        deleteConfirm: '?'
       }
     }
   }

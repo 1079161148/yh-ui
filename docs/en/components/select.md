@@ -639,13 +639,13 @@ The Select component has passed comprehensive SSR tests, ensuring that server-si
 ### Events
 
 | Event Name     | Description                                           | Callback Parameters           |
-| -------------- | ----------------------------------------------------- | ----------------------------- |
-| change         | Triggered when the selected value changes             | `(value: any) => void`        |
+| -------------- | ----------------------------------------------------- | ----------------------------- | ------ | ----------------- | ------- | ------ | ---------- | ------------------- |
+| change         | Triggered when the selected value changes             | `(value: string               | number | boolean           | (string | number | boolean)[] | undefined) => void` |
 | focus          | Triggered on focus                                    | `(event: FocusEvent) => void` |
 | blur           | Triggered on blur                                     | `(event: FocusEvent) => void` |
 | clear          | Triggered when the clear button is clicked            | `() => void`                  |
 | visible-change | Triggered when the dropdown visibility changes        | `(visible: boolean) => void`  |
-| remove-tag     | Triggered when a tag is removed in multiple selection | `(value: any) => void`        |
+| remove-tag     | Triggered when a tag is removed in multiple selection | `(value: string               | number | boolean) => void` |
 
 ### Slots
 

@@ -5,6 +5,7 @@ A control for selecting or inputting dates. It supports selection by day, week, 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import dayjs from 'dayjs'
+import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 
 // --- State Data ---
 const demoType = ref('date')
@@ -30,6 +31,10 @@ const d7 = ref(null)
 const d8 = ref('')
 const d9 = ref('')
 const r1 = ref(null), r2 = ref(null)
+const dv1 = ref(new Date())
+const dv2 = ref(new Date())
+const dv3 = ref(null)
+const defaultDate = new Date(2025, 0, 1)
 
 const presets = [
   { label: 'Today', value: new Date() },
@@ -57,7 +62,7 @@ const formatValue = (val, type) => {
 }
 
 // --- Code Snippets ---
-const showcaseTS = `<template>
+const showcaseTS = `<${_T}>
   <div class="demo-showcase">
     <div class="demo-ctrl">
       <div class="ctrl-row">
@@ -80,9 +85,9 @@ const showcaseTS = `<template>
       <yh-date-picker :key="type + shape" v-model="value" :type="type" :cell-shape="shape" panel-only />
     </div>
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const type = ref('date')
 const shape = ref('round')
@@ -97,82 +102,94 @@ const types = [
   { value: 'daterange', label: 'Date Range' },
   { value: 'monthrange', label: 'Month Range' }
 ]
-<` + `/script>`
+</${_S}>`
 
-const baseTS = `<template>
+const showcaseJS = toJs(showcaseTS)
+
+const baseTS = `<${_T}>
   <div class="yh-demo-row">
     <yh-date-picker v-model="d1" placeholder="Pick a day" />
     <yh-date-picker v-model="d2" type="month" placeholder="Pick a month" />
     <yh-date-picker v-model="d3" type="year" placeholder="Pick a year" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const d1 = ref('')
 const d2 = ref('')
 const d3 = ref('')
-<` + `/script>`
+</${_S}>`
 
-const statusTS = `<template>
+const baseJS = toJs(baseTS)
+
+const statusTS = `<${_T}>
   <div class="yh-demo-row">
     <yh-date-picker v-model="d4" disabled placeholder="Disabled" />
     <yh-date-picker v-model="d5" readonly placeholder="Readonly" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const d4 = ref('2026-01-24')
 const d5 = ref('2026-01-24')
-<` + `/script>`
+</${_S}>`
 
-const sizeTS = `<template>
+const statusJS = toJs(statusTS)
+
+const sizeTS = `<${_T}>
   <div class="yh-demo-row">
     <yh-date-picker v-model="s1" size="large" placeholder="Large 40px" />
     <yh-date-picker v-model="s2" placeholder="Default 32px" />
     <yh-date-picker v-model="s3" size="small" placeholder="Small 24px" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const s1 = ref('')
 const s2 = ref('')
 const s3 = ref('')
-<` + `/script>`
+</${_S}>`
 
-const shapeTS = `<template>
+const sizeJS = toJs(sizeTS)
+
+const shapeTS = `<${_T}>
   <div class="yh-demo-row">
     <yh-date-picker v-model="d8" cell-shape="round" placeholder="Default Round" />
     <yh-date-picker v-model="d9" cell-shape="square" placeholder="Classic Square" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const d8 = ref('')
 const d9 = ref('')
-<` + `/script>`
+</${_S}>`
 
-const rangeTS = `<template>
+const shapeJS = toJs(shapeTS)
+
+const rangeTS = `<${_T}>
   <div class="yh-demo-column">
     <yh-date-picker v-model="r1" type="daterange" start-placeholder="Start Date" end-placeholder="End Date" />
     <yh-date-picker v-model="r2" type="monthrange" start-placeholder="Start Month" end-placeholder="End Month" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const r1 = ref(null)
 const r2 = ref(null)
-<` + `/script>`
+</${_S}>`
 
-const presetsTS = `<template>
+const rangeJS = toJs(rangeTS)
+
+const presetsTS = `<${_T}>
   <yh-date-picker v-model="d6" :presets="presets" placeholder="Click to see presets" />
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import dayjs from 'dayjs'
 const d6 = ref(null)
@@ -181,22 +198,26 @@ const presets = [
   { label: 'Yesterday', value: () => dayjs().subtract(1, 'day').toDate() },
   { label: 'A week ago', value: () => dayjs().subtract(1, 'week').toDate() }
 ]
-<` + `/script>`
+</${_S}>`
 
-const disabledTS = `<template>
+const presetsJS = toJs(presetsTS)
+
+const disabledTS = `<${_T}>
   <yh-date-picker v-model="d7" :disabled-date="disabledDate" placeholder="Cannot select past dates" />
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import dayjs from 'dayjs'
 const d7 = ref(null)
 const disabledDate = (date: Date) => {
   return dayjs(date).isBefore(dayjs(), 'day')
 }
-<` + `/script>`
+</${_S}>`
 
-const customTS = `<template>
+const disabledJS = toJs(disabledTS)
+
+const customTS = `<${_T}>
   <div class="yh-demo-column">
     <yh-date-picker v-model="dv1" placeholder="Custom Clear Icon">
       <template #clear-icon>
@@ -206,32 +227,32 @@ const customTS = `<template>
     <yh-date-picker v-model="dv2" type="datetime" time-format="HH:mm:ss" placeholder="Custom Time Format" />
     <yh-date-picker v-model="dv3" :default-value="defaultDate" placeholder="Default show 2025-01" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 const dv1 = ref(new Date())
 const dv2 = ref(new Date())
 const dv3 = ref(null)
 const defaultDate = new Date(2025, 0, 1)
-<` + `/script>`
+</${_S}>`
 
-const tsNuxt = `<template>
+const customJS = toJs(customTS)
+
+const tsNuxt = `<${_T}>
   <div class="yh-demo-row">
     <yh-date-picker v-model="date" placeholder="Nuxt SSR Support" />
   </div>
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 // In Nuxt, no need to import, just define reactive data
 const date = ref('')
-<` + `/script>`
+</${_S}>`
 
-const dv1 = ref(new Date())
-const dv2 = ref(new Date())
-const dv3 = ref(null)
+const jsNuxt = toJs(tsNuxt)
+
 const d10 = ref(null)
-const defaultDate = new Date(2025, 0, 1)
 
 // Custom render logic demo
 const cellRender = (date: Date) => {
@@ -253,15 +274,15 @@ const cellRender = (date: Date) => {
   return ''
 }
 
-const renderTS = `<template>
+const renderTS = `<${_T}>
   <yh-date-picker 
     v-model="value" 
     :cell-render="cellRender" 
     placeholder="Render holidays and solar terms" 
   />
-</template>
+</${_T}>
 
-<` + `script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import dayjs from 'dayjs'
 
@@ -284,11 +305,14 @@ const cellRender = (date: Date) => {
   }
   return ''
 }
-<` + `/script>
-<` + `style>
+</${_S}>
+
+<${_St} scoped>
 .is-holiday { color: var(--yh-color-danger); font-weight: bold; }
 .is-solar-term { color: #0ea5e9; }
-<` + `/style>`
+</${_St}>`
+
+const renderJS = toJs(renderTS)
 
 </script>
 
@@ -296,7 +320,7 @@ const cellRender = (date: Date) => {
 
 DatePicker supports multiple units of panel display directly, which is common for custom layouts or dashboards.
 
-<DemoBlock title="Full Showcase" :ts-code="showcaseTS">
+<DemoBlock title="Full Showcase" :ts-code="showcaseTS" :js-code="showcaseJS">
   <div class="demo-showcase">
     <div class="demo-ctrl">
       <div class="ctrl-row">
@@ -330,7 +354,7 @@ DatePicker supports multiple units of panel display directly, which is common fo
 
 With the `type` attribute, you can quickly switch between date, month, and year selection modes.
 
-<DemoBlock title="Basic Usage" :ts-code="baseTS">
+<DemoBlock title="Basic Usage" :ts-code="baseTS" :js-code="baseJS">
   <div class="yh-demo-row">
     <yh-date-picker v-model="d1" placeholder="Pick a day" />
     <yh-date-picker v-model="d2" type="month" placeholder="Pick a month" />
@@ -342,7 +366,7 @@ With the `type` attribute, you can quickly switch between date, month, and year 
 
 DatePicker provides rich attributes to meet fine-tuned customization needs, such as custom icons and special display formats.
 
-<DemoBlock title="Advanced Options" :ts-code="customTS">
+<DemoBlock title="Advanced Options" :ts-code="customTS" :js-code="customJS">
   <div class="yh-demo-column">
     <yh-date-picker v-model="dv1" placeholder="Custom Clear Icon">
       <template #clear-icon>
@@ -358,7 +382,7 @@ DatePicker provides rich attributes to meet fine-tuned customization needs, such
 
 The appearance style supports not only the modern round (default) but also the classic and stable square.
 
-<DemoBlock title="Shape Switch" :ts-code="shapeTS">
+<DemoBlock title="Shape Switch" :ts-code="shapeTS" :js-code="shapeJS">
   <div class="yh-demo-row">
     <yh-date-picker v-model="d8" cell-shape="round" placeholder="Default Round" />
     <yh-date-picker v-model="d9" cell-shape="square" placeholder="Classic Square" />
@@ -369,7 +393,7 @@ The appearance style supports not only the modern round (default) but also the c
 
 Through the `cell-render` attribute or `date-cell` slot, you can customize the display content of date cells, such as adding lunar calendars, holidays, solar terms, or business markers.
 
-<DemoBlock title="Holidays and Solar Terms" :ts-code="renderTS">
+<DemoBlock title="Holidays and Solar Terms" :ts-code="renderTS" :js-code="renderJS">
   <div class="yh-demo-row">
     <yh-date-picker 
       v-model="d10" 
@@ -384,7 +408,7 @@ Through the `cell-render` attribute or `date-cell` slot, you can customize the d
 
 Use the `disabled` attribute to disable the component, and use the `readonly` attribute to set it to read-only.
 
-<DemoBlock title="Status Demo" :ts-code="statusTS">
+<DemoBlock title="Status Demo" :ts-code="statusTS" :js-code="statusJS">
   <div class="yh-demo-row">
     <yh-date-picker v-model="d4" disabled placeholder="Disabled" />
     <yh-date-picker v-model="d5" readonly placeholder="Readonly" />
@@ -395,7 +419,7 @@ Use the `disabled` attribute to disable the component, and use the `readonly` at
 
 The component provides three sizes: `large`, `default`, and `small`, to adapt to different page spaces.
 
-<DemoBlock title="Sizes Demo" :ts-code="sizeTS">
+<DemoBlock title="Sizes Demo" :ts-code="sizeTS" :js-code="sizeJS">
   <div class="yh-demo-row">
     <yh-date-picker v-model="s1" size="large" placeholder="Large 36px" />
     <yh-date-picker v-model="s2" placeholder="Default 32px" />
@@ -407,7 +431,7 @@ The component provides three sizes: `large`, `default`, and `small`, to adapt to
 
 Through the `presets` attribute, quick selection options can be configured, greatly improving user selection efficiency.
 
-<DemoBlock title="Presets" :ts-code="presetsTS">
+<DemoBlock title="Presets" :ts-code="presetsTS" :js-code="presetsJS">
   <yh-date-picker v-model="d6" :presets="presets" placeholder="Click to see presets" />
 </DemoBlock>
 
@@ -415,7 +439,7 @@ Through the `presets` attribute, quick selection options can be configured, grea
 
 Through the `disabled-date` function, you can customize which dates should not be selectable.
 
-<DemoBlock title="Date Filtering" :ts-code="disabledTS">
+<DemoBlock title="Date Filtering" :ts-code="disabledTS" :js-code="disabledJS">
   <yh-date-picker v-model="d7" :disabled-date="disabledDate" placeholder="Cannot select past dates" />
 </DemoBlock>
 
@@ -423,7 +447,7 @@ Through the `disabled-date` function, you can customize which dates should not b
 
 Set `type` to `*range` to enable range selection mode.
 
-<DemoBlock title="Range Mode" :ts-code="rangeTS">
+<DemoBlock title="Range Mode" :ts-code="rangeTS" :js-code="rangeJS">
   <div class="yh-demo-column">
     <yh-date-picker v-model="r1" type="daterange" start-placeholder="Start Date" end-placeholder="End Date" />
     <yh-date-picker v-model="r2" type="monthrange" start-placeholder="Start Month" end-placeholder="End Month" />
@@ -434,7 +458,7 @@ Set `type` to `*range` to enable range selection mode.
 
 DatePicker perfectly supports SSR rendering in Nuxt 3/4. In Nuxt projects, the component and its dependencies (styles, Hooks) are automatically imported, no manual registration required.
 
-<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div class="yh-demo-row">
     <yh-date-picker v-model="d1" placeholder="Nuxt SSR Support" />
   </div>
@@ -448,80 +472,80 @@ DatePicker has been optimized for Hydration internally, ensuring that the DOM st
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| v-model / model-value | Binding value | `Date \| string \| number \| Array` | — |
-| type | Display type | `DatePickerType` | `'date'` |
-| cell-shape | Cell shape | `'round' \| 'square'` | `'round'` |
-| disabled | Whether disabled | `boolean` | `false` |
-| readonly | Whether readonly | `boolean` | `false` |
-| clearable | Whether to show clear button | `boolean` | `true` |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| placeholder | Placeholder when not in range mode | `string` | `'Please select date'` |
-| start-placeholder | Placeholder for start date in range mode | `string` | `'Start date'` |
-| end-placeholder | Placeholder for end date in range mode | `string` | `'End date'` |
-| format | Format displayed in the input box | `string` | — |
-| value-format | Format of the binding value | `string` | — |
-| date-format | Date format displayed on the panel | `string` | `'YYYY-MM-DD'` |
-| time-format | Time format displayed on the panel | `string` | `'HH:mm:ss'` |
-| range-separator | Separator when choosing range | `string` | `'-'` |
-| first-day-of-week | First day of week (1-7) | `number` | `7` |
-| disabled-date | Disabled dates function | `(date: Date) => boolean` | — |
-| presets | Quick options | `DatePickerPreset[]` | `[]` |
-| preset-position | Position of quick options | `'left' \| 'right' \| 'top' \| 'bottom'` | `'bottom'` |
-| show-footer | Whether to show operation bar at bottom | `boolean` | `true` |
-| status | Input box status | `'success' \| 'warning' \| 'error'` | — |
-| order-on-confirm | Whether to auto-sort during range selection | `boolean` | `false` |
-| prefix-icon | Custom prefix icon | `string \| Component` | — |
-| clear-icon | Custom clear icon | `string \| Component` | — |
-| default-value | Date shown by default when opening the picker | `Date \| Date[]` | — |
-| default-time | Default time (in datetime mode) | `Date \| Date[]` | — |
-| panel-only | Whether to display inline (panel only) | `boolean` | `false` |
-| cell-render | Custom cell rendering function | `(date: Date) => string \| { text: string; className?: string }` | — |
-| teleported | Whether to insert the panel into body | `boolean` | `true` |
-| popper-class | Popover class name | `string` | — |
-| validate-event | Whether to trigger form validation | `boolean` | `true` |
+| Prop                  | Description                                   | Type                                                             | Default                |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------- | ---------------------- |
+| v-model / model-value | Binding value                                 | `Date \| string \| number \| Array`                              | —                      |
+| type                  | Display type                                  | `DatePickerType`                                                 | `'date'`               |
+| cell-shape            | Cell shape                                    | `'round' \| 'square'`                                            | `'round'`              |
+| disabled              | Whether disabled                              | `boolean`                                                        | `false`                |
+| readonly              | Whether readonly                              | `boolean`                                                        | `false`                |
+| clearable             | Whether to show clear button                  | `boolean`                                                        | `true`                 |
+| size                  | Size                                          | `'large' \| 'default' \| 'small'`                                | `'default'`            |
+| placeholder           | Placeholder when not in range mode            | `string`                                                         | `'Please select date'` |
+| start-placeholder     | Placeholder for start date in range mode      | `string`                                                         | `'Start date'`         |
+| end-placeholder       | Placeholder for end date in range mode        | `string`                                                         | `'End date'`           |
+| format                | Format displayed in the input box             | `string`                                                         | —                      |
+| value-format          | Format of the binding value                   | `string`                                                         | —                      |
+| date-format           | Date format displayed on the panel            | `string`                                                         | `'YYYY-MM-DD'`         |
+| time-format           | Time format displayed on the panel            | `string`                                                         | `'HH:mm:ss'`           |
+| range-separator       | Separator when choosing range                 | `string`                                                         | `'-'`                  |
+| first-day-of-week     | First day of week (1-7)                       | `number`                                                         | `7`                    |
+| disabled-date         | Disabled dates function                       | `(date: Date) => boolean`                                        | —                      |
+| presets               | Quick options                                 | `DatePickerPreset[]`                                             | `[]`                   |
+| preset-position       | Position of quick options                     | `'left' \| 'right' \| 'top' \| 'bottom'`                         | `'bottom'`             |
+| show-footer           | Whether to show operation bar at bottom       | `boolean`                                                        | `true`                 |
+| status                | Input box status                              | `'success' \| 'warning' \| 'error'`                              | —                      |
+| order-on-confirm      | Whether to auto-sort during range selection   | `boolean`                                                        | `false`                |
+| prefix-icon           | Custom prefix icon                            | `string \| Component`                                            | —                      |
+| clear-icon            | Custom clear icon                             | `string \| Component`                                            | —                      |
+| default-value         | Date shown by default when opening the picker | `Date \| Date[]`                                                 | —                      |
+| default-time          | Default time (in datetime mode)               | `Date \| Date[]`                                                 | —                      |
+| panel-only            | Whether to display inline (panel only)        | `boolean`                                                        | `false`                |
+| cell-render           | Custom cell rendering function                | `(date: Date) => string \| { text: string; className?: string }` | —                      |
+| teleported            | Whether to insert the panel into body         | `boolean`                                                        | `true`                 |
+| popper-class          | Popover class name                            | `string`                                                         | —                      |
+| validate-event        | Whether to trigger form validation            | `boolean`                                                        | `true`                 |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered when binding value is updated | `(value: DateValue \| DateRangeValue) => void` |
-| change | Triggered when value changes | `(value: DateValue \| DateRangeValue) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered when clear button is clicked | `() => void` |
-| confirm | Triggered when confirm button is clicked | `(value: DateValue \| DateRangeValue) => void` |
-| panel-change | Triggered when panel view switches | `(value: Date, mode: PanelView) => void` |
-| visible-change | Triggered when panel visibility changes | `(visible: boolean) => void` |
+| Event Name        | Description                              | Parameters                                     |
+| ----------------- | ---------------------------------------- | ---------------------------------------------- |
+| update:modelValue | Triggered when binding value is updated  | `(value: DateValue \| DateRangeValue) => void` |
+| change            | Triggered when value changes             | `(value: DateValue \| DateRangeValue) => void` |
+| focus             | Triggered on focus                       | `(event: FocusEvent) => void`                  |
+| blur              | Triggered on blur                        | `(event: FocusEvent) => void`                  |
+| clear             | Triggered when clear button is clicked   | `() => void`                                   |
+| confirm           | Triggered when confirm button is clicked | `(value: DateValue \| DateRangeValue) => void` |
+| panel-change      | Triggered when panel view switches       | `(value: Date, mode: PanelView) => void`       |
+| visible-change    | Triggered when panel visibility changes  | `(visible: boolean) => void`                   |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| prefix-icon | Custom input prefix icon |
-| clear-icon | Custom clear icon |
-| extra | Extra content in the panel |
-| date-cell | Custom date cell (Scope: `{ cell: CalendarCell }`) |
-| footer | Custom footer area |
+| Slot Name   | Description                                        |
+| ----------- | -------------------------------------------------- |
+| prefix-icon | Custom input prefix icon                           |
+| clear-icon  | Custom clear icon                                  |
+| extra       | Extra content in the panel                         |
+| date-cell   | Custom date cell (Scope: `{ cell: CalendarCell }`) |
+| footer      | Custom footer area                                 |
 
 ## Theme Variables
 
 All color variables are connected to the global theme system and automatically support dark mode:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-date-picker-width` | Regular input box width | `220px` |
-| `--yh-date-picker-range-width` | Range input box width | `400px` |
-| `--yh-date-picker-primary` | Main theme color | `var(--yh-color-primary)` |
-| `--yh-date-picker-text-main` | Main text color | `var(--yh-text-color-primary)` |
-| `--yh-date-picker-text-secondary` | Secondary text color | `var(--yh-text-color-secondary)` |
-| `--yh-date-picker-border` | Border color | `var(--yh-border-color)` |
-| `--yh-date-picker-panel-width` | Panel physical width | `380px` |
-| `--yh-date-picker-panel-bg` | Panel background color | `var(--yh-bg-color-overlay)` |
-| `--yh-date-picker-panel-shadow` | Panel shadow | `var(--yh-shadow-lg)` |
-| `--yh-date-picker-item-hover` | Hover background color | `var(--yh-fill-color-light)` |
-| `--yh-date-picker-range-bg` | Range background color | `var(--yh-color-primary-light-9)` |
+| Variable                          | Description             | Default                           |
+| --------------------------------- | ----------------------- | --------------------------------- |
+| `--yh-date-picker-width`          | Regular input box width | `220px`                           |
+| `--yh-date-picker-range-width`    | Range input box width   | `400px`                           |
+| `--yh-date-picker-primary`        | Main theme color        | `var(--yh-color-primary)`         |
+| `--yh-date-picker-text-main`      | Main text color         | `var(--yh-text-color-primary)`    |
+| `--yh-date-picker-text-secondary` | Secondary text color    | `var(--yh-text-color-secondary)`  |
+| `--yh-date-picker-border`         | Border color            | `var(--yh-border-color)`          |
+| `--yh-date-picker-panel-width`    | Panel physical width    | `380px`                           |
+| `--yh-date-picker-panel-bg`       | Panel background color  | `var(--yh-bg-color-overlay)`      |
+| `--yh-date-picker-panel-shadow`   | Panel shadow            | `var(--yh-shadow-lg)`             |
+| `--yh-date-picker-item-hover`     | Hover background color  | `var(--yh-fill-color-light)`      |
+| `--yh-date-picker-range-bg`       | Range background color  | `var(--yh-color-primary-light-9)` |
 
 <style scoped>
 .demo-showcase {

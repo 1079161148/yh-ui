@@ -6,7 +6,7 @@ import { ref } from 'vue'
 const tsBasic = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
     <yh-avatar icon="user" />
-    <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+    <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
     <yh-avatar>USER</yh-avatar>
   </div>
 <\/template>`
@@ -36,11 +36,11 @@ const jsShapes = tsShapes
 
 const tsFit = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="fill" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="contain" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="cover" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="none" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="scale-down" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="fill" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="contain" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="cover" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="none" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="scale-down" />
   </div>
 <\/template>`
 
@@ -57,8 +57,8 @@ const tsColor = `<template>
 const jsColor = tsColor
 
 const tsError = `<template>
-  <yh-avatar src="https://invalid-url.com/avatar.png" @error="handleError">
-    <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+  <yh-avatar src="https://picsum.photos/seed/error/200" @error="handleError">
+    <img src="https://picsum.photos/seed/avatar2/200" />
   </yh-avatar>
 </template>
 
@@ -69,8 +69,8 @@ const handleError = () => {
 <\/script>`
 
 const jsError = `<template>
-  <yh-avatar src="https://invalid-url.com/avatar.png" @error="handleError">
-    <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+  <yh-avatar src="https://picsum.photos/seed/error/200" @error="handleError">
+    <img src="https://picsum.photos/seed/avatar2/200" />
   </yh-avatar>
 </template>
 
@@ -84,7 +84,7 @@ const handleError = () => {
 const tsNuxt = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
     <!-- Basic avatar, auto-imported -->
-    <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+    <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
 
     <!-- Combined with Nuxt user state -->
     <yh-avatar :size="48" :src="userAvatar">
@@ -117,7 +117,7 @@ Display avatar via `icon`, `src`, or default slot.
     <yh-avatar>
       <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
     </yh-avatar>
-    <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+    <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
     <yh-avatar>USER</yh-avatar>
   </div>
 </DemoBlock>
@@ -167,11 +167,11 @@ Set image fit mode via `fit` prop, consistent with CSS `object-fit`.
 
 <DemoBlock title="Image Fit" :ts-code="tsFit" :js-code="jsFit">
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="fill" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="contain" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="cover" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="none" />
-    <yh-avatar :size="80" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" fit="scale-down" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="fill" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="contain" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="cover" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="none" />
+    <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="scale-down" />
   </div>
 </DemoBlock>
 
@@ -196,8 +196,8 @@ Customize the avatar background color via `background-color` prop.
 Handle image load error via `error` event. The default slot serves as fallback content.
 
 <DemoBlock title="Error Handling" :ts-code="tsError" :js-code="jsError">
-  <yh-avatar src="https://invalid-url.com/avatar.png">
-    <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+  <yh-avatar src="https://picsum.photos/seed/error/200">
+    <img src="https://picsum.photos/seed/avatar2/200" />
   </yh-avatar>
 </DemoBlock>
 
@@ -207,7 +207,7 @@ The Avatar component fully supports Nuxt 3/4 SSR rendering. The avatar size, sha
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+    <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
     <yh-avatar :size="48">J</yh-avatar>
   </div>
 </DemoBlock>
@@ -227,35 +227,35 @@ After installing the `@yh-ui/nuxt` module, the `YhAvatar` component is auto-regi
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| shape | Avatar shape | `'circle' \| 'square'` | `'circle'` |
-| size | Avatar size, supports preset values or pixel number | `number \| 'large' \| 'default' \| 'small'` | `'default'` |
-| src | Image URL | `string` | — |
-| src-set | Image srcset for responsive loading | `string` | — |
-| alt | Image alt text | `string` | — |
-| fit | Image fit mode | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
-| icon | Icon component, displayed when no image | `string \| Component` | — |
-| color | Background color (legacy API) | `string` | — |
-| background-color | Background color | `string` | — |
-| theme-overrides | Theme override variables | `ComponentThemeVars` | — |
+| Prop             | Description                                         | Type                                                       | Default     |
+| ---------------- | --------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| shape            | Avatar shape                                        | `'circle' \| 'square'`                                     | `'circle'`  |
+| size             | Avatar size, supports preset values or pixel number | `number \| 'large' \| 'default' \| 'small'`                | `'default'` |
+| src              | Image URL                                           | `string`                                                   | —           |
+| src-set          | Image srcset for responsive loading                 | `string`                                                   | —           |
+| alt              | Image alt text                                      | `string`                                                   | —           |
+| fit              | Image fit mode                                      | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'`   |
+| icon             | Icon component, displayed when no image             | `string \| Component`                                      | —           |
+| color            | Background color (legacy API)                       | `string`                                                   | —           |
+| background-color | Background color                                    | `string`                                                   | —           |
+| theme-overrides  | Theme override variables                            | `ComponentThemeVars`                                       | —           |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| error | Triggered when image fails to load | `(event: Event) => void` |
+| Event Name | Description                        | Parameters               |
+| ---------- | ---------------------------------- | ------------------------ |
+| error      | Triggered when image fails to load | `(event: Event) => void` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Custom content (text or icon) |
+| Slot Name | Description                   |
+| --------- | ----------------------------- |
+| default   | Custom content (text or icon) |
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-avatar-bg-color` | Background color | `var(--yh-color-primary-light-8, #d9ecff)` |
-| `--yh-avatar-text-color` | Text color | `var(--yh-color-primary, #409eff)` |
-| `--yh-avatar-radius` | Square avatar border radius | `var(--yh-border-radius-base, 4px)` |
+| Variable                 | Description                 | Default                                    |
+| ------------------------ | --------------------------- | ------------------------------------------ |
+| `--yh-avatar-bg-color`   | Background color            | `var(--yh-color-primary-light-8, #d9ecff)` |
+| `--yh-avatar-text-color` | Text color                  | `var(--yh-color-primary, #409eff)`         |
+| `--yh-avatar-radius`     | Square avatar border radius | `var(--yh-border-radius-base, 4px)`        |

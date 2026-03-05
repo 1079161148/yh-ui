@@ -131,14 +131,14 @@ defineExpose<AiSourcesExpose>({
       <!-- 抽屉：来源详情 -->
       <YhDrawer
         v-model="drawerVisible"
-        :title="t('ai.sources.drawerTitle') || '参考来源'"
+        :title="t('ai.sources.drawerTitle')"
         size="40%"
         :theme-overrides="themeOverrides"
       >
         <template #title>
           <div :class="ns.e('drawer-title-wrap')">
             <YhIcon name="document" />
-            <span>{{ t('ai.sources.drawerTitle') || '参考来源' }}</span>
+            <span>{{ t('ai.sources.drawerTitle') }}</span>
           </div>
         </template>
         <div :class="ns.e('drawer-content')">
@@ -166,14 +166,14 @@ defineExpose<AiSourcesExpose>({
                   :style="{ color: scoreColor(source.score) }"
                 >
                   {{ Math.round(source.score * 100) }}%
-                  {{ t('ai.sources.relevant') || '相关度' }}
+                  {{ t('ai.sources.relevant') }}
                 </span>
               </div>
             </div>
             <p v-if="source.excerpt" :class="ns.e('excerpt')">{{ source.excerpt }}</p>
             <button v-if="source.url" :class="ns.e('open-btn')" @click="handleOpen($event, source)">
               <YhIcon name="arrow-right" />
-              {{ t('ai.sources.viewOriginal') || '查看原文' }}
+              {{ t('ai.sources.viewOriginal') }}
             </button>
           </div>
         </div>
@@ -184,7 +184,7 @@ defineExpose<AiSourcesExpose>({
     <template v-else-if="mode === 'inline'">
       <div :class="ns.e('inline-header')">
         <YhIcon name="document" />
-        <span>{{ sources.length }} {{ t('ai.sources.references') || '条参考来源' }}</span>
+        <span>{{ sources.length }} {{ t('ai.sources.references') }}</span>
       </div>
       <div :class="ns.e('inline-list')">
         <YhTooltip
@@ -253,7 +253,7 @@ defineExpose<AiSourcesExpose>({
           :class="ns.e('expand-btn')"
           @click="isExpanded = true"
         >
-          +{{ sources.length - maxVisible }} {{ t('ai.sources.more') || '更多来源' }}
+          +{{ sources.length - maxVisible }} {{ t('ai.sources.more') }}
           <YhIcon name="arrow-down" />
         </button>
       </div>
@@ -263,7 +263,7 @@ defineExpose<AiSourcesExpose>({
     <template v-else>
       <div :class="ns.e('card-list-header')">
         <YhIcon name="document" />
-        <span>{{ t('ai.sources.referencedSources') || '引用来源' }}</span>
+        <span>{{ t('ai.sources.referencedSources') }}</span>
         <span :class="ns.e('count-badge')">{{ sources.length }}</span>
       </div>
       <div :class="ns.e('card-list')">
@@ -286,14 +286,14 @@ defineExpose<AiSourcesExpose>({
                 :class="ns.e('score-badge')"
                 :style="{ color: scoreColor(source.score) }"
               >
-                {{ Math.round(source.score * 100) }}% {{ t('ai.sources.relevant') || '相关度' }}
+                {{ Math.round(source.score * 100) }}% {{ t('ai.sources.relevant') }}
               </span>
             </div>
           </div>
           <p v-if="source.excerpt" :class="ns.e('excerpt')">{{ source.excerpt }}</p>
           <button v-if="source.url" :class="ns.e('open-btn')" @click="handleOpen($event, source)">
             <YhIcon name="arrow-right" />
-            {{ t('ai.sources.viewOriginal') || '查看原文' }}
+            {{ t('ai.sources.viewOriginal') }}
           </button>
         </div>
 
@@ -302,7 +302,7 @@ defineExpose<AiSourcesExpose>({
           :class="ns.e('expand-btn')"
           @click="isExpanded = true"
         >
-          {{ t('ai.sources.showAll') || '显示全部' }} ({{ sources.length }})
+          {{ t('ai.sources.showAll') }} ({{ sources.length }})
           <YhIcon name="arrow-down" />
         </button>
       </div>

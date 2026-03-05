@@ -592,124 +592,124 @@ export const af: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Voer asseblief in',
+      loading: 'Laai tans...',
+      noData: 'Geen data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Verwysings'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Noem Agent, Dokument of Tabel...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokument',
+        table: 'Tabel',
+        knowledge: 'Kennis'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopieer kode',
+        copied: 'Gekopieer!',
+        run: 'Voer kode uit',
+        edit: 'Wysig',
+        save: 'Stoor',
+        cancel: 'Kanselleer'
       },
       codeRunner: {
-        run: 'Run',
+        run: 'Voer uit',
         stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        clear: 'Maak skoon',
+        reset: 'Herstel',
+        placeholder: 'Klik "Voer uit" om die kode te laat loop...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Stuur ’n boodskap...',
+        dragTip: 'Laat los om lêers op te laai'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Denkproses',
+        thinking: 'Dink tans...',
+        defaultTitle: 'Nuwe stap',
+        addNode: 'Voeg stap by'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Begin dink',
+        thinking: 'Dink tans...',
+        complete: 'Dink klaar',
+        error: 'Denkfout'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Hallo, ek is YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Ek kan jou help met kodering, dokumentvertaling of kreatiewe skryfwerk. Waarmee kan ek jou vandag help?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopieer',
+        regenerate: 'Genereer weer',
+        share: 'Deel',
+        like: 'Hou van',
+        dislike: 'Hou nie van nie',
+        edit: 'Wysig',
+        delete: 'Skrap'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Voorskou',
+        inline: 'Inlyn',
+        code: 'Bronkode',
+        versions: 'Weergawes',
+        rendering: 'Komponent word gerender...',
+        renderingChart: 'Grafiek word gerender...',
+        renderingCanvas: 'Doek word voorberei...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klik om te praat',
+        listening: 'Luister...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'gebruike',
+        use: 'Gebruik nou',
+        favorite: 'Gunsteling',
+        unfavorite: 'Verwyder gunsteling',
+        share: 'Deel',
+        online: 'Aanlyn',
+        offline: 'Aflyn',
+        busy: 'Besig',
+        verified: 'Geverifieer',
+        rating: 'Waardering',
+        reviews: 'resensies',
+        responseTime: 'Gem. reaksietyd',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Bronne',
+        referencedSources: 'Genoemde bronne',
+        relevant: 'Relevansie',
+        viewOriginal: 'Sien oorspronklike',
+        showAll: 'Wys alles',
+        more: 'meer bronne',
+        drawerTitle: 'Bronne',
+        expandMore: 'Wys meer',
+        collapseMore: 'Vou toe',
+        noSources: 'Geen bronne nie',
+        today: 'Vandag',
+        last7Days: 'Laaste 7 dae',
+        last30Days: 'Laaste 30 dae',
+        earlier: 'Vroeër',
+        pinned: 'Vasgespeld'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Vandag',
+        last7Days: 'Laaste 7 dae',
+        last30Days: 'Laaste 30 dae',
+        earlier: 'Vroeër',
+        pinned: 'Vasgespeld',
+        pin: 'Speld vas',
+        unpin: 'Maak los',
+        newConversation: 'Nuwe gesprek',
+        rename: 'Hernoem',
+        delete: 'Skrap',
+        deleteConfirm: 'Bevestig dat hierdie gesprek geskrap moet word?'
       }
     }
   }

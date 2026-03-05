@@ -321,7 +321,7 @@ const jsSchedule = tsSchedule.replace('lang="ts"', '')
 // --- Advanced: Room booking data ---
 const bookingRange = ref(['2026-02-08', '2026-02-12']);
 const occupiedDates = ['2026-02-14', '2026-02-15', '2026-02-18'];
-const isOccupied = (date: any) => occupiedDates.includes(dayjs(date).format('YYYY-MM-DD'));
+const isOccupied = (date: Date | string) => occupiedDates.includes(dayjs(date).format('YYYY-MM-DD'));
 
 const tsBooking = `<template>
   <yh-calendar
@@ -503,104 +503,107 @@ Calendar uses static date caching internally, maintaining extremely low memory u
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| v-model | Binding value (single select mode) | `Date` | — |
-| default-value | Default selected date | `Date` | — |
-| mode | View mode | `'month' \| 'year'` | `'month'` |
-| first-day-of-week | First day of week (1-7, 1=Monday) | `number` | `7` (Sunday) |
-| min-date | Minimum selectable date | `Date` | — |
-| max-date | Maximum selectable date | `Date` | — |
-| readonly | Whether readonly | `boolean` | `false` |
-| disabled | Whether disabled | `boolean` | `false` |
-| disabled-date | Custom disabled date function | `(date: Date) => boolean` | — |
-| show-holiday | Whether to show holiday markers | `boolean` | `false` |
-| holidays | Custom holiday data | `HolidayMap` | `{}` |
-| show-week-number | Whether to show week numbers | `boolean` | `false` |
-| fullscreen | Whether fullscreen (fill container) | `boolean` | `false` |
-| selection-mode | Selection mode | `'single' \| 'range' \| 'multiple'` | `'single'` |
-| range-value | Range selection value | `[Date?, Date?]` | — |
-| multiple-value | Multi-select value | `Date[]` | `[]` |
-| show-other-months | Whether to show non-current month dates | `boolean` | `true` |
-| highlight-weekends | Whether to highlight weekends | `boolean` | `true` |
-| size | Calendar size | `'small' \| 'default' \| 'large'` | `'default'` |
-| cell-class-name | Cell custom class function | `(date: Date) => string \| string[] \| object` | — |
-| month-header-format | Header format | `string` | `'YYYY MM'` |
+| Prop                | Description                             | Type                                           | Default      |
+| ------------------- | --------------------------------------- | ---------------------------------------------- | ------------ |
+| v-model             | Binding value (single select mode)      | `Date`                                         | —            |
+| default-value       | Default selected date                   | `Date`                                         | —            |
+| mode                | View mode                               | `'month' \| 'year'`                            | `'month'`    |
+| first-day-of-week   | First day of week (1-7, 1=Monday)       | `number`                                       | `7` (Sunday) |
+| min-date            | Minimum selectable date                 | `Date`                                         | —            |
+| max-date            | Maximum selectable date                 | `Date`                                         | —            |
+| readonly            | Whether readonly                        | `boolean`                                      | `false`      |
+| disabled            | Whether disabled                        | `boolean`                                      | `false`      |
+| disabled-date       | Custom disabled date function           | `(date: Date) => boolean`                      | —            |
+| show-holiday        | Whether to show holiday markers         | `boolean`                                      | `false`      |
+| holidays            | Custom holiday data                     | `HolidayMap`                                   | `{}`         |
+| show-week-number    | Whether to show week numbers            | `boolean`                                      | `false`      |
+| fullscreen          | Whether fullscreen (fill container)     | `boolean`                                      | `false`      |
+| selection-mode      | Selection mode                          | `'single' \| 'range' \| 'multiple'`            | `'single'`   |
+| range-value         | Range selection value                   | `[Date?, Date?]`                               | —            |
+| multiple-value      | Multi-select value                      | `Date[]`                                       | `[]`         |
+| show-other-months   | Whether to show non-current month dates | `boolean`                                      | `true`       |
+| highlight-weekends  | Whether to highlight weekends           | `boolean`                                      | `true`       |
+| size                | Calendar size                           | `'small' \| 'default' \| 'large'`              | `'default'`  |
+| cell-class-name     | Cell custom class function              | `(date: Date) => string \| string[] \| object` | —            |
+| month-header-format | Header format                           | `string`                                       | `'YYYY MM'`  |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when selected date changes | `(date: Date) => void` |
-| select | Triggered when a date cell is clicked | `(date: Date, cell: CalendarDateCell) => void` |
-| panel-change | Triggered when displayed year/month or mode changes | `(date: Date, mode: 'month' | 'year') => void` |
-| range-change | Triggered when range selection completes | `(range: [Date, Date]) => void` |
+| Event Name   | Description                                         | Parameters                                     |
+| ------------ | --------------------------------------------------- | ---------------------------------------------- | ---------------- |
+| change       | Triggered when selected date changes                | `(date: Date) => void`                         |
+| select       | Triggered when a date cell is clicked               | `(date: Date, cell: CalendarDateCell) => void` |
+| panel-change | Triggered when displayed year/month or mode changes | `(date: Date, mode: 'month'                    | 'year') => void` |
+| range-change | Triggered when range selection completes            | `(range: [Date, Date]) => void`                |
 
 ### Slots
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| header | Custom calendar header | `{ date: string }` |
+| Slot Name | Description              | Parameters                   |
+| --------- | ------------------------ | ---------------------------- |
+| header    | Custom calendar header   | `{ date: string }`           |
 | date-cell | Custom date cell content | `{ data: CalendarDateCell }` |
-| footer | Custom calendar footer | — |
+| footer    | Custom calendar footer   | —                            |
 
 ### Expose
 
 Access internal methods and properties via ref:
 
-| Name | Description | Type |
-| --- | --- | --- |
-| displayDate | Current viewport date (Dayjs) | `Ref<Dayjs>` |
-| selectedDate | Currently selected date (single, Dayjs) | `Ref<Dayjs \| undefined>` |
-| moveMonth | Switch month (delta: 1 or -1) | `(delta: number) => void` |
-| goToday | Jump to today | `() => void` |
-| selectDate | Manually select a date cell | `(cell: CalendarDateCell) => void` |
+| Name         | Description                             | Type                               |
+| ------------ | --------------------------------------- | ---------------------------------- |
+| displayDate  | Current viewport date (Dayjs)           | `Ref<Dayjs>`                       |
+| selectedDate | Currently selected date (single, Dayjs) | `Ref<Dayjs \| undefined>`          |
+| moveMonth    | Switch month (delta: 1 or -1)           | `(delta: number) => void`          |
+| goToday      | Jump to today                           | `() => void`                       |
+| selectDate   | Manually select a date cell             | `(cell: CalendarDateCell) => void` |
 
 ### CalendarDateCell Type
 
-| Property | Description | Type |
-| --- | --- | --- |
-| day | Formatted date string (YYYY-MM-DD) | `string` |
-| date | Raw Date object | `Date` |
-| type | Date type | `'prev-month' \| 'current-month' \| 'next-month'` |
-| isSelected | Whether selected | `boolean` |
-| isToday | Whether today | `boolean` |
-| isDisabled | Whether disabled | `boolean` |
-| isWeekend | Whether weekend | `boolean` |
-| isHoliday | Whether holiday | `boolean` |
-| holidayName | Holiday name | `string \| undefined` |
-| isWorkday | Whether make-up workday | `boolean` |
-| isInRange | Whether in range | `boolean` |
-| isRangeStart | Whether range start | `boolean` |
-| isRangeEnd | Whether range end | `boolean` |
+| Property     | Description                        | Type                                              |
+| ------------ | ---------------------------------- | ------------------------------------------------- |
+| day          | Formatted date string (YYYY-MM-DD) | `string`                                          |
+| date         | Raw Date object                    | `Date`                                            |
+| type         | Date type                          | `'prev-month' \| 'current-month' \| 'next-month'` |
+| isSelected   | Whether selected                   | `boolean`                                         |
+| isToday      | Whether today                      | `boolean`                                         |
+| isDisabled   | Whether disabled                   | `boolean`                                         |
+| isWeekend    | Whether weekend                    | `boolean`                                         |
+| isHoliday    | Whether holiday                    | `boolean`                                         |
+| holidayName  | Holiday name                       | `string \| undefined`                             |
+| isWorkday    | Whether make-up workday            | `boolean`                                         |
+| isInRange    | Whether in range                   | `boolean`                                         |
+| isRangeStart | Whether range start                | `boolean`                                         |
+| isRangeEnd   | Whether range end                  | `boolean`                                         |
 
 ### HolidayMap Type
 
 ```typescript
-type HolidayMap = Record<string, {
-  name: string      // Holiday name
-  isOffDay: boolean // true=day off, false=make-up workday
-}>
+type HolidayMap = Record<
+  string,
+  {
+    name: string // Holiday name
+    isOffDay: boolean // true=day off, false=make-up workday
+  }
+>
 ```
 
 ## Theme Variables
 
 The Calendar component supports customizing styles by overriding the following CSS variables. All color variables are integrated with the global theme system, automatically supporting dark mode:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-calendar-bg` | Calendar background | `var(--yh-bg-color)` |
-| `--yh-calendar-text` | Default text color | `var(--yh-text-color-primary)` |
-| `--yh-calendar-primary` | Selected/today theme color | `var(--yh-color-primary)` |
-| `--yh-calendar-primary-light` | Range/hover background | `var(--yh-color-primary-light-9)` |
-| `--yh-calendar-primary-dark` | Selected hover darkened | `var(--yh-color-primary-dark-2)` |
-| `--yh-calendar-cell-height` | Cell height | `100px` |
-| `--yh-calendar-cell-radius` | Cell border radius | `var(--yh-radius-lg)` |
-| `--yh-calendar-head-height` | Header height | `80px` |
-| `--yh-calendar-title-size` | Title font size | `22px` |
-| `--yh-calendar-weekday-color` | Weekday header color | `var(--yh-text-color-secondary)` |
-| `--yh-calendar-holiday-color` | Holiday marker color | `var(--yh-color-danger)` |
-| `--yh-calendar-week-number-color` | Week number text | `var(--yh-text-color-placeholder)` |
+| Variable                          | Description                | Default                            |
+| --------------------------------- | -------------------------- | ---------------------------------- |
+| `--yh-calendar-bg`                | Calendar background        | `var(--yh-bg-color)`               |
+| `--yh-calendar-text`              | Default text color         | `var(--yh-text-color-primary)`     |
+| `--yh-calendar-primary`           | Selected/today theme color | `var(--yh-color-primary)`          |
+| `--yh-calendar-primary-light`     | Range/hover background     | `var(--yh-color-primary-light-9)`  |
+| `--yh-calendar-primary-dark`      | Selected hover darkened    | `var(--yh-color-primary-dark-2)`   |
+| `--yh-calendar-cell-height`       | Cell height                | `100px`                            |
+| `--yh-calendar-cell-radius`       | Cell border radius         | `var(--yh-radius-lg)`              |
+| `--yh-calendar-head-height`       | Header height              | `80px`                             |
+| `--yh-calendar-title-size`        | Title font size            | `22px`                             |
+| `--yh-calendar-weekday-color`     | Weekday header color       | `var(--yh-text-color-secondary)`   |
+| `--yh-calendar-holiday-color`     | Holiday marker color       | `var(--yh-color-danger)`           |
+| `--yh-calendar-week-number-color` | Week number text           | `var(--yh-text-color-placeholder)` |
 
 ## Style Compatibility Notes
 

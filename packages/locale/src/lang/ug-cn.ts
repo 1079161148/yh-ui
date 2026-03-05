@@ -592,124 +592,124 @@ export const ugCn: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'كىرەڭىز',
+      loading: 'يۈكلىنىۋاتىدۇ...',
+      noData: 'ئۇچۇر يوق'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'ئىشارىلار'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ ئەلچى، ھۆججەت ياكى جەدۋەلنى كۆرسىتىڭ...',
+        agent: 'ئەلچى',
+        document: 'ھۆججەت',
+        table: 'جەدۋەل',
+        knowledge: 'بىلىم'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'كودنى كۆپىيەلە',
+        copied: 'كۆپىيەلدى!',
+        run: 'كودنى ئىجرا قىل',
+        edit: 'تەھرىرلە',
+        save: 'ساقلا',
+        cancel: 'ۋاز قىل'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'ئىجرا قىل',
+        stop: 'توختات',
+        clear: 'تازىلاش',
+        reset: 'قايتا سەپلە',
+        placeholder: 'كودنى ئىجرا قىلىش ئۈچۈن ئىجرا قىلدىگەننى بېسىڭ...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'ئۇچۇر ئەۋەت...',
+        dragTip: 'ھۆججەتنى يۈكلەش ئۈچۈن بوشاتقىن'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'ئىدىيە جەريىنى',
+        thinking: 'ئىدىيە قىلىۋاتىدۇ...',
+        defaultTitle: 'يېڭى قەدەم',
+        addNode: 'قەدەم قوش'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'ئىدىيە قىلىشنى باشلا',
+        thinking: 'ئىدىيە قىلىۋاتىدۇ...',
+        complete: 'ئىدىيە تامام بولدى',
+        error: 'ئىدىيە خاتىلىسى'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'ياخشىمەلسىز، مەن YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'مەن سىزگە پروگرامما يېزىش، ھۆججەت تەرجىمە قىلىش ياكى ئىجادپەۋلەرلىك يېزىشتا ياردەم بەرەلىمەن. بۈگۈن مەن سىزگە نېمە قىلالاي؟'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'كۆپىيەلە',
+        regenerate: 'قايتا ھاسىل قىل',
+        share: 'ھەمبەھىرلە',
+        like: 'ياقتۇرىدۇ',
+        dislike: 'ياقتۇرمايدۇ',
+        edit: 'تەھرىرلە',
+        delete: 'ئۆچۈر'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'ئالدىن كۆرۈش',
+        inline: 'قۇرۇلمىسىدا',
+        code: 'ئەسلى كود',
+        versions: 'نەشرىلەر',
+        rendering: 'بەت قىسمى رېندىرلىنىۋاتىدۇ...',
+        renderingChart: 'رەسىملىك چارت رېندىرلىنىۋاتىدۇ...',
+        renderingCanvas: ' كانفاس تەييارلىنىۋاتىدۇ...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'سۆزلىمەكىڭىزگە بېسىڭ',
+        listening: 'ئاڭلاۋاتىدۇ...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'ئىشلىتىش',
+        use: 'ھازىر ئىشلىتىڭ',
+        favorite: 'ياقتۇرىدىغان',
+        unfavorite: 'ياقتۇرىدىغانلاردىن چىقىرىڭ',
+        share: 'ھەمبەھىرلە',
+        online: 'ئاللىقاچان',
+        offline: 'ئاللىقاچان ئەمەس',
+        busy: 'ئالدىراش',
+        verified: 'تەستىقلانغان',
+        rating: 'بەلگە',
+        reviews: 'پىكىرلەر',
+        responseTime: 'ئوتتۇرىچە جاۋاب ۋاقتى',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'ئىشارىلار',
+        referencedSources: 'ئىشارا قىلىنغان مەنبەلەر',
+        relevant: 'مۇناسىۋەتلىك',
+        viewOriginal: 'ئەسلىنى كۆر',
+        showAll: 'ھەممىنى كۆرسەت',
+        more: 'تېخىمۇ كۆپ مەنبەلەر',
+        drawerTitle: 'ئىشارىلار',
+        expandMore: 'تېخىمۇ كۆپ كۆرسەت',
+        collapseMore: 'يىغىرىش',
+        noSources: 'مەنبە يوق',
+        today: 'بۈگۈن',
+        last7Days: 'ئاخىرقى 7 كۈن',
+        last30Days: 'ئاخىرقى 30 كۈن',
+        earlier: 'ئىلگىرى',
+        pinned: 'تەكلىپ قىلىنغان'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'بۈگۈن',
+        last7Days: 'ئاخىرقى 7 كۈن',
+        last30Days: 'ئاخىرقى 30 كۈن',
+        earlier: 'ئىلگىرى',
+        pinned: 'تەكلىپ قىلىنغان',
+        pin: 'تەكلىپ قىل',
+        unpin: 'تەكلىپنى ئېلىۋىت',
+        newConversation: 'يېڭى سۆھبەت',
+        rename: 'ئاتىنى ئۆزگەرت',
+        delete: 'ئۆچۈر',
+        deleteConfirm: 'بۇ سۆھبەتنى ئۆچۈرەلەيتتىڭىزمۇ؟'
       }
     }
   }

@@ -6,9 +6,15 @@ import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import AiThoughtChain from '../src/ai-thought-chain.vue'
 
-type ThoughtStatus = 'none' | 'thinking' | 'loading' | 'success' | 'complete' | 'error'
+import type { AiThoughtItem, AiThoughtStatus } from '../src/ai-thought-chain'
 
-const makeItem = (title: string, status: ThoughtStatus = 'complete', content = '') => ({
+type ThoughtStatus = AiThoughtStatus
+
+const makeItem = (
+  title: string,
+  status: ThoughtStatus = 'complete',
+  content = ''
+): AiThoughtItem => ({
   title,
   status,
   content
@@ -167,10 +173,154 @@ describe('YhAiThoughtChain', () => {
   })
 
   // 鈹€鈹€鈹€ Default slot (single mode) 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
-  it('should render default slot in single node mode', () => {
+  it('should render default slot in single node mode', async () => {
     const wrapper = mount(AiThoughtChain, {
       slots: { default: '<em class="slot-content">Slot</em>' }
     })
+    await wrapper.find('.yh-ai-thought-chain__header').trigger('click')
     expect(wrapper.find('.slot-content').exists()).toBe(true)
+  })
+
+  // 鈹€鈹€鈹€ Progress and computation 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+  it('should compute and show progress', async () => {
+    const items = [
+      makeItem('Step 1', 'complete'),
+      makeItem('Step 2', 'success'),
+      makeItem('Step 3', 'thinking'),
+      makeItem('Step 4', 'none')
+    ]
+    const wrapper = mount(AiThoughtChain, {
+      props: { items, showProgress: true }
+    })
+    // 2/4 completed = 50%
+    const progressFill = wrapper.find('.yh-ai-thought-chain__progress-fill')
+    expect(progressFill.exists()).toBe(true)
+    expect(progressFill.attributes('style')).toContain('width: 50%')
+  })
+
+  // 鈹€鈹€鈹€ Status Icon computation 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+  it('should get correct status icons', () => {
+    const items = [
+      makeItem('Step 1', 'error'),
+      makeItem('Step 2', 'success', 'Detail 2'),
+      makeItem('Step 3', 'loading', 'Detail 3')
+    ]
+    // Add expanded true so we can render markdown
+    items[1].expanded = true
+    items[2].expanded = true
+    const wrapper = mount(AiThoughtChain, { props: { items } })
+    // The main way it distinguishes error status visually is through the modifier class
+    expect(wrapper.html()).toContain('yh-ai-thought-chain--error')
+  })
+
+  // 鈹€鈹€鈹€ Node interaction (Click, Delete, Add) 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+  it('should emit node-click when item content is clicked', async () => {
+    const items: AiThoughtItem[] = [
+      { title: 'Step 1', content: 'click me', status: 'complete', expanded: true }
+    ]
+    const wrapper = mount(AiThoughtChain, { props: { items } })
+    const contentText = wrapper.find('.yh-ai-thought-chain__item-content')
+    await contentText.trigger('click')
+    expect(wrapper.emitted('node-click')).toBeTruthy()
+  })
+
+  it('should emit node-click, even with description', async () => {
+    const items: AiThoughtItem[] = [
+      { title: 'Step 1', description: 'desc', status: 'complete', expanded: true }
+    ]
+    const wrapper = mount(AiThoughtChain, { props: { items } })
+    const contentText = wrapper.find('.yh-ai-thought-chain__item-content')
+    await contentText.trigger('click')
+    expect(wrapper.emitted('node-click')).toBeTruthy()
+  })
+
+  it('should not emit node-click if clickable is false', async () => {
+    const items = [{ title: 'Step 1', content: 'click', clickable: false, expanded: true }]
+    const wrapper = mount(AiThoughtChain, { props: { items } })
+    const contentText = wrapper.find('.yh-ai-thought-chain__item-content')
+    await contentText.trigger('click')
+    expect(wrapper.emitted('node-click')).toBeFalsy()
+  })
+
+  it('should handle add and delete node in editable mode', async () => {
+    const items = [makeItem('Step 1', 'complete')]
+    const wrapper = mount(AiThoughtChain, {
+      props: { items, editable: true }
+    })
+
+    // Test delete
+    const actionIcons = wrapper.findAll('.yh-ai-thought-chain__action-icon')
+    await actionIcons[0].trigger('click')
+    expect(wrapper.emitted('node-delete')).toBeTruthy()
+    expect(wrapper.emitted('update:items')).toBeTruthy()
+    expect(wrapper.emitted('reorder')).toBeTruthy()
+
+    // Add Node from item actions
+    await actionIcons[1].trigger('click')
+    expect(wrapper.emitted('node-add')).toBeTruthy()
+
+    // Add node from bottom button
+    const bottomAddNode = wrapper.find('.yh-ai-thought-chain__add-node')
+    await bottomAddNode.trigger('click')
+    expect(wrapper.emitted('node-add')?.length).toBe(2)
+  })
+
+  it('should not mutate internalItems when editable is false', async () => {
+    const items = [makeItem('Step 1', 'complete')]
+    const wrapper = mount(AiThoughtChain, {
+      props: { items, editable: false }
+    })
+
+    // If not editable, these icons won't exist naturally, but emit can be tested if we manual invoke
+    // Wait, the icons have `v-if="editable"`. I'll just check they don't exist.
+    expect(wrapper.find('.yh-ai-thought-chain__item-actions').exists()).toBe(false)
+    expect(wrapper.find('.yh-ai-thought-chain__add-node').exists()).toBe(false)
+  })
+
+  // 鈹€鈹€鈹€ Draggable 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+  it('should handle drag and drop', async () => {
+    const items = [makeItem('1'), makeItem('2')]
+    const wrapper = mount(AiThoughtChain, {
+      props: { items, draggable: true }
+    })
+
+    const elements = wrapper.findAll('.yh-ai-thought-chain__item')
+
+    // Start drag on 0
+    await elements[0].trigger('dragstart', { dataTransfer: {} })
+    expect((wrapper.vm as any).draggedIndex).toBe(0)
+
+    // Over 1
+    await elements[1].trigger('dragover')
+    // e.preventDefault should be called, dragOverIndex is 1
+
+    // Leave
+    await elements[1].trigger('dragleave')
+
+    // Over 1 again
+    await elements[1].trigger('dragover')
+
+    // Drop on 1
+    await elements[1].trigger('drop')
+    expect(wrapper.emitted('update:items')).toBeTruthy()
+    expect(wrapper.emitted('reorder')).toBeTruthy()
+
+    // End
+    await elements[0].trigger('dragend')
+  })
+
+  it('should fallback internal items if missing items', async () => {
+    // cover items = null or not array if possible
+    const wrapper = mount(AiThoughtChain, {
+      props: { items: null as any }
+    })
+    expect(wrapper.find('.yh-ai-thought-chain').exists()).toBe(true)
+  })
+
+  it('should fall back to empty internalItems when items length is 0 and draggable is true', () => {
+    const wrapper = mount(AiThoughtChain, {
+      props: { items: [], draggable: true }
+    })
+    expect(wrapper.find('.yh-ai-thought-chain').exists()).toBe(true)
   })
 })

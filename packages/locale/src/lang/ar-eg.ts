@@ -592,124 +592,124 @@ export const arEg: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'الرجاء الإدخال',
+      loading: 'جاري التحميل...',
+      noData: 'لا توجد بيانات'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'الاقتباسات'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ ذكر الوكيل أو المستند أو الجدول...',
+        agent: 'وكيل',
+        document: 'مستند',
+        table: 'جدول',
+        knowledge: 'معرفة'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'نسخ الكود',
+        copied: 'تم النسخ!',
+        run: 'تشغيل الكود',
+        edit: 'تعديل',
+        save: 'حفظ',
+        cancel: 'إلغاء'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'تشغيل',
+        stop: 'إيقاف',
+        clear: 'مسح',
+        reset: 'إعادة تعيين',
+        placeholder: 'انقر على تشغيل لتنفيذ الكود...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'إرسال رسالة...',
+        dragTip: 'أفلت لتحميل الملفات'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'عملية التفكير',
+        thinking: 'جاري التفكير...',
+        defaultTitle: 'خطوة جديدة',
+        addNode: 'إضافة خطوة'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'ابدأ التفكير',
+        thinking: 'جاري التفكير...',
+        complete: 'اكتمل التفكير',
+        error: 'خطأ في التفكير'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'مرحباً، أنا YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'يمكنني مساعدتك في البرمجة أو ترجمة المستندات أو الكتابة الإبداعية. ماذا يمكنني أن أفعل لك اليوم؟'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'نسخ',
+        regenerate: 'إعادة توليد',
+        share: 'مشاركة',
+        like: 'إعجاب',
+        dislike: 'عدم إعجاب',
+        edit: 'تعديل',
+        delete: 'حذف'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'معاينة',
+        inline: 'مضمن',
+        code: 'المصدر',
+        versions: 'الإصدارات',
+        rendering: 'جاري تقديم المكون...',
+        renderingChart: 'جاري تقديم الرسم البياني...',
+        renderingCanvas: 'جاري إعداد اللوحة...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'انقر للتحدث',
+        listening: 'جاري الاستماع...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'يستخدم',
+        use: 'استخدم الآن',
+        favorite: 'المفضلة',
+        unfavorite: 'إزالة من المفضلة',
+        share: 'مشاركة',
+        online: 'متصل',
+        offline: 'غير متصل',
+        busy: 'مشغول',
+        verified: 'موثق',
+        rating: 'التقييم',
+        reviews: 'تقييمات',
+        responseTime: 'متوسط وقت الاستجابة',
+        ms: 'مللي ثانية'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'المراجع',
+        referencedSources: 'المصادر المذكورة',
+        relevant: 'الملاءمة',
+        viewOriginal: 'عرض الأصل',
+        showAll: 'عرض الكل',
+        more: 'المزيد من المصادر',
+        drawerTitle: 'المراجع',
+        expandMore: 'عرض المزيد',
+        collapseMore: 'طي',
+        noSources: 'لا توجد مصادر',
+        today: 'اليوم',
+        last7Days: 'آخر 7 أيام',
+        last30Days: 'آخر 30 يوم',
+        earlier: 'أقدم',
+        pinned: 'مثبت'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'اليوم',
+        last7Days: 'آخر 7 أيام',
+        last30Days: 'آخر 30 يوم',
+        earlier: 'أقدم',
+        pinned: 'مثبت',
+        pin: 'تثبيت',
+        unpin: 'إلغاء التثبيت',
+        newConversation: 'محادثة جديدة',
+        rename: 'إعادة تسمية',
+        delete: 'حذف',
+        deleteConfirm: 'تأكيد حذف هذه المحادثة؟'
       }
     }
   }

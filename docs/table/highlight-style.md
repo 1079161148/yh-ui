@@ -42,7 +42,7 @@ const highlightColColumns = computed(() => [
 ])
 
 const handleColCellClick = (row: Record<string, unknown>, column: Record<string, unknown>) => {
-  hoveredColumnProp.value = (column as any).prop || ''
+  hoveredColumnProp.value = (column.prop as string) || ''
 }
 
 // ==================== 3. 标题前缀图标 ====================
@@ -172,7 +172,7 @@ const columns = computed(() => [
 ])
 
 const handleCellClick = (row: Record<string, unknown>, column: Record<string, unknown>) => {
-  hoveredProp.value = (column as any).prop || ''
+  hoveredProp.value = (column.prop as string) || ''
 }
 </${_S}>`
 
@@ -398,51 +398,51 @@ const jsOverflow = toJs(tsOverflow)
 
 ### 高亮属性
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| highlight-current-row | 是否高亮当前点击行 | `boolean` | `false` |
-| current-row-key / v-model:current-row-key | 当前高亮行的 key 值 | `string \| number` | — |
+| 属性                                      | 说明                | 类型               | 默认值  |
+| ----------------------------------------- | ------------------- | ------------------ | ------- |
+| highlight-current-row                     | 是否高亮当前点击行  | `boolean`          | `false` |
+| current-row-key / v-model:current-row-key | 当前高亮行的 key 值 | `string \| number` | —       |
 
 ### 高亮事件
 
-| 事件名 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件名         | 说明             | 参数                   |
+| -------------- | ---------------- | ---------------------- |
 | current-change | 当前行变化时触发 | `(currentRow, oldRow)` |
 
 ### 列高亮
 
 通过列的 `className` 属性动态设置 `is-column-highlight` 类名实现列高亮。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | 列的自定义类名 | `string` | — |
+| 属性      | 说明           | 类型     | 默认值 |
+| --------- | -------------- | -------- | ------ |
+| className | 列的自定义类名 | `string` | —      |
 
 ### 表头图标属性
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| headerPrefixIcon | 表头前缀图标（Vue 组件或字符串） | `string \| Component` | — |
-| headerSuffixIcon | 表头后缀图标（Vue 组件或字符串） | `string \| Component` | — |
+| 属性             | 说明                             | 类型                  | 默认值 |
+| ---------------- | -------------------------------- | --------------------- | ------ |
+| headerPrefixIcon | 表头前缀图标（Vue 组件或字符串） | `string \| Component` | —      |
+| headerSuffixIcon | 表头后缀图标（Vue 组件或字符串） | `string \| Component` | —      |
 
 ### 换行与溢出
 
-| 用法 | 说明 | 类型 |
-| --- | --- | --- |
-| `class="is-auto-wrap"` | 表格级别的自动换行（添加到 `yh-table`） | `string` |
-| `showOverflowTooltip` | 列级别的溢出隐藏，悬浮显示 Tooltip | `boolean \| TooltipConfig` |
-| `ellipsis` | 列级别的省略号 | `boolean \| EllipsisConfig` |
+| 用法                   | 说明                                    | 类型                        |
+| ---------------------- | --------------------------------------- | --------------------------- |
+| `class="is-auto-wrap"` | 表格级别的自动换行（添加到 `yh-table`） | `string`                    |
+| `showOverflowTooltip`  | 列级别的溢出隐藏，悬浮显示 Tooltip      | `boolean \| TooltipConfig`  |
+| `ellipsis`             | 列级别的省略号                          | `boolean \| EllipsisConfig` |
 
 ### showOverflowTooltip 配置 (TooltipConfig)
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| effect | Tooltip 主题 | `'dark' \| 'light'` | `'dark'` |
-| placement | Tooltip 位置 | `string` | `'top'` |
-| offset | Tooltip 偏移 | `number` | — |
+| 属性      | 说明         | 类型                | 默认值   |
+| --------- | ------------ | ------------------- | -------- |
+| effect    | Tooltip 主题 | `'dark' \| 'light'` | `'dark'` |
+| placement | Tooltip 位置 | `string`            | `'top'`  |
+| offset    | Tooltip 偏移 | `number`            | —        |
 
 ### ellipsis 配置 (EllipsisConfig)
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| tooltip | 是否在省略时显示 Tooltip | `boolean` | `false` |
-| lineClamp | 限制显示的行数 | `number` | — |
+| 属性      | 说明                     | 类型      | 默认值  |
+| --------- | ------------------------ | --------- | ------- |
+| tooltip   | 是否在省略时显示 Tooltip | `boolean` | `false` |
+| lineClamp | 限制显示的行数           | `number`  | —       |

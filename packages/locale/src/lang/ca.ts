@@ -592,124 +592,124 @@ export const ca: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Si us plau, introduïu',
+      loading: 'Carregant...',
+      noData: 'Sense dades'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citacions'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Esmentar Agent, Document o Taula...',
         agent: 'Agent',
         document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        table: 'Taula',
+        knowledge: 'Coneixement'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Copiar codi',
+        copied: 'Copiat!',
+        run: 'Executar codi',
+        edit: 'Editar',
+        save: 'Guardar',
+        cancel: 'Cancel·lar'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Executar',
+        stop: 'Aturar',
+        clear: 'Netejar',
+        reset: 'Reiniciar',
+        placeholder: 'Feu clic a Executar per executar el codi...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Enviar missatge...',
+        dragTip: 'Allibereu per pujar fitxers'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Procés de pensament',
+        thinking: 'Pensant...',
+        defaultTitle: 'Nou pas',
+        addNode: 'Afegir pas'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Començar a pensar',
+        thinking: 'Pensant...',
+        complete: 'Pensament completat',
+        error: 'Error de pensament'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Hola, sóc YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Us puc ajudar amb programació, traducció de documents o escriptura creativa. Què puc fer per vosaltres avui?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Copiar',
+        regenerate: 'Regenerar',
+        share: 'Compartir',
+        like: "M'agrada",
+        dislike: "No m'agrada",
+        edit: 'Editar',
+        delete: 'Eliminar'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
+        preview: 'Vista prèvia',
+        inline: 'En línia',
+        code: 'Codi font',
         versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        rendering: 'Renderitzant component...',
+        renderingChart: 'Renderitzant gràfic...',
+        renderingCanvas: 'Preparant llenç...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Feu clic per parlar',
+        listening: 'Escoltant...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'úsos',
+        use: 'Usar ara',
+        favorite: 'Favorit',
+        unfavorite: 'Treure de favorits',
+        share: 'Compartir',
+        online: 'En línia',
+        offline: 'Fora de línia',
+        busy: 'Ocupat',
+        verified: 'Verificat',
+        rating: 'Valoració',
+        reviews: 'resenyes',
+        responseTime: 'Temps de resposta mitjà',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referències',
+        referencedSources: 'Fonts referenciades',
+        relevant: 'Rellevància',
+        viewOriginal: 'Veure original',
+        showAll: 'Mostrar tot',
+        more: 'més fonts',
+        drawerTitle: 'Referències',
+        expandMore: 'Mostrar més',
+        collapseMore: 'Reduir',
+        noSources: 'Sense fonts',
+        today: 'Avui',
+        last7Days: 'Últims 7 dies',
+        last30Days: 'Últims 30 dies',
+        earlier: 'Anterior',
+        pinned: 'Fixat'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Avui',
+        last7Days: 'Últims 7 dies',
+        last30Days: 'Últims 30 dies',
+        earlier: 'Anterior',
+        pinned: 'Fixat',
+        pin: 'Fixar',
+        unpin: 'Desfixar',
+        newConversation: 'Nova conversa',
+        rename: 'Renombrar',
+        delete: 'Eliminar',
+        deleteConfirm: 'Confirmeu eliminar aquesta conversa?'
       }
     }
   }

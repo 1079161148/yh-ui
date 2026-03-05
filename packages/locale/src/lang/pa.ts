@@ -592,124 +592,124 @@ export const pa: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'ਕਿਰਪਾ ਕੁਝ ਲਿਖੋ',
+      loading: 'ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...',
+      noData: 'ਕੋਈ ਡਾਟਾ ਨਹੀਂ'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'ਉਲੇਖ'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ ਏਜੰਟ, ਡਾਕੂਮੈਂਟ ਜਾਂ ਟੇਬਲ ਦਾ ਜਿਕਰ ਕਰੋ...',
+        agent: 'ਏਜੰਟ',
+        document: 'ਡਾਕੂਮੈਂਟ',
+        table: 'ਟੇਬਲ',
+        knowledge: 'ਗਿਆਨ'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'ਕੋਡ ਕਾਪੀ ਕਰੋ',
+        copied: 'ਕਾਪੀ ਹੋ ਗਿਆ!',
+        run: 'ਕੋਡ ਚਲਾਓ',
+        edit: 'ਸੰਪਾਦਿਤ ਕਰੋ',
+        save: 'ਸੰਭਾਲੋ',
+        cancel: 'ਰੱਦ ਕਰੋ'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'ਚਲਾਓ',
+        stop: 'ਰੁਕੋ',
+        clear: 'ਸਾਫ਼ ਕਰੋ',
+        reset: 'ਮੁੜ ਸੈੱਟ ਕਰੋ',
+        placeholder: 'ਕੋਡ ਚਲਾਉਣ ਲਈ ਚਲਾਓ ਬਟਨ ਤੇ ਕਲਿਕ ਕਰੋ...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'ਸੁਨੇਵਾ ਭੇਜੋ...',
+        dragTip: 'ਫਾਈਲਾਂ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਛੱਡ ਦਿਓ'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'ਵਿਚਾਰ ਪ੍ਰਕਿਰਿਆ',
+        thinking: 'ਵਿਚਾਰ ਕਰ ਰਿਹਾ ਹੈ...',
+        defaultTitle: 'ਨਵਾਂ ਕਦਮ',
+        addNode: 'ਕਦਮ ਜੋਡ਼ੋ'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'ਵਿਚਾਰ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ',
+        thinking: 'ਵਿਚਾਰ ਕਰ ਰਿਹਾ ਹੈ...',
+        complete: 'ਵਿਚਾਰ ਪੂਰਾ ਹੋ ਗਿਆ',
+        error: 'ਵਿਚਾਰ ਵਿੱਚ ਗਲਤੀ'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਮੈਂ YH AI ਹਾਂ',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'ਮੈਂ ਤੁਹਾਡੀ ਕੋਡਿੰਗ, ਡਾਕੂਮੈਂਟ ਅਨੁਵਾਦ ਜਾਂ ਰਚਨਾਤਮਕ ਲਿਖਾਈ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ। ਅਜ ਮੈਂ ਤੁਹਾਡੇ ਲਈ ਕੀ ਕਰ ਸਕਦਾ ਹਾਂ?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'ਕਾਪੀ',
+        regenerate: 'ਮੁੜ ਬਣਾਓ',
+        share: 'ਸਾਂਝਾ ਕਰੋ',
+        like: 'ਪਸੰਦ',
+        dislike: 'ਨਾਪਸੰਦ',
+        edit: 'ਸੰਪਾਦਿਤ ਕਰੋ',
+        delete: 'ਮਿਟਾਓ'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'ਪ੍ਰੀਵਿਊ',
+        inline: 'ਇਨਲਾਈਨ',
+        code: 'ਸਰੋਤਾ ਕੋਡ',
+        versions: 'ਵਰਜ਼ਨ',
+        rendering: 'ਕੰਪੋਨੈਂਟ ਰੈਂਡਰ ਹੋ ਰਿਹਾ ਹੈ...',
+        renderingChart: 'ਚਾਰਟ ਰੈਂਡਰ ਹੋ ਰਿਹਾ ਹੈ...',
+        renderingCanvas: 'ਕੈਂਵਸ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'ਬੋਲਣ ਲਈ ਕਲਿਕ ਕਰੋ',
+        listening: 'ਸੁਣ ਰਿਹਾ ਹੈ...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'ਵਰਤੋਂ',
+        use: 'ਹੁਣ ਵਰਤੋਂ',
+        favorite: 'ਪਸੰਦਿਤਾ',
+        unfavorite: 'ਪਸੰਦਿਤਾ ਤੋਂ ਹਟਾਓ',
+        share: 'ਸਾਂਝਾ ਕਰੋ',
+        online: 'ਆਨਲਾਈਨ',
+        offline: 'ਆਫਲਾਈਨ',
+        busy: 'ਰੁੱਝਿਆ',
+        verified: 'ਪ੍ਰਮਾਣਿਤ',
+        rating: 'ਰੇਟਿੰਗ',
+        reviews: 'ਸਮੀਖਿਆਵਾਂ',
+        responseTime: 'ਔਸਤ ਜਵਾਬ ਸਮਾਂ',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'ਹਵਾਲੇ',
+        referencedSources: 'ਹਵਾਲਾ ਸਰੋਤ',
+        relevant: 'ਪ੍ਰਸੰਗਿਕਤਾ',
+        viewOriginal: 'ਅਸਲ ਵੇਖੋ',
+        showAll: 'ਸਭ ਵੇਖਾਓ',
+        more: 'ਹੋਰ ਸਰੋਤ',
+        drawerTitle: 'ਹਵਾਲੇ',
+        expandMore: 'ਹੋਰ ਵੇਖਾਓ',
+        collapseMore: 'ਸੰਕੁਚਿਤ ਕਰੋ',
+        noSources: 'ਕੋਈ ਸਰੋਤ ਨਹੀਂ',
+        today: 'ਅਜ',
+        last7Days: 'ਪਿਛਲੇ 7 ਦਿਨ',
+        last30Days: 'ਪਿਛਲੇ 30 ਦਿਨ',
+        earlier: 'ਪਹਿਲਾਂ',
+        pinned: 'ਪਿਨ ਕੀਤਾ'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'ਅਜ',
+        last7Days: 'ਪਿਛਲੇ 7 ਦਿਨ',
+        last30Days: 'ਪਿਛਲੇ 30 ਦਿਨ',
+        earlier: 'ਪਹਿਲਾਂ',
+        pinned: 'ਪਿਨ ਕੀਤਾ',
+        pin: 'ਪਿਨ ਕਰੋ',
+        unpin: 'ਪਿਨ ਹਟਾਓ',
+        newConversation: 'ਨਵੀਂ ਗੱਲਬਾਤ',
+        rename: 'ਨਾਮ ਬਦਲੋ',
+        delete: 'ਮਿਟਾਓ',
+        deleteConfirm: 'ਕੀ ਤੁਸੀਂ ਇਸ ਗੱਲਬਾਤ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹਦੇ ਹੋ?'
       }
     }
   }

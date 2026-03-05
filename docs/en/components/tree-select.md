@@ -75,7 +75,7 @@ const lazyData = ref([
 ])
 
 // Lazy load function
-const loadNode = (node: any, resolve: any) => {
+const loadNode = (node: TreeNode, resolve: (data: TreeOption[]) => void) => {
   // Simulate network delay
   setTimeout(() => {
     const nodes = Array.from({ length: 15 }).map((_, i) => ({
@@ -663,39 +663,39 @@ TreeSelect utilizes Vue 3.5's native `useId` mechanism, ensuring node IDs and AR
 
 ### TreeSelect Attributes
 
-| Name                  | Description                                                                 | Type                                                      | Default           |
-| --------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------- | ----------------- |
-| model-value / v-model | Binding value                                                               | `string \| number \| (string \| number)[]`                | —                 |
-| data                  | Display data                                                                | `TreeOption[]`                                            | `[]`              |
-| props                 | Configuration options                                                       | `object`                                                  | —                 |
-| node-key              | Unique identifier attribute for each node; should be unique across the tree | `string`                                                  | `'value'`         |
-| multiple              | Whether multiple selection is allowed                                       | `boolean`                                                 | `false`           |
-| clearable             | Whether to allow clearing of the selection                                  | `boolean`                                                 | `false`           |
-| disabled              | Whether disabled                                                            | `boolean`                                                 | `false`           |
-| size                  | Input size                                                                  | `'large' \| 'default' \| 'small'`                         | `'default'`       |
-| placeholder           | Placeholder text                                                            | `string`                                                  | `'Please select'` |
-| empty-text            | Text shown when there is no data                                            | `string`                                                  | `'No Data'`       |
-| filterable            | Whether list is searchable                                                  | `boolean`                                                 | `false`           |
-| filter-node-method    | Custom filter method                                                        | `(value: string, data: TreeOption, node: any) => boolean` | —                 |
-| collapse-tags         | Whether to fold tags in multi-select                                        | `boolean`                                                 | `false`           |
-| collapse-tags-tooltip | Whether to show a tooltip for folded tags (displaying count)                | `boolean`                                                 | `false`           |
-| max-collapse-tags     | Max tags displayed before folding                                           | `number`                                                  | `1`               |
-| check-strictly        | Whether to decouple parent and child checkbox statuses                      | `boolean`                                                 | `false`           |
-| show-checkbox         | Whether to show checkboxes before nodes                                     | `boolean`                                                 | `false`           |
-| default-expand-all    | Whether to expand all nodes by default                                      | `boolean`                                                 | `false`           |
-| default-expanded-keys | Initial keys for expanded nodes                                             | `TreeKey[]`                                               | `[]`              |
-| accordion             | Whether to expand only one peer node at a time                              | `boolean`                                                 | `false`           |
-| indent                | Horizontal indent between levels                                            | `number`                                                  | `16`              |
-| check-on-click-node   | Whether to check checkbox on node click                                     | `boolean`                                                 | `false`           |
-| expand-on-click-node  | Whether to expand/collapse on node click                                    | `boolean`                                                 | `true`            |
-| lazy                  | Whether to enable lazy loading                                              | `boolean`                                                 | `false`           |
-| load                  | Function for loading subtree data                                           | `Function`                                                | —                 |
-| virtual               | Whether to enable virtual scrolling                                         | `boolean`                                                 | `false`           |
-| height                | Max height of the dropdown menu                                             | `string \| number`                                        | `274`             |
-| item-size             | Height of each item for virtual scrolling                                   | `number`                                                  | `34`              |
-| teleported            | Whether to mount the dropdown to body                                       | `boolean`                                                 | `true`            |
-| popper-class          | Custom class for popper                                                     | `string`                                                  | —                 |
-| status                | Validation status for the input                                             | `'success' \| 'warning' \| 'error' \| ''`                 | —                 |
+| Name                  | Description                                                                 | Type                                                           | Default           |
+| --------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------- | ----------------- |
+| model-value / v-model | Binding value                                                               | `string \| number \| (string \| number)[]`                     | —                 |
+| data                  | Display data                                                                | `TreeOption[]`                                                 | `[]`              |
+| props                 | Configuration options                                                       | `object`                                                       | —                 |
+| node-key              | Unique identifier attribute for each node; should be unique across the tree | `string`                                                       | `'value'`         |
+| multiple              | Whether multiple selection is allowed                                       | `boolean`                                                      | `false`           |
+| clearable             | Whether to allow clearing of the selection                                  | `boolean`                                                      | `false`           |
+| disabled              | Whether disabled                                                            | `boolean`                                                      | `false`           |
+| size                  | Input size                                                                  | `'large' \| 'default' \| 'small'`                              | `'default'`       |
+| placeholder           | Placeholder text                                                            | `string`                                                       | `'Please select'` |
+| empty-text            | Text shown when there is no data                                            | `string`                                                       | `'No Data'`       |
+| filterable            | Whether list is searchable                                                  | `boolean`                                                      | `false`           |
+| filter-node-method    | Custom filter method                                                        | `(value: string, data: TreeOption, node: TreeNode) => boolean` | —                 |
+| collapse-tags         | Whether to fold tags in multi-select                                        | `boolean`                                                      | `false`           |
+| collapse-tags-tooltip | Whether to show a tooltip for folded tags (displaying count)                | `boolean`                                                      | `false`           |
+| max-collapse-tags     | Max tags displayed before folding                                           | `number`                                                       | `1`               |
+| check-strictly        | Whether to decouple parent and child checkbox statuses                      | `boolean`                                                      | `false`           |
+| show-checkbox         | Whether to show checkboxes before nodes                                     | `boolean`                                                      | `false`           |
+| default-expand-all    | Whether to expand all nodes by default                                      | `boolean`                                                      | `false`           |
+| default-expanded-keys | Initial keys for expanded nodes                                             | `TreeKey[]`                                                    | `[]`              |
+| accordion             | Whether to expand only one peer node at a time                              | `boolean`                                                      | `false`           |
+| indent                | Horizontal indent between levels                                            | `number`                                                       | `16`              |
+| check-on-click-node   | Whether to check checkbox on node click                                     | `boolean`                                                      | `false`           |
+| expand-on-click-node  | Whether to expand/collapse on node click                                    | `boolean`                                                      | `true`            |
+| lazy                  | Whether to enable lazy loading                                              | `boolean`                                                      | `false`           |
+| load                  | Function for loading subtree data                                           | `Function`                                                     | —                 |
+| virtual               | Whether to enable virtual scrolling                                         | `boolean`                                                      | `false`           |
+| height                | Max height of the dropdown menu                                             | `string \| number`                                             | `274`             |
+| item-size             | Height of each item for virtual scrolling                                   | `number`                                                       | `34`              |
+| teleported            | Whether to mount the dropdown to body                                       | `boolean`                                                      | `true`            |
+| popper-class          | Custom class for popper                                                     | `string`                                                       | —                 |
+| status                | Validation status for the input                                             | `'success' \| 'warning' \| 'error' \| ''`                      | —                 |
 
 ### TreeSelect Props (Config Options)
 
@@ -710,13 +710,13 @@ TreeSelect utilizes Vue 3.5's native `useId` mechanism, ensuring node IDs and AR
 ### TreeSelect Events
 
 | Name           | Description                                   | Parameters                                                             |
-| -------------- | --------------------------------------------- | ---------------------------------------------------------------------- |
-| change         | Triggers when the selection changes           | `(value: any) => void`                                                 |
+| -------------- | --------------------------------------------- | ---------------------------------------------------------------------- | ------ | ------- | --------- | ------------------- |
+| change         | Triggers when the selection changes           | `(value: string                                                        | number | (string | number)[] | undefined) => void` |
 | visible-change | Triggers when the dropdown visibility changes | `(visible: boolean) => void`                                           |
 | clear          | Triggers when the clear button is clicked     | —                                                                      |
 | node-click     | Triggers on node click                        | `(data: TreeOption, node: TreeNode, e: MouseEvent) => void`            |
 | check-change   | Triggers when a checkbox state changes        | `(data: TreeOption, checked: boolean, indeterminate: boolean) => void` |
-| check          | Triggers on checkbox click                    | `(data: TreeOption, info: any) => void`                                |
+| check          | Triggers on checkbox click                    | `(data: TreeOption, info: TreeCheckedInfo) => void`                    |
 
 ### TreeSelect Slots
 

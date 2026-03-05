@@ -592,124 +592,124 @@ export const sw: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Tafadhali ingiza',
+      loading: 'Inapakia...',
+      noData: 'Hakuna data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Vitambulisho'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Taja Agenti, Hati au Jedwali...',
+        agent: 'Agenti',
+        document: 'Hati',
+        table: 'Jedwali',
+        knowledge: 'Umakini'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Nakili msimbo',
+        copied: 'Imenakiliwa!',
+        run: 'endesha msimbo',
+        edit: 'Hariri',
+        save: 'Hifadhi',
+        cancel: 'Ghairi'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Endesha',
+        stop: 'Simamisha',
+        clear: 'Futa',
+        reset: 'Weka upya',
+        placeholder: 'Bofya Endesha kutekeleza msimbo...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Tuma ujumbe...',
+        dragTip: 'Awa ili kupakia faili'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Mchakato wa kufikiri',
+        thinking: 'Inafikiri...',
+        defaultTitle: 'Hatua mpya',
+        addNode: 'Ongeza hatua'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Anza kufikiri',
+        thinking: 'Inafikiri...',
+        complete: 'Kufikiri kumekamilika',
+        error: 'Hitilafu ya kufikiri'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Halo, mimi ni YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Nakusaidia na k编码, kutafsiri hati au kuandika ubunifu. Ninachoweza kukufanyia leo?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Nakili',
+        regenerate: 'Tengeneza upya',
+        share: 'Shiriki',
+        like: 'Penda',
+        dislike: 'Sitapendi',
+        edit: 'Hariri',
+        delete: 'Futa'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Hakiki',
+        inline: 'Ndani ya mstari',
+        code: 'Msimbo wa asili',
+        versions: 'Toleo',
+        rendering: 'Inaonyesha kipengee...',
+        renderingChart: 'Inaonyesha chati...',
+        renderingCanvas: 'Inaandaa turubai...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Bofya kuzungumza',
+        listening: 'Inasikiliza...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'matumizi',
+        use: 'Tumia sasa',
+        favorite: 'Pendwa',
+        unfavorite: 'Ondosha kwenye pendwa',
+        share: 'Shiriki',
+        online: 'Mtandaoni',
+        offline: 'Nje ya mtandao',
+        busy: 'Shughuli',
+        verified: 'Thibitishwa',
+        rating: 'Ukadiriaji',
+        reviews: 'maoni',
+        responseTime: 'Wakati wa majibu kati',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Vitambulisho',
+        referencedSources: 'Vyanzo vilivyotajwa',
+        relevant: 'Uhusiano',
+        viewOriginal: 'Tazama asili',
+        showAll: 'Onyesha zote',
+        more: 'vyanzo zaidi',
+        drawerTitle: 'Vitambulisho',
+        expandMore: 'Onyesha zaidi',
+        collapseMore: 'Kunja',
+        noSources: 'Hakuna vyanzo',
+        today: 'Leo',
+        last7Days: 'Siku 7 zilizopita',
+        last30Days: 'Siku 30 zilizopita',
+        earlier: 'Hapo awali',
+        pinned: 'Imesimama'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Leo',
+        last7Days: 'Siku 7 zilizopita',
+        last30Days: 'Siku 30 zilizopita',
+        earlier: 'Hapo awali',
+        pinned: 'Imesimama',
+        pin: 'Simamisha',
+        unpin: 'Ondoa kwenye kusimama',
+        newConversation: 'Mazungumzo mapya',
+        rename: 'Badilisha jina',
+        delete: 'Futa',
+        deleteConfirm: 'Una uhakika unataka kufuta mazungumzo haya?'
       }
     }
   }

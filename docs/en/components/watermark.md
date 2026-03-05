@@ -36,12 +36,17 @@ const config = reactive({
   lineHeight: 24
 })
 
+interface FontStyle {
+  fontStyle: string
+  textAlign: string
+}
+
 const fontConfig = computed(() => ({
   color: config.color,
   fontSize: config.fontSize,
   fontWeight: config.fontWeight,
-  fontStyle: config.fontStyle as any,
-  textAlign: config.textAlign as any,
+  fontStyle: config.fontStyle as FontStyle['fontStyle'],
+  textAlign: config.textAlign as FontStyle['textAlign'],
   lineHeight: config.lineHeight
 }))
 
@@ -308,32 +313,32 @@ Since the Watermark component relies on DOM operations and Canvas rendering, ens
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| width | Width of each watermark unit | `number` | `120` |
-| height | Height of each watermark unit | `number` | `64` |
-| rotate | Rotation angle of the unit cell | `number` | `-22` |
-| globalRotate | Overall rotation angle | `number` | `0` |
-| zIndex | Watermark z-index | `number` | `9` |
-| image | Image source; if set, `content` will be ignored | `string` | - |
-| content | Watermark text; supports multi-line | `string \| string[]` | `'YH-UI'` |
-| font | Font style configuration object | `Font` | See below |
-| gap | Gap between watermarks [x, y] | `[number, number]` | `[100, 100]` |
-| offset | Offset from the container's start point [x, y] | `[number, number]` | `[0, 0]` |
-| fullScreen | Whether to mount the watermark under body for fullscreen | `boolean` | `false` |
-| antiTamper | Whether to enable anti-tamper mode (monitors DOM changes) | `boolean` | `true` |
+| Name         | Description                                               | Type                 | Default      |
+| ------------ | --------------------------------------------------------- | -------------------- | ------------ |
+| width        | Width of each watermark unit                              | `number`             | `120`        |
+| height       | Height of each watermark unit                             | `number`             | `64`         |
+| rotate       | Rotation angle of the unit cell                           | `number`             | `-22`        |
+| globalRotate | Overall rotation angle                                    | `number`             | `0`          |
+| zIndex       | Watermark z-index                                         | `number`             | `9`          |
+| image        | Image source; if set, `content` will be ignored           | `string`             | -            |
+| content      | Watermark text; supports multi-line                       | `string \| string[]` | `'YH-UI'`    |
+| font         | Font style configuration object                           | `Font`               | See below    |
+| gap          | Gap between watermarks [x, y]                             | `[number, number]`   | `[100, 100]` |
+| offset       | Offset from the container's start point [x, y]            | `[number, number]`   | `[0, 0]`     |
+| fullScreen   | Whether to mount the watermark under body for fullscreen  | `boolean`            | `false`      |
+| antiTamper   | Whether to enable anti-tamper mode (monitors DOM changes) | `boolean`            | `true`       |
 
 #### Font Object Description
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| color | Text color | `string` | `'rgba(0,0,0,0.15)' |
-| fontSize | Font size | `number \| string` | `16` |
-| fontWeight | Font weight | `string \| number` | `'normal'` |
-| fontFamily | Font family | `string` | `'sans-serif'` |
-| fontStyle | Font style | `'normal' \| 'italic' \| 'oblique'` | `'normal'` |
-| textAlign | Text alignment | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'` |
-| lineHeight | Line height | `number` | `22` |
+| Name       | Description    | Type                                                | Default             |
+| ---------- | -------------- | --------------------------------------------------- | ------------------- |
+| color      | Text color     | `string`                                            | `'rgba(0,0,0,0.15)' |
+| fontSize   | Font size      | `number \| string`                                  | `16`                |
+| fontWeight | Font weight    | `string \| number`                                  | `'normal'`          |
+| fontFamily | Font family    | `string`                                            | `'sans-serif'`      |
+| fontStyle  | Font style     | `'normal' \| 'italic' \| 'oblique'`                 | `'normal'`          |
+| textAlign  | Text alignment | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'`          |
+| lineHeight | Line height    | `number`                                            | `22`                |
 
 ### Events
 
@@ -341,23 +346,23 @@ This Watermark component does not currently expose any events.
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
+| Name    | Description                           |
+| ------- | ------------------------------------- |
 | default | Content area covered by the watermark |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name            | Description                                                                                | Type         |
+| --------------- | ------------------------------------------------------------------------------------------ | ------------ |
 | renderWatermark | Force a re-render of the watermark (useful when container size changes but isn't detected) | `() => void` |
 
 ## Theme Variables (CSS Variables)
 
 Define basic styles using these CSS variables; they can be overridden locally or globally.
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
+| Variable Name                       | Description                                | Default    |
+| ----------------------------------- | ------------------------------------------ | ---------- |
 | `--yh-watermark-container-position` | Positioning mode for the wrapper container | `relative` |
-| `--yh-watermark-width` | Component width | `100%` |
-| `--yh-watermark-height` | Component height | `100%` |
-| `--yh-watermark-fullscreen-z-index` | Forced z-index in fullscreen mode | `9999` |
+| `--yh-watermark-width`              | Component width                            | `100%`     |
+| `--yh-watermark-height`             | Component height                           | `100%`     |
+| `--yh-watermark-fullscreen-z-index` | Forced z-index in fullscreen mode          | `9999`     |

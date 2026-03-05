@@ -592,124 +592,124 @@ export const uzUz: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Iltimos, kiriting',
+      loading: 'Yuklanmoqda...',
+      noData: "Ma'lumot yo'q"
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Iqtiboslar'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: "@ Agent, Hujjat yoki Jadvalni ko'rsating...",
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Hujjat',
+        table: 'Jadval',
+        knowledge: 'Bilim'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kodni nusxalash',
+        copied: 'Nusxalandi!',
+        run: 'Kodni ishga tushirish',
+        edit: 'Tahrirlash',
+        save: 'Saqlash',
+        cancel: 'Bekor qilish'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Ishga tushirish',
+        stop: "To'xtatish",
+        clear: 'Tozalash',
+        reset: "Qayta o'rnatish",
+        placeholder: 'Kodni ishga tushirish uchun Ishga tushirish tugmasini bosing...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Xabar yuborish...',
+        dragTip: "Fayllarni yuklash uchun qo'yib yuboring"
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Fikrlash jarayoni',
+        thinking: 'Fikrlayapti...',
+        defaultTitle: 'Yangi qadam',
+        addNode: "Qadam qo'shish"
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Fikrlashni boshlash',
+        thinking: 'Fikrlayapti...',
+        complete: 'Fikrlash tugadi',
+        error: 'Fikrlash xatosi'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Salom, men YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Men sizga dasturlash, hujjatlarni tarjima qilish yoki ijodiy yozishda yordam berishim mumkin. Bugun siz uchun nima qila olaman?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Nusxalash',
+        regenerate: 'Qayta yaratish',
+        share: 'Ulashish',
+        like: 'Yoqadi',
+        dislike: 'Yoqmaydi',
+        edit: 'Tahrirlash',
+        delete: "O'chirish"
       },
       artifacts: {
-        preview: 'Preview',
+        preview: "Oldindan ko'rish",
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Manba kodi',
+        versions: 'Versiyalar',
+        rendering: 'Komponentni render qilish...',
+        renderingChart: 'Grafikni render qilish...',
+        renderingCanvas: 'Kanvasni tayyorlash...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Gapirish uchun bosing',
+        listening: 'Eshitmoqda...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'foydalanishlar',
+        use: 'Hozir foydalanish',
+        favorite: 'Sevimli',
+        unfavorite: 'Sevimlilardan olib tashlash',
+        share: 'Ulashish',
+        online: 'Onlayn',
+        offline: 'Oflayn',
+        busy: 'Band',
+        verified: 'Tasdiqlangan',
+        rating: 'Reyting',
+        reviews: 'sharhlar',
+        responseTime: "O'rtacha javob vaqti",
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Havolalar',
+        referencedSources: 'Havola qilingan manbalar',
+        relevant: 'Moslik',
+        viewOriginal: "Aslni ko'rish",
+        showAll: "Hammasini ko'rsatish",
+        more: "ko'proq manbalar",
+        drawerTitle: 'Havolalar',
+        expandMore: "Ko'proq ko'rsatish",
+        collapseMore: "Yig'ish",
+        noSources: "Manbalar yo'q",
+        today: 'Bugun',
+        last7Days: 'Oxirgi 7 kun',
+        last30Days: 'Oxirgi 30 kun',
+        earlier: 'Oldinroq',
+        pinned: 'Qadalgangan'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Bugun',
+        last7Days: 'Oxirgi 7 kun',
+        last30Days: 'Oxirgi 30 kun',
+        earlier: 'Oldinroq',
+        pinned: 'Qadalgangan',
+        pin: 'Qadash',
+        unpin: 'Qadashni bekor qilish',
+        newConversation: 'Yangi suhbat',
+        rename: "Nomini o'zgartirish",
+        delete: "O'chirish",
+        deleteConfirm: "Bu suhbatni o'chirishni tasdiqlaysizmi?"
       }
     }
   }

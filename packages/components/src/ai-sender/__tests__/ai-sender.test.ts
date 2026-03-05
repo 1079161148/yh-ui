@@ -1,7 +1,7 @@
 /**
  * @vitest-environment happy-dom
  */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import AiSender from '../src/ai-sender.vue'
@@ -258,6 +258,16 @@ describe('YhAiSender', () => {
       expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(false)
     })
 
+    it('should ignore slash followed by space', async () => {
+      const wrapper = mount(AiSender, { props: { commands } })
+      const textarea = wrapper.find('textarea')
+      await textarea.setValue('/ ')
+      textarea.element.selectionStart = 2
+      await textarea.trigger('input')
+
+      expect(wrapper.find('.yh-ai-sender__command-panel').exists()).toBe(false)
+    })
+
     it('should hide commands on blur after delay', async () => {
       const wrapper = mount(AiSender, { props: { commands } })
       const textarea = wrapper.find('textarea')
@@ -298,6 +308,94 @@ describe('YhAiSender', () => {
     })
   })
 
+  // ─── Drag and Drop ───────────────────────────────────────
+  describe('Drag and Drop', () => {
+    it('should handle dragenter, dragover, dragleave and drop', async () => {
+      const wrapper = mount(AiSender)
+      const container = wrapper.find('.yh-ai-sender')
+
+      await container.trigger('dragenter')
+      expect(wrapper.find('.yh-ai-sender__drag-overlay').exists()).toBe(true)
+
+      await container.trigger('dragover')
+      expect(wrapper.find('.yh-ai-sender__drag-overlay').exists()).toBe(true)
+
+      // Leave outside
+      const leaveEvent = new DragEvent('dragleave', { clientX: -10, clientY: -10 } as any)
+      Object.defineProperty(leaveEvent, 'currentTarget', {
+        value: { getBoundingClientRect: () => ({ left: 0, right: 100, top: 0, bottom: 100 }) }
+      })
+      await container.trigger('dragleave', leaveEvent)
+
+      await nextTick() // overlay fades out, but state is false
+
+      // Drop
+      await container.trigger('dragover')
+
+      const file = new File([''], 'test.png', { type: 'image/png' })
+      const dropEvent = { dataTransfer: { files: [file] }, preventDefault: vi.fn() }
+      await container.trigger('drop', dropEvent)
+
+      expect(wrapper.emitted('upload')).toBeTruthy()
+      expect(wrapper.emitted('upload')![0][0]).toEqual([file])
+
+      // Leave inside (isDragging stays true, so 61 NOT hit, but 60 else hit?)
+      // To hit 61, we need to leave outside as we did above.
+      // Maybe we need a different coordinate to hit specifically
+      // Leave outside again to verify line 61
+      const leaveOutside = new DragEvent('dragleave', { clientX: -10, clientY: -10 } as any)
+      Object.defineProperty(leaveOutside, 'currentTarget', {
+        value: { getBoundingClientRect: () => ({ left: 0, right: 100, top: 0, bottom: 100 }) }
+      })
+      await container.trigger('dragleave', leaveOutside)
+      expect((wrapper.vm as any).isDragging).toBe(false)
+    })
+
+    it('should ignore drag events when disabled or loading', async () => {
+      const wrapper = mount(AiSender, { props: { disabled: true } })
+      const container = wrapper.find('.yh-ai-sender')
+
+      await container.trigger('dragenter')
+      expect(wrapper.find('.yh-ai-sender__drag-overlay').exists()).toBe(false)
+
+      await container.trigger('dragover')
+      expect(wrapper.find('.yh-ai-sender__drag-overlay').exists()).toBe(false)
+
+      await container.trigger('drop')
+      expect(wrapper.emitted('upload')).toBeFalsy()
+    })
+  })
+
+  describe('Edge Cases', () => {
+    it('should handle Enter key scenarios', async () => {
+      const wrapper = mount(AiSender)
+      const textarea = wrapper.find('textarea')
+
+      // Empty enter
+      const preventDefault = vi.fn()
+      await textarea.trigger('keydown', { key: 'Enter', preventDefault })
+      expect(preventDefault).toHaveBeenCalled()
+      expect(wrapper.emitted('send')).toBeFalsy()
+
+      // Another empty enter test but with different state to hit line 193 again if needed
+      // (Actually one call is enough for coverage if it hits the branch)
+      const wrapper2 = mount(AiSender, { props: { modelValue: '   ' } })
+      const preventDef2 = vi.fn()
+      await wrapper2
+        .find('textarea')
+        .trigger('keydown', { key: 'Enter', preventDefault: preventDef2 })
+      expect(preventDef2).toHaveBeenCalled()
+    })
+
+    it('should handle slash command boundary cases', async () => {
+      const wrapper = mount(AiSender, { props: { modelValue: 'abc/' } })
+      const textarea = wrapper.find('textarea')
+      await textarea.trigger('input')
+      // No space before slash, should not show commands
+      expect((wrapper.vm as any).showCommands).toBe(false)
+    })
+  })
+
   // ─── Emits Validators ────────────────────────────────────
   describe('aiSenderEmits', () => {
     it('should validate send event', async () => {
@@ -316,6 +414,7 @@ describe('YhAiSender', () => {
       expect(
         aiSenderEmits['remove-attachment']({ id: '1', name: 'f', type: 'doc', url: 'doc' })
       ).toBe(true)
+      expect(aiSenderEmits.upload([new File([''], 'test.png')])).toBe(true)
     })
   })
 })

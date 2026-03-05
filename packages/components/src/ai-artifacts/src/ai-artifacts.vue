@@ -130,20 +130,20 @@ const highlightedCode = computed(() => {
               :class="[ns.e('tab'), ns.is('active', internalMode === 'preview')]"
               @click="toggleMode('preview')"
             >
-              {{ t('ai.artifacts.preview') || '预览' }}
+              {{ t('ai.artifacts.preview') }}
             </button>
             <button
               v-if="data?.type === 'html'"
               :class="[ns.e('tab'), ns.is('active', internalMode === 'inline')]"
               @click="toggleMode('inline')"
             >
-              {{ t('ai.artifacts.inline') || '行内' }}
+              {{ t('ai.artifacts.inline') }}
             </button>
             <button
               :class="[ns.e('tab'), ns.is('active', internalMode === 'code')]"
               @click="toggleMode('code')"
             >
-              {{ t('ai.artifacts.code') || '源码' }}
+              {{ t('ai.artifacts.code') }}
             </button>
           </div>
 
@@ -159,7 +159,7 @@ const highlightedCode = computed(() => {
       <div v-if="data && data.versions.length > 1" :class="ns.e('version-bar')">
         <div :class="ns.e('version-label')">
           <YhIcon name="history" />
-          <span>{{ t('ai.artifacts.versions') || '版本历史' }}</span>
+          <span>{{ t('ai.artifacts.versions') }}</span>
         </div>
         <div :class="ns.e('version-list')">
           <div
@@ -185,7 +185,7 @@ const highlightedCode = computed(() => {
             <slot name="chart" :data="currentVersionData" :title="data.title">
               <div :class="ns.e('placeholder')">
                 <YhIcon name="chart-bar" />
-                <p>{{ t('ai.artifacts.renderingChart') || '正在渲染图表...' }}</p>
+                <p>{{ t('ai.artifacts.renderingChart') }}</p>
               </div>
             </slot>
           </div>
@@ -193,13 +193,13 @@ const highlightedCode = computed(() => {
             <slot name="canvas" :data="currentVersionData">
               <div :class="ns.e('placeholder')">
                 <YhIcon name="edit" />
-                <p>{{ t('ai.artifacts.renderingCanvas') || '正在准备画板...' }}</p>
+                <p>{{ t('ai.artifacts.renderingCanvas') }}</p>
               </div>
             </slot>
           </div>
           <div v-else :class="ns.e('placeholder')">
             <YhIcon name="sparkles" />
-            <p>{{ t('ai.artifacts.rendering') || '正在渲染组件...' }}</p>
+            <p>{{ t('ai.artifacts.rendering') }}</p>
           </div>
         </template>
 

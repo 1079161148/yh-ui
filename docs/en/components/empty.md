@@ -11,7 +11,7 @@ const jsBasic = tsBasic
 
 const tsImage = `<template>
   <yh-empty 
-    image="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+    image="https://picsum.photos/seed/hamburger/200/200"
     description="Custom Image" 
   />
 <\/template>`
@@ -98,7 +98,7 @@ Set image URL via `image` prop.
 
 <DemoBlock title="Custom Image" :ts-code="tsImage" :js-code="jsImage">
   <yh-empty 
-    image="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+    image="https://picsum.photos/seed/hamburger/200/200"
     description="Custom Image" 
   />
 </DemoBlock>
@@ -172,31 +172,31 @@ After installing the `@yh-ui/nuxt` module, the `YhEmpty` component is auto-regis
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| image | Custom image URL | `string` | — |
-| image-size | Image size in pixels | `number` | `100` |
-| description | Description text | `string` | `'暂无数据'` |
-| icon | Custom image component | `string \| Component` | — |
-| theme-overrides | Theme override variables | `ComponentThemeVars` | — |
+| Prop            | Description              | Type                  | Default      |
+| --------------- | ------------------------ | --------------------- | ------------ |
+| image           | Custom image URL         | `string`              | —            |
+| image-size      | Image size in pixels     | `number`              | `100`        |
+| description     | Description text         | `string`              | `'暂无数据'` |
+| icon            | Custom image component   | `string \| Component` | —            |
+| theme-overrides | Theme override variables | `ComponentThemeVars`  | —            |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Custom bottom content (e.g. action buttons) |
-| image | Custom image area |
-| description | Custom description text |
+| Slot Name   | Description                                 |
+| ----------- | ------------------------------------------- |
+| default     | Custom bottom content (e.g. action buttons) |
+| image       | Custom image area                           |
+| description | Custom description text                     |
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-empty-padding` | Container padding | `40px 0` |
-| `--yh-empty-description-color` | Description text color | `var(--yh-text-color-secondary, #909399)` |
-| `--yh-empty-description-font-size` | Description font size | `14px` |
-| `--yh-empty-ellipse-color` | Default illustration ellipse color | `#f5f5f7` |
-| `--yh-empty-image-fill` | Default illustration primary fill color | `#aeb8c2` |
-| `--yh-empty-image-fill2` | Default illustration secondary fill color | `#f5f5f7` |
-| `--yh-empty-plane-bg` | Default illustration plane background | `#f5f5f7` |
-| `--yh-empty-comment-fill` | Default illustration comment fill color | `#dce0e6` |
+| Variable                           | Description                               | Default                                   |
+| ---------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| `--yh-empty-padding`               | Container padding                         | `40px 0`                                  |
+| `--yh-empty-description-color`     | Description text color                    | `var(--yh-text-color-secondary, #909399)` |
+| `--yh-empty-description-font-size` | Description font size                     | `14px`                                    |
+| `--yh-empty-ellipse-color`         | Default illustration ellipse color        | `#f5f5f7`                                 |
+| `--yh-empty-image-fill`            | Default illustration primary fill color   | `#aeb8c2`                                 |
+| `--yh-empty-image-fill2`           | Default illustration secondary fill color | `#f5f5f7`                                 |
+| `--yh-empty-plane-bg`              | Default illustration plane background     | `#f5f5f7`                                 |
+| `--yh-empty-comment-fill`          | Default illustration comment fill color   | `#dce0e6`                                 |

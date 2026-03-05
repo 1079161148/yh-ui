@@ -592,124 +592,124 @@ export const cs: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Prosím zadejte',
+      loading: 'Načítání...',
+      noData: 'Žádná data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citace'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Zmínit agenta, dokument nebo tabulku...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokument',
+        table: 'Tabulka',
+        knowledge: 'Znalosti'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopírovat kód',
+        copied: 'Zkopírováno!',
+        run: 'Spustit kód',
+        edit: 'Upravit',
+        save: 'Uložit',
+        cancel: 'Zrušit'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Spustit',
+        stop: 'Zastavit',
+        clear: 'Vymazat',
+        reset: 'Resetovat',
+        placeholder: 'Klikněte na Spustit pro spuštění kódu...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Poslat zprávu...',
+        dragTip: 'Uvolněte pro nahrání souborů'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Myšlenkový proces',
+        thinking: 'Přemýšlím...',
+        defaultTitle: 'Nový krok',
+        addNode: 'Přidat krok'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Začít přemýšlet',
+        thinking: 'Přemýšlím...',
+        complete: 'Přemýšlení dokončeno',
+        error: 'Chyba přemýšlení'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Ahoj, já jsem YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Mohu vám pomoci s programováním, překladem dokumentů nebo kreativním psaním. Co pro vás dnes mohu udělat?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopírovat',
+        regenerate: 'Regenerovat',
+        share: 'Sdílet',
+        like: 'Líbí se',
+        dislike: 'Nelíbí se',
+        edit: 'Upravit',
+        delete: 'Smazat'
       },
       artifacts: {
-        preview: 'Preview',
+        preview: 'Náhled',
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Zdrojový kód',
+        versions: 'Verze',
+        rendering: 'Vykreslování komponenty...',
+        renderingChart: 'Vykreslování grafu...',
+        renderingCanvas: 'Příprava plátna...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klikněte pro mluvení',
+        listening: 'Poslouchám...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'používá',
+        use: 'Použít nyní',
+        favorite: 'Oblíbené',
+        unfavorite: 'Odebrat z oblíbených',
+        share: 'Sdílet',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Zaneprázdněný',
+        verified: 'Ověřený',
+        rating: 'Hodnocení',
+        reviews: 'recenzí',
+        responseTime: 'Prům. doba odpovědi',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
+        references: 'Reference',
+        referencedSources: 'Citované zdroje',
         relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        viewOriginal: 'Zobrazit originál',
+        showAll: 'Zobrazit vše',
+        more: 'dalších zdrojů',
+        drawerTitle: 'Reference',
+        expandMore: 'Zobrazit více',
+        collapseMore: 'Sbalit',
+        noSources: 'Žádné zdroje',
+        today: 'Dnes',
+        last7Days: 'Posledních 7 dní',
+        last30Days: 'Posledních 30 dní',
+        earlier: 'Dříve',
+        pinned: 'Připnuto'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Dnes',
+        last7Days: 'Posledních 7 dní',
+        last30Days: 'Posledních 30 dní',
+        earlier: 'Dříve',
+        pinned: 'Připnuto',
+        pin: 'Připnout',
+        unpin: 'Odepnout',
+        newConversation: 'Nová konverzace',
+        rename: 'Přejmenovat',
+        delete: 'Smazat',
+        deleteConfirm: 'Potvrdit smazání této konverzace?'
       }
     }
   }

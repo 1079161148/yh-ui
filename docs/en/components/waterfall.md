@@ -144,7 +144,7 @@ const fetchShopData = async (page: number) => {
   try {
     const res = await fetch('https://dummyjson.com/products?limit=8&skip=' + ((page - 1) * 8) + '&select=title,price,thumbnail')
     const data = await res.json()
-    shopItems.value = data.products.map((p: any) => ({
+    shopItems.value = data.products.map((p: Record<string, unknown>) => ({
       id: p.id,
       title: p.title,
       price: p.price,
@@ -212,7 +212,7 @@ const fetchProducts = async (p: number) => {
   try {
     const res = await fetch('https://dummyjson.com/products?limit=8&skip=' + ((p-1)*8))
     const data = await res.json()
-    products.value = data.products.map((p: any) => ({ ...p, image: p.thumbnail }))
+    products.value = data.products.map((p: Record<string, unknown>) => ({ ...p, image: p.thumbnail }))
   } finally {
     loading.value = false
   }
@@ -233,7 +233,7 @@ const loadMoreProducts = async () => {
   try {
     const res = await fetch('https://dummyjson.com/products?limit=6&skip=' + skipCount + '&select=title,price,thumbnail')
     const data = await res.json()
-    infiniteItems.value.push(...data.products.map((p: any) => ({ ...p, image: p.thumbnail })))
+    infiniteItems.value.push(...data.products.map((p: Record<string, unknown>) => ({ ...p, image: p.thumbnail })))
     skipCount += 6
     if (infiniteItems.value.length >= 24) infiniteFinished.value = true
   } finally {
@@ -286,7 +286,7 @@ const loadMore = async () => {
   try {
     const res = await fetch('https://dummyjson.com/products?limit=6&skip=' + skip)
     const data = await res.json()
-    list.value.push(...data.products.map((i: any) => ({ ...i, image: i.thumbnail })))
+    list.value.push(...data.products.map((i: Record<string, unknown>) => ({ ...i, image: i.thumbnail })))
     skip += 6
     if (list.value.length >= 24) finished.value = true
   } finally {
@@ -387,6 +387,7 @@ The Waterfall component fully supports SSR in Nuxt 3/4. When used in a Nuxt proj
 </DemoBlock>
 
 **SSR Considerations**:
+
 - ✅ Supports static rendering on first load to prevent layout shifts.
 - ✅ Responsive column counts automatically adapt to container width after client-side hydration.
 
@@ -436,20 +437,21 @@ The Waterfall component fully supports SSR in Nuxt 3/4. When used in a Nuxt proj
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| `items` | Data source array | `T[]` | `[]` |
-| `cols` | Column count config. Supports a number or responsive object. | `number \| WaterfallCols` | `2` |
-| `gap` | Gap between cards (px) | `number` | `16` |
-| `loading` | Whether in loading state | `boolean` | `false` |
-| `height-property` | Field name for height used for balanced layout. Enables shortest column algorithm if provided. | `string` | `'height'` |
-| `img-selector` | Internal image selector. Triggers re-calculation after images load. | `string` | `'img'` |
-| `animation` | Whether entrance animations are enabled | `boolean` | `true` |
-| `delay` | Base delay for step-up animations (ms) | `number` | `100` |
-| `row-key` | Field name for unique identifier | `string` | `'id'` |
-| `responsive` | Whether to automatically listen for container width changes | `boolean` | `true` |
+| Name              | Description                                                                                    | Type                      | Default    |
+| ----------------- | ---------------------------------------------------------------------------------------------- | ------------------------- | ---------- |
+| `items`           | Data source array                                                                              | `T[]`                     | `[]`       |
+| `cols`            | Column count config. Supports a number or responsive object.                                   | `number \| WaterfallCols` | `2`        |
+| `gap`             | Gap between cards (px)                                                                         | `number`                  | `16`       |
+| `loading`         | Whether in loading state                                                                       | `boolean`                 | `false`    |
+| `height-property` | Field name for height used for balanced layout. Enables shortest column algorithm if provided. | `string`                  | `'height'` |
+| `img-selector`    | Internal image selector. Triggers re-calculation after images load.                            | `string`                  | `'img'`    |
+| `animation`       | Whether entrance animations are enabled                                                        | `boolean`                 | `true`     |
+| `delay`           | Base delay for step-up animations (ms)                                                         | `number`                  | `100`      |
+| `row-key`         | Field name for unique identifier                                                               | `string`                  | `'id'`     |
+| `responsive`      | Whether to automatically listen for container width changes                                    | `boolean`                 | `true`     |
 
 #### WaterfallCols Definition
+
 ```ts
 interface WaterfallCols {
   xs?: number // < 576px
@@ -462,28 +464,28 @@ interface WaterfallCols {
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `default` | Custom node rendering | `{ item: T, index: number, column: number }` |
-| `loading` | Custom initial loading placeholder (usually skeletons) | `-` |
-| `empty` | Custom empty state content | `-` |
-| `loading-overlay` | Custom overlay for refresh states (when old data is present) | `-` |
+| Name              | Description                                                  | Parameters                                   |
+| ----------------- | ------------------------------------------------------------ | -------------------------------------------- |
+| `default`         | Custom node rendering                                        | `{ item: T, index: number, column: number }` |
+| `loading`         | Custom initial loading placeholder (usually skeletons)       | `-`                                          |
+| `empty`           | Custom empty state content                                   | `-`                                          |
+| `loading-overlay` | Custom overlay for refresh states (when old data is present) | `-`                                          |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name     | Description                            | Type         |
+| -------- | -------------------------------------- | ------------ |
 | `layout` | Manually trigger layout re-calculation | `() => void` |
 
 ## Theme Variables
 
 Customize local styles by overriding these CSS variables:
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
-| `--yh-bg-color-page` | Background for skeleton nodes | `var(--yh-bg-color-page)` |
-| `--yh-color-text-secondary` | Empty state text color | `var(--yh-text-color-secondary)` |
-| `--yh-color-primary` | Loader rotation color for refresh overlay | `var(--yh-color-primary)` |
+| Variable Name                | Description                                 | Default                           |
+| ---------------------------- | ------------------------------------------- | --------------------------------- |
+| `--yh-bg-color-page`         | Background for skeleton nodes               | `var(--yh-bg-color-page)`         |
+| `--yh-color-text-secondary`  | Empty state text color                      | `var(--yh-text-color-secondary)`  |
+| `--yh-color-primary`         | Loader rotation color for refresh overlay   | `var(--yh-color-primary)`         |
 | `--yh-color-primary-light-8` | Loader orbit background for refresh overlay | `var(--yh-color-primary-light-8)` |
 
 <style scoped>

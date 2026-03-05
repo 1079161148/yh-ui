@@ -592,124 +592,124 @@ export const km: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'សូមបញ្ចូល',
+      loading: 'កំពុងផ្ទុក...',
+      noData: '� некотор'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'ការដកស្រង់'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ លើកឡើងភ្នាក់ងារ ឯកសារ ឬតារាង...',
+        agent: 'ភ្នាក់ងារ',
+        document: 'ឯកសារ',
+        table: 'តារាង',
+        knowledge: 'ចំណេះ'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'ចម្លងកូដ',
+        copied: 'បានចម្លង!',
+        run: 'រត់កូដ',
+        edit: 'កែសម្រួល',
+        save: 'រក្សាទុក',
+        cancel: 'បោះបង់'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'រត់',
+        stop: 'បញ្ឈប់',
+        clear: 'សំអាត',
+        reset: 'កំណត់ឡើងវិញ',
+        placeholder: 'ចុចប៊ូតុង រត់ ដើម្បីប្រតិបត្តិកូដ...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'ផ្ញើសារ...',
+        dragTip: 'ដោះដើម្បីបង្ហោះឯកសារ'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'ដំណើរការគិត',
+        thinking: 'កំពុងគិត...',
+        defaultTitle: 'ជំហានថ្មី',
+        addNode: 'បន្ថែមជំហាន'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'ចាប់ផ្តើមគិត',
+        thinking: 'កំពុងគិត...',
+        complete: 'ការគិតបានបញ្ចប់',
+        error: 'កំហុសក្នុងការគិត'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'សួស្តី ខ្ញុំគឺ YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'ខ្ញុំអាចជួយអ្នកក្នុងការសរសេរកូដ បកប្រែឯកសារ ឬសរសេរច្នៃប្រឌិត។ តើមានអ្វីដែលខ្ញុំអាចធ្វើបានសម្រាប់អ្នកថ្ងៃនេះ?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'ចម្លង',
+        regenerate: 'បង្កើតឡើងវិញ',
+        share: 'ចែករំលែក',
+        like: 'ចូលចិត្ត',
+        dislike: 'មិនចូលចិត្ត',
+        edit: 'កែសម្រួល',
+        delete: 'លុប'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'មើលជាមុន',
+        inline: 'ក្នុងបន្ទាត់',
+        code: 'ប្រភពកូដ',
+        versions: 'កំណែទម្រង់',
+        rendering: 'កំពុងបង្ហាញធាតុ...',
+        renderingChart: 'កំពុងគូសតារាង...',
+        renderingCanvas: 'កំពុងរៀបចំផ្ទាំងគំនូស...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'ចុចដើម្បីនិយាយ',
+        listening: 'កំពុងស្តាប់...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'ការប្រើប្រាស់',
+        use: 'ប្រើឥឡូវ',
+        favorite: 'ចំណូលចិត្ត',
+        unfavorite: 'ដកចេញពីចំណូលចិត្ត',
+        share: 'ចែករំលែក',
+        online: 'លើបណ្តាញ',
+        offline: 'ក្រៅបណ្តាញ',
+        busy: 'រវល់',
+        verified: 'បានប�្ជាក់',
+        rating: 'ការវាយតម្ប៉',
+        reviews: 'ការពិនិត្យ',
+        responseTime: 'ពេលវេលាឆ្លើយតបមធ្យកម្ម',
+        ms: 'មិល្លីវិនាទី'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'ឯកសារយោង',
+        referencedSources: 'ប្រភពដែលបានយោង',
+        relevant: 'ភាពពាក់ស្ថាន',
+        viewOriginal: 'មើលប្រភព',
+        showAll: 'បង្ហាញទាំងអស់',
+        more: 'ប្រភពបន្ថែមទៀត',
+        drawerTitle: 'ឯកសារយោង',
+        expandMore: 'បង្ហាញបន្ថែម',
+        collapseMore: 'បង្រួម',
+        noSources: 'គ្មានប្រភព',
+        today: 'ថ្ងៃនេះ',
+        last7Days: '៧ថ្ងៃមុន',
+        last30Days: '៣០ថ្ងៃមុន',
+        earlier: 'មុន',
+        pinned: 'បានបិទ'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'ថ្ងៃនេះ',
+        last7Days: '៧ថ្ងៃមុន',
+        last30Days: '៣០ថ្ងៃមុន',
+        earlier: 'មុន',
+        pinned: 'បានបិទ',
+        pin: 'បិទ',
+        unpin: 'បើក',
+        newConversation: 'ការសន្ទនាថ្មី',
+        rename: 'ប្តូរឈ្មោះ',
+        delete: 'លុប',
+        deleteConfirm: 'តើអ្នកពិតជាចង់លុបការសន្ទនានេះទេ?'
       }
     }
   }

@@ -592,124 +592,124 @@ export const id: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Silakan masukkan',
+      loading: 'Memuat...',
+      noData: 'Tidak ada data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Sitasi'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Sebutkan Agent, Dokumen, atau Tabel...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokumen',
+        table: 'Tabel',
+        knowledge: 'Pengetahuan'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
+        copyCode: 'Salin kode',
+        copied: 'Tersalin!',
+        run: 'Jalankan kode',
         edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        save: 'Simpan',
+        cancel: 'Batal'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Jalankan',
+        stop: 'Berhenti',
+        clear: 'Hapus',
+        reset: 'Atur ulang',
+        placeholder: 'Klik Jalankan untuk mengeksekusi kode...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Kirim pesan...',
+        dragTip: 'Lepaskan untuk mengunggah file'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Proses Berpikir',
+        thinking: 'Berpikir...',
+        defaultTitle: 'Langkah Baru',
+        addNode: 'Tambah Langkah'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Mulai berpikir',
+        thinking: 'Berpikir...',
+        complete: 'Berpikir selesai',
+        error: 'Kesalahan berpikir'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Halo, saya YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Saya bisa membantu Anda dengan coding, menerjemahkan dokumen, atau menulis kreatif. Apa yang bisa saya lakukan untuk Anda hari ini?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
+        copy: 'Salin',
+        regenerate: 'Buat ulang',
+        share: 'Bagikan',
+        like: 'Suka',
+        dislike: 'Tidak suka',
         edit: 'Edit',
-        delete: 'Delete'
+        delete: 'Hapus'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Pratinjau',
+        inline: 'Sebaris',
+        code: 'Kode',
+        versions: 'Versi',
+        rendering: 'Merender komponen...',
+        renderingChart: 'Merender bagan...',
+        renderingCanvas: 'Menyiapkan kanvas...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Klik untuk Berbicara',
+        listening: 'Mendengarkan...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'menggunakan',
+        use: 'Gunakan Sekarang',
+        favorite: 'Favorit',
+        unfavorite: 'Hapus Favorit',
+        share: 'Bagikan',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        busy: 'Sibuk',
+        verified: 'Terverifikasi',
+        rating: 'Penilaian',
+        reviews: 'ulasan',
+        responseTime: 'Rata-rata Respons',
+        ms: 'md'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referensi',
+        referencedSources: 'Sumber yang Dirujuk',
+        relevant: 'Relevansi',
+        viewOriginal: 'Lihat Original',
+        showAll: 'Tampilkan Semua',
+        more: 'sumber lainnya',
+        drawerTitle: 'Referensi',
+        expandMore: 'Tampilkan Lebih Banyak',
+        collapseMore: 'Tutup',
+        noSources: 'Tidak ada sumber',
+        today: 'Hari ini',
+        last7Days: '7 Hari Terakhir',
+        last30Days: '30 Hari Terakhir',
+        earlier: 'Lebih Awal',
+        pinned: 'Disematkan'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Hari ini',
+        last7Days: '7 Hari Terakhir',
+        last30Days: '30 Hari Terakhir',
+        earlier: 'Lebih Awal',
+        pinned: 'Disematkan',
+        pin: 'Sematkan',
+        unpin: 'Lepas Sematan',
+        newConversation: 'Percakapan Baru',
+        rename: 'Ubah Nama',
+        delete: 'Hapus',
+        deleteConfirm: 'Konfirmasi hapus percakapan ini?'
       }
     }
   }

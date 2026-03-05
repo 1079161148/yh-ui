@@ -15,7 +15,7 @@ const suggestions1 = [
   { value: 'Next.js' },
   { value: 'Nuxt.js' }
 ]
-const querySearch1 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch1 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? suggestions1.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -32,7 +32,7 @@ const restaurants2 = [
   { value: 'KFC', address: '1 Hongqiao Road, Xuhui District' },
   { value: 'McDonald\'s', address: '1000 Lujiazui Ring Road, Pudong District' }
 ]
-const querySearch2 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch2 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? restaurants2.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -40,13 +40,13 @@ const querySearch2 = (queryString: string, cb: (suggestions: any[]) => void) => 
     : restaurants2
   cb(results)
 }
-const handleSelect2 = (item: any) => {
+const handleSelect2 = (item: AutocompleteSuggestion) => {
   console.log('Selected:', item)
 }
 
 // --- Remote Search (Demo 3) ---
 const value3 = ref('')
-const remoteSearch3 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const remoteSearch3 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   if (!queryString) {
     cb([])
     return
@@ -72,7 +72,7 @@ const small6 = ref('Solid')
 
 // --- Custom Slots (Demo 7) ---
 const value7 = ref('')
-const querySearch7 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch7 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   setTimeout(() => cb([]), 1000)
 }
 
@@ -99,7 +99,7 @@ const suggestions = [
   { value: 'Nuxt.js' }
 ]
 
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? suggestions.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -138,7 +138,7 @@ const restaurants = [
   { value: 'McDonald\\'s', address: '1000 Lujiazui Ring Road, Pudong District' }
 ]
 
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? restaurants.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -147,7 +147,7 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
   cb(results)
 }
 
-const handleSelect = (item: any) => {
+const handleSelect = (item: AutocompleteSuggestion) => {
   console.log('Selected:', item)
 }
 </${_S}>
@@ -182,7 +182,7 @@ import { ref } from 'vue'
 
 const value = ref('')
 
-const remoteSearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const remoteSearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   if (!queryString) {
     cb([])
     return
@@ -257,7 +257,7 @@ const large = ref('Vue.js')
 const defaultValue = ref('Svelte')
 const small = ref('Solid')
 
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const suggestions = [
     { value: 'Vue.js' },
     { value: 'React' },
@@ -295,7 +295,7 @@ const tsSlots = `<${_T}>
 import { ref } from 'vue'
 
 const value = ref('')
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   // Simulate delayed empty data
   setTimeout(() => cb([]), 1000)
 }
@@ -314,7 +314,7 @@ const jsSlots = toJs(tsSlots)
 
 // Nuxt usage example
 const nuxtValue = ref('')
-const nuxtSuggestions = (q: string, cb: any) => {
+const nuxtSuggestions = (q: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
 
@@ -332,7 +332,7 @@ const tsNuxt = `<${_T}>
 <${_S} setup lang="ts">
 // No need to manually import YhAutocomplete
 const nuxtValue = ref('')
-const nuxtSuggestions = (q: string, cb: any) => {
+const nuxtSuggestions = (q: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
 </${_S}>`
@@ -478,66 +478,66 @@ The Autocomplete component internally wraps `YhInput` and the `Popper` system. I
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `string` | — |
-| placeholder | Placeholder text | `string` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| clearable | Whether clearable | `boolean` | `false` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
-| fetch-suggestions | Method to fetch suggestions | `(query: string, callback: (suggestions: any[]) => void) => void` | — |
-| trigger-on-focus | Whether to trigger suggestions on focus | `boolean` | `true` |
-| debounce | Debounce delay (ms) | `number` | `300` |
-| placement | Dropdown position | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'` | `'bottom-start'` |
-| value-key | Key name used for display in suggestion objects | `string` | `'value'` |
-| highlight-first-item | Whether to highlight the first item by default | `boolean` | `false` |
-| teleported | Whether to append the dropdown to body | `boolean` | `true` |
-| fit-input-width | Whether the dropdown width matches the input | `boolean` | `true` |
-| prefix-icon | Prefix icon | `string \| Component` | — |
-| suffix-icon | Suffix icon | `string \| Component` | — |
-| name | Native name attribute | `string` | — |
-| autofocus | Auto focus | `boolean` | `false` |
-| autocomplete | Native autocomplete attribute | `string` | `'off'` |
+| Prop                  | Description                                     | Type                                                                                 | Default          |
+| --------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
+| model-value / v-model | Binding value                                   | `string`                                                                             | —                |
+| placeholder           | Placeholder text                                | `string`                                                                             | —                |
+| disabled              | Whether disabled                                | `boolean`                                                                            | `false`          |
+| clearable             | Whether clearable                               | `boolean`                                                                            | `false`          |
+| size                  | Input size                                      | `'large' \| 'default' \| 'small'`                                                    | `'default'`      |
+| fetch-suggestions     | Method to fetch suggestions                     | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | —                |
+| trigger-on-focus      | Whether to trigger suggestions on focus         | `boolean`                                                                            | `true`           |
+| debounce              | Debounce delay (ms)                             | `number`                                                                             | `300`            |
+| placement             | Dropdown position                               | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'`    | `'bottom-start'` |
+| value-key             | Key name used for display in suggestion objects | `string`                                                                             | `'value'`        |
+| highlight-first-item  | Whether to highlight the first item by default  | `boolean`                                                                            | `false`          |
+| teleported            | Whether to append the dropdown to body          | `boolean`                                                                            | `true`           |
+| fit-input-width       | Whether the dropdown width matches the input    | `boolean`                                                                            | `true`           |
+| prefix-icon           | Prefix icon                                     | `string \| Component`                                                                | —                |
+| suffix-icon           | Suffix icon                                     | `string \| Component`                                                                | —                |
+| name                  | Native name attribute                           | `string`                                                                             | —                |
+| autofocus             | Auto focus                                      | `boolean`                                                                            | `false`          |
+| autocomplete          | Native autocomplete attribute                   | `string`                                                                             | `'off'`          |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| input | Triggered when input value changes | `(value: string) => void` |
-| change | Triggered when value changes | `(value: string) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered when clear button is clicked | `() => void` |
-| select | Triggered when a suggestion item is selected | `(item: any) => void` |
+| Event Name | Description                                  | Parameters                               |
+| ---------- | -------------------------------------------- | ---------------------------------------- |
+| input      | Triggered when input value changes           | `(value: string) => void`                |
+| change     | Triggered when value changes                 | `(value: string) => void`                |
+| focus      | Triggered on focus                           | `(event: FocusEvent) => void`            |
+| blur       | Triggered on blur                            | `(event: FocusEvent) => void`            |
+| clear      | Triggered when clear button is clicked       | `() => void`                             |
+| select     | Triggered when a suggestion item is selected | `(item: AutocompleteSuggestion) => void` |
 
 ### Slots
 
-| Slot Name | Description | Scope |
-| --- | --- | --- |
-| default | Custom suggestion item content | `{ item: any }` |
-| prefix | Input prefix content | — |
-| suffix | Input suffix content | — |
-| prepend | Input prepend content | — |
-| append | Input append content | — |
-| loading | Content while loading | — |
-| empty | Content when no data matches | — |
+| Slot Name | Description                    | Scope                              |
+| --------- | ------------------------------ | ---------------------------------- |
+| default   | Custom suggestion item content | `{ item: AutocompleteSuggestion }` |
+| prefix    | Input prefix content           | —                                  |
+| suffix    | Input suffix content           | —                                  |
+| prepend   | Input prepend content          | —                                  |
+| append    | Input append content           | —                                  |
+| loading   | Content while loading          | —                                  |
+| empty     | Content when no data matches   | —                                  |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| focus | Focus the input | `() => void` |
-| blur | Blur the input | `() => void` |
-| close | Close the suggestion list | `() => void` |
+| Name      | Description                | Type                      |
+| --------- | -------------------------- | ------------------------- |
+| focus     | Focus the input            | `() => void`              |
+| blur      | Blur the input             | `() => void`              |
+| close     | Close the suggestion list  | `() => void`              |
 | highlight | Highlight a specified item | `(index: number) => void` |
 
 ## Theme Variables
 
 The Autocomplete component uses the following CSS variables. You can customize styles by overriding these variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-autocomplete-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-autocomplete-hover-border-color` | Hover border color | `var(--yh-border-color-hover)` |
-| `--yh-autocomplete-focus-border-color` | Focus border color | `var(--yh-color-primary)` |
-| `--yh-autocomplete-disabled-bg-color` | Disabled background color | `var(--yh-fill-color-light)` |
+| Variable                               | Description               | Default                        |
+| -------------------------------------- | ------------------------- | ------------------------------ |
+| `--yh-autocomplete-border-color`       | Border color              | `var(--yh-border-color)`       |
+| `--yh-autocomplete-hover-border-color` | Hover border color        | `var(--yh-border-color-hover)` |
+| `--yh-autocomplete-focus-border-color` | Focus border color        | `var(--yh-color-primary)`      |
+| `--yh-autocomplete-disabled-bg-color`  | Disabled background color | `var(--yh-fill-color-light)`   |

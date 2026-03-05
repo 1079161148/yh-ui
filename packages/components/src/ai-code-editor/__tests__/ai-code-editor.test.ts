@@ -30,11 +30,12 @@ global.requestAnimationFrame = vi.fn((cb) => setTimeout(cb, 0) as unknown as num
 global.cancelAnimationFrame = vi.fn((id) => clearTimeout(id as unknown as NodeJS.Timeout))
 
 // Mock ResizeObserver
-global.ResizeObserver = vi.fn().mockImplementation((_callback: ResizeObserverCallback) => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn()
-}))
+global.ResizeObserver = class {
+  constructor(public callback: ResizeObserverCallback) {}
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+} as any
 
 describe('YhAiCodeEditor', () => {
   beforeEach(() => {

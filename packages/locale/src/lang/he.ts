@@ -592,124 +592,124 @@ export const he: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'אנא הזן',
+      loading: 'טוען...',
+      noData: 'אין נתונים'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'ציטוטים'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ הזכר סוכן, מסמך או טבלה...',
+        agent: 'סוכן',
+        document: 'מסמך',
+        table: 'טבלה',
+        knowledge: 'ידע'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'העתק קוד',
+        copied: 'הועתק!',
+        run: 'הרץ קוד',
+        edit: 'ערוך',
+        save: 'שמור',
+        cancel: 'בטל'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'הרץ',
+        stop: 'עצור',
+        clear: 'נקה',
+        reset: 'אפס',
+        placeholder: 'לחץ על הרץ להפעלת הקוד...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'שלח הודעה...',
+        dragTip: 'שחרר להעלאת קבצים'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'תהליך חשיבה',
+        thinking: 'חושב...',
+        defaultTitle: 'שלב חדש',
+        addNode: 'הוסף שלב'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'התחל לחשוב',
+        thinking: 'חושב...',
+        complete: 'החשיבה הושלמה',
+        error: 'שגיאת חשיבה'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'שלום, אני YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'אני יכול לעזור לך בתכנות, תרגום מסמכים או כתיבה יצירתית. מה אני יכול לעשות בשבילך היום?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'העתק',
+        regenerate: 'צור מחדש',
+        share: 'שתף',
+        like: 'אהבתי',
+        dislike: 'לא אהבתי',
+        edit: 'ערוך',
+        delete: 'מחק'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'תצוגה מקדימה',
+        inline: 'מוטבע',
+        code: 'מקור',
+        versions: 'גרסאות',
+        rendering: 'מעבד רכיב...',
+        renderingChart: 'מעבד גרף...',
+        renderingCanvas: 'מכין בד...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'לחץ לדיבור',
+        listening: 'מקשיב...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'משתמש',
+        use: 'השתמש עכשיו',
+        favorite: 'מועדף',
+        unfavorite: 'הסר ממועדפים',
+        share: 'שתף',
+        online: 'מחובר',
+        offline: 'לא מחובר',
+        busy: 'עסוק',
+        verified: 'מאומת',
+        rating: 'דירוג',
+        reviews: 'ביקורות',
+        responseTime: 'זמן תגובה ממוצע',
+        ms: 'מ"ש'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'מקורות',
+        referencedSources: 'מקורות מאוזכרים',
+        relevant: 'רלוונטיות',
+        viewOriginal: 'צפה במקור',
+        showAll: 'הצג הכל',
+        more: 'מקורות נוספים',
+        drawerTitle: 'מקורות',
+        expandMore: 'הצג עוד',
+        collapseMore: 'כווץ',
+        noSources: 'אין מקורות',
+        today: 'היום',
+        last7Days: '7 ימים אחרונים',
+        last30Days: '30 ימים אחרונים',
+        earlier: 'קודם',
+        pinned: 'מוצמד'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'היום',
+        last7Days: '7 ימים אחרונים',
+        last30Days: '30 ימים אחרונים',
+        earlier: 'קודם',
+        pinned: 'מוצמד',
+        pin: 'הצמד',
+        unpin: 'בטל הצמדה',
+        newConversation: 'שיחה חדשה',
+        rename: 'שנה שם',
+        delete: 'מחק',
+        deleteConfirm: 'אשר מחיקת שיחה זו?'
       }
     }
   }

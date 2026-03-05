@@ -88,7 +88,7 @@ const addContact = () => {
       })
       // Sync model
       if (model.value) {
-        (model.value as any)[field] = ''
+        (model.value as Record<string, unknown>)[field] = ''
       }
     }
   })
@@ -257,7 +257,7 @@ const addContact = () => {
     if ('title' in group && group.title === 'Contact Information') {
       const field = \`contact_\${Date.now()}\`
       group.items.push({ field, label: 'Emergency Contact', component: 'input', col: 12, required: true })
-      if (model.value) (model.value as any)[field] = ''
+      if (model.value) (model.value as Record<string, unknown>)[field] = ''
     }
   })
 }

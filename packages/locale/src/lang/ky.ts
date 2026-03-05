@@ -592,124 +592,124 @@ export const ky: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Сураныч, киргизиниз',
+      loading: 'Жүктөлүп жатат...',
+      noData: 'Маалымат жок'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Шилтемелер'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Агент, Документ же Таблицаны көрсөтүү...',
+        agent: 'Агент',
+        document: 'Документ',
+        table: 'Таблица',
+        knowledge: 'Билим'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Кодду көчүрүү',
+        copied: 'Көчүрүлдү!',
+        run: 'Кодду иштетүү',
+        edit: 'Оңдоо',
+        save: 'Сактоо',
+        cancel: 'Болтурбоо'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Иштет',
+        stop: 'Токтор',
+        clear: 'Тазалоо',
+        reset: 'Кайра орнотуу',
+        placeholder: 'Кодду иштетүү үчүн Иштет баскычын басыңыз...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Билдирүү жөнөтүү...',
+        dragTip: 'Файылдарды жүктөө үчүн бошоткула'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Ойлоонун процесси',
+        thinking: 'Ойло жатат...',
+        defaultTitle: 'Жаңы кадам',
+        addNode: 'Кадам кошуу'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Ойлоону баштоо',
+        thinking: 'Ойло жатат...',
+        complete: 'Ойлоо бүттү',
+        error: 'Ойлоо катасы'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Салам, мен YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Сизге программалоо, документтерди которуп жазуу же чыгармачыл жазуу жөнүндө жардам бериши мүмкүн. Бүгүн сиз үчүн эмне кыла алам?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Көчүр',
+        regenerate: 'Кайрадан түзүү',
+        share: 'Бөлүшүү',
+        like: 'Жакшы көрүү',
+        dislike: 'Жакшы көрбөө',
+        edit: 'Оңдоо',
+        delete: 'Өчүрүү'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Алдын ала көрүү',
+        inline: 'Ичинде',
+        code: 'Булак коду',
+        versions: 'Версиялар',
+        rendering: 'Компонент көрсөтүлүп жатат...',
+        renderingChart: 'График көрсөтүлүп жатат...',
+        renderingCanvas: 'Кыйыр даярданып жатат...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Сөйлөө үчүн басыңыз',
+        listening: 'Угуп жатат...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'пайдалануу',
+        use: 'Азыр пайдалануу',
+        favorite: 'Сүйүктүү',
+        unfavorite: 'Сүйүктүүдөн алып таштоо',
+        share: 'Бөлүшүү',
+        online: 'Онлайн',
+        offline: 'Офлайн',
+        busy: 'Жай',
+        verified: 'Ырасталган',
+        rating: 'Баа',
+        reviews: 'пикир',
+        responseTime: 'Орточо жооп убактысы',
+        ms: 'мс'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Шилтемелер',
+        referencedSources: 'Шилтеме берилген булактар',
+        relevant: 'Релеванттуулук',
+        viewOriginal: 'Оригиналды көрүү',
+        showAll: 'Баарын көрсөтүү',
+        more: 'дагы булактар',
+        drawerTitle: 'Шилтемелер',
+        expandMore: 'Дагы көрсөтүү',
+        collapseMore: 'Жыйнаштыруу',
+        noSources: 'Булактар жок',
+        today: 'Бүгүн',
+        last7Days: 'Акыркы 7 күн',
+        last30Days: 'Акыркы 30 күн',
+        earlier: 'Мурда',
+        pinned: 'Бекемделген'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Бүгүн',
+        last7Days: 'Акыркы 7 күн',
+        last30Days: 'Акыркы 30 күн',
+        earlier: 'Мурда',
+        pinned: 'Бекемделген',
+        pin: 'Бекемдөө',
+        unpin: 'Бекемдөөнү алып таштоо',
+        newConversation: 'Жаңы сүйлөшүү',
+        rename: 'Атын өзгөртүү',
+        delete: 'Өчүрүү',
+        deleteConfirm: 'Бул сүйлөшүүнү өчүрүүнү ыраштыкылабы?'
       }
     }
   }

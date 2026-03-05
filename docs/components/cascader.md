@@ -622,9 +622,9 @@ Cascader 的递归节点系统已针对 SSR 进行了深度优化，确保了在
 ### Events
 
 | 事件名         | 说明                   | 回调参数                      |
-| -------------- | ---------------------- | ----------------------------- |
-| change         | 选中值发生变化时触发   | `(value: any) => void`        |
-| expand-change  | 展开节点发生变化时触发 | `(value: any[]) => void`      |
+| -------------- | ---------------------- | ----------------------------- | ------------------- | ------- | --------- | ------- | ----------- | ------------------- |
+| change         | 选中值发生变化时触发   | `(value: string               | number              | (string | number)[] | (string | number)[][] | undefined) => void` |
+| expand-change  | 展开节点发生变化时触发 | `(value: (string              | number)[]) => void` |
 | visible-change | 下拉框显示/隐藏时触发  | `(visible: boolean) => void`  |
 | focus          | 获取焦点时触发         | `(event: FocusEvent) => void` |
 | blur           | 失去焦点时触发         | `(event: FocusEvent) => void` |

@@ -592,124 +592,124 @@ export const mg: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Azafady ampidiro',
+      loading: 'Miantso...',
+      noData: 'Tsy misy data'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Loharano'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Manondro Agent, Tahirin-kevitra na Latabatra...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Tahirin-kevitra',
+        table: 'Latabatra',
+        knowledge: 'Fahalalana'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Adikao ny kaody',
+        copied: 'Adika!',
+        run: 'Tanisao ny kaody',
+        edit: 'Ovaho',
+        save: 'Tehirizo',
+        cancel: 'Avelano'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Tanisao',
+        stop: 'Atsaharo',
+        clear: 'Fafao',
+        reset: 'Avereno',
+        placeholder: 'Kitiho ny Tanisao hanatanterahana ny kaody...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Alefaso hafatra...',
+        dragTip: 'Avelano hampiditra rakitra'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Rafitravin-tanteraka',
+        thinking: 'Mieritreritra...',
+        defaultTitle: 'Dingana vaovao',
+        addNode: 'Manampy dingana'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Hameritreritra',
+        thinking: 'Mieritreritra...',
+        complete: 'Vita ny fieritreretana',
+        error: 'Hadisoan-tanteraka'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Salama, YH AI ahy',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          "Afaka manampy anao aho amin'ny coding, fandikan-teny na fanoratana ara-dalana. Inona no azoko atao anio ho anao?"
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Adika',
+        regenerate: 'Avereno',
+        share: 'Zarao',
+        like: 'Tia',
+        dislike: 'Tsy tia',
+        edit: 'Ovaho',
+        delete: 'Fao'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Fijery mialoha',
+        inline: 'Anaty andalana',
+        code: 'Kaody loharano',
+        versions: 'Dikan-teny',
+        rendering: 'Manome endrika singa...',
+        renderingChart: 'Manome endrika sary...',
+        renderingCanvas: 'Manome endrika canvas...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Kitiho hilaza',
+        listening: 'Mihaino...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'fampiasana',
+        use: 'Ampiasao izao',
+        favorite: 'Tia',
+        unfavorite: 'Avela',
+        share: 'Zarao',
+        online: 'An-tserasera',
+        offline: 'Tsy an-tserasera',
+        busy: 'Mandraikitra',
+        verified: 'Nalarinao',
+        rating: 'Valiny',
+        reviews: 'fanehoan-kevitra',
+        responseTime: "Salan'isantatra antonony",
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Loharano',
+        referencedSources: 'Loharano voalaza',
+        relevant: 'Mifanaraka',
+        viewOriginal: 'Jereo ny laharana',
+        showAll: 'Aseho an-tsirambina',
+        more: 'loharano maro kokoa',
+        drawerTitle: 'Loharano',
+        expandMore: 'Aseho maro kokoa',
+        collapseMore: 'Avoaka',
+        noSources: 'Tsy misy loharano',
+        today: 'Anio',
+        last7Days: '7 andro lasa',
+        last30Days: '30 andro lasa',
+        earlier: 'Taloha',
+        pinned: 'Nofatotra'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Anio',
+        last7Days: '7 andro lasa',
+        last30Days: '30 andro lasa',
+        earlier: 'Taloha',
+        pinned: 'Nofatotra',
+        pin: 'Fatotra',
+        unpin: 'Avela',
+        newConversation: 'Resaka vaovao',
+        rename: 'Aloaso anarana',
+        delete: 'Fao',
+        deleteConfirm: "Moa ve inona no hofafan'i resaka io?"
       }
     }
   }

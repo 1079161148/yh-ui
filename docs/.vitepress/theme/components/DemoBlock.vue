@@ -565,6 +565,7 @@ const copyAnchor = async () => {
     background: var(--vp-c-bg);
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+    overflow: hidden;
   }
 
   &__actions {

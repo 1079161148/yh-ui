@@ -592,124 +592,124 @@ export const hi: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'कृपया दर्ज करें',
+      loading: 'लोड हो रहा है...',
+      noData: 'कोई डेटा नहीं'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'उद्धरण'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ एजेंट, डॉक्यूमेंट या टेबल का उल्लेख करें...',
+        agent: 'एजेंट',
+        document: 'दस्तावेज़',
+        table: 'टेबल',
+        knowledge: 'ज्ञान'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'कोड कॉपी करें',
+        copied: 'कॉपी हो गया!',
+        run: 'कोड चलाएं',
+        edit: 'संपादित करें',
+        save: 'सहेजें',
+        cancel: 'रद्द करें'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'चलाएं',
+        stop: 'रोकें',
+        clear: 'साफ़ करें',
+        reset: 'रीसेट करें',
+        placeholder: 'कोड चलाने के लिए रन पर क्लिक करें...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'संदेश भेजें...',
+        dragTip: 'फ़ाइलें अपलोड करने के लिए छोड़ें'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'विचार प्रक्रिया',
+        thinking: 'सोच रहे हैं...',
+        defaultTitle: 'नया कदम',
+        addNode: 'कदम जोड़ें'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'सोचना शुरू करें',
+        thinking: 'सोच रहे हैं...',
+        complete: 'सोच पूर्ण',
+        error: 'सोच में त्रुटि'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'नमस्ते, मैं YH AI हूं',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'मैं कोडिंग, दस्तावेज़ों का अनुवाद या रचनात्मक लेखन में आपकी मदद कर सकता हूं। आज मैं आपके लिए क्या कर सकता हूं?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'कॉपी करें',
+        regenerate: 'पुनः उत्पन्न करें',
+        share: 'साझा करें',
+        like: 'पसंद है',
+        dislike: 'पसंद नहीं',
+        edit: 'संपादित करें',
+        delete: 'हटाएं'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'पूर्वावलोकन',
+        inline: 'इनलाइन',
+        code: 'स्रोत',
+        versions: 'संस्करण',
+        rendering: 'कंपोनेंट रेंडर हो रहा है...',
+        renderingChart: 'चार्ट रेंडर हो रहा है...',
+        renderingCanvas: 'कैनवास तैयार हो रहा है...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'बोलने के लिए क्लिक करें',
+        listening: 'सुन रहे हैं...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'उपयोग करता है',
+        use: 'अभी उपयोग करें',
+        favorite: 'पसंदीदा',
+        unfavorite: 'पसंदीदा हटाएं',
+        share: 'साझा करें',
+        online: 'ऑनलाइन',
+        offline: 'ऑफ़लाइन',
+        busy: 'व्यस्त',
+        verified: 'सत्यापित',
+        rating: 'रेटिंग',
+        reviews: 'समीक्षाएं',
+        responseTime: 'औसत प्रतिक्रिया समय',
+        ms: 'मि.से.'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'संदर्भ',
+        referencedSources: 'संदर्भित स्रोत',
+        relevant: 'प्रासंगिकता',
+        viewOriginal: 'मूल देखें',
+        showAll: 'सभी दिखाएं',
+        more: 'और स्रोत',
+        drawerTitle: 'संदर्भ',
+        expandMore: 'और दिखाएं',
+        collapseMore: 'संक्षिप्त करें',
+        noSources: 'कोई स्रोत नहीं',
+        today: 'आज',
+        last7Days: 'पिछले 7 दिन',
+        last30Days: 'पिछले 30 दिन',
+        earlier: 'पहले',
+        pinned: 'पिन किया हुआ'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'आज',
+        last7Days: 'पिछले 7 दिन',
+        last30Days: 'पिछले 30 दिन',
+        earlier: 'पहले',
+        pinned: 'पिन किया हुआ',
+        pin: 'पिन करें',
+        unpin: 'अनपिन करें',
+        newConversation: 'नई बातचीत',
+        rename: 'नाम बदलें',
+        delete: 'हटाएं',
+        deleteConfirm: 'इस बातचीत को हटाने की पुष्टि करें?'
       }
     }
   }

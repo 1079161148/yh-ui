@@ -15,7 +15,7 @@ const suggestions1 = [
   { value: 'Next.js' },
   { value: 'Nuxt.js' }
 ]
-const querySearch1 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch1 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? suggestions1.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -32,7 +32,7 @@ const restaurants2 = [
   { value: '肯德基', address: '上海市徐汇区虹桥路1号' },
   { value: '麦当劳', address: '上海市浦东新区陆家嘴环路1000号' }
 ]
-const querySearch2 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch2 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? restaurants2.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -40,13 +40,13 @@ const querySearch2 = (queryString: string, cb: (suggestions: any[]) => void) => 
     : restaurants2
   cb(results)
 }
-const handleSelect2 = (item: any) => {
+const handleSelect2 = (item: AutocompleteSuggestion) => {
   console.log('选中:', item)
 }
 
 // --- 远程搜索 (Demo 3) ---
 const value3 = ref('')
-const remoteSearch3 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const remoteSearch3 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   if (!queryString) {
     cb([])
     return
@@ -72,7 +72,7 @@ const small6 = ref('Solid')
 
 // --- 自定义插槽 (Demo 7) ---
 const value7 = ref('')
-const querySearch7 = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch7 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   setTimeout(() => cb([]), 1000)
 }
 
@@ -99,7 +99,7 @@ const suggestions = [
   { value: 'Nuxt.js' }
 ]
 
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? suggestions.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -138,7 +138,7 @@ const restaurants = [
   { value: '麦当劳', address: '上海市浦东新区陆家嘴环路1000号' }
 ]
 
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const results = queryString
     ? restaurants.filter(item =>
         item.value.toLowerCase().includes(queryString.toLowerCase())
@@ -147,7 +147,7 @@ const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
   cb(results)
 }
 
-const handleSelect = (item: any) => {
+const handleSelect = (item: AutocompleteSuggestion) => {
   console.log('选中:', item)
 }
 </${_S}>
@@ -182,7 +182,7 @@ import { ref } from 'vue'
 
 const value = ref('')
 
-const remoteSearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const remoteSearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   if (!queryString) {
     cb([])
     return
@@ -257,7 +257,7 @@ const large = ref('Vue.js')
 const defaultValue = ref('Svelte')
 const small = ref('Solid')
 
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   const suggestions = [
     { value: 'Vue.js' },
     { value: 'React' },
@@ -295,7 +295,7 @@ const tsSlots = `<${_T}>
 import { ref } from 'vue'
 
 const value = ref('')
-const querySearch = (queryString: string, cb: (suggestions: any[]) => void) => {
+const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   // 模拟延时空数据
   setTimeout(() => cb([]), 1000)
 }
@@ -314,7 +314,7 @@ const jsSlots = toJs(tsSlots)
 
 // Nuxt 使用示例
 const nuxtValue = ref('')
-const nuxtSuggestions = (q: string, cb: any) => {
+const nuxtSuggestions = (q: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
 
@@ -332,7 +332,7 @@ const tsNuxt = `<${_T}>
 <${_S} setup lang="ts">
 // 无需手动导入 YhAutocomplete
 const nuxtValue = ref('')
-const nuxtSuggestions = (q: string, cb: any) => {
+const nuxtSuggestions = (q: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
 </${_S}>`
@@ -478,66 +478,66 @@ Autocomplete 组件内部封装了 `YhInput` 和 `Popper` 系统，通过 `useId
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `string` | — |
-| placeholder | 占位文本 | `string` | — |
-| disabled | 是否禁用 | `boolean` | `false` |
-| clearable | 是否可清空 | `boolean` | `false` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| fetch-suggestions | 获取建议的方法 | `(query: string, callback: (suggestions: any[]) => void) => void` | — |
-| trigger-on-focus | 是否在聚焦时触发建议 | `boolean` | `true` |
-| debounce | 防抖延迟 (ms) | `number` | `300` |
-| placement | 下拉框位置 | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'` | `'bottom-start'` |
-| value-key | 建议对象中用于显示的键名 | `string` | `'value'` |
-| highlight-first-item | 是否默认高亮第一项 | `boolean` | `false` |
-| teleported | 是否将下拉框插入到 body | `boolean` | `true` |
-| fit-input-width | 下拉框宽度是否与输入框一致 | `boolean` | `true` |
-| prefix-icon | 前置图标 | `string \| Component` | — |
-| suffix-icon | 后置图标 | `string \| Component` | — |
-| name | 原生 name 属性 | `string` | — |
-| autofocus | 自动聚焦 | `boolean` | `false` |
-| autocomplete | 原生 autocomplete 属性 | `string` | `'off'` |
+| 属性名                | 说明                       | 类型                                                                                 | 默认值           |
+| --------------------- | -------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
+| model-value / v-model | 绑定值                     | `string`                                                                             | —                |
+| placeholder           | 占位文本                   | `string`                                                                             | —                |
+| disabled              | 是否禁用                   | `boolean`                                                                            | `false`          |
+| clearable             | 是否可清空                 | `boolean`                                                                            | `false`          |
+| size                  | 输入框尺寸                 | `'large' \| 'default' \| 'small'`                                                    | `'default'`      |
+| fetch-suggestions     | 获取建议的方法             | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | —                |
+| trigger-on-focus      | 是否在聚焦时触发建议       | `boolean`                                                                            | `true`           |
+| debounce              | 防抖延迟 (ms)              | `number`                                                                             | `300`            |
+| placement             | 下拉框位置                 | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'`    | `'bottom-start'` |
+| value-key             | 建议对象中用于显示的键名   | `string`                                                                             | `'value'`        |
+| highlight-first-item  | 是否默认高亮第一项         | `boolean`                                                                            | `false`          |
+| teleported            | 是否将下拉框插入到 body    | `boolean`                                                                            | `true`           |
+| fit-input-width       | 下拉框宽度是否与输入框一致 | `boolean`                                                                            | `true`           |
+| prefix-icon           | 前置图标                   | `string \| Component`                                                                | —                |
+| suffix-icon           | 后置图标                   | `string \| Component`                                                                | —                |
+| name                  | 原生 name 属性             | `string`                                                                             | —                |
+| autofocus             | 自动聚焦                   | `boolean`                                                                            | `false`          |
+| autocomplete          | 原生 autocomplete 属性     | `string`                                                                             | `'off'`          |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| input | 输入值变化时触发 | `(value: string) => void` |
-| change | 值改变时触发 | `(value: string) => void` |
-| focus | 获取焦点时触发 | `(event: FocusEvent) => void` |
-| blur | 失去焦点时触发 | `(event: FocusEvent) => void` |
-| clear | 点击清空按钮时触发 | `() => void` |
-| select | 选中建议项时触发 | `(item: any) => void` |
+| 事件名 | 说明               | 回调参数                                 |
+| ------ | ------------------ | ---------------------------------------- |
+| input  | 输入值变化时触发   | `(value: string) => void`                |
+| change | 值改变时触发       | `(value: string) => void`                |
+| focus  | 获取焦点时触发     | `(event: FocusEvent) => void`            |
+| blur   | 失去焦点时触发     | `(event: FocusEvent) => void`            |
+| clear  | 点击清空按钮时触发 | `() => void`                             |
+| select | 选中建议项时触发   | `(item: AutocompleteSuggestion) => void` |
 
 ### Slots
 
-| 插槽名 | 说明 | 作用域 |
-| --- | --- | --- |
-| default | 自定义建议项内容 | `{ item: any }` |
-| prefix | 输入框前缀内容 | — |
-| suffix | 输入框后缀内容 | — |
-| prepend | 输入框前置内容 | — |
-| append | 输入框后置内容 | — |
-| loading | 正在加载中的内容 | — |
-| empty | 无匹配数据时的内容 | — |
+| 插槽名  | 说明               | 作用域                             |
+| ------- | ------------------ | ---------------------------------- |
+| default | 自定义建议项内容   | `{ item: AutocompleteSuggestion }` |
+| prefix  | 输入框前缀内容     | —                                  |
+| suffix  | 输入框后缀内容     | —                                  |
+| prepend | 输入框前置内容     | —                                  |
+| append  | 输入框后置内容     | —                                  |
+| loading | 正在加载中的内容   | —                                  |
+| empty   | 无匹配数据时的内容 | —                                  |
 
 ### Expose
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 使 input 获取焦点 | `() => void` |
-| blur | 使 input 失去焦点 | `() => void` |
-| close | 关闭建议列表 | `() => void` |
-| highlight | 高亮指定项 | `(index: number) => void` |
+| 属性名    | 说明              | 类型                      |
+| --------- | ----------------- | ------------------------- |
+| focus     | 使 input 获取焦点 | `() => void`              |
+| blur      | 使 input 失去焦点 | `() => void`              |
+| close     | 关闭建议列表      | `() => void`              |
+| highlight | 高亮指定项        | `(index: number) => void` |
 
 ## 主题变量
 
 Autocomplete 组件使用以下 CSS 变量，你可以通过覆盖这些变量来自定义样式：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-autocomplete-border-color` | 边框颜色 | `var(--yh-border-color)` |
+| 变量名                                 | 说明       | 默认值                         |
+| -------------------------------------- | ---------- | ------------------------------ |
+| `--yh-autocomplete-border-color`       | 边框颜色   | `var(--yh-border-color)`       |
 | `--yh-autocomplete-hover-border-color` | 悬停边框色 | `var(--yh-border-color-hover)` |
-| `--yh-autocomplete-focus-border-color` | 聚焦边框色 | `var(--yh-color-primary)` |
-| `--yh-autocomplete-disabled-bg-color` | 禁用背景色 | `var(--yh-fill-color-light)` |
+| `--yh-autocomplete-focus-border-color` | 聚焦边框色 | `var(--yh-color-primary)`      |
+| `--yh-autocomplete-disabled-bg-color`  | 禁用背景色 | `var(--yh-fill-color-light)`   |

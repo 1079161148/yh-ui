@@ -25,7 +25,7 @@ const basicData = [
 
 const filterValue = ref([])
 const filterData = [...basicData]
-const filterMethod = (query: string, item: any) => {
+const filterMethod = (query: string, item: TransferOption) => {
   return item.label.toLowerCase().includes(query.toLowerCase())
 }
 
@@ -47,7 +47,7 @@ const aliasData = [
 
 const slotValue = ref([])
 const slotValue2 = ref([])
-const renderContent = (h: any, option: any) => {
+const renderContent = (h: typeof import('vue').h, option: TransferOption) => {
   return h('span', null, option.key + ' - ' + option.label)
 }
 
@@ -139,7 +139,7 @@ const data = [
   { key: 7, label: 'Connecticut' }
 ]
 
-const filterMethod = (query: string, item: any) => {
+const filterMethod = (query: string, item: TransferOption) => {
   return item.label.toLowerCase().includes(query.toLowerCase())
 }
 <\/script>`
@@ -439,69 +439,69 @@ For huge datasets, the Transfer component uses optimized templates. Even without
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `TransferKey[]` | `[]` |
-| data | Data source | `TransferData[]` | `[]` |
-| filterable | Whether list is searchable | `boolean` | `false` |
-| filter-placeholder | Search input placeholder | `string` | `'Please enter keyword'` |
-| filter-method | Custom search method | `(query, item) => boolean` | — |
-| target-order | Order strategy for the right panel | `'original' \| 'push' \| 'unshift'` | `'original'` |
-| titles | Panel titles | `[string, string]` | `['List 1', 'List 2']` |
-| button-texts | Button labels | `[string, string]` | `[]` |
-| render-content | Custom render function for content | `(h, option) => VNode` | — |
-| props | Alias config for data source fields | `TransferPropsAlias` | — |
-| left-default-checked | Default items checked on the left | `TransferKey[]` | `[]` |
-| right-default-checked | Default items checked on the right | `TransferKey[]` | `[]` |
-| virtual | Enable virtual scrolling | `boolean` | `false` |
-| height | List height (px) | `number` | `280` |
-| item-height | Row height (for virtual scrolling) | `number` | `40` |
-| empty-text | Text for empty states | `string` | `'No Data'` |
-| show-all-checkbox | Whether to show the "select all" checkbox | `boolean` | `true` |
-| left-title | Title for the left panel | `string` | — |
-| right-title | Title for the right panel | `string` | — |
-| disabled | Whether disabled | `boolean` | `false` |
+| Name                  | Description                               | Type                                | Default                  |
+| --------------------- | ----------------------------------------- | ----------------------------------- | ------------------------ |
+| model-value / v-model | Binding value                             | `TransferKey[]`                     | `[]`                     |
+| data                  | Data source                               | `TransferData[]`                    | `[]`                     |
+| filterable            | Whether list is searchable                | `boolean`                           | `false`                  |
+| filter-placeholder    | Search input placeholder                  | `string`                            | `'Please enter keyword'` |
+| filter-method         | Custom search method                      | `(query, item) => boolean`          | —                        |
+| target-order          | Order strategy for the right panel        | `'original' \| 'push' \| 'unshift'` | `'original'`             |
+| titles                | Panel titles                              | `[string, string]`                  | `['List 1', 'List 2']`   |
+| button-texts          | Button labels                             | `[string, string]`                  | `[]`                     |
+| render-content        | Custom render function for content        | `(h, option) => VNode`              | —                        |
+| props                 | Alias config for data source fields       | `TransferPropsAlias`                | —                        |
+| left-default-checked  | Default items checked on the left         | `TransferKey[]`                     | `[]`                     |
+| right-default-checked | Default items checked on the right        | `TransferKey[]`                     | `[]`                     |
+| virtual               | Enable virtual scrolling                  | `boolean`                           | `false`                  |
+| height                | List height (px)                          | `number`                            | `280`                    |
+| item-height           | Row height (for virtual scrolling)        | `number`                            | `40`                     |
+| empty-text            | Text for empty states                     | `string`                            | `'No Data'`              |
+| show-all-checkbox     | Whether to show the "select all" checkbox | `boolean`                           | `true`                   |
+| left-title            | Title for the left panel                  | `string`                            | —                        |
+| right-title           | Title for the right panel                 | `string`                            | —                        |
+| disabled              | Whether disabled                          | `boolean`                           | `false`                  |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggers when the right list changes | `(value, direction, movedKeys)` |
-| left-check-change | Triggers when left selection changes | `(value, movedKeys)` |
-| right-check-change | Triggers when right selection changes | `(value, movedKeys)` |
+| Name               | Description                           | Parameters                      |
+| ------------------ | ------------------------------------- | ------------------------------- |
+| change             | Triggers when the right list changes  | `(value, direction, movedKeys)` |
+| left-check-change  | Triggers when left selection changes  | `(value, movedKeys)`            |
+| right-check-change | Triggers when right selection changes | `(value, movedKeys)`            |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom content for data items | `{ option }` |
-| left-header | Left header content | — |
-| right-header | Right header content | — |
-| left-footer | Left footer content | — |
-| right-footer | Right footer content | — |
-| left-empty | Left empty state content | — |
-| right-empty | Right empty state content | — |
-| buttons | Custom action buttons area | `{ moveToLeft, moveToRight, leftChecked, rightChecked }` |
+| Name         | Description                   | Parameters                                               |
+| ------------ | ----------------------------- | -------------------------------------------------------- |
+| default      | Custom content for data items | `{ option }`                                             |
+| left-header  | Left header content           | —                                                        |
+| right-header | Right header content          | —                                                        |
+| left-footer  | Left footer content           | —                                                        |
+| right-footer | Right footer content          | —                                                        |
+| left-empty   | Left empty state content      | —                                                        |
+| right-empty  | Right empty state content     | —                                                        |
+| buttons      | Custom action buttons area    | `{ moveToLeft, moveToRight, leftChecked, rightChecked }` |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| clearLeftChecked | Clears left selections | `() => void` |
-| clearRightChecked | Clears right selections | `() => void` |
-| leftPanel | Left panel instance | `TransferPanelExpose` |
-| rightPanel | Right panel instance | `TransferPanelExpose` |
+| Name              | Description             | Type                  |
+| ----------------- | ----------------------- | --------------------- |
+| clearLeftChecked  | Clears left selections  | `() => void`          |
+| clearRightChecked | Clears right selections | `() => void`          |
+| leftPanel         | Left panel instance     | `TransferPanelExpose` |
+| rightPanel        | Right panel instance    | `TransferPanelExpose` |
 
 ## Theme Variables
 
-| Variable Name | Default | Description |
-| --- | --- | --- |
-| `--yh-transfer-panel-width` | `200px` | Panel width |
-| `--yh-transfer-panel-height` | `300px` | Panel height |
-| `--yh-transfer-header-height` | `40px` | Header height |
-| `--yh-transfer-header-bg` | `#f5f7fa` | Header background |
-| `--yh-transfer-item-height` | `32px` | Row height |
-| `--yh-transfer-border-color` | `#ebeef5` | Border color |
+| Variable Name                 | Default   | Description       |
+| ----------------------------- | --------- | ----------------- |
+| `--yh-transfer-panel-width`   | `200px`   | Panel width       |
+| `--yh-transfer-panel-height`  | `300px`   | Panel height      |
+| `--yh-transfer-header-height` | `40px`    | Header height     |
+| `--yh-transfer-header-bg`     | `#f5f7fa` | Header background |
+| `--yh-transfer-item-height`   | `32px`    | Row height        |
+| `--yh-transfer-border-color`  | `#ebeef5` | Border color      |
 
 <style>
 .transfer-footer {

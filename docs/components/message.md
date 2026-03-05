@@ -61,7 +61,7 @@ const showGrouping = () => {
   })
 }
 
-const showPlacement = (placement: any) => {
+const showPlacement = (placement: MessagePlacement) => {
   YhMessage({
     message: '这是一条位置在 ' + placement + ' 的消息',
     placement

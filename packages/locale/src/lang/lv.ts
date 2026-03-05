@@ -592,124 +592,124 @@ export const lv: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Lūdzu, ievadiet',
+      loading: 'Ielādē...',
+      noData: 'Nav datu'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Atsauces'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Minēt Aģentu, Dokumentu vai Tabulu...',
+        agent: 'Aģents',
+        document: 'Dokuments',
+        table: 'Tabula',
+        knowledge: 'Zināšanas'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopēt kodu',
+        copied: 'Kopēts!',
+        run: 'Palaist kodu',
+        edit: 'Rediģēt',
+        save: 'Saglabāt',
+        cancel: 'Atcelt'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Palaist',
+        stop: 'Apturēt',
+        clear: 'Notīrīt',
+        reset: 'Atiestatīt',
+        placeholder: 'Noklikšķiniet uz Palaist, lai izpildītu kodu...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Sūtīt ziņu...',
+        dragTip: 'Atlaidiet, lai augšupielādētu failus'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Domāšanas process',
+        thinking: 'Domā...',
+        defaultTitle: 'Jauns solis',
+        addNode: 'Pievienot soli'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Sākt domāt',
+        thinking: 'Domā...',
+        complete: 'Domāšana pabeigta',
+        error: 'Domāšanas kļūda'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Sveiks, es esmu YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Es varu palīdzēt jums ar programmēšanu, dokumentu tulkošanu vai radošo rakstīšanu. Ko es varu darīt jums šodien?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopēt',
+        regenerate: 'Regenerēt',
+        share: 'Kopīgot',
+        like: 'Patīk',
+        dislike: 'Nepatīk',
+        edit: 'Rediģēt',
+        delete: 'Dzēst'
       },
       artifacts: {
-        preview: 'Preview',
+        preview: 'Priekšskatījums',
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Avota kods',
+        versions: 'Versijas',
+        rendering: 'Renderē komponentu...',
+        renderingChart: 'Renderē diagrammu...',
+        renderingCanvas: 'Sagatavo audeklu...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Noklikšķiniet, lai runātu',
+        listening: 'Klausās...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'lietošanas',
+        use: 'Lietot tūlīt',
+        favorite: 'Favorīts',
+        unfavorite: 'Noņemt no favorītiem',
+        share: 'Kopīgot',
+        online: 'Tiešsaistē',
+        offline: 'Bezsaistē',
+        busy: 'Aizņemts',
+        verified: 'Pārbaudīts',
+        rating: 'Vērtējums',
+        reviews: 'atsauksmes',
+        responseTime: 'Vidējais atbildes laiks',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Atsauces',
+        referencedSources: 'Atsauktie avoti',
+        relevant: 'Atbilstība',
+        viewOriginal: 'Skatīt oriģinālu',
+        showAll: 'Rādīt visus',
+        more: 'vairāk avotu',
+        drawerTitle: 'Atsauces',
+        expandMore: 'Rādīt vairāk',
+        collapseMore: 'Sakļaut',
+        noSources: 'Nav avotu',
+        today: 'Šodien',
+        last7Days: 'Pēdējās 7 dienas',
+        last30Days: 'Pēdējās 30 dienas',
+        earlier: 'Agrāk',
+        pinned: 'Piestiprināts'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Šodien',
+        last7Days: 'Pēdējās 7 dienas',
+        last30Days: 'Pēdējās 30 dienas',
+        earlier: 'Agrāk',
+        pinned: 'Piestiprināts',
+        pin: 'Piestiprināt',
+        unpin: 'Noņemt',
+        newConversation: 'Jauna saruna',
+        rename: 'Pārdēvēt',
+        delete: 'Dzēst',
+        deleteConfirm: 'Vai tiešām vēlaties dzēst šo sarunu?'
       }
     }
   }

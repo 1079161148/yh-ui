@@ -84,8 +84,8 @@ const currentStatus = computed<AiThoughtStatus>(() => {
 const displayTitle = computed(() => {
   if (props.title) return props.title
   return currentStatus.value === 'thinking' || currentStatus.value === 'loading'
-    ? t('ai.thoughtChain.thinking') || '思考中...'
-    : t('ai.thoughtChain.thoughtProcess') || '思维链'
+    ? t('ai.thoughtChain.thinking')
+    : t('ai.thoughtChain.thoughtProcess')
 })
 
 // 渲染 Markdown 内容
@@ -326,7 +326,7 @@ const handleDragEnd = () => {
       <!-- 添加节点按钮 -->
       <div v-if="editable" :class="ns.e('add-node')" @click="handleAddNode(items.length)">
         <YhIcon name="plus" />
-        <span>{{ t('ai.thoughtChain.addNode') || '添加节点' }}</span>
+        <span>{{ t('ai.thoughtChain.addNode') }}</span>
       </div>
     </template>
 

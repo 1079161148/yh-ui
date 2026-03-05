@@ -517,124 +517,124 @@ export const pt: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Por favor digite',
+      loading: 'Carregando...',
+      noData: 'Sem dados'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Citações'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Mencionar Agente, Doc ou Tabela...',
+        agent: 'Agente',
+        document: 'Documento',
+        table: 'Tabela',
+        knowledge: 'Conhecimento'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Copiar código',
+        copied: 'Copiado!',
+        run: 'Executar código',
+        edit: 'Editar',
+        save: 'Salvar',
+        cancel: 'Cancelar'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Executar',
+        stop: 'Parar',
+        clear: 'Limpar',
+        reset: 'Redefinir',
+        placeholder: 'Clique em Executar para executar o código...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Enviar uma mensagem...',
+        dragTip: 'Solte para carregar arquivos'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Processo de Pensamento',
+        thinking: 'Pensando...',
+        defaultTitle: 'Novo Passo',
+        addNode: 'Adicionar Passo'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Iniciar pensamento',
+        thinking: 'Pensando...',
+        complete: 'Pensamento concluído',
+        error: 'Erro no pensamento'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Olá, eu sou o YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Posso ajudá-lo com programação, tradução de documentos ou redação criativa. O que posso fazer por você hoje?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Copiar',
+        regenerate: 'Regenerar',
+        share: 'Compartilhar',
+        like: 'Curtir',
+        dislike: 'Não curtir',
+        edit: 'Editar',
+        delete: 'Excluir'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Visualização',
+        inline: 'Em linha',
+        code: 'Código',
+        versions: 'Versões',
+        rendering: 'Renderizando componente...',
+        renderingChart: 'Renderizando gráfico...',
+        renderingCanvas: 'Preparando tela...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Clique para Falar',
+        listening: 'Ouvindo...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'usa',
+        use: 'Usar Agora',
+        favorite: 'Favorito',
+        unfavorite: 'Remover Favorito',
+        share: 'Compartilhar',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Ocupado',
+        verified: 'Verificado',
+        rating: 'Avaliação',
+        reviews: 'avaliações',
+        responseTime: 'Tempo de Resposta',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Referências',
+        referencedSources: 'Fontes Referenciadas',
+        relevant: 'Relevância',
+        viewOriginal: 'Ver Original',
+        showAll: 'Mostrar Todos',
+        more: 'mais fontes',
+        drawerTitle: 'Referências',
+        expandMore: 'Mostrar Mais',
+        collapseMore: 'Recolher',
+        noSources: 'Sem fontes',
+        today: 'Hoje',
+        last7Days: 'Últimos 7 Dias',
+        last30Days: 'Últimos 30 Dias',
+        earlier: 'Anterior',
+        pinned: 'Fixado'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Hoje',
+        last7Days: 'Últimos 7 Dias',
+        last30Days: 'Últimos 30 Dias',
+        earlier: 'Anterior',
+        pinned: 'Fixado',
+        pin: 'Fixar',
+        unpin: 'Desfixar',
+        newConversation: 'Nova Conversa',
+        rename: 'Renomear',
+        delete: 'Excluir',
+        deleteConfirm: 'Confirmar exclusão desta conversa?'
       }
     }
   }

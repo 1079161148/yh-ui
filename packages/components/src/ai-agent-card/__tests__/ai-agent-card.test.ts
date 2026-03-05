@@ -58,6 +58,59 @@ describe('AiAgentCard', () => {
 
     await wrapper.find('.yh-ai-agent-card__fav-btn').trigger('click')
     expect(wrapper.emitted('favorite')).toBeTruthy()
+
+    // Test share button
+    await wrapper.find('.yh-ai-agent-card__share-btn').trigger('click')
+    expect(wrapper.emitted('share')).toBeTruthy()
+
+    // Test click on whole card
+    await wrapper.find('.yh-ai-agent-card').trigger('click')
+    expect(wrapper.emitted('click')).toBeTruthy()
+  })
+
+  it('renders statuses correctly', () => {
+    // offline
+    const wrapperOffline = mount(AiAgentCard, {
+      props: { data: { ...mockData, status: 'offline' } }
+    })
+    expect(wrapperOffline.find('.yh-ai-agent-card__status-dot').classes()).toContain('is-offline')
+
+    // busy
+    const wrapperBusy = mount(AiAgentCard, {
+      props: { data: { ...mockData, status: 'busy' } }
+    })
+    expect(wrapperBusy.find('.yh-ai-agent-card__status-dot').classes()).toContain('is-busy')
+  })
+
+  it('formats use count correctly under 1000', () => {
+    const wrapper = mount(AiAgentCard, {
+      props: { data: { ...mockData, stats: { uses: 500 } } }
+    })
+    expect(wrapper.html()).toContain('500')
+  })
+
+  it('renders extra capabilities count', () => {
+    const caps = Array(6).fill({ label: 'test' })
+    const wrapper = mount(AiAgentCard, {
+      props: { data: { ...mockData, capabilities: caps } }
+    })
+    expect(wrapper.find('.yh-ai-agent-card__capability-more').exists()).toBe(true)
+    expect(wrapper.find('.yh-ai-agent-card__capability-more').text()).toContain('+2')
+  })
+
+  it('renders response time', () => {
+    const wrapper = mount(AiAgentCard, {
+      props: { data: { ...mockData, stats: { responseTime: 120 } } }
+    })
+    expect(wrapper.html()).toContain('120ms')
+  })
+
+  it('covers aiAgentCardEmits validators', async () => {
+    const { aiAgentCardEmits } = await import('../src/ai-agent-card')
+    expect(aiAgentCardEmits.use(mockData)).toBe(true)
+    expect(aiAgentCardEmits.favorite(mockData, true)).toBe(true)
+    expect(aiAgentCardEmits.share(mockData)).toBe(true)
+    expect(aiAgentCardEmits.click(mockData)).toBe(true)
   })
 
   it('renders loading state', () => {
@@ -70,5 +123,37 @@ describe('AiAgentCard', () => {
     const cardNode = wrapper.find('.yh-ai-agent-card')
     expect(cardNode.classes()).toContain('is-loading')
     expect(wrapper.find('.yh-ai-agent-card__skeleton-avatar').exists()).toBe(true)
+  })
+  it('formats uses correctly for large numbers', async () => {
+    const wrapper = mount(AiAgentCard, {
+      props: { data: { ...mockData, stats: { uses: 15000 } } }
+    })
+    const vm = wrapper.vm as any
+    expect(vm.formattedUses).toBe('1.5w')
+
+    const wrapper2 = mount(AiAgentCard, {
+      props: { data: { ...mockData, stats: { uses: 1200 } } }
+    })
+    expect((wrapper2.vm as any).formattedUses).toBe('1.2k')
+
+    const wrapper3 = mount(AiAgentCard, {
+      props: { data: { ...mockData, stats: { uses: 500 } } }
+    })
+    expect((wrapper3.vm as any).formattedUses).toBe('500')
+  })
+
+  it('handles missing stats sub-fields', () => {
+    const wrapper = mount(AiAgentCard, {
+      props: { data: { ...mockData, stats: {} } }
+    })
+    expect(wrapper.find('.yh-ai-agent-card__stats').exists()).toBe(true)
+    expect(wrapper.html()).not.toContain('ms')
+  })
+
+  it('handles missing capabilities icon', () => {
+    const wrapper = mount(AiAgentCard, {
+      props: { data: { ...mockData, capabilities: [{ label: 'No Icon' }] } }
+    })
+    expect(wrapper.find('.yh-ai-agent-card__capability .yh-icon').exists()).toBe(false)
   })
 })

@@ -592,124 +592,124 @@ export const et: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Palun sisesta',
+      loading: 'Laadimine...',
+      noData: 'Andmed puuduvad'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Viited'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Maini agenti, dokumenti või tabelit...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokument',
+        table: 'Tabel',
+        knowledge: 'Teadmised'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kopeeri kood',
+        copied: 'Kopeeritud!',
+        run: 'Käivita kood',
+        edit: 'Muuda',
+        save: 'Salvesta',
+        cancel: 'Tühista'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Käivita',
+        stop: 'Peata',
+        clear: 'Puhasta',
+        reset: 'Lähtesta',
+        placeholder: 'Koodi käivitamiseks klõpsa Käivita...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Saada sõnum...',
+        dragTip: 'Failide üleslaadimiseks vabasta'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Mõtteprotsess',
+        thinking: 'Mõtlen...',
+        defaultTitle: 'Uus samm',
+        addNode: 'Lisa samm'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Alusta mõtlemist',
+        thinking: 'Mõtlen...',
+        complete: 'Mõtlemine lõppenud',
+        error: 'Mõtlemise viga'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Tere, ma olen YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Saadan sind aidata programmeerimise, dokumentide tõlkimise või loova kirjutamisega. Mida saan täna sinu heaks teha?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Kopeeri',
+        regenerate: 'Taasta',
+        share: 'Jaga',
+        like: 'Meeldib',
+        dislike: 'Ei meeldi',
+        edit: 'Muuda',
+        delete: 'Kustuta'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Eelvaade',
+        inline: 'Tekstis',
+        code: 'Lähtekood',
+        versions: 'Versioonid',
+        rendering: 'Komponenti renderdatakse...',
+        renderingChart: 'Graafikut renderdatakse...',
+        renderingCanvas: 'Lõuendit valmistatakse ette...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Kõnelemiseks klõpsa',
+        listening: 'Kuulab...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        uses: 'kasutuskorrad',
+        use: 'Kasuta kohe',
+        favorite: 'Lemmik',
+        unfavorite: 'Eemalda lemmikutest',
+        share: 'Jaga',
+        online: 'Võrgus',
+        offline: 'Võrguühenduseta',
+        busy: 'Hõivatud',
+        verified: 'Kinnitatud',
+        rating: 'Hinnang',
+        reviews: 'arvustused',
+        responseTime: 'Keskmine vastusaeg',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Viited',
+        referencedSources: 'Viidatud allikad',
+        relevant: 'Asjakohasus',
+        viewOriginal: 'Vaata algallikat',
+        showAll: 'Näita kõiki',
+        more: 'rohkem allikaid',
+        drawerTitle: 'Viited',
+        expandMore: 'Näita rohkem',
+        collapseMore: 'Ahenda',
+        noSources: 'Allikad puuduvad',
+        today: 'Täna',
+        last7Days: 'Viimased 7 päeva',
+        last30Days: 'Viimased 30 päeva',
+        earlier: 'Varem',
+        pinned: 'Kinnitatud'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Täna',
+        last7Days: 'Viimased 7 päeva',
+        last30Days: 'Viimased 30 päeva',
+        earlier: 'Varem',
+        pinned: 'Kinnitatud',
+        pin: 'Kinnita',
+        unpin: 'Vabasta',
+        newConversation: 'Uus vestlus',
+        rename: 'Nimeta ümber',
+        delete: 'Kustuta',
+        deleteConfirm: 'Kas kustutame selle vestluse?'
       }
     }
   }

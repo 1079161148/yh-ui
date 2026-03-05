@@ -14,6 +14,16 @@ vi.mock('highlight.js', () => ({
 }))
 vi.mock('highlight.js/styles/atom-one-dark.css', () => ({}))
 
+vi.mock('monaco-editor', () => {
+  return {
+    editor: {
+      create: vi.fn(),
+      setModelLanguage: vi.fn(),
+      setTheme: vi.fn()
+    }
+  }
+})
+
 const { default: AiCodeBlock } = await import('../src/ai-code-block.vue')
 
 describe('YhAiCodeBlock SSR', () => {

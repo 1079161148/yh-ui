@@ -592,124 +592,124 @@ export const hu: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Kérem írja be',
+      loading: 'Betöltés...',
+      noData: 'Nincs adat'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Hivatkozások'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
+        placeholder: '@ Említés Agent, Dokumentum vagy Táblázat...',
         agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        document: 'Dokumentum',
+        table: 'Táblázat',
+        knowledge: 'Tudás'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Kód másolása',
+        copied: 'Másolva!',
+        run: 'Kód futtatása',
+        edit: 'Szerkesztés',
+        save: 'Mentés',
+        cancel: 'Mégse'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Futtatás',
+        stop: 'Leállítás',
+        clear: 'Törlés',
+        reset: 'Visszaállítás',
+        placeholder: 'Kattintson a Futtatásra a kód végrehajtásához...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Üzenet küldése...',
+        dragTip: 'Fájlok feltöltéséhez engedje el'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Gondolkodási folyamat',
+        thinking: 'Gondolkodás...',
+        defaultTitle: 'Új lépés',
+        addNode: 'Lépés hozzáadása'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Gondolkodás kezdése',
+        thinking: 'Gondolkodás...',
+        complete: 'Gondolkodás befejezve',
+        error: 'Gondolkodási hiba'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Üdvözöllek, YH AI vagyok',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Segíthetek programozásban, dokumentumok fordításában vagy kreatív írásban. Mit tehetek ma önért?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Másolás',
+        regenerate: 'Újragenerálás',
+        share: 'Megosztás',
+        like: 'Tetszik',
+        dislike: 'Nem tetszik',
+        edit: 'Szerkesztés',
+        delete: 'Törlés'
       },
       artifacts: {
-        preview: 'Preview',
+        preview: 'Előnézet',
         inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        code: 'Forráskód',
+        versions: 'Verziók',
+        rendering: 'Komponens renderelése...',
+        renderingChart: 'Diagram renderelése...',
+        renderingCanvas: 'Vászon előkészítése...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Kattintson a beszédhez',
+        listening: 'Hallgatás...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
+        uses: 'használja',
+        use: 'Használja most',
+        favorite: 'Kedvenc',
+        unfavorite: 'Kedvenc eltávolítása',
+        share: 'Megosztás',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
+        busy: 'Foglalt',
+        verified: 'Ellenőrzött',
+        rating: 'Értékelés',
+        reviews: 'értékelés',
+        responseTime: 'Átl. válaszidő',
         ms: 'ms'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Hivatkozások',
+        referencedSources: 'Hivatkozott források',
+        relevant: 'Relevancia',
+        viewOriginal: 'Eredeti megtekintése',
+        showAll: 'Összes megjelenítése',
+        more: 'további források',
+        drawerTitle: 'Hivatkozások',
+        expandMore: 'Több megjelenítése',
+        collapseMore: 'Összecsukás',
+        noSources: 'Nincs forrás',
+        today: 'Ma',
+        last7Days: 'Utolsó 7 nap',
+        last30Days: 'Utolsó 30 nap',
+        earlier: 'Korábbi',
+        pinned: 'Rögzítve'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Ma',
+        last7Days: 'Utolsó 7 nap',
+        last30Days: 'Utolsó 30 nap',
+        earlier: 'Korábbi',
+        pinned: 'Rögzítve',
+        pin: 'Rögzítés',
+        unpin: 'Rögzítés feloldása',
+        newConversation: 'Új beszélgetés',
+        rename: 'Átnevezés',
+        delete: 'Törlés',
+        deleteConfirm: 'Megerősíti a beszélgetés törlését?'
       }
     }
   }

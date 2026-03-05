@@ -42,7 +42,7 @@ const highlightColColumns = computed(() => [
 ])
 
 const handleColCellClick = (row: Record<string, unknown>, column: Record<string, unknown>) => {
-  hoveredColumnProp.value = (column as any).prop || ''
+  hoveredColumnProp.value = (column.prop as string) || ''
 }
 
 // ==================== 3. Header Prefix Icon ====================
@@ -172,7 +172,7 @@ const columns = computed(() => [
 ])
 
 const handleCellClick = (row: Record<string, unknown>, column: Record<string, unknown>) => {
-  hoveredProp.value = (column as any).prop || ''
+  hoveredProp.value = (column.prop as string) || ''
 }
 </${_S}>`
 

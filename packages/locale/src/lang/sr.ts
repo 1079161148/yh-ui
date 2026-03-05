@@ -592,124 +592,124 @@ export const sr: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Молимо унесите',
+      loading: 'Учитавање...',
+      noData: 'Нема података'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Цитати'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Помени Агента, Документ или Табелу...',
+        agent: 'Агент',
+        document: 'Документ',
+        table: 'Табела',
+        knowledge: 'Знање'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Копирај код',
+        copied: 'Копирано!',
+        run: 'Покрени код',
+        edit: 'Уреди',
+        save: 'Сачувај',
+        cancel: 'Откажи'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Покрени',
+        stop: 'Заустави',
+        clear: 'Очисти',
+        reset: 'Ресетуј',
+        placeholder: 'Кликните Покрени да бисте извршили код...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Пошаљи поруку...',
+        dragTip: 'Отпустите да бисте отпремили датотеке'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Процес размишљања',
+        thinking: 'Размишљам...',
+        defaultTitle: 'Нови корак',
+        addNode: 'Додај корак'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Почни да размишљаш',
+        thinking: 'Размишљам...',
+        complete: 'Размишљање завршено',
+        error: 'Грешка у размишљању'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Здраво, ја сам YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Могу вам помоћи са програмирањем, превођењем докумената или креативним писањем. Шта могу да урадим за вас данас?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Копирај',
+        regenerate: 'Регенериши',
+        share: 'Подели',
+        like: 'Свиђа ми се',
+        dislike: 'Не свиђа ми се',
+        edit: 'Уреди',
+        delete: 'Обриши'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Преглед',
+        inline: 'У линији',
+        code: 'Изворни код',
+        versions: 'Верзије',
+        rendering: 'Рендеровање компоненте...',
+        renderingChart: 'Рендеровање графикона...',
+        renderingCanvas: 'Припрема платна...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Кликните да бисте говорили',
+        listening: 'Слушам...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'употребе',
+        use: 'Користи сада',
+        favorite: 'Омиљено',
+        unfavorite: 'Уклони из омиљених',
+        share: 'Подели',
+        online: 'Онлајн',
+        offline: 'Офлајн',
+        busy: 'Заузет',
+        verified: 'Верификован',
+        rating: 'Оцена',
+        reviews: 'рецензије',
+        responseTime: 'Просечно време одговора',
+        ms: 'мс'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Референце',
+        referencedSources: 'Референцирани извори',
+        relevant: 'Релевантност',
+        viewOriginal: 'Погледај оригинал',
+        showAll: 'Прикажи све',
+        more: 'више извора',
+        drawerTitle: 'Референце',
+        expandMore: 'Прикажи више',
+        collapseMore: 'Скупи',
+        noSources: 'Нема извора',
+        today: 'Данас',
+        last7Days: 'Последњих 7 дана',
+        last30Days: 'Последњих 30 дана',
+        earlier: 'Раније',
+        pinned: 'Прикачено'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Данас',
+        last7Days: 'Последњих 7 дана',
+        last30Days: 'Последњих 30 дана',
+        earlier: 'Раније',
+        pinned: 'Прикачено',
+        pin: 'Прикачи',
+        unpin: 'Откачи',
+        newConversation: 'Нови разговор',
+        rename: 'Преименуј',
+        delete: 'Обриши',
+        deleteConfirm: 'Потврдите брисање овог разговора?'
       }
     }
   }

@@ -592,124 +592,124 @@ export const kk: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: 'Енгізініз',
+      loading: 'Жүктелуде...',
+      noData: 'Деректер жоқ'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: 'Сілтемелер'
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: '@ Агент, Құжат немесе Кестені белгілеу...',
+        agent: 'Агент',
+        document: 'Құжат',
+        table: 'Кесте',
+        knowledge: 'Білім'
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: 'Кодты көшіру',
+        copied: 'Көшірілді!',
+        run: 'Кодты орындау',
+        edit: 'Өңдеу',
+        save: 'Сақтау',
+        cancel: 'Болдырмау'
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: 'Орындау',
+        stop: 'Тоқтату',
+        clear: 'Тазалау',
+        reset: 'Қайта орнату',
+        placeholder: 'Кодты орындау үшін Орындау түймесін басыңыз...'
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: 'Хабарлама жіберу...',
+        dragTip: 'Файлдарды жүктеу үшін босатыңыз'
       },
       thoughtChain: {
-        thoughtProcess: 'Thought process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New step',
-        addNode: 'Add step'
+        thoughtProcess: 'Ойлау процесі',
+        thinking: 'Ойлауда...',
+        defaultTitle: 'Жаңа қадам',
+        addNode: 'Қадам қосу'
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: 'Ойлауды бастау',
+        thinking: 'Ойлауда...',
+        complete: 'Ойлау аяқталды',
+        error: 'Ойлау қатесі'
       },
       welcome: {
-        title: 'Hello, I am YH AI',
+        title: 'Салем, мен YH AI',
         description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+          'Сізге бағдарламалауда, құжаттарды аударуда немесе шығармашылық жазуда көмектесе аламын. Бүгін сізге не істей аламын?'
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: 'Көшіру',
+        regenerate: 'Қайта құру',
+        share: 'Бөлісу',
+        like: 'Ұнайды',
+        dislike: 'Ұнамайды',
+        edit: 'Өңдеу',
+        delete: 'Жою'
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: 'Алдын ала қарау',
+        inline: 'Жол ішінде',
+        code: 'Бастапқы код',
+        versions: 'Нұсқалар',
+        rendering: 'Компонентті көрсету...',
+        renderingChart: 'Диаграмманы көрсету...',
+        renderingCanvas: 'Кенеп дайындау...'
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: 'Сөйлеу үшін басыңыз',
+        listening: 'Тыңдауда...'
       },
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: 'пайдалану',
+        use: 'Қазір пайдалану',
+        favorite: 'Таңдаулы',
+        unfavorite: 'Таңдаудан алып тастау',
+        share: 'Бөлісу',
+        online: 'Онлайн',
+        offline: 'Офлайн',
+        busy: 'Бос емес',
+        verified: 'Расталған',
+        rating: 'Баға',
+        reviews: 'пікір',
+        responseTime: 'Орташа жауап уақыты',
+        ms: 'мс'
       },
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: 'Сілтемелер',
+        referencedSources: 'Сілтелген дереккөздер',
+        relevant: 'Сəйкестік',
+        viewOriginal: 'Түпнұсқаны көру',
+        showAll: 'Барлығын көрсету',
+        more: 'көп дереккөздер',
+        drawerTitle: 'Сілтемелер',
+        expandMore: 'Көбірек көрсету',
+        collapseMore: 'Жию',
+        noSources: 'Дереккөздер жоқ',
+        today: 'Бүгін',
+        last7Days: 'Соңғы 7 күн',
+        last30Days: 'Соңғы 30 күн',
+        earlier: 'Бұрын',
+        pinned: 'Бекітілген'
       },
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: 'Бүгін',
+        last7Days: 'Соңғы 7 күн',
+        last30Days: 'Соңғы 30 күн',
+        earlier: 'Бұрын',
+        pinned: 'Бекітілген',
+        pin: 'Бекіту',
+        unpin: 'Бекітуді алу',
+        newConversation: 'Жаңа сөйлесу',
+        rename: 'Атауын өзгерту',
+        delete: 'Жою',
+        deleteConfirm: 'Осы сөйлесуді жоюды растайсыз ба?'
       }
     }
   }

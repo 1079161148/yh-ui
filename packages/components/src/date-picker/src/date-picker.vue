@@ -553,7 +553,11 @@ onBeforeUnmount(() => {
           <div v-if="shouldShowFooter" :class="ns.e('footer')">
             <slot name="footer">
               <div v-if="type.includes('datetime') && !isRange" :class="ns.e('footer-time')">
-                {{ dayjs((modelValue as any) || new Date()).format(timeFormat || 'HH:mm:ss') }}
+                {{
+                  dayjs((modelValue as DateValue) || new Date()).format(
+                    props.timeFormat || 'HH:mm:ss'
+                  )
+                }}
               </div>
               <div :class="ns.e('footer-btns')">
                 <button
