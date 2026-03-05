@@ -426,7 +426,6 @@ const tsCodeStream = `<${_T}>
     />
   </div>
 </${_T}>
-
 <${_S} setup lang="ts">
 const codeStreamContent = \`\\\`\\\`js
 // This code will stream output in real-time
@@ -437,6 +436,143 @@ return 'Final return value';
 \\\`\\\`\`;
 </${_S}>`
 const jsCodeStream = toJs(tsCodeStream)
+
+// --- Python & XSS Demo Data ---
+
+// Mock code execution callback
+const handleRunCode = async (code: string, lang: string) => {
+  if (lang === 'python') {
+    if (code.includes('pi')) {
+      return { output: 'PI: 3.141592653589793\n✓ Execution successful (Mock Remote API)' }
+    }
+    return { output: 'Sum of 1 to 100: 5050\n✓ Execution successful (Mock Pyodide)' }
+  }
+  return { output: `[${lang}] Executed: ${code.slice(0, 20)}...` }
+}
+
+const tsPythonBrowser = `<${_T}>
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      content="\\\`\\\`\\\`python
+# Python calculation example
+result = sum(range(1, 101))
+print(f'Sum of 1 to 100: {result}')
+\\\`\\\`\\\`"
+      :enable-python-runtime="true"
+      :python-runtime="'browser'"
+      :markdown-options="{
+        codeBlock: {
+          copyable: true,
+          runnable: true,
+          explainable: false
+        }
+      }"
+      :on-run-code="handleRunCode"
+    />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+const handleRunCode = async (code: string, lang: string) => {
+  if (lang === 'python') {
+    return { output: 'Sum of 1 to 100: 5050\\n✓ Execution successful (Mock Pyodide)' }
+  }
+  return { output: \`[\${lang}] Execution successful\` }
+}
+</${_S}>`
+
+const jsPythonBrowser = toJs(tsPythonBrowser)
+
+const tsPythonRemote = `<${_T}>
+  <yh-ai-bubble
+    role="assistant"
+    content="Execute Python using remote API"
+    :enable-python-runtime="true"
+    python-runtime="remote"
+    python-api-url="https://api.example.com/python"
+    :on-run-code="handleRunCode"
+  />
+</${_T}>`
+
+const jsPythonRemote = toJs(tsPythonRemote)
+
+const xssContent = ref('This contains <script>alert("xss")<\/script> dangerous script but will be automatically sanitized.')
+
+const tsXssDemo = `<${_T}>
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      :content="xssContent"
+      :enable-sanitizer="true"
+      :markdown-options="{ html: true }"
+    />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+const xssContent = ref('This contains <script>alert("xss")<\\/script> dangerous script...')
+</${_S}>`
+
+const jsXssDemo = toJs(tsXssDemo)
+
+const customSanitizer = (html: string): string => {
+  return html.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, ' [REMOVED SCRIPT] ')
+}
+
+const customHtmlContent = '<p>Custom <b>whitelist</b> example <a href="javascript:alert(1)">Remove illegal link</a></p>'
+
+const tsCustomWhitelist = `<${_T}>
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      :content="customHtmlContent"
+      :enable-sanitizer="true"
+      :allowed-tags="['p', 'b', 'i', 'a']"
+      :allowed-attributes="['href', 'class']"
+      :markdown-options="{ html: true }"
+    />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+const customHtmlContent = '<p>Custom <b>whitelist</b> example <a href="javascript:alert(1)">Remove illegal link</a></p>';
+</${_S}>`
+
+const virtualMessages = ref(Array.from({ length: 1000 }, (_, i) => ({
+  id: `msg-${i}`,
+  role: i % 2 === 0 ? 'user' : 'assistant',
+  content: i % 2 === 0 ? `This is user question NO. ${i + 1}` : `This is AI response NO. ${i + 1}, simulating extreme performance under large data volumes.`,
+  time: '12:00 PM',
+  variant: i % 2 === 0 ? 'filled' : 'borderless'
+})))
+
+const tsVirtualScroll = `<${_T}>
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble-list
+      :items="virtualMessages"
+      :virtual-scroll="true"
+      :height="400"
+      :item-height="100"
+    />
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+const virtualMessages = ref(Array.from({ length: 1000 }, (_, i) => ({
+  id: 'msg-' + i,
+  role: i % 2 === 0 ? 'user' : 'assistant',
+  content: i % 2 === 0 ? 'This is user question NO. ' + (i + 1) : 'This is AI response NO. ' + (i + 1) + ', supporting virtual scroll optimization.',
+  time: '12:00 PM',
+  variant: i % 2 === 0 ? 'filled' : 'borderless'
+})))
+</${_S}>`
+
+const jsVirtualScroll = toJs(tsVirtualScroll)
+
+const jsCustomWhitelist = toJs(tsCustomWhitelist)
 </script>
 
 `AiBubble` is the core component for AI conversation interaction.
@@ -773,26 +909,45 @@ Besides global CSS variables, you can use the `theme-overrides` property for gra
 
 ### Props
 
-| Property        | Description                         | Type                                                                              | Default            |
-| --------------- | ----------------------------------- | --------------------------------------------------------------------------------- | ------------------ |
-| content         | Message content                     | `string`                                                                          | `''`               |
-| markdown        | Enable Markdown & highlight.js      | `boolean`                                                                         | `true`             |
-| role            | Sender role                         | `'user' \| 'assistant' \| 'system'`                                               | `'assistant'`      |
-| placement       | Bubble side                         | `'start' \| 'end'`                                                                | Inferred from role |
-| shape           | Corner shape                        | `'corner' \| 'round'`                                                             | `'round'`          |
-| variant         | Visual style                        | `'filled' \| 'outlined' \| 'shadow' \| 'borderless'`                              | `'filled'`         |
-| time            | Timestamp label                     | `string`                                                                          | —                  |
-| avatar          | Custom avatar URL                   | `string`                                                                          | —                  |
-| loading         | Whether is loading                  | `boolean`                                                                         | `false`            |
-| typing          | Show typewriter cursor animation    | `boolean`                                                                         | `false`            |
-| citations       | Citation sources list               | `AiCitation[]`                                                                    | `[]`               |
-| multimodal      | Multimodal content list             | `AiMultimodal[]`                                                                  | `[]`               |
-| markdownOptions | Markdown behavior & feature options | `AiMarkdownOptions`                                                               | `{}`               |
-| structuredData  | Structured data payload             | `AiStructuredData`                                                                | —                  |
-| onExplainCode   | Code explanation callback           | `(code: string, language: string) => Promise<string>`                             | —                  |
-| onRunCode       | Code execution callback             | `(code: string, language: string) => Promise<{ output: string; error?: string }>` | —                  |
-| onCitationClick | Click handler for a citation item   | `(citation: AiCitation) => void`                                                  | —                  |
-| themeOverrides  | Theme variable overrides            | `ComponentThemeVars`                                                              | —                  |
+| Property                | Description                              | Type                                                 | Default                              |
+| ----------------------- | ---------------------------------------- | ---------------------------------------------------- | ------------------------------------ |
+| `content`               | Message content, supports Markdown       | `string`                                             | `''`                                 |
+| `markdown`              | Enable Markdown and syntax highlighting  | `boolean`                                            | `true`                               |
+| `role`                  | Sender role                              | `'user' \| 'assistant' \| 'system'`                  | `'assistant'`                        |
+| `placement`             | Bubble placement side                    | `'start' \| 'end'`                                   | Inferred from role                   |
+| `shape`                 | Bubble corner shape                      | `'corner' \| 'round'`                                | `'round'`                            |
+| `variant`               | Visual variant style                     | `'filled' \| 'outlined' \| 'shadow' \| 'borderless'` | `'filled'`                           |
+| `time`                  | Timestamp label at the top               | `string`                                             | —                                    |
+| `avatar`                | Custom avatar URL                        | `string`                                             | —                                    |
+| `loading`               | Whether message is being generated       | `boolean`                                            | `false`                              |
+| `typing`                | Show typewriter indicator animation      | `boolean`                                            | `false`                              |
+| `streaming`             | Enable incremental streaming render      | `boolean`                                            | `false`                              |
+| `stream-mode`           | Streaming granularity                    | `'word' \| 'sentence' \| 'paragraph'`                | `'word'`                             |
+| `stream-speed`          | Streaming speed (chars per render)       | `number`                                             | `1`                                  |
+| `stream-interval`       | Streaming interval (ms)                  | `number`                                             | `20`                                 |
+| `citations`             | Reference citation data list             | `AiCitation[]`                                       | `[]`                                 |
+| `multimodal`            | Multimodal content (images, audio, etc.) | `AiMultimodal[]`                                     | `[]`                                 |
+| `markdown-options`      | Markdown behavior configuration          | `AiMarkdownOptions`                                  | `{}`                                 |
+| `structured-data`       | Structured data (JSON/Table/Mindmap)     | `AiStructuredData`                                   | —                                    |
+| `enable-python-runtime` | Whether to enable Python runtime         | `boolean`                                            | `false`                              |
+| `python-runtime`        | Python runtime type                      | `'browser' \| 'remote'`                              | `'browser'`                          |
+| `python-api-url`        | Remote Python API URL                    | `string`                                             | —                                    |
+| `pyodide-url`           | Pyodide CDN URL                          | `string`                                             | —                                    |
+| `enable-sanitizer`      | Whether to enable XSS protection         | `boolean`                                            | `true`                               |
+| `sanitizer`             | Custom HTML sanitizer function           | `(html: string) => string`                           | —                                    |
+| `allowed-tags`          | Whitelisted HTML tags                    | `string[]`                                           | Default safe tags                    |
+| `allowed-attributes`    | Whitelisted HTML attributes              | `string[]`                                           | Default safe attributes              |
+| `allowed-schemes`       | Whitelisted URL protocols                | `string[]`                                           | `['http', 'https', 'mailto', 'tel']` |
+| `theme-overrides`       | Theme variable overrides                 | `AiBubbleThemeVars`                                  | —                                    |
+
+### Events / Callbacks
+
+| Name                 | Description                        | Type                                                                              |
+| -------------------- | ---------------------------------- | --------------------------------------------------------------------------------- |
+| `on-explain-code`    | Code explanation callback          | `(code: string, language: string) => Promise<string>`                             |
+| `on-run-code`        | Code execution callback            | `(code: string, language: string) => Promise<{ output: string; error?: string }>` |
+| `on-citation-click`  | Citation item click callback       | `(citation: AiCitation) => void`                                                  |
+| `on-stream-complete` | Streaming render complete callback | `() => void`                                                                      |
 
 ### AiCitation
 
@@ -843,6 +998,155 @@ Besides global CSS variables, you can use the `theme-overrides` property for gra
 | avatar  | Custom avatar  | —     |
 | header  | Custom header  | —     |
 | footer  | Custom footer  | —     |
+
+### Python Sandbox Props
+
+| Property Name         | Description                  | Type                    | Default        |
+| --------------------- | ---------------------------- | ----------------------- | -------------- |
+| `enablePythonRuntime` | Enable Python code execution | `boolean`               | `false`        |
+| `pythonRuntime`       | Python runtime type          | `'browser' \| 'remote'` | `'browser'`    |
+| `pythonApiUrl`        | Remote Python API URL        | `string`                | —              |
+| `pyodideUrl`          | Pyodide CDN URL              | `string`                | See note below |
+
+### XSS Protection Props
+
+| Property Name       | Description                    | Type                       | Default                              |
+| ------------------- | ------------------------------ | -------------------------- | ------------------------------------ |
+| `enableSanitizer`   | Enable built-in XSS protection | `boolean`                  | `true`                               |
+| `sanitizer`         | Custom HTML sanitization fn    | `(html: string) => string` | —                                    |
+| `allowedTags`       | Allowed HTML tags whitelist    | `string[]`                 | See note below                       |
+| `allowedAttributes` | Allowed attributes whitelist   | `string[]`                 | See note below                       |
+| `allowedSchemes`    | Allowed URL schemes whitelist  | `string[]`                 | `['http', 'https', 'mailto', 'tel']` |
+
+### Python Sandbox & XSS Protection Examples
+
+#### Browser-side Python Runtime (Pyodide)
+
+<DemoBlock title="Browser-side Python Runtime" :ts-code="tsPythonBrowser" :js-code="jsPythonBrowser">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      content="Here is a Python code that can run directly in the browser:"
+      :enable-python-runtime="true"
+      :python-runtime="'browser'"
+    />
+    <yh-ai-bubble
+      role="assistant"
+      content="```python
+# Python calculation example
+result = sum(range(1, 101))
+print(f'Sum of 1 to 100: {result}')
+```"
+      :enable-python-runtime="true"
+      :python-runtime="'browser'"
+      :markdown-options="{
+        codeBlock: {
+          copyable: true,
+          runnable: true,
+          explainable: false
+        }
+      }"
+      :on-run-code="handleRunCode"
+    />
+  </div>
+</DemoBlock>
+
+#### Remote Python API
+
+<DemoBlock title="Remote Python API" :ts-code="tsPythonRemote" :js-code="jsPythonRemote">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      content="```python
+# Remote Python API execution example
+import math
+print(f'PI: {math.pi}')
+```"
+      :enable-python-runtime="true"
+      python-runtime="remote"
+      python-api-url="https://api.example.com/python/exec"
+      :on-run-code="handleRunCode"
+      :markdown-options="{ codeBlock: { runnable: true } }"
+    />
+  </div>
+</DemoBlock>
+
+#### XSS Protection Example
+
+<DemoBlock title="XSS Protection" :ts-code="tsXssDemo" :js-code="jsXssDemo">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      :content="xssContent"
+      :enable-sanitizer="true"
+      :markdown-options="{ html: true }"
+    />
+  </div>
+</DemoBlock>
+
+#### Custom Whitelist
+
+<DemoBlock title="Custom Whitelist" :ts-code="tsCustomWhitelist" :js-code="jsCustomWhitelist">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble
+      role="assistant"
+      :content="customHtmlContent"
+      :enable-sanitizer="true"
+      :allowed-tags="['p', 'b', 'i', 'a']"
+      :allowed-attributes="['href', 'class']"
+      :allowed-schemes="['https']"
+      :markdown-options="{ html: true }"
+    />
+  </div>
+</DemoBlock>
+
+### AiBubbleList Virtual Scroll (Large List Performance)
+
+When the conversation history is extremely long (e.g., more than 100 items), rendering too many DOM nodes can cause page scrolling lag. `AiBubbleList` integrates a powerful virtual scroll engine, maintaining a smooth 60fps scrolling experience even with **10,000** messages.
+
+<DemoBlock title="Virtual Scroll - Performance Optimization" :ts-code="tsVirtualScroll" :js-code="jsVirtualScroll">
+  <div style="background:var(--yh-bg-color-page); padding:16px;">
+    <yh-ai-bubble-list
+      :items="virtualMessages"
+      :virtual-scroll="true"
+      :height="400"
+      :item-height="100"
+    />
+  </div>
+</DemoBlock>
+
+### AiBubbleList Props
+
+| Name             | Description                             | Type                 | Default |
+| ---------------- | --------------------------------------- | -------------------- | ------- |
+| `items`          | Conversation message data list          | `AiBubbleListItem[]` | `[]`    |
+| `virtual-scroll` | Enable virtual scrolling for large data | `boolean`            | `false` |
+| `height`         | Scroll area container height            | `number \| string`   | `400`   |
+| `item-height`    | Estimated height of an item             | `number`             | `80`    |
+| `auto-scroll`    | Auto scroll to bottom upon new messages | `boolean`            | `true`  |
+| `loading`        | Whether in generating or loading state  | `boolean`            | `false` |
+
+### AiBubbleList Slots
+
+| Name      | Description                              | Parameters                                  |
+| --------- | ---------------------------------------- | ------------------------------------------- |
+| `bubble`  | Custom rendering of each dialogue bubble | `{ item: AiBubbleListItem, index: number }` |
+| `loading` | Custom loading render at list bottom     | —                                           |
+
+### AiBubbleList Methods
+
+You can get the component instance using ref and call the following methods:
+
+| Method           | Description                           | Parameters        |
+| ---------------- | ------------------------------------- | ----------------- |
+| `scrollToBottom` | Scroll to the very bottom of the list | —                 |
+| `scrollToIndex`  | Scroll to a specific index virtually  | `(index: number)` |
+
+## Use in Nuxt
+
+This component fully supports Nuxt 3/4. In Nuxt projects, the component will be automatically imported.
+
+For detailed configuration, please see [Nuxt Integration](/en/guide/nuxt).
 
 ## Theme Variables
 

@@ -12,7 +12,8 @@ defineOptions({ name: 'YhAvatar' })
 const props = withDefaults(defineProps<AvatarProps>(), {
   shape: 'circle',
   size: 'default',
-  fit: 'cover'
+  fit: 'cover',
+  crossorigin: 'anonymous'
 })
 
 const emit = defineEmits<AvatarEmits>()
@@ -77,6 +78,7 @@ const handleError = (event: Event) => {
       :alt="alt"
       :style="{ objectFit: fit }"
       :class="ns.e('img')"
+      :crossorigin="props.crossorigin"
       @error="handleError"
     />
     <!-- 图标模式 -->

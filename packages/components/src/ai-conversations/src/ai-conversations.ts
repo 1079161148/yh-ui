@@ -36,6 +36,36 @@ export const aiConversationsProps = {
   grouped: {
     type: Boolean,
     default: true
+  },
+  // ========== 虚拟滚动相关属性 ==========
+
+  /**
+   * @description 是否启用虚拟滚动
+   */
+  virtualScroll: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 虚拟滚动容器高度
+   */
+  virtualScrollHeight: {
+    type: Number,
+    default: 400
+  },
+  /**
+   * @description 虚拟滚动每项高度
+   */
+  virtualScrollItemHeight: {
+    type: Number,
+    default: 50
+  },
+  /**
+   * @description 虚拟滚动 overscan 数量
+   */
+  virtualScrollOverscan: {
+    type: Number,
+    default: 3
   }
 }
 

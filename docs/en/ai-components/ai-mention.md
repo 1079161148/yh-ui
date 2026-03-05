@@ -151,25 +151,46 @@ AiMention has passed full SSR testing and supports server-side rendering to ensu
 
 ### Props
 
-| Property         | Description                 | Type                                            | Default                          |
-| ---------------- | --------------------------- | ----------------------------------------------- | -------------------------------- |
-| v-model          | Binding value               | `string`                                        | —                                |
-| options          | Mention options list        | `AiMentionOption[]`                             | `[]`                             |
-| types            | Allowed types list          | `('agent'\|'document'\|'table'\|'knowledge')[]` | `['agent', 'document', 'table']` |
-| prefix           | Trigger prefix              | `string \| string[]`                            | `@`                              |
-| show-icon        | Whether to show icon        | `boolean`                                       | `true`                           |
-| show-description | Whether to show description | `boolean`                                       | `true`                           |
-| theme-overrides  | Component theme overrides   | `ComponentThemeVars`                            | —                                |
+| Property                 | Description                                 | Type                                                           | Default                                               |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------- |
+| v-model                  | Binding value                               | `string`                                                       | `''`                                                  |
+| options                  | Mention options list                        | `AiMentionOption[]`                                            | `[]`                                                  |
+| types                    | Allowed types list                          | `('agent'\|'document'\|'table'\|'knowledge'\|'file')[]`        | `['agent', 'document', 'table', 'knowledge', 'file']` |
+| triggers                 | Trigger characters                          | `string[]`                                                     | `['@']`                                               |
+| type                     | Input type                                  | `'input' \| 'textarea'`                                        | `'textarea'`                                          |
+| placeholder              | Placeholder                                 | `string`                                                       | `''`                                                  |
+| disabled                 | Whether disabled                            | `boolean`                                                      | `false`                                               |
+| size                     | Size                                        | `'large' \| 'default' \| 'small'`                              | `default`                                             |
+| max-length               | Maximum length                              | `number`                                                       | —                                                     |
+| rows                     | Textarea rows                               | `number`                                                       | `3`                                                   |
+| loading                  | Whether in loading state                    | `boolean`                                                      | `false`                                               |
+| theme-overrides          | Component theme overrides                   | `ComponentThemeVars`                                           | `{}`                                                  |
+| filter-option            | Custom option filter / disable built-in one | `(keyword: string, option: MentionOption) => boolean \| false` | `undefined`                                           |
+| enable-file-tree         | Enable file tree selector                   | `boolean`                                                      | `true`                                                |
+| file-loader              | File tree data loader                       | `AiMentionFileLoader`                                          | `undefined`                                           |
+| file-root                | File tree root path                         | `string`                                                       | `'/'`                                                 |
+| file-tree-expanded-level | Default expanded level of file tree         | `number`                                                       | `2`                                                   |
+| show-file-icon           | Whether to show file icon                   | `boolean`                                                      | `true`                                                |
+| show-file-size           | Whether to show file size                   | `boolean`                                                      | `true`                                                |
+| show-modified-time       | Whether to show last modified time          | `boolean`                                                      | `true`                                                |
+| format-file-size         | File size formatter                         | `(size: number) => string`                                     | Built-in formatter                                    |
+| search-debounce          | Search debounce delay (ms)                  | `number`                                                       | `300`                                                 |
 
 ### AiMentionOption
 
-| Property    | Description      | Type                                              | Default |
-| ----------- | ---------------- | ------------------------------------------------- | ------- |
-| label       | Display text     | `string`                                          | —       |
-| value       | Selected value   | `string`                                          | —       |
-| type        | AI Type          | `'agent' \| 'document' \| 'table' \| 'knowledge'` | —       |
-| icon        | Custom icon      | `string`                                          | —       |
-| description | Description text | `string`                                          | —       |
+| Property    | Description             | Type                                                        | Default |
+| ----------- | ----------------------- | ----------------------------------------------------------- | ------- |
+| label       | Display text            | `string`                                                    | —       |
+| value       | Selected value          | `string`                                                    | —       |
+| type        | AI type                 | `'agent' \| 'document' \| 'table' \| 'knowledge' \| 'file'` | —       |
+| icon        | Custom icon             | `string`                                                    | —       |
+| description | Description text        | `string`                                                    | —       |
+| path        | File/document path      | `string`                                                    | —       |
+| size        | File size (bytes)       | `number`                                                    | —       |
+| modifiedAt  | Last modified timestamp | `number`                                                    | —       |
+| children    | Children (for tree)     | `AiMentionOption[]`                                         | —       |
+| isFolder    | Whether is folder       | `boolean`                                                   | —       |
+| expanded    | Whether expanded        | `boolean`                                                   | —       |
 
 ### Slots
 

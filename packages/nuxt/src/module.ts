@@ -215,7 +215,8 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'AiAgentCard',
       'AiSources',
       'AiProvider',
-      'AiMention'
+      'AiMention',
+      'AiBubbleList'
     ]
 
     components.forEach((name) => {

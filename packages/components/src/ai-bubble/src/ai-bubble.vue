@@ -15,7 +15,7 @@ import { aiBubbleProps, type AiMarkdownOptions, type AiCodeBlockOptions } from '
 import { YhAvatar } from '../../avatar'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
-import { YhAiThoughtChain } from '../../ai-thought-chain'
+import { YhAiThoughtChain, type AiThoughtItem } from '../../ai-thought-chain'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
@@ -128,7 +128,7 @@ const initMermaid = async (): Promise<MermaidModule | null> => {
   }
 }
 
-const renderMermaid = async (code: string): Promise<string> => {
+const _renderMermaid = async (code: string): Promise<string> => {
   if (!mermaidModule) {
     await initMermaid()
   }
@@ -364,6 +364,71 @@ const runCodeInBrowser = (code: string, id: string) => {
   }
 }
 
+const runPythonInBrowser = async (code: string, id: string) => {
+  codeOutput.value[id]!.push('> Initializing Pyodide (Python in browser)...')
+  try {
+    // 动态加载 Pyodide
+    const win = window as unknown as {
+      loadPyodide?: (config: { indexURL: string }) => Promise<{
+        setStdout: (config: { batched: (text: string) => void }) => void
+        runPythonAsync: (code: string) => Promise<unknown>
+      }>
+    }
+    if (!win.loadPyodide) {
+      await import(/* @vite-ignore */ props.pyodideUrl)
+    }
+
+    if (!win.loadPyodide) {
+      throw new Error('Pyodide failed to load.')
+    }
+
+    const pyodide = await win.loadPyodide({
+      indexURL: props.pyodideUrl.substring(0, props.pyodideUrl.lastIndexOf('/'))
+    })
+    codeOutput.value[id]!.push('> Running Python code...\n')
+
+    // 重定向 stdout
+    pyodide.setStdout({
+      batched: (text: string) => {
+        if (codeOutput.value[id]) {
+          codeOutput.value[id]!.push(text)
+        }
+      }
+    })
+
+    const result = await pyodide.runPythonAsync(code)
+    if (result !== undefined && result !== null) {
+      codeOutput.value[id]!.push(`\nResult: ${result}`)
+    }
+    codeOutput.value[id]!.push('\n✓ Python execution complete')
+  } catch (e: unknown) {
+    const error = e instanceof Error ? e.message : String(e)
+    codeOutput.value[id]!.push(`\nError: ${error}`)
+  }
+}
+
+const runPythonRemote = async (code: string, id: string) => {
+  codeOutput.value[id]!.push(`> Running Python via remote API: ${props.pythonApiUrl}...`)
+  try {
+    const response = await fetch(props.pythonApiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, language: 'python' })
+    })
+    const result = (await response.json()) as { output?: string; error?: string }
+    if (result.output) {
+      codeOutput.value[id]!.push(`\n${result.output}`)
+    }
+    if (result.error) {
+      codeOutput.value[id]!.push(`\nError: ${result.error}`)
+    }
+    codeOutput.value[id]!.push('\n✓ Remote Python execution complete')
+  } catch (e: unknown) {
+    const error = e instanceof Error ? e.message : String(e)
+    codeOutput.value[id]!.push(`\nRemote Error: ${error}`)
+  }
+}
+
 const runCode = async (code: string, lang: string, id: string): Promise<void> => {
   runningCodeBlock.value = id
   // 初始化流式输出数组
@@ -376,16 +441,18 @@ const runCode = async (code: string, lang: string, id: string): Promise<void> =>
       const result = await props.onRunCode(code, lang)
 
       // 如果返回的是可迭代对象（流式），逐个处理
-      if (result && typeof result[Symbol.asyncIterator] === 'function') {
-        for await (const chunk of result) {
+      if (result && Symbol.asyncIterator in (result as object)) {
+        const asyncResult = result as unknown as AsyncIterable<{ output?: string; error?: string }>
+        for await (const chunk of asyncResult) {
           codeOutput.value[id]!.push(chunk.output || chunk.error || '')
         }
       } else {
         // 一次性结果
-        codeOutput.value[id] = result.output
-          ? result.output.split('\n')
-          : result.error
-            ? [`Error: ${result.error}`]
+        const finalResult = result as { output: string; error?: string }
+        codeOutput.value[id] = finalResult.output
+          ? finalResult.output.split('\n')
+          : finalResult.error
+            ? [`Error: ${finalResult.error}`]
             : []
       }
     } catch (e: unknown) {
@@ -423,7 +490,7 @@ const runCode = async (code: string, lang: string, id: string): Promise<void> =>
           while (true) {
             const { done, value } = await reader.read()
             if (done) break
-            const chunk = decoder.decode(value, { stream: true })
+            const chunk = decoder.decode(value as unknown as Uint8Array, { stream: true })
             if (chunk) {
               // 按行分割，实现逐行流式输出
               const lines = chunk.split('\n')
@@ -450,6 +517,18 @@ const runCode = async (code: string, lang: string, id: string): Promise<void> =>
     } else {
       // 浏览器内联执行（原有逻辑）
       runCodeInBrowser(code, id)
+    }
+  } else if (lang === 'python' || lang === 'py') {
+    if (props.enablePythonRuntime) {
+      if (props.pythonRuntime === 'remote' && props.pythonApiUrl) {
+        runPythonRemote(code, id)
+      } else {
+        runPythonInBrowser(code, id)
+      }
+    } else {
+      codeOutput.value[id]!.push(
+        'Python runtime is disabled. Please enable "enable-python-runtime" prop.'
+      )
     }
   } else {
     codeOutput.value[id]!.push(`Language "${lang}" execution not supported in browser`)
@@ -694,23 +773,23 @@ const handleTooltipLeave = () => {
 // === Markdown Configuration ===
 const getMarkdownOptions = (): AiMarkdownOptions => {
   return {
-    codeBlock: {
-      copyable: true,
-      languageTag: true,
-      lineNumbers: false,
-      // 暂时关闭内置 Edit 弹窗，避免无法关闭/保存的问题
-      editable: false,
-      runnable: true,
-      explainable: true,
-      collapsible: true,
-      collapseLinesThreshold: 10
-    },
     mermaid: true,
     latex: true,
     filePreview: true,
     linkify: true,
     typographer: true,
-    ...props.markdownOptions
+    ...props.markdownOptions,
+    codeBlock: {
+      copyable: true,
+      languageTag: true,
+      lineNumbers: false,
+      editable: false,
+      runnable: true,
+      explainable: true,
+      collapsible: true,
+      collapseLinesThreshold: 10,
+      ...(props.markdownOptions?.codeBlock || {})
+    }
   }
 }
 
@@ -775,7 +854,11 @@ const getMarkdownInstance = () => {
       }
 
       // Run button
-      if (codeBlockOptions?.runnable && (lang === 'javascript' || lang === 'js')) {
+      const isRunnableLang =
+        ['javascript', 'js'].includes(lang) ||
+        (props.enablePythonRuntime && ['python', 'py'].includes(lang))
+
+      if (codeBlockOptions?.runnable && isRunnableLang) {
         wrapperStart += `<button class="code-action-btn run-btn" data-code="${encodeURIComponent(str)}" data-lang="${lang}" data-id="${codeBlockId}">Run</button>`
       }
 
@@ -838,13 +921,12 @@ const getMarkdownInstance = () => {
     const start = state.bMarks[state.line]
     const max = state.eMarks[state.line]
     const line = state.src.slice(start, max)
-
     if (!line.trim().startsWith('```mermaid')) return false
 
     if (!silent) {
       state.line++
       const lines: string[] = []
-      while (state.line < state.lines) {
+      while (state.line < state.lineMax) {
         const lineContent = state.src.slice(state.bMarks[state.line], state.eMarks[state.line])
         if (lineContent.trim().startsWith('```')) break
         lines.push(lineContent)
@@ -863,13 +945,13 @@ const getMarkdownInstance = () => {
   })
 
   // Custom renderer for mermaid
+  // Custom renderer for mermaid - 必须同步
   md.renderer.rules.mermaid_open = () => '<div class="mermaid-block">'
-  md.renderer.rules.mermaid_code = async (tokens, idx) => {
+  md.renderer.rules.mermaid_code = (tokens, idx) => {
     const code = tokens[idx].content
-    const svg = await renderMermaid(code)
-    return `<div class="mermaid-rendered">${svg}</div></div>`
+    return `<pre class="mermaid">${md.utils.escapeHtml(code)}</pre>`
   }
-  md.renderer.rules.mermaid_close = () => ''
+  md.renderer.rules.mermaid_close = () => '</div>'
 
   // 自研引用脚注拦截器插件
   md.inline.ruler.after('text', 'citation', (state, silent) => {
@@ -1085,7 +1167,7 @@ onBeforeUnmount(() => {
     <!-- Avatar -->
     <div :class="ns.e('avatar')" v-if="role !== 'system'">
       <slot name="avatar">
-        <YhAvatar v-if="avatar" :src="avatar" />
+        <YhAvatar v-if="avatar" :src="avatar" crossorigin="anonymous" />
         <YhAvatar v-else>
           <YhIcon :name="role === 'user' ? 'user' : 'robot'" />
         </YhAvatar>
@@ -1117,7 +1199,7 @@ onBeforeUnmount(() => {
               :key="idx"
               :class="ns.e('image-item')"
             >
-              <img :src="img.url" :alt="img.title" loading="lazy" />
+              <img :src="img.url" :alt="img.title" loading="lazy" crossorigin="anonymous" />
             </div>
           </div>
 
@@ -1147,31 +1229,41 @@ onBeforeUnmount(() => {
             <div v-else-if="structuredData.type === 'table'" :class="[ns.e('table-viewer')]">
               <table>
                 <thead>
-                  <tr>
-                    <th v-for="(header, i) in structuredData.data.headers" :key="i">
-                      {{ header }}
+                  <tr
+                    v-if="
+                      structuredData.data &&
+                      (structuredData.data as Record<string, unknown>).headers
+                    "
+                  >
+                    <th
+                      v-for="h in (structuredData.data as { headers: string[] }).headers"
+                      :key="h"
+                    >
+                      {{ h }}
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr v-for="(row, i) in structuredData.data.rows" :key="i">
-                    <td v-for="(cell, j) in row" :key="j">{{ cell }}</td>
+                <tbody v-if="structuredData.data && typeof structuredData.data === 'object'">
+                  <tr
+                    v-for="(row, idx) in (structuredData.data as { rows: string[][] }).rows"
+                    :key="idx"
+                  >
+                    <td v-for="(cell, cIdx) in row" :key="cIdx">{{ cell }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             <!-- Thought chain: delegate to AiThoughtChain for consistent style -->
-            <div v-else-if="structuredData.type === 'thought-chain'">
-              <YhAiThoughtChain
-                :items="structuredData.data"
-                :title="content || undefined"
-                status="none"
-                dot-size="small"
-                :auto-collapse="false"
-                line-gradient
-              />
-            </div>
+            <YhAiThoughtChain
+              v-else-if="structuredData.type === 'thought-chain' && structuredData.data"
+              :items="structuredData.data as AiThoughtItem[]"
+              :title="content || undefined"
+              status="none"
+              dot-size="small"
+              :auto-collapse="false"
+              line-gradient
+            />
 
             <!-- Fallback: raw JSON -->
             <div v-else :class="[ns.e('chart-viewer')]">

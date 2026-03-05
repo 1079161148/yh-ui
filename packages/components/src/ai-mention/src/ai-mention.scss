@@ -3,6 +3,7 @@
 
 @include b(ai-mention) {
   width: 100%;
+  position: relative;
 
   @include e(option-item) {
     display: flex;
@@ -41,6 +42,11 @@
     @include m(knowledge) {
       background: var(--yh-color-danger-light-9);
       color: var(--yh-color-danger);
+    }
+
+    @include m(file) {
+      background: var(--yh-fill-color-light);
+      color: var(--yh-text-color-secondary);
     }
   }
 
@@ -92,5 +98,126 @@
       background: var(--yh-color-danger-light-9);
       color: var(--yh-color-danger);
     }
+
+    @include m(file) {
+      background: var(--yh-fill-color-light);
+      color: var(--yh-text-color-secondary);
+    }
+  }
+
+  // 文件树面板
+  @include e(file-tree-panel) {
+    background: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: 12px;
+    box-shadow: var(--yh-shadow-lg);
+    overflow: hidden;
+  }
+
+  @include e(file-tree-header) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--yh-border-color-lighter);
+    background: var(--yh-fill-color-light);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+  }
+
+  @include e(file-tree-count) {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    background: var(--yh-fill-color);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  @include e(file-tree-content) {
+    max-height: 320px;
+    overflow: auto;
+  }
+
+  @include e(file-tree-list) {
+    padding: 8px 0;
+  }
+
+  @include e(file-tree-node) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    color: var(--yh-text-color-primary);
+
+    &:hover {
+      background: var(--yh-fill-color-light);
+    }
+
+    @include m(folder) {
+      font-weight: 500;
+    }
+
+    @include m(expanded) {
+      background: var(--yh-fill-color-extra-light);
+    }
+  }
+
+  @include e(file-tree-child) {
+    padding-left: 32px;
+  }
+
+  @include e(folder-toggle) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: var(--yh-text-color-secondary);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+  }
+
+  @include e(file-tree-indent) {
+    width: 16px;
+  }
+
+  @include e(file-tree-icon) {
+    font-size: 16px;
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(file-tree-label) {
+    flex: 1;
+    @include ellipsis;
+  }
+
+  @include e(file-tree-size) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    white-space: nowrap;
+  }
+
+  @include e(file-tree-time) {
+    font-size: 12px;
+    color: var(--yh-text-color-disabled);
+    white-space: nowrap;
+  }
+
+  @include e(file-tree-empty) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 32px;
+    color: var(--yh-text-color-placeholder);
+    font-size: 14px;
   }
 }

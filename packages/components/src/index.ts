@@ -99,6 +99,7 @@ import { YhAiAgentCard } from './ai-agent-card'
 import { YhAiSources } from './ai-sources'
 import { YhAiProvider } from './ai-provider'
 import { YhAiMention } from './ai-mention'
+import { YhAiBubbleList } from './ai-bubble-list'
 
 // 导出所有组件
 export * from './button'
@@ -189,6 +190,7 @@ export * from './ai-agent-card'
 export * from './ai-sources'
 export * from './ai-provider'
 export * from './ai-mention'
+export * from './ai-bubble-list'
 
 // 所有组件列表
 const components = [
@@ -305,7 +307,8 @@ const components = [
   YhAiAgentCard,
   YhAiSources,
   YhAiProvider,
-  YhAiMention
+  YhAiMention,
+  YhAiBubbleList
 ] as Plugin[]
 
 /**

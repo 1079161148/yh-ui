@@ -561,8 +561,8 @@ export default defineConfig({
     plugins: [
       {
         name: 'set-coop-coep',
-        configureServer(server: any) {
-          server.middlewares.use((_req: any, res: any, next: any) => {
+        configureServer(server) {
+          server.middlewares.use((_req, res, next) => {
             res.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
             res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
             next()
@@ -582,6 +582,9 @@ export default defineConfig({
           api: 'modern-compiler'
         }
       }
+    },
+    ssr: {
+      noExternal: ['monaco-editor']
     }
   }
 })

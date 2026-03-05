@@ -6,23 +6,136 @@ import type { StreamChunkParser } from '@yh-ui/hooks'
  */
 export interface AiRequestInterceptor {
   /**
+   * 请求 ID（用于识别和移除）
+   */
+  id?: string
+  /**
    * 请求前拦截（可修改 headers、追加 token 等）
    */
   onRequest?: (config: {
     url: string
     headers: Record<string, string>
     body: unknown
-  }) => { url: string; headers: Record<string, string>; body: unknown } | void
+    method?: string
+  }) =>
+    | { url: string; headers: Record<string, string>; body: unknown; method?: string }
+    | void
+    | Promise<{
+        url: string
+        headers: Record<string, string>
+        body: unknown
+        method?: string
+      } | void>
 
   /**
-   * 响应后拦截（可做日志、全局错误处理等）
+   * 请求错误拦截器
    */
-  onResponse?: (response: Response) => Response | void
+  onRequestError?: (error: Error) => void
+}
+
+/**
+ * 响应拦截器
+ */
+export interface AiResponseInterceptor {
+  /**
+   * 请求 ID（用于识别和移除）
+   */
+  id?: string
+  /**
+   * 响应成功拦截器
+   */
+  onResponse?: (response: Response) => Response | void | Promise<Response | void>
+  /**
+   * 响应错误拦截器
+   */
+  onResponseError?: (error: Error) => void
+}
+
+/**
+ * 拦截器管理器
+ */
+export class AiInterceptorManager<T> {
+  private interceptors: T[] = []
 
   /**
-   * 错误拦截器
+   * 添加拦截器
    */
-  onError?: (error: Error) => void
+  use(interceptor: T): number {
+    this.interceptors.push(interceptor)
+    return this.interceptors.length - 1
+  }
+
+  /**
+   * 移除拦截器
+   */
+  eject(id: number): void {
+    if (this.interceptors[id]) {
+      this.interceptors[id] = null as T
+    }
+  }
+
+  /**
+   * 清空所有拦截器
+   */
+  clear(): void {
+    this.interceptors = []
+  }
+
+  /**
+   * 遍历所有拦截器
+   */
+  forEach(fn: (interceptor: T, index: number) => void): void {
+    this.interceptors.forEach((interceptor, index) => {
+      if (interceptor !== null && interceptor !== undefined) {
+        fn(interceptor, index)
+      }
+    })
+  }
+
+  /**
+   * 获取所有拦截器
+   */
+  getAll(): (T | null)[] {
+    return [...this.interceptors]
+  }
+}
+
+/**
+ * 请求配置
+ */
+export interface AiRequestConfig {
+  url: string
+  method?: string
+  headers?: Record<string, string>
+  body?: unknown
+  signal?: AbortSignal
+  [key: string]: unknown
+}
+
+/**
+ * 响应数据
+ */
+export interface AiResponse<T = unknown> {
+  data: T
+  status: number
+  statusText: string
+  headers: Record<string, string>
+}
+
+/**
+ * 请求错误
+ */
+export class AiRequestError extends Error {
+  public config?: AiRequestConfig
+  public code?: string
+  public status?: number
+
+  constructor(message: string, config?: AiRequestConfig, code?: string) {
+    super(message)
+    this.name = 'AiRequestError'
+    this.config = config
+    this.code = code
+  }
 }
 
 /**
@@ -84,14 +197,57 @@ export interface AiProviderConfig {
   }
 
   /**
-   * 请求拦截器
+   * 请求拦截器（已废弃，请使用 interceptors.request）
    */
   interceptors?: AiRequestInterceptor
+
+  /**
+   * 请求拦截器管理器
+   */
+  requestInterceptors?: AiInterceptorManager<AiRequestInterceptor>
+
+  /**
+   * 响应拦截器管理器
+   */
+  responseInterceptors?: AiInterceptorManager<AiResponseInterceptor>
 
   /**
    * 全局错误处理
    */
   onError?: (err: Error) => void
+
+  /**
+   * 请求超时时间（毫秒）
+   */
+  timeout?: number
+
+  /**
+   * 是否允许携带凭证
+   */
+  withCredentials?: boolean
+
+  /**
+   * 默认请求模式
+   */
+  mode?: 'cors' | 'no-cors' | 'same-origin'
+
+  /**
+   * 默认缓存模式
+   */
+  cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached'
+}
+
+/**
+ * 创建拦截器管理器
+ */
+export function createInterceptors(): {
+  request: AiInterceptorManager<AiRequestInterceptor>
+  response: AiInterceptorManager<AiResponseInterceptor>
+} {
+  return {
+    request: new AiInterceptorManager<AiRequestInterceptor>(),
+    response: new AiInterceptorManager<AiResponseInterceptor>()
+  }
 }
 
 /**

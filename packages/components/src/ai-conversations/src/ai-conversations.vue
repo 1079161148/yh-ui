@@ -29,7 +29,13 @@
     </div>
 
     <!-- Conversation List with groups -->
-    <div v-else :class="ns.e('list')">
+    <div
+      v-else
+      ref="virtualScrollContainerRef"
+      :class="[ns.e('list'), ns.is('virtual', virtualScroll)]"
+      :style="listStyle"
+      @scroll.passive="virtualScroll ? handleVirtualScroll($event) : undefined"
+    >
       <!-- 时间分组渲染 -->
       <template v-if="groupedData.length > 0">
         <template v-for="group in groupedData" :key="group.label">
@@ -154,16 +160,84 @@
 
       <!-- Flat 模式（未分组）-->
       <template v-else-if="data.length > 0 && !showGroups">
-        <div
-          v-for="item in data"
-          :key="item.id"
-          :class="[ns.e('item'), ns.is('active', activeId === item.id)]"
-          @click="handleClick(item)"
-        >
-          <div :class="ns.e('item-content')">
-            <span :class="ns.e('title')" :title="item.title">{{ item.title }}</span>
+        <!-- 虚拟滚动模式 -->
+        <template v-if="virtualScroll">
+          <!-- 外层：position:relative + 总高度，产生真实滚动条 -->
+          <div :style="{ position: 'relative', height: totalHeight + 'px' }">
+            <!-- 内层：position:absolute + top:offsetY，定位到当前可见区域 -->
+            <div :style="{ position: 'absolute', top: offsetY + 'px', left: 0, right: 0 }">
+              <div
+                v-for="item in visibleItems"
+                :key="item.id"
+                :class="[
+                  ns.e('item'),
+                  ns.is('active', activeId === item.id),
+                  ns.is('pinned', !!item.pinned)
+                ]"
+                :style="{ height: virtualScrollItemHeight + 'px' }"
+                @click="handleClick(item)"
+              >
+                <span v-if="item.pinned" :class="ns.e('pin-icon')">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                    <path
+                      d="M16 12V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v8l-2 2v2h5v5l1 1 1-1v-5h5v-2l-2-2z"
+                    />
+                  </svg>
+                </span>
+                <div :class="ns.e('item-content')">
+                  <span :class="ns.e('title')" :title="item.title">{{ item.title }}</span>
+                  <span v-if="item.updatedAt" :class="ns.e('time')">{{
+                    formatTime(item.updatedAt)
+                  }}</span>
+                </div>
+                <div
+                  :class="ns.e('actions')"
+                  @click.stop
+                  v-if="!editingId || editingId !== item.id"
+                >
+                  <span
+                    :class="[ns.e('action-btn'), ns.is('active', !!item.pinned)]"
+                    @click.stop="handlePin(item)"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="13"
+                      height="13"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M16 12V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v8l-2 2v2h5v5l1 1 1-1v-5h5v-2l-2-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span :class="ns.e('action-btn')" @click.stop="handleDelete(item)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                      ></path>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </template>
+        <!-- 普通模式 -->
+        <template v-else>
+          <div
+            v-for="item in data"
+            :key="item.id"
+            :class="[ns.e('item'), ns.is('active', activeId === item.id)]"
+            @click="handleClick(item)"
+          >
+            <div :class="ns.e('item-content')">
+              <span :class="ns.e('title')" :title="item.title">{{ item.title }}</span>
+            </div>
+          </div>
+        </template>
       </template>
 
       <!-- Empty State -->
@@ -176,7 +250,7 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useNamespace, useLocale, useVirtualScroll } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { aiConversationsProps, aiConversationsEmits } from './ai-conversations'
 import type { AiConversation } from '@yh-ui/hooks'
@@ -195,7 +269,30 @@ const { themeStyle } = useComponentTheme('ai-conversations', props.themeOverride
 const editingId = ref<string | null>(null)
 const editTitle = ref('')
 const inputRef = ref<HTMLInputElement[]>()
-const showGroups = computed(() => props.grouped !== false)
+const showGroups = computed(() => props.grouped !== false && !props.virtualScroll)
+
+const {
+  visibleItems,
+  totalHeight,
+  offsetY,
+  onScroll: handleVirtualScroll,
+  scrollToIndex
+} = useVirtualScroll({
+  itemHeight: computed(() => props.virtualScrollItemHeight),
+  containerHeight: computed(() => props.virtualScrollHeight),
+  overscan: computed(() => props.virtualScrollOverscan),
+  items: computed(() => props.data)
+})
+
+const listStyle = computed(() => {
+  if (!props.virtualScroll) return {}
+  return {
+    height: `${props.virtualScrollHeight}px` as const,
+    maxHeight: `${props.virtualScrollHeight}px` as const,
+    overflowY: 'auto' as const,
+    position: 'relative' as const
+  }
+})
 
 // ── 时间分组逻辑 ────────────────────────────────────────────────────────────
 
@@ -296,6 +393,20 @@ const formatTime = (ts: number) => {
   }
   return `${d.getMonth() + 1}/${d.getDate()}`
 }
+
+// 滚动到指定对话
+const scrollToItem = (id: string) => {
+  const index = props.data.findIndex((item) => item.id === id)
+  if (index !== -1) {
+    scrollToIndex(index)
+  }
+}
+
+// 暴露方法
+defineExpose({
+  scrollToItem,
+  scrollToIndex
+})
 </script>
 
 <style lang="scss">

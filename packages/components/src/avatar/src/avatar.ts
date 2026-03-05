@@ -60,6 +60,11 @@ export interface AvatarProps {
   style?: CSSProperties
 
   /**
+   * @description 原生图片属性
+   */
+  crossorigin?: '' | 'anonymous' | 'use-credentials'
+
+  /**
    * @description 主题覆盖变量
    */
   themeOverrides?: import('@yh-ui/theme').ComponentThemeVars

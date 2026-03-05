@@ -1,4 +1,4 @@
-import { WebContainer } from '@webcontainer/api'
+import type { WebContainer } from '@webcontainer/api'
 
 interface WebContainerGlobal {
   __webcontainer_promise__?: Promise<WebContainer>
@@ -7,10 +7,11 @@ interface WebContainerGlobal {
 const getWebContainerInstance = async () => {
   const globalThisAny = globalThis as WebContainerGlobal
   if (!globalThisAny.__webcontainer_promise__) {
-    globalThisAny.__webcontainer_promise__ = WebContainer.boot()
+    const { WebContainer: WC } = await import('@webcontainer/api')
+    globalThisAny.__webcontainer_promise__ = WC.boot()
   }
   return globalThisAny.__webcontainer_promise__ as Promise<WebContainer>
 }
 
 export { getWebContainerInstance }
-export { WebContainer }
+export type { WebContainer }

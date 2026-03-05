@@ -398,7 +398,116 @@ export const aiBubbleProps = {
   themeOverrides: {
     type: Object as PropType<import('@yh-ui/theme').ComponentThemeVars>,
     default: undefined
+  },
+  // ========== Python 沙盒相关属性 ==========
+
+  /**
+   * 是否启用 Python 代码运行支持
+   */
+  enablePythonRuntime: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * Python 运行时类型：'browser' (Pyodide) | 'remote' (远程 API)
+   */
+  pythonRuntime: {
+    type: String as PropType<'browser' | 'remote'>,
+    default: 'browser'
+  },
+  /**
+   * 远程 Python API 地址（当 pythonRuntime 为 remote 时使用）
+   */
+  pythonApiUrl: {
+    type: String,
+    default: ''
+  },
+  /**
+   * Pyodide CDN 地址
+   */
+  pyodideUrl: {
+    type: String,
+    default: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js'
+  },
+  // ========== XSS 防护相关属性 ==========
+
+  /**
+   * 是否启用内置 XSS 防护
+   */
+  enableSanitizer: {
+    type: Boolean,
+    default: true
+  },
+  /**
+   * 自定义 HTML 清理函数
+   */
+  sanitizer: {
+    type: Function as PropType<(html: string) => string>,
+    default: undefined
+  },
+  /**
+   * 允许的标签白名单
+   */
+  allowedTags: {
+    type: Array as PropType<string[]>,
+    default: () => [
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'p',
+      'br',
+      'hr',
+      'ul',
+      'ol',
+      'li',
+      'blockquote',
+      'pre',
+      'code',
+      'em',
+      'strong',
+      'a',
+      'img',
+      'table',
+      'thead',
+      'tbody',
+      'tr',
+      'th',
+      'td',
+      'span',
+      'div',
+      'figure',
+      'figcaption'
+    ]
+  },
+  /**
+   * 允许的属性白名单
+   */
+  allowedAttributes: {
+    type: Array as PropType<string[]>,
+    default: () => [
+      'href',
+      'src',
+      'alt',
+      'title',
+      'class',
+      'id',
+      'target',
+      'rel',
+      'width',
+      'height',
+      'style'
+    ]
+  },
+  /**
+   * 允许的协议白名单
+   */
+  allowedSchemes: {
+    type: Array as PropType<string[]>,
+    default: () => ['http', 'https', 'mailto', 'tel']
   }
-} as const
+}
 
 export type AiBubbleProps = ExtractPropTypes<typeof aiBubbleProps>

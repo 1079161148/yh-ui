@@ -1,19 +1,14 @@
-/**
- * useVirtualScroll - 虚拟滚动 Hook
- * @description 用于大数据量列表的虚拟滚动渲染
- */
-
-import { ref, computed, type Ref, type ComputedRef } from 'vue'
+import { ref, computed, unref, type Ref, type ComputedRef } from 'vue'
 
 export interface VirtualScrollOptions<T = unknown> {
   /** 每项高度 */
-  itemHeight: number
+  itemHeight: number | Ref<number>
   /** 容器高度 */
-  containerHeight: number
+  containerHeight: number | Ref<number>
   /** 数据列表 */
   items: Ref<T[]> | T[]
   /** 上下额外渲染数量 */
-  overscan?: number
+  overscan?: number | Ref<number>
 }
 
 export interface VirtualScrollReturn<T = unknown> {
@@ -24,9 +19,9 @@ export interface VirtualScrollReturn<T = unknown> {
   /** Y轴偏移量 */
   offsetY: ComputedRef<number>
   /** 起始索引 */
-  startIndex: Ref<number>
+  startIndex: ComputedRef<number>
   /** 结束索引 */
-  endIndex: Ref<number>
+  endIndex: ComputedRef<number>
   /** 滚动事件处理 */
   onScroll: (event: Event) => void
   /** 滚动到指定索引 */
@@ -38,60 +33,50 @@ export interface VirtualScrollReturn<T = unknown> {
 export function useVirtualScroll<T = unknown>(
   options: VirtualScrollOptions<T>
 ): VirtualScrollReturn<T> {
-  const { itemHeight, containerHeight, overscan = 3 } = options
-
   const containerRef = ref<HTMLElement | null>(null)
   const scrollTop = ref(0)
 
-  // 获取 items 的响应式值
   const itemsRef = computed(() => {
-    const items = options.items
-    return Array.isArray(items) ? items : items.value
+    return Array.isArray(options.items) ? options.items : options.items.value
   })
 
-  // 计算总高度
-  const totalHeight = computed(() => itemsRef.value.length * itemHeight)
+  const itemHeightRef = computed(() => unref(options.itemHeight))
+  const containerHeightRef = computed(() => unref(options.containerHeight))
+  const overscanRef = computed(() => unref(options.overscan) ?? 3)
 
-  // 计算可见数量
-  const visibleCount = computed(() => Math.ceil(containerHeight / itemHeight))
+  // 计算总高度
+  const totalHeight = computed(() => itemsRef.value.length * itemHeightRef.value)
 
   // 计算起始索引
   const startIndex = computed(() => {
-    const items = itemsRef.value
-    if (items.length === 0) return 0
-    const start = Math.floor(scrollTop.value / itemHeight)
-    return Math.max(0, start - overscan)
+    if (itemsRef.value.length === 0) return 0
+    const start = Math.floor(scrollTop.value / itemHeightRef.value)
+    return Math.max(0, start - overscanRef.value)
   })
 
   // 计算结束索引
   const endIndex = computed(() => {
-    const items = itemsRef.value
-    if (items.length === 0) return 0
-    const start = Math.floor(scrollTop.value / itemHeight)
-    const end = start + visibleCount.value
-    return Math.min(items.length, end + overscan)
+    if (itemsRef.value.length === 0) return 0
+    const end = Math.ceil((scrollTop.value + containerHeightRef.value) / itemHeightRef.value)
+    return Math.min(itemsRef.value.length, end + overscanRef.value)
   })
 
   // 计算可见项
   const visibleItems = computed(() => {
-    const items = itemsRef.value
-    if (items.length === 0) return []
-    return items.slice(startIndex.value, endIndex.value)
+    return itemsRef.value.slice(startIndex.value, endIndex.value)
   })
 
   // 计算偏移量
-  const offsetY = computed(() => startIndex.value * itemHeight)
+  const offsetY = computed(() => startIndex.value * itemHeightRef.value)
 
-  // 滚动事件处理
   const onScroll = (event: Event) => {
     const target = event.target as HTMLElement
-    scrollTop.value = target.scrollTop
+    if (target) scrollTop.value = target.scrollTop
   }
 
-  // 滚动到指定索引
   const scrollToIndex = (index: number) => {
     if (containerRef.value) {
-      const targetScrollTop = index * itemHeight
+      const targetScrollTop = index * itemHeightRef.value
       containerRef.value.scrollTop = targetScrollTop
       scrollTop.value = targetScrollTop
     }
@@ -101,8 +86,8 @@ export function useVirtualScroll<T = unknown>(
     visibleItems,
     totalHeight,
     offsetY,
-    startIndex: computed(() => startIndex.value) as unknown as Ref<number>,
-    endIndex: computed(() => endIndex.value) as unknown as Ref<number>,
+    startIndex,
+    endIndex,
     onScroll,
     scrollToIndex,
     containerRef

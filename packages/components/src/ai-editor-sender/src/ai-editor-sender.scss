@@ -122,4 +122,116 @@
     color: var(--yh-text-color-placeholder);
     margin-right: 8px;
   }
+
+  // 命令面板包装器
+  @include e(command-panel-wrapper) {
+    position: fixed;
+    z-index: 9999;
+    top: 200px;
+    left: 100px;
+  }
+
+  // 命令面板
+  @include e(command-panel) {
+    background: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: 12px;
+    box-shadow: var(--yh-shadow-lg);
+    overflow: hidden;
+  }
+
+  // 搜索栏
+  @include e(command-search) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--yh-fill-color-light);
+    border-bottom: 1px solid var(--yh-border-color-lighter);
+    font-size: 13px;
+    color: var(--yh-text-color-secondary);
+  }
+
+  // 命令列表
+  @include e(command-list) {
+    max-height: 280px;
+    overflow: auto;
+  }
+
+  // 命令项
+  @include e(command-item) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: var(--yh-fill-color-light);
+    }
+
+    @include is(selected) {
+      background: var(--yh-fill-color-light);
+    }
+
+    @include is(disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @include is(parent) {
+      font-weight: 500;
+    }
+  }
+
+  // 级联子命令
+  @include e(command-cascade-item) {
+    padding-left: 28px;
+    background: var(--yh-fill-color-extra-light);
+  }
+
+  // 命令图标
+  @include e(command-icon) {
+    font-size: 16px;
+    color: var(--yh-color-primary);
+  }
+
+  // 命令内容
+  @include e(command-content) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 命令标签
+  @include e(command-label) {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--yh-text-color-primary);
+  }
+
+  // 命令描述
+  @include e(command-desc) {
+    display: block;
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    margin-top: 2px;
+  }
+
+  // 命令箭头
+  @include e(command-arrow) {
+    font-size: 14px;
+    color: var(--yh-text-color-placeholder);
+  }
+
+  // 空状态
+  @include e(command-empty) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px;
+    color: var(--yh-text-color-placeholder);
+    font-size: 14px;
+  }
 }

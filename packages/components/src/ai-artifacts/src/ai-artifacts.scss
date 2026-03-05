@@ -132,8 +132,12 @@
 
   @include e(content) {
     flex: 1;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: #fdfdfd;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 
     :html.dark & {
       background: #0d0d0d;

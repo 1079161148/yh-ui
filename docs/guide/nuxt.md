@@ -9,7 +9,7 @@
 ```bash
 pnpm add @yh-ui/nuxt
 
-# 或使用 npm  
+# 或使用 npm
 npm install @yh-ui/nuxt
 
 # 或使用 yarn
@@ -22,9 +22,7 @@ yarn add @yh-ui/nuxt
 
 ```typescript
 export default defineNuxtConfig({
-  modules: [
-    '@yh-ui/nuxt'
-  ]
+  modules: ['@yh-ui/nuxt']
 })
 ```
 
@@ -43,23 +41,27 @@ export default defineNuxtConfig({
 在使用过程中，请务必关注以下几点以避免常见的 SSR 陷阱：
 
 ### 1. 客户端专用逻辑 (Client-only)
+
 由于代码会在服务端和客户端同时执行，直接访问 `window`、`document` 或 `localStorage` 会导致服务端报错。
-*   **推荐做法**：使用 `onMounted` 钩子或 Nuxt 提供的 `import { isClient } from '@yh-ui/utils'` 进行环境检查。
+
+- **推荐做法**：使用 `onMounted` 钩子或 Nuxt 提供的 `import { isClient } from '@yh-ui/utils'` 进行环境检查。
 
 ### 2. 水合不匹配 (Hydration Mismatch)
+
 如果服务端生成的 HTML 与客户端初次渲染的 HTML 不一致（例如直接在 setup 中生成随机数或获取实时时间并渲染），会导致 Vue 报错。
-*   **推荐做法**：确保渲染数据的一致性，或使用 `<ClientOnly>` 组件包裹动态内容。
+
+- **推荐做法**：确保渲染数据的一致性，或使用 `<ClientOnly>` 组件包裹动态内容。
 
 ### 3. 组件 Ref 获取
-在 Nuxt 中，建议使用 `ref<InstanceType<typeof YhButton>>()` 获取组件实例，以获得最佳的类型支持。
 
+在 Nuxt 中，建议使用 `ref<InstanceType<typeof YhButton>>()` 获取组件实例，以获得最佳的类型支持。
 
 您可以通过 `yhUI` 配置键来自定义模块行为：
 
 ```typescript
 export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
-  
+
   yhUI: {
     // 是否自动导入样式（默认: true）
     importStyle: true
@@ -69,11 +71,11 @@ export default defineNuxtConfig({
 
 ### 可用配置
 
-| 选项 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `importStyle` | `boolean` | `true` | 是否自动导入组件样式 |
-| `prefix` | `string` | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton` |
-| `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖 |
+| 选项             | 类型      | 默认值 | 说明                                            |
+| ---------------- | --------- | ------ | ----------------------------------------------- |
+| `importStyle`    | `boolean` | `true` | 是否自动导入组件样式                            |
+| `prefix`         | `string`  | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton` |
+| `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖                            |
 
 ## 自动导入
 
@@ -113,12 +115,13 @@ const id = useId()
 const { nextZIndex } = useZIndex()
 
 // 生成 BEM 类名
-const className = computed(() => ns.b())  // 'yh-my-component'
-const blockClass = computed(() => ns.b('header'))  // 'yh-my-component-header'
+const className = computed(() => ns.b()) // 'yh-my-component'
+const blockClass = computed(() => ns.b('header')) // 'yh-my-component-header'
 </script>
 ```
 
 **可用的 Composables**:
+
 - `useNamespace` - BEM 类名生成
 - `useId` - 唯一 ID 生成
 - `useZIndex` - z-index 管理
@@ -229,22 +232,17 @@ const { data } = await useFetch('/api/data')
 <template>
   <div class="container">
     <h1>YH-UI + Nuxt 示例</h1>
-    
+
     <!-- 表单 -->
     <YhForm :model="form" label-width="100px">
       <YhFormItem label="用户名">
         <YhInput v-model="form.username" placeholder="请输入用户名" />
       </YhFormItem>
-      
+
       <YhFormItem label="密码">
-        <YhInput
-          v-model="form.password"
-          type="password"
-          show-password
-          placeholder="请输入密码"
-        />
+        <YhInput v-model="form.password" type="password" show-password placeholder="请输入密码" />
       </YhFormItem>
-      
+
       <YhFormItem label="类型">
         <YhSelect v-model="form.type" placeholder="请选择">
           <YhOption label="类型1" value="1" />
@@ -252,14 +250,10 @@ const { data } = await useFetch('/api/data')
           <YhOption label="类型3" value="3" />
         </YhSelect>
       </YhFormItem>
-      
+
       <YhFormItem>
-        <YhButton type="primary" @click="handleSubmit">
-          提交
-        </YhButton>
-        <YhButton @click="handleReset">
-          重置
-        </YhButton>
+        <YhButton type="primary" @click="handleSubmit"> 提交 </YhButton>
+        <YhButton @click="handleReset"> 重置 </YhButton>
       </YhFormItem>
     </YhForm>
   </div>
@@ -307,19 +301,15 @@ const handleReset = () => {
           <YhTag :type="user.status">{{ user.status }}</YhTag>
         </div>
       </template>
-      
+
       <div class="user-info">
         <p>邮箱: {{ user.email }}</p>
         <p>电话: {{ user.phone }}</p>
       </div>
-      
+
       <template #footer>
-        <YhButton type="primary" size="small" @click="editUser(user)">
-          编辑
-        </YhButton>
-        <YhButton type="danger" size="small" @click="deleteUser(user.id)">
-          删除
-        </YhButton>
+        <YhButton type="primary" size="small" @click="editUser(user)"> 编辑 </YhButton>
+        <YhButton type="danger" size="small" @click="deleteUser(user.id)"> 删除 </YhButton>
       </template>
     </YhCard>
   </div>
@@ -405,10 +395,10 @@ const locale = ref('zh-CN')
   --yh-color-success: #10b981;
   --yh-color-warning: #f59e0b;
   --yh-color-danger: #ef4444;
-  
+
   /* 圆角 */
   --yh-border-radius-base: 8px;
-  
+
   /* 字体 */
   --yh-font-family: 'Inter', sans-serif;
 }
@@ -476,6 +466,28 @@ const validate = async () => {
 </template>
 ```
 
+## AI 组件与 Nuxt
+
+YH-UI 的 AI 组件系列（如 `AiChat`、`AiBubble`、`AiBubbleList` 等）针对 Nuxt 进行了深度优化：
+
+### 自动导入 AI 组件
+
+无需配置，直接在页面中使用：
+
+```vue
+<template>
+  <YhAiBubbleList :items="messages" :virtual-scroll="true" />
+</template>
+
+<script setup>
+const messages = ref([{ role: 'assistant', content: '你好！我是 Nuxt 驱动的 AI 助理。' }])
+</script>
+```
+
+### SSR 兼容性
+
+AI 组件中涉及浏览器 API 的功能（如 `Pyodide` 运行时、录音、Markdown 动画等）会自动感应环境并在渲染期间进行安全降级，确保首屏 HTML 能够正确生成且不报错。
+
 ## 常见问题
 
 ### 1. 组件未自动导入？
@@ -485,7 +497,7 @@ const validate = async () => {
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt']  // 确保此行存在
+  modules: ['@yh-ui/nuxt'] // 确保此行存在
 })
 ```
 
@@ -496,7 +508,7 @@ export default defineNuxtConfig({
 ```typescript
 export default defineNuxtConfig({
   yhUI: {
-    importStyle: true  // 确保为 true
+    importStyle: true // 确保为 true
   }
 })
 ```

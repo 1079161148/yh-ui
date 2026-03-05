@@ -19,10 +19,8 @@ import '@yh-ui/theme/styles/index.scss'
 import './styles/index.scss'
 import './styles/animations.scss'
 
-// Monaco Editor（AiCodeEditor）在文档站中需要其基础样式，否则只会显示一条输入线
-// 注意：monaco-editor 0.55.x 的 min 版本不包含 codicons，如需图标可使用 @vscode/codicons
-import 'monaco-editor/min/vs/editor/editor.main.css'
-// import '@vscode/codicons/dist/codicon.css'
+// Monaco Editor CSS 已移至 AiCodeEditor 组件内的 onMounted 动态加载，
+// 避免 SSR 时 'window is not defined' 错误。
 
 // 导入组件样式（后导入，优先级较高，不会被文档样式覆盖）
 import '@yh-ui/components/message/src/message.scss'
@@ -154,6 +152,7 @@ import {
   YhAiSources,
   YhAiProvider,
   YhAiMention,
+  YhAiBubbleList,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -294,6 +293,7 @@ export default {
     app.component('YhAiSources', YhAiSources)
     app.component('YhAiProvider', YhAiProvider)
     app.component('YhAiMention', YhAiMention)
+    app.component('YhAiBubbleList', YhAiBubbleList)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

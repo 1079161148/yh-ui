@@ -1,30 +1,9 @@
 <script setup lang="ts">
 import { useNamespace } from '@yh-ui/hooks'
 import { ref, onMounted, onBeforeUnmount, watch, computed, nextTick } from 'vue'
-import * as monaco from 'monaco-editor'
-import 'monaco-editor/min/vs/editor/editor.main.css'
 
 import { aiCodeEditorProps, aiCodeEditorEmits, type AiCodeEditorExpose } from './ai-code-editor'
 import { useComponentTheme } from '@yh-ui/theme'
-
-// 使用 Vite 的 ?worker 导入
-import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-import CssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
-import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
-import TsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-
-if (typeof window !== 'undefined' && !self.MonacoEnvironment) {
-  self.MonacoEnvironment = {
-    getWorker(_workerId: string, label: string) {
-      if (label === 'json') return new JsonWorker()
-      if (label === 'css' || label === 'scss' || label === 'less') return new CssWorker()
-      if (label === 'html' || label === 'handlebars' || label === 'razor') return new HtmlWorker()
-      if (label === 'typescript' || label === 'javascript') return new TsWorker()
-      return new EditorWorker()
-    }
-  }
-}
 
 defineOptions({ name: 'YhAiCodeEditor' })
 
@@ -34,8 +13,10 @@ const emit = defineEmits(aiCodeEditorEmits)
 const ns = useNamespace('ai-code-editor')
 const { themeStyle } = useComponentTheme('ai-code-editor', props.themeOverrides)
 
+let monaco: typeof import('monaco-editor') | null = null
+
 const editorRef = ref<HTMLElement>()
-let editor: monaco.editor.IStandaloneCodeEditor | null = null
+let editor: import('monaco-editor').editor.IStandaloneCodeEditor | null = null
 /** 程序化 setValue 期间为 true，防止 onDidChangeModelContent 回流 */
 let isApplyingValue = false
 
@@ -75,6 +56,8 @@ const createEditor = () => {
     container.clientHeight ||
     container.offsetHeight ||
     (typeof props.height === 'number' ? props.height : 300)
+
+  if (!monaco) return
 
   editor = monaco.editor.create(container, {
     value: targetValue,
@@ -141,7 +124,39 @@ const forceLayout = () => {
 
 let resizeObserver: ResizeObserver | null = null
 
-onMounted(() => {
+onMounted(async () => {
+  if (typeof window !== 'undefined') {
+    monaco = await import('monaco-editor')
+    await import('monaco-editor/min/vs/editor/editor.main.css')
+
+    if (!self.MonacoEnvironment) {
+      const [
+        { default: EditorWorker },
+        { default: JsonWorker },
+        { default: CssWorker },
+        { default: HtmlWorker },
+        { default: TsWorker }
+      ] = await Promise.all([
+        import('monaco-editor/esm/vs/editor/editor.worker?worker'),
+        import('monaco-editor/esm/vs/language/json/json.worker?worker'),
+        import('monaco-editor/esm/vs/language/css/css.worker?worker'),
+        import('monaco-editor/esm/vs/language/html/html.worker?worker'),
+        import('monaco-editor/esm/vs/language/typescript/ts.worker?worker')
+      ])
+
+      self.MonacoEnvironment = {
+        getWorker(_workerId: string, label: string) {
+          if (label === 'json') return new JsonWorker()
+          if (label === 'css' || label === 'scss' || label === 'less') return new CssWorker()
+          if (label === 'html' || label === 'handlebars' || label === 'razor')
+            return new HtmlWorker()
+          if (label === 'typescript' || label === 'javascript') return new TsWorker()
+          return new EditorWorker()
+        }
+      }
+    }
+  }
+
   nextTick(() => {
     requestAnimationFrame(() => {
       createEditor()
@@ -189,7 +204,7 @@ watch(
 watch(
   () => props.language,
   (newLanguage) => {
-    if (editor) {
+    if (editor && monaco) {
       const model = editor.getModel()
       if (model) monaco.editor.setModelLanguage(model, newLanguage)
     }
@@ -199,7 +214,9 @@ watch(
 watch(
   () => props.theme,
   (newTheme) => {
-    monaco.editor.setTheme(newTheme)
+    if (monaco) {
+      monaco.editor.setTheme(newTheme)
+    }
   }
 )
 

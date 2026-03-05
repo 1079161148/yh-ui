@@ -3,7 +3,7 @@
  * DemoBlock - 代码演示组件
  * @description 用于展示组件示例，支持 TypeScript/JavaScript 切换，代码语法高亮
  */
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useData } from 'vitepress'
 
 interface Props {
@@ -372,9 +372,7 @@ watch(
   [currentCode, showCode],
   () => {
     if (showCode.value) {
-      nextTick(() => {
-        updateHighlight()
-      })
+      updateHighlight()
     }
   },
   { immediate: true }

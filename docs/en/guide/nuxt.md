@@ -9,7 +9,7 @@ This guide will help you integrate and use the YH-UI component library in your N
 ```bash
 pnpm add @yh-ui/nuxt
 
-# Or using npm  
+# Or using npm
 npm install @yh-ui/nuxt
 
 # Or using yarn
@@ -22,9 +22,7 @@ Add the `@yh-ui/nuxt` module to your `nuxt.config.ts`:
 
 ```typescript
 export default defineNuxtConfig({
-  modules: [
-    '@yh-ui/nuxt'
-  ]
+  modules: ['@yh-ui/nuxt']
 })
 ```
 
@@ -43,14 +41,19 @@ Why choose YH-UI for use with Nuxt?
 During use, please be sure to follow these points to avoid common SSR pitfalls:
 
 ### 1. Client-only Logic
+
 Since code executes on both the server and client simultaneously, direct access to `window`, `document`, or `localStorage` will cause server errors.
-*   **Recommended Practice**: Use the `onMounted` hook or the environment check provided by Nuxt via `import { isClient } from '@yh-ui/utils'`.
+
+- **Recommended Practice**: Use the `onMounted` hook or the environment check provided by Nuxt via `import { isClient } from '@yh-ui/utils'`.
 
 ### 2. Hydration Mismatch
+
 Vue errors will occur if the server-generated HTML differs from the initial client-rendered HTML (for example, generating random numbers or rendering the current time directly within `setup`).
-*   **Recommended Practice**: Ensure consistency in rendered data or wrap dynamic content with the `<ClientOnly>` component.
+
+- **Recommended Practice**: Ensure consistency in rendered data or wrap dynamic content with the `<ClientOnly>` component.
 
 ### 3. Component Ref Retrieval
+
 In Nuxt, it is recommended to use `ref<InstanceType<typeof YhButton>>()` to retrieve component instances for the best type support.
 
 ## Configuration
@@ -60,7 +63,7 @@ You can customize module behavior using the `yhUI` configuration key:
 ```typescript
 export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
-  
+
   yhUI: {
     // Whether to auto-import styles (default: true)
     importStyle: true
@@ -70,11 +73,11 @@ export default defineNuxtConfig({
 
 ### Available Options
 
-| Option | Type | Default | Description |
-|------|------|--------|------|
-| `importStyle` | `boolean` | `true` | Whether to automatically import component styles |
-| `prefix` | `string` | `'Yh'` | Component prefix; for example, if set to `My`, component names will be `MyButton` |
-| `buildTranspile` | `boolean` | `true` | Whether to automatically transpile related dependencies |
+| Option           | Type      | Default | Description                                                                       |
+| ---------------- | --------- | ------- | --------------------------------------------------------------------------------- |
+| `importStyle`    | `boolean` | `true`  | Whether to automatically import component styles                                  |
+| `prefix`         | `string`  | `'Yh'`  | Component prefix; for example, if set to `My`, component names will be `MyButton` |
+| `buildTranspile` | `boolean` | `true`  | Whether to automatically transpile related dependencies                           |
 
 ## Auto-import
 
@@ -114,12 +117,13 @@ const id = useId()
 const { nextZIndex } = useZIndex()
 
 // Generate BEM class names
-const className = computed(() => ns.b())  // 'yh-my-component'
-const blockClass = computed(() => ns.b('header'))  // 'yh-my-component-header'
+const className = computed(() => ns.b()) // 'yh-my-component'
+const blockClass = computed(() => ns.b('header')) // 'yh-my-component-header'
 </script>
 ```
 
 **Available Composables**:
+
 - `useNamespace` - BEM class name generation
 - `useId` - Unique ID generation
 - `useZIndex` - z-index management
@@ -230,13 +234,13 @@ const { data } = await useFetch('/api/data')
 <template>
   <div class="container">
     <h1>YH-UI + Nuxt Example</h1>
-    
+
     <!-- Form -->
     <YhForm :model="form" label-width="100px">
       <YhFormItem label="Username">
         <YhInput v-model="form.username" placeholder="Please input username" />
       </YhFormItem>
-      
+
       <YhFormItem label="Password">
         <YhInput
           v-model="form.password"
@@ -245,7 +249,7 @@ const { data } = await useFetch('/api/data')
           placeholder="Please input password"
         />
       </YhFormItem>
-      
+
       <YhFormItem label="Type">
         <YhSelect v-model="form.type" placeholder="Please select">
           <YhOption label="Type 1" value="1" />
@@ -253,14 +257,10 @@ const { data } = await useFetch('/api/data')
           <YhOption label="Type 3" value="3" />
         </YhSelect>
       </YhFormItem>
-      
+
       <YhFormItem>
-        <YhButton type="primary" @click="handleSubmit">
-          Submit
-        </YhButton>
-        <YhButton @click="handleReset">
-          Reset
-        </YhButton>
+        <YhButton type="primary" @click="handleSubmit"> Submit </YhButton>
+        <YhButton @click="handleReset"> Reset </YhButton>
       </YhFormItem>
     </YhForm>
   </div>
@@ -308,19 +308,15 @@ const handleReset = () => {
           <YhTag :type="user.status">{{ user.status }}</YhTag>
         </div>
       </template>
-      
+
       <div class="user-info">
         <p>Email: {{ user.email }}</p>
         <p>Phone: {{ user.phone }}</p>
       </div>
-      
+
       <template #footer>
-        <YhButton type="primary" size="small" @click="editUser(user)">
-          Edit
-        </YhButton>
-        <YhButton type="danger" size="small" @click="deleteUser(user.id)">
-          Delete
-        </YhButton>
+        <YhButton type="primary" size="small" @click="editUser(user)"> Edit </YhButton>
+        <YhButton type="danger" size="small" @click="deleteUser(user.id)"> Delete </YhButton>
       </template>
     </YhCard>
   </div>
@@ -406,10 +402,10 @@ Override CSS variables in your global styles:
   --yh-color-success: #10b981;
   --yh-color-warning: #f59e0b;
   --yh-color-danger: #ef4444;
-  
+
   /* Border radius */
   --yh-border-radius-base: 8px;
-  
+
   /* Font */
   --yh-font-family: 'Inter', sans-serif;
 }
@@ -477,6 +473,28 @@ const validate = async () => {
 </template>
 ```
 
+## AI Components with Nuxt
+
+YH-UI's AI component series (such as `AiChat`, `AiBubble`, `AiBubbleList`, etc.) are deeply optimized for Nuxt:
+
+### Auto-import AI Components
+
+No configuration needed, use them directly in your pages:
+
+```vue
+<template>
+  <YhAiBubbleList :items="messages" :virtual-scroll="true" />
+</template>
+
+<script setup>
+const messages = ref([{ role: 'assistant', content: 'Hello! I am a Nuxt-powered AI assistant.' }])
+</script>
+```
+
+### SSR Compatibility
+
+Features within AI components that involve browser APIs (such as `Pyodide` runtime, voice recording, Markdown animations, etc.) automatically detect the environment and safely downgrade during rendering, ensuring that the initial HTML is generated correctly without errors.
+
 ## Frequently Asked Questions
 
 ### 1. Components not auto-imported?
@@ -486,7 +504,7 @@ Ensure you have correctly installed and registered the `@yh-ui/nuxt` module:
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt']  // Ensure this line exists
+  modules: ['@yh-ui/nuxt'] // Ensure this line exists
 })
 ```
 
@@ -497,7 +515,7 @@ Check if style importation is enabled in your configuration:
 ```typescript
 export default defineNuxtConfig({
   yhUI: {
-    importStyle: true  // Ensure this is true
+    importStyle: true // Ensure this is true
   }
 })
 ```
