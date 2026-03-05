@@ -25,7 +25,7 @@ export interface AiConversation {
 
 // ─── 持久化适配器（可插拔）────────────────────────────────────────────────────
 
-export interface StorageAdapter {
+export interface AiStorageAdapter {
   getItem(key: string): string | null | Promise<string | null>
   setItem(key: string, value: string): void | Promise<void>
   removeItem(key: string): void | Promise<void>
@@ -34,7 +34,7 @@ export interface StorageAdapter {
 /**
  * localStorage 适配器（默认）
  */
-export const localStorageAdapter: StorageAdapter = {
+export const localStorageAdapter: AiStorageAdapter = {
   getItem: (key) => {
     try {
       return localStorage.getItem(key)
@@ -61,7 +61,7 @@ export const localStorageAdapter: StorageAdapter = {
 /**
  * IndexedDB 适配器（适合大量数据持久化）
  */
-export class IndexedDBAdapter implements StorageAdapter {
+export class AiIndexedDBAdapter implements AiStorageAdapter {
   private db: IDBDatabase | null = null
   private dbName: string
   private storeName = 'ai_conversations'
@@ -172,7 +172,7 @@ export interface UseAiConversationsOptions {
    * - 'indexedDB': 使用 IndexedDB
    * - StorageAdapter: 自定义适配器
    */
-  storage?: false | 'localStorage' | 'indexedDB' | StorageAdapter
+  storage?: false | 'localStorage' | 'indexedDB' | AiStorageAdapter
   /** 持久化 key 前缀 */
   storageKey?: string
   /**
@@ -214,11 +214,11 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
   } = options
 
   // 确定持久化适配器
-  let adapter: StorageAdapter | null = null
+  let adapter: AiStorageAdapter | null = null
   if (storage === 'localStorage') {
     adapter = localStorageAdapter
   } else if (storage === 'indexedDB') {
-    adapter = new IndexedDBAdapter()
+    adapter = new AiIndexedDBAdapter()
   } else if (storage && typeof storage === 'object') {
     adapter = storage
   }

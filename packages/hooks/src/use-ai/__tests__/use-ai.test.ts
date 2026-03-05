@@ -346,7 +346,7 @@ describe('useAiConversations', () => {
   })
 
   it('should cover IndexedDBAdapter', async () => {
-    const { IndexedDBAdapter } = await import('../use-ai-conversations')
+    const { AiIndexedDBAdapter } = await import('../use-ai-conversations')
     // Mock indexedDB
     const mockTx = {
       objectStore: vi.fn(() => ({
@@ -383,7 +383,7 @@ describe('useAiConversations', () => {
       })
     } as any
 
-    const adapter = new IndexedDBAdapter('test-db')
+    const adapter = new AiIndexedDBAdapter('test-db')
     await new Promise((r) => setTimeout(r, 10))
 
     await adapter.setItem('key', 'val')
@@ -395,12 +395,12 @@ describe('useAiConversations', () => {
   })
 
   it('should cover IndexedDBAdapter error and upgrade paths', async () => {
-    const { IndexedDBAdapter } = await import('../use-ai-conversations')
+    const { AiIndexedDBAdapter } = await import('../use-ai-conversations')
 
     // 1. typeof indexedDB === 'undefined'
     const tempDb = global.indexedDB
     ;(global as any).indexedDB = undefined
-    const ad1 = new IndexedDBAdapter('test1')
+    const ad1 = new AiIndexedDBAdapter('test1')
     await ad1.setItem('k', 'v')
     ;(global as any).indexedDB = tempDb
 
@@ -427,7 +427,7 @@ describe('useAiConversations', () => {
     const openMock = vi.fn(() => req)
     ;(global as any).indexedDB = { open: openMock }
 
-    const ad2 = new IndexedDBAdapter('test2')
+    const ad2 = new AiIndexedDBAdapter('test2')
     setTimeout(() => {
       if (req.onupgradeneeded) req.onupgradeneeded()
       req.onsuccess()
@@ -436,7 +436,7 @@ describe('useAiConversations', () => {
 
     const reqErr = { error: new Error('db'), onerror: null as any }
     ;(global as any).indexedDB = { open: () => reqErr }
-    const ad3 = new IndexedDBAdapter('test3')
+    const ad3 = new AiIndexedDBAdapter('test3')
     setTimeout(() => {
       if (reqErr.onerror) reqErr.onerror()
     }, 0)

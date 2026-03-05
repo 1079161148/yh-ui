@@ -1,0 +1,452 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90mE:/YH-UI[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m packages/hooks/src/storage/__tests__/adapters.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m packages/hooks/src/use-ai/__tests__/use-ai-request.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m packages/hooks/src/use-ai/__tests__/use-ai-voice.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m packages/hooks/src/use-ai/__tests__/use-ai-persistence.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m packages/hooks/src/use-ai/__tests__/use-ai.test.ts [2m([22m[2m31 tests[22m[2m)[22m[33m 773[2mms[22m[39m
+     [33m[2m✓[22m[39m should support pagination [33m 307[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m56 passed[39m[22m[90m (56)[39m
+[2m   Start at [22m 13:48:05
+[2m   Duration [22m 4.84s[2m (transform 449ms, setup 0ms, import 1.03s, tests 848ms, environment 2.38s)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |    4.32 |     2.65 |    3.69 |    4.42 |                   
+ ai-sdk/src        |       0 |        0 |       0 |       0 |                   
+  langchain.ts     |       0 |        0 |       0 |       0 | 124-647           
+  mcp-server.ts    |       0 |        0 |       0 |       0 | 88-466            
+  mcp.ts           |       0 |        0 |       0 |       0 | 118-677           
+ components/src    |       0 |        0 |       0 |       0 |                   
+  resolver.ts      |       0 |        0 |       0 |       0 | 30-37             
+ .../src/affix/src |       0 |        0 |       0 |       0 |                   
+  affix.ts         |       0 |        0 |       0 |       0 | 5-58              
+  affix.vue        |       0 |        0 |       0 |       0 | 16-208            
+ ...tion-group/src |       0 |        0 |       0 |       0 |                   
+  ...tion-group.ts |       0 |      100 |       0 |       0 | 14-59             
+  ...ion-group.vue |       0 |        0 |       0 |       0 | 13-82             
+ ...agent-card/src |       0 |        0 |       0 |       0 |                   
+  ai-agent-card.ts |       0 |        0 |       0 |       0 | 57-126            
+  ...gent-card.vue |       0 |        0 |       0 |       0 | 13-175            
+ ...-artifacts/src |       0 |        0 |       0 |       0 |                   
+  ai-artifacts.ts  |       0 |      100 |       0 |       0 | 56-106            
+  ai-artifacts.vue |       0 |        0 |       0 |       0 | 15-215            
+ .../ai-bubble/src |       0 |        0 |       0 |       0 |                   
+  ai-bubble.ts     |       0 |      100 |       0 |       0 | 256-367           
+  ai-bubble.vue    |       0 |        0 |       0 |       0 | 27-1303           
+ ...rc/ai-chat/src |       0 |        0 |       0 |       0 |                   
+  ai-chat.ts       |       0 |      100 |       0 |       0 | 23-80             
+  ai-chat.vue      |       0 |        0 |       0 |       0 | 17-158            
+ ...code-block/src |       0 |        0 |       0 |       0 |                   
+  ai-code-block.ts |       0 |      100 |       0 |       0 | 4-94              
+  ...ode-block.vue |       0 |        0 |       0 |       0 | 17-216            
+ ...ode-editor/src |       0 |        0 |       0 |       0 |                   
+  ...ode-editor.ts |       0 |      100 |       0 |       0 | 4-99              
+  ...de-editor.vue |       0 |        0 |       0 |       0 | 17-222            
+ ...ode-runner/src |       0 |        0 |       0 |       0 |                   
+  ...ode-runner.ts |       0 |      100 |       0 |       0 | 5-50              
+  ...de-runner.vue |       0 |        0 |       0 |       0 | 14-209            
+  webcontainer.ts  |       0 |        0 |       0 |       0 | 7-12              
+ ...versations/src |       0 |        0 |       0 |       0 |                   
+  ...versations.ts |       0 |        0 |       0 |       0 | 4-70              
+  ...ersations.vue |       0 |        0 |       0 |       0 | 17-297            
+ ...tor-sender/src |       0 |        0 |       0 |       0 |                   
+  ...tor-sender.ts |       0 |      100 |       0 |       0 | 11-72             
+  ...or-sender.vue |       0 |        0 |       0 |       0 | 13-153            
+ ...ai-mention/src |       0 |        0 |       0 |       0 |                   
+  ai-mention.ts    |       0 |        0 |       0 |       0 | 5-104             
+  ai-mention.vue   |       0 |        0 |       0 |       0 | 18-114            
+ ...ai-prompts/src |       0 |        0 |       0 |       0 |                   
+  ai-prompts.ts    |       0 |        0 |       0 |       0 | 10-47             
+  ai-prompts.vue   |       0 |        0 |       0 |       0 | 4-73              
+ ...i-provider/src |       0 |      100 |       0 |       0 |                   
+  ai-provider.ts   |       0 |      100 |     100 |       0 | 100               
+  ai-provider.vue  |       0 |      100 |     100 |       0 | 9-45              
+  ...i-provider.ts |       0 |      100 |       0 |       0 | 13                
+ .../ai-sender/src |       0 |        0 |       0 |       0 |                   
+  ai-sender.ts     |       0 |      100 |       0 |       0 | 57-154            
+  ai-sender.vue    |       0 |        0 |       0 |       0 | 15-377            
+ ...ai-sources/src |       0 |        0 |       0 |       0 |                   
+  ai-sources.ts    |       0 |      100 |       0 |       0 | 27-81             
+  ai-sources.vue   |       0 |        0 |       0 |       0 | 19-306            
+ ...i-thinking/src |       0 |        0 |       0 |       0 |                   
+  ai-thinking.ts   |       0 |      100 |       0 |       0 | 5-44              
+  ai-thinking.vue  |       0 |        0 |       0 |       0 | 13-87             
+ ...ught-chain/src |       0 |        0 |       0 |       0 |                   
+  ...ught-chain.ts |       0 |      100 |       0 |       0 | 30-125            
+  ...ght-chain.vue |       0 |        0 |       0 |       0 | 15-352            
+ ...ce-trigger/src |       0 |        0 |       0 |       0 |                   
+  ...ce-trigger.ts |       0 |      100 |       0 |       0 | 3-72              
+  ...e-trigger.vue |       0 |        0 |       0 |       0 | 12-176            
+ ...ai-welcome/src |       0 |        0 |       0 |       0 |                   
+  ai-welcome.ts    |       0 |      100 |       0 |       0 | 10-61             
+  ai-welcome.vue   |       0 |        0 |       0 |       0 | 11-60             
+ .../src/alert/src |       0 |        0 |       0 |       0 |                   
+  alert.ts         |       0 |      100 |       0 |       0 | 3-97              
+  alert.vue        |       0 |        0 |       0 |       0 | 11-205            
+ ...tocomplete/src |       0 |        0 |       0 |       0 |                   
+  autocomplete.ts  |       0 |        0 |       0 |       0 |                   
+  autocomplete.vue |       0 |        0 |       0 |       0 | 20-540            
+ ...src/avatar/src |       0 |        0 |       0 |       0 |                   
+  avatar.ts        |       0 |        0 |       0 |       0 |                   
+  avatar.vue       |       0 |        0 |       0 |       0 | 12-86             
+ ...c/back-top/src |       0 |        0 |       0 |       0 |                   
+  back-top.ts      |       0 |      100 |       0 |       0 | 3-49              
+  back-top.vue     |       0 |        0 |       0 |       0 | 12-144            
+ .../src/badge/src |       0 |        0 |       0 |       0 |                   
+  badge.ts         |       0 |      100 |     100 |       0 | 9                 
+  badge.vue        |       0 |        0 |       0 |       0 | 15-112            
+ ...breadcrumb/src |       0 |        0 |       0 |       0 |                   
+  ...rumb-item.vue |       0 |        0 |       0 |       0 | 12-56             
+  breadcrumb.ts    |       0 |      100 |     100 |       0 | 3-28              
+  breadcrumb.vue   |       0 |        0 |       0 |       0 | 11-57             
+ ...src/button/src |       0 |        0 |       0 |       0 |                   
+  button.ts        |       0 |      100 |     100 |       0 | 11-26             
+  button.vue       |       0 |        0 |       0 |       0 | 14-164            
+ ...c/calendar/src |       0 |        0 |       0 |       0 |                   
+  calendar.ts      |       0 |        0 |       0 |       0 | 53-192            
+  calendar.vue     |       0 |        0 |       0 |       0 | 18-490            
+ ...s/src/card/src |       0 |        0 |       0 |       0 |                   
+  card.ts          |       0 |      100 |     100 |       0 | 9                 
+  card.vue         |       0 |        0 |       0 |       0 | 16-98             
+ ...c/cascader/src |       0 |        0 |       0 |       0 |                   
+  ...der-panel.vue |       0 |        0 |       0 |       0 | 14-270            
+  cascader.ts      |       0 |      100 |     100 |       0 | 138-141           
+  cascader.vue     |       0 |        0 |       0 |       0 | 25-626            
+ ...c/checkbox/src |       0 |        0 |       0 |       0 |                   
+  ...box-group.vue |       0 |        0 |       0 |       0 | 23-107            
+  checkbox.ts      |       0 |      100 |     100 |       0 | 11-248            
+  checkbox.vue     |       0 |        0 |       0 |       0 | 21-217            
+ ...ts/src/col/src |       0 |        0 |       0 |       0 |                   
+  col.ts           |       0 |      100 |       0 |       0 | 3-52              
+  col.vue          |       0 |        0 |       0 |       0 | 13-79             
+ ...lor-picker/src |       0 |        0 |       0 |       0 |                   
+  alpha-slider.vue |       0 |        0 |       0 |       0 | 4-47              
+  color-picker.ts  |       0 |      100 |       0 |       0 | 3-50              
+  color-picker.vue |       0 |        0 |       0 |       0 | 30-288            
+  hue-slider.vue   |       0 |        0 |       0 |       0 | 4-37              
+  sv-panel.vue     |       0 |        0 |       0 |       0 | 4-48              
+  utils.ts         |       0 |        0 |       0 |       0 | 12-153            
+ ...g-provider/src |       0 |        0 |       0 |       0 |                   
+  ...g-provider.ts |       0 |        0 |       0 |       0 | 11-147            
+  locale.ts        |       0 |      100 |     100 |       0 | 49-96             
+ .../container/src |       0 |        0 |       0 |       0 |                   
+  aside.vue        |       0 |      100 |       0 |       0 | 9-16              
+  container.ts     |       0 |        0 |       0 |       0 |                   
+  container.vue    |       0 |        0 |       0 |       0 | 12-24             
+  footer.vue       |       0 |      100 |       0 |       0 | 9-16              
+  header.vue       |       0 |      100 |       0 |       0 | 9-16              
+  main.vue         |       0 |      100 |       0 |       0 | 9-12              
+ .../countdown/src |       0 |        0 |       0 |       0 |                   
+  countdown.ts     |       0 |        0 |       0 |       0 | 46-361            
+  countdown.vue    |       0 |        0 |       0 |       0 | 20-378            
+ ...ate-picker/src |       0 |        0 |       0 |       0 |                   
+  date-picker.ts   |       0 |      100 |       0 |       0 | 40-124            
+  date-picker.vue  |       0 |        0 |       0 |       0 | 28-579            
+  date-table.vue   |       0 |        0 |       0 |       0 | 8-158             
+  month-table.vue  |       0 |        0 |       0 |       0 | 6-95              
+  panel-utils.ts   |       0 |        0 |       0 |       0 | 11-124            
+  ...ter-table.vue |       0 |        0 |       0 |       0 | 6-106             
+  year-table.vue   |       0 |        0 |       0 |       0 | 6-92              
+ ...scriptions/src |       0 |        0 |       0 |       0 |                   
+  ...tion-item.vue |       0 |        0 |       0 |       0 |                   
+  descriptions.ts  |       0 |      100 |     100 |       0 | 8-101             
+  descriptions.vue |       0 |        0 |       0 |       0 | 16-181            
+ ...src/dialog/src |       0 |        0 |       0 |       0 |                   
+  dialog.ts        |       0 |      100 |       0 |       0 | 5-217             
+  dialog.vue       |       0 |        0 |       0 |       0 | 14-428            
+  method.ts        |       0 |        0 |       0 |       0 | 9-139             
+  use-dialog.ts    |       0 |        0 |       0 |       0 | 66-149            
+ ...rc/divider/src |       0 |        0 |       0 |       0 |                   
+  divider.ts       |       0 |      100 |     100 |       0 | 3                 
+  divider.vue      |       0 |        0 |       0 |       0 | 11-41             
+ ...src/drawer/src |       0 |        0 |       0 |       0 |                   
+  drawer.ts        |       0 |      100 |       0 |       0 | 6-139             
+  drawer.vue       |       0 |        0 |       0 |       0 | 2-227             
+ ...c/dropdown/src |       0 |        0 |       0 |       0 |                   
+  ...down-item.vue |       0 |        0 |       0 |       0 | 15-44             
+  ...down-menu.vue |       0 |      100 |       0 |       0 | 14-19             
+  dropdown.ts      |       0 |      100 |       0 |       0 | 27-232            
+  dropdown.vue     |       0 |        0 |       0 |       0 | 25-217            
+ .../src/empty/src |       0 |        0 |       0 |       0 |                   
+  empty.ts         |       0 |        0 |       0 |       0 |                   
+  empty.vue        |       0 |        0 |       0 |       0 | 12-78             
+ ...s/src/form/src |       0 |        0 |       0 |       0 |                   
+  form-item.ts     |       0 |      100 |       0 |       0 | 16-50             
+  form-item.vue    |       0 |        0 |       0 |       0 | 20-269            
+  form-schema.ts   |       0 |      100 |       0 |       0 | 142-163           
+  form-schema.vue  |       0 |        0 |       0 |       0 | 34-723            
+  form.ts          |       0 |      100 |       0 |       0 | 51-64             
+  form.vue         |       0 |        0 |       0 |       0 | 17-180            
+ ...s/src/grid/src |       0 |        0 |       0 |       0 |                   
+  grid-item.vue    |       0 |        0 |       0 |       0 | 12-57             
+  grid.ts          |       0 |        0 |       0 |       0 |                   
+  grid.vue         |       0 |        0 |       0 |       0 | 12-59             
+ ...s/src/icon/src |       0 |        0 |       0 |       0 |                   
+  icon.ts          |       0 |        0 |       0 |       0 | 7-160             
+  icon.vue         |       0 |        0 |       0 |       0 | 17-125            
+ .../src/image/src |       0 |        0 |       0 |       0 |                   
+  image-viewer.ts  |       0 |      100 |       0 |       0 | 8-92              
+  image-viewer.vue |       0 |        0 |       0 |       0 | 12-206            
+  image.ts         |       0 |      100 |       0 |       0 | 8-127             
+  image.vue        |       0 |        0 |       0 |       0 | 19-244            
+ ...ite-scroll/src |       0 |        0 |       0 |       0 |                   
+  directive.ts     |       0 |        0 |       0 |       0 | 3-110             
+  ...ite-scroll.ts |       0 |      100 |       0 |       0 | 5-84              
+  ...te-scroll.vue |       0 |        0 |       0 |       0 | 23-252            
+ ...put-number/src |       0 |        0 |       0 |       0 |                   
+  input-number.ts  |       0 |      100 |     100 |       0 | 11-18             
+  input-number.vue |       0 |        0 |       0 |       0 | 16-308            
+ .../input-tag/src |       0 |        0 |       0 |       0 |                   
+  input-tag.ts     |       0 |      100 |     100 |       0 | 11-18             
+  input-tag.vue    |       0 |        0 |       0 |       0 | 16-483            
+ .../src/input/src |       0 |        0 |       0 |       0 |                   
+  input.ts         |       0 |      100 |     100 |       0 | 11-35             
+  input.vue        |       0 |        0 |       0 |       0 | 25-581            
+  utils.ts         |       0 |        0 |       0 |       0 | 3-106             
+ ...rc/loading/src |       0 |        0 |       0 |       0 |                   
+  directive.ts     |       0 |        0 |       0 |       0 | 5-73              
+  service.ts       |       0 |        0 |       0 |       0 | 38-166            
+ ...rc/marquee/src |       0 |        0 |       0 |       0 |                   
+  marquee.ts       |       0 |      100 |       0 |       0 | 3-99              
+  marquee.vue      |       0 |        0 |       0 |       0 | 15-150            
+ ...rc/mention/src |       0 |        0 |       0 |       0 |                   
+  mention.ts       |       0 |      100 |     100 |       0 | 9-11              
+  mention.vue      |       0 |        0 |       0 |       0 | 13-558            
+ ...s/src/menu/src |       0 |        0 |       0 |       0 |                   
+  ...tem-group.vue |       0 |      100 |     100 |       0 | 14-22             
+  menu-item.vue    |       0 |        0 |       0 |       0 | 14-134            
+  ...sive-item.vue |       0 |        0 |       0 |       0 | 18-45             
+  menu.ts          |       0 |      100 |       0 |       0 | 25-364            
+  menu.vue         |       0 |        0 |       0 |       0 | 16-168            
+  sub-menu.vue     |       0 |        0 |       0 |       0 | 16-366            
+ ...essage-box/src |       0 |        0 |       0 |       0 |                   
+  message-box.ts   |       0 |        0 |       0 |       0 |                   
+  message-box.vue  |       0 |        0 |       0 |       0 | 33-408            
+  method.ts        |       0 |        0 |       0 |       0 | 11-130            
+ ...rc/message/src |       0 |        0 |       0 |       0 |                   
+  message.ts       |       0 |      100 |     100 |       0 | 11-17             
+  message.vue      |       0 |        0 |       0 |       0 | 16-222            
+  method.ts        |       0 |        0 |       0 |       0 | 19-208            
+ ...tification/src |       0 |        0 |       0 |       0 |                   
+  method.ts        |       0 |        0 |       0 |       0 | 18-210            
+  notification.ts  |       0 |      100 |     100 |       0 | 11-18             
+  notification.vue |       0 |        0 |       0 |       0 | 15-261            
+ ...pagination/src |       0 |        0 |       0 |       0 |                   
+  pagination.ts    |       0 |      100 |       0 |       0 | 8-50              
+  pagination.vue   |       0 |        0 |       0 |       0 | 12-210            
+ ...popconfirm/src |       0 |        0 |       0 |       0 |                   
+  instance.ts      |       0 |        0 |       0 |       0 |                   
+  popconfirm.ts    |       0 |      100 |       0 |       0 | 4-132             
+  popconfirm.vue   |       0 |        0 |       0 |       0 | 19-166            
+ ...rc/popover/src |       0 |        0 |       0 |       0 |                   
+  popover.ts       |       0 |      100 |       0 |       0 | 4-128             
+  popover.vue      |       0 |        0 |       0 |       0 | 18-152            
+ ...c/progress/src |       0 |        0 |       0 |       0 |                   
+  progress.ts      |       0 |      100 |     100 |       0 | 3-9               
+  progress.vue     |       0 |        0 |       0 |       0 | 12-295            
+ .../src/radio/src |       0 |        0 |       0 |       0 |                   
+  radio-button.vue |       0 |        0 |       0 |       0 | 16-152            
+  radio-group.vue  |       0 |        0 |       0 |       0 | 18-111            
+  radio.ts         |       0 |      100 |     100 |       0 | 11-208            
+  radio.vue        |       0 |        0 |       0 |       0 | 21-140            
+ ...s/src/rate/src |       0 |        0 |       0 |       0 |                   
+  rate.ts          |       0 |      100 |       0 |       0 | 3-89              
+  rate.vue         |       0 |        0 |       0 |       0 | 12-158            
+ ...src/result/src |       0 |        0 |       0 |       0 |                   
+  result.ts        |       0 |        0 |       0 |       0 |                   
+  result.vue       |       0 |        0 |       0 |       0 | 12-67             
+ ...ts/src/row/src |       0 |        0 |       0 |       0 |                   
+  row.ts           |       0 |        0 |       0 |       0 | 6-74              
+  row.vue          |       0 |        0 |       0 |       0 | 12-47             
+ ...src/select/src |       0 |        0 |       0 |       0 |                   
+  option.vue       |       0 |        0 |       0 |       0 | 14-39             
+  select.ts        |       0 |      100 |     100 |       0 | 135               
+  select.vue       |       0 |        0 |       0 |       0 | 23-734            
+ ...c/skeleton/src |       0 |        0 |       0 |       0 |                   
+  ...eton-item.vue |       0 |        0 |       0 |       0 | 11-56             
+  skeleton.ts      |       0 |      100 |     100 |       0 | 3-59              
+  skeleton.vue     |       0 |        0 |       0 |       0 | 12-87             
+ ...src/slider/src |       0 |        0 |       0 |       0 |                   
+  ...er-button.vue |       0 |        0 |       0 |       0 | 18-189            
+  slider.ts        |       0 |      100 |       0 |       0 | 7-158             
+  slider.vue       |       0 |        0 |       0 |       0 | 16-325            
+ .../src/space/src |       0 |        0 |       0 |       0 |                   
+  space.ts         |       0 |        0 |       0 |       0 |                   
+  space.vue        |       0 |        0 |       0 |       0 | 13-105            
+ ...s/src/spin/src |       0 |        0 |       0 |       0 |                   
+  spin.ts          |       0 |      100 |     100 |       0 | 5                 
+  spin.vue         |       0 |        0 |       0 |       0 | 16-300            
+ .../src/steps/src |       0 |        0 |       0 |       0 |                   
+  step.ts          |       0 |      100 |     100 |       0 | 4                 
+  step.vue         |       0 |        0 |       0 |       0 | 14-216            
+  steps.ts         |       0 |      100 |       0 |       0 | 3-131             
+  steps.vue        |       0 |        0 |       0 |       0 | 12-89             
+ ...src/switch/src |       0 |        0 |       0 |       0 |                   
+  switch.ts        |       0 |      100 |       0 |       0 | 5-117             
+  switch.vue       |       0 |        0 |       0 |       0 | 12-216            
+ .../src/table/src |       0 |        0 |       0 |       0 |                   
+  table-column.vue |       0 |        0 |       0 |       0 | 13-114            
+  table.ts         |       0 |      100 |       0 |       0 | 432-780           
+  table.vue        |       0 |        0 |       0 |       0 | 56-1763           
+  ...olumn-drag.ts |       0 |        0 |       0 |       0 | 39-251            
+  ...umn-resize.ts |       0 |        0 |       0 |       0 | 37-146            
+  use-row-drag.ts  |       0 |        0 |       0 |       0 | 40-345            
+  ...ble-export.ts |       0 |        0 |       0 |       0 | 53-422            
+  ...ble-import.ts |       0 |        0 |       0 |       0 | 46-463            
+  ...able-print.ts |       0 |        0 |       0 |       0 | 51-380            
+  ...-selection.ts |       0 |        0 |       0 |       0 | 46-232            
+  ...ual-scroll.ts |       0 |        0 |       0 |       0 | 43-352            
+  utils.ts         |       0 |        0 |       0 |       0 | 11-546            
+ ...s/src/tabs/src |       0 |        0 |       0 |       0 |                   
+  tab-pane.ts      |       0 |      100 |     100 |       0 | 3                 
+  tab-pane.vue     |       0 |        0 |       0 |       0 | 12-80             
+  tabs.ts          |       0 |        0 |       0 |       0 | 3-129             
+  tabs.vue         |       0 |        0 |       0 |       0 | 12-317            
+ ...ts/src/tag/src |       0 |        0 |       0 |       0 |                   
+  tag.ts           |       0 |      100 |     100 |       0 | 11-21             
+  tag.vue          |       0 |        0 |       0 |       0 | 16-176            
+ ...ime-picker/src |       0 |        0 |       0 |       0 |                   
+  time-picker.ts   |       0 |        0 |       0 |       0 | 175-311           
+  time-picker.vue  |       0 |        0 |       0 |       0 | 31-661            
+  time-spinner.vue |       0 |        0 |       0 |       0 | 15-485            
+ ...ime-select/src |       0 |        0 |       0 |       0 |                   
+  time-select.ts   |       0 |        0 |       0 |       0 | 119-206           
+  time-select.vue  |       0 |        0 |       0 |       0 | 17-466            
+ ...rc/tooltip/src |       0 |        0 |       0 |       0 |                   
+  tooltip.ts       |       0 |      100 |       0 |       0 | 3-174             
+  tooltip.vue      |       0 |        0 |       0 |       0 | 23-348            
+ ...c/transfer/src |       0 |        0 |       0 |       0 |                   
+  ...fer-panel.vue |       0 |        0 |       0 |       0 | 22-331            
+  transfer.ts      |       0 |      100 |     100 |       0 | 11-181            
+  transfer.vue     |       0 |        0 |       0 |       0 | 24-225            
+ ...ree-select/src |       0 |        0 |       0 |       0 |                   
+  tree-select.ts   |       0 |      100 |       0 |       0 | 63-175            
+  tree-select.vue  |       0 |        0 |       0 |       0 | 14-442            
+  use-tree.ts      |       0 |        0 |       0 |       0 | 14-297            
+ ...s/src/tree/src |       0 |        0 |       0 |       0 |                   
+  tree-node.vue    |       0 |        0 |       0 |       0 | 14-196            
+  tree.ts          |       0 |      100 |       0 |       0 | 45-230            
+  tree.vue         |       0 |        0 |       0 |       0 | 15-578            
+ ...typography/src |       0 |        0 |       0 |       0 |                   
+  link.vue         |       0 |        0 |       0 |       0 | 12-37             
+  paragraph.vue    |       0 |        0 |       0 |       0 | 12-50             
+  text.vue         |       0 |        0 |       0 |       0 | 12-47             
+  title.vue        |       0 |        0 |       0 |       0 | 12-47             
+  typography.ts    |       0 |        0 |       0 |       0 |                   
+ ...src/upload/src |       0 |        0 |       0 |       0 |                   
+  upload.ts        |       0 |      100 |       0 |       0 | 37-152            
+  upload.vue       |       0 |        0 |       0 |       0 | 27-694            
+ .../waterfall/src |       0 |        0 |       0 |       0 |                   
+  waterfall.ts     |       0 |      100 |       0 |       0 | 3-7               
+  waterfall.vue    |       0 |        0 |       0 |       0 | 14-248            
+ .../watermark/src |       0 |        0 |       0 |       0 |                   
+  watermark.ts     |       0 |      100 |       0 |       0 | 3-65              
+  watermark.vue    |       0 |        0 |       0 |       0 | 17-194            
+ hooks/src/storage |   92.75 |     91.3 |   81.48 |     100 |                   
+  adapters.ts      |   92.75 |     91.3 |   81.48 |     100 | 30-44             
+ hooks/src/use-ai  |    89.4 |    72.49 |   90.83 |   92.79 |                   
+  use-ai-chat.ts   |   87.28 |     78.2 |      85 |      91 | 89-93,112-116     
+  ...versations.ts |   89.84 |    71.13 |    91.3 |    94.7 | ...61,369,412-413 
+  ...ersistence.ts |   92.39 |    69.76 |     100 |   95.29 | 62,96,134,146     
+  ...ai-request.ts |     100 |      100 |     100 |     100 |                   
+  use-ai-stream.ts |   92.76 |    81.52 |     100 |   94.07 | ...66,172-173,296 
+  use-ai-voice.ts  |   84.37 |    58.44 |   77.77 |   88.27 | ...84-385,399-400 
+ ...src/use-locale |       0 |        0 |       0 |       0 |                   
+  dayjs-locale.ts  |       0 |        0 |       0 |       0 | 7-190             
+ icons/src         |       0 |        0 |       0 |       0 |                   
+  collections.ts   |       0 |      100 |       0 |       0 | 11-95             
+  config.ts        |       0 |      100 |       0 |       0 | 31-50             
+  iconify.ts       |       0 |        0 |       0 |       0 | 52-164            
+  presets.ts       |       0 |      100 |       0 |       0 | 12-127            
+  types.ts         |       0 |      100 |     100 |       0 | 108-134           
+ icons/src/vue     |       0 |        0 |       0 |       0 |                   
+  icon.ts          |       0 |        0 |       0 |       0 | 37-261            
+ locale/src/lang   |       0 |      100 |     100 |       0 |                   
+  af.ts            |       0 |      100 |     100 |       0 | 3                 
+  ar-eg.ts         |       0 |      100 |     100 |       0 | 3                 
+  ar.ts            |       0 |      100 |     100 |       0 | 3                 
+  az.ts            |       0 |      100 |     100 |       0 | 3                 
+  bg.ts            |       0 |      100 |     100 |       0 | 3                 
+  bn.ts            |       0 |      100 |     100 |       0 | 3                 
+  ca.ts            |       0 |      100 |     100 |       0 | 3                 
+  ckb.ts           |       0 |      100 |     100 |       0 | 3                 
+  cs.ts            |       0 |      100 |     100 |       0 | 3                 
+  da.ts            |       0 |      100 |     100 |       0 | 3                 
+  de.ts            |       0 |      100 |     100 |       0 | 3                 
+  el.ts            |       0 |      100 |     100 |       0 | 3                 
+  en.ts            |       0 |      100 |     100 |       0 | 3                 
+  eo.ts            |       0 |      100 |     100 |       0 | 3                 
+  es.ts            |       0 |      100 |     100 |       0 | 3                 
+  et.ts            |       0 |      100 |     100 |       0 | 3                 
+  eu.ts            |       0 |      100 |     100 |       0 | 3                 
+  fa.ts            |       0 |      100 |     100 |       0 | 3                 
+  fi.ts            |       0 |      100 |     100 |       0 | 3                 
+  fr.ts            |       0 |      100 |     100 |       0 | 3                 
+  he.ts            |       0 |      100 |     100 |       0 | 3                 
+  hi.ts            |       0 |      100 |     100 |       0 | 3                 
+  hr.ts            |       0 |      100 |     100 |       0 | 3                 
+  hu.ts            |       0 |      100 |     100 |       0 | 3                 
+  hy-am.ts         |       0 |      100 |     100 |       0 | 3                 
+  id.ts            |       0 |      100 |     100 |       0 | 3                 
+  it.ts            |       0 |      100 |     100 |       0 | 3                 
+  ja.ts            |       0 |      100 |     100 |       0 | 3                 
+  kk.ts            |       0 |      100 |     100 |       0 | 3                 
+  km.ts            |       0 |      100 |     100 |       0 | 3                 
+  ko.ts            |       0 |      100 |     100 |       0 | 3                 
+  ku.ts            |       0 |      100 |     100 |       0 | 3                 
+  ky.ts            |       0 |      100 |     100 |       0 | 3                 
+  lo.ts            |       0 |      100 |     100 |       0 | 3                 
+  lt.ts            |       0 |      100 |     100 |       0 | 3                 
+  lv.ts            |       0 |      100 |     100 |       0 | 3                 
+  mg.ts            |       0 |      100 |     100 |       0 | 3                 
+  mn.ts            |       0 |      100 |     100 |       0 | 3                 
+  ms.ts            |       0 |      100 |     100 |       0 | 3                 
+  my.ts            |       0 |      100 |     100 |       0 | 3                 
+  nb-NO.ts         |       0 |      100 |     100 |       0 | 3                 
+  nl.ts            |       0 |      100 |     100 |       0 | 3                 
+  no.ts            |       0 |      100 |     100 |       0 | 3                 
+  pa.ts            |       0 |      100 |     100 |       0 | 3                 
+  pl.ts            |       0 |      100 |     100 |       0 | 3                 
+  pt-br.ts         |       0 |      100 |     100 |       0 | 3                 
+  pt.ts            |       0 |      100 |     100 |       0 | 3                 
+  ro.ts            |       0 |      100 |     100 |       0 | 3                 
+  ru.ts            |       0 |      100 |     100 |       0 | 3                 
+  sk.ts            |       0 |      100 |     100 |       0 | 3                 
+  sl.ts            |       0 |      100 |     100 |       0 | 3                 
+  sr.ts            |       0 |      100 |     100 |       0 | 3                 
+  sv.ts            |       0 |      100 |     100 |       0 | 3                 
+  sw.ts            |       0 |      100 |     100 |       0 | 3                 
+  ta.ts            |       0 |      100 |     100 |       0 | 3                 
+  te.ts            |       0 |      100 |     100 |       0 | 3                 
+  th.ts            |       0 |      100 |     100 |       0 | 3                 
+  tk.ts            |       0 |      100 |     100 |       0 | 3                 
+  tr.ts            |       0 |      100 |     100 |       0 | 3                 
+  ug-cn.ts         |       0 |      100 |     100 |       0 | 3                 
+  uk.ts            |       0 |      100 |     100 |       0 | 3                 
+  uz-uz.ts         |       0 |      100 |     100 |       0 | 3                 
+  vi.ts            |       0 |      100 |     100 |       0 | 3                 
+  zh-cn.ts         |       0 |      100 |     100 |       0 | 3                 
+  zh-hk.ts         |       0 |      100 |     100 |       0 | 3                 
+  zh-mo.ts         |       0 |      100 |     100 |       0 | 3                 
+  zh-tw.ts         |       0 |      100 |     100 |       0 | 3                 
+ nuxt/src          |       0 |        0 |       0 |       0 |                   
+  module.ts        |       0 |        0 |       0 |       0 | 12-286            
+ nuxt/src/runtime  |       0 |      100 |       0 |       0 |                   
+  plugin.ts        |       0 |      100 |       0 |       0 | 8-15              
+ theme/src         |       0 |        0 |       0 |       0 |                   
+  ...nent-theme.ts |       0 |        0 |       0 |       0 | 60-413            
+  theme.ts         |       0 |        0 |       0 |       0 | 115-1598          
+ utils/src         |       0 |        0 |       0 |       0 |                   
+  common.ts        |       0 |        0 |       0 |       0 | 9-228             
+  dom.ts           |       0 |        0 |       0 |       0 | 8-112             
+  style.ts         |       0 |        0 |       0 |       0 | 9-117             
+  types.ts         |       0 |        0 |       0 |       0 | 44-80             
+  vue.ts           |       0 |        0 |       0 |       0 | 11-88             
+-------------------|---------|----------|---------|---------|-------------------

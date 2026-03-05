@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { IndexedDBAdapter, type StorageAdapter } from '../../storage'
+import { IndexedDBAdapter, type StorageAdapter } from '../storage'
 
 export interface ConversationMessage {
   id: string
