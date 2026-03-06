@@ -30,6 +30,34 @@ export const aiThinkingProps = {
     default: true
   },
   /**
+   * @description 样式类名
+   */
+  className: {
+    type: String,
+    default: ''
+  },
+  /**
+   * @description 样式类名（语义化）
+   */
+  classNames: {
+    type: Object as PropType<Record<string, string>>,
+    default: () => ({})
+  },
+  /**
+   * @description 样式对象
+   */
+  styles: {
+    type: Object as PropType<Record<string, string>>,
+    default: () => ({})
+  },
+  /**
+   * @description 自定义样式
+   */
+  style: {
+    type: Object as PropType<Record<string, string>>,
+    default: () => ({})
+  },
+  /**
    * @description 主题覆盖变量
    */
   themeOverrides: {

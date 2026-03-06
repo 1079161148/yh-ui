@@ -222,7 +222,10 @@ export default defineConfig({
             { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' },
             { text: 'AiAgentCard 🤖', link: '/en/ai-components/ai-agent-card' },
             { text: 'AiSources 🔗', link: '/en/ai-components/ai-sources' },
-            { text: 'AiMention 🏷️', link: '/en/ai-components/ai-mention' }
+            { text: 'AiMention 🏷️', link: '/en/ai-components/ai-mention' },
+            { text: 'AiAttachments', link: '/en/ai-components/ai-attachments' },
+            { text: 'AiFileCard', link: '/en/ai-components/ai-file-card' },
+            { text: 'AiMermaid', link: '/en/ai-components/ai-mermaid' }
           ]
         },
         {
@@ -359,7 +362,10 @@ export default defineConfig({
             { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' },
             { text: 'AiAgentCard 智能体名片 🤖', link: '/ai-components/ai-agent-card' },
             { text: 'AiSources 知识库溯源 🔗', link: '/ai-components/ai-sources' },
-            { text: 'AiMention AI 提及 🏷️', link: '/ai-components/ai-mention' }
+            { text: 'AiMention AI 提及 🏷️', link: '/ai-components/ai-mention' },
+            { text: 'AiAttachments 附件', link: '/ai-components/ai-attachments' },
+            { text: 'AiFileCard 文件卡片', link: '/ai-components/ai-file-card' },
+            { text: 'AiMermaid 流程图', link: '/ai-components/ai-mermaid' }
           ]
         },
         {
@@ -532,7 +538,11 @@ export default defineConfig({
   },
 
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
+    theme: {
+      light: 'github-light',
+      dark: 'github-dark'
+    }
   },
 
   vite: {
@@ -553,7 +563,7 @@ export default defineConfig({
     server: {
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin',
-        'Cross-Origin-Embedder-Policy': 'require-corp'
+        'Cross-Origin-Embedder-Policy': 'credentialless'
       },
       // Ensure headers are applied via middleware as well
       proxy: {}
@@ -564,7 +574,7 @@ export default defineConfig({
         configureServer(server) {
           server.middlewares.use((_req, res, next) => {
             res.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
-            res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
+            res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless')
             next()
           })
         }
@@ -573,7 +583,7 @@ export default defineConfig({
     preview: {
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin',
-        'Cross-Origin-Embedder-Policy': 'require-corp'
+        'Cross-Origin-Embedder-Policy': 'credentialless'
       }
     },
     css: {

@@ -231,9 +231,10 @@ const handleDragEnd = () => {
       ns.is('expanded', isExpanded),
       ns.is('thinking', currentStatus === 'thinking' || currentStatus === 'loading'),
       ns.is('timeline', itemsToUse && itemsToUse.length > 0),
-      ns.is('draggable', draggable)
+      ns.is('draggable', draggable),
+      className
     ]"
-    :style="themeStyle"
+    :style="[themeStyle, style]"
   >
     <!-- 进度条 -->
     <div v-if="showProgress && itemsToUse && itemsToUse.length > 0" :class="ns.e('progress-bar')">

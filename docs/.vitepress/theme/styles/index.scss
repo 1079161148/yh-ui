@@ -1603,6 +1603,27 @@ html.yh-popup-parent--hidden {
   }
 }
 
+/* 英文文档排版优化 - 标题下方段落与 DemoBlock 间距、换行 */
+[lang='en-US'] .vp-doc {
+  p {
+    line-height: 1.75;
+    word-break: break-word;
+    hyphens: auto;
+    margin-bottom: 1em;
+  }
+
+  /* 标题与下方段落、DemoBlock 的间距 */
+  h2 + p,
+  h3 + p {
+    margin-top: 0;
+  }
+
+  /* 段落与 DemoBlock 之间的间距 */
+  p + .demo-box {
+    margin-top: 12px;
+  }
+}
+
 /* 大屏幕优化 */
 @media (min-width: 1440px) {
   :root {

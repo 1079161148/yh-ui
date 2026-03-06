@@ -1,0 +1,194 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+@use 'sass:math';
+
+// 主题变量
+$theme-vars: (
+  bg-color: var(--yh-bg-color, #fff),
+  border-color: var(--yh-border-color, #dcdfe6),
+  text-color: var(--yh-text-color, #303133),
+  text-secondary-color: var(--yh-text-color-secondary, #909399),
+  primary-color: var(--yh-color-primary, #409eff),
+  bg-title: rgba(0, 0, 0, 0.06),
+  border-code: #f0f0f0,
+  border-graph: #f0f0f0,
+  text-title: rgba(0, 0, 0, 0.88)
+);
+
+@mixin themeify {
+  @each $name, $value in $theme-vars {
+    --yh-ai-mermaid-#{$name}: #{$value};
+  }
+}
+
+.#{$prefix}ai-mermaid {
+  @include themeify;
+
+  display: flex;
+  flex-direction: column;
+  background: var(--yh-ai-mermaid-bg-color);
+  border: 1px solid var(--yh-ai-mermaid-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  // 头部
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--yh-ai-mermaid-bg-title);
+    border-bottom: 1px solid var(--yh-ai-mermaid-border-color);
+  }
+
+  &__header-content {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--yh-ai-mermaid-text-title);
+  }
+
+  // 操作栏
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--yh-ai-mermaid-border-color);
+  }
+
+  // 渲染类型标签
+  &__render-tabs {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__render-tab {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--yh-ai-mermaid-text-secondary-color);
+    background: transparent;
+    border: 1px solid var(--yh-ai-mermaid-border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: var(--yh-ai-mermaid-primary-color);
+      border-color: var(--yh-ai-mermaid-primary-color);
+    }
+
+    &.is-active {
+      color: var(--yh-ai-mermaid-primary-color);
+      border-color: var(--yh-ai-mermaid-primary-color);
+      background: rgba(var(--yh-ai-mermaid-primary-color), 0.1);
+    }
+  }
+
+  // 操作按钮
+  &__action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    color: #595959; // 更明确且稍微深一点的灰色，提升对比度
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--yh-ai-mermaid-primary-color);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .#{$prefix}icon {
+      font-size: 20px;
+    }
+  }
+
+  // 内容区域
+  &__content {
+    position: relative;
+    padding: 16px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // 图表容器
+  &__graph {
+    width: 100%;
+    overflow: auto;
+    text-align: center;
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  // 代码块
+  &__code {
+    width: 100%;
+    padding: 16px;
+    margin: 0;
+    background: #282c34;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #abb2bf;
+
+    code {
+      font-family: inherit;
+    }
+  }
+
+  // 加载状态
+  &__loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--yh-ai-mermaid-text-secondary-color);
+    font-size: 14px;
+
+    .#{$prefix}icon {
+      animation: rotate 1s linear infinite;
+    }
+  }
+
+  // 错误状态
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(#f56c6c, 0.1);
+    border-radius: 4px;
+    color: #f56c6c;
+    font-size: 14px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

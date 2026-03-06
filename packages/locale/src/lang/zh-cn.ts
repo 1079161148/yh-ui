@@ -712,6 +712,29 @@ export const zhCn: Language = {
         rename: '重命名',
         delete: '删除',
         deleteConfirm: '确认删除此对话？'
+      },
+      // AiAttachments
+      attachments: {
+        dropTip: '释放鼠标以上传文件',
+        clickToUpload: '点击或拖拽文件到此处上传',
+        uploadSuccess: '上传成功',
+        uploadError: '上传失败',
+        deleteConfirm: '确定删除此文件？',
+        fileTooLarge: '文件大小不能超过 {size}',
+        invalidFileType: '不支持的文件类型'
+      },
+      // AiMermaid
+      mermaid: {
+        image: '图片',
+        code: '代码',
+        zoomIn: '放大',
+        zoomOut: '缩小',
+        reset: '重置',
+        download: '下载',
+        copyCode: '复制代码',
+        rendering: '正在渲染...',
+        renderError: '渲染失败',
+        renderSuccess: '渲染成功'
       }
     }
   }

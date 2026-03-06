@@ -100,6 +100,9 @@ import { YhAiSources } from './ai-sources'
 import { YhAiProvider } from './ai-provider'
 import { YhAiMention } from './ai-mention'
 import { YhAiBubbleList } from './ai-bubble-list'
+import { YhAiFileCard } from './ai-file-card'
+import { YhAiAttachments } from './ai-attachments'
+import { YhAiMermaid } from './ai-mermaid'
 
 // 导出所有组件
 export * from './button'
@@ -191,6 +194,9 @@ export * from './ai-sources'
 export * from './ai-provider'
 export * from './ai-mention'
 export * from './ai-bubble-list'
+export * from './ai-file-card'
+export * from './ai-attachments'
+export * from './ai-mermaid'
 
 // 所有组件列表
 const components = [
@@ -308,7 +314,10 @@ const components = [
   YhAiSources,
   YhAiProvider,
   YhAiMention,
-  YhAiBubbleList
+  YhAiBubbleList,
+  YhAiFileCard,
+  YhAiAttachments,
+  YhAiMermaid
 ] as Plugin[]
 
 /**

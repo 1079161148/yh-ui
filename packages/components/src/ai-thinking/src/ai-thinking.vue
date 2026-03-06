@@ -67,7 +67,10 @@ const toggleExpand = () => {
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(status), ns.is('expanded', isExpanded)]" :style="themeStyle">
+  <div
+    :class="[ns.b(), ns.m(status), ns.is('expanded', isExpanded), className]"
+    :style="[themeStyle, style]"
+  >
     <div :class="ns.e('header')" @click="toggleExpand">
       <div :class="ns.e('icon-wrapper')">
         <YhIcon

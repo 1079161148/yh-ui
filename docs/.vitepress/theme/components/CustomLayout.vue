@@ -8,7 +8,7 @@ import DefaultTheme from 'vitepress/theme'
 // import LanguageSwitcher from './LanguageSwitcher.vue'
 import SidebarToggle from './SidebarToggle.vue'
 import BackToTop from './BackToTop.vue'
-import { onMounted, onUnmounted, computed } from 'vue'
+import { onMounted, onUnmounted, computed, watch } from 'vue'
 import { zhCn, en } from '@yh-ui/locale'
 
 const { Layout } = DefaultTheme
@@ -18,6 +18,22 @@ const { lang } = useData()
 const currentLocale = computed(() => {
   return lang.value === 'en-US' ? en : zhCn
 })
+
+// 同步 lang 到 html，确保 [lang='en-US'] 等英文文档样式选择器生效
+const syncHtmlLang = (newLang: string) => {
+  if (typeof document === 'undefined') return
+  document.documentElement.setAttribute('lang', newLang)
+}
+
+onMounted(() => {
+  syncHtmlLang(lang.value)
+})
+
+if (typeof window !== 'undefined') {
+  watch(lang, (newLang) => {
+    syncHtmlLang(newLang)
+  })
+}
 
 // 滚动处理相关变量
 let scrollHandler: (() => void) | null = null
@@ -61,19 +77,19 @@ onUnmounted(() => {
       <!-- <template #nav-bar-content-after>
         <LanguageSwitcher />
       </template> -->
-  
+
       <!-- 侧边栏切换按钮 -->
       <template #sidebar-nav-after>
         <!-- 可以在这里添加侧边栏底部内容 -->
       </template>
-  
+
       <!-- 页面内容前的装饰 -->
       <template #doc-before>
         <div class="doc-decoration">
           <div class="doc-decoration__gradient" />
         </div>
       </template>
-  
+
       <!-- 页面底部 -->
       <template #doc-footer-before>
         <div class="doc-footer-decoration">
@@ -117,7 +133,8 @@ body {
 
 /* 侧边栏折叠样式 */
 .VPSidebar {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     width 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
 
   &.is-collapsed {
@@ -148,17 +165,18 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg,
-        var(--vp-c-brand-1) 0%,
-        var(--vp-c-brand-2) 50%,
-        var(--vp-c-brand-3) 100%);
+    background: linear-gradient(
+      90deg,
+      var(--vp-c-brand-1) 0%,
+      var(--vp-c-brand-2) 50%,
+      var(--vp-c-brand-3) 100%
+    );
     background-size: 200% 100%;
     animation: gradientMove 3s ease infinite;
   }
 }
 
 @keyframes gradientMove {
-
   0%,
   100% {
     background-position: 0% 50%;
@@ -175,12 +193,14 @@ body {
 
   &__line {
     height: 1px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        var(--vp-c-divider) 20%,
-        var(--vp-c-brand-1) 50%,
-        var(--vp-c-divider) 80%,
-        transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--vp-c-divider) 20%,
+      var(--vp-c-brand-1) 50%,
+      var(--vp-c-divider) 80%,
+      transparent 100%
+    );
   }
 }
 </style>

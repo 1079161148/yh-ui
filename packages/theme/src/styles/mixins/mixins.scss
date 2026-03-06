@@ -12,6 +12,7 @@
 
 // BEM
 $namespace: 'yh' !default;
+$prefix: $namespace + '-' !default;
 $state-prefix: 'is-' !default;
 $modifier-separator: '--' !default;
 $element-separator: '__' !default;

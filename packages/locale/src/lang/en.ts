@@ -713,6 +713,29 @@ export const en: Language = {
         rename: 'Rename',
         delete: 'Delete',
         deleteConfirm: 'Confirm delete this conversation?'
+      },
+      // AiAttachments
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      // AiMermaid
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success'
       }
     }
   }

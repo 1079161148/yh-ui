@@ -351,6 +351,27 @@ export interface AiCodeRunnerThemeVars extends ComponentThemeVars {
   terminalTextColor?: string
 }
 
+/** AiFileCard 组件主题变量 */
+export interface AiFileCardThemeVars extends ComponentThemeVars {
+  iconColor?: string
+  imageRadius?: string
+}
+
+/** AiAttachments 组件主题变量 */
+export interface AiAttachmentsThemeVars extends ComponentThemeVars {
+  uploadBorderColor?: string
+  uploadHoverBorderColor?: string
+  progressColor?: string
+}
+
+/** AiMermaid 组件主题变量 */
+export interface AiMermaidThemeVars extends ComponentThemeVars {
+  headerBgColor?: string
+  headerTextColor?: string
+  codeBlockBgColor?: string
+  codeBlockTextColor?: string
+}
+
 // ==================== 导出所有组件主题类型 ====================
 
 export interface AllComponentThemes {
@@ -378,6 +399,9 @@ export interface AllComponentThemes {
   aiCodeRunner?: AiCodeRunnerThemeVars
   aiConversations?: AiConversationsThemeVars
   aiPrompts?: AiPromptsThemeVars
+  aiFileCard?: AiFileCardThemeVars
+  aiAttachments?: AiAttachmentsThemeVars
+  aiMermaid?: AiMermaidThemeVars
   [key: string]: ComponentThemeVars | undefined
 }
 

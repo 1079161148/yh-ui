@@ -180,6 +180,20 @@ export const IconRefresh: IconData = {
   svg: '<path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>'
 }
 
+// ZoomIn 放大图标
+export const IconZoomIn: IconData = {
+  name: 'zoom-in',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" fill-rule="evenodd" d="M17.414 16l4.293 4.293-1.414 1.414L16 17.414A8.96 8.96 0 0111 19c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 01-1.586 5zM11 17c3.86 0 7-3.14 7-7s-3.14-7-7-7-7 3.14-7 7 3.14 7 7 7zm-1-8V7h2v2h2v2h-2v2h-2v-2H8v-2h2z" clip-rule="evenodd" />'
+}
+
+// ZoomOut 缩小图标
+export const IconZoomOut: IconData = {
+  name: 'zoom-out',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" fill-rule="evenodd" d="M17.414 16l4.293 4.293-1.414 1.414L16 17.414A8.96 8.96 0 0111 19c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 01-1.586 5zM11 17c3.86 0 7-3.14 7-7s-3.14-7-7-7-7 3.14-7 7 3.14 7 7 7zm-3-8h6v2H8v-2z" clip-rule="evenodd" />'
+}
+
 // Delete 删除图标
 export const IconDelete: IconData = {
   name: 'delete',
@@ -557,6 +571,8 @@ export const builtInIcons: IconData[] = [
   IconChartBar,
   IconLaunch,
   IconCode,
+  IconZoomIn,
+  IconZoomOut,
   IconStarFilled,
   IconCheckmarkCircle,
   IconPresentation,

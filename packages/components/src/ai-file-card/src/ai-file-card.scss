@@ -1,0 +1,402 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+@use 'sass:math';
+
+// 主题变量
+$theme-vars: (
+  bg-color: var(--yh-bg-color, #fff),
+  border-color: var(--yh-border-color, #dcdfe6),
+  text-color: var(--yh-text-color, #303133),
+  text-secondary-color: var(--yh-text-color-secondary, #909399),
+  hover-bg-color: var(--yh-fill-color-light, #f5f7fa),
+  shadow: var(--yh-box-shadow, 0 2px 12px 0 rgba(0, 0, 0, 0.1))
+);
+
+@mixin themeify {
+  @each $name, $value in $theme-vars {
+    --yh-ai-file-card-#{$name}: #{$value};
+  }
+}
+
+.#{$prefix}ai-file-card {
+  @include themeify;
+
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: var(--yh-ai-file-card-bg-color);
+  border: 1px solid var(--yh-ai-file-card-border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    background: var(--yh-ai-file-card-hover-bg-color);
+    box-shadow: var(--yh-ai-file-card-shadow);
+  }
+
+  // 尺寸变体
+  &--small {
+    padding: 8px;
+    border-radius: 4px;
+    min-width: 80px;
+
+    .#{$prefix}ai-file-card__icon-wrapper {
+      width: 40px;
+      height: 40px;
+    }
+
+    .#{$prefix}ai-file-card__name {
+      font-size: 12px;
+      max-width: 64px;
+    }
+
+    .#{$prefix}ai-file-card__size {
+      font-size: 10px;
+    }
+  }
+
+  &--large {
+    padding: 24px;
+    border-radius: 12px;
+    min-width: 180px;
+
+    .#{$prefix}ai-file-card__icon-wrapper {
+      width: 80px;
+      height: 80px;
+    }
+
+    .#{$prefix}ai-file-card__name {
+      font-size: 16px;
+      max-width: 160px;
+    }
+
+    .#{$prefix}ai-file-card__size {
+      font-size: 14px;
+    }
+  }
+
+  &--default {
+    min-width: 120px;
+
+    .#{$prefix}ai-file-card__icon-wrapper {
+      width: 56px;
+      height: 56px;
+    }
+
+    .#{$prefix}ai-file-card__name {
+      font-size: 14px;
+      max-width: 100px;
+    }
+
+    .#{$prefix}ai-file-card__size {
+      font-size: 12px;
+    }
+  }
+
+  // 图标容器
+  &__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+    color: var(--yh-color-primary, #409eff);
+  }
+
+  // 信息区域（min-width:0 便于在 flex 中收缩，长文件名才能正确省略）
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    overflow: hidden;
+    min-width: 0;
+    width: 100%;
+  }
+
+  // 包裹层：约束 Tooltip（inline-block）宽度，使内部省略号生效
+  &__name-wrap {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+
+    .yh-tooltip {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+  }
+
+  // 文件名（长文本单行省略，需 min-width:0 在 flex 下生效）
+  &__name {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--yh-ai-file-card-text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+  }
+
+  // 文件大小
+  &__size {
+    font-size: 12px;
+    color: var(--yh-ai-file-card-text-secondary-color);
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  // 描述（放宽宽度以更好展示英文描述与错误信息）
+  &__description {
+    font-size: 12px;
+    color: var(--yh-ai-file-card-text-secondary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    max-width: 150px;
+    margin: 0 auto;
+  }
+
+  // 图片/视频/音频共用：预览容器统一宽高、占满可用空间
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+    // 加载中：图片模糊，加载完成后过渡为清晰
+    &.is-image-loading .#{$prefix}ai-file-card__image {
+      filter: blur(8px);
+      opacity: 0.7;
+    }
+
+    .#{$prefix}ai-file-card__image {
+      transition:
+        filter 0.5s ease,
+        opacity 0.5s ease;
+    }
+  }
+
+  // 视频预览（与图片容器一致宽高、占满，原生 controls 可直接播放）
+  &__media-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+  }
+
+  // 音频播放条（原生 controls，全宽展示完整进度条+时间）
+  &__media-audio {
+    width: 100%;
+    max-width: 100%;
+    min-height: 40px;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  // ── 音频卡片（type=audio 且有 src 时）──────────────────────────
+  // 纵向堆叠：顶部文件信息行 + 底部全宽播放条
+  &.is-horizontal-audio {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 12px;
+    min-width: 260px;
+    cursor: default;
+
+    &.#{$prefix}ai-file-card--small {
+      gap: 6px;
+      padding: 8px 10px;
+      min-width: 220px;
+    }
+
+    &.#{$prefix}ai-file-card--large {
+      gap: 10px;
+      padding: 16px;
+      min-width: 320px;
+    }
+  }
+
+  // 顶部信息行：图标 + 名称/大小
+  &__audio-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  // 左侧图标缩略图
+  &__audio-thumb {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      var(--yh-color-primary-light-9, #ecf5ff) 0%,
+      var(--yh-color-primary-light-7, #c6e2ff) 100%
+    );
+    color: var(--yh-color-primary, #409eff);
+
+    .#{$prefix}ai-file-card--small & {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .#{$prefix}ai-file-card--large & {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+    }
+  }
+
+  // 右侧文件名 + 大小
+  &__audio-meta {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .#{$prefix}ai-file-card__name-wrap {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .#{$prefix}ai-file-card__name {
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .#{$prefix}ai-file-card__size {
+      font-size: 11px;
+      text-align: left;
+      margin: 0;
+    }
+  }
+  // ────────────────────────────────────────────────────────────────
+
+  // 音视频占位（无 src 或纯音频）：与图片容器一致宽高、占满
+  &__media-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: var(--yh-color-primary, #409eff);
+
+    &--video {
+      background: var(--yh-fill-color-light, #f5f7fa);
+    }
+
+    &--audio {
+      background: linear-gradient(
+        135deg,
+        var(--yh-fill-color-light, #f5f7fa) 0%,
+        var(--yh-fill-color, #fafafa) 100%
+      );
+    }
+  }
+
+  // 加载中遮罩（旋转图标）
+  &__image-loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+  }
+
+  // 图片（与容器一致宽高、占满）
+  &__image {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  // 遮罩层（图片）
+  &__mask {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  // 文件遮罩层（非图片）
+  &__file-mask {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  // 操作层：确保删除按钮不被原生 media controls 覆盖
+  &__actions {
+    position: absolute;
+    inset: 0;
+    z-index: 80;
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
+  }
+}
+
+// 文件名 Tooltip：长文本换行显示，避免出现横向滚动条
+.yh-ai-file-card__name-tooltip {
+  max-width: 320px;
+
+  .yh-tooltip__content {
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: normal;
+    overflow-x: hidden;
+  }
+}

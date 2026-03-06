@@ -27,7 +27,6 @@ import '@yh-ui/components/message/src/message.scss'
 import '@yh-ui/components/notification/src/notification.scss'
 import '@yh-ui/components/table/src/table.scss'
 import '@yh-ui/components/icon/src/icon.scss'
-
 // 导入 icon spin 动画样式（修复文档中 spin 属性不生效的问题）
 import './styles/icon-spin.css'
 
@@ -153,6 +152,9 @@ import {
   YhAiProvider,
   YhAiMention,
   YhAiBubbleList,
+  YhAiAttachments,
+  YhAiFileCard,
+  YhAiMermaid,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -294,6 +296,9 @@ export default {
     app.component('YhAiProvider', YhAiProvider)
     app.component('YhAiMention', YhAiMention)
     app.component('YhAiBubbleList', YhAiBubbleList)
+    app.component('YhAiAttachments', YhAiAttachments)
+    app.component('YhAiFileCard', YhAiFileCard)
+    app.component('YhAiMermaid', YhAiMermaid)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

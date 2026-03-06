@@ -216,7 +216,11 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'AiSources',
       'AiProvider',
       'AiMention',
-      'AiBubbleList'
+      'AiBubbleList',
+      // New AI Components (Phase 6)
+      'AiFileCard',
+      'AiAttachments',
+      'AiMermaid'
     ]
 
     components.forEach((name) => {
