@@ -729,6 +729,29 @@ export interface Language {
         delete: string
         deleteConfirm: string
       }
+      // AiAttachments
+      attachments: {
+        dropTip: string
+        clickToUpload: string
+        uploadSuccess: string
+        uploadError: string
+        deleteConfirm: string
+        fileTooLarge: string
+        invalidFileType: string
+      }
+      // AiMermaid
+      mermaid: {
+        image: string
+        code: string
+        zoomIn: string
+        zoomOut: string
+        reset: string
+        download: string
+        copyCode: string
+        rendering: string
+        renderError: string
+        renderSuccess: string
+      }
     }
   }
 }

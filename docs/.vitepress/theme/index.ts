@@ -155,6 +155,8 @@ import {
   YhAiAttachments,
   YhAiFileCard,
   YhAiMermaid,
+  YhCarousel,
+  YhCarouselItem,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -253,6 +255,8 @@ export default {
     app.component('YhSpace', YhSpace)
     app.component('YhAvatar', YhAvatar)
     app.component('YhEmpty', YhEmpty)
+    app.component('YhCarousel', YhCarousel)
+    app.component('YhCarouselItem', YhCarouselItem)
 
     // Typography 排版
     app.component('YhTypographyTitle', YhTypographyTitle)

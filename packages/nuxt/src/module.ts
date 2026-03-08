@@ -220,7 +220,9 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       // New AI Components (Phase 6)
       'AiFileCard',
       'AiAttachments',
-      'AiMermaid'
+      'AiMermaid',
+      'Carousel',
+      'CarouselItem'
     ]
 
     components.forEach((name) => {

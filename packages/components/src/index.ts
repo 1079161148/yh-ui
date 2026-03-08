@@ -103,6 +103,7 @@ import { YhAiBubbleList } from './ai-bubble-list'
 import { YhAiFileCard } from './ai-file-card'
 import { YhAiAttachments } from './ai-attachments'
 import { YhAiMermaid } from './ai-mermaid'
+import { YhCarousel, YhCarouselItem } from './carousel'
 
 // 导出所有组件
 export * from './button'
@@ -197,6 +198,7 @@ export * from './ai-bubble-list'
 export * from './ai-file-card'
 export * from './ai-attachments'
 export * from './ai-mermaid'
+export * from './carousel'
 
 // 所有组件列表
 const components = [
@@ -317,7 +319,9 @@ const components = [
   YhAiBubbleList,
   YhAiFileCard,
   YhAiAttachments,
-  YhAiMermaid
+  YhAiMermaid,
+  YhCarousel,
+  YhCarouselItem
 ] as Plugin[]
 
 /**

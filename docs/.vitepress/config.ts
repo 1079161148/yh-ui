@@ -23,7 +23,8 @@ export default defineConfig({
           { text: 'AI 组件', link: '/ai-components/ai-chat', activeMatch: '/ai-components/' },
           { text: '组件', link: '/components/button', activeMatch: '/components/' },
           { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
-          { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' }
+          { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' },
+          { text: 'Request 请求', link: '/request/', activeMatch: '/request/' }
         ],
         outline: {
           label: '页面导航',
@@ -55,7 +56,8 @@ export default defineConfig({
           },
           { text: 'Components', link: '/en/components/button', activeMatch: '/en/components/' },
           { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
-          { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' }
+          { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
+          { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' }
         ],
         outline: {
           label: 'On this page',
@@ -297,7 +299,8 @@ export default defineConfig({
             { text: 'Waterfall', link: '/en/components/waterfall' },
             { text: 'Tree', link: '/en/components/tree' },
             { text: 'Calendar', link: '/en/components/calendar' },
-            { text: 'Countdown', link: '/en/components/countdown' }
+            { text: 'Countdown', link: '/en/components/countdown' },
+            { text: 'Carousel', link: '/en/components/carousel' }
           ]
         },
         {
@@ -439,7 +442,8 @@ export default defineConfig({
             { text: 'Waterfall 瀑布流', link: '/components/waterfall' },
             { text: 'Tree 树形控件', link: '/components/tree' },
             { text: 'Calendar 日历', link: '/components/calendar' },
-            { text: 'Countdown 倒计时', link: '/components/countdown' }
+            { text: 'Countdown 倒计时', link: '/components/countdown' },
+            { text: 'Carousel 轮播', link: '/components/carousel' }
           ]
         },
         {
@@ -502,6 +506,116 @@ export default defineConfig({
             { text: 'API', link: '/en/icons/api' }
           ]
         }
+      ],
+      // Request 侧边栏
+      '/request/': [
+        {
+          text: '快速开始',
+          items: [
+            { text: '简介', link: '/request/' },
+            { text: '安装', link: '/request/install' },
+            { text: '基础用法', link: '/request/basic' }
+          ]
+        },
+        {
+          text: '核心功能',
+          items: [
+            { text: '请求配置', link: '/request/config' },
+            { text: '响应处理', link: '/request/response' },
+            { text: '拦截器', link: '/request/interceptors' },
+            { text: '缓存策略', link: '/request/cache' },
+            { text: 'HTTP 缓存协议', link: '/request/http-cache' },
+            { text: '安全特性', link: '/request/security' },
+            { text: '上传与下载', link: '/request/upload-download' }
+          ]
+        },
+        {
+          text: 'Vue Hooks',
+          items: [
+            { text: 'useRequest', link: '/request/use-request' },
+            { text: 'useRequestSWR', link: '/request/use-swr' },
+            { text: 'useSSE', link: '/request/use-sse' },
+            { text: 'useAIStream', link: '/request/use-ai-stream' },
+            { text: 'usePagination', link: '/request/use-pagination' },
+            { text: 'useLoadMore', link: '/request/use-load-more' },
+            { text: 'useQueue', link: '/request/use-queue' }
+          ]
+        },
+        {
+          text: '进阶功能',
+          items: [
+            { text: '适配器', link: '/request/adapter' },
+            { text: 'GraphQL', link: '/request/graphql' },
+            { text: 'WebSocket', link: '/request/websocket' },
+            { text: '插件系统', link: '/request/plugin' },
+            { text: '错误处理', link: '/request/error' },
+            { text: '调试模式', link: '/request/debug' }
+          ]
+        },
+        {
+          text: '最佳实践',
+          items: [
+            { text: '与 UI 组件集成', link: '/request/integration' },
+            { text: 'SSR 使用', link: '/request/ssr' },
+            { text: 'TypeScript 指南', link: '/request/typescript' },
+            { text: '常见问题 FAQ', link: '/request/faq' }
+          ]
+        }
+      ],
+      // 英文 Request 侧边栏
+      '/en/request/': [
+        {
+          text: 'Getting Started',
+          items: [
+            { text: 'Introduction', link: '/en/request/' },
+            { text: 'Installation', link: '/en/request/install' },
+            { text: 'Basic Usage', link: '/en/request/basic' }
+          ]
+        },
+        {
+          text: 'Core Features',
+          items: [
+            { text: 'Request Config', link: '/en/request/config' },
+            { text: 'Response Handling', link: '/en/request/response' },
+            { text: 'Interceptors', link: '/en/request/interceptors' },
+            { text: 'Cache Strategy', link: '/en/request/cache' },
+            { text: 'HTTP Cache Protocol', link: '/en/request/http-cache' },
+            { text: 'Security', link: '/en/request/security' },
+            { text: 'Upload & Download', link: '/en/request/upload-download' }
+          ]
+        },
+        {
+          text: 'Vue Hooks',
+          items: [
+            { text: 'useRequest', link: '/en/request/use-request' },
+            { text: 'useRequestSWR', link: '/en/request/use-swr' },
+            { text: 'useSSE', link: '/en/request/use-sse' },
+            { text: 'useAIStream', link: '/en/request/use-ai-stream' },
+            { text: 'usePagination', link: '/en/request/use-pagination' },
+            { text: 'useLoadMore', link: '/en/request/use-load-more' },
+            { text: 'useQueue', link: '/en/request/use-queue' }
+          ]
+        },
+        {
+          text: 'Advanced',
+          items: [
+            { text: 'Adapters', link: '/en/request/adapter' },
+            { text: 'GraphQL', link: '/en/request/graphql' },
+            { text: 'WebSocket', link: '/en/request/websocket' },
+            { text: 'Plugins', link: '/en/request/plugin' },
+            { text: 'Error Handling', link: '/en/request/error' },
+            { text: 'Debug Mode', link: '/en/request/debug' }
+          ]
+        },
+        {
+          text: 'Best Practices',
+          items: [
+            { text: 'UI Integration', link: '/en/request/integration' },
+            { text: 'SSR Usage', link: '/en/request/ssr' },
+            { text: 'TypeScript Guide', link: '/en/request/typescript' },
+            { text: 'FAQ', link: '/en/request/faq' }
+          ]
+        }
       ]
     },
 
@@ -554,7 +668,8 @@ export default defineConfig({
         '@yh-ui/theme/styles': resolve(__dirname, '../../packages/theme/src/styles'),
         '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
         '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
-        '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src')
+        '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src'),
+        '@yh-ui/request': resolve(__dirname, '../../packages/request/src')
       }
     },
     optimizeDeps: {

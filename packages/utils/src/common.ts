@@ -17,21 +17,26 @@ export const generateId = (prefix = 'yh'): string => {
 type AnyFunction = (...args: unknown[]) => unknown
 
 /**
+ * 可取消函数类型
+ */
+interface CancelableFunction<T extends AnyFunction> {
+  (...args: Parameters<T>): ReturnType<T>
+  cancel: () => void
+}
+
+/**
  * 防抖函数
  */
-export const debounce = <T extends AnyFunction>(
-  fn: T,
-  delay: number
-): ((...args: Parameters<T>) => void) & { cancel: () => void } => {
+export const debounce = <T extends AnyFunction>(fn: T, delay: number): CancelableFunction<T> => {
   let timer: ReturnType<typeof setTimeout> | null = null
 
-  const debounced = (...args: Parameters<T>) => {
+  const debounced = ((...args: Parameters<T>) => {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {
       fn(...args)
       timer = null
     }, delay)
-  }
+  }) as CancelableFunction<T>
 
   debounced.cancel = () => {
     if (timer) {
@@ -46,14 +51,11 @@ export const debounce = <T extends AnyFunction>(
 /**
  * 节流函数
  */
-export const throttle = <T extends AnyFunction>(
-  fn: T,
-  delay: number
-): ((...args: Parameters<T>) => void) & { cancel: () => void } => {
+export const throttle = <T extends AnyFunction>(fn: T, delay: number): CancelableFunction<T> => {
   let lastTime = 0
   let timer: ReturnType<typeof setTimeout> | null = null
 
-  const throttled = (...args: Parameters<T>) => {
+  const throttled = ((...args: Parameters<T>) => {
     const now = Date.now()
     const remaining = delay - (now - lastTime)
 
@@ -71,7 +73,7 @@ export const throttle = <T extends AnyFunction>(
         timer = null
       }, remaining)
     }
-  }
+  }) as CancelableFunction<T>
 
   throttled.cancel = () => {
     if (timer) {

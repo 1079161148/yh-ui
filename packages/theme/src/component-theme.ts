@@ -372,6 +372,18 @@ export interface AiMermaidThemeVars extends ComponentThemeVars {
   codeBlockTextColor?: string
 }
 
+/** Carousel 组件主题变量 */
+export interface CarouselThemeVars extends ComponentThemeVars {
+  dotColor?: string
+  dotActiveColor?: string
+  dotSize?: string
+  dotActiveWidth?: string
+  arrowBg?: string
+  arrowHoverBg?: string
+  arrowColor?: string
+  arrowSize?: string
+}
+
 // ==================== 导出所有组件主题类型 ====================
 
 export interface AllComponentThemes {
@@ -402,6 +414,7 @@ export interface AllComponentThemes {
   aiFileCard?: AiFileCardThemeVars
   aiAttachments?: AiAttachmentsThemeVars
   aiMermaid?: AiMermaidThemeVars
+  carousel?: CarouselThemeVars
   [key: string]: ComponentThemeVars | undefined
 }
 
