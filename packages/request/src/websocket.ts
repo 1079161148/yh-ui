@@ -159,10 +159,17 @@ export class WebSocketClient {
    */
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (
-        this.ws &&
-        (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)
-      ) {
+      if (!isWebSocketSupported()) {
+        const error = new Error('WebSocket is not supported in this environment')
+        this.setState('error')
+        reject(error)
+        return
+      }
+
+      const CONNECTING = 0
+      const OPEN = 1
+
+      if (this.ws && (this.ws.readyState === OPEN || this.ws.readyState === CONNECTING)) {
         resolve()
         return
       }
@@ -170,8 +177,6 @@ export class WebSocketClient {
       this.setState('connecting')
 
       try {
-        // 注意：浏览器 WebSocket 不支持自定义 headers
-        // 如果需要自定义 headers，可能需要通过其他方式（如代理）
         this.ws = this.protocols ? new WebSocket(this.url, this.protocols) : new WebSocket(this.url)
 
         this.ws.binaryType = this.options.binaryType
@@ -301,6 +306,7 @@ export class WebSocketClient {
   }
 
   private handleClose(event: CloseEvent): void {
+    this.ws = null
     this.clearTimers()
     this.setState('disconnected')
 

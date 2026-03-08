@@ -198,6 +198,7 @@ import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
 import Viewer from 'viewerjs'
+import 'viewerjs/dist/viewer.css'
 
 defineOptions({
   name: 'YhUpload'

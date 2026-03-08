@@ -1,4 +1,4 @@
-import { ref, computed, onUnmounted, type Ref, type ComputedRef } from 'vue'
+import { ref, reactive, computed, onUnmounted, type Ref, type ComputedRef } from 'vue'
 
 // ==================== 类型定义 ====================
 
@@ -145,27 +145,26 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     onAllComplete
   } = options
 
-  // 任务存储
-  const taskMap = new Map<string, QueueTask<unknown>>()
+  // 任务存储 (使用 reactive 获得深层响应式支持)
+  const taskList = reactive<QueueTask<unknown>[]>([])
 
-  // 响应式触发器
-  const updateTrigger = ref(0)
+  // 快速查找 Map
+  const taskMap = new Map<string, QueueTask<unknown>>()
 
   // 状态
   const isRunning = ref(false)
   const isPaused = ref(false)
   const currentTaskIds = new Set<string>()
+  const version = ref(0) // 用于强制触发响应式更新
 
-  // 触发更新
   const triggerUpdate = () => {
-    updateTrigger.value++
+    version.value++
   }
 
   // 计算属性
   const tasks = computed(() => {
-    // 依赖 updateTrigger 以触发响应式更新
-    void updateTrigger.value
-    return Array.from(taskMap.values()) as QueueTask<T>[]
+    void version.value
+    return [...taskList] as QueueTask<T>[]
   })
 
   const pendingTasks = computed(() =>
@@ -192,7 +191,8 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
 
   // 执行任务
   const executeTask = async <R>(task: QueueTask<R>): Promise<void> => {
-    if (task.status === 'canceled') return
+    // console.log('executeTask start', task.id, task.status)
+    if (task.status === 'canceled' || task.status === 'running') return
 
     // 更新状态
     task.status = 'running'
@@ -210,6 +210,8 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       if ((task.status as QueueTaskStatus) === 'canceled') return
 
       const result = await task.task()
+
+      if ((task.status as QueueTaskStatus) === 'canceled') return
 
       // 更新状态
       task.status = 'fulfilled'
@@ -238,29 +240,36 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
   }
 
   // 处理队列
-  const processQueue = async (): Promise<void> => {
+  const processQueue = (): void => {
     if (isPaused.value || !isRunning.value) return
 
-    // 检查并发数
-    if (currentTaskIds.size >= concurrency) return
+    // 检查并发数并启动任务
+    let launched = 0
+    const available = concurrency - currentTaskIds.size
 
-    // 获取待执行任务
-    const nextTask = pendingTasks.value[0]
-    if (!nextTask) {
-      // 没有更多任务
-      if (currentTaskIds.size === 0 && isRunning.value) {
-        isRunning.value = false
-        onAllComplete?.(tasks.value)
+    if (available <= 0) return
+
+    // 获取当前待执行任务，手动过滤和排序以确保最新状态
+    const pending = taskList
+      .filter((t) => t.status === 'pending')
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+
+    for (let i = 0; i < pending.length && launched < available; i++) {
+      const nextTask = pending[i]
+      if (nextTask) {
+        launched++
+        executeTask(nextTask).finally(() => {
+          if (isRunning.value && !isPaused.value) {
+            setTimeout(processQueue, 0)
+          }
+        })
       }
-      return
     }
 
-    // 执行任务
-    await executeTask(nextTask)
-
-    // 继续处理队列
-    if (isRunning.value && !isPaused.value) {
-      setTimeout(processQueue, 0)
+    // 没有更多任务
+    if (currentTaskIds.size === 0 && pending.length === 0 && isRunning.value) {
+      isRunning.value = false
+      onAllComplete?.(tasks.value)
     }
   }
 
@@ -279,6 +288,7 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     }
 
     taskMap.set(id, newTask as QueueTask<unknown>)
+    taskList.push(newTask as QueueTask<unknown>)
     triggerUpdate()
 
     // 自动开始
@@ -298,6 +308,8 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     if (task && task.status === 'pending') {
       task.status = 'canceled'
       taskMap.delete(taskId)
+      const index = taskList.findIndex((t) => t.id === taskId)
+      if (index > -1) taskList.splice(index, 1)
       triggerUpdate()
     }
   }
@@ -311,6 +323,7 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       }
     })
     taskMap.clear()
+    taskList.length = 0
     currentTaskIds.clear()
     isRunning.value = false
     triggerUpdate()
@@ -332,10 +345,12 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
 
   // 继续队列
   const resume = (): void => {
-    if (!isRunning.value) return
-
     isPaused.value = false
-    processQueue()
+    if (!isRunning.value) {
+      start()
+    } else {
+      processQueue()
+    }
   }
 
   // 取消任务
@@ -345,6 +360,8 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       if (task.status === 'pending') {
         task.status = 'canceled'
         taskMap.delete(taskId)
+        const index = taskList.findIndex((t) => t.id === taskId)
+        if (index > -1) taskList.splice(index, 1)
         triggerUpdate()
       } else if (task.status === 'running') {
         task.status = 'canceled'
@@ -374,7 +391,8 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       task.result = undefined
       task.startTime = undefined
       task.endTime = undefined
-      triggerUpdate()
+      version.value++
+      // triggerRef(taskList) // Removed triggerRef
 
       if (isRunning.value && !isPaused.value) {
         setTimeout(processQueue, 0)
@@ -390,7 +408,6 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
         task.error = undefined
         task.result = undefined
         task.startTime = undefined
-        task.endTime = undefined
       }
     })
     triggerUpdate()

@@ -90,28 +90,28 @@ export interface UseRequestState<TData, TParams extends unknown[]> {
   error: ShallowRef<RequestError | undefined>
   /** 请求参数 */
   params: Ref<TParams>
-  /** 是否为首次加载 */
+  /** 是否网络忙 */
   loadingMore: Ref<boolean>
-  /** 是否有更多数据 */
+  /** 是否没有更多 */
   noMore: Ref<boolean>
 }
 
-/** 请求方法 */
+/** 请求返回类型 */
 export interface UseRequestReturn<TData, TParams extends unknown[]> extends UseRequestState<
   TData,
   TParams
 > {
-  /** 立即执行请求 */
-  run: (...params: TParams) => Promise<RequestResponse<TData>> & { cancel: () => void }
-  /** 手动触发请求 */
-  mutate: (data?: TData | ((oldData?: TData) => TData)) => void
+  /** 执行请求 */
+  run: (...params: TParams) => Promise<RequestResponse<TData>>
+  /** 手动修改数据 */
+  mutate: (newData?: TData | ((oldData?: TData) => TData)) => void
   /** 取消请求 */
   cancel: () => void
-  /** 刷新 */
+  /** 刷新请求 */
   refresh: () => Promise<void>
   /** 加载更多 */
   loadMore: () => Promise<void>
-  /** 禁用 */
+  /** 按钮禁用状态 */
   disabled: ComputedRef<boolean>
 }
 
@@ -182,11 +182,11 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
     if (
       response &&
       typeof response === 'object' &&
-      !('config' in response && 'requestId' in response)
+      !('config' in (response as object) && 'requestId' in (response as object))
     ) {
       return response as TData
     }
-    const res = response as Record<string, unknown>
+    const res = response as { data?: TData }
     return (res?.data ?? res) as TData
   }
 
@@ -277,7 +277,7 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
 
   // 刷新（使用上次的参数）
   const refresh = async () => {
-    await run(...params.value)
+    await run(...params.value).catch(() => {})
   }
 
   // 加载更多
@@ -285,24 +285,43 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
     if (loadingMore.value || noMore.value) return
     loadingMore.value = true
     try {
-      await run(...params.value)
+      await run(...params.value).catch(() => {})
     } finally {
       loadingMore.value = false
     }
   }
 
   // 防抖/节流处理
-  let wrappedRun: typeof run & { cancel: () => void } = run as typeof run & { cancel: () => void }
+  type RunFn = (...params: TParams) => Promise<RequestResponse<TData>>
+  type CancelableRunFn = RunFn & { cancel: () => void }
+
+  let wrappedRun = run as unknown as CancelableRunFn
   let cancelFn: (() => void) | undefined
 
   if (debounceWait) {
-    const debounced = debounce(run as (...args: unknown[]) => unknown, debounceWait)
-    wrappedRun = ((...args: TParams) => run(...args)) as typeof wrappedRun
+    const debounced = debounce(
+      ((...args: TParams) => {
+        run(...args).catch(() => {})
+      }) as (...args: unknown[]) => void,
+      debounceWait
+    )
+    wrappedRun = ((...args: TParams) => {
+      debounced(...args)
+      return undefined as unknown as Promise<RequestResponse<TData>>
+    }) as unknown as CancelableRunFn
     wrappedRun.cancel = () => debounced.cancel()
     cancelFn = () => debounced.cancel()
   } else if (throttleWait) {
-    const throttled = throttle(run as (...args: unknown[]) => unknown, throttleWait)
-    wrappedRun = ((...args: TParams) => run(...args)) as typeof wrappedRun
+    const throttled = throttle(
+      ((...args: TParams) => {
+        run(...args).catch(() => {})
+      }) as (...args: unknown[]) => void,
+      throttleWait
+    )
+    wrappedRun = ((...args: TParams) => {
+      throttled(...args)
+      return undefined as unknown as Promise<RequestResponse<TData>>
+    }) as unknown as CancelableRunFn
     wrappedRun.cancel = () => throttled.cancel()
     cancelFn = () => throttled.cancel()
   }
@@ -316,7 +335,7 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
   if (!manual && defaultParams.length > 0) {
     onMounted(() => {
       if (!debounceWait && !throttleWait) {
-        run(...defaultParams)
+        run(...defaultParams).catch(() => {})
       }
     })
   }
@@ -331,7 +350,7 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
     error,
     params,
     noMore,
-    run: wrappedRun as unknown as UseRequestReturn<TData, TParams>['run'],
+    run: wrappedRun as UseRequestReturn<TData, TParams>['run'],
     mutate,
     cancel,
     refresh,
@@ -383,7 +402,7 @@ export function useRequestSWR<TData = unknown>(
     [string]
   >((key: string) => service(key), {
     manual,
-    defaultParams: manual ? ([] as unknown as [string]) : [getKey()],
+    defaultParams: (manual ? [] : [getKey()]) as unknown as [string],
     ...requestOptions
   })
 
@@ -433,7 +452,7 @@ export function useRequestSWR<TData = unknown>(
       () => {
         const key = getKey()
         if (key) {
-          setTimeout(() => run(key), refreshDepsWait)
+          setTimeout(() => run(key).catch(() => {}), refreshDepsWait)
         }
       },
       { deep: true }
@@ -515,7 +534,7 @@ export function useRequestPolling<TData = unknown, TParams extends unknown[] = u
     isPolling.value = true
 
     // 立即执行一次
-    run(...(params.value as TParams))
+    run(...(params.value as TParams)).catch(() => {})
 
     // 设置定时器
     pollingTimer.value = setInterval(() => {
@@ -523,7 +542,7 @@ export function useRequestPolling<TData = unknown, TParams extends unknown[] = u
       if (!pollingWhenHidden && document.hidden) {
         return
       }
-      run(...(params.value as TParams))
+      run(...(params.value as TParams)).catch(() => {})
     }, pollingInterval)
   }
 

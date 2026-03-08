@@ -137,7 +137,8 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
 
     // 解析数据
     if (line.startsWith('data:')) {
-      result.data = line.slice(5).trim()
+      const data = line.slice(5)
+      result.data = data.startsWith(' ') ? data.slice(1) : data
     }
 
     return result
@@ -146,62 +147,50 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
   // 解析 SSE 消息
   const parseSSE = (rawData: string): SSEMessage | null => {
     const lines = rawData.split('\n')
-    let eventType: SSEEventType = 'message'
+    let originalEventType = 'message'
     let eventData = ''
     let done = false
 
     for (const line of lines) {
       const { event, data } = parseLine(line)
-
-      if (event) {
-        // 映射事件名称
-        switch (event.toLowerCase()) {
-          case 'start':
-            eventType = 'start'
-            break
-          case 'chunk':
-          case 'content':
-            eventType = 'chunk'
-            break
-          case 'done':
-          case 'stop':
-            eventType = 'done'
-            done = true
-            break
-          case 'error':
-            eventType = 'error'
-            break
-          case 'tool':
-          case 'function':
-            eventType = 'tool'
-            break
-          case 'thinking':
-          case 'thinking_start':
-          case 'thinking_end':
-            eventType = 'thinking'
-            break
-          default:
-            // 自定义事件
-            eventType = 'custom'
-            if (onCustomEvent) {
-              try {
-                const parsed = parseJSON ? JSON.parse(data) : data
-                onCustomEvent(event, parsed)
-              } catch {
-                // 解析失败时忽略
-              }
-            }
-            break
-        }
-      }
-
-      if (data) {
-        eventData += data
-      }
+      if (event) originalEventType = event
+      if (data) eventData += data
     }
 
-    // 跳过空消息
-    if (!eventData && eventType !== 'done') return null
+    let eventType: SSEEventType = 'message'
+    switch (originalEventType.toLowerCase()) {
+      case 'start':
+        eventType = 'start'
+        break
+      case 'message':
+      case 'chunk':
+      case 'content':
+        eventType = 'chunk'
+        break
+      case 'done':
+      case 'stop':
+        eventType = 'done'
+        done = true
+        break
+      case 'error':
+        eventType = 'error'
+        break
+      case 'tool':
+      case 'function':
+        eventType = 'tool'
+        break
+      case 'thinking':
+      case 'thinking_start':
+      case 'thinking_end':
+        eventType = 'thinking'
+        break
+      default:
+        eventType = 'custom'
+        break
+    }
+
+    // 跳过空消息 (start和done可以没有data)
+    if (!eventData && eventType !== 'done' && eventType !== 'start') return null
 
     // 解析 JSON
     let finalData: unknown = eventData
@@ -211,6 +200,11 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
       } catch {
         // 保持原始字符串
       }
+    }
+
+    // 触发自定义事件
+    if (eventType === 'custom' && onCustomEvent) {
+      onCustomEvent(originalEventType, finalData)
     }
 
     return {

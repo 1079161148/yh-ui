@@ -207,15 +207,20 @@ export function useAIStream(options: UseAIStreamOptions = {}): UseAIStreamReturn
     onMessage: wrappedOnMessage
   })
 
-  // 创建新的 start 函数
-  const aiStart = (requestOptions?: UseAIStreamOptions) => {
-    // 重置状态
+  // 重置状态函数
+  const aiReset = () => {
     text.value = ''
     thinking.value = ''
     toolCalls.value = []
     done.value = false
+    reset()
+  }
 
-    // 使用基础 SSE，但添加自定义处理 - 不再传入 onMessage，因为它在初始选项中处理
+  // 创建新的 start 函数
+  const aiStart = (requestOptions?: UseAIStreamOptions) => {
+    aiReset()
+
+    // 使用基础 SSE...
     start(requestOptions)
   }
 
@@ -230,6 +235,6 @@ export function useAIStream(options: UseAIStreamOptions = {}): UseAIStreamReturn
     error,
     start: aiStart,
     stop,
-    reset
+    reset: aiReset
   }
 }

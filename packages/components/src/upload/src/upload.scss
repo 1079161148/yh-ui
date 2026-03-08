@@ -1,5 +1,4 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
-@use 'viewerjs/dist/viewer.css';
 
 @include b(upload) {
   --yh-upload-dragger-bg: var(--yh-bg-color);

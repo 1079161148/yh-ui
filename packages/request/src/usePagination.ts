@@ -186,7 +186,7 @@ export function usePagination<TData = unknown, TParams extends unknown[] = [numb
 
   // 分页方法
   const loadPage = async (page: number): Promise<void> => {
-    if (page < 1 || page > totalPages.value) return
+    if (page < 1 || (totalPages.value > 0 && page > totalPages.value)) return
     current.value = page
     await loadData()
   }
