@@ -12,6 +12,7 @@ concurrency:
 env:
   NODE_VERSION: '20'
   PNPM_VERSION: '9'
+  NODE_OPTIONS: '--max-old-space-size=6144'
 
 jobs:
   # ================================================================
