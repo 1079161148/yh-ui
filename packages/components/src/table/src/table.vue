@@ -13,7 +13,8 @@ import {
   nextTick,
   useSlots,
   type CSSProperties,
-  type Ref
+  type Ref,
+  type VNodeChild
 } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -58,6 +59,11 @@ const emit = defineEmits(tableEmits)
 const slots = useSlots()
 const ns = useNamespace('table')
 const { t } = useLocale()
+
+// 辅助组件：用于渲染列自定义内容（支持插槽返回的 VNode 数组）
+const RenderColumn = (props: { render: (params: any) => VNodeChild | string; params: any }) => {
+  return props.render(props.params)
+}
 
 // 组件级 themeOverrides
 const { themeStyle } = useComponentTheme(
@@ -1172,11 +1178,10 @@ watch(selectedRowKeys, () => {
                       >{{ cell.column.headerPrefixIcon }}</span
                     >
 
-                    <slot
-                      v-if="$slots[`header-${cell.column.prop}`]"
-                      :name="`header-${cell.column.prop}`"
-                      :column="cell.column"
-                      :column-index="cellIdx"
+                    <RenderColumn
+                      v-else-if="cell.column.headerRender"
+                      :render="cell.column.headerRender"
+                      :params="{ column: cell.column, columnIndex: cellIdx }"
                     />
                     <template v-else>
                       {{ cell.column.label }}
@@ -1316,11 +1321,10 @@ watch(selectedRowKeys, () => {
                   }}</span>
 
                   <!-- 自定义表头 -->
-                  <slot
-                    v-if="$slots[`header-${column.prop}`]"
-                    :name="`header-${column.prop}`"
-                    :column="column"
-                    :column-index="columnIndex"
+                  <RenderColumn
+                    v-else-if="column.headerRender"
+                    :render="column.headerRender"
+                    :params="{ column: column, columnIndex: columnIndex }"
                   />
                   <template v-else>
                     {{ column.label }}
@@ -1560,16 +1564,15 @@ watch(selectedRowKeys, () => {
                         :row-index="rowIndex"
                         :cell-value="column.prop ? row[column.prop] : undefined"
                       />
-                      <component
+                      <RenderColumn
                         v-else-if="row && column.render"
-                        :is="
-                          column.render({
-                            row,
-                            column,
-                            rowIndex,
-                            cellValue: column.prop ? row[column.prop] : undefined
-                          })
-                        "
+                        :render="column.render"
+                        :params="{
+                          row,
+                          column,
+                          rowIndex,
+                          cellValue: column.prop ? row[column.prop] : undefined
+                        }"
                       />
                       <template v-else>
                         <yh-tooltip

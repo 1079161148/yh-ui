@@ -71,53 +71,95 @@ const tsInteractionDemo = `<${_T}>
     <div class="search-box">
       <yh-input 
         v-model="searchQuery" 
-        placeholder="Search username (Debounced)..." 
+        placeholder="Search task title (Debounced)..." 
       />
     </div>
 
     <div class="tab-box" style="margin: 12px 0;">
       <yh-radio-group v-model="activeTab" type="button" @change="handleTabChange">
-        <yh-radio label="all">All</yh-radio>
-        <yh-radio label="completed">Completed</yh-radio>
+        <yh-radio value="all">All</yh-radio>
+        <yh-radio value="completed">Completed</yh-radio>
       </yh-radio-group>
     </div>
 
-    <yh-table :data="list" :loading="loading">
-      <yh-table-column prop="id" label="ID" width="80" />
-      <yh-table-column prop="title" label="Task Title" />
-      <yh-table-column prop="completed" label="Status" width="100">
-        <template #default="{ row }">
-          <yh-tag :type="row?.completed ? 'success' : 'warning'">
-            {{ row?.completed ? 'Done' : 'Active' }}
-          </yh-tag>
-        </template>
-      </yh-table-column>
-    </yh-table>
+    <!-- Responsive Table Container -->
+    <div style="width: 100%; overflow-x: auto;">
+      <yh-table :data="list" :loading="loading" style="min-width: 600px;">
+        <yh-table-column prop="id" label="ID" width="70" />
+        <yh-table-column prop="title" label="Task Title" min-width="200" show-overflow-tooltip />
+        <yh-table-column prop="completed" label="Status" width="120">
+          <template #default="{ row }">
+            <yh-tag :type="row?.completed ? 'success' : 'warning'">
+              {{ row?.completed ? 'Done' : 'Active' }}
+            </yh-tag>
+          </template>
+        </yh-table-column>
+      </yh-table>
+    </div>
   </div>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { request, useRequest } from '@yh-ui/request'
+
+interface Todo {
+  id: number
+  title: string
+  completed: boolean
+}
 
 const searchQuery = ref('')
 const activeTab = ref('all')
 
-const { data, loading, run } = useRequest(
-  (params) => request.get('https://jsonplaceholder.typicode.com/todos', { 
-    params,
-    requestKey: 'todo-list',
-    abortSameKey: true 
-  }),
-  { debounceWait: 500 }
+// 1. Initialize useRequest: requestKey & abortSameKey for instant cancellation
+const { data, loading, run } = useRequest<Todo[]>(
+  (params) => {
+    // Industrial best practice: clean up parameters
+    const cleanParams = Object.fromEntries(
+      Object.entries(params || {}).filter(([_, v]) => v !== undefined && v !== null)
+    )
+    return request.get('https://jsonplaceholder.typicode.com/todos', { 
+      params: cleanParams,
+      requestKey: 'todo-list', 
+      abortSameKey: true 
+    })
+  },
+  { 
+    manual: false, 
+    defaultParams: [{ _limit: 5 }],
+    // Best practice: handle cancellation errors globally in the hook
+    onError: (err) => {
+      if (err.isCanceled || err.name === 'AbortError') return
+      console.error('Request Error:', err.message)
+    }
+  }
 )
 
-// Watcher for automatically triggering requests (with debounce)
-watch(searchQuery, (q) => run({ q, _limit: 5 }).catch(() => {}))
+// 2. Search Debounce Logic
+let searchTimer: ReturnType<typeof setTimeout> | null = null
+watch(searchQuery, (q) => {
+  if (searchTimer) clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    // No .catch() needed anymore
+    run({ q: q || undefined, _limit: 5, completed: activeTab.value === 'completed' || undefined })
+  }, 500)
+})
 
+// 3. Tab Change: Instant Trigger
 const handleTabChange = (val: string) => {
-  run({ completed: val === 'completed', _limit: 5 }).catch(() => {})
+  if (searchTimer) clearTimeout(searchTimer)
+  // Clean execution
+  run({ 
+    completed: val === 'completed' ? true : undefined, 
+    _limit: 5,
+    q: searchQuery.value || undefined
+  })
 }
+
+onUnmounted(() => {
+  if (searchTimer) clearTimeout(searchTimer)
+})
 
 const list = computed(() => (data.value || []).slice(0, 5))
 </${_S}>`
@@ -240,17 +282,49 @@ const silentRefresh = () => fetchUsers()
 const users = computed(() => (Array.isArray(loadingData.value) ? loadingData.value.slice(0, 5) : []))
 
 // 2. Interaction
+interface Todo { id: number; title: string; completed: boolean }
 const searchQuery = ref('')
 const activeTab = ref('all')
-const { data: interactionData, loading: isInterloading, run: refreshInteraction } = useRequest(
-  (params?: any) => fetch(`${API_BASE}/todos?${new URLSearchParams(params).toString()}`).then(r => r.json()),
-  { debounceWait: 500 }
+
+const { data: interactionData, loading: isInterloading, run: refreshInteraction } = useRequest<Todo[]>(
+  (params) => {
+    const searchParams = new URLSearchParams()
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          searchParams.append(key, String(value))
+        }
+      })
+    }
+    return fetch(`${API_BASE}/todos?${searchParams.toString()}`).then(r => r.json())
+  },
+  { 
+    manual: false, 
+    defaultParams: [{ _limit: 5 }],
+    onError: (err) => {
+      if (err.isCanceled || err.name === 'AbortError') return
+      // Handle other errors
+    }
+  }
 )
+
+let interactionTimer: ReturnType<typeof setTimeout> | null = null
+watch(searchQuery, (q) => {
+  if (interactionTimer) clearTimeout(interactionTimer)
+  interactionTimer = setTimeout(() => {
+    refreshInteraction({ q: q || undefined, _limit: 5, completed: activeTab.value === 'completed' ? true : undefined })
+  }, 500)
+})
+
 const handleTabChange = (val: string) => {
-  activeTab.value = val; 
-  refreshInteraction({ completed: val === 'completed', _limit: 5 }).catch(() => {})
+  activeTab.value = val;
+  if (interactionTimer) clearTimeout(interactionTimer)
+  refreshInteraction({ 
+    completed: val === 'completed' ? true : undefined, 
+    _limit: 5,
+    q: searchQuery.value || undefined 
+  })
 }
-watch(searchQuery, (q) => refreshInteraction({ q, _limit: 5 }).catch(() => {}))
 const interactionList = computed(() => (Array.isArray(interactionData.value) ? interactionData.value.slice(0, 5) : []))
 
 // 3. Pagination
@@ -315,25 +389,27 @@ const { loading: isUploading, run: runUpload } = useRequest(async () => {
 <DemoBlock title="Advanced Interaction Demo" :ts-code="tsInteractionDemo" :js-code="toJs(tsInteractionDemo)">
 <div class="demo-card">
   <div style="margin-bottom: 20px;">
-    <yh-input v-model="searchQuery" placeholder="Search keywords..." />
+    <yh-input v-model="searchQuery" placeholder="Search task title (Debounced)..." />
   </div>
   <div style="margin-bottom: 16px;">
     <yh-radio-group v-model="activeTab" type="button" @change="handleTabChange">
-      <yh-radio label="all">All</yh-radio>
-      <yh-radio label="completed">Completed</yh-radio>
+      <yh-radio value="all">All</yh-radio>
+      <yh-radio value="completed">Completed</yh-radio>
     </yh-radio-group>
   </div>
-  <yh-table :data="interactionList" :loading="isInterloading">
-    <yh-table-column prop="id" label="ID" width="80" />
-    <yh-table-column prop="title" label="Task Title" show-overflow-tooltip />
-    <yh-table-column prop="completed" label="Status" width="100">
-      <template #default="{ row }">
-        <yh-tag :type="row?.completed ? 'success' : 'warning'">
-          {{ row?.completed ? 'Done' : 'Active' }}
-        </yh-tag>
-      </template>
-    </yh-table-column>
-  </yh-table>
+  <div style="width: 100%; overflow-x: auto;">
+    <yh-table :data="interactionList" :loading="isInterloading" style="min-width: 600px;">
+      <yh-table-column prop="id" label="ID" width="70" />
+      <yh-table-column prop="title" label="Task Title" min-width="200" show-overflow-tooltip />
+      <yh-table-column prop="completed" label="Status" width="120">
+        <template #default="{ row }">
+          <yh-tag :type="row?.completed ? 'success' : 'warning'">
+            {{ row?.completed ? 'Done' : 'Active' }}
+          </yh-tag>
+        </template>
+      </yh-table-column>
+    </yh-table>
+  </div>
 </div>
 </DemoBlock>
 

@@ -3,7 +3,7 @@
  * YhTableColumn - 表格列组件
  * 用于声明式定义表格列
  */
-import { inject, onMounted, onUnmounted } from 'vue'
+import { inject, onMounted, onUnmounted, useSlots } from 'vue'
 import { tableContextKey, type TableColumn } from './table'
 
 defineOptions({
@@ -77,6 +77,7 @@ const props = withDefaults(
   }
 )
 
+const slots = useSlots()
 const tableContext = inject(tableContextKey, null)
 
 // 构建列配置
@@ -100,7 +101,10 @@ const columnConfig: TableColumn = {
   headerClassName: props.headerClassName,
   type: props.type,
   visible: props.visible,
-  treeNode: props.treeNode
+  treeNode: props.treeNode,
+  // 注入插槽渲染函数
+  render: slots.default ? (params) => slots.default!(params) : undefined,
+  headerRender: slots.header ? (params) => slots.header!(params) : undefined
 }
 
 onMounted(() => {
@@ -117,7 +121,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <slot />
+  <div v-if="false" />
 </template>
 
 <style lang="scss">

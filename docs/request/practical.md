@@ -71,53 +71,95 @@ const tsInteractionDemo = `<${_T}>
     <div class="search-box">
       <yh-input 
         v-model="searchQuery" 
-        placeholder="输入用户名搜索 (防抖)..." 
+        placeholder="输入任务标题搜索 (防抖)..." 
       />
     </div>
 
     <div class="tab-box" style="margin: 12px 0;">
       <yh-radio-group v-model="activeTab" type="button" @change="handleTabChange">
-        <yh-radio label="all">全部</yh-radio>
-        <yh-radio label="completed">已完成</yh-radio>
+        <yh-radio value="all">全部</yh-radio>
+        <yh-radio value="completed">已完成</yh-radio>
       </yh-radio-group>
     </div>
 
-    <yh-table :data="list" :loading="loading">
-      <yh-table-column prop="id" label="ID" width="80" />
-      <yh-table-column prop="title" label="任务标题" />
-      <yh-table-column prop="completed" label="状态" width="100">
-        <template #default="{ row }">
-          <yh-tag :type="row?.completed ? 'success' : 'warning'">
-            {{ row?.completed ? '已完成' : '进行中' }}
-          </yh-tag>
-        </template>
-      </yh-table-column>
-    </yh-table>
+    <!-- 响应式表格容器 -->
+    <div style="width: 100%; overflow-x: auto;">
+      <yh-table :data="list" :loading="loading" style="min-width: 600px;">
+        <yh-table-column prop="id" label="ID" width="70" />
+        <yh-table-column prop="title" label="任务标题" min-width="200" show-overflow-tooltip />
+        <yh-table-column prop="completed" label="状态" width="120">
+          <template #default="{ row }">
+            <yh-tag :type="row?.completed ? 'success' : 'warning'">
+              {{ row?.completed ? '已完成' : '进行中' }}
+            </yh-tag>
+          </template>
+        </yh-table-column>
+      </yh-table>
+    </div>
   </div>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { request, useRequest } from '@yh-ui/request'
+
+interface Todo {
+  id: number
+  title: string
+  completed: boolean
+}
 
 const searchQuery = ref('')
 const activeTab = ref('all')
 
-const { data, loading, run } = useRequest(
-  (params) => request.get('https://jsonplaceholder.typicode.com/todos', { 
-    params,
-    requestKey: 'todo-list',
-    abortSameKey: true 
-  }),
-  { debounceWait: 500 }
+// 1. 初始化 useRequest：利用 requestKey & abortSameKey 实现快速切换时的自动取消
+const { data, loading, run } = useRequest<Todo[]>(
+  (params) => {
+    // 工业级最佳实践：清理请求参数
+    const cleanParams = Object.fromEntries(
+      Object.entries(params || {}).filter(([_, v]) => v !== undefined && v !== null)
+    )
+    return request.get('https://jsonplaceholder.typicode.com/todos', { 
+      params: cleanParams,
+      requestKey: 'todo-list', 
+      abortSameKey: true 
+    })
+  },
+  { 
+    manual: false, 
+    defaultParams: [{ _limit: 5 }],
+    // 最佳实践：在 Hook 全局配置中统一处理取消类错误
+    onError: (err) => {
+      if (err.isCanceled || err.name === 'AbortError') return
+      console.error('Request Error:', err.message)
+    }
+  }
 )
 
-// 监听搜索词自动触发 (带防抖)
-watch(searchQuery, (q) => run({ q, _limit: 5 }).catch(() => {}))
+// 2. 搜索防抖逻辑
+let searchTimer: ReturnType<typeof setTimeout> | null = null
+watch(searchQuery, (q) => {
+  if (searchTimer) clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    // 无需再手动写 .catch()
+    run({ q: q || undefined, _limit: 5, completed: activeTab.value === 'completed' || undefined })
+  }, 500)
+})
 
+// 3. Tab 切换：立即触发，无需等待防抖
 const handleTabChange = (val: string) => {
-  run({ completed: val === 'completed', _limit: 5 }).catch(() => {})
+  if (searchTimer) clearTimeout(searchTimer)
+  // 保持调用链路简洁清爽
+  run({ 
+    completed: val === 'completed' ? true : undefined, 
+    _limit: 5,
+    q: searchQuery.value || undefined
+  })
 }
+
+onUnmounted(() => {
+  if (searchTimer) clearTimeout(searchTimer)
+})
 
 const list = computed(() => (data.value || []).slice(0, 5))
 </${_S}>`
@@ -240,17 +282,49 @@ const silentRefresh = () => fetchUsers()
 const users = computed(() => (Array.isArray(loadingData.value) ? loadingData.value.slice(0, 5) : []))
 
 // 2. Interaction
+interface Todo { id: number; title: string; completed: boolean }
 const searchQuery = ref('')
 const activeTab = ref('all')
-const { data: interactionData, loading: isInterloading, run: refreshInteraction } = useRequest(
-  (params?: any) => fetch(`${API_BASE}/todos?${new URLSearchParams(params).toString()}`).then(r => r.json()),
-  { debounceWait: 500 }
+
+const { data: interactionData, loading: isInterloading, run: refreshInteraction } = useRequest<Todo[]>(
+  (params) => {
+    const searchParams = new URLSearchParams()
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          searchParams.append(key, String(value))
+        }
+      })
+    }
+    return fetch(`${API_BASE}/todos?${searchParams.toString()}`).then(r => r.json())
+  },
+  { 
+    manual: false, 
+    defaultParams: [{ _limit: 5 }],
+    onError: (err) => {
+      if (err.isCanceled || err.name === 'AbortError') return
+      // 处理其他真实报错
+    }
+  }
 )
+
+let interactionTimer: ReturnType<typeof setTimeout> | null = null
+watch(searchQuery, (q) => {
+  if (interactionTimer) clearTimeout(interactionTimer)
+  interactionTimer = setTimeout(() => {
+    refreshInteraction({ q: q || undefined, _limit: 5, completed: activeTab.value === 'completed' ? true : undefined })
+  }, 500)
+})
+
 const handleTabChange = (val: string) => {
-  activeTab.value = val; 
-  refreshInteraction({ completed: val === 'completed', _limit: 5 }).catch(() => {})
+  activeTab.value = val;
+  if (interactionTimer) clearTimeout(interactionTimer)
+  refreshInteraction({ 
+    completed: val === 'completed' ? true : undefined, 
+    _limit: 5,
+    q: searchQuery.value || undefined 
+  })
 }
-watch(searchQuery, (q) => refreshInteraction({ q, _limit: 5 }).catch(() => {}))
 const interactionList = computed(() => (Array.isArray(interactionData.value) ? interactionData.value.slice(0, 5) : []))
 
 // 3. Pagination
@@ -315,25 +389,27 @@ const { loading: isUploading, run: runUpload } = useRequest(async () => {
 <DemoBlock title="高级交互演示" :ts-code="tsInteractionDemo" :js-code="toJs(tsInteractionDemo)">
 <div class="demo-card">
   <div style="margin-bottom: 20px;">
-    <yh-input v-model="searchQuery" placeholder="输入关键词进行防抖搜索..." />
+    <yh-input v-model="searchQuery" placeholder="输入任务标题进行防抖搜索..." />
   </div>
   <div style="margin-bottom: 16px;">
     <yh-radio-group v-model="activeTab" type="button" @change="handleTabChange">
-      <yh-radio label="all">全部</yh-radio>
-      <yh-radio label="completed">已完成</yh-radio>
+      <yh-radio value="all">全部</yh-radio>
+      <yh-radio value="completed">已完成</yh-radio>
     </yh-radio-group>
   </div>
-  <yh-table :data="interactionList" :loading="isInterloading">
-    <yh-table-column prop="id" label="ID" width="80" />
-    <yh-table-column prop="title" label="任务标题" show-overflow-tooltip />
-    <yh-table-column prop="completed" label="状态" width="100">
-      <template #default="{ row }">
-        <yh-tag :type="row?.completed ? 'success' : 'warning'">
-          {{ row?.completed ? '已完成' : '进行中' }}
-        </yh-tag>
-      </template>
-    </yh-table-column>
-  </yh-table>
+  <div style="width: 100%; overflow-x: auto;">
+    <yh-table :data="interactionList" :loading="isInterloading" style="min-width: 600px;">
+      <yh-table-column prop="id" label="ID" width="70" />
+      <yh-table-column prop="title" label="任务标题" min-width="200" show-overflow-tooltip />
+      <yh-table-column prop="completed" label="状态" width="120">
+        <template #default="{ row }">
+          <yh-tag :type="row?.completed ? 'success' : 'warning'">
+            {{ row?.completed ? '已完成' : '进行中' }}
+          </yh-tag>
+        </template>
+      </yh-table-column>
+    </yh-table>
+  </div>
 </div>
 </DemoBlock>
 

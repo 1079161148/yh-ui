@@ -4,7 +4,15 @@
  * 融合 vxe-table、Element Plus、Naive UI、Ant Design 各家之长
  */
 
-import type { ExtractPropTypes, PropType, InjectionKey, CSSProperties, VNode, Component } from 'vue'
+import type {
+  ExtractPropTypes,
+  PropType,
+  InjectionKey,
+  CSSProperties,
+  VNode,
+  Component,
+  VNodeChild
+} from 'vue'
 
 import type { TooltipPlacement } from '../../tooltip'
 
@@ -81,9 +89,9 @@ export interface TableColumn<T = Record<string, unknown>> {
     column: TableColumn<T>
     rowIndex: number
     cellValue: unknown
-  }) => VNode | string
+  }) => VNodeChild | string
   /** 自定义表头渲染 */
-  headerRender?: (params: { column: TableColumn<T>; columnIndex: number }) => VNode | string
+  headerRender?: (params: { column: TableColumn<T>; columnIndex: number }) => VNodeChild | string
   /** 表头前缀图标 */
   headerPrefixIcon?: string | Component
   /** 表头后缀图标 */
