@@ -49,7 +49,7 @@ const result = useAIStream(options)
 ```
 
 | 字段              | 类型                                | 说明                         |
-| ----------------- | ----------------------------------- | ---------------------------- | -------- |
+| ----------------- | ----------------------------------- | ---------------------------- |
 | `loading`         | `Ref<boolean>`                      | 是否正在接收                 |
 | `content`         | `Ref<string>`                       | 原始流式文本                 |
 | `text`            | `Ref<string>`                       | 解析后的纯文本（追加或覆盖） |
@@ -57,10 +57,10 @@ const result = useAIStream(options)
 | `toolCalls`       | `Ref<AIStreamMessage['toolCalls']>` | 工具调用列表                 |
 | `done`            | `Ref<boolean>`                      | 是否完成                     |
 | `messages`        | `Ref<SSEMessage[]>`                 | 底层 SSE 消息                |
-| `error`           | `Ref<Error \\                       | undefined>`                  | 错误对象 |
-| `start(options?)` | 启动 AI 流式请求                    |
-| `stop()`          | 停止流式请求                        |
-| `reset()`         | 重置所有状态                        |
+| `error`           | `Ref<Error \| undefined>`           | 错误对象                     |
+| `start(options?)` | —                                   | 启动 AI 流式请求             |
+| `stop()`          | —                                   | 停止流式请求                 |
+| `reset()`         | —                                   | 重置所有状态                 |
 
 ## 选项
 

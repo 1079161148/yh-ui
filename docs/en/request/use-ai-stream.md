@@ -58,9 +58,9 @@ const result = useAIStream(options)
 | `done`            | `Ref<boolean>`                      | Whether done                           |
 | `messages`        | `Ref<SSEMessage[]>`                 | Underlying SSE messages                |
 | `error`           | `Ref<Error \| undefined>`           | Error object                           |
-| `start(options?)` | Start AI streaming request          |
-| `stop()`          | Stop streaming request              |
-| `reset()`         | Reset all state                     |
+| `start(options?)` | —                                   | Start AI streaming request             |
+| `stop()`          | —                                   | Stop streaming request                 |
+| `reset()`         | —                                   | Reset all state                        |
 
 ## Options
 

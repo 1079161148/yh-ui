@@ -307,7 +307,7 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
     )
     wrappedRun = ((...args: TParams) => {
       debounced(...args)
-      return undefined as unknown as Promise<RequestResponse<TData>>
+      return Promise.resolve() as unknown as Promise<RequestResponse<TData>>
     }) as unknown as CancelableRunFn
     wrappedRun.cancel = () => debounced.cancel()
     cancelFn = () => debounced.cancel()
@@ -320,7 +320,7 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
     )
     wrappedRun = ((...args: TParams) => {
       throttled(...args)
-      return undefined as unknown as Promise<RequestResponse<TData>>
+      return Promise.resolve() as unknown as Promise<RequestResponse<TData>>
     }) as unknown as CancelableRunFn
     wrappedRun.cancel = () => throttled.cancel()
     cancelFn = () => throttled.cancel()

@@ -28,6 +28,17 @@ const {
 })
 ```
 
+## 配置项
+
+| 参数              | 类型                    | 默认值  | 说明                               |
+| ----------------- | ----------------------- | ------- | ---------------------------------- |
+| `concurrency`     | `number`                | `1`     | 最大并发执行任务数                 |
+| `autoStart`       | `boolean`               | `true`  | 添加任务后是否自动开始执行         |
+| `continueOnError` | `boolean`               | `false` | 单个任务失败时是否继续执行后续任务 |
+| `onTaskComplete`  | `(task) => void`        | -       | 单个任务完成回调                   |
+| `onTaskError`     | `(task, error) => void` | -       | 单个任务失败回调                   |
+| `onAllComplete`   | `(tasks) => void`       | -       | 全部任务完成回调                   |
+
 ## 队列任务结构
 
 ```typescript
@@ -173,8 +184,10 @@ const handleFiles = (files: FileList) => {
 | `pause()` / `resume()`                                             | 暂停 / 恢复队列       |
 | `cancel(taskId)` / `cancelAll()`                                   | 取消任务              |
 | `retry(taskId)` / `retryAll()`                                     | 重试任务              |
+| `getTask(taskId)`                                                  | 根据任务 ID 获取任务  |
 | `pendingTasks` / `runningTasks` / `completedTasks` / `failedTasks` | 不同状态的任务列表    |
 | `isRunning` / `isEmpty` / `isAllComplete`                          | 队列整体状态          |
+| `completedCount` / `totalCount`                                    | 已完成数量 / 总任务数 |
 
 ## 进阶：结合 useRequestQueue
 

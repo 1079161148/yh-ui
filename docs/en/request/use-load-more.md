@@ -51,40 +51,41 @@ Template example:
 const result = useLoadMore<TData>(service, options)
 ```
 
-| Field         | Type                                                                            | Description             |
-| ------------- | ------------------------------------------------------------------------------- | ----------------------- | ---------------------------------------- |
-| `current`     | `Ref<number>`                                                                   | Current page            |
-| `pageSize`    | `Ref<number>`                                                                   | Items per page          |
-| `total`       | `Ref<number>`                                                                   | Total count             |
-| `totalPages`  | `Ref<number>`                                                                   | Total pages             |
-| `data`        | `ShallowRef<TData                                                               | undefined>`             | Data (usually array or object with list) |
-| `loading`     | `Ref<boolean>`                                                                  | First screen loading    |
-| `refreshing`  | `Ref<boolean>`                                                                  | Refreshing              |
-| `loadingMore` | `Ref<boolean>`                                                                  | Loading more            |
-| `error`       | `ShallowRef<unknown>`                                                           | Error                   |
-| `params`      | `Ref<unknown[]>`                                                                | Extra params            |
-| `noMore`      | `Ref<boolean>`                                                                  | Whether there's no more |
-| `canLoadMore` | `Ref<boolean>`                                                                  | Whether can load more   |
-| `loadMore()`  | Load next page and append data                                                  |
-| `reload()`    | Reset and reload                                                                |
-| `refresh()`   | Refresh current data                                                            |
-| `pagination`  | A set of pagination utility methods (compatible with `usePagination` interface) |
+| Field         | Type                             | Description                                                                     |
+| ------------- | -------------------------------- | ------------------------------------------------------------------------------- |
+| `current`     | `Ref<number>`                    | Current page                                                                    |
+| `pageSize`    | `Ref<number>`                    | Items per page                                                                  |
+| `total`       | `Ref<number>`                    | Total count                                                                     |
+| `totalPages`  | `Ref<number>`                    | Total pages                                                                     |
+| `data`        | `ShallowRef<TData \| undefined>` | Data (usually array or object with list)                                        |
+| `loading`     | `Ref<boolean>`                   | First screen loading                                                            |
+| `refreshing`  | `Ref<boolean>`                   | Refreshing                                                                      |
+| `loadingMore` | `Ref<boolean>`                   | Loading more                                                                    |
+| `error`       | `ShallowRef<unknown>`            | Error                                                                           |
+| `params`      | `Ref<unknown[]>`                 | Extra params                                                                    |
+| `noMore`      | `Ref<boolean>`                   | Whether there's no more                                                         |
+| `canLoadMore` | `Ref<boolean>`                   | Whether can load more                                                           |
+| `loadMore()`  | —                                | Load next page and append data                                                  |
+| `reload()`    | —                                | Reset and reload                                                                |
+| `refresh()`   | —                                | Refresh current data                                                            |
+| `pagination`  | —                                | A set of pagination utility methods (compatible with `usePagination` interface) |
 
 ## Options
 
+The first argument to `useLoadMore(service, options)` is the request function `service(page, pageSize, ...args)`; the second is the options object:
+
 ```typescript
 interface UseLoadMoreOptions<TData, TParams extends unknown[]> {
-  service: (page: number, pageSize: number, ...args: TParams) => Promise<RequestResponse<TData>>
   initialPage?: number // Initial page, default 1
   pageSize?: number // Items per page, default 10
   isLoadMore?: boolean // Whether to allow load more, default true
   threshold?: number // Infinite scroll trigger threshold (reserved)
-  loadMoreService?: (page: number, pageSize: number) => Promise<RequestResponse<TData>>
+  loadMoreService?: (page: number, pageSize: number) => Promise<RequestResponse<TData>> // Optional different request for load more
   onSuccess?: (data: TData, params: TParams) => void
   onError?: (error: unknown, params: TParams) => void
   onFinally?: (params: TParams) => void
   manual?: boolean // Whether to manually trigger first load
-  defaultParams?: TParams // Extra params
+  defaultParams?: TParams // Extra params besides page and pageSize
 }
 ```
 

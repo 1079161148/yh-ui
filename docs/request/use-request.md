@@ -41,6 +41,22 @@ const {
 } = useRequest(service, options)
 ```
 
+## 完整配置项
+
+`useRequest(service, options)` 的 `options` 继承自请求库的 `RequestOptions`（如 `baseURL`、`timeout`、`headers` 等），并包含以下 Hook 专用配置：
+
+| 参数            | 类型                      | 默认值  | 说明                                              |
+| --------------- | ------------------------- | ------- | ------------------------------------------------- |
+| `manual`        | `boolean`                 | `false` | 是否手动触发，为 `true` 时需调用 `run()` 才发请求 |
+| `defaultParams` | `TParams`                 | `[]`    | 默认请求参数，非 manual 时首次会用该参数请求      |
+| `debounceWait`  | `number`                  | -       | 防抖时间（毫秒），多次调用 `run` 时防抖           |
+| `throttleWait`  | `number`                  | -       | 节流时间（毫秒），多次调用 `run` 时节流           |
+| `request`       | `Request`                 | -       | 自定义请求实例                                    |
+| `formatResult`  | `(response) => TData`     | -       | 格式化响应，从 `RequestResponse` 中提取业务数据   |
+| `onSuccess`     | `(data, params) => void`  | -       | 请求成功回调                                      |
+| `onError`       | `(error, params) => void` | -       | 请求失败回调                                      |
+| `onFinally`     | `(params) => void`        | -       | 请求完成回调（成功或失败都会执行）                |
+
 ## 常用配置
 
 ```typescript
@@ -138,6 +154,37 @@ const handleSubmit = () => {
   run({ ...form })
 }
 ```
+
+## 轮询（useRequestPolling）
+
+`useRequestPolling` 基于 `useRequest` 封装，用于**按间隔轮询**同一接口（如订单状态、任务进度）。
+
+```typescript
+import { useRequestPolling } from '@yh-ui/request'
+
+const { data, loading, pause, resume } = useRequestPolling(() => request.get('/api/task/status'), {
+  polling: true, // 是否开启轮询，默认 false
+  pollingInterval: 3000, // 轮询间隔（毫秒），默认 3000
+  pollingWhenHidden: false, // 页面隐藏时是否暂停轮询，默认 false
+  defaultParams: [] // 请求参数（与 useRequest 一致）
+})
+
+// 暂停轮询
+pause()
+
+// 恢复轮询
+resume()
+```
+
+### 轮询配置项
+
+| 参数                | 类型      | 默认值  | 说明                     |
+| ------------------- | --------- | ------- | ------------------------ |
+| `polling`           | `boolean` | `false` | 是否开启轮询             |
+| `pollingInterval`   | `number`  | `3000`  | 轮询间隔（毫秒）         |
+| `pollingWhenHidden` | `boolean` | `false` | 页面不可见时是否暂停轮询 |
+
+其余配置与 `useRequest` 相同（如 `onSuccess`、`onError`、`manual`、`defaultParams` 等）。返回值为 `useRequest` 的返回值外加 `pause`、`resume`。
 
 ## 与 SWR / 分页等组合
 

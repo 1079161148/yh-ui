@@ -59,9 +59,25 @@ const result = useSSE(options)
 | `content`         | `Ref<string>`                        | Accumulated text content (concatenated in order) |
 | `messages`        | `Ref<SSEMessage[]>`                  | All parsed messages                              |
 | `error`           | `ShallowRef<Error \| undefined>`     | Error object                                     |
-| `start(options?)` | `(options?: RequestOptions) => void` |
-| `stop()`          | Stop streaming request               |
-| `reset()`         | Reset all state                      |
+| `start(options?)` | `(options?: RequestOptions) => void` | Start streaming request; see below               |
+| `stop()`          | `() => void`                         | Stop streaming request                           |
+| `reset()`         | `() => void`                         | Reset all state                                  |
+
+### start(options) parameters
+
+The `options` passed to `start(options)` are request config (`RequestOptions`). Common fields:
+
+| Field     | Type                     | Description                         |
+| --------- | ------------------------ | ----------------------------------- |
+| `url`     | `string`                 | Request URL (required)              |
+| `method`  | `string`                 | HTTP method, e.g. `'GET'`, `'POST'` |
+| `data`    | `object`                 | Request body (POST, etc.)           |
+| `params`  | `object`                 | URL query params                    |
+| `headers` | `Record<string, string>` | Request headers                     |
+| `baseURL` | `string`                 | Base URL                            |
+| `timeout` | `number`                 | Timeout (ms)                        |
+
+If `options` is omitted, defaults from the `useSSE` options are used (e.g. set `url` there).
 
 ## Options
 

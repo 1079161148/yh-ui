@@ -226,7 +226,14 @@ export function usePagination<TData = unknown, TParams extends unknown[] = [numb
   }
 
   // 监听分页变化
-  watch([current, pageSize], () => {
+  watch(pageSize, () => {
+    if (!manual) {
+      current.value = 1
+      loadData()
+    }
+  })
+
+  watch(current, () => {
     if (!manual) {
       loadData()
     }

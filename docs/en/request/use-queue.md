@@ -28,6 +28,17 @@ const {
 })
 ```
 
+## Options
+
+| Option            | Type                    | Default | Description                        |
+| ----------------- | ----------------------- | ------- | ---------------------------------- |
+| `concurrency`     | `number`                | `1`     | Max concurrent tasks               |
+| `autoStart`       | `boolean`               | `true`  | Auto start when tasks are added    |
+| `continueOnError` | `boolean`               | `false` | Continue running when a task fails |
+| `onTaskComplete`  | `(task) => void`        | -       | Callback when a task completes     |
+| `onTaskError`     | `(task, error) => void` | -       | Callback when a task fails         |
+| `onAllComplete`   | `(tasks) => void`       | -       | Callback when all tasks complete   |
+
 ## Queue Task Structure
 
 ```typescript
@@ -173,8 +184,10 @@ const handleFiles = (files: FileList) => {
 | `pause()` / `resume()`                                             | Pause / Resume queue           |
 | `cancel(taskId)` / `cancelAll()`                                   | Cancel task                    |
 | `retry(taskId)` / `retryAll()`                                     | Retry task                     |
+| `getTask(taskId)`                                                  | Get task by ID                 |
 | `pendingTasks` / `runningTasks` / `completedTasks` / `failedTasks` | Task lists of different states |
 | `isRunning` / `isEmpty` / `isAllComplete`                          | Overall queue state            |
+| `completedCount` / `totalCount`                                    | Completed count / Total count  |
 
 ## Advanced: Combine with useRequestQueue
 

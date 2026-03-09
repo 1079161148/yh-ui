@@ -538,7 +538,8 @@ export default defineConfig({
             { text: 'useAIStream', link: '/request/use-ai-stream' },
             { text: 'usePagination', link: '/request/use-pagination' },
             { text: 'useLoadMore', link: '/request/use-load-more' },
-            { text: 'useQueue', link: '/request/use-queue' }
+            { text: 'useQueue', link: '/request/use-queue' },
+            { text: 'useRequestQueue', link: '/request/use-request-queue' }
           ]
         },
         {
@@ -556,6 +557,7 @@ export default defineConfig({
           text: '最佳实践',
           items: [
             { text: '与 UI 组件集成', link: '/request/integration' },
+            { text: '实战案例', link: '/request/practical' },
             { text: 'SSR 使用', link: '/request/ssr' },
             { text: 'TypeScript 指南', link: '/request/typescript' },
             { text: '常见问题 FAQ', link: '/request/faq' }
@@ -593,7 +595,8 @@ export default defineConfig({
             { text: 'useAIStream', link: '/en/request/use-ai-stream' },
             { text: 'usePagination', link: '/en/request/use-pagination' },
             { text: 'useLoadMore', link: '/en/request/use-load-more' },
-            { text: 'useQueue', link: '/en/request/use-queue' }
+            { text: 'useQueue', link: '/en/request/use-queue' },
+            { text: 'useRequestQueue', link: '/en/request/use-request-queue' }
           ]
         },
         {
@@ -611,6 +614,7 @@ export default defineConfig({
           text: 'Best Practices',
           items: [
             { text: 'UI Integration', link: '/en/request/integration' },
+            { text: 'Practical Examples', link: '/en/request/practical' },
             { text: 'SSR Usage', link: '/en/request/ssr' },
             { text: 'TypeScript Guide', link: '/en/request/typescript' },
             { text: 'FAQ', link: '/en/request/faq' }

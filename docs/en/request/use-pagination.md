@@ -80,16 +80,17 @@ const result = usePagination<TData, TParams>(service, options)
 
 ## Options
 
+The first argument to `usePagination(service, options)` is the request function `service(page, pageSize, ...args)`; the second is the options object:
+
 ```typescript
 interface UsePaginationOptions<TData, TParams extends unknown[]> {
-  service: (...args: TParams) => Promise<RequestResponse<TData>>
-  defaultPagination?: PaginationOptions // Default pagination params
+  defaultPagination?: PaginationOptions // Default pagination { current, pageSize }
   request?: Request // Custom request instance (reserved)
   onSuccess?: (data: TData, params: TParams) => void
   onError?: (error: unknown, params: TParams) => void
   onFinally?: (params: TParams) => void
-  manual?: boolean // Manual trigger
-  defaultParams?: TParams // Extra params
+  manual?: boolean // Manual first load
+  defaultParams?: TParams // Extra params besides page and pageSize (e.g. keyword)
 }
 ```
 

@@ -316,7 +316,7 @@ const tsAiChatDemo = `<${_T}>
 <${_S} setup lang="ts">
 import { ref } from 'vue'
 import { useRequest } from '@yh-ui/request'
-import type { AiChatMessage } from '@yh-ui/request'
+import type { AiChatMessage } from '@yh-ui/components'
 
 const messages = ref<AiChatMessage[]>([{ id: '1', role: 'assistant', content: 'Hello!' }])
 

@@ -2,6 +2,77 @@
 
 > A modern HTTP request library for enterprise applications, AI applications, and general-purpose scenarios
 
+## Feature Coverage
+
+| Capability           |   Status    | Notes                                              |
+| :------------------- | :---------: | :------------------------------------------------- |
+| Basic Requests       | ✅ Complete | GET/POST/PUT/DELETE, supports generics & inference |
+| Interceptors         | ✅ Complete | Request/response interceptors, error handling      |
+| Caching              | ✅ Complete | In-memory, LocalStorage, IndexedDB, SWR            |
+| HTTP Cache Protocol  | ✅ Complete | ETag, Last-Modified conditional requests           |
+| Retry                | ✅ Complete | Exponential backoff, custom retry conditions       |
+| Concurrency Control  | ✅ Complete | Deduplication, debounce, throttle                  |
+| Upload/Download      | ✅ Complete | Progress tracking, pause/resume                    |
+| WebSocket            | ✅ Complete | Connection management                              |
+| GraphQL              | ✅ Complete | Query builder                                      |
+| Security             | ✅ Complete | CSRF protection, token auto-refresh                |
+| Vue Hooks            | ✅ Complete | useRequest, useSSE, useAIStream, useQueue, etc.    |
+| SSR Support          | ✅ Complete | SSR compatible                                     |
+| Adapter Architecture | ✅ Complete | Browser/Node.js/Deno/Bun/Edge                      |
+| Plugin System        | ✅ Complete | Extensible plugins                                 |
+
+## Compared with Mainstream Options
+
+| Feature             |        @yh-ui/request         |          Axios          |     @tanstack/query     |
+| :------------------ | :---------------------------: | :---------------------: | :---------------------: |
+| Positioning         |      Request lib + Hooks      |    Pure HTTP client     | Server-state management |
+| TypeScript          |              ✅               |           ✅            |           ✅            |
+| SWR Caching         |              ✅               |   ❌ (wrap yourself)    |       ✅ built-in       |
+| Streaming (SSE)     |           ✅ useSSE           |   ❌ (wrap yourself)    |           ❌            |
+| AI Streaming Output |        ✅ useAIStream         |           ❌            |           ❌            |
+| Request Queue       | ✅ useQueue / useRequestQueue |           ❌            |           ❌            |
+| Plugin System       |              ✅               |           ❌            |   ✅ (devtools, etc.)   |
+| Cross-Platform      |              ✅               |     ❌ browser-only     |           ✅            |
+| Enterprise Security |         ✅ CSRF/Token         | ❌ (implement yourself) |           ❌            |
+
+## Core Advantages
+
+### 1. Strict Type Safety
+
+Full-chain TypeScript type inference, from request to response, zero `any`, farewell to type errors.
+
+```typescript
+// Auto-infer response type
+const { data } = await request.get<User>('/api/users/1')
+// data: User ✓
+
+// Path parameter type safety
+type Params = PathParams<'/api/users/:id/:commentId'>
+// => { id: string; commentId: string } ✓
+```
+
+### 2. Powerful Vue Hooks
+
+One line of code handles loading states, error handling, cache updates - no more repetitive boilerplate.
+
+```typescript
+const { data, loading, error, run } = useRequest(() => fetchUser(id), {
+  manual: false,
+  defaultParams: [1],
+  onSuccess: (data) => console.log(data)
+})
+```
+
+### 3. Enterprise-Grade Features Out of the Box
+
+No additional configuration needed - request retry, concurrency control, progress monitoring, security protection and more come ready to use.
+
+- Request retry with exponential backoff
+- Request deduplication and debouncing
+- Concurrency control
+- Upload/Download progress
+- CSRF protection and token auto-refresh
+
 ## Features
 
 - **TypeScript First**: Full type inference throughout the chain, zero `any`, generics throughout request/response
@@ -66,38 +137,6 @@ const { data } = await request.get<User>('/api/users/1')
 | [useRequest](./use-request)         | Powerful Vue request Hook                            |
 | [useSSE](./use-sse)                 | Server-Sent Events streaming                         |
 | [useAIStream](./use-ai-stream)      | AI streaming output support                          |
-
-## Why @yh-ui/request?
-
-### 1. Strict Type Safety
-
-```typescript
-// Auto-infer response type
-const { data } = await request.get<User>('/api/users/1')
-// data: User
-
-// Path parameter type safety
-type Params = PathParams<'/api/users/:id/:commentId'>
-// => { id: string; commentId: string }
-```
-
-### 2. Powerful Hooks
-
-```typescript
-const { data, loading, error, run } = useRequest(() => fetchUser(id), {
-  manual: false,
-  defaultParams: [1],
-  onSuccess: (data) => console.log(data)
-})
-```
-
-### 3. Enterprise-Grade Features Out of the Box
-
-- Request retry with exponential backoff
-- Request deduplication and debouncing
-- Concurrency control
-- Upload/Download progress
-- Debug mode
 
 ## Next Steps
 

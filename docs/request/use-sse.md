@@ -54,14 +54,30 @@ const result = useSSE(options)
 ```
 
 | 字段              | 类型                                 | 说明                         |
-| ----------------- | ------------------------------------ | ---------------------------- | -------- |
+| ----------------- | ------------------------------------ | ---------------------------- |
 | `loading`         | `Ref<boolean>`                       | 是否正在连接/接收            |
 | `content`         | `Ref<string>`                        | 累积的文本内容（按顺序拼接） |
 | `messages`        | `Ref<SSEMessage[]>`                  | 所有已解析的消息             |
-| `error`           | `ShallowRef<Error \\                 | undefined>`                  | 错误对象 |
-| `start(options?)` | `(options?: RequestOptions) => void` |
-| `stop()`          | 停止流式请求                         |
-| `reset()`         | 重置全部状态                         |
+| `error`           | `ShallowRef<Error \| undefined>`     | 错误对象                     |
+| `start(options?)` | `(options?: RequestOptions) => void` | 启动流式请求，见下方说明     |
+| `stop()`          | `() => void`                         | 停止流式请求                 |
+| `reset()`         | `() => void`                         | 重置全部状态                 |
+
+### start(options) 参数
+
+调用 `start(options)` 时传入的 `options` 为请求配置（`RequestOptions`），常用字段如下，用于指定本次请求的 URL 与方式：
+
+| 字段      | 类型                     | 说明                           |
+| --------- | ------------------------ | ------------------------------ |
+| `url`     | `string`                 | 请求地址（必填）               |
+| `method`  | `string`                 | 请求方法，如 `'GET'`、`'POST'` |
+| `data`    | `object`                 | 请求体（POST 等）              |
+| `params`  | `object`                 | URL 查询参数                   |
+| `headers` | `Record<string, string>` | 请求头                         |
+| `baseURL` | `string`                 | 基础 URL                       |
+| `timeout` | `number`                 | 超时时间（毫秒）               |
+
+若不传 `options`，则使用创建 `useSSE` 时传入的默认配置（需在 options 中提前设置 `url` 等）。
 
 ## 配置项
 

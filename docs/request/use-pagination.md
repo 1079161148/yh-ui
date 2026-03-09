@@ -80,16 +80,17 @@ const result = usePagination<TData, TParams>(service, options)
 
 ## 选项
 
+`usePagination(service, options)` 的第一个参数为请求函数 `service(page, pageSize, ...args)`，第二个参数为配置项：
+
 ```typescript
 interface UsePaginationOptions<TData, TParams extends unknown[]> {
-  service: (...args: TParams) => Promise<RequestResponse<TData>>
-  defaultPagination?: PaginationOptions // 默认分页参数
+  defaultPagination?: PaginationOptions // 默认分页参数 { current, pageSize }
   request?: Request // 自定义请求实例（预留）
   onSuccess?: (data: TData, params: TParams) => void
   onError?: (error: unknown, params: TParams) => void
   onFinally?: (params: TParams) => void
-  manual?: boolean // 是否手动触发
-  defaultParams?: TParams // 额外参数
+  manual?: boolean // 是否手动触发首次加载
+  defaultParams?: TParams // 除 page、pageSize 外的额外参数，如 keyword
 }
 ```
 

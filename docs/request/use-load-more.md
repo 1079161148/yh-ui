@@ -51,40 +51,41 @@ const {
 const result = useLoadMore<TData>(service, options)
 ```
 
-| 字段          | 类型                                            | 说明             |
-| ------------- | ----------------------------------------------- | ---------------- | ---------------------------------- |
-| `current`     | `Ref<number>`                                   | 当前页码         |
-| `pageSize`    | `Ref<number>`                                   | 每页条数         |
-| `total`       | `Ref<number>`                                   | 总数             |
-| `totalPages`  | `Ref<number>`                                   | 总页数           |
-| `data`        | `ShallowRef<TData                               | undefined>`      | 数据（通常为数组或带 list 的对象） |
-| `loading`     | `Ref<boolean>`                                  | 首屏加载中       |
-| `refreshing`  | `Ref<boolean>`                                  | 刷新中           |
-| `loadingMore` | `Ref<boolean>`                                  | 正在加载更多     |
-| `error`       | `ShallowRef<unknown>`                           | 错误             |
-| `params`      | `Ref<unknown[]>`                                | 额外参数         |
-| `noMore`      | `Ref<boolean>`                                  | 是否没有更多     |
-| `canLoadMore` | `Ref<boolean>`                                  | 是否可以加载更多 |
-| `loadMore()`  | 加载下一页并追加数据                            |
-| `reload()`    | 重置并重新加载                                  |
-| `refresh()`   | 刷新当前数据                                    |
-| `pagination`  | 一组分页工具方法（与 `usePagination` 接口兼容） |
+| 字段          | 类型                             | 说明                                            |
+| ------------- | -------------------------------- | ----------------------------------------------- |
+| `current`     | `Ref<number>`                    | 当前页码                                        |
+| `pageSize`    | `Ref<number>`                    | 每页条数                                        |
+| `total`       | `Ref<number>`                    | 总数                                            |
+| `totalPages`  | `Ref<number>`                    | 总页数                                          |
+| `data`        | `ShallowRef<TData \| undefined>` | 数据（通常为数组或带 list 的对象）              |
+| `loading`     | `Ref<boolean>`                   | 首屏加载中                                      |
+| `refreshing`  | `Ref<boolean>`                   | 刷新中                                          |
+| `loadingMore` | `Ref<boolean>`                   | 正在加载更多                                    |
+| `error`       | `ShallowRef<unknown>`            | 错误                                            |
+| `params`      | `Ref<unknown[]>`                 | 额外参数                                        |
+| `noMore`      | `Ref<boolean>`                   | 是否没有更多                                    |
+| `canLoadMore` | `Ref<boolean>`                   | 是否可以加载更多                                |
+| `loadMore()`  | —                                | 加载下一页并追加数据                            |
+| `reload()`    | —                                | 重置并重新加载                                  |
+| `refresh()`   | —                                | 刷新当前数据                                    |
+| `pagination`  | —                                | 一组分页工具方法（与 `usePagination` 接口兼容） |
 
 ## 选项
 
+`useLoadMore(service, options)` 的第一个参数为请求函数 `service(page, pageSize, ...args)`，第二个参数为配置项：
+
 ```typescript
 interface UseLoadMoreOptions<TData, TParams extends unknown[]> {
-  service: (page: number, pageSize: number, ...args: TParams) => Promise<RequestResponse<TData>>
   initialPage?: number // 初始页码，默认 1
   pageSize?: number // 每页条数，默认 10
   isLoadMore?: boolean // 是否允许加载更多，默认 true
   threshold?: number // 无限滚动触底阈值（预留）
-  loadMoreService?: (page: number, pageSize: number) => Promise<RequestResponse<TData>>
+  loadMoreService?: (page: number, pageSize: number) => Promise<RequestResponse<TData>> // 加载更多时使用的请求（可与 service 不同）
   onSuccess?: (data: TData, params: TParams) => void
   onError?: (error: unknown, params: TParams) => void
   onFinally?: (params: TParams) => void
   manual?: boolean // 是否手动触发首次加载
-  defaultParams?: TParams // 额外参数
+  defaultParams?: TParams // 除 page、pageSize 外的额外参数
 }
 ```
 

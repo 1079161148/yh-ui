@@ -41,6 +41,22 @@ const {
 } = useRequest(service, options)
 ```
 
+## Full Options
+
+The `options` of `useRequest(service, options)` extend the request library's `RequestOptions` (e.g. `baseURL`, `timeout`, `headers`) and include these Hook-specific options:
+
+| Option          | Type                      | Default | Description                                                        |
+| --------------- | ------------------------- | ------- | ------------------------------------------------------------------ |
+| `manual`        | `boolean`                 | `false` | When true, request runs only after calling `run()`                 |
+| `defaultParams` | `TParams`                 | `[]`    | Default request params; used for the first request when not manual |
+| `debounceWait`  | `number`                  | -       | Debounce time (ms) for multiple `run` calls                        |
+| `throttleWait`  | `number`                  | -       | Throttle time (ms) for multiple `run` calls                        |
+| `request`       | `Request`                 | -       | Custom request instance                                            |
+| `formatResult`  | `(response) => TData`     | -       | Format response and extract business data from `RequestResponse`   |
+| `onSuccess`     | `(data, params) => void`  | -       | Success callback                                                   |
+| `onError`       | `(error, params) => void` | -       | Error callback                                                     |
+| `onFinally`     | `(params) => void`        | -       | Finally callback (runs on success or failure)                      |
+
 ## Common Options
 
 ```typescript
@@ -138,6 +154,37 @@ const handleSubmit = () => {
   run({ ...form })
 }
 ```
+
+## Polling (useRequestPolling)
+
+`useRequestPolling` wraps `useRequest` to **poll** the same endpoint at an interval (e.g. order status, task progress).
+
+```typescript
+import { useRequestPolling } from '@yh-ui/request'
+
+const { data, loading, pause, resume } = useRequestPolling(() => request.get('/api/task/status'), {
+  polling: true, // Enable polling (default false)
+  pollingInterval: 3000, // Interval in ms (default 3000)
+  pollingWhenHidden: false, // Pause when page is hidden (default false)
+  defaultParams: [] // Request params (same as useRequest)
+})
+
+// Pause polling
+pause()
+
+// Resume polling
+resume()
+```
+
+### Polling options
+
+| Option              | Type      | Default | Description                            |
+| ------------------- | --------- | ------- | -------------------------------------- |
+| `polling`           | `boolean` | `false` | Enable polling                         |
+| `pollingInterval`   | `number`  | `3000`  | Polling interval (ms)                  |
+| `pollingWhenHidden` | `boolean` | `false` | Pause polling when page is not visible |
+
+Other options are the same as `useRequest` (e.g. `onSuccess`, `onError`, `manual`, `defaultParams`). Return value is the same as `useRequest` plus `pause` and `resume`.
 
 ## Combine with SWR / Pagination
 
