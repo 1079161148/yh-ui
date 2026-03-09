@@ -61,7 +61,10 @@ const ns = useNamespace('table')
 const { t } = useLocale()
 
 // 辅助组件：用于渲染列自定义内容（支持插槽返回的 VNode 数组）
-const RenderColumn = (props: { render: (params: any) => VNodeChild | string; params: any }) => {
+const RenderColumn = <T extends Record<string, unknown>>(props: {
+  render: (params: T) => VNodeChild | string
+  params: T
+}) => {
   return props.render(props.params)
 }
 
@@ -84,7 +87,6 @@ const filterStates = ref<Record<string, unknown[]>>({})
 const expandedRowKeys = ref<Set<string | number>>(new Set())
 const treeExpandedKeys = ref<Set<string | number>>(new Set())
 const isFullscreen = ref(false)
-const _resizingColumn = ref<TableColumn | null>(null)
 const scrollState = ref<'left' | 'middle' | 'right' | 'none'>('left')
 const collectedColumns = ref<TableColumn[]>([])
 
@@ -1178,6 +1180,12 @@ watch(selectedRowKeys, () => {
                       >{{ cell.column.headerPrefixIcon }}</span
                     >
 
+                    <slot
+                      v-if="cell.column.prop && $slots['header-' + cell.column.prop]"
+                      :name="'header-' + cell.column.prop"
+                      :column="cell.column"
+                      :column-index="cellIdx"
+                    />
                     <RenderColumn
                       v-else-if="cell.column.headerRender"
                       :render="cell.column.headerRender"
@@ -1321,6 +1329,12 @@ watch(selectedRowKeys, () => {
                   }}</span>
 
                   <!-- 自定义表头 -->
+                  <slot
+                    v-if="column.prop && $slots['header-' + column.prop]"
+                    :name="'header-' + column.prop"
+                    :column="column"
+                    :column-index="columnIndex"
+                  />
                   <RenderColumn
                     v-else-if="column.headerRender"
                     :render="column.headerRender"
