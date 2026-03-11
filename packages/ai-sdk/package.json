@@ -31,7 +31,10 @@
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@langchain/core": ">=0.3.0",
@@ -46,6 +49,7 @@
     "@yh-ui/components": "workspace:*",
     "typescript": "catalog:",
     "unbuild": "^3.3.1",
+    "vitest": "^2.0.0",
     "vue": "catalog:",
     "vue-tsc": "^2.2.0"
   },

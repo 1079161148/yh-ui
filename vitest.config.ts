@@ -1,3 +1,11 @@
+/*
+ * @Author: 1079161148@qq.com AI 1079161148@qq.com@ai.com
+ * @Date: 2026-01-11 22:51:44
+ * @LastEditors: Antigravity AI antigravity@ai.com
+ * @LastEditTime: 2026-03-11 14:10:11
+ * @FilePath: \YH-UI\vitest.config.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -31,14 +39,22 @@ export default defineConfig({
       '@yh-ui/hooks': resolve(__dirname, 'packages/hooks/src'),
       '@yh-ui/utils': resolve(__dirname, 'packages/utils/src'),
       '@yh-ui/theme': resolve(__dirname, 'packages/theme/src'),
-      '@yh-ui/locale': resolve(__dirname, 'packages/locale/src')
+      '@yh-ui/locale': resolve(__dirname, 'packages/locale/src'),
+      '@yh-ui/ai-sdk': resolve(__dirname, 'packages/ai-sdk/src'),
+      ai: resolve(__dirname, 'node_modules/ai')
     }
   },
   test: {
     globals: true,
     environment: 'happy-dom',
+    pool: 'forks',
+    maxWorkers: 1,
+    isolate: false,
     // 包含普通测试和 SSR 测试
-    include: ['packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}'],
+    include: [
+      'packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}',
+      'packages/ai-sdk/__tests__/**/*.test.ts'
+    ],
     // 排除 Nuxt 集成测试（需要单独运行）
     exclude: [
       '**/node_modules/**',
@@ -62,7 +78,6 @@ export default defineConfig({
       deps: {
         inline: ['vue', '@vue']
       }
-    },
-    pool: 'threads'
+    }
   }
 })

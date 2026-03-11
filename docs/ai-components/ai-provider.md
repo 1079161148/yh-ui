@@ -334,7 +334,7 @@ const jsLoggingInterceptor = toJs(tsLoggingInterceptor)
 
 <DemoBlock title="全局身份配置" :ts-code="tsIdentity" :js-code="toJs(tsIdentity)">
   <yh-ai-provider
-    user-name="Antigravity"
+    user-name="1079161148@qq.com"
     user-avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
     assistant-name="YH Assistant"
     assistant-avatar="/logo.svg"

@@ -24,7 +24,8 @@ export default defineConfig({
           { text: '组件', link: '/components/button', activeMatch: '/components/' },
           { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
           { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' },
-          { text: 'Request 请求', link: '/request/', activeMatch: '/request/' }
+          { text: 'Request 请求', link: '/request/', activeMatch: '/request/' },
+          { text: 'AI SDK', link: '/ai-sdk/', activeMatch: '/ai-sdk/' }
         ],
         outline: {
           label: '页面导航',
@@ -57,7 +58,8 @@ export default defineConfig({
           { text: 'Components', link: '/en/components/button', activeMatch: '/en/components/' },
           { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
           { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
-          { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' }
+          { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' },
+          { text: 'AI SDK', link: '/en/ai-sdk/', activeMatch: '/en/ai-sdk/' }
         ],
         outline: {
           label: 'On this page',
@@ -236,8 +238,7 @@ export default defineConfig({
             { text: 'useAiChat 🌳', link: '/en/ai-components/use-ai-chat' },
             { text: 'useAiStream 🌊', link: '/en/ai-components/use-ai-stream' },
             { text: 'useAiConversations 💾', link: '/en/ai-components/use-ai-conversations' },
-            { text: 'useAiVoice 🎙️', link: '/en/ai-components/use-ai-voice' },
-            { text: 'AI SDK 🤖', link: '/en/ai-components/ai-sdk' }
+            { text: 'useAiVoice 🎙️', link: '/en/ai-components/use-ai-voice' }
           ]
         }
       ],
@@ -380,8 +381,7 @@ export default defineConfig({
               text: 'useAiConversations 历史持久化 💾',
               link: '/ai-components/use-ai-conversations'
             },
-            { text: 'useAiVoice 语音交互 🎙️', link: '/ai-components/use-ai-voice' },
-            { text: 'AI SDK 官方集成 🤖', link: '/ai-components/ai-sdk' }
+            { text: 'useAiVoice 语音交互 🎙️', link: '/ai-components/use-ai-voice' }
           ]
         }
       ],
@@ -564,6 +564,45 @@ export default defineConfig({
           ]
         }
       ],
+      // AI SDK 侧边栏
+      '/ai-sdk/': [
+        {
+          text: '快速开始',
+          items: [
+            { text: '简介', link: '/ai-sdk/' },
+            { text: '安装', link: '/ai-sdk/install' },
+            { text: '快速开始', link: '/ai-sdk/quickstart' }
+          ]
+        },
+        {
+          text: '核心功能',
+          items: [
+            { text: 'Vercel AI SDK', link: '/ai-sdk/vercel' },
+            { text: 'LangChain 集成', link: '/ai-sdk/langchain' },
+            { text: '工具函数', link: '/ai-sdk/tools' },
+            { text: 'Vue Composables', link: '/ai-sdk/vue-composables' }
+          ]
+        },
+        {
+          text: '进阶功能',
+          items: [
+            { text: 'MCP 协议', link: '/ai-sdk/mcp' },
+            { text: 'Agent 编排', link: '/ai-sdk/agent' },
+            { text: '向量存储与 RAG', link: '/ai-sdk/vector-rag' },
+            { text: '缓存系统', link: '/ai-sdk/cache' },
+            { text: '限流', link: '/ai-sdk/rate-limit' },
+            { text: '可观测性', link: '/ai-sdk/observability' }
+          ]
+        },
+        {
+          text: '其他',
+          items: [
+            { text: '前瞻功能', link: '/ai-sdk/future' },
+            { text: 'API 参考', link: '/ai-sdk/api' },
+            { text: '注意事项', link: '/ai-sdk/caution' }
+          ]
+        }
+      ],
       // 英文 Request 侧边栏
       '/en/request/': [
         {
@@ -618,6 +657,45 @@ export default defineConfig({
             { text: 'SSR Usage', link: '/en/request/ssr' },
             { text: 'TypeScript Guide', link: '/en/request/typescript' },
             { text: 'FAQ', link: '/en/request/faq' }
+          ]
+        }
+      ],
+      // 英文 AI SDK 侧边栏
+      '/en/ai-sdk/': [
+        {
+          text: 'Getting Started',
+          items: [
+            { text: 'Introduction', link: '/en/ai-sdk/' },
+            { text: 'Installation', link: '/en/ai-sdk/install' },
+            { text: 'Quick Start', link: '/en/ai-sdk/quickstart' }
+          ]
+        },
+        {
+          text: 'Core Features',
+          items: [
+            { text: 'Vercel AI SDK', link: '/en/ai-sdk/vercel' },
+            { text: 'LangChain Integration', link: '/en/ai-sdk/langchain' },
+            { text: 'Tools', link: '/en/ai-sdk/tools' },
+            { text: 'Vue Composables', link: '/en/ai-sdk/vue-composables' }
+          ]
+        },
+        {
+          text: 'Advanced',
+          items: [
+            { text: 'MCP Protocol', link: '/en/ai-sdk/mcp' },
+            { text: 'Agent Orchestration', link: '/en/ai-sdk/agent' },
+            { text: 'Vector Storage & RAG', link: '/en/ai-sdk/vector-rag' },
+            { text: 'Caching', link: '/en/ai-sdk/cache' },
+            { text: 'Rate Limiting', link: '/en/ai-sdk/rate-limit' },
+            { text: 'Observability', link: '/en/ai-sdk/observability' }
+          ]
+        },
+        {
+          text: 'More',
+          items: [
+            { text: 'Future Features', link: '/en/ai-sdk/future' },
+            { text: 'API Reference', link: '/en/ai-sdk/api' },
+            { text: 'Notes & FAQ', link: '/en/ai-sdk/caution' }
           ]
         }
       ]

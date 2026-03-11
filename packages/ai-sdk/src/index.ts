@@ -142,7 +142,17 @@ export type {
   UseAIChatReturn,
   UseAIStreamOptions,
   UseAIStreamReturn,
-  AIContextValue
+  AIContextValue,
+  // 新增类型
+  ToolCall,
+  XRequestConfig,
+  XRequestCallbacks,
+  AIMiddleware,
+  CacheConfig,
+  RetryConfig,
+  Conversation,
+  UseConversationsOptions,
+  ProviderPreset
 } from './vue'
 
 // Re-export functions from Vue
@@ -150,12 +160,166 @@ export {
   createStreamableValue,
   useStreamableValue,
   useConversation,
+  useConversations,
   useAIChat,
   useAIStream,
   createYHFunctionTool,
   createProviderAdapter,
-  createAIContext
+  createAIContext,
+  // 新增函数
+  XRequest,
+  createXRequest,
+  registerMiddleware,
+  clearCache,
+  getProviderPreset,
+  PROVIDER_PRESETS,
+  createVercelAIProvider
 } from './vue'
+
+// ============================================
+// 前瞻性功能 (Future-Ready)
+// ============================================
+
+// Agent 编排
+export {
+  useReActAgent,
+  createPlanExecuteAgent,
+  type AgentConfig,
+  type AgentTool,
+  type AgentStep,
+  type AgentResult,
+  type StopCondition
+} from './future'
+
+// 多模态
+export {
+  createMultiModalMessage,
+  createImageContent,
+  createImageUrlContent,
+  createAudioContent,
+  createVideoContent,
+  type MultiModalContent,
+  type MultiModalMessage,
+  type VisionAnalysisOptions
+} from './future'
+
+// RAG
+export { createRAGSystem, type RAGConfig, type RAGResult, type DocumentChunk } from './future'
+
+// 思维链 CoT
+export { createChainOfThought, type CoTConfig, type ReasoningStep } from './future'
+
+// 上下文压缩
+export { createContextCompressor, type CompressionConfig, type CompressionResult } from './future'
+
+// 成本控制
+export { createCostTracker, type CostConfig, type CostTracking, type TokenUsage } from './future'
+
+// 可观测性
+export { createTracer, type TraceEvent, type TraceSpan } from './future'
+
+// 可观测性导出 (OTel / LangSmith)
+export {
+  createOTelConsoleExporter,
+  createLangSmithExporter,
+  createObservabilityManager,
+  toOTelSpan,
+  type OTelSpan,
+  type OTelExportPayload,
+  type LangSmithRun,
+  type LangSmithClientConfig,
+  type TraceExporter
+} from './observability'
+
+// AI 安全护栏
+export { createSafetyFilter, type SafetyRule, type SafetyResult } from './future'
+
+// 结构化输出
+export {
+  fromZodSchema,
+  createJSONSchema,
+  schema,
+  parseStructuredOutput,
+  type SchemaDefinition,
+  type SchemaProperty
+} from './future'
+
+// ============================================
+// 向量存储
+// ============================================
+
+export {
+  createInMemoryVectorStore,
+  type IVectorStore,
+  type VectorDocument,
+  type VectorSearchResult,
+  type VectorStoreConfig,
+  type PineconeVectorStoreConfig,
+  type WeaviateVectorStoreConfig,
+  type QdrantVectorStoreConfig
+} from './vector-store'
+
+// ============================================
+// 文档加载器
+// ============================================
+
+export {
+  createTextLoader,
+  loadMarkdown,
+  chunkText,
+  createFileLoader,
+  type LoadedDocument,
+  type DocumentLoaderOptions,
+  type PDFLoader,
+  type DOCXLoader
+} from './loaders'
+
+// ============================================
+// 缓存适配器
+// ============================================
+
+export {
+  createMemoryCache,
+  createLocalStorageCache,
+  createSessionStorageCache,
+  type CacheAdapter,
+  type RedisCacheConfig
+} from './cache-adapter'
+
+// ============================================
+// 限流
+// ============================================
+
+export {
+  createRateLimiter,
+  createRateLimitMiddleware,
+  type RateLimitConfig,
+  type RateLimitMiddleware
+} from './rate-limit'
+
+// ============================================
+// 生产 RAG
+// ============================================
+
+export { createProductionRAG, type ProductionRAGConfig } from './rag-production'
+
+// ============================================
+// Agent 增强
+// ============================================
+
+export {
+  createEnhancedAgent,
+  createReflexionAgent,
+  createReWOOAgent,
+  createChain,
+  createParallelChain,
+  type ReasoningMode,
+  type EnhancedAgentConfig,
+  type ReflexionConfig,
+  type ReWOOConfig,
+  type ChainStep,
+  type Chain
+} from './agent-enhanced'
 
 // ============================================
 // MCP Protocol Support
