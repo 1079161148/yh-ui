@@ -384,6 +384,15 @@ export interface CarouselThemeVars extends ComponentThemeVars {
   arrowSize?: string
 }
 
+/** Scrollbar 组件主题变量 */
+export interface ScrollbarThemeVars extends ComponentThemeVars {
+  width?: string
+  thumbColor?: string
+  thumbHoverColor?: string
+  trackColor?: string
+  thumbRadius?: string
+}
+
 // ==================== 导出所有组件主题类型 ====================
 
 export interface AllComponentThemes {
@@ -415,6 +424,7 @@ export interface AllComponentThemes {
   aiAttachments?: AiAttachmentsThemeVars
   aiMermaid?: AiMermaidThemeVars
   carousel?: CarouselThemeVars
+  scrollbar?: ScrollbarThemeVars
   [key: string]: ComponentThemeVars | undefined
 }
 

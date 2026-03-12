@@ -58,7 +58,7 @@ export const aiConversationsProps = {
    */
   virtualScrollItemHeight: {
     type: Number,
-    default: 50
+    default: 72
   },
   /**
    * @description 虚拟滚动 overscan 数量

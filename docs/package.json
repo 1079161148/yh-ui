@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@yh-ui/components": "workspace:*",
+    "@yh-ui/flow": "workspace:*",
     "@yh-ui/icons": "workspace:*",
     "@yh-ui/request": "workspace:*",
     "@yh-ui/theme": "workspace:*",

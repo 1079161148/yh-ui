@@ -635,6 +635,38 @@ export const ko: Language = {
         rename: '이름 변경',
         delete: '삭제',
         deleteConfirm: '이 대화를 삭제하시겠습니까?'
+      },
+      // AiAttachments
+      attachments: {
+        dropTip: '파일을 업로드하려면 놓으세요',
+        clickToUpload: '클릭하거나 드래그하여 업로드',
+        uploadSuccess: '업로드 성공',
+        uploadError: '업로드 실패',
+        deleteConfirm: '이 파일을 삭제하시겠습니까?',
+        fileTooLarge: '파일 크기는 {size}를 초과할 수 없습니다',
+        invalidFileType: '유효하지 않은 파일 형식'
+      },
+      // AiMermaid
+      mermaid: {
+        image: '이미지',
+        code: '코드',
+        zoomIn: '확대',
+        zoomOut: '축소',
+        reset: '초기화',
+        download: '다운로드',
+        copyCode: '코드 복사',
+        rendering: '렌더링 중...',
+        renderError: '렌더링 실패',
+        renderSuccess: '렌더링 성공'
+      },
+      // AiCanvas
+      canvas: {
+        reset: '초기화',
+        zoom: '확대/축소',
+        zoomIn: '확대',
+        zoomOut: '축소',
+        toggleGrid: '그리드 전환',
+        resetView: '뷰 중앙 정렬'
       }
     }
   }

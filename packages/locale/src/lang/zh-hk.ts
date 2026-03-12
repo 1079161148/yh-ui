@@ -709,6 +709,38 @@ export const zhHk: Language = {
         rename: '重新命名',
         delete: '刪除',
         deleteConfirm: '確認刪除此對話？'
+      },
+      // AiAttachments
+      attachments: {
+        dropTip: '釋放滑鼠以上傳檔案',
+        clickToUpload: '點擊或拖拽檔案到此處上傳',
+        uploadSuccess: '上傳成功',
+        uploadError: '上傳失敗',
+        deleteConfirm: '確定刪除此檔案？',
+        fileTooLarge: '檔案大小不能超過 {size}',
+        invalidFileType: '不支援的檔案類型'
+      },
+      // AiMermaid
+      mermaid: {
+        image: '圖片',
+        code: '代碼',
+        zoomIn: '放大',
+        zoomOut: '縮小',
+        reset: '重置',
+        download: '下載',
+        copyCode: '複製代碼',
+        rendering: '正在渲染...',
+        renderError: '渲染失敗',
+        renderSuccess: '渲染成功'
+      },
+      // AiCanvas
+      canvas: {
+        reset: '重置',
+        zoom: '縮放',
+        zoomIn: '放大',
+        zoomOut: '縮小',
+        toggleGrid: '切換網格',
+        resetView: '居中視圖'
       }
     }
   }

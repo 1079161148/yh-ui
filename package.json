@@ -15,6 +15,7 @@
     "build:locale": "pnpm -C packages/locale build",
     "build:icons": "pnpm -C packages/icons build",
     "build:nuxt": "pnpm -C packages/nuxt build",
+    "build:flow": "pnpm -C packages/flow build",
     "docs:dev": "pnpm -C docs dev",
     "docs:build": "pnpm -C docs build",
     "docs:preview": "pnpm -C docs preview",

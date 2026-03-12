@@ -157,9 +157,12 @@ import {
   YhAiMermaid,
   YhCarousel,
   YhCarouselItem,
+  YhScrollbar,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
+
+import { Flow as YhFlow } from '@yh-ui/flow'
 
 // 导入文档组件
 import DemoBlock from './components/DemoBlock.vue'
@@ -303,6 +306,8 @@ export default {
     app.component('YhAiAttachments', YhAiAttachments)
     app.component('YhAiFileCard', YhAiFileCard)
     app.component('YhAiMermaid', YhAiMermaid)
+    app.component('YhScrollbar', YhScrollbar)
+    app.component('YhFlow', YhFlow)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)

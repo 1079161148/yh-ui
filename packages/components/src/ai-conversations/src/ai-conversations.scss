@@ -26,7 +26,7 @@
     color: var(--yh-text-color-primary);
     cursor: pointer;
     transition: all var(--yh-transition-duration);
-    gap: 8px;
+    gap: 4px;
 
     &:hover {
       border-color: var(--yh-color-primary);
@@ -76,12 +76,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 50px; // 必须锁定高度以支持虚拟滚动
-    padding: var(--yh-ai-conversations-item-padding, 0 16px);
+    min-height: 50px;
+    height: auto;
+    padding: var(--yh-ai-conversations-item-padding, 12px 16px);
+    margin: 0 4px 8px;
     border-radius: var(--yh-border-radius-base);
     cursor: pointer;
-    transition: background-color var(--yh-transition-duration);
+    transition: all var(--yh-transition-duration);
     background-color: transparent;
+    position: relative;
     box-sizing: border-box;
     flex-shrink: 0;
 
@@ -96,9 +99,26 @@
 
     @include when(active) {
       background-color: var(--yh-ai-conversations-active-bg-color, var(--yh-color-primary-light-9));
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20%;
+        bottom: 20%;
+        width: 3px;
+        background-color: var(--yh-color-primary);
+        border-radius: 0 2px 2px 0;
+      }
+
       .#{$namespace}-ai-conversations__title {
         color: var(--yh-ai-conversations-active-text-color, var(--yh-color-primary));
-        font-weight: 500;
+        font-weight: 600;
+      }
+
+      .#{$namespace}-ai-conversations__time,
+      .#{$namespace}-ai-conversations__excerpt {
+        color: var(--yh-color-primary-light-3);
       }
     }
   }
@@ -108,7 +128,7 @@
     flex-direction: column;
     flex: 1;
     min-width: 0;
-    gap: 4px;
+    gap: 8px;
   }
 
   @include e(title) {
@@ -147,7 +167,7 @@
   @include e(actions) {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     opacity: 0;
     visibility: hidden;
     transition: all var(--yh-transition-duration);
@@ -204,8 +224,18 @@
 
   @include e(item) {
     @include is(pinned) {
-      background-color: var(--yh-bg-color-page);
-      border-left: 2px solid var(--yh-color-primary-light-4);
+      background-color: var(--yh-ai-conversations-hover-bg-color, var(--yh-bg-color-page));
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 25%;
+        bottom: 25%;
+        width: 3px;
+        background-color: var(--yh-color-primary-light-3);
+        border-radius: 0 2px 2px 0;
+      }
     }
   }
 

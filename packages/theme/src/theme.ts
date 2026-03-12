@@ -995,6 +995,74 @@ export class ThemeManager {
       }
     })
 
+    // 添加非颜色令牌
+    Object.entries(designTokens.textColors).forEach(([key, value]) => {
+      styles[`--yh-text-color-${key}`] = value
+    })
+
+    Object.entries(designTokens.borderColors).forEach(([key, value]) => {
+      const name = key === 'DEFAULT' ? '--yh-border-color' : `--yh-border-color-${key}`
+      styles[name] = value
+    })
+
+    Object.entries(designTokens.bgColors).forEach(([key, value]) => {
+      const name = key === 'DEFAULT' ? '--yh-bg-color' : `--yh-bg-color-${key}`
+      styles[name] = value
+    })
+
+    Object.entries(designTokens.radius).forEach(([key, value]) => {
+      styles[`--yh-radius-${key}`] = value
+    })
+
+    Object.entries(designTokens.zIndex).forEach(([key, value]) => {
+      styles[`--yh-z-index-${key}`] = value
+    })
+
+    Object.entries(designTokens.spacing).forEach(([key, value]) => {
+      styles[`--yh-spacing-${key}`] = value
+    })
+
+    Object.entries(designTokens.fontSize).forEach(([key, value]) => {
+      styles[`--yh-font-size-${key}`] = value
+    })
+
+    Object.entries(designTokens.lineHeight).forEach(([key, value]) => {
+      styles[`--yh-line-height-${key}`] = value
+    })
+
+    Object.entries(designTokens.fontWeight).forEach(([key, value]) => {
+      styles[`--yh-font-weight-${key}`] = value
+    })
+
+    Object.entries(designTokens.shadow).forEach(([key, value]) => {
+      styles[`--yh-shadow-${key}`] = value
+    })
+
+    Object.entries(designTokens.duration).forEach(([key, value]) => {
+      styles[`--yh-duration-${key}`] = value
+    })
+
+    Object.entries(designTokens.timing).forEach(([key, value]) => {
+      styles[`--yh-timing-${key}`] = value
+    })
+
+    Object.entries(designTokens.scrollbar).forEach(([key, value]) => {
+      const kebabKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+      styles[`--yh-scrollbar-${kebabKey}`] = value
+    })
+
+    Object.entries(designTokens.mask).forEach(([key, value]) => {
+      const name = key === 'DEFAULT' ? '--yh-mask' : `--yh-mask-${key}`
+      styles[name] = value
+    })
+
+    // 应用组件级覆盖
+    Object.entries(this.componentOverrides).forEach(([component, overrides]) => {
+      Object.entries(overrides).forEach(([name, value]) => {
+        styles[`--yh-${component}-${name}`] = value
+      })
+    })
+
     return styles
   }
 
@@ -1013,48 +1081,9 @@ export class ThemeManager {
     const el = this.targetEl || (typeof document !== 'undefined' ? document.documentElement : null)
     if (!el) return
 
-    // 应用颜色
-    Object.entries(designTokens.colors).forEach(([type, colors]) => {
-      const colorObj = colors as {
-        DEFAULT: string
-        light?: Record<string, string>
-        dark?: Record<string, string>
-      }
-      setCssVar(`--yh-color-${type}`, colorObj.DEFAULT, el)
-
-      if (colorObj.light) {
-        Object.entries(colorObj.light).forEach(([level, value]) => {
-          setCssVar(`--yh-color-${type}-light-${level}`, value, el)
-        })
-      }
-      if (colorObj.dark) {
-        Object.entries(colorObj.dark).forEach(([level, value]) => {
-          setCssVar(`--yh-color-${type}-dark-${level}`, value, el)
-        })
-      }
-    })
-
-    // 应用其他令牌
-    Object.entries(designTokens.textColors).forEach(([key, value]) => {
-      setCssVar(`--yh-text-color-${key}`, value, el)
-    })
-
-    Object.entries(designTokens.borderColors).forEach(([key, value]) => {
-      const name = key === 'DEFAULT' ? '--yh-border-color' : `--yh-border-color-${key}`
+    const styles = this.getThemeStyles()
+    Object.entries(styles).forEach(([name, value]) => {
       setCssVar(name, value, el)
-    })
-
-    Object.entries(designTokens.bgColors).forEach(([key, value]) => {
-      const name = key === 'DEFAULT' ? '--yh-bg-color' : `--yh-bg-color-${key}`
-      setCssVar(name, value, el)
-    })
-
-    Object.entries(designTokens.radius).forEach(([key, value]) => {
-      setCssVar(`--yh-radius-${key}`, value, el)
-    })
-
-    Object.entries(designTokens.zIndex).forEach(([key, value]) => {
-      setCssVar(`--yh-z-index-${key}`, value, el)
     })
   }
 

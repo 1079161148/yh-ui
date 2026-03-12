@@ -92,6 +92,7 @@ import type { YhAiAgentCard } from './ai-agent-card'
 import type { YhAiSources } from './ai-sources'
 import type { YhAiProvider } from './ai-provider'
 import type { YhAiMention } from './ai-mention'
+import type { YhScrollbar } from './scrollbar'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -201,6 +202,7 @@ declare module 'vue' {
     YhInfiniteScroll: typeof YhInfiniteScroll
     YhMarquee: typeof YhMarquee
     YhConfigProvider: typeof YhConfigProvider
+    YhScrollbar: typeof YhScrollbar
 
     // =================== AI 组件 ===================
     YhAiChat: typeof YhAiChat

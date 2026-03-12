@@ -200,23 +200,23 @@ const actionButtons = computed(() => {
 
   if (enableZoom) {
     buttons.push(
-      { key: 'zoom-in', label: t('aiMermaid.zoomIn'), icon: 'zoom-in', onClick: handleZoomIn },
-      { key: 'zoom-out', label: t('aiMermaid.zoomOut'), icon: 'zoom-out', onClick: handleZoomOut },
-      { key: 'reset', label: t('aiMermaid.reset'), icon: 'refresh', onClick: handleReset }
+      { key: 'zoom-in', label: t('ai.mermaid.zoomIn'), icon: 'zoom-in', onClick: handleZoomIn },
+      { key: 'zoom-out', label: t('ai.mermaid.zoomOut'), icon: 'zoom-out', onClick: handleZoomOut },
+      { key: 'reset', label: t('ai.mermaid.reset'), icon: 'refresh', onClick: handleReset }
     )
   }
 
   if (enableDownload) {
     buttons.push({
       key: 'download',
-      label: t('aiMermaid.download'),
+      label: t('ai.mermaid.download'),
       icon: 'download',
       onClick: handleDownload
     })
   }
 
   if (enableCopy) {
-    buttons.push({ key: 'copy', label: t('aiMermaid.copy'), icon: 'copy', onClick: handleCopy })
+    buttons.push({ key: 'copy', label: t('ai.mermaid.copy'), icon: 'copy', onClick: handleCopy })
   }
 
   if (customActions) {
@@ -231,7 +231,7 @@ const actionButtons = computed(() => {
   <div :class="[ns.b(), className]" :style="[themeStyle, style]">
     <!-- 头部区域 -->
     <div v-if="header || $slots.header" :class="ns.e('header')">
-      <div :class="ns.e('title')">
+      <div :class="ns.e('header-content')">
         <slot name="header">{{ header }}</slot>
       </div>
       <div :class="ns.e('extra')">
@@ -240,24 +240,24 @@ const actionButtons = computed(() => {
     </div>
 
     <!-- 操作栏 -->
-    <div :class="ns.e('toolbar')">
-      <div :class="ns.e('view-switch')">
+    <div :class="ns.e('actions')">
+      <div :class="ns.e('render-tabs')">
         <button
-          :class="[ns.e('view-btn'), renderType === 'image' && ns.em('view-btn', 'active')]"
+          :class="[ns.e('render-tab'), renderType === 'image' && ns.is('active')]"
           @click="handleRenderTypeChange('image')"
         >
           <YhIcon name="image" />
-          <span>{{ t('aiMermaid.image') }}</span>
+          <span>{{ t('ai.mermaid.image') }}</span>
         </button>
         <button
-          :class="[ns.e('view-btn'), renderType === 'code' && ns.em('view-btn', 'active')]"
+          :class="[ns.e('render-tab'), renderType === 'code' && ns.is('active')]"
           @click="handleRenderTypeChange('code')"
         >
           <YhIcon name="code" />
-          <span>{{ t('aiMermaid.code') }}</span>
+          <span>{{ t('ai.mermaid.code') }}</span>
         </button>
       </div>
-      <div v-if="actionButtons.length > 0" :class="ns.e('actions')">
+      <div v-if="actionButtons.length > 0" :class="ns.e('action-buttons')">
         <button
           v-for="btn in actionButtons"
           :key="btn.key"
@@ -281,7 +281,7 @@ const actionButtons = computed(() => {
       <div v-else-if="errorMessage" :class="ns.e('error')">
         <YhIcon name="warning" />
         <span>{{ errorMessage }}</span>
-        <button @click="renderGraph">{{ t('aiMermaid.retry') }}</button>
+        <button @click="renderGraph">{{ t('ai.mermaid.retry') }}</button>
       </div>
 
       <!-- 代码模式 -->

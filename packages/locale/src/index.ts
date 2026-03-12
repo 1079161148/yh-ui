@@ -751,6 +751,7 @@ export interface Language {
         rendering: string
         renderError: string
         renderSuccess: string
+        retry: string
       }
     }
   }

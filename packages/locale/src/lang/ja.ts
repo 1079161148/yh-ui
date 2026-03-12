@@ -710,6 +710,29 @@ export const ja: Language = {
         rename: '名前を変更',
         delete: '削除',
         deleteConfirm: 'この会話を削除しますか？'
+      },
+      // AiAttachments
+      attachments: {
+        dropTip: 'ファイルをアップロードするにはリリース',
+        clickToUpload: 'クリックまたはドラッグしてアップロード',
+        uploadSuccess: 'アップロード成功',
+        uploadError: 'アップロード失敗',
+        deleteConfirm: 'このファイルを削除しますか？',
+        fileTooLarge: 'ファイルサイズは {size} を超えることはできません',
+        invalidFileType: '無効なファイル形式'
+      },
+      // AiMermaid
+      mermaid: {
+        image: '画像',
+        code: 'コード',
+        zoomIn: '拡大',
+        zoomOut: '縮小',
+        reset: 'リセット',
+        download: 'ダウンロード',
+        copyCode: 'コードをコピー',
+        rendering: 'レンダリング中...',
+        renderError: 'レンダリング失敗',
+        renderSuccess: 'レンダリング成功'
       }
     }
   }

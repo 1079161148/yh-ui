@@ -25,7 +25,8 @@ export default defineConfig({
           { text: '图标集合', link: '/icons/', activeMatch: '/icons/' },
           { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' },
           { text: 'Request 请求', link: '/request/', activeMatch: '/request/' },
-          { text: 'AI SDK', link: '/ai-sdk/', activeMatch: '/ai-sdk/' }
+          { text: 'AI SDK', link: '/ai-sdk/', activeMatch: '/ai-sdk/' },
+          { text: 'Flow 流程图', link: '/flow/basic', activeMatch: '/flow/' }
         ],
         outline: {
           label: '页面导航',
@@ -59,7 +60,8 @@ export default defineConfig({
           { text: 'Icons', link: '/en/icons/', activeMatch: '/en/icons/' },
           { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
           { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' },
-          { text: 'AI SDK', link: '/en/ai-sdk/', activeMatch: '/en/ai-sdk/' }
+          { text: 'AI SDK', link: '/en/ai-sdk/', activeMatch: '/en/ai-sdk/' },
+          { text: 'Flow', link: '/en/flow/basic', activeMatch: '/en/flow/' }
         ],
         outline: {
           label: 'On this page',
@@ -301,7 +303,8 @@ export default defineConfig({
             { text: 'Tree', link: '/en/components/tree' },
             { text: 'Calendar', link: '/en/components/calendar' },
             { text: 'Countdown', link: '/en/components/countdown' },
-            { text: 'Carousel', link: '/en/components/carousel' }
+            { text: 'Carousel', link: '/en/components/carousel' },
+            { text: 'Scrollbar', link: '/en/components/scrollbar' }
           ]
         },
         {
@@ -443,7 +446,8 @@ export default defineConfig({
             { text: 'Tree 树形控件', link: '/components/tree' },
             { text: 'Calendar 日历', link: '/components/calendar' },
             { text: 'Countdown 倒计时', link: '/components/countdown' },
-            { text: 'Carousel 轮播', link: '/components/carousel' }
+            { text: 'Carousel 轮播', link: '/components/carousel' },
+            { text: 'Scrollbar 滚动条', link: '/components/scrollbar' }
           ]
         },
         {
@@ -698,6 +702,38 @@ export default defineConfig({
             { text: 'Notes & FAQ', link: '/en/ai-sdk/caution' }
           ]
         }
+      ],
+      // Flow 流程图侧边栏
+      '/flow/': [
+        {
+          text: '快速开始',
+          items: [
+            { text: '基础用法', link: '/flow/basic' },
+            { text: '节点类型', link: '/flow/nodes' },
+            { text: '连线类型', link: '/flow/edges' },
+            { text: '交互操作', link: '/flow/interaction' },
+            { text: '对齐与分布', link: '/flow/alignment' },
+            { text: '插件系统', link: '/flow/plugins' },
+            { text: '⚡ 性能基准压测', link: '/flow/benchmark' },
+            { text: 'API 参考', link: '/flow/api' }
+          ]
+        }
+      ],
+      // 英文 Flow 侧边栏
+      '/en/flow/': [
+        {
+          text: 'Getting Started',
+          items: [
+            { text: 'Basic Usage', link: '/en/flow/basic' },
+            { text: 'Node Types', link: '/en/flow/nodes' },
+            { text: 'Edge Types', link: '/en/flow/edges' },
+            { text: 'Interaction', link: '/en/flow/interaction' },
+            { text: 'Alignment & Distribution', link: '/en/flow/alignment' },
+            { text: 'Plugins', link: '/en/flow/plugins' },
+            { text: '⚡ Performance Benchmark', link: '/en/flow/benchmark' },
+            { text: 'API Reference', link: '/en/flow/api' }
+          ]
+        }
       ]
     },
 
@@ -751,7 +787,8 @@ export default defineConfig({
         '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
         '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
         '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src'),
-        '@yh-ui/request': resolve(__dirname, '../../packages/request/src')
+        '@yh-ui/request': resolve(__dirname, '../../packages/request/src'),
+        '@yh-ui/flow': resolve(__dirname, '../../packages/flow/src')
       }
     },
     optimizeDeps: {

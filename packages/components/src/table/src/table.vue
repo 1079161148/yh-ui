@@ -1414,7 +1414,7 @@ watch(selectedRowKeys, () => {
               </template>
               <template v-else>
                 <div v-if="emptyConfig?.image" :class="ns.e('empty-image')">
-                  <img :src="emptyConfig.image" :alt="t('yh.common.noData')" />
+                  <img :src="emptyConfig.image" :alt="t('common.noData')" />
                 </div>
                 <div :class="ns.e('empty-text')">
                   {{ emptyConfig?.description || emptyText || t('table.emptyText') }}

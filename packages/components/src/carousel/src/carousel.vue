@@ -373,7 +373,7 @@ watch(
           ),
           ns.is('vertical', props.direction === 'vertical')
         ]"
-        :aria-label="t('yh.carousel.prev')"
+        :aria-label="t('carousel.prev')"
         @click="prev"
       >
         <slot name="prev-arrow">
@@ -400,7 +400,7 @@ watch(
           ),
           ns.is('vertical', props.direction === 'vertical')
         ]"
-        :aria-label="t('yh.carousel.next')"
+        :aria-label="t('carousel.next')"
         @click="next"
       >
         <slot name="next-arrow">
@@ -444,10 +444,12 @@ watch(
 .yh-carousel__dots--left.yh-carousel__dots--line,
 .yh-carousel__dots--right.yh-carousel__dots--line {
   transform: translateY(-50%);
+
   .yh-carousel__dots-item {
     width: 4px;
     height: 24px;
     border-radius: 2px;
+
     &.is-active {
       width: 4px;
       height: 32px;

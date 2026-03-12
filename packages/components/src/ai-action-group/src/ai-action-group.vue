@@ -31,14 +31,14 @@ const defaultIcons: Record<string, string> = {
 
 // 默认标签映射（中英文）
 const defaultLabels = computed<Record<string, string>>(() => ({
-  copy: t('yh.ai.action.copy'),
-  refresh: t('yh.ai.action.regenerate'),
-  regenerate: t('yh.ai.action.regenerate'),
-  share: t('yh.ai.action.share'),
-  'thumb-up': t('yh.ai.action.like'),
-  'thumb-down': t('yh.ai.action.dislike'),
-  edit: t('yh.ai.action.edit'),
-  delete: t('yh.ai.action.delete')
+  copy: t('ai.action.copy'),
+  refresh: t('ai.action.regenerate'),
+  regenerate: t('ai.action.regenerate'),
+  share: t('ai.action.share'),
+  'thumb-up': t('ai.action.like'),
+  'thumb-down': t('ai.action.dislike'),
+  edit: t('ai.action.edit'),
+  delete: t('ai.action.delete')
 }))
 
 const actionItems = computed(() => {

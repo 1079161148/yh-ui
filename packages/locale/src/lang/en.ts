@@ -735,7 +735,8 @@ export const en: Language = {
         copyCode: 'Copy Code',
         rendering: 'Rendering...',
         renderError: 'Render failed',
-        renderSuccess: 'Render success'
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }

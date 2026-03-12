@@ -15,7 +15,7 @@
           </svg>
         </slot>
         <span :class="ns.e('add-text')">
-          <slot name="add-text">新对话</slot>
+          <slot name="add-text">{{ t('ai.conversations.newConversation') }}</slot>
         </span>
       </button>
     </div>
@@ -42,7 +42,7 @@
           <!-- 分组标题 -->
           <div :class="ns.e('group-label')">
             <slot name="group-label" :label="group.label">
-              {{ getGroupLabelText(group.label) }}
+              {{ t(`ai.conversations.${group.label}`) }}
             </slot>
           </div>
 
@@ -100,7 +100,7 @@
                 <!-- 置顶/取消置顶 -->
                 <span
                   :class="[ns.e('action-btn'), ns.is('active', !!item.pinned)]"
-                  :title="item.pinned ? '取消置顶' : '置顶'"
+                  :title="item.pinned ? t('ai.conversations.unpin') : t('ai.conversations.pin')"
                   @click.stop="handlePin(item)"
                 >
                   <svg
@@ -242,7 +242,7 @@
 
       <!-- Empty State -->
       <div v-if="!loading && data.length === 0" :class="ns.e('empty')">
-        <slot name="empty">暂无对话记录</slot>
+        <slot name="empty">{{ t('common.noData') }}</slot>
       </div>
     </div>
   </div>
@@ -297,28 +297,6 @@ const listStyle = computed(() => {
 // ── 时间分组逻辑 ────────────────────────────────────────────────────────────
 
 type GroupKey = 'pinned' | 'today' | 'last7Days' | 'last30Days' | 'earlier'
-
-const GROUP_LABEL_MAP: Record<GroupKey, string> = {
-  pinned: '已置顶',
-  today: '今天',
-  last7Days: '最近 7 天',
-  last30Days: '最近 30 天',
-  earlier: '更早'
-}
-
-const GROUP_LABEL_MAP_EN: Record<GroupKey, string> = {
-  pinned: 'Pinned',
-  today: 'Today',
-  last7Days: 'Last 7 Days',
-  last30Days: 'Last 30 Days',
-  earlier: 'Earlier'
-}
-
-const getGroupLabelText = (label: string) => {
-  const locale = t('locale') || 'zh-CN'
-  const map = locale.startsWith('zh') ? GROUP_LABEL_MAP : GROUP_LABEL_MAP_EN
-  return map[label as GroupKey] ?? label
-}
 
 const getGroupKey = (item: AiConversation): GroupKey => {
   if (item.pinned) return 'pinned'

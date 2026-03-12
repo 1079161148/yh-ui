@@ -92,9 +92,42 @@ export function normalizeHtml(html: string) {
           // 忽略 textarea 的 value 属性 (CSR 中可能存在)
           if (tag === 'textarea' && name === 'value') continue
 
-          // 标准化 style 属性：去掉冒号后的空格，统一分号结尾
+          // 标准化 style 属性：去掉冒号后的空格，分号排序，统一单位
           if (name === 'style') {
-            value = value.replace(/:\s+/g, ':').replace(/;\s+/g, ';').replace(/;$/, '') // 统一去掉末尾分号
+            value = value
+              .split(';')
+              .map((s) => s.trim())
+              .filter(Boolean)
+              .map((s) => {
+                const parts = s.split(':')
+                if (parts.length < 2) return null
+                const prop = parts[0].trim().toLowerCase()
+                let val = parts.slice(1).join(':').trim()
+
+                // 统一单位：0px -> 0
+                val = val.replace(/^0(?:px|em|rem|%)$/, '0')
+
+                // 统一颜色：rgba(0, 0, 0, 0) -> transparent
+                if (val === 'rgba(0,0,0,0)' || val === 'rgba(0, 0, 0, 0)') val = 'transparent'
+
+                // 忽略 vendor prefix，因为 CSR (JSDOM) 经常会丢失它们
+                if (
+                  prop.startsWith('-webkit-') ||
+                  prop.startsWith('-ms-') ||
+                  prop.startsWith('-moz-') ||
+                  prop.startsWith('webkit-') ||
+                  prop.startsWith('ms-') ||
+                  prop.startsWith('moz-') ||
+                  prop === 'mstransform'
+                ) {
+                  return null
+                }
+
+                return `${prop}:${val}`
+              })
+              .filter(Boolean)
+              .sort()
+              .join(';')
           }
 
           // 标准化 class 属性：移除 Vue Transition 可能产生的过渡类名

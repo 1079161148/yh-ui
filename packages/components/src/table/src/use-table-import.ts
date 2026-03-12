@@ -389,7 +389,7 @@ export function useTableImport(data: Ref<Record<string, unknown>[]>, columns: Re
         config.afterImport?.(rows, mode)
         resolve(rows)
       }
-      reader.onerror = () => reject(new Error(t('yh.upload.error')))
+      reader.onerror = () => reject(new Error(t('upload.error')))
 
       // 根据类型选择读取方式
       if (type === 'xlsx') {

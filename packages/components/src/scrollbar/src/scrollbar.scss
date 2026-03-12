@@ -1,0 +1,78 @@
+@use 'sass:map';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(scrollbar) {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  @include e(wrap) {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+
+    @include m(hidden-native) {
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  @include e(view) {
+    display: block;
+    min-width: 100%;
+  }
+
+  @include e(bar) {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    z-index: 1;
+    border-radius: var(--yh-scrollbar-thumb-radius);
+    transition: opacity var(--yh-duration-base) var(--yh-timing-ease);
+
+    @include when(vertical) {
+      width: var(--yh-scrollbar-width);
+      top: 2px;
+      & > div {
+        width: 100%;
+      }
+    }
+
+    @include when(horizontal) {
+      height: var(--yh-scrollbar-width);
+      left: 2px;
+      & > div {
+        height: 100%;
+      }
+    }
+  }
+
+  @include e(thumb) {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    border-radius: inherit;
+    background-color: var(--yh-scrollbar-thumb-color);
+    transition: background-color var(--yh-duration-base) var(--yh-timing-ease);
+
+    &:hover {
+      background-color: var(--yh-scrollbar-thumb-hover-color);
+    }
+  }
+}
+
+.yh-scrollbar-fade-enter-active,
+.yh-scrollbar-fade-leave-active {
+  transition: opacity var(--yh-duration-base) var(--yh-timing-ease);
+}
+
+.yh-scrollbar-fade-enter-from,
+.yh-scrollbar-fade-leave-to {
+  opacity: 0;
+}

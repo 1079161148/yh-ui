@@ -734,7 +734,8 @@ export const zhCn: Language = {
         copyCode: '复制代码',
         rendering: '正在渲染...',
         renderError: '渲染失败',
-        renderSuccess: '渲染成功'
+        renderSuccess: '渲染成功',
+        retry: '重试'
       }
     }
   }
