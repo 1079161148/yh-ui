@@ -88,7 +88,7 @@ function getHandleStyle(handle: NodeHandle) {
   position: relative;
   display: inline-block;
   user-select: none;
-  cursor: grab;
+  cursor: pointer;
   box-sizing: border-box;
 }
 

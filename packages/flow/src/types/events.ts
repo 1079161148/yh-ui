@@ -1,5 +1,4 @@
-import type { Node, Edge, ViewportTransform } from './types'
-import type { Connection } from './index' // Changed from ./edge to avoid circularity if possible or just use ./index
+import type { Node, Edge, ViewportTransform, Connection } from './index'
 
 export type FlowEventCallback<T = unknown> = (event: T) => void
 
@@ -18,6 +17,7 @@ export interface FlowEvents {
   'edge:unselected': { edge: Edge }
   'edge:contextmenu': { edge: Edge; nativeEvent: MouseEvent }
   'edge:connect': { connection: Connection }
+  'edge:update': { edge: Edge; connection: Connection }
   'viewport:change': { transform: ViewportTransform }
   'selection:change': { selectedNodes: Node[]; selectedEdges: Edge[] }
   'selection:dragstart': { nodes: Node[]; edges: Edge[] }

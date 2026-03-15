@@ -57,6 +57,11 @@ const nodeStyle = computed(() => {
   display: flex;
   flex-direction: column;
   user-select: none;
+  cursor: pointer;
+}
+
+.flow-group-node.dragging {
+  cursor: grabbing;
 }
 
 .flow-group-header {

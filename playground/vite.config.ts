@@ -10,6 +10,7 @@ export default defineConfig({
       '@yh-ui/hooks': resolve(__dirname, '../packages/hooks/src'),
       '@yh-ui/utils': resolve(__dirname, '../packages/utils/src'),
       '@yh-ui/theme': resolve(__dirname, '../packages/theme/src'),
+      '@yh-ui/flow': resolve(__dirname, '../packages/flow/src'),
       dayjs: resolve(__dirname, '../node_modules/dayjs')
     }
   },

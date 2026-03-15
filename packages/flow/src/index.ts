@@ -23,6 +23,8 @@ export { default as InputNode } from './components/nodes/InputNode.vue'
 export { default as OutputNode } from './components/nodes/OutputNode.vue'
 export { default as GroupNode } from './components/nodes/GroupNode.vue'
 export { default as CustomNode } from './components/nodes/CustomNode.vue'
+export { default as NodeResizer } from './components/nodes/NodeResizer.vue'
+export { default as NodeToolbar } from './components/nodes/NodeToolbar.vue'
 
 // 内置连线组件
 export { default as BaseEdge } from './components/edges/BaseEdge.vue'
@@ -32,3 +34,8 @@ export { default as BezierEdge } from './components/edges/BezierEdge.vue'
 
 // 主组件
 export { default as Flow } from './Flow.vue'
+
+// 暴露辅助 UI 组件作为功能插件使用（Vue 通用最佳实践）
+export { default as Minimap } from './renderer/Minimap.vue'
+export { default as Controls } from './renderer/Controls.vue'
+export { default as FlowBackground } from './renderer/FlowBackground.vue'

@@ -18,7 +18,7 @@ const tsNodes = `<template>
       ]"
     />
   </div>
-</template>`
+<\/template>`
 
 const jsNodes = toJs(tsNodes)
 </script>

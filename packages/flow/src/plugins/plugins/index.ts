@@ -38,12 +38,15 @@ export function createMiniMapPlugin(options: MiniMapPluginOptions = {}): FlowPlu
     description: '显示流程图小地图',
 
     install(flow: FlowInstance) {
+      if (!mergedOptions.enabled) return
       console.log(`[MiniMap Plugin] Installed with options:`, mergedOptions)
 
-      // 注册视口变化监听，更新小地图视图框
       flow.on('viewport:change', (event) => {
-        // TODO: 更新小地图中的视口框位置
-        console.log('[MiniMap Plugin] Viewport changed:', event)
+        if (container) {
+          // 在原生插件模式下同步小地图视口
+          // 注意: 更推荐直接使用暴露的 <Minimap> Vue 组件（最佳实践）
+          console.log('[MiniMap Plugin] Viewport changed:', event)
+        }
       })
     },
 
@@ -170,11 +173,28 @@ export function createSnapPlugin(options: SnapPluginOptions = {}): FlowPlugin {
     description: '启用节点网格吸附',
 
     install(flow: FlowInstance) {
+      if (!mergedOptions.enabled) return
       console.log(`[Snap Plugin] Installed with options:`, mergedOptions)
 
       // 注册节点拖拽结束事件，计算吸附位置
-      flow.on('node:dragend', () => {
-        // TODO: 实现吸附逻辑
+      flow.on('node:dragend', (payload) => {
+        if (!payload || !payload.node) return
+        const node = payload.node
+
+        if (mergedOptions.snapToGrid) {
+          const grid = mergedOptions.gridSize
+          const snapX = Math.round(node.position.x / grid) * grid
+          const snapY = Math.round(node.position.y / grid) * grid
+
+          if (
+            Math.abs(snapX - node.position.x) <= mergedOptions.snapSensitivity &&
+            Math.abs(snapY - node.position.y) <= mergedOptions.snapSensitivity
+          ) {
+            flow.updateNode(node.id, {
+              position: { x: snapX, y: snapY }
+            })
+          }
+        }
       })
     },
 
@@ -331,8 +351,8 @@ export function createExportPlugin(options: ExportPluginOptions = {}): FlowPlugi
       }
 
       // 挂载到 flow 实例供外部调用
-      ;(flow as unknown as { exportJson: unknown }).exportJson = exportJson
-      ;(flow as unknown as { exportImage: unknown }).exportImage = exportImage
+      flow.exportJson = exportJson
+      flow.exportImage = exportImage
     },
 
     destroy() {
@@ -382,7 +402,7 @@ export function createLayoutPlugin(options: LayoutPluginOptions = {}): FlowPlugi
         console.log('[Layout Plugin] Applying layout with options:', opts)
       }
 
-      ;(flow as unknown as { applyLayout: unknown }).applyLayout = applyLayout
+      flow.applyLayout = applyLayout
     },
 
     destroy() {

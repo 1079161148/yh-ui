@@ -8,7 +8,8 @@
       :class="{
         'is-selected': node.selected,
         'is-dragging': node.dragging,
-        'is-hidden': node.hidden
+        'is-hidden': node.hidden,
+        [`type-${node.type}`]: true
       }"
       :style="getNodeStyle(node)"
       @mousedown="handleNodeMouseDown($event, node)"
@@ -17,27 +18,27 @@
       @contextmenu="handleNodeContextMenu($event, node)"
     >
       <!-- Handle (连接点) -->
-      <template v-if="node.connectable !== false">
+      <template v-if="props.connectable !== false && node.connectable !== false">
         <!-- Source handles -->
         <div
           v-for="handle in getHandles(node, 'source')"
-          :key="`handle-${handle.id || 'source'}`"
+          :key="`handle-source-${handle.id || handle.position}`"
           class="yh-flow-handle is-source"
           :class="`position-${handle.position}`"
           :data-handle-id="handle.id"
-          :data-handle-type="handle.type"
+          :data-handle-type="'source'"
           @mousedown.stop="handleConnectStart($event, node, handle)"
-        />
+        ></div>
         <!-- Target handles -->
         <div
           v-for="handle in getHandles(node, 'target')"
-          :key="`handle-${handle.id || 'target'}`"
+          :key="`handle-target-${handle.id || handle.position}`"
           class="yh-flow-handle is-target"
           :class="`position-${handle.position}`"
           :data-handle-id="handle.id"
-          :data-handle-type="handle.type"
+          :data-handle-type="'target'"
           @mousedown.stop="handleConnectStart($event, node, handle)"
-        />
+        ></div>
       </template>
       <!-- 节点内容 -->
       <div class="yh-flow-node__content">
@@ -53,12 +54,20 @@
 import { computed, ref } from 'vue'
 import type { Node, NodeHandle, HandleType, Position } from '../types'
 
-const props = defineProps<{
-  nodes: Node[]
-  transform: { x: number; y: number; zoom: number }
-  draggable?: boolean
-  readonly?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    nodes: Node[]
+    transform: { x: number; y: number; zoom: number }
+    draggable?: boolean
+    connectable?: boolean
+    readonly?: boolean
+  }>(),
+  {
+    draggable: true,
+    connectable: true,
+    readonly: false
+  }
+)
 
 const emit = defineEmits<{
   (e: 'nodeClick', event: MouseEvent, node: Node): void
@@ -85,25 +94,56 @@ const getNodeStyle = (node: Node) => {
   const width = node.width || 200
   const height = node.height || 50
 
+  let zIndex = node.zIndex || 10
+  if (node.type === 'group') {
+    zIndex = node.selected ? 2 : 1
+  } else {
+    zIndex = node.selected ? 100 : Math.max(10, zIndex)
+  }
+
   return {
-    transform: `translate(${node.position.x * props.transform.zoom + props.transform.x}px, ${node.position.y * props.transform.zoom + props.transform.y}px)`,
-    width: `${width * props.transform.zoom}px`,
-    minHeight: `${height * props.transform.zoom}px`,
-    zIndex: node.selected ? 100 : node.zIndex || 1
+    transform: `translate(${node.position.x}px, ${node.position.y}px)`,
+    width: `${width}px`,
+    height: `${height}px`,
+    zIndex,
+    ...node.style
   }
 }
 
-const getHandles = (node: Node, type: HandleType) => {
+const getHandles = (node: Node, type: HandleType): NodeHandle[] => {
   if (node.handleBounds) {
-    return node.handleBounds[type] || []
+    const handles: NodeHandle[] = []
+    if (node.handleBounds.top) handles.push(...node.handleBounds.top)
+    if (node.handleBounds.right) handles.push(...node.handleBounds.right)
+    if (node.handleBounds.bottom) handles.push(...node.handleBounds.bottom)
+    if (node.handleBounds.left) handles.push(...node.handleBounds.left)
+    return handles.filter((h) => h.type === type)
   }
-  // 默认 handle
-  return [
-    {
-      type,
-      position: type === 'source' ? ('right' as Position) : ('left' as Position)
-    }
-  ]
+
+  if (node.type === 'group') {
+    return []
+  }
+
+  // 默认 handles 策略，优化为标准的从左到右工作流习惯
+  if (node.type === 'input') {
+    return type === 'source' ? [{ type: 'source', position: 'right' as Position }] : []
+  }
+  if (node.type === 'output') {
+    return type === 'target' ? [{ type: 'target', position: 'left' as Position }] : []
+  }
+
+  // default node: source on right/bottom, target on left/top
+  if (type === 'source') {
+    return [
+      { type: 'source', position: 'right' as Position },
+      { type: 'source', position: 'bottom' as Position }
+    ]
+  } else {
+    return [
+      { type: 'target', position: 'left' as Position },
+      { type: 'target', position: 'top' as Position }
+    ]
+  }
 }
 
 // 拖拽状态
@@ -116,91 +156,93 @@ const nodesStartPositions = ref<Map<string, { x: number; y: number }>>(new Map()
 
 const handleNodeMouseDown = (event: MouseEvent, node: Node) => {
   if (props.readonly || !props.draggable || node.draggable === false) return
-  if ((event.target as HTMLElement).classList.contains('yh-flow-handle')) return
+
+  // 严谨检测：如果点击的是连接点或者缩放手柄，不触发节点拖拽
+  const target = event.target as HTMLElement
+  if (
+    target.closest('.yh-flow-handle') ||
+    target.closest('.resizer-handle') ||
+    target.closest('.yh-flow-node-toolbar')
+  ) {
+    return
+  }
 
   event.preventDefault()
 
-  // 检查是否有其他节点被同时选中
-  const selectedNodes = props.nodes.filter((n) => n.selected && n.id !== node.id)
+  const wasSelected = node.selected
 
-  if (selectedNodes.length > 0 && !event.shiftKey && !event.metaKey && !event.ctrlKey) {
-    // 多节点拖拽模式：拖动所有选中的节点
-    draggingNodes.value = [node.id, ...selectedNodes.map((n) => n.id)]
-    nodesStartPositions.value = new Map()
+  // 立即触发 click，实现点击（按下）即选中当前节点
+  emit('nodeClick', event, node)
 
-    // 记录所有选中节点的起始位置
-    draggingNodes.value.forEach((nodeId) => {
-      const n = props.nodes.find((nd) => nd.id === nodeId)
-      if (n) {
-        nodesStartPositions.value.set(nodeId, { ...n.position })
-      }
+  const draggedIds = new Set<string>()
+  const addNodeAndChildren = (id: string) => {
+    if (draggedIds.has(id)) return
+    draggedIds.add(id)
+    props.nodes.forEach((n) => {
+      if (n.parentId === id) addNodeAndChildren(n.id)
     })
-
-    dragStartPos.value = { x: event.clientX, y: event.clientY }
-
-    // 触发拖拽开始事件
-    emit('nodeDragStart', event, node)
-  } else {
-    // 单节点拖拽模式（原有逻辑）
-    // 如果按住shift/ctrl/meta，点击未选中节点则添加到选区
-    if (event.shiftKey || event.metaKey || event.ctrlKey) {
-      emit('nodeSelectToggle', node.id)
-    }
-
-    draggingNode.value = node.id
-    dragStartPos.value = { x: event.clientX, y: event.clientY }
-    nodeStartPos.value = { ...node.position }
-
-    emit('nodeDragStart', event, node)
   }
+
+  const isMultiSelection = event.shiftKey || event.metaKey || event.ctrlKey
+  const otherSelectedNodes = props.nodes.filter((n) => n.selected && n.id !== node.id)
+
+  let nodesToDrag = [node.id]
+
+  if (isMultiSelection || wasSelected) {
+    if (otherSelectedNodes.length > 0) {
+      nodesToDrag = [node.id, ...otherSelectedNodes.map((n) => n.id)]
+    }
+  }
+
+  nodesToDrag.forEach(addNodeAndChildren)
+
+  draggingNodes.value = Array.from(draggedIds)
+  nodesStartPositions.value = new Map()
+
+  draggingNodes.value.forEach((nodeId) => {
+    const n = props.nodes.find((nd) => nd.id === nodeId)
+    if (n) {
+      nodesStartPositions.value.set(nodeId, { ...n.position })
+    }
+  })
+
+  // 同步标记，某些外部依赖可能会获取此值
+  if (draggingNodes.value.length === 1) {
+    draggingNode.value = node.id
+    nodeStartPos.value = { ...node.position }
+  } else {
+    draggingNode.value = null
+  }
+
+  dragStartPos.value = { x: event.clientX, y: event.clientY }
+  emit('nodeDragStart', event, node)
 
   document.addEventListener('mousemove', handleMouseMove)
   document.addEventListener('mouseup', handleMouseUp)
 }
 
 const handleMouseMove = (event: MouseEvent) => {
-  // 多节点拖拽
-  if (draggingNodes.value.length > 0) {
-    const dx = (event.clientX - dragStartPos.value.x) / props.transform.zoom
-    const dy = (event.clientY - dragStartPos.value.y) / props.transform.zoom
-
-    // 更新所有拖拽中的节点位置
-    draggingNodes.value.forEach((nodeId) => {
-      const startPos = nodesStartPositions.value.get(nodeId)
-      if (startPos) {
-        const newPosition = {
-          x: startPos.x + dx,
-          y: startPos.y + dy
-        }
-
-        const node = props.nodes.find((n) => n.id === nodeId)
-        if (node) {
-          emit('nodeDrag', event, node, newPosition)
-        }
-      }
-    })
-    return
-  }
-
-  // 单节点拖拽
-  if (!draggingNode.value) return
+  if (draggingNodes.value.length === 0) return
 
   const dx = (event.clientX - dragStartPos.value.x) / props.transform.zoom
   const dy = (event.clientY - dragStartPos.value.y) / props.transform.zoom
 
-  const newPosition = {
-    x: nodeStartPos.value.x + dx,
-    y: nodeStartPos.value.y + dy
-  }
-
-  const node = props.nodes.find((n) => n.id === draggingNode.value)
-  if (node) {
-    emit('nodeDrag', event, node, newPosition)
-  }
+  draggingNodes.value.forEach((nodeId) => {
+    const startPos = nodesStartPositions.value.get(nodeId)
+    if (startPos) {
+      const newPosition = {
+        x: startPos.x + dx,
+        y: startPos.y + dy
+      }
+      const node = props.nodes.find((n) => n.id === nodeId)
+      if (node) {
+        emit('nodeDrag', event, node, newPosition)
+      }
+    }
+  })
 }
 
 const handleMouseUp = (event: MouseEvent) => {
-  // 多节点拖拽结束
   if (draggingNodes.value.length > 0) {
     draggingNodes.value.forEach((nodeId) => {
       const node = props.nodes.find((n) => n.id === nodeId)
@@ -212,21 +254,14 @@ const handleMouseUp = (event: MouseEvent) => {
     nodesStartPositions.value = new Map()
   }
 
-  // 单节点拖拽结束
-  if (draggingNode.value) {
-    const node = props.nodes.find((n) => n.id === draggingNode.value)
-    if (node) {
-      emit('nodeDragEnd', event, node)
-    }
-  }
-
   draggingNode.value = null
   document.removeEventListener('mousemove', handleMouseMove)
   document.removeEventListener('mouseup', handleMouseUp)
 }
 
-const handleNodeClick = (event: MouseEvent, node: Node) => {
-  emit('nodeClick', event, node)
+const handleNodeClick = (_event: MouseEvent, _node: Node) => {
+  // 不在此 emit nodeClick，避免和 mousedown 中触发的逻辑重复，仅作保留或去除
+  // emit('nodeClick', event, node)
 }
 
 const handleNodeDblClick = (event: MouseEvent, node: Node) => {
@@ -238,7 +273,8 @@ const handleNodeContextMenu = (event: MouseEvent, node: Node) => {
 }
 
 const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) => {
-  emit('connectStart', event, node.id, handle.id || '', handle.type)
+  // 传递 handle.position 让 Flow.vue 精确定位连接线起点
+  emit('connectStart', event, node.id, handle.id || handle.position || '', handle.type)
 }
 </script>
 
@@ -249,28 +285,33 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 .yh-flow-node {
   position: absolute;
   background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  cursor: move;
+  border: 1px solid #1a192b;
+  border-radius: 3px;
+  box-shadow: none;
+  cursor: pointer;
   user-select: none;
+  overflow: visible;
+  /* Handle markers should be visible */
+  box-sizing: border-box;
+  pointer-events: auto;
   transition:
     box-shadow 0.2s,
     border-color 0.2s;
 }
 
 .yh-flow-node:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .yh-flow-node.is-selected {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0 1px #3b82f6;
 }
 
 .yh-flow-node.is-dragging {
@@ -282,80 +323,130 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
   display: none;
 }
 
+.yh-flow-node.type-group {
+  background: rgba(248, 250, 252, 0.5);
+  border: 1px dashed #9ca3af;
+  box-shadow: none;
+}
+
+.yh-flow-node.type-group.is-selected {
+  border: 1px solid #3b82f6;
+  background: rgba(248, 250, 252, 0.7);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.yh-flow-node.type-group:hover {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.yh-flow-node.type-group .yh-flow-node__content {
+  padding: 8px 12px;
+}
+
+.yh-flow-node.type-group .yh-flow-node__header {
+  font-size: 13px;
+  color: #6b7280;
+}
+
 .yh-flow-node__content {
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  /* Default no padding to allow tools to align to borders */
 }
 
 .yh-flow-node__header {
-  font-weight: 600;
-  font-size: 14px;
-  color: #374151;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 12px;
+  color: #222;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .yh-flow-handle {
   position: absolute;
-  width: 12px;
-  height: 12px;
-  background: #fff;
-  border: 2px solid #9ca3af;
+  width: 6px;
+  height: 6px;
+  background: #1a192b;
+  border: 1px solid #fff;
   border-radius: 50%;
   cursor: crosshair;
   z-index: 10;
+  box-sizing: border-box;
   transition:
     background-color 0.2s,
-    border-color 0.2s;
+    border-color 0.2s,
+    transform 0.2s;
 }
 
-.yh-flow-handle:hover {
+.yh-flow-handle:hover,
+.yh-flow-node.is-selected .yh-flow-handle {
   background: #3b82f6;
-  border-color: #3b82f6;
+  border-color: #fff;
 }
 
-.yh-flow-handle.is-source.position-right {
-  right: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.yh-flow-handle.is-source.position-left {
-  left: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.yh-flow-handle.is-source.position-top {
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.yh-flow-handle.is-source.position-bottom {
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
+/* Right */
+.yh-flow-handle.is-source.position-right,
 .yh-flow-handle.is-target.position-right {
-  right: -6px;
+  right: -3px;
   top: 50%;
   transform: translateY(-50%);
 }
 
+.yh-flow-handle.is-source.position-right:hover,
+.yh-flow-handle.is-target.position-right:hover,
+.yh-flow-node.is-selected .yh-flow-handle.position-right {
+  transform: translateY(-50%) scale(1.3);
+}
+
+/* Left */
+.yh-flow-handle.is-source.position-left,
 .yh-flow-handle.is-target.position-left {
-  left: -6px;
+  left: -3px;
   top: 50%;
   transform: translateY(-50%);
 }
 
+.yh-flow-handle.is-source.position-left:hover,
+.yh-flow-handle.is-target.position-left:hover,
+.yh-flow-node.is-selected .yh-flow-handle.position-left {
+  transform: translateY(-50%) scale(1.3);
+}
+
+/* Top */
+.yh-flow-handle.is-source.position-top,
 .yh-flow-handle.is-target.position-top {
-  top: -6px;
+  top: -3px;
   left: 50%;
   transform: translateX(-50%);
 }
 
+.yh-flow-handle.is-source.position-top:hover,
+.yh-flow-handle.is-target.position-top:hover,
+.yh-flow-node.is-selected .yh-flow-handle.position-top {
+  transform: translateX(-50%) scale(1.3);
+}
+
+/* Bottom */
+.yh-flow-handle.is-source.position-bottom,
 .yh-flow-handle.is-target.position-bottom {
-  bottom: -6px;
+  bottom: -3px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.yh-flow-handle.is-source.position-bottom:hover,
+.yh-flow-handle.is-target.position-bottom:hover,
+.yh-flow-node.is-selected .yh-flow-handle.position-bottom {
+  transform: translateX(-50%) scale(1.3);
 }
 </style>

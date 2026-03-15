@@ -27,7 +27,11 @@
         @edge-click="handleEdgeClick"
         @edge-dblclick="handleEdgeDblClick"
         @edge-contextmenu="handleEdgeContextMenu"
-      />
+      >
+        <template #edge="edgeProps">
+          <slot name="edge" v-bind="edgeProps"></slot>
+        </template>
+      </EdgeRenderer>
 
       <!-- Nodes -->
       <NodeRenderer

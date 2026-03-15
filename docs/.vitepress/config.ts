@@ -706,32 +706,112 @@ export default defineConfig({
       // Flow 流程图侧边栏
       '/flow/': [
         {
-          text: '快速开始',
+          text: '开始',
           items: [
-            { text: '基础用法', link: '/flow/basic' },
-            { text: '节点类型', link: '/flow/nodes' },
-            { text: '连线类型', link: '/flow/edges' },
-            { text: '交互操作', link: '/flow/interaction' },
-            { text: '对齐与分布', link: '/flow/alignment' },
-            { text: '插件系统', link: '/flow/plugins' },
-            { text: '⚡ 性能基准压测', link: '/flow/benchmark' },
+            { text: '快速开始', link: '/flow/basic' },
             { text: 'API 参考', link: '/flow/api' }
+          ]
+        },
+        {
+          text: '核心概念',
+          items: [
+            { text: '内置节点', link: '/flow/nodes' },
+            { text: '边缘（连线）', link: '/flow/edges' },
+            { text: '插件系统', link: '/flow/plugins' }
+          ]
+        },
+        {
+          text: '交互与功能',
+          items: [
+            { text: '基础交互', link: '/flow/interaction' },
+            { text: '拖拽式创建', link: '/flow/drag-drop' },
+            { text: '可见性控制', link: '/flow/hidden' },
+            { text: '智能辅助线', link: '/flow/alignment' },
+            { text: '导出截图', link: '/flow/screenshot' },
+            { text: '确认删除拦截', link: '/flow/confirm-delete' },
+            { text: '视口平滑过渡', link: '/flow/viewport-transition' },
+            { text: '跨层传送 (Teleport)', link: '/flow/teleport' },
+            { text: '持久化 (Save/Restore)', link: '/flow/save-restore' },
+            { text: '数学流程示例', link: '/flow/math' }
+          ]
+        },
+        {
+          text: '进阶扩展',
+          items: [
+            { text: '自定义节点渲染', link: '/flow/custom-node' },
+            { text: '响应式更新节点', link: '/flow/update-node' },
+            { text: '碰撞/位置检测', link: '/flow/intersections' },
+            { text: '嵌套与分组', link: '/flow/nested' },
+            { text: '节点缩放器 (Resizer)', link: '/flow/node-resizer' },
+            { text: '节点工具栏 (Toolbar)', link: '/flow/node-toolbar' },
+            { text: '自定义连线渲染', link: '/flow/custom-edge' },
+            { text: '可更新连线', link: '/flow/updatable-edge' }
+          ]
+        },
+        {
+          text: '性能与架构',
+          items: [
+            { text: '自动布局 (Dagre)', link: '/flow/layout' },
+            { text: '布局动画', link: '/flow/layout-animation' },
+            { text: 'Pinia 状态管理', link: '/flow/pinia' },
+            { text: '多实例协作', link: '/flow/multi-flow' },
+            { text: '性能压力测试', link: '/flow/benchmark' }
           ]
         }
       ],
       // 英文 Flow 侧边栏
       '/en/flow/': [
         {
-          text: 'Getting Started',
+          text: 'Essentials',
           items: [
-            { text: 'Basic Usage', link: '/en/flow/basic' },
-            { text: 'Node Types', link: '/en/flow/nodes' },
-            { text: 'Edge Types', link: '/en/flow/edges' },
-            { text: 'Interaction', link: '/en/flow/interaction' },
-            { text: 'Alignment & Distribution', link: '/en/flow/alignment' },
-            { text: 'Plugins', link: '/en/flow/plugins' },
-            { text: '⚡ Performance Benchmark', link: '/en/flow/benchmark' },
+            { text: 'Quick Start', link: '/en/flow/basic' },
             { text: 'API Reference', link: '/en/flow/api' }
+          ]
+        },
+        {
+          text: 'Core Concepts',
+          items: [
+            { text: 'Built-in Nodes', link: '/en/flow/nodes' },
+            { text: 'Edges & Connections', link: '/en/flow/edges' },
+            { text: 'Plugin System', link: '/en/flow/plugins' }
+          ]
+        },
+        {
+          text: 'Interaction & Features',
+          items: [
+            { text: 'Interaction Logic', link: '/en/flow/interaction' },
+            { text: 'Drag & Drop Tool', link: '/en/flow/drag-drop' },
+            { text: 'Visibility Control', link: '/en/flow/hidden' },
+            { text: 'Smart Snap-line', link: '/en/flow/alignment' },
+            { text: 'Export Screenshot', link: '/en/flow/screenshot' },
+            { text: 'Confirm Deletion', link: '/en/flow/confirm-delete' },
+            { text: 'Viewport Animation', link: '/en/flow/viewport-transition' },
+            { text: 'Teleport UI', link: '/en/flow/teleport' },
+            { text: 'Persistence (Save)', link: '/en/flow/save-restore' },
+            { text: 'Math Flow Project', link: '/en/flow/math' }
+          ]
+        },
+        {
+          text: 'Advanced Extension',
+          items: [
+            { text: 'Custom Node UI', link: '/en/flow/custom-node' },
+            { text: 'Reactive Updates', link: '/en/flow/update-node' },
+            { text: 'Intersection Logic', link: '/en/flow/intersections' },
+            { text: 'Nested & Groups', link: '/en/flow/nested' },
+            { text: 'Node Resizer', link: '/en/flow/node-resizer' },
+            { text: 'Node Toolbar', link: '/en/flow/node-toolbar' },
+            { text: 'Custom Edge UI', link: '/en/flow/custom-edge' },
+            { text: 'Updatable Edges', link: '/en/flow/updatable-edge' }
+          ]
+        },
+        {
+          text: 'Scaling & Architecture',
+          items: [
+            { text: 'Auto Layout', link: '/en/flow/layout' },
+            { text: 'Layout Animation', link: '/en/flow/layout-animation' },
+            { text: 'Pinia Integration', link: '/en/flow/pinia' },
+            { text: 'Concurrent Flows', link: '/en/flow/multi-flow' },
+            { text: 'Benchmark Performance', link: '/en/flow/benchmark' }
           ]
         }
       ]

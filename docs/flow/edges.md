@@ -26,7 +26,7 @@ const tsEdgeTypes = `<template>
       background="dots"
     />
   </div>
-</template>`
+<\/template>`
 
 const jsEdgeTypes = toJs(tsEdgeTypes)
 </script>

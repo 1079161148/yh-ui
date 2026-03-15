@@ -157,6 +157,7 @@ export interface Edge<Data = EdgeData> {
   deletable?: boolean
   hidden?: boolean
   selected?: boolean
+  updatable?: boolean
 }
 
 export type EdgeChangeType = 'select' | 'remove' | 'style' | 'data' | 'selectMulti' | 'unnselect'
@@ -233,7 +234,9 @@ export interface FlowPlugin {
   id: string
   name: string
   version?: string
-  install: (flow: FlowInstance) => void
+  description?: string
+  enabled?: boolean
+  install: (flow: FlowInstance, options?: Record<string, unknown>) => void
   destroy?: () => void
 }
 
@@ -259,6 +262,7 @@ export interface FlowInstance {
   clearSelection: () => void
   getNodes: () => Node[]
   getEdges: () => Edge[]
+  getViewport: () => ViewportTransform
   screenToCanvas: (x: number, y: number) => { x: number; y: number }
   canvasToScreen: (x: number, y: number) => { x: number; y: number }
   on: <K extends FlowEventKey>(event: K, handler: FlowEventHandler<K>) => void

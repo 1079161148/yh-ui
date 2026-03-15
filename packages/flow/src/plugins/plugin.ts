@@ -1,5 +1,5 @@
-import type { Node, Edge, ViewportTransform, FlowInstance } from '../types'
-export type { FlowInstance }
+import type { Node, Edge, ViewportTransform, FlowInstance, FlowPlugin } from '../types'
+export type { FlowInstance, FlowPlugin }
 
 /**
  * 插件生命周期钩子
@@ -22,26 +22,6 @@ export interface PluginOptions {
   version?: string
   description?: string
   enabled?: boolean
-}
-
-/**
- * Flow 插件接口
- */
-export interface FlowPlugin {
-  /** 插件唯一标识 */
-  id: string
-  /** 插件名称 */
-  name: string
-  /** 插件版本 */
-  version?: string
-  /** 插件描述 */
-  description?: string
-  /** 是否启用 */
-  enabled?: boolean
-  /** 插件安装函数 */
-  install: (flow: FlowInstance, options?: Record<string, unknown>) => void
-  /** 插件销毁函数 */
-  destroy?: () => void
 }
 
 /**

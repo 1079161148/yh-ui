@@ -35,7 +35,7 @@ describe('flow/utils/edge', () => {
 
   it('getStepPath should return path with L segments', () => {
     const d = getStepPath(params)
-    expect(d).toMatch(/^M[\d.,]+\s+L[\d.,\s]+$/)
+    expect(d).toMatch(/^M[\d.,]+(?:\s+L[\d.,]+)+$/)
   })
 
   it('getSmoothStepPath should return path with M and L', () => {

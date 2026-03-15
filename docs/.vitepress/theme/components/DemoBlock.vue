@@ -671,12 +671,15 @@ const copyAnchor = async () => {
       background: transparent;
     }
 
-    code {
+    code,
+    pre code,
+    .demo-box__code-content pre code {
       font-family:
         'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas, Monaco, 'Andale Mono', monospace;
       font-size: 13px;
       line-height: 1.6;
-      white-space: pre;
+      white-space: pre-wrap !important;
+      word-break: break-all !important;
       color: #d4d4d4;
     }
 

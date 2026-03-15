@@ -51,6 +51,11 @@ const nodeStyle = computed(() => {
   position: relative;
   display: inline-block;
   user-select: none;
+  cursor: pointer;
+}
+
+.flow-output-node.dragging {
+  cursor: grabbing;
 }
 
 .flow-output-node .flow-handle-left {

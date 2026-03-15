@@ -52,6 +52,7 @@ const nodeStyle = computed(() => {
   position: relative;
   display: inline-block;
   user-select: none;
+  cursor: pointer;
 }
 
 .flow-custom-node.selected {

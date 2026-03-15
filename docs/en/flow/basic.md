@@ -21,7 +21,7 @@ const tsBasic = `<template>
       :grid-size="20"
     />
   </div>
-</template>`
+<\/template>`
 
 const jsBasic = toJs(tsBasic)
 </script>

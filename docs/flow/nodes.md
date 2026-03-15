@@ -20,7 +20,7 @@ const tsBasicNodes = `<template>
       ]"
     />
   </div>
-</template>`
+<\/template>`
 
 const jsBasicNodes = toJs(tsBasicNodes)
 
@@ -43,7 +43,7 @@ const tsGroupNodes = `<template>
       ]"
     />
   </div>
-</template>`
+<\/template>`
 
 const jsGroupNodes = toJs(tsGroupNodes)
 
@@ -72,7 +72,7 @@ const tsHandles = `<template>
       ]"
     />
   </div>
-</template>`
+<\/template>`
 
 const jsHandles = toJs(tsHandles)
 </script>
@@ -233,34 +233,35 @@ const customNode = {
       <span :class="['status', data.status]">{{ data.statusText }}</span>
     </div>
   </div>
+  <\/template>
+
+  <script setup lang="ts">
+    defineProps<{
+      id: string
+      data: {
+        label: string
+        icon?: string
+        status?: string
+        statusText?: string
+      }
+      selected: boolean
+    }>()
+  </script>
+
+  <style scoped>
+    .custom-node {
+      padding: 12px;
+      border-radius: 8px;
+      background: white;
+      border: 1px solid #dcdfe6;
+      min-width: 150px;
+    }
+    .custom-node.selected {
+      border-color: #409eff;
+      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+    }
+  </style>
 </template>
-
-<script setup lang="ts">
-defineProps<{
-  id: string
-  data: {
-    label: string
-    icon?: string
-    status?: string
-    statusText?: string
-  }
-  selected: boolean
-}>()
-</script>
-
-<style scoped>
-.custom-node {
-  padding: 12px;
-  border-radius: 8px;
-  background: white;
-  border: 1px solid #dcdfe6;
-  min-width: 150px;
-}
-.custom-node.selected {
-  border-color: #409eff;
-  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
-}
-</style>
 ```
 
 ## 节点 Handle（连接点）

@@ -162,7 +162,11 @@ import {
   vYhLoading
 } from '@yh-ui/components'
 
-import { Flow as YhFlow } from '@yh-ui/flow'
+import {
+  Flow as YhFlow,
+  NodeResizer as YhNodeResizer,
+  NodeToolbar as YhNodeToolbar
+} from '@yh-ui/flow'
 
 // 导入文档组件
 import DemoBlock from './components/DemoBlock.vue'
@@ -308,6 +312,8 @@ export default {
     app.component('YhAiMermaid', YhAiMermaid)
     app.component('YhScrollbar', YhScrollbar)
     app.component('YhFlow', YhFlow)
+    app.component('YhNodeResizer', YhNodeResizer)
+    app.component('YhNodeToolbar', YhNodeToolbar)
 
     // 注册指令
     app.directive('infinite-scroll', vInfiniteScroll)
