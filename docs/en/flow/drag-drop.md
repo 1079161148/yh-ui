@@ -9,7 +9,7 @@ Drag any node block from the sidebar on the left and drop it into the gray canva
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs } from '../../.vitepress/theme/utils/demo-utils'
-import type { FlowInstance, Node, ViewportTransform } from '@yh-ui/flow'
+import type { FlowInstance, Node, Edge, ViewportTransform } from '@yh-ui/flow'
 
 const tsCode = `<template>
   <div class="dnd-container">
@@ -121,6 +121,7 @@ const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
 const nodes = ref<Node[]>([
   { id: '1', type: 'input', position: { x: 250, y: 5 }, data: { label: 'Existing Node' } }
 ])
+const edges = ref<Edge[]>([])
 
 let idCount = 0
 const getId = () => `dndnode_${idCount++}`
@@ -167,8 +168,8 @@ const onDrop = (event: DragEvent) => {
       <yh-flow
         ref="flowRef"
         v-model="viewport"
-        :nodes="nodes"
-        :edges="[]"
+        v-model:nodes="nodes"
+        v-model:edges="edges"
         background="dots"
       />
     </div>

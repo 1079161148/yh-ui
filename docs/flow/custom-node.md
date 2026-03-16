@@ -156,6 +156,7 @@ const edges = ref<Edge[]>([])
 
 const jsCode = toJs(tsCode)
 
+const edges = ref<Edge[]>([])
 const nodes = ref<Node[]>([
   { 
     id: 'premium-1', 
@@ -174,7 +175,7 @@ const nodes = ref<Node[]>([
   <div style="height: 450px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: #0f172a;">
     <yh-flow
       :nodes="nodes"
-      :edges="[]"
+      :edges="edges"
       :model-value="{ x: 50, y: 20, zoom: 1 }"
       background="none"
     >

@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs } from '../.vitepress/theme/utils/demo-utils'
-import type { FlowInstance, Node, ViewportTransform } from '@yh-ui/flow'
+import type { FlowInstance, Node, Edge, ViewportTransform } from '@yh-ui/flow'
 
 const tsCode = `<template>
   <div class="dnd-container">
@@ -166,6 +166,7 @@ const nodes = ref<Node[]>([
     data: { label: '现有节点' }
   }
 ])
+const edges = ref<Edge[]>([])
 
 let idCount = 0
 const getId = () => `dndnode_${idCount++}`
@@ -217,8 +218,8 @@ const onDrop = (event: DragEvent) => {
       <yh-flow
         ref="flowRef"
         v-model="viewport"
-        :nodes="nodes"
-        :edges="[]"
+        v-model:nodes="nodes"
+        v-model:edges="edges"
         background="dots"
       />
     </div>
