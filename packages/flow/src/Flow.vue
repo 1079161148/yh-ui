@@ -2,7 +2,10 @@
   <div
     ref="containerRef"
     class="yh-flow"
-    :class="{ 'is-readonly': readonly }"
+    :class="{
+      'is-readonly': readonly,
+      'is-panning': isPanning
+    }"
     tabindex="0"
     @wheel.prevent="handleWheel"
     @mousedown="handlePaneMouseDown"
@@ -420,17 +423,15 @@ const connectionLinePath = computed(() => {
 // Event handlers（第一张图快捷键：Ctrl/Command + 滚轮 → 缩放，否则 → 平移）
 const handleWheel = (event: WheelEvent) => {
   event.preventDefault()
-  if (event.ctrlKey || event.metaKey) {
-    const delta = event.deltaY > 0 ? 0.9 : 1.1
-    const rect = containerRef.value?.getBoundingClientRect()
-    if (rect) {
-      viewport.zoomTo(viewportRef.value.zoom * delta, {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-      })
-    }
-  } else {
-    viewport.pan(-event.deltaX, -event.deltaY)
+
+  // 默认应用缩放，不再进行滚动操作
+  const delta = event.deltaY > 0 ? 0.9 : 1.1
+  const rect = containerRef.value?.getBoundingClientRect()
+  if (rect) {
+    viewport.zoomTo(viewportRef.value.zoom * delta, {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    })
   }
 }
 
@@ -1074,6 +1075,11 @@ onBeforeUnmount(() => {
   overflow: hidden;
   background: #f8f9fa;
   user-select: none;
+  cursor: grab;
+}
+
+.yh-flow.is-panning {
+  cursor: grabbing;
 }
 
 .yh-flow.is-readonly {
