@@ -63,7 +63,10 @@ const updatePosition = () => {
   if (!isVisible.value) return
 
   const nodeEl = document.getElementById(`node-${props.nodeId}`)
-  if (!nodeEl) return
+  if (!nodeEl) {
+    rafId = requestAnimationFrame(updatePosition)
+    return
+  }
 
   const rect = nodeEl.getBoundingClientRect()
   const scrollX = window.scrollX
@@ -97,12 +100,18 @@ const updatePosition = () => {
         : 'translateY(-50%)'
   }
 
+  // 持续更新位置，跟踪节点移动和画布缩放
   rafId = requestAnimationFrame(updatePosition)
 }
 
 watch(isVisible, (val: boolean) => {
   if (val) {
     updatePosition()
+  } else {
+    if (rafId) {
+      cancelAnimationFrame(rafId)
+      rafId = 0
+    }
   }
 })
 
@@ -114,6 +123,11 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   if (rafId) cancelAnimationFrame(rafId)
+})
+
+// 暴露 updatePosition 方法，供外部（如 Flow 组件）在节点移动/缩放后调用
+defineExpose({
+  updatePosition
 })
 </script>
 

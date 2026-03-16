@@ -1,4 +1,4 @@
-﻿# 碰撞检测 (Intersections)
+# 碰撞检测 (Intersections)
 
 在构建复杂的拖拽交互时——例如将节点放入特定区域或检测重叠以进行自动对齐——精确的几何计算至关重要。`Flow` 在统一的坐标系中运行，使得实现空间逻辑变得非常简单。
 
@@ -22,7 +22,7 @@ const tsCode = `<template>
     
     <div class="intersect-flowbox">
       <yh-flow
-        :nodes="nodes"
+        v-model:nodes="nodes"
         :edges="[]"
         @node-drag="onNodeDrag"
         background="grid"
@@ -153,7 +153,7 @@ const onNodeDrag = ({ node, position }: { node: Node, position: { x: number, y: 
     </div>
     <div style="flex: 1;">
       <yh-flow
-        :nodes="nodes"
+        v-model:nodes="nodes"
         :edges="[]"
         :model-value="{ x: 0, y: 0, zoom: 1 }"
         @node-drag="onNodeDrag"
@@ -164,6 +164,8 @@ const onNodeDrag = ({ node, position }: { node: Node, position: { x: number, y: 
 </DemoBlock>
 
 ## 工作原理
+
+示例中使用 `v-model:nodes` 与 `@node-drag`：拖拽时 Flow 会通过 `node-drag` 传出实时 `position`，并同步节点到父组件，从而用 AABB 比较「拖动我」与「目标区域」的包围盒即可得到碰撞状态。
 
 由于 `Flow` 将所有节点映射到全局坐标系，你可以直接比较节点的 `position.x/y` 和 `width/height`。
 

@@ -745,7 +745,8 @@ export default defineConfig({
             { text: '节点缩放器 (Resizer)', link: '/flow/node-resizer' },
             { text: '节点工具栏 (Toolbar)', link: '/flow/node-toolbar' },
             { text: '自定义连线渲染', link: '/flow/custom-edge' },
-            { text: '可更新连线', link: '/flow/updatable-edge' }
+            { text: '可更新连线', link: '/flow/updatable-edge' },
+            { text: '节点和连线编辑', link: '/flow/node-edge-edit' }
           ]
         },
         {
@@ -801,7 +802,8 @@ export default defineConfig({
             { text: 'Node Resizer', link: '/en/flow/node-resizer' },
             { text: 'Node Toolbar', link: '/en/flow/node-toolbar' },
             { text: 'Custom Edge UI', link: '/en/flow/custom-edge' },
-            { text: 'Updatable Edges', link: '/en/flow/updatable-edge' }
+            { text: 'Updatable Edges', link: '/en/flow/updatable-edge' },
+            { text: 'Node & Edge Editing', link: '/en/flow/node-edge-edit' }
           ]
         },
         {

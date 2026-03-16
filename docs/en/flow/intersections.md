@@ -1,4 +1,4 @@
-﻿# Intersections
+# Intersections
 
 When building complex drag-and-drop interactions鈥攕uch as dropping a node into a specific zone or detecting overlaps for auto-alignment鈥攁ccurate geometric calculations are essential. `Flow` operates in a unified coordinate system, making it straightforward to implement spatial logic.
 
@@ -22,7 +22,7 @@ const tsCode = `<template>
     
     <div class="intersect-flowbox">
       <yh-flow
-        :nodes="nodes"
+        v-model:nodes="nodes"
         :edges="[]"
         @node-drag="onNodeDrag"
         background="grid"
@@ -153,7 +153,7 @@ const onNodeDrag = ({ node, position }: { node: Node, position: { x: number, y: 
     </div>
     <div style="flex: 1;">
       <yh-flow
-        :nodes="nodes"
+        v-model:nodes="nodes"
         :edges="[]"
         :model-value="{ x: 0, y: 0, zoom: 1 }"
         @node-drag="onNodeDrag"
@@ -164,6 +164,8 @@ const onNodeDrag = ({ node, position }: { node: Node, position: { x: number, y: 
 </DemoBlock>
 
 ## How it works
+
+The demo uses `v-model:nodes` and `@node-drag`: while dragging, Flow emits the live `position` via `node-drag` and syncs nodes to the parent, so AABB comparison of the mover and target bounding boxes gives the intersection state.
 
 Since `Flow` maps all nodes to a global coordinate system, you can directly compare a node's `position.x/y` and `width/height`.
 

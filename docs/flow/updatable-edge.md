@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs } from '../.vitepress/theme/utils/demo-utils'
+import type { Node, Edge, ViewportTransform, Connection } from '@yh-ui/flow'
 
 const tsCode = `<template>
   <div style="width: 100%; height: 400px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
@@ -71,49 +72,59 @@ const handleEdgeUpdate = ({ edge, connection }: { edge: Edge; connection: Connec
 <\/script>`
 
 const jsCode = toJs(tsCode)
+
+const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
+
+const nodes = ref<Node[]>([
+  {
+    id: 'A',
+    type: 'default',
+    position: { x: 250, y: 50 },
+    data: { label: '节点 A' },
+    style: { border: '2px solid #3b82f6', color: '#1e3a8a', width: '150px' }
+  },
+  {
+    id: 'B',
+    type: 'default',
+    position: { x: 100, y: 200 },
+    data: { label: '节点 B' },
+    style: { width: '150px' }
+  },
+  {
+    id: 'C',
+    type: 'default',
+    position: { x: 400, y: 200 },
+    data: { label: '节点 C' },
+    style: { backgroundColor: '#f1f5f9', color: '#475569', width: '150px' }
+  }
+])
+
+const edges = ref<Edge[]>([
+  {
+    id: 'eA-B',
+    source: 'A',
+    target: 'B',
+    type: 'bezier',
+    label: '可更新连线',
+    updatable: true,
+    style: { strokeWidth: 2, stroke: '#3b82f6' }
+  }
+])
+
+const handleEdgeUpdate = ({ edge, connection }: { edge: Edge; connection: Connection }) => {
+  console.log('连线已更新:', edge.id, '新连接:', connection)
+}
 </script>
 
 <DemoBlock title="交互式连线更新" :ts-code="tsCode" :js-code="jsCode">
   <div style="width: 100%; height: 400px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
     <yh-flow
-      :model-value="{ x: 0, y: 0, zoom: 1 }"
-      :nodes="[
-        {
-          id: 'A',
-          type: 'default',
-          position: { x: 250, y: 50 },
-          data: { label: '节点 A' },
-          style: { border: '1px solid #3b82f6', color: '#1e3a8a', width: '150px' }
-        },
-        {
-          id: 'B',
-          type: 'default',
-          position: { x: 100, y: 200 },
-          data: { label: '节点 B' },
-          style: { width: '150px' }
-        },
-        {
-          id: 'C',
-          type: 'default',
-          position: { x: 400, y: 200 },
-          data: { label: '节点 C' },
-          style: { backgroundColor: '#f1f5f9', color: '#475569', width: '150px' }
-        }
-      ]"
-      :edges="[
-        {
-          id: 'eA-B',
-          source: 'A',
-          target: 'B',
-          type: 'bezier',
-          label: '可更新连线',
-          updatable: true,
-          labelStyle: { fill: '#333', fontSize: 12 },
-          style: { strokeWidth: 1.5, stroke: '#666' }
-        }
-      ]"
+      v-model="viewport"
+      :nodes="nodes"
+      v-model:edges="edges"
       :edges-connectable="true"
       background="dots"
+      @edge-update="handleEdgeUpdate"
     />
   </div>
 </DemoBlock>

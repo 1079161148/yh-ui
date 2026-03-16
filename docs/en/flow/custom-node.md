@@ -1,4 +1,4 @@
-﻿# Custom Nodes
+# Custom Nodes
 
 In `Flow`, a node is more than just a rectangle with a border; it is fundamentally a **scoped slot container** that can host any Vue component or HTML structure. This allows you to leverage CSS animations, complex gradients, and third-party UI libraries to create stunning node interfaces.
 
@@ -21,7 +21,7 @@ const tsCode = `<template>
     >
       <!-- 1. Use the #node slot to access the node data object -->
       <template #node="{ node }">
-        <div v-if="node.type === 'premium'" class="glass-node">
+        <div v-if="node.type === 'premium'" class="glass-node" :class="{ 'is-selected': node.selected }">
           <div class="node-glow"></div>
           <div class="node-inner">
              <div class="node-header">
@@ -73,6 +73,11 @@ const edges = ref<Edge[]>([])
   color: white;
   border: 1px solid rgba(255,255,255,0.1);
   overflow: visible;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.glass-node.is-selected {
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .node-glow {
@@ -174,7 +179,8 @@ const nodes = ref<Node[]>([
       background="none"
     >
       <template #node="{ node }">
-        <div v-if="node.type === 'premium'" style="position: relative; width: 100%; height: 100%; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border-radius: 12px; color: white; border: 1px solid rgba(255,255,255,0.1); overflow: visible;">
+        <div v-if="node.type === 'premium'" style="position: relative; width: 100%; height: 100%; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border-radius: 12px; color: white; border: 1px solid rgba(255,255,255,0.1); overflow: visible; transition: border-color 0.2s, box-shadow 0.2s;"
+             :style="node.selected ? { borderColor: 'rgba(59, 130, 246, 0.8)', boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.3)' } : {}">
           <div style="height: 100%; backdrop-filter: blur(12px); padding: 16px; display: flex; flex-direction: column;">
              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                 <span style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981;"></span>
@@ -199,8 +205,8 @@ const nodes = ref<Node[]>([
 
 When building custom nodes via slots, keep these core behaviors in mind:
 
-1.  **Event Bubbling**: standard DOM events (click, mousedown) will bubble up to the `Flow` engine for selection logic unless you explicitly use `.stop` (e.g., `@click.stop` on a node-internal button).
-2.  **Selection Feedback**: Use the `node.selected` boolean passed by the slot to apply highlighted styles (e.g., changing border color).
+1.  **Event Bubbling**: standard DOM events (click, mousedown) bubble to the `Flow` engine for selection; canvas interactions (click to select, drag to move, Ctrl+wheel to zoom, drag empty area to pan) are provided by default. Use `.stop` only when you need to prevent that (e.g. `@click.stop` on a node-internal button).
+2.  **Selection Feedback**: Use the slot’s `node.selected` boolean to apply highlighted styles (e.g. border or glow). **The example above uses `node.selected` so the node border and shadow change when selected—click the node to see the highlight.**
 3.  **Dimensions**: Always specify `width` and `height` in your node data if your internal layout is complex. This is mandatory for predictable virtualization and edge-routing calculations.
 
 > [!TIP]

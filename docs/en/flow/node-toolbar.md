@@ -1,10 +1,10 @@
-﻿# Node Toolbar
+# Node Toolbar (节点工具栏)
 
-To enhance user interaction efficiency, you may want to display a floating shortcut toolbar near a node (on top, bottom, etc.) when it is selected. The `NodeToolbar` component leverages advanced positioning logic to ensure the toolbar remains accurately anchored to the node regardless of the viewport's zoom level or panning offset.
+To enhance user interaction efficiency, you may want a floating shortcut toolbar to appear near a node (above, below, etc.) when it is selected. The `yh-flow` `NodeToolbar` component uses Vue Teleport so the toolbar stays correctly positioned at any canvas zoom level.
 
-## Interactive Toolbar Demo
+## Node Toolbar Example (节点工具栏示例)
 
-Select the node below to reveal the floating action buttons positioned above it.
+Click the node below to see the shortcut buttons above it. The demo uses `v-model:nodes` so selection syncs to the parent and the toolbar visibility (which depends on `node.selected`) works correctly.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -14,7 +14,7 @@ import type { Node } from '@yh-ui/flow'
 const tsCode = `<template>
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="[]"
       background="dots"
     >
@@ -97,7 +97,7 @@ const onRemove = (id: string) => {
 <DemoBlock title="Floating Shortcut Toolbar" :ts-code="tsCode" :js-code="jsCode">
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="[]"
       :model-value="{ x: 0, y: 0, zoom: 1 }"
       background="dots"

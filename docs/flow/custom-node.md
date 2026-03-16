@@ -1,4 +1,4 @@
-﻿# 自定义节点 (Custom Node)
+# 自定义节点 (Custom Node)
 
 在 `yh-flow` 中，节点不仅仅是一个带边框的矩形，它本质上是一个可以容纳任何 Vue 组件或 HTML 元素的 **作用域插槽容器**。这意味着您可以利用 CSS 动画、渐变、以及任何第三方 UI 组件来构建极致精美的节点。
 
@@ -21,7 +21,7 @@ const tsCode = `<template>
     >
       <!-- 1. 使用 #node 插槽访问节点数据对象 -->
       <template #node="{ node }">
-        <div v-if="node.type === 'premium'" class="glass-node">
+        <div v-if="node.type === 'premium'" class="glass-node" :class="{ 'is-selected': node.selected }">
           <div class="node-glow"><\/div>
           <div class="node-inner">
              <div class="node-header">
@@ -73,6 +73,11 @@ const edges = ref<Edge[]>([])
   color: white;
   border: 1px solid rgba(255,255,255,0.1);
   overflow: visible;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.glass-node.is-selected {
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .node-glow {
@@ -174,7 +179,8 @@ const nodes = ref<Node[]>([
       background="none"
     >
       <template #node="{ node }">
-        <div v-if="node.type === 'premium'" style="position: relative; width: 100%; height: 100%; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border-radius: 12px; color: white; border: 1px solid rgba(255,255,255,0.1); overflow: visible;">
+        <div v-if="node.type === 'premium'" style="position: relative; width: 100%; height: 100%; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border-radius: 12px; color: white; border: 1px solid rgba(255,255,255,0.1); overflow: visible; transition: border-color 0.2s, box-shadow 0.2s;"
+             :style="node.selected ? { borderColor: 'rgba(59, 130, 246, 0.8)', boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.3)' } : {}">
           <div style="height: 100%; backdrop-filter: blur(12px); padding: 16px; display: flex; flex-direction: column;">
              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                 <span style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981;"></span>
@@ -199,8 +205,8 @@ const nodes = ref<Node[]>([
 
 在通过插槽构建自定义节点时，请牢记以下核心行为：
 
-1.  **事件冒泡**：标准的 DOM 事件（click、mousedown）将冒泡到 `Flow` 引擎，用于选择逻辑，除非您明确使用 `.stop`（例如，在节点内部按钮上使用 `@click.stop`）。
-2.  **选择反馈**：使用插槽传递的 `node.selected` 布尔值来应用高亮样式（例如，更改边框颜色）。
+1.  **事件冒泡**：标准的 DOM 事件（click、mousedown）将冒泡到 `Flow` 引擎，用于选择逻辑，除非您明确使用 `.stop`（例如，在节点内部按钮上使用 `@click.stop`）。画布交互（单击选中、拖拽移动、Ctrl+滚轮缩放、空白区拖拽平移）由 Flow 默认提供。
+2.  **选择反馈**：使用插槽传递的 `node.selected` 布尔值来应用高亮样式（例如，更改边框颜色）。**示例中已用 `node.selected` 控制选中时的边框与阴影，点击节点即可看到高亮。**
 3.  **尺寸**：如果内部布局复杂，请始终在节点数据中指定 `width` 和 `height`。这对于可预测的虚拟化和边路由计算是强制性的。
 
 > [!TIP]

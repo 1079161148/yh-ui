@@ -1,10 +1,10 @@
-﻿# 自定义连线 (Custom Edge)
+# 自定义连线 (Custom Edge)
 
 连线不仅仅是两个点之间的路径。在 `yh-flow` 中，您可以利用 `#edge` 插槽完全接管连线的渲染过程。这允许您在连线右上方添加复杂的交互按钮、实时状态标签，甚至是动态的流体特效。
 
-## 高级自定义边示例
+## 高级自定义边示例 (Advanced Custom Edge Example)
 
-在该示例中，我们向连线中心添加了一个功能按钮。点击按钮可以快速删除该连线或执行其它业务操作。
+在该示例中，我们向连线中心添加了一个功能按钮。点击按钮可以快速删除该连线或执行其它业务操作。示例使用 `v-model:edges`，删除后父组件与画布连线列表保持同步。
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -15,18 +15,17 @@ const tsCode = `<template>
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
       :nodes="nodes"
-      :edges="edges"
+      v-model:edges="edges"
       background="dots"
     >
-      <!-- 1. 使用 #edge 插槽覆盖渲染 -->
-      <template #edge="{ edge, path, 'label-x': labelX, 'label-y': labelY }">
-        <g style="pointer-events: auto;">
-          <!-- Render the edge path -->
+      <template #edge="{ edge, path, labelX, labelY }">
+        <g>
           <path
             :d="path"
             fill="none"
             :stroke="edge.selected ? '#3b82f6' : '#94a3b8'"
             :stroke-width="edge.selected ? 3 : 2"
+            style="pointer-events: stroke; cursor: pointer;"
           />
           
           <!-- Tool center button -->
@@ -35,12 +34,11 @@ const tsCode = `<template>
             :y="(labelY || 0) - 15"
             width="30"
             height="30"
-            style="overflow: visible;"
+            style="overflow: visible; pointer-events: all; z-index: 100;"
           >
             <div 
               class="edge-remove-btn"
-              @mousedown.stop
-              @click.stop="onRemoveEdge(edge.id)"
+              @mousedown.stop.prevent="onRemoveEdge(edge.id)"
             >
               ×
             </div>
@@ -73,6 +71,8 @@ const edges = ref<Edge[]>([
 const onRemoveEdge = (id: string) => {
   console.log('Removing edge:', id)
   edges.value = edges.value.filter(e => e.id !== id)
+  // 强制同步以确保外部状态更新
+  console.log('Remaining edges count:', edges.value.length)
 }
 <\/script>
 
@@ -117,8 +117,12 @@ const edges = ref<Edge[]>([
 ])
 
 const onRemoveEdge = (id: string) => {
-  console.log('Removing edge:', id)
-  edges.value = edges.value.filter(e => e.id !== id)
+  console.log('[Flow Demo] Removing edge triggered via mousedown:', id)
+  const exists = edges.value.some(e => e.id === id)
+  if (exists) {
+    edges.value = edges.value.filter(e => e.id !== id)
+    console.log('[Flow Demo] Edge removed. New count:', edges.value.length)
+  }
 }
 </script>
 
@@ -126,29 +130,30 @@ const onRemoveEdge = (id: string) => {
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
       :nodes="nodes"
-      :edges="edges"
+      v-model:edges="edges"
       :model-value="{ x: 0, y: 0, zoom: 1 }"
       background="dots"
     >
-      <template #edge="{ edge, path, 'label-x': labelX, 'label-y': labelY }">
-        <g style="pointer-events: auto;">
+      <template #edge="{ edge, path, labelX, labelY }">
+        <g>
           <path
             :d="path"
             fill="none"
             :stroke="edge.selected ? '#3b82f6' : '#94a3b8'"
             :stroke-width="edge.selected ? 3 : 2"
+            style="pointer-events: stroke; cursor: pointer;"
           />
           <foreignObject
             :x="(labelX || 0) - 15"
             :y="(labelY || 0) - 15"
             width="30"
             height="30"
-            style="overflow: visible;"
+            style="overflow: visible; pointer-events: all; z-index: 100;"
           >
             <div 
               class="edge-remove-btn"
-              @mousedown.stop
-              @click.stop="onRemoveEdge(edge.id)"
+              @mousedown.stop.prevent="onRemoveEdge(edge.id)"
+              @touchstart.stop.prevent="onRemoveEdge(edge.id)"
             >
               ×
             </div>
@@ -159,7 +164,32 @@ const onRemoveEdge = (id: string) => {
   </div>
 </DemoBlock>
 
-## 机制解析
+<style scoped>
+.edge-remove-btn {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: 1.5px solid #ef4444;
+  border-radius: 50%;
+  color: #ef4444;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  pointer-events: auto;
+}
+.edge-remove-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: scale(1.1);
+}
+</style>
+
+## 实现原理解析
 
 1.  **插槽数据**：`#edge` 插槽暴露了 `edge` 数据对象（包括计算出的 `labelX` 和 `labelY` 坐标）以及一个预计算好的 SVG `path` 命令字符串。
 2.  **SVG 上下文**：由于您是在 `<svg>` 元素内部进行渲染，因此应使用 `<g>`（分组）标签将路径和 UI 覆盖层包装在一起。

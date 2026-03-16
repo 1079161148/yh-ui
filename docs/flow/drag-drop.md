@@ -93,8 +93,11 @@ const onDrop = (event: DragEvent) => {
   const type = event.dataTransfer?.getData('application/yhflow')
   if (!type) return
 
-  // 获取真实画布坐标转换
-  const position = flowRef.value.screenToCanvas(event.clientX, event.clientY)
+  // screenToCanvas 需要传入相对 Flow 容器的坐标
+  const el = (flowRef.value as any).$el
+  const rect = el?.getBoundingClientRect()
+  if (!rect) return
+  const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   
   const newNode: Node = {
     id: getId(),
@@ -188,7 +191,10 @@ const onDrop = (event: DragEvent) => {
   const type = event.dataTransfer?.getData('application/yhflow')
   if (!type) return
 
-  const position = flowRef.value.screenToCanvas(event.clientX, event.clientY)
+  const el = (flowRef.value as any).$el
+  const rect = el?.getBoundingClientRect()
+  if (!rect) return
+  const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   
   nodes.value.push({
     id: getId(),
@@ -223,18 +229,21 @@ const onDrop = (event: DragEvent) => {
 
 拖放与 HTML Native API 完全脱钩，核心依赖的是坐标系转换。因为屏幕坐标与视图内的画布坐标包含由无极缩放和平移带来的增减量是不同的：
 
-| 方法出口               | 说明                                                                                                        | 签名                                                 |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `screenToCanvas(x, y)` | 传入鼠标指针位于屏幕（窗口）的位置，返回计算了缩放比例 (Scale) 与偏移 (Offset) 后的精准 Flow 画布内部坐标。 | `(x: number, y: number) => { x: number, y: number }` |
+| 方法出口               | 说明                                                                                                                                   | 签名                                                 |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `screenToCanvas(x, y)` | 传入**相对 Flow 容器**的坐标 (x, y)，返回画布内部坐标。需先将 `event.clientX/clientY` 减去容器 `getBoundingClientRect()` 的 left/top。 | `(x: number, y: number) => { x: number, y: number }` |
 
 ```ts
 const onDrop = (event: DragEvent) => {
-  // 1. 从 Vue ref 中获得 Flow 实例
   const flowInstance = flowRef.value
-
-  // 2. 转换坐标为安全的映射坐标
-  const dropPosition = flowInstance.screenToCanvas(event.clientX, event.clientY)
-
-  // 3. 将其设置为新节点的 position 生成新节点
+  if (!flowInstance) return
+  const el = (flowInstance as any).$el
+  const rect = el?.getBoundingClientRect()
+  if (!rect) return
+  const dropPosition = flowInstance.screenToCanvas(
+    event.clientX - rect.left,
+    event.clientY - rect.top
+  )
+  // 将 dropPosition 设置为新节点的 position
 }
 ```

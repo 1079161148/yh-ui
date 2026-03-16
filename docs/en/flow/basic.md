@@ -50,6 +50,8 @@ Flow is a high-performance flowchart / node editor component.
   </div>
 </DemoBlock>
 
+> **Note:** To implement UI that depends on selection (e.g. "Remove selected (N)" button, toolbar visibility), listen to `@selection-change` and update local state from `selectedNodes` / `selectedEdges` so the button state and count stay in sync with the canvas selection.
+
 ## Next
 
 - [Node Types](./nodes)

@@ -2,9 +2,9 @@
 
 为了提升用户的交互效率，您可能希望在用户选中某个节点时，在节点附近（上方、下方等）弹出一个浮动的快捷工具栏。`yh-flow` 的 `NodeToolbar` 组件利用 Vue 的 `Teleport` 技术，确保工具栏在任何画布缩放级别下都能清晰、准确地定位。
 
-## 节点工具栏示例
+## 节点工具栏示例 (Node Toolbar Example)
 
-点击选中下方的节点，观察其上方出现的快捷操作按钮。
+点击选中下方的节点，观察其上方出现的快捷操作按钮。示例使用 `v-model:nodes`，以便选中状态同步到父组件，工具栏的显隐（依赖 `node.selected`）才能正确生效。
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -14,7 +14,7 @@ import type { Node } from '@yh-ui/flow'
 const tsCode = `<template>
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="[]"
       background="dots"
     >
@@ -98,7 +98,7 @@ const onRemove = (id: string) => {
 <DemoBlock title="浮动快捷工具栏" :ts-code="tsCode" :js-code="jsCode">
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="[]"
       v-model="viewport"
       background="dots"

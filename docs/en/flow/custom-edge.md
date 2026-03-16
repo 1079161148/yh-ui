@@ -1,10 +1,10 @@
-﻿# Custom Edges
+# Custom Edge (自定义连线)
 
-Edges are more than just paths between points. In `Flow`, you can utilize the `#edge` slot to fully hijack the rendering process. This enables you to attach complex interactive buttons, real-time status labels, or even dynamic fluid effects directly onto your connections.
+Edges are more than just paths between points. In `yh-flow`, you can use the `#edge` slot to fully control edge rendering. This allows you to add interactive buttons, real-time status labels, or dynamic effects to your edges.
 
-## Interactive Edge Demo
+## Advanced Custom Edge Example (高级自定义边示例)
 
-In this example, we've added a functional "Delete" button to the center of the edge path. Clicking the button allows for immediate removal of the connection or execution of other business logic.
+In this example, a functional button is added to the center of the edge. Clicking it removes the edge or runs other logic. The demo uses `v-model:edges` so the parent stays in sync with the canvas after removal.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -15,18 +15,17 @@ const tsCode = `<template>
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
       :nodes="nodes"
-      :edges="edges"
+      v-model:edges="edges"
       background="dots"
     >
-      <!-- 1. Use the #edge slot to override rendering -->
-      <template #edge="{ edge, path, 'label-x': labelX, 'label-y': labelY }">
-        <g style="pointer-events: auto;">
-          <!-- Render the edge path -->
+      <template #edge="{ edge, path, labelX, labelY }">
+        <g>
           <path
             :d="path"
             fill="none"
             :stroke="edge.selected ? '#3b82f6' : '#94a3b8'"
             :stroke-width="edge.selected ? 3 : 2"
+            style="pointer-events: stroke; cursor: pointer;"
           />
           
           <!-- Tool center button -->
@@ -35,11 +34,11 @@ const tsCode = `<template>
             :y="(labelY || 0) - 15"
             width="30"
             height="30"
+            style="overflow: visible; pointer-events: all; z-index: 100;"
           >
             <div 
               class="edge-remove-btn"
-              @mousedown.stop
-              @click.stop="onRemoveEdge(edge.id)"
+              @mousedown.stop.prevent="onRemoveEdge(edge.id)"
             >
               ×
             </div>
@@ -116,7 +115,7 @@ const edges = ref<Edge[]>([
 ])
 
 const onRemoveEdge = (id: string) => {
-  console.log('Removing edge:', id)
+  console.log('[Flow Demo] Removing edge triggered via mousedown:', id)
   edges.value = edges.value.filter(e => e.id !== id)
 }
 </script>
@@ -125,28 +124,28 @@ const onRemoveEdge = (id: string) => {
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
       :nodes="nodes"
-      :edges="edges"
+      v-model:edges="edges"
       :model-value="{ x: 0, y: 0, zoom: 1 }"
       background="dots"
     >
-      <template #edge="{ edge, path, 'label-x': labelX, 'label-y': labelY }">
-        <g style="pointer-events: auto;">
+      <template #edge="{ edge, path, labelX, labelY }">
+        <g>
           <path
             :d="path"
             fill="none"
-            :style="{ stroke: '#94a3b8', strokeWidth: 2 }"
+            :style="{ stroke: '#94a3b8', strokeWidth: 2, pointerEvents: 'stroke', cursor: 'pointer' }"
           />
           <foreignObject
             :x="(labelX || 0) - 15"
             :y="(labelY || 0) - 15"
             width="30"
             height="30"
-            style="pointer-events: auto; overflow: visible;"
+            style="pointer-events: all; overflow: visible; z-index: 100;"
           >
             <div 
-              @mousedown.stop
-              @click.stop="onRemoveEdge(edge.id)"
-              style="width: 24px; height: 24px; background: #fff; border: 1.5px solid #ef4444; border-radius: 50%; color: #ef4444; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); transition: all 0.2s ease;"
+              class="edge-remove-btn"
+              @mousedown.stop.prevent="onRemoveEdge(edge.id)"
+              @touchstart.stop.prevent="onRemoveEdge(edge.id)"
             >
               ×
             </div>
@@ -156,6 +155,31 @@ const onRemoveEdge = (id: string) => {
     </yh-flow>
   </div>
 </DemoBlock>
+
+<style scoped>
+.edge-remove-btn {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: 1.5px solid #ef4444;
+  border-radius: 50%;
+  color: #ef4444;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  pointer-events: auto;
+}
+.edge-remove-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: scale(1.1);
+}
+</style>
 
 ## Mechanics
 

@@ -447,9 +447,21 @@ html.yh-popup-parent--hidden {
   border-radius: 4px;
   padding: 2px 6px;
   transition: all var(--yh-anim-fast) ease;
+  word-break: break-word;
+  white-space: normal;
 
   &:hover {
     background: linear-gradient(135deg, rgba(64, 158, 255, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
+  }
+}
+
+/* Global Wrap Fixes */
+.vp-doc {
+  p,
+  li,
+  table td,
+  table th {
+    word-break: break-word;
   }
 }
 

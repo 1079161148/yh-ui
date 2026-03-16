@@ -157,7 +157,7 @@ export interface Edge<Data = EdgeData> {
   deletable?: boolean
   hidden?: boolean
   selected?: boolean
-  updatable?: boolean
+  updatable?: boolean | 'source' | 'target'
 }
 
 export type EdgeChangeType = 'select' | 'remove' | 'style' | 'data' | 'selectMulti' | 'unnselect'

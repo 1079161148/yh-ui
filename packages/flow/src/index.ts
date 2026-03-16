@@ -35,6 +35,10 @@ export { default as BezierEdge } from './components/edges/BezierEdge.vue'
 // 主组件
 export { default as Flow } from './Flow.vue'
 
+// 编辑面板组件
+export { default as NodeEditPanel } from './components/NodeEditPanel.vue'
+export { default as EdgeEditPanel } from './components/EdgeEditPanel.vue'
+
 // 暴露辅助 UI 组件作为功能插件使用（Vue 通用最佳实践）
 export { default as Minimap } from './renderer/Minimap.vue'
 export { default as Controls } from './renderer/Controls.vue'

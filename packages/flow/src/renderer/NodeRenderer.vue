@@ -70,20 +70,20 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'nodeClick', event: MouseEvent, node: Node): void
-  (e: 'nodeDblClick', event: MouseEvent, node: Node): void
-  (e: 'nodeContextMenu', event: MouseEvent, node: Node): void
-  (e: 'nodeDragStart', event: MouseEvent, node: Node): void
-  (e: 'nodeDrag', event: MouseEvent, node: Node, position: { x: number; y: number }): void
-  (e: 'nodeDragEnd', event: MouseEvent, node: Node): void
+  (e: 'node-click', event: MouseEvent, node: Node): void
+  (e: 'node-dblclick', event: MouseEvent, node: Node): void
+  (e: 'node-contextmenu', event: MouseEvent, node: Node): void
+  (e: 'node-drag-start', event: MouseEvent, node: Node): void
+  (e: 'node-drag', event: MouseEvent, node: Node, position: { x: number; y: number }): void
+  (e: 'node-drag-end', event: MouseEvent, node: Node): void
   (
-    e: 'connectStart',
+    e: 'connect-start',
     event: MouseEvent,
     nodeId: string,
     handleId: string,
     handleType: HandleType
   ): void
-  (e: 'nodeSelectToggle', nodeId: string): void
+  (e: 'node-select-toggle', nodeId: string): void
 }>()
 
 const visibleNodes = computed(() => {
@@ -153,6 +153,11 @@ const nodeStartPos = ref({ x: 0, y: 0 })
 // 多节点拖拽支持
 const draggingNodes = ref<string[]>([])
 const nodesStartPositions = ref<Map<string, { x: number; y: number }>>(new Map())
+// 拖拽移动阈值：只有鼠标移动超过此值才认为是拖拽，否则视为点击
+const DRAG_THRESHOLD = 3
+const hasDragged = ref(false)
+const pendingClickNode = ref<Node | null>(null)
+const pendingClickEvent = ref<MouseEvent | null>(null)
 
 const handleNodeMouseDown = (event: MouseEvent, node: Node) => {
   if (props.readonly || !props.draggable || node.draggable === false) return
@@ -167,12 +172,17 @@ const handleNodeMouseDown = (event: MouseEvent, node: Node) => {
     return
   }
 
-  event.preventDefault()
+  // 确保拖拽时不会触发文本选中
+  const selection = window.getSelection()
+  if (selection) selection.removeAllRanges()
+
+  // 延迟 nodeClick 到 mouseup（click 阶段），避免在 mousedown 阶段触发 Vue 重渲染
+  // 阻止浏览器 dblclick 事件的正常检测
+  pendingClickNode.value = node
+  pendingClickEvent.value = event
+  hasDragged.value = false
 
   const wasSelected = node.selected
-
-  // 立即触发 click，实现点击（按下）即选中当前节点
-  emit('nodeClick', event, node)
 
   const draggedIds = new Set<string>()
   const addNodeAndChildren = (id: string) => {
@@ -215,7 +225,6 @@ const handleNodeMouseDown = (event: MouseEvent, node: Node) => {
   }
 
   dragStartPos.value = { x: event.clientX, y: event.clientY }
-  emit('nodeDragStart', event, node)
 
   document.addEventListener('mousemove', handleMouseMove)
   document.addEventListener('mouseup', handleMouseUp)
@@ -223,6 +232,19 @@ const handleNodeMouseDown = (event: MouseEvent, node: Node) => {
 
 const handleMouseMove = (event: MouseEvent) => {
   if (draggingNodes.value.length === 0) return
+
+  // 检查是否超过拖拽阈值
+  const rawDx = event.clientX - dragStartPos.value.x
+  const rawDy = event.clientY - dragStartPos.value.y
+  if (!hasDragged.value && Math.abs(rawDx) < DRAG_THRESHOLD && Math.abs(rawDy) < DRAG_THRESHOLD)
+    return
+
+  // 首次超过阈值时发射 dragStart 事件
+  if (!hasDragged.value) {
+    hasDragged.value = true
+    const mainNode = pendingClickNode.value
+    if (mainNode) emit('node-drag-start', event, mainNode)
+  }
 
   const dx = (event.clientX - dragStartPos.value.x) / props.transform.zoom
   const dy = (event.clientY - dragStartPos.value.y) / props.transform.zoom
@@ -236,7 +258,7 @@ const handleMouseMove = (event: MouseEvent) => {
       }
       const node = props.nodes.find((n) => n.id === nodeId)
       if (node) {
-        emit('nodeDrag', event, node, newPosition)
+        emit('node-drag', event, node, newPosition)
       }
     }
   })
@@ -244,37 +266,45 @@ const handleMouseMove = (event: MouseEvent) => {
 
 const handleMouseUp = (event: MouseEvent) => {
   if (draggingNodes.value.length > 0) {
-    draggingNodes.value.forEach((nodeId) => {
-      const node = props.nodes.find((n) => n.id === nodeId)
-      if (node) {
-        emit('nodeDragEnd', event, node)
-      }
-    })
+    if (hasDragged.value) {
+      draggingNodes.value.forEach((nodeId) => {
+        const node = props.nodes.find((n) => n.id === nodeId)
+        if (node) {
+          emit('node-drag-end', event, node)
+        }
+      })
+    }
     draggingNodes.value = []
     nodesStartPositions.value = new Map()
   }
 
+  // 如果没有发生拖拽（未超过阈值），在 mouseup 阶段触发 click 选中
+  if (!hasDragged.value && pendingClickNode.value) {
+    emit('node-click', event, pendingClickNode.value)
+  }
+
   draggingNode.value = null
+  pendingClickNode.value = null
+  pendingClickEvent.value = null
   document.removeEventListener('mousemove', handleMouseMove)
   document.removeEventListener('mouseup', handleMouseUp)
 }
 
 const handleNodeClick = (_event: MouseEvent, _node: Node) => {
-  // 不在此 emit nodeClick，避免和 mousedown 中触发的逻辑重复，仅作保留或去除
-  // emit('nodeClick', event, node)
+  // nodeClick 已在 handleMouseUp 中根据拖拽阈值判断后触发
 }
 
 const handleNodeDblClick = (event: MouseEvent, node: Node) => {
-  emit('nodeDblClick', event, node)
+  emit('node-dblclick', event, node)
 }
 
 const handleNodeContextMenu = (event: MouseEvent, node: Node) => {
-  emit('nodeContextMenu', event, node)
+  emit('node-contextmenu', event, node)
 }
 
 const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) => {
   // 传递 handle.position 让 Flow.vue 精确定位连接线起点
-  emit('connectStart', event, node.id, handle.id || handle.position || '', handle.type)
+  emit('connect-start', event, node.id, handle.id || handle.position || '', handle.type)
 }
 </script>
 

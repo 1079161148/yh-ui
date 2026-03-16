@@ -223,6 +223,8 @@ const _Ss = _S
 | historyChange     | `{ canUndo: boolean; canRedo: boolean }`                                      | 历史记录变化   |
 | viewportChange    | `ViewportTransform`                                                           | 视口变化       |
 
+> **说明**：若需实现「删除所选(N)」、工具栏根据选中项显隐等 UI，请监听 `@selection-change`，在回调中根据 `selectedNodes` / `selectedEdges` 更新本地状态（如选中 ID 集合），以便按钮禁用状态与计数与画布选择保持一致。
+
 ## 下一个
 
 - [节点类型](./nodes) - 了解内置节点类型

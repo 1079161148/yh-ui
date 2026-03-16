@@ -3,6 +3,7 @@
     ref="containerRef"
     class="yh-flow"
     :class="{ 'is-readonly': readonly }"
+    tabindex="0"
     @wheel.prevent="handleWheel"
     @mousedown="handlePaneMouseDown"
   >
@@ -27,6 +28,8 @@
         @edge-click="handleEdgeClick"
         @edge-dblclick="handleEdgeDblClick"
         @edge-contextmenu="handleEdgeContextMenu"
+        @edge-update-start="handleEdgeUpdateStart"
+        :updating-edge-id="updatingEdge?.edge.id"
       >
         <template #edge="edgeProps">
           <slot name="edge" v-bind="edgeProps"></slot>
@@ -47,7 +50,15 @@
         @node-drag-end="handleNodeDragEnd"
         @connect-start="handleConnectStart"
         @node-select-toggle="handleNodeSelectToggle"
-      />
+      >
+        <template #node="nodeProps">
+          <slot name="node" v-bind="nodeProps">
+            <div class="yh-flow-node__header">{{
+              nodeProps.node?.data?.label || nodeProps.node?.id
+            }}</div>
+          </slot>
+        </template>
+      </NodeRenderer>
 
       <!-- Selection Box -->
       <SelectionBox
@@ -98,11 +109,28 @@
         stroke-dasharray="5,5"
       />
     </svg>
+
+    <!-- Node Edit Panel -->
+    <NodeEditPanel
+      :node="editingNode"
+      :visible="showNodeEditPanel"
+      @update="handleNodeEditUpdate"
+      @close="closeNodeEditPanel"
+    />
+
+    <!-- Edge Edit Panel -->
+    <EdgeEditPanel
+      :edge="editingEdge"
+      :visible="showEdgeEditPanel"
+      @update="handleEdgeEditUpdate"
+      @close="closeEdgeEditPanel"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+if (typeof window !== 'undefined') (window as any).__YH_FLOW_VERSION__ = '1.0.1'
 import type {
   Node,
   Edge,
@@ -123,6 +151,8 @@ import SelectionBox from './renderer/SelectionBox.vue'
 import Controls from './renderer/Controls.vue'
 import Minimap from './renderer/Minimap.vue'
 import AlignmentLines from './renderer/AlignmentLines.vue'
+import NodeEditPanel from './components/NodeEditPanel.vue'
+import EdgeEditPanel from './components/EdgeEditPanel.vue'
 import { useViewport } from './core/useViewport'
 import { useNodes } from './core/useNodes'
 import { useEdges } from './core/useEdges'
@@ -174,39 +204,46 @@ const validateConnection = (
   return { isValid: true }
 }
 
-// Props
-const props = defineProps<{
-  nodes?: Node[]
-  edges?: Edge[]
-  modelValue?: ViewportTransform
-  minZoom?: number
-  maxZoom?: number
-  zoomStep?: number
-  nodesDraggable?: boolean
-  edgesConnectable?: boolean
-  selectable?: boolean
-  background?: 'none' | 'dots' | 'grid'
-  backgroundColor?: string
-  gridSize?: number
-  snapToGrid?: boolean
-  snapGrid?: [number, number]
-  readonly?: boolean
-  showControls?: boolean
-  showMinimap?: boolean
-  minimapNodeColor?: string
-  history?: boolean
-  maxHistory?: number
-  keyboardShortcuts?: boolean
-  connectionValidator?: (connection: {
-    source: string
-    target: string
-    sourceHandle?: string | null
-    targetHandle?: string | null
-  }) => boolean
-  noCycleValidation?: boolean
-  showAlignmentLines?: boolean
-  snapThreshold?: number
-}>()
+// Props（nodesDraggable/selectable 默认 true，保证拖动节点与单击选中生效）
+const props = withDefaults(
+  defineProps<{
+    nodes?: Node[]
+    edges?: Edge[]
+    modelValue?: ViewportTransform
+    minZoom?: number
+    maxZoom?: number
+    zoomStep?: number
+    nodesDraggable?: boolean
+    edgesConnectable?: boolean
+    selectable?: boolean
+    background?: 'none' | 'dots' | 'grid'
+    backgroundColor?: string
+    gridSize?: number
+    snapToGrid?: boolean
+    snapGrid?: [number, number]
+    readonly?: boolean
+    showControls?: boolean
+    showMinimap?: boolean
+    minimapNodeColor?: string
+    history?: boolean
+    maxHistory?: number
+    keyboardShortcuts?: boolean
+    connectionValidator?: (connection: {
+      source: string
+      target: string
+      sourceHandle?: string | null
+      targetHandle?: string | null
+    }) => boolean
+    noCycleValidation?: boolean
+    showAlignmentLines?: boolean
+    snapThreshold?: number
+  }>(),
+  {
+    nodesDraggable: true,
+    selectable: true,
+    keyboardShortcuts: true
+  }
+)
 
 // Emits
 const emit = defineEmits<{
@@ -229,6 +266,7 @@ const emit = defineEmits<{
   (e: 'selectionChange', event: { selectedNodes: Node[]; selectedEdges: Edge[] }): void
   (e: 'historyChange', event: { canUndo: boolean; canRedo: boolean }): void
   (e: 'viewportChange', transform: ViewportTransform): void
+  (e: 'edgeUpdate', event: { edge: Edge; connection: Connection }): void
 }>()
 
 // Refs
@@ -338,10 +376,24 @@ const connectionStart = ref<{
   y: number
 } | null>(null)
 const connectionEnd = ref({ x: 0, y: 0 })
+const updatingEdge = ref<{
+  edge: Edge
+  handleType: HandleType
+} | null>(null)
+
+// Edit panel state
+const showNodeEditPanel = ref(false)
+const editingNode = ref<Node | null>(null)
+const showEdgeEditPanel = ref(false)
+const editingEdge = ref<Edge | null>(null)
 
 const connectingEdge = computed(() => {
   if (!isConnecting.value || !connectionStart.value) return null
-  return { path: connectionLinePath.value }
+  return {
+    path: connectionLinePath.value,
+    tx: connectionEnd.value.x,
+    ty: connectionEnd.value.y
+  }
 })
 
 const connectionLinePath = computed(() => {
@@ -356,10 +408,10 @@ const connectionLinePath = computed(() => {
   })
 })
 
-// Event handlers
+// Event handlers（第一张图快捷键：Ctrl/Command + 滚轮 → 缩放，否则 → 平移）
 const handleWheel = (event: WheelEvent) => {
+  event.preventDefault()
   if (event.ctrlKey || event.metaKey) {
-    // Zoom
     const delta = event.deltaY > 0 ? 0.9 : 1.1
     const rect = containerRef.value?.getBoundingClientRect()
     if (rect) {
@@ -369,14 +421,20 @@ const handleWheel = (event: WheelEvent) => {
       })
     }
   } else {
-    // Pan
     viewport.pan(-event.deltaX, -event.deltaY)
   }
 }
 
 const handlePaneMouseDown = (event: MouseEvent) => {
-  if (event.target !== containerRef.value) return
-  if (!props.selectable) return
+  const target = event.target as HTMLElement
+  if (!containerRef.value?.contains(target)) return
+  // 点击在节点、连线、手柄、连接线、控制栏、小地图上时不触发画布平移/框选
+  if (target.closest('.yh-flow-node')) return
+  if (target.closest('.yh-flow-handle')) return
+  if (target.closest('.yh-flow-edge-group')) return
+  if (target.closest('.yh-flow__connection-line')) return
+  if (target.closest('.yh-flow-controls')) return
+  if (target.closest('.yh-flow-minimap')) return
 
   const rect = containerRef.value?.getBoundingClientRect()
   if (!rect) return
@@ -384,19 +442,16 @@ const handlePaneMouseDown = (event: MouseEvent) => {
   const mouseX = event.clientX - rect.left
   const mouseY = event.clientY - rect.top
 
-  // 按住 Alt/Option 键时进行框选，否则进行平移
-  if (event.altKey) {
-    // Start selection box - 使用画布坐标
+  // 按住 Alt/Option 且 selectable 时进行框选，否则进行平移（点击空白并拖动 → 平移画布）
+  if (event.altKey && props.selectable) {
     const canvasPos = {
       x: (mouseX - viewportRef.value.x) / viewportRef.value.zoom,
       y: (mouseY - viewportRef.value.y) / viewportRef.value.zoom
     }
     isSelecting.value = true
     selectionManager.startSelection(canvasPos.x, canvasPos.y)
-    // 清除当前选择
     selectionManager.clearSelection()
   } else {
-    // Start pan
     isPanning.value = true
     panStart.value = { x: event.clientX, y: event.clientY }
   }
@@ -461,49 +516,91 @@ const handleMouseUp = (event: MouseEvent) => {
       // 查找目标节点
       const targetNode = findTargetNode(canvasPos)
       if (targetNode) {
+        // 如果是更新现有连线，不验证自连环，因为可能只是微调
+        const sourceNodeId = updatingEdge.value
+          ? updatingEdge.value.handleType === 'source'
+            ? targetNode.id
+            : updatingEdge.value.edge.source
+          : connectionStart.value!.nodeId
+
+        const targetNodeId = updatingEdge.value
+          ? updatingEdge.value.handleType === 'target'
+            ? targetNode.id
+            : updatingEdge.value.edge.target
+          : targetNode.id
+
         // 验证连接是否有效
-        const sourceNode = nodesRef.value.find((n) => n.id === connectionStart.value!.nodeId)
-        const validationResult = validateConnection(sourceNode, targetNode, {
-          source: connectionStart.value!.nodeId,
-          target: targetNode.id,
-          sourceHandle: connectionStart.value!.handleId,
-          targetHandle: undefined
-        })
+        const sourceNode = nodesRef.value.find((n) => n.id === sourceNodeId)
+        const validationResult = validateConnection(
+          sourceNode,
+          nodesRef.value.find((n) => n.id === targetNodeId),
+          {
+            source: sourceNodeId,
+            target: targetNodeId,
+            sourceHandle:
+              updatingEdge.value && updatingEdge.value.handleType === 'source'
+                ? undefined
+                : updatingEdge.value?.edge.sourceHandle || connectionStart.value?.handleId,
+            targetHandle:
+              updatingEdge.value && updatingEdge.value.handleType === 'target'
+                ? undefined
+                : updatingEdge.value?.edge.targetHandle
+          }
+        )
 
         if (!validationResult.isValid) {
           console.warn('Invalid connection:', validationResult.message)
+          isConnecting.value = false
+          connectionStart.value = null
+          updatingEdge.value = null
           return
         }
 
-        // 创建新连线
-        const newEdge: Edge = {
-          id: `edge-${Date.now()}`,
-          source: connectionStart.value.nodeId,
-          target: targetNode.id,
-          sourceHandle: connectionStart.value.handleId || undefined,
-          targetHandle: undefined,
-          type: 'bezier'
-        }
-        edgesManager.addEdge(newEdge)
-        emit('edgeConnect', {
-          source: newEdge.source,
-          target: newEdge.target,
-          sourceHandle: newEdge.sourceHandle,
-          targetHandle: newEdge.targetHandle
-        })
-        eventBus.emit('edge:connect', {
-          connection: {
+        if (updatingEdge.value) {
+          // 更新现有连线
+          const { edge, handleType } = updatingEdge.value
+          const connection: Connection = {
+            source: handleType === 'source' ? targetNode.id : edge.source,
+            target: handleType === 'target' ? targetNode.id : edge.target,
+            sourceHandle: handleType === 'source' ? undefined : edge.sourceHandle,
+            targetHandle: handleType === 'target' ? undefined : edge.targetHandle
+          }
+
+          edgesManager.updateEdge(edge.id, connection)
+          emit('edgeUpdate', { edge, connection })
+          eventBus.emit('edge:update', { edge, connection })
+        } else {
+          // 创建新连线
+          const newEdge: Edge = {
+            id: `edge-${Date.now()}`,
+            source: connectionStart.value.nodeId,
+            target: targetNode.id,
+            sourceHandle: connectionStart.value.handleId || undefined,
+            targetHandle: undefined,
+            type: 'bezier'
+          }
+          edgesManager.addEdge(newEdge)
+          emit('edgeConnect', {
             source: newEdge.source,
             target: newEdge.target,
             sourceHandle: newEdge.sourceHandle,
             targetHandle: newEdge.targetHandle
-          }
-        })
+          })
+          eventBus.emit('edge:connect', {
+            connection: {
+              source: newEdge.source,
+              target: newEdge.target,
+              sourceHandle: newEdge.sourceHandle,
+              targetHandle: newEdge.targetHandle
+            }
+          })
+        }
       }
     }
 
     isConnecting.value = false
     connectionStart.value = null
+    updatingEdge.value = null
   }
 }
 
@@ -528,9 +625,10 @@ const findTargetNode = (canvasPos: { x: number; y: number }): Node | null => {
   return null
 }
 
-// Node handlers
+// Node handlers（单击节点 → 选中；单选时取消连线选中）
 const handleNodeClick = (event: MouseEvent, node: Node) => {
   const multi = event.shiftKey || event.metaKey || event.ctrlKey
+  if (!multi) edgesManager.clearSelection()
   nodesManager.selectNode(node.id, true, multi)
   emit('nodeClick', { node, nativeEvent: event })
   eventBus.emit('node:click', { node, nativeEvent: event })
@@ -544,8 +642,15 @@ const handleNodeSelectToggle = (nodeId: string) => {
 }
 
 const handleNodeDblClick = (event: MouseEvent, node: Node) => {
+  console.log('Node double clicked:', node.id)
   emit('nodeDblClick', { node, nativeEvent: event })
   eventBus.emit('node:dblclick', { node, nativeEvent: event })
+  // Open edit panel on double click
+  if (!readonly.value) {
+    console.log('Opening node edit panel for:', node.id)
+    editingNode.value = node
+    showNodeEditPanel.value = true
+  }
 }
 
 const handleNodeContextMenu = (event: MouseEvent, node: Node) => {
@@ -570,6 +675,8 @@ const handleNodeDrag = (event: MouseEvent, node: Node, position: { x: number; y:
 
   emit('nodeDrag', { node, nativeEvent: event, position: snappedPosition })
   eventBus.emit('node:drag', { node, nativeEvent: event, position: snappedPosition })
+  // 同步节点位置到父组件，便于碰撞检测等依赖最新 positions 的逻辑生效
+  emit('update:nodes', nodesRef.value)
 }
 
 const handleNodeDragEnd = (event: MouseEvent, node: Node) => {
@@ -578,24 +685,67 @@ const handleNodeDragEnd = (event: MouseEvent, node: Node) => {
   draggingPosition.value = null
   emit('nodeDragEnd', { node, nativeEvent: event })
   eventBus.emit('node:dragend', { node, nativeEvent: event })
+  emit('update:nodes', nodesRef.value)
+  emit('update:edges', edgesRef.value)
 }
 
-// Edge handlers
+// Edge handlers（单击连线 → 选中；单选时取消节点选中）
 const handleEdgeClick = (event: MouseEvent, edge: Edge) => {
   const multi = event.shiftKey || event.metaKey || event.ctrlKey
+  if (!multi) nodesManager.clearSelection()
   edgesManager.selectEdge(edge.id, true, multi)
   emit('edgeClick', { edge, nativeEvent: event })
   eventBus.emit('edge:click', { edge, nativeEvent: event })
 }
 
 const handleEdgeDblClick = (event: MouseEvent, edge: Edge) => {
+  console.log('Edge double clicked:', edge.id)
   emit('edgeDblClick', { edge, nativeEvent: event })
   eventBus.emit('edge:dblclick', { edge, nativeEvent: event })
+  // Open edit panel on double click
+  if (!readonly.value) {
+    console.log('Opening edge edit panel for:', edge.id)
+    editingEdge.value = edge
+    showEdgeEditPanel.value = true
+  }
 }
 
 const handleEdgeContextMenu = (event: MouseEvent, edge: Edge) => {
   emit('edgeContextMenu', { edge, nativeEvent: event })
   eventBus.emit('edge:contextmenu', { edge, nativeEvent: event })
+}
+
+const handleEdgeUpdateStart = (event: MouseEvent, edge: Edge, handleType: HandleType) => {
+  if (readonly.value) return
+  const rect = containerRef.value?.getBoundingClientRect()
+  if (!rect) return
+
+  // 记录正在更新的连线
+  updatingEdge.value = { edge, handleType }
+
+  // 起始点设定为“另一端”的锚点
+  const anchorNodeId = handleType === 'source' ? edge.target : edge.source
+  const anchorHandleId = handleType === 'source' ? edge.targetHandle : edge.sourceHandle
+  const node = nodesRef.value.find((n) => n.id === anchorNodeId)
+  if (!node) return
+
+  const width = node.width || 200
+  const height = node.height || 50
+  const position: Position = handleType === 'source' ? 'left' : 'right' // 另一端的位置
+
+  isConnecting.value = true
+  connectionStart.value = {
+    nodeId: anchorNodeId,
+    handleId: anchorHandleId || '',
+    handleType: handleType === 'source' ? 'target' : 'source', // 反转类型
+    position,
+    x: position === 'right' ? node.position.x + width : node.position.x,
+    y: node.position.y + height / 2
+  }
+  connectionEnd.value = {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  }
 }
 
 // Connection handlers
@@ -628,9 +778,7 @@ const handleConnectStart = (
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
   }
-
-  document.addEventListener('mousemove', handleMouseMove)
-  document.addEventListener('mouseup', handleMouseUp)
+  // mousemove/mouseup 已在 onMounted 全局注册，此处无需重复添加
 }
 
 // Fit view
@@ -638,6 +786,36 @@ const handleFitView = () => {
   viewport.fitView({ width: containerWidth.value, height: containerHeight.value }, nodesRef.value, {
     padding: 50
   })
+}
+
+// Node edit panel handlers
+const handleNodeEditUpdate = (updates: Partial<Node>) => {
+  if (editingNode.value) {
+    historyManager.push({ nodes: nodesRef.value, edges: edgesRef.value })
+    nodesManager.updateNode(editingNode.value.id, updates)
+    editingNode.value = nodesRef.value.find((n) => n.id === editingNode.value?.id) || null
+    emit('update:nodes', nodesRef.value)
+  }
+}
+
+const closeNodeEditPanel = () => {
+  showNodeEditPanel.value = false
+  editingNode.value = null
+}
+
+// Edge edit panel handlers
+const handleEdgeEditUpdate = (updates: Partial<Edge>) => {
+  if (editingEdge.value) {
+    historyManager.push({ nodes: nodesRef.value, edges: edgesRef.value })
+    edgesManager.updateEdge(editingEdge.value.id, updates)
+    editingEdge.value = edgesRef.value.find((e) => e.id === editingEdge.value?.id) || null
+    emit('update:edges', edgesRef.value)
+  }
+}
+
+const closeEdgeEditPanel = () => {
+  showEdgeEditPanel.value = false
+  editingEdge.value = null
 }
 
 // Zoom methods
@@ -707,8 +885,9 @@ const flowInstance: FlowInstance = {
     ).isValid,
   getNodes,
   getEdges,
-  screenToCanvas,
-  canvasToScreen,
+  getViewport: () => viewportRef.value,
+  screenToCanvas: (x: number, y: number) => screenToCanvas(x, y, viewportRef.value),
+  canvasToScreen: (x: number, y: number) => canvasToScreen(x, y, viewportRef.value),
   usePlugin,
   removePlugin
 } as FlowInstance
@@ -717,10 +896,19 @@ const flowInstance: FlowInstance = {
 provideFlowContext(flowInstance)
 pluginManager.init(flowInstance)
 
-// Watch for changes
+// 暴露实例给 ref，使文档中 flowRef.value.fitView / screenToCanvas / $el 等可用
+defineExpose({
+  ...flowInstance,
+  get $el() {
+    return containerRef?.value ?? null
+  }
+})
+
+// Watch for changes（拖拽中不覆盖 nodesRef，避免父组件未使用 v-model:nodes 时拖拽位置被还原）
 watch(
   () => props.nodes,
   (newNodes) => {
+    if (draggingNodeId.value) return
     nodesRef.value = newNodes || []
   },
   { deep: true }
@@ -775,8 +963,11 @@ watch(
       }
     }
 
-    // selection:change (always when watcher fires)
+    // selection:change (eventBus) + selectionChange (Vue emit，供父组件 @selection-change 更新“删除所选”等 UI)
     eventBus.emit('selection:change', { selectedNodes, selectedEdges })
+    emit('selectionChange', { selectedNodes, selectedEdges })
+    emit('update:nodes', nodes)
+    emit('update:edges', edges)
 
     prevSelectedNodeIds.value = nextNodeIds
     prevSelectedEdgeIds.value = nextEdgeIds
@@ -797,6 +988,10 @@ watch(
 // Lifecycle
 let handleKeyDown: (event: KeyboardEvent) => void
 onMounted(() => {
+  // 全局 mousemove/mouseup：使「点击空白并拖动 → 平移画布」与框选生效
+  document.addEventListener('mousemove', handleMouseMove)
+  document.addEventListener('mouseup', handleMouseUp)
+
   if (containerRef.value) {
     containerWidth.value = containerRef.value.clientWidth
     containerHeight.value = containerRef.value.clientHeight
@@ -819,6 +1014,8 @@ onMounted(() => {
         const selectedEdges = edgesRef.value.filter((e) => e.selected)
         selectedNodes.forEach((node) => nodesManager.removeNode(node.id))
         selectedEdges.forEach((edge) => edgesManager.removeEdge(edge.id))
+        emit('update:nodes', nodesRef.value)
+        emit('update:edges', edgesRef.value)
       },
       onUndo: () => historyManager.undo(),
       onRedo: () => historyManager.redo(),

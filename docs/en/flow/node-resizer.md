@@ -1,10 +1,10 @@
-﻿# Node Resizer
+# Node Resizer (节点缩放)
 
 In many diagramming scenarios, users need to manually adjust the dimensions of nodes, especially container nodes or text-heavy blocks. `yh-flow` provides a dedicated `NodeResizer` component that can be easily embedded into your custom node templates, providing 8-directional scaling handles.
 
-## Resize Action Demo
+## Node Resizer Example (节点缩放示例)
 
-Select the node below. Blue resize handles will appear around its perimeter. Drag these handles to resize the node in real-time.
+Select the node below; blue resize handles will appear around it. Drag the handles to resize, or drag the node to move it. The demo uses `v-model:nodes` so that node drag and resize stay in sync with the parent.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -14,7 +14,7 @@ import type { Node, Edge } from '@yh-ui/flow'
 const tsCode = `<template>
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="edges"
       background="dots"
     >
@@ -99,7 +99,7 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) =>
 <DemoBlock title="Custom Node Resizing" :ts-code="tsCode" :js-code="jsCode">
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="[]"
       :model-value="{ x: 50, y: 50, zoom: 1 }"
       background="dots"
@@ -120,9 +120,9 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) =>
   </div>
 </DemoBlock>
 
-## API Reference
+## API Reference (API 概述)
 
-### Props
+### Props (属性)
 
 | Name          | Type            | Default      | Description                                                        |
 | :------------ | :-------------- | :----------- | :----------------------------------------------------------------- |
@@ -132,7 +132,7 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) =>
 | `minHeight`   | `number`        | `30`         | Minimum height allowed.                                            |
 | `handleStyle` | `CSSProperties` | `{}`         | Custom CSS for the grab handles.                                   |
 
-### Events
+### Events (事件)
 
 | Event          | Params                    | Detail                                                                                                          |
 | :------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------- |

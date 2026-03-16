@@ -2,9 +2,9 @@
 
 在很多业务场景中，用户可能需要手动调整某些节点（特别是分组节点或容器节点）的大小。`yh-flow` 提供了 `NodeResizer` 组件，它可以非常容易地嵌入到您的自定义节点中，为节点添加 8 个方向的缩放手柄。
 
-## 节点缩放示例
+## 节点缩放示例 (Node Resizer Example)
 
-点击选中下方的节点，四周会出现蓝色的缩放手柄。拖拽手柄即可实时调整节点尺寸。
+点击选中下方的节点，四周会出现蓝色的缩放手柄；拖拽手柄可实时调整节点尺寸。拖拽节点可移动位置。示例使用 `v-model:nodes`，使节点拖放与缩放后的数据同步到父组件。
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -14,7 +14,7 @@ import type { Node, Edge } from '@yh-ui/flow'
 const tsCode = `<template>
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="edges"
       background="dots"
     >
@@ -98,7 +98,7 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: { width: number, 
 <DemoBlock title="自定义节点缩放" :ts-code="tsCode" :js-code="jsCode">
   <div style="height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white;">
     <yh-flow
-      :nodes="nodes"
+      v-model:nodes="nodes"
       :edges="[]"
       v-model="viewport"
       background="dots"
@@ -119,7 +119,7 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: { width: number, 
   </div>
 </DemoBlock>
 
-## API 概述
+## API 概述 (API Reference)
 
 ### 属性 (Props)
 
