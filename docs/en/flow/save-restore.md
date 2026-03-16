@@ -84,21 +84,52 @@ const clearState = () => {
 
 <style scoped>
 .sr-container {
-  display: flex; flex-direction: column; height: 450px; width: 100%;
-  border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
 }
+
 .sr-toolbar {
-  padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee;
-  display: flex; gap: 8px; align-items: center;
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
+
 .sr-btn {
-  padding: 6px 12px; background: #3b82f6; color: white; border-radius: 4px;
-  font-size: 13px; cursor: pointer; border: none;
+  padding: 6px 12px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
 }
-.sr-btn.restore { background: #10b981; }
-.sr-btn.clear { background: #ef4444; }
-.sr-tip { font-size: 12px; color: #64748b; margin-left: auto; }
-.sr-flowbox { flex: 1; height: 100%; }
+
+.sr-btn.restore {
+  background: #10b981;
+}
+
+.sr-btn.clear {
+  background: #ef4444;
+}
+
+.sr-tip {
+  font-size: 12px;
+  color: #64748b;
+  margin-left: auto;
+}
+
+.sr-flowbox {
+  flex: 1;
+  height: 100%;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

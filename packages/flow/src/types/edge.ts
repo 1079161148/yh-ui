@@ -16,13 +16,6 @@ export interface EdgeStyle {
   [key: string]: string | number | undefined
 }
 
-export interface EdgeMarker {
-  type: 'arrow' | 'arrowclosed'
-  color?: string
-  width?: number
-  height?: number
-}
-
 export interface EdgeData {
   [key: string]: unknown
   label?: string
@@ -52,8 +45,6 @@ export interface Edge<Data = EdgeData> {
   labelBgPadding?: [number, number]
   labelBgBorderRadius?: number
   style?: EdgeStyle
-  markerEnd?: string | EdgeMarker
-  markerStart?: string | EdgeMarker
   data?: Data
   zIndex?: number
   selectable?: boolean

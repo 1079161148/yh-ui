@@ -65,10 +65,8 @@ function getHandleStyle(handle: NodeHandle) {
 
 <template>
   <div :class="['flow-base-node', { selected, dragging }]" :style="nodeStyle">
-    <div class="flow-node-label">{{ label || data?.label || type }}</div>
-    <div v-if="data?.description" class="flow-node-description">
-      {{ data.description }}
-    </div>
+    <div class="flow-node-label" v-html="label || data?.label || type"></div>
+    <div v-if="data?.description" class="flow-node-description" v-html="data.description"></div>
     <template v-for="handle in handles" :key="`${handle.type}-${handle.position}`">
       <div
         v-if="handle.isConnectable !== false && connectable"
@@ -102,9 +100,10 @@ function getHandleStyle(handle: NodeHandle) {
 }
 
 .flow-node-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
+  font-size: 13px;
+  font-weight: 400;
+  color: #000;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .flow-node-description {

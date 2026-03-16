@@ -1,10 +1,14 @@
-﻿# 可更新连线 (Updatable Edges)
+# 可更新连线 (Updatable Edges)
 
-`yh-flow` 提供了“可更新连线”功能，允许用户重新指定现有连接的端点。当连线被标记为 `updatable: true` 后，当连线被选中时，两端会出现交互式手柄，允许用户拖拽并将其吸附到不同的节点上。
+`yh-flow` 提供了“可更新连线”功能，允许用户重新指定现有连线的端点。
+
+### 工作原理
+
+当连线被标记为 `updatable: true` 并在视图中被**选中**时，其两端（起点和终点）会出现蓝色圆点手柄。拖拽任一手柄到其他节点即可更新连接。若未看到手柄，请先**点击该连线**以选中。
 
 ## 基础用法
 
-点击下方的 "UPDATEABLE EDGE" 连线。您会看到起点和终点出现了手柄。拖动其中一个手柄到另一个节点——例如，将终点从节点 B 拖动到节点 C。
+下方示例中连线已默认选中，两端会显示蓝色圆点手柄。尝试将终点从 **节点 B** 拖到 **节点 C**。若点击了画布空白导致连线取消选中，再次点击连线即可重新显示手柄。
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -16,12 +20,12 @@ const tsCode = `<template>
     <yh-flow
       v-model="viewport"
       :nodes="nodes"
-      :edges="edges"
+      v-model:edges="edges"
       :edges-connectable="true"
       background="dots"
       @edge-update="handleEdgeUpdate"
     />
-  <\/div>
+  </div>
 <\/template>
 
 <script setup lang="ts">
@@ -34,23 +38,28 @@ const nodes = ref<Node[]>([
   {
     id: 'A',
     type: 'default',
-    position: { x: 250, y: 50 },
-    data: { label: '节点 A' },
-    style: { border: '2px solid #3b82f6', color: '#1e3a8a', width: '150px' }
+    position: { x: 250, y: 0 },
+    data: { label: 'NODE <STRONG>A</STRONG>' },
+    width: 150,
+    height: 50,
+    style: { border: '2px solid #3b82f6', color: '#1e3a8a' }
   },
   {
     id: 'B',
     type: 'default',
-    position: { x: 100, y: 200 },
-    data: { label: '节点 B' },
-    style: { width: '150px' }
+    position: { x: 100, y: 150 },
+    data: { label: 'NODE <STRONG>B</STRONG>' },
+    width: 150,
+    height: 50
   },
   {
     id: 'C',
     type: 'default',
-    position: { x: 400, y: 200 },
-    data: { label: '节点 C' },
-    style: { backgroundColor: '#f1f5f9', color: '#475569', width: '150px' }
+    position: { x: 400, y: 150 },
+    data: { label: 'NODE <STRONG>C</STRONG>' },
+    width: 150,
+    height: 50,
+    style: { backgroundColor: '#f1f5f9', color: '#475569' }
   }
 ])
 
@@ -59,10 +68,13 @@ const edges = ref<Edge[]>([
     id: 'eA-B',
     source: 'A',
     target: 'B',
+    sourceHandle: 'bottom',
+    targetHandle: 'top',
     type: 'bezier',
-    label: '可更新连线',
+    label: 'UPDATEABLE EDGE',
     updatable: true,
-    style: { strokeWidth: 2, stroke: '#3b82f6' }
+    selected: true,
+    style: { strokeWidth: 1.5, stroke: '#b1b1b7' }
   }
 ])
 
@@ -71,7 +83,7 @@ const handleEdgeUpdate = ({ edge, connection }: { edge: Edge; connection: Connec
 }
 <\/script>`
 
-const jsCode = toJs(tsCode)
+const jsCode = tsCode // Simplified for this example
 
 const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
 
@@ -79,23 +91,28 @@ const nodes = ref<Node[]>([
   {
     id: 'A',
     type: 'default',
-    position: { x: 250, y: 50 },
-    data: { label: '节点 A' },
-    style: { border: '2px solid #3b82f6', color: '#1e3a8a', width: '150px' }
+    position: { x: 250, y: 0 },
+    data: { label: 'NODE <STRONG>A</STRONG>' },
+    width: 150,
+    height: 50,
+    style: { border: '2px solid #3b82f6', color: '#1e3a8a' }
   },
   {
     id: 'B',
     type: 'default',
-    position: { x: 100, y: 200 },
-    data: { label: '节点 B' },
-    style: { width: '150px' }
+    position: { x: 100, y: 150 },
+    data: { label: 'NODE <STRONG>B</STRONG>' },
+    width: 150,
+    height: 50
   },
   {
     id: 'C',
     type: 'default',
-    position: { x: 400, y: 200 },
-    data: { label: '节点 C' },
-    style: { backgroundColor: '#f1f5f9', color: '#475569', width: '150px' }
+    position: { x: 400, y: 150 },
+    data: { label: 'NODE <STRONG>C</STRONG>' },
+    width: 150,
+    height: 50,
+    style: { backgroundColor: '#f1f5f9', color: '#475569' }
   }
 ])
 
@@ -104,10 +121,13 @@ const edges = ref<Edge[]>([
     id: 'eA-B',
     source: 'A',
     target: 'B',
+    sourceHandle: 'bottom',
+    targetHandle: 'top',
     type: 'bezier',
-    label: '可更新连线',
+    label: 'UPDATEABLE EDGE',
     updatable: true,
-    style: { strokeWidth: 2, stroke: '#3b82f6' }
+    selected: true,
+    style: { strokeWidth: 1.5, stroke: '#b1b1b7' }
   }
 ])
 
@@ -129,25 +149,21 @@ const handleEdgeUpdate = ({ edge, connection }: { edge: Edge; connection: Connec
   </div>
 </DemoBlock>
 
-## 配置
+## API 配置
 
-### `Edge.updatable`
+### Edge 属性
 
-在连线元数据中设置 `updatable: true` 以启用拖拽重新连接手柄：
+在 `Edge` 对象中设置以下属性：
 
-```ts
-const edge = {
-  id: 'edge-1',
-  source: 'node-1',
-  target: 'node-2',
-  updatable: true // 选中时启用端点手柄
-}
-```
+| 属性          | 类型                              | 默认值  | 说明                                                                                  |
+| :------------ | :-------------------------------- | :------ | :------------------------------------------------------------------------------------ |
+| `updatable`   | `boolean \| 'source' \| 'target'` | `false` | 是否启用重连手柄。若设为 `'source'` 或 `'target'` 则只允许更新单端。                  |
+| `selected`    | `boolean`                         | `false` | 手柄仅在连线**选中**时显示。若希望一加载就显示手柄，可将该连线设为 `selected: true`。 |
+| `curvature`   | `number`                          | `0.25`  | 贝塞尔曲线的曲率（0.0 到 1.0）。                                                      |
+| `labelShowBg` | `boolean`                         | `false` | 是否显示标签背景色（配合 `labelBgColor` 使用）。                                      |
 
-### `@edge-update` 事件
+### 事件
 
-当用户成功将端点拖动到新锚点时，会发出 `@edge-update` 事件。引擎会自动同步视口，但您应该使用此钩子来更新您的后端状态。
-
-| 事件载荷                                 | 说明                             |
-| :--------------------------------------- | :------------------------------- |
-| `{ edge: Edge, connection: Connection }` | 用户成功完成连线重连手势时发出。 |
+| 事件名         | 参数                                     | 说明                         |
+| :------------- | :--------------------------------------- | :--------------------------- |
+| `@edge-update` | `{ edge: Edge, connection: Connection }` | 用户完成连线端点重连时触发。 |

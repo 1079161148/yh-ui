@@ -26,6 +26,48 @@ function getDir(pos: Position): { x: number; y: number } {
 }
 
 /**
+ * 获取连接点的位置坐标
+ */
+export function getHandlePosition(
+  node: { position: { x: number; y: number }; width?: number; height?: number; style?: any },
+  handlePosition: Position = 'right',
+  _handleId?: string | null
+): { x: number; y: number } {
+  const x = node.position.x
+  const y = node.position.y
+
+  let width = node.width
+  let height = node.height
+
+  // Try to extract from style if direct props are missing
+  if (width === undefined && node.style?.width) {
+    const val = parseInt(String(node.style.width))
+    if (!isNaN(val)) width = val
+  }
+  if (height === undefined && node.style?.height) {
+    const val = parseInt(String(node.style.height))
+    if (!isNaN(val)) height = val
+  }
+
+  // Fallback to defaults
+  width = width || 150
+  height = height || 40
+
+  switch (handlePosition) {
+    case 'top':
+      return { x: x + width / 2, y }
+    case 'bottom':
+      return { x: x + width / 2, y: y + height }
+    case 'left':
+      return { x, y: y + height / 2 }
+    case 'right':
+      return { x: x + width, y: y + height / 2 }
+    default:
+      return { x: x + width / 2, y: y + height / 2 }
+  }
+}
+
+/**
  * 获取从源位置到目标位置的偏移量（向后兼容）
  */
 export function getEdgePosition(
@@ -169,13 +211,36 @@ export function getEdgePath(type: EdgeType | 'default', params: EdgePathParams):
 /**
  * 计算连线的中心点（用于标签放置）
  */
-export function getEdgeCenter(params: EdgePathParams): {
+export function getEdgeCenter(params: EdgePathParams & { type?: string }): {
   x: number
   y: number
   ox: number
   oy: number
 } {
-  const { sourceX, sourceY, targetX, targetY } = params
+  const { sourceX, sourceY, targetX, targetY, type = 'bezier' } = params
+
+  if (type === 'bezier' || type === 'default') {
+    const curvature = params.curvature ?? 0.25
+    const srcDir = getDir(params.sourcePosition)
+    const tgtDir = getDir(params.targetPosition)
+    const dx = Math.abs(targetX - sourceX)
+    const dy = Math.abs(targetY - sourceY)
+    const dist = Math.sqrt(dx * dx + dy * dy)
+    const offset = Math.min(Math.max(dist * curvature, 20), dist / 2)
+
+    const c1x = sourceX + srcDir.x * offset
+    const c1y = sourceY + srcDir.y * offset
+    const c2x = targetX + tgtDir.x * offset
+    const c2y = targetY + tgtDir.y * offset
+
+    return {
+      x: 0.125 * sourceX + 0.375 * c1x + 0.375 * c2x + 0.125 * targetX,
+      y: 0.125 * sourceY + 0.375 * c1y + 0.375 * c2y + 0.125 * targetY,
+      ox: (targetX - sourceX) / 2,
+      oy: (targetY - sourceY) / 2
+    }
+  }
+
   return {
     x: (sourceX + targetX) / 2,
     y: (sourceY + targetY) / 2,

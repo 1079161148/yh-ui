@@ -5,7 +5,7 @@ Flow supports visual editing of nodes and edges. Double-click a node or an edge 
 ## Features (功能特性)
 
 - **Node editing**: Double-click a node to open the panel; edit label, description, size, background color, border color, border radius, etc.
-- **Edge editing**: Double-click an edge to open the panel; edit label, edge type, color, width, arrow style, animation, etc.
+- **Edge editing**: Double-click an edge to open the panel; edit label, edge type, color, width, animation, etc.
 - **Undo/Redo**: Editing changes are recorded in history.
 
 ## Basic Usage (基础用法)
@@ -96,16 +96,16 @@ After double-clicking a node, the node editing panel appears on the right with:
 
 After double-clicking an edge, the edge editing panel appears on the right with:
 
-| Property               | Description                            |
-| ---------------------- | -------------------------------------- |
-| Label                  | Text on the edge                       |
-| Edge Type              | bezier, smoothstep, step, straight     |
-| Animated Edge          | Enable flow animation                  |
-| Stroke Color           | Edge color                             |
-| Stroke Width           | Edge thickness                         |
-| Start/End Arrow        | Arrow style: none, arrow, closed arrow |
-| Show Label Background  | Toggle label background                |
-| Label Background Color | Label background color                 |
+| Property      | Description                        |
+| ------------- | ---------------------------------- |
+| Label         | Text on the edge                   |
+| Edge Type     | bezier, smoothstep, step, straight |
+| Animated Edge | Enable flow animation              |
+| Stroke Color  | Edge color                         |
+| Stroke Width  | Edge thickness                     |
+
+| Show Label Background | Toggle label background |
+| Label Background Color | Label background color |
 
 ## Readonly Mode (只读模式)
 

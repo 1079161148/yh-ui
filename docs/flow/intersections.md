@@ -92,12 +92,44 @@ const onNodeDrag = ({ node, position }) => {
 <\/script>
 
 <style scoped>
-.intersect-container { display: flex; flex-direction: column; height: 400px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.intersect-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 8px; font-size: 13px; }
-.status-tag { padding: 2px 8px; border-radius: 4px; font-weight: bold; }
-.status-tag.safe { background: #dcfce7; color: #166534; }
-.status-tag.danger { background: #fee2e2; color: #991b1b; }
-.intersect-flowbox { flex: 1; }
+.intersect-container {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.intersect-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.status-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.status-tag.safe {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-tag.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.intersect-flowbox {
+  flex: 1;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

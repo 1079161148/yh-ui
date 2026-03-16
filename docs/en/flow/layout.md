@@ -91,10 +91,36 @@ const onLayout = (direction: 'TB' | 'LR') => {
 <\/script>
 
 <style scoped>
-.layout-container { display: flex; flex-direction: column; height: 450px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.layout-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; display: flex; gap: 12px; }
-.layout-btn { padding: 6px 14px; background: white; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; cursor: pointer; }
-.layout-flowbox { flex: 1; height: 100%; }
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.layout-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 12px;
+}
+
+.layout-btn {
+  padding: 6px 14px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.layout-flowbox {
+  flex: 1;
+  height: 100%;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

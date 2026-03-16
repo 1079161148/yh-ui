@@ -106,16 +106,60 @@ const requestDelete = async () => {
 
 <style scoped>
 .cd-container {
-  display: flex; flex-direction: column; height: 450px; width: 100%;
-  border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; outline: none;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  outline: none;
 }
-.cd-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; display: flex; gap: 12px; align-items: center; }
-.cd-btn { padding: 6px 12px; background: white; border: 1px solid #cbd5e1; color: #334155; border-radius: 4px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
-.cd-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.cd-btn.danger { border-color: #ef4444; color: #ef4444; }
-.cd-btn.danger:not(:disabled):hover { background: #ef4444; color: white; }
-.cd-tip { font-size: 12px; color: #94a3b8; }
-.cd-flowbox { flex: 1; height: 100%; }
+
+.cd-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cd-btn {
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cd-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cd-btn.danger {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.cd-btn.danger:not(:disabled):hover {
+  background: #ef4444;
+  color: white;
+}
+
+.cd-tip {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.cd-flowbox {
+  flex: 1;
+  height: 100%;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

@@ -79,10 +79,40 @@ const fitView = () => {
 <\/script>
 
 <style scoped>
-.vt-container { display: flex; flex-direction: column; height: 500px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.vt-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; display: flex; gap: 8px; }
-.vt-btn { padding: 6px 12px; background: white; border: 1px solid #cbd5e1; color: #334155; border-radius: 4px; font-size: 13px; cursor: pointer; }
-.vt-btn.reset { background: #3b82f6; color: white; border-color: #3b82f6; margin-left: auto; }
+.vt-container {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.vt-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+}
+
+.vt-btn {
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.vt-btn.reset {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  margin-left: auto;
+}
 
 /* 核心技巧：向内部内容包装器添加 CSS transition */
 :deep(.animated-flow .yh-flow__content) {

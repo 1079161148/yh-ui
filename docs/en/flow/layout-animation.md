@@ -81,14 +81,41 @@ const onLayout = (direction: 'TB' | 'LR') => {
 .layout-animating :deep(.yh-flow-node) {
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 .layout-animating :deep(.yh-flow-edge path) {
   transition: d 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.layout-container { display: flex; flex-direction: column; height: 400px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.layout-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; display: flex; gap: 8px; }
-.layout-btn { padding: 6px 12px; background: white; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; cursor: pointer; }
-.layout-flowbox { flex: 1; position: relative; }
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.layout-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+}
+
+.layout-btn {
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.layout-flowbox {
+  flex: 1;
+  position: relative;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

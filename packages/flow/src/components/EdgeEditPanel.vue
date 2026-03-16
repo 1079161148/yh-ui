@@ -24,10 +24,8 @@ watch(
         animated: edge.animated || false,
         style: { ...edge.style },
         labelStyle: { ...edge.labelStyle },
-        labelShowBg: edge.labelShowBg !== false,
-        labelBgColor: edge.labelBgColor || '#fff',
-        markerEnd: edge.markerEnd as any,
-        markerStart: edge.markerStart as any
+        labelShowBg: !!edge.labelShowBg,
+        labelBgColor: edge.labelBgColor || '#fff'
       }
     }
   },
@@ -62,6 +60,11 @@ const handleClose = () => {
   emit('close')
 }
 
+const handleStrokeWidth = (event: Event) => {
+  const value = parseFloat((event.target as HTMLInputElement).value)
+  updateStyle('strokeWidth', value)
+}
+
 const edgeTypes: { value: EdgeType; label: string }[] = [
   { value: 'bezier', label: '贝塞尔曲线' },
   { value: 'smoothstep', label: '平滑阶梯' },
@@ -78,12 +81,6 @@ const strokeColors = [
   '#8b5cf6',
   '#ec4899',
   '#06b6d4'
-]
-
-const markerTypes = [
-  { value: '', label: '无' },
-  { value: 'arrow', label: '箭头' },
-  { value: 'arrowclosed', label: '实心箭头' }
 ]
 </script>
 
@@ -146,40 +143,8 @@ const markerTypes = [
               min="1"
               max="6"
               step="0.5"
-              @input="
-                updateStyle('strokeWidth', parseFloat(($event.target as HTMLInputElement).value))
-              "
+              @input="handleStrokeWidth"
             />
-          </div>
-
-          <div class="form-group">
-            <label>起点箭头</label>
-            <select
-              :value="localEdge.markerStart"
-              @change="
-                localEdge.markerStart = ($event.target as HTMLSelectElement).value
-                emit('update', { markerStart: localEdge.markerStart })
-              "
-            >
-              <option v-for="m in markerTypes" :key="m.value" :value="m.value">
-                {{ m.label }}
-              </option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>终点箭头</label>
-            <select
-              :value="localEdge.markerEnd"
-              @change="
-                localEdge.markerEnd = ($event.target as HTMLSelectElement).value
-                emit('update', { markerEnd: localEdge.markerEnd })
-              "
-            >
-              <option v-for="m in markerTypes" :key="m.value" :value="m.value">
-                {{ m.label }}
-              </option>
-            </select>
           </div>
 
           <div class="form-group">

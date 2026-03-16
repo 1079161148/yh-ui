@@ -75,12 +75,49 @@ const flowStore = useFlowStore()
 <\/script>
 
 <style scoped>
-.pinia-container { display: flex; flex-direction: column; height: 450px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.pinia-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; display: flex; gap: 12px; align-items: center; }
-.pinia-btn { padding: 6px 14px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 13px; cursor: pointer; }
-.pinia-btn.add { background: #10b981; }
-.node-count { font-size: 12px; color: #64748b; margin-left: auto; }
-.pinia-flowbox { flex: 1; height: 100%; }
+.pinia-container {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pinia-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.pinia-btn {
+  padding: 6px 14px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pinia-btn.add {
+  background: #10b981;
+}
+
+.node-count {
+  font-size: 12px;
+  color: #64748b;
+  margin-left: auto;
+}
+
+.pinia-flowbox {
+  flex: 1;
+  height: 100%;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

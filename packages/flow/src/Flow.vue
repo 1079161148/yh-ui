@@ -53,12 +53,20 @@
       >
         <template #node="nodeProps">
           <slot name="node" v-bind="nodeProps">
-            <div class="yh-flow-node__header">{{
-              nodeProps.node?.data?.label || nodeProps.node?.id
-            }}</div>
+            <div
+              class="yh-flow-node__header"
+              v-html="nodeProps.node?.data?.label || nodeProps.node?.id"
+            ></div>
           </slot>
         </template>
       </NodeRenderer>
+
+      <!-- Node Handles (for updatable edges) -->
+      <EdgeHandlesRenderer
+        :edges="edgesRef"
+        :nodes="nodesRef"
+        @edge-update-start="handleEdgeUpdateStart"
+      />
 
       <!-- Selection Box -->
       <SelectionBox
@@ -153,6 +161,7 @@ import Minimap from './renderer/Minimap.vue'
 import AlignmentLines from './renderer/AlignmentLines.vue'
 import NodeEditPanel from './components/NodeEditPanel.vue'
 import EdgeEditPanel from './components/EdgeEditPanel.vue'
+import EdgeHandlesRenderer from './renderer/EdgeHandlesRenderer.vue'
 import { useViewport } from './core/useViewport'
 import { useNodes } from './core/useNodes'
 import { useEdges } from './core/useEdges'
@@ -160,7 +169,7 @@ import { useSelection } from './core/useSelection'
 import { useHistory } from './core/useHistory'
 import { useKeyboard } from './core/useKeyboard'
 import { useAlignment } from './core/useAlignment'
-import { getEdgePath } from './utils/edge'
+import { getEdgePath, getHandlePosition } from './utils/edge'
 import { screenToCanvas, canvasToScreen } from './utils/transform'
 import { isValidConnection, detectCycles } from './utils/validation'
 import { provideFlowContext } from './core/FlowContext'
@@ -642,12 +651,11 @@ const handleNodeSelectToggle = (nodeId: string) => {
 }
 
 const handleNodeDblClick = (event: MouseEvent, node: Node) => {
-  console.log('Node double clicked:', node.id)
   emit('nodeDblClick', { node, nativeEvent: event })
   eventBus.emit('node:dblclick', { node, nativeEvent: event })
   // Open edit panel on double click
   if (!readonly.value) {
-    console.log('Opening node edit panel for:', node.id)
+    showEdgeEditPanel.value = false // Close edge panel if open
     editingNode.value = node
     showNodeEditPanel.value = true
   }
@@ -691,20 +699,33 @@ const handleNodeDragEnd = (event: MouseEvent, node: Node) => {
 
 // Edge handlers（单击连线 → 选中；单选时取消节点选中）
 const handleEdgeClick = (event: MouseEvent, edge: Edge) => {
-  const multi = event.shiftKey || event.metaKey || event.ctrlKey
-  if (!multi) nodesManager.clearSelection()
-  edgesManager.selectEdge(edge.id, true, multi)
+  console.log('Edge click:', edge.id)
+  event.stopPropagation()
+
+  if (!event.ctrlKey && !event.metaKey && !event.shiftKey) {
+    edgesRef.value.forEach((e) => {
+      if (e.id !== edge.id) e.selected = false
+    })
+  }
+
+  edge.selected = !edge.selected
   emit('edgeClick', { edge, nativeEvent: event })
+
+  // Open edit panel on single click for better UX as per user request
+  if (!readonly.value) {
+    showNodeEditPanel.value = false
+    editingEdge.value = edge
+    showEdgeEditPanel.value = true
+  }
   eventBus.emit('edge:click', { edge, nativeEvent: event })
 }
 
 const handleEdgeDblClick = (event: MouseEvent, edge: Edge) => {
-  console.log('Edge double clicked:', edge.id)
+  console.log('Edge dblclick:', edge.id)
   emit('edgeDblClick', { edge, nativeEvent: event })
   eventBus.emit('edge:dblclick', { edge, nativeEvent: event })
-  // Open edit panel on double click
   if (!readonly.value) {
-    console.log('Opening edge edit panel for:', edge.id)
+    showNodeEditPanel.value = false // Close node panel if open
     editingEdge.value = edge
     showEdgeEditPanel.value = true
   }
@@ -729,9 +750,9 @@ const handleEdgeUpdateStart = (event: MouseEvent, edge: Edge, handleType: Handle
   const node = nodesRef.value.find((n) => n.id === anchorNodeId)
   if (!node) return
 
-  const width = node.width || 200
-  const height = node.height || 50
-  const position: Position = handleType === 'source' ? 'left' : 'right' // 另一端的位置
+  const position: Position =
+    handleType === 'source' ? (anchorHandleId as any) || 'left' : (anchorHandleId as any) || 'right'
+  const startPos = getHandlePosition(node, position, anchorHandleId)
 
   isConnecting.value = true
   connectionStart.value = {
@@ -739,8 +760,8 @@ const handleEdgeUpdateStart = (event: MouseEvent, edge: Edge, handleType: Handle
     handleId: anchorHandleId || '',
     handleType: handleType === 'source' ? 'target' : 'source', // 反转类型
     position,
-    x: position === 'right' ? node.position.x + width : node.position.x,
-    y: node.position.y + height / 2
+    x: startPos.x,
+    y: startPos.y
   }
   connectionEnd.value = {
     x: event.clientX - rect.left,
@@ -761,9 +782,8 @@ const handleConnectStart = (
   const rect = containerRef.value?.getBoundingClientRect()
   if (!rect) return
 
-  const width = node.width || 200
-  const height = node.height || 50
-  const position: Position = handleType === 'source' ? 'right' : 'left'
+  const position: Position = (handleId as any) || (handleType === 'source' ? 'right' : 'left')
+  const startPos = getHandlePosition(node, position, handleId)
 
   isConnecting.value = true
   connectionStart.value = {
@@ -771,8 +791,8 @@ const handleConnectStart = (
     handleId,
     handleType,
     position,
-    x: position === 'right' ? node.position.x + width : node.position.x,
-    y: node.position.y + height / 2
+    x: startPos.x,
+    y: startPos.y
   }
   connectionEnd.value = {
     x: event.clientX - rect.left,

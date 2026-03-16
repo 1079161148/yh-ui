@@ -43,7 +43,7 @@
       <!-- 节点内容 -->
       <div class="yh-flow-node__content">
         <slot name="node" :node="node">
-          <div class="yh-flow-node__header">{{ node.data?.label || node.id }}</div>
+          <div class="yh-flow-node__header" v-html="node.data?.label || node.id"></div>
         </slot>
       </div>
     </div>
@@ -91,8 +91,8 @@ const visibleNodes = computed(() => {
 })
 
 const getNodeStyle = (node: Node) => {
-  const width = node.width || 200
-  const height = node.height || 50
+  const width = node.width || 150
+  const height = node.height || 40
 
   let zIndex = node.zIndex || 10
   if (node.type === 'group') {

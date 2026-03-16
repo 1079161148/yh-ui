@@ -72,21 +72,34 @@ const edges = ref<Edge[]>([
 
 <style scoped>
 .parent-node {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background: rgba(59, 130, 246, 0.05);
   border: 2px dashed #94a3b8;
   border-radius: 12px;
   position: relative;
 }
+
 .group-label {
-  position: absolute; top: 12px; left: 16px;
-  font-size: 14px; font-weight: bold; color: #475569;
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #475569;
 }
+
 .child-node {
-  width: 140px; height: 50px;
-  background: white; border: 1px solid #cbd5e1;
-  border-radius: 6px; display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: #1e293b;
+  width: 140px;
+  height: 50px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #1e293b;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 <\/style>`

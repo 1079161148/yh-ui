@@ -41,8 +41,13 @@ const nodeStyle = computed(() => {
 
 <template>
   <div :class="['flow-input-node', { selected, dragging }]" :style="nodeStyle">
-    <div class="flow-node-label">{{ label || data?.label || 'Input' }}</div>
-    <div class="flow-handle-right" v-if="connectable" />
+    <div class="flow-node-label" v-html="label || data?.label || 'Input'"></div>
+    <div
+      class="flow-handle-right"
+      v-if="connectable"
+      data-handle-type="source"
+      data-handle-position="right"
+    />
   </div>
 </template>
 
@@ -72,8 +77,9 @@ const nodeStyle = computed(() => {
 }
 
 .flow-node-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
+  font-size: 13px;
+  font-weight: 400;
+  color: #000;
+  font-family: 'Courier New', Courier, monospace;
 }
 </style>

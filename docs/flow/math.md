@@ -76,20 +76,72 @@ const edges: Edge[] = [
 
 <style scoped>
 .math-node {
-  width: 100%; height: 100%; border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-family: monospace;
 }
-.value-node { background: white; border: 1px solid #e2e8f0; border-top: 4px solid #3b82f6; padding: 8px 12px; }
-.node-title { font-size: 11px; color: #64748b; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; }
-.slider-box { display: flex; align-items: center; gap: 8px; }
-.slider-box input { flex: 1; }
-.slider-box span { font-weight: bold; font-size: 14px; }
-.operator-node { background: #f8fafc; border: 2px dashed #94a3b8; border-radius: 50%; align-items: center; justify-content: center; font-size: 20px; }
-.result-node { background: #1e293b; color: white; padding: 12px; border: none; }
-.result-node .node-title { color: #94a3b8; }
-.result-value { font-size: 28px; font-weight: bold; color: #10b981; }
+
+.value-node {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid #3b82f6;
+  padding: 8px 12px;
+}
+
+.node-title {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.slider-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slider-box input {
+  flex: 1;
+}
+
+.slider-box span {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.operator-node {
+  background: #f8fafc;
+  border: 2px dashed #94a3b8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.result-node {
+  background: #1e293b;
+  color: white;
+  padding: 12px;
+  border: none;
+}
+
+.result-node .node-title {
+  color: #94a3b8;
+}
+
+.result-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #10b981;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

@@ -1,14 +1,18 @@
-﻿# Updatable Edges
+# Updatable Edges
 
-`Flow` provides an "Updatable Edge" feature that allows users to reassign the endpoints of an existing connection. When an edge is marked as `updatable: true`, interactive handles appear at both ends when selected, enabling users to drag and snap them to different nodes.
+`yh-flow` provides an "Updatable Edge" feature that allows users to reassign the endpoints of an existing connection.
+
+### How it Works
+
+When an edge is marked as `updatable: true` and is **selected** in the view, blue circular handles appear at both ends (source and target). Drag a handle to another node to update the connection. If you don’t see handles, **click the edge** first to select it.
 
 ## Basic Usage
 
-Click the "UPDATEABLE EDGE" connector below. You will see handles appear at the source and target. Drag one of these handles to another node鈥攆or example, moving the target from Node B to Node C.
+In the demo below the edge is selected by default, so blue handles are visible at both ends. Try dragging the target from **Node B** to **Node C**. If you click the pane and the edge is deselected, click the edge again to show the handles.
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge, ViewportTransform, Connection } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -16,7 +20,7 @@ const tsCode = `<template>
     <yh-flow
       v-model="viewport"
       :nodes="nodes"
-      :edges="edges"
+      v-model:edges="edges"
       :edges-connectable="true"
       background="dots"
       @edge-update="handleEdgeUpdate"
@@ -34,23 +38,28 @@ const nodes = ref<Node[]>([
   {
     id: 'A',
     type: 'default',
-    position: { x: 250, y: 50 },
+    position: { x: 250, y: 0 },
     data: { label: 'Node A' },
-    style: { border: '2px solid #3b82f6', color: '#1e3a8a', width: '150px' }
+    width: 150,
+    height: 50,
+    style: { border: '2px solid #3b82f6', color: '#1e3a8a' }
   },
   {
     id: 'B',
     type: 'default',
-    position: { x: 100, y: 200 },
+    position: { x: 100, y: 150 },
     data: { label: 'Node B' },
-    style: { width: '150px' }
+    width: 150,
+    height: 50
   },
   {
     id: 'C',
     type: 'default',
-    position: { x: 400, y: 200 },
+    position: { x: 400, y: 150 },
     data: { label: 'Node C' },
-    style: { backgroundColor: '#f1f5f9', color: '#475569', width: '150px' }
+    width: 150,
+    height: 50,
+    style: { backgroundColor: '#f1f5f9', color: '#475569' }
   }
 ])
 
@@ -59,9 +68,12 @@ const edges = ref<Edge[]>([
     id: 'eA-B',
     source: 'A',
     target: 'B',
+    sourceHandle: 'bottom',
+    targetHandle: 'top',
     type: 'bezier',
     label: 'UPDATEABLE EDGE',
     updatable: true,
+    selected: true,
     style: { strokeWidth: 2, stroke: '#3b82f6' }
   }
 ])
@@ -79,23 +91,28 @@ const nodes = ref<Node[]>([
   {
     id: 'A',
     type: 'default',
-    position: { x: 250, y: 50 },
+    position: { x: 250, y: 0 },
     data: { label: 'Node A' },
-    style: { border: '2px solid #3b82f6', color: '#1e3a8a', width: '150px' }
+    width: 150,
+    height: 50,
+    style: { border: '2px solid #3b82f6', color: '#1e3a8a' }
   },
   {
     id: 'B',
     type: 'default',
-    position: { x: 100, y: 200 },
+    position: { x: 100, y: 150 },
     data: { label: 'Node B' },
-    style: { width: '150px' }
+    width: 150,
+    height: 50
   },
   {
     id: 'C',
     type: 'default',
-    position: { x: 400, y: 200 },
+    position: { x: 400, y: 150 },
     data: { label: 'Node C' },
-    style: { backgroundColor: '#f1f5f9', color: '#475569', width: '150px' }
+    width: 150,
+    height: 50,
+    style: { backgroundColor: '#f1f5f9', color: '#475569' }
   }
 ])
 
@@ -104,9 +121,12 @@ const edges = ref<Edge[]>([
     id: 'eA-B',
     source: 'A',
     target: 'B',
+    sourceHandle: 'bottom',
+    targetHandle: 'top',
     type: 'bezier',
     label: 'UPDATEABLE EDGE',
     updatable: true,
+    selected: true,
     style: { strokeWidth: 2, stroke: '#3b82f6' }
   }
 ])
@@ -129,25 +149,21 @@ const handleEdgeUpdate = ({ edge, connection }: { edge: Edge; connection: Connec
   </div>
 </DemoBlock>
 
-## Configuration
+## API Configuration
 
-### `Edge.updatable`
+### Edge Properties
 
-Set `updatable: true` in your edge metadata to enable the drag-to-reconnect handles:
+Set the following properties in your `Edge` object:
 
-```ts
-const edge = {
-  id: 'edge-1',
-  source: 'node-1',
-  target: 'node-2',
-  updatable: true // Enables endpoint handles on selection
-}
-```
+| Property      | Type                              | Default | Description                                                                                                                 |
+| :------------ | :-------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------- |
+| `updatable`   | `boolean \| 'source' \| 'target'` | `false` | Whether to enable reconnection handles. If set to `'source'` or `'target'`, only that end can be updated.                   |
+| `selected`    | `boolean`                         | `false` | Handles are shown only when the edge is **selected**. Set `selected: true` on the edge if you want handles visible on load. |
+| `curvature`   | `number`                          | `0.25`  | Curvature of the bezier path (0.0 to 1.0).                                                                                  |
+| `labelShowBg` | `boolean`                         | `false` | Whether to show the background color for the label (used with `labelBgColor`).                                              |
 
-### `@edge-update` Event
+### Events
 
-When a user successfully finishes dragging an endpoint to a new anchor, the `@edge-update` event is emitted. The engine automatically synchronizes the viewport, but you should use this hook to update your backend state.
-
-| Event Payload                            | Description                                                              |
-| :--------------------------------------- | :----------------------------------------------------------------------- |
-| `{ edge: Edge, connection: Connection }` | Emitted when a user successfully completes an edge reconnection gesture. |
+| Event          | Payload                                  | Description                                                        |
+| :------------- | :--------------------------------------- | :----------------------------------------------------------------- |
+| `@edge-update` | `{ edge: Edge, connection: Connection }` | Emitted when a user finishes dragging an endpoint to a new anchor. |

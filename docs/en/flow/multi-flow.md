@@ -86,12 +86,57 @@ const transferToRight = () => {
 <\/script>
 
 <style scoped>
-.multi-container { display: flex; height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; }
-.flow-panel { flex: 1; display: flex; flex-direction: column; border: 1px solid #f1f5f9; }
-.panel-header { padding: 8px; background: #f8fafc; font-size: 12px; font-weight: bold; color: #64748b; border-bottom: 1px solid #f1f5f9; text-align: center; }
-.action-bar { width: 120px; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-left: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; }
-.move-btn { padding: 8px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer; }
-.move-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+.multi-container {
+  display: flex;
+  height: 400px;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.flow-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f1f5f9;
+}
+
+.panel-header {
+  padding: 8px;
+  background: #f8fafc;
+  font-size: 12px;
+  font-weight: bold;
+  color: #64748b;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: center;
+}
+
+.action-bar {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.move-btn {
+  padding: 8px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.move-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

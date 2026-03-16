@@ -88,11 +88,40 @@ const downloadImage = async () => {
 <\/script>
 
 <style scoped>
-.ss-container { display: flex; flex-direction: column; height: 450px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.ss-toolbar { padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; }
-.ss-btn { padding: 8px 16px; background: #3b82f6; color: white; border-radius: 4px; border: none; font-weight: bold; cursor: pointer; }
-.ss-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
-.ss-flowbox { flex: 1; height: 100%; }
+.ss-container {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ss-toolbar {
+  padding: 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eee;
+}
+
+.ss-btn {
+  padding: 8px 16px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ss-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.ss-flowbox {
+  flex: 1;
+  height: 100%;
+}
 <\/style>`
 
 const jsCode = toJs(tsCode)

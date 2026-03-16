@@ -12,15 +12,27 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const localNode = ref<Partial<Node>>({})
+interface NodeForm {
+  label: string
+  description: string
+  width?: number
+  height?: number
+  type?: string
+  style?: NodeStyle
+}
+
+const localNode = ref<NodeForm>({
+  label: '',
+  description: ''
+})
 
 watch(
   () => props.node,
   (node) => {
     if (node) {
       localNode.value = {
-        label: node.data?.label || node.id,
-        description: node.data?.description || '',
+        label: (node.data as any)?.label || node.id,
+        description: (node.data as any)?.description || '',
         style: { ...node.style },
         width: node.width,
         height: node.height,
@@ -63,6 +75,16 @@ const updateSize = () => {
 
 const handleClose = () => {
   emit('close')
+}
+
+const handleBorderRadius = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value
+  updateStyle('borderRadius', `${value}px`)
+}
+
+const isBorderActive = (color: string) => {
+  const border = props.node?.style?.border
+  return typeof border === 'string' && border.includes(color)
 }
 
 const colors = [
@@ -165,7 +187,7 @@ const borderColors = [
                 v-for="color in borderColors"
                 :key="color"
                 class="color-swatch"
-                :class="{ active: node.style?.border?.includes(color) }"
+                :class="{ active: isBorderActive(color) }"
                 :style="{ backgroundColor: color }"
                 @click="updateStyle('border', `1px solid ${color}`)"
               />
@@ -179,7 +201,7 @@ const borderColors = [
               type="range"
               min="0"
               max="20"
-              @input="updateStyle('borderRadius', `${($event.target as HTMLInputElement).value}px`)"
+              @input="handleBorderRadius"
             />
           </div>
         </div>
