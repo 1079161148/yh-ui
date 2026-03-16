@@ -1,5 +1,5 @@
 <template>
-  <svg class="yh-flow-alignment-lines">
+  <svg v-if="draggingNodeId && draggingPosition" class="yh-flow-alignment-lines">
     <!-- Horizontal alignment lines -->
     <line
       v-for="(line, index) in horizontalLines"
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useFlowContext } from '../core/FlowContext'
 
 interface AlignmentLine {
   x?: number
@@ -35,35 +36,30 @@ interface AlignmentLine {
 }
 
 const props = defineProps<{
-  nodes: {
-    id: string
-    position: { x: number; y: number }
-    width?: number
-    height?: number
-    selected?: boolean
-  }[]
-  draggingNodeId?: string | null
-  draggingPosition?: { x: number; y: number }
-  containerWidth: number
-  containerHeight: number
   snapThreshold?: number
 }>()
 
+const flowInstance = useFlowContext()
+const nodes = flowInstance.nodes
+const draggingNodeId = flowInstance.draggingNodeId
+const draggingPosition = flowInstance.draggingPosition
+
+const containerWidth = computed(() => flowInstance.$el?.clientWidth || 800)
+const containerHeight = computed(() => flowInstance.$el?.clientHeight || 600)
 const SNAP_THRESHOLD = props.snapThreshold ?? 10
 
 const horizontalLines = computed(() => {
-  if (!props.draggingNodeId || !props.draggingPosition) return []
+  const dNodeId = draggingNodeId.value
+  const dPos = draggingPosition.value
+  if (!dNodeId || !dPos) return []
 
   const lines: AlignmentLine[] = []
-  const draggingNode = props.nodes.find((n) => n.id === props.draggingNodeId)
+  const draggingNode = nodes.value.find((n) => n.id === dNodeId)
   if (!draggingNode) return []
 
   const nodeHeight = draggingNode.height || 50
+  const otherNodes = nodes.value.filter((n) => n.id !== dNodeId && !n.hidden)
 
-  // Get all non-dragging nodes
-  const otherNodes = props.nodes.filter((n) => n.id !== props.draggingNodeId)
-
-  // Check horizontal alignment with other nodes (top, center, bottom)
   const positions = [
     { y: draggingNode.position.y, key: 'top' },
     { y: draggingNode.position.y + nodeHeight / 2, key: 'center' },
@@ -73,7 +69,6 @@ const horizontalLines = computed(() => {
   for (const pos of positions) {
     for (const node of otherNodes) {
       const nHeight = node.height || 50
-
       const nodePositions = [
         { y: node.position.y, key: 'top' },
         { y: node.position.y + nHeight / 2, key: 'center' },
@@ -82,31 +77,27 @@ const horizontalLines = computed(() => {
 
       for (const np of nodePositions) {
         if (Math.abs(pos.y - np.y) < SNAP_THRESHOLD) {
-          lines.push({
-            y: np.y,
-            active: true
-          })
+          lines.push({ y: np.y, active: true })
           break
         }
       }
     }
   }
-
   return lines
 })
 
 const verticalLines = computed(() => {
-  if (!props.draggingNodeId || !props.draggingPosition) return []
+  const dNodeId = draggingNodeId.value
+  const dPos = draggingPosition.value
+  if (!dNodeId || !dPos) return []
 
   const lines: AlignmentLine[] = []
-  const draggingNode = props.nodes.find((n) => n.id === props.draggingNodeId)
+  const draggingNode = nodes.value.find((n) => n.id === dNodeId)
   if (!draggingNode) return []
 
   const nodeWidth = draggingNode.width || 200
+  const otherNodes = nodes.value.filter((n) => n.id !== dNodeId && !n.hidden)
 
-  const otherNodes = props.nodes.filter((n) => n.id !== props.draggingNodeId)
-
-  // Check vertical alignment with other nodes (left, center, right)
   const positions = [
     { x: draggingNode.position.x, key: 'left' },
     { x: draggingNode.position.x + nodeWidth / 2, key: 'center' },
@@ -116,7 +107,6 @@ const verticalLines = computed(() => {
   for (const pos of positions) {
     for (const node of otherNodes) {
       const nWidth = node.width || 200
-
       const nodePositions = [
         { x: node.position.x, key: 'left' },
         { x: node.position.x + nWidth / 2, key: 'center' },
@@ -125,16 +115,12 @@ const verticalLines = computed(() => {
 
       for (const np of nodePositions) {
         if (Math.abs(pos.x - np.x) < SNAP_THRESHOLD) {
-          lines.push({
-            x: np.x,
-            active: true
-          })
+          lines.push({ x: np.x, active: true })
           break
         }
       }
     }
   }
-
   return lines
 })
 </script>

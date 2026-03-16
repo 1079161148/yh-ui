@@ -10,7 +10,7 @@ Try dragging the value sliders in the "Value" nodes on the left. Watch as the "R
 
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -25,26 +25,26 @@ const tsCode = `<template>
       <template #node="{ node }">
         <!-- Input Value Node -->
         <div v-if="node.type === 'value'" class="math-node value-node">
-          <div class="node-title">{{ node.data?.label }}</div>
+          <div class="node-title">{{ node.data?.label }}<\/div>
           <div class="slider-box">
              <input type="range" min="0" max="100" v-model.number="store[node.id]" />
-             <span>{{ store[node.id] }}</span>
-          </div>
-        </div>
+             <span>{{ store[node.id] }}<\/span>
+          <\/div>
+        <\/div>
         
         <!-- Operator Node -->
         <div v-else-if="node.type === 'operator'" class="math-node operator-node">
-          <div class="op-icon">➕</div>
-        </div>
+          <div class="op-icon">➕<\/div>
+        <\/div>
 
         <!-- Result Display Node -->
         <div v-else-if="node.type === 'result'" class="math-node result-node">
-           <div class="node-title">Computed Result</div>
-           <div class="result-value">{{ resultValue }}</div>
-        </div>
+           <div class="node-title">Computed Result<\/div>
+           <div class="result-value">{{ resultValue }}<\/div>
+        <\/div>
       <\/template>
-    </yh-flow>
-  </div>
+    <\/yh-flow>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -165,6 +165,8 @@ const edges = ref<Edge[]>([
   { id: 'e2', source: 'val-2', target: 'op-1', type: 'smoothstep', animated: true },
   { id: 'e3', source: 'op-1', target: 'res-1', type: 'smoothstep', markerEnd: 'url(#yh-arrow-default)' }
 ])
+
+const viewport = ref({ x: 50, y: 50, zoom: 1 })
 </script>
 
 <DemoBlock title="Reactive Logic Wiring" :ts-code="tsCode" :js-code="jsCode">
@@ -172,29 +174,9 @@ const edges = ref<Edge[]>([
     <yh-flow
       :nodes="nodes"
       :edges="edges"
-      :model-value="{ x: 50, y: 50, zoom: 1 }"
+      v-model="viewport"
       background="dots"
-    >
-      <template #node="{ node }">
-        <div v-if="node.type === 'value'" style="width: 100%; height: 100%; background: white; border: 1px solid #e2e8f0; border-top: 4px solid #3b82f6; border-radius: 8px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
-          <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; text-transform: uppercase; font-weight: bold;">{{ node.data?.label }}</div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-             <input type="range" min="0" max="100" v-model.number="store[node.id]" style="flex: 1;" />
-             <span style="font-weight: bold; font-size: 14px;">{{ store[node.id] }}</span>
-          </div>
-        </div>
-        
-        <div v-else-if="node.type === 'operator'" style="width: 100%; height: 100%; background: #f8fafc; border: 2px dashed #94a3b8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-          ➕
-        </div>
-
-        <div v-else-if="node.type === 'result'" style="width: 100%; height: 100%; background: #1e293b; color: white; padding: 12px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
-           <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px; text-transform: uppercase; font-weight: bold;">Computed Result</div>
-           <div style="font-size: 28px; font-weight: bold; color: #10b981;">{{ resultValue }}</div>
-        </div>
-      </template>
-    </yh-flow>
-
+    />
   </div>
 </DemoBlock>
 

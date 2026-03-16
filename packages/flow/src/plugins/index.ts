@@ -7,8 +7,7 @@ import {
   createSnapPlugin,
   createKeyboardPlugin,
   createExportPlugin,
-  createLayoutPlugin,
-  createValidationPlugin
+  createLayoutPlugin
 } from './plugins/index'
 
 export type { FlowPlugin, FlowInstance, PluginHooks, PluginOptions } from './plugin'
@@ -22,20 +21,18 @@ export {
   createSnapPlugin,
   createKeyboardPlugin,
   createExportPlugin,
-  createLayoutPlugin,
-  createValidationPlugin
+  createLayoutPlugin
 } from './plugins'
 
 // 插件选项类型导出
 export type {
-  MiniMapPluginOptions,
+  MiniMapOptions as MiniMapPluginOptions,
   ControlsPluginOptions,
   GridPluginOptions,
   SnapPluginOptions,
-  KeyboardPluginOptions,
+  KeyboardOptions as KeyboardPluginOptions,
   ExportPluginOptions,
-  LayoutPluginOptions,
-  ValidationPluginOptions
+  LayoutOptions as LayoutPluginOptions
 } from './plugins'
 
 // ============================================
@@ -52,8 +49,7 @@ export const defaultPlugins = {
   snap: createSnapPlugin,
   keyboard: createKeyboardPlugin,
   export: createExportPlugin,
-  layout: createLayoutPlugin,
-  validation: createValidationPlugin
+  layout: createLayoutPlugin
 }
 
 /**
@@ -67,7 +63,6 @@ export function createDefaultPluginSet(options?: {
   keyboard?: Parameters<typeof createKeyboardPlugin>[0]
   export?: Parameters<typeof createExportPlugin>[0]
   layout?: Parameters<typeof createLayoutPlugin>[0]
-  validation?: Parameters<typeof createValidationPlugin>[0]
 }): FlowPlugin[] {
   return [
     createMiniMapPlugin(options?.minimap),
@@ -76,7 +71,6 @@ export function createDefaultPluginSet(options?: {
     createSnapPlugin(options?.snap),
     createKeyboardPlugin(options?.keyboard),
     createExportPlugin(options?.export),
-    createLayoutPlugin(options?.layout),
-    createValidationPlugin(options?.validation)
-  ]
+    createLayoutPlugin(options?.layout)
+  ].filter(Boolean) as FlowPlugin[]
 }

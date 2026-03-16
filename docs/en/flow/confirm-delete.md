@@ -92,7 +92,11 @@ const requestDelete = async () => {
     await YhMessageBox.confirm(
       \`Warning: You are about to permanently delete \${count} items. Are you sure?\`,
       'Confirm Deletion',
-      { iconType: 'warning' }
+      { 
+        iconType: 'warning',
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
+      }
     )
     nodes.value = nodes.value.filter(n => !selectedNodeIds.value.has(n.id))
     edges.value = edges.value.filter(e => !selectedEdgeIds.value.has(e.id))
@@ -201,7 +205,11 @@ const requestDelete = async () => {
   if (!hasSelection.value) return
   const count = selectedNodeIds.value.size + selectedEdgeIds.value.size
   try {
-    await YhMessageBox.confirm('Warning: You are about to permanently delete ' + count + ' items. Confirm?', 'Confirm Deletion', { iconType: 'warning' })
+    await YhMessageBox.confirm('Warning: You are about to permanently delete ' + count + ' items. Confirm?', 'Confirm Deletion', { 
+      iconType: 'warning',
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    })
     nodes.value = nodes.value.filter(n => !selectedNodeIds.value.has(n.id))
     edges.value = edges.value.filter(e => !selectedEdgeIds.value.has(e.id))
     selectedNodeIds.value.clear()

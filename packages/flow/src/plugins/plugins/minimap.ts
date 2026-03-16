@@ -1,5 +1,7 @@
+import { markRaw } from 'vue'
 import type { FlowInstance, FlowPlugin } from '../plugin'
 import type { Node } from '../../types'
+import Minimap from '../../renderer/Minimap.vue'
 
 export interface MiniMapOptions {
   enabled?: boolean
@@ -31,14 +33,30 @@ const defaultOptions: Required<MiniMapOptions> = {
   height: 150
 }
 
-export function createMinimapPlugin(options: MiniMapOptions = {}): FlowPlugin {
+export function createMiniMapPlugin(options: MiniMapOptions = {}): FlowPlugin {
   const mergedOptions = { ...defaultOptions, ...options }
 
   return {
     id: 'minimap',
     name: 'Minimap',
-    install(_flow: FlowInstance) {
-      console.log('Minimap plugin installed', mergedOptions)
+    version: '1.0.0',
+    description: 'Displays a minimap for navigation',
+    component: markRaw(Minimap),
+    componentProps: {
+      position: mergedOptions.position,
+      width: mergedOptions.width,
+      height: mergedOptions.height,
+      nodeColor: mergedOptions.nodeColor,
+      nodeStrokeColor: mergedOptions.nodeStrokeColor,
+      nodeStrokeWidth: mergedOptions.nodeStrokeWidth,
+      maskColor: mergedOptions.maskColor,
+      maskStrokeColor: mergedOptions.maskStrokeColor,
+      maskStrokeWidth: mergedOptions.maskStrokeWidth,
+      pannable: mergedOptions.pannable,
+      zoomable: mergedOptions.zoomable
+    },
+    install(flow: FlowInstance) {
+      console.log('[Minimap Plugin] Installed', flow)
     }
   }
 }

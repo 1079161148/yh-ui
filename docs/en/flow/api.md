@@ -59,6 +59,28 @@ From `packages/flow/src/Flow.vue`.
 | `historyChange`     | `{ canUndo, canRedo }`             | History status changed     |
 | `viewportChange`    | `ViewportTransform`                | Viewport changed           |
 
+## Instance Methods (FlowInstance)
+
+Methods accessible via the component `ref`:
+
+| Method           | Type                                        | Description                    |
+| ---------------- | ------------------------------------------- | ------------------------------ |
+| `addNode`        | `(node: Node) => void`                      | Add a node                     |
+| `removeNode`     | `(id: string) => void`                      | Remove a node                  |
+| `updateNode`     | `(id: string, data: Partial<Node>) => void` | Update node data               |
+| `addEdge`        | `(edge: Edge) => void`                      | Add an edge                    |
+| `removeEdge`     | `(id: string) => void`                      | Remove an edge                 |
+| `updateEdge`     | `(id: string, data: Partial<Edge>) => void` | Update edge data               |
+| `fitView`        | `(options?: FitViewOptions) => void`        | Fit view to nodes              |
+| `zoomIn`         | `(factor?: number) => void`                 | Zoom in                        |
+| `zoomOut`        | `(factor?: number) => void`                 | Zoom out                       |
+| `setViewport`    | `(vp: ViewportTransform) => void`           | Set viewport transform         |
+| `screenToCanvas` | `(x, y) => {x, y}`                          | Screen to canvas coordinates   |
+| `canvasToScreen` | `(x, y) => {x, y}`                          | Canvas to screen coordinates   |
+| `usePlugin`      | `(plugin: FlowPlugin) => void`              | Register a plugin              |
+| `removePlugin`   | `(id: string) => void`                      | Unregister a plugin            |
+| `$el`            | `HTMLElement`                               | Get Flow container DOM element |
+
 ## Composables
 
 `@yh-ui/flow` exports core composables: `useViewport`, `useNodes`, `useEdges`, `useSelection`, `useHistory`, `useKeyboard`, etc.

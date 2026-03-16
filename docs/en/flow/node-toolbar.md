@@ -1,14 +1,14 @@
-# Node Toolbar (节点工具栏)
+# Node Toolbar
 
 To enhance user interaction efficiency, you may want a floating shortcut toolbar to appear near a node (above, below, etc.) when it is selected. The `yh-flow` `NodeToolbar` component uses Vue Teleport so the toolbar stays correctly positioned at any canvas zoom level.
 
-## Node Toolbar Example (节点工具栏示例)
+## Node Toolbar Example
 
 Click the node below to see the shortcut buttons above it. The demo uses `v-model:nodes` so selection syncs to the parent and the toolbar visibility (which depends on `node.selected`) works correctly.
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -29,14 +29,14 @@ const tsCode = `<template>
             position="top"
           >
             <div class="custom-toolbar">
-              <button class="t-btn edit" @click.stop="onEdit(node)">Edit</button>
-              <button class="t-btn del" @click.stop="onRemove(node.id)">Delete</button>
-            </div>
-          </yh-node-toolbar>
-        </div>
+              <button class="t-btn edit" @click.stop="onEdit(node)">Edit<\/button>
+              <button class="t-btn del" @click.stop="onRemove(node.id)">Delete<\/button>
+            <\/div>
+          <\/yh-node-toolbar>
+        <\/div>
       <\/template>
-    </yh-flow>
-  </div>
+    <\/yh-flow>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -84,6 +84,7 @@ const onRemove = (id: string) => {
 
 const jsCode = toJs(tsCode)
 
+const viewport = ref({ x: 0, y: 0, zoom: 1 })
 const nodes = ref<Node[]>([
   { id: 't-1', type: 'custom', position: { x: 150, y: 150 }, data: { label: 'Click Me for Tools' } }
 ])
@@ -99,7 +100,7 @@ const onRemove = (id: string) => {
     <yh-flow
       v-model:nodes="nodes"
       :edges="[]"
-      :model-value="{ x: 0, y: 0, zoom: 1 }"
+      v-model="viewport"
       background="dots"
     >
       <template #node="{ node }">

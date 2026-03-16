@@ -1,14 +1,14 @@
-# Node and Edge Editing (节点和连线编辑)
+# Node and Edge Editing
 
 Flow supports visual editing of nodes and edges. Double-click a node or an edge to open the editing panel and modify its properties.
 
-## Features (功能特性)
+## Features
 
 - **Node editing**: Double-click a node to open the panel; edit label, description, size, background color, border color, border radius, etc.
 - **Edge editing**: Double-click an edge to open the panel; edit label, edge type, color, width, animation, etc.
 - **Undo/Redo**: Editing changes are recorded in history.
 
-## Basic Usage (基础用法)
+## Basic Usage
 
 Double-click any **node** or **edge** in the flowchart below. The editing panel will open on the right where you can change labels, styles, and other properties. The demo uses `v-model:nodes` and `v-model:edges` so that edits stay in sync with the parent.
 
@@ -26,8 +26,8 @@ const tsCode = `<template>
       show-controls
       background="dots"
     />
-  <\/div>
-<\/template>
+  </div>
+</template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -79,7 +79,7 @@ const edges = ref<Edge[]>([
   </div>
 </DemoBlock>
 
-## Node Editing Panel (节点编辑面板)
+## Node Editing Panel
 
 After double-clicking a node, the node editing panel appears on the right with:
 
@@ -92,7 +92,7 @@ After double-clicking a node, the node editing panel appears on the right with:
 | Border Color     | Node border color          |
 | Border Radius    | Corner radius              |
 
-## Edge Editing Panel (连线编辑面板)
+## Edge Editing Panel
 
 After double-clicking an edge, the edge editing panel appears on the right with:
 
@@ -104,10 +104,11 @@ After double-clicking an edge, the edge editing panel appears on the right with:
 | Stroke Color  | Edge color                         |
 | Stroke Width  | Edge thickness                     |
 
-| Show Label Background | Toggle label background |
-| Label Background Color | Label background color |
+| Show Label Background  | Toggle label background |
+| ---------------------- | ----------------------- |
+| Label Background Color | Label background color  |
 
-## Readonly Mode (只读模式)
+## Readonly Mode
 
 In `readonly` mode, double-clicking nodes or edges does not open the editing panel.
 
@@ -115,7 +116,7 @@ In `readonly` mode, double-clicking nodes or edges does not open the editing pan
 <yh-flow :nodes="nodes" :edges="edges" readonly />
 ```
 
-## Notes (注意事项)
+## Notes
 
 1. Editing is enabled by default; no extra configuration is required.
 2. Changes are stored in history and support undo/redo.

@@ -1,6 +1,6 @@
 # Intersections
 
-When building complex drag-and-drop interactions鈥攕uch as dropping a node into a specific zone or detecting overlaps for auto-alignment鈥攁ccurate geometric calculations are essential. `Flow` operates in a unified coordinate system, making it straightforward to implement spatial logic.
+When building complex drag-and-drop interactions—such as dropping a node into a specific zone or detecting overlaps for auto-alignment—accurate geometric calculations are essential. `Flow` operates in a unified coordinate system, making it straightforward to implement spatial logic.
 
 ## Spatial Overlap Demo
 
@@ -8,7 +8,7 @@ Drag the "Mover" node below. When it overlaps with the central dashed area, both
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -17,8 +17,8 @@ const tsCode = `<template>
       Status:
       <span :class="['status-tag', isIntersecting ? 'danger' : 'safe']">
         {{ isIntersecting ? 'Collision Detected!' : 'Clear' }}
-      </span>
-    </div>
+      <\/span>
+    <\/div>
     
     <div class="intersect-flowbox">
       <yh-flow
@@ -27,8 +27,8 @@ const tsCode = `<template>
         @node-drag="onNodeDrag"
         background="grid"
       />
-    </div>
-  </div>
+    <\/div>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">

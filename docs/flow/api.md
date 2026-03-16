@@ -59,6 +59,28 @@
 | `historyChange`     | `{ canUndo, canRedo }`             | 历史记录状态变化    |
 | `viewportChange`    | `ViewportTransform`                | 视口变化（事件）    |
 
+## 实例方法 (FlowInstance)
+
+通过 `ref` 获取组件实例后可调用的方法：
+
+| 方法             | 类型                                        | 说明                    |
+| ---------------- | ------------------------------------------- | ----------------------- |
+| `addNode`        | `(node: Node) => void`                      | 添加节点                |
+| `removeNode`     | `(id: string) => void`                      | 删除节点                |
+| `updateNode`     | `(id: string, data: Partial<Node>) => void` | 更新节点数据            |
+| `addEdge`        | `(edge: Edge) => void`                      | 添加连线                |
+| `removeEdge`     | `(id: string) => void`                      | 删除连线                |
+| `updateEdge`     | `(id: string, data: Partial<Edge>) => void` | 更新连线数据            |
+| `fitView`        | `(options?: FitViewOptions) => void`        | 自动缩放以适应视口      |
+| `zoomIn`         | `(factor?: number) => void`                 | 放大视图                |
+| `zoomOut`        | `(factor?: number) => void`                 | 缩小视图                |
+| `setViewport`    | `(vp: ViewportTransform) => void`           | 设置视口变换            |
+| `screenToCanvas` | `(x, y) => {x, y}`                          | 屏幕坐标转画布坐标      |
+| `canvasToScreen` | `(x, y) => {x, y}`                          | 画布坐标转屏幕坐标      |
+| `usePlugin`      | `(plugin: FlowPlugin) => void`              | 注册插件                |
+| `removePlugin`   | `(id: string) => void`                      | 卸载插件                |
+| `$el`            | `HTMLElement`                               | 获取 Flow 容器 DOM 元素 |
+
 ## Composables
 
 `@yh-ui/flow` 导出 core composables：`useViewport`、`useNodes`、`useEdges`、`useSelection`、`useHistory`、`useKeyboard` 等。

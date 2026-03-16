@@ -10,15 +10,10 @@
     @wheel.prevent="handleWheel"
     @mousedown="handlePaneMouseDown"
   >
-    <!-- Background -->
-    <Background
-      v-if="background !== 'none'"
-      :type="background"
-      :color="backgroundColor"
-      :zoom="viewportRef.zoom"
-      :offset="{ x: viewportRef.x, y: viewportRef.y }"
-      :gap="gridSize"
-    />
+    <!-- Plugin Components (Background, etc.) -->
+    <template v-for="plugin in uiPlugins" :key="plugin.id">
+      <component v-if="plugin.component" :is="plugin.component" v-bind="plugin.componentProps" />
+    </template>
 
     <!-- Main Content -->
     <div class="yh-flow__content" :style="contentStyle">
@@ -76,39 +71,12 @@
         :selection-rect="selectionManager.selectionRect.value"
         :transform="viewportRef"
       />
-
-      <!-- Alignment Lines -->
-      <AlignmentLines
-        v-if="showAlignmentLines && draggingNodeId"
-        :nodes="nodesRef"
-        :dragging-node-id="draggingNodeId"
-        :dragging-position="draggingPosition || undefined"
-        :container-width="containerWidth"
-        :container-height="containerHeight"
-        :snap-threshold="snapThreshold"
-      />
     </div>
 
-    <!-- Controls -->
-    <Controls
-      v-if="showControls"
-      :zoom="viewportRef.zoom"
-      :readonly="readonly"
-      @zoom-in="zoomIn"
-      @zoom-out="zoomOut"
-      @fit-view="handleFitView"
-      @update:readonly="readonly = $event"
-    />
-
-    <!-- Minimap -->
-    <Minimap
-      v-if="showMinimap"
-      :nodes="nodesRef"
-      :edges="edgesRef"
-      :viewport="viewportRef"
-      :viewport-size="{ width: containerWidth, height: containerHeight }"
-      :node-color="minimapNodeColor"
-    />
+    <!-- UI Overlay Plugin Components (Controls, Minimap, etc.) -->
+    <template v-for="plugin in overlayPlugins" :key="plugin.id">
+      <component v-if="plugin.component" :is="plugin.component" v-bind="plugin.componentProps" />
+    </template>
 
     <!-- Connection Line (dragging) -->
     <svg v-if="isConnecting" class="yh-flow__connection-line">
@@ -155,16 +123,18 @@ import type {
   FlowEvents,
   FlowInstance
 } from './types'
-import Background from './renderer/Background.vue'
 import EdgeRenderer from './renderer/EdgeRenderer.vue'
 import NodeRenderer from './renderer/NodeRenderer.vue'
 import SelectionBox from './renderer/SelectionBox.vue'
-import Controls from './renderer/Controls.vue'
-import Minimap from './renderer/Minimap.vue'
-import AlignmentLines from './renderer/AlignmentLines.vue'
 import NodeEditPanel from './components/NodeEditPanel.vue'
 import EdgeEditPanel from './components/EdgeEditPanel.vue'
 import EdgeHandlesRenderer from './renderer/EdgeHandlesRenderer.vue'
+import {
+  createGridPlugin,
+  createMiniMapPlugin,
+  createControlsPlugin,
+  createSnapPlugin
+} from './plugins/plugins'
 import { useViewport } from './core/useViewport'
 import { useNodes } from './core/useNodes'
 import { useEdges } from './core/useEdges'
@@ -300,12 +270,30 @@ const pluginManager = new PluginManager()
 const showAlignmentLines = ref(props.showAlignmentLines ?? true)
 const snapThreshold = ref(props.snapThreshold ?? 10)
 
-// Initialize managers
 const viewport = useViewport(viewportRef, {
   minZoom: props.minZoom || 0.1,
   maxZoom: props.maxZoom || 5,
   zoomStep: props.zoomStep || 0.1
 })
+
+// Plugin State
+const registeredPlugins = ref<FlowPlugin[]>([])
+const uiPlugins = computed(() =>
+  registeredPlugins.value.filter((p) => !p.id.includes('minimap') && !p.id.includes('controls'))
+)
+const overlayPlugins = computed(() =>
+  registeredPlugins.value.filter((p) => p.id.includes('minimap') || p.id.includes('controls'))
+)
+
+const usePlugin = (plugin: FlowPlugin) => {
+  pluginManager.register(plugin)
+  registeredPlugins.value = pluginManager.getPlugins()
+}
+
+const removePlugin = (pluginId: string) => {
+  pluginManager.unregister(pluginId)
+  registeredPlugins.value = pluginManager.getPlugins()
+}
 
 const nodesManager = useNodes(viewportRef, {
   nodes: nodesRef,
@@ -847,15 +835,6 @@ const zoomOut = () => viewport.zoomOut(1.2)
 const getNodes = () => nodesRef.value
 const getEdges = () => edgesRef.value
 
-// Plugin methods
-const usePlugin = (plugin: FlowPlugin) => {
-  pluginManager.register(plugin)
-}
-
-const removePlugin = (pluginId: string) => {
-  pluginManager.unregister(pluginId)
-}
-
 // Event methods
 const onEvent = <K extends FlowEventKey>(event: K, handler: FlowEventHandler<K>) => {
   eventBus.on(event, handler)
@@ -909,6 +888,11 @@ const flowInstance: FlowInstance = {
   getViewport: () => viewportRef.value,
   screenToCanvas: (x: number, y: number) => screenToCanvas(x, y, viewportRef.value),
   canvasToScreen: (x: number, y: number) => canvasToScreen(x, y, viewportRef.value),
+  get $el() {
+    return containerRef.value
+  },
+  draggingNodeId,
+  draggingPosition,
   usePlugin,
   removePlugin
 } as FlowInstance
@@ -1025,6 +1009,92 @@ onMounted(() => {
     })
     resizeObserver.observe(containerRef.value)
   }
+
+  // Auto-register plugins based on props
+  if (props.background && props.background !== 'none') {
+    usePlugin(
+      createGridPlugin({
+        type: props.background === 'dots' ? 'dots' : 'grid',
+        color: props.backgroundColor,
+        gap: props.gridSize
+      })
+    )
+  }
+
+  if (props.showControls) {
+    usePlugin(createControlsPlugin({}))
+  }
+
+  if (props.showMinimap) {
+    usePlugin(
+      createMiniMapPlugin({
+        nodeColor: props.minimapNodeColor ? () => props.minimapNodeColor! : undefined
+      })
+    )
+  }
+
+  if (props.showAlignmentLines) {
+    usePlugin(
+      createSnapPlugin({
+        showAlignmentLines: true,
+        snapThreshold: props.snapThreshold
+      })
+    )
+  }
+
+  // Watch for legacy props changes to update plugins
+  watch(
+    () => [props.background, props.backgroundColor, props.gridSize],
+    ([bg, color, gap]) => {
+      removePlugin('grid')
+      if (bg && bg !== 'none') {
+        usePlugin(
+          createGridPlugin({
+            type: bg === 'dots' ? 'dots' : 'grid',
+            color: color as string,
+            gap: (gap as number) || 20
+          })
+        )
+      }
+    }
+  )
+
+  watch(
+    () => props.showControls,
+    (val) => {
+      removePlugin('controls')
+      if (val) usePlugin(createControlsPlugin({}))
+    }
+  )
+
+  watch(
+    () => [props.showMinimap, props.minimapNodeColor],
+    ([show, color]) => {
+      removePlugin('minimap')
+      if (show) {
+        usePlugin(
+          createMiniMapPlugin({
+            nodeColor: color ? () => color as string : undefined
+          })
+        )
+      }
+    }
+  )
+
+  watch(
+    () => [props.showAlignmentLines, props.snapThreshold],
+    ([show, threshold]) => {
+      removePlugin('snap')
+      if (show) {
+        usePlugin(
+          createSnapPlugin({
+            showAlignmentLines: true,
+            snapThreshold: (threshold as number) || 10
+          })
+        )
+      }
+    }
+  )
 
   // Setup keyboard shortcuts
   if (props.keyboardShortcuts) {

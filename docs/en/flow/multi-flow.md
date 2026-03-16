@@ -1,6 +1,6 @@
 ﻿# Multi Flow
 
-In complex management systems, you may need to display multiple independent flow charts on a single page鈥攆or example, a source process on the left and a transformed target process on the right.
+In complex management systems, you may need to display multiple independent flow charts on a single page — for example, a source process on the left and a transformed target process on the right.
 
 `Flow` is designed with an isolated architecture. Each component instance operates within its own coordinate system, maintains its own selection state, and manages its own undo/redo stacks and plugin ecosystem.
 
@@ -10,13 +10,13 @@ The following demo features two completely distinct `Flow` instances. You can mo
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge, ViewportTransform } from '@yh-ui/flow'
 
 const tsCode = `<template>
   <div class="multi-container">
     <div class="flow-panel">
-      <div class="panel-header">Source Flow</div>
+      <div class="panel-header">Source Flow<\/div>
       <yh-flow
         v-model="viewport1"
         :nodes="nodes1"
@@ -24,7 +24,7 @@ const tsCode = `<template>
         background="dots"
         @selection-change="s => selection1 = s.selectedNodes"
       />
-    </div>
+    <\/div>
 
     <div class="action-bar">
       <button 
@@ -32,20 +32,20 @@ const tsCode = `<template>
         :disabled="selection1.length === 0"
         @click="transferToRight"
       >
-        Transfer Selected 猱?
-      </button>
-    </div>
+        Transfer Selected ➔
+      <\/button>
+    <\/div>
 
     <div class="flow-panel">
-      <div class="panel-header">Target Flow</div>
+      <div class="panel-header">Target Flow<\/div>
       <yh-flow
         v-model="viewport2"
         :nodes="nodes2"
         :edges="edges2"
         background="grid"
       />
-    </div>
-  </div>
+    <\/div>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -76,7 +76,7 @@ const transferToRight = () => {
     // 2. Inject into target with a unique ID
     nodes2.value.push({
       ...node,
-      id: \moved-\{node.id}-\{Date.now()}\,
+      id: \`moved-\${node.id}-\${Date.now()}\`,
       selected: false,
       position: { x: 50, y: nodes2.value.length * 80 + 50 }
     })
@@ -179,7 +179,7 @@ const transferToRight = () => {
         :disabled="selection1.length === 0"
         @click="transferToRight"
       >
-        Transfer Selected 猱?
+        Transfer Selected ➔
       </button>
     </div>
     <div style="flex: 1; display: flex; flex-direction: column; position: relative;">

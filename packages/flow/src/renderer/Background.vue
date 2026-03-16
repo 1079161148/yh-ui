@@ -6,83 +6,89 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
+import { useFlowContext } from '../core/FlowContext'
 
 const props = defineProps<{
   type?: 'dots' | 'grid' | 'none'
   color?: string
-  zoom?: number
-  offset?: { x: number; y: number }
   gap?: number
 }>()
 
 const canvasRef = ref<HTMLCanvasElement>()
 const canvasWidth = ref(2000)
 const canvasHeight = ref(2000)
+const flowInstance = useFlowContext()
+const viewport = flowInstance.viewport
 
 const backgroundStyle = computed(() => ({
-  backgroundColor: props.color || '#f8f9fa'
+  backgroundColor: '#f8f9fa' // 默认背景色，网格线/点颜色由 props.color 控制
 }))
 
 const drawBackground = () => {
   const canvas = canvasRef.value
   if (!canvas) return
-
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
+  const type = props.type || 'dots'
+  const color = props.color || (type === 'dots' ? '#b1b1b7' : '#e5e7eb')
   const gap = props.gap || 20
+  const zoom = viewport.value.zoom
+  const offset = { x: viewport.value.x, y: viewport.value.y }
 
-  ctx.clearRect(0, 0, canvasWidth.value, canvasHeight.value)
+  const container = flowInstance.$el
+  if (container) {
+    // 强制设置 canvas 尺寸，避免渲染后被重置清空
+    const w = container.clientWidth || 2000
+    const h = container.clientHeight || 2000
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w
+      canvas.height = h
+      canvasWidth.value = w
+      canvasHeight.value = h
+    }
+  }
 
-  if (props.type === 'dots') {
-    ctx.fillStyle = props.color || '#b1b1b7'
-    const scaledGap = gap * (props.zoom || 1)
-    const offsetX = (props.offset?.x || 0) % scaledGap
-    const offsetY = (props.offset?.y || 0) % scaledGap
+  const width = canvas.width
+  const height = canvas.height
 
-    for (let x = offsetX; x < canvasWidth.value; x += scaledGap) {
-      for (let y = offsetY; y < canvasHeight.value; y += scaledGap) {
+  ctx.clearRect(0, 0, width, height)
+
+  const scaledGap = gap * zoom
+  const offsetX = offset.x % scaledGap
+  const offsetY = offset.y % scaledGap
+
+  if (type === 'dots') {
+    ctx.fillStyle = color
+    for (let x = offsetX; x < width; x += scaledGap) {
+      for (let y = offsetY; y < height; y += scaledGap) {
         ctx.beginPath()
-        ctx.arc(x, y, 1, 0, Math.PI * 2)
+        ctx.arc(x, y, 0.7 * zoom, 0, Math.PI * 2)
         ctx.fill()
       }
     }
-  } else if (props.type === 'grid') {
-    ctx.strokeStyle = props.color || '#e5e7eb'
-    ctx.lineWidth = 1
-    const scaledGap = gap * (props.zoom || 1)
-    const offsetX = (props.offset?.x || 0) % scaledGap
-    const offsetY = (props.offset?.y || 0) % scaledGap
-
-    // 垂直线
-    for (let x = offsetX; x < canvasWidth.value; x += scaledGap) {
+  } else if (type === 'grid') {
+    ctx.strokeStyle = color
+    ctx.lineWidth = 0.5
+    for (let x = offsetX; x < width; x += scaledGap) {
       ctx.beginPath()
       ctx.moveTo(x, 0)
-      ctx.lineTo(x, canvasHeight.value)
+      ctx.lineTo(x, height)
       ctx.stroke()
     }
-
-    // 水平线
-    for (let y = offsetY; y < canvasHeight.value; y += scaledGap) {
+    for (let y = offsetY; y < height; y += scaledGap) {
       ctx.beginPath()
       ctx.moveTo(0, y)
-      ctx.lineTo(canvasWidth.value, y)
+      ctx.lineTo(width, y)
       ctx.stroke()
     }
   }
 }
 
-onMounted(() => {
-  drawBackground()
+onMounted(drawBackground)
+watch([viewport, () => props.type, () => props.color, () => props.gap], drawBackground, {
+  deep: true
 })
-
-watch(
-  () => [props.type, props.color, props.zoom, props.offset],
-  () => {
-    drawBackground()
-  },
-  { deep: true }
-)
 </script>
 
 <style scoped>
@@ -94,6 +100,7 @@ watch(
   height: 100%;
   pointer-events: none;
   overflow: hidden;
+  z-index: 0;
 }
 
 .yh-flow-background canvas {

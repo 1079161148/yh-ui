@@ -8,7 +8,7 @@ Drag any node block from the sidebar on the left and drop it into the gray canva
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { FlowInstance, Node, ViewportTransform } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -58,12 +58,12 @@ const flowRef = ref<FlowInstance>()
 const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
 
 const nodes = ref<Node[]>([
-  { id: '1', type: 'input', position: { x: 250, y: 50 }, data: { label: 'Drop target Area' } }
+  { id: '1', type: 'input', position: { x: 250, y: 5 }, data: { label: 'Existing Node' } }
 ])
 const edges = ref<Edge[]>([])
 
 let id = 0
-const getId = () => \dndnode_\{id++}\
+const getId = () => \`dndnode_\${id++}\`
 
 const onDragStart = (event: DragEvent, nodeType: string) => {
   if (event.dataTransfer) {
@@ -86,14 +86,17 @@ const onDrop = (event: DragEvent) => {
   const type = event.dataTransfer?.getData('application/yhflow')
   if (!type) return
 
-  // Convert raw mouse coordinates to graph coordinates
-  const position = flowRef.value.screenToCanvas(event.clientX, event.clientY)
+  // screenToCanvas requires coordinates relative to the Flow container
+  const el = (flowRef.value as any).$el
+  const rect = el?.getBoundingClientRect()
+  if (!rect) return
+  const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   
   const newNode: Node = {
     id: getId(),
     type,
     position,
-    data: { label: \New \{type} Node\ }
+    data: { label: \`New \${type} Node\` }
   }
   
   nodes.value.push(newNode)
@@ -104,7 +107,8 @@ const onDrop = (event: DragEvent) => {
 .dnd-container { display: flex; height: 400px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
 .dnd-sidebar { width: 150px; border-right: 1px solid #eee; padding: 15px 10px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
 .sidebar-title { font-size: 13px; color: #64748b; margin-bottom: 8px; }
-.dnd-node { padding: 10px 12px; border: 1px solid #334155; border-radius: 4px; cursor: grab; background: white; font-size: 13px; text-align: center; }
+.dnd-node { padding: 10px 12px; border: 1px solid #1a192b; border-radius: 4px; cursor: grab; background: white; font-size: 13px; text-align: center; transition: all 0.2s; }
+.dnd-node:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
 .dnd-node.input { border-color: #3b82f6; color: #3b82f6; }
 .dnd-node.output { border-color: #10b981; color: #10b981; }
 .dnd-flowbox { flex: 1; height: 100%; }
@@ -115,7 +119,7 @@ const jsCode = toJs(tsCode)
 const flowRef = ref<FlowInstance>()
 const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
 const nodes = ref<Node[]>([
-  { id: '1', type: 'input', position: { x: 250, y: 50 }, data: { label: 'Drop target Area' } }
+  { id: '1', type: 'input', position: { x: 250, y: 5 }, data: { label: 'Existing Node' } }
 ])
 
 let idCount = 0
@@ -138,7 +142,10 @@ const onDrop = (event: DragEvent) => {
   if (!flowRef.value) return
   const type = event.dataTransfer?.getData('application/yhflow')
   if (!type) return
-  const position = flowRef.value.screenToCanvas(event.clientX, event.clientY)
+  const el = (flowRef.value as any).$el
+  const rect = el?.getBoundingClientRect()
+  if (!rect) return
+  const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   nodes.value.push({
     id: getId(),
     type,
@@ -153,7 +160,7 @@ const onDrop = (event: DragEvent) => {
     <div style="width: 150px; border-right: 1px solid #eee; padding: 15px 10px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; z-index: 2;">
       <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Templates:</div>
       <div style="padding: 10px 12px; border: 1px solid #3b82f6; color: #3b82f6; border-radius: 4px; cursor: grab; background: white; font-size: 13px; text-align: center;" draggable="true" @dragstart="onDragStart($event, 'input')">Input Node</div>
-      <div style="padding: 10px 12px; border: 1px solid #334155; color: #334155; border-radius: 4px; cursor: grab; background: white; font-size: 13px; text-align: center;" draggable="true" @dragstart="onDragStart($event, 'default')">Standard Node</div>
+      <div style="padding: 10px 12px; border: 1px solid #1a192b; color: #1a192b; border-radius: 4px; cursor: grab; background: white; font-size: 13px; text-align: center;" draggable="true" @dragstart="onDragStart($event, 'default')">Standard Node</div>
       <div style="padding: 10px 12px; border: 1px solid #10b981; color: #10b981; border-radius: 4px; cursor: grab; background: white; font-size: 13px; text-align: center;" draggable="true" @dragstart="onDragStart($event, 'output')">Output Node</div>
     </div>
     <div style="flex: 1; height: 100%;" @drop="onDrop" @dragover="onDragOver">
@@ -174,13 +181,14 @@ The core of the drag-and-drop workflow is the `screenToCanvas` method. Standard 
 
 ### Transformation Utility
 
-| Method                 | Description                                                                                                                                | Signature                                            |
-| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
-| `screenToCanvas(x, y)` | Takes screen coordinates (px) and returns the corresponding coordinates within the graph's coordinate system, accounting for zoom and pan. | `(x: number, y: number) => { x: number, y: number }` |
+| Method                 | Description                                                                                                                           | Signature                                            |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------- |
+| `screenToCanvas(x, y)` | Takes coordinates relative to the Flow container (px) and returns the corresponding coordinates within the graph's coordinate system. | `(x: number, y: number) => { x: number, y: number }` |
 
 ### Step-by-Step Logic
 
 1.  Attach `draggable="true"` and `@dragstart` to your sidebar elements to store the node type in `dataTransfer`.
 2.  Enable `@dragover` on the container to allow dropping.
-3.  In the `@drop` handler, use `event.clientX/Y` and convert them using `flowInstance.screenToCanvas`.
-4.  Push a new entry into your `nodes` array with the resulting position.
+3.  In the `@drop` handler, calculate the relative offset by subtracting the container's `getBoundingClientRect()` from `clientX/Y`.
+4.  Pass the relative coordinates to `flowInstance.screenToCanvas`.
+5.  Push a new entry into your `nodes` array with the resulting position.

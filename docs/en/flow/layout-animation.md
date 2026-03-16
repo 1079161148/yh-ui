@@ -1,6 +1,6 @@
 ﻿# Layout & Animation
 
-When a diagram's layout changes鈥攆or example, switching from a vertical to a horizontal hierarchical view鈥攊nstantly jumping nodes to new coordinates can be visually jarring. Leveraging `Flow`'s high-performance DOM-based rendering, you can easily implement smooth, professional-grade layout animations using native CSS transitions.
+When a diagram's layout changes — for example, switching from a vertical to a horizontal hierarchical view — instantly jumping nodes to new coordinates can be visually jarring. Leveraging `Flow`'s high-performance DOM-based rendering, you can easily implement smooth, professional-grade layout animations using native CSS transitions.
 
 ## Smooth Layout Transition Demo
 

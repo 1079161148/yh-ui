@@ -1,33 +1,40 @@
+import { markRaw } from 'vue'
 import type { FlowInstance, FlowPlugin } from '../plugin'
+import Background from '../../renderer/Background.vue'
 
-export interface GridOptions {
+export interface GridPluginOptions {
   enabled?: boolean
-  type?: 'dots' | 'lines' | 'cross'
+  type?: 'dots' | 'grid'
   color?: string
-  distance?: number
-  showHyperlinks?: boolean
-  minDistance?: number
-  maxDistance?: number
+  gap?: number
 }
 
-const defaultOptions: Required<GridOptions> = {
+const defaultGridOptions: Required<GridPluginOptions> = {
   enabled: true,
   type: 'dots',
   color: '#e5e5e5',
-  distance: 20,
-  showHyperlinks: false,
-  minDistance: 5,
-  maxDistance: 50
+  gap: 20
 }
 
-export function createGridPlugin(options: GridOptions = {}): FlowPlugin {
-  const mergedOptions = { ...defaultOptions, ...options }
+/**
+ * 创建网格插件
+ */
+export function createGridPlugin(options: GridPluginOptions = {}): FlowPlugin {
+  const mergedOptions = { ...defaultGridOptions, ...options }
 
   return {
     id: 'grid',
     name: 'Grid',
+    version: '1.0.0',
+    description: 'Displays a grid or dots background',
+    component: markRaw(Background),
+    componentProps: {
+      type: mergedOptions.type,
+      color: mergedOptions.color,
+      gap: mergedOptions.gap
+    },
     install(_flow: FlowInstance) {
-      console.log('Grid plugin installed', mergedOptions)
+      console.log(`[Grid Plugin] Installed`)
     }
   }
 }

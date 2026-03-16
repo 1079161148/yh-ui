@@ -1,6 +1,6 @@
 # Custom Nodes
 
-In `Flow`, a node is more than just a rectangle with a border; it is fundamentally a **scoped slot container** that can host any Vue component or HTML structure. This allows you to leverage CSS animations, complex gradients, and third-party UI libraries to create stunning node interfaces.
+In `Flow`, a node is more than just a rectangle with a border; it is fundamentally a **scoped slot container** that can host any Vue component or HTML structure. This allows you can leverage CSS animations, complex gradients, and third-party UI libraries to create stunning node interfaces.
 
 ## Premium Custom Node Demo
 
@@ -8,7 +8,7 @@ The following example demonstrates a professional-grade node featuring a "glassm
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -22,25 +22,25 @@ const tsCode = `<template>
       <!-- 1. Use the #node slot to access the node data object -->
       <template #node="{ node }">
         <div v-if="node.type === 'premium'" class="glass-node" :class="{ 'is-selected': node.selected }">
-          <div class="node-glow"></div>
+          <div class="node-glow"><\/div>
           <div class="node-inner">
              <div class="node-header">
-                <span class="status-dot"></span>
-                <span class="node-id">ID: {{ node.id }}</span>
-             </div>
+                <span class="status-dot"><\/span>
+                <span class="node-id">ID: {{ node.id }}<\/span>
+             <\/div>
              <div class="node-body">
-                <h3>{{ node.data.title }}</h3>
-                <p>{{ node.data.description }}</p>
+                <h3>{{ node.data.title }}<\/h3>
+                <p>{{ node.data.description }}<\/p>
                 <div class="node-footer">
-                  <span class="tag">Production</span>
-                  <span class="uptime">99.9%</span>
-                </div>
-             </div>
-          </div>
-        </div>
+                  <span class="tag">Production<\/span>
+                  <span class="uptime">99.9%<\/span>
+                <\/div>
+             <\/div>
+          <\/div>
+        <\/div>
       <\/template>
-    </yh-flow>
-  </div>
+    <\/yh-flow>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">

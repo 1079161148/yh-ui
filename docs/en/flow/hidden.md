@@ -1,6 +1,6 @@
 ﻿# Hidden State
 
-In complex diagrams, users often need to implement advanced interactions such as "filtering" or "collapsing" specific views. Instead of destructive `splice` operations on your node/edge collections鈥攚hich would lose spatial coordinates and configurations鈥擿Flow`provides a non-destructive`hidden` attribute.
+In complex diagrams, users often need to implement advanced interactions such as "filtering" or "collapsing" specific views. Instead of destructive `splice` operations on your node/edge collections — which would lose spatial coordinates and configurations — `Flow` provides a non-destructive `hidden` attribute.
 
 ## Toggle Visibility Demo
 
@@ -8,7 +8,7 @@ Use the checkbox in the toolbar below to observe how specific elements vanish fr
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 
 const tsCode = `<template>
   <div style="display: flex; flex-direction: column; height: 450px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">

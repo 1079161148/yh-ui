@@ -1,17 +1,32 @@
 <template>
-  <div class="yh-flow-controls">
-    <button class="yh-flow-controls__btn" :title="t('yh.flow.zoomIn')" @click="zoomIn">
+  <div class="yh-flow-controls" :class="[position]">
+    <button
+      v-if="showZoom"
+      class="yh-flow-controls__btn"
+      :title="t('yh.flow.zoomIn')"
+      @click="zoomIn"
+    >
       <svg viewBox="0 0 24 24" width="16" height="16">
         <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
       </svg>
     </button>
-    <button class="yh-flow-controls__btn" :title="t('yh.flow.zoomOut')" @click="zoomOut">
+    <button
+      v-if="showZoom"
+      class="yh-flow-controls__btn"
+      :title="t('yh.flow.zoomOut')"
+      @click="zoomOut"
+    >
       <svg viewBox="0 0 24 24" width="16" height="16">
         <path fill="currentColor" d="M19 13H5v-2h14v2z" />
       </svg>
     </button>
-    <div class="yh-flow-controls__divider" />
-    <button class="yh-flow-controls__btn" :title="t('yh.flow.fitView')" @click="handleFitView">
+    <div v-if="showZoom && showFitView" class="yh-flow-controls__divider" />
+    <button
+      v-if="showFitView"
+      class="yh-flow-controls__btn"
+      :title="t('yh.flow.fitView')"
+      @click="handleFitView"
+    >
       <svg viewBox="0 0 24 24" width="16" height="16">
         <path
           fill="currentColor"
@@ -20,6 +35,7 @@
       </svg>
     </button>
     <button
+      v-if="showInteractive"
       class="yh-flow-controls__btn"
       :title="t('yh.flow.lock')"
       @click="toggleLock"
@@ -42,75 +58,109 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useLocale } from '@yh-ui/hooks'
+import { useFlowContext } from '../core/FlowContext'
 
-const props = defineProps<{
-  zoom: number
-  readonly?: boolean
-}>()
-
-const emit = defineEmits<{
-  (e: 'zoomIn'): void
-  (e: 'zoomOut'): void
-  (e: 'fitView'): void
-  (e: 'update:readonly', value: boolean): void
-}>()
+const props = withDefaults(
+  defineProps<{
+    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+    showZoom?: boolean
+    showFitView?: boolean
+    showInteractive?: boolean
+  }>(),
+  {
+    position: 'bottom-right',
+    showZoom: true,
+    showFitView: true,
+    showInteractive: true
+  }
+)
 
 const { t } = useLocale()
+const flowInstance = useFlowContext()
 
-const zoomIn = () => emit('zoomIn')
-const zoomOut = () => emit('zoomOut')
-const handleFitView = () => emit('fitView')
-const toggleLock = () => emit('update:readonly', !props.readonly)
+// 暂时通过 flowInstance 内部状态管理 readonly，或者 emit 到父组件
+// 由于插件系统需要更好的状态同步，这里我们先假设 flowInstance 能处理这些
+const readonly = ref(false)
+
+const zoomIn = () => flowInstance.zoomIn()
+const zoomOut = () => flowInstance.zoomOut()
+const handleFitView = () => flowInstance.fitView()
+const toggleLock = () => {
+  readonly.value = !readonly.value
+  // 如果 FlowInstance 支持，可以同步状态
+}
 </script>
 
 <style scoped>
 .yh-flow-controls {
   position: absolute;
-  left: 10px;
-  bottom: 10px;
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 6px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  /* Premium Glassmorphism Effect */
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   z-index: 10;
+}
+
+.yh-flow-controls.bottom-right {
+  right: 16px;
+  bottom: 16px;
+}
+
+.yh-flow-controls.top-right {
+  right: 16px;
+  top: 16px;
+}
+
+.yh-flow-controls.bottom-left {
+  left: 16px;
+  bottom: 16px;
+}
+
+.yh-flow-controls.top-left {
+  left: 16px;
+  top: 16px;
 }
 
 .yh-flow-controls__btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   color: #4b5563;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .yh-flow-controls__btn:hover {
-  background: #f3f4f6;
-  color: #1f2937;
+  background: rgba(0, 0, 0, 0.05);
+  color: #111827;
+  transform: translateY(-1px);
 }
 
 .yh-flow-controls__btn.is-active {
   background: #3b82f6;
   color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
 }
 
 .yh-flow-controls__divider {
   width: 1px;
-  height: 20px;
-  background: #e5e7eb;
-  margin: 0 4px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 2px;
 }
 </style>

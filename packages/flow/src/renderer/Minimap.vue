@@ -1,18 +1,20 @@
 <template>
   <div
     class="yh-flow-minimap"
+    :class="[position]"
     :style="{ width: cW + 'px', height: cH + 'px' }"
     @mousedown.stop="handleMouseDown"
   >
     <!-- Canvas：绘制节点+连线（静态部分，节点变化才重绘） -->
     <canvas ref="canvasRef" :width="cW" :height="cH" class="yh-flow-minimap__canvas" />
-    <!-- SVG：视口框（由 updateViewport 直接 DOM 操作，高频更新） -->
+    <!-- SVG：视口框 -->
     <svg
       ref="svgRef"
       class="yh-flow-minimap__vp"
       :width="cW"
       :height="cH"
       :viewBox="`0 0 ${cW} ${cH}`"
+      :style="{ background: props.maskColor || 'transparent' }"
     >
       <rect
         ref="vpRectEl"
@@ -20,9 +22,9 @@
         y="0"
         width="20"
         height="20"
-        fill="rgba(59,130,246,0.15)"
-        stroke="#3b82f6"
-        stroke-width="1.5"
+        :fill="props.maskColor || 'rgba(59,130,246,0.08)'"
+        :stroke="props.maskStrokeColor || '#3b82f6'"
+        :stroke-width="props.maskStrokeWidth || 1.2"
         rx="2"
         class="yh-flow-minimap__rect"
       />
@@ -32,17 +34,21 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import type { Node, Edge, ViewportTransform } from '../types'
+import type { Node, ViewportTransform } from '../types'
 import { useFlowContext } from '../core/FlowContext'
 
 const props = defineProps<{
-  nodes: Node[]
-  edges: Edge[]
-  viewport: ViewportTransform
-  viewportSize: { width: number; height: number }
-  nodeColor?: string
+  nodeColor?: string | ((node: Node) => string)
+  nodeStrokeColor?: string | ((node: Node) => string)
+  nodeStrokeWidth?: number
+  maskColor?: string
+  maskStrokeColor?: string
+  maskStrokeWidth?: number
   width?: number
   height?: number
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+  pannable?: boolean
+  zoomable?: boolean
 }>()
 
 const cW = computed(() => props.width || 200)
@@ -51,23 +57,27 @@ const canvasRef = ref<HTMLCanvasElement>()
 const vpRectEl = ref<SVGRectElement>()
 const flowInstance = useFlowContext()
 
-// ── 内部状态（不走响应式，直接保存） ─────────────────────────────────────
+const nodes = flowInstance.nodes
+const edges = flowInstance.edges
+const viewport = flowInstance.viewport
+
+// ── 内部状态 ─────────────────────────────────────
 let _mapScale = 1
 let _minX = 0
 let _minY = 0
 let _offsetX = 0
 let _offsetY = 0
 
-// ── 包围盒计算 ────────────────────────────────────────────────────────────
+// ── 包围盒计算 ──────────────────────────────────
 const computeGraphBounds = () => {
-  const nodes = props.nodes
-  if (!nodes.length) return { minX: 0, minY: 0, maxX: 1, maxY: 1 }
+  const currentNodes = nodes.value
+  if (!currentNodes.length) return { minX: 0, minY: 0, maxX: 1, maxY: 1 }
   let minX = Infinity,
     minY = Infinity,
     maxX = -Infinity,
     maxY = -Infinity
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i]
+  for (let i = 0; i < currentNodes.length; i++) {
+    const n = currentNodes[i]
     if (n.hidden) continue
     const nw = n.width || 120
     const nh = n.height || 50
@@ -83,17 +93,14 @@ const computeGraphBounds = () => {
 const toMX = (x: number) => (x - _minX) * _mapScale + _offsetX
 const toMY = (y: number) => (y - _minY) * _mapScale + _offsetY
 
-// ── Canvas 绘制 ─────────────────────────────────────────────────────────
+// ── Canvas 绘制 ──────────────────────────────────
 const drawCanvas = () => {
   const canvas = canvasRef.value
   if (!canvas) return
   const ctx = canvas.getContext('2d', { alpha: true })
   if (!ctx) return
 
-  const nodes = props.nodes
-  const edges = props.edges
   const b = computeGraphBounds()
-
   _minX = b.minX
   _minY = b.minY
 
@@ -101,38 +108,29 @@ const drawCanvas = () => {
   const gH = b.maxY - b.minY || 1
   const pad = 4
 
-  // 等比缩放，适应 Minimap 宽高
   _mapScale = Math.min((cW.value - pad * 2) / gW, (cH.value - pad * 2) / gH)
-
-  // 居中偏移，如果某一边没有填满，将其居中
   _offsetX = (cW.value - gW * _mapScale) / 2
   _offsetY = (cH.value - gH * _mapScale) / 2
 
-  const cw = cW.value
-  const ch = cH.value
-  ctx.clearRect(0, 0, cw, ch)
-  if (!nodes.length) {
-    updateVpRect(props.viewport)
+  ctx.clearRect(0, 0, cW.value, cH.value)
+  if (!nodes.value.length) {
+    updateVpRect(viewport.value)
     return
   }
 
-  // ─ 绘制连线 ─
-  // 不做步长跳跃，直接全画，Canvas 性能非常高
+  // 连线
   const nodeMap = new Map<string, Node>()
-  for (let i = 0; i < nodes.length; i++) {
-    nodeMap.set(nodes[i].id, nodes[i])
-  }
+  nodes.value.forEach((n) => nodeMap.set(n.id, n))
 
-  ctx.strokeStyle = '#d1d5db'
-  ctx.lineWidth = 0.5
-  ctx.globalAlpha = 0.55
+  ctx.strokeStyle = '#94a3b8' // 加深颜色
+  ctx.lineWidth = 1.2 // 加粗线条
+  ctx.globalAlpha = 0.5
   ctx.beginPath()
-  for (let i = 0; i < edges.length; i++) {
-    const e = edges[i]
-    if (e.hidden) continue
+  edges.value.forEach((e) => {
+    if (e.hidden) return
     const src = nodeMap.get(e.source)
     const tgt = nodeMap.get(e.target)
-    if (!src || !tgt) continue
+    if (!src || !tgt) return
     ctx.moveTo(
       toMX(src.position.x + (src.width || 120) / 2),
       toMY(src.position.y + (src.height || 50) / 2)
@@ -141,49 +139,61 @@ const drawCanvas = () => {
       toMX(tgt.position.x + (tgt.width || 120) / 2),
       toMY(tgt.position.y + (tgt.height || 50) / 2)
     )
-  }
+  })
   ctx.stroke()
 
-  // ─ 绘制节点 ─
-  const baseColor = props.nodeColor || '#c6d0e0'
+  // 节点
   const selColor = '#3b82f6'
 
   ctx.globalAlpha = 0.85
-  // 分别绘制基础节点和选中的节点（降低 fillStyle 切换开销）
-  ctx.fillStyle = baseColor
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i]
-    if (n.hidden || n.selected) continue
-    const nw = Math.max((n.width || 120) * _mapScale, 1.5)
-    const nh = Math.max((n.height || 50) * _mapScale, 1)
-    ctx.fillRect(toMX(n.position.x), toMY(n.position.y), nw, nh)
-  }
+  nodes.value.forEach((n) => {
+    if (n.hidden) return
 
-  ctx.fillStyle = selColor
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i]
-    if (n.hidden || !n.selected) continue
-    const nw = Math.max((n.width || 120) * _mapScale, 2)
-    const nh = Math.max((n.height || 50) * _mapScale, 1.5)
-    ctx.fillRect(toMX(n.position.x), toMY(n.position.y), nw, nh)
-  }
+    let color = n.selected ? selColor : '#cbd5e1'
+    if (!n.selected && props.nodeColor) {
+      color = typeof props.nodeColor === 'function' ? props.nodeColor(n) : props.nodeColor
+    }
+
+    ctx.fillStyle = color
+    // 保证节点在小地图上至少有 3x3 的大小
+    const nw = Math.max((n.width || 120) * _mapScale, 3)
+    const nh = Math.max((n.height || 50) * _mapScale, 3)
+    const nx = toMX(n.position.x)
+    const ny = toMY(n.position.y)
+
+    ctx.fillRect(nx, ny, nw, nh)
+
+    // 绘制节点边框（如果指定）
+    if (props.nodeStrokeWidth || props.nodeStrokeColor) {
+      let strokeColor = '#94a3b8'
+      if (props.nodeStrokeColor) {
+        strokeColor =
+          typeof props.nodeStrokeColor === 'function'
+            ? props.nodeStrokeColor(n)
+            : props.nodeStrokeColor
+      }
+      ctx.strokeStyle = strokeColor
+      ctx.lineWidth = props.nodeStrokeWidth || 0.5
+      ctx.strokeRect(nx, ny, nw, nh)
+    }
+  })
 
   ctx.globalAlpha = 1
-
-  // 绘制完成后，同步更新视口框
-  updateVpRect(props.viewport)
+  updateVpRect(viewport.value)
 }
 
-// ── 视口框直接 DOM 更新（高频调用，0 Vue 开销） ─────────────────────────
-const updateVpRect = (vp: { x: number; y: number; zoom: number }) => {
+const updateVpRect = (vp: ViewportTransform) => {
   const el = vpRectEl.value
   if (!el || !_mapScale) return
 
-  // 视口左上角在画布坐标系
+  const container = flowInstance.$el
+  const containerW = container?.clientWidth || 800
+  const containerH = container?.clientHeight || 600
+
   const canvasLeft = -vp.x / vp.zoom
   const canvasTop = -vp.y / vp.zoom
-  const canvasW = props.viewportSize.width / vp.zoom
-  const canvasH = props.viewportSize.height / vp.zoom
+  const canvasW = containerW / vp.zoom
+  const canvasH = containerH / vp.zoom
 
   const rx = (canvasLeft - _minX) * _mapScale + _offsetX
   const ry = (canvasTop - _minY) * _mapScale + _offsetY
@@ -196,26 +206,25 @@ const updateVpRect = (vp: { x: number; y: number; zoom: number }) => {
   el.setAttribute('height', String(rh))
 }
 
-// ── 交互支持：点击和拖拽 ─────────────────────────
+// ── 交互支持 ────────────────────────────────────
 let isDragging = false
-
 const handleMouseMove = (e: MouseEvent) => {
-  if (!isDragging || !flowInstance) return
-
-  const canvasEl = canvasRef.value
-  if (!canvasEl) return
-  const rect = canvasEl.getBoundingClientRect()
+  if (!isDragging || props.pannable === false) return
+  const rect = canvasRef.value?.getBoundingClientRect()
+  if (!rect) return
   const mx = e.clientX - rect.left
   const my = e.clientY - rect.top
 
-  // 将 Minimap 鼠标坐标转换为对应的图表坐标
   const canvasX = (mx - _offsetX) / _mapScale + _minX
   const canvasY = (my - _offsetY) / _mapScale + _minY
 
-  const zoom = props.viewport.zoom
-  // 计算平移的 x 和 y，使得点击的坐标位于屏幕居中
-  const newX = props.viewportSize.width / 2 - canvasX * zoom
-  const newY = props.viewportSize.height / 2 - canvasY * zoom
+  const zoom = viewport.value.zoom
+  const container = flowInstance.$el
+  const containerW = container?.clientWidth || 800
+  const containerH = container?.clientHeight || 600
+
+  const newX = containerW / 2 - canvasX * zoom
+  const newY = containerH / 2 - canvasY * zoom
 
   flowInstance.setViewport({ x: newX, y: newY, zoom })
 }
@@ -227,59 +236,65 @@ const handleMouseUp = () => {
 }
 
 const handleMouseDown = (e: MouseEvent) => {
+  if (props.pannable === false) return
   isDragging = true
-  handleMouseMove(e) // 立即跳到点击位置
+  handleMouseMove(e)
   document.addEventListener('mousemove', handleMouseMove)
   document.addEventListener('mouseup', handleMouseUp)
 }
 
-// 暴露给父组件
-defineExpose({ updateViewport: updateVpRect, redraw: drawCanvas })
-
-// ── 生命周期 ──────────────────────────────────────────────────────────────
 onMounted(drawCanvas)
+onBeforeUnmount(handleMouseUp)
 
-onBeforeUnmount(() => {
-  document.removeEventListener('mousemove', handleMouseMove)
-  document.removeEventListener('mouseup', handleMouseUp)
-})
-
-// 节点/边变化时重绘（全量重绘在大量节点时也很快）
-watch(() => props.nodes, drawCanvas, { flush: 'post' })
-watch(() => props.edges, drawCanvas, { flush: 'post' })
-
-// 视口变化或屏幕尺寸变化时更新视口框
-watch(
-  () =>
-    [
-      props.viewport.x,
-      props.viewport.y,
-      props.viewport.zoom,
-      props.viewportSize.width,
-      props.viewportSize.height
-    ] as const,
-  ([x, y, zoom]) => updateVpRect({ x, y, zoom }),
-  { flush: 'sync' }
-)
+watch([nodes, edges], drawCanvas, { deep: true, flush: 'post' })
+watch(viewport, (vp) => updateVpRect(vp), { flush: 'sync' })
 </script>
 
 <style scoped>
 .yh-flow-minimap {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* Premium Glassmorphism Effect */
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04);
   overflow: hidden;
-  /* 开启交互 */
   pointer-events: auto;
   z-index: 10;
   cursor: crosshair;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.yh-flow-minimap__canvas {
+.yh-flow-minimap:hover {
+  transform: scale(1.02);
+}
+
+.yh-flow-minimap.bottom-right {
+  right: 16px;
+  bottom: 16px;
+}
+
+.yh-flow-minimap.top-right {
+  right: 16px;
+  top: 16px;
+}
+
+.yh-flow-minimap.bottom-left {
+  left: 16px;
+  bottom: 16px;
+}
+
+.yh-flow-minimap.top-left {
+  left: 16px;
+  top: 16px;
+}
+
+.yh-flow-minimap__canvas,
+.yh-flow-minimap__vp {
   display: block;
   position: absolute;
   top: 0;
@@ -287,14 +302,11 @@ watch(
 }
 
 .yh-flow-minimap__vp {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
   pointer-events: none;
 }
 
 .yh-flow-minimap__rect {
-  transition: all 0.05s linear;
+  transition: all 0.1s ease-out;
+  filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.3));
 }
 </style>

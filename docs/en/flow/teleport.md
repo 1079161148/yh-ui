@@ -2,7 +2,7 @@
 
 In complex diagramming applications, you often need to show floating toolbars, menus, or modal dialogs anchored to specific nodes. However, because the `Flow` engine uses intensive CSS transforms (pan/zoom) and `overflow: hidden` on its viewport, rendering large overlays directly inside a node's HTML will cause visual clipping and coordinate distortion.
 
-The most elegant solution is to leverage Vue 3's built-in `<Teleport>` component. This allows you to logic-bind a dialong to a node while physically rendering it outside the transformed canvas area.
+The most elegant solution is to leverage Vue 3's built-in `<Teleport>` component. This allows you to logic-bind a dialog to a node while physically rendering it outside the transformed canvas area.
 
 ## Teleport Modal Demo
 
@@ -10,7 +10,7 @@ Click the "Configure Node" button inside the node below. Its internal state will
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -23,25 +23,25 @@ const tsCode = `<template>
     >
       <template #node="{ node }">
         <div class="teleport-node">
-          <div class="node-title">{{ node.data?.label }}</div>
-          <button class="open-btn" @mousedown.stop @click.stop="isOpen = true">Configure Node</button>
+          <div class="node-title">{{ node.data?.label }}<\/div>
+          <button class="open-btn" @mousedown.stop @click.stop="isOpen = true">Configure Node<\/button>
           
           <!-- Use Teleport to move the dialog out of the transformed container -->
           <Teleport to="body" v-if="isOpen">
             <div class="teleport-modal-mask" @click="isOpen = false">
                <div class="teleport-modal-content" @click.stop>
-                 <h3>Node Settings</h3>
-                 <p class="modal-body">Active Node ID: {{ node.id }}</p>
+                 <h3>Node Settings<\/h3>
+                 <p class="modal-body">Active Node ID: {{ node.id }}<\/p>
                  <div class="modal-actions">
-                   <button class="close-btn" @click="isOpen = false">Save & Close</button>
-                 </div>
-               </div>
-            </div>
-          </Teleport>
-        </div>
+                   <button class="close-btn" @click="isOpen = false">Save & Close<\/button>
+                 <\/div>
+               <\/div>
+            <\/div>
+          <\/Teleport>
+        <\/div>
       <\/template>
-    </yh-flow>
-  </div>
+    <\/yh-flow>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -135,6 +135,7 @@ const nodes = ref<Node[]>([
   { id: '1', type: 'custom', position: { x: 100, y: 100 }, data: { label: 'Clickable Anchor' }, width: 140, height: 85 }
 ])
 
+const viewport = ref({ x: 50, y: 50, zoom: 1 })
 </script>
 
 <DemoBlock title="Context-Free Modal Overlay" :ts-code="tsCode" :js-code="jsCode">
@@ -142,7 +143,7 @@ const nodes = ref<Node[]>([
     <yh-flow
       :nodes="nodes"
       :edges="[]"
-      :model-value="{ x: 50, y: 50, zoom: 1 }"
+      v-model="viewport"
       background="dots"
     >
       <template #node="{ node }">
@@ -170,4 +171,4 @@ const nodes = ref<Node[]>([
 
 1.  **Coordinate Escape**: The `Flow` content layer uses `transform: translate3d`. In most browsers, this creates a new containing block for all absolute/fixed children. By teleporting, you "bubble up" to a parent container that isn't transformed, keeping your UI standard.
 2.  **Clipping Prevention**: The engine uses `overflow: hidden` on its viewport. Any child element that exceeds the node's bounds will be clipped. `Teleport` circumvents this entirely.
-3.  **Z-Index Consistency**: It ensures your modals always appear above all nodes and edges鈥攔egardless of the node's internal stacking order or rendering priority.
+3.  **Z-Index Consistency**: It ensures your modals always appear above all nodes and edges—regardless of the node's internal stacking order or rendering priority.

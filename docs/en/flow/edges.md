@@ -3,7 +3,7 @@
 <script setup lang="ts">
 import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 
-const tsEdges = `<template>
+const tsEdgeTypes = `<template>
   <div style="width: 100%; height: 420px;">
     <yh-flow
       :model-value="{ x: 0, y: 0, zoom: 1 }"
@@ -21,24 +21,26 @@ const tsEdges = `<template>
         { id: 'e3', source: '3', target: '4', type: 'step' },
         { id: 'e4', source: '4', target: '5', type: 'smoothstep' },
         { id: 'e5', source: '2', target: '6', type: 'bezier', label: 'label', labelShowBg: true },
-        { id: 'e6', source: '5', target: '6', type: 'straight', animated: true }
+        { id: 'e6', source: '5', target: '6', type: 'straight', animated: true, style: { stroke: '#67c23a', strokeWidth: 2 } }
       ]"
       background="dots"
     />
   </div>
 <\/template>`
 
-const jsEdges = toJs(tsEdges)
+const jsEdgeTypes = toJs(tsEdgeTypes)
 </script>
 
-Supported types:
+## Edge Types
 
-- `bezier`
-- `straight`
-- `step`
-- `smoothstep`
+- **bezier**: Bezier curve (default recommendation)
+- **straight**: Straight line
+- **step**: Step line
+- **smoothstep**: Smooth step line
 
-<DemoBlock title="Edge Types" :ts-code="tsEdges" :js-code="jsEdges">
+## Example: Multiple Edge Types, Labels, and Animations
+
+<DemoBlock title="Edge Types" :ts-code="tsEdgeTypes" :js-code="jsEdgeTypes">
   <div style="width: 100%; height: 420px;">
     <yh-flow
       :model-value="{ x: 0, y: 0, zoom: 1 }"
@@ -56,9 +58,15 @@ Supported types:
         { id: 'e3', source: '3', target: '4', type: 'step' },
         { id: 'e4', source: '4', target: '5', type: 'smoothstep' },
         { id: 'e5', source: '2', target: '6', type: 'bezier', label: 'label', labelShowBg: true },
-        { id: 'e6', source: '5', target: '6', type: 'straight', animated: true }
+        { id: 'e6', source: '5', target: '6', type: 'straight', animated: true, style: { stroke: '#67c23a', strokeWidth: 2 } }
       ]"
       background="dots"
     />
   </div>
 </DemoBlock>
+
+## Next
+
+- [Interaction](./interaction)
+- [Alignment](./alignment)
+- [Plugin System](./plugins)

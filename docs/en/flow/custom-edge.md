@@ -1,14 +1,14 @@
-# Custom Edge (自定义连线)
+# Custom Edge
 
-Edges are more than just paths between points. In `yh-flow`, you can use the `#edge` slot to fully control edge rendering. This allows you to add interactive buttons, real-time status labels, or dynamic effects to your edges.
+Edges are more than just paths between points. In `yh-flow`, you can use the `#edge` slot to fully control the edge rendering process. This allows you to add complex interactive buttons, real-time status labels, or even dynamic fluid effects to your edges.
 
-## Advanced Custom Edge Example (高级自定义边示例)
+## Advanced Custom Edge Example
 
-In this example, a functional button is added to the center of the edge. Clicking it removes the edge or runs other logic. The demo uses `v-model:edges` so the parent stays in sync with the canvas after removal.
+In this example, we add a functional button to the center of the edge. Clicking the button allows you to quickly remove the edge or perform other business operations. The demo uses `v-model:edges`, keeping the parent component synchronized with the canvas edge list after removal.
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -45,8 +45,8 @@ const tsCode = `<template>
           </foreignObject>
         </g>
       </template>
-    </yh-flow>
-  </div>
+    <\/yh-flow>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -71,15 +71,12 @@ const edges = ref<Edge[]>([
 const onRemoveEdge = (id: string) => {
   console.log('Removing edge:', id)
   edges.value = edges.value.filter(e => e.id !== id)
+  // Force sync to ensure external state update
+  console.log('Remaining edges count:', edges.value.length)
 }
 <\/script>
 
 <style scoped>
-.custom-edge-group:hover path {
-  stroke: #3b82f6 !important;
-  stroke-width: 3px !important;
-}
-
 .edge-remove-btn {
   width: 24px;
   height: 24px;
@@ -116,7 +113,11 @@ const edges = ref<Edge[]>([
 
 const onRemoveEdge = (id: string) => {
   console.log('[Flow Demo] Removing edge triggered via mousedown:', id)
-  edges.value = edges.value.filter(e => e.id !== id)
+  const exists = edges.value.some(e => e.id === id)
+  if (exists) {
+    edges.value = edges.value.filter(e => e.id !== id)
+    console.log('[Flow Demo] Edge removed. New count:', edges.value.length)
+  }
 }
 </script>
 
@@ -133,14 +134,16 @@ const onRemoveEdge = (id: string) => {
           <path
             :d="path"
             fill="none"
-            :style="{ stroke: '#94a3b8', strokeWidth: 2, pointerEvents: 'stroke', cursor: 'pointer' }"
+            :stroke="edge.selected ? '#3b82f6' : '#94a3b8'"
+            :stroke-width="edge.selected ? 3 : 2"
+            style="pointer-events: stroke; cursor: pointer;"
           />
           <foreignObject
             :x="(labelX || 0) - 15"
             :y="(labelY || 0) - 15"
             width="30"
             height="30"
-            style="pointer-events: all; overflow: visible; z-index: 100;"
+            style="overflow: visible; pointer-events: all; z-index: 100;"
           >
             <div 
               class="edge-remove-btn"
@@ -186,4 +189,4 @@ const onRemoveEdge = (id: string) => {
 1.  **Slot Data**: The `#edge` slot exposes the `edge` data object (including computed `labelX` and `labelY` coordinates) and a pre-calculated SVG `path` command string.
 2.  **SVG Context**: Since you are rendering inside an `<svg>` element, you should use `<g>` (group) tags to wrap your path and UI overlays together.
 3.  **HTML Overlays (foreignObject)**: To use standard HTML elements (like `div` or `button`) inside the SVG, they must be wrapped in a `<foreignObject>` with defined `width` and `height`.
-4.  **Event Bubbling**: Use `@click.stop` on your overlay buttons to prevent the `Flow` engine from triggering selection or other edge-level click handlers.
+4.  **Event Bubbling**: Use `@mousedown.stop` or `@click.stop` on your overlay components to prevent the `Flow` engine from triggering selection or other edge-level click handlers.

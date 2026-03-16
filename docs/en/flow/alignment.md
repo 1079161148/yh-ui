@@ -1,5 +1,7 @@
 # Alignment & Distribution
 
+Flow comes with built-in support for grid snapping, alignment guide lines, and node distribution (horizontal/vertical).
+
 <script setup lang="ts">
 import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 
@@ -16,7 +18,7 @@ const tsAlignment = `<template>
       :show-alignment-lines="true"
       :snap-threshold="10"
     />
-  </div>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -40,7 +42,9 @@ const edges = ref<Edge[]>([
 const jsAlignment = toJs(tsAlignment)
 </script>
 
-<DemoBlock title="Alignment" :ts-code="tsAlignment" :js-code="jsAlignment">
+## Demo: Grid & Guide Snapping
+
+<DemoBlock title="Alignment & Snap" :ts-code="tsAlignment" :js-code="jsAlignment">
   <div style="width: 100%; height: 520px;">
     <yh-flow
       :nodes="[
@@ -64,3 +68,8 @@ const jsAlignment = toJs(tsAlignment)
     />
   </div>
 </DemoBlock>
+
+## Next Steps
+
+- [Plugin System](./plugins)
+- [API Reference](./api)

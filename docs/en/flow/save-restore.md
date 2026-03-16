@@ -8,17 +8,17 @@ Modify the graph below, then try the "Save" and "Restore" buttons. We use browse
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { FlowInstance, ViewportTransform, Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
   <div class="sr-container">
     <div class="sr-toolbar">
-      <button class="sr-btn" @click="saveState">Save to LocalStorage</button>
-      <button class="sr-btn restore" @click="restoreState">Restore State</button>
-      <button class="sr-btn clear" @click="clearState">Clear Canvas</button>
-      <div v-if="saveTime" class="sr-tip">Last Saved: {{ saveTime }}</div>
-    </div>
+      <button class="sr-btn" @click="saveState">Save to LocalStorage<\/button>
+      <button class="sr-btn restore" @click="restoreState">Restore State<\/button>
+      <button class="sr-btn clear" @click="clearState">Clear Canvas<\/button>
+      <div v-if="saveTime" class="sr-tip">Last Saved: {{ saveTime }}<\/div>
+    <\/div>
     
     <div class="sr-flowbox">
       <yh-flow
@@ -28,8 +28,8 @@ const tsCode = `<template>
         :edges="edges"
         background="dots"
       />
-    </div>
-  </div>
+    <\/div>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -48,7 +48,7 @@ const edges = ref<Edge[]>([
 ])
 
 const saveTime = ref('')
-const STORAGE_KEY = 'yh-flow-persistence-demo'
+const STORAGE_KEY = 'yh-flow-persistence-demo-en'
 
 const saveState = () => {
   if (!flowRef.value) return
@@ -145,7 +145,7 @@ const edges = ref<Edge[]>([
 ])
 
 const saveTime = ref('')
-const STORAGE_KEY = 'yh-flow-persistence-demo'
+const STORAGE_KEY = 'yh-flow-persistence-demo-en'
 
 const saveState = () => {
   if (!flowRef.value) return

@@ -1,14 +1,14 @@
-# Node Resizer (节点缩放)
+# Node Resizer
 
 In many diagramming scenarios, users need to manually adjust the dimensions of nodes, especially container nodes or text-heavy blocks. `yh-flow` provides a dedicated `NodeResizer` component that can be easily embedded into your custom node templates, providing 8-directional scaling handles.
 
-## Node Resizer Example (节点缩放示例)
+## Node Resizer Example
 
 Select the node below; blue resize handles will appear around it. Drag the handles to resize, or drag the node to move it. The demo uses `v-model:nodes` so that node drag and resize stay in sync with the parent.
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -30,10 +30,10 @@ const tsCode = `<template>
             :min-height="50"
             @resize="data => onNodeResize(node.id, data)"
           />
-        </div>
+        <\/div>
       <\/template>
-    </yh-flow>
-  </div>
+    <\/yh-flow>
+  <\/div>
 <\/template>
 
 <script setup lang="ts">
@@ -73,19 +73,18 @@ const onNodeResize = (nodeId: string, { width, height, x, y }) => {
   border-radius: 4px;
   font-size: 14px;
   color: #1e40af;
-  position: relative; /* Must be relative for resizer layout */
+  position: relative; /* Core: must be relative to accurately position the resizer */
 }
 <\/style>`
 
 const jsCode = toJs(tsCode)
 
+const viewport = ref({ x: 50, y: 50, zoom: 1 })
 const nodes = ref<Node[]>([
   { id: 'resizer-1', type: 'custom', position: { x: 100, y: 100 }, width: 220, height: 120, data: { label: 'Resizable Node', color: '#eff6ff' } }
 ])
 
-interface ResizePayload { width: number; height: number; x?: number; y?: number }
-
-const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) => {
+const onNodeResize = (nodeId: string, { width, height, x, y }: { width: number, height: number, x?: number, y?: number }) => {
   nodes.value = nodes.value.map(n => {
     if (n.id !== nodeId) return n
     const updated = { ...n, width, height, position: { ...n.position } }
@@ -101,7 +100,7 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) =>
     <yh-flow
       v-model:nodes="nodes"
       :edges="[]"
-      :model-value="{ x: 50, y: 50, zoom: 1 }"
+      v-model="viewport"
       background="dots"
     >
       <template #node="{ node }">
@@ -120,9 +119,9 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) =>
   </div>
 </DemoBlock>
 
-## API Reference (API 概述)
+## API Reference
 
-### Props (属性)
+### Props
 
 | Name          | Type            | Default      | Description                                                        |
 | :------------ | :-------------- | :----------- | :----------------------------------------------------------------- |
@@ -132,7 +131,7 @@ const onNodeResize = (nodeId: string, { width, height, x, y }: ResizePayload) =>
 | `minHeight`   | `number`        | `30`         | Minimum height allowed.                                            |
 | `handleStyle` | `CSSProperties` | `{}`         | Custom CSS for the grab handles.                                   |
 
-### Events (事件)
+### Events
 
 | Event          | Params                    | Detail                                                                                                          |
 | :------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------- |

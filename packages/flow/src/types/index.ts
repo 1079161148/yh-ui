@@ -238,6 +238,8 @@ export interface FlowPlugin {
   enabled?: boolean
   install: (flow: FlowInstance, options?: Record<string, unknown>) => void
   destroy?: () => void
+  component?: Component // 可选的 UI 组件，将被渲染在 Flow 容器中
+  componentProps?: Record<string, unknown> // 传递给组件的 Props
 }
 
 export interface FlowInstance {
@@ -269,6 +271,9 @@ export interface FlowInstance {
   off: <K extends FlowEventKey>(event: K, handler: FlowEventHandler<K>) => void
   emit: <K extends FlowEventKey>(event: K, payload?: FlowEvents[K]) => void
   isValidConnection: (connection: Connection) => boolean
+  $el: HTMLElement | undefined
+  draggingNodeId: Ref<string | null>
+  draggingPosition: Ref<{ x: number; y: number } | null>
   usePlugin: (plugin: FlowPlugin) => void
   removePlugin: (pluginId: string) => void
   exportJson?: () => string
