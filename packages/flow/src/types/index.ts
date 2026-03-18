@@ -87,7 +87,7 @@ export type NodeChangeType =
   | 'style'
   | 'data'
   | 'selectMulti'
-  | 'unnselect'
+  | 'unselect'
 
 export interface NodeChange<T = Node> {
   type: NodeChangeType
@@ -105,7 +105,7 @@ export interface NodeChange<T = Node> {
 // Edge Types - 连线类型定义
 // ============================================
 
-export type EdgeType = 'smoothstep' | 'step' | 'bezier' | 'straight' | 'default'
+export type EdgeType = string | 'smoothstep' | 'step' | 'bezier' | 'straight' | 'default'
 
 export interface EdgeStyle {
   stroke?: string
@@ -160,7 +160,7 @@ export interface Edge<Data = EdgeData> {
   updatable?: boolean | 'source' | 'target'
 }
 
-export type EdgeChangeType = 'select' | 'remove' | 'style' | 'data' | 'selectMulti' | 'unnselect'
+export type EdgeChangeType = 'select' | 'remove' | 'style' | 'data' | 'selectMulti' | 'unselect'
 
 export interface EdgeChange<T = Edge> {
   type: EdgeChangeType
@@ -276,9 +276,82 @@ export interface FlowInstance {
   draggingPosition: Ref<{ x: number; y: number } | null>
   usePlugin: (plugin: FlowPlugin) => void
   removePlugin: (pluginId: string) => void
+  // ============================================
+  // 5-star feature methods
+  // ============================================
+  /** Create a new node from a registered template */
+  createNodeFromTemplate?: (
+    type: string,
+    id: string,
+    position: { x: number; y: number },
+    overrides?: Record<string, unknown>
+  ) => Node | null
+  /** Export flow data to JSON string */
+  exportFlowData?: (viewport?: { x: number; y: number; zoom: number }) => string
+  /** Import flow data from JSON string */
+  importFlowData?: (
+    json: string
+  ) => { nodes: Node[]; edges: Edge[]; viewport?: { x: number; y: number; zoom: number } } | null
+  /** Check if a node is nested (has parent) */
+  isNestedNode?: (node: Node) => boolean
+  /** Get all children of a node */
+  getNodeChildren?: (node: Node) => Node[]
+  /** Get parent of a node */
+  getNodeParent?: (node: Node) => Node | undefined
   exportJson?: () => string
-  exportImage?: (container?: HTMLElement) => Promise<void> | void
-  applyLayout?: (options?: unknown) => void
+  /** Screenshot: pass options or legacy HTMLElement as container. Returns result with dataUrl/blob. */
+  exportImage?: (options?: ScreenshotOptions | HTMLElement) => Promise<ScreenshotResult>
+  applyLayout?: (options?: unknown) => void | Promise<void>
+}
+
+// ============================================
+// Screenshot - 截图导出类型（无 any，类型安全）
+// ============================================
+
+/** 截图范围：当前视口 或 整图（自动 fitView 后截取再恢复视口） */
+export type ScreenshotMode = 'viewport' | 'full'
+
+/** 截图输出图片格式 */
+export type ScreenshotImageType = 'png' | 'jpeg' | 'webp'
+
+/** 截图选项 */
+export interface ScreenshotOptions {
+  /** 截取范围：viewport=当前可见区域，full=整图 */
+  mode?: ScreenshotMode
+  /** 图片格式，默认 png */
+  imageType?: ScreenshotImageType
+  /** 图片质量 0–1，仅 jpeg/webp 有效 */
+  imageQuality?: number
+  /** 设备像素比，默认 2（高清屏友好） */
+  pixelRatio?: number
+  /** 背景色，默认 #ffffff */
+  backgroundColor?: string
+  /** 导出文件名（不含扩展名），仅在下发下载时使用 */
+  fileName?: string
+  /** 是否触发浏览器下载，默认 true */
+  download?: boolean
+  /** 是否同时写入剪贴板，默认 false */
+  copyToClipboard?: boolean
+  /** 指定要截取的 DOM 元素，不传则使用 flow 根元素 */
+  container?: HTMLElement
+  /** full 模式下的 fitView 内边距，默认 20 */
+  fullModePadding?: number
+}
+
+/** 截图结果（程序化使用：上传、预览等） */
+export interface ScreenshotResult {
+  /** Data URL */
+  dataUrl: string
+  /** Blob（便于 FormData/上传） */
+  blob: Blob
+  /** 图片宽度（像素） */
+  width: number
+  /** 图片高度（像素） */
+  height: number
+  /** MIME 类型 */
+  mimeType: string
+  /** 文件扩展名 */
+  extension: string
 }
 
 // FitViewOptions removed as it is now imported from './viewport'
@@ -352,35 +425,21 @@ export type Rect = Box & {
 // ============================================
 
 export interface CustomNodeComponentProps<Data = NodeData> {
-  id: string
-  data: Data
-  selected: boolean
-  dragging: boolean
-  connectable: boolean
-  selectedClass?: string
-  type?: string
+  node: Node<Data>
 }
 
 export interface CustomEdgeComponentProps<Data = EdgeData> {
-  id: string
+  edge: Edge<Data>
+  path: string
   sourceX: number
   sourceY: number
   targetX: number
   targetY: number
-  sourcePosition: Position
-  targetPosition: Position
-  data: Data
-  selected: boolean
-  animated: boolean
-  label?: string
-  labelStyle?: NodeStyle
-  labelShowBg?: boolean
-  labelBgColor?: string
-  labelBgPadding?: [number, number]
-  labelBgBorderRadius?: number
-  style?: EdgeStyle
-  markerEnd?: string
-  markerStart?: string
+  labelX: number
+  labelY: number
+  labelWidth: number
+  stroke: string
+  strokeWidth: number
 }
 
 export type CustomNodeComponent<
@@ -392,3 +451,6 @@ export type CustomEdgeComponent<
   Data = EdgeData,
   Props = CustomEdgeComponentProps<Data>
 > = Component<Props>
+
+export type NodeTypes = Record<string, CustomNodeComponent>
+export type EdgeTypes = Record<string, CustomEdgeComponent>

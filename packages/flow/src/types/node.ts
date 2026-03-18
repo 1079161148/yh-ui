@@ -24,6 +24,17 @@ export interface NodeData {
   class?: string
   icon?: string
   description?: string
+  // AI workflow specific fields
+  model?: string
+  prompt?: string
+  temperature?: number
+  maxTokens?: number
+  tools?: string[]
+  toolName?: string
+  condition?: string
+  memoryType?: string
+  status?: 'pending' | 'running' | 'success' | 'error'
+  streamOutput?: string
 }
 
 export interface NodePosition {
@@ -66,6 +77,9 @@ export interface Node<Data = NodeData> {
   expandParent?: boolean
   positionAbsolute?: NodePosition
   handleBounds?: NodeHandleBounds
+  // Nested node support
+  children?: string[]
+  computed?: boolean
 }
 
 export type NodeChangeType =

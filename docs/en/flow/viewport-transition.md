@@ -8,7 +8,7 @@ Click the buttons below to see the camera glide smoothly to specific "Interest P
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 import type { FlowInstance, ViewportTransform, Node, Edge } from '@yh-ui/flow'
 
 const tsCode = `<template>
@@ -78,7 +78,7 @@ const fitView = () => {
 }
 <\/script>
 
-<style scoped>
+<${_St} scoped>
 .vt-container {
   display: flex;
   flex-direction: column;
@@ -118,7 +118,7 @@ const fitView = () => {
 :deep(.animated-flow .yh-flow__content) {
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
-<\/style>`
+</${_St}>`;
 
 const jsCode = toJs(tsCode)
 

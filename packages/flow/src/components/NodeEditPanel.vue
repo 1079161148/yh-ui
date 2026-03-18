@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { Node, NodeStyle } from '../types'
+import type { Node, NodeStyle, NodeData } from '../types'
 
 const props = defineProps<{
   node: Node | null
@@ -31,8 +31,8 @@ watch(
   (node) => {
     if (node) {
       localNode.value = {
-        label: (node.data as any)?.label || node.id,
-        description: (node.data as any)?.description || '',
+        label: (node.data as NodeData)?.label || node.id,
+        description: (node.data as NodeData)?.description || '',
         style: { ...node.style },
         width: node.width,
         height: node.height,

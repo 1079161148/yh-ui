@@ -40,65 +40,62 @@
       @dblclick.stop="emit('edge-dblclick', $event, ed.edge)"
       @contextmenu.stop.prevent="emit('edge-contextmenu', $event, ed.edge)"
     >
-      <slot
-        name="edge"
-        v-bind="{
-          edge: ed.edge,
-          path: ed.path,
-          labelX: ed.labelX,
-          labelY: ed.labelY,
-          sourceX: ed.sourceX,
-          sourceY: ed.sourceY,
-          targetX: ed.targetX,
-          targetY: ed.targetY
-        }"
-      >
-        <!-- Interaction Path (Hitbox) -->
-        <path
-          :d="ed.path"
-          stroke="transparent"
-          stroke-width="20"
-          fill="none"
-          style="cursor: pointer; pointer-events: all"
+      <slot name="edge" v-bind="ed">
+        <!-- Automatic Custom Edge Component -->
+        <component
+          v-if="getComponent(ed.edge.type || 'default')"
+          :is="getComponent(ed.edge.type || 'default')"
+          v-bind="ed"
         />
+        <template v-else>
+          <!-- Interaction Path (Hitbox) -->
+          <path
+            :d="ed.path"
+            stroke="transparent"
+            stroke-width="20"
+            fill="none"
+            style="cursor: pointer; pointer-events: all"
+          />
 
-        <!-- Visible Path -->
-        <path
-          :d="ed.path"
-          :stroke="ed.stroke"
-          :stroke-width="(ed.edge.style?.strokeWidth ?? 1.5) * (ed.edge.selected ? 1.5 : 1)"
-          fill="none"
-          :class="{ 'yh-flow-edge-path': true, 'is-animated': ed.edge.animated }"
-          :mask="ed.edge.label ? `url(#yh-mask-${ed.edge.id.replace(/\s/g, '')})` : undefined"
-          :style="{
-            pointerEvents: 'none',
-            transition: 'stroke 0.2s, stroke-width 0.2s',
-            color: ed.stroke
-          }"
-        />
+          <!-- Visible Path -->
+          <path
+            :d="ed.path"
+            :stroke="ed.stroke"
+            :stroke-width="ed.strokeWidth"
+            fill="none"
+            :class="{ 'yh-flow-edge-path': true, 'is-animated': ed.edge.animated }"
+            :mask="ed.edge.label ? `url(#yh-mask-${ed.edge.id.replace(/\s/g, '')})` : undefined"
+            :style="{
+              pointerEvents: 'none',
+              transition: 'stroke 0.2s, stroke-width 0.2s',
+              color: ed.stroke
+            }"
+          />
 
-        <!-- Default Label -->
-        <foreignObject
-          v-if="ed.edge.label"
-          :x="ed.labelX - 75"
-          :y="ed.labelY - 15"
-          width="150"
-          height="30"
-          style="pointer-events: auto"
-        >
-          <div
-            style="
-              width: 100%;
-              height: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
+          <!-- Default Label -->
+          <foreignObject
+            v-if="ed.edge.label"
+            :x="ed.labelX - 75"
+            :y="ed.labelY - 15"
+            width="150"
+            height="30"
+            style="pointer-events: auto"
           >
-            <div class="yh-flow-edge-label" :style="getLabelStyle(ed.edge)" v-html="ed.edge.label">
+            <div
+              style="
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <div class="yh-flow-edge-label" :style="getLabelStyle(ed.edge)">{{
+                ed.edge.label
+              }}</div>
             </div>
-          </div>
-        </foreignObject>
+          </foreignObject>
+        </template>
       </slot>
     </g>
   </svg>
@@ -106,16 +103,26 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Edge, Node, HandleType } from '../types'
-import { getEdgePath, getEdgeCenter, getHandlePosition } from '../utils/edge'
+import type { Edge, Node, HandleType, Position, EdgeTypes } from '../types'
+import { getEdgePath, getEdgeCenter, getHandlePosition, type EdgePathParams } from '../utils/edge'
+import { getCustomEdge } from '../utils/custom-types'
 
 const props = defineProps<{
   edges: Edge[]
   nodes: Node[]
+  edgeTypes?: EdgeTypes
   transform?: { x: number; y: number; zoom: number }
   connectingEdge?: { path: string; tx: number; ty: number } | null
   updatingEdgeId?: string | null
 }>()
+
+const getComponent = (type: string) => {
+  // Priority: 1. Props (scoped), 2. Global registry (legacy/convenience)
+  if (props.edgeTypes && props.edgeTypes[type]) {
+    return props.edgeTypes[type]
+  }
+  return getCustomEdge(type || 'default')?.component
+}
 
 const emit = defineEmits<{
   (e: 'edge-click', event: MouseEvent, edge: Edge): void
@@ -130,16 +137,16 @@ const nodeMap = computed(() => {
   return m
 })
 
-const getLabelStyle = (edge: Edge) => {
-  const styles: any = {
-    ...edge.labelStyle
+const getLabelStyle = (edge: Edge): Record<string, string | number> => {
+  const styles: Record<string, string | number> = {
+    ...(edge.labelStyle as Record<string, string | number>)
   }
 
   if (edge.labelShowBg === true) {
-    styles.backgroundColor = edge.labelBgColor || '#f1f5f9'
+    styles.backgroundColor = edge.labelBgColor || 'var(--flow-edge-label-background, #f1f5f9)'
     styles.padding = '0 6px'
     styles.borderRadius = '2px'
-    styles.border = '1px solid #ddd'
+    styles.border = '1px solid var(--flow-edge-stroke, #ddd)'
   } else {
     styles.backgroundColor = 'transparent'
   }
@@ -158,13 +165,13 @@ const edgeData = computed(() => {
     if (!sourceNode || !targetNode) continue
 
     // 获取位置描述
-    const sPosDesc = (edge.sourceHandle as any) || 'right'
-    const tPosDesc = (edge.targetHandle as any) || 'left'
+    const sPosDesc = (edge.sourceHandle || 'right') as Position
+    const tPosDesc = (edge.targetHandle || 'left') as Position
 
     const sPos = getHandlePosition(sourceNode, sPosDesc, edge.sourceHandle)
     const tPos = getHandlePosition(targetNode, tPosDesc, edge.targetHandle)
 
-    const pathParams = {
+    const pathParams: EdgePathParams = {
       sourceX: sPos.x,
       sourceY: sPos.y,
       targetX: tPos.x,
@@ -192,7 +199,10 @@ const edgeData = computed(() => {
       labelX: center.x,
       labelY: center.y,
       labelWidth,
-      stroke: edge.selected ? '#3b82f6' : edge.style?.stroke || '#b1b1b7'
+      stroke: edge.selected
+        ? 'var(--flow-edge-selected-stroke, #3b82f6)'
+        : edge.style?.stroke || 'var(--flow-edge-stroke, #b1b1b7)',
+      strokeWidth: (edge.style?.strokeWidth ?? 1.5) * (edge.selected ? 1.5 : 1)
     })
   }
   return result
@@ -206,7 +216,7 @@ const edgeData = computed(() => {
   justify-content: center;
   font-size: 11px;
   font-weight: 400;
-  color: #000;
+  color: var(--flow-edge-label-color, #000);
   pointer-events: auto;
   white-space: nowrap;
   user-select: none;
@@ -221,7 +231,7 @@ const edgeData = computed(() => {
 }
 
 .yh-flow-edge-label:hover {
-  color: #3b82f6;
+  color: var(--flow-edge-selected-stroke, #3b82f6);
   font-weight: 600;
 }
 

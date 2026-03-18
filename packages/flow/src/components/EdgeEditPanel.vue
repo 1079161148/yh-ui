@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import type { Edge, EdgeStyle, EdgeType } from '../types'
+import { ref, watch, computed } from 'vue'
+import type { Edge, EdgeStyle, EdgeTypes } from '../types'
+import { getAllCustomEdges, getAllEdgeTemplates } from '../utils/custom-types'
 
 const props = defineProps<{
   edge: Edge | null
   visible: boolean
+  edgeTypes?: EdgeTypes
 }>()
 
 const emit = defineEmits<{
@@ -65,12 +67,48 @@ const handleStrokeWidth = (event: Event) => {
   updateStyle('strokeWidth', value)
 }
 
-const edgeTypes: { value: EdgeType; label: string }[] = [
-  { value: 'bezier', label: '贝塞尔曲线' },
-  { value: 'smoothstep', label: '平滑阶梯' },
-  { value: 'step', label: '阶梯' },
-  { value: 'straight', label: '直线' }
-]
+const allEdgeTypes = computed(() => {
+  const typeMap = new Map<string, { value: string; label: string }>()
+
+  // 1. Presets (Highest priority for base labels)
+  const presets = [
+    { value: 'bezier', label: '贝塞尔曲线' },
+    { value: 'smoothstep', label: '平滑阶梯' },
+    { value: 'step', label: '阶梯' },
+    { value: 'straight', label: '直线' }
+  ]
+  presets.forEach((p) => typeMap.set(p.value, p))
+
+  // 2. From global registry
+  getAllCustomEdges().forEach((e) => {
+    if (!typeMap.has(e.type)) {
+      typeMap.set(e.type, { value: e.type, label: e.label || `自定义: ${e.type}` })
+    }
+  })
+
+  // 3. From edge templates
+  getAllEdgeTemplates().forEach((t) => {
+    if (!typeMap.has(t.type)) {
+      typeMap.set(t.type, { value: t.type, label: t.label || `模板: ${t.type}` })
+    }
+  })
+
+  // 4. From props.edgeTypes (scoped)
+  if (props.edgeTypes) {
+    Object.keys(props.edgeTypes).forEach((type) => {
+      if (!typeMap.has(type)) {
+        typeMap.set(type, { value: type, label: `局部组件: ${type}` })
+      }
+    })
+  }
+
+  // 5. Fallback for the current edge type if it's missing in all above
+  if (props.edge?.type && !typeMap.has(props.edge.type)) {
+    typeMap.set(props.edge.type, { value: props.edge.type, label: `未知类型: ${props.edge.type}` })
+  }
+
+  return Array.from(typeMap.values())
+})
 
 const strokeColors = [
   '#b1b1b7',
@@ -108,7 +146,7 @@ const strokeColors = [
           <div class="form-group">
             <label>连线类型</label>
             <select v-model="localEdge.type" @change="updateType">
-              <option v-for="t in edgeTypes" :key="t.value" :value="t.value">
+              <option v-for="t in allEdgeTypes" :key="t.value" :value="t.value">
                 {{ t.label }}
               </option>
             </select>

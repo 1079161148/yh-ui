@@ -65,6 +65,21 @@ const jsEdgeTypes = toJs(tsEdgeTypes)
   </div>
 </DemoBlock>
 
+## 连线属性 (Edge Properties)
+
+| 属性           | 类型        | 说明                                           |
+| :------------- | :---------- | :--------------------------------------------- |
+| `id`           | `string`    | 连线唯一标识                                   |
+| `source`       | `string`    | 源节点 ID                                      |
+| `target`       | `string`    | 目标节点 ID                                    |
+| `sourceHandle` | `string`    | 源节点特定的连接点 ID                          |
+| `targetHandle` | `string`    | 目标节点特定的连接点 ID                        |
+| `type`         | `EdgeType`  | 连线渲染类型 (bezier/straight/step/smoothstep) |
+| `label`        | `string`    | 连线上展示的文字/HTML                          |
+| `animated`     | `boolean`   | 是否开启流向动画                               |
+| `style`        | `EdgeStyle` | 自定义样式 (如 `stroke`, `strokeWidth`)        |
+| `selected`     | `boolean`   | 是否选中                                       |
+
 ## 下一个
 
 - [交互操作](./interaction)

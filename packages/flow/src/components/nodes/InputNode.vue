@@ -41,7 +41,7 @@ const nodeStyle = computed(() => {
 
 <template>
   <div :class="['flow-input-node', { selected, dragging }]" :style="nodeStyle">
-    <div class="flow-node-label" v-html="label || data?.label || 'Input'"></div>
+    <div class="flow-node-label">{{ label || data?.label || 'Input' }}</div>
     <div
       class="flow-handle-right"
       v-if="connectable"

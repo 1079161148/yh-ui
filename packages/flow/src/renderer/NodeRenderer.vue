@@ -43,7 +43,9 @@
       <!-- 节点内容 -->
       <div class="yh-flow-node__content">
         <slot name="node" :node="node">
-          <div class="yh-flow-node__header" v-html="node.data?.label || node.id"></div>
+          <!-- Automatic Custom Node Component -->
+          <component v-if="getComponent(node.type)" :is="getComponent(node.type)" :node="node" />
+          <div v-else class="yh-flow-node__header">{{ node.data?.label || node.id }}</div>
         </slot>
       </div>
     </div>
@@ -52,17 +54,20 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { Node, NodeHandle, HandleType, Position } from '../types'
+import type { Node, NodeHandle, HandleType, Position, NodeTypes } from '../types'
+import { getCustomNodeTemplate, getCustomNode } from '../utils/custom-types'
 
 const props = withDefaults(
   defineProps<{
     nodes: Node[]
+    nodeTypes?: NodeTypes
     transform: { x: number; y: number; zoom: number }
     draggable?: boolean
     connectable?: boolean
     readonly?: boolean
   }>(),
   {
+    nodeTypes: () => ({}),
     draggable: true,
     connectable: true,
     readonly: false
@@ -85,6 +90,14 @@ const emit = defineEmits<{
   ): void
   (e: 'node-select-toggle', nodeId: string): void
 }>()
+
+const getComponent = (type: string) => {
+  if (props.nodeTypes && props.nodeTypes[type]) {
+    return props.nodeTypes[type]
+  }
+  // Try template first, then legacy custom node
+  return getCustomNodeTemplate(type)?.component || getCustomNode(type)?.component
+}
 
 const visibleNodes = computed(() => {
   return props.nodes.filter((n) => !n.hidden)
@@ -130,6 +143,62 @@ const getHandles = (node: Node, type: HandleType): NodeHandle[] => {
   }
   if (node.type === 'output') {
     return type === 'target' ? [{ type: 'target', position: 'left' as Position }] : []
+  }
+
+  // BPMN 节点 handle 策略
+  if (node.type === 'bpmn-start') {
+    return type === 'source' ? [{ type: 'source', position: 'right' as Position }] : []
+  }
+  if (node.type === 'bpmn-end') {
+    return type === 'target' ? [{ type: 'target', position: 'left' as Position }] : []
+  }
+  if (
+    node.type === 'bpmn-task' ||
+    node.type === 'bpmn-service-task' ||
+    node.type === 'bpmn-user-task'
+  ) {
+    if (type === 'source') return [{ type: 'source', position: 'right' as Position }]
+    return [{ type: 'target', position: 'left' as Position }]
+  }
+  if (
+    node.type === 'bpmn-exclusive-gateway' ||
+    node.type === 'bpmn-parallel-gateway' ||
+    node.type === 'bpmn-inclusive-gateway'
+  ) {
+    if (type === 'source') {
+      return [
+        { type: 'source', position: 'right' as Position },
+        { type: 'source', position: 'bottom' as Position }
+      ]
+    }
+    return [{ type: 'target', position: 'left' as Position }]
+  }
+
+  // AI Workflow 节点 handle 策略
+  if (node.type === 'ai-start') {
+    return type === 'source' ? [{ type: 'source', position: 'right' as Position }] : []
+  }
+  if (node.type === 'ai-end') {
+    return type === 'target' ? [{ type: 'target', position: 'left' as Position }] : []
+  }
+  if (
+    node.type === 'ai-llm' ||
+    node.type === 'ai-prompt' ||
+    node.type === 'ai-agent' ||
+    node.type === 'ai-tool' ||
+    node.type === 'ai-memory'
+  ) {
+    if (type === 'source') return [{ type: 'source', position: 'right' as Position }]
+    return [{ type: 'target', position: 'left' as Position }]
+  }
+  if (node.type === 'ai-condition') {
+    if (type === 'source') {
+      return [
+        { type: 'source', position: 'right' as Position },
+        { type: 'source', position: 'bottom' as Position }
+      ]
+    }
+    return [{ type: 'target', position: 'left' as Position }]
   }
 
   // default node: source on right/bottom, target on left/top
@@ -320,10 +389,10 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
 
 .yh-flow-node {
   position: absolute;
-  background: #fff;
-  border: 1px solid #1a192b;
-  border-radius: 3px;
-  box-shadow: none;
+  background: var(--flow-node-background, #fff);
+  border: 1px solid var(--flow-node-border, #1a192b);
+  border-radius: var(--flow-node-border-radius, 3px);
+  box-shadow: var(--flow-node-shadow, none);
   cursor: pointer;
   user-select: none;
   overflow: visible;
@@ -340,8 +409,8 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
 }
 
 .yh-flow-node.is-selected {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px #3b82f6;
+  border-color: var(--flow-node-selected-border, #3b82f6);
+  box-shadow: var(--flow-node-selected-shadow, 0 0 0 1px #3b82f6);
 }
 
 .yh-flow-node.is-dragging {
@@ -394,9 +463,9 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-  font-size: 12px;
-  color: #222;
+  font-weight: var(--flow-node-label-font-weight, 500);
+  font-size: var(--flow-node-label-font-size, 12px);
+  color: var(--flow-node-label-color, #222);
   text-align: center;
   width: 100%;
   box-sizing: border-box;
@@ -404,11 +473,11 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
 
 .yh-flow-handle {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #1a192b;
-  border: 1px solid #fff;
-  border-radius: 50%;
+  width: var(--flow-handle-size, 6px);
+  height: var(--flow-handle-size, 6px);
+  background: var(--flow-handle-background, #1a192b);
+  border: 1px solid var(--flow-handle-border, #fff);
+  border-radius: var(--flow-handle-border-radius, 50%);
   cursor: crosshair;
   z-index: 10;
   box-sizing: border-box;
@@ -420,8 +489,8 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
 
 .yh-flow-handle:hover,
 .yh-flow-node.is-selected .yh-flow-handle {
-  background: #3b82f6;
-  border-color: #fff;
+  background: var(--flow-handle-hover-background, #3b82f6);
+  border-color: var(--flow-handle-border, #fff);
 }
 
 /* Right */

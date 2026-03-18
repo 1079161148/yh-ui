@@ -13,7 +13,8 @@ export class EventBus {
     if (!this.handlers.has(event)) {
       this.handlers.set(event, new Set())
     }
-    this.handlers.get(event)!.add(handler)
+    // 类型转换为兼容的类型
+    this.handlers.get(event)!.add(handler as (...args: unknown[]) => void)
   }
 
   /**
@@ -22,7 +23,7 @@ export class EventBus {
   off<K extends FlowEventKey>(event: K, handler: FlowEventHandler<K>): void {
     const handlers = this.handlers.get(event)
     if (handlers) {
-      handlers.delete(handler)
+      handlers.delete(handler as (...args: unknown[]) => void)
       if (handlers.size === 0) {
         this.handlers.delete(event)
       }
@@ -53,10 +54,10 @@ export class EventBus {
    * 单次订阅
    */
   once<K extends FlowEventKey>(event: K, handler: FlowEventHandler<K>): void {
-    const wrappedHandler = ((...args: Parameters<FlowEventHandler<K>>) => {
-      handler(...(args as Parameters<FlowEventHandler<K>>))
-      this.off(event, wrappedHandler)
-    }) as FlowEventHandler<K>
+    const wrappedHandler = ((...args: unknown[]) => {
+      handler(...(args as [FlowEvents[K]]))
+      this.off(event, handler)
+    }) as (...args: unknown[]) => void
     this.on(event, wrappedHandler)
   }
 

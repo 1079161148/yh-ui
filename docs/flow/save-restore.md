@@ -8,17 +8,55 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs } from '../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 import type { FlowInstance, ViewportTransform, Node, Edge } from '@yh-ui/flow'
 
-const tsCode = `<template>
+const flowRef = ref<FlowInstance>();
+const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 });
+const nodes = ref<Node[]>([
+  { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } },
+  { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: '节点 2' } }
+]);
+const edges = ref<Edge[]>([
+  { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
+]);
+
+const saveTime = ref('');
+const STORAGE_KEY = 'yh-flow-persistence-demo';
+
+const saveState = () => {
+  if (!flowRef.value) return;
+  const data = {
+    nodes: flowRef.value.getNodes(),
+    edges: flowRef.value.getEdges(),
+    viewport: flowRef.value.getViewport()
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  saveTime.value = new Date().toLocaleTimeString();
+};
+
+const restoreState = () => {
+  const dataStr = localStorage.getItem(STORAGE_KEY);
+  if (dataStr) {
+    const data = JSON.parse(dataStr);
+    nodes.value = data.nodes || [];
+    edges.value = data.edges || [];
+    if (data.viewport) {
+      flowRef.value?.setViewport(data.viewport);
+    }
+  }
+};
+
+const clearState = () => { nodes.value = []; edges.value = []; };
+
+const tsCode = `<${_T}>
   <div class="sr-container">
     <div class="sr-toolbar">
-      <button class="sr-btn" @click="saveState">保存至 LocalStorage<\/button>
-      <button class="sr-btn restore" @click="restoreState">恢复状态<\/button>
-      <button class="sr-btn clear" @click="clearState">清空画布<\/button>
-      <div v-if="saveTime" class="sr-tip">上次保存: {{ saveTime }}<\/div>
-    <\/div>
+      <button class="sr-btn" @click="saveState">保存至 LocalStorage</button>
+      <button class="sr-btn restore" @click="restoreState">恢复状态</button>
+      <button class="sr-btn clear" @click="clearState">清空画布</button>
+      <div v-if="saveTime" class="sr-tip">上次保存: {{ saveTime }}</div>
+    </div>
     
     <div class="sr-flowbox">
       <yh-flow
@@ -28,61 +66,61 @@ const tsCode = `<template>
         :edges="edges"
         background="dots"
       />
-    <\/div>
-  <\/div>
-<\/template>
+    </div>
+  </div>
+</${_T}>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import type { Node, Edge, ViewportTransform, FlowInstance } from '@yh-ui/flow'
+<${_S} setup lang="ts">
+import { ref } from 'vue';
+import type { Node, Edge, ViewportTransform, FlowInstance } from '@yh-ui/flow';
 
-const flowRef = ref<FlowInstance>()
-const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
+const flowRef = ref<FlowInstance>();
+const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 });
 
 const nodes = ref<Node[]>([
   { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } },
   { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: '节点 2' } }
-])
+]);
 const edges = ref<Edge[]>([
   { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
-])
+]);
 
-const saveTime = ref('')
-const STORAGE_KEY = 'yh-flow-persistence-demo'
+const saveTime = ref('');
+const STORAGE_KEY = 'yh-flow-persistence-demo';
 
 const saveState = () => {
-  if (!flowRef.value) return
+  if (!flowRef.value) return;
   
   // 直接从引擎实例中提取状态
   const data = {
     nodes: flowRef.value.getNodes(),
     edges: flowRef.value.getEdges(),
     viewport: flowRef.value.getViewport()
-  }
+  };
   
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  saveTime.value = new Date().toLocaleTimeString()
-}
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  saveTime.value = new Date().toLocaleTimeString();
+};
 
 const restoreState = () => {
-  const dataStr = localStorage.getItem(STORAGE_KEY)
+  const dataStr = localStorage.getItem(STORAGE_KEY);
   if (dataStr) {
-    const data = JSON.parse(dataStr)
-    nodes.value = data.nodes || []
-    edges.value = data.edges || []
+    const data = JSON.parse(dataStr);
+    nodes.value = data.nodes || [];
+    edges.value = data.edges || [];
     if (data.viewport) {
-      flowRef.value?.setViewport(data.viewport)
+      flowRef.value?.setViewport(data.viewport);
     }
   }
-}
+};
 
 const clearState = () => {
-  nodes.value = []
-  edges.value = []
-}
-<\/script>
+  nodes.value = [];
+  edges.value = [];
+};
+</${_S}>
 
-<style scoped>
+<${_St} scoped>
 .sr-container {
   display: flex;
   flex-direction: column;
@@ -130,47 +168,8 @@ const clearState = () => {
   flex: 1;
   height: 100%;
 }
-<\/style>`
-
-const jsCode = toJs(tsCode)
-
-const flowRef = ref<FlowInstance>()
-const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
-const nodes = ref<Node[]>([
-  { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } },
-  { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: '节点 2' } }
-])
-const edges = ref<Edge[]>([
-  { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
-])
-
-const saveTime = ref('')
-const STORAGE_KEY = 'yh-flow-persistence-demo'
-
-const saveState = () => {
-  if (!flowRef.value) return
-  const data = {
-    nodes: flowRef.value.getNodes(),
-    edges: flowRef.value.getEdges(),
-    viewport: flowRef.value.getViewport()
-  }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  saveTime.value = new Date().toLocaleTimeString()
-}
-
-const restoreState = () => {
-  const dataStr = localStorage.getItem(STORAGE_KEY)
-  if (dataStr) {
-    const data = JSON.parse(dataStr)
-    nodes.value = data.nodes || []
-    edges.value = data.edges || []
-    if (data.viewport) {
-      flowRef.value?.setViewport(data.viewport)
-    }
-  }
-}
-
-const clearState = () => { nodes.value = []; edges.value = [] }
+</${_St}>`;
+const jsCode = toJs(tsCode);
 </script>
 
 <DemoBlock title="状态保存与加载" :ts-code="tsCode" :js-code="jsCode">
@@ -188,7 +187,7 @@ const clearState = () => { nodes.value = []; edges.value = [] }
         :nodes="nodes"
         :edges="edges"
         background="dots"
-      />
+      ></yh-flow>
     </div>
   </div>
 </DemoBlock>

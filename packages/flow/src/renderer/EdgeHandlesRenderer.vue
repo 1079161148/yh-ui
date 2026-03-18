@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Edge, Node, HandleType } from '../types'
+import type { Edge, Node, HandleType, Position } from '../types'
 import { getHandlePosition } from '../utils/edge'
 
 const props = defineProps<{
@@ -65,8 +65,8 @@ const selectedUpdatableEdges = computed(() => {
       const targetNode = nodeMap.value.get(edge.target)
       if (!sourceNode || !targetNode) continue
 
-      const sPosDesc = (edge.sourceHandle as any) || 'right'
-      const tPosDesc = (edge.targetHandle as any) || 'left'
+      const sPosDesc = (edge.sourceHandle || 'right') as Position
+      const tPosDesc = (edge.targetHandle || 'left') as Position
 
       const sPos = getHandlePosition(sourceNode, sPosDesc, edge.sourceHandle)
       const tPos = getHandlePosition(targetNode, tPosDesc, edge.targetHandle)

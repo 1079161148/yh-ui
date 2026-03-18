@@ -8,17 +8,38 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs } from '../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 import type { FlowInstance, ViewportTransform, Node, Edge } from '@yh-ui/flow'
 
-const tsCode = `<template>
+const flowRef = ref<FlowInstance>();
+const viewport = ref<ViewportTransform>({ x: 50, y: 50, zoom: 1 });
+const nodes = ref<Node[]>([{ id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } }, { id: '2', type: 'default', position: { x: 400, y: 300 }, data: { label: '节点 2' } }, { id: '3', type: 'output', position: { x: -250, y: 400 }, data: { label: '节点 3' } }]);
+const edges = ref<Edge[]>([{ id: 'e1-2', source: '1', target: '2', type: 'bezier' }, { id: 'e1-3', source: '1', target: '3', type: 'bezier' }]);
+
+const panToNode = (id: string) => {
+  if (!flowRef.value) return;
+  const node = nodes.value.find(n => n.id === id);
+  if (!node) return;
+  const targetZoom = 1.6;
+  const flowEl = (flowRef.value as any).$el;
+  const canvasW = flowEl.clientWidth || 800;
+  const canvasH = flowEl.clientHeight || 500;
+  const nodeW = node.width || 200;
+  const nodeH = node.height || 50;
+  const targetX = (canvasW / 2) - (node.position.x + nodeW / 2) * targetZoom;
+  const targetY = (canvasH / 2) - (node.position.y + nodeH / 2) * targetZoom;
+  flowRef.value.setViewport({ x: targetX, y: targetY, zoom: targetZoom });
+};
+const fitView = () => { flowRef.value?.fitView({ padding: 30 }); };
+
+const tsCode = `<${_T}>
   <div class="vt-container">
     <div class="vt-toolbar">
-      <button class="vt-btn" @click="panToNode('1')">聚焦节点 1<\/button>
-      <button class="vt-btn" @click="panToNode('2')">聚焦节点 2<\/button>
-      <button class="vt-btn" @click="panToNode('3')">聚焦节点 3<\/button>
-      <button class="vt-btn reset" @click="fitView">适应屏幕 (居中)<\/button>
-    <\/div>
+      <button class="vt-btn" @click="panToNode('1')">聚焦节点 1</button>
+      <button class="vt-btn" @click="panToNode('2')">聚焦节点 2</button>
+      <button class="vt-btn" @click="panToNode('3')">聚焦节点 3</button>
+      <button class="vt-btn reset" @click="fitView">适应屏幕 (居中)</button>
+    </div>
     
     <div class="vt-flowbox">
       <!-- 添加特定类名以在内容层应用 CSS 过渡 -->
@@ -30,55 +51,55 @@ const tsCode = `<template>
         background="dots"
         class="animated-flow"
       />
-    <\/div>
-  <\/div>
-<\/template>
+    </div>
+  </div>
+</${_T}>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import type { Node, Edge, ViewportTransform, FlowInstance } from '@yh-ui/flow'
+<${_S} setup lang="ts">
+import { ref } from 'vue';
+import type { Node, Edge, ViewportTransform, FlowInstance } from '@yh-ui/flow';
 
-const flowRef = ref<FlowInstance>()
-const viewport = ref<ViewportTransform>({ x: 50, y: 50, zoom: 1 })
+const flowRef = ref<FlowInstance>();
+const viewport = ref<ViewportTransform>({ x: 50, y: 50, zoom: 1 });
 
 const nodes = ref<Node[]>([
   { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } },
   { id: '2', type: 'default', position: { x: 400, y: 300 }, data: { label: '节点 2' } },
   { id: '3', type: 'output', position: { x: -250, y: 400 }, data: { label: '节点 3' } }
-])
+]);
 
 const edges = ref<Edge[]>([
   { id: 'e1-2', source: '1', target: '2', type: 'bezier' },
   { id: 'e1-3', source: '1', target: '3', type: 'bezier' }
-])
+]);
 
 const panToNode = (id: string) => {
-  if (!flowRef.value) return
-  const node = nodes.value.find(n => n.id === id)
-  if (!node) return
+  if (!flowRef.value) return;
+  const node = nodes.value.find(n => n.id === id);
+  if (!node) return;
   
-  const targetZoom = 1.5
+  const targetZoom = 1.5;
   
   // 获取容器尺寸以计算中心点
-  const flowEl = (flowRef.value as any).$el
-  const canvasW = flowEl.clientWidth || 800
-  const canvasH = flowEl.clientHeight || 500
+  const flowEl = (flowRef.value as any).$el;
+  const canvasW = flowEl.clientWidth || 800;
+  const canvasH = flowEl.clientHeight || 500;
   
-  const nodeW = node.width || 200
-  const nodeH = node.height || 50
+  const nodeW = node.width || 200;
+  const nodeH = node.height || 50;
   
-  const targetX = (canvasW / 2) - (node.position.x + nodeW / 2) * targetZoom
-  const targetY = (canvasH / 2) - (node.position.y + nodeH / 2) * targetZoom
+  const targetX = (canvasW / 2) - (node.position.x + nodeW / 2) * targetZoom;
+  const targetY = (canvasH / 2) - (node.position.y + nodeH / 2) * targetZoom;
   
-  flowRef.value.setViewport({ x: targetX, y: targetY, zoom: targetZoom })
-}
+  flowRef.value.setViewport({ x: targetX, y: targetY, zoom: targetZoom });
+};
 
 const fitView = () => {
-  flowRef.value?.fitView({ padding: 30 })
-}
-<\/script>
+  flowRef.value?.fitView({ padding: 30 });
+};
+</${_S}>
 
-<style scoped>
+<${_St} scoped>
 .vt-container {
   display: flex;
   flex-direction: column;
@@ -118,30 +139,8 @@ const fitView = () => {
 :deep(.animated-flow .yh-flow__content) {
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
-<\/style>`
-
-const jsCode = toJs(tsCode)
-
-const flowRef = ref<FlowInstance>()
-const viewport = ref<ViewportTransform>({ x: 50, y: 50, zoom: 1 })
-const nodes = ref<Node[]>([{ id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } }, { id: '2', type: 'default', position: { x: 400, y: 300 }, data: { label: '节点 2' } }, { id: '3', type: 'output', position: { x: -250, y: 400 }, data: { label: '节点 3' } }])
-const edges = ref<Edge[]>([{ id: 'e1-2', source: '1', target: '2', type: 'bezier' }, { id: 'e1-3', source: '1', target: '3', type: 'bezier' }])
-
-const panToNode = (id: string) => {
-  if (!flowRef.value) return
-  const node = nodes.value.find(n => n.id === id)
-  if (!node) return
-  const targetZoom = 1.6
-  const flowEl = (flowRef.value as any).$el
-  const canvasW = flowEl.clientWidth || 800
-  const canvasH = flowEl.clientHeight || 500
-  const nodeW = node.width || 200
-  const nodeH = node.height || 50
-  const targetX = (canvasW / 2) - (node.position.x + nodeW / 2) * targetZoom
-  const targetY = (canvasH / 2) - (node.position.y + nodeH / 2) * targetZoom
-  flowRef.value.setViewport({ x: targetX, y: targetY, zoom: targetZoom })
-}
-const fitView = () => { flowRef.value?.fitView({ padding: 30 }) }
+</${_St}>`;
+const jsCode = toJs(tsCode);
 </script>
 
 <DemoBlock title="POI 平滑飞行" :ts-code="tsCode" :js-code="jsCode">

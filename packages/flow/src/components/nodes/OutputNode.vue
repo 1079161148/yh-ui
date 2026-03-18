@@ -47,7 +47,7 @@ const nodeStyle = computed(() => {
       data-handle-type="target"
       data-handle-position="left"
     />
-    <div class="flow-node-label" v-html="label || data?.label || 'Output'"></div>
+    <div class="flow-node-label">{{ label || data?.label || 'Output' }}</div>
   </div>
 </template>
 

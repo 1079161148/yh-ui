@@ -1,17 +1,54 @@
+import { nextTick } from 'vue'
 import type { FlowInstance, FlowPlugin } from '../plugin'
+import type { ScreenshotOptions, ScreenshotResult } from '../../types'
+import { captureElement, triggerDownload, copyBlobToClipboard } from '../../utils/screenshot'
+import type { CaptureElementOptions } from '../../utils/screenshot'
 
 export interface ExportPluginOptions {
   enabled?: boolean
   fileName?: string
   exportImage?: boolean
   exportJson?: boolean
+  imageType?: 'png' | 'jpeg' | 'webp'
+  imageQuality?: number
+  pixelRatio?: number
+  backgroundColor?: string
 }
 
 const defaultOptions: Required<ExportPluginOptions> = {
   enabled: true,
   fileName: 'flow-chart',
   exportImage: true,
-  exportJson: true
+  exportJson: true,
+  imageType: 'png',
+  imageQuality: 1,
+  pixelRatio: 2,
+  backgroundColor: '#ffffff'
+}
+
+function normalizeOptions(
+  pluginOptions: Required<ExportPluginOptions>,
+  arg?: ScreenshotOptions | HTMLElement
+): ScreenshotOptions & { container?: HTMLElement } {
+  if (arg == null) {
+    return {}
+  }
+  if (arg instanceof HTMLElement) {
+    return { container: arg }
+  }
+  return { ...arg }
+}
+
+function mergeCaptureOptions(
+  plugin: Required<ExportPluginOptions>,
+  options: ScreenshotOptions
+): CaptureElementOptions {
+  return {
+    imageType: options.imageType ?? plugin.imageType,
+    imageQuality: options.imageQuality ?? plugin.imageQuality,
+    pixelRatio: options.pixelRatio ?? plugin.pixelRatio,
+    backgroundColor: options.backgroundColor ?? plugin.backgroundColor
+  }
 }
 
 export function createExportPlugin(options: ExportPluginOptions = {}): FlowPlugin {
@@ -25,7 +62,6 @@ export function createExportPlugin(options: ExportPluginOptions = {}): FlowPlugi
     install(flow: FlowInstance) {
       if (!mergedOptions.enabled) return
 
-      // 导出为 JSON
       if (mergedOptions.exportJson) {
         flow.exportJson = () => {
           return JSON.stringify(
@@ -40,10 +76,48 @@ export function createExportPlugin(options: ExportPluginOptions = {}): FlowPlugi
         }
       }
 
-      // 导出为图片的逻辑通常依赖外部库，这里提供钩子
       if (mergedOptions.exportImage) {
-        flow.exportImage = async (_container?: HTMLElement) => {
-          console.log('[Export Plugin] Exporting image...')
+        flow.exportImage = async (
+          optionsOrContainer?: ScreenshotOptions | HTMLElement
+        ): Promise<ScreenshotResult> => {
+          const opts = normalizeOptions(mergedOptions, optionsOrContainer)
+          const container = opts.container ?? flow.$el
+
+          if (!container) {
+            throw new Error('[Export Plugin] No element found for export')
+          }
+
+          const mode = opts.mode ?? 'viewport'
+          const download = opts.download !== false
+          const copyToClipboard = opts.copyToClipboard === true
+          const fileName = opts.fileName ?? mergedOptions.fileName
+          const fullModePadding = opts.fullModePadding ?? 20
+
+          let savedViewport: { x: number; y: number; zoom: number } | null = null
+
+          try {
+            if (mode === 'full') {
+              savedViewport = { ...flow.getViewport() }
+              flow.fitView?.({ padding: fullModePadding })
+              await nextTick()
+            }
+
+            const captureOpts = mergeCaptureOptions(mergedOptions, opts)
+            const result = await captureElement(container, captureOpts)
+
+            if (download) {
+              triggerDownload(result.dataUrl, fileName, result.extension)
+            }
+            if (copyToClipboard) {
+              await copyBlobToClipboard(result.blob)
+            }
+
+            return result
+          } finally {
+            if (savedViewport) {
+              flow.setViewport(savedViewport)
+            }
+          }
         }
       }
     }

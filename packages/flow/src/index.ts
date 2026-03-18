@@ -25,6 +25,32 @@ export { default as GroupNode } from './components/nodes/GroupNode.vue'
 export { default as CustomNode } from './components/nodes/CustomNode.vue'
 export { default as NodeResizer } from './components/nodes/NodeResizer.vue'
 export { default as NodeToolbar } from './components/nodes/NodeToolbar.vue'
+// BPMN 节点库
+export {
+  BpmnStartEvent,
+  BpmnEndEvent,
+  BpmnTask,
+  BpmnServiceTask,
+  BpmnUserTask,
+  BpmnExclusiveGateway,
+  BpmnParallelGateway,
+  BpmnInclusiveGateway,
+  BPMN_NODE_TYPES,
+  registerBpmnNodes
+} from './components/nodes/bpmn'
+// AI 工作流节点库
+export {
+  AiLlmNode,
+  AiPromptNode,
+  AiAgentNode,
+  AiToolNode,
+  AiConditionNode,
+  AiStartNode,
+  AiEndNode,
+  AiMemoryNode,
+  AI_WORKFLOW_NODE_TYPES,
+  registerAiWorkflowNodes
+} from './components/nodes/ai-workflow'
 
 // 内置连线组件
 export { default as BaseEdge } from './components/edges/BaseEdge.vue'
@@ -38,6 +64,7 @@ export { default as Flow } from './Flow.vue'
 // 编辑面板组件
 export { default as NodeEditPanel } from './components/NodeEditPanel.vue'
 export { default as EdgeEditPanel } from './components/EdgeEditPanel.vue'
+export { default as AiNodeEditPanel } from './components/AiNodeEditPanel.vue'
 
 // 暴露辅助 UI 组件作为功能插件使用（Vue 通用最佳实践）
 export { default as Minimap } from './renderer/Minimap.vue'

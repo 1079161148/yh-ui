@@ -1,4 +1,4 @@
-import type { Position, EdgeType } from '../types'
+import type { Position, EdgeType, NodeStyle } from '../types'
 
 export interface EdgePathParams {
   sourceX: number
@@ -29,7 +29,7 @@ function getDir(pos: Position): { x: number; y: number } {
  * 获取连接点的位置坐标
  */
 export function getHandlePosition(
-  node: { position: { x: number; y: number }; width?: number; height?: number; style?: any },
+  node: { position: { x: number; y: number }; width?: number; height?: number; style?: NodeStyle },
   handlePosition: Position = 'right',
   _handleId?: string | null
 ): { x: number; y: number } {

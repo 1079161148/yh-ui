@@ -16,6 +16,14 @@ export interface MiniMapOptions {
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
   width?: number
   height?: number
+  /** Enable interactive click-to-navigate */
+  interactive?: boolean
+  /** Show layout control buttons */
+  showLayoutControls?: boolean
+  /** Current layout type */
+  layoutType?: 'dagre' | 'elk' | 'force' | 'grid' | 'none'
+  /** Layout direction */
+  layoutDirection?: 'TB' | 'BT' | 'LR' | 'RL'
 }
 
 const defaultOptions: Required<MiniMapOptions> = {
@@ -30,7 +38,11 @@ const defaultOptions: Required<MiniMapOptions> = {
   zoomable: true,
   position: 'bottom-right',
   width: 200,
-  height: 150
+  height: 150,
+  interactive: false,
+  showLayoutControls: false,
+  layoutType: 'none',
+  layoutDirection: 'TB'
 }
 
 export function createMiniMapPlugin(options: MiniMapOptions = {}): FlowPlugin {
@@ -53,7 +65,11 @@ export function createMiniMapPlugin(options: MiniMapOptions = {}): FlowPlugin {
       maskStrokeColor: mergedOptions.maskStrokeColor,
       maskStrokeWidth: mergedOptions.maskStrokeWidth,
       pannable: mergedOptions.pannable,
-      zoomable: mergedOptions.zoomable
+      zoomable: mergedOptions.zoomable,
+      interactive: mergedOptions.interactive,
+      showLayoutControls: mergedOptions.showLayoutControls,
+      layoutType: mergedOptions.layoutType,
+      layoutDirection: mergedOptions.layoutDirection
     },
     install(flow: FlowInstance) {
       console.log('[Minimap Plugin] Installed', flow)

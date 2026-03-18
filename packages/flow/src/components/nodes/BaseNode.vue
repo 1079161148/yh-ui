@@ -28,20 +28,20 @@ const props = withDefaults(defineProps<Props>(), {
 
 const nodeStyle = computed(() => {
   const base: NodeStyle = {
-    padding: '10px',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
-    backgroundColor: '#fff',
+    padding: 'var(--flow-node-padding, 10px)',
+    borderRadius: 'var(--flow-node-border-radius, 8px)',
+    border: '1px solid var(--flow-node-border, #dcdfe6)',
+    backgroundColor: 'var(--flow-node-background, #fff)',
     minWidth: '100px',
     textAlign: 'center',
     transition: 'all 0.2s'
   }
   if (props.selected) {
-    base.border = '2px solid #409eff'
-    base.boxShadow = '0 0 8px rgba(64, 158, 255, 0.4)'
+    base.border = '2px solid var(--flow-node-selected-border, #409eff)'
+    base.boxShadow = 'var(--flow-node-selected-shadow, 0 0 8px rgba(64, 158, 255, 0.4))'
   }
   if (props.dragging) {
-    base.opacity = '0.8'
+    base.opacity = 'var(--flow-node-dragging-opacity, 0.8)'
     base.cursor = 'grabbing'
   }
   return { ...base, ...props.style }
@@ -49,11 +49,11 @@ const nodeStyle = computed(() => {
 
 function getHandleStyle(handle: NodeHandle) {
   const style: NodeStyle = {
-    width: '12px',
-    height: '12px',
-    backgroundColor: '#fff',
-    border: '2px solid #409eff',
-    borderRadius: '50%',
+    width: 'var(--flow-handle-size, 12px)',
+    height: 'var(--flow-handle-size, 12px)',
+    backgroundColor: 'var(--flow-handle-background, #fff)',
+    border: '2px solid var(--flow-handle-border, #409eff)',
+    borderRadius: 'var(--flow-handle-border-radius, 50%)',
     cursor: 'crosshair'
   }
   if (handle.style) {
@@ -65,8 +65,8 @@ function getHandleStyle(handle: NodeHandle) {
 
 <template>
   <div :class="['flow-base-node', { selected, dragging }]" :style="nodeStyle">
-    <div class="flow-node-label" v-html="label || data?.label || type"></div>
-    <div v-if="data?.description" class="flow-node-description" v-html="data.description"></div>
+    <div class="flow-node-label">{{ label || data?.label || type }}</div>
+    <div v-if="data?.description" class="flow-node-description">{{ data.description }}</div>
     <template v-for="handle in handles" :key="`${handle.type}-${handle.position}`">
       <div
         v-if="handle.isConnectable !== false && connectable"
@@ -100,21 +100,25 @@ function getHandleStyle(handle: NodeHandle) {
 }
 
 .flow-node-label {
-  font-size: 13px;
-  font-weight: 400;
-  color: #000;
-  font-family: 'Courier New', Courier, monospace;
+  font-size: var(--flow-node-label-font-size, 14px);
+  font-weight: var(--flow-node-label-font-weight, 500);
+  color: var(--flow-node-label-color, #303133);
+  font-family: inherit;
 }
 
 .flow-node-description {
-  font-size: 12px;
-  color: #666;
+  font-size: var(--flow-node-description-font-size, 12px);
+  color: var(--flow-node-description-color, #909399);
   margin-top: 4px;
 }
 
 .flow-handle {
   position: absolute;
   z-index: 20;
+}
+
+.flow-handle:hover {
+  background-color: var(--flow-handle-hover-background, var(--flow-handle-border, #409eff));
 }
 
 .flow-handle-position-top {

@@ -65,6 +65,21 @@ const jsEdgeTypes = toJs(tsEdgeTypes)
   </div>
 </DemoBlock>
 
+## Edge Properties
+
+| Property       | Type        | Description                                        |
+| :------------- | :---------- | :------------------------------------------------- |
+| `id`           | `string`    | Unique edge identifier                             |
+| `source`       | `string`    | Source node ID                                     |
+| `target`       | `string`    | Target node ID                                     |
+| `sourceHandle` | `string`    | Source handle ID                                   |
+| `targetHandle` | `string`    | Target handle ID                                   |
+| `type`         | `EdgeType`  | Edge render type (bezier/straight/step/smoothstep) |
+| `label`        | `string`    | Label text or HTML                                 |
+| `animated`     | `boolean`   | Enable flow animation                              |
+| `style`        | `EdgeStyle` | Custom styles (e.g., `stroke`, `strokeWidth`)      |
+| `selected`     | `boolean`   | Whether edge is selected                           |
+
 ## Next
 
 - [Interaction](./interaction)

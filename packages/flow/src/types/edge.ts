@@ -1,6 +1,6 @@
 import type { NodeStyle } from './node'
 
-export type EdgeType = 'smoothstep' | 'step' | 'bezier' | 'straight' | 'default'
+export type EdgeType = string | 'smoothstep' | 'step' | 'bezier' | 'straight' | 'default'
 
 export interface Connection {
   source: string

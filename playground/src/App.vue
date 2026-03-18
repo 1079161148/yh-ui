@@ -452,9 +452,9 @@ const selectedInfo = computed(() => {
         >
           <template #node="{ node }">
             <div class="custom-node" :class="{ 'is-selected': node.selected }">
-              <div class="node-icon">{{
-                node.type === 'input' ? '▶' : node.type === 'output' ? '■' : '●'
-              }}</div>
+              <div class="node-icon">
+                {{ node.type === 'input' ? '▶' : node.type === 'output' ? '■' : '●' }}
+              </div>
               <div class="node-content">
                 <div class="node-label">{{ node.data?.label || node.id }}</div>
                 <div class="node-type">{{ node.type }}</div>

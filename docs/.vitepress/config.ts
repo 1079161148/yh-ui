@@ -709,6 +709,7 @@ export default defineConfig({
           text: '开始',
           items: [
             { text: '快速开始', link: '/flow/basic' },
+            { text: '更新日志', link: '/flow/changelog' },
             { text: 'API 参考', link: '/flow/api' }
           ]
         },
@@ -750,6 +751,20 @@ export default defineConfig({
           ]
         },
         {
+          text: '新增专题',
+          items: [
+            { text: '自定义节点模板', link: '/flow/custom-node-templates' },
+            { text: '节点嵌套布局', link: '/flow/nested-layout' },
+            { text: '交互式小地图', link: '/flow/minimap' },
+            { text: '导出功能', link: '/flow/exports' },
+            { text: '自定义边类型', link: '/flow/custom-edges' },
+            { text: 'BPMN XML 导入导出', link: '/flow/bpmn' },
+            { text: 'BPMN 流程执行引擎', link: '/flow/bpmn-engine' },
+            { text: 'CSS 变量主题系统', link: '/flow/theme-system' },
+            { text: '实时协作', link: '/flow/collaboration' }
+          ]
+        },
+        {
           text: '性能与架构',
           items: [
             { text: '自动布局 (Dagre)', link: '/flow/layout' },
@@ -766,6 +781,7 @@ export default defineConfig({
           text: 'Essentials',
           items: [
             { text: 'Quick Start', link: '/en/flow/basic' },
+            { text: 'Changelog', link: '/en/flow/changelog' },
             { text: 'API Reference', link: '/en/flow/api' }
           ]
         },
@@ -804,6 +820,20 @@ export default defineConfig({
             { text: 'Custom Edge UI', link: '/en/flow/custom-edge' },
             { text: 'Updatable Edges', link: '/en/flow/updatable-edge' },
             { text: 'Node & Edge Editing', link: '/en/flow/node-edge-edit' }
+          ]
+        },
+        {
+          text: 'New Features',
+          items: [
+            { text: 'Custom Node Templates', link: '/en/flow/custom-node-templates' },
+            { text: 'Nested Node Layout', link: '/en/flow/nested-layout' },
+            { text: 'Interactive Minimap', link: '/en/flow/minimap' },
+            { text: 'Export', link: '/en/flow/exports' },
+            { text: 'Custom Edge Types', link: '/en/flow/custom-edges' },
+            { text: 'BPMN XML Import/Export', link: '/en/flow/bpmn' },
+            { text: 'BPMN Process Engine', link: '/en/flow/bpmn-engine' },
+            { text: 'CSS Variable Themes', link: '/en/flow/theme-system' },
+            { text: 'Real-time Collaboration', link: '/en/flow/collaboration' }
           ]
         },
         {

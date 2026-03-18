@@ -120,11 +120,18 @@ interface Node<Data = NodeData> {
   class?: string
   width?: number
   height?: number
+  draggable?: boolean // Whether node is draggable
+  selectable?: boolean // Whether node is selectable
+  connectable?: boolean // Whether node is connectable
+  resizable?: boolean // Whether to show resize handle
+  deletable?: boolean // Whether node can be deleted
   selected?: boolean
   dragging?: boolean
   hidden?: boolean
-  parentId?: string
+  parentId?: string // Parent node ID for grouping
   zIndex?: number
+  extent?: 'parent' // Movement range limit
+  handleBounds?: any // Custom handle configurations
 }
 ```
 
@@ -224,27 +231,21 @@ const customNode = {
 
 ```vue
 <template>
-  <div class="custom-node" :class="{ selected }">
+  <div class="custom-node" :class="{ selected: node.selected }">
     <div class="custom-node__header">
-      <span class="custom-node__icon">{{ data.icon }}</span>
-      <span class="custom-node__label">{{ data.label }}</span>
+      <span class="custom-node__icon">{{ node.data.icon }}</span>
+      <span class="custom-node__label">{{ node.data.label }}</span>
     </div>
     <div class="custom-node__body">
-      <span :class="['status', data.status]">{{ data.statusText }}</span>
+      <span :class="['status', node.data.status]">{{ node.data.statusText }}</span>
     </div>
   </div>
 <\/template>
 
 <script setup lang="ts">
+import type { Node } from '@yh-ui/flow'
 defineProps<{
-  id: string
-  data: {
-    label: string
-    icon?: string
-    status?: string
-    statusText?: string
-  }
-  selected: boolean
+  node: Node
 }>()
 <\/script>
 
@@ -303,21 +304,22 @@ Each node has preset connection handle positions:
 
 ## Node Properties
 
-| Property | Type                       | Description                       |
-| -------- | -------------------------- | --------------------------------- |
-| id       | `string`                   | Unique identifier for the node    |
-| type     | `string`                   | Node type                         |
-| position | `{ x: number, y: number }` | Node position                     |
-| data     | `NodeData`                 | Node data                         |
-| width    | `number`                   | Node width                        |
-| height   | `number`                   | Node height                       |
-| style    | `NodeStyle`                | Custom styles                     |
-| class    | `string`                   | Custom class names                |
-| selected | `boolean`                  | Whether the node is selected      |
-| dragging | `boolean`                  | Whether the node is being dragged |
-| hidden   | `boolean`                  | Whether the node is hidden        |
-| parentId | `string`                   | Parent node ID (for grouping)     |
-| zIndex   | `number`                   | Layer order                       |
+| Property       | Type                       | Description                   |
+| -------------- | -------------------------- | ----------------------------- |
+| id             | `string`                   | Unique identifier             |
+| type           | `string`                   | Node type                     |
+| position       | `{ x: number, y: number }` | Node position                 |
+| data           | `NodeData`                 | Node data                     |
+| width / height | `number`                   | Node dimensions               |
+| draggable      | `boolean`                  | Draggable (default: true)     |
+| selectable     | `boolean`                  | Selectable (default: true)    |
+| connectable    | `boolean`                  | Connectable (default: true)   |
+| selected       | `boolean`                  | Whether node is selected      |
+| dragging       | `boolean`                  | Whether node is being dragged |
+| hidden         | `boolean`                  | Whether node is hidden        |
+| parentId       | `string`                   | Parent node ID for grouping   |
+| zIndex         | `number`                   | Layer order                   |
+| handleBounds   | `object`                   | Custom handle config          |
 
 ## Next
 

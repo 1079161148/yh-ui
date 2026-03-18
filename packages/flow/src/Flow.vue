@@ -19,8 +19,9 @@
     <div class="yh-flow__content" :style="contentStyle">
       <!-- Edges -->
       <EdgeRenderer
-        :edges="edgesRef"
-        :nodes="nodesRef"
+        :edges="edgesRef || []"
+        :nodes="nodesRef || []"
+        :edge-types="edgeTypes"
         :transform="viewportRef"
         :connecting-edge="connectingEdge"
         @edge-click="handleEdgeClick"
@@ -30,13 +31,14 @@
         :updating-edge-id="updatingEdge?.edge.id"
       >
         <template #edge="edgeProps">
-          <slot name="edge" v-bind="edgeProps"></slot>
+          <slot name="edge" v-bind="edgeProps" />
         </template>
       </EdgeRenderer>
 
       <!-- Nodes -->
       <NodeRenderer
-        :nodes="visibleNodes"
+        :nodes="visibleNodes || []"
+        :node-types="nodeTypes"
         :transform="viewportRef"
         :draggable="nodesDraggable && !readonly"
         :readonly="readonly"
@@ -50,21 +52,9 @@
         @node-select-toggle="handleNodeSelectToggle"
       >
         <template #node="nodeProps">
-          <slot name="node" v-bind="nodeProps">
-            <div
-              class="yh-flow-node__header"
-              v-html="nodeProps.node?.data?.label || nodeProps.node?.id"
-            ></div>
-          </slot>
+          <slot name="node" v-bind="nodeProps" />
         </template>
       </NodeRenderer>
-
-      <!-- Node Handles (for updatable edges) -->
-      <EdgeHandlesRenderer
-        :edges="edgesRef"
-        :nodes="nodesRef"
-        @edge-update-start="handleEdgeUpdateStart"
-      />
 
       <!-- Selection Box -->
       <SelectionBox
@@ -90,7 +80,17 @@
     </svg>
 
     <!-- Node Edit Panel -->
+    <!-- AI 工作流节点使用 AI 配置面板 -->
+    <AiNodeEditPanel
+      v-if="editingNode?.type?.startsWith('ai-')"
+      :node="editingNode"
+      :visible="showNodeEditPanel"
+      @update="handleNodeEditUpdate"
+      @close="closeNodeEditPanel"
+    />
+    <!-- 普通节点使用基础编辑面板 -->
     <NodeEditPanel
+      v-else
       :node="editingNode"
       :visible="showNodeEditPanel"
       @update="handleNodeEditUpdate"
@@ -101,6 +101,7 @@
     <EdgeEditPanel
       :edge="editingEdge"
       :visible="showEdgeEditPanel"
+      :edge-types="edgeTypes"
       @update="handleEdgeEditUpdate"
       @close="closeEdgeEditPanel"
     />
@@ -109,7 +110,13 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef } from 'vue'
-if (typeof window !== 'undefined') (window as any).__YH_FLOW_VERSION__ = '1.0.1'
+// 添加全局版本属性用于调试
+declare global {
+  interface Window {
+    __YH_FLOW_VERSION__?: string
+  }
+}
+if (typeof window !== 'undefined') window.__YH_FLOW_VERSION__ = '1.0.1'
 import type {
   Node,
   Edge,
@@ -121,14 +128,16 @@ import type {
   FlowEventKey,
   FlowEventHandler,
   FlowEvents,
-  FlowInstance
+  FlowInstance,
+  NodeTypes,
+  EdgeTypes
 } from './types'
 import EdgeRenderer from './renderer/EdgeRenderer.vue'
 import NodeRenderer from './renderer/NodeRenderer.vue'
 import SelectionBox from './renderer/SelectionBox.vue'
 import NodeEditPanel from './components/NodeEditPanel.vue'
+import AiNodeEditPanel from './components/AiNodeEditPanel.vue'
 import EdgeEditPanel from './components/EdgeEditPanel.vue'
-import EdgeHandlesRenderer from './renderer/EdgeHandlesRenderer.vue'
 import {
   createGridPlugin,
   createMiniMapPlugin,
@@ -145,6 +154,14 @@ import { useAlignment } from './core/useAlignment'
 import { getEdgePath, getHandlePosition } from './utils/edge'
 import { screenToCanvas, canvasToScreen } from './utils/transform'
 import { isValidConnection, detectCycles } from './utils/validation'
+import {
+  createNodeFromTemplate,
+  isNestedNode,
+  getNodeChildren,
+  getNodeParent,
+  exportFlowData,
+  importFlowData
+} from './utils/custom-types'
 import { provideFlowContext } from './core/FlowContext'
 import { createEventBus } from './utils/event-bus'
 import { PluginManager } from './plugins/plugin'
@@ -219,11 +236,71 @@ const props = withDefaults(
     noCycleValidation?: boolean
     showAlignmentLines?: boolean
     snapThreshold?: number
+    // ============================================
+    // New Props for 5-star features
+    // ============================================
+    /** Custom node templates for quick node creation */
+    customNodeTemplates?: Record<
+      string,
+      {
+        type: string
+        defaultData?: Record<string, unknown>
+        defaultWidth?: number
+        defaultHeight?: number
+      }
+    >
+    /** Node types map for rendering */
+    nodeTypes?: NodeTypes
+    /** Edge types map for rendering */
+    edgeTypes?: EdgeTypes
+    /** Enable interactive minimap (click to navigate) */
+    interactiveMinimap?: boolean
+    /** Show layout controls in minimap */
+    showLayoutControls?: boolean
+    /** Current layout type */
+    layoutType?: 'dagre' | 'elk' | 'force' | 'grid' | 'none'
+    /** Layout direction for auto-layout */
+    layoutDirection?: 'TB' | 'BT' | 'LR' | 'RL'
+    /** Enable export functionality */
+    enableExport?: boolean
+    /** Export file name prefix */
+    exportFileName?: string
   }>(),
   {
+    nodes: () => [],
+    edges: () => [],
+    modelValue: () => ({ x: 0, y: 0, zoom: 1 }),
+    minZoom: 0.1,
+    maxZoom: 2,
+    zoomStep: 0.1,
     nodesDraggable: true,
+    edgesConnectable: true,
     selectable: true,
-    keyboardShortcuts: true
+    background: 'none',
+    backgroundColor: 'transparent',
+    gridSize: 20,
+    snapToGrid: false,
+    snapGrid: () => [20, 20],
+    readonly: false,
+    showControls: false,
+    showMinimap: false,
+    minimapNodeColor: '#cbd5e1',
+    history: false,
+    maxHistory: 50,
+    keyboardShortcuts: true,
+    noCycleValidation: false,
+    showAlignmentLines: false,
+    snapThreshold: 5,
+    customNodeTemplates: () => ({}),
+    nodeTypes: () => ({}),
+    edgeTypes: () => ({}),
+    interactiveMinimap: false,
+    showLayoutControls: false,
+    layoutType: 'none',
+    layoutDirection: 'TB',
+    enableExport: false,
+    exportFileName: 'flow-chart',
+    connectionValidator: undefined
   }
 )
 
@@ -267,7 +344,6 @@ const eventBus = createEventBus()
 const pluginManager = new PluginManager()
 
 // Alignment lines state (before useAlignment)
-const showAlignmentLines = ref(props.showAlignmentLines ?? true)
 const snapThreshold = ref(props.snapThreshold ?? 10)
 
 const viewport = useViewport(viewportRef, {
@@ -739,8 +815,9 @@ const handleEdgeUpdateStart = (event: MouseEvent, edge: Edge, handleType: Handle
   const node = nodesRef.value.find((n) => n.id === anchorNodeId)
   if (!node) return
 
-  const position: Position =
-    handleType === 'source' ? (anchorHandleId as any) || 'left' : (anchorHandleId as any) || 'right'
+  const position: Position = (
+    handleType === 'source' ? (anchorHandleId ?? 'left') : (anchorHandleId ?? 'right')
+  ) as Position
   const startPos = getHandlePosition(node, position, anchorHandleId)
 
   isConnecting.value = true
@@ -771,7 +848,7 @@ const handleConnectStart = (
   const rect = containerRef.value?.getBoundingClientRect()
   if (!rect) return
 
-  const position: Position = (handleId as any) || (handleType === 'source' ? 'right' : 'left')
+  const position: Position = (handleId || (handleType === 'source' ? 'right' : 'left')) as Position
   const startPos = getHandlePosition(node, position, handleId)
 
   isConnecting.value = true
@@ -788,13 +865,6 @@ const handleConnectStart = (
     y: event.clientY - rect.top
   }
   // mousemove/mouseup 已在 onMounted 全局注册，此处无需重复添加
-}
-
-// Fit view
-const handleFitView = () => {
-  viewport.fitView({ width: containerWidth.value, height: containerHeight.value }, nodesRef.value, {
-    padding: 50
-  })
 }
 
 // Node edit panel handlers
@@ -827,9 +897,7 @@ const closeEdgeEditPanel = () => {
   editingEdge.value = null
 }
 
-// Zoom methods
-const zoomIn = () => viewport.zoomIn(1.2)
-const zoomOut = () => viewport.zoomOut(1.2)
+// Zoom methods deleted from unused closure
 
 // Provide Flow context for plugins / hooks
 const getNodes = () => nodesRef.value
@@ -888,6 +956,21 @@ const flowInstance: FlowInstance = {
   getViewport: () => viewportRef.value,
   screenToCanvas: (x: number, y: number) => screenToCanvas(x, y, viewportRef.value),
   canvasToScreen: (x: number, y: number) => canvasToScreen(x, y, viewportRef.value),
+  // ============================================
+  // New 5-star feature methods
+  // ============================================
+  createNodeFromTemplate: (
+    type: string,
+    id: string,
+    position: { x: number; y: number },
+    overrides?: Parameters<typeof createNodeFromTemplate>[3]
+  ) => createNodeFromTemplate(type, id, position, overrides),
+  exportFlowData: (viewport?: { x: number; y: number; zoom: number }) =>
+    exportFlowData(nodesRef.value, edgesRef.value as Edge[], viewport),
+  importFlowData: (json: string) => importFlowData(json),
+  isNestedNode: (node: Node) => isNestedNode(node),
+  getNodeChildren: (node: Node) => getNodeChildren(node, nodesRef.value),
+  getNodeParent: (node: Node) => getNodeParent(node, nodesRef.value),
   get $el() {
     return containerRef.value
   },
@@ -1028,7 +1111,11 @@ onMounted(() => {
   if (props.showMinimap) {
     usePlugin(
       createMiniMapPlugin({
-        nodeColor: props.minimapNodeColor ? () => props.minimapNodeColor! : undefined
+        nodeColor: props.minimapNodeColor ? () => props.minimapNodeColor! : undefined,
+        interactive: props.interactiveMinimap,
+        showLayoutControls: props.showLayoutControls,
+        layoutType: props.layoutType,
+        layoutDirection: props.layoutDirection
       })
     )
   }
@@ -1068,13 +1155,24 @@ onMounted(() => {
   )
 
   watch(
-    () => [props.showMinimap, props.minimapNodeColor],
-    ([show, color]) => {
+    () => [
+      props.showMinimap,
+      props.minimapNodeColor,
+      props.interactiveMinimap,
+      props.showLayoutControls,
+      props.layoutType,
+      props.layoutDirection
+    ],
+    ([show, color, interactive, showLayout, type, dir]) => {
       removePlugin('minimap')
       if (show) {
         usePlugin(
           createMiniMapPlugin({
-            nodeColor: color ? () => color as string : undefined
+            nodeColor: color ? () => color as string : undefined,
+            interactive: interactive as boolean,
+            showLayoutControls: showLayout as boolean,
+            layoutType: type as 'dagre' | 'elk' | 'force' | 'grid' | 'none',
+            layoutDirection: dir as 'TB' | 'BT' | 'LR' | 'RL'
           })
         )
       }
@@ -1143,7 +1241,7 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #f8f9fa;
+  background: var(--flow-background-color, #f8f9fa);
   user-select: none;
   cursor: grab;
 }

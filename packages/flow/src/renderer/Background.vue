@@ -21,7 +21,7 @@ const flowInstance = useFlowContext()
 const viewport = flowInstance.viewport
 
 const backgroundStyle = computed(() => ({
-  backgroundColor: '#f8f9fa' // 默认背景色，网格线/点颜色由 props.color 控制
+  backgroundColor: 'var(--flow-background-color, #f8f9fa)'
 }))
 
 const drawBackground = () => {
@@ -30,8 +30,11 @@ const drawBackground = () => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
+  const rootStyles = getComputedStyle(canvas)
+  const themeGridColor = rootStyles.getPropertyValue('--flow-grid-color').trim()
+
   const type = props.type || 'dots'
-  const color = props.color || (type === 'dots' ? '#b1b1b7' : '#e5e7eb')
+  const color = props.color || themeGridColor || (type === 'dots' ? '#b1b1b7' : '#e5e7eb')
   const gap = props.gap || 20
   const zoom = viewport.value.zoom
   const offset = { x: viewport.value.x, y: viewport.value.y }

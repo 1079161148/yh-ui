@@ -1,16 +1,20 @@
 import { describe, it, expect, vi } from 'vitest'
 import { ref } from 'vue'
 import type { Node, Edge, ViewportTransform } from '../types'
+import type { FlowInstance } from '../types'
 import { PluginManager, createPlugin } from '../plugins/plugin'
 
-function createMockFlowInstance() {
+function createMockFlowInstance(): FlowInstance {
   const nodes = ref<Node[]>([])
   const edges = ref<Edge[]>([])
   const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
+  const draggingNodeId = ref<string | null>(null)
+
   return {
     nodes,
     edges,
     viewport,
+    draggingNodeId,
     addNode: vi.fn((node: Node) => {
       nodes.value = [...nodes.value, node]
     }),
@@ -29,15 +33,19 @@ function createMockFlowInstance() {
     selectNode: vi.fn(),
     selectEdge: vi.fn(),
     clearSelection: vi.fn(),
+    getNodes: vi.fn(() => nodes.value),
+    getEdges: vi.fn(() => edges.value),
+    getViewport: vi.fn(() => viewport.value),
+    screenToCanvas: vi.fn((x: number, y: number) => ({ x, y })),
+    canvasToScreen: vi.fn((x: number, y: number) => ({ x, y })),
     on: vi.fn(),
     off: vi.fn(),
     emit: vi.fn(),
-    isValidConnection: null,
-    screenToCanvas: vi.fn((x: number, y: number) => ({ x, y })),
-    canvasToScreen: vi.fn((x: number, y: number) => ({ x, y })),
+    isValidConnection: vi.fn(() => true),
+    $el: undefined,
     usePlugin: vi.fn(),
     removePlugin: vi.fn()
-  } as any
+  }
 }
 
 describe('flow/plugins/plugin', () => {

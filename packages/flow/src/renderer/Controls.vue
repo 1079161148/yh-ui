@@ -62,7 +62,7 @@ import { ref } from 'vue'
 import { useLocale } from '@yh-ui/hooks'
 import { useFlowContext } from '../core/FlowContext'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
     showZoom?: boolean

@@ -29,6 +29,50 @@
         class="yh-flow-minimap__rect"
       />
     </svg>
+
+    <!-- Layout Controls (optional) -->
+    <div v-if="props.showLayoutControls" class="yh-flow-minimap__layout-controls">
+      <button
+        class="layout-btn"
+        :class="{ active: props.layoutType === 'dagre' }"
+        title="Dagre Layout"
+        @click.stop="emit('layoutChange', 'dagre')"
+      >
+        D
+      </button>
+      <button
+        class="layout-btn"
+        :class="{ active: props.layoutType === 'elk' }"
+        title="ELK Layout"
+        @click.stop="emit('layoutChange', 'elk')"
+      >
+        E
+      </button>
+      <button
+        class="layout-btn"
+        :class="{ active: props.layoutType === 'force' }"
+        title="Force Layout"
+        @click.stop="emit('layoutChange', 'force')"
+      >
+        F
+      </button>
+      <button
+        class="layout-btn"
+        :class="{ active: props.layoutDirection === 'TB' }"
+        title="Top to Bottom"
+        @click.stop="emit('directionChange', 'TB')"
+      >
+        TB
+      </button>
+      <button
+        class="layout-btn"
+        :class="{ active: props.layoutDirection === 'LR' }"
+        title="Left to Right"
+        @click.stop="emit('directionChange', 'LR')"
+      >
+        LR
+      </button>
+    </div>
   </div>
 </template>
 
@@ -49,6 +93,19 @@ const props = defineProps<{
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
   pannable?: boolean
   zoomable?: boolean
+  /** Enable interactive click-to-navigate */
+  interactive?: boolean
+  /** Show layout control buttons */
+  showLayoutControls?: boolean
+  /** Current layout type */
+  layoutType?: 'dagre' | 'elk' | 'force' | 'grid' | 'none'
+  /** Layout direction */
+  layoutDirection?: 'TB' | 'BT' | 'LR' | 'RL'
+}>()
+
+const emit = defineEmits<{
+  (e: 'layoutChange', layout: 'dagre' | 'elk' | 'force' | 'grid' | 'none'): void
+  (e: 'directionChange', direction: 'TB' | 'BT' | 'LR' | 'RL'): void
 }>()
 
 const cW = computed(() => props.width || 200)
@@ -122,8 +179,15 @@ const drawCanvas = () => {
   const nodeMap = new Map<string, Node>()
   nodes.value.forEach((n) => nodeMap.set(n.id, n))
 
-  ctx.strokeStyle = '#94a3b8' // 加深颜色
-  ctx.lineWidth = 1.2 // 加粗线条
+  const rootStyles = getComputedStyle(canvas)
+  const themeEdgeColor = rootStyles.getPropertyValue('--flow-edge-stroke').trim() || '#94a3b8'
+  const themeMinimapNodeColor =
+    rootStyles.getPropertyValue('--flow-minimap-node-color').trim() || '#cbd5e1'
+  const themeAccentColor =
+    rootStyles.getPropertyValue('--flow-node-selected-border').trim() || '#3b82f6'
+
+  ctx.strokeStyle = themeEdgeColor
+  ctx.lineWidth = 1.2
   ctx.globalAlpha = 0.5
   ctx.beginPath()
   edges.value.forEach((e) => {
@@ -142,14 +206,11 @@ const drawCanvas = () => {
   })
   ctx.stroke()
 
-  // 节点
-  const selColor = '#3b82f6'
-
   ctx.globalAlpha = 0.85
   nodes.value.forEach((n) => {
     if (n.hidden) return
 
-    let color = n.selected ? selColor : '#cbd5e1'
+    let color = n.selected ? themeAccentColor : themeMinimapNodeColor
     if (!n.selected && props.nodeColor) {
       color = typeof props.nodeColor === 'function' ? props.nodeColor(n) : props.nodeColor
     }
@@ -236,6 +297,30 @@ const handleMouseUp = () => {
 }
 
 const handleMouseDown = (e: MouseEvent) => {
+  // If interactive mode enabled and clicked on canvas (not dragging), navigate to that position
+  if (props.interactive && !isDragging) {
+    const rect = canvasRef.value?.getBoundingClientRect()
+    if (rect) {
+      const mx = e.clientX - rect.left
+      const my = e.clientY - rect.top
+
+      const canvasX = (mx - _offsetX) / _mapScale + _minX
+      const canvasY = (my - _offsetY) / _mapScale + _minY
+
+      const zoom = viewport.value.zoom
+      const container = flowInstance.$el
+      const containerW = container?.clientWidth || 800
+      const containerH = container?.clientHeight || 600
+
+      // Center the viewport on the clicked position
+      const newX = containerW / 2 - canvasX * zoom
+      const newY = containerH / 2 - canvasY * zoom
+
+      flowInstance.setViewport({ x: newX, y: newY, zoom })
+    }
+    return
+  }
+
   if (props.pannable === false) return
   isDragging = true
   handleMouseMove(e)
@@ -254,10 +339,10 @@ watch(viewport, (vp) => updateVpRect(vp), { flush: 'sync' })
 .yh-flow-minimap {
   position: absolute;
   /* Premium Glassmorphism Effect */
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--flow-minimap-background, rgba(255, 255, 255, 0.75));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--flow-minimap-viewport-border, rgba(0, 0, 0, 0.08));
   border-radius: 12px;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
@@ -308,5 +393,40 @@ watch(viewport, (vp) => updateVpRect(vp), { flush: 'sync' })
 .yh-flow-minimap__rect {
   transition: all 0.1s ease-out;
   filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.3));
+}
+
+.yh-flow-minimap__layout-controls {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  display: flex;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.layout-btn {
+  width: 20px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.layout-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.layout-btn.active {
+  background: #3b82f6;
+  color: white;
 }
 </style>

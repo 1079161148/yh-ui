@@ -120,11 +120,18 @@ interface Node<Data = NodeData> {
   class?: string
   width?: number
   height?: number
+  draggable?: boolean // 是否可拖拽
+  selectable?: boolean // 是否可选中
+  connectable?: boolean // 是否可连接
+  resizable?: boolean // 是否显示缩放手柄
+  deletable?: boolean // 是否可点击删除
   selected?: boolean
   dragging?: boolean
   hidden?: boolean
-  parentId?: string
+  parentId?: string // 父节点 ID
   zIndex?: number
+  extent?: 'parent' // 移动范围限制
+  handleBounds?: any // 自定义连接点集合
 }
 ```
 
@@ -224,27 +231,21 @@ const customNode = {
 
 ```vue
 <template>
-  <div class="custom-node" :class="{ selected }">
+  <div class="custom-node" :class="{ selected: node.selected }">
     <div class="custom-node__header">
-      <span class="custom-node__icon">{{ data.icon }}</span>
-      <span class="custom-node__label">{{ data.label }}</span>
+      <span class="custom-node__icon">{{ node.data.icon }}</span>
+      <span class="custom-node__label">{{ node.data.label }}</span>
     </div>
     <div class="custom-node__body">
-      <span :class="['status', data.status]">{{ data.statusText }}</span>
+      <span :class="['status', node.data.status]">{{ node.data.statusText }}</span>
     </div>
   </div>
   <\/template>
 
   <script setup lang="ts">
+    import type { Node } from '@yh-ui/flow'
     defineProps<{
-      id: string
-      data: {
-        label: string
-        icon?: string
-        status?: string
-        statusText?: string
-      }
-      selected: boolean
+      node: Node
     }>()
   </script>
 
@@ -304,21 +305,22 @@ const customNode = {
 
 ## 节点属性
 
-| 属性     | 类型                       | 说明                  |
-| -------- | -------------------------- | --------------------- |
-| id       | `string`                   | 节点唯一标识          |
-| type     | `string`                   | 节点类型              |
-| position | `{ x: number, y: number }` | 节点位置              |
-| data     | `NodeData`                 | 节点数据              |
-| width    | `number`                   | 节点宽度              |
-| height   | `number`                   | 节点高度              |
-| style    | `NodeStyle`                | 自定义样式            |
-| class    | `string`                   | 自定义类名            |
-| selected | `boolean`                  | 是否选中              |
-| dragging | `boolean`                  | 是否正在拖拽          |
-| hidden   | `boolean`                  | 是否隐藏              |
-| parentId | `string`                   | 父节点 ID（用于分组） |
-| zIndex   | `number`                   | 层级                  |
+| 属性           | 类型                       | 说明                     |
+| -------------- | -------------------------- | ------------------------ |
+| id             | `string`                   | 节点唯一标识             |
+| type           | `string`                   | 节点类型                 |
+| position       | `{ x: number, y: number }` | 节点位置                 |
+| data           | `NodeData`                 | 节点数据                 |
+| width / height | `number`                   | 节点尺寸                 |
+| draggable      | `boolean`                  | 是否允许拖拽 (默认 true) |
+| selectable     | `boolean`                  | 是否允许选中 (默认 true) |
+| connectable    | `boolean`                  | 是否允许连线 (默认 true) |
+| selected       | `boolean`                  | 是否选中                 |
+| dragging       | `boolean`                  | 是否正在拖拽             |
+| hidden         | `boolean`                  | 是否隐藏                 |
+| parentId       | `string`                   | 父节点 ID（用于分组）    |
+| zIndex         | `number`                   | 层级                     |
+| handleBounds   | `object`                   | 连接点动态配置           |
 
 ## 下一个
 
