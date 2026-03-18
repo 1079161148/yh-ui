@@ -11,6 +11,8 @@ interface Props {
   connectable: boolean
   style?: NodeStyle
   label?: string
+  labelColor?: string
+  descriptionColor?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,7 +20,9 @@ const props = withDefaults(defineProps<Props>(), {
   dragging: false,
   connectable: true,
   style: () => ({}),
-  label: ''
+  label: '',
+  labelColor: '',
+  descriptionColor: ''
 })
 
 const nodeStyle = computed(() => {
@@ -41,7 +45,21 @@ const nodeStyle = computed(() => {
 
 <template>
   <div :class="['flow-input-node', { selected, dragging }]" :style="nodeStyle">
-    <div class="flow-node-label">{{ label || data?.label || 'Input' }}</div>
+    <div class="flow-node-label" :style="{ color: labelColor || data?.labelColor || '#000' }">
+      {{ label || data?.label || 'Input' }}
+    </div>
+    <div
+      v-if="data?.description"
+      class="flow-node-description"
+      :style="{
+        color:
+          descriptionColor ||
+          data?.descriptionColor ||
+          'var(--flow-node-description-color, #909399)'
+      }"
+    >
+      {{ data.description }}
+    </div>
     <div
       class="flow-handle-right"
       v-if="connectable"

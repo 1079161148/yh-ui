@@ -21,21 +21,34 @@ interface NodeForm {
   style?: NodeStyle
 }
 
-const localNode = ref<NodeForm>({
+const localNode = ref<NodeForm & { labelColor?: string; descriptionColor?: string }>({
   label: '',
   description: ''
 })
+
+/** 常见业务字段扩展接口，避免使用 any */
+interface CommonDataFields extends NodeData {
+  title?: string
+  name?: string
+  text?: string
+  desc?: string
+}
 
 watch(
   () => props.node,
   (node) => {
     if (node) {
+      const data = node.data as CommonDataFields
+      // 寻找最合适的展示标签
+      const displayLabel = data.label || data.title || data.name || data.text || node.id
+
       localNode.value = {
-        label: (node.data as NodeData)?.label || node.id,
-        description: (node.data as NodeData)?.description || '',
-        style: { ...node.style },
-        width: node.width,
-        height: node.height,
+        label: String(displayLabel),
+        description: data.description || data.desc || '',
+        labelColor: node.labelColor || '#303133',
+        descriptionColor: node.descriptionColor || '#909399',
+        width: node.width || document.getElementById(`node-${node.id}`)?.offsetWidth || 150,
+        height: node.height || document.getElementById(`node-${node.id}`)?.offsetHeight || 40,
         type: node.type
       }
     }
@@ -43,22 +56,45 @@ watch(
   { immediate: true }
 )
 
+const updateLabelColor = (color: string) => {
+  localNode.value.labelColor = color
+  emit('update', { labelColor: color })
+}
+
+const updateDescriptionColor = (color: string) => {
+  localNode.value.descriptionColor = color
+  emit('update', { descriptionColor: color })
+}
+
 const updateLabel = () => {
-  emit('update', {
-    data: {
-      ...props.node?.data,
-      label: localNode.value.label
-    }
-  })
+  if (!props.node) return
+  const data = { ...props.node.data } as CommonDataFields
+
+  // 决定更新哪个字段
+  if ('label' in data || !('title' in data || 'name' in data || 'text' in data)) {
+    data.label = localNode.value.label
+  } else if ('title' in data) {
+    data.title = localNode.value.label
+  } else if ('name' in data) {
+    data.name = localNode.value.label
+  } else if ('text' in data) {
+    data.text = localNode.value.label
+  }
+
+  emit('update', { data })
 }
 
 const updateDescription = () => {
-  emit('update', {
-    data: {
-      ...props.node?.data,
-      description: localNode.value.description
-    }
-  })
+  if (!props.node) return
+  const data = { ...props.node.data } as CommonDataFields
+
+  if ('description' in data || !('desc' in data)) {
+    data.description = localNode.value.description
+  } else {
+    data.desc = localNode.value.description
+  }
+
+  emit('update', { data })
 }
 
 const updateStyle = (key: keyof NodeStyle, value: string | number) => {
@@ -82,34 +118,14 @@ const handleBorderRadius = (event: Event) => {
   updateStyle('borderRadius', `${value}px`)
 }
 
-const isBorderActive = (color: string) => {
+const getBorderColor = () => {
   const border = props.node?.style?.border
-  return typeof border === 'string' && border.includes(color)
+  if (typeof border === 'string') {
+    const match = border.match(/#(?:[0-9a-fA-F]{3}){1,2}|rgb\(.*?\)|rgba\(.*?\)/)
+    return match ? match[0] : '#dddddd'
+  }
+  return '#dddddd'
 }
-
-const colors = [
-  '#fff',
-  '#f8f9fa',
-  '#e9ecef',
-  '#dee2e6',
-  '#ced4da',
-  '#3b82f6',
-  '#10b981',
-  '#f59e0b',
-  '#ef4444',
-  '#8b5cf6'
-]
-
-const borderColors = [
-  '#ddd',
-  '#3b82f6',
-  '#10b981',
-  '#f59e0b',
-  '#ef4444',
-  '#8b5cf6',
-  '#ec4899',
-  '#06b6d4'
-]
 </script>
 
 <template>
@@ -168,29 +184,29 @@ const borderColors = [
 
           <div class="form-group">
             <label>背景色</label>
-            <div class="color-picker">
-              <button
-                v-for="color in colors"
-                :key="color"
-                class="color-swatch"
-                :class="{ active: node.style?.backgroundColor === color }"
-                :style="{ backgroundColor: color }"
-                @click="updateStyle('backgroundColor', color)"
+            <div class="color-picker-row">
+              <input
+                type="color"
+                :value="node.style?.backgroundColor || '#ffffff'"
+                class="modern-color-picker"
+                @input="(e) => updateStyle('backgroundColor', (e.target as HTMLInputElement).value)"
               />
+              <span class="color-value">{{ node.style?.backgroundColor || '#ffffff' }}</span>
             </div>
           </div>
 
           <div class="form-group">
             <label>边框颜色</label>
-            <div class="color-picker">
-              <button
-                v-for="color in borderColors"
-                :key="color"
-                class="color-swatch"
-                :class="{ active: isBorderActive(color) }"
-                :style="{ backgroundColor: color }"
-                @click="updateStyle('border', `1px solid ${color}`)"
+            <div class="color-picker-row">
+              <input
+                type="color"
+                :value="getBorderColor()"
+                class="modern-color-picker"
+                @input="
+                  (e) => updateStyle('border', `1px solid ${(e.target as HTMLInputElement).value}`)
+                "
               />
+              <span class="color-value">{{ getBorderColor() }}</span>
             </div>
           </div>
 
@@ -203,6 +219,32 @@ const borderColors = [
               max="20"
               @input="handleBorderRadius"
             />
+          </div>
+
+          <div class="form-group">
+            <label>标签文字颜色</label>
+            <div class="color-picker-row">
+              <input
+                type="color"
+                :value="localNode.labelColor"
+                class="modern-color-picker"
+                @input="(e) => updateLabelColor((e.target as HTMLInputElement).value)"
+              />
+              <span class="color-value">{{ localNode.labelColor }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>文字描述颜色</label>
+            <div class="color-picker-row">
+              <input
+                type="color"
+                :value="localNode.descriptionColor"
+                class="modern-color-picker"
+                @input="(e) => updateDescriptionColor((e.target as HTMLInputElement).value)"
+              />
+              <span class="color-value">{{ localNode.descriptionColor }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -302,19 +344,40 @@ const borderColors = [
   color: #999;
 }
 
-.color-picker {
+.color-picker-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  align-items: center;
+  gap: 12px;
 }
 
-.color-swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  border: 2px solid transparent;
+.modern-color-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
   padding: 0;
+}
+
+.modern-color-picker::-webkit-color-swatch {
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.modern-color-picker::-moz-color-swatch {
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.color-value {
+  font-size: 13px;
+  color: #64748b;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  text-transform: uppercase;
 }
 
 .color-swatch.active {

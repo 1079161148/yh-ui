@@ -60,7 +60,7 @@ const nodeMap = computed(() => {
 const selectedUpdatableEdges = computed(() => {
   const result = []
   for (const edge of props.edges) {
-    if (edge.selected && edge.updatable) {
+    if (edge && edge.selected && edge.updatable) {
       const sourceNode = nodeMap.value.get(edge.source)
       const targetNode = nodeMap.value.get(edge.target)
       if (!sourceNode || !targetNode) continue

@@ -95,8 +95,9 @@ export function flowToBpmnXml(
     // BPMN 元素属性
     let attributes = `id="${node.id}"`
 
-    if (node.data?.name) {
-      attributes += ` name="${node.data.name}"`
+    const label = node.data?.name || node.data?.label || node.id
+    if (label) {
+      attributes += ` name="${label}"`
     }
 
     // 网关方向
@@ -254,12 +255,34 @@ export function bpmnXmlToFlow(
   }
 
   // 解析所有 BPMN 元素
-  const bpmnElements = Array.from(
-    doc.querySelectorAll(
-      'bpmn\\:startEvent, bpmn\\:endEvent, bpmn\\:task, bpmn\\:serviceTask, bpmn\\:userTask, bpmn\\:exclusiveGateway, bpmn\\:parallelGateway, bpmn\\:inclusiveGateway, ' +
-        'startEvent, endEvent, task, serviceTask, userTask, exclusiveGateway, parallelGateway, inclusiveGateway'
-    )
-  )
+  const findBpmnElements = (root: Element | Document) => {
+    const tags = [
+      'startEvent',
+      'endEvent',
+      'task',
+      'serviceTask',
+      'userTask',
+      'exclusiveGateway',
+      'parallelGateway',
+      'inclusiveGateway'
+    ]
+    const elements: Element[] = []
+    tags.forEach((tag) => {
+      // 兼容带前缀和不带前缀的情况
+      const perTagElements: Element[] = []
+      perTagElements.push(...Array.from(root.getElementsByTagNameNS(BPMN_NS, tag)))
+      perTagElements.push(...Array.from(root.getElementsByTagName(tag)).filter((el) => !el.prefix))
+
+      // 兜底查询（针对某些非标准命名空间或解析问题）
+      if (perTagElements.length === 0) {
+        perTagElements.push(...Array.from(root.querySelectorAll(`[localName="${tag}"]`)))
+      }
+      elements.push(...perTagElements)
+    })
+    return elements
+  }
+
+  const bpmnElements = findBpmnElements(doc)
 
   // 用于自动布局的节点映射
   const nodeMap = new Map<
@@ -323,7 +346,10 @@ export function bpmnXmlToFlow(
   }
 
   // 解析顺序流（连线）
-  const sequenceFlows = Array.from(doc.querySelectorAll('bpmn\\:sequenceFlow, sequenceFlow'))
+  const sequenceFlows = [
+    ...Array.from(doc.getElementsByTagNameNS(BPMN_NS, 'sequenceFlow')),
+    ...Array.from(doc.getElementsByTagName('sequenceFlow')).filter((el) => !el.prefix)
+  ]
 
   for (const flow of sequenceFlows) {
     const id = flow.getAttribute('id')
@@ -481,7 +507,7 @@ export function generateSampleBpmnXml(): string {
       id: 'start',
       type: 'bpmn-start',
       position: { x: 100, y: 200 },
-      data: { label: '开始' },
+      data: { label: '开始', name: '开始' },
       width: 40,
       height: 40,
       selected: false,
@@ -491,7 +517,7 @@ export function generateSampleBpmnXml(): string {
       id: 'task1',
       type: 'bpmn-user-task',
       position: { x: 250, y: 180 },
-      data: { label: '审批任务', assignee: 'admin' },
+      data: { label: '审批任务', name: '审批任务', assignee: 'admin' },
       width: 120,
       height: 80,
       selected: false,
@@ -501,7 +527,7 @@ export function generateSampleBpmnXml(): string {
       id: 'gateway',
       type: 'bpmn-exclusive-gateway',
       position: { x: 450, y: 200 },
-      data: { label: '是否通过' },
+      data: { label: '是否通过', name: '是否通过' },
       width: 50,
       height: 50,
       selected: false,
@@ -511,7 +537,7 @@ export function generateSampleBpmnXml(): string {
       id: 'task2',
       type: 'bpmn-service-task',
       position: { x: 600, y: 100 },
-      data: { label: '处理业务', implementation: '${myService}' },
+      data: { label: '处理业务', name: '处理业务', implementation: '${myService}' },
       width: 120,
       height: 80,
       selected: false,
@@ -521,7 +547,7 @@ export function generateSampleBpmnXml(): string {
       id: 'end',
       type: 'bpmn-end',
       position: { x: 800, y: 200 },
-      data: { label: '结束' },
+      data: { label: '结束', name: '结束' },
       width: 40,
       height: 40,
       selected: false,

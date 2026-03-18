@@ -58,31 +58,31 @@ const nodes = ref<Node[]>([
   {
     id: 'group-1',
     type: 'group',
-    position: { x: 60, y: 60 },
-    width: 520,
-    height: 360,
+    position: { x: 50, y: 50 },
+    width: 600,
+    height: 240,
     data: { label: 'Main Flow' }
   },
   {
     id: 'node-1',
     type: 'input',
-    position: { x: 130, y: 120 },
+    position: { x: 50, y: 100 },
     parentId: 'group-1',
     data: { label: 'Start' }
   },
   {
     id: 'node-2',
     type: 'default',
-    position: { x: 320, y: 120 },
+    position: { x: 230, y: 100 },
     parentId: 'group-1',
-    data: { label: 'Process' }
+    data: { label: 'Audit Process' }
   },
   {
     id: 'node-3',
     type: 'output',
-    position: { x: 460, y: 120 },
+    position: { x: 420, y: 100 },
     parentId: 'group-1',
-    data: { label: 'End' }
+    data: { label: 'Archive End' }
   }
 ]);
 
@@ -120,30 +120,30 @@ const nodes = ref<Node[]>([
     id: 'group-1',
     type: 'group',
     position: { x: 50, y: 50 },
-    width: 500,
-    height: 350,
+    width: 600,
+    height: 240,
     data: { label: 'Main Flow' }
   },
   {
     id: 'node-1',
     type: 'input',
-    position: { x: 100, y: 100 },
+    position: { x: 50, y: 100 },
     parentId: 'group-1',
     data: { label: 'Start' }
   },
   {
     id: 'node-2',
     type: 'default',
-    position: { x: 250, y: 100 },
+    position: { x: 230, y: 100 },
     parentId: 'group-1',
-    data: { label: 'Process' }
+    data: { label: 'Audit Process' }
   },
   {
     id: 'node-3',
     type: 'output',
-    position: { x: 400, y: 100 },
+    position: { x: 420, y: 100 },
     parentId: 'group-1',
-    data: { label: 'End' }
+    data: { label: 'Archive End' }
   }
 ]);
 
@@ -188,11 +188,11 @@ const jsCode = toJs(tsCode);
       style="width:100%;height:100%;"
     >
       <template #node="{ node }">
-        <div v-if="node.type === 'group'" style="width:100%;height:100%;border:2px dashed #94a3b8;border-radius:8px;background:#f8fafc;">
-          <div style="padding:8px 12px;font-weight:600;color:#475569;border-bottom:1px dashed #cbd5e1;">
+        <div v-if="node.type === 'group'" style="width:100%;height:100%;border:2px dashed #94a3b8;border-radius:8px;background:rgba(248,250,252,0.6);">
+          <div style="padding:10px 16px;font-weight:600;color:#334155;border-bottom:1px dashed #cbd5e1;background:rgba(226,232,240,0.3);border-radius:8px 8px 0 0;">
             {{ node.data.label }}
           </div>
-          <div style="padding:12px;color:#475569;">Nested children render inside the container</div>
+          <div style="position:absolute;bottom:8px;right:12px;font-size:11px;color:#94a3b8;font-style:italic;">Sub-flow Container</div>
         </div>
         <div v-else style="padding:8px 16px;background:#fff;border:1px solid #e2e8f0;border-radius:4px;">
           {{ node.data.label }}

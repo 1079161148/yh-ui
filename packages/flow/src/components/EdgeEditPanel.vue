@@ -26,8 +26,9 @@ watch(
         animated: edge.animated || false,
         style: { ...edge.style },
         labelStyle: { ...edge.labelStyle },
+        labelColor: edge.labelColor || '#000000',
         labelShowBg: !!edge.labelShowBg,
-        labelBgColor: edge.labelBgColor || '#fff'
+        labelBgColor: edge.labelBgColor || '#ffffff'
       }
     }
   },
@@ -51,11 +52,20 @@ const updateStyle = (key: keyof EdgeStyle, value: string | number) => {
   emit('update', { style: newStyle })
 }
 
-const updateLabelBg = () => {
-  emit('update', {
-    labelShowBg: localEdge.value.labelShowBg,
-    labelBgColor: localEdge.value.labelBgColor
-  })
+const updateLabelColor = (color: string) => {
+  localEdge.value.labelColor = color
+  emit('update', { labelColor: color })
+}
+
+const updateLabelBg = (color: string | null) => {
+  if (color === null) {
+    localEdge.value.labelShowBg = false
+    emit('update', { labelShowBg: false })
+  } else {
+    localEdge.value.labelShowBg = true
+    localEdge.value.labelBgColor = color
+    emit('update', { labelShowBg: true, labelBgColor: color })
+  }
 }
 
 const handleClose = () => {
@@ -109,17 +119,6 @@ const allEdgeTypes = computed(() => {
 
   return Array.from(typeMap.values())
 })
-
-const strokeColors = [
-  '#b1b1b7',
-  '#3b82f6',
-  '#10b981',
-  '#f59e0b',
-  '#ef4444',
-  '#8b5cf6',
-  '#ec4899',
-  '#06b6d4'
-]
 </script>
 
 <template>
@@ -161,15 +160,14 @@ const strokeColors = [
 
           <div class="form-group">
             <label>线条颜色</label>
-            <div class="color-picker">
-              <button
-                v-for="color in strokeColors"
-                :key="color"
-                class="color-swatch"
-                :class="{ active: edge.style?.stroke === color }"
-                :style="{ backgroundColor: color }"
-                @click="updateStyle('stroke', color)"
+            <div class="color-picker-row">
+              <input
+                type="color"
+                :value="edge.style?.stroke || '#b1b1b7'"
+                class="modern-color-picker"
+                @input="(e) => updateStyle('stroke', (e.target as HTMLInputElement).value)"
               />
+              <span class="color-value">{{ edge.style?.stroke || '#b1b1b7' }}</span>
             </div>
           </div>
 
@@ -186,15 +184,41 @@ const strokeColors = [
           </div>
 
           <div class="form-group">
-            <label class="checkbox-label">
-              <input v-model="localEdge.labelShowBg" type="checkbox" @change="updateLabelBg" />
-              显示标签背景
-            </label>
+            <label>标签文字颜色</label>
+            <div class="color-picker-row">
+              <input
+                type="color"
+                :value="localEdge.labelColor"
+                class="modern-color-picker"
+                @input="(e) => updateLabelColor((e.target as HTMLInputElement).value)"
+              />
+              <span class="color-value">{{ localEdge.labelColor }}</span>
+            </div>
           </div>
 
-          <div v-if="localEdge.labelShowBg" class="form-group">
-            <label>标签背景色</label>
-            <input v-model="localEdge.labelBgColor" type="color" @change="updateLabelBg" />
+          <div class="form-group">
+            <label>标签背景颜色</label>
+            <div class="color-picker-row">
+              <button
+                class="color-swatch none-swatch"
+                :class="{ active: !localEdge.labelShowBg }"
+                @click="updateLabelBg(null)"
+              >
+                ×
+              </button>
+              <template v-if="localEdge.labelShowBg">
+                <input
+                  type="color"
+                  v-model="localEdge.labelBgColor"
+                  class="modern-color-picker"
+                  @input="updateLabelBg(localEdge.labelBgColor || '#ffffff')"
+                />
+                <span class="color-value">{{ localEdge.labelBgColor }}</span>
+              </template>
+              <button v-else class="add-bg-btn" @click="updateLabelBg('#ffffff')">
+                启用背景
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -286,15 +310,62 @@ const strokeColors = [
   width: auto;
 }
 
-.color-picker {
+.color-picker-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  align-items: center;
+  gap: 12px;
+}
+
+.modern-color-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.modern-color-picker::-webkit-color-swatch {
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.modern-color-picker::-moz-color-swatch {
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.color-value {
+  font-size: 13px;
+  color: #64748b;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  text-transform: uppercase;
+}
+
+.add-bg-btn {
+  font-size: 12px;
+  color: #3b82f6;
+  background: white;
+  border: 1px solid #3b82f6;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-bg-btn:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #2563eb;
 }
 
 .color-swatch {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 4px;
   border: 2px solid transparent;
   cursor: pointer;
@@ -302,8 +373,19 @@ const strokeColors = [
 }
 
 .color-swatch.active {
-  border-color: #3b82f6;
+  border-color: #3b82f6 !important;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.none-swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border: 1px dashed #ccc !important;
+  color: #999;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .form-group input[type='range'] {

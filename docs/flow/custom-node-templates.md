@@ -73,8 +73,8 @@ const ApprovalNode = defineComponent({
         'div',
         { class: 'template-card template-card--approval' },
         [
-          h('div', { class: 'template-card__title' }, props.data?.title ?? '审批节点'),
-          h('div', { class: 'template-card__meta' }, props.data?.approver ?? '流程审批')
+          h('div', { class: 'template-card__title' }, props.data?.label ?? '审批节点'),
+          h('div', { class: 'template-card__meta' }, props.data?.description ?? '流程审批')
         ]
       );
   }
@@ -93,8 +93,8 @@ const NotificationNode = defineComponent({
         'div',
         { class: 'template-card template-card--notification' },
         [
-          h('div', { class: 'template-card__title' }, props.data?.title ?? '通知节点'),
-          h('div', { class: 'template-card__meta' }, props.data?.channel ?? '渠道')
+          h('div', { class: 'template-card__title' }, props.data?.label ?? '通知节点'),
+          h('div', { class: 'template-card__meta' }, props.data?.description ?? '渠道')
         ]
       );
   }
@@ -103,7 +103,7 @@ const NotificationNode = defineComponent({
 registerCustomNodeTemplate({
   type: 'approval',
   component: ApprovalNode,
-  defaultData: { title: '审批节点', approver: '流程管理员' },
+  defaultData: { label: '审批节点', description: '流程审批', approver: '管理员' },
   defaultWidth: 190,
   defaultHeight: 70
 });
@@ -111,7 +111,7 @@ registerCustomNodeTemplate({
 registerCustomNodeTemplate({
   type: 'notification',
   component: NotificationNode,
-  defaultData: { title: '通知节点', channel: '邮件' },
+  defaultData: { label: '通知节点', description: '邮件通知', channel: '邮件' },
   defaultWidth: 170,
   defaultHeight: 60
 });

@@ -110,7 +110,11 @@ function defaultVariableEvaluator(expr: string, context: Record<string, unknown>
     }
 
     // 简单变量引用
-    return !!context[expression]
+    const val = context[expression]
+    if (typeof val === 'boolean') return val
+    if (expression === 'true') return true
+    if (expression === 'false') return false
+    return !!val
   } catch {
     return false
   }
@@ -265,6 +269,33 @@ export class BpmnProcessEngine {
     // 执行任务
     await this.executeNode(instance, node)
 
+    // 如果是结束节点，流程在这里终止该分支
+    if (node.type === 'bpmn-end') {
+      // 流程结束的一个分支完成
+      nodeInstance.status = 'completed'
+      nodeInstance.endTime = Date.now()
+      instance.completedNodes.push(nodeId)
+      instance.currentNodes = instance.currentNodes.filter((id) => id !== nodeId)
+
+      // 消耗本节点的令牌
+      for (const tokenId of [...nodeInstance.incomingTokens]) {
+        instance.tokens.delete(tokenId)
+        this.emitEvent(instance, {
+          type: 'token_consumed',
+          timestamp: Date.now(),
+          nodeId,
+          tokenId
+        })
+      }
+
+      // 检查是否整个实例已完成（没有处于 active 的令牌且没有待处理节点）
+      if (instance.tokens.size === 0 && instance.currentNodes.length === 0) {
+        instance.state = 'completed'
+        instance.endTime = Date.now()
+      }
+      return
+    }
+
     // 离开节点
     await this.exitNode(instance, nodeId)
   }
@@ -315,8 +346,30 @@ export class BpmnProcessEngine {
     // 找到输出边
     const outgoingEdges = Array.from(this.edges.values()).filter((e) => e.source === nodeId)
 
-    for (const edge of outgoingEdges) {
-      await this.takeFlow(instance, edge)
+    // 特殊处理排他网关 (XOR Gateway)
+    if (node.type === 'bpmn-exclusive-gateway') {
+      let taken = false
+      for (const edge of outgoingEdges) {
+        const canTake = this.evaluateEdgeCondition(instance, edge)
+        if (canTake) {
+          await this.takeFlow(instance, edge)
+          taken = true
+          break // 只走第一条满足条件的路径
+        }
+      }
+      // 如果没有任何条件满足，且有默认路径（这里暂不实现复杂默认路径逻辑，简单走第一条没条件的）
+      if (!taken && outgoingEdges.length > 0) {
+        const defaultEdge =
+          outgoingEdges.find((e) => !e.data?.conditionExpression) || outgoingEdges[0]
+        await this.takeFlow(instance, defaultEdge)
+      }
+    } else {
+      // 普通节点、并行网关等：走所有满足条件的分支
+      for (const edge of outgoingEdges) {
+        if (this.evaluateEdgeCondition(instance, edge)) {
+          await this.takeFlow(instance, edge)
+        }
+      }
     }
 
     // 更新节点状态
@@ -329,31 +382,33 @@ export class BpmnProcessEngine {
   }
 
   /**
+   * 评估边的条件
+   */
+  private evaluateEdgeCondition(instance: ProcessInstance, edge: Edge): boolean {
+    if (!edge.data?.conditionExpression) return true
+
+    const result = !!this.options.variableEvaluator(
+      edge.data.conditionExpression as string,
+      instance.variables
+    )
+
+    this.emitEvent(instance, {
+      type: 'condition_evaluated',
+      timestamp: Date.now(),
+      edgeId: edge.id,
+      nodeId: edge.source,
+      data: { expression: edge.data.conditionExpression, result }
+    })
+
+    return result
+  }
+
+  /**
    * 采用流（连线）
    */
   private async takeFlow(instance: ProcessInstance, edge: Edge): Promise<void> {
     const edgeInstance = instance.edges.get(edge.id)
     if (!edgeInstance) return
-
-    // 检查条件
-    if (edge.data?.conditionExpression) {
-      const result = this.options.variableEvaluator(
-        edge.data.conditionExpression as string,
-        instance.variables
-      )
-
-      this.emitEvent(instance, {
-        type: 'condition_evaluated',
-        timestamp: Date.now(),
-        edgeId: edge.id,
-        nodeId: edge.source,
-        data: { expression: edge.data.conditionExpression, result }
-      })
-
-      if (!result) {
-        return // 条件不满足，不采用该流
-      }
-    }
 
     // 标记边已采用
     edgeInstance.taken = true
@@ -375,8 +430,10 @@ export class BpmnProcessEngine {
       targetRef: edge.target
     })
 
-    // 进入目标节点
-    await this.enterNode(instance, edge.target!)
+    // 进入目标节点 - 使用异步调用打破递归链
+    setTimeout(() => {
+      this.enterNode(instance, edge.target!)
+    }, 10) // 给予极短的时延让 UI 和日志有喘息空间
   }
 
   /**

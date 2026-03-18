@@ -47,24 +47,29 @@ const edges = ref<Edge[]>([
 
 const flowRef = ref<FlowInstance>()
 const connState = ref<ConnectionState>('disconnected')
-const eventLog = ref<string[]>([])
+const eventLog = ref<Array<{ id: string; text: string }>>([])
 const cursorList = ref<Array<{ id: string; name: string; color: string }>>([])
 
 const collab = new FlowCollaborationEngine()
 
+const addLog = (text: string) => {
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`
+  eventLog.value = [{ id, text }, ...eventLog.value].slice(0, 20)
+}
+
 collab.on('sync', (e) => {
-  eventLog.value = [`[sync] ${new Date().toLocaleTimeString()}`, ...eventLog.value].slice(0, 20)
+  addLog(`[sync] ${new Date().toLocaleTimeString()}`)
   const state = collab.getState()
   nodes.value = state.nodes
   edges.value = state.edges
 })
 
 collab.on('operation', (e) => {
-  eventLog.value = [`[op] ${e.data?.type} by ${e.userId}`, ...eventLog.value].slice(0, 20)
+  addLog(`[op] ${e.data?.type} by ${e.userId}`)
 })
 
 collab.on('cursor_update', (e) => {
-  eventLog.value = [`[cursor] ${e.userId}`, ...eventLog.value].slice(0, 20)
+  addLog(`[cursor] ${e.userId}`)
   cursorList.value = Array.from(collab.getCursors().entries()).map(([id, c]) => ({
     id,
     name: c.name,
@@ -73,11 +78,11 @@ collab.on('cursor_update', (e) => {
 })
 
 collab.on('user_joined', (e) => {
-  eventLog.value = [`[join] ${e.userId}`, ...eventLog.value].slice(0, 20)
+  addLog(`[join] ${e.userId}`)
 })
 
 collab.on('user_left', (e) => {
-  eventLog.value = [`[leave] ${e.userId}`, ...eventLog.value].slice(0, 20)
+  addLog(`[leave] ${e.userId}`)
 })
 
 const connectRoom = async () => {
@@ -91,26 +96,20 @@ const connectRoom = async () => {
       initialEdges: edges.value
     })
     connState.value = collab.getConnectionState()
-    eventLog.value = ['Connected!', ...eventLog.value]
+    addLog('Connected!')
   } catch (e) {
-    eventLog.value = ['Connection failed (demo only)', ...eventLog.value]
+    addLog('Connection failed (demo only)')
   }
 }
 
 const disconnectRoom = () => {
   collab.disconnect()
   connState.value = collab.getConnectionState()
-  eventLog.value = ['Disconnected', ...eventLog.value]
+  addLog('Disconnected')
 }
 
 const simulateRemote = () => {
-  const mockEvent: CollaborationEvent = {
-    type: 'cursor_update',
-    userId: 'mock-user',
-    data: { x: 200, y: 150 },
-    timestamp: Date.now()
-  }
-  eventLog.value = ['[sim] cursor_update', ...eventLog.value].slice(0, 5)
+  addLog('[sim] cursor_update')
 }
 
 const tsCode = `<${_T}>
@@ -127,7 +126,7 @@ const tsCode = `<${_T}>
       <div class="side-panel">
         <p class="status">连接状态：{{ connState }}</p>
         <ul class="log">
-          <li v-for="log in eventLog" :key="log">{{ log }}</li>
+          <li v-for="log in eventLog" :key="log.id">{{ log.text }}</li>
         </ul>
         <div v-if="cursorList.length" class="cursors">
           <p>其他用户：</p>
@@ -159,35 +158,40 @@ const edges = ref<Edge[]>([
 
 const flowRef = ref<FlowInstance>();
 const connState = ref<ConnectionState>('disconnected');
-const eventLog = ref<string[]>([]);
+const eventLog = ref<Array<{ id: string; text: string }>>([]);
 const cursorList = ref<Array<{ id: string; name: string; color: string }>>([]);
+
+const addLog = (text: string) => {
+  const id = \`\${Date.now()}-\${Math.random().toString(36).slice(2, 6)}\`;
+  eventLog.value = [{ id, text }, ...eventLog.value].slice(0, 20);
+};
 
 const collab = new FlowCollaborationEngine();
 
 collab.on('sync', (e) => {
-  eventLog.value = [\`[sync] \${new Date().toLocaleTimeString()}\`, ...eventLog.value].slice(0, 20);
+  addLog(\`[sync] \${new Date().toLocaleTimeString()}\`);
   const state = collab.getState();
   nodes.value = state.nodes;
   edges.value = state.edges;
 });
 
 collab.on('operation', (e) => {
-  eventLog.value = [\`[op] \${e.data?.type} by \${e.userId}\`, ...eventLog.value].slice(0, 20);
+  addLog(\`[op] \${e.data?.type} by \${e.userId}\`);
 });
 
 collab.on('cursor_update', (e) => {
-  eventLog.value = [\`[cursor] \${e.userId}\`, ...eventLog.value].slice(0, 20);
+  addLog(\`[cursor] \${e.userId}\`);
   cursorList.value = Array.from(collab.getCursors().entries()).map(([id, c]) => ({
     id, name: c.name, color: c.color
   }));
 });
 
 collab.on('user_joined', (e) => {
-  eventLog.value = [\`[join] \${e.userId}\`, ...eventLog.value].slice(0, 20);
+  addLog(\`[join] \${e.userId}\`);
 });
 
 collab.on('user_left', (e) => {
-  eventLog.value = [\`[leave] \${e.userId}\`, ...eventLog.value].slice(0, 20);
+  addLog(\`[leave] \${e.userId}\`);
 });
 
 const connectRoom = async () => {
@@ -201,20 +205,20 @@ const connectRoom = async () => {
       initialEdges: edges.value
     });
     connState.value = collab.getConnectionState();
-    eventLog.value = ['Connected!', ...eventLog.value];
+    addLog('Connected!');
   } catch (e) {
-    eventLog.value = ['Connection failed (demo only)', ...eventLog.value];
+    addLog('Connection failed (demo only)');
   }
 };
 
 const disconnectRoom = () => {
   collab.disconnect();
   connState.value = collab.getConnectionState();
-  eventLog.value = ['Disconnected', ...eventLog.value];
+  addLog('Disconnected');
 };
 
 const simulateRemote = () => {
-  eventLog.value = ['[sim] cursor_update', ...eventLog.value].slice(0, 20);
+  addLog('[sim] cursor_update');
 };
 </${_S}>
 
@@ -300,7 +304,7 @@ const jsCode = toJs(tsCode)
       <div style="width:200px;padding:12px;border:1px solid #e2e8f0;border-radius:8px;background:#fafafa;display:flex;flex-direction:column;gap:8px;">
         <p style="margin:0;font-size:13px;font-weight:600;">连接状态：{{ connState }}</p>
         <ul style="list-style:none;margin:0;padding:0;font-size:12px;color:#606266;max-height:380px;overflow-y:auto;">
-          <li v-for="log in eventLog" :key="log" style="padding: 2px 0;">{{ log }}</li>
+          <li v-for="log in eventLog" :key="log.id" style="padding: 2px 0;">{{ log.text }}</li>
         </ul>
       </div>
     </div>

@@ -180,11 +180,17 @@ export class FlowCollaborationEngine {
         }
 
         this.ws.onmessage = (event) => {
+          const { data } = event
+          if (typeof data !== 'string') return
+
           try {
-            const message: WSMessage = JSON.parse(event.data)
-            this.handleMessage(message)
-          } catch (e) {
-            console.error('Failed to parse WebSocket message:', e)
+            const message = JSON.parse(data)
+            // 严谨的协议结构校验
+            if (this.isValidWSMessage(message)) {
+              this.handleMessage(message)
+            }
+          } catch {
+            // 解析失败视为非协议消息（如开发环境心跳），静默丢弃
           }
         }
 
@@ -419,6 +425,22 @@ export class FlowCollaborationEngine {
   }
 
   // ==================== 私有方法 ====================
+
+  /**
+   * 严谨校验消息是否符合 WSMessage 协议结构
+   */
+  private isValidWSMessage(message: unknown): message is WSMessage {
+    if (message && typeof message === 'object') {
+      const m = message as Record<string, unknown>
+      return (
+        typeof m.type === 'string' &&
+        typeof m.roomId === 'string' &&
+        typeof m.userId === 'string' &&
+        'payload' in m
+      )
+    }
+    return false
+  }
 
   private send(message: WSMessage): void {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {

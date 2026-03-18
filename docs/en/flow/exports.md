@@ -141,7 +141,8 @@ const exportAsJson = () => {
 
 const copyToClipboard = async () => {
   await flowRef.value?.exportImage?.({
-    copyToClipboard: true
+    copyToClipboard: true,
+    download: false
   });
 };
 
@@ -159,6 +160,7 @@ const tsCode = `<${_T}>
       :nodes="nodes"
       :edges="edges"
       background="dots"
+      enable-export
     />
   </div>
 </${_T}>
@@ -284,6 +286,7 @@ const jsCode = toJs(tsCode);
         :nodes="nodes"
         :edges="edges"
         background="dots"
+        enable-export
         style="width:100%;height:100%;"
       ></yh-flow>
     </div>

@@ -12,6 +12,8 @@ interface Props {
   style?: NodeStyle
   handles?: NodeHandle[]
   label?: string
+  labelColor?: string
+  descriptionColor?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -23,7 +25,9 @@ const props = withDefaults(defineProps<Props>(), {
     { type: 'target', position: 'left', isConnectable: true }
   ],
   style: () => ({}),
-  label: ''
+  label: '',
+  labelColor: '',
+  descriptionColor: ''
 })
 
 const nodeStyle = computed(() => {
@@ -65,8 +69,24 @@ function getHandleStyle(handle: NodeHandle) {
 
 <template>
   <div :class="['flow-base-node', { selected, dragging }]" :style="nodeStyle">
-    <div class="flow-node-label">{{ label || data?.label || type }}</div>
-    <div v-if="data?.description" class="flow-node-description">{{ data.description }}</div>
+    <div
+      class="flow-node-label"
+      :style="{ color: labelColor || data?.labelColor || 'var(--flow-node-label-color, #303133)' }"
+    >
+      {{ label || data?.label || type }}
+    </div>
+    <div
+      v-if="data?.description"
+      class="flow-node-description"
+      :style="{
+        color:
+          descriptionColor ||
+          data?.descriptionColor ||
+          'var(--flow-node-description-color, #909399)'
+      }"
+    >
+      {{ data.description }}
+    </div>
     <template v-for="handle in handles" :key="`${handle.type}-${handle.position}`">
       <div
         v-if="handle.isConnectable !== false && connectable"

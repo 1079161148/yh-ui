@@ -35,6 +35,13 @@
         </template>
       </EdgeRenderer>
 
+      <!-- Edge Handles (for updating/reconnecting edges) -->
+      <EdgeHandlesRenderer
+        :edges="edgesRef || []"
+        :nodes="nodesRef || []"
+        @edge-update-start="handleEdgeUpdateStart"
+      />
+
       <!-- Nodes -->
       <NodeRenderer
         :nodes="visibleNodes || []"
@@ -72,7 +79,7 @@
     <svg v-if="isConnecting" class="yh-flow__connection-line">
       <path
         :d="connectionLinePath"
-        stroke="#3b82f6"
+        stroke="var(--flow-edge-animated-stroke, #409eff)"
         stroke-width="2"
         fill="none"
         stroke-dasharray="5,5"
@@ -133,6 +140,7 @@ import type {
   EdgeTypes
 } from './types'
 import EdgeRenderer from './renderer/EdgeRenderer.vue'
+import EdgeHandlesRenderer from './renderer/EdgeHandlesRenderer.vue'
 import NodeRenderer from './renderer/NodeRenderer.vue'
 import SelectionBox from './renderer/SelectionBox.vue'
 import NodeEditPanel from './components/NodeEditPanel.vue'
@@ -142,7 +150,9 @@ import {
   createGridPlugin,
   createMiniMapPlugin,
   createControlsPlugin,
-  createSnapPlugin
+  createSnapPlugin,
+  createExportPlugin,
+  createLayoutPlugin
 } from './plugins/plugins'
 import { useViewport } from './core/useViewport'
 import { useNodes } from './core/useNodes'
@@ -977,7 +987,11 @@ const flowInstance: FlowInstance = {
   draggingNodeId,
   draggingPosition,
   usePlugin,
-  removePlugin
+  removePlugin,
+  // Placeholders for plugin methods to be exposed via defineExpose
+  exportJson: undefined,
+  exportImage: undefined,
+  applyLayout: undefined
 } as FlowInstance
 
 // Provide Flow context for plugins / hooks
@@ -985,12 +999,7 @@ provideFlowContext(flowInstance)
 pluginManager.init(flowInstance)
 
 // 暴露实例给 ref，使文档中 flowRef.value.fitView / screenToCanvas / $el 等可用
-defineExpose({
-  ...flowInstance,
-  get $el() {
-    return containerRef?.value ?? null
-  }
-})
+defineExpose(flowInstance)
 
 // Watch for changes（拖拽中不覆盖 nodesRef，避免父组件未使用 v-model:nodes 时拖拽位置被还原）
 watch(
@@ -1129,6 +1138,24 @@ onMounted(() => {
     )
   }
 
+  if (props.enableExport) {
+    usePlugin(
+      createExportPlugin({
+        fileName: props.exportFileName,
+        enabled: true
+      })
+    )
+  }
+
+  if (props.layoutType && props.layoutType !== 'none') {
+    usePlugin(
+      createLayoutPlugin({
+        type: props.layoutType,
+        direction: props.layoutDirection
+      })
+    )
+  }
+
   // Watch for legacy props changes to update plugins
   watch(
     () => [props.background, props.backgroundColor, props.gridSize],
@@ -1188,6 +1215,37 @@ onMounted(() => {
           createSnapPlugin({
             showAlignmentLines: true,
             snapThreshold: (threshold as number) || 10
+          })
+        )
+      }
+    }
+  )
+
+  watch(
+    () => [props.enableExport, props.exportFileName],
+    ([enable, fileName]) => {
+      removePlugin('export')
+      if (enable) {
+        usePlugin(
+          createExportPlugin({
+            fileName: fileName as string,
+            enabled: true
+          })
+        )
+      }
+    }
+  )
+
+  watch(
+    () => [props.layoutType, props.layoutDirection],
+    ([type, dir]) => {
+      // minimap watch handles its own updates, here we update layout plugin
+      removePlugin('layout')
+      if (type && type !== 'none') {
+        usePlugin(
+          createLayoutPlugin({
+            type: type as 'dagre' | 'elk' | 'force' | 'grid',
+            direction: dir as 'TB' | 'BT' | 'LR' | 'RL'
           })
         )
       }

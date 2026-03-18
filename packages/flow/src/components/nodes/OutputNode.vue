@@ -11,6 +11,7 @@ interface Props {
   connectable: boolean
   style?: NodeStyle
   label?: string
+  labelColor?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,7 +19,8 @@ const props = withDefaults(defineProps<Props>(), {
   dragging: false,
   connectable: true,
   style: () => ({}),
-  label: ''
+  label: '',
+  labelColor: ''
 })
 
 const nodeStyle = computed(() => {
@@ -47,7 +49,9 @@ const nodeStyle = computed(() => {
       data-handle-type="target"
       data-handle-position="left"
     />
-    <div class="flow-node-label">{{ label || data?.label || 'Output' }}</div>
+    <div class="flow-node-label" :style="{ color: labelColor || data?.labelColor || '#000' }">
+      {{ label || data?.label || 'Output' }}
+    </div>
   </div>
 </template>
 

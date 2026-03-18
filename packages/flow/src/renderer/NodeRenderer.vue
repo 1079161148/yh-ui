@@ -44,8 +44,15 @@
       <div class="yh-flow-node__content">
         <slot name="node" :node="node">
           <!-- Automatic Custom Node Component -->
-          <component v-if="getComponent(node.type)" :is="getComponent(node.type)" :node="node" />
-          <div v-else class="yh-flow-node__header">{{ node.data?.label || node.id }}</div>
+          <component
+            v-if="getComponent(node.type)"
+            :is="getComponent(node.type)"
+            v-bind="getComponentProps(node)"
+            :node="node"
+          />
+          <div v-else class="yh-flow-node__header" :style="{ color: node.labelColor }">
+            {{ node.data?.label || node.id }}
+          </div>
         </slot>
       </div>
     </div>
@@ -119,7 +126,43 @@ const getNodeStyle = (node: Node) => {
     width: `${width}px`,
     height: `${height}px`,
     zIndex,
+    '--flow-node-label-color': node.labelColor,
+    '--flow-node-description-color': node.descriptionColor,
     ...node.style
+  }
+}
+
+const getComponentProps = (node: Node) => {
+  // 提取组件所需的标准 Props，过滤掉 handleBounds 等可能导致 Attr 警告的大对象/内部对象
+  const {
+    id,
+    type,
+    data,
+    position,
+    width,
+    height,
+    selected,
+    dragging,
+    connectable,
+    zIndex,
+    style,
+    labelColor,
+    descriptionColor
+  } = node
+  return {
+    id,
+    type,
+    data,
+    position,
+    width,
+    height,
+    selected,
+    dragging,
+    connectable,
+    zIndex,
+    style,
+    labelColor,
+    descriptionColor
   }
 }
 

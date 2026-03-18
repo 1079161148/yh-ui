@@ -35,7 +35,12 @@
       class="yh-flow-edge-group"
       :class="{ 'is-selected': ed.edge.selected, 'is-animated': ed.edge.animated }"
       :data-edge-id="ed.edge.id"
-      :style="{ color: ed.stroke, pointerEvents: 'auto', cursor: 'pointer' }"
+      :style="{
+        color: ed.stroke,
+        pointerEvents: 'auto',
+        cursor: 'pointer',
+        '--stroke-width': ed.strokeWidth + 'px'
+      }"
       @click.stop="emit('edge-click', $event, ed.edge)"
       @dblclick.stop="emit('edge-dblclick', $event, ed.edge)"
       @contextmenu.stop.prevent="emit('edge-contextmenu', $event, ed.edge)"
@@ -68,7 +73,7 @@
             :style="{
               pointerEvents: 'none',
               transition: 'stroke 0.2s, stroke-width 0.2s',
-              color: ed.stroke
+              stroke: ed.stroke
             }"
           />
 
@@ -137,8 +142,10 @@ const nodeMap = computed(() => {
   return m
 })
 
-const getLabelStyle = (edge: Edge): Record<string, string | number> => {
+const getLabelStyle = (edge?: Edge): Record<string, string | number> => {
+  if (!edge) return {}
   const styles: Record<string, string | number> = {
+    color: edge.labelColor || 'var(--flow-edge-label-color, #000)',
     ...(edge.labelStyle as Record<string, string | number>)
   }
 
@@ -156,7 +163,7 @@ const getLabelStyle = (edge: Edge): Record<string, string | number> => {
 const edgeData = computed(() => {
   const result = []
   for (const edge of props.edges) {
-    if (edge.hidden) continue
+    if (!edge || edge.hidden) continue
     // 正在更新的连线在主渲染中隐藏
     if (props.updatingEdgeId && edge.id === props.updatingEdgeId) continue
 
@@ -189,8 +196,16 @@ const edgeData = computed(() => {
     const strippedLabel = labelText.replace(/<[^>]*>/g, '')
     const labelWidth = Math.min(strippedLabel.length * 7, 120)
 
+    const stroke =
+      edge.style?.stroke ||
+      (edge.selected
+        ? 'var(--flow-edge-selected-stroke, #3b82f6)'
+        : 'var(--flow-edge-stroke, #b1b1b7)')
+    const strokeWidth = edge.style?.strokeWidth ?? 1.5
+
     result.push({
       edge,
+      style: edge.style,
       path,
       sourceX: sPos.x,
       sourceY: sPos.y,
@@ -199,10 +214,8 @@ const edgeData = computed(() => {
       labelX: center.x,
       labelY: center.y,
       labelWidth,
-      stroke: edge.selected
-        ? 'var(--flow-edge-selected-stroke, #3b82f6)'
-        : edge.style?.stroke || 'var(--flow-edge-stroke, #b1b1b7)',
-      strokeWidth: (edge.style?.strokeWidth ?? 1.5) * (edge.selected ? 1.5 : 1)
+      stroke,
+      strokeWidth
     })
   }
   return result
@@ -252,5 +265,19 @@ const edgeData = computed(() => {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+/* 选中状态及其过渡效果 */
+.yh-flow-edge-group .yh-flow-edge-path {
+  transition:
+    stroke 0.2s,
+    stroke-width 0.2s,
+    filter 0.2s;
+}
+
+.yh-flow-edge-group.is-selected .yh-flow-edge-path {
+  stroke: var(--flow-edge-selected-stroke, #3b82f6);
+  stroke-width: calc(var(--stroke-width, 1.5px) * 1.5 + 1px) !important;
+  filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.4));
 }
 </style>

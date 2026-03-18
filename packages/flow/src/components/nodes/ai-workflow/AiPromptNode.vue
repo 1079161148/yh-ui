@@ -51,9 +51,9 @@ const nodeStyle = computed(() => {
       <span class="ai-node-title">{{ label || data?.label || '提示词' }}</span>
     </div>
     <div class="ai-node-body">
-      <div class="ai-node-preview"
-        >{{ String(data?.prompt || '').slice(0, 30) || '点击编辑提示词...' }}...</div
-      >
+      <div class="ai-node-preview">
+        {{ String(data?.prompt || '').slice(0, 30) || '点击编辑提示词...' }}...
+      </div>
     </div>
     <div
       v-if="connectable"

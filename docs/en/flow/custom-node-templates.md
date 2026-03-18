@@ -73,8 +73,8 @@ const ApprovalNode = defineComponent({
         'div',
         { class: 'template-card template-card--approval' },
         [
-          h('div', { class: 'template-card__title' }, props.data?.title ?? 'Approval'),
-          h('div', { class: 'template-card__meta' }, props.data?.approver ?? 'Approver')
+          h('div', { class: 'template-card__title' }, props.data?.label ?? 'Approval'),
+          h('div', { class: 'template-card__meta' }, props.data?.description ?? 'Process Review')
         ]
       );
   }
@@ -93,8 +93,8 @@ const NotificationNode = defineComponent({
         'div',
         { class: 'template-card template-card--notification' },
         [
-          h('div', { class: 'template-card__title' }, props.data?.title ?? 'Notification'),
-          h('div', { class: 'template-card__meta' }, props.data?.channel ?? 'Channel')
+          h('div', { class: 'template-card__title' }, props.data?.label ?? 'Notification'),
+          h('div', { class: 'template-card__meta' }, props.data?.description ?? 'Channel')
         ]
       );
   }
@@ -103,7 +103,7 @@ const NotificationNode = defineComponent({
 registerCustomNodeTemplate({
   type: 'approval',
   component: ApprovalNode,
-  defaultData: { title: 'Approval', approver: 'Reviewer' },
+  defaultData: { label: 'Approval', description: 'Process Review', approver: 'Admin' },
   defaultWidth: 190,
   defaultHeight: 70
 });
@@ -111,7 +111,7 @@ registerCustomNodeTemplate({
 registerCustomNodeTemplate({
   type: 'notification',
   component: NotificationNode,
-  defaultData: { title: 'Notification', channel: 'Email' },
+  defaultData: { label: 'Notification', description: 'Email Notify', channel: 'Email' },
   defaultWidth: 170,
   defaultHeight: 60
 });

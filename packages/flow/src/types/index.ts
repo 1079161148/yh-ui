@@ -37,6 +37,8 @@ export interface NodeData {
   class?: string
   icon?: string
   description?: string
+  labelColor?: string
+  descriptionColor?: string
 }
 
 export interface NodePosition {
@@ -70,6 +72,8 @@ export interface Node<Data = NodeData> {
   zIndex?: number
   extent?: 'parent' | string
   expandParent?: boolean
+  labelColor?: string
+  descriptionColor?: string
   positionAbsolute?: NodePosition
   handleBounds?: {
     top?: NodeHandle[]
@@ -144,6 +148,7 @@ export interface Edge<Data = EdgeData> {
   animated?: boolean
   label?: string
   labelStyle?: NodeStyle
+  labelColor?: string
   labelShowBg?: boolean
   labelBgColor?: string
   labelBgPadding?: [number, number]

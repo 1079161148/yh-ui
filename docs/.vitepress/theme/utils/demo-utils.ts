@@ -41,7 +41,9 @@ export function toJs(tsCode: string): string {
   code = code.replace(/^import\s+type\s+[^\n]+\n?/gm, '')
   // 混合 import 中的 type 前缀: import { X, type Y } → import { X }
   code = code.replace(/,\s*type\s+\w+/g, '')
-  code = code.replace(/\{\s*type\s+\w+,\s*/g, '{ ')
+  code = code.replace(/\{\s*type\s+\w+\s*,\s*/g, '{ ')
+  // 单项 type 导入: import { type X } → import { X }
+  code = code.replace(/\{\s*type\s+(\w+)\s*\}/g, '{ $1 }')
 
   // 3. 移除 interface 块（支持 extends、泛型、多行）
   code = code.replace(

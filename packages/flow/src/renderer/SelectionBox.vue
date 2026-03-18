@@ -32,8 +32,8 @@ const selectionBoxStyle = computed(() => {
 <style scoped>
 .yh-flow-selection-box {
   position: absolute;
-  border: 1px solid rgba(59, 130, 246, 0.8);
-  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid var(--flow-selection-box-border, #409eff);
+  background: var(--flow-selection-box-background, rgba(64, 158, 255, 0.1));
   pointer-events: none;
   z-index: 1000;
 }

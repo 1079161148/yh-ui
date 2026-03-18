@@ -160,6 +160,7 @@ const StepEdgeComponent = defineComponent({
   },
   setup(props) {
     return () => h('g', [
+      // 路径
       h('path', {
         d: props.path,
         stroke: props.stroke,
@@ -168,6 +169,7 @@ const StepEdgeComponent = defineComponent({
         'stroke-dasharray': '8,4',
         class: 'custom-step-path'
       }),
+      // 装饰点
       h('circle', {
         cx: props.labelX,
         cy: props.labelY,
@@ -175,13 +177,26 @@ const StepEdgeComponent = defineComponent({
         fill: props.stroke,
         class: 'pulse-dot'
       }),
-      props.edge?.label ? h('text', {
-        x: props.labelX,
-        y: (props.labelY || 0) - 12,
-        'text-anchor': 'middle',
-        fill: '#334155',
-        style: { fontSize: '11px', fontWeight: '600' }
-      }, props.edge.label) : null
+      // 标签渲染（支持背景）
+      props.edge?.label ? h('g', [
+        props.edge.labelShowBg ? h('rect', {
+          x: (props.labelX || 0) - 40,
+          y: (props.labelY || 0) - 24,
+          width: 80,
+          height: 20,
+          rx: 4,
+          fill: props.edge.labelBgColor || '#ffffff',
+          stroke: props.stroke,
+          'stroke-width': 1
+        }) : null,
+        h('text', {
+          x: props.labelX,
+          y: (props.labelY || 0) - 10,
+          'text-anchor': 'middle',
+          fill: '#334155',
+          style: { fontSize: '11px', fontWeight: '600' }
+        }, props.edge.label)
+      ]) : null
     ])
   }
 })

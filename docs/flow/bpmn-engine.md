@@ -134,7 +134,7 @@ const tsCode = `<${_T}>
       <div class="log-panel">
         <p class="status">状态：{{ status }}</p>
         <ul>
-          <li v-for="log in logs" :key="log">{{ log }}</li>
+          <li v-for="(log, idx) in logs" :key="idx">{{ log }}</li>
         </ul>
       </div>
     </div>
@@ -157,7 +157,7 @@ const status = ref<ProcessState>('idle');
 const currentInstanceId = ref('');
 
 const pushLog = (message: string) => {
-  logs.value = [message, ...logs.value].slice(0, 6);
+  logs.value = [message, ...logs.value].slice(0, 10);
 };
 
 const createEngineInstance = () =>
@@ -269,26 +269,23 @@ const toggleApproval = () => {
   font-size: 13px;
   font-weight: 600;
 }
-  ul {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    
-    /* 细窄滚动条设计 */
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #e2e8f0;
-      border-radius: 2px;
-    }
-  }
+.log-panel ul {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.log-panel ul::-webkit-scrollbar {
+  width: 4px;
+}
+.log-panel ul::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 2px;
 }
 </${_St}>`
 
@@ -326,7 +323,7 @@ const jsCode = toJs(tsCode)
       >
         <p style="margin:0;font-size:13px;font-weight:600;">状态：{{ status }}</p>
         <ul style="flex:1;overflow-y:auto;min-height:0;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;">
-          <li v-for="log in logs" :key="log" style="font-size:12px;color:#606266;">{{ log }}</li>
+          <li v-for="(log, idx) in logs" :key="idx" style="font-size:12px;color:#606266;">{{ log }}</li>
         </ul>
       </div>
     </div>

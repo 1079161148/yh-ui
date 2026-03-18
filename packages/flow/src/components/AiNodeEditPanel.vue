@@ -37,6 +37,14 @@ const localNode = ref<NodeForm>({
   description: ''
 })
 
+/** 常见业务字段扩展接口，避免使用 any */
+interface CommonDataFields extends NodeData {
+  title?: string
+  name?: string
+  text?: string
+  desc?: string
+}
+
 // 判断是否为 AI 工作流节点
 const isAiWorkflowNode = computed(() => {
   if (!props.node) return false
@@ -82,10 +90,13 @@ watch(
   () => props.node,
   (node) => {
     if (node) {
-      const data = node.data as NodeData
+      const data = node.data as CommonDataFields
+      // 寻找最合适的展示标签
+      const displayLabel = data.label || data.title || data.name || data.text || node.id
+
       localNode.value = {
-        label: data?.label || node.id,
-        description: data?.description || '',
+        label: String(displayLabel),
+        description: data.description || data.desc || '',
         style: { ...node.style },
         width: node.width,
         height: node.height,
@@ -114,7 +125,20 @@ const updateField = (field: keyof NodeForm, value: string | number | string[] | 
 }
 
 const handleLabelBlur = () => {
-  updateField('label', localNode.value.label)
+  if (!props.node) return
+  const data = { ...props.node.data } as CommonDataFields
+
+  if ('label' in data || !('title' in data || 'name' in data || 'text' in data)) {
+    data.label = localNode.value.label
+  } else if ('title' in data) {
+    data.title = localNode.value.label
+  } else if ('name' in data) {
+    data.name = localNode.value.label
+  } else if ('text' in data) {
+    data.text = localNode.value.label
+  }
+
+  emit('update', { data })
 }
 
 const handleModelChange = (event: Event) => {

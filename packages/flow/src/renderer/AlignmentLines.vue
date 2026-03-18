@@ -137,7 +137,7 @@ const verticalLines = computed(() => {
 }
 
 .alignment-line {
-  stroke: #3b82f6;
+  stroke: var(--flow-alignment-line-color, #c0c4cc);
   stroke-width: 1;
   stroke-dasharray: 4 2;
   opacity: 0;
@@ -145,6 +145,7 @@ const verticalLines = computed(() => {
 }
 
 .alignment-line.active {
+  stroke: var(--flow-alignment-line-active-color, #409eff);
   opacity: 1;
 }
 </style>
