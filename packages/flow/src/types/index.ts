@@ -279,6 +279,8 @@ export interface FlowInstance {
   $el: HTMLElement | undefined
   draggingNodeId: Ref<string | null>
   draggingPosition: Ref<{ x: number; y: number } | null>
+  isLocked: Ref<boolean>
+  setInteractive: (interactive: boolean) => void
   usePlugin: (plugin: FlowPlugin) => void
   removePlugin: (pluginId: string) => void
   // ============================================

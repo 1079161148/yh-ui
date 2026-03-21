@@ -588,6 +588,13 @@ export const en: Language = {
     marquee: {},
     // Affix
     affix: {},
+    // Flow
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     // Anchor
     anchor: {},
     // Mention

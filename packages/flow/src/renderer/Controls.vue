@@ -30,7 +30,7 @@
       <svg viewBox="0 0 24 24" width="16" height="16">
         <path
           fill="currentColor"
-          d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z"
+          d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z"
         />
       </svg>
     </button>
@@ -39,9 +39,9 @@
       class="yh-flow-controls__btn"
       :title="t('yh.flow.lock')"
       @click="toggleLock"
-      :class="{ 'is-active': readonly }"
+      :class="{ 'is-active': isLocked }"
     >
-      <svg v-if="readonly" viewBox="0 0 24 24" width="16" height="16">
+      <svg v-if="isLocked" viewBox="0 0 24 24" width="16" height="16">
         <path
           fill="currentColor"
           d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"
@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useLocale } from '@yh-ui/hooks'
 import { useFlowContext } from '../core/FlowContext'
 
@@ -80,16 +80,15 @@ withDefaults(
 const { t } = useLocale()
 const flowInstance = useFlowContext()
 
-// 暂时通过 flowInstance 内部状态管理 readonly，或者 emit 到父组件
-// 由于插件系统需要更好的状态同步，这里我们先假设 flowInstance 能处理这些
-const readonly = ref(false)
+const isLocked = computed(() => flowInstance.isLocked?.value || false)
 
 const zoomIn = () => flowInstance.zoomIn()
 const zoomOut = () => flowInstance.zoomOut()
 const handleFitView = () => flowInstance.fitView()
 const toggleLock = () => {
-  readonly.value = !readonly.value
-  // 如果 FlowInstance 支持，可以同步状态
+  if (flowInstance.setInteractive) {
+    flowInstance.setInteractive(isLocked.value)
+  }
 }
 </script>
 

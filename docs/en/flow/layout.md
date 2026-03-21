@@ -189,3 +189,34 @@ To apply an external layout to your flow, follow these steps:
 > [!TIP]
 >
 > For a more polished user experience, you can complement layout changes with CSS transitions to make nodes glide to their new positions. See the **[Layout & Animation](./layout-animation)** section for details.
+
+## 500+ Nodes: Enterprise Performance Tuning
+
+When rendering and laying out 500, 1000, or even more AI orchestration nodes on the canvas, a traditional full `for` loop calculation (like native dagre/d3-force algorithms) will completely freeze the browser for several seconds, severely degrading the user experience. As a geek-grade toolkit, `YH-UI Flow` natively offers a "Performance Lift-off" strategy from two dimensions:
+
+### 1. Dynamic Streaming & Collision (Living Simulation)
+
+If you use the built-in `createLayoutPlugin({ type: 'force' })`, the core engine has been thoroughly refactored into a time-sliced architecture based on `requestAnimationFrame` (rAF). The physical repulsion of hundreds of iterations is distributed across multiple frames. This means:
+
+- **Never blocks the main thread**: During the layout process, you can still scroll, drag, and click with explosive fluidity.
+- **Cellular-level visual FX**: The layout process is no longer a dull "freeze-and-snap". Hundreds of nodes will stretch dynamically and distribute elastically just like biological cells, delivering a truly visual physical world interaction.
+
+### 2. Web Worker Deep Offloading
+
+For algorithms that must synchronously compute and return results (such as Dagre), we officially reserved a complete offloading interface in `LayoutOptions`:
+
+```ts
+import { createLayoutPlugin } from '@yh-ui/flow'
+
+// Specify Web Worker usage when installing the plugin
+flowRef.value.usePlugin(
+  createLayoutPlugin({
+    type: 'dagre',
+    useWebWorker: true // Enables full cross-thread offscreen calculation
+    // workerUrl: '/my-custom-layout-worker.js' // Can be passed manually if your bundler cannot handle it automatically
+  })
+)
+```
+
+> [!TIP]
+> Thanks to the specialized optimizations of the native architecture mentioned above, `YH-UI Flow` explicitly outcompetes traditional secondary-wrapper component libraries in interactive feel when displaying massive datasets!

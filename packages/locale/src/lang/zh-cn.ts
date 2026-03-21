@@ -588,6 +588,13 @@ export const zhCn: Language = {
     marquee: {},
     // 固钉
     affix: {},
+    // 流程图
+    flow: {
+      zoomIn: '放大画布',
+      zoomOut: '缩小画布',
+      fitView: '自适应视图',
+      lock: '锁定/解锁画布'
+    },
     // 锚点
     anchor: {},
     // 提及

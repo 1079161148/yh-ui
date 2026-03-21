@@ -526,8 +526,8 @@ const handlePaneMouseDown = (event: MouseEvent) => {
   const mouseX = event.clientX - rect.left
   const mouseY = event.clientY - rect.top
 
-  // 按住 Alt/Option 且 selectable 时进行框选，否则进行平移（点击空白并拖动 → 平移画布）
-  if (event.altKey && props.selectable) {
+  // 按住 Alt/Option 且 selectable 且非锁定 时进行框选，否则进行平移（点击空白并拖动 → 平移画布）
+  if (event.altKey && props.selectable && !readonly.value) {
     const canvasPos = {
       x: (mouseX - viewportRef.value.x) / viewportRef.value.zoom,
       y: (mouseY - viewportRef.value.y) / viewportRef.value.zoom
@@ -535,7 +535,7 @@ const handlePaneMouseDown = (event: MouseEvent) => {
     isSelecting.value = true
     selectionManager.startSelection(canvasPos.x, canvasPos.y)
     selectionManager.clearSelection()
-  } else {
+  } else if (!readonly.value) {
     isPanning.value = true
     panStart.value = { x: event.clientX, y: event.clientY }
   }
@@ -986,6 +986,10 @@ const flowInstance: FlowInstance = {
   },
   draggingNodeId,
   draggingPosition,
+  isLocked: readonly,
+  setInteractive: (interactive: boolean) => {
+    readonly.value = !interactive
+  },
   usePlugin,
   removePlugin,
   // Placeholders for plugin methods to be exposed via defineExpose

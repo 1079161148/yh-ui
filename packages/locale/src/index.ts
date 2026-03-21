@@ -602,6 +602,13 @@ export interface Language {
     affix: {
       [key: string]: never
     }
+    // 流程图
+    flow: {
+      zoomIn: string
+      zoomOut: string
+      fitView: string
+      lock: string
+    }
     // 锚点
     anchor: {
       [key: string]: never
