@@ -57,6 +57,7 @@ export { default as BaseEdge } from './components/edges/BaseEdge.vue'
 export { default as SmoothEdge } from './components/edges/SmoothEdge.vue'
 export { default as StepEdge } from './components/edges/StepEdge.vue'
 export { default as BezierEdge } from './components/edges/BezierEdge.vue'
+export { default as DataFlowEdge } from './components/edges/DataFlowEdge.vue'
 
 // 主组件
 export { default as Flow } from './Flow.vue'

@@ -7,7 +7,9 @@ import {
   createSnapPlugin,
   createKeyboardPlugin,
   createExportPlugin,
-  createLayoutPlugin
+  createLayoutPlugin,
+  createHistoryPlugin,
+  createNodeGroupPlugin
 } from './plugins/index'
 
 export type { FlowPlugin, FlowInstance, PluginHooks, PluginOptions } from './plugin'
@@ -21,7 +23,9 @@ export {
   createSnapPlugin,
   createKeyboardPlugin,
   createExportPlugin,
-  createLayoutPlugin
+  createLayoutPlugin,
+  createHistoryPlugin,
+  createNodeGroupPlugin
 } from './plugins'
 
 // 插件选项类型导出
@@ -32,7 +36,11 @@ export type {
   SnapPluginOptions,
   KeyboardOptions as KeyboardPluginOptions,
   ExportPluginOptions,
-  LayoutOptions as LayoutPluginOptions
+  LayoutOptions as LayoutPluginOptions,
+  HistoryPluginOptions,
+  FlowHistorySnapshot,
+  NodeGroupOptions,
+  NodeGroupInfo
 } from './plugins'
 
 // ============================================
@@ -49,7 +57,9 @@ export const defaultPlugins = {
   snap: createSnapPlugin,
   keyboard: createKeyboardPlugin,
   export: createExportPlugin,
-  layout: createLayoutPlugin
+  layout: createLayoutPlugin,
+  history: createHistoryPlugin,
+  nodeGroup: createNodeGroupPlugin
 }
 
 /**
@@ -63,6 +73,8 @@ export function createDefaultPluginSet(options?: {
   keyboard?: Parameters<typeof createKeyboardPlugin>[0]
   export?: Parameters<typeof createExportPlugin>[0]
   layout?: Parameters<typeof createLayoutPlugin>[0]
+  history?: Parameters<typeof createHistoryPlugin>[0]
+  nodeGroup?: Parameters<typeof createNodeGroupPlugin>[0]
 }): FlowPlugin[] {
   return [
     createMiniMapPlugin(options?.minimap),
@@ -71,6 +83,8 @@ export function createDefaultPluginSet(options?: {
     createSnapPlugin(options?.snap),
     createKeyboardPlugin(options?.keyboard),
     createExportPlugin(options?.export),
-    createLayoutPlugin(options?.layout)
+    createLayoutPlugin(options?.layout),
+    createHistoryPlugin(options?.history),
+    createNodeGroupPlugin(options?.nodeGroup)
   ].filter(Boolean) as FlowPlugin[]
 }

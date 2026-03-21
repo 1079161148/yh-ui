@@ -753,6 +753,7 @@ export default defineConfig({
         {
           text: '新增专题',
           items: [
+            { text: 'AI 工作流节点', link: '/flow/ai-workflow' },
             { text: '自定义节点模板', link: '/flow/custom-node-templates' },
             { text: '节点嵌套布局', link: '/flow/nested-layout' },
             { text: '交互式小地图', link: '/flow/minimap' },
@@ -765,9 +766,17 @@ export default defineConfig({
           ]
         },
         {
+          text: '🚀 超车功能',
+          items: [
+            { text: '✨ 数据流光效边', link: '/flow/data-flow-edge' },
+            { text: '📦 节点成组与子流程', link: '/flow/node-group' },
+            { text: '↩ 历史撤销/重做', link: '/flow/history' }
+          ]
+        },
+        {
           text: '性能与架构',
           items: [
-            { text: '自动布局 (Dagre)', link: '/flow/layout' },
+            { text: '🔧 自动布局 (Dagre/ELK/Force)', link: '/flow/layout' },
             { text: '布局动画', link: '/flow/layout-animation' },
             { text: 'Pinia 状态管理', link: '/flow/pinia' },
             { text: '多实例协作', link: '/flow/multi-flow' },
@@ -825,6 +834,7 @@ export default defineConfig({
         {
           text: 'New Features',
           items: [
+            { text: 'AI Workflow Nodes', link: '/en/flow/ai-workflow' },
             { text: 'Custom Node Templates', link: '/en/flow/custom-node-templates' },
             { text: 'Nested Node Layout', link: '/en/flow/nested-layout' },
             { text: 'Interactive Minimap', link: '/en/flow/minimap' },
@@ -837,9 +847,17 @@ export default defineConfig({
           ]
         },
         {
+          text: '🚀 Competitive Features',
+          items: [
+            { text: '✨ Data Flow Edge', link: '/en/flow/data-flow-edge' },
+            { text: '📦 Node Grouping & Subflow', link: '/en/flow/node-group' },
+            { text: '↩ History Undo/Redo', link: '/en/flow/history' }
+          ]
+        },
+        {
           text: 'Scaling & Architecture',
           items: [
-            { text: 'Auto Layout', link: '/en/flow/layout' },
+            { text: '🔧 Auto Layout (Dagre/ELK/Force)', link: '/en/flow/layout' },
             { text: 'Layout Animation', link: '/en/flow/layout-animation' },
             { text: 'Pinia Integration', link: '/en/flow/pinia' },
             { text: 'Concurrent Flows', link: '/en/flow/multi-flow' },
