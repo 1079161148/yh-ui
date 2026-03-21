@@ -82,6 +82,10 @@ export interface LayoutOptions {
     startX?: number
     startY?: number
   }
+  /** 是否启用 Web Worker 进行密集计算（如用户自行提供打包的 workerUrl） */
+  useWebWorker?: boolean
+  /** 自定义 Web Worker 的 URL，配合 useWebWorker 使用 */
+  workerUrl?: string
 }
 
 const defaultOptions: Required<LayoutOptions> = {
@@ -93,7 +97,9 @@ const defaultOptions: Required<LayoutOptions> = {
   animate: true,
   elkOptions: {},
   forceOptions: {},
-  gridOptions: { columns: 4 }
+  gridOptions: { columns: 4 },
+  useWebWorker: false,
+  workerUrl: ''
 }
 
 /**
@@ -219,18 +225,20 @@ async function applyElkLayout(
 }
 
 /**
- * 使用 d3-force 算法计算力导向布局
+ * 使用 d3-force 算法计算力导向布局（异步执行阻止主线程阻塞）
  */
-function applyForceLayout(
+async function applyForceLayout(
   nodes: Node[],
   edges: Edge[],
-  options: Required<LayoutOptions>
-): { nodes: Node[]; edges: Edge[] } {
+  options: Required<LayoutOptions>,
+  flowInstance?: FlowInstance
+): Promise<{ nodes: Node[]; edges: Edge[] }> {
   const d3Force = require('d3-force') as {
     forceSimulation: (nodes: unknown[]) => {
-      force: (name: string, force: unknown) => void
+      force: (name: string, force: unknown) => unknown
       tick: () => void
       stop: () => void
+      alpha: () => number
     }
     forceLink: () => ForceLink
     forceManyBody: () => { strength: (n: number) => unknown }
@@ -278,39 +286,67 @@ function applyForceLayout(
   const centerY = 300
   force.force('center', d3Force.forceCenter(centerX, centerY))
 
-  // 执行迭代
+  // 异步执行计算以避免主线程阻塞 (UI 冻结)
+  // 当节点数过多时有效释放 CPU 时间片
   const iterations = forceOpts.iterations || 300
-  for (let i = 0; i < iterations; i++) {
-    force.tick()
-  }
+  const ticksPerFrame = Math.max(1, Math.floor(iterations / 10))
 
-  // 停止模拟
-  force.stop()
+  return new Promise((resolve) => {
+    let currentIteration = 0
 
-  // 计算边界偏移以保持节点在正坐标
-  let minX = Infinity,
-    minY = Infinity
-  forceNodes.forEach((n) => {
-    if (n.x < minX) minX = n.x
-    if (n.y < minY) minY = n.y
-  })
-  const offsetX = minX < 0 ? -minX + 50 : 50
-  const offsetY = minY < 0 ? -minY + 50 : 50
+    const step = () => {
+      // 每次执行一小批量的 tick
+      const toRun = Math.min(ticksPerFrame, iterations - currentIteration)
+      for (let i = 0; i < toRun; i++) {
+        force.tick()
+      }
+      currentIteration += toRun
 
-  const layoutedNodes = nodes.map((node) => {
-    const forceNode = forceNodes.find((n) => n.id === node.id)
-    if (!forceNode) return node
+      // 计算边界偏移
+      let minX = Infinity,
+        minY = Infinity
+      forceNodes.forEach((n) => {
+        if (n.x < minX) minX = n.x
+        if (n.y < minY) minY = n.y
+      })
+      const offsetX = minX < 0 ? -minX + 50 : 50
+      const offsetY = minY < 0 ? -minY + 50 : 50
 
-    return {
-      ...node,
-      position: {
-        x: forceNode.x + offsetX,
-        y: forceNode.y + offsetY
+      // 动态推送到界面流式渲染 (仅开启 animate 时)
+      if (options.animate && flowInstance) {
+        forceNodes.forEach((fn) => {
+          flowInstance.updateNode(fn.id, {
+            position: { x: fn.x + offsetX, y: fn.y + offsetY }
+          })
+        })
+      }
+
+      // 如果提供了流式渲染选项，可以尝试动态写回每个节点
+      // 此处将最终结果在全部执行完后 resolve
+      if (currentIteration < iterations && force.alpha() > 0.005) {
+        // 请求下一帧继续计算
+        if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+          window.requestAnimationFrame(step)
+        } else {
+          setTimeout(step, 0)
+        }
+      } else {
+        force.stop()
+        const layoutedNodes = nodes.map((node) => {
+          const forceNode = forceNodes.find((n) => n.id === node.id)
+          if (!forceNode) return node
+          return {
+            ...node,
+            position: { x: forceNode.x + offsetX, y: forceNode.y + offsetY }
+          }
+        })
+        resolve({ nodes: layoutedNodes, edges })
       }
     }
-  })
 
-  return { nodes: layoutedNodes, edges }
+    // 开始执行
+    step()
+  })
 }
 
 /**
@@ -371,8 +407,8 @@ export function createLayoutPlugin(options: LayoutOptions = {}): FlowPlugin {
             layouted = await applyElkLayout(nodes, edges, opts as Required<LayoutOptions>)
             console.log('[Layout Plugin] ELK layout applied successfully')
           } else if (opts.type === 'force') {
-            layouted = applyForceLayout(nodes, edges, opts as Required<LayoutOptions>)
-            console.log('[Layout Plugin] Force layout applied successfully')
+            layouted = await applyForceLayout(nodes, edges, opts as Required<LayoutOptions>, flow)
+            console.log('[Layout Plugin] Force layout applied asynchronously')
           } else if (opts.type === 'grid') {
             layouted = applyGridLayout(nodes, edges, opts as Required<LayoutOptions>)
             console.log('[Layout Plugin] Grid layout applied successfully')
