@@ -1,11 +1,6 @@
 <template>
   <div class="yh-flow-controls" :class="[position]">
-    <button
-      v-if="showZoom"
-      class="yh-flow-controls__btn"
-      :title="t('yh.flow.zoomIn')"
-      @click="zoomIn"
-    >
+    <button v-if="showZoom" class="yh-flow-controls__btn" :title="t('flow.zoomIn')" @click="zoomIn">
       <svg viewBox="0 0 24 24" width="16" height="16">
         <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
       </svg>
@@ -13,7 +8,7 @@
     <button
       v-if="showZoom"
       class="yh-flow-controls__btn"
-      :title="t('yh.flow.zoomOut')"
+      :title="t('flow.zoomOut')"
       @click="zoomOut"
     >
       <svg viewBox="0 0 24 24" width="16" height="16">
@@ -24,7 +19,7 @@
     <button
       v-if="showFitView"
       class="yh-flow-controls__btn"
-      :title="t('yh.flow.fitView')"
+      :title="t('flow.fitView')"
       @click="handleFitView"
     >
       <svg viewBox="0 0 24 24" width="16" height="16">
@@ -37,7 +32,7 @@
     <button
       v-if="showInteractive"
       class="yh-flow-controls__btn"
-      :title="t('yh.flow.lock')"
+      :title="t('flow.lock')"
       @click="toggleLock"
       :class="{ 'is-active': isLocked }"
     >
