@@ -8,10 +8,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs } from '../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
-const tsCode = `<template>
+const tsCode = `<${_T}>
   <div style="height: 450px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: #0f172a;">
     <yh-flow
       :nodes="nodes"
@@ -22,28 +22,28 @@ const tsCode = `<template>
       <!-- 1. 使用 #node 插槽访问节点数据对象 -->
       <template #node="{ node }">
         <div v-if="node.type === 'premium'" class="glass-node" :class="{ 'is-selected': node.selected }">
-          <div class="node-glow"><\/div>
+          <div class="node-glow"></div>
           <div class="node-inner">
              <div class="node-header">
-                <span class="status-dot"><\/span>
-                <span class="node-id">ID: {{ node.id }}<\/span>
-             <\/div>
+                <span class="status-dot"></span>
+                <span class="node-id">ID: {{ node.id }}</span>
+             </div>
              <div class="node-body">
-                <h3>{{ node.data.title }}<\/h3>
-                <p>{{ node.data.description }}<\/p>
+                <h3>{{ node.data.title }}</h3>
+                <p>{{ node.data.description }}</p>
                 <div class="node-footer">
-                  <span class="tag">Production<\/span>
-                  <span class="uptime">99.9%<\/span>
-                <\/div>
-             <\/div>
-          <\/div>
-        <\/div>
-      <\/template>
-    <\/yh-flow>
-  <\/div>
-<\/template>
+                  <span class="tag">Production</span>
+                  <span class="uptime">99.9%</span>
+                </div>
+             </div>
+          </div>
+        </div>
+      </template>
+    </yh-flow>
+  </div>
+</${_T}>
 
-<script setup lang="ts">
+<${_S} setup lang="ts">
 import { ref } from 'vue'
 import type { Node, Edge } from '@yh-ui/flow'
 
@@ -60,9 +60,9 @@ const nodes = ref<Node[]>([
   }
 ])
 const edges = ref<Edge[]>([])
-<\/script>
+</${_S}>
 
-<style scoped>
+<${_St} scoped>
 .glass-node {
   position: relative;
   width: 100%;
@@ -152,7 +152,7 @@ const edges = ref<Edge[]>([])
   from { opacity: 0.3; transform: scale(0.95); }
   to { opacity: 0.7; transform: scale(1.05); }
 }
-<\/style>`
+</${_St}>`
 
 const jsCode = toJs(tsCode)
 

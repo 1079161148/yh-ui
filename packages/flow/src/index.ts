@@ -25,6 +25,8 @@ export { default as GroupNode } from './components/nodes/GroupNode.vue'
 export { default as CustomNode } from './components/nodes/CustomNode.vue'
 export { default as NodeResizer } from './components/nodes/NodeResizer.vue'
 export { default as NodeToolbar } from './components/nodes/NodeToolbar.vue'
+export { default as DiamondNode } from './components/nodes/DiamondNode.vue'
+export { default as DatabaseNode } from './components/nodes/DatabaseNode.vue'
 // BPMN 节点库
 export {
   BpmnStartEvent,

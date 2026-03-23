@@ -105,18 +105,18 @@ const defaultOptions: Required<LayoutOptions> = {
 /**
  * 使用 dagre 算法计算布局
  */
-function applyDagreLayout(
+async function applyDagreLayout(
   nodes: Node[],
   edges: Edge[],
   options: Required<LayoutOptions>
-): { nodes: Node[]; edges: Edge[] } {
-  // 动态导入 dagre
-  const dagreLib: DagreLib = require('dagre')
-  const dagre = (dagreLib.default || (dagreLib as unknown as Dagre)) as {
+): Promise<{ nodes: Node[]; edges: Edge[] }> {
+  // 动态导入 dagre，直接使用字面量可让 Vite 开发环境正确解析和执行 pre-bundle
+  const dagreLib: unknown = await import('dagre')
+  const dagre = ((dagreLib as Record<string, unknown>).default || dagreLib) as {
     graphlib: GraphLib
     layout: (g: Graph) => void
   }
-  const graphlib = dagreLib.graphlib || dagre.graphlib
+  const graphlib = ((dagreLib as Record<string, unknown>).graphlib || dagre.graphlib) as GraphLib
 
   const g: Graph = new graphlib.Graph()
 
@@ -172,7 +172,18 @@ async function applyElkLayout(
   edges: Edge[],
   options: Required<LayoutOptions>
 ): Promise<{ nodes: Node[]; edges: Edge[] }> {
-  const ELK: ElkConstructor = require('elkjs')
+  const bundledPath = 'elkjs/lib/elk.bundled.js'
+  const elkPath = 'elkjs'
+
+  let elkLib: unknown
+  try {
+    elkLib = await import(/* @vite-ignore */ bundledPath)
+  } catch (e) {
+    elkLib = await import(/* @vite-ignore */ elkPath)
+  }
+
+  const ELK: ElkConstructor = ((elkLib as Record<string, unknown>).default ||
+    elkLib) as ElkConstructor
 
   const elk: ElkInstance = new ELK()
 
@@ -233,18 +244,31 @@ async function applyForceLayout(
   options: Required<LayoutOptions>,
   flowInstance?: FlowInstance
 ): Promise<{ nodes: Node[]; edges: Edge[] }> {
-  const d3Force = require('d3-force') as {
+  const d3ForcePath = 'd3-force'
+  const d3ForceLib: unknown = await import(/* @vite-ignore */ d3ForcePath)
+
+  interface D3ForceModule {
     forceSimulation: (nodes: unknown[]) => {
-      force: (name: string, force: unknown) => unknown
+      force: (
+        name: string,
+        force: unknown
+      ) => {
+        strength?: (n: number) => unknown
+        id?: (fn: (d: unknown) => string) => unknown
+        distance?: (n: number) => unknown
+        radius?: (n: number) => unknown
+      }
       tick: () => void
       stop: () => void
       alpha: () => number
     }
-    forceLink: () => ForceLink
+    forceLink: () => unknown
     forceManyBody: () => { strength: (n: number) => unknown }
     forceCenter: (x: number, y: number) => unknown
     forceCollide: () => { radius: (n: number) => unknown }
   }
+
+  const d3Force = ((d3ForceLib as Record<string, unknown>).default || d3ForceLib) as D3ForceModule
 
   interface ForceLink {
     id: (fn: (d: unknown) => string) => ForceLink
@@ -273,7 +297,10 @@ async function applyForceLayout(
   force.force('charge', d3Force.forceManyBody().strength(forceOpts.strength || -300))
 
   // 连线拉力
-  const linkForce = d3Force.forceLink()
+  const linkForce = d3Force.forceLink() as {
+    id: (fn: (d: unknown) => string) => unknown
+    distance: (n: number) => unknown
+  }
   linkForce.id((d: unknown) => (d as ForceNode).id)
   linkForce.distance(forceOpts.distance || 100)
   force.force('link', linkForce)
@@ -401,7 +428,7 @@ export function createLayoutPlugin(options: LayoutOptions = {}): FlowPlugin {
           let layouted: { nodes: Node[]; edges: Edge[] }
 
           if (opts.type === 'dagre') {
-            layouted = applyDagreLayout(nodes, edges, opts as Required<LayoutOptions>)
+            layouted = await applyDagreLayout(nodes, edges, opts as Required<LayoutOptions>)
             console.log('[Layout Plugin] Dagre layout applied successfully')
           } else if (opts.type === 'elk') {
             layouted = await applyElkLayout(nodes, edges, opts as Required<LayoutOptions>)

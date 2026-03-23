@@ -753,6 +753,7 @@ export default defineConfig({
         {
           text: '新增专题',
           items: [
+            { text: '行业应用场景大赏', link: '/flow/use-cases' },
             { text: 'AI 工作流节点', link: '/flow/ai-workflow' },
             { text: '自定义节点模板', link: '/flow/custom-node-templates' },
             { text: '节点嵌套布局', link: '/flow/nested-layout' },
@@ -834,6 +835,7 @@ export default defineConfig({
         {
           text: 'New Features',
           items: [
+            { text: 'Practical Use Cases', link: '/en/flow/use-cases' },
             { text: 'AI Workflow Nodes', link: '/en/flow/ai-workflow' },
             { text: 'Custom Node Templates', link: '/en/flow/custom-node-templates' },
             { text: 'Nested Node Layout', link: '/en/flow/nested-layout' },

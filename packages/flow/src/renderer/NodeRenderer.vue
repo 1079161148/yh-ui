@@ -63,6 +63,8 @@
 import { computed, ref } from 'vue'
 import type { Node, NodeHandle, HandleType, Position, NodeTypes } from '../types'
 import { getCustomNodeTemplate, getCustomNode } from '../utils/custom-types'
+import DiamondNode from '../components/nodes/DiamondNode.vue'
+import DatabaseNode from '../components/nodes/DatabaseNode.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -99,6 +101,9 @@ const emit = defineEmits<{
 }>()
 
 const getComponent = (type: string) => {
+  if (type === 'diamond') return DiamondNode
+  if (type === 'database') return DatabaseNode
+
   if (props.nodeTypes && props.nodeTypes[type]) {
     return props.nodeTypes[type]
   }
@@ -479,6 +484,25 @@ const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) =
 
 .yh-flow-node.type-group:hover {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.yh-flow-node.type-diamond,
+.yh-flow-node.type-database {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.yh-flow-node.type-diamond.is-selected,
+.yh-flow-node.type-database.is-selected {
+  border: none;
+  box-shadow: none;
+}
+
+.yh-flow-node.type-diamond:hover,
+.yh-flow-node.type-database:hover {
+  box-shadow: none;
 }
 
 .yh-flow-node.type-group .yh-flow-node__content {

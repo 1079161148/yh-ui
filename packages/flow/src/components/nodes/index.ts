@@ -9,6 +9,8 @@ export { default as GroupNode } from './GroupNode.vue'
 export { default as CustomNode } from './CustomNode.vue'
 export { default as NodeResizer } from './NodeResizer.vue'
 export { default as NodeToolbar } from './NodeToolbar.vue'
+export { default as DiamondNode } from './DiamondNode.vue'
+export { default as DatabaseNode } from './DatabaseNode.vue'
 
 // BPMN 节点库
 export {
@@ -51,10 +53,10 @@ export {
   getAllEdgeTemplates,
   exportFlowData,
   importFlowData
-} from '../utils/custom-types'
+} from '../../utils/custom-types'
 export type {
   CustomNodeTemplate,
   EdgeTemplate,
   NestedNodeConfig,
   FlowExportData
-} from '../utils/custom-types'
+} from '../../utils/custom-types'

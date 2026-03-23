@@ -12,11 +12,15 @@ const tsBasicNodes = `<template>
       :nodes="[
         { id: 'input', type: 'input', position: { x: 50, y: 50 }, data: { label: '输入节点' }, width: 150, height: 50 },
         { id: 'default', type: 'default', position: { x: 250, y: 50 }, data: { label: '默认节点' }, width: 150, height: 50 },
+        { id: 'diamond', type: 'diamond', position: { x: 275, y: 150 }, data: { label: '判断节点' }, width: 100, height: 100 },
+        { id: 'database', type: 'database', position: { x: 50, y: 160 }, data: { label: '数据库' }, width: 120, height: 80 },
         { id: 'output', type: 'output', position: { x: 450, y: 50 }, data: { label: '输出节点' }, width: 150, height: 50 }
       ]"
       :edges="[
         { id: 'e1', source: 'input', target: 'default', type: 'bezier' },
-        { id: 'e2', source: 'default', target: 'output', type: 'bezier' }
+        { id: 'e2', source: 'default', target: 'output', type: 'bezier' },
+        { id: 'e3', source: 'default', target: 'diamond', sourceHandle: 'bottom', targetHandle: 'top', type: 'step' },
+        { id: 'e4', source: 'diamond', target: 'database', sourceHandle: 'left', targetHandle: 'right', type: 'step', animated: true }
       ]"
     />
   </div>
@@ -81,13 +85,15 @@ const jsHandles = toJs(tsHandles)
 
 Flow 内置以下节点类型：
 
-| 类型      | 说明       | 适用场景           |
-| --------- | ---------- | ------------------ |
-| `input`   | 输入节点   | 流程起点、数据入口 |
-| `output`  | 输出节点   | 流程终点、数据出口 |
-| `default` | 默认节点   | 通用处理节点       |
-| `custom`  | 自定义节点 | 业务定制节点       |
-| `group`   | 分组节点   | 节点容器、区域划分 |
+| 类型         | 说明       | 适用场景            |
+| ------------ | ---------- | ------------------- |
+| \`input\`    | 输入节点   | 流程起点、数据入口  |
+| \`output\`   | 输出节点   | 流程终点、数据出口  |
+| \`default\`  | 默认节点   | 通用处理节点        |
+| \`diamond\`  | 决策节点   | 菱形判断节点 (四向) |
+| \`database\` | 数据节点   | 表示数据库、存储    |
+| \`custom\`   | 自定义节点 | 业务定制节点        |
+| \`group\`    | 分组节点   | 节点容器、区域划分  |
 
 ## 基础节点类型
 
@@ -98,11 +104,15 @@ Flow 内置以下节点类型：
       :nodes="[
         { id: 'input', type: 'input', position: { x: 50, y: 50 }, data: { label: '输入节点' }, width: 150, height: 50 },
         { id: 'default', type: 'default', position: { x: 250, y: 50 }, data: { label: '默认节点' }, width: 150, height: 50 },
+        { id: 'diamond', type: 'diamond', position: { x: 275, y: 150 }, data: { label: '判断节点' }, width: 100, height: 100 },
+        { id: 'database', type: 'database', position: { x: 50, y: 160 }, data: { label: '数据库' }, width: 120, height: 80 },
         { id: 'output', type: 'output', position: { x: 450, y: 50 }, data: { label: '输出节点' }, width: 150, height: 50 }
       ]"
       :edges="[
         { id: 'e1', source: 'input', target: 'default', type: 'bezier' },
-        { id: 'e2', source: 'default', target: 'output', type: 'bezier' }
+        { id: 'e2', source: 'default', target: 'output', type: 'bezier' },
+        { id: 'e3', source: 'default', target: 'diamond', sourceHandle: 'bottom', targetHandle: 'top', type: 'step' },
+        { id: 'e4', source: 'diamond', target: 'database', sourceHandle: 'left', targetHandle: 'right', type: 'step', animated: true }
       ]"
     />
   </div>
@@ -179,6 +189,36 @@ const node = {
   data: {
     label: '处理节点',
     description: '执行某个操作'
+  }
+}
+```
+
+## 决策节点 (diamond)
+
+菱形节点是标准的流程判断节点，拥有四个连接点（上下左右均可连接）。
+
+```typescript
+const node = {
+  id: 'node-4',
+  type: 'diamond',
+  position: { x: 300, y: 300 },
+  data: {
+    label: '是否通过'
+  }
+}
+```
+
+## 数据节点 (database)
+
+圆柱形节点，非常适合绘制架构图表示服务端数据存储系统。
+
+```typescript
+const node = {
+  id: 'node-5',
+  type: 'database',
+  position: { x: 100, y: 300 },
+  data: {
+    label: 'MySQL 数据库'
   }
 }
 ```
