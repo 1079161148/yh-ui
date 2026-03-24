@@ -89,8 +89,8 @@ export function normalizeHtml(html: string) {
           // 忽略空属性 (如 style="") 和值为 "false" 的可选属性 (SSR 通常省略)
           if (value === '' || value === 'false') continue
 
-          // 忽略 textarea 的 value 属性 (CSR 中可能存在)
-          if (tag === 'textarea' && name === 'value') continue
+          // 忽略 textarea 和 input 的 value 属性 (CSR 中可能存在差)
+          if ((tag === 'textarea' || tag === 'input') && name === 'value') continue
 
           // 标准化 style 属性：去掉冒号后的空格，分号排序，统一单位
           if (name === 'style') {
