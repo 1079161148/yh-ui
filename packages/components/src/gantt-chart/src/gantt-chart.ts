@@ -1,0 +1,97 @@
+import type { ComponentThemeVars } from '@yh-ui/theme'
+
+export type GanttViewMode = 'day' | 'week' | 'month' | 'year'
+
+export interface GanttTask {
+  id: string | number
+  name: string
+  startDate: string | number | Date
+  endDate: string | number | Date
+  progress?: number
+  dependencies?: (string | number)[]
+  parentId?: string | number
+  expanded?: boolean
+  assignees?: string[] // 资源/负责人
+  children?: GanttTask[]
+  color?: string
+  textColor?: string
+  status?: 'success' | 'warning' | 'danger' | 'info' | 'default'
+  [key: string]: unknown
+}
+
+export interface GanttResource {
+  id: string
+  name: string
+  avatar?: string
+  load?: number // 负荷阈值
+}
+
+export interface GanttColumn {
+  prop: string
+  label: string
+  width?: string | number
+  align?: 'left' | 'center' | 'right'
+}
+
+export interface GanttChartProps {
+  data: GanttTask[]
+  columns?: GanttColumn[]
+  startDate?: string | number | Date
+  endDate?: string | number | Date
+  viewMode?: GanttViewMode
+  showDependencies?: boolean
+  draggable?: boolean
+  progressDraggable?: boolean
+  autoSchedule?: boolean // 自动排程
+  virtual?: boolean // 开启虚拟滚动
+  showResourceLoad?: boolean // 显示资源负荷
+  rowHeight?: number
+  headerHeight?: number
+  bordered?: boolean
+  loading?: boolean
+  teleported?: boolean
+  themeOverrides?: ComponentThemeVars
+}
+
+export interface GanttChartEmits {
+  (e: 'update:data', data: GanttTask[]): void
+  (e: 'update:viewMode', value: GanttViewMode): void
+  (e: 'task-click', task: GanttTask, event: MouseEvent): void
+  (e: 'task-dblclick', task: GanttTask, event: MouseEvent): void
+  (e: 'task-drag-end', task: GanttTask): void
+  (e: 'progress-drag-end', task: GanttTask): void
+  (e: 'dependency-click', from: GanttTask, to: GanttTask, event: MouseEvent): void
+}
+
+export interface GanttDependencyLink {
+  id: string
+  from: GanttTask
+  to: GanttTask
+  path: string
+}
+
+export interface GanttTaskStyle {
+  task: GanttTask
+  index: number
+  isMilestone?: boolean
+  isSummary?: boolean
+  hasConflict?: boolean
+  style: {
+    left: string
+    width: string
+    top: string
+    height: string
+    backgroundColor?: string
+    color?: string
+    margin?: string
+  }
+  left: number
+  width: number
+  top: number
+}
+
+export interface GanttChartSlots {
+  'task-content'?: (props: { task: GanttTask }) => unknown
+  'table-cell'?: (props: { row: GanttTask; column: GanttColumn; index: number }) => unknown
+  tooltip?: (props: { task: GanttTask }) => unknown
+}

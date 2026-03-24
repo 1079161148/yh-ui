@@ -1,5 +1,5 @@
 import type { ExtractPropTypes, PropType } from 'vue'
-import type { FileCardListItem } from '../ai-file-card'
+import type { FileCardListItem } from '../../ai-file-card'
 
 /** 溢出布局模式 */
 export type OverflowMode = 'wrap' | 'scrollX' | 'scrollY'
@@ -29,23 +29,6 @@ export interface PlaceholderType {
   icon?: string
   title?: string
   description?: string
-}
-
-/** 操作栏配置 */
-export interface MermaidActions {
-  /** 是否启用缩放 */
-  enableZoom?: boolean
-  /** 是否启用下载 */
-  enableDownload?: boolean
-  /** 是否启用复制 */
-  enableCopy?: boolean
-  /** 自定义操作 */
-  customActions?: Array<{
-    key: string
-    label: string
-    icon?: string
-    onClick?: () => void
-  }>
 }
 
 // Props

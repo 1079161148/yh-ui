@@ -93,6 +93,8 @@ import type { YhAiSources } from './ai-sources'
 import type { YhAiProvider } from './ai-provider'
 import type { YhAiMention } from './ai-mention'
 import type { YhScrollbar } from './scrollbar'
+import type { YhGanttChart } from './gantt-chart'
+import type { YhCarousel, YhCarouselItem } from './carousel'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -169,6 +171,9 @@ declare module 'vue' {
     YhCountdown: typeof YhCountdown
     YhWaterfall: typeof YhWaterfall
     YhWatermark: typeof YhWatermark
+    YhGanttChart: typeof YhGanttChart
+    YhCarousel: typeof YhCarousel
+    YhCarouselItem: typeof YhCarouselItem
 
     // =================== 反馈组件 ===================
     YhAlert: typeof YhAlert

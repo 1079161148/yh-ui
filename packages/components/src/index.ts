@@ -105,6 +105,7 @@ import { YhAiAttachments } from './ai-attachments'
 import { YhAiMermaid } from './ai-mermaid'
 import { YhCarousel, YhCarouselItem } from './carousel'
 import { YhScrollbar } from './scrollbar'
+import { YhGanttChart } from './gantt-chart'
 
 // 导出所有组件
 export * from './button'
@@ -201,6 +202,7 @@ export * from './ai-attachments'
 export * from './ai-mermaid'
 export * from './carousel'
 export * from './scrollbar'
+export * from './gantt-chart'
 
 // 所有组件列表
 const components = [
@@ -324,7 +326,8 @@ const components = [
   YhAiMermaid,
   YhCarousel,
   YhCarouselItem,
-  YhScrollbar
+  YhScrollbar,
+  YhGanttChart
 ] as Plugin[]
 
 /**

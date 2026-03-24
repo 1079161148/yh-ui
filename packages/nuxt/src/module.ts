@@ -223,7 +223,8 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'AiMermaid',
       'Carousel',
       'CarouselItem',
-      'Scrollbar'
+      'Scrollbar',
+      'GanttChart'
     ]
 
     components.forEach((name) => {

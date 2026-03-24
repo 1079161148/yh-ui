@@ -304,7 +304,8 @@ export default defineConfig({
             { text: 'Calendar', link: '/en/components/calendar' },
             { text: 'Countdown', link: '/en/components/countdown' },
             { text: 'Carousel', link: '/en/components/carousel' },
-            { text: 'Scrollbar', link: '/en/components/scrollbar' }
+            { text: 'Scrollbar', link: '/en/components/scrollbar' },
+            { text: 'GanttChart', link: '/en/components/gantt-chart' }
           ]
         },
         {
@@ -447,7 +448,8 @@ export default defineConfig({
             { text: 'Calendar 日历', link: '/components/calendar' },
             { text: 'Countdown 倒计时', link: '/components/countdown' },
             { text: 'Carousel 轮播', link: '/components/carousel' },
-            { text: 'Scrollbar 滚动条', link: '/components/scrollbar' }
+            { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
+            { text: 'GanttChart 甘特图', link: '/components/gantt-chart' }
           ]
         },
         {

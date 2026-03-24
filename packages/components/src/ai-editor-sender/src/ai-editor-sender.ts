@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 import type { ComponentThemeVars } from '@yh-ui/theme'
 
-export interface AttachmentItem {
+export interface AiEditorAttachmentItem {
   name: string
   url?: string
   status?: 'uploading' | 'success' | 'error'
@@ -58,7 +58,7 @@ export const aiEditorSenderProps = {
    * 附件列表（仅展示用，逻辑需外部控制）
    */
   attachments: {
-    type: Array as PropType<AttachmentItem[]>,
+    type: Array as PropType<AiEditorAttachmentItem[]>,
     default: () => []
   },
   /**
@@ -183,7 +183,7 @@ export const aiEditorSenderEmits = {
   'update:modelValue': (_value: string) => true,
   send: (value: string) => !!value,
   change: (_value: string) => true,
-  'remove-attachment': (_index: number, _item: AttachmentItem) => true,
+  'remove-attachment': (_index: number, _item: AiEditorAttachmentItem) => true,
   clear: () => true,
   // 命令菜单事件
   'command-select': (_command: AiCommandItem, _parentCommand?: AiCommandItem) => true,

@@ -158,6 +158,7 @@ import {
   YhCarousel,
   YhCarouselItem,
   YhScrollbar,
+  YhGanttChart,
   vInfiniteScroll,
   vYhLoading
 } from '@yh-ui/components'
@@ -264,6 +265,7 @@ export default {
     app.component('YhEmpty', YhEmpty)
     app.component('YhCarousel', YhCarousel)
     app.component('YhCarouselItem', YhCarouselItem)
+    app.component('YhGanttChart', YhGanttChart)
 
     // Typography 排版
     app.component('YhTypographyTitle', YhTypographyTitle)

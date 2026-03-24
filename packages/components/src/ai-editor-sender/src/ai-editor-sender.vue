@@ -4,7 +4,7 @@ import { ref, computed, watch, nextTick } from 'vue'
 import {
   aiEditorSenderProps,
   aiEditorSenderEmits,
-  type AttachmentItem,
+  type AiEditorAttachmentItem,
   type AiCommandItem
 } from './ai-editor-sender'
 import { YhButton } from '../../button'
@@ -233,7 +233,7 @@ const handleSend = () => {
   })
 }
 
-const handleRemoveAttachment = (index: number, item: AttachmentItem) => {
+const handleRemoveAttachment = (index: number, item: AiEditorAttachmentItem) => {
   emit('remove-attachment', index, item)
 }
 

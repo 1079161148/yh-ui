@@ -1,0 +1,399 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+
+@include b(gantt-chart) {
+  --yh-gantt-border-color: #dcdfe6;
+  --yh-gantt-bg-color: #ffffff;
+  --yh-gantt-header-bg-color: #f5f7fa;
+  --yh-gantt-task-color: #409eff;
+  --yh-gantt-text-color: #303133;
+  --yh-gantt-row-hover-bg: #f5f7fa;
+  --yh-gantt-line-color: #e4e7ed;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--yh-gantt-bg-color);
+  color: var(--yh-gantt-text-color);
+  border: 1px solid var(--yh-gantt-border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  @include e(toolbar) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--yh-gantt-border-color);
+    gap: 12px;
+    z-index: 100;
+  }
+
+  @include e(toolbar-right) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  @include e(main) {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  @include e(sidebar) {
+    width: 480px;
+    border-right: 1px solid var(--yh-gantt-border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  @include e(sidebar-header-wrapper) {
+    width: 100%;
+    overflow: hidden;
+    background: var(--yh-gantt-header-bg-color);
+    border-bottom: 1px solid var(--yh-gantt-border-color);
+    box-sizing: border-box;
+  }
+
+  @include e(sidebar-header) {
+    display: flex;
+    white-space: nowrap;
+    height: 100%;
+  }
+
+  @include e(sidebar-header-cell) {
+    height: 100%;
+    padding: 0 12px;
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--yh-gantt-line-color);
+    overflow: hidden;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    color: #606266;
+  }
+
+  @include e(sidebar-body) {
+    flex: 1;
+    overflow: auto;
+  }
+
+  @include e(row) {
+    display: flex;
+    border-bottom: 1px solid var(--yh-gantt-line-color);
+    width: fit-content;
+    min-width: 100%;
+    &:hover {
+      background: var(--yh-gantt-row-hover-bg);
+    }
+  }
+
+  @include e(cell) {
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--yh-gantt-line-color);
+    white-space: nowrap;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-sizing: border-box;
+
+    @include when(editing) {
+      padding: 0;
+      .yh-input {
+        height: 100%;
+        --yh-input-border-color: transparent;
+        --yh-input-hover-border-color: transparent;
+        --yh-input-focus-border-color: var(--yh-color-primary);
+
+        :deep(.yh-input__wrapper) {
+          box-shadow: none !important;
+          border-radius: 0;
+          padding: 0 12px;
+          height: 100%;
+          background: transparent;
+        }
+      }
+    }
+
+    .yh-input {
+      width: 100%;
+    }
+  }
+
+  @include e(cell-text) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 4px;
+    flex: 1;
+  }
+
+  /* Tree Nodes & Lines */
+  @include e(tree-node) {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+  }
+
+  @include e(tree-indent) {
+    display: inline-block;
+    width: 16px;
+    height: 100%;
+    position: relative;
+    flex-shrink: 0;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      border-left: 1px dotted #ccc;
+    }
+    @include when(last) {
+      &::before {
+        bottom: 50%;
+      }
+    }
+  }
+
+  @include e(tree-content) {
+    display: inline-flex;
+    align-items: center;
+    width: 16px;
+    height: 100%;
+    position: relative;
+  }
+
+  @include e(tree-line) {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 8px;
+    border-top: 1px dotted #ccc;
+  }
+
+  @include e(tree-arrow) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: #909399;
+    z-index: 5;
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  /* Timeline */
+  @include e(timeline) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  @include e(timeline-header) {
+    display: flex;
+    flex-direction: column;
+    background: var(--yh-gantt-header-bg-color);
+    border-bottom: 1px solid var(--yh-gantt-border-color);
+    box-sizing: border-box;
+  }
+
+  @include e(timeline-header-top) {
+    display: flex;
+    border-bottom: 1px solid var(--yh-gantt-line-color);
+    box-sizing: border-box;
+  }
+  @include e(timeline-header-bottom) {
+    display: flex;
+  }
+
+  @include e(timeline-unit) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--yh-gantt-line-color);
+    font-size: 11px;
+    color: #909399;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0 4px;
+
+    @include m(today) {
+      color: var(--yh-color-primary);
+      font-weight: bold;
+    }
+  }
+
+  @include e(timeline-body) {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  @include e(grid) {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  @include e(grid-column) {
+    height: 100%;
+    border-right: 1px solid var(--yh-gantt-line-color);
+    box-sizing: border-box;
+  }
+
+  @include e(timeline-row) {
+    border-bottom: 1px solid var(--yh-gantt-line-color);
+    &:hover {
+      background: var(--yh-gantt-row-hover-bg);
+    }
+  }
+
+  /* Tasks */
+  @include e(task-wrapper) {
+    position: absolute;
+    background: var(--yh-gantt-task-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-size: 12px;
+    z-index: 20;
+    min-width: 4px;
+    box-sizing: border-box;
+
+    @include when(milestone) {
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0;
+      overflow: visible;
+    }
+    @include when(summary) {
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0;
+    }
+  }
+
+  @include e(summary-bar) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: #5e626d;
+    border-radius: 2px;
+    pointer-events: none;
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-top: 10px solid #5e626d;
+    }
+    &::before {
+      left: 0;
+      border-right: 8px solid transparent;
+    }
+    &::after {
+      right: 0;
+      border-left: 8px solid transparent;
+    }
+  }
+
+  @include e(milestone-diamond) {
+    width: 14px;
+    height: 14px;
+    transform: rotate(45deg);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  @include e(task-progress) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px 0 0 4px;
+  }
+
+  @include e(dependency-svg) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  @include e(dependency-path) {
+    fill: none;
+    stroke: var(--yh-color-primary);
+    stroke-width: 1.5;
+    opacity: 0.6;
+  }
+
+  @include e(resizer-left) {
+    position: absolute;
+    width: 8px;
+    top: 0;
+    bottom: 0;
+    cursor: ew-resize;
+    z-index: 30;
+    left: 0;
+  }
+  @include e(resizer-right) {
+    position: absolute;
+    width: 8px;
+    top: 0;
+    bottom: 0;
+    cursor: ew-resize;
+    z-index: 30;
+    right: 0;
+  }
+
+  @include e(task-success) {
+    background: var(--yh-color-success);
+  }
+  @include e(task-warning) {
+    background: var(--yh-color-warning);
+  }
+  @include e(task-danger) {
+    background: var(--yh-color-danger);
+  }
+  @include e(task-info) {
+    background: var(--yh-color-info);
+  }
+}
