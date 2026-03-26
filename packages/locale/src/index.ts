@@ -619,6 +619,89 @@ export interface Language {
       loading: string
       noData: string
     }
+    // SKU 选择器
+    skuselector: {
+      placeholder: string
+      emptyText: string
+      stock: string
+      price: string
+      selected: string
+      outOfStock: string
+    }
+    // 商品卡片
+    productcard: {
+      viewDetails: string
+      buyNow: string
+      addToCart: string
+      sold: string
+    }
+    // 价格
+    price: {
+      original: string
+    }
+    // 优惠券
+    couponcard: {
+      available: string
+      used: string
+      expired: string
+      received: string
+      limit: string
+      noThreshold: string
+      validPeriod: string
+      ruleTitle: string
+    }
+    // 幸运抽奖
+    luckydraw: {
+      start: string
+      drawing: string
+      end: string
+      retry: string
+    }
+    // 筛选排序栏
+    filterbar: {
+      all: string
+      sort: string
+      filter: string
+      reset: string
+      confirm: string
+      noOptions: string
+      asc: string
+      desc: string
+      selected: string
+    }
+    // 结算栏
+    submitbar: {
+      total: string
+      selected: string
+      submit: string
+      allSelect: string
+    }
+    // 品类导航
+    categorynav: {
+      all: string
+      noData: string
+      loading: string
+    }
+    // 智能地址
+    smartaddress: {
+      placeholder: string
+      parse: string
+      province: string
+      city: string
+      district: string
+      street: string
+      detail: string
+      phone: string
+      name: string
+      parseSuccess: string
+      parseFailed: string
+      required: string
+      /** 识别关键词定义 */
+      provinceKeywords: string[]
+      cityKeywords: string[]
+      districtKeywords: string[]
+      streetKeywords: string[]
+    }
     // AI Components
     ai: {
       bubble: {

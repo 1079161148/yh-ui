@@ -206,7 +206,7 @@ pnpm install
 pnpm dev
 
 # 启动文档站点
-pnpm docs:dev
+E:\YH-UI\packages\hooks\src\use-sku
 
 # 运行单元测试
 pnpm test

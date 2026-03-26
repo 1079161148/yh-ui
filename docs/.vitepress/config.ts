@@ -341,6 +341,21 @@ export default defineConfig({
         {
           text: 'Config',
           items: [{ text: 'ConfigProvider', link: '/en/components/config-provider' }]
+        },
+        {
+          text: 'Ecommerce 🎁',
+          items: [
+            { text: 'FilterBar', link: '/en/components/filter-bar' },
+            { text: 'SubmitBar', link: '/en/components/submit-bar' },
+            { text: 'SmartAddress', link: '/en/components/smart-address' },
+            { text: 'SkuSelector', link: '/en/components/sku-selector' },
+            { text: 'ProductCard', link: '/en/components/product-card' },
+            { text: 'ImageMagnifier', link: '/en/components/image-magnifier' },
+            { text: 'Price', link: '/en/components/price' },
+            { text: 'CouponCard', link: '/en/components/coupon-card' },
+            { text: 'LuckyDraw', link: '/en/components/lucky-draw' },
+            { text: 'CategoryNav', link: '/en/components/category-nav' }
+          ]
         }
       ],
 
@@ -485,6 +500,21 @@ export default defineConfig({
         {
           text: '配置组件',
           items: [{ text: 'ConfigProvider 全局配置', link: '/components/config-provider' }]
+        },
+        {
+          text: 'Ecommerce 电商组件',
+          items: [
+            { text: 'FilterBar 筛选栏', link: '/components/filter-bar' },
+            { text: 'SubmitBar 提交栏', link: '/components/submit-bar' },
+            { text: 'SmartAddress 智能地址解析', link: '/components/smart-address' },
+            { text: 'SkuSelector SKU 选择器', link: '/components/sku-selector' },
+            { text: 'ProductCard 商品卡片', link: '/components/product-card' },
+            { text: 'ImageMagnifier 商品放大镜', link: '/components/image-magnifier' },
+            { text: 'Price 价格展示', link: '/components/price' },
+            { text: 'CouponCard 优惠券卡片', link: '/components/coupon-card' },
+            { text: 'LuckyDraw 幸运抽奖', link: '/components/lucky-draw' },
+            { text: 'CategoryNav 品类导航', link: '/components/category-nav' }
+          ]
         }
       ],
 

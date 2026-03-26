@@ -1,0 +1,346 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(coupon-card) {
+  --yh-coupon-primary-color: var(--yh-color-primary);
+  --yh-coupon-gray-color: var(--yh-text-color-placeholder);
+  --yh-coupon-bg: var(--yh-bg-color-overlay);
+  --yh-coupon-border-radius: 12px;
+  --yh-coupon-amount-size: 28px;
+  --yh-coupon-title-size: 16px;
+  --yh-coupon-desc-size: 12px;
+
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--yh-coupon-bg);
+  border: 1px solid var(--yh-border-color-light);
+  border-radius: var(--yh-coupon-border-radius);
+  overflow: hidden;
+  box-shadow: var(--yh-shadow-light);
+  cursor: pointer;
+  transition:
+    transform var(--yh-transition-base),
+    box-shadow var(--yh-transition-base);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @include e(content) {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @include when(selectable) {
+    &:hover {
+      box-shadow: var(--yh-shadow-base);
+    }
+  }
+
+  /* Side Notch Decoration */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--yh-bg-color);
+    border-radius: 50%;
+    z-index: 10;
+  }
+
+  @include m(indent) {
+    &::before {
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+    &::after {
+      top: 50%;
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  @include m(circle) {
+    &::before,
+    &::after {
+      display: block;
+    }
+  }
+
+  @include m(scallop) {
+    &::before,
+    &::after {
+      display: none;
+    }
+    mask: radial-gradient(circle at 0 20px, transparent 8px, black 9px) 0 0 / 100% 20px repeat-y;
+    -webkit-mask: radial-gradient(circle at 0 20px, transparent 8px, black 9px) 0 0 / 100% 20px
+      repeat-y;
+  }
+
+  @include e(amount-side) {
+    width: 30%;
+    height: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--yh-coupon-primary-color);
+    color: white;
+    position: relative;
+    padding: 0 8px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      right: -1px;
+      border-right: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  @include e(amount) {
+    font-size: var(--yh-coupon-amount-size);
+    font-weight: var(--yh-font-weight-bold);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+
+    @include e(symbol) {
+      font-size: 14px;
+      margin-right: 2px;
+      font-weight: var(--yh-font-weight-normal);
+    }
+  }
+
+  @include e(threshold) {
+    font-size: 10px;
+    margin-top: 4px;
+    opacity: 0.9;
+  }
+
+  @include e(main-side) {
+    flex: 1;
+    height: 100%;
+    min-height: 100px;
+    display: flex;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  @include e(info) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  @include e(title) {
+    margin: 0;
+    font-size: var(--yh-coupon-title-size);
+    color: var(--yh-text-color-primary);
+    font-weight: var(--yh-font-weight-medium);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  @include e(description) {
+    margin: 0;
+    font-size: var(--yh-coupon-desc-size);
+    color: var(--yh-text-color-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  @include e(footer) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+
+  @include e(valid-period) {
+    font-size: 10px;
+    color: var(--yh-text-color-placeholder);
+    white-space: nowrap;
+  }
+
+  @include e(action-area) {
+    z-index: 5;
+  }
+
+  @include e(action-btn) {
+    padding: 2px 8px;
+    border-radius: var(--yh-radius-round);
+    background-color: var(--yh-coupon-primary-color);
+    color: white;
+    font-size: 10px;
+    cursor: pointer;
+    transition: opacity var(--yh-transition-base);
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  /* Status Styles */
+  &.is-used,
+  &.is-expired {
+    @include e(amount-side) {
+      background-color: var(--yh-coupon-gray-color);
+    }
+    @include e(action-btn) {
+      background-color: var(--yh-fill-color-darker);
+      color: var(--yh-text-color-placeholder);
+      cursor: not-allowed;
+    }
+    @include e(title) {
+      color: var(--yh-text-color-placeholder);
+    }
+  }
+
+  @include e(seal) {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--yh-border-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(15deg);
+    opacity: 0.3;
+    pointer-events: none;
+    font-weight: bold;
+    font-size: 12px;
+    z-index: 20;
+
+    @include when(used) {
+      border-color: var(--yh-color-success);
+      color: var(--yh-color-success);
+    }
+    @include when(expired) {
+      border-color: var(--yh-color-danger);
+      color: var(--yh-color-danger);
+    }
+  }
+
+  @include e(checkbox) {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 25;
+  }
+
+  @include e(badge) {
+    position: absolute;
+    top: 6px;
+    left: -24px;
+    background-color: var(--yh-color-danger);
+    color: white;
+    font-size: 10px;
+    width: 90px;
+    padding: 2px 0;
+    transform: rotate(-45deg);
+    font-weight: var(--yh-font-weight-medium);
+    box-shadow: var(--yh-shadow-base);
+    z-index: 20;
+    text-align: center;
+    line-height: 1;
+
+    @include m(primary) {
+      background-color: var(--yh-color-primary);
+    }
+    @include m(warning) {
+      background-color: var(--yh-color-warning);
+    }
+    @include m(success) {
+      background-color: var(--yh-color-success);
+    }
+    @include m(danger) {
+      background-color: var(--yh-color-danger);
+    }
+  }
+
+  @include e(progress) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    width: 100%;
+    max-width: 160px;
+  }
+  @include e(progress-bar) {
+    flex: 1;
+    height: 4px;
+    background-color: var(--yh-fill-color-light);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  @include e(progress-inner) {
+    height: 100%;
+    background: linear-gradient(90deg, var(--yh-color-danger-light-3), var(--yh-color-danger));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  @include e(progress-text) {
+    font-size: 10px;
+    color: var(--yh-color-danger);
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  @include e(rules) {
+    background-color: var(--yh-bg-color-overlay);
+    border-top: 1px dashed var(--yh-border-color-light);
+    font-size: 10px;
+    color: var(--yh-text-color-secondary);
+    width: 100%;
+    border-bottom-left-radius: var(--yh-coupon-border-radius);
+    border-bottom-right-radius: var(--yh-coupon-border-radius);
+  }
+  @include e(rules-trigger) {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--yh-transition-base);
+
+    &:hover {
+      background-color: var(--yh-fill-color-light);
+    }
+  }
+  @include e(rules-icon) {
+    transition: transform var(--yh-transition-base);
+    @include when(expanded) {
+      transform: rotate(180deg);
+    }
+  }
+  @include e(rules-content) {
+    padding: 0 12px 12px;
+    line-height: 1.5;
+  }
+}

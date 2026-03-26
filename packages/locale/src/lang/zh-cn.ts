@@ -603,6 +603,88 @@ export const zhCn: Language = {
       loading: '加载中...',
       noData: '暂无数据'
     },
+    // SKU 选择器
+    skuselector: {
+      placeholder: '请选择规格',
+      emptyText: '暂无规格',
+      stock: '库存',
+      price: '价格',
+      selected: '已选',
+      outOfStock: '暂时无货'
+    },
+    // 商品卡片
+    productcard: {
+      viewDetails: '查看详情',
+      buyNow: '立即购买',
+      addToCart: '加入购物车',
+      sold: '已售'
+    },
+    // 价格
+    price: {
+      original: '原价'
+    },
+    // 优惠券
+    couponcard: {
+      available: '点击领取',
+      used: '已使用',
+      expired: '已过期',
+      received: '已领取',
+      limit: '满 {threshold} 元可用',
+      noThreshold: '无门槛',
+      validPeriod: '有效期',
+      ruleTitle: '使用说明及规则'
+    },
+    // 幸运抽奖
+    luckydraw: {
+      start: '开始抽奖',
+      drawing: '抽奖中...',
+      end: '中奖了',
+      retry: '再试一次'
+    },
+    // 筛选排序栏
+    filterbar: {
+      all: '全部',
+      sort: '排序',
+      filter: '筛选',
+      reset: '重置',
+      confirm: '确定',
+      noOptions: '暂无筛选项',
+      asc: '升序',
+      desc: '降序',
+      selected: '已选'
+    },
+    // 结算栏
+    submitbar: {
+      total: '小计：',
+      selected: '已选 {count} 件',
+      submit: '去结算',
+      allSelect: '全选'
+    },
+    // 品类导航
+    categorynav: {
+      all: '全部',
+      noData: '暂无数据',
+      loading: '加载中...'
+    },
+    // 智能地址
+    smartaddress: {
+      placeholder: '请粘贴收货地址，自动识别姓名、手机号、地址',
+      parse: '智能识别',
+      province: '省/市/区',
+      city: '市',
+      district: '区/县',
+      street: '街道/镇',
+      detail: '详细地址',
+      phone: '手机号',
+      name: '收货人',
+      parseSuccess: '地址识别成功',
+      parseFailed: '未能识别，请手动填写',
+      required: '请填写完整地址',
+      provinceKeywords: ['省', '自治区', '特别行政区'],
+      cityKeywords: ['市', '州', '盟'],
+      districtKeywords: ['区', '县', '旗', '镇', '市'],
+      streetKeywords: ['街道', '镇', '乡', '村']
+    },
     // AI 组件
     ai: {
       bubble: {

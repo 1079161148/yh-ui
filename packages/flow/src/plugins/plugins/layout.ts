@@ -2,15 +2,6 @@ import type { FlowInstance, FlowPlugin } from '../plugin'
 import type { Node, Edge } from '../../types'
 
 // dagre 库的类型声明
-interface DagreLib {
-  default?: unknown
-  graphlib?: GraphLib
-}
-
-interface Dagre {
-  graphlib: GraphLib
-}
-
 interface GraphLib {
   Graph: new (opts?: object) => Graph
 }
@@ -178,7 +169,7 @@ async function applyElkLayout(
   let elkLib: unknown
   try {
     elkLib = await import(/* @vite-ignore */ bundledPath)
-  } catch (e) {
+  } catch {
     elkLib = await import(/* @vite-ignore */ elkPath)
   }
 
@@ -269,11 +260,6 @@ async function applyForceLayout(
   }
 
   const d3Force = ((d3ForceLib as Record<string, unknown>).default || d3ForceLib) as D3ForceModule
-
-  interface ForceLink {
-    id: (fn: (d: unknown) => string) => ForceLink
-    distance: (n: number) => ForceLink
-  }
 
   interface ForceNode {
     id: string

@@ -106,6 +106,16 @@ import { YhAiMermaid } from './ai-mermaid'
 import { YhCarousel, YhCarouselItem } from './carousel'
 import { YhScrollbar } from './scrollbar'
 import { YhGanttChart } from './gantt-chart'
+import { YhSkuSelector } from './sku-selector'
+import { YhPrice } from './price'
+import { YhProductCard } from './product-card'
+import { YhImageMagnifier } from './image-magnifier'
+import { YhCouponCard } from './coupon-card'
+import { YhLuckyDraw } from './lucky-draw'
+import { YhFilterBar } from './filter-bar'
+import { YhSubmitBar } from './submit-bar'
+import { YhCategoryNav } from './category-nav'
+import { YhSmartAddress } from './smart-address'
 
 // 导出所有组件
 export * from './button'
@@ -203,6 +213,16 @@ export * from './ai-mermaid'
 export * from './carousel'
 export * from './scrollbar'
 export * from './gantt-chart'
+export * from './sku-selector'
+export * from './price'
+export * from './product-card'
+export * from './image-magnifier'
+export * from './coupon-card'
+export * from './lucky-draw'
+export * from './filter-bar'
+export * from './submit-bar'
+export * from './category-nav'
+export * from './smart-address'
 
 // 所有组件列表
 const components = [
@@ -327,7 +347,17 @@ const components = [
   YhCarousel,
   YhCarouselItem,
   YhScrollbar,
-  YhGanttChart
+  YhGanttChart,
+  YhSkuSelector,
+  YhPrice,
+  YhProductCard,
+  YhImageMagnifier,
+  YhCouponCard,
+  YhLuckyDraw,
+  YhFilterBar,
+  YhSubmitBar,
+  YhCategoryNav,
+  YhSmartAddress
 ] as Plugin[]
 
 /**

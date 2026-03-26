@@ -564,6 +564,7 @@ const copyAnchor = async () => {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     overflow: hidden;
+    transform: translateZ(0);
   }
 
   &__actions {

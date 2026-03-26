@@ -603,6 +603,88 @@ export const en: Language = {
       loading: 'Loading...',
       noData: 'No Data'
     },
+    // SKU Selector
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    // Product Card
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold'
+    },
+    // Price
+    price: {
+      original: 'Original'
+    },
+    // Coupon Card
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    // Lucky Draw
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    // Filter Bar
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    // Submit Bar
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    // Category Nav
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    // Smart Address
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
     // AI Components
     ai: {
       bubble: {

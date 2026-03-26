@@ -41,6 +41,19 @@ const props = withDefaults(defineProps<GanttChartProps>(), {
 
 const emit = defineEmits<GanttChartEmits>()
 
+interface FlattenedGanttTask extends GanttTask {
+  _original: GanttTask
+  _level: number
+  _parentId: string | number | null
+  _isLast: boolean
+  _ancestorHasNext: boolean[]
+  _hasChildren: boolean
+  _startDate: string
+  _endDate: string
+  _isMilestone: boolean
+  _matchesSearch: boolean
+}
+
 const ns = useNamespace('gantt-chart')
 const { themeStyle } = useComponentTheme(
   'gantt-chart',
@@ -142,8 +155,8 @@ const getFlattenedTasks = (
   parentId: string | number | null = null,
   level = 0,
   ancestorHasNext: boolean[] = []
-): any[] => {
-  let result: any[] = []
+): FlattenedGanttTask[] => {
+  let result: FlattenedGanttTask[] = []
   tasks.forEach((task, index) => {
     const matchesSearch =
       !searchKeyword.value || task.name.toLowerCase().includes(searchKeyword.value.toLowerCase())
@@ -293,7 +306,7 @@ const bottomHeaders = computed(() => {
 })
 
 // --- Task Style ---
-const getTaskPosition = (task: any, index: number) => {
+const getTaskPosition = (task: FlattenedGanttTask, index: number) => {
   const start = dayjs(task.startDate)
   const end = dayjs(task.endDate)
   const isMilestone = task._isMilestone || start.isSame(end, 'day')
@@ -449,8 +462,8 @@ const onDragMove = (e: MouseEvent) => {
   const msPerDay = 86400000
   const msOffset = (dx / PIXELS_PER_DAY.value) * msPerDay
 
-  const currentTask = activeDragTask.value
-  const originalTask = (currentTask as any)._original || currentTask
+  const currentTask = activeDragTask.value as FlattenedGanttTask
+  const originalTask = currentTask._original || currentTask
 
   if (dragType === 'move') {
     const newStart = dragInitS.add(msOffset, 'ms').format('YYYY-MM-DD HH:mm:ss')

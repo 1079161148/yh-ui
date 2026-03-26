@@ -1,0 +1,249 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(sku-selector) {
+  // ─── 主题 CSS 变量 ──────────────────────────────────────────────────────────
+  --yh-sku-label-color: var(--yh-text-color-secondary);
+  --yh-sku-label-size: var(--yh-font-size-sm);
+  --yh-sku-label-weight: var(--yh-font-weight-medium);
+  --yh-sku-value-bg: var(--yh-fill-color-light);
+  --yh-sku-value-color: var(--yh-text-color-primary);
+  --yh-sku-value-border: var(--yh-border-color-light);
+  --yh-sku-value-hover-bg: var(--yh-fill-color-dark);
+  --yh-sku-value-active-bg: var(--yh-color-primary-light-9);
+  --yh-sku-value-active-color: var(--yh-color-primary);
+  --yh-sku-value-active-border: var(--yh-color-primary);
+  --yh-sku-value-disabled-bg: var(--yh-fill-color-extra-light);
+  --yh-sku-value-disabled-color: var(--yh-text-color-disabled);
+  --yh-sku-value-radius: var(--yh-radius-base);
+  --yh-sku-img-size: 80px;
+  --yh-sku-color-swatch-size: 24px;
+  --yh-sku-gap: var(--yh-spacing-md);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--yh-sku-gap);
+
+  // 全局禁用态
+  @include when(disabled) {
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  // ─── 已选规格汇总 ───────────────────────────────────────────────────────────
+  @include e(summary) {
+    font-size: var(--yh-font-size-sm);
+    padding-bottom: 2px;
+  }
+
+  @include e(summary-text) {
+    color: var(--yh-text-color-primary);
+    font-weight: var(--yh-font-weight-medium);
+  }
+
+  @include e(summary-placeholder) {
+    color: var(--yh-text-color-placeholder);
+  }
+
+  // ─── 规格行 ─────────────────────────────────────────────────────────────────
+  @include e(item) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--yh-spacing-sm);
+  }
+
+  @include e(label) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  @include e(label-name) {
+    font-size: var(--yh-sku-label-size);
+    color: var(--yh-sku-label-color);
+    font-weight: var(--yh-sku-label-weight);
+  }
+
+  // ─── 规格值容器 ─────────────────────────────────────────────────────────────
+  @include e(values) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--yh-spacing-sm);
+  }
+
+  // ─── 基础规格格子 ───────────────────────────────────────────────────────────
+  @include e(value) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: var(--yh-sku-value-radius);
+    background-color: var(--yh-sku-value-bg);
+    color: var(--yh-sku-value-color);
+    border: 1px solid var(--yh-sku-value-border);
+    cursor: pointer;
+    transition: all var(--yh-transition-base);
+    user-select: none;
+    font-size: var(--yh-font-size-base);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover:not(.is-disabled):not(.is-active) {
+      background-color: var(--yh-sku-value-hover-bg);
+      border-color: var(--yh-border-color);
+    }
+
+    // 🎯 选中态 — 精致边框 + 小勾标 (现代电商标准)
+    @include when(active) {
+      background-color: var(--yh-sku-value-active-bg);
+      border-color: var(--yh-sku-value-active-border);
+      color: var(--yh-sku-value-active-color);
+      font-weight: var(--yh-font-weight-medium);
+      transition: all var(--yh-transition-base);
+
+      // 右下角勾选框背景
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        right: -1px;
+        width: 14px;
+        height: 14px;
+        background: var(--yh-color-primary);
+        border-radius: 4px 0 0 0;
+        z-index: 1;
+      }
+
+      // 勾选图标（L形）
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 3px;
+        right: 2px;
+        width: 6px;
+        height: 3px;
+        border-left: 1.5px solid white;
+        border-bottom: 1.5px solid white;
+        transform: rotate(-45deg);
+        z-index: 2;
+      }
+    }
+
+    // 禁用态 — 虚线 + 透明度
+    @include when(disabled) {
+      cursor: not-allowed;
+      background-color: var(--yh-sku-value-disabled-bg);
+      color: var(--yh-sku-value-disabled-color);
+      border: 1px dashed var(--yh-border-color-lighter);
+      opacity: 0.6;
+      transition: none;
+
+      &::after,
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  // ─── 图片模式 ───────────────────────────────────────────────────────────────
+  @include e(value) {
+    @include m(image) {
+      padding: 0;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
+      min-width: var(--yh-sku-img-size);
+      background: transparent;
+      border-radius: var(--yh-radius-base);
+    }
+
+    // 图片模式下，纯文字的规格值不展示 value-name 底部的多余内边距
+    @include m(text) {
+      & .yh-sku-selector__value-name {
+        padding: 0;
+        max-width: unset;
+      }
+    }
+
+    // ─── 色块模式 ───────────────────────────────────────────────────────────────
+    @include m(color) {
+      padding: 3px;
+      min-width: auto;
+      gap: 0;
+    }
+  }
+
+  @include e(img-wrap) {
+    display: block;
+    width: var(--yh-sku-img-size);
+    height: var(--yh-sku-img-size);
+    overflow: hidden;
+    border-radius: calc(var(--yh-sku-value-radius) - 1px);
+    background-color: var(--yh-fill-color-light);
+    flex-shrink: 0;
+  }
+
+  @include e(item-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--yh-transition-base);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @include e(value-name) {
+    display: block;
+    text-align: center;
+    padding: 4px 6px;
+    font-size: var(--yh-font-size-xs);
+    line-height: 1.3;
+    // 仅在图片模式下才显示下方的名字
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: var(--yh-sku-img-size);
+  }
+
+  @include e(color-swatch) {
+    display: block;
+    width: var(--yh-sku-color-swatch-size);
+    height: var(--yh-sku-color-swatch-size);
+    border-radius: calc(var(--yh-sku-value-radius) - 2px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  // ─── 规格值标签 (如 "热卖", "新品") ────────────────────────────────────────
+  @include e(value-tag) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 4px;
+    height: 14px;
+    font-size: 10px;
+    border-radius: 2px;
+    line-height: 1;
+    background: var(--yh-color-danger-light-9);
+    color: var(--yh-color-danger);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  // ─── 尺寸变体 ───────────────────────────────────────────────────────────────
+  @include m(small) {
+    @include e(value) {
+      padding: 4px 10px;
+      font-size: var(--yh-font-size-xs);
+    }
+  }
+
+  @include m(large) {
+    @include e(value) {
+      padding: 8px 18px;
+      font-size: var(--yh-font-size-md);
+    }
+  }
+}

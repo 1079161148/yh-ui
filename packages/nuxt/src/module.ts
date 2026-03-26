@@ -224,7 +224,17 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Carousel',
       'CarouselItem',
       'Scrollbar',
-      'GanttChart'
+      'GanttChart',
+      'SkuSelector',
+      'Price',
+      'ProductCard',
+      'ImageMagnifier',
+      'CouponCard',
+      'LuckyDraw',
+      'FilterBar',
+      'SubmitBar',
+      'CategoryNav',
+      'SmartAddress'
     ]
 
     components.forEach((name) => {
@@ -253,11 +263,16 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'useAiChat',
       'useAiStream',
       'useAiConversations',
+      'useAiRequest',
+      'useAiVoice',
+      'useAiPersistence',
       // Adapters / parsers
       'openaiParser',
       'ernieParser',
       'qwenParser',
-      'plainTextParser'
+      'plainTextParser',
+      'useSKU',
+      'useCountdown'
     ]
 
     hooks.forEach((name) => {
@@ -274,7 +289,8 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'YhNotification',
       'YhMessageBox',
       'YhDialogMethod',
-      'YhLoading'
+      'YhLoading',
+      'useAddressParser'
     ]
     globalMethods.forEach((name) => {
       addImports({

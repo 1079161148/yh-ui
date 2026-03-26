@@ -1,0 +1,182 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(smart-address) {
+  // ─── CSS 变量 ──────────────────────────────────────────────────────────────
+  --yh-smart-address-parser-bg: var(--yh-color-primary-light-9);
+  --yh-smart-address-parser-border: var(--yh-color-primary-light-5);
+  --yh-smart-address-parser-radius: var(--yh-radius-base);
+  --yh-smart-address-input-bg: var(--yh-fill-color-blank);
+  --yh-smart-address-input-border: var(--yh-border-color);
+  --yh-smart-address-input-focus-border: var(--yh-color-primary);
+  --yh-smart-address-label-color: var(--yh-text-color-secondary);
+  --yh-smart-address-label-width: 80px;
+  --yh-smart-address-parse-btn-bg: var(--yh-color-primary);
+  --yh-smart-address-tip-success: var(--yh-color-success);
+  --yh-smart-address-tip-error: var(--yh-color-danger);
+
+  @include when(disabled) {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  @include e(parser) {
+    background: var(--yh-smart-address-parser-bg);
+    border: 1px solid var(--yh-smart-address-parser-border);
+    border-radius: var(--yh-smart-address-parser-radius);
+    padding: 12px;
+    margin-bottom: 14px;
+  }
+
+  @include e(parser-input) {
+    width: 100%;
+    border: 1px solid var(--yh-smart-address-input-border);
+    border-radius: var(--yh-radius-small);
+    padding: 8px 10px;
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-regular);
+    background: var(--yh-smart-address-input-bg);
+    resize: none;
+    line-height: 1.6;
+    box-sizing: border-box;
+    transition: border-color var(--yh-transition-base);
+
+    &:focus {
+      outline: none;
+      border-color: var(--yh-smart-address-input-focus-border);
+    }
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder);
+    }
+  }
+
+  @include e(parser-actions) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  @include e(parser-tip) {
+    font-size: var(--yh-font-size-sm);
+    @include when(success) {
+      color: var(--yh-smart-address-tip-success);
+    }
+    @include when(error) {
+      color: var(--yh-smart-address-tip-error);
+    }
+  }
+
+  @include e(parse-btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px;
+    border: none;
+    border-radius: var(--yh-radius-base);
+    background: var(--yh-smart-address-parse-btn-bg);
+    color: #fff;
+    font-size: var(--yh-font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--yh-transition-base);
+
+    &:hover:not(:disabled) {
+      background: var(--yh-color-primary-dark-2);
+    }
+
+    &:disabled {
+      background: var(--yh-fill-color);
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(fields) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include when(top) {
+      .yh-smart-address__field {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+      }
+      .yh-smart-address__label {
+        width: 100%;
+        line-height: 1.4;
+        margin-bottom: 2px;
+      }
+      .yh-smart-address__input,
+      .yh-smart-address__region-inputs {
+        flex: none;
+      }
+    }
+  }
+
+  @include e(field) {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  @include e(label) {
+    flex-shrink: 0;
+    width: var(--yh-smart-address-label-width);
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-smart-address-label-color);
+    line-height: 32px;
+
+    @include when(required) {
+      &::before {
+        content: '* ';
+        color: var(--yh-color-danger);
+      }
+    }
+  }
+
+  @include e(input) {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    height: 32px;
+    padding: 0 11px;
+    border: 1px solid var(--yh-smart-address-input-border);
+    border-radius: var(--yh-radius-small);
+    background: var(--yh-smart-address-input-bg);
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-regular);
+    box-sizing: border-box;
+    transition: border-color var(--yh-transition-base);
+
+    &:focus {
+      outline: none;
+      border-color: var(--yh-smart-address-input-focus-border);
+    }
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder);
+    }
+  }
+
+  @include e(region) {
+    align-items: flex-start;
+  }
+
+  @include e(region-inputs) {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    min-width: 0;
+
+    .yh-smart-address__input,
+    .yh-select {
+      flex: 1 !important;
+      width: 0 !important;
+      min-width: 0 !important;
+    }
+  }
+}

@@ -1,0 +1,332 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(image-magnifier) {
+  // ─── 主题变量 ──────────────────────────────────────────────────────────────
+  --yh-magnifier-preview-border: var(--yh-border-color-lighter);
+  --yh-magnifier-preview-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --yh-magnifier-mask-bg: rgba(0, 0, 0, 0.2);
+  --yh-magnifier-mask-border: rgba(255, 255, 255, 0.6);
+  --yh-magnifier-radius: var(--yh-radius-base);
+  --yh-magnifier-loading-color: var(--yh-color-primary);
+  --yh-magnifier-gallery-active-border: var(--yh-color-primary);
+  --yh-magnifier-badge-bg: rgba(0, 0, 0, 0.55);
+  --yh-magnifier-badge-color: #fff;
+  --yh-magnifier-minimap-size: 80px;
+  --yh-magnifier-fullscreen-bg: rgba(0, 0, 0, 0.88);
+  --yh-magnifier-title-bg: rgba(0, 0, 0, 0.5);
+
+  position: relative;
+  width: 100%;
+  display: inline-block;
+  cursor: crosshair;
+
+  // ─── 主图容器 ──────────────────────────────────────────────────────────────
+  @include e(image-wrapper) {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--yh-magnifier-radius);
+    background-color: var(--yh-fill-color-light);
+
+    &.is-bordered {
+      border: 1px solid var(--yh-border-color-lighter);
+    }
+
+    &.is-shadow {
+      box-shadow: var(--yh-shadow-light);
+    }
+  }
+
+  // ─── 主图 ──────────────────────────────────────────────────────────────────
+  @include e(image) {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  // ─── 遮罩透镜 ──────────────────────────────────────────────────────────────
+  @include e(mask) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: var(--yh-magnifier-mask-bg);
+    border: 1px solid var(--yh-magnifier-mask-border);
+    pointer-events: none;
+    box-sizing: border-box;
+
+    &.is-square {
+      border-radius: 2px;
+    }
+
+    &.is-circle {
+      border-radius: 50%;
+    }
+  }
+
+  // ─── 外部预览面板 ──────────────────────────────────────────────────────────
+  @include e(preview) {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+    border: 1px solid var(--yh-magnifier-preview-border);
+    box-shadow: var(--yh-magnifier-preview-shadow);
+    background-color: var(--yh-bg-color-overlay);
+    border-radius: var(--yh-magnifier-radius);
+
+    @include e(large-image) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      max-width: none;
+      pointer-events: none;
+      will-change: transform;
+      transition: none;
+    }
+  }
+
+  // ─── 渐进加载指示 ──────────────────────────────────────────────────────────
+  @include e(loading) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 20;
+  }
+
+  @include e(loading-bar) {
+    height: 100%;
+    width: 40%;
+    background: var(--yh-magnifier-loading-color);
+    border-radius: 2px;
+    animation: yh-magnifier-loading-slide 1.2s ease-in-out infinite;
+  }
+
+  // ─── 地图缩略导航 ──────────────────────────────────────────────────────────
+  @include e(minimap) {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: var(--yh-magnifier-minimap-size);
+    height: var(--yh-magnifier-minimap-size);
+    border: 1px solid var(--yh-magnifier-preview-border);
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--yh-bg-color-overlay);
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  @include e(minimap-img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  @include e(minimap-indicator) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1.5px solid var(--yh-magnifier-gallery-active-border);
+    background: rgba(var(--yh-color-primary-rgb, 64, 158, 255), 0.2);
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  // ─── 倍率徽章 ──────────────────────────────────────────────────────────────
+  @include e(scale-badge) {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px 8px;
+    background: var(--yh-magnifier-badge-bg);
+    color: var(--yh-magnifier-badge-color);
+    font-size: var(--yh-font-size-xs);
+    border-radius: 10px;
+    pointer-events: none;
+    user-select: none;
+    z-index: 50;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+  }
+
+  // ─── 标题 ──────────────────────────────────────────────────────────────────
+  @include e(title) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--yh-magnifier-title-bg);
+    color: white;
+    font-size: var(--yh-font-size-xs);
+    text-align: center;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+
+  // ─── 图片库缩略图 ──────────────────────────────────────────────────────────
+  @include e(gallery) {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  @include e(gallery-item) {
+    width: 56px;
+    height: 56px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    background: var(--yh-fill-color-light);
+    transition: border-color var(--yh-transition-fast);
+    flex-shrink: 0;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    &:hover {
+      border-color: var(--yh-magnifier-gallery-active-border);
+      opacity: 0.85;
+    }
+
+    &.is-active {
+      border-color: var(--yh-magnifier-gallery-active-border);
+    }
+  }
+
+  // ─── 全屏弹层容器 (Teleport 挂载点) ──────────────────────────────────────────
+  @include m(fullscreen-wrapper) {
+    position: fixed;
+    inset: 0;
+    z-index: 100000; // 确保绝对高于任何 UI 框架的 layout
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include e(fullscreen-overlay) {
+    width: 100%;
+    height: 100%;
+    background: var(--yh-magnifier-fullscreen-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: yh-fade-in 0.2s ease;
+  }
+
+  @include e(fullscreen-close) {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--yh-transition-fast);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  @include e(fullscreen-body) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow: hidden;
+  }
+
+  @include e(fullscreen-image) {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  @include e(fullscreen-gallery) {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    max-width: 90vw;
+  }
+
+  @include e(fullscreen-thumb) {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    transition: border-color var(--yh-transition-fast);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &.is-active {
+      border-color: var(--yh-magnifier-gallery-active-border);
+    }
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+@keyframes yh-magnifier-loading-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+@keyframes yh-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

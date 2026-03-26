@@ -160,7 +160,17 @@ import {
   YhScrollbar,
   YhGanttChart,
   vInfiniteScroll,
-  vYhLoading
+  vYhLoading,
+  YhSkuSelector,
+  YhPrice,
+  YhProductCard,
+  YhImageMagnifier,
+  YhCouponCard,
+  YhLuckyDraw,
+  YhFilterBar,
+  YhSubmitBar,
+  YhCategoryNav,
+  YhSmartAddress
 } from '@yh-ui/components'
 
 import {
@@ -266,6 +276,16 @@ export default {
     app.component('YhCarousel', YhCarousel)
     app.component('YhCarouselItem', YhCarouselItem)
     app.component('YhGanttChart', YhGanttChart)
+    app.component('YhSkuSelector', YhSkuSelector)
+    app.component('YhPrice', YhPrice)
+    app.component('YhProductCard', YhProductCard)
+    app.component('YhImageMagnifier', YhImageMagnifier)
+    app.component('YhCouponCard', YhCouponCard)
+    app.component('YhLuckyDraw', YhLuckyDraw)
+    app.component('YhFilterBar', YhFilterBar)
+    app.component('YhSubmitBar', YhSubmitBar)
+    app.component('YhCategoryNav', YhCategoryNav)
+    app.component('YhSmartAddress', YhSmartAddress)
 
     // Typography 排版
     app.component('YhTypographyTitle', YhTypographyTitle)

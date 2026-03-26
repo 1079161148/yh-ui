@@ -1,0 +1,138 @@
+import type { ExtractPropTypes, PropType } from 'vue'
+
+/** 排序方向 */
+export type FilterSortOrder = 'asc' | 'desc' | null
+
+/** 单个排序项 */
+export interface FilterSortItem {
+  /** 键名 */
+  key: string
+  /** 显示标签 */
+  label: string
+}
+
+/** 筛选器类型 */
+export type FilterType = 'select' | 'range' | 'checkbox' | 'radio'
+
+/** 单个筛选选项 */
+export interface FilterOption {
+  label: string
+  value: string | number
+}
+
+/** 单个筛选器定义 */
+export interface FilterItem {
+  /** 键名 */
+  key: string
+  /** 显示标签 */
+  label: string
+  /** 类型，默认 select */
+  type?: FilterType
+  /** 候选项列表（select/checkbox/radio 类型使用） */
+  options?: FilterOption[]
+  /** 范围筛选最小值（range 类型使用） */
+  min?: number
+  /** 范围筛选最大值（range 类型使用） */
+  max?: number
+  /** 扩展字段 */
+  [key: string]: unknown
+}
+
+/** 筛选器的当前值 */
+export type FilterValue = Record<
+  string,
+  string | number | (string | number)[] | [number, number] | null
+>
+
+/** 排序当前状态 */
+export interface FilterSort {
+  key: string | null
+  order: FilterSortOrder
+}
+
+export const filterBarProps = {
+  /** 排序配置列表 */
+  sorts: {
+    type: Array as PropType<FilterSortItem[]>,
+    default: () => []
+  },
+  /** 筛选器配置列表 */
+  filters: {
+    type: Array as PropType<FilterItem[]>,
+    default: () => []
+  },
+  /** 当前排序状态（支持 v-model:sort） */
+  sort: {
+    type: Object as PropType<FilterSort>,
+    default: (): FilterSort => ({ key: null, order: null })
+  },
+  /** 当前筛选值（支持 v-model:filterValue） */
+  filterValue: {
+    type: Object as PropType<FilterValue>,
+    default: () => ({})
+  },
+  /** 是否展示「全部」tab */
+  showAll: {
+    type: Boolean,
+    default: true
+  },
+  /** 是否吸顶 */
+  sticky: {
+    type: Boolean,
+    default: false
+  },
+  /** 吸顶偏移量（px） */
+  stickyOffset: {
+    type: Number,
+    default: 0
+  },
+  /** 是否在弹出面板中展示筛选器（否则内联） */
+  filterInPanel: {
+    type: Boolean,
+    default: true
+  },
+  /** 主题变量覆盖 */
+  themeOverrides: {
+    type: Object as PropType<Record<string, string>>,
+    default: () => ({})
+  },
+  /** 是否展示最右侧的全局「筛选」按钮 */
+  showGlobalFilter: {
+    type: Boolean,
+    default: true
+  },
+  /** 是否展示视图切换按钮 */
+  showViewToggle: {
+    type: Boolean,
+    default: false
+  },
+  /** 当前视图模式（支持 v-model:viewType） */
+  viewType: {
+    type: String as PropType<'list' | 'grid'>,
+    default: 'list'
+  }
+}
+
+export type FilterBarProps = ExtractPropTypes<typeof filterBarProps>
+
+export const filterBarEmits = {
+  'update:sort': (sort: FilterSort) => sort !== undefined,
+  'update:filterValue': (val: FilterValue) => val !== undefined,
+  'update:viewType': (val: 'list' | 'grid') => val === 'list' || val === 'grid',
+  /** 排序变化 */
+  sortChange: (sort: FilterSort) => sort !== undefined,
+  /** 筛选值变化 */
+  filterChange: (val: FilterValue) => val !== undefined,
+  /** 视图模式变化 */
+  viewChange: (val: 'list' | 'grid') => val === 'list' || val === 'grid',
+  /** 点击重置 */
+  reset: () => true,
+  /** 点击确认筛选 */
+  confirm: (val: FilterValue) => val !== undefined,
+  /** 单个面板内点击重置时触发，可用于清空自定义插槽字段 */
+  resetPanel: (filter: FilterItem, _currentValues: FilterValue) => filter !== undefined,
+  /** 点击全局「筛选」按钮 */
+  openFilter: () => true
+}
+
+export type FilterBarEmits = typeof filterBarEmits
