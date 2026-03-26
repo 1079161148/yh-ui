@@ -799,6 +799,7 @@ export const en: Language = {
         pin: 'Pin',
         unpin: 'Unpin',
         newConversation: 'New Conversation',
+        noData: 'No conversations yet',
         rename: 'Rename',
         delete: 'Delete',
         deleteConfirm: 'Confirm delete this conversation?'

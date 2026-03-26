@@ -33,14 +33,15 @@ export default defineBuildConfig({
     async 'mkdist:entry:options'(_ctx, _entry, options) {
       const customSassLoader = async (input: {
         extension: string
-        srcPath: string
+        srcPath?: string
         path: string
         getContents: () => Promise<string> | string
       }) => {
         if (!['.sass', '.scss'].includes(input.extension)) {
           return
         }
-        if (basename(input.srcPath).startsWith('_')) {
+        // _index.scss 等私有标记文件跳过
+        if (input.srcPath && basename(input.srcPath).startsWith('_')) {
           return [{ contents: '', path: input.path, skip: true }]
         }
         const sass = await import('sass')
@@ -51,7 +52,7 @@ export default defineBuildConfig({
           {
             contents: compileString(contents, {
               loadPaths: ['node_modules'],
-              url: pathToFileURL(input.srcPath)
+              ...(input.srcPath ? { url: pathToFileURL(input.srcPath) } : {})
             }).css,
             path: input.path,
             extension: '.css'
@@ -59,8 +60,8 @@ export default defineBuildConfig({
         ]
       }
 
-      options.loaders = [customSassLoader, 'js', 'vue', 'postcss']
+      options.loaders = [customSassLoader as never, 'js', 'vue', 'postcss']
     }
   },
-  failOnWarn: false
+  failOnWarn: true
 })

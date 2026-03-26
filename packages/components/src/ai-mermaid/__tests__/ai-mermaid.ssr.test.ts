@@ -28,7 +28,7 @@ describe('YhAiMermaid SSR', () => {
   it('should render header on server', async () => {
     const html = await renderToString(h(AiMermaid, { header: 'SSR Diagram Title' }))
     expect(html).toContain('SSR Diagram Title')
-    expect(html).toContain('yh-ai-mermaid__title')
+    expect(html).toContain('yh-ai-mermaid__header-content')
   })
 
   it('should render actions bar on server', async () => {
@@ -38,6 +38,6 @@ describe('YhAiMermaid SSR', () => {
 
   it('should render render tabs on server', async () => {
     const html = await renderToString(h(AiMermaid))
-    expect(html).toContain('yh-ai-mermaid__view-switch')
+    expect(html).toContain('yh-ai-mermaid__render-tabs')
   })
 })

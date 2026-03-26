@@ -21,13 +21,12 @@ export default defineBuildConfig({
       ext: 'cjs',
       declaration: false,
       pattern: ['**/*.ts', '!**/__tests__/**']
-    },
-    'src/index'
+    }
   ],
   declaration: true,
   clean: true,
-  // 临时允许警告，以观察哪些地方有问题
-  failOnWarn: false,
+  // 构建无警告则失败，保证产物质量
+  failOnWarn: true,
   rollup: {
     emitCJS: true,
     cjsBridge: true,

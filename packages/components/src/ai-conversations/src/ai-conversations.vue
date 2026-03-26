@@ -242,7 +242,7 @@
 
       <!-- Empty State -->
       <div v-if="!loading && data.length === 0" :class="ns.e('empty')">
-        <slot name="empty">{{ t('common.noData') }}</slot>
+        <slot name="empty">{{ t('ai.conversations.noData') }}</slot>
       </div>
     </div>
   </div>

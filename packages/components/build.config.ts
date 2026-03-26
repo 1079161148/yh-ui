@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { pathToFileURL } from 'url'
 import { existsSync, readFileSync } from 'fs'
 import { basename } from 'pathe'
+import type { Syntax } from 'sass'
 
 const themeStylesDir = resolve(__dirname, '../theme/src/styles')
 
@@ -53,7 +54,7 @@ const yhUiThemeImporter = {
     return null
   },
 
-  load(canonicalUrl: URL): { contents: string; syntax: 'scss' | 'sass' } | null {
+  load(canonicalUrl: URL): { contents: string; syntax: Syntax } | null {
     if (canonicalUrl.protocol !== 'yh-ui:') {
       return null
     }
@@ -63,7 +64,8 @@ const yhUiThemeImporter = {
     try {
       return {
         contents: readFileSync(filePath, 'utf8'),
-        syntax: filePath.endsWith('.sass') ? 'sass' : 'scss'
+        // sass .sass 文件使用缩进语法，对应 Syntax 的 'indented'
+        syntax: filePath.endsWith('.sass') ? ('indented' as Syntax) : ('scss' as Syntax)
       }
     } catch {
       return null
@@ -113,14 +115,14 @@ export default defineBuildConfig({
     async 'mkdist:entry:options'(_ctx, _entry, options) {
       const customSassLoader = async (input: {
         extension: string
-        srcPath: string
+        srcPath?: string
         path: string
         getContents: () => Promise<string> | string
       }) => {
         if (!['.sass', '.scss'].includes(input.extension)) {
           return
         }
-        if (basename(input.srcPath).startsWith('_')) {
+        if (input.srcPath && basename(input.srcPath).startsWith('_')) {
           return [{ contents: '', path: input.path, skip: true }]
         }
         const sass = await import('sass')
@@ -132,7 +134,7 @@ export default defineBuildConfig({
             contents: compileString(contents, {
               loadPaths: ['node_modules'],
               importers: [yhUiThemeImporter],
-              url: pathToFileURL(input.srcPath)
+              ...(input.srcPath ? { url: pathToFileURL(input.srcPath) } : {})
             }).css,
             path: input.path,
             extension: '.css'
@@ -140,8 +142,8 @@ export default defineBuildConfig({
         ]
       }
 
-      options.loaders = [customSassLoader, 'js', 'vue', 'postcss']
+      options.loaders = [customSassLoader as never, 'js', 'vue', 'postcss']
     }
   },
-  failOnWarn: false
+  failOnWarn: true
 })

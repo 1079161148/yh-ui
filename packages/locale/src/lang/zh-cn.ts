@@ -798,6 +798,7 @@ export const zhCn: Language = {
         pin: '置顶',
         unpin: '取消置顶',
         newConversation: '新建对话',
+        noData: '暂无对话记录',
         rename: '重命名',
         delete: '删除',
         deleteConfirm: '确认删除此对话？'

@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/request",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "YH-UI HTTP request hooks - Enterprise-grade request management",
   "type": "module",
   "sideEffects": false,
@@ -24,7 +24,9 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub"
+    "dev": "unbuild --stub",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@yh-ui/utils": "workspace:*"

@@ -1,140 +1,204 @@
 # @yh-ui/nuxt
 
-YH-UI 的 Nuxt 模块，提供开箱即用的 SSR 支持和组件自动导入。
+<p align="center">
+  <img src="https://raw.githubusercontent.com/1079161148/yh-ui/main/docs/public/logo.svg" width="100" height="100" alt="YH-UI Logo">
+</p>
 
-## 特性
+<h3 align="center">YH-UI Nuxt 模块</h3>
 
-✅ **完整的 SSR 支持** - 解决了 Hydration Mismatch 问题  
-✅ **组件自动导入** - 无需手动注册组件  
-✅ **Composables 自动导入** - 直接使用 `useNamespace`、`useId` 等  
-✅ **样式自动注入** - 自动加载主题样式  
-✅ **TypeScript 支持** - 完整的类型提示  
-✅ **Nuxt 3 & 4 兼容** - 支持最新的 Nuxt 4.x
+<p align="center">
+  开箱即用的 Nuxt 3/4 集成 · 组件自动导入 · SSR/Hydration 完全兼容 · 零配置启用
+</p>
 
-## 安装
+<p align="center">
+  <a href="https://www.npmjs.com/package/@yh-ui/nuxt">
+    <img src="https://img.shields.io/npm/v/@yh-ui/nuxt.svg?style=flat-square&colorB=409eff" alt="npm version">
+  </a>
+  <a href="https://www.npmjs.com/package/@yh-ui/nuxt">
+    <img src="https://img.shields.io/npm/dm/@yh-ui/nuxt.svg?style=flat-square&colorB=409eff" alt="npm downloads">
+  </a>
+  <a href="https://github.com/1079161148/yh-ui/blob/main/LICENSE">
+    <img src="https://img.shields.io/npm/l/@yh-ui/nuxt.svg?style=flat-square" alt="license">
+  </a>
+</p>
+
+---
+
+## ✨ 特性
+
+- ✅ **完整 SSR 支持** — 工业级验证，解决所有 Hydration Mismatch 问题
+- 🔄 **组件自动导入** — 所有 YhXxx 组件无需手动 `import`，开箱即用
+- 🪝 **Composable 自动导入** — `useNamespace`、`useLocale`、`useZIndex` 等自动可用
+- 🎨 **样式自动注入** — 主题样式在正确的时机注入，避免 FOUC
+- 🌍 **i18n 配置** — 一行配置默认语言，支持 67 种语言
+- 🔒 **TypeScript 完整类型** — 模块配置选项均有类型提示
+- ⚡ **Nuxt 3 & 4 兼容** — 支持最新 Nuxt 4.x RC
+
+---
+
+## 📦 安装
 
 ```bash
 pnpm add @yh-ui/nuxt
+
+# npm
+npm install @yh-ui/nuxt
 ```
 
-## 快速开始
+**依赖要求**：Nuxt `>=3.11.0 || ^4.0.0-rc.1`，Node.js `>=18.0.0`
 
-### 1. 注册模块
+---
 
-在 `nuxt.config.ts` 中添加模块：
+## 🔨 快速开始
 
-```typescript
+### 第 1 步：注册模块
+
+```ts
+// nuxt.config.ts
 export default defineNuxtConfig({
-  modules: [
-    '@yh-ui/nuxt'
-  ],
-  
-  // 可选配置
+  modules: ['@yh-ui/nuxt'],
+
   yhUI: {
-    importStyle: true  // 是否自动导入样式，默认为 true
+    importStyle: true, // 自动注入主题样式，默认 true
+    locale: 'zh-CN' // 默认语言，支持 67 种语言代码
   }
 })
 ```
 
-### 2. 直接使用组件
+### 第 2 步：直接使用组件
 
-组件会自动导入，无需手动注册：
+注册模块后，**所有 YhXxx 组件和 composable 自动导入**，无需任何额外配置：
 
 ```vue
+<!-- pages/index.vue -->
 <template>
   <div>
-    <YhButton type="primary">Click Me</YhButton>
-    <YhInput v-model="value" placeholder="Enter text" />
+    <YhButton type="primary" size="large">开始使用</YhButton>
+    <YhInput v-model="keyword" clearable placeholder="搜索..." />
+    <YhTable :data="tableData" :columns="columns" />
   </div>
 </template>
 
-<script setup>
-const value = ref('')
+<script setup lang="ts">
+// 无需 import！
+const keyword = ref('')
+const tableData = ref([{ id: 1, name: 'YH-UI' }])
+const columns = [{ prop: 'name', label: '名称' }]
 </script>
 ```
 
-### 3. 使用 Composables
-
-Hooks 也会自动导入：
+### Composable 自动导入
 
 ```vue
-<script setup>
-// 直接使用，无需导入
-const ns = useNamespace('my-component')
-const id = useId()
-const { nextZIndex } = useZIndex()
+<script setup lang="ts">
+// 以下 composable 均无需 import，直接使用
+const ns = useNamespace('my-component') // BEM 类名
+const id = useId() // 稳定唯一 ID
+const { nextZIndex } = useZIndex() // z-index 管理
+const { t } = useLocale() // i18n 翻译
 </script>
 ```
 
-### 4. 使用全局方法
+### 使用全局方法
 
 ```vue
-<script setup>
-// Message 和 Notification 自动导入
-const showMessage = () => {
+<script setup lang="ts">
+const showSuccess = () => {
   YhMessage.success('操作成功！')
 }
 
 const showNotification = () => {
   YhNotification({
-    title: '提示',
-    message: '这是一条通知消息'
+    title: '系统通知',
+    message: '您有一条新消息',
+    type: 'info'
   })
 }
 </script>
 ```
 
-## SSR 注意事项
+---
 
-本模块已经处理了以下 SSR 相关问题：
+## ⚙️ 配置选项
 
-1. **ID 生成** - 使用 Vue 3.5 原生 `useId()`，确保服务端和客户端生成的 ID 一致
-2. **Z-Index 管理** - 通过 provide/inject 为每个请求提供独立的计数器
-3. **DOM 访问** - 所有 DOM 操作都已经用 `isClient` 保护
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@yh-ui/nuxt'],
+  yhUI: {
+    importStyle: true, // 是否自动注入样式，默认 true
+    locale: 'zh-CN' // 默认语言代码
+  }
+})
+```
 
-## 自动导入的组件
+| 选项          | 类型      | 默认值    | 说明                      |
+| ------------- | --------- | --------- | ------------------------- |
+| `importStyle` | `boolean` | `true`    | 是否自动注入组件样式      |
+| `locale`      | `string`  | `'zh-CN'` | 默认语言代码（67 种可选） |
 
-以下组件可以直接使用，无需导入：
+---
 
-- `YhButton`
-- `YhInput` / `YhInputNumber` / `YhInputTag`
-- `YhCheckbox` / `YhCheckboxGroup`
-- `YhRadio` / `YhRadioGroup` / `YhRadioButton`
-- `YhSelect` / `YhOption`
-- `YhCascader` / `YhCascaderPanel`
-- `YhSwitch` / `YhRate` / `YhSlider`
-- `YhTimeSelect` / `YhTransfer` / `YhTreeSelect`
-- `YhForm` / `YhFormItem` / `YhFormSchema`
-- `YhRow` / `YhCol`
-- `YhCard` / `YhBadge` / `YhDivider` / `YhTag`
-- `YhIcon`
-- `YhConfigProvider`
+## 🌐 SSR 问题说明
 
-## 自动导入的 Composables
+本模块已系统性地处理 Nuxt SSR 中的常见问题：
 
-- `useNamespace` - BEM 类名生成
-- `useId` - 唯一 ID 生成
-- `useZIndex` - Z-Index 管理
-- `useLocale` - 国际化
-- `useFormItem` - 表单项集成
-- `useGlobalNamespace` - 全局命名空间
+| 问题                             | 解决方案                                           |
+| -------------------------------- | -------------------------------------------------- |
+| ID 不一致导致 Hydration Mismatch | 使用 Vue 3.5 原生 `useId()`，服务端/客户端生成一致 |
+| z-index 状态污染                 | 通过 provide/inject 为每个请求隔离计数器           |
+| DOM 操作在服务端报错             | 所有 DOM 访问均使用 `isClient` 防护                |
+| 样式注入时机不对（FOUC）         | 在 Nuxt 正确的生命周期钩子注入样式                 |
 
-## 配置选项
+---
 
-| 选项 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `importStyle` | `boolean` | `true` | 是否自动导入样式文件 |
+## 🔄 自动导入的组件（部分）
 
-## 兼容性
+以下组件开箱即用，无需手动 `import`：
 
-- Nuxt: `^3.0.0` 或 `^4.0.0-rc.1`
-- Vue: `^3.5.0`
-- Node.js: `>=18.0.0`
+```
+YhButton          YhInput           YhInputNumber     YhInputTag
+YhSelect          YhOption          YhCascader        YhCascaderPanel
+YhCheckbox        YhCheckboxGroup   YhRadio           YhRadioGroup
+YhSwitch          YhRate            YhSlider          YhDatePicker
+YhTimePicker      YhColorPicker     YhUpload          YhTransfer
+YhTreeSelect      YhForm            YhFormItem        YhFormSchema
+YhTable           YhTree            YhList            YhCard
+YhBadge           YhTag             YhAvatar          YhImage
+YhDialog          YhDrawer          YhTooltip         YhPopover
+YhPopconfirm      YhMessage         YhNotification    YhAlert
+YhProgress        YhSkeleton        YhLoading         YhPagination
+YhMenu            YhTabs            YhBreadcrumb      YhSteps
+YhRow             YhCol             YhDivider         YhSpace
+YhIcon            YhConfigProvider  YhChart           YhGantt
+YhAiBubble        YhAiSender        YhAiProvider      ... 共 77+ 个
+```
 
-## 示例项目
+## 🪝 自动导入的 Composable
 
-查看 [playground](../../playground-nuxt) 目录获取完整示例。
+```
+useNamespace    useId         useZIndex     useLocale
+useFormItem     useConfig     useCache      useClickOutside
+useEventListener useScrollLock useCountdown useSKU
+useVirtualScroll useAI
+```
 
-## License
+---
 
-MIT
+## ⚠️ 注意事项
+
+1. **样式引入顺序**：若与其他 CSS 框架共存，注意样式的加载顺序，避免优先级冲突
+2. **Flow 组件**：`@yh-ui/flow` 流程图组件依赖浏览器 Canvas API，需用 `<ClientOnly>` 包裹
+3. **Nuxt 4 兼容**：Nuxt 4.x 对 `auto-imports` 规则有变化，本模块已做对应适配
+
+---
+
+## 🔗 相关资源
+
+- [📖 Nuxt 集成文档](https://1079161148.github.io/yh-ui/guide/nuxt)
+- [🎮 Nuxt Playground](https://github.com/1079161148/yh-ui/tree/main/playground-nuxt)
+- [📦 GitHub 仓库](https://github.com/1079161148/yh-ui)
+
+## 📄 开源协议
+
+MIT License © 2024-present YH-UI Team

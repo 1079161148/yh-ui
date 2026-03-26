@@ -1,13 +1,12 @@
-{
+﻿{
   "name": "@yh-ui/components",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
     "**/*.css",
     "**/*.scss",
-    "**/*.sass",
-    "dist/**/index.mjs"
+    "**/*.sass"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -23,6 +22,7 @@
       "import": "./dist/resolver.mjs",
       "require": "./dist/resolver.cjs"
     },
+    "./style": "./dist/style.css",
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
@@ -47,16 +47,16 @@
     "@yh-ui/utils": "workspace:*",
     "async-validator": "^4.2.5",
     "dayjs": "catalog:",
-    "highlight.js": "^11.11.1",
     "markdown-it": "^14.1.1",
-    "mermaid": "^11.6.0",
     "viewerjs": "^1.11.7"
   },
   "peerDependencies": {
     "vue": "catalog:"
   },
   "optionalDependencies": {
-    "echarts": ">=5.0.0"
+    "echarts": ">=5.0.0",
+    "highlight.js": ">=11.0.0",
+    "mermaid": ">=11.0.0"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
@@ -81,9 +81,16 @@
   "keywords": [
     "yh-ui",
     "vue3",
-    "components"
+    "components",
+    "ai-components",
+    "table",
+    "typescript"
   ],
   "homepage": "https://1079161148.github.io/yh-ui/",
   "author": "YH-UI Team",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  }
 }

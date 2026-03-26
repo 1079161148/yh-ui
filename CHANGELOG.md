@@ -5,6 +5,76 @@ All notable changes to YH-UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.18] - 2026-03-26
+
+### 🐛 Bug Fixes
+
+- **AiMermaid**: 修复了 SSR 环境下缺失 `YhSpin` 组件导致的渲染警告；同步了单测与 SSR 测试的选择器至最新的 BEM 命名规范；优化了 `header` 属性的类型定义以增强类型安全。
+- **AiConversations**: 修复了空状态下文案不匹配的问题，通过新增专用的 `ai.conversations.noData` 词条提升了国际化准确性。
+- **LuckyDraw**: 修复了 Vue 模板中多行 HTML 元素的换行格式问题，消除 Lint 警告。
+- **Type Safety**: 修复了 `ai-mermaid` 属性定义中的 `any` 不规范用法。
+
+### ✨ Refactor & Optimization
+
+- **i18n**: 重构了 `Language` 接口，将 AI 组件（Conversations, Attachments, Mermaid, Canvas）的 locale 配置项改为可选（Optional），确保了与现有 67 种语言包的向后兼容性，彻底解决了构建时的类型检查报错。
+- **i18n**: 同步补全了 `zh-cn`, `en`, `zh-tw` 等核心语言包中缺失的 AI 组件词条（如 `noData`, `retry`, `canvas` 等）。
+
+### 🧪 Stability
+
+- **全量测试验证**: 运行并确保全量 344 个测试文件（共 3070 个单测/SSR 用例）100% 通过。
+- **Lint & TypeCheck**: 实现了 0 警告、0 错误的工业级代码交付标准。
+
+---
+
+## [0.1.17] - 2026-03-26
+
+### 🛠️ Architecture & Standardization (Industrial Grade A+)
+
+- **类型安全**: 实现了组件库 100% TypeScript 类型安全，全面杜绝 `any` 类型的使用。
+- **导出规范**: 统一了所有组件实例和属性的导出方式，强制使用 `Yh` 前缀（如 `YhButtonInstance`, `YhTableProps`），显著提升了开发者的智能提示体验。
+- **Nuxt 集成**: 完美对齐 Nuxt 自动导入规格，所有组件、Hooks 及全局工具函数均支持在 Nuxt 3 环境下开箱即用，无需手动配置。
+
+---
+
+## [0.1.16] - 2026-03-25
+
+### 📄 Documentation & UX
+
+- **FilterBar**: 完成了 FilterBar 组件文档的现代化升级，中英文档 100% 对齐。
+- **交互示例**: 引入了交互式 DemoBlock，解决了多实例状态干扰及价格筛选重置的边界逻辑 Bug，为 SSR 环境提供了生产级用法参考。
+- **SEO**: 全面优化了组件库文档的 SSR 性能及 SEO 标签。
+
+---
+
+## [0.1.15] - 2026-03-24
+
+### 🛒 E-commerce Suite (Premium)
+
+- **LuckyDraw**: 采用 BEM Mixins 以及全局主题变量重构了 SCSS 样式，在保持原有精美动画的同时，极大提升了样式的解耦度与 SSR 性能。
+- **CouponCard**: 修复了规则展开高度突变的问题，将内容区强制锁定在 100px 基准高度，并补全了 Rules 展开项的 i18n 支持。
+- **SKUSelector**: 优化了库存不足时的交互反馈，确保了在极端网络环境下的状态同步稳定性。
+
+---
+
+## [0.1.14] - 2026-03-24
+
+### 🏗️ Industrial Gantt Chart (Stable)
+
+- **核心功能**: 正式发布工业级甘特图组件，支持任务拖拽、依赖可视化及多视图（日/周/月）切换。
+- **性能优化**: 解决了在极端缩放比例下元素失效及内存泄漏的问题。
+- **稳定性**: 通过了完整的 SSR 测试用例，确保在所有 Nuxt 场景下表现一致。
+
+---
+
+## [0.1.13] - 2026-03-23
+
+### ✨ Enhancements & Refactoring
+
+- **Demo Escaping**: 全面优化了文档系统的 Demo 代码转义逻辑，通过 `demo-utils.ts` 彻底解决了 Script/Style 标签嵌套导致的渲染错误。
+- **Global Styles**: 统一了所有 AI 组件及电商组件的圆角、阴影及过渡动画，形成了 V3 风格的统一品牌视觉。
+
+---
+
 ## [0.1.12] - 2026-03-01
 
 ### 🐛 Bug Fixes
@@ -188,6 +258,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.1.18]: https://github.com/1079161148/yh-ui/compare/v0.1.12...v0.1.18
+[0.1.17]: https://github.com/1079161148/yh-ui/compare/v0.1.16...v0.1.17
+[0.1.16]: https://github.com/1079161148/yh-ui/compare/v0.1.15...v0.1.16
+[0.1.15]: https://github.com/1079161148/yh-ui/compare/v0.1.14...v0.1.15
+[0.1.14]: https://github.com/1079161148/yh-ui/compare/v0.1.13...v0.1.14
+[0.1.13]: https://github.com/1079161148/yh-ui/compare/v0.1.12...v0.1.13
 [0.1.12]: https://github.com/1079161148/yh-ui/compare/v0.1.11...v0.1.12
 [0.1.11]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.11
 [0.1.10]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.10

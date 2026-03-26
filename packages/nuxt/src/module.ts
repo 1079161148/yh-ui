@@ -268,11 +268,26 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'useAiPersistence',
       // Adapters / parsers
       'openaiParser',
+      'claudeParser',
+      'geminiParser',
       'ernieParser',
       'qwenParser',
       'plainTextParser',
       'useSKU',
-      'useCountdown'
+      'useCountdown',
+      // Utils and Keys
+      'getNextZIndex',
+      'resetZIndex',
+      'useIdInjection',
+      'getDayjsLocale',
+      'setDayjsLocale',
+      'setDayjsLocaleSync',
+      'updateDayjsMonths',
+      'namespaceContextKey',
+      'configProviderContextKey',
+      'idInjectionKey',
+      'zIndexContextKey',
+      'zIndexCounterKey'
     ]
 
     hooks.forEach((name) => {

@@ -56,7 +56,7 @@ export const aiMermaidProps = {
   },
   /** 顶部内容 */
   header: {
-    type: [Object, String] as PropType<unknown>,
+    type: [String, Object] as PropType<string | Record<string, unknown>>,
     default: null
   },
   /** 样式类名 */

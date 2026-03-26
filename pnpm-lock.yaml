@@ -6,12 +6,18 @@ settings:
 
 catalogs:
   default:
+    '@langchain/core':
+      specifier: '>=0.3.0'
+      version: 1.1.32
     ai:
       specifier: 4.3.19
       version: 4.3.19
     typescript:
       specifier: ^5.7.3
       version: 5.9.3
+    zod:
+      specifier: ^3.25.76
+      version: 3.25.76
 
 overrides:
   vite: ^6.0.7
@@ -204,16 +210,16 @@ importers:
 
   packages/ai-sdk:
     dependencies:
-      '@langchain/core':
-        specifier: '>=0.3.0'
-        version: 1.1.32(@opentelemetry/api@1.9.0)
       ai:
         specifier: 'catalog:'
         version: 4.3.19(react@19.2.4)(zod@3.25.76)
       zod:
-        specifier: ^3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
+      '@langchain/core':
+        specifier: 'catalog:'
+        version: 1.1.32(@opentelemetry/api@1.9.0)
       '@yh-ui/components':
         specifier: workspace:*
         version: link:../components
@@ -256,15 +262,9 @@ importers:
       dayjs:
         specifier: ^1.11.19
         version: 1.11.19
-      highlight.js:
-        specifier: ^11.11.1
-        version: 11.11.1
       markdown-it:
         specifier: ^14.1.1
         version: 14.1.1
-      mermaid:
-        specifier: ^11.6.0
-        version: 11.12.3
       viewerjs:
         specifier: ^1.11.7
         version: 1.11.7
@@ -303,6 +303,12 @@ importers:
       echarts:
         specifier: '>=5.0.0'
         version: 6.0.0
+      highlight.js:
+        specifier: '>=11.0.0'
+        version: 11.11.1
+      mermaid:
+        specifier: '>=11.0.0'
+        version: 11.12.3
 
   packages/flow:
     dependencies:

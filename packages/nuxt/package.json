@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/nuxt",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Nuxt module for YH-UI",
   "type": "module",
   "main": "./dist/module.cjs",
@@ -49,5 +49,10 @@
     "module"
   ],
   "homepage": "https://1079161148.github.io/yh-ui/",
-  "license": "MIT"
+  "author": "YH-UI Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  }
 }

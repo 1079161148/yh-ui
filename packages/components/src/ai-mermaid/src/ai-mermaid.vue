@@ -4,6 +4,7 @@ import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme, type ComponentThemeVars } from '@yh-ui/theme'
 import { aiMermaidProps, aiMermaidEmits, type RenderType } from './ai-mermaid'
 import { YhIcon } from '../../icon'
+import { YhSpin } from '../../spin'
 
 defineOptions({
   name: 'YhAiMermaid'

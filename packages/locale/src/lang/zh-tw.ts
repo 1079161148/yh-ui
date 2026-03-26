@@ -706,6 +706,7 @@ export const zhTw: Language = {
         pin: '置頂',
         unpin: '取消置頂',
         newConversation: '新建對話',
+        noData: '暫無對話記錄',
         rename: '重新命名',
         delete: '刪除',
         deleteConfirm: '確認刪除此對話？'

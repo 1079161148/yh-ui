@@ -48,8 +48,10 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     pool: 'forks',
-    maxWorkers: 1,
-    isolate: false,
+    // maxWorkers: 1 完全串行，改为 2 以平衡内存和速度（--max-old-space-size=4096 下安全）
+    maxWorkers: 2,
+    // isolate: true 防止测试间全局状态污染（Vue provide、document 残留等）
+    isolate: true,
     // 包含普通测试和 SSR 测试
     include: [
       'packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}',

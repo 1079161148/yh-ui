@@ -39,7 +39,7 @@ import type { YhProgress } from './progress'
 import type { YhTooltip } from './tooltip'
 import type { YhPopconfirm } from './popconfirm'
 import type { YhPopover } from './popover'
-import type { YhDialog } from './dialog'
+import type { YhDialog, YhDialogMethod } from './dialog'
 import type { YhDrawer } from './drawer'
 import type { YhWatermark } from './watermark'
 import type { YhUpload } from './upload'
@@ -60,6 +60,8 @@ import type { YhTree, YhTreeNode } from './tree'
 import type { YhCountdown } from './countdown'
 import type { YhTable, YhTableColumn } from './table'
 import type { YhLoading } from './loading'
+import type { YhMessageBox } from './message-box'
+import type { YhMessage } from './message'
 import type { YhSpace } from './space'
 import type { YhAvatar } from './avatar'
 import type { YhEmpty } from './empty'
@@ -92,9 +94,23 @@ import type { YhAiAgentCard } from './ai-agent-card'
 import type { YhAiSources } from './ai-sources'
 import type { YhAiProvider } from './ai-provider'
 import type { YhAiMention } from './ai-mention'
+import type { YhAiBubbleList } from './ai-bubble-list'
+import type { YhAiFileCard } from './ai-file-card'
+import type { YhAiAttachments } from './ai-attachments'
+import type { YhAiMermaid } from './ai-mermaid'
 import type { YhScrollbar } from './scrollbar'
 import type { YhGanttChart } from './gantt-chart'
 import type { YhCarousel, YhCarouselItem } from './carousel'
+import type { YhSkuSelector } from './sku-selector'
+import type { YhPrice } from './price'
+import type { YhProductCard } from './product-card'
+import type { YhImageMagnifier } from './image-magnifier'
+import type { YhCouponCard } from './coupon-card'
+import type { YhLuckyDraw } from './lucky-draw'
+import type { YhFilterBar } from './filter-bar'
+import type { YhSubmitBar } from './submit-bar'
+import type { YhCategoryNav } from './category-nav'
+import type { YhSmartAddress } from './smart-address'
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -229,6 +245,32 @@ declare module 'vue' {
     YhAiSources: typeof YhAiSources
     YhAiProvider: typeof YhAiProvider
     YhAiMention: typeof YhAiMention
+    YhAiBubbleList: typeof YhAiBubbleList
+    YhAiFileCard: typeof YhAiFileCard
+    YhAiAttachments: typeof YhAiAttachments
+    YhAiMermaid: typeof YhAiMermaid
+
+    // =================== 电商组件 ===================
+    YhSkuSelector: typeof YhSkuSelector
+    YhPrice: typeof YhPrice
+    YhProductCard: typeof YhProductCard
+    YhImageMagnifier: typeof YhImageMagnifier
+    YhCouponCard: typeof YhCouponCard
+    YhLuckyDraw: typeof YhLuckyDraw
+    YhFilterBar: typeof YhFilterBar
+    YhSubmitBar: typeof YhSubmitBar
+    YhCategoryNav: typeof YhCategoryNav
+    YhSmartAddress: typeof YhSmartAddress
+  }
+
+  export interface ComponentCustomProperties {
+    $message: typeof import('./message').YhMessage
+    $notify: typeof import('./notification').YhNotification
+    $msgbox: typeof import('./message-box').YhMessageBox
+    $alert: typeof import('./message-box').YhMessageBox.alert
+    $confirm: typeof import('./message-box').YhMessageBox.confirm
+    $prompt: typeof import('./message-box').YhMessageBox.prompt
+    $dialog: typeof import('./dialog').YhDialogMethod
   }
 
   export interface GlobalDirectives {

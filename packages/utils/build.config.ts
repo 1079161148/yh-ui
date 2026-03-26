@@ -17,8 +17,7 @@ export default defineBuildConfig({
       format: 'cjs',
       ext: 'cjs',
       declaration: false
-    },
-    'src/index'
+    }
   ],
   declaration: true,
   clean: true,
@@ -29,5 +28,6 @@ export default defineBuildConfig({
       exports: 'named'
     }
   },
-  externals: ['vue', 'dayjs', 'xlsx']
+  externals: ['vue', 'dayjs', 'xlsx'],
+  failOnWarn: true
 })

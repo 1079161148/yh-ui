@@ -19,7 +19,7 @@ describe('YhAiMermaid', () => {
 
   it('should render render tabs', () => {
     const wrapper = mount(AiMermaid)
-    expect(wrapper.find('.yh-ai-mermaid__view-switch').exists()).toBe(true)
+    expect(wrapper.find('.yh-ai-mermaid__render-tabs').exists()).toBe(true)
   })
 
   // ─── Code Content ─────────────────────────────────────────
@@ -44,19 +44,19 @@ describe('YhAiMermaid', () => {
     const wrapper = mount(AiMermaid, {
       props: { header: 'Diagram Title' }
     })
-    expect(wrapper.find('.yh-ai-mermaid__title').text()).toBe('Diagram Title')
+    expect(wrapper.find('.yh-ai-mermaid__header-content').text()).toBe('Diagram Title')
   })
 
   // ─── Render Type Tabs ───────────────────────────────────
   it('should have image and code tabs', () => {
     const wrapper = mount(AiMermaid)
-    const tabs = wrapper.findAll('.yh-ai-mermaid__view-btn')
+    const tabs = wrapper.findAll('.yh-ai-mermaid__render-tab')
     expect(tabs.length).toBe(2)
   })
 
   it('should switch to code view', async () => {
     const wrapper = mount(AiMermaid)
-    const codeTab = wrapper.findAll('.yh-ai-mermaid__view-btn')[1]
+    const codeTab = wrapper.findAll('.yh-ai-mermaid__render-tab')[1]
     await codeTab.trigger('click')
     expect(wrapper.find('.yh-ai-mermaid__code').exists()).toBe(true)
   })
@@ -86,7 +86,7 @@ describe('YhAiMermaid', () => {
         }
       }
     })
-    expect(wrapper.find('.yh-ai-mermaid__actions').exists()).toBe(false)
+    expect(wrapper.find('.yh-ai-mermaid__action-buttons').exists()).toBe(false)
   })
 
   // ─── Props Validation ────────────────────────────────────

@@ -26,5 +26,5 @@ export default defineBuildConfig({
   alias: {
     '@yh-ui/components': resolve(__dirname, '../components/src')
   },
-  failOnWarn: false
+  failOnWarn: true
 })

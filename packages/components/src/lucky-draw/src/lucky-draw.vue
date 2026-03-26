@@ -188,9 +188,9 @@ const gridAreas = ['1/1', '1/2', '1/3', '2/3', '3/3', '3/2', '3/1', '2/1']
           :style="{ 'grid-area': gridAreas[idx - 1] }"
         >
           <slot v-if="prizes[idx - 1]" name="prize" :prize="prizes[idx - 1]">
-            <div v-if="prizes[idx - 1].image" :class="ns.e('prize-icon')">{{
-              prizes[idx - 1].image
-            }}</div>
+            <div v-if="prizes[idx - 1].image" :class="ns.e('prize-icon')">
+              {{ prizes[idx - 1].image }}
+            </div>
             <div :class="ns.e('prize-name')" :style="{ color: prizes[idx - 1].textColor }">
               {{ prizes[idx - 1].name }}
             </div>

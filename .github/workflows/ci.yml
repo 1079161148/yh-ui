@@ -49,11 +49,15 @@ jobs:
         run: pnpm lint
 
   # ================================================================
-  # 单元测试 & 覆盖率
+  # 单元测试 & 覆盖率（矩阵：Node 18 + 20 兼容性验证）
   # ================================================================
   test:
-    name: Unit Tests
+    name: Unit Tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['18', '20']
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -66,7 +70,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -134,7 +138,7 @@ jobs:
           retention-days: 7
 
   # ================================================================
-  # 文档构建验证
+  # 文档构建验证（复用 build job 产物，不重复构建包）
   # ================================================================
   docs:
     name: Docs Build
@@ -157,6 +161,13 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      # 下载前一个 job 就已构建好的包产物，就不需要再跑一遍全量构建
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages
+          path: packages
 
       - name: Build docs
         run: pnpm docs:build

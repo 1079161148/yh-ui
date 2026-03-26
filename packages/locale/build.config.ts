@@ -17,8 +17,7 @@ export default defineBuildConfig({
       format: 'cjs',
       ext: 'cjs',
       declaration: false
-    },
-    'src/index'
+    }
   ],
   declaration: true,
   clean: true,
@@ -28,5 +27,6 @@ export default defineBuildConfig({
     output: {
       exports: 'named'
     }
-  }
+  },
+  failOnWarn: true
 })

@@ -6,6 +6,7 @@ packages:
 
 catalog:
   '@floating-ui/dom': ^1.7.4
+  '@langchain/core': '>=0.3.0'
   '@vue/server-renderer': ^3.5.27
   '@vue/test-utils': ^2.4.6
   ai: 4.3.19

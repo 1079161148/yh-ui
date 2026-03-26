@@ -704,144 +704,154 @@ export interface Language {
     }
     // AI Components
     ai: {
-      bubble: {
-        citations: string
+      bubble?: {
+        citations?: string
       }
-      mention: {
-        placeholder: string
-        agent: string
-        document: string
-        table: string
-        knowledge: string
+      mention?: {
+        placeholder?: string
+        agent?: string
+        document?: string
+        table?: string
+        knowledge?: string
       }
-      codeBlock: {
-        copyCode: string
-        copied: string
-        run: string
-        edit: string
-        save: string
-        cancel: string
+      codeBlock?: {
+        copyCode?: string
+        copied?: string
+        run?: string
+        edit?: string
+        save?: string
+        cancel?: string
       }
-      codeRunner: {
-        run: string
-        stop: string
-        clear: string
-        reset: string
-        placeholder: string
+      codeRunner?: {
+        run?: string
+        stop?: string
+        clear?: string
+        reset?: string
+        placeholder?: string
       }
-      sender: {
-        placeholder: string
-        dragTip: string
+      sender?: {
+        placeholder?: string
+        dragTip?: string
       }
-      thoughtChain: {
-        thoughtProcess: string
-        thinking: string
-        defaultTitle: string
-        addNode: string
+      thoughtChain?: {
+        thoughtProcess?: string
+        thinking?: string
+        defaultTitle?: string
+        addNode?: string
       }
-      thinking: {
-        start: string
-        thinking: string
-        complete: string
-        error: string
+      thinking?: {
+        start?: string
+        thinking?: string
+        complete?: string
+        error?: string
       }
-      welcome: {
-        title: string
-        description: string
+      welcome?: {
+        title?: string
+        description?: string
       }
-      action: {
-        copy: string
-        regenerate: string
-        share: string
-        like: string
-        dislike: string
-        edit: string
-        delete: string
+      action?: {
+        copy?: string
+        regenerate?: string
+        share?: string
+        like?: string
+        dislike?: string
+        edit?: string
+        delete?: string
       }
-      artifacts: {
-        preview: string
-        inline: string
-        code: string
-        versions: string
-        rendering: string
-        renderingChart: string
-        renderingCanvas: string
+      artifacts?: {
+        preview?: string
+        inline?: string
+        code?: string
+        versions?: string
+        rendering?: string
+        renderingChart?: string
+        renderingCanvas?: string
       }
-      voice: {
-        trigger: string
-        listening: string
+      voice?: {
+        trigger?: string
+        listening?: string
       }
       // AiAgentCard
-      agent: {
-        uses: string
-        use: string
-        favorite: string
-        unfavorite: string
-        share: string
-        online: string
-        offline: string
-        busy: string
-        verified: string
-        rating: string
-        reviews: string
-        responseTime: string
-        ms: string
+      agent?: {
+        uses?: string
+        use?: string
+        favorite?: string
+        unfavorite?: string
+        share?: string
+        online?: string
+        offline?: string
+        busy?: string
+        verified?: string
+        rating?: string
+        reviews?: string
+        responseTime?: string
+        ms?: string
       }
       // AiSources
-      sources: {
-        references: string
-        referencedSources: string
-        relevant: string
-        viewOriginal: string
-        showAll: string
-        more: string
-        drawerTitle: string
-        expandMore: string
-        collapseMore: string
-        noSources: string
-        today: string
-        last7Days: string
-        last30Days: string
-        earlier: string
-        pinned: string
+      sources?: {
+        references?: string
+        referencedSources?: string
+        relevant?: string
+        viewOriginal?: string
+        showAll?: string
+        more?: string
+        drawerTitle?: string
+        expandMore?: string
+        collapseMore?: string
+        noSources?: string
+        today?: string
+        last7Days?: string
+        last30Days?: string
+        earlier?: string
+        pinned?: string
       }
       // AiConversations
-      conversations: {
-        today: string
-        last7Days: string
-        last30Days: string
-        earlier: string
-        pinned: string
-        pin: string
-        unpin: string
-        newConversation: string
-        rename: string
-        delete: string
-        deleteConfirm: string
+      conversations?: {
+        today?: string
+        last7Days?: string
+        last30Days?: string
+        earlier?: string
+        pinned?: string
+        pin?: string
+        unpin?: string
+        newConversation?: string
+        noData?: string
+        rename?: string
+        delete?: string
+        deleteConfirm?: string
       }
       // AiAttachments
-      attachments: {
-        dropTip: string
-        clickToUpload: string
-        uploadSuccess: string
-        uploadError: string
-        deleteConfirm: string
-        fileTooLarge: string
-        invalidFileType: string
+      attachments?: {
+        dropTip?: string
+        clickToUpload?: string
+        uploadSuccess?: string
+        uploadError?: string
+        deleteConfirm?: string
+        fileTooLarge?: string
+        invalidFileType?: string
       }
       // AiMermaid
-      mermaid: {
-        image: string
-        code: string
-        zoomIn: string
-        zoomOut: string
-        reset: string
-        download: string
-        copyCode: string
-        rendering: string
-        renderError: string
-        renderSuccess: string
-        retry: string
+      mermaid?: {
+        image?: string
+        code?: string
+        zoomIn?: string
+        zoomOut?: string
+        reset?: string
+        download?: string
+        copyCode?: string
+        rendering?: string
+        renderError?: string
+        renderSuccess?: string
+        retry?: string
+      }
+      // AiCanvas
+      canvas?: {
+        reset?: string
+        zoom?: string
+        zoomIn?: string
+        zoomOut?: string
+        toggleGrid?: string
+        resetView?: string
       }
     }
   }

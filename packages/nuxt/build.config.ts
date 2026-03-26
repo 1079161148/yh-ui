@@ -8,5 +8,5 @@ export default defineBuildConfig({
     emitCJS: true
   },
   externals: ['@nuxt/kit', '@nuxt/schema', 'nuxt', '#app'],
-  failOnWarn: false
+  failOnWarn: true
 })
