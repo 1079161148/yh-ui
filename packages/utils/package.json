@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/utils",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "YH-UI utility functions",
   "type": "module",
   "sideEffects": false,
@@ -24,7 +24,9 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub"
+    "dev": "unbuild --stub",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "vue": "catalog:",

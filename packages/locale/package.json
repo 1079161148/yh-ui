@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/locale",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "YH-UI internationalization locale files",
   "type": "module",
   "sideEffects": false,
@@ -24,7 +24,9 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub"
+    "dev": "unbuild --stub",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "publishConfig": {
     "access": "public"

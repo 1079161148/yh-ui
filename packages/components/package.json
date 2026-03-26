@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/components",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
@@ -36,7 +36,8 @@
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.4",

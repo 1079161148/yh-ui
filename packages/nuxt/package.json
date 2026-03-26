@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/nuxt",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Nuxt module for YH-UI",
   "type": "module",
   "main": "./dist/module.cjs",
@@ -18,7 +18,9 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub"
+    "dev": "unbuild --stub",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@nuxt/kit": "^3.11.0 || ^4.0.0",
