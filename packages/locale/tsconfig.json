@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "noEmit": false,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
+    "emitDeclarationOnly": false,
     "outDir": "dist",
     "rootDir": "../../",
     "lib": ["ESNext"],

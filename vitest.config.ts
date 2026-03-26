@@ -47,27 +47,28 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
-    pool: 'forks',
-    // maxWorkers: 1 完全串行，改为 2 以平衡内存和速度（--max-old-space-size=4096 下安全）
-    maxWorkers: 2,
-    // isolate: true 防止测试间全局状态污染（Vue provide、document 残留等）
+    // pool: 'threads' 更节省内存，适合 CI 环境
+    pool: 'threads',
+    // maxWorkers: 1 在 CI (7GB RAM) 下最安全，避免 OOM
+    maxWorkers: 1,
+    // isolate: true 防止测试间全局状态污染
     isolate: true,
     // 包含普通测试和 SSR 测试
     include: [
       'packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}',
       'packages/ai-sdk/__tests__/**/*.test.ts'
     ],
-    // 排除 Nuxt 集成测试（需要单独运行）
+    // 排除 Nuxt 集成测试
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
       '**/cypress/**',
       '**/.{idea,git,cache,output,temp}/**',
-      // Nuxt E2E 集成测试需要真实 Nuxt 服务器，单独运行
       'packages/nuxt/__tests__/e2e/**'
     ],
     coverage: {
       provider: 'v8',
+      // 同时生成 summary 供 CI action 使用
       reporter: ['text', 'json', 'html', 'clover', 'lcov', 'json-summary'],
       reportsDirectory: './coverage',
       include: ['packages/*/src/**/*.{ts,vue}'],
