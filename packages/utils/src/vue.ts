@@ -46,7 +46,7 @@ export const withInstallFunction = <T>(fn: T, name: string): SFCWithInstall<T> =
   const func = fn as SFCWithInstall<T>
 
   func.install = (app: App): void => {
-    app.config.globalProperties[name] = fn
+    app.config.globalProperties[name] = func
   }
 
   return func

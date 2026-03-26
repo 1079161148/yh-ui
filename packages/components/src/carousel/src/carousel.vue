@@ -136,7 +136,7 @@ const startAutoplay = () => {
 
   // 开发/生产环境使用 RAF，生产环境更平滑
   // 测试环境使用 setInterval 以兼容 vitest fake timers
-  const isTest = typeof globalThis !== 'undefined' && !!(globalThis as any).vi
+  const isTest = typeof globalThis !== 'undefined' && 'vi' in globalThis
 
   if (isTest) {
     timer.value = setInterval(() => {

@@ -12,7 +12,7 @@ const installExtra = (app: App) => {
 }
 
 YhMessageBox.install = (app: App) => {
-  app.config.globalProperties.$msgbox = MessageBox as any
+  app.config.globalProperties.$msgbox = YhMessageBox
   installExtra(app)
 }
 

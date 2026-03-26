@@ -2,11 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": false,
-    "noEmit": true,
-    "emitDeclarationOnly": false,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
     "baseUrl": ".",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "declarationMap": false,
     "paths": {
       "@yh-ui/hooks": ["../hooks/src/index.ts"],
