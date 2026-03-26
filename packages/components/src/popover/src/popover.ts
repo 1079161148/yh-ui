@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, CSSProperties } from 'vue'
+import type { ExtractPropTypes, PropType, StyleValue } from 'vue'
 import type { Placement } from '@floating-ui/dom'
 
 export const popoverTriggers = ['hover', 'click', 'focus', 'contextmenu'] as const
@@ -102,7 +102,7 @@ export const popoverProps = {
   },
   /** 弹出层自定义样式 */
   popperStyle: {
-    type: Object as PropType<CSSProperties>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: () => ({})
   },
   /** 动画名称 */

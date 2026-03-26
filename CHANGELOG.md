@@ -5,6 +5,21 @@ All notable changes to YH-UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.19] - 2026-03-26
+
+### 🛠️ Build & Registry Stabilization (Industrial Grade)
+
+- **构建系统升级**: 彻底修复了 `@yh-ui/components` 在 Windows 环境下因 `mkdist` 与 `vue-tsc` 交互导致的构建崩溃（"Cannot read properties of undefined (reading 'errors')"）。通过引入独立的 `vue-tsc` 声明生成步骤，显著提升了构建流水线的稳定性。
+- **类型系统精修 (Strict Mode)**:
+  - **Menu**: 修复了 `YhMenuRecursiveItem` 中由于动态属性访问导致的 `unknown` 类型校验错误，并完善了递归组件的 Null 检查。
+  - **Style Prop 标准化**: 统一了 `Tooltip`, `Popover`, `Popconfirm`, `Menu` 等所有组件的样式属性（`popperStyle`, `contentStyle` 等）为 `StyleValue` 类型，确保了在 Vue 3.5+ 严格模式下的类型兼容性。
+  - **GanttChart**: 解决了 `FlattenedGanttTask` 内部接口在声明导出时“无法命名”的错误，通过提升关键类型至公用导出层，确保了 declaration 文件的正确生成。
+- **质量保障**:
+  - **100% 测试通过率**: 验证并确保了全量 3070 个单元测试/SSR 测试用例全部通过。
+  - **工业级零警告交付**: 实现了 `pnpm typecheck` 逻辑层与构建层双重 0 错误目标。
+
+---
+
 ## [0.1.18] - 2026-03-26
 
 ### 🐛 Bug Fixes

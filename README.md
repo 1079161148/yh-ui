@@ -5,7 +5,7 @@
 <h1 align="center">YH-UI</h1>
 
 <p align="center">
-  基于 Vue 3.5+ 的现代企业级组件库 · 行业领先主题系统 · 67 种国际化语言 · 原生 Nuxt 3 支持
+  基于 Vue 3.5+ 的现代企业级组件库 · 行业领先主题系统 · 67 种国际化语言 · 原生 Nuxt 3 支持 · 工业级 AI UI 套件
 </p>
 
 <p align="center">
@@ -27,32 +27,36 @@
 </p>
 
 <p align="center">
-  <a href="https://1079161148.github.io/yh-ui/">📖 文档</a> ·
+  <a href="https://1079161148.github.io/yh-ui/">📖 官方文档</a> ·
   <a href="https://1079161148.github.io/yh-ui/guide/quickstart">🚀 快速开始</a> ·
-  <a href="https://github.com/1079161148/yh-ui/releases">📝 更新日志</a>
+  <a href="https://github.com/1079161148/yh-ui/releases">📝 更新日志</a> ·
+  <a href="https://github.com/1079161148/yh-ui/issues">🐛 提交问题</a>
 </p>
 
 ---
 
 ## ✨ 为什么选择 YH-UI？
 
-| 特性            | YH-UI               | Element Plus | Naive UI |
-| --------------- | ------------------- | ------------ | -------- |
-| 预设主题数      | **12 种**           | 1 种         | 有限     |
-| 色盲友好模式    | ✅ **4 种**         | ❌           | ❌       |
-| 国际化语言数    | **67 种**           | 43 种        | 25 种    |
-| Nuxt 3 原生模块 | ✅ **官方级**       | ❌           | ❌       |
-| WCAG 无障碍校验 | ✅ **自动**         | 手动         | 手动     |
-| 主题切换动画    | ✅                  | ❌           | ❌       |
-| 密度配置        | ✅ **3 档**         | ❌           | ❌       |
-| 颜色算法        | ✅ **4 种**         | ❌           | ❌       |
-| Table 虚拟滚动  | ✅                  | 部分         | 部分     |
-| Table 打印/导出 | ✅ **CSV/XLSX/PDF** | ❌           | ❌       |
-| **AI 交互基础** | ✅ **完整套件**     | ❌           | ❌       |
+YH-UI 不仅仅是一个组件库，它是为现代高性能 Web 应用、AI 驱动的应用以及工业级管理系统量身定制的一站式解决方案。
+
+| 特性                | YH-UI                            | Element Plus | Naive UI |
+| ------------------- | -------------------------------- | ------------ | -------- |
+| **主题预设**        | **12 种系统内置主题**            | 1 种         | 有限     |
+| **AI 交互套件**     | ✅ **16+ 工业级 AI 原生组件**    | ❌           | ❌       |
+| **国际化语言**      | **67 种（覆盖全球主要市场）**    | 43 种        | 25 种    |
+| **工业级图表**      | ✅ **Gantt / Flow 深度渲染**     | ❌           | ❌       |
+| **Nuxt 3 原生支持** | ✅ **官方端到端适配模块**        | ❌           | ❌       |
+| **色盲友好模式**    | ✅ **4 种辅助算法**              | ❌           | ❌       |
+| **Table 生产力**    | ✅ **虚拟滚动 / 导出 / 打印**    | 部分         | 部分     |
+| **电商专项**        | ✅ **SKU 选择器 / 智能收货地址** | ❌           | ❌       |
+
+---
 
 ## 🌟 核心亮点
 
-### 🎨 行业领先的主题系统
+### 🎨 行业领先的“全场景”主题系统
+
+全自动颜色算法适配，支持色盲辅助、密度调节、暗色模式及丝滑的跨主题切换动画。
 
 ```ts
 import { createYhTheme } from '@yh-ui/yh-ui'
@@ -60,58 +64,38 @@ import { createYhTheme } from '@yh-ui/yh-ui'
 const theme = createYhTheme({
   preset: 'purple', // 12 种预设主题
   algorithm: 'vibrant', // 4 种颜色算法
-  density: 'compact', // 3 档密度
-  colorBlindMode: 'protanopia', // 色盲友好模式
-  followSystem: true, // 跟随系统暗色
-  transition: true, // 丝滑切换动画
-  persist: true // 持久化偏好
+  density: 'compact', // 3 档密度 (Default, Compact, Loose)
+  colorBlindMode: 'protanopia', // 色盲友好模式 (Protanopia, Deuteranopia, Tritanopia)
+  followSystem: true, // 跟随系统主题
+  transition: true // 启用跨主题微动画
 })
 ```
 
-### 🌍 67 种国际化语言（全球最多）
+### 🤖 工业级 AI 交互能力 (Next-Gen AI UI)
 
-```ts
-import YhUI from '@yh-ui/yh-ui'
-import zhCN from '@yh-ui/yh-ui/locale/zh-CN'
-
-app.use(YhUI, { locale: zhCN })
-```
-
-### 📊 企业级 Table（媲美 vxe-table）
-
-```vue
-<yh-table
-  :data="tableData"
-  :columns="columns"
-  :virtual-config="{ enabled: true, rowHeight: 40 }"
-  :drag-config="{ row: true, column: true }"
-  :toolbar-config="{ export: true, print: true, columnSetting: true }"
-  :selection-config="{ type: 'checkbox' }"
-  :summary-config="{ method: sumMethod }"
-/>
-```
-
-### 🔌 原生 Nuxt 3 支持
-
-```ts
-// nuxt.config.ts
-export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt'],
-  yhUI: {
-    importStyle: true,
-    locale: 'zh-CN'
-  }
-})
-```
-
-### 🤖 工业级 AI 组件套件 (Next-Gen AI UI)
+深度内置 AI 会话场景，支持 WebSocket/Stream 渲染、Mermaid 生成、代码运行及思考链可视化。
 
 ```vue
 <template>
   <yh-ai-provider :token="apiKey">
     <yh-ai-chat :messages="messages" />
+    <!-- 思考链展示组件 -->
+    <yh-ai-thought-chain :steps="steps" />
   </yh-ai-provider>
 </template>
+```
+
+### 📊 超高性能 Table 与甘特图 (Heavy Data Pro)
+
+专为大数据场景优化，Table 支持百万级虚拟滚动、列拖拽及完美的 XLSX/PDF 导出。Gantt 支持多模式切换及任务依赖驱动。
+
+```vue
+<yh-table
+  :virtual-config="{ enabled: true, rowHeight: 40 }"
+  :toolbar-config="{ export: true, print: true }"
+/>
+<!-- 工业级甘特图 -->
+<yh-gantt-chart :tasks="tasks" view-mode="Day" />
 ```
 
 ---
@@ -119,7 +103,7 @@ export default defineNuxtConfig({
 ## 📦 安装
 
 ```bash
-# pnpm（推荐）
+# pnpm（强烈推荐）
 pnpm add @yh-ui/yh-ui
 
 # npm
@@ -136,7 +120,7 @@ yarn add @yh-ui/yh-ui
 ```ts
 import { createApp } from 'vue'
 import YhUI from '@yh-ui/yh-ui'
-import '@yh-ui/yh-ui/css'
+import '@yh-ui/yh-ui/css' // 引入全局样式
 import App from './App.vue'
 
 const app = createApp(App)
@@ -144,20 +128,9 @@ app.use(YhUI)
 app.mount('#app')
 ```
 
-### 按需引入（推荐，完美 Tree-shaking）
+### 自动导入 (推荐)
 
-```vue
-<script setup lang="ts">
-import { YhButton, YhInput, YhTable } from '@yh-ui/yh-ui'
-</script>
-
-<template>
-  <yh-button type="primary">Hello YH-UI</yh-button>
-  <yh-input v-model="value" clearable show-word-limit :maxlength="100" />
-</template>
-```
-
-### 自动导入（配合 unplugin-vue-components）
+配合 `unplugin-vue-components` 实现极致的按需加载与 Tree-shaking。
 
 ```ts
 // vite.config.ts
@@ -175,76 +148,104 @@ export default {
 
 ---
 
-## 📁 项目结构
+## 📁 核心架构
 
 ```
 yh-ui/
 ├── packages/
-│   ├── components/    # 77 个组件 (含 16 个 AI 组件)
-│   ├── hooks/         # 11 个 Composition Hooks
-│   ├── icons/         # 图标系统
-│   ├── locale/        # 67 种国际化语言包
-│   ├── nuxt/          # Nuxt 3 原生模块
-│   ├── theme/         # 行业领先主题系统
-│   ├── utils/         # 工具函数
-│   └── yh-ui/         # 主包入口
-├── docs/              # VitePress 文档站点（中/英双语）
-├── playground/        # Vue 开发测试环境
-├── playground-nuxt/   # Nuxt 开发测试环境
-└── .github/workflows/ # CI/CD 自动化流水线
+│   ├── components/    # 组件库核心 (77+ 组件)
+│   ├── hooks/         # 工业级 Composition Hooks
+│   ├── icons/         # 高性能图标系统
+│   ├── locale/        # 67 语言国际化包
+│   ├── nuxt/          # Nuxt 3 原生官方模块
+│   ├── theme/         # 动态主题引擎
+│   └── yh-ui/         # 主入口整合包
+├── docs/              # 基于 VitePress 的文档中心
+├── playground/        # Vue 3 演练场
+└── playground-nuxt/   # Nuxt 3 演练场
 ```
 
 ---
 
-## 🛠 开发
+## 🛠 开发与构建指南
+
+我们使用 `pnpm monorepo` 架构，所有命令均在根目录执行。
+
+### 初始环境
 
 ```bash
-# 安装依赖
+# 1. 安装项目所有依赖
 pnpm install
 
-# 启动组件开发
+# 2. 自动链接包依赖
+pnpm postinstall
+```
+
+### 启动研发服务
+
+```bash
+# 启动组件开发演练场 (Playground)
 pnpm dev
 
-# 启动文档站点
+# 启动文档站点研发预览 (中英双语)
 pnpm docs:dev
+```
 
-# 运行单元测试
-pnpm test
+### 构建指令
 
-# 运行测试覆盖率
-pnpm test:coverage
-
-# 构建所有包
+```bash
+# 1. 全量构建所有 NPM 包 (组件库、Hooks、Utils、Nuxt 模块等)
 pnpm build
 
-# 类型检查
+# 2. 单独构建指定子包 (以组件库为例)
+pnpm -C packages/components build
+
+# 3. 静态构建文档站点
+pnpm docs:build
+```
+
+### 质量保证
+
+```bash
+# 执行 ESLint 静态检查与修复
+pnpm lint
+pnpm lint:fix
+
+# 执行 TypeScript 类型递归检查
 pnpm typecheck
 
-# 代码格式化
-pnpm format
+# 运行单元测试 (Vitest)
+pnpm test
+
+# 生成全量测试覆盖率报告
+pnpm test:coverage
+```
+
+### 版本发布流程
+
+```bash
+# 1. 自动执行版本更迭 (Patch/Minor/Major)
+pnpm version:patch
+
+# 2. 标准化提交、打标签并推送到远端
+pnpm release
+
+# 3. 发布到 NPM 私服或官方库
+pnpm publish:all
 ```
 
 ---
 
-## 🤝 贡献
+## 🤝 贡献与反馈
 
-欢迎参与贡献！
+欢迎提交 PR 或 Issue。在开始之前，请确保您的代码通过了：
 
-1. Fork 本仓库
-2. 创建你的特性分支 (`git checkout -b feat/amazing-feature`)
-3. 提交更改 (`git commit -m 'feat: add amazing feature'`)
-4. 推送到分支 (`git push origin feat/amazing-feature`)
-5. 提交 Pull Request
-
-请确保 PR 满足：
-
-- ✅ 所有测试通过（`pnpm test`）
-- ✅ 类型检查无误（`pnpm typecheck`）
-- ✅ 代码规范通过（`pnpm lint`）
-- ✅ 新功能附带测试用例
+- ✅ `pnpm typecheck`
+- ✅ `pnpm test`
+- ✅ `pnpm lint`
 
 ---
 
-## 📄 开源协议
+## 📄 LICENSE
 
 [MIT](./LICENSE) License © 2024-present YH-UI Team

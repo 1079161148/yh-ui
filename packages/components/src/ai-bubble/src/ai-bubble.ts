@@ -136,6 +136,14 @@ export interface AiMermaidConfig {
 }
 
 /**
+ * 结构化表格数据
+ */
+export interface AiStructuredTableData {
+  headers: string[]
+  rows: string[][]
+}
+
+/**
  * LaTeX 公式配置
  */
 export interface AiLatexOptions {

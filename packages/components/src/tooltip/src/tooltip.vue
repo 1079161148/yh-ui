@@ -251,13 +251,14 @@ const handleTrigger = (e: Event, type: TooltipTrigger) => {
 useEventListener(
   () => window,
   'click',
-  (e: MouseEvent) => {
+  (e: Event) => {
+    const me = e as MouseEvent
     if (!visible.value) return
     // 只有 click 和 contextmenu 模式需要全局外部点击关闭
     const needsClose = triggers.value.has('click') || triggers.value.has('contextmenu')
     if (!needsClose) return
 
-    const target = e.target as HTMLElement
+    const target = me.target as HTMLElement
     if (!triggerRef.value?.contains(target) && !popperRef.value?.contains(target)) {
       toggleVisible(false)
     }

@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, StyleValue } from 'vue'
 import type { TooltipPlacement } from '../../tooltip/src/tooltip'
 
 export const popconfirmProps = {
@@ -92,7 +92,7 @@ export const popconfirmProps = {
   },
   /** 弹出层自定义样式 */
   popperStyle: {
-    type: Object as PropType<Record<string, unknown>>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: () => ({})
   },
   /** 挂载节点 */

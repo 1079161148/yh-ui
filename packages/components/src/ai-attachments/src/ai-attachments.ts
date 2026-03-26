@@ -1,4 +1,5 @@
 import type { ExtractPropTypes, PropType } from 'vue'
+import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { FileCardListItem } from '../../ai-file-card'
 
 /** 溢出布局模式 */
@@ -111,7 +112,7 @@ export const aiAttachmentsProps = {
   },
   /** 主题覆盖变量 */
   themeOverrides: {
-    type: Object as PropType<Record<string, unknown>>,
+    type: Object as PropType<ComponentThemeVars>,
     default: undefined
   }
 } as const

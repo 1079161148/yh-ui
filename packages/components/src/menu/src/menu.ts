@@ -1,4 +1,12 @@
-import type { ExtractPropTypes, PropType, InjectionKey, Ref, Component, VNodeChild } from 'vue'
+import type {
+  ExtractPropTypes,
+  PropType,
+  InjectionKey,
+  Ref,
+  Component,
+  VNodeChild,
+  StyleValue
+} from 'vue'
 
 export type MenuMode = 'horizontal' | 'vertical'
 export type MenuTrigger = 'hover' | 'click'
@@ -125,7 +133,7 @@ export const menuProps = {
   },
   /** 所有弹出菜单的自定义样式 */
   popperStyle: {
-    type: [String, Object] as PropType<string | object>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: ''
   },
   /** 菜单出现前的延迟 */
@@ -334,7 +342,7 @@ export interface MenuContext {
   popperOffset: Ref<number>
   popperEffect: Ref<'dark' | 'light'>
   popperClass: Ref<string>
-  popperStyle: Ref<string | object>
+  popperStyle: Ref<StyleValue | undefined>
   showTimeout: Ref<number>
   hideTimeout: Ref<number>
   persistent: Ref<boolean>

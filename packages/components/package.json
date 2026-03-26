@@ -34,7 +34,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "unbuild && pnpm run build:dts",
+    "build:dts": "vue-tsc --emitDeclarationOnly --outDir dist --project tsconfig.json --rootDir src && cp src/*.d.ts dist/",
     "dev": "unbuild --stub",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint ."

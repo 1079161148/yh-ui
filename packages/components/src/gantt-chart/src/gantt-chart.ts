@@ -33,7 +33,7 @@ export interface GanttColumn {
   align?: 'left' | 'center' | 'right'
 }
 
-export interface GanttChartProps {
+export type GanttChartProps = {
   data: GanttTask[]
   columns?: GanttColumn[]
   startDate?: string | number | Date
@@ -53,7 +53,7 @@ export interface GanttChartProps {
   themeOverrides?: ComponentThemeVars
 }
 
-export interface GanttChartEmits {
+export type GanttChartEmits = {
   (e: 'update:data', data: GanttTask[]): void
   (e: 'update:viewMode', value: GanttViewMode): void
   (e: 'task-click', task: GanttTask, event: MouseEvent): void
@@ -94,4 +94,21 @@ export interface GanttChartSlots {
   'task-content'?: (props: { task: GanttTask }) => unknown
   'table-cell'?: (props: { row: GanttTask; column: GanttColumn; index: number }) => unknown
   tooltip?: (props: { task: GanttTask }) => unknown
+}
+export interface FlattenedGanttTask extends GanttTask {
+  _original: GanttTask
+  _level: number
+  _parentId: string | number | null
+  _isLast: boolean
+  _ancestorHasNext: boolean[]
+  _hasChildren: boolean
+  _startDate: string
+  _endDate: string
+  _isMilestone: boolean
+  _matchesSearch: boolean
+}
+
+export type GanttChartInstance = {
+  visible: boolean
+  toggle: (val: boolean) => void
 }

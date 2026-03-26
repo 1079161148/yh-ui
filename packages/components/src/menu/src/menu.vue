@@ -166,7 +166,7 @@ defineExpose({
     <slot>
       <yh-menu-recursive-item
         v-for="item in options"
-        :key="item[keyField] || item.index"
+        :key="(item[keyField] as string) || item.index || (item.key as string) || ''"
         :item="item"
       />
     </slot>

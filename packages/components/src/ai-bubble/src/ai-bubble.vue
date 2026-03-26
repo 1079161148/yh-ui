@@ -11,7 +11,12 @@ import {
   onMounted,
   nextTick
 } from 'vue'
-import { aiBubbleProps, type AiMarkdownOptions, type AiCodeBlockOptions } from './ai-bubble'
+import {
+  aiBubbleProps,
+  type AiMarkdownOptions,
+  type AiCodeBlockOptions,
+  type AiStructuredTableData
+} from './ai-bubble'
 import { YhAvatar } from '../../avatar'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
@@ -1231,12 +1236,11 @@ onBeforeUnmount(() => {
                 <thead>
                   <tr
                     v-if="
-                      structuredData.data &&
-                      (structuredData.data as Record<string, unknown>).headers
+                      structuredData.data && (structuredData.data as AiStructuredTableData).headers
                     "
                   >
                     <th
-                      v-for="h in (structuredData.data as { headers: string[] }).headers"
+                      v-for="h in (structuredData.data as AiStructuredTableData).headers"
                       :key="h"
                     >
                       {{ h }}
@@ -1245,7 +1249,7 @@ onBeforeUnmount(() => {
                 </thead>
                 <tbody v-if="structuredData.data && typeof structuredData.data === 'object'">
                   <tr
-                    v-for="(row, idx) in (structuredData.data as { rows: string[][] }).rows"
+                    v-for="(row, idx) in (structuredData.data as AiStructuredTableData).rows"
                     :key="idx"
                   >
                     <td v-for="(cell, cIdx) in row" :key="cIdx">{{ cell }}</td>

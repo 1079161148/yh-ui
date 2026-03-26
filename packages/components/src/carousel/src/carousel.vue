@@ -136,7 +136,7 @@ const startAutoplay = () => {
 
   // 开发/生产环境使用 RAF，生产环境更平滑
   // 测试环境使用 setInterval 以兼容 vitest fake timers
-  const isTest = typeof vi !== 'undefined'
+  const isTest = typeof globalThis !== 'undefined' && !!(globalThis as any).vi
 
   if (isTest) {
     timer.value = setInterval(() => {
@@ -147,7 +147,7 @@ const startAutoplay = () => {
       if (internalIndex.value >= total) {
         internalIndex.value = props.loop ? 0 : total - 1
       }
-    }, props.interval)
+    }, props.interval) as unknown as number
   } else {
     let lastTime = performance.now()
 

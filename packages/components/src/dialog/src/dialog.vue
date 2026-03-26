@@ -338,12 +338,13 @@ const afterLeave = () => {
 useEventListener(
   () => window,
   'keydown',
-  (e: KeyboardEvent) => {
+  (e: Event) => {
+    const ke = e as KeyboardEvent
     if (!props.modelValue) return
-    if (props.closeOnPressEscape && e.key === 'Escape') {
+    if (props.closeOnPressEscape && ke.key === 'Escape') {
       handleClose()
     }
-    trapFocus(e)
+    trapFocus(ke)
   }
 )
 

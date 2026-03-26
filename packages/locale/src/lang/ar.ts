@@ -687,7 +687,7 @@ export const ar: Language = {
         relevant: 'الملاءمة',
         viewOriginal: 'عرض الأصل',
         showAll: 'إظهار الكل',
-        other: 'المزيد من المصادر',
+        more: 'المزيد من المصادر',
         drawerTitle: 'المراجع',
         expandMore: 'إظهار المزيد',
         collapseMore: 'طي',

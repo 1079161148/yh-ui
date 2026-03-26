@@ -83,24 +83,28 @@ const title = computed(() => {
   }
 
   // 2. 其次使用语言包中定义的日历专属格式 (如 'YYYY年MM月')
-  const calendarLocale = locale.value.yh.calendar
+  const calendarLocale = locale.value.yh?.calendar
   if (calendarLocale?.monthHeaderFormat) {
     return displayDate.value.format(calendarLocale.monthHeaderFormat)
   }
 
   // 3. 最后回退到默认组合逻辑，确保国际化
-  const dateLocale = locale.value.yh.datepicker
-  const monthName = dateLocale.months[monthKeys[displayDate.value.month()]]
-  const year = displayDate.value.year()
+  const dateLocale = locale.value.yh?.datepicker
+  if (dateLocale) {
+    const monthName = dateLocale.months[monthKeys[displayDate.value.month()]]
+    const year = displayDate.value.year()
 
-  // 对于东亚语言（通常 monthBeforeYear 为 false 且有 '年' 定义），移除冗余空格
-  if (!dateLocale.monthBeforeYear && dateLocale.year) {
-    return `${year}${dateLocale.year}${monthName}`
+    // 对于东亚语言（通常 monthBeforeYear 为 false 且有 '年' 定义），移除冗余空格
+    if (!dateLocale.monthBeforeYear && dateLocale.year) {
+      return `${year}${dateLocale.year}${monthName}`
+    }
+
+    return dateLocale.monthBeforeYear
+      ? `${monthName} ${year}`
+      : `${year} ${dateLocale.year} ${monthName}`
   }
 
-  return dateLocale.monthBeforeYear
-    ? `${monthName} ${year}`
-    : `${year} ${dateLocale.year} ${monthName}`
+  return displayDate.value.format('YYYY-MM')
 })
 
 // 星期标题行 (根据 firstDayOfWeek 排序)

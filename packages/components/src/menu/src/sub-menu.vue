@@ -2,7 +2,16 @@
 /**
  * YhSubMenu - 子菜单组件
  */
-import { ref, inject, computed, provide, onMounted, onBeforeUnmount } from 'vue'
+import {
+  ref,
+  inject,
+  computed,
+  unref,
+  provide,
+  onMounted,
+  onBeforeUnmount,
+  type StyleValue
+} from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { YhIcon } from '../../icon'
 import { YhTooltip } from '../../tooltip'
@@ -91,9 +100,8 @@ const mergedPopperClass = computed(() => {
   if (props.popperClass) classes.push(props.popperClass)
   return classes.join(' ')
 })
-const mergedPopperStyle = computed<Record<string, unknown>>(() => {
-  const style = menu?.popperStyle.value ?? {}
-  return typeof style === 'string' ? {} : (style as Record<string, unknown>) // 强制返回对象以匹配 YhTooltip 类型
+const mergedPopperStyle = computed<StyleValue>(() => {
+  return (unref(menu?.popperStyle) || {}) as StyleValue
 })
 const mergedPopperEffect = computed(() => menu?.popperEffect.value ?? 'light')
 

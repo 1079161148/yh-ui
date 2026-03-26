@@ -1,6 +1,6 @@
 export interface Language {
   name: string
-  yh: {
+  yh?: Partial<{
     // 通用
     common: {
       yes: string
@@ -599,28 +599,28 @@ export interface Language {
       [key: string]: never
     }
     // 固钉
-    affix: {
+    affix?: {
       [key: string]: never
     }
     // 流程图
-    flow: {
+    flow?: {
       zoomIn: string
       zoomOut: string
       fitView: string
       lock: string
     }
     // 锚点
-    anchor: {
+    anchor?: {
       [key: string]: never
     }
     // 提及
-    mention: {
+    mention?: {
       placeholder: string
       loading: string
       noData: string
     }
     // SKU 选择器
-    skuselector: {
+    skuselector?: {
       placeholder: string
       emptyText: string
       stock: string
@@ -629,18 +629,18 @@ export interface Language {
       outOfStock: string
     }
     // 商品卡片
-    productcard: {
+    productcard?: {
       viewDetails: string
       buyNow: string
       addToCart: string
       sold: string
     }
     // 价格
-    price: {
+    price?: {
       original: string
     }
     // 优惠券
-    couponcard: {
+    couponcard?: {
       available: string
       used: string
       expired: string
@@ -651,14 +651,14 @@ export interface Language {
       ruleTitle: string
     }
     // 幸运抽奖
-    luckydraw: {
+    luckydraw?: {
       start: string
       drawing: string
       end: string
       retry: string
     }
     // 筛选排序栏
-    filterbar: {
+    filterbar?: {
       all: string
       sort: string
       filter: string
@@ -670,20 +670,20 @@ export interface Language {
       selected: string
     }
     // 结算栏
-    submitbar: {
+    submitbar?: {
       total: string
       selected: string
       submit: string
       allSelect: string
     }
     // 品类导航
-    categorynav: {
+    categorynav?: {
       all: string
       noData: string
       loading: string
     }
     // 智能地址
-    smartaddress: {
+    smartaddress?: {
       placeholder: string
       parse: string
       province: string
@@ -854,7 +854,7 @@ export interface Language {
         resetView?: string
       }
     }
-  }
+  }>
 }
 
 export * from './lang/zh-cn'

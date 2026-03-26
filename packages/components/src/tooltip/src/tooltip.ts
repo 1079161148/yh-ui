@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, StyleValue } from 'vue'
 
 export const tooltipPlacements = [
   'top',
@@ -133,7 +133,7 @@ export const tooltipProps = {
   },
   /** 弹出内容自定义样式 */
   contentStyle: {
-    type: [Object, String] as PropType<string | Record<string, unknown>>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: () => ({})
   },
   /** 箭头自定义类名 */
@@ -143,12 +143,12 @@ export const tooltipProps = {
   },
   /** 箭头自定义样式 */
   arrowStyle: {
-    type: Object as PropType<Record<string, unknown>>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: () => ({})
   },
   /** 弹出层自定义样式 */
   popperStyle: {
-    type: Object as PropType<Record<string, unknown>>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: () => ({})
   },
   /** 箭头容器自定义类名 */
@@ -158,7 +158,7 @@ export const tooltipProps = {
   },
   /** 箭头容器自定义样式 */
   arrowWrapperStyle: {
-    type: Object as PropType<Record<string, unknown>>,
+    type: [Object, String, Array] as PropType<StyleValue>,
     default: () => ({})
   },
   /** 主题覆盖变量 */

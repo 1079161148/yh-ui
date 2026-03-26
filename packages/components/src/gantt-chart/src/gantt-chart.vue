@@ -6,12 +6,13 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type {
+import {
   GanttChartProps,
   GanttChartEmits,
   GanttTask,
   GanttDependencyLink,
-  GanttTaskStyle
+  GanttTaskStyle,
+  FlattenedGanttTask
 } from './gantt-chart'
 import { YhTooltip } from '../../tooltip'
 import { YhInput } from '../../input'
@@ -40,19 +41,6 @@ const props = withDefaults(defineProps<GanttChartProps>(), {
 })
 
 const emit = defineEmits<GanttChartEmits>()
-
-interface FlattenedGanttTask extends GanttTask {
-  _original: GanttTask
-  _level: number
-  _parentId: string | number | null
-  _isLast: boolean
-  _ancestorHasNext: boolean[]
-  _hasChildren: boolean
-  _startDate: string
-  _endDate: string
-  _isMilestone: boolean
-  _matchesSearch: boolean
-}
 
 const ns = useNamespace('gantt-chart')
 const { themeStyle } = useComponentTheme(
