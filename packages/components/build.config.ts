@@ -1,5 +1,7 @@
 import { defineBuildConfig } from 'unbuild'
 import { resolve } from 'path'
+import { pathToFileURL } from 'url'
+import { basename } from 'pathe'
 
 export default defineBuildConfig({
   entries: [
@@ -7,6 +9,7 @@ export default defineBuildConfig({
       builder: 'mkdist',
       input: './src',
       outDir: './dist',
+      pattern: ['**', '!**/__tests__/**'],
       format: 'esm',
       ext: 'mjs',
       declaration: false
@@ -15,6 +18,7 @@ export default defineBuildConfig({
       builder: 'mkdist',
       input: './src',
       outDir: './dist',
+      pattern: ['**', '!**/__tests__/**'],
       format: 'cjs',
       ext: 'cjs',
       declaration: false
@@ -39,6 +43,41 @@ export default defineBuildConfig({
     '@yh-ui/utils': resolve(__dirname, '../utils/src'),
     '@yh-ui/locale': resolve(__dirname, '../locale/src')
   },
-  hooks: {},
+  hooks: {
+    async 'mkdist:entry:options'(_ctx, _entry, options) {
+      const customSassLoader = async (input: {
+        extension: string
+        srcPath?: string
+        path: string
+        getContents: () => Promise<string> | string
+      }) => {
+        if (!['.sass', '.scss'].includes(input.extension)) {
+          return
+        }
+
+        if (input.srcPath && basename(input.srcPath).startsWith('_')) {
+          return [{ contents: '', path: input.path, skip: true }]
+        }
+
+        const sass = await import('sass')
+        const compileString =
+          sass.compileString ?? (sass as unknown as { default: typeof sass }).default.compileString
+        const contents = await input.getContents()
+
+        return [
+          {
+            contents: compileString(contents, {
+              loadPaths: ['node_modules'],
+              ...(input.srcPath ? { url: pathToFileURL(input.srcPath) } : {})
+            }).css,
+            path: input.path,
+            extension: '.css'
+          }
+        ]
+      }
+
+      options.loaders = [customSassLoader as never, 'js', 'vue', 'postcss']
+    }
+  },
   failOnWarn: false
 })

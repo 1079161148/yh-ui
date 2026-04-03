@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/yh-ui",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
   "main": "./dist/index.mjs",
@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "unbuild && node ../../scripts/post-build-styles.mjs yh-ui",
     "dev": "unbuild --stub"
   },
   "dependencies": {

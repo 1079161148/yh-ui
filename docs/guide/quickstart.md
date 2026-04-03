@@ -12,7 +12,7 @@ import { createApp } from 'vue'
 import YhUI from '@yh-ui/yh-ui'
 
 // 引入全局样式
-import '@yh-ui/yh-ui/dist/style.css'
+import '@yh-ui/yh-ui/css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -36,6 +36,8 @@ import { YhButton } from '@yh-ui/yh-ui'
   <yh-button type="primary">Hello YH-UI</yh-button>
 </template>
 ```
+
+如果您使用完整安装，推荐统一通过 `@yh-ui/yh-ui/css` 引入样式入口；这是当前发布包对外稳定的样式别名。
 
 ## 3. 全局配置
 

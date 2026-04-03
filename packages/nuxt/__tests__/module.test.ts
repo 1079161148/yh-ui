@@ -35,7 +35,7 @@ describe('nuxt module', () => {
     expect(kit.addPlugin).toHaveBeenCalledWith('resolved-./runtime/plugin')
 
     // css
-    expect(nuxtMock.options.css).toContain('@yh-ui/theme/src/styles/index.scss')
+    expect(nuxtMock.options.css).toContain('@yh-ui/components/style')
 
     // build.transpile
     expect(nuxtMock.options.build.transpile).toContain('@yh-ui/components')
@@ -87,5 +87,17 @@ describe('nuxt module', () => {
     }
     ;(yhNuxtModule as any).setup({ buildTranspile: true }, nuxtMock)
     expect(nuxtMock.options.build.transpile).toBeTruthy()
+  })
+
+  it('does not duplicate published CSS entry', () => {
+    nuxtMock = {
+      options: {
+        css: ['@yh-ui/components/style'],
+        build: { transpile: [] }
+      }
+    }
+    ;(yhNuxtModule as any).setup({ importStyle: true }, nuxtMock)
+
+    expect(nuxtMock.options.css).toEqual(['@yh-ui/components/style'])
   })
 })

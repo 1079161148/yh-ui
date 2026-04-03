@@ -265,7 +265,7 @@ const { data: agents } = await useFetch('/api/agents')
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt'],
-  yhUI: { importStyle: true }
+  modules: ['@yh-ui/nuxt']
+  // YH-UI CSS is injected by default; only configure yhUI.importStyle when disabling auto styles
 })
 ```

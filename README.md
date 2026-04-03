@@ -146,6 +146,8 @@ export default {
 }
 ```
 
+`YhUIResolver()` 默认会按需自动注入组件对应的 CSS 样式，不需要额外安装 Sass。
+
 ---
 
 ## 📁 核心架构

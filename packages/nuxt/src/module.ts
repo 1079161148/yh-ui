@@ -29,8 +29,8 @@ if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
 
 export interface ModuleOptions {
   /**
-   * Whether to automatically import styles.
-   * If true, it will import `@yh-ui/theme/src/styles/index.scss`.
+   * Whether to automatically inject published CSS styles.
+   * If true, it will import `@yh-ui/components/style`.
    * @default true
    */
   importStyle?: boolean
@@ -78,10 +78,11 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
     // 0. Register runtime plugin (SSR isolation)
     addPlugin(resolve('./runtime/plugin'))
 
-    // 1. Inject CSS styles
+    // 1. Inject published CSS styles
     if (options.importStyle) {
-      // Use resolved path for reliability
-      nuxt.options.css.push('@yh-ui/theme/src/styles/index.scss')
+      if (!nuxt.options.css.includes('@yh-ui/components/style')) {
+        nuxt.options.css.push('@yh-ui/components/style')
+      }
     }
 
     // 1.5 Ensure dependencies are correctly transpiled

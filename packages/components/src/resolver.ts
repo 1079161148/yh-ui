@@ -1,20 +1,21 @@
 /**
- * unplugin-vue-components Resolver
- * @description 自动导入解析器
+ * unplugin-vue-components resolver for YH-UI.
  */
 
 export interface YhUIResolverOptions {
   /**
-   * 是否导入样式
+   * Whether to inject the published CSS entry for resolved components.
+   * When enabled, the resolver adds `@yh-ui/components/style` as a side effect.
    * @default true
    */
   importStyle?: boolean
 }
 
 /**
- * YH-UI 组件自动导入解析器
+ * YH-UI component auto-import resolver.
+ *
  * @example
- * // vite.config.ts
+ * ```ts
  * import Components from 'unplugin-vue-components/vite'
  * import { YhUIResolver } from '@yh-ui/components/resolver'
  *
@@ -25,6 +26,7 @@ export interface YhUIResolverOptions {
  *     })
  *   ]
  * }
+ * ```
  */
 export function YhUIResolver(options: YhUIResolverOptions = {}) {
   const { importStyle = true } = options
@@ -32,12 +34,12 @@ export function YhUIResolver(options: YhUIResolverOptions = {}) {
   return {
     type: 'component' as const,
     resolve: (name: string) => {
-      // 匹配 Yh 开头的组件
+      // Match Yh-prefixed components and optionally attach the public CSS entry.
       if (name.startsWith('Yh')) {
         return {
           name,
           from: '@yh-ui/components',
-          sideEffects: importStyle ? '@yh-ui/theme/styles/index.scss' : undefined
+          sideEffects: importStyle ? '@yh-ui/components/style' : undefined
         }
       }
     }

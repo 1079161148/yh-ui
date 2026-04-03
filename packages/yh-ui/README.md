@@ -114,6 +114,8 @@ export default {
 }
 ```
 
+`YhUIResolver()` 默认会自动按需注入组件 CSS，无需额外的 Sass 依赖。
+
 ---
 
 ## 🎨 主题系统
@@ -239,7 +241,7 @@ const { messages, input, isLoading, sendMessage } = useAIChat({ api: '/api/chat'
 export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
   yhUI: {
-    importStyle: true, // 自动注入样式
+    importStyle: true, // 默认即为 true：自动注入 CSS；只有关闭后才需要显式恢复
     locale: 'zh-CN' // 默认语言
   }
 })

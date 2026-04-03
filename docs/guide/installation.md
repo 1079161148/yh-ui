@@ -90,22 +90,21 @@ pnpm add -D unplugin-vue-components
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { YhUIResolver } from '@yh-ui/@yh-ui/@yh-ui/yh-ui/resolver' // 确保您已安装 @yh-ui/yh-ui
+import { YhUIResolver } from '@yh-ui/yh-ui/resolver'
 
 export default defineConfig({
   plugins: [
     vue(),
     Components({
-      resolvers: [
-        YhUIResolver({
-          // 如果需要自动引入样式
-          importStyle: 'sass'
-        })
-      ]
+      resolvers: [YhUIResolver()]
     })
   ]
 })
 ```
+
+::: tip 提示
+`YhUIResolver()` 默认会自动按需引入组件对应的 CSS 样式，纯 CSS 项目可以直接使用，无需额外安装 Sass。
+:::
 
 ## TypeScript 支持
 

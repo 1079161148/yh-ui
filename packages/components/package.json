@@ -1,6 +1,6 @@
 ﻿{
   "name": "@yh-ui/components",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
@@ -34,7 +34,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild && pnpm run build:dts",
+    "build": "unbuild && node ../../scripts/post-build-styles.mjs components && pnpm run build:dts && node ../../scripts/post-build-styles.mjs components",
     "build:dts": "vue-tsc --emitDeclarationOnly --outDir dist --project tsconfig.json --rootDir ../../ && node ../../scripts/post-build-dts.mjs",
     "dev": "unbuild --stub",
     "typecheck": "vue-tsc --noEmit",

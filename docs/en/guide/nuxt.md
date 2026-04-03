@@ -34,7 +34,7 @@ Why choose YH-UI for use with Nuxt?
 2.  **🧩 Semantic Auto-import**: The module automatically registers all `Yh` components, Composables, and global methods. You just write the code; the IDE provides perfect hints, and no `import` is needed.
 3.  **⚡ Extreme Performance Optimization**: Supports Tree Shaking. Combined with Nuxt's code-splitting mechanism, only the components you truly use are bundled, keeping the package size to a minimum.
 4.  **🔒 Status Isolation and Safety**: Addressing global state pollution risks in SSR environments, we provide request-level isolation for `useZIndex` and `useId` to ensure the safety of concurrent multi-user access.
-5.  **🎨 On-demand Style Loading**: The style system supports SCSS/CSS on-demand injection and is deeply integrated with the Nuxt theme system.
+5.  **🎨 CSS-First Style Loading**: YH-UI injects its packaged CSS styles by default and integrates smoothly with the Nuxt theme system without requiring Sass in app projects.
 
 ## Precautions
 
@@ -65,19 +65,24 @@ export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
 
   yhUI: {
-    // Whether to auto-import styles (default: true)
+    // CSS styles are injected by default; only set this when you want to disable them
     importStyle: true
   }
 })
 ```
 
+In the default setup, `@yh-ui/nuxt` automatically injects YH-UI's CSS styles, so pure CSS projects work without any Sass setup.
+The module actually injects the public CSS entry `@yh-ui/components/style`, rather than any Sass file from the source directory.
+
 ### Available Options
 
-| Option           | Type      | Default | Description                                                                       |
-| ---------------- | --------- | ------- | --------------------------------------------------------------------------------- |
-| `importStyle`    | `boolean` | `true`  | Whether to automatically import component styles                                  |
-| `prefix`         | `string`  | `'Yh'`  | Component prefix; for example, if set to `My`, component names will be `MyButton` |
-| `buildTranspile` | `boolean` | `true`  | Whether to automatically transpile related dependencies                           |
+| Option           | Type      | Default | Description                                                                              |
+| ---------------- | --------- | ------- | ---------------------------------------------------------------------------------------- |
+| `importStyle`    | `boolean` | `true`  | Whether to automatically inject YH-UI CSS styles; keep the default for pure CSS projects |
+| `prefix`         | `string`  | `'Yh'`  | Component prefix; for example, if set to `My`, component names will be `MyButton`        |
+| `buildTranspile` | `boolean` | `true`  | Whether to automatically transpile related dependencies                                  |
+
+When `importStyle` is `true`, the Nuxt module actually appends `@yh-ui/components/style` to `nuxt.options.css`.
 
 ## Auto-import
 
@@ -510,12 +515,12 @@ export default defineNuxtConfig({
 
 ### 2. Styles not loading?
 
-Check if style importation is enabled in your configuration:
+Check whether automatic style injection was explicitly disabled:
 
 ```typescript
 export default defineNuxtConfig({
   yhUI: {
-    importStyle: true // Ensure this is true
+    importStyle: true // This is already the default; only restore it if you turned it off
   }
 })
 ```

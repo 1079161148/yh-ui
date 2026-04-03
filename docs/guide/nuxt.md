@@ -63,19 +63,24 @@ export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
 
   yhUI: {
-    // 是否自动导入样式（默认: true）
+    // 默认会自动注入打包后的 CSS 样式；只有想关闭时才需要显式配置
     importStyle: true
   }
 })
 ```
 
+默认情况下无需额外配置，`@yh-ui/nuxt` 会自动注入 YH-UI 的 CSS 样式，对纯 CSS 项目同样开箱即用。
+模块内部实际注入的是公开 CSS 入口 `@yh-ui/components/style`，而不是源码目录下的 Sass 文件。
+
 ### 可用配置
 
-| 选项             | 类型      | 默认值 | 说明                                            |
-| ---------------- | --------- | ------ | ----------------------------------------------- |
-| `importStyle`    | `boolean` | `true` | 是否自动导入组件样式                            |
-| `prefix`         | `string`  | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton` |
-| `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖                            |
+| 选项             | 类型      | 默认值 | 说明                                                 |
+| ---------------- | --------- | ------ | ---------------------------------------------------- |
+| `importStyle`    | `boolean` | `true` | 是否自动注入 YH-UI CSS 样式；纯 CSS 项目保持默认即可 |
+| `prefix`         | `string`  | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton`      |
+| `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖                                 |
+
+当 `importStyle` 为 `true` 时，Nuxt 模块实际追加到 `nuxt.options.css` 的入口是 `@yh-ui/components/style`。
 
 ## 自动导入
 
@@ -503,12 +508,12 @@ export default defineNuxtConfig({
 
 ### 2. 样式未加载？
 
-检查配置中是否启用了样式导入：
+检查是否显式关闭了样式自动注入：
 
 ```typescript
 export default defineNuxtConfig({
   yhUI: {
-    importStyle: true // 确保为 true
+    importStyle: true // 默认就是 true，只有被关闭时才需要恢复
   }
 })
 ```

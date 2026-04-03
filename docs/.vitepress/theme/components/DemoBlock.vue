@@ -5,6 +5,11 @@
  */
 import { ref, computed, watch } from 'vue'
 import { useData } from 'vitepress'
+import {
+  getSandboxSupport,
+  openDemoInCodeSandbox,
+  openDemoInStackBlitz
+} from '../utils/demo-sandbox'
 
 interface Props {
   title?: string
@@ -27,6 +32,8 @@ const showCode = ref(false)
 const codeType = ref<'ts' | 'js'>('ts')
 const copied = ref(false)
 const highlightedCode = ref('')
+const onlineEditMessage = ref('')
+let onlineEditMessageTimer: number | undefined
 
 const { lang } = useData()
 const isEn = computed(() => lang.value === 'en-US')
@@ -42,6 +49,23 @@ const currentCode = computed(() => {
 // 是否有两种代码类型
 const hasBothTypes = computed(() => {
   return !!props.tsCode && !!props.jsCode
+})
+
+const sandboxSupport = computed(() => getSandboxSupport(currentCode.value))
+const canOpenOnline = computed(() => sandboxSupport.value.supported)
+
+const stackBlitzTitle = computed(() => {
+  if (!canOpenOnline.value) {
+    return sandboxSupport.value.reason || 'This demo cannot be opened online.'
+  }
+  return 'Edit in StackBlitz'
+})
+
+const codeSandboxTitle = computed(() => {
+  if (!canOpenOnline.value) {
+    return sandboxSupport.value.reason || 'This demo cannot be opened online.'
+  }
+  return 'Edit in CodeSandbox'
 })
 
 // Token 类型定义
@@ -401,14 +425,30 @@ const copyCode = async () => {
   }
 }
 
+const setOnlineEditMessage = (message: string) => {
+  onlineEditMessage.value = message
+  if (onlineEditMessageTimer) {
+    window.clearTimeout(onlineEditMessageTimer)
+  }
+  onlineEditMessageTimer = window.setTimeout(() => {
+    onlineEditMessage.value = ''
+  }, 3000)
+}
+
 // 在 CodeSandbox 中打开
 const openInCodeSandbox = () => {
-  console.log('Open in CodeSandbox')
+  const result = openDemoInCodeSandbox(props.title, currentCode.value)
+  if (!result.supported) {
+    setOnlineEditMessage(result.reason || 'This demo cannot be opened online.')
+  }
 }
 
 // 在 StackBlitz 中打开
 const openInStackBlitz = () => {
-  console.log('Open in StackBlitz')
+  const result = openDemoInStackBlitz(props.title, currentCode.value)
+  if (!result.supported) {
+    setOnlineEditMessage(result.reason || 'This demo cannot be opened online.')
+  }
 }
 
 // 刷新演示
@@ -467,7 +507,13 @@ const copyAnchor = async () => {
       </div>
       <div class="demo-box__actions-right">
         <!-- 在线编辑 -->
-        <button class="demo-box__action-btn" title="Edit in StackBlitz" @click="openInStackBlitz">
+        <button
+          class="demo-box__action-btn"
+          :class="{ 'is-disabled': !canOpenOnline }"
+          :title="stackBlitzTitle"
+          :disabled="!canOpenOnline"
+          @click="openInStackBlitz"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
             <path
               fill="currentColor"
@@ -477,7 +523,13 @@ const copyAnchor = async () => {
         </button>
 
         <!-- 在 CodeSandbox 中打开 -->
-        <button class="demo-box__action-btn" title="Edit in CodeSandbox" @click="openInCodeSandbox">
+        <button
+          class="demo-box__action-btn"
+          :class="{ 'is-disabled': !canOpenOnline }"
+          :title="codeSandboxTitle"
+          :disabled="!canOpenOnline"
+          @click="openInCodeSandbox"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
             <path
               fill="currentColor"
@@ -485,6 +537,10 @@ const copyAnchor = async () => {
             />
           </svg>
         </button>
+
+        <span v-if="onlineEditMessage" class="demo-box__status">
+          {{ onlineEditMessage }}
+        </span>
 
         <!-- 复制代码 -->
         <button
@@ -620,10 +676,30 @@ const copyAnchor = async () => {
       color: var(--vp-c-text-1);
     }
 
+    &:disabled,
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    &:disabled:hover,
+    &.is-disabled:hover {
+      background: transparent;
+      color: var(--vp-c-text-2);
+    }
+
     svg {
       width: 16px;
       height: 16px;
     }
+  }
+
+  &__status {
+    max-width: 240px;
+    margin-right: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--vp-c-text-2);
   }
 
   &__code {

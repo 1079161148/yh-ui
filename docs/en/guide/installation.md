@@ -90,22 +90,21 @@ Register the resolver in `vite.config.ts`:
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { YhUIResolver } from '@yh-ui/@yh-ui/@yh-ui/yh-ui/resolver' // Ensure you have installed @yh-ui/yh-ui
+import { YhUIResolver } from '@yh-ui/yh-ui/resolver'
 
 export default defineConfig({
   plugins: [
     vue(),
     Components({
-      resolvers: [
-        YhUIResolver({
-          // If automatic style import is required
-          importStyle: 'sass'
-        })
-      ]
+      resolvers: [YhUIResolver()]
     })
   ]
 })
 ```
+
+::: tip Note
+`YhUIResolver()` now auto-injects the matching CSS files for each component by default, so pure CSS projects can use it without installing Sass.
+:::
 
 ## TypeScript Support
 

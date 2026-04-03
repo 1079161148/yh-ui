@@ -240,8 +240,8 @@ By getting the component instance and calling the `scrollToSource(id)` method, y
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt'],
-  yhUI: { importStyle: true }
+  modules: ['@yh-ui/nuxt']
+  // YH-UI CSS is injected by default; only configure yhUI.importStyle when disabling auto styles
 })
 ```
 

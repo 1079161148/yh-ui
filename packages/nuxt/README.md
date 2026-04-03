@@ -59,11 +59,13 @@ export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
 
   yhUI: {
-    importStyle: true, // 自动注入主题样式，默认 true
+    importStyle: true, // 默认即为 true：自动注入 CSS 样式
     locale: 'zh-CN' // 默认语言，支持 67 种语言代码
   }
 })
 ```
+
+开启 `importStyle` 时，Nuxt 模块内部实际注入的是公开 CSS 入口 `@yh-ui/components/style`，不会依赖应用侧的 Sass 环境。
 
 ### 第 2 步：直接使用组件
 
@@ -126,16 +128,18 @@ const showNotification = () => {
 export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
   yhUI: {
-    importStyle: true, // 是否自动注入样式，默认 true
+    importStyle: true, // 是否自动注入 CSS 样式；默认 true
     locale: 'zh-CN' // 默认语言代码
   }
 })
 ```
 
-| 选项          | 类型      | 默认值    | 说明                      |
-| ------------- | --------- | --------- | ------------------------- |
-| `importStyle` | `boolean` | `true`    | 是否自动注入组件样式      |
-| `locale`      | `string`  | `'zh-CN'` | 默认语言代码（67 种可选） |
+| 选项          | 类型      | 默认值    | 说明                        |
+| ------------- | --------- | --------- | --------------------------- |
+| `importStyle` | `boolean` | `true`    | 是否自动注入 YH-UI CSS 样式 |
+| `locale`      | `string`  | `'zh-CN'` | 默认语言代码（67 种可选）   |
+
+`importStyle` 为 `true` 时，实际注入路径为 `@yh-ui/components/style`。
 
 ---
 

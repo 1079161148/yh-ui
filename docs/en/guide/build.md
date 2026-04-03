@@ -8,10 +8,10 @@ YH-UI adopts a unified build architecture based on **[unbuild](https://github.co
 
 ### Core Benefits
 
-*   **Dual Output**: Native support for simultaneous ESM (.mjs) and CommonJS (.cjs) output.
-*   **Extreme Tree-shaking**: Uses `mkdist` mode to maintain the original directory structure, ensuring the most precise code stripping at the application side.
-*   **Stub Mode**: Supports developer mode with symlinks, allowing source code changes to take effect immediately without frequent recompilation.
-*   **Auto Type Generation**: Integrated high-efficiency type generation ensuring robust TypeScript support.
+- **Dual Output**: Native support for simultaneous ESM (.mjs) and CommonJS (.cjs) output.
+- **Extreme Tree-shaking**: Uses `mkdist` mode to maintain the original directory structure, ensuring the most precise code stripping at the application side.
+- **Stub Mode**: Supports developer mode with symlinks, allowing source code changes to take effect immediately without frequent recompilation.
+- **Auto Type Generation**: Integrated high-efficiency type generation ensuring robust TypeScript support.
 
 ## Quick Start
 
@@ -70,6 +70,7 @@ We have configured the modern `exports` field in `package.json` to support multi
 ### Usage
 
 #### ESM (Recommended)
+
 Suitable for modern tools like Vite, Nuxt 3, and Webpack 5:
 
 ```javascript
@@ -77,6 +78,7 @@ import { YhButton } from '@yh-ui/components'
 ```
 
 #### CommonJS
+
 Suitable for Node.js or older Webpack environments:
 
 ```javascript
@@ -84,6 +86,7 @@ const { YhButton } = require('@yh-ui/components')
 ```
 
 #### Local Import (Tree Shaking)
+
 Thanks to the `mkdist` structure, you can point directly to specific files for ultimate optimization:
 
 ```javascript
@@ -92,14 +95,16 @@ import YhButton from '@yh-ui/components/dist/button/index.mjs'
 
 ## Important Notes
 
-1.  **Style Import**: Component styles are usually imported separately via `@yh-ui/theme` or automatically applied using our `resolver` for on-demand loading.
+1.  **Style Import**: For full installation, prefer `@yh-ui/yh-ui/css`; for on-demand usage, `@yh-ui/yh-ui/resolver` auto-injects component CSS by default without requiring Sass.
 2.  **Side Effects Safety**: CSS files are correctly marked in the `sideEffects` field to ensure bundlers do not erroneously strip styles.
 3.  **Environment Requirements**: The build toolchain requires Node.js >= 18.0.0.
 
 ## Troubleshooting
 
 ### Type Definitions Outdated
+
 If type hints are missing, ensure a full build has been executed to refresh `.d.ts` files in the `dist` folder.
 
 ### Dev Mode Changes Not Reflecting
+
 Ensure `pnpm dev` (Stub mode) is running. If the file structure has changed, you may need to re-run the Stub command.

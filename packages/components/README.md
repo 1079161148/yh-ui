@@ -93,6 +93,8 @@ export default defineConfig({
 })
 ```
 
+`YhUIResolver()` 默认自动引入组件 CSS，纯 CSS 项目可直接使用，无需额外安装 Sass。
+
 ---
 
 ## 📚 组件目录

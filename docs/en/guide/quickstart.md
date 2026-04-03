@@ -12,7 +12,7 @@ import { createApp } from 'vue'
 import YhUI from '@yh-ui/yh-ui'
 
 // Import global styles
-import '@yh-ui/yh-ui/dist/style.css'
+import '@yh-ui/yh-ui/css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -36,6 +36,8 @@ import { YhButton } from '@yh-ui/yh-ui'
   <yh-button type="primary">Hello YH-UI</yh-button>
 </template>
 ```
+
+For full installation, prefer importing styles via `@yh-ui/yh-ui/css`, which is the stable public style entry exposed by the current package.
 
 ## 3. Global Configuration
 

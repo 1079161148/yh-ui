@@ -264,10 +264,8 @@ const tsLoading = `<${_T}>
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt'],
-  yhUI: {
-    importStyle: true // 自动注入全局样式
-  }
+  modules: ['@yh-ui/nuxt']
+  // 默认会自动注入 YH-UI CSS；只有关闭自动样式时才需要额外配置 yhUI.importStyle
 })
 ```
 
