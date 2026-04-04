@@ -1,6 +1,6 @@
 ﻿{
   "name": "@yh-ui/components",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
@@ -41,6 +41,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@webcontainer/api": "^1.6.1",
     "@floating-ui/dom": "^1.7.4",
     "@yh-ui/hooks": "workspace:*",
     "@yh-ui/locale": "workspace:*",
@@ -49,6 +50,8 @@
     "async-validator": "^4.2.5",
     "dayjs": "catalog:",
     "markdown-it": "^14.1.1",
+    "monaco-editor": "^0.55.1",
+    "xlsx": "^0.18.5",
     "viewerjs": "^1.11.7"
   },
   "peerDependencies": {
@@ -62,8 +65,6 @@
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^6.0.0",
-    "@webcontainer/api": "^1.6.1",
-    "monaco-editor": "^0.55.1",
     "sass": "^1.83.1",
     "typescript": "catalog:",
     "unbuild": "^3.3.1",

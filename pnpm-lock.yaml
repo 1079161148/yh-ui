@@ -250,6 +250,9 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.6
+      '@webcontainer/api':
+        specifier: ^1.6.1
+        version: 1.6.1
       '@yh-ui/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -271,9 +274,15 @@ importers:
       markdown-it:
         specifier: ^14.1.1
         version: 14.1.1
+      monaco-editor:
+        specifier: ^0.55.1
+        version: 0.55.1
       viewerjs:
         specifier: ^1.11.7
         version: 1.11.7
+      xlsx:
+        specifier: ^0.18.5
+        version: 0.18.5
     devDependencies:
       '@types/markdown-it':
         specifier: ^14.1.2
@@ -281,12 +290,6 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.0
         version: 6.0.4(vite@6.4.1(@types/node@22.19.15)(jiti@2.6.1)(sass@1.98.0)(terser@5.46.0)(yaml@2.8.2))(vue@3.5.30(typescript@5.9.3))
-      '@webcontainer/api':
-        specifier: ^1.6.1
-        version: 1.6.1
-      monaco-editor:
-        specifier: ^0.55.1
-        version: 0.55.1
       sass:
         specifier: ^1.83.1
         version: 1.98.0

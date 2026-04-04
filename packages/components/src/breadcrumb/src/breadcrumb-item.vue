@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, computed, type ToRefs } from 'vue'
-import { routerKey } from 'vue-router'
+import { inject, ref, computed, getCurrentInstance, type ToRefs } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { breadcrumbItemProps, type BreadcrumbProps } from './breadcrumb'
@@ -24,18 +23,30 @@ const { themeStyle } = useComponentTheme(
   computed(() => props.themeOverrides || breadcrumbContext?.themeOverrides?.value)
 )
 
-const router = inject(routerKey, null)
+interface RouterLike {
+  push: (to: unknown) => unknown
+  replace: (to: unknown) => unknown
+}
+
+const instance = getCurrentInstance()
+const router = computed<RouterLike | null>(() => {
+  const globalRouter = instance?.appContext.config.globalProperties?.$router as
+    | RouterLike
+    | undefined
+  return globalRouter ?? null
+})
 const linkRef = ref<HTMLElement>()
 
 const linkClass = computed(() => [ns.e('link'), ns.is('link', !!props.to)])
 
 const handleLinkClick = (e: MouseEvent) => {
-  if (!props.to || !router) return
+  const activeRouter = router.value
+  if (!props.to || !activeRouter) return
   e.preventDefault()
   if (props.replace) {
-    router.replace(props.to)
+    activeRouter.replace(props.to)
   } else {
-    router.push(props.to)
+    activeRouter.push(props.to)
   }
 }
 </script>
