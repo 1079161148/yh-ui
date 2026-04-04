@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/nuxt",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "description": "Nuxt module for YH-UI",
   "type": "module",
   "main": "./dist/module.cjs",
