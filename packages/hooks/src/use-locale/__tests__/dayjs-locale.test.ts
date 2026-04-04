@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import dayjs from 'dayjs'
+import dayjs from '../../dayjs'
 import {
   setDayjsLocale,
   getDayjsLocale,

@@ -89,11 +89,28 @@ const localeMapping: Record<string, string> = {
   te: 'te'
 }
 
+const loadDayjsLocale = async (dayjsLocale: string): Promise<boolean> => {
+  const path = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`
+  const loader = dayjsLocales[path]
+
+  if (loader) {
+    await loader()
+    return true
+  }
+
+  try {
+    await import(/* @vite-ignore */ `dayjs/locale/${dayjsLocale}.js`)
+    return true
+  } catch {
+    return false
+  }
+}
+
 /**
  * 获取 dayjs locale code
  */
 export const getDayjsLocale = (localeCode: string): string => {
-  return localeMapping[localeCode] || 'en'
+  return localeMapping[localeCode.toLowerCase()] || 'en'
 }
 
 /**
@@ -114,21 +131,16 @@ export const setDayjsLocale = async (localeCode: string): Promise<void> => {
     return
   }
 
-  // 计算路径并获取 lazy loader
-  const path = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`
-  const loader = dayjsLocales[path]
-
-  if (loader) {
-    try {
-      await loader()
-      loadedLocales.add(dayjsLocale)
-      dayjs.locale(dayjsLocale)
-    } catch {
-      // 加载失败，静默降级到英文
+  try {
+    const loaded = await loadDayjsLocale(dayjsLocale)
+    if (!loaded) {
       dayjs.locale('en')
+      return
     }
-  } else {
-    // glob 未收录此 locale（极少数语言），静默降级
+
+    loadedLocales.add(dayjsLocale)
+    dayjs.locale(dayjsLocale)
+  } catch {
     dayjs.locale('en')
   }
 }
@@ -143,7 +155,7 @@ export const setDayjsLocaleSync = (localeCode: string): void => {
     dayjs.locale(dayjsLocale)
   } else {
     dayjs.locale('en')
-    setDayjsLocale(localeCode)
+    void setDayjsLocale(localeCode)
   }
 }
 

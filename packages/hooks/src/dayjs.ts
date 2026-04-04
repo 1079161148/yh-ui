@@ -1,6 +1,8 @@
-import dayjsRuntime from 'dayjs/esm/index.js'
+import * as dayjsModule from 'dayjs'
 import type dayjsType from 'dayjs'
 
-const dayjs = dayjsRuntime as typeof dayjsType
+const dayjs = (
+  'default' in dayjsModule ? (dayjsModule.default ?? dayjsModule) : dayjsModule
+) as typeof dayjsType
 
 export default dayjs

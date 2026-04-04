@@ -4,7 +4,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-vi.mock('highlight.js', () => ({
+vi.mock('../../highlight', () => ({
   default: {
     getLanguage: (lang: string) =>
       lang === 'typescript' || lang === 'javascript' || lang === 'python',

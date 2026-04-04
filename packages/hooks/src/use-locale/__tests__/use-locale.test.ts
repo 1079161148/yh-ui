@@ -16,7 +16,7 @@ import { zhCn } from '@yh-ui/locale'
 import { configProviderContextKey } from '../../use-config'
 import { computed } from 'vue'
 import { en } from '@yh-ui/locale'
-import dayjs from 'dayjs'
+import dayjs from '../../dayjs'
 
 describe('useLocale', () => {
   // 先提供默认的 config provider
