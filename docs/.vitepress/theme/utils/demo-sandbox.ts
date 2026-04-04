@@ -1,7 +1,9 @@
 import sdk, { type Project } from '@stackblitz/sdk'
 import { compressToBase64 } from 'lz-string'
 
-const YH_UI_VERSION = '^0.1.25'
+// Online sandboxes should always resolve the latest published package,
+// otherwise docs on main can point to a version that npm has not released yet.
+const YH_UI_VERSION = 'latest'
 
 const BASE_DEPENDENCIES: Record<string, string> = {
   vue: '^3.5.27',
