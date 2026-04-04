@@ -956,7 +956,26 @@ export default defineConfig({
       }
     },
     optimizeDeps: {
-      include: ['monaco-editor']
+      include: ['monaco-editor'],
+      esbuildOptions: {
+        // 避免 entities 等包的缺失 sourcemap 警告
+        sourcemap: false
+      }
+    },
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          // 忽略来自 node_modules 的缺失 sourcemap 警告（如 entities 包）
+          if (
+            warning.code === 'SOURCEMAP_ERROR' ||
+            (warning.code === 'MISSING_EXPORT' && warning.message.includes('entities')) ||
+            (warning.message && warning.message.includes('points to missing source files'))
+          ) {
+            return
+          }
+          warn(warning)
+        }
+      }
     },
     server: {
       headers: {

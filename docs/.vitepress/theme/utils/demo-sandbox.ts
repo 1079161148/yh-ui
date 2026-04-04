@@ -95,14 +95,14 @@ function normalizeSfc(code: string): string {
   const trimmed = code.trim()
 
   if (!trimmed) {
-    return `<template>\n  <div />\n</template>\n`
+    return '<template>\n  <div />\n</template>\n'
   }
 
   if (/<(?:template|script|style)\b/i.test(trimmed)) {
     return trimmed
   }
 
-  return `<template>\n${trimmed}\n</template>\n`
+  return '<template>\n' + trimmed + '\n</template>\n'
 }
 
 function extractBareImports(code: string): string[] {
@@ -192,7 +192,7 @@ function buildPackageJson(title: string, code: string): string {
     devDependencies: DEV_DEPENDENCIES
   }
 
-  return `${JSON.stringify(pkg, null, 2)}\n`
+  return JSON.stringify(pkg, null, 2) + '\n'
 }
 
 function slugifyTitle(title: string): string {
@@ -202,125 +202,135 @@ function slugifyTitle(title: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-function buildFiles(title: string, code: string): Record<string, string> {
-  const normalizedCode = normalizeSfc(code)
-
-  return {
-    'index.html': `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(title || 'YH-UI Demo')}</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
-</html>
-`,
-    'package.json': buildPackageJson(title, code),
-    'src/App.vue': `${normalizedCode}\n`,
-    'src/main.ts': `import { createApp } from 'vue'
-import YhUI from '@yh-ui/yh-ui'
-import '@yh-ui/yh-ui/css'
-import App from './App.vue'
-import './style.css'
-
-const app = createApp(App)
-
-app.use(YhUI)
-app.mount('#app')
-`,
-    'src/style.css': `html,
-body,
-#app {
-  margin: 0;
-  min-height: 100%;
-}
-
-body {
-  padding: 24px;
-  box-sizing: border-box;
-  font-family:
-    Inter,
-    'PingFang SC',
-    'Microsoft YaHei',
-    system-ui,
-    sans-serif;
-  background: #ffffff;
-  color: #1f2329;
-}
-`,
-    'tsconfig.json': `{
-  "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"]
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
-}
-`,
-    'vite.config.ts': `import fs from 'node:fs'
-import path from 'node:path'
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
-
-function yhUiScssFallback() {
-  return {
-    name: 'yh-ui-scss-fallback',
-    enforce: 'pre',
-    resolveId(source, importer) {
-      if (!source.endsWith('.scss') || !importer) {
-        return null
-      }
-
-      const resolved = path.resolve(path.dirname(importer), source)
-      const cssFile = resolved.replace(/\\.scss$/, '.css')
-
-      if (fs.existsSync(cssFile)) {
-        return cssFile
-      }
-
-      return null
-    }
-  }
-}
-
-export default defineConfig({
-  plugins: [yhUiScssFallback(), vue()],
-  server: {
-    host: '0.0.0.0',
-    port: 5173
-  },
-  preview: {
-    host: '0.0.0.0',
-    port: 4173
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      sourcemap: false
-    }
-  }
-})
-`
-  }
-}
-
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
+}
+
+/**
+ * 构建沙箱文件集合
+ * vite.config.ts 不再依赖 node:fs / node:path，使用最简配置，
+ * 确保在 CodeSandbox / StackBlitz 的浏览器沙箱中都能正常运行。
+ */
+function buildFiles(title: string, code: string): Record<string, string> {
+  const normalizedCode = normalizeSfc(code)
+
+  const indexHtml = [
+    '<!doctype html>',
+    '<html lang="en">',
+    '  <head>',
+    '    <meta charset="UTF-8" />',
+    '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
+    '    <title>' + escapeHtml(title || 'YH-UI Demo') + '</title>',
+    '  </head>',
+    '  <body>',
+    '    <div id="app"></div>',
+    '    <script type="module" src="/src/main.ts"></script>',
+    '  </body>',
+    '</html>',
+    ''
+  ].join('\n')
+
+  const mainTs = [
+    "import { createApp } from 'vue'",
+    "import YhUI from '@yh-ui/yh-ui'",
+    "import '@yh-ui/yh-ui/css'",
+    "import App from './App.vue'",
+    "import './style.css'",
+    '',
+    'const app = createApp(App)',
+    '',
+    'app.use(YhUI)',
+    "app.mount('#app')",
+    ''
+  ].join('\n')
+
+  const styleCss = [
+    'html,',
+    'body,',
+    '#app {',
+    '  margin: 0;',
+    '  min-height: 100%;',
+    '}',
+    '',
+    'body {',
+    '  padding: 24px;',
+    '  box-sizing: border-box;',
+    '  font-family:',
+    '    Inter,',
+    "    'PingFang SC',",
+    "    'Microsoft YaHei',",
+    '    system-ui,',
+    '    sans-serif;',
+    '  background: #ffffff;',
+    '  color: #1f2329;',
+    '}',
+    ''
+  ].join('\n')
+
+  const tsconfigJson =
+    JSON.stringify(
+      {
+        compilerOptions: {
+          target: 'ES2020',
+          useDefineForClassFields: true,
+          module: 'ESNext',
+          // Bundler 模式兼容 Vite 6，避免 Node moduleResolution 产生的误报
+          moduleResolution: 'Bundler',
+          strict: true,
+          jsx: 'preserve',
+          resolveJsonModule: true,
+          isolatedModules: true,
+          esModuleInterop: true,
+          lib: ['ES2020', 'DOM', 'DOM.Iterable'],
+          types: ['vite/client']
+        },
+        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue']
+      },
+      null,
+      2
+    ) + '\n'
+
+  // 简化版 vite.config.ts，不依赖任何 Node 内置模块
+  // CodeSandbox 浏览器沙箱不支持 node:fs / node:path
+  const viteConfigTs = [
+    "import vue from '@vitejs/plugin-vue'",
+    "import { defineConfig } from 'vite'",
+    '',
+    'export default defineConfig({',
+    '  plugins: [vue()],',
+    '  server: {',
+    "    host: '0.0.0.0',",
+    '    port: 5173',
+    '  },',
+    '  preview: {',
+    "    host: '0.0.0.0',",
+    '    port: 4173',
+    '  },',
+    '  optimizeDeps: {',
+    '    esbuildOptions: {',
+    '      sourcemap: false',
+    '    }',
+    '  },',
+    '  build: {',
+    '    sourcemap: false',
+    '  }',
+    '})',
+    ''
+  ].join('\n')
+
+  return {
+    'index.html': indexHtml,
+    'package.json': buildPackageJson(title, code),
+    'src/App.vue': normalizedCode + '\n',
+    'src/main.ts': mainTs,
+    'src/style.css': styleCss,
+    'tsconfig.json': tsconfigJson,
+    'vite.config.ts': viteConfigTs
+  }
 }
 
 function buildStackBlitzProject(title: string, code: string): Project {
@@ -337,12 +347,7 @@ function buildCodeSandboxPayload(title: string, code: string) {
 
   return {
     files: Object.fromEntries(
-      Object.entries(files).map(([path, content]) => [
-        path,
-        {
-          content
-        }
-      ])
+      Object.entries(files).map(([filePath, content]) => [filePath, { content }])
     ),
     title: title || 'YH-UI Demo'
   }
@@ -374,18 +379,26 @@ export function openDemoInCodeSandbox(title: string, code: string): SandboxSuppo
 
   const payload = buildCodeSandboxPayload(title, code)
   const parameters = compressToBase64(JSON.stringify(payload))
-  const form = document.createElement('form')
 
+  const form = document.createElement('form')
   form.method = 'POST'
   form.action = 'https://codesandbox.io/api/v1/sandboxes/define'
   form.target = '_blank'
   form.style.display = 'none'
 
-  const input = document.createElement('input')
-  input.type = 'hidden'
-  input.name = 'parameters'
-  input.value = parameters
-  form.appendChild(input)
+  // parameters 字段：lz-string 压缩的 JSON payload
+  const paramsInput = document.createElement('input')
+  paramsInput.type = 'hidden'
+  paramsInput.name = 'parameters'
+  paramsInput.value = parameters
+  form.appendChild(paramsInput)
+
+  // query 字段：打开后默认定位到 App.vue
+  const queryInput = document.createElement('input')
+  queryInput.type = 'hidden'
+  queryInput.name = 'query'
+  queryInput.value = 'file=/src/App.vue'
+  form.appendChild(queryInput)
 
   document.body.appendChild(form)
   form.submit()
