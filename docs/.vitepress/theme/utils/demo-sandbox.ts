@@ -1,7 +1,7 @@
 import sdk, { type Project } from '@stackblitz/sdk'
 import { compressToBase64 } from 'lz-string'
 
-const YH_UI_VERSION = '^0.1.21'
+const YH_UI_VERSION = '^0.1.23'
 
 const BASE_DEPENDENCIES: Record<string, string> = {
   vue: '^3.5.27',
@@ -182,9 +182,9 @@ function buildPackageJson(title: string, code: string): string {
     private: true,
     type: 'module',
     scripts: {
-      dev: 'vite',
+      dev: 'vite --host 0.0.0.0 --port 5173',
       build: 'vite build',
-      preview: 'vite preview'
+      preview: 'vite preview --host 0.0.0.0 --port 4173'
     },
     dependencies: buildDependencies(code),
     devDependencies: DEV_DEPENDENCIES
@@ -221,7 +221,7 @@ function buildFiles(title: string, code: string): Record<string, string> {
     'src/App.vue': `${normalizedCode}\n`,
     'src/main.ts': `import { createApp } from 'vue'
 import YhUI from '@yh-ui/yh-ui'
-import '@yh-ui/theme/styles/index.scss'
+import '@yh-ui/yh-ui/css'
 import App from './App.vue'
 import './style.css'
 
@@ -294,7 +294,20 @@ function yhUiScssFallback() {
 }
 
 export default defineConfig({
-  plugins: [yhUiScssFallback(), vue()]
+  plugins: [yhUiScssFallback(), vue()],
+  server: {
+    host: '0.0.0.0',
+    port: 5173
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 4173
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      sourcemap: false
+    }
+  }
 })
 `
   }
