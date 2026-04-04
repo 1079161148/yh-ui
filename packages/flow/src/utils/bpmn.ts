@@ -61,6 +61,14 @@ export interface BpmnExportResult {
   processId: string
 }
 
+const getDomParser = (): DOMParser | null => {
+  if (typeof DOMParser === 'undefined') {
+    return null
+  }
+
+  return new DOMParser()
+}
+
 /**
  * 将 Flow 数据转换为 BPMN XML
  */
@@ -223,8 +231,13 @@ export function bpmnXmlToFlow(
   const nodes: Node[] = []
   const edges: Edge[] = []
 
+  // SSR 环境下 DOMParser 不可用，返回空结果并交由客户端重新执行。
+  const parser = getDomParser()
+  if (!parser) {
+    return { nodes, edges }
+  }
+
   // 解析 XML
-  const parser = new DOMParser()
   const doc = parser.parseFromString(xml, 'text/xml')
 
   // 检查解析错误
@@ -474,7 +487,11 @@ function applySimpleLayout(nodes: Node[], edges: Edge[], spacing: number): void 
  */
 export function validateBpmnXml(xml: string): { valid: boolean; error?: string } {
   try {
-    const parser = new DOMParser()
+    const parser = getDomParser()
+    if (!parser) {
+      return { valid: false, error: 'DOMParser is not available in the current environment' }
+    }
+
     const doc = parser.parseFromString(xml, 'text/xml')
 
     const parseError = doc.querySelector('parsererror')

@@ -47,6 +47,7 @@ const zoomLevel = ref(1)
 
 // 容器引用
 const graphContainerRef = ref<HTMLDivElement | null>(null)
+const canUseDom = typeof window !== 'undefined' && typeof document !== 'undefined'
 
 // 加载 Mermaid 模块
 const loadMermaid = async (): Promise<Mermaid | null> => {
@@ -69,6 +70,12 @@ const loadMermaid = async (): Promise<Mermaid | null> => {
 const renderGraph = async () => {
   if (!props.code) {
     svgContent.value = ''
+    return
+  }
+
+  if (!canUseDom) {
+    svgContent.value = ''
+    errorMessage.value = null
     return
   }
 
@@ -117,7 +124,7 @@ const renderGraph = async () => {
 watch(
   [() => props.code, () => props.config],
   () => {
-    if (renderType.value === 'image') {
+    if (canUseDom && renderType.value === 'image') {
       renderGraph()
     }
   },
@@ -132,7 +139,7 @@ const handleRenderTypeChange = (type: RenderType) => {
     props.onRenderTypeChange(type)
   }
 
-  if (type === 'image') {
+  if (canUseDom && type === 'image') {
     renderGraph()
   }
 }

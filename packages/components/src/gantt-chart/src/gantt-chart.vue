@@ -2,9 +2,9 @@
 import { ref, computed, watch } from 'vue'
 import dayjs from '../../dayjs'
 import type { PluginFunc } from '../../dayjs'
-import isBetweenPlugin from 'dayjs/esm/plugin/isBetween/index.js'
-import isoWeekPlugin from 'dayjs/esm/plugin/isoWeek/index.js'
-import quarterOfYearPlugin from 'dayjs/esm/plugin/quarterOfYear/index.js'
+import isBetweenPlugin from 'dayjs/plugin/isBetween.js'
+import isoWeekPlugin from 'dayjs/plugin/isoWeek.js'
+import quarterOfYearPlugin from 'dayjs/plugin/quarterOfYear.js'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type {

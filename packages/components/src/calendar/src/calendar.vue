@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import dayjs from '../../dayjs'
-import isoWeekPlugin from 'dayjs/esm/plugin/isoWeek/index.js'
+import isoWeekPlugin from 'dayjs/plugin/isoWeek.js'
 import type { Dayjs, PluginFunc } from '../../dayjs'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'

@@ -1,11 +1,11 @@
 import dayjs from '../../dayjs'
 import type { Dayjs, PluginFunc } from '../../dayjs'
-import isBetweenPlugin from 'dayjs/esm/plugin/isBetween/index.js'
-import weekOfYearPlugin from 'dayjs/esm/plugin/weekOfYear/index.js'
-import isoWeekPlugin from 'dayjs/esm/plugin/isoWeek/index.js'
-import quarterOfYearPlugin from 'dayjs/esm/plugin/quarterOfYear/index.js'
-import advancedFormatPlugin from 'dayjs/esm/plugin/advancedFormat/index.js'
-import customParseFormatPlugin from 'dayjs/esm/plugin/customParseFormat/index.js'
+import isBetweenPlugin from 'dayjs/plugin/isBetween.js'
+import weekOfYearPlugin from 'dayjs/plugin/weekOfYear.js'
+import isoWeekPlugin from 'dayjs/plugin/isoWeek.js'
+import quarterOfYearPlugin from 'dayjs/plugin/quarterOfYear.js'
+import advancedFormatPlugin from 'dayjs/plugin/advancedFormat.js'
+import customParseFormatPlugin from 'dayjs/plugin/customParseFormat.js'
 
 // @ts-ignore
 dayjs.extend(isBetweenPlugin as PluginFunc)
