@@ -75,6 +75,14 @@ const isGroup = (item: FormSchemaItem | FormSchemaGroup): item is FormSchemaGrou
   return 'items' in item && Array.isArray((item as FormSchemaGroup).items)
 }
 
+const getGroupTitle = (item: FormSchemaItem | FormSchemaGroup) =>
+  isGroup(item) ? item.title || '' : ''
+const getGroupProps = (item: FormSchemaItem | FormSchemaGroup) =>
+  isGroup(item) ? item.props : undefined
+const isGroupCollapsible = (item: FormSchemaItem | FormSchemaGroup) =>
+  isGroup(item) ? !!item.collapsible : false
+const getGroupItems = (item: FormSchemaItem | FormSchemaGroup) => (isGroup(item) ? item.items : [])
+
 // 异步选项状态
 const optionMap = reactive<Record<string, Record<string, unknown>[]>>({})
 // 折叠状态
@@ -369,28 +377,20 @@ defineExpose({
         <template v-if="isGroup(item)">
           <div class="yh-form-col yh-form-col--24">
             <fieldset
-              :class="[
-                ns.e('group'),
-                { 'is-collapsed': collapsedMap[(item as FormSchemaGroup).title || ''] }
-              ]"
-              v-bind="(item as FormSchemaGroup).props"
+              :class="[ns.e('group'), { 'is-collapsed': collapsedMap[getGroupTitle(item)] }]"
+              v-bind="getGroupProps(item)"
             >
               <legend
-                v-if="(item as FormSchemaGroup).title"
+                v-if="getGroupTitle(item)"
                 :class="ns.e('group-title')"
-                @click="
-                  (item as FormSchemaGroup).collapsible &&
-                  toggleCollapse((item as FormSchemaGroup).title!)
-                "
+                @click="isGroupCollapsible(item) && toggleCollapse(getGroupTitle(item))"
               >
-                <span class="yh-form-schema__group-title-text">{{
-                  (item as FormSchemaGroup).title
-                }}</span>
+                <span class="yh-form-schema__group-title-text">{{ getGroupTitle(item) }}</span>
                 <span
-                  v-if="(item as FormSchemaGroup).collapsible"
+                  v-if="isGroupCollapsible(item)"
                   :class="[
                     'yh-form-schema__collapse-icon',
-                    { 'is-collapsed': collapsedMap[(item as FormSchemaGroup).title!] }
+                    { 'is-collapsed': collapsedMap[getGroupTitle(item)] }
                   ]"
                 >
                   <svg viewBox="0 0 1024 1024" width="12" height="12">
@@ -402,11 +402,8 @@ defineExpose({
                 </span>
               </legend>
 
-              <div
-                v-show="!collapsedMap[(item as FormSchemaGroup).title || '']"
-                class="yh-form--grid"
-              >
-                <template v-for="subItem in (item as FormSchemaGroup).items" :key="subItem.field">
+              <div v-show="!collapsedMap[getGroupTitle(item)]" class="yh-form--grid">
+                <template v-for="subItem in getGroupItems(item)" :key="subItem.field">
                   <div
                     v-if="!isItemHidden(subItem)"
                     :class="[

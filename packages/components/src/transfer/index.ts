@@ -7,14 +7,21 @@ import type { App, Plugin } from 'vue'
 import Transfer from './src/transfer.vue'
 import TransferPanel from './src/transfer-panel.vue'
 
+const registerComponent = (app: App, component: { name?: string }) => {
+  const name = component.name
+  if (name && !app.component(name)) {
+    app.component(name, component as never)
+  }
+}
+
 // 定义 install 方法
 Transfer.install = (app: App): void => {
-  app.component(Transfer.name!, Transfer)
-  app.component(TransferPanel.name!, TransferPanel)
+  registerComponent(app, Transfer)
+  registerComponent(app, TransferPanel)
 }
 
 TransferPanel.install = (app: App): void => {
-  app.component(TransferPanel.name!, TransferPanel)
+  registerComponent(app, TransferPanel)
 }
 
 // 命名导出

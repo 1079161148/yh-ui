@@ -19,7 +19,10 @@ const props = withDefaults(defineProps<TypographyParagraphProps>(), {
 })
 
 const ns = useNamespace('typography')
-const { themeStyle } = useComponentTheme('typography', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'typography',
+  computed(() => props.themeOverrides)
+)
 
 const paragraphClasses = computed(() => [
   ns.e('paragraph'),
@@ -43,10 +46,15 @@ const ellipsisStyle = computed(() => {
   }
   return {}
 })
+
+const paragraphStyle = computed(() => ({
+  ...(themeStyle.value || {}),
+  ...ellipsisStyle.value
+}))
 </script>
 
 <template>
-  <p :class="paragraphClasses" :style="{ ...themeStyle as Record<string, string>, ...ellipsisStyle }">
+  <p :class="paragraphClasses" :style="paragraphStyle">
     <mark v-if="mark">
       <slot />
     </mark>

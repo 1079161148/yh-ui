@@ -50,6 +50,11 @@ const menuStyle = computed(() => {
   }
 })
 
+const getMenuItemKey = (item: Record<string, unknown>) => {
+  const value = item[props.keyField || 'key'] ?? item.index ?? item.key
+  return value == null ? '' : String(value)
+}
+
 // 计算类名
 const menuClass = computed(() => [
   ns.b(),
@@ -164,11 +169,7 @@ defineExpose({
 <template>
   <ul :class="menuClass" :style="menuStyle" role="menu">
     <slot>
-      <yh-menu-recursive-item
-        v-for="item in options"
-        :key="(item[keyField] as string) || item.index || (item.key as string) || ''"
-        :item="item"
-      />
+      <yh-menu-recursive-item v-for="item in options" :key="getMenuItemKey(item)" :item="item" />
     </slot>
   </ul>
 </template>

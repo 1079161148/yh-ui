@@ -2,9 +2,7 @@
  * dayjs locale 同步模块
  * @description 将组件库的 locale 映射到 dayjs 的 locale，并自动同步
  */
-import * as _dayjs from 'dayjs'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const dayjs = (_dayjs as any).default || _dayjs
+import dayjs from '../dayjs'
 
 // 仅静态导入默认语言包（en 永远不走动态加载）
 import 'dayjs/locale/en'
@@ -186,8 +184,10 @@ export const updateDayjsMonths = (
   ]
 
   try {
-    if (dayjs.updateLocale) {
-      dayjs.updateLocale(dayjsLocale, {
+    const updateLocale = (dayjs as typeof dayjs & { updateLocale?: typeof dayjs.locale })
+      .updateLocale
+    if (updateLocale) {
+      updateLocale(dayjsLocale, {
         months: monthsArray,
         monthsShort: monthsArray
       })

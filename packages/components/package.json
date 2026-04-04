@@ -37,6 +37,8 @@
     "build": "unbuild && node ../../scripts/post-build-styles.mjs components && pnpm run build:dts && node ../../scripts/post-build-styles.mjs components",
     "build:dts": "vue-tsc --emitDeclarationOnly --outDir dist --project tsconfig.json --rootDir ../../ && node ../../scripts/post-build-dts.mjs",
     "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint ."
   },

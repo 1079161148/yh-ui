@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import dayjs from 'dayjs'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import type { Dayjs } from 'dayjs'
+import dayjs from '../../dayjs'
+import isoWeekPlugin from 'dayjs/esm/plugin/isoWeek/index.js'
+import type { Dayjs, PluginFunc } from '../../dayjs'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import {
@@ -15,7 +15,7 @@ import {
 import { YhButton } from '../../button'
 
 // 扩展 dayjs 支持 ISO 周数
-dayjs.extend(isoWeek)
+dayjs.extend(isoWeekPlugin as PluginFunc)
 
 defineOptions({
   name: 'YhCalendar'
@@ -169,7 +169,7 @@ const rows = computed(() => {
 
   const matrix: { weekNumber: number; cells: CalendarDateCell[] }[] = []
   for (let i = 0; i < 6; i++) {
-    const weekNumber = current.isoWeek()
+    const weekNumber = (current as any).isoWeek()
     const row: CalendarDateCell[] = []
     for (let j = 0; j < 7; j++) {
       const dateStr = current.format('YYYY-MM-DD')

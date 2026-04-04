@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import dayjs from 'dayjs'
+import dayjs from '../../dayjs'
 
 const props = defineProps<{
   date: Date

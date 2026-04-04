@@ -3,7 +3,7 @@ import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed, watch } from 'vue'
 import type { AiThoughtStatus, AiThoughtItem } from './ai-thought-chain'
 import { YhIcon } from '../../icon'
-import MarkdownIt from 'markdown-it'
+import MarkdownIt from '../../markdown-it'
 
 import { aiThoughtChainProps, aiThoughtChainEmits } from './ai-thought-chain'
 import { useComponentTheme } from '@yh-ui/theme'

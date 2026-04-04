@@ -197,7 +197,7 @@ import {
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
-import Viewer from 'viewerjs'
+import Viewer from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
 defineOptions({
@@ -600,7 +600,7 @@ const handlePreview = (file: UploadFile) => {
 
     if (viewer) viewer.destroy()
 
-    viewer = new Viewer(container, {
+    const nextViewer = new Viewer(container, {
       hidden: () => {
         viewer?.destroy()
         viewer = null
@@ -624,8 +624,9 @@ const handlePreview = (file: UploadFile) => {
       }
     })
 
-    viewer.view(initialIndex !== -1 ? initialIndex : 0)
-    viewer.show()
+    viewer = nextViewer
+    nextViewer.view(initialIndex !== -1 ? initialIndex : 0)
+    nextViewer.show()
   }
 }
 

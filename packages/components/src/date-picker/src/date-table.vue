@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { generateCalendar } from './panel-utils'
 import type { CalendarCell } from './panel-utils'
-import dayjs from 'dayjs'
+import dayjs from '../../dayjs'
 
 const props = defineProps<{
   date: Date

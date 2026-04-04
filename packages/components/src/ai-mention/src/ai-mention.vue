@@ -19,6 +19,7 @@ defineOptions({
 const props = defineProps(aiMentionProps)
 const emit = defineEmits(aiMentionEmits)
 const slots = useSlots()
+const forwardedSlotNames = computed(() => Object.keys(slots))
 
 const ns = useNamespace('ai-mention')
 const { t } = useLocale()
@@ -88,6 +89,8 @@ const getOptionIcon = (type?: string): string => {
       return 'sparkles'
   }
 }
+
+const asAiMentionOption = (option: unknown): AiMentionOption => option as AiMentionOption
 
 // 文件树面板位置（简化版本）
 const fileTreePanelStyle = computed(() => ({
@@ -518,24 +521,42 @@ defineExpose<AiMentionExpose>({
       @input="emit('input', $event)"
       @keydown="emit('keydown', $event)"
     >
-      <template #option="{ option }: { option: AiMentionOption }">
+      <template #option="{ option }">
         <div :class="ns.e('option-item')">
-          <div :class="[ns.e('option-icon'), option.type ? ns.em('option-icon', option.type) : '']">
-            <YhIcon :name="option.icon || getOptionIcon(option.type)" />
+          <div
+            :class="[
+              ns.e('option-icon'),
+              asAiMentionOption(option).type
+                ? ns.em('option-icon', asAiMentionOption(option).type)
+                : ''
+            ]"
+          >
+            <YhIcon
+              :name="
+                asAiMentionOption(option).icon || getOptionIcon(asAiMentionOption(option).type)
+              "
+            />
           </div>
           <div :class="ns.e('option-info')">
-            <div :class="ns.e('option-label')">{{ option.label || option.value }}</div>
-            <div v-if="option.description" :class="ns.e('option-desc')">
-              {{ option.description }}
+            <div :class="ns.e('option-label')">
+              {{ asAiMentionOption(option).label || asAiMentionOption(option).value }}
+            </div>
+            <div v-if="asAiMentionOption(option).description" :class="ns.e('option-desc')">
+              {{ asAiMentionOption(option).description }}
             </div>
           </div>
-          <div v-if="option.type" :class="[ns.e('option-tag'), ns.em('option-tag', option.type)]">
-            {{ t(`ai.mention.${option.type}`) || option.type }}
+          <div
+            v-if="asAiMentionOption(option).type"
+            :class="[ns.e('option-tag'), ns.em('option-tag', asAiMentionOption(option).type)]"
+          >
+            {{
+              t(`ai.mention.${asAiMentionOption(option).type}`) || asAiMentionOption(option).type
+            }}
           </div>
         </div>
       </template>
 
-      <template v-for="(_, name) in slots" :key="name" #[name]="slotProps">
+      <template v-for="name in forwardedSlotNames" :key="name" #[name]="slotProps">
         <slot :name="name" v-bind="slotProps"></slot>
       </template>
     </YhMention>

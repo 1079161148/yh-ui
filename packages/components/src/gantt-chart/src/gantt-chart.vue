@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import dayjs from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import quarterOfYear from 'dayjs/plugin/quarterOfYear'
+import dayjs from '../../dayjs'
+import type { PluginFunc } from '../../dayjs'
+import isBetweenPlugin from 'dayjs/esm/plugin/isBetween/index.js'
+import isoWeekPlugin from 'dayjs/esm/plugin/isoWeek/index.js'
+import quarterOfYearPlugin from 'dayjs/esm/plugin/quarterOfYear/index.js'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import {
+import type {
   GanttChartProps,
   GanttChartEmits,
   GanttTask,
@@ -18,9 +19,9 @@ import { YhTooltip } from '../../tooltip'
 import { YhInput } from '../../input'
 import { YhRadioGroup, YhRadioButton } from '../../radio'
 
-dayjs.extend(isBetween)
-dayjs.extend(isoWeek)
-dayjs.extend(quarterOfYear)
+dayjs.extend(isBetweenPlugin as PluginFunc)
+dayjs.extend(isoWeekPlugin as PluginFunc)
+dayjs.extend(quarterOfYearPlugin as PluginFunc)
 
 defineOptions({ name: 'YhGanttChart' })
 
@@ -272,7 +273,7 @@ const bottomHeaders = computed(() => {
       days = 1
       current = current.add(1, 'day')
     } else if (internalViewMode.value === 'week') {
-      label = `W${current.isoWeek()}`
+      label = `W${(current as any).isoWeek()}`
       days = 7
       current = current.add(1, 'week')
     } else if (internalViewMode.value === 'month') {
@@ -280,9 +281,9 @@ const bottomHeaders = computed(() => {
       days = current.daysInMonth()
       current = current.add(1, 'month')
     } else if (internalViewMode.value === 'year') {
-      label = `Q${current.quarter()}`
-      days = current.add(1, 'quarter').diff(current, 'day')
-      current = current.add(1, 'quarter')
+      label = `Q${(current as any).quarter()}`
+      days = (current as any).add(1, 'quarter').diff(current, 'day')
+      current = (current as any).add(1, 'quarter')
     }
     headers.push({
       label,

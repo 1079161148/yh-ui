@@ -2,7 +2,7 @@
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { imageViewerProps, imageViewerEmits } from './image-viewer'
-import Viewer from 'viewerjs'
+import Viewer from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
 defineOptions({
@@ -32,7 +32,7 @@ const handleClose = () => {
 const initViewerJS = () => {
   const list = document.createElement('div')
   list.style.display = 'none'
-  props.urlList.forEach(src => {
+  props.urlList.forEach((src) => {
     const img = document.createElement('img')
     img.src = src
     list.appendChild(img)
@@ -40,7 +40,7 @@ const initViewerJS = () => {
   document.body.appendChild(list)
   viewerList = list
 
-  viewer = new Viewer(list, {
+  const nextViewer = new Viewer(list, {
     ...props.viewerOptions,
     initialViewIndex: props.initialIndex,
     hidden: () => {
@@ -53,7 +53,8 @@ const initViewerJS = () => {
       emit('close')
     }
   })
-  viewer.show()
+  viewer = nextViewer
+  nextViewer.show()
 }
 
 const handlePrev = () => {
@@ -104,9 +105,12 @@ watch(index, (val: number) => {
   emit('switch', val)
 })
 
-watch(() => props.initialIndex, (val: number) => {
-  index.value = val
-})
+watch(
+  () => props.initialIndex,
+  (val: number) => {
+    index.value = val
+  }
+)
 
 const handleKeyDown = (e: KeyboardEvent) => {
   if (props.viewerMode === 'viewerjs') return
@@ -153,8 +157,10 @@ onUnmounted(() => {
       <!-- Close -->
       <span :class="[ns.e('btn'), ns.e('close')]" @click="handleClose">
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-          <path fill="currentColor"
-            d="M512 456.2L794.8 173.4l55.8 55.8L567.8 512l282.8 282.8-55.8 55.8L512 567.8 229.2 850.6l-55.8-55.8L456.2 512 173.4 229.2l55.8-55.8L512 456.2z" />
+          <path
+            fill="currentColor"
+            d="M512 456.2L794.8 173.4l55.8 55.8L567.8 512l282.8 282.8-55.8 55.8L512 567.8 229.2 850.6l-55.8-55.8L456.2 512 173.4 229.2l55.8-55.8L512 456.2z"
+          />
         </svg>
       </span>
 
@@ -162,14 +168,18 @@ onUnmounted(() => {
       <template v-if="urlList.length > 1">
         <span :class="[ns.e('btn'), ns.e('prev')]" @click="handlePrev">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M609.4 824.6L296.8 512l312.6-312.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L228.9 489.4c-12.5 12.5-12.5 32.8 0 45.3l335.2 335.2c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z" />
+            <path
+              fill="currentColor"
+              d="M609.4 824.6L296.8 512l312.6-312.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L228.9 489.4c-12.5 12.5-12.5 32.8 0 45.3l335.2 335.2c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z"
+            />
           </svg>
         </span>
         <span :class="[ns.e('btn'), ns.e('next')]" @click="handleNext">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M414.6 824.6l312.6-312.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L346.7 802.1c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L727.2 512 414.6 199.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l335.2 335.2c12.5 12.5 12.5 32.8 0 45.3L369.3 915.1c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" />
+            <path
+              fill="currentColor"
+              d="M414.6 824.6l312.6-312.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L346.7 802.1c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L727.2 512 414.6 199.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l335.2 335.2c12.5 12.5 12.5 32.8 0 45.3L369.3 915.1c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"
+            />
           </svg>
         </span>
       </template>
@@ -177,26 +187,38 @@ onUnmounted(() => {
       <!-- Actions -->
       <div v-if="showProgress" :class="ns.e('actions')">
         <div :class="ns.e('actions-inner')">
-          <i :class="ns.e('zoom-out')" @click="handleZoomOut"><svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor" d="M192 480h640v64H192z" />
-            </svg></i>
-          <i :class="ns.e('zoom-in')" @click="handleZoomIn"><svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor" d="M480 480V224h64v256h256v64H544v256h-64V544H224v-64h256z" />
-            </svg></i>
-          <i :class="ns.e('reset')" @click="reset"><svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a256 256 0 1 1 0 512 256 256 0 0 1 0-512z" />
-            </svg></i>
+          <i :class="ns.e('zoom-out')" @click="handleZoomOut"
+            ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
+              <path fill="currentColor" d="M192 480h640v64H192z" /></svg
+          ></i>
+          <i :class="ns.e('zoom-in')" @click="handleZoomIn"
+            ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
+              <path
+                fill="currentColor"
+                d="M480 480V224h64v256h256v64H544v256h-64V544H224v-64h256z"
+              /></svg
+          ></i>
+          <i :class="ns.e('reset')" @click="reset"
+            ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
+              <path
+                fill="currentColor"
+                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a256 256 0 1 1 0 512 256 256 0 0 1 0-512z"
+              /></svg
+          ></i>
           <i :class="ns.e('rotate-left')" @click="handleRotateLeft">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M512 128c-212.1 0-384 171.9-384 384s171.9 384 384 384 384-171.9 384-384h-64c0 176.7-143.3 320-320 320s-320-143.3-320-320 143.3-320 320-320v64l192-128-192-128v64z" />
+              <path
+                fill="currentColor"
+                d="M512 128c-212.1 0-384 171.9-384 384s171.9 384 384 384 384-171.9 384-384h-64c0 176.7-143.3 320-320 320s-320-143.3-320-320 143.3-320 320-320v64l192-128-192-128v64z"
+              />
             </svg>
           </i>
           <i :class="ns.e('rotate-right')" @click="handleRotateRight">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M512 128V64L320 192l192 128v-64c176.7 0 320 143.3 320 320s-143.3 320-320 320-320-143.3-320-320h-64c0 212.1 171.9 384 384 384s384-171.9 384-384-171.9-384-384-384z" />
+              <path
+                fill="currentColor"
+                d="M512 128V64L320 192l192 128v-64c176.7 0 320 143.3 320 320s-143.3 320-320 320-320-143.3-320-320h-64c0 212.1 171.9 384 384 384s384-171.9 384-384-171.9-384-384-384z"
+              />
             </svg>
           </i>
         </div>

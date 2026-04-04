@@ -2,6 +2,7 @@ import { defineBuildConfig } from 'unbuild'
 import { resolve } from 'path'
 import { pathToFileURL } from 'url'
 import { basename } from 'pathe'
+import { vueLoader } from 'vue-sfc-transformer/mkdist'
 
 export default defineBuildConfig({
   entries: [
@@ -76,7 +77,7 @@ export default defineBuildConfig({
         ]
       }
 
-      options.loaders = [customSassLoader as never, 'js', 'vue', 'postcss']
+      options.loaders = [customSassLoader as never, vueLoader as never, 'js', 'postcss']
     }
   },
   failOnWarn: false

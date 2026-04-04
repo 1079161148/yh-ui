@@ -24,7 +24,9 @@
   ],
   "scripts": {
     "build": "unbuild && node ../../scripts/post-build-styles.mjs yh-ui",
-    "dev": "unbuild --stub"
+    "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore"
   },
   "dependencies": {
     "@yh-ui/components": "workspace:*",

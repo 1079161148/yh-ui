@@ -26,7 +26,9 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore"
   },
   "dependencies": {
     "@yh-ui/utils": "workspace:*"

@@ -11,7 +11,7 @@ import { YhIcon } from '../../icon'
 import { YhButton } from '../../button'
 import { YhSpin } from '../../spin'
 import { useComponentTheme } from '@yh-ui/theme'
-import hljs from 'highlight.js'
+import hljs from '../../highlight'
 import 'highlight.js/styles/atom-one-dark.css'
 
 defineOptions({

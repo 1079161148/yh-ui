@@ -21,8 +21,12 @@ import { YhAvatar } from '../../avatar'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
 import { YhAiThoughtChain, type AiThoughtItem } from '../../ai-thought-chain'
-import MarkdownIt from 'markdown-it'
-import hljs from 'highlight.js'
+import MarkdownIt from '../../markdown-it'
+import type MarkdownItInstance from 'markdown-it'
+import type Token from 'markdown-it/lib/token.mjs'
+import type StateBlock from 'markdown-it/lib/rules_block/state_block.mjs'
+import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
+import hljs from '../../highlight'
 import 'highlight.js/styles/atom-one-dark.css'
 
 defineOptions({
@@ -922,7 +926,7 @@ const getMarkdownInstance = () => {
   })
 
   // Mermaid block: ```mermaid
-  md.block.ruler.before('code', 'mermaid', (state, silent) => {
+  md.block.ruler.before('code', 'mermaid', (state: StateBlock, silent: boolean) => {
     const start = state.bMarks[state.line]
     const max = state.eMarks[state.line]
     const line = state.src.slice(start, max)
@@ -952,14 +956,14 @@ const getMarkdownInstance = () => {
   // Custom renderer for mermaid
   // Custom renderer for mermaid - 必须同步
   md.renderer.rules.mermaid_open = () => '<div class="mermaid-block">'
-  md.renderer.rules.mermaid_code = (tokens, idx) => {
+  md.renderer.rules.mermaid_code = (tokens: Token[], idx: number) => {
     const code = tokens[idx].content
     return `<pre class="mermaid">${md.utils.escapeHtml(code)}</pre>`
   }
   md.renderer.rules.mermaid_close = () => '</div>'
 
   // 自研引用脚注拦截器插件
-  md.inline.ruler.after('text', 'citation', (state, silent) => {
+  md.inline.ruler.after('text', 'citation', (state: StateInline, silent: boolean) => {
     const start = state.pos
     if (state.src.charCodeAt(start) !== 0x5b /* [ */) return false
 
@@ -987,7 +991,7 @@ const getMarkdownInstance = () => {
   return md
 }
 
-const mdi = shallowRef<MarkdownIt | null>(null)
+const mdi = shallowRef<MarkdownItInstance | null>(null)
 
 watchEffect(() => {
   if (props.markdown && !mdi.value) {

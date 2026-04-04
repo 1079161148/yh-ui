@@ -9,7 +9,7 @@ import { isClient, getScrollContainer } from '@yh-ui/utils'
 import { imageProps } from './image'
 import type { ImageEmits } from './image'
 import YhImageViewer from './image-viewer.vue'
-import Viewer from 'viewerjs'
+import Viewer from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
 defineOptions({
@@ -153,7 +153,7 @@ const initViewerJS = () => {
     })
     document.body.appendChild(list) // Append to body to make it part of the DOM for Viewer.js
     viewerList = list
-    viewer = new Viewer(list, {
+    const nextViewer = new Viewer(list, {
       ...props.viewerOptions,
       hidden: () => {
         if (viewerList) {
@@ -164,10 +164,12 @@ const initViewerJS = () => {
         viewer = null
       }
     })
-    viewer.view(props.initialIndex)
+    viewer = nextViewer
+    nextViewer.view(props.initialIndex)
   } else {
-    viewer = new Viewer(imgElement, props.viewerOptions)
-    viewer.show()
+    const nextViewer = new Viewer(imgElement, props.viewerOptions)
+    viewer = nextViewer
+    nextViewer.show()
   }
 }
 

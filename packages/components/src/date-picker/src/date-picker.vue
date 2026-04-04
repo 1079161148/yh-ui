@@ -19,7 +19,7 @@ import {
   type DatePickerType
 } from './date-picker'
 import { DEFAULT_FORMATS, formatDate } from './panel-utils'
-import dayjs from 'dayjs'
+import dayjs from '../../dayjs'
 
 defineOptions({
   name: 'YhDatePicker'

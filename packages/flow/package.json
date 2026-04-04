@@ -25,6 +25,8 @@
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint ."
   },

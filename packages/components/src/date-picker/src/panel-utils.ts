@@ -1,24 +1,24 @@
-import dayjs from 'dayjs'
-import type { Dayjs } from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
+import dayjs from '../../dayjs'
+import type { Dayjs, PluginFunc } from '../../dayjs'
+import isBetweenPlugin from 'dayjs/esm/plugin/isBetween/index.js'
+import weekOfYearPlugin from 'dayjs/esm/plugin/weekOfYear/index.js'
+import isoWeekPlugin from 'dayjs/esm/plugin/isoWeek/index.js'
+import quarterOfYearPlugin from 'dayjs/esm/plugin/quarterOfYear/index.js'
+import advancedFormatPlugin from 'dayjs/esm/plugin/advancedFormat/index.js'
+import customParseFormatPlugin from 'dayjs/esm/plugin/customParseFormat/index.js'
 
 // @ts-ignore
-dayjs.extend(isBetween)
+dayjs.extend(isBetweenPlugin as PluginFunc)
 // @ts-ignore
-dayjs.extend(weekOfYear)
+dayjs.extend(weekOfYearPlugin as PluginFunc)
 // @ts-ignore
-dayjs.extend(isoWeek)
+dayjs.extend(isoWeekPlugin as PluginFunc)
 // @ts-ignore
-dayjs.extend(quarterOfYear)
+dayjs.extend(quarterOfYearPlugin as PluginFunc)
 // @ts-ignore
-dayjs.extend(advancedFormat)
+dayjs.extend(advancedFormatPlugin as PluginFunc)
 // @ts-ignore
-dayjs.extend(customParseFormat)
+dayjs.extend(customParseFormatPlugin as PluginFunc)
 
 export const DEFAULT_FORMATS = {
   date: 'YYYY-MM-DD',

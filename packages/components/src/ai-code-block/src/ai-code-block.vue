@@ -3,7 +3,7 @@ import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed, watch, useSlots, type VNodeChild, type VNode, Comment, Text } from 'vue'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
-import hljs from 'highlight.js'
+import hljs from '../../highlight'
 import 'highlight.js/styles/atom-one-dark.css'
 
 import { aiCodeBlockProps, aiCodeBlockEmits } from './ai-code-block'
