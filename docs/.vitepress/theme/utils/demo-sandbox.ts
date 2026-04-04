@@ -1,7 +1,7 @@
 import sdk, { type Project } from '@stackblitz/sdk'
 import { compressToBase64 } from 'lz-string'
 
-const YH_UI_VERSION = '^0.1.23'
+const YH_UI_VERSION = '^0.1.25'
 
 const BASE_DEPENDENCIES: Record<string, string> = {
   vue: '^3.5.27',
@@ -354,9 +354,11 @@ export function openDemoInStackBlitz(title: string, code: string): SandboxSuppor
 
   sdk.openProject(buildStackBlitzProject(title, code), {
     newWindow: true,
-    openFile: 'src/App.vue',
+    startScript: 'dev',
     showSidebar: true,
-    terminalHeight: 45
+    sidebarView: 'ports',
+    terminalHeight: 45,
+    view: 'preview'
   })
 
   return support
