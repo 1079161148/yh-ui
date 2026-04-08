@@ -334,6 +334,9 @@ importers:
       vue:
         specifier: ^3.5.27
         version: 3.5.30(typescript@5.9.3)
+      vue-sfc-transformer:
+        specifier: ^0.1.17
+        version: 0.1.17(@vue/compiler-core@3.5.30)(esbuild@0.27.3)(vue@3.5.30(typescript@5.9.3))
       vue-tsc:
         specifier: ^2.2.0
         version: 2.2.12(typescript@5.9.3)
