@@ -1,0 +1,5 @@
+import { withInstall } from "@yh-ui/utils";
+import TimeSelect from "./src/time-select.vue";
+export const YhTimeSelect = withInstall(TimeSelect);
+export default YhTimeSelect;
+export * from "./src/time-select.mjs";

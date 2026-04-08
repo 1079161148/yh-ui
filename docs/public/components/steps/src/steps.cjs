@@ -1,0 +1,98 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stepsStatus = exports.stepsSizes = exports.stepsProps = exports.stepsProgressDot = exports.stepsLabelPlacements = exports.stepsEmits = exports.stepsDirections = exports.STEPS_INJECTION_KEY = void 0;
+const stepsDirections = exports.stepsDirections = ["horizontal", "vertical"];
+const stepsStatus = exports.stepsStatus = ["wait", "process", "finish", "error", "success"];
+const stepsProgressDot = exports.stepsProgressDot = ["default", "dot", "navigation"];
+const stepsSizes = exports.stepsSizes = ["default", "small"];
+const stepsLabelPlacements = exports.stepsLabelPlacements = ["horizontal", "vertical"];
+const stepsProps = exports.stepsProps = {
+  /** 当前激活步骤 */
+  active: {
+    type: Number,
+    default: 0
+  },
+  /** 布局方向 */
+  direction: {
+    type: String,
+    default: "horizontal"
+  },
+  /** 居中显示 */
+  alignCenter: {
+    type: Boolean,
+    default: false
+  },
+  /** 简洁风格 */
+  simple: {
+    type: Boolean,
+    default: false
+  },
+  /** 点状进度 */
+  progressDot: {
+    type: [Boolean, String],
+    default: false
+  },
+  /** 设置结束步骤的状态 */
+  finishStatus: {
+    type: String,
+    default: "finish"
+  },
+  /** 设置当前步骤的状态 */
+  processStatus: {
+    type: String,
+    default: "process"
+  },
+  /** 每个 step 的间距 */
+  space: {
+    type: [Number, String],
+    default: ""
+  },
+  /** 可点击切换步骤 */
+  clickable: {
+    type: Boolean,
+    default: false
+  },
+  // ========== 新增功能 ==========
+  /** 尺寸 */
+  size: {
+    type: String,
+    default: "default"
+  },
+  /** 响应式布局 - 小屏幕自动切换为垂直 */
+  responsive: {
+    type: Boolean,
+    default: false
+  },
+  /** 响应式断点（px） */
+  responsiveBreakpoint: {
+    type: Number,
+    default: 768
+  },
+  /** 描述标签位置 */
+  labelPlacement: {
+    type: String,
+    default: "horizontal"
+  },
+  /** 显示进度条连接线 */
+  showProgress: {
+    type: Boolean,
+    default: false
+  },
+  /** 显示时间线 */
+  showTimeline: {
+    type: Boolean,
+    default: false
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object,
+    default: void 0
+  }
+};
+const stepsEmits = exports.stepsEmits = {
+  change: index => typeof index === "number"
+};
+const STEPS_INJECTION_KEY = exports.STEPS_INJECTION_KEY = Symbol("yhSteps");

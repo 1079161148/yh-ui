@@ -36,7 +36,8 @@
   },
   "devDependencies": {
     "vue": "catalog:",
-    "vue-tsc": "^2.2.0"
+    "vue-tsc": "^2.2.0",
+    "vue-sfc-transformer": "^0.1.17"
   },
   "peerDependencies": {
     "vue": "catalog:"

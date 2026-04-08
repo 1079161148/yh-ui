@@ -1,0 +1,12 @@
+import { withInstall } from "@yh-ui/utils";
+import Form from "./src/form.vue";
+import FormItem from "./src/form-item.vue";
+import FormSchema from "./src/form-schema.vue";
+import "./src/form.css";
+export * from "./src/form.mjs";
+export * from "./src/form-item.mjs";
+export * from "./src/form-schema.mjs";
+export const YhForm = withInstall(Form);
+export const YhFormItem = withInstall(FormItem);
+export const YhFormSchema = withInstall(FormSchema);
+export default YhForm;

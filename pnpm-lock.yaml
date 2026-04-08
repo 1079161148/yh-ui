@@ -198,6 +198,9 @@ importers:
       '@stackblitz/sdk':
         specifier: ^1.11.0
         version: 1.11.0
+      '@vue/repl':
+        specifier: ^4.7.1
+        version: 4.7.1
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -2744,6 +2747,9 @@ packages:
 
   '@vue/reactivity@3.5.30':
     resolution: {integrity: sha512-179YNgKATuwj9gB+66snskRDOitDiuOZqkYia7mHKJaidOMo/WJxHKF8DuGc4V4XbYTJANlfEKb0yxTQotnx4Q==}
+
+  '@vue/repl@4.7.1':
+    resolution: {integrity: sha512-8w5Z3cyqBJ5ufzXO2eut2stzb7aX/ZnSva2d3ee8eEINEB7FG2JYwc14eAHHHGGuoXOGN5v4cyb5ti/YZGcwlg==}
 
   '@vue/runtime-core@3.5.30':
     resolution: {integrity: sha512-e0Z+8PQsUTdwV8TtEsLzUM7SzC7lQwYKePydb7K2ZnmS6jjND+WJXkmmfh/swYzRyfP1EY3fpdesyYoymCzYfg==}
@@ -9351,6 +9357,8 @@ snapshots:
   '@vue/reactivity@3.5.30':
     dependencies:
       '@vue/shared': 3.5.30
+
+  '@vue/repl@4.7.1': {}
 
   '@vue/runtime-core@3.5.30':
     dependencies:

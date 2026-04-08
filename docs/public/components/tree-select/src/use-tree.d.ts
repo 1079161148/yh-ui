@@ -1,0 +1,122 @@
+import type { TreeSelectProps, TreeSelectEmits, TreeSelectNode, TreeKey } from './tree-select';
+export declare const useTree: (props: TreeSelectProps, emit: <T extends keyof TreeSelectEmits>(event: T, ...args: Parameters<TreeSelectEmits[T]>) => void) => {
+    flatData: import("vue").ComputedRef<TreeSelectNode[]>;
+    nodeMap: import("vue").Ref<Map<TreeKey, {
+        key: TreeKey;
+        label: string;
+        level: number;
+        raw: {
+            [x: string]: unknown;
+            value?: TreeKey | undefined;
+            label?: string | undefined;
+            children?: /*elided*/ any[] | undefined;
+            disabled?: boolean | undefined;
+            isLeaf?: boolean | undefined;
+        };
+        parent?: /*elided*/ any | undefined;
+        children?: /*elided*/ any[] | undefined;
+        isLeaf: boolean;
+        disabled: boolean;
+        visible: boolean;
+        expanded: boolean;
+        checked: boolean;
+        indeterminate: boolean;
+        loading: boolean;
+        loaded: boolean;
+    }> & Omit<Map<TreeKey, TreeSelectNode>, keyof Map<any, any>>, Map<TreeKey, TreeSelectNode> | (Map<TreeKey, {
+        key: TreeKey;
+        label: string;
+        level: number;
+        raw: {
+            [x: string]: unknown;
+            value?: TreeKey | undefined;
+            label?: string | undefined;
+            children?: /*elided*/ any[] | undefined;
+            disabled?: boolean | undefined;
+            isLeaf?: boolean | undefined;
+        };
+        parent?: /*elided*/ any | undefined;
+        children?: /*elided*/ any[] | undefined;
+        isLeaf: boolean;
+        disabled: boolean;
+        visible: boolean;
+        expanded: boolean;
+        checked: boolean;
+        indeterminate: boolean;
+        loading: boolean;
+        loaded: boolean;
+    }> & Omit<Map<TreeKey, TreeSelectNode>, keyof Map<any, any>>)>;
+    treeData: import("vue").Ref<{
+        key: TreeKey;
+        label: string;
+        level: number;
+        raw: {
+            [x: string]: unknown;
+            value?: TreeKey | undefined;
+            label?: string | undefined;
+            children?: /*elided*/ any[] | undefined;
+            disabled?: boolean | undefined;
+            isLeaf?: boolean | undefined;
+        };
+        parent?: /*elided*/ any | undefined;
+        children?: /*elided*/ any[] | undefined;
+        isLeaf: boolean;
+        disabled: boolean;
+        visible: boolean;
+        expanded: boolean;
+        checked: boolean;
+        indeterminate: boolean;
+        loading: boolean;
+        loaded: boolean;
+    }[], TreeSelectNode[] | {
+        key: TreeKey;
+        label: string;
+        level: number;
+        raw: {
+            [x: string]: unknown;
+            value?: TreeKey | undefined;
+            label?: string | undefined;
+            children?: /*elided*/ any[] | undefined;
+            disabled?: boolean | undefined;
+            isLeaf?: boolean | undefined;
+        };
+        parent?: /*elided*/ any | undefined;
+        children?: /*elided*/ any[] | undefined;
+        isLeaf: boolean;
+        disabled: boolean;
+        visible: boolean;
+        expanded: boolean;
+        checked: boolean;
+        indeterminate: boolean;
+        loading: boolean;
+        loaded: boolean;
+    }[]>;
+    mapVersion: import("vue").Ref<number, number>;
+    checkNode: (node: TreeSelectNode, checked: boolean) => void;
+    toggleExpand: (node: TreeSelectNode) => void;
+    filter: (val: string) => void;
+    getNode: (key: TreeKey) => {
+        key: TreeKey;
+        label: string;
+        level: number;
+        raw: {
+            [x: string]: unknown;
+            value?: TreeKey | undefined;
+            label?: string | undefined;
+            children?: /*elided*/ any[] | undefined;
+            disabled?: boolean | undefined;
+            isLeaf?: boolean | undefined;
+        };
+        parent?: /*elided*/ any | undefined;
+        children?: /*elided*/ any[] | undefined;
+        isLeaf: boolean;
+        disabled: boolean;
+        visible: boolean;
+        expanded: boolean;
+        checked: boolean;
+        indeterminate: boolean;
+        loading: boolean;
+        loaded: boolean;
+    } | undefined;
+    emitModelValue: () => void;
+};

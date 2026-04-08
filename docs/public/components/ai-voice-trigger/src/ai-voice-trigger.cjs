@@ -1,0 +1,67 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.aiVoiceTriggerProps = exports.aiVoiceTriggerEmits = void 0;
+const aiVoiceTriggerProps = exports.aiVoiceTriggerProps = {
+  /**
+   * 是否正在录音
+   */
+  recording: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 录音脉冲音频大小/音量数组，用于渲染动画
+   */
+  amplitudes: {
+    type: Array,
+    default: () => Array(20).fill(5)
+  },
+  /**
+   * 展示模式
+   * - inline: 行内按钮
+   * - floating: 悬浮按钮
+   * - sphere: 拟物音量球
+   */
+  variant: {
+    type: String,
+    default: "inline"
+  },
+  /**
+   * 悬浮位置（仅在 floating/sphere 模式有效）
+   */
+  position: {
+    type: String,
+    default: "bottom-right"
+  },
+  /**
+   * 偏移量
+   */
+  offset: {
+    type: Array,
+    default: () => [24, 24]
+  },
+  /**
+   * 是否挂载到 body (Teleport)
+   * 仅在 floating/sphere 模式有效
+   */
+  teleport: {
+    type: Boolean,
+    default: true
+  },
+  /**
+   * 主题覆盖变量
+   */
+  themeOverrides: {
+    type: Object,
+    default: void 0
+  }
+};
+const aiVoiceTriggerEmits = exports.aiVoiceTriggerEmits = {
+  "update:recording": value => typeof value === "boolean",
+  start: () => true,
+  stop: () => true,
+  cancel: () => true
+};

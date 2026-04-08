@@ -956,6 +956,7 @@ export default defineConfig({
       }
     },
     optimizeDeps: {
+      exclude: ['@vue/repl'],
       include: ['monaco-editor'],
       esbuildOptions: {
         // 避免 entities 等包的缺失 sourcemap 警告
@@ -978,6 +979,9 @@ export default defineConfig({
       }
     },
     server: {
+      fs: {
+        allow: [resolve(__dirname, '../../')]
+      },
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin',
         'Cross-Origin-Embedder-Policy': 'credentialless'
@@ -1011,7 +1015,7 @@ export default defineConfig({
       }
     },
     ssr: {
-      noExternal: ['monaco-editor']
+      noExternal: ['monaco-editor', '@vue/repl']
     }
   }
 })

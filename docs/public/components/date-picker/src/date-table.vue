@@ -1,0 +1,160 @@
+<script setup>
+import { computed } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { generateCalendar } from "./panel-utils";
+import dayjs from "../../dayjs";
+const props = defineProps({
+  date: { type: Date, required: true },
+  selectedDate: { type: [Date, Array, null], required: false },
+  selectionMode: { type: String, required: false },
+  rangeState: { type: Object, required: false },
+  disabledDate: { type: Function, required: false },
+  firstDayOfWeek: { type: Number, required: false },
+  cellShape: { type: String, required: false },
+  cellRender: { type: Function, required: false }
+});
+const emit = defineEmits(["select", "hover"]);
+const ns = useNamespace("date-picker");
+const { t } = useLocale();
+const getCellExtra = (date) => {
+  if (!props.cellRender) return null;
+  const res = props.cellRender(date);
+  return typeof res === "string" ? { text: res } : res;
+};
+const rows = computed(() => {
+  return generateCalendar(props.date, props.firstDayOfWeek, props.disabledDate);
+});
+const weekDays = computed(() => {
+  const days = [
+    t("datepicker.weeks.sun"),
+    t("datepicker.weeks.mon"),
+    t("datepicker.weeks.tue"),
+    t("datepicker.weeks.wed"),
+    t("datepicker.weeks.thu"),
+    t("datepicker.weeks.fri"),
+    t("datepicker.weeks.sat")
+  ];
+  const start = props.firstDayOfWeek ? props.firstDayOfWeek % 7 : 0;
+  const result = [];
+  for (let i = 0; i < 7; i++) {
+    result.push(days[(start + i) % 7]);
+  }
+  return result;
+});
+const getCellClasses = (cell) => {
+  const classes = [ns.e("cell"), ns.is(cell.type), ns.is(props.cellShape || "round")];
+  if (cell.isToday) classes.push("is-today");
+  if (cell.disabled) classes.push("is-disabled");
+  const cellDay = cell.dayjs.startOf("day");
+  if (props.selectedDate && !Array.isArray(props.selectedDate)) {
+    const selectedDay = dayjs(props.selectedDate).startOf("day");
+    if (props.selectionMode === "week") {
+      if (cell.dayjs.isSame(selectedDay, "week")) {
+        classes.push("is-selected");
+        if (cell.dayjs.day() === (props.firstDayOfWeek || 7) % 7) classes.push("is-week-start");
+        if (cell.dayjs.day() === ((props.firstDayOfWeek || 7) + 6) % 7) classes.push("is-week-end");
+      }
+    } else {
+      if (cellDay.isSame(selectedDay)) {
+        classes.push("is-selected");
+      }
+    }
+  }
+  if (props.rangeState) {
+    const { from, to, hovering } = props.rangeState;
+    const start = from ? dayjs(from).startOf("day") : null;
+    const end = to ? dayjs(to).startOf("day") : null;
+    const hover = hovering ? dayjs(hovering).startOf("day") : null;
+    if (start && cellDay.isSame(start)) classes.push("is-range-start", "is-selected");
+    if (end && cellDay.isSame(end)) classes.push("is-range-end", "is-selected");
+    if (start && !end && hover) {
+      const min = start.isBefore(hover) ? start : hover;
+      const max = start.isBefore(hover) ? hover : start;
+      if (cellDay.isAfter(min) && cellDay.isBefore(max)) {
+        classes.push("is-in-range");
+      }
+      if (cellDay.isSame(hover) && !cellDay.isSame(start)) {
+        classes.push("is-range-end", "is-selected", "is-hover-end");
+      }
+    } else if (start && end) {
+      const min = start.isBefore(end) ? start : end;
+      const max = start.isBefore(end) ? end : start;
+      if (cellDay.isAfter(min) && cellDay.isBefore(max)) {
+        classes.push("is-in-range");
+      }
+    }
+  }
+  return classes;
+};
+const handleClick = (cell) => {
+  if (cell.disabled) return;
+  if (props.selectionMode === "week") {
+    const firstDay = cell.dayjs.startOf("week").toDate();
+    emit("select", firstDay);
+  } else {
+    emit("select", cell.date);
+  }
+};
+const handleMouseEnter = (cell) => {
+  if (cell.disabled) return;
+  emit("hover", cell.date);
+};
+</script>
+
+<template>
+  <table
+    :class="[ns.e('table'), ns.is('week-mode', selectionMode === 'week')]"
+    @mouseleave="emit('hover', null)"
+  >
+    <thead>
+      <tr>
+        <th v-for="day in weekDays" :key="day">{{ day }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(row, i) in rows" :key="i" :class="ns.e('table-row')">
+        <td
+          v-for="(cell, j) in row"
+          :key="j"
+          :class="getCellClasses(cell)"
+          @click="handleClick(cell)"
+          @mouseenter="handleMouseEnter(cell)"
+        >
+          <div :class="ns.e('cell-content')">
+            <slot name="date-cell" :cell="cell">
+              <span :class="ns.e('cell-date')">{{ cell.text }}</span>
+              <span
+                v-if="getCellExtra(cell.date)"
+                :class="[ns.e('cell-extra'), getCellExtra(cell.date)?.className]"
+              >
+                {{ getCellExtra(cell.date)?.text }}
+              </span>
+            </slot>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
+<style>
+.yh-date-picker__table.is-week-mode .yh-date-picker__table-row:hover {
+  background-color: var(--yh-date-picker-hover-bg);
+  border-radius: 4px;
+}
+.yh-date-picker__table.is-week-mode .yh-date-picker__cell.is-selected {
+  background-color: var(--yh-date-picker-active-bg) !important;
+  color: var(--yh-date-picker-active-color) !important;
+}
+.yh-date-picker__table.is-week-mode .yh-date-picker__cell.is-selected.is-week-start {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.yh-date-picker__table.is-week-mode .yh-date-picker__cell.is-selected.is-week-end {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.yh-date-picker__table.is-week-mode .yh-date-picker__cell:hover {
+  background-color: transparent !important;
+}
+</style>

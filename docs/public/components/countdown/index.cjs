@@ -1,0 +1,26 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  YhCountdown: true
+};
+module.exports = exports.YhCountdown = void 0;
+var _utils = require("@yh-ui/utils");
+var _countdown = _interopRequireDefault(require("./src/countdown.vue"));
+var _countdown2 = require("./src/countdown.cjs");
+Object.keys(_countdown2).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _countdown2[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _countdown2[key];
+    }
+  });
+});
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const YhCountdown = exports.YhCountdown = (0, _utils.withInstall)(_countdown.default);
+module.exports = YhCountdown;

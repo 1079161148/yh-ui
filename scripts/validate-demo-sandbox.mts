@@ -8,7 +8,7 @@ import {
 } from '../docs/.vitepress/theme/utils/demo-sandbox'
 
 const execAsync = promisify(exec)
-const packageManagerBin = 'npm'
+const packageManagerBin = process.platform === 'win32' ? 'pnpm' : 'pnpm'
 
 const rootDir = process.cwd()
 const tempRoot = path.join(rootDir, '.codex-temp', 'demo-sandbox-validation')
@@ -162,7 +162,7 @@ async function validateCase(testCase: (typeof cases)[number]) {
   await mkdir(caseDir, { recursive: true })
   await writeProject(caseDir, files)
 
-  await execAsync(`${packageManagerBin} install`, {
+  await execAsync(`${packageManagerBin} install --ignore-workspace`, {
     cwd: caseDir,
     env: process.env,
     windowsHide: true

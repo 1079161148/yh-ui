@@ -1,0 +1,1418 @@
+<template>
+  <div
+    :class="[ns.b(), ns.m(listType), ns.m(`pos-${triggerPosition}`), {
+  [ns.is('disabled')]: disabled
+}]"
+    :style="themeStyle"
+  >
+    <!-- Hidden Input moved to top for better focus/click reliability in some browsers -->
+    <input
+      ref="inputRef"
+      type="file"
+      :class="ns.e('input')"
+      :accept="accept"
+      :multiple="multiple || directory"
+      v-bind="directory ? {
+  webkitdirectory: '',
+  directory: '',
+  mozdirectory: ''
+} : {}"
+      style="display: none"
+      @change="onInputChange"
+      @click.stop
+    />
+
+    <div :class="ns.e('header')">
+      <!-- Trigger Area -->
+      <div
+        v-if="drag"
+        :class="[ns.e('dragger'), {
+  [ns.is('dragover')]: dragOver
+}]"
+        @drop.prevent="onDrop"
+        @dragover.prevent="onDragOver"
+        @dragenter.prevent="onDragOver"
+        @dragleave.prevent="dragOver = false"
+        @click="triggerInput"
+      >
+        <slot name="trigger">
+          <slot>
+            <div :class="ns.e('content')">
+              <yh-icon name="plus" :size="32" :class="ns.e('icon')" />
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div :class="ns.e('text')" v-html="t('upload.tip')"> </div>
+            </div>
+          </slot>
+        </slot>
+      </div>
+
+      <template v-else>
+        <!-- If trigger slot exists, it always gets the click handler -->
+        <div v-if="$slots.trigger" :class="ns.e('trigger')" @click="triggerInput">
+          <slot name="trigger" />
+        </div>
+
+        <!-- If picture-card and no trigger slot, use the plus button trigger -->
+        <div v-else-if="listType === 'picture-card'" :class="ns.e('trigger')" @click="triggerInput">
+          <div :class="ns.e('picture-card-plus')">
+            <yh-icon name="plus" :size="28" />
+          </div>
+        </div>
+
+        <!-- Default: the default slot is the trigger -->
+        <div v-else :class="ns.e('trigger')" @click="triggerInput">
+          <slot />
+        </div>
+      </template>
+
+      <!-- Tip Slot -->
+      <div v-if="$slots.tip" :class="ns.e('tip')">
+        <slot name="tip" />
+      </div>
+
+      <!-- If trigger slot is used, the default slot can be used for other elements like submit buttons -->
+      <div v-if="$slots.trigger" :class="ns.e('extra')">
+        <slot />
+      </div>
+    </div>
+
+    <!-- File List -->
+    <transition-group
+      v-if="showFileList"
+      name="yh-list"
+      tag="ul"
+      :class="[ns.e('list'), ns.em('list', listType)]"
+    >
+      <li v-for="file in fileList" :key="file.uid" :class="[ns.e('item'), ns.is(file.status)]">
+        <slot name="file" :file="file">
+          <!-- Picture Card Layout -->
+          <template v-if="listType === 'picture-card'">
+            <div :class="ns.e('thumbnail')">
+              <img v-if="file.url" :src="file.url" :alt="file.name" :crossorigin="crossorigin" />
+              <div :class="ns.e('actions')">
+                <span @click.stop="handlePreview(file)">
+                  <yh-icon name="eye" :size="18" />
+                </span>
+                <span v-if="showDownload" @click.stop="handleDownload(file)">
+                  <yh-icon name="download" :size="18" />
+                </span>
+                <span v-if="!disabled" @click.stop="handleRemove(file)">
+                  <yh-icon name="delete" :size="18" />
+                </span>
+              </div>
+              <!-- Progress Bar overlay -->
+              <div v-if="file.status === 'uploading'" :class="ns.e('progress-overlay')">
+                <div
+                  :class="ns.e('progress-inner')"
+                  :style="{
+  width: (file.percentage || 0) + '%'
+}"
+                ></div>
+              </div>
+            </div>
+          </template>
+
+          <!-- Text/Picture Layout -->
+          <template v-else>
+            <div :class="ns.e('info')">
+              <div v-if="listType === 'picture'" :class="ns.e('thumbnail-box')">
+                <img
+                  v-if="file.url"
+                  :src="file.url"
+                  :class="ns.e('thumbnail-img')"
+                  :crossorigin="crossorigin"
+                />
+                <yh-icon v-else name="image" :size="24" :class="ns.e('thumbnail-icon')" />
+              </div>
+              <slot name="file-icon" :file="file">
+                <yh-icon :name="getFileIcon(file)" :size="20" :class="ns.e('file-icon')" />
+              </slot>
+
+              <div :class="ns.e('details')">
+                <div :class="ns.e('name')" @click="handlePreview(file)">
+                  {{ file.name }}
+                </div>
+              </div>
+
+              <div :class="ns.e('status-icon-wrapper')">
+                <yh-icon
+                  v-if="file.status === 'success'"
+                  name="check"
+                  :size="14"
+                  :class="ns.e('status-icon')"
+                  color="var(--yh-color-success)"
+                />
+                <yh-icon
+                  v-if="file.status === 'fail'"
+                  name="error"
+                  :size="14"
+                  :class="ns.e('status-icon')"
+                  color="var(--yh-color-danger)"
+                />
+
+                <div v-if="!disabled" :class="ns.e('actions-inline')">
+                  <yh-icon
+                    v-if="showDownload"
+                    name="download"
+                    :size="16"
+                    :class="ns.e('download-btn')"
+                    @click.stop="handleDownload(file)"
+                  />
+                  <yh-icon
+                    v-if="file.status === 'fail'"
+                    name="refresh"
+                    :size="16"
+                    :class="ns.e('retry-btn')"
+                    @click.stop="startUpload(file)"
+                  />
+                  <yh-icon
+                    name="delete"
+                    :size="16"
+                    :class="ns.e('delete-btn')"
+                    @click.stop="handleRemove(file)"
+                  />
+                </div>
+              </div>
+
+              <!-- Full width bottom progress for non-card modes -->
+              <div v-if="file.status === 'uploading'" :class="ns.e('bottom-progress')">
+                <div
+                  :class="ns.e('bottom-progress-bar')"
+                  :style="{
+  width: (file.percentage || 0) + '%'
+}"
+                ></div>
+              </div>
+            </div>
+          </template>
+        </slot>
+      </li>
+    </transition-group>
+  </div>
+</template>
+
+<script setup>
+import { ref, onBeforeUnmount, computed } from "vue";
+import {
+  uploadProps,
+  uploadEmits
+} from "./upload";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { YhIcon } from "../../icon";
+import Viewer from "../../viewerjs";
+import "viewerjs/dist/viewer.css";
+defineOptions({
+  name: "YhUpload"
+});
+const props = defineProps(uploadProps);
+const emit = defineEmits(uploadEmits);
+const ns = useNamespace("upload");
+const { t } = useLocale();
+const { themeStyle } = useComponentTheme(
+  "upload",
+  computed(() => props.themeOverrides)
+);
+const inputRef = ref(null);
+const dragOver = ref(false);
+let viewer = null;
+const triggerInput = () => {
+  if (props.disabled) return;
+  if (inputRef.value) {
+    inputRef.value.value = "";
+  }
+  inputRef.value?.click();
+};
+const getFileIcon = (file) => {
+  if (props.fileIcon) {
+    if (typeof props.fileIcon === "function") {
+      return props.fileIcon(file);
+    }
+    return props.fileIcon;
+  }
+  const fileName = file.name;
+  const ext = fileName.split(".").pop()?.toLowerCase() || "";
+  const map = {
+    // 图片
+    jpg: "image",
+    jpeg: "image",
+    png: "image",
+    gif: "image",
+    webp: "image",
+    svg: "image",
+    // 文档
+    pdf: "file-pdf",
+    doc: "file-word",
+    docx: "file-word",
+    xls: "file-excel",
+    xlsx: "file-excel",
+    ppt: "file-word",
+    pptx: "file-word",
+    txt: "file-txt",
+    // 媒体
+    mp4: "file-video",
+    mkv: "file-video",
+    avi: "file-video",
+    mov: "file-video",
+    mp3: "file-audio",
+    wav: "file-audio",
+    flac: "file-audio"
+  };
+  return map[ext] || "attachment";
+};
+const onInputChange = (e) => {
+  if (props.disabled) return;
+  const files = e.target.files;
+  if (!files) return;
+  handleFiles(Array.from(files));
+};
+const onDragOver = () => {
+  if (props.disabled || !props.drag) return;
+  dragOver.value = true;
+};
+const onDrop = async (e) => {
+  if (props.disabled || !props.drag) return;
+  dragOver.value = false;
+  const items = e.dataTransfer?.items;
+  if (!items) return;
+  const files = [];
+  const readEntry = async (entry, path = "") => {
+    if (entry.isFile) {
+      const fileEntry = entry;
+      const file = await new Promise((resolve) => fileEntry.file(resolve));
+      if (path) {
+        Object.defineProperty(file, "webkitRelativePath", {
+          value: `${path}${file.name}`,
+          configurable: true
+        });
+      }
+      files.push(file);
+    } else if (entry.isDirectory) {
+      const dirEntry = entry;
+      const reader = dirEntry.createReader();
+      const entries = await new Promise((resolve) => reader.readEntries(resolve));
+      for (const subEntry of entries) {
+        await readEntry(subEntry, `${path}${entry.name}/`);
+      }
+    }
+  };
+  const entriesToRead = [];
+  for (const item of Array.from(items)) {
+    const entry = item.webkitGetAsEntry?.();
+    if (entry) {
+      entriesToRead.push(readEntry(entry));
+    }
+  }
+  if (entriesToRead.length > 0) {
+    await Promise.all(entriesToRead);
+    handleFiles(files);
+  } else {
+    const rawFiles = e.dataTransfer?.files;
+    if (rawFiles) handleFiles(Array.from(rawFiles));
+  }
+};
+const attrAccept = (file, accept) => {
+  if (!accept) return true;
+  const acceptList = accept.split(",").map((item) => item.trim());
+  if (acceptList.length === 0) return true;
+  const fileName = file.name;
+  const type = file.type;
+  return acceptList.some((item) => {
+    if (item.startsWith(".")) {
+      return fileName.toLowerCase().endsWith(item.toLowerCase());
+    } else if (item.endsWith("/*")) {
+      const baseType = item.replace("/*", "");
+      return type.startsWith(baseType);
+    }
+    return type === item;
+  });
+};
+const handleFiles = async (files) => {
+  if (props.limit && props.fileList.length + files.length > props.limit) {
+    emit("exceed", files, props.fileList);
+    return;
+  }
+  const validFiles = [];
+  for (const file of files) {
+    const rawFile = file;
+    if (props.accept && !attrAccept(rawFile, props.accept)) {
+      console.warn(
+        `[YhUpload] Auto Remove: File format does not match "${props.accept}" - ${rawFile.name}`
+      );
+      continue;
+    }
+    if (props.maxSize && rawFile.size / 1024 > props.maxSize) {
+      console.warn(`[YhUpload] Auto Remove: File size exceeds limit - ${rawFile.name}`);
+      continue;
+    }
+    if (props.beforeUpload) {
+      try {
+        const result = await props.beforeUpload(rawFile);
+        if (result === false) continue;
+        if (result instanceof Blob) {
+          const newRawFile = result;
+          if (!newRawFile.uid) newRawFile.uid = Date.now() + Math.random();
+          Object.assign(rawFile, newRawFile);
+        }
+      } catch {
+        continue;
+      }
+    }
+    if (!rawFile.uid) rawFile.uid = Date.now() + Math.random();
+    const uploadFile = {
+      name: props.directory && rawFile.webkitRelativePath ? rawFile.webkitRelativePath : rawFile.name,
+      percentage: 0,
+      status: "ready",
+      size: rawFile.size,
+      uid: rawFile.uid,
+      raw: rawFile
+    };
+    if (props.listType.includes("picture")) {
+      if (props.thumbnailRequest) {
+        uploadFile.url = await props.thumbnailRequest(rawFile);
+      } else if (rawFile.type && rawFile.type.startsWith("image/")) {
+        uploadFile.url = URL.createObjectURL(rawFile);
+      }
+    }
+    validFiles.push(uploadFile);
+  }
+  if (validFiles.length > 0) {
+    const newFileList = [...props.fileList, ...validFiles];
+    emit("update:fileList", newFileList);
+    validFiles.forEach((file) => {
+      emit("change", file, newFileList);
+      if (props.autoUpload) {
+        startUpload(file);
+      }
+    });
+  }
+};
+const startUpload = async (file) => {
+  file.status = "uploading";
+  const options = {
+    action: props.action,
+    method: props.method,
+    file: file.raw,
+    filename: props.name,
+    name: file.name,
+    data: props.data,
+    headers: props.headers,
+    withCredentials: props.withCredentials,
+    onProgress: (evt) => {
+      file.percentage = evt.percent;
+      emit("progress", evt, file, props.fileList);
+    },
+    onSuccess: (res) => {
+      file.status = "success";
+      file.response = res;
+      emit("success", res, file, props.fileList);
+    },
+    onError: (err) => {
+      file.status = "fail";
+      file.error = err;
+      emit("error", err, file, props.fileList);
+    }
+  };
+  if (props.httpRequest) {
+    props.httpRequest(options);
+    return;
+  }
+  ajaxUpload(options);
+};
+const ajaxUpload = (options) => {
+  const xhr = new XMLHttpRequest();
+  const formData = new FormData();
+  if (options.data) {
+    Object.keys(options.data).forEach((key) => {
+      formData.append(key, options.data[key]);
+    });
+  }
+  formData.append(options.filename, options.file, options.name);
+  xhr.upload.onprogress = (e) => {
+    if (e.total > 0) {
+      const percent = Math.round(e.loaded / e.total * 100);
+      options.onProgress({ ...e, percent });
+    }
+  };
+  xhr.onload = () => {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      let response = xhr.responseText;
+      try {
+        response = JSON.parse(response);
+      } catch {
+      }
+      options.onSuccess(response);
+    } else {
+      options.onError(new Error(`Upload failed with status ${xhr.status}`));
+    }
+  };
+  xhr.onerror = () => {
+    options.onError(new Error("Network Error"));
+  };
+  xhr.open(options.method, options.action, true);
+  if (options.withCredentials) {
+    xhr.withCredentials = true;
+  }
+  if (options.headers) {
+    Object.keys(options.headers).forEach((key) => {
+      xhr.setRequestHeader(key, options.headers[key]);
+    });
+  }
+  xhr.send(formData);
+};
+const handleRemove = async (file) => {
+  if (props.disabled) return;
+  if (props.beforeRemove) {
+    const result = await props.beforeRemove(file, props.fileList);
+    if (result === false) return;
+  }
+  const newFileList = props.fileList.filter((f) => f.uid !== file.uid);
+  emit("update:fileList", newFileList);
+  emit("remove", file, newFileList);
+  if (file.url && file.url.startsWith("blob:")) {
+    URL.revokeObjectURL(file.url);
+  }
+};
+const handlePreview = (file) => {
+  emit("preview", file);
+  const isImage = file.url && (file.url.startsWith("blob:") || file.url.startsWith("data:") || /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(file.name));
+  if (isImage) {
+    const images = props.fileList.filter(
+      (f) => f.url && (f.url.startsWith("blob:") || f.url.startsWith("data:") || /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(f.name))
+    ).map((f) => f.url);
+    if (images.length === 0) return;
+    const container = document.createElement("div");
+    const imgList = images.map((src) => `<img src="${src}" style="display:none">`).join("");
+    container.innerHTML = imgList;
+    const initialIndex = images.indexOf(file.url);
+    if (viewer) viewer.destroy();
+    const nextViewer = new Viewer(container, {
+      hidden: () => {
+        viewer?.destroy();
+        viewer = null;
+      },
+      navbar: images.length > 1,
+      toolbar: {
+        zoomIn: 4,
+        zoomOut: 4,
+        oneToOne: 4,
+        reset: 4,
+        prev: images.length > 1 ? 4 : 0,
+        play: {
+          show: 4,
+          size: "large"
+        },
+        next: images.length > 1 ? 4 : 0,
+        rotateLeft: 4,
+        rotateRight: 4,
+        flipHorizontal: 4,
+        flipVertical: 4
+      }
+    });
+    viewer = nextViewer;
+    nextViewer.view(initialIndex !== -1 ? initialIndex : 0);
+    nextViewer.show();
+  }
+};
+const handleDownload = async (file) => {
+  emit("download", file);
+  if (!file.url) return;
+  if (file.url.startsWith("blob:") || file.url.startsWith("data:")) {
+    const link = document.createElement("a");
+    link.href = file.url;
+    link.download = file.name || "download";
+    link.click();
+    return;
+  }
+  try {
+    const response = await fetch(file.url, {
+      method: "GET",
+      mode: "cors"
+      // 必须开启 CORS 模式
+    });
+    if (!response.ok) throw new Error("Network response was not ok");
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = file.name || "download";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 1e3);
+  } catch (err) {
+    console.warn("[YhUpload] CORS download restricted, falling back to preview mode", err);
+    const link = document.createElement("a");
+    link.href = file.url;
+    link.target = "_blank";
+    link.download = file.name || "download";
+    link.click();
+  }
+};
+onBeforeUnmount(() => {
+  if (viewer) {
+    viewer.destroy();
+    viewer = null;
+  }
+});
+defineExpose({
+  triggerInput,
+  handleRemove,
+  handlePreview,
+  handleDownload,
+  handleFiles,
+  submit: () => {
+    props.fileList.filter((f) => f.status === "ready").forEach(startUpload);
+  }
+});
+</script>
+
+<style>
+@charset "UTF-8";
+/**
+ * YH-UI CSS Variables
+ * 全局 CSS 变量定义 - 业内最佳主题系统
+ */
+:root {
+  /* ==================== 密度/紧凑度系统 ==================== */
+  --yh-density-factor: 1;
+  --yh-component-size-default: 32px;
+  --yh-component-size-small: 24px;
+  --yh-component-size-large: 40px;
+  --yh-padding-default: 12px 16px;
+  --yh-padding-small: 8px 12px;
+  --yh-padding-large: 16px 20px;
+  --yh-spacing-unit: 8px;
+  /* ==================== 基础颜色 ==================== */
+  --yh-color-white: #ffffff;
+  --yh-color-black: #000000;
+  /* ==================== 颜色系统 ==================== */
+  /* 主色 */
+  --yh-color-primary: #409eff;
+  --yh-color-primary-light-1: #53a8ff;
+  --yh-color-primary-light-2: #66b1ff;
+  --yh-color-primary-light-3: #79bbff;
+  --yh-color-primary-light-4: #8cc5ff;
+  --yh-color-primary-light-5: #a0cfff;
+  --yh-color-primary-light-6: #b3d8ff;
+  --yh-color-primary-light-7: #c6e2ff;
+  --yh-color-primary-light-8: #d9ecff;
+  --yh-color-primary-light-9: #ecf5ff;
+  --yh-color-primary-dark-2: #337ecc;
+  /* 成功色 */
+  --yh-color-success: #67c23a;
+  --yh-color-success-light-3: #95d475;
+  --yh-color-success-light-5: #b3e19d;
+  --yh-color-success-light-7: #d1edc4;
+  --yh-color-success-light-9: #f0f9eb;
+  --yh-color-success-dark-2: #529b2e;
+  /* 警告色 */
+  --yh-color-warning: #e6a23c;
+  --yh-color-warning-light-3: #eebe77;
+  --yh-color-warning-light-5: #f3d19e;
+  --yh-color-warning-light-7: #f8e3c5;
+  --yh-color-warning-light-9: #fdf6ec;
+  --yh-color-warning-dark-2: #b88230;
+  /* 危险色 */
+  --yh-color-danger: #f56c6c;
+  --yh-color-danger-light-3: #f89898;
+  --yh-color-danger-light-5: #fab6b6;
+  --yh-color-danger-light-7: #fcd3d3;
+  --yh-color-danger-light-9: #fef0f0;
+  --yh-color-danger-dark-2: #c45656;
+  /* 信息色 */
+  --yh-color-info: #909399;
+  --yh-color-info-light-3: #b1b3b8;
+  --yh-color-info-light-5: #c8c9cc;
+  --yh-color-info-light-7: #dedfe0;
+  --yh-color-info-light-9: #f4f4f5;
+  --yh-color-info-dark-2: #73767a;
+  /* 文字颜色 */
+  --yh-text-color-primary: #303133;
+  --yh-text-color-regular: #606266;
+  --yh-text-color-secondary: #909399;
+  --yh-text-color-placeholder: #a8abb2;
+  --yh-text-color-disabled: #c0c4cc;
+  /* 边框颜色 */
+  --yh-border-color: #dcdfe6;
+  --yh-border-color-hover: var(--yh-color-primary);
+  --yh-border-color-light: #e4e7ed;
+  --yh-border-color-lighter: #ebeef5;
+  --yh-border-color-extra-light: #f2f6fc;
+  --yh-border-color-dark: #d4d7de;
+  --yh-border-color-darker: #cdd0d6;
+  /* 填充颜色 */
+  --yh-fill-color: #f0f2f5;
+  --yh-fill-color-light: #f5f7fa;
+  --yh-fill-color-lighter: #fafafa;
+  --yh-fill-color-extra-light: #fafcff;
+  --yh-fill-color-dark: #ebedf0;
+  --yh-fill-color-darker: #e6e8eb;
+  --yh-fill-color-blank: #ffffff;
+  /* 背景颜色 */
+  --yh-bg-color: #ffffff;
+  --yh-bg-color-page: #f2f3f5;
+  --yh-bg-color-overlay: #ffffff;
+  /* ==================== 间距系统 ==================== */
+  --yh-spacing-none: 0;
+  --yh-spacing-xs: 4px;
+  --yh-spacing-sm: 8px;
+  --yh-spacing-md: 16px;
+  --yh-spacing-lg: 24px;
+  --yh-spacing-xl: 32px;
+  --yh-spacing-xxl: 48px;
+  /* ==================== 圆角系统 ==================== */
+  --yh-radius-none: 0;
+  --yh-radius-sm: 2px;
+  --yh-radius-base: 4px;
+  --yh-radius-md: 8px;
+  --yh-radius-lg: 12px;
+  --yh-radius-xl: 16px;
+  --yh-radius-round: 20px;
+  --yh-radius-circle: 50%;
+  /* ==================== 字体系统 ==================== */
+  --yh-font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  /* 字号 */
+  --yh-font-size-xs: 12px;
+  --yh-font-size-sm: 13px;
+  --yh-font-size-base: 14px;
+  --yh-font-size-md: 16px;
+  --yh-font-size-lg: 18px;
+  --yh-font-size-xl: 20px;
+  --yh-font-size-xxl: 24px;
+  /* 行高 */
+  --yh-line-height-none: 1;
+  --yh-line-height-tight: 1.25;
+  --yh-line-height-snug: 1.375;
+  --yh-line-height-normal: 1.5;
+  --yh-line-height-relaxed: 1.625;
+  --yh-line-height-loose: 2;
+  /* 字重 */
+  --yh-font-weight-light: 300;
+  --yh-font-weight-normal: 400;
+  --yh-font-weight-medium: 500;
+  --yh-font-weight-semibold: 600;
+  --yh-font-weight-bold: 700;
+  /* ==================== 阴影系统 ==================== */
+  --yh-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --yh-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --yh-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --yh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --yh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  /* ==================== 过渡动效 ==================== */
+  --yh-duration-fast: 150ms;
+  --yh-duration-base: 200ms;
+  --yh-duration-slow: 300ms;
+  --yh-timing-ease: ease;
+  --yh-timing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --yh-timing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --yh-timing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --yh-timing-linear: linear;
+  --yh-transition-base: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  --yh-transition-fast: all var(--yh-duration-fast) var(--yh-timing-ease-in-out);
+  --yh-transition-slow: all var(--yh-duration-slow) var(--yh-timing-ease-in-out);
+  /* ==================== 层级系统 ==================== */
+  --yh-z-index-normal: 1;
+  --yh-z-index-top: 1000;
+  --yh-z-index-popper: 2000;
+  --yh-z-index-overlay: 2001;
+  --yh-z-index-modal: 2002;
+  --yh-z-index-popover: 2003;
+  --yh-z-index-tooltip: 2004;
+  --yh-z-index-loading: 2005;
+  /* ==================== 组件尺寸 ==================== */
+  /* Large */
+  --yh-component-size-large: 40px;
+  --yh-component-size-large-font: 14px;
+  --yh-component-size-large-padding: 20px;
+  /* Default */
+  --yh-component-size-default: 32px;
+  --yh-component-size-default-font: 14px;
+  --yh-component-size-default-padding: 16px;
+  /* Small */
+  --yh-component-size-small: 24px;
+  --yh-component-size-small-font: 12px;
+  --yh-component-size-small-padding: 12px;
+  /* ==================== 组件语义化变量 ==================== */
+  --yh-border-radius-base: var(--yh-radius-base);
+  --yh-border-radius-small: var(--yh-radius-sm);
+  --yh-border-radius-round: var(--yh-radius-round);
+  /* Message 消息提示 */
+  --yh-message-bg-color: var(--yh-bg-color-overlay);
+  --yh-message-border-color: var(--yh-border-color-lighter);
+  --yh-message-shadow: var(--yh-shadow-lg);
+  --yh-message-text-color: var(--yh-text-color-primary);
+  --yh-message-close-color: var(--yh-text-color-secondary);
+  --yh-message-close-hover-color: var(--yh-text-color-primary);
+  /* Notification 通知 */
+  --yh-notification-bg-color: var(--yh-bg-color-overlay);
+  --yh-notification-border-color: var(--yh-border-color-lighter);
+  --yh-notification-shadow: var(--yh-shadow-lg);
+  --yh-notification-title-color: var(--yh-text-color-primary);
+  --yh-notification-content-color: var(--yh-text-color-regular);
+  /* Badge 徽标 */
+  --yh-badge-bg-color: var(--yh-color-danger);
+  --yh-badge-text-color: #ffffff;
+  --yh-badge-border-color: var(--yh-bg-color);
+  /* Card 卡片 */
+  --yh-card-bg-color: var(--yh-bg-color-overlay);
+  --yh-card-border-color: var(--yh-border-color-lighter);
+  --yh-card-shadow: var(--yh-shadow-base);
+  --yh-card-header-padding: 18px 20px;
+  --yh-card-body-padding: 20px;
+  /* Input 输入框 */
+  --yh-input-bg-color: var(--yh-fill-color-blank);
+  --yh-input-text-color: var(--yh-text-color-regular);
+  --yh-input-border-color: var(--yh-border-color);
+  --yh-input-hover-border-color: var(--yh-color-primary);
+  --yh-input-focus-border-color: var(--yh-color-primary);
+  --yh-input-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-icon-color: var(--yh-text-color-placeholder);
+  --yh-input-disabled-bg-color: var(--yh-fill-color-light);
+  --yh-input-disabled-text-color: var(--yh-text-color-disabled);
+  --yh-input-disabled-border-color: var(--yh-border-color-light);
+  /* Image 图片 */
+  --yh-image-placeholder-bg-color: var(--yh-fill-color-light);
+  --yh-image-placeholder-text-color: var(--yh-text-color-placeholder);
+  --yh-image-error-bg-color: var(--yh-fill-color-extra-light);
+  --yh-image-error-text-color: var(--yh-text-color-placeholder);
+  /* Image Viewer 预览器 */
+  --yh-image-viewer-mask-bg-color: rgba(0, 0, 0, 0.5);
+  --yh-image-viewer-btn-bg-color: var(--yh-text-color-regular);
+  --yh-image-viewer-btn-color: #ffffff;
+  --yh-image-viewer-btn-hover-bg-color: var(--yh-color-primary);
+  /* Calendar 日历 */
+  --yh-calendar-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --yh-calendar-border-color: rgba(0, 0, 0, 0.06);
+  --yh-calendar-border-radius: var(--yh-radius-xl);
+  --yh-calendar-header-bg: rgba(255, 255, 255, 0.95);
+  --yh-calendar-header-border: rgba(0, 0, 0, 0.04);
+  --yh-calendar-header-padding: 18px 22px;
+  --yh-calendar-body-padding: 14px 18px 18px;
+  /* Calendar 尺寸 */
+  --yh-calendar-cell-height: 85px;
+  --yh-calendar-cell-height-small: 52px;
+  --yh-calendar-cell-height-large: 110px;
+  --yh-calendar-cell-radius: 10px;
+  --yh-calendar-cell-radius-small: 6px;
+  --yh-calendar-cell-radius-large: 12px;
+  /* Calendar 颜色 */
+  --yh-calendar-primary: var(--yh-color-primary);
+  --yh-calendar-primary-light: rgba(59, 130, 246, 0.1);
+  --yh-calendar-selected-bg: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  --yh-calendar-selected-border: rgba(59, 130, 246, 0.4);
+  --yh-calendar-today-dot: var(--yh-color-primary);
+  --yh-calendar-weekend-color: #f97316;
+  --yh-calendar-disabled-color: var(--yh-text-color-disabled);
+  --yh-calendar-other-month-opacity: 0.35;
+  /* Calendar 假日 */
+  --yh-calendar-holiday-color: var(--yh-color-success);
+  --yh-calendar-holiday-bg: rgba(16, 185, 129, 0.12);
+  --yh-calendar-holiday-border: rgba(16, 185, 129, 0.25);
+  --yh-calendar-workday-color: var(--yh-color-warning);
+  --yh-calendar-workday-bg: rgba(245, 158, 11, 0.12);
+  --yh-calendar-workday-border: rgba(245, 158, 11, 0.25);
+  /* Calendar 范围选择 */
+  --yh-calendar-range-bg: rgba(59, 130, 246, 0.08);
+  --yh-calendar-range-border: rgba(59, 130, 246, 0.2);
+  /* Calendar 字体 */
+  --yh-calendar-weekday-font-size: var(--yh-font-size-sm);
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-day-font-size: 15px;
+  --yh-calendar-day-color: var(--yh-text-color-primary);
+  --yh-calendar-badge-font-size: 9px;
+  /* Table 表格 */
+  --yh-table-border-color: var(--yh-border-color-lighter);
+  --yh-table-header-bg: var(--yh-fill-color-light);
+  --yh-table-header-text-color: var(--yh-text-color-primary);
+  --yh-table-header-font-weight: var(--yh-font-weight-semibold);
+  --yh-table-row-bg: var(--yh-bg-color);
+  --yh-table-row-hover-bg: var(--yh-fill-color-light);
+  --yh-table-row-stripe-bg: var(--yh-fill-color-lighter);
+  --yh-table-row-current-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-selected-bg: var(--yh-color-primary-light-8);
+  --yh-table-row-success-bg: var(--yh-color-success-light-9);
+  --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
+  --yh-table-text-color: var(--yh-text-color-regular);
+  --yh-table-empty-text-color: var(--yh-text-color-secondary);
+  --yh-table-font-size: var(--yh-font-size-base);
+  --yh-table-cell-padding: 12px 0;
+  --yh-table-cell-spacing: 12px;
+  --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+  --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
+  /* ==================== 边框基础 ==================== */
+  --yh-border-width: 1px;
+  --yh-border-style: solid;
+  --yh-border: var(--yh-border-width) var(--yh-border-style) var(--yh-border-color);
+  /* ==================== 断点系统 ==================== */
+  --yh-breakpoint-xs: 0;
+  --yh-breakpoint-sm: 576px;
+  --yh-breakpoint-md: 768px;
+  --yh-breakpoint-lg: 992px;
+  --yh-breakpoint-xl: 1200px;
+  --yh-breakpoint-xxl: 1400px;
+  /* ==================== 字体系统扩展 ==================== */
+  --yh-font-family-monospace:
+    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --yh-font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+  /* ==================== 无障碍/聚焦系统 ==================== */
+  --yh-focus-ring-color: var(--yh-color-primary);
+  --yh-focus-ring-width: 2px;
+  --yh-focus-ring-offset: 2px;
+  --yh-focus-ring-opacity: 0.2;
+  --yh-focus-ring:
+    0 0 0 var(--yh-focus-ring-offset) var(--yh-bg-color),
+    0 0 0 calc(var(--yh-focus-ring-offset) + var(--yh-focus-ring-width)) var(--yh-focus-ring-color);
+  /* 高对比度模式支持 */
+  --yh-high-contrast-outline: 2px solid transparent;
+  --yh-high-contrast-outline-offset: 2px;
+  /* ==================== 滚动条样式 ==================== */
+  --yh-scrollbar-width: 6px;
+  --yh-scrollbar-thumb-color: var(--yh-text-color-disabled);
+  --yh-scrollbar-thumb-hover-color: var(--yh-text-color-secondary);
+  --yh-scrollbar-track-color: transparent;
+  --yh-scrollbar-thumb-radius: 3px;
+  /* ==================== 遮罩层 ==================== */
+  --yh-mask-color: rgba(0, 0, 0, 0.5);
+  --yh-mask-color-light: rgba(0, 0, 0, 0.3);
+  --yh-mask-color-extra-light: rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== 暗黑模式 ==================== */
+html.dark {
+  --yh-color-primary: #409eff;
+  --yh-color-primary-light-3: #3375b9;
+  --yh-color-primary-light-5: #2a598a;
+  --yh-color-primary-light-7: #213d5b;
+  --yh-color-primary-light-9: #18222c;
+  --yh-color-primary-dark-2: #66b1ff;
+  --yh-color-success: #67c23a;
+  --yh-color-success-light-3: #4e8e2f;
+  --yh-color-success-light-5: #3e6b27;
+  --yh-color-success-light-7: #2d481f;
+  --yh-color-success-light-9: #1d2518;
+  --yh-color-warning: #e6a23c;
+  --yh-color-warning-light-3: #a77730;
+  --yh-color-warning-light-5: #7d5b28;
+  --yh-color-warning-light-7: #533f20;
+  --yh-color-warning-light-9: #292218;
+  --yh-color-danger: #f56c6c;
+  --yh-color-danger-light-3: #b25252;
+  --yh-color-danger-light-5: #854040;
+  --yh-color-danger-light-7: #582e2e;
+  --yh-color-danger-light-9: #2b1d1d;
+  --yh-color-info: #909399;
+  --yh-color-info-light-3: #6b6d71;
+  --yh-color-info-light-5: #525457;
+  --yh-color-info-light-7: #393b3e;
+  --yh-color-info-light-9: #202124;
+  --yh-text-color-primary: #e5eaf3;
+  --yh-text-color-regular: #cfd3dc;
+  --yh-text-color-secondary: #a3a6ad;
+  --yh-text-color-placeholder: #8d9095;
+  --yh-text-color-disabled: #6c6e72;
+  --yh-border-color: #4c4d4f;
+  --yh-border-color-light: #414243;
+  --yh-border-color-lighter: #363637;
+  --yh-border-color-extra-light: #2b2b2c;
+  --yh-border-color-dark: #58585b;
+  --yh-border-color-darker: #636466;
+  --yh-fill-color: #303030;
+  --yh-fill-color-light: #262727;
+  --yh-fill-color-lighter: #1d1d1d;
+  --yh-fill-color-extra-light: #191919;
+  --yh-fill-color-dark: #39393a;
+  --yh-fill-color-darker: #424243;
+  --yh-fill-color-blank: transparent;
+  --yh-bg-color: #141414;
+  --yh-bg-color-page: #0a0a0a;
+  --yh-bg-color-overlay: #1d1e1f;
+  /* 组件暗色模式覆盖 */
+  --yh-message-bg-color: var(--yh-bg-color-overlay);
+  --yh-message-border-color: var(--yh-border-color-lighter);
+  --yh-notification-bg-color: var(--yh-bg-color-overlay);
+  --yh-notification-border-color: var(--yh-border-color-lighter);
+  --yh-badge-border-color: var(--yh-bg-color);
+  --yh-card-bg-color: var(--yh-bg-color-overlay);
+  --yh-card-border-color: var(--yh-border-color-lighter);
+  /* Calendar 暗黑模式 */
+  --yh-calendar-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --yh-calendar-border-color: rgba(255, 255, 255, 0.08);
+  --yh-calendar-header-bg: rgba(30, 30, 30, 0.95);
+  --yh-calendar-header-border: rgba(255, 255, 255, 0.06);
+  --yh-calendar-day-color: var(--yh-text-color-primary);
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-selected-bg: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+  /* Table 暗黑模式 */
+  --yh-table-border-color: var(--yh-border-color-lighter);
+  --yh-table-header-bg: var(--yh-fill-color-dark);
+  --yh-table-header-text-color: var(--yh-text-color-primary);
+  --yh-table-row-bg: var(--yh-bg-color);
+  --yh-table-row-hover-bg: var(--yh-fill-color);
+  --yh-table-row-stripe-bg: var(--yh-fill-color-light);
+  --yh-table-row-current-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-selected-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-success-bg: var(--yh-color-success-light-9);
+  --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
+  --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3);
+  --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.3);
+  /* 遮罩层暗黑模式 */
+  --yh-mask-color: rgba(0, 0, 0, 0.7);
+  --yh-mask-color-light: rgba(0, 0, 0, 0.5);
+  --yh-mask-color-extra-light: rgba(0, 0, 0, 0.3);
+  /* 滚动条暗黑模式 */
+  --yh-scrollbar-thumb-color: var(--yh-fill-color-darker);
+  --yh-scrollbar-thumb-hover-color: var(--yh-text-color-placeholder);
+}
+
+/* ==================== 减少动画偏好支持 ==================== */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  html.dark {
+    --yh-duration-fast: 0ms;
+    --yh-duration-base: 0ms;
+    --yh-duration-slow: 0ms;
+    --yh-transition-base: none;
+    --yh-transition-fast: none;
+    --yh-transition-slow: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ==================== 高对比度模式支持 ==================== */
+@media (prefers-contrast: high) {
+  :root {
+    --yh-border-color: #000000;
+    --yh-border-color-light: #333333;
+    --yh-text-color-primary: #000000;
+    --yh-text-color-regular: #1a1a1a;
+    --yh-focus-ring-width: 3px;
+    --yh-focus-ring-color: #000000;
+  }
+  html.dark {
+    --yh-border-color: #ffffff;
+    --yh-border-color-light: #cccccc;
+    --yh-text-color-primary: #ffffff;
+    --yh-text-color-regular: #e5e5e5;
+    --yh-focus-ring-color: #ffffff;
+  }
+}
+/* ==================== 强制颜色模式支持 (Windows 高对比度) ==================== */
+@media (forced-colors: active) {
+  :root {
+    --yh-color-primary: LinkText;
+    --yh-border-color: ButtonBorder;
+    --yh-bg-color: Canvas;
+    --yh-text-color-primary: CanvasText;
+    --yh-focus-ring-color: Highlight;
+  }
+}
+.yh-upload {
+  --yh-upload-dragger-bg: var(--yh-bg-color);
+  --yh-upload-dragger-border: var(--yh-border-color-light);
+  --yh-upload-item-bg: var(--yh-fill-color-blank);
+  --yh-upload-progress-bg: var(--yh-color-primary);
+  --yh-upload-error-bg: var(--yh-color-danger-light-9);
+  --yh-upload-error-hover-bg: var(--yh-color-danger-light-7);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.yh-upload--pos-bottom {
+  flex-direction: column-reverse;
+}
+
+.yh-upload--pos-left {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.yh-upload--pos-right {
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.yh-upload--picture-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.yh-upload--picture-card .yh-upload__header {
+  width: auto;
+  margin-bottom: 0;
+}
+.yh-upload--picture-card .yh-upload__trigger {
+  display: flex;
+}
+
+.yh-upload__input {
+  display: none !important;
+}
+
+.yh-upload__header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 4px;
+}
+.yh-upload--picture-card .yh-upload__header {
+  width: auto;
+  margin-bottom: 0;
+}
+.yh-upload__header:has(.yh-upload__dragger) {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.yh-upload__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+}
+
+.yh-upload__tip {
+  margin-top: 0;
+  font-size: 12px;
+  color: var(--yh-text-color-secondary);
+}
+
+.yh-upload__dragger {
+  width: 100% !important;
+  display: block;
+  background-color: var(--yh-upload-dragger-bg);
+  border: 1px dashed var(--yh-upload-dragger-border);
+  border-radius: 12px;
+  padding: 32px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.yh-upload__dragger > * {
+  pointer-events: none;
+}
+.yh-upload__dragger:hover {
+  border-color: var(--yh-color-primary);
+  background-color: var(--yh-color-primary-light-9);
+}
+.yh-upload__dragger.is-dragover {
+  border-color: var(--yh-color-primary);
+  background-color: var(--yh-color-primary-light-8);
+  border-width: 2px;
+}
+.yh-upload__icon {
+  color: var(--yh-text-color-placeholder);
+  margin-bottom: 12px;
+}
+
+.yh-upload__dragger:hover .yh-upload__icon {
+  color: var(--yh-color-primary);
+}
+.yh-upload__text {
+  color: var(--yh-text-color-regular);
+  font-size: 14px;
+}
+.yh-upload__text em {
+  color: var(--yh-color-primary);
+  font-style: normal;
+  margin: 0 4px;
+  font-weight: 600;
+}
+
+.yh-upload__picture-card-plus {
+  background-color: var(--yh-fill-color-light);
+  border: 1px dashed var(--yh-border-color);
+  border-radius: 12px;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--yh-text-color-placeholder);
+}
+.yh-upload__picture-card-plus:hover {
+  border-color: var(--yh-color-primary);
+  color: var(--yh-color-primary);
+}
+
+.yh-upload__list {
+  margin: 0;
+  padding: 0;
+  list-style: none !important;
+  font-size: 14px;
+}
+.yh-upload__list li {
+  list-style-type: none !important;
+  margin: 0;
+  padding: 0;
+}
+.yh-upload__list li::before {
+  display: none !important;
+}
+.yh-upload__list--text {
+  margin-top: 8px;
+}
+
+.yh-upload__list--picture {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.yh-upload__list--picture-card {
+  display: contents;
+}
+
+.yh-upload__item {
+  position: relative;
+  box-sizing: border-box;
+  list-style: none !important;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.yh-upload__item.is-success .yh-upload__name {
+  color: var(--yh-color-success);
+}
+.yh-upload__item.is-fail {
+  background-color: var(--yh-upload-error-bg) !important;
+}
+.yh-upload__item.is-fail .yh-upload__name {
+  color: var(--yh-color-danger);
+}
+.yh-upload__item.is-fail:hover {
+  background-color: var(--yh-upload-error-hover-bg) !important;
+}
+.yh-upload--text .yh-upload__item, .yh-upload--picture .yh-upload__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  gap: 12px;
+}
+.yh-upload--text .yh-upload__item:hover, .yh-upload--picture .yh-upload__item:hover {
+  background-color: var(--yh-fill-color-light);
+}
+.yh-upload--picture .yh-upload__item {
+  border: 1px solid var(--yh-border-color-lighter);
+  background: var(--yh-bg-color);
+  padding: 8px;
+}
+.yh-upload--picture .yh-upload__item:hover {
+  box-shadow: var(--yh-shadow-sm);
+  border-color: var(--yh-color-primary-light-5);
+}
+.yh-upload--picture-card .yh-upload__item {
+  display: inline-flex;
+  width: 120px;
+  height: 120px;
+  margin: 0;
+  border: 1px solid var(--yh-border-color-lighter);
+  border-radius: 8px;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.yh-upload__thumbnail {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yh-upload__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.yh-upload__thumbnail-box {
+  width: 48px;
+  height: 48px;
+  background: var(--yh-fill-color-light);
+  border-radius: var(--yh-radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.yh-upload__thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.yh-upload__thumbnail-icon {
+  color: var(--yh-text-color-placeholder);
+}
+
+.yh-upload__file-icon {
+  color: var(--yh-text-color-secondary);
+  flex-shrink: 0;
+}
+
+.yh-upload__actions {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  color: #fff;
+  z-index: 2;
+}
+.yh-upload__actions span {
+  cursor: pointer;
+}
+.yh-upload__actions span:hover {
+  color: var(--yh-color-primary-light-3);
+}
+.yh-upload__item:hover .yh-upload__actions {
+  opacity: 1;
+}
+
+.yh-upload__info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.yh-upload__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.yh-upload__name {
+  font-size: 14px;
+  color: var(--yh-text-color-regular);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.yh-upload__name:hover {
+  color: var(--yh-color-primary);
+}
+
+.yh-upload__status-icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.yh-upload__actions-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.yh-upload__item:hover .yh-upload__actions-inline {
+  opacity: 1;
+}
+
+.yh-upload__delete-btn {
+  cursor: pointer;
+  color: var(--yh-text-color-secondary);
+  transition: color 0.2s;
+}
+.yh-upload__delete-btn:hover {
+  color: var(--yh-color-primary);
+}
+
+.yh-upload__retry-btn {
+  cursor: pointer;
+  color: var(--yh-text-color-secondary);
+  transition: color 0.2s;
+}
+.yh-upload__retry-btn:hover {
+  color: var(--yh-color-primary);
+}
+
+.yh-upload__delete-btn:hover {
+  color: var(--yh-color-danger) !important;
+}
+
+.yh-upload__bottom-progress {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 2px;
+  background: var(--yh-fill-color-light);
+  z-index: 10;
+}
+
+.yh-upload__bottom-progress-bar {
+  height: 100%;
+  background: var(--yh-color-primary);
+  transition: width 0.3s linear;
+}
+
+.yh-upload.is-disabled {
+  cursor: not-allowed;
+}
+.yh-upload.is-disabled .yh-upload__dragger,
+.yh-upload.is-disabled .yh-upload__picture-card-plus {
+  cursor: not-allowed;
+  border-color: var(--yh-border-color-lighter) !important;
+  background-color: var(--yh-fill-color-lighter) !important;
+}
+
+.yh-list-enter-active,
+.yh-list-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.yh-list-enter-from,
+.yh-list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.yh-list-leave-active {
+  position: absolute;
+}
+</style>

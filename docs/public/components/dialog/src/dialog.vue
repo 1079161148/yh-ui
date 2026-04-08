@@ -1,0 +1,1029 @@
+<script setup>
+import { ref, watch, computed, nextTick } from "vue";
+import { useNamespace, useEventListener, useId, useScrollLock, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { YhIcon } from "../../icon";
+import { YhSpin } from "../../spin";
+import { YhButton } from "../../button";
+import { dialogProps, dialogEmits } from "./dialog";
+let lastClickPos = null;
+if (typeof window !== "undefined") {
+  document.addEventListener(
+    "click",
+    (e) => {
+      lastClickPos = { x: e.clientX, y: e.clientY };
+    },
+    true
+  );
+}
+defineOptions({
+  name: "YhDialog",
+  inheritAttrs: false
+});
+const props = defineProps(dialogProps);
+const emit = defineEmits(dialogEmits);
+const ns = useNamespace("dialog");
+const { t } = useLocale();
+const dialogId = useId();
+const { themeStyle: themeVars } = useComponentTheme(
+  "dialog",
+  computed(() => props.themeOverrides)
+);
+const visible = ref(false);
+const closed = ref(true);
+const dialogRef = ref(null);
+const headerRef = ref(null);
+const rendered = ref(false);
+useScrollLock(computed(() => props.modelValue && props.lockScroll));
+const offset = ref({ x: 0, y: 0 });
+const isDragging = ref(false);
+const handleMouseDown = (e) => {
+  if (!props.draggable || props.fullscreen) return;
+  if (e.button !== 0) return;
+  if (headerRef.value && !headerRef.value.contains(e.target)) return;
+  isDragging.value = true;
+  emit("dragStart", e);
+  const { clientX: startX, clientY: startY } = e;
+  const { x: initialX, y: initialY } = offset.value;
+  const onMouseMove = (moveEvent) => {
+    if (!isDragging.value || !dialogRef.value) return;
+    let nextX = initialX + (moveEvent.clientX - startX);
+    let nextY = initialY + (moveEvent.clientY - startY);
+    if (!props.overflow) {
+      const rect = dialogRef.value.getBoundingClientRect();
+      const { clientWidth, clientHeight } = document.documentElement;
+      const minX = -rect.left + offset.value.x;
+      const maxX = clientWidth - rect.right + offset.value.x;
+      const minY = -rect.top + offset.value.y;
+      const maxY = clientHeight - rect.bottom + offset.value.y;
+      nextX = Math.min(Math.max(nextX, minX), maxX);
+      nextY = Math.min(Math.max(nextY, minY), maxY);
+    }
+    offset.value = {
+      x: nextX,
+      y: nextY
+    };
+    emit("dragMove", moveEvent);
+  };
+  const onMouseUp = (upEvent) => {
+    isDragging.value = false;
+    emit("dragEnd", upEvent);
+    document.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("mouseup", onMouseUp);
+  };
+  document.addEventListener("mousemove", onMouseMove);
+  document.addEventListener("mouseup", onMouseUp);
+};
+let prevFocusedElement = null;
+const trapFocus = (e) => {
+  if (e.key !== "Tab" || !dialogRef.value) return;
+  const focusableEls = dialogRef.value.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  const firstFocusableEl = focusableEls[0];
+  const lastFocusableEl = focusableEls[focusableEls.length - 1];
+  if (e.shiftKey) {
+    if (document.activeElement === firstFocusableEl) {
+      lastFocusableEl.focus();
+      e.preventDefault();
+    }
+  } else {
+    if (document.activeElement === lastFocusableEl) {
+      firstFocusableEl.focus();
+      e.preventDefault();
+    }
+  }
+};
+const style = computed(() => {
+  const styles = {
+    zIndex: props.zIndex
+  };
+  if (!props.fullscreen) {
+    styles.width = typeof props.width === "number" ? `${props.width}px` : props.width;
+    if (!props.alignCenter) {
+      styles.marginTop = props.top;
+    }
+    if (props.transformOrigin === "mouse" && lastClickPos && dialogRef.value) {
+      const rect = dialogRef.value.getBoundingClientRect();
+      const originX = lastClickPos.x - rect.left;
+      const originY = lastClickPos.y - rect.top;
+      styles.transformOrigin = `${originX}px ${originY}px`;
+    } else if (props.transformOrigin === "center") {
+      styles.transformOrigin = "center";
+    }
+    if (offset.value.x !== 0 || offset.value.y !== 0) {
+      styles.transform = `translate(${offset.value.x}px, ${offset.value.y}px)`;
+    }
+  }
+  return {
+    ...themeVars.value,
+    ...styles,
+    ...typeof props.style === "string" ? parseStyle(props.style) : props.style
+  };
+});
+const parseStyle = (str) => {
+  const obj = {};
+  str.split(";").forEach((item) => {
+    if (!item) return;
+    const [key, val] = item.split(":");
+    obj[key.trim()] = val.trim();
+  });
+  return obj;
+};
+const typeIconMap = {
+  success: "success",
+  warning: "warning",
+  error: "error",
+  info: "info"
+};
+const typeIcon = computed(() => typeIconMap[props.type] || "");
+const dialogClasses = computed(() => [
+  ns.b(),
+  props.customClass,
+  {
+    [ns.m(props.type)]: props.type && props.type !== "default",
+    [ns.m("fullscreen")]: props.fullscreen,
+    [ns.m("align-center")]: props.alignCenter,
+    [ns.m("center")]: props.center,
+    [ns.m("glass")]: props.glass,
+    [ns.is("draggable")]: props.draggable
+  }
+]);
+const headerClasses = computed(() => [
+  ns.e("header"),
+  {
+    [ns.em("header", "center")]: props.headerAlignCenter || props.center
+  }
+]);
+const headerStyle = computed(() => {
+  const align = props.center || props.headerAlignCenter ? "center" : props.headerAlign;
+  if (align === "center") return { justifyContent: "center" };
+  if (align === "right") return { justifyContent: "flex-end", paddingRight: "72px" };
+  return { justifyContent: "flex-start" };
+});
+const contentBodyStyle = computed(() => {
+  const styles = {};
+  const align = props.center ? "center" : props.contentAlign;
+  if (align === "center") styles.textAlign = "center";
+  else if (align === "right") styles.textAlign = "right";
+  else styles.textAlign = "left";
+  return styles;
+});
+const footerClasses = computed(() => [
+  ns.e("footer"),
+  {
+    [ns.em("footer", "center")]: props.footerAlignCenter || props.center
+  }
+]);
+const footerStyle = computed(() => {
+  const styles = {};
+  const align = props.center || props.footerAlignCenter ? "center" : props.footerAlign;
+  if (props.swapFooterButtons) {
+    styles.flexDirection = "row-reverse";
+    if (align === "right") styles.justifyContent = "flex-start";
+    else if (align === "left") styles.justifyContent = "flex-end";
+    else styles.justifyContent = "center";
+  } else {
+    if (align === "right") styles.justifyContent = "flex-end";
+    else if (align === "left") styles.justifyContent = "flex-start";
+    else styles.justifyContent = "center";
+  }
+  return styles;
+});
+const doClose = () => {
+  emit("update:modelValue", false);
+};
+const handleClose = () => {
+  emit("close");
+  if (props.beforeClose) {
+    props.beforeClose(doClose);
+  } else {
+    doClose();
+  }
+};
+const handleCancel = () => {
+  emit("cancel");
+  handleClose();
+};
+const handleConfirm = () => {
+  emit("confirm");
+  handleClose();
+};
+let mouseDownTargetAtWrapper = false;
+const handleWrapperMouseDown = (e) => {
+  mouseDownTargetAtWrapper = e.target === e.currentTarget;
+};
+const handleWrapperClick = (e) => {
+  if (props.closeOnClickModal && mouseDownTargetAtWrapper && e.target === e.currentTarget) {
+    handleClose();
+  }
+};
+watch(
+  () => props.modelValue,
+  async (val) => {
+    if (val) {
+      rendered.value = true;
+      closed.value = false;
+      visible.value = true;
+      emit("open");
+      offset.value = { x: 0, y: 0 };
+      if (typeof window === "undefined") return;
+      prevFocusedElement = document.activeElement;
+      await nextTick();
+      if (props.autoFocus && dialogRef.value) {
+        const focusableEls = dialogRef.value.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableEls.length > 0) {
+          ;
+          focusableEls[0].focus();
+        } else {
+          dialogRef.value.focus();
+        }
+      } else {
+        dialogRef.value?.focus();
+      }
+      emit("opened");
+    } else {
+      visible.value = false;
+      if (typeof window !== "undefined" && prevFocusedElement) {
+        prevFocusedElement.focus();
+      }
+    }
+  },
+  { immediate: true }
+);
+const afterLeave = () => {
+  closed.value = true;
+  emit("closed");
+};
+useEventListener(
+  () => window,
+  "keydown",
+  (e) => {
+    const ke = e;
+    if (!props.modelValue) return;
+    if (props.closeOnPressEscape && ke.key === "Escape") {
+      handleClose();
+    }
+    trapFocus(ke);
+  }
+);
+defineExpose({
+  visible,
+  dialogRef,
+  handleClose,
+  handleCancel,
+  handleConfirm
+});
+</script>
+
+<template>
+  <Teleport :to="teleportTo">
+    <Transition :name="ns.b('fade')" @after-leave="afterLeave">
+      <div
+        v-if="rendered"
+        v-show="modelValue"
+        :class="ns.e('wrapper')"
+        :style="{
+  zIndex
+}"
+        @mousedown="handleWrapperMouseDown"
+        @click.self="handleWrapperClick"
+      >
+        <div
+          ref="dialogRef"
+          :role="'dialog'"
+          :aria-modal="true"
+          :aria-labelledby="dialogId"
+          :class="dialogClasses"
+          :style="style"
+          tabindex="-1"
+        >
+          <!-- 头部 -->
+          <div
+            ref="headerRef"
+            :class="headerClasses"
+            :style="headerStyle"
+            @mousedown="handleMouseDown"
+          >
+            <slot name="header">
+              <div :id="dialogId" :class="[ns.e('title'), titleClass]" :style="titleStyle">
+                <YhIcon
+                  v-if="showIcon && typeIcon"
+                  :name="typeIcon"
+                  :class="[ns.e('type-icon'), ns.em('type-icon', type)]"
+                />
+                <template v-if="typeof title === 'string'">{{ title }}</template>
+                <component v-else-if="title" :is="title" />
+              </div>
+            </slot>
+            <button v-if="showClose" :class="ns.e('headerbtn')" type="button" @click="handleClose">
+              <YhIcon :name="closeIcon" />
+            </button>
+          </div>
+
+          <!-- 主体 -->
+          <div :class="[ns.e('body'), contentClass]" :style="[contentStyle, contentBodyStyle]">
+            <div v-if="loading" :class="ns.e('loading')">
+              <YhSpin :show="true" size="small" />
+            </div>
+            <slot v-if="!destroyOnClose || !closed">
+              <template v-if="content">
+                <template v-if="typeof content === 'string'">{{ content }}</template>
+                <component v-else :is="content" />
+              </template>
+            </slot>
+          </div>
+
+          <!-- 底部 -->
+          <div
+            v-if="$slots.footer || action || showFooter"
+            :class="[footerClasses, actionClass]"
+            :style="[actionStyle, footerStyle]"
+          >
+            <slot name="footer">
+              <template v-if="action">
+                <component :is="action" />
+              </template>
+              <template v-else-if="showFooter">
+                <YhButton @click="handleCancel">{{ cancelText || t("dialog.cancel") }}</YhButton>
+                <YhButton type="primary" @click="handleConfirm">
+                  {{ confirmText || t("dialog.confirm") }}
+                </YhButton>
+              </template>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+
+<style>
+@charset "UTF-8";
+/**
+ * YH-UI CSS Variables
+ * 全局 CSS 变量定义 - 业内最佳主题系统
+ */
+:root {
+  /* ==================== 密度/紧凑度系统 ==================== */
+  --yh-density-factor: 1;
+  --yh-component-size-default: 32px;
+  --yh-component-size-small: 24px;
+  --yh-component-size-large: 40px;
+  --yh-padding-default: 12px 16px;
+  --yh-padding-small: 8px 12px;
+  --yh-padding-large: 16px 20px;
+  --yh-spacing-unit: 8px;
+  /* ==================== 基础颜色 ==================== */
+  --yh-color-white: #ffffff;
+  --yh-color-black: #000000;
+  /* ==================== 颜色系统 ==================== */
+  /* 主色 */
+  --yh-color-primary: #409eff;
+  --yh-color-primary-light-1: #53a8ff;
+  --yh-color-primary-light-2: #66b1ff;
+  --yh-color-primary-light-3: #79bbff;
+  --yh-color-primary-light-4: #8cc5ff;
+  --yh-color-primary-light-5: #a0cfff;
+  --yh-color-primary-light-6: #b3d8ff;
+  --yh-color-primary-light-7: #c6e2ff;
+  --yh-color-primary-light-8: #d9ecff;
+  --yh-color-primary-light-9: #ecf5ff;
+  --yh-color-primary-dark-2: #337ecc;
+  /* 成功色 */
+  --yh-color-success: #67c23a;
+  --yh-color-success-light-3: #95d475;
+  --yh-color-success-light-5: #b3e19d;
+  --yh-color-success-light-7: #d1edc4;
+  --yh-color-success-light-9: #f0f9eb;
+  --yh-color-success-dark-2: #529b2e;
+  /* 警告色 */
+  --yh-color-warning: #e6a23c;
+  --yh-color-warning-light-3: #eebe77;
+  --yh-color-warning-light-5: #f3d19e;
+  --yh-color-warning-light-7: #f8e3c5;
+  --yh-color-warning-light-9: #fdf6ec;
+  --yh-color-warning-dark-2: #b88230;
+  /* 危险色 */
+  --yh-color-danger: #f56c6c;
+  --yh-color-danger-light-3: #f89898;
+  --yh-color-danger-light-5: #fab6b6;
+  --yh-color-danger-light-7: #fcd3d3;
+  --yh-color-danger-light-9: #fef0f0;
+  --yh-color-danger-dark-2: #c45656;
+  /* 信息色 */
+  --yh-color-info: #909399;
+  --yh-color-info-light-3: #b1b3b8;
+  --yh-color-info-light-5: #c8c9cc;
+  --yh-color-info-light-7: #dedfe0;
+  --yh-color-info-light-9: #f4f4f5;
+  --yh-color-info-dark-2: #73767a;
+  /* 文字颜色 */
+  --yh-text-color-primary: #303133;
+  --yh-text-color-regular: #606266;
+  --yh-text-color-secondary: #909399;
+  --yh-text-color-placeholder: #a8abb2;
+  --yh-text-color-disabled: #c0c4cc;
+  /* 边框颜色 */
+  --yh-border-color: #dcdfe6;
+  --yh-border-color-hover: var(--yh-color-primary);
+  --yh-border-color-light: #e4e7ed;
+  --yh-border-color-lighter: #ebeef5;
+  --yh-border-color-extra-light: #f2f6fc;
+  --yh-border-color-dark: #d4d7de;
+  --yh-border-color-darker: #cdd0d6;
+  /* 填充颜色 */
+  --yh-fill-color: #f0f2f5;
+  --yh-fill-color-light: #f5f7fa;
+  --yh-fill-color-lighter: #fafafa;
+  --yh-fill-color-extra-light: #fafcff;
+  --yh-fill-color-dark: #ebedf0;
+  --yh-fill-color-darker: #e6e8eb;
+  --yh-fill-color-blank: #ffffff;
+  /* 背景颜色 */
+  --yh-bg-color: #ffffff;
+  --yh-bg-color-page: #f2f3f5;
+  --yh-bg-color-overlay: #ffffff;
+  /* ==================== 间距系统 ==================== */
+  --yh-spacing-none: 0;
+  --yh-spacing-xs: 4px;
+  --yh-spacing-sm: 8px;
+  --yh-spacing-md: 16px;
+  --yh-spacing-lg: 24px;
+  --yh-spacing-xl: 32px;
+  --yh-spacing-xxl: 48px;
+  /* ==================== 圆角系统 ==================== */
+  --yh-radius-none: 0;
+  --yh-radius-sm: 2px;
+  --yh-radius-base: 4px;
+  --yh-radius-md: 8px;
+  --yh-radius-lg: 12px;
+  --yh-radius-xl: 16px;
+  --yh-radius-round: 20px;
+  --yh-radius-circle: 50%;
+  /* ==================== 字体系统 ==================== */
+  --yh-font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  /* 字号 */
+  --yh-font-size-xs: 12px;
+  --yh-font-size-sm: 13px;
+  --yh-font-size-base: 14px;
+  --yh-font-size-md: 16px;
+  --yh-font-size-lg: 18px;
+  --yh-font-size-xl: 20px;
+  --yh-font-size-xxl: 24px;
+  /* 行高 */
+  --yh-line-height-none: 1;
+  --yh-line-height-tight: 1.25;
+  --yh-line-height-snug: 1.375;
+  --yh-line-height-normal: 1.5;
+  --yh-line-height-relaxed: 1.625;
+  --yh-line-height-loose: 2;
+  /* 字重 */
+  --yh-font-weight-light: 300;
+  --yh-font-weight-normal: 400;
+  --yh-font-weight-medium: 500;
+  --yh-font-weight-semibold: 600;
+  --yh-font-weight-bold: 700;
+  /* ==================== 阴影系统 ==================== */
+  --yh-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --yh-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --yh-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --yh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --yh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  /* ==================== 过渡动效 ==================== */
+  --yh-duration-fast: 150ms;
+  --yh-duration-base: 200ms;
+  --yh-duration-slow: 300ms;
+  --yh-timing-ease: ease;
+  --yh-timing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --yh-timing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --yh-timing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --yh-timing-linear: linear;
+  --yh-transition-base: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+  --yh-transition-fast: all var(--yh-duration-fast) var(--yh-timing-ease-in-out);
+  --yh-transition-slow: all var(--yh-duration-slow) var(--yh-timing-ease-in-out);
+  /* ==================== 层级系统 ==================== */
+  --yh-z-index-normal: 1;
+  --yh-z-index-top: 1000;
+  --yh-z-index-popper: 2000;
+  --yh-z-index-overlay: 2001;
+  --yh-z-index-modal: 2002;
+  --yh-z-index-popover: 2003;
+  --yh-z-index-tooltip: 2004;
+  --yh-z-index-loading: 2005;
+  /* ==================== 组件尺寸 ==================== */
+  /* Large */
+  --yh-component-size-large: 40px;
+  --yh-component-size-large-font: 14px;
+  --yh-component-size-large-padding: 20px;
+  /* Default */
+  --yh-component-size-default: 32px;
+  --yh-component-size-default-font: 14px;
+  --yh-component-size-default-padding: 16px;
+  /* Small */
+  --yh-component-size-small: 24px;
+  --yh-component-size-small-font: 12px;
+  --yh-component-size-small-padding: 12px;
+  /* ==================== 组件语义化变量 ==================== */
+  --yh-border-radius-base: var(--yh-radius-base);
+  --yh-border-radius-small: var(--yh-radius-sm);
+  --yh-border-radius-round: var(--yh-radius-round);
+  /* Message 消息提示 */
+  --yh-message-bg-color: var(--yh-bg-color-overlay);
+  --yh-message-border-color: var(--yh-border-color-lighter);
+  --yh-message-shadow: var(--yh-shadow-lg);
+  --yh-message-text-color: var(--yh-text-color-primary);
+  --yh-message-close-color: var(--yh-text-color-secondary);
+  --yh-message-close-hover-color: var(--yh-text-color-primary);
+  /* Notification 通知 */
+  --yh-notification-bg-color: var(--yh-bg-color-overlay);
+  --yh-notification-border-color: var(--yh-border-color-lighter);
+  --yh-notification-shadow: var(--yh-shadow-lg);
+  --yh-notification-title-color: var(--yh-text-color-primary);
+  --yh-notification-content-color: var(--yh-text-color-regular);
+  /* Badge 徽标 */
+  --yh-badge-bg-color: var(--yh-color-danger);
+  --yh-badge-text-color: #ffffff;
+  --yh-badge-border-color: var(--yh-bg-color);
+  /* Card 卡片 */
+  --yh-card-bg-color: var(--yh-bg-color-overlay);
+  --yh-card-border-color: var(--yh-border-color-lighter);
+  --yh-card-shadow: var(--yh-shadow-base);
+  --yh-card-header-padding: 18px 20px;
+  --yh-card-body-padding: 20px;
+  /* Input 输入框 */
+  --yh-input-bg-color: var(--yh-fill-color-blank);
+  --yh-input-text-color: var(--yh-text-color-regular);
+  --yh-input-border-color: var(--yh-border-color);
+  --yh-input-hover-border-color: var(--yh-color-primary);
+  --yh-input-focus-border-color: var(--yh-color-primary);
+  --yh-input-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-icon-color: var(--yh-text-color-placeholder);
+  --yh-input-disabled-bg-color: var(--yh-fill-color-light);
+  --yh-input-disabled-text-color: var(--yh-text-color-disabled);
+  --yh-input-disabled-border-color: var(--yh-border-color-light);
+  /* Image 图片 */
+  --yh-image-placeholder-bg-color: var(--yh-fill-color-light);
+  --yh-image-placeholder-text-color: var(--yh-text-color-placeholder);
+  --yh-image-error-bg-color: var(--yh-fill-color-extra-light);
+  --yh-image-error-text-color: var(--yh-text-color-placeholder);
+  /* Image Viewer 预览器 */
+  --yh-image-viewer-mask-bg-color: rgba(0, 0, 0, 0.5);
+  --yh-image-viewer-btn-bg-color: var(--yh-text-color-regular);
+  --yh-image-viewer-btn-color: #ffffff;
+  --yh-image-viewer-btn-hover-bg-color: var(--yh-color-primary);
+  /* Calendar 日历 */
+  --yh-calendar-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --yh-calendar-border-color: rgba(0, 0, 0, 0.06);
+  --yh-calendar-border-radius: var(--yh-radius-xl);
+  --yh-calendar-header-bg: rgba(255, 255, 255, 0.95);
+  --yh-calendar-header-border: rgba(0, 0, 0, 0.04);
+  --yh-calendar-header-padding: 18px 22px;
+  --yh-calendar-body-padding: 14px 18px 18px;
+  /* Calendar 尺寸 */
+  --yh-calendar-cell-height: 85px;
+  --yh-calendar-cell-height-small: 52px;
+  --yh-calendar-cell-height-large: 110px;
+  --yh-calendar-cell-radius: 10px;
+  --yh-calendar-cell-radius-small: 6px;
+  --yh-calendar-cell-radius-large: 12px;
+  /* Calendar 颜色 */
+  --yh-calendar-primary: var(--yh-color-primary);
+  --yh-calendar-primary-light: rgba(59, 130, 246, 0.1);
+  --yh-calendar-selected-bg: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  --yh-calendar-selected-border: rgba(59, 130, 246, 0.4);
+  --yh-calendar-today-dot: var(--yh-color-primary);
+  --yh-calendar-weekend-color: #f97316;
+  --yh-calendar-disabled-color: var(--yh-text-color-disabled);
+  --yh-calendar-other-month-opacity: 0.35;
+  /* Calendar 假日 */
+  --yh-calendar-holiday-color: var(--yh-color-success);
+  --yh-calendar-holiday-bg: rgba(16, 185, 129, 0.12);
+  --yh-calendar-holiday-border: rgba(16, 185, 129, 0.25);
+  --yh-calendar-workday-color: var(--yh-color-warning);
+  --yh-calendar-workday-bg: rgba(245, 158, 11, 0.12);
+  --yh-calendar-workday-border: rgba(245, 158, 11, 0.25);
+  /* Calendar 范围选择 */
+  --yh-calendar-range-bg: rgba(59, 130, 246, 0.08);
+  --yh-calendar-range-border: rgba(59, 130, 246, 0.2);
+  /* Calendar 字体 */
+  --yh-calendar-weekday-font-size: var(--yh-font-size-sm);
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-day-font-size: 15px;
+  --yh-calendar-day-color: var(--yh-text-color-primary);
+  --yh-calendar-badge-font-size: 9px;
+  /* Table 表格 */
+  --yh-table-border-color: var(--yh-border-color-lighter);
+  --yh-table-header-bg: var(--yh-fill-color-light);
+  --yh-table-header-text-color: var(--yh-text-color-primary);
+  --yh-table-header-font-weight: var(--yh-font-weight-semibold);
+  --yh-table-row-bg: var(--yh-bg-color);
+  --yh-table-row-hover-bg: var(--yh-fill-color-light);
+  --yh-table-row-stripe-bg: var(--yh-fill-color-lighter);
+  --yh-table-row-current-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-selected-bg: var(--yh-color-primary-light-8);
+  --yh-table-row-success-bg: var(--yh-color-success-light-9);
+  --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
+  --yh-table-text-color: var(--yh-text-color-regular);
+  --yh-table-empty-text-color: var(--yh-text-color-secondary);
+  --yh-table-font-size: var(--yh-font-size-base);
+  --yh-table-cell-padding: 12px 0;
+  --yh-table-cell-spacing: 12px;
+  --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+  --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
+  /* ==================== 边框基础 ==================== */
+  --yh-border-width: 1px;
+  --yh-border-style: solid;
+  --yh-border: var(--yh-border-width) var(--yh-border-style) var(--yh-border-color);
+  /* ==================== 断点系统 ==================== */
+  --yh-breakpoint-xs: 0;
+  --yh-breakpoint-sm: 576px;
+  --yh-breakpoint-md: 768px;
+  --yh-breakpoint-lg: 992px;
+  --yh-breakpoint-xl: 1200px;
+  --yh-breakpoint-xxl: 1400px;
+  /* ==================== 字体系统扩展 ==================== */
+  --yh-font-family-monospace:
+    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --yh-font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+  /* ==================== 无障碍/聚焦系统 ==================== */
+  --yh-focus-ring-color: var(--yh-color-primary);
+  --yh-focus-ring-width: 2px;
+  --yh-focus-ring-offset: 2px;
+  --yh-focus-ring-opacity: 0.2;
+  --yh-focus-ring:
+    0 0 0 var(--yh-focus-ring-offset) var(--yh-bg-color),
+    0 0 0 calc(var(--yh-focus-ring-offset) + var(--yh-focus-ring-width)) var(--yh-focus-ring-color);
+  /* 高对比度模式支持 */
+  --yh-high-contrast-outline: 2px solid transparent;
+  --yh-high-contrast-outline-offset: 2px;
+  /* ==================== 滚动条样式 ==================== */
+  --yh-scrollbar-width: 6px;
+  --yh-scrollbar-thumb-color: var(--yh-text-color-disabled);
+  --yh-scrollbar-thumb-hover-color: var(--yh-text-color-secondary);
+  --yh-scrollbar-track-color: transparent;
+  --yh-scrollbar-thumb-radius: 3px;
+  /* ==================== 遮罩层 ==================== */
+  --yh-mask-color: rgba(0, 0, 0, 0.5);
+  --yh-mask-color-light: rgba(0, 0, 0, 0.3);
+  --yh-mask-color-extra-light: rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== 暗黑模式 ==================== */
+html.dark {
+  --yh-color-primary: #409eff;
+  --yh-color-primary-light-3: #3375b9;
+  --yh-color-primary-light-5: #2a598a;
+  --yh-color-primary-light-7: #213d5b;
+  --yh-color-primary-light-9: #18222c;
+  --yh-color-primary-dark-2: #66b1ff;
+  --yh-color-success: #67c23a;
+  --yh-color-success-light-3: #4e8e2f;
+  --yh-color-success-light-5: #3e6b27;
+  --yh-color-success-light-7: #2d481f;
+  --yh-color-success-light-9: #1d2518;
+  --yh-color-warning: #e6a23c;
+  --yh-color-warning-light-3: #a77730;
+  --yh-color-warning-light-5: #7d5b28;
+  --yh-color-warning-light-7: #533f20;
+  --yh-color-warning-light-9: #292218;
+  --yh-color-danger: #f56c6c;
+  --yh-color-danger-light-3: #b25252;
+  --yh-color-danger-light-5: #854040;
+  --yh-color-danger-light-7: #582e2e;
+  --yh-color-danger-light-9: #2b1d1d;
+  --yh-color-info: #909399;
+  --yh-color-info-light-3: #6b6d71;
+  --yh-color-info-light-5: #525457;
+  --yh-color-info-light-7: #393b3e;
+  --yh-color-info-light-9: #202124;
+  --yh-text-color-primary: #e5eaf3;
+  --yh-text-color-regular: #cfd3dc;
+  --yh-text-color-secondary: #a3a6ad;
+  --yh-text-color-placeholder: #8d9095;
+  --yh-text-color-disabled: #6c6e72;
+  --yh-border-color: #4c4d4f;
+  --yh-border-color-light: #414243;
+  --yh-border-color-lighter: #363637;
+  --yh-border-color-extra-light: #2b2b2c;
+  --yh-border-color-dark: #58585b;
+  --yh-border-color-darker: #636466;
+  --yh-fill-color: #303030;
+  --yh-fill-color-light: #262727;
+  --yh-fill-color-lighter: #1d1d1d;
+  --yh-fill-color-extra-light: #191919;
+  --yh-fill-color-dark: #39393a;
+  --yh-fill-color-darker: #424243;
+  --yh-fill-color-blank: transparent;
+  --yh-bg-color: #141414;
+  --yh-bg-color-page: #0a0a0a;
+  --yh-bg-color-overlay: #1d1e1f;
+  /* 组件暗色模式覆盖 */
+  --yh-message-bg-color: var(--yh-bg-color-overlay);
+  --yh-message-border-color: var(--yh-border-color-lighter);
+  --yh-notification-bg-color: var(--yh-bg-color-overlay);
+  --yh-notification-border-color: var(--yh-border-color-lighter);
+  --yh-badge-border-color: var(--yh-bg-color);
+  --yh-card-bg-color: var(--yh-bg-color-overlay);
+  --yh-card-border-color: var(--yh-border-color-lighter);
+  /* Calendar 暗黑模式 */
+  --yh-calendar-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --yh-calendar-border-color: rgba(255, 255, 255, 0.08);
+  --yh-calendar-header-bg: rgba(30, 30, 30, 0.95);
+  --yh-calendar-header-border: rgba(255, 255, 255, 0.06);
+  --yh-calendar-day-color: var(--yh-text-color-primary);
+  --yh-calendar-weekday-color: var(--yh-text-color-secondary);
+  --yh-calendar-selected-bg: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+  /* Table 暗黑模式 */
+  --yh-table-border-color: var(--yh-border-color-lighter);
+  --yh-table-header-bg: var(--yh-fill-color-dark);
+  --yh-table-header-text-color: var(--yh-text-color-primary);
+  --yh-table-row-bg: var(--yh-bg-color);
+  --yh-table-row-hover-bg: var(--yh-fill-color);
+  --yh-table-row-stripe-bg: var(--yh-fill-color-light);
+  --yh-table-row-current-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-selected-bg: var(--yh-color-primary-light-9);
+  --yh-table-row-success-bg: var(--yh-color-success-light-9);
+  --yh-table-row-warning-bg: var(--yh-color-warning-light-9);
+  --yh-table-fixed-left-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3);
+  --yh-table-fixed-right-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.3);
+  /* 遮罩层暗黑模式 */
+  --yh-mask-color: rgba(0, 0, 0, 0.7);
+  --yh-mask-color-light: rgba(0, 0, 0, 0.5);
+  --yh-mask-color-extra-light: rgba(0, 0, 0, 0.3);
+  /* 滚动条暗黑模式 */
+  --yh-scrollbar-thumb-color: var(--yh-fill-color-darker);
+  --yh-scrollbar-thumb-hover-color: var(--yh-text-color-placeholder);
+}
+
+/* ==================== 减少动画偏好支持 ==================== */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  html.dark {
+    --yh-duration-fast: 0ms;
+    --yh-duration-base: 0ms;
+    --yh-duration-slow: 0ms;
+    --yh-transition-base: none;
+    --yh-transition-fast: none;
+    --yh-transition-slow: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ==================== 高对比度模式支持 ==================== */
+@media (prefers-contrast: high) {
+  :root {
+    --yh-border-color: #000000;
+    --yh-border-color-light: #333333;
+    --yh-text-color-primary: #000000;
+    --yh-text-color-regular: #1a1a1a;
+    --yh-focus-ring-width: 3px;
+    --yh-focus-ring-color: #000000;
+  }
+  html.dark {
+    --yh-border-color: #ffffff;
+    --yh-border-color-light: #cccccc;
+    --yh-text-color-primary: #ffffff;
+    --yh-text-color-regular: #e5e5e5;
+    --yh-focus-ring-color: #ffffff;
+  }
+}
+/* ==================== 强制颜色模式支持 (Windows 高对比度) ==================== */
+@media (forced-colors: active) {
+  :root {
+    --yh-color-primary: LinkText;
+    --yh-border-color: ButtonBorder;
+    --yh-bg-color: Canvas;
+    --yh-text-color-primary: CanvasText;
+    --yh-focus-ring-color: Highlight;
+  }
+}
+.yh-dialog {
+  position: relative;
+  margin: var(--yh-dialog-margin-top, 15vh) auto 50px;
+  background: var(--yh-bg-color-overlay, #ffffff);
+  border-radius: var(--yh-radius-lg, 16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+.yh-dialog--fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+.yh-dialog--align-center {
+  margin: auto !important;
+}
+
+.yh-dialog--center {
+  text-align: center;
+}
+.yh-dialog--center .yh-dialog__header {
+  border-bottom: none;
+}
+
+.yh-dialog--center .yh-dialog__footer {
+  border-top: none;
+}
+
+.yh-dialog--glass {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  .yh-dialog--glass {
+    background: rgba(25, 25, 30, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.yh-dialog.is-draggable .yh-dialog__header {
+  cursor: move;
+  user-select: none;
+}
+
+.yh-dialog__wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.yh-dialog__header {
+  padding: 24px 24px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.yh-dialog__header.yh-dialog__header--center {
+  justify-content: center;
+}
+.yh-dialog__header.yh-dialog__header--center .yh-dialog__title {
+  width: 100%;
+  text-align: center;
+}
+
+.yh-dialog__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--yh-text-color-primary, #1a1a1a);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.yh-dialog__type-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.yh-dialog__type-icon--success {
+  color: var(--yh-color-success, #67c23a);
+}
+
+.yh-dialog__type-icon--warning {
+  color: var(--yh-color-warning, #e6a23c);
+}
+
+.yh-dialog__type-icon--error {
+  color: var(--yh-color-danger, #f56c6c);
+}
+
+.yh-dialog__type-icon--info {
+  color: var(--yh-color-info, #909399);
+}
+
+.yh-dialog__headerbtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--yh-text-color-secondary, #909399);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+.yh-dialog__headerbtn:hover {
+  background-color: var(--yh-border-color-light, rgba(0, 0, 0, 0.05));
+  color: var(--yh-color-danger, #f56c6c);
+}
+
+.yh-dialog__body {
+  padding: 8px 24px 32px;
+  color: var(--yh-text-color-regular, #4a4a4a);
+  font-size: 15px;
+  line-height: 1.6;
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+.yh-dialog__body::-webkit-scrollbar {
+  width: 6px;
+}
+.yh-dialog__body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.yh-dialog__loading {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+}
+@media (prefers-color-scheme: dark) {
+  .yh-dialog__loading {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.yh-dialog__footer {
+  padding: 16px 24px 24px;
+  text-align: right;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.yh-dialog__footer.yh-dialog__footer--center {
+  justify-content: center;
+}
+
+.yh-dialog-fade-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+.yh-dialog-fade-enter-active .yh-dialog {
+  animation: yh-dialog-zoom-in 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.yh-dialog-fade-leave-active {
+  transition: opacity 0.2s ease-in;
+}
+.yh-dialog-fade-leave-active .yh-dialog {
+  animation: yh-dialog-zoom-out 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.yh-dialog-fade-enter-from, .yh-dialog-fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes yh-dialog-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes yh-dialog-zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+}
+</style>
