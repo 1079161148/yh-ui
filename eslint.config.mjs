@@ -11,8 +11,11 @@ export default [
       '**/node_modules/**',
       '**/coverage/**',
       '**/.github/**',
+      '**/.codex-temp/**',
       '**/docs/.vitepress/dist/**',
       '**/docs/.vitepress/cache/**',
+      '**/docs/.vitepress/.temp/**',
+      '**/docs/public/**',
       '**/packages/*/dist/**',
       // Nuxt 自动生成文件
       '**/playground-nuxt/.nuxt/**',
