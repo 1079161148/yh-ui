@@ -35,7 +35,7 @@ const highlightedCode = ref('')
 const onlineEditMessage = ref('')
 let onlineEditMessageTimer: number | undefined
 
-const { lang } = useData()
+const { lang, page } = useData()
 const isEn = computed(() => lang.value === 'en-US')
 
 // 当前显示的代码
@@ -51,7 +51,11 @@ const hasBothTypes = computed(() => {
   return !!props.tsCode && !!props.jsCode
 })
 
-const sandboxSupport = computed(() => getSandboxSupport(currentCode.value))
+const sandboxContext = computed(() => ({
+  docPath: page.value.relativePath
+}))
+
+const sandboxSupport = computed(() => getSandboxSupport(currentCode.value, sandboxContext.value))
 const canOpenOnline = computed(() => sandboxSupport.value.supported)
 
 const stackBlitzTitle = computed(() => {
@@ -437,7 +441,7 @@ const setOnlineEditMessage = (message: string) => {
 
 // 在 CodeSandbox 中打开
 const openInCodeSandbox = () => {
-  const result = openDemoInCodeSandbox(props.title, currentCode.value)
+  const result = openDemoInCodeSandbox(props.title, currentCode.value, sandboxContext.value)
   if (!result.supported) {
     setOnlineEditMessage(result.reason || 'This demo cannot be opened online.')
   }
@@ -445,7 +449,7 @@ const openInCodeSandbox = () => {
 
 // 在 StackBlitz 中打开
 const openInStackBlitz = () => {
-  const result = openDemoInStackBlitz(props.title, currentCode.value)
+  const result = openDemoInStackBlitz(props.title, currentCode.value, sandboxContext.value)
   if (!result.supported) {
     setOnlineEditMessage(result.reason || 'This demo cannot be opened online.')
   }

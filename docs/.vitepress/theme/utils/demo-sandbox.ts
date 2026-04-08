@@ -31,6 +31,7 @@ const KNOWN_DEPENDENCIES: Record<string, string> = {
   '@yh-ui/request': YH_UI_VERSION,
   '@yh-ui/theme': YH_UI_VERSION,
   '@yh-ui/utils': YH_UI_VERSION,
+  axios: '^1.8.4',
   'async-validator': '^4.2.5',
   dayjs: '^1.11.19',
   echarts: '^6.0.0',
@@ -91,6 +92,10 @@ export interface SandboxSupport {
   reason?: string
 }
 
+export interface SandboxContext {
+  docPath?: string
+}
+
 function normalizeSfc(code: string): string {
   const trimmed = code.trim()
 
@@ -130,8 +135,177 @@ function isUnsupportedImport(source: string): boolean {
   return UNSUPPORTED_IMPORT_PREFIXES.some((prefix) => source.startsWith(prefix))
 }
 
-export function getSandboxSupport(code: string): SandboxSupport {
-  const imports = extractBareImports(code)
+function ensureVueImports(code: string, importsToAdd: string[]): string {
+  const vueImportRe = /import\s+\{([^}]*)\}\s+from\s+['"]vue['"]/
+  const match = code.match(vueImportRe)
+
+  if (!match) {
+    return `import { ${importsToAdd.join(', ')} } from 'vue'\n${code}`
+  }
+
+  const currentImports = match[1]
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+
+  const mergedImports = [...new Set([...currentImports, ...importsToAdd])].sort()
+
+  return code.replace(vueImportRe, `import { ${mergedImports.join(', ')} } from 'vue'`)
+}
+
+function rewriteWorkspaceImports(code: string): string {
+  return code
+    .replace(
+      /from\s+['"]\.\.\/\.\.\/packages\/components\/src\/loading['"]/g,
+      "from '@yh-ui/yh-ui'"
+    )
+    .replace(
+      /from\s+['"]\.\.\/\.\.\/packages\/components\/src\/message['"]/g,
+      "from '@yh-ui/yh-ui'"
+    )
+    .replace(
+      /import\s+type\s+\{([^}]*)\}\s+from\s+['"]\.\.\/\.\.\/packages\/components\/src\/table\/src\/table['"]\s*;?\s*/g,
+      "import type {$1} from '@yh-ui/yh-ui'\n"
+    )
+    .replace(/^\s*import\s+type\s+\{[^}]+\}\s+from\s+['"]\.\.\/src\/ai-mention['"]\s*;?\s*\n/gm, '')
+}
+
+function inlineCustomEdgeComponent(code: string): string {
+  if (!code.includes('StepEdgeComponent.vue')) {
+    return code
+  }
+
+  const componentDefinition = [
+    'const StepEdgeComponent = defineComponent({',
+    '  props: {',
+    '    path: String,',
+    '    stroke: String,',
+    '    labelX: Number,',
+    '    labelY: Number,',
+    '    edge: Object,',
+    '    strokeWidth: Number',
+    '  },',
+    '  setup(props) {',
+    "    return () => h('g', [",
+    "      h('path', {",
+    '        d: props.path,',
+    '        stroke: props.stroke,',
+    "        'stroke-width': props.strokeWidth,",
+    "        fill: 'none',",
+    "        'stroke-dasharray': '8,4',",
+    "        class: 'custom-step-path'",
+    '      }),',
+    "      h('circle', {",
+    '        cx: props.labelX,',
+    '        cy: props.labelY,',
+    '        r: 6,',
+    '        fill: props.stroke,',
+    "        class: 'pulse-dot'",
+    '      }),',
+    "      props.edge?.label ? h('g', [",
+    "        props.edge.labelShowBg ? h('rect', {",
+    '          x: (props.labelX || 0) - 40,',
+    '          y: (props.labelY || 0) - 24,',
+    '          width: 80,',
+    '          height: 20,',
+    '          rx: 4,',
+    "          fill: props.edge.labelBgColor || '#ffffff',",
+    '          stroke: props.stroke,',
+    "          'stroke-width': 1",
+    '        }) : null,',
+    "        h('text', {",
+    '          x: props.labelX,',
+    '          y: (props.labelY || 0) - 10,',
+    "          'text-anchor': 'middle',",
+    "          fill: '#334155',",
+    "          style: { fontSize: '11px', fontWeight: '600' }",
+    '        }, props.edge.label)',
+    '      ]) : null',
+    '    ])',
+    '  }',
+    '})',
+    ''
+  ].join('\n')
+
+  return ensureVueImports(
+    code.replace(
+      /^\s*import\s+StepEdgeComponent\s+from\s+['"]\.\/StepEdgeComponent\.vue['"]\s*;?\s*\n/gm,
+      `${componentDefinition}\n`
+    ),
+    ['defineComponent', 'h']
+  )
+}
+
+function inlineCustomNodeComponents(code: string): string {
+  if (!code.includes('ApprovalNode.vue') && !code.includes('NotificationNode.vue')) {
+    return code
+  }
+
+  const componentDefinitions = [
+    'const ApprovalNode = defineComponent({',
+    '  props: {',
+    '    data: {',
+    '      type: Object,',
+    '      default: () => ({})',
+    '    }',
+    '  },',
+    '  setup(props) {',
+    "    return () => h('div', { class: 'template-card template-card--approval' }, [",
+    "      h('div', { class: 'template-card__title' }, props.data?.label ?? props.data?.title ?? 'Approval'),",
+    '      h(',
+    "        'div',",
+    "        { class: 'template-card__meta' },",
+    "        props.data?.description ?? props.data?.approver ?? 'Process Review'",
+    '      )',
+    '    ])',
+    '  }',
+    '})',
+    '',
+    'const NotificationNode = defineComponent({',
+    '  props: {',
+    '    data: {',
+    '      type: Object,',
+    '      default: () => ({})',
+    '    }',
+    '  },',
+    '  setup(props) {',
+    "    return () => h('div', { class: 'template-card template-card--notification' }, [",
+    "      h('div', { class: 'template-card__title' }, props.data?.label ?? props.data?.title ?? 'Notification'),",
+    '      h(',
+    "        'div',",
+    "        { class: 'template-card__meta' },",
+    "        props.data?.description ?? props.data?.channel ?? 'Channel'",
+    '      )',
+    '    ])',
+    '  }',
+    '})',
+    ''
+  ].join('\n')
+
+  return ensureVueImports(
+    code
+      .replace(
+        /^\s*import\s+ApprovalNode\s+from\s+['"]\.\/nodes\/ApprovalNode\.vue['"]\s*;?\s*\n/gm,
+        ''
+      )
+      .replace(
+        /^\s*import\s+NotificationNode\s+from\s+['"]\.\/nodes\/NotificationNode\.vue['"]\s*;?\s*\n/gm,
+        `${componentDefinitions}\n`
+      ),
+    ['defineComponent', 'h']
+  )
+}
+
+function prepareSandboxCode(code: string, _context?: SandboxContext): string {
+  let preparedCode = rewriteWorkspaceImports(code)
+  preparedCode = inlineCustomEdgeComponent(preparedCode)
+  preparedCode = inlineCustomNodeComponents(preparedCode)
+  return preparedCode
+}
+
+export function getSandboxSupport(code: string, context?: SandboxContext): SandboxSupport {
+  const preparedCode = prepareSandboxCode(code, context)
+  const imports = extractBareImports(preparedCode)
 
   for (const source of imports) {
     if (isUnsupportedImport(source)) {
@@ -151,7 +325,7 @@ export function getSandboxSupport(code: string): SandboxSupport {
   }
 
   for (const { pattern, reason } of UNSUPPORTED_CODE_PATTERNS) {
-    if (pattern.test(code)) {
+    if (pattern.test(preparedCode)) {
       return {
         supported: false,
         reason
@@ -162,10 +336,11 @@ export function getSandboxSupport(code: string): SandboxSupport {
   return { supported: true }
 }
 
-function buildDependencies(code: string): Record<string, string> {
+function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
+  const preparedCode = prepareSandboxCode(code, context)
   const dependencies = { ...BASE_DEPENDENCIES }
 
-  for (const source of extractBareImports(code)) {
+  for (const source of extractBareImports(preparedCode)) {
     const pkg = getPackageName(source)
 
     if (pkg === 'vue' || pkg.startsWith('node:') || NODE_BUILTINS.has(pkg)) {
@@ -178,7 +353,7 @@ function buildDependencies(code: string): Record<string, string> {
   return dependencies
 }
 
-function buildPackageJson(title: string, code: string): string {
+function buildPackageJson(title: string, code: string, context?: SandboxContext): string {
   const pkg = {
     name: slugifyTitle(title) || 'yh-ui-demo',
     private: true,
@@ -188,7 +363,7 @@ function buildPackageJson(title: string, code: string): string {
       build: 'vite build',
       preview: 'vite preview --host 0.0.0.0 --port 4173'
     },
-    dependencies: buildDependencies(code),
+    dependencies: buildDependencies(code, context),
     devDependencies: DEV_DEPENDENCIES
   }
 
@@ -215,8 +390,12 @@ function escapeHtml(value: string): string {
  * vite.config.ts 不再依赖 node:fs / node:path，使用最简配置，
  * 确保在 CodeSandbox / StackBlitz 的浏览器沙箱中都能正常运行。
  */
-function buildFiles(title: string, code: string): Record<string, string> {
-  const normalizedCode = normalizeSfc(code)
+export function createSandboxProjectFiles(
+  title: string,
+  code: string,
+  context?: SandboxContext
+): Record<string, string> {
+  const normalizedCode = normalizeSfc(prepareSandboxCode(code, context))
 
   const indexHtml = [
     '<!doctype html>',
@@ -278,9 +457,9 @@ function buildFiles(title: string, code: string): Record<string, string> {
           target: 'ES2020',
           useDefineForClassFields: true,
           module: 'ESNext',
-          // Bundler 模式兼容 Vite 6，避免 Node moduleResolution 产生的误报
           moduleResolution: 'Bundler',
           strict: true,
+          skipLibCheck: true,
           jsx: 'preserve',
           resolveJsonModule: true,
           isolatedModules: true,
@@ -288,14 +467,26 @@ function buildFiles(title: string, code: string): Record<string, string> {
           lib: ['ES2020', 'DOM', 'DOM.Iterable'],
           types: ['vite/client']
         },
-        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue']
+        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue', 'src/env.d.ts']
       },
       null,
       2
     ) + '\n'
 
-  // 简化版 vite.config.ts，不依赖任何 Node 内置模块
-  // CodeSandbox 浏览器沙箱不支持 node:fs / node:path
+  // .vue 文件类型声明 shim，解决 TS "Cannot find module './App.vue'" 问题
+  const envDts = [
+    '/// <reference types="vite/client" />',
+    '',
+    'declare module "*.vue" {',
+    '  import type { DefineComponent } from "vue"',
+    '  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>',
+    '  export default component',
+    '}',
+    ''
+  ].join('\n')
+
+  // 极简 vite.config.ts：不依赖任何 Node 内置模块
+  // CodeSandbox / StackBlitz 浏览器沙箱不支持 node:fs / node:path / createLogger 等 API
   const viteConfigTs = [
     "import vue from '@vitejs/plugin-vue'",
     "import { defineConfig } from 'vite'",
@@ -311,39 +502,71 @@ function buildFiles(title: string, code: string): Record<string, string> {
     '    port: 4173',
     '  },',
     '  optimizeDeps: {',
-    '    esbuildOptions: {',
-    '      sourcemap: false',
-    '    }',
-    '  },',
-    '  build: {',
-    '    sourcemap: false',
+    '    // 强制预构建 dayjs 插件，解决 Vite Native ESM 下的 SyntaxError 白屏问题',
+    '    include: [',
+    "      'dayjs',",
+    "      'dayjs/plugin/isBetween.js',",
+    "      'dayjs/plugin/weekOfYear.js',",
+    "      'dayjs/plugin/isoWeek.js',",
+    "      'dayjs/plugin/quarterOfYear.js',",
+    "      'dayjs/plugin/advancedFormat.js',",
+    "      'dayjs/plugin/customParseFormat.js'",
+    '    ]',
     '  }',
     '})',
     ''
   ].join('\n')
 
   return {
+    '.codesandbox/tasks.json': JSON.stringify(
+      {
+        setupTasks: ['npm install'],
+        tasks: {
+          dev: {
+            name: 'dev',
+            command: 'npm run dev',
+            runAtStart: true,
+            preview: {
+              port: 5173
+            }
+          }
+        }
+      },
+      null,
+      2
+    ),
     'index.html': indexHtml,
-    'package.json': buildPackageJson(title, code),
+    'package.json': buildPackageJson(title, code, context),
+    'sandbox.config.json': JSON.stringify(
+      {
+        template: 'node',
+        container: {
+          node: '20'
+        }
+      },
+      null,
+      2
+    ),
     'src/App.vue': normalizedCode + '\n',
     'src/main.ts': mainTs,
     'src/style.css': styleCss,
+    'src/env.d.ts': envDts,
     'tsconfig.json': tsconfigJson,
     'vite.config.ts': viteConfigTs
   }
 }
 
-function buildStackBlitzProject(title: string, code: string): Project {
+function buildStackBlitzProject(title: string, code: string, context?: SandboxContext): Project {
   return {
     title: title || 'YH-UI Demo',
     description: 'Interactive YH-UI demo generated from the documentation example.',
     template: 'node',
-    files: buildFiles(title, code)
+    files: createSandboxProjectFiles(title, code, context)
   }
 }
 
-function buildCodeSandboxPayload(title: string, code: string) {
-  const files = buildFiles(title, code)
+function buildCodeSandboxPayload(title: string, code: string, context?: SandboxContext) {
+  const files = createSandboxProjectFiles(title, code, context)
 
   return {
     files: Object.fromEntries(
@@ -353,13 +576,17 @@ function buildCodeSandboxPayload(title: string, code: string) {
   }
 }
 
-export function openDemoInStackBlitz(title: string, code: string): SandboxSupport {
-  const support = getSandboxSupport(code)
+export function openDemoInStackBlitz(
+  title: string,
+  code: string,
+  context?: SandboxContext
+): SandboxSupport {
+  const support = getSandboxSupport(code, context)
   if (!support.supported) {
     return support
   }
 
-  sdk.openProject(buildStackBlitzProject(title, code), {
+  sdk.openProject(buildStackBlitzProject(title, code, context), {
     newWindow: true,
     startScript: 'dev',
     showSidebar: true,
@@ -371,13 +598,17 @@ export function openDemoInStackBlitz(title: string, code: string): SandboxSuppor
   return support
 }
 
-export function openDemoInCodeSandbox(title: string, code: string): SandboxSupport {
-  const support = getSandboxSupport(code)
+export function openDemoInCodeSandbox(
+  title: string,
+  code: string,
+  context?: SandboxContext
+): SandboxSupport {
+  const support = getSandboxSupport(code, context)
   if (!support.supported) {
     return support
   }
 
-  const payload = buildCodeSandboxPayload(title, code)
+  const payload = buildCodeSandboxPayload(title, code, context)
   const parameters = compressToBase64(JSON.stringify(payload))
 
   const form = document.createElement('form')
