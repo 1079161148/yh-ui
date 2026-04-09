@@ -1,9 +1,10 @@
 import { rm } from 'node:fs/promises'
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { build } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const rootDir = resolve(import.meta.dirname, '..')
+const rootDir = resolve(fileURLToPath(new URL('.', import.meta.url)), '..')
 const playgroundOutDir = resolve(rootDir, 'docs/public/playground')
 
 async function cleanOutput() {

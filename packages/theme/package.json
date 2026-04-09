@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/theme",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "description": "YH-UI theme and design tokens",
   "type": "module",
   "sideEffects": [
