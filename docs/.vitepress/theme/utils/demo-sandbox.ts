@@ -110,9 +110,8 @@ const UNSUPPORTED_CODE_PATTERNS: Array<{ pattern: RegExp; reason: string }> = [
 const IMPORT_RE =
   /\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']([^"']+)["']|\bexport\s+[\w*\s{},]*?\s+from\s+["']([^"']+)["']|\bimport\s*\(\s*["']([^"']+)["']\s*\)/g
 
-const PLAYGROUND_CSS_URL = `https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui@${YH_UI_VERSION}/dist/style.css`
 const PLAYGROUND_RUNTIME_MODULE_URL = new URL(
-  '../playground/yh-ui-runtime.ts',
+  '../playground/yh-ui-runtime.js',
   import.meta.url
 ).toString()
 const NPM_CDN = 'https://cdn.jsdelivr.net/npm'
@@ -207,7 +206,7 @@ function resolveSiteAssetUrl(base: string, assetPath: string): string {
   return new URL(normalizedAssetPath, `${window.location.origin}${normalizedBase}`).toString()
 }
 
-function getPlaygroundStaticPackageEntries(base: string): Record<string, StaticPackageEntry> {
+function _getPlaygroundStaticPackageEntries(base: string): Record<string, StaticPackageEntry> {
   return {
     '@yh-ui/yh-ui': { entry: resolveSiteAssetUrl(base, 'yh-ui/full.mjs'), dir: 'yh-ui/' },
     '@yh-ui/components': {
@@ -530,9 +529,7 @@ export function createPlaygroundProject(
   // full.mjs 内联了所有 @yh-ui/* 子包，只外部化 vue，可在 esm.sh 上正常使用
   // 本地开发环境检测
   const isLocalDev = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-  const staticPackageEntries = getPlaygroundStaticPackageEntries(base)
   const cssUrl = resolveSiteAssetUrl(base, 'yh-ui/style.css')
-
   if (isLocalDev) {
     // 使用本地静态资源 (放在 docs/public 下) 以绕过 Vite 的模块转换
     // 为了避免循环引用并确保依赖解析，我们将每个子包都映射及其对应的本地文件

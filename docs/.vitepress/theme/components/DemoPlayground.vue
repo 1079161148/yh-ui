@@ -5,8 +5,11 @@ import { createPlaygroundProject, decodePlaygroundPayload } from '../utils/demo-
 
 const { isDark } = useData()
 const siteBase = withBase('/')
-const vueRuntimeUrl = new URL('../playground/vue-runtime.ts', import.meta.url).toString()
-const vueServerRendererUrl = new URL('../playground/vue-server-renderer.ts', import.meta.url).toString()
+const vueRuntimeUrl = new URL('../playground/vue-runtime.js', import.meta.url).toString()
+const vueServerRendererUrl = new URL(
+  '../playground/vue-server-renderer.js',
+  import.meta.url
+).toString()
 
 // 从 URL 解析 demo payload
 const payload = computed(() => {
@@ -113,25 +116,51 @@ onMounted(async () => {
     </header>
 
     <!-- 错误状态 -->
-    <div v-if="errorMessage" class="demo-playground__state demo-playground__state--error" role="alert">
-      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="margin-right: 8px; flex-shrink: 0">
-        <path fill="currentColor"
-          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+    <div
+      v-if="errorMessage"
+      class="demo-playground__state demo-playground__state--error"
+      role="alert"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+        style="margin-right: 8px; flex-shrink: 0"
+      >
+        <path
+          fill="currentColor"
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+        />
       </svg>
       {{ errorMessage }}
     </div>
 
     <!-- 加载状态 -->
-    <div v-else-if="loading" class="demo-playground__state" role="status" aria-label="Loading playground">
+    <div
+      v-else-if="loading"
+      class="demo-playground__state"
+      role="status"
+      aria-label="Loading playground"
+    >
       <span class="demo-playground__spinner" aria-hidden="true" />
       <span>正在加载 Playground...</span>
     </div>
 
     <!-- Playground 主体 -->
-    <component :is="replComponent" v-else-if="replComponent && editorComponent && store" :store="store"
-      :editor="editorComponent" :theme="isDark ? 'dark' : 'light'" :preview-options="previewOptions"
-      :show-compile-output="false" :show-import-map="true" :show-ts-config="false" :clear-console="false"
-      :auto-resize="true" />
+    <component
+      :is="replComponent"
+      v-else-if="replComponent && editorComponent && store"
+      :store="store"
+      :editor="editorComponent"
+      :theme="isDark ? 'dark' : 'light'"
+      :preview-options="previewOptions"
+      :show-compile-output="false"
+      :show-import-map="true"
+      :show-ts-config="false"
+      :clear-console="false"
+      :auto-resize="true"
+    />
 
     <!-- 兜底占位 -->
     <div v-else class="demo-playground__state">准备中...</div>
@@ -185,7 +214,8 @@ onMounted(async () => {
   &--error {
     color: var(--vp-c-danger-1, #f53b57);
     border-color: var(--vp-c-danger-2, rgba(245, 59, 87, 0.3));
-    background: radial-gradient(circle at top left, rgba(245, 59, 87, 0.08), transparent 35%),
+    background:
+      radial-gradient(circle at top left, rgba(245, 59, 87, 0.08), transparent 35%),
       var(--vp-c-bg-soft);
   }
 }
