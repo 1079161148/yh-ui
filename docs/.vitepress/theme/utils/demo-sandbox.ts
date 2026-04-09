@@ -150,6 +150,11 @@ interface StaticPackageEntry {
   dir: string
 }
 
+interface PlaygroundRuntimeEnv {
+  isLocalDev: boolean
+  isGitHubPages: boolean
+}
+
 // ============================================================
 // 工具函数
 // ============================================================
@@ -200,6 +205,17 @@ function resolveSiteAssetUrl(base: string, assetPath: string): string {
   const normalizedBase = normalizeBasePath(base)
   const normalizedAssetPath = assetPath.replace(/^\/+/, '')
   return new URL(normalizedAssetPath, `${window.location.origin}${normalizedBase}`).toString()
+}
+
+function resolvePlaygroundRuntimeEnv(base: string): PlaygroundRuntimeEnv {
+  const hostname = typeof window === 'undefined' ? '' : window.location.hostname
+  const normalizedBase = normalizeBasePath(base)
+  const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1'
+
+  return {
+    isLocalDev: import.meta.env.DEV || isLocalHost,
+    isGitHubPages: normalizedBase !== '/'
+  }
 }
 
 function _getPlaygroundStaticPackageEntries(base: string): Record<string, StaticPackageEntry> {
@@ -418,7 +434,7 @@ function resolveImportUrl(source: string, dependencies: Record<string, string>):
     return null
   }
 
-  if (pkg === '@yh-ui/icons' || pkg === '@yh-ui/flow') {
+  if (pkg === '@yh-ui/icons') {
     return resolveJsdelivrPackageEntry(pkg, version)
   }
 
@@ -513,6 +529,7 @@ export function createPlaygroundProject(
   const dependencies = buildDependencies(preparedCode, context)
   const imports = extractBareImports(preparedCode)
   const importMap: ImportMap = { imports: {} }
+  const runtimeEnv = resolvePlaygroundRuntimeEnv(base)
 
   for (const source of imports) {
     const resolvedUrl = resolveImportUrl(source, dependencies)
@@ -521,74 +538,34 @@ export function createPlaygroundProject(
     }
   }
 
-  // 确保 @yh-ui/yh-ui 的 full bundle 始终在 import map 中
-  // full.mjs 内联了所有 @yh-ui/* 子包，只外部化 vue，可在 esm.sh 上正常使用
-  // 本地开发环境检测
-  const isLocalDev = typeof window !== 'undefined' && window.location.hostname === 'localhost'
   const cssUrl = resolveSiteAssetUrl(base, 'yh-ui/style.css')
-  if (isLocalDev) {
-    // 使用本地静态资源 (放在 docs/public 下) 以绕过 Vite 的模块转换
-    // 为了避免循环引用并确保依赖解析，我们将每个子包都映射及其对应的本地文件
-    importMap.imports['@yh-ui/yh-ui'] = `${window.location.origin}/yh-ui/yh-ui.js`
-    importMap.imports['@yh-ui/yh-ui'] =
-      `${ESM_CDN}/@yh-ui/yh-ui@${YH_UI_VERSION}?bundle&external=vue&target=esnext`
-    importMap.imports['@yh-ui/yh-ui/full'] =
-      `${ESM_CDN}/@yh-ui/yh-ui@${YH_UI_VERSION}?bundle&external=vue&target=esnext`
-    importMap.imports['@yh-ui/yh-ui/'] = resolveSiteAssetUrl(base, 'yh-ui/')
-    importMap.imports['@yh-ui/components'] = resolveSiteAssetUrl(base, 'components/index.mjs')
-    importMap.imports['@yh-ui/components/'] = resolveSiteAssetUrl(base, 'components/')
-    importMap.imports['@yh-ui/hooks'] = resolveSiteAssetUrl(base, 'hooks/index.mjs')
-    importMap.imports['@yh-ui/hooks/'] = resolveSiteAssetUrl(base, 'hooks/')
-    importMap.imports['@yh-ui/utils'] = resolveSiteAssetUrl(base, 'utils/index.mjs')
-    importMap.imports['@yh-ui/utils/'] = resolveSiteAssetUrl(base, 'utils/')
-    importMap.imports['@yh-ui/theme'] = resolveSiteAssetUrl(base, 'theme/index.mjs')
-    importMap.imports['@yh-ui/theme/'] = resolveSiteAssetUrl(base, 'theme/')
-    importMap.imports['@yh-ui/locale'] = resolveSiteAssetUrl(base, 'locale/index.mjs')
-    importMap.imports['@yh-ui/locale/'] = resolveSiteAssetUrl(base, 'locale/')
-    importMap.imports['@yh-ui/icons'] = resolveJsdelivrPackageEntry('@yh-ui/icons', YH_UI_VERSION)
-    importMap.imports['@yh-ui/flow'] = resolveJsdelivrPackageEntry('@yh-ui/flow', YH_UI_VERSION)
-  } else {
-    // 生产环境：使用 esm.sh 上的 full bundle（自包含，仅外部化 vue）
-    const fullBundleUrl = `${ESM_CDN}/@yh-ui/yh-ui@${YH_UI_VERSION}/full?external=vue&target=esnext`
-    importMap.imports['@yh-ui/yh-ui'] = fullBundleUrl
-    importMap.imports['@yh-ui/yh-ui/full'] = fullBundleUrl
-    // 移除破损子包的条目（避免与 full bundle 冲突或 500 错误）
-    delete importMap.imports['@yh-ui/components']
-    delete importMap.imports['@yh-ui/hooks']
-    delete importMap.imports['@yh-ui/utils']
-    delete importMap.imports['@yh-ui/theme']
-    delete importMap.imports['@yh-ui/locale']
-    importMap.imports['@yh-ui/yh-ui'] =
-      `${ESM_CDN}/@yh-ui/yh-ui@${YH_UI_VERSION}?bundle&external=vue&target=esnext`
-    importMap.imports['@yh-ui/yh-ui/full'] =
-      `${ESM_CDN}/@yh-ui/yh-ui@${YH_UI_VERSION}?bundle&external=vue&target=esnext`
-    importMap.imports['@yh-ui/yh-ui/'] = resolveSiteAssetUrl(base, 'yh-ui/')
-    importMap.imports['@yh-ui/components'] = resolveSiteAssetUrl(base, 'components/index.mjs')
-    importMap.imports['@yh-ui/components/'] = resolveSiteAssetUrl(base, 'components/')
-    importMap.imports['@yh-ui/hooks'] = resolveSiteAssetUrl(base, 'hooks/index.mjs')
-    importMap.imports['@yh-ui/hooks/'] = resolveSiteAssetUrl(base, 'hooks/')
-    importMap.imports['@yh-ui/utils'] = resolveSiteAssetUrl(base, 'utils/index.mjs')
-    importMap.imports['@yh-ui/utils/'] = resolveSiteAssetUrl(base, 'utils/')
-    importMap.imports['@yh-ui/theme'] = resolveSiteAssetUrl(base, 'theme/index.mjs')
-    importMap.imports['@yh-ui/theme/'] = resolveSiteAssetUrl(base, 'theme/')
-    importMap.imports['@yh-ui/locale'] = resolveSiteAssetUrl(base, 'locale/index.mjs')
-    importMap.imports['@yh-ui/locale/'] = resolveSiteAssetUrl(base, 'locale/')
-    importMap.imports['@yh-ui/icons'] = resolveJsdelivrPackageEntry('@yh-ui/icons', YH_UI_VERSION)
-    importMap.imports['@yh-ui/flow'] = resolveJsdelivrPackageEntry('@yh-ui/flow', YH_UI_VERSION)
+  const staticPackages = _getPlaygroundStaticPackageEntries(base)
+
+  for (const [pkg, entry] of Object.entries(staticPackages)) {
+    importMap.imports[pkg] = entry.entry
+    importMap.imports[`${pkg}/`] = resolveSiteAssetUrl(base, entry.dir)
   }
+
+  const yhUiBundleUrl = resolveSiteAssetUrl(base, 'playground/yh-ui-bundle.js')
+  importMap.imports['@yh-ui/yh-ui'] = yhUiBundleUrl
+  importMap.imports['@yh-ui/yh-ui/full'] = yhUiBundleUrl
+  importMap.imports['@yh-ui/flow'] = resolveSiteAssetUrl(base, 'playground/yh-flow-runtime.js')
+  importMap.imports['@yh-ui/icons'] = resolveJsdelivrPackageEntry('@yh-ui/icons', YH_UI_VERSION)
+  importMap.imports['@iconify/vue'] =
+    `${ESM_CDN}/@iconify/vue@4.1.2?bundle&external=vue&target=esnext`
 
   return {
     title: title || 'YH-UI Playground',
     code: preparedCode,
     importMap,
-    // CSS 注入
-    headHTML: `<link rel="stylesheet" href="${cssUrl}" crossorigin="anonymous">`,
-    // 从 full bundle（自包含，仅外部化 vue）加载并全局注册 YH-UI
+    headHTML: [
+      `<link rel="stylesheet" href="${cssUrl}" crossorigin="anonymous" data-runtime-env="${runtimeEnv.isGitHubPages ? 'github-pages' : runtimeEnv.isLocalDev ? 'local-dev' : 'site'}">`,
+      `<link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-ui-monorepo.css')}" crossorigin="anonymous">`
+    ].join(''),
     importCode: `import YhUI from '${resolveSiteAssetUrl(base, 'playground/yh-ui-runtime.js')}'`,
     useCode: `app.use(YhUI)`
   }
 }
-
 export function encodePlaygroundPayload(
   title: string,
   code: string,
