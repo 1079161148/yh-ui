@@ -1,6 +1,7 @@
 import sdk, { type Project } from '@stackblitz/sdk'
 import LZString from 'lz-string'
 import yhUiPackage from '../../../../packages/yh-ui/package.json'
+import yhIconsPackage from '../../../../packages/icons/package.json'
 
 const { compressToBase64, compressToEncodedURIComponent, decompressFromEncodedURIComponent } =
   LZString
@@ -11,11 +12,7 @@ const { compressToBase64, compressToEncodedURIComponent, decompressFromEncodedUR
 
 const YH_UI_VERSION = yhUiPackage.version
 const VUE_VERSION = '3.5.27'
-const PLAYGROUND_REMOTE_BASE = new URL('playground/', yhUiPackage.homepage).toString()
-const FLOW_RUNTIME_REMOTE_CSS_URL = new URL(
-  'yh-flow-runtime.css',
-  PLAYGROUND_REMOTE_BASE
-).toString()
+const YH_ICONS_VERSION = yhIconsPackage.version
 
 const SANDBOX_BUNDLED_PACKAGES = new Set([
   '@yh-ui/yh-ui',
@@ -173,18 +170,6 @@ interface PlaygroundRuntimeEnv {
   isGitHubPages: boolean
 }
 
-interface SandboxRuntimeAssets {
-  yhUiBundleJs: string
-  yhFlowRuntimeJs: string
-  workerAssets: Record<string, string>
-}
-
-interface SandboxModuleBindings {
-  hasDefaultExport: boolean
-  valueExports: Set<string>
-  typeExports: Set<string>
-}
-
 // ============================================================
 // 工具函数
 // ============================================================
@@ -297,150 +282,6 @@ function ensureVueImports(code: string, importsToAdd: string[]): string {
     .filter(Boolean)
   const mergedImports = [...new Set([...currentImports, ...importsToAdd])].sort()
   return code.replace(vueImportRe, `import { ${mergedImports.join(', ')} } from 'vue'`)
-}
-
-let sandboxRuntimeAssetsPromise: Promise<SandboxRuntimeAssets> | null = null
-
-async function loadSandboxRuntimeAssets(): Promise<SandboxRuntimeAssets> {
-  if (!sandboxRuntimeAssetsPromise) {
-    sandboxRuntimeAssetsPromise = import('./demo-sandbox-assets').then(
-      (module) => module.sandboxRuntimeAssets
-    )
-  }
-
-  return sandboxRuntimeAssetsPromise
-}
-
-function createSandboxModuleBindings(): SandboxModuleBindings {
-  return {
-    hasDefaultExport: false,
-    valueExports: new Set<string>(),
-    typeExports: new Set<string>()
-  }
-}
-
-function collectSandboxModuleBindings(code: string): Record<string, SandboxModuleBindings> {
-  const bindings: Record<string, SandboxModuleBindings> = {}
-  const importPattern = /import\s+(type\s+)?([\s\S]*?)\s+from\s+['"]([^'"]+)['"]/g
-
-  const ensureBindings = (source: string) => {
-    if (!bindings[source]) {
-      bindings[source] = createSandboxModuleBindings()
-    }
-    return bindings[source]
-  }
-
-  const addNamedBinding = (source: string, exportedName: string, isType: boolean) => {
-    if (!exportedName) return
-    const target = ensureBindings(source)
-    if (isType) {
-      target.typeExports.add(exportedName)
-      return
-    }
-    target.valueExports.add(exportedName)
-  }
-
-  const parseClause = (source: string, clause: string, importIsType: boolean) => {
-    const trimmedClause = clause.trim()
-    if (!trimmedClause) return
-
-    const namedMatch = trimmedClause.match(/\{([\s\S]*?)\}/)
-    if (namedMatch) {
-      const beforeNamed = trimmedClause.slice(0, namedMatch.index).replace(/,\s*$/, '').trim()
-      if (beforeNamed && !beforeNamed.startsWith('* as ')) {
-        ensureBindings(source).hasDefaultExport = true
-      }
-
-      for (const rawPart of namedMatch[1].split(',')) {
-        let part = rawPart.trim()
-        if (!part) continue
-
-        let isType = importIsType
-        if (part.startsWith('type ')) {
-          isType = true
-          part = part.slice(5).trim()
-        }
-
-        const exportedName = part.split(/\s+as\s+/)[0]?.trim()
-        addNamedBinding(source, exportedName, isType)
-      }
-
-      return
-    }
-
-    if (trimmedClause.startsWith('* as ')) {
-      return
-    }
-
-    ensureBindings(source).hasDefaultExport = !importIsType
-  }
-
-  for (const match of code.matchAll(importPattern)) {
-    const importIsType = Boolean(match[1])
-    const clause = match[2] || ''
-    const source = match[3] || ''
-    if (!SANDBOX_BUNDLED_PACKAGES.has(source)) continue
-
-    parseClause(source, clause, importIsType)
-  }
-
-  return bindings
-}
-
-function buildSandboxShimDeclarations(
-  code: string,
-  mainTs: string,
-  usesFlowRuntime: boolean
-): string {
-  const bindings = collectSandboxModuleBindings(`${code}\n${mainTs}`)
-
-  const ensureBindings = (source: string) => {
-    if (!bindings[source]) {
-      bindings[source] = createSandboxModuleBindings()
-    }
-    return bindings[source]
-  }
-
-  const yhUiBindings = ensureBindings('@yh-ui/yh-ui')
-  yhUiBindings.hasDefaultExport = true
-  yhUiBindings.valueExports.add('install')
-
-  if (usesFlowRuntime) {
-    const flowBindings = ensureBindings('@yh-ui/flow')
-    flowBindings.valueExports.add('Flow')
-    flowBindings.valueExports.add('NodeResizer')
-    flowBindings.valueExports.add('NodeToolbar')
-  }
-
-  const moduleBlocks = Object.entries(bindings)
-    .sort(([left], [right]) => left.localeCompare(right))
-    .map(([source, moduleBindings]) => {
-      const lines = [`declare module '${source}' {`]
-
-      if (moduleBindings.hasDefaultExport) {
-        lines.push('  const _default: any')
-        lines.push('  export default _default')
-      }
-
-      for (const name of [...moduleBindings.valueExports].sort()) {
-        if (!name || name === 'default') continue
-        if (source === '@yh-ui/yh-ui' && name === 'install') {
-          lines.push('  export const install: (app: unknown) => void')
-          continue
-        }
-        lines.push(`  export const ${name}: any`)
-      }
-
-      for (const name of [...moduleBindings.typeExports].sort()) {
-        if (!name || name === 'default') continue
-        lines.push(`  export type ${name} = any`)
-      }
-
-      lines.push('}')
-      return lines.join('\n')
-    })
-
-  return ['/// <reference types="vite/client" />', '', ...moduleBlocks, ''].join('\n')
 }
 
 // ============================================================
@@ -706,6 +547,32 @@ function buildDependencies(code: string, context?: SandboxContext): Record<strin
   return dependencies
 }
 
+function buildSandboxDependencies(code: string, context?: SandboxContext): Record<string, string> {
+  const preparedCode = prepareSandboxCode(code, context)
+  const dependencies = {
+    ...buildDependencies(preparedCode, context),
+    '@yh-ui/yh-ui': YH_UI_VERSION,
+    '@yh-ui/icons': YH_ICONS_VERSION
+  }
+
+  if (usesFlowSandboxRuntime(preparedCode, context)) {
+    dependencies['@yh-ui/flow'] = YH_UI_VERSION
+  }
+
+  for (const source of extractBareImports(preparedCode)) {
+    const pkg = getPackageName(source)
+    if (pkg === 'vue' || pkg.startsWith('node:') || NODE_BUILTINS.has(pkg)) {
+      continue
+    }
+
+    if (pkg.startsWith('@yh-ui/')) {
+      dependencies[pkg] = KNOWN_DEPENDENCIES[pkg] || YH_UI_VERSION
+    }
+  }
+
+  return dependencies
+}
+
 // ============================================================
 // Playground（@vue/repl 驱动）
 // ============================================================
@@ -804,9 +671,8 @@ export async function createSandboxProjectFiles(
   context?: SandboxContext
 ): Promise<Record<string, string>> {
   const normalizedCode = normalizeSfc(prepareSandboxCode(code, context))
-  const dependencies = buildDependencies(code, context)
+  const dependencies = buildSandboxDependencies(code, context)
   const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
-  const sandboxRuntimeAssets = await loadSandboxRuntimeAssets()
 
   const indexHtml = [
     '<!doctype html>',
@@ -815,12 +681,6 @@ export async function createSandboxProjectFiles(
     '    <meta charset="UTF-8" />',
     '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
     `    <title>${escapeHtml(title || 'YH-UI Demo')}</title>`,
-    `    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui@${YH_UI_VERSION}/dist/style.css" crossorigin="anonymous" />`,
-    ...(usesFlowRuntime
-      ? [
-          `    <link rel="stylesheet" href="${FLOW_RUNTIME_REMOTE_CSS_URL}" crossorigin="anonymous" />`
-        ]
-      : []),
     '  </head>',
     '  <body>',
     '    <div id="app"></div>',
@@ -833,6 +693,8 @@ export async function createSandboxProjectFiles(
   const mainTs = [
     "import { createApp } from 'vue'",
     "import { install as installYhUI } from '@yh-ui/yh-ui'",
+    "import '@yh-ui/yh-ui/css'",
+    "import { Icon as YhIconify } from '@yh-ui/icons'",
     ...(usesFlowRuntime
       ? [
           "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from '@yh-ui/flow'"
@@ -843,6 +705,9 @@ export async function createSandboxProjectFiles(
     '',
     'const app = createApp(App)',
     'installYhUI(app)',
+    "// eslint-disable-next-line vue/multi-word-component-names",
+    "app.component('Icon', YhIconify)",
+    "app.component('YhIconifyIcon', YhIconify)",
     ...(usesFlowRuntime
       ? [
           "app.component('YhFlow', YhFlow)",
@@ -885,31 +750,8 @@ export async function createSandboxProjectFiles(
     '',
     'export default defineConfig({',
     '  plugins: [vue()],',
-    '  resolve: {',
-    '    alias: {',
-    "      '@yh-ui/yh-ui': '/src/vendor/yh-ui.js',",
-    "      '@yh-ui/components': '/src/vendor/yh-ui.js',",
-    "      '@yh-ui/hooks': '/src/vendor/yh-ui.js',",
-    "      '@yh-ui/utils': '/src/vendor/yh-ui.js',",
-    "      '@yh-ui/theme': '/src/vendor/yh-ui.js',",
-    "      '@yh-ui/locale': '/src/vendor/yh-ui.js',",
-    "      '@yh-ui/flow': '/src/vendor/yh-flow.js'",
-    '    }',
-    '  },',
     "  server: { host: '0.0.0.0', port: 5173 },",
-    "  preview: { host: '0.0.0.0', port: 4173 },",
-    '  optimizeDeps: {',
-    "    exclude: ['@yh-ui/yh-ui', '@yh-ui/components', '@yh-ui/hooks', '@yh-ui/utils', '@yh-ui/theme', '@yh-ui/locale', '@yh-ui/flow'],",
-    '    include: [',
-    "      'dayjs',",
-    "      'dayjs/plugin/isBetween.js',",
-    "      'dayjs/plugin/weekOfYear.js',",
-    "      'dayjs/plugin/isoWeek.js',",
-    "      'dayjs/plugin/quarterOfYear.js',",
-    "      'dayjs/plugin/advancedFormat.js',",
-    "      'dayjs/plugin/customParseFormat.js'",
-    '    ]',
-    '  }',
+    "  preview: { host: '0.0.0.0', port: 4173 }",
     '})',
     ''
   ].join('\n')
@@ -962,8 +804,6 @@ export async function createSandboxProjectFiles(
       2
     ) + '\n'
 
-  const sandboxShimsDts = buildSandboxShimDeclarations(normalizedCode, mainTs, usesFlowRuntime)
-
   return {
     'index.html': indexHtml,
     '.npmrc': npmrc,
@@ -974,9 +814,6 @@ export async function createSandboxProjectFiles(
     'src/main.ts': mainTs,
     'src/style.css': styleCss,
     'src/env.d.ts': envDts,
-    'src/sandbox-shims.d.ts': sandboxShimsDts,
-    'src/vendor/yh-ui.js': sandboxRuntimeAssets.yhUiBundleJs,
-    'src/vendor/yh-flow.js': usesFlowRuntime ? sandboxRuntimeAssets.yhFlowRuntimeJs : 'export {}\n',
     // CodeSandbox Cloud 配置
     '.codesandbox/tasks.json': JSON.stringify(
       {
@@ -998,8 +835,7 @@ export async function createSandboxProjectFiles(
       { installDependencies: true, startCommand: 'npm run dev' },
       null,
       2
-    ),
-    ...sandboxRuntimeAssets.workerAssets
+    )
   }
 }
 
