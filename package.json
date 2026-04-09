@@ -1,6 +1,6 @@
 {
   "name": "yh-ui-monorepo",
-  "version": "0.1.39",
+  "version": "0.1.40",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
@@ -35,7 +35,7 @@
     "version:minor": "bumpp package.json packages/*/package.json --minor --no-push --no-tag --no-commit",
     "version:major": "bumpp package.json packages/*/package.json --major --no-push --no-tag --no-commit",
     "release": "bumpp package.json packages/*/package.json --commit \"chore(release): v%s\" --push --tag",
-    "publish:all": "pnpm -r publish --access public",
+    "publish:all": "node scripts/publish-unpublished-packages.mjs",
     "perf:components": "pnpm -C packages/components build",
     "perf:nuxt": "pnpm -C playground-nuxt build"
   },
