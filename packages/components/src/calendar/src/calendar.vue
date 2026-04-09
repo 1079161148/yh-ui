@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import dayjs from '../../dayjs'
-import isoWeekPlugin from 'dayjs/plugin/isoWeek.js'
+import * as isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
 import type { Dayjs, PluginFunc } from '../../dayjs'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -15,7 +15,11 @@ import {
 import { YhButton } from '../../button'
 
 // 扩展 dayjs 支持 ISO 周数
-dayjs.extend(isoWeekPlugin as PluginFunc)
+dayjs.extend(
+  (typeof isoWeekPluginModule === 'function'
+    ? isoWeekPluginModule
+    : (isoWeekPluginModule.default ?? isoWeekPluginModule)) as PluginFunc
+)
 
 defineOptions({
   name: 'YhCalendar'

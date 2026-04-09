@@ -673,6 +673,23 @@ export async function createSandboxProjectFiles(
   const normalizedCode = normalizeSfc(prepareSandboxCode(code, context))
   const dependencies = buildSandboxDependencies(code, context)
   const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
+  const interopDeps = [
+    'dayjs/plugin/isBetween.js',
+    'dayjs/plugin/weekOfYear.js',
+    'dayjs/plugin/isoWeek.js',
+    'dayjs/plugin/quarterOfYear.js',
+    'dayjs/plugin/advancedFormat.js',
+    'dayjs/plugin/customParseFormat.js'
+  ]
+  const sandboxConfigJson =
+    JSON.stringify(
+      {
+        template: 'node',
+        infiniteLoopProtection: true
+      },
+      null,
+      2
+    ) + '\n'
 
   const indexHtml = [
     '<!doctype html>',
@@ -719,6 +736,17 @@ export async function createSandboxProjectFiles(
     ''
   ].join('\n')
 
+  const appVue = [
+    '<template>',
+    '  <Demo />',
+    '</template>',
+    '',
+    '<script setup lang="ts">',
+    "import Demo from './Demo.vue'",
+    '</script>',
+    ''
+  ].join('\n')
+
   const styleCss = [
     'html, body, #app {',
     '  margin: 0;',
@@ -750,6 +778,10 @@ export async function createSandboxProjectFiles(
     '',
     'export default defineConfig({',
     '  plugins: [vue()],',
+    '  optimizeDeps: {',
+    `    include: ${JSON.stringify(interopDeps)},`,
+    `    needsInterop: ${JSON.stringify(interopDeps)}`,
+    '  },',
     "  server: { host: '0.0.0.0', port: 5173 },",
     "  preview: { host: '0.0.0.0', port: 4173 }",
     '})',
@@ -807,10 +839,12 @@ export async function createSandboxProjectFiles(
   return {
     'index.html': indexHtml,
     '.npmrc': npmrc,
+    'sandbox.config.json': sandboxConfigJson,
     'package.json': packageJson,
     'tsconfig.json': tsconfigJson,
     'vite.config.ts': viteConfigTs,
-    'src/App.vue': normalizedCode + '\n',
+    'src/App.vue': appVue,
+    'src/Demo.vue': normalizedCode + '\n',
     'src/main.ts': mainTs,
     'src/style.css': styleCss,
     'src/env.d.ts': envDts,
@@ -867,7 +901,7 @@ export async function openDemoInStackBlitz(
   const project = await buildStackBlitzProject(title, code, context)
   sdk.openProject(project, {
     newWindow: true,
-    openFile: 'src/App.vue',
+    openFile: 'src/Demo.vue',
     view: 'preview'
   })
 
@@ -912,7 +946,7 @@ export async function openDemoInCodeSandbox(
   const queryInput = document.createElement('input')
   queryInput.type = 'hidden'
   queryInput.name = 'query'
-  queryInput.value = 'file=/src/App.vue'
+  queryInput.value = 'file=/src/Demo.vue'
   form.appendChild(queryInput)
 
   document.body.appendChild(form)
