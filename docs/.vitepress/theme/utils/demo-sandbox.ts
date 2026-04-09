@@ -110,10 +110,6 @@ const UNSUPPORTED_CODE_PATTERNS: Array<{ pattern: RegExp; reason: string }> = [
 const IMPORT_RE =
   /\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']([^"']+)["']|\bexport\s+[\w*\s{},]*?\s+from\s+["']([^"']+)["']|\bimport\s*\(\s*["']([^"']+)["']\s*\)/g
 
-const PLAYGROUND_RUNTIME_MODULE_URL = new URL(
-  '../playground/yh-ui-runtime.js',
-  import.meta.url
-).toString()
 const NPM_CDN = 'https://cdn.jsdelivr.net/npm'
 
 // ============================================================
@@ -588,7 +584,7 @@ export function createPlaygroundProject(
     // CSS 注入
     headHTML: `<link rel="stylesheet" href="${cssUrl}" crossorigin="anonymous">`,
     // 从 full bundle（自包含，仅外部化 vue）加载并全局注册 YH-UI
-    importCode: `import YhUI from '${PLAYGROUND_RUNTIME_MODULE_URL}'`,
+    importCode: `import YhUI from '${resolveSiteAssetUrl(base, 'playground/yh-ui-runtime.js')}'`,
     useCode: `app.use(YhUI)`
   }
 }

@@ -3,13 +3,11 @@ import { computed, markRaw, onMounted, ref, shallowRef } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { createPlaygroundProject, decodePlaygroundPayload } from '../utils/demo-sandbox'
 
+const VUE_CDN_VERSION = '3.5.27'
 const { isDark } = useData()
 const siteBase = withBase('/')
-const vueRuntimeUrl = new URL('../playground/vue-runtime.js', import.meta.url).toString()
-const vueServerRendererUrl = new URL(
-  '../playground/vue-server-renderer.js',
-  import.meta.url
-).toString()
+const vueRuntimeUrl = `https://cdn.jsdelivr.net/npm/vue@${VUE_CDN_VERSION}/dist/vue.runtime.esm-browser.js`
+const vueServerRendererUrl = `https://cdn.jsdelivr.net/npm/@vue/server-renderer@${VUE_CDN_VERSION}/dist/server-renderer.esm-browser.js`
 
 // 从 URL 解析 demo payload
 const payload = computed(() => {
