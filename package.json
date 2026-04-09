@@ -1,6 +1,6 @@
 {
   "name": "yh-ui-monorepo",
-  "version": "0.1.38",
+  "version": "0.1.39",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
@@ -16,6 +16,7 @@
     "build:icons": "pnpm -C packages/icons build",
     "build:nuxt": "pnpm -C packages/nuxt build",
     "build:flow": "pnpm -C packages/flow build",
+    "build:playground-runtime": "node --max-old-space-size=6144 scripts/build-playground-runtime.mjs",
     "docs:dev": "pnpm -C docs dev",
     "docs:build": "pnpm -C docs build",
     "docs:preview": "pnpm -C docs preview",

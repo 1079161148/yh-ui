@@ -22,6 +22,32 @@ const cases = [
 </template>`
   },
   {
+    name: 'basic-flow',
+    title: 'Basic Flow',
+    code: `<template>
+  <div style="width: 100%; height: 500px;">
+    <yh-flow :nodes="nodes" :edges="edges" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { Node, Edge } from '@yh-ui/flow'
+
+const nodes = ref<Node[]>([
+  { id: '1', type: 'input', position: { x: 80, y: 120 }, data: { label: 'Source' } },
+  { id: '2', type: 'default', position: { x: 320, y: 120 }, data: { label: 'Process' } }
+])
+
+const edges = ref<Edge[]>([
+  { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
+])
+</script>`,
+    context: {
+      docPath: 'en/flow/basic.md'
+    }
+  },
+  {
     name: 'custom-edge',
     title: 'Automatic Rendering Demo',
     code: `<template>

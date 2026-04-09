@@ -11,6 +11,11 @@ const { compressToBase64, compressToEncodedURIComponent, decompressFromEncodedUR
 
 const YH_UI_VERSION = yhUiPackage.version
 const VUE_VERSION = '3.5.27'
+const PLAYGROUND_REMOTE_BASE = new URL('playground/', yhUiPackage.homepage).toString()
+const FLOW_RUNTIME_REMOTE_CSS_URL = new URL(
+  'yh-flow-runtime.css',
+  PLAYGROUND_REMOTE_BASE
+).toString()
 
 // 主 CDN：esm.sh
 const ESM_CDN = 'https://esm.sh'
@@ -284,6 +289,10 @@ function rewriteWorkspaceImports(code: string): string {
     .replace(/^\s*import\s+type\s+\{[^}]+\}\s+from\s+['"]\.\.\/src\/ai-mention['"]\s*;?\s*\n/gm, '')
 }
 
+function rewriteFlowSandboxImports(code: string): string {
+  return code
+}
+
 function stripPlaygroundOnlyImports(code: string): string {
   return code.replace(/^\s*import\s+['"]@yh-ui\/yh-ui\/css['"]\s*;?\s*\n/gm, '')
 }
@@ -400,6 +409,7 @@ function prepareSandboxCode(code: string, _context?: SandboxContext): string {
   let preparedCode = rewriteWorkspaceImports(code)
   preparedCode = inlineCustomEdgeComponent(preparedCode)
   preparedCode = inlineCustomNodeComponents(preparedCode)
+  preparedCode = rewriteFlowSandboxImports(preparedCode)
   return preparedCode
 }
 
@@ -489,6 +499,15 @@ export function getSandboxSupport(code: string, context?: SandboxContext): Sandb
   return { supported: true }
 }
 
+function usesFlowSandboxRuntime(code: string, context?: SandboxContext): boolean {
+  const preparedCode = prepareSandboxCode(code, context)
+  return (
+    preparedCode.includes('@yh-ui/flow') ||
+    /<\s*yh-flow\b/i.test(preparedCode) ||
+    Boolean(context?.docPath?.includes('/flow/'))
+  )
+}
+
 function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
   const dependencies = { ...BASE_DEPENDENCIES }
@@ -560,7 +579,8 @@ export function createPlaygroundProject(
     importMap,
     headHTML: [
       `<link rel="stylesheet" href="${cssUrl}" crossorigin="anonymous" data-runtime-env="${runtimeEnv.isGitHubPages ? 'github-pages' : runtimeEnv.isLocalDev ? 'local-dev' : 'site'}">`,
-      `<link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-ui-monorepo.css')}" crossorigin="anonymous">`
+      `<link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-ui-bundle.css')}" crossorigin="anonymous">`,
+      `<link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-flow-runtime.css')}" crossorigin="anonymous">`
     ].join(''),
     importCode: `import YhUI from '${resolveSiteAssetUrl(base, 'playground/yh-ui-runtime.js')}'`,
     useCode: `app.use(YhUI)`
@@ -613,6 +633,7 @@ export function createSandboxProjectFiles(
 ): Record<string, string> {
   const normalizedCode = normalizeSfc(prepareSandboxCode(code, context))
   const dependencies = buildDependencies(code, context)
+  const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
 
   const indexHtml = [
     '<!doctype html>',
@@ -622,6 +643,11 @@ export function createSandboxProjectFiles(
     '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
     `    <title>${escapeHtml(title || 'YH-UI Demo')}</title>`,
     `    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui@${YH_UI_VERSION}/dist/style.css" crossorigin="anonymous" />`,
+    ...(usesFlowRuntime
+      ? [
+          `    <link rel="stylesheet" href="${FLOW_RUNTIME_REMOTE_CSS_URL}" crossorigin="anonymous" />`
+        ]
+      : []),
     '  </head>',
     '  <body>',
     '    <div id="app"></div>',
@@ -633,12 +659,24 @@ export function createSandboxProjectFiles(
 
   const mainTs = [
     "import { createApp } from 'vue'",
-    "import YhUI from '@yh-ui/yh-ui'",
+    "import { install as installYhUI } from '@yh-ui/yh-ui'",
+    ...(usesFlowRuntime
+      ? [
+          "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from '@yh-ui/flow'"
+        ]
+      : []),
     "import App from './App.vue'",
     "import './style.css'",
     '',
     'const app = createApp(App)',
-    'app.use(YhUI)',
+    'installYhUI(app)',
+    ...(usesFlowRuntime
+      ? [
+          "app.component('YhFlow', YhFlow)",
+          "app.component('YhNodeResizer', YhNodeResizer)",
+          "app.component('YhNodeToolbar', YhNodeToolbar)"
+        ]
+      : []),
     "app.mount('#app')",
     ''
   ].join('\n')
