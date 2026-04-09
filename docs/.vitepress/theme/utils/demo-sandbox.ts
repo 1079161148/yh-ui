@@ -1,5 +1,6 @@
 import sdk, { type Project } from '@stackblitz/sdk'
 import LZString from 'lz-string'
+import yhUiPackage from '../../../../packages/yh-ui/package.json'
 
 const { compressToBase64, compressToEncodedURIComponent, decompressFromEncodedURIComponent } =
   LZString
@@ -8,7 +9,7 @@ const { compressToBase64, compressToEncodedURIComponent, decompressFromEncodedUR
 // 版本与依赖常量
 // ============================================================
 
-const YH_UI_VERSION = '0.1.31'
+const YH_UI_VERSION = yhUiPackage.version
 const VUE_VERSION = '3.5.27'
 
 // 主 CDN：esm.sh
@@ -25,7 +26,7 @@ const ESM_SH_OK = new Set([
 
 // 这些包在 esm.sh 的 bundle 模式下失败（dist 含 .vue 导出），需要跳过
 // 在 Playground 中通过 full.mjs 的全局注册统一处理
-const ESM_SH_BROKEN = new Set(['@yh-ui/flow', '@yh-ui/components', '@yh-ui/icons', '@yh-ui/ai-sdk'])
+const ESM_SH_BROKEN = new Set(['@yh-ui/components', '@yh-ui/ai-sdk'])
 
 const BASE_DEPENDENCIES: Record<string, string> = {
   vue: `^${VUE_VERSION}`,
@@ -110,7 +111,11 @@ const IMPORT_RE =
   /\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']([^"']+)["']|\bexport\s+[\w*\s{},]*?\s+from\s+["']([^"']+)["']|\bimport\s*\(\s*["']([^"']+)["']\s*\)/g
 
 const PLAYGROUND_CSS_URL = `https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui@${YH_UI_VERSION}/dist/style.css`
-const PLAYGROUND_RUNTIME_MODULE_URL = new URL('../playground/yh-ui-runtime.ts', import.meta.url).toString()
+const PLAYGROUND_RUNTIME_MODULE_URL = new URL(
+  '../playground/yh-ui-runtime.ts',
+  import.meta.url
+).toString()
+const NPM_CDN = 'https://cdn.jsdelivr.net/npm'
 
 // ============================================================
 // 类型定义
@@ -214,6 +219,14 @@ function getPlaygroundStaticPackageEntries(base: string): Record<string, StaticP
     '@yh-ui/theme': { entry: resolveSiteAssetUrl(base, 'theme/index.mjs'), dir: 'theme/' },
     '@yh-ui/locale': { entry: resolveSiteAssetUrl(base, 'locale/index.mjs'), dir: 'locale/' }
   }
+}
+
+function resolveJsdelivrPackageEntry(
+  pkg: string,
+  version: string,
+  file = 'dist/index.mjs'
+): string {
+  return `${NPM_CDN}/${pkg}@${version}/${file}`
 }
 
 function escapeHtml(value: string): string {
@@ -401,10 +414,17 @@ function resolveImportUrl(source: string, dependencies: Record<string, string>):
   }
 
   const pkg = getPackageName(source)
+  const version = normalizeDependencyVersion(
+    dependencies[pkg] || KNOWN_DEPENDENCIES[pkg] || 'latest'
+  )
 
   // Vue 自身由 @vue/repl 内置处理
   if (pkg === 'vue' || pkg.startsWith('node:') || NODE_BUILTINS.has(pkg)) {
     return null
+  }
+
+  if (pkg === '@yh-ui/icons' || pkg === '@yh-ui/flow') {
+    return resolveJsdelivrPackageEntry(pkg, version)
   }
 
   // 这些 @yh-ui/* 子包在 esm.sh 上无法正常 bundle（含 .vue 导出文件）
@@ -412,10 +432,6 @@ function resolveImportUrl(source: string, dependencies: Record<string, string>):
   if (ESM_SH_BROKEN.has(pkg)) {
     return null
   }
-
-  const version = normalizeDependencyVersion(
-    dependencies[pkg] || KNOWN_DEPENDENCIES[pkg] || 'latest'
-  )
 
   const suffix = source === pkg ? '' : source.slice(pkg.length)
 
@@ -536,6 +552,8 @@ export function createPlaygroundProject(
     importMap.imports['@yh-ui/theme/'] = resolveSiteAssetUrl(base, 'theme/')
     importMap.imports['@yh-ui/locale'] = resolveSiteAssetUrl(base, 'locale/index.mjs')
     importMap.imports['@yh-ui/locale/'] = resolveSiteAssetUrl(base, 'locale/')
+    importMap.imports['@yh-ui/icons'] = resolveJsdelivrPackageEntry('@yh-ui/icons', YH_UI_VERSION)
+    importMap.imports['@yh-ui/flow'] = resolveJsdelivrPackageEntry('@yh-ui/flow', YH_UI_VERSION)
   } else {
     // 生产环境：使用 esm.sh 上的 full bundle（自包含，仅外部化 vue）
     const fullBundleUrl = `${ESM_CDN}/@yh-ui/yh-ui@${YH_UI_VERSION}/full?external=vue&target=esnext`
@@ -562,6 +580,8 @@ export function createPlaygroundProject(
     importMap.imports['@yh-ui/theme/'] = resolveSiteAssetUrl(base, 'theme/')
     importMap.imports['@yh-ui/locale'] = resolveSiteAssetUrl(base, 'locale/index.mjs')
     importMap.imports['@yh-ui/locale/'] = resolveSiteAssetUrl(base, 'locale/')
+    importMap.imports['@yh-ui/icons'] = resolveJsdelivrPackageEntry('@yh-ui/icons', YH_UI_VERSION)
+    importMap.imports['@yh-ui/flow'] = resolveJsdelivrPackageEntry('@yh-ui/flow', YH_UI_VERSION)
   }
 
   return {
@@ -692,12 +712,12 @@ export function createSandboxProjectFiles(
     "    exclude: ['@yh-ui/yh-ui', '@yh-ui/components', '@yh-ui/hooks', '@yh-ui/utils', '@yh-ui/theme', '@yh-ui/locale'],",
     '    include: [',
     "      'dayjs',",
-    "      'dayjs/plugin/isBetween',",
-    "      'dayjs/plugin/weekOfYear',",
-    "      'dayjs/plugin/isoWeek',",
-    "      'dayjs/plugin/quarterOfYear',",
-    "      'dayjs/plugin/advancedFormat',",
-    "      'dayjs/plugin/customParseFormat'",
+    "      'dayjs/plugin/isBetween.js',",
+    "      'dayjs/plugin/weekOfYear.js',",
+    "      'dayjs/plugin/isoWeek.js',",
+    "      'dayjs/plugin/quarterOfYear.js',",
+    "      'dayjs/plugin/advancedFormat.js',",
+    "      'dayjs/plugin/customParseFormat.js'",
     '    ]',
     '  }',
     '})',
