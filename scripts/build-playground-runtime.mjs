@@ -35,9 +35,16 @@ async function buildFlowRuntime() {
   await build({
     ...createSharedConfig(),
     resolve: {
-      alias: {
-        '@yh-ui/hooks': resolve(rootDir, 'packages/hooks/src/index.ts')
-      }
+      alias: [
+        { find: '@yh-ui/hooks', replacement: resolve(rootDir, 'packages/hooks/src/index.ts') },
+        { find: '@yh-ui/utils', replacement: resolve(rootDir, 'packages/utils/src/index.ts') },
+        { find: '@yh-ui/locale', replacement: resolve(rootDir, 'packages/locale/src/index.ts') },
+        {
+          find: /^@yh-ui\/theme\/(.*)$/,
+          replacement: `${resolve(rootDir, 'packages/theme/src')}/$1`
+        },
+        { find: '@yh-ui/theme', replacement: resolve(rootDir, 'packages/theme/src/index.ts') }
+      ]
     },
     build: {
       ...createSharedConfig().build,

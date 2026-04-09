@@ -47,8 +47,8 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Build packages
-        run: pnpm build
+      - name: Verify packages and docs build
+        run: pnpm verify:release
 
   # ================================================================
   # 发布到 npm

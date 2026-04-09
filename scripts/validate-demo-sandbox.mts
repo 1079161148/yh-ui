@@ -11,7 +11,11 @@ const execAsync = promisify(exec)
 const packageManagerBin = process.platform === 'win32' ? 'pnpm' : 'pnpm'
 
 const rootDir = process.cwd()
-const tempRoot = path.join(rootDir, '.codex-temp', 'demo-sandbox-validation')
+const tempRoot = path.join(
+  rootDir,
+  '.codex-temp',
+  `demo-sandbox-validation-${Date.now()}-${process.pid}`
+)
 
 const cases = [
   {
@@ -175,6 +179,21 @@ async function writeProject(targetDir: string, files: Record<string, string>) {
   }
 }
 
+async function removeWithRetry(targetDir: string, attempts = 5) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      await rm(targetDir, { recursive: true, force: true })
+      return
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'EBUSY' || attempt === attempts) {
+        throw error
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, attempt * 300))
+    }
+  }
+}
+
 async function validateCase(testCase: (typeof cases)[number]) {
   const support = getSandboxSupport(testCase.code, testCase.context)
   if (!support.supported) {
@@ -182,9 +201,9 @@ async function validateCase(testCase: (typeof cases)[number]) {
   }
 
   const caseDir = path.join(tempRoot, testCase.name)
-  const files = createSandboxProjectFiles(testCase.title, testCase.code, testCase.context)
+  const files = await createSandboxProjectFiles(testCase.title, testCase.code, testCase.context)
 
-  await rm(caseDir, { recursive: true, force: true })
+  await removeWithRetry(caseDir)
   await mkdir(caseDir, { recursive: true })
   await writeProject(caseDir, files)
 
@@ -202,7 +221,7 @@ async function validateCase(testCase: (typeof cases)[number]) {
 }
 
 async function main() {
-  await rm(tempRoot, { recursive: true, force: true })
+  await removeWithRetry(tempRoot)
   await mkdir(tempRoot, { recursive: true })
 
   for (const testCase of cases) {

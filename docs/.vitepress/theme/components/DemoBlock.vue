@@ -450,8 +450,8 @@ const setOnlineEditMessage = (message: string) => {
 }
 
 // 在 CodeSandbox 中打开
-const openInCodeSandbox = () => {
-  const result = openDemoInCodeSandbox(props.title, currentCode.value, sandboxContext.value)
+const openInCodeSandbox = async () => {
+  const result = await openDemoInCodeSandbox(props.title, currentCode.value, sandboxContext.value)
   if (!result.supported) {
     setOnlineEditMessage(result.reason || 'This demo cannot be opened online.')
   }
@@ -471,12 +471,8 @@ const openInPlayground = () => {
 }
 
 // 在 StackBlitz 中打开（直接跳转到 stackblitz.com）
-const openInStackBlitz = () => {
-  const result = openDemoInStackBlitz(
-    props.title,
-    currentCode.value,
-    sandboxContext.value
-  )
+const openInStackBlitz = async () => {
+  const result = await openDemoInStackBlitz(props.title, currentCode.value, sandboxContext.value)
   if (!result.supported) {
     setOnlineEditMessage(result.reason || 'This demo cannot be opened online.')
   }
@@ -510,43 +506,75 @@ const copyAnchor = async () => {
     <!-- 操作栏 -->
     <div :class="['demo-box__actions', { 'is-open': showCode }]">
       <div class="demo-box__actions-left">
-        <button class="demo-box__action-btn" :title="isEn ? 'Copy link' : '复制锚点'" @click="copyAnchor">
+        <button
+          class="demo-box__action-btn"
+          :title="isEn ? 'Copy link' : '复制锚点'"
+          @click="copyAnchor"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" />
+            <path
+              fill="currentColor"
+              d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"
+            />
           </svg>
         </button>
-        <button class="demo-box__action-btn" :title="isEn ? 'Refresh' : '重置演示'" @click="refreshDemo">
+        <button
+          class="demo-box__action-btn"
+          :title="isEn ? 'Refresh' : '重置演示'"
+          @click="refreshDemo"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+            <path
+              fill="currentColor"
+              d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+            />
           </svg>
         </button>
         <span v-if="title" class="demo-box__title">{{ title }}</span>
       </div>
       <div class="demo-box__actions-right">
         <!-- 打开内部 Playground -->
-        <button class="demo-box__action-btn" :class="{ 'is-disabled': !canOpenOnline }" :title="playgroundTitle"
-          :disabled="!canOpenOnline" @click="openInPlayground">
+        <button
+          class="demo-box__action-btn"
+          :class="{ 'is-disabled': !canOpenOnline }"
+          :title="playgroundTitle"
+          :disabled="!canOpenOnline"
+          @click="openInPlayground"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
             <path fill="currentColor" d="M8 5v14l11-7z" />
           </svg>
         </button>
 
         <!-- 在 StackBlitz 中打开 -->
-        <button class="demo-box__action-btn" :class="{ 'is-disabled': !canOpenOnline }" :title="stackBlitzTitle"
-          :disabled="!canOpenOnline" @click="openInStackBlitz">
+        <button
+          class="demo-box__action-btn"
+          :class="{ 'is-disabled': !canOpenOnline }"
+          :title="stackBlitzTitle"
+          :disabled="!canOpenOnline"
+          @click="openInStackBlitz"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor" d="M10.797 14.182H3.635L16.728 0l-3.525 9.818h7.162L7.272 24l3.525-9.818z" />
+            <path
+              fill="currentColor"
+              d="M10.797 14.182H3.635L16.728 0l-3.525 9.818h7.162L7.272 24l3.525-9.818z"
+            />
           </svg>
         </button>
 
         <!-- 在 CodeSandbox 中打开 -->
-        <button class="demo-box__action-btn" :class="{ 'is-disabled': !canOpenOnline }" :title="codeSandboxTitle"
-          :disabled="!canOpenOnline" @click="openInCodeSandbox">
+        <button
+          class="demo-box__action-btn"
+          :class="{ 'is-disabled': !canOpenOnline }"
+          :title="codeSandboxTitle"
+          :disabled="!canOpenOnline"
+          @click="openInCodeSandbox"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M2 6l10.455-6L22.91 6 22.9 18 12.455 24 2 18zm2.088 2.481v4.757l3.345 1.86v3.516l3.972 2.296v-8.272zm16.739 0l-7.317 4.157v8.272l3.972-2.296V15.1l3.345-1.861zM5.134 6.957l7.321 4.12 7.321-4.12-3.792-2.161-3.529 1.995-3.529-1.995z" />
+            <path
+              fill="currentColor"
+              d="M2 6l10.455-6L22.91 6 22.9 18 12.455 24 2 18zm2.088 2.481v4.757l3.345 1.86v3.516l3.972 2.296v-8.272zm16.739 0l-7.317 4.157v8.272l3.972-2.296V15.1l3.345-1.861zM5.134 6.957l7.321 4.12 7.321-4.12-3.792-2.161-3.529 1.995-3.529-1.995z"
+            />
           </svg>
         </button>
 
@@ -555,11 +583,16 @@ const copyAnchor = async () => {
         </span>
 
         <!-- 复制代码 -->
-        <button class="demo-box__action-btn" :title="copied ? (isEn ? 'Copied!' : '已复制!') : isEn ? 'Copy Code' : '复制代码'"
-          @click="copyCode">
+        <button
+          class="demo-box__action-btn"
+          :title="copied ? (isEn ? 'Copied!' : '已复制!') : isEn ? 'Copy Code' : '复制代码'"
+          @click="copyCode"
+        >
           <svg v-if="!copied" viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+            <path
+              fill="currentColor"
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
+            />
           </svg>
           <svg v-else viewBox="0 0 24 24" width="16" height="16">
             <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
@@ -567,11 +600,18 @@ const copyAnchor = async () => {
         </button>
 
         <!-- 展开/收起代码 -->
-        <button class="demo-box__action-btn" :title="showCode ? (isEn ? 'Collapse Code' : '收起代码') : isEn ? 'Expand Code' : '展开代码'
-          " @click="toggleCode">
+        <button
+          class="demo-box__action-btn"
+          :title="
+            showCode ? (isEn ? 'Collapse Code' : '收起代码') : isEn ? 'Expand Code' : '展开代码'
+          "
+          @click="toggleCode"
+        >
           <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor"
-              d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+            <path
+              fill="currentColor"
+              d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"
+            />
           </svg>
         </button>
       </div>
@@ -582,10 +622,16 @@ const copyAnchor = async () => {
       <div v-show="showCode" class="demo-box__code">
         <!-- TypeScript/JavaScript 切换 -->
         <div v-if="hasBothTypes" class="demo-box__code-tabs">
-          <button :class="['demo-box__code-tab', { active: codeType === 'ts' }]" @click="switchCodeType('ts')">
+          <button
+            :class="['demo-box__code-tab', { active: codeType === 'ts' }]"
+            @click="switchCodeType('ts')"
+          >
             TypeScript
           </button>
-          <button :class="['demo-box__code-tab', { active: codeType === 'js' }]" @click="switchCodeType('js')">
+          <button
+            :class="['demo-box__code-tab', { active: codeType === 'js' }]"
+            @click="switchCodeType('js')"
+          >
             JavaScript
           </button>
         </div>
