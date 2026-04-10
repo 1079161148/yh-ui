@@ -211,6 +211,10 @@ function normalizeDependencyVersion(version: string): string {
   return version.replace(/^[~^]/, '')
 }
 
+function compressCodeSandboxParameters(input: string): string {
+  return compressToBase64(input).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
+}
+
 function normalizeBasePath(base = '/'): string {
   const normalized = base.startsWith('/') ? base : `/${base}`
   return normalized.endsWith('/') ? normalized : `${normalized}/`
@@ -878,6 +882,29 @@ export async function createSandboxProjectFiles(
   }
 }
 
+async function createCodeSandboxProjectFiles(
+  title: string,
+  code: string,
+  context?: SandboxContext
+): Promise<Record<string, string>> {
+  const files = await createSandboxProjectFiles(title, code, context)
+  const packageJson = JSON.parse(files['package.json']) as Record<string, any>
+
+  delete packageJson.stackblitz
+
+  return {
+    'index.html': files['index.html'],
+    'package.json': JSON.stringify(packageJson, null, 2) + '\n',
+    'tsconfig.json': files['tsconfig.json'],
+    'vite.config.ts': files['vite.config.ts'],
+    'src/App.vue': files['src/App.vue'],
+    'src/Demo.vue': files['src/Demo.vue'],
+    'src/main.ts': files['src/main.ts'],
+    'src/style.css': files['src/style.css'],
+    'src/env.d.ts': files['src/env.d.ts']
+  }
+}
+
 // ============================================================
 // StackBlitz
 // ============================================================
@@ -918,7 +945,7 @@ export async function openDemoInStackBlitz(
 // ============================================================
 
 function buildCodeSandboxPayload(title: string, code: string, context?: SandboxContext) {
-  return createSandboxProjectFiles(title, code, context).then((files) => ({
+  return createCodeSandboxProjectFiles(title, code, context).then((files) => ({
     files: Object.fromEntries(
       Object.entries(files).map(([filePath, content]) => [filePath, { content }])
     )
@@ -934,7 +961,7 @@ export async function openDemoInCodeSandbox(
   if (!support.supported) return support
 
   const payload = await buildCodeSandboxPayload(title, code, context)
-  const parameters = compressToBase64(JSON.stringify(payload))
+  const parameters = compressCodeSandboxParameters(JSON.stringify(payload))
 
   const form = document.createElement('form')
   form.method = 'POST'
