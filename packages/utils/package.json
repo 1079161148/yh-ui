@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/utils",
-  "version": "0.1.47",
+  "version": "0.1.48",
   "description": "YH-UI utility functions",
   "type": "module",
   "sideEffects": false,
