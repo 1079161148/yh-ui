@@ -1,0 +1,129 @@
+@charset "UTF-8";
+/**
+ * YH-UI Reset Styles
+ * 基础样式重置
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  /* 仅在变量未定义时应用默认值，防止干扰宿主框架 */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--yh-font-family);
+  font-size: var(--yh-font-size-base);
+  line-height: var(--yh-line-height-normal);
+  color: var(--yh-text-color-primary);
+  /* 移除强制背景色，允许 VitePress 暗黑模式控制 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--yh-color-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  color: var(--yh-color-primary-light-3);
+}
+a:active {
+  color: var(--yh-color-primary-dark-2);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: var(--yh-text-color-placeholder);
+}
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--yh-border-color);
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--yh-fill-color-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--yh-text-color-disabled);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--yh-text-color-secondary);
+}
+
+/* Firefox 滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--yh-text-color-disabled) var(--yh-fill-color-light);
+}

@@ -1,0 +1,1233 @@
+{
+  "version": 1,
+  "supportFiles": [
+    "hooks/dayjs.js",
+    "hooks/index.js",
+    "hooks/storage/index.js",
+    "hooks/use-ai/index.js",
+    "hooks/use-ai/use-ai-chat.js",
+    "hooks/use-ai/use-ai-conversations.js",
+    "hooks/use-ai/use-ai-persistence.js",
+    "hooks/use-ai/use-ai-request.js",
+    "hooks/use-ai/use-ai-stream.js",
+    "hooks/use-ai/use-ai-voice.js",
+    "hooks/use-cache/index.js",
+    "hooks/use-click-outside/index.js",
+    "hooks/use-config/index.js",
+    "hooks/use-countdown/index.js",
+    "hooks/use-event-listener/index.js",
+    "hooks/use-form-item/index.js",
+    "hooks/use-id/index.js",
+    "hooks/use-locale/dayjs-locale.js",
+    "hooks/use-locale/index.js",
+    "hooks/use-namespace/index.js",
+    "hooks/use-scroll-lock/index.js",
+    "hooks/use-sku/index.js",
+    "hooks/use-virtual-scroll/index.js",
+    "hooks/use-z-index/index.js",
+    "locale/index.js",
+    "locale/lang/af.js",
+    "locale/lang/ar-eg.js",
+    "locale/lang/ar.js",
+    "locale/lang/az.js",
+    "locale/lang/bg.js",
+    "locale/lang/bn.js",
+    "locale/lang/ca.js",
+    "locale/lang/ckb.js",
+    "locale/lang/cs.js",
+    "locale/lang/da.js",
+    "locale/lang/de.js",
+    "locale/lang/el.js",
+    "locale/lang/en.js",
+    "locale/lang/eo.js",
+    "locale/lang/es.js",
+    "locale/lang/et.js",
+    "locale/lang/eu.js",
+    "locale/lang/fa.js",
+    "locale/lang/fi.js",
+    "locale/lang/fr.js",
+    "locale/lang/he.js",
+    "locale/lang/hi.js",
+    "locale/lang/hr.js",
+    "locale/lang/hu.js",
+    "locale/lang/hy-am.js",
+    "locale/lang/id.js",
+    "locale/lang/it.js",
+    "locale/lang/ja.js",
+    "locale/lang/kk.js",
+    "locale/lang/km.js",
+    "locale/lang/ko.js",
+    "locale/lang/ku.js",
+    "locale/lang/ky.js",
+    "locale/lang/lo.js",
+    "locale/lang/lt.js",
+    "locale/lang/lv.js",
+    "locale/lang/mg.js",
+    "locale/lang/mn.js",
+    "locale/lang/ms.js",
+    "locale/lang/my.js",
+    "locale/lang/nb-NO.js",
+    "locale/lang/nl.js",
+    "locale/lang/no.js",
+    "locale/lang/pa.js",
+    "locale/lang/pl.js",
+    "locale/lang/pt-br.js",
+    "locale/lang/pt.js",
+    "locale/lang/ro.js",
+    "locale/lang/ru.js",
+    "locale/lang/sk.js",
+    "locale/lang/sl.js",
+    "locale/lang/sr.js",
+    "locale/lang/sv.js",
+    "locale/lang/sw.js",
+    "locale/lang/ta.js",
+    "locale/lang/te.js",
+    "locale/lang/th.js",
+    "locale/lang/tk.js",
+    "locale/lang/tr.js",
+    "locale/lang/ug-cn.js",
+    "locale/lang/uk.js",
+    "locale/lang/uz-uz.js",
+    "locale/lang/vi.js",
+    "locale/lang/zh-cn.js",
+    "locale/lang/zh-hk.js",
+    "locale/lang/zh-mo.js",
+    "locale/lang/zh-tw.js",
+    "theme/component-theme.js",
+    "theme/index.js",
+    "theme/styles/components.css",
+    "theme/styles/index.css",
+    "theme/styles/mixins/mixins.css",
+    "theme/styles/reset.css",
+    "theme/styles/variables.css",
+    "theme/theme.js",
+    "theme/tokens/index.js",
+    "utils/common.js",
+    "utils/dom.js",
+    "utils/index.js",
+    "utils/style.js",
+    "utils/types.js",
+    "utils/vue.js"
+  ],
+  "components": {
+    "affix": {
+      "files": [
+        "components/affix/index.js",
+        "components/affix/src/affix.css",
+        "components/affix/src/affix.js"
+      ],
+      "entry": "components/affix/index.js",
+      "module": "components/affix/src/affix.js",
+      "style": "components/affix/src/affix.css"
+    },
+    "ai-action-group": {
+      "files": [
+        "components/ai-action-group/index.js",
+        "components/ai-action-group/src/ai-action-group.css",
+        "components/ai-action-group/src/ai-action-group.js"
+      ],
+      "entry": "components/ai-action-group/index.js",
+      "module": "components/ai-action-group/src/ai-action-group.js",
+      "style": "components/ai-action-group/src/ai-action-group.css"
+    },
+    "ai-agent-card": {
+      "files": [
+        "components/ai-agent-card/index.js",
+        "components/ai-agent-card/src/ai-agent-card.css",
+        "components/ai-agent-card/src/ai-agent-card.js"
+      ],
+      "entry": "components/ai-agent-card/index.js",
+      "module": "components/ai-agent-card/src/ai-agent-card.js",
+      "style": "components/ai-agent-card/src/ai-agent-card.css"
+    },
+    "ai-artifacts": {
+      "files": [
+        "components/ai-artifacts/index.js",
+        "components/ai-artifacts/src/ai-artifacts.css",
+        "components/ai-artifacts/src/ai-artifacts.js"
+      ],
+      "entry": "components/ai-artifacts/index.js",
+      "module": "components/ai-artifacts/src/ai-artifacts.js",
+      "style": "components/ai-artifacts/src/ai-artifacts.css"
+    },
+    "ai-attachments": {
+      "files": [
+        "components/ai-attachments/index.js",
+        "components/ai-attachments/src/ai-attachments.css",
+        "components/ai-attachments/src/ai-attachments.js"
+      ],
+      "entry": "components/ai-attachments/index.js",
+      "module": "components/ai-attachments/src/ai-attachments.js",
+      "style": "components/ai-attachments/src/ai-attachments.css"
+    },
+    "ai-bubble": {
+      "files": [
+        "components/ai-bubble/index.js",
+        "components/ai-bubble/src/ai-bubble.css",
+        "components/ai-bubble/src/ai-bubble.js"
+      ],
+      "entry": "components/ai-bubble/index.js",
+      "module": "components/ai-bubble/src/ai-bubble.js",
+      "style": "components/ai-bubble/src/ai-bubble.css"
+    },
+    "ai-bubble-list": {
+      "files": [
+        "components/ai-bubble-list/index.js",
+        "components/ai-bubble-list/src/ai-bubble-list.css",
+        "components/ai-bubble-list/src/ai-bubble-list.js"
+      ],
+      "entry": "components/ai-bubble-list/index.js",
+      "module": "components/ai-bubble-list/src/ai-bubble-list.js",
+      "style": "components/ai-bubble-list/src/ai-bubble-list.css"
+    },
+    "ai-chat": {
+      "files": [
+        "components/ai-chat/index.js",
+        "components/ai-chat/src/ai-chat.css",
+        "components/ai-chat/src/ai-chat.js"
+      ],
+      "entry": "components/ai-chat/index.js",
+      "module": "components/ai-chat/src/ai-chat.js",
+      "style": "components/ai-chat/src/ai-chat.css"
+    },
+    "ai-code-block": {
+      "files": [
+        "components/ai-code-block/index.js",
+        "components/ai-code-block/src/ai-code-block.css",
+        "components/ai-code-block/src/ai-code-block.js"
+      ],
+      "entry": "components/ai-code-block/index.js",
+      "module": "components/ai-code-block/src/ai-code-block.js",
+      "style": "components/ai-code-block/src/ai-code-block.css"
+    },
+    "ai-code-editor": {
+      "files": [
+        "components/ai-code-editor/index.js",
+        "components/ai-code-editor/src/ai-code-editor.css",
+        "components/ai-code-editor/src/ai-code-editor.js"
+      ],
+      "entry": "components/ai-code-editor/index.js",
+      "module": "components/ai-code-editor/src/ai-code-editor.js",
+      "style": "components/ai-code-editor/src/ai-code-editor.css"
+    },
+    "ai-code-runner": {
+      "files": [
+        "components/ai-code-runner/index.js",
+        "components/ai-code-runner/src/ai-code-runner.css",
+        "components/ai-code-runner/src/ai-code-runner.js",
+        "components/ai-code-runner/src/webcontainer.js"
+      ],
+      "entry": "components/ai-code-runner/index.js",
+      "module": "components/ai-code-runner/src/ai-code-runner.js",
+      "style": "components/ai-code-runner/src/ai-code-runner.css"
+    },
+    "ai-conversations": {
+      "files": [
+        "components/ai-conversations/index.js",
+        "components/ai-conversations/src/ai-conversations.css",
+        "components/ai-conversations/src/ai-conversations.js"
+      ],
+      "entry": "components/ai-conversations/index.js",
+      "module": "components/ai-conversations/src/ai-conversations.js",
+      "style": "components/ai-conversations/src/ai-conversations.css"
+    },
+    "ai-editor-sender": {
+      "files": [
+        "components/ai-editor-sender/index.js",
+        "components/ai-editor-sender/src/ai-editor-sender.css",
+        "components/ai-editor-sender/src/ai-editor-sender.js"
+      ],
+      "entry": "components/ai-editor-sender/index.js",
+      "module": "components/ai-editor-sender/src/ai-editor-sender.js",
+      "style": "components/ai-editor-sender/src/ai-editor-sender.css"
+    },
+    "ai-file-card": {
+      "files": [
+        "components/ai-file-card/index.js",
+        "components/ai-file-card/src/ai-file-card.css",
+        "components/ai-file-card/src/ai-file-card.js"
+      ],
+      "entry": "components/ai-file-card/index.js",
+      "module": "components/ai-file-card/src/ai-file-card.js",
+      "style": "components/ai-file-card/src/ai-file-card.css"
+    },
+    "ai-mention": {
+      "files": [
+        "components/ai-mention/index.js",
+        "components/ai-mention/src/ai-mention.css",
+        "components/ai-mention/src/ai-mention.js"
+      ],
+      "entry": "components/ai-mention/index.js",
+      "module": "components/ai-mention/src/ai-mention.js",
+      "style": "components/ai-mention/src/ai-mention.css"
+    },
+    "ai-mermaid": {
+      "files": [
+        "components/ai-mermaid/index.js",
+        "components/ai-mermaid/src/ai-mermaid.css",
+        "components/ai-mermaid/src/ai-mermaid.js"
+      ],
+      "entry": "components/ai-mermaid/index.js",
+      "module": "components/ai-mermaid/src/ai-mermaid.js",
+      "style": "components/ai-mermaid/src/ai-mermaid.css"
+    },
+    "ai-prompts": {
+      "files": [
+        "components/ai-prompts/index.js",
+        "components/ai-prompts/src/ai-prompts.css",
+        "components/ai-prompts/src/ai-prompts.js"
+      ],
+      "entry": "components/ai-prompts/index.js",
+      "module": "components/ai-prompts/src/ai-prompts.js",
+      "style": "components/ai-prompts/src/ai-prompts.css"
+    },
+    "ai-provider": {
+      "files": [
+        "components/ai-provider/index.js",
+        "components/ai-provider/src/ai-provider.js",
+        "components/ai-provider/src/use-ai-provider.js"
+      ],
+      "entry": "components/ai-provider/index.js",
+      "module": "components/ai-provider/src/ai-provider.js",
+      "style": null
+    },
+    "ai-sender": {
+      "files": [
+        "components/ai-sender/index.js",
+        "components/ai-sender/src/ai-sender.css",
+        "components/ai-sender/src/ai-sender.js"
+      ],
+      "entry": "components/ai-sender/index.js",
+      "module": "components/ai-sender/src/ai-sender.js",
+      "style": "components/ai-sender/src/ai-sender.css"
+    },
+    "ai-sources": {
+      "files": [
+        "components/ai-sources/index.js",
+        "components/ai-sources/src/ai-sources.css",
+        "components/ai-sources/src/ai-sources.js"
+      ],
+      "entry": "components/ai-sources/index.js",
+      "module": "components/ai-sources/src/ai-sources.js",
+      "style": "components/ai-sources/src/ai-sources.css"
+    },
+    "ai-thinking": {
+      "files": [
+        "components/ai-thinking/index.js",
+        "components/ai-thinking/src/ai-thinking.css",
+        "components/ai-thinking/src/ai-thinking.js"
+      ],
+      "entry": "components/ai-thinking/index.js",
+      "module": "components/ai-thinking/src/ai-thinking.js",
+      "style": "components/ai-thinking/src/ai-thinking.css"
+    },
+    "ai-thought-chain": {
+      "files": [
+        "components/ai-thought-chain/index.js",
+        "components/ai-thought-chain/src/ai-thought-chain.css",
+        "components/ai-thought-chain/src/ai-thought-chain.js"
+      ],
+      "entry": "components/ai-thought-chain/index.js",
+      "module": "components/ai-thought-chain/src/ai-thought-chain.js",
+      "style": "components/ai-thought-chain/src/ai-thought-chain.css"
+    },
+    "ai-voice-trigger": {
+      "files": [
+        "components/ai-voice-trigger/index.js",
+        "components/ai-voice-trigger/src/ai-voice-trigger.css",
+        "components/ai-voice-trigger/src/ai-voice-trigger.js"
+      ],
+      "entry": "components/ai-voice-trigger/index.js",
+      "module": "components/ai-voice-trigger/src/ai-voice-trigger.js",
+      "style": "components/ai-voice-trigger/src/ai-voice-trigger.css"
+    },
+    "ai-welcome": {
+      "files": [
+        "components/ai-welcome/index.js",
+        "components/ai-welcome/src/ai-welcome.css",
+        "components/ai-welcome/src/ai-welcome.js"
+      ],
+      "entry": "components/ai-welcome/index.js",
+      "module": "components/ai-welcome/src/ai-welcome.js",
+      "style": "components/ai-welcome/src/ai-welcome.css"
+    },
+    "alert": {
+      "files": [
+        "components/alert/index.js",
+        "components/alert/src/alert.css",
+        "components/alert/src/alert.js"
+      ],
+      "entry": "components/alert/index.js",
+      "module": "components/alert/src/alert.js",
+      "style": "components/alert/src/alert.css"
+    },
+    "autocomplete": {
+      "files": [
+        "components/autocomplete/bundle.js",
+        "components/autocomplete/index.js",
+        "components/autocomplete/src/autocomplete.css",
+        "components/autocomplete/src/autocomplete.js"
+      ],
+      "entry": "components/autocomplete/index.js",
+      "module": "components/autocomplete/bundle.js",
+      "style": "components/autocomplete/src/autocomplete.css"
+    },
+    "avatar": {
+      "files": [
+        "components/avatar/bundle.js",
+        "components/avatar/index.js",
+        "components/avatar/src/avatar.css",
+        "components/avatar/src/avatar.js"
+      ],
+      "entry": "components/avatar/index.js",
+      "module": "components/avatar/bundle.js",
+      "style": "components/avatar/src/avatar.css"
+    },
+    "back-top": {
+      "files": [
+        "components/back-top/index.js",
+        "components/back-top/src/back-top.css",
+        "components/back-top/src/back-top.js"
+      ],
+      "entry": "components/back-top/index.js",
+      "module": "components/back-top/src/back-top.js",
+      "style": "components/back-top/src/back-top.css"
+    },
+    "badge": {
+      "files": [
+        "components/badge/index.js",
+        "components/badge/src/badge.css",
+        "components/badge/src/badge.js"
+      ],
+      "entry": "components/badge/index.js",
+      "module": "components/badge/src/badge.js",
+      "style": "components/badge/src/badge.css"
+    },
+    "breadcrumb": {
+      "files": [
+        "components/breadcrumb/index.js",
+        "components/breadcrumb/src/breadcrumb-item.js",
+        "components/breadcrumb/src/breadcrumb.css",
+        "components/breadcrumb/src/breadcrumb.js"
+      ],
+      "entry": "components/breadcrumb/index.js",
+      "module": "components/breadcrumb/src/breadcrumb.js",
+      "style": "components/breadcrumb/src/breadcrumb.css"
+    },
+    "button": {
+      "files": [
+        "components/button/bundle.js",
+        "components/button/index.js",
+        "components/button/src/button.css",
+        "components/button/src/button.js"
+      ],
+      "entry": "components/button/index.js",
+      "module": "components/button/bundle.js",
+      "style": "components/button/src/button.css"
+    },
+    "calendar": {
+      "files": [
+        "components/calendar/index.js",
+        "components/calendar/src/calendar.css",
+        "components/calendar/src/calendar.js"
+      ],
+      "entry": "components/calendar/index.js",
+      "module": "components/calendar/src/calendar.js",
+      "style": "components/calendar/src/calendar.css"
+    },
+    "card": {
+      "files": [
+        "components/card/bundle.js",
+        "components/card/index.js",
+        "components/card/src/card.css",
+        "components/card/src/card.js"
+      ],
+      "entry": "components/card/index.js",
+      "module": "components/card/bundle.js",
+      "style": "components/card/src/card.css"
+    },
+    "carousel": {
+      "files": [
+        "components/carousel/index.js",
+        "components/carousel/src/carousel-item.js",
+        "components/carousel/src/carousel.css",
+        "components/carousel/src/carousel.js"
+      ],
+      "entry": "components/carousel/index.js",
+      "module": "components/carousel/src/carousel.js",
+      "style": "components/carousel/src/carousel.css"
+    },
+    "cascader": {
+      "files": [
+        "components/cascader/index.js",
+        "components/cascader/src/cascader-panel.js",
+        "components/cascader/src/cascader.css",
+        "components/cascader/src/cascader.js"
+      ],
+      "entry": "components/cascader/index.js",
+      "module": "components/cascader/src/cascader.js",
+      "style": "components/cascader/src/cascader.css"
+    },
+    "category-nav": {
+      "files": [
+        "components/category-nav/index.js",
+        "components/category-nav/src/category-nav.css",
+        "components/category-nav/src/category-nav.js"
+      ],
+      "entry": "components/category-nav/index.js",
+      "module": "components/category-nav/src/category-nav.js",
+      "style": "components/category-nav/src/category-nav.css"
+    },
+    "checkbox": {
+      "files": [
+        "components/checkbox/index.js",
+        "components/checkbox/src/checkbox-group.css",
+        "components/checkbox/src/checkbox-group.js",
+        "components/checkbox/src/checkbox.css",
+        "components/checkbox/src/checkbox.js"
+      ],
+      "entry": "components/checkbox/index.js",
+      "module": "components/checkbox/src/checkbox.js",
+      "style": "components/checkbox/src/checkbox.css"
+    },
+    "col": {
+      "files": [
+        "components/col/index.js",
+        "components/col/src/col.css",
+        "components/col/src/col.js"
+      ],
+      "entry": "components/col/index.js",
+      "module": "components/col/src/col.js",
+      "style": "components/col/src/col.css"
+    },
+    "color-picker": {
+      "files": [
+        "components/color-picker/index.js",
+        "components/color-picker/src/alpha-slider.js",
+        "components/color-picker/src/color-picker.css",
+        "components/color-picker/src/color-picker.js",
+        "components/color-picker/src/hue-slider.js",
+        "components/color-picker/src/sv-panel.js",
+        "components/color-picker/src/utils.js"
+      ],
+      "entry": "components/color-picker/index.js",
+      "module": "components/color-picker/src/color-picker.js",
+      "style": "components/color-picker/src/color-picker.css"
+    },
+    "config-provider": {
+      "files": [
+        "components/config-provider/bundle.js",
+        "components/config-provider/index.js",
+        "components/config-provider/src/config-provider.js",
+        "components/config-provider/src/locale.js"
+      ],
+      "entry": "components/config-provider/index.js",
+      "module": "components/config-provider/bundle.js",
+      "style": null
+    },
+    "container": {
+      "files": [
+        "components/container/bundle.js",
+        "components/container/index.js",
+        "components/container/src/aside.js",
+        "components/container/src/container.css",
+        "components/container/src/container.js",
+        "components/container/src/footer.js",
+        "components/container/src/header.js",
+        "components/container/src/main.js"
+      ],
+      "entry": "components/container/index.js",
+      "module": "components/container/bundle.js",
+      "style": "components/container/src/container.css"
+    },
+    "countdown": {
+      "files": [
+        "components/countdown/index.js",
+        "components/countdown/src/countdown.css",
+        "components/countdown/src/countdown.js"
+      ],
+      "entry": "components/countdown/index.js",
+      "module": "components/countdown/src/countdown.js",
+      "style": "components/countdown/src/countdown.css"
+    },
+    "coupon-card": {
+      "files": [
+        "components/coupon-card/index.js",
+        "components/coupon-card/src/coupon-card.css",
+        "components/coupon-card/src/coupon-card.js"
+      ],
+      "entry": "components/coupon-card/index.js",
+      "module": "components/coupon-card/src/coupon-card.js",
+      "style": "components/coupon-card/src/coupon-card.css"
+    },
+    "date-picker": {
+      "files": [
+        "components/date-picker/index.js",
+        "components/date-picker/src/date-picker.css",
+        "components/date-picker/src/date-picker.js",
+        "components/date-picker/src/date-table.js",
+        "components/date-picker/src/month-table.js",
+        "components/date-picker/src/panel-utils.js",
+        "components/date-picker/src/quarter-table.js",
+        "components/date-picker/src/year-table.js"
+      ],
+      "entry": "components/date-picker/index.js",
+      "module": "components/date-picker/src/date-picker.js",
+      "style": "components/date-picker/src/date-picker.css"
+    },
+    "descriptions": {
+      "files": [
+        "components/descriptions/index.js",
+        "components/descriptions/src/description-item.js",
+        "components/descriptions/src/descriptions.css",
+        "components/descriptions/src/descriptions.js"
+      ],
+      "entry": "components/descriptions/index.js",
+      "module": "components/descriptions/src/descriptions.js",
+      "style": "components/descriptions/src/descriptions.css"
+    },
+    "dialog": {
+      "files": [
+        "components/dialog/index.js",
+        "components/dialog/src/dialog.css",
+        "components/dialog/src/dialog.js",
+        "components/dialog/src/method.js",
+        "components/dialog/src/use-dialog.js"
+      ],
+      "entry": "components/dialog/index.js",
+      "module": "components/dialog/src/dialog.js",
+      "style": "components/dialog/src/dialog.css"
+    },
+    "divider": {
+      "files": [
+        "components/divider/index.js",
+        "components/divider/src/divider.css",
+        "components/divider/src/divider.js"
+      ],
+      "entry": "components/divider/index.js",
+      "module": "components/divider/src/divider.js",
+      "style": "components/divider/src/divider.css"
+    },
+    "drawer": {
+      "files": [
+        "components/drawer/index.js",
+        "components/drawer/src/drawer.css",
+        "components/drawer/src/drawer.js"
+      ],
+      "entry": "components/drawer/index.js",
+      "module": "components/drawer/src/drawer.js",
+      "style": "components/drawer/src/drawer.css"
+    },
+    "dropdown": {
+      "files": [
+        "components/dropdown/index.js",
+        "components/dropdown/src/dropdown-item.js",
+        "components/dropdown/src/dropdown-menu.js",
+        "components/dropdown/src/dropdown.css",
+        "components/dropdown/src/dropdown.js"
+      ],
+      "entry": "components/dropdown/index.js",
+      "module": "components/dropdown/src/dropdown.js",
+      "style": "components/dropdown/src/dropdown.css"
+    },
+    "empty": {
+      "files": [
+        "components/empty/bundle.js",
+        "components/empty/index.js",
+        "components/empty/src/empty.css",
+        "components/empty/src/empty.js"
+      ],
+      "entry": "components/empty/index.js",
+      "module": "components/empty/bundle.js",
+      "style": "components/empty/src/empty.css"
+    },
+    "filter-bar": {
+      "files": [
+        "components/filter-bar/index.js",
+        "components/filter-bar/src/filter-bar.css",
+        "components/filter-bar/src/filter-bar.js"
+      ],
+      "entry": "components/filter-bar/index.js",
+      "module": "components/filter-bar/src/filter-bar.js",
+      "style": "components/filter-bar/src/filter-bar.css"
+    },
+    "form": {
+      "files": [
+        "components/form/index.js",
+        "components/form/src/form-item.js",
+        "components/form/src/form-schema.js",
+        "components/form/src/form.css",
+        "components/form/src/form.js"
+      ],
+      "entry": "components/form/index.js",
+      "module": "components/form/src/form.js",
+      "style": "components/form/src/form.css"
+    },
+    "gantt-chart": {
+      "files": [
+        "components/gantt-chart/index.js",
+        "components/gantt-chart/src/gantt-chart.css",
+        "components/gantt-chart/src/gantt-chart.js"
+      ],
+      "entry": "components/gantt-chart/index.js",
+      "module": "components/gantt-chart/src/gantt-chart.js",
+      "style": "components/gantt-chart/src/gantt-chart.css"
+    },
+    "grid": {
+      "files": [
+        "components/grid/bundle.js",
+        "components/grid/index.js",
+        "components/grid/src/grid-item.js",
+        "components/grid/src/grid.css",
+        "components/grid/src/grid.js"
+      ],
+      "entry": "components/grid/index.js",
+      "module": "components/grid/bundle.js",
+      "style": "components/grid/src/grid.css"
+    },
+    "icon": {
+      "files": [
+        "components/icon/index.js",
+        "components/icon/src/icon.css",
+        "components/icon/src/icon.js",
+        "components/icon/src/icons/index.js"
+      ],
+      "entry": "components/icon/index.js",
+      "module": "components/icon/src/icon.js",
+      "style": "components/icon/src/icon.css"
+    },
+    "image": {
+      "files": [
+        "components/image/index.js",
+        "components/image/src/image-viewer.js",
+        "components/image/src/image.css",
+        "components/image/src/image.js"
+      ],
+      "entry": "components/image/index.js",
+      "module": "components/image/src/image.js",
+      "style": "components/image/src/image.css"
+    },
+    "image-magnifier": {
+      "files": [
+        "components/image-magnifier/index.js",
+        "components/image-magnifier/src/image-magnifier.css",
+        "components/image-magnifier/src/image-magnifier.js"
+      ],
+      "entry": "components/image-magnifier/index.js",
+      "module": "components/image-magnifier/src/image-magnifier.js",
+      "style": "components/image-magnifier/src/image-magnifier.css"
+    },
+    "infinite-scroll": {
+      "files": [
+        "components/infinite-scroll/index.js",
+        "components/infinite-scroll/src/directive.js",
+        "components/infinite-scroll/src/infinite-scroll.css",
+        "components/infinite-scroll/src/infinite-scroll.js"
+      ],
+      "entry": "components/infinite-scroll/index.js",
+      "module": "components/infinite-scroll/src/infinite-scroll.js",
+      "style": "components/infinite-scroll/src/infinite-scroll.css"
+    },
+    "input": {
+      "files": [
+        "components/input/bundle.js",
+        "components/input/index.js",
+        "components/input/src/input.css",
+        "components/input/src/input.js",
+        "components/input/src/utils.js"
+      ],
+      "entry": "components/input/index.js",
+      "module": "components/input/bundle.js",
+      "style": "components/input/src/input.css"
+    },
+    "input-number": {
+      "files": [
+        "components/input-number/bundle.js",
+        "components/input-number/index.js",
+        "components/input-number/src/input-number.css",
+        "components/input-number/src/input-number.js"
+      ],
+      "entry": "components/input-number/index.js",
+      "module": "components/input-number/bundle.js",
+      "style": "components/input-number/src/input-number.css"
+    },
+    "input-tag": {
+      "files": [
+        "components/input-tag/bundle.js",
+        "components/input-tag/index.js",
+        "components/input-tag/src/input-tag.css",
+        "components/input-tag/src/input-tag.js"
+      ],
+      "entry": "components/input-tag/index.js",
+      "module": "components/input-tag/bundle.js",
+      "style": "components/input-tag/src/input-tag.css"
+    },
+    "loading": {
+      "files": [
+        "components/loading/index.js",
+        "components/loading/src/directive.js",
+        "components/loading/src/loading.css",
+        "components/loading/src/service.js"
+      ],
+      "entry": "components/loading/index.js",
+      "module": "components/loading/index.js",
+      "style": "components/loading/src/loading.css"
+    },
+    "lucky-draw": {
+      "files": [
+        "components/lucky-draw/index.js",
+        "components/lucky-draw/src/lucky-draw.css",
+        "components/lucky-draw/src/lucky-draw.js"
+      ],
+      "entry": "components/lucky-draw/index.js",
+      "module": "components/lucky-draw/src/lucky-draw.js",
+      "style": "components/lucky-draw/src/lucky-draw.css"
+    },
+    "marquee": {
+      "files": [
+        "components/marquee/index.js",
+        "components/marquee/src/marquee.css",
+        "components/marquee/src/marquee.js"
+      ],
+      "entry": "components/marquee/index.js",
+      "module": "components/marquee/src/marquee.js",
+      "style": "components/marquee/src/marquee.css"
+    },
+    "mention": {
+      "files": [
+        "components/mention/bundle.js",
+        "components/mention/index.js",
+        "components/mention/src/mention.css",
+        "components/mention/src/mention.js"
+      ],
+      "entry": "components/mention/index.js",
+      "module": "components/mention/bundle.js",
+      "style": "components/mention/src/mention.css"
+    },
+    "menu": {
+      "files": [
+        "components/menu/index.js",
+        "components/menu/src/menu-item-group.js",
+        "components/menu/src/menu-item.js",
+        "components/menu/src/menu-recursive-item.js",
+        "components/menu/src/menu.css",
+        "components/menu/src/menu.js",
+        "components/menu/src/sub-menu.js"
+      ],
+      "entry": "components/menu/index.js",
+      "module": "components/menu/src/menu.js",
+      "style": "components/menu/src/menu.css"
+    },
+    "message": {
+      "files": [
+        "components/message/bundle.js",
+        "components/message/index.js",
+        "components/message/src/message.css",
+        "components/message/src/message.js",
+        "components/message/src/method.js"
+      ],
+      "entry": "components/message/index.js",
+      "module": "components/message/bundle.js",
+      "style": "components/message/src/message.css"
+    },
+    "message-box": {
+      "files": [
+        "components/message-box/index.js",
+        "components/message-box/src/message-box.css",
+        "components/message-box/src/message-box.js",
+        "components/message-box/src/method.js"
+      ],
+      "entry": "components/message-box/index.js",
+      "module": "components/message-box/src/message-box.js",
+      "style": "components/message-box/src/message-box.css"
+    },
+    "notification": {
+      "files": [
+        "components/notification/bundle.js",
+        "components/notification/index.js",
+        "components/notification/src/method.js",
+        "components/notification/src/notification.css",
+        "components/notification/src/notification.js"
+      ],
+      "entry": "components/notification/index.js",
+      "module": "components/notification/bundle.js",
+      "style": "components/notification/src/notification.css"
+    },
+    "pagination": {
+      "files": [
+        "components/pagination/index.js",
+        "components/pagination/src/pagination.css",
+        "components/pagination/src/pagination.js"
+      ],
+      "entry": "components/pagination/index.js",
+      "module": "components/pagination/src/pagination.js",
+      "style": "components/pagination/src/pagination.css"
+    },
+    "popconfirm": {
+      "files": [
+        "components/popconfirm/index.js",
+        "components/popconfirm/src/instance.js",
+        "components/popconfirm/src/popconfirm.css",
+        "components/popconfirm/src/popconfirm.js"
+      ],
+      "entry": "components/popconfirm/index.js",
+      "module": "components/popconfirm/src/popconfirm.js",
+      "style": "components/popconfirm/src/popconfirm.css"
+    },
+    "popover": {
+      "files": [
+        "components/popover/index.js",
+        "components/popover/src/popover.css",
+        "components/popover/src/popover.js"
+      ],
+      "entry": "components/popover/index.js",
+      "module": "components/popover/src/popover.js",
+      "style": "components/popover/src/popover.css"
+    },
+    "price": {
+      "files": [
+        "components/price/index.js",
+        "components/price/src/price.css",
+        "components/price/src/price.js"
+      ],
+      "entry": "components/price/index.js",
+      "module": "components/price/src/price.js",
+      "style": "components/price/src/price.css"
+    },
+    "product-card": {
+      "files": [
+        "components/product-card/index.js",
+        "components/product-card/src/product-card.css",
+        "components/product-card/src/product-card.js"
+      ],
+      "entry": "components/product-card/index.js",
+      "module": "components/product-card/src/product-card.js",
+      "style": "components/product-card/src/product-card.css"
+    },
+    "progress": {
+      "files": [
+        "components/progress/index.js",
+        "components/progress/src/progress.css",
+        "components/progress/src/progress.js"
+      ],
+      "entry": "components/progress/index.js",
+      "module": "components/progress/src/progress.js",
+      "style": "components/progress/src/progress.css"
+    },
+    "radio": {
+      "files": [
+        "components/radio/index.js",
+        "components/radio/src/radio-button.css",
+        "components/radio/src/radio-button.js",
+        "components/radio/src/radio-group.css",
+        "components/radio/src/radio-group.js",
+        "components/radio/src/radio.css",
+        "components/radio/src/radio.js"
+      ],
+      "entry": "components/radio/index.js",
+      "module": "components/radio/src/radio.js",
+      "style": "components/radio/src/radio.css"
+    },
+    "rate": {
+      "files": [
+        "components/rate/index.js",
+        "components/rate/src/rate.css",
+        "components/rate/src/rate.js"
+      ],
+      "entry": "components/rate/index.js",
+      "module": "components/rate/src/rate.js",
+      "style": "components/rate/src/rate.css"
+    },
+    "result": {
+      "files": [
+        "components/result/bundle.js",
+        "components/result/index.js",
+        "components/result/src/result.css",
+        "components/result/src/result.js"
+      ],
+      "entry": "components/result/index.js",
+      "module": "components/result/bundle.js",
+      "style": "components/result/src/result.css"
+    },
+    "row": {
+      "files": [
+        "components/row/index.js",
+        "components/row/src/row.css",
+        "components/row/src/row.js"
+      ],
+      "entry": "components/row/index.js",
+      "module": "components/row/src/row.js",
+      "style": "components/row/src/row.css"
+    },
+    "scrollbar": {
+      "files": [
+        "components/scrollbar/index.js",
+        "components/scrollbar/src/scrollbar.css",
+        "components/scrollbar/src/scrollbar.js",
+        "components/scrollbar/src/thumb.js",
+        "components/scrollbar/src/util.js"
+      ],
+      "entry": "components/scrollbar/index.js",
+      "module": "components/scrollbar/src/scrollbar.js",
+      "style": "components/scrollbar/src/scrollbar.css"
+    },
+    "select": {
+      "files": [
+        "components/select/index.js",
+        "components/select/src/option.js",
+        "components/select/src/select.css",
+        "components/select/src/select.js"
+      ],
+      "entry": "components/select/index.js",
+      "module": "components/select/src/select.js",
+      "style": "components/select/src/select.css"
+    },
+    "skeleton": {
+      "files": [
+        "components/skeleton/index.js",
+        "components/skeleton/src/skeleton-item.js",
+        "components/skeleton/src/skeleton.css",
+        "components/skeleton/src/skeleton.js"
+      ],
+      "entry": "components/skeleton/index.js",
+      "module": "components/skeleton/src/skeleton.js",
+      "style": "components/skeleton/src/skeleton.css"
+    },
+    "sku-selector": {
+      "files": [
+        "components/sku-selector/index.js",
+        "components/sku-selector/src/sku-selector.css",
+        "components/sku-selector/src/sku-selector.js"
+      ],
+      "entry": "components/sku-selector/index.js",
+      "module": "components/sku-selector/src/sku-selector.js",
+      "style": "components/sku-selector/src/sku-selector.css"
+    },
+    "slider": {
+      "files": [
+        "components/slider/index.js",
+        "components/slider/src/slider-button.js",
+        "components/slider/src/slider.css",
+        "components/slider/src/slider.js"
+      ],
+      "entry": "components/slider/index.js",
+      "module": "components/slider/src/slider.js",
+      "style": "components/slider/src/slider.css"
+    },
+    "smart-address": {
+      "files": [
+        "components/smart-address/index.js",
+        "components/smart-address/src/smart-address.css",
+        "components/smart-address/src/smart-address.js",
+        "components/smart-address/src/use-address-parser.js"
+      ],
+      "entry": "components/smart-address/index.js",
+      "module": "components/smart-address/src/smart-address.js",
+      "style": "components/smart-address/src/smart-address.css"
+    },
+    "space": {
+      "files": [
+        "components/space/bundle.js",
+        "components/space/index.js",
+        "components/space/src/space.css",
+        "components/space/src/space.js"
+      ],
+      "entry": "components/space/index.js",
+      "module": "components/space/bundle.js",
+      "style": "components/space/src/space.css"
+    },
+    "spin": {
+      "files": [
+        "components/spin/index.js",
+        "components/spin/src/spin.css",
+        "components/spin/src/spin.js"
+      ],
+      "entry": "components/spin/index.js",
+      "module": "components/spin/src/spin.js",
+      "style": "components/spin/src/spin.css"
+    },
+    "steps": {
+      "files": [
+        "components/steps/index.js",
+        "components/steps/src/step.js",
+        "components/steps/src/steps.css",
+        "components/steps/src/steps.js"
+      ],
+      "entry": "components/steps/index.js",
+      "module": "components/steps/src/steps.js",
+      "style": "components/steps/src/steps.css"
+    },
+    "submit-bar": {
+      "files": [
+        "components/submit-bar/index.js",
+        "components/submit-bar/src/submit-bar.css",
+        "components/submit-bar/src/submit-bar.js"
+      ],
+      "entry": "components/submit-bar/index.js",
+      "module": "components/submit-bar/src/submit-bar.js",
+      "style": "components/submit-bar/src/submit-bar.css"
+    },
+    "switch": {
+      "files": [
+        "components/switch/index.js",
+        "components/switch/src/switch.css",
+        "components/switch/src/switch.js"
+      ],
+      "entry": "components/switch/index.js",
+      "module": "components/switch/src/switch.js",
+      "style": "components/switch/src/switch.css"
+    },
+    "table": {
+      "files": [
+        "components/table/index.js",
+        "components/table/src/table-column.js",
+        "components/table/src/table.css",
+        "components/table/src/table.js",
+        "components/table/src/use-column-drag.js",
+        "components/table/src/use-column-resize.js",
+        "components/table/src/use-row-drag.js",
+        "components/table/src/use-table-export.js",
+        "components/table/src/use-table-import.js",
+        "components/table/src/use-table-print.js",
+        "components/table/src/use-table-selection.js",
+        "components/table/src/use-virtual-scroll.js",
+        "components/table/src/utils.js"
+      ],
+      "entry": "components/table/index.js",
+      "module": "components/table/src/table.js",
+      "style": "components/table/src/table.css"
+    },
+    "tabs": {
+      "files": [
+        "components/tabs/index.js",
+        "components/tabs/src/tab-pane.js",
+        "components/tabs/src/tabs.css",
+        "components/tabs/src/tabs.js"
+      ],
+      "entry": "components/tabs/index.js",
+      "module": "components/tabs/src/tabs.js",
+      "style": "components/tabs/src/tabs.css"
+    },
+    "tag": {
+      "files": [
+        "components/tag/bundle.js",
+        "components/tag/index.js",
+        "components/tag/src/tag.css",
+        "components/tag/src/tag.js"
+      ],
+      "entry": "components/tag/index.js",
+      "module": "components/tag/bundle.js",
+      "style": "components/tag/src/tag.css"
+    },
+    "time-picker": {
+      "files": [
+        "components/time-picker/index.js",
+        "components/time-picker/src/time-picker.css",
+        "components/time-picker/src/time-picker.js",
+        "components/time-picker/src/time-spinner.js"
+      ],
+      "entry": "components/time-picker/index.js",
+      "module": "components/time-picker/src/time-picker.js",
+      "style": "components/time-picker/src/time-picker.css"
+    },
+    "time-select": {
+      "files": [
+        "components/time-select/index.js",
+        "components/time-select/src/time-select.css",
+        "components/time-select/src/time-select.js"
+      ],
+      "entry": "components/time-select/index.js",
+      "module": "components/time-select/src/time-select.js",
+      "style": "components/time-select/src/time-select.css"
+    },
+    "tooltip": {
+      "files": [
+        "components/tooltip/index.js",
+        "components/tooltip/src/tooltip.css",
+        "components/tooltip/src/tooltip.js"
+      ],
+      "entry": "components/tooltip/index.js",
+      "module": "components/tooltip/src/tooltip.js",
+      "style": "components/tooltip/src/tooltip.css"
+    },
+    "transfer": {
+      "files": [
+        "components/transfer/index.js",
+        "components/transfer/src/transfer-panel.js",
+        "components/transfer/src/transfer.css",
+        "components/transfer/src/transfer.js"
+      ],
+      "entry": "components/transfer/index.js",
+      "module": "components/transfer/src/transfer.js",
+      "style": "components/transfer/src/transfer.css"
+    },
+    "tree": {
+      "files": [
+        "components/tree/index.js",
+        "components/tree/src/tree-node.js",
+        "components/tree/src/tree.css",
+        "components/tree/src/tree.js"
+      ],
+      "entry": "components/tree/index.js",
+      "module": "components/tree/src/tree.js",
+      "style": "components/tree/src/tree.css"
+    },
+    "tree-select": {
+      "files": [
+        "components/tree-select/index.js",
+        "components/tree-select/src/tree-select.css",
+        "components/tree-select/src/tree-select.js",
+        "components/tree-select/src/use-tree.js"
+      ],
+      "entry": "components/tree-select/index.js",
+      "module": "components/tree-select/src/tree-select.js",
+      "style": "components/tree-select/src/tree-select.css"
+    },
+    "typography": {
+      "files": [
+        "components/typography/bundle.js",
+        "components/typography/index.js",
+        "components/typography/src/link.js",
+        "components/typography/src/paragraph.js",
+        "components/typography/src/text.js",
+        "components/typography/src/title.js",
+        "components/typography/src/typography.css",
+        "components/typography/src/typography.js"
+      ],
+      "entry": "components/typography/index.js",
+      "module": "components/typography/bundle.js",
+      "style": "components/typography/src/typography.css"
+    },
+    "upload": {
+      "files": [
+        "components/upload/index.js",
+        "components/upload/src/upload.css",
+        "components/upload/src/upload.js"
+      ],
+      "entry": "components/upload/index.js",
+      "module": "components/upload/src/upload.js",
+      "style": "components/upload/src/upload.css"
+    },
+    "waterfall": {
+      "files": [
+        "components/waterfall/bundle.js",
+        "components/waterfall/index.js",
+        "components/waterfall/src/waterfall.css",
+        "components/waterfall/src/waterfall.js"
+      ],
+      "entry": "components/waterfall/index.js",
+      "module": "components/waterfall/bundle.js",
+      "style": "components/waterfall/src/waterfall.css"
+    },
+    "watermark": {
+      "files": [
+        "components/watermark/index.js",
+        "components/watermark/src/watermark.css",
+        "components/watermark/src/watermark.js"
+      ],
+      "entry": "components/watermark/index.js",
+      "module": "components/watermark/src/watermark.js",
+      "style": "components/watermark/src/watermark.css"
+    }
+  }
+}

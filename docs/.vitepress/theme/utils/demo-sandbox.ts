@@ -52,6 +52,16 @@ const DEV_DEPENDENCIES: Record<string, string> = {
   'vue-tsc': '^2.2.0'
 }
 
+const SANDBOX_PACKAGE_MANAGER = 'pnpm@10.13.0'
+const CODE_SANDBOX_PUBLIC_BASE = 'https://1079161148.github.io/yh-ui/'
+const CODE_SANDBOX_VUE_URL = `https://esm.sh/vue@${VUE_VERSION}`
+const CODE_SANDBOX_YH_UI_RUNTIME_URL = `${CODE_SANDBOX_PUBLIC_BASE}playground/yh-ui-bundle.js`
+const CODE_SANDBOX_YH_UI_STYLE_URL = `${CODE_SANDBOX_PUBLIC_BASE}playground/yh-ui-bundle.css`
+const CODE_SANDBOX_FLOW_RUNTIME_URL = `${CODE_SANDBOX_PUBLIC_BASE}playground/yh-flow-runtime.js`
+const CODE_SANDBOX_FLOW_STYLE_URL = `${CODE_SANDBOX_PUBLIC_BASE}playground/yh-flow-runtime.css`
+const CODE_SANDBOX_ICON_RUNTIME_URL = 'https://esm.sh/@iconify/vue@4.1.2'
+const CODE_SANDBOX_RUNTIME_BASE = 'codesandbox-runtime/'
+
 const KNOWN_DEPENDENCIES: Record<string, string> = {
   '@floating-ui/dom': '^1.7.4',
   '@iconify/vue': '^4.1.2',
@@ -171,6 +181,26 @@ interface PlaygroundRuntimeEnv {
   isGitHubPages: boolean
 }
 
+interface CodeSandboxRuntimeManifest {
+  version: number
+  supportFiles: string[]
+  components: Record<
+    string,
+    {
+      files: string[]
+      entry: string
+      module: string
+      style: string | null
+    }
+  >
+}
+
+interface CodeSandboxProjectFilesOptions {
+  base?: string
+  manifest?: CodeSandboxRuntimeManifest
+  loadRuntimeAssetText?: (relativePath: string) => Promise<string>
+}
+
 // ============================================================
 // 工具函数
 // ============================================================
@@ -212,8 +242,112 @@ function normalizeDependencyVersion(version: string): string {
   return version.replace(/^[~^]/, '')
 }
 
+function replaceQuotedImportSource(code: string, from: string, to: string): string {
+  return code.replaceAll(`'${from}'`, `'${to}'`).replaceAll(`"${from}"`, `"${to}"`)
+}
+
+function extractUsedYhComponentNames(code: string): string[] {
+  const matches = [...code.matchAll(/<\s*yh-([a-z0-9-]+)\b/gi)]
+  return [...new Set(matches.map((match) => match[1]).filter(Boolean))].sort()
+}
+
+function kebabToPascalCase(value: string): string {
+  return value
+    .split('-')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('')
+}
+
+async function fetchTextAsset(url: string): Promise<string> {
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch sandbox asset: ${url} (${response.status})`)
+  }
+
+  return response.text()
+}
+
+async function loadCodeSandboxRuntimeManifest(base: string): Promise<CodeSandboxRuntimeManifest> {
+  const manifestUrl = resolveSiteAssetUrl(base, `${CODE_SANDBOX_RUNTIME_BASE}manifest.json`)
+  return JSON.parse(await fetchTextAsset(manifestUrl)) as CodeSandboxRuntimeManifest
+}
+
+async function compileCodeSandboxVueModule(filename: string, source: string): Promise<string> {
+  const { parse, compileScript, compileTemplate } = await import('@vue/compiler-sfc')
+  const { descriptor } = parse(source, { filename })
+  const hasScriptBlock = Boolean(descriptor.script || descriptor.scriptSetup)
+  const script = hasScriptBlock
+    ? compileScript(descriptor, {
+        id: filename,
+        inlineTemplate: false
+      })
+    : {
+        bindings: {},
+        content: 'const __sfc__ = {}'
+      }
+  const template = compileTemplate({
+    id: filename,
+    filename,
+    source: descriptor.template?.content ?? '',
+    compilerOptions: {
+      bindingMetadata: script.bindings
+    }
+  })
+
+  return [
+    template.code.replace('export function render', 'function render'),
+    script.content.replace('export default', 'const __sfc__ ='),
+    '__sfc__.render = render',
+    'export default __sfc__'
+  ].join('\n\n')
+}
+
+async function createCodeSandboxDemoModule(
+  code: string
+): Promise<{ moduleCode: string; styles: string }> {
+  const normalized = normalizeSfc(code)
+  const { parse } = await import('@vue/compiler-sfc')
+  const { descriptor } = parse(normalized, { filename: 'Demo.vue' })
+  const compiledModule = await compileCodeSandboxVueModule('Demo.vue', normalized)
+  const styles = descriptor.styles.map((style) => style.content).join('\n\n')
+
+  return {
+    moduleCode: compiledModule,
+    styles
+  }
+}
+
 function compressCodeSandboxParameters(input: string): string {
   return compressToBase64(input).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
+}
+
+function collectThirdPartyDependenciesFromCode(code: string): Record<string, string> {
+  const dependencies: Record<string, string> = {}
+
+  for (const source of extractBareImports(code)) {
+    if (source.startsWith('.') || source.startsWith('/')) {
+      continue
+    }
+
+    const pkg = getPackageName(source)
+    if (
+      pkg === 'vue' ||
+      pkg.startsWith('node:') ||
+      NODE_BUILTINS.has(pkg) ||
+      pkg.startsWith('@yh-ui/')
+    ) {
+      continue
+    }
+
+    dependencies[pkg] = KNOWN_DEPENDENCIES[pkg] || 'latest'
+  }
+
+  return dependencies
+}
+
+function resolveRelativeRuntimePath(fromFile: string, importSource: string): string {
+  return new URL(importSource, `https://runtime.local/${fromFile}`).pathname.replace(/^\/+/, '')
 }
 
 function normalizeBasePath(base = '/'): string {
@@ -531,6 +665,41 @@ function usesIconSandboxRuntime(code: string, context?: SandboxContext): boolean
     /<\s*(?:icon|yh-iconify-icon)\b/i.test(preparedCode) ||
     Boolean(context?.docPath?.includes('/icon/'))
   )
+}
+
+function rewriteCodeSandboxImports(code: string): string {
+  const replacements = new Map<string, string>([
+    ['vue', CODE_SANDBOX_VUE_URL],
+    ['@yh-ui/yh-ui', CODE_SANDBOX_YH_UI_RUNTIME_URL],
+    ['@yh-ui/components', CODE_SANDBOX_YH_UI_RUNTIME_URL],
+    ['@yh-ui/hooks', CODE_SANDBOX_YH_UI_RUNTIME_URL],
+    ['@yh-ui/utils', CODE_SANDBOX_YH_UI_RUNTIME_URL],
+    ['@yh-ui/theme', CODE_SANDBOX_YH_UI_RUNTIME_URL],
+    ['@yh-ui/locale', CODE_SANDBOX_YH_UI_RUNTIME_URL],
+    ['@yh-ui/flow', CODE_SANDBOX_FLOW_RUNTIME_URL],
+    ['@yh-ui/icons', CODE_SANDBOX_ICON_RUNTIME_URL]
+  ])
+
+  let rewritten = code
+    .replace(/^\s*import\s+['"]@yh-ui\/yh-ui\/css['"]\s*;?\s*\n/gm, '')
+    .replace(/^\s*import\s+['"]@yh-ui\/components\/style\.css['"]\s*;?\s*\n/gm, '')
+    .replace(/^\s*import\s+['"]@yh-ui\/flow\/style\.css['"]\s*;?\s*\n/gm, '')
+
+  for (const [from, to] of replacements) {
+    rewritten = replaceQuotedImportSource(rewritten, from, to)
+  }
+
+  return rewritten
+}
+
+function createCodeSandboxStyleSheet(styleCss: string, usesFlowRuntime: boolean): string {
+  const runtimeImports = [`@import url('${CODE_SANDBOX_YH_UI_STYLE_URL}');`]
+
+  if (usesFlowRuntime) {
+    runtimeImports.push(`@import url('${CODE_SANDBOX_FLOW_STYLE_URL}');`)
+  }
+
+  return `${runtimeImports.join('\n')}\n\n${styleCss}`
 }
 
 function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
@@ -901,26 +1070,138 @@ export async function createSandboxProjectFiles(
   }
 }
 
-async function createCodeSandboxProjectFiles(
+export async function createCodeSandboxProjectFiles(
   title: string,
   code: string,
-  context?: SandboxContext
+  context?: SandboxContext,
+  options: CodeSandboxProjectFilesOptions = {}
 ): Promise<Record<string, string>> {
-  const files = await createSandboxProjectFiles(title, code, context)
-  const packageJson = JSON.parse(files['package.json']) as Record<string, any>
+  const preparedCode = prepareSandboxCode(code, context)
+  const base = (options.base ?? import.meta.env.BASE_URL) || '/'
+  const manifest = options.manifest ?? (await loadCodeSandboxRuntimeManifest(base))
+  const loadRuntimeAssetText =
+    options.loadRuntimeAssetText ??
+    ((relativePath: string) =>
+      fetchTextAsset(resolveSiteAssetUrl(base, `${CODE_SANDBOX_RUNTIME_BASE}${relativePath}`)))
+  const componentNames = extractUsedYhComponentNames(preparedCode).filter(
+    (name) => manifest.components[name]
+  )
+  const supportStyleFiles = [
+    'theme/styles/mixins/mixins.css',
+    'theme/styles/variables.css',
+    'theme/styles/reset.css',
+    'theme/styles/index.css',
+    'theme/styles/components.css'
+  ]
 
-  delete packageJson.stackblitz
+  const runtimeFiles: Record<string, string> = {}
+  const componentStyleContents: string[] = []
+  const supportStyleContents: string[] = []
+  const packageDependencies: Record<string, string> = {
+    vue: `^${VUE_VERSION}`
+  }
+  const loadedRuntimeFiles = new Set<string>()
+
+  const collectRuntimeFile = async (relativePath: string): Promise<void> => {
+    if (loadedRuntimeFiles.has(relativePath)) {
+      return
+    }
+
+    loadedRuntimeFiles.add(relativePath)
+    const assetText = await loadRuntimeAssetText(relativePath)
+    runtimeFiles[`src/vendor/${relativePath}`] = assetText
+    Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(assetText))
+
+    if (!relativePath.endsWith('.js')) {
+      return
+    }
+
+    for (const source of extractBareImports(assetText)) {
+      if (!source.startsWith('.')) {
+        continue
+      }
+
+      await collectRuntimeFile(resolveRelativeRuntimePath(relativePath, source))
+    }
+  }
+
+  for (const componentName of componentNames) {
+    const componentEntry = manifest.components[componentName]
+    await collectRuntimeFile(componentEntry.module)
+    if (componentEntry.style) {
+      await collectRuntimeFile(componentEntry.style)
+      componentStyleContents.push(runtimeFiles[`src/vendor/${componentEntry.style}`] ?? '')
+    }
+  }
+
+  for (const styleFile of supportStyleFiles) {
+    await collectRuntimeFile(styleFile)
+    supportStyleContents.push(runtimeFiles[`src/vendor/${styleFile}`] ?? '')
+  }
+
+  const demoModule = await createCodeSandboxDemoModule(preparedCode)
+  Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(demoModule.moduleCode))
+  const componentImports = componentNames
+    .map(
+      (name, index) =>
+        `import Component${index + 1} from './vendor/${manifest.components[name].module}'`
+    )
+    .join('\n')
+  const componentRegistrations = componentNames
+    .map(
+      (name, index) => `app.component('${kebabToPascalCase(`yh-${name}`)}', Component${index + 1})`
+    )
+    .join('\n')
+
+  const indexJs = [
+    "import { createApp, h } from 'vue'",
+    "import Demo from './Demo.js'",
+    componentImports,
+    "import './style.css'",
+    '',
+    'const app = createApp({ render: () => h(Demo) })',
+    componentRegistrations,
+    "app.mount('#app')",
+    ''
+  ].join('\n')
+
+  const packageJson =
+    JSON.stringify(
+      {
+        name: slugifyTitle(title) || 'yh-ui-demo',
+        private: true,
+        main: 'src/index.js',
+        dependencies: packageDependencies
+      },
+      null,
+      2
+    ) + '\n'
+
+  const codeSandboxTemplateJson =
+    JSON.stringify(
+      {
+        title: title || 'YH-UI Demo',
+        description: 'YH-UI component demo generated from the documentation.',
+        iconUrl:
+          'https://raw.githubusercontent.com/codesandbox/sandbox-templates/main/vue-vite/.codesandbox/icon.png',
+        tags: ['frontend', 'vue', 'vue3', 'codesandbox', 'yh-ui'],
+        published: true
+      },
+      null,
+      2
+    ) + '\n'
 
   return {
-    'index.html': files['index.html'],
-    'package.json': JSON.stringify(packageJson, null, 2) + '\n',
-    'tsconfig.json': files['tsconfig.json'],
-    'vite.config.ts': files['vite.config.ts'],
-    'src/App.vue': files['src/App.vue'],
-    'src/Demo.vue': files['src/Demo.vue'],
-    'src/main.ts': files['src/main.ts'],
-    'src/style.css': files['src/style.css'],
-    'src/env.d.ts': files['src/env.d.ts']
+    '.codesandbox/template.json': codeSandboxTemplateJson,
+    'index.html':
+      '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <title>' +
+      escapeHtml(title || 'YH-UI Demo') +
+      '</title>\n  </head>\n  <body>\n    <div id="app"></div>\n  </body>\n</html>\n',
+    'package.json': packageJson,
+    'src/index.js': indexJs,
+    'src/Demo.js': demoModule.moduleCode + '\n',
+    'src/style.css': `${supportStyleContents.join('\n')}\n${componentStyleContents.join('\n')}\n${demoModule.styles}\n`,
+    ...runtimeFiles
   }
 }
 
@@ -997,7 +1278,7 @@ export async function openDemoInCodeSandbox(
   const queryInput = document.createElement('input')
   queryInput.type = 'hidden'
   queryInput.name = 'query'
-  queryInput.value = 'file=/src/main.ts'
+  queryInput.value = 'file=/src/index.js'
   form.appendChild(queryInput)
 
   document.body.appendChild(form)
