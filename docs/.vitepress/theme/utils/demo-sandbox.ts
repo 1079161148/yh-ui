@@ -54,6 +54,7 @@ const DEV_DEPENDENCIES: Record<string, string> = {
 
 const KNOWN_DEPENDENCIES: Record<string, string> = {
   '@floating-ui/dom': '^1.7.4',
+  '@iconify/vue': '^4.1.2',
   '@langchain/core': '^0.3.0',
   '@yh-ui/ai-sdk': YH_UI_VERSION,
   '@yh-ui/components': YH_UI_VERSION,
@@ -522,6 +523,16 @@ function usesFlowSandboxRuntime(code: string, context?: SandboxContext): boolean
   )
 }
 
+function usesIconSandboxRuntime(code: string, context?: SandboxContext): boolean {
+  const preparedCode = prepareSandboxCode(code, context)
+  return (
+    preparedCode.includes('@yh-ui/icons') ||
+    preparedCode.includes('@iconify/vue') ||
+    /<\s*(?:icon|yh-iconify-icon)\b/i.test(preparedCode) ||
+    Boolean(context?.docPath?.includes('/icon/'))
+  )
+}
+
 function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
   const dependencies = { ...BASE_DEPENDENCIES }
@@ -555,8 +566,11 @@ function buildSandboxDependencies(code: string, context?: SandboxContext): Recor
   const preparedCode = prepareSandboxCode(code, context)
   const dependencies = {
     ...buildDependencies(preparedCode, context),
-    '@yh-ui/yh-ui': YH_UI_VERSION,
-    '@yh-ui/icons': YH_ICONS_VERSION
+    '@yh-ui/yh-ui': YH_UI_VERSION
+  }
+
+  if (usesIconSandboxRuntime(preparedCode, context)) {
+    dependencies['@iconify/vue'] = KNOWN_DEPENDENCIES['@iconify/vue']
   }
 
   if (usesFlowSandboxRuntime(preparedCode, context)) {
@@ -677,6 +691,7 @@ export async function createSandboxProjectFiles(
   const normalizedCode = normalizeSfc(prepareSandboxCode(code, context))
   const dependencies = buildSandboxDependencies(code, context)
   const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
+  const usesIconRuntime = usesIconSandboxRuntime(code, context)
   const interopDeps = [
     'dayjs',
     'dayjs/plugin/isBetween.js',
@@ -716,7 +731,7 @@ export async function createSandboxProjectFiles(
     "import { createApp } from 'vue'",
     "import { install as installYhUI } from '@yh-ui/yh-ui'",
     "import '@yh-ui/yh-ui/css'",
-    "import { Icon as YhIconify } from '@yh-ui/icons'",
+    ...(usesIconRuntime ? ["import { Icon as YhIconify } from '@iconify/vue'"] : []),
     ...(usesFlowRuntime
       ? [
           "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from '@yh-ui/flow'"
@@ -727,9 +742,13 @@ export async function createSandboxProjectFiles(
     '',
     'const app = createApp(App)',
     'installYhUI(app)',
-    '// eslint-disable-next-line vue/multi-word-component-names',
-    "app.component('Icon', YhIconify)",
-    "app.component('YhIconifyIcon', YhIconify)",
+    ...(usesIconRuntime
+      ? [
+          '// eslint-disable-next-line vue/multi-word-component-names',
+          "app.component('Icon', YhIconify)",
+          "app.component('YhIconifyIcon', YhIconify)"
+        ]
+      : []),
     ...(usesFlowRuntime
       ? [
           "app.component('YhFlow', YhFlow)",
@@ -978,7 +997,7 @@ export async function openDemoInCodeSandbox(
   const queryInput = document.createElement('input')
   queryInput.type = 'hidden'
   queryInput.name = 'query'
-  queryInput.value = 'file=/src/Demo.vue'
+  queryInput.value = 'file=/src/main.ts'
   form.appendChild(queryInput)
 
   document.body.appendChild(form)
