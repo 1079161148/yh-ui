@@ -4,9 +4,25 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to release (branch, commit, or tag)'
+        required: true
+        default: 'main'
+      publish_to_npm:
+        description: 'Publish packages to npm'
+        required: true
+        type: boolean
+        default: true
+      deploy_docs:
+        description: 'Deploy docs after publish'
+        required: true
+        type: boolean
+        default: true
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
   cancel-in-progress: false
 
 env:
@@ -15,9 +31,6 @@ env:
   NODE_OPTIONS: '--max-old-space-size=6144'
 
 jobs:
-  # ================================================================
-  # 发布前验证
-  # ================================================================
   validate:
     name: Pre-release Validation
     runs-on: ubuntu-latest
@@ -26,6 +39,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -53,13 +67,11 @@ jobs:
       - name: Verify packages and docs build
         run: pnpm verify:release
 
-  # ================================================================
-  # 发布到 npm
-  # ================================================================
   publish:
     name: Publish to npm
     runs-on: ubuntu-latest
     needs: [validate]
+    if: github.event_name != 'workflow_dispatch' || inputs.publish_to_npm
     permissions:
       contents: write
       id-token: write
@@ -68,6 +80,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -87,9 +100,15 @@ jobs:
       - name: Build all packages
         run: pnpm build
 
-      - name: Extract version from tag
+      - name: Extract release version
         id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          else
+            echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Publish packages to npm
         run: pnpm publish:all
@@ -97,36 +116,52 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_REGISTRY_URL: 'https://registry.npmjs.org'
 
-      - name: Create GitHub Release
+      - name: Create or update GitHub Release
         uses: actions/github-script@v7
         with:
           script: |
-            const { data: commits } = await github.rest.repos.listCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              per_page: 20
-            })
-
             const tag = '${{ steps.version.outputs.VERSION }}'
-            const body = `## YH-UI v${tag}\n\n📦 [npm package](https://www.npmjs.com/package/@yh-ui/yh-ui)\n📖 [Documentation](https://1079161148.github.io/yh-ui/)\n\nSee [CHANGELOG.md](./CHANGELOG.md) for full details.`
+            const tagName = `v${tag}`
+            const targetCommitish = '${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.sha }}'
+            const body = `## YH-UI v${tag}\n\n📦 [npm package](https://www.npmjs.com/package/@yh-ui/yh-ui)\n📉 [Documentation](https://1079161148.github.io/yh-ui/)\n\nSee [CHANGELOG.md](./CHANGELOG.md) for full details.`
 
-            await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: `v${tag}`,
-              name: `v${tag}`,
-              body,
-              draft: false,
-              prerelease: tag.includes('-')
-            })
+            try {
+              const existing = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag: tagName
+              })
 
-  # ================================================================
-  # 部署文档网站
-  # ================================================================
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: existing.data.id,
+                tag_name: tagName,
+                name: tagName,
+                body,
+                draft: false,
+                prerelease: tag.includes('-')
+              })
+            } catch (error) {
+              if (error.status !== 404) throw error
+
+              await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: tagName,
+                target_commitish: targetCommitish,
+                name: tagName,
+                body,
+                draft: false,
+                prerelease: tag.includes('-')
+              })
+            }
+
   deploy-docs:
     name: Deploy Documentation
     runs-on: ubuntu-latest
     needs: [publish]
+    if: github.event_name != 'workflow_dispatch' || inputs.deploy_docs
     permissions:
       contents: read
       pages: write
@@ -137,6 +172,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
