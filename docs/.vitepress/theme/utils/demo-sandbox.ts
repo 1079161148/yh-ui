@@ -674,6 +674,7 @@ export async function createSandboxProjectFiles(
   const dependencies = buildSandboxDependencies(code, context)
   const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
   const interopDeps = [
+    'dayjs',
     'dayjs/plugin/isBetween.js',
     'dayjs/plugin/weekOfYear.js',
     'dayjs/plugin/isoWeek.js',
@@ -722,7 +723,7 @@ export async function createSandboxProjectFiles(
     '',
     'const app = createApp(App)',
     'installYhUI(app)',
-    "// eslint-disable-next-line vue/multi-word-component-names",
+    '// eslint-disable-next-line vue/multi-word-component-names',
     "app.component('Icon', YhIconify)",
     "app.component('YhIconifyIcon', YhIconify)",
     ...(usesFlowRuntime

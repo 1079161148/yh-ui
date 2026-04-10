@@ -2,9 +2,9 @@
 import { ref, computed, watch } from 'vue'
 import dayjs from '../../dayjs'
 import type { PluginFunc } from '../../dayjs'
-import * as isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
-import * as isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
-import * as quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
+import isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
+import isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
+import quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type {
@@ -19,21 +19,9 @@ import { YhTooltip } from '../../tooltip'
 import { YhInput } from '../../input'
 import { YhRadioGroup, YhRadioButton } from '../../radio'
 
-const resolveDayjsPlugin = (module: PluginFunc | { default?: PluginFunc }): PluginFunc => {
-  if (typeof module === 'function') {
-    return module
-  }
-
-  if (typeof module.default === 'function') {
-    return module.default
-  }
-
-  return module as PluginFunc
-}
-
-dayjs.extend(resolveDayjsPlugin(isBetweenPluginModule))
-dayjs.extend(resolveDayjsPlugin(isoWeekPluginModule))
-dayjs.extend(resolveDayjsPlugin(quarterOfYearPluginModule))
+dayjs.extend(isBetweenPluginModule as PluginFunc)
+dayjs.extend(isoWeekPluginModule as PluginFunc)
+dayjs.extend(quarterOfYearPluginModule as PluginFunc)
 
 defineOptions({ name: 'YhGanttChart' })
 

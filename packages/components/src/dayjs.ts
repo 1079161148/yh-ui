@@ -1,9 +1,5 @@
-import * as dayjsModule from 'dayjs'
+import dayjs from 'dayjs'
 import type dayjsType from 'dayjs'
 
-const dayjs = (
-  'default' in dayjsModule ? (dayjsModule.default ?? dayjsModule) : dayjsModule
-) as typeof dayjsType
-
-export default dayjs
+export default dayjs as typeof dayjsType
 export type { Dayjs, PluginFunc } from 'dayjs'

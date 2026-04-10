@@ -1,36 +1,24 @@
 import dayjs from '../../dayjs'
 import type { Dayjs, PluginFunc } from '../../dayjs'
-import * as isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
-import * as weekOfYearPluginModule from 'dayjs/plugin/weekOfYear.js'
-import * as isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
-import * as quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
-import * as advancedFormatPluginModule from 'dayjs/plugin/advancedFormat.js'
-import * as customParseFormatPluginModule from 'dayjs/plugin/customParseFormat.js'
-
-function resolveDayjsPlugin(module: PluginFunc | { default?: PluginFunc }): PluginFunc {
-  if (typeof module === 'function') {
-    return module
-  }
-
-  if (typeof module.default === 'function') {
-    return module.default
-  }
-
-  return module as PluginFunc
-}
+import isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
+import weekOfYearPluginModule from 'dayjs/plugin/weekOfYear.js'
+import isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
+import quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
+import advancedFormatPluginModule from 'dayjs/plugin/advancedFormat.js'
+import customParseFormatPluginModule from 'dayjs/plugin/customParseFormat.js'
 
 // @ts-ignore
-dayjs.extend(resolveDayjsPlugin(isBetweenPluginModule))
+dayjs.extend(isBetweenPluginModule as PluginFunc)
 // @ts-ignore
-dayjs.extend(resolveDayjsPlugin(weekOfYearPluginModule))
+dayjs.extend(weekOfYearPluginModule as PluginFunc)
 // @ts-ignore
-dayjs.extend(resolveDayjsPlugin(isoWeekPluginModule))
+dayjs.extend(isoWeekPluginModule as PluginFunc)
 // @ts-ignore
-dayjs.extend(resolveDayjsPlugin(quarterOfYearPluginModule))
+dayjs.extend(quarterOfYearPluginModule as PluginFunc)
 // @ts-ignore
-dayjs.extend(resolveDayjsPlugin(advancedFormatPluginModule))
+dayjs.extend(advancedFormatPluginModule as PluginFunc)
 // @ts-ignore
-dayjs.extend(resolveDayjsPlugin(customParseFormatPluginModule))
+dayjs.extend(customParseFormatPluginModule as PluginFunc)
 
 export const DEFAULT_FORMATS = {
   date: 'YYYY-MM-DD',
