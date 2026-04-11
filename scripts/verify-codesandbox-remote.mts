@@ -9,17 +9,32 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
 const runtimeDir = resolve(rootDir, 'docs/public/codesandbox-runtime')
 const tempDir = resolve(rootDir, '.codex-temp')
-const screenshotPath = resolve(tempDir, 'codesandbox-remote-button.png')
-const htmlDumpPath = resolve(tempDir, 'codesandbox-remote-button.html')
 
-const testCase = {
-  title: 'Basic Button',
-  code: `<template>
-  <yh-button type="primary">Hello Sandbox</yh-button>
+const testCases = [
+  {
+    name: 'button',
+    title: 'Basic Button',
+    code: `<template>
+  <yh-space>
+    <yh-button>Default</yh-button>
+    <yh-button type="primary">Hello Sandbox</yh-button>
+  </yh-space>
 </template>`,
-  selector: '.yh-button',
-  text: 'Hello Sandbox'
-}
+    selector: '.yh-button--primary',
+    text: 'Hello Sandbox'
+  },
+  {
+    name: 'input',
+    title: 'Basic Input',
+    code: `<template>
+  <div style="width: 320px">
+    <yh-input placeholder="Type something" />
+  </div>
+</template>`,
+    selector: '.yh-input',
+    text: ''
+  }
+]
 
 function compressParameters(input: string): string {
   return LZString.compressToBase64(input)
@@ -28,16 +43,8 @@ function compressParameters(input: string): string {
     .replace(/=+$/g, '')
 }
 
-async function loadRuntimeManifest() {
-  return JSON.parse(await readFile(join(runtimeDir, 'manifest.json'), 'utf8')) as {
-    version: number
-    supportFiles: string[]
-    components: Record<string, { files: string[]; entry: string; style: string | null }>
-  }
-}
-
 function shouldIgnoreErrorText(text: string): boolean {
-  return text.includes('favicon.ico')
+  return text.includes('favicon.ico') || text.includes('fonts.googleapis.com')
 }
 
 function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
@@ -47,14 +54,20 @@ function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
   )
 }
 
-async function main() {
-  const manifest = await loadRuntimeManifest()
-  const files = await createCodeSandboxProjectFiles(testCase.title, testCase.code, undefined, {
+async function createRemoteSandbox(title: string, code: string) {
+  const manifest = JSON.parse(await readFile(join(runtimeDir, 'manifest.json'), 'utf8')) as {
+    version: number
+    supportFiles: string[]
+    components: Record<
+      string,
+      { files: string[]; entry: string; module: string; style: string | null }
+    >
+  }
+  const files = await createCodeSandboxProjectFiles(title, code, undefined, {
     manifest,
     loadRuntimeAssetText: async (relativePath) =>
       readFile(join(runtimeDir, ...relativePath.split('/')), 'utf8')
   })
-
   const payload = {
     files: Object.fromEntries(
       Object.entries(files).map(([filePath, content]) => [filePath, { content }])
@@ -68,7 +81,7 @@ async function main() {
     },
     body: new URLSearchParams({
       parameters: compressParameters(JSON.stringify(payload)),
-      query: 'file=/src/index.js'
+      query: 'file=/src/Demo.vue'
     }).toString()
   })
 
@@ -82,10 +95,19 @@ async function main() {
     throw new Error(`CodeSandbox define response missing sandbox_id: ${defineText}`)
   }
 
-  const previewUrl = `https://${sandboxId}.csb.app/`
+  return {
+    sandboxId,
+    previewUrl: `https://${sandboxId}.csb.app/`
+  }
+}
+
+async function verifyTestCase(testCase: (typeof testCases)[number]) {
+  const { sandboxId, previewUrl } = await createRemoteSandbox(testCase.title, testCase.code)
   const browser = await chromium.launch({ headless: true })
   const page = await browser.newPage()
   const runtimeErrors: string[] = []
+  const screenshotPath = resolve(tempDir, `codesandbox-remote-${testCase.name}.png`)
+  const htmlDumpPath = resolve(tempDir, `codesandbox-remote-${testCase.name}.html`)
 
   page.on('console', (message) => {
     if (message.type() !== 'error') return
@@ -128,11 +150,13 @@ async function main() {
       timeout: 120000
     })
 
-    const text = await page.locator(testCase.selector).first().innerText()
-    if (!text.includes(testCase.text)) {
-      throw new Error(
-        `Expected "${testCase.text}" in ${testCase.selector}, received "${text || ''}"`
-      )
+    if (testCase.text) {
+      const text = await page.locator(testCase.selector).first().innerText()
+      if (!text.includes(testCase.text)) {
+        throw new Error(
+          `Expected "${testCase.text}" in ${testCase.selector}, received "${text || ''}"`
+        )
+      }
     }
 
     await page.waitForTimeout(3000)
@@ -146,30 +170,33 @@ async function main() {
       throw new Error(blockingErrors.join('\n'))
     }
 
-    console.log(
-      JSON.stringify(
-        {
-          ok: true,
-          sandboxId,
-          previewUrl,
-          selector: testCase.selector,
-          text,
-          screenshotPath
-        },
-        null,
-        2
-      )
-    )
+    return {
+      ok: true,
+      name: testCase.name,
+      sandboxId,
+      previewUrl,
+      screenshotPath
+    }
   } catch (error) {
     await mkdir(dirname(htmlDumpPath), { recursive: true })
     await writeFile(htmlDumpPath, await page.content(), 'utf8')
     await page.screenshot({ path: screenshotPath, fullPage: true }).catch(() => undefined)
     throw new Error(
-      `${error instanceof Error ? error.message : String(error)}\nPreview: ${previewUrl}\nHTML: ${htmlDumpPath}\nScreenshot: ${screenshotPath}`
+      `[${testCase.name}] ${error instanceof Error ? error.message : String(error)}\nPreview: ${previewUrl}\nHTML: ${htmlDumpPath}\nScreenshot: ${screenshotPath}`
     )
   } finally {
     await browser.close()
   }
+}
+
+async function main() {
+  const results = []
+
+  for (const testCase of testCases) {
+    results.push(await verifyTestCase(testCase))
+  }
+
+  console.log(JSON.stringify({ ok: true, results }, null, 2))
 }
 
 main().catch((error) => {
