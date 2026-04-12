@@ -164,6 +164,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
       # 下载前一个 job 就已构建好的包产物，就不需要再跑一遍全量构建
       - name: Download build artifacts
         uses: actions/download-artifact@v4
