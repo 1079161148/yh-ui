@@ -507,9 +507,7 @@ html.dark {
   box-sizing: border-box;
   background: var(--yh-switch-off-color);
   cursor: pointer;
-  transition:
-    border-color var(--yh-duration-base),
-    background-color var(--yh-duration-base);
+  transition: border-color var(--yh-duration-base), background-color var(--yh-duration-base);
   vertical-align: middle;
 }
 .yh-switch__inner {

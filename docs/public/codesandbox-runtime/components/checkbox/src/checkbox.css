@@ -502,16 +502,14 @@ html.dark {
   height: var(--yh-checkbox-input-height);
   background-color: var(--yh-checkbox-bg-color);
   z-index: 1;
-  transition:
-    border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
-    background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
+  transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46), background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
 }
 .yh-checkbox__inner:hover {
   border-color: var(--yh-checkbox-input-border-color-hover);
 }
 .yh-checkbox__inner::after {
   box-sizing: content-box;
-  content: '';
+  content: "";
   border: 1px solid transparent;
   border-left: 0;
   border-top: 0;
@@ -588,7 +586,7 @@ html.dark {
   border-color: var(--yh-checkbox-checked-bg-color);
 }
 .yh-checkbox__input.is-indeterminate .yh-checkbox__inner::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   background-color: var(--yh-checkbox-checked-icon-color);

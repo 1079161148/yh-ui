@@ -1,3 +1,2 @@
-import * as dayjsModule from "dayjs";
-const dayjs = "default" in dayjsModule ? dayjsModule.default ?? dayjsModule : dayjsModule;
+import dayjs from "dayjs";
 export default dayjs;

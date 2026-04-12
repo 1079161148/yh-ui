@@ -3,13 +3,13 @@ const smartAddressProps = {
   modelValue: {
     type: Object,
     default: () => ({
-      name: '',
-      phone: '',
-      province: '',
-      city: '',
-      district: '',
-      street: '',
-      detail: ''
+      name: "",
+      phone: "",
+      province: "",
+      city: "",
+      district: "",
+      street: "",
+      detail: ""
     })
   },
   /** 是否显示姓名字段 */
@@ -30,7 +30,7 @@ const smartAddressProps = {
   /** 智能识别输入框的 placeholder */
   parsePlaceholder: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否必填（显示星号） */
   required: {
@@ -45,7 +45,7 @@ const smartAddressProps = {
   /** 识别按钮文案 */
   parseButtonText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否显示智能识别区域 */
   showParser: {
@@ -55,7 +55,7 @@ const smartAddressProps = {
   /** 省市区输入模式 */
   regionType: {
     type: String,
-    default: 'input'
+    default: "input"
   },
   /** 省市区选项数据源（树形） */
   regionOptions: {
@@ -65,22 +65,22 @@ const smartAddressProps = {
   /** 自定义选项的标签字段 */
   labelField: {
     type: String,
-    default: 'label'
+    default: "label"
   },
   /** 自定义选项的值字段 */
   valueField: {
     type: String,
-    default: 'value'
+    default: "value"
   },
   /** 自定义选项的子级字段 */
   childrenField: {
     type: String,
-    default: 'children'
+    default: "children"
   },
   /** 标签位置 */
   labelPlacement: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   /** 自定义解析函数 (用于替代内置解析逻辑) */
   parser: {
@@ -92,12 +92,15 @@ const smartAddressProps = {
     type: Object,
     default: () => ({})
   }
-}
+};
 const smartAddressEmits = {
-  'update:modelValue': (val) => val !== void 0,
+  "update:modelValue": (val) => val !== void 0,
   /** 智能识别完成 */
   parsed: (val) => val !== void 0,
   /** 任意字段变化 */
   change: (val) => val !== void 0
-}
-export { smartAddressEmits, smartAddressProps }
+};
+export {
+  smartAddressEmits,
+  smartAddressProps
+};

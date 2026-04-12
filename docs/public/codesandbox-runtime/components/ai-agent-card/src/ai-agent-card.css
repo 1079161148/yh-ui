@@ -463,23 +463,17 @@ html.dark {
   overflow: hidden;
 }
 .yh-ai-agent-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    var(--yh-color-primary-light-9, rgba(64, 158, 255, 0.04)) 0%,
-    transparent 60%
-  );
+  background: linear-gradient(135deg, var(--yh-color-primary-light-9, rgba(64, 158, 255, 0.04)) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.25s;
   pointer-events: none;
 }
 .yh-ai-agent-card:hover {
   border-color: var(--yh-color-primary-light-5, #79bbff);
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.1),
-    0 0 0 1px var(--yh-color-primary-light-6, #a0cfff);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--yh-color-primary-light-6, #a0cfff);
   transform: translateY(-2px);
 }
 .yh-ai-agent-card:hover::before {
@@ -622,11 +616,7 @@ html.dark {
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  background: linear-gradient(
-    135deg,
-    var(--yh-color-primary-light-8),
-    var(--yh-color-primary-light-5)
-  );
+  background: linear-gradient(135deg, var(--yh-color-primary-light-8), var(--yh-color-primary-light-5));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -837,12 +827,7 @@ html.dark {
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color) 25%,
-    var(--yh-fill-color-light) 50%,
-    var(--yh-fill-color) 75%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color) 25%, var(--yh-fill-color-light) 50%, var(--yh-fill-color) 75%);
   background-size: 200% 100%;
   animation: yh-agent-shimmer 1.5s infinite;
 }
@@ -859,12 +844,7 @@ html.dark {
   height: 14px;
   border-radius: 7px;
   width: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color) 25%,
-    var(--yh-fill-color-light) 50%,
-    var(--yh-fill-color) 75%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color) 25%, var(--yh-fill-color-light) 50%, var(--yh-fill-color) 75%);
   background-size: 200% 100%;
   animation: yh-agent-shimmer 1.5s infinite;
 }

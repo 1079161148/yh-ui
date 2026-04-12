@@ -4,14 +4,14 @@ const iconProps = {
    */
   name: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * SVG 字符串（直接渲染 SVG）
    */
   svg: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 图标组件（传入 Vue 组件）
@@ -56,31 +56,31 @@ const iconProps = {
     type: Object,
     default: void 0
   }
-}
-const iconRegistry = /* @__PURE__ */ new Map()
+};
+const iconRegistry = /* @__PURE__ */ new Map();
 function registerIcon(icon) {
-  iconRegistry.set(icon.name, icon)
+  iconRegistry.set(icon.name, icon);
 }
 function registerIcons(icons) {
-  icons.forEach((icon) => registerIcon(icon))
+  icons.forEach((icon) => registerIcon(icon));
 }
 function registerIconSet(iconSet) {
   Object.entries(iconSet.icons).forEach(([name, icon]) => {
-    iconRegistry.set(`${iconSet.prefix}:${name}`, icon)
-  })
+    iconRegistry.set(`${iconSet.prefix}:${name}`, icon);
+  });
 }
 function getIcon(name) {
-  return iconRegistry.get(name)
+  return iconRegistry.get(name);
 }
-function createIconComponent(svg, viewBox = '0 0 24 24') {
+function createIconComponent(svg, viewBox = "0 0 24 24") {
   return {
-    name: 'YhIconComponent',
+    name: "YhIconComponent",
     render() {
-      return null
+      return null;
     },
     __svg: svg,
     __viewBox: viewBox
-  }
+  };
 }
 export {
   createIconComponent,
@@ -90,4 +90,4 @@ export {
   registerIcon,
   registerIconSet,
   registerIcons
-}
+};

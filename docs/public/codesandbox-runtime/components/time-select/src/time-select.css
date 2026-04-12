@@ -582,8 +582,7 @@ html.dark {
   cursor: pointer;
   transition: background-color var(--yh-duration-fast) ease;
 }
-.yh-time-select__option:hover,
-.yh-time-select__option.is-hovering {
+.yh-time-select__option:hover, .yh-time-select__option.is-hovering {
   background-color: var(--yh-fill-color-light, #f5f7fa);
 }
 .yh-time-select__option.is-selected {

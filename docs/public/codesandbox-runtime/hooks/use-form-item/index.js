@@ -1,9 +1,9 @@
-import { inject } from 'vue'
-const FormContextKey = Symbol('FormContextKey')
-const FormItemContextKey = Symbol('FormItemContextKey')
+import { inject } from "vue";
+const FormContextKey = Symbol("FormContextKey");
+const FormItemContextKey = Symbol("FormItemContextKey");
 const useFormItem = () => {
-  const form = inject(FormContextKey, void 0)
-  const formItem = inject(FormItemContextKey, void 0)
+  const form = inject(FormContextKey, void 0);
+  const formItem = inject(FormItemContextKey, void 0);
   return {
     form,
     formItem,
@@ -11,11 +11,15 @@ const useFormItem = () => {
     validate: (trigger) => {
       if (formItem) {
         return formItem.validate(trigger).catch(() => {
-          return false
-        })
+          return false;
+        });
       }
-      return Promise.resolve(true)
+      return Promise.resolve(true);
     }
-  }
-}
-export { FormContextKey, FormItemContextKey, useFormItem }
+  };
+};
+export {
+  FormContextKey,
+  FormItemContextKey,
+  useFormItem
+};

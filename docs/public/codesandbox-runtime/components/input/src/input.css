@@ -553,24 +553,21 @@ html.dark {
   box-shadow: 0 2px 0 0 var(--yh-color-primary-light-8);
 }
 
-.yh-input--status-success > .yh-input__wrapper,
-.yh-input--status-success > .yh-input__wrapper:hover {
+.yh-input--status-success > .yh-input__wrapper, .yh-input--status-success > .yh-input__wrapper:hover {
   border-color: var(--yh-color-success) !important;
 }
 .yh-input--status-success.is-focused > .yh-input__wrapper {
   box-shadow: 0 0 0 2px rgba(103, 194, 58, 0.2);
 }
 
-.yh-input--status-warning > .yh-input__wrapper,
-.yh-input--status-warning > .yh-input__wrapper:hover {
+.yh-input--status-warning > .yh-input__wrapper, .yh-input--status-warning > .yh-input__wrapper:hover {
   border-color: var(--yh-color-warning) !important;
 }
 .yh-input--status-warning.is-focused > .yh-input__wrapper {
   box-shadow: 0 0 0 2px rgba(230, 162, 60, 0.2);
 }
 
-.yh-input--status-error > .yh-input__wrapper,
-.yh-input--status-error > .yh-input__wrapper:hover {
+.yh-input--status-error > .yh-input__wrapper, .yh-input--status-error > .yh-input__wrapper:hover {
   border-color: var(--yh-color-danger) !important;
 }
 .yh-input--status-error.is-focused > .yh-input__wrapper {
@@ -696,12 +693,10 @@ html.dark {
   line-height: 1;
   flex-shrink: 0;
 }
-.yh-input__icon.yh-input__clear,
-.yh-input__icon.yh-input__password {
+.yh-input__icon.yh-input__clear, .yh-input__icon.yh-input__password {
   cursor: pointer;
 }
-.yh-input__icon.yh-input__clear:hover,
-.yh-input__icon.yh-input__password:hover {
+.yh-input__icon.yh-input__clear:hover, .yh-input__icon.yh-input__password:hover {
   color: var(--yh-text-color-regular);
 }
 
@@ -787,12 +782,9 @@ html.dark {
   flex: 1;
   border-radius: 0;
   z-index: 1;
-  transition:
-    border-color var(--yh-duration-base),
-    box-shadow var(--yh-duration-base);
+  transition: border-color var(--yh-duration-base), box-shadow var(--yh-duration-base);
 }
-.yh-input.yh-input-group > .yh-input__wrapper:hover,
-.yh-input.yh-input-group > .yh-input__wrapper:focus-within {
+.yh-input.yh-input-group > .yh-input__wrapper:hover, .yh-input.yh-input-group > .yh-input__wrapper:focus-within {
   z-index: 2;
 }
 .yh-input.yh-input-group.is-prepend:not(.is-append) > .yh-input__wrapper {

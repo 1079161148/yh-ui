@@ -1,18 +1,18 @@
-const imageFits = ['', 'contain', 'cover', 'fill', 'none', 'scale-down']
+const imageFits = ["", "contain", "cover", "fill", "none", "scale-down"];
 const imageProps = {
   /**
    * @description 图片源地址
    */
   src: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 确定图片如何适应容器框
    */
   fit: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 是否使用懒加载
@@ -108,7 +108,7 @@ const imageProps = {
    */
   viewerMode: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /**
    * @description 传递给 viewerjs 的配置项
@@ -122,5 +122,8 @@ const imageProps = {
     type: Object,
     default: void 0
   }
-}
-export { imageFits, imageProps }
+};
+export {
+  imageFits,
+  imageProps
+};

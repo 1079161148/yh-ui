@@ -24,18 +24,18 @@ const watermarkProps = {
   /** 文字内容 */
   content: {
     type: [String, Array],
-    default: 'YH-UI'
+    default: "YH-UI"
   },
   /** 字体设置 */
   font: {
     type: Object,
     default: () => ({
-      color: 'rgba(0,0,0,0.15)',
+      color: "rgba(0,0,0,0.15)",
       fontSize: 16,
-      fontWeight: 'normal',
-      fontFamily: 'sans-serif',
-      fontStyle: 'normal',
-      textAlign: 'center',
+      fontWeight: "normal",
+      fontFamily: "sans-serif",
+      fontStyle: "normal",
+      textAlign: "center",
       lineHeight: 22
     })
   },
@@ -69,5 +69,7 @@ const watermarkProps = {
     type: Object,
     default: void 0
   }
-}
-export { watermarkProps }
+};
+export {
+  watermarkProps
+};

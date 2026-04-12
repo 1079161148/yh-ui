@@ -5,6 +5,7 @@
 
 import type { App, Plugin } from 'vue'
 import type { Language } from '@yh-ui/locale'
+import packageJson from '../package.json'
 
 // 导出所有组件
 export * from '@yh-ui/components'
@@ -84,4 +85,4 @@ export default {
 }
 
 // 版本号
-export const version = '0.1.10'
+export const version = packageJson.version

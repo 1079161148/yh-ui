@@ -472,8 +472,7 @@ html.dark {
   vertical-align: middle;
   line-height: 1;
 }
-.yh-pagination,
-.yh-pagination * {
+.yh-pagination, .yh-pagination * {
   box-sizing: border-box;
 }
 .yh-pagination.is-small {
@@ -597,8 +596,7 @@ html.dark {
   margin: 0 !important;
   vertical-align: middle;
 }
-.yh-pagination .yh-pagination__prev,
-.yh-pagination .yh-pagination__next {
+.yh-pagination .yh-pagination__prev, .yh-pagination .yh-pagination__next {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -614,20 +612,17 @@ html.dark {
   transition: all 0.2s;
   line-height: 1;
 }
-.yh-pagination .yh-pagination__prev svg,
-.yh-pagination .yh-pagination__next svg {
+.yh-pagination .yh-pagination__prev svg, .yh-pagination .yh-pagination__next svg {
   display: block;
   width: 14px;
   height: 14px;
   margin: 0;
 }
-.yh-pagination .yh-pagination__prev:hover:not(:disabled),
-.yh-pagination .yh-pagination__next:hover:not(:disabled) {
+.yh-pagination .yh-pagination__prev:hover:not(:disabled), .yh-pagination .yh-pagination__next:hover:not(:disabled) {
   color: var(--yh-pagination-btn-hover-color);
   border-color: var(--yh-pagination-btn-hover-color);
 }
-.yh-pagination .yh-pagination__prev:disabled,
-.yh-pagination .yh-pagination__next:disabled {
+.yh-pagination .yh-pagination__prev:disabled, .yh-pagination .yh-pagination__next:disabled {
   color: var(--yh-text-color-placeholder);
   background-color: var(--yh-fill-color-light);
   cursor: not-allowed;
@@ -649,13 +644,11 @@ html.dark {
   cursor: default;
 }
 
-.yh-pagination:not(.is-background) .yh-pagination__prev,
-.yh-pagination:not(.is-background) .yh-pagination__next {
+.yh-pagination:not(.is-background) .yh-pagination__prev, .yh-pagination:not(.is-background) .yh-pagination__next {
   background-color: transparent;
   border: 1px solid var(--yh-border-color-lighter);
 }
-.yh-pagination:not(.is-background) .yh-pagination__prev:not(:disabled):hover,
-.yh-pagination:not(.is-background) .yh-pagination__next:not(:disabled):hover {
+.yh-pagination:not(.is-background) .yh-pagination__prev:not(:disabled):hover, .yh-pagination:not(.is-background) .yh-pagination__next:not(:disabled):hover {
   color: var(--yh-pagination-btn-hover-color);
   border-color: var(--yh-pagination-btn-hover-color);
 }
@@ -676,13 +669,11 @@ html.dark {
   cursor: default;
 }
 
-.yh-pagination.is-background .yh-pagination__prev,
-.yh-pagination.is-background .yh-pagination__next {
+.yh-pagination.is-background .yh-pagination__prev, .yh-pagination.is-background .yh-pagination__next {
   background-color: var(--yh-fill-color-light);
   border: none;
 }
-.yh-pagination.is-background .yh-pagination__prev:not(:disabled):hover,
-.yh-pagination.is-background .yh-pagination__next:not(:disabled):hover {
+.yh-pagination.is-background .yh-pagination__prev:not(:disabled):hover, .yh-pagination.is-background .yh-pagination__next:not(:disabled):hover {
   background-color: var(--yh-fill-color-darker);
   color: var(--yh-pagination-btn-hover-color);
 }
@@ -692,9 +683,7 @@ html.dark {
   border-radius: var(--yh-pagination-border-radius);
 }
 
-.yh-pagination.is-circle .yh-pagination__item,
-.yh-pagination.is-circle .yh-pagination__prev,
-.yh-pagination.is-circle .yh-pagination__next {
+.yh-pagination.is-circle .yh-pagination__item, .yh-pagination.is-circle .yh-pagination__prev, .yh-pagination.is-circle .yh-pagination__next {
   border-radius: 50% !important;
 }
 
@@ -702,9 +691,6 @@ html.dark {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.yh-pagination.is-disabled .yh-pagination__item,
-.yh-pagination.is-disabled .yh-pagination__prev,
-.yh-pagination.is-disabled .yh-pagination__next,
-.yh-pagination.is-disabled .yh-pagination__more {
+.yh-pagination.is-disabled .yh-pagination__item, .yh-pagination.is-disabled .yh-pagination__prev, .yh-pagination.is-disabled .yh-pagination__next, .yh-pagination.is-disabled .yh-pagination__more {
   cursor: not-allowed !important;
 }

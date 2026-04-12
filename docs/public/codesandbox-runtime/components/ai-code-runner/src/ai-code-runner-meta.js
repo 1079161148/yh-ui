@@ -4,14 +4,14 @@ const aiCodeRunnerProps = {
    */
   language: {
     type: String,
-    default: 'javascript'
+    default: "javascript"
   },
   /**
    * @description 代码内容
    */
   code: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 终端高度
@@ -34,12 +34,15 @@ const aiCodeRunnerProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiCodeRunnerEmits = {
-  run: (code) => typeof code === 'string',
+  run: (code) => typeof code === "string",
   stop: () => true,
-  output: (data) => typeof data === 'string',
-  error: (error) => typeof error === 'string',
+  output: (data) => typeof data === "string",
+  error: (error) => typeof error === "string",
   ready: (instance) => !!instance
-}
-export { aiCodeRunnerEmits, aiCodeRunnerProps }
+};
+export {
+  aiCodeRunnerEmits,
+  aiCodeRunnerProps
+};

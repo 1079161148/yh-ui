@@ -1,20 +1,20 @@
-const tabsTypes = ['line', 'card', 'border-card', 'segment']
-const tabsPositions = ['top', 'right', 'bottom', 'left']
+const tabsTypes = ["line", "card", "border-card", "segment"];
+const tabsPositions = ["top", "right", "bottom", "left"];
 const tabsProps = {
   /** 当前激活的标签名 */
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /** 标签类型 */
   type: {
     type: String,
-    default: 'line'
+    default: "line"
   },
   /** 标签位置 */
   tabPosition: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 是否可拖拽排序 (Premium) */
   draggable: {
@@ -48,51 +48,57 @@ const tabsProps = {
   /** 标签栏自定义类名 */
   navClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 内容区自定义类名 */
   contentClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 指示器宽度（水平方向时为长度，垂直方向时为粗细），如 '50%'、'80px'、'auto' */
   indicatorWidth: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 指示器高度（垂直方向时为长度，水平方向时为粗细），如 '50%'、'80px'、'auto' */
   indicatorHeight: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 选中态颜色 */
   activeColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 未选中态颜色 */
   inactiveColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 触发方式 */
   trigger: {
     type: String,
-    default: 'click'
+    default: "click"
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
+};
 const tabsEmits = {
-  'update:modelValue': (name) => typeof name === 'string' || typeof name === 'number',
-  'tab-click': (pane, _ev) => pane !== void 0,
-  'tab-change': (name) => typeof name === 'string' || typeof name === 'number',
-  'tab-remove': (name) => typeof name === 'string' || typeof name === 'number',
-  'tab-add': () => true,
-  'tab-drag-end': (names) => Array.isArray(names)
-}
-const TABS_INJECTION_KEY = Symbol('yhTabs')
-export { TABS_INJECTION_KEY, tabsEmits, tabsPositions, tabsProps, tabsTypes }
+  "update:modelValue": (name) => typeof name === "string" || typeof name === "number",
+  "tab-click": (pane, _ev) => pane !== void 0,
+  "tab-change": (name) => typeof name === "string" || typeof name === "number",
+  "tab-remove": (name) => typeof name === "string" || typeof name === "number",
+  "tab-add": () => true,
+  "tab-drag-end": (names) => Array.isArray(names)
+};
+const TABS_INJECTION_KEY = Symbol("yhTabs");
+export {
+  TABS_INJECTION_KEY,
+  tabsEmits,
+  tabsPositions,
+  tabsProps,
+  tabsTypes
+};

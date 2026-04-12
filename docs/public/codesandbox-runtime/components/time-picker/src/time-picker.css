@@ -475,8 +475,7 @@ html.dark {
   padding: 10px 12px;
 }
 
-.yh-time-picker--large .yh-time-picker__inner,
-.yh-time-picker--large .yh-time-picker__range-input {
+.yh-time-picker--large .yh-time-picker__inner, .yh-time-picker--large .yh-time-picker__range-input {
   font-size: 16px;
 }
 
@@ -488,8 +487,7 @@ html.dark {
   padding: 4px 8px;
 }
 
-.yh-time-picker--small .yh-time-picker__inner,
-.yh-time-picker--small .yh-time-picker__range-input {
+.yh-time-picker--small .yh-time-picker__inner, .yh-time-picker--small .yh-time-picker__range-input {
   font-size: 12px;
 }
 
@@ -508,8 +506,7 @@ html.dark {
   border-color: var(--yh-border-color-light);
 }
 
-.yh-time-picker.is-disabled .yh-time-picker__inner,
-.yh-time-picker.is-disabled .yh-time-picker__range-input {
+.yh-time-picker.is-disabled .yh-time-picker__inner, .yh-time-picker.is-disabled .yh-time-picker__range-input {
   color: var(--yh-text-color-disabled);
   cursor: not-allowed;
 }
@@ -553,7 +550,7 @@ html.dark {
   border: none;
   outline: none;
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
+  font-feature-settings: "tnum";
 }
 .yh-time-picker__inner::placeholder {
   color: var(--yh-text-color-placeholder);
@@ -573,7 +570,7 @@ html.dark {
   border: none;
   outline: none;
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
+  font-feature-settings: "tnum";
 }
 .yh-time-picker__range-input::placeholder {
   color: var(--yh-text-color-placeholder);
@@ -634,14 +631,10 @@ html.dark {
   box-shadow: var(--yh-box-shadow-light);
   border: 1px solid var(--yh-border-color-light);
 }
-.yh-time-picker__panel-enter-active,
-.yh-time-picker__panel-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+.yh-time-picker__panel-enter-active, .yh-time-picker__panel-leave-active {
+  transition: opacity 0.2s, transform 0.2s;
 }
-.yh-time-picker__panel-enter-from,
-.yh-time-picker__panel-leave-to {
+.yh-time-picker__panel-enter-from, .yh-time-picker__panel-leave-to {
   opacity: 0;
   transform: translateY(-8px);
 }

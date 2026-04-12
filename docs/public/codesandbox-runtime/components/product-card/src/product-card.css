@@ -678,7 +678,7 @@ html.dark {
 .yh-product-card__price-val {
   font-size: 20px;
   font-weight: bold;
-  font-family: 'Din', sans-serif;
+  font-family: "Din", sans-serif;
 }
 
 .yh-product-card__unit {
@@ -704,7 +704,7 @@ html.dark {
 
 .yh-product-card__vip-price {
   font-weight: bold;
-  font-family: 'Din';
+  font-family: "Din";
 }
 
 .yh-product-card__market-price {

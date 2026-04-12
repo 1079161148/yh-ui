@@ -7,15 +7,15 @@ const treeProps = {
   props: {
     type: Object,
     default: () => ({
-      label: 'label',
-      children: 'children',
-      disabled: 'disabled'
+      label: "label",
+      children: "children",
+      disabled: "disabled"
     })
   },
   /** 节点唯一标识字段名 */
   nodeKey: {
     type: String,
-    default: 'id'
+    default: "id"
   },
   /** 显示复选框 */
   showCheckbox: {
@@ -25,7 +25,7 @@ const treeProps = {
   /** 复选框位置 */
   checkboxPosition: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   /** 默认展开所有节点 */
   defaultExpandAll: {
@@ -80,7 +80,7 @@ const treeProps = {
   /** 是否为空选择 */
   emptyText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 过滤方法 */
   filterMethod: {
@@ -127,19 +127,23 @@ const treeProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const treeEmits = {
-  'node-click': (_node, _e) => true,
-  'node-expand': (_node, _expanded) => true,
+  "node-click": (_node, _e) => true,
+  "node-expand": (_node, _expanded) => true,
   check: (_node, _checked, _checkedKeys) => true,
-  'current-change': (_node) => true,
-  'node-drag-start': (_node, _e) => true,
-  'node-drag-end': (_node, _dropNode, _position, _e) => true,
-  'node-drag-over': (_node, _e) => true,
-  'node-drag-enter': (_node, _e) => true,
-  'node-drag-leave': (_node, _e) => true,
-  'node-drop': (_node, _dropNode, _position, _e) => true,
-  'update:currentNodeKey': (_key) => true
-}
-const TREE_INJECTION_KEY = Symbol('tree')
-export { TREE_INJECTION_KEY, treeEmits, treeProps }
+  "current-change": (_node) => true,
+  "node-drag-start": (_node, _e) => true,
+  "node-drag-end": (_node, _dropNode, _position, _e) => true,
+  "node-drag-over": (_node, _e) => true,
+  "node-drag-enter": (_node, _e) => true,
+  "node-drag-leave": (_node, _e) => true,
+  "node-drop": (_node, _dropNode, _position, _e) => true,
+  "update:currentNodeKey": (_key) => true
+};
+const TREE_INJECTION_KEY = Symbol("tree");
+export {
+  TREE_INJECTION_KEY,
+  treeEmits,
+  treeProps
+};

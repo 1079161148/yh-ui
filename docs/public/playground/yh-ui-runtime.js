@@ -4,7 +4,7 @@ import {
   NodeResizer as YhNodeResizer,
   NodeToolbar as YhNodeToolbar
 } from '@yh-ui/flow'
-import { Icon as YhIconify } from '@yh-ui/icons'
+import { Icon as YhIconify } from '@iconify/vue'
 
 export * from '@yh-ui/yh-ui'
 

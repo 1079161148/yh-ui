@@ -533,9 +533,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
   color: var(--yh-menu-text-color);
   cursor: pointer;
   position: relative;
-  transition:
-    color 0.3s,
-    background-color 0.3s;
+  transition: color 0.3s, background-color 0.3s;
   white-space: nowrap;
 }
 .yh-menu-item:hover:not(.is-disabled) {
@@ -547,7 +545,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
   background-color: var(--yh-menu-active-bg-color);
 }
 .yh-menu-item.is-active::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -568,8 +566,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
   height: 3px;
   border-radius: 3px 3px 0 0;
 }
-.yh-menu--inverted .yh-menu-item.is-active::after,
-.yh-menu--collapse .yh-menu-item.is-active::after {
+.yh-menu--inverted .yh-menu-item.is-active::after, .yh-menu--collapse .yh-menu-item.is-active::after {
   left: 0;
   right: auto;
   top: 10px;
@@ -618,9 +615,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
   color: var(--yh-menu-text-color);
   cursor: pointer;
   position: relative;
-  transition:
-    color 0.3s,
-    background-color 0.3s;
+  transition: color 0.3s, background-color 0.3s;
   white-space: nowrap;
 }
 .yh-sub-menu__title .yh-tooltip {
@@ -691,7 +686,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
 }
 
 .yh-menu--horizontal .yh-sub-menu.is-active .yh-sub-menu__title::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   bottom: 0;
@@ -718,7 +713,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
 .yh-menu--inverted .yh-menu-item.is-active::after,
 .yh-menu--collapse .yh-menu-item.is-active::after,
 .yh-menu--collapse .yh-sub-menu.is-active::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   left: 0;
@@ -746,7 +741,7 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
   background-color: transparent;
 }
 .yh-sub-menu__menu .yh-menu-item.is-active::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -778,15 +773,13 @@ html.dark .yh-menu:not(.yh-menu--inverted) {
 .yh-sub-menu__popper.is-dark .yh-sub-menu__title .yh-icon {
   color: rgba(255, 255, 255, 0.7);
 }
-.yh-sub-menu__popper.is-dark .yh-menu-item:hover:not(.is-disabled),
-.yh-sub-menu__popper.is-dark .yh-menu-item.is-active,
+.yh-sub-menu__popper.is-dark .yh-menu-item:hover:not(.is-disabled), .yh-sub-menu__popper.is-dark .yh-menu-item.is-active,
 .yh-sub-menu__popper.is-dark .yh-sub-menu__title:hover:not(.is-disabled),
 .yh-sub-menu__popper.is-dark .yh-sub-menu__title.is-active {
   color: var(--yh-color-primary);
   background-color: rgba(255, 255, 255, 0.1);
 }
-.yh-sub-menu__popper.is-dark .yh-menu-item:hover:not(.is-disabled) .yh-icon,
-.yh-sub-menu__popper.is-dark .yh-menu-item.is-active .yh-icon,
+.yh-sub-menu__popper.is-dark .yh-menu-item:hover:not(.is-disabled) .yh-icon, .yh-sub-menu__popper.is-dark .yh-menu-item.is-active .yh-icon,
 .yh-sub-menu__popper.is-dark .yh-sub-menu__title:hover:not(.is-disabled) .yh-icon,
 .yh-sub-menu__popper.is-dark .yh-sub-menu__title.is-active .yh-icon {
   color: var(--yh-color-primary);

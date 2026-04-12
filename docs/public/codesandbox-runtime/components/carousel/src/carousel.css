@@ -582,10 +582,7 @@ html.dark {
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
-    background-color 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
   opacity: 0;
   --arrow-inset: 20px;
 }
@@ -693,9 +690,7 @@ html.dark {
   position: absolute;
   top: 0;
   left: 0;
-  transition:
-    transform 0.4s var(--yh-carousel-transition-timing),
-    opacity 0.4s ease;
+  transition: transform 0.4s var(--yh-carousel-transition-timing), opacity 0.4s ease;
   opacity: 0;
   z-index: 1;
 }

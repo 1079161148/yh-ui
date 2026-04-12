@@ -724,9 +724,7 @@ html.dark {
 
 .yh-select-dropdown-enter-active,
 .yh-select-dropdown-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .yh-select-dropdown-enter-from,

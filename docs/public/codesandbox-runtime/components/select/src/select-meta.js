@@ -1,2 +1,4 @@
-const SelectContextKey = Symbol('SelectContextKey')
-export { SelectContextKey }
+const SelectContextKey = Symbol("SelectContextKey");
+export {
+  SelectContextKey
+};

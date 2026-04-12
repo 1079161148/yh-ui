@@ -544,7 +544,7 @@ html.dark {
   background-color: var(--yh-ai-conversations-active-bg-color, var(--yh-color-primary-light-9));
 }
 .yh-ai-conversations__item.is-active::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 20%;
@@ -661,7 +661,7 @@ html.dark {
   background-color: var(--yh-ai-conversations-hover-bg-color, var(--yh-bg-color-page));
 }
 .yh-ai-conversations__item.is-pinned::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 25%;
@@ -687,12 +687,7 @@ html.dark {
   height: 13px;
   border-radius: 7px;
   width: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color) 25%,
-    var(--yh-fill-color-light) 50%,
-    var(--yh-fill-color) 75%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color) 25%, var(--yh-fill-color-light) 50%, var(--yh-fill-color) 75%);
   background-size: 200% 100%;
   animation: yh-conv-shimmer 1.5s infinite;
 }

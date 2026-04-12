@@ -542,7 +542,7 @@ html.dark {
   transition: all var(--yh-transition-base);
 }
 .yh-sku-selector__value.is-active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -1px;
   right: -1px;
@@ -553,7 +553,7 @@ html.dark {
   z-index: 1;
 }
 .yh-sku-selector__value.is-active::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 3px;
   right: 2px;
@@ -573,8 +573,7 @@ html.dark {
   opacity: 0.6;
   transition: none;
 }
-.yh-sku-selector__value.is-disabled::after,
-.yh-sku-selector__value.is-disabled::before {
+.yh-sku-selector__value.is-disabled::after, .yh-sku-selector__value.is-disabled::before {
   display: none;
 }
 

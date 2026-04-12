@@ -473,10 +473,7 @@ html.dark {
   min-width: 650px;
   overflow: hidden;
 }
-.yh-calendar,
-.yh-calendar *,
-.yh-calendar *::before,
-.yh-calendar *::after {
+.yh-calendar, .yh-calendar *, .yh-calendar *::before, .yh-calendar *::after {
   box-sizing: border-box;
 }
 .yh-calendar__header {
@@ -501,7 +498,7 @@ html.dark {
   position: relative;
 }
 .yh-calendar__title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 15%;
@@ -568,7 +565,7 @@ html.dark {
   z-index: 1;
 }
 .yh-calendar__weekday::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.7);
@@ -589,7 +586,7 @@ html.dark {
   user-select: none;
 }
 .yh-calendar__day::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background-color: var(--yh-day-bg);
@@ -646,7 +643,7 @@ html.dark {
   font-weight: 800;
 }
 .yh-calendar__day.is-today .yh-calendar__day-value::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;

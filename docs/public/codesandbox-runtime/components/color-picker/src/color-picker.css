@@ -519,9 +519,7 @@ html.dark {
   padding: 16px;
   background: #fff;
   border-radius: 12px;
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--yh-border-color-light);
   user-select: none;
   z-index: 3000;
@@ -609,9 +607,7 @@ html.dark {
   width: 28px;
   height: 28px;
   border-radius: 4px;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 .yh-color-picker__eye-dropper:hover {
   background: var(--yh-fill-color-light);
@@ -675,9 +671,7 @@ html.dark {
 
 .yh-fade-enter-active,
 .yh-fade-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .yh-fade-enter-from,

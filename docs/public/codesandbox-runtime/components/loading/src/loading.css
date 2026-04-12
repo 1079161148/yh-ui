@@ -484,7 +484,7 @@ html.dark {
   /* 玻璃质感的高光边缘 */
 }
 .yh-loading-mask.is-glass::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border: 1px solid rgba(255, 255, 255, 0.4);

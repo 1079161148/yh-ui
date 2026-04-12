@@ -11,7 +11,7 @@ const aiConversationsProps = {
    */
   activeId: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description Show loading state
@@ -63,12 +63,12 @@ const aiConversationsProps = {
     type: Number,
     default: 3
   }
-}
+};
 const aiConversationsEmits = {
   /**
    * @description Emit when active item changes
    */
-  'update:activeId': (id) => typeof id === 'string',
+  "update:activeId": (id) => typeof id === "string",
   /**
    * @description User clicks the "Create New" or "Plus" button
    */
@@ -76,19 +76,21 @@ const aiConversationsEmits = {
   /**
    * @description User deletes a conversation item
    */
-  delete: (conversation) => typeof conversation === 'object',
+  delete: (conversation) => typeof conversation === "object",
   /**
    * @description User edits a conversation title
    */
-  edit: (conversation, newTitle) =>
-    typeof conversation === 'object' && typeof newTitle === 'string',
+  edit: (conversation, newTitle) => typeof conversation === "object" && typeof newTitle === "string",
   /**
    * @description User clicks an item
    */
-  click: (conversation) => typeof conversation === 'object',
+  click: (conversation) => typeof conversation === "object",
   /**
    * @description User pins/unpins a conversation
    */
-  pin: (conversation, pinned) => typeof conversation === 'object' && typeof pinned === 'boolean'
-}
-export { aiConversationsEmits, aiConversationsProps }
+  pin: (conversation, pinned) => typeof conversation === "object" && typeof pinned === "boolean"
+};
+export {
+  aiConversationsEmits,
+  aiConversationsProps
+};

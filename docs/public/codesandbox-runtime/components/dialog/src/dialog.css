@@ -454,9 +454,7 @@ html.dark {
   margin: var(--yh-dialog-margin-top, 15vh) auto 50px;
   background: var(--yh-bg-color-overlay, #ffffff);
   border-radius: var(--yh-radius-lg, 16px);
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -641,8 +639,7 @@ html.dark {
 .yh-dialog-fade-leave-active .yh-dialog {
   animation: yh-dialog-zoom-out 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
-.yh-dialog-fade-enter-from,
-.yh-dialog-fade-leave-to {
+.yh-dialog-fade-enter-from, .yh-dialog-fade-leave-to {
   opacity: 0;
 }
 

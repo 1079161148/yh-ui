@@ -2,40 +2,40 @@ const popconfirmProps = {
   /** 标题 */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 描述内容 */
   description: {
     type: String,
-    default: ''
+    default: ""
   },
   confirmButtonText: {
     type: String,
-    default: ''
+    default: ""
   },
   cancelButtonText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 确认按钮类型 */
   confirmButtonType: {
     type: String,
-    default: 'primary'
+    default: "primary"
   },
   /** 取消按钮类型 */
   cancelButtonType: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 图标 */
   icon: {
     type: String,
-    default: 'warning'
+    default: "warning"
   },
   /** 图标颜色 */
   iconColor: {
     type: String,
-    default: '#faad14'
+    default: "#faad14"
   },
   /** 是否隐藏图标 */
   hideIcon: {
@@ -55,7 +55,7 @@ const popconfirmProps = {
   /** 出现位置 */
   placement: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 手动控制可见性 */
   visible: {
@@ -85,7 +85,7 @@ const popconfirmProps = {
   /** 弹出层的自定义类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 弹出层自定义样式 */
   popperStyle: {
@@ -104,7 +104,7 @@ const popconfirmProps = {
   },
   dontAskAgainText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否反置确认和取消按钮位置 (高级自创功能) */
   swapButtons: {
@@ -121,10 +121,13 @@ const popconfirmProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const popconfirmEmits = {
   confirm: (_dontAskAgain) => true,
   cancel: () => true,
-  'update:visible': (visible) => typeof visible === 'boolean'
-}
-export { popconfirmEmits, popconfirmProps }
+  "update:visible": (visible) => typeof visible === "boolean"
+};
+export {
+  popconfirmEmits,
+  popconfirmProps
+};

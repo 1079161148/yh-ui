@@ -7,12 +7,12 @@ const affixProps = {
   /** 固定位置 */
   position: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 指定容器选择器（默认为 window） */
   target: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 固定时层级 */
   zIndex: {
@@ -27,7 +27,7 @@ const affixProps = {
   /** Affix 元素将被挂载至哪个元素 */
   appendTo: {
     type: [String, Object],
-    default: 'body'
+    default: "body"
   },
   /** 自定义固定状态样式 */
   affixStyle: {
@@ -44,11 +44,14 @@ const affixProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const affixEmits = {
   /** 固定状态改变时触发 */
-  change: (fixed) => typeof fixed === 'boolean',
+  change: (fixed) => typeof fixed === "boolean",
   /** 滚动时触发 */
-  scroll: (payload) => typeof payload.scrollTop === 'number' && typeof payload.fixed === 'boolean'
-}
-export { affixEmits, affixProps }
+  scroll: (payload) => typeof payload.scrollTop === "number" && typeof payload.fixed === "boolean"
+};
+export {
+  affixEmits,
+  affixProps
+};

@@ -11,12 +11,12 @@ const drawerProps = {
   /** 抽屉位置 */
   placement: {
     type: String,
-    default: 'right'
+    default: "right"
   },
   /** 抽屉大小 (宽度或高度) */
   size: {
     type: [String, Number],
-    default: '30%'
+    default: "30%"
   },
   /** 是否显示遮罩层 */
   modal: {
@@ -41,7 +41,7 @@ const drawerProps = {
   /** 自定义关闭图标 */
   closeIcon: {
     type: String,
-    default: 'close'
+    default: "close"
   },
   /** 是否在关闭时销毁内容 */
   destroyOnClose: {
@@ -55,7 +55,7 @@ const drawerProps = {
   /** 挂载节点 */
   teleportTo: {
     type: [String, Object],
-    default: 'body'
+    default: "body"
   },
   /** 是否显示 header */
   showHeader: {
@@ -123,13 +123,16 @@ const drawerProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const drawerEmits = {
-  'update:modelValue': (value) => typeof value === 'boolean',
+  "update:modelValue": (value) => typeof value === "boolean",
   open: () => true,
   opened: () => true,
   close: () => true,
   closed: () => true,
-  resize: (size) => typeof size === 'number'
-}
-export { drawerEmits, drawerProps }
+  resize: (size) => typeof size === "number"
+};
+export {
+  drawerEmits,
+  drawerProps
+};

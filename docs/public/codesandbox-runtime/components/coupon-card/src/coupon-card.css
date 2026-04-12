@@ -469,9 +469,7 @@ html.dark {
   overflow: hidden;
   box-shadow: var(--yh-shadow-light);
   cursor: pointer;
-  transition:
-    transform var(--yh-transition-base),
-    box-shadow var(--yh-transition-base);
+  transition: transform var(--yh-transition-base), box-shadow var(--yh-transition-base);
 }
 .yh-coupon-card * {
   box-sizing: border-box;
@@ -492,9 +490,8 @@ html.dark {
 .yh-coupon-card {
   /* Side Notch Decoration */
 }
-.yh-coupon-card::before,
-.yh-coupon-card::after {
-  content: '';
+.yh-coupon-card::before, .yh-coupon-card::after {
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
@@ -513,13 +510,11 @@ html.dark {
   transform: translate(50%, -50%);
 }
 
-.yh-coupon-card--circle::before,
-.yh-coupon-card--circle::after {
+.yh-coupon-card--circle::before, .yh-coupon-card--circle::after {
   display: block;
 }
 
-.yh-coupon-card--scallop::before,
-.yh-coupon-card--scallop::after {
+.yh-coupon-card--scallop::before, .yh-coupon-card--scallop::after {
   display: none;
 }
 .yh-coupon-card--scallop {
@@ -541,7 +536,7 @@ html.dark {
   padding: 0 8px;
 }
 .yh-coupon-card__amount-side::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 10px;
   bottom: 10px;
@@ -643,20 +638,17 @@ html.dark {
 .yh-coupon-card {
   /* Status Styles */
 }
-.yh-coupon-card.is-used .yh-coupon-card__amount-side,
-.yh-coupon-card.is-expired .yh-coupon-card__amount-side {
+.yh-coupon-card.is-used .yh-coupon-card__amount-side, .yh-coupon-card.is-expired .yh-coupon-card__amount-side {
   background-color: var(--yh-coupon-gray-color);
 }
 
-.yh-coupon-card.is-used .yh-coupon-card__action-btn,
-.yh-coupon-card.is-expired .yh-coupon-card__action-btn {
+.yh-coupon-card.is-used .yh-coupon-card__action-btn, .yh-coupon-card.is-expired .yh-coupon-card__action-btn {
   background-color: var(--yh-fill-color-darker);
   color: var(--yh-text-color-placeholder);
   cursor: not-allowed;
 }
 
-.yh-coupon-card.is-used .yh-coupon-card__title,
-.yh-coupon-card.is-expired .yh-coupon-card__title {
+.yh-coupon-card.is-used .yh-coupon-card__title, .yh-coupon-card.is-expired .yh-coupon-card__title {
   color: var(--yh-text-color-placeholder);
 }
 

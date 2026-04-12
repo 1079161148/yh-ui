@@ -1,7 +1,7 @@
 const colorPickerProps = {
   modelValue: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否支持透明度 */
   showAlpha: {
@@ -11,12 +11,12 @@ const colorPickerProps = {
   /** 颜色格式 */
   colorFormat: {
     type: String,
-    default: 'hex'
+    default: "hex"
   },
   /** 尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 是否禁用 */
   disabled: {
@@ -31,17 +31,20 @@ const colorPickerProps = {
   /** 面板类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
+};
 const colorPickerEmits = {
-  'update:modelValue': (val) => typeof val === 'string',
-  change: (val) => typeof val === 'string',
-  activeChange: (val) => typeof val === 'string'
-}
-export { colorPickerEmits, colorPickerProps }
+  "update:modelValue": (val) => typeof val === "string",
+  change: (val) => typeof val === "string",
+  activeChange: (val) => typeof val === "string"
+};
+export {
+  colorPickerEmits,
+  colorPickerProps
+};

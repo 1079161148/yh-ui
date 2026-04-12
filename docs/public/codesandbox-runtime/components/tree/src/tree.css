@@ -478,7 +478,7 @@ html.dark {
 }
 
 .yh-tree__node.is-drop-before::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -489,7 +489,7 @@ html.dark {
 }
 
 .yh-tree__node.is-drop-after::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -506,9 +506,7 @@ html.dark {
   padding-right: 8px;
   cursor: pointer;
   border-radius: 4px;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 .yh-tree__content:hover {
   background-color: var(--yh-tree-hover-bg);
@@ -528,9 +526,7 @@ html.dark {
   flex-shrink: 0;
   color: var(--yh-text-color-placeholder, #c0c4cc);
   cursor: pointer;
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
 }
 .yh-tree__expand-icon:hover {
   color: var(--yh-color-primary, #409eff);
@@ -577,7 +573,7 @@ html.dark {
   position: relative;
 }
 .yh-tree--show-line .yh-tree__node::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 11px;
   top: 0;
@@ -589,7 +585,7 @@ html.dark {
   height: 14px;
 }
 .yh-tree--show-line .yh-tree__content::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 11px;
   top: 14px;

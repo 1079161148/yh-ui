@@ -459,9 +459,7 @@ html.dark {
   overflow: hidden;
   box-sizing: border-box;
   margin-bottom: 20px;
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 .yh-alert.is-center {
   justify-content: center;
@@ -686,9 +684,8 @@ html.dark {
   overflow: hidden;
   position: relative;
 }
-.yh-alert__description-wrapper::before,
-.yh-alert__description-wrapper::after {
-  content: '';
+.yh-alert__description-wrapper::before, .yh-alert__description-wrapper::after {
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;

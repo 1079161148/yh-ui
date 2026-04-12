@@ -1,22 +1,22 @@
-var __defProp = Object.defineProperty
-var __defProps = Object.defineProperties
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors
-var __getOwnPropSymbols = Object.getOwnPropertySymbols
-var __hasOwnProp = Object.prototype.hasOwnProperty
-var __propIsEnum = Object.prototype.propertyIsEnumerable
-var __defNormalProp = (obj, key, value) =>
-  key in obj
-    ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value })
-    : (obj[key] = value)
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {})) if (__hasOwnProp.call(b, prop)) __defNormalProp(a, prop, b[prop])
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
   if (__getOwnPropSymbols)
     for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop)) __defNormalProp(a, prop, b[prop])
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
     }
-  return a
-}
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b))
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 const countdownProps = {
   /**
    * 目标截止时间（Date 或毫秒时间戳）或倒计时时长（毫秒）
@@ -33,7 +33,7 @@ const countdownProps = {
    */
   format: {
     type: [String, Function],
-    default: 'HH:mm:ss'
+    default: "HH:mm:ss"
   },
   /**
    * 是否自动开始倒计时
@@ -68,14 +68,14 @@ const countdownProps = {
    */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 后缀文本
    */
   suffix: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 数字使用等宽字体（防止数字变化时抖动）
@@ -106,7 +106,7 @@ const countdownProps = {
    */
   separator: {
     type: String,
-    default: ':'
+    default: ":"
   },
   /**
    * 是否显示日（当剩余时间 >= 24 小时时强制显示）
@@ -114,7 +114,7 @@ const countdownProps = {
    */
   showDays: {
     type: [Boolean, String],
-    default: 'auto'
+    default: "auto"
   },
   /**
    * 是否显示小时
@@ -190,7 +190,7 @@ const countdownProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const countdownEmits = {
   /** 倒计时更新时触发 */
   change: (_ctx) => true,
@@ -207,8 +207,8 @@ const countdownEmits = {
   /** 进入预警状态时触发 */
   warning: (_ctx) => true,
   /** 状态变化时触发 */
-  statusChange: (status) => ['pending', 'running', 'paused', 'finished'].includes(status)
-}
+  statusChange: (status) => ["pending", "running", "paused", "finished"].includes(status)
+};
 const TIME_CONSTANTS = {
   /** 毫秒/秒 */
   SECOND: 1e3,
@@ -218,21 +218,21 @@ const TIME_CONSTANTS = {
   HOUR: 60 * 60 * 1e3,
   /** 毫秒/天 */
   DAY: 24 * 60 * 60 * 1e3
-}
+};
 function parseTimeUnits(remain) {
-  const total = Math.max(0, remain)
-  const days = Math.floor(total / TIME_CONSTANTS.DAY)
-  const hours = Math.floor((total % TIME_CONSTANTS.DAY) / TIME_CONSTANTS.HOUR)
-  const minutes = Math.floor((total % TIME_CONSTANTS.HOUR) / TIME_CONSTANTS.MINUTE)
-  const seconds = Math.floor((total % TIME_CONSTANTS.MINUTE) / TIME_CONSTANTS.SECOND)
-  const milliseconds = Math.floor(total % TIME_CONSTANTS.SECOND)
-  return { days, hours, minutes, seconds, milliseconds }
+  const total = Math.max(0, remain);
+  const days = Math.floor(total / TIME_CONSTANTS.DAY);
+  const hours = Math.floor(total % TIME_CONSTANTS.DAY / TIME_CONSTANTS.HOUR);
+  const minutes = Math.floor(total % TIME_CONSTANTS.HOUR / TIME_CONSTANTS.MINUTE);
+  const seconds = Math.floor(total % TIME_CONSTANTS.MINUTE / TIME_CONSTANTS.SECOND);
+  const milliseconds = Math.floor(total % TIME_CONSTANTS.SECOND);
+  return { days, hours, minutes, seconds, milliseconds };
 }
 function padZero(num, len = 2) {
-  return String(num).padStart(len, '0')
+  return String(num).padStart(len, "0");
 }
 function createFormatContext(remain) {
-  const units = parseTimeUnits(remain)
+  const units = parseTimeUnits(remain);
   return __spreadProps(__spreadValues({}, units), {
     total: Math.max(0, remain),
     DD: padZero(units.days),
@@ -242,32 +242,25 @@ function createFormatContext(remain) {
     SSS: padZero(units.milliseconds, 3),
     SS: padZero(Math.floor(units.milliseconds / 10), 2),
     S: String(Math.floor(units.milliseconds / 100))
-  })
+  });
 }
 function formatCountdown(format, ctx) {
-  if (typeof format === 'function') {
-    return format(ctx)
+  if (typeof format === "function") {
+    return format(ctx);
   }
-  return format
-    .replace(/DD/g, ctx.DD)
-    .replace(/HH/g, ctx.HH)
-    .replace(/mm/g, ctx.mm)
-    .replace(/ss/g, ctx.ss)
-    .replace(/SSS/g, ctx.SSS)
-    .replace(/SS/g, ctx.SS)
-    .replace(/S/g, ctx.S)
+  return format.replace(/DD/g, ctx.DD).replace(/HH/g, ctx.HH).replace(/mm/g, ctx.mm).replace(/ss/g, ctx.ss).replace(/SSS/g, ctx.SSS).replace(/SS/g, ctx.SS).replace(/S/g, ctx.S);
 }
 function isTargetTimestamp(value) {
-  if (value instanceof Date) return true
-  return value > 9783072e5
+  if (value instanceof Date) return true;
+  return value > 9783072e5;
 }
 function calculateRemain(value, serverTimeOffset = 0) {
-  const now = Date.now() + serverTimeOffset
+  const now = Date.now() + serverTimeOffset;
   if (isTargetTimestamp(value)) {
-    const target = value instanceof Date ? value.getTime() : value
-    return Math.max(0, target - now)
+    const target = value instanceof Date ? value.getTime() : value;
+    return Math.max(0, target - now);
   }
-  return Math.max(0, value instanceof Date ? value.getTime() : value)
+  return Math.max(0, value instanceof Date ? value.getTime() : value);
 }
 export {
   TIME_CONSTANTS,
@@ -279,4 +272,4 @@ export {
   isTargetTimestamp,
   padZero,
   parseTimeUnits
-}
+};

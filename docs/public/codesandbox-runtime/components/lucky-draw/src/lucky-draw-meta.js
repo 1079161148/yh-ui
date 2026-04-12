@@ -2,7 +2,7 @@ const luckyDrawProps = {
   /** 抽奖类型 */
   type: {
     type: String,
-    default: 'wheel'
+    default: "wheel"
   },
   /** 奖品列表 */
   prizes: {
@@ -17,7 +17,7 @@ const luckyDrawProps = {
   /** 目标奖品 ID（由后端计算得出后传入） */
   targetId: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /** 转盘/九宫格内径尺寸 (px) */
   size: {
@@ -37,7 +37,7 @@ const luckyDrawProps = {
   /** 按钮文本 */
   actionText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否隐藏按钮 */
   hideBtn: {
@@ -49,10 +49,13 @@ const luckyDrawProps = {
     type: Object,
     default: () => ({})
   }
-}
+};
 const luckyDrawEmits = {
   start: () => true,
   finish: (prize) => !!prize,
   click: (e) => e instanceof MouseEvent
-}
-export { luckyDrawEmits, luckyDrawProps }
+};
+export {
+  luckyDrawEmits,
+  luckyDrawProps
+};

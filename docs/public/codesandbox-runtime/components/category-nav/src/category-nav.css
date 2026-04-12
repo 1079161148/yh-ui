@@ -496,9 +496,7 @@ html.dark {
   color: var(--yh-text-color-regular);
   cursor: pointer;
   text-align: center;
-  transition:
-    background var(--yh-transition-base),
-    color var(--yh-transition-base);
+  transition: background var(--yh-transition-base), color var(--yh-transition-base);
 }
 .yh-category-nav__side-item.is-active {
   background: var(--yh-category-nav-side-active-bg);
@@ -506,7 +504,7 @@ html.dark {
   font-weight: 600;
 }
 .yh-category-nav__side-item.is-active::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 20%;
@@ -579,7 +577,7 @@ html.dark {
   gap: 6px;
 }
 .yh-category-nav__section-title::before {
-  content: '';
+  content: "";
   width: 3px;
   height: 14px;
   border-radius: 2px;
@@ -603,9 +601,7 @@ html.dark {
   border-radius: var(--yh-radius-base);
   background: transparent;
   cursor: pointer;
-  transition:
-    background var(--yh-transition-base),
-    border-color var(--yh-transition-base);
+  transition: background var(--yh-transition-base), border-color var(--yh-transition-base);
 }
 .yh-category-nav__sub-item:hover {
   background: var(--yh-fill-color-light);
@@ -644,12 +640,7 @@ html.dark {
 }
 
 .yh-category-nav__skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color-lighter) 25%,
-    var(--yh-fill-color-light) 50%,
-    var(--yh-fill-color-lighter) 75%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color-lighter) 25%, var(--yh-fill-color-light) 50%, var(--yh-fill-color-lighter) 75%);
   background-size: 200% 100%;
   animation: yh-category-nav-shimmer 1.5s infinite;
   border-radius: var(--yh-radius-base);

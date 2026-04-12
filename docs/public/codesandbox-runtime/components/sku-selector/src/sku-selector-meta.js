@@ -32,7 +32,7 @@ const skuSelectorProps = {
   /** 规格选项的尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 图片规格的图片高度（px） */
   imageSize: {
@@ -47,19 +47,22 @@ const skuSelectorProps = {
   /** 汇总文本前缀 */
   summaryPrefix: {
     type: String,
-    default: '\u5DF2\u9009'
+    default: "\u5DF2\u9009"
   },
   /** 主题变量覆盖 */
   themeOverrides: {
     type: Object,
     default: () => ({})
   }
-}
+};
 const skuSelectorEmits = {
-  'update:modelValue': (value) => Array.isArray(value),
+  "update:modelValue": (value) => Array.isArray(value),
   /** 每次选中结果变化时触发，sku 为 null 表示未完整选中 */
   change: (_sku, _selectedValues) => true,
   /** 点击某个规格值时触发（无论是否可选） */
   select: (_spec, _value) => true
-}
-export { skuSelectorEmits, skuSelectorProps }
+};
+export {
+  skuSelectorEmits,
+  skuSelectorProps
+};

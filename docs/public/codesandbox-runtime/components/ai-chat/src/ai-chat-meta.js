@@ -48,10 +48,13 @@ const aiChatProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiChatEmits = {
-  send: (message) => typeof message === 'string',
-  'update:messages': (messages) => Array.isArray(messages),
+  send: (message) => typeof message === "string",
+  "update:messages": (messages) => Array.isArray(messages),
   clear: () => true
-}
-export { aiChatEmits, aiChatProps }
+};
+export {
+  aiChatEmits,
+  aiChatProps
+};

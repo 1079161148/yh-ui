@@ -4,14 +4,14 @@ const aiCodeBlockProps = {
    */
   language: {
     type: String,
-    default: 'text'
+    default: "text"
   },
   /**
    * @description 代码内容
    */
   code: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 文件名称
@@ -80,11 +80,14 @@ const aiCodeBlockProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiCodeBlockEmits = {
-  copy: (code) => typeof code === 'string',
-  run: (code) => typeof code === 'string',
-  edit: (code) => typeof code === 'string',
-  update: (code) => typeof code === 'string'
-}
-export { aiCodeBlockEmits, aiCodeBlockProps }
+  copy: (code) => typeof code === "string",
+  run: (code) => typeof code === "string",
+  edit: (code) => typeof code === "string",
+  update: (code) => typeof code === "string"
+};
+export {
+  aiCodeBlockEmits,
+  aiCodeBlockProps
+};

@@ -27,17 +27,17 @@ const carouselProps = {
   /** 过渡效果 */
   effect: {
     type: String,
-    default: 'slide'
+    default: "slide"
   },
   /** 轮播方向 */
   direction: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   /** 箭头的显示时机 */
   showArrow: {
     type: String,
-    default: 'hover'
+    default: "hover"
   },
   /** 是否显示指示点 */
   showDots: {
@@ -47,17 +47,17 @@ const carouselProps = {
   /** 指示点触发方式 */
   dotTrigger: {
     type: String,
-    default: 'click'
+    default: "click"
   },
   /** 指示点位置 */
   dotPlacement: {
     type: String,
-    default: 'bottom'
+    default: "bottom"
   },
   /** 指示标的类型 */
   dotType: {
     type: String,
-    default: 'dot'
+    default: "dot"
   },
   /** 是否开启键盘控制 */
   keyboard: {
@@ -104,10 +104,14 @@ const carouselProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const carouselEmits = {
-  'update:currentIndex': (index) => typeof index === 'number',
-  change: (index, prevIndex) => typeof index === 'number' && typeof prevIndex === 'number'
-}
-const CAROUSEL_INJECTION_KEY = Symbol('YhCarousel')
-export { CAROUSEL_INJECTION_KEY, carouselEmits, carouselProps }
+  "update:currentIndex": (index) => typeof index === "number",
+  change: (index, prevIndex) => typeof index === "number" && typeof prevIndex === "number"
+};
+const CAROUSEL_INJECTION_KEY = Symbol("YhCarousel");
+export {
+  CAROUSEL_INJECTION_KEY,
+  carouselEmits,
+  carouselProps
+};

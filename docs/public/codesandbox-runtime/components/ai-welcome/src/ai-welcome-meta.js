@@ -4,14 +4,14 @@ const aiWelcomeProps = {
    */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 描述文本
    */
   description: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 建议项列表
@@ -32,7 +32,7 @@ const aiWelcomeProps = {
    */
   icon: {
     type: String,
-    default: 'sparkles'
+    default: "sparkles"
   },
   /**
    * 主题覆盖变量
@@ -41,11 +41,14 @@ const aiWelcomeProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiWelcomeEmits = {
   /**
    * 点击建议项时触发
    */
   select: (suggestion) => !!suggestion
-}
-export { aiWelcomeEmits, aiWelcomeProps }
+};
+export {
+  aiWelcomeEmits,
+  aiWelcomeProps
+};

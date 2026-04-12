@@ -5,6 +5,10 @@ export * from '@yh-ui/utils';
 export { hexToRgb, rgbToHex } from '@yh-ui/utils';
 export * from '@yh-ui/theme';
 
+const version$1 = "0.1.53";
+const packageJson = {
+	version: version$1};
+
 const zhCn = {
   name: "zh-cn",
   yh: {
@@ -47794,6 +47798,6 @@ const index = {
   install,
   createYhUI
 };
-const version = "0.1.10";
+const version = packageJson.version;
 
 export { af, ar, arEg, az, bg, bn, ca, ckb, createYhUI, cs, da, de, index as default, el, en, eo, es, et, eu, fa, fi, fr, he, hi, hr, hu, hyAm, id, install, it, ja, kk, km, ko, ku, ky, lo, lt, lv, mg, mn, ms, my, nbNo, nl, no, pa, pl, pt, ptBr, ro, ru, sk, sl, sr, sv, sw, ta, te, th, tk, tr, ugCn, uk, uzUz, version, vi, zhCn, zhHk, zhMo, zhTw };

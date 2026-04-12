@@ -1,9 +1,9 @@
-const marqueeDirections = ['horizontal', 'vertical']
+const marqueeDirections = ["horizontal", "vertical"];
 const marqueeProps = {
   /** 滚动方向 */
   direction: {
     type: String,
-    default: 'horizontal',
+    default: "horizontal",
     validator: (val) => marqueeDirections.includes(val)
   },
   /** 动画持续时间（秒），数值越小速度越快 */
@@ -39,12 +39,12 @@ const marqueeProps = {
   /** 渐变遮罩颜色 */
   gradientColor: {
     type: String,
-    default: '#ffffff'
+    default: "#ffffff"
   },
   /** 渐变遮罩宽度 */
   gradientWidth: {
     type: [Number, String],
-    default: '40px'
+    default: "40px"
   },
   /** 是否自动填充，确保内容不足时也能实现无缝滚动 */
   autoFill: {
@@ -86,9 +86,13 @@ const marqueeProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const marqueeEmits = {
   /** 每次滚动循环完成时触发 */
   cycleComplete: () => true
-}
-export { marqueeDirections, marqueeEmits, marqueeProps }
+};
+export {
+  marqueeDirections,
+  marqueeEmits,
+  marqueeProps
+};

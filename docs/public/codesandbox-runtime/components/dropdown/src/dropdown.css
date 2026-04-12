@@ -479,9 +479,7 @@ html.dark {
 
 .yh-dropdown__icon {
   font-size: 12px;
-  transition:
-    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
 }
 .yh-dropdown__icon.is-active {
   transform: rotate(180deg);
@@ -682,9 +680,7 @@ body.dark .yh-dropdown .yh-dropdown__divider {
 
 .yh-dropdown-fade-enter-active,
 .yh-dropdown-fade-leave-active {
-  transition:
-    opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1), transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .yh-dropdown-fade-enter-from,

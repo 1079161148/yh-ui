@@ -7,7 +7,7 @@ const backTopProps = {
   /** 绑定的滚动容器选择器，不传则为最近的滚动父级或 window */
   target: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 距离右侧的距离 */
   right: {
@@ -27,7 +27,7 @@ const backTopProps = {
   /** 进度环颜色 */
   progressColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 持续时间，毫秒 */
   duration: {
@@ -39,8 +39,11 @@ const backTopProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const backTopEmits = {
   click: (evt) => evt instanceof MouseEvent
-}
-export { backTopEmits, backTopProps }
+};
+export {
+  backTopEmits,
+  backTopProps
+};

@@ -27,7 +27,7 @@ const waterfallProps = {
   /** 节点的唯一标识字段 */
   rowKey: {
     type: String,
-    default: 'id'
+    default: "id"
   },
   /** 是否自动监听容器宽度变化 */
   responsive: {
@@ -42,17 +42,19 @@ const waterfallProps = {
   /** 用于平衡布局的高度字段名 (若不提供则采用轮询算法) */
   heightProperty: {
     type: String,
-    default: 'height'
+    default: "height"
   },
   /** 内部图片的选择器，用于在图片加载后自动计算布局 */
   imgSelector: {
     type: String,
-    default: 'img'
+    default: "img"
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
-export { waterfallProps }
+};
+export {
+  waterfallProps
+};

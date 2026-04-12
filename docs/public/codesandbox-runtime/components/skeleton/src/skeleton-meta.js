@@ -1,9 +1,18 @@
-const skeletonItemVariants = ['circle', 'rect', 'h1', 'h3', 'text', 'caption', 'button', 'image']
+const skeletonItemVariants = [
+  "circle",
+  "rect",
+  "h1",
+  "h3",
+  "text",
+  "caption",
+  "button",
+  "image"
+];
 const skeletonItemProps = {
   /** 骨架屏种类 */
   variant: {
     type: String,
-    default: 'text'
+    default: "text"
   },
   /** 宽度 */
   width: {
@@ -38,7 +47,7 @@ const skeletonItemProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const skeletonProps = {
   /** 是否显示加载中渲染 */
   loading: {
@@ -80,5 +89,9 @@ const skeletonProps = {
     type: Object,
     default: void 0
   }
-}
-export { skeletonItemProps, skeletonItemVariants, skeletonProps }
+};
+export {
+  skeletonItemProps,
+  skeletonItemVariants,
+  skeletonProps
+};

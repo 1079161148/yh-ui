@@ -48,5 +48,7 @@ const aiBubbleListProps = {
     type: Object,
     default: void 0
   }
-}
-export { aiBubbleListProps }
+};
+export {
+  aiBubbleListProps
+};

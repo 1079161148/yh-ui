@@ -536,7 +536,7 @@ html.dark {
   overflow: hidden;
 }
 .yh-ai-welcome__card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: var(--yh-ai-welcome-primary-gradient);

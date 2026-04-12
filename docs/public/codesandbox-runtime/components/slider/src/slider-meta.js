@@ -32,12 +32,12 @@ const sliderProps = {
   /** 滑块的大小 */
   size: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 输入框的大小 */
   inputSize: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否显示间断点 */
   showStops: {
@@ -72,7 +72,7 @@ const sliderProps = {
   /** 垂直模式下的高度 */
   height: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 屏幕阅读器标签 */
   label: {
@@ -92,7 +92,7 @@ const sliderProps = {
   /** 提示出现的位置 */
   placement: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 标记， key 的类型必须为 number ，且在 [min, max] 范围内，每个标记可以是一个对象或字符串 */
   marks: {
@@ -129,10 +129,13 @@ const sliderProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const sliderEmits = {
-  'update:modelValue': (_val) => true,
+  "update:modelValue": (_val) => true,
   change: (_val) => true,
   input: (_val) => true
-}
-export { sliderEmits, sliderProps }
+};
+export {
+  sliderEmits,
+  sliderProps
+};

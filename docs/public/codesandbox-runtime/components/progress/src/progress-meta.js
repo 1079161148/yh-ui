@@ -1,10 +1,10 @@
-const progressTypes = ['line', 'circle', 'dashboard']
-const progressStatus = ['success', 'exception', 'warning', 'info']
+const progressTypes = ["line", "circle", "dashboard"];
+const progressStatus = ["success", "exception", "warning", "info"];
 const progressProps = {
   /** 进度类型 */
   type: {
     type: String,
-    default: 'line'
+    default: "line"
   },
   /** 百分比（0-100），支持数组实现多环嵌套 */
   percentage: {
@@ -43,12 +43,12 @@ const progressProps = {
   /** 进度条背景色（支持颜色、函数、渐变数组、或对象形式的 SVG 渐变） */
   color: {
     type: [String, Function, Array, Object],
-    default: ''
+    default: ""
   },
   /** 状态图标 */
   icon: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 环形是否开启旋转/呼吸动画 */
   animated: {
@@ -58,7 +58,7 @@ const progressProps = {
   /** 进度条背景轨道颜色 */
   defineBackgroundColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 文字定制化 */
   format: {
@@ -67,7 +67,7 @@ const progressProps = {
   /** 进度条末端形状 */
   strokeLinecap: {
     type: String,
-    default: 'round'
+    default: "round"
   },
   /** 是否开启条纹 */
   striped: {
@@ -99,5 +99,9 @@ const progressProps = {
     type: Object,
     default: void 0
   }
-}
-export { progressProps, progressStatus, progressTypes }
+};
+export {
+  progressProps,
+  progressStatus,
+  progressTypes
+};

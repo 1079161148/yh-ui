@@ -476,7 +476,7 @@ html.dark {
   min-height: 0;
   padding: var(--yh-spacing-md);
   overflow-y: auto;
-  font-family: var(--yh-font-family-monospace, 'Fira Code', 'Consolas', monospace);
+  font-family: var(--yh-font-family-monospace, "Fira Code", "Consolas", monospace);
   font-size: var(--yh-font-size-sm);
   line-height: var(--yh-line-height-relaxed);
   color: var(--yh-ai-code-runner-text);

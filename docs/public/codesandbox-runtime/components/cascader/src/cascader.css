@@ -798,9 +798,7 @@ html.dark {
 
 .yh-cascader-dropdown-enter-active,
 .yh-cascader-dropdown-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .yh-cascader-dropdown-enter-from,

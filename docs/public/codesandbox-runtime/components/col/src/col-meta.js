@@ -1,7 +1,7 @@
 const colProps = {
   tag: {
     type: String,
-    default: 'div'
+    default: "div"
   },
   span: {
     type: Number,
@@ -44,5 +44,7 @@ const colProps = {
     type: Object,
     default: void 0
   }
-}
-export { colProps }
+};
+export {
+  colProps
+};

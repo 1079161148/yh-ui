@@ -12,12 +12,12 @@ const tableProps = {
   /** 行唯一标识 */
   rowKey: {
     type: [String, Function],
-    default: 'id'
+    default: "id"
   },
   /** 表格尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 表格高度 */
   height: {
@@ -58,7 +58,7 @@ const tableProps = {
   /** 空数据显示文本 */
   emptyText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否自适应父容器 */
   fit: {
@@ -130,12 +130,12 @@ const tableProps = {
   /** 表格布局 */
   tableLayout: {
     type: String,
-    default: 'fixed'
+    default: "fixed"
   },
   /** 溢出提示效果 */
   tooltipEffect: {
     type: String,
-    default: 'dark'
+    default: "dark"
   },
   /** 合并单元格方法 */
   spanMethod: {
@@ -221,50 +221,54 @@ const tableProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const tableEmits = {
   /** 排序变化 */
-  'sort-change': (_params) => true,
+  "sort-change": (_params) => true,
   /** 筛选变化 */
-  'filter-change': (_filters) => true,
+  "filter-change": (_filters) => true,
   /** 分页变化 */
-  'page-change': (_params) => true,
+  "page-change": (_params) => true,
   /** 选择变化 */
-  'selection-change': (_selectedRows, _selectedRowKeys) => true,
+  "selection-change": (_selectedRows, _selectedRowKeys) => true,
   /** 当前行变化 */
-  'current-change': (_currentRow, _oldRow) => true,
+  "current-change": (_currentRow, _oldRow) => true,
   /** 展开变化 */
-  'expand-change': (_row, _expandedRows) => true,
+  "expand-change": (_row, _expandedRows) => true,
   /** 行点击 */
-  'row-click': (_row, _column, _event) => true,
+  "row-click": (_row, _column, _event) => true,
   /** 行双击 */
-  'row-dblclick': (_row, _column, _event) => true,
+  "row-dblclick": (_row, _column, _event) => true,
   /** 行右键 */
-  'row-contextmenu': (_row, _column, _event) => true,
+  "row-contextmenu": (_row, _column, _event) => true,
   /** 单元格点击 */
-  'cell-click': (_row, _column, _cell, _event) => true,
+  "cell-click": (_row, _column, _cell, _event) => true,
   /** 单元格双击 */
-  'cell-dblclick': (_row, _column, _cell, _event) => true,
+  "cell-dblclick": (_row, _column, _cell, _event) => true,
   /** 表头点击 */
-  'header-click': (_column, _event) => true,
+  "header-click": (_column, _event) => true,
   /** 表头右键 */
-  'header-contextmenu': (_column, _event) => true,
+  "header-contextmenu": (_column, _event) => true,
   /** 全选 */
-  'select-all': (_selection) => true,
+  "select-all": (_selection) => true,
   /** 选择行 */
   select: (_selection, _row) => true,
   /** 滚动事件 */
   scroll: (_params) => true,
   /** 拖拽结束 */
-  'drag-end': (_params) => true,
+  "drag-end": (_params) => true,
   /** 列宽变化 */
-  'column-resize': (_column, _width) => true,
+  "column-resize": (_column, _width) => true,
   /** 列可见性变化 */
-  'column-visible-change': (_columns) => true,
+  "column-visible-change": (_columns) => true,
   /** 数据更新 */
-  'update:data': (_data) => true,
+  "update:data": (_data) => true,
   /** 当前行 key 更新 */
-  'update:currentRowKey': (_key) => true
-}
-const tableContextKey = Symbol('tableContextKey')
-export { tableContextKey, tableEmits, tableProps }
+  "update:currentRowKey": (_key) => true
+};
+const tableContextKey = Symbol("tableContextKey");
+export {
+  tableContextKey,
+  tableEmits,
+  tableProps
+};

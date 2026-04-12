@@ -1,17 +1,17 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import dayjs from "../../dayjs";
-import isBetweenPlugin from "dayjs/plugin/isBetween.js";
-import isoWeekPlugin from "dayjs/plugin/isoWeek.js";
-import quarterOfYearPlugin from "dayjs/plugin/quarterOfYear.js";
+import isBetweenPluginModule from "dayjs/plugin/isBetween.js";
+import isoWeekPluginModule from "dayjs/plugin/isoWeek.js";
+import quarterOfYearPluginModule from "dayjs/plugin/quarterOfYear.js";
 import { useNamespace } from "@yh-ui/hooks";
 import { useComponentTheme } from "@yh-ui/theme";
 import { YhTooltip } from "../../tooltip";
 import { YhInput } from "../../input";
 import { YhRadioGroup, YhRadioButton } from "../../radio";
-dayjs.extend(isBetweenPlugin);
-dayjs.extend(isoWeekPlugin);
-dayjs.extend(quarterOfYearPlugin);
+dayjs.extend(isBetweenPluginModule);
+dayjs.extend(isoWeekPluginModule);
+dayjs.extend(quarterOfYearPluginModule);
 defineOptions({ name: "YhGanttChart" });
 const props = defineProps({
   data: { type: Array, required: true, default: () => [] },

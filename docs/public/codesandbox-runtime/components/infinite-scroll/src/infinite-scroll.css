@@ -515,14 +515,10 @@ html.dark {
   flex-direction: column;
 }
 
-:root.dark .yh-infinite-scroll .yh-infinite-scroll__loading,
-html.dark .yh-infinite-scroll .yh-infinite-scroll__loading,
-body.dark .yh-infinite-scroll .yh-infinite-scroll__loading {
+:root.dark .yh-infinite-scroll .yh-infinite-scroll__loading, html.dark .yh-infinite-scroll .yh-infinite-scroll__loading, body.dark .yh-infinite-scroll .yh-infinite-scroll__loading {
   color: var(--yh-text-color-secondary, #909399);
 }
 
-:root.dark .yh-infinite-scroll .yh-infinite-scroll__finished,
-html.dark .yh-infinite-scroll .yh-infinite-scroll__finished,
-body.dark .yh-infinite-scroll .yh-infinite-scroll__finished {
+:root.dark .yh-infinite-scroll .yh-infinite-scroll__finished, html.dark .yh-infinite-scroll .yh-infinite-scroll__finished, body.dark .yh-infinite-scroll .yh-infinite-scroll__finished {
   color: var(--yh-text-color-placeholder, #6b6b6b);
 }

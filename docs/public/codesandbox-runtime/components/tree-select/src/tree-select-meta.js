@@ -11,11 +11,11 @@ const treeSelectProps = {
   props: {
     type: Object,
     default: () => ({
-      label: 'label',
-      value: 'value',
-      children: 'children',
-      disabled: 'disabled',
-      isLeaf: 'isLeaf'
+      label: "label",
+      value: "value",
+      children: "children",
+      disabled: "disabled",
+      isLeaf: "isLeaf"
     })
   },
   placeholder: {
@@ -28,7 +28,7 @@ const treeSelectProps = {
   disabled: Boolean,
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   filterable: Boolean,
   filterNodeMethod: Function,
@@ -44,7 +44,7 @@ const treeSelectProps = {
   },
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   status: String,
   // Tree 相关属性
@@ -97,14 +97,17 @@ const treeSelectProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const treeSelectEmits = {
-  'update:modelValue': (_value) => true,
+  "update:modelValue": (_value) => true,
   change: (_value) => true,
   clear: () => true,
-  'visible-change': (_visible) => true,
-  'node-click': (_data, _node, _e) => true,
-  'check-change': (_data, _checked, _indeterminate) => true,
+  "visible-change": (_visible) => true,
+  "node-click": (_data, _node, _e) => true,
+  "check-change": (_data, _checked, _indeterminate) => true,
   check: (_data, _info) => true
-}
-export { treeSelectEmits, treeSelectProps }
+};
+export {
+  treeSelectEmits,
+  treeSelectProps
+};

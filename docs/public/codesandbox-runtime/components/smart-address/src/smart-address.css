@@ -572,7 +572,7 @@ html.dark {
   line-height: 32px;
 }
 .yh-smart-address__label.is-required::before {
-  content: '* ';
+  content: "* ";
   color: var(--yh-color-danger);
 }
 

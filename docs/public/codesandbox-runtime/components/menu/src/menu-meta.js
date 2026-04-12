@@ -2,12 +2,12 @@ const menuProps = {
   /** 菜单模式 */
   mode: {
     type: String,
-    default: 'vertical'
+    default: "vertical"
   },
   /** 当前激活菜单的 index */
   defaultActive: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 当前打开的 sub-menu 的 index 数组 */
   defaultOpeneds: {
@@ -22,7 +22,7 @@ const menuProps = {
   /** 子菜单打开触发方式 */
   menuTrigger: {
     type: String,
-    default: 'hover'
+    default: "hover"
   },
   /** 是否开启折叠模式（仅 vertical 模式） */
   collapse: {
@@ -42,17 +42,17 @@ const menuProps = {
   /** 背景色 */
   backgroundColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 文字颜色 */
   textColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 激活项文字颜色 */
   activeTextColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否开启省略模式 (水平模式下) */
   ellipsis: {
@@ -77,7 +77,7 @@ const menuProps = {
   /** 自定义省略图标 */
   ellipsisIcon: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   /** 弹出层的偏移量 (对所有子菜单有效) */
   popperOffset: {
@@ -87,7 +87,7 @@ const menuProps = {
   /** Tooltip 主题，当垂直折叠或水平模式时生效 */
   popperEffect: {
     type: String,
-    default: 'light'
+    default: "light"
   },
   /** 单击外部时是否折叠菜单 */
   closeOnClickOutside: {
@@ -97,12 +97,12 @@ const menuProps = {
   /** 所有弹出菜单的自定义类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 所有弹出菜单的自定义样式 */
   popperStyle: {
     type: [Object, String, Array],
-    default: ''
+    default: ""
   },
   /** 菜单出现前的延迟 */
   showTimeout: {
@@ -177,29 +177,29 @@ const menuProps = {
   /** key 的字段名 */
   keyField: {
     type: String,
-    default: 'key'
+    default: "key"
   },
   /** label 的字段名 */
   labelField: {
     type: String,
-    default: 'label'
+    default: "label"
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
+};
 const menuEmits = {
   /** v-model:value */
-  'update:value': (_value) => true,
+  "update:value": (_value) => true,
   /** 菜单激活回调 */
   select: (_index, _indexPath, _item, _routeResult) => true,
   /** 子菜单展开回调 */
   open: (_index, _indexPath) => true,
   /** 子菜单收起回调 */
   close: (_index, _indexPath) => true
-}
+};
 const menuItemProps = {
   /** 唯一标识 */
   index: {
@@ -209,7 +209,7 @@ const menuItemProps = {
   /** vue-router 路由对象 */
   route: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   /** 是否禁用 */
   disabled: {
@@ -219,16 +219,16 @@ const menuItemProps = {
   /** 显示文本 */
   label: {
     type: String,
-    default: ''
+    default: ""
   }
-}
+};
 const menuItemGroupProps = {
   /** 分组标题 */
   title: {
     type: String,
-    default: ''
+    default: ""
   }
-}
+};
 const subMenuProps = {
   /** 唯一标识 */
   index: {
@@ -263,11 +263,11 @@ const subMenuProps = {
   /** 显示文本 */
   label: {
     type: String,
-    default: ''
+    default: ""
   }
-}
-const MENU_INJECTION_KEY = Symbol('menu')
-const SUB_MENU_INJECTION_KEY = Symbol('subMenu')
+};
+const MENU_INJECTION_KEY = Symbol("menu");
+const SUB_MENU_INJECTION_KEY = Symbol("subMenu");
 export {
   MENU_INJECTION_KEY,
   SUB_MENU_INJECTION_KEY,
@@ -276,4 +276,4 @@ export {
   menuItemProps,
   menuProps,
   subMenuProps
-}
+};

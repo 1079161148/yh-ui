@@ -620,10 +620,10 @@ html.dark {
   transform: translateX(4px);
 }
 
-.yh-input-tag__tag[draggable='true'] {
+.yh-input-tag__tag[draggable=true] {
   cursor: grab;
 }
-.yh-input-tag__tag[draggable='true']:active {
+.yh-input-tag__tag[draggable=true]:active {
   cursor: grabbing;
 }
 
@@ -695,7 +695,7 @@ html.dark {
   z-index: 2000;
 }
 .yh-input-tag__tooltip::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;

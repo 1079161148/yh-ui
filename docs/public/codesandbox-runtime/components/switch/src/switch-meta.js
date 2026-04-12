@@ -17,12 +17,12 @@ const switchProps = {
   /** switch 的大小 */
   size: {
     type: String,
-    default: ''
+    default: ""
   },
   /** switch 的宽度 */
   width: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /** 无论图标或文本是否显示在点内，只会呈现文本的第一个字符 */
   inlinePrompt: {
@@ -52,12 +52,12 @@ const switchProps = {
   /** switch 打开时的文字描述 */
   activeText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** switch 关闭时的文字描述 */
   inactiveText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** switch 状态为 on 时的值 */
   activeValue: {
@@ -72,7 +72,7 @@ const switchProps = {
   /** switch 对应的 name 属性 */
   name: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 改变 switch 状态时是否触发表单的校验 */
   validateEvent: {
@@ -104,9 +104,12 @@ const switchProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const switchEmits = {
-  'update:modelValue': (_val) => true,
+  "update:modelValue": (_val) => true,
   change: (_val) => true
-}
-export { switchEmits, switchProps }
+};
+export {
+  switchEmits,
+  switchProps
+};

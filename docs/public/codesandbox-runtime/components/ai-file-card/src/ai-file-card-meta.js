@@ -12,7 +12,7 @@ const aiFileCardProps = {
   /** 卡片尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 文件描述 */
   description: {
@@ -27,7 +27,7 @@ const aiFileCardProps = {
   /** 文件类型 */
   type: {
     type: String,
-    default: 'file'
+    default: "file"
   },
   /** 图片或文件地址 */
   src: {
@@ -42,7 +42,7 @@ const aiFileCardProps = {
   /** 自定义图标 */
   icon: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 图片属性 */
   imageProps: {
@@ -64,8 +64,11 @@ const aiFileCardProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiFileCardEmits = {
   click: () => true
-}
-export { aiFileCardEmits, aiFileCardProps }
+};
+export {
+  aiFileCardEmits,
+  aiFileCardProps
+};

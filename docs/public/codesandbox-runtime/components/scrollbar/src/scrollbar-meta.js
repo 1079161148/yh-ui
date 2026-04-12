@@ -1,18 +1,18 @@
-const SCROLLBAR_INJECTION_KEY = Symbol('scrollbarContext')
+const SCROLLBAR_INJECTION_KEY = Symbol("scrollbarContext");
 const scrollbarProps = {
   /**
    * @description 滚动条高度
    */
   height: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /**
    * @description 滚动条最大高度
    */
   maxHeight: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /**
    * @description 是否使用原生滚动条
@@ -40,14 +40,14 @@ const scrollbarProps = {
    */
   viewClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 视图的自定义样式
    */
   viewStyle: {
     type: [String, Array, Object],
-    default: ''
+    default: ""
   },
   /**
    * @description 是否不检查容器尺寸变化
@@ -58,7 +58,7 @@ const scrollbarProps = {
    */
   tag: {
     type: String,
-    default: 'div'
+    default: "div"
   },
   /**
    * @description 主题覆盖变量
@@ -67,9 +67,12 @@ const scrollbarProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const scrollbarEmits = {
-  scroll: ({ scrollLeft, scrollTop }) =>
-    typeof scrollLeft === 'number' && typeof scrollTop === 'number'
-}
-export { SCROLLBAR_INJECTION_KEY, scrollbarEmits, scrollbarProps }
+  scroll: ({ scrollLeft, scrollTop }) => typeof scrollLeft === "number" && typeof scrollTop === "number"
+};
+export {
+  SCROLLBAR_INJECTION_KEY,
+  scrollbarEmits,
+  scrollbarProps
+};

@@ -486,9 +486,7 @@ html.dark {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  transition:
-    border-color 0.2s,
-    background-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 .yh-radio__inner.is-checked {
   border-color: var(--yh-radio-checked-border-color);
@@ -506,7 +504,7 @@ html.dark {
   height: 4px;
   border-radius: var(--yh-radius-circle);
   background-color: var(--yh-fill-color-blank, #fff);
-  content: '';
+  content: "";
   transition: transform 0.15s ease-in;
 }
 

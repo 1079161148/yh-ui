@@ -527,22 +527,10 @@ html.dark {
   z-index: 1;
 }
 .yh-marquee--horizontal .yh-marquee__overlay {
-  background: linear-gradient(
-    to right,
-    var(--yh-marquee-gradient-color) 0%,
-    transparent var(--yh-marquee-gradient-width),
-    transparent calc(100% - var(--yh-marquee-gradient-width)),
-    var(--yh-marquee-gradient-color) 100%
-  );
+  background: linear-gradient(to right, var(--yh-marquee-gradient-color) 0%, transparent var(--yh-marquee-gradient-width), transparent calc(100% - var(--yh-marquee-gradient-width)), var(--yh-marquee-gradient-color) 100%);
 }
 .yh-marquee--vertical .yh-marquee__overlay {
-  background: linear-gradient(
-    to bottom,
-    var(--yh-marquee-gradient-color) 0%,
-    transparent var(--yh-marquee-gradient-width),
-    transparent calc(100% - var(--yh-marquee-gradient-width)),
-    var(--yh-marquee-gradient-color) 100%
-  );
+  background: linear-gradient(to bottom, var(--yh-marquee-gradient-color) 0%, transparent var(--yh-marquee-gradient-width), transparent calc(100% - var(--yh-marquee-gradient-width)), var(--yh-marquee-gradient-color) 100%);
 }
 
 @keyframes marquee-horizontal {

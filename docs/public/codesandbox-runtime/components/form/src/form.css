@@ -696,7 +696,7 @@ html.dark {
   animation: yh-rotating 2s linear infinite;
 }
 .yh-form-item.is-required:not(.is-no-asterisk) > .yh-form-item__label::before {
-  content: '*';
+  content: "*";
   color: var(--yh-color-danger, #f56c6c);
   margin-right: 4px;
 }
@@ -706,8 +706,7 @@ html.dark {
 .yh-form-item.is-error .yh-textarea__inner {
   border-color: var(--yh-color-danger, #f56c6c) !important;
 }
-.yh-form-item.is-error .yh-input__inner:hover,
-.yh-form-item.is-error .yh-input__inner:focus,
+.yh-form-item.is-error .yh-input__inner:hover, .yh-form-item.is-error .yh-input__inner:focus,
 .yh-form-item.is-error .yh-input-number__wrapper:hover,
 .yh-form-item.is-error .yh-input-number__wrapper:focus,
 .yh-form-item.is-error .yh-select__wrapper:hover,
@@ -748,9 +747,7 @@ html.dark {
 }
 .yh-fade-enter-active,
 .yh-fade-leave-active {
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .yh-fade-enter-from,

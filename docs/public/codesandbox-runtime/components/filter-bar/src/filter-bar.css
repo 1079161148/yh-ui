@@ -508,9 +508,7 @@ html.dark {
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
-  transition:
-    color var(--yh-transition-base),
-    background var(--yh-transition-base);
+  transition: color var(--yh-transition-base), background var(--yh-transition-base);
 }
 .yh-filter-bar__tab:hover {
   color: var(--yh-filter-bar-tab-active-color);
@@ -614,10 +612,7 @@ html.dark {
   color: var(--yh-text-color-regular);
   cursor: pointer;
   white-space: nowrap;
-  transition:
-    color 0.3s ease,
-    background 0.3s ease,
-    transform 0.2s cubic-bezier(0.3, 1.5, 0.4, 1.5);
+  transition: color 0.3s ease, background 0.3s ease, transform 0.2s cubic-bezier(0.3, 1.5, 0.4, 1.5);
 }
 .yh-filter-bar__inline-opt:active {
   transform: scale(0.95);
@@ -697,10 +692,7 @@ html.dark {
   font-size: var(--yh-font-size-sm);
   color: var(--yh-text-color-regular);
   cursor: pointer;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease,
-    background 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
 .yh-filter-bar__panel-opt:active {
   transform: scale(0.95);
@@ -734,9 +726,7 @@ html.dark {
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition:
-    background var(--yh-transition-base),
-    color var(--yh-transition-base);
+  transition: background var(--yh-transition-base), color var(--yh-transition-base);
 }
 
 .yh-filter-bar__btn-reset {

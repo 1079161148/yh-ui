@@ -67,7 +67,7 @@ const imageViewerProps = {
    */
   viewerMode: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /**
    * @description 传递给 viewerjs 的配置项
@@ -76,9 +76,12 @@ const imageViewerProps = {
     type: Object,
     default: () => ({})
   }
-}
+};
 const imageViewerEmits = {
   close: () => true,
-  switch: (index) => typeof index === 'number'
-}
-export { imageViewerEmits, imageViewerProps }
+  switch: (index) => typeof index === "number"
+};
+export {
+  imageViewerEmits,
+  imageViewerProps
+};

@@ -468,11 +468,7 @@ html.dark {
   box-shadow: var(--yh-shadow-lg);
   pointer-events: none;
   backdrop-filter: blur(12px) saturate(180%);
-  transition:
-    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 0.2s ease,
-    background-color 0.15s ease,
-    border-color 0.15s ease;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease, background-color 0.15s ease, border-color 0.15s ease;
   overflow: visible;
   /* 默认共享变量：确保 SVG 始终引用同一套变量 */
   --yh-tooltip-bg: var(--yh-bg-color-overlay);
@@ -489,8 +485,7 @@ html.dark {
   border: 1px solid var(--yh-tooltip-border);
   /* --- 2. 强行设定：暗黑模式 (Explicit) --- */
 }
-.yh-tooltip__popper.is-dark,
-.yh-tooltip__popper.yh-popover__popper--dark {
+.yh-tooltip__popper.is-dark, .yh-tooltip__popper.yh-popover__popper--dark {
   --yh-tooltip-bg: var(--yh-text-color-primary);
   --yh-tooltip-border: transparent;
   --yh-tooltip-text: var(--yh-bg-color);
@@ -502,9 +497,7 @@ html.dark {
   /* --- 3. 核心：全局环境感应方案 --- */
   /* 当 HTML 或 Body 带有 .dark 类名时，强制切换变量 */
 }
-:root.dark .yh-tooltip__popper,
-html.dark .yh-tooltip__popper,
-body.dark .yh-tooltip__popper {
+:root.dark .yh-tooltip__popper, html.dark .yh-tooltip__popper, body.dark .yh-tooltip__popper {
   --yh-tooltip-bg: var(--yh-bg-color-overlay);
   --yh-tooltip-border: var(--yh-border-color-light);
   --yh-tooltip-text: var(--yh-text-color-primary);
@@ -547,19 +540,19 @@ body.dark .yh-tooltip__popper {
 }
 
 /* 动画系统 */
-[data-placement^='top'] .yh-tooltip__arrow {
+[data-placement^=top] .yh-tooltip__arrow {
   transform: rotate(0deg);
 }
 
-[data-placement^='bottom'] .yh-tooltip__arrow {
+[data-placement^=bottom] .yh-tooltip__arrow {
   transform: rotate(180deg);
 }
 
-[data-placement^='left'] .yh-tooltip__arrow {
+[data-placement^=left] .yh-tooltip__arrow {
   transform: rotate(-90deg);
 }
 
-[data-placement^='right'] .yh-tooltip__arrow {
+[data-placement^=right] .yh-tooltip__arrow {
   transform: rotate(90deg);
 }
 

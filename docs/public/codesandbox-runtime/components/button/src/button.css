@@ -483,8 +483,7 @@ html.dark {
   outline: none;
   transition: var(--yh-transition-fast);
 }
-.yh-button:hover,
-.yh-button:focus {
+.yh-button:hover, .yh-button:focus {
   color: var(--yh-button-hover-text-color);
   background-color: var(--yh-button-hover-bg-color);
   border-color: var(--yh-button-hover-border-color);
@@ -497,8 +496,7 @@ html.dark {
 .yh-button {
   /* 自定义颜色反馈 */
 }
-.yh-button.is-custom-color:hover,
-.yh-button.is-custom-color:focus {
+.yh-button.is-custom-color:hover, .yh-button.is-custom-color:focus {
   filter: brightness(1.1);
 }
 .yh-button.is-custom-color:active {
@@ -549,8 +547,7 @@ html.dark {
   padding-left: 0;
   padding-right: 0;
 }
-.yh-button.is-text:hover,
-.yh-button.is-text:focus {
+.yh-button.is-text:hover, .yh-button.is-text:focus {
   background-color: transparent;
   text-decoration: none;
 }

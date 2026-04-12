@@ -7,17 +7,17 @@ const uploadProps = {
   /** 接受上传的文件类型 */
   accept: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 上传的地址 */
   action: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 设置上传的请求方法 */
   method: {
     type: String,
-    default: 'POST'
+    default: "POST"
   },
   /** 设置上传的请求头部 */
   headers: {
@@ -32,7 +32,7 @@ const uploadProps = {
   /** 上传文件的字段名 */
   name: {
     type: String,
-    default: 'file'
+    default: "file"
   },
   /** 是否支持多选文件 */
   multiple: Boolean,
@@ -53,7 +53,7 @@ const uploadProps = {
   /** 文件列表类型 */
   listType: {
     type: String,
-    default: 'text'
+    default: "text"
   },
   /** 是否支持发送 cookie 凭证信息 */
   withCredentials: {
@@ -87,7 +87,7 @@ const uploadProps = {
   /** 上传触发器相对于文件列表的位置 */
   triggerPosition: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 自定义文件图标或图标生成函数 */
   fileIcon: [String, Function],
@@ -100,9 +100,9 @@ const uploadProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const uploadEmits = {
-  'update:fileList': (fileList) => Array.isArray(fileList),
+  "update:fileList": (fileList) => Array.isArray(fileList),
   change: (_file, _fileList) => true,
   success: (_response, _file, _fileList) => true,
   error: (_error, _file, _fileList) => true,
@@ -111,5 +111,8 @@ const uploadEmits = {
   exceed: (_files, _fileList) => true,
   preview: (_file) => true,
   download: (_file) => true
-}
-export { uploadEmits, uploadProps }
+};
+export {
+  uploadEmits,
+  uploadProps
+};

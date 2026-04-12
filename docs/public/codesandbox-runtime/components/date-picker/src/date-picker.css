@@ -468,14 +468,7 @@ html.dark {
   position: relative;
   display: inline-flex;
   width: var(--yh-date-picker-width, 220px);
-  font-family: var(
-    --yh-font-family,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif
-  );
+  font-family: var(--yh-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   box-sizing: border-box;
 }
 .yh-date-picker.is-range {
@@ -494,9 +487,7 @@ html.dark {
   background: var(--yh-bg-color);
   border: 1px solid var(--yh-date-picker-border);
   border-radius: var(--yh-radius-md);
-  transition:
-    border-color 0.25s,
-    box-shadow 0.25s;
+  transition: border-color 0.25s, box-shadow 0.25s;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -767,10 +758,8 @@ html.dark {
 .yh-date-picker__cell {
   /* 范围背景条 - 统一背景逻辑 */
 }
-.yh-date-picker__cell.is-in-range::before,
-.yh-date-picker__cell.is-range-start::before,
-.yh-date-picker__cell.is-range-end::before {
-  content: '';
+.yh-date-picker__cell.is-in-range::before, .yh-date-picker__cell.is-range-start::before, .yh-date-picker__cell.is-range-end::before {
+  content: "";
   position: absolute;
   top: 5px;
   bottom: 5px;
@@ -824,7 +813,7 @@ html.dark {
   color: var(--yh-date-picker-primary);
 }
 .yh-date-picker__cell.is-today:not(.is-selected) .yh-date-picker__cell-content::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0px; /* 向下微调，增加点与文字的距离 */
   left: 50%;
@@ -835,8 +824,7 @@ html.dark {
   border-radius: 50%;
 }
 
-.yh-date-picker__cell.is-prev-month,
-.yh-date-picker__cell.is-next-month {
+.yh-date-picker__cell.is-prev-month, .yh-date-picker__cell.is-next-month {
   color: var(--yh-date-picker-text-secondary);
   opacity: 0.35;
 }

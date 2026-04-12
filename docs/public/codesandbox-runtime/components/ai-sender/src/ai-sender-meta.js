@@ -4,14 +4,14 @@ const aiSenderProps = {
    */
   modelValue: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 占位符
    */
   placeholder: {
     type: String,
-    default: 'Send a message...'
+    default: "Send a message..."
   },
   /**
    * 是否禁用
@@ -73,9 +73,9 @@ const aiSenderProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiSenderEmits = {
-  'update:modelValue': (_val) => true,
+  "update:modelValue": (_val) => true,
   send: (_val) => true,
   change: (_val) => true,
   clear: () => true,
@@ -88,10 +88,13 @@ const aiSenderEmits = {
   /**
    * 附件移除时触发
    */
-  'remove-attachment': (_attachment) => true,
+  "remove-attachment": (_attachment) => true,
   /**
    * 文件上传/拖入时触发
    */
   upload: (_files) => true
-}
-export { aiSenderEmits, aiSenderProps }
+};
+export {
+  aiSenderEmits,
+  aiSenderProps
+};

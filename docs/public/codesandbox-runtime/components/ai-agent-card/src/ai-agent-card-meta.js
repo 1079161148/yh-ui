@@ -11,7 +11,7 @@ const aiAgentCardProps = {
    */
   layout: {
     type: String,
-    default: 'vertical'
+    default: "vertical"
   },
   /**
    * @description 是否显示操作按钮区域
@@ -55,15 +55,18 @@ const aiAgentCardProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiAgentCardEmits = {
   /** 点击整个卡片 */
   click: (data) => !!data,
   /** 点击使用 / 调用按钮 */
   use: (data) => !!data,
   /** 收藏/取消收藏 */
-  favorite: (data, favorited) => !!data && typeof favorited === 'boolean',
+  favorite: (data, favorited) => !!data && typeof favorited === "boolean",
   /** 分享 */
   share: (data) => !!data
-}
-export { aiAgentCardEmits, aiAgentCardProps }
+};
+export {
+  aiAgentCardEmits,
+  aiAgentCardProps
+};

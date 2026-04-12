@@ -2,27 +2,27 @@ const productCardProps = {
   /** 商品图片 */
   image: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 鼠标悬浮切换图 */
   hoverImage: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 视频预览地址 */
   videoSrc: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 商品标题 */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 副标题/属性简述 */
   description: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 当前售价 */
   price: {
@@ -32,47 +32,47 @@ const productCardProps = {
   /** 会员价/到手价 */
   vipPrice: {
     type: [Number, String],
-    default: ''
+    default: ""
   },
   /** 会员价标签文本 (默认 "会员价") */
   vipLabel: {
     type: String,
-    default: '\u4F1A\u5458'
+    default: "\u4F1A\u5458"
   },
   /** 划线价/参考价 */
   marketPrice: {
     type: [Number, String],
-    default: ''
+    default: ""
   },
   /** 货币符号 */
   currency: {
     type: String,
-    default: '\xA5'
+    default: "\xA5"
   },
   /** 价格后置单位 (如: /件, /kg) */
   unit: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 营销丝带文本 (推荐) */
   ribbon: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 丝带背景颜色 */
   ribbonColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 兼容性：标题标签文本 (不推荐，建议使用 ribbons 或 badges) */
   tag: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 兼容性：标签颜色类型 */
   tagType: {
     type: String,
-    default: 'danger'
+    default: "danger"
   },
   /** 标签组 (支持图片 or 文本标签) */
   badges: {
@@ -82,7 +82,7 @@ const productCardProps = {
   /** 布局模式 */
   layout: {
     type: String,
-    default: 'vertical'
+    default: "vertical"
   },
   /** 是否开启图片懒加载 */
   lazy: {
@@ -97,12 +97,12 @@ const productCardProps = {
   /** 库存进度条颜色 (支持渐变色) */
   stockColor: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 库存文字提示 */
   stockText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否显示边框 */
   border: {
@@ -122,7 +122,7 @@ const productCardProps = {
   /** 操作按钮文本 */
   actionText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 按钮加载态 */
   actionLoading: {
@@ -162,18 +162,21 @@ const productCardProps = {
   /** 标签显示位置 */
   badgePosition: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 主题覆盖 */
   themeOverrides: {
     type: Object,
     default: () => ({})
   }
-}
+};
 const productCardEmits = {
   click: (e) => e instanceof MouseEvent,
   action: (e) => e instanceof MouseEvent,
   /** 曝光上报事件 */
   expose: () => true
-}
-export { productCardEmits, productCardProps }
+};
+export {
+  productCardEmits,
+  productCardProps
+};

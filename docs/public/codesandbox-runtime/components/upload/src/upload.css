@@ -641,8 +641,7 @@ html.dark {
 .yh-upload__item.is-fail:hover {
   background-color: var(--yh-upload-error-hover-bg) !important;
 }
-.yh-upload--text .yh-upload__item,
-.yh-upload--picture .yh-upload__item {
+.yh-upload--text .yh-upload__item, .yh-upload--picture .yh-upload__item {
   width: 100%;
   display: flex;
   align-items: center;
@@ -651,8 +650,7 @@ html.dark {
   margin-bottom: 4px;
   gap: 12px;
 }
-.yh-upload--text .yh-upload__item:hover,
-.yh-upload--picture .yh-upload__item:hover {
+.yh-upload--text .yh-upload__item:hover, .yh-upload--picture .yh-upload__item:hover {
   background-color: var(--yh-fill-color-light);
 }
 .yh-upload--picture .yh-upload__item {

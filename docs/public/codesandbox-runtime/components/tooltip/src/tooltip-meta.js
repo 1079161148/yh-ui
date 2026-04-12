@@ -1,33 +1,33 @@
 const tooltipPlacements = [
-  'top',
-  'top-start',
-  'top-end',
-  'bottom',
-  'bottom-start',
-  'bottom-end',
-  'left',
-  'left-start',
-  'left-end',
-  'right',
-  'right-start',
-  'right-end'
-]
-const tooltipTriggers = ['hover', 'click', 'focus', 'contextmenu', 'manual']
+  "top",
+  "top-start",
+  "top-end",
+  "bottom",
+  "bottom-start",
+  "bottom-end",
+  "left",
+  "left-start",
+  "left-end",
+  "right",
+  "right-start",
+  "right-end"
+];
+const tooltipTriggers = ["hover", "click", "focus", "contextmenu", "manual"];
 const tooltipProps = {
   /** 显示内容 */
   content: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 出现位置 */
   placement: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   /** 触发方式 */
   trigger: {
     type: [String, Array],
-    default: 'hover'
+    default: "hover"
   },
   /** 是否禁用 */
   disabled: {
@@ -67,7 +67,7 @@ const tooltipProps = {
   /** 提示框的主题：dark / light 或自定义名称 */
   effect: {
     type: String,
-    default: 'dark'
+    default: "dark"
   },
   /** 是否跟随鼠标移动 (高级功能) */
   followCursor: {
@@ -77,7 +77,7 @@ const tooltipProps = {
   /** 弹出层的自定义类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 挂载节点 */
   teleported: {
@@ -92,7 +92,7 @@ const tooltipProps = {
   /** 手动控制动画名称 */
   transition: {
     type: String,
-    default: 'yh-tooltip-fade'
+    default: "yh-tooltip-fade"
   },
   /** 是否在隐藏时销毁 DOM 节点 */
   persistent: {
@@ -107,12 +107,12 @@ const tooltipProps = {
   /** 弹出层宽度 */
   width: {
     type: [String, Number],
-    default: 'auto'
+    default: "auto"
   },
   /** 弹出层最大高度 */
   maxHeight: {
     type: [String, Number],
-    default: 'none'
+    default: "none"
   },
   /** 内容是否可滚动 */
   scrollable: {
@@ -122,7 +122,7 @@ const tooltipProps = {
   /** 弹出内容自定义类名 */
   contentClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 弹出内容自定义样式 */
   contentStyle: {
@@ -132,7 +132,7 @@ const tooltipProps = {
   /** 箭头自定义类名 */
   arrowClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 箭头自定义样式 */
   arrowStyle: {
@@ -147,7 +147,7 @@ const tooltipProps = {
   /** 箭头容器自定义类名 */
   arrowWrapperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 箭头容器自定义样式 */
   arrowWrapperStyle: {
@@ -159,10 +159,15 @@ const tooltipProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const tooltipEmits = {
-  'update:visible': (visible) => typeof visible === 'boolean',
+  "update:visible": (visible) => typeof visible === "boolean",
   show: () => true,
   hide: () => true
-}
-export { tooltipEmits, tooltipPlacements, tooltipProps, tooltipTriggers }
+};
+export {
+  tooltipEmits,
+  tooltipPlacements,
+  tooltipProps,
+  tooltipTriggers
+};

@@ -1,26 +1,26 @@
-const alertTypes = ['success', 'info', 'warning', 'error']
-const alertEffects = ['light', 'dark', 'outline', 'glass']
+const alertTypes = ["success", "info", "warning", "error"];
+const alertEffects = ["light", "dark", "outline", "glass"];
 const alertProps = {
   /** 标题 */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 描述文字 */
   description: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 类型 */
   type: {
     type: String,
-    default: 'info',
+    default: "info",
     validator: (val) => alertTypes.includes(val)
   },
   /** 主题样式 */
   effect: {
     type: String,
-    default: 'light',
+    default: "light",
     validator: (val) => alertEffects.includes(val)
   },
   /** 是否可关闭 */
@@ -31,12 +31,12 @@ const alertProps = {
   /** 关闭按钮自定义文字 */
   closeText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 关闭按钮自定义图标 */
   closeIcon: {
     type: [Object, String, Function],
-    default: ''
+    default: ""
   },
   /** 是否显示图标 */
   showIcon: {
@@ -46,7 +46,7 @@ const alertProps = {
   /** 自定义图标组件 */
   icon: {
     type: [Object, String, Function],
-    default: ''
+    default: ""
   },
   /** 文字是否居中 */
   center: {
@@ -83,8 +83,13 @@ const alertProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const alertEmits = {
   close: (evt) => evt instanceof MouseEvent
-}
-export { alertEffects, alertEmits, alertProps, alertTypes }
+};
+export {
+  alertEffects,
+  alertEmits,
+  alertProps,
+  alertTypes
+};

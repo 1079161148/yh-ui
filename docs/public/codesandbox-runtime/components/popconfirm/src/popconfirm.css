@@ -452,9 +452,7 @@ html.dark {
 .yh-popconfirm__popper {
   /* 与 Popover 空间感保持绝对对齐 */
   border-radius: 12px !important;
-  box-shadow:
-    0 12px 32px -4px rgba(0, 0, 0, 0.1),
-    0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.1), 0 4px 20px rgba(0, 0, 0, 0.05) !important;
   padding: 0 !important;
   min-width: 200px;
   overflow: visible !important;

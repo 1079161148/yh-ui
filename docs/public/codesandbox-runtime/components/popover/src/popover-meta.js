@@ -1,4 +1,4 @@
-const popoverTriggers = ['hover', 'click', 'focus', 'contextmenu']
+const popoverTriggers = ["hover", "click", "focus", "contextmenu"];
 const popoverProps = {
   /** 标题 */
   title: String,
@@ -13,12 +13,12 @@ const popoverProps = {
   /** 弹出位置 */
   placement: {
     type: String,
-    default: 'bottom'
+    default: "bottom"
   },
   /** 触发方式，支持数组 */
   trigger: {
     type: [String, Array],
-    default: 'click'
+    default: "click"
   },
   /** 手动控制可见性 */
   visible: {
@@ -28,7 +28,7 @@ const popoverProps = {
   /** 提示框的主题：light / dark */
   effect: {
     type: String,
-    default: 'light'
+    default: "light"
   },
   /** 是否禁用 */
   disabled: {
@@ -58,12 +58,12 @@ const popoverProps = {
   /** 弹出层宽度 */
   width: {
     type: [String, Number],
-    default: 'auto'
+    default: "auto"
   },
   /** 最大高度 (配合 scrollable 使用) */
   maxHeight: {
     type: [String, Number],
-    default: 'none'
+    default: "none"
   },
   /** 内容是否可滚动 */
   scrollable: {
@@ -93,7 +93,7 @@ const popoverProps = {
   /** 弹出层自定义类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 弹出层自定义样式 */
   popperStyle: {
@@ -103,7 +103,7 @@ const popoverProps = {
   /** 动画名称 */
   transition: {
     type: String,
-    default: 'yh-popover-fade'
+    default: "yh-popover-fade"
   },
   /** 是否持久化 DOM (隐藏时是否销毁) */
   persistent: {
@@ -115,10 +115,14 @@ const popoverProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const popoverEmits = {
-  'update:visible': (visible) => typeof visible === 'boolean',
+  "update:visible": (visible) => typeof visible === "boolean",
   show: () => true,
   hide: () => true
-}
-export { popoverEmits, popoverProps, popoverTriggers }
+};
+export {
+  popoverEmits,
+  popoverProps,
+  popoverTriggers
+};

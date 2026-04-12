@@ -4,7 +4,7 @@ const aiThinkingProps = {
    */
   status: {
     type: String,
-    default: 'thinking'
+    default: "thinking"
   },
   /**
    * @description 思考标题
@@ -30,7 +30,7 @@ const aiThinkingProps = {
    */
   className: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 样式类名（语义化）
@@ -60,8 +60,11 @@ const aiThinkingProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiThinkingEmits = {
-  'update:modelValue': (value) => typeof value === 'boolean'
-}
-export { aiThinkingEmits, aiThinkingProps }
+  "update:modelValue": (value) => typeof value === "boolean"
+};
+export {
+  aiThinkingEmits,
+  aiThinkingProps
+};

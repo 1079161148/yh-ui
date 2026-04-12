@@ -17,7 +17,7 @@ const aiArtifactsProps = {
    */
   width: {
     type: [String, Number],
-    default: '50%'
+    default: "50%"
   },
   /**
    * 是否全屏展示
@@ -31,7 +31,7 @@ const aiArtifactsProps = {
    */
   mode: {
     type: String,
-    default: 'preview'
+    default: "preview"
   },
   /**
    * 主题覆盖变量
@@ -60,7 +60,7 @@ const aiArtifactsProps = {
    */
   echartsTheme: {
     type: String,
-    default: 'light'
+    default: "light"
   },
   /**
    * 是否启用数据缩放
@@ -95,16 +95,19 @@ const aiArtifactsProps = {
    */
   chartLoadingText: {
     type: String,
-    default: '\u52A0\u8F7D\u56FE\u8868\u4E2D...'
+    default: "\u52A0\u8F7D\u56FE\u8868\u4E2D..."
   }
-}
+};
 const aiArtifactsEmits = {
-  'update:visible': (_val) => true,
-  'update:mode': (_val) => true,
-  'version-change': (_version) => true,
-  'chart-click': (_params) => true,
-  'chart-ready': (_chart) => true,
-  'chart-error': (_error) => true,
+  "update:visible": (_val) => true,
+  "update:mode": (_val) => true,
+  "version-change": (_version) => true,
+  "chart-click": (_params) => true,
+  "chart-ready": (_chart) => true,
+  "chart-error": (_error) => true,
   close: () => true
-}
-export { aiArtifactsEmits, aiArtifactsProps }
+};
+export {
+  aiArtifactsEmits,
+  aiArtifactsProps
+};

@@ -558,12 +558,7 @@ html.dark {
 .yh-card__skeleton-header {
   height: 20px;
   width: 40%;
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color) 25%,
-    var(--yh-fill-color-light) 37%,
-    var(--yh-fill-color) 63%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color) 25%, var(--yh-fill-color-light) 37%, var(--yh-fill-color) 63%);
   background-size: 400% 100%;
   animation: yh-skeleton-loading 1.4s ease infinite;
   border-radius: var(--yh-border-radius-small);
@@ -578,12 +573,7 @@ html.dark {
 
 .yh-card__skeleton-line {
   height: 16px;
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color) 25%,
-    var(--yh-fill-color-light) 37%,
-    var(--yh-fill-color) 63%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color) 25%, var(--yh-fill-color-light) 37%, var(--yh-fill-color) 63%);
   background-size: 400% 100%;
   animation: yh-skeleton-loading 1.4s ease infinite;
   border-radius: var(--yh-border-radius-small);
@@ -607,8 +597,7 @@ html.dark {
   }
 }
 @keyframes yh-card-loading {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {

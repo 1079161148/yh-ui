@@ -12,6 +12,10 @@ function _interopDefaultCompat (e) { return e && typeof e === 'object' && 'defau
 
 const components__default = /*#__PURE__*/_interopDefaultCompat(components);
 
+const version$1 = "0.1.53";
+const packageJson = {
+	version: version$1};
+
 const createYhUI = (options = {}) => {
   return {
     install(app) {
@@ -27,7 +31,7 @@ const index = {
   install,
   createYhUI
 };
-const version = "0.1.10";
+const version = packageJson.version;
 
 exports.hexToRgb = utils.hexToRgb;
 exports.rgbToHex = utils.rgbToHex;

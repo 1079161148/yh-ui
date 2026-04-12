@@ -1,2 +1,4 @@
-const cardShadows = ['always', 'hover', 'never']
-export { cardShadows }
+const cardShadows = ["always", "hover", "never"];
+export {
+  cardShadows
+};

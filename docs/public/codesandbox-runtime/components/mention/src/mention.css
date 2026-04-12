@@ -458,9 +458,7 @@ html.dark {
   border-radius: var(--yh-mention-border-radius, var(--yh-border-radius-base));
   border: 1px solid var(--yh-mention-border-color, var(--yh-border-color));
   background-color: var(--yh-mention-bg-color, var(--yh-fill-color-blank));
-  transition:
-    border-color var(--yh-transition-duration),
-    box-shadow var(--yh-transition-duration);
+  transition: border-color var(--yh-transition-duration), box-shadow var(--yh-transition-duration);
   box-sizing: border-box;
 }
 .yh-mention--large {
@@ -616,13 +614,10 @@ html.dark {
   cursor: pointer;
   font-size: var(--yh-font-size-base);
   color: var(--yh-text-color-regular);
-  transition:
-    background-color 0.15s,
-    color 0.15s;
+  transition: background-color 0.15s, color 0.15s;
   user-select: none;
 }
-.yh-mention__option:hover,
-.yh-mention__option.is-highlighted {
+.yh-mention__option:hover, .yh-mention__option.is-highlighted {
   background-color: var(--yh-fill-color-light);
   color: var(--yh-color-primary);
 }
@@ -698,9 +693,7 @@ html.dark {
 
 .yh-mention-dropdown-enter-active,
 .yh-mention-dropdown-leave-active {
-  transition:
-    opacity 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28),
-    transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transition: opacity 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   transform-origin: top center;
 }
 

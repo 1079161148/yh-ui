@@ -608,9 +608,7 @@ html.dark {
   font-size: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition:
-    color 0.2s,
-    opacity 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 }
 .yh-typography__link:hover {
   color: var(--yh-typography-link-hover-color, var(--yh-color-primary-light-3, #79bbff));
@@ -675,14 +673,7 @@ html.dark {
 .yh-typography .is-keyboard kbd {
   padding: 2px 6px;
   font-size: 0.875em;
-  font-family: var(
-    --yh-font-family-monospace,
-    'SFMono-Regular',
-    Consolas,
-    'Liberation Mono',
-    Menlo,
-    monospace
-  );
+  font-family: var(--yh-font-family-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace);
   border-radius: var(--yh-border-radius-small, 2px);
 }
 .yh-typography .is-code code {

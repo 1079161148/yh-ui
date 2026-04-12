@@ -499,9 +499,7 @@ html.dark {
   font-size: var(--yh-countdown-font-size);
   font-weight: 700;
   color: var(--yh-countdown-value-color);
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
   line-height: 1;
 }
 
@@ -533,19 +531,13 @@ html.dark {
   text-align: center;
 }
 .yh-countdown__flip-card::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
   top: 50%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.06) 20%,
-    rgba(0, 0, 0, 0.06) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.06) 20%, rgba(0, 0, 0, 0.06) 80%, transparent 100%);
   pointer-events: none;
 }
 
@@ -588,9 +580,7 @@ html.dark {
   animation: countdown-pulse 0.5s infinite alternate;
 }
 .yh-countdown.is-warning .yh-countdown__flip-card {
-  box-shadow:
-    var(--yh-countdown-block-shadow),
-    0 0 0 2px var(--yh-color-danger-light-5);
+  box-shadow: var(--yh-countdown-block-shadow), 0 0 0 2px var(--yh-color-danger-light-5);
 }
 
 .yh-countdown.is-finished .yh-countdown__value {
@@ -612,12 +602,10 @@ html.dark {
 }
 
 @keyframes countdown-blink {
-  0%,
-  50% {
+  0%, 50% {
     opacity: 1;
   }
-  51%,
-  100% {
+  51%, 100% {
     opacity: 0.3;
   }
 }

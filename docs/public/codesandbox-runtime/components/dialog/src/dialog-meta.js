@@ -24,12 +24,12 @@ const dialogProps = {
   /** 动画起源 */
   transformOrigin: {
     type: String,
-    default: 'mouse'
+    default: "mouse"
   },
   /** 对话框类型 */
   type: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 是否显示 loading 状态 */
   loading: {
@@ -60,12 +60,12 @@ const dialogProps = {
   /** 宽度 */
   width: {
     type: [String, Number],
-    default: '50%'
+    default: "50%"
   },
   /** 距离顶部距离 */
   top: {
     type: String,
-    default: '15vh'
+    default: "15vh"
   },
   /** 是否全屏 */
   fullscreen: {
@@ -120,7 +120,7 @@ const dialogProps = {
   /** 自定义关闭图标 */
   closeIcon: {
     type: String,
-    default: 'close'
+    default: "close"
   },
   /** 是否在关闭时销毁内容 */
   destroyOnClose: {
@@ -139,11 +139,11 @@ const dialogProps = {
   },
   cancelText: {
     type: String,
-    default: ''
+    default: ""
   },
   confirmText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 遮罩层自定义类名 */
   modalClass: String,
@@ -161,7 +161,7 @@ const dialogProps = {
   /** 挂载节点 */
   teleportTo: {
     type: [String, Object],
-    default: 'body'
+    default: "body"
   },
   /** 标题对齐方式 (开启 center 后失效) */
   headerAlignCenter: {
@@ -171,12 +171,12 @@ const dialogProps = {
   /** 标题对齐方式 */
   headerAlign: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   /** 内容对齐方式 */
   contentAlign: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   /** 底部对齐方式 (开启 center 后失效) */
   footerAlignCenter: {
@@ -186,7 +186,7 @@ const dialogProps = {
   /** 底部按钮对齐方式 */
   footerAlign: {
     type: String,
-    default: 'right'
+    default: "right"
   },
   /** 是否交换确认和取消按钮的位置 */
   swapFooterButtons: {
@@ -198,9 +198,9 @@ const dialogProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const dialogEmits = {
-  'update:modelValue': (value) => typeof value === 'boolean',
+  "update:modelValue": (value) => typeof value === "boolean",
   open: () => true,
   opened: () => true,
   close: () => true,
@@ -210,5 +210,8 @@ const dialogEmits = {
   dragStart: (evt) => evt instanceof MouseEvent,
   dragMove: (evt) => evt instanceof MouseEvent,
   dragEnd: (evt) => evt instanceof MouseEvent
-}
-export { dialogEmits, dialogProps }
+};
+export {
+  dialogEmits,
+  dialogProps
+};

@@ -19,7 +19,7 @@ const aiThoughtChainProps = {
    */
   status: {
     type: String,
-    default: 'none'
+    default: "none"
   },
   /**
    * @description 推理链节点列表，如果提供了 items，将启用多节点时间轴模式
@@ -40,7 +40,7 @@ const aiThoughtChainProps = {
    */
   dotSize: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /**
    * @description 节点连接线是否显示渐变
@@ -82,7 +82,7 @@ const aiThoughtChainProps = {
    */
   className: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 样式类名（语义化）
@@ -112,12 +112,15 @@ const aiThoughtChainProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiThoughtChainEmits = {
-  'update:items': (items) => Array.isArray(items),
-  'node-click': (item, index) => typeof index === 'number',
-  'node-delete': (item, index) => typeof index === 'number',
-  'node-add': (index) => typeof index === 'number',
+  "update:items": (items) => Array.isArray(items),
+  "node-click": (item, index) => typeof index === "number",
+  "node-delete": (item, index) => typeof index === "number",
+  "node-add": (index) => typeof index === "number",
   reorder: (items) => Array.isArray(items)
-}
-export { aiThoughtChainEmits, aiThoughtChainProps }
+};
+export {
+  aiThoughtChainEmits,
+  aiThoughtChainProps
+};

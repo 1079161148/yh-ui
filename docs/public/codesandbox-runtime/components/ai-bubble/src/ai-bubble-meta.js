@@ -4,7 +4,7 @@ const aiBubbleProps = {
    */
   content: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 是否开启 Markdown 解析
@@ -18,7 +18,7 @@ const aiBubbleProps = {
    */
   role: {
     type: String,
-    default: 'assistant'
+    default: "assistant"
   },
   /**
    * 气泡位置
@@ -31,14 +31,14 @@ const aiBubbleProps = {
    */
   shape: {
     type: String,
-    default: 'round'
+    default: "round"
   },
   /**
    * 视觉变体
    */
   variant: {
     type: String,
-    default: 'filled'
+    default: "filled"
   },
   /**
    * 显示时间
@@ -68,7 +68,7 @@ const aiBubbleProps = {
    */
   streamMode: {
     type: String,
-    default: 'word'
+    default: "word"
   },
   /**
    * 流式渲染速度（每次渲染的字符数，仅 word 模式有效）
@@ -155,21 +155,21 @@ const aiBubbleProps = {
    */
   pythonRuntime: {
     type: String,
-    default: 'browser'
+    default: "browser"
   },
   /**
    * 远程 Python API 地址（当 pythonRuntime 为 remote 时使用）
    */
   pythonApiUrl: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * Pyodide CDN 地址
    */
   pyodideUrl: {
     type: String,
-    default: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js'
+    default: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"
   },
   // ========== XSS 防护相关属性 ==========
   /**
@@ -192,35 +192,35 @@ const aiBubbleProps = {
   allowedTags: {
     type: Array,
     default: () => [
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'h5',
-      'h6',
-      'p',
-      'br',
-      'hr',
-      'ul',
-      'ol',
-      'li',
-      'blockquote',
-      'pre',
-      'code',
-      'em',
-      'strong',
-      'a',
-      'img',
-      'table',
-      'thead',
-      'tbody',
-      'tr',
-      'th',
-      'td',
-      'span',
-      'div',
-      'figure',
-      'figcaption'
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "p",
+      "br",
+      "hr",
+      "ul",
+      "ol",
+      "li",
+      "blockquote",
+      "pre",
+      "code",
+      "em",
+      "strong",
+      "a",
+      "img",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td",
+      "span",
+      "div",
+      "figure",
+      "figcaption"
     ]
   },
   /**
@@ -229,17 +229,17 @@ const aiBubbleProps = {
   allowedAttributes: {
     type: Array,
     default: () => [
-      'href',
-      'src',
-      'alt',
-      'title',
-      'class',
-      'id',
-      'target',
-      'rel',
-      'width',
-      'height',
-      'style'
+      "href",
+      "src",
+      "alt",
+      "title",
+      "class",
+      "id",
+      "target",
+      "rel",
+      "width",
+      "height",
+      "style"
     ]
   },
   /**
@@ -247,7 +247,9 @@ const aiBubbleProps = {
    */
   allowedSchemes: {
     type: Array,
-    default: () => ['http', 'https', 'mailto', 'tel']
+    default: () => ["http", "https", "mailto", "tel"]
   }
-}
-export { aiBubbleProps }
+};
+export {
+  aiBubbleProps
+};

@@ -1,8 +1,8 @@
-const stepsDirections = ['horizontal', 'vertical']
-const stepsStatus = ['wait', 'process', 'finish', 'error', 'success']
-const stepsProgressDot = ['default', 'dot', 'navigation']
-const stepsSizes = ['default', 'small']
-const stepsLabelPlacements = ['horizontal', 'vertical']
+const stepsDirections = ["horizontal", "vertical"];
+const stepsStatus = ["wait", "process", "finish", "error", "success"];
+const stepsProgressDot = ["default", "dot", "navigation"];
+const stepsSizes = ["default", "small"];
+const stepsLabelPlacements = ["horizontal", "vertical"];
 const stepsProps = {
   /** 当前激活步骤 */
   active: {
@@ -12,7 +12,7 @@ const stepsProps = {
   /** 布局方向 */
   direction: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   /** 居中显示 */
   alignCenter: {
@@ -32,17 +32,17 @@ const stepsProps = {
   /** 设置结束步骤的状态 */
   finishStatus: {
     type: String,
-    default: 'finish'
+    default: "finish"
   },
   /** 设置当前步骤的状态 */
   processStatus: {
     type: String,
-    default: 'process'
+    default: "process"
   },
   /** 每个 step 的间距 */
   space: {
     type: [Number, String],
-    default: ''
+    default: ""
   },
   /** 可点击切换步骤 */
   clickable: {
@@ -53,7 +53,7 @@ const stepsProps = {
   /** 尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 响应式布局 - 小屏幕自动切换为垂直 */
   responsive: {
@@ -68,7 +68,7 @@ const stepsProps = {
   /** 描述标签位置 */
   labelPlacement: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   /** 显示进度条连接线 */
   showProgress: {
@@ -85,11 +85,11 @@ const stepsProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const stepsEmits = {
-  change: (index) => typeof index === 'number'
-}
-const STEPS_INJECTION_KEY = Symbol('yhSteps')
+  change: (index) => typeof index === "number"
+};
+const STEPS_INJECTION_KEY = Symbol("yhSteps");
 export {
   STEPS_INJECTION_KEY,
   stepsDirections,
@@ -99,4 +99,4 @@ export {
   stepsProps,
   stepsSizes,
   stepsStatus
-}
+};

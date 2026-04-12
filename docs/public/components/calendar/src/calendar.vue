@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from "vue";
 import dayjs from "../../dayjs";
-import isoWeekPlugin from "dayjs/plugin/isoWeek.js";
+import isoWeekPluginModule from "dayjs/plugin/isoWeek.js";
 import { useNamespace, useLocale } from "@yh-ui/hooks";
 import { useComponentTheme } from "@yh-ui/theme";
 import {
@@ -10,7 +10,7 @@ import {
   DEFAULT_CHINA_HOLIDAYS_2026
 } from "./calendar";
 import { YhButton } from "../../button";
-dayjs.extend(isoWeekPlugin);
+dayjs.extend(isoWeekPluginModule);
 defineOptions({
   name: "YhCalendar"
 });

@@ -12,12 +12,12 @@ const priceProps = {
   /** 货币符号 */
   symbol: {
     type: String,
-    default: '\xA5'
+    default: "\xA5"
   },
   /** 符号位置 */
   symbolPosition: {
     type: String,
-    default: 'before'
+    default: "before"
   },
   /** 小数位 */
   precision: {
@@ -32,7 +32,7 @@ const priceProps = {
   /** 尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 是否分拆字号（整数大、小数小） */
   split: {
@@ -57,17 +57,17 @@ const priceProps = {
   /** 前缀文本 */
   prefix: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 后缀文本 */
   suffix: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 价格单位 (如 /件, /kg) */
   unit: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 原价 (用于划线对比展示) */
   deleteValue: {
@@ -77,17 +77,17 @@ const priceProps = {
   /** 原价标签 (如 吊牌价) */
   deleteLabel: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 价格标签 (如 会员价) */
   tag: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 标签类型 */
   tagType: {
     type: String,
-    default: 'danger'
+    default: "danger"
   },
   /** 是否开开启约等于符号 (~) */
   approx: {
@@ -109,5 +109,7 @@ const priceProps = {
     type: Object,
     default: () => ({})
   }
-}
-export { priceProps }
+};
+export {
+  priceProps
+};

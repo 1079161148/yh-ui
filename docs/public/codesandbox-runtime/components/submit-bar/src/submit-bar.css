@@ -575,9 +575,7 @@ html.dark {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition:
-    background var(--yh-transition-base),
-    opacity var(--yh-transition-base);
+  transition: background var(--yh-transition-base), opacity var(--yh-transition-base);
 }
 .yh-submit-bar__btn--primary {
   background: var(--yh-color-primary);

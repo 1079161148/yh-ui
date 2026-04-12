@@ -2,7 +2,7 @@ const aiMermaidProps = {
   /** Mermaid 代码内容 */
   code: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 顶部内容 */
   header: {
@@ -12,7 +12,7 @@ const aiMermaidProps = {
   /** 样式类名 */
   className: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 样式类名（语义化） */
   classNames: {
@@ -46,7 +46,7 @@ const aiMermaidProps = {
   /** 样式前缀 */
   prefixCls: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 自定义样式 */
   style: {
@@ -58,10 +58,13 @@ const aiMermaidProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiMermaidEmits = {
-  'render-type-change': (_value) => true,
+  "render-type-change": (_value) => true,
   error: (_error) => true,
   ready: () => true
-}
-export { aiMermaidEmits, aiMermaidProps }
+};
+export {
+  aiMermaidEmits,
+  aiMermaidProps
+};

@@ -12,21 +12,21 @@ const aiActionGroupProps = {
    */
   size: {
     type: String,
-    default: 'small'
+    default: "small"
   },
   /**
    * 视觉变体: text | ghost | outlined
    */
   variant: {
     type: String,
-    default: 'text'
+    default: "text"
   },
   /**
    * 布局: horizontal | vertical
    */
   direction: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   /**
    * 主题覆盖变量
@@ -35,11 +35,14 @@ const aiActionGroupProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiActionGroupEmits = {
   /**
    * 点击操作项时触发
    */
   click: (key, _item) => !!key
-}
-export { aiActionGroupEmits, aiActionGroupProps }
+};
+export {
+  aiActionGroupEmits,
+  aiActionGroupProps
+};

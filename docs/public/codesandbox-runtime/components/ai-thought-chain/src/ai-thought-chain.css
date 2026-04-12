@@ -638,39 +638,25 @@ html.dark {
   z-index: 1;
   background: var(--yh-bg-color);
 }
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--thinking {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--thinking {
   color: var(--yh-color-primary);
 }
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--thinking
-  .yh-icon.is-loading {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--thinking .yh-icon.is-loading {
   animation: yh-spin 1s linear infinite;
 }
 
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--loading {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--loading {
   color: var(--yh-color-primary);
 }
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--loading
-  .yh-icon.is-loading {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--loading .yh-icon.is-loading {
   animation: yh-spin 1s linear infinite;
 }
 
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--success {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--success {
   color: var(--yh-color-success);
 }
 
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--complete {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--complete {
   color: var(--yh-color-success);
 }
 
@@ -688,9 +674,7 @@ html.dark {
   font-size: 12px;
 }
 
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-dot--default {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-dot--default {
   width: 20px;
   height: 20px;
   font-size: 14px;
@@ -711,9 +695,7 @@ html.dark {
   background: var(--yh-border-color-lighter);
   z-index: 0;
 }
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-line.is-gradient {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-line.is-gradient {
   background: linear-gradient(to bottom, var(--yh-color-primary), var(--yh-border-color-lighter));
 }
 
@@ -731,9 +713,7 @@ html.dark {
   height: 20px;
   transition: color 0.2s;
 }
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-header:hover {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-header:hover {
   color: var(--yh-color-primary);
 }
 
@@ -743,9 +723,7 @@ html.dark {
   color: var(--yh-text-color-secondary);
   transition: transform 0.3s;
 }
-.yh-ai-thought-chain.is-timeline
-  .yh-ai-thought-chain__item
-  .yh-ai-thought-chain__item-arrow.is-expanded {
+.yh-ai-thought-chain.is-timeline .yh-ai-thought-chain__item .yh-ai-thought-chain__item-arrow.is-expanded {
   transform: rotate(180deg);
 }
 

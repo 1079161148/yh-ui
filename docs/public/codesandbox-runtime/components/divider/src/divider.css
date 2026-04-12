@@ -465,12 +465,10 @@ html.dark {
   width: 100%;
   margin: var(--yh-divider-margin-horizontal);
 }
-.yh-divider--horizontal::before,
-.yh-divider--horizontal::after {
-  content: '';
+.yh-divider--horizontal::before, .yh-divider--horizontal::after {
+  content: "";
   flex: 1;
-  border-top: var(--yh-divider-border-width) var(--yh-divider-border-style)
-    var(--yh-divider-border-color);
+  border-top: var(--yh-divider-border-width) var(--yh-divider-border-style) var(--yh-divider-border-color);
 }
 
 .yh-divider--vertical {
@@ -480,8 +478,7 @@ html.dark {
   margin: var(--yh-divider-margin-vertical);
   vertical-align: middle;
   position: relative;
-  border-left: var(--yh-divider-border-width) var(--yh-divider-border-style)
-    var(--yh-divider-border-color);
+  border-left: var(--yh-divider-border-width) var(--yh-divider-border-style) var(--yh-divider-border-color);
 }
 
 .yh-divider--content-left::before {

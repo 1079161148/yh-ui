@@ -591,62 +591,50 @@ html.dark {
   height: 100%;
 }
 
-.yh-notification-top-right-enter-active,
-.yh-notification-top-right-leave-active {
+.yh-notification-top-right-enter-active, .yh-notification-top-right-leave-active {
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
 }
-.yh-notification-top-right-enter-from,
-.yh-notification-top-right-leave-to {
+.yh-notification-top-right-enter-from, .yh-notification-top-right-leave-to {
   opacity: 0;
   transform: translateX(100%);
 }
 
-.yh-notification-top-left-enter-active,
-.yh-notification-top-left-leave-active {
+.yh-notification-top-left-enter-active, .yh-notification-top-left-leave-active {
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
 }
-.yh-notification-top-left-enter-from,
-.yh-notification-top-left-leave-to {
+.yh-notification-top-left-enter-from, .yh-notification-top-left-leave-to {
   opacity: 0;
   transform: translateX(-100%);
 }
 
-.yh-notification-bottom-right-enter-active,
-.yh-notification-bottom-right-leave-active {
+.yh-notification-bottom-right-enter-active, .yh-notification-bottom-right-leave-active {
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
 }
-.yh-notification-bottom-right-enter-from,
-.yh-notification-bottom-right-leave-to {
+.yh-notification-bottom-right-enter-from, .yh-notification-bottom-right-leave-to {
   opacity: 0;
   transform: translateX(100%);
 }
 
-.yh-notification-bottom-left-enter-active,
-.yh-notification-bottom-left-leave-active {
+.yh-notification-bottom-left-enter-active, .yh-notification-bottom-left-leave-active {
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
 }
-.yh-notification-bottom-left-enter-from,
-.yh-notification-bottom-left-leave-to {
+.yh-notification-bottom-left-enter-from, .yh-notification-bottom-left-leave-to {
   opacity: 0;
   transform: translateX(-100%);
 }
 
-.yh-notification-top-center-enter-active,
-.yh-notification-top-center-leave-active {
+.yh-notification-top-center-enter-active, .yh-notification-top-center-leave-active {
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
 }
-.yh-notification-top-center-enter-from,
-.yh-notification-top-center-leave-to {
+.yh-notification-top-center-enter-from, .yh-notification-top-center-leave-to {
   opacity: 0;
   transform: translateX(-50%) translateY(-100%);
 }
 
-.yh-notification-bottom-center-enter-active,
-.yh-notification-bottom-center-leave-active {
+.yh-notification-bottom-center-enter-active, .yh-notification-bottom-center-leave-active {
   transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
 }
-.yh-notification-bottom-center-enter-from,
-.yh-notification-bottom-center-leave-to {
+.yh-notification-bottom-center-enter-from, .yh-notification-bottom-center-leave-to {
   opacity: 0;
   transform: translateX(-50%) translateY(100%);
 }

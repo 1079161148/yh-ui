@@ -528,8 +528,7 @@ html.dark {
   border: 1px solid var(--yh-descriptions-border-color);
 }
 
-.yh-descriptions.is-bordered .yh-descriptions__label,
-.yh-descriptions.is-bordered .yh-descriptions__content {
+.yh-descriptions.is-bordered .yh-descriptions__label, .yh-descriptions.is-bordered .yh-descriptions__content {
   border: 1px solid var(--yh-descriptions-border-color);
 }
 

@@ -604,7 +604,7 @@ html.dark {
   flex-shrink: 0;
 }
 .yh-gantt-chart__tree-indent::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 8px;
   top: 0;
@@ -767,9 +767,8 @@ html.dark {
   border-radius: 2px;
   pointer-events: none;
 }
-.yh-gantt-chart__summary-bar::before,
-.yh-gantt-chart__summary-bar::after {
-  content: '';
+.yh-gantt-chart__summary-bar::before, .yh-gantt-chart__summary-bar::after {
+  content: "";
   position: absolute;
   top: 0;
   width: 0;

@@ -1,61 +1,63 @@
-import { ref, watch, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted } from "vue";
 const useScrollLock = (trigger) => {
-  const isLocked = ref(false)
-  let initialHtmlStyle = { overflow: '', paddingRight: '' }
-  let initialBodyStyle = { overflow: '', paddingRight: '' }
+  const isLocked = ref(false);
+  let initialHtmlStyle = { overflow: "", paddingRight: "" };
+  let initialBodyStyle = { overflow: "", paddingRight: "" };
   const getScrollbarWidth = () => {
-    return window.innerWidth - document.documentElement.clientWidth
-  }
+    return window.innerWidth - document.documentElement.clientWidth;
+  };
   const lock = () => {
-    if (isLocked.value) return
-    const width = getScrollbarWidth()
-    const html = document.documentElement
-    const body = document.body
+    if (isLocked.value) return;
+    const width = getScrollbarWidth();
+    const html = document.documentElement;
+    const body = document.body;
     initialHtmlStyle = {
       overflow: html.style.overflow,
       paddingRight: html.style.paddingRight
-    }
+    };
     initialBodyStyle = {
       overflow: body.style.overflow,
       paddingRight: body.style.paddingRight
-    }
+    };
     if (width > 0) {
-      const scrollbarWidth = `${width}px`
-      html.style.setProperty('--yh-scrollbar-width', scrollbarWidth)
-      const computedBodyPadding = window.getComputedStyle(body).paddingRight
-      body.style.paddingRight = `calc(${computedBodyPadding} + ${scrollbarWidth})`
+      const scrollbarWidth = `${width}px`;
+      html.style.setProperty("--yh-scrollbar-width", scrollbarWidth);
+      const computedBodyPadding = window.getComputedStyle(body).paddingRight;
+      body.style.paddingRight = `calc(${computedBodyPadding} + ${scrollbarWidth})`;
     }
-    html.style.overflow = 'hidden'
-    body.style.overflow = 'hidden'
-    html.classList.add('yh-popup-parent--hidden')
-    isLocked.value = true
-  }
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    html.classList.add("yh-popup-parent--hidden");
+    isLocked.value = true;
+  };
   const unlock = () => {
-    if (!isLocked.value) return
-    const html = document.documentElement
-    const body = document.body
-    html.style.overflow = initialHtmlStyle.overflow
-    html.style.paddingRight = initialHtmlStyle.paddingRight
-    body.style.overflow = initialBodyStyle.overflow
-    body.style.paddingRight = initialBodyStyle.paddingRight
-    html.classList.remove('yh-popup-parent--hidden')
+    if (!isLocked.value) return;
+    const html = document.documentElement;
+    const body = document.body;
+    html.style.overflow = initialHtmlStyle.overflow;
+    html.style.paddingRight = initialHtmlStyle.paddingRight;
+    body.style.overflow = initialBodyStyle.overflow;
+    body.style.paddingRight = initialBodyStyle.paddingRight;
+    html.classList.remove("yh-popup-parent--hidden");
     setTimeout(() => {
-      if (!html.classList.contains('yh-popup-parent--hidden')) {
-        html.style.removeProperty('--yh-scrollbar-width')
+      if (!html.classList.contains("yh-popup-parent--hidden")) {
+        html.style.removeProperty("--yh-scrollbar-width");
       }
-    }, 400)
-    isLocked.value = false
-  }
+    }, 400);
+    isLocked.value = false;
+  };
   watch(trigger, (val) => {
     if (val) {
-      lock()
+      lock();
     } else {
-      unlock()
+      unlock();
     }
-  })
-  onUnmounted(unlock)
+  });
+  onUnmounted(unlock);
   return {
     isLocked
-  }
-}
-export { useScrollLock }
+  };
+};
+export {
+  useScrollLock
+};

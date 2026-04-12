@@ -2,12 +2,12 @@ const dropdownProps = {
   /** 触发方式 */
   trigger: {
     type: String,
-    default: 'hover'
+    default: "hover"
   },
   /** 弹出位置 */
   placement: {
     type: String,
-    default: 'bottom'
+    default: "bottom"
   },
   /** 是否显示 */
   visible: {
@@ -62,7 +62,7 @@ const dropdownProps = {
   /** 触发元素的最大宽度 */
   maxHeight: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /** 是否挂载至 body */
   teleported: {
@@ -72,7 +72,7 @@ const dropdownProps = {
   /** 弹出层自定义类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 弹出层自定义样式 */
   popperStyle: {
@@ -87,12 +87,12 @@ const dropdownProps = {
   /** 按钮类型（splitButton 模式） */
   type: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 按钮尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 按钮是否为朴素样式（splitButton 模式） */
   plain: {
@@ -129,9 +129,9 @@ const dropdownProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const dropdownEmits = {
-  'update:visible': (visible) => typeof visible === 'boolean',
+  "update:visible": (visible) => typeof visible === "boolean",
   /** 点击菜单项 */
   command: (_command) => true,
   /** 菜单显示 */
@@ -140,12 +140,12 @@ const dropdownEmits = {
   hide: () => true,
   /** 点击触发器（splitButton 模式） */
   click: (event) => event instanceof MouseEvent
-}
+};
 const dropdownItemProps = {
   /** 指令/命令值 */
   command: {
     type: [String, Number, Object],
-    default: ''
+    default: ""
   },
   /** 是否禁用 */
   disabled: {
@@ -160,7 +160,7 @@ const dropdownItemProps = {
   /** 图标 */
   icon: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否为危险项 */
   danger: {
@@ -177,19 +177,19 @@ const dropdownItemProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const dropdownMenuProps = {
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
-const DROPDOWN_INJECTION_KEY = Symbol('dropdown')
+};
+const DROPDOWN_INJECTION_KEY = Symbol("dropdown");
 export {
   DROPDOWN_INJECTION_KEY,
   dropdownEmits,
   dropdownItemProps,
   dropdownMenuProps,
   dropdownProps
-}
+};

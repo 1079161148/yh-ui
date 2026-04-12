@@ -534,12 +534,7 @@ html.dark {
   /* 核心闪烁动画：极致平滑的线性位移 */
 }
 .yh-skeleton-item.is-animated {
-  background: linear-gradient(
-    90deg,
-    var(--yh-fill-color-dark) 25%,
-    var(--yh-fill-color-light) 37%,
-    var(--yh-fill-color-dark) 63%
-  );
+  background: linear-gradient(90deg, var(--yh-fill-color-dark) 25%, var(--yh-fill-color-light) 37%, var(--yh-fill-color-dark) 63%);
   background-size: 400% 100%;
   animation: yh-skeleton-loading 1.4s ease infinite;
 }

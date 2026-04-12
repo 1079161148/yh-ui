@@ -1,4 +1,12 @@
-const paginationLayouts = ['prev', 'pager', 'next', 'jumper', 'total', 'sizes', 'slot']
+const paginationLayouts = [
+  "prev",
+  "pager",
+  "next",
+  "jumper",
+  "total",
+  "sizes",
+  "slot"
+];
 const paginationProps = {
   /**
    * @description 当前页码
@@ -38,7 +46,7 @@ const paginationProps = {
    */
   layout: {
     type: String,
-    default: 'prev, pager, next'
+    default: "prev, pager, next"
   },
   /**
    * @description 页码按钮的数量，当总页数超过该值时会折叠
@@ -101,5 +109,8 @@ const paginationProps = {
     type: Object,
     default: void 0
   }
-}
-export { paginationLayouts, paginationProps }
+};
+export {
+  paginationLayouts,
+  paginationProps
+};

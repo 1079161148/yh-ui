@@ -478,7 +478,7 @@ html.dark {
   overflow: hidden;
 }
 .yh-waterfall__item--skeleton::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

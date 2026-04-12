@@ -29,5 +29,7 @@ const formSchemaProps = {
     type: Number,
     default: 20
   }
-}
-export { formSchemaProps }
+};
+export {
+  formSchemaProps
+};

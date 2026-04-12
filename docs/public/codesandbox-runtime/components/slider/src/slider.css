@@ -497,11 +497,7 @@ html.dark {
   left: 0;
   bottom: 0;
   top: auto;
-  background: linear-gradient(
-    to top,
-    var(--yh-slider-main-color),
-    var(--yh-slider-secondary-color)
-  );
+  background: linear-gradient(to top, var(--yh-slider-main-color), var(--yh-slider-secondary-color));
 }
 
 .yh-slider.is-vertical .yh-slider__stop {
@@ -585,11 +581,7 @@ html.dark {
   border-radius: inherit;
   background: linear-gradient(90deg, var(--yh-slider-main-color), var(--yh-slider-secondary-color));
   box-shadow: 0 4px 12px rgba(var(--yh-slider-main-color-rgb, 64, 158, 255), 0.2);
-  transition:
-    width var(--yh-duration-base),
-    left var(--yh-duration-base),
-    height var(--yh-duration-base),
-    bottom var(--yh-duration-base);
+  transition: width var(--yh-duration-base), left var(--yh-duration-base), height var(--yh-duration-base), bottom var(--yh-duration-base);
 }
 
 .yh-slider__button-wrapper {
@@ -603,9 +595,7 @@ html.dark {
   align-items: center;
   z-index: 10;
   cursor: grab;
-  transition:
-    left var(--yh-duration-base),
-    bottom var(--yh-duration-base);
+  transition: left var(--yh-duration-base), bottom var(--yh-duration-base);
 }
 .yh-slider__button-wrapper:active {
   cursor: grabbing;
@@ -692,9 +682,7 @@ html.dark {
 
 .yh-fade-enter-active,
 .yh-fade-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .yh-fade-enter-from,

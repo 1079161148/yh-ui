@@ -1,16 +1,16 @@
 import dayjs from "../../dayjs.mjs";
-import isBetweenPlugin from "dayjs/plugin/isBetween.js";
-import weekOfYearPlugin from "dayjs/plugin/weekOfYear.js";
-import isoWeekPlugin from "dayjs/plugin/isoWeek.js";
-import quarterOfYearPlugin from "dayjs/plugin/quarterOfYear.js";
-import advancedFormatPlugin from "dayjs/plugin/advancedFormat.js";
-import customParseFormatPlugin from "dayjs/plugin/customParseFormat.js";
-dayjs.extend(isBetweenPlugin);
-dayjs.extend(weekOfYearPlugin);
-dayjs.extend(isoWeekPlugin);
-dayjs.extend(quarterOfYearPlugin);
-dayjs.extend(advancedFormatPlugin);
-dayjs.extend(customParseFormatPlugin);
+import isBetweenPluginModule from "dayjs/plugin/isBetween.js";
+import weekOfYearPluginModule from "dayjs/plugin/weekOfYear.js";
+import isoWeekPluginModule from "dayjs/plugin/isoWeek.js";
+import quarterOfYearPluginModule from "dayjs/plugin/quarterOfYear.js";
+import advancedFormatPluginModule from "dayjs/plugin/advancedFormat.js";
+import customParseFormatPluginModule from "dayjs/plugin/customParseFormat.js";
+dayjs.extend(isBetweenPluginModule);
+dayjs.extend(weekOfYearPluginModule);
+dayjs.extend(isoWeekPluginModule);
+dayjs.extend(quarterOfYearPluginModule);
+dayjs.extend(advancedFormatPluginModule);
+dayjs.extend(customParseFormatPluginModule);
 export const DEFAULT_FORMATS = {
   date: "YYYY-MM-DD",
   datetime: "YYYY-MM-DD HH:mm:ss",

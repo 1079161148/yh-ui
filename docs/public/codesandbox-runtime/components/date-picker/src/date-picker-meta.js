@@ -7,7 +7,7 @@ const datePickerProps = {
   /** 类型 */
   type: {
     type: String,
-    default: 'date'
+    default: "date"
   },
   /** 是否禁用 */
   disabled: {
@@ -27,7 +27,7 @@ const datePickerProps = {
   /** 尺寸 */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /** 占位符 */
   placeholder: {
@@ -47,27 +47,27 @@ const datePickerProps = {
   /** 格式化显示 */
   format: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 绑定值的格式 */
   valueFormat: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 面板显示的日期格式 */
   dateFormat: {
     type: String,
-    default: 'YYYY-MM-DD'
+    default: "YYYY-MM-DD"
   },
   /** 面板显示的时间格式 */
   timeFormat: {
     type: String,
-    default: 'HH:mm:ss'
+    default: "HH:mm:ss"
   },
   /** 范围分隔符 */
   rangeSeparator: {
     type: String,
-    default: '-'
+    default: "-"
   },
   /** 第一天是星期几 */
   firstDayOfWeek: {
@@ -88,7 +88,7 @@ const datePickerProps = {
   /** 预设选项的位置 */
   presetPosition: {
     type: String,
-    default: 'bottom'
+    default: "bottom"
   },
   /** 是否显示底部操作栏 */
   showFooter: {
@@ -108,12 +108,12 @@ const datePickerProps = {
   /** 自定义前缀图标 */
   prefixIcon: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   /** 自定义清除图标 */
   clearIcon: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   /** 选择器打开时默认显示的日期 */
   defaultValue: {
@@ -133,7 +133,7 @@ const datePickerProps = {
   /** 下拉框类名 */
   popperClass: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否将面板插入到 body */
   teleported: {
@@ -148,17 +148,17 @@ const datePickerProps = {
   /** 小名/标识 */
   name: {
     type: String,
-    default: ''
+    default: ""
   },
   /** ID */
   id: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 单元格形状 */
   cellShape: {
     type: String,
-    default: 'round'
+    default: "round"
   },
   /** 自定义单元格渲染函数 */
   cellRender: {
@@ -170,5 +170,7 @@ const datePickerProps = {
     type: Object,
     default: void 0
   }
-}
-export { datePickerProps }
+};
+export {
+  datePickerProps
+};

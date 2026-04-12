@@ -18,32 +18,32 @@ const rateProps = {
   // 自定义图标 - 选中状态
   icon: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   // 自定义图标 - 未选中状态
   voidIcon: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   // 禁用状态下未选中图标
   disabledVoidIcon: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   // 选中颜色
   colors: {
     type: [Array, Object, String],
-    default: '#F7BA2A'
+    default: "#F7BA2A"
   },
   // 未选中颜色
   voidColor: {
     type: String,
-    default: '#C6D1DE'
+    default: "#C6D1DE"
   },
   // 禁用状态下未选中颜色
   disabledVoidColor: {
     type: String,
-    default: '#EFF2F7'
+    default: "#EFF2F7"
   },
   showScore: {
     type: Boolean,
@@ -55,7 +55,7 @@ const rateProps = {
   },
   textColor: {
     type: String,
-    default: '#1f2d3d'
+    default: "#1f2d3d"
   },
   texts: {
     type: Array,
@@ -63,11 +63,11 @@ const rateProps = {
   },
   scoreTemplate: {
     type: String,
-    default: '{value}'
+    default: "{value}"
   },
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   // 清除评分
   clearable: {
@@ -79,9 +79,12 @@ const rateProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const rateEmits = {
-  'update:modelValue': (value) => typeof value === 'number',
-  change: (value) => typeof value === 'number'
-}
-export { rateEmits, rateProps }
+  "update:modelValue": (value) => typeof value === "number",
+  change: (value) => typeof value === "number"
+};
+export {
+  rateEmits,
+  rateProps
+};

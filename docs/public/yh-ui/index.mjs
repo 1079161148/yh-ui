@@ -7,6 +7,10 @@ export * from '@yh-ui/theme';
 export * from '@yh-ui/locale';
 export { en, zhCn } from '@yh-ui/locale';
 
+const version$1 = "0.1.53";
+const packageJson = {
+	version: version$1};
+
 const createYhUI = (options = {}) => {
   return {
     install(app) {
@@ -22,6 +26,6 @@ const index = {
   install,
   createYhUI
 };
-const version = "0.1.10";
+const version = packageJson.version;
 
 export { createYhUI, index as default, install, version };

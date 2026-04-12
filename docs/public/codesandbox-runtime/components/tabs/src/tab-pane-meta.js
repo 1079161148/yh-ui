@@ -7,7 +7,7 @@ const tabPaneProps = {
   /** 标签标题 */
   label: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否禁用 */
   disabled: {
@@ -27,12 +27,14 @@ const tabPaneProps = {
   /** 图标类名 */
   icon: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
-export { tabPaneProps }
+};
+export {
+  tabPaneProps
+};

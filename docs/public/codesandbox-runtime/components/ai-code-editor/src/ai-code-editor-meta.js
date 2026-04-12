@@ -4,14 +4,14 @@ const aiCodeEditorProps = {
    */
   language: {
     type: String,
-    default: 'javascript'
+    default: "javascript"
   },
   /**
    * @description 代码内容
    */
   modelValue: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description 打开时显示的初始代码（优先于 modelValue 用于首屏，避免 v-if 下首帧未到位导致空白）
@@ -32,8 +32,8 @@ const aiCodeEditorProps = {
    */
   theme: {
     type: String,
-    default: 'vs-dark',
-    validator: (value) => ['vs', 'vs-dark', 'hc-black'].includes(value)
+    default: "vs-dark",
+    validator: (value) => ["vs", "vs-dark", "hc-black"].includes(value)
   },
   /**
    * @description 编辑器高度
@@ -54,8 +54,8 @@ const aiCodeEditorProps = {
    */
   wordWrap: {
     type: String,
-    default: 'on',
-    validator: (value) => ['on', 'off', 'wordWrapColumn', 'bounded'].includes(value)
+    default: "on",
+    validator: (value) => ["on", "off", "wordWrapColumn", "bounded"].includes(value)
   },
   /**
    * @description 字体大小
@@ -85,11 +85,14 @@ const aiCodeEditorProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiCodeEditorEmits = {
-  'update:modelValue': (value) => typeof value === 'string',
-  change: (value) => typeof value === 'string',
+  "update:modelValue": (value) => typeof value === "string",
+  change: (value) => typeof value === "string",
   mount: () => true,
   dispose: () => true
-}
-export { aiCodeEditorEmits, aiCodeEditorProps }
+};
+export {
+  aiCodeEditorEmits,
+  aiCodeEditorProps
+};

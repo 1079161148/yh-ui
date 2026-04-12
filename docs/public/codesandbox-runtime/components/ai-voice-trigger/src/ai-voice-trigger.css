@@ -463,8 +463,7 @@ html.dark {
   }
 }
 @keyframes yh-fade-breath {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0.5;
   }
   50% {
@@ -492,8 +491,7 @@ html.dark {
   }
 }
 @keyframes yh-sphere-float {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
   50% {

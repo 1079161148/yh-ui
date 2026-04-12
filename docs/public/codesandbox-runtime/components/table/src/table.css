@@ -598,8 +598,8 @@ html.dark {
   padding-left: 0;
   padding-right: 0;
 }
-.yh-table__selection-cell input[type='checkbox'],
-.yh-table__selection-cell input[type='radio'] {
+.yh-table__selection-cell input[type=checkbox],
+.yh-table__selection-cell input[type=radio] {
   margin: 0;
   cursor: pointer;
   vertical-align: middle;
@@ -622,7 +622,7 @@ html.dark {
   border-right: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
 }
 .yh-table.is-border .yh-table__inner-wrapper::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -791,7 +791,7 @@ html.dark {
   z-index: 11;
 }
 .yh-table__resize-handle::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 25%;
   right: 3px;
@@ -882,7 +882,7 @@ html.dark {
   position: relative;
 }
 .yh-table__header-cell.is-column-drop-left::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -1px;
   top: 0;
@@ -895,7 +895,7 @@ html.dark {
   position: relative;
 }
 .yh-table__header-cell.is-column-drop-right::after {
-  content: '';
+  content: "";
   position: absolute;
   right: -1px;
   top: 0;
@@ -1033,7 +1033,7 @@ html.dark {
 }
 .yh-table.is-scrolling-middle .is-last-fixed-left::after {
   box-shadow: var(--yh-table-fixed-left-shadow);
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 0;
@@ -1045,7 +1045,7 @@ html.dark {
 }
 .yh-table.is-scrolling-middle .is-first-fixed-right::before {
   box-shadow: var(--yh-table-fixed-right-shadow);
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;

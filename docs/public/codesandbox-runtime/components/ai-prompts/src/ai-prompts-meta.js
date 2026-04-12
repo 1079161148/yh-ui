@@ -11,14 +11,14 @@ const aiPromptsProps = {
    */
   layout: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   /**
    * @description Title for the group
    */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * @description Theme overrides for the component
@@ -27,11 +27,14 @@ const aiPromptsProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiPromptsEmits = {
   /**
    * @description Emit when an item is clicked
    */
-  click: (item) => typeof item === 'object' || typeof item === 'string'
-}
-export { aiPromptsEmits, aiPromptsProps }
+  click: (item) => typeof item === "object" || typeof item === "string"
+};
+export {
+  aiPromptsEmits,
+  aiPromptsProps
+};

@@ -2,12 +2,12 @@ const breadcrumbProps = {
   /** 分割符，默认为 / */
   separator: {
     type: String,
-    default: '/'
+    default: "/"
   },
   /** 分割符图标，优先级高于 separator */
   separatorIcon: {
     type: [Object, String, Function],
-    default: ''
+    default: ""
   },
   /** 最大展示数量，超过则折叠中间项 */
   maxItems: {
@@ -19,12 +19,12 @@ const breadcrumbProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const breadcrumbItemProps = {
   /** 路由跳转目标样式 */
   to: {
     type: [String, Object],
-    default: ''
+    default: ""
   },
   /** 是否替换路由 */
   replace: {
@@ -36,5 +36,8 @@ const breadcrumbItemProps = {
     type: Object,
     default: void 0
   }
-}
-export { breadcrumbItemProps, breadcrumbProps }
+};
+export {
+  breadcrumbItemProps,
+  breadcrumbProps
+};

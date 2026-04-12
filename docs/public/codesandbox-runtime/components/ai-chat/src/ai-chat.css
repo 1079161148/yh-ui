@@ -486,9 +486,7 @@ html.dark {
   border: none;
   box-shadow: none;
   cursor: pointer;
-  transition:
-    color 0.15s ease,
-    background-color 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 .yh-ai-chat__clear-btn .yh-icon {
   font-size: 14px;

@@ -1,25 +1,25 @@
-import { FormItemContextKey } from '../../../hooks/index.js'
+import { FormItemContextKey } from "../../../hooks/index.js";
 const formItemProps = {
   /**
    * 对应 model 里的字段名
    */
   prop: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 标签文本
    */
   label: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 标签宽度，覆盖 Form 的设置
    */
   labelWidth: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /**
    * 是否必填
@@ -47,21 +47,21 @@ const formItemProps = {
    */
   size: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 校验触发时机
    */
   validateTrigger: {
     type: [String, Array],
-    default: ''
+    default: ""
   },
   /**
    * 错误信息对齐方式
    */
   errorPosition: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   /**
    * 是否禁用
@@ -75,19 +75,22 @@ const formItemProps = {
    */
   validateStatus: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 自定义错误信息
    */
   error: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
-export { FormItemContextKey, formItemProps }
+};
+export {
+  FormItemContextKey,
+  formItemProps
+};

@@ -50,7 +50,7 @@ declare const _default: {
     createYhUI: (options?: YhUIOptions) => Plugin;
 };
 
-declare const version = "0.1.10";
+declare const version: string;
 
 // @ts-ignore
 export = _default;

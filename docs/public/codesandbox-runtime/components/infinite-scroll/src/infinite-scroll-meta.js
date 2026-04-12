@@ -22,22 +22,22 @@ const infiniteScrollProps = {
   /** 滚动方向 */
   direction: {
     type: String,
-    default: 'vertical'
+    default: "vertical"
   },
   /** 加载中的提示文字 */
   loadingText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 加载完成的提示文字 */
   finishedText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 加载失败的提示文字 */
   errorText: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否在初始化时立即检查是否需要加载 */
   immediateCheck: {
@@ -52,7 +52,7 @@ const infiniteScrollProps = {
   /** 指定滚动容器选择器 */
   target: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 是否使用 IntersectionObserver (推荐) */
   useObserver: {
@@ -62,20 +62,23 @@ const infiniteScrollProps = {
   /** IntersectionObserver 的 root margin */
   rootMargin: {
     type: String,
-    default: '0px'
+    default: "0px"
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
+};
 const infiniteScrollEmits = {
   /** 触发加载更多 */
   load: () => true,
   /** 更新 loading 状态 */
-  'update:loading': (val) => typeof val === 'boolean',
+  "update:loading": (val) => typeof val === "boolean",
   /** 更新 error 状态 */
-  'update:error': (val) => typeof val === 'boolean'
-}
-export { infiniteScrollEmits, infiniteScrollProps }
+  "update:error": (val) => typeof val === "boolean"
+};
+export {
+  infiniteScrollEmits,
+  infiniteScrollProps
+};

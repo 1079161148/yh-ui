@@ -508,8 +508,7 @@ html.dark {
   appearance: none;
   -moz-appearance: textfield;
 }
-.yh-input-number__inner::-webkit-inner-spin-button,
-.yh-input-number__inner::-webkit-outer-spin-button {
+.yh-input-number__inner::-webkit-inner-spin-button, .yh-input-number__inner::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -582,8 +581,7 @@ html.dark {
   user-select: none;
   transition: var(--yh-transition-fast);
   border-right: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
-  border-radius: calc(var(--yh-input-number-border-radius) - 1px) 0 0
-    calc(var(--yh-input-number-border-radius) - 1px);
+  border-radius: calc(var(--yh-input-number-border-radius) - 1px) 0 0 calc(var(--yh-input-number-border-radius) - 1px);
 }
 .yh-input-number__decrease svg {
   width: 14px;
@@ -618,8 +616,7 @@ html.dark {
   user-select: none;
   transition: var(--yh-transition-fast);
   border-left: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
-  border-radius: 0 calc(var(--yh-input-number-border-radius) - 1px)
-    calc(var(--yh-input-number-border-radius) - 1px) 0;
+  border-radius: 0 calc(var(--yh-input-number-border-radius) - 1px) calc(var(--yh-input-number-border-radius) - 1px) 0;
 }
 .yh-input-number__increase svg {
   width: 14px;

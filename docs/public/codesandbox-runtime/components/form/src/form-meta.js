@@ -1,4 +1,4 @@
-import { FormContextKey } from '../../../hooks/index.js'
+import { FormContextKey } from "../../../hooks/index.js";
 const formProps = {
   /**
    * 表单数据对象
@@ -19,21 +19,21 @@ const formProps = {
    */
   labelWidth: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   /**
    * 标签位置
    */
   labelPosition: {
     type: String,
-    default: 'right'
+    default: "right"
   },
   /**
    * 标签后缀
    */
   labelSuffix: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * 是否显示校验错误信息
@@ -82,7 +82,7 @@ const formProps = {
    */
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   /**
    * 是否显示校验图标
@@ -96,12 +96,15 @@ const formProps = {
    */
   layout: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
-export { FormContextKey, formProps }
+};
+export {
+  FormContextKey,
+  formProps
+};

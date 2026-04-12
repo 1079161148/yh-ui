@@ -491,9 +491,7 @@ html.dark {
   color: var(--yh-tabs-text-color);
   cursor: pointer;
   user-select: none;
-  transition:
-    color var(--yh-duration-fast),
-    background-color var(--yh-duration-fast);
+  transition: color var(--yh-duration-fast), background-color var(--yh-duration-fast);
 }
 .yh-tabs__item:hover:not(.is-disabled) {
   color: var(--yh-tabs-active-color);
@@ -551,9 +549,7 @@ html.dark {
   left: 0;
   height: 2px;
   background-color: var(--yh-tabs-active-color);
-  transition:
-    transform var(--yh-duration-base),
-    width var(--yh-duration-base);
+  transition: transform var(--yh-duration-base), width var(--yh-duration-base);
   border-radius: 1px;
 }
 

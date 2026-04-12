@@ -2,22 +2,22 @@ const stepProps = {
   /** 标题 */
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 描述 */
   description: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 图标类名或自定义 */
   icon: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 设置当前步骤的状态，会覆盖 Steps 中的状态 */
   status: {
     type: String,
-    default: ''
+    default: ""
   },
   // ========== 新增功能 ==========
   /** 是否禁用该步骤 */
@@ -28,7 +28,7 @@ const stepProps = {
   /** 时间信息（用于时间线模式） */
   time: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 进度百分比（0-100，用于进度条模式） */
   progress: {
@@ -45,5 +45,7 @@ const stepProps = {
     type: Object,
     default: void 0
   }
-}
-export { stepProps }
+};
+export {
+  stepProps
+};

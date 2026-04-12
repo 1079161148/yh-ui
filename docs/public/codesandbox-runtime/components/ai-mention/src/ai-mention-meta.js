@@ -1,18 +1,18 @@
-const aiMentionTypes = ['agent', 'document', 'table', 'knowledge', 'file']
+const aiMentionTypes = ["agent", "document", "table", "knowledge", "file"];
 const aiMentionProps = {
   /**
    * 绑定值
    */
   modelValue: {
     type: String,
-    default: ''
+    default: ""
   },
   /**
    * AI 提及类型，支持多种类型过滤
    */
   types: {
     type: Array,
-    default: () => ['agent', 'document', 'table', 'knowledge', 'file']
+    default: () => ["agent", "document", "table", "knowledge", "file"]
   },
   /**
    * 选项列表
@@ -26,14 +26,14 @@ const aiMentionProps = {
    */
   triggers: {
     type: Array,
-    default: () => ['@']
+    default: () => ["@"]
   },
   /**
    * 是否在输入框中
    */
   type: {
     type: String,
-    default: 'textarea'
+    default: "textarea"
   },
   /**
    * 占位符
@@ -96,7 +96,7 @@ const aiMentionProps = {
    */
   fileRoot: {
     type: String,
-    default: '/'
+    default: "/"
   },
   /**
    * 文件树展开层级
@@ -132,10 +132,10 @@ const aiMentionProps = {
   formatFileSize: {
     type: Function,
     default: (size) => {
-      if (size < 1024) return size + ' B'
-      if (size < 1024 * 1024) return (size / 1024).toFixed(1) + ' KB'
-      if (size < 1024 * 1024 * 1024) return (size / 1024 / 1024).toFixed(1) + ' MB'
-      return (size / 1024 / 1024 / 1024).toFixed(1) + ' GB'
+      if (size < 1024) return size + " B";
+      if (size < 1024 * 1024) return (size / 1024).toFixed(1) + " KB";
+      if (size < 1024 * 1024 * 1024) return (size / 1024 / 1024).toFixed(1) + " MB";
+      return (size / 1024 / 1024 / 1024).toFixed(1) + " GB";
     }
   },
   /**
@@ -145,17 +145,21 @@ const aiMentionProps = {
     type: Number,
     default: 300
   }
-}
+};
 const aiMentionEmits = {
-  'update:modelValue': (value) => typeof value === 'string',
-  input: (value) => typeof value === 'string',
-  change: (value) => typeof value === 'string',
+  "update:modelValue": (value) => typeof value === "string",
+  input: (value) => typeof value === "string",
+  change: (value) => typeof value === "string",
   select: (option, trigger) => !!option && !!trigger,
-  search: (keyword, trigger) => typeof keyword === 'string' && !!trigger,
-  'file-load': (_type, _nodes) => true,
-  'file-select': (node, option) => !!node && !!option,
+  search: (keyword, trigger) => typeof keyword === "string" && !!trigger,
+  "file-load": (_type, _nodes) => true,
+  "file-select": (node, option) => !!node && !!option,
   focus: (event) => event instanceof FocusEvent,
   blur: (event) => event instanceof FocusEvent,
   keydown: (event) => event instanceof KeyboardEvent
-}
-export { aiMentionEmits, aiMentionProps, aiMentionTypes }
+};
+export {
+  aiMentionEmits,
+  aiMentionProps,
+  aiMentionTypes
+};

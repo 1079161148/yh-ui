@@ -128,90 +128,98 @@
     },
     "ai-action-group": {
       "files": [
+        "components/ai-action-group/bundle.js",
         "components/ai-action-group/index.js",
         "components/ai-action-group/src/ai-action-group-meta.js",
         "components/ai-action-group/src/ai-action-group.css",
         "components/ai-action-group/src/ai-action-group.js"
       ],
       "entry": "components/ai-action-group/index.js",
-      "module": "components/ai-action-group/src/ai-action-group.js",
+      "module": "components/ai-action-group/bundle.js",
       "style": "components/ai-action-group/src/ai-action-group.css"
     },
     "ai-agent-card": {
       "files": [
+        "components/ai-agent-card/bundle.js",
         "components/ai-agent-card/index.js",
         "components/ai-agent-card/src/ai-agent-card-meta.js",
         "components/ai-agent-card/src/ai-agent-card.css",
         "components/ai-agent-card/src/ai-agent-card.js"
       ],
       "entry": "components/ai-agent-card/index.js",
-      "module": "components/ai-agent-card/src/ai-agent-card.js",
+      "module": "components/ai-agent-card/bundle.js",
       "style": "components/ai-agent-card/src/ai-agent-card.css"
     },
     "ai-artifacts": {
       "files": [
+        "components/ai-artifacts/bundle.js",
         "components/ai-artifacts/index.js",
         "components/ai-artifacts/src/ai-artifacts-meta.js",
         "components/ai-artifacts/src/ai-artifacts.css",
         "components/ai-artifacts/src/ai-artifacts.js"
       ],
       "entry": "components/ai-artifacts/index.js",
-      "module": "components/ai-artifacts/src/ai-artifacts.js",
+      "module": "components/ai-artifacts/bundle.js",
       "style": "components/ai-artifacts/src/ai-artifacts.css"
     },
     "ai-attachments": {
       "files": [
+        "components/ai-attachments/bundle.js",
         "components/ai-attachments/index.js",
         "components/ai-attachments/src/ai-attachments-meta.js",
         "components/ai-attachments/src/ai-attachments.css",
         "components/ai-attachments/src/ai-attachments.js"
       ],
       "entry": "components/ai-attachments/index.js",
-      "module": "components/ai-attachments/src/ai-attachments.js",
+      "module": "components/ai-attachments/bundle.js",
       "style": "components/ai-attachments/src/ai-attachments.css"
     },
     "ai-bubble": {
       "files": [
+        "components/ai-bubble/bundle.js",
         "components/ai-bubble/index.js",
         "components/ai-bubble/src/ai-bubble-meta.js",
         "components/ai-bubble/src/ai-bubble.css",
         "components/ai-bubble/src/ai-bubble.js"
       ],
       "entry": "components/ai-bubble/index.js",
-      "module": "components/ai-bubble/src/ai-bubble.js",
+      "module": "components/ai-bubble/bundle.js",
       "style": "components/ai-bubble/src/ai-bubble.css"
     },
     "ai-bubble-list": {
       "files": [
+        "components/ai-bubble-list/bundle.js",
         "components/ai-bubble-list/index.js",
         "components/ai-bubble-list/src/ai-bubble-list-meta.js",
         "components/ai-bubble-list/src/ai-bubble-list.css",
         "components/ai-bubble-list/src/ai-bubble-list.js"
       ],
       "entry": "components/ai-bubble-list/index.js",
-      "module": "components/ai-bubble-list/src/ai-bubble-list.js",
+      "module": "components/ai-bubble-list/bundle.js",
       "style": "components/ai-bubble-list/src/ai-bubble-list.css"
     },
     "ai-chat": {
       "files": [
+        "components/ai-chat/bundle.js",
         "components/ai-chat/index.js",
         "components/ai-chat/src/ai-chat-meta.js",
         "components/ai-chat/src/ai-chat.css",
         "components/ai-chat/src/ai-chat.js"
       ],
       "entry": "components/ai-chat/index.js",
-      "module": "components/ai-chat/src/ai-chat.js",
+      "module": "components/ai-chat/bundle.js",
       "style": "components/ai-chat/src/ai-chat.css"
     },
     "ai-code-block": {
       "files": [
+        "components/ai-code-block/bundle.js",
         "components/ai-code-block/index.js",
         "components/ai-code-block/src/ai-code-block-meta.js",
         "components/ai-code-block/src/ai-code-block.css",
         "components/ai-code-block/src/ai-code-block.js"
       ],
       "entry": "components/ai-code-block/index.js",
-      "module": "components/ai-code-block/src/ai-code-block.js",
+      "module": "components/ai-code-block/bundle.js",
       "style": "components/ai-code-block/src/ai-code-block.css"
     },
     "ai-code-editor": {
@@ -228,6 +236,7 @@
     },
     "ai-code-runner": {
       "files": [
+        "components/ai-code-runner/bundle.js",
         "components/ai-code-runner/index.js",
         "components/ai-code-runner/src/ai-code-runner-meta.js",
         "components/ai-code-runner/src/ai-code-runner.css",
@@ -235,7 +244,7 @@
         "components/ai-code-runner/src/webcontainer.js"
       ],
       "entry": "components/ai-code-runner/index.js",
-      "module": "components/ai-code-runner/src/ai-code-runner.js",
+      "module": "components/ai-code-runner/bundle.js",
       "style": "components/ai-code-runner/src/ai-code-runner.css"
     },
     "ai-conversations": {
@@ -252,46 +261,50 @@
     },
     "ai-editor-sender": {
       "files": [
+        "components/ai-editor-sender/bundle.js",
         "components/ai-editor-sender/index.js",
         "components/ai-editor-sender/src/ai-editor-sender-meta.js",
         "components/ai-editor-sender/src/ai-editor-sender.css",
         "components/ai-editor-sender/src/ai-editor-sender.js"
       ],
       "entry": "components/ai-editor-sender/index.js",
-      "module": "components/ai-editor-sender/src/ai-editor-sender.js",
+      "module": "components/ai-editor-sender/bundle.js",
       "style": "components/ai-editor-sender/src/ai-editor-sender.css"
     },
     "ai-file-card": {
       "files": [
+        "components/ai-file-card/bundle.js",
         "components/ai-file-card/index.js",
         "components/ai-file-card/src/ai-file-card-meta.js",
         "components/ai-file-card/src/ai-file-card.css",
         "components/ai-file-card/src/ai-file-card.js"
       ],
       "entry": "components/ai-file-card/index.js",
-      "module": "components/ai-file-card/src/ai-file-card.js",
+      "module": "components/ai-file-card/bundle.js",
       "style": "components/ai-file-card/src/ai-file-card.css"
     },
     "ai-mention": {
       "files": [
+        "components/ai-mention/bundle.js",
         "components/ai-mention/index.js",
         "components/ai-mention/src/ai-mention-meta.js",
         "components/ai-mention/src/ai-mention.css",
         "components/ai-mention/src/ai-mention.js"
       ],
       "entry": "components/ai-mention/index.js",
-      "module": "components/ai-mention/src/ai-mention.js",
+      "module": "components/ai-mention/bundle.js",
       "style": "components/ai-mention/src/ai-mention.css"
     },
     "ai-mermaid": {
       "files": [
+        "components/ai-mermaid/bundle.js",
         "components/ai-mermaid/index.js",
         "components/ai-mermaid/src/ai-mermaid-meta.js",
         "components/ai-mermaid/src/ai-mermaid.css",
         "components/ai-mermaid/src/ai-mermaid.js"
       ],
       "entry": "components/ai-mermaid/index.js",
-      "module": "components/ai-mermaid/src/ai-mermaid.js",
+      "module": "components/ai-mermaid/bundle.js",
       "style": "components/ai-mermaid/src/ai-mermaid.css"
     },
     "ai-prompts": {
@@ -320,68 +333,74 @@
     },
     "ai-sender": {
       "files": [
+        "components/ai-sender/bundle.js",
         "components/ai-sender/index.js",
         "components/ai-sender/src/ai-sender-meta.js",
         "components/ai-sender/src/ai-sender.css",
         "components/ai-sender/src/ai-sender.js"
       ],
       "entry": "components/ai-sender/index.js",
-      "module": "components/ai-sender/src/ai-sender.js",
+      "module": "components/ai-sender/bundle.js",
       "style": "components/ai-sender/src/ai-sender.css"
     },
     "ai-sources": {
       "files": [
+        "components/ai-sources/bundle.js",
         "components/ai-sources/index.js",
         "components/ai-sources/src/ai-sources-meta.js",
         "components/ai-sources/src/ai-sources.css",
         "components/ai-sources/src/ai-sources.js"
       ],
       "entry": "components/ai-sources/index.js",
-      "module": "components/ai-sources/src/ai-sources.js",
+      "module": "components/ai-sources/bundle.js",
       "style": "components/ai-sources/src/ai-sources.css"
     },
     "ai-thinking": {
       "files": [
+        "components/ai-thinking/bundle.js",
         "components/ai-thinking/index.js",
         "components/ai-thinking/src/ai-thinking-meta.js",
         "components/ai-thinking/src/ai-thinking.css",
         "components/ai-thinking/src/ai-thinking.js"
       ],
       "entry": "components/ai-thinking/index.js",
-      "module": "components/ai-thinking/src/ai-thinking.js",
+      "module": "components/ai-thinking/bundle.js",
       "style": "components/ai-thinking/src/ai-thinking.css"
     },
     "ai-thought-chain": {
       "files": [
+        "components/ai-thought-chain/bundle.js",
         "components/ai-thought-chain/index.js",
         "components/ai-thought-chain/src/ai-thought-chain-meta.js",
         "components/ai-thought-chain/src/ai-thought-chain.css",
         "components/ai-thought-chain/src/ai-thought-chain.js"
       ],
       "entry": "components/ai-thought-chain/index.js",
-      "module": "components/ai-thought-chain/src/ai-thought-chain.js",
+      "module": "components/ai-thought-chain/bundle.js",
       "style": "components/ai-thought-chain/src/ai-thought-chain.css"
     },
     "ai-voice-trigger": {
       "files": [
+        "components/ai-voice-trigger/bundle.js",
         "components/ai-voice-trigger/index.js",
         "components/ai-voice-trigger/src/ai-voice-trigger-meta.js",
         "components/ai-voice-trigger/src/ai-voice-trigger.css",
         "components/ai-voice-trigger/src/ai-voice-trigger.js"
       ],
       "entry": "components/ai-voice-trigger/index.js",
-      "module": "components/ai-voice-trigger/src/ai-voice-trigger.js",
+      "module": "components/ai-voice-trigger/bundle.js",
       "style": "components/ai-voice-trigger/src/ai-voice-trigger.css"
     },
     "ai-welcome": {
       "files": [
+        "components/ai-welcome/bundle.js",
         "components/ai-welcome/index.js",
         "components/ai-welcome/src/ai-welcome-meta.js",
         "components/ai-welcome/src/ai-welcome.css",
         "components/ai-welcome/src/ai-welcome.js"
       ],
       "entry": "components/ai-welcome/index.js",
-      "module": "components/ai-welcome/src/ai-welcome.js",
+      "module": "components/ai-welcome/bundle.js",
       "style": "components/ai-welcome/src/ai-welcome.css"
     },
     "alert": {
@@ -471,13 +490,14 @@
     },
     "calendar": {
       "files": [
+        "components/calendar/bundle.js",
         "components/calendar/index.js",
         "components/calendar/src/calendar-meta.js",
         "components/calendar/src/calendar.css",
         "components/calendar/src/calendar.js"
       ],
       "entry": "components/calendar/index.js",
-      "module": "components/calendar/src/calendar.js",
+      "module": "components/calendar/bundle.js",
       "style": "components/calendar/src/calendar.css"
     },
     "card": {
@@ -547,13 +567,14 @@
     },
     "col": {
       "files": [
+        "components/col/bundle.js",
         "components/col/index.js",
         "components/col/src/col-meta.js",
         "components/col/src/col.css",
         "components/col/src/col.js"
       ],
       "entry": "components/col/index.js",
-      "module": "components/col/src/col.js",
+      "module": "components/col/bundle.js",
       "style": "components/col/src/col.css"
     },
     "color-picker": {
@@ -613,13 +634,14 @@
     },
     "coupon-card": {
       "files": [
+        "components/coupon-card/bundle.js",
         "components/coupon-card/index.js",
         "components/coupon-card/src/coupon-card-meta.js",
         "components/coupon-card/src/coupon-card.css",
         "components/coupon-card/src/coupon-card.js"
       ],
       "entry": "components/coupon-card/index.js",
-      "module": "components/coupon-card/src/coupon-card.js",
+      "module": "components/coupon-card/bundle.js",
       "style": "components/coupon-card/src/coupon-card.css"
     },
     "date-picker": {
@@ -654,6 +676,7 @@
     },
     "dialog": {
       "files": [
+        "components/dialog/bundle.js",
         "components/dialog/index.js",
         "components/dialog/src/dialog-meta.js",
         "components/dialog/src/dialog.css",
@@ -662,7 +685,7 @@
         "components/dialog/src/use-dialog.js"
       ],
       "entry": "components/dialog/index.js",
-      "module": "components/dialog/src/dialog.js",
+      "module": "components/dialog/bundle.js",
       "style": "components/dialog/src/dialog.css"
     },
     "divider": {
@@ -679,17 +702,19 @@
     },
     "drawer": {
       "files": [
+        "components/drawer/bundle.js",
         "components/drawer/index.js",
         "components/drawer/src/drawer-meta.js",
         "components/drawer/src/drawer.css",
         "components/drawer/src/drawer.js"
       ],
       "entry": "components/drawer/index.js",
-      "module": "components/drawer/src/drawer.js",
+      "module": "components/drawer/bundle.js",
       "style": "components/drawer/src/drawer.css"
     },
     "dropdown": {
       "files": [
+        "components/dropdown/bundle.js",
         "components/dropdown/index.js",
         "components/dropdown/src/dropdown-item.js",
         "components/dropdown/src/dropdown-menu.js",
@@ -698,7 +723,7 @@
         "components/dropdown/src/dropdown.js"
       ],
       "entry": "components/dropdown/index.js",
-      "module": "components/dropdown/src/dropdown.js",
+      "module": "components/dropdown/bundle.js",
       "style": "components/dropdown/src/dropdown.css"
     },
     "empty": {
@@ -743,13 +768,14 @@
     },
     "gantt-chart": {
       "files": [
+        "components/gantt-chart/bundle.js",
         "components/gantt-chart/index.js",
         "components/gantt-chart/src/gantt-chart-meta.js",
         "components/gantt-chart/src/gantt-chart.css",
         "components/gantt-chart/src/gantt-chart.js"
       ],
       "entry": "components/gantt-chart/index.js",
-      "module": "components/gantt-chart/src/gantt-chart.js",
+      "module": "components/gantt-chart/bundle.js",
       "style": "components/gantt-chart/src/gantt-chart.css"
     },
     "grid": {
@@ -806,6 +832,7 @@
     },
     "infinite-scroll": {
       "files": [
+        "components/infinite-scroll/bundle.js",
         "components/infinite-scroll/index.js",
         "components/infinite-scroll/src/directive.js",
         "components/infinite-scroll/src/infinite-scroll-meta.js",
@@ -813,7 +840,7 @@
         "components/infinite-scroll/src/infinite-scroll.js"
       ],
       "entry": "components/infinite-scroll/index.js",
-      "module": "components/infinite-scroll/src/infinite-scroll.js",
+      "module": "components/infinite-scroll/bundle.js",
       "style": "components/infinite-scroll/src/infinite-scroll.css"
     },
     "input": {
@@ -903,6 +930,7 @@
     },
     "menu": {
       "files": [
+        "components/menu/bundle.js",
         "components/menu/index.js",
         "components/menu/src/menu-item-group.js",
         "components/menu/src/menu-item.js",
@@ -913,7 +941,7 @@
         "components/menu/src/sub-menu.js"
       ],
       "entry": "components/menu/index.js",
-      "module": "components/menu/src/menu.js",
+      "module": "components/menu/bundle.js",
       "style": "components/menu/src/menu.css"
     },
     "message": {
@@ -931,6 +959,7 @@
     },
     "message-box": {
       "files": [
+        "components/message-box/bundle.js",
         "components/message-box/index.js",
         "components/message-box/src/message-box-meta.js",
         "components/message-box/src/message-box.css",
@@ -938,7 +967,7 @@
         "components/message-box/src/method.js"
       ],
       "entry": "components/message-box/index.js",
-      "module": "components/message-box/src/message-box.js",
+      "module": "components/message-box/bundle.js",
       "style": "components/message-box/src/message-box.css"
     },
     "notification": {
@@ -968,6 +997,7 @@
     },
     "popconfirm": {
       "files": [
+        "components/popconfirm/bundle.js",
         "components/popconfirm/index.js",
         "components/popconfirm/src/instance.js",
         "components/popconfirm/src/popconfirm-meta.js",
@@ -975,18 +1005,19 @@
         "components/popconfirm/src/popconfirm.js"
       ],
       "entry": "components/popconfirm/index.js",
-      "module": "components/popconfirm/src/popconfirm.js",
+      "module": "components/popconfirm/bundle.js",
       "style": "components/popconfirm/src/popconfirm.css"
     },
     "popover": {
       "files": [
+        "components/popover/bundle.js",
         "components/popover/index.js",
         "components/popover/src/popover-meta.js",
         "components/popover/src/popover.css",
         "components/popover/src/popover.js"
       ],
       "entry": "components/popover/index.js",
-      "module": "components/popover/src/popover.js",
+      "module": "components/popover/bundle.js",
       "style": "components/popover/src/popover.css"
     },
     "price": {
@@ -1144,6 +1175,7 @@
     },
     "smart-address": {
       "files": [
+        "components/smart-address/bundle.js",
         "components/smart-address/index.js",
         "components/smart-address/src/smart-address-meta.js",
         "components/smart-address/src/smart-address.css",
@@ -1151,7 +1183,7 @@
         "components/smart-address/src/use-address-parser.js"
       ],
       "entry": "components/smart-address/index.js",
-      "module": "components/smart-address/src/smart-address.js",
+      "module": "components/smart-address/bundle.js",
       "style": "components/smart-address/src/smart-address.css"
     },
     "space": {
@@ -1218,6 +1250,7 @@
     },
     "table": {
       "files": [
+        "components/table/bundle.js",
         "components/table/index.js",
         "components/table/src/table-column.js",
         "components/table/src/table-meta.js",
@@ -1234,7 +1267,7 @@
         "components/table/src/utils.js"
       ],
       "entry": "components/table/index.js",
-      "module": "components/table/src/table.js",
+      "module": "components/table/bundle.js",
       "style": "components/table/src/table.css"
     },
     "tabs": {
@@ -1315,6 +1348,7 @@
     },
     "tree": {
       "files": [
+        "components/tree/bundle.js",
         "components/tree/index.js",
         "components/tree/src/tree-meta.js",
         "components/tree/src/tree-node.js",
@@ -1322,7 +1356,7 @@
         "components/tree/src/tree.js"
       ],
       "entry": "components/tree/index.js",
-      "module": "components/tree/src/tree.js",
+      "module": "components/tree/bundle.js",
       "style": "components/tree/src/tree.css"
     },
     "tree-select": {
@@ -1355,13 +1389,14 @@
     },
     "upload": {
       "files": [
+        "components/upload/bundle.js",
         "components/upload/index.js",
         "components/upload/src/upload-meta.js",
         "components/upload/src/upload.css",
         "components/upload/src/upload.js"
       ],
       "entry": "components/upload/index.js",
-      "module": "components/upload/src/upload.js",
+      "module": "components/upload/bundle.js",
       "style": "components/upload/src/upload.css"
     },
     "waterfall": {

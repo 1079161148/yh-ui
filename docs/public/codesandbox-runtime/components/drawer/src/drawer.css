@@ -601,8 +601,7 @@ html.dark {
   background: transparent;
   transition: background 0.2s;
 }
-.yh-drawer__handle:hover,
-.yh-drawer__handle:active {
+.yh-drawer__handle:hover, .yh-drawer__handle:active {
   background: var(--yh-color-primary-light-5);
 }
 .yh-drawer__handle--left {

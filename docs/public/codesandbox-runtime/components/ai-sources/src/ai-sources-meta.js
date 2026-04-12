@@ -14,7 +14,7 @@ const aiSourcesProps = {
    */
   mode: {
     type: String,
-    default: 'inline'
+    default: "inline"
   },
   /**
    * @description 最多显示的卡片数（超出折叠）
@@ -44,11 +44,14 @@ const aiSourcesProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiSourcesEmits = {
   /** 点击来源项 */
   click: (source) => !!source,
   /** 点击查看原文 */
   open: (source) => !!source
-}
-export { aiSourcesEmits, aiSourcesProps }
+};
+export {
+  aiSourcesEmits,
+  aiSourcesProps
+};

@@ -21,14 +21,14 @@ const aiVoiceTriggerProps = {
    */
   variant: {
     type: String,
-    default: 'inline'
+    default: "inline"
   },
   /**
    * 悬浮位置（仅在 floating/sphere 模式有效）
    */
   position: {
     type: String,
-    default: 'bottom-right'
+    default: "bottom-right"
   },
   /**
    * 偏移量
@@ -52,11 +52,14 @@ const aiVoiceTriggerProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiVoiceTriggerEmits = {
-  'update:recording': (value) => typeof value === 'boolean',
+  "update:recording": (value) => typeof value === "boolean",
   start: () => true,
   stop: () => true,
   cancel: () => true
-}
-export { aiVoiceTriggerEmits, aiVoiceTriggerProps }
+};
+export {
+  aiVoiceTriggerEmits,
+  aiVoiceTriggerProps
+};

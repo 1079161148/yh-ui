@@ -7,7 +7,7 @@ const aiAttachmentsProps = {
   /** 溢出布局模式 */
   overflow: {
     type: String,
-    default: 'scrollX'
+    default: "scrollX"
   },
   /** 列表容器样式 */
   listStyle: {
@@ -22,7 +22,7 @@ const aiAttachmentsProps = {
   /** 上传按钮图标尺寸（紧凑风格建议 24px） */
   uploadIconSize: {
     type: String,
-    default: '24px'
+    default: "24px"
   },
   /** 拖拽目标元素 */
   dragTarget: {
@@ -68,9 +68,9 @@ const aiAttachmentsProps = {
   placeholder: {
     type: [Object, Function, String],
     default: () => ({
-      icon: 'upload',
-      title: 'Click or Drop files here',
-      description: 'Support file type: image, video, audio, document, etc.'
+      icon: "upload",
+      title: "Click or Drop files here",
+      description: "Support file type: image, video, audio, document, etc."
     })
   },
   /** 主题覆盖变量 */
@@ -78,14 +78,17 @@ const aiAttachmentsProps = {
     type: Object,
     default: void 0
   }
-}
+};
 const aiAttachmentsEmits = {
-  'update:items': (_items) => true,
-  'upload-change': (_file, _fileList) => true,
-  'upload-success': (_response, _file, _fileList) => true,
-  'upload-error': (_error, _file, _fileList) => true,
-  'upload-drop': (_files) => true,
-  'delete-card': (_item, _index) => true,
+  "update:items": (_items) => true,
+  "upload-change": (_file, _fileList) => true,
+  "upload-success": (_response, _file, _fileList) => true,
+  "upload-error": (_error, _file, _fileList) => true,
+  "upload-drop": (_files) => true,
+  "delete-card": (_item, _index) => true,
   exceed: (_options) => true
-}
-export { aiAttachmentsEmits, aiAttachmentsProps }
+};
+export {
+  aiAttachmentsEmits,
+  aiAttachmentsProps
+};

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* docs/public/codesandbox-runtime/components/loading/src/loading.css */
+/* public/codesandbox-runtime/components/loading/src/loading.css */
 :root {
   --yh-density-factor: 1;
   --yh-component-size-default: 32px;
@@ -85,8 +85,18 @@
   --yh-radius-round: 20px;
   --yh-radius-circle: 50%;
   --yh-font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
   --yh-font-size-xs: 12px;
   --yh-font-size-sm: 13px;
   --yh-font-size-base: 14px;
@@ -178,7 +188,11 @@
   --yh-image-viewer-btn-bg-color: var(--yh-text-color-regular);
   --yh-image-viewer-btn-color: #ffffff;
   --yh-image-viewer-btn-hover-bg-color: var(--yh-color-primary);
-  --yh-calendar-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --yh-calendar-bg:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f8fafc 100%);
   --yh-calendar-border-color: rgba(0, 0, 0, 0.06);
   --yh-calendar-border-radius: var(--yh-radius-xl);
   --yh-calendar-header-bg: rgba(255, 255, 255, 0.95);
@@ -193,7 +207,11 @@
   --yh-calendar-cell-radius-large: 12px;
   --yh-calendar-primary: var(--yh-color-primary);
   --yh-calendar-primary-light: rgba(59, 130, 246, 0.1);
-  --yh-calendar-selected-bg: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  --yh-calendar-selected-bg:
+    linear-gradient(
+      135deg,
+      #eff6ff 0%,
+      #dbeafe 100%);
   --yh-calendar-selected-border: rgba(59, 130, 246, 0.4);
   --yh-calendar-today-dot: var(--yh-color-primary);
   --yh-calendar-weekend-color: #f97316;
@@ -240,15 +258,23 @@
   --yh-breakpoint-xl: 1200px;
   --yh-breakpoint-xxl: 1400px;
   --yh-font-family-monospace:
-    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  --yh-font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    Menlo,
+    Courier,
+    monospace;
+  --yh-font-family-serif:
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    Times,
+    serif;
   --yh-focus-ring-color: var(--yh-color-primary);
   --yh-focus-ring-width: 2px;
   --yh-focus-ring-offset: 2px;
   --yh-focus-ring-opacity: 0.2;
-  --yh-focus-ring:
-    0 0 0 var(--yh-focus-ring-offset) var(--yh-bg-color),
-    0 0 0 calc(var(--yh-focus-ring-offset) + var(--yh-focus-ring-width)) var(--yh-focus-ring-color);
+  --yh-focus-ring: 0 0 0 var(--yh-focus-ring-offset) var(--yh-bg-color), 0 0 0 calc(var(--yh-focus-ring-offset) + var(--yh-focus-ring-width)) var(--yh-focus-ring-color);
   --yh-high-contrast-outline: 2px solid transparent;
   --yh-high-contrast-outline-offset: 2px;
   --yh-scrollbar-width: 6px;
@@ -315,17 +341,22 @@ html.dark {
   --yh-badge-border-color: var(--yh-bg-color);
   --yh-card-bg-color: var(--yh-bg-color-overlay);
   --yh-card-border-color: var(--yh-border-color-lighter);
-  --yh-calendar-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --yh-calendar-bg:
+    linear-gradient(
+      135deg,
+      #1a1a2e 0%,
+      #16213e 100%);
   --yh-calendar-border-color: rgba(255, 255, 255, 0.08);
   --yh-calendar-header-bg: rgba(30, 30, 30, 0.95);
   --yh-calendar-header-border: rgba(255, 255, 255, 0.06);
   --yh-calendar-day-color: var(--yh-text-color-primary);
   --yh-calendar-weekday-color: var(--yh-text-color-secondary);
-  --yh-calendar-selected-bg: linear-gradient(
-    135deg,
-    rgba(59, 130, 246, 0.2) 0%,
-    rgba(59, 130, 246, 0.1) 100%
-  );
+  --yh-calendar-selected-bg:
+    linear-gradient(
+      
+      135deg,
+      rgba(59, 130, 246, 0.2) 0%,
+      rgba(59, 130, 246, 0.1) 100% );
   --yh-table-border-color: var(--yh-border-color-lighter);
   --yh-table-header-bg: var(--yh-fill-color-dark);
   --yh-table-header-text-color: var(--yh-text-color-primary);
@@ -422,7 +453,7 @@ html.dark {
 .yh-loading-mask.is-glass {
 }
 .yh-loading-mask.is-glass::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border: 1px solid rgba(255, 255, 255, 0.4);

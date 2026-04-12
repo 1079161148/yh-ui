@@ -1,11 +1,11 @@
 const aiEditorSenderProps = {
   modelValue: {
     type: String,
-    default: ''
+    default: ""
   },
   placeholder: {
     type: String,
-    default: 'Type a message...'
+    default: "Type a message..."
   },
   disabled: {
     type: Boolean,
@@ -63,7 +63,7 @@ const aiEditorSenderProps = {
    */
   commandTrigger: {
     type: String,
-    default: '/'
+    default: "/"
   },
   /**
    * 命令列表
@@ -77,14 +77,14 @@ const aiEditorSenderProps = {
    */
   commandPanelPosition: {
     type: String,
-    default: 'bottom'
+    default: "bottom"
   },
   /**
    * 命令面板对齐方式
    */
   commandPanelAlign: {
     type: String,
-    default: 'start'
+    default: "start"
   },
   /**
    * 命令面板宽度
@@ -135,18 +135,21 @@ const aiEditorSenderProps = {
     type: Number,
     default: 4
   }
-}
+};
 const aiEditorSenderEmits = {
-  'update:modelValue': (_value) => true,
+  "update:modelValue": (_value) => true,
   send: (value) => !!value,
   change: (_value) => true,
-  'remove-attachment': (_index, _item) => true,
+  "remove-attachment": (_index, _item) => true,
   clear: () => true,
   // 命令菜单事件
-  'command-select': (_command, _parentCommand) => true,
-  'command-search': (_keyword) => true,
-  'command-panel-show': () => true,
-  'command-panel-hide': () => true,
-  'command-cascade': (_command, _parentCommand) => true
-}
-export { aiEditorSenderEmits, aiEditorSenderProps }
+  "command-select": (_command, _parentCommand) => true,
+  "command-search": (_keyword) => true,
+  "command-panel-show": () => true,
+  "command-panel-hide": () => true,
+  "command-cascade": (_command, _parentCommand) => true
+};
+export {
+  aiEditorSenderEmits,
+  aiEditorSenderProps
+};

@@ -7,11 +7,11 @@ const descriptionsProps = {
   },
   direction: {
     type: String,
-    default: 'horizontal'
+    default: "horizontal"
   },
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   border: {
     type: Boolean,
@@ -29,22 +29,22 @@ const descriptionsProps = {
   },
   labelClassName: {
     type: String,
-    default: ''
+    default: ""
   },
   contentClassName: {
     type: String,
-    default: ''
+    default: ""
   },
   /** 主题覆盖变量 */
   themeOverrides: {
     type: Object,
     default: void 0
   }
-}
+};
 const descriptionsItemProps = {
   label: {
     type: String,
-    default: ''
+    default: ""
   },
   span: {
     type: Number,
@@ -52,27 +52,27 @@ const descriptionsItemProps = {
   },
   width: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   minWidth: {
     type: [String, Number],
-    default: ''
+    default: ""
   },
   align: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   labelAlign: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   className: {
     type: String,
-    default: ''
+    default: ""
   },
   labelClassName: {
     type: String,
-    default: ''
+    default: ""
   },
   labelStyle: {
     type: Object
@@ -80,6 +80,10 @@ const descriptionsItemProps = {
   contentStyle: {
     type: Object
   }
-}
-const descriptionsKey = Symbol('descriptionsKey')
-export { descriptionsItemProps, descriptionsKey, descriptionsProps }
+};
+const descriptionsKey = Symbol("descriptionsKey");
+export {
+  descriptionsItemProps,
+  descriptionsKey,
+  descriptionsProps
+};

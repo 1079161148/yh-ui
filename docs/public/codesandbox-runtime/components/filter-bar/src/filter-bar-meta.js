@@ -57,19 +57,19 @@ const filterBarProps = {
   /** 当前视图模式（支持 v-model:viewType） */
   viewType: {
     type: String,
-    default: 'list'
+    default: "list"
   }
-}
+};
 const filterBarEmits = {
-  'update:sort': (sort) => sort !== void 0,
-  'update:filterValue': (val) => val !== void 0,
-  'update:viewType': (val) => val === 'list' || val === 'grid',
+  "update:sort": (sort) => sort !== void 0,
+  "update:filterValue": (val) => val !== void 0,
+  "update:viewType": (val) => val === "list" || val === "grid",
   /** 排序变化 */
   sortChange: (sort) => sort !== void 0,
   /** 筛选值变化 */
   filterChange: (val) => val !== void 0,
   /** 视图模式变化 */
-  viewChange: (val) => val === 'list' || val === 'grid',
+  viewChange: (val) => val === "list" || val === "grid",
   /** 点击重置 */
   reset: () => true,
   /** 点击确认筛选 */
@@ -78,5 +78,8 @@ const filterBarEmits = {
   resetPanel: (filter, _currentValues) => filter !== void 0,
   /** 点击全局「筛选」按钮 */
   openFilter: () => true
-}
-export { filterBarEmits, filterBarProps }
+};
+export {
+  filterBarEmits,
+  filterBarProps
+};
