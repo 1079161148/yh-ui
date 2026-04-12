@@ -59,12 +59,82 @@ const value = ref('')
     smoke: {
       selector: '.yh-date-picker'
     }
+  },
+  {
+    name: 'basic-input-style',
+    title: 'Basic Input Style',
+    code: `<template>
+  <div style="width: 320px">
+    <yh-input placeholder="Type something" />
+  </div>
+</template>`,
+    smoke: {
+      selector: '.yh-input__wrapper',
+      evaluate: async (page) => {
+        const styles = await page.locator('.yh-input__wrapper').evaluate((el) => {
+          const style = getComputedStyle(el)
+          return {
+            display: style.display,
+            borderTopLeftRadius: style.borderTopLeftRadius
+          }
+        })
+        if (styles.display !== 'flex' && styles.display !== 'inline-flex') {
+          throw new Error(
+            `Expected .yh-input__wrapper flex layout styles, got "${styles.display}"`
+          )
+        }
+        if (styles.borderTopLeftRadius === '0px') {
+          throw new Error('Expected .yh-input__wrapper border radius style to be applied')
+        }
+      }
+    }
+  },
+  {
+    name: 'basic-grid-style',
+    title: 'Basic Grid Style',
+    code: `<template>
+  <yh-grid :cols="3" :gap="16">
+    <yh-grid-item><div class="grid-demo-item">1</div></yh-grid-item>
+    <yh-grid-item><div class="grid-demo-item">2</div></yh-grid-item>
+    <yh-grid-item><div class="grid-demo-item">3</div></yh-grid-item>
+  </yh-grid>
+</template>`,
+    context: {
+      docPath: 'components/grid.md'
+    },
+    smoke: {
+      selector: '.yh-grid',
+      evaluate: async (page) => {
+        const display = await page.locator('.yh-grid').evaluate((el) => getComputedStyle(el).display)
+        if (display !== 'grid') {
+          throw new Error(`Expected .yh-grid display:grid, got "${display}"`)
+        }
+
+        const itemStyles = await page.locator('.grid-demo-item').first().evaluate((el) => {
+          const style = getComputedStyle(el)
+          return {
+            backgroundColor: style.backgroundColor,
+            paddingTop: style.paddingTop,
+            borderTopLeftRadius: style.borderTopLeftRadius
+          }
+        })
+        if (itemStyles.backgroundColor === 'rgba(0, 0, 0, 0)') {
+          throw new Error('Expected page-level grid demo styles to be applied')
+        }
+        if (itemStyles.paddingTop === '0px' || itemStyles.borderTopLeftRadius === '0px') {
+          throw new Error('Expected shared grid demo box styles to be applied')
+        }
+      }
+    }
   }
 ] as const
 
 interface SmokeExpectation {
   selector: string
   text?: string
+  evaluate?: (page: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+    ? Awaited<T>
+    : never) => Promise<void>
 }
 
 interface WorkspaceManifest {
@@ -307,6 +377,10 @@ async function runSmokeValidation(caseDir: string, smoke: SmokeExpectation) {
       }
     }
 
+    if (smoke.evaluate) {
+      await smoke.evaluate(page)
+    }
+
     await page.waitForTimeout(1000)
 
     if (runtimeErrors.length > 0) {
@@ -331,13 +405,21 @@ async function validateCase(
 ) {
   console.log(`[sandbox] validating ${testCase.name}`)
 
-  const support = getSandboxSupport(testCase.code)
+  const support = getSandboxSupport(testCase.code, testCase.context)
   if (!support.supported) {
     throw new Error(`${testCase.name}: ${support.reason ?? 'unsupported'}`)
   }
 
   const caseDir = path.join(tempRoot, testCase.name)
-  const baseFiles = await createSandboxProjectFiles(testCase.title, testCase.code)
+  const baseFiles = await createSandboxProjectFiles(
+    testCase.title,
+    testCase.code,
+    testCase.context,
+    {
+    loadSiteAssetText: async (assetPath) =>
+      readFile(path.join(rootDir, 'docs', 'public', ...assetPath.split('/')), 'utf8')
+    }
+  )
   const files = applyWorkspaceOverrides(baseFiles, caseDir, tarballMap)
 
   await removeWithRetry(caseDir)

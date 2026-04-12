@@ -941,6 +941,9 @@ export default defineConfig({
     }
   },
 
+  // Keep static rendering stable on Windows for this large docs site.
+  buildConcurrency: 8,
+
   vite: {
     resolve: {
       alias: {
@@ -964,7 +967,27 @@ export default defineConfig({
       }
     },
     build: {
+      chunkSizeWarningLimit: 8192,
       rollupOptions: {
+        output: {
+          manualChunks(id) {
+            const normalizedId = id.replace(/\\/g, '/')
+
+            if (normalizedId.includes('node_modules/monaco-editor/')) return 'monaco-editor'
+            if (normalizedId.includes('node_modules/@vue/repl/')) return 'vue-repl'
+            if (normalizedId.includes('node_modules/mermaid/')) return 'mermaid'
+            if (normalizedId.includes('node_modules/echarts/')) return 'echarts'
+            if (normalizedId.includes('node_modules/xlsx/')) return 'xlsx'
+
+            if (normalizedId.includes('/packages/components/')) return 'yh-ui-components'
+            if (normalizedId.includes('/packages/flow/')) return 'yh-ui-flow'
+            if (normalizedId.includes('/packages/locale/')) return 'yh-ui-locale'
+            if (normalizedId.includes('/packages/icons/')) return 'yh-ui-icons'
+            if (normalizedId.includes('/packages/theme/')) return 'yh-ui-theme'
+            if (normalizedId.includes('/packages/hooks/')) return 'yh-ui-hooks'
+            if (normalizedId.includes('/packages/utils/')) return 'yh-ui-utils'
+          }
+        },
         onwarn(warning, warn) {
           // 忽略来自 node_modules 的缺失 sourcemap 警告（如 entities 包）
           if (

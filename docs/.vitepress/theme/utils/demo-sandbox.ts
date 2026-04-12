@@ -16,6 +16,7 @@ const SANDBOX_BUNDLED_PACKAGES = new Set([
   '@yh-ui/yh-ui',
   '@yh-ui/components',
   '@yh-ui/hooks',
+  '@yh-ui/icons',
   '@yh-ui/utils',
   '@yh-ui/theme',
   '@yh-ui/locale',
@@ -191,6 +192,17 @@ interface CodeSandboxProjectFilesOptions {
   loadSiteAssetText?: (assetPath: string) => Promise<string>
 }
 
+interface SandboxProjectFilesOptions {
+  base?: string
+  loadSiteAssetText?: (assetPath: string) => Promise<string>
+}
+
+const DOC_SOURCE_MODULES = import.meta.glob('../../../../**/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true
+}) as Record<string, string>
+
 // ============================================================
 // 工具函数
 // ============================================================
@@ -204,6 +216,50 @@ function normalizeSfc(code: string): string {
     return trimmed
   }
   return '<template>\n' + trimmed + '\n</template>\n'
+}
+
+function normalizeDocPath(docPath?: string): string | null {
+  if (!docPath) return null
+  return docPath.replace(/^\.?\/*/, '').replace(/\\/g, '/')
+}
+
+function normalizeDocModulePath(modulePath: string): string {
+  const normalized = modulePath.replace(/\\/g, '/')
+  if (normalized.includes('/docs/')) {
+    return normalized.replace(/^.*?\/docs\//, '')
+  }
+  return normalized.replace(/^(?:\.\.\/)+/, '')
+}
+
+function extractDocLevelStyleBlocks(docPath?: string): string[] {
+  const normalizedDocPath = normalizeDocPath(docPath)
+  if (!normalizedDocPath) return []
+
+  const sourceEntry = Object.entries(DOC_SOURCE_MODULES).find(([modulePath]) => {
+    return normalizeDocModulePath(modulePath) === normalizedDocPath
+  })
+  const rawSource = sourceEntry?.[1]
+  if (!rawSource) return []
+
+  const sourceWithoutScripts = rawSource.replace(/<script\s+setup\b[\s\S]*?<\/script>/g, '')
+  return [...sourceWithoutScripts.matchAll(/<style\b[^>]*>[\s\S]*?<\/style>/g)].map((match) =>
+    match[0].trim()
+  )
+}
+
+function appendDocSharedStyles(code: string, context?: SandboxContext): string {
+  const docStyleBlocks = extractDocLevelStyleBlocks(context?.docPath)
+  if (docStyleBlocks.length === 0) {
+    return code
+  }
+
+  let output = code.trim()
+  for (const styleBlock of docStyleBlocks) {
+    if (output.includes(styleBlock)) continue
+    output += `\n\n${styleBlock}`
+  }
+
+  return output
 }
 
 function extractBareImports(code: string): string[] {
@@ -408,6 +464,7 @@ function _getPlaygroundStaticPackageEntries(base: string): Record<string, Static
       dir: 'components/'
     },
     '@yh-ui/hooks': { entry: resolveSiteAssetUrl(base, 'hooks/index.mjs'), dir: 'hooks/' },
+    '@yh-ui/icons': { entry: resolveSiteAssetUrl(base, 'icons/index.mjs'), dir: 'icons/' },
     '@yh-ui/utils': { entry: resolveSiteAssetUrl(base, 'utils/index.mjs'), dir: 'utils/' },
     '@yh-ui/theme': { entry: resolveSiteAssetUrl(base, 'theme/index.mjs'), dir: 'theme/' },
     '@yh-ui/locale': { entry: resolveSiteAssetUrl(base, 'locale/index.mjs'), dir: 'locale/' }
@@ -582,11 +639,12 @@ function inlineCustomNodeComponents(code: string): string {
   )
 }
 
-function prepareSandboxCode(code: string, _context?: SandboxContext): string {
+function prepareSandboxCode(code: string, context?: SandboxContext): string {
   let preparedCode = rewriteWorkspaceImports(code)
   preparedCode = inlineCustomEdgeComponent(preparedCode)
   preparedCode = inlineCustomNodeComponents(preparedCode)
   preparedCode = rewriteFlowSandboxImports(preparedCode)
+  preparedCode = appendDocSharedStyles(preparedCode, context)
   return preparedCode
 }
 
@@ -798,7 +856,6 @@ export function createPlaygroundProject(
   importMap.imports['@yh-ui/yh-ui'] = yhUiBundleUrl
   importMap.imports['@yh-ui/yh-ui/full'] = yhUiBundleUrl
   importMap.imports['@yh-ui/flow'] = resolveSiteAssetUrl(base, 'playground/yh-flow-runtime.js')
-  importMap.imports['@yh-ui/icons'] = resolveJsdelivrPackageEntry('@yh-ui/icons', YH_UI_VERSION)
   importMap.imports['@iconify/vue'] =
     `${ESM_CDN}/@iconify/vue@4.1.2?bundle&external=vue&target=esnext`
 
@@ -858,12 +915,17 @@ export function openDemoInPlayground(
 export async function createSandboxProjectFiles(
   title: string,
   code: string,
-  context?: SandboxContext
+  context?: SandboxContext,
+  options: SandboxProjectFilesOptions = {}
 ): Promise<Record<string, string>> {
   const normalizedCode = normalizeSfc(prepareSandboxCode(code, context))
   const dependencies = buildSandboxDependencies(code, context)
   const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
   const usesIconRuntime = usesIconSandboxRuntime(code, context)
+  const base = (options.base ?? import.meta.env.BASE_URL) || '/'
+  const loadSiteAssetText =
+    options.loadSiteAssetText ??
+    ((assetPath: string) => fetchTextAsset(resolveSiteAssetUrl(base, assetPath)))
   const interopDeps = [
     'dayjs',
     'dayjs/plugin/isBetween.js',
@@ -903,6 +965,7 @@ export async function createSandboxProjectFiles(
     "import { createApp } from 'vue'",
     "import { install as installYhUI } from '@yh-ui/yh-ui'",
     "import '@yh-ui/yh-ui/css'",
+    "import './vendor/yh-ui-bundle.css'",
     ...(usesIconRuntime ? ["import { Icon as YhIconify } from '@iconify/vue'"] : []),
     ...(usesFlowRuntime
       ? [
@@ -1036,7 +1099,7 @@ export async function createSandboxProjectFiles(
       2
     ) + '\n'
 
-  return {
+  const files: Record<string, string> = {
     'index.html': indexHtml,
     '.npmrc': npmrc,
     'sandbox.config.json': sandboxConfigJson,
@@ -1071,6 +1134,10 @@ export async function createSandboxProjectFiles(
       2
     )
   }
+
+  files['src/vendor/yh-ui-bundle.css'] = await loadSiteAssetText('playground/yh-ui-bundle.css')
+
+  return files
 }
 
 export async function createCodeSandboxProjectFiles(
@@ -1105,8 +1172,7 @@ export async function createCodeSandboxProjectFiles(
   ])
 
   const runtimeFiles: Record<string, string> = {}
-  const componentStyleContents: string[] = []
-  const supportStyleContents: string[] = []
+  const collectedStyleContents = new Map<string, string>()
   const packageDependencies: Record<string, string> = {
     vue: `^${VUE_VERSION}`,
     ...buildDependencies(preparedCode, context)
@@ -1139,6 +1205,11 @@ export async function createCodeSandboxProjectFiles(
     runtimeFiles[`src/vendor/${relativePath}`] = assetText
     Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(assetText))
 
+    if (relativePath.endsWith('.css')) {
+      collectedStyleContents.set(relativePath, assetText)
+      return
+    }
+
     if (!relativePath.endsWith('.js')) {
       return
     }
@@ -1159,14 +1230,14 @@ export async function createCodeSandboxProjectFiles(
     await collectRuntimeFile(componentEntry.entry)
     if (componentEntry.style) {
       await collectRuntimeFile(componentEntry.style)
-      componentStyleContents.push(runtimeFiles[`src/vendor/${componentEntry.style}`] ?? '')
     }
   }
 
   for (const styleFile of supportStyleFiles) {
     await collectRuntimeFile(styleFile)
-    supportStyleContents.push(runtimeFiles[`src/vendor/${styleFile}`] ?? '')
   }
+
+  const styleCss = [...collectedStyleContents.values()].filter(Boolean).join('\n')
 
   const componentImports = runtimeComponentNames
     .map(
@@ -1275,7 +1346,7 @@ export async function createCodeSandboxProjectFiles(
     'src/App.vue': appVue,
     'src/Demo.vue': normalizedCode + '\n',
     'src/main.js': mainJs,
-    'src/style.css': `${supportStyleContents.join('\n')}\n${componentStyleContents.join('\n')}\n`,
+    'src/style.css': `${styleCss}\n`,
     ...runtimeFiles
   }
 

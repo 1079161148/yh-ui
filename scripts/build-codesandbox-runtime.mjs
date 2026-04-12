@@ -1,5 +1,5 @@
 import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
-import { dirname, join, relative, resolve } from 'node:path'
+import { dirname, extname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import { build, transform } from 'esbuild'
@@ -104,35 +104,60 @@ function resolveMetaModulePath(resolvedPath) {
   return `${resolvedPath}-meta.js`
 }
 
-function rewriteLocalImportSource(sourceRelFile, source, collidingModuleBases = new Set()) {
-  if (!source.startsWith('.')) return source
-  const normalizedSourceFile = sourceRelFile.replace(/\\/g, '/')
-  const resolvedPath = new URL(source, `https://runtime.local/${normalizedSourceFile}`)
-    .pathname.replace(/^\/+/, '')
-
-  if (source.endsWith('.vue')) {
-    return source.replace(/\.vue$/, '.js')
-  }
-
-  if (source.endsWith('.mjs')) {
-    const targetBase = resolvedPath.replace(/\.mjs$/, '')
-    return collidingModuleBases.has(targetBase)
-      ? toRelativeImportPath(normalizedSourceFile, resolveMetaModulePath(targetBase))
-      : source.replace(/\.mjs$/, '.js')
-  }
-
-  if (!/\.[a-z0-9]+(?:[?#].*)?$/i.test(source)) {
-    return collidingModuleBases.has(resolvedPath)
-      ? toRelativeImportPath(normalizedSourceFile, resolveMetaModulePath(resolvedPath))
-      : `${source}.js`
-  }
-
-  return source
-}
-
 function toRelativeImportPath(fromFile, targetFile) {
   const fromDir = dirname(fromFile).replace(/\\/g, '/')
   let relPath = relative(fromDir, targetFile).replace(/\\/g, '/')
+  if (!relPath.startsWith('.')) relPath = `./${relPath}`
+  return relPath
+}
+
+async function findExistingSourceFile(basePath) {
+  const extension = extname(basePath)
+  const candidates = extension
+    ? [basePath]
+    : [
+        `${basePath}.mjs`,
+        `${basePath}.vue`,
+        `${basePath}.css`,
+        join(basePath, 'index.mjs'),
+        join(basePath, 'index.vue'),
+        join(basePath, 'index.css')
+      ]
+
+  for (const candidate of candidates) {
+    try {
+      await stat(candidate)
+      return candidate
+    } catch {
+      // continue
+    }
+  }
+
+  return null
+}
+
+async function rewriteLocalImportSource(
+  sourceFile,
+  outputFile,
+  source,
+  sourceBaseRoot,
+  outputBaseRoot,
+  collidingModuleBases = new Set()
+) {
+  if (!source.startsWith('.')) return source
+
+  const resolvedSourceFile = await findExistingSourceFile(resolve(dirname(sourceFile), source))
+  if (!resolvedSourceFile) {
+    return source
+  }
+
+  const targetOutputRelPath = toOutputRelativePath(
+    sourceBaseRoot,
+    resolvedSourceFile,
+    collidingModuleBases
+  )
+  const targetOutputFile = join(outputBaseRoot, targetOutputRelPath)
+  let relPath = relative(dirname(outputFile), targetOutputFile).replace(/\\/g, '/')
   if (!relPath.startsWith('.')) relPath = `./${relPath}`
   return relPath
 }
@@ -151,21 +176,40 @@ function resolveRuntimeBareImport(outputFile, source) {
   return relPath
 }
 
-function rewriteImports(code, sourceRelFile, outputFile, collidingModuleBases = new Set()) {
-  return code.replace(
-    /(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|export\s+[\w*\s{},]*?\s+from\s+["']|import\s*\(\s*["'])([^"']+)(["'])/g,
-    (full, prefix, source, suffix) => {
-      let nextSource = source
+async function rewriteImports(
+  code,
+  sourceFile,
+  outputFile,
+  sourceBaseRoot,
+  outputBaseRoot,
+  collidingModuleBases = new Set()
+) {
+  const matches = [...code.matchAll(/(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|export\s+[\w*\s{},]*?\s+from\s+["']|import\s*\(\s*["'])([^"']+)(["'])/g)]
+  let rewritten = code
 
-      if (source.startsWith('@yh-ui/')) {
-        nextSource = resolveRuntimeBareImport(outputFile, source)
-      } else if (source.startsWith('.')) {
-        nextSource = rewriteLocalImportSource(sourceRelFile, source, collidingModuleBases)
-      }
+  for (const match of matches.reverse()) {
+    const [full, prefix, source, suffix] = match
+    let nextSource = source
 
-      return `${prefix}${nextSource}${suffix}`
+    if (source.startsWith('@yh-ui/')) {
+      nextSource = resolveRuntimeBareImport(outputFile, source)
+    } else if (source.startsWith('.')) {
+      nextSource = await rewriteLocalImportSource(
+        sourceFile,
+        outputFile,
+        source,
+        sourceBaseRoot,
+        outputBaseRoot,
+        collidingModuleBases
+      )
     }
-  )
+
+    const replacement = `${prefix}${nextSource}${suffix}`
+    rewritten =
+      rewritten.slice(0, match.index) + replacement + rewritten.slice(match.index + full.length)
+  }
+
+  return rewritten
 }
 
 function rewriteSupportBarrelImports(code) {
@@ -242,7 +286,14 @@ function toOutputRelativePath(sourceRoot, sourceFile, collidingModuleBases = new
   return relPath.replace(/\.mjs$/, '.js').replace(/\.vue$/, '.js')
 }
 
-async function processSourceFile(sourceRoot, sourceFile, outFile, collidingModuleBases = new Set()) {
+async function processSourceFile(
+  sourceRoot,
+  sourceFile,
+  outFile,
+  collidingModuleBases = new Set(),
+  sourceBaseRoot = sourceRoot,
+  outputBaseRoot = dirname(outFile)
+) {
   if (!/\.(?:mjs|vue|css)$/.test(sourceFile)) {
     return null
   }
@@ -261,8 +312,14 @@ async function processSourceFile(sourceRoot, sourceFile, outFile, collidingModul
     code = compileVueToModule(sourceFile, source)
   }
 
-  const sourceRelFile = relative(sourceRoot, sourceFile).replace(/\\/g, '/')
-  code = rewriteImports(code, sourceRelFile, outFile, collidingModuleBases)
+  code = await rewriteImports(
+    code,
+    sourceFile,
+    outFile,
+    sourceBaseRoot,
+    outputBaseRoot,
+    collidingModuleBases
+  )
   code = rewriteSupportBarrelImports(code)
   code = await lower(code)
 
@@ -286,7 +343,9 @@ async function buildSupportPackages() {
         sourceDir,
         sourceFile,
         outFile,
-        collidingModuleBases
+        collidingModuleBases,
+        sourceDir,
+        join(runtimeOutDir, pkg)
       )
       if (writtenFile) {
         files.add(relative(runtimeOutDir, writtenFile).replace(/\\/g, '/'))
@@ -310,7 +369,9 @@ async function buildComponentRootRuntimeFiles() {
       COMPONENTS_DIR,
       sourceFile,
       outFile,
-      collidingModuleBases
+      collidingModuleBases,
+      COMPONENTS_DIR,
+      join(runtimeOutDir, 'components')
     )
     if (writtenFile) {
       files.add(relative(runtimeOutDir, writtenFile).replace(/\\/g, '/'))
@@ -322,6 +383,11 @@ async function buildComponentRootRuntimeFiles() {
 
 async function buildComponents() {
   const componentEntries = await readdir(COMPONENTS_DIR, { withFileTypes: true })
+  const allComponentSourceFiles = await walk(COMPONENTS_DIR)
+  const allComponentCollidingModuleBases = collectCollidingModuleBases(
+    allComponentSourceFiles,
+    COMPONENTS_DIR
+  )
   const manifest = {}
 
   for (const entry of componentEntries) {
@@ -346,7 +412,9 @@ async function buildComponents() {
         componentDir,
         sourceFile,
         outFile,
-        collidingModuleBases
+        allComponentCollidingModuleBases,
+        COMPONENTS_DIR,
+        join(runtimeOutDir, 'components')
       )
       if (writtenFile) {
         files.add(relative(runtimeOutDir, writtenFile).replace(/\\/g, '/'))

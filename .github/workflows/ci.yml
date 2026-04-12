@@ -42,6 +42,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Type check
         run: pnpm typecheck
 
@@ -168,8 +171,14 @@ jobs:
           name: dist-packages
           path: packages
 
+      - name: Sync docs public packages
+        run: pnpm sync:docs-public
+
       - name: Build docs
         run: pnpm docs:build
+
+      - name: Verify docs playground
+        run: pnpm verify:docs-playground
 
       - name: Upload docs artifacts
         uses: actions/upload-artifact@v4

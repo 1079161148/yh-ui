@@ -38,25 +38,31 @@ const testCases = [
       <div class="grid-demo-item">3</div>
     </yh-grid-item>
   </yh-grid>
-</template>
-
-<style scoped>
-.grid-demo-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  border-radius: 8px;
-  background: #dbeafe;
-  color: #1e3a8a;
-}
-</style>`,
+</template>`,
+    context: {
+      docPath: 'components/grid.md'
+    },
     selector: '.yh-grid',
     text: '',
     evaluate: async (page) => {
       const display = await page.locator('.yh-grid').evaluate((el) => getComputedStyle(el).display)
       if (display !== 'grid') {
         throw new Error(`Expected .yh-grid display:grid, received "${display}"`)
+      }
+
+      const itemStyles = await page.locator('.grid-demo-item').first().evaluate((el) => {
+        const style = getComputedStyle(el)
+        return {
+          backgroundColor: style.backgroundColor,
+          paddingTop: style.paddingTop,
+          borderTopLeftRadius: style.borderTopLeftRadius
+        }
+      })
+      if (itemStyles.backgroundColor === 'rgba(0, 0, 0, 0)') {
+        throw new Error('Expected shared grid demo styles to be applied in CodeSandbox')
+      }
+      if (itemStyles.paddingTop === '0px' || itemStyles.borderTopLeftRadius === '0px') {
+        throw new Error('Expected grid demo shared box styles to be applied in CodeSandbox')
       }
     }
   },
@@ -69,7 +75,25 @@ const testCases = [
   </div>
 </template>`,
     selector: '.yh-input',
-    text: ''
+    text: '',
+    evaluate: async (page) => {
+      const wrapperStyles = await page.locator('.yh-input__wrapper').evaluate((el) => {
+        const style = getComputedStyle(el)
+        return {
+          display: style.display,
+          borderTopLeftRadius: style.borderTopLeftRadius,
+          backgroundColor: style.backgroundColor
+        }
+      })
+      if (wrapperStyles.display !== 'flex') {
+        throw new Error(
+          `Expected .yh-input__wrapper display:flex, received "${wrapperStyles.display}"`
+        )
+      }
+      if (wrapperStyles.borderTopLeftRadius === '0px') {
+        throw new Error('Expected .yh-input__wrapper border radius styles to be applied')
+      }
+    }
   },
   {
     name: 'icon',
@@ -191,6 +215,9 @@ interface TestCase {
   name: string
   title: string
   code: string
+  context?: {
+    docPath?: string
+  }
   selector: string
   text: string
   evaluate?: (page: BrowserPage) => Promise<void>
@@ -219,7 +246,11 @@ function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
   )
 }
 
-async function createRemoteSandbox(title: string, code: string) {
+async function createRemoteSandbox(
+  title: string,
+  code: string,
+  context?: TestCase['context']
+) {
   const manifest = JSON.parse(await readFile(join(runtimeDir, 'manifest.json'), 'utf8')) as {
     version: number
     supportFiles: string[]
@@ -228,7 +259,7 @@ async function createRemoteSandbox(title: string, code: string) {
       { files: string[]; entry: string; module: string; style: string | null }
     >
   }
-  const files = await createCodeSandboxProjectFiles(title, code, undefined, {
+  const files = await createCodeSandboxProjectFiles(title, code, context, {
     manifest,
     loadRuntimeAssetText: async (relativePath) =>
       readFile(join(runtimeDir, ...relativePath.split('/')), 'utf8'),
@@ -269,7 +300,11 @@ async function createRemoteSandbox(title: string, code: string) {
 }
 
 async function verifyTestCase(testCase: TestCase) {
-  const { sandboxId, previewUrl } = await createRemoteSandbox(testCase.title, testCase.code)
+  const { sandboxId, previewUrl } = await createRemoteSandbox(
+    testCase.title,
+    testCase.code,
+    testCase.context
+  )
   const browser = await chromium.launch({ headless: true })
   const page = await browser.newPage()
   const runtimeErrors: string[] = []

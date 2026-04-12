@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "node --max-old-space-size=6144 ../scripts/build-playground-runtime.mjs && node --max-old-space-size=6144 ../scripts/build-codesandbox-runtime.mjs",
+    "predev": "node ../scripts/sync-docs-public-packages.mjs && node --max-old-space-size=6144 ../scripts/build-playground-runtime.mjs && node --max-old-space-size=6144 ../scripts/build-codesandbox-runtime.mjs",
     "dev": "vitepress dev",
-    "prebuild": "node --max-old-space-size=6144 ../scripts/build-playground-runtime.mjs && node --max-old-space-size=6144 ../scripts/build-codesandbox-runtime.mjs",
+    "prebuild": "node ../scripts/sync-docs-public-packages.mjs && node --max-old-space-size=6144 ../scripts/build-playground-runtime.mjs && node --max-old-space-size=6144 ../scripts/build-codesandbox-runtime.mjs",
     "build": "node --max-old-space-size=8192 ../node_modules/vitepress/dist/node/cli.js build",
     "preview": "vitepress preview"
   },
