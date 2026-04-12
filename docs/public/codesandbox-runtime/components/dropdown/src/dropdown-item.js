@@ -80,8 +80,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { inject, computed } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhIcon } from '../../icon'
-import { dropdownItemProps, DROPDOWN_INJECTION_KEY } from './dropdown'
+import { YhIcon } from '../../icon.js'
+import { dropdownItemProps, DROPDOWN_INJECTION_KEY } from './dropdown-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhDropdownItem'

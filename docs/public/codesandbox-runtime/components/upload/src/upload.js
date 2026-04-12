@@ -718,12 +718,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { ref, onBeforeUnmount, computed } from 'vue'
-import { uploadProps, uploadEmits } from './upload'
+import { uploadProps, uploadEmits } from './upload-meta.js'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhIcon } from '../../icon'
-import Viewer from '../../viewerjs'
+import { YhIcon } from '../../icon.js'
+import Viewer from '../../viewerjs.js'
 import 'viewerjs/dist/viewer.css'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

@@ -549,9 +549,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, computed, watch, nextTick } from 'vue'
-import { aiEditorSenderProps, aiEditorSenderEmits } from './ai-editor-sender'
-import { YhButton } from '../../button'
-import { YhIcon } from '../../icon'
+import { aiEditorSenderProps, aiEditorSenderEmits } from './ai-editor-sender-meta.js'
+import { YhButton } from '../../button.js'
+import { YhIcon } from '../../icon.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

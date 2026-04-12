@@ -763,11 +763,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { aiFileCardProps, aiFileCardEmits } from './ai-file-card'
-import { YhIcon } from '../../icon'
-import { YhSpin } from '../../spin'
-import { YhImageViewer } from '../../image'
-import { YhTooltip } from '../../tooltip'
+import { aiFileCardProps, aiFileCardEmits } from './ai-file-card-meta.js'
+import { YhIcon } from '../../icon.js'
+import { YhSpin } from '../../spin.js'
+import { YhImageViewer } from '../../image.js'
+import { YhTooltip } from '../../tooltip.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiFileCard'

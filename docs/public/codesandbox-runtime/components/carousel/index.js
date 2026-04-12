@@ -6,6 +6,6 @@ const YhCarousel = withInstall(Carousel, {
 })
 var stdin_default = YhCarousel
 const YhCarouselItem = withNoopInstall(CarouselItem)
-export * from './src/carousel.js'
-export * from './src/carousel-item.js'
+export * from './src/carousel-meta.js'
+export * from './src/carousel-item-meta.js'
 export { YhCarousel, YhCarouselItem, stdin_default as default }

@@ -515,7 +515,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, useId } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { progressProps } from './progress'
+import { progressProps } from './progress-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhProgress'

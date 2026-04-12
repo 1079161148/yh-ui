@@ -102,7 +102,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { computed, onMounted, onBeforeUnmount, provide, ref, watch, nextTick } from 'vue'
-import { scrollbarProps, scrollbarEmits, SCROLLBAR_INJECTION_KEY } from './scrollbar'
+import { scrollbarProps, scrollbarEmits, SCROLLBAR_INJECTION_KEY } from './scrollbar-meta.js'
 import Thumb from './thumb.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'

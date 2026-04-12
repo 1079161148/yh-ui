@@ -1,4 +1,4 @@
-import { registerIcons } from '../icon.js'
+import { registerIcons } from '../icon-meta.js'
 const IconClose = {
   name: 'close',
   viewBox: '0 0 24 24',

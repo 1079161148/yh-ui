@@ -68,7 +68,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed, provide, toRef, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { menuProps, menuEmits, MENU_INJECTION_KEY } from './menu'
+import { menuProps, menuEmits, MENU_INJECTION_KEY } from './menu-meta.js'
 import YhMenuRecursiveItem from './menu-recursive-item.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

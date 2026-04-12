@@ -92,7 +92,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { computed, useSlots } from 'vue'
-import { iconProps, getIcon } from './icon'
+import { iconProps, getIcon } from './icon-meta.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(

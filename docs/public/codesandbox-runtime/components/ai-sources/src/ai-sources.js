@@ -932,10 +932,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, computed } from 'vue'
-import { aiSourcesProps, aiSourcesEmits } from './ai-sources'
-import { YhIcon } from '../../icon'
-import { YhTooltip } from '../../tooltip'
-import { YhDrawer } from '../../drawer'
+import { aiSourcesProps, aiSourcesEmits } from './ai-sources-meta.js'
+import { YhIcon } from '../../icon.js'
+import { YhTooltip } from '../../tooltip.js'
+import { YhDrawer } from '../../drawer.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

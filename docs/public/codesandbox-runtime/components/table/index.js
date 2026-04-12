@@ -6,5 +6,5 @@ const YhTable = withInstall(Table, {
 })
 const YhTableColumn = withNoopInstall(TableColumn)
 var stdin_default = YhTable
-export * from './src/table.js'
+export * from './src/table-meta.js'
 export { YhTable, YhTableColumn, stdin_default as default }

@@ -200,11 +200,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { inject, unref } from 'vue'
-import { YhIcon } from '../../icon'
+import { YhIcon } from '../../icon.js'
 import YhMenuItem from './menu-item.js'
 import YhSubMenu from './sub-menu.js'
 import YhMenuItemGroup from './menu-item-group.js'
-import { MENU_INJECTION_KEY } from './menu'
+import { MENU_INJECTION_KEY } from './menu-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhMenuRecursiveItem'

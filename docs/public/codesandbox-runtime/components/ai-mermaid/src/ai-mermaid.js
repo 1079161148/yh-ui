@@ -300,9 +300,9 @@ import { ref, computed, watch, shallowRef } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { aiMermaidProps, aiMermaidEmits } from './ai-mermaid'
-import { YhIcon } from '../../icon'
-import { YhSpin } from '../../spin'
+import { aiMermaidProps, aiMermaidEmits } from './ai-mermaid-meta.js'
+import { YhIcon } from '../../icon.js'
+import { YhSpin } from '../../spin.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiMermaid'

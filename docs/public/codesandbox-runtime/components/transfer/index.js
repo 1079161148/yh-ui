@@ -15,6 +15,6 @@ TransferPanel.install = (app) => {
 }
 const YhTransfer = Transfer
 const YhTransferPanel = TransferPanel
-export * from './src/transfer.js'
+export * from './src/transfer-meta.js'
 var stdin_default = YhTransfer
 export { YhTransfer, YhTransferPanel, stdin_default as default }

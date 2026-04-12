@@ -180,11 +180,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, onMounted, onBeforeUnmount, computed, watch, shallowRef, nextTick } from 'vue'
-import { YhButton } from '../../button'
-import { YhIcon } from '../../icon'
-import { aiCodeRunnerProps, aiCodeRunnerEmits } from './ai-code-runner'
+import { YhButton } from '../../button.js'
+import { YhIcon } from '../../icon.js'
+import { aiCodeRunnerProps, aiCodeRunnerEmits } from './ai-code-runner-meta.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { getWebContainerInstance } from './webcontainer'
+import { getWebContainerInstance } from './webcontainer.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiCodeRunner'

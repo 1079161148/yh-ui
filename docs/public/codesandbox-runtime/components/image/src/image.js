@@ -129,9 +129,9 @@ import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { isClient, getScrollContainer } from '../../../utils/index.js'
-import { imageProps } from './image'
+import { imageProps } from './image-meta.js'
 import YhImageViewer from './image-viewer.js'
-import Viewer from '../../viewerjs'
+import Viewer from '../../viewerjs.js'
 import 'viewerjs/dist/viewer.css'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

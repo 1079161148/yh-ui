@@ -417,9 +417,9 @@ import {
 import { useScrollLock, useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhButton } from '../../button'
-import { YhInput } from '../../input'
-import { YhIcon, IconClose, IconSuccess, IconWarning, IconError, IconInfo } from '../../icon'
+import { YhButton } from '../../button.js'
+import { YhInput } from '../../input.js'
+import { YhIcon, IconClose, IconSuccess, IconWarning, IconError, IconInfo } from '../../icon.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhMessageBox',

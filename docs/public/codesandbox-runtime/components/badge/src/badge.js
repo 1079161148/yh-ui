@@ -95,7 +95,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, useSlots } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { badgeTypes } from './badge'
+import { badgeTypes } from './badge-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhBadge'

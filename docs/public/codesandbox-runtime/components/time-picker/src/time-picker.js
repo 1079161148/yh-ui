@@ -616,7 +616,7 @@ import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
 import TimeSpinner from './time-spinner.js'
-import { parseTimeValue, formatTimeState, getCurrentTimeState } from './time-picker'
+import { parseTimeValue, formatTimeState, getCurrentTimeState } from './time-picker-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTimePicker'

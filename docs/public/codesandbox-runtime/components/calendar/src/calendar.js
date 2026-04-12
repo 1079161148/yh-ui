@@ -368,13 +368,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { ref, computed, watch, onMounted } from 'vue'
-import dayjs from '../../dayjs'
+import dayjs from '../../dayjs.js'
 import isoWeekPlugin from 'dayjs/plugin/isoWeek.js'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { calendarProps, calendarEmits, DEFAULT_CHINA_HOLIDAYS_2026 } from './calendar'
-import { YhButton } from '../../button'
+import { calendarProps, calendarEmits, DEFAULT_CHINA_HOLIDAYS_2026 } from './calendar-meta.js'
+import { YhButton } from '../../button.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhCalendar'

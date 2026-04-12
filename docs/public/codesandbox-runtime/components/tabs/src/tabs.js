@@ -245,7 +245,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed, provide, watch, onMounted, nextTick } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { tabsProps, tabsEmits, TABS_INJECTION_KEY } from './tabs'
+import { tabsProps, tabsEmits, TABS_INJECTION_KEY } from './tabs-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTabs'

@@ -507,9 +507,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, computed, watch } from 'vue'
-import { YhIcon } from '../../icon'
-import MarkdownIt from '../../markdown-it'
-import { aiThoughtChainProps, aiThoughtChainEmits } from './ai-thought-chain'
+import { YhIcon } from '../../icon.js'
+import MarkdownIt from '../../markdown-it.js'
+import { aiThoughtChainProps, aiThoughtChainEmits } from './ai-thought-chain-meta.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

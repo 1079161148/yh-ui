@@ -607,12 +607,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, computed, watch, onBeforeUnmount, nextTick, shallowRef } from 'vue'
-import { aiArtifactsProps, aiArtifactsEmits } from './ai-artifacts'
-import { YhIcon } from '../../icon'
-import { YhButton } from '../../button'
-import { YhSpin } from '../../spin'
+import { aiArtifactsProps, aiArtifactsEmits } from './ai-artifacts-meta.js'
+import { YhIcon } from '../../icon.js'
+import { YhButton } from '../../button.js'
+import { YhSpin } from '../../spin.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import hljs from '../../highlight'
+import hljs from '../../highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

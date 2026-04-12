@@ -41,7 +41,7 @@ import { provide, toRefs, useSlots, computed, h, Fragment } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { breadcrumbProps } from './breadcrumb'
+import { breadcrumbProps } from './breadcrumb-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhBreadcrumb'

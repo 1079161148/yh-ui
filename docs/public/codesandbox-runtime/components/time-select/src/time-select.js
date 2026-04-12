@@ -426,7 +426,7 @@ import { useFormItem, useId, useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
-import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select'
+import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTimeSelect'

@@ -339,9 +339,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { computed, inject } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { TREE_INJECTION_KEY } from './tree'
-import { YhIcon } from '../../icon'
-import { YhCheckbox } from '../../checkbox'
+import { TREE_INJECTION_KEY } from './tree-meta.js'
+import { YhIcon } from '../../icon.js'
+import { YhCheckbox } from '../../checkbox.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhTreeNode' },
   {

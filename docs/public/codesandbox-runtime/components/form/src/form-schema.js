@@ -1239,7 +1239,7 @@ import { ref, watch, reactive, toRaw } from 'vue'
 import YhForm from './form.js'
 import YhFormItem from './form-item.js'
 import YhButton from '../../button/src/button.js'
-import { formSchemaProps } from './form-schema'
+import { formSchemaProps } from './form-schema-meta.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { get, set } from '../../../utils/index.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(

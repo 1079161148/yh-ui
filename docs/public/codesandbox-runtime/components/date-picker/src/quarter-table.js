@@ -68,7 +68,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import dayjs from '../../dayjs'
+import dayjs from '../../dayjs.js'
 const __sfc__ = {
   __name: 'quarter-table',
   props: {

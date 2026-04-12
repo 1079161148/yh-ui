@@ -6,5 +6,5 @@ const YhDescriptions = withInstall(Descriptions, {
 })
 const YhDescriptionsItem = withNoopInstall(DescriptionsItem)
 var stdin_default = YhDescriptions
-export * from './src/descriptions.js'
+export * from './src/descriptions-meta.js'
 export { YhDescriptions, YhDescriptionsItem, stdin_default as default }

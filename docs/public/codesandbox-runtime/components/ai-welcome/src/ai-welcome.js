@@ -195,8 +195,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { aiWelcomeProps, aiWelcomeEmits } from './ai-welcome'
-import { YhIcon } from '../../icon'
+import { aiWelcomeProps, aiWelcomeEmits } from './ai-welcome-meta.js'
+import { YhIcon } from '../../icon.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

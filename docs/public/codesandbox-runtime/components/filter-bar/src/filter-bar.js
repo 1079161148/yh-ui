@@ -720,7 +720,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useLocale } from '../../../hooks/index.js'
-import { filterBarProps, filterBarEmits } from './filter-bar'
+import { filterBarProps, filterBarEmits } from './filter-bar-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhFilterBar' },
   {

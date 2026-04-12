@@ -151,8 +151,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { generateCalendar } from './panel-utils'
-import dayjs from '../../dayjs'
+import { generateCalendar } from './panel-utils.js'
+import dayjs from '../../dayjs.js'
 const __sfc__ = {
   __name: 'date-table',
   props: {

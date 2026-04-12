@@ -1157,13 +1157,13 @@ import {
   onMounted,
   nextTick
 } from 'vue'
-import { aiBubbleProps } from './ai-bubble'
-import { YhAvatar } from '../../avatar'
-import { YhButton } from '../../button'
-import { YhIcon } from '../../icon'
-import { YhAiThoughtChain } from '../../ai-thought-chain'
-import MarkdownIt from '../../markdown-it'
-import hljs from '../../highlight'
+import { aiBubbleProps } from './ai-bubble-meta.js'
+import { YhAvatar } from '../../avatar.js'
+import { YhButton } from '../../button.js'
+import { YhIcon } from '../../icon.js'
+import { YhAiThoughtChain } from '../../ai-thought-chain.js'
+import MarkdownIt from '../../markdown-it.js'
+import hljs from '../../highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

@@ -153,7 +153,7 @@ import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { rateProps, rateEmits } from './rate'
+import { rateProps, rateEmits } from './rate-meta.js'
 const starPath =
   'M512 747.52l-228.16 119.84 43.52-254.08L142.08 434.24l255.04-37.12L512 166.08l114.88 231.04 255.04 37.12-184.64 179.2 43.52 254.08z'
 const __sfc__ = /* @__PURE__ */ Object.assign(

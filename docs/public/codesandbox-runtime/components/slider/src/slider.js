@@ -353,7 +353,7 @@ import { useFormItem } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
-import { sliderProps, sliderEmits } from './slider'
+import { sliderProps, sliderEmits } from './slider-meta.js'
 import SliderButton from './slider-button.js'
 import YhInputNumber from '../../input-number/src/input-number.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(

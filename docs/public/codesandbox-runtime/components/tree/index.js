@@ -4,5 +4,5 @@ import TreeNode from './src/tree-node.js'
 const YhTree = withInstall(Tree)
 const YhTreeNode = withInstall(TreeNode)
 var stdin_default = YhTree
-export * from './src/tree.js'
+export * from './src/tree-meta.js'
 export { YhTree, YhTreeNode, stdin_default as default }

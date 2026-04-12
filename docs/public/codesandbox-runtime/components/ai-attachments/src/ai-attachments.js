@@ -384,9 +384,9 @@ import { ref, computed, watch } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { aiAttachmentsProps, aiAttachmentsEmits } from './ai-attachments'
-import { YhAiFileCard } from '../../ai-file-card'
-import { YhIcon } from '../../icon'
+import { aiAttachmentsProps, aiAttachmentsEmits } from './ai-attachments-meta.js'
+import { YhAiFileCard } from '../../ai-file-card.js'
+import { YhIcon } from '../../icon.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiAttachments'

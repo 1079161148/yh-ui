@@ -47,7 +47,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { provide, reactive, toRefs, computed } from 'vue'
-import { formProps, FormContextKey } from './form'
+import { formProps, FormContextKey } from './form-meta.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(

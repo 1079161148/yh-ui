@@ -410,11 +410,11 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { colorPickerProps, colorPickerEmits } from './color-picker'
+import { colorPickerProps, colorPickerEmits } from './color-picker-meta.js'
 import SVPanel from './sv-panel.js'
 import HueSlider from './hue-slider.js'
 import AlphaSlider from './alpha-slider.js'
-import { parseColor, formatColor, hsvToRgb, getLuminance } from './utils'
+import { parseColor, formatColor, hsvToRgb, getLuminance } from './utils.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhColorPicker'

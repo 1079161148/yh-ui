@@ -123,8 +123,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { computed, watch } from 'vue'
-import { YhIcon } from '../../icon'
-import { aiThinkingProps, aiThinkingEmits } from './ai-thinking'
+import { YhIcon } from '../../icon.js'
+import { aiThinkingProps, aiThinkingEmits } from './ai-thinking-meta.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

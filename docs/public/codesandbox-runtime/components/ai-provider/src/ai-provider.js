@@ -3,7 +3,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return _renderSlot(_ctx.$slots, 'default')
 }
 import { provide } from 'vue'
-import { AI_PROVIDER_KEY, createInterceptors } from './ai-provider'
+import { AI_PROVIDER_KEY, createInterceptors } from './ai-provider-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiProvider'

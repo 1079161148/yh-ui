@@ -267,8 +267,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { drawerProps, drawerEmits } from './drawer'
-import { YhIcon } from '../../icon'
+import { drawerProps, drawerEmits } from './drawer-meta.js'
+import { YhIcon } from '../../icon.js'
 import { useZIndex, useScrollLock, useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'

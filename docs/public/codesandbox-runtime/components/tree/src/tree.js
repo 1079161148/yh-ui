@@ -214,7 +214,7 @@ import { ref, computed, provide, watch, shallowRef } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { treeProps, treeEmits, TREE_INJECTION_KEY } from './tree'
+import { treeProps, treeEmits, TREE_INJECTION_KEY } from './tree-meta.js'
 import TreeNodeComponent from './tree-node.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhTree' },

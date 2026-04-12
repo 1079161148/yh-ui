@@ -113,7 +113,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, watch, onMounted, computed } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { skeletonProps } from './skeleton'
+import { skeletonProps } from './skeleton-meta.js'
 import YhSkeletonItem from './skeleton-item.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

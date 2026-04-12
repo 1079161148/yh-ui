@@ -542,7 +542,7 @@ import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useLocale } from '../../../hooks/index.js'
-import { categoryNavProps, categoryNavEmits } from './category-nav'
+import { categoryNavProps, categoryNavEmits } from './category-nav-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhCategoryNav' },
   {

@@ -233,9 +233,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhTooltip } from '../../tooltip'
-import { YhIcon } from '../../icon'
-import { popoverProps, popoverEmits } from './popover'
+import { YhTooltip } from '../../tooltip.js'
+import { YhIcon } from '../../icon.js'
+import { popoverProps, popoverEmits } from './popover-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhPopover'

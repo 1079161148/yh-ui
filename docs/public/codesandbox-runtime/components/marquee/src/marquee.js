@@ -98,7 +98,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { marqueeProps, marqueeEmits } from './marquee'
+import { marqueeProps, marqueeEmits } from './marquee-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhMarquee'

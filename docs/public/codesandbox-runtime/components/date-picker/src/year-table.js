@@ -60,7 +60,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { computed } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import dayjs from '../../dayjs'
+import dayjs from '../../dayjs.js'
 const __sfc__ = {
   __name: 'year-table',
   props: {

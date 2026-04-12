@@ -528,7 +528,7 @@ import { useFormItem, useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { calcTextareaHeight } from './utils'
+import { calcTextareaHeight } from './utils.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhInput'

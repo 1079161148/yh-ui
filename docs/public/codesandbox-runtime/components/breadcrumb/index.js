@@ -6,5 +6,5 @@ const YhBreadcrumb = withInstall(Breadcrumb, {
 })
 const YhBreadcrumbItem = withNoopInstall(BreadcrumbItem)
 var stdin_default = YhBreadcrumb
-export * from './src/breadcrumb.js'
+export * from './src/breadcrumb-meta.js'
 export { YhBreadcrumb, YhBreadcrumbItem, stdin_default as default }

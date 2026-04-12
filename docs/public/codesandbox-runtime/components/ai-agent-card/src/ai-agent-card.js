@@ -600,9 +600,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { computed, ref } from 'vue'
-import { aiAgentCardProps, aiAgentCardEmits } from './ai-agent-card'
-import { YhIcon } from '../../icon'
-import { YhTooltip } from '../../tooltip'
+import { aiAgentCardProps, aiAgentCardEmits } from './ai-agent-card-meta.js'
+import { YhIcon } from '../../icon.js'
+import { YhTooltip } from '../../tooltip.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

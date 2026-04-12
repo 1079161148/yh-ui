@@ -615,7 +615,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { generateNumberList } from './time-picker'
+import { generateNumberList } from './time-picker-meta.js'
 const ITEM_HEIGHT = 32
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

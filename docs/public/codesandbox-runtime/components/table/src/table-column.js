@@ -10,7 +10,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     : _createCommentVNode('v-if', true)
 }
 import { inject, onMounted, onUnmounted, useSlots } from 'vue'
-import { tableContextKey } from './table'
+import { tableContextKey } from './table-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTableColumn'

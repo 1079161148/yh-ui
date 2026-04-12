@@ -96,7 +96,7 @@ import { computed, ref, inject, onMounted, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { checkboxGroupContextKey } from './checkbox'
+import { checkboxGroupContextKey } from './checkbox-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhCheckbox'

@@ -66,8 +66,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { computed, inject, onMounted, onUnmounted, shallowRef, useAttrs, nextTick } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { CAROUSEL_INJECTION_KEY } from './carousel'
-import { carouselItemProps } from './carousel-item'
+import { CAROUSEL_INJECTION_KEY } from './carousel-meta.js'
+import { carouselItemProps } from './carousel-item-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhCarouselItem'

@@ -277,7 +277,7 @@ import { computed } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useSKU } from '../../../hooks/index.js'
-import { skuSelectorProps, skuSelectorEmits } from './sku-selector'
+import { skuSelectorProps, skuSelectorEmits } from './sku-selector-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhSkuSelector' },
   {

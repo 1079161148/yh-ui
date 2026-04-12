@@ -172,8 +172,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { inject, computed, ref, onMounted } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { YhTooltip } from '../../tooltip'
-import { menuItemProps, MENU_INJECTION_KEY, SUB_MENU_INJECTION_KEY } from './menu'
+import { YhTooltip } from '../../tooltip.js'
+import { menuItemProps, MENU_INJECTION_KEY, SUB_MENU_INJECTION_KEY } from './menu-meta.js'
 import { onBeforeUnmount } from 'vue'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

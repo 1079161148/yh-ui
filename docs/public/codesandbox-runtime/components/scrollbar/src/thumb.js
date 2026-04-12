@@ -57,8 +57,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { computed, inject, onBeforeUnmount, ref } from 'vue'
-import { BAR_MAP, renderThumbStyle } from './util'
-import { SCROLLBAR_INJECTION_KEY } from './scrollbar'
+import { BAR_MAP, renderThumbStyle } from './util.js'
+import { SCROLLBAR_INJECTION_KEY } from './scrollbar-meta.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 const __sfc__ = {
   __name: 'thumb',

@@ -425,7 +425,7 @@ import { computed, ref, watch } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { paginationProps } from './pagination'
+import { paginationProps } from './pagination-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhPagination'

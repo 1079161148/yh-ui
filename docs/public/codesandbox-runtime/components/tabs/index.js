@@ -4,6 +4,6 @@ import TabPane from './src/tab-pane.js'
 const YhTabs = withInstall(Tabs, { TabPane })
 const YhTabPane = withNoopInstall(TabPane)
 var stdin_default = YhTabs
-export * from './src/tabs.js'
-export * from './src/tab-pane.js'
+export * from './src/tabs-meta.js'
+export * from './src/tab-pane-meta.js'
 export { YhTabPane, YhTabs, stdin_default as default }

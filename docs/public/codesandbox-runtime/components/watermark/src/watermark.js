@@ -41,7 +41,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
-import { watermarkProps } from './watermark'
+import { watermarkProps } from './watermark-meta.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(

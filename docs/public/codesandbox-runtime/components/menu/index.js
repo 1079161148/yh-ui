@@ -8,5 +8,5 @@ const YhMenuItem = withInstall(MenuItem)
 const YhMenuItemGroup = withInstall(MenuItemGroup)
 const YhSubMenu = withInstall(SubMenu)
 var stdin_default = YhMenu
-export * from './src/menu.js'
+export * from './src/menu-meta.js'
 export { YhMenu, YhMenuItem, YhMenuItemGroup, YhSubMenu, stdin_default as default }

@@ -206,7 +206,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { aiPromptsProps, aiPromptsEmits } from './ai-prompts'
+import { aiPromptsProps, aiPromptsEmits } from './ai-prompts-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiPrompts'

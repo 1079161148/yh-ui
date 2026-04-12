@@ -289,8 +289,8 @@ import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { computed, ref, onBeforeUnmount, watch } from 'vue'
-import { aiVoiceTriggerProps, aiVoiceTriggerEmits } from './ai-voice-trigger'
-import { YhIcon } from '../../icon'
+import { aiVoiceTriggerProps, aiVoiceTriggerEmits } from './ai-voice-trigger-meta.js'
+import { YhIcon } from '../../icon.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiVoiceTrigger'

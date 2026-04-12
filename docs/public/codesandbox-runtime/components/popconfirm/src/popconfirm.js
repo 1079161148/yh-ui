@@ -338,12 +338,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { YhButton } from '../../button'
-import { YhCheckbox } from '../../checkbox'
-import { YhIcon } from '../../icon'
-import { YhTooltip } from '../../tooltip'
+import { YhButton } from '../../button.js'
+import { YhCheckbox } from '../../checkbox.js'
+import { YhIcon } from '../../icon.js'
+import { YhTooltip } from '../../tooltip.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { popconfirmProps, popconfirmEmits } from './popconfirm'
+import { popconfirmProps, popconfirmEmits } from './popconfirm-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhPopconfirm'

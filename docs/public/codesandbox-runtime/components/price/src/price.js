@@ -310,7 +310,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { ref, computed, onMounted, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { priceProps } from './price'
+import { priceProps } from './price-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhPrice' },
   {

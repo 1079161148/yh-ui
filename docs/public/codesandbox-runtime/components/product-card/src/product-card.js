@@ -611,7 +611,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { productCardProps, productCardEmits } from './product-card'
+import { productCardProps, productCardEmits } from './product-card-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhProductCard' },
   {

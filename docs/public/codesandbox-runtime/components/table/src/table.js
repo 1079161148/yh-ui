@@ -2360,7 +2360,7 @@ import { computed, ref, provide, watch, onMounted, nextTick, useSlots } from 'vu
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { tableProps, tableEmits, tableContextKey } from './table'
+import { tableProps, tableEmits, tableContextKey } from './table-meta.js'
 import {
   getRowKey,
   flattenColumns,
@@ -2372,17 +2372,17 @@ import {
   flattenTreeData,
   calculateSpan,
   throttle
-} from './utils'
-import { useVirtualScroll } from './use-virtual-scroll'
-import { useTableSelection } from './use-table-selection'
-import { useRowDrag } from './use-row-drag'
-import { useColumnResize } from './use-column-resize'
-import { useColumnDrag } from './use-column-drag'
-import { useTableExport } from './use-table-export'
-import { useTableImport } from './use-table-import'
-import { useTablePrint } from './use-table-print'
-import { YhTooltip } from '../../tooltip'
-import { YhPagination } from '../../pagination'
+} from './utils.js'
+import { useVirtualScroll } from './use-virtual-scroll.js'
+import { useTableSelection } from './use-table-selection.js'
+import { useRowDrag } from './use-row-drag.js'
+import { useColumnResize } from './use-column-resize.js'
+import { useColumnDrag } from './use-column-drag.js'
+import { useTableExport } from './use-table-export.js'
+import { useTableImport } from './use-table-import.js'
+import { useTablePrint } from './use-table-print.js'
+import { YhTooltip } from '../../tooltip.js'
+import { YhPagination } from '../../pagination.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTable'

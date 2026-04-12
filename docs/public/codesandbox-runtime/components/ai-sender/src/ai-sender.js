@@ -479,11 +479,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, computed, nextTick, watch } from 'vue'
-import { aiSenderProps, aiSenderEmits } from './ai-sender'
-import { YhButton } from '../../button'
-import { YhIcon } from '../../icon'
-import { YhImage } from '../../image'
-import { YhAiMention } from '../../ai-mention'
+import { aiSenderProps, aiSenderEmits } from './ai-sender-meta.js'
+import { YhButton } from '../../button.js'
+import { YhIcon } from '../../icon.js'
+import { YhImage } from '../../image.js'
+import { YhAiMention } from '../../ai-mention.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

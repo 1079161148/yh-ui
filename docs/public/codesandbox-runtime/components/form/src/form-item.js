@@ -208,7 +208,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { inject, onMounted, onBeforeUnmount, provide, reactive, ref, computed, toRefs } from 'vue'
 import AsyncValidator from 'async-validator'
-import { formItemProps } from './form-item'
+import { formItemProps } from './form-item-meta.js'
 import { useLocale, FormContextKey, FormItemContextKey, useId } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'

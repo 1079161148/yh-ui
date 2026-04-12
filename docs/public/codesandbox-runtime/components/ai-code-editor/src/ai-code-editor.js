@@ -36,7 +36,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, onMounted, onBeforeUnmount, watch, computed, nextTick } from 'vue'
-import { aiCodeEditorProps, aiCodeEditorEmits } from './ai-code-editor'
+import { aiCodeEditorProps, aiCodeEditorEmits } from './ai-code-editor-meta.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhAiCodeEditor' },

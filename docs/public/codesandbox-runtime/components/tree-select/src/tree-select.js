@@ -661,8 +661,8 @@ import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { treeSelectProps, treeSelectEmits } from './tree-select'
-import { useTree } from './use-tree'
+import { treeSelectProps, treeSelectEmits } from './tree-select-meta.js'
+import { useTree } from './use-tree.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhTreeSelect' },
   {

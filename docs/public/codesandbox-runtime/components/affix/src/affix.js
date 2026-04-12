@@ -77,7 +77,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { affixProps, affixEmits } from './affix'
+import { affixProps, affixEmits } from './affix-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAffix'

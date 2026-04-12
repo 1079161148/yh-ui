@@ -1,0 +1,214 @@
+const dialogProps = {
+  /** 是否显示 */
+  modelValue: {
+    type: Boolean,
+    default: false
+  },
+  /** 标题 */
+  title: {
+    type: [String, Function, Object]
+  },
+  /** 是否显示 icon */
+  showIcon: {
+    type: Boolean,
+    default: true
+  },
+  /** 整体样式 */
+  style: {
+    type: [String, Object]
+  },
+  /** 标题类名 */
+  titleClass: String,
+  /** 标题样式 */
+  titleStyle: [Object, String],
+  /** 动画起源 */
+  transformOrigin: {
+    type: String,
+    default: 'mouse'
+  },
+  /** 对话框类型 */
+  type: {
+    type: String,
+    default: 'default'
+  },
+  /** 是否显示 loading 状态 */
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  /** 对话框内容 */
+  content: {
+    type: [String, Function, Object]
+  },
+  /** 内容类名 */
+  contentClass: String,
+  /** 内容样式 */
+  contentStyle: [Object, String],
+  /** 操作区域内容（渲染函数） */
+  action: {
+    type: [Function, Object]
+  },
+  /** 操作区域类名 */
+  actionClass: String,
+  /** 操作区域样式 */
+  actionStyle: [Object, String],
+  /** 是否自动聚焦第一个可聚焦元素 */
+  autoFocus: {
+    type: Boolean,
+    default: true
+  },
+  /** 宽度 */
+  width: {
+    type: [String, Number],
+    default: '50%'
+  },
+  /** 距离顶部距离 */
+  top: {
+    type: String,
+    default: '15vh'
+  },
+  /** 是否全屏 */
+  fullscreen: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否垂直居中显示 */
+  alignCenter: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否整体居中 (标题、内容、底部都居中) */
+  center: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否开启亚克力玻璃模式 */
+  glass: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否开启拖拽功能 */
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否锁定视口滚动 */
+  lockScroll: {
+    type: Boolean,
+    default: true
+  },
+  /** 是否显示遮罩层 */
+  modal: {
+    type: Boolean,
+    default: true
+  },
+  /** 点击遮罩层是否关闭 */
+  closeOnClickModal: {
+    type: Boolean,
+    default: true
+  },
+  /** 按下 ESC 是否关闭 */
+  closeOnPressEscape: {
+    type: Boolean,
+    default: true
+  },
+  /** 是否显示关闭按钮 */
+  showClose: {
+    type: Boolean,
+    default: true
+  },
+  /** 自定义关闭图标 */
+  closeIcon: {
+    type: String,
+    default: 'close'
+  },
+  /** 是否在关闭时销毁内容 */
+  destroyOnClose: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否允许拖拽超出边界 */
+  overflow: {
+    type: Boolean,
+    default: false
+  },
+  /** 是否显示默认页脚按钮 */
+  showFooter: {
+    type: Boolean,
+    default: true
+  },
+  cancelText: {
+    type: String,
+    default: ''
+  },
+  confirmText: {
+    type: String,
+    default: ''
+  },
+  /** 遮罩层自定义类名 */
+  modalClass: String,
+  /** 对话框自定义类名 */
+  customClass: String,
+  /** z-index 层级 */
+  zIndex: {
+    type: Number,
+    default: 2e3
+  },
+  /** 关闭前的钩子 */
+  beforeClose: {
+    type: Function
+  },
+  /** 挂载节点 */
+  teleportTo: {
+    type: [String, Object],
+    default: 'body'
+  },
+  /** 标题对齐方式 (开启 center 后失效) */
+  headerAlignCenter: {
+    type: Boolean,
+    default: false
+  },
+  /** 标题对齐方式 */
+  headerAlign: {
+    type: String,
+    default: 'left'
+  },
+  /** 内容对齐方式 */
+  contentAlign: {
+    type: String,
+    default: 'left'
+  },
+  /** 底部对齐方式 (开启 center 后失效) */
+  footerAlignCenter: {
+    type: Boolean,
+    default: false
+  },
+  /** 底部按钮对齐方式 */
+  footerAlign: {
+    type: String,
+    default: 'right'
+  },
+  /** 是否交换确认和取消按钮的位置 */
+  swapFooterButtons: {
+    type: Boolean,
+    default: false
+  },
+  /** 主题覆盖变量 */
+  themeOverrides: {
+    type: Object,
+    default: void 0
+  }
+}
+const dialogEmits = {
+  'update:modelValue': (value) => typeof value === 'boolean',
+  open: () => true,
+  opened: () => true,
+  close: () => true,
+  closed: () => true,
+  confirm: () => true,
+  cancel: () => true,
+  dragStart: (evt) => evt instanceof MouseEvent,
+  dragMove: (evt) => evt instanceof MouseEvent,
+  dragEnd: (evt) => evt instanceof MouseEvent
+}
+export { dialogEmits, dialogProps }

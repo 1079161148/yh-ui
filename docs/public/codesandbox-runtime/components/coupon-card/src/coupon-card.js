@@ -424,9 +424,9 @@ import { computed, toRefs, ref } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { couponCardProps, couponCardEmits } from './coupon-card'
-import { YhButton } from '../../button'
-import { YhCheckbox } from '../../checkbox'
+import { couponCardProps, couponCardEmits } from './coupon-card-meta.js'
+import { YhButton } from '../../button.js'
+import { YhCheckbox } from '../../checkbox.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhCouponCard' },
   {

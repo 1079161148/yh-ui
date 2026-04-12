@@ -50,7 +50,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { menuItemGroupProps } from './menu'
+import { menuItemGroupProps } from './menu-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhMenuItemGroup'

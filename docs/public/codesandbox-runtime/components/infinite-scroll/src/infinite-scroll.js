@@ -149,8 +149,8 @@ import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick 
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhSpin } from '../../spin'
-import { infiniteScrollProps, infiniteScrollEmits } from './infinite-scroll'
+import { YhSpin } from '../../spin.js'
+import { infiniteScrollProps, infiniteScrollEmits } from './infinite-scroll-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhInfiniteScroll'

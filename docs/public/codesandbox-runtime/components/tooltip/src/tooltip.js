@@ -203,7 +203,7 @@ import { computePosition, offset, flip, shift, arrow, autoUpdate } from '@floati
 import { useId, useEventListener } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { tooltipProps, tooltipEmits } from './tooltip'
+import { tooltipProps, tooltipEmits } from './tooltip-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTooltip'

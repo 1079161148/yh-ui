@@ -1,6 +1,10 @@
 {
   "version": 1,
   "supportFiles": [
+    "components/dayjs.js",
+    "components/highlight.js",
+    "components/markdown-it.js",
+    "components/viewerjs.js",
     "hooks/dayjs.js",
     "hooks/index.js",
     "hooks/storage/index.js",
@@ -112,17 +116,20 @@
   "components": {
     "affix": {
       "files": [
+        "components/affix/bundle.js",
         "components/affix/index.js",
+        "components/affix/src/affix-meta.js",
         "components/affix/src/affix.css",
         "components/affix/src/affix.js"
       ],
       "entry": "components/affix/index.js",
-      "module": "components/affix/src/affix.js",
+      "module": "components/affix/bundle.js",
       "style": "components/affix/src/affix.css"
     },
     "ai-action-group": {
       "files": [
         "components/ai-action-group/index.js",
+        "components/ai-action-group/src/ai-action-group-meta.js",
         "components/ai-action-group/src/ai-action-group.css",
         "components/ai-action-group/src/ai-action-group.js"
       ],
@@ -133,6 +140,7 @@
     "ai-agent-card": {
       "files": [
         "components/ai-agent-card/index.js",
+        "components/ai-agent-card/src/ai-agent-card-meta.js",
         "components/ai-agent-card/src/ai-agent-card.css",
         "components/ai-agent-card/src/ai-agent-card.js"
       ],
@@ -143,6 +151,7 @@
     "ai-artifacts": {
       "files": [
         "components/ai-artifacts/index.js",
+        "components/ai-artifacts/src/ai-artifacts-meta.js",
         "components/ai-artifacts/src/ai-artifacts.css",
         "components/ai-artifacts/src/ai-artifacts.js"
       ],
@@ -153,6 +162,7 @@
     "ai-attachments": {
       "files": [
         "components/ai-attachments/index.js",
+        "components/ai-attachments/src/ai-attachments-meta.js",
         "components/ai-attachments/src/ai-attachments.css",
         "components/ai-attachments/src/ai-attachments.js"
       ],
@@ -163,6 +173,7 @@
     "ai-bubble": {
       "files": [
         "components/ai-bubble/index.js",
+        "components/ai-bubble/src/ai-bubble-meta.js",
         "components/ai-bubble/src/ai-bubble.css",
         "components/ai-bubble/src/ai-bubble.js"
       ],
@@ -173,6 +184,7 @@
     "ai-bubble-list": {
       "files": [
         "components/ai-bubble-list/index.js",
+        "components/ai-bubble-list/src/ai-bubble-list-meta.js",
         "components/ai-bubble-list/src/ai-bubble-list.css",
         "components/ai-bubble-list/src/ai-bubble-list.js"
       ],
@@ -183,6 +195,7 @@
     "ai-chat": {
       "files": [
         "components/ai-chat/index.js",
+        "components/ai-chat/src/ai-chat-meta.js",
         "components/ai-chat/src/ai-chat.css",
         "components/ai-chat/src/ai-chat.js"
       ],
@@ -193,6 +206,7 @@
     "ai-code-block": {
       "files": [
         "components/ai-code-block/index.js",
+        "components/ai-code-block/src/ai-code-block-meta.js",
         "components/ai-code-block/src/ai-code-block.css",
         "components/ai-code-block/src/ai-code-block.js"
       ],
@@ -202,17 +216,20 @@
     },
     "ai-code-editor": {
       "files": [
+        "components/ai-code-editor/bundle.js",
         "components/ai-code-editor/index.js",
+        "components/ai-code-editor/src/ai-code-editor-meta.js",
         "components/ai-code-editor/src/ai-code-editor.css",
         "components/ai-code-editor/src/ai-code-editor.js"
       ],
       "entry": "components/ai-code-editor/index.js",
-      "module": "components/ai-code-editor/src/ai-code-editor.js",
+      "module": "components/ai-code-editor/bundle.js",
       "style": "components/ai-code-editor/src/ai-code-editor.css"
     },
     "ai-code-runner": {
       "files": [
         "components/ai-code-runner/index.js",
+        "components/ai-code-runner/src/ai-code-runner-meta.js",
         "components/ai-code-runner/src/ai-code-runner.css",
         "components/ai-code-runner/src/ai-code-runner.js",
         "components/ai-code-runner/src/webcontainer.js"
@@ -223,17 +240,20 @@
     },
     "ai-conversations": {
       "files": [
+        "components/ai-conversations/bundle.js",
         "components/ai-conversations/index.js",
+        "components/ai-conversations/src/ai-conversations-meta.js",
         "components/ai-conversations/src/ai-conversations.css",
         "components/ai-conversations/src/ai-conversations.js"
       ],
       "entry": "components/ai-conversations/index.js",
-      "module": "components/ai-conversations/src/ai-conversations.js",
+      "module": "components/ai-conversations/bundle.js",
       "style": "components/ai-conversations/src/ai-conversations.css"
     },
     "ai-editor-sender": {
       "files": [
         "components/ai-editor-sender/index.js",
+        "components/ai-editor-sender/src/ai-editor-sender-meta.js",
         "components/ai-editor-sender/src/ai-editor-sender.css",
         "components/ai-editor-sender/src/ai-editor-sender.js"
       ],
@@ -244,6 +264,7 @@
     "ai-file-card": {
       "files": [
         "components/ai-file-card/index.js",
+        "components/ai-file-card/src/ai-file-card-meta.js",
         "components/ai-file-card/src/ai-file-card.css",
         "components/ai-file-card/src/ai-file-card.js"
       ],
@@ -254,6 +275,7 @@
     "ai-mention": {
       "files": [
         "components/ai-mention/index.js",
+        "components/ai-mention/src/ai-mention-meta.js",
         "components/ai-mention/src/ai-mention.css",
         "components/ai-mention/src/ai-mention.js"
       ],
@@ -264,6 +286,7 @@
     "ai-mermaid": {
       "files": [
         "components/ai-mermaid/index.js",
+        "components/ai-mermaid/src/ai-mermaid-meta.js",
         "components/ai-mermaid/src/ai-mermaid.css",
         "components/ai-mermaid/src/ai-mermaid.js"
       ],
@@ -273,27 +296,32 @@
     },
     "ai-prompts": {
       "files": [
+        "components/ai-prompts/bundle.js",
         "components/ai-prompts/index.js",
+        "components/ai-prompts/src/ai-prompts-meta.js",
         "components/ai-prompts/src/ai-prompts.css",
         "components/ai-prompts/src/ai-prompts.js"
       ],
       "entry": "components/ai-prompts/index.js",
-      "module": "components/ai-prompts/src/ai-prompts.js",
+      "module": "components/ai-prompts/bundle.js",
       "style": "components/ai-prompts/src/ai-prompts.css"
     },
     "ai-provider": {
       "files": [
+        "components/ai-provider/bundle.js",
         "components/ai-provider/index.js",
+        "components/ai-provider/src/ai-provider-meta.js",
         "components/ai-provider/src/ai-provider.js",
         "components/ai-provider/src/use-ai-provider.js"
       ],
       "entry": "components/ai-provider/index.js",
-      "module": "components/ai-provider/src/ai-provider.js",
+      "module": "components/ai-provider/bundle.js",
       "style": null
     },
     "ai-sender": {
       "files": [
         "components/ai-sender/index.js",
+        "components/ai-sender/src/ai-sender-meta.js",
         "components/ai-sender/src/ai-sender.css",
         "components/ai-sender/src/ai-sender.js"
       ],
@@ -304,6 +332,7 @@
     "ai-sources": {
       "files": [
         "components/ai-sources/index.js",
+        "components/ai-sources/src/ai-sources-meta.js",
         "components/ai-sources/src/ai-sources.css",
         "components/ai-sources/src/ai-sources.js"
       ],
@@ -314,6 +343,7 @@
     "ai-thinking": {
       "files": [
         "components/ai-thinking/index.js",
+        "components/ai-thinking/src/ai-thinking-meta.js",
         "components/ai-thinking/src/ai-thinking.css",
         "components/ai-thinking/src/ai-thinking.js"
       ],
@@ -324,6 +354,7 @@
     "ai-thought-chain": {
       "files": [
         "components/ai-thought-chain/index.js",
+        "components/ai-thought-chain/src/ai-thought-chain-meta.js",
         "components/ai-thought-chain/src/ai-thought-chain.css",
         "components/ai-thought-chain/src/ai-thought-chain.js"
       ],
@@ -334,6 +365,7 @@
     "ai-voice-trigger": {
       "files": [
         "components/ai-voice-trigger/index.js",
+        "components/ai-voice-trigger/src/ai-voice-trigger-meta.js",
         "components/ai-voice-trigger/src/ai-voice-trigger.css",
         "components/ai-voice-trigger/src/ai-voice-trigger.js"
       ],
@@ -344,6 +376,7 @@
     "ai-welcome": {
       "files": [
         "components/ai-welcome/index.js",
+        "components/ai-welcome/src/ai-welcome-meta.js",
         "components/ai-welcome/src/ai-welcome.css",
         "components/ai-welcome/src/ai-welcome.js"
       ],
@@ -353,18 +386,21 @@
     },
     "alert": {
       "files": [
+        "components/alert/bundle.js",
         "components/alert/index.js",
+        "components/alert/src/alert-meta.js",
         "components/alert/src/alert.css",
         "components/alert/src/alert.js"
       ],
       "entry": "components/alert/index.js",
-      "module": "components/alert/src/alert.js",
+      "module": "components/alert/bundle.js",
       "style": "components/alert/src/alert.css"
     },
     "autocomplete": {
       "files": [
         "components/autocomplete/bundle.js",
         "components/autocomplete/index.js",
+        "components/autocomplete/src/autocomplete-meta.js",
         "components/autocomplete/src/autocomplete.css",
         "components/autocomplete/src/autocomplete.js"
       ],
@@ -376,6 +412,7 @@
       "files": [
         "components/avatar/bundle.js",
         "components/avatar/index.js",
+        "components/avatar/src/avatar-meta.js",
         "components/avatar/src/avatar.css",
         "components/avatar/src/avatar.js"
       ],
@@ -385,39 +422,46 @@
     },
     "back-top": {
       "files": [
+        "components/back-top/bundle.js",
         "components/back-top/index.js",
+        "components/back-top/src/back-top-meta.js",
         "components/back-top/src/back-top.css",
         "components/back-top/src/back-top.js"
       ],
       "entry": "components/back-top/index.js",
-      "module": "components/back-top/src/back-top.js",
+      "module": "components/back-top/bundle.js",
       "style": "components/back-top/src/back-top.css"
     },
     "badge": {
       "files": [
+        "components/badge/bundle.js",
         "components/badge/index.js",
+        "components/badge/src/badge-meta.js",
         "components/badge/src/badge.css",
         "components/badge/src/badge.js"
       ],
       "entry": "components/badge/index.js",
-      "module": "components/badge/src/badge.js",
+      "module": "components/badge/bundle.js",
       "style": "components/badge/src/badge.css"
     },
     "breadcrumb": {
       "files": [
+        "components/breadcrumb/bundle.js",
         "components/breadcrumb/index.js",
         "components/breadcrumb/src/breadcrumb-item.js",
+        "components/breadcrumb/src/breadcrumb-meta.js",
         "components/breadcrumb/src/breadcrumb.css",
         "components/breadcrumb/src/breadcrumb.js"
       ],
       "entry": "components/breadcrumb/index.js",
-      "module": "components/breadcrumb/src/breadcrumb.js",
+      "module": "components/breadcrumb/bundle.js",
       "style": "components/breadcrumb/src/breadcrumb.css"
     },
     "button": {
       "files": [
         "components/button/bundle.js",
         "components/button/index.js",
+        "components/button/src/button-meta.js",
         "components/button/src/button.css",
         "components/button/src/button.js"
       ],
@@ -428,6 +472,7 @@
     "calendar": {
       "files": [
         "components/calendar/index.js",
+        "components/calendar/src/calendar-meta.js",
         "components/calendar/src/calendar.css",
         "components/calendar/src/calendar.js"
       ],
@@ -439,6 +484,7 @@
       "files": [
         "components/card/bundle.js",
         "components/card/index.js",
+        "components/card/src/card-meta.js",
         "components/card/src/card.css",
         "components/card/src/card.js"
       ],
@@ -448,51 +494,61 @@
     },
     "carousel": {
       "files": [
+        "components/carousel/bundle.js",
         "components/carousel/index.js",
+        "components/carousel/src/carousel-item-meta.js",
         "components/carousel/src/carousel-item.js",
+        "components/carousel/src/carousel-meta.js",
         "components/carousel/src/carousel.css",
         "components/carousel/src/carousel.js"
       ],
       "entry": "components/carousel/index.js",
-      "module": "components/carousel/src/carousel.js",
+      "module": "components/carousel/bundle.js",
       "style": "components/carousel/src/carousel.css"
     },
     "cascader": {
       "files": [
+        "components/cascader/bundle.js",
         "components/cascader/index.js",
+        "components/cascader/src/cascader-meta.js",
         "components/cascader/src/cascader-panel.js",
         "components/cascader/src/cascader.css",
         "components/cascader/src/cascader.js"
       ],
       "entry": "components/cascader/index.js",
-      "module": "components/cascader/src/cascader.js",
+      "module": "components/cascader/bundle.js",
       "style": "components/cascader/src/cascader.css"
     },
     "category-nav": {
       "files": [
+        "components/category-nav/bundle.js",
         "components/category-nav/index.js",
+        "components/category-nav/src/category-nav-meta.js",
         "components/category-nav/src/category-nav.css",
         "components/category-nav/src/category-nav.js"
       ],
       "entry": "components/category-nav/index.js",
-      "module": "components/category-nav/src/category-nav.js",
+      "module": "components/category-nav/bundle.js",
       "style": "components/category-nav/src/category-nav.css"
     },
     "checkbox": {
       "files": [
+        "components/checkbox/bundle.js",
         "components/checkbox/index.js",
         "components/checkbox/src/checkbox-group.css",
         "components/checkbox/src/checkbox-group.js",
+        "components/checkbox/src/checkbox-meta.js",
         "components/checkbox/src/checkbox.css",
         "components/checkbox/src/checkbox.js"
       ],
       "entry": "components/checkbox/index.js",
-      "module": "components/checkbox/src/checkbox.js",
+      "module": "components/checkbox/bundle.js",
       "style": "components/checkbox/src/checkbox.css"
     },
     "col": {
       "files": [
         "components/col/index.js",
+        "components/col/src/col-meta.js",
         "components/col/src/col.css",
         "components/col/src/col.js"
       ],
@@ -502,8 +558,10 @@
     },
     "color-picker": {
       "files": [
+        "components/color-picker/bundle.js",
         "components/color-picker/index.js",
         "components/color-picker/src/alpha-slider.js",
+        "components/color-picker/src/color-picker-meta.js",
         "components/color-picker/src/color-picker.css",
         "components/color-picker/src/color-picker.js",
         "components/color-picker/src/hue-slider.js",
@@ -511,7 +569,7 @@
         "components/color-picker/src/utils.js"
       ],
       "entry": "components/color-picker/index.js",
-      "module": "components/color-picker/src/color-picker.js",
+      "module": "components/color-picker/bundle.js",
       "style": "components/color-picker/src/color-picker.css"
     },
     "config-provider": {
@@ -530,6 +588,7 @@
         "components/container/bundle.js",
         "components/container/index.js",
         "components/container/src/aside.js",
+        "components/container/src/container-meta.js",
         "components/container/src/container.css",
         "components/container/src/container.js",
         "components/container/src/footer.js",
@@ -542,17 +601,20 @@
     },
     "countdown": {
       "files": [
+        "components/countdown/bundle.js",
         "components/countdown/index.js",
+        "components/countdown/src/countdown-meta.js",
         "components/countdown/src/countdown.css",
         "components/countdown/src/countdown.js"
       ],
       "entry": "components/countdown/index.js",
-      "module": "components/countdown/src/countdown.js",
+      "module": "components/countdown/bundle.js",
       "style": "components/countdown/src/countdown.css"
     },
     "coupon-card": {
       "files": [
         "components/coupon-card/index.js",
+        "components/coupon-card/src/coupon-card-meta.js",
         "components/coupon-card/src/coupon-card.css",
         "components/coupon-card/src/coupon-card.js"
       ],
@@ -562,7 +624,9 @@
     },
     "date-picker": {
       "files": [
+        "components/date-picker/bundle.js",
         "components/date-picker/index.js",
+        "components/date-picker/src/date-picker-meta.js",
         "components/date-picker/src/date-picker.css",
         "components/date-picker/src/date-picker.js",
         "components/date-picker/src/date-table.js",
@@ -572,23 +636,26 @@
         "components/date-picker/src/year-table.js"
       ],
       "entry": "components/date-picker/index.js",
-      "module": "components/date-picker/src/date-picker.js",
+      "module": "components/date-picker/bundle.js",
       "style": "components/date-picker/src/date-picker.css"
     },
     "descriptions": {
       "files": [
+        "components/descriptions/bundle.js",
         "components/descriptions/index.js",
         "components/descriptions/src/description-item.js",
+        "components/descriptions/src/descriptions-meta.js",
         "components/descriptions/src/descriptions.css",
         "components/descriptions/src/descriptions.js"
       ],
       "entry": "components/descriptions/index.js",
-      "module": "components/descriptions/src/descriptions.js",
+      "module": "components/descriptions/bundle.js",
       "style": "components/descriptions/src/descriptions.css"
     },
     "dialog": {
       "files": [
         "components/dialog/index.js",
+        "components/dialog/src/dialog-meta.js",
         "components/dialog/src/dialog.css",
         "components/dialog/src/dialog.js",
         "components/dialog/src/method.js",
@@ -600,17 +667,20 @@
     },
     "divider": {
       "files": [
+        "components/divider/bundle.js",
         "components/divider/index.js",
+        "components/divider/src/divider-meta.js",
         "components/divider/src/divider.css",
         "components/divider/src/divider.js"
       ],
       "entry": "components/divider/index.js",
-      "module": "components/divider/src/divider.js",
+      "module": "components/divider/bundle.js",
       "style": "components/divider/src/divider.css"
     },
     "drawer": {
       "files": [
         "components/drawer/index.js",
+        "components/drawer/src/drawer-meta.js",
         "components/drawer/src/drawer.css",
         "components/drawer/src/drawer.js"
       ],
@@ -623,6 +693,7 @@
         "components/dropdown/index.js",
         "components/dropdown/src/dropdown-item.js",
         "components/dropdown/src/dropdown-menu.js",
+        "components/dropdown/src/dropdown-meta.js",
         "components/dropdown/src/dropdown.css",
         "components/dropdown/src/dropdown.js"
       ],
@@ -634,6 +705,7 @@
       "files": [
         "components/empty/bundle.js",
         "components/empty/index.js",
+        "components/empty/src/empty-meta.js",
         "components/empty/src/empty.css",
         "components/empty/src/empty.js"
       ],
@@ -643,29 +715,36 @@
     },
     "filter-bar": {
       "files": [
+        "components/filter-bar/bundle.js",
         "components/filter-bar/index.js",
+        "components/filter-bar/src/filter-bar-meta.js",
         "components/filter-bar/src/filter-bar.css",
         "components/filter-bar/src/filter-bar.js"
       ],
       "entry": "components/filter-bar/index.js",
-      "module": "components/filter-bar/src/filter-bar.js",
+      "module": "components/filter-bar/bundle.js",
       "style": "components/filter-bar/src/filter-bar.css"
     },
     "form": {
       "files": [
+        "components/form/bundle.js",
         "components/form/index.js",
+        "components/form/src/form-item-meta.js",
         "components/form/src/form-item.js",
+        "components/form/src/form-meta.js",
+        "components/form/src/form-schema-meta.js",
         "components/form/src/form-schema.js",
         "components/form/src/form.css",
         "components/form/src/form.js"
       ],
       "entry": "components/form/index.js",
-      "module": "components/form/src/form.js",
+      "module": "components/form/bundle.js",
       "style": "components/form/src/form.css"
     },
     "gantt-chart": {
       "files": [
         "components/gantt-chart/index.js",
+        "components/gantt-chart/src/gantt-chart-meta.js",
         "components/gantt-chart/src/gantt-chart.css",
         "components/gantt-chart/src/gantt-chart.js"
       ],
@@ -678,6 +757,7 @@
         "components/grid/bundle.js",
         "components/grid/index.js",
         "components/grid/src/grid-item.js",
+        "components/grid/src/grid-meta.js",
         "components/grid/src/grid.css",
         "components/grid/src/grid.js"
       ],
@@ -687,40 +767,48 @@
     },
     "icon": {
       "files": [
+        "components/icon/bundle.js",
         "components/icon/index.js",
+        "components/icon/src/icon-meta.js",
         "components/icon/src/icon.css",
         "components/icon/src/icon.js",
         "components/icon/src/icons/index.js"
       ],
       "entry": "components/icon/index.js",
-      "module": "components/icon/src/icon.js",
+      "module": "components/icon/bundle.js",
       "style": "components/icon/src/icon.css"
     },
     "image": {
       "files": [
+        "components/image/bundle.js",
         "components/image/index.js",
+        "components/image/src/image-meta.js",
+        "components/image/src/image-viewer-meta.js",
         "components/image/src/image-viewer.js",
         "components/image/src/image.css",
         "components/image/src/image.js"
       ],
       "entry": "components/image/index.js",
-      "module": "components/image/src/image.js",
+      "module": "components/image/bundle.js",
       "style": "components/image/src/image.css"
     },
     "image-magnifier": {
       "files": [
+        "components/image-magnifier/bundle.js",
         "components/image-magnifier/index.js",
+        "components/image-magnifier/src/image-magnifier-meta.js",
         "components/image-magnifier/src/image-magnifier.css",
         "components/image-magnifier/src/image-magnifier.js"
       ],
       "entry": "components/image-magnifier/index.js",
-      "module": "components/image-magnifier/src/image-magnifier.js",
+      "module": "components/image-magnifier/bundle.js",
       "style": "components/image-magnifier/src/image-magnifier.css"
     },
     "infinite-scroll": {
       "files": [
         "components/infinite-scroll/index.js",
         "components/infinite-scroll/src/directive.js",
+        "components/infinite-scroll/src/infinite-scroll-meta.js",
         "components/infinite-scroll/src/infinite-scroll.css",
         "components/infinite-scroll/src/infinite-scroll.js"
       ],
@@ -732,6 +820,7 @@
       "files": [
         "components/input/bundle.js",
         "components/input/index.js",
+        "components/input/src/input-meta.js",
         "components/input/src/input.css",
         "components/input/src/input.js",
         "components/input/src/utils.js"
@@ -744,6 +833,7 @@
       "files": [
         "components/input-number/bundle.js",
         "components/input-number/index.js",
+        "components/input-number/src/input-number-meta.js",
         "components/input-number/src/input-number.css",
         "components/input-number/src/input-number.js"
       ],
@@ -755,6 +845,7 @@
       "files": [
         "components/input-tag/bundle.js",
         "components/input-tag/index.js",
+        "components/input-tag/src/input-tag-meta.js",
         "components/input-tag/src/input-tag.css",
         "components/input-tag/src/input-tag.js"
       ],
@@ -764,39 +855,45 @@
     },
     "loading": {
       "files": [
+        "components/loading/bundle.js",
         "components/loading/index.js",
         "components/loading/src/directive.js",
         "components/loading/src/loading.css",
         "components/loading/src/service.js"
       ],
       "entry": "components/loading/index.js",
-      "module": "components/loading/index.js",
+      "module": "components/loading/bundle.js",
       "style": "components/loading/src/loading.css"
     },
     "lucky-draw": {
       "files": [
+        "components/lucky-draw/bundle.js",
         "components/lucky-draw/index.js",
+        "components/lucky-draw/src/lucky-draw-meta.js",
         "components/lucky-draw/src/lucky-draw.css",
         "components/lucky-draw/src/lucky-draw.js"
       ],
       "entry": "components/lucky-draw/index.js",
-      "module": "components/lucky-draw/src/lucky-draw.js",
+      "module": "components/lucky-draw/bundle.js",
       "style": "components/lucky-draw/src/lucky-draw.css"
     },
     "marquee": {
       "files": [
+        "components/marquee/bundle.js",
         "components/marquee/index.js",
+        "components/marquee/src/marquee-meta.js",
         "components/marquee/src/marquee.css",
         "components/marquee/src/marquee.js"
       ],
       "entry": "components/marquee/index.js",
-      "module": "components/marquee/src/marquee.js",
+      "module": "components/marquee/bundle.js",
       "style": "components/marquee/src/marquee.css"
     },
     "mention": {
       "files": [
         "components/mention/bundle.js",
         "components/mention/index.js",
+        "components/mention/src/mention-meta.js",
         "components/mention/src/mention.css",
         "components/mention/src/mention.js"
       ],
@@ -809,6 +906,7 @@
         "components/menu/index.js",
         "components/menu/src/menu-item-group.js",
         "components/menu/src/menu-item.js",
+        "components/menu/src/menu-meta.js",
         "components/menu/src/menu-recursive-item.js",
         "components/menu/src/menu.css",
         "components/menu/src/menu.js",
@@ -822,6 +920,7 @@
       "files": [
         "components/message/bundle.js",
         "components/message/index.js",
+        "components/message/src/message-meta.js",
         "components/message/src/message.css",
         "components/message/src/message.js",
         "components/message/src/method.js"
@@ -833,6 +932,7 @@
     "message-box": {
       "files": [
         "components/message-box/index.js",
+        "components/message-box/src/message-box-meta.js",
         "components/message-box/src/message-box.css",
         "components/message-box/src/message-box.js",
         "components/message-box/src/method.js"
@@ -846,6 +946,7 @@
         "components/notification/bundle.js",
         "components/notification/index.js",
         "components/notification/src/method.js",
+        "components/notification/src/notification-meta.js",
         "components/notification/src/notification.css",
         "components/notification/src/notification.js"
       ],
@@ -855,18 +956,21 @@
     },
     "pagination": {
       "files": [
+        "components/pagination/bundle.js",
         "components/pagination/index.js",
+        "components/pagination/src/pagination-meta.js",
         "components/pagination/src/pagination.css",
         "components/pagination/src/pagination.js"
       ],
       "entry": "components/pagination/index.js",
-      "module": "components/pagination/src/pagination.js",
+      "module": "components/pagination/bundle.js",
       "style": "components/pagination/src/pagination.css"
     },
     "popconfirm": {
       "files": [
         "components/popconfirm/index.js",
         "components/popconfirm/src/instance.js",
+        "components/popconfirm/src/popconfirm-meta.js",
         "components/popconfirm/src/popconfirm.css",
         "components/popconfirm/src/popconfirm.js"
       ],
@@ -877,6 +981,7 @@
     "popover": {
       "files": [
         "components/popover/index.js",
+        "components/popover/src/popover-meta.js",
         "components/popover/src/popover.css",
         "components/popover/src/popover.js"
       ],
@@ -886,62 +991,73 @@
     },
     "price": {
       "files": [
+        "components/price/bundle.js",
         "components/price/index.js",
+        "components/price/src/price-meta.js",
         "components/price/src/price.css",
         "components/price/src/price.js"
       ],
       "entry": "components/price/index.js",
-      "module": "components/price/src/price.js",
+      "module": "components/price/bundle.js",
       "style": "components/price/src/price.css"
     },
     "product-card": {
       "files": [
+        "components/product-card/bundle.js",
         "components/product-card/index.js",
+        "components/product-card/src/product-card-meta.js",
         "components/product-card/src/product-card.css",
         "components/product-card/src/product-card.js"
       ],
       "entry": "components/product-card/index.js",
-      "module": "components/product-card/src/product-card.js",
+      "module": "components/product-card/bundle.js",
       "style": "components/product-card/src/product-card.css"
     },
     "progress": {
       "files": [
+        "components/progress/bundle.js",
         "components/progress/index.js",
+        "components/progress/src/progress-meta.js",
         "components/progress/src/progress.css",
         "components/progress/src/progress.js"
       ],
       "entry": "components/progress/index.js",
-      "module": "components/progress/src/progress.js",
+      "module": "components/progress/bundle.js",
       "style": "components/progress/src/progress.css"
     },
     "radio": {
       "files": [
+        "components/radio/bundle.js",
         "components/radio/index.js",
         "components/radio/src/radio-button.css",
         "components/radio/src/radio-button.js",
         "components/radio/src/radio-group.css",
         "components/radio/src/radio-group.js",
+        "components/radio/src/radio-meta.js",
         "components/radio/src/radio.css",
         "components/radio/src/radio.js"
       ],
       "entry": "components/radio/index.js",
-      "module": "components/radio/src/radio.js",
+      "module": "components/radio/bundle.js",
       "style": "components/radio/src/radio.css"
     },
     "rate": {
       "files": [
+        "components/rate/bundle.js",
         "components/rate/index.js",
+        "components/rate/src/rate-meta.js",
         "components/rate/src/rate.css",
         "components/rate/src/rate.js"
       ],
       "entry": "components/rate/index.js",
-      "module": "components/rate/src/rate.js",
+      "module": "components/rate/bundle.js",
       "style": "components/rate/src/rate.css"
     },
     "result": {
       "files": [
         "components/result/bundle.js",
         "components/result/index.js",
+        "components/result/src/result-meta.js",
         "components/result/src/result.css",
         "components/result/src/result.js"
       ],
@@ -951,72 +1067,85 @@
     },
     "row": {
       "files": [
+        "components/row/bundle.js",
         "components/row/index.js",
+        "components/row/src/row-meta.js",
         "components/row/src/row.css",
         "components/row/src/row.js"
       ],
       "entry": "components/row/index.js",
-      "module": "components/row/src/row.js",
+      "module": "components/row/bundle.js",
       "style": "components/row/src/row.css"
     },
     "scrollbar": {
       "files": [
+        "components/scrollbar/bundle.js",
         "components/scrollbar/index.js",
+        "components/scrollbar/src/scrollbar-meta.js",
         "components/scrollbar/src/scrollbar.css",
         "components/scrollbar/src/scrollbar.js",
         "components/scrollbar/src/thumb.js",
         "components/scrollbar/src/util.js"
       ],
       "entry": "components/scrollbar/index.js",
-      "module": "components/scrollbar/src/scrollbar.js",
+      "module": "components/scrollbar/bundle.js",
       "style": "components/scrollbar/src/scrollbar.css"
     },
     "select": {
       "files": [
+        "components/select/bundle.js",
         "components/select/index.js",
         "components/select/src/option.js",
+        "components/select/src/select-meta.js",
         "components/select/src/select.css",
         "components/select/src/select.js"
       ],
       "entry": "components/select/index.js",
-      "module": "components/select/src/select.js",
+      "module": "components/select/bundle.js",
       "style": "components/select/src/select.css"
     },
     "skeleton": {
       "files": [
+        "components/skeleton/bundle.js",
         "components/skeleton/index.js",
         "components/skeleton/src/skeleton-item.js",
+        "components/skeleton/src/skeleton-meta.js",
         "components/skeleton/src/skeleton.css",
         "components/skeleton/src/skeleton.js"
       ],
       "entry": "components/skeleton/index.js",
-      "module": "components/skeleton/src/skeleton.js",
+      "module": "components/skeleton/bundle.js",
       "style": "components/skeleton/src/skeleton.css"
     },
     "sku-selector": {
       "files": [
+        "components/sku-selector/bundle.js",
         "components/sku-selector/index.js",
+        "components/sku-selector/src/sku-selector-meta.js",
         "components/sku-selector/src/sku-selector.css",
         "components/sku-selector/src/sku-selector.js"
       ],
       "entry": "components/sku-selector/index.js",
-      "module": "components/sku-selector/src/sku-selector.js",
+      "module": "components/sku-selector/bundle.js",
       "style": "components/sku-selector/src/sku-selector.css"
     },
     "slider": {
       "files": [
+        "components/slider/bundle.js",
         "components/slider/index.js",
         "components/slider/src/slider-button.js",
+        "components/slider/src/slider-meta.js",
         "components/slider/src/slider.css",
         "components/slider/src/slider.js"
       ],
       "entry": "components/slider/index.js",
-      "module": "components/slider/src/slider.js",
+      "module": "components/slider/bundle.js",
       "style": "components/slider/src/slider.css"
     },
     "smart-address": {
       "files": [
         "components/smart-address/index.js",
+        "components/smart-address/src/smart-address-meta.js",
         "components/smart-address/src/smart-address.css",
         "components/smart-address/src/smart-address.js",
         "components/smart-address/src/use-address-parser.js"
@@ -1029,6 +1158,7 @@
       "files": [
         "components/space/bundle.js",
         "components/space/index.js",
+        "components/space/src/space-meta.js",
         "components/space/src/space.css",
         "components/space/src/space.js"
       ],
@@ -1038,49 +1168,59 @@
     },
     "spin": {
       "files": [
+        "components/spin/bundle.js",
         "components/spin/index.js",
+        "components/spin/src/spin-meta.js",
         "components/spin/src/spin.css",
         "components/spin/src/spin.js"
       ],
       "entry": "components/spin/index.js",
-      "module": "components/spin/src/spin.js",
+      "module": "components/spin/bundle.js",
       "style": "components/spin/src/spin.css"
     },
     "steps": {
       "files": [
+        "components/steps/bundle.js",
         "components/steps/index.js",
+        "components/steps/src/step-meta.js",
         "components/steps/src/step.js",
+        "components/steps/src/steps-meta.js",
         "components/steps/src/steps.css",
         "components/steps/src/steps.js"
       ],
       "entry": "components/steps/index.js",
-      "module": "components/steps/src/steps.js",
+      "module": "components/steps/bundle.js",
       "style": "components/steps/src/steps.css"
     },
     "submit-bar": {
       "files": [
+        "components/submit-bar/bundle.js",
         "components/submit-bar/index.js",
+        "components/submit-bar/src/submit-bar-meta.js",
         "components/submit-bar/src/submit-bar.css",
         "components/submit-bar/src/submit-bar.js"
       ],
       "entry": "components/submit-bar/index.js",
-      "module": "components/submit-bar/src/submit-bar.js",
+      "module": "components/submit-bar/bundle.js",
       "style": "components/submit-bar/src/submit-bar.css"
     },
     "switch": {
       "files": [
+        "components/switch/bundle.js",
         "components/switch/index.js",
+        "components/switch/src/switch-meta.js",
         "components/switch/src/switch.css",
         "components/switch/src/switch.js"
       ],
       "entry": "components/switch/index.js",
-      "module": "components/switch/src/switch.js",
+      "module": "components/switch/bundle.js",
       "style": "components/switch/src/switch.css"
     },
     "table": {
       "files": [
         "components/table/index.js",
         "components/table/src/table-column.js",
+        "components/table/src/table-meta.js",
         "components/table/src/table.css",
         "components/table/src/table.js",
         "components/table/src/use-column-drag.js",
@@ -1099,19 +1239,23 @@
     },
     "tabs": {
       "files": [
+        "components/tabs/bundle.js",
         "components/tabs/index.js",
+        "components/tabs/src/tab-pane-meta.js",
         "components/tabs/src/tab-pane.js",
+        "components/tabs/src/tabs-meta.js",
         "components/tabs/src/tabs.css",
         "components/tabs/src/tabs.js"
       ],
       "entry": "components/tabs/index.js",
-      "module": "components/tabs/src/tabs.js",
+      "module": "components/tabs/bundle.js",
       "style": "components/tabs/src/tabs.css"
     },
     "tag": {
       "files": [
         "components/tag/bundle.js",
         "components/tag/index.js",
+        "components/tag/src/tag-meta.js",
         "components/tag/src/tag.css",
         "components/tag/src/tag.js"
       ],
@@ -1121,49 +1265,58 @@
     },
     "time-picker": {
       "files": [
+        "components/time-picker/bundle.js",
         "components/time-picker/index.js",
+        "components/time-picker/src/time-picker-meta.js",
         "components/time-picker/src/time-picker.css",
         "components/time-picker/src/time-picker.js",
         "components/time-picker/src/time-spinner.js"
       ],
       "entry": "components/time-picker/index.js",
-      "module": "components/time-picker/src/time-picker.js",
+      "module": "components/time-picker/bundle.js",
       "style": "components/time-picker/src/time-picker.css"
     },
     "time-select": {
       "files": [
+        "components/time-select/bundle.js",
         "components/time-select/index.js",
+        "components/time-select/src/time-select-meta.js",
         "components/time-select/src/time-select.css",
         "components/time-select/src/time-select.js"
       ],
       "entry": "components/time-select/index.js",
-      "module": "components/time-select/src/time-select.js",
+      "module": "components/time-select/bundle.js",
       "style": "components/time-select/src/time-select.css"
     },
     "tooltip": {
       "files": [
+        "components/tooltip/bundle.js",
         "components/tooltip/index.js",
+        "components/tooltip/src/tooltip-meta.js",
         "components/tooltip/src/tooltip.css",
         "components/tooltip/src/tooltip.js"
       ],
       "entry": "components/tooltip/index.js",
-      "module": "components/tooltip/src/tooltip.js",
+      "module": "components/tooltip/bundle.js",
       "style": "components/tooltip/src/tooltip.css"
     },
     "transfer": {
       "files": [
+        "components/transfer/bundle.js",
         "components/transfer/index.js",
+        "components/transfer/src/transfer-meta.js",
         "components/transfer/src/transfer-panel.js",
         "components/transfer/src/transfer.css",
         "components/transfer/src/transfer.js"
       ],
       "entry": "components/transfer/index.js",
-      "module": "components/transfer/src/transfer.js",
+      "module": "components/transfer/bundle.js",
       "style": "components/transfer/src/transfer.css"
     },
     "tree": {
       "files": [
         "components/tree/index.js",
+        "components/tree/src/tree-meta.js",
         "components/tree/src/tree-node.js",
         "components/tree/src/tree.css",
         "components/tree/src/tree.js"
@@ -1174,13 +1327,15 @@
     },
     "tree-select": {
       "files": [
+        "components/tree-select/bundle.js",
         "components/tree-select/index.js",
+        "components/tree-select/src/tree-select-meta.js",
         "components/tree-select/src/tree-select.css",
         "components/tree-select/src/tree-select.js",
         "components/tree-select/src/use-tree.js"
       ],
       "entry": "components/tree-select/index.js",
-      "module": "components/tree-select/src/tree-select.js",
+      "module": "components/tree-select/bundle.js",
       "style": "components/tree-select/src/tree-select.css"
     },
     "typography": {
@@ -1201,6 +1356,7 @@
     "upload": {
       "files": [
         "components/upload/index.js",
+        "components/upload/src/upload-meta.js",
         "components/upload/src/upload.css",
         "components/upload/src/upload.js"
       ],
@@ -1212,6 +1368,7 @@
       "files": [
         "components/waterfall/bundle.js",
         "components/waterfall/index.js",
+        "components/waterfall/src/waterfall-meta.js",
         "components/waterfall/src/waterfall.css",
         "components/waterfall/src/waterfall.js"
       ],
@@ -1221,12 +1378,14 @@
     },
     "watermark": {
       "files": [
+        "components/watermark/bundle.js",
         "components/watermark/index.js",
+        "components/watermark/src/watermark-meta.js",
         "components/watermark/src/watermark.css",
         "components/watermark/src/watermark.js"
       ],
       "entry": "components/watermark/index.js",
-      "module": "components/watermark/src/watermark.js",
+      "module": "components/watermark/bundle.js",
       "style": "components/watermark/src/watermark.css"
     }
   }

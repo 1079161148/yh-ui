@@ -199,7 +199,7 @@ import { useVirtualScroll } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import YhAiBubble from '../../ai-bubble/src/ai-bubble.js'
-import { aiBubbleListProps } from './ai-bubble-list'
+import { aiBubbleListProps } from './ai-bubble-list-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiBubbleList'

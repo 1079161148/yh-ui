@@ -31,8 +31,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { tabPaneProps } from './tab-pane'
-import { TABS_INJECTION_KEY } from './tabs'
+import { tabPaneProps } from './tab-pane-meta.js'
+import { TABS_INJECTION_KEY } from './tabs-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTabPane'

@@ -66,7 +66,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, ref, inject } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { radioGroupContextKey } from './radio'
+import { radioGroupContextKey } from './radio-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhRadioButton'

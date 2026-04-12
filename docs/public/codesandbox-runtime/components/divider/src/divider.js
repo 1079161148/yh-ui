@@ -55,7 +55,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { dividerProps } from './divider'
+import { dividerProps } from './divider-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhDivider'

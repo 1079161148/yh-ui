@@ -1036,15 +1036,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { ref, computed, watch } from 'vue'
-import dayjs from '../../dayjs'
+import dayjs from '../../dayjs.js'
 import isBetweenPlugin from 'dayjs/plugin/isBetween.js'
 import isoWeekPlugin from 'dayjs/plugin/isoWeek.js'
 import quarterOfYearPlugin from 'dayjs/plugin/quarterOfYear.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhTooltip } from '../../tooltip'
-import { YhInput } from '../../input'
-import { YhRadioGroup, YhRadioButton } from '../../radio'
+import { YhTooltip } from '../../tooltip.js'
+import { YhInput } from '../../input.js'
+import { YhRadioGroup, YhRadioButton } from '../../radio.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhGanttChart' },
   {

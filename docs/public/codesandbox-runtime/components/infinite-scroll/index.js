@@ -6,6 +6,6 @@ const YhInfiniteScroll = withInstall(InfiniteScroll, {
 })
 const vYhInfiniteScroll = withInstallDirective(vInfiniteScroll, 'infinite-scroll')
 var stdin_default = YhInfiniteScroll
-export * from './src/infinite-scroll.js'
+export * from './src/infinite-scroll-meta.js'
 export * from './src/directive.js'
 export { YhInfiniteScroll, stdin_default as default, vYhInfiniteScroll }

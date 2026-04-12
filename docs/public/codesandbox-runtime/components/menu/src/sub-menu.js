@@ -443,9 +443,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { ref, inject, computed, unref, provide, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { YhIcon } from '../../icon'
-import { YhTooltip } from '../../tooltip'
-import { subMenuProps, MENU_INJECTION_KEY, SUB_MENU_INJECTION_KEY } from './menu'
+import { YhIcon } from '../../icon.js'
+import { YhTooltip } from '../../tooltip.js'
+import { subMenuProps, MENU_INJECTION_KEY, SUB_MENU_INJECTION_KEY } from './menu-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhSubMenu'

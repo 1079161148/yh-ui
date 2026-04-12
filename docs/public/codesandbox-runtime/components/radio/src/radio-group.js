@@ -75,7 +75,7 @@ import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useConfig } from '../../../hooks/use-config/index.js'
 import YhRadio from './radio.js'
-import { radioGroupContextKey } from './radio'
+import { radioGroupContextKey } from './radio-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhRadioGroup'

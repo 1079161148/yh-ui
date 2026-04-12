@@ -223,7 +223,7 @@ import {
   createFormatContext,
   formatCountdown,
   isTargetTimestamp
-} from './countdown'
+} from './countdown-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhCountdown'

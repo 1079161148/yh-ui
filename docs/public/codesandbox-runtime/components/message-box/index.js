@@ -12,5 +12,5 @@ YhMessageBox.install = (app) => {
   installExtra(app)
 }
 var stdin_default = YhMessageBox
-export * from './src/message-box.js'
+export * from './src/message-box-meta.js'
 export { YhMessageBox, stdin_default as default }

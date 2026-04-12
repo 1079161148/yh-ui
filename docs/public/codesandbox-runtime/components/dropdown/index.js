@@ -6,5 +6,5 @@ const YhDropdown = withInstall(Dropdown)
 const YhDropdownItem = withInstall(DropdownItem)
 const YhDropdownMenu = withInstall(DropdownMenu)
 var stdin_default = YhDropdown
-export * from './src/dropdown.js'
+export * from './src/dropdown-meta.js'
 export { YhDropdown, YhDropdownItem, YhDropdownMenu, stdin_default as default }

@@ -86,7 +86,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { inject, ref, computed, getCurrentInstance } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { breadcrumbItemProps } from './breadcrumb'
+import { breadcrumbItemProps } from './breadcrumb-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhBreadcrumbItem'

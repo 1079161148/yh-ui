@@ -24,6 +24,43 @@ const testCases = [
     text: 'Hello Sandbox'
   },
   {
+    name: 'grid',
+    title: 'Basic Grid',
+    code: `<template>
+  <yh-grid :cols="3" :gap="16">
+    <yh-grid-item>
+      <div class="grid-demo-item">1</div>
+    </yh-grid-item>
+    <yh-grid-item>
+      <div class="grid-demo-item">2</div>
+    </yh-grid-item>
+    <yh-grid-item>
+      <div class="grid-demo-item">3</div>
+    </yh-grid-item>
+  </yh-grid>
+</template>
+
+<style scoped>
+.grid-demo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 8px;
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+</style>`,
+    selector: '.yh-grid',
+    text: '',
+    evaluate: async (page) => {
+      const display = await page.locator('.yh-grid').evaluate((el) => getComputedStyle(el).display)
+      if (display !== 'grid') {
+        throw new Error(`Expected .yh-grid display:grid, received "${display}"`)
+      }
+    }
+  },
+  {
     name: 'input',
     title: 'Basic Input',
     code: `<template>
@@ -33,8 +70,131 @@ const testCases = [
 </template>`,
     selector: '.yh-input',
     text: ''
+  },
+  {
+    name: 'icon',
+    title: 'Basic Icon',
+    code: `<template>
+  <div style="display:flex;gap:12px;font-size:20px;color:#2563eb">
+    <Icon icon="mdi:home" />
+    <Icon icon="ep:search" />
+    <Icon icon="lucide:check" />
+  </div>
+</template>`,
+    selector: 'svg',
+    text: '',
+    evaluate: async (page) => {
+      const iconCount = await page.locator('svg').count()
+      if (iconCount < 3) {
+        throw new Error(`Expected at least 3 rendered svg icons, received ${iconCount}`)
+      }
+    }
+  },
+  {
+    name: 'ai-sender',
+    title: 'AI Sender',
+    code: `<template>
+  <div style="max-width: 640px">
+    <yh-ai-sender v-model="message" placeholder="Ask anything" clearable />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const message = ref('Draft prompt')
+</script>`,
+    selector: '.yh-ai-sender',
+    text: '',
+    evaluate: async (page) => {
+      await page.locator('.yh-ai-sender textarea').waitFor({ state: 'visible', timeout: 30000 })
+      const buttonCount = await page.locator('.yh-ai-sender__send-btn').count()
+      if (buttonCount < 1) {
+        throw new Error('Expected ai sender submit button to render')
+      }
+    }
+  },
+  {
+    name: 'table-click',
+    title: 'Table Click',
+    code: `<template>
+  <div>
+    <yh-table :data="tableData" @row-click="handleRowClick">
+      <yh-table-column prop="date" label="日期" />
+      <yh-table-column prop="name" label="姓名" />
+      <yh-table-column prop="address" label="地址" />
+    </yh-table>
+    <p class="table-click-result">{{ currentName }}</p>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const currentName = ref('未点击')
+
+const tableData = [
+  { date: '2024-01-01', name: '张三', address: '北京市朝阳区建国路88号' },
+  { date: '2024-01-02', name: '李四', address: '上海市浦东新区陆家嘴金融中心' }
+]
+
+const handleRowClick = (row: { name: string }) => {
+  currentName.value = row.name
+}
+</script>`,
+    selector: '.yh-table',
+    text: '',
+    evaluate: async (page) => {
+      await page.locator('.yh-table__body tbody tr').first().click()
+      await page.locator('.table-click-result').waitFor({ state: 'visible', timeout: 30000 })
+      const result = await page.locator('.table-click-result').innerText()
+      if (!result.includes('张三')) {
+        throw new Error(`Expected row click result to include "张三", received "${result}"`)
+      }
+    }
+  },
+  {
+    name: 'flow',
+    title: 'Basic Flow',
+    code: `<template>
+  <div style="height: 360px; border: 1px solid #dbe4f0">
+    <yh-flow v-model:nodes="nodes" v-model:edges="edges" fit-view />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const nodes = ref([
+  { id: '1', type: 'default', position: { x: 40, y: 80 }, data: { label: '开始' } },
+  { id: '2', type: 'default', position: { x: 240, y: 80 }, data: { label: '结束' } }
+])
+
+const edges = ref([{ id: 'e1-2', source: '1', target: '2' }])
+</script>`,
+    selector: '.yh-flow',
+    text: '',
+    evaluate: async (page) => {
+      const nodeCount = await page.locator('.yh-flow__node, .yh-flow-node').count()
+      if (nodeCount < 2) {
+        throw new Error(`Expected at least 2 rendered flow nodes, received ${nodeCount}`)
+      }
+    }
   }
 ]
+
+type BrowserPage = Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+  ? Awaited<T>
+  : never
+
+interface TestCase {
+  name: string
+  title: string
+  code: string
+  selector: string
+  text: string
+  evaluate?: (page: BrowserPage) => Promise<void>
+}
 
 function compressParameters(input: string): string {
   return LZString.compressToBase64(input)
@@ -44,7 +204,12 @@ function compressParameters(input: string): string {
 }
 
 function shouldIgnoreErrorText(text: string): boolean {
-  return text.includes('favicon.ico') || text.includes('fonts.googleapis.com')
+  return (
+    text.includes('[BABEL] Note: The code generator has deoptimised the styling') ||
+    text.includes('favicon.ico') ||
+    text.includes('fonts.googleapis.com') ||
+    text.includes('fonts.gstatic.com')
+  )
 }
 
 function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
@@ -66,7 +231,9 @@ async function createRemoteSandbox(title: string, code: string) {
   const files = await createCodeSandboxProjectFiles(title, code, undefined, {
     manifest,
     loadRuntimeAssetText: async (relativePath) =>
-      readFile(join(runtimeDir, ...relativePath.split('/')), 'utf8')
+      readFile(join(runtimeDir, ...relativePath.split('/')), 'utf8'),
+    loadSiteAssetText: async (assetPath) =>
+      readFile(join(rootDir, 'docs', 'public', ...assetPath.split('/')), 'utf8')
   })
   const payload = {
     files: Object.fromEntries(
@@ -101,7 +268,7 @@ async function createRemoteSandbox(title: string, code: string) {
   }
 }
 
-async function verifyTestCase(testCase: (typeof testCases)[number]) {
+async function verifyTestCase(testCase: TestCase) {
   const { sandboxId, previewUrl } = await createRemoteSandbox(testCase.title, testCase.code)
   const browser = await chromium.launch({ headless: true })
   const page = await browser.newPage()
@@ -157,6 +324,10 @@ async function verifyTestCase(testCase: (typeof testCases)[number]) {
           `Expected "${testCase.text}" in ${testCase.selector}, received "${text || ''}"`
         )
       }
+    }
+
+    if (testCase.evaluate) {
+      await testCase.evaluate(page)
     }
 
     await page.waitForTimeout(3000)

@@ -380,13 +380,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { ref, computed, watch, useSlots, Comment, Text } from 'vue'
-import { YhButton } from '../../button'
-import { YhIcon } from '../../icon'
-import hljs from '../../highlight'
+import { YhButton } from '../../button.js'
+import { YhIcon } from '../../icon.js'
+import hljs from '../../highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
-import { aiCodeBlockProps, aiCodeBlockEmits } from './ai-code-block'
+import { aiCodeBlockProps, aiCodeBlockEmits } from './ai-code-block-meta.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import YhAiCodeEditor from '../../ai-code-editor'
+import YhAiCodeEditor from '../../ai-code-editor.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiCodeBlock'

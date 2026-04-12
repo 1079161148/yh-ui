@@ -2,7 +2,7 @@ import { renderSlot as _renderSlot } from 'vue'
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return _renderSlot(_ctx.$slots, 'default')
 }
-import { descriptionsItemProps } from './descriptions'
+import { descriptionsItemProps } from './descriptions-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhDescriptionsItem'

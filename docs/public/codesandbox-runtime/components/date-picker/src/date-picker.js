@@ -664,9 +664,9 @@ import DateTable from './date-table.js'
 import MonthTable from './month-table.js'
 import YearTable from './year-table.js'
 import QuarterTable from './quarter-table.js'
-import { datePickerProps } from './date-picker'
-import { DEFAULT_FORMATS, formatDate } from './panel-utils'
-import dayjs from '../../dayjs'
+import { datePickerProps } from './date-picker-meta.js'
+import { DEFAULT_FORMATS, formatDate } from './panel-utils.js'
+import dayjs from '../../dayjs.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhDatePicker'

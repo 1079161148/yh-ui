@@ -997,7 +997,7 @@ import { ref, computed, nextTick } from 'vue'
 import { useLocale, useVirtualScroll } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { aiConversationsProps, aiConversationsEmits } from './ai-conversations'
+import { aiConversationsProps, aiConversationsEmits } from './ai-conversations-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhAiConversations'

@@ -247,8 +247,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, inject, onMounted, onUnmounted, getCurrentInstance, watch, ref } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { stepProps } from './step'
-import { STEPS_INJECTION_KEY } from './steps'
+import { stepProps } from './step-meta.js'
+import { STEPS_INJECTION_KEY } from './steps-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhStep'

@@ -378,8 +378,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { imageViewerProps, imageViewerEmits } from './image-viewer'
-import Viewer from '../../viewerjs'
+import { imageViewerProps, imageViewerEmits } from './image-viewer-meta.js'
+import Viewer from '../../viewerjs.js'
 import 'viewerjs/dist/viewer.css'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

@@ -241,7 +241,7 @@ import {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { carouselProps, carouselEmits, CAROUSEL_INJECTION_KEY } from './carousel'
+import { carouselProps, carouselEmits, CAROUSEL_INJECTION_KEY } from './carousel-meta.js'
 const renderBuffer = 2
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {

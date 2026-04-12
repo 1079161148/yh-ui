@@ -10,5 +10,5 @@ const YhAside = withInstall(Aside)
 const YhMain = withInstall(Main)
 const YhFooter = withInstall(Footer)
 var stdin_default = YhContainer
-export * from './src/container.js'
+export * from './src/container-meta.js'
 export { YhAside, YhContainer, YhFooter, YhHeader, YhMain, stdin_default as default }

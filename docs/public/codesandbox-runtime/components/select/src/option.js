@@ -35,7 +35,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )
 }
 import { computed, inject, onMounted, onBeforeUnmount, useSlots } from 'vue'
-import { SelectContextKey } from './select'
+import { SelectContextKey } from './select-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhOption'

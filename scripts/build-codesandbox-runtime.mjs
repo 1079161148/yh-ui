@@ -10,6 +10,7 @@ const runtimeOutDir = resolve(docsPublicDir, 'codesandbox-runtime')
 
 const SUPPORT_PACKAGES = ['hooks', 'locale', 'theme', 'utils']
 const COMPONENTS_DIR = resolve(docsPublicDir, 'components')
+const COMPONENT_ROOT_RUNTIME_FILES = ['dayjs.mjs', 'highlight.mjs', 'markdown-it.mjs', 'viewerjs.mjs']
 const BUNDLE_EXTERNALS = [
   'vue',
   'dayjs',
@@ -82,10 +83,58 @@ function patchSourceForCodeSandbox(sourceFile, source) {
   return source
 }
 
-function rewriteLocalImportSource(source) {
-  if (source.endsWith('.vue')) return source.replace(/\.vue$/, '.js')
-  if (source.endsWith('.mjs')) return source.replace(/\.mjs$/, '.js')
+function collectCollidingModuleBases(sourceFiles, sourceRoot) {
+  const fileSet = new Set(
+    sourceFiles.map((sourceFile) => relative(sourceRoot, sourceFile).replace(/\\/g, '/'))
+  )
+  const collidingBases = new Set()
+
+  for (const relPath of fileSet) {
+    if (!relPath.endsWith('.vue')) continue
+    const base = relPath.replace(/\.vue$/, '')
+    if (fileSet.has(`${base}.mjs`)) {
+      collidingBases.add(base)
+    }
+  }
+
+  return collidingBases
+}
+
+function resolveMetaModulePath(resolvedPath) {
+  return `${resolvedPath}-meta.js`
+}
+
+function rewriteLocalImportSource(sourceRelFile, source, collidingModuleBases = new Set()) {
+  if (!source.startsWith('.')) return source
+  const normalizedSourceFile = sourceRelFile.replace(/\\/g, '/')
+  const resolvedPath = new URL(source, `https://runtime.local/${normalizedSourceFile}`)
+    .pathname.replace(/^\/+/, '')
+
+  if (source.endsWith('.vue')) {
+    return source.replace(/\.vue$/, '.js')
+  }
+
+  if (source.endsWith('.mjs')) {
+    const targetBase = resolvedPath.replace(/\.mjs$/, '')
+    return collidingModuleBases.has(targetBase)
+      ? toRelativeImportPath(normalizedSourceFile, resolveMetaModulePath(targetBase))
+      : source.replace(/\.mjs$/, '.js')
+  }
+
+  if (!/\.[a-z0-9]+(?:[?#].*)?$/i.test(source)) {
+    return collidingModuleBases.has(resolvedPath)
+      ? toRelativeImportPath(normalizedSourceFile, resolveMetaModulePath(resolvedPath))
+      : `${source}.js`
+  }
+
   return source
+}
+
+function toRelativeImportPath(fromFile, targetFile) {
+  const fromDir = dirname(fromFile).replace(/\\/g, '/')
+  let relPath = relative(fromDir, targetFile).replace(/\\/g, '/')
+  if (!relPath.startsWith('.')) relPath = `./${relPath}`
+  return relPath
 }
 
 function resolveRuntimeBareImport(outputFile, source) {
@@ -102,7 +151,7 @@ function resolveRuntimeBareImport(outputFile, source) {
   return relPath
 }
 
-function rewriteImports(code, outputFile) {
+function rewriteImports(code, sourceRelFile, outputFile, collidingModuleBases = new Set()) {
   return code.replace(
     /(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|export\s+[\w*\s{},]*?\s+from\s+["']|import\s*\(\s*["'])([^"']+)(["'])/g,
     (full, prefix, source, suffix) => {
@@ -111,7 +160,7 @@ function rewriteImports(code, outputFile) {
       if (source.startsWith('@yh-ui/')) {
         nextSource = resolveRuntimeBareImport(outputFile, source)
       } else if (source.startsWith('.')) {
-        nextSource = rewriteLocalImportSource(source)
+        nextSource = rewriteLocalImportSource(sourceRelFile, source, collidingModuleBases)
       }
 
       return `${prefix}${nextSource}${suffix}`
@@ -181,7 +230,19 @@ async function walk(dir) {
   return files
 }
 
-async function processSourceFile(sourceFile, outFile) {
+function toOutputRelativePath(sourceRoot, sourceFile, collidingModuleBases = new Set()) {
+  const relPath = relative(sourceRoot, sourceFile).replace(/\\/g, '/')
+  if (sourceFile.endsWith('.mjs')) {
+    const moduleBase = relPath.replace(/\.mjs$/, '')
+    if (collidingModuleBases.has(moduleBase)) {
+      return `${moduleBase}-meta.js`
+    }
+  }
+
+  return relPath.replace(/\.mjs$/, '.js').replace(/\.vue$/, '.js')
+}
+
+async function processSourceFile(sourceRoot, sourceFile, outFile, collidingModuleBases = new Set()) {
   if (!/\.(?:mjs|vue|css)$/.test(sourceFile)) {
     return null
   }
@@ -200,7 +261,8 @@ async function processSourceFile(sourceFile, outFile) {
     code = compileVueToModule(sourceFile, source)
   }
 
-  code = rewriteImports(code, outFile)
+  const sourceRelFile = relative(sourceRoot, sourceFile).replace(/\\/g, '/')
+  code = rewriteImports(code, sourceRelFile, outFile, collidingModuleBases)
   code = rewriteSupportBarrelImports(code)
   code = await lower(code)
 
@@ -215,15 +277,43 @@ async function buildSupportPackages() {
   for (const pkg of SUPPORT_PACKAGES) {
     const sourceDir = join(docsPublicDir, pkg)
     const sourceFiles = await walk(sourceDir)
+    const collidingModuleBases = collectCollidingModuleBases(sourceFiles, sourceDir)
 
     for (const sourceFile of sourceFiles) {
-      const relPath = relative(sourceDir, sourceFile).replace(/\\/g, '/')
-      const outRelPath = relPath.replace(/\.mjs$/, '.js').replace(/\.vue$/, '.js')
+      const outRelPath = toOutputRelativePath(sourceDir, sourceFile, collidingModuleBases)
       const outFile = join(runtimeOutDir, pkg, outRelPath)
-      const writtenFile = await processSourceFile(sourceFile, outFile)
+      const writtenFile = await processSourceFile(
+        sourceDir,
+        sourceFile,
+        outFile,
+        collidingModuleBases
+      )
       if (writtenFile) {
         files.add(relative(runtimeOutDir, writtenFile).replace(/\\/g, '/'))
       }
+    }
+  }
+
+  return [...files].sort()
+}
+
+async function buildComponentRootRuntimeFiles() {
+  const files = new Set()
+  const sourceFiles = COMPONENT_ROOT_RUNTIME_FILES.map((filename) => join(COMPONENTS_DIR, filename))
+  const collidingModuleBases = collectCollidingModuleBases(sourceFiles, COMPONENTS_DIR)
+
+  for (const filename of COMPONENT_ROOT_RUNTIME_FILES) {
+    const sourceFile = join(COMPONENTS_DIR, filename)
+    const outRelPath = toOutputRelativePath(COMPONENTS_DIR, sourceFile, collidingModuleBases)
+    const outFile = join(runtimeOutDir, 'components', outRelPath)
+    const writtenFile = await processSourceFile(
+      COMPONENTS_DIR,
+      sourceFile,
+      outFile,
+      collidingModuleBases
+    )
+    if (writtenFile) {
+      files.add(relative(runtimeOutDir, writtenFile).replace(/\\/g, '/'))
     }
   }
 
@@ -246,13 +336,18 @@ async function buildComponents() {
     }
 
     const sourceFiles = await walk(componentDir)
+    const collidingModuleBases = collectCollidingModuleBases(sourceFiles, componentDir)
     const files = new Set()
 
     for (const sourceFile of sourceFiles) {
-      const relPath = relative(componentDir, sourceFile).replace(/\\/g, '/')
-      const outRelPath = relPath.replace(/\.mjs$/, '.js').replace(/\.vue$/, '.js')
+      const outRelPath = toOutputRelativePath(componentDir, sourceFile, collidingModuleBases)
       const outFile = join(runtimeOutDir, 'components', entry.name, outRelPath)
-      const writtenFile = await processSourceFile(sourceFile, outFile)
+      const writtenFile = await processSourceFile(
+        componentDir,
+        sourceFile,
+        outFile,
+        collidingModuleBases
+      )
       if (writtenFile) {
         files.add(relative(runtimeOutDir, writtenFile).replace(/\\/g, '/'))
       }
@@ -302,7 +397,10 @@ async function main() {
   await rm(runtimeOutDir, { recursive: true, force: true })
   await ensureDir(runtimeOutDir)
 
-  const supportFiles = await buildSupportPackages()
+  const supportFiles = [
+    ...(await buildSupportPackages()),
+    ...(await buildComponentRootRuntimeFiles())
+  ].sort()
   const components = await buildComponents()
 
   for (const [componentName, componentEntry] of Object.entries(components)) {

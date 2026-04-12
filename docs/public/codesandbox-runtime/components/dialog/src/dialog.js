@@ -340,10 +340,10 @@ import { ref, watch, computed, nextTick } from 'vue'
 import { useEventListener, useId, useScrollLock, useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
-import { YhIcon } from '../../icon'
-import { YhSpin } from '../../spin'
-import { YhButton } from '../../button'
-import { dialogProps, dialogEmits } from './dialog'
+import { YhIcon } from '../../icon.js'
+import { YhSpin } from '../../spin.js'
+import { YhButton } from '../../button.js'
+import { dialogProps, dialogEmits } from './dialog-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhDialog',

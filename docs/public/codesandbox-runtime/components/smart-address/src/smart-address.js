@@ -621,10 +621,10 @@ import { ref, computed, reactive } from 'vue'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 import { useLocale } from '../../../hooks/index.js'
-import { smartAddressProps, smartAddressEmits } from './smart-address'
-import { parseAddress } from './use-address-parser'
-import { YhSelect, YhOption } from '../../select'
-import { YhCascader } from '../../cascader'
+import { smartAddressProps, smartAddressEmits } from './smart-address-meta.js'
+import { parseAddress } from './use-address-parser.js'
+import { YhSelect, YhOption } from '../../select.js'
+import { YhCascader } from '../../cascader.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   { name: 'YhSmartAddress' },
   {

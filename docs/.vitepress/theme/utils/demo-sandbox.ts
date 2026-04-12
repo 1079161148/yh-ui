@@ -188,6 +188,7 @@ interface CodeSandboxProjectFilesOptions {
   base?: string
   manifest?: CodeSandboxRuntimeManifest
   loadRuntimeAssetText?: (relativePath: string) => Promise<string>
+  loadSiteAssetText?: (assetPath: string) => Promise<string>
 }
 
 // ============================================================
@@ -282,8 +283,95 @@ function collectThirdPartyDependenciesFromCode(code: string): Record<string, str
   return dependencies
 }
 
-function resolveRelativeRuntimePath(fromFile: string, importSource: string): string {
-  return new URL(importSource, `https://runtime.local/${fromFile}`).pathname.replace(/^\/+/, '')
+function normalizeRuntimeImportSource(source: string): string {
+  if (!source.startsWith('.')) {
+    return source
+  }
+
+  if (/\.[a-z0-9]+(?:[?#].*)?$/i.test(source)) {
+    return source
+  }
+
+  return `${source}.js`
+}
+
+function resolveRuntimeRelativePath(
+  fromFile: string,
+  importSource: string,
+  availableFiles: Set<string>
+): string {
+  const resolvedPath = new URL(importSource, `https://runtime.local/${fromFile}`).pathname.replace(
+    /^\/+/,
+    ''
+  )
+  const extensionMatch = resolvedPath.match(/(\.[a-z0-9]+)$/i)
+  const hasExtension = Boolean(extensionMatch)
+  const extension = extensionMatch?.[1] ?? ''
+  const resolvedPathWithoutExtension = hasExtension
+    ? resolvedPath.slice(0, -extension.length)
+    : resolvedPath
+  const candidates = hasExtension
+    ? [resolvedPath, `${resolvedPathWithoutExtension}/index${extension}`]
+    : [
+        resolvedPath,
+        `${resolvedPath}.js`,
+        `${resolvedPath}.css`,
+        `${resolvedPath}/index.js`,
+        `${resolvedPath}/index.css`
+      ]
+
+  return (
+    candidates.find((candidate) => availableFiles.has(candidate)) ??
+    normalizeRuntimeImportSource(importSource)
+  )
+}
+
+function toRelativeRuntimeImport(fromFile: string, targetFile: string): string {
+  const fromSegments = fromFile.split('/')
+  fromSegments.pop()
+
+  const targetSegments = targetFile.split('/')
+  let commonIndex = 0
+
+  while (
+    commonIndex < fromSegments.length &&
+    commonIndex < targetSegments.length &&
+    fromSegments[commonIndex] === targetSegments[commonIndex]
+  ) {
+    commonIndex += 1
+  }
+
+  const upwardSegments = new Array(fromSegments.length - commonIndex).fill('..')
+  const downwardSegments = targetSegments.slice(commonIndex)
+  const relativePath = [...upwardSegments, ...downwardSegments].join('/')
+
+  if (!relativePath) {
+    return './'
+  }
+
+  return relativePath.startsWith('.') ? relativePath : `./${relativePath}`
+}
+
+function rewriteRuntimeRelativeImports(
+  code: string,
+  fromFile: string,
+  availableFiles: Set<string>
+): string {
+  return code.replace(
+    /(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|\bexport\s+[\w*\s{},]*?\s+from\s+["']|\bimport\s*\(\s*["'])([^"']+)(["'])/g,
+    (full, prefix, source, suffix) => {
+      if (!source.startsWith('.')) {
+        return `${prefix}${source}${suffix}`
+      }
+
+      const resolvedTarget = resolveRuntimeRelativePath(fromFile, source, availableFiles)
+      const rewrittenSource = resolvedTarget.startsWith('.')
+        ? normalizeRuntimeImportSource(resolvedTarget)
+        : toRelativeRuntimeImport(fromFile, resolvedTarget)
+
+      return `${prefix}${rewrittenSource}${suffix}`
+    }
+  )
 }
 
 function compressCodeSandboxParameters(input: string): string {
@@ -604,6 +692,16 @@ function usesIconSandboxRuntime(code: string, context?: SandboxContext): boolean
     preparedCode.includes('@iconify/vue') ||
     /<\s*(?:icon|yh-iconify-icon)\b/i.test(preparedCode) ||
     Boolean(context?.docPath?.includes('/icon/'))
+  )
+}
+
+function usesAiSandboxRuntime(code: string, context?: SandboxContext): boolean {
+  const preparedCode = prepareSandboxCode(code, context)
+  return (
+    preparedCode.includes('@yh-ui/ai-sdk') ||
+    preparedCode.includes('@yh-ui/ai') ||
+    /<\s*yh-ai-[a-z0-9-]+\b/i.test(preparedCode) ||
+    Boolean(context?.docPath?.includes('/ai/'))
   )
 }
 
@@ -990,6 +1088,9 @@ export async function createCodeSandboxProjectFiles(
     options.loadRuntimeAssetText ??
     ((relativePath: string) =>
       fetchTextAsset(resolveSiteAssetUrl(base, `${CODE_SANDBOX_RUNTIME_BASE}${relativePath}`)))
+  const loadSiteAssetText =
+    options.loadSiteAssetText ??
+    ((assetPath: string) => fetchTextAsset(resolveSiteAssetUrl(base, assetPath)))
   const runtimeComponentNames = componentNames.filter((name) => manifest.components[name])
   const supportStyleFiles = [
     'theme/styles/mixins/mixins.css',
@@ -998,6 +1099,10 @@ export async function createCodeSandboxProjectFiles(
     'theme/styles/index.css',
     'theme/styles/components.css'
   ]
+  const availableRuntimeFiles = new Set<string>([
+    ...manifest.supportFiles,
+    ...Object.values(manifest.components).flatMap((component) => component.files)
+  ])
 
   const runtimeFiles: Record<string, string> = {}
   const componentStyleContents: string[] = []
@@ -1006,6 +1111,11 @@ export async function createCodeSandboxProjectFiles(
     vue: `^${VUE_VERSION}`,
     ...buildDependencies(preparedCode, context)
   }
+
+  if (usesIconSandboxRuntime(preparedCode, context)) {
+    packageDependencies['@iconify/vue'] = KNOWN_DEPENDENCIES['@iconify/vue']
+  }
+
   const loadedRuntimeFiles = new Set<string>()
 
   const collectRuntimeFile = async (relativePath: string): Promise<void> => {
@@ -1014,7 +1124,18 @@ export async function createCodeSandboxProjectFiles(
     }
 
     loadedRuntimeFiles.add(relativePath)
-    const assetText = await loadRuntimeAssetText(relativePath)
+    const originalAssetText = await loadRuntimeAssetText(relativePath)
+    let assetText = relativePath.endsWith('.js')
+      ? rewriteRuntimeRelativeImports(originalAssetText, relativePath, availableRuntimeFiles)
+      : originalAssetText
+
+    if (relativePath === 'hooks/index.js') {
+      assetText = assetText.replace(
+        /^\s*export\s+\*\s+from\s+['"]\.\/use-ai\/index\.js['"]\s*;?\s*$/gm,
+        ''
+      )
+    }
+
     runtimeFiles[`src/vendor/${relativePath}`] = assetText
     Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(assetText))
 
@@ -1027,13 +1148,15 @@ export async function createCodeSandboxProjectFiles(
         continue
       }
 
-      await collectRuntimeFile(resolveRelativeRuntimePath(relativePath, source))
+      await collectRuntimeFile(
+        resolveRuntimeRelativePath(relativePath, source, availableRuntimeFiles)
+      )
     }
   }
 
   for (const componentName of runtimeComponentNames) {
     const componentEntry = manifest.components[componentName]
-    await collectRuntimeFile(componentEntry.module)
+    await collectRuntimeFile(componentEntry.entry)
     if (componentEntry.style) {
       await collectRuntimeFile(componentEntry.style)
       componentStyleContents.push(runtimeFiles[`src/vendor/${componentEntry.style}`] ?? '')
@@ -1048,11 +1171,14 @@ export async function createCodeSandboxProjectFiles(
   const componentImports = runtimeComponentNames
     .map(
       (name, index) =>
-        `import Component${index + 1} from './vendor/${manifest.components[name].module}'`
+        `import Component${index + 1} from './vendor/${manifest.components[name].entry}'`
     )
     .join('\n')
   const componentRegistrations = runtimeComponentNames
-    .map((name, index) => `app.component('Yh${kebabToPascalCase(name)}', Component${index + 1})`)
+    .map(
+      (name, index) =>
+        `if (Component${index + 1} && typeof Component${index + 1}.install === 'function') { app.use(Component${index + 1}) } else { app.component('Yh${kebabToPascalCase(name)}', Component${index + 1}) }`
+    )
     .join('\n')
 
   const indexHtml =
@@ -1090,7 +1216,8 @@ export async function createCodeSandboxProjectFiles(
       : []),
     ...(usesFlowSandboxRuntime(preparedCode, context)
       ? [
-          "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from '@yh-ui/flow'"
+          "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from './vendor/flow/runtime.js'",
+          "import './vendor/flow/runtime.css'"
         ]
       : []),
     '',
@@ -1140,7 +1267,7 @@ export async function createCodeSandboxProjectFiles(
       2
     ) + '\n'
 
-  return {
+  const files: Record<string, string> = {
     '.codesandbox/template.json': codeSandboxTemplateJson,
     '.npmrc': ['registry=https://registry.npmjs.org/', ''].join('\n'),
     'index.html': indexHtml,
@@ -1151,6 +1278,13 @@ export async function createCodeSandboxProjectFiles(
     'src/style.css': `${supportStyleContents.join('\n')}\n${componentStyleContents.join('\n')}\n`,
     ...runtimeFiles
   }
+
+  if (usesFlowSandboxRuntime(preparedCode, context)) {
+    files['src/vendor/flow/runtime.js'] = await loadSiteAssetText('playground/yh-flow-runtime.js')
+    files['src/vendor/flow/runtime.css'] = await loadSiteAssetText('playground/yh-flow-runtime.css')
+  }
+
+  return files
 }
 
 // ============================================================

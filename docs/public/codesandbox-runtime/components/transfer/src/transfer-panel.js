@@ -561,7 +561,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { computed, ref, watch, provide } from 'vue'
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
-import { transferPanelContextKey } from './transfer'
+import { transferPanelContextKey } from './transfer-meta.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
     name: 'YhTransferPanel'

@@ -574,9 +574,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 import { useLocale } from '../../../hooks/index.js'
 import { useNamespace } from '../../../hooks/use-namespace/index.js'
 import { computed, ref, useSlots } from 'vue'
-import { aiMentionProps, aiMentionEmits } from './ai-mention'
-import { YhMention } from '../../mention'
-import { YhIcon } from '../../icon'
+import { aiMentionProps, aiMentionEmits } from './ai-mention-meta.js'
+import { YhMention } from '../../mention.js'
+import { YhIcon } from '../../icon.js'
 import { useComponentTheme } from '../../../theme/component-theme.js'
 const __sfc__ = /* @__PURE__ */ Object.assign(
   {
