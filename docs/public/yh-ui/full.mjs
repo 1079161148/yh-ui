@@ -5,7 +5,7 @@ export * from '@yh-ui/utils';
 export { hexToRgb, rgbToHex } from '@yh-ui/utils';
 export * from '@yh-ui/theme';
 
-const version$1 = "0.1.53";
+const version$1 = "0.1.55";
 const packageJson = {
 	version: version$1};
 
