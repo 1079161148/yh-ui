@@ -7,7 +7,7 @@ export * from '@yh-ui/theme';
 export * from '@yh-ui/locale';
 export { en, zhCn } from '@yh-ui/locale';
 
-const version$1 = "0.1.55";
+const version$1 = "0.1.56";
 const packageJson = {
 	version: version$1};
 

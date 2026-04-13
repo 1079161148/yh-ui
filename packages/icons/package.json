@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/icons",
-  "version": "0.1.55",
+  "version": "0.1.56",
   "description": "YH-UI Icons - High performance icon library with Iconify integration",
   "type": "module",
   "main": "./dist/index.mjs",
@@ -12,8 +12,8 @@
       "types": "./dist/index.d.ts"
     },
     "./vue": {
-      "import": "./dist/vue.mjs",
-      "types": "./dist/vue.d.ts"
+      "import": "./dist/vue/icon.mjs",
+      "types": "./dist/src/vue/icon.d.ts"
     }
   },
   "files": [

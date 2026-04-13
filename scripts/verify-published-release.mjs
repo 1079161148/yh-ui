@@ -51,6 +51,11 @@ function collectExportAssets(value, assets) {
   if (!value) return
 
   if (typeof value === 'string') {
+    // Export map patterns like "./dist/*.mjs" are templates, not real CDN asset URLs.
+    if (value.includes('*')) {
+      return
+    }
+
     if (relevantAssetPattern.test(value)) {
       assets.add(value.replace(/^\.\//, ''))
     }

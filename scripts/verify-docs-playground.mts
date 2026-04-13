@@ -239,6 +239,7 @@ async function startDocsPreview() {
   })
 
   await waitForServer(`${serverUrl}/yh-ui/`)
+  await waitForServer(`${serverUrl}/yh-ui/vp-icons.css`)
   return { child, serverUrl, stdoutRef: () => stdout, stderrRef: () => stderr }
 }
 

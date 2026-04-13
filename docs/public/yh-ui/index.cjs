@@ -12,7 +12,7 @@ function _interopDefaultCompat (e) { return e && typeof e === 'object' && 'defau
 
 const components__default = /*#__PURE__*/_interopDefaultCompat(components);
 
-const version$1 = "0.1.55";
+const version$1 = "0.1.56";
 const packageJson = {
 	version: version$1};
 
