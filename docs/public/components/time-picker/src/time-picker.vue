@@ -1,25 +1,25 @@
 <script setup>
-import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from "vue";
-import { useNamespace, useFormItem, useId, useLocale } from "@yh-ui/hooks";
-import { useComponentTheme } from "@yh-ui/theme";
-import { useConfig } from "@yh-ui/hooks";
-import TimeSpinner from "./time-spinner.vue";
-import { parseTimeValue, formatTimeState, getCurrentTimeState } from "./time-picker";
+import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { useConfig } from '@yh-ui/hooks'
+import TimeSpinner from './time-spinner.vue'
+import { parseTimeValue, formatTimeState, getCurrentTimeState } from './time-picker'
 defineOptions({
-  name: "YhTimePicker"
-});
+  name: 'YhTimePicker'
+})
 const props = defineProps({
   modelValue: { type: [String, Date, Number, null, Array], required: false },
   disabled: { type: Boolean, required: false, default: false },
   editable: { type: Boolean, required: false, default: true },
   clearable: { type: Boolean, required: false, default: true },
   size: { type: String, required: false, default: void 0 },
-  placeholder: { type: String, required: false, default: "" },
-  startPlaceholder: { type: String, required: false, default: "" },
-  endPlaceholder: { type: String, required: false, default: "" },
+  placeholder: { type: String, required: false, default: '' },
+  startPlaceholder: { type: String, required: false, default: '' },
+  endPlaceholder: { type: String, required: false, default: '' },
   name: { type: String, required: false },
   isRange: { type: Boolean, required: false, default: false },
-  format: { type: String, required: false, default: "HH:mm:ss" },
+  format: { type: String, required: false, default: 'HH:mm:ss' },
   valueFormat: { type: String, required: false },
   prefixIcon: { type: null, required: false },
   clearIcon: { type: null, required: false },
@@ -34,15 +34,15 @@ const props = defineProps({
   teleported: { type: Boolean, required: false, default: true },
   validateEvent: { type: Boolean, required: false, default: true },
   popperOffset: { type: Number, required: false, default: 4 },
-  rangeSeparator: { type: String, required: false, default: "-" },
+  rangeSeparator: { type: String, required: false, default: '-' },
   defaultValue: { type: [String, Date, Number, null, Array], required: false },
   hourOptions: { type: Array, required: false },
   minuteOptions: { type: Array, required: false },
   secondOptions: { type: Array, required: false },
   hideOnBlur: { type: Boolean, required: false, default: true },
-  confirmText: { type: String, required: false, default: "" },
-  cancelText: { type: String, required: false, default: "" },
-  nowText: { type: String, required: false, default: "" },
+  confirmText: { type: String, required: false, default: '' },
+  cancelText: { type: String, required: false, default: '' },
+  nowText: { type: String, required: false, default: '' },
   showFooter: { type: Boolean, required: false, default: true },
   showNow: { type: Boolean, required: false, default: true },
   arrowControl: { type: Boolean, required: false, default: false },
@@ -50,316 +50,338 @@ const props = defineProps({
   id: { type: String, required: false },
   orderOnConfirm: { type: Boolean, required: false, default: false },
   themeOverrides: { type: null, required: false }
-});
-const emit = defineEmits(["update:modelValue", "change", "focus", "blur", "clear", "visible-change", "confirm", "cancel"]);
-const ns = useNamespace("time-picker");
-const { t } = useLocale();
-const inputId = useId();
+})
+const emit = defineEmits([
+  'update:modelValue',
+  'change',
+  'focus',
+  'blur',
+  'clear',
+  'visible-change',
+  'confirm',
+  'cancel'
+])
+const ns = useNamespace('time-picker')
+const { t } = useLocale()
+const inputId = useId()
 const { themeStyle } = useComponentTheme(
-  "time-picker",
+  'time-picker',
   computed(() => props.themeOverrides)
-);
-const { form, formItem, validate: triggerValidate } = useFormItem();
-const { globalSize } = useConfig();
+)
+const { form, formItem, validate: triggerValidate } = useFormItem()
+const { globalSize } = useConfig()
 const selectSize = computed(
-  () => props.size || formItem?.size || form?.size || globalSize.value || "default"
-);
-const wrapperRef = ref();
-const inputRef = ref();
-const startInputRef = ref();
-const endInputRef = ref();
-const visible = ref(false);
-const focused = ref(false);
-const hovering = ref(false);
-const isClickingPanel = ref(false);
-const internalTimeState = ref({ hours: 0, minutes: 0, seconds: 0 });
-const internalStartTimeState = ref({ hours: 0, minutes: 0, seconds: 0 });
-const internalEndTimeState = ref({ hours: 0, minutes: 0, seconds: 0 });
-const dropdownStyle = ref({});
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
+const wrapperRef = ref()
+const inputRef = ref()
+const startInputRef = ref()
+const endInputRef = ref()
+const visible = ref(false)
+const focused = ref(false)
+const hovering = ref(false)
+const isClickingPanel = ref(false)
+const internalTimeState = ref({ hours: 0, minutes: 0, seconds: 0 })
+const internalStartTimeState = ref({ hours: 0, minutes: 0, seconds: 0 })
+const internalEndTimeState = ref({ hours: 0, minutes: 0, seconds: 0 })
+const dropdownStyle = ref({})
 const parsedValue = computed(() => {
   if (props.isRange) {
-    const rangeValue = props.modelValue;
-    if (!rangeValue || !Array.isArray(rangeValue)) return [null, null];
+    const rangeValue = props.modelValue
+    if (!rangeValue || !Array.isArray(rangeValue)) return [null, null]
     return [
       parseTimeValue(rangeValue[0], props.format),
       parseTimeValue(rangeValue[1], rangeValue.length > 1 ? props.format : void 0)
-    ];
+    ]
   }
-  return parseTimeValue(props.modelValue, props.format);
-});
+  return parseTimeValue(props.modelValue, props.format)
+})
 const displayValue = computed(() => {
   if (props.isRange) {
-    return "";
+    return ''
   }
-  return formatTimeState(parsedValue.value, props.format, props.use12Hours);
-});
+  return formatTimeState(parsedValue.value, props.format, props.use12Hours)
+})
 const rangeStartDisplayValue = computed(() => {
-  if (!props.isRange) return "";
-  const [start] = parsedValue.value;
-  return formatTimeState(start, props.format, props.use12Hours);
-});
+  if (!props.isRange) return ''
+  const [start] = parsedValue.value
+  return formatTimeState(start, props.format, props.use12Hours)
+})
 const rangeEndDisplayValue = computed(() => {
-  if (!props.isRange) return "";
-  const [, end] = parsedValue.value;
-  return formatTimeState(end, props.format, props.use12Hours);
-});
+  if (!props.isRange) return ''
+  const [, end] = parsedValue.value
+  return formatTimeState(end, props.format, props.use12Hours)
+})
 const hasValue = computed(() => {
   if (props.isRange) {
-    const rangeValue = props.modelValue;
-    return rangeValue && rangeValue[0] !== null && rangeValue[1] !== null;
+    const rangeValue = props.modelValue
+    return rangeValue && rangeValue[0] !== null && rangeValue[1] !== null
   }
-  return props.modelValue !== null && props.modelValue !== void 0 && props.modelValue !== "";
-});
+  return props.modelValue !== null && props.modelValue !== void 0 && props.modelValue !== ''
+})
 const showClear = computed(
   () => props.clearable && !props.disabled && hasValue.value && (focused.value || hovering.value)
-);
+)
 const wrapperClasses = computed(() => [
   ns.b(),
   ns.m(selectSize.value),
-  ns.is("disabled", props.disabled),
-  ns.is("focused", focused.value || visible.value),
-  ns.is("range", props.isRange)
-]);
+  ns.is('disabled', props.disabled),
+  ns.is('focused', focused.value || visible.value),
+  ns.is('range', props.isRange)
+])
 const updateDropdownPosition = () => {
-  if (!wrapperRef.value || !props.teleported) return;
-  const rect = wrapperRef.value.getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom;
-  const panelHeight = 320;
-  const showAbove = spaceBelow < panelHeight && rect.top > spaceBelow;
-  const styles = window.getComputedStyle(wrapperRef.value);
-  const primary = styles.getPropertyValue("--yh-color-primary").trim();
-  const primaryRgb = styles.getPropertyValue("--yh-color-primary-rgb").trim();
+  if (!wrapperRef.value || !props.teleported) return
+  const rect = wrapperRef.value.getBoundingClientRect()
+  const spaceBelow = window.innerHeight - rect.bottom
+  const panelHeight = 320
+  const showAbove = spaceBelow < panelHeight && rect.top > spaceBelow
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
   dropdownStyle.value = {
-    position: "fixed",
+    position: 'fixed',
     left: `${rect.left}px`,
     minWidth: `${rect.width}px`,
-    zIndex: "2000",
-    "--yh-color-primary": primary,
-    "--yh-color-primary-rgb": primaryRgb,
-    ...showAbove ? { bottom: `${window.innerHeight - rect.top + props.popperOffset}px` } : { top: `${rect.bottom + props.popperOffset}px` }
-  };
-};
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
+    ...(showAbove
+      ? { bottom: `${window.innerHeight - rect.top + props.popperOffset}px` }
+      : { top: `${rect.bottom + props.popperOffset}px` })
+  }
+}
 const syncInternalState = () => {
   if (props.isRange) {
-    const [start, end] = parsedValue.value;
-    internalStartTimeState.value = start || { hours: 0, minutes: 0, seconds: 0 };
-    internalEndTimeState.value = end || { hours: 0, minutes: 0, seconds: 0 };
+    const [start, end] = parsedValue.value
+    internalStartTimeState.value = start || { hours: 0, minutes: 0, seconds: 0 }
+    internalEndTimeState.value = end || { hours: 0, minutes: 0, seconds: 0 }
   } else {
-    const state = parsedValue.value;
-    internalTimeState.value = state || (props.defaultValue ? parseTimeValue(props.defaultValue, props.format) : null) || { hours: 0, minutes: 0, seconds: 0 };
+    const state = parsedValue.value
+    internalTimeState.value = state ||
+      (props.defaultValue ? parseTimeValue(props.defaultValue, props.format) : null) || {
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      }
   }
-};
+}
 const getDisabledStartTime = (originalConfig) => {
-  if (props.orderOnConfirm || !props.isRange) return originalConfig;
+  if (props.orderOnConfirm || !props.isRange) return originalConfig
   return {
     ...originalConfig,
     disabledHours: () => {
-      return originalConfig?.disabledHours?.() || [];
+      return originalConfig?.disabledHours?.() || []
     },
     disabledMinutes: (h) => originalConfig?.disabledMinutes?.(h) || [],
     disabledSeconds: (h, m) => originalConfig?.disabledSeconds?.(h, m) || []
-  };
-};
+  }
+}
 const getDisabledEndTime = (originalConfig) => {
-  if (props.orderOnConfirm || !props.isRange) return originalConfig;
+  if (props.orderOnConfirm || !props.isRange) return originalConfig
   return {
     ...originalConfig,
     disabledHours: () => {
-      const hours = originalConfig?.disabledHours?.() || [];
-      const startHour = internalStartTimeState.value.hours;
+      const hours = originalConfig?.disabledHours?.() || []
+      const startHour = internalStartTimeState.value.hours
       for (let i = 0; i < startHour; i++) {
-        if (!hours.includes(i)) hours.push(i);
+        if (!hours.includes(i)) hours.push(i)
       }
-      return hours;
+      return hours
     },
     disabledMinutes: (h) => {
-      const minutes = originalConfig?.disabledMinutes?.(h) || [];
-      const startHour = internalStartTimeState.value.hours;
-      const startMin = internalStartTimeState.value.minutes;
+      const minutes = originalConfig?.disabledMinutes?.(h) || []
+      const startHour = internalStartTimeState.value.hours
+      const startMin = internalStartTimeState.value.minutes
       if (h === startHour) {
         for (let i = 0; i < startMin; i++) {
-          if (!minutes.includes(i)) minutes.push(i);
+          if (!minutes.includes(i)) minutes.push(i)
         }
       }
-      return minutes;
+      return minutes
     },
     disabledSeconds: (h, m) => {
-      const seconds = originalConfig?.disabledSeconds?.(h, m) || [];
-      const startHour = internalStartTimeState.value.hours;
-      const startMin = internalStartTimeState.value.minutes;
-      const startSec = internalStartTimeState.value.seconds;
+      const seconds = originalConfig?.disabledSeconds?.(h, m) || []
+      const startHour = internalStartTimeState.value.hours
+      const startMin = internalStartTimeState.value.minutes
+      const startSec = internalStartTimeState.value.seconds
       if (h === startHour && m === startMin) {
         for (let i = 0; i < startSec; i++) {
-          if (!seconds.includes(i)) seconds.push(i);
+          if (!seconds.includes(i)) seconds.push(i)
         }
       }
-      return seconds;
+      return seconds
     }
-  };
-};
-const openPanel = () => {
-  if (props.disabled) return;
-  visible.value = true;
-  syncInternalState();
-  if (props.teleported) {
-    nextTick(updateDropdownPosition);
   }
-  emit("visible-change", true);
-};
+}
+const openPanel = () => {
+  if (props.disabled) return
+  visible.value = true
+  syncInternalState()
+  if (props.teleported) {
+    nextTick(updateDropdownPosition)
+  }
+  emit('visible-change', true)
+}
 const closePanel = () => {
-  visible.value = false;
-  emit("visible-change", false);
-};
+  visible.value = false
+  emit('visible-change', false)
+}
 const handleConfirm = () => {
-  let valueToEmit;
+  let valueToEmit
   if (props.isRange) {
-    const startSec = internalStartTimeState.value.hours * 3600 + internalStartTimeState.value.minutes * 60 + internalStartTimeState.value.seconds;
-    const endSec = internalEndTimeState.value.hours * 3600 + internalEndTimeState.value.minutes * 60 + internalEndTimeState.value.seconds;
-    let finalStart = { ...internalStartTimeState.value };
-    let finalEnd = { ...internalEndTimeState.value };
+    const startSec =
+      internalStartTimeState.value.hours * 3600 +
+      internalStartTimeState.value.minutes * 60 +
+      internalStartTimeState.value.seconds
+    const endSec =
+      internalEndTimeState.value.hours * 3600 +
+      internalEndTimeState.value.minutes * 60 +
+      internalEndTimeState.value.seconds
+    let finalStart = { ...internalStartTimeState.value }
+    let finalEnd = { ...internalEndTimeState.value }
     if (startSec > endSec) {
       if (props.orderOnConfirm) {
-        finalStart = { ...internalEndTimeState.value };
-        finalEnd = { ...internalStartTimeState.value };
+        finalStart = { ...internalEndTimeState.value }
+        finalEnd = { ...internalStartTimeState.value }
       } else {
-        return;
+        return
       }
     }
     valueToEmit = [
       formatTimeState(finalStart, props.valueFormat || props.format),
       formatTimeState(finalEnd, props.valueFormat || props.format)
-    ];
+    ]
   } else {
-    valueToEmit = formatTimeState(internalTimeState.value, props.valueFormat || props.format);
+    valueToEmit = formatTimeState(internalTimeState.value, props.valueFormat || props.format)
   }
-  emit("update:modelValue", valueToEmit);
-  emit("change", valueToEmit);
-  emit("confirm", valueToEmit);
+  emit('update:modelValue', valueToEmit)
+  emit('change', valueToEmit)
+  emit('confirm', valueToEmit)
   if (props.validateEvent) {
-    triggerValidate("change");
+    triggerValidate('change')
   }
-  closePanel();
-};
+  closePanel()
+}
 const handleCancel = () => {
-  syncInternalState();
-  emit("cancel");
-  closePanel();
-};
+  syncInternalState()
+  emit('cancel')
+  closePanel()
+}
 const handleNow = () => {
-  const now = getCurrentTimeState();
+  const now = getCurrentTimeState()
   if (props.isRange) {
-    internalStartTimeState.value = { ...now };
-    internalEndTimeState.value = { ...now };
+    internalStartTimeState.value = { ...now }
+    internalEndTimeState.value = { ...now }
   } else {
-    internalTimeState.value = { ...now };
+    internalTimeState.value = { ...now }
   }
-};
+}
 const handleClear = (event) => {
-  event.stopPropagation();
-  const value = props.isRange ? [null, null] : null;
-  emit("update:modelValue", value);
-  emit("change", value);
-  emit("clear");
+  event.stopPropagation()
+  const value = props.isRange ? [null, null] : null
+  emit('update:modelValue', value)
+  emit('change', value)
+  emit('clear')
   if (props.validateEvent) {
-    triggerValidate("change");
+    triggerValidate('change')
   }
-};
+}
 const togglePanel = () => {
-  if (props.disabled) return;
+  if (props.disabled) return
   if (visible.value) {
-    closePanel();
+    closePanel()
   } else {
-    openPanel();
+    openPanel()
   }
-};
+}
 const handleFocus = (event) => {
-  focused.value = true;
-  emit("focus", event);
-};
+  focused.value = true
+  emit('focus', event)
+}
 const handleBlur = (event) => {
-  if (isClickingPanel.value) return;
-  focused.value = false;
+  if (isClickingPanel.value) return
+  focused.value = false
   if (props.hideOnBlur) {
-    closePanel();
+    closePanel()
   }
-  emit("blur", event);
+  emit('blur', event)
   if (props.validateEvent) {
-    triggerValidate("blur");
+    triggerValidate('blur')
   }
-};
+}
 const handlePanelMousedown = (event) => {
-  event.preventDefault();
-  isClickingPanel.value = true;
-};
+  event.preventDefault()
+  isClickingPanel.value = true
+}
 const handlePanelMouseup = () => {
   setTimeout(() => {
-    isClickingPanel.value = false;
-  }, 0);
-};
+    isClickingPanel.value = false
+  }, 0)
+}
 const handleMouseEnter = () => {
-  hovering.value = true;
-};
+  hovering.value = true
+}
 const handleMouseLeave = () => {
-  hovering.value = false;
-};
+  hovering.value = false
+}
 const handleKeydown = (event) => {
   switch (event.key) {
-    case "Enter":
+    case 'Enter':
       if (visible.value) {
-        handleConfirm();
+        handleConfirm()
       } else {
-        openPanel();
+        openPanel()
       }
-      break;
-    case "Escape":
-      handleCancel();
-      break;
-    case "Tab":
+      break
+    case 'Escape':
+      handleCancel()
+      break
+    case 'Tab':
       if (visible.value) {
-        closePanel();
+        closePanel()
       }
-      break;
+      break
   }
-};
+}
 watch(visible, (val) => {
   if (val && props.teleported) {
-    nextTick(updateDropdownPosition);
+    nextTick(updateDropdownPosition)
   }
-});
+})
 onMounted(() => {
   if (props.teleported) {
-    window.addEventListener("scroll", updateDropdownPosition, true);
-    window.addEventListener("resize", updateDropdownPosition);
+    window.addEventListener('scroll', updateDropdownPosition, true)
+    window.addEventListener('resize', updateDropdownPosition)
   }
-});
+})
 onBeforeUnmount(() => {
   if (props.teleported) {
-    window.removeEventListener("scroll", updateDropdownPosition, true);
-    window.removeEventListener("resize", updateDropdownPosition);
+    window.removeEventListener('scroll', updateDropdownPosition, true)
+    window.removeEventListener('resize', updateDropdownPosition)
   }
-});
+})
 const focus = () => {
   if (props.isRange) {
-    startInputRef.value?.focus();
+    startInputRef.value?.focus()
   } else {
-    inputRef.value?.focus();
+    inputRef.value?.focus()
   }
-};
+}
 const blur = () => {
   if (props.isRange) {
-    startInputRef.value?.blur();
-    endInputRef.value?.blur();
+    startInputRef.value?.blur()
+    endInputRef.value?.blur()
   } else {
-    inputRef.value?.blur();
+    inputRef.value?.blur()
   }
-};
+}
 defineExpose({
   focus,
   blur,
   open: openPanel,
   close: closePanel,
-  inputRef: inputRef.value
-});
+  inputRef
+})
 </script>
 
 <template>
@@ -452,9 +474,15 @@ defineExpose({
         </span>
 
         <!-- 箭头图标 -->
-        <span :class="[ns.e('icon'), ns.e('arrow'), {
-  'is-reverse': visible
-}]">
+        <span
+          :class="[
+            ns.e('icon'),
+            ns.e('arrow'),
+            {
+              'is-reverse': visible
+            }
+          ]"
+        >
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -497,7 +525,7 @@ defineExpose({
             <div :class="ns.e('range-panel')">
               <div :class="ns.e('range-panel-item')">
                 <div :class="ns.e('range-panel-title')">
-                  {{ startPlaceholder || t("timepicker.startPlaceholder") }}
+                  {{ startPlaceholder || t('timepicker.startPlaceholder') }}
                 </div>
                 <TimeSpinner
                   v-model="internalStartTimeState"
@@ -517,7 +545,7 @@ defineExpose({
               </div>
               <div :class="ns.e('range-panel-item')">
                 <div :class="ns.e('range-panel-title')">
-                  {{ endPlaceholder || t("timepicker.endPlaceholder") }}
+                  {{ endPlaceholder || t('timepicker.endPlaceholder') }}
                 </div>
                 <TimeSpinner
                   v-model="internalEndTimeState"
@@ -536,7 +564,7 @@ defineExpose({
           <!-- 底部操作栏 -->
           <div v-if="showFooter" :class="ns.e('footer')">
             <button v-if="showNow" type="button" :class="ns.e('footer-btn')" @click="handleNow">
-              {{ nowText || t("timepicker.now") }}
+              {{ nowText || t('timepicker.now') }}
             </button>
             <div :class="ns.e('footer-actions')">
               <button
@@ -544,14 +572,14 @@ defineExpose({
                 :class="[ns.e('footer-btn'), ns.e('footer-btn--cancel')]"
                 @click="handleCancel"
               >
-                {{ cancelText || t("timepicker.cancel") }}
+                {{ cancelText || t('timepicker.cancel') }}
               </button>
               <button
                 type="button"
                 :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
                 @click="handleConfirm"
               >
-                {{ confirmText || t("timepicker.confirm") }}
+                {{ confirmText || t('timepicker.confirm') }}
               </button>
             </div>
           </div>
@@ -1039,7 +1067,8 @@ html.dark {
   padding: 10px 12px;
 }
 
-.yh-time-picker--large .yh-time-picker__inner, .yh-time-picker--large .yh-time-picker__range-input {
+.yh-time-picker--large .yh-time-picker__inner,
+.yh-time-picker--large .yh-time-picker__range-input {
   font-size: 16px;
 }
 
@@ -1051,7 +1080,8 @@ html.dark {
   padding: 4px 8px;
 }
 
-.yh-time-picker--small .yh-time-picker__inner, .yh-time-picker--small .yh-time-picker__range-input {
+.yh-time-picker--small .yh-time-picker__inner,
+.yh-time-picker--small .yh-time-picker__range-input {
   font-size: 12px;
 }
 
@@ -1070,7 +1100,8 @@ html.dark {
   border-color: var(--yh-border-color-light);
 }
 
-.yh-time-picker.is-disabled .yh-time-picker__inner, .yh-time-picker.is-disabled .yh-time-picker__range-input {
+.yh-time-picker.is-disabled .yh-time-picker__inner,
+.yh-time-picker.is-disabled .yh-time-picker__range-input {
   color: var(--yh-text-color-disabled);
   cursor: not-allowed;
 }
@@ -1114,7 +1145,7 @@ html.dark {
   border: none;
   outline: none;
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
+  font-feature-settings: 'tnum';
 }
 .yh-time-picker__inner::placeholder {
   color: var(--yh-text-color-placeholder);
@@ -1134,7 +1165,7 @@ html.dark {
   border: none;
   outline: none;
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
+  font-feature-settings: 'tnum';
 }
 .yh-time-picker__range-input::placeholder {
   color: var(--yh-text-color-placeholder);
@@ -1195,10 +1226,14 @@ html.dark {
   box-shadow: var(--yh-box-shadow-light);
   border: 1px solid var(--yh-border-color-light);
 }
-.yh-time-picker__panel-enter-active, .yh-time-picker__panel-leave-active {
-  transition: opacity 0.2s, transform 0.2s;
+.yh-time-picker__panel-enter-active,
+.yh-time-picker__panel-leave-active {
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
 }
-.yh-time-picker__panel-enter-from, .yh-time-picker__panel-leave-to {
+.yh-time-picker__panel-enter-from,
+.yh-time-picker__panel-leave-to {
   opacity: 0;
   transform: translateY(-8px);
 }

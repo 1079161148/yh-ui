@@ -601,6 +601,97 @@ const sk = exports.sk = {
       noData: "\u017Diadne d\xE1ta"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Vyberte \u0161pecifik\xE1cie",
+      emptyText: "\u017Diadne \u0161pecifik\xE1cie",
+      stock: "Sklad",
+      price: "Cena",
+      selected: "Vybran\xE9",
+      outOfStock: "Nie je na sklade"
+    },
+    productcard: {
+      viewDetails: "Zobrazi\u0165 podrobnosti",
+      buyNow: "K\xFApi\u0165 teraz",
+      addToCart: "Prida\u0165 do ko\u0161\xEDka",
+      sold: "Predan\xE9",
+      soldOut: "Vypredan\xE9",
+      vip: "VIP"
+    },
+    price: {
+      original: "P\xF4vodn\xE1 cena"
+    },
+    couponcard: {
+      available: "Z\xEDska\u0165 teraz",
+      used: "Pou\u017Eit\xE9",
+      expired: "Vypr\u0161an\xE9",
+      received: "Prijat\xE9",
+      limit: "Objedn\xE1vky nad {threshold}",
+      noThreshold: "Bez minim\xE1lnej hodnoty",
+      validPeriod: "Platnos\u0165",
+      ruleTitle: "Pravidl\xE1 pou\u017E\xEDvania"
+    },
+    luckydraw: {
+      start: "Spusti\u0165",
+      drawing: "\u017Drebovanie...",
+      end: "V\xED\u0165az!",
+      retry: "Sk\xFAsi\u0165 znova"
+    },
+    filterbar: {
+      all: "V\u0161etko",
+      sort: "Triedi\u0165",
+      filter: "Filtrova\u0165",
+      cancel: "Zru\u0161i\u0165",
+      reset: "Obnovi\u0165",
+      confirm: "Potvrdi\u0165",
+      noOptions: "\u017Diadne mo\u017Enosti",
+      asc: "Vzostupne",
+      desc: "Zostupne",
+      selected: "Vybran\xE9"
+    },
+    submitbar: {
+      total: "Spolu: ",
+      selected: "{count} vybran\xE9",
+      submit: "Pokra\u010Dova\u0165 k pokladni",
+      allSelect: "Vybra\u0165 v\u0161etko"
+    },
+    categorynav: {
+      all: "V\u0161etko",
+      noData: "\u017Diadne \xFAdaje",
+      loading: "Na\u010D\xEDtava sa..."
+    },
+    smartaddress: {
+      placeholder: "Vlo\u017Ete sem adresu na automatick\xE9 rozpoznanie mena, telef\xF3nu a miesta",
+      parse: "Inteligentn\xE1 anal\xFDza",
+      province: "Kraj/Mesto/Okres",
+      city: "Mesto",
+      district: "Okres/Obec",
+      street: "Ulica/Mesto",
+      detail: "Podrobn\xE1 adresa",
+      phone: "Telef\xF3n",
+      name: "Pr\xEDjemca",
+      parseSuccess: "Adresa bola \xFAspe\u0161ne analyzovan\xE1",
+      parseFailed: "Anal\xFDza zlyhala, vypl\u0148te ru\u010Dne",
+      required: "Vypl\u0148te pros\xEDm \xFApln\xFA adresu",
+      provinceKeywords: ["Kraj", "\u0160t\xE1t"],
+      cityKeywords: ["Mesto", "Obec"],
+      districtKeywords: ["Okres", "Obec", "\u010Cas\u0165"],
+      streetKeywords: ["Ulica", "Trieda", "Cesta", "N\xE1mestie"]
+    },
+    ganttchart: {
+      taskName: "N\xE1zov \xFAlohy",
+      searchPlaceholder: "H\u013Eada\u0165 \xFAlohy...",
+      zoom: "Pribl\xED\u017Eenie",
+      day: "De\u0148",
+      week: "T\xFD\u017Ede\u0148",
+      month: "Mesiac",
+      year: "Rok",
+      milestone: "M\xED\u013Enik"
+    },
+    imagemagnifier: {
+      switchToImage: "Prepn\xFA\u0165 na obr\xE1zok {index}",
+      galleryItem: "Gal\xE9ria {index}",
+      close: "Zavrie\u0165"
+    },
     ai: {
       bubble: {
         citations: "Cit\xE1cie"
@@ -710,9 +801,32 @@ const sk = exports.sk = {
         pin: "Pripn\xFA\u0165",
         unpin: "Odpn\xFA\u0165",
         newConversation: "Nov\xE1 konverz\xE1cia",
+        noData: "Zatia\u013E \u017Eiadne konverz\xE1cie",
         rename: "Premenova\u0165",
         delete: "Vymaza\u0165",
         deleteConfirm: "Potvr\u010Fte vymazanie tejto konverz\xE1cie?"
+      },
+      attachments: {
+        dropTip: "Presu\u0148te sem s\xFAbory na nahranie",
+        clickToUpload: "Kliknite alebo pretiahnite s\xFAbory na nahranie",
+        uploadSuccess: "Nahranie bolo \xFAspe\u0161n\xE9",
+        uploadError: "Nahranie zlyhalo",
+        deleteConfirm: "Naozaj chcete odstr\xE1ni\u0165 tento s\xFAbor?",
+        fileTooLarge: "Ve\u013Ekos\u0165 s\xFAboru nem\xF4\u017Ee presiahnu\u0165 {size}",
+        invalidFileType: "Neplatn\xFD typ s\xFAboru"
+      },
+      mermaid: {
+        image: "Obr\xE1zok",
+        code: "K\xF3d",
+        zoomIn: "Pribl\xED\u017Ei\u0165",
+        zoomOut: "Oddiali\u0165",
+        reset: "Obnovi\u0165",
+        download: "Stiahnu\u0165",
+        copyCode: "Kop\xEDrova\u0165 k\xF3d",
+        rendering: "Vykres\u013Eovanie...",
+        renderError: "Vykreslenie zlyhalo",
+        renderSuccess: "Vykreslenie bolo \xFAspe\u0161n\xE9",
+        retry: "Sk\xFAsi\u0165 znova"
       }
     }
   }

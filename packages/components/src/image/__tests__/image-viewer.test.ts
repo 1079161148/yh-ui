@@ -1,7 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import YhImageViewer from '../src/image-viewer.vue'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 const urlList = ['https://picsum.photos/400/300', 'https://picsum.photos/400/301']
 
@@ -134,5 +136,28 @@ describe('YhImageViewer', () => {
     // ArrowDown (Zoom Out)
     await triggerKey('ArrowDown')
     expect(wrapper.find('.yh-viewer__canvas img').attributes('style')).toContain('scale(1)')
+  })
+
+  it('should use config-provider locale labels and expose controls', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(YhImageViewer, {
+            urlList,
+            teleported: false
+          })
+      }
+    })
+
+    const closeButton = wrapper.get('.yh-viewer__close')
+    const nextButton = wrapper.get('.yh-viewer__next')
+    expect(closeButton.attributes('title')).toBe('Close')
+    expect(nextButton.attributes('aria-label')).toBe('Next')
+
+    const viewer = wrapper.findComponent(YhImageViewer)
+    const exposed = (viewer.vm as any).$?.exposed
+    expect(typeof exposed?.reset).toBe('function')
+    expect(typeof exposed?.next).toBe('function')
   })
 })

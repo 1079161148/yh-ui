@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, Component } from 'vue'
+import type { ExtractPropTypes, PropType, Component, ComputedRef } from 'vue'
 
 export type SwitchValueType = boolean | string | number
 
@@ -118,3 +118,15 @@ export const switchEmits = {
 }
 
 export type SwitchEmits = typeof switchEmits
+
+export interface SwitchSlots {
+  active?: () => unknown
+  inactive?: () => unknown
+  'active-action'?: () => unknown
+  'inactive-action'?: () => unknown
+}
+
+export interface SwitchExpose {
+  focus: () => void
+  checked: ComputedRef<boolean>
+}

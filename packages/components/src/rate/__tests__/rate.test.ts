@@ -3,7 +3,10 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { defineComponent } from 'vue'
 import Rate from '../src/rate.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhRate', () => {
   it('should render correctly', () => {
@@ -95,5 +98,41 @@ describe('YhRate', () => {
     // Click the active star to clear (3rd star, index 2)
     await items[2].trigger('click')
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([0])
+  })
+
+  it('should apply component theme overrides', () => {
+    const wrapper = mount(Rate, {
+      props: {
+        themeOverrides: {
+          fillColor: '#ff0000',
+          voidColor: '#cccccc',
+          textColor: '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-rate-fill-color: #ff0000')
+    expect(wrapper.attributes('style')).toContain('--yh-rate-void-color: #cccccc')
+    expect(wrapper.attributes('style')).toContain('--yh-rate-text-color: #123456')
+  })
+
+  it('should read localized fallback texts from config provider', () => {
+    const Demo = defineComponent({
+      components: {
+        YhConfigProvider,
+        Rate
+      },
+      setup() {
+        return { en }
+      },
+      template: `
+        <yh-config-provider :locale="en" :global="false">
+          <rate :model-value="4" show-text />
+        </yh-config-provider>
+      `
+    })
+
+    const wrapper = mount(Demo)
+    expect(wrapper.find('.yh-rate__text').text()).toBe('Satisfied')
   })
 })

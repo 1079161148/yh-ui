@@ -601,6 +601,97 @@ const az = exports.az = {
       noData: "M\u0259lumat yoxdur"
     },
     // AI Components
+    skuselector: {
+      placeholder: "X\xFCsusiyy\u0259tl\u0259ri se\xE7in",
+      emptyText: "X\xFCsusiyy\u0259t yoxdur",
+      stock: "Stok",
+      price: "Qiym\u0259t",
+      selected: "Se\xE7ilib",
+      outOfStock: "Stokda yoxdur"
+    },
+    productcard: {
+      viewDetails: "Detallara bax",
+      buyNow: "\u0130ndi al",
+      addToCart: "S\u0259b\u0259t\u0259 \u0259lav\u0259 et",
+      sold: "Sat\u0131l\u0131b",
+      soldOut: "T\xFCk\u0259nib",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u0130lkin qiym\u0259t"
+    },
+    couponcard: {
+      available: "\u0130ndi \u0259ld\u0259 et",
+      used: "\u0130stifad\u0259 olunub",
+      expired: "M\xFCdd\u0259ti bitib",
+      received: "Al\u0131n\u0131b",
+      limit: "{threshold} \xFCz\u0259ri sifari\u015Fl\u0259r",
+      noThreshold: "Minimum h\u0259dd yoxdur",
+      validPeriod: "Etibarl\u0131l\u0131q m\xFCdd\u0259ti",
+      ruleTitle: "\u0130stifad\u0259 qaydalar\u0131"
+    },
+    luckydraw: {
+      start: "Ba\u015Flat",
+      drawing: "P\xFC\u015Fkatma gedir...",
+      end: "Qalib!",
+      retry: "Yenid\u0259n c\u0259hd et"
+    },
+    filterbar: {
+      all: "Ham\u0131s\u0131",
+      sort: "S\u0131rala",
+      filter: "Filtr",
+      cancel: "L\u0259\u011Fv et",
+      reset: "S\u0131f\u0131rla",
+      confirm: "T\u0259sdiql\u0259",
+      noOptions: "Se\xE7im yoxdur",
+      asc: "Artan",
+      desc: "Azalan",
+      selected: "Se\xE7ilib"
+    },
+    submitbar: {
+      total: "C\u0259mi: ",
+      selected: "{count} se\xE7ilib",
+      submit: "\xD6d\u0259ni\u015F\u0259 ke\xE7",
+      allSelect: "Ham\u0131s\u0131n\u0131 se\xE7"
+    },
+    categorynav: {
+      all: "Ham\u0131s\u0131",
+      noData: "M\u0259lumat yoxdur",
+      loading: "Y\xFCkl\u0259nir..."
+    },
+    smartaddress: {
+      placeholder: "Ad\u0131, telefonu v\u0259 m\u0259kan\u0131 avtomatik a\u015Fkar etm\u0259k \xFC\xE7\xFCn \xFCnvan\u0131 bura yap\u0131\u015Fd\u0131r\u0131n",
+      parse: "A\u011F\u0131ll\u0131 analiz",
+      province: "Region/\u015E\u0259h\u0259r/Rayon",
+      city: "\u015E\u0259h\u0259r",
+      district: "Rayon/Q\u0259za",
+      street: "K\xFC\xE7\u0259/Q\u0259s\u0259b\u0259",
+      detail: "\u018Ftrafl\u0131 \xFCnvan",
+      phone: "Telefon",
+      name: "Al\u0131c\u0131",
+      parseSuccess: "\xDCnvan u\u011Furla analiz edildi",
+      parseFailed: "Analiz u\u011Fursuz oldu, \u0259l il\u0259 doldurun",
+      required: "Z\u0259hm\u0259t olmasa tam \xFCnvan\u0131 daxil edin",
+      provinceKeywords: ["Region", "Vilay\u0259t"],
+      cityKeywords: ["\u015E\u0259h\u0259r", "B\u0259l\u0259diyy\u0259"],
+      districtKeywords: ["Rayon", "Q\u0259s\u0259b\u0259", "K\u0259nd"],
+      streetKeywords: ["K\xFC\xE7\u0259", "Prospekt", "Yol", "Dalana"]
+    },
+    ganttchart: {
+      taskName: "Tap\u015F\u0131r\u0131q ad\u0131",
+      searchPlaceholder: "Tap\u015F\u0131r\u0131qlar\u0131 axtar...",
+      zoom: "B\xF6y\xFCtm\u0259",
+      day: "G\xFCn",
+      week: "H\u0259ft\u0259",
+      month: "Ay",
+      year: "\u0130l",
+      milestone: "M\u0259rh\u0259l\u0259"
+    },
+    imagemagnifier: {
+      switchToImage: "{index} n\xF6mr\u0259li \u015F\u0259kil\u0259 ke\xE7",
+      galleryItem: "Qalereya {index}",
+      close: "Ba\u011Fla"
+    },
     ai: {
       bubble: {
         citations: "\u0130stinadlar"
@@ -710,9 +801,32 @@ const az = exports.az = {
         pin: "Sabitl\u0259",
         unpin: "Sabitl\u0259m\u0259ni g\xF6t\xFCr",
         newConversation: "Yeni s\xF6hb\u0259t",
+        noData: "H\u0259l\u0259 s\xF6hb\u0259t yoxdur",
         rename: "Ad\u0131n\u0131 d\u0259yi\u015F",
         delete: "Sil",
         deleteConfirm: "Bu s\xF6hb\u0259ti silm\u0259yi t\u0259sdiql\u0259yin?"
+      },
+      attachments: {
+        dropTip: "Y\xFCkl\u0259m\u0259k \xFC\xE7\xFCn fayllar\u0131 bura burax\u0131n",
+        clickToUpload: "Y\xFCkl\u0259m\u0259k \xFC\xE7\xFCn klikl\u0259yin v\u0259 ya fayllar\u0131 s\xFCr\xFC\u015Fd\xFCr\xFCn",
+        uploadSuccess: "Y\xFCkl\u0259m\u0259 u\u011Furludur",
+        uploadError: "Y\xFCkl\u0259m\u0259 ba\u015F tutmad\u0131",
+        deleteConfirm: "Bu fayl\u0131 silm\u0259k ist\u0259diyiniz\u0259 \u0259minsiniz?",
+        fileTooLarge: "Fayl \xF6l\xE7\xFCs\xFC {size} d\u0259y\u0259rini a\u015Fa bilm\u0259z",
+        invalidFileType: "Yanl\u0131\u015F fayl n\xF6v\xFC"
+      },
+      mermaid: {
+        image: "\u015E\u0259kil",
+        code: "Kod",
+        zoomIn: "B\xF6y\xFCt",
+        zoomOut: "Ki\xE7ilt",
+        reset: "S\u0131f\u0131rla",
+        download: "Y\xFCkl\u0259",
+        copyCode: "Kodu kopyala",
+        rendering: "Render edilir...",
+        renderError: "Render ba\u015F tutmad\u0131",
+        renderSuccess: "Render u\u011Furludur",
+        retry: "Yenid\u0259n c\u0259hd et"
       }
     }
   }

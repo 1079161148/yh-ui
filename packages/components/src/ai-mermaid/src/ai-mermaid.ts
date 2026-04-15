@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 
 /** Mermaid 配置 */
 export interface MermaidConfig {
@@ -120,3 +120,10 @@ export const aiMermaidEmits = {
 }
 
 export type AiMermaidEmits = typeof aiMermaidEmits
+
+export interface AiMermaidSlots {
+  header?: () => unknown
+  extra?: () => unknown
+}
+
+export type AiMermaidSlotTypes = SlotsType<AiMermaidSlots>

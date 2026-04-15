@@ -237,6 +237,34 @@ export interface AiProviderConfig {
   cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached'
 }
 
+export interface AiProviderProps {
+  baseUrl?: string
+  token?: string
+  headers?: Record<string, string>
+  userAvatar?: string
+  assistantAvatar?: string
+  userName?: string
+  assistantName?: string
+  systemPrompt?: string
+  typewriter?: { enabled?: boolean; charsPerFrame?: number }
+  timeout?: number
+  withCredentials?: boolean
+  mode?: 'cors' | 'no-cors' | 'same-origin'
+  cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached'
+}
+
+export interface AiProviderSlots {
+  default?: () => unknown
+}
+
+export interface AiProviderExpose {
+  addRequestInterceptor: (interceptor: AiRequestInterceptor) => number
+  addResponseInterceptor: (interceptor: AiResponseInterceptor) => number
+  removeRequestInterceptor: (id: number) => void
+  removeResponseInterceptor: (id: number) => void
+  clearInterceptors: () => void
+}
+
 /**
  * 创建拦截器管理器
  */

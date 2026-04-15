@@ -7,3 +7,7 @@ export default YhResult
 export * from './src/result'
 
 export type ResultInstance = InstanceType<typeof Result>
+export type YhResultInstance = ResultInstance
+export type YhResultProps = import('./src/result').ResultProps
+export type YhResultSlots = import('./src/result').ResultSlots
+export type YhResultIconType = import('./src/result').ResultIconType

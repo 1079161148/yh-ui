@@ -9,3 +9,7 @@ export const carouselItemProps = {
 } as const
 
 export type CarouselItemProps = ExtractPropTypes<typeof carouselItemProps>
+
+export interface CarouselItemSlots {
+  default?: () => unknown
+}

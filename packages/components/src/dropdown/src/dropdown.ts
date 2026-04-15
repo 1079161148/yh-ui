@@ -172,6 +172,11 @@ export const dropdownEmits = {
 export type DropdownProps = ExtractPropTypes<typeof dropdownProps>
 export type DropdownEmits = typeof dropdownEmits
 
+export interface DropdownSlots {
+  default?: () => unknown
+  dropdown?: () => unknown
+}
+
 // DropdownItem Props
 export const dropdownItemProps = {
   /** 指令/命令值 */
@@ -222,6 +227,8 @@ export const dropdownMenuProps = {
   }
 } as const
 
+export type DropdownMenuProps = ExtractPropTypes<typeof dropdownMenuProps>
+
 // Dropdown Context
 export interface DropdownContext {
   hideOnClick: Ref<boolean>
@@ -230,3 +237,9 @@ export interface DropdownContext {
 }
 
 export const DROPDOWN_INJECTION_KEY: InjectionKey<DropdownContext> = Symbol('dropdown')
+
+export interface DropdownExpose {
+  show: () => void
+  hide: () => void
+  visible: Ref<boolean>
+}

@@ -597,6 +597,97 @@ export const vi: Language = {
       noData: 'Không có dữ liệu'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Chọn thông số',
+      emptyText: 'Không có thông số',
+      stock: 'Tồn kho',
+      price: 'Giá',
+      selected: 'Đã chọn',
+      outOfStock: 'Hết hàng'
+    },
+    productcard: {
+      viewDetails: 'Xem chi tiết',
+      buyNow: 'Mua ngay',
+      addToCart: 'Thêm vào giỏ',
+      sold: 'Đã bán',
+      soldOut: 'Hết hàng',
+      vip: 'Thành viên'
+    },
+    price: {
+      original: 'Giá gốc'
+    },
+    couponcard: {
+      available: 'Nhận ngay',
+      used: 'Đã dùng',
+      expired: 'Hết hạn',
+      received: 'Đã nhận',
+      limit: 'Đơn hàng trên {threshold}',
+      noThreshold: 'Không yêu cầu tối thiểu',
+      validPeriod: 'Thời hạn',
+      ruleTitle: 'Quy tắc sử dụng'
+    },
+    luckydraw: {
+      start: 'Bắt đầu',
+      drawing: 'Đang quay...',
+      end: 'Trúng thưởng!',
+      retry: 'Thử lại'
+    },
+    filterbar: {
+      all: 'Tất cả',
+      sort: 'Sắp xếp',
+      filter: 'Lọc',
+      cancel: 'Hủy',
+      reset: 'Đặt lại',
+      confirm: 'Xác nhận',
+      noOptions: 'Không có tùy chọn',
+      asc: 'Tăng dần',
+      desc: 'Giảm dần',
+      selected: 'Đã chọn'
+    },
+    submitbar: {
+      total: 'Tổng: ',
+      selected: 'Đã chọn {count}',
+      submit: 'Thanh toán',
+      allSelect: 'Chọn tất cả'
+    },
+    categorynav: {
+      all: 'Tất cả',
+      noData: 'Không có dữ liệu',
+      loading: 'Đang tải...'
+    },
+    smartaddress: {
+      placeholder: 'Dán địa chỉ vào đây để tự động nhận diện tên, số điện thoại và vị trí',
+      parse: 'Phân tích thông minh',
+      province: 'Tỉnh/Thành phố/Quận',
+      city: 'Thành phố',
+      district: 'Quận/Huyện',
+      street: 'Đường/Thị trấn',
+      detail: 'Địa chỉ chi tiết',
+      phone: 'Điện thoại',
+      name: 'Người nhận',
+      parseSuccess: 'Phân tích địa chỉ thành công',
+      parseFailed: 'Phân tích thất bại, vui lòng nhập thủ công',
+      required: 'Vui lòng nhập đầy đủ địa chỉ',
+      provinceKeywords: ['Tỉnh', 'Thành phố'],
+      cityKeywords: ['Thành phố', 'Thị xã'],
+      districtKeywords: ['Quận', 'Huyện', 'Phường'],
+      streetKeywords: ['Đường', 'Phố', 'Ngõ', 'Ấp']
+    },
+    ganttchart: {
+      taskName: 'Tên nhiệm vụ',
+      searchPlaceholder: 'Tìm kiếm nhiệm vụ...',
+      zoom: 'Thu phóng',
+      day: 'Ngày',
+      week: 'Tuần',
+      month: 'Tháng',
+      year: 'Năm',
+      milestone: 'Mốc'
+    },
+    imagemagnifier: {
+      switchToImage: 'Chuyển sang ảnh {index}',
+      galleryItem: 'Thư viện {index}',
+      close: 'Đóng'
+    },
     ai: {
       bubble: {
         citations: 'Trích dẫn'
@@ -707,9 +798,32 @@ export const vi: Language = {
         pin: 'Ghim',
         unpin: 'Bỏ ghim',
         newConversation: 'Cuộc trò chuyện mới',
+        noData: 'Chưa có cuộc trò chuyện nào',
         rename: 'Đổi tên',
         delete: 'Xóa',
         deleteConfirm: 'Xác nhận xóa cuộc trò chuyện này?'
+      },
+      attachments: {
+        dropTip: 'Thả tệp vào đây để tải lên',
+        clickToUpload: 'Nhấp hoặc kéo tệp để tải lên',
+        uploadSuccess: 'Tải lên thành công',
+        uploadError: 'Tải lên thất bại',
+        deleteConfirm: 'Bạn có chắc muốn xóa tệp này không?',
+        fileTooLarge: 'Kích thước tệp không được vượt quá {size}',
+        invalidFileType: 'Loại tệp không hợp lệ'
+      },
+      mermaid: {
+        image: 'Hình ảnh',
+        code: 'Mã',
+        zoomIn: 'Phóng to',
+        zoomOut: 'Thu nhỏ',
+        reset: 'Đặt lại',
+        download: 'Tải xuống',
+        copyCode: 'Sao chép mã',
+        rendering: 'Đang dựng...',
+        renderError: 'Dựng thất bại',
+        renderSuccess: 'Dựng thành công',
+        retry: 'Thử lại'
       }
     }
   }

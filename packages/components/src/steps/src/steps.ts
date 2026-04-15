@@ -118,6 +118,10 @@ export const stepsEmits = {
 
 export type StepsEmits = typeof stepsEmits
 
+export interface StepsSlots {
+  default?: () => unknown
+}
+
 // 注入上下文
 export interface StepsContext {
   props: StepsProps

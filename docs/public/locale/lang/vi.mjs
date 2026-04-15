@@ -595,6 +595,97 @@ export const vi = {
       noData: "Kh\xF4ng c\xF3 d\u1EEF li\u1EC7u"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Ch\u1ECDn th\xF4ng s\u1ED1",
+      emptyText: "Kh\xF4ng c\xF3 th\xF4ng s\u1ED1",
+      stock: "T\u1ED3n kho",
+      price: "Gi\xE1",
+      selected: "\u0110\xE3 ch\u1ECDn",
+      outOfStock: "H\u1EBFt h\xE0ng"
+    },
+    productcard: {
+      viewDetails: "Xem chi ti\u1EBFt",
+      buyNow: "Mua ngay",
+      addToCart: "Th\xEAm v\xE0o gi\u1ECF",
+      sold: "\u0110\xE3 b\xE1n",
+      soldOut: "H\u1EBFt h\xE0ng",
+      vip: "Th\xE0nh vi\xEAn"
+    },
+    price: {
+      original: "Gi\xE1 g\u1ED1c"
+    },
+    couponcard: {
+      available: "Nh\u1EADn ngay",
+      used: "\u0110\xE3 d\xF9ng",
+      expired: "H\u1EBFt h\u1EA1n",
+      received: "\u0110\xE3 nh\u1EADn",
+      limit: "\u0110\u01A1n h\xE0ng tr\xEAn {threshold}",
+      noThreshold: "Kh\xF4ng y\xEAu c\u1EA7u t\u1ED1i thi\u1EC3u",
+      validPeriod: "Th\u1EDDi h\u1EA1n",
+      ruleTitle: "Quy t\u1EAFc s\u1EED d\u1EE5ng"
+    },
+    luckydraw: {
+      start: "B\u1EAFt \u0111\u1EA7u",
+      drawing: "\u0110ang quay...",
+      end: "Tr\xFAng th\u01B0\u1EDFng!",
+      retry: "Th\u1EED l\u1EA1i"
+    },
+    filterbar: {
+      all: "T\u1EA5t c\u1EA3",
+      sort: "S\u1EAFp x\u1EBFp",
+      filter: "L\u1ECDc",
+      cancel: "H\u1EE7y",
+      reset: "\u0110\u1EB7t l\u1EA1i",
+      confirm: "X\xE1c nh\u1EADn",
+      noOptions: "Kh\xF4ng c\xF3 t\xF9y ch\u1ECDn",
+      asc: "T\u0103ng d\u1EA7n",
+      desc: "Gi\u1EA3m d\u1EA7n",
+      selected: "\u0110\xE3 ch\u1ECDn"
+    },
+    submitbar: {
+      total: "T\u1ED5ng: ",
+      selected: "\u0110\xE3 ch\u1ECDn {count}",
+      submit: "Thanh to\xE1n",
+      allSelect: "Ch\u1ECDn t\u1EA5t c\u1EA3"
+    },
+    categorynav: {
+      all: "T\u1EA5t c\u1EA3",
+      noData: "Kh\xF4ng c\xF3 d\u1EEF li\u1EC7u",
+      loading: "\u0110ang t\u1EA3i..."
+    },
+    smartaddress: {
+      placeholder: "D\xE1n \u0111\u1ECBa ch\u1EC9 v\xE0o \u0111\xE2y \u0111\u1EC3 t\u1EF1 \u0111\u1ED9ng nh\u1EADn di\u1EC7n t\xEAn, s\u1ED1 \u0111i\u1EC7n tho\u1EA1i v\xE0 v\u1ECB tr\xED",
+      parse: "Ph\xE2n t\xEDch th\xF4ng minh",
+      province: "T\u1EC9nh/Th\xE0nh ph\u1ED1/Qu\u1EADn",
+      city: "Th\xE0nh ph\u1ED1",
+      district: "Qu\u1EADn/Huy\u1EC7n",
+      street: "\u0110\u01B0\u1EDDng/Th\u1ECB tr\u1EA5n",
+      detail: "\u0110\u1ECBa ch\u1EC9 chi ti\u1EBFt",
+      phone: "\u0110i\u1EC7n tho\u1EA1i",
+      name: "Ng\u01B0\u1EDDi nh\u1EADn",
+      parseSuccess: "Ph\xE2n t\xEDch \u0111\u1ECBa ch\u1EC9 th\xE0nh c\xF4ng",
+      parseFailed: "Ph\xE2n t\xEDch th\u1EA5t b\u1EA1i, vui l\xF2ng nh\u1EADp th\u1EE7 c\xF4ng",
+      required: "Vui l\xF2ng nh\u1EADp \u0111\u1EA7y \u0111\u1EE7 \u0111\u1ECBa ch\u1EC9",
+      provinceKeywords: ["T\u1EC9nh", "Th\xE0nh ph\u1ED1"],
+      cityKeywords: ["Th\xE0nh ph\u1ED1", "Th\u1ECB x\xE3"],
+      districtKeywords: ["Qu\u1EADn", "Huy\u1EC7n", "Ph\u01B0\u1EDDng"],
+      streetKeywords: ["\u0110\u01B0\u1EDDng", "Ph\u1ED1", "Ng\xF5", "\u1EA4p"]
+    },
+    ganttchart: {
+      taskName: "T\xEAn nhi\u1EC7m v\u1EE5",
+      searchPlaceholder: "T\xECm ki\u1EBFm nhi\u1EC7m v\u1EE5...",
+      zoom: "Thu ph\xF3ng",
+      day: "Ng\xE0y",
+      week: "Tu\u1EA7n",
+      month: "Th\xE1ng",
+      year: "N\u0103m",
+      milestone: "M\u1ED1c"
+    },
+    imagemagnifier: {
+      switchToImage: "Chuy\u1EC3n sang \u1EA3nh {index}",
+      galleryItem: "Th\u01B0 vi\u1EC7n {index}",
+      close: "\u0110\xF3ng"
+    },
     ai: {
       bubble: {
         citations: "Tr\xEDch d\u1EABn"
@@ -704,9 +795,32 @@ export const vi = {
         pin: "Ghim",
         unpin: "B\u1ECF ghim",
         newConversation: "Cu\u1ED9c tr\xF2 chuy\u1EC7n m\u1EDBi",
+        noData: "Ch\u01B0a c\xF3 cu\u1ED9c tr\xF2 chuy\u1EC7n n\xE0o",
         rename: "\u0110\u1ED5i t\xEAn",
         delete: "X\xF3a",
         deleteConfirm: "X\xE1c nh\u1EADn x\xF3a cu\u1ED9c tr\xF2 chuy\u1EC7n n\xE0y?"
+      },
+      attachments: {
+        dropTip: "Th\u1EA3 t\u1EC7p v\xE0o \u0111\xE2y \u0111\u1EC3 t\u1EA3i l\xEAn",
+        clickToUpload: "Nh\u1EA5p ho\u1EB7c k\xE9o t\u1EC7p \u0111\u1EC3 t\u1EA3i l\xEAn",
+        uploadSuccess: "T\u1EA3i l\xEAn th\xE0nh c\xF4ng",
+        uploadError: "T\u1EA3i l\xEAn th\u1EA5t b\u1EA1i",
+        deleteConfirm: "B\u1EA1n c\xF3 ch\u1EAFc mu\u1ED1n x\xF3a t\u1EC7p n\xE0y kh\xF4ng?",
+        fileTooLarge: "K\xEDch th\u01B0\u1EDBc t\u1EC7p kh\xF4ng \u0111\u01B0\u1EE3c v\u01B0\u1EE3t qu\xE1 {size}",
+        invalidFileType: "Lo\u1EA1i t\u1EC7p kh\xF4ng h\u1EE3p l\u1EC7"
+      },
+      mermaid: {
+        image: "H\xECnh \u1EA3nh",
+        code: "M\xE3",
+        zoomIn: "Ph\xF3ng to",
+        zoomOut: "Thu nh\u1ECF",
+        reset: "\u0110\u1EB7t l\u1EA1i",
+        download: "T\u1EA3i xu\u1ED1ng",
+        copyCode: "Sao ch\xE9p m\xE3",
+        rendering: "\u0110ang d\u1EF1ng...",
+        renderError: "D\u1EF1ng th\u1EA5t b\u1EA1i",
+        renderSuccess: "D\u1EF1ng th\xE0nh c\xF4ng",
+        retry: "Th\u1EED l\u1EA1i"
       }
     }
   }

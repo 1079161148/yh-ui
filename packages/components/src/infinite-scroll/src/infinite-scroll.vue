@@ -14,7 +14,11 @@ import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick 
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhSpin } from '../../spin'
-import { infiniteScrollProps, infiniteScrollEmits } from './infinite-scroll'
+import {
+  infiniteScrollProps,
+  infiniteScrollEmits,
+  type InfiniteScrollExpose
+} from './infinite-scroll'
 
 defineOptions({
   name: 'YhInfiniteScroll'
@@ -27,7 +31,10 @@ const ns = useNamespace('infinite-scroll')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('infinite-scroll', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'infinite-scroll',
+  computed(() => props.themeOverrides)
+)
 
 // Refs
 const rootRef = ref<HTMLElement>()
@@ -63,7 +70,8 @@ const checkLoad = () => {
       const scrollTop = window.scrollY
       shouldLoad = scrollHeight - scrollTop - clientHeight <= props.threshold
     } else {
-      shouldLoad = container.scrollHeight - container.scrollTop - container.clientHeight <= props.threshold
+      shouldLoad =
+        container.scrollHeight - container.scrollTop - container.clientHeight <= props.threshold
     }
   } else {
     if (container instanceof Window) {
@@ -71,7 +79,8 @@ const checkLoad = () => {
       const scrollLeft = window.scrollX
       shouldLoad = scrollWidth - scrollLeft - clientWidth <= props.threshold
     } else {
-      shouldLoad = container.scrollWidth - container.scrollLeft - container.clientWidth <= props.threshold
+      shouldLoad =
+        container.scrollWidth - container.scrollLeft - container.clientWidth <= props.threshold
     }
   }
 
@@ -109,14 +118,18 @@ const setupObserver = () => {
     observer = null
   }
 
-  const root = props.target
-    ? document.querySelector(props.target) as HTMLElement
-    : null
+  const root = props.target ? (document.querySelector(props.target) as HTMLElement) : null
 
   observer = new IntersectionObserver(
     (entries) => {
       const entry = entries[0]
-      if (entry.isIntersecting && !props.disabled && !isLoading.value && !props.finished && !props.error) {
+      if (
+        entry.isIntersecting &&
+        !props.disabled &&
+        !isLoading.value &&
+        !props.finished &&
+        !props.error
+      ) {
         emit('load')
       }
     },
@@ -182,39 +195,45 @@ onBeforeUnmount(() => {
 })
 
 // 监听变化
-watch(() => props.loading, (val, oldVal) => {
-  // loading 从 true 变为 false 时，需要重新检查
-  if (oldVal && !val && props.immediateCheck) {
-    nextTick(() => {
-      // 对于 IntersectionObserver 模式，需要重新观察以触发连续加载
-      if (props.useObserver && observer && placeholderRef.value) {
-        // 断开并重新观察，以便在 placeholder 仍在视口内时触发加载
-        observer.unobserve(placeholderRef.value)
-        observer.observe(placeholderRef.value)
-      } else {
-        checkLoad()
-      }
-    })
+watch(
+  () => props.loading,
+  (val, oldVal) => {
+    // loading 从 true 变为 false 时，需要重新检查
+    if (oldVal && !val && props.immediateCheck) {
+      nextTick(() => {
+        // 对于 IntersectionObserver 模式，需要重新观察以触发连续加载
+        if (props.useObserver && observer && placeholderRef.value) {
+          // 断开并重新观察，以便在 placeholder 仍在视口内时触发加载
+          observer.unobserve(placeholderRef.value)
+          observer.observe(placeholderRef.value)
+        } else {
+          checkLoad()
+        }
+      })
+    }
   }
-})
+)
 
-watch(() => props.useObserver, () => {
-  if (props.useObserver) {
-    if (scrollContainer.value) {
-      scrollContainer.value.removeEventListener('scroll', handleScroll)
+watch(
+  () => props.useObserver,
+  () => {
+    if (props.useObserver) {
+      if (scrollContainer.value) {
+        scrollContainer.value.removeEventListener('scroll', handleScroll)
+      }
+      setupObserver()
+    } else {
+      if (observer) {
+        observer.disconnect()
+        observer = null
+      }
+      setupScrollListener()
     }
-    setupObserver()
-  } else {
-    if (observer) {
-      observer.disconnect()
-      observer = null
-    }
-    setupScrollListener()
   }
-})
+)
 
 // 暴露方法
-defineExpose({
+defineExpose<InfiniteScrollExpose>({
   /** 手动检查是否需要加载 */
   check: checkLoad,
   /** 重试加载 */

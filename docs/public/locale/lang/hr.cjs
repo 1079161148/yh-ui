@@ -600,6 +600,97 @@ const hr = exports.hr = {
       loading: "U\u010Ditavanje...",
       noData: "Nema podataka"
     },
+    skuselector: {
+      placeholder: "Odaberite specifikacije",
+      emptyText: "Nema specifikacija",
+      stock: "Zaliha",
+      price: "Cijena",
+      selected: "Odabrano",
+      outOfStock: "Nema na zalihi"
+    },
+    productcard: {
+      viewDetails: "Pogledaj detalje",
+      buyNow: "Kupi odmah",
+      addToCart: "Dodaj u ko\u0161aricu",
+      sold: "Prodano",
+      soldOut: "Rasprodano",
+      vip: "VIP"
+    },
+    price: {
+      original: "Izvorna"
+    },
+    couponcard: {
+      available: "Preuzmi odmah",
+      used: "Iskori\u0161teno",
+      expired: "Isteklo",
+      received: "Preuzeto",
+      limit: "Narud\u017Ebe iznad {threshold}",
+      noThreshold: "Bez minimalnog iznosa",
+      validPeriod: "Razdoblje valjanosti",
+      ruleTitle: "Pravila kori\u0161tenja"
+    },
+    luckydraw: {
+      start: "Pokreni",
+      drawing: "Izvla\u010Denje...",
+      end: "Pobjednik!",
+      retry: "Poku\u0161aj ponovno"
+    },
+    filterbar: {
+      all: "Sve",
+      sort: "Sortiraj",
+      filter: "Filtriraj",
+      cancel: "Odustani",
+      reset: "Resetiraj",
+      confirm: "Potvrdi",
+      noOptions: "Nema opcija",
+      asc: "Uzlazno",
+      desc: "Silazno",
+      selected: "Odabrano"
+    },
+    submitbar: {
+      total: "Ukupno: ",
+      selected: "{count} odabrano",
+      submit: "Na pla\u0107anje",
+      allSelect: "Odaberi sve"
+    },
+    categorynav: {
+      all: "Sve",
+      noData: "Nema podataka",
+      loading: "U\u010Ditavanje..."
+    },
+    smartaddress: {
+      placeholder: "Ovdje zalijepite adresu, automatski prepoznaj ime, telefon i lokaciju",
+      parse: "Pametno prepoznavanje",
+      province: "Pokrajina/Grad/Okrug",
+      city: "Grad",
+      district: "Okrug/\u017Dupanija",
+      street: "Ulica/Naselje",
+      detail: "Detaljna adresa",
+      phone: "Telefon",
+      name: "Primatelj",
+      parseSuccess: "Adresa je uspje\u0161no prepoznata",
+      parseFailed: "Prepoznavanje nije uspjelo, ispunite ru\u010Dno",
+      required: "Unesite potpunu adresu",
+      provinceKeywords: ["Pokrajina", "Dr\u017Eava"],
+      cityKeywords: ["Grad", "Regija"],
+      districtKeywords: ["Okrug", "\u017Dupanija", "Op\u0107ina"],
+      streetKeywords: ["Ulica", "Cesta", "Avenija", "Prolaz"]
+    },
+    ganttchart: {
+      taskName: "Naziv zadatka",
+      searchPlaceholder: "Pretra\u017Ei zadatke...",
+      zoom: "Zum",
+      day: "Dan",
+      week: "Tjedan",
+      month: "Mjesec",
+      year: "Godina",
+      milestone: "Prekretnica"
+    },
+    imagemagnifier: {
+      switchToImage: "Prebaci na sliku {index}",
+      galleryItem: "Galerija {index}",
+      close: "Zatvori"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -710,9 +801,32 @@ const hr = exports.hr = {
         pin: "Prika\u010Di",
         unpin: "Odprika\u010Di",
         newConversation: "Novi razgovor",
+        noData: "Jo\u0161 nema razgovora",
         rename: "Preimenuj",
         delete: "Izbri\u0161i",
         deleteConfirm: "Potvrdite brisanje ovog razgovora?"
+      },
+      attachments: {
+        dropTip: "Ispustite datoteke ovdje za prijenos",
+        clickToUpload: "Kliknite ili povucite datoteke za prijenos",
+        uploadSuccess: "Prijenos je uspio",
+        uploadError: "Prijenos nije uspio",
+        deleteConfirm: "Jeste li sigurni da \u017Eelite izbrisati ovu datoteku?",
+        fileTooLarge: "Veli\u010Dina datoteke ne smije biti ve\u0107a od {size}",
+        invalidFileType: "Neva\u017Ee\u0107a vrsta datoteke"
+      },
+      mermaid: {
+        image: "Slika",
+        code: "Kod",
+        zoomIn: "Pove\u0107aj",
+        zoomOut: "Smanji",
+        reset: "Poni\u0161ti",
+        download: "Preuzmi",
+        copyCode: "Kopiraj kod",
+        rendering: "Renderiranje...",
+        renderError: "Renderiranje nije uspjelo",
+        renderSuccess: "Renderiranje je uspjelo",
+        retry: "Poku\u0161aj ponovno"
       }
     }
   }

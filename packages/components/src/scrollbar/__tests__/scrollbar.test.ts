@@ -41,4 +41,26 @@ describe('YhScrollbar', () => {
     })
     expect(wrapper.find('.yh-scrollbar__bar').exists()).toBe(false)
   })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(Scrollbar, {
+      props: {
+        themeOverrides: {
+          thumbBgColor: '#909399'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-scrollbar-thumb-bg-color: #909399')
+  })
+
+  it('exposes scrollbar methods', () => {
+    const wrapper = mount(Scrollbar)
+    const exposed = (wrapper.vm as any).$?.exposed
+
+    expect(typeof exposed?.update).toBe('function')
+    expect(typeof exposed?.scrollTo).toBe('function')
+    expect(typeof exposed?.setScrollTop).toBe('function')
+    expect(typeof exposed?.setScrollLeft).toBe('function')
+  })
 })

@@ -600,6 +600,97 @@ const sw = exports.sw = {
       loading: "Inapakia...",
       noData: "Hakuna data"
     },
+    skuselector: {
+      placeholder: "Chagua vipimo",
+      emptyText: "Hakuna vipimo",
+      stock: "Hisa",
+      price: "Bei",
+      selected: "Imechaguliwa",
+      outOfStock: "Imeisha"
+    },
+    productcard: {
+      viewDetails: "Tazama maelezo",
+      buyNow: "Nunua sasa",
+      addToCart: "Ongeza kwenye kikapu",
+      sold: "Imeuzwa",
+      soldOut: "Imeisha",
+      vip: "VIP"
+    },
+    price: {
+      original: "Asili"
+    },
+    couponcard: {
+      available: "Pata sasa",
+      used: "Imetumika",
+      expired: "Imeisha muda",
+      received: "Imepokelewa",
+      limit: "Kwa oda zaidi ya {threshold}",
+      noThreshold: "Hakuna kiwango cha chini",
+      validPeriod: "Muda wa uhalali",
+      ruleTitle: "Sheria za matumizi"
+    },
+    luckydraw: {
+      start: "Anza",
+      drawing: "Inachagua mshindi...",
+      end: "Mshindi!",
+      retry: "Jaribu tena"
+    },
+    filterbar: {
+      all: "Zote",
+      sort: "Panga",
+      filter: "Chuja",
+      cancel: "Ghairi",
+      reset: "Weka upya",
+      confirm: "Thibitisha",
+      noOptions: "Hakuna chaguo",
+      asc: "Kupanda",
+      desc: "Kushuka",
+      selected: "Imechaguliwa"
+    },
+    submitbar: {
+      total: "Jumla: ",
+      selected: "{count} zimechaguliwa",
+      submit: "Lipa sasa",
+      allSelect: "Chagua zote"
+    },
+    categorynav: {
+      all: "Zote",
+      noData: "Hakuna data",
+      loading: "Inapakia..."
+    },
+    smartaddress: {
+      placeholder: "Bandika anwani hapa, jina, simu na eneo vitatambuliwa kiotomatiki",
+      parse: "Uchambuzi mahiri",
+      province: "Mkoa/Jiji/Wilaya",
+      city: "Jiji",
+      district: "Wilaya/Kaunti",
+      street: "Mtaa/Kijiji",
+      detail: "Anwani ya kina",
+      phone: "Simu",
+      name: "Mpokeaji",
+      parseSuccess: "Anwani imetambuliwa kwa mafanikio",
+      parseFailed: "Imeshindikana kutambua, tafadhali jaza mwenyewe",
+      required: "Tafadhali jaza anwani kamili",
+      provinceKeywords: ["Mkoa", "Jimbo"],
+      cityKeywords: ["Jiji", "Manispaa"],
+      districtKeywords: ["Wilaya", "Kaunti", "Tarafa"],
+      streetKeywords: ["Mtaa", "Barabara", "Aveni", "Njia"]
+    },
+    ganttchart: {
+      taskName: "Jina la kazi",
+      searchPlaceholder: "Tafuta kazi...",
+      zoom: "Kuza",
+      day: "Siku",
+      week: "Wiki",
+      month: "Mwezi",
+      year: "Mwaka",
+      milestone: "Hatua muhimu"
+    },
+    imagemagnifier: {
+      switchToImage: "Badili hadi picha {index}",
+      galleryItem: "Galeri {index}",
+      close: "Funga"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -710,9 +801,32 @@ const sw = exports.sw = {
         pin: "Simamisha",
         unpin: "Ondoa kwenye kusimama",
         newConversation: "Mazungumzo mapya",
+        noData: "Bado hakuna mazungumzo",
         rename: "Badilisha jina",
         delete: "Futa",
         deleteConfirm: "Una uhakika unataka kufuta mazungumzo haya?"
+      },
+      attachments: {
+        dropTip: "Achia faili hapa ili kupakia",
+        clickToUpload: "Bofya au buruta faili ili kupakia",
+        uploadSuccess: "Upakiaji umefaulu",
+        uploadError: "Upakiaji umeshindikana",
+        deleteConfirm: "Una uhakika unataka kufuta faili hii?",
+        fileTooLarge: "Ukubwa wa faili haupaswi kuzidi {size}",
+        invalidFileType: "Aina ya faili si sahihi"
+      },
+      mermaid: {
+        image: "Picha",
+        code: "Msimbo",
+        zoomIn: "Kuza ndani",
+        zoomOut: "Kuza nje",
+        reset: "Weka upya",
+        download: "Pakua",
+        copyCode: "Nakili msimbo",
+        rendering: "Inachorwa...",
+        renderError: "Uchoraji umeshindikana",
+        renderSuccess: "Uchoraji umefaulu",
+        retry: "Jaribu tena"
       }
     }
   }

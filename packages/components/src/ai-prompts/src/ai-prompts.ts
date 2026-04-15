@@ -48,3 +48,9 @@ export const aiPromptsEmits = {
 }
 
 export type AiPromptsEmits = typeof aiPromptsEmits
+
+export interface AiPromptsSlots {
+  title?: () => unknown
+  item?: (props: { item: AiPromptItem | string; index: number }) => unknown
+  icon?: (props: { icon?: string }) => unknown
+}

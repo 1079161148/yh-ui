@@ -743,4 +743,3 @@ export const zhMo = {
     }
   }
 };
-export default zhMo;

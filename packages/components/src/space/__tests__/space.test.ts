@@ -203,4 +203,18 @@ describe('YhSpace 组件', () => {
     const style = wrapper.find('.yh-space').attributes('style')
     expect(style).toContain('gap: 16px')
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Space, {
+      props: {
+        themeOverrides: {
+          gap: '20px'
+        }
+      },
+      slots: {
+        default: () => [h('div', 'A'), h('div', 'B')]
+      }
+    })
+
+    expect(wrapper.find('.yh-space').attributes('style')).toContain('--yh-space-gap: 20px')
+  })
 })

@@ -140,4 +140,17 @@ describe('Descriptions', () => {
     expect(wrapper.find('.custom-label-item').exists()).toBe(true)
     expect(wrapper.find('.custom-content-item').exists()).toBe(true)
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        themeOverrides: {
+          'title-font-size': '18px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-descriptions').attributes('style')).toContain(
+      '--yh-descriptions-title-font-size: 18px'
+    )
+  })
 })

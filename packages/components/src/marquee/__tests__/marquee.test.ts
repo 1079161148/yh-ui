@@ -110,4 +110,17 @@ describe('Marquee', () => {
     expect(wrapper.find('.yh-marquee').exists()).toBe(true)
     // IntersectionObserver logic is usually mocked or verified by its existence
   })
+
+  it('should keep themeOverrides prop and expose clone recalculation api', () => {
+    const wrapper = mount(YhMarquee, {
+      props: {
+        themeOverrides: {
+          gradientWidth: '64px'
+        }
+      }
+    })
+
+    expect(wrapper.props('themeOverrides')).toEqual({ gradientWidth: '64px' })
+    expect(typeof (wrapper.vm as any).calculateClones).toBe('function')
+  })
 })

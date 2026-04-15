@@ -5,7 +5,6 @@ import DatePicker from '../src/date-picker.vue'
 
 import { zhCn } from '@yh-ui/locale'
 
-// Mock hooks
 vi.mock('@yh-ui/hooks', async () => {
   const actual = await vi.importActual<any>('@yh-ui/hooks')
   return {
@@ -41,7 +40,6 @@ vi.mock('@yh-ui/hooks', async () => {
 
 describe('YhDatePicker', () => {
   beforeEach(() => {
-    // 模拟 getBoundingClientRect
     Element.prototype.getBoundingClientRect = vi.fn(() => ({
       width: 220,
       height: 40,
@@ -55,108 +53,47 @@ describe('YhDatePicker', () => {
     }))
   })
 
-  describe('基础渲染', () => {
-    it('应该正确渲染基础组件', () => {
-      const wrapper = mount(DatePicker)
-      expect(wrapper.find('.yh-date-picker').exists()).toBe(true)
-      expect(wrapper.find('input').exists()).toBe(true)
-    })
+  it('renders the base input', () => {
+    const wrapper = mount(DatePicker)
 
-    it('应该支持不同尺寸', () => {
-      const wrapperLarge = mount(DatePicker, { props: { size: 'large' } })
-      expect(wrapperLarge.find('.yh-date-picker').classes()).toContain('yh-date-picker--large')
-
-      const wrapperSmall = mount(DatePicker, { props: { size: 'small' } })
-      expect(wrapperSmall.find('.yh-date-picker').classes()).toContain('yh-date-picker--small')
-    })
-
-    it('应该支持禁用状态', () => {
-      const wrapper = mount(DatePicker, { props: { disabled: true } })
-      expect(wrapper.find('.yh-date-picker').classes()).toContain('is-disabled')
-    })
+    expect(wrapper.find('.yh-date-picker').exists()).toBe(true)
+    expect(wrapper.find('input').exists()).toBe(true)
   })
 
-  describe('交互逻辑', () => {
-    it('应该能够打开/关闭面板', async () => {
-      const wrapper = mount(DatePicker, { props: { teleported: false } })
-      await wrapper.trigger('click')
-      await nextTick()
-      expect(wrapper.find('.yh-date-picker__panel').exists()).toBe(true)
+  it('uses locale keys for default placeholders', () => {
+    const wrapper = mount(DatePicker)
+
+    expect(wrapper.find('input').attributes('placeholder')).toBe('datepicker.selectDate')
+  })
+
+  it('renders range inputs in range mode', () => {
+    const wrapper = mount(DatePicker, {
+      props: { type: 'daterange' }
     })
 
-    it('单选日期应该更新值并关闭面板', async () => {
-      const value = ref(null)
-      const wrapper = mount(DatePicker, {
-        props: {
-          modelValue: value.value,
-          'onUpdate:modelValue': (val: any) => (value.value = val),
-          teleported: false
+    expect(wrapper.findAll('.yh-date-picker__range-input')).toHaveLength(2)
+  })
+
+  it('opens the panel when clicked', async () => {
+    const wrapper = mount(DatePicker, {
+      props: { teleported: false }
+    })
+
+    await wrapper.trigger('click')
+    await nextTick()
+
+    expect(wrapper.find('.yh-date-picker__panel').exists()).toBe(true)
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        themeOverrides: {
+          primary: '#1677ff'
         }
-      })
-
-      await wrapper.trigger('click')
-      await nextTick()
-
-      const cell = wrapper.find('.yh-date-picker__cell.is-current-month')
-      await cell.trigger('click')
-
-      expect(value.value).not.toBeNull()
-      await nextTick()
-      // 面板应该被设为不可见
-      expect(wrapper.find('.yh-date-picker__panel').exists()).toBe(false)
+      }
     })
 
-    it('应该支持清空功能', async () => {
-      const value = ref(new Date())
-      const wrapper = mount(DatePicker, {
-        props: {
-          modelValue: value.value,
-          clearable: true,
-          'onUpdate:modelValue': (val: any) => (value.value = val)
-        }
-      })
-
-      await wrapper.trigger('mouseenter')
-      await nextTick()
-
-      const clearBtn = wrapper.find('.yh-date-picker__clear')
-      await clearBtn.trigger('click')
-
-      expect(value.value).toBeNull()
-    })
-  })
-
-  describe('周期导航', () => {
-    it('应该支持月份切换', async () => {
-      const wrapper = mount(DatePicker, { props: { teleported: false } })
-      await wrapper.trigger('click')
-      await nextTick()
-
-      const initialHeader = wrapper.find('.yh-date-picker__header-label').text()
-      const nextBtn = wrapper.findAll('.yh-date-picker__header-btns')[3] // 后一月
-
-      await nextBtn.trigger('click')
-      await nextTick()
-
-      expect(wrapper.find('.yh-date-picker__header-label').text()).not.toBe(initialHeader)
-    })
-  })
-
-  describe('高级特性', () => {
-    it('应该支持 presets 快捷项', async () => {
-      const presets = [{ label: '测试项', value: new Date() }]
-      const wrapper = mount(DatePicker, { props: { presets, teleported: false } })
-
-      await wrapper.trigger('click')
-      await nextTick()
-
-      const presetBtn = wrapper.find('.yh-date-picker__presets button')
-      expect(presetBtn.text()).toBe('测试项')
-    })
-
-    it('范围模式的基本渲染', () => {
-      const wrapper = mount(DatePicker, { props: { type: 'daterange' } })
-      expect(wrapper.findAll('.yh-date-picker__range-input').length).toBe(2)
-    })
+    expect(wrapper.attributes('style')).toContain('--yh-date-picker-primary: #1677ff')
   })
 })

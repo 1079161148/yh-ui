@@ -60,6 +60,21 @@ describe('YhSkeleton', () => {
     expect(wrapper.find('.yh-skeleton').exists()).toBe(true)
     vi.useRealTimers()
   })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhSkeleton, {
+      props: {
+        loading: true,
+        themeOverrides: {
+          'bg-color': '#eeeeee'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-skeleton').attributes('style')).toContain(
+      '--yh-skeleton-bg-color: #eeeeee'
+    )
+  })
 })
 
 describe('YhSkeletonItem', () => {

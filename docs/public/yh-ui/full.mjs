@@ -626,7 +626,9 @@ const zhCn = {
       viewDetails: "\u67E5\u770B\u8BE6\u60C5",
       buyNow: "\u7ACB\u5373\u8D2D\u4E70",
       addToCart: "\u52A0\u5165\u8D2D\u7269\u8F66",
-      sold: "\u5DF2\u552E"
+      sold: "\u5DF2\u552E",
+      soldOut: "\u552E\u7F44",
+      vip: "\u4F1A\u5458"
     },
     // 价格
     price: {
@@ -655,6 +657,7 @@ const zhCn = {
       all: "\u5168\u90E8",
       sort: "\u6392\u5E8F",
       filter: "\u7B5B\u9009",
+      cancel: "\u53D6\u6D88",
       reset: "\u91CD\u7F6E",
       confirm: "\u786E\u5B9A",
       noOptions: "\u6682\u65E0\u7B5B\u9009\u9879",
@@ -1457,7 +1460,9 @@ const en = {
       viewDetails: "View Details",
       buyNow: "Buy Now",
       addToCart: "Add to Cart",
-      sold: "Sold"
+      sold: "Sold",
+      soldOut: "Sold Out",
+      vip: "VIP"
     },
     // Price
     price: {
@@ -1486,6 +1491,7 @@ const en = {
       all: "All",
       sort: "Sort",
       filter: "Filter",
+      cancel: "Cancel",
       reset: "Reset",
       confirm: "Confirm",
       noOptions: "No options",
@@ -1524,6 +1530,21 @@ const en = {
       cityKeywords: ["City", "Prefecture"],
       districtKeywords: ["District", "County", "Township"],
       streetKeywords: ["Street", "Road", "Ave", "Lane"]
+    },
+    ganttchart: {
+      taskName: "Task Name",
+      searchPlaceholder: "Search tasks...",
+      zoom: "Zoom",
+      day: "Day",
+      week: "Week",
+      month: "Month",
+      year: "Year",
+      milestone: "Milestone"
+    },
+    imagemagnifier: {
+      switchToImage: "Switch to image {index}",
+      galleryItem: "Gallery {index}",
+      close: "Close"
     },
     // AI Components
     ai: {
@@ -3670,13 +3691,13 @@ const ko = {
     marquee: {},
     affix: {},
     anchor: {},
-    // 提及
+    // 鎻愬強
     mention: {
       placeholder: "\uC785\uB825\uD558\uC138\uC694",
       loading: "\uB85C\uB529 \uC911...",
       noData: "\uB370\uC774\uD130 \uC5C6\uC74C"
     },
-    // AI 컴포넌트
+    // AI 旎错彫雱岉姼
     ai: {
       bubble: {
         citations: "\uC778\uC6A9"
@@ -4347,6 +4368,97 @@ const de = {
       loading: "Laden...",
       noData: "Keine Daten"
     },
+    skuselector: {
+      placeholder: "Spezifikationen ausw\xE4hlen",
+      emptyText: "Keine Spezifikationen",
+      stock: "Bestand",
+      price: "Preis",
+      selected: "Ausgew\xE4hlt",
+      outOfStock: "Nicht auf Lager"
+    },
+    productcard: {
+      viewDetails: "Details anzeigen",
+      buyNow: "Jetzt kaufen",
+      addToCart: "In den Warenkorb",
+      sold: "Verkauft",
+      soldOut: "Ausverkauft",
+      vip: "VIP"
+    },
+    price: {
+      original: "Originalpreis"
+    },
+    couponcard: {
+      available: "Jetzt einl\xF6sen",
+      used: "Verwendet",
+      expired: "Abgelaufen",
+      received: "Erhalten",
+      limit: "Bestellungen \xFCber {threshold}",
+      noThreshold: "Kein Mindestbetrag",
+      validPeriod: "G\xFCltigkeit",
+      ruleTitle: "Nutzungsregeln"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Ziehung...",
+      end: "Gewonnen!",
+      retry: "Erneut versuchen"
+    },
+    filterbar: {
+      all: "Alle",
+      sort: "Sortieren",
+      filter: "Filtern",
+      cancel: "Abbrechen",
+      reset: "Zur\xFCcksetzen",
+      confirm: "Best\xE4tigen",
+      noOptions: "Keine Optionen",
+      asc: "Aufsteigend",
+      desc: "Absteigend",
+      selected: "Ausgew\xE4hlt"
+    },
+    submitbar: {
+      total: "Summe: ",
+      selected: "{count} ausgew\xE4hlt",
+      submit: "Zur Kasse",
+      allSelect: "Alle ausw\xE4hlen"
+    },
+    categorynav: {
+      all: "Alle",
+      noData: "Keine Daten",
+      loading: "Laden..."
+    },
+    smartaddress: {
+      placeholder: "Adresse hier einf\xFCgen, Name, Telefon und Ort automatisch erkennen",
+      parse: "Intelligent erkennen",
+      province: "Bundesland/Stadt/Bezirk",
+      city: "Stadt",
+      district: "Bezirk/Landkreis",
+      street: "Stra\xDFe/Ort",
+      detail: "Detailadresse",
+      phone: "Telefon",
+      name: "Empf\xE4nger",
+      parseSuccess: "Adresse erfolgreich erkannt",
+      parseFailed: "Erkennung fehlgeschlagen, bitte manuell ausf\xFCllen",
+      required: "Bitte vollst\xE4ndige Adresse eingeben",
+      provinceKeywords: ["Bundesland", "Staat"],
+      cityKeywords: ["Stadt", "Region"],
+      districtKeywords: ["Bezirk", "Landkreis", "Gemeinde"],
+      streetKeywords: ["Stra\xDFe", "Weg", "Allee", "Gasse"]
+    },
+    ganttchart: {
+      taskName: "Aufgabenname",
+      searchPlaceholder: "Aufgaben suchen...",
+      zoom: "Zoom",
+      day: "Tag",
+      week: "Woche",
+      month: "Monat",
+      year: "Jahr",
+      milestone: "Meilenstein"
+    },
+    imagemagnifier: {
+      switchToImage: "Zu Bild {index} wechseln",
+      galleryItem: "Galeriebild {index}",
+      close: "Schlie\xDFen"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -4457,9 +4569,32 @@ const de = {
         pin: "Anheften",
         unpin: "L\xF6sen",
         newConversation: "Neue Konversation",
+        noData: "Noch keine Unterhaltungen",
         rename: "Umbenennen",
         delete: "L\xF6schen",
         deleteConfirm: "Diese Konversation l\xF6schen?"
+      },
+      attachments: {
+        dropTip: "Dateien zum Hochladen hier ablegen",
+        clickToUpload: "Klicken oder Dateien zum Hochladen ziehen",
+        uploadSuccess: "Upload erfolgreich",
+        uploadError: "Upload fehlgeschlagen",
+        deleteConfirm: "Diese Datei wirklich l\xF6schen?",
+        fileTooLarge: "Dateigr\xF6\xDFe darf {size} nicht \xFCberschreiten",
+        invalidFileType: "Ung\xFCltiger Dateityp"
+      },
+      mermaid: {
+        image: "Bild",
+        code: "Code",
+        zoomIn: "Vergr\xF6\xDFern",
+        zoomOut: "Verkleinern",
+        reset: "Zur\xFCcksetzen",
+        download: "Herunterladen",
+        copyCode: "Code kopieren",
+        rendering: "Wird gerendert...",
+        renderError: "Rendern fehlgeschlagen",
+        renderSuccess: "Rendern erfolgreich",
+        retry: "Erneut versuchen"
       }
     }
   }
@@ -4986,6 +5121,97 @@ const fr = {
       loading: "Chargement...",
       noData: "Aucune donn\xE9e"
     },
+    skuselector: {
+      placeholder: "S\xE9lectionner des sp\xE9cifications",
+      emptyText: "Aucune sp\xE9cification",
+      stock: "Stock",
+      price: "Prix",
+      selected: "S\xE9lectionn\xE9",
+      outOfStock: "Rupture de stock"
+    },
+    productcard: {
+      viewDetails: "Voir les d\xE9tails",
+      buyNow: "Acheter maintenant",
+      addToCart: "Ajouter au panier",
+      sold: "Vendu",
+      soldOut: "\xC9puis\xE9",
+      vip: "VIP"
+    },
+    price: {
+      original: "Prix d\u2019origine"
+    },
+    couponcard: {
+      available: "Obtenir maintenant",
+      used: "Utilis\xE9",
+      expired: "Expir\xE9",
+      received: "Re\xE7u",
+      limit: "Commandes de plus de {threshold}",
+      noThreshold: "Sans minimum",
+      validPeriod: "Validit\xE9",
+      ruleTitle: "R\xE8gles d\u2019utilisation"
+    },
+    luckydraw: {
+      start: "D\xE9marrer",
+      drawing: "Tirage...",
+      end: "Gagnant !",
+      retry: "R\xE9essayer"
+    },
+    filterbar: {
+      all: "Tous",
+      sort: "Trier",
+      filter: "Filtrer",
+      cancel: "Annuler",
+      reset: "R\xE9initialiser",
+      confirm: "Confirmer",
+      noOptions: "Aucune option",
+      asc: "Croissant",
+      desc: "D\xE9croissant",
+      selected: "S\xE9lectionn\xE9"
+    },
+    submitbar: {
+      total: "Total : ",
+      selected: "{count} s\xE9lectionn\xE9(s)",
+      submit: "Commander",
+      allSelect: "Tout s\xE9lectionner"
+    },
+    categorynav: {
+      all: "Tous",
+      noData: "Aucune donn\xE9e",
+      loading: "Chargement..."
+    },
+    smartaddress: {
+      placeholder: "Collez l\u2019adresse ici pour d\xE9tecter automatiquement le nom, le t\xE9l\xE9phone et le lieu",
+      parse: "Analyse intelligente",
+      province: "R\xE9gion/Ville/District",
+      city: "Ville",
+      district: "District/D\xE9partement",
+      street: "Rue/Commune",
+      detail: "Adresse d\xE9taill\xE9e",
+      phone: "T\xE9l\xE9phone",
+      name: "Destinataire",
+      parseSuccess: "Adresse analys\xE9e avec succ\xE8s",
+      parseFailed: "\xC9chec de l\u2019analyse, veuillez remplir manuellement",
+      required: "Veuillez renseigner l\u2019adresse compl\xE8te",
+      provinceKeywords: ["R\xE9gion", "Province"],
+      cityKeywords: ["Ville", "Commune"],
+      districtKeywords: ["District", "D\xE9partement", "Arrondissement"],
+      streetKeywords: ["Rue", "Route", "Avenue", "All\xE9e"]
+    },
+    ganttchart: {
+      taskName: "Nom de la t\xE2che",
+      searchPlaceholder: "Rechercher des t\xE2ches...",
+      zoom: "Zoom",
+      day: "Jour",
+      week: "Semaine",
+      month: "Mois",
+      year: "Ann\xE9e",
+      milestone: "Jalon"
+    },
+    imagemagnifier: {
+      switchToImage: "Passer \xE0 l\u2019image {index}",
+      galleryItem: "Galerie {index}",
+      close: "Fermer"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -5096,9 +5322,32 @@ const fr = {
         pin: "\xC9pingler",
         unpin: "D\xE9s\xE9pingler",
         newConversation: "Nouvelle conversation",
+        noData: "Aucune conversation pour le moment",
         rename: "Renommer",
         delete: "Supprimer",
         deleteConfirm: "Confirmer la suppression de cette conversation ?"
+      },
+      attachments: {
+        dropTip: "D\xE9posez les fichiers ici pour les t\xE9l\xE9verser",
+        clickToUpload: "Cliquez ou glissez les fichiers pour les t\xE9l\xE9verser",
+        uploadSuccess: "T\xE9l\xE9versement r\xE9ussi",
+        uploadError: "\xC9chec du t\xE9l\xE9versement",
+        deleteConfirm: "Supprimer ce fichier ?",
+        fileTooLarge: "La taille du fichier ne peut pas d\xE9passer {size}",
+        invalidFileType: "Type de fichier invalide"
+      },
+      mermaid: {
+        image: "Image",
+        code: "Code",
+        zoomIn: "Agrandir",
+        zoomOut: "R\xE9duire",
+        reset: "R\xE9initialiser",
+        download: "T\xE9l\xE9charger",
+        copyCode: "Copier le code",
+        rendering: "Rendu en cours...",
+        renderError: "\xC9chec du rendu",
+        renderSuccess: "Rendu r\xE9ussi",
+        retry: "R\xE9essayer"
       }
     }
   }
@@ -5625,6 +5874,97 @@ const es = {
       loading: "Cargando...",
       noData: "Sin datos"
     },
+    skuselector: {
+      placeholder: "Seleccionar especificaciones",
+      emptyText: "Sin especificaciones",
+      stock: "Stock",
+      price: "Precio",
+      selected: "Seleccionado",
+      outOfStock: "Sin stock"
+    },
+    productcard: {
+      viewDetails: "Ver detalles",
+      buyNow: "Comprar ahora",
+      addToCart: "A\xF1adir al carrito",
+      sold: "Vendido",
+      soldOut: "Agotado",
+      vip: "VIP"
+    },
+    price: {
+      original: "Precio original"
+    },
+    couponcard: {
+      available: "Canjear ahora",
+      used: "Usado",
+      expired: "Expirado",
+      received: "Recibido",
+      limit: "Pedidos superiores a {threshold}",
+      noThreshold: "Sin m\xEDnimo",
+      validPeriod: "Validez",
+      ruleTitle: "Reglas de uso"
+    },
+    luckydraw: {
+      start: "Iniciar",
+      drawing: "Sorteando...",
+      end: "\xA1Ganador!",
+      retry: "Intentar de nuevo"
+    },
+    filterbar: {
+      all: "Todo",
+      sort: "Ordenar",
+      filter: "Filtrar",
+      cancel: "Cancelar",
+      reset: "Restablecer",
+      confirm: "Confirmar",
+      noOptions: "Sin opciones",
+      asc: "Ascendente",
+      desc: "Descendente",
+      selected: "Seleccionado"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} seleccionado(s)",
+      submit: "Pagar",
+      allSelect: "Seleccionar todo"
+    },
+    categorynav: {
+      all: "Todo",
+      noData: "Sin datos",
+      loading: "Cargando..."
+    },
+    smartaddress: {
+      placeholder: "Pegue la direcci\xF3n aqu\xED para detectar autom\xE1ticamente nombre, tel\xE9fono y ubicaci\xF3n",
+      parse: "An\xE1lisis inteligente",
+      province: "Provincia/Ciudad/Distrito",
+      city: "Ciudad",
+      district: "Distrito/Condado",
+      street: "Calle/Pueblo",
+      detail: "Direcci\xF3n detallada",
+      phone: "Tel\xE9fono",
+      name: "Destinatario",
+      parseSuccess: "Direcci\xF3n analizada correctamente",
+      parseFailed: "Error al analizar, compl\xE9tela manualmente",
+      required: "Complete la direcci\xF3n",
+      provinceKeywords: ["Provincia", "Estado"],
+      cityKeywords: ["Ciudad", "Municipio"],
+      districtKeywords: ["Distrito", "Condado", "Barrio"],
+      streetKeywords: ["Calle", "Avenida", "Camino", "Pasaje"]
+    },
+    ganttchart: {
+      taskName: "Nombre de tarea",
+      searchPlaceholder: "Buscar tareas...",
+      zoom: "Zoom",
+      day: "D\xEDa",
+      week: "Semana",
+      month: "Mes",
+      year: "A\xF1o",
+      milestone: "Hito"
+    },
+    imagemagnifier: {
+      switchToImage: "Cambiar a la imagen {index}",
+      galleryItem: "Galer\xEDa {index}",
+      close: "Cerrar"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -5735,9 +6075,32 @@ const es = {
         pin: "Fijar",
         unpin: "Desfijar",
         newConversation: "Nueva conversaci\xF3n",
+        noData: "A\xFAn no hay conversaciones",
         rename: "Renombrar",
         delete: "Eliminar",
         deleteConfirm: "\xBFConfirmar eliminar esta conversaci\xF3n?"
+      },
+      attachments: {
+        dropTip: "Suelta archivos aqu\xED para subirlos",
+        clickToUpload: "Haz clic o arrastra archivos para subirlos",
+        uploadSuccess: "Carga correcta",
+        uploadError: "Error al subir",
+        deleteConfirm: "\xBFSeguro que deseas eliminar este archivo?",
+        fileTooLarge: "El archivo no puede superar {size}",
+        invalidFileType: "Tipo de archivo no v\xE1lido"
+      },
+      mermaid: {
+        image: "Imagen",
+        code: "C\xF3digo",
+        zoomIn: "Acercar",
+        zoomOut: "Alejar",
+        reset: "Restablecer",
+        download: "Descargar",
+        copyCode: "Copiar c\xF3digo",
+        rendering: "Renderizando...",
+        renderError: "Error de renderizado",
+        renderSuccess: "Renderizado correcto",
+        retry: "Reintentar"
       }
     }
   }
@@ -6264,6 +6627,97 @@ const pt = {
       loading: "Carregando...",
       noData: "Sem dados"
     },
+    skuselector: {
+      placeholder: "Selecionar especifica\xE7\xF5es",
+      emptyText: "Sem especifica\xE7\xF5es",
+      stock: "Estoque",
+      price: "Pre\xE7o",
+      selected: "Selecionado",
+      outOfStock: "Sem estoque"
+    },
+    productcard: {
+      viewDetails: "Ver detalhes",
+      buyNow: "Comprar agora",
+      addToCart: "Adicionar ao carrinho",
+      sold: "Vendido",
+      soldOut: "Esgotado",
+      vip: "VIP"
+    },
+    price: {
+      original: "Pre\xE7o original"
+    },
+    couponcard: {
+      available: "Obter agora",
+      used: "Usado",
+      expired: "Expirado",
+      received: "Recebido",
+      limit: "Pedidos acima de {threshold}",
+      noThreshold: "Sem valor m\xEDnimo",
+      validPeriod: "Validade",
+      ruleTitle: "Regras de uso"
+    },
+    luckydraw: {
+      start: "Iniciar",
+      drawing: "Sorteando...",
+      end: "Vencedor!",
+      retry: "Tentar novamente"
+    },
+    filterbar: {
+      all: "Todos",
+      sort: "Ordenar",
+      filter: "Filtrar",
+      cancel: "Cancelar",
+      reset: "Redefinir",
+      confirm: "Confirmar",
+      noOptions: "Sem op\xE7\xF5es",
+      asc: "Crescente",
+      desc: "Decrescente",
+      selected: "Selecionado"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} selecionado(s)",
+      submit: "Finalizar compra",
+      allSelect: "Selecionar tudo"
+    },
+    categorynav: {
+      all: "Todos",
+      noData: "Sem dados",
+      loading: "Carregando..."
+    },
+    smartaddress: {
+      placeholder: "Cole o endere\xE7o aqui para detectar automaticamente nome, telefone e local",
+      parse: "An\xE1lise inteligente",
+      province: "Prov\xEDncia/Cidade/Distrito",
+      city: "Cidade",
+      district: "Distrito/Concelho",
+      street: "Rua/Freguesia",
+      detail: "Endere\xE7o detalhado",
+      phone: "Telefone",
+      name: "Destinat\xE1rio",
+      parseSuccess: "Endere\xE7o analisado com sucesso",
+      parseFailed: "Falha na an\xE1lise, preencha manualmente",
+      required: "Preencha o endere\xE7o completo",
+      provinceKeywords: ["Prov\xEDncia", "Estado"],
+      cityKeywords: ["Cidade", "Munic\xEDpio"],
+      districtKeywords: ["Distrito", "Concelho", "Freguesia"],
+      streetKeywords: ["Rua", "Estrada", "Avenida", "Travessa"]
+    },
+    ganttchart: {
+      taskName: "Nome da tarefa",
+      searchPlaceholder: "Pesquisar tarefas...",
+      zoom: "Zoom",
+      day: "Dia",
+      week: "Semana",
+      month: "M\xEAs",
+      year: "Ano",
+      milestone: "Marco"
+    },
+    imagemagnifier: {
+      switchToImage: "Alternar para a imagem {index}",
+      galleryItem: "Galeria {index}",
+      close: "Fechar"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -6374,9 +6828,32 @@ const pt = {
         pin: "Fixar",
         unpin: "Desfixar",
         newConversation: "Nova Conversa",
+        noData: "Ainda n\xE3o h\xE1 conversas",
         rename: "Renomear",
         delete: "Excluir",
         deleteConfirm: "Confirmar exclus\xE3o desta conversa?"
+      },
+      attachments: {
+        dropTip: "Solte os arquivos aqui para enviar",
+        clickToUpload: "Clique ou arraste arquivos para enviar",
+        uploadSuccess: "Envio conclu\xEDdo",
+        uploadError: "Falha no envio",
+        deleteConfirm: "Tem certeza de que deseja excluir este arquivo?",
+        fileTooLarge: "O tamanho do arquivo n\xE3o pode exceder {size}",
+        invalidFileType: "Tipo de arquivo inv\xE1lido"
+      },
+      mermaid: {
+        image: "Imagem",
+        code: "C\xF3digo",
+        zoomIn: "Ampliar",
+        zoomOut: "Reduzir",
+        reset: "Redefinir",
+        download: "Baixar",
+        copyCode: "Copiar c\xF3digo",
+        rendering: "Renderizando...",
+        renderError: "Falha na renderiza\xE7\xE3o",
+        renderSuccess: "Renderiza\xE7\xE3o conclu\xEDda",
+        retry: "Tentar novamente"
       }
     }
   }
@@ -6978,6 +7455,97 @@ const ru = {
       loading: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...",
       noData: "\u041D\u0435\u0442 \u0434\u0430\u043D\u043D\u044B\u0445"
     },
+    skuselector: {
+      placeholder: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0438",
+      emptyText: "\u041D\u0435\u0442 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A",
+      stock: "\u0412 \u043D\u0430\u043B\u0438\u0447\u0438\u0438",
+      price: "\u0426\u0435\u043D\u0430",
+      selected: "\u0412\u044B\u0431\u0440\u0430\u043D\u043E",
+      outOfStock: "\u041D\u0435\u0442 \u0432 \u043D\u0430\u043B\u0438\u0447\u0438\u0438"
+    },
+    productcard: {
+      viewDetails: "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435",
+      buyNow: "\u041A\u0443\u043F\u0438\u0442\u044C \u0441\u0435\u0439\u0447\u0430\u0441",
+      addToCart: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432 \u043A\u043E\u0440\u0437\u0438\u043D\u0443",
+      sold: "\u041F\u0440\u043E\u0434\u0430\u043D\u043E",
+      soldOut: "\u0420\u0430\u0441\u043F\u0440\u043E\u0434\u0430\u043D\u043E",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u0418\u0441\u0445\u043E\u0434\u043D\u0430\u044F \u0446\u0435\u043D\u0430"
+    },
+    couponcard: {
+      available: "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0441\u0435\u0439\u0447\u0430\u0441",
+      used: "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D",
+      expired: "\u0418\u0441\u0442\u0451\u043A",
+      received: "\u041F\u043E\u043B\u0443\u0447\u0435\u043D",
+      limit: "\u0417\u0430\u043A\u0430\u0437\u044B \u0441\u0432\u044B\u0448\u0435 {threshold}",
+      noThreshold: "\u0411\u0435\u0437 \u043C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0439 \u0441\u0443\u043C\u043C\u044B",
+      validPeriod: "\u0421\u0440\u043E\u043A \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F",
+      ruleTitle: "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F"
+    },
+    luckydraw: {
+      start: "\u041D\u0430\u0447\u0430\u0442\u044C",
+      drawing: "\u0420\u043E\u0437\u044B\u0433\u0440\u044B\u0448...",
+      end: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u0435\u043B\u044C!",
+      retry: "\u041F\u043E\u043F\u0440\u043E\u0431\u043E\u0432\u0430\u0442\u044C \u0441\u043D\u043E\u0432\u0430"
+    },
+    filterbar: {
+      all: "\u0412\u0441\u0435",
+      sort: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430",
+      filter: "\u0424\u0438\u043B\u044C\u0442\u0440",
+      cancel: "\u041E\u0442\u043C\u0435\u043D\u0430",
+      reset: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C",
+      confirm: "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C",
+      noOptions: "\u041D\u0435\u0442 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432",
+      asc: "\u041F\u043E \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0430\u043D\u0438\u044E",
+      desc: "\u041F\u043E \u0443\u0431\u044B\u0432\u0430\u043D\u0438\u044E",
+      selected: "\u0412\u044B\u0431\u0440\u0430\u043D\u043E"
+    },
+    submitbar: {
+      total: "\u0418\u0442\u043E\u0433\u043E: ",
+      selected: "\u0412\u044B\u0431\u0440\u0430\u043D\u043E: {count}",
+      submit: "\u041E\u0444\u043E\u0440\u043C\u0438\u0442\u044C \u0437\u0430\u043A\u0430\u0437",
+      allSelect: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0432\u0441\u0435"
+    },
+    categorynav: {
+      all: "\u0412\u0441\u0435",
+      noData: "\u041D\u0435\u0442 \u0434\u0430\u043D\u043D\u044B\u0445",
+      loading: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
+    },
+    smartaddress: {
+      placeholder: "\u0412\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0430\u0434\u0440\u0435\u0441 \u0441\u044E\u0434\u0430 \u0434\u043B\u044F \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u043E\u0433\u043E \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F \u0438\u043C\u0435\u043D\u0438, \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0430 \u0438 \u043C\u0435\u0441\u0442\u043E\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u044F",
+      parse: "\u0423\u043C\u043D\u044B\u0439 \u0440\u0430\u0437\u0431\u043E\u0440",
+      province: "\u0420\u0435\u0433\u0438\u043E\u043D/\u0413\u043E\u0440\u043E\u0434/\u0420\u0430\u0439\u043E\u043D",
+      city: "\u0413\u043E\u0440\u043E\u0434",
+      district: "\u0420\u0430\u0439\u043E\u043D/\u041E\u043A\u0440\u0443\u0433",
+      street: "\u0423\u043B\u0438\u0446\u0430/\u041F\u043E\u0441\u0451\u043B\u043E\u043A",
+      detail: "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u044B\u0439 \u0430\u0434\u0440\u0435\u0441",
+      phone: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
+      name: "\u041F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044C",
+      parseSuccess: "\u0410\u0434\u0440\u0435\u0441 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u043D",
+      parseFailed: "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0442\u044C, \u0437\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u0432\u0440\u0443\u0447\u043D\u0443\u044E",
+      required: "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u0430\u0434\u0440\u0435\u0441 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E",
+      provinceKeywords: ["\u041E\u0431\u043B\u0430\u0441\u0442\u044C", "\u041A\u0440\u0430\u0439"],
+      cityKeywords: ["\u0413\u043E\u0440\u043E\u0434", "\u041F\u043E\u0441\u0435\u043B\u0435\u043D\u0438\u0435"],
+      districtKeywords: ["\u0420\u0430\u0439\u043E\u043D", "\u041E\u043A\u0440\u0443\u0433", "\u041F\u043E\u0441\u0451\u043B\u043E\u043A"],
+      streetKeywords: ["\u0423\u043B\u0438\u0446\u0430", "\u041F\u0440\u043E\u0441\u043F\u0435\u043A\u0442", "\u041F\u0435\u0440\u0435\u0443\u043B\u043E\u043A", "\u0428\u043E\u0441\u0441\u0435"]
+    },
+    ganttchart: {
+      taskName: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0437\u0430\u0434\u0430\u0447\u0438",
+      searchPlaceholder: "\u041F\u043E\u0438\u0441\u043A \u0437\u0430\u0434\u0430\u0447...",
+      zoom: "\u041C\u0430\u0441\u0448\u0442\u0430\u0431",
+      day: "\u0414\u0435\u043D\u044C",
+      week: "\u041D\u0435\u0434\u0435\u043B\u044F",
+      month: "\u041C\u0435\u0441\u044F\u0446",
+      year: "\u0413\u043E\u0434",
+      milestone: "\u0412\u0435\u0445\u0430"
+    },
+    imagemagnifier: {
+      switchToImage: "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C\u0441\u044F \u043D\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 {index}",
+      galleryItem: "\u0413\u0430\u043B\u0435\u0440\u0435\u044F {index}",
+      close: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -7088,9 +7656,32 @@ const ru = {
         pin: "\u0417\u0430\u043A\u0440\u0435\u043F\u0438\u0442\u044C",
         unpin: "\u041E\u0442\u043A\u0440\u0435\u043F\u0438\u0442\u044C",
         newConversation: "\u041D\u043E\u0432\u044B\u0439 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440",
+        noData: "\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440\u043E\u0432",
         rename: "\u041F\u0435\u0440\u0435\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u0442\u044C",
         delete: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C",
         deleteConfirm: "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0443\u0434\u0430\u043B\u0435\u043D\u0438\u0435 \u044D\u0442\u043E\u0433\u043E \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440\u0430?"
+      },
+      attachments: {
+        dropTip: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0444\u0430\u0439\u043B\u044B \u0441\u044E\u0434\u0430 \u0434\u043B\u044F \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438",
+        clickToUpload: "\u041D\u0430\u0436\u043C\u0438\u0442\u0435 \u0438\u043B\u0438 \u043F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0444\u0430\u0439\u043B\u044B \u0434\u043B\u044F \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438",
+        uploadSuccess: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0430",
+        uploadError: "\u041E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438",
+        deleteConfirm: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0442 \u0444\u0430\u0439\u043B?",
+        fileTooLarge: "\u0420\u0430\u0437\u043C\u0435\u0440 \u0444\u0430\u0439\u043B\u0430 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u0440\u0435\u0432\u044B\u0448\u0430\u0442\u044C {size}",
+        invalidFileType: "\u041D\u0435\u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0439 \u0442\u0438\u043F \u0444\u0430\u0439\u043B\u0430"
+      },
+      mermaid: {
+        image: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+        code: "\u041A\u043E\u0434",
+        zoomIn: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0442\u044C",
+        zoomOut: "\u0423\u043C\u0435\u043D\u044C\u0448\u0438\u0442\u044C",
+        reset: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C",
+        download: "\u0421\u043A\u0430\u0447\u0430\u0442\u044C",
+        copyCode: "\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u043E\u0434",
+        rendering: "\u0420\u0435\u043D\u0434\u0435\u0440\u0438\u043D\u0433...",
+        renderError: "\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u043D\u0434\u0435\u0440\u0438\u043D\u0433\u0430",
+        renderSuccess: "\u0420\u0435\u043D\u0434\u0435\u0440\u0438\u043D\u0433 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D",
+        retry: "\u041F\u043E\u0432\u0442\u043E\u0440\u0438\u0442\u044C"
       }
     }
   }
@@ -7693,6 +8284,97 @@ const ar = {
       noData: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0628\u064A\u0627\u0646\u0627\u062A"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\u0627\u062E\u062A\u0631 \u0627\u0644\u0645\u0648\u0627\u0635\u0641\u0627\u062A",
+      emptyText: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u0648\u0627\u0635\u0641\u0627\u062A",
+      stock: "\u0627\u0644\u0645\u062E\u0632\u0648\u0646",
+      price: "\u0627\u0644\u0633\u0639\u0631",
+      selected: "\u062A\u0645 \u0627\u0644\u062A\u062D\u062F\u064A\u062F",
+      outOfStock: "\u0646\u0641\u062F \u0627\u0644\u0645\u062E\u0632\u0648\u0646"
+    },
+    productcard: {
+      viewDetails: "\u0639\u0631\u0636 \u0627\u0644\u062A\u0641\u0627\u0635\u064A\u0644",
+      buyNow: "\u0627\u0634\u062A\u0631 \u0627\u0644\u0622\u0646",
+      addToCart: "\u0623\u0636\u0641 \u0625\u0644\u0649 \u0627\u0644\u0633\u0644\u0629",
+      sold: "\u062A\u0645 \u0627\u0644\u0628\u064A\u0639",
+      soldOut: "\u0646\u0641\u062F",
+      vip: "\u0639\u0636\u0648\u064A\u0629"
+    },
+    price: {
+      original: "\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0623\u0635\u0644\u064A"
+    },
+    couponcard: {
+      available: "\u0627\u062D\u0635\u0644 \u0639\u0644\u064A\u0647 \u0627\u0644\u0622\u0646",
+      used: "\u0645\u0633\u062A\u062E\u062F\u0645",
+      expired: "\u0645\u0646\u062A\u0647\u064A",
+      received: "\u062A\u0645 \u0627\u0644\u0627\u0633\u062A\u0644\u0627\u0645",
+      limit: "\u0637\u0644\u0628\u0627\u062A \u0641\u0648\u0642 {threshold}",
+      noThreshold: "\u0628\u062F\u0648\u0646 \u062D\u062F \u0623\u062F\u0646\u0649",
+      validPeriod: "\u0645\u062F\u0629 \u0627\u0644\u0635\u0644\u0627\u062D\u064A\u0629",
+      ruleTitle: "\u0642\u0648\u0627\u0639\u062F \u0627\u0644\u0627\u0633\u062A\u062E\u062F\u0627\u0645"
+    },
+    luckydraw: {
+      start: "\u0627\u0628\u062F\u0623",
+      drawing: "\u062C\u0627\u0631\u064D \u0627\u0644\u0633\u062D\u0628...",
+      end: "\u0641\u0627\u0626\u0632!",
+      retry: "\u062D\u0627\u0648\u0644 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649"
+    },
+    filterbar: {
+      all: "\u0627\u0644\u0643\u0644",
+      sort: "\u062A\u0631\u062A\u064A\u0628",
+      filter: "\u062A\u0635\u0641\u064A\u0629",
+      cancel: "\u0625\u0644\u063A\u0627\u0621",
+      reset: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0639\u064A\u064A\u0646",
+      confirm: "\u062A\u0623\u0643\u064A\u062F",
+      noOptions: "\u0644\u0627 \u062A\u0648\u062C\u062F \u062E\u064A\u0627\u0631\u0627\u062A",
+      asc: "\u062A\u0635\u0627\u0639\u062F\u064A",
+      desc: "\u062A\u0646\u0627\u0632\u0644\u064A",
+      selected: "\u0645\u062D\u062F\u062F"
+    },
+    submitbar: {
+      total: "\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A: ",
+      selected: "\u062A\u0645 \u062A\u062D\u062F\u064A\u062F {count}",
+      submit: "\u0625\u062A\u0645\u0627\u0645 \u0627\u0644\u0634\u0631\u0627\u0621",
+      allSelect: "\u062A\u062D\u062F\u064A\u062F \u0627\u0644\u0643\u0644"
+    },
+    categorynav: {
+      all: "\u0627\u0644\u0643\u0644",
+      noData: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0628\u064A\u0627\u0646\u0627\u062A",
+      loading: "\u062C\u0627\u0631\u064D \u0627\u0644\u062A\u062D\u0645\u064A\u0644..."
+    },
+    smartaddress: {
+      placeholder: "\u0627\u0644\u0635\u0642 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0647\u0646\u0627 \u0644\u0627\u0643\u062A\u0634\u0627\u0641 \u0627\u0644\u0627\u0633\u0645 \u0648\u0627\u0644\u0647\u0627\u062A\u0641 \u0648\u0627\u0644\u0645\u0648\u0642\u0639 \u062A\u0644\u0642\u0627\u0626\u064A\u064B\u0627",
+      parse: "\u062A\u062D\u0644\u064A\u0644 \u0630\u0643\u064A",
+      province: "\u0627\u0644\u0645\u062D\u0627\u0641\u0638\u0629/\u0627\u0644\u0645\u062F\u064A\u0646\u0629/\u0627\u0644\u0645\u0646\u0637\u0642\u0629",
+      city: "\u0627\u0644\u0645\u062F\u064A\u0646\u0629",
+      district: "\u0627\u0644\u0645\u0646\u0637\u0642\u0629/\u0627\u0644\u0645\u0642\u0627\u0637\u0639\u0629",
+      street: "\u0627\u0644\u0634\u0627\u0631\u0639/\u0627\u0644\u0628\u0644\u062F\u0629",
+      detail: "\u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u062A\u0641\u0635\u064A\u0644\u064A",
+      phone: "\u0627\u0644\u0647\u0627\u062A\u0641",
+      name: "\u0627\u0644\u0645\u0633\u062A\u0644\u0645",
+      parseSuccess: "\u062A\u0645 \u062A\u062D\u0644\u064A\u0644 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0628\u0646\u062C\u0627\u062D",
+      parseFailed: "\u0641\u0634\u0644 \u0627\u0644\u062A\u062D\u0644\u064A\u0644\u060C \u064A\u0631\u062C\u0649 \u0627\u0644\u0625\u062F\u062E\u0627\u0644 \u064A\u062F\u0648\u064A\u064B\u0627",
+      required: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0643\u0627\u0645\u0644\u064B\u0627",
+      provinceKeywords: ["\u0645\u062D\u0627\u0641\u0638\u0629", "\u0648\u0644\u0627\u064A\u0629"],
+      cityKeywords: ["\u0645\u062F\u064A\u0646\u0629", "\u0628\u0644\u062F\u0629"],
+      districtKeywords: ["\u0645\u0646\u0637\u0642\u0629", "\u0645\u0642\u0627\u0637\u0639\u0629", "\u062D\u064A"],
+      streetKeywords: ["\u0634\u0627\u0631\u0639", "\u0637\u0631\u064A\u0642", "\u062C\u0627\u062F\u0629", "\u062D\u0627\u0631\u0629"]
+    },
+    ganttchart: {
+      taskName: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0647\u0645\u0629",
+      searchPlaceholder: "\u0627\u0628\u062D\u062B \u0639\u0646 \u0627\u0644\u0645\u0647\u0627\u0645...",
+      zoom: "\u062A\u0643\u0628\u064A\u0631",
+      day: "\u064A\u0648\u0645",
+      week: "\u0623\u0633\u0628\u0648\u0639",
+      month: "\u0634\u0647\u0631",
+      year: "\u0633\u0646\u0629",
+      milestone: "\u0645\u0631\u062D\u0644\u0629 \u0645\u0647\u0645\u0629"
+    },
+    imagemagnifier: {
+      switchToImage: "\u0627\u0644\u062A\u0628\u062F\u064A\u0644 \u0625\u0644\u0649 \u0627\u0644\u0635\u0648\u0631\u0629 {index}",
+      galleryItem: "\u0627\u0644\u0645\u0639\u0631\u0636 {index}",
+      close: "\u0625\u063A\u0644\u0627\u0642"
+    },
     ai: {
       bubble: {
         citations: "\u0627\u0642\u062A\u0628\u0627\u0633\u0627\u062A"
@@ -7802,9 +8484,32 @@ const ar = {
         pin: "\u062A\u062B\u0628\u064A\u062A",
         unpin: "\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u062A\u062B\u0628\u064A\u062A",
         newConversation: "\u0645\u062D\u0627\u062F\u062B\u0629 \u062C\u062F\u064A\u062F\u0629",
+        noData: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u062D\u0627\u062F\u062B\u0627\u062A \u0628\u0639\u062F",
         rename: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629",
         delete: "\u062D\u0630\u0641",
         deleteConfirm: "\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0645\u0646 \u062D\u0630\u0641 \u0647\u0630\u0647 \u0627\u0644\u0645\u062D\u0627\u062F\u062B\u0629\u061F"
+      },
+      attachments: {
+        dropTip: "\u0623\u0641\u0644\u062A \u0627\u0644\u0645\u0644\u0641\u0627\u062A \u0647\u0646\u0627 \u0644\u0644\u0631\u0641\u0639",
+        clickToUpload: "\u0627\u0646\u0642\u0631 \u0623\u0648 \u0627\u0633\u062D\u0628 \u0627\u0644\u0645\u0644\u0641\u0627\u062A \u0644\u0644\u0631\u0641\u0639",
+        uploadSuccess: "\u062A\u0645 \u0627\u0644\u0631\u0641\u0639 \u0628\u0646\u062C\u0627\u062D",
+        uploadError: "\u0641\u0634\u0644 \u0627\u0644\u0631\u0641\u0639",
+        deleteConfirm: "\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0645\u0646 \u062D\u0630\u0641 \u0647\u0630\u0627 \u0627\u0644\u0645\u0644\u0641\u061F",
+        fileTooLarge: "\u0644\u0627 \u064A\u0645\u0643\u0646 \u0623\u0646 \u064A\u062A\u062C\u0627\u0648\u0632 \u062D\u062C\u0645 \u0627\u0644\u0645\u0644\u0641 {size}",
+        invalidFileType: "\u0646\u0648\u0639 \u0645\u0644\u0641 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D"
+      },
+      mermaid: {
+        image: "\u0635\u0648\u0631\u0629",
+        code: "\u0643\u0648\u062F",
+        zoomIn: "\u062A\u0643\u0628\u064A\u0631",
+        zoomOut: "\u062A\u0635\u063A\u064A\u0631",
+        reset: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0639\u064A\u064A\u0646",
+        download: "\u062A\u0646\u0632\u064A\u0644",
+        copyCode: "\u0646\u0633\u062E \u0627\u0644\u0643\u0648\u062F",
+        rendering: "\u062C\u0627\u0631\u064D \u0627\u0644\u0639\u0631\u0636...",
+        renderError: "\u0641\u0634\u0644 \u0627\u0644\u0639\u0631\u0636",
+        renderSuccess: "\u062A\u0645 \u0627\u0644\u0639\u0631\u0636 \u0628\u0646\u062C\u0627\u062D",
+        retry: "\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629"
       }
     }
   }
@@ -8407,6 +9112,97 @@ const tr = {
       noData: "Veri yok"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\xD6zellik se\xE7in",
+      emptyText: "\xD6zellik yok",
+      stock: "Stok",
+      price: "Fiyat",
+      selected: "Se\xE7ildi",
+      outOfStock: "Stokta yok"
+    },
+    productcard: {
+      viewDetails: "Detaylar\u0131 g\xF6r\xFCnt\xFCle",
+      buyNow: "\u015Eimdi al",
+      addToCart: "Sepete ekle",
+      sold: "Sat\u0131ld\u0131",
+      soldOut: "T\xFCkendi",
+      vip: "\xDCye"
+    },
+    price: {
+      original: "Orijinal fiyat"
+    },
+    couponcard: {
+      available: "Hemen al",
+      used: "Kullan\u0131ld\u0131",
+      expired: "S\xFCresi doldu",
+      received: "Al\u0131nd\u0131",
+      limit: "Bestellingen \xFCber {threshold}",
+      noThreshold: "Alt limit yok",
+      validPeriod: "Ge\xE7erlilik",
+      ruleTitle: "Kullan\u0131m kurallar\u0131"
+    },
+    luckydraw: {
+      start: "Ba\u015Flat",
+      drawing: "\xC7ekili\u015F yap\u0131l\u0131yor...",
+      end: "Kazanan!",
+      retry: "Tekrar dene"
+    },
+    filterbar: {
+      all: "T\xFCm\xFC",
+      sort: "S\u0131rala",
+      filter: "Filtrele",
+      cancel: "\u0130ptal",
+      reset: "S\u0131f\u0131rla",
+      confirm: "Onayla",
+      noOptions: "Se\xE7enek yok",
+      asc: "Artan",
+      desc: "Azalan",
+      selected: "Se\xE7ildi"
+    },
+    submitbar: {
+      total: "Toplam: ",
+      selected: "{count} se\xE7ildi",
+      submit: "Sipari\u015Fi tamamla",
+      allSelect: "T\xFCm\xFCn\xFC se\xE7"
+    },
+    categorynav: {
+      all: "T\xFCm\xFC",
+      noData: "Veri yok",
+      loading: "Y\xFCkleniyor..."
+    },
+    smartaddress: {
+      placeholder: "Ad\u0131, telefonu ve konumu otomatik alg\u0131lamak i\xE7in adresi buraya yap\u0131\u015Ft\u0131r\u0131n",
+      parse: "Ak\u0131ll\u0131 \xE7\xF6z\xFCmle",
+      province: "\u0130l/\u015Eehir/\u0130l\xE7e",
+      city: "\u015Eehir",
+      district: "\u0130l\xE7e/B\xF6lge",
+      street: "Sokak/Kasaba",
+      detail: "Ayr\u0131nt\u0131l\u0131 adres",
+      phone: "Telefon",
+      name: "Al\u0131c\u0131",
+      parseSuccess: "Adres ba\u015Far\u0131yla \xE7\xF6z\xFCmlendi",
+      parseFailed: "\xC7\xF6z\xFCmlenemedi, l\xFCtfen elle doldurun",
+      required: "L\xFCtfen tam adres girin",
+      provinceKeywords: ["\u0130l", "Eyalet"],
+      cityKeywords: ["\u015Eehir", "Belediye"],
+      districtKeywords: ["\u0130l\xE7e", "B\xF6lge", "Mahalle"],
+      streetKeywords: ["Sokak", "Cadde", "Bulvar", "Yol"]
+    },
+    ganttchart: {
+      taskName: "G\xF6rev ad\u0131",
+      searchPlaceholder: "G\xF6rev ara...",
+      zoom: "Yak\u0131nla\u015Ft\u0131r",
+      day: "G\xFCn",
+      week: "Hafta",
+      month: "Ay",
+      year: "Y\u0131l",
+      milestone: "Kilometre ta\u015F\u0131"
+    },
+    imagemagnifier: {
+      switchToImage: "{index}. g\xF6rsele ge\xE7",
+      galleryItem: "Galeri {index}",
+      close: "Kapat"
+    },
     ai: {
       bubble: {
         citations: "Al\u0131nt\u0131lar"
@@ -8516,9 +9312,32 @@ const tr = {
         pin: "Sabitle",
         unpin: "Sabitlemeyi kald\u0131r",
         newConversation: "Yeni Sohbet",
+        noData: "Hen\xFCz sohbet yok",
         rename: "Yeniden adland\u0131r",
         delete: "Sil",
         deleteConfirm: "Bu sohbeti silmeyi onayl\u0131yor musunuz?"
+      },
+      attachments: {
+        dropTip: "Y\xFCklemek i\xE7in dosyalar\u0131 buraya b\u0131rak\u0131n",
+        clickToUpload: "Y\xFCklemek i\xE7in t\u0131klay\u0131n veya dosyalar\u0131 s\xFCr\xFCkleyin",
+        uploadSuccess: "Y\xFCkleme ba\u015Far\u0131l\u0131",
+        uploadError: "Y\xFCkleme ba\u015Far\u0131s\u0131z",
+        deleteConfirm: "Bu dosyay\u0131 silmek istedi\u011Finizden emin misiniz?",
+        fileTooLarge: "Dosya boyutu {size} de\u011Ferini a\u015Famaz",
+        invalidFileType: "Ge\xE7ersiz dosya t\xFCr\xFC"
+      },
+      mermaid: {
+        image: "G\xF6rsel",
+        code: "Kod",
+        zoomIn: "Yak\u0131nla\u015Ft\u0131r",
+        zoomOut: "Uzakla\u015Ft\u0131r",
+        reset: "S\u0131f\u0131rla",
+        download: "\u0130ndir",
+        copyCode: "Kodu kopyala",
+        rendering: "Render ediliyor...",
+        renderError: "Render ba\u015Far\u0131s\u0131z",
+        renderSuccess: "Render ba\u015Far\u0131l\u0131",
+        retry: "Tekrar dene"
       }
     }
   }
@@ -9120,6 +9939,97 @@ const it = {
       loading: "Caricamento...",
       noData: "Nessun dato"
     },
+    skuselector: {
+      placeholder: "Seleziona specifiche",
+      emptyText: "Nessuna specifica",
+      stock: "Disponibilit\xE0",
+      price: "Prezzo",
+      selected: "Selezionato",
+      outOfStock: "Esaurito"
+    },
+    productcard: {
+      viewDetails: "Vedi dettagli",
+      buyNow: "Acquista ora",
+      addToCart: "Aggiungi al carrello",
+      sold: "Venduto",
+      soldOut: "Esaurito",
+      vip: "VIP"
+    },
+    price: {
+      original: "Prezzo originale"
+    },
+    couponcard: {
+      available: "Ottieni ora",
+      used: "Usato",
+      expired: "Scaduto",
+      received: "Ricevuto",
+      limit: "Ordini superiori a {threshold}",
+      noThreshold: "Nessuna soglia",
+      validPeriod: "Validit\xE0",
+      ruleTitle: "Regole di utilizzo"
+    },
+    luckydraw: {
+      start: "Avvia",
+      drawing: "Estrazione...",
+      end: "Vincitore!",
+      retry: "Riprova"
+    },
+    filterbar: {
+      all: "Tutti",
+      sort: "Ordina",
+      filter: "Filtra",
+      cancel: "Annulla",
+      reset: "Reimposta",
+      confirm: "Conferma",
+      noOptions: "Nessuna opzione",
+      asc: "Crescente",
+      desc: "Decrescente",
+      selected: "Selezionato"
+    },
+    submitbar: {
+      total: "Totale: ",
+      selected: "{count} selezionato/i",
+      submit: "Vai al pagamento",
+      allSelect: "Seleziona tutto"
+    },
+    categorynav: {
+      all: "Tutti",
+      noData: "Nessun dato",
+      loading: "Caricamento..."
+    },
+    smartaddress: {
+      placeholder: "Incolla qui l\u2019indirizzo per rilevare automaticamente nome, telefono e localit\xE0",
+      parse: "Analisi intelligente",
+      province: "Provincia/Citt\xE0/Distretto",
+      city: "Citt\xE0",
+      district: "Distretto/Provincia",
+      street: "Via/Localit\xE0",
+      detail: "Indirizzo dettagliato",
+      phone: "Telefono",
+      name: "Destinatario",
+      parseSuccess: "Indirizzo analizzato correttamente",
+      parseFailed: "Analisi non riuscita, compila manualmente",
+      required: "Compila l\u2019indirizzo completo",
+      provinceKeywords: ["Provincia", "Regione"],
+      cityKeywords: ["Citt\xE0", "Comune"],
+      districtKeywords: ["Distretto", "Provincia", "Quartiere"],
+      streetKeywords: ["Via", "Strada", "Viale", "Piazza"]
+    },
+    ganttchart: {
+      taskName: "Nome attivit\xE0",
+      searchPlaceholder: "Cerca attivit\xE0...",
+      zoom: "Zoom",
+      day: "Giorno",
+      week: "Settimana",
+      month: "Mese",
+      year: "Anno",
+      milestone: "Milestone"
+    },
+    imagemagnifier: {
+      switchToImage: "Passa all\u2019immagine {index}",
+      galleryItem: "Galleria {index}",
+      close: "Chiudi"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -9230,9 +10140,32 @@ const it = {
         pin: "Fissa",
         unpin: "Sblocca",
         newConversation: "Nuova Conversazione",
+        noData: "Nessuna conversazione ancora",
         rename: "Rinomina",
         delete: "Elimina",
         deleteConfirm: "Confermi eliminazione di questa conversazione?"
+      },
+      attachments: {
+        dropTip: "Rilascia qui i file per caricarli",
+        clickToUpload: "Clicca o trascina i file per caricarli",
+        uploadSuccess: "Caricamento riuscito",
+        uploadError: "Caricamento non riuscito",
+        deleteConfirm: "Eliminare questo file?",
+        fileTooLarge: "La dimensione del file non pu\xF2 superare {size}",
+        invalidFileType: "Tipo di file non valido"
+      },
+      mermaid: {
+        image: "Immagine",
+        code: "Codice",
+        zoomIn: "Ingrandisci",
+        zoomOut: "Riduci",
+        reset: "Reimposta",
+        download: "Scarica",
+        copyCode: "Copia codice",
+        rendering: "Rendering in corso...",
+        renderError: "Rendering non riuscito",
+        renderSuccess: "Rendering completato",
+        retry: "Riprova"
       }
     }
   }
@@ -9835,6 +10768,97 @@ const nl = {
       noData: "Geen gegevens"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Specificaties selecteren",
+      emptyText: "Geen specificaties",
+      stock: "Voorraad",
+      price: "Prijs",
+      selected: "Geselecteerd",
+      outOfStock: "Niet op voorraad"
+    },
+    productcard: {
+      viewDetails: "Details bekijken",
+      buyNow: "Nu kopen",
+      addToCart: "Toevoegen aan winkelwagen",
+      sold: "Verkocht",
+      soldOut: "Uitverkocht",
+      vip: "Lid"
+    },
+    price: {
+      original: "Originele prijs"
+    },
+    couponcard: {
+      available: "Nu claimen",
+      used: "Gebruikt",
+      expired: "Verlopen",
+      received: "Ontvangen",
+      limit: "Bestellingen boven {threshold}",
+      noThreshold: "Geen minimum",
+      validPeriod: "Geldigheid",
+      ruleTitle: "Gebruiksregels"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Loting bezig...",
+      end: "Winnaar!",
+      retry: "Opnieuw proberen"
+    },
+    filterbar: {
+      all: "Alles",
+      sort: "Sorteren",
+      filter: "Filteren",
+      cancel: "Annuleren",
+      reset: "Resetten",
+      confirm: "Bevestigen",
+      noOptions: "Geen opties",
+      asc: "Oplopend",
+      desc: "Aflopend",
+      selected: "Geselecteerd"
+    },
+    submitbar: {
+      total: "Totaal: ",
+      selected: "{count} geselecteerd",
+      submit: "Afrekenen",
+      allSelect: "Alles selecteren"
+    },
+    categorynav: {
+      all: "Alles",
+      noData: "Geen gegevens",
+      loading: "Laden..."
+    },
+    smartaddress: {
+      placeholder: "Plak hier het adres om naam, telefoon en locatie automatisch te herkennen",
+      parse: "Slim analyseren",
+      province: "Provincie/Stad/District",
+      city: "Stad",
+      district: "District/Gemeente",
+      street: "Straat/Plaats",
+      detail: "Gedetailleerd adres",
+      phone: "Telefoon",
+      name: "Ontvanger",
+      parseSuccess: "Adres succesvol geanalyseerd",
+      parseFailed: "Analyseren mislukt, vul handmatig in",
+      required: "Vul het volledige adres in",
+      provinceKeywords: ["Provincie", "Staat"],
+      cityKeywords: ["Stad", "Gemeente"],
+      districtKeywords: ["District", "Gemeente", "Wijk"],
+      streetKeywords: ["Straat", "Weg", "Laan", "Steeg"]
+    },
+    ganttchart: {
+      taskName: "Taaknaam",
+      searchPlaceholder: "Taken zoeken...",
+      zoom: "Zoomen",
+      day: "Dag",
+      week: "Week",
+      month: "Maand",
+      year: "Jaar",
+      milestone: "Mijlpaal"
+    },
+    imagemagnifier: {
+      switchToImage: "Schakel naar afbeelding {index}",
+      galleryItem: "Galerij {index}",
+      close: "Sluiten"
+    },
     ai: {
       bubble: {
         citations: "Citaties"
@@ -9944,9 +10968,32 @@ const nl = {
         pin: "Vastzetten",
         unpin: "Losmaken",
         newConversation: "Nieuw Gesprek",
+        noData: "Nog geen gesprekken",
         rename: "Hernoemen",
         delete: "Verwijderen",
         deleteConfirm: "Bevestig verwijderen van dit gesprek?"
+      },
+      attachments: {
+        dropTip: "Laat bestanden hier los om te uploaden",
+        clickToUpload: "Klik of sleep bestanden om te uploaden",
+        uploadSuccess: "Upload geslaagd",
+        uploadError: "Upload mislukt",
+        deleteConfirm: "Weet je zeker dat je dit bestand wilt verwijderen?",
+        fileTooLarge: "Bestandsgrootte mag niet groter zijn dan {size}",
+        invalidFileType: "Ongeldig bestandstype"
+      },
+      mermaid: {
+        image: "Afbeelding",
+        code: "Code",
+        zoomIn: "Inzoomen",
+        zoomOut: "Uitzoomen",
+        reset: "Resetten",
+        download: "Downloaden",
+        copyCode: "Code kopi\xEBren",
+        rendering: "Bezig met renderen...",
+        renderError: "Renderen mislukt",
+        renderSuccess: "Renderen geslaagd",
+        retry: "Opnieuw proberen"
       }
     }
   }
@@ -10549,6 +11596,97 @@ const pl = {
       noData: "Brak danych"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Wybierz specyfikacj\u0119",
+      emptyText: "Brak specyfikacji",
+      stock: "Stan",
+      price: "Cena",
+      selected: "Wybrano",
+      outOfStock: "Brak w magazynie"
+    },
+    productcard: {
+      viewDetails: "Zobacz szczeg\xF3\u0142y",
+      buyNow: "Kup teraz",
+      addToCart: "Dodaj do koszyka",
+      sold: "Sprzedano",
+      soldOut: "Wyprzedane",
+      vip: "VIP"
+    },
+    price: {
+      original: "Cena pierwotna"
+    },
+    couponcard: {
+      available: "Odbierz teraz",
+      used: "U\u017Cyto",
+      expired: "Wygas\u0142o",
+      received: "Otrzymano",
+      limit: "Zam\xF3wienia powy\u017Cej {threshold}",
+      noThreshold: "Bez progu",
+      validPeriod: "Okres wa\u017Cno\u015Bci",
+      ruleTitle: "Zasady u\u017Cycia"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Losowanie...",
+      end: "Zwyci\u0119zca!",
+      retry: "Spr\xF3buj ponownie"
+    },
+    filterbar: {
+      all: "Wszystko",
+      sort: "Sortuj",
+      filter: "Filtruj",
+      cancel: "Anuluj",
+      reset: "Resetuj",
+      confirm: "Potwierd\u017A",
+      noOptions: "Brak opcji",
+      asc: "Rosn\u0105co",
+      desc: "Malej\u0105co",
+      selected: "Wybrano"
+    },
+    submitbar: {
+      total: "Razem: ",
+      selected: "Wybrano {count}",
+      submit: "Do kasy",
+      allSelect: "Zaznacz wszystko"
+    },
+    categorynav: {
+      all: "Wszystko",
+      noData: "Brak danych",
+      loading: "\u0141adowanie..."
+    },
+    smartaddress: {
+      placeholder: "Wklej tutaj adres, aby automatycznie wykry\u0107 nazw\u0119, telefon i lokalizacj\u0119",
+      parse: "Inteligentna analiza",
+      province: "Wojew\xF3dztwo/Miasto/Dzielnica",
+      city: "Miasto",
+      district: "Dzielnica/Powiat",
+      street: "Ulica/Miejscowo\u015B\u0107",
+      detail: "Szczeg\xF3\u0142owy adres",
+      phone: "Telefon",
+      name: "Odbiorca",
+      parseSuccess: "Adres zosta\u0142 poprawnie rozpoznany",
+      parseFailed: "Rozpoznanie nie powiod\u0142o si\u0119, uzupe\u0142nij r\u0119cznie",
+      required: "Wprowad\u017A pe\u0142ny adres",
+      provinceKeywords: ["Wojew\xF3dztwo", "Region"],
+      cityKeywords: ["Miasto", "Gmina"],
+      districtKeywords: ["Dzielnica", "Powiat", "Osiedle"],
+      streetKeywords: ["Ulica", "Aleja", "Droga", "Plac"]
+    },
+    ganttchart: {
+      taskName: "Nazwa zadania",
+      searchPlaceholder: "Szukaj zada\u0144...",
+      zoom: "Powi\u0119kszenie",
+      day: "Dzie\u0144",
+      week: "Tydzie\u0144",
+      month: "Miesi\u0105c",
+      year: "Rok",
+      milestone: "Kamie\u0144 milowy"
+    },
+    imagemagnifier: {
+      switchToImage: "Prze\u0142\u0105cz na obraz {index}",
+      galleryItem: "Galeria {index}",
+      close: "Zamknij"
+    },
     ai: {
       bubble: {
         citations: "Cytowania"
@@ -10658,9 +11796,32 @@ const pl = {
         pin: "Przypnij",
         unpin: "Odpnij",
         newConversation: "Nowa Rozmowa",
+        noData: "Brak rozm\xF3w",
         rename: "Zmie\u0144 nazw\u0119",
         delete: "Usu\u0144",
         deleteConfirm: "Czy na pewno usun\u0105\u0107 t\u0119 rozmow\u0119?"
+      },
+      attachments: {
+        dropTip: "Upu\u015B\u0107 pliki tutaj, aby przes\u0142a\u0107",
+        clickToUpload: "Kliknij lub przeci\u0105gnij pliki, aby przes\u0142a\u0107",
+        uploadSuccess: "Przesy\u0142anie zako\u0144czone sukcesem",
+        uploadError: "Przesy\u0142anie nie powiod\u0142o si\u0119",
+        deleteConfirm: "Czy na pewno chcesz usun\u0105\u0107 ten plik?",
+        fileTooLarge: "Rozmiar pliku nie mo\u017Ce przekracza\u0107 {size}",
+        invalidFileType: "Nieprawid\u0142owy typ pliku"
+      },
+      mermaid: {
+        image: "Obraz",
+        code: "Kod",
+        zoomIn: "Powi\u0119ksz",
+        zoomOut: "Pomniejsz",
+        reset: "Resetuj",
+        download: "Pobierz",
+        copyCode: "Kopiuj kod",
+        rendering: "Renderowanie...",
+        renderError: "Renderowanie nie powiod\u0142o si\u0119",
+        renderSuccess: "Renderowanie zako\u0144czone sukcesem",
+        retry: "Spr\xF3buj ponownie"
       }
     }
   }
@@ -11977,6 +13138,97 @@ const vi = {
       noData: "Kh\xF4ng c\xF3 d\u1EEF li\u1EC7u"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Ch\u1ECDn th\xF4ng s\u1ED1",
+      emptyText: "Kh\xF4ng c\xF3 th\xF4ng s\u1ED1",
+      stock: "T\u1ED3n kho",
+      price: "Gi\xE1",
+      selected: "\u0110\xE3 ch\u1ECDn",
+      outOfStock: "H\u1EBFt h\xE0ng"
+    },
+    productcard: {
+      viewDetails: "Xem chi ti\u1EBFt",
+      buyNow: "Mua ngay",
+      addToCart: "Th\xEAm v\xE0o gi\u1ECF",
+      sold: "\u0110\xE3 b\xE1n",
+      soldOut: "H\u1EBFt h\xE0ng",
+      vip: "Th\xE0nh vi\xEAn"
+    },
+    price: {
+      original: "Gi\xE1 g\u1ED1c"
+    },
+    couponcard: {
+      available: "Nh\u1EADn ngay",
+      used: "\u0110\xE3 d\xF9ng",
+      expired: "H\u1EBFt h\u1EA1n",
+      received: "\u0110\xE3 nh\u1EADn",
+      limit: "\u0110\u01A1n h\xE0ng tr\xEAn {threshold}",
+      noThreshold: "Kh\xF4ng y\xEAu c\u1EA7u t\u1ED1i thi\u1EC3u",
+      validPeriod: "Th\u1EDDi h\u1EA1n",
+      ruleTitle: "Quy t\u1EAFc s\u1EED d\u1EE5ng"
+    },
+    luckydraw: {
+      start: "B\u1EAFt \u0111\u1EA7u",
+      drawing: "\u0110ang quay...",
+      end: "Tr\xFAng th\u01B0\u1EDFng!",
+      retry: "Th\u1EED l\u1EA1i"
+    },
+    filterbar: {
+      all: "T\u1EA5t c\u1EA3",
+      sort: "S\u1EAFp x\u1EBFp",
+      filter: "L\u1ECDc",
+      cancel: "H\u1EE7y",
+      reset: "\u0110\u1EB7t l\u1EA1i",
+      confirm: "X\xE1c nh\u1EADn",
+      noOptions: "Kh\xF4ng c\xF3 t\xF9y ch\u1ECDn",
+      asc: "T\u0103ng d\u1EA7n",
+      desc: "Gi\u1EA3m d\u1EA7n",
+      selected: "\u0110\xE3 ch\u1ECDn"
+    },
+    submitbar: {
+      total: "T\u1ED5ng: ",
+      selected: "\u0110\xE3 ch\u1ECDn {count}",
+      submit: "Thanh to\xE1n",
+      allSelect: "Ch\u1ECDn t\u1EA5t c\u1EA3"
+    },
+    categorynav: {
+      all: "T\u1EA5t c\u1EA3",
+      noData: "Kh\xF4ng c\xF3 d\u1EEF li\u1EC7u",
+      loading: "\u0110ang t\u1EA3i..."
+    },
+    smartaddress: {
+      placeholder: "D\xE1n \u0111\u1ECBa ch\u1EC9 v\xE0o \u0111\xE2y \u0111\u1EC3 t\u1EF1 \u0111\u1ED9ng nh\u1EADn di\u1EC7n t\xEAn, s\u1ED1 \u0111i\u1EC7n tho\u1EA1i v\xE0 v\u1ECB tr\xED",
+      parse: "Ph\xE2n t\xEDch th\xF4ng minh",
+      province: "T\u1EC9nh/Th\xE0nh ph\u1ED1/Qu\u1EADn",
+      city: "Th\xE0nh ph\u1ED1",
+      district: "Qu\u1EADn/Huy\u1EC7n",
+      street: "\u0110\u01B0\u1EDDng/Th\u1ECB tr\u1EA5n",
+      detail: "\u0110\u1ECBa ch\u1EC9 chi ti\u1EBFt",
+      phone: "\u0110i\u1EC7n tho\u1EA1i",
+      name: "Ng\u01B0\u1EDDi nh\u1EADn",
+      parseSuccess: "Ph\xE2n t\xEDch \u0111\u1ECBa ch\u1EC9 th\xE0nh c\xF4ng",
+      parseFailed: "Ph\xE2n t\xEDch th\u1EA5t b\u1EA1i, vui l\xF2ng nh\u1EADp th\u1EE7 c\xF4ng",
+      required: "Vui l\xF2ng nh\u1EADp \u0111\u1EA7y \u0111\u1EE7 \u0111\u1ECBa ch\u1EC9",
+      provinceKeywords: ["T\u1EC9nh", "Th\xE0nh ph\u1ED1"],
+      cityKeywords: ["Th\xE0nh ph\u1ED1", "Th\u1ECB x\xE3"],
+      districtKeywords: ["Qu\u1EADn", "Huy\u1EC7n", "Ph\u01B0\u1EDDng"],
+      streetKeywords: ["\u0110\u01B0\u1EDDng", "Ph\u1ED1", "Ng\xF5", "\u1EA4p"]
+    },
+    ganttchart: {
+      taskName: "T\xEAn nhi\u1EC7m v\u1EE5",
+      searchPlaceholder: "T\xECm ki\u1EBFm nhi\u1EC7m v\u1EE5...",
+      zoom: "Thu ph\xF3ng",
+      day: "Ng\xE0y",
+      week: "Tu\u1EA7n",
+      month: "Th\xE1ng",
+      year: "N\u0103m",
+      milestone: "M\u1ED1c"
+    },
+    imagemagnifier: {
+      switchToImage: "Chuy\u1EC3n sang \u1EA3nh {index}",
+      galleryItem: "Th\u01B0 vi\u1EC7n {index}",
+      close: "\u0110\xF3ng"
+    },
     ai: {
       bubble: {
         citations: "Tr\xEDch d\u1EABn"
@@ -12086,9 +13338,32 @@ const vi = {
         pin: "Ghim",
         unpin: "B\u1ECF ghim",
         newConversation: "Cu\u1ED9c tr\xF2 chuy\u1EC7n m\u1EDBi",
+        noData: "Ch\u01B0a c\xF3 cu\u1ED9c tr\xF2 chuy\u1EC7n n\xE0o",
         rename: "\u0110\u1ED5i t\xEAn",
         delete: "X\xF3a",
         deleteConfirm: "X\xE1c nh\u1EADn x\xF3a cu\u1ED9c tr\xF2 chuy\u1EC7n n\xE0y?"
+      },
+      attachments: {
+        dropTip: "Th\u1EA3 t\u1EC7p v\xE0o \u0111\xE2y \u0111\u1EC3 t\u1EA3i l\xEAn",
+        clickToUpload: "Nh\u1EA5p ho\u1EB7c k\xE9o t\u1EC7p \u0111\u1EC3 t\u1EA3i l\xEAn",
+        uploadSuccess: "T\u1EA3i l\xEAn th\xE0nh c\xF4ng",
+        uploadError: "T\u1EA3i l\xEAn th\u1EA5t b\u1EA1i",
+        deleteConfirm: "B\u1EA1n c\xF3 ch\u1EAFc mu\u1ED1n x\xF3a t\u1EC7p n\xE0y kh\xF4ng?",
+        fileTooLarge: "K\xEDch th\u01B0\u1EDBc t\u1EC7p kh\xF4ng \u0111\u01B0\u1EE3c v\u01B0\u1EE3t qu\xE1 {size}",
+        invalidFileType: "Lo\u1EA1i t\u1EC7p kh\xF4ng h\u1EE3p l\u1EC7"
+      },
+      mermaid: {
+        image: "H\xECnh \u1EA3nh",
+        code: "M\xE3",
+        zoomIn: "Ph\xF3ng to",
+        zoomOut: "Thu nh\u1ECF",
+        reset: "\u0110\u1EB7t l\u1EA1i",
+        download: "T\u1EA3i xu\u1ED1ng",
+        copyCode: "Sao ch\xE9p m\xE3",
+        rendering: "\u0110ang d\u1EF1ng...",
+        renderError: "D\u1EF1ng th\u1EA5t b\u1EA1i",
+        renderSuccess: "D\u1EF1ng th\xE0nh c\xF4ng",
+        retry: "Th\u1EED l\u1EA1i"
       }
     }
   }
@@ -12691,6 +13966,97 @@ const id = {
       noData: "Tidak ada data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Pilih spesifikasi",
+      emptyText: "Tidak ada spesifikasi",
+      stock: "Stok",
+      price: "Harga",
+      selected: "Dipilih",
+      outOfStock: "Stok habis"
+    },
+    productcard: {
+      viewDetails: "Lihat detail",
+      buyNow: "Beli sekarang",
+      addToCart: "Tambah ke keranjang",
+      sold: "Terjual",
+      soldOut: "Habis",
+      vip: "VIP"
+    },
+    price: {
+      original: "Harga asli"
+    },
+    couponcard: {
+      available: "Klaim sekarang",
+      used: "Digunakan",
+      expired: "Kedaluwarsa",
+      received: "Diterima",
+      limit: "Pesanan di atas {threshold}",
+      noThreshold: "Tanpa minimum",
+      validPeriod: "Masa berlaku",
+      ruleTitle: "Aturan penggunaan"
+    },
+    luckydraw: {
+      start: "Mulai",
+      drawing: "Mengundi...",
+      end: "Pemenang!",
+      retry: "Coba lagi"
+    },
+    filterbar: {
+      all: "Semua",
+      sort: "Urutkan",
+      filter: "Filter",
+      cancel: "Batal",
+      reset: "Setel ulang",
+      confirm: "Konfirmasi",
+      noOptions: "Tidak ada opsi",
+      asc: "Naik",
+      desc: "Turun",
+      selected: "Dipilih"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} dipilih",
+      submit: "Checkout",
+      allSelect: "Pilih semua"
+    },
+    categorynav: {
+      all: "Semua",
+      noData: "Tidak ada data",
+      loading: "Memuat..."
+    },
+    smartaddress: {
+      placeholder: "Tempel alamat di sini untuk mendeteksi nama, telepon, dan lokasi secara otomatis",
+      parse: "Analisis cerdas",
+      province: "Provinsi/Kota/Kecamatan",
+      city: "Kota",
+      district: "Kecamatan/Kabupaten",
+      street: "Jalan/Kelurahan",
+      detail: "Alamat lengkap",
+      phone: "Telepon",
+      name: "Penerima",
+      parseSuccess: "Alamat berhasil dianalisis",
+      parseFailed: "Analisis gagal, silakan isi manual",
+      required: "Silakan isi alamat lengkap",
+      provinceKeywords: ["Provinsi", "Daerah"],
+      cityKeywords: ["Kota", "Kabupaten"],
+      districtKeywords: ["Kecamatan", "Kelurahan", "Desa"],
+      streetKeywords: ["Jalan", "Gang", "Lorong", "Avenue"]
+    },
+    ganttchart: {
+      taskName: "Nama tugas",
+      searchPlaceholder: "Cari tugas...",
+      zoom: "Zoom",
+      day: "Hari",
+      week: "Minggu",
+      month: "Bulan",
+      year: "Tahun",
+      milestone: "Tonggak"
+    },
+    imagemagnifier: {
+      switchToImage: "Beralih ke gambar {index}",
+      galleryItem: "Galeri {index}",
+      close: "Tutup"
+    },
     ai: {
       bubble: {
         citations: "Sitasi"
@@ -12800,9 +14166,32 @@ const id = {
         pin: "Sematkan",
         unpin: "Lepas Sematan",
         newConversation: "Percakapan Baru",
+        noData: "Belum ada percakapan",
         rename: "Ubah Nama",
         delete: "Hapus",
         deleteConfirm: "Konfirmasi hapus percakapan ini?"
+      },
+      attachments: {
+        dropTip: "Lepaskan file di sini untuk mengunggah",
+        clickToUpload: "Klik atau seret file untuk mengunggah",
+        uploadSuccess: "Unggahan berhasil",
+        uploadError: "Unggahan gagal",
+        deleteConfirm: "Yakin ingin menghapus file ini?",
+        fileTooLarge: "Ukuran file tidak boleh melebihi {size}",
+        invalidFileType: "Jenis file tidak valid"
+      },
+      mermaid: {
+        image: "Gambar",
+        code: "Kode",
+        zoomIn: "Perbesar",
+        zoomOut: "Perkecil",
+        reset: "Setel ulang",
+        download: "Unduh",
+        copyCode: "Salin kode",
+        rendering: "Sedang merender...",
+        renderError: "Render gagal",
+        renderSuccess: "Render berhasil",
+        retry: "Coba lagi"
       }
     }
   }
@@ -13405,6 +14794,97 @@ const ms = {
       noData: "Tiada data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Pilih spesifikasi",
+      emptyText: "Tiada spesifikasi",
+      stock: "Stok",
+      price: "Harga",
+      selected: "Dipilih",
+      outOfStock: "Kehabisan stok"
+    },
+    productcard: {
+      viewDetails: "Lihat butiran",
+      buyNow: "Beli sekarang",
+      addToCart: "Tambah ke troli",
+      sold: "Terjual",
+      soldOut: "Habis dijual",
+      vip: "Ahli"
+    },
+    price: {
+      original: "Harga asal"
+    },
+    couponcard: {
+      available: "Tuntut sekarang",
+      used: "Digunakan",
+      expired: "Tamat tempoh",
+      received: "Diterima",
+      limit: "Pesanan melebihi {threshold}",
+      noThreshold: "Tiada had minimum",
+      validPeriod: "Tempoh sah",
+      ruleTitle: "Peraturan penggunaan"
+    },
+    luckydraw: {
+      start: "Mula",
+      drawing: "Sedang cabut...",
+      end: "Pemenang!",
+      retry: "Cuba lagi"
+    },
+    filterbar: {
+      all: "Semua",
+      sort: "Isih",
+      filter: "Tapis",
+      cancel: "Batal",
+      reset: "Tetapkan semula",
+      confirm: "Sahkan",
+      noOptions: "Tiada pilihan",
+      asc: "Menaik",
+      desc: "Menurun",
+      selected: "Dipilih"
+    },
+    submitbar: {
+      total: "Jumlah: ",
+      selected: "{count} dipilih",
+      submit: "Daftar keluar",
+      allSelect: "Pilih semua"
+    },
+    categorynav: {
+      all: "Semua",
+      noData: "Tiada data",
+      loading: "Memuatkan..."
+    },
+    smartaddress: {
+      placeholder: "Tampal alamat di sini untuk mengesan nama, telefon dan lokasi secara automatik",
+      parse: "Analisis pintar",
+      province: "Negeri/Bandar/Daerah",
+      city: "Bandar",
+      district: "Daerah/Mukim",
+      street: "Jalan/Pekan",
+      detail: "Alamat terperinci",
+      phone: "Telefon",
+      name: "Penerima",
+      parseSuccess: "Alamat berjaya dianalisis",
+      parseFailed: "Analisis gagal, sila isi secara manual",
+      required: "Sila isi alamat lengkap",
+      provinceKeywords: ["Negeri", "Wilayah"],
+      cityKeywords: ["Bandar", "Majlis"],
+      districtKeywords: ["Daerah", "Mukim", "Kampung"],
+      streetKeywords: ["Jalan", "Lorong", "Taman", "Persiaran"]
+    },
+    ganttchart: {
+      taskName: "Nama tugasan",
+      searchPlaceholder: "Cari tugasan...",
+      zoom: "Zum",
+      day: "Hari",
+      week: "Minggu",
+      month: "Bulan",
+      year: "Tahun",
+      milestone: "Pencapaian"
+    },
+    imagemagnifier: {
+      switchToImage: "Tukar ke imej {index}",
+      galleryItem: "Galeri {index}",
+      close: "Tutup"
+    },
     ai: {
       bubble: {
         citations: "Petikan"
@@ -13514,9 +14994,32 @@ const ms = {
         pin: "Sematkan",
         unpin: "Nyahsemat",
         newConversation: "Perbualan baharu",
+        noData: "Belum ada perbualan",
         rename: "Namakan semula",
         delete: "Padam",
         deleteConfirm: "Sahkan padam perbualan ini?"
+      },
+      attachments: {
+        dropTip: "Lepaskan fail di sini untuk dimuat naik",
+        clickToUpload: "Klik atau seret fail untuk dimuat naik",
+        uploadSuccess: "Muat naik berjaya",
+        uploadError: "Muat naik gagal",
+        deleteConfirm: "Adakah anda pasti mahu memadam fail ini?",
+        fileTooLarge: "Saiz fail tidak boleh melebihi {size}",
+        invalidFileType: "Jenis fail tidak sah"
+      },
+      mermaid: {
+        image: "Imej",
+        code: "Kod",
+        zoomIn: "Zum masuk",
+        zoomOut: "Zum keluar",
+        reset: "Tetapkan semula",
+        download: "Muat turun",
+        copyCode: "Salin kod",
+        rendering: "Sedang merender...",
+        renderError: "Render gagal",
+        renderSuccess: "Render berjaya",
+        retry: "Cuba lagi"
       }
     }
   }
@@ -14119,6 +15622,97 @@ const da = {
       noData: "Ingen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "V\xE6lg specifikationer",
+      emptyText: "Ingen specifikationer",
+      stock: "Lager",
+      price: "Pris",
+      selected: "Valgt",
+      outOfStock: "Udsolgt"
+    },
+    productcard: {
+      viewDetails: "Se detaljer",
+      buyNow: "K\xF8b nu",
+      addToCart: "L\xE6g i kurv",
+      sold: "Solgt",
+      soldOut: "Udsolgt",
+      vip: "Medlem"
+    },
+    price: {
+      original: "Oprindelig pris"
+    },
+    couponcard: {
+      available: "Hent nu",
+      used: "Brugt",
+      expired: "Udl\xF8bet",
+      received: "Modtaget",
+      limit: "Ordrer over {threshold}",
+      noThreshold: "Ingen minimumsgr\xE6nse",
+      validPeriod: "Gyldighed",
+      ruleTitle: "Brugsregler"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Tr\xE6kker...",
+      end: "Vinder!",
+      retry: "Pr\xF8v igen"
+    },
+    filterbar: {
+      all: "Alle",
+      sort: "Sorter",
+      filter: "Filtrer",
+      cancel: "Annuller",
+      reset: "Nulstil",
+      confirm: "Bekr\xE6ft",
+      noOptions: "Ingen muligheder",
+      asc: "Stigende",
+      desc: "Faldende",
+      selected: "Valgt"
+    },
+    submitbar: {
+      total: "I alt: ",
+      selected: "{count} valgt",
+      submit: "G\xE5 til kassen",
+      allSelect: "V\xE6lg alle"
+    },
+    categorynav: {
+      all: "Alle",
+      noData: "Ingen data",
+      loading: "Indl\xE6ser..."
+    },
+    smartaddress: {
+      placeholder: "Inds\xE6t adresse her for automatisk at finde navn, telefon og placering",
+      parse: "Smart analyse",
+      province: "Region/By/Distrikt",
+      city: "By",
+      district: "Distrikt/Kommune",
+      street: "Gade/Bydel",
+      detail: "Detaljeret adresse",
+      phone: "Telefon",
+      name: "Modtager",
+      parseSuccess: "Adresse analyseret korrekt",
+      parseFailed: "Analyse mislykkedes, udfyld manuelt",
+      required: "Udfyld venligst den fulde adresse",
+      provinceKeywords: ["Region", "Stat"],
+      cityKeywords: ["By", "Kommune"],
+      districtKeywords: ["Distrikt", "Kommune", "Omr\xE5de"],
+      streetKeywords: ["Gade", "Vej", "All\xE9", "Str\xE6de"]
+    },
+    ganttchart: {
+      taskName: "Opgavenavn",
+      searchPlaceholder: "S\xF8g opgaver...",
+      zoom: "Zoom",
+      day: "Dag",
+      week: "Uge",
+      month: "M\xE5ned",
+      year: "\xC5r",
+      milestone: "Milep\xE6l"
+    },
+    imagemagnifier: {
+      switchToImage: "Skift til billede {index}",
+      galleryItem: "Galleri {index}",
+      close: "Luk"
+    },
     ai: {
       bubble: {
         citations: "Citatationer"
@@ -14228,9 +15822,32 @@ const da = {
         pin: "Fastg\xF8r",
         unpin: "Frig\xF8r",
         newConversation: "Ny samtale",
+        noData: "Ingen samtaler endnu",
         rename: "Omd\xF8b",
         delete: "Slet",
         deleteConfirm: "Bekr\xE6ft sletning af denne samtale?"
+      },
+      attachments: {
+        dropTip: "Slip filer her for at uploade",
+        clickToUpload: "Klik eller tr\xE6k filer for at uploade",
+        uploadSuccess: "Upload lykkedes",
+        uploadError: "Upload mislykkedes",
+        deleteConfirm: "Er du sikker p\xE5, at du vil slette denne fil?",
+        fileTooLarge: "Filst\xF8rrelsen m\xE5 ikke overstige {size}",
+        invalidFileType: "Ugyldig filtype"
+      },
+      mermaid: {
+        image: "Billede",
+        code: "Kode",
+        zoomIn: "Zoom ind",
+        zoomOut: "Zoom ud",
+        reset: "Nulstil",
+        download: "Download",
+        copyCode: "Kopi\xE9r kode",
+        rendering: "Renderer...",
+        renderError: "Rendering mislykkedes",
+        renderSuccess: "Rendering lykkedes",
+        retry: "Pr\xF8v igen"
       }
     }
   }
@@ -14833,6 +16450,97 @@ const sv = {
       noData: "Ingen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "V\xE4lj specifikationer",
+      emptyText: "Inga specifikationer",
+      stock: "Lager",
+      price: "Pris",
+      selected: "Vald",
+      outOfStock: "Slut i lager"
+    },
+    productcard: {
+      viewDetails: "Visa detaljer",
+      buyNow: "K\xF6p nu",
+      addToCart: "L\xE4gg i kundvagn",
+      sold: "S\xE5ld",
+      soldOut: "Sluts\xE5ld",
+      vip: "Medlem"
+    },
+    price: {
+      original: "Ordinarie pris"
+    },
+    couponcard: {
+      available: "H\xE4mta nu",
+      used: "Anv\xE4nd",
+      expired: "Utg\xE5ngen",
+      received: "Mottagen",
+      limit: "Best\xE4llningar \xF6ver {threshold}",
+      noThreshold: "Ingen miniminiv\xE5",
+      validPeriod: "Giltighetstid",
+      ruleTitle: "Anv\xE4ndningsregler"
+    },
+    luckydraw: {
+      start: "Starta",
+      drawing: "Drar...",
+      end: "Vinnare!",
+      retry: "F\xF6rs\xF6k igen"
+    },
+    filterbar: {
+      all: "Alla",
+      sort: "Sortera",
+      filter: "Filtrera",
+      cancel: "Avbryt",
+      reset: "\xC5terst\xE4ll",
+      confirm: "Bekr\xE4fta",
+      noOptions: "Inga alternativ",
+      asc: "Stigande",
+      desc: "Fallande",
+      selected: "Vald"
+    },
+    submitbar: {
+      total: "Totalt: ",
+      selected: "{count} valda",
+      submit: "Till kassan",
+      allSelect: "V\xE4lj alla"
+    },
+    categorynav: {
+      all: "Alla",
+      noData: "Ingen data",
+      loading: "Laddar..."
+    },
+    smartaddress: {
+      placeholder: "Klistra in adressen h\xE4r f\xF6r att automatiskt uppt\xE4cka namn, telefon och plats",
+      parse: "Smart analys",
+      province: "L\xE4n/Stad/Distrikt",
+      city: "Stad",
+      district: "Distrikt/Kommun",
+      street: "Gata/Ort",
+      detail: "Detaljerad adress",
+      phone: "Telefon",
+      name: "Mottagare",
+      parseSuccess: "Adressen analyserades korrekt",
+      parseFailed: "Analysen misslyckades, fyll i manuellt",
+      required: "Fyll i fullst\xE4ndig adress",
+      provinceKeywords: ["L\xE4n", "Region"],
+      cityKeywords: ["Stad", "Kommun"],
+      districtKeywords: ["Distrikt", "Kommun", "Omr\xE5de"],
+      streetKeywords: ["Gata", "V\xE4g", "All\xE9", "Gr\xE4nd"]
+    },
+    ganttchart: {
+      taskName: "Aktivitetsnamn",
+      searchPlaceholder: "S\xF6k uppgifter...",
+      zoom: "Zoom",
+      day: "Dag",
+      week: "Vecka",
+      month: "M\xE5nad",
+      year: "\xC5r",
+      milestone: "Milstolpe"
+    },
+    imagemagnifier: {
+      switchToImage: "Byt till bild {index}",
+      galleryItem: "Galleri {index}",
+      close: "St\xE4ng"
+    },
     ai: {
       bubble: {
         citations: "Citat"
@@ -14942,9 +16650,32 @@ const sv = {
         pin: "N\xE5la",
         unpin: "Ta bort n\xE5l",
         newConversation: "Ny konversation",
+        noData: "Inga konversationer \xE4nnu",
         rename: "D\xF6pa om",
         delete: "Radera",
         deleteConfirm: "Bekr\xE4fta radering av denna konversation?"
+      },
+      attachments: {
+        dropTip: "Sl\xE4pp filer h\xE4r f\xF6r att ladda upp",
+        clickToUpload: "Klicka eller dra filer f\xF6r att ladda upp",
+        uploadSuccess: "Uppladdningen lyckades",
+        uploadError: "Uppladdningen misslyckades",
+        deleteConfirm: "\xC4r du s\xE4ker p\xE5 att du vill ta bort den h\xE4r filen?",
+        fileTooLarge: "Filstorleken f\xE5r inte \xF6verstiga {size}",
+        invalidFileType: "Ogiltig filtyp"
+      },
+      mermaid: {
+        image: "Bild",
+        code: "Kod",
+        zoomIn: "Zooma in",
+        zoomOut: "Zooma ut",
+        reset: "\xC5terst\xE4ll",
+        download: "Ladda ner",
+        copyCode: "Kopiera kod",
+        rendering: "Renderar...",
+        renderError: "Renderingen misslyckades",
+        renderSuccess: "Renderingen lyckades",
+        retry: "F\xF6rs\xF6k igen"
       }
     }
   }
@@ -15547,6 +17278,97 @@ const fi = {
       noData: "Ei tietoja"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Valitse tiedot",
+      emptyText: "Ei tietoja",
+      stock: "Varasto",
+      price: "Hinta",
+      selected: "Valittu",
+      outOfStock: "Loppu varastosta"
+    },
+    productcard: {
+      viewDetails: "N\xE4yt\xE4 tiedot",
+      buyNow: "Osta nyt",
+      addToCart: "Lis\xE4\xE4 koriin",
+      sold: "Myyty",
+      soldOut: "Loppuunmyyty",
+      vip: "J\xE4sen"
+    },
+    price: {
+      original: "Alkuper\xE4inen hinta"
+    },
+    couponcard: {
+      available: "Lunasta nyt",
+      used: "K\xE4ytetty",
+      expired: "Vanhentunut",
+      received: "Vastaanotettu",
+      limit: "Tilaukset yli {threshold}",
+      noThreshold: "Ei v\xE4himm\xE4israjaa",
+      validPeriod: "Voimassaoloaika",
+      ruleTitle: "K\xE4ytt\xF6s\xE4\xE4nn\xF6t"
+    },
+    luckydraw: {
+      start: "Aloita",
+      drawing: "Arvotaan...",
+      end: "Voittaja!",
+      retry: "Yrit\xE4 uudelleen"
+    },
+    filterbar: {
+      all: "Kaikki",
+      sort: "Lajittele",
+      filter: "Suodata",
+      cancel: "Peruuta",
+      reset: "Nollaa",
+      confirm: "Vahvista",
+      noOptions: "Ei vaihtoehtoja",
+      asc: "Nouseva",
+      desc: "Laskeva",
+      selected: "Valittu"
+    },
+    submitbar: {
+      total: "Yhteens\xE4: ",
+      selected: "{count} valittu",
+      submit: "Siirry kassalle",
+      allSelect: "Valitse kaikki"
+    },
+    categorynav: {
+      all: "Kaikki",
+      noData: "Ei tietoja",
+      loading: "Ladataan..."
+    },
+    smartaddress: {
+      placeholder: "Liit\xE4 osoite t\xE4h\xE4n tunnistaaksesi nimen, puhelimen ja sijainnin automaattisesti",
+      parse: "\xC4lyk\xE4s analyysi",
+      province: "Maakunta/Kaupunki/Alue",
+      city: "Kaupunki",
+      district: "Alue/Kunta",
+      street: "Katu/Paikkakunta",
+      detail: "Tarkka osoite",
+      phone: "Puhelin",
+      name: "Vastaanottaja",
+      parseSuccess: "Osoite analysoitiin onnistuneesti",
+      parseFailed: "Analyysi ep\xE4onnistui, t\xE4yt\xE4 k\xE4sin",
+      required: "T\xE4yt\xE4 t\xE4ydellinen osoite",
+      provinceKeywords: ["Maakunta", "Alue"],
+      cityKeywords: ["Kaupunki", "Kunta"],
+      districtKeywords: ["Alue", "Kunta", "Kyl\xE4"],
+      streetKeywords: ["Katu", "Tie", "Kuja", "Polku"]
+    },
+    ganttchart: {
+      taskName: "Teht\xE4v\xE4n nimi",
+      searchPlaceholder: "Hae teht\xE4vi\xE4...",
+      zoom: "Zoom",
+      day: "P\xE4iv\xE4",
+      week: "Viikko",
+      month: "Kuukausi",
+      year: "Vuosi",
+      milestone: "Virstanpylv\xE4s"
+    },
+    imagemagnifier: {
+      switchToImage: "Vaihda kuvaan {index}",
+      galleryItem: "Galleria {index}",
+      close: "Sulje"
+    },
     ai: {
       bubble: {
         citations: "Lainaukset"
@@ -15656,9 +17478,32 @@ const fi = {
         pin: "Kiinnit\xE4",
         unpin: "Poista kiinnitys",
         newConversation: "Uusi keskustelu",
+        noData: "Ei viel\xE4 keskusteluja",
         rename: "Nime\xE4 uudelleen",
         delete: "Poista",
         deleteConfirm: "Vahvista t\xE4m\xE4n keskustelun poistaminen?"
+      },
+      attachments: {
+        dropTip: "Pudota tiedostot t\xE4h\xE4n ladataksesi ne",
+        clickToUpload: "Napsauta tai ved\xE4 tiedostot ladattavaksi",
+        uploadSuccess: "Lataus onnistui",
+        uploadError: "Lataus ep\xE4onnistui",
+        deleteConfirm: "Haluatko varmasti poistaa t\xE4m\xE4n tiedoston?",
+        fileTooLarge: "Tiedoston koko ei saa ylitt\xE4\xE4 arvoa {size}",
+        invalidFileType: "Virheellinen tiedostotyyppi"
+      },
+      mermaid: {
+        image: "Kuva",
+        code: "Koodi",
+        zoomIn: "L\xE4henn\xE4",
+        zoomOut: "Loitonna",
+        reset: "Palauta",
+        download: "Lataa",
+        copyCode: "Kopioi koodi",
+        rendering: "Piirret\xE4\xE4n...",
+        renderError: "Piirt\xE4minen ep\xE4onnistui",
+        renderSuccess: "Piirt\xE4minen onnistui",
+        retry: "Yrit\xE4 uudelleen"
       }
     }
   }
@@ -16261,6 +18106,97 @@ const no = {
       noData: "Ingen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Velg spesifikasjoner",
+      emptyText: "Ingen spesifikasjoner",
+      stock: "Lager",
+      price: "Pris",
+      selected: "Valgt",
+      outOfStock: "Utsolgt"
+    },
+    productcard: {
+      viewDetails: "Se detaljer",
+      buyNow: "Kj\xF8p n\xE5",
+      addToCart: "Legg i handlekurv",
+      sold: "Solgt",
+      soldOut: "Utsolgt",
+      vip: "Medlem"
+    },
+    price: {
+      original: "Originalpris"
+    },
+    couponcard: {
+      available: "Hent n\xE5",
+      used: "Brukt",
+      expired: "Utl\xF8pt",
+      received: "Mottatt",
+      limit: "Bestillinger over {threshold}",
+      noThreshold: "Ingen minimumsgrense",
+      validPeriod: "Gyldighet",
+      ruleTitle: "Bruksregler"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Trekker...",
+      end: "Vinner!",
+      retry: "Pr\xF8v igjen"
+    },
+    filterbar: {
+      all: "Alle",
+      sort: "Sorter",
+      filter: "Filtrer",
+      cancel: "Avbryt",
+      reset: "Tilbakestill",
+      confirm: "Bekreft",
+      noOptions: "Ingen alternativer",
+      asc: "Stigende",
+      desc: "Synkende",
+      selected: "Valgt"
+    },
+    submitbar: {
+      total: "Totalt: ",
+      selected: "{count} valgt",
+      submit: "G\xE5 til kassen",
+      allSelect: "Velg alle"
+    },
+    categorynav: {
+      all: "Alle",
+      noData: "Ingen data",
+      loading: "Laster..."
+    },
+    smartaddress: {
+      placeholder: "Lim inn adressen her for automatisk \xE5 oppdage navn, telefon og sted",
+      parse: "Smart analyse",
+      province: "Fylke/By/Distrikt",
+      city: "By",
+      district: "Distrikt/Kommune",
+      street: "Gate/Sted",
+      detail: "Detaljert adresse",
+      phone: "Telefon",
+      name: "Mottaker",
+      parseSuccess: "Adressen ble analysert",
+      parseFailed: "Analysen mislyktes, fyll inn manuelt",
+      required: "Fyll inn full adresse",
+      provinceKeywords: ["Fylke", "Stat"],
+      cityKeywords: ["By", "Kommune"],
+      districtKeywords: ["Distrikt", "Kommune", "Omr\xE5de"],
+      streetKeywords: ["Gate", "Vei", "All\xE9", "Smug"]
+    },
+    ganttchart: {
+      taskName: "Oppgavenavn",
+      searchPlaceholder: "S\xF8k oppgaver...",
+      zoom: "Zoom",
+      day: "Dag",
+      week: "Uke",
+      month: "M\xE5ned",
+      year: "\xC5r",
+      milestone: "Milep\xE6l"
+    },
+    imagemagnifier: {
+      switchToImage: "Bytt til bilde {index}",
+      galleryItem: "Galleri {index}",
+      close: "Lukk"
+    },
     ai: {
       bubble: {
         citations: "Sitater"
@@ -16370,9 +18306,32 @@ const no = {
         pin: "Fest",
         unpin: "L\xF8sne",
         newConversation: "Ny samtale",
+        noData: "Ingen samtaler enn\xE5",
         rename: "Gi nytt navn",
         delete: "Slett",
         deleteConfirm: "Bekreft sletting av denne samtalen?"
+      },
+      attachments: {
+        dropTip: "Slipp filer her for \xE5 laste opp",
+        clickToUpload: "Klikk eller dra filer for \xE5 laste opp",
+        uploadSuccess: "Opplastingen lyktes",
+        uploadError: "Opplastingen mislyktes",
+        deleteConfirm: "Er du sikker p\xE5 at du vil slette denne filen?",
+        fileTooLarge: "Filst\xF8rrelsen kan ikke overstige {size}",
+        invalidFileType: "Ugyldig filtype"
+      },
+      mermaid: {
+        image: "Bilde",
+        code: "Kode",
+        zoomIn: "Zoom inn",
+        zoomOut: "Zoom ut",
+        reset: "Tilbakestill",
+        download: "Last ned",
+        copyCode: "Kopier kode",
+        rendering: "Renderer...",
+        renderError: "Rendering mislyktes",
+        renderSuccess: "Rendering lyktes",
+        retry: "Pr\xF8v igjen"
       }
     }
   }
@@ -16975,6 +18934,97 @@ const nbNo = {
       noData: "Ingen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Velg spesifikasjoner",
+      emptyText: "Ingen spesifikasjoner",
+      stock: "Lager",
+      price: "Pris",
+      selected: "Valgt",
+      outOfStock: "Utsolgt"
+    },
+    productcard: {
+      viewDetails: "Se detaljer",
+      buyNow: "Kj\xF8p n\xE5",
+      addToCart: "Legg i handlekurv",
+      sold: "Solgt",
+      soldOut: "Utsolgt",
+      vip: "Medlem"
+    },
+    price: {
+      original: "Originalpris"
+    },
+    couponcard: {
+      available: "Hent n\xE5",
+      used: "Brukt",
+      expired: "Utl\xF8pt",
+      received: "Mottatt",
+      limit: "Bestillinger over {threshold}",
+      noThreshold: "Ingen minimumsgrense",
+      validPeriod: "Gyldighet",
+      ruleTitle: "Bruksregler"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Trekker...",
+      end: "Vinner!",
+      retry: "Pr\xF8v igjen"
+    },
+    filterbar: {
+      all: "Alle",
+      sort: "Sorter",
+      filter: "Filtrer",
+      cancel: "Avbryt",
+      reset: "Tilbakestill",
+      confirm: "Bekreft",
+      noOptions: "Ingen alternativer",
+      asc: "Stigende",
+      desc: "Synkende",
+      selected: "Valgt"
+    },
+    submitbar: {
+      total: "Totalt: ",
+      selected: "{count} valgt",
+      submit: "G\xE5 til kassen",
+      allSelect: "Velg alle"
+    },
+    categorynav: {
+      all: "Alle",
+      noData: "Ingen data",
+      loading: "Laster..."
+    },
+    smartaddress: {
+      placeholder: "Lim inn adressen her for automatisk \xE5 oppdage navn, telefon og sted",
+      parse: "Smart analyse",
+      province: "Fylke/By/Distrikt",
+      city: "By",
+      district: "Distrikt/Kommune",
+      street: "Gate/Sted",
+      detail: "Detaljert adresse",
+      phone: "Telefon",
+      name: "Mottaker",
+      parseSuccess: "Adressen ble analysert",
+      parseFailed: "Analysen mislyktes, fyll inn manuelt",
+      required: "Fyll inn full adresse",
+      provinceKeywords: ["Fylke", "Stat"],
+      cityKeywords: ["By", "Kommune"],
+      districtKeywords: ["Distrikt", "Kommune", "Omr\xE5de"],
+      streetKeywords: ["Gate", "Vei", "All\xE9", "Smug"]
+    },
+    ganttchart: {
+      taskName: "Oppgavenavn",
+      searchPlaceholder: "S\xF8k oppgaver...",
+      zoom: "Zoom",
+      day: "Dag",
+      week: "Uke",
+      month: "M\xE5ned",
+      year: "\xC5r",
+      milestone: "Milep\xE6l"
+    },
+    imagemagnifier: {
+      switchToImage: "Bytt til bilde {index}",
+      galleryItem: "Galleri {index}",
+      close: "Lukk"
+    },
     ai: {
       bubble: {
         citations: "Sitater"
@@ -17084,9 +19134,32 @@ const nbNo = {
         pin: "Fest",
         unpin: "L\xF8sne",
         newConversation: "Ny samtale",
+        noData: "Ingen samtaler enn\xE5",
         rename: "Gi nytt navn",
         delete: "Slett",
         deleteConfirm: "Bekreft sletting av denne samtalen?"
+      },
+      attachments: {
+        dropTip: "Slipp filer her for \xE5 laste opp",
+        clickToUpload: "Klikk eller dra filer for \xE5 laste opp",
+        uploadSuccess: "Opplastingen lyktes",
+        uploadError: "Opplastingen mislyktes",
+        deleteConfirm: "Er du sikker p\xE5 at du vil slette denne filen?",
+        fileTooLarge: "Filst\xF8rrelsen kan ikke overstige {size}",
+        invalidFileType: "Ugyldig filtype"
+      },
+      mermaid: {
+        image: "Bilde",
+        code: "Kode",
+        zoomIn: "Zoom inn",
+        zoomOut: "Zoom ut",
+        reset: "Tilbakestill",
+        download: "Last ned",
+        copyCode: "Kopier kode",
+        rendering: "Renderer...",
+        renderError: "Rendering mislyktes",
+        renderSuccess: "Rendering lyktes",
+        retry: "Pr\xF8v igjen"
       }
     }
   }
@@ -17689,6 +19762,97 @@ const cs = {
       noData: "\u017D\xE1dn\xE1 data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Vyberte specifikace",
+      emptyText: "\u017D\xE1dn\xE9 specifikace",
+      stock: "Sklad",
+      price: "Cena",
+      selected: "Vybr\xE1no",
+      outOfStock: "Nen\xED skladem"
+    },
+    productcard: {
+      viewDetails: "Zobrazit detaily",
+      buyNow: "Koupit nyn\xED",
+      addToCart: "P\u0159idat do ko\u0161\xEDku",
+      sold: "Prod\xE1no",
+      soldOut: "Vyprod\xE1no",
+      vip: "VIP"
+    },
+    price: {
+      original: "P\u016Fvodn\xED cena"
+    },
+    couponcard: {
+      available: "Z\xEDskat nyn\xED",
+      used: "Pou\u017Eito",
+      expired: "Vypr\u0161elo",
+      received: "P\u0159ijato",
+      limit: "Objedn\xE1vky nad {threshold}",
+      noThreshold: "Bez minim\xE1ln\xED hodnoty",
+      validPeriod: "Platnost",
+      ruleTitle: "Pravidla pou\u017Eit\xED"
+    },
+    luckydraw: {
+      start: "Spustit",
+      drawing: "Losov\xE1n\xED...",
+      end: "V\xFDherce!",
+      retry: "Zkusit znovu"
+    },
+    filterbar: {
+      all: "V\u0161e",
+      sort: "\u0158adit",
+      filter: "Filtrovat",
+      cancel: "Zru\u0161it",
+      reset: "Obnovit",
+      confirm: "Potvrdit",
+      noOptions: "\u017D\xE1dn\xE9 mo\u017Enosti",
+      asc: "Vzestupn\u011B",
+      desc: "Sestupn\u011B",
+      selected: "Vybr\xE1no"
+    },
+    submitbar: {
+      total: "Celkem: ",
+      selected: "{count} vybr\xE1no",
+      submit: "Pokra\u010Dovat k pokladn\u011B",
+      allSelect: "Vybrat v\u0161e"
+    },
+    categorynav: {
+      all: "V\u0161e",
+      noData: "\u017D\xE1dn\xE1 data",
+      loading: "Na\u010D\xEDt\xE1n\xED..."
+    },
+    smartaddress: {
+      placeholder: "Vlo\u017Ete sem adresu pro automatick\xE9 rozpozn\xE1n\xED jm\xE9na, telefonu a m\xEDsta",
+      parse: "Chytr\xE1 anal\xFDza",
+      province: "Kraj/M\u011Bsto/Okres",
+      city: "M\u011Bsto",
+      district: "Okres/Obec",
+      street: "Ulice/M\u011Bsto",
+      detail: "Podrobn\xE1 adresa",
+      phone: "Telefon",
+      name: "P\u0159\xEDjemce",
+      parseSuccess: "Adresa byla \xFAsp\u011B\u0161n\u011B analyzov\xE1na",
+      parseFailed: "Anal\xFDza selhala, vypl\u0148te ru\u010Dn\u011B",
+      required: "Vypl\u0148te pros\xEDm \xFAplnou adresu",
+      provinceKeywords: ["Kraj", "St\xE1t"],
+      cityKeywords: ["M\u011Bsto", "Obec"],
+      districtKeywords: ["Okres", "Obec", "\u010C\xE1st"],
+      streetKeywords: ["Ulice", "T\u0159\xEDda", "Cesta", "N\xE1m\u011Bst\xED"]
+    },
+    ganttchart: {
+      taskName: "N\xE1zev \xFAkolu",
+      searchPlaceholder: "Hledat \xFAkoly...",
+      zoom: "P\u0159ibl\xED\u017Een\xED",
+      day: "Den",
+      week: "T\xFDden",
+      month: "M\u011Bs\xEDc",
+      year: "Rok",
+      milestone: "Miln\xEDk"
+    },
+    imagemagnifier: {
+      switchToImage: "P\u0159epnout na obr\xE1zek {index}",
+      galleryItem: "Galerie {index}",
+      close: "Zav\u0159\xEDt"
+    },
     ai: {
       bubble: {
         citations: "Citace"
@@ -17798,9 +19962,32 @@ const cs = {
         pin: "P\u0159ipnout",
         unpin: "Odepnout",
         newConversation: "Nov\xE1 konverzace",
+        noData: "Zat\xEDm \u017E\xE1dn\xE9 konverzace",
         rename: "P\u0159ejmenovat",
         delete: "Smazat",
         deleteConfirm: "Potvrdit smaz\xE1n\xED t\xE9to konverzace?"
+      },
+      attachments: {
+        dropTip: "P\u0159et\xE1hn\u011Bte sem soubory k nahr\xE1n\xED",
+        clickToUpload: "Klikn\u011Bte nebo p\u0159et\xE1hn\u011Bte soubory k nahr\xE1n\xED",
+        uploadSuccess: "Nahr\xE1n\xED bylo \xFAsp\u011B\u0161n\xE9",
+        uploadError: "Nahr\xE1n\xED se nezda\u0159ilo",
+        deleteConfirm: "Opravdu chcete tento soubor smazat?",
+        fileTooLarge: "Velikost souboru nesm\xED p\u0159ekro\u010Dit {size}",
+        invalidFileType: "Neplatn\xFD typ souboru"
+      },
+      mermaid: {
+        image: "Obr\xE1zek",
+        code: "K\xF3d",
+        zoomIn: "P\u0159ibl\xED\u017Eit",
+        zoomOut: "Odd\xE1lit",
+        reset: "Obnovit",
+        download: "St\xE1hnout",
+        copyCode: "Kop\xEDrovat k\xF3d",
+        rendering: "Vykreslov\xE1n\xED...",
+        renderError: "Vykreslen\xED se nezda\u0159ilo",
+        renderSuccess: "Vykreslen\xED bylo \xFAsp\u011B\u0161n\xE9",
+        retry: "Zkusit znovu"
       }
     }
   }
@@ -18403,6 +20590,97 @@ const sk = {
       noData: "\u017Diadne d\xE1ta"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Vyberte \u0161pecifik\xE1cie",
+      emptyText: "\u017Diadne \u0161pecifik\xE1cie",
+      stock: "Sklad",
+      price: "Cena",
+      selected: "Vybran\xE9",
+      outOfStock: "Nie je na sklade"
+    },
+    productcard: {
+      viewDetails: "Zobrazi\u0165 podrobnosti",
+      buyNow: "K\xFApi\u0165 teraz",
+      addToCart: "Prida\u0165 do ko\u0161\xEDka",
+      sold: "Predan\xE9",
+      soldOut: "Vypredan\xE9",
+      vip: "VIP"
+    },
+    price: {
+      original: "P\xF4vodn\xE1 cena"
+    },
+    couponcard: {
+      available: "Z\xEDska\u0165 teraz",
+      used: "Pou\u017Eit\xE9",
+      expired: "Vypr\u0161an\xE9",
+      received: "Prijat\xE9",
+      limit: "Objedn\xE1vky nad {threshold}",
+      noThreshold: "Bez minim\xE1lnej hodnoty",
+      validPeriod: "Platnos\u0165",
+      ruleTitle: "Pravidl\xE1 pou\u017E\xEDvania"
+    },
+    luckydraw: {
+      start: "Spusti\u0165",
+      drawing: "\u017Drebovanie...",
+      end: "V\xED\u0165az!",
+      retry: "Sk\xFAsi\u0165 znova"
+    },
+    filterbar: {
+      all: "V\u0161etko",
+      sort: "Triedi\u0165",
+      filter: "Filtrova\u0165",
+      cancel: "Zru\u0161i\u0165",
+      reset: "Obnovi\u0165",
+      confirm: "Potvrdi\u0165",
+      noOptions: "\u017Diadne mo\u017Enosti",
+      asc: "Vzostupne",
+      desc: "Zostupne",
+      selected: "Vybran\xE9"
+    },
+    submitbar: {
+      total: "Spolu: ",
+      selected: "{count} vybran\xE9",
+      submit: "Pokra\u010Dova\u0165 k pokladni",
+      allSelect: "Vybra\u0165 v\u0161etko"
+    },
+    categorynav: {
+      all: "V\u0161etko",
+      noData: "\u017Diadne \xFAdaje",
+      loading: "Na\u010D\xEDtava sa..."
+    },
+    smartaddress: {
+      placeholder: "Vlo\u017Ete sem adresu na automatick\xE9 rozpoznanie mena, telef\xF3nu a miesta",
+      parse: "Inteligentn\xE1 anal\xFDza",
+      province: "Kraj/Mesto/Okres",
+      city: "Mesto",
+      district: "Okres/Obec",
+      street: "Ulica/Mesto",
+      detail: "Podrobn\xE1 adresa",
+      phone: "Telef\xF3n",
+      name: "Pr\xEDjemca",
+      parseSuccess: "Adresa bola \xFAspe\u0161ne analyzovan\xE1",
+      parseFailed: "Anal\xFDza zlyhala, vypl\u0148te ru\u010Dne",
+      required: "Vypl\u0148te pros\xEDm \xFApln\xFA adresu",
+      provinceKeywords: ["Kraj", "\u0160t\xE1t"],
+      cityKeywords: ["Mesto", "Obec"],
+      districtKeywords: ["Okres", "Obec", "\u010Cas\u0165"],
+      streetKeywords: ["Ulica", "Trieda", "Cesta", "N\xE1mestie"]
+    },
+    ganttchart: {
+      taskName: "N\xE1zov \xFAlohy",
+      searchPlaceholder: "H\u013Eada\u0165 \xFAlohy...",
+      zoom: "Pribl\xED\u017Eenie",
+      day: "De\u0148",
+      week: "T\xFD\u017Ede\u0148",
+      month: "Mesiac",
+      year: "Rok",
+      milestone: "M\xED\u013Enik"
+    },
+    imagemagnifier: {
+      switchToImage: "Prepn\xFA\u0165 na obr\xE1zok {index}",
+      galleryItem: "Gal\xE9ria {index}",
+      close: "Zavrie\u0165"
+    },
     ai: {
       bubble: {
         citations: "Cit\xE1cie"
@@ -18512,9 +20790,32 @@ const sk = {
         pin: "Pripn\xFA\u0165",
         unpin: "Odpn\xFA\u0165",
         newConversation: "Nov\xE1 konverz\xE1cia",
+        noData: "Zatia\u013E \u017Eiadne konverz\xE1cie",
         rename: "Premenova\u0165",
         delete: "Vymaza\u0165",
         deleteConfirm: "Potvr\u010Fte vymazanie tejto konverz\xE1cie?"
+      },
+      attachments: {
+        dropTip: "Presu\u0148te sem s\xFAbory na nahranie",
+        clickToUpload: "Kliknite alebo pretiahnite s\xFAbory na nahranie",
+        uploadSuccess: "Nahranie bolo \xFAspe\u0161n\xE9",
+        uploadError: "Nahranie zlyhalo",
+        deleteConfirm: "Naozaj chcete odstr\xE1ni\u0165 tento s\xFAbor?",
+        fileTooLarge: "Ve\u013Ekos\u0165 s\xFAboru nem\xF4\u017Ee presiahnu\u0165 {size}",
+        invalidFileType: "Neplatn\xFD typ s\xFAboru"
+      },
+      mermaid: {
+        image: "Obr\xE1zok",
+        code: "K\xF3d",
+        zoomIn: "Pribl\xED\u017Ei\u0165",
+        zoomOut: "Oddiali\u0165",
+        reset: "Obnovi\u0165",
+        download: "Stiahnu\u0165",
+        copyCode: "Kop\xEDrova\u0165 k\xF3d",
+        rendering: "Vykres\u013Eovanie...",
+        renderError: "Vykreslenie zlyhalo",
+        renderSuccess: "Vykreslenie bolo \xFAspe\u0161n\xE9",
+        retry: "Sk\xFAsi\u0165 znova"
       }
     }
   }
@@ -19117,6 +21418,97 @@ const uk = {
       noData: "\u041D\u0435\u043C\u0430\u0454 \u0434\u0430\u043D\u0438\u0445"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0438",
+      emptyText: "\u041D\u0435\u043C\u0430\u0454 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A",
+      stock: "\u041D\u0430\u044F\u0432\u043D\u0456\u0441\u0442\u044C",
+      price: "\u0426\u0456\u043D\u0430",
+      selected: "\u0412\u0438\u0431\u0440\u0430\u043D\u043E",
+      outOfStock: "\u041D\u0435\u043C\u0430\u0454 \u0432 \u043D\u0430\u044F\u0432\u043D\u043E\u0441\u0442\u0456"
+    },
+    productcard: {
+      viewDetails: "\u041F\u0435\u0440\u0435\u0433\u043B\u044F\u043D\u0443\u0442\u0438 \u0434\u0435\u0442\u0430\u043B\u0456",
+      buyNow: "\u041A\u0443\u043F\u0438\u0442\u0438 \u0437\u0430\u0440\u0430\u0437",
+      addToCart: "\u0414\u043E\u0434\u0430\u0442\u0438 \u0432 \u043A\u043E\u0448\u0438\u043A",
+      sold: "\u041F\u0440\u043E\u0434\u0430\u043D\u043E",
+      soldOut: "\u0420\u043E\u0437\u043F\u0440\u043E\u0434\u0430\u043D\u043E",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u041F\u043E\u0447\u0430\u0442\u043A\u043E\u0432\u0430 \u0446\u0456\u043D\u0430"
+    },
+    couponcard: {
+      available: "\u041E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0437\u0430\u0440\u0430\u0437",
+      used: "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043E",
+      expired: "\u0422\u0435\u0440\u043C\u0456\u043D \u0434\u0456\u0457 \u043C\u0438\u043D\u0443\u0432",
+      received: "\u041E\u0442\u0440\u0438\u043C\u0430\u043D\u043E",
+      limit: "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F \u043F\u043E\u043D\u0430\u0434 {threshold}",
+      noThreshold: "\u0411\u0435\u0437 \u043C\u0456\u043D\u0456\u043C\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043F\u043E\u0440\u043E\u0433\u0443",
+      validPeriod: "\u0422\u0435\u0440\u043C\u0456\u043D \u0434\u0456\u0457",
+      ruleTitle: "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F"
+    },
+    luckydraw: {
+      start: "\u041F\u043E\u0447\u0430\u0442\u0438",
+      drawing: "\u0420\u043E\u0437\u0456\u0433\u0440\u0430\u0448...",
+      end: "\u041F\u0435\u0440\u0435\u043C\u043E\u0436\u0435\u0446\u044C!",
+      retry: "\u0421\u043F\u0440\u043E\u0431\u0443\u0432\u0430\u0442\u0438 \u0437\u043D\u043E\u0432\u0443"
+    },
+    filterbar: {
+      all: "\u0423\u0441\u0435",
+      sort: "\u0421\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438",
+      filter: "\u0424\u0456\u043B\u044C\u0442\u0440",
+      cancel: "\u0421\u043A\u0430\u0441\u0443\u0432\u0430\u0442\u0438",
+      reset: "\u0421\u043A\u0438\u043D\u0443\u0442\u0438",
+      confirm: "\u041F\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438",
+      noOptions: "\u041D\u0435\u043C\u0430\u0454 \u0432\u0430\u0440\u0456\u0430\u043D\u0442\u0456\u0432",
+      asc: "\u0417\u0430 \u0437\u0440\u043E\u0441\u0442\u0430\u043D\u043D\u044F\u043C",
+      desc: "\u0417\u0430 \u0441\u043F\u0430\u0434\u0430\u043D\u043D\u044F\u043C",
+      selected: "\u0412\u0438\u0431\u0440\u0430\u043D\u043E"
+    },
+    submitbar: {
+      total: "\u0420\u0430\u0437\u043E\u043C: ",
+      selected: "\u0412\u0438\u0431\u0440\u0430\u043D\u043E: {count}",
+      submit: "\u041E\u0444\u043E\u0440\u043C\u0438\u0442\u0438 \u0437\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F",
+      allSelect: "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0432\u0441\u0435"
+    },
+    categorynav: {
+      all: "\u0423\u0441\u0435",
+      noData: "\u041D\u0435\u043C\u0430\u0454 \u0434\u0430\u043D\u0438\u0445",
+      loading: "\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F..."
+    },
+    smartaddress: {
+      placeholder: "\u0412\u0441\u0442\u0430\u0432\u0442\u0435 \u0430\u0434\u0440\u0435\u0441\u0443 \u0441\u044E\u0434\u0438 \u0434\u043B\u044F \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u043D\u043E\u0433\u043E \u0432\u0438\u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F \u0456\u043C\u0435\u043D\u0456, \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443 \u0442\u0430 \u043C\u0456\u0441\u0446\u044F",
+      parse: "\u0420\u043E\u0437\u0443\u043C\u043D\u0438\u0439 \u0430\u043D\u0430\u043B\u0456\u0437",
+      province: "\u041E\u0431\u043B\u0430\u0441\u0442\u044C/\u041C\u0456\u0441\u0442\u043E/\u0420\u0430\u0439\u043E\u043D",
+      city: "\u041C\u0456\u0441\u0442\u043E",
+      district: "\u0420\u0430\u0439\u043E\u043D/\u041E\u043A\u0440\u0443\u0433",
+      street: "\u0412\u0443\u043B\u0438\u0446\u044F/\u0421\u0435\u043B\u0438\u0449\u0435",
+      detail: "\u0414\u0435\u0442\u0430\u043B\u044C\u043D\u0430 \u0430\u0434\u0440\u0435\u0441\u0430",
+      phone: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
+      name: "\u041E\u0434\u0435\u0440\u0436\u0443\u0432\u0430\u0447",
+      parseSuccess: "\u0410\u0434\u0440\u0435\u0441\u0443 \u0443\u0441\u043F\u0456\u0448\u043D\u043E \u0440\u043E\u0437\u043F\u0456\u0437\u043D\u0430\u043D\u043E",
+      parseFailed: "\u041D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F \u0440\u043E\u0437\u043F\u0456\u0437\u043D\u0430\u0442\u0438, \u0437\u0430\u043F\u043E\u0432\u043D\u0456\u0442\u044C \u0432\u0440\u0443\u0447\u043D\u0443",
+      required: "\u0411\u0443\u0434\u044C \u043B\u0430\u0441\u043A\u0430, \u0437\u0430\u043F\u043E\u0432\u043D\u0456\u0442\u044C \u043F\u043E\u0432\u043D\u0443 \u0430\u0434\u0440\u0435\u0441\u0443",
+      provinceKeywords: ["\u041E\u0431\u043B\u0430\u0441\u0442\u044C", "\u041A\u0440\u0430\u0439"],
+      cityKeywords: ["\u041C\u0456\u0441\u0442\u043E", "\u0421\u0435\u043B\u0438\u0449\u0435"],
+      districtKeywords: ["\u0420\u0430\u0439\u043E\u043D", "\u041E\u043A\u0440\u0443\u0433", "\u0421\u0435\u043B\u043E"],
+      streetKeywords: ["\u0412\u0443\u043B\u0438\u0446\u044F", "\u041F\u0440\u043E\u0441\u043F\u0435\u043A\u0442", "\u041F\u0440\u043E\u0432\u0443\u043B\u043E\u043A", "\u0428\u043E\u0441\u0435"]
+    },
+    ganttchart: {
+      taskName: "\u041D\u0430\u0437\u0432\u0430 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F",
+      searchPlaceholder: "\u041F\u043E\u0448\u0443\u043A \u0437\u0430\u0432\u0434\u0430\u043D\u044C...",
+      zoom: "\u041C\u0430\u0441\u0448\u0442\u0430\u0431",
+      day: "\u0414\u0435\u043D\u044C",
+      week: "\u0422\u0438\u0436\u0434\u0435\u043D\u044C",
+      month: "\u041C\u0456\u0441\u044F\u0446\u044C",
+      year: "\u0420\u0456\u043A",
+      milestone: "\u0412\u0456\u0445\u0430"
+    },
+    imagemagnifier: {
+      switchToImage: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u0434\u043E \u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F {index}",
+      galleryItem: "\u0413\u0430\u043B\u0435\u0440\u0435\u044F {index}",
+      close: "\u0417\u0430\u043A\u0440\u0438\u0442\u0438"
+    },
     ai: {
       bubble: {
         citations: "\u0426\u0438\u0442\u0430\u0442\u0438"
@@ -19226,9 +21618,32 @@ const uk = {
         pin: "\u0417\u0430\u043A\u0440\u0456\u043F\u0438\u0442\u0438",
         unpin: "\u0412\u0456\u0434\u043A\u0440\u0456\u043F\u0438\u0442\u0438",
         newConversation: "\u041D\u043E\u0432\u0430 \u0440\u043E\u0437\u043C\u043E\u0432\u0430",
+        noData: "\u0429\u0435 \u043D\u0435\u043C\u0430\u0454 \u0440\u043E\u0437\u043C\u043E\u0432",
         rename: "\u041F\u0435\u0440\u0435\u0439\u043C\u0435\u043D\u0443\u0432\u0430\u0442\u0438",
         delete: "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438",
         deleteConfirm: "\u041F\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438 \u0432\u0438\u0434\u0430\u043B\u0435\u043D\u043D\u044F \u0446\u0456\u0454\u0457 \u0440\u043E\u0437\u043C\u043E\u0432\u0438?"
+      },
+      attachments: {
+        dropTip: "\u041F\u0435\u0440\u0435\u0442\u044F\u0433\u043D\u0456\u0442\u044C \u0444\u0430\u0439\u043B\u0438 \u0441\u044E\u0434\u0438 \u0434\u043B\u044F \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F",
+        clickToUpload: "\u041D\u0430\u0442\u0438\u0441\u043D\u0456\u0442\u044C \u0430\u0431\u043E \u043F\u0435\u0440\u0435\u0442\u044F\u0433\u043D\u0456\u0442\u044C \u0444\u0430\u0439\u043B\u0438 \u0434\u043B\u044F \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F",
+        uploadSuccess: "\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F \u0443\u0441\u043F\u0456\u0448\u043D\u0435",
+        uploadError: "\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F \u043D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F",
+        deleteConfirm: "\u0412\u0438 \u0432\u043F\u0435\u0432\u043D\u0435\u043D\u0456, \u0449\u043E \u0445\u043E\u0447\u0435\u0442\u0435 \u0432\u0438\u0434\u0430\u043B\u0438\u0442\u0438 \u0446\u0435\u0439 \u0444\u0430\u0439\u043B?",
+        fileTooLarge: "\u0420\u043E\u0437\u043C\u0456\u0440 \u0444\u0430\u0439\u043B\u0443 \u043D\u0435 \u043C\u043E\u0436\u0435 \u043F\u0435\u0440\u0435\u0432\u0438\u0449\u0443\u0432\u0430\u0442\u0438 {size}",
+        invalidFileType: "\u041D\u0435\u043F\u0440\u0438\u043F\u0443\u0441\u0442\u0438\u043C\u0438\u0439 \u0442\u0438\u043F \u0444\u0430\u0439\u043B\u0443"
+      },
+      mermaid: {
+        image: "\u0417\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F",
+        code: "\u041A\u043E\u0434",
+        zoomIn: "\u0417\u0431\u0456\u043B\u044C\u0448\u0438\u0442\u0438",
+        zoomOut: "\u0417\u043C\u0435\u043D\u0448\u0438\u0442\u0438",
+        reset: "\u0421\u043A\u0438\u043D\u0443\u0442\u0438",
+        download: "\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0438\u0442\u0438",
+        copyCode: "\u041A\u043E\u043F\u0456\u044E\u0432\u0430\u0442\u0438 \u043A\u043E\u0434",
+        rendering: "\u0420\u0435\u043D\u0434\u0435\u0440\u0438\u043D\u0433...",
+        renderError: "\u0420\u0435\u043D\u0434\u0435\u0440\u0438\u043D\u0433 \u043D\u0435 \u0432\u0434\u0430\u0432\u0441\u044F",
+        renderSuccess: "\u0420\u0435\u043D\u0434\u0435\u0440\u0438\u043D\u0433 \u0443\u0441\u043F\u0456\u0448\u043D\u0438\u0439",
+        retry: "\u0421\u043F\u0440\u043E\u0431\u0443\u0432\u0430\u0442\u0438 \u0449\u0435 \u0440\u0430\u0437"
       }
     }
   }
@@ -19831,6 +22246,97 @@ const hu = {
       noData: "Nincs adat"
     },
     // AI Components
+    skuselector: {
+      placeholder: "V\xE1lasszon specifik\xE1ci\xF3t",
+      emptyText: "Nincs specifik\xE1ci\xF3",
+      stock: "K\xE9szlet",
+      price: "\xC1r",
+      selected: "Kiv\xE1lasztva",
+      outOfStock: "Nincs k\xE9szleten"
+    },
+    productcard: {
+      viewDetails: "R\xE9szletek megtekint\xE9se",
+      buyNow: "V\xE1s\xE1rl\xE1s most",
+      addToCart: "Kos\xE1rba",
+      sold: "Eladva",
+      soldOut: "Elfogyott",
+      vip: "VIP"
+    },
+    price: {
+      original: "Eredeti \xE1r"
+    },
+    couponcard: {
+      available: "Ig\xE9nyeld most",
+      used: "Felhaszn\xE1lva",
+      expired: "Lej\xE1rt",
+      received: "Megkapva",
+      limit: "{threshold} feletti rendel\xE9sek",
+      noThreshold: "Minimum n\xE9lk\xFCl",
+      validPeriod: "\xC9rv\xE9nyess\xE9g",
+      ruleTitle: "Felhaszn\xE1l\xE1si szab\xE1lyok"
+    },
+    luckydraw: {
+      start: "Ind\xEDt\xE1s",
+      drawing: "Sorsol\xE1s...",
+      end: "Nyertes!",
+      retry: "Pr\xF3b\xE1ld \xFAjra"
+    },
+    filterbar: {
+      all: "\xD6sszes",
+      sort: "Rendez\xE9s",
+      filter: "Sz\u0171r\xE9s",
+      cancel: "M\xE9gse",
+      reset: "Vissza\xE1ll\xEDt\xE1s",
+      confirm: "Meger\u0151s\xEDt\xE9s",
+      noOptions: "Nincs lehet\u0151s\xE9g",
+      asc: "N\xF6vekv\u0151",
+      desc: "Cs\xF6kken\u0151",
+      selected: "Kiv\xE1lasztva"
+    },
+    submitbar: {
+      total: "\xD6sszesen: ",
+      selected: "{count} kiv\xE1lasztva",
+      submit: "P\xE9nzt\xE1r",
+      allSelect: "\xD6sszes kijel\xF6l\xE9se"
+    },
+    categorynav: {
+      all: "\xD6sszes",
+      noData: "Nincs adat",
+      loading: "Bet\xF6lt\xE9s..."
+    },
+    smartaddress: {
+      placeholder: "Illessze be ide a c\xEDmet a n\xE9v, telefon \xE9s hely automatikus felismer\xE9s\xE9hez",
+      parse: "Intelligens elemz\xE9s",
+      province: "Megye/V\xE1ros/Ker\xFClet",
+      city: "V\xE1ros",
+      district: "Ker\xFClet/J\xE1r\xE1s",
+      street: "Utca/V\xE1rosr\xE9sz",
+      detail: "R\xE9szletes c\xEDm",
+      phone: "Telefon",
+      name: "C\xEDmzett",
+      parseSuccess: "A c\xEDm sikeresen felismerve",
+      parseFailed: "Az elemz\xE9s sikertelen, t\xF6ltse ki k\xE9zzel",
+      required: "K\xE9rj\xFCk, adja meg a teljes c\xEDmet",
+      provinceKeywords: ["Megye", "\xC1llam"],
+      cityKeywords: ["V\xE1ros", "K\xF6zs\xE9g"],
+      districtKeywords: ["Ker\xFClet", "J\xE1r\xE1s", "Telep\xFCl\xE9s"],
+      streetKeywords: ["Utca", "\xDAt", "Sug\xE1r\xFAt", "T\xE9r"]
+    },
+    ganttchart: {
+      taskName: "Feladat neve",
+      searchPlaceholder: "Feladatok keres\xE9se...",
+      zoom: "Nagy\xEDt\xE1s",
+      day: "Nap",
+      week: "H\xE9t",
+      month: "H\xF3nap",
+      year: "\xC9v",
+      milestone: "M\xE9rf\xF6ldk\u0151"
+    },
+    imagemagnifier: {
+      switchToImage: "V\xE1lt\xE1s a(z) {index}. k\xE9pre",
+      galleryItem: "Gal\xE9ria {index}",
+      close: "Bez\xE1r\xE1s"
+    },
     ai: {
       bubble: {
         citations: "Hivatkoz\xE1sok"
@@ -19940,9 +22446,32 @@ const hu = {
         pin: "R\xF6gz\xEDt\xE9s",
         unpin: "R\xF6gz\xEDt\xE9s felold\xE1sa",
         newConversation: "\xDAj besz\xE9lget\xE9s",
+        noData: "M\xE9g nincsenek besz\xE9lget\xE9sek",
         rename: "\xC1tnevez\xE9s",
         delete: "T\xF6rl\xE9s",
         deleteConfirm: "Meger\u0151s\xEDti a besz\xE9lget\xE9s t\xF6rl\xE9s\xE9t?"
+      },
+      attachments: {
+        dropTip: "H\xFAzza ide a f\xE1jlokat a felt\xF6lt\xE9shez",
+        clickToUpload: "Kattintson vagy h\xFAzza ide a f\xE1jlokat a felt\xF6lt\xE9shez",
+        uploadSuccess: "A felt\xF6lt\xE9s sikeres",
+        uploadError: "A felt\xF6lt\xE9s sikertelen",
+        deleteConfirm: "Biztosan t\xF6r\xF6lni szeretn\xE9 ezt a f\xE1jlt?",
+        fileTooLarge: "A f\xE1jl m\xE9rete nem haladhatja meg ezt: {size}",
+        invalidFileType: "\xC9rv\xE9nytelen f\xE1jlt\xEDpus"
+      },
+      mermaid: {
+        image: "K\xE9p",
+        code: "K\xF3d",
+        zoomIn: "Nagy\xEDt\xE1s",
+        zoomOut: "Kicsiny\xEDt\xE9s",
+        reset: "Vissza\xE1ll\xEDt\xE1s",
+        download: "Let\xF6lt\xE9s",
+        copyCode: "K\xF3d m\xE1sol\xE1sa",
+        rendering: "Renderel\xE9s...",
+        renderError: "A renderel\xE9s sikertelen",
+        renderSuccess: "A renderel\xE9s sikeres",
+        retry: "Pr\xF3b\xE1lja \xFAjra"
       }
     }
   }
@@ -20545,6 +23074,97 @@ const ro = {
       noData: "Nu exist\u0103 date"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Selecta\u021Bi specifica\u021Biile",
+      emptyText: "Nu exist\u0103 specifica\u021Bii",
+      stock: "Stoc",
+      price: "Pre\u021B",
+      selected: "Selectat",
+      outOfStock: "Stoc epuizat"
+    },
+    productcard: {
+      viewDetails: "Vezi detalii",
+      buyNow: "Cump\u0103r\u0103 acum",
+      addToCart: "Adaug\u0103 \xEEn co\u0219",
+      sold: "V\xE2ndut",
+      soldOut: "Epuizat",
+      vip: "VIP"
+    },
+    price: {
+      original: "Pre\u021B ini\u021Bial"
+    },
+    couponcard: {
+      available: "Ob\u021Bine acum",
+      used: "Folosit",
+      expired: "Expirat",
+      received: "Primit",
+      limit: "Comenzi peste {threshold}",
+      noThreshold: "F\u0103r\u0103 prag minim",
+      validPeriod: "Perioad\u0103 de valabilitate",
+      ruleTitle: "Reguli de utilizare"
+    },
+    luckydraw: {
+      start: "Porne\u0219te",
+      drawing: "Se extrage...",
+      end: "C\xE2\u0219tig\u0103tor!",
+      retry: "\xCEncearc\u0103 din nou"
+    },
+    filterbar: {
+      all: "Toate",
+      sort: "Sortare",
+      filter: "Filtrare",
+      cancel: "Anuleaz\u0103",
+      reset: "Reseteaz\u0103",
+      confirm: "Confirm\u0103",
+      noOptions: "F\u0103r\u0103 op\u021Biuni",
+      asc: "Cresc\u0103tor",
+      desc: "Descresc\u0103tor",
+      selected: "Selectat"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} selectate",
+      submit: "Finalizeaz\u0103 comanda",
+      allSelect: "Selecteaz\u0103 tot"
+    },
+    categorynav: {
+      all: "Toate",
+      noData: "Nu exist\u0103 date",
+      loading: "Se \xEEncarc\u0103..."
+    },
+    smartaddress: {
+      placeholder: "Lipi\u021Bi aici adresa pentru a detecta automat numele, telefonul \u0219i loca\u021Bia",
+      parse: "Analiz\u0103 inteligent\u0103",
+      province: "Jude\u021B/Ora\u0219/District",
+      city: "Ora\u0219",
+      district: "District/Comitat",
+      street: "Strad\u0103/Localitate",
+      detail: "Adres\u0103 detaliat\u0103",
+      phone: "Telefon",
+      name: "Destinatar",
+      parseSuccess: "Adresa a fost analizat\u0103 cu succes",
+      parseFailed: "Analiza a e\u0219uat, completa\u021Bi manual",
+      required: "V\u0103 rug\u0103m s\u0103 completa\u021Bi adresa complet\u0103",
+      provinceKeywords: ["Jude\u021B", "Stat"],
+      cityKeywords: ["Ora\u0219", "Municipiu"],
+      districtKeywords: ["District", "Comitat", "Cartier"],
+      streetKeywords: ["Strad\u0103", "\u0218osea", "Bulevard", "Alee"]
+    },
+    ganttchart: {
+      taskName: "Numele sarcinii",
+      searchPlaceholder: "C\u0103uta\u021Bi sarcini...",
+      zoom: "Zoom",
+      day: "Zi",
+      week: "S\u0103pt\u0103m\xE2n\u0103",
+      month: "Lun\u0103",
+      year: "An",
+      milestone: "Etap\u0103"
+    },
+    imagemagnifier: {
+      switchToImage: "Comut\u0103 la imaginea {index}",
+      galleryItem: "Galerie {index}",
+      close: "\xCEnchide"
+    },
     ai: {
       bubble: {
         citations: "Cit\u0103ri"
@@ -20654,9 +23274,32 @@ const ro = {
         pin: "Fixeaz\u0103",
         unpin: "Elibereaz\u0103",
         newConversation: "Conversa\u021Bie Nou\u0103",
+        noData: "\xCEnc\u0103 nu exist\u0103 conversa\u021Bii",
         rename: "Redenume\u0219te",
         delete: "\u0218terge",
         deleteConfirm: "Confirma\u021Bi \u0219tergerea acestei conversa\u021Bii?"
+      },
+      attachments: {
+        dropTip: "Plasa\u021Bi fi\u0219ierele aici pentru \xEEnc\u0103rcare",
+        clickToUpload: "Face\u021Bi clic sau trage\u021Bi fi\u0219iere pentru \xEEnc\u0103rcare",
+        uploadSuccess: "\xCEnc\u0103rcarea a reu\u0219it",
+        uploadError: "\xCEnc\u0103rcarea a e\u0219uat",
+        deleteConfirm: "Sigur dori\u021Bi s\u0103 \u0219terge\u021Bi acest fi\u0219ier?",
+        fileTooLarge: "Dimensiunea fi\u0219ierului nu poate dep\u0103\u0219i {size}",
+        invalidFileType: "Tip de fi\u0219ier nevalid"
+      },
+      mermaid: {
+        image: "Imagine",
+        code: "Cod",
+        zoomIn: "M\u0103re\u0219te",
+        zoomOut: "Mic\u0219oreaz\u0103",
+        reset: "Reseteaz\u0103",
+        download: "Descarc\u0103",
+        copyCode: "Copiaz\u0103 codul",
+        rendering: "Se red\u0103...",
+        renderError: "Redarea a e\u0219uat",
+        renderSuccess: "Redarea a reu\u0219it",
+        retry: "\xCEncearc\u0103 din nou"
       }
     }
   }
@@ -21259,6 +23902,97 @@ const bg = {
       noData: "\u041D\u044F\u043C\u0430 \u0434\u0430\u043D\u043D\u0438"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\u0418\u0437\u0431\u0435\u0440\u0435\u0442\u0435 \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438",
+      emptyText: "\u041D\u044F\u043C\u0430 \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438",
+      stock: "\u041D\u0430\u043B\u0438\u0447\u043D\u043E\u0441\u0442",
+      price: "\u0426\u0435\u043D\u0430",
+      selected: "\u0418\u0437\u0431\u0440\u0430\u043D\u043E",
+      outOfStock: "\u041D\u044F\u043C\u0430 \u0432 \u043D\u0430\u043B\u0438\u0447\u043D\u043E\u0441\u0442"
+    },
+    productcard: {
+      viewDetails: "\u0412\u0438\u0436 \u0434\u0435\u0442\u0430\u0439\u043B\u0438",
+      buyNow: "\u041A\u0443\u043F\u0438 \u0441\u0435\u0433\u0430",
+      addToCart: "\u0414\u043E\u0431\u0430\u0432\u0438 \u0432 \u043A\u043E\u043B\u0438\u0447\u043A\u0430\u0442\u0430",
+      sold: "\u041F\u0440\u043E\u0434\u0430\u0434\u0435\u043D\u043E",
+      soldOut: "\u0418\u0437\u0447\u0435\u0440\u043F\u0430\u043D\u043E",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u041E\u0440\u0438\u0433\u0438\u043D\u0430\u043B\u043D\u0430 \u0446\u0435\u043D\u0430"
+    },
+    couponcard: {
+      available: "\u0412\u0437\u0435\u043C\u0438 \u0441\u0435\u0433\u0430",
+      used: "\u0418\u0437\u043F\u043E\u043B\u0437\u0432\u0430\u043D\u043E",
+      expired: "\u0418\u0437\u0442\u0435\u043A\u043B\u043E",
+      received: "\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u043E",
+      limit: "\u041F\u043E\u0440\u044A\u0447\u043A\u0438 \u043D\u0430\u0434 {threshold}",
+      noThreshold: "\u0411\u0435\u0437 \u043C\u0438\u043D\u0438\u043C\u0430\u043B\u0435\u043D \u043F\u0440\u0430\u0433",
+      validPeriod: "\u041F\u0435\u0440\u0438\u043E\u0434 \u043D\u0430 \u0432\u0430\u043B\u0438\u0434\u043D\u043E\u0441\u0442",
+      ruleTitle: "\u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u0437\u0430 \u0438\u0437\u043F\u043E\u043B\u0437\u0432\u0430\u043D\u0435"
+    },
+    luckydraw: {
+      start: "\u0421\u0442\u0430\u0440\u0442",
+      drawing: "\u0422\u0435\u0433\u043B\u0435\u043D\u0435...",
+      end: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u0435\u043B!",
+      retry: "\u041E\u043F\u0438\u0442\u0430\u0439 \u043E\u0442\u043D\u043E\u0432\u043E"
+    },
+    filterbar: {
+      all: "\u0412\u0441\u0438\u0447\u043A\u0438",
+      sort: "\u0421\u043E\u0440\u0442\u0438\u0440\u0430\u043D\u0435",
+      filter: "\u0424\u0438\u043B\u0442\u044A\u0440",
+      cancel: "\u041E\u0442\u043A\u0430\u0437",
+      reset: "\u041D\u0443\u043B\u0438\u0440\u0430\u0439",
+      confirm: "\u041F\u043E\u0442\u0432\u044A\u0440\u0434\u0438",
+      noOptions: "\u041D\u044F\u043C\u0430 \u043E\u043F\u0446\u0438\u0438",
+      asc: "\u0412\u044A\u0437\u0445\u043E\u0434\u044F\u0449\u043E",
+      desc: "\u041D\u0438\u0437\u0445\u043E\u0434\u044F\u0449\u043E",
+      selected: "\u0418\u0437\u0431\u0440\u0430\u043D\u043E"
+    },
+    submitbar: {
+      total: "\u041E\u0431\u0449\u043E: ",
+      selected: "\u0418\u0437\u0431\u0440\u0430\u043D\u0438: {count}",
+      submit: "\u041A\u044A\u043C \u043F\u043B\u0430\u0449\u0430\u043D\u0435",
+      allSelect: "\u0418\u0437\u0431\u0435\u0440\u0438 \u0432\u0441\u0438\u0447\u043A\u0438"
+    },
+    categorynav: {
+      all: "\u0412\u0441\u0438\u0447\u043A\u0438",
+      noData: "\u041D\u044F\u043C\u0430 \u0434\u0430\u043D\u043D\u0438",
+      loading: "\u0417\u0430\u0440\u0435\u0436\u0434\u0430\u043D\u0435..."
+    },
+    smartaddress: {
+      placeholder: "\u041F\u043E\u0441\u0442\u0430\u0432\u0435\u0442\u0435 \u0430\u0434\u0440\u0435\u0441\u0430 \u0442\u0443\u043A, \u0437\u0430 \u0434\u0430 \u0440\u0430\u0437\u043F\u043E\u0437\u043D\u0430\u0435\u0442\u0435 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u043D\u043E \u0438\u043C\u0435, \u0442\u0435\u043B\u0435\u0444\u043E\u043D \u0438 \u043C\u0435\u0441\u0442\u043E\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435",
+      parse: "\u0423\u043C\u0435\u043D \u0430\u043D\u0430\u043B\u0438\u0437",
+      province: "\u041E\u0431\u043B\u0430\u0441\u0442/\u0413\u0440\u0430\u0434/\u0420\u0430\u0439\u043E\u043D",
+      city: "\u0413\u0440\u0430\u0434",
+      district: "\u0420\u0430\u0439\u043E\u043D/\u041E\u043A\u0440\u044A\u0433",
+      street: "\u0423\u043B\u0438\u0446\u0430/\u041D\u0430\u0441\u0435\u043B\u0435\u043D\u043E \u043C\u044F\u0441\u0442\u043E",
+      detail: "\u041F\u043E\u0434\u0440\u043E\u0431\u0435\u043D \u0430\u0434\u0440\u0435\u0441",
+      phone: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
+      name: "\u041F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B",
+      parseSuccess: "\u0410\u0434\u0440\u0435\u0441\u044A\u0442 \u0435 \u0430\u043D\u0430\u043B\u0438\u0437\u0438\u0440\u0430\u043D \u0443\u0441\u043F\u0435\u0448\u043D\u043E",
+      parseFailed: "\u0410\u043D\u0430\u043B\u0438\u0437\u044A\u0442 \u0435 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u0435\u043D, \u043F\u043E\u043F\u044A\u043B\u043D\u0435\u0442\u0435 \u0440\u044A\u0447\u043D\u043E",
+      required: "\u041C\u043E\u043B\u044F, \u0432\u044A\u0432\u0435\u0434\u0435\u0442\u0435 \u043F\u044A\u043B\u0435\u043D \u0430\u0434\u0440\u0435\u0441",
+      provinceKeywords: ["\u041E\u0431\u043B\u0430\u0441\u0442", "\u0429\u0430\u0442"],
+      cityKeywords: ["\u0413\u0440\u0430\u0434", "\u041E\u0431\u0449\u0438\u043D\u0430"],
+      districtKeywords: ["\u0420\u0430\u0439\u043E\u043D", "\u041E\u043A\u0440\u044A\u0433", "\u041A\u0432\u0430\u0440\u0442\u0430\u043B"],
+      streetKeywords: ["\u0423\u043B\u0438\u0446\u0430", "\u0411\u0443\u043B\u0435\u0432\u0430\u0440\u0434", "\u041F\u044A\u0442", "\u0410\u043B\u0435\u044F"]
+    },
+    ganttchart: {
+      taskName: "\u0418\u043C\u0435 \u043D\u0430 \u0437\u0430\u0434\u0430\u0447\u0430",
+      searchPlaceholder: "\u0422\u044A\u0440\u0441\u0435\u043D\u0435 \u043D\u0430 \u0437\u0430\u0434\u0430\u0447\u0438...",
+      zoom: "\u041C\u0430\u0449\u0430\u0431",
+      day: "\u0414\u0435\u043D",
+      week: "\u0421\u0435\u0434\u043C\u0438\u0446\u0430",
+      month: "\u041C\u0435\u0441\u0435\u0446",
+      year: "\u0413\u043E\u0434\u0438\u043D\u0430",
+      milestone: "\u0415\u0442\u0430\u043F"
+    },
+    imagemagnifier: {
+      switchToImage: "\u041F\u0440\u0435\u0432\u043A\u043B\u044E\u0447\u0438 \u043A\u044A\u043C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 {index}",
+      galleryItem: "\u0413\u0430\u043B\u0435\u0440\u0438\u044F {index}",
+      close: "\u0417\u0430\u0442\u0432\u043E\u0440\u0438"
+    },
     ai: {
       bubble: {
         citations: "\u0426\u0438\u0442\u0430\u0442\u0438"
@@ -21368,9 +24102,32 @@ const bg = {
         pin: "\u0417\u0430\u043A\u0430\u0447\u0438",
         unpin: "\u0420\u0430\u0437\u043A\u0430\u0447\u0438",
         newConversation: "\u041D\u043E\u0432 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440",
+        noData: "\u0412\u0441\u0435 \u043E\u0449\u0435 \u043D\u044F\u043C\u0430 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440\u0438",
         rename: "\u041F\u0440\u0435\u0438\u043C\u0435\u043D\u0443\u0432\u0430\u0439",
         delete: "\u0418\u0437\u0442\u0440\u0438\u0439",
         deleteConfirm: "\u041F\u043E\u0442\u0432\u044A\u0440\u0434\u0435\u0442\u0435 \u0438\u0437\u0442\u0440\u0438\u0432\u0430\u043D\u0435\u0442\u043E \u043D\u0430 \u0442\u043E\u0437\u0438 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440?"
+      },
+      attachments: {
+        dropTip: "\u041F\u0443\u0441\u043D\u0435\u0442\u0435 \u0444\u0430\u0439\u043B\u043E\u0432\u0435\u0442\u0435 \u0442\u0443\u043A \u0437\u0430 \u043A\u0430\u0447\u0432\u0430\u043D\u0435",
+        clickToUpload: "\u0429\u0440\u0430\u043A\u043D\u0435\u0442\u0435 \u0438\u043B\u0438 \u043F\u043B\u044A\u0437\u043D\u0435\u0442\u0435 \u0444\u0430\u0439\u043B\u043E\u0432\u0435 \u0437\u0430 \u043A\u0430\u0447\u0432\u0430\u043D\u0435",
+        uploadSuccess: "\u041A\u0430\u0447\u0432\u0430\u043D\u0435\u0442\u043E \u0435 \u0443\u0441\u043F\u0435\u0448\u043D\u043E",
+        uploadError: "\u041A\u0430\u0447\u0432\u0430\u043D\u0435\u0442\u043E \u0435 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u043D\u043E",
+        deleteConfirm: "\u0421\u0438\u0433\u0443\u0440\u043D\u0438 \u043B\u0438 \u0441\u0442\u0435, \u0447\u0435 \u0438\u0441\u043A\u0430\u0442\u0435 \u0434\u0430 \u0438\u0437\u0442\u0440\u0438\u0435\u0442\u0435 \u0442\u043E\u0437\u0438 \u0444\u0430\u0439\u043B?",
+        fileTooLarge: "\u0420\u0430\u0437\u043C\u0435\u0440\u044A\u0442 \u043D\u0430 \u0444\u0430\u0439\u043B\u0430 \u043D\u0435 \u043C\u043E\u0436\u0435 \u0434\u0430 \u043D\u0430\u0434\u0432\u0438\u0448\u0430\u0432\u0430 {size}",
+        invalidFileType: "\u041D\u0435\u0432\u0430\u043B\u0438\u0434\u0435\u043D \u0442\u0438\u043F \u0444\u0430\u0439\u043B"
+      },
+      mermaid: {
+        image: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+        code: "\u041A\u043E\u0434",
+        zoomIn: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438",
+        zoomOut: "\u041D\u0430\u043C\u0430\u043B\u0438",
+        reset: "\u041D\u0443\u043B\u0438\u0440\u0430\u0439",
+        download: "\u0418\u0437\u0442\u0435\u0433\u043B\u0438",
+        copyCode: "\u041A\u043E\u043F\u0438\u0440\u0430\u0439 \u043A\u043E\u0434\u0430",
+        rendering: "\u0412\u0438\u0437\u0443\u0430\u043B\u0438\u0437\u0438\u0440\u0430\u043D\u0435...",
+        renderError: "\u0412\u0438\u0437\u0443\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F\u0442\u0430 \u0435 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u043D\u0430",
+        renderSuccess: "\u0412\u0438\u0437\u0443\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F\u0442\u0430 \u0435 \u0443\u0441\u043F\u0435\u0448\u043D\u0430",
+        retry: "\u041E\u043F\u0438\u0442\u0430\u0439 \u043E\u0442\u043D\u043E\u0432\u043E"
       }
     }
   }
@@ -21973,6 +24730,97 @@ const az = {
       noData: "M\u0259lumat yoxdur"
     },
     // AI Components
+    skuselector: {
+      placeholder: "X\xFCsusiyy\u0259tl\u0259ri se\xE7in",
+      emptyText: "X\xFCsusiyy\u0259t yoxdur",
+      stock: "Stok",
+      price: "Qiym\u0259t",
+      selected: "Se\xE7ilib",
+      outOfStock: "Stokda yoxdur"
+    },
+    productcard: {
+      viewDetails: "Detallara bax",
+      buyNow: "\u0130ndi al",
+      addToCart: "S\u0259b\u0259t\u0259 \u0259lav\u0259 et",
+      sold: "Sat\u0131l\u0131b",
+      soldOut: "T\xFCk\u0259nib",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u0130lkin qiym\u0259t"
+    },
+    couponcard: {
+      available: "\u0130ndi \u0259ld\u0259 et",
+      used: "\u0130stifad\u0259 olunub",
+      expired: "M\xFCdd\u0259ti bitib",
+      received: "Al\u0131n\u0131b",
+      limit: "{threshold} \xFCz\u0259ri sifari\u015Fl\u0259r",
+      noThreshold: "Minimum h\u0259dd yoxdur",
+      validPeriod: "Etibarl\u0131l\u0131q m\xFCdd\u0259ti",
+      ruleTitle: "\u0130stifad\u0259 qaydalar\u0131"
+    },
+    luckydraw: {
+      start: "Ba\u015Flat",
+      drawing: "P\xFC\u015Fkatma gedir...",
+      end: "Qalib!",
+      retry: "Yenid\u0259n c\u0259hd et"
+    },
+    filterbar: {
+      all: "Ham\u0131s\u0131",
+      sort: "S\u0131rala",
+      filter: "Filtr",
+      cancel: "L\u0259\u011Fv et",
+      reset: "S\u0131f\u0131rla",
+      confirm: "T\u0259sdiql\u0259",
+      noOptions: "Se\xE7im yoxdur",
+      asc: "Artan",
+      desc: "Azalan",
+      selected: "Se\xE7ilib"
+    },
+    submitbar: {
+      total: "C\u0259mi: ",
+      selected: "{count} se\xE7ilib",
+      submit: "\xD6d\u0259ni\u015F\u0259 ke\xE7",
+      allSelect: "Ham\u0131s\u0131n\u0131 se\xE7"
+    },
+    categorynav: {
+      all: "Ham\u0131s\u0131",
+      noData: "M\u0259lumat yoxdur",
+      loading: "Y\xFCkl\u0259nir..."
+    },
+    smartaddress: {
+      placeholder: "Ad\u0131, telefonu v\u0259 m\u0259kan\u0131 avtomatik a\u015Fkar etm\u0259k \xFC\xE7\xFCn \xFCnvan\u0131 bura yap\u0131\u015Fd\u0131r\u0131n",
+      parse: "A\u011F\u0131ll\u0131 analiz",
+      province: "Region/\u015E\u0259h\u0259r/Rayon",
+      city: "\u015E\u0259h\u0259r",
+      district: "Rayon/Q\u0259za",
+      street: "K\xFC\xE7\u0259/Q\u0259s\u0259b\u0259",
+      detail: "\u018Ftrafl\u0131 \xFCnvan",
+      phone: "Telefon",
+      name: "Al\u0131c\u0131",
+      parseSuccess: "\xDCnvan u\u011Furla analiz edildi",
+      parseFailed: "Analiz u\u011Fursuz oldu, \u0259l il\u0259 doldurun",
+      required: "Z\u0259hm\u0259t olmasa tam \xFCnvan\u0131 daxil edin",
+      provinceKeywords: ["Region", "Vilay\u0259t"],
+      cityKeywords: ["\u015E\u0259h\u0259r", "B\u0259l\u0259diyy\u0259"],
+      districtKeywords: ["Rayon", "Q\u0259s\u0259b\u0259", "K\u0259nd"],
+      streetKeywords: ["K\xFC\xE7\u0259", "Prospekt", "Yol", "Dalana"]
+    },
+    ganttchart: {
+      taskName: "Tap\u015F\u0131r\u0131q ad\u0131",
+      searchPlaceholder: "Tap\u015F\u0131r\u0131qlar\u0131 axtar...",
+      zoom: "B\xF6y\xFCtm\u0259",
+      day: "G\xFCn",
+      week: "H\u0259ft\u0259",
+      month: "Ay",
+      year: "\u0130l",
+      milestone: "M\u0259rh\u0259l\u0259"
+    },
+    imagemagnifier: {
+      switchToImage: "{index} n\xF6mr\u0259li \u015F\u0259kil\u0259 ke\xE7",
+      galleryItem: "Qalereya {index}",
+      close: "Ba\u011Fla"
+    },
     ai: {
       bubble: {
         citations: "\u0130stinadlar"
@@ -22082,9 +24930,32 @@ const az = {
         pin: "Sabitl\u0259",
         unpin: "Sabitl\u0259m\u0259ni g\xF6t\xFCr",
         newConversation: "Yeni s\xF6hb\u0259t",
+        noData: "H\u0259l\u0259 s\xF6hb\u0259t yoxdur",
         rename: "Ad\u0131n\u0131 d\u0259yi\u015F",
         delete: "Sil",
         deleteConfirm: "Bu s\xF6hb\u0259ti silm\u0259yi t\u0259sdiql\u0259yin?"
+      },
+      attachments: {
+        dropTip: "Y\xFCkl\u0259m\u0259k \xFC\xE7\xFCn fayllar\u0131 bura burax\u0131n",
+        clickToUpload: "Y\xFCkl\u0259m\u0259k \xFC\xE7\xFCn klikl\u0259yin v\u0259 ya fayllar\u0131 s\xFCr\xFC\u015Fd\xFCr\xFCn",
+        uploadSuccess: "Y\xFCkl\u0259m\u0259 u\u011Furludur",
+        uploadError: "Y\xFCkl\u0259m\u0259 ba\u015F tutmad\u0131",
+        deleteConfirm: "Bu fayl\u0131 silm\u0259k ist\u0259diyiniz\u0259 \u0259minsiniz?",
+        fileTooLarge: "Fayl \xF6l\xE7\xFCs\xFC {size} d\u0259y\u0259rini a\u015Fa bilm\u0259z",
+        invalidFileType: "Yanl\u0131\u015F fayl n\xF6v\xFC"
+      },
+      mermaid: {
+        image: "\u015E\u0259kil",
+        code: "Kod",
+        zoomIn: "B\xF6y\xFCt",
+        zoomOut: "Ki\xE7ilt",
+        reset: "S\u0131f\u0131rla",
+        download: "Y\xFCkl\u0259",
+        copyCode: "Kodu kopyala",
+        rendering: "Render edilir...",
+        renderError: "Render ba\u015F tutmad\u0131",
+        renderSuccess: "Render u\u011Furludur",
+        retry: "Yenid\u0259n c\u0259hd et"
       }
     }
   }
@@ -22611,6 +25482,97 @@ const ptBr = {
       loading: "Carregando...",
       noData: "Sem dados"
     },
+    skuselector: {
+      placeholder: "Selecione as especifica\xE7\xF5es",
+      emptyText: "Sem especifica\xE7\xF5es",
+      stock: "Estoque",
+      price: "Pre\xE7o",
+      selected: "Selecionado",
+      outOfStock: "Esgotado"
+    },
+    productcard: {
+      viewDetails: "Ver detalhes",
+      buyNow: "Comprar agora",
+      addToCart: "Adicionar ao carrinho",
+      sold: "Vendido",
+      soldOut: "Esgotado",
+      vip: "VIP"
+    },
+    price: {
+      original: "Original"
+    },
+    couponcard: {
+      available: "Resgatar agora",
+      used: "Usado",
+      expired: "Expirado",
+      received: "Recebido",
+      limit: "Pedidos acima de {threshold}",
+      noThreshold: "Sem valor m\xEDnimo",
+      validPeriod: "Validade",
+      ruleTitle: "Regras de uso"
+    },
+    luckydraw: {
+      start: "Iniciar",
+      drawing: "Sorteando...",
+      end: "Vencedor!",
+      retry: "Tentar novamente"
+    },
+    filterbar: {
+      all: "Todos",
+      sort: "Ordenar",
+      filter: "Filtrar",
+      cancel: "Cancelar",
+      reset: "Redefinir",
+      confirm: "Confirmar",
+      noOptions: "Sem op\xE7\xF5es",
+      asc: "Crescente",
+      desc: "Decrescente",
+      selected: "Selecionado"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} selecionados",
+      submit: "Finalizar compra",
+      allSelect: "Selecionar tudo"
+    },
+    categorynav: {
+      all: "Todos",
+      noData: "Sem dados",
+      loading: "Carregando..."
+    },
+    smartaddress: {
+      placeholder: "Cole o endere\xE7o aqui, identifique automaticamente nome, telefone e local",
+      parse: "An\xE1lise inteligente",
+      province: "Estado/Cidade/Bairro",
+      city: "Cidade",
+      district: "Bairro/Munic\xEDpio",
+      street: "Rua/Cidade",
+      detail: "Endere\xE7o detalhado",
+      phone: "Telefone",
+      name: "Destinat\xE1rio",
+      parseSuccess: "Endere\xE7o identificado com sucesso",
+      parseFailed: "Falha na identifica\xE7\xE3o, preencha manualmente",
+      required: "Preencha o endere\xE7o completo",
+      provinceKeywords: ["Estado", "UF"],
+      cityKeywords: ["Cidade", "Munic\xEDpio"],
+      districtKeywords: ["Bairro", "Distrito", "Munic\xEDpio"],
+      streetKeywords: ["Rua", "Avenida", "Travessa", "Alameda"]
+    },
+    ganttchart: {
+      taskName: "Nome da tarefa",
+      searchPlaceholder: "Pesquisar tarefas...",
+      zoom: "Zoom",
+      day: "Dia",
+      week: "Semana",
+      month: "M\xEAs",
+      year: "Ano",
+      milestone: "Marco"
+    },
+    imagemagnifier: {
+      switchToImage: "Alternar para a imagem {index}",
+      galleryItem: "Galeria {index}",
+      close: "Fechar"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -22721,9 +25683,32 @@ const ptBr = {
         pin: "Fixar",
         unpin: "Desfixar",
         newConversation: "Nova Conversa",
+        noData: "Ainda n\xE3o h\xE1 conversas",
         rename: "Renomear",
         delete: "Excluir",
         deleteConfirm: "Confirmar exclus\xE3o desta conversa?"
+      },
+      attachments: {
+        dropTip: "Solte arquivos aqui para enviar",
+        clickToUpload: "Clique ou arraste arquivos para enviar",
+        uploadSuccess: "Upload conclu\xEDdo com sucesso",
+        uploadError: "Falha no upload",
+        deleteConfirm: "Tem certeza de que deseja excluir este arquivo?",
+        fileTooLarge: "O tamanho do arquivo n\xE3o pode exceder {size}",
+        invalidFileType: "Tipo de arquivo inv\xE1lido"
+      },
+      mermaid: {
+        image: "Imagem",
+        code: "C\xF3digo",
+        zoomIn: "Ampliar",
+        zoomOut: "Reduzir",
+        reset: "Redefinir",
+        download: "Baixar",
+        copyCode: "Copiar c\xF3digo",
+        rendering: "Renderizando...",
+        renderError: "Falha na renderiza\xE7\xE3o",
+        renderSuccess: "Renderiza\xE7\xE3o conclu\xEDda",
+        retry: "Tentar novamente"
       }
     }
   }
@@ -26366,84 +29351,84 @@ const pa = {
 const el = {
   name: "el",
   yh: {
-    // Κοινά
+    // 螝慰喂谓维
     common: {
-      yes: "\u039D\u03B1\u03B9",
-      no: "\u038C\u03C7\u03B9",
-      confirm: "\u0395\u03C0\u03B9\u03B2\u03B5\u03B2\u03B1\u03AF\u03C9\u03C3\u03B7",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7",
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
-      clear: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2",
-      reset: "\u0395\u03C0\u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
-      save: "\u0391\u03C0\u03BF\u03B8\u03AE\u03BA\u03B5\u03C5\u03C3\u03B7",
-      delete: "\u0394\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE",
-      edit: "\u0395\u03C0\u03B5\u03BE\u03B5\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1",
-      add: "\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7",
-      search: "\u0391\u03BD\u03B1\u03B6\u03AE\u03C4\u03B7\u03C3\u03B7",
-      refresh: "\u0391\u03BD\u03B1\u03BD\u03AD\u03C9\u03C3\u03B7",
-      expand: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7",
-      collapse: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7",
-      more: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C3\u03CC\u03C4\u03B5\u03C1\u03B1",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      noMatch: "\u0394\u03B5\u03BD \u03B2\u03C1\u03AD\u03B8\u03B7\u03BA\u03B1\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1",
-      selectAll: "\u0395\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD",
-      unselectAll: "\u0391\u03C0\u03BF\u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD"
+      yes: "\u87A1\u4F2A\u5582",
+      no: "\u878C\u8802\u5582",
+      confirm: "\u8798\u87FA\u5582\u5C3E\u851A\u5C3E\u4F2A\u59D4\u8805\u87FD\u754F",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F",
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170",
+      clear: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC",
+      reset: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+      save: "\u8792\u87FA\u6170\u80C3\u840E\u9B4F\u851A\u8800\u87FD\u754F",
+      delete: "\u8796\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E",
+      edit: "\u8798\u87FA\u851A\u5C09\u851A\u87FB\u7EAC\u4F2A\u87FD\u59D4\u4F2A",
+      add: "\u87A4\u87FB\u6170\u87FD\u80C3\u840E\u9B4F\u754F",
+      search: "\u8792\u8C13\u4F2A\u5473\u840E\u87FF\u754F\u87FD\u754F",
+      refresh: "\u8792\u8C13\u4F2A\u8C13\u82C7\u8805\u87FD\u754F",
+      expand: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F",
+      collapse: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F",
+      more: "\u87A4\u851A\u87FB\u5582\u87FD\u87FD\u8808\u87FF\u851A\u87FB\u4F2A",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      noMatch: "\u8796\u851A\u8C13 \u5C3E\u87FB\u82C7\u80C3\u754F\u9B4F\u4F2A\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A",
+      selectAll: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13",
+      unselectAll: "\u8792\u87FA\u6170\u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13"
     },
-    // Επιλογέας χρώματος
+    // 螘蟺喂位慰纬苇伪蟼 蠂蟻蠋渭伪蟿慰蟼
     colorpicker: {
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      clear: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2",
-      eyeDropper: "\u03A3\u03C4\u03B1\u03B3\u03BF\u03BD\u03CC\u03BC\u03B5\u03C4\u03C1\u03BF",
-      suggestionDark: "\u039B\u03B5\u03C5\u03BA\u03CC \u03BA\u03B5\u03AF\u03BC\u03B5\u03BD\u03BF \u03B5\u03AF\u03BD\u03B1\u03B9 \u03BA\u03B1\u03BB\u03CD\u03C4\u03B5\u03C1\u03BF",
-      suggestionLight: "\u039C\u03B1\u03CD\u03C1\u03BF \u03BA\u03B5\u03AF\u03BC\u03B5\u03BD\u03BF \u03B5\u03AF\u03BD\u03B1\u03B9 \u03BA\u03B1\u03BB\u03CD\u03C4\u03B5\u03C1\u03BF",
-      recentColors: "\u03A0\u03C1\u03CC\u03C3\u03C6\u03B1\u03C4\u03B1 \u03C7\u03C1\u03CE\u03BC\u03B1\u03C4\u03B1",
-      presetColors: "\u03A0\u03C1\u03BF\u03BA\u03B1\u03B8\u03BF\u03C1\u03B9\u03C3\u03BC\u03AD\u03BD\u03B1 \u03C7\u03C1\u03CE\u03BC\u03B1\u03C4\u03B1"
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      clear: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC",
+      eyeDropper: "\u5371\u87FF\u4F2A\u7EAC\u6170\u8C13\u8808\u6E2D\u851A\u87FF\u87FB\u6170",
+      suggestionDark: "\u879E\u851A\u8800\u9B4F\u8808 \u9B4F\u851A\u59D4\u6E2D\u851A\u8C13\u6170 \u851A\u59D4\u8C13\u4F2A\u5582 \u9B4F\u4F2A\u4F4D\u8809\u87FF\u851A\u87FB\u6170",
+      suggestionLight: "\u87A0\u4F2A\u8809\u87FB\u6170 \u9B4F\u851A\u59D4\u6E2D\u851A\u8C13\u6170 \u851A\u59D4\u8C13\u4F2A\u5582 \u9B4F\u4F2A\u4F4D\u8809\u87FF\u851A\u87FB\u6170",
+      recentColors: "\u87A4\u87FB\u8808\u87FD\u8801\u4F2A\u87FF\u4F2A \u8802\u87FB\u880B\u6E2D\u4F2A\u87FF\u4F2A",
+      presetColors: "\u87A4\u87FB\u6170\u9B4F\u4F2A\u80C3\u6170\u87FB\u5582\u87FD\u6E2D\u82C7\u8C13\u4F2A \u8802\u87FB\u880B\u6E2D\u4F2A\u87FF\u4F2A"
     },
-    // Επιλογέας ημερομηνίας
+    // 螘蟺喂位慰纬苇伪蟼 畏渭蔚蟻慰渭畏谓委伪蟼
     datepicker: {
-      now: "\u03A4\u03CE\u03C1\u03B1",
-      today: "\u03A3\u03AE\u03BC\u03B5\u03C1\u03B1",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      clear: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2",
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      selectDate: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03B7\u03BC\u03B5\u03C1\u03BF\u03BC\u03B7\u03BD\u03AF\u03B1",
-      selectTime: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03CE\u03C1\u03B1",
-      startDate: "\u0397\u03BC\u03B5\u03C1\u03BF\u03BC\u03B7\u03BD\u03AF\u03B1 \u03AD\u03BD\u03B1\u03C1\u03BE\u03B7\u03C2",
-      startTime: "\u038F\u03C1\u03B1 \u03AD\u03BD\u03B1\u03C1\u03BE\u03B7\u03C2",
-      endDate: "\u0397\u03BC\u03B5\u03C1\u03BF\u03BC\u03B7\u03BD\u03AF\u03B1 \u03BB\u03AE\u03BE\u03B7\u03C2",
-      endTime: "\u038F\u03C1\u03B1 \u03BB\u03AE\u03BE\u03B7\u03C2",
+      now: "\u97E6\u880B\u87FB\u4F2A",
+      today: "\u5371\u840E\u6E2D\u851A\u87FB\u4F2A",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      clear: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC",
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      selectDate: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u754F\u6E2D\u851A\u87FB\u6170\u6E2D\u754F\u8C13\u59D4\u4F2A",
+      selectTime: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u880B\u87FB\u4F2A",
+      startDate: "\u879A\u6E2D\u851A\u87FB\u6170\u6E2D\u754F\u8C13\u59D4\u4F2A \u82C7\u8C13\u4F2A\u87FB\u5C09\u754F\u87FC",
+      startTime: "\u8790\u87FB\u4F2A \u82C7\u8C13\u4F2A\u87FB\u5C09\u754F\u87FC",
+      endDate: "\u879A\u6E2D\u851A\u87FB\u6170\u6E2D\u754F\u8C13\u59D4\u4F2A \u4F4D\u840E\u5C09\u754F\u87FC",
+      endTime: "\u8790\u87FB\u4F2A \u4F4D\u840E\u5C09\u754F\u87FC",
       year: "",
       month: "",
       day: "",
-      week: "\u0395\u03B2\u03B4\u03BF\u03BC\u03AC\u03B4\u03B1",
+      week: "\u8798\u5C3E\u672A\u6170\u6E2D\u7EF4\u672A\u4F2A",
       monthBeforeYear: true,
-      prevYear: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF \u03AD\u03C4\u03BF\u03C2",
-      nextYear: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03BF \u03AD\u03C4\u03BF\u03C2",
-      prevMonth: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF\u03C2 \u03BC\u03AE\u03BD\u03B1\u03C2",
-      nextMonth: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03BF\u03C2 \u03BC\u03AE\u03BD\u03B1\u03C2",
+      prevYear: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u6170 \u82C7\u87FF\u6170\u87FC",
+      nextYear: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u6170 \u82C7\u87FF\u6170\u87FC",
+      prevMonth: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u6170\u87FC \u6E2D\u840E\u8C13\u4F2A\u87FC",
+      nextMonth: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u6170\u87FC \u6E2D\u840E\u8C13\u4F2A\u87FC",
       weeks: {
-        sun: "\u039A\u03C5\u03C1",
-        mon: "\u0394\u03B5\u03C5",
-        tue: "\u03A4\u03C1\u03B9",
-        wed: "\u03A4\u03B5\u03C4",
-        thu: "\u03A0\u03B5\u03BC",
-        fri: "\u03A0\u03B1\u03C1",
-        sat: "\u03A3\u03B1\u03B2"
+        sun: "\u879D\u8800\u87FB",
+        mon: "\u8796\u851A\u8800",
+        tue: "\u97E6\u87FB\u5582",
+        wed: "\u97E6\u851A\u87FF",
+        thu: "\u87A4\u851A\u6E2D",
+        fri: "\u87A4\u4F2A\u87FB",
+        sat: "\u5371\u4F2A\u5C3E"
       },
       months: {
-        jan: "\u0399\u03B1\u03BD",
-        feb: "\u03A6\u03B5\u03B2",
-        mar: "\u039C\u03B1\u03C1",
-        apr: "\u0391\u03C0\u03C1",
-        may: "\u039C\u03B1\u03CA",
-        jun: "\u0399\u03BF\u03C5\u03BD",
-        jul: "\u0399\u03BF\u03C5\u03BB",
-        aug: "\u0391\u03C5\u03B3",
-        sep: "\u03A3\u03B5\u03C0",
-        oct: "\u039F\u03BA\u03C4",
-        nov: "\u039D\u03BF\u03B5",
-        dec: "\u0394\u03B5\u03BA"
+        jan: "\u879C\u4F2A\u8C13",
+        feb: "\u6845\u851A\u5C3E",
+        mar: "\u87A0\u4F2A\u87FB",
+        apr: "\u8792\u87FA\u87FB",
+        may: "\u87A0\u4F2A\u8806",
+        jun: "\u879C\u6170\u8800\u8C13",
+        jul: "\u879C\u6170\u8800\u4F4D",
+        aug: "\u8792\u8800\u7EAC",
+        sep: "\u5371\u851A\u87FA",
+        oct: "\u87A3\u9B4F\u87FF",
+        nov: "\u87A1\u6170\u851A",
+        dec: "\u8796\u851A\u9B4F"
       },
       quarters: {
         q1: "Q1",
@@ -26452,626 +29437,740 @@ const el = {
         q4: "Q4"
       }
     },
-    // Επιλογέας ώρας
+    // 螘蟺喂位慰纬苇伪蟼 蠋蟻伪蟼
     timepicker: {
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      now: "\u03A4\u03CE\u03C1\u03B1",
-      placeholder: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03CE\u03C1\u03B1",
-      startPlaceholder: "\u038F\u03C1\u03B1 \u03AD\u03BD\u03B1\u03C1\u03BE\u03B7\u03C2",
-      endPlaceholder: "\u038F\u03C1\u03B1 \u03BB\u03AE\u03BE\u03B7\u03C2",
-      selectTime: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03CE\u03C1\u03B1"
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      now: "\u97E6\u880B\u87FB\u4F2A",
+      placeholder: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u880B\u87FB\u4F2A",
+      startPlaceholder: "\u8790\u87FB\u4F2A \u82C7\u8C13\u4F2A\u87FB\u5C09\u754F\u87FC",
+      endPlaceholder: "\u8790\u87FB\u4F2A \u4F4D\u840E\u5C09\u754F\u87FC",
+      selectTime: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u880B\u87FB\u4F2A"
     },
-    // Επιλογή ώρας
+    // 螘蟺喂位慰纬萎 蠋蟻伪蟼
     timeselect: {
-      placeholder: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03CE\u03C1\u03B1"
+      placeholder: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u880B\u87FB\u4F2A"
     },
-    // Δέντρο
+    // 螖苇谓蟿蟻慰
     tree: {
-      emptyText: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      checkAll: "\u0395\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD",
-      uncheckAll: "\u0391\u03C0\u03BF\u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD",
-      expandAll: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03CC\u03BB\u03C9\u03BD",
-      collapseAll: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03CC\u03BB\u03C9\u03BD"
+      emptyText: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      checkAll: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13",
+      uncheckAll: "\u8792\u87FA\u6170\u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13",
+      expandAll: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F \u8808\u4F4D\u8805\u8C13",
+      collapseAll: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F \u8808\u4F4D\u8805\u8C13"
     },
-    // Επιλογέας δέντρου
+    // 螘蟺喂位慰纬苇伪蟼 未苇谓蟿蟻慰蠀
     treeselect: {
-      placeholder: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5",
-      emptyText: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      noMatch: "\u0394\u03B5\u03BD \u03B2\u03C1\u03AD\u03B8\u03B7\u03BA\u03B1\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1"
+      placeholder: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A",
+      emptyText: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      noMatch: "\u8796\u851A\u8C13 \u5C3E\u87FB\u82C7\u80C3\u754F\u9B4F\u4F2A\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A"
     },
-    // Ημερολόγιο
+    // 螚渭蔚蟻慰位蠈纬喂慰
     calendar: {
-      prevMonth: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF\u03C2 \u03BC\u03AE\u03BD\u03B1\u03C2",
-      nextMonth: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03BF\u03C2 \u03BC\u03AE\u03BD\u03B1\u03C2",
-      prevYear: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF \u03AD\u03C4\u03BF\u03C2",
-      nextYear: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03BF \u03AD\u03C4\u03BF\u03C2",
-      today: "\u03A3\u03AE\u03BC\u03B5\u03C1\u03B1",
-      week: "\u0395\u03B2\u03B4\u03BF\u03BC\u03AC\u03B4\u03B1",
-      holiday: "\u0391\u03C1\u03B3\u03AF\u03B1",
-      workday: "\u0395\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1",
+      prevMonth: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u6170\u87FC \u6E2D\u840E\u8C13\u4F2A\u87FC",
+      nextMonth: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u6170\u87FC \u6E2D\u840E\u8C13\u4F2A\u87FC",
+      prevYear: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u6170 \u82C7\u87FF\u6170\u87FC",
+      nextYear: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u6170 \u82C7\u87FF\u6170\u87FC",
+      today: "\u5371\u840E\u6E2D\u851A\u87FB\u4F2A",
+      week: "\u8798\u5C3E\u672A\u6170\u6E2D\u7EF4\u672A\u4F2A",
+      holiday: "\u8792\u87FB\u7EAC\u59D4\u4F2A",
+      workday: "\u8798\u87FB\u7EAC\u4F2A\u87FD\u59D4\u4F2A",
       monthHeaderFormat: "MMMM YYYY",
       weeks: {
-        sun: "\u039A\u03C5\u03C1",
-        mon: "\u0394\u03B5\u03C5",
-        tue: "\u03A4\u03C1\u03B9",
-        wed: "\u03A4\u03B5\u03C4",
-        thu: "\u03A0\u03B5\u03BC",
-        fri: "\u03A0\u03B1\u03C1",
-        sat: "\u03A3\u03B1\u03B2"
+        sun: "\u879D\u8800\u87FB",
+        mon: "\u8796\u851A\u8800",
+        tue: "\u97E6\u87FB\u5582",
+        wed: "\u97E6\u851A\u87FF",
+        thu: "\u87A4\u851A\u6E2D",
+        fri: "\u87A4\u4F2A\u87FB",
+        sat: "\u5371\u4F2A\u5C3E"
       }
     },
-    // Αυτόματη συμπλήρωση
+    // 螒蠀蟿蠈渭伪蟿畏 蟽蠀渭蟺位萎蟻蠅蟽畏
     autocomplete: {
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      placeholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      noMatch: "\u0394\u03B5\u03BD \u03B2\u03C1\u03AD\u03B8\u03B7\u03BA\u03B1\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1"
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      placeholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      noMatch: "\u8796\u851A\u8C13 \u5C3E\u87FB\u82C7\u80C3\u754F\u9B4F\u4F2A\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A"
     },
-    // Αντίστροφη μέτρηση
+    // 螒谓蟿委蟽蟿蟻慰蠁畏 渭苇蟿蟻畏蟽畏
     countdown: {
-      days: "\u03B7\u03BC\u03AD\u03C1\u03B5\u03C2",
-      hours: "\u03CE\u03C1\u03B5\u03C2",
-      minutes: "\u03BB\u03B5\u03C0\u03C4\u03AC",
-      seconds: "\u03B4\u03B5\u03C5\u03C4\u03B5\u03C1\u03CC\u03BB\u03B5\u03C0\u03C4\u03B1",
-      milliseconds: "\u03C7\u03B9\u03BB\u03B9\u03BF\u03C3\u03C4\u03AC \u03C4\u03BF\u03C5 \u03B4\u03B5\u03C5\u03C4\u03B5\u03C1\u03BF\u03BB\u03AD\u03C0\u03C4\u03BF\u03C5",
-      finished: "\u039F\u03BB\u03BF\u03BA\u03BB\u03B7\u03C1\u03CE\u03B8\u03B7\u03BA\u03B5"
+      days: "\u754F\u6E2D\u82C7\u87FB\u851A\u87FC",
+      hours: "\u880B\u87FB\u851A\u87FC",
+      minutes: "\u4F4D\u851A\u87FA\u87FF\u7EF4",
+      seconds: "\u672A\u851A\u8800\u87FF\u851A\u87FB\u8808\u4F4D\u851A\u87FA\u87FF\u4F2A",
+      milliseconds: "\u8802\u5582\u4F4D\u5582\u6170\u87FD\u87FF\u7EF4 \u87FF\u6170\u8800 \u672A\u851A\u8800\u87FF\u851A\u87FB\u6170\u4F4D\u82C7\u87FA\u87FF\u6170\u8800",
+      finished: "\u87A3\u4F4D\u6170\u9B4F\u4F4D\u754F\u87FB\u880B\u80C3\u754F\u9B4F\u851A"
     },
-    // Κασκαντέρ
+    // 螝伪蟽魏伪谓蟿苇蟻
     cascader: {
-      noMatch: "\u0394\u03B5\u03BD \u03B2\u03C1\u03AD\u03B8\u03B7\u03BA\u03B1\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1",
-      placeholder: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1"
+      noMatch: "\u8796\u851A\u8C13 \u5C3E\u87FB\u82C7\u80C3\u754F\u9B4F\u4F2A\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A",
+      placeholder: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A"
     },
-    // Μεταφορά
+    // 螠蔚蟿伪蠁慰蟻维
     transfer: {
-      noMatch: "\u0394\u03B5\u03BD \u03B2\u03C1\u03AD\u03B8\u03B7\u03BA\u03B1\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      titles: ["\u039B\u03AF\u03C3\u03C4\u03B1 1", "\u039B\u03AF\u03C3\u03C4\u03B1 2"],
-      filterPlaceholder: "\u0395\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5 \u03BB\u03AD\u03BE\u03B7-\u03BA\u03BB\u03B5\u03B9\u03B4\u03AF",
-      noCheckedFormat: "{total} \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1",
-      hasCheckedFormat: "{checked}/{total} \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03B1",
-      searchPlaceholder: "\u0395\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5 \u03BB\u03AD\u03BE\u03B7-\u03BA\u03BB\u03B5\u03B9\u03B4\u03AF"
+      noMatch: "\u8796\u851A\u8C13 \u5C3E\u87FB\u82C7\u80C3\u754F\u9B4F\u4F2A\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      titles: ["\u879E\u59D4\u87FD\u87FF\u4F2A 1", "\u879E\u59D4\u87FD\u87FF\u4F2A 2"],
+      filterPlaceholder: "\u8798\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A \u4F4D\u82C7\u5C09\u754F-\u9B4F\u4F4D\u851A\u5582\u672A\u59D4",
+      noCheckedFormat: "{total} \u87FD\u87FF\u6170\u5582\u8802\u851A\u59D4\u4F2A",
+      hasCheckedFormat: "{checked}/{total} \u851A\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u4F2A",
+      searchPlaceholder: "\u8798\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A \u4F4D\u82C7\u5C09\u754F-\u9B4F\u4F4D\u851A\u5582\u672A\u59D4"
     },
-    // Πίνακας
+    // 螤委谓伪魏伪蟼
     table: {
-      emptyText: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      confirmFilter: "\u0395\u03C0\u03B9\u03B2\u03B5\u03B2\u03B1\u03AF\u03C9\u03C3\u03B7",
-      resetFilter: "\u0395\u03C0\u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
-      clearFilter: "\u038C\u03BB\u03B1",
-      sumText: "\u0386\u03B8\u03C1\u03BF\u03B9\u03C3\u03BC\u03B1",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      index: "\u0395\u03C5\u03C1\u03B5\u03C4\u03AE\u03C1\u03B9\u03BF",
-      print: "\u0395\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      preview: "\u03A0\u03C1\u03BF\u03B5\u03C0\u03B9\u03C3\u03BA\u03CC\u03C0\u03B7\u03C3\u03B7 \u03B5\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7\u03C2",
-      printTime: "\u038F\u03C1\u03B1 \u03B5\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7\u03C2",
-      total: "\u03A3\u03CD\u03BD\u03BF\u03BB\u03BF {total} \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03C9\u03BD",
-      page: "\u03A3\u03B5\u03BB\u03AF\u03B4\u03B1 {page}",
-      yes: "\u039D\u03B1\u03B9",
-      no: "\u038C\u03C7\u03B9",
-      // Γραμμή εργαλείων
+      emptyText: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      confirmFilter: "\u8798\u87FA\u5582\u5C3E\u851A\u5C3E\u4F2A\u59D4\u8805\u87FD\u754F",
+      resetFilter: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+      clearFilter: "\u878C\u4F4D\u4F2A",
+      sumText: "\u8781\u80C3\u87FB\u6170\u5582\u87FD\u6E2D\u4F2A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      index: "\u8798\u8800\u87FB\u851A\u87FF\u840E\u87FB\u5582\u6170",
+      print: "\u8798\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      preview: "\u87A4\u87FB\u6170\u851A\u87FA\u5582\u87FD\u9B4F\u8808\u87FA\u754F\u87FD\u754F \u851A\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F\u87FC",
+      printTime: "\u8790\u87FB\u4F2A \u851A\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F\u87FC",
+      total: "\u5371\u8809\u8C13\u6170\u4F4D\u6170 {total} \u87FD\u87FF\u6170\u5582\u8802\u851A\u59D4\u8805\u8C13",
+      page: "\u5371\u851A\u4F4D\u59D4\u672A\u4F2A {page}",
+      yes: "\u87A1\u4F2A\u5582",
+      no: "\u878C\u8802\u5582",
+      // 螕蟻伪渭渭萎 蔚蟻纬伪位蔚委蠅谓
       toolbar: {
-        refresh: "\u0391\u03BD\u03B1\u03BD\u03AD\u03C9\u03C3\u03B7",
-        density: "\u03A0\u03C5\u03BA\u03BD\u03CC\u03C4\u03B7\u03C4\u03B1",
-        densityDefault: "\u03A0\u03C1\u03BF\u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE",
-        densityLarge: "\u039C\u03B5\u03B3\u03AC\u03BB\u03B7",
-        densitySmall: "\u039C\u03B9\u03BA\u03C1\u03AE",
-        columnSetting: "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u03C3\u03C4\u03AE\u03BB\u03B7\u03C2",
-        fullscreen: "\u03A0\u03BB\u03AE\u03C1\u03B7\u03C2 \u03BF\u03B8\u03CC\u03BD\u03B7",
-        exitFullscreen: "\u0388\u03BE\u03BF\u03B4\u03BF\u03C2 \u03B1\u03C0\u03CC \u03C0\u03BB\u03AE\u03C1\u03B7 \u03BF\u03B8\u03CC\u03BD\u03B7",
-        export: "\u0395\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE",
-        import: "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE",
-        search: "\u0391\u03BD\u03B1\u03B6\u03AE\u03C4\u03B7\u03C3\u03B7",
-        searchPlaceholder: "\u0395\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5 \u03BB\u03AD\u03BE\u03B5\u03B9\u03C2-\u03BA\u03BB\u03B5\u03B9\u03B4\u03B9\u03AC \u03B3\u03B9\u03B1 \u03B1\u03BD\u03B1\u03B6\u03AE\u03C4\u03B7\u03C3\u03B7"
+        refresh: "\u8792\u8C13\u4F2A\u8C13\u82C7\u8805\u87FD\u754F",
+        density: "\u87A4\u8800\u9B4F\u8C13\u8808\u87FF\u754F\u87FF\u4F2A",
+        densityDefault: "\u87A4\u87FB\u6170\u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u840E",
+        densityLarge: "\u87A0\u851A\u7EAC\u7EF4\u4F4D\u754F",
+        densitySmall: "\u87A0\u5582\u9B4F\u87FB\u840E",
+        columnSetting: "\u5DCD\u8800\u80C3\u6E2D\u59D4\u87FD\u851A\u5582\u87FC \u87FD\u87FF\u840E\u4F4D\u754F\u87FC",
+        fullscreen: "\u87A4\u4F4D\u840E\u87FB\u754F\u87FC \u6170\u80C3\u8808\u8C13\u754F",
+        exitFullscreen: "\u8786\u5C09\u6170\u672A\u6170\u87FC \u4F2A\u87FA\u8808 \u87FA\u4F4D\u840E\u87FB\u754F \u6170\u80C3\u8808\u8C13\u754F",
+        export: "\u8798\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E",
+        import: "\u8798\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E",
+        search: "\u8792\u8C13\u4F2A\u5473\u840E\u87FF\u754F\u87FD\u754F",
+        searchPlaceholder: "\u8798\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A \u4F4D\u82C7\u5C09\u851A\u5582\u87FC-\u9B4F\u4F4D\u851A\u5582\u672A\u5582\u7EF4 \u7EAC\u5582\u4F2A \u4F2A\u8C13\u4F2A\u5473\u840E\u87FF\u754F\u87FD\u754F"
       },
-      // Φίλτρο
+      // 桅委位蟿蟻慰
       filter: {
-        selectAll: "\u0395\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD",
-        selectInvert: "\u0391\u03BD\u03C4\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE\u03C2",
-        empty: "\u0395\u03AF\u03BD\u03B1\u03B9 \u03AC\u03B4\u03B5\u03B9\u03BF",
-        notEmpty: "\u0394\u03B5\u03BD \u03B5\u03AF\u03BD\u03B1\u03B9 \u03AC\u03B4\u03B5\u03B9\u03BF",
-        contains: "\u03A0\u03B5\u03C1\u03B9\u03AD\u03C7\u03B5\u03B9",
-        notContains: "\u0394\u03B5\u03BD \u03C0\u03B5\u03C1\u03B9\u03AD\u03C7\u03B5\u03B9",
-        equals: "\u0399\u03C3\u03BF\u03CD\u03C4\u03B1\u03B9",
-        notEquals: "\u0394\u03B5\u03BD \u03B9\u03C3\u03BF\u03CD\u03C4\u03B1\u03B9",
-        startsWith: "\u039E\u03B5\u03BA\u03B9\u03BD\u03AC\u03B5\u03B9 \u03BC\u03B5",
-        endsWith: "\u03A4\u03B5\u03BB\u03B5\u03B9\u03CE\u03BD\u03B5\u03B9 \u03BC\u03B5",
-        greaterThan: "\u039C\u03B5\u03B3\u03B1\u03BB\u03CD\u03C4\u03B5\u03C1\u03BF \u03B1\u03C0\u03CC",
-        lessThan: "\u039C\u03B9\u03BA\u03C1\u03CC\u03C4\u03B5\u03C1\u03BF \u03B1\u03C0\u03CC",
-        between: "\u039C\u03B5\u03C4\u03B1\u03BE\u03CD"
+        selectAll: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13",
+        selectInvert: "\u8792\u8C13\u87FF\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u840E\u87FC",
+        empty: "\u8798\u59D4\u8C13\u4F2A\u5582 \u7EF4\u672A\u851A\u5582\u6170",
+        notEmpty: "\u8796\u851A\u8C13 \u851A\u59D4\u8C13\u4F2A\u5582 \u7EF4\u672A\u851A\u5582\u6170",
+        contains: "\u87A4\u851A\u87FB\u5582\u82C7\u8802\u851A\u5582",
+        notContains: "\u8796\u851A\u8C13 \u87FA\u851A\u87FB\u5582\u82C7\u8802\u851A\u5582",
+        equals: "\u879C\u87FD\u6170\u8809\u87FF\u4F2A\u5582",
+        notEquals: "\u8796\u851A\u8C13 \u5582\u87FD\u6170\u8809\u87FF\u4F2A\u5582",
+        startsWith: "\u87A2\u851A\u9B4F\u5582\u8C13\u7EF4\u851A\u5582 \u6E2D\u851A",
+        endsWith: "\u97E6\u851A\u4F4D\u851A\u5582\u880B\u8C13\u851A\u5582 \u6E2D\u851A",
+        greaterThan: "\u87A0\u851A\u7EAC\u4F2A\u4F4D\u8809\u87FF\u851A\u87FB\u6170 \u4F2A\u87FA\u8808",
+        lessThan: "\u87A0\u5582\u9B4F\u87FB\u8808\u87FF\u851A\u87FB\u6170 \u4F2A\u87FA\u8808",
+        between: "\u87A0\u851A\u87FF\u4F2A\u5C09\u8809"
       },
-      // Ταξινόμηση
+      // 韦伪尉喂谓蠈渭畏蟽畏
       sort: {
-        asc: "\u0391\u03CD\u03BE\u03BF\u03C5\u03C3\u03B1",
-        desc: "\u03A6\u03B8\u03AF\u03BD\u03BF\u03C5\u03C3\u03B1",
-        clear: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2 \u03C4\u03B1\u03BE\u03B9\u03BD\u03CC\u03BC\u03B7\u03C3\u03B7\u03C2"
+        asc: "\u8792\u8809\u5C09\u6170\u8800\u87FD\u4F2A",
+        desc: "\u6845\u80C3\u59D4\u8C13\u6170\u8800\u87FD\u4F2A",
+        clear: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC \u87FF\u4F2A\u5C09\u5582\u8C13\u8808\u6E2D\u754F\u87FD\u754F\u87FC"
       },
-      // Εξαγωγή
+      // 螘尉伪纬蠅纬萎
       export: {
-        title: "\u0395\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03C9\u03BD",
-        filename: "\u038C\u03BD\u03BF\u03BC\u03B1 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF\u03C5",
-        type: "\u03A4\u03CD\u03C0\u03BF\u03C2 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF\u03C5",
-        scope: "\u0395\u03CD\u03C1\u03BF\u03C2 \u03B5\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2",
-        scopeAll: "\u038C\u03BB\u03B1 \u03C4\u03B1 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-        scopeSelected: "\u0395\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03B1 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-        scopeCurrentPage: "\u03A4\u03C1\u03AD\u03C7\u03BF\u03C5\u03C3\u03B1 \u03C3\u03B5\u03BB\u03AF\u03B4\u03B1",
-        includeHeader: "\u03A3\u03C5\u03BC\u03C0\u03B5\u03C1\u03AF\u03BB\u03B7\u03C8\u03B7 \u03BA\u03B5\u03C6\u03B1\u03BB\u03AF\u03B4\u03B1\u03C2",
-        exporting: "\u0395\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE...",
-        success: "\u0395\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE \u03B5\u03C0\u03B9\u03C4\u03C5\u03C7\u03AE\u03C2",
-        error: "\u0391\u03C0\u03BF\u03C4\u03C5\u03C7\u03AF\u03B1 \u03B5\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2"
+        title: "\u8798\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u8805\u8C13",
+        filename: "\u878C\u8C13\u6170\u6E2D\u4F2A \u4F2A\u87FB\u8802\u851A\u59D4\u6170\u8800",
+        type: "\u97E6\u8809\u87FA\u6170\u87FC \u4F2A\u87FB\u8802\u851A\u59D4\u6170\u8800",
+        scope: "\u8798\u8809\u87FB\u6170\u87FC \u851A\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E\u87FC",
+        scopeAll: "\u878C\u4F4D\u4F2A \u87FF\u4F2A \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+        scopeSelected: "\u8798\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u4F2A \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+        scopeCurrentPage: "\u97E6\u87FB\u82C7\u8802\u6170\u8800\u87FD\u4F2A \u87FD\u851A\u4F4D\u59D4\u672A\u4F2A",
+        includeHeader: "\u5371\u8800\u6E2D\u87FA\u851A\u87FB\u59D4\u4F4D\u754F\u8804\u754F \u9B4F\u851A\u8801\u4F2A\u4F4D\u59D4\u672A\u4F2A\u87FC",
+        exporting: "\u8798\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E...",
+        success: "\u8798\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E \u851A\u87FA\u5582\u87FF\u8800\u8802\u840E\u87FC",
+        error: "\u8792\u87FA\u6170\u87FF\u8800\u8802\u59D4\u4F2A \u851A\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E\u87FC"
       },
-      // Εισαγωγή
+      // 螘喂蟽伪纬蠅纬萎
       import: {
-        title: "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03C9\u03BD",
-        selectFile: "\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF",
-        dragTip: "\u039A\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03AE \u03C3\u03CD\u03C1\u03B5\u03C4\u03B5 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF \u03B5\u03B4\u03CE \u03B3\u03B9\u03B1 \u03BC\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7",
-        importing: "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE...",
-        success: "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03B5\u03C0\u03B9\u03C4\u03C5\u03C7\u03AE\u03C2",
-        error: "\u0391\u03C0\u03BF\u03C4\u03C5\u03C7\u03AF\u03B1 \u03B5\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2",
-        preview: "\u03A0\u03C1\u03BF\u03B5\u03C0\u03B9\u03C3\u03BA\u03CC\u03C0\u03B7\u03C3\u03B7 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03C9\u03BD",
-        confirm: "\u0395\u03C0\u03B9\u03B2\u03B5\u03B2\u03B1\u03AF\u03C9\u03C3\u03B7 \u03B5\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2"
+        title: "\u8798\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u8805\u8C13",
+        selectFile: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u6170",
+        dragTip: "\u879D\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u840E \u87FD\u8809\u87FB\u851A\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u6170 \u851A\u672A\u880B \u7EAC\u5582\u4F2A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F",
+        importing: "\u8798\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E...",
+        success: "\u8798\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E \u851A\u87FA\u5582\u87FF\u8800\u8802\u840E\u87FC",
+        error: "\u8792\u87FA\u6170\u87FF\u8800\u8802\u59D4\u4F2A \u851A\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E\u87FC",
+        preview: "\u87A4\u87FB\u6170\u851A\u87FA\u5582\u87FD\u9B4F\u8808\u87FA\u754F\u87FD\u754F \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u8805\u8C13",
+        confirm: "\u8798\u87FA\u5582\u5C3E\u851A\u5C3E\u4F2A\u59D4\u8805\u87FD\u754F \u851A\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E\u87FC"
       },
-      // Εκτύπωση
+      // 螘魏蟿蠉蟺蠅蟽畏
       printConfig: {
-        title: "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u03B5\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7\u03C2",
-        pageTitle: "\u03A4\u03AF\u03C4\u03BB\u03BF\u03C2 \u03C3\u03B5\u03BB\u03AF\u03B4\u03B1\u03C2",
-        pageHeader: "\u039A\u03B5\u03C6\u03B1\u03BB\u03AF\u03B4\u03B1",
-        pageFooter: "\u03A5\u03C0\u03BF\u03C3\u03AD\u03BB\u03B9\u03B4\u03BF",
-        printAll: "\u0395\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        printSelected: "\u0395\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7 \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03C9\u03BD",
-        printCurrentPage: "\u0395\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7 \u03C4\u03C1\u03AD\u03C7\u03BF\u03C5\u03C3\u03B1\u03C2 \u03C3\u03B5\u03BB\u03AF\u03B4\u03B1\u03C2",
-        landscape: "\u039F\u03C1\u03B9\u03B6\u03CC\u03BD\u03C4\u03B9\u03B1",
-        portrait: "\u039A\u03B1\u03C4\u03B1\u03BA\u03CC\u03C1\u03C5\u03C6\u03B7",
-        printing: "\u0395\u03BA\u03C4\u03CD\u03C0\u03C9\u03C3\u03B7..."
+        title: "\u5DCD\u8800\u80C3\u6E2D\u59D4\u87FD\u851A\u5582\u87FC \u851A\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F\u87FC",
+        pageTitle: "\u97E6\u59D4\u87FF\u4F4D\u6170\u87FC \u87FD\u851A\u4F4D\u59D4\u672A\u4F2A\u87FC",
+        pageHeader: "\u879D\u851A\u8801\u4F2A\u4F4D\u59D4\u672A\u4F2A",
+        pageFooter: "\u8FDD\u87FA\u6170\u87FD\u82C7\u4F4D\u5582\u672A\u6170",
+        printAll: "\u8798\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F \u8808\u4F4D\u8805\u8C13",
+        printSelected: "\u8798\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F \u851A\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u8805\u8C13",
+        printCurrentPage: "\u8798\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F \u87FF\u87FB\u82C7\u8802\u6170\u8800\u87FD\u4F2A\u87FC \u87FD\u851A\u4F4D\u59D4\u672A\u4F2A\u87FC",
+        landscape: "\u87A3\u87FB\u5582\u5473\u8808\u8C13\u87FF\u5582\u4F2A",
+        portrait: "\u879D\u4F2A\u87FF\u4F2A\u9B4F\u8808\u87FB\u8800\u8801\u754F",
+        printing: "\u8798\u9B4F\u87FF\u8809\u87FA\u8805\u87FD\u754F..."
       },
-      // Ρυθμίσεις στήλης
+      // 巍蠀胃渭委蟽蔚喂蟼 蟽蟿萎位畏蟼
       columnSetting: {
-        title: "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u03C3\u03C4\u03AE\u03BB\u03B7\u03C2",
-        showAll: "\u0395\u03BC\u03C6\u03AC\u03BD\u03B9\u03C3\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        hideAll: "\u0391\u03C0\u03CC\u03BA\u03C1\u03C5\u03C8\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        reset: "\u0395\u03C0\u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
-        fixedLeft: "\u03A3\u03C4\u03B5\u03C1\u03AD\u03C9\u03C3\u03B7 \u03B1\u03C1\u03B9\u03C3\u03C4\u03B5\u03C1\u03AC",
-        fixedRight: "\u03A3\u03C4\u03B5\u03C1\u03AD\u03C9\u03C3\u03B7 \u03B4\u03B5\u03BE\u03B9\u03AC",
-        unfixed: "\u0391\u03C0\u03BF\u03B4\u03AD\u03C3\u03BC\u03B5\u03C5\u03C3\u03B7"
+        title: "\u5DCD\u8800\u80C3\u6E2D\u59D4\u87FD\u851A\u5582\u87FC \u87FD\u87FF\u840E\u4F4D\u754F\u87FC",
+        showAll: "\u8798\u6E2D\u8801\u7EF4\u8C13\u5582\u87FD\u754F \u8808\u4F4D\u8805\u8C13",
+        hideAll: "\u8792\u87FA\u8808\u9B4F\u87FB\u8800\u8804\u754F \u8808\u4F4D\u8805\u8C13",
+        reset: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+        fixedLeft: "\u5371\u87FF\u851A\u87FB\u82C7\u8805\u87FD\u754F \u4F2A\u87FB\u5582\u87FD\u87FF\u851A\u87FB\u7EF4",
+        fixedRight: "\u5371\u87FF\u851A\u87FB\u82C7\u8805\u87FD\u754F \u672A\u851A\u5C09\u5582\u7EF4",
+        unfixed: "\u8792\u87FA\u6170\u672A\u82C7\u87FD\u6E2D\u851A\u8800\u87FD\u754F"
       },
-      // Μενού περιβάλλοντος
+      // 螠蔚谓慰蠉 蟺蔚蟻喂尾维位位慰谓蟿慰蟼
       contextMenu: {
-        copy: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE",
-        copyRow: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE \u03B3\u03C1\u03B1\u03BC\u03BC\u03AE\u03C2",
-        copyCell: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE \u03BA\u03B5\u03BB\u03B9\u03BF\u03CD",
-        paste: "\u0395\u03C0\u03B9\u03BA\u03CC\u03BB\u03BB\u03B7\u03C3\u03B7",
-        insertRowAbove: "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03B3\u03C1\u03B1\u03BC\u03BC\u03AE\u03C2 \u03C0\u03AC\u03BD\u03C9",
-        insertRowBelow: "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03B3\u03C1\u03B1\u03BC\u03BC\u03AE\u03C2 \u03BA\u03AC\u03C4\u03C9",
-        deleteRow: "\u0394\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE \u03B3\u03C1\u03B1\u03BC\u03BC\u03AE\u03C2",
-        deleteSelectedRows: "\u0394\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03C9\u03BD \u03B3\u03C1\u03B1\u03BC\u03BC\u03CE\u03BD",
-        exportSelected: "\u0395\u03BE\u03B1\u03B3\u03C9\u03B3\u03AE \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03C9\u03BD"
+        copy: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E",
+        copyRow: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E \u7EAC\u87FB\u4F2A\u6E2D\u6E2D\u840E\u87FC",
+        copyCell: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E \u9B4F\u851A\u4F4D\u5582\u6170\u8809",
+        paste: "\u8798\u87FA\u5582\u9B4F\u8808\u4F4D\u4F4D\u754F\u87FD\u754F",
+        insertRowAbove: "\u8798\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E \u7EAC\u87FB\u4F2A\u6E2D\u6E2D\u840E\u87FC \u87FA\u7EF4\u8C13\u8805",
+        insertRowBelow: "\u8798\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E \u7EAC\u87FB\u4F2A\u6E2D\u6E2D\u840E\u87FC \u9B4F\u7EF4\u87FF\u8805",
+        deleteRow: "\u8796\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E \u7EAC\u87FB\u4F2A\u6E2D\u6E2D\u840E\u87FC",
+        deleteSelectedRows: "\u8796\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E \u851A\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u8805\u8C13 \u7EAC\u87FB\u4F2A\u6E2D\u6E2D\u880B\u8C13",
+        exportSelected: "\u8798\u5C09\u4F2A\u7EAC\u8805\u7EAC\u840E \u851A\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u8805\u8C13"
       },
-      // Επιλογή
+      // 螘蟺喂位慰纬萎
       selection: {
-        selectAll: "\u0395\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD",
-        selectInvert: "\u0391\u03BD\u03C4\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE\u03C2",
-        selectNone: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2 \u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE\u03C2",
-        selected: "{count} \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03B1 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1"
+        selectAll: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13",
+        selectInvert: "\u8792\u8C13\u87FF\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u840E\u87FC",
+        selectNone: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC \u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u840E\u87FC",
+        selected: "{count} \u851A\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u4F2A \u87FD\u87FF\u6170\u5582\u8802\u851A\u59D4\u4F2A"
       },
-      // Ανάπτυξη
+      // 螒谓维蟺蟿蠀尉畏
       expand: {
-        expandAll: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        collapseAll: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03CC\u03BB\u03C9\u03BD"
+        expandAll: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F \u8808\u4F4D\u8805\u8C13",
+        collapseAll: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F \u8808\u4F4D\u8805\u8C13"
       },
-      // Δέντρο
+      // 螖苇谓蟿蟻慰
       tree: {
-        expandAll: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        collapseAll: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        expandLevel: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03C3\u03C4\u03BF \u03B5\u03C0\u03AF\u03C0\u03B5\u03B4\u03BF {level}"
+        expandAll: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F \u8808\u4F4D\u8805\u8C13",
+        collapseAll: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F \u8808\u4F4D\u8805\u8C13",
+        expandLevel: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F \u87FD\u87FF\u6170 \u851A\u87FA\u59D4\u87FA\u851A\u672A\u6170 {level}"
       },
-      // Σύρσιμο
+      // 危蠉蟻蟽喂渭慰
       drag: {
-        dragTip: "\u03A3\u03CD\u03C1\u03B5\u03C4\u03B5 \u03B3\u03B9\u03B1 \u03B1\u03BD\u03B1\u03B4\u03B9\u03AC\u03C4\u03B1\u03BE\u03B7",
-        dropTip: "\u0391\u03C6\u03AE\u03C3\u03C4\u03B5 \u03B3\u03B9\u03B1 \u03C4\u03BF\u03C0\u03BF\u03B8\u03AD\u03C4\u03B7\u03C3\u03B7"
+        dragTip: "\u5371\u8809\u87FB\u851A\u87FF\u851A \u7EAC\u5582\u4F2A \u4F2A\u8C13\u4F2A\u672A\u5582\u7EF4\u87FF\u4F2A\u5C09\u754F",
+        dropTip: "\u8792\u8801\u840E\u87FD\u87FF\u851A \u7EAC\u5582\u4F2A \u87FF\u6170\u87FA\u6170\u80C3\u82C7\u87FF\u754F\u87FD\u754F"
       }
     },
-    // Κουτί μηνύματος
+    // 螝慰蠀蟿委 渭畏谓蠉渭伪蟿慰蟼
     messagebox: {
-      title: "\u039C\u03AE\u03BD\u03C5\u03BC\u03B1",
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
-      error: "\u039C\u03B7 \u03AD\u03B3\u03BA\u03C5\u03C1\u03B7 \u03B5\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE",
-      alert: "\u0395\u03B9\u03B4\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7",
-      prompt: "\u03A0\u03C1\u03BF\u03C4\u03C1\u03BF\u03C0\u03AE",
-      inputPlaceholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5"
+      title: "\u87A0\u840E\u8C13\u8800\u6E2D\u4F2A",
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170",
+      error: "\u87A0\u754F \u82C7\u7EAC\u9B4F\u8800\u87FB\u754F \u851A\u5582\u87FD\u4F2A\u7EAC\u8805\u7EAC\u840E",
+      alert: "\u8798\u5582\u672A\u6170\u87FA\u6170\u59D4\u754F\u87FD\u754F",
+      prompt: "\u87A4\u87FB\u6170\u87FF\u87FB\u6170\u87FA\u840E",
+      inputPlaceholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A"
     },
-    // Μεταφόρτωση
+    // 螠蔚蟿伪蠁蠈蟻蟿蠅蟽畏
     upload: {
-      deleteTip: "\u03C0\u03B1\u03C4\u03AE\u03C3\u03C4\u03B5 delete \u03B3\u03B9\u03B1 \u03B4\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE",
-      delete: "\u0394\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE",
-      preview: "\u03A0\u03C1\u03BF\u03B5\u03C0\u03B9\u03C3\u03BA\u03CC\u03C0\u03B7\u03C3\u03B7",
-      continue: "\u03A3\u03C5\u03BD\u03AD\u03C7\u03B5\u03B9\u03B1",
-      upload: "\u039A\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03B3\u03B9\u03B1 \u03BC\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7",
-      tip: "\u039A\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03AE \u03C3\u03CD\u03C1\u03B5\u03C4\u03B5 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF \u03C3\u03B5 \u03B1\u03C5\u03C4\u03AE\u03BD \u03C4\u03B7\u03BD \u03C0\u03B5\u03C1\u03B9\u03BF\u03C7\u03AE \u03B3\u03B9\u03B1 <em>\u03BC\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7</em>",
-      dragTip: "\u03A3\u03CD\u03C1\u03B5\u03C4\u03B5 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF \u03B5\u03B4\u03CE \u03AE \u03BA\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03B3\u03B9\u03B1 \u03BC\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7",
-      uploading: "\u039C\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      success: "\u039C\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7 \u03B5\u03C0\u03B9\u03C4\u03C5\u03C7\u03AE\u03C2",
-      error: "\u0391\u03C0\u03BF\u03C4\u03C5\u03C7\u03AF\u03B1 \u03BC\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7\u03C2",
-      retry: "\u0395\u03C0\u03B1\u03BD\u03AC\u03BB\u03B7\u03C8\u03B7",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7 \u03BC\u03B5\u03C4\u03B1\u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7\u03C2",
-      fileTypeError: "\u039F \u03C4\u03CD\u03C0\u03BF\u03C2 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF\u03C5 \u03B4\u03B5\u03BD \u03C5\u03C0\u03BF\u03C3\u03C4\u03B7\u03C1\u03AF\u03B6\u03B5\u03C4\u03B1\u03B9",
-      fileSizeError: "\u03A4\u03BF \u03BC\u03AD\u03B3\u03B5\u03B8\u03BF\u03C2 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF\u03C5 \u03C5\u03C0\u03B5\u03C1\u03B2\u03B1\u03AF\u03BD\u03B5\u03B9 \u03C4\u03BF \u03CC\u03C1\u03B9\u03BF",
-      fileCountError: "\u039F \u03B1\u03C1\u03B9\u03B8\u03BC\u03CC\u03C2 \u03B1\u03C1\u03C7\u03B5\u03AF\u03C9\u03BD \u03C5\u03C0\u03B5\u03C1\u03B2\u03B1\u03AF\u03BD\u03B5\u03B9 \u03C4\u03BF \u03CC\u03C1\u03B9\u03BF"
+      deleteTip: "\u87FA\u4F2A\u87FF\u840E\u87FD\u87FF\u851A delete \u7EAC\u5582\u4F2A \u672A\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E",
+      delete: "\u8796\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E",
+      preview: "\u87A4\u87FB\u6170\u851A\u87FA\u5582\u87FD\u9B4F\u8808\u87FA\u754F\u87FD\u754F",
+      continue: "\u5371\u8800\u8C13\u82C7\u8802\u851A\u5582\u4F2A",
+      upload: "\u879D\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u7EAC\u5582\u4F2A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F",
+      tip: "\u879D\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u840E \u87FD\u8809\u87FB\u851A\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u6170 \u87FD\u851A \u4F2A\u8800\u87FF\u840E\u8C13 \u87FF\u754F\u8C13 \u87FA\u851A\u87FB\u5582\u6170\u8802\u840E \u7EAC\u5582\u4F2A <em>\u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F</em>",
+      dragTip: "\u5371\u8809\u87FB\u851A\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u6170 \u851A\u672A\u880B \u840E \u9B4F\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u7EAC\u5582\u4F2A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F",
+      uploading: "\u87A0\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      success: "\u87A0\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F \u851A\u87FA\u5582\u87FF\u8800\u8802\u840E\u87FC",
+      error: "\u8792\u87FA\u6170\u87FF\u8800\u8802\u59D4\u4F2A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F\u87FC",
+      retry: "\u8798\u87FA\u4F2A\u8C13\u7EF4\u4F4D\u754F\u8804\u754F",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F\u87FC",
+      fileTypeError: "\u87A3 \u87FF\u8809\u87FA\u6170\u87FC \u4F2A\u87FB\u8802\u851A\u59D4\u6170\u8800 \u672A\u851A\u8C13 \u8800\u87FA\u6170\u87FD\u87FF\u754F\u87FB\u59D4\u5473\u851A\u87FF\u4F2A\u5582",
+      fileSizeError: "\u97E6\u6170 \u6E2D\u82C7\u7EAC\u851A\u80C3\u6170\u87FC \u4F2A\u87FB\u8802\u851A\u59D4\u6170\u8800 \u8800\u87FA\u851A\u87FB\u5C3E\u4F2A\u59D4\u8C13\u851A\u5582 \u87FF\u6170 \u8808\u87FB\u5582\u6170",
+      fileCountError: "\u87A3 \u4F2A\u87FB\u5582\u80C3\u6E2D\u8808\u87FC \u4F2A\u87FB\u8802\u851A\u59D4\u8805\u8C13 \u8800\u87FA\u851A\u87FB\u5C3E\u4F2A\u59D4\u8C13\u851A\u5582 \u87FF\u6170 \u8808\u87FB\u5582\u6170"
     },
-    // Φόρμα
+    // 桅蠈蟻渭伪
     form: {
-      validationFailed: "\u0397 \u03B5\u03C0\u03B9\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7 \u03B1\u03C0\u03AD\u03C4\u03C5\u03C7\u03B5",
-      required: "\u0391\u03C0\u03B1\u03B9\u03C4\u03B5\u03AF\u03C4\u03B1\u03B9",
-      pleaseInput: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5",
-      pleaseSelect: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5"
+      validationFailed: "\u879A \u851A\u87FA\u5582\u9B4F\u8809\u87FB\u8805\u87FD\u754F \u4F2A\u87FA\u82C7\u87FF\u8800\u8802\u851A",
+      required: "\u8792\u87FA\u4F2A\u5582\u87FF\u851A\u59D4\u87FF\u4F2A\u5582",
+      pleaseInput: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A",
+      pleaseSelect: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A"
     },
-    // Κουμπί
+    // 螝慰蠀渭蟺委
     button: {
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7..."
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F..."
     },
-    // Εισαγωγή
+    // 螘喂蟽伪纬蠅纬萎
     input: {
-      placeholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5",
-      clear: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2",
-      showPassword: "\u0395\u03BC\u03C6\u03AC\u03BD\u03B9\u03C3\u03B7 \u03BA\u03C9\u03B4\u03B9\u03BA\u03BF\u03CD",
-      hidePassword: "\u0391\u03C0\u03CC\u03BA\u03C1\u03C5\u03C8\u03B7 \u03BA\u03C9\u03B4\u03B9\u03BA\u03BF\u03CD",
-      copy: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE",
-      copied: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03AC\u03C6\u03B7\u03BA\u03B5"
+      placeholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A",
+      clear: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC",
+      showPassword: "\u8798\u6E2D\u8801\u7EF4\u8C13\u5582\u87FD\u754F \u9B4F\u8805\u672A\u5582\u9B4F\u6170\u8809",
+      hidePassword: "\u8792\u87FA\u8808\u9B4F\u87FB\u8800\u8804\u754F \u9B4F\u8805\u672A\u5582\u9B4F\u6170\u8809",
+      copy: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E",
+      copied: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u7EF4\u8801\u754F\u9B4F\u851A"
     },
-    // Εισαγωγή αριθμού
+    // 螘喂蟽伪纬蠅纬萎 伪蟻喂胃渭慰蠉
     inputnumber: {
-      placeholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5 \u03B1\u03C1\u03B9\u03B8\u03BC\u03CC",
-      increase: "\u0391\u03CD\u03BE\u03B7\u03C3\u03B7",
-      decrease: "\u039C\u03B5\u03AF\u03C9\u03C3\u03B7"
+      placeholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A \u4F2A\u87FB\u5582\u80C3\u6E2D\u8808",
+      increase: "\u8792\u8809\u5C09\u754F\u87FD\u754F",
+      decrease: "\u87A0\u851A\u59D4\u8805\u87FD\u754F"
     },
-    // Εισαγωγή ετικέτας
+    // 螘喂蟽伪纬蠅纬萎 蔚蟿喂魏苇蟿伪蟼
     inputtag: {
-      placeholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5",
-      add: "\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7",
-      remove: "\u0391\u03C6\u03B1\u03AF\u03C1\u03B5\u03C3\u03B7"
+      placeholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A",
+      add: "\u87A4\u87FB\u6170\u87FD\u80C3\u840E\u9B4F\u754F",
+      remove: "\u8792\u8801\u4F2A\u59D4\u87FB\u851A\u87FD\u754F"
     },
-    // Πλοηγός
+    // 螤位慰畏纬蠈蟼
     breadcrumb: {
-      label: "\u03A0\u03BB\u03BF\u03B7\u03B3\u03CC\u03C2",
-      more: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C3\u03CC\u03C4\u03B5\u03C1\u03B1"
+      label: "\u87A4\u4F4D\u6170\u754F\u7EAC\u8808\u87FC",
+      more: "\u87A4\u851A\u87FB\u5582\u87FD\u87FD\u8808\u87FF\u851A\u87FB\u4F2A"
     },
-    // Επιστροφή στην κορυφή
+    // 螘蟺喂蟽蟿蟻慰蠁萎 蟽蟿畏谓 魏慰蟻蠀蠁萎
     backtop: {
-      text: "\u0395\u03C0\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03C3\u03C4\u03B7\u03BD \u03BA\u03BF\u03C1\u03C5\u03C6\u03AE"
+      text: "\u8798\u87FA\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u87FD\u87FF\u754F\u8C13 \u9B4F\u6170\u87FB\u8800\u8801\u840E"
     },
-    // Επιλογή
+    // 螘蟺喂位慰纬萎
     select: {
-      placeholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      noMatch: "\u0394\u03B5\u03BD \u03B2\u03C1\u03AD\u03B8\u03B7\u03BA\u03B1\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1",
-      selectAll: "\u0395\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD",
-      clearAll: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2 \u03CC\u03BB\u03C9\u03BD"
+      placeholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      noMatch: "\u8796\u851A\u8C13 \u5C3E\u87FB\u82C7\u80C3\u754F\u9B4F\u4F2A\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A",
+      selectAll: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13",
+      clearAll: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC \u8808\u4F4D\u8805\u8C13"
     },
-    // Σελιδοποίηση
+    // 危蔚位喂未慰蟺慰委畏蟽畏
     pagination: {
-      goto: "\u039C\u03B5\u03C4\u03AC\u03B2\u03B1\u03C3\u03B7 \u03C3\u03B5",
+      goto: "\u87A0\u851A\u87FF\u7EF4\u5C3E\u4F2A\u87FD\u754F \u87FD\u851A",
       page: "",
-      total: "\u03A3\u03CD\u03BD\u03BF\u03BB\u03BF {total}",
-      pageSize: "/\u03C3\u03B5\u03BB\u03AF\u03B4\u03B1",
-      prev: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03B7",
-      next: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03B7",
-      first: "\u03A0\u03C1\u03CE\u03C4\u03B7",
-      last: "\u03A4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03B1",
+      total: "\u5371\u8809\u8C13\u6170\u4F4D\u6170 {total}",
+      pageSize: "/\u87FD\u851A\u4F4D\u59D4\u672A\u4F2A",
+      prev: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u754F",
+      next: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u754F",
+      first: "\u87A4\u87FB\u880B\u87FF\u754F",
+      last: "\u97E6\u851A\u4F4D\u851A\u8800\u87FF\u4F2A\u59D4\u4F2A",
       pageClassifier: ""
     },
-    // Επιβεβαίωση αναδυόμενου
+    // 螘蟺喂尾蔚尾伪委蠅蟽畏 伪谓伪未蠀蠈渭蔚谓慰蠀
     popconfirm: {
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      dontAskAgain: "\u039C\u03B7\u03BD \u03C1\u03C9\u03C4\u03AE\u03C3\u03B5\u03C4\u03B5 \u03BE\u03B1\u03BD\u03AC"
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      dontAskAgain: "\u87A0\u754F\u8C13 \u87FB\u8805\u87FF\u840E\u87FD\u851A\u87FF\u851A \u5C09\u4F2A\u8C13\u7EF4"
     },
-    // Διάλογος
+    // 螖喂维位慰纬慰蟼
     dialog: {
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7",
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
-      maximize: "\u039C\u03B5\u03B3\u03B9\u03C3\u03C4\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7",
-      restore: "\u0395\u03C0\u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC"
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170",
+      maximize: "\u87A0\u851A\u7EAC\u5582\u87FD\u87FF\u6170\u87FA\u6170\u59D4\u754F\u87FD\u754F",
+      restore: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4"
     },
-    // Συρτάρι
+    // 危蠀蟻蟿维蟻喂
     drawer: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
-      confirm: "\u0395\u03BD\u03C4\u03AC\u03BE\u03B5\u03B9",
-      cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170",
+      confirm: "\u8798\u8C13\u87FF\u7EF4\u5C09\u851A\u5582",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F"
     },
-    // Αναπτυσσόμενη λίστα
+    // 螒谓伪蟺蟿蠀蟽蟽蠈渭蔚谓畏 位委蟽蟿伪
     dropdown: {
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7..."
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F..."
     },
-    // Εικόνα
+    // 螘喂魏蠈谓伪
     image: {
-      error: "\u0391\u03A0\u039F\u03A4\u03A5\u03A7\u0399\u0391",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      preview: "\u03A0\u03C1\u03BF\u03B5\u03C0\u03B9\u03C3\u03BA\u03CC\u03C0\u03B7\u03C3\u03B7",
-      zoomIn: "\u039C\u03B5\u03B3\u03AD\u03B8\u03C5\u03BD\u03C3\u03B7",
-      zoomOut: "\u03A3\u03BC\u03AF\u03BA\u03C1\u03C5\u03BD\u03C3\u03B7",
-      rotateLeft: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03B1\u03C1\u03B9\u03C3\u03C4\u03B5\u03C1\u03AC",
-      rotateRight: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03B4\u03B5\u03BE\u03B9\u03AC",
-      originalSize: "\u0391\u03C1\u03C7\u03B9\u03BA\u03CC \u03BC\u03AD\u03B3\u03B5\u03B8\u03BF\u03C2",
-      fullscreen: "\u03A0\u03BB\u03AE\u03C1\u03B7\u03C2 \u03BF\u03B8\u03CC\u03BD\u03B7"
+      error: "\u8792\u87A4\u87A3\u97E6\u8FDD\u56F4\u879C\u8792",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      preview: "\u87A4\u87FB\u6170\u851A\u87FA\u5582\u87FD\u9B4F\u8808\u87FA\u754F\u87FD\u754F",
+      zoomIn: "\u87A0\u851A\u7EAC\u82C7\u80C3\u8800\u8C13\u87FD\u754F",
+      zoomOut: "\u5371\u6E2D\u59D4\u9B4F\u87FB\u8800\u8C13\u87FD\u754F",
+      rotateLeft: "\u87A4\u851A\u87FB\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u4F2A\u87FB\u5582\u87FD\u87FF\u851A\u87FB\u7EF4",
+      rotateRight: "\u87A4\u851A\u87FB\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u672A\u851A\u5C09\u5582\u7EF4",
+      originalSize: "\u8792\u87FB\u8802\u5582\u9B4F\u8808 \u6E2D\u82C7\u7EAC\u851A\u80C3\u6170\u87FC",
+      fullscreen: "\u87A4\u4F4D\u840E\u87FB\u754F\u87FC \u6170\u80C3\u8808\u8C13\u754F"
     },
-    // Προβολή εικόνας
+    // 螤蟻慰尾慰位萎 蔚喂魏蠈谓伪蟼
     imageviewer: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
-      prev: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03B7",
-      next: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03B7",
-      zoomIn: "\u039C\u03B5\u03B3\u03AD\u03B8\u03C5\u03BD\u03C3\u03B7",
-      zoomOut: "\u03A3\u03BC\u03AF\u03BA\u03C1\u03C5\u03BD\u03C3\u03B7",
-      rotateLeft: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03B1\u03C1\u03B9\u03C3\u03C4\u03B5\u03C1\u03AC",
-      rotateRight: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03B4\u03B5\u03BE\u03B9\u03AC",
-      reset: "\u0395\u03C0\u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
-      fullscreen: "\u03A0\u03BB\u03AE\u03C1\u03B7\u03C2 \u03BF\u03B8\u03CC\u03BD\u03B7",
-      exitFullscreen: "\u0388\u03BE\u03BF\u03B4\u03BF\u03C2 \u03B1\u03C0\u03CC \u03C0\u03BB\u03AE\u03C1\u03B7 \u03BF\u03B8\u03CC\u03BD\u03B7"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170",
+      prev: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u754F",
+      next: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u754F",
+      zoomIn: "\u87A0\u851A\u7EAC\u82C7\u80C3\u8800\u8C13\u87FD\u754F",
+      zoomOut: "\u5371\u6E2D\u59D4\u9B4F\u87FB\u8800\u8C13\u87FD\u754F",
+      rotateLeft: "\u87A4\u851A\u87FB\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u4F2A\u87FB\u5582\u87FD\u87FF\u851A\u87FB\u7EF4",
+      rotateRight: "\u87A4\u851A\u87FB\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u672A\u851A\u5C09\u5582\u7EF4",
+      reset: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+      fullscreen: "\u87A4\u4F4D\u840E\u87FB\u754F\u87FC \u6170\u80C3\u8808\u8C13\u754F",
+      exitFullscreen: "\u8786\u5C09\u6170\u672A\u6170\u87FC \u4F2A\u87FA\u8808 \u87FA\u4F4D\u840E\u87FB\u754F \u6170\u80C3\u8808\u8C13\u754F"
     },
-    // Άπειρη κύλιση
+    // 螁蟺蔚喂蟻畏 魏蠉位喂蟽畏
     infinitescroll: {
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      finished: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03AC\u03BB\u03BB\u03B1 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      error: "\u0391\u03C0\u03BF\u03C4\u03C5\u03C7\u03AF\u03B1 \u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7\u03C2, \u03BA\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03B3\u03B9\u03B1 \u03B5\u03C0\u03B1\u03BD\u03AC\u03BB\u03B7\u03C8\u03B7",
-      retry: "\u039A\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03B3\u03B9\u03B1 \u03B5\u03C0\u03B1\u03BD\u03AC\u03BB\u03B7\u03C8\u03B7"
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      finished: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u7EF4\u4F4D\u4F4D\u4F2A \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      error: "\u8792\u87FA\u6170\u87FF\u8800\u8802\u59D4\u4F2A \u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F\u87FC, \u9B4F\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u7EAC\u5582\u4F2A \u851A\u87FA\u4F2A\u8C13\u7EF4\u4F4D\u754F\u8804\u754F",
+      retry: "\u879D\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u7EAC\u5582\u4F2A \u851A\u87FA\u4F2A\u8C13\u7EF4\u4F4D\u754F\u8804\u754F"
     },
-    // Μήνυμα
+    // 螠萎谓蠀渭伪
     message: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170"
     },
-    // Ειδοποίηση
+    // 螘喂未慰蟺慰委畏蟽畏
     notification: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170"
     },
-    // Φόρτωση
+    // 桅蠈蟻蟿蠅蟽畏
     loading: {
-      text: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7..."
+      text: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F..."
     },
-    // Περιστροφή
+    // 螤蔚蟻喂蟽蟿蟻慰蠁萎
     spin: {
-      text: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7..."
+      text: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F..."
     },
-    // Αξιολόγηση
+    // 螒尉喂慰位蠈纬畏蟽畏
     rate: {
-      texts: ["\u0395\u03BE\u03B1\u03B9\u03C1\u03B5\u03C4\u03B9\u03BA\u03AC \u03BA\u03B1\u03BA\u03AE", "\u0391\u03C0\u03BF\u03B3\u03BF\u03B7\u03C4\u03B5\u03C5\u03BC\u03AD\u03BD\u03BF\u03C2", "\u039C\u03AD\u03C4\u03C1\u03B9\u03B1", "\u0395\u03C5\u03C7\u03B1\u03C1\u03B9\u03C3\u03C4\u03B7\u03BC\u03AD\u03BD\u03BF\u03C2", "\u0395\u03BA\u03C0\u03BB\u03B7\u03BA\u03C4\u03B9\u03BA\u03CC\u03C2"]
+      texts: ["\u8798\u5C09\u4F2A\u5582\u87FB\u851A\u87FF\u5582\u9B4F\u7EF4 \u9B4F\u4F2A\u9B4F\u840E", "\u8792\u87FA\u6170\u7EAC\u6170\u754F\u87FF\u851A\u8800\u6E2D\u82C7\u8C13\u6170\u87FC", "\u87A0\u82C7\u87FF\u87FB\u5582\u4F2A", "\u8798\u8800\u8802\u4F2A\u87FB\u5582\u87FD\u87FF\u754F\u6E2D\u82C7\u8C13\u6170\u87FC", "\u8798\u9B4F\u87FA\u4F4D\u754F\u9B4F\u87FF\u5582\u9B4F\u8808\u87FC"]
     },
-    // Ειδοποίηση
+    // 螘喂未慰蟺慰委畏蟽畏
     alert: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170"
     },
-    // Ετικέτα
+    // 螘蟿喂魏苇蟿伪
     tag: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170"
     },
-    // Καρτέλες
+    // 螝伪蟻蟿苇位蔚蟼
     tabs: {
-      close: "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
-      add: "\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7",
-      more: "\u03A0\u03B5\u03C1\u03B9\u03C3\u03C3\u03CC\u03C4\u03B5\u03C1\u03B1"
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170",
+      add: "\u87A4\u87FB\u6170\u87FD\u80C3\u840E\u9B4F\u754F",
+      more: "\u87A4\u851A\u87FB\u5582\u87FD\u87FD\u8808\u87FF\u851A\u87FB\u4F2A"
     },
-    // Βήματα
+    // 螔萎渭伪蟿伪
     steps: {
-      finish: "\u039F\u03BB\u03BF\u03BA\u03BB\u03B7\u03C1\u03CE\u03B8\u03B7\u03BA\u03B5",
-      process: "\u03A3\u03B5 \u03B5\u03BE\u03AD\u03BB\u03B9\u03BE\u03B7",
-      wait: "\u0391\u03BD\u03B1\u03BC\u03BF\u03BD\u03AE",
-      error: "\u03A3\u03C6\u03AC\u03BB\u03BC\u03B1"
+      finish: "\u87A3\u4F4D\u6170\u9B4F\u4F4D\u754F\u87FB\u880B\u80C3\u754F\u9B4F\u851A",
+      process: "\u5371\u851A \u851A\u5C09\u82C7\u4F4D\u5582\u5C09\u754F",
+      wait: "\u8792\u8C13\u4F2A\u6E2D\u6170\u8C13\u840E",
+      error: "\u5371\u8801\u7EF4\u4F4D\u6E2D\u4F2A"
     },
-    // Πρόοδος
+    // 螤蟻蠈慰未慰蟼
     progress: {
-      success: "\u0395\u03C0\u03B9\u03C4\u03C5\u03C7\u03AF\u03B1",
-      exception: "\u0395\u03BE\u03B1\u03AF\u03C1\u03B5\u03C3\u03B7",
-      warning: "\u03A0\u03C1\u03BF\u03B5\u03B9\u03B4\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7"
+      success: "\u8798\u87FA\u5582\u87FF\u8800\u8802\u59D4\u4F2A",
+      exception: "\u8798\u5C09\u4F2A\u59D4\u87FB\u851A\u87FD\u754F",
+      warning: "\u87A4\u87FB\u6170\u851A\u5582\u672A\u6170\u87FA\u6170\u59D4\u754F\u87FD\u754F"
     },
-    // Σκελετός
+    // 危魏蔚位蔚蟿蠈蟼
     skeleton: {
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7..."
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F..."
     },
-    // Άδειο
+    // 螁未蔚喂慰
     empty: {
-      description: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      noResult: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1",
-      networkError: "\u03A3\u03C6\u03AC\u03BB\u03BC\u03B1 \u03B4\u03B9\u03BA\u03C4\u03CD\u03BF\u03C5",
-      serverError: "\u03A3\u03C6\u03AC\u03BB\u03BC\u03B1 \u03B4\u03B9\u03B1\u03BA\u03BF\u03BC\u03B9\u03C3\u03C4\u03AE"
+      description: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      noResult: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u4F2A\u87FA\u6170\u87FF\u851A\u4F4D\u82C7\u87FD\u6E2D\u4F2A\u87FF\u4F2A",
+      networkError: "\u5371\u8801\u7EF4\u4F4D\u6E2D\u4F2A \u672A\u5582\u9B4F\u87FF\u8809\u6170\u8800",
+      serverError: "\u5371\u8801\u7EF4\u4F4D\u6E2D\u4F2A \u672A\u5582\u4F2A\u9B4F\u6170\u6E2D\u5582\u87FD\u87FF\u840E"
     },
-    // Αποτέλεσμα
+    // 螒蟺慰蟿苇位蔚蟽渭伪
     result: {
-      success: "\u0395\u03C0\u03B9\u03C4\u03C5\u03C7\u03AF\u03B1",
-      error: "\u03A3\u03C6\u03AC\u03BB\u03BC\u03B1",
-      warning: "\u03A0\u03C1\u03BF\u03B5\u03B9\u03B4\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7",
-      info: "\u03A0\u03BB\u03B7\u03C1\u03BF\u03C6\u03BF\u03C1\u03AF\u03B1",
-      backHome: "\u0395\u03C0\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03C3\u03C4\u03B7\u03BD \u03B1\u03C1\u03C7\u03B9\u03BA\u03AE \u03C3\u03B5\u03BB\u03AF\u03B4\u03B1"
+      success: "\u8798\u87FA\u5582\u87FF\u8800\u8802\u59D4\u4F2A",
+      error: "\u5371\u8801\u7EF4\u4F4D\u6E2D\u4F2A",
+      warning: "\u87A4\u87FB\u6170\u851A\u5582\u672A\u6170\u87FA\u6170\u59D4\u754F\u87FD\u754F",
+      info: "\u87A4\u4F4D\u754F\u87FB\u6170\u8801\u6170\u87FB\u59D4\u4F2A",
+      backHome: "\u8798\u87FA\u5582\u87FD\u87FF\u87FB\u6170\u8801\u840E \u87FD\u87FF\u754F\u8C13 \u4F2A\u87FB\u8802\u5582\u9B4F\u840E \u87FD\u851A\u4F4D\u59D4\u672A\u4F2A"
     },
-    // Καταρράκτης
+    // 螝伪蟿伪蟻蟻维魏蟿畏蟼
     waterfall: {
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      noMore: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03AC\u03BB\u03BB\u03B1 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1",
-      empty: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1"
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      noMore: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u7EF4\u4F4D\u4F4D\u4F2A \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      empty: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A"
     },
-    // Περιγραφές
+    // 螤蔚蟻喂纬蟻伪蠁苇蟼
     descriptions: {
       colon: ":"
     },
-    // Ολισθητήρας
+    // 螣位喂蟽胃畏蟿萎蟻伪蟼
     slider: {
       tipFormatter: "{value}"
     },
-    // Διακόπτης
+    // 螖喂伪魏蠈蟺蟿畏蟼
     switch: {
       on: "ON",
       off: "OFF"
     },
-    // Κουτί επιλογής
+    // 螝慰蠀蟿委 蔚蟺喂位慰纬萎蟼
     checkbox: {
-      selectAll: "\u0395\u03C0\u03B9\u03BB\u03BF\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD"
+      selectAll: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13"
     },
-    // Ραδιόφωνο
+    // 巍伪未喂蠈蠁蠅谓慰
     radio: {},
-    // Μενού
+    // 螠蔚谓慰蠉
     menu: {
-      collapse: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03BC\u03B5\u03BD\u03BF\u03CD",
-      expand: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7 \u03BC\u03B5\u03BD\u03BF\u03CD"
+      collapse: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F \u6E2D\u851A\u8C13\u6170\u8809",
+      expand: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F \u6E2D\u851A\u8C13\u6170\u8809"
     },
-    // Κάρτα
+    // 螝维蟻蟿伪
     card: {
-      collapse: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7",
-      expand: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7"
+      collapse: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F",
+      expand: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F"
     },
-    // Σύμπτυξη
+    // 危蠉渭蟺蟿蠀尉畏
     collapse: {
-      expand: "\u0391\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7",
-      collapse: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7"
+      expand: "\u8792\u8C13\u7EF4\u87FA\u87FF\u8800\u5C09\u754F",
+      collapse: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F"
     },
-    // Συμβουλή
+    // 危蠀渭尾慰蠀位萎
     tooltip: {},
-    // Αναδυόμενο
+    // 螒谓伪未蠀蠈渭蔚谓慰
     popover: {},
-    // Σήμα
+    // 危萎渭伪
     badge: {},
-    // Αβατάρ
+    // 螒尾伪蟿维蟻
     avatar: {
-      error: "\u0391\u03C0\u03BF\u03C4\u03C5\u03C7\u03AF\u03B1 \u03C6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7\u03C2"
+      error: "\u8792\u87FA\u6170\u87FF\u8800\u8802\u59D4\u4F2A \u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F\u87FC"
     },
-    // Υδατόσημο
+    // 违未伪蟿蠈蟽畏渭慰
     watermark: {},
-    // Διαχωριστικό
+    // 螖喂伪蠂蠅蟻喂蟽蟿喂魏蠈
     divider: {},
-    // Καρούζελ
+    // 螝伪蟻慰蠉味蔚位
     carousel: {
-      prev: "\u03A0\u03C1\u03BF\u03B7\u03B3\u03BF\u03CD\u03BC\u03B5\u03BD\u03B7",
-      next: "\u0395\u03C0\u03CC\u03BC\u03B5\u03BD\u03B7"
+      prev: "\u87A4\u87FB\u6170\u754F\u7EAC\u6170\u8809\u6E2D\u851A\u8C13\u754F",
+      next: "\u8798\u87FA\u8808\u6E2D\u851A\u8C13\u754F"
     },
-    // Κινούμενη γραμμή
+    // 螝喂谓慰蠉渭蔚谓畏 纬蟻伪渭渭萎
     marquee: {},
-    // Στερέωση
+    // 危蟿蔚蟻苇蠅蟽畏
     affix: {},
-    // Άγκυρα
+    // 螁纬魏蠀蟻伪
     anchor: {},
     // Mention
     mention: {
-      placeholder: "\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B5\u03B9\u03C3\u03AC\u03B3\u03B5\u03C4\u03B5",
-      loading: "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7...",
-      noData: "\u0394\u03B5\u03BD \u03C5\u03C0\u03AC\u03C1\u03C7\u03BF\u03C5\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1"
+      placeholder: "\u87A4\u4F2A\u87FB\u4F2A\u9B4F\u4F2A\u4F4D\u880B \u851A\u5582\u87FD\u7EF4\u7EAC\u851A\u87FF\u851A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F...",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\u8798\u87FA\u5582\u4F4D\u82C7\u5C09\u87FF\u851A \u87FA\u87FB\u6170\u672A\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u82C7\u87FC",
+      emptyText: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u87FA\u87FB\u6170\u672A\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u82C7\u87FC",
+      stock: "\u8792\u87FA\u8808\u80C3\u851A\u6E2D\u4F2A",
+      price: "\u97E6\u5582\u6E2D\u840E",
+      selected: "\u8798\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u6170",
+      outOfStock: "\u8798\u9B4F\u87FF\u8808\u87FC \u4F2A\u87FA\u6170\u80C3\u82C7\u6E2D\u4F2A\u87FF\u6170\u87FC"
+    },
+    productcard: {
+      viewDetails: "\u87A4\u87FB\u6170\u5C3E\u6170\u4F4D\u840E \u4F4D\u851A\u87FA\u87FF\u6170\u6E2D\u851A\u87FB\u851A\u5582\u880B\u8C13",
+      buyNow: "\u8792\u7EAC\u6170\u87FB\u7EF4 \u87FF\u880B\u87FB\u4F2A",
+      addToCart: "\u87A4\u87FB\u6170\u87FD\u80C3\u840E\u9B4F\u754F \u87FD\u87FF\u6170 \u9B4F\u4F2A\u4F4D\u7EF4\u80C3\u5582",
+      sold: "\u87A4\u8805\u4F4D\u840E\u80C3\u754F\u9B4F\u851A",
+      soldOut: "\u8798\u5C09\u4F2A\u8C13\u87FF\u4F4D\u840E\u80C3\u754F\u9B4F\u851A",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u8792\u87FB\u8802\u5582\u9B4F\u840E \u87FF\u5582\u6E2D\u840E"
+    },
+    couponcard: {
+      available: "\u8792\u87FA\u8808\u9B4F\u87FF\u754F\u87FD\u754F \u87FF\u880B\u87FB\u4F2A",
+      used: "\u56F4\u87FB\u754F\u87FD\u5582\u6E2D\u6170\u87FA\u6170\u5582\u840E\u80C3\u754F\u9B4F\u851A",
+      expired: "\u8786\u4F4D\u754F\u5C09\u851A",
+      received: "\u87A4\u4F2A\u87FB\u4F2A\u4F4D\u840E\u8801\u80C3\u754F\u9B4F\u851A",
+      limit: "\u87A4\u4F2A\u87FB\u4F2A\u7EAC\u7EAC\u851A\u4F4D\u59D4\u851A\u87FC \u7EF4\u8C13\u8805 \u87FF\u8805\u8C13 {threshold}",
+      noThreshold: "\u56F4\u8805\u87FB\u59D4\u87FC \u851A\u4F4D\u7EF4\u8802\u5582\u87FD\u87FF\u6170 \u8808\u87FB\u5582\u6170",
+      validPeriod: "\u87A4\u851A\u87FB\u59D4\u6170\u672A\u6170\u87FC \u5582\u87FD\u8802\u8809\u6170\u87FC",
+      ruleTitle: "\u879D\u4F2A\u8C13\u8808\u8C13\u851A\u87FC \u8802\u87FB\u840E\u87FD\u754F\u87FC"
+    },
+    luckydraw: {
+      start: "\u8786\u8C13\u4F2A\u87FB\u5C09\u754F",
+      drawing: "\u879D\u4F4D\u840E\u87FB\u8805\u87FD\u754F...",
+      end: "\u87A1\u5582\u9B4F\u754F\u87FF\u840E\u87FC!",
+      retry: "\u8796\u6170\u9B4F\u5582\u6E2D\u7EF4\u87FD\u87FF\u851A \u5C09\u4F2A\u8C13\u7EF4"
+    },
+    filterbar: {
+      all: "\u878C\u4F4D\u4F2A",
+      sort: "\u97E6\u4F2A\u5C09\u5582\u8C13\u8808\u6E2D\u754F\u87FD\u754F",
+      filter: "\u6845\u59D4\u4F4D\u87FF\u87FB\u6170",
+      cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F",
+      reset: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+      confirm: "\u8798\u87FA\u5582\u5C3E\u851A\u5C3E\u4F2A\u59D4\u8805\u87FD\u754F",
+      noOptions: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u851A\u87FA\u5582\u4F4D\u6170\u7EAC\u82C7\u87FC",
+      asc: "\u8792\u8809\u5C09\u6170\u8800\u87FD\u4F2A",
+      desc: "\u6845\u80C3\u59D4\u8C13\u6170\u8800\u87FD\u4F2A",
+      selected: "\u8798\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u6170"
+    },
+    submitbar: {
+      total: "\u5371\u8809\u8C13\u6170\u4F4D\u6170: ",
+      selected: "{count} \u851A\u87FA\u5582\u4F4D\u851A\u7EAC\u6E2D\u82C7\u8C13\u4F2A",
+      submit: "\u87A3\u4F4D\u6170\u9B4F\u4F4D\u840E\u87FB\u8805\u87FD\u754F \u4F2A\u7EAC\u6170\u87FB\u7EF4\u87FC",
+      allSelect: "\u8798\u87FA\u5582\u4F4D\u6170\u7EAC\u840E \u8808\u4F4D\u8805\u8C13"
+    },
+    categorynav: {
+      all: "\u878C\u4F4D\u4F2A",
+      noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u672A\u851A\u672A\u6170\u6E2D\u82C7\u8C13\u4F2A",
+      loading: "\u6845\u8808\u87FB\u87FF\u8805\u87FD\u754F..."
+    },
+    smartaddress: {
+      placeholder: "\u8798\u87FA\u5582\u9B4F\u6170\u4F4D\u4F4D\u840E\u87FD\u87FF\u851A \u87FF\u754F \u672A\u5582\u851A\u8809\u80C3\u8800\u8C13\u87FD\u754F \u851A\u672A\u880B \u7EAC\u5582\u4F2A \u4F2A\u8800\u87FF\u8808\u6E2D\u4F2A\u87FF\u754F \u4F2A\u8C13\u4F2A\u7EAC\u8C13\u880B\u87FB\u5582\u87FD\u754F \u6170\u8C13\u8808\u6E2D\u4F2A\u87FF\u6170\u87FC, \u87FF\u754F\u4F4D\u851A\u8801\u880B\u8C13\u6170\u8800 \u9B4F\u4F2A\u5582 \u87FF\u6170\u87FA\u6170\u80C3\u851A\u87FD\u59D4\u4F2A\u87FC",
+      parse: "\u8786\u5C09\u8800\u87FA\u8C13\u754F \u4F2A\u8C13\u7EF4\u4F4D\u8800\u87FD\u754F",
+      province: "\u87A4\u851A\u87FB\u5582\u8801\u82C7\u87FB\u851A\u5582\u4F2A/\u87A4\u8808\u4F4D\u754F/\u87A4\u851A\u87FB\u5582\u6170\u8802\u840E",
+      city: "\u87A4\u8808\u4F4D\u754F",
+      district: "\u87A4\u851A\u87FB\u5582\u6170\u8802\u840E/\u87A1\u6170\u6E2D\u8808\u87FC",
+      street: "\u87A3\u672A\u8808\u87FC/\u879D\u8805\u6E2D\u8808\u87FA\u6170\u4F4D\u754F",
+      detail: "\u8792\u8C13\u4F2A\u4F4D\u8800\u87FF\u5582\u9B4F\u840E \u672A\u5582\u851A\u8809\u80C3\u8800\u8C13\u87FD\u754F",
+      phone: "\u97E6\u754F\u4F4D\u82C7\u8801\u8805\u8C13\u6170",
+      name: "\u87A4\u4F2A\u87FB\u4F2A\u4F4D\u840E\u87FA\u87FF\u754F\u87FC",
+      parseSuccess: "\u879A \u672A\u5582\u851A\u8809\u80C3\u8800\u8C13\u87FD\u754F \u4F2A\u8C13\u4F2A\u4F4D\u8809\u80C3\u754F\u9B4F\u851A \u6E2D\u851A \u851A\u87FA\u5582\u87FF\u8800\u8802\u59D4\u4F2A",
+      parseFailed: "\u879A \u4F2A\u8C13\u7EF4\u4F4D\u8800\u87FD\u754F \u4F2A\u87FA\u82C7\u87FF\u8800\u8802\u851A, \u87FD\u8800\u6E2D\u87FA\u4F4D\u754F\u87FB\u880B\u87FD\u87FF\u851A \u8802\u851A\u5582\u87FB\u6170\u9B4F\u59D4\u8C13\u754F\u87FF\u4F2A",
+      required: "\u5371\u8800\u6E2D\u87FA\u4F4D\u754F\u87FB\u880B\u87FD\u87FF\u851A \u87FF\u754F\u8C13 \u87FA\u4F4D\u840E\u87FB\u754F \u672A\u5582\u851A\u8809\u80C3\u8800\u8C13\u87FD\u754F",
+      provinceKeywords: ["\u87A4\u851A\u87FB\u5582\u8801\u82C7\u87FB\u851A\u5582\u4F2A", "\u87A1\u6170\u6E2D\u8808\u87FC"],
+      cityKeywords: ["\u87A4\u8808\u4F4D\u754F", "\u8796\u840E\u6E2D\u6170\u87FC"],
+      districtKeywords: ["\u87A4\u851A\u87FB\u5582\u6170\u8802\u840E", "\u87A1\u6170\u6E2D\u8808\u87FC", "\u5371\u8800\u8C13\u6170\u5582\u9B4F\u59D4\u4F2A"],
+      streetKeywords: ["\u87A3\u672A\u8808\u87FC", "\u879E\u851A\u8805\u8801\u8808\u87FB\u6170\u87FC", "\u8796\u87FB\u8808\u6E2D\u6170\u87FC", "\u87A4\u4F4D\u4F2A\u87FF\u851A\u59D4\u4F2A"]
+    },
+    ganttchart: {
+      taskName: "\u878C\u8C13\u6170\u6E2D\u4F2A \u851A\u87FB\u7EAC\u4F2A\u87FD\u59D4\u4F2A\u87FC",
+      searchPlaceholder: "\u8792\u8C13\u4F2A\u5473\u840E\u87FF\u754F\u87FD\u754F \u851A\u87FB\u7EAC\u4F2A\u87FD\u5582\u880B\u8C13...",
+      zoom: "\u8799\u6170\u8800\u6E2D",
+      day: "\u879A\u6E2D\u82C7\u87FB\u4F2A",
+      week: "\u8798\u5C3E\u672A\u6170\u6E2D\u7EF4\u672A\u4F2A",
+      month: "\u87A0\u840E\u8C13\u4F2A\u87FC",
+      year: "\u8786\u87FF\u6170\u87FC",
+      milestone: "\u87A3\u87FB\u8808\u87FD\u754F\u6E2D\u6170"
+    },
+    imagemagnifier: {
+      switchToImage: "\u87A0\u851A\u87FF\u7EF4\u5C3E\u4F2A\u87FD\u754F \u87FD\u87FF\u754F\u8C13 \u851A\u5582\u9B4F\u8808\u8C13\u4F2A {index}",
+      galleryItem: "\u5371\u8800\u4F4D\u4F4D\u6170\u7EAC\u840E {index}",
+      close: "\u879D\u4F4D\u851A\u59D4\u87FD\u5582\u6E2D\u6170"
+    },
     ai: {
       bubble: {
-        citations: "\u0391\u03BD\u03B1\u03C6\u03BF\u03C1\u03AD\u03C2"
+        citations: "\u8792\u8C13\u4F2A\u8801\u6170\u87FB\u82C7\u87FC"
       },
       mention: {
-        placeholder: "@ \u0391\u03BD\u03B1\u03C6\u03AD\u03C1\u03B5\u03C4\u03B5 Agent, \u0388\u03B3\u03B3\u03C1\u03B1\u03C6\u03BF \u03AE \u03A0\u03AF\u03BD\u03B1\u03BA\u03B1...",
+        placeholder: "@ \u8792\u8C13\u4F2A\u8801\u82C7\u87FB\u851A\u87FF\u851A Agent, \u8786\u7EAC\u7EAC\u87FB\u4F2A\u8801\u6170 \u840E \u87A4\u59D4\u8C13\u4F2A\u9B4F\u4F2A...",
         agent: "Agent",
-        document: "\u0388\u03B3\u03B3\u03C1\u03B1\u03C6\u03BF",
-        table: "\u03A0\u03AF\u03BD\u03B1\u03BA\u03B1\u03C2",
-        knowledge: "\u0393\u03BD\u03CE\u03C3\u03B7"
+        document: "\u8786\u7EAC\u7EAC\u87FB\u4F2A\u8801\u6170",
+        table: "\u87A4\u59D4\u8C13\u4F2A\u9B4F\u4F2A\u87FC",
+        knowledge: "\u8795\u8C13\u880B\u87FD\u754F"
       },
       codeBlock: {
-        copyCode: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE \u03BA\u03CE\u03B4\u03B9\u03BA\u03B1",
-        copied: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03AC\u03C6\u03B7\u03BA\u03B5!",
-        run: "\u0395\u03BA\u03C4\u03AD\u03BB\u03B5\u03C3\u03B7 \u03BA\u03CE\u03B4\u03B9\u03BA\u03B1",
-        edit: "\u0395\u03C0\u03B5\u03BE\u03B5\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1",
-        save: "\u0391\u03C0\u03BF\u03B8\u03AE\u03BA\u03B5\u03C5\u03C3\u03B7",
-        cancel: "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7"
+        copyCode: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E \u9B4F\u880B\u672A\u5582\u9B4F\u4F2A",
+        copied: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u7EF4\u8801\u754F\u9B4F\u851A!",
+        run: "\u8798\u9B4F\u87FF\u82C7\u4F4D\u851A\u87FD\u754F \u9B4F\u880B\u672A\u5582\u9B4F\u4F2A",
+        edit: "\u8798\u87FA\u851A\u5C09\u851A\u87FB\u7EAC\u4F2A\u87FD\u59D4\u4F2A",
+        save: "\u8792\u87FA\u6170\u80C3\u840E\u9B4F\u851A\u8800\u87FD\u754F",
+        cancel: "\u8792\u9B4F\u8809\u87FB\u8805\u87FD\u754F"
       },
       codeRunner: {
-        run: "\u0395\u03BA\u03C4\u03AD\u03BB\u03B5\u03C3\u03B7",
-        stop: "\u0394\u03B9\u03B1\u03BA\u03BF\u03C0\u03AE",
-        clear: "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2",
-        reset: "\u0395\u03C0\u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
-        placeholder: "\u039A\u03AC\u03BD\u03C4\u03B5 \u03BA\u03BB\u03B9\u03BA \u03C3\u03C4\u03B7\u03BD \u0395\u03BA\u03C4\u03AD\u03BB\u03B5\u03C3\u03B7 \u03B3\u03B9\u03B1 \u03BD\u03B1 \u03B5\u03BA\u03C4\u03B5\u03BB\u03AD\u03C3\u03B5\u03C4\u03B5 \u03C4\u03BF\u03BD \u03BA\u03CE\u03B4\u03B9\u03BA\u03B1..."
+        run: "\u8798\u9B4F\u87FF\u82C7\u4F4D\u851A\u87FD\u754F",
+        stop: "\u8796\u5582\u4F2A\u9B4F\u6170\u87FA\u840E",
+        clear: "\u879D\u4F2A\u80C3\u4F2A\u87FB\u5582\u87FD\u6E2D\u8808\u87FC",
+        reset: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+        placeholder: "\u879D\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u87FD\u87FF\u754F\u8C13 \u8798\u9B4F\u87FF\u82C7\u4F4D\u851A\u87FD\u754F \u7EAC\u5582\u4F2A \u8C13\u4F2A \u851A\u9B4F\u87FF\u851A\u4F4D\u82C7\u87FD\u851A\u87FF\u851A \u87FF\u6170\u8C13 \u9B4F\u880B\u672A\u5582\u9B4F\u4F2A..."
       },
       sender: {
-        placeholder: "\u03A3\u03C4\u03B5\u03AF\u03BB\u03C4\u03B5 \u03BC\u03AE\u03BD\u03C5\u03BC\u03B1...",
-        dragTip: "\u0391\u03C6\u03AE\u03C3\u03C4\u03B5 \u03B3\u03B9\u03B1 \u03BD\u03B1 \u03B1\u03BD\u03B5\u03B2\u03AC\u03C3\u03B5\u03C4\u03B5 \u03B1\u03C1\u03C7\u03B5\u03AF\u03B1"
+        placeholder: "\u5371\u87FF\u851A\u59D4\u4F4D\u87FF\u851A \u6E2D\u840E\u8C13\u8800\u6E2D\u4F2A...",
+        dragTip: "\u8792\u8801\u840E\u87FD\u87FF\u851A \u7EAC\u5582\u4F2A \u8C13\u4F2A \u4F2A\u8C13\u851A\u5C3E\u7EF4\u87FD\u851A\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u4F2A"
       },
       thoughtChain: {
-        thoughtProcess: "\u0394\u03B9\u03B1\u03B4\u03B9\u03BA\u03B1\u03C3\u03AF\u03B1 \u03A3\u03BA\u03AD\u03C8\u03B7\u03C2",
-        thinking: "\u03A3\u03BA\u03AD\u03C8\u03B7...",
-        defaultTitle: "\u039D\u03AD\u03BF \u0392\u03AE\u03BC\u03B1",
-        addNode: "\u03A0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7 \u0392\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2"
+        thoughtProcess: "\u8796\u5582\u4F2A\u672A\u5582\u9B4F\u4F2A\u87FD\u59D4\u4F2A \u5371\u9B4F\u82C7\u8804\u754F\u87FC",
+        thinking: "\u5371\u9B4F\u82C7\u8804\u754F...",
+        defaultTitle: "\u87A1\u82C7\u6170 \u8794\u840E\u6E2D\u4F2A",
+        addNode: "\u87A4\u87FB\u6170\u87FD\u80C3\u840E\u9B4F\u754F \u8794\u840E\u6E2D\u4F2A\u87FF\u6170\u87FC"
       },
       thinking: {
-        start: "\u039E\u03B5\u03BA\u03B9\u03BD\u03AE\u03C3\u03C4\u03B5 \u03BD\u03B1 \u03C3\u03BA\u03AD\u03C6\u03C4\u03B5\u03C3\u03C4\u03B5",
-        thinking: "\u03A3\u03BA\u03AD\u03C8\u03B7...",
-        complete: "\u0397 \u03C3\u03BA\u03AD\u03C8\u03B7 \u03BF\u03BB\u03BF\u03BA\u03BB\u03B7\u03C1\u03CE\u03B8\u03B7\u03BA\u03B5",
-        error: "\u03A3\u03C6\u03AC\u03BB\u03BC\u03B1 \u03C3\u03BA\u03AD\u03C8\u03B7\u03C2"
+        start: "\u87A2\u851A\u9B4F\u5582\u8C13\u840E\u87FD\u87FF\u851A \u8C13\u4F2A \u87FD\u9B4F\u82C7\u8801\u87FF\u851A\u87FD\u87FF\u851A",
+        thinking: "\u5371\u9B4F\u82C7\u8804\u754F...",
+        complete: "\u879A \u87FD\u9B4F\u82C7\u8804\u754F \u6170\u4F4D\u6170\u9B4F\u4F4D\u754F\u87FB\u880B\u80C3\u754F\u9B4F\u851A",
+        error: "\u5371\u8801\u7EF4\u4F4D\u6E2D\u4F2A \u87FD\u9B4F\u82C7\u8804\u754F\u87FC"
       },
       welcome: {
-        title: "\u0393\u03B5\u03B9\u03B1 \u03C3\u03B1\u03C2, \u03B5\u03AF\u03BC\u03B1\u03B9 \u03BF YH AI",
-        description: "\u039C\u03C0\u03BF\u03C1\u03CE \u03BD\u03B1 \u03C3\u03B1\u03C2 \u03B2\u03BF\u03B7\u03B8\u03AE\u03C3\u03C9 \u03BC\u03B5 \u03C4\u03BF\u03BD \u03C0\u03C1\u03BF\u03B3\u03C1\u03B1\u03BC\u03BC\u03B1\u03C4\u03B9\u03C3\u03BC\u03CC, \u03C4\u03B7 \u03BC\u03B5\u03C4\u03AC\u03C6\u03C1\u03B1\u03C3\u03B7 \u03B5\u03B3\u03B3\u03C1\u03AC\u03C6\u03C9\u03BD \u03AE \u03C4\u03B7 \u03B4\u03B7\u03BC\u03B9\u03BF\u03C5\u03C1\u03B3\u03B9\u03BA\u03AE \u03B3\u03C1\u03B1\u03C6\u03AE. \u03A4\u03B9 \u03BC\u03C0\u03BF\u03C1\u03CE \u03BD\u03B1 \u03BA\u03AC\u03BD\u03C9 \u03B3\u03B9\u03B1 \u03B5\u03C3\u03AC\u03C2 \u03C3\u03AE\u03BC\u03B5\u03C1\u03B1;"
+        title: "\u8795\u851A\u5582\u4F2A \u87FD\u4F2A\u87FC, \u851A\u59D4\u6E2D\u4F2A\u5582 \u6170 YH AI",
+        description: "\u87A0\u87FA\u6170\u87FB\u880B \u8C13\u4F2A \u87FD\u4F2A\u87FC \u5C3E\u6170\u754F\u80C3\u840E\u87FD\u8805 \u6E2D\u851A \u87FF\u6170\u8C13 \u87FA\u87FB\u6170\u7EAC\u87FB\u4F2A\u6E2D\u6E2D\u4F2A\u87FF\u5582\u87FD\u6E2D\u8808, \u87FF\u754F \u6E2D\u851A\u87FF\u7EF4\u8801\u87FB\u4F2A\u87FD\u754F \u851A\u7EAC\u7EAC\u87FB\u7EF4\u8801\u8805\u8C13 \u840E \u87FF\u754F \u672A\u754F\u6E2D\u5582\u6170\u8800\u87FB\u7EAC\u5582\u9B4F\u840E \u7EAC\u87FB\u4F2A\u8801\u840E. \u97E6\u5582 \u6E2D\u87FA\u6170\u87FB\u880B \u8C13\u4F2A \u9B4F\u7EF4\u8C13\u8805 \u7EAC\u5582\u4F2A \u851A\u87FD\u7EF4\u87FC \u87FD\u840E\u6E2D\u851A\u87FB\u4F2A;"
       },
       action: {
-        copy: "\u0391\u03BD\u03C4\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE",
-        regenerate: "\u0391\u03BD\u03B1\u03B3\u03AD\u03BD\u03BD\u03B7\u03C3\u03B7",
-        share: "\u039A\u03BF\u03B9\u03BD\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7",
-        like: "\u039C\u03BF\u03C5 \u03B1\u03C1\u03AD\u03C3\u03B5\u03B9",
-        dislike: "\u0394\u03B5\u03BD \u03BC\u03BF\u03C5 \u03B1\u03C1\u03AD\u03C3\u03B5\u03B9",
-        edit: "\u0395\u03C0\u03B5\u03BE\u03B5\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1",
-        delete: "\u0394\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE"
+        copy: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E",
+        regenerate: "\u8792\u8C13\u4F2A\u7EAC\u82C7\u8C13\u8C13\u754F\u87FD\u754F",
+        share: "\u879D\u6170\u5582\u8C13\u6170\u87FA\u6170\u59D4\u754F\u87FD\u754F",
+        like: "\u87A0\u6170\u8800 \u4F2A\u87FB\u82C7\u87FD\u851A\u5582",
+        dislike: "\u8796\u851A\u8C13 \u6E2D\u6170\u8800 \u4F2A\u87FB\u82C7\u87FD\u851A\u5582",
+        edit: "\u8798\u87FA\u851A\u5C09\u851A\u87FB\u7EAC\u4F2A\u87FD\u59D4\u4F2A",
+        delete: "\u8796\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E"
       },
       artifacts: {
-        preview: "\u03A0\u03C1\u03BF\u03B5\u03C0\u03B9\u03C3\u03BA\u03CC\u03C0\u03B7\u03C3\u03B7",
-        inline: "\u0395\u03BD\u03C3\u03C9\u03BC\u03B1\u03C4\u03C9\u03BC\u03AD\u03BD\u03BF",
-        code: "\u03A0\u03B7\u03B3\u03B1\u03AF\u03BF\u03C2 \u03BA\u03CE\u03B4\u03B9\u03BA\u03B1\u03C2",
-        versions: "\u0395\u03BA\u03B4\u03CC\u03C3\u03B5\u03B9\u03C2",
-        rendering: "\u0391\u03C0\u03CC\u03B4\u03BF\u03C3\u03B7 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF\u03C5...",
-        renderingChart: "\u0391\u03C0\u03CC\u03B4\u03BF\u03C3\u03B7 \u03B3\u03C1\u03B1\u03C6\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2...",
-        renderingCanvas: "\u03A0\u03C1\u03BF\u03B5\u03C4\u03BF\u03B9\u03BC\u03B1\u03C3\u03AF\u03B1 \u03BA\u03B1\u03BC\u03B2\u03AC..."
+        preview: "\u87A4\u87FB\u6170\u851A\u87FA\u5582\u87FD\u9B4F\u8808\u87FA\u754F\u87FD\u754F",
+        inline: "\u8798\u8C13\u87FD\u8805\u6E2D\u4F2A\u87FF\u8805\u6E2D\u82C7\u8C13\u6170",
+        code: "\u87A4\u754F\u7EAC\u4F2A\u59D4\u6170\u87FC \u9B4F\u880B\u672A\u5582\u9B4F\u4F2A\u87FC",
+        versions: "\u8798\u9B4F\u672A\u8808\u87FD\u851A\u5582\u87FC",
+        rendering: "\u8792\u87FA\u8808\u672A\u6170\u87FD\u754F \u87FD\u87FF\u6170\u5582\u8802\u851A\u59D4\u6170\u8800...",
+        renderingChart: "\u8792\u87FA\u8808\u672A\u6170\u87FD\u754F \u7EAC\u87FB\u4F2A\u8801\u840E\u6E2D\u4F2A\u87FF\u6170\u87FC...",
+        renderingCanvas: "\u87A4\u87FB\u6170\u851A\u87FF\u6170\u5582\u6E2D\u4F2A\u87FD\u59D4\u4F2A \u9B4F\u4F2A\u6E2D\u5C3E\u7EF4..."
       },
       voice: {
-        trigger: "\u039A\u03BB\u03B9\u03BA \u03B3\u03B9\u03B1 \u039F\u03BC\u03B9\u03BB\u03AF\u03B1",
-        listening: "\u0391\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7..."
+        trigger: "\u879D\u4F4D\u5582\u9B4F \u7EAC\u5582\u4F2A \u87A3\u6E2D\u5582\u4F4D\u59D4\u4F2A",
+        listening: "\u8792\u9B4F\u87FB\u8808\u4F2A\u87FD\u754F..."
       },
       agent: {
-        uses: "\u03C7\u03C1\u03B7\u03C3\u03B9\u03BC\u03BF\u03C0\u03BF\u03B9\u03B5\u03AF",
-        use: "\u03A7\u03C1\u03AE\u03C3\u03B7 \u03C4\u03CE\u03C1\u03B1",
-        favorite: "\u0391\u03B3\u03B1\u03C0\u03B7\u03BC\u03AD\u03BD\u03BF",
-        unfavorite: "\u039A\u03B1\u03C4\u03AC\u03C1\u03B3\u03B7\u03C3\u03B7 \u03B1\u03B3\u03B1\u03C0\u03B7\u03BC\u03AD\u03BD\u03BF\u03C5",
-        share: "\u039A\u03BF\u03B9\u03BD\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7",
-        online: "\u03A3\u03B5 \u03C3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7",
-        offline: "\u0395\u03BA\u03C4\u03CC\u03C2 \u03C3\u03CD\u03BD\u03B4\u03B5\u03C3\u03B7\u03C2",
-        busy: "\u0391\u03C0\u03B1\u03C3\u03C7\u03BF\u03BB\u03B7\u03BC\u03AD\u03BD\u03BF\u03C2",
-        verified: "\u0395\u03C0\u03B1\u03BB\u03B7\u03B8\u03B5\u03C5\u03BC\u03AD\u03BD\u03BF\u03C2",
-        rating: "\u0392\u03B1\u03B8\u03BC\u03BF\u03BB\u03BF\u03B3\u03AF\u03B1",
-        reviews: "\u03BA\u03C1\u03B9\u03C4\u03B9\u03BA\u03AD\u03C2",
-        responseTime: "\u039C\u03AD\u03C3\u03BF\u03C2 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C2 \u03B1\u03C0\u03CC\u03BA\u03C1\u03B9\u03C3\u03B7\u03C2",
+        uses: "\u8802\u87FB\u754F\u87FD\u5582\u6E2D\u6170\u87FA\u6170\u5582\u851A\u59D4",
+        use: "\u56F4\u87FB\u840E\u87FD\u754F \u87FF\u880B\u87FB\u4F2A",
+        favorite: "\u8792\u7EAC\u4F2A\u87FA\u754F\u6E2D\u82C7\u8C13\u6170",
+        unfavorite: "\u879D\u4F2A\u87FF\u7EF4\u87FB\u7EAC\u754F\u87FD\u754F \u4F2A\u7EAC\u4F2A\u87FA\u754F\u6E2D\u82C7\u8C13\u6170\u8800",
+        share: "\u879D\u6170\u5582\u8C13\u6170\u87FA\u6170\u59D4\u754F\u87FD\u754F",
+        online: "\u5371\u851A \u87FD\u8809\u8C13\u672A\u851A\u87FD\u754F",
+        offline: "\u8798\u9B4F\u87FF\u8808\u87FC \u87FD\u8809\u8C13\u672A\u851A\u87FD\u754F\u87FC",
+        busy: "\u8792\u87FA\u4F2A\u87FD\u8802\u6170\u4F4D\u754F\u6E2D\u82C7\u8C13\u6170\u87FC",
+        verified: "\u8798\u87FA\u4F2A\u4F4D\u754F\u80C3\u851A\u8800\u6E2D\u82C7\u8C13\u6170\u87FC",
+        rating: "\u8794\u4F2A\u80C3\u6E2D\u6170\u4F4D\u6170\u7EAC\u59D4\u4F2A",
+        reviews: "\u9B4F\u87FB\u5582\u87FF\u5582\u9B4F\u82C7\u87FC",
+        responseTime: "\u87A0\u82C7\u87FD\u6170\u87FC \u8802\u87FB\u8808\u8C13\u6170\u87FC \u4F2A\u87FA\u8808\u9B4F\u87FB\u5582\u87FD\u754F\u87FC",
         ms: "ms"
       },
       sources: {
-        references: "\u0391\u03BD\u03B1\u03C6\u03BF\u03C1\u03AD\u03C2",
-        referencedSources: "\u0391\u03BD\u03B1\u03C6\u03B5\u03C1\u03CC\u03BC\u03B5\u03BD\u03B5\u03C2 \u03C0\u03B7\u03B3\u03AD\u03C2",
-        relevant: "\u03A3\u03C7\u03B5\u03C4\u03B9\u03BA\u03CC\u03C4\u03B7\u03C4\u03B1",
-        viewOriginal: "\u03A0\u03C1\u03BF\u03B2\u03BF\u03BB\u03AE \u03C0\u03C1\u03C9\u03C4\u03CC\u03C4\u03C5\u03C0\u03BF\u03C5",
-        showAll: "\u0395\u03BC\u03C6\u03AC\u03BD\u03B9\u03C3\u03B7 \u03CC\u03BB\u03C9\u03BD",
-        more: "\u03C0\u03B5\u03C1\u03B9\u03C3\u03C3\u03CC\u03C4\u03B5\u03C1\u03B5\u03C2 \u03C0\u03B7\u03B3\u03AD\u03C2",
-        drawerTitle: "\u0391\u03BD\u03B1\u03C6\u03BF\u03C1\u03AD\u03C2",
-        expandMore: "\u0395\u03BC\u03C6\u03AC\u03BD\u03B9\u03C3\u03B7 \u03C0\u03B5\u03C1\u03B9\u03C3\u03C3\u03CC\u03C4\u03B5\u03C1\u03C9\u03BD",
-        collapseMore: "\u03A3\u03CD\u03BC\u03C0\u03C4\u03C5\u03BE\u03B7",
-        noSources: "\u03A7\u03C9\u03C1\u03AF\u03C2 \u03C0\u03B7\u03B3\u03AD\u03C2",
-        today: "\u03A3\u03AE\u03BC\u03B5\u03C1\u03B1",
-        last7Days: "\u03A4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03B5\u03C2 7 \u03B7\u03BC\u03AD\u03C1\u03B5\u03C2",
-        last30Days: "\u03A4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03B5\u03C2 30 \u03B7\u03BC\u03AD\u03C1\u03B5\u03C2",
-        earlier: "\u03A0\u03B1\u03BB\u03B1\u03B9\u03CC\u03C4\u03B5\u03C1\u03B1",
-        pinned: "\u039A\u03B1\u03C1\u03C6\u03B9\u03C4\u03C3\u03C9\u03BC\u03AD\u03BD\u03BF"
+        references: "\u8792\u8C13\u4F2A\u8801\u6170\u87FB\u82C7\u87FC",
+        referencedSources: "\u8792\u8C13\u4F2A\u8801\u851A\u87FB\u8808\u6E2D\u851A\u8C13\u851A\u87FC \u87FA\u754F\u7EAC\u82C7\u87FC",
+        relevant: "\u5371\u8802\u851A\u87FF\u5582\u9B4F\u8808\u87FF\u754F\u87FF\u4F2A",
+        viewOriginal: "\u87A4\u87FB\u6170\u5C3E\u6170\u4F4D\u840E \u87FA\u87FB\u8805\u87FF\u8808\u87FF\u8800\u87FA\u6170\u8800",
+        showAll: "\u8798\u6E2D\u8801\u7EF4\u8C13\u5582\u87FD\u754F \u8808\u4F4D\u8805\u8C13",
+        more: "\u87FA\u851A\u87FB\u5582\u87FD\u87FD\u8808\u87FF\u851A\u87FB\u851A\u87FC \u87FA\u754F\u7EAC\u82C7\u87FC",
+        drawerTitle: "\u8792\u8C13\u4F2A\u8801\u6170\u87FB\u82C7\u87FC",
+        expandMore: "\u8798\u6E2D\u8801\u7EF4\u8C13\u5582\u87FD\u754F \u87FA\u851A\u87FB\u5582\u87FD\u87FD\u8808\u87FF\u851A\u87FB\u8805\u8C13",
+        collapseMore: "\u5371\u8809\u6E2D\u87FA\u87FF\u8800\u5C09\u754F",
+        noSources: "\u56F4\u8805\u87FB\u59D4\u87FC \u87FA\u754F\u7EAC\u82C7\u87FC",
+        today: "\u5371\u840E\u6E2D\u851A\u87FB\u4F2A",
+        last7Days: "\u97E6\u851A\u4F4D\u851A\u8800\u87FF\u4F2A\u59D4\u851A\u87FC 7 \u754F\u6E2D\u82C7\u87FB\u851A\u87FC",
+        last30Days: "\u97E6\u851A\u4F4D\u851A\u8800\u87FF\u4F2A\u59D4\u851A\u87FC 30 \u754F\u6E2D\u82C7\u87FB\u851A\u87FC",
+        earlier: "\u87A4\u4F2A\u4F4D\u4F2A\u5582\u8808\u87FF\u851A\u87FB\u4F2A",
+        pinned: "\u879D\u4F2A\u87FB\u8801\u5582\u87FF\u87FD\u8805\u6E2D\u82C7\u8C13\u6170"
       },
       conversations: {
-        today: "\u03A3\u03AE\u03BC\u03B5\u03C1\u03B1",
-        last7Days: "\u03A4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03B5\u03C2 7 \u03B7\u03BC\u03AD\u03C1\u03B5\u03C2",
-        last30Days: "\u03A4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03B5\u03C2 30 \u03B7\u03BC\u03AD\u03C1\u03B5\u03C2",
-        earlier: "\u03A0\u03B1\u03BB\u03B1\u03B9\u03CC\u03C4\u03B5\u03C1\u03B1",
-        pinned: "\u039A\u03B1\u03C1\u03C6\u03B9\u03C4\u03C3\u03C9\u03BC\u03AD\u03BD\u03BF",
-        pin: "\u039A\u03B1\u03C1\u03C6\u03AF\u03C4\u03C3\u03C9\u03BC\u03B1",
-        unpin: "\u039E\u03B5\u03BA\u03B1\u03C1\u03C6\u03AF\u03C4\u03C3\u03C9\u03BC\u03B1",
-        newConversation: "\u039D\u03AD\u03B1 \u03C3\u03C5\u03BD\u03BF\u03BC\u03B9\u03BB\u03AF\u03B1",
-        rename: "\u039C\u03B5\u03C4\u03BF\u03BD\u03BF\u03BC\u03B1\u03C3\u03AF\u03B1",
-        delete: "\u0394\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE",
-        deleteConfirm: "\u0395\u03C0\u03B9\u03B2\u03B5\u03B2\u03B1\u03AF\u03C9\u03C3\u03B7 \u03B4\u03B9\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE\u03C2 \u03B1\u03C5\u03C4\u03AE\u03C2 \u03C4\u03B7\u03C2 \u03C3\u03C5\u03BD\u03BF\u03BC\u03B9\u03BB\u03AF\u03B1\u03C2;"
+        today: "\u5371\u840E\u6E2D\u851A\u87FB\u4F2A",
+        last7Days: "\u97E6\u851A\u4F4D\u851A\u8800\u87FF\u4F2A\u59D4\u851A\u87FC 7 \u754F\u6E2D\u82C7\u87FB\u851A\u87FC",
+        last30Days: "\u97E6\u851A\u4F4D\u851A\u8800\u87FF\u4F2A\u59D4\u851A\u87FC 30 \u754F\u6E2D\u82C7\u87FB\u851A\u87FC",
+        earlier: "\u87A1\u8805\u87FB\u59D4\u87FF\u851A\u87FB\u4F2A",
+        pinned: "\u879D\u4F2A\u87FB\u8801\u5582\u87FF\u87FD\u8805\u6E2D\u82C7\u8C13\u6170",
+        pin: "\u879D\u4F2A\u87FB\u8801\u59D4\u87FF\u87FD\u8805\u6E2D\u4F2A",
+        unpin: "\u87A2\u851A\u9B4F\u4F2A\u87FB\u8801\u59D4\u87FF\u87FD\u8805\u6E2D\u4F2A",
+        newConversation: "\u87A1\u82C7\u4F2A \u87FD\u8800\u8C13\u6170\u6E2D\u5582\u4F4D\u59D4\u4F2A",
+        noData: "\u8796\u851A\u8C13 \u8800\u87FA\u7EF4\u87FB\u8802\u6170\u8800\u8C13 \u4F2A\u9B4F\u8808\u6E2D\u754F \u87FD\u8800\u8C13\u6170\u6E2D\u5582\u4F4D\u59D4\u851A\u87FC",
+        rename: "\u87A0\u851A\u87FF\u6170\u8C13\u6170\u6E2D\u4F2A\u87FD\u59D4\u4F2A",
+        delete: "\u8796\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E",
+        deleteConfirm: "\u8798\u87FA\u5582\u5C3E\u851A\u5C3E\u4F2A\u5582\u880B\u8C13\u851A\u87FF\u851A \u87FF\u754F \u672A\u5582\u4F2A\u7EAC\u87FB\u4F2A\u8801\u840E \u4F2A\u8800\u87FF\u840E\u87FC \u87FF\u754F\u87FC \u87FD\u8800\u8C13\u6170\u6E2D\u5582\u4F4D\u59D4\u4F2A\u87FC;"
+      },
+      attachments: {
+        dropTip: "\u8792\u8801\u840E\u87FD\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u4F2A \u851A\u672A\u880B \u7EAC\u5582\u4F2A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F",
+        clickToUpload: "\u879D\u7EF4\u8C13\u87FF\u851A \u9B4F\u4F4D\u5582\u9B4F \u840E \u87FD\u8809\u87FB\u851A\u87FF\u851A \u4F2A\u87FB\u8802\u851A\u59D4\u4F2A \u7EAC\u5582\u4F2A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F",
+        uploadSuccess: "\u879A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F \u6170\u4F4D\u6170\u9B4F\u4F4D\u754F\u87FB\u880B\u80C3\u754F\u9B4F\u851A",
+        uploadError: "\u879A \u6E2D\u851A\u87FF\u4F2A\u8801\u8808\u87FB\u87FF\u8805\u87FD\u754F \u4F2A\u87FA\u82C7\u87FF\u8800\u8802\u851A",
+        deleteConfirm: "\u8798\u59D4\u87FD\u87FF\u851A \u5C3E\u82C7\u5C3E\u4F2A\u5582\u6170\u5582 \u8808\u87FF\u5582 \u80C3\u82C7\u4F4D\u851A\u87FF\u851A \u8C13\u4F2A \u672A\u5582\u4F2A\u7EAC\u87FB\u7EF4\u8804\u851A\u87FF\u851A \u4F2A\u8800\u87FF\u8808 \u87FF\u6170 \u4F2A\u87FB\u8802\u851A\u59D4\u6170;",
+        fileTooLarge: "\u97E6\u6170 \u6E2D\u82C7\u7EAC\u851A\u80C3\u6170\u87FC \u87FF\u6170\u8800 \u4F2A\u87FB\u8802\u851A\u59D4\u6170\u8800 \u672A\u851A\u8C13 \u6E2D\u87FA\u6170\u87FB\u851A\u59D4 \u8C13\u4F2A \u8800\u87FA\u851A\u87FB\u5C3E\u4F2A\u59D4\u8C13\u851A\u5582 \u87FF\u4F2A {size}",
+        invalidFileType: "\u87A0\u754F \u82C7\u7EAC\u9B4F\u8800\u87FB\u6170\u87FC \u87FF\u8809\u87FA\u6170\u87FC \u4F2A\u87FB\u8802\u851A\u59D4\u6170\u8800"
+      },
+      mermaid: {
+        image: "\u8798\u5582\u9B4F\u8808\u8C13\u4F2A",
+        code: "\u879D\u880B\u672A\u5582\u9B4F\u4F2A\u87FC",
+        zoomIn: "\u87A0\u851A\u7EAC\u82C7\u80C3\u8800\u8C13\u87FD\u754F",
+        zoomOut: "\u5371\u6E2D\u59D4\u9B4F\u87FB\u8800\u8C13\u87FD\u754F",
+        reset: "\u8798\u87FA\u4F2A\u8C13\u4F2A\u8801\u6170\u87FB\u7EF4",
+        download: "\u879E\u840E\u8804\u754F",
+        copyCode: "\u8792\u8C13\u87FF\u5582\u7EAC\u87FB\u4F2A\u8801\u840E \u9B4F\u880B\u672A\u5582\u9B4F\u4F2A",
+        rendering: "\u8792\u87FA\u8808\u672A\u6170\u87FD\u754F...",
+        renderError: "\u879A \u4F2A\u87FA\u8808\u672A\u6170\u87FD\u754F \u4F2A\u87FA\u82C7\u87FF\u8800\u8802\u851A",
+        renderSuccess: "\u879A \u4F2A\u87FA\u8808\u672A\u6170\u87FD\u754F \u6170\u4F4D\u6170\u9B4F\u4F4D\u754F\u87FB\u880B\u80C3\u754F\u9B4F\u851A",
+        retry: "\u87A4\u87FB\u6170\u87FD\u87FA\u4F2A\u80C3\u840E\u87FD\u87FF\u851A \u5C09\u4F2A\u8C13\u7EF4"
       }
     }
   }
@@ -27080,12 +30179,12 @@ const el = {
 const ca = {
   name: "ca",
   yh: {
-    // Comú
+    // Com煤
     common: {
-      yes: "S\xED",
+      yes: "S\u94C6",
       no: "No",
       confirm: "Confirmar",
-      cancel: "Cancel\xB7lar",
+      cancel: "Cancel\u8DEFlar",
       loading: "Carregant",
       close: "Tancar",
       clear: "Netejar",
@@ -27098,9 +30197,9 @@ const ca = {
       refresh: "Actualitzar",
       expand: "Expandir",
       collapse: "Contraure",
-      more: "M\xE9s",
+      more: "M\u8305s",
       noData: "Sense dades",
-      noMatch: "Sense coincid\xE8ncies",
+      noMatch: "Sense coincid\u732Bncies",
       selectAll: "Seleccionar tot",
       unselectAll: "Desseleccionar tot"
     },
@@ -27109,8 +30208,8 @@ const ca = {
       confirm: "D'acord",
       clear: "Netejar",
       eyeDropper: "Comptagotes",
-      suggestionDark: "El text blanc \xE9s millor",
-      suggestionLight: "El text negre \xE9s millor",
+      suggestionDark: "El text blanc \u8305s millor",
+      suggestionLight: "El text negre \u8305s millor",
       recentColors: "Colors recents",
       presetColors: "Colors predefinits"
     },
@@ -27118,7 +30217,7 @@ const ca = {
     datepicker: {
       now: "Ara",
       today: "Avui",
-      cancel: "Cancel\xB7lar",
+      cancel: "Cancel\u8DEFlar",
       clear: "Netejar",
       confirm: "D'acord",
       selectDate: "Seleccionar data",
@@ -27133,9 +30232,9 @@ const ca = {
       week: "Setmana",
       monthBeforeYear: true,
       prevYear: "Any anterior",
-      nextYear: "Any seg\xFCent",
+      nextYear: "Any seg\u7709ent",
       prevMonth: "Mes anterior",
-      nextMonth: "Mes seg\xFCent",
+      nextMonth: "Mes seg\u7709ent",
       weeks: {
         sun: "Dg",
         mon: "Dl",
@@ -27169,14 +30268,14 @@ const ca = {
     // Selector d'hora
     timepicker: {
       confirm: "D'acord",
-      cancel: "Cancel\xB7lar",
+      cancel: "Cancel\u8DEFlar",
       now: "Ara",
       placeholder: "Seleccionar hora",
       startPlaceholder: "Hora d'inici",
       endPlaceholder: "Hora de fi",
       selectTime: "Seleccionar hora"
     },
-    // Selecció d'hora
+    // Selecci贸 d'hora
     timeselect: {
       placeholder: "Seleccionar hora"
     },
@@ -27194,14 +30293,14 @@ const ca = {
       placeholder: "Seleccionar",
       emptyText: "Sense dades",
       loading: "Carregant...",
-      noMatch: "Sense coincid\xE8ncies"
+      noMatch: "Sense coincid\u732Bncies"
     },
     // Calendari
     calendar: {
       prevMonth: "Mes anterior",
-      nextMonth: "Mes seg\xFCent",
+      nextMonth: "Mes seg\u7709ent",
       prevYear: "Any anterior",
-      nextYear: "Any seg\xFCent",
+      nextYear: "Any seg\u7709ent",
       today: "Avui",
       week: "Setmana",
       holiday: "Festiu",
@@ -27220,9 +30319,9 @@ const ca = {
     // Autocompletat
     autocomplete: {
       loading: "Carregant...",
-      placeholder: "Si us plau, introdu\xEFu",
+      placeholder: "Si us plau, introdu\u8302u",
       noData: "Sense dades",
-      noMatch: "Sense coincid\xE8ncies"
+      noMatch: "Sense coincid\u732Bncies"
     },
     // Compte enrere
     countdown: {
@@ -27230,19 +30329,19 @@ const ca = {
       hours: "hores",
       minutes: "minuts",
       seconds: "segons",
-      milliseconds: "mil\xB7lisegons",
+      milliseconds: "mil\u8DEFlisegons",
       finished: "Acabat"
     },
     // Cascada
     cascader: {
-      noMatch: "Sense coincid\xE8ncies",
+      noMatch: "Sense coincid\u732Bncies",
       placeholder: "Seleccionar",
       loading: "Carregant...",
       noData: "Sense dades"
     },
-    // Transferència
+    // Transfer猫ncia
     transfer: {
-      noMatch: "Sense coincid\xE8ncies",
+      noMatch: "Sense coincid\u732Bncies",
       noData: "Sense dades",
       titles: ["Llista 1", "Llista 2"],
       filterPlaceholder: "Introduir paraula clau",
@@ -27258,14 +30357,14 @@ const ca = {
       clearFilter: "Tot",
       sumText: "Suma",
       loading: "Carregant...",
-      index: "\xCDndex",
+      index: "\u8125ndex",
       print: "Imprimir",
-      cancel: "Cancel\xB7lar",
-      preview: "Vista pr\xE8via d'impressi\xF3",
-      printTime: "Hora d'impressi\xF3",
+      cancel: "Cancel\u8DEFlar",
+      preview: "Vista pr\u732Bvia d'impressi\u8D38",
+      printTime: "Hora d'impressi\u8D38",
       total: "Total {total} elements",
-      page: "P\xE0gina {page}",
-      yes: "S\xED",
+      page: "P\u813Fgina {page}",
+      yes: "S\u94C6",
       no: "No",
       // Barra d'eines
       toolbar: {
@@ -27274,7 +30373,7 @@ const ca = {
         densityDefault: "Per defecte",
         densityLarge: "Gran",
         densitySmall: "Petit",
-        columnSetting: "Configuraci\xF3 de columnes",
+        columnSetting: "Configuraci\u8D38 de columnes",
         fullscreen: "Pantalla completa",
         exitFullscreen: "Sortir de pantalla completa",
         export: "Exportar",
@@ -27285,66 +30384,66 @@ const ca = {
       // Filtre
       filter: {
         selectAll: "Seleccionar tot",
-        selectInvert: "Invertir selecci\xF3",
-        empty: "Est\xE0 buit",
-        notEmpty: "No est\xE0 buit",
-        contains: "Cont\xE9",
-        notContains: "No cont\xE9",
+        selectInvert: "Invertir selecci\u8D38",
+        empty: "Est\u813F buit",
+        notEmpty: "No est\u813F buit",
+        contains: "Cont\u8305",
+        notContains: "No cont\u8305",
         equals: "Igual",
         notEquals: "No igual",
-        startsWith: "Comen\xE7a amb",
+        startsWith: "Comen\u83BDa amb",
         endsWith: "Acaba amb",
         greaterThan: "Major que",
         lessThan: "Menor que",
         between: "Entre"
       },
-      // Ordenació
+      // Ordenaci贸
       sort: {
         asc: "Ascendent",
         desc: "Descendent",
-        clear: "Netejar ordenaci\xF3"
+        clear: "Netejar ordenaci\u8D38"
       },
-      // Exportació
+      // Exportaci贸
       export: {
         title: "Exportar dades",
         filename: "Nom del fitxer",
         type: "Tipus de fitxer",
-        scope: "Abast d'exportaci\xF3",
+        scope: "Abast d'exportaci\u8D38",
         scopeAll: "Totes les dades",
         scopeSelected: "Dades seleccionades",
-        scopeCurrentPage: "P\xE0gina actual",
-        includeHeader: "Incloure cap\xE7alera",
+        scopeCurrentPage: "P\u813Fgina actual",
+        includeHeader: "Incloure cap\u83BDalera",
         exporting: "Exportant...",
-        success: "Exportaci\xF3 exitosa",
-        error: "Error en l'exportaci\xF3"
+        success: "Exportaci\u8D38 exitosa",
+        error: "Error en l'exportaci\u8D38"
       },
-      // Importació
+      // Importaci贸
       import: {
         title: "Importar dades",
         selectFile: "Seleccionar fitxer",
-        dragTip: "Feu clic o arrossegueu el fitxer aqu\xED per pujar-lo",
+        dragTip: "Feu clic o arrossegueu el fitxer aqu\u94C6 per pujar-lo",
         importing: "Important...",
-        success: "Importaci\xF3 exitosa",
-        error: "Error en l'importaci\xF3",
-        preview: "Vista pr\xE8via de dades",
-        confirm: "Confirmar importaci\xF3"
+        success: "Importaci\u8D38 exitosa",
+        error: "Error en l'importaci\u8D38",
+        preview: "Vista pr\u732Bvia de dades",
+        confirm: "Confirmar importaci\u8D38"
       },
-      // Impressió
+      // Impressi贸
       printConfig: {
-        title: "Configuraci\xF3 d'impressi\xF3",
-        pageTitle: "T\xEDtol de la p\xE0gina",
-        pageHeader: "Cap\xE7alera",
-        pageFooter: "Peu de p\xE0gina",
+        title: "Configuraci\u8D38 d'impressi\u8D38",
+        pageTitle: "T\u94C6tol de la p\u813Fgina",
+        pageHeader: "Cap\u83BDalera",
+        pageFooter: "Peu de p\u813Fgina",
         printAll: "Imprimir tot",
         printSelected: "Imprimir seleccionat",
-        printCurrentPage: "Imprimir p\xE0gina actual",
+        printCurrentPage: "Imprimir p\u813Fgina actual",
         landscape: "Horitzontal",
         portrait: "Vertical",
         printing: "Imprimint..."
       },
-      // Configuració de columnes
+      // Configuraci贸 de columnes
       columnSetting: {
-        title: "Configuraci\xF3 de columnes",
+        title: "Configuraci\u8D38 de columnes",
         showAll: "Mostrar tot",
         hideAll: "Ocultar tot",
         reset: "Restablir",
@@ -27352,11 +30451,11 @@ const ca = {
         fixedRight: "Fixar a la dreta",
         unfixed: "Desfixar"
       },
-      // Menú contextual
+      // Men煤 contextual
       contextMenu: {
         copy: "Copiar",
         copyRow: "Copiar fila",
-        copyCell: "Copiar cel\xB7la",
+        copyCell: "Copiar cel\u8DEFla",
         paste: "Enganxar",
         insertRowAbove: "Inserir fila a dalt",
         insertRowBelow: "Inserir fila a baix",
@@ -27364,11 +30463,11 @@ const ca = {
         deleteSelectedRows: "Eliminar files seleccionades",
         exportSelected: "Exportar seleccionat"
       },
-      // Selecció
+      // Selecci贸
       selection: {
         selectAll: "Seleccionar tot",
-        selectInvert: "Invertir selecci\xF3",
-        selectNone: "Netejar selecci\xF3",
+        selectInvert: "Invertir selecci\u8D38",
+        selectNone: "Netejar selecci\u8D38",
         selected: "{count} elements seleccionats"
       },
       // Expandir
@@ -27385,110 +30484,110 @@ const ca = {
       // Arrossegar
       drag: {
         dragTip: "Arrossegar per reordenar",
-        dropTip: "Deixar anar per col\xB7locar"
+        dropTip: "Deixar anar per col\u8DEFlocar"
       }
     },
     // Quadre de missatge
     messagebox: {
       title: "Missatge",
       confirm: "D'acord",
-      cancel: "Cancel\xB7lar",
+      cancel: "Cancel\u8DEFlar",
       close: "Tancar",
-      error: "Entrada no v\xE0lida",
+      error: "Entrada no v\u813Flida",
       alert: "Alerta",
-      prompt: "Sol\xB7licitud",
-      inputPlaceholder: "Si us plau, introdu\xEFu"
+      prompt: "Sol\u8DEFlicitud",
+      inputPlaceholder: "Si us plau, introdu\u8302u"
     },
     // Pujada
     upload: {
       deleteTip: "premeu delete per eliminar",
       delete: "Eliminar",
-      preview: "Vista pr\xE8via",
+      preview: "Vista pr\u732Bvia",
       continue: "Continuar",
       upload: "Feu clic per pujar",
-      tip: "Feu clic o arrossegueu el fitxer a aquesta \xE0rea per <em>pujar-lo</em>",
-      dragTip: "Deixeu anar el fitxer aqu\xED o feu clic per pujar-lo",
+      tip: "Feu clic o arrossegueu el fitxer a aquesta \u813Frea per <em>pujar-lo</em>",
+      dragTip: "Deixeu anar el fitxer aqu\u94C6 o feu clic per pujar-lo",
       uploading: "Pujant...",
       success: "Pujada exitosa",
       error: "Error en la pujada",
       retry: "Tornar a intentar",
-      cancel: "Cancel\xB7lar pujada",
-      fileTypeError: "El tipus de fitxer no est\xE0 suportat",
-      fileSizeError: "La mida del fitxer supera el l\xEDmit",
-      fileCountError: "El nombre de fitxers supera el l\xEDmit"
+      cancel: "Cancel\u8DEFlar pujada",
+      fileTypeError: "El tipus de fitxer no est\u813F suportat",
+      fileSizeError: "La mida del fitxer supera el l\u94C6mit",
+      fileCountError: "El nombre de fitxers supera el l\u94C6mit"
     },
     // Formulari
     form: {
-      validationFailed: "La validaci\xF3 ha fallat",
+      validationFailed: "La validaci\u8D38 ha fallat",
       required: "Obligatori",
-      pleaseInput: "Si us plau, introdu\xEFu",
+      pleaseInput: "Si us plau, introdu\u8302u",
       pleaseSelect: "Si us plau, seleccioneu"
     },
-    // Botó
+    // Bot贸
     button: {
       loading: "Carregant..."
     },
     // Entrada
     input: {
-      placeholder: "Si us plau, introdu\xEFu",
+      placeholder: "Si us plau, introdu\u8302u",
       clear: "Netejar",
       showPassword: "Mostrar contrasenya",
       hidePassword: "Ocultar contrasenya",
       copy: "Copiar",
       copied: "Copiat"
     },
-    // Entrada numèrica
+    // Entrada num猫rica
     inputnumber: {
-      placeholder: "Si us plau, introdu\xEFu un nombre",
+      placeholder: "Si us plau, introdu\u8302u un nombre",
       increase: "Augmentar",
       decrease: "Disminuir"
     },
     // Etiqueta d\'entrada
     inputtag: {
-      placeholder: "Si us plau, introdu\xEFu",
+      placeholder: "Si us plau, introdu\u8302u",
       add: "Afegir",
       remove: "Eliminar"
     },
-    // Ruta de navegació
+    // Ruta de navegaci贸
     breadcrumb: {
-      label: "Ruta de navegaci\xF3",
-      more: "M\xE9s"
+      label: "Ruta de navegaci\u8D38",
+      more: "M\u8305s"
     },
     // Tornar a dalt
     backtop: {
       text: "Tornar a dalt"
     },
-    // Selecció
+    // Selecci贸
     select: {
       placeholder: "Si us plau, seleccioneu",
       noData: "Sense dades",
       loading: "Carregant...",
-      noMatch: "Sense coincid\xE8ncies",
+      noMatch: "Sense coincid\u732Bncies",
       selectAll: "Seleccionar tot",
       clearAll: "Netejar tot"
     },
-    // Paginació
+    // Paginaci贸
     pagination: {
       goto: "Anar a",
       page: "",
       total: "Total {total}",
-      pageSize: "/p\xE0gina",
+      pageSize: "/p\u813Fgina",
       prev: "Anterior",
-      next: "Seg\xFCent",
+      next: "Seg\u7709ent",
       first: "Primera",
-      last: "\xDAltima",
+      last: "\u8137ltima",
       pageClassifier: ""
     },
-    // Confirmació emergent
+    // Confirmaci贸 emergent
     popconfirm: {
       confirm: "D'acord",
-      cancel: "Cancel\xB7lar",
+      cancel: "Cancel\u8DEFlar",
       dontAskAgain: "No tornar a preguntar"
     },
-    // Diàleg
+    // Di脿leg
     dialog: {
       confirm: "D'acord",
-      cancel: "Cancel\xB7lar",
+      cancel: "Cancel\u8DEFlar",
       close: "Tancar",
       maximize: "Maximitzar",
       restore: "Restaurar"
@@ -27497,9 +30596,9 @@ const ca = {
     drawer: {
       close: "Tancar",
       confirm: "D'acord",
-      cancel: "Cancel\xB7lar"
+      cancel: "Cancel\u8DEFlar"
     },
-    // Menú desplegable
+    // Men煤 desplegable
     dropdown: {
       loading: "Carregant..."
     },
@@ -27507,7 +30606,7 @@ const ca = {
     image: {
       error: "ERROR",
       loading: "Carregant...",
-      preview: "Vista pr\xE8via",
+      preview: "Vista pr\u732Bvia",
       zoomIn: "Ampliar",
       zoomOut: "Reduir",
       rotateLeft: "Girar cap a l'esquerra",
@@ -27519,7 +30618,7 @@ const ca = {
     imageviewer: {
       close: "Tancar",
       prev: "Anterior",
-      next: "Seg\xFCent",
+      next: "Seg\u7709ent",
       zoomIn: "Ampliar",
       zoomOut: "Reduir",
       rotateLeft: "Girar cap a l'esquerra",
@@ -27528,22 +30627,22 @@ const ca = {
       fullscreen: "Pantalla completa",
       exitFullscreen: "Sortir de pantalla completa"
     },
-    // Desplaçament infinit
+    // Despla莽ament infinit
     infinitescroll: {
       loading: "Carregant...",
-      finished: "No hi ha m\xE9s dades",
-      error: "Error en la c\xE0rrega, feu clic per tornar a intentar",
+      finished: "No hi ha m\u8305s dades",
+      error: "Error en la c\u813Frrega, feu clic per tornar a intentar",
       retry: "Feu clic per tornar a intentar"
     },
     // Missatge
     message: {
       close: "Tancar"
     },
-    // Notificació
+    // Notificaci贸
     notification: {
       close: "Tancar"
     },
-    // Càrrega
+    // C脿rrega
     loading: {
       text: "Carregant..."
     },
@@ -27551,7 +30650,7 @@ const ca = {
     spin: {
       text: "Carregant..."
     },
-    // Valoració
+    // Valoraci贸
     rate: {
       texts: ["Extremadament dolent", "Decebut", "Just", "Satisfet", "Sorprenent"]
     },
@@ -27567,7 +30666,7 @@ const ca = {
     tabs: {
       close: "Tancar",
       add: "Afegir",
-      more: "M\xE9s"
+      more: "M\u8305s"
     },
     // Passos
     steps: {
@@ -27576,11 +30675,11 @@ const ca = {
       wait: "Esperant",
       error: "Error"
     },
-    // Progrés
+    // Progr茅s
     progress: {
-      success: "\xC8xit",
-      exception: "Excepci\xF3",
-      warning: "Advert\xE8ncia"
+      success: "\u8120xit",
+      exception: "Excepci\u8D38",
+      warning: "Advert\u732Bncia"
     },
     // Esquelet
     skeleton: {
@@ -27596,16 +30695,16 @@ const ca = {
     },
     // Resultat
     result: {
-      success: "\xC8xit",
+      success: "\u8120xit",
       error: "Error",
-      warning: "Advert\xE8ncia",
-      info: "Informaci\xF3",
+      warning: "Advert\u732Bncia",
+      info: "Informaci\u8D38",
       backHome: "Tornar a l'inici"
     },
     // Cascada
     waterfall: {
       loading: "Carregant...",
-      noMore: "No hi ha m\xE9s dades",
+      noMore: "No hi ha m\u8305s dades",
       empty: "Sense dades"
     },
     // Descripcions
@@ -27621,16 +30720,16 @@ const ca = {
       on: "ON",
       off: "OFF"
     },
-    // Casella de verificació
+    // Casella de verificaci贸
     checkbox: {
       selectAll: "Seleccionar tot"
     },
-    // Ràdio
+    // R脿dio
     radio: {},
-    // Menú
+    // Men煤
     menu: {
-      collapse: "Contraure men\xFA",
-      expand: "Expandir men\xFA"
+      collapse: "Contraure men\u7164",
+      expand: "Expandir men\u7164"
     },
     // Targeta
     card: {
@@ -27642,15 +30741,15 @@ const ca = {
       expand: "Expandir",
       collapse: "Contraure"
     },
-    // Informació sobre eines
+    // Informaci贸 sobre eines
     tooltip: {},
     // Emergent
     popover: {},
-    // Insígnia
+    // Ins铆gnia
     badge: {},
     // Avatar
     avatar: {
-      error: "Error en la c\xE0rrega"
+      error: "Error en la c\u813Frrega"
     },
     // Marca d\'aigua
     watermark: {},
@@ -27659,21 +30758,112 @@ const ca = {
     // Carrusel
     carousel: {
       prev: "Anterior",
-      next: "Seg\xFCent"
+      next: "Seg\u7709ent"
     },
-    // Marquès
+    // Marqu猫s
     marquee: {},
-    // Fixació
+    // Fixaci贸
     affix: {},
-    // Àncora
+    // 脌ncora
     anchor: {},
     // Mention
     mention: {
-      placeholder: "Si us plau, introdu\xEFu",
+      placeholder: "Si us plau, introdu\u8302u",
       loading: "Carregant...",
       noData: "Sense dades"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Seleccioneu les especificacions",
+      emptyText: "No hi ha especificacions",
+      stock: "Estoc",
+      price: "Preu",
+      selected: "Seleccionat",
+      outOfStock: "Sense estoc"
+    },
+    productcard: {
+      viewDetails: "Veure detalls",
+      buyNow: "Compra ara",
+      addToCart: "Afegeix a la cistella",
+      sold: "Venut",
+      soldOut: "Esgotat",
+      vip: "VIP"
+    },
+    price: {
+      original: "Preu original"
+    },
+    couponcard: {
+      available: "Obt\u8305'l ara",
+      used: "Utilitzat",
+      expired: "Caducat",
+      received: "Rebut",
+      limit: "Comandes superiors a {threshold}",
+      noThreshold: "Sense m\u94C6nim",
+      validPeriod: "Per\u94C6ode de validesa",
+      ruleTitle: "Normes d\u9225\u6AED\u7C0A"
+    },
+    luckydraw: {
+      start: "Comen\u83BDa",
+      drawing: "Sortejant...",
+      end: "Guanyador!",
+      retry: "Torna-ho a provar"
+    },
+    filterbar: {
+      all: "Tot",
+      sort: "Ordena",
+      filter: "Filtra",
+      cancel: "Cancel\u8DEFla",
+      reset: "Reinicia",
+      confirm: "Confirma",
+      noOptions: "No hi ha opcions",
+      asc: "Ascendent",
+      desc: "Descendent",
+      selected: "Seleccionat"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} seleccionat(s)",
+      submit: "Finalitza la compra",
+      allSelect: "Selecciona-ho tot"
+    },
+    categorynav: {
+      all: "Tot",
+      noData: "No hi ha dades",
+      loading: "S\u9225\u6A88st\u813F carregant..."
+    },
+    smartaddress: {
+      placeholder: "Enganxeu aqu\u94C6 l\u9225\u6A83dre\u83BDa per detectar autom\u813Fticament nom, tel\u732Bfon i ubicaci\u8D38",
+      parse: "An\u813Flisi intel\u8DEFligent",
+      province: "Prov\u94C6ncia/Ciutat/Districte",
+      city: "Ciutat",
+      district: "Districte/Comarca",
+      street: "Carrer/Poble",
+      detail: "Adre\u83BDa detallada",
+      phone: "Tel\u732Bfon",
+      name: "Destinatari",
+      parseSuccess: "L\u9225\u6A83dre\u83BDa s\u9225\u6A8Ba analitzat correctament",
+      parseFailed: "L\u9225\u6A83n\u813Flisi ha fallat, empleneu-ho manualment",
+      required: "Empleneu l\u9225\u6A83dre\u83BDa completa",
+      provinceKeywords: ["Prov\u94C6ncia", "Estat"],
+      cityKeywords: ["Ciutat", "Municipi"],
+      districtKeywords: ["Districte", "Comarca", "Barri"],
+      streetKeywords: ["Carrer", "Avinguda", "Cam\u94C6", "Passatge"]
+    },
+    ganttchart: {
+      taskName: "Nom de la tasca",
+      searchPlaceholder: "Cerca tasques...",
+      zoom: "Zoom",
+      day: "Dia",
+      week: "Setmana",
+      month: "Mes",
+      year: "Any",
+      milestone: "Fita"
+    },
+    imagemagnifier: {
+      switchToImage: "Canvia a la imatge {index}",
+      galleryItem: "Galeria {index}",
+      close: "Tanca"
+    },
     ai: {
       bubble: {
         citations: "Citacions"
@@ -27691,7 +30881,7 @@ const ca = {
         run: "Executar codi",
         edit: "Editar",
         save: "Guardar",
-        cancel: "Cancel\xB7lar"
+        cancel: "Cancel\u8DEFlar"
       },
       codeRunner: {
         run: "Executar",
@@ -27705,20 +30895,20 @@ const ca = {
         dragTip: "Allibereu per pujar fitxers"
       },
       thoughtChain: {
-        thoughtProcess: "Proc\xE9s de pensament",
+        thoughtProcess: "Proc\u8305s de pensament",
         thinking: "Pensant...",
         defaultTitle: "Nou pas",
         addNode: "Afegir pas"
       },
       thinking: {
-        start: "Comen\xE7ar a pensar",
+        start: "Comen\u83BDar a pensar",
         thinking: "Pensant...",
         complete: "Pensament completat",
         error: "Error de pensament"
       },
       welcome: {
-        title: "Hola, s\xF3c YH AI",
-        description: "Us puc ajudar amb programaci\xF3, traducci\xF3 de documents o escriptura creativa. Qu\xE8 puc fer per vosaltres avui?"
+        title: "Hola, s\u8D38c YH AI",
+        description: "Us puc ajudar amb programaci\u8D38, traducci\u8D38 de documents o escriptura creativa. Qu\u732B puc fer per vosaltres avui?"
       },
       action: {
         copy: "Copiar",
@@ -27730,62 +30920,85 @@ const ca = {
         delete: "Eliminar"
       },
       artifacts: {
-        preview: "Vista pr\xE8via",
-        inline: "En l\xEDnia",
+        preview: "Vista pr\u732Bvia",
+        inline: "En l\u94C6nia",
         code: "Codi font",
         versions: "Versions",
         rendering: "Renderitzant component...",
-        renderingChart: "Renderitzant gr\xE0fic...",
-        renderingCanvas: "Preparant llen\xE7..."
+        renderingChart: "Renderitzant gr\u813Ffic...",
+        renderingCanvas: "Preparant llen\u83BD..."
       },
       voice: {
         trigger: "Feu clic per parlar",
         listening: "Escoltant..."
       },
       agent: {
-        uses: "\xFAsos",
+        uses: "\u7164sos",
         use: "Usar ara",
         favorite: "Favorit",
         unfavorite: "Treure de favorits",
         share: "Compartir",
-        online: "En l\xEDnia",
-        offline: "Fora de l\xEDnia",
+        online: "En l\u94C6nia",
+        offline: "Fora de l\u94C6nia",
         busy: "Ocupat",
         verified: "Verificat",
-        rating: "Valoraci\xF3",
+        rating: "Valoraci\u8D38",
         reviews: "resenyes",
-        responseTime: "Temps de resposta mitj\xE0",
+        responseTime: "Temps de resposta mitj\u813F",
         ms: "ms"
       },
       sources: {
-        references: "Refer\xE8ncies",
+        references: "Refer\u732Bncies",
         referencedSources: "Fonts referenciades",
-        relevant: "Rellev\xE0ncia",
+        relevant: "Rellev\u813Fncia",
         viewOriginal: "Veure original",
         showAll: "Mostrar tot",
-        more: "m\xE9s fonts",
-        drawerTitle: "Refer\xE8ncies",
-        expandMore: "Mostrar m\xE9s",
+        more: "m\u8305s fonts",
+        drawerTitle: "Refer\u732Bncies",
+        expandMore: "Mostrar m\u8305s",
         collapseMore: "Reduir",
         noSources: "Sense fonts",
         today: "Avui",
-        last7Days: "\xDAltims 7 dies",
-        last30Days: "\xDAltims 30 dies",
+        last7Days: "\u8137ltims 7 dies",
+        last30Days: "\u8137ltims 30 dies",
         earlier: "Anterior",
         pinned: "Fixat"
       },
       conversations: {
         today: "Avui",
-        last7Days: "\xDAltims 7 dies",
-        last30Days: "\xDAltims 30 dies",
+        last7Days: "\u8137ltims 7 dies",
+        last30Days: "\u8137ltims 30 dies",
         earlier: "Anterior",
         pinned: "Fixat",
         pin: "Fixar",
         unpin: "Desfixar",
         newConversation: "Nova conversa",
+        noData: "Encara no hi ha converses",
         rename: "Renombrar",
         delete: "Eliminar",
         deleteConfirm: "Confirmeu eliminar aquesta conversa?"
+      },
+      attachments: {
+        dropTip: "Deixa anar els fitxers aqu\u94C6 per pujar-los",
+        clickToUpload: "Fes clic o arrossega fitxers per pujar-los",
+        uploadSuccess: "C\u813Frrega correcta",
+        uploadError: "La c\u813Frrega ha fallat",
+        deleteConfirm: "Segur que vols eliminar aquest fitxer?",
+        fileTooLarge: "La mida del fitxer no pot superar {size}",
+        invalidFileType: "Tipus de fitxer no v\u813Flid"
+      },
+      mermaid: {
+        image: "Imatge",
+        code: "Codi",
+        zoomIn: "Apropa",
+        zoomOut: "Allunya",
+        reset: "Restableix",
+        download: "Descarrega",
+        copyCode: "Copiar codi",
+        rendering: "S\u9225\u6A88st\u813F renderitzant...",
+        renderError: "La renderitzaci\u8D38 ha fallat",
+        renderSuccess: "Renderitzaci\u8D38 correcta",
+        retry: "Torna-ho a provar"
       }
     }
   }
@@ -29815,6 +33028,97 @@ const lv = {
       loading: "Iel\u0101d\u0113...",
       noData: "Nav datu"
     },
+    skuselector: {
+      placeholder: "Izv\u0113lieties specifik\u0101cijas",
+      emptyText: "Nav specifik\u0101ciju",
+      stock: "Kr\u0101jums",
+      price: "Cena",
+      selected: "Izv\u0113l\u0113ts",
+      outOfStock: "Nav noliktav\u0101"
+    },
+    productcard: {
+      viewDetails: "Skat\u012Bt inform\u0101ciju",
+      buyNow: "Pirkt tagad",
+      addToCart: "Pievienot grozam",
+      sold: "P\u0101rdots",
+      soldOut: "Izp\u0101rdots",
+      vip: "VIP"
+    },
+    price: {
+      original: "S\u0101kotn\u0113j\u0101"
+    },
+    couponcard: {
+      available: "Sa\u0146emt tagad",
+      used: "Izmantots",
+      expired: "Beidzies termi\u0146\u0161",
+      received: "Sa\u0146emts",
+      limit: "Pas\u016Bt\u012Bjumiem virs {threshold}",
+      noThreshold: "Bez minim\u0101l\u0101s summas",
+      validPeriod: "Der\u012Bguma periods",
+      ruleTitle: "Lieto\u0161anas noteikumi"
+    },
+    luckydraw: {
+      start: "S\u0101kt",
+      drawing: "Notiek izloze...",
+      end: "Uzvar\u0113t\u0101js!",
+      retry: "M\u0113\u0123in\u0101t v\u0113lreiz"
+    },
+    filterbar: {
+      all: "Visi",
+      sort: "K\u0101rtot",
+      filter: "Filtrs",
+      cancel: "Atcelt",
+      reset: "Atiestat\u012Bt",
+      confirm: "Apstiprin\u0101t",
+      noOptions: "Nav iesp\u0113ju",
+      asc: "Augo\u0161\u0101 sec\u012Bb\u0101",
+      desc: "Dilsto\u0161\u0101 sec\u012Bb\u0101",
+      selected: "Izv\u0113l\u0113ts"
+    },
+    submitbar: {
+      total: "Kop\u0101: ",
+      selected: "{count} izv\u0113l\u0113ti",
+      submit: "Uz apmaksu",
+      allSelect: "Izv\u0113l\u0113ties visu"
+    },
+    categorynav: {
+      all: "Visi",
+      noData: "Nav datu",
+      loading: "Iel\u0101d\u0113..."
+    },
+    smartaddress: {
+      placeholder: "Iel\u012Bm\u0113jiet adresi \u0161eit, v\u0101rds, t\u0101lrunis un atra\u0161an\u0101s vieta tiks noteikti autom\u0101tiski",
+      parse: "Vied\u0101 anal\u012Bze",
+      province: "Province/Pils\u0113ta/Rajons",
+      city: "Pils\u0113ta",
+      district: "Rajons/Novads",
+      street: "Iela/Ciems",
+      detail: "Detaliz\u0113ta adrese",
+      phone: "T\u0101lrunis",
+      name: "Sa\u0146\u0113m\u0113js",
+      parseSuccess: "Adrese veiksm\u012Bgi atpaz\u012Bta",
+      parseFailed: "Atpaz\u012B\u0161ana neizdev\u0101s, l\u016Bdzu aizpildiet manu\u0101li",
+      required: "L\u016Bdzu, ievadiet pilnu adresi",
+      provinceKeywords: ["Province", "Re\u0123ions"],
+      cityKeywords: ["Pils\u0113ta", "Novads"],
+      districtKeywords: ["Rajons", "Novads", "Pagasts"],
+      streetKeywords: ["Iela", "Ce\u013C\u0161", "Prospekts", "\u0160\u0137\u0113rsiela"]
+    },
+    ganttchart: {
+      taskName: "Uzdevuma nosaukums",
+      searchPlaceholder: "Mekl\u0113t uzdevumus...",
+      zoom: "T\u0101lummai\u0146a",
+      day: "Diena",
+      week: "Ned\u0113\u013Ca",
+      month: "M\u0113nesis",
+      year: "Gads",
+      milestone: "Atskaites punkts"
+    },
+    imagemagnifier: {
+      switchToImage: "P\u0101rsl\u0113gt uz att\u0113lu {index}",
+      galleryItem: "Galerija {index}",
+      close: "Aizv\u0113rt"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -29925,9 +33229,32 @@ const lv = {
         pin: "Piestiprin\u0101t",
         unpin: "No\u0146emt",
         newConversation: "Jauna saruna",
+        noData: "Sarunu v\u0113l nav",
         rename: "P\u0101rd\u0113v\u0113t",
         delete: "Dz\u0113st",
         deleteConfirm: "Vai tie\u0161\u0101m v\u0113laties dz\u0113st \u0161o sarunu?"
+      },
+      attachments: {
+        dropTip: "Nometiet failus \u0161eit, lai aug\u0161upiel\u0101d\u0113tu",
+        clickToUpload: "Noklik\u0161\u0137iniet vai velciet failus aug\u0161upiel\u0101dei",
+        uploadSuccess: "Aug\u0161upiel\u0101de veiksm\u012Bga",
+        uploadError: "Aug\u0161upiel\u0101de neizdev\u0101s",
+        deleteConfirm: "Vai tie\u0161\u0101m v\u0113laties dz\u0113st \u0161o failu?",
+        fileTooLarge: "Faila izm\u0113rs nedr\u012Bkst p\u0101rsniegt {size}",
+        invalidFileType: "Neder\u012Bgs faila tips"
+      },
+      mermaid: {
+        image: "Att\u0113ls",
+        code: "Kods",
+        zoomIn: "Pietuvin\u0101t",
+        zoomOut: "Att\u0101lin\u0101t",
+        reset: "Atiestat\u012Bt",
+        download: "Lejupiel\u0101d\u0113t",
+        copyCode: "Kop\u0113t kodu",
+        rendering: "Render\u0113...",
+        renderError: "Render\u0113\u0161ana neizdev\u0101s",
+        renderSuccess: "Render\u0113\u0161ana izdev\u0101s",
+        retry: "M\u0113\u0123in\u0101t v\u0113lreiz"
       }
     }
   }
@@ -30530,6 +33857,97 @@ const af = {
       noData: "Geen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Kies spesifikasies",
+      emptyText: "Geen spesifikasies nie",
+      stock: "Voorraad",
+      price: "Prys",
+      selected: "Gekies",
+      outOfStock: "Nie in voorraad nie"
+    },
+    productcard: {
+      viewDetails: "Bekyk besonderhede",
+      buyNow: "Koop nou",
+      addToCart: "Voeg by mandjie",
+      sold: "Verkoop",
+      soldOut: "Uitverkoop",
+      vip: "Lid"
+    },
+    price: {
+      original: "Oorspronklike prys"
+    },
+    couponcard: {
+      available: "Kry nou",
+      used: "Gebruik",
+      expired: "Verval",
+      received: "Ontvang",
+      limit: "Bestellings bo {threshold}",
+      noThreshold: "Geen drempel nie",
+      validPeriod: "Geldigheidsperiode",
+      ruleTitle: "Gebruiksre\xEBls"
+    },
+    luckydraw: {
+      start: "Begin",
+      drawing: "Trek...",
+      end: "Wenner!",
+      retry: "Probeer weer"
+    },
+    filterbar: {
+      all: "Alles",
+      sort: "Sorteer",
+      filter: "Filter",
+      cancel: "Kanselleer",
+      reset: "Herstel",
+      confirm: "Bevestig",
+      noOptions: "Geen opsies nie",
+      asc: "Stygend",
+      desc: "Dalend",
+      selected: "Gekies"
+    },
+    submitbar: {
+      total: "Totaal: ",
+      selected: "{count} gekies",
+      submit: "Betaal nou",
+      allSelect: "Kies alles"
+    },
+    categorynav: {
+      all: "Alles",
+      noData: "Geen data nie",
+      loading: "Laai..."
+    },
+    smartaddress: {
+      placeholder: "Plak adres hier om naam, foon en ligging outomaties te herken",
+      parse: "Slim ontleding",
+      province: "Provinsie/Stad/Distrik",
+      city: "Stad",
+      district: "Distrik/Area",
+      street: "Straat/Dorp",
+      detail: "Volledige adres",
+      phone: "Foon",
+      name: "Ontvanger",
+      parseSuccess: "Adres suksesvol ontleed",
+      parseFailed: "Ontleding het misluk, vul asseblief handmatig in",
+      required: "Vul asseblief die volledige adres in",
+      provinceKeywords: ["Provinsie", "Staat"],
+      cityKeywords: ["Stad", "Munisipaliteit"],
+      districtKeywords: ["Distrik", "Area", "Wyk"],
+      streetKeywords: ["Straat", "Pad", "Laan", "Stegie"]
+    },
+    ganttchart: {
+      taskName: "Taaknaam",
+      searchPlaceholder: "Soek take...",
+      zoom: "Zoem",
+      day: "Dag",
+      week: "Week",
+      month: "Maand",
+      year: "Jaar",
+      milestone: "Mylpaal"
+    },
+    imagemagnifier: {
+      switchToImage: "Skakel na beeld {index}",
+      galleryItem: "Galery {index}",
+      close: "Sluit"
+    },
     ai: {
       bubble: {
         citations: "Verwysings"
@@ -30639,9 +34057,32 @@ const af = {
         pin: "Speld vas",
         unpin: "Maak los",
         newConversation: "Nuwe gesprek",
+        noData: "Nog geen gesprekke nie",
         rename: "Hernoem",
         delete: "Skrap",
         deleteConfirm: "Bevestig dat hierdie gesprek geskrap moet word?"
+      },
+      attachments: {
+        dropTip: "Laat l\xEA l\xEAers hier om op te laai",
+        clickToUpload: "Klik of sleep l\xEAers om op te laai",
+        uploadSuccess: "Oplaai suksesvol",
+        uploadError: "Oplaai het misluk",
+        deleteConfirm: "Is jy seker jy wil hierdie l\xEAer skrap?",
+        fileTooLarge: "L\xEAergrootte mag nie {size} oorskry nie",
+        invalidFileType: "Ongeldige l\xEAertipe"
+      },
+      mermaid: {
+        image: "Beeld",
+        code: "Kode",
+        zoomIn: "Zoem in",
+        zoomOut: "Zoem uit",
+        reset: "Herstel",
+        download: "Laai af",
+        copyCode: "Kopieer kode",
+        rendering: "Besig om te render...",
+        renderError: "Render het misluk",
+        renderSuccess: "Render suksesvol",
+        retry: "Probeer weer"
       }
     }
   }
@@ -31244,6 +34685,97 @@ const et = {
       noData: "Andmed puuduvad"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Vali spetsifikatsioonid",
+      emptyText: "Spetsifikatsioonid puuduvad",
+      stock: "Laoseis",
+      price: "Hind",
+      selected: "Valitud",
+      outOfStock: "Laost otsas"
+    },
+    productcard: {
+      viewDetails: "Vaata \xFCksikasju",
+      buyNow: "Osta kohe",
+      addToCart: "Lisa ostukorvi",
+      sold: "M\xFC\xFCdud",
+      soldOut: "V\xE4lja m\xFC\xFCdud",
+      vip: "VIP"
+    },
+    price: {
+      original: "Algne hind"
+    },
+    couponcard: {
+      available: "V\xF5ta kohe",
+      used: "Kasutatud",
+      expired: "Aegunud",
+      received: "Saadud",
+      limit: "Tellimused \xFCle {threshold}",
+      noThreshold: "Miinimum puudub",
+      validPeriod: "Kehtivusaeg",
+      ruleTitle: "Kasutusreeglid"
+    },
+    luckydraw: {
+      start: "Alusta",
+      drawing: "Loositakse...",
+      end: "V\xF5itja!",
+      retry: "Proovi uuesti"
+    },
+    filterbar: {
+      all: "K\xF5ik",
+      sort: "Sordi",
+      filter: "Filtreeri",
+      cancel: "T\xFChista",
+      reset: "L\xE4htesta",
+      confirm: "Kinnita",
+      noOptions: "Valikuid pole",
+      asc: "Kasvav",
+      desc: "Kahanev",
+      selected: "Valitud"
+    },
+    submitbar: {
+      total: "Kokku: ",
+      selected: "{count} valitud",
+      submit: "Maksma",
+      allSelect: "Vali k\xF5ik"
+    },
+    categorynav: {
+      all: "K\xF5ik",
+      noData: "Andmed puuduvad",
+      loading: "Laadimine..."
+    },
+    smartaddress: {
+      placeholder: "Kleebi siia aadress, et nimi, telefon ja asukoht automaatselt tuvastada",
+      parse: "Nutikas anal\xFC\xFCs",
+      province: "Maakond/Linn/Rajoon",
+      city: "Linn",
+      district: "Rajoon/Vald",
+      street: "T\xE4nav/Alev",
+      detail: "T\xE4pne aadress",
+      phone: "Telefon",
+      name: "Saaja",
+      parseSuccess: "Aadress anal\xFC\xFCsiti edukalt",
+      parseFailed: "Anal\xFC\xFCs eba\xF5nnestus, t\xE4itke k\xE4sitsi",
+      required: "Sisestage t\xE4ielik aadress",
+      provinceKeywords: ["Maakond", "Osariik"],
+      cityKeywords: ["Linn", "Vald"],
+      districtKeywords: ["Rajoon", "Vald", "Piirkond"],
+      streetKeywords: ["T\xE4nav", "Tee", "Puiestee", "P\xF5ik"]
+    },
+    ganttchart: {
+      taskName: "\xDClesande nimi",
+      searchPlaceholder: "Otsi \xFClesandeid...",
+      zoom: "Suum",
+      day: "P\xE4ev",
+      week: "N\xE4dal",
+      month: "Kuu",
+      year: "Aasta",
+      milestone: "T\xE4his"
+    },
+    imagemagnifier: {
+      switchToImage: "L\xFClitu pildile {index}",
+      galleryItem: "Galerii {index}",
+      close: "Sulge"
+    },
     ai: {
       bubble: {
         citations: "Viited"
@@ -31353,9 +34885,32 @@ const et = {
         pin: "Kinnita",
         unpin: "Vabasta",
         newConversation: "Uus vestlus",
+        noData: "Vestlusi pole veel",
         rename: "Nimeta \xFCmber",
         delete: "Kustuta",
         deleteConfirm: "Kas kustutame selle vestluse?"
+      },
+      attachments: {
+        dropTip: "Lohista failid siia \xFCleslaadimiseks",
+        clickToUpload: "Kl\xF5psa v\xF5i lohista failid \xFCleslaadimiseks",
+        uploadSuccess: "\xDCleslaadimine \xF5nnestus",
+        uploadError: "\xDCleslaadimine eba\xF5nnestus",
+        deleteConfirm: "Kas soovid kindlasti selle faili kustutada?",
+        fileTooLarge: "Faili suurus ei tohi \xFCletada {size}",
+        invalidFileType: "Sobimatu failit\xFC\xFCp"
+      },
+      mermaid: {
+        image: "Pilt",
+        code: "Kood",
+        zoomIn: "Suurenda",
+        zoomOut: "V\xE4henda",
+        reset: "L\xE4htesta",
+        download: "Laadi alla",
+        copyCode: "Kopeeri kood",
+        rendering: "Renderdamine...",
+        renderError: "Renderdamine eba\xF5nnestus",
+        renderSuccess: "Renderdamine \xF5nnestus",
+        retry: "Proovi uuesti"
       }
     }
   }
@@ -31957,6 +35512,97 @@ const sl = {
       loading: "Nalaganje...",
       noData: "Ni podatkov"
     },
+    skuselector: {
+      placeholder: "Izberite specifikacije",
+      emptyText: "Ni specifikacij",
+      stock: "Zaloga",
+      price: "Cena",
+      selected: "Izbrano",
+      outOfStock: "Ni na zalogi"
+    },
+    productcard: {
+      viewDetails: "Poglej podrobnosti",
+      buyNow: "Kupi zdaj",
+      addToCart: "Dodaj v ko\u0161arico",
+      sold: "Prodano",
+      soldOut: "Razprodano",
+      vip: "VIP"
+    },
+    price: {
+      original: "Izvirna"
+    },
+    couponcard: {
+      available: "Prevzemi zdaj",
+      used: "Uporabljeno",
+      expired: "Poteklo",
+      received: "Prejeto",
+      limit: "Za naro\u010Dila nad {threshold}",
+      noThreshold: "Brez minimalnega zneska",
+      validPeriod: "Obdobje veljavnosti",
+      ruleTitle: "Pravila uporabe"
+    },
+    luckydraw: {
+      start: "Za\u010Dni",
+      drawing: "\u017Drebanje...",
+      end: "Zmagovalec!",
+      retry: "Poskusi znova"
+    },
+    filterbar: {
+      all: "Vse",
+      sort: "Razvrsti",
+      filter: "Filter",
+      cancel: "Prekli\u010Di",
+      reset: "Ponastavi",
+      confirm: "Potrdi",
+      noOptions: "Ni mo\u017Enosti",
+      asc: "Nara\u0161\u010Dajo\u010De",
+      desc: "Padajo\u010De",
+      selected: "Izbrano"
+    },
+    submitbar: {
+      total: "Skupaj: ",
+      selected: "{count} izbranih",
+      submit: "Na blagajno",
+      allSelect: "Izberi vse"
+    },
+    categorynav: {
+      all: "Vse",
+      noData: "Ni podatkov",
+      loading: "Nalaganje..."
+    },
+    smartaddress: {
+      placeholder: "Prilepite naslov tukaj, samodejno zaznaj ime, telefon in lokacijo",
+      parse: "Pametno raz\u010Dlenjevanje",
+      province: "Pokrajina/Mesto/Okraj",
+      city: "Mesto",
+      district: "Okraj/Ob\u010Dina",
+      street: "Ulica/Kraj",
+      detail: "Podroben naslov",
+      phone: "Telefon",
+      name: "Prejemnik",
+      parseSuccess: "Naslov je uspe\u0161no prepoznan",
+      parseFailed: "Prepoznavanje ni uspelo, izpolnite ro\u010Dno",
+      required: "Izpolnite celoten naslov",
+      provinceKeywords: ["Pokrajina", "Regija"],
+      cityKeywords: ["Mesto", "Ob\u010Dina"],
+      districtKeywords: ["Okraj", "Ob\u010Dina", "Naselje"],
+      streetKeywords: ["Ulica", "Cesta", "Avenija", "Pot"]
+    },
+    ganttchart: {
+      taskName: "Ime opravila",
+      searchPlaceholder: "I\u0161\u010Di opravila...",
+      zoom: "Pove\u010Dava",
+      day: "Dan",
+      week: "Teden",
+      month: "Mesec",
+      year: "Leto",
+      milestone: "Mejnik"
+    },
+    imagemagnifier: {
+      switchToImage: "Preklopi na sliko {index}",
+      galleryItem: "Galerija {index}",
+      close: "Zapri"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -32067,9 +35713,32 @@ const sl = {
         pin: "Pripni",
         unpin: "Odpni",
         newConversation: "Nov pogovor",
+        noData: "Pogovorov \u0161e ni",
         rename: "Preimenuj",
         delete: "Izbri\u0161i",
         deleteConfirm: "Potrdite izbris tega pogovora?"
+      },
+      attachments: {
+        dropTip: "Spustite datoteke sem za nalaganje",
+        clickToUpload: "Kliknite ali povlecite datoteke za nalaganje",
+        uploadSuccess: "Nalaganje je uspelo",
+        uploadError: "Nalaganje ni uspelo",
+        deleteConfirm: "Ali ste prepri\u010Dani, da \u017Eelite izbrisati to datoteko?",
+        fileTooLarge: "Velikost datoteke ne sme presegati {size}",
+        invalidFileType: "Neveljavna vrsta datoteke"
+      },
+      mermaid: {
+        image: "Slika",
+        code: "Koda",
+        zoomIn: "Pove\u010Daj",
+        zoomOut: "Pomanj\u0161aj",
+        reset: "Ponastavi",
+        download: "Prenesi",
+        copyCode: "Kopiraj kodo",
+        rendering: "Upodabljanje...",
+        renderError: "Upodabljanje ni uspelo",
+        renderSuccess: "Upodabljanje je uspelo",
+        retry: "Poskusi znova"
       }
     }
   }
@@ -32078,84 +35747,84 @@ const sl = {
 const he = {
   name: "he",
   yh: {
-    // נפוץ
+    // 谞驻讜抓
     common: {
-      yes: "\u05DB\u05DF",
-      no: "\u05DC\u05D0",
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      loading: "\u05D8\u05D5\u05E2\u05DF",
-      close: "\u05E1\u05D2\u05D5\u05E8",
-      clear: "\u05E0\u05E7\u05D4",
-      reset: "\u05D0\u05D9\u05E4\u05D5\u05E1",
-      save: "\u05E9\u05DE\u05D5\u05E8",
-      delete: "\u05DE\u05D7\u05E7",
-      edit: "\u05E2\u05E8\u05D5\u05DA",
-      add: "\u05D4\u05D5\u05E1\u05E3",
-      search: "\u05D7\u05D9\u05E4\u05D5\u05E9",
-      refresh: "\u05E8\u05E2\u05E0\u05D5\u05DF",
-      expand: "\u05D4\u05E8\u05D7\u05D1",
-      collapse: "\u05DB\u05D5\u05D5\u05E5",
-      more: "\u05E2\u05D5\u05D3",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      noMatch: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05EA\u05D5\u05D0\u05DE\u05D9\u05DD",
-      selectAll: "\u05D1\u05D7\u05E8 \u05D4\u05DB\u05DC",
-      unselectAll: "\u05D1\u05D8\u05DC \u05D1\u05D7\u05D9\u05E8\u05D4"
+      yes: "\u8BBB\u8C09",
+      no: "\u8BC7\u8B97",
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09",
+      close: "\u4F4F\u8B99\u8B9C\u4E13",
+      clear: "\u8C1E\u62FD\u8B9B",
+      reset: "\u8B97\u8BAC\u9A7B\u8B9C\u4F4F",
+      save: "\u7816\u8BEA\u8B9C\u4E13",
+      delete: "\u8BEA\u8B9E\u62FD",
+      edit: "\u6CE8\u4E13\u8B9C\u8BB1",
+      add: "\u8B9B\u8B9C\u4F4F\u795D",
+      search: "\u8B9E\u8BAC\u9A7B\u8B9C\u7816",
+      refresh: "\u4E13\u6CE8\u8C1E\u8B9C\u8C09",
+      expand: "\u8B9B\u4E13\u8B9E\u8B98",
+      collapse: "\u8BBB\u8B9C\u8B9C\u6293",
+      more: "\u6CE8\u8B9C\u8B9A",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      noMatch: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8F6C\u8B9C\u8B97\u8BEA\u8BAC\u8BD0",
+      selectAll: "\u8B98\u8B9E\u4E13 \u8B9B\u8BBB\u8BC7",
+      unselectAll: "\u8B98\u8B9F\u8BC7 \u8B98\u8B9E\u8BAC\u4E13\u8B9B"
     },
-    // בוחר צבעים
+    // 讘讜讞专 爪讘注讬诐
     colorpicker: {
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      clear: "\u05E0\u05E7\u05D4",
-      eyeDropper: "\u05E4\u05D9\u05E4\u05D8\u05D4",
-      suggestionDark: "\u05D8\u05E7\u05E1\u05D8 \u05DC\u05D1\u05DF \u05D4\u05D5\u05D0 \u05D4\u05D8\u05D5\u05D1 \u05D1\u05D9\u05D5\u05EA\u05E8",
-      suggestionLight: "\u05D8\u05E7\u05E1\u05D8 \u05E9\u05D7\u05D5\u05E8 \u05D4\u05D5\u05D0 \u05D4\u05D8\u05D5\u05D1 \u05D1\u05D9\u05D5\u05EA\u05E8",
-      recentColors: "\u05E6\u05D1\u05E2\u05D9\u05DD \u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD",
-      presetColors: "\u05E6\u05D1\u05E2\u05D9\u05DD \u05DE\u05D5\u05D2\u05D3\u05E8\u05D9\u05DD \u05DE\u05E8\u05D0\u05E9"
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      clear: "\u8C1E\u62FD\u8B9B",
+      eyeDropper: "\u9A7B\u8BAC\u9A7B\u8B9F\u8B9B",
+      suggestionDark: "\u8B9F\u62FD\u4F4F\u8B9F \u8BC7\u8B98\u8C09 \u8B9B\u8B9C\u8B97 \u8B9B\u8B9F\u8B9C\u8B98 \u8B98\u8BAC\u8B9C\u8F6C\u4E13",
+      suggestionLight: "\u8B9F\u62FD\u4F4F\u8B9F \u7816\u8B9E\u8B9C\u4E13 \u8B9B\u8B9C\u8B97 \u8B9B\u8B9F\u8B9C\u8B98 \u8B98\u8BAC\u8B9C\u8F6C\u4E13",
+      recentColors: "\u722A\u8B98\u6CE8\u8BAC\u8BD0 \u8B97\u8B9E\u4E13\u8B9C\u8C1E\u8BAC\u8BD0",
+      presetColors: "\u722A\u8B98\u6CE8\u8BAC\u8BD0 \u8BEA\u8B9C\u8B99\u8B9A\u4E13\u8BAC\u8BD0 \u8BEA\u4E13\u8B97\u7816"
     },
-    // בוחר תאריך
+    // 讘讜讞专 转讗专讬讱
     datepicker: {
-      now: "\u05E2\u05DB\u05E9\u05D9\u05D5",
-      today: "\u05D4\u05D9\u05D5\u05DD",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      clear: "\u05E0\u05E7\u05D4",
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      selectDate: "\u05D1\u05D7\u05E8 \u05EA\u05D0\u05E8\u05D9\u05DA",
-      selectTime: "\u05D1\u05D7\u05E8 \u05E9\u05E2\u05D4",
-      startDate: "\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05EA\u05D7\u05DC\u05D4",
-      startTime: "\u05E9\u05E2\u05EA \u05D4\u05EA\u05D7\u05DC\u05D4",
-      endDate: "\u05EA\u05D0\u05E8\u05D9\u05DA \u05E1\u05D9\u05D5\u05DD",
-      endTime: "\u05E9\u05E2\u05EA \u05E1\u05D9\u05D5\u05DD",
+      now: "\u6CE8\u8BBB\u7816\u8BAC\u8B9C",
+      today: "\u8B9B\u8BAC\u8B9C\u8BD0",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      clear: "\u8C1E\u62FD\u8B9B",
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      selectDate: "\u8B98\u8B9E\u4E13 \u8F6C\u8B97\u4E13\u8BAC\u8BB1",
+      selectTime: "\u8B98\u8B9E\u4E13 \u7816\u6CE8\u8B9B",
+      startDate: "\u8F6C\u8B97\u4E13\u8BAC\u8BB1 \u8B9B\u8F6C\u8B9E\u8BC7\u8B9B",
+      startTime: "\u7816\u6CE8\u8F6C \u8B9B\u8F6C\u8B9E\u8BC7\u8B9B",
+      endDate: "\u8F6C\u8B97\u4E13\u8BAC\u8BB1 \u4F4F\u8BAC\u8B9C\u8BD0",
+      endTime: "\u7816\u6CE8\u8F6C \u4F4F\u8BAC\u8B9C\u8BD0",
       year: "",
       month: "",
       day: "",
-      week: "\u05E9\u05D1\u05D5\u05E2",
+      week: "\u7816\u8B98\u8B9C\u6CE8",
       monthBeforeYear: true,
-      prevYear: "\u05E9\u05E0\u05D4 \u05E7\u05D5\u05D3\u05DE\u05EA",
-      nextYear: "\u05E9\u05E0\u05D4 \u05D4\u05D1\u05D0\u05D4",
-      prevMonth: "\u05D7\u05D5\u05D3\u05E9 \u05E7\u05D5\u05D3\u05DD",
-      nextMonth: "\u05D7\u05D5\u05D3\u05E9 \u05D4\u05D1\u05D0",
+      prevYear: "\u7816\u8C1E\u8B9B \u62FD\u8B9C\u8B9A\u8BEA\u8F6C",
+      nextYear: "\u7816\u8C1E\u8B9B \u8B9B\u8B98\u8B97\u8B9B",
+      prevMonth: "\u8B9E\u8B9C\u8B9A\u7816 \u62FD\u8B9C\u8B9A\u8BD0",
+      nextMonth: "\u8B9E\u8B9C\u8B9A\u7816 \u8B9B\u8B98\u8B97",
       weeks: {
-        sun: "\u05D0",
-        mon: "\u05D1",
-        tue: "\u05D2",
-        wed: "\u05D3",
-        thu: "\u05D4",
-        fri: "\u05D5",
-        sat: "\u05E9"
+        sun: "\u8B97",
+        mon: "\u8B98",
+        tue: "\u8B99",
+        wed: "\u8B9A",
+        thu: "\u8B9B",
+        fri: "\u8B9C",
+        sat: "\u7816"
       },
       months: {
-        jan: "\u05D9\u05E0\u05D5",
-        feb: "\u05E4\u05D1\u05E8",
-        mar: "\u05DE\u05E8\u05E5",
-        apr: "\u05D0\u05E4\u05E8",
-        may: "\u05DE\u05D0\u05D9",
-        jun: "\u05D9\u05D5\u05E0",
-        jul: "\u05D9\u05D5\u05DC",
-        aug: "\u05D0\u05D5\u05D2",
-        sep: "\u05E1\u05E4\u05D8",
-        oct: "\u05D0\u05D5\u05E7",
-        nov: "\u05E0\u05D5\u05D1",
-        dec: "\u05D3\u05E6\u05DE"
+        jan: "\u8BAC\u8C1E\u8B9C",
+        feb: "\u9A7B\u8B98\u4E13",
+        mar: "\u8BEA\u4E13\u6293",
+        apr: "\u8B97\u9A7B\u4E13",
+        may: "\u8BEA\u8B97\u8BAC",
+        jun: "\u8BAC\u8B9C\u8C1E",
+        jul: "\u8BAC\u8B9C\u8BC7",
+        aug: "\u8B97\u8B9C\u8B99",
+        sep: "\u4F4F\u9A7B\u8B9F",
+        oct: "\u8B97\u8B9C\u62FD",
+        nov: "\u8C1E\u8B9C\u8B98",
+        dec: "\u8B9A\u722A\u8BEA"
       },
       quarters: {
         q1: "Q1",
@@ -32164,626 +35833,740 @@ const he = {
         q4: "Q4"
       }
     },
-    // בוחר שעה
+    // 讘讜讞专 砖注讛
     timepicker: {
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      now: "\u05E2\u05DB\u05E9\u05D9\u05D5",
-      placeholder: "\u05D1\u05D7\u05E8 \u05E9\u05E2\u05D4",
-      startPlaceholder: "\u05E9\u05E2\u05EA \u05D4\u05EA\u05D7\u05DC\u05D4",
-      endPlaceholder: "\u05E9\u05E2\u05EA \u05E1\u05D9\u05D5\u05DD",
-      selectTime: "\u05D1\u05D7\u05E8 \u05E9\u05E2\u05D4"
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      now: "\u6CE8\u8BBB\u7816\u8BAC\u8B9C",
+      placeholder: "\u8B98\u8B9E\u4E13 \u7816\u6CE8\u8B9B",
+      startPlaceholder: "\u7816\u6CE8\u8F6C \u8B9B\u8F6C\u8B9E\u8BC7\u8B9B",
+      endPlaceholder: "\u7816\u6CE8\u8F6C \u4F4F\u8BAC\u8B9C\u8BD0",
+      selectTime: "\u8B98\u8B9E\u4E13 \u7816\u6CE8\u8B9B"
     },
-    // בחירת שעה
+    // 讘讞讬专转 砖注讛
     timeselect: {
-      placeholder: "\u05D1\u05D7\u05E8 \u05E9\u05E2\u05D4"
+      placeholder: "\u8B98\u8B9E\u4E13 \u7816\u6CE8\u8B9B"
     },
-    // עץ
+    // 注抓
     tree: {
-      emptyText: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      checkAll: "\u05E1\u05DE\u05DF \u05D4\u05DB\u05DC",
-      uncheckAll: "\u05D1\u05D8\u05DC \u05E1\u05D9\u05DE\u05D5\u05DF",
-      expandAll: "\u05D4\u05E8\u05D7\u05D1 \u05D4\u05DB\u05DC",
-      collapseAll: "\u05DB\u05D5\u05D5\u05E5 \u05D4\u05DB\u05DC"
+      emptyText: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      checkAll: "\u4F4F\u8BEA\u8C09 \u8B9B\u8BBB\u8BC7",
+      uncheckAll: "\u8B98\u8B9F\u8BC7 \u4F4F\u8BAC\u8BEA\u8B9C\u8C09",
+      expandAll: "\u8B9B\u4E13\u8B9E\u8B98 \u8B9B\u8BBB\u8BC7",
+      collapseAll: "\u8BBB\u8B9C\u8B9C\u6293 \u8B9B\u8BBB\u8BC7"
     },
-    // בחירת עץ
+    // 讘讞讬专转 注抓
     treeselect: {
-      placeholder: "\u05D1\u05D7\u05E8",
-      emptyText: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      noMatch: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05EA\u05D5\u05D0\u05DE\u05D9\u05DD"
+      placeholder: "\u8B98\u8B9E\u4E13",
+      emptyText: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      noMatch: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8F6C\u8B9C\u8B97\u8BEA\u8BAC\u8BD0"
     },
-    // לוח שנה
+    // 诇讜讞 砖谞讛
     calendar: {
-      prevMonth: "\u05D7\u05D5\u05D3\u05E9 \u05E7\u05D5\u05D3\u05DD",
-      nextMonth: "\u05D7\u05D5\u05D3\u05E9 \u05D4\u05D1\u05D0",
-      prevYear: "\u05E9\u05E0\u05D4 \u05E7\u05D5\u05D3\u05DE\u05EA",
-      nextYear: "\u05E9\u05E0\u05D4 \u05D4\u05D1\u05D0\u05D4",
-      today: "\u05D4\u05D9\u05D5\u05DD",
-      week: "\u05E9\u05D1\u05D5\u05E2",
-      holiday: "\u05D7\u05D2",
-      workday: "\u05E2\u05D1\u05D5\u05D3\u05D4",
+      prevMonth: "\u8B9E\u8B9C\u8B9A\u7816 \u62FD\u8B9C\u8B9A\u8BD0",
+      nextMonth: "\u8B9E\u8B9C\u8B9A\u7816 \u8B9B\u8B98\u8B97",
+      prevYear: "\u7816\u8C1E\u8B9B \u62FD\u8B9C\u8B9A\u8BEA\u8F6C",
+      nextYear: "\u7816\u8C1E\u8B9B \u8B9B\u8B98\u8B97\u8B9B",
+      today: "\u8B9B\u8BAC\u8B9C\u8BD0",
+      week: "\u7816\u8B98\u8B9C\u6CE8",
+      holiday: "\u8B9E\u8B99",
+      workday: "\u6CE8\u8B98\u8B9C\u8B9A\u8B9B",
       monthHeaderFormat: "MMMM YYYY",
       weeks: {
-        sun: "\u05D0",
-        mon: "\u05D1",
-        tue: "\u05D2",
-        wed: "\u05D3",
-        thu: "\u05D4",
-        fri: "\u05D5",
-        sat: "\u05E9"
+        sun: "\u8B97",
+        mon: "\u8B98",
+        tue: "\u8B99",
+        wed: "\u8B9A",
+        thu: "\u8B9B",
+        fri: "\u8B9C",
+        sat: "\u7816"
       }
     },
-    // השלמה אוטומטית
+    // 讛砖诇诪讛 讗讜讟讜诪讟讬转
     autocomplete: {
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      placeholder: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      noMatch: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05EA\u05D5\u05D0\u05DE\u05D9\u05DD"
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      placeholder: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      noMatch: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8F6C\u8B9C\u8B97\u8BEA\u8BAC\u8BD0"
     },
-    // ספירה לאחור
+    // 住驻讬专讛 诇讗讞讜专
     countdown: {
-      days: "\u05D9\u05DE\u05D9\u05DD",
-      hours: "\u05E9\u05E2\u05D5\u05EA",
-      minutes: "\u05D3\u05E7\u05D5\u05EA",
-      seconds: "\u05E9\u05E0\u05D9\u05D5\u05EA",
-      milliseconds: "\u05DE\u05D9\u05DC\u05D9\u05E9\u05E0\u05D9\u05D5\u05EA",
-      finished: "\u05D4\u05E1\u05EA\u05D9\u05D9\u05DD"
+      days: "\u8BAC\u8BEA\u8BAC\u8BD0",
+      hours: "\u7816\u6CE8\u8B9C\u8F6C",
+      minutes: "\u8B9A\u62FD\u8B9C\u8F6C",
+      seconds: "\u7816\u8C1E\u8BAC\u8B9C\u8F6C",
+      milliseconds: "\u8BEA\u8BAC\u8BC7\u8BAC\u7816\u8C1E\u8BAC\u8B9C\u8F6C",
+      finished: "\u8B9B\u4F4F\u8F6C\u8BAC\u8BAC\u8BD0"
     },
-    // קסקייד
+    // 拽住拽讬讬讚
     cascader: {
-      noMatch: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05EA\u05D5\u05D0\u05DE\u05D9\u05DD",
-      placeholder: "\u05D1\u05D7\u05E8",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD"
+      noMatch: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8F6C\u8B9C\u8B97\u8BEA\u8BAC\u8BD0",
+      placeholder: "\u8B98\u8B9E\u4E13",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0"
     },
-    // העברה
+    // 讛注讘专讛
     transfer: {
-      noMatch: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05EA\u05D5\u05D0\u05DE\u05D9\u05DD",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      titles: ["\u05E8\u05E9\u05D9\u05DE\u05D4 1", "\u05E8\u05E9\u05D9\u05DE\u05D4 2"],
-      filterPlaceholder: "\u05D4\u05D6\u05DF \u05DE\u05D9\u05DC\u05EA \u05DE\u05E4\u05EA\u05D7",
-      noCheckedFormat: "{total} \u05E4\u05E8\u05D9\u05D8\u05D9\u05DD",
-      hasCheckedFormat: "{checked}/{total} \u05E0\u05D1\u05D7\u05E8\u05D5",
-      searchPlaceholder: "\u05D4\u05D6\u05DF \u05DE\u05D9\u05DC\u05EA \u05DE\u05E4\u05EA\u05D7"
+      noMatch: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8F6C\u8B9C\u8B97\u8BEA\u8BAC\u8BD0",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      titles: ["\u4E13\u7816\u8BAC\u8BEA\u8B9B 1", "\u4E13\u7816\u8BAC\u8BEA\u8B9B 2"],
+      filterPlaceholder: "\u8B9B\u8B9D\u8C09 \u8BEA\u8BAC\u8BC7\u8F6C \u8BEA\u9A7B\u8F6C\u8B9E",
+      noCheckedFormat: "{total} \u9A7B\u4E13\u8BAC\u8B9F\u8BAC\u8BD0",
+      hasCheckedFormat: "{checked}/{total} \u8C1E\u8B98\u8B9E\u4E13\u8B9C",
+      searchPlaceholder: "\u8B9B\u8B9D\u8C09 \u8BEA\u8BAC\u8BC7\u8F6C \u8BEA\u9A7B\u8F6C\u8B9E"
     },
-    // טבלה
+    // 讟讘诇讛
     table: {
-      emptyText: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      confirmFilter: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      resetFilter: "\u05D0\u05D9\u05E4\u05D5\u05E1",
-      clearFilter: "\u05D4\u05DB\u05DC",
-      sumText: "\u05E1\u05DB\u05D5\u05DD",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      index: "\u05D0\u05D9\u05E0\u05D3\u05E7\u05E1",
-      print: "\u05D4\u05D3\u05E4\u05E1",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      preview: "\u05EA\u05E6\u05D5\u05D2\u05D4 \u05DE\u05E7\u05D3\u05D9\u05DE\u05D4",
-      printTime: "\u05D6\u05DE\u05DF \u05D4\u05D3\u05E4\u05E1\u05D4",
-      total: '\u05E1\u05D4"\u05DB {total} \u05E4\u05E8\u05D9\u05D8\u05D9\u05DD',
-      page: "\u05E2\u05DE\u05D5\u05D3 {page}",
-      yes: "\u05DB\u05DF",
-      no: "\u05DC\u05D0",
-      // סרגל כלים
+      emptyText: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      confirmFilter: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      resetFilter: "\u8B97\u8BAC\u9A7B\u8B9C\u4F4F",
+      clearFilter: "\u8B9B\u8BBB\u8BC7",
+      sumText: "\u4F4F\u8BBB\u8B9C\u8BD0",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      index: "\u8B97\u8BAC\u8C1E\u8B9A\u62FD\u4F4F",
+      print: "\u8B9B\u8B9A\u9A7B\u4F4F",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      preview: "\u8F6C\u722A\u8B9C\u8B99\u8B9B \u8BEA\u62FD\u8B9A\u8BAC\u8BEA\u8B9B",
+      printTime: "\u8B9D\u8BEA\u8C09 \u8B9B\u8B9A\u9A7B\u4F4F\u8B9B",
+      total: '\u4F4F\u8B9B"\u8BBB {total} \u9A7B\u4E13\u8BAC\u8B9F\u8BAC\u8BD0',
+      page: "\u6CE8\u8BEA\u8B9C\u8B9A {page}",
+      yes: "\u8BBB\u8C09",
+      no: "\u8BC7\u8B97",
+      // 住专讙诇 讻诇讬诐
       toolbar: {
-        refresh: "\u05E8\u05E2\u05E0\u05D5\u05DF",
-        density: "\u05E6\u05E4\u05D9\u05E4\u05D5\u05EA",
-        densityDefault: "\u05D1\u05E8\u05D9\u05E8\u05EA \u05DE\u05D7\u05D3\u05DC",
-        densityLarge: "\u05D2\u05D3\u05D5\u05DC",
-        densitySmall: "\u05E7\u05D8\u05DF",
-        columnSetting: "\u05D4\u05D2\u05D3\u05E8\u05D5\u05EA \u05E2\u05DE\u05D5\u05D3\u05D5\u05EA",
-        fullscreen: "\u05DE\u05E1\u05DA \u05DE\u05DC\u05D0",
-        exitFullscreen: "\u05E6\u05D0 \u05DE\u05DE\u05E1\u05DA \u05DE\u05DC\u05D0",
-        export: "\u05D9\u05D9\u05E6\u05D5\u05D0",
-        import: "\u05D9\u05D9\u05D1\u05D5\u05D0",
-        search: "\u05D7\u05D9\u05E4\u05D5\u05E9",
-        searchPlaceholder: "\u05D4\u05D6\u05DF \u05DE\u05D9\u05DC\u05D5\u05EA \u05DE\u05E4\u05EA\u05D7 \u05DC\u05D7\u05D9\u05E4\u05D5\u05E9"
+        refresh: "\u4E13\u6CE8\u8C1E\u8B9C\u8C09",
+        density: "\u722A\u9A7B\u8BAC\u9A7B\u8B9C\u8F6C",
+        densityDefault: "\u8B98\u4E13\u8BAC\u4E13\u8F6C \u8BEA\u8B9E\u8B9A\u8BC7",
+        densityLarge: "\u8B99\u8B9A\u8B9C\u8BC7",
+        densitySmall: "\u62FD\u8B9F\u8C09",
+        columnSetting: "\u8B9B\u8B99\u8B9A\u4E13\u8B9C\u8F6C \u6CE8\u8BEA\u8B9C\u8B9A\u8B9C\u8F6C",
+        fullscreen: "\u8BEA\u4F4F\u8BB1 \u8BEA\u8BC7\u8B97",
+        exitFullscreen: "\u722A\u8B97 \u8BEA\u8BEA\u4F4F\u8BB1 \u8BEA\u8BC7\u8B97",
+        export: "\u8BAC\u8BAC\u722A\u8B9C\u8B97",
+        import: "\u8BAC\u8BAC\u8B98\u8B9C\u8B97",
+        search: "\u8B9E\u8BAC\u9A7B\u8B9C\u7816",
+        searchPlaceholder: "\u8B9B\u8B9D\u8C09 \u8BEA\u8BAC\u8BC7\u8B9C\u8F6C \u8BEA\u9A7B\u8F6C\u8B9E \u8BC7\u8B9E\u8BAC\u9A7B\u8B9C\u7816"
       },
-      // מסנן
+      // 诪住谞谉
       filter: {
-        selectAll: "\u05D1\u05D7\u05E8 \u05D4\u05DB\u05DC",
-        selectInvert: "\u05D4\u05E4\u05D5\u05DA \u05D1\u05D7\u05D9\u05E8\u05D4",
-        empty: "\u05E8\u05D9\u05E7",
-        notEmpty: "\u05DC\u05D0 \u05E8\u05D9\u05E7",
-        contains: "\u05DE\u05DB\u05D9\u05DC",
-        notContains: "\u05DC\u05D0 \u05DE\u05DB\u05D9\u05DC",
-        equals: "\u05E9\u05D5\u05D5\u05D4",
-        notEquals: "\u05DC\u05D0 \u05E9\u05D5\u05D5\u05D4",
-        startsWith: "\u05DE\u05EA\u05D7\u05D9\u05DC \u05D1",
-        endsWith: "\u05DE\u05E1\u05EA\u05D9\u05D9\u05DD \u05D1",
-        greaterThan: "\u05D2\u05D3\u05D5\u05DC \u05DE",
-        lessThan: "\u05E7\u05D8\u05DF \u05DE",
-        between: "\u05D1\u05D9\u05DF"
+        selectAll: "\u8B98\u8B9E\u4E13 \u8B9B\u8BBB\u8BC7",
+        selectInvert: "\u8B9B\u9A7B\u8B9C\u8BB1 \u8B98\u8B9E\u8BAC\u4E13\u8B9B",
+        empty: "\u4E13\u8BAC\u62FD",
+        notEmpty: "\u8BC7\u8B97 \u4E13\u8BAC\u62FD",
+        contains: "\u8BEA\u8BBB\u8BAC\u8BC7",
+        notContains: "\u8BC7\u8B97 \u8BEA\u8BBB\u8BAC\u8BC7",
+        equals: "\u7816\u8B9C\u8B9C\u8B9B",
+        notEquals: "\u8BC7\u8B97 \u7816\u8B9C\u8B9C\u8B9B",
+        startsWith: "\u8BEA\u8F6C\u8B9E\u8BAC\u8BC7 \u8B98",
+        endsWith: "\u8BEA\u4F4F\u8F6C\u8BAC\u8BAC\u8BD0 \u8B98",
+        greaterThan: "\u8B99\u8B9A\u8B9C\u8BC7 \u8BEA",
+        lessThan: "\u62FD\u8B9F\u8C09 \u8BEA",
+        between: "\u8B98\u8BAC\u8C09"
       },
-      // מיון
+      // 诪讬讜谉
       sort: {
-        asc: "\u05E2\u05D5\u05DC\u05D4",
-        desc: "\u05D9\u05D5\u05E8\u05D3",
-        clear: "\u05E0\u05E7\u05D4 \u05DE\u05D9\u05D5\u05DF"
+        asc: "\u6CE8\u8B9C\u8BC7\u8B9B",
+        desc: "\u8BAC\u8B9C\u4E13\u8B9A",
+        clear: "\u8C1E\u62FD\u8B9B \u8BEA\u8BAC\u8B9C\u8C09"
       },
-      // ייצוא
+      // 讬讬爪讜讗
       export: {
-        title: "\u05D9\u05D9\u05E6\u05D5\u05D0 \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-        filename: "\u05E9\u05DD \u05E7\u05D5\u05D1\u05E5",
-        type: "\u05E1\u05D5\u05D2 \u05E7\u05D5\u05D1\u05E5",
-        scope: "\u05D4\u05D9\u05E7\u05E3 \u05D9\u05D9\u05E6\u05D5\u05D0",
-        scopeAll: "\u05DB\u05DC \u05D4\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-        scopeSelected: "\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05E0\u05D1\u05D7\u05E8\u05D9\u05DD",
-        scopeCurrentPage: "\u05E2\u05DE\u05D5\u05D3 \u05E0\u05D5\u05DB\u05D7\u05D9",
-        includeHeader: "\u05DB\u05DC\u05D5\u05DC \u05DB\u05D5\u05EA\u05E8\u05EA",
-        exporting: "\u05DE\u05D9\u05D9\u05E6\u05D0...",
-        success: "\u05D9\u05D9\u05E6\u05D5\u05D0 \u05D4\u05E6\u05DC\u05D9\u05D7",
-        error: "\u05D9\u05D9\u05E6\u05D5\u05D0 \u05E0\u05DB\u05E9\u05DC"
+        title: "\u8BAC\u8BAC\u722A\u8B9C\u8B97 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+        filename: "\u7816\u8BD0 \u62FD\u8B9C\u8B98\u6293",
+        type: "\u4F4F\u8B9C\u8B99 \u62FD\u8B9C\u8B98\u6293",
+        scope: "\u8B9B\u8BAC\u62FD\u795D \u8BAC\u8BAC\u722A\u8B9C\u8B97",
+        scopeAll: "\u8BBB\u8BC7 \u8B9B\u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+        scopeSelected: "\u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8C1E\u8B98\u8B9E\u4E13\u8BAC\u8BD0",
+        scopeCurrentPage: "\u6CE8\u8BEA\u8B9C\u8B9A \u8C1E\u8B9C\u8BBB\u8B9E\u8BAC",
+        includeHeader: "\u8BBB\u8BC7\u8B9C\u8BC7 \u8BBB\u8B9C\u8F6C\u4E13\u8F6C",
+        exporting: "\u8BEA\u8BAC\u8BAC\u722A\u8B97...",
+        success: "\u8BAC\u8BAC\u722A\u8B9C\u8B97 \u8B9B\u722A\u8BC7\u8BAC\u8B9E",
+        error: "\u8BAC\u8BAC\u722A\u8B9C\u8B97 \u8C1E\u8BBB\u7816\u8BC7"
       },
-      // ייבוא
+      // 讬讬讘讜讗
       import: {
-        title: "\u05D9\u05D9\u05D1\u05D5\u05D0 \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-        selectFile: "\u05D1\u05D7\u05E8 \u05E7\u05D5\u05D1\u05E5",
-        dragTip: "\u05DC\u05D7\u05E5 \u05D0\u05D5 \u05D2\u05E8\u05D5\u05E8 \u05E7\u05D5\u05D1\u05E5 \u05DC\u05DB\u05D0\u05DF \u05DC\u05D4\u05E2\u05DC\u05D0\u05D4",
-        importing: "\u05DE\u05D9\u05D9\u05D1\u05D0...",
-        success: "\u05D9\u05D9\u05D1\u05D5\u05D0 \u05D4\u05E6\u05DC\u05D9\u05D7",
-        error: "\u05D9\u05D9\u05D1\u05D5\u05D0 \u05E0\u05DB\u05E9\u05DC",
-        preview: "\u05EA\u05E6\u05D5\u05D2\u05D4 \u05DE\u05E7\u05D3\u05D9\u05DE\u05D4 \u05E9\u05DC \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-        confirm: "\u05D0\u05E9\u05E8 \u05D9\u05D9\u05D1\u05D5\u05D0"
+        title: "\u8BAC\u8BAC\u8B98\u8B9C\u8B97 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+        selectFile: "\u8B98\u8B9E\u4E13 \u62FD\u8B9C\u8B98\u6293",
+        dragTip: "\u8BC7\u8B9E\u6293 \u8B97\u8B9C \u8B99\u4E13\u8B9C\u4E13 \u62FD\u8B9C\u8B98\u6293 \u8BC7\u8BBB\u8B97\u8C09 \u8BC7\u8B9B\u6CE8\u8BC7\u8B97\u8B9B",
+        importing: "\u8BEA\u8BAC\u8BAC\u8B98\u8B97...",
+        success: "\u8BAC\u8BAC\u8B98\u8B9C\u8B97 \u8B9B\u722A\u8BC7\u8BAC\u8B9E",
+        error: "\u8BAC\u8BAC\u8B98\u8B9C\u8B97 \u8C1E\u8BBB\u7816\u8BC7",
+        preview: "\u8F6C\u722A\u8B9C\u8B99\u8B9B \u8BEA\u62FD\u8B9A\u8BAC\u8BEA\u8B9B \u7816\u8BC7 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+        confirm: "\u8B97\u7816\u4E13 \u8BAC\u8BAC\u8B98\u8B9C\u8B97"
       },
-      // הדפסה
+      // 讛讚驻住讛
       printConfig: {
-        title: "\u05D4\u05D2\u05D3\u05E8\u05D5\u05EA \u05D4\u05D3\u05E4\u05E1\u05D4",
-        pageTitle: "\u05DB\u05D5\u05EA\u05E8\u05EA \u05E2\u05DE\u05D5\u05D3",
-        pageHeader: "\u05DB\u05D5\u05EA\u05E8\u05EA \u05E2\u05DC\u05D9\u05D5\u05E0\u05D4",
-        pageFooter: "\u05DB\u05D5\u05EA\u05E8\u05EA \u05EA\u05D7\u05EA\u05D5\u05E0\u05D4",
-        printAll: "\u05D4\u05D3\u05E4\u05E1 \u05D4\u05DB\u05DC",
-        printSelected: "\u05D4\u05D3\u05E4\u05E1 \u05E0\u05D1\u05D7\u05E8",
-        printCurrentPage: "\u05D4\u05D3\u05E4\u05E1 \u05E2\u05DE\u05D5\u05D3 \u05E0\u05D5\u05DB\u05D7\u05D9",
-        landscape: "\u05D0\u05D5\u05E4\u05E7\u05D9",
-        portrait: "\u05D0\u05E0\u05DB\u05D9",
-        printing: "\u05DE\u05D3\u05E4\u05D9\u05E1..."
+        title: "\u8B9B\u8B99\u8B9A\u4E13\u8B9C\u8F6C \u8B9B\u8B9A\u9A7B\u4F4F\u8B9B",
+        pageTitle: "\u8BBB\u8B9C\u8F6C\u4E13\u8F6C \u6CE8\u8BEA\u8B9C\u8B9A",
+        pageHeader: "\u8BBB\u8B9C\u8F6C\u4E13\u8F6C \u6CE8\u8BC7\u8BAC\u8B9C\u8C1E\u8B9B",
+        pageFooter: "\u8BBB\u8B9C\u8F6C\u4E13\u8F6C \u8F6C\u8B9E\u8F6C\u8B9C\u8C1E\u8B9B",
+        printAll: "\u8B9B\u8B9A\u9A7B\u4F4F \u8B9B\u8BBB\u8BC7",
+        printSelected: "\u8B9B\u8B9A\u9A7B\u4F4F \u8C1E\u8B98\u8B9E\u4E13",
+        printCurrentPage: "\u8B9B\u8B9A\u9A7B\u4F4F \u6CE8\u8BEA\u8B9C\u8B9A \u8C1E\u8B9C\u8BBB\u8B9E\u8BAC",
+        landscape: "\u8B97\u8B9C\u9A7B\u62FD\u8BAC",
+        portrait: "\u8B97\u8C1E\u8BBB\u8BAC",
+        printing: "\u8BEA\u8B9A\u9A7B\u8BAC\u4F4F..."
       },
-      // הגדרות עמודות
+      // 讛讙讚专讜转 注诪讜讚讜转
       columnSetting: {
-        title: "\u05D4\u05D2\u05D3\u05E8\u05D5\u05EA \u05E2\u05DE\u05D5\u05D3\u05D5\u05EA",
-        showAll: "\u05D4\u05E6\u05D2 \u05D4\u05DB\u05DC",
-        hideAll: "\u05D4\u05E1\u05EA\u05E8 \u05D4\u05DB\u05DC",
-        reset: "\u05D0\u05D9\u05E4\u05D5\u05E1",
-        fixedLeft: "\u05E7\u05D1\u05E2 \u05DC\u05E9\u05DE\u05D0\u05DC",
-        fixedRight: "\u05E7\u05D1\u05E2 \u05DC\u05D9\u05DE\u05D9\u05DF",
-        unfixed: "\u05E9\u05D7\u05E8\u05E8"
+        title: "\u8B9B\u8B99\u8B9A\u4E13\u8B9C\u8F6C \u6CE8\u8BEA\u8B9C\u8B9A\u8B9C\u8F6C",
+        showAll: "\u8B9B\u722A\u8B99 \u8B9B\u8BBB\u8BC7",
+        hideAll: "\u8B9B\u4F4F\u8F6C\u4E13 \u8B9B\u8BBB\u8BC7",
+        reset: "\u8B97\u8BAC\u9A7B\u8B9C\u4F4F",
+        fixedLeft: "\u62FD\u8B98\u6CE8 \u8BC7\u7816\u8BEA\u8B97\u8BC7",
+        fixedRight: "\u62FD\u8B98\u6CE8 \u8BC7\u8BAC\u8BEA\u8BAC\u8C09",
+        unfixed: "\u7816\u8B9E\u4E13\u4E13"
       },
-      // תפריט הקשר
+      // 转驻专讬讟 讛拽砖专
       contextMenu: {
-        copy: "\u05D4\u05E2\u05EA\u05E7",
-        copyRow: "\u05D4\u05E2\u05EA\u05E7 \u05E9\u05D5\u05E8\u05D4",
-        copyCell: "\u05D4\u05E2\u05EA\u05E7 \u05EA\u05D0",
-        paste: "\u05D4\u05D3\u05D1\u05E7",
-        insertRowAbove: "\u05D4\u05D5\u05E1\u05E3 \u05E9\u05D5\u05E8\u05D4 \u05DC\u05DE\u05E2\u05DC\u05D4",
-        insertRowBelow: "\u05D4\u05D5\u05E1\u05E3 \u05E9\u05D5\u05E8\u05D4 \u05DC\u05DE\u05D8\u05D4",
-        deleteRow: "\u05DE\u05D7\u05E7 \u05E9\u05D5\u05E8\u05D4",
-        deleteSelectedRows: "\u05DE\u05D7\u05E7 \u05E9\u05D5\u05E8\u05D5\u05EA \u05E0\u05D1\u05D7\u05E8\u05D5\u05EA",
-        exportSelected: "\u05D9\u05D9\u05E6\u05D0 \u05E0\u05D1\u05D7\u05E8"
+        copy: "\u8B9B\u6CE8\u8F6C\u62FD",
+        copyRow: "\u8B9B\u6CE8\u8F6C\u62FD \u7816\u8B9C\u4E13\u8B9B",
+        copyCell: "\u8B9B\u6CE8\u8F6C\u62FD \u8F6C\u8B97",
+        paste: "\u8B9B\u8B9A\u8B98\u62FD",
+        insertRowAbove: "\u8B9B\u8B9C\u4F4F\u795D \u7816\u8B9C\u4E13\u8B9B \u8BC7\u8BEA\u6CE8\u8BC7\u8B9B",
+        insertRowBelow: "\u8B9B\u8B9C\u4F4F\u795D \u7816\u8B9C\u4E13\u8B9B \u8BC7\u8BEA\u8B9F\u8B9B",
+        deleteRow: "\u8BEA\u8B9E\u62FD \u7816\u8B9C\u4E13\u8B9B",
+        deleteSelectedRows: "\u8BEA\u8B9E\u62FD \u7816\u8B9C\u4E13\u8B9C\u8F6C \u8C1E\u8B98\u8B9E\u4E13\u8B9C\u8F6C",
+        exportSelected: "\u8BAC\u8BAC\u722A\u8B97 \u8C1E\u8B98\u8B9E\u4E13"
       },
-      // בחירה
+      // 讘讞讬专讛
       selection: {
-        selectAll: "\u05D1\u05D7\u05E8 \u05D4\u05DB\u05DC",
-        selectInvert: "\u05D4\u05E4\u05D5\u05DA \u05D1\u05D7\u05D9\u05E8\u05D4",
-        selectNone: "\u05E0\u05E7\u05D4 \u05D1\u05D7\u05D9\u05E8\u05D4",
-        selected: "{count} \u05E4\u05E8\u05D9\u05D8\u05D9\u05DD \u05E0\u05D1\u05D7\u05E8\u05D5"
+        selectAll: "\u8B98\u8B9E\u4E13 \u8B9B\u8BBB\u8BC7",
+        selectInvert: "\u8B9B\u9A7B\u8B9C\u8BB1 \u8B98\u8B9E\u8BAC\u4E13\u8B9B",
+        selectNone: "\u8C1E\u62FD\u8B9B \u8B98\u8B9E\u8BAC\u4E13\u8B9B",
+        selected: "{count} \u9A7B\u4E13\u8BAC\u8B9F\u8BAC\u8BD0 \u8C1E\u8B98\u8B9E\u4E13\u8B9C"
       },
-      // הרחבה
+      // 讛专讞讘讛
       expand: {
-        expandAll: "\u05D4\u05E8\u05D7\u05D1 \u05D4\u05DB\u05DC",
-        collapseAll: "\u05DB\u05D5\u05D5\u05E5 \u05D4\u05DB\u05DC"
+        expandAll: "\u8B9B\u4E13\u8B9E\u8B98 \u8B9B\u8BBB\u8BC7",
+        collapseAll: "\u8BBB\u8B9C\u8B9C\u6293 \u8B9B\u8BBB\u8BC7"
       },
-      // עץ
+      // 注抓
       tree: {
-        expandAll: "\u05D4\u05E8\u05D7\u05D1 \u05D4\u05DB\u05DC",
-        collapseAll: "\u05DB\u05D5\u05D5\u05E5 \u05D4\u05DB\u05DC",
-        expandLevel: "\u05D4\u05E8\u05D7\u05D1 \u05DC\u05E8\u05DE\u05D4 {level}"
+        expandAll: "\u8B9B\u4E13\u8B9E\u8B98 \u8B9B\u8BBB\u8BC7",
+        collapseAll: "\u8BBB\u8B9C\u8B9C\u6293 \u8B9B\u8BBB\u8BC7",
+        expandLevel: "\u8B9B\u4E13\u8B9E\u8B98 \u8BC7\u4E13\u8BEA\u8B9B {level}"
       },
-      // גרירה
+      // 讙专讬专讛
       drag: {
-        dragTip: "\u05D2\u05E8\u05D5\u05E8 \u05DC\u05E1\u05D9\u05D3\u05D5\u05E8 \u05DE\u05D7\u05D3\u05E9",
-        dropTip: "\u05E9\u05D7\u05E8\u05E8 \u05DC\u05DE\u05D9\u05E7\u05D5\u05DD"
+        dragTip: "\u8B99\u4E13\u8B9C\u4E13 \u8BC7\u4F4F\u8BAC\u8B9A\u8B9C\u4E13 \u8BEA\u8B9E\u8B9A\u7816",
+        dropTip: "\u7816\u8B9E\u4E13\u4E13 \u8BC7\u8BEA\u8BAC\u62FD\u8B9C\u8BD0"
       }
     },
-    // תיבת הודעה
+    // 转讬讘转 讛讜讚注讛
     messagebox: {
-      title: "\u05D4\u05D5\u05D3\u05E2\u05D4",
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      close: "\u05E1\u05D2\u05D5\u05E8",
-      error: "\u05E7\u05DC\u05D8 \u05DC\u05D0 \u05D7\u05D5\u05E7\u05D9",
-      alert: "\u05D4\u05EA\u05E8\u05D0\u05D4",
-      prompt: "\u05D1\u05E7\u05E9\u05D4",
-      inputPlaceholder: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF"
+      title: "\u8B9B\u8B9C\u8B9A\u6CE8\u8B9B",
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      close: "\u4F4F\u8B99\u8B9C\u4E13",
+      error: "\u62FD\u8BC7\u8B9F \u8BC7\u8B97 \u8B9E\u8B9C\u62FD\u8BAC",
+      alert: "\u8B9B\u8F6C\u4E13\u8B97\u8B9B",
+      prompt: "\u8B98\u62FD\u7816\u8B9B",
+      inputPlaceholder: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09"
     },
-    // העלאה
+    // 讛注诇讗讛
     upload: {
-      deleteTip: "\u05DC\u05D7\u05E5 delete \u05DC\u05D4\u05E1\u05E8\u05D4",
-      delete: "\u05DE\u05D7\u05E7",
-      preview: "\u05EA\u05E6\u05D5\u05D2\u05D4 \u05DE\u05E7\u05D3\u05D9\u05DE\u05D4",
-      continue: "\u05D4\u05DE\u05E9\u05DA",
-      upload: "\u05DC\u05D7\u05E5 \u05DC\u05D4\u05E2\u05DC\u05D0\u05D4",
-      tip: "\u05DC\u05D7\u05E5 \u05D0\u05D5 \u05D2\u05E8\u05D5\u05E8 \u05E7\u05D5\u05D1\u05E5 \u05DC\u05D0\u05D6\u05D5\u05E8 \u05D6\u05D4 \u05DB\u05D3\u05D9 <em>\u05DC\u05D4\u05E2\u05DC\u05D5\u05EA</em>",
-      dragTip: "\u05E9\u05D7\u05E8\u05E8 \u05E7\u05D5\u05D1\u05E5 \u05DB\u05D0\u05DF \u05D0\u05D5 \u05DC\u05D7\u05E5 \u05DC\u05D4\u05E2\u05DC\u05D0\u05D4",
-      uploading: "\u05DE\u05E2\u05DC\u05D4...",
-      success: "\u05D4\u05E2\u05DC\u05D0\u05D4 \u05D4\u05E6\u05DC\u05D9\u05D7\u05D4",
-      error: "\u05D4\u05E2\u05DC\u05D0\u05D4 \u05E0\u05DB\u05E9\u05DC\u05D4",
-      retry: "\u05E0\u05E1\u05D4 \u05E9\u05D5\u05D1",
-      cancel: "\u05D1\u05D8\u05DC \u05D4\u05E2\u05DC\u05D0\u05D4",
-      fileTypeError: "\u05E1\u05D5\u05D2 \u05E7\u05D5\u05D1\u05E5 \u05DC\u05D0 \u05E0\u05EA\u05DE\u05DA",
-      fileSizeError: "\u05D2\u05D5\u05D3\u05DC \u05E7\u05D5\u05D1\u05E5 \u05D7\u05D5\u05E8\u05D2 \u05DE\u05D4\u05D2\u05D1\u05D5\u05DC",
-      fileCountError: "\u05DE\u05E1\u05E4\u05E8 \u05E7\u05D1\u05E6\u05D9\u05DD \u05D7\u05D5\u05E8\u05D2 \u05DE\u05D4\u05D2\u05D1\u05D5\u05DC"
+      deleteTip: "\u8BC7\u8B9E\u6293 delete \u8BC7\u8B9B\u4F4F\u4E13\u8B9B",
+      delete: "\u8BEA\u8B9E\u62FD",
+      preview: "\u8F6C\u722A\u8B9C\u8B99\u8B9B \u8BEA\u62FD\u8B9A\u8BAC\u8BEA\u8B9B",
+      continue: "\u8B9B\u8BEA\u7816\u8BB1",
+      upload: "\u8BC7\u8B9E\u6293 \u8BC7\u8B9B\u6CE8\u8BC7\u8B97\u8B9B",
+      tip: "\u8BC7\u8B9E\u6293 \u8B97\u8B9C \u8B99\u4E13\u8B9C\u4E13 \u62FD\u8B9C\u8B98\u6293 \u8BC7\u8B97\u8B9D\u8B9C\u4E13 \u8B9D\u8B9B \u8BBB\u8B9A\u8BAC <em>\u8BC7\u8B9B\u6CE8\u8BC7\u8B9C\u8F6C</em>",
+      dragTip: "\u7816\u8B9E\u4E13\u4E13 \u62FD\u8B9C\u8B98\u6293 \u8BBB\u8B97\u8C09 \u8B97\u8B9C \u8BC7\u8B9E\u6293 \u8BC7\u8B9B\u6CE8\u8BC7\u8B97\u8B9B",
+      uploading: "\u8BEA\u6CE8\u8BC7\u8B9B...",
+      success: "\u8B9B\u6CE8\u8BC7\u8B97\u8B9B \u8B9B\u722A\u8BC7\u8BAC\u8B9E\u8B9B",
+      error: "\u8B9B\u6CE8\u8BC7\u8B97\u8B9B \u8C1E\u8BBB\u7816\u8BC7\u8B9B",
+      retry: "\u8C1E\u4F4F\u8B9B \u7816\u8B9C\u8B98",
+      cancel: "\u8B98\u8B9F\u8BC7 \u8B9B\u6CE8\u8BC7\u8B97\u8B9B",
+      fileTypeError: "\u4F4F\u8B9C\u8B99 \u62FD\u8B9C\u8B98\u6293 \u8BC7\u8B97 \u8C1E\u8F6C\u8BEA\u8BB1",
+      fileSizeError: "\u8B99\u8B9C\u8B9A\u8BC7 \u62FD\u8B9C\u8B98\u6293 \u8B9E\u8B9C\u4E13\u8B99 \u8BEA\u8B9B\u8B99\u8B98\u8B9C\u8BC7",
+      fileCountError: "\u8BEA\u4F4F\u9A7B\u4E13 \u62FD\u8B98\u722A\u8BAC\u8BD0 \u8B9E\u8B9C\u4E13\u8B99 \u8BEA\u8B9B\u8B99\u8B98\u8B9C\u8BC7"
     },
-    // טופס
+    // 讟讜驻住
     form: {
-      validationFailed: "\u05D0\u05D9\u05DE\u05D5\u05EA \u05E0\u05DB\u05E9\u05DC",
-      required: "\u05E0\u05D3\u05E8\u05E9",
-      pleaseInput: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF",
-      pleaseSelect: "\u05D0\u05E0\u05D0 \u05D1\u05D7\u05E8"
+      validationFailed: "\u8B97\u8BAC\u8BEA\u8B9C\u8F6C \u8C1E\u8BBB\u7816\u8BC7",
+      required: "\u8C1E\u8B9A\u4E13\u7816",
+      pleaseInput: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09",
+      pleaseSelect: "\u8B97\u8C1E\u8B97 \u8B98\u8B9E\u4E13"
     },
-    // כפתור
+    // 讻驻转讜专
     button: {
-      loading: "\u05D8\u05D5\u05E2\u05DF..."
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09..."
     },
-    // קלט
+    // 拽诇讟
     input: {
-      placeholder: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF",
-      clear: "\u05E0\u05E7\u05D4",
-      showPassword: "\u05D4\u05E6\u05D2 \u05E1\u05D9\u05E1\u05DE\u05D4",
-      hidePassword: "\u05D4\u05E1\u05EA\u05E8 \u05E1\u05D9\u05E1\u05DE\u05D4",
-      copy: "\u05D4\u05E2\u05EA\u05E7",
-      copied: "\u05D4\u05D5\u05E2\u05EA\u05E7"
+      placeholder: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09",
+      clear: "\u8C1E\u62FD\u8B9B",
+      showPassword: "\u8B9B\u722A\u8B99 \u4F4F\u8BAC\u4F4F\u8BEA\u8B9B",
+      hidePassword: "\u8B9B\u4F4F\u8F6C\u4E13 \u4F4F\u8BAC\u4F4F\u8BEA\u8B9B",
+      copy: "\u8B9B\u6CE8\u8F6C\u62FD",
+      copied: "\u8B9B\u8B9C\u6CE8\u8F6C\u62FD"
     },
-    // קלט מספר
+    // 拽诇讟 诪住驻专
     inputnumber: {
-      placeholder: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF \u05DE\u05E1\u05E4\u05E8",
-      increase: "\u05D4\u05D2\u05D3\u05DC",
-      decrease: "\u05D4\u05E7\u05D8\u05DF"
+      placeholder: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09 \u8BEA\u4F4F\u9A7B\u4E13",
+      increase: "\u8B9B\u8B99\u8B9A\u8BC7",
+      decrease: "\u8B9B\u62FD\u8B9F\u8C09"
     },
-    // קלט תג
+    // 拽诇讟 转讙
     inputtag: {
-      placeholder: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF",
-      add: "\u05D4\u05D5\u05E1\u05E3",
-      remove: "\u05D4\u05E1\u05E8"
+      placeholder: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09",
+      add: "\u8B9B\u8B9C\u4F4F\u795D",
+      remove: "\u8B9B\u4F4F\u4E13"
     },
-    // פירורי לחם
+    // 驻讬专讜专讬 诇讞诐
     breadcrumb: {
-      label: "\u05E4\u05D9\u05E8\u05D5\u05E8\u05D9 \u05DC\u05D7\u05DD",
-      more: "\u05E2\u05D5\u05D3"
+      label: "\u9A7B\u8BAC\u4E13\u8B9C\u4E13\u8BAC \u8BC7\u8B9E\u8BD0",
+      more: "\u6CE8\u8B9C\u8B9A"
     },
-    // חזרה למעלה
+    // 讞讝专讛 诇诪注诇讛
     backtop: {
-      text: "\u05D7\u05D6\u05E8\u05D4 \u05DC\u05DE\u05E2\u05DC\u05D4"
+      text: "\u8B9E\u8B9D\u4E13\u8B9B \u8BC7\u8BEA\u6CE8\u8BC7\u8B9B"
     },
-    // בחירה
+    // 讘讞讬专讛
     select: {
-      placeholder: "\u05D0\u05E0\u05D0 \u05D1\u05D7\u05E8",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      noMatch: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05EA\u05D5\u05D0\u05DE\u05D9\u05DD",
-      selectAll: "\u05D1\u05D7\u05E8 \u05D4\u05DB\u05DC",
-      clearAll: "\u05E0\u05E7\u05D4 \u05D4\u05DB\u05DC"
+      placeholder: "\u8B97\u8C1E\u8B97 \u8B98\u8B9E\u4E13",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      noMatch: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0 \u8F6C\u8B9C\u8B97\u8BEA\u8BAC\u8BD0",
+      selectAll: "\u8B98\u8B9E\u4E13 \u8B9B\u8BBB\u8BC7",
+      clearAll: "\u8C1E\u62FD\u8B9B \u8B9B\u8BBB\u8BC7"
     },
-    // עימוד
+    // 注讬诪讜讚
     pagination: {
-      goto: "\u05E2\u05D1\u05D5\u05E8 \u05DC",
+      goto: "\u6CE8\u8B98\u8B9C\u4E13 \u8BC7",
       page: "",
-      total: '\u05E1\u05D4"\u05DB {total}',
-      pageSize: "/\u05E2\u05DE\u05D5\u05D3",
-      prev: "\u05D4\u05E7\u05D5\u05D3\u05DD",
-      next: "\u05D4\u05D1\u05D0",
-      first: "\u05E8\u05D0\u05E9\u05D5\u05DF",
-      last: "\u05D0\u05D7\u05E8\u05D5\u05DF",
+      total: '\u4F4F\u8B9B"\u8BBB {total}',
+      pageSize: "/\u6CE8\u8BEA\u8B9C\u8B9A",
+      prev: "\u8B9B\u62FD\u8B9C\u8B9A\u8BD0",
+      next: "\u8B9B\u8B98\u8B97",
+      first: "\u4E13\u8B97\u7816\u8B9C\u8C09",
+      last: "\u8B97\u8B9E\u4E13\u8B9C\u8C09",
       pageClassifier: ""
     },
-    // אישור קופץ
+    // 讗讬砖讜专 拽讜驻抓
     popconfirm: {
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      dontAskAgain: "\u05D0\u05DC \u05EA\u05E9\u05D0\u05DC \u05E9\u05D5\u05D1"
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      dontAskAgain: "\u8B97\u8BC7 \u8F6C\u7816\u8B97\u8BC7 \u7816\u8B9C\u8B98"
     },
-    // דיאלוג
+    // 讚讬讗诇讜讙
     dialog: {
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC",
-      close: "\u05E1\u05D2\u05D5\u05E8",
-      maximize: "\u05D4\u05D2\u05D3\u05DC \u05DC\u05DE\u05E7\u05E1\u05D9\u05DE\u05D5\u05DD",
-      restore: "\u05E9\u05D7\u05D6\u05E8"
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      close: "\u4F4F\u8B99\u8B9C\u4E13",
+      maximize: "\u8B9B\u8B99\u8B9A\u8BC7 \u8BC7\u8BEA\u62FD\u4F4F\u8BAC\u8BEA\u8B9C\u8BD0",
+      restore: "\u7816\u8B9E\u8B9D\u4E13"
     },
-    // מגירה
+    // 诪讙讬专讛
     drawer: {
-      close: "\u05E1\u05D2\u05D5\u05E8",
-      confirm: "\u05D0\u05D9\u05E9\u05D5\u05E8",
-      cancel: "\u05D1\u05D9\u05D8\u05D5\u05DC"
+      close: "\u4F4F\u8B99\u8B9C\u4E13",
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7"
     },
-    // תפריט נפתח
+    // 转驻专讬讟 谞驻转讞
     dropdown: {
-      loading: "\u05D8\u05D5\u05E2\u05DF..."
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09..."
     },
-    // תמונה
+    // 转诪讜谞讛
     image: {
-      error: "\u05E0\u05DB\u05E9\u05DC",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      preview: "\u05EA\u05E6\u05D5\u05D2\u05D4 \u05DE\u05E7\u05D3\u05D9\u05DE\u05D4",
-      zoomIn: "\u05D4\u05D2\u05D3\u05DC",
-      zoomOut: "\u05D4\u05E7\u05D8\u05DF",
-      rotateLeft: "\u05E1\u05D5\u05D1\u05D1 \u05E9\u05DE\u05D0\u05DC\u05D4",
-      rotateRight: "\u05E1\u05D5\u05D1\u05D1 \u05D9\u05DE\u05D9\u05E0\u05D4",
-      originalSize: "\u05D2\u05D5\u05D3\u05DC \u05DE\u05E7\u05D5\u05E8\u05D9",
-      fullscreen: "\u05DE\u05E1\u05DA \u05DE\u05DC\u05D0"
+      error: "\u8C1E\u8BBB\u7816\u8BC7",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      preview: "\u8F6C\u722A\u8B9C\u8B99\u8B9B \u8BEA\u62FD\u8B9A\u8BAC\u8BEA\u8B9B",
+      zoomIn: "\u8B9B\u8B99\u8B9A\u8BC7",
+      zoomOut: "\u8B9B\u62FD\u8B9F\u8C09",
+      rotateLeft: "\u4F4F\u8B9C\u8B98\u8B98 \u7816\u8BEA\u8B97\u8BC7\u8B9B",
+      rotateRight: "\u4F4F\u8B9C\u8B98\u8B98 \u8BAC\u8BEA\u8BAC\u8C1E\u8B9B",
+      originalSize: "\u8B99\u8B9C\u8B9A\u8BC7 \u8BEA\u62FD\u8B9C\u4E13\u8BAC",
+      fullscreen: "\u8BEA\u4F4F\u8BB1 \u8BEA\u8BC7\u8B97"
     },
-    // מציג תמונות
+    // 诪爪讬讙 转诪讜谞讜转
     imageviewer: {
-      close: "\u05E1\u05D2\u05D5\u05E8",
-      prev: "\u05D4\u05E7\u05D5\u05D3\u05DD",
-      next: "\u05D4\u05D1\u05D0",
-      zoomIn: "\u05D4\u05D2\u05D3\u05DC",
-      zoomOut: "\u05D4\u05E7\u05D8\u05DF",
-      rotateLeft: "\u05E1\u05D5\u05D1\u05D1 \u05E9\u05DE\u05D0\u05DC\u05D4",
-      rotateRight: "\u05E1\u05D5\u05D1\u05D1 \u05D9\u05DE\u05D9\u05E0\u05D4",
-      reset: "\u05D0\u05D9\u05E4\u05D5\u05E1",
-      fullscreen: "\u05DE\u05E1\u05DA \u05DE\u05DC\u05D0",
-      exitFullscreen: "\u05E6\u05D0 \u05DE\u05DE\u05E1\u05DA \u05DE\u05DC\u05D0"
+      close: "\u4F4F\u8B99\u8B9C\u4E13",
+      prev: "\u8B9B\u62FD\u8B9C\u8B9A\u8BD0",
+      next: "\u8B9B\u8B98\u8B97",
+      zoomIn: "\u8B9B\u8B99\u8B9A\u8BC7",
+      zoomOut: "\u8B9B\u62FD\u8B9F\u8C09",
+      rotateLeft: "\u4F4F\u8B9C\u8B98\u8B98 \u7816\u8BEA\u8B97\u8BC7\u8B9B",
+      rotateRight: "\u4F4F\u8B9C\u8B98\u8B98 \u8BAC\u8BEA\u8BAC\u8C1E\u8B9B",
+      reset: "\u8B97\u8BAC\u9A7B\u8B9C\u4F4F",
+      fullscreen: "\u8BEA\u4F4F\u8BB1 \u8BEA\u8BC7\u8B97",
+      exitFullscreen: "\u722A\u8B97 \u8BEA\u8BEA\u4F4F\u8BB1 \u8BEA\u8BC7\u8B97"
     },
-    // גלילה אינסופית
+    // 讙诇讬诇讛 讗讬谞住讜驻讬转
     infinitescroll: {
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      finished: "\u05D0\u05D9\u05DF \u05E2\u05D5\u05D3 \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      error: "\u05D8\u05E2\u05D9\u05E0\u05D4 \u05E0\u05DB\u05E9\u05DC\u05D4, \u05DC\u05D7\u05E5 \u05DC\u05E0\u05D9\u05E1\u05D9\u05D5\u05DF \u05D7\u05D5\u05D6\u05E8",
-      retry: "\u05DC\u05D7\u05E5 \u05DC\u05E0\u05D9\u05E1\u05D9\u05D5\u05DF \u05D7\u05D5\u05D6\u05E8"
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      finished: "\u8B97\u8BAC\u8C09 \u6CE8\u8B9C\u8B9A \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      error: "\u8B9F\u6CE8\u8BAC\u8C1E\u8B9B \u8C1E\u8BBB\u7816\u8BC7\u8B9B, \u8BC7\u8B9E\u6293 \u8BC7\u8C1E\u8BAC\u4F4F\u8BAC\u8B9C\u8C09 \u8B9E\u8B9C\u8B9D\u4E13",
+      retry: "\u8BC7\u8B9E\u6293 \u8BC7\u8C1E\u8BAC\u4F4F\u8BAC\u8B9C\u8C09 \u8B9E\u8B9C\u8B9D\u4E13"
     },
-    // הודעה
+    // 讛讜讚注讛
     message: {
-      close: "\u05E1\u05D2\u05D5\u05E8"
+      close: "\u4F4F\u8B99\u8B9C\u4E13"
     },
-    // התראה
+    // 讛转专讗讛
     notification: {
-      close: "\u05E1\u05D2\u05D5\u05E8"
+      close: "\u4F4F\u8B99\u8B9C\u4E13"
     },
-    // טעינה
+    // 讟注讬谞讛
     loading: {
-      text: "\u05D8\u05D5\u05E2\u05DF..."
+      text: "\u8B9F\u8B9C\u6CE8\u8C09..."
     },
-    // סיבוב
+    // 住讬讘讜讘
     spin: {
-      text: "\u05D8\u05D5\u05E2\u05DF..."
+      text: "\u8B9F\u8B9C\u6CE8\u8C09..."
     },
-    // דירוג
+    // 讚讬专讜讙
     rate: {
-      texts: ["\u05D2\u05E8\u05D5\u05E2 \u05DE\u05D0\u05D5\u05D3", "\u05DE\u05D0\u05D5\u05DB\u05D6\u05D1", "\u05D4\u05D5\u05D2\u05DF", "\u05DE\u05E8\u05D5\u05E6\u05D4", "\u05DE\u05D5\u05E4\u05EA\u05E2"]
+      texts: ["\u8B99\u4E13\u8B9C\u6CE8 \u8BEA\u8B97\u8B9C\u8B9A", "\u8BEA\u8B97\u8B9C\u8BBB\u8B9D\u8B98", "\u8B9B\u8B9C\u8B99\u8C09", "\u8BEA\u4E13\u8B9C\u722A\u8B9B", "\u8BEA\u8B9C\u9A7B\u8F6C\u6CE8"]
     },
-    // התראה
+    // 讛转专讗讛
     alert: {
-      close: "\u05E1\u05D2\u05D5\u05E8"
+      close: "\u4F4F\u8B99\u8B9C\u4E13"
     },
-    // תג
+    // 转讙
     tag: {
-      close: "\u05E1\u05D2\u05D5\u05E8"
+      close: "\u4F4F\u8B99\u8B9C\u4E13"
     },
-    // כרטיסיות
+    // 讻专讟讬住讬讜转
     tabs: {
-      close: "\u05E1\u05D2\u05D5\u05E8",
-      add: "\u05D4\u05D5\u05E1\u05E3",
-      more: "\u05E2\u05D5\u05D3"
+      close: "\u4F4F\u8B99\u8B9C\u4E13",
+      add: "\u8B9B\u8B9C\u4F4F\u795D",
+      more: "\u6CE8\u8B9C\u8B9A"
     },
-    // שלבים
+    // 砖诇讘讬诐
     steps: {
-      finish: "\u05D4\u05D5\u05E9\u05DC\u05DD",
-      process: "\u05D1\u05EA\u05D4\u05DC\u05D9\u05DA",
-      wait: "\u05DE\u05DE\u05EA\u05D9\u05DF",
-      error: "\u05E9\u05D2\u05D9\u05D0\u05D4"
+      finish: "\u8B9B\u8B9C\u7816\u8BC7\u8BD0",
+      process: "\u8B98\u8F6C\u8B9B\u8BC7\u8BAC\u8BB1",
+      wait: "\u8BEA\u8BEA\u8F6C\u8BAC\u8C09",
+      error: "\u7816\u8B99\u8BAC\u8B97\u8B9B"
     },
-    // התקדמות
+    // 讛转拽讚诪讜转
     progress: {
-      success: "\u05D4\u05E6\u05DC\u05D7\u05D4",
-      exception: "\u05D9\u05D5\u05E6\u05D0 \u05D3\u05D5\u05E4\u05DF",
-      warning: "\u05D0\u05D6\u05D4\u05E8\u05D4"
+      success: "\u8B9B\u722A\u8BC7\u8B9E\u8B9B",
+      exception: "\u8BAC\u8B9C\u722A\u8B97 \u8B9A\u8B9C\u9A7B\u8C09",
+      warning: "\u8B97\u8B9D\u8B9B\u4E13\u8B9B"
     },
-    // שלד
+    // 砖诇讚
     skeleton: {
-      loading: "\u05D8\u05D5\u05E2\u05DF..."
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09..."
     },
-    // ריק
+    // 专讬拽
     empty: {
-      description: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      noResult: "\u05D0\u05D9\u05DF \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA",
-      networkError: "\u05E9\u05D2\u05D9\u05D0\u05EA \u05E8\u05E9\u05EA",
-      serverError: "\u05E9\u05D2\u05D9\u05D0\u05EA \u05E9\u05E8\u05EA"
+      description: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      noResult: "\u8B97\u8BAC\u8C09 \u8F6C\u8B9C\u722A\u8B97\u8B9C\u8F6C",
+      networkError: "\u7816\u8B99\u8BAC\u8B97\u8F6C \u4E13\u7816\u8F6C",
+      serverError: "\u7816\u8B99\u8BAC\u8B97\u8F6C \u7816\u4E13\u8F6C"
     },
-    // תוצאה
+    // 转讜爪讗讛
     result: {
-      success: "\u05D4\u05E6\u05DC\u05D7\u05D4",
-      error: "\u05E9\u05D2\u05D9\u05D0\u05D4",
-      warning: "\u05D0\u05D6\u05D4\u05E8\u05D4",
-      info: "\u05DE\u05D9\u05D3\u05E2",
-      backHome: "\u05D7\u05D6\u05E8\u05D4 \u05DC\u05D3\u05E3 \u05D4\u05D1\u05D9\u05EA"
+      success: "\u8B9B\u722A\u8BC7\u8B9E\u8B9B",
+      error: "\u7816\u8B99\u8BAC\u8B97\u8B9B",
+      warning: "\u8B97\u8B9D\u8B9B\u4E13\u8B9B",
+      info: "\u8BEA\u8BAC\u8B9A\u6CE8",
+      backHome: "\u8B9E\u8B9D\u4E13\u8B9B \u8BC7\u8B9A\u795D \u8B9B\u8B98\u8BAC\u8F6C"
     },
-    // מפל
+    // 诪驻诇
     waterfall: {
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      noMore: "\u05D0\u05D9\u05DF \u05E2\u05D5\u05D3 \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD",
-      empty: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD"
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      noMore: "\u8B97\u8BAC\u8C09 \u6CE8\u8B9C\u8B9A \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      empty: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0"
     },
-    // תיאורים
+    // 转讬讗讜专讬诐
     descriptions: {
       colon: ":"
     },
-    // מחוון
+    // 诪讞讜讜谉
     slider: {
       tipFormatter: "{value}"
     },
-    // מתג
+    // 诪转讙
     switch: {
-      on: "\u05E4\u05D5\u05E2\u05DC",
-      off: "\u05DB\u05D1\u05D5\u05D9"
+      on: "\u9A7B\u8B9C\u6CE8\u8BC7",
+      off: "\u8BBB\u8B98\u8B9C\u8BAC"
     },
-    // תיבת סימון
+    // 转讬讘转 住讬诪讜谉
     checkbox: {
-      selectAll: "\u05D1\u05D7\u05E8 \u05D4\u05DB\u05DC"
+      selectAll: "\u8B98\u8B9E\u4E13 \u8B9B\u8BBB\u8BC7"
     },
-    // רדיו
+    // 专讚讬讜
     radio: {},
-    // תפריט
+    // 转驻专讬讟
     menu: {
-      collapse: "\u05DB\u05D5\u05D5\u05E5 \u05EA\u05E4\u05E8\u05D9\u05D8",
-      expand: "\u05D4\u05E8\u05D7\u05D1 \u05EA\u05E4\u05E8\u05D9\u05D8"
+      collapse: "\u8BBB\u8B9C\u8B9C\u6293 \u8F6C\u9A7B\u4E13\u8BAC\u8B9F",
+      expand: "\u8B9B\u4E13\u8B9E\u8B98 \u8F6C\u9A7B\u4E13\u8BAC\u8B9F"
     },
-    // כרטיס
+    // 讻专讟讬住
     card: {
-      collapse: "\u05DB\u05D5\u05D5\u05E5",
-      expand: "\u05D4\u05E8\u05D7\u05D1"
+      collapse: "\u8BBB\u8B9C\u8B9C\u6293",
+      expand: "\u8B9B\u4E13\u8B9E\u8B98"
     },
-    // כיווץ
+    // 讻讬讜讜抓
     collapse: {
-      expand: "\u05D4\u05E8\u05D7\u05D1",
-      collapse: "\u05DB\u05D5\u05D5\u05E5"
+      expand: "\u8B9B\u4E13\u8B9E\u8B98",
+      collapse: "\u8BBB\u8B9C\u8B9C\u6293"
     },
-    // רמז
+    // 专诪讝
     tooltip: {},
-    // חלון קופץ
+    // 讞诇讜谉 拽讜驻抓
     popover: {},
-    // תג
+    // 转讙
     badge: {},
-    // אווטר
+    // 讗讜讜讟专
     avatar: {
-      error: "\u05D8\u05E2\u05D9\u05E0\u05D4 \u05E0\u05DB\u05E9\u05DC\u05D4"
+      error: "\u8B9F\u6CE8\u8BAC\u8C1E\u8B9B \u8C1E\u8BBB\u7816\u8BC7\u8B9B"
     },
-    // סימן מים
+    // 住讬诪谉 诪讬诐
     watermark: {},
-    // מפריד
+    // 诪驻专讬讚
     divider: {},
-    // קרוסלה
+    // 拽专讜住诇讛
     carousel: {
-      prev: "\u05D4\u05E7\u05D5\u05D3\u05DD",
-      next: "\u05D4\u05D1\u05D0"
+      prev: "\u8B9B\u62FD\u8B9C\u8B9A\u8BD0",
+      next: "\u8B9B\u8B98\u8B97"
     },
-    // מרקיז
+    // 诪专拽讬讝
     marquee: {},
-    // היצמדות
+    // 讛讬爪诪讚讜转
     affix: {},
-    // עוגן
+    // 注讜讙谉
     anchor: {},
     // Mention
     mention: {
-      placeholder: "\u05D0\u05E0\u05D0 \u05D4\u05D6\u05DF",
-      loading: "\u05D8\u05D5\u05E2\u05DF...",
-      noData: "\u05D0\u05D9\u05DF \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD"
+      placeholder: "\u8B97\u8C1E\u8B97 \u8B9B\u8B9D\u8C09",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09...",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0"
+    },
+    skuselector: {
+      placeholder: "\u8B98\u8B9E\u4E13 \u8BEA\u9A7B\u4E13\u8B9F",
+      emptyText: "\u8B97\u8BAC\u8C09 \u8BEA\u9A7B\u4E13\u8B9F\u8BAC\u8BD0",
+      stock: "\u8BEA\u8BC7\u8B97\u8BAC",
+      price: "\u8BEA\u8B9E\u8BAC\u4E13",
+      selected: "\u8C1E\u8B98\u8B9E\u4E13",
+      outOfStock: "\u8B97\u8B9D\u8BC7 \u8BEA\u8B9B\u8BEA\u8BC7\u8B97\u8BAC"
+    },
+    productcard: {
+      viewDetails: "\u8B9B\u722A\u8B99 \u9A7B\u4E13\u8B9F\u8BAC\u8BD0",
+      buyNow: "\u62FD\u8C1E\u8B9B \u6CE8\u8BBB\u7816\u8BAC\u8B9C",
+      addToCart: "\u8B9B\u8B9C\u4F4F\u795D \u8BC7\u6CE8\u8B99\u8BC7\u8B9B",
+      sold: "\u8C1E\u8BEA\u8BBB\u4E13\u8B9C",
+      soldOut: "\u8B97\u8B9D\u8BC7 \u8B9B\u8BEA\u8BC7\u8B97\u8BAC",
+      vip: "VIP"
+    },
+    price: {
+      original: "\u8BEA\u62FD\u8B9C\u4E13\u8BAC"
+    },
+    couponcard: {
+      available: "\u62FD\u8B98\u8BC7 \u6CE8\u8BBB\u7816\u8BAC\u8B9C",
+      used: "\u7816\u8B9C\u8BEA\u7816",
+      expired: "\u9A7B\u8B99 \u8F6C\u8B9C\u62FD\u795D",
+      received: "\u8B9B\u8F6C\u62FD\u8B98\u8BC7",
+      limit: "\u8BC7\u8B9B\u8B9D\u8BEA\u8C1E\u8B9C\u8F6C \u8BEA\u6CE8\u8BC7 {threshold}",
+      noThreshold: "\u8BC7\u8BC7\u8B97 \u4F4F\u8BBB\u8B9C\u8BD0 \u8BEA\u8BAC\u8C1E\u8BAC\u8BEA\u8B9C\u8BD0",
+      validPeriod: "\u8F6C\u62FD\u8B9C\u9A7B\u8F6C \u8F6C\u8B9C\u62FD\u795D",
+      ruleTitle: "\u8BBB\u8BC7\u8BC7\u8BAC \u7816\u8BAC\u8BEA\u8B9C\u7816"
+    },
+    luckydraw: {
+      start: "\u8B9B\u8F6C\u8B9E\u8BC7",
+      drawing: "\u8BEA\u8B99\u4E13\u8BAC\u8BC7...",
+      end: "\u8BAC\u7816 \u8B9D\u8B9C\u8BBB\u8B9B!",
+      retry: "\u8C1E\u4F4F\u8B9B \u7816\u8B9C\u8B98"
+    },
+    filterbar: {
+      all: "\u8B9B\u8BBB\u8B9C\u8BC7",
+      sort: "\u8BEA\u8BAC\u8B9C\u8C09",
+      filter: "\u4F4F\u8BAC\u8C1E\u8B9C\u8C09",
+      cancel: "\u8B98\u8BAC\u8B9F\u8B9C\u8BC7",
+      reset: "\u8B97\u8BAC\u9A7B\u8B9C\u4F4F",
+      confirm: "\u8B97\u8BAC\u7816\u8B9C\u4E13",
+      noOptions: "\u8B97\u8BAC\u8C09 \u8B97\u9A7B\u7816\u4E13\u8B9C\u8BAC\u8B9C\u8F6C",
+      asc: "\u6CE8\u8B9C\u8BC7\u8B9B",
+      desc: "\u8BAC\u8B9C\u4E13\u8B9A",
+      selected: "\u8C1E\u8B98\u8B9E\u4E13"
+    },
+    submitbar: {
+      total: "\u4F4F\u8B9B\u72B6\u8BBB: ",
+      selected: "{count} \u8C1E\u8B98\u8B9E\u4E13\u8B9C",
+      submit: "\u8BC7\u8F6C\u7816\u8BC7\u8B9C\u8BD0",
+      allSelect: "\u8B98\u8B9E\u4E13 \u8B9B\u8BBB\u8B9C\u8BC7"
+    },
+    categorynav: {
+      all: "\u8B9B\u8BBB\u8B9C\u8BC7",
+      noData: "\u8B97\u8BAC\u8C09 \u8C1E\u8F6C\u8B9C\u8C1E\u8BAC\u8BD0",
+      loading: "\u8B9F\u8B9C\u6CE8\u8C09..."
+    },
+    smartaddress: {
+      placeholder: "\u8B9B\u8B9A\u8B98\u62FD \u8BBB\u8B97\u8C09 \u8BBB\u8F6C\u8B9C\u8B98\u8F6C, \u8B9D\u8BAC\u8B9B\u8B9C\u8BAC \u8B97\u8B9C\u8B9F\u8B9C\u8BEA\u8B9F\u8BAC \u7816\u8BC7 \u7816\u8BD0, \u8B9F\u8BC7\u9A7B\u8B9C\u8C09 \u8B9C\u8BEA\u8BAC\u62FD\u8B9C\u8BD0",
+      parse: "\u9A7B\u6CE8\u8C1E\u8B9C\u8B9E \u8B9E\u8BBB\u8BD0",
+      province: "\u8BEA\u8B9E\u8B9C\u8B9D/\u6CE8\u8BAC\u4E13/\u8B97\u8B9D\u8B9C\u4E13",
+      city: "\u6CE8\u8BAC\u4E13",
+      district: "\u8B97\u8B9D\u8B9C\u4E13/\u8C1E\u9A7B\u8B9B",
+      street: "\u4E13\u8B9E\u8B9C\u8B98/\u8BAC\u8BAC\u7816\u8B9C\u8B98",
+      detail: "\u8BBB\u8F6C\u8B9C\u8B98\u8F6C \u8BEA\u9A7B\u8B9C\u4E13\u8B9F\u8F6C",
+      phone: "\u8B9F\u8BC7\u9A7B\u8B9C\u8C09",
+      name: "\u8C1E\u8BEA\u6CE8\u8C09",
+      parseSuccess: "\u8B9B\u8BBB\u8F6C\u8B9C\u8B98\u8F6C \u8B9D\u8B9C\u8B9B\u8F6C\u8B9B \u8B98\u8B9B\u722A\u8BC7\u8B9E\u8B9B",
+      parseFailed: "\u8B9B\u8B9D\u8BAC\u8B9B\u8B9C\u8BAC \u8C1E\u8BBB\u7816\u8BC7, \u8C1E\u8B97 \u8BC7\u8BEA\u8BC7\u8B97 \u8BAC\u8B9A\u8C1E\u8BAC\u8F6C",
+      required: "\u8C1E\u8B97 \u8BC7\u8BEA\u8BC7\u8B97 \u8BBB\u8F6C\u8B9C\u8B98\u8F6C \u8BEA\u8BC7\u8B97\u8B9B",
+      provinceKeywords: ["\u8BEA\u8B9E\u8B9C\u8B9D", "\u8BEA\u8B9A\u8BAC\u8C1E\u8B9B"],
+      cityKeywords: ["\u6CE8\u8BAC\u4E13", "\u8B97\u8B9D\u8B9C\u4E13"],
+      districtKeywords: ["\u8B97\u8B9D\u8B9C\u4E13", "\u8C1E\u9A7B\u8B9B", "\u8BAC\u8BAC\u7816\u8B9C\u8B98"],
+      streetKeywords: ["\u4E13\u8B9E\u8B9C\u8B98", "\u8B9A\u4E13\u8BB1", "\u7816\u8B9A\u4E13\u8B9B", "\u4F4F\u8BEA\u8B9F\u8B9B"]
+    },
+    ganttchart: {
+      taskName: "\u7816\u8BD0 \u8B9B\u8BEA\u7816\u8BAC\u8BEA\u8B9B",
+      searchPlaceholder: "\u8B9E\u9A7B\u7816 \u8BEA\u7816\u8BAC\u8BEA\u8B9C\u8F6C...",
+      zoom: "\u8B9D\u8B9C\u8BD0",
+      day: "\u8BAC\u8B9C\u8BD0",
+      week: "\u7816\u8B98\u8B9C\u6CE8",
+      month: "\u8B9E\u8B9C\u8B9A\u7816",
+      year: "\u7816\u8C1E\u8B9B",
+      milestone: "\u8B97\u8B98\u8C09 \u8B9A\u4E13\u8BB1"
+    },
+    imagemagnifier: {
+      switchToImage: "\u6CE8\u8B98\u8B9C\u4E13 \u8BC7\u8F6C\u8BEA\u8B9C\u8C1E\u8B9B {index}",
+      galleryItem: "\u8B99\u8BC7\u4E13\u8BAC\u8B9B {index}",
+      close: "\u4F4F\u8B99\u8B9C\u4E13"
     },
     // AI Components
     ai: {
       bubble: {
-        citations: "\u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD"
+        citations: "\u722A\u8BAC\u8B9F\u8B9C\u8B9F\u8BAC\u8BD0"
       },
       mention: {
-        placeholder: "@ \u05D4\u05D6\u05DB\u05E8 \u05E1\u05D5\u05DB\u05DF, \u05DE\u05E1\u05DE\u05DA \u05D0\u05D5 \u05D8\u05D1\u05DC\u05D4...",
-        agent: "\u05E1\u05D5\u05DB\u05DF",
-        document: "\u05DE\u05E1\u05DE\u05DA",
-        table: "\u05D8\u05D1\u05DC\u05D4",
-        knowledge: "\u05D9\u05D3\u05E2"
+        placeholder: "@ \u8B9B\u8B9D\u8BBB\u4E13 \u4F4F\u8B9C\u8BBB\u8C09, \u8BEA\u4F4F\u8BEA\u8BB1 \u8B97\u8B9C \u8B9F\u8B98\u8BC7\u8B9B...",
+        agent: "\u4F4F\u8B9C\u8BBB\u8C09",
+        document: "\u8BEA\u4F4F\u8BEA\u8BB1",
+        table: "\u8B9F\u8B98\u8BC7\u8B9B",
+        knowledge: "\u8BAC\u8B9A\u6CE8"
       },
       codeBlock: {
-        copyCode: "\u05D4\u05E2\u05EA\u05E7 \u05E7\u05D5\u05D3",
-        copied: "\u05D4\u05D5\u05E2\u05EA\u05E7!",
-        run: "\u05D4\u05E8\u05E5 \u05E7\u05D5\u05D3",
-        edit: "\u05E2\u05E8\u05D5\u05DA",
-        save: "\u05E9\u05DE\u05D5\u05E8",
-        cancel: "\u05D1\u05D8\u05DC"
+        copyCode: "\u8B9B\u6CE8\u8F6C\u62FD \u62FD\u8B9C\u8B9A",
+        copied: "\u8B9B\u8B9C\u6CE8\u8F6C\u62FD!",
+        run: "\u8B9B\u4E13\u6293 \u62FD\u8B9C\u8B9A",
+        edit: "\u6CE8\u4E13\u8B9C\u8BB1",
+        save: "\u7816\u8BEA\u8B9C\u4E13",
+        cancel: "\u8B98\u8B9F\u8BC7"
       },
       codeRunner: {
-        run: "\u05D4\u05E8\u05E5",
-        stop: "\u05E2\u05E6\u05D5\u05E8",
-        clear: "\u05E0\u05E7\u05D4",
-        reset: "\u05D0\u05E4\u05E1",
-        placeholder: "\u05DC\u05D7\u05E5 \u05E2\u05DC \u05D4\u05E8\u05E5 \u05DC\u05D4\u05E4\u05E2\u05DC\u05EA \u05D4\u05E7\u05D5\u05D3..."
+        run: "\u8B9B\u4E13\u6293",
+        stop: "\u6CE8\u722A\u8B9C\u4E13",
+        clear: "\u8C1E\u62FD\u8B9B",
+        reset: "\u8B97\u9A7B\u4F4F",
+        placeholder: "\u8BC7\u8B9E\u6293 \u6CE8\u8BC7 \u8B9B\u4E13\u6293 \u8BC7\u8B9B\u9A7B\u6CE8\u8BC7\u8F6C \u8B9B\u62FD\u8B9C\u8B9A..."
       },
       sender: {
-        placeholder: "\u05E9\u05DC\u05D7 \u05D4\u05D5\u05D3\u05E2\u05D4...",
-        dragTip: "\u05E9\u05D7\u05E8\u05E8 \u05DC\u05D4\u05E2\u05DC\u05D0\u05EA \u05E7\u05D1\u05E6\u05D9\u05DD"
+        placeholder: "\u7816\u8BC7\u8B9E \u8B9B\u8B9C\u8B9A\u6CE8\u8B9B...",
+        dragTip: "\u7816\u8B9E\u4E13\u4E13 \u8BC7\u8B9B\u6CE8\u8BC7\u8B97\u8F6C \u62FD\u8B98\u722A\u8BAC\u8BD0"
       },
       thoughtChain: {
-        thoughtProcess: "\u05EA\u05D4\u05DC\u05D9\u05DA \u05D7\u05E9\u05D9\u05D1\u05D4",
-        thinking: "\u05D7\u05D5\u05E9\u05D1...",
-        defaultTitle: "\u05E9\u05DC\u05D1 \u05D7\u05D3\u05E9",
-        addNode: "\u05D4\u05D5\u05E1\u05E3 \u05E9\u05DC\u05D1"
+        thoughtProcess: "\u8F6C\u8B9B\u8BC7\u8BAC\u8BB1 \u8B9E\u7816\u8BAC\u8B98\u8B9B",
+        thinking: "\u8B9E\u8B9C\u7816\u8B98...",
+        defaultTitle: "\u7816\u8BC7\u8B98 \u8B9E\u8B9A\u7816",
+        addNode: "\u8B9B\u8B9C\u4F4F\u795D \u7816\u8BC7\u8B98"
       },
       thinking: {
-        start: "\u05D4\u05EA\u05D7\u05DC \u05DC\u05D7\u05E9\u05D5\u05D1",
-        thinking: "\u05D7\u05D5\u05E9\u05D1...",
-        complete: "\u05D4\u05D7\u05E9\u05D9\u05D1\u05D4 \u05D4\u05D5\u05E9\u05DC\u05DE\u05D4",
-        error: "\u05E9\u05D2\u05D9\u05D0\u05EA \u05D7\u05E9\u05D9\u05D1\u05D4"
+        start: "\u8B9B\u8F6C\u8B9E\u8BC7 \u8BC7\u8B9E\u7816\u8B9C\u8B98",
+        thinking: "\u8B9E\u8B9C\u7816\u8B98...",
+        complete: "\u8B9B\u8B9E\u7816\u8BAC\u8B98\u8B9B \u8B9B\u8B9C\u7816\u8BC7\u8BEA\u8B9B",
+        error: "\u7816\u8B99\u8BAC\u8B97\u8F6C \u8B9E\u7816\u8BAC\u8B98\u8B9B"
       },
       welcome: {
-        title: "\u05E9\u05DC\u05D5\u05DD, \u05D0\u05E0\u05D9 YH AI",
-        description: "\u05D0\u05E0\u05D9 \u05D9\u05DB\u05D5\u05DC \u05DC\u05E2\u05D6\u05D5\u05E8 \u05DC\u05DA \u05D1\u05EA\u05DB\u05E0\u05D5\u05EA, \u05EA\u05E8\u05D2\u05D5\u05DD \u05DE\u05E1\u05DE\u05DB\u05D9\u05DD \u05D0\u05D5 \u05DB\u05EA\u05D9\u05D1\u05D4 \u05D9\u05E6\u05D9\u05E8\u05EA\u05D9\u05EA. \u05DE\u05D4 \u05D0\u05E0\u05D9 \u05D9\u05DB\u05D5\u05DC \u05DC\u05E2\u05E9\u05D5\u05EA \u05D1\u05E9\u05D1\u05D9\u05DC\u05DA \u05D4\u05D9\u05D5\u05DD?"
+        title: "\u7816\u8BC7\u8B9C\u8BD0, \u8B97\u8C1E\u8BAC YH AI",
+        description: "\u8B97\u8C1E\u8BAC \u8BAC\u8BBB\u8B9C\u8BC7 \u8BC7\u6CE8\u8B9D\u8B9C\u4E13 \u8BC7\u8BB1 \u8B98\u8F6C\u8BBB\u8C1E\u8B9C\u8F6C, \u8F6C\u4E13\u8B99\u8B9C\u8BD0 \u8BEA\u4F4F\u8BEA\u8BBB\u8BAC\u8BD0 \u8B97\u8B9C \u8BBB\u8F6C\u8BAC\u8B98\u8B9B \u8BAC\u722A\u8BAC\u4E13\u8F6C\u8BAC\u8F6C. \u8BEA\u8B9B \u8B97\u8C1E\u8BAC \u8BAC\u8BBB\u8B9C\u8BC7 \u8BC7\u6CE8\u7816\u8B9C\u8F6C \u8B98\u7816\u8B98\u8BAC\u8BC7\u8BB1 \u8B9B\u8BAC\u8B9C\u8BD0?"
       },
       action: {
-        copy: "\u05D4\u05E2\u05EA\u05E7",
-        regenerate: "\u05E6\u05D5\u05E8 \u05DE\u05D7\u05D3\u05E9",
-        share: "\u05E9\u05EA\u05E3",
-        like: "\u05D0\u05D4\u05D1\u05EA\u05D9",
-        dislike: "\u05DC\u05D0 \u05D0\u05D4\u05D1\u05EA\u05D9",
-        edit: "\u05E2\u05E8\u05D5\u05DA",
-        delete: "\u05DE\u05D7\u05E7"
+        copy: "\u8B9B\u6CE8\u8F6C\u62FD",
+        regenerate: "\u722A\u8B9C\u4E13 \u8BEA\u8B9E\u8B9A\u7816",
+        share: "\u7816\u8F6C\u795D",
+        like: "\u8B97\u8B9B\u8B98\u8F6C\u8BAC",
+        dislike: "\u8BC7\u8B97 \u8B97\u8B9B\u8B98\u8F6C\u8BAC",
+        edit: "\u6CE8\u4E13\u8B9C\u8BB1",
+        delete: "\u8BEA\u8B9E\u62FD"
       },
       artifacts: {
-        preview: "\u05EA\u05E6\u05D5\u05D2\u05D4 \u05DE\u05E7\u05D3\u05D9\u05DE\u05D4",
-        inline: "\u05DE\u05D5\u05D8\u05D1\u05E2",
-        code: "\u05DE\u05E7\u05D5\u05E8",
-        versions: "\u05D2\u05E8\u05E1\u05D0\u05D5\u05EA",
-        rendering: "\u05DE\u05E2\u05D1\u05D3 \u05E8\u05DB\u05D9\u05D1...",
-        renderingChart: "\u05DE\u05E2\u05D1\u05D3 \u05D2\u05E8\u05E3...",
-        renderingCanvas: "\u05DE\u05DB\u05D9\u05DF \u05D1\u05D3..."
+        preview: "\u8F6C\u722A\u8B9C\u8B99\u8B9B \u8BEA\u62FD\u8B9A\u8BAC\u8BEA\u8B9B",
+        inline: "\u8BEA\u8B9C\u8B9F\u8B98\u6CE8",
+        code: "\u8BEA\u62FD\u8B9C\u4E13",
+        versions: "\u8B99\u4E13\u4F4F\u8B97\u8B9C\u8F6C",
+        rendering: "\u8BEA\u6CE8\u8B98\u8B9A \u4E13\u8BBB\u8BAC\u8B98...",
+        renderingChart: "\u8BEA\u6CE8\u8B98\u8B9A \u8B99\u4E13\u795D...",
+        renderingCanvas: "\u8BEA\u8BBB\u8BAC\u8C09 \u8B98\u8B9A..."
       },
       voice: {
-        trigger: "\u05DC\u05D7\u05E5 \u05DC\u05D3\u05D9\u05D1\u05D5\u05E8",
-        listening: "\u05DE\u05E7\u05E9\u05D9\u05D1..."
+        trigger: "\u8BC7\u8B9E\u6293 \u8BC7\u8B9A\u8BAC\u8B98\u8B9C\u4E13",
+        listening: "\u8BEA\u62FD\u7816\u8BAC\u8B98..."
       },
       agent: {
-        uses: "\u05DE\u05E9\u05EA\u05DE\u05E9",
-        use: "\u05D4\u05E9\u05EA\u05DE\u05E9 \u05E2\u05DB\u05E9\u05D9\u05D5",
-        favorite: "\u05DE\u05D5\u05E2\u05D3\u05E3",
-        unfavorite: "\u05D4\u05E1\u05E8 \u05DE\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD",
-        share: "\u05E9\u05EA\u05E3",
-        online: "\u05DE\u05D7\u05D5\u05D1\u05E8",
-        offline: "\u05DC\u05D0 \u05DE\u05D7\u05D5\u05D1\u05E8",
-        busy: "\u05E2\u05E1\u05D5\u05E7",
-        verified: "\u05DE\u05D0\u05D5\u05DE\u05EA",
-        rating: "\u05D3\u05D9\u05E8\u05D5\u05D2",
-        reviews: "\u05D1\u05D9\u05E7\u05D5\u05E8\u05D5\u05EA",
-        responseTime: "\u05D6\u05DE\u05DF \u05EA\u05D2\u05D5\u05D1\u05D4 \u05DE\u05DE\u05D5\u05E6\u05E2",
-        ms: '\u05DE"\u05E9'
+        uses: "\u8BEA\u7816\u8F6C\u8BEA\u7816",
+        use: "\u8B9B\u7816\u8F6C\u8BEA\u7816 \u6CE8\u8BBB\u7816\u8BAC\u8B9C",
+        favorite: "\u8BEA\u8B9C\u6CE8\u8B9A\u795D",
+        unfavorite: "\u8B9B\u4F4F\u4E13 \u8BEA\u8BEA\u8B9C\u6CE8\u8B9A\u9A7B\u8BAC\u8BD0",
+        share: "\u7816\u8F6C\u795D",
+        online: "\u8BEA\u8B9E\u8B9C\u8B98\u4E13",
+        offline: "\u8BC7\u8B97 \u8BEA\u8B9E\u8B9C\u8B98\u4E13",
+        busy: "\u6CE8\u4F4F\u8B9C\u62FD",
+        verified: "\u8BEA\u8B97\u8B9C\u8BEA\u8F6C",
+        rating: "\u8B9A\u8BAC\u4E13\u8B9C\u8B99",
+        reviews: "\u8B98\u8BAC\u62FD\u8B9C\u4E13\u8B9C\u8F6C",
+        responseTime: "\u8B9D\u8BEA\u8C09 \u8F6C\u8B99\u8B9C\u8B98\u8B9B \u8BEA\u8BEA\u8B9C\u722A\u6CE8",
+        ms: '\u8BEA"\u7816'
       },
       sources: {
-        references: "\u05DE\u05E7\u05D5\u05E8\u05D5\u05EA",
-        referencedSources: "\u05DE\u05E7\u05D5\u05E8\u05D5\u05EA \u05DE\u05D0\u05D5\u05D6\u05DB\u05E8\u05D9\u05DD",
-        relevant: "\u05E8\u05DC\u05D5\u05D5\u05E0\u05D8\u05D9\u05D5\u05EA",
-        viewOriginal: "\u05E6\u05E4\u05D4 \u05D1\u05DE\u05E7\u05D5\u05E8",
-        showAll: "\u05D4\u05E6\u05D2 \u05D4\u05DB\u05DC",
-        more: "\u05DE\u05E7\u05D5\u05E8\u05D5\u05EA \u05E0\u05D5\u05E1\u05E4\u05D9\u05DD",
-        drawerTitle: "\u05DE\u05E7\u05D5\u05E8\u05D5\u05EA",
-        expandMore: "\u05D4\u05E6\u05D2 \u05E2\u05D5\u05D3",
-        collapseMore: "\u05DB\u05D5\u05D5\u05E5",
-        noSources: "\u05D0\u05D9\u05DF \u05DE\u05E7\u05D5\u05E8\u05D5\u05EA",
-        today: "\u05D4\u05D9\u05D5\u05DD",
-        last7Days: "7 \u05D9\u05DE\u05D9\u05DD \u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD",
-        last30Days: "30 \u05D9\u05DE\u05D9\u05DD \u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD",
-        earlier: "\u05E7\u05D5\u05D3\u05DD",
-        pinned: "\u05DE\u05D5\u05E6\u05DE\u05D3"
+        references: "\u8BEA\u62FD\u8B9C\u4E13\u8B9C\u8F6C",
+        referencedSources: "\u8BEA\u62FD\u8B9C\u4E13\u8B9C\u8F6C \u8BEA\u8B97\u8B9C\u8B9D\u8BBB\u4E13\u8BAC\u8BD0",
+        relevant: "\u4E13\u8BC7\u8B9C\u8B9C\u8C1E\u8B9F\u8BAC\u8B9C\u8F6C",
+        viewOriginal: "\u722A\u9A7B\u8B9B \u8B98\u8BEA\u62FD\u8B9C\u4E13",
+        showAll: "\u8B9B\u722A\u8B99 \u8B9B\u8BBB\u8BC7",
+        more: "\u8BEA\u62FD\u8B9C\u4E13\u8B9C\u8F6C \u8C1E\u8B9C\u4F4F\u9A7B\u8BAC\u8BD0",
+        drawerTitle: "\u8BEA\u62FD\u8B9C\u4E13\u8B9C\u8F6C",
+        expandMore: "\u8B9B\u722A\u8B99 \u6CE8\u8B9C\u8B9A",
+        collapseMore: "\u8BBB\u8B9C\u8B9C\u6293",
+        noSources: "\u8B97\u8BAC\u8C09 \u8BEA\u62FD\u8B9C\u4E13\u8B9C\u8F6C",
+        today: "\u8B9B\u8BAC\u8B9C\u8BD0",
+        last7Days: "7 \u8BAC\u8BEA\u8BAC\u8BD0 \u8B97\u8B9E\u4E13\u8B9C\u8C1E\u8BAC\u8BD0",
+        last30Days: "30 \u8BAC\u8BEA\u8BAC\u8BD0 \u8B97\u8B9E\u4E13\u8B9C\u8C1E\u8BAC\u8BD0",
+        earlier: "\u62FD\u8B9C\u8B9A\u8BD0",
+        pinned: "\u8BEA\u8B9C\u722A\u8BEA\u8B9A"
       },
       conversations: {
-        today: "\u05D4\u05D9\u05D5\u05DD",
-        last7Days: "7 \u05D9\u05DE\u05D9\u05DD \u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD",
-        last30Days: "30 \u05D9\u05DE\u05D9\u05DD \u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD",
-        earlier: "\u05E7\u05D5\u05D3\u05DD",
-        pinned: "\u05DE\u05D5\u05E6\u05DE\u05D3",
-        pin: "\u05D4\u05E6\u05DE\u05D3",
-        unpin: "\u05D1\u05D8\u05DC \u05D4\u05E6\u05DE\u05D3\u05D4",
-        newConversation: "\u05E9\u05D9\u05D7\u05D4 \u05D7\u05D3\u05E9\u05D4",
-        rename: "\u05E9\u05E0\u05D4 \u05E9\u05DD",
-        delete: "\u05DE\u05D7\u05E7",
-        deleteConfirm: "\u05D0\u05E9\u05E8 \u05DE\u05D7\u05D9\u05E7\u05EA \u05E9\u05D9\u05D7\u05D4 \u05D6\u05D5?"
+        today: "\u8B9B\u8BAC\u8B9C\u8BD0",
+        last7Days: "7 \u8B9B\u8BAC\u8BEA\u8BAC\u8BD0 \u8B9B\u8B97\u8B9E\u4E13\u8B9C\u8C1E\u8BAC\u8BD0",
+        last30Days: "30 \u8B9B\u8BAC\u8BEA\u8BAC\u8BD0 \u8B9B\u8B97\u8B9E\u4E13\u8B9C\u8C1E\u8BAC\u8BD0",
+        earlier: "\u8BEA\u8B9C\u62FD\u8B9A\u8BD0 \u8BAC\u8B9C\u8F6C\u4E13",
+        pinned: "\u8BEA\u8B9C\u722A\u8BEA\u8B9A",
+        pin: "\u8B9B\u722A\u8BEA\u8B9A",
+        unpin: "\u8B98\u8B9F\u8BC7 \u8B9B\u722A\u8BEA\u8B9A\u8B9B",
+        newConversation: "\u7816\u8BAC\u8B9E\u8B9B \u8B9E\u8B9A\u7816\u8B9B",
+        noData: "\u8B97\u8BAC\u8C09 \u6CE8\u8B9A\u8BAC\u8BAC\u8C09 \u7816\u8BAC\u8B9E\u8B9C\u8F6C",
+        rename: "\u7816\u8C1E\u8B9B \u7816\u8BD0",
+        delete: "\u8BEA\u8B9E\u62FD",
+        deleteConfirm: "\u8BC7\u8B97\u7816\u4E13 \u8BEA\u8B9E\u8BAC\u62FD\u8B9B \u7816\u8BC7 \u8B9B\u7816\u8BAC\u8B9E\u8B9B \u8B9B\u8B9D\u8B9C?"
+      },
+      attachments: {
+        dropTip: "\u7816\u8B9E\u4E13\u4E13 \u8BBB\u8B97\u8C09 \u62FD\u8B98\u722A\u8BAC\u8BD0 \u8BBB\u8B9A\u8BAC \u8BC7\u8B9B\u6CE8\u8BC7\u8B9C\u8F6C",
+        clickToUpload: "\u8BC7\u8B9E\u6293 \u8B97\u8B9C \u8B99\u4E13\u8B9C\u4E13 \u62FD\u8B98\u722A\u8BAC\u8BD0 \u8BBB\u8B9A\u8BAC \u8BC7\u8B9B\u6CE8\u8BC7\u8B9C\u8F6C",
+        uploadSuccess: "\u8B9B\u8B9B\u6CE8\u8BC7\u8B97\u8B9B \u8B9B\u722A\u8BC7\u8BAC\u8B9E\u8B9B",
+        uploadError: "\u8B9B\u8B9B\u6CE8\u8BC7\u8B97\u8B9B \u8C1E\u8BBB\u7816\u8BC7\u8B9B",
+        deleteConfirm: "\u8B9B\u8B97\u8BD0 \u8B97\u8F6C\u8B9B \u8B98\u8B9F\u8B9C\u8B9E \u7816\u8B98\u4E13\u722A\u8B9C\u8C1E\u8BB1 \u8BC7\u8BEA\u8B9E\u8B9C\u62FD \u8B97\u8F6C \u8B9B\u62FD\u8B9C\u8B98\u6293 \u8B9B\u8B9D\u8B9B?",
+        fileTooLarge: "\u8B99\u8B9C\u8B9A\u8BC7 \u8B9B\u62FD\u8B9C\u8B98\u6293 \u8BC7\u8B97 \u8BAC\u8BBB\u8B9C\u8BC7 \u8BC7\u6CE8\u8BC7\u8B9C\u8F6C \u6CE8\u8BC7 {size}",
+        invalidFileType: "\u4F4F\u8B9C\u8B99 \u62FD\u8B9C\u8B98\u6293 \u8BC7\u8B97 \u8B9E\u8B9C\u62FD\u8BAC"
+      },
+      mermaid: {
+        image: "\u8F6C\u8BEA\u8B9C\u8C1E\u8B9B",
+        code: "\u62FD\u8B9C\u8B9A",
+        zoomIn: "\u8B9B\u8B99\u8B9A\u8BC7",
+        zoomOut: "\u8B9B\u62FD\u8B9F\u8C09",
+        reset: "\u8B97\u9A7B\u4F4F",
+        download: "\u8B9B\u8B9C\u4E13\u8B9A",
+        copyCode: "\u8B9B\u6CE8\u8F6C\u62FD \u62FD\u8B9C\u8B9A",
+        rendering: "\u8BEA\u8F6C\u8B98\u722A\u6CE8 \u4E13\u8BAC\u8C1E\u8B9A\u8B9C\u4E13...",
+        renderError: "\u8B9B\u4E13\u8BAC\u8C1E\u8B9A\u8B9C\u4E13 \u8C1E\u8BBB\u7816\u8BC7",
+        renderSuccess: "\u8B9B\u4E13\u8BAC\u8C1E\u8B9A\u8B9C\u4E13 \u8B9B\u722A\u8BC7\u8BAC\u8B9E",
+        retry: "\u8C1E\u4F4F\u8B9B \u7816\u8B9C\u8B98"
       }
     }
   }
@@ -34099,6 +37882,97 @@ const lt = {
       loading: "Kraunama...",
       noData: "N\u0117ra duomen\u0173"
     },
+    skuselector: {
+      placeholder: "Pasirinkite specifikacijas",
+      emptyText: "Specifikacij\u0173 n\u0117ra",
+      stock: "Likutis",
+      price: "Kaina",
+      selected: "Pasirinkta",
+      outOfStock: "Neb\u0117ra sand\u0117lyje"
+    },
+    productcard: {
+      viewDetails: "Per\u017Ei\u016Br\u0117ti detales",
+      buyNow: "Pirkti dabar",
+      addToCart: "\u012Ed\u0117ti \u012F krep\u0161el\u012F",
+      sold: "Parduota",
+      soldOut: "I\u0161parduota",
+      vip: "VIP"
+    },
+    price: {
+      original: "Pradin\u0117"
+    },
+    couponcard: {
+      available: "Atsiimti dabar",
+      used: "Panaudota",
+      expired: "Baig\u0117si galiojimas",
+      received: "Gauta",
+      limit: "U\u017Esakymams vir\u0161 {threshold}",
+      noThreshold: "Be minimalios sumos",
+      validPeriod: "Galiojimo laikotarpis",
+      ruleTitle: "Naudojimo taisykl\u0117s"
+    },
+    luckydraw: {
+      start: "Prad\u0117ti",
+      drawing: "Traukiama...",
+      end: "Laim\u0117tojas!",
+      retry: "Bandyti dar kart\u0105"
+    },
+    filterbar: {
+      all: "Visi",
+      sort: "R\u016B\u0161iuoti",
+      filter: "Filtras",
+      cancel: "At\u0161aukti",
+      reset: "Atkurti",
+      confirm: "Patvirtinti",
+      noOptions: "N\u0117ra parink\u010Di\u0173",
+      asc: "Did\u0117jan\u010Diai",
+      desc: "Ma\u017E\u0117jan\u010Diai",
+      selected: "Pasirinkta"
+    },
+    submitbar: {
+      total: "I\u0161 viso: ",
+      selected: "Pasirinkta: {count}",
+      submit: "Apmok\u0117ti",
+      allSelect: "Pasirinkti visk\u0105"
+    },
+    categorynav: {
+      all: "Visi",
+      noData: "N\u0117ra duomen\u0173",
+      loading: "Kraunama..."
+    },
+    smartaddress: {
+      placeholder: "\u012Eklijuokite adres\u0105 \u010Dia, vardas, telefonas ir vieta bus atpa\u017Einti automati\u0161kai",
+      parse: "I\u0161manus atpa\u017Einimas",
+      province: "Provincija/Miestas/Rajonas",
+      city: "Miestas",
+      district: "Rajonas/Apskritis",
+      street: "Gatv\u0117/Miestelis",
+      detail: "I\u0161samus adresas",
+      phone: "Telefonas",
+      name: "Gav\u0117jas",
+      parseSuccess: "Adresas s\u0117kmingai atpa\u017Eintas",
+      parseFailed: "Atpa\u017Einti nepavyko, \u012Fveskite rankiniu b\u016Bdu",
+      required: "\u012Eveskite piln\u0105 adres\u0105",
+      provinceKeywords: ["Provincija", "Regionas"],
+      cityKeywords: ["Miestas", "Savivaldyb\u0117"],
+      districtKeywords: ["Rajonas", "Apskritis", "Seni\u016Bnija"],
+      streetKeywords: ["Gatv\u0117", "Kelias", "Prospektas", "Skersgatvis"]
+    },
+    ganttchart: {
+      taskName: "U\u017Eduoties pavadinimas",
+      searchPlaceholder: "Ie\u0161koti u\u017Eduo\u010Di\u0173...",
+      zoom: "Mastelis",
+      day: "Diena",
+      week: "Savait\u0117",
+      month: "M\u0117nuo",
+      year: "Metai",
+      milestone: "Etapas"
+    },
+    imagemagnifier: {
+      switchToImage: "Perjungti \u012F vaizd\u0105 {index}",
+      galleryItem: "Galerija {index}",
+      close: "U\u017Edaryti"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -34209,9 +38083,32 @@ const lt = {
         pin: "Pritvirtinti",
         unpin: "Atitraukti",
         newConversation: "Naujas pokalbis",
+        noData: "Pokalbi\u0173 dar n\u0117ra",
         rename: "Pervadinti",
         delete: "I\u0161trinti",
         deleteConfirm: "Ar tikrai norite i\u0161trinti \u0161\u012F pokalb\u012F?"
+      },
+      attachments: {
+        dropTip: "Numeskite failus \u010Dia, kad \u012Fkeltum\u0117te",
+        clickToUpload: "Spustel\u0117kite arba vilkite failus \u012Fk\u0117limui",
+        uploadSuccess: "\u012Ek\u0117limas s\u0117kmingas",
+        uploadError: "\u012Ek\u0117limas nepavyko",
+        deleteConfirm: "Ar tikrai norite i\u0161trinti \u0161\u012F fail\u0105?",
+        fileTooLarge: "Failo dydis negali vir\u0161yti {size}",
+        invalidFileType: "Netinkamas failo tipas"
+      },
+      mermaid: {
+        image: "Vaizdas",
+        code: "Kodas",
+        zoomIn: "Pritraukti",
+        zoomOut: "Atitolinti",
+        reset: "Atstatyti",
+        download: "Atsisi\u0173sti",
+        copyCode: "Kopijuoti kod\u0105",
+        rendering: "Atvaizduojama...",
+        renderError: "Atvaizdavimas nepavyko",
+        renderSuccess: "Atvaizdavimas s\u0117kmingas",
+        retry: "Bandyti dar kart\u0105"
       }
     }
   }
@@ -36362,84 +40259,84 @@ const ku = {
 const ckb = {
   name: "ckb",
   yh: {
-    // گشتی
+    // 诏卮鬲蹖
     common: {
-      yes: "\u0628\u06D5\u06B5\u06CE",
-      no: "\u0646\u06D5\u062E\u06CE\u0631",
-      confirm: "\u062F\u06B5\u0646\u06CC\u0627\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646",
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646",
-      clear: "\u067E\u0627\u06A9\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      reset: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      save: "\u067E\u0627\u0634\u06D5\u06A9\u06D5\u0648\u062A\u06A9\u0631\u062F\u0646",
-      delete: "\u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5",
-      edit: "\u062F\u06D5\u0633\u062A\u06A9\u0627\u0631\u06CC\u06A9\u0631\u062F\u0646",
-      add: "\u0632\u06CC\u0627\u062F\u06A9\u0631\u062F\u0646",
-      search: "\u06AF\u06D5\u0695\u0627\u0646",
-      refresh: "\u0646\u0648\u06CE\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      expand: "\u0641\u0631\u0627\u0648\u0627\u0646\u06A9\u0631\u062F\u0646",
-      collapse: "\u06A9\u06D5\u0645\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      more: "\u0632\u06CC\u0627\u062A\u0631",
-      noData: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      noMatch: "\u062F\u0627\u062A\u0627\u06CC \u06AF\u0648\u0646\u062C\u0627\u0648 \u0646\u06CC\u06CC\u06D5",
-      selectAll: "\u0647\u06D5\u0645\u0648\u0648 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      unselectAll: "\u0647\u06D5\u0645\u0648\u0648 \u0647\u06D5\u06B5\u0628\u0698\u0627\u0631\u062F\u0646 \u0647\u06D5\u06B5\u0648\u06D5\u0634\u06CE\u0646\u06D5\u0648\u06D5"
+      yes: "\u4E98\u8E60\u8BD8\u8E58",
+      no: "\u8CF3\u8E60\u79BA\u8E58\u4E47",
+      confirm: "\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3",
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3",
+      clear: "\u502C\u4E15\u8BB4\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      reset: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      save: "\u502C\u4E15\u536E\u8E60\u8BB4\u8E60\u8CF5\u9B32\u8BB4\u4E47\u4E3F\u8CF3",
+      delete: "\u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60",
+      edit: "\u4E3F\u8E60\u723B\u9B32\u8BB4\u4E15\u4E47\u8E56\u8BB4\u4E47\u4E3F\u8CF3",
+      add: "\u592D\u8E56\u4E15\u4E3F\u8BB4\u4E47\u4E3F\u8CF3",
+      search: "\u8BCF\u8E60\u8DC1\u4E15\u8CF3",
+      refresh: "\u8CF3\u8CF5\u8E58\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      expand: "\u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3\u8BB4\u4E47\u4E3F\u8CF3",
+      collapse: "\u8BB4\u8E60\u8CF2\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      more: "\u592D\u8E56\u4E15\u9B32\u4E47",
+      noData: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      noMatch: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8BCF\u8CF5\u8CF3\u5669\u4E15\u8CF5 \u8CF3\u8E56\u8E56\u8E60",
+      selectAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      unselectAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u4E15\u4E47\u4E3F\u8CF3 \u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u8E58\u8CF3\u8E60\u8CF5\u8E60"
     },
-    // هەڵبژاردنی ڕەنگ
+    // 賴蹠诘亘跇丕乇丿賳蹖 跁蹠賳诏
     colorpicker: {
-      confirm: "\u0628\u0627\u0634\u06D5",
-      clear: "\u067E\u0627\u06A9\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      eyeDropper: "\u0686\u06D5\u0642\u06C6\u06CC \u0686\u0627\u0648",
-      suggestionDark: "\u062F\u06D5\u0642\u06CC \u0633\u067E\u06CC \u0628\u0627\u0634\u062A\u0631\u06D5",
-      suggestionLight: "\u062F\u06D5\u0642\u06CC \u0695\u06D5\u0634 \u0628\u0627\u0634\u062A\u0631\u06D5",
-      recentColors: "\u0695\u06D5\u0646\u06AF\u06D5\u06A9\u0627\u0646\u06CC \u062F\u0648\u0627\u062A\u0631",
-      presetColors: "\u0695\u06D5\u0646\u06AF\u06D5 \u067E\u06CE\u0634\u062A\u0631 \u062F\u06CC\u0627\u0631\u06CC\u06A9\u0631\u0627\u0648\u06D5\u06A9\u0627\u0646"
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      clear: "\u502C\u4E15\u8BB4\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      eyeDropper: "\u8DA9\u8E60\u8CEF\u8E4E\u8E56 \u8DA9\u4E15\u8CF5",
+      suggestionDark: "\u4E3F\u8E60\u8CEF\u8E56 \u723B\u502C\u8E56 \u4E98\u4E15\u536E\u9B32\u4E47\u8E60",
+      suggestionLight: "\u4E3F\u8E60\u8CEF\u8E56 \u8DC1\u8E60\u536E \u4E98\u4E15\u536E\u9B32\u4E47\u8E60",
+      recentColors: "\u8DC1\u8E60\u8CF3\u8BCF\u8E60\u8BB4\u4E15\u8CF3\u8E56 \u4E3F\u8CF5\u4E15\u9B32\u4E47",
+      presetColors: "\u8DC1\u8E60\u8CF3\u8BCF\u8E60 \u502C\u8E58\u536E\u9B32\u4E47 \u4E3F\u8E56\u4E15\u4E47\u8E56\u8BB4\u4E47\u4E15\u8CF5\u8E60\u8BB4\u4E15\u8CF3"
     },
-    // هەڵبژاردنی بەروار
+    // 賴蹠诘亘跇丕乇丿賳蹖 亘蹠乇賵丕乇
     datepicker: {
-      now: "\u0626\u06CE\u0633\u062A\u0627",
-      today: "\u0626\u06D5\u0645\u0695\u06C6",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      clear: "\u067E\u0627\u06A9\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      confirm: "\u0628\u0627\u0634\u06D5",
-      selectDate: "\u0628\u06D5\u0631\u0648\u0627\u0631 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      selectTime: "\u06A9\u0627\u062A \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      startDate: "\u0628\u06D5\u0631\u0648\u0627\u0631\u06CC \u062F\u06D5\u0633\u062A\u067E\u06CE\u06A9\u0631\u062F\u0646",
-      startTime: "\u06A9\u0627\u062A\u06CC \u062F\u06D5\u0633\u062A\u067E\u06CE\u06A9\u0631\u062F\u0646",
-      endDate: "\u0628\u06D5\u0631\u0648\u0627\u0631\u06CC \u06A9\u06C6\u062A\u0627\u06CC\u06CC",
-      endTime: "\u06A9\u0627\u062A\u06CC \u06A9\u06C6\u062A\u0627\u06CC\u06CC",
+      now: "\u5345\u8E58\u723B\u9B32\u4E15",
+      today: "\u5345\u8E60\u8CF2\u8DC1\u8E4E",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      clear: "\u502C\u4E15\u8BB4\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      selectDate: "\u4E98\u8E60\u4E47\u8CF5\u4E15\u4E47 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      selectTime: "\u8BB4\u4E15\u9B32 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      startDate: "\u4E98\u8E60\u4E47\u8CF5\u4E15\u4E47\u8E56 \u4E3F\u8E60\u723B\u9B32\u502C\u8E58\u8BB4\u4E47\u4E3F\u8CF3",
+      startTime: "\u8BB4\u4E15\u9B32\u8E56 \u4E3F\u8E60\u723B\u9B32\u502C\u8E58\u8BB4\u4E47\u4E3F\u8CF3",
+      endDate: "\u4E98\u8E60\u4E47\u8CF5\u4E15\u4E47\u8E56 \u8BB4\u8E4E\u9B32\u4E15\u8E56\u8E56",
+      endTime: "\u8BB4\u4E15\u9B32\u8E56 \u8BB4\u8E4E\u9B32\u4E15\u8E56\u8E56",
       year: "",
       month: "",
       day: "",
-      week: "\u0647\u06D5\u0641\u062A\u06D5",
+      week: "\u8CF4\u8E60\u8CEE\u9B32\u8E60",
       monthBeforeYear: true,
-      prevYear: "\u0633\u0627\u06B5\u06CC \u067E\u06CE\u0634\u0648\u0648",
-      nextYear: "\u0633\u0627\u06B5\u06CC \u062F\u0627\u0647\u0627\u062A\u0648\u0648",
-      prevMonth: "\u0645\u0627\u0646\u06AF\u06CC \u067E\u06CE\u0634\u0648\u0648",
-      nextMonth: "\u0645\u0627\u0646\u06AF\u06CC \u062F\u0627\u0647\u0627\u062A\u0648\u0648",
+      prevYear: "\u723B\u4E15\u8BD8\u8E56 \u502C\u8E58\u536E\u8CF5\u8CF5",
+      nextYear: "\u723B\u4E15\u8BD8\u8E56 \u4E3F\u4E15\u8CF4\u4E15\u9B32\u8CF5\u8CF5",
+      prevMonth: "\u8CF2\u4E15\u8CF3\u8BCF\u8E56 \u502C\u8E58\u536E\u8CF5\u8CF5",
+      nextMonth: "\u8CF2\u4E15\u8CF3\u8BCF\u8E56 \u4E3F\u4E15\u8CF4\u4E15\u9B32\u8CF5\u8CF5",
       weeks: {
-        sun: "\u06CC\u06D5\u06A9",
-        mon: "\u062F\u0648\u0648",
-        tue: "\u0633\u06CE",
-        wed: "\u0686\u0648\u0627\u0631",
-        thu: "\u067E\u06CE\u0646\u062C",
-        fri: "\u0634\u06D5\u0634",
-        sat: "\u062D\u06D5\u0648\u062A"
+        sun: "\u8E56\u8E60\u8BB4",
+        mon: "\u4E3F\u8CF5\u8CF5",
+        tue: "\u723B\u8E58",
+        wed: "\u8DA9\u8CF5\u4E15\u4E47",
+        thu: "\u502C\u8E58\u8CF3\u5669",
+        fri: "\u536E\u8E60\u536E",
+        sat: "\u4E28\u8E60\u8CF5\u9B32"
       },
       months: {
-        jan: "\u06A9\u0627\u0646\u0648\u0648\u0646\u06CC \u062F\u0648\u0648\u06D5\u0645",
-        feb: "\u0634\u0648\u0628\u0627\u062A",
-        mar: "\u0626\u0627\u0632\u0627\u0631",
-        apr: "\u0646\u06CC\u0633\u0627\u0646",
-        may: "\u0626\u0627\u06CC\u0627\u0631",
-        jun: "\u062D\u0648\u0632\u06D5\u06CC\u0631\u0627\u0646",
-        jul: "\u062A\u06D5\u0645\u0645\u0648\u0648\u0632",
-        aug: "\u0626\u0627\u0628",
-        sep: "\u0626\u06D5\u06CC\u0644\u0648\u0648\u0644",
-        oct: "\u062A\u0634\u0631\u06CC\u0646\u06CC \u06CC\u06D5\u06A9\u06D5\u0645",
-        nov: "\u062A\u0634\u0631\u06CC\u0646\u06CC \u062F\u0648\u0648\u06D5\u0645",
-        dec: "\u06A9\u0627\u0646\u0648\u0648\u0646\u06CC \u06CC\u06D5\u06A9\u06D5\u0645"
+        jan: "\u8BB4\u4E15\u8CF3\u8CF5\u8CF5\u8CF3\u8E56 \u4E3F\u8CF5\u8CF5\u8E60\u8CF2",
+        feb: "\u536E\u8CF5\u4E98\u4E15\u9B32",
+        mar: "\u5345\u4E15\u592D\u4E15\u4E47",
+        apr: "\u8CF3\u8E56\u723B\u4E15\u8CF3",
+        may: "\u5345\u4E15\u8E56\u4E15\u4E47",
+        jun: "\u4E28\u8CF5\u592D\u8E60\u8E56\u4E47\u4E15\u8CF3",
+        jul: "\u9B32\u8E60\u8CF2\u8CF2\u8CF5\u8CF5\u592D",
+        aug: "\u5345\u4E15\u4E98",
+        sep: "\u5345\u8E60\u8E56\u8CF1\u8CF5\u8CF5\u8CF1",
+        oct: "\u9B32\u536E\u4E47\u8E56\u8CF3\u8E56 \u8E56\u8E60\u8BB4\u8E60\u8CF2",
+        nov: "\u9B32\u536E\u4E47\u8E56\u8CF3\u8E56 \u4E3F\u8CF5\u8CF5\u8E60\u8CF2",
+        dec: "\u8BB4\u4E15\u8CF3\u8CF5\u8CF5\u8CF3\u8E56 \u8E56\u8E60\u8BB4\u8E60\u8CF2"
       },
       quarters: {
         q1: "Q1",
@@ -36448,626 +40345,740 @@ const ckb = {
         q4: "Q4"
       }
     },
-    // هەڵبژاردنی کات
+    // 賴蹠诘亘跇丕乇丿賳蹖 讴丕鬲
     timepicker: {
-      confirm: "\u0628\u0627\u0634\u06D5",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      now: "\u0626\u06CE\u0633\u062A\u0627",
-      placeholder: "\u06A9\u0627\u062A \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      startPlaceholder: "\u06A9\u0627\u062A\u06CC \u062F\u06D5\u0633\u062A\u067E\u06CE\u06A9\u0631\u062F\u0646",
-      endPlaceholder: "\u06A9\u0627\u062A\u06CC \u06A9\u06C6\u062A\u0627\u06CC\u06CC",
-      selectTime: "\u06A9\u0627\u062A \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5"
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      now: "\u5345\u8E58\u723B\u9B32\u4E15",
+      placeholder: "\u8BB4\u4E15\u9B32 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      startPlaceholder: "\u8BB4\u4E15\u9B32\u8E56 \u4E3F\u8E60\u723B\u9B32\u502C\u8E58\u8BB4\u4E47\u4E3F\u8CF3",
+      endPlaceholder: "\u8BB4\u4E15\u9B32\u8E56 \u8BB4\u8E4E\u9B32\u4E15\u8E56\u8E56",
+      selectTime: "\u8BB4\u4E15\u9B32 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60"
     },
-    // هەڵبژاردنی کات
+    // 賴蹠诘亘跇丕乇丿賳蹖 讴丕鬲
     timeselect: {
-      placeholder: "\u06A9\u0627\u062A \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5"
+      placeholder: "\u8BB4\u4E15\u9B32 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60"
     },
-    // دار
+    // 丿丕乇
     tree: {
-      emptyText: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      checkAll: "\u0647\u06D5\u0645\u0648\u0648 \u067E\u0634\u06A9\u0646\u06CC\u0646 \u0628\u06A9\u06D5",
-      uncheckAll: "\u0647\u06D5\u0645\u0648\u0648 \u067E\u0634\u06A9\u0646\u06CC\u0646 \u0647\u06D5\u06B5\u0648\u06D5\u0634\u06CE\u0646\u06D5\u0648\u06D5",
-      expandAll: "\u0647\u06D5\u0645\u0648\u0648 \u0641\u0631\u0627\u0648\u0627\u0646 \u0628\u06A9\u06D5",
-      collapseAll: "\u0647\u06D5\u0645\u0648\u0648 \u06A9\u06D5\u0645 \u0628\u06A9\u06D5\u0648\u06D5"
+      emptyText: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      checkAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u502C\u536E\u8BB4\u8CF3\u8E56\u8CF3 \u4E98\u8BB4\u8E60",
+      uncheckAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u502C\u536E\u8BB4\u8CF3\u8E56\u8CF3 \u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u8E58\u8CF3\u8E60\u8CF5\u8E60",
+      expandAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3 \u4E98\u8BB4\u8E60",
+      collapseAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8BB4\u8E60\u8CF2 \u4E98\u8BB4\u8E60\u8CF5\u8E60"
     },
-    // هەڵبژاردنی دار
+    // 賴蹠诘亘跇丕乇丿賳蹖 丿丕乇
     treeselect: {
-      placeholder: "\u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      emptyText: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      noMatch: "\u062F\u0627\u062A\u0627\u06CC \u06AF\u0648\u0646\u062C\u0627\u0648 \u0646\u06CC\u06CC\u06D5"
+      placeholder: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      emptyText: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      noMatch: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8BCF\u8CF5\u8CF3\u5669\u4E15\u8CF5 \u8CF3\u8E56\u8E56\u8E60"
     },
-    // کاتژمێر
+    // 讴丕鬲跇賲蹘乇
     calendar: {
-      prevMonth: "\u0645\u0627\u0646\u06AF\u06CC \u067E\u06CE\u0634\u0648\u0648",
-      nextMonth: "\u0645\u0627\u0646\u06AF\u06CC \u062F\u0627\u0647\u0627\u062A\u0648\u0648",
-      prevYear: "\u0633\u0627\u06B5\u06CC \u067E\u06CE\u0634\u0648\u0648",
-      nextYear: "\u0633\u0627\u06B5\u06CC \u062F\u0627\u0647\u0627\u062A\u0648\u0648",
-      today: "\u0626\u06D5\u0645\u0695\u06C6",
-      week: "\u0647\u06D5\u0641\u062A\u06D5",
-      holiday: "\u062C\u06CE\u0698\u0646\u06CC \u067E\u0634\u0648\u0648",
-      workday: "\u06A9\u0627\u0631",
+      prevMonth: "\u8CF2\u4E15\u8CF3\u8BCF\u8E56 \u502C\u8E58\u536E\u8CF5\u8CF5",
+      nextMonth: "\u8CF2\u4E15\u8CF3\u8BCF\u8E56 \u4E3F\u4E15\u8CF4\u4E15\u9B32\u8CF5\u8CF5",
+      prevYear: "\u723B\u4E15\u8BD8\u8E56 \u502C\u8E58\u536E\u8CF5\u8CF5",
+      nextYear: "\u723B\u4E15\u8BD8\u8E56 \u4E3F\u4E15\u8CF4\u4E15\u9B32\u8CF5\u8CF5",
+      today: "\u5345\u8E60\u8CF2\u8DC1\u8E4E",
+      week: "\u8CF4\u8E60\u8CEE\u9B32\u8E60",
+      holiday: "\u5669\u8E58\u8DC7\u8CF3\u8E56 \u502C\u536E\u8CF5\u8CF5",
+      workday: "\u8BB4\u4E15\u4E47",
       monthHeaderFormat: "MMMM YYYY",
       weeks: {
-        sun: "\u06CC\u06D5\u06A9",
-        mon: "\u062F\u0648\u0648",
-        tue: "\u0633\u06CE",
-        wed: "\u0686\u0648\u0627\u0631",
-        thu: "\u067E\u06CE\u0646\u062C",
-        fri: "\u0634\u06D5\u0634",
-        sat: "\u062D\u06D5\u0648\u062A"
+        sun: "\u8E56\u8E60\u8BB4",
+        mon: "\u4E3F\u8CF5\u8CF5",
+        tue: "\u723B\u8E58",
+        wed: "\u8DA9\u8CF5\u4E15\u4E47",
+        thu: "\u502C\u8E58\u8CF3\u5669",
+        fri: "\u536E\u8E60\u536E",
+        sat: "\u4E28\u8E60\u8CF5\u9B32"
       }
     },
-    // خۆکار پڕکردنەوە
+    // 禺蹎讴丕乇 倬跁讴乇丿賳蹠賵蹠
     autocomplete: {
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      placeholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5",
-      noData: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      noMatch: "\u062F\u0627\u062A\u0627\u06CC \u06AF\u0648\u0646\u062C\u0627\u0648 \u0646\u06CC\u06CC\u06D5"
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      placeholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      noData: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      noMatch: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8BCF\u8CF5\u8CF3\u5669\u4E15\u8CF5 \u8CF3\u8E56\u8E56\u8E60"
     },
-    // ژماردن بەپێچەوانە
+    // 跇賲丕乇丿賳 亘蹠倬蹘趩蹠賵丕賳蹠
     countdown: {
-      days: "\u0695\u06C6\u0698",
-      hours: "\u06A9\u0627\u062A\u0698\u0645\u06CE\u0631",
-      minutes: "\u062E\u0648\u0644\u06D5\u06A9",
-      seconds: "\u0686\u0631\u06A9\u06D5",
-      milliseconds: "\u0645\u0644\u06CC \u0686\u0631\u06A9\u06D5",
-      finished: "\u062A\u06D5\u0648\u0627\u0648 \u0628\u0648\u0648"
+      days: "\u8DC1\u8E4E\u8DC7",
+      hours: "\u8BB4\u4E15\u9B32\u8DC7\u8CF2\u8E58\u4E47",
+      minutes: "\u79BA\u8CF5\u8CF1\u8E60\u8BB4",
+      seconds: "\u8DA9\u4E47\u8BB4\u8E60",
+      milliseconds: "\u8CF2\u8CF1\u8E56 \u8DA9\u4E47\u8BB4\u8E60",
+      finished: "\u9B32\u8E60\u8CF5\u4E15\u8CF5 \u4E98\u8CF5\u8CF5"
     },
-    // کاسکاد
+    // 讴丕爻讴丕丿
     cascader: {
-      noMatch: "\u062F\u0627\u062A\u0627\u06CC \u06AF\u0648\u0646\u062C\u0627\u0648 \u0646\u06CC\u06CC\u06D5",
-      placeholder: "\u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      noData: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5"
+      noMatch: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8BCF\u8CF5\u8CF3\u5669\u4E15\u8CF5 \u8CF3\u8E56\u8E56\u8E60",
+      placeholder: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      noData: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60"
     },
-    // گواستنەوە
+    // 诏賵丕爻鬲賳蹠賵蹠
     transfer: {
-      noMatch: "\u062F\u0627\u062A\u0627\u06CC \u06AF\u0648\u0646\u062C\u0627\u0648 \u0646\u06CC\u06CC\u06D5",
-      noData: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      titles: ["\u0644\u06CC\u0633\u062A 1", "\u0644\u06CC\u0633\u062A 2"],
-      filterPlaceholder: "\u0648\u0634\u06D5\u06CC \u0633\u06D5\u0631\u06D5\u06A9\u06CC \u0628\u0646\u0648\u0648\u0633\u06D5",
-      noCheckedFormat: "{total} \u0628\u06D5\u0646\u062F",
-      hasCheckedFormat: "{checked}/{total} \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u062F\u0631\u0627\u0648",
-      searchPlaceholder: "\u0648\u0634\u06D5\u06CC \u0633\u06D5\u0631\u06D5\u06A9\u06CC \u0628\u0646\u0648\u0648\u0633\u06D5"
+      noMatch: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8BCF\u8CF5\u8CF3\u5669\u4E15\u8CF5 \u8CF3\u8E56\u8E56\u8E60",
+      noData: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      titles: ["\u8CF1\u8E56\u723B\u9B32 1", "\u8CF1\u8E56\u723B\u9B32 2"],
+      filterPlaceholder: "\u8CF5\u536E\u8E60\u8E56 \u723B\u8E60\u4E47\u8E60\u8BB4\u8E56 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      noCheckedFormat: "{total} \u4E98\u8E60\u8CF3\u4E3F",
+      hasCheckedFormat: "{checked}/{total} \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5",
+      searchPlaceholder: "\u8CF5\u536E\u8E60\u8E56 \u723B\u8E60\u4E47\u8E60\u8BB4\u8E56 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60"
     },
-    // خشتە
+    // 禺卮鬲蹠
     table: {
-      emptyText: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      confirmFilter: "\u062F\u06B5\u0646\u06CC\u0627\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      resetFilter: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      clearFilter: "\u0647\u06D5\u0645\u0648\u0648",
-      sumText: "\u06A9\u06C6",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      index: "\u0646\u06CC\u0634\u0627\u0646\u06D5",
-      print: "\u0686\u0627\u067E\u06A9\u0631\u062F\u0646",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      preview: "\u067E\u06CE\u0634\u0628\u06CC\u0646\u06CC\u0646\u06CC \u0686\u0627\u067E",
-      printTime: "\u06A9\u0627\u062A\u06CC \u0686\u0627\u067E",
-      total: "\u06A9\u06C6\u06CC {total} \u0628\u06D5\u0646\u062F",
-      page: "\u0644\u0627\u067E\u06D5\u0695\u06D5 {page}",
-      yes: "\u0628\u06D5\u06B5\u06CE",
-      no: "\u0646\u06D5\u062E\u06CE\u0631",
-      // تووڵی ئامراز
+      emptyText: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      confirmFilter: "\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      resetFilter: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      clearFilter: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5",
+      sumText: "\u8BB4\u8E4E",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      index: "\u8CF3\u8E56\u536E\u4E15\u8CF3\u8E60",
+      print: "\u8DA9\u4E15\u502C\u8BB4\u4E47\u4E3F\u8CF3",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      preview: "\u502C\u8E58\u536E\u4E98\u8E56\u8CF3\u8E56\u8CF3\u8E56 \u8DA9\u4E15\u502C",
+      printTime: "\u8BB4\u4E15\u9B32\u8E56 \u8DA9\u4E15\u502C",
+      total: "\u8BB4\u8E4E\u8E56 {total} \u4E98\u8E60\u8CF3\u4E3F",
+      page: "\u8CF1\u4E15\u502C\u8E60\u8DC1\u8E60 {page}",
+      yes: "\u4E98\u8E60\u8BD8\u8E58",
+      no: "\u8CF3\u8E60\u79BA\u8E58\u4E47",
+      // 鬲賵賵诘蹖 卅丕賲乇丕夭
       toolbar: {
-        refresh: "\u0646\u0648\u06CE\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-        density: "\u0686\u0695\u06CC",
-        densityDefault: "\u0628\u0646\u06D5\u0695\u06D5\u062A\u06CC",
-        densityLarge: "\u06AF\u06D5\u0648\u0631\u06D5",
-        densitySmall: "\u0628\u0686\u0648\u0648\u06A9",
-        columnSetting: "\u0695\u06CE\u06A9\u062E\u0633\u062A\u0646\u06CC \u0633\u062A\u0648\u0648\u0646",
-        fullscreen: "\u067E\u0695 \u0634\u0627\u0634\u06D5",
-        exitFullscreen: "\u062F\u06D5\u0631\u0686\u0648\u0648\u0646 \u0644\u06D5 \u067E\u0695 \u0634\u0627\u0634\u06D5",
-        export: "\u062F\u06D5\u0631\u0647\u06CE\u0646\u0627\u0646",
-        import: "\u0647\u0627\u0648\u0631\u062F\u06D5\u06A9\u0631\u062F\u0646",
-        search: "\u06AF\u06D5\u0695\u0627\u0646",
-        searchPlaceholder: "\u0628\u06C6 \u06AF\u06D5\u0695\u0627\u0646 \u0648\u0634\u06D5\u06CC \u0633\u06D5\u0631\u06D5\u06A9\u06CC \u0628\u0646\u0648\u0648\u0633\u06D5"
+        refresh: "\u8CF3\u8CF5\u8E58\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+        density: "\u8DA9\u8DC1\u8E56",
+        densityDefault: "\u4E98\u8CF3\u8E60\u8DC1\u8E60\u9B32\u8E56",
+        densityLarge: "\u8BCF\u8E60\u8CF5\u4E47\u8E60",
+        densitySmall: "\u4E98\u8DA9\u8CF5\u8CF5\u8BB4",
+        columnSetting: "\u8DC1\u8E58\u8BB4\u79BA\u723B\u9B32\u8CF3\u8E56 \u723B\u9B32\u8CF5\u8CF5\u8CF3",
+        fullscreen: "\u502C\u8DC1 \u536E\u4E15\u536E\u8E60",
+        exitFullscreen: "\u4E3F\u8E60\u4E47\u8DA9\u8CF5\u8CF5\u8CF3 \u8CF1\u8E60 \u502C\u8DC1 \u536E\u4E15\u536E\u8E60",
+        export: "\u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3",
+        import: "\u8CF4\u4E15\u8CF5\u4E47\u4E3F\u8E60\u8BB4\u4E47\u4E3F\u8CF3",
+        search: "\u8BCF\u8E60\u8DC1\u4E15\u8CF3",
+        searchPlaceholder: "\u4E98\u8E4E \u8BCF\u8E60\u8DC1\u4E15\u8CF3 \u8CF5\u536E\u8E60\u8E56 \u723B\u8E60\u4E47\u8E60\u8BB4\u8E56 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60"
       },
-      // فلتەر
+      // 賮賱鬲蹠乇
       filter: {
-        selectAll: "\u0647\u06D5\u0645\u0648\u0648 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-        selectInvert: "\u0647\u06D5\u06B5\u0628\u0698\u0627\u0631\u062F\u0646 \u067E\u06CE\u0686\u06D5\u0648\u0627\u0646\u06D5 \u0628\u06A9\u06D5",
-        empty: "\u0628\u06D5\u062A\u0627\u06B5\u06D5",
-        notEmpty: "\u0628\u06D5\u062A\u0627\u06B5 \u0646\u06CC\u06CC\u06D5",
-        contains: "\u062A\u06CE\u062F\u0627\u06CC\u06D5",
-        notContains: "\u062A\u06CE\u062F\u0627 \u0646\u06CC\u06CC\u06D5",
-        equals: "\u06CC\u06D5\u06A9\u0633\u0627\u0646\u06D5",
-        notEquals: "\u06CC\u06D5\u06A9\u0633\u0627\u0646 \u0646\u06CC\u06CC\u06D5",
-        startsWith: "\u062F\u06D5\u0633\u062A \u067E\u06CE\u062F\u06D5\u06A9\u0627\u062A",
-        endsWith: "\u06A9\u06C6\u062A\u0627\u06CC\u06CC \u062F\u06CE\u062A",
-        greaterThan: "\u06AF\u06D5\u0648\u0631\u06D5\u062A\u0631\u06D5",
-        lessThan: "\u0628\u0686\u0648\u0648\u06A9\u062A\u0631\u06D5",
-        between: "\u0644\u06D5 \u0646\u06CE\u0648\u0627\u0646"
+        selectAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+        selectInvert: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u4E15\u4E47\u4E3F\u8CF3 \u502C\u8E58\u8DA9\u8E60\u8CF5\u4E15\u8CF3\u8E60 \u4E98\u8BB4\u8E60",
+        empty: "\u4E98\u8E60\u9B32\u4E15\u8BD8\u8E60",
+        notEmpty: "\u4E98\u8E60\u9B32\u4E15\u8BD8 \u8CF3\u8E56\u8E56\u8E60",
+        contains: "\u9B32\u8E58\u4E3F\u4E15\u8E56\u8E60",
+        notContains: "\u9B32\u8E58\u4E3F\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+        equals: "\u8E56\u8E60\u8BB4\u723B\u4E15\u8CF3\u8E60",
+        notEquals: "\u8E56\u8E60\u8BB4\u723B\u4E15\u8CF3 \u8CF3\u8E56\u8E56\u8E60",
+        startsWith: "\u4E3F\u8E60\u723B\u9B32 \u502C\u8E58\u4E3F\u8E60\u8BB4\u4E15\u9B32",
+        endsWith: "\u8BB4\u8E4E\u9B32\u4E15\u8E56\u8E56 \u4E3F\u8E58\u9B32",
+        greaterThan: "\u8BCF\u8E60\u8CF5\u4E47\u8E60\u9B32\u4E47\u8E60",
+        lessThan: "\u4E98\u8DA9\u8CF5\u8CF5\u8BB4\u9B32\u4E47\u8E60",
+        between: "\u8CF1\u8E60 \u8CF3\u8E58\u8CF5\u4E15\u8CF3"
       },
-      // ڕیزکردن
+      // 跁蹖夭讴乇丿賳
       sort: {
-        asc: "\u0632\u06CC\u0627\u062F\u0628\u0648\u0648\u0646",
-        desc: "\u06A9\u06D5\u0645\u0628\u0648\u0648\u0646",
-        clear: "\u0695\u06CC\u0632\u06A9\u0631\u062F\u0646 \u067E\u0627\u06A9 \u0628\u06A9\u06D5"
+        asc: "\u592D\u8E56\u4E15\u4E3F\u4E98\u8CF5\u8CF5\u8CF3",
+        desc: "\u8BB4\u8E60\u8CF2\u4E98\u8CF5\u8CF5\u8CF3",
+        clear: "\u8DC1\u8E56\u592D\u8BB4\u4E47\u4E3F\u8CF3 \u502C\u4E15\u8BB4 \u4E98\u8BB4\u8E60"
       },
-      // دەرهێنان
+      // 丿蹠乇賴蹘賳丕賳
       export: {
-        title: "\u062F\u0627\u062A\u0627 \u062F\u06D5\u0631\u0647\u06CE\u0646\u06D5",
-        filename: "\u0646\u0627\u0648\u06CC \u0641\u0627\u06CC\u0644",
-        type: "\u062C\u06C6\u0631\u06CC \u0641\u0627\u06CC\u0644",
-        scope: "\u0633\u0646\u0648\u0631\u06CC \u062F\u06D5\u0631\u0647\u06CE\u0646\u0627\u0646",
-        scopeAll: "\u0647\u06D5\u0645\u0648\u0648 \u062F\u0627\u062A\u0627\u06A9\u0627\u0646",
-        scopeSelected: "\u062F\u0627\u062A\u0627\u06CC \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u062F\u0631\u0627\u0648",
-        scopeCurrentPage: "\u0644\u0627\u067E\u06D5\u0695\u06D5\u06CC \u0626\u06CE\u0633\u062A\u0627",
-        includeHeader: "\u0633\u06D5\u0631\u062F\u06CE\u0695 \u062A\u06CE\u06A9\u06D5\u06B5 \u0628\u06A9\u06D5",
-        exporting: "\u062F\u06D5\u0631\u0647\u06CE\u0646\u0627\u0646...",
-        success: "\u062F\u06D5\u0631\u0647\u06CE\u0646\u0627\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0628\u0648\u0648",
-        error: "\u062F\u06D5\u0631\u0647\u06CE\u0646\u0627\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648"
+        title: "\u4E3F\u4E15\u9B32\u4E15 \u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u8E60",
+        filename: "\u8CF3\u4E15\u8CF5\u8E56 \u8CEE\u4E15\u8E56\u8CF1",
+        type: "\u5669\u8E4E\u4E47\u8E56 \u8CEE\u4E15\u8E56\u8CF1",
+        scope: "\u723B\u8CF3\u8CF5\u4E47\u8E56 \u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3",
+        scopeAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u4E3F\u4E15\u9B32\u4E15\u8BB4\u4E15\u8CF3",
+        scopeSelected: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5",
+        scopeCurrentPage: "\u8CF1\u4E15\u502C\u8E60\u8DC1\u8E60\u8E56 \u5345\u8E58\u723B\u9B32\u4E15",
+        includeHeader: "\u723B\u8E60\u4E47\u4E3F\u8E58\u8DC1 \u9B32\u8E58\u8BB4\u8E60\u8BD8 \u4E98\u8BB4\u8E60",
+        exporting: "\u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3...",
+        success: "\u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u4E98\u8CF5\u8CF5",
+        error: "\u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5"
       },
-      // هاوردەکردن
+      // 賴丕賵乇丿蹠讴乇丿賳
       import: {
-        title: "\u062F\u0627\u062A\u0627 \u0647\u0627\u0648\u0631\u062F\u06D5 \u0628\u06A9\u06D5",
-        selectFile: "\u0641\u0627\u06CC\u0644 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-        dragTip: "\u0628\u06C6 \u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u0641\u0627\u06CC\u0644 \u0644\u06CE \u0628\u062F\u06D5 \u06CC\u0627\u0646 \u0628\u06A9\u06CE\u0634\u06D5",
-        importing: "\u0647\u0627\u0648\u0631\u062F\u06D5\u06A9\u0631\u062F\u0646...",
-        success: "\u0647\u0627\u0648\u0631\u062F\u06D5\u06A9\u0631\u062F\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0628\u0648\u0648",
-        error: "\u0647\u0627\u0648\u0631\u062F\u06D5\u06A9\u0631\u062F\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648",
-        preview: "\u067E\u06CE\u0634\u0628\u06CC\u0646\u06CC\u0646\u06CC \u062F\u0627\u062A\u0627",
-        confirm: "\u0647\u0627\u0648\u0631\u062F\u06D5\u06A9\u0631\u062F\u0646 \u062F\u06B5\u0646\u06CC\u0627 \u0628\u06A9\u06D5\u0648\u06D5"
+        title: "\u4E3F\u4E15\u9B32\u4E15 \u8CF4\u4E15\u8CF5\u4E47\u4E3F\u8E60 \u4E98\u8BB4\u8E60",
+        selectFile: "\u8CEE\u4E15\u8E56\u8CF1 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+        dragTip: "\u4E98\u8E4E \u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u8CEE\u4E15\u8E56\u8CF1 \u8CF1\u8E58 \u4E98\u4E3F\u8E60 \u8E56\u4E15\u8CF3 \u4E98\u8BB4\u8E58\u536E\u8E60",
+        importing: "\u8CF4\u4E15\u8CF5\u4E47\u4E3F\u8E60\u8BB4\u4E47\u4E3F\u8CF3...",
+        success: "\u8CF4\u4E15\u8CF5\u4E47\u4E3F\u8E60\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u4E98\u8CF5\u8CF5",
+        error: "\u8CF4\u4E15\u8CF5\u4E47\u4E3F\u8E60\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5",
+        preview: "\u502C\u8E58\u536E\u4E98\u8E56\u8CF3\u8E56\u8CF3\u8E56 \u4E3F\u4E15\u9B32\u4E15",
+        confirm: "\u8CF4\u4E15\u8CF5\u4E47\u4E3F\u8E60\u8BB4\u4E47\u4E3F\u8CF3 \u4E3F\u8BD8\u8CF3\u8E56\u4E15 \u4E98\u8BB4\u8E60\u8CF5\u8E60"
       },
-      // چاپکردن
+      // 趩丕倬讴乇丿賳
       printConfig: {
-        title: "\u0695\u06CE\u06A9\u062E\u0633\u062A\u0646\u06CC \u0686\u0627\u067E",
-        pageTitle: "\u0633\u06D5\u0631\u062F\u06CE\u0695\u06CC \u0644\u0627\u067E\u06D5\u0695\u06D5",
-        pageHeader: "\u0633\u06D5\u0631\u062F\u06CE\u0695",
-        pageFooter: "\u0698\u06CE\u0631\u062F\u06CE\u0695",
-        printAll: "\u0647\u06D5\u0645\u0648\u0648 \u0686\u0627\u067E \u0628\u06A9\u06D5",
-        printSelected: "\u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u062F\u0631\u0627\u0648 \u0686\u0627\u067E \u0628\u06A9\u06D5",
-        printCurrentPage: "\u0644\u0627\u067E\u06D5\u0695\u06D5\u06CC \u0626\u06CE\u0633\u062A\u0627 \u0686\u0627\u067E \u0628\u06A9\u06D5",
-        landscape: "\u0626\u0627\u0633\u06C6\u06CC\u06CC",
-        portrait: "\u0633\u062A\u0648\u0648\u0646\u06CC",
-        printing: "\u0686\u0627\u067E \u062F\u06D5\u06A9\u0631\u06CE\u062A..."
+        title: "\u8DC1\u8E58\u8BB4\u79BA\u723B\u9B32\u8CF3\u8E56 \u8DA9\u4E15\u502C",
+        pageTitle: "\u723B\u8E60\u4E47\u4E3F\u8E58\u8DC1\u8E56 \u8CF1\u4E15\u502C\u8E60\u8DC1\u8E60",
+        pageHeader: "\u723B\u8E60\u4E47\u4E3F\u8E58\u8DC1",
+        pageFooter: "\u8DC7\u8E58\u4E47\u4E3F\u8E58\u8DC1",
+        printAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8DA9\u4E15\u502C \u4E98\u8BB4\u8E60",
+        printSelected: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5 \u8DA9\u4E15\u502C \u4E98\u8BB4\u8E60",
+        printCurrentPage: "\u8CF1\u4E15\u502C\u8E60\u8DC1\u8E60\u8E56 \u5345\u8E58\u723B\u9B32\u4E15 \u8DA9\u4E15\u502C \u4E98\u8BB4\u8E60",
+        landscape: "\u5345\u4E15\u723B\u8E4E\u8E56\u8E56",
+        portrait: "\u723B\u9B32\u8CF5\u8CF5\u8CF3\u8E56",
+        printing: "\u8DA9\u4E15\u502C \u4E3F\u8E60\u8BB4\u4E47\u8E58\u9B32..."
       },
-      // ڕێکخستنی ستوون
+      // 跁蹘讴禺爻鬲賳蹖 爻鬲賵賵賳
       columnSetting: {
-        title: "\u0695\u06CE\u06A9\u062E\u0633\u062A\u0646\u06CC \u0633\u062A\u0648\u0648\u0646",
-        showAll: "\u0647\u06D5\u0645\u0648\u0648 \u067E\u06CC\u0634\u0627\u0646 \u0628\u062F\u06D5",
-        hideAll: "\u0647\u06D5\u0645\u0648\u0648 \u0628\u0634\u0627\u0631\u06D5\u0648\u06D5",
-        reset: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-        fixedLeft: "\u0644\u06D5 \u0686\u06D5\u067E \u062C\u06CE\u06AF\u06CC\u0631 \u0628\u06A9\u06D5",
-        fixedRight: "\u0644\u06D5 \u0695\u0627\u0633\u062A \u062C\u06CE\u06AF\u06CC\u0631 \u0628\u06A9\u06D5",
-        unfixed: "\u062C\u06CE\u06AF\u06CC\u0631 \u0646\u06D5\u06A9\u06D5"
+        title: "\u8DC1\u8E58\u8BB4\u79BA\u723B\u9B32\u8CF3\u8E56 \u723B\u9B32\u8CF5\u8CF5\u8CF3",
+        showAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u502C\u8E56\u536E\u4E15\u8CF3 \u4E98\u4E3F\u8E60",
+        hideAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u4E98\u536E\u4E15\u4E47\u8E60\u8CF5\u8E60",
+        reset: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+        fixedLeft: "\u8CF1\u8E60 \u8DA9\u8E60\u502C \u5669\u8E58\u8BCF\u8E56\u4E47 \u4E98\u8BB4\u8E60",
+        fixedRight: "\u8CF1\u8E60 \u8DC1\u4E15\u723B\u9B32 \u5669\u8E58\u8BCF\u8E56\u4E47 \u4E98\u8BB4\u8E60",
+        unfixed: "\u5669\u8E58\u8BCF\u8E56\u4E47 \u8CF3\u8E60\u8BB4\u8E60"
       },
-      // مێنیوی دۆخ
+      // 賲蹘賳蹖賵蹖 丿蹎禺
       contextMenu: {
-        copy: "\u06A9\u06C6\u067E\u06CC \u0628\u06A9\u06D5",
-        copyRow: "\u0695\u06CC\u0632\u06CC \u06A9\u06C6\u067E\u06CC \u0628\u06A9\u06D5",
-        copyCell: "\u062E\u0627\u0646\u06D5 \u06A9\u06C6\u067E\u06CC \u0628\u06A9\u06D5",
-        paste: "\u0644\u06A9\u0627\u0646\u062F\u0646",
-        insertRowAbove: "\u0695\u06CC\u0632\u06CC \u0633\u06D5\u0631\u06D5\u0648\u06D5 \u0632\u06CC\u0627\u062F \u0628\u06A9\u06D5",
-        insertRowBelow: "\u0695\u06CC\u0632\u06CC \u062E\u0648\u0627\u0631\u06D5\u0648\u06D5 \u0632\u06CC\u0627\u062F \u0628\u06A9\u06D5",
-        deleteRow: "\u0695\u06CC\u0632\u06CC \u0628\u0633\u0695\u06D5\u0648\u06D5",
-        deleteSelectedRows: "\u0695\u06CC\u0632\u06D5 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u062F\u0631\u0627\u0648\u06D5\u06A9\u0627\u0646 \u0628\u0633\u0695\u06D5\u0648\u06D5",
-        exportSelected: "\u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u062F\u0631\u0627\u0648 \u062F\u06D5\u0631\u0647\u06CE\u0646\u06D5"
+        copy: "\u8BB4\u8E4E\u502C\u8E56 \u4E98\u8BB4\u8E60",
+        copyRow: "\u8DC1\u8E56\u592D\u8E56 \u8BB4\u8E4E\u502C\u8E56 \u4E98\u8BB4\u8E60",
+        copyCell: "\u79BA\u4E15\u8CF3\u8E60 \u8BB4\u8E4E\u502C\u8E56 \u4E98\u8BB4\u8E60",
+        paste: "\u8CF1\u8BB4\u4E15\u8CF3\u4E3F\u8CF3",
+        insertRowAbove: "\u8DC1\u8E56\u592D\u8E56 \u723B\u8E60\u4E47\u8E60\u8CF5\u8E60 \u592D\u8E56\u4E15\u4E3F \u4E98\u8BB4\u8E60",
+        insertRowBelow: "\u8DC1\u8E56\u592D\u8E56 \u79BA\u8CF5\u4E15\u4E47\u8E60\u8CF5\u8E60 \u592D\u8E56\u4E15\u4E3F \u4E98\u8BB4\u8E60",
+        deleteRow: "\u8DC1\u8E56\u592D\u8E56 \u4E98\u723B\u8DC1\u8E60\u8CF5\u8E60",
+        deleteSelectedRows: "\u8DC1\u8E56\u592D\u8E60 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5\u8E60\u8BB4\u4E15\u8CF3 \u4E98\u723B\u8DC1\u8E60\u8CF5\u8E60",
+        exportSelected: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5 \u4E3F\u8E60\u4E47\u8CF4\u8E58\u8CF3\u8E60"
       },
-      // هەڵبژاردن
+      // 賴蹠诘亘跇丕乇丿賳
       selection: {
-        selectAll: "\u0647\u06D5\u0645\u0648\u0648 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-        selectInvert: "\u0647\u06D5\u06B5\u0628\u0698\u0627\u0631\u062F\u0646 \u067E\u06CE\u0686\u06D5\u0648\u0627\u0646\u06D5 \u0628\u06A9\u06D5",
-        selectNone: "\u0647\u06D5\u06B5\u0628\u0698\u0627\u0631\u062F\u0646 \u067E\u0627\u06A9 \u0628\u06A9\u06D5",
-        selected: "{count} \u0628\u06D5\u0646\u062F \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u062F\u0631\u0627\u0648"
+        selectAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+        selectInvert: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u4E15\u4E47\u4E3F\u8CF3 \u502C\u8E58\u8DA9\u8E60\u8CF5\u4E15\u8CF3\u8E60 \u4E98\u8BB4\u8E60",
+        selectNone: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u4E15\u4E47\u4E3F\u8CF3 \u502C\u4E15\u8BB4 \u4E98\u8BB4\u8E60",
+        selected: "{count} \u4E98\u8E60\u8CF3\u4E3F \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5"
       },
-      // فراوانکردن
+      // 賮乇丕賵丕賳讴乇丿賳
       expand: {
-        expandAll: "\u0647\u06D5\u0645\u0648\u0648 \u0641\u0631\u0627\u0648\u0627\u0646 \u0628\u06A9\u06D5",
-        collapseAll: "\u0647\u06D5\u0645\u0648\u0648 \u06A9\u06D5\u0645 \u0628\u06A9\u06D5\u0648\u06D5"
+        expandAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3 \u4E98\u8BB4\u8E60",
+        collapseAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8BB4\u8E60\u8CF2 \u4E98\u8BB4\u8E60\u8CF5\u8E60"
       },
-      // دار
+      // 丿丕乇
       tree: {
-        expandAll: "\u0647\u06D5\u0645\u0648\u0648 \u0641\u0631\u0627\u0648\u0627\u0646 \u0628\u06A9\u06D5",
-        collapseAll: "\u0647\u06D5\u0645\u0648\u0648 \u06A9\u06D5\u0645 \u0628\u06A9\u06D5\u0648\u06D5",
-        expandLevel: "\u0628\u06C6 \u0626\u0627\u0633\u062A {level} \u0641\u0631\u0627\u0648\u0627\u0646 \u0628\u06A9\u06D5"
+        expandAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3 \u4E98\u8BB4\u8E60",
+        collapseAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8BB4\u8E60\u8CF2 \u4E98\u8BB4\u8E60\u8CF5\u8E60",
+        expandLevel: "\u4E98\u8E4E \u5345\u4E15\u723B\u9B32 {level} \u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3 \u4E98\u8BB4\u8E60"
       },
-      // کێشاندن
+      // 讴蹘卮丕賳丿賳
       drag: {
-        dragTip: "\u0628\u06C6 \u0695\u06CC\u0632\u06A9\u0631\u062F\u0646\u06CC \u0646\u0648\u06CE \u0628\u06A9\u06CE\u0634\u06D5",
-        dropTip: "\u0628\u06C6 \u062F\u0627\u0646\u0627\u0646 \u0628\u06D5\u062C\u06CE\u06CC \u0628\u0647\u06CE\u06B5\u06D5"
+        dragTip: "\u4E98\u8E4E \u8DC1\u8E56\u592D\u8BB4\u4E47\u4E3F\u8CF3\u8E56 \u8CF3\u8CF5\u8E58 \u4E98\u8BB4\u8E58\u536E\u8E60",
+        dropTip: "\u4E98\u8E4E \u4E3F\u4E15\u8CF3\u4E15\u8CF3 \u4E98\u8E60\u5669\u8E58\u8E56 \u4E98\u8CF4\u8E58\u8BD8\u8E60"
       }
     },
-    // بۆکسەی پەیام
+    // 亘蹎讴爻蹠蹖 倬蹠蹖丕賲
     messagebox: {
-      title: "\u067E\u06D5\u06CC\u0627\u0645",
-      confirm: "\u0628\u0627\u0634\u06D5",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646",
-      error: "\u062F\u0627\u062E\u0644\u06A9\u0631\u062F\u0646\u06CC \u0646\u0627\u062F\u0631\u0648\u0633\u062A",
-      alert: "\u0626\u0627\u06AF\u0627\u062F\u0627\u0631\u06CC",
-      prompt: "\u062F\u0627\u0648\u0627\u06CC",
-      inputPlaceholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5"
+      title: "\u502C\u8E60\u8E56\u4E15\u8CF2",
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3",
+      error: "\u4E3F\u4E15\u79BA\u8CF1\u8BB4\u4E47\u4E3F\u8CF3\u8E56 \u8CF3\u4E15\u4E3F\u4E47\u8CF5\u723B\u9B32",
+      alert: "\u5345\u4E15\u8BCF\u4E15\u4E3F\u4E15\u4E47\u8E56",
+      prompt: "\u4E3F\u4E15\u8CF5\u4E15\u8E56",
+      inputPlaceholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60"
     },
-    // بارکردن
+    // 亘丕乇讴乇丿賳
     upload: {
-      deleteTip: "\u0628\u06C6 \u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5 delete \u0628\u06AF\u0631\u06D5",
-      delete: "\u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5",
-      preview: "\u067E\u06CE\u0634\u0628\u06CC\u0646\u06CC\u0646",
-      continue: "\u0628\u06D5\u0631\u062F\u06D5\u0648\u0627\u0645 \u0628\u06D5",
-      upload: "\u0628\u06C6 \u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u06A9\u0644\u06CC\u06A9 \u0628\u06A9\u06D5",
-      tip: "\u0628\u06C6 <em>\u0628\u0627\u0631\u06A9\u0631\u062F\u0646</em> \u0641\u0627\u06CC\u0644 \u0644\u06D5\u0645 \u0646\u0627\u0648\u0686\u06D5\u06CC\u06D5 \u06A9\u0644\u06CC\u06A9 \u0628\u06A9\u06D5 \u06CC\u0627\u0646 \u0628\u06A9\u06CE\u0634\u06D5",
-      dragTip: "\u0641\u0627\u06CC\u0644 \u0644\u06CE \u0628\u062F\u06D5 \u06CC\u0627\u0646 \u0628\u06C6 \u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u06A9\u0644\u06CC\u06A9 \u0628\u06A9\u06D5",
-      uploading: "\u0628\u0627\u0631 \u062F\u06D5\u06A9\u0631\u06CE\u062A...",
-      success: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0628\u0648\u0648",
-      error: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648",
-      retry: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5 \u0647\u06D5\u0648\u06B5 \u0628\u062F\u06D5",
-      cancel: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u0647\u06D5\u06B5\u0648\u06D5\u0634\u06CE\u0646\u06D5\u0648\u06D5",
-      fileTypeError: "\u062C\u06C6\u0631\u06CC \u0641\u0627\u06CC\u0644 \u067E\u0634\u062A\u06AF\u06CC\u0631\u06CC \u0646\u0627\u06A9\u0631\u06CE\u062A",
-      fileSizeError: "\u0642\u06D5\u0628\u0627\u0631\u06D5\u06CC \u0641\u0627\u06CC\u0644 \u0644\u06D5 \u0633\u0646\u0648\u0631 \u062F\u06D5\u0631\u0686\u0648\u0648",
-      fileCountError: "\u0698\u0645\u0627\u0631\u06D5\u06CC \u0641\u0627\u06CC\u0644 \u0644\u06D5 \u0633\u0646\u0648\u0631 \u062F\u06D5\u0631\u0686\u0648\u0648"
+      deleteTip: "\u4E98\u8E4E \u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60 delete \u4E98\u8BCF\u4E47\u8E60",
+      delete: "\u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60",
+      preview: "\u502C\u8E58\u536E\u4E98\u8E56\u8CF3\u8E56\u8CF3",
+      continue: "\u4E98\u8E60\u4E47\u4E3F\u8E60\u8CF5\u4E15\u8CF2 \u4E98\u8E60",
+      upload: "\u4E98\u8E4E \u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60",
+      tip: "\u4E98\u8E4E <em>\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3</em> \u8CEE\u4E15\u8E56\u8CF1 \u8CF1\u8E60\u8CF2 \u8CF3\u4E15\u8CF5\u8DA9\u8E60\u8E56\u8E60 \u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60 \u8E56\u4E15\u8CF3 \u4E98\u8BB4\u8E58\u536E\u8E60",
+      dragTip: "\u8CEE\u4E15\u8E56\u8CF1 \u8CF1\u8E58 \u4E98\u4E3F\u8E60 \u8E56\u4E15\u8CF3 \u4E98\u8E4E \u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60",
+      uploading: "\u4E98\u4E15\u4E47 \u4E3F\u8E60\u8BB4\u4E47\u8E58\u9B32...",
+      success: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u4E98\u8CF5\u8CF5",
+      error: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5",
+      retry: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60 \u8CF4\u8E60\u8CF5\u8BD8 \u4E98\u4E3F\u8E60",
+      cancel: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u8E58\u8CF3\u8E60\u8CF5\u8E60",
+      fileTypeError: "\u5669\u8E4E\u4E47\u8E56 \u8CEE\u4E15\u8E56\u8CF1 \u502C\u536E\u9B32\u8BCF\u8E56\u4E47\u8E56 \u8CF3\u4E15\u8BB4\u4E47\u8E58\u9B32",
+      fileSizeError: "\u8CEF\u8E60\u4E98\u4E15\u4E47\u8E60\u8E56 \u8CEE\u4E15\u8E56\u8CF1 \u8CF1\u8E60 \u723B\u8CF3\u8CF5\u4E47 \u4E3F\u8E60\u4E47\u8DA9\u8CF5\u8CF5",
+      fileCountError: "\u8DC7\u8CF2\u4E15\u4E47\u8E60\u8E56 \u8CEE\u4E15\u8E56\u8CF1 \u8CF1\u8E60 \u723B\u8CF3\u8CF5\u4E47 \u4E3F\u8E60\u4E47\u8DA9\u8CF5\u8CF5"
     },
-    // فۆرم
+    // 賮蹎乇賲
     form: {
-      validationFailed: "\u067E\u0634\u062A\u0695\u0627\u0633\u062A\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648",
-      required: "\u067E\u06CE\u0648\u06CC\u0633\u062A\u06D5",
-      pleaseInput: "\u062A\u06A9\u0627\u06CC\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5",
-      pleaseSelect: "\u062A\u06A9\u0627\u06CC\u06D5 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5"
+      validationFailed: "\u502C\u536E\u9B32\u8DC1\u4E15\u723B\u9B32\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5",
+      required: "\u502C\u8E58\u8CF5\u8E56\u723B\u9B32\u8E60",
+      pleaseInput: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      pleaseSelect: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60"
     },
-    // دوگمە
+    // 丿賵诏賲蹠
     button: {
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646..."
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3..."
     },
-    // داخلکردن
+    // 丿丕禺賱讴乇丿賳
     input: {
-      placeholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5",
-      clear: "\u067E\u0627\u06A9\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      showPassword: "\u062A\u06CE\u067E\u06D5\u0695\u06D5\u0648\u0634 \u067E\u06CE\u0634\u0627\u0646 \u0628\u062F\u06D5",
-      hidePassword: "\u062A\u06CE\u067E\u06D5\u0695\u06D5\u0648\u0634 \u0628\u0634\u0627\u0631\u06D5\u0648\u06D5",
-      copy: "\u06A9\u06C6\u067E\u06CC \u0628\u06A9\u06D5",
-      copied: "\u06A9\u06C6\u067E\u06CC \u06A9\u0631\u0627"
+      placeholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      clear: "\u502C\u4E15\u8BB4\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      showPassword: "\u9B32\u8E58\u502C\u8E60\u8DC1\u8E60\u8CF5\u536E \u502C\u8E58\u536E\u4E15\u8CF3 \u4E98\u4E3F\u8E60",
+      hidePassword: "\u9B32\u8E58\u502C\u8E60\u8DC1\u8E60\u8CF5\u536E \u4E98\u536E\u4E15\u4E47\u8E60\u8CF5\u8E60",
+      copy: "\u8BB4\u8E4E\u502C\u8E56 \u4E98\u8BB4\u8E60",
+      copied: "\u8BB4\u8E4E\u502C\u8E56 \u8BB4\u4E47\u4E15"
     },
-    // ژمارەی داخلکردن
+    // 跇賲丕乇蹠蹖 丿丕禺賱讴乇丿賳
     inputnumber: {
-      placeholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0698\u0645\u0627\u0631\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5",
-      increase: "\u0632\u06CC\u0627\u062F \u0628\u06A9\u06D5",
-      decrease: "\u06A9\u06D5\u0645 \u0628\u06A9\u06D5"
+      placeholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u8DC7\u8CF2\u4E15\u4E47\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      increase: "\u592D\u8E56\u4E15\u4E3F \u4E98\u8BB4\u8E60",
+      decrease: "\u8BB4\u8E60\u8CF2 \u4E98\u8BB4\u8E60"
     },
-    // تاگی داخلکردن
+    // 鬲丕诏蹖 丿丕禺賱讴乇丿賳
     inputtag: {
-      placeholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5",
-      add: "\u0632\u06CC\u0627\u062F\u06A9\u0631\u062F\u0646",
-      remove: "\u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5"
+      placeholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      add: "\u592D\u8E56\u4E15\u4E3F\u8BB4\u4E47\u4E3F\u8CF3",
+      remove: "\u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60"
     },
-    // ڕێگەی ناوبردن
+    // 跁蹘诏蹠蹖 賳丕賵亘乇丿賳
     breadcrumb: {
-      label: "\u0695\u06CE\u06AF\u06D5\u06CC \u0646\u0627\u0648\u0628\u0631\u062F\u0646",
-      more: "\u0632\u06CC\u0627\u062A\u0631"
+      label: "\u8DC1\u8E58\u8BCF\u8E60\u8E56 \u8CF3\u4E15\u8CF5\u4E98\u4E47\u4E3F\u8CF3",
+      more: "\u592D\u8E56\u4E15\u9B32\u4E47"
     },
-    // گەڕانەوە بۆ سەرەوە
+    // 诏蹠跁丕賳蹠賵蹠 亘蹎 爻蹠乇蹠賵蹠
     backtop: {
-      text: "\u06AF\u06D5\u0695\u0627\u0646\u06D5\u0648\u06D5 \u0628\u06C6 \u0633\u06D5\u0631\u06D5\u0648\u06D5"
+      text: "\u8BCF\u8E60\u8DC1\u4E15\u8CF3\u8E60\u8CF5\u8E60 \u4E98\u8E4E \u723B\u8E60\u4E47\u8E60\u8CF5\u8E60"
     },
-    // هەڵبژاردن
+    // 賴蹠诘亘跇丕乇丿賳
     select: {
-      placeholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      noData: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      noMatch: "\u062F\u0627\u062A\u0627\u06CC \u06AF\u0648\u0646\u062C\u0627\u0648 \u0646\u06CC\u06CC\u06D5",
-      selectAll: "\u0647\u06D5\u0645\u0648\u0648 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5",
-      clearAll: "\u0647\u06D5\u0645\u0648\u0648 \u067E\u0627\u06A9 \u0628\u06A9\u06D5"
+      placeholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      noData: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      noMatch: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u8BCF\u8CF5\u8CF3\u5669\u4E15\u8CF5 \u8CF3\u8E56\u8E56\u8E60",
+      selectAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      clearAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u502C\u4E15\u8BB4 \u4E98\u8BB4\u8E60"
     },
-    // لاپەڕەکردن
+    // 賱丕倬蹠跁蹠讴乇丿賳
     pagination: {
-      goto: "\u0628\u0686\u06C6 \u0628\u06C6",
+      goto: "\u4E98\u8DA9\u8E4E \u4E98\u8E4E",
       page: "",
-      total: "\u06A9\u06C6\u06CC {total}",
-      pageSize: "/\u0644\u0627\u067E\u06D5\u0695\u06D5",
-      prev: "\u067E\u06CE\u0634\u0648\u0648",
-      next: "\u062F\u0648\u0627\u062A\u0631",
-      first: "\u06CC\u06D5\u06A9\u06D5\u0645",
-      last: "\u06A9\u06C6\u062A\u0627\u06CC\u06CC",
+      total: "\u8BB4\u8E4E\u8E56 {total}",
+      pageSize: "/\u8CF1\u4E15\u502C\u8E60\u8DC1\u8E60",
+      prev: "\u502C\u8E58\u536E\u8CF5\u8CF5",
+      next: "\u4E3F\u8CF5\u4E15\u9B32\u4E47",
+      first: "\u8E56\u8E60\u8BB4\u8E60\u8CF2",
+      last: "\u8BB4\u8E4E\u9B32\u4E15\u8E56\u8E56",
       pageClassifier: ""
     },
-    // پۆپ دڵنیاکردنەوە
+    // 倬蹎倬 丿诘賳蹖丕讴乇丿賳蹠賵蹠
     popconfirm: {
-      confirm: "\u0628\u0627\u0634\u06D5",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      dontAskAgain: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5 \u067E\u0631\u0633\u06CC\u0627\u0631 \u0645\u06D5\u06A9\u06D5"
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      dontAskAgain: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60 \u502C\u4E47\u723B\u8E56\u4E15\u4E47 \u8CF2\u8E60\u8BB4\u8E60"
     },
-    // دیالۆگ
+    // 丿蹖丕賱蹎诏
     dialog: {
-      confirm: "\u0628\u0627\u0634\u06D5",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646",
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646",
-      maximize: "\u0632\u06C6\u0631 \u06AF\u06D5\u0648\u0631\u06D5 \u0628\u06A9\u06D5",
-      restore: "\u06AF\u06D5\u0695\u0627\u0646\u062F\u0646\u06D5\u0648\u06D5"
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3",
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3",
+      maximize: "\u592D\u8E4E\u4E47 \u8BCF\u8E60\u8CF5\u4E47\u8E60 \u4E98\u8BB4\u8E60",
+      restore: "\u8BCF\u8E60\u8DC1\u4E15\u8CF3\u4E3F\u8CF3\u8E60\u8CF5\u8E60"
     },
-    // کشاوە
+    // 讴卮丕賵蹠
     drawer: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646",
-      confirm: "\u0628\u0627\u0634\u06D5",
-      cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3",
+      confirm: "\u4E98\u4E15\u536E\u8E60",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3"
     },
-    // مێنیوی داکەوتوو
+    // 賲蹘賳蹖賵蹖 丿丕讴蹠賵鬲賵賵
     dropdown: {
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646..."
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3..."
     },
-    // وێنە
+    // 賵蹘賳蹠
     image: {
-      error: "\u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      preview: "\u067E\u06CE\u0634\u0628\u06CC\u0646\u06CC\u0646",
-      zoomIn: "\u06AF\u06D5\u0648\u0631\u06D5 \u0628\u06A9\u06D5",
-      zoomOut: "\u0628\u0686\u0648\u0648\u06A9 \u0628\u06A9\u06D5",
-      rotateLeft: "\u0644\u06D5 \u0686\u06D5\u067E \u0628\u06AF\u06CE\u0695\u06D5\u0648\u06D5",
-      rotateRight: "\u0644\u06D5 \u0695\u0627\u0633\u062A \u0628\u06AF\u06CE\u0695\u06D5\u0648\u06D5",
-      originalSize: "\u0642\u06D5\u0628\u0627\u0631\u06D5\u06CC \u0628\u0646\u06D5\u0695\u06D5\u062A\u06CC",
-      fullscreen: "\u067E\u0695 \u0634\u0627\u0634\u06D5"
+      error: "\u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      preview: "\u502C\u8E58\u536E\u4E98\u8E56\u8CF3\u8E56\u8CF3",
+      zoomIn: "\u8BCF\u8E60\u8CF5\u4E47\u8E60 \u4E98\u8BB4\u8E60",
+      zoomOut: "\u4E98\u8DA9\u8CF5\u8CF5\u8BB4 \u4E98\u8BB4\u8E60",
+      rotateLeft: "\u8CF1\u8E60 \u8DA9\u8E60\u502C \u4E98\u8BCF\u8E58\u8DC1\u8E60\u8CF5\u8E60",
+      rotateRight: "\u8CF1\u8E60 \u8DC1\u4E15\u723B\u9B32 \u4E98\u8BCF\u8E58\u8DC1\u8E60\u8CF5\u8E60",
+      originalSize: "\u8CEF\u8E60\u4E98\u4E15\u4E47\u8E60\u8E56 \u4E98\u8CF3\u8E60\u8DC1\u8E60\u9B32\u8E56",
+      fullscreen: "\u502C\u8DC1 \u536E\u4E15\u536E\u8E60"
     },
-    // بینەری وێنە
+    // 亘蹖賳蹠乇蹖 賵蹘賳蹠
     imageviewer: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646",
-      prev: "\u067E\u06CE\u0634\u0648\u0648",
-      next: "\u062F\u0648\u0627\u062A\u0631",
-      zoomIn: "\u06AF\u06D5\u0648\u0631\u06D5 \u0628\u06A9\u06D5",
-      zoomOut: "\u0628\u0686\u0648\u0648\u06A9 \u0628\u06A9\u06D5",
-      rotateLeft: "\u0644\u06D5 \u0686\u06D5\u067E \u0628\u06AF\u06CE\u0695\u06D5\u0648\u06D5",
-      rotateRight: "\u0644\u06D5 \u0695\u0627\u0633\u062A \u0628\u06AF\u06CE\u0695\u06D5\u0648\u06D5",
-      reset: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      fullscreen: "\u067E\u0695 \u0634\u0627\u0634\u06D5",
-      exitFullscreen: "\u062F\u06D5\u0631\u0686\u0648\u0648\u0646 \u0644\u06D5 \u067E\u0695 \u0634\u0627\u0634\u06D5"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3",
+      prev: "\u502C\u8E58\u536E\u8CF5\u8CF5",
+      next: "\u4E3F\u8CF5\u4E15\u9B32\u4E47",
+      zoomIn: "\u8BCF\u8E60\u8CF5\u4E47\u8E60 \u4E98\u8BB4\u8E60",
+      zoomOut: "\u4E98\u8DA9\u8CF5\u8CF5\u8BB4 \u4E98\u8BB4\u8E60",
+      rotateLeft: "\u8CF1\u8E60 \u8DA9\u8E60\u502C \u4E98\u8BCF\u8E58\u8DC1\u8E60\u8CF5\u8E60",
+      rotateRight: "\u8CF1\u8E60 \u8DC1\u4E15\u723B\u9B32 \u4E98\u8BCF\u8E58\u8DC1\u8E60\u8CF5\u8E60",
+      reset: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      fullscreen: "\u502C\u8DC1 \u536E\u4E15\u536E\u8E60",
+      exitFullscreen: "\u4E3F\u8E60\u4E47\u8DA9\u8CF5\u8CF5\u8CF3 \u8CF1\u8E60 \u502C\u8DC1 \u536E\u4E15\u536E\u8E60"
     },
-    // هاتن بێ کۆتایی
+    // 賴丕鬲賳 亘蹘 讴蹎鬲丕蹖蹖
     infinitescroll: {
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      finished: "\u062F\u0627\u062A\u0627\u06CC \u0632\u06CC\u0627\u062A\u0631 \u0646\u06CC\u06CC\u06D5",
-      error: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648\u060C \u0628\u06C6 \u062F\u0648\u0648\u0628\u0627\u0631\u06D5 \u0647\u06D5\u0648\u06B5\u062F\u0627\u0646 \u06A9\u0644\u06CC\u06A9 \u0628\u06A9\u06D5",
-      retry: "\u0628\u06C6 \u062F\u0648\u0648\u0628\u0627\u0631\u06D5 \u0647\u06D5\u0648\u06B5\u062F\u0627\u0646 \u06A9\u0644\u06CC\u06A9 \u0628\u06A9\u06D5"
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      finished: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u592D\u8E56\u4E15\u9B32\u4E47 \u8CF3\u8E56\u8E56\u8E60",
+      error: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5\u8C99 \u4E98\u8E4E \u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60 \u8CF4\u8E60\u8CF5\u8BD8\u4E3F\u4E15\u8CF3 \u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60",
+      retry: "\u4E98\u8E4E \u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60 \u8CF4\u8E60\u8CF5\u8BD8\u4E3F\u4E15\u8CF3 \u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60"
     },
-    // پەیام
+    // 倬蹠蹖丕賲
     message: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3"
     },
-    // ئاگاداری
+    // 卅丕诏丕丿丕乇蹖
     notification: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3"
     },
-    // بارکردن
+    // 亘丕乇讴乇丿賳
     loading: {
-      text: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646..."
+      text: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3..."
     },
-    // خولانەوە
+    // 禺賵賱丕賳蹠賵蹠
     spin: {
-      text: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646..."
+      text: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3..."
     },
-    // نرخاندن
+    // 賳乇禺丕賳丿賳
     rate: {
-      texts: ["\u0632\u06C6\u0631 \u062E\u0631\u0627\u067E", "\u0646\u0627\u0627\u0645\u06CC\u062F", "\u0645\u0627\u0645\u0646\u0627\u0648\u06D5\u0646\u062F", "\u0695\u0627\u0632\u06CC", "\u0633\u06D5\u0631\u0633\u0627\u0645"]
+      texts: ["\u592D\u8E4E\u4E47 \u79BA\u4E47\u4E15\u502C", "\u8CF3\u4E15\u4E15\u8CF2\u8E56\u4E3F", "\u8CF2\u4E15\u8CF2\u8CF3\u4E15\u8CF5\u8E60\u8CF3\u4E3F", "\u8DC1\u4E15\u592D\u8E56", "\u723B\u8E60\u4E47\u723B\u4E15\u8CF2"]
     },
-    // ئاگاداری
+    // 卅丕诏丕丿丕乇蹖
     alert: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3"
     },
-    // تاگ
+    // 鬲丕诏
     tag: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3"
     },
-    // تاب
+    // 鬲丕亘
     tabs: {
-      close: "\u062F\u0627\u062E\u0633\u062A\u0646",
-      add: "\u0632\u06CC\u0627\u062F\u06A9\u0631\u062F\u0646",
-      more: "\u0632\u06CC\u0627\u062A\u0631"
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3",
+      add: "\u592D\u8E56\u4E15\u4E3F\u8BB4\u4E47\u4E3F\u8CF3",
+      more: "\u592D\u8E56\u4E15\u9B32\u4E47"
     },
-    // هەنگاو
+    // 賴蹠賳诏丕賵
     steps: {
-      finish: "\u062A\u06D5\u0648\u0627\u0648 \u0628\u0648\u0648",
-      process: "\u0644\u06D5 \u062C\u0631\u06CC\u0627\u0646\u062F\u0627",
-      wait: "\u0686\u0627\u0648\u06D5\u0695\u06CE \u062F\u06D5\u06A9\u0627\u062A",
-      error: "\u0647\u06D5\u06B5\u06D5"
+      finish: "\u9B32\u8E60\u8CF5\u4E15\u8CF5 \u4E98\u8CF5\u8CF5",
+      process: "\u8CF1\u8E60 \u5669\u4E47\u8E56\u4E15\u8CF3\u4E3F\u4E15",
+      wait: "\u8DA9\u4E15\u8CF5\u8E60\u8DC1\u8E58 \u4E3F\u8E60\u8BB4\u4E15\u9B32",
+      error: "\u8CF4\u8E60\u8BD8\u8E60"
     },
-    // پێشکەوتن
+    // 倬蹘卮讴蹠賵鬲賳
     progress: {
-      success: "\u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648",
-      exception: "\u062C\u06CC\u0627\u0648\u0627\u0632\u06CC",
-      warning: "\u0626\u0627\u06AF\u0627\u062F\u0627\u0631\u06CC"
+      success: "\u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5",
+      exception: "\u5669\u8E56\u4E15\u8CF5\u4E15\u592D\u8E56",
+      warning: "\u5345\u4E15\u8BCF\u4E15\u4E3F\u4E15\u4E47\u8E56"
     },
-    // پەیکەر
+    // 倬蹠蹖讴蹠乇
     skeleton: {
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646..."
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3..."
     },
-    // بەتاڵ
+    // 亘蹠鬲丕诘
     empty: {
-      description: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      noData: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5",
-      noResult: "\u0626\u06D5\u0646\u062C\u0627\u0645 \u0646\u06CC\u06CC\u06D5",
-      networkError: "\u0647\u06D5\u06B5\u06D5\u06CC \u062A\u06C6\u0695",
-      serverError: "\u0647\u06D5\u06B5\u06D5\u06CC \u0633\u06CE\u0631\u06A4\u06D5\u0631"
+      description: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      noData: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60",
+      noResult: "\u5345\u8E60\u8CF3\u5669\u4E15\u8CF2 \u8CF3\u8E56\u8E56\u8E60",
+      networkError: "\u8CF4\u8E60\u8BD8\u8E60\u8E56 \u9B32\u8E4E\u8DC1",
+      serverError: "\u8CF4\u8E60\u8BD8\u8E60\u8E56 \u723B\u8E58\u4E47\u51A5\u8E60\u4E47"
     },
-    // ئەنجام
+    // 卅蹠賳噩丕賲
     result: {
-      success: "\u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648",
-      error: "\u0647\u06D5\u06B5\u06D5",
-      warning: "\u0626\u0627\u06AF\u0627\u062F\u0627\u0631\u06CC",
-      info: "\u0632\u0627\u0646\u06CC\u0627\u0631\u06CC",
-      backHome: "\u06AF\u06D5\u0695\u0627\u0646\u06D5\u0648\u06D5 \u0628\u06C6 \u0645\u0627\u06B5\u06D5\u0648\u06D5"
+      success: "\u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5",
+      error: "\u8CF4\u8E60\u8BD8\u8E60",
+      warning: "\u5345\u4E15\u8BCF\u4E15\u4E3F\u4E15\u4E47\u8E56",
+      info: "\u592D\u4E15\u8CF3\u8E56\u4E15\u4E47\u8E56",
+      backHome: "\u8BCF\u8E60\u8DC1\u4E15\u8CF3\u8E60\u8CF5\u8E60 \u4E98\u8E4E \u8CF2\u4E15\u8BD8\u8E60\u8CF5\u8E60"
     },
-    // شەڵەڵە
+    // 卮蹠诘蹠诘蹠
     waterfall: {
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      noMore: "\u062F\u0627\u062A\u0627\u06CC \u0632\u06CC\u0627\u062A\u0631 \u0646\u06CC\u06CC\u06D5",
-      empty: "\u062F\u0627\u062A\u0627 \u0646\u06CC\u06CC\u06D5"
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      noMore: "\u4E3F\u4E15\u9B32\u4E15\u8E56 \u592D\u8E56\u4E15\u9B32\u4E47 \u8CF3\u8E56\u8E56\u8E60",
+      empty: "\u4E3F\u4E15\u9B32\u4E15 \u8CF3\u8E56\u8E56\u8E60"
     },
-    // وەسف
+    // 賵蹠爻賮
     descriptions: {
       colon: ":"
     },
-    // سلایدەر
+    // 爻賱丕蹖丿蹠乇
     slider: {
       tipFormatter: "{value}"
     },
-    // گۆڕان
+    // 诏蹎跁丕賳
     switch: {
-      on: "\u06A9\u0631\u0627\u0648\u06D5",
-      off: "\u062F\u0627\u062E\u0631\u0627\u0648"
+      on: "\u8BB4\u4E47\u4E15\u8CF5\u8E60",
+      off: "\u4E3F\u4E15\u79BA\u4E47\u4E15\u8CF5"
     },
-    // بۆکسەی پشکنین
+    // 亘蹎讴爻蹠蹖 倬卮讴賳蹖賳
     checkbox: {
-      selectAll: "\u0647\u06D5\u0645\u0648\u0648 \u0647\u06D5\u06B5\u0628\u0698\u06CE\u0631\u06D5"
+      selectAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60"
     },
-    // ڕادیۆ
+    // 跁丕丿蹖蹎
     radio: {},
-    // مێنیو
+    // 賲蹘賳蹖賵
     menu: {
-      collapse: "\u0645\u06CE\u0646\u06CC\u0648 \u06A9\u06D5\u0645 \u0628\u06A9\u06D5\u0648\u06D5",
-      expand: "\u0645\u06CE\u0646\u06CC\u0648 \u0641\u0631\u0627\u0648\u0627\u0646 \u0628\u06A9\u06D5"
+      collapse: "\u8CF2\u8E58\u8CF3\u8E56\u8CF5 \u8BB4\u8E60\u8CF2 \u4E98\u8BB4\u8E60\u8CF5\u8E60",
+      expand: "\u8CF2\u8E58\u8CF3\u8E56\u8CF5 \u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3 \u4E98\u8BB4\u8E60"
     },
-    // کارت
+    // 讴丕乇鬲
     card: {
-      collapse: "\u06A9\u06D5\u0645\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-      expand: "\u0641\u0631\u0627\u0648\u0627\u0646\u06A9\u0631\u062F\u0646"
+      collapse: "\u8BB4\u8E60\u8CF2\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      expand: "\u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3\u8BB4\u4E47\u4E3F\u8CF3"
     },
-    // کەمکردنەوە
+    // 讴蹠賲讴乇丿賳蹠賵蹠
     collapse: {
-      expand: "\u0641\u0631\u0627\u0648\u0627\u0646\u06A9\u0631\u062F\u0646",
-      collapse: "\u06A9\u06D5\u0645\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5"
+      expand: "\u8CEE\u4E47\u4E15\u8CF5\u4E15\u8CF3\u8BB4\u4E47\u4E3F\u8CF3",
+      collapse: "\u8BB4\u8E60\u8CF2\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60"
     },
-    // ئامۆژگاری
+    // 卅丕賲蹎跇诏丕乇蹖
     tooltip: {},
-    // پۆپۆڤەر
+    // 倬蹎倬蹎冥蹠乇
     popover: {},
-    // نیشانە
+    // 賳蹖卮丕賳蹠
     badge: {},
-    // ئاڤاتار
+    // 卅丕冥丕鬲丕乇
     avatar: {
-      error: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646 \u0633\u06D5\u0631\u06A9\u06D5\u0648\u062A\u0648\u0648 \u0646\u06D5\u0628\u0648\u0648"
+      error: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5"
     },
-    // نیشانەی ئاو
+    // 賳蹖卮丕賳蹠蹖 卅丕賵
     watermark: {},
-    // جیاکەرەوە
+    // 噩蹖丕讴蹠乇蹠賵蹠
     divider: {},
-    // کاروسێل
+    // 讴丕乇賵爻蹘賱
     carousel: {
-      prev: "\u067E\u06CE\u0634\u0648\u0648",
-      next: "\u062F\u0648\u0627\u062A\u0631"
+      prev: "\u502C\u8E58\u536E\u8CF5\u8CF5",
+      next: "\u4E3F\u8CF5\u4E15\u9B32\u4E47"
     },
-    // مارکی
+    // 賲丕乇讴蹖
     marquee: {},
-    // بەستن
+    // 亘蹠爻鬲賳
     affix: {},
-    // لەنگەر
+    // 賱蹠賳诏蹠乇
     anchor: {},
     // Mention
     mention: {
-      placeholder: "\u062A\u06A9\u0627\u06CC\u06D5 \u0628\u0646\u0648\u0648\u0633\u06D5",
-      loading: "\u0628\u0627\u0631\u06A9\u0631\u062F\u0646...",
-      noData: "\u0647\u06CC\u0686 \u062F\u0627\u062A\u0627\u06CC\u06D5\u06A9 \u0646\u06CC\u06CC\u06D5"
+      placeholder: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      loading: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3...",
+      noData: "\u8CF4\u8E56\u8DA9 \u4E3F\u4E15\u9B32\u4E15\u8E56\u8E60\u8BB4 \u8CF3\u8E56\u8E56\u8E60"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\u9B32\u4E15\u8E56\u4E98\u8E60\u9B32\u8CF2\u8E60\u8CF3\u4E3F\u8E56\u8E56\u8E60\u8BB4\u4E15\u8CF3 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60",
+      emptyText: "\u8CF4\u8E56\u8DA9 \u9B32\u4E15\u8E56\u4E98\u8E60\u9B32\u8CF2\u8E60\u8CF3\u4E3F\u8E56\u8E56\u8E60\u8BB4 \u8CF3\u8E56\u8E56\u8E60",
+      stock: "\u8BB4\u8E4E\u8BCF\u4E15",
+      price: "\u8CF3\u4E47\u79BA",
+      selected: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5",
+      outOfStock: "\u8CF1\u8E60 \u8BB4\u8E4E\u8BCF\u4E15 \u8CF3\u8E56\u8E56\u8E60"
+    },
+    productcard: {
+      viewDetails: "\u8CF5\u4E47\u4E3F\u8E60\u8BB4\u4E15\u4E47\u8E56\u8E56\u8E60\u8BB4\u4E15\u8CF3 \u4E98\u4E98\u8E56\u8CF3\u8E60",
+      buyNow: "\u5345\u8E58\u723B\u9B32\u4E15 \u4E98\u8BB4\u8DC1\u8E60",
+      addToCart: "\u592D\u8E56\u4E15\u4E3F\u8BB4\u4E47\u4E3F\u8CF3 \u4E98\u8E4E \u723B\u8E60\u4E98\u8E60\u9B32\u8E60",
+      sold: "\u8CEE\u4E47\u8E4E\u536E\u4E47\u4E15\u8CF5",
+      soldOut: "\u9B32\u8E60\u8CF5\u4E15\u8CF5\u4E98\u8CF5\u8CF5",
+      vip: "\u5345\u8E60\u8CF3\u4E3F\u4E15\u8CF2"
+    },
+    price: {
+      original: "\u8CF3\u4E47\u79BA\u8E56 \u723B\u8E60\u4E47\u8E60\u8BB4\u8E56"
+    },
+    couponcard: {
+      available: "\u5345\u8E58\u723B\u9B32\u4E15 \u8CF5\u8E60\u4E47\u4E98\u8BCF\u4E47\u8E60",
+      used: "\u4E98\u8E60\u8BB4\u4E15\u4E47\u8CF4\u4E15\u9B32\u8CF5\u8CF5",
+      expired: "\u4E98\u8E60\u723B\u8E60\u4E47\u8DA9\u8CF5\u8CF5",
+      received: "\u8CF5\u8E60\u4E47\u8BCF\u8E56\u4E47\u4E15\u8CF5",
+      limit: "\u4E3F\u4E15\u8CF5\u4E15\u8BB4\u4E15\u4E47\u8E56\u8E56 \u592D\u8E56\u4E15\u9B32\u4E47 \u8CF1\u8E60 {threshold}",
+      noThreshold: "\u4E98\u8E58 \u723B\u8CF3\u8CF5\u8CF5\u4E47\u8E56 \u79BA\u8CF5\u4E15\u4E47\u8E60\u8CF5\u8E60",
+      validPeriod: "\u8CF2\u4E15\u8CF5\u8E60\u8E56 \u4E98\u8E60\u4E47\u4E3F\u8E60\u8CF5\u4E15\u8CF2\u8E56",
+      ruleTitle: "\u8E56\u4E15\u723B\u4E15\u8BB4\u4E15\u8CF3\u8E56 \u4E98\u8E60\u8BB4\u4E15\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3"
+    },
+    luckydraw: {
+      start: "\u4E3F\u8E60\u723B\u9B32\u502C\u8E58\u4E98\u8BB4\u8E60",
+      drawing: "\u8BB4\u8E58\u536E\u4E15\u8CF3...",
+      end: "\u4E98\u4E47\u4E15\u8CF5\u8E60!",
+      retry: "\u8CF4\u8E60\u8CF5\u8BD8 \u4E98\u4E3F\u8E60\u8CF5\u8E60"
+    },
+    filterbar: {
+      all: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5",
+      sort: "\u8DC1\u8E56\u592D\u8BB4\u4E47\u4E3F\u8CF3",
+      filter: "\u502C\u4E15\u8BD8\u4E15\u8CF5\u9B32\u8CF3",
+      cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      reset: "\u8DC1\u8E58\u8BB4\u79BA\u723B\u9B32\u8CF3\u8E60\u8CF5\u8E60",
+      confirm: "\u502C\u536E\u9B32\u8DC1\u4E15\u723B\u9B32\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+      noOptions: "\u8CF4\u8E56\u8DA9 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u4E15\u4E47\u4E3F\u8CF3\u8E58\u8BB4 \u8CF3\u8E56\u8E56\u8E60",
+      asc: "\u4E98\u8E60\u4E47\u592D\u4E98\u8CF5\u8CF5\u8CF3\u8E60\u8CF5\u8E60",
+      desc: "\u8CF3\u592D\u8CF5\u8CF1",
+      selected: "\u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5"
+    },
+    submitbar: {
+      total: "\u8BB4\u8E4E\u8E56 \u8BCF\u536E\u9B32\u8E56: ",
+      selected: "{count} \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u4E3F\u4E47\u4E15\u8CF5",
+      submit: "\u9B32\u8E60\u8CF5\u4E15\u8CF5\u8BB4\u4E47\u4E3F\u8CF3\u8E56 \u8BB4\u8DC1\u8E56\u8CF3",
+      allSelect: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5\u8E56 \u8CF4\u8E60\u8BD8\u4E98\u8DC7\u8E58\u4E47\u8E60"
+    },
+    categorynav: {
+      all: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5",
+      noData: "\u8CF4\u8E56\u8DA9 \u4E3F\u4E15\u9B32\u4E15\u8E56\u8E60\u8BB4 \u8CF3\u8E56\u8E56\u8E60",
+      loading: "\u4E98\u4E15\u4E47\u4E3F\u8E60\u8BB4\u4E47\u8E58\u9B32..."
+    },
+    smartaddress: {
+      placeholder: "\u8CF3\u4E15\u8CF5\u8CF3\u8E56\u536E\u4E15\u8CF3\u8E60\u8BB4\u8E60 \u8CF1\u8E58\u4E47\u8E60 \u4E3F\u4E15\u4E98\u8CF3\u8E58 \u4E98\u8E4E \u8CF3\u4E15\u723B\u8E56\u8CF3\u8E60\u8CF5\u8E60\u8E56 \u8CF3\u4E15\u8CF5\u8C99 \u9B32\u8E60\u8CF1\u8E60\u8CEE\u8E4E\u8CF3 \u8CF5 \u536E\u8CF5\u8E58\u8CF3 \u4E98\u8E60 \u536E\u8E58\u8CF5\u8E60\u8E56 \u5345\u8E4E\u9B32\u8E4E\u8CF2\u4E15\u9B32\u8E56\u8BB4\u8E56",
+      parse: "\u536E\u8E56\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60\u8E56 \u592D\u8E56\u4E47\u8E60\u8BB4",
+      province: "\u502C\u4E15\u4E47\u8E58\u592D\u8BCF\u4E15/\u536E\u4E15\u4E47/\u8CF3\u4E15\u8CF5\u8DA9\u8E60",
+      city: "\u536E\u4E15\u4E47",
+      district: "\u8CF3\u4E15\u8CF5\u8DA9\u8E60/\u8CEF\u8E60\u592D\u4E15",
+      street: "\u536E\u8E60\u8CEF\u4E15\u8CF2/\u8BCF\u8CF5\u8CF3\u4E3F",
+      detail: "\u8CF3\u4E15\u8CF5\u8CF3\u8E56\u536E\u4E15\u8CF3\u8E56 \u8CF5\u4E47\u4E3F",
+      phone: "\u9B32\u8E60\u8CF1\u8E60\u8CEE\u8E4E\u8CF3",
+      name: "\u8CF5\u8E60\u4E47\u8BCF\u4E47",
+      parseSuccess: "\u8CF3\u4E15\u8CF5\u8CF3\u8E56\u536E\u4E15\u8CF3 \u4E98\u8E60 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5\u8E56\u8E56 \u536E\u8E56\u8BB4\u4E47\u4E15\u8E56\u8E60\u8CF5\u8E60",
+      parseFailed: "\u536E\u8E56\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5\u8C99 \u9B32\u8BB4\u4E15\u8E56\u8E60 \u4E98\u8E60 \u4E3F\u8E60\u723B\u9B32 \u4E98\u8CF3\u8CF5\u8CF5\u723B\u8E60",
+      required: "\u9B32\u8BB4\u4E15\u8E56\u8E60 \u8CF3\u4E15\u8CF5\u8CF3\u8E56\u536E\u4E15\u8CF3\u8E56 \u9B32\u8E60\u8CF5\u4E15\u8CF5 \u502C\u8DC1\u4E98\u8BB4\u8E60\u4E47\u8E60\u8CF5\u8E60",
+      provinceKeywords: ["\u502C\u4E15\u4E47\u8E58\u592D\u8BCF\u4E15", "\u8CF4\u8E60\u4E47\u8E58\u8CF2"],
+      cityKeywords: ["\u536E\u4E15\u4E47", "\u536E\u4E15\u4E47\u8E4E\u8DA9\u8BB4\u8E60"],
+      districtKeywords: ["\u8CF3\u4E15\u8CF5\u8DA9\u8E60", "\u8CEF\u8E60\u592D\u4E15", "\u8BCF\u8E60\u8DC1\u8E60\u8BB4"],
+      streetKeywords: ["\u536E\u8E60\u8CEF\u4E15\u8CF2", "\u8DC1\u8E58\u8BCF\u4E15", "\u8BB4\u8E4E\u8BD8\u4E15\u8CF3", "\u8BCF\u8CF5\u592D\u8E60\u4E47"]
+    },
+    ganttchart: {
+      taskName: "\u8CF3\u4E15\u8CF5\u8E56 \u5345\u8E60\u4E47\u8BB4",
+      searchPlaceholder: "\u8BCF\u8E60\u8DC1\u4E15\u8CF3 \u4E98\u8E60 \u4E3F\u8CF5\u4E15\u8E56 \u5345\u8E60\u4E47\u8BB4\u8E60\u8BB4\u4E15\u8CF3...",
+      zoom: "\u592D\u8CF5\u8CF5\u8CF2",
+      day: "\u8DC1\u8E4E\u8DC7",
+      week: "\u8CF4\u8E60\u8CEE\u9B32\u8E60",
+      month: "\u8CF2\u4E15\u8CF3\u8BCF",
+      year: "\u723B\u4E15\u8BD8",
+      milestone: "\u79BA\u4E15\u8BD8\u8E56 \u8BCF\u4E47\u8CF3\u8BCF"
+    },
+    imagemagnifier: {
+      switchToImage: "\u8BCF\u8E4E\u8DC1\u8E56\u8CF3 \u4E98\u8E4E \u8CF5\u8E58\u8CF3\u8E60\u8E56 {index}",
+      galleryItem: "\u8BCF\u8E60\u8CF1\u8E60\u4E47\u8E56 {index}",
+      close: "\u4E3F\u4E15\u79BA\u723B\u9B32\u8CF3"
+    },
     ai: {
       bubble: {
-        citations: "\u0628\u06D5\u0633\u062A\u06D5\u0631\u06D5\u06A9\u0627\u0646"
+        citations: "\u4E98\u8E60\u723B\u9B32\u8E60\u4E47\u8E60\u8BB4\u4E15\u8CF3"
       },
       mention: {
-        placeholder: "@ \u0626\u06D5\u06CC\u062C\u06CE\u0646\u062A\u060C \u062F\u06C6\u06A9\u0648\u0645\u06CE\u0646\u062A \u06CC\u0627\u0646 \u062E\u0634\u062A\u06D5 \u0626\u0627\u0645\u0627\u0698\u06D5 \u0628\u06A9\u06D5...",
-        agent: "\u0626\u06D5\u06CC\u062C\u06CE\u0646\u062A",
-        document: "\u062F\u06C6\u06A9\u0648\u0645\u06CE\u0646\u062A",
-        table: "\u062E\u0634\u062A\u06D5",
-        knowledge: "\u0632\u0627\u0646\u06CC\u0627\u0631\u06CC"
+        placeholder: "@ \u5345\u8E60\u8E56\u5669\u8E58\u8CF3\u9B32\u8C99 \u4E3F\u8E4E\u8BB4\u8CF5\u8CF2\u8E58\u8CF3\u9B32 \u8E56\u4E15\u8CF3 \u79BA\u536E\u9B32\u8E60 \u5345\u4E15\u8CF2\u4E15\u8DC7\u8E60 \u4E98\u8BB4\u8E60...",
+        agent: "\u5345\u8E60\u8E56\u5669\u8E58\u8CF3\u9B32",
+        document: "\u4E3F\u8E4E\u8BB4\u8CF5\u8CF2\u8E58\u8CF3\u9B32",
+        table: "\u79BA\u536E\u9B32\u8E60",
+        knowledge: "\u592D\u4E15\u8CF3\u8E56\u4E15\u4E47\u8E56"
       },
       codeBlock: {
-        copyCode: "\u06A9\u06C6\u062F \u06A9\u06C6\u067E\u06CC \u0628\u06A9\u06D5",
-        copied: "\u06A9\u06C6\u067E\u06CC \u06A9\u0631\u0627!",
-        run: "\u06A9\u06C6\u062F \u0628\u06D5\u0631\u06CE\u0646\u06D5",
-        edit: "\u062F\u06D5\u0633\u062A\u06A9\u0627\u0631\u06CC",
-        save: "\u067E\u0627\u0634\u06D5\u06A9\u06D5\u0648\u062A",
-        cancel: "\u0647\u06D5\u06B5\u0648\u06D5\u0634\u0627\u0646\u062F\u0646\u06D5\u0648\u06D5"
+        copyCode: "\u8BB4\u8E4E\u4E3F \u8BB4\u8E4E\u502C\u8E56 \u4E98\u8BB4\u8E60",
+        copied: "\u8BB4\u8E4E\u502C\u8E56 \u8BB4\u4E47\u4E15!",
+        run: "\u8BB4\u8E4E\u4E3F \u4E98\u8E60\u4E47\u8E58\u8CF3\u8E60",
+        edit: "\u4E3F\u8E60\u723B\u9B32\u8BB4\u4E15\u4E47\u8E56",
+        save: "\u502C\u4E15\u536E\u8E60\u8BB4\u8E60\u8CF5\u9B32",
+        cancel: "\u8CF4\u8E60\u8BD8\u8CF5\u8E60\u536E\u4E15\u8CF3\u4E3F\u8CF3\u8E60\u8CF5\u8E60"
       },
       codeRunner: {
-        run: "\u0628\u06D5\u0631\u06CE\u0646\u06D5",
-        stop: "\u0648\u06D5\u0633\u062A\u06CE\u0646\u06D5",
-        clear: "\u067E\u0627\u06A9\u0628\u06A9\u06D5\u0648\u06D5",
-        reset: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5 \u062F\u0627\u0646\u0627\u0646\u06D5\u0648\u06D5",
-        placeholder: "\u0628\u06C6 \u0628\u06D5\u0631\u06CE\u0646\u0627\u0646\u06CC \u06A9\u06C6\u062F \u06A9\u0644\u06CC\u06A9 \u0644\u06D5\u0633\u06D5\u0631 \u0628\u06D5\u0631\u06CE\u0646\u06D5 \u0628\u06A9\u06D5..."
+        run: "\u4E98\u8E60\u4E47\u8E58\u8CF3\u8E60",
+        stop: "\u8CF5\u8E60\u723B\u9B32\u8E58\u8CF3\u8E60",
+        clear: "\u502C\u4E15\u8BB4\u4E98\u8BB4\u8E60\u8CF5\u8E60",
+        reset: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60 \u4E3F\u4E15\u8CF3\u4E15\u8CF3\u8E60\u8CF5\u8E60",
+        placeholder: "\u4E98\u8E4E \u4E98\u8E60\u4E47\u8E58\u8CF3\u4E15\u8CF3\u8E56 \u8BB4\u8E4E\u4E3F \u8BB4\u8CF1\u8E56\u8BB4 \u8CF1\u8E60\u723B\u8E60\u4E47 \u4E98\u8E60\u4E47\u8E58\u8CF3\u8E60 \u4E98\u8BB4\u8E60..."
       },
       sender: {
-        placeholder: "\u067E\u06D5\u06CC\u0627\u0645 \u0628\u0646\u06CE\u0631\u06D5...",
-        dragTip: "\u0628\u06C6 \u0626\u06D5\u067E\u0644\u06C6\u062F\u06A9\u0631\u062F\u0646\u06CC \u0641\u0627\u06CC\u0644\u06D5\u06A9\u0627\u0646 \u0626\u0627\u0632\u0627\u062F\u06CC \u0628\u06A9\u06D5"
+        placeholder: "\u502C\u8E60\u8E56\u4E15\u8CF2 \u4E98\u8CF3\u8E58\u4E47\u8E60...",
+        dragTip: "\u4E98\u8E4E \u5345\u8E60\u502C\u8CF1\u8E4E\u4E3F\u8BB4\u4E47\u4E3F\u8CF3\u8E56 \u8CEE\u4E15\u8E56\u8CF1\u8E60\u8BB4\u4E15\u8CF3 \u5345\u4E15\u592D\u4E15\u4E3F\u8E56 \u4E98\u8BB4\u8E60"
       },
       thoughtChain: {
-        thoughtProcess: "\u067E\u0631\u06C6\u0633\u06D5\u06CC \u0626\u06D5\u0646\u062F\u06CE\u0634\u06D5",
-        thinking: "\u0626\u06D5\u0646\u062F\u06CE\u0634\u06D5\u062F\u06D5\u06A9\u0627\u062A...",
-        defaultTitle: "\u0647\u06D5\u0646\u06AF\u0627\u0648\u06CE\u06A9\u06CC \u0646\u0648\u06CE",
-        addNode: "\u0647\u06D5\u0646\u06AF\u0627\u0648 \u0632\u06CC\u0627\u062F \u0628\u06A9\u06D5"
+        thoughtProcess: "\u502C\u4E47\u8E4E\u723B\u8E60\u8E56 \u5345\u8E60\u8CF3\u4E3F\u8E58\u536E\u8E60",
+        thinking: "\u5345\u8E60\u8CF3\u4E3F\u8E58\u536E\u8E60\u4E3F\u8E60\u8BB4\u4E15\u9B32...",
+        defaultTitle: "\u8CF4\u8E60\u8CF3\u8BCF\u4E15\u8CF5\u8E58\u8BB4\u8E56 \u8CF3\u8CF5\u8E58",
+        addNode: "\u8CF4\u8E60\u8CF3\u8BCF\u4E15\u8CF5 \u592D\u8E56\u4E15\u4E3F \u4E98\u8BB4\u8E60"
       },
       thinking: {
-        start: "\u062F\u06D5\u0633\u062A \u0628\u06A9\u06D5 \u0628\u06D5 \u0626\u06D5\u0646\u062F\u06CE\u0634\u06D5",
-        thinking: "\u0626\u06D5\u0646\u062F\u06CE\u0634\u06D5\u062F\u06D5\u06A9\u0627\u062A...",
-        complete: "\u0626\u06D5\u0646\u062F\u06CE\u0634\u06D5\u06A9\u06D5 \u062A\u06D5\u0648\u0627\u0648 \u0628\u0648\u0648",
-        error: "\u0647\u06D5\u06B5\u06D5\u06CC\u06D5\u06A9 \u0644\u06D5 \u0626\u06D5\u0646\u062F\u06CE\u0634\u06D5"
+        start: "\u4E3F\u8E60\u723B\u9B32 \u4E98\u8BB4\u8E60 \u4E98\u8E60 \u5345\u8E60\u8CF3\u4E3F\u8E58\u536E\u8E60",
+        thinking: "\u5345\u8E60\u8CF3\u4E3F\u8E58\u536E\u8E60\u4E3F\u8E60\u8BB4\u4E15\u9B32...",
+        complete: "\u5345\u8E60\u8CF3\u4E3F\u8E58\u536E\u8E60\u8BB4\u8E60 \u9B32\u8E60\u8CF5\u4E15\u8CF5 \u4E98\u8CF5\u8CF5",
+        error: "\u8CF4\u8E60\u8BD8\u8E60\u8E56\u8E60\u8BB4 \u8CF1\u8E60 \u5345\u8E60\u8CF3\u4E3F\u8E58\u536E\u8E60"
       },
       welcome: {
-        title: "\u0633\u06B5\u0627\u0648\u060C \u0645\u0646 YH AI \u06CC\u0645",
-        description: "\u062F\u06D5\u062A\u0648\u0627\u0646\u0645 \u06CC\u0627\u0631\u0645\u06D5\u062A\u06CC\u062A \u0628\u062F\u06D5\u0645 \u0644\u06D5 \u06A9\u06C6\u062F\u0646\u0648\u0648\u0633\u06CC\u0646\u060C \u0648\u06D5\u0631\u06AF\u06CE\u0695\u0627\u0646\u06CC \u062F\u06C6\u06A9\u0648\u0645\u06CE\u0646\u062A \u06CC\u0627\u0646 \u0646\u0648\u0648\u0633\u06CC\u0646\u06CC \u062F\u0627\u0647\u06CE\u0646\u06D5\u0631\u0627\u0646\u06D5. \u0626\u06D5\u0645\u0631\u06C6 \u062F\u06D5\u062A\u0648\u0627\u0646\u0645 \u0686\u06CC \u0628\u06A9\u06D5\u0645 \u0628\u06C6 \u062A\u06C6\u061F"
+        title: "\u723B\u8BD8\u4E15\u8CF5\u8C99 \u8CF2\u8CF3 YH AI \u8E56\u8CF2",
+        description: "\u4E3F\u8E60\u9B32\u8CF5\u4E15\u8CF3\u8CF2 \u8E56\u4E15\u4E47\u8CF2\u8E60\u9B32\u8E56\u9B32 \u4E98\u4E3F\u8E60\u8CF2 \u8CF1\u8E60 \u8BB4\u8E4E\u4E3F\u8CF3\u8CF5\u8CF5\u723B\u8E56\u8CF3\u8C99 \u8CF5\u8E60\u4E47\u8BCF\u8E58\u8DC1\u4E15\u8CF3\u8E56 \u4E3F\u8E4E\u8BB4\u8CF5\u8CF2\u8E58\u8CF3\u9B32 \u8E56\u4E15\u8CF3 \u8CF3\u8CF5\u8CF5\u723B\u8E56\u8CF3\u8E56 \u4E3F\u4E15\u8CF4\u8E58\u8CF3\u8E60\u4E47\u4E15\u8CF3\u8E60. \u5345\u8E60\u8CF2\u4E47\u8E4E \u4E3F\u8E60\u9B32\u8CF5\u4E15\u8CF3\u8CF2 \u8DA9\u8E56 \u4E98\u8BB4\u8E60\u8CF2 \u4E98\u8E4E \u9B32\u8E4E\u8CAC"
       },
       action: {
-        copy: "\u06A9\u06C6\u067E\u06CC",
-        regenerate: "\u062F\u0648\u0648\u0628\u0627\u0631\u06D5 \u062F\u0631\u0648\u0633\u062A\u06A9\u0631\u062F\u0646",
-        share: "\u0647\u0627\u0648\u0628\u06D5\u0634\u06CC",
-        like: "\u0628\u06D5\u062F\u06B5\u0646\u06CC\u0627\u06CC\u06CC",
-        dislike: "\u0628\u06D5\u062F\u06B5\u0646\u06CC\u0627\u06CC\u06CC \u0646\u06CC\u06CC\u06D5",
-        edit: "\u062F\u06D5\u0633\u062A\u06A9\u0627\u0631\u06CC",
-        delete: "\u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5"
+        copy: "\u8BB4\u8E4E\u502C\u8E56",
+        regenerate: "\u4E3F\u8CF5\u8CF5\u4E98\u4E15\u4E47\u8E60 \u4E3F\u4E47\u8CF5\u723B\u9B32\u8BB4\u4E47\u4E3F\u8CF3",
+        share: "\u8CF4\u4E15\u8CF5\u4E98\u8E60\u536E\u8E56",
+        like: "\u4E98\u8E60\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8E56\u8E56",
+        dislike: "\u4E98\u8E60\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8E56\u8E56 \u8CF3\u8E56\u8E56\u8E60",
+        edit: "\u4E3F\u8E60\u723B\u9B32\u8BB4\u4E15\u4E47\u8E56",
+        delete: "\u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60"
       },
       artifacts: {
-        preview: "\u067E\u06CE\u0634\u06D5\u0646\u06AF\u0627\u0646\u06D5",
-        inline: "\u0646\u0627\u0648 \u0647\u06CE\u06B5",
-        code: "\u0633\u06D5\u0631\u0686\u0627\u0648\u06D5\u06CC \u06A9\u06C6\u062F",
-        versions: "\u0648\u06D5\u0634\u0627\u0646\u06D5\u06A9\u0627\u0646",
-        rendering: "\u0628\u06D5\u0633\u062A\u06D5\u0631\u06D5\u06A9\u06D5 \u062F\u06D5\u0631\u062F\u06D5\u06A9\u06D5\u0648\u06CE\u062A...",
-        renderingChart: "\u0648\u06CE\u0646\u06D5\u06CC\u06D5\u06A9\u06D5 \u062F\u06D5\u0631\u062F\u06D5\u06A9\u06D5\u0648\u06CE\u062A...",
-        renderingCanvas: "\u0633\u06CE\u06B5\u0627 \u062F\u06D5\u0633\u062A \u062F\u06D5\u06A9\u06D5\u0648\u06CE\u062A..."
+        preview: "\u502C\u8E58\u536E\u8E60\u8CF3\u8BCF\u4E15\u8CF3\u8E60",
+        inline: "\u8CF3\u4E15\u8CF5 \u8CF4\u8E58\u8BD8",
+        code: "\u723B\u8E60\u4E47\u8DA9\u4E15\u8CF5\u8E60\u8E56 \u8BB4\u8E4E\u4E3F",
+        versions: "\u8CF5\u8E60\u536E\u4E15\u8CF3\u8E60\u8BB4\u4E15\u8CF3",
+        rendering: "\u4E98\u8E60\u723B\u9B32\u8E60\u4E47\u8E60\u8BB4\u8E60 \u4E3F\u8E60\u4E47\u4E3F\u8E60\u8BB4\u8E60\u8CF5\u8E58\u9B32...",
+        renderingChart: "\u8CF5\u8E58\u8CF3\u8E60\u8E56\u8E60\u8BB4\u8E60 \u4E3F\u8E60\u4E47\u4E3F\u8E60\u8BB4\u8E60\u8CF5\u8E58\u9B32...",
+        renderingCanvas: "\u723B\u8E58\u8BD8\u4E15 \u4E3F\u8E60\u723B\u9B32 \u4E3F\u8E60\u8BB4\u8E60\u8CF5\u8E58\u9B32..."
       },
       voice: {
-        trigger: "\u06A9\u0644\u06CC\u06A9 \u0628\u06A9\u06D5 \u0628\u06C6 \u0642\u0633\u06D5\u06A9\u0631\u062F\u0646",
-        listening: "\u06AF\u0648\u06CE\u062F\u06D5\u062F\u0627\u062A..."
+        trigger: "\u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60 \u4E98\u8E4E \u8CEF\u723B\u8E60\u8BB4\u4E47\u4E3F\u8CF3",
+        listening: "\u8BCF\u8CF5\u8E58\u4E3F\u8E60\u4E3F\u4E15\u9B32..."
       },
       agent: {
-        uses: "\u0628\u06D5\u06A9\u0627\u0631\u0647\u06CE\u0646\u0627\u0646",
-        use: "\u0626\u06CE\u0633\u062A\u0627 \u0628\u06D5\u06A9\u0627\u0631\u0628\u06CE\u0646\u06D5",
-        favorite: "\u062F\u06B5\u062E\u0648\u0627\u0632",
-        unfavorite: "\u0644\u0627\u0628\u0631\u062F\u0646\u06CC \u062F\u06B5\u062E\u0648\u0627\u0632",
-        share: "\u0647\u0627\u0648\u0628\u06D5\u0634\u06CC",
-        online: "\u0626\u06C6\u0646\u0644\u0627\u06CC\u0646",
-        offline: "\u0626\u06C6\u0641\u0644\u0627\u06CC\u0646",
+        uses: "\u4E98\u8E60\u8BB4\u4E15\u4E47\u8CF4\u8E58\u8CF3\u4E15\u8CF3",
+        use: "\u5345\u8E58\u723B\u9B32\u4E15 \u4E98\u8E60\u8BB4\u4E15\u4E47\u4E98\u8E58\u8CF3\u8E60",
+        favorite: "\u4E3F\u8BD8\u79BA\u8CF5\u4E15\u592D",
+        unfavorite: "\u8CF1\u4E15\u4E98\u4E47\u4E3F\u8CF3\u8E56 \u4E3F\u8BD8\u79BA\u8CF5\u4E15\u592D",
+        share: "\u8CF4\u4E15\u8CF5\u4E98\u8E60\u536E\u8E56",
+        online: "\u5345\u8E4E\u8CF3\u8CF1\u4E15\u8E56\u8CF3",
+        offline: "\u5345\u8E4E\u8CEE\u8CF1\u4E15\u8E56\u8CF3",
         busy: "_BUSY_",
-        verified: "\u062F\u06B5\u0646\u06CC\u0627\u06A9\u0631\u0627\u0648\u06D5",
-        rating: "\u067E\u0644\u06D5",
-        reviews: "\u0631\u06D5\u062E\u0646\u06D5",
-        responseTime: "\u06A9\u0627\u062A\u06CC \u0648\u06D5\u06B5\u0627\u0645\u062F\u0627\u0646\u06D5\u0648\u06D5\u06CC \u0645\u0627\u0645\u0646\u0627\u0648\u06D5\u0646\u062F",
-        ms: "\u0645\u06CC\u0644\u06CC\u06C6\u0646\u06CC\u06D5\u06A9\u0627\u0646"
+        verified: "\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8BB4\u4E47\u4E15\u8CF5\u8E60",
+        rating: "\u502C\u8CF1\u8E60",
+        reviews: "\u4E47\u8E60\u79BA\u8CF3\u8E60",
+        responseTime: "\u8BB4\u4E15\u9B32\u8E56 \u8CF5\u8E60\u8BD8\u4E15\u8CF2\u4E3F\u4E15\u8CF3\u8E60\u8CF5\u8E60\u8E56 \u8CF2\u4E15\u8CF2\u8CF3\u4E15\u8CF5\u8E60\u8CF3\u4E3F",
+        ms: "\u8CF2\u8E56\u8CF1\u8E56\u8E4E\u8CF3\u8E56\u8E60\u8BB4\u4E15\u8CF3"
       },
       sources: {
-        references: "\u0633\u06D5\u0631\u0686\u0627\u0648\u06D5\u06A9\u0627\u0646",
-        referencedSources: "\u0633\u06D5\u0631\u0686\u0627\u0648\u06D5 \u0626\u0627\u0645\u0627\u0698\u06D5\u067E\u06CE\u06A9\u0631\u0627\u0648\u06D5\u06A9\u0627\u0646",
-        relevant: "\u067E\u06D5\u06CC\u0648\u06D5\u0646\u062F\u06CC\u062F\u0627\u0631",
-        viewOriginal: "\u0626\u06D5\u0633\u06B5\u06CC \u0628\u0628\u06CC\u0646\u06D5",
-        showAll: "\u0647\u06D5\u0645\u0648\u0648\u06CC \u0628\u0628\u06CC\u0646\u06D5",
-        more: "\u0633\u06D5\u0631\u0686\u0627\u0648\u06D5\u06CC \u062A\u0631",
-        drawerTitle: "\u0633\u06D5\u0631\u0686\u0627\u0648\u06D5\u06A9\u0627\u0646",
-        expandMore: "\u0632\u06CC\u0627\u062A\u0631 \u0628\u0628\u06CC\u0646\u06D5",
-        collapseMore: "\u06A9\u06C6\u06A9\u0631\u062F\u0646\u06D5\u0648\u06D5",
-        noSources: "\u0647\u06CC\u0686 \u0633\u06D5\u0631\u0686\u0627\u0648\u06D5\u06CC\u06D5\u06A9 \u0646\u06CC\u06CC\u06D5",
-        today: "\u0626\u06D5\u0645\u0631\u06C6",
-        last7Days: "7 \u0695\u06C6\u0698\u06CC \u067E\u06CE\u0634\u0648\u0648",
-        last30Days: "30 \u0695\u06C6\u0698\u06CC \u067E\u06CE\u0634\u0648\u0648",
-        earlier: "\u067E\u06CE\u0634\u062A\u0631",
-        pinned: "\u067E\u06CC\u0646\u06A9\u0631\u0627\u0648"
+        references: "\u723B\u8E60\u4E47\u8DA9\u4E15\u8CF5\u8E60\u8BB4\u4E15\u8CF3",
+        referencedSources: "\u723B\u8E60\u4E47\u8DA9\u4E15\u8CF5\u8E60 \u5345\u4E15\u8CF2\u4E15\u8DC7\u8E60\u502C\u8E58\u8BB4\u4E47\u4E15\u8CF5\u8E60\u8BB4\u4E15\u8CF3",
+        relevant: "\u502C\u8E60\u8E56\u8CF5\u8E60\u8CF3\u4E3F\u8E56\u4E3F\u4E15\u4E47",
+        viewOriginal: "\u5345\u8E60\u723B\u8BD8\u8E56 \u4E98\u4E98\u8E56\u8CF3\u8E60",
+        showAll: "\u8CF4\u8E60\u8CF2\u8CF5\u8CF5\u8E56 \u4E98\u4E98\u8E56\u8CF3\u8E60",
+        more: "\u723B\u8E60\u4E47\u8DA9\u4E15\u8CF5\u8E60\u8E56 \u9B32\u4E47",
+        drawerTitle: "\u723B\u8E60\u4E47\u8DA9\u4E15\u8CF5\u8E60\u8BB4\u4E15\u8CF3",
+        expandMore: "\u592D\u8E56\u4E15\u9B32\u4E47 \u4E98\u4E98\u8E56\u8CF3\u8E60",
+        collapseMore: "\u8BB4\u8E4E\u8BB4\u4E47\u4E3F\u8CF3\u8E60\u8CF5\u8E60",
+        noSources: "\u8CF4\u8E56\u8DA9 \u723B\u8E60\u4E47\u8DA9\u4E15\u8CF5\u8E60\u8E56\u8E60\u8BB4 \u8CF3\u8E56\u8E56\u8E60",
+        today: "\u5345\u8E60\u8CF2\u4E47\u8E4E",
+        last7Days: "7 \u8DC1\u8E4E\u8DC7\u8E56 \u502C\u8E58\u536E\u8CF5\u8CF5",
+        last30Days: "30 \u8DC1\u8E4E\u8DC7\u8E56 \u502C\u8E58\u536E\u8CF5\u8CF5",
+        earlier: "\u502C\u8E58\u536E\u9B32\u4E47",
+        pinned: "\u502C\u8E56\u8CF3\u8BB4\u4E47\u4E15\u8CF5"
       },
       conversations: {
-        today: "\u0626\u06D5\u0645\u0631\u06C6",
-        last7Days: "7 \u0695\u06C6\u0698\u06CC \u067E\u06CE\u0634\u0648\u0648",
-        last30Days: "30 \u0695\u06C6\u0698\u06CC \u067E\u06CE\u0634\u0648\u0648",
-        earlier: "\u067E\u06CE\u0634\u062A\u0631",
-        pinned: "\u067E\u06CC\u0646\u06A9\u0631\u0627\u0648",
-        pin: "\u067E\u06CC\u0646\u06A9 \u0628\u06A9\u06D5",
-        unpin: "\u067E\u06CC\u0646\u06A9\u06D5\u06A9\u06D5 \u0644\u0627\u0628\u0628\u06D5",
-        newConversation: "\u06AF\u0641\u062A\u0648\u06AF\u06C6\u06CC\u06D5\u06A9\u06CC \u0646\u0648\u06CE",
-        rename: "\u0646\u0627\u0648 \u0628\u06AF\u06C6\u0695\u06D5",
-        delete: "\u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5",
-        deleteConfirm: "\u062F\u06B5\u0646\u06CC\u0627\u06CC\u06CC \u0644\u06D5 \u0633\u0695\u06CC\u0646\u06D5\u0648\u06D5\u06CC \u0626\u06D5\u0645 \u06AF\u0641\u062A\u0648\u06AF\u06C6\u06CC\u06D5\u061F"
+        today: "\u5345\u8E60\u8CF2\u8DC1\u8E4E",
+        last7Days: "\u4F91 \u8DC1\u8E4E\u8DC7\u8E56 \u8DC1\u4E15\u4E98\u4E47\u4E3F\u8CF5\u8CF5",
+        last30Days: "\u4F32\u8D0D \u8DC1\u8E4E\u8DC7\u8E56 \u8DC1\u4E15\u4E98\u4E47\u4E3F\u8CF5\u8CF5",
+        earlier: "\u502C\u8E58\u536E\u9B32\u4E47",
+        pinned: "\u8DA9\u8E60\u723B\u502C\u4E15\u8CF5",
+        pin: "\u8DA9\u8E60\u723B\u502C\u4E15\u8CF3\u4E3F\u8CF3",
+        unpin: "\u8CF1\u4E15\u4E98\u4E47\u4E3F\u8CF3\u8E56 \u8DA9\u8E60\u723B\u502C\u4E15\u8CF3\u4E3F\u8CF3",
+        newConversation: "\u8BCF\u8CEE\u9B32\u8CF5\u8BCF\u8E4E\u8E56 \u8CF3\u8CF5\u8E58",
+        noData: "\u8CF4\u8E58\u536E\u9B32\u4E15 \u8CF4\u8E56\u8DA9 \u8BCF\u8CEE\u9B32\u8CF5\u8BCF\u8E4E\u8E56\u8E60\u8BB4 \u8CF3\u8E56\u8E56\u8E60",
+        rename: "\u8CF3\u4E15\u8CF5\u8BCF\u8E4E\u8DC1\u8E56\u8CF3",
+        delete: "\u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60",
+        deleteConfirm: "\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8E56 \u8CF1\u8E60 \u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60\u8E56 \u5345\u8E60\u8CF2 \u8BCF\u8CEE\u9B32\u8CF5\u8BCF\u8E4E\u8E56\u8E60\u8CAC"
+      },
+      attachments: {
+        dropTip: "\u8CEE\u4E15\u8E56\u8CF1\u8E60\u8BB4\u4E15\u8CF3 \u8CF1\u8E58\u4E47\u8E60 \u4E3F\u4E15\u4E98\u8CF3\u8E58 \u4E98\u8E4E \u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3",
+        clickToUpload: "\u8BB4\u8CF1\u8E56\u8BB4 \u4E98\u8BB4\u8E60 \u8E56\u4E15\u8CF3 \u8CEE\u4E15\u8E56\u8CF1\u8E60\u8BB4\u4E15\u8CF3 \u4E98\u8DC1\u8DC7\u8E58\u8CF3\u8E60 \u4E98\u8E4E \u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3",
+        uploadSuccess: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u4E98\u8CF5\u8CF5",
+        uploadError: "\u4E98\u4E15\u4E47\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5",
+        deleteConfirm: "\u4E3F\u8BD8\u8CF3\u8E56\u4E15\u8E56 \u8CF1\u8E60 \u723B\u8DC1\u8E56\u8CF3\u8E60\u8CF5\u8E60\u8E56 \u5345\u8E60\u8CF2 \u8CEE\u4E15\u8E56\u8CF1\u8E60\u8CAC",
+        fileTooLarge: "\u8CEF\u8E60\u4E98\u4E15\u4E47\u8E60\u8E56 \u8CEE\u4E15\u8E56\u8CF1 \u8CF3\u4E15\u4E98\u8E58\u9B32 \u8CF1\u8E60 {size} \u592D\u8E56\u4E15\u9B32\u4E47 \u4E98\u8E58\u9B32",
+        invalidFileType: "\u5669\u8E4E\u4E47\u8E56 \u8CEE\u4E15\u8E56\u8CF1 \u8CF3\u4E15\u4E3F\u4E47\u8CF5\u723B\u9B32\u8E60"
+      },
+      mermaid: {
+        image: "\u8CF5\u8E58\u8CF3\u8E60",
+        code: "\u8BB4\u8E4E\u4E3F",
+        zoomIn: "\u8BCF\u8E60\u8CF5\u4E47\u8E60\u8BB4\u4E47\u4E3F\u8CF3",
+        zoomOut: "\u4E98\u8DA9\u8CF5\u8CF5\u8BB4\u8BB4\u4E47\u4E3F\u8CF3",
+        reset: "\u8DC1\u8E58\u8BB4\u79BA\u723B\u9B32\u8CF3\u8E60\u8CF5\u8E60",
+        download: "\u4E3F\u4E15\u8BCF\u4E47\u9B32\u8CF3",
+        copyCode: "\u8BB4\u8E4E\u502C\u8E56 \u8BB4\u4E47\u4E3F\u8CF3\u8E56 \u8BB4\u8E4E\u4E3F",
+        rendering: "\u8CF1\u8E60 \u79BA\u536E\u9B32\u8E60\u8BB4\u4E47\u4E3F\u8CF3\u4E3F\u4E15\u8E56\u8E60...",
+        renderError: "\u79BA\u536E\u9B32\u8E60\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u8CF3\u8E60\u4E98\u8CF5\u8CF5",
+        renderSuccess: "\u79BA\u536E\u9B32\u8E60\u8BB4\u4E47\u4E3F\u8CF3 \u723B\u8E60\u4E47\u8BB4\u8E60\u8CF5\u9B32\u8CF5\u8CF5 \u4E98\u8CF5\u8CF5",
+        retry: "\u8CF4\u8E60\u8CF5\u8BD8\u4E3F\u4E15\u8CF3\u8E60\u8CF5\u8E60"
       }
     }
   }
@@ -39811,6 +43822,97 @@ const eu = {
       loading: "Kargatzen...",
       noData: "Daturik ez"
     },
+    skuselector: {
+      placeholder: "Hautatu zehaztapenak",
+      emptyText: "Ez dago zehaztapenik",
+      stock: "Stocka",
+      price: "Prezioa",
+      selected: "Hautatua",
+      outOfStock: "Agortuta"
+    },
+    productcard: {
+      viewDetails: "Ikusi xehetasunak",
+      buyNow: "Erosi orain",
+      addToCart: "Gehitu saskira",
+      sold: "Salduta",
+      soldOut: "Agortuta",
+      vip: "VIP"
+    },
+    price: {
+      original: "Jatorrizkoa"
+    },
+    couponcard: {
+      available: "Eskuratu orain",
+      used: "Erabilia",
+      expired: "Iraungita",
+      received: "Jasota",
+      limit: "{threshold} baino gehiagoko eskariak",
+      noThreshold: "Gutxienekorik gabe",
+      validPeriod: "Balioaldia",
+      ruleTitle: "Erabilera arauak"
+    },
+    luckydraw: {
+      start: "Hasi",
+      drawing: "Zozketatzen...",
+      end: "Irabazlea!",
+      retry: "Saiatu berriro"
+    },
+    filterbar: {
+      all: "Guztiak",
+      sort: "Ordenatu",
+      filter: "Iragazi",
+      cancel: "Utzi",
+      reset: "Berrezarri",
+      confirm: "Berretsi",
+      noOptions: "Ez dago aukerarik",
+      asc: "Gorantz",
+      desc: "Beherantz",
+      selected: "Hautatua"
+    },
+    submitbar: {
+      total: "Guztira: ",
+      selected: "{count} hautatuta",
+      submit: "Ordaindu",
+      allSelect: "Hautatu guztiak"
+    },
+    categorynav: {
+      all: "Guztiak",
+      noData: "Daturik ez",
+      loading: "Kargatzen..."
+    },
+    smartaddress: {
+      placeholder: "Itsatsi helbidea hemen, izena, telefonoa eta kokapena automatikoki antzemateko",
+      parse: "Analisi adimenduna",
+      province: "Probintzia/Hiria/Barrutia",
+      city: "Hiria",
+      district: "Barrutia/Eskualdea",
+      street: "Kalea/Herria",
+      detail: "Helbide xehea",
+      phone: "Telefonoa",
+      name: "Hartzailea",
+      parseSuccess: "Helbidea ondo aztertu da",
+      parseFailed: "Azterketak huts egin du, bete eskuz mesedez",
+      required: "Mesedez bete helbide osoa",
+      provinceKeywords: ["Probintzia", "Estatua"],
+      cityKeywords: ["Hiria", "Eskualdea"],
+      districtKeywords: ["Barrutia", "Eskualdea", "Herria"],
+      streetKeywords: ["Kalea", "Bidea", "Etorbidea", "Pasabidea"]
+    },
+    ganttchart: {
+      taskName: "Atazaren izena",
+      searchPlaceholder: "Bilatu atazak...",
+      zoom: "Zooma",
+      day: "Eguna",
+      week: "Astea",
+      month: "Hilabetea",
+      year: "Urtea",
+      milestone: "Mugarri"
+    },
+    imagemagnifier: {
+      switchToImage: "Aldatu {index}. irudira",
+      galleryItem: "{index}. galeria",
+      close: "Itxi"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -39921,9 +44023,32 @@ const eu = {
         pin: "Finkatu",
         unpin: "Desfinkatu",
         newConversation: "Elkarrizketa berria",
+        noData: "Oraindik ez dago elkarrizketarik",
         rename: "Berrizendatu",
         delete: "Ezabatu",
         deleteConfirm: "Ziur zaude elkarrizketa hau ezabatu nahi duzula?"
+      },
+      attachments: {
+        dropTip: "Utzi fitxategiak hemen igotzeko",
+        clickToUpload: "Egin klik edo arrastatu fitxategiak igotzeko",
+        uploadSuccess: "Igoera ondo egin da",
+        uploadError: "Igoerak huts egin du",
+        deleteConfirm: "Ziur zaude fitxategi hau ezabatu nahi duzula?",
+        fileTooLarge: "Fitxategiaren tamainak ezin du {size} gainditu",
+        invalidFileType: "Baliogabeko fitxategi mota"
+      },
+      mermaid: {
+        image: "Irudia",
+        code: "Kodea",
+        zoomIn: "Handitu",
+        zoomOut: "Txikitu",
+        reset: "Berrezarri",
+        download: "Deskargatu",
+        copyCode: "Kopiatu kodea",
+        rendering: "Errendatzen...",
+        renderError: "Errendatzeak huts egin du",
+        renderSuccess: "Errendatzea ondo egin da",
+        retry: "Saiatu berriro"
       }
     }
   }
@@ -41953,6 +46078,97 @@ const hr = {
       loading: "U\u010Ditavanje...",
       noData: "Nema podataka"
     },
+    skuselector: {
+      placeholder: "Odaberite specifikacije",
+      emptyText: "Nema specifikacija",
+      stock: "Zaliha",
+      price: "Cijena",
+      selected: "Odabrano",
+      outOfStock: "Nema na zalihi"
+    },
+    productcard: {
+      viewDetails: "Pogledaj detalje",
+      buyNow: "Kupi odmah",
+      addToCart: "Dodaj u ko\u0161aricu",
+      sold: "Prodano",
+      soldOut: "Rasprodano",
+      vip: "VIP"
+    },
+    price: {
+      original: "Izvorna"
+    },
+    couponcard: {
+      available: "Preuzmi odmah",
+      used: "Iskori\u0161teno",
+      expired: "Isteklo",
+      received: "Preuzeto",
+      limit: "Narud\u017Ebe iznad {threshold}",
+      noThreshold: "Bez minimalnog iznosa",
+      validPeriod: "Razdoblje valjanosti",
+      ruleTitle: "Pravila kori\u0161tenja"
+    },
+    luckydraw: {
+      start: "Pokreni",
+      drawing: "Izvla\u010Denje...",
+      end: "Pobjednik!",
+      retry: "Poku\u0161aj ponovno"
+    },
+    filterbar: {
+      all: "Sve",
+      sort: "Sortiraj",
+      filter: "Filtriraj",
+      cancel: "Odustani",
+      reset: "Resetiraj",
+      confirm: "Potvrdi",
+      noOptions: "Nema opcija",
+      asc: "Uzlazno",
+      desc: "Silazno",
+      selected: "Odabrano"
+    },
+    submitbar: {
+      total: "Ukupno: ",
+      selected: "{count} odabrano",
+      submit: "Na pla\u0107anje",
+      allSelect: "Odaberi sve"
+    },
+    categorynav: {
+      all: "Sve",
+      noData: "Nema podataka",
+      loading: "U\u010Ditavanje..."
+    },
+    smartaddress: {
+      placeholder: "Ovdje zalijepite adresu, automatski prepoznaj ime, telefon i lokaciju",
+      parse: "Pametno prepoznavanje",
+      province: "Pokrajina/Grad/Okrug",
+      city: "Grad",
+      district: "Okrug/\u017Dupanija",
+      street: "Ulica/Naselje",
+      detail: "Detaljna adresa",
+      phone: "Telefon",
+      name: "Primatelj",
+      parseSuccess: "Adresa je uspje\u0161no prepoznata",
+      parseFailed: "Prepoznavanje nije uspjelo, ispunite ru\u010Dno",
+      required: "Unesite potpunu adresu",
+      provinceKeywords: ["Pokrajina", "Dr\u017Eava"],
+      cityKeywords: ["Grad", "Regija"],
+      districtKeywords: ["Okrug", "\u017Dupanija", "Op\u0107ina"],
+      streetKeywords: ["Ulica", "Cesta", "Avenija", "Prolaz"]
+    },
+    ganttchart: {
+      taskName: "Naziv zadatka",
+      searchPlaceholder: "Pretra\u017Ei zadatke...",
+      zoom: "Zum",
+      day: "Dan",
+      week: "Tjedan",
+      month: "Mjesec",
+      year: "Godina",
+      milestone: "Prekretnica"
+    },
+    imagemagnifier: {
+      switchToImage: "Prebaci na sliku {index}",
+      galleryItem: "Galerija {index}",
+      close: "Zatvori"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -42063,9 +46279,32 @@ const hr = {
         pin: "Prika\u010Di",
         unpin: "Odprika\u010Di",
         newConversation: "Novi razgovor",
+        noData: "Jo\u0161 nema razgovora",
         rename: "Preimenuj",
         delete: "Izbri\u0161i",
         deleteConfirm: "Potvrdite brisanje ovog razgovora?"
+      },
+      attachments: {
+        dropTip: "Ispustite datoteke ovdje za prijenos",
+        clickToUpload: "Kliknite ili povucite datoteke za prijenos",
+        uploadSuccess: "Prijenos je uspio",
+        uploadError: "Prijenos nije uspio",
+        deleteConfirm: "Jeste li sigurni da \u017Eelite izbrisati ovu datoteku?",
+        fileTooLarge: "Veli\u010Dina datoteke ne smije biti ve\u0107a od {size}",
+        invalidFileType: "Neva\u017Ee\u0107a vrsta datoteke"
+      },
+      mermaid: {
+        image: "Slika",
+        code: "Kod",
+        zoomIn: "Pove\u0107aj",
+        zoomOut: "Smanji",
+        reset: "Poni\u0161ti",
+        download: "Preuzmi",
+        copyCode: "Kopiraj kod",
+        rendering: "Renderiranje...",
+        renderError: "Renderiranje nije uspjelo",
+        renderSuccess: "Renderiranje je uspjelo",
+        retry: "Poku\u0161aj ponovno"
       }
     }
   }
@@ -42668,6 +46907,97 @@ const eo = {
       noData: "Neniuj datumoj"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Elektu specifojn",
+      emptyText: "Neniuj specifoj",
+      stock: "Stoko",
+      price: "Prezo",
+      selected: "Elektita",
+      outOfStock: "El\u0109erpita"
+    },
+    productcard: {
+      viewDetails: "Vidi detalojn",
+      buyNow: "A\u0109etu nun",
+      addToCart: "Aldoni al \u0109aro",
+      sold: "Vendita",
+      soldOut: "El\u0109erpita",
+      vip: "VIP"
+    },
+    price: {
+      original: "Origina prezo"
+    },
+    couponcard: {
+      available: "Akiru nun",
+      used: "Uzita",
+      expired: "Eksvalidi\u011Dis",
+      received: "Ricevita",
+      limit: "Mendoj super {threshold}",
+      noThreshold: "Sen minimuma limo",
+      validPeriod: "Valideca periodo",
+      ruleTitle: "Uzreguloj"
+    },
+    luckydraw: {
+      start: "Komenci",
+      drawing: "Tirado...",
+      end: "Gajninto!",
+      retry: "Provu denove"
+    },
+    filterbar: {
+      all: "\u0108io",
+      sort: "Ordigi",
+      filter: "Filtri",
+      cancel: "Nuligi",
+      reset: "Restarigi",
+      confirm: "Konfirmi",
+      noOptions: "Neniuj opcioj",
+      asc: "Kreskante",
+      desc: "Malkreskante",
+      selected: "Elektita"
+    },
+    submitbar: {
+      total: "Sumo: ",
+      selected: "{count} elektitaj",
+      submit: "Elpagi",
+      allSelect: "Elekti \u0109ion"
+    },
+    categorynav: {
+      all: "\u0108io",
+      noData: "Neniuj datumoj",
+      loading: "\u015Cargado..."
+    },
+    smartaddress: {
+      placeholder: "Algluu adreson \u0109i tie por a\u016Dtomate rekoni nomon, telefonon kaj lokon",
+      parse: "Inteligenta analizo",
+      province: "Provinco/Urbo/Distrikto",
+      city: "Urbo",
+      district: "Distrikto/Regiono",
+      street: "Strato/Urbeto",
+      detail: "Detala adreso",
+      phone: "Telefono",
+      name: "Ricevanto",
+      parseSuccess: "Adreso sukcese analizita",
+      parseFailed: "Analizo malsukcesis, bonvolu plenigi permane",
+      required: "Bonvolu enigi kompletan adreson",
+      provinceKeywords: ["Provinco", "\u015Ctato"],
+      cityKeywords: ["Urbo", "Municipo"],
+      districtKeywords: ["Distrikto", "Regiono", "Kvartalo"],
+      streetKeywords: ["Strato", "Vojo", "Aleo", "Pasejo"]
+    },
+    ganttchart: {
+      taskName: "Nomo de tasko",
+      searchPlaceholder: "Ser\u0109i taskojn...",
+      zoom: "Zomo",
+      day: "Tago",
+      week: "Semajno",
+      month: "Monato",
+      year: "Jaro",
+      milestone: "Mejlo\u015Dtono"
+    },
+    imagemagnifier: {
+      switchToImage: "\u015Can\u011Di al bildo {index}",
+      galleryItem: "Galerio {index}",
+      close: "Fermi"
+    },
     ai: {
       bubble: {
         citations: "Cita\u0135oj"
@@ -42777,9 +47107,32 @@ const eo = {
         pin: "Alpingi",
         unpin: "Malalpingi",
         newConversation: "Nova konversacio",
+        noData: "Ankora\u016D neniuj konversacioj",
         rename: "Alinomi",
         delete: "Forigi",
         deleteConfirm: "\u0108u vi certas, ke vi volas forigi tiun \u0109i konversacion?"
+      },
+      attachments: {
+        dropTip: "Faligu dosierojn \u0109i tie por al\u015Duti",
+        clickToUpload: "Klaku a\u016D trenu dosierojn por al\u015Duti",
+        uploadSuccess: "Al\u015Duto sukcesis",
+        uploadError: "Al\u015Duto malsukcesis",
+        deleteConfirm: "\u0108u vi certas, ke vi volas forigi \u0109i tiun dosieron?",
+        fileTooLarge: "La dosiergrandeco ne povas superi {size}",
+        invalidFileType: "Nevalida dosiertipo"
+      },
+      mermaid: {
+        image: "Bildo",
+        code: "Kodo",
+        zoomIn: "Pligrandigi",
+        zoomOut: "Malpligrandigi",
+        reset: "Restarigi",
+        download: "El\u015Duti",
+        copyCode: "Kopii kodon",
+        rendering: "Bildigado...",
+        renderError: "Bildigo malsukcesis",
+        renderSuccess: "Bildigo sukcesis",
+        retry: "Provu denove"
       }
     }
   }
@@ -44095,6 +48448,97 @@ const mg = {
       loading: "Miantso...",
       noData: "Tsy misy data"
     },
+    skuselector: {
+      placeholder: "Safidio ny toetra",
+      emptyText: "Tsy misy toetra",
+      stock: "Tahiry",
+      price: "Vidiny",
+      selected: "Voafidy",
+      outOfStock: "Lany tahiry"
+    },
+    productcard: {
+      viewDetails: "Hijery antsipiriany",
+      buyNow: "Vidio izao",
+      addToCart: "Ampidiro anaty sarety",
+      sold: "Lafo",
+      soldOut: "Lany",
+      vip: "VIP"
+    },
+    price: {
+      original: "Tany am-boalohany"
+    },
+    couponcard: {
+      available: "Raiso izao",
+      used: "Efa nampiasaina",
+      expired: "Lany daty",
+      received: "Voaray",
+      limit: "Ho an\u2019ny kaomandy mihoatra ny {threshold}",
+      noThreshold: "Tsy misy fetra farany ambany",
+      validPeriod: "Fe-potoana manankery",
+      ruleTitle: "Fitsipika fampiasana"
+    },
+    luckydraw: {
+      start: "Atomboka",
+      drawing: "Manao antsapaka...",
+      end: "Mpandresy!",
+      retry: "Andramo indray"
+    },
+    filterbar: {
+      all: "Rehetra",
+      sort: "Alahatra",
+      filter: "Sivana",
+      cancel: "Hanafoana",
+      reset: "Avereno",
+      confirm: "Hamafiso",
+      noOptions: "Tsy misy safidy",
+      asc: "Miakatra",
+      desc: "Midina",
+      selected: "Voafidy"
+    },
+    submitbar: {
+      total: "Fitambarany: ",
+      selected: "{count} voafidy",
+      submit: "Handoa",
+      allSelect: "Safidio rehetra"
+    },
+    categorynav: {
+      all: "Rehetra",
+      noData: "Tsy misy angona",
+      loading: "Mampiditra..."
+    },
+    smartaddress: {
+      placeholder: "Apetaho eto ny adiresy, ho fantarina ho azy ny anarana, finday ary toerana",
+      parse: "Famantarana marani-tsaina",
+      province: "Faritany/Tan\xE0na/Distrika",
+      city: "Tan\xE0na",
+      district: "Distrika/Faritra",
+      street: "Lalana/Tan\xE0na kely",
+      detail: "Adiresy feno",
+      phone: "Finday",
+      name: "Mpandray",
+      parseSuccess: "Voamarina soa aman-tsara ny adiresy",
+      parseFailed: "Tsy voamarina, fenoy amin\u2019ny tanana azafady",
+      required: "Fenoy azafady ny adiresy feno",
+      provinceKeywords: ["Faritany", "Fanjakana"],
+      cityKeywords: ["Tan\xE0na", "Faritra"],
+      districtKeywords: ["Distrika", "Faritra", "Kaominina"],
+      streetKeywords: ["Lalana", "Arabe", "Boulevard", "Lalantsara"]
+    },
+    ganttchart: {
+      taskName: "Anaran\u2019asa",
+      searchPlaceholder: "Hitady asa...",
+      zoom: "Akaro",
+      day: "Andro",
+      week: "Herinandro",
+      month: "Volana",
+      year: "Taona",
+      milestone: "Dingana lehibe"
+    },
+    imagemagnifier: {
+      switchToImage: "Hifindra amin\u2019ny sary {index}",
+      galleryItem: "Galeria {index}",
+      close: "Akatona"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -44205,9 +48649,32 @@ const mg = {
         pin: "Fatotra",
         unpin: "Avela",
         newConversation: "Resaka vaovao",
+        noData: "Mbola tsy misy resaka",
         rename: "Aloaso anarana",
         delete: "Fao",
         deleteConfirm: "Moa ve inona no hofafan'i resaka io?"
+      },
+      attachments: {
+        dropTip: "Apetraho eto ny rakitra raha hampiakatra",
+        clickToUpload: "Tsindrio na tariho ny rakitra raha hampiakatra",
+        uploadSuccess: "Nahomby ny fampiakarana",
+        uploadError: "Tsy nahomby ny fampiakarana",
+        deleteConfirm: "Azonao antoka ve fa hamafa ity rakitra ity ianao?",
+        fileTooLarge: "Tsy afaka mihoatra ny {size} ny haben\u2019ny rakitra",
+        invalidFileType: "Karazana rakitra tsy mety"
+      },
+      mermaid: {
+        image: "Sary",
+        code: "Kaody",
+        zoomIn: "Ampitomboy",
+        zoomOut: "Ahena",
+        reset: "Avereno",
+        download: "Sintomy",
+        copyCode: "Adikao ny kaody",
+        rendering: "Aseho...",
+        renderError: "Tsy nahomby ny fampisehoana",
+        renderSuccess: "Nahomby ny fampisehoana",
+        retry: "Andramo indray"
       }
     }
   }
@@ -44809,6 +49276,97 @@ const sw = {
       loading: "Inapakia...",
       noData: "Hakuna data"
     },
+    skuselector: {
+      placeholder: "Chagua vipimo",
+      emptyText: "Hakuna vipimo",
+      stock: "Hisa",
+      price: "Bei",
+      selected: "Imechaguliwa",
+      outOfStock: "Imeisha"
+    },
+    productcard: {
+      viewDetails: "Tazama maelezo",
+      buyNow: "Nunua sasa",
+      addToCart: "Ongeza kwenye kikapu",
+      sold: "Imeuzwa",
+      soldOut: "Imeisha",
+      vip: "VIP"
+    },
+    price: {
+      original: "Asili"
+    },
+    couponcard: {
+      available: "Pata sasa",
+      used: "Imetumika",
+      expired: "Imeisha muda",
+      received: "Imepokelewa",
+      limit: "Kwa oda zaidi ya {threshold}",
+      noThreshold: "Hakuna kiwango cha chini",
+      validPeriod: "Muda wa uhalali",
+      ruleTitle: "Sheria za matumizi"
+    },
+    luckydraw: {
+      start: "Anza",
+      drawing: "Inachagua mshindi...",
+      end: "Mshindi!",
+      retry: "Jaribu tena"
+    },
+    filterbar: {
+      all: "Zote",
+      sort: "Panga",
+      filter: "Chuja",
+      cancel: "Ghairi",
+      reset: "Weka upya",
+      confirm: "Thibitisha",
+      noOptions: "Hakuna chaguo",
+      asc: "Kupanda",
+      desc: "Kushuka",
+      selected: "Imechaguliwa"
+    },
+    submitbar: {
+      total: "Jumla: ",
+      selected: "{count} zimechaguliwa",
+      submit: "Lipa sasa",
+      allSelect: "Chagua zote"
+    },
+    categorynav: {
+      all: "Zote",
+      noData: "Hakuna data",
+      loading: "Inapakia..."
+    },
+    smartaddress: {
+      placeholder: "Bandika anwani hapa, jina, simu na eneo vitatambuliwa kiotomatiki",
+      parse: "Uchambuzi mahiri",
+      province: "Mkoa/Jiji/Wilaya",
+      city: "Jiji",
+      district: "Wilaya/Kaunti",
+      street: "Mtaa/Kijiji",
+      detail: "Anwani ya kina",
+      phone: "Simu",
+      name: "Mpokeaji",
+      parseSuccess: "Anwani imetambuliwa kwa mafanikio",
+      parseFailed: "Imeshindikana kutambua, tafadhali jaza mwenyewe",
+      required: "Tafadhali jaza anwani kamili",
+      provinceKeywords: ["Mkoa", "Jimbo"],
+      cityKeywords: ["Jiji", "Manispaa"],
+      districtKeywords: ["Wilaya", "Kaunti", "Tarafa"],
+      streetKeywords: ["Mtaa", "Barabara", "Aveni", "Njia"]
+    },
+    ganttchart: {
+      taskName: "Jina la kazi",
+      searchPlaceholder: "Tafuta kazi...",
+      zoom: "Kuza",
+      day: "Siku",
+      week: "Wiki",
+      month: "Mwezi",
+      year: "Mwaka",
+      milestone: "Hatua muhimu"
+    },
+    imagemagnifier: {
+      switchToImage: "Badili hadi picha {index}",
+      galleryItem: "Galeri {index}",
+      close: "Funga"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -44919,9 +49477,32 @@ const sw = {
         pin: "Simamisha",
         unpin: "Ondoa kwenye kusimama",
         newConversation: "Mazungumzo mapya",
+        noData: "Bado hakuna mazungumzo",
         rename: "Badilisha jina",
         delete: "Futa",
         deleteConfirm: "Una uhakika unataka kufuta mazungumzo haya?"
+      },
+      attachments: {
+        dropTip: "Achia faili hapa ili kupakia",
+        clickToUpload: "Bofya au buruta faili ili kupakia",
+        uploadSuccess: "Upakiaji umefaulu",
+        uploadError: "Upakiaji umeshindikana",
+        deleteConfirm: "Una uhakika unataka kufuta faili hii?",
+        fileTooLarge: "Ukubwa wa faili haupaswi kuzidi {size}",
+        invalidFileType: "Aina ya faili si sahihi"
+      },
+      mermaid: {
+        image: "Picha",
+        code: "Msimbo",
+        zoomIn: "Kuza ndani",
+        zoomOut: "Kuza nje",
+        reset: "Weka upya",
+        download: "Pakua",
+        copyCode: "Nakili msimbo",
+        rendering: "Inachorwa...",
+        renderError: "Uchoraji umeshindikana",
+        renderSuccess: "Uchoraji umefaulu",
+        retry: "Jaribu tena"
       }
     }
   }
@@ -45523,6 +50104,97 @@ const uzUz = {
       loading: "Yuklanmoqda...",
       noData: "Ma'lumot yo'q"
     },
+    skuselector: {
+      placeholder: "Xususiyatlarni tanlang",
+      emptyText: "Xususiyatlar yo\u02BBq",
+      stock: "Zaxira",
+      price: "Narx",
+      selected: "Tanlangan",
+      outOfStock: "Omborda yo\u02BBq"
+    },
+    productcard: {
+      viewDetails: "Batafsil ko\u2018rish",
+      buyNow: "Hozir sotib olish",
+      addToCart: "Savatchaga qo\u2018shish",
+      sold: "Sotilgan",
+      soldOut: "Tugagan",
+      vip: "VIP"
+    },
+    price: {
+      original: "Asl"
+    },
+    couponcard: {
+      available: "Hozir olish",
+      used: "Ishlatilgan",
+      expired: "Muddati tugagan",
+      received: "Olindi",
+      limit: "{threshold} dan yuqori buyurtmalar uchun",
+      noThreshold: "Minimal miqdorsiz",
+      validPeriod: "Amal qilish muddati",
+      ruleTitle: "Foydalanish qoidalari"
+    },
+    luckydraw: {
+      start: "Boshlash",
+      drawing: "Qura tashlanmoqda...",
+      end: "G\u02BBolib!",
+      retry: "Qayta urinib ko\u2018ring"
+    },
+    filterbar: {
+      all: "Barchasi",
+      sort: "Saralash",
+      filter: "Filtr",
+      cancel: "Bekor qilish",
+      reset: "Qayta tiklash",
+      confirm: "Tasdiqlash",
+      noOptions: "Variantlar yo\u02BBq",
+      asc: "O\u02BBsish tartibida",
+      desc: "Kamayish tartibida",
+      selected: "Tanlangan"
+    },
+    submitbar: {
+      total: "Jami: ",
+      selected: "{count} tanlandi",
+      submit: "To\u02BBlovga o\u02BBtish",
+      allSelect: "Barchasini tanlash"
+    },
+    categorynav: {
+      all: "Barchasi",
+      noData: "Ma'lumot yo'q",
+      loading: "Yuklanmoqda..."
+    },
+    smartaddress: {
+      placeholder: "Manzilni shu yerga qo\u02BBying, ism, telefon va joylashuv avtomatik aniqlanadi",
+      parse: "Aqlli tahlil",
+      province: "Viloyat/Shahar/Tuman",
+      city: "Shahar",
+      district: "Tuman/Okrug",
+      street: "Ko\u2018cha/Shaharcha",
+      detail: "Batafsil manzil",
+      phone: "Telefon",
+      name: "Qabul qiluvchi",
+      parseSuccess: "Manzil muvaffaqiyatli aniqlandi",
+      parseFailed: "Aniqlash amalga oshmadi, qo\u2018lda to\u2018ldiring",
+      required: "To\u2018liq manzilni kiriting",
+      provinceKeywords: ["Viloyat", "Hudud"],
+      cityKeywords: ["Shahar", "Markaz"],
+      districtKeywords: ["Tuman", "Okrug", "Qishloq"],
+      streetKeywords: ["Ko\u2018cha", "Yo\u2018l", "Shoh ko\u2018cha", "Tor ko\u2018cha"]
+    },
+    ganttchart: {
+      taskName: "Vazifa nomi",
+      searchPlaceholder: "Vazifalarni qidiring...",
+      zoom: "Kattalashtirish",
+      day: "Kun",
+      week: "Hafta",
+      month: "Oy",
+      year: "Yil",
+      milestone: "Muhim bosqich"
+    },
+    imagemagnifier: {
+      switchToImage: "{index}-rasmga o\u2018tish",
+      galleryItem: "Galereya {index}",
+      close: "Yopish"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -45633,9 +50305,32 @@ const uzUz = {
         pin: "Qadash",
         unpin: "Qadashni bekor qilish",
         newConversation: "Yangi suhbat",
+        noData: "Hali suhbatlar yo\u02BBq",
         rename: "Nomini o'zgartirish",
         delete: "O'chirish",
         deleteConfirm: "Bu suhbatni o'chirishni tasdiqlaysizmi?"
+      },
+      attachments: {
+        dropTip: "Yuklash uchun fayllarni shu yerga tashlang",
+        clickToUpload: "Yuklash uchun bosing yoki fayllarni sudrang",
+        uploadSuccess: "Yuklash muvaffaqiyatli tugadi",
+        uploadError: "Yuklash amalga oshmadi",
+        deleteConfirm: "Bu faylni o\u2018chirmoqchi ekaningizga ishonchingiz komilmi?",
+        fileTooLarge: "Fayl hajmi {size} dan oshmasligi kerak",
+        invalidFileType: "Noto\u2018g\u2018ri fayl turi"
+      },
+      mermaid: {
+        image: "Rasm",
+        code: "Kod",
+        zoomIn: "Kattalashtirish",
+        zoomOut: "Kichraytirish",
+        reset: "Tiklash",
+        download: "Yuklab olish",
+        copyCode: "Kodni nusxalash",
+        rendering: "Chizilmoqda...",
+        renderError: "Chizish amalga oshmadi",
+        renderSuccess: "Chizish muvaffaqiyatli yakunlandi",
+        retry: "Qayta urinib ko\u2018ring"
       }
     }
   }
@@ -46238,6 +50933,97 @@ const arEg = {
       noData: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0628\u064A\u0627\u0646\u0627\u062A"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\u0627\u062E\u062A\u0631 \u0627\u0644\u0645\u0648\u0627\u0635\u0641\u0627\u062A",
+      emptyText: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u0648\u0627\u0635\u0641\u0627\u062A",
+      stock: "\u0627\u0644\u0645\u062E\u0632\u0648\u0646",
+      price: "\u0627\u0644\u0633\u0639\u0631",
+      selected: "\u062A\u0645 \u0627\u0644\u062A\u062D\u062F\u064A\u062F",
+      outOfStock: "\u0646\u0641\u062F \u0627\u0644\u0645\u062E\u0632\u0648\u0646"
+    },
+    productcard: {
+      viewDetails: "\u0639\u0631\u0636 \u0627\u0644\u062A\u0641\u0627\u0635\u064A\u0644",
+      buyNow: "\u0627\u0634\u062A\u0631 \u0627\u0644\u0622\u0646",
+      addToCart: "\u0623\u0636\u0641 \u0625\u0644\u0649 \u0627\u0644\u0633\u0644\u0629",
+      sold: "\u062A\u0645 \u0627\u0644\u0628\u064A\u0639",
+      soldOut: "\u0646\u0641\u062F",
+      vip: "\u0639\u0636\u0648\u064A\u0629"
+    },
+    price: {
+      original: "\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0623\u0635\u0644\u064A"
+    },
+    couponcard: {
+      available: "\u0627\u062D\u0635\u0644 \u0639\u0644\u064A\u0647 \u0627\u0644\u0622\u0646",
+      used: "\u0645\u0633\u062A\u062E\u062F\u0645",
+      expired: "\u0645\u0646\u062A\u0647\u064A",
+      received: "\u062A\u0645 \u0627\u0644\u0627\u0633\u062A\u0644\u0627\u0645",
+      limit: "\u0637\u0644\u0628\u0627\u062A \u0641\u0648\u0642 {threshold}",
+      noThreshold: "\u0628\u062F\u0648\u0646 \u062D\u062F \u0623\u062F\u0646\u0649",
+      validPeriod: "\u0645\u062F\u0629 \u0627\u0644\u0635\u0644\u0627\u062D\u064A\u0629",
+      ruleTitle: "\u0642\u0648\u0627\u0639\u062F \u0627\u0644\u0627\u0633\u062A\u062E\u062F\u0627\u0645"
+    },
+    luckydraw: {
+      start: "\u0627\u0628\u062F\u0623",
+      drawing: "\u062C\u0627\u0631\u064D \u0627\u0644\u0633\u062D\u0628...",
+      end: "\u0641\u0627\u0626\u0632!",
+      retry: "\u062D\u0627\u0648\u0644 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649"
+    },
+    filterbar: {
+      all: "\u0627\u0644\u0643\u0644",
+      sort: "\u062A\u0631\u062A\u064A\u0628",
+      filter: "\u062A\u0635\u0641\u064A\u0629",
+      cancel: "\u0625\u0644\u063A\u0627\u0621",
+      reset: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0639\u064A\u064A\u0646",
+      confirm: "\u062A\u0623\u0643\u064A\u062F",
+      noOptions: "\u0644\u0627 \u062A\u0648\u062C\u062F \u062E\u064A\u0627\u0631\u0627\u062A",
+      asc: "\u062A\u0635\u0627\u0639\u062F\u064A",
+      desc: "\u062A\u0646\u0627\u0632\u0644\u064A",
+      selected: "\u0645\u062D\u062F\u062F"
+    },
+    submitbar: {
+      total: "\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A: ",
+      selected: "\u062A\u0645 \u062A\u062D\u062F\u064A\u062F {count}",
+      submit: "\u0625\u062A\u0645\u0627\u0645 \u0627\u0644\u0634\u0631\u0627\u0621",
+      allSelect: "\u062A\u062D\u062F\u064A\u062F \u0627\u0644\u0643\u0644"
+    },
+    categorynav: {
+      all: "\u0627\u0644\u0643\u0644",
+      noData: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0628\u064A\u0627\u0646\u0627\u062A",
+      loading: "\u062C\u0627\u0631\u064D \u0627\u0644\u062A\u062D\u0645\u064A\u0644..."
+    },
+    smartaddress: {
+      placeholder: "\u0627\u0644\u0635\u0642 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0647\u0646\u0627 \u0644\u0627\u0643\u062A\u0634\u0627\u0641 \u0627\u0644\u0627\u0633\u0645 \u0648\u0627\u0644\u0647\u0627\u062A\u0641 \u0648\u0627\u0644\u0645\u0648\u0642\u0639 \u062A\u0644\u0642\u0627\u0626\u064A\u064B\u0627",
+      parse: "\u062A\u062D\u0644\u064A\u0644 \u0630\u0643\u064A",
+      province: "\u0627\u0644\u0645\u062D\u0627\u0641\u0638\u0629/\u0627\u0644\u0645\u062F\u064A\u0646\u0629/\u0627\u0644\u0645\u0646\u0637\u0642\u0629",
+      city: "\u0627\u0644\u0645\u062F\u064A\u0646\u0629",
+      district: "\u0627\u0644\u0645\u0646\u0637\u0642\u0629/\u0627\u0644\u0645\u0642\u0627\u0637\u0639\u0629",
+      street: "\u0627\u0644\u0634\u0627\u0631\u0639/\u0627\u0644\u0628\u0644\u062F\u0629",
+      detail: "\u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u062A\u0641\u0635\u064A\u0644\u064A",
+      phone: "\u0627\u0644\u0647\u0627\u062A\u0641",
+      name: "\u0627\u0644\u0645\u0633\u062A\u0644\u0645",
+      parseSuccess: "\u062A\u0645 \u062A\u062D\u0644\u064A\u0644 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0628\u0646\u062C\u0627\u062D",
+      parseFailed: "\u0641\u0634\u0644 \u0627\u0644\u062A\u062D\u0644\u064A\u0644\u060C \u064A\u0631\u062C\u0649 \u0627\u0644\u0625\u062F\u062E\u0627\u0644 \u064A\u062F\u0648\u064A\u064B\u0627",
+      required: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0643\u0627\u0645\u0644\u064B\u0627",
+      provinceKeywords: ["\u0645\u062D\u0627\u0641\u0638\u0629", "\u0648\u0644\u0627\u064A\u0629"],
+      cityKeywords: ["\u0645\u062F\u064A\u0646\u0629", "\u0628\u0644\u062F\u0629"],
+      districtKeywords: ["\u0645\u0646\u0637\u0642\u0629", "\u0645\u0642\u0627\u0637\u0639\u0629", "\u062D\u064A"],
+      streetKeywords: ["\u0634\u0627\u0631\u0639", "\u0637\u0631\u064A\u0642", "\u062C\u0627\u062F\u0629", "\u062D\u0627\u0631\u0629"]
+    },
+    ganttchart: {
+      taskName: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0647\u0645\u0629",
+      searchPlaceholder: "\u0627\u0628\u062D\u062B \u0639\u0646 \u0627\u0644\u0645\u0647\u0627\u0645...",
+      zoom: "\u062A\u0643\u0628\u064A\u0631",
+      day: "\u064A\u0648\u0645",
+      week: "\u0623\u0633\u0628\u0648\u0639",
+      month: "\u0634\u0647\u0631",
+      year: "\u0633\u0646\u0629",
+      milestone: "\u0645\u0631\u062D\u0644\u0629 \u0645\u0647\u0645\u0629"
+    },
+    imagemagnifier: {
+      switchToImage: "\u0627\u0644\u062A\u0628\u062F\u064A\u0644 \u0625\u0644\u0649 \u0627\u0644\u0635\u0648\u0631\u0629 {index}",
+      galleryItem: "\u0627\u0644\u0645\u0639\u0631\u0636 {index}",
+      close: "\u0625\u063A\u0644\u0627\u0642"
+    },
     ai: {
       bubble: {
         citations: "\u0627\u0644\u0627\u0642\u062A\u0628\u0627\u0633\u0627\u062A"
@@ -46347,9 +51133,32 @@ const arEg = {
         pin: "\u062A\u062B\u0628\u064A\u062A",
         unpin: "\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u062A\u062B\u0628\u064A\u062A",
         newConversation: "\u0645\u062D\u0627\u062F\u062B\u0629 \u062C\u062F\u064A\u062F\u0629",
+        noData: "\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u062D\u0627\u062F\u062B\u0627\u062A \u0628\u0639\u062F",
         rename: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0633\u0645\u064A\u0629",
         delete: "\u062D\u0630\u0641",
         deleteConfirm: "\u062A\u0623\u0643\u064A\u062F \u062D\u0630\u0641 \u0647\u0630\u0647 \u0627\u0644\u0645\u062D\u0627\u062F\u062B\u0629\u061F"
+      },
+      attachments: {
+        dropTip: "\u0623\u0641\u0644\u062A \u0627\u0644\u0645\u0644\u0641\u0627\u062A \u0647\u0646\u0627 \u0644\u0644\u0631\u0641\u0639",
+        clickToUpload: "\u0627\u0646\u0642\u0631 \u0623\u0648 \u0627\u0633\u062D\u0628 \u0627\u0644\u0645\u0644\u0641\u0627\u062A \u0644\u0644\u0631\u0641\u0639",
+        uploadSuccess: "\u062A\u0645 \u0627\u0644\u0631\u0641\u0639 \u0628\u0646\u062C\u0627\u062D",
+        uploadError: "\u0641\u0634\u0644 \u0627\u0644\u0631\u0641\u0639",
+        deleteConfirm: "\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0645\u0646 \u062D\u0630\u0641 \u0647\u0630\u0627 \u0627\u0644\u0645\u0644\u0641\u061F",
+        fileTooLarge: "\u0644\u0627 \u064A\u0645\u0643\u0646 \u0623\u0646 \u064A\u062A\u062C\u0627\u0648\u0632 \u062D\u062C\u0645 \u0627\u0644\u0645\u0644\u0641 {size}",
+        invalidFileType: "\u0646\u0648\u0639 \u0645\u0644\u0641 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D"
+      },
+      mermaid: {
+        image: "\u0635\u0648\u0631\u0629",
+        code: "\u0643\u0648\u062F",
+        zoomIn: "\u062A\u0643\u0628\u064A\u0631",
+        zoomOut: "\u062A\u0635\u063A\u064A\u0631",
+        reset: "\u0625\u0639\u0627\u062F\u0629 \u062A\u0639\u064A\u064A\u0646",
+        download: "\u062A\u0646\u0632\u064A\u0644",
+        copyCode: "\u0646\u0633\u062E \u0627\u0644\u0643\u0648\u062F",
+        rendering: "\u062C\u0627\u0631\u064D \u0627\u0644\u0639\u0631\u0636...",
+        renderError: "\u0641\u0634\u0644 \u0627\u0644\u0639\u0631\u0636",
+        renderSuccess: "\u062A\u0645 \u0627\u0644\u0639\u0631\u0636 \u0628\u0646\u062C\u0627\u062D",
+        retry: "\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629"
       }
     }
   }

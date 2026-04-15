@@ -596,6 +596,98 @@ export const ru: Language = {
       loading: 'Загрузка...',
       noData: 'Нет данных'
     },
+    skuselector: {
+      placeholder: 'Выберите характеристики',
+      emptyText: 'Нет характеристик',
+      stock: 'В наличии',
+      price: 'Цена',
+      selected: 'Выбрано',
+      outOfStock: 'Нет в наличии'
+    },
+    productcard: {
+      viewDetails: 'Подробнее',
+      buyNow: 'Купить сейчас',
+      addToCart: 'Добавить в корзину',
+      sold: 'Продано',
+      soldOut: 'Распродано',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Исходная цена'
+    },
+    couponcard: {
+      available: 'Получить сейчас',
+      used: 'Использован',
+      expired: 'Истёк',
+      received: 'Получен',
+      limit: 'Заказы свыше {threshold}',
+      noThreshold: 'Без минимальной суммы',
+      validPeriod: 'Срок действия',
+      ruleTitle: 'Правила использования'
+    },
+    luckydraw: {
+      start: 'Начать',
+      drawing: 'Розыгрыш...',
+      end: 'Победитель!',
+      retry: 'Попробовать снова'
+    },
+    filterbar: {
+      all: 'Все',
+      sort: 'Сортировка',
+      filter: 'Фильтр',
+      cancel: 'Отмена',
+      reset: 'Сбросить',
+      confirm: 'Подтвердить',
+      noOptions: 'Нет вариантов',
+      asc: 'По возрастанию',
+      desc: 'По убыванию',
+      selected: 'Выбрано'
+    },
+    submitbar: {
+      total: 'Итого: ',
+      selected: 'Выбрано: {count}',
+      submit: 'Оформить заказ',
+      allSelect: 'Выбрать все'
+    },
+    categorynav: {
+      all: 'Все',
+      noData: 'Нет данных',
+      loading: 'Загрузка...'
+    },
+    smartaddress: {
+      placeholder:
+        'Вставьте адрес сюда для автоматического определения имени, телефона и местоположения',
+      parse: 'Умный разбор',
+      province: 'Регион/Город/Район',
+      city: 'Город',
+      district: 'Район/Округ',
+      street: 'Улица/Посёлок',
+      detail: 'Подробный адрес',
+      phone: 'Телефон',
+      name: 'Получатель',
+      parseSuccess: 'Адрес успешно распознан',
+      parseFailed: 'Не удалось распознать, заполните вручную',
+      required: 'Пожалуйста, заполните адрес полностью',
+      provinceKeywords: ['Область', 'Край'],
+      cityKeywords: ['Город', 'Поселение'],
+      districtKeywords: ['Район', 'Округ', 'Посёлок'],
+      streetKeywords: ['Улица', 'Проспект', 'Переулок', 'Шоссе']
+    },
+    ganttchart: {
+      taskName: 'Название задачи',
+      searchPlaceholder: 'Поиск задач...',
+      zoom: 'Масштаб',
+      day: 'День',
+      week: 'Неделя',
+      month: 'Месяц',
+      year: 'Год',
+      milestone: 'Веха'
+    },
+    imagemagnifier: {
+      switchToImage: 'Переключиться на изображение {index}',
+      galleryItem: 'Галерея {index}',
+      close: 'Закрыть'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -707,9 +799,32 @@ export const ru: Language = {
         pin: 'Закрепить',
         unpin: 'Открепить',
         newConversation: 'Новый разговор',
+        noData: 'Пока нет разговоров',
         rename: 'Переименовать',
         delete: 'Удалить',
         deleteConfirm: 'Подтвердить удаление этого разговора?'
+      },
+      attachments: {
+        dropTip: 'Перетащите файлы сюда для загрузки',
+        clickToUpload: 'Нажмите или перетащите файлы для загрузки',
+        uploadSuccess: 'Загрузка выполнена',
+        uploadError: 'Ошибка загрузки',
+        deleteConfirm: 'Удалить этот файл?',
+        fileTooLarge: 'Размер файла не должен превышать {size}',
+        invalidFileType: 'Недопустимый тип файла'
+      },
+      mermaid: {
+        image: 'Изображение',
+        code: 'Код',
+        zoomIn: 'Увеличить',
+        zoomOut: 'Уменьшить',
+        reset: 'Сбросить',
+        download: 'Скачать',
+        copyCode: 'Копировать код',
+        rendering: 'Рендеринг...',
+        renderError: 'Ошибка рендеринга',
+        renderSuccess: 'Рендеринг выполнен',
+        retry: 'Повторить'
       }
     }
   }

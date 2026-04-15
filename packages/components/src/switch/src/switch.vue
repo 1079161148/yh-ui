@@ -3,7 +3,7 @@ import { computed, ref, nextTick } from 'vue'
 import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import { useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { switchProps, switchEmits, type SwitchValueType } from './switch'
+import { switchProps, switchEmits, type SwitchValueType, type SwitchExpose } from './switch'
 
 defineOptions({
   name: 'YhSwitch'
@@ -118,7 +118,7 @@ const coreStyle = computed(() => {
 })
 
 // 暴露方法
-defineExpose({
+defineExpose<SwitchExpose>({
   focus,
   checked: isChecked
 })

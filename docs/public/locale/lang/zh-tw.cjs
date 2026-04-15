@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.zhTw = exports.default = void 0;
+exports.zhTw = void 0;
 const zhTw = exports.zhTw = {
   name: "zh-tw",
   yh: {
@@ -750,4 +750,3 @@ const zhTw = exports.zhTw = {
     }
   }
 };
-module.exports = zhTw;

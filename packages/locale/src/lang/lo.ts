@@ -5,82 +5,88 @@ export const lo: Language = {
   yh: {
     // ທົ່ວໄປ
     common: {
-      yes: 'ແມ່ນ',
-      no: 'ບໍ່',
-      confirm: 'ຢືນຢັນ',
-      cancel: 'ຍົກເລີກ',
-      loading: 'ກຳລັງໂຫຼດ',
-      close: 'ປິດ',
-      clear: 'ລ້າງ',
-      reset: 'ຣີເຊັດ',
-      save: 'ບັນທຶກ',
-      delete: 'ລຶບ',
-      edit: 'ແກ້ໄຂ',
-      add: 'ເພີ່ມ',
-      search: 'ຄົ້ນຫາ',
-      refresh: 'ຣີເຟຣດ',
-      expand: 'ຂະຫຍາຍ',
-      collapse: 'ຫຍໍ້',
-      more: 'ເພີ່ມເຕີມ',
-      noData: 'ບໍ່ມີຂໍ້ມູນ',
-      noMatch: 'ບໍ່ມີຂໍ້ມູນທີ່ກົງກັນ',
-      selectAll: 'ເລືອກທັງໝົດ',
-      unselectAll: 'ຍົກເລີກການເລືອກທັງໝົດ'
+      yes: '\u0EC1\u0EA1\u0EC8\u0E99',
+      no: '\u0E9A\u0ECD\u0EC8',
+      confirm: '\u0EA2\u0EB7\u0E99\u0EA2\u0EB1\u0E99',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94',
+      close: '\u0E9B\u0EB4\u0E94',
+      clear: '\u0EA5\u0EC9\u0EB2\u0E87',
+      reset: '\u0EA3\u0EB5\u0EC0\u0E8A\u0EB1\u0E94',
+      save: '\u0E9A\u0EB1\u0E99\u0E97\u0EB6\u0E81',
+      delete: '\u0EA5\u0EB6\u0E9A',
+      edit: '\u0EC1\u0E81\u0EC9\u0EC4\u0E82',
+      add: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1',
+      search: '\u0E84\u0EBB\u0EC9\u0E99\u0EAB\u0EB2',
+      refresh: '\u0EA3\u0EB5\u0EC0\u0E9F\u0EA3\u0E94',
+      expand: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D',
+      collapse: '\u0EAB\u0E8D\u0ECD\u0EC9',
+      more: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0EC0\u0E95\u0EB5\u0EA1',
+      noData: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      noMatch:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0E81\u0EBB\u0E87\u0E81\u0EB1\u0E99',
+      selectAll: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+      unselectAll:
+        '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81\u0E81\u0EB2\u0E99\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94'
     },
     // ຕົວເລືອກສີ
     colorpicker: {
-      confirm: 'ຕົກລົງ',
-      clear: 'ລ້າງ',
-      eyeDropper: 'ຕົວຈັບສີ',
-      suggestionDark: 'ຂໍ້ຄວາມສີຂາວແມ່ນດີທີ່ສຸດ',
-      suggestionLight: 'ຂໍ້ຄວາມສີດຳແມ່ນດີທີ່ສຸດ',
-      recentColors: 'ສີຫຼ້າສຸດ',
-      presetColors: 'ສີທີ່ກຳນົດໄວ້ລ່ວງໜ້າ'
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      clear: '\u0EA5\u0EC9\u0EB2\u0E87',
+      eyeDropper: '\u0E95\u0EBB\u0EA7\u0E88\u0EB1\u0E9A\u0EAA\u0EB5',
+      suggestionDark:
+        '\u0E82\u0ECD\u0EC9\u0E84\u0EA7\u0EB2\u0EA1\u0EAA\u0EB5\u0E82\u0EB2\u0EA7\u0EC1\u0EA1\u0EC8\u0E99\u0E94\u0EB5\u0E97\u0EB5\u0EC8\u0EAA\u0EB8\u0E94',
+      suggestionLight:
+        '\u0E82\u0ECD\u0EC9\u0E84\u0EA7\u0EB2\u0EA1\u0EAA\u0EB5\u0E94\u0EB3\u0EC1\u0EA1\u0EC8\u0E99\u0E94\u0EB5\u0E97\u0EB5\u0EC8\u0EAA\u0EB8\u0E94',
+      recentColors: '\u0EAA\u0EB5\u0EAB\u0EBC\u0EC9\u0EB2\u0EAA\u0EB8\u0E94',
+      presetColors:
+        '\u0EAA\u0EB5\u0E97\u0EB5\u0EC8\u0E81\u0EB3\u0E99\u0EBB\u0E94\u0EC4\u0EA7\u0EC9\u0EA5\u0EC8\u0EA7\u0E87\u0EDC\u0EC9\u0EB2'
     },
     // ຕົວເລືອກວັນທີ
     datepicker: {
-      now: 'ດຽວນີ້',
-      today: 'ມື້ນີ້',
-      cancel: 'ຍົກເລີກ',
-      clear: 'ລ້າງ',
-      confirm: 'ຕົກລົງ',
-      selectDate: 'ເລືອກວັນທີ',
-      selectTime: 'ເລືອກເວລາ',
-      startDate: 'ວັນທີເລີ່ມຕົ້ນ',
-      startTime: 'ເວລາເລີ່ມຕົ້ນ',
-      endDate: 'ວັນທີສິ້ນສຸດ',
-      endTime: 'ເວລາສິ້ນສຸດ',
+      now: '\u0E94\u0EBD\u0EA7\u0E99\u0EB5\u0EC9',
+      today: '\u0EA1\u0EB7\u0EC9\u0E99\u0EB5\u0EC9',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      clear: '\u0EA5\u0EC9\u0EB2\u0E87',
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      selectDate: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0EA7\u0EB1\u0E99\u0E97\u0EB5',
+      selectTime: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0EC0\u0EA7\u0EA5\u0EB2',
+      startDate:
+        '\u0EA7\u0EB1\u0E99\u0E97\u0EB5\u0EC0\u0EA5\u0EB5\u0EC8\u0EA1\u0E95\u0EBB\u0EC9\u0E99',
+      startTime: '\u0EC0\u0EA7\u0EA5\u0EB2\u0EC0\u0EA5\u0EB5\u0EC8\u0EA1\u0E95\u0EBB\u0EC9\u0E99',
+      endDate: '\u0EA7\u0EB1\u0E99\u0E97\u0EB5\u0EAA\u0EB4\u0EC9\u0E99\u0EAA\u0EB8\u0E94',
+      endTime: '\u0EC0\u0EA7\u0EA5\u0EB2\u0EAA\u0EB4\u0EC9\u0E99\u0EAA\u0EB8\u0E94',
       year: '',
       month: '',
       day: '',
-      week: 'ອາທິດ',
+      week: '\u0EAD\u0EB2\u0E97\u0EB4\u0E94',
       monthBeforeYear: true,
-      prevYear: 'ປີກ່ອນໜ້າ',
-      nextYear: 'ປີຖັດໄປ',
-      prevMonth: 'ເດືອນກ່ອນໜ້າ',
-      nextMonth: 'ເດືອນຖັດໄປ',
+      prevYear: '\u0E9B\u0EB5\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      nextYear: '\u0E9B\u0EB5\u0E96\u0EB1\u0E94\u0EC4\u0E9B',
+      prevMonth: '\u0EC0\u0E94\u0EB7\u0EAD\u0E99\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      nextMonth: '\u0EC0\u0E94\u0EB7\u0EAD\u0E99\u0E96\u0EB1\u0E94\u0EC4\u0E9B',
       weeks: {
-        sun: 'ອາ',
-        mon: 'ຈ',
-        tue: 'ອ',
-        wed: 'ພ',
-        thu: 'ພຫ',
-        fri: 'ສຸ',
-        sat: 'ສ'
+        sun: '\u0EAD\u0EB2',
+        mon: '\u0E88',
+        tue: '\u0EAD',
+        wed: '\u0E9E',
+        thu: '\u0E9E\u0EAB',
+        fri: '\u0EAA\u0EB8',
+        sat: '\u0EAA'
       },
       months: {
-        jan: 'ມ.ກ.',
-        feb: 'ກ.ພ.',
-        mar: 'ມ.ນ.',
-        apr: 'ມ.ສ.',
-        may: 'ພ.ພ.',
-        jun: 'ມິ.ຖ.',
-        jul: 'ກ.ລ.',
-        aug: 'ສ.ຫ.',
-        sep: 'ກ.ຍ.',
-        oct: 'ຕ.ລ.',
-        nov: 'ພ.ຈ.',
-        dec: 'ທ.ວ.'
+        jan: '\u0EA1.\u0E81.',
+        feb: '\u0E81.\u0E9E.',
+        mar: '\u0EA1.\u0E99.',
+        apr: '\u0EA1.\u0EAA.',
+        may: '\u0E9E.\u0E9E.',
+        jun: '\u0EA1\u0EB4.\u0E96.',
+        jul: '\u0E81.\u0EA5.',
+        aug: '\u0EAA.\u0EAB.',
+        sep: '\u0E81.\u0E8D.',
+        oct: '\u0E95.\u0EA5.',
+        nov: '\u0E9E.\u0E88.',
+        dec: '\u0E97.\u0EA7.'
       },
       quarters: {
         q1: 'Q1',
@@ -91,445 +97,498 @@ export const lo: Language = {
     },
     // ຕົວເລືອກເວລາ
     timepicker: {
-      confirm: 'ຕົກລົງ',
-      cancel: 'ຍົກເລີກ',
-      now: 'ດຽວນີ້',
-      placeholder: 'ເລືອກເວລາ',
-      startPlaceholder: 'ເວລາເລີ່ມຕົ້ນ',
-      endPlaceholder: 'ເວລາສິ້ນສຸດ',
-      selectTime: 'ເລືອກເວລາ'
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      now: '\u0E94\u0EBD\u0EA7\u0E99\u0EB5\u0EC9',
+      placeholder: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0EC0\u0EA7\u0EA5\u0EB2',
+      startPlaceholder:
+        '\u0EC0\u0EA7\u0EA5\u0EB2\u0EC0\u0EA5\u0EB5\u0EC8\u0EA1\u0E95\u0EBB\u0EC9\u0E99',
+      endPlaceholder: '\u0EC0\u0EA7\u0EA5\u0EB2\u0EAA\u0EB4\u0EC9\u0E99\u0EAA\u0EB8\u0E94',
+      selectTime: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0EC0\u0EA7\u0EA5\u0EB2'
     },
     // ການເລືອກເວລາ
     timeselect: {
-      placeholder: 'ເລືອກເວລາ'
+      placeholder: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0EC0\u0EA7\u0EA5\u0EB2'
     },
     // ເຄື່ອງປ່ອຍ
     tree: {
-      emptyText: 'ບໍ່ມີຂໍ້ມູນ',
-      loading: 'ກຳລັງໂຫຼດ...',
-      checkAll: 'ເລືອກທັງໝົດ',
-      uncheckAll: 'ຍົກເລີກການເລືອກ',
-      expandAll: 'ຂະຫຍາຍທັງໝົດ',
-      collapseAll: 'ຫຍໍ້ທັງໝົດ'
+      emptyText: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      checkAll: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+      uncheckAll:
+        '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81\u0E81\u0EB2\u0E99\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+      expandAll: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+      collapseAll: '\u0EAB\u0E8D\u0ECD\u0EC9\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94'
     },
     // ການເລືອກເຄື່ອງປ່ອຍ
     treeselect: {
-      placeholder: 'ເລືອກ',
-      emptyText: 'ບໍ່ມີຂໍ້ມູນ',
-      loading: 'ກຳລັງໂຫຼດ...',
-      noMatch: 'ບໍ່ມີຂໍ້ມູນທີ່ກົງກັນ'
+      placeholder: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+      emptyText: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      noMatch:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0E81\u0EBB\u0E87\u0E81\u0EB1\u0E99'
     },
     // ປະຕິທິນ
     calendar: {
-      prevMonth: 'ເດືອນກ່ອນໜ້າ',
-      nextMonth: 'ເດືອນຖັດໄປ',
-      prevYear: 'ປີກ່ອນໜ້າ',
-      nextYear: 'ປີຖັດໄປ',
-      today: 'ມື້ນີ້',
-      week: 'ອາທິດ',
-      holiday: 'ວັນພັກ',
-      workday: 'ວັນເຮັດວຽກ',
+      prevMonth: '\u0EC0\u0E94\u0EB7\u0EAD\u0E99\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      nextMonth: '\u0EC0\u0E94\u0EB7\u0EAD\u0E99\u0E96\u0EB1\u0E94\u0EC4\u0E9B',
+      prevYear: '\u0E9B\u0EB5\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      nextYear: '\u0E9B\u0EB5\u0E96\u0EB1\u0E94\u0EC4\u0E9B',
+      today: '\u0EA1\u0EB7\u0EC9\u0E99\u0EB5\u0EC9',
+      week: '\u0EAD\u0EB2\u0E97\u0EB4\u0E94',
+      holiday: '\u0EA7\u0EB1\u0E99\u0E9E\u0EB1\u0E81',
+      workday: '\u0EA7\u0EB1\u0E99\u0EC0\u0EAE\u0EB1\u0E94\u0EA7\u0EBD\u0E81',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'ອາ',
-        mon: 'ຈ',
-        tue: 'ອ',
-        wed: 'ພ',
-        thu: 'ພຫ',
-        fri: 'ສຸ',
-        sat: 'ສ'
+        sun: '\u0EAD\u0EB2',
+        mon: '\u0E88',
+        tue: '\u0EAD',
+        wed: '\u0E9E',
+        thu: '\u0E9E\u0EAB',
+        fri: '\u0EAA\u0EB8',
+        sat: '\u0EAA'
       }
     },
     // ການຕື່ມອັດຕະໂນມັດ
     autocomplete: {
-      loading: 'ກຳລັງໂຫຼດ...',
-      placeholder: 'ກະລຸນາປ້ອນ',
-      noData: 'ບໍ່ມີຂໍ້ມູນ',
-      noMatch: 'ບໍ່ມີຂໍ້ມູນທີ່ກົງກັນ'
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      placeholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0E9B\u0EC9\u0EAD\u0E99',
+      noData: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      noMatch:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0E81\u0EBB\u0E87\u0E81\u0EB1\u0E99'
     },
     // ນັບຖອຍຫຼັງ
     countdown: {
-      days: 'ມື້',
-      hours: 'ຊົ່ວໂມງ',
-      minutes: 'ນາທີ',
-      seconds: 'ວິນາທີ',
-      milliseconds: 'ມິລິວິນາທີ',
-      finished: 'ສຳເລັດ'
+      days: '\u0EA1\u0EB7\u0EC9',
+      hours: '\u0E8A\u0EBB\u0EC8\u0EA7\u0EC2\u0EA1\u0E87',
+      minutes: '\u0E99\u0EB2\u0E97\u0EB5',
+      seconds: '\u0EA7\u0EB4\u0E99\u0EB2\u0E97\u0EB5',
+      milliseconds: '\u0EA1\u0EB4\u0EA5\u0EB4\u0EA7\u0EB4\u0E99\u0EB2\u0E97\u0EB5',
+      finished: '\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94'
     },
     // ການສະແດງລຳດັບ
     cascader: {
-      noMatch: 'ບໍ່ມີຂໍ້ມູນທີ່ກົງກັນ',
-      placeholder: 'ເລືອກ',
-      loading: 'ກຳລັງໂຫຼດ...',
-      noData: 'ບໍ່ມີຂໍ້ມູນ'
+      noMatch:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0E81\u0EBB\u0E87\u0E81\u0EB1\u0E99',
+      placeholder: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      noData: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99'
     },
     // ການໂອນຍ້າຍ
     transfer: {
-      noMatch: 'ບໍ່ມີຂໍ້ມູນທີ່ກົງກັນ',
-      noData: 'ບໍ່ມີຂໍ້ມູນ',
-      titles: ['ລາຍການ 1', 'ລາຍການ 2'],
-      filterPlaceholder: 'ປ້ອນຄຳສຳຄັນ',
-      noCheckedFormat: '{total} ລາຍການ',
-      hasCheckedFormat: '{checked}/{total} ເລືອກ',
-      searchPlaceholder: 'ປ້ອນຄຳສຳຄັນ'
+      noMatch:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0E81\u0EBB\u0E87\u0E81\u0EB1\u0E99',
+      noData: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      titles: ['\u0EA5\u0EB2\u0E8D\u0E81\u0EB2\u0E99 1', '\u0EA5\u0EB2\u0E8D\u0E81\u0EB2\u0E99 2'],
+      filterPlaceholder: '\u0E9B\u0EC9\u0EAD\u0E99\u0E84\u0EB3\u0EAA\u0EB3\u0E84\u0EB1\u0E99',
+      noCheckedFormat: '{total} \u0EA5\u0EB2\u0E8D\u0E81\u0EB2\u0E99',
+      hasCheckedFormat: '{checked}/{total} \u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+      searchPlaceholder: '\u0E9B\u0EC9\u0EAD\u0E99\u0E84\u0EB3\u0EAA\u0EB3\u0E84\u0EB1\u0E99'
     },
     // ຕາຕະລາງ
     table: {
-      emptyText: 'ບໍ່ມີຂໍ້ມູນ',
-      confirmFilter: 'ຢືນຢັນ',
-      resetFilter: 'ຣີເຊັດ',
-      clearFilter: 'ທັງໝົດ',
-      sumText: 'ລວມ',
-      loading: 'ກຳລັງໂຫຼດ...',
-      index: 'ດັດຊະນີ',
-      print: 'ພິມ',
-      cancel: 'ຍົກເລີກ',
-      preview: 'ຕົວຢ່າງການພິມ',
-      printTime: 'ເວລາພິມ',
-      total: 'ລວມ {total} ລາຍການ',
-      page: 'ໜ້າ {page}',
-      yes: 'ແມ່ນ',
-      no: 'ບໍ່',
+      emptyText: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      confirmFilter: '\u0EA2\u0EB7\u0E99\u0EA2\u0EB1\u0E99',
+      resetFilter: '\u0EA3\u0EB5\u0EC0\u0E8A\u0EB1\u0E94',
+      clearFilter: '\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+      sumText: '\u0EA5\u0EA7\u0EA1',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      index: '\u0E94\u0EB1\u0E94\u0E8A\u0EB0\u0E99\u0EB5',
+      print: '\u0E9E\u0EB4\u0EA1',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      preview: '\u0E95\u0EBB\u0EA7\u0EA2\u0EC8\u0EB2\u0E87\u0E81\u0EB2\u0E99\u0E9E\u0EB4\u0EA1',
+      printTime: '\u0EC0\u0EA7\u0EA5\u0EB2\u0E9E\u0EB4\u0EA1',
+      total: '\u0EA5\u0EA7\u0EA1 {total} \u0EA5\u0EB2\u0E8D\u0E81\u0EB2\u0E99',
+      page: '\u0EDC\u0EC9\u0EB2 {page}',
+      yes: '\u0EC1\u0EA1\u0EC8\u0E99',
+      no: '\u0E9A\u0ECD\u0EC8',
       // ແຖບເຄື່ອງມື
       toolbar: {
-        refresh: 'ຣີເຟຣດ',
-        density: 'ຄວາມໜາແໜ້ນ',
-        densityDefault: 'ເລີ່ມຕົ້ນ',
-        densityLarge: 'ໃຫຍ່',
-        densitySmall: 'ນ້ອຍ',
-        columnSetting: 'ການຕັ້ງຄ່າຖັນ',
-        fullscreen: 'ໜ້າຈໍເຕັມ',
-        exitFullscreen: 'ອອກຈາກໜ້າຈໍເຕັມ',
-        export: 'ສົ່ງອອກ',
-        import: 'ນຳເຂົ້າ',
-        search: 'ຄົ້ນຫາ',
-        searchPlaceholder: 'ປ້ອນຄຳສຳຄັນເພື່ອຄົ້ນຫາ'
+        refresh: '\u0EA3\u0EB5\u0EC0\u0E9F\u0EA3\u0E94',
+        density: '\u0E84\u0EA7\u0EB2\u0EA1\u0EDC\u0EB2\u0EC1\u0EDC\u0EC9\u0E99',
+        densityDefault: '\u0EC0\u0EA5\u0EB5\u0EC8\u0EA1\u0E95\u0EBB\u0EC9\u0E99',
+        densityLarge: '\u0EC3\u0EAB\u0E8D\u0EC8',
+        densitySmall: '\u0E99\u0EC9\u0EAD\u0E8D',
+        columnSetting:
+          '\u0E81\u0EB2\u0E99\u0E95\u0EB1\u0EC9\u0E87\u0E84\u0EC8\u0EB2\u0E96\u0EB1\u0E99',
+        fullscreen: '\u0EDC\u0EC9\u0EB2\u0E88\u0ECD\u0EC0\u0E95\u0EB1\u0EA1',
+        exitFullscreen:
+          '\u0EAD\u0EAD\u0E81\u0E88\u0EB2\u0E81\u0EDC\u0EC9\u0EB2\u0E88\u0ECD\u0EC0\u0E95\u0EB1\u0EA1',
+        export: '\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81',
+        import: '\u0E99\u0EB3\u0EC0\u0E82\u0EBB\u0EC9\u0EB2',
+        search: '\u0E84\u0EBB\u0EC9\u0E99\u0EAB\u0EB2',
+        searchPlaceholder:
+          '\u0E9B\u0EC9\u0EAD\u0E99\u0E84\u0EB3\u0EAA\u0EB3\u0E84\u0EB1\u0E99\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0E84\u0EBB\u0EC9\u0E99\u0EAB\u0EB2'
       },
       // ຕົວກອງ
       filter: {
-        selectAll: 'ເລືອກທັງໝົດ',
-        selectInvert: 'ກັບການເລືອກ',
-        empty: 'ເປົ່າ',
-        notEmpty: 'ບໍ່ເປົ່າ',
-        contains: 'ມີ',
-        notContains: 'ບໍ່ມີ',
-        equals: 'ເທົ່າ',
-        notEquals: 'ບໍ່ເທົ່າ',
-        startsWith: 'ເລີ່ມຕົ້ນດ້ວຍ',
-        endsWith: 'ສິ້ນສຸດດ້ວຍ',
-        greaterThan: 'ໃຫຍ່ກວ່າ',
-        lessThan: 'ນ້ອຍກວ່າ',
-        between: 'ລະຫວ່າງ'
+        selectAll: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        selectInvert: '\u0E81\u0EB1\u0E9A\u0E81\u0EB2\u0E99\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+        empty: '\u0EC0\u0E9B\u0EBB\u0EC8\u0EB2',
+        notEmpty: '\u0E9A\u0ECD\u0EC8\u0EC0\u0E9B\u0EBB\u0EC8\u0EB2',
+        contains: '\u0EA1\u0EB5',
+        notContains: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5',
+        equals: '\u0EC0\u0E97\u0EBB\u0EC8\u0EB2',
+        notEquals: '\u0E9A\u0ECD\u0EC8\u0EC0\u0E97\u0EBB\u0EC8\u0EB2',
+        startsWith:
+          '\u0EC0\u0EA5\u0EB5\u0EC8\u0EA1\u0E95\u0EBB\u0EC9\u0E99\u0E94\u0EC9\u0EA7\u0E8D',
+        endsWith: '\u0EAA\u0EB4\u0EC9\u0E99\u0EAA\u0EB8\u0E94\u0E94\u0EC9\u0EA7\u0E8D',
+        greaterThan: '\u0EC3\u0EAB\u0E8D\u0EC8\u0E81\u0EA7\u0EC8\u0EB2',
+        lessThan: '\u0E99\u0EC9\u0EAD\u0E8D\u0E81\u0EA7\u0EC8\u0EB2',
+        between: '\u0EA5\u0EB0\u0EAB\u0EA7\u0EC8\u0EB2\u0E87'
       },
       // ການຈັດລຽງ
       sort: {
-        asc: 'ເພີ່ມຂຶ້ນ',
-        desc: 'ຫຼຸດລົງ',
-        clear: 'ລ້າງການຈັດລຽງ'
+        asc: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0E82\u0EB6\u0EC9\u0E99',
+        desc: '\u0EAB\u0EBC\u0EB8\u0E94\u0EA5\u0EBB\u0E87',
+        clear: '\u0EA5\u0EC9\u0EB2\u0E87\u0E81\u0EB2\u0E99\u0E88\u0EB1\u0E94\u0EA5\u0EBD\u0E87'
       },
       // ການສົ່ງອອກ
       export: {
-        title: 'ສົ່ງອອກຂໍ້ມູນ',
-        filename: 'ຊື່ໄຟລ໌',
-        type: 'ປະເພດໄຟລ໌',
-        scope: 'ຂອບເຂດການສົ່ງອອກ',
-        scopeAll: 'ຂໍ້ມູນທັງໝົດ',
-        scopeSelected: 'ຂໍ້ມູນທີ່ເລືອກ',
-        scopeCurrentPage: 'ໜ້າປັດຈຸບັນ',
-        includeHeader: 'ລວມຫົວຂໍ້',
-        exporting: 'ກຳລັງສົ່ງອອກ...',
-        success: 'ການສົ່ງອອກສຳເລັດ',
-        error: 'ການສົ່ງອອກລົ້ມເຫຼວ'
+        title: '\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+        filename: '\u0E8A\u0EB7\u0EC8\u0EC4\u0E9F\u0EA5\u0ECC',
+        type: '\u0E9B\u0EB0\u0EC0\u0E9E\u0E94\u0EC4\u0E9F\u0EA5\u0ECC',
+        scope:
+          '\u0E82\u0EAD\u0E9A\u0EC0\u0E82\u0E94\u0E81\u0EB2\u0E99\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81',
+        scopeAll: '\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        scopeSelected:
+          '\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+        scopeCurrentPage: '\u0EDC\u0EC9\u0EB2\u0E9B\u0EB1\u0E94\u0E88\u0EB8\u0E9A\u0EB1\u0E99',
+        includeHeader: '\u0EA5\u0EA7\u0EA1\u0EAB\u0EBB\u0EA7\u0E82\u0ECD\u0EC9',
+        exporting: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81...',
+        success:
+          '\u0E81\u0EB2\u0E99\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94',
+        error:
+          '\u0E81\u0EB2\u0E99\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7'
       },
       // ການນຳເຂົ້າ
       import: {
-        title: 'ນຳເຂົ້າຂໍ້ມູນ',
-        selectFile: 'ເລືອກໄຟລ໌',
-        dragTip: 'ກົດຫຼືລາກໄຟລ໌ມາທີ່ນີ້ເພື່ອອັບໂຫຼດ',
-        importing: 'ກຳລັງນຳເຂົ້າ...',
-        success: 'ການນຳເຂົ້າສຳເລັດ',
-        error: 'ການນຳເຂົ້າລົ້ມເຫຼວ',
-        preview: 'ຕົວຢ່າງຂໍ້ມູນ',
-        confirm: 'ຢືນຢັນການນຳເຂົ້າ'
+        title: '\u0E99\u0EB3\u0EC0\u0E82\u0EBB\u0EC9\u0EB2\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+        selectFile: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0EC4\u0E9F\u0EA5\u0ECC',
+        dragTip:
+          '\u0E81\u0EBB\u0E94\u0EAB\u0EBC\u0EB7\u0EA5\u0EB2\u0E81\u0EC4\u0E9F\u0EA5\u0ECC\u0EA1\u0EB2\u0E97\u0EB5\u0EC8\u0E99\u0EB5\u0EC9\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94',
+        importing: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0E99\u0EB3\u0EC0\u0E82\u0EBB\u0EC9\u0EB2...',
+        success:
+          '\u0E81\u0EB2\u0E99\u0E99\u0EB3\u0EC0\u0E82\u0EBB\u0EC9\u0EB2\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94',
+        error:
+          '\u0E81\u0EB2\u0E99\u0E99\u0EB3\u0EC0\u0E82\u0EBB\u0EC9\u0EB2\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7',
+        preview: '\u0E95\u0EBB\u0EA7\u0EA2\u0EC8\u0EB2\u0E87\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+        confirm:
+          '\u0EA2\u0EB7\u0E99\u0EA2\u0EB1\u0E99\u0E81\u0EB2\u0E99\u0E99\u0EB3\u0EC0\u0E82\u0EBB\u0EC9\u0EB2'
       },
       // ການພິມ
       printConfig: {
-        title: 'ການຕັ້ງຄ່າການພິມ',
-        pageTitle: 'ຫົວຂໍ້ໜ້າ',
-        pageHeader: 'ຫົວຂໍ້',
-        pageFooter: 'ສ່ວນທ້າຍ',
-        printAll: 'ພິມທັງໝົດ',
-        printSelected: 'ພິມທີ່ເລືອກ',
-        printCurrentPage: 'ພິມໜ້າປັດຈຸບັນ',
-        landscape: 'ນອນ',
-        portrait: 'ຕັ້ງ',
-        printing: 'ກຳລັງພິມ...'
+        title:
+          '\u0E81\u0EB2\u0E99\u0E95\u0EB1\u0EC9\u0E87\u0E84\u0EC8\u0EB2\u0E81\u0EB2\u0E99\u0E9E\u0EB4\u0EA1',
+        pageTitle: '\u0EAB\u0EBB\u0EA7\u0E82\u0ECD\u0EC9\u0EDC\u0EC9\u0EB2',
+        pageHeader: '\u0EAB\u0EBB\u0EA7\u0E82\u0ECD\u0EC9',
+        pageFooter: '\u0EAA\u0EC8\u0EA7\u0E99\u0E97\u0EC9\u0EB2\u0E8D',
+        printAll: '\u0E9E\u0EB4\u0EA1\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        printSelected: '\u0E9E\u0EB4\u0EA1\u0E97\u0EB5\u0EC8\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+        printCurrentPage:
+          '\u0E9E\u0EB4\u0EA1\u0EDC\u0EC9\u0EB2\u0E9B\u0EB1\u0E94\u0E88\u0EB8\u0E9A\u0EB1\u0E99',
+        landscape: '\u0E99\u0EAD\u0E99',
+        portrait: '\u0E95\u0EB1\u0EC9\u0E87',
+        printing: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0E9E\u0EB4\u0EA1...'
       },
       // ການຕັ້ງຄ່າຖັນ
       columnSetting: {
-        title: 'ການຕັ້ງຄ່າຖັນ',
-        showAll: 'ສະແດງທັງໝົດ',
-        hideAll: 'ເຊື່ອງທັງໝົດ',
-        reset: 'ຣີເຊັດ',
-        fixedLeft: 'ຕິດຊ້າຍ',
-        fixedRight: 'ຕິດຂວາ',
-        unfixed: 'ຍົກເລີກການຕິດ'
+        title: '\u0E81\u0EB2\u0E99\u0E95\u0EB1\u0EC9\u0E87\u0E84\u0EC8\u0EB2\u0E96\u0EB1\u0E99',
+        showAll: '\u0EAA\u0EB0\u0EC1\u0E94\u0E87\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        hideAll: '\u0EC0\u0E8A\u0EB7\u0EC8\u0EAD\u0E87\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        reset: '\u0EA3\u0EB5\u0EC0\u0E8A\u0EB1\u0E94',
+        fixedLeft: '\u0E95\u0EB4\u0E94\u0E8A\u0EC9\u0EB2\u0E8D',
+        fixedRight: '\u0E95\u0EB4\u0E94\u0E82\u0EA7\u0EB2',
+        unfixed: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81\u0E81\u0EB2\u0E99\u0E95\u0EB4\u0E94'
       },
       // ເມນູບໍລິບົດ
       contextMenu: {
-        copy: 'ສຳເນົາ',
-        copyRow: 'ສຳເນົາບັນທັດ',
-        copyCell: 'ສຳເນົາເຊລ',
-        paste: 'ວາງ',
-        insertRowAbove: 'ເພີ່ມບັນທັດຂ້າງເທິງ',
-        insertRowBelow: 'ເພີ່ມບັນທັດຂ້າງລຸ່ມ',
-        deleteRow: 'ລຶບບັນທັດ',
-        deleteSelectedRows: 'ລຶບບັນທັດທີ່ເລືອກ',
-        exportSelected: 'ສົ່ງອອກທີ່ເລືອກ'
+        copy: '\u0EAA\u0EB3\u0EC0\u0E99\u0EBB\u0EB2',
+        copyRow: '\u0EAA\u0EB3\u0EC0\u0E99\u0EBB\u0EB2\u0E9A\u0EB1\u0E99\u0E97\u0EB1\u0E94',
+        copyCell: '\u0EAA\u0EB3\u0EC0\u0E99\u0EBB\u0EB2\u0EC0\u0E8A\u0EA5',
+        paste: '\u0EA7\u0EB2\u0E87',
+        insertRowAbove:
+          '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0E9A\u0EB1\u0E99\u0E97\u0EB1\u0E94\u0E82\u0EC9\u0EB2\u0E87\u0EC0\u0E97\u0EB4\u0E87',
+        insertRowBelow:
+          '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0E9A\u0EB1\u0E99\u0E97\u0EB1\u0E94\u0E82\u0EC9\u0EB2\u0E87\u0EA5\u0EB8\u0EC8\u0EA1',
+        deleteRow: '\u0EA5\u0EB6\u0E9A\u0E9A\u0EB1\u0E99\u0E97\u0EB1\u0E94',
+        deleteSelectedRows:
+          '\u0EA5\u0EB6\u0E9A\u0E9A\u0EB1\u0E99\u0E97\u0EB1\u0E94\u0E97\u0EB5\u0EC8\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+        exportSelected:
+          '\u0EAA\u0EBB\u0EC8\u0E87\u0EAD\u0EAD\u0E81\u0E97\u0EB5\u0EC8\u0EC0\u0EA5\u0EB7\u0EAD\u0E81'
       },
       // ການເລືອກ
       selection: {
-        selectAll: 'ເລືອກທັງໝົດ',
-        selectInvert: 'ກັບການເລືອກ',
-        selectNone: 'ລ້າງການເລືອກ',
-        selected: '{count} ລາຍການທີ່ເລືອກ'
+        selectAll: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        selectInvert: '\u0E81\u0EB1\u0E9A\u0E81\u0EB2\u0E99\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+        selectNone: '\u0EA5\u0EC9\u0EB2\u0E87\u0E81\u0EB2\u0E99\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+        selected:
+          '{count} \u0EA5\u0EB2\u0E8D\u0E81\u0EB2\u0E99\u0E97\u0EB5\u0EC8\u0EC0\u0EA5\u0EB7\u0EAD\u0E81'
       },
       // ການຂະຫຍາຍ
       expand: {
-        expandAll: 'ຂະຫຍາຍທັງໝົດ',
-        collapseAll: 'ຫຍໍ້ທັງໝົດ'
+        expandAll: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        collapseAll: '\u0EAB\u0E8D\u0ECD\u0EC9\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94'
       },
       // ເຄື່ອງປ່ອຍ
       tree: {
-        expandAll: 'ຂະຫຍາຍທັງໝົດ',
-        collapseAll: 'ຫຍໍ້ທັງໝົດ',
-        expandLevel: 'ຂະຫຍາຍເຖິງລະດັບ {level}'
+        expandAll: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        collapseAll: '\u0EAB\u0E8D\u0ECD\u0EC9\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+        expandLevel:
+          '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D\u0EC0\u0E96\u0EB4\u0E87\u0EA5\u0EB0\u0E94\u0EB1\u0E9A {level}'
       },
       // ການລາກ
       drag: {
-        dragTip: 'ລາກເພື່ອຈັດລຽງໃໝ່',
-        dropTip: 'ປ່ອຍເພື່ອວາງ'
+        dragTip:
+          '\u0EA5\u0EB2\u0E81\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0E88\u0EB1\u0E94\u0EA5\u0EBD\u0E87\u0EC3\u0EDD\u0EC8',
+        dropTip: '\u0E9B\u0EC8\u0EAD\u0E8D\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EA7\u0EB2\u0E87'
       }
     },
     // ກ່ອງຂໍ້ຄວາມ
     messagebox: {
-      title: 'ຂໍ້ຄວາມ',
-      confirm: 'ຕົກລົງ',
-      cancel: 'ຍົກເລີກ',
-      close: 'ປິດ',
-      error: 'ການປ້ອນຂໍ້ມູນບໍ່ຖືກຕ້ອງ',
-      alert: 'ແຈ້ງເຕືອນ',
-      prompt: 'ການກະຕຸ້ນ',
-      inputPlaceholder: 'ກະລຸນາປ້ອນ'
+      title: '\u0E82\u0ECD\u0EC9\u0E84\u0EA7\u0EB2\u0EA1',
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      close: '\u0E9B\u0EB4\u0E94',
+      error:
+        '\u0E81\u0EB2\u0E99\u0E9B\u0EC9\u0EAD\u0E99\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E9A\u0ECD\u0EC8\u0E96\u0EB7\u0E81\u0E95\u0EC9\u0EAD\u0E87',
+      alert: '\u0EC1\u0E88\u0EC9\u0E87\u0EC0\u0E95\u0EB7\u0EAD\u0E99',
+      prompt: '\u0E81\u0EB2\u0E99\u0E81\u0EB0\u0E95\u0EB8\u0EC9\u0E99',
+      inputPlaceholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0E9B\u0EC9\u0EAD\u0E99'
     },
     // ການອັບໂຫຼດ
     upload: {
-      deleteTip: 'ກົດ delete ເພື່ອລຶບ',
-      delete: 'ລຶບ',
-      preview: 'ຕົວຢ່າງ',
-      continue: 'ສືບຕໍ່',
-      upload: 'ກົດເພື່ອອັບໂຫຼດ',
-      tip: 'ກົດຫຼືລາກໄຟລ໌ມາພື້ນທີ່ນີ້ເພື່ອ <em>ອັບໂຫຼດ</em>',
-      dragTip: 'ປ່ອຍໄຟລ໌ທີ່ນີ້ຫຼືກົດເພື່ອອັບໂຫຼດ',
-      uploading: 'ກຳລັງອັບໂຫຼດ...',
-      success: 'ການອັບໂຫຼດສຳເລັດ',
-      error: 'ການອັບໂຫຼດລົ້ມເຫຼວ',
-      retry: 'ລອງອີກ',
-      cancel: 'ຍົກເລີກການອັບໂຫຼດ',
-      fileTypeError: 'ປະເພດໄຟລ໌ບໍ່ຮອງຮັບ',
-      fileSizeError: 'ຂະໜາດໄຟລ໌ເກີນຂີດຈຳກັດ',
-      fileCountError: 'ຈຳນວນໄຟລ໌ເກີນຂີດຈຳກັດ'
+      deleteTip: '\u0E81\u0EBB\u0E94 delete \u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EA5\u0EB6\u0E9A',
+      delete: '\u0EA5\u0EB6\u0E9A',
+      preview: '\u0E95\u0EBB\u0EA7\u0EA2\u0EC8\u0EB2\u0E87',
+      continue: '\u0EAA\u0EB7\u0E9A\u0E95\u0ECD\u0EC8',
+      upload:
+        '\u0E81\u0EBB\u0E94\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94',
+      tip: '\u0E81\u0EBB\u0E94\u0EAB\u0EBC\u0EB7\u0EA5\u0EB2\u0E81\u0EC4\u0E9F\u0EA5\u0ECC\u0EA1\u0EB2\u0E9E\u0EB7\u0EC9\u0E99\u0E97\u0EB5\u0EC8\u0E99\u0EB5\u0EC9\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD <em>\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94</em>',
+      dragTip:
+        '\u0E9B\u0EC8\u0EAD\u0E8D\u0EC4\u0E9F\u0EA5\u0ECC\u0E97\u0EB5\u0EC8\u0E99\u0EB5\u0EC9\u0EAB\u0EBC\u0EB7\u0E81\u0EBB\u0E94\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94',
+      uploading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94...',
+      success:
+        '\u0E81\u0EB2\u0E99\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94',
+      error:
+        '\u0E81\u0EB2\u0E99\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7',
+      retry: '\u0EA5\u0EAD\u0E87\u0EAD\u0EB5\u0E81',
+      cancel:
+        '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81\u0E81\u0EB2\u0E99\u0EAD\u0EB1\u0E9A\u0EC2\u0EAB\u0EBC\u0E94',
+      fileTypeError:
+        '\u0E9B\u0EB0\u0EC0\u0E9E\u0E94\u0EC4\u0E9F\u0EA5\u0ECC\u0E9A\u0ECD\u0EC8\u0EAE\u0EAD\u0E87\u0EAE\u0EB1\u0E9A',
+      fileSizeError:
+        '\u0E82\u0EB0\u0EDC\u0EB2\u0E94\u0EC4\u0E9F\u0EA5\u0ECC\u0EC0\u0E81\u0EB5\u0E99\u0E82\u0EB5\u0E94\u0E88\u0EB3\u0E81\u0EB1\u0E94',
+      fileCountError:
+        '\u0E88\u0EB3\u0E99\u0EA7\u0E99\u0EC4\u0E9F\u0EA5\u0ECC\u0EC0\u0E81\u0EB5\u0E99\u0E82\u0EB5\u0E94\u0E88\u0EB3\u0E81\u0EB1\u0E94'
     },
     // ແບບຟອມ
     form: {
-      validationFailed: 'ການກວດສອບລົ້ມເຫຼວ',
-      required: 'ຈຳເປັນ',
-      pleaseInput: 'ກະລຸນາປ້ອນ',
-      pleaseSelect: 'ກະລຸນາເລືອກ'
+      validationFailed:
+        '\u0E81\u0EB2\u0E99\u0E81\u0EA7\u0E94\u0EAA\u0EAD\u0E9A\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7',
+      required: '\u0E88\u0EB3\u0EC0\u0E9B\u0EB1\u0E99',
+      pleaseInput: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0E9B\u0EC9\u0EAD\u0E99',
+      pleaseSelect: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0EC0\u0EA5\u0EB7\u0EAD\u0E81'
     },
     // ປຸ່ມ
     button: {
-      loading: 'ກຳລັງໂຫຼດ...'
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...'
     },
     // ການປ້ອນຂໍ້ມູນ
     input: {
-      placeholder: 'ກະລຸນາປ້ອນ',
-      clear: 'ລ້າງ',
-      showPassword: 'ສະແດງລະຫັດຜ່ານ',
-      hidePassword: 'ເຊື່ອງລະຫັດຜ່ານ',
-      copy: 'ສຳເນົາ',
-      copied: 'ສຳເນົາແລ້ວ'
+      placeholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0E9B\u0EC9\u0EAD\u0E99',
+      clear: '\u0EA5\u0EC9\u0EB2\u0E87',
+      showPassword:
+        '\u0EAA\u0EB0\u0EC1\u0E94\u0E87\u0EA5\u0EB0\u0EAB\u0EB1\u0E94\u0E9C\u0EC8\u0EB2\u0E99',
+      hidePassword:
+        '\u0EC0\u0E8A\u0EB7\u0EC8\u0EAD\u0E87\u0EA5\u0EB0\u0EAB\u0EB1\u0E94\u0E9C\u0EC8\u0EB2\u0E99',
+      copy: '\u0EAA\u0EB3\u0EC0\u0E99\u0EBB\u0EB2',
+      copied: '\u0EAA\u0EB3\u0EC0\u0E99\u0EBB\u0EB2\u0EC1\u0EA5\u0EC9\u0EA7'
     },
     // ການປ້ອນເລກ
     inputnumber: {
-      placeholder: 'ກະລຸນາປ້ອນເລກ',
-      increase: 'ເພີ່ມ',
-      decrease: 'ຫຼຸດ'
+      placeholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0E9B\u0EC9\u0EAD\u0E99\u0EC0\u0EA5\u0E81',
+      increase: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1',
+      decrease: '\u0EAB\u0EBC\u0EB8\u0E94'
     },
     // ການປ້ອນແທັກ
     inputtag: {
-      placeholder: 'ກະລຸນາປ້ອນ',
-      add: 'ເພີ່ມ',
-      remove: 'ລຶບ'
+      placeholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0E9B\u0EC9\u0EAD\u0E99',
+      add: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1',
+      remove: '\u0EA5\u0EB6\u0E9A'
     },
     // ເສັ້ນທາງນຳທາງ
     breadcrumb: {
-      label: 'ເສັ້ນທາງນຳທາງ',
-      more: 'ເພີ່ມເຕີມ'
+      label: '\u0EC0\u0EAA\u0EB1\u0EC9\u0E99\u0E97\u0EB2\u0E87\u0E99\u0EB3\u0E97\u0EB2\u0E87',
+      more: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0EC0\u0E95\u0EB5\u0EA1'
     },
     // ກັບຂຶ້ນດ້ານເທິງ
     backtop: {
-      text: 'ກັບຂຶ້ນດ້ານເທິງ'
+      text: '\u0E81\u0EB1\u0E9A\u0E82\u0EB6\u0EC9\u0E99\u0E94\u0EC9\u0EB2\u0E99\u0EC0\u0E97\u0EB4\u0E87'
     },
     // ການເລືອກ
     select: {
-      placeholder: 'ກະລຸນາເລືອກ',
-      noData: 'ບໍ່ມີຂໍ້ມູນ',
-      loading: 'ກຳລັງໂຫຼດ...',
-      noMatch: 'ບໍ່ມີຂໍ້ມູນທີ່ກົງກັນ',
-      selectAll: 'ເລືອກທັງໝົດ',
-      clearAll: 'ລ້າງທັງໝົດ'
+      placeholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0EC0\u0EA5\u0EB7\u0EAD\u0E81',
+      noData: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      noMatch:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0E97\u0EB5\u0EC8\u0E81\u0EBB\u0E87\u0E81\u0EB1\u0E99',
+      selectAll: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94',
+      clearAll: '\u0EA5\u0EC9\u0EB2\u0E87\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94'
     },
     // ການແບ່ງໜ້າ
     pagination: {
-      goto: 'ໄປທີ່',
+      goto: '\u0EC4\u0E9B\u0E97\u0EB5\u0EC8',
       page: '',
-      total: 'ລວມ {total}',
-      pageSize: '/ໜ້າ',
-      prev: 'ກ່ອນໜ້າ',
-      next: 'ຖັດໄປ',
-      first: 'ທຳອິດ',
-      last: 'ສຸດທ້າຍ',
+      total: '\u0EA5\u0EA7\u0EA1 {total}',
+      pageSize: '/\u0EDC\u0EC9\u0EB2',
+      prev: '\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      next: '\u0E96\u0EB1\u0E94\u0EC4\u0E9B',
+      first: '\u0E97\u0EB3\u0EAD\u0EB4\u0E94',
+      last: '\u0EAA\u0EB8\u0E94\u0E97\u0EC9\u0EB2\u0E8D',
       pageClassifier: ''
     },
     // ການຢືນຢັນປັອບອັບ
     popconfirm: {
-      confirm: 'ຕົກລົງ',
-      cancel: 'ຍົກເລີກ',
-      dontAskAgain: 'ບໍ່ຖາມອີກ'
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      dontAskAgain: '\u0E9A\u0ECD\u0EC8\u0E96\u0EB2\u0EA1\u0EAD\u0EB5\u0E81'
     },
     // ກ່ອງຂໍ້ຄວາມ
     dialog: {
-      confirm: 'ຕົກລົງ',
-      cancel: 'ຍົກເລີກ',
-      close: 'ປິດ',
-      maximize: 'ຂະຫຍາຍເຕັມ',
-      restore: 'ຟື້ນຟູ'
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81',
+      close: '\u0E9B\u0EB4\u0E94',
+      maximize: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D\u0EC0\u0E95\u0EB1\u0EA1',
+      restore: '\u0E9F\u0EB7\u0EC9\u0E99\u0E9F\u0EB9'
     },
     // ລິ້ງແບບລາກ
     drawer: {
-      close: 'ປິດ',
-      confirm: 'ຕົກລົງ',
-      cancel: 'ຍົກເລີກ'
+      close: '\u0E9B\u0EB4\u0E94',
+      confirm: '\u0E95\u0EBB\u0E81\u0EA5\u0EBB\u0E87',
+      cancel: '\u0E8D\u0EBB\u0E81\u0EC0\u0EA5\u0EB5\u0E81'
     },
     // ເມນູລົງ
     dropdown: {
-      loading: 'ກຳລັງໂຫຼດ...'
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...'
     },
     // ຮູບພາບ
     image: {
-      error: 'ລົ້ມເຫຼວ',
-      loading: 'ກຳລັງໂຫຼດ...',
-      preview: 'ຕົວຢ່າງ',
-      zoomIn: 'ຂະຫຍາຍ',
-      zoomOut: 'ຫຍໍ້',
-      rotateLeft: 'ຫມຸນຊ້າຍ',
-      rotateRight: 'ຫມຸນຂວາ',
-      originalSize: 'ຂະໜາດເດີມ',
-      fullscreen: 'ໜ້າຈໍເຕັມ'
+      error: '\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7',
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      preview: '\u0E95\u0EBB\u0EA7\u0EA2\u0EC8\u0EB2\u0E87',
+      zoomIn: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D',
+      zoomOut: '\u0EAB\u0E8D\u0ECD\u0EC9',
+      rotateLeft: '\u0EAB\u0EA1\u0EB8\u0E99\u0E8A\u0EC9\u0EB2\u0E8D',
+      rotateRight: '\u0EAB\u0EA1\u0EB8\u0E99\u0E82\u0EA7\u0EB2',
+      originalSize: '\u0E82\u0EB0\u0EDC\u0EB2\u0E94\u0EC0\u0E94\u0EB5\u0EA1',
+      fullscreen: '\u0EDC\u0EC9\u0EB2\u0E88\u0ECD\u0EC0\u0E95\u0EB1\u0EA1'
     },
     // ຕົວເບິ່ງຮູບພາບ
     imageviewer: {
-      close: 'ປິດ',
-      prev: 'ກ່ອນໜ້າ',
-      next: 'ຖັດໄປ',
-      zoomIn: 'ຂະຫຍາຍ',
-      zoomOut: 'ຫຍໍ້',
-      rotateLeft: 'ຫມຸນຊ້າຍ',
-      rotateRight: 'ຫມຸນຂວາ',
-      reset: 'ຣີເຊັດ',
-      fullscreen: 'ໜ້າຈໍເຕັມ',
-      exitFullscreen: 'ອອກຈາກໜ້າຈໍເຕັມ'
+      close: '\u0E9B\u0EB4\u0E94',
+      prev: '\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      next: '\u0E96\u0EB1\u0E94\u0EC4\u0E9B',
+      zoomIn: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D',
+      zoomOut: '\u0EAB\u0E8D\u0ECD\u0EC9',
+      rotateLeft: '\u0EAB\u0EA1\u0EB8\u0E99\u0E8A\u0EC9\u0EB2\u0E8D',
+      rotateRight: '\u0EAB\u0EA1\u0EB8\u0E99\u0E82\u0EA7\u0EB2',
+      reset: '\u0EA3\u0EB5\u0EC0\u0E8A\u0EB1\u0E94',
+      fullscreen: '\u0EDC\u0EC9\u0EB2\u0E88\u0ECD\u0EC0\u0E95\u0EB1\u0EA1',
+      exitFullscreen:
+        '\u0EAD\u0EAD\u0E81\u0E88\u0EB2\u0E81\u0EDC\u0EC9\u0EB2\u0E88\u0ECD\u0EC0\u0E95\u0EB1\u0EA1'
     },
     // ການເລື່ອນບໍ່ຈຳກັດ
     infinitescroll: {
-      loading: 'ກຳລັງໂຫຼດ...',
-      finished: 'ບໍ່ມີຂໍ້ມູນເພີ່ມເຕີມ',
-      error: 'ການໂຫຼດລົ້ມເຫຼວ, ກົດເພື່ອລອງອີກ',
-      retry: 'ກົດເພື່ອລອງອີກ'
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      finished:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0EC0\u0E95\u0EB5\u0EA1',
+      error:
+        '\u0E81\u0EB2\u0E99\u0EC2\u0EAB\u0EBC\u0E94\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7, \u0E81\u0EBB\u0E94\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EA5\u0EAD\u0E87\u0EAD\u0EB5\u0E81',
+      retry: '\u0E81\u0EBB\u0E94\u0EC0\u0E9E\u0EB7\u0EC8\u0EAD\u0EA5\u0EAD\u0E87\u0EAD\u0EB5\u0E81'
     },
     // ຂໍ້ຄວາມ
     message: {
-      close: 'ປິດ'
+      close: '\u0E9B\u0EB4\u0E94'
     },
     // ການແຈ້ງເຕືອນ
     notification: {
-      close: 'ປິດ'
+      close: '\u0E9B\u0EB4\u0E94'
     },
     // ການໂຫຼດ
     loading: {
-      text: 'ກຳລັງໂຫຼດ...'
+      text: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...'
     },
     // ການຫມຸນ
     spin: {
-      text: 'ກຳລັງໂຫຼດ...'
+      text: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...'
     },
     // ການຈັດອັດຕາ
     rate: {
-      texts: ['ເຮັດແບບບໍ່ດີເລີຍ', 'ຜິດຫວັງ', 'ປານກາງ', 'ພໍໃຈ', 'ແປກໃຈ']
+      texts: [
+        '\u0EC0\u0EAE\u0EB1\u0E94\u0EC1\u0E9A\u0E9A\u0E9A\u0ECD\u0EC8\u0E94\u0EB5\u0EC0\u0EA5\u0EB5\u0E8D',
+        '\u0E9C\u0EB4\u0E94\u0EAB\u0EA7\u0EB1\u0E87',
+        '\u0E9B\u0EB2\u0E99\u0E81\u0EB2\u0E87',
+        '\u0E9E\u0ECD\u0EC3\u0E88',
+        '\u0EC1\u0E9B\u0E81\u0EC3\u0E88'
+      ]
     },
     // ແຈ້ງເຕືອນ
     alert: {
-      close: 'ປິດ'
+      close: '\u0E9B\u0EB4\u0E94'
     },
     // ແທັກ
     tag: {
-      close: 'ປິດ'
+      close: '\u0E9B\u0EB4\u0E94'
     },
     // ແຖບ
     tabs: {
-      close: 'ປິດ',
-      add: 'ເພີ່ມ',
-      more: 'ເພີ່ມເຕີມ'
+      close: '\u0E9B\u0EB4\u0E94',
+      add: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1',
+      more: '\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0EC0\u0E95\u0EB5\u0EA1'
     },
     // ຂັ້ນຕອນ
     steps: {
-      finish: 'ສຳເລັດ',
-      process: 'ກຳລັງດຳເນີນການ',
-      wait: 'ລໍຖ້າ',
-      error: 'ຂໍ້ຜິດພາດ'
+      finish: '\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94',
+      process:
+        '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0E94\u0EB3\u0EC0\u0E99\u0EB5\u0E99\u0E81\u0EB2\u0E99',
+      wait: '\u0EA5\u0ECD\u0E96\u0EC9\u0EB2',
+      error: '\u0E82\u0ECD\u0EC9\u0E9C\u0EB4\u0E94\u0E9E\u0EB2\u0E94'
     },
     // ຄວາມຄືບໜ້າ
     progress: {
-      success: 'ສຳເລັດ',
-      exception: 'ຂໍ້ຍົກເວັ້ນ',
-      warning: 'ແຈ້ງເຕືອນ'
+      success: '\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94',
+      exception: '\u0E82\u0ECD\u0EC9\u0E8D\u0EBB\u0E81\u0EC0\u0EA7\u0EB1\u0EC9\u0E99',
+      warning: '\u0EC1\u0E88\u0EC9\u0E87\u0EC0\u0E95\u0EB7\u0EAD\u0E99'
     },
     // ໂຄງກະດູກ
     skeleton: {
-      loading: 'ກຳລັງໂຫຼດ...'
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...'
     },
     // ເປົ່າ
     empty: {
-      description: 'ບໍ່ມີຂໍ້ມູນ',
-      noData: 'ບໍ່ມີຂໍ້ມູນ',
-      noResult: 'ບໍ່ມີຜົນລັບ',
-      networkError: 'ຂໍ້ຜິດພາດເຄືອຂ່າຍ',
-      serverError: 'ຂໍ້ຜິດພາດເຊີບເວີ'
+      description: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      noData: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      noResult: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E9C\u0EBB\u0E99\u0EA5\u0EB1\u0E9A',
+      networkError:
+        '\u0E82\u0ECD\u0EC9\u0E9C\u0EB4\u0E94\u0E9E\u0EB2\u0E94\u0EC0\u0E84\u0EB7\u0EAD\u0E82\u0EC8\u0EB2\u0E8D',
+      serverError:
+        '\u0E82\u0ECD\u0EC9\u0E9C\u0EB4\u0E94\u0E9E\u0EB2\u0E94\u0EC0\u0E8A\u0EB5\u0E9A\u0EC0\u0EA7\u0EB5'
     },
     // ຜົນລັບ
     result: {
-      success: 'ສຳເລັດ',
-      error: 'ຂໍ້ຜິດພາດ',
-      warning: 'ແຈ້ງເຕືອນ',
-      info: 'ຂໍ້ມູນ',
-      backHome: 'ກັບໄປໜ້າຫຼັກ'
+      success: '\u0EAA\u0EB3\u0EC0\u0EA5\u0EB1\u0E94',
+      error: '\u0E82\u0ECD\u0EC9\u0E9C\u0EB4\u0E94\u0E9E\u0EB2\u0E94',
+      warning: '\u0EC1\u0E88\u0EC9\u0E87\u0EC0\u0E95\u0EB7\u0EAD\u0E99',
+      info: '\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99',
+      backHome: '\u0E81\u0EB1\u0E9A\u0EC4\u0E9B\u0EDC\u0EC9\u0EB2\u0EAB\u0EBC\u0EB1\u0E81'
     },
     // ນ້ຳຕົກ
     waterfall: {
-      loading: 'ກຳລັງໂຫຼດ...',
-      noMore: 'ບໍ່ມີຂໍ້ມູນເພີ່ມເຕີມ',
-      empty: 'ບໍ່ມີຂໍ້ມູນ'
+      loading: '\u0E81\u0EB3\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      noMore:
+        '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99\u0EC0\u0E9E\u0EB5\u0EC8\u0EA1\u0EC0\u0E95\u0EB5\u0EA1',
+      empty: '\u0E9A\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99'
     },
     // ລາຍລະອຽດ
     descriptions: {
@@ -541,29 +600,29 @@ export const lo: Language = {
     },
     // ສະວິດ
     switch: {
-      on: 'ເປີດ',
-      off: 'ປິດ'
+      on: '\u0EC0\u0E9B\u0EB5\u0E94',
+      off: '\u0E9B\u0EB4\u0E94'
     },
     // ກ່ອງເລືອກ
     checkbox: {
-      selectAll: 'ເລືອກທັງໝົດ'
+      selectAll: '\u0EC0\u0EA5\u0EB7\u0EAD\u0E81\u0E97\u0EB1\u0E87\u0EDD\u0EBB\u0E94'
     },
     // ວິທີການ
     radio: {},
     // ເມນູ
     menu: {
-      collapse: 'ຫຍໍ້ເມນູ',
-      expand: 'ຂະຫຍາຍເມນູ'
+      collapse: '\u0EAB\u0E8D\u0ECD\u0EC9\u0EC0\u0EA1\u0E99\u0EB9',
+      expand: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D\u0EC0\u0EA1\u0E99\u0EB9'
     },
     // ບັດ
     card: {
-      collapse: 'ຫຍໍ້',
-      expand: 'ຂະຫຍາຍ'
+      collapse: '\u0EAB\u0E8D\u0ECD\u0EC9',
+      expand: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D'
     },
     // ການຫຍໍ້
     collapse: {
-      expand: 'ຂະຫຍາຍ',
-      collapse: 'ຫຍໍ້'
+      expand: '\u0E82\u0EB0\u0EAB\u0E8D\u0EB2\u0E8D',
+      collapse: '\u0EAB\u0E8D\u0ECD\u0EC9'
     },
     // ຄຳແນະນຳ
     tooltip: {},
@@ -573,7 +632,8 @@ export const lo: Language = {
     badge: {},
     // ຮູບພາບຕົວແທນ
     avatar: {
-      error: 'ການໂຫຼດລົ້ມເຫຼວ'
+      error:
+        '\u0E81\u0EB2\u0E99\u0EC2\u0EAB\u0EBC\u0E94\u0EA5\u0EBB\u0EC9\u0EA1\u0EC0\u0EAB\u0EBC\u0EA7'
     },
     // ລາຍນ້ຳ
     watermark: {},
@@ -581,8 +641,8 @@ export const lo: Language = {
     divider: {},
     // ການສະແດງສະລອຍ
     carousel: {
-      prev: 'ກ່ອນໜ້າ',
-      next: 'ຖັດໄປ'
+      prev: '\u0E81\u0EC8\u0EAD\u0E99\u0EDC\u0EC9\u0EB2',
+      next: '\u0E96\u0EB1\u0E94\u0EC4\u0E9B'
     },
     // ການເລື່ອນ
     marquee: {},
@@ -592,127 +652,143 @@ export const lo: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'ກະລຸນາໃສ່',
-      loading: 'ກໍາລັງໂຫຼດ...',
-      noData: '�ໍ່ມີຂໍ້ມູນ'
+      placeholder: '\u0E81\u0EB0\u0EA5\u0EB8\u0E99\u0EB2\u0EC3\u0EAA\u0EC8',
+      loading: '\u0E81\u0ECD\u0EB2\u0EA5\u0EB1\u0E87\u0EC2\u0EAB\u0EBC\u0E94...',
+      noData: '\uFFFD\u0ECD\u0EC8\u0EA1\u0EB5\u0E82\u0ECD\u0EC9\u0EA1\u0EB9\u0E99'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'ໝາຍ​ເຫດ'
+        citations: '\u0EDD\u0EB2\u0E8D\u200B\u0EC0\u0EAB\u0E94'
       },
       mention: {
-        placeholder: '@ ກ່າວ​ເຖິງ Agent, ເອ​ກະ​ສານ ຫຼື ຕາ​ຕະ​ລາງ...',
+        placeholder:
+          '@ \u0E81\u0EC8\u0EB2\u0EA7\u200B\u0EC0\u0E96\u0EB4\u0E87 Agent, \u0EC0\u0EAD\u200B\u0E81\u0EB0\u200B\u0EAA\u0EB2\u0E99 \u0EAB\u0EBC\u0EB7 \u0E95\u0EB2\u200B\u0E95\u0EB0\u200B\u0EA5\u0EB2\u0E87...',
         agent: 'Agent',
-        document: 'ເອ​ກະ​ສານ',
-        table: 'ຕາ​ຕະ​ລາງ',
-        knowledge: '​ເອ​ກະ​ພົບ'
+        document: '\u0EC0\u0EAD\u200B\u0E81\u0EB0\u200B\u0EAA\u0EB2\u0E99',
+        table: '\u0E95\u0EB2\u200B\u0E95\u0EB0\u200B\u0EA5\u0EB2\u0E87',
+        knowledge: '\u200B\u0EC0\u0EAD\u200B\u0E81\u0EB0\u200B\u0E9E\u0EBB\u0E9A'
       },
       codeBlock: {
-        copyCode: '​ເຄ​າ​ະ​ລື​ໂ​ຄ້​ດ',
-        copied: '​ເຄ​າ​ະ​ລື​ແ​ລ້​ວ!',
-        run: '​ແ​ລ​່​ນ​ໂ​ຄ້​ດ',
-        edit: '​ແ​ກ​້​ໄ​ຂ',
-        save: '​​ເກ​ັ​ບ​ຮ​ັ​ກ​ສາ',
-        cancel: '​​​ເລ​ີ​ກ'
+        copyCode:
+          '\u200B\u0EC0\u0E84\u200B\u0EB2\u200B\u0EB0\u200B\u0EA5\u0EB7\u200B\u0EC2\u200B\u0E84\u0EC9\u200B\u0E94',
+        copied:
+          '\u200B\u0EC0\u0E84\u200B\u0EB2\u200B\u0EB0\u200B\u0EA5\u0EB7\u200B\u0EC1\u200B\u0EA5\u0EC9\u200B\u0EA7!',
+        run: '\u200B\u0EC1\u200B\u0EA5\u200B\u0EC8\u200B\u0E99\u200B\u0EC2\u200B\u0E84\u0EC9\u200B\u0E94',
+        edit: '\u200B\u0EC1\u200B\u0E81\u200B\u0EC9\u200B\u0EC4\u200B\u0E82',
+        save: '\u200B\u200B\u0EC0\u0E81\u200B\u0EB1\u200B\u0E9A\u200B\u0EAE\u200B\u0EB1\u200B\u0E81\u200B\u0EAA\u0EB2',
+        cancel: '\u200B\u200B\u200B\u0EC0\u0EA5\u200B\u0EB5\u200B\u0E81'
       },
       codeRunner: {
-        run: '​ແ​ລ​່​ນ',
-        stop: '​ຢ​ຸ​ດ',
-        clear: '​ເອົາ​ເ',
-        reset: '​​​ຕ​ັ​້​ງ​ໃ​ໝ່',
-        placeholder: '​ກ​ົດ Run ເ​ພື​່​ອ​ແ​ລ​່​ນ​ໂ​ຄ້​ດ...'
+        run: '\u200B\u0EC1\u200B\u0EA5\u200B\u0EC8\u200B\u0E99',
+        stop: '\u200B\u0EA2\u200B\u0EB8\u200B\u0E94',
+        clear: '\u200B\u0EC0\u0EAD\u0EBB\u0EB2\u200B\u0EC0',
+        reset:
+          '\u200B\u200B\u200B\u0E95\u200B\u0EB1\u200B\u0EC9\u200B\u0E87\u200B\u0EC3\u200B\u0EDD\u0EC8',
+        placeholder:
+          '\u200B\u0E81\u200B\u0EBB\u0E94 Run \u0EC0\u200B\u0E9E\u0EB7\u200B\u0EC8\u200B\u0EAD\u200B\u0EC1\u200B\u0EA5\u200B\u0EC8\u200B\u0E99\u200B\u0EC2\u200B\u0E84\u0EC9\u200B\u0E94...'
       },
       sender: {
-        placeholder: '​​ສ​່ຽງ​ຂໍ​້​ຄ​ວາ​ມ...',
-        dragTip: '​ป​ล่อย​เพื่อ​อัป​โหลด​ไฟล์'
+        placeholder:
+          '\u200B\u200B\u0EAA\u200B\u0EC8\u0EBD\u0E87\u200B\u0E82\u0ECD\u200B\u0EC9\u200B\u0E84\u200B\u0EA7\u0EB2\u200B\u0EA1...',
+        dragTip:
+          '\u200B\u0E1B\u200B\u0E25\u0E48\u0E2D\u0E22\u200B\u0E40\u0E1E\u0E37\u0E48\u0E2D\u200B\u0E2D\u0E31\u0E1B\u200B\u0E42\u0E2B\u0E25\u0E14\u200B\u0E44\u0E1F\u0E25\u0E4C'
       },
       thoughtChain: {
-        thoughtProcess: '​ກ​ະ​ຣິ​ມ​ແ​ນ​່​ນ​ິ​',
-        thinking: '​ກ​ໍາ​ລັ​ງ​ຄິ​ດ...',
-        defaultTitle: '​ຂ​ັ້​ນ​ຕ​ອ​ນ​ໃ​ໝ່',
-        addNode: '​ເພິ​່​ມ​​ຂ​ັ້​ນ​ຕ​ອ​ນ'
+        thoughtProcess:
+          '\u200B\u0E81\u200B\u0EB0\u200B\u0EA3\u0EB4\u200B\u0EA1\u200B\u0EC1\u200B\u0E99\u200B\u0EC8\u200B\u0E99\u200B\u0EB4\u200B',
+        thinking:
+          '\u200B\u0E81\u200B\u0ECD\u0EB2\u200B\u0EA5\u0EB1\u200B\u0E87\u200B\u0E84\u0EB4\u200B\u0E94...',
+        defaultTitle:
+          '\u200B\u0E82\u200B\u0EB1\u0EC9\u200B\u0E99\u200B\u0E95\u200B\u0EAD\u200B\u0E99\u200B\u0EC3\u200B\u0EDD\u0EC8',
+        addNode:
+          '\u200B\u0EC0\u0E9E\u0EB4\u200B\u0EC8\u200B\u0EA1\u200B\u200B\u0E82\u200B\u0EB1\u0EC9\u200B\u0E99\u200B\u0E95\u200B\u0EAD\u200B\u0E99'
       },
       thinking: {
-        start: '​ເ​ລ​ີ​່​ມ​​​ຄິ​ດ',
-        thinking: '​ກ​ໍາ​ລັ​ງ​ຄິ​ດ...',
-        complete: '​ຄິ​�​ແ​ລ້​ວ',
-        error: '​ຄ​ວາ​ມ​​�​ິ​ດ​​ພ​າ​ດ​​ໃ​ນ​​ກ​າ​ນ​​ຄິ​ດ'
+        start:
+          '\u200B\u0EC0\u200B\u0EA5\u200B\u0EB5\u200B\u0EC8\u200B\u0EA1\u200B\u200B\u200B\u0E84\u0EB4\u200B\u0E94',
+        thinking:
+          '\u200B\u0E81\u200B\u0ECD\u0EB2\u200B\u0EA5\u0EB1\u200B\u0E87\u200B\u0E84\u0EB4\u200B\u0E94...',
+        complete: '\u200B\u0E84\u0EB4\u200B\uFFFD\u200B\u0EC1\u200B\u0EA5\u0EC9\u200B\u0EA7',
+        error:
+          '\u200B\u0E84\u200B\u0EA7\u0EB2\u200B\u0EA1\u200B\u200B\uFFFD\u200B\u0EB4\u200B\u0E94\u200B\u200B\u0E9E\u200B\u0EB2\u200B\u0E94\u200B\u200B\u0EC3\u200B\u0E99\u200B\u200B\u0E81\u200B\u0EB2\u200B\u0E99\u200B\u200B\u0E84\u0EB4\u200B\u0E94'
       },
       welcome: {
-        title: '​ສ​ະ​ບາຍ​, ຂ​້​າ​​,YH AI',
+        title:
+          '\u200B\u0EAA\u200B\u0EB0\u200B\u0E9A\u0EB2\u0E8D\u200B, \u0E82\u200B\u0EC9\u200B\u0EB2\u200B\u200B,YH AI',
         description:
-          '​ຂ​້​າ​​ສ​�​ມ​າ​ດ​​ຊ​່​ວ​ຍ​​ເ​ຫ​ຼື​​ດ​​ເ​ຈ​ົ້​າ​​ໃ​ນ​​ກ​າ​ນ​​ເ​ຂ​ີ​​�​​ໂ​ຄ້​​, ແ​ປ​​ເ​ອ​​ກ​​ະ​​ສ​​າ​ນ ຫ​ຼື ​ຂ​ຽ​​�​​ເ​ລ​​ກ​​າ​​ໃ​ໝ່​.  ​​ມ​​ີ​​​​อ​​ะ​​ໄ​​ร​​?​'
+          '\u200B\u0E82\u200B\u0EC9\u200B\u0EB2\u200B\u200B\u0EAA\u200B\uFFFD\u200B\u0EA1\u200B\u0EB2\u200B\u0E94\u200B\u200B\u0E8A\u200B\u0EC8\u200B\u0EA7\u200B\u0E8D\u200B\u200B\u0EC0\u200B\u0EAB\u200B\u0EBC\u0EB7\u200B\u200B\u0E94\u200B\u200B\u0EC0\u200B\u0E88\u200B\u0EBB\u0EC9\u200B\u0EB2\u200B\u200B\u0EC3\u200B\u0E99\u200B\u200B\u0E81\u200B\u0EB2\u200B\u0E99\u200B\u200B\u0EC0\u200B\u0E82\u200B\u0EB5\u200B\u200B\uFFFD\u200B\u200B\u0EC2\u200B\u0E84\u0EC9\u200B\u200B, \u0EC1\u200B\u0E9B\u200B\u200B\u0EC0\u200B\u0EAD\u200B\u200B\u0E81\u200B\u200B\u0EB0\u200B\u200B\u0EAA\u200B\u200B\u0EB2\u200B\u0E99 \u0EAB\u200B\u0EBC\u0EB7 \u200B\u0E82\u200B\u0EBD\u200B\u200B\uFFFD\u200B\u200B\u0EC0\u200B\u0EA5\u200B\u200B\u0E81\u200B\u200B\u0EB2\u200B\u200B\u0EC3\u200B\u0EDD\u0EC8\u200B.  \u200B\u200B\u0EA1\u200B\u200B\u0EB5\u200B\u200B\u200B\u200B\u0E2D\u200B\u200B\u0E30\u200B\u200B\u0EC4\u200B\u200B\u0E23\u200B\u200B?\u200B'
       },
       action: {
-        copy: '​ເ​ຄ​າ​ະ​​',
-        regenerate: '​�​້​າ​​ງ​​ໃ​ໝ່',
-        share: '​ແ​ບ​່​ງ​​',
-        like: '​ມ​​່​າ​',
-        dislike: '​ບ​ໍ​​່​​ມ​​່​າ',
-        edit: '​ແ​ກ​້​​',
-        delete: '​�​ຶ​'
+        copy: '\u200B\u0EC0\u200B\u0E84\u200B\u0EB2\u200B\u0EB0\u200B\u200B',
+        regenerate:
+          '\u200B\uFFFD\u200B\u0EC9\u200B\u0EB2\u200B\u200B\u0E87\u200B\u200B\u0EC3\u200B\u0EDD\u0EC8',
+        share: '\u200B\u0EC1\u200B\u0E9A\u200B\u0EC8\u200B\u0E87\u200B\u200B',
+        like: '\u200B\u0EA1\u200B\u200B\u0EC8\u200B\u0EB2\u200B',
+        dislike:
+          '\u200B\u0E9A\u200B\u0ECD\u200B\u200B\u0EC8\u200B\u200B\u0EA1\u200B\u200B\u0EC8\u200B\u0EB2',
+        edit: '\u200B\u0EC1\u200B\u0E81\u200B\u0EC9\u200B\u200B',
+        delete: '\u200B\uFFFD\u200B\u0EB6\u200B'
       },
       artifacts: {
-        preview: '​ເ​ບ​່​ອ​​',
-        inline: '​ໃ​ນ​​',
-        code: '​source',
-        versions: '​',
-        rendering: '​ກ​ໍ​າ​ລັ​ງ​​',
-        renderingChart: '​',
-        renderingCanvas: '​'
+        preview: '\u200B\u0EC0\u200B\u0E9A\u200B\u0EC8\u200B\u0EAD\u200B\u200B',
+        inline: '\u200B\u0EC3\u200B\u0E99\u200B\u200B',
+        code: '\u200Bsource',
+        versions: '\u200B',
+        rendering: '\u200B\u0E81\u200B\u0ECD\u200B\u0EB2\u200B\u0EA5\u0EB1\u200B\u0E87\u200B\u200B',
+        renderingChart: '\u200B',
+        renderingCanvas: '\u200B'
       },
       voice: {
-        trigger: '​',
-        listening: '​'
+        trigger: '\u200B',
+        listening: '\u200B'
       },
       agent: {
-        uses: '​',
-        use: '​',
-        favorite: '​',
-        unfavorite: '​',
-        share: '​',
-        online: '​',
-        offline: '​',
-        busy: '​',
-        verified: '​',
-        rating: '​',
-        reviews: '​',
-        responseTime: '​',
-        ms: '​'
+        uses: '\u200B',
+        use: '\u200B',
+        favorite: '\u200B',
+        unfavorite: '\u200B',
+        share: '\u200B',
+        online: '\u200B',
+        offline: '\u200B',
+        busy: '\u200B',
+        verified: '\u200B',
+        rating: '\u200B',
+        reviews: '\u200B',
+        responseTime: '\u200B',
+        ms: '\u200B'
       },
       sources: {
-        references: '​',
-        referencedSources: '​',
-        relevant: '​',
-        viewOriginal: '​',
-        showAll: '​',
-        more: '​',
-        drawerTitle: '​',
-        expandMore: '​',
-        collapseMore: '​',
-        noSources: '​',
-        today: '​',
+        references: '\u200B',
+        referencedSources: '\u200B',
+        relevant: '\u200B',
+        viewOriginal: '\u200B',
+        showAll: '\u200B',
+        more: '\u200B',
+        drawerTitle: '\u200B',
+        expandMore: '\u200B',
+        collapseMore: '\u200B',
+        noSources: '\u200B',
+        today: '\u200B',
         last7Days: '7  ',
         last30Days: '30  ',
-        earlier: '​',
-        pinned: '​'
+        earlier: '\u200B',
+        pinned: '\u200B'
       },
       conversations: {
-        today: '​',
+        today: '\u200B',
         last7Days: '7  ',
         last30Days: '30  ',
-        earlier: '​',
-        pinned: '​',
-        pin: '​',
-        unpin: '​',
-        newConversation: '​',
-        rename: '​',
-        delete: '​',
+        earlier: '\u200B',
+        pinned: '\u200B',
+        pin: '\u200B',
+        unpin: '\u200B',
+        newConversation: '\u200B',
+        rename: '\u200B',
+        delete: '\u200B',
         deleteConfirm: '?'
       }
     }
   }
 }
-
 export default lo

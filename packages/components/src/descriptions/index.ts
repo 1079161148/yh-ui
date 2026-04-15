@@ -19,3 +19,9 @@ export * from './src/descriptions'
 
 export type DescriptionsInstance = InstanceType<typeof Descriptions>
 export type DescriptionsItemInstance = InstanceType<typeof DescriptionsItem>
+export type YhDescriptionsInstance = DescriptionsInstance
+export type YhDescriptionsItemInstance = DescriptionsItemInstance
+export type YhDescriptionsProps = import('./src/descriptions').DescriptionsProps
+export type YhDescriptionsSlots = import('./src/descriptions').DescriptionsSlots
+export type YhDescriptionsItemProps = import('./src/descriptions').DescriptionsItemProps
+export type YhDescriptionsItemSlots = import('./src/descriptions').DescriptionsItemSlots

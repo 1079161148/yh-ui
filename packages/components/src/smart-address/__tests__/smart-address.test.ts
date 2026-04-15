@@ -1,5 +1,8 @@
+import { computed } from 'vue'
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import SmartAddress from '../src/smart-address.vue'
 
 describe('SmartAddress', () => {
@@ -65,5 +68,38 @@ describe('SmartAddress', () => {
     })
     const fields = wrapper.find('.yh-smart-address__fields')
     expect(fields.classes()).toContain('is-top')
+  })
+
+  it('supports themeOverrides css variables', () => {
+    const wrapper = mount(SmartAddress, {
+      props: {
+        modelValue,
+        themeOverrides: {
+          labelWidth: '120px',
+          inputBorder: '#123456'
+        } as Record<string, string>
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-smart-address-label-width: 120px')
+    expect(style).toContain('--yh-smart-address-input-border: #123456')
+  })
+
+  it('renders localized smart-address copy from config provider', () => {
+    const wrapper = mount(SmartAddress, {
+      props: { modelValue },
+      global: {
+        provide: {
+          [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+        }
+      }
+    })
+
+    expect(wrapper.find('textarea').attributes('placeholder')).toBe(
+      'Paste address here, auto-detect name, phone, location'
+    )
+    expect(wrapper.find('.yh-smart-address__parse-btn').text()).toContain('Smart Parse')
+    expect(wrapper.find('.yh-smart-address__label').text()).toContain('Recipient')
   })
 })

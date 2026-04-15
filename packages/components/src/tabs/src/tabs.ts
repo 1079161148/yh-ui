@@ -118,6 +118,18 @@ export const tabsEmits = {
 
 export type TabsEmits = typeof tabsEmits
 
+export interface TabsSlots {
+  default?: () => unknown
+  label?: (props: { pane: TabPaneConfig }) => unknown
+  'add-icon'?: () => unknown
+}
+
+export interface TabsExpose {
+  addTab: () => void
+  setActiveTab: (name: string | number) => void
+  activeTab: string | number
+}
+
 // 注入上下文
 export interface TabsContext {
   activeTab: Ref<string | number>

@@ -62,3 +62,10 @@ export const aiWelcomeEmits = {
 }
 
 export type AiWelcomeEmits = typeof aiWelcomeEmits
+
+export interface AiWelcomeSlots {
+  icon?: () => unknown
+  title?: () => unknown
+  description?: () => unknown
+  default?: () => unknown
+}

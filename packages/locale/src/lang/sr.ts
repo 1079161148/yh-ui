@@ -5,82 +5,89 @@ export const sr: Language = {
   yh: {
     // Опште
     common: {
-      yes: 'Да',
-      no: 'Не',
-      confirm: 'Потврди',
-      cancel: 'Откажи',
-      loading: 'Учитавање',
-      close: 'Затвори',
-      clear: 'Обриши',
-      reset: 'Ресетуј',
-      save: 'Сачувај',
-      delete: 'Обриши',
-      edit: 'Уреди',
-      add: 'Додај',
-      search: 'Претрага',
-      refresh: 'Освежи',
-      expand: 'Прошири',
-      collapse: 'Скупи',
-      more: 'Више',
-      noData: 'Нема података',
-      noMatch: 'Нема поклапања',
-      selectAll: 'Изабери све',
-      unselectAll: 'Поништи избор'
+      yes: '\u0414\u0430',
+      no: '\u041D\u0435',
+      confirm: '\u041F\u043E\u0442\u0432\u0440\u0434\u0438',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435',
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438',
+      clear: '\u041E\u0431\u0440\u0438\u0448\u0438',
+      reset: '\u0420\u0435\u0441\u0435\u0442\u0443\u0458',
+      save: '\u0421\u0430\u0447\u0443\u0432\u0430\u0458',
+      delete: '\u041E\u0431\u0440\u0438\u0448\u0438',
+      edit: '\u0423\u0440\u0435\u0434\u0438',
+      add: '\u0414\u043E\u0434\u0430\u0458',
+      search: '\u041F\u0440\u0435\u0442\u0440\u0430\u0433\u0430',
+      refresh: '\u041E\u0441\u0432\u0435\u0436\u0438',
+      expand: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438',
+      collapse: '\u0421\u043A\u0443\u043F\u0438',
+      more: '\u0412\u0438\u0448\u0435',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      noMatch: '\u041D\u0435\u043C\u0430 \u043F\u043E\u043A\u043B\u0430\u043F\u0430\u045A\u0430',
+      selectAll: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0441\u0432\u0435',
+      unselectAll: '\u041F\u043E\u043D\u0438\u0448\u0442\u0438 \u0438\u0437\u0431\u043E\u0440'
     },
     // Биранје боје
     colorpicker: {
-      confirm: 'У реду',
-      clear: 'Обриши',
-      eyeDropper: 'Пипета',
-      suggestionDark: 'Бели текст је најбољи',
-      suggestionLight: 'Црни текст је најбољи',
-      recentColors: 'Недавне боје',
-      presetColors: 'Унапред подешене боје'
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      clear: '\u041E\u0431\u0440\u0438\u0448\u0438',
+      eyeDropper: '\u041F\u0438\u043F\u0435\u0442\u0430',
+      suggestionDark:
+        '\u0411\u0435\u043B\u0438 \u0442\u0435\u043A\u0441\u0442 \u0458\u0435 \u043D\u0430\u0458\u0431\u043E\u0459\u0438',
+      suggestionLight:
+        '\u0426\u0440\u043D\u0438 \u0442\u0435\u043A\u0441\u0442 \u0458\u0435 \u043D\u0430\u0458\u0431\u043E\u0459\u0438',
+      recentColors: '\u041D\u0435\u0434\u0430\u0432\u043D\u0435 \u0431\u043E\u0458\u0435',
+      presetColors:
+        '\u0423\u043D\u0430\u043F\u0440\u0435\u0434 \u043F\u043E\u0434\u0435\u0448\u0435\u043D\u0435 \u0431\u043E\u0458\u0435'
     },
     // Биранје датума
     datepicker: {
-      now: 'Сада',
-      today: 'Данас',
-      cancel: 'Откажи',
-      clear: 'Обриши',
-      confirm: 'У реду',
-      selectDate: 'Изабери датум',
-      selectTime: 'Изабери време',
-      startDate: 'Датум почетка',
-      startTime: 'Време почетка',
-      endDate: 'Датум завршетка',
-      endTime: 'Време завршетка',
+      now: '\u0421\u0430\u0434\u0430',
+      today: '\u0414\u0430\u043D\u0430\u0441',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      clear: '\u041E\u0431\u0440\u0438\u0448\u0438',
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      selectDate: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0434\u0430\u0442\u0443\u043C',
+      selectTime: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0432\u0440\u0435\u043C\u0435',
+      startDate: '\u0414\u0430\u0442\u0443\u043C \u043F\u043E\u0447\u0435\u0442\u043A\u0430',
+      startTime: '\u0412\u0440\u0435\u043C\u0435 \u043F\u043E\u0447\u0435\u0442\u043A\u0430',
+      endDate:
+        '\u0414\u0430\u0442\u0443\u043C \u0437\u0430\u0432\u0440\u0448\u0435\u0442\u043A\u0430',
+      endTime:
+        '\u0412\u0440\u0435\u043C\u0435 \u0437\u0430\u0432\u0440\u0448\u0435\u0442\u043A\u0430',
       year: '',
       month: '',
       day: '',
-      week: 'Недеља',
+      week: '\u041D\u0435\u0434\u0435\u0459\u0430',
       monthBeforeYear: true,
-      prevYear: 'Претходна година',
-      nextYear: 'Следећа година',
-      prevMonth: 'Претходни месец',
-      nextMonth: 'Следећи месец',
+      prevYear:
+        '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0430 \u0433\u043E\u0434\u0438\u043D\u0430',
+      nextYear: '\u0421\u043B\u0435\u0434\u0435\u045B\u0430 \u0433\u043E\u0434\u0438\u043D\u0430',
+      prevMonth:
+        '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0438 \u043C\u0435\u0441\u0435\u0446',
+      nextMonth: '\u0421\u043B\u0435\u0434\u0435\u045B\u0438 \u043C\u0435\u0441\u0435\u0446',
       weeks: {
-        sun: 'Нед',
-        mon: 'Пон',
-        tue: 'Уто',
-        wed: 'Сре',
-        thu: 'Чет',
-        fri: 'Пет',
-        sat: 'Суб'
+        sun: '\u041D\u0435\u0434',
+        mon: '\u041F\u043E\u043D',
+        tue: '\u0423\u0442\u043E',
+        wed: '\u0421\u0440\u0435',
+        thu: '\u0427\u0435\u0442',
+        fri: '\u041F\u0435\u0442',
+        sat: '\u0421\u0443\u0431'
       },
       months: {
-        jan: 'Јан',
-        feb: 'Феб',
-        mar: 'Мар',
-        apr: 'Апр',
-        may: 'Мај',
-        jun: 'Јун',
-        jul: 'Јул',
-        aug: 'Авг',
-        sep: 'Сеп',
-        oct: 'Окт',
-        nov: 'Нов',
-        dec: 'Дец'
+        jan: '\u0408\u0430\u043D',
+        feb: '\u0424\u0435\u0431',
+        mar: '\u041C\u0430\u0440',
+        apr: '\u0410\u043F\u0440',
+        may: '\u041C\u0430\u0458',
+        jun: '\u0408\u0443\u043D',
+        jul: '\u0408\u0443\u043B',
+        aug: '\u0410\u0432\u0433',
+        sep: '\u0421\u0435\u043F',
+        oct: '\u041E\u043A\u0442',
+        nov: '\u041D\u043E\u0432',
+        dec: '\u0414\u0435\u0446'
       },
       quarters: {
         q1: 'Q1',
@@ -91,445 +98,509 @@ export const sr: Language = {
     },
     // Биранје времена
     timepicker: {
-      confirm: 'У реду',
-      cancel: 'Откажи',
-      now: 'Сада',
-      placeholder: 'Изабери време',
-      startPlaceholder: 'Време почетка',
-      endPlaceholder: 'Време завршетка',
-      selectTime: 'Изабери време'
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      now: '\u0421\u0430\u0434\u0430',
+      placeholder: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0432\u0440\u0435\u043C\u0435',
+      startPlaceholder: '\u0412\u0440\u0435\u043C\u0435 \u043F\u043E\u0447\u0435\u0442\u043A\u0430',
+      endPlaceholder:
+        '\u0412\u0440\u0435\u043C\u0435 \u0437\u0430\u0432\u0440\u0448\u0435\u0442\u043A\u0430',
+      selectTime: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0432\u0440\u0435\u043C\u0435'
     },
     // Биранје времена
     timeselect: {
-      placeholder: 'Изабери време'
+      placeholder: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0432\u0440\u0435\u043C\u0435'
     },
     // Стабло
     tree: {
-      emptyText: 'Нема података',
-      loading: 'Учитавање...',
-      checkAll: 'Изабери све',
-      uncheckAll: 'Поништи избор',
-      expandAll: 'Прошири све',
-      collapseAll: 'Скупи све'
+      emptyText: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      checkAll: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0441\u0432\u0435',
+      uncheckAll: '\u041F\u043E\u043D\u0438\u0448\u0442\u0438 \u0438\u0437\u0431\u043E\u0440',
+      expandAll: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438 \u0441\u0432\u0435',
+      collapseAll: '\u0421\u043A\u0443\u043F\u0438 \u0441\u0432\u0435'
     },
     // Биранје стабла
     treeselect: {
-      placeholder: 'Изабери',
-      emptyText: 'Нема података',
-      loading: 'Учитавање...',
-      noMatch: 'Нема поклапања'
+      placeholder: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438',
+      emptyText: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      noMatch: '\u041D\u0435\u043C\u0430 \u043F\u043E\u043A\u043B\u0430\u043F\u0430\u045A\u0430'
     },
     // Календар
     calendar: {
-      prevMonth: 'Претходни месец',
-      nextMonth: 'Следећи месец',
-      prevYear: 'Претходна година',
-      nextYear: 'Следећа година',
-      today: 'Данас',
-      week: 'Недеља',
-      holiday: 'Празник',
-      workday: 'Рад',
+      prevMonth:
+        '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0438 \u043C\u0435\u0441\u0435\u0446',
+      nextMonth: '\u0421\u043B\u0435\u0434\u0435\u045B\u0438 \u043C\u0435\u0441\u0435\u0446',
+      prevYear:
+        '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0430 \u0433\u043E\u0434\u0438\u043D\u0430',
+      nextYear: '\u0421\u043B\u0435\u0434\u0435\u045B\u0430 \u0433\u043E\u0434\u0438\u043D\u0430',
+      today: '\u0414\u0430\u043D\u0430\u0441',
+      week: '\u041D\u0435\u0434\u0435\u0459\u0430',
+      holiday: '\u041F\u0440\u0430\u0437\u043D\u0438\u043A',
+      workday: '\u0420\u0430\u0434',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'Нед',
-        mon: 'Пон',
-        tue: 'Уто',
-        wed: 'Сре',
-        thu: 'Чет',
-        fri: 'Пет',
-        sat: 'Суб'
+        sun: '\u041D\u0435\u0434',
+        mon: '\u041F\u043E\u043D',
+        tue: '\u0423\u0442\u043E',
+        wed: '\u0421\u0440\u0435',
+        thu: '\u0427\u0435\u0442',
+        fri: '\u041F\u0435\u0442',
+        sat: '\u0421\u0443\u0431'
       }
     },
     // Аутоматско довршавање
     autocomplete: {
-      loading: 'Учитавање...',
-      placeholder: 'Молимо унесите',
-      noData: 'Нема података',
-      noMatch: 'Нема поклапања'
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      placeholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      noMatch: '\u041D\u0435\u043C\u0430 \u043F\u043E\u043A\u043B\u0430\u043F\u0430\u045A\u0430'
     },
     // Обратно бројање
     countdown: {
-      days: 'дана',
-      hours: 'сати',
-      minutes: 'минута',
-      seconds: 'секунди',
-      milliseconds: 'милисекунди',
-      finished: 'Завршено'
+      days: '\u0434\u0430\u043D\u0430',
+      hours: '\u0441\u0430\u0442\u0438',
+      minutes: '\u043C\u0438\u043D\u0443\u0442\u0430',
+      seconds: '\u0441\u0435\u043A\u0443\u043D\u0434\u0438',
+      milliseconds: '\u043C\u0438\u043B\u0438\u0441\u0435\u043A\u0443\u043D\u0434\u0438',
+      finished: '\u0417\u0430\u0432\u0440\u0448\u0435\u043D\u043E'
     },
     // Каскадно биранје
     cascader: {
-      noMatch: 'Нема поклапања',
-      placeholder: 'Изабери',
-      loading: 'Учитавање...',
-      noData: 'Нема података'
+      noMatch: '\u041D\u0435\u043C\u0430 \u043F\u043E\u043A\u043B\u0430\u043F\u0430\u045A\u0430',
+      placeholder: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430'
     },
     // Пренос
     transfer: {
-      noMatch: 'Нема поклапања',
-      noData: 'Нема података',
-      titles: ['Листа 1', 'Листа 2'],
-      filterPlaceholder: 'Унеси кључну реч',
-      noCheckedFormat: '{total} ставки',
-      hasCheckedFormat: '{checked}/{total} изабрано',
-      searchPlaceholder: 'Унеси кључну реч'
+      noMatch: '\u041D\u0435\u043C\u0430 \u043F\u043E\u043A\u043B\u0430\u043F\u0430\u045A\u0430',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      titles: ['\u041B\u0438\u0441\u0442\u0430 1', '\u041B\u0438\u0441\u0442\u0430 2'],
+      filterPlaceholder:
+        '\u0423\u043D\u0435\u0441\u0438 \u043A\u0459\u0443\u0447\u043D\u0443 \u0440\u0435\u0447',
+      noCheckedFormat: '{total} \u0441\u0442\u0430\u0432\u043A\u0438',
+      hasCheckedFormat: '{checked}/{total} \u0438\u0437\u0430\u0431\u0440\u0430\u043D\u043E',
+      searchPlaceholder:
+        '\u0423\u043D\u0435\u0441\u0438 \u043A\u0459\u0443\u0447\u043D\u0443 \u0440\u0435\u0447'
     },
     // Табела
     table: {
-      emptyText: 'Нема података',
-      confirmFilter: 'Потврди',
-      resetFilter: 'Ресетуј',
-      clearFilter: 'Све',
-      sumText: 'Збир',
-      loading: 'Учитавање...',
-      index: 'Индекс',
-      print: 'Штампај',
-      cancel: 'Откажи',
-      preview: 'Преглед штампе',
-      printTime: 'Време штампе',
-      total: 'Укупно {total} ставки',
-      page: 'Страна {page}',
-      yes: 'Да',
-      no: 'Не',
+      emptyText: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      confirmFilter: '\u041F\u043E\u0442\u0432\u0440\u0434\u0438',
+      resetFilter: '\u0420\u0435\u0441\u0435\u0442\u0443\u0458',
+      clearFilter: '\u0421\u0432\u0435',
+      sumText: '\u0417\u0431\u0438\u0440',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      index: '\u0418\u043D\u0434\u0435\u043A\u0441',
+      print: '\u0428\u0442\u0430\u043C\u043F\u0430\u0458',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      preview: '\u041F\u0440\u0435\u0433\u043B\u0435\u0434 \u0448\u0442\u0430\u043C\u043F\u0435',
+      printTime: '\u0412\u0440\u0435\u043C\u0435 \u0448\u0442\u0430\u043C\u043F\u0435',
+      total: '\u0423\u043A\u0443\u043F\u043D\u043E {total} \u0441\u0442\u0430\u0432\u043A\u0438',
+      page: '\u0421\u0442\u0440\u0430\u043D\u0430 {page}',
+      yes: '\u0414\u0430',
+      no: '\u041D\u0435',
       // Трака са алаткама
       toolbar: {
-        refresh: 'Освежи',
-        density: 'Густина',
-        densityDefault: 'Подразумевано',
-        densityLarge: 'Велика',
-        densitySmall: 'Мала',
-        columnSetting: 'Подешавања колона',
-        fullscreen: 'Цео екран',
-        exitFullscreen: 'Изађи из целог екрана',
-        export: 'Извези',
-        import: 'Увези',
-        search: 'Претрага',
-        searchPlaceholder: 'Унеси кључне речи за претрагу'
+        refresh: '\u041E\u0441\u0432\u0435\u0436\u0438',
+        density: '\u0413\u0443\u0441\u0442\u0438\u043D\u0430',
+        densityDefault:
+          '\u041F\u043E\u0434\u0440\u0430\u0437\u0443\u043C\u0435\u0432\u0430\u043D\u043E',
+        densityLarge: '\u0412\u0435\u043B\u0438\u043A\u0430',
+        densitySmall: '\u041C\u0430\u043B\u0430',
+        columnSetting:
+          '\u041F\u043E\u0434\u0435\u0448\u0430\u0432\u0430\u045A\u0430 \u043A\u043E\u043B\u043E\u043D\u0430',
+        fullscreen: '\u0426\u0435\u043E \u0435\u043A\u0440\u0430\u043D',
+        exitFullscreen:
+          '\u0418\u0437\u0430\u0452\u0438 \u0438\u0437 \u0446\u0435\u043B\u043E\u0433 \u0435\u043A\u0440\u0430\u043D\u0430',
+        export: '\u0418\u0437\u0432\u0435\u0437\u0438',
+        import: '\u0423\u0432\u0435\u0437\u0438',
+        search: '\u041F\u0440\u0435\u0442\u0440\u0430\u0433\u0430',
+        searchPlaceholder:
+          '\u0423\u043D\u0435\u0441\u0438 \u043A\u0459\u0443\u0447\u043D\u0435 \u0440\u0435\u0447\u0438 \u0437\u0430 \u043F\u0440\u0435\u0442\u0440\u0430\u0433\u0443'
       },
       // Филтер
       filter: {
-        selectAll: 'Изабери све',
-        selectInvert: 'Обрни избор',
-        empty: 'Празно',
-        notEmpty: 'Није празно',
-        contains: 'Садржи',
-        notContains: 'Не садржи',
-        equals: 'Једнако',
-        notEquals: 'Није једнако',
-        startsWith: 'Почиње са',
-        endsWith: 'Завршава се са',
-        greaterThan: 'Веће од',
-        lessThan: 'Мање од',
-        between: 'Између'
+        selectAll: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0441\u0432\u0435',
+        selectInvert: '\u041E\u0431\u0440\u043D\u0438 \u0438\u0437\u0431\u043E\u0440',
+        empty: '\u041F\u0440\u0430\u0437\u043D\u043E',
+        notEmpty: '\u041D\u0438\u0458\u0435 \u043F\u0440\u0430\u0437\u043D\u043E',
+        contains: '\u0421\u0430\u0434\u0440\u0436\u0438',
+        notContains: '\u041D\u0435 \u0441\u0430\u0434\u0440\u0436\u0438',
+        equals: '\u0408\u0435\u0434\u043D\u0430\u043A\u043E',
+        notEquals: '\u041D\u0438\u0458\u0435 \u0458\u0435\u0434\u043D\u0430\u043A\u043E',
+        startsWith: '\u041F\u043E\u0447\u0438\u045A\u0435 \u0441\u0430',
+        endsWith: '\u0417\u0430\u0432\u0440\u0448\u0430\u0432\u0430 \u0441\u0435 \u0441\u0430',
+        greaterThan: '\u0412\u0435\u045B\u0435 \u043E\u0434',
+        lessThan: '\u041C\u0430\u045A\u0435 \u043E\u0434',
+        between: '\u0418\u0437\u043C\u0435\u0452\u0443'
       },
       // Сортирање
       sort: {
-        asc: 'Растуће',
-        desc: 'Опадајуће',
-        clear: 'Обриши сортирање'
+        asc: '\u0420\u0430\u0441\u0442\u0443\u045B\u0435',
+        desc: '\u041E\u043F\u0430\u0434\u0430\u0458\u0443\u045B\u0435',
+        clear:
+          '\u041E\u0431\u0440\u0438\u0448\u0438 \u0441\u043E\u0440\u0442\u0438\u0440\u0430\u045A\u0435'
       },
       // Извоз
       export: {
-        title: 'Извоз података',
-        filename: 'Име фајла',
-        type: 'Тип фајла',
-        scope: 'Опсег извоза',
-        scopeAll: 'Сви подаци',
-        scopeSelected: 'Изабрани подаци',
-        scopeCurrentPage: 'Тренутна страна',
-        includeHeader: 'Укључи заглавље',
-        exporting: 'Извоз...',
-        success: 'Извоз успешан',
-        error: 'Извоз неуспешан'
+        title: '\u0418\u0437\u0432\u043E\u0437 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+        filename: '\u0418\u043C\u0435 \u0444\u0430\u0458\u043B\u0430',
+        type: '\u0422\u0438\u043F \u0444\u0430\u0458\u043B\u0430',
+        scope: '\u041E\u043F\u0441\u0435\u0433 \u0438\u0437\u0432\u043E\u0437\u0430',
+        scopeAll: '\u0421\u0432\u0438 \u043F\u043E\u0434\u0430\u0446\u0438',
+        scopeSelected:
+          '\u0418\u0437\u0430\u0431\u0440\u0430\u043D\u0438 \u043F\u043E\u0434\u0430\u0446\u0438',
+        scopeCurrentPage:
+          '\u0422\u0440\u0435\u043D\u0443\u0442\u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0430',
+        includeHeader:
+          '\u0423\u043A\u0459\u0443\u0447\u0438 \u0437\u0430\u0433\u043B\u0430\u0432\u0459\u0435',
+        exporting: '\u0418\u0437\u0432\u043E\u0437...',
+        success: '\u0418\u0437\u0432\u043E\u0437 \u0443\u0441\u043F\u0435\u0448\u0430\u043D',
+        error:
+          '\u0418\u0437\u0432\u043E\u0437 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u0430\u043D'
       },
       // Увоз
       import: {
-        title: 'Увоз података',
-        selectFile: 'Изабери фајл',
-        dragTip: 'Кликни или превуци фајл овде за отпремање',
-        importing: 'Увоз...',
-        success: 'Увоз успешан',
-        error: 'Увоз неуспешан',
-        preview: 'Преглед података',
-        confirm: 'Потврди увоз'
+        title: '\u0423\u0432\u043E\u0437 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+        selectFile: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0444\u0430\u0458\u043B',
+        dragTip:
+          '\u041A\u043B\u0438\u043A\u043D\u0438 \u0438\u043B\u0438 \u043F\u0440\u0435\u0432\u0443\u0446\u0438 \u0444\u0430\u0458\u043B \u043E\u0432\u0434\u0435 \u0437\u0430 \u043E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435',
+        importing: '\u0423\u0432\u043E\u0437...',
+        success: '\u0423\u0432\u043E\u0437 \u0443\u0441\u043F\u0435\u0448\u0430\u043D',
+        error: '\u0423\u0432\u043E\u0437 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u0430\u043D',
+        preview:
+          '\u041F\u0440\u0435\u0433\u043B\u0435\u0434 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+        confirm: '\u041F\u043E\u0442\u0432\u0440\u0434\u0438 \u0443\u0432\u043E\u0437'
       },
       // Штампа
       printConfig: {
-        title: 'Подешавања штампе',
-        pageTitle: 'Наслов стране',
-        pageHeader: 'Заглавље',
-        pageFooter: 'Подножје',
-        printAll: 'Штампај све',
-        printSelected: 'Штампај изабрано',
-        printCurrentPage: 'Штампај тренутну страну',
-        landscape: 'Ландшафт',
-        portrait: 'Портрет',
-        printing: 'Штампање...'
+        title:
+          '\u041F\u043E\u0434\u0435\u0448\u0430\u0432\u0430\u045A\u0430 \u0448\u0442\u0430\u043C\u043F\u0435',
+        pageTitle: '\u041D\u0430\u0441\u043B\u043E\u0432 \u0441\u0442\u0440\u0430\u043D\u0435',
+        pageHeader: '\u0417\u0430\u0433\u043B\u0430\u0432\u0459\u0435',
+        pageFooter: '\u041F\u043E\u0434\u043D\u043E\u0436\u0458\u0435',
+        printAll: '\u0428\u0442\u0430\u043C\u043F\u0430\u0458 \u0441\u0432\u0435',
+        printSelected:
+          '\u0428\u0442\u0430\u043C\u043F\u0430\u0458 \u0438\u0437\u0430\u0431\u0440\u0430\u043D\u043E',
+        printCurrentPage:
+          '\u0428\u0442\u0430\u043C\u043F\u0430\u0458 \u0442\u0440\u0435\u043D\u0443\u0442\u043D\u0443 \u0441\u0442\u0440\u0430\u043D\u0443',
+        landscape: '\u041B\u0430\u043D\u0434\u0448\u0430\u0444\u0442',
+        portrait: '\u041F\u043E\u0440\u0442\u0440\u0435\u0442',
+        printing: '\u0428\u0442\u0430\u043C\u043F\u0430\u045A\u0435...'
       },
       // Подешавања колона
       columnSetting: {
-        title: 'Подешавања колона',
-        showAll: 'Прикажи све',
-        hideAll: 'Сакриј све',
-        reset: 'Ресетуј',
-        fixedLeft: 'Фиксирај лево',
-        fixedRight: 'Фиксирај десно',
-        unfixed: 'Поништи фиксацију'
+        title:
+          '\u041F\u043E\u0434\u0435\u0448\u0430\u0432\u0430\u045A\u0430 \u043A\u043E\u043B\u043E\u043D\u0430',
+        showAll: '\u041F\u0440\u0438\u043A\u0430\u0436\u0438 \u0441\u0432\u0435',
+        hideAll: '\u0421\u0430\u043A\u0440\u0438\u0458 \u0441\u0432\u0435',
+        reset: '\u0420\u0435\u0441\u0435\u0442\u0443\u0458',
+        fixedLeft: '\u0424\u0438\u043A\u0441\u0438\u0440\u0430\u0458 \u043B\u0435\u0432\u043E',
+        fixedRight:
+          '\u0424\u0438\u043A\u0441\u0438\u0440\u0430\u0458 \u0434\u0435\u0441\u043D\u043E',
+        unfixed:
+          '\u041F\u043E\u043D\u0438\u0448\u0442\u0438 \u0444\u0438\u043A\u0441\u0430\u0446\u0438\u0458\u0443'
       },
       // Контекстни мени
       contextMenu: {
-        copy: 'Копирај',
-        copyRow: 'Копирај ред',
-        copyCell: 'Копирај ћелију',
-        paste: 'Налепи',
-        insertRowAbove: 'Убаци ред изнад',
-        insertRowBelow: 'Убаци ред испод',
-        deleteRow: 'Обриши ред',
-        deleteSelectedRows: 'Обриши изабране редове',
-        exportSelected: 'Извези изабрано'
+        copy: '\u041A\u043E\u043F\u0438\u0440\u0430\u0458',
+        copyRow: '\u041A\u043E\u043F\u0438\u0440\u0430\u0458 \u0440\u0435\u0434',
+        copyCell: '\u041A\u043E\u043F\u0438\u0440\u0430\u0458 \u045B\u0435\u043B\u0438\u0458\u0443',
+        paste: '\u041D\u0430\u043B\u0435\u043F\u0438',
+        insertRowAbove:
+          '\u0423\u0431\u0430\u0446\u0438 \u0440\u0435\u0434 \u0438\u0437\u043D\u0430\u0434',
+        insertRowBelow:
+          '\u0423\u0431\u0430\u0446\u0438 \u0440\u0435\u0434 \u0438\u0441\u043F\u043E\u0434',
+        deleteRow: '\u041E\u0431\u0440\u0438\u0448\u0438 \u0440\u0435\u0434',
+        deleteSelectedRows:
+          '\u041E\u0431\u0440\u0438\u0448\u0438 \u0438\u0437\u0430\u0431\u0440\u0430\u043D\u0435 \u0440\u0435\u0434\u043E\u0432\u0435',
+        exportSelected:
+          '\u0418\u0437\u0432\u0435\u0437\u0438 \u0438\u0437\u0430\u0431\u0440\u0430\u043D\u043E'
       },
       // Избор
       selection: {
-        selectAll: 'Изабери све',
-        selectInvert: 'Обрни избор',
-        selectNone: 'Обриши избор',
-        selected: '{count} ставки изабрано'
+        selectAll: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0441\u0432\u0435',
+        selectInvert: '\u041E\u0431\u0440\u043D\u0438 \u0438\u0437\u0431\u043E\u0440',
+        selectNone: '\u041E\u0431\u0440\u0438\u0448\u0438 \u0438\u0437\u0431\u043E\u0440',
+        selected:
+          '{count} \u0441\u0442\u0430\u0432\u043A\u0438 \u0438\u0437\u0430\u0431\u0440\u0430\u043D\u043E'
       },
       // Проширивање
       expand: {
-        expandAll: 'Прошири све',
-        collapseAll: 'Скупи све'
+        expandAll: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438 \u0441\u0432\u0435',
+        collapseAll: '\u0421\u043A\u0443\u043F\u0438 \u0441\u0432\u0435'
       },
       // Стабло
       tree: {
-        expandAll: 'Прошири све',
-        collapseAll: 'Скупи све',
-        expandLevel: 'Прошири до нивоа {level}'
+        expandAll: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438 \u0441\u0432\u0435',
+        collapseAll: '\u0421\u043A\u0443\u043F\u0438 \u0441\u0432\u0435',
+        expandLevel:
+          '\u041F\u0440\u043E\u0448\u0438\u0440\u0438 \u0434\u043E \u043D\u0438\u0432\u043E\u0430 {level}'
       },
       // Превлачење
       drag: {
-        dragTip: 'Превуци за преуређење',
-        dropTip: 'Пусти за постављање'
+        dragTip:
+          '\u041F\u0440\u0435\u0432\u0443\u0446\u0438 \u0437\u0430 \u043F\u0440\u0435\u0443\u0440\u0435\u0452\u0435\u045A\u0435',
+        dropTip:
+          '\u041F\u0443\u0441\u0442\u0438 \u0437\u0430 \u043F\u043E\u0441\u0442\u0430\u0432\u0459\u0430\u045A\u0435'
       }
     },
     // Појединачна порука
     messagebox: {
-      title: 'Порука',
-      confirm: 'У реду',
-      cancel: 'Откажи',
-      close: 'Затвори',
-      error: 'Неважећи унос',
-      alert: 'Упозорење',
-      prompt: 'Промпт',
-      inputPlaceholder: 'Молимо унесите'
+      title: '\u041F\u043E\u0440\u0443\u043A\u0430',
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438',
+      error: '\u041D\u0435\u0432\u0430\u0436\u0435\u045B\u0438 \u0443\u043D\u043E\u0441',
+      alert: '\u0423\u043F\u043E\u0437\u043E\u0440\u0435\u045A\u0435',
+      prompt: '\u041F\u0440\u043E\u043C\u043F\u0442',
+      inputPlaceholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435'
     },
     // Отпремање
     upload: {
-      deleteTip: 'притисни delete за брисање',
-      delete: 'Обриши',
-      preview: 'Преглед',
-      continue: 'Настави',
-      upload: 'Кликни за отпремање',
-      tip: 'Кликни или превуци фајл у ову област за <em>отпремање</em>',
-      dragTip: 'Пусти фајл овде или кликни за отпремање',
-      uploading: 'Отпремање...',
-      success: 'Отпремање успешно',
-      error: 'Отпремање неуспешно',
-      retry: 'Покушај поново',
-      cancel: 'Откажи отпремање',
-      fileTypeError: 'Тип фајла није подржан',
-      fileSizeError: 'Величина фајла прелази лимит',
-      fileCountError: 'Број фајлова прелази лимит'
+      deleteTip:
+        '\u043F\u0440\u0438\u0442\u0438\u0441\u043D\u0438 delete \u0437\u0430 \u0431\u0440\u0438\u0441\u0430\u045A\u0435',
+      delete: '\u041E\u0431\u0440\u0438\u0448\u0438',
+      preview: '\u041F\u0440\u0435\u0433\u043B\u0435\u0434',
+      continue: '\u041D\u0430\u0441\u0442\u0430\u0432\u0438',
+      upload:
+        '\u041A\u043B\u0438\u043A\u043D\u0438 \u0437\u0430 \u043E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435',
+      tip: '\u041A\u043B\u0438\u043A\u043D\u0438 \u0438\u043B\u0438 \u043F\u0440\u0435\u0432\u0443\u0446\u0438 \u0444\u0430\u0458\u043B \u0443 \u043E\u0432\u0443 \u043E\u0431\u043B\u0430\u0441\u0442 \u0437\u0430 <em>\u043E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435</em>',
+      dragTip:
+        '\u041F\u0443\u0441\u0442\u0438 \u0444\u0430\u0458\u043B \u043E\u0432\u0434\u0435 \u0438\u043B\u0438 \u043A\u043B\u0438\u043A\u043D\u0438 \u0437\u0430 \u043E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435',
+      uploading: '\u041E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435...',
+      success:
+        '\u041E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435 \u0443\u0441\u043F\u0435\u0448\u043D\u043E',
+      error:
+        '\u041E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u043D\u043E',
+      retry: '\u041F\u043E\u043A\u0443\u0448\u0430\u0458 \u043F\u043E\u043D\u043E\u0432\u043E',
+      cancel:
+        '\u041E\u0442\u043A\u0430\u0436\u0438 \u043E\u0442\u043F\u0440\u0435\u043C\u0430\u045A\u0435',
+      fileTypeError:
+        '\u0422\u0438\u043F \u0444\u0430\u0458\u043B\u0430 \u043D\u0438\u0458\u0435 \u043F\u043E\u0434\u0440\u0436\u0430\u043D',
+      fileSizeError:
+        '\u0412\u0435\u043B\u0438\u0447\u0438\u043D\u0430 \u0444\u0430\u0458\u043B\u0430 \u043F\u0440\u0435\u043B\u0430\u0437\u0438 \u043B\u0438\u043C\u0438\u0442',
+      fileCountError:
+        '\u0411\u0440\u043E\u0458 \u0444\u0430\u0458\u043B\u043E\u0432\u0430 \u043F\u0440\u0435\u043B\u0430\u0437\u0438 \u043B\u0438\u043C\u0438\u0442'
     },
     // Форма
     form: {
-      validationFailed: 'Валидација неуспешна',
-      required: 'Обавезно',
-      pleaseInput: 'Молимо унесите',
-      pleaseSelect: 'Молимо изаберите'
+      validationFailed:
+        '\u0412\u0430\u043B\u0438\u0434\u0430\u0446\u0438\u0458\u0430 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u043D\u0430',
+      required: '\u041E\u0431\u0430\u0432\u0435\u0437\u043D\u043E',
+      pleaseInput:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435',
+      pleaseSelect:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0438\u0437\u0430\u0431\u0435\u0440\u0438\u0442\u0435'
     },
     // Дугме
     button: {
-      loading: 'Учитавање...'
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...'
     },
     // Унос
     input: {
-      placeholder: 'Молимо унесите',
-      clear: 'Обриши',
-      showPassword: 'Прикажи лозинку',
-      hidePassword: 'Сакриј лозинку',
-      copy: 'Копирај',
-      copied: 'Копирано'
+      placeholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435',
+      clear: '\u041E\u0431\u0440\u0438\u0448\u0438',
+      showPassword:
+        '\u041F\u0440\u0438\u043A\u0430\u0436\u0438 \u043B\u043E\u0437\u0438\u043D\u043A\u0443',
+      hidePassword:
+        '\u0421\u0430\u043A\u0440\u0438\u0458 \u043B\u043E\u0437\u0438\u043D\u043A\u0443',
+      copy: '\u041A\u043E\u043F\u0438\u0440\u0430\u0458',
+      copied: '\u041A\u043E\u043F\u0438\u0440\u0430\u043D\u043E'
     },
     // Унос броја
     inputnumber: {
-      placeholder: 'Молимо унесите број',
-      increase: 'Повећај',
-      decrease: 'Смањи'
+      placeholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435 \u0431\u0440\u043E\u0458',
+      increase: '\u041F\u043E\u0432\u0435\u045B\u0430\u0458',
+      decrease: '\u0421\u043C\u0430\u045A\u0438'
     },
     // Унос ознаке
     inputtag: {
-      placeholder: 'Молимо унесите',
-      add: 'Додај',
-      remove: 'Уклони'
+      placeholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435',
+      add: '\u0414\u043E\u0434\u0430\u0458',
+      remove: '\u0423\u043A\u043B\u043E\u043D\u0438'
     },
     // Бредкрамб
     breadcrumb: {
-      label: 'Бредкрамб',
-      more: 'Више'
+      label: '\u0411\u0440\u0435\u0434\u043A\u0440\u0430\u043C\u0431',
+      more: '\u0412\u0438\u0448\u0435'
     },
     // Повратак на врх
     backtop: {
-      text: 'Повратак на врх'
+      text: '\u041F\u043E\u0432\u0440\u0430\u0442\u0430\u043A \u043D\u0430 \u0432\u0440\u0445'
     },
     // Биранје
     select: {
-      placeholder: 'Молимо изаберите',
-      noData: 'Нема података',
-      loading: 'Учитавање...',
-      noMatch: 'Нема поклапања',
-      selectAll: 'Изабери све',
-      clearAll: 'Обриши све'
+      placeholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0438\u0437\u0430\u0431\u0435\u0440\u0438\u0442\u0435',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      noMatch: '\u041D\u0435\u043C\u0430 \u043F\u043E\u043A\u043B\u0430\u043F\u0430\u045A\u0430',
+      selectAll: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0441\u0432\u0435',
+      clearAll: '\u041E\u0431\u0440\u0438\u0448\u0438 \u0441\u0432\u0435'
     },
     // Страначење
     pagination: {
-      goto: 'Иди на',
+      goto: '\u0418\u0434\u0438 \u043D\u0430',
       page: '',
-      total: 'Укупно {total}',
-      pageSize: '/страна',
-      prev: 'Претходна',
-      next: 'Следећа',
-      first: 'Прва',
-      last: 'Последња',
+      total: '\u0423\u043A\u0443\u043F\u043D\u043E {total}',
+      pageSize: '/\u0441\u0442\u0440\u0430\u043D\u0430',
+      prev: '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0430',
+      next: '\u0421\u043B\u0435\u0434\u0435\u045B\u0430',
+      first: '\u041F\u0440\u0432\u0430',
+      last: '\u041F\u043E\u0441\u043B\u0435\u0434\u045A\u0430',
       pageClassifier: ''
     },
     // Потврда
     popconfirm: {
-      confirm: 'У реду',
-      cancel: 'Откажи',
-      dontAskAgain: 'Не питај поново'
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      dontAskAgain:
+        '\u041D\u0435 \u043F\u0438\u0442\u0430\u0458 \u043F\u043E\u043D\u043E\u0432\u043E'
     },
     // Дијалог
     dialog: {
-      confirm: 'У реду',
-      cancel: 'Откажи',
-      close: 'Затвори',
-      maximize: 'Максимизуј',
-      restore: 'Врати'
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438',
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438',
+      maximize: '\u041C\u0430\u043A\u0441\u0438\u043C\u0438\u0437\u0443\u0458',
+      restore: '\u0412\u0440\u0430\u0442\u0438'
     },
     // Фиока
     drawer: {
-      close: 'Затвори',
-      confirm: 'У реду',
-      cancel: 'Откажи'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438',
+      confirm: '\u0423 \u0440\u0435\u0434\u0443',
+      cancel: '\u041E\u0442\u043A\u0430\u0436\u0438'
     },
     // Падајући мени
     dropdown: {
-      loading: 'Учитавање...'
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...'
     },
     // Слика
     image: {
-      error: 'НЕУСПЕШНО',
-      loading: 'Учитавање...',
-      preview: 'Преглед',
-      zoomIn: 'Увећај',
-      zoomOut: 'Смањи',
-      rotateLeft: 'Ротирај лево',
-      rotateRight: 'Ротирај десно',
-      originalSize: 'Оригинална величина',
-      fullscreen: 'Цео екран'
+      error: '\u041D\u0415\u0423\u0421\u041F\u0415\u0428\u041D\u041E',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      preview: '\u041F\u0440\u0435\u0433\u043B\u0435\u0434',
+      zoomIn: '\u0423\u0432\u0435\u045B\u0430\u0458',
+      zoomOut: '\u0421\u043C\u0430\u045A\u0438',
+      rotateLeft: '\u0420\u043E\u0442\u0438\u0440\u0430\u0458 \u043B\u0435\u0432\u043E',
+      rotateRight: '\u0420\u043E\u0442\u0438\u0440\u0430\u0458 \u0434\u0435\u0441\u043D\u043E',
+      originalSize:
+        '\u041E\u0440\u0438\u0433\u0438\u043D\u0430\u043B\u043D\u0430 \u0432\u0435\u043B\u0438\u0447\u0438\u043D\u0430',
+      fullscreen: '\u0426\u0435\u043E \u0435\u043A\u0440\u0430\u043D'
     },
     // Прегледач слика
     imageviewer: {
-      close: 'Затвори',
-      prev: 'Претходна',
-      next: 'Следећа',
-      zoomIn: 'Увећај',
-      zoomOut: 'Смањи',
-      rotateLeft: 'Ротирај лево',
-      rotateRight: 'Ротирај десно',
-      reset: 'Ресетуј',
-      fullscreen: 'Цео екран',
-      exitFullscreen: 'Изађи из целог екрана'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438',
+      prev: '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0430',
+      next: '\u0421\u043B\u0435\u0434\u0435\u045B\u0430',
+      zoomIn: '\u0423\u0432\u0435\u045B\u0430\u0458',
+      zoomOut: '\u0421\u043C\u0430\u045A\u0438',
+      rotateLeft: '\u0420\u043E\u0442\u0438\u0440\u0430\u0458 \u043B\u0435\u0432\u043E',
+      rotateRight: '\u0420\u043E\u0442\u0438\u0440\u0430\u0458 \u0434\u0435\u0441\u043D\u043E',
+      reset: '\u0420\u0435\u0441\u0435\u0442\u0443\u0458',
+      fullscreen: '\u0426\u0435\u043E \u0435\u043A\u0440\u0430\u043D',
+      exitFullscreen:
+        '\u0418\u0437\u0430\u0452\u0438 \u0438\u0437 \u0446\u0435\u043B\u043E\u0433 \u0435\u043A\u0440\u0430\u043D\u0430'
     },
     // Бесконачно скроловање
     infinitescroll: {
-      loading: 'Учитавање...',
-      finished: 'Нема више података',
-      error: 'Учитавање неуспешно, кликни за поновни покушај',
-      retry: 'Кликни за поновни покушај'
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      finished:
+        '\u041D\u0435\u043C\u0430 \u0432\u0438\u0448\u0435 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      error:
+        '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u043D\u043E, \u043A\u043B\u0438\u043A\u043D\u0438 \u0437\u0430 \u043F\u043E\u043D\u043E\u0432\u043D\u0438 \u043F\u043E\u043A\u0443\u0448\u0430\u0458',
+      retry:
+        '\u041A\u043B\u0438\u043A\u043D\u0438 \u0437\u0430 \u043F\u043E\u043D\u043E\u0432\u043D\u0438 \u043F\u043E\u043A\u0443\u0448\u0430\u0458'
     },
     // Порука
     message: {
-      close: 'Затвори'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438'
     },
     // Обавештење
     notification: {
-      close: 'Затвори'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438'
     },
     // Учитавање
     loading: {
-      text: 'Учитавање...'
+      text: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...'
     },
     // Окретање
     spin: {
-      text: 'Учитавање...'
+      text: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...'
     },
     // Оцена
     rate: {
-      texts: ['Изузетно лоше', 'Разочаран', 'Добро', 'Задовољан', 'Изненађен']
+      texts: [
+        '\u0418\u0437\u0443\u0437\u0435\u0442\u043D\u043E \u043B\u043E\u0448\u0435',
+        '\u0420\u0430\u0437\u043E\u0447\u0430\u0440\u0430\u043D',
+        '\u0414\u043E\u0431\u0440\u043E',
+        '\u0417\u0430\u0434\u043E\u0432\u043E\u0459\u0430\u043D',
+        '\u0418\u0437\u043D\u0435\u043D\u0430\u0452\u0435\u043D'
+      ]
     },
     // Упозорење
     alert: {
-      close: 'Затвори'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438'
     },
     // Ознака
     tag: {
-      close: 'Затвори'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438'
     },
     // Табови
     tabs: {
-      close: 'Затвори',
-      add: 'Додај',
-      more: 'Више'
+      close: '\u0417\u0430\u0442\u0432\u043E\u0440\u0438',
+      add: '\u0414\u043E\u0434\u0430\u0458',
+      more: '\u0412\u0438\u0448\u0435'
     },
     // Кораци
     steps: {
-      finish: 'Завршено',
-      process: 'У току',
-      wait: 'Чекање',
-      error: 'Грешка'
+      finish: '\u0417\u0430\u0432\u0440\u0448\u0435\u043D\u043E',
+      process: '\u0423 \u0442\u043E\u043A\u0443',
+      wait: '\u0427\u0435\u043A\u0430\u045A\u0435',
+      error: '\u0413\u0440\u0435\u0448\u043A\u0430'
     },
     // Напредовање
     progress: {
-      success: 'Успех',
-      exception: 'Изузетак',
-      warning: 'Упозорење'
+      success: '\u0423\u0441\u043F\u0435\u0445',
+      exception: '\u0418\u0437\u0443\u0437\u0435\u0442\u0430\u043A',
+      warning: '\u0423\u043F\u043E\u0437\u043E\u0440\u0435\u045A\u0435'
     },
     // Скелетон
     skeleton: {
-      loading: 'Учитавање...'
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...'
     },
     // Празно
     empty: {
-      description: 'Нема података',
-      noData: 'Нема података',
-      noResult: 'Нема резултата',
-      networkError: 'Грешка мреже',
-      serverError: 'Грешка сервера'
+      description: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      noResult: '\u041D\u0435\u043C\u0430 \u0440\u0435\u0437\u0443\u043B\u0442\u0430\u0442\u0430',
+      networkError: '\u0413\u0440\u0435\u0448\u043A\u0430 \u043C\u0440\u0435\u0436\u0435',
+      serverError: '\u0413\u0440\u0435\u0448\u043A\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0430'
     },
     // Резултат
     result: {
-      success: 'Успех',
-      error: 'Грешка',
-      warning: 'Упозорење',
-      info: 'Информација',
-      backHome: 'Повратак на почетак'
+      success: '\u0423\u0441\u043F\u0435\u0445',
+      error: '\u0413\u0440\u0435\u0448\u043A\u0430',
+      warning: '\u0423\u043F\u043E\u0437\u043E\u0440\u0435\u045A\u0435',
+      info: '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0458\u0430',
+      backHome:
+        '\u041F\u043E\u0432\u0440\u0430\u0442\u0430\u043A \u043D\u0430 \u043F\u043E\u0447\u0435\u0442\u0430\u043A'
     },
     // Водопад
     waterfall: {
-      loading: 'Учитавање...',
-      noMore: 'Нема више података',
-      empty: 'Нема података'
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      noMore:
+        '\u041D\u0435\u043C\u0430 \u0432\u0438\u0448\u0435 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430',
+      empty: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430'
     },
     // Описи
     descriptions: {
@@ -541,29 +612,29 @@ export const sr: Language = {
     },
     // Прекидач
     switch: {
-      on: 'УКЉ',
-      off: 'ИСКЉ'
+      on: '\u0423\u041A\u0409',
+      off: '\u0418\u0421\u041A\u0409'
     },
     // Поље за потврду
     checkbox: {
-      selectAll: 'Изабери све'
+      selectAll: '\u0418\u0437\u0430\u0431\u0435\u0440\u0438 \u0441\u0432\u0435'
     },
     // Радио
     radio: {},
     // Мени
     menu: {
-      collapse: 'Скупи мени',
-      expand: 'Прошири мени'
+      collapse: '\u0421\u043A\u0443\u043F\u0438 \u043C\u0435\u043D\u0438',
+      expand: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438 \u043C\u0435\u043D\u0438'
     },
     // Картица
     card: {
-      collapse: 'Скупи',
-      expand: 'Прошири'
+      collapse: '\u0421\u043A\u0443\u043F\u0438',
+      expand: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438'
     },
     // Скупљање
     collapse: {
-      expand: 'Прошири',
-      collapse: 'Скупи'
+      expand: '\u041F\u0440\u043E\u0448\u0438\u0440\u0438',
+      collapse: '\u0421\u043A\u0443\u043F\u0438'
     },
     // Савет
     tooltip: {},
@@ -573,7 +644,8 @@ export const sr: Language = {
     badge: {},
     // Аватар
     avatar: {
-      error: 'Учитавање неуспешно'
+      error:
+        '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435 \u043D\u0435\u0443\u0441\u043F\u0435\u0448\u043D\u043E'
     },
     // Водени жиг
     watermark: {},
@@ -581,8 +653,8 @@ export const sr: Language = {
     divider: {},
     // Карусел
     carousel: {
-      prev: 'Претходна',
-      next: 'Следећа'
+      prev: '\u041F\u0440\u0435\u0442\u0445\u043E\u0434\u043D\u0430',
+      next: '\u0421\u043B\u0435\u0434\u0435\u045B\u0430'
     },
     // Марки
     marquee: {},
@@ -592,127 +664,148 @@ export const sr: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Молимо унесите',
-      loading: 'Учитавање...',
-      noData: 'Нема података'
+      placeholder:
+        '\u041C\u043E\u043B\u0438\u043C\u043E \u0443\u043D\u0435\u0441\u0438\u0442\u0435',
+      loading: '\u0423\u0447\u0438\u0442\u0430\u0432\u0430\u045A\u0435...',
+      noData: '\u041D\u0435\u043C\u0430 \u043F\u043E\u0434\u0430\u0442\u0430\u043A\u0430'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Цитати'
+        citations: '\u0426\u0438\u0442\u0430\u0442\u0438'
       },
       mention: {
-        placeholder: '@ Помени Агента, Документ или Табелу...',
-        agent: 'Агент',
-        document: 'Документ',
-        table: 'Табела',
-        knowledge: 'Знање'
+        placeholder:
+          '@ \u041F\u043E\u043C\u0435\u043D\u0438 \u0410\u0433\u0435\u043D\u0442\u0430, \u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442 \u0438\u043B\u0438 \u0422\u0430\u0431\u0435\u043B\u0443...',
+        agent: '\u0410\u0433\u0435\u043D\u0442',
+        document: '\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442',
+        table: '\u0422\u0430\u0431\u0435\u043B\u0430',
+        knowledge: '\u0417\u043D\u0430\u045A\u0435'
       },
       codeBlock: {
-        copyCode: 'Копирај код',
-        copied: 'Копирано!',
-        run: 'Покрени код',
-        edit: 'Уреди',
-        save: 'Сачувај',
-        cancel: 'Откажи'
+        copyCode: '\u041A\u043E\u043F\u0438\u0440\u0430\u0458 \u043A\u043E\u0434',
+        copied: '\u041A\u043E\u043F\u0438\u0440\u0430\u043D\u043E!',
+        run: '\u041F\u043E\u043A\u0440\u0435\u043D\u0438 \u043A\u043E\u0434',
+        edit: '\u0423\u0440\u0435\u0434\u0438',
+        save: '\u0421\u0430\u0447\u0443\u0432\u0430\u0458',
+        cancel: '\u041E\u0442\u043A\u0430\u0436\u0438'
       },
       codeRunner: {
-        run: 'Покрени',
-        stop: 'Заустави',
-        clear: 'Очисти',
-        reset: 'Ресетуј',
-        placeholder: 'Кликните Покрени да бисте извршили код...'
+        run: '\u041F\u043E\u043A\u0440\u0435\u043D\u0438',
+        stop: '\u0417\u0430\u0443\u0441\u0442\u0430\u0432\u0438',
+        clear: '\u041E\u0447\u0438\u0441\u0442\u0438',
+        reset: '\u0420\u0435\u0441\u0435\u0442\u0443\u0458',
+        placeholder:
+          '\u041A\u043B\u0438\u043A\u043D\u0438\u0442\u0435 \u041F\u043E\u043A\u0440\u0435\u043D\u0438 \u0434\u0430 \u0431\u0438\u0441\u0442\u0435 \u0438\u0437\u0432\u0440\u0448\u0438\u043B\u0438 \u043A\u043E\u0434...'
       },
       sender: {
-        placeholder: 'Пошаљи поруку...',
-        dragTip: 'Отпустите да бисте отпремили датотеке'
+        placeholder: '\u041F\u043E\u0448\u0430\u0459\u0438 \u043F\u043E\u0440\u0443\u043A\u0443...',
+        dragTip:
+          '\u041E\u0442\u043F\u0443\u0441\u0442\u0438\u0442\u0435 \u0434\u0430 \u0431\u0438\u0441\u0442\u0435 \u043E\u0442\u043F\u0440\u0435\u043C\u0438\u043B\u0438 \u0434\u0430\u0442\u043E\u0442\u0435\u043A\u0435'
       },
       thoughtChain: {
-        thoughtProcess: 'Процес размишљања',
-        thinking: 'Размишљам...',
-        defaultTitle: 'Нови корак',
-        addNode: 'Додај корак'
+        thoughtProcess:
+          '\u041F\u0440\u043E\u0446\u0435\u0441 \u0440\u0430\u0437\u043C\u0438\u0448\u0459\u0430\u045A\u0430',
+        thinking: '\u0420\u0430\u0437\u043C\u0438\u0448\u0459\u0430\u043C...',
+        defaultTitle: '\u041D\u043E\u0432\u0438 \u043A\u043E\u0440\u0430\u043A',
+        addNode: '\u0414\u043E\u0434\u0430\u0458 \u043A\u043E\u0440\u0430\u043A'
       },
       thinking: {
-        start: 'Почни да размишљаш',
-        thinking: 'Размишљам...',
-        complete: 'Размишљање завршено',
-        error: 'Грешка у размишљању'
+        start:
+          '\u041F\u043E\u0447\u043D\u0438 \u0434\u0430 \u0440\u0430\u0437\u043C\u0438\u0448\u0459\u0430\u0448',
+        thinking: '\u0420\u0430\u0437\u043C\u0438\u0448\u0459\u0430\u043C...',
+        complete:
+          '\u0420\u0430\u0437\u043C\u0438\u0448\u0459\u0430\u045A\u0435 \u0437\u0430\u0432\u0440\u0448\u0435\u043D\u043E',
+        error:
+          '\u0413\u0440\u0435\u0448\u043A\u0430 \u0443 \u0440\u0430\u0437\u043C\u0438\u0448\u0459\u0430\u045A\u0443'
       },
       welcome: {
-        title: 'Здраво, ја сам YH AI',
+        title: '\u0417\u0434\u0440\u0430\u0432\u043E, \u0458\u0430 \u0441\u0430\u043C YH AI',
         description:
-          'Могу вам помоћи са програмирањем, превођењем докумената или креативним писањем. Шта могу да урадим за вас данас?'
+          '\u041C\u043E\u0433\u0443 \u0432\u0430\u043C \u043F\u043E\u043C\u043E\u045B\u0438 \u0441\u0430 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u0438\u0440\u0430\u045A\u0435\u043C, \u043F\u0440\u0435\u0432\u043E\u0452\u0435\u045A\u0435\u043C \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0430\u0442\u0430 \u0438\u043B\u0438 \u043A\u0440\u0435\u0430\u0442\u0438\u0432\u043D\u0438\u043C \u043F\u0438\u0441\u0430\u045A\u0435\u043C. \u0428\u0442\u0430 \u043C\u043E\u0433\u0443 \u0434\u0430 \u0443\u0440\u0430\u0434\u0438\u043C \u0437\u0430 \u0432\u0430\u0441 \u0434\u0430\u043D\u0430\u0441?'
       },
       action: {
-        copy: 'Копирај',
-        regenerate: 'Регенериши',
-        share: 'Подели',
-        like: 'Свиђа ми се',
-        dislike: 'Не свиђа ми се',
-        edit: 'Уреди',
-        delete: 'Обриши'
+        copy: '\u041A\u043E\u043F\u0438\u0440\u0430\u0458',
+        regenerate: '\u0420\u0435\u0433\u0435\u043D\u0435\u0440\u0438\u0448\u0438',
+        share: '\u041F\u043E\u0434\u0435\u043B\u0438',
+        like: '\u0421\u0432\u0438\u0452\u0430 \u043C\u0438 \u0441\u0435',
+        dislike: '\u041D\u0435 \u0441\u0432\u0438\u0452\u0430 \u043C\u0438 \u0441\u0435',
+        edit: '\u0423\u0440\u0435\u0434\u0438',
+        delete: '\u041E\u0431\u0440\u0438\u0448\u0438'
       },
       artifacts: {
-        preview: 'Преглед',
-        inline: 'У линији',
-        code: 'Изворни код',
-        versions: 'Верзије',
-        rendering: 'Рендеровање компоненте...',
-        renderingChart: 'Рендеровање графикона...',
-        renderingCanvas: 'Припрема платна...'
+        preview: '\u041F\u0440\u0435\u0433\u043B\u0435\u0434',
+        inline: '\u0423 \u043B\u0438\u043D\u0438\u0458\u0438',
+        code: '\u0418\u0437\u0432\u043E\u0440\u043D\u0438 \u043A\u043E\u0434',
+        versions: '\u0412\u0435\u0440\u0437\u0438\u0458\u0435',
+        rendering:
+          '\u0420\u0435\u043D\u0434\u0435\u0440\u043E\u0432\u0430\u045A\u0435 \u043A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442\u0435...',
+        renderingChart:
+          '\u0420\u0435\u043D\u0434\u0435\u0440\u043E\u0432\u0430\u045A\u0435 \u0433\u0440\u0430\u0444\u0438\u043A\u043E\u043D\u0430...',
+        renderingCanvas:
+          '\u041F\u0440\u0438\u043F\u0440\u0435\u043C\u0430 \u043F\u043B\u0430\u0442\u043D\u0430...'
       },
       voice: {
-        trigger: 'Кликните да бисте говорили',
-        listening: 'Слушам...'
+        trigger:
+          '\u041A\u043B\u0438\u043A\u043D\u0438\u0442\u0435 \u0434\u0430 \u0431\u0438\u0441\u0442\u0435 \u0433\u043E\u0432\u043E\u0440\u0438\u043B\u0438',
+        listening: '\u0421\u043B\u0443\u0448\u0430\u043C...'
       },
       agent: {
-        uses: 'употребе',
-        use: 'Користи сада',
-        favorite: 'Омиљено',
-        unfavorite: 'Уклони из омиљених',
-        share: 'Подели',
-        online: 'Онлајн',
-        offline: 'Офлајн',
-        busy: 'Заузет',
-        verified: 'Верификован',
-        rating: 'Оцена',
-        reviews: 'рецензије',
-        responseTime: 'Просечно време одговора',
-        ms: 'мс'
+        uses: '\u0443\u043F\u043E\u0442\u0440\u0435\u0431\u0435',
+        use: '\u041A\u043E\u0440\u0438\u0441\u0442\u0438 \u0441\u0430\u0434\u0430',
+        favorite: '\u041E\u043C\u0438\u0459\u0435\u043D\u043E',
+        unfavorite:
+          '\u0423\u043A\u043B\u043E\u043D\u0438 \u0438\u0437 \u043E\u043C\u0438\u0459\u0435\u043D\u0438\u0445',
+        share: '\u041F\u043E\u0434\u0435\u043B\u0438',
+        online: '\u041E\u043D\u043B\u0430\u0458\u043D',
+        offline: '\u041E\u0444\u043B\u0430\u0458\u043D',
+        busy: '\u0417\u0430\u0443\u0437\u0435\u0442',
+        verified: '\u0412\u0435\u0440\u0438\u0444\u0438\u043A\u043E\u0432\u0430\u043D',
+        rating: '\u041E\u0446\u0435\u043D\u0430',
+        reviews: '\u0440\u0435\u0446\u0435\u043D\u0437\u0438\u0458\u0435',
+        responseTime:
+          '\u041F\u0440\u043E\u0441\u0435\u0447\u043D\u043E \u0432\u0440\u0435\u043C\u0435 \u043E\u0434\u0433\u043E\u0432\u043E\u0440\u0430',
+        ms: '\u043C\u0441'
       },
       sources: {
-        references: 'Референце',
-        referencedSources: 'Референцирани извори',
-        relevant: 'Релевантност',
-        viewOriginal: 'Погледај оригинал',
-        showAll: 'Прикажи све',
-        more: 'више извора',
-        drawerTitle: 'Референце',
-        expandMore: 'Прикажи више',
-        collapseMore: 'Скупи',
-        noSources: 'Нема извора',
-        today: 'Данас',
-        last7Days: 'Последњих 7 дана',
-        last30Days: 'Последњих 30 дана',
-        earlier: 'Раније',
-        pinned: 'Прикачено'
+        references: '\u0420\u0435\u0444\u0435\u0440\u0435\u043D\u0446\u0435',
+        referencedSources:
+          '\u0420\u0435\u0444\u0435\u0440\u0435\u043D\u0446\u0438\u0440\u0430\u043D\u0438 \u0438\u0437\u0432\u043E\u0440\u0438',
+        relevant: '\u0420\u0435\u043B\u0435\u0432\u0430\u043D\u0442\u043D\u043E\u0441\u0442',
+        viewOriginal:
+          '\u041F\u043E\u0433\u043B\u0435\u0434\u0430\u0458 \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B',
+        showAll: '\u041F\u0440\u0438\u043A\u0430\u0436\u0438 \u0441\u0432\u0435',
+        more: '\u0432\u0438\u0448\u0435 \u0438\u0437\u0432\u043E\u0440\u0430',
+        drawerTitle: '\u0420\u0435\u0444\u0435\u0440\u0435\u043D\u0446\u0435',
+        expandMore: '\u041F\u0440\u0438\u043A\u0430\u0436\u0438 \u0432\u0438\u0448\u0435',
+        collapseMore: '\u0421\u043A\u0443\u043F\u0438',
+        noSources: '\u041D\u0435\u043C\u0430 \u0438\u0437\u0432\u043E\u0440\u0430',
+        today: '\u0414\u0430\u043D\u0430\u0441',
+        last7Days:
+          '\u041F\u043E\u0441\u043B\u0435\u0434\u045A\u0438\u0445 7 \u0434\u0430\u043D\u0430',
+        last30Days:
+          '\u041F\u043E\u0441\u043B\u0435\u0434\u045A\u0438\u0445 30 \u0434\u0430\u043D\u0430',
+        earlier: '\u0420\u0430\u043D\u0438\u0458\u0435',
+        pinned: '\u041F\u0440\u0438\u043A\u0430\u0447\u0435\u043D\u043E'
       },
       conversations: {
-        today: 'Данас',
-        last7Days: 'Последњих 7 дана',
-        last30Days: 'Последњих 30 дана',
-        earlier: 'Раније',
-        pinned: 'Прикачено',
-        pin: 'Прикачи',
-        unpin: 'Откачи',
-        newConversation: 'Нови разговор',
-        rename: 'Преименуј',
-        delete: 'Обриши',
-        deleteConfirm: 'Потврдите брисање овог разговора?'
+        today: '\u0414\u0430\u043D\u0430\u0441',
+        last7Days:
+          '\u041F\u043E\u0441\u043B\u0435\u0434\u045A\u0438\u0445 7 \u0434\u0430\u043D\u0430',
+        last30Days:
+          '\u041F\u043E\u0441\u043B\u0435\u0434\u045A\u0438\u0445 30 \u0434\u0430\u043D\u0430',
+        earlier: '\u0420\u0430\u043D\u0438\u0458\u0435',
+        pinned: '\u041F\u0440\u0438\u043A\u0430\u0447\u0435\u043D\u043E',
+        pin: '\u041F\u0440\u0438\u043A\u0430\u0447\u0438',
+        unpin: '\u041E\u0442\u043A\u0430\u0447\u0438',
+        newConversation:
+          '\u041D\u043E\u0432\u0438 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440',
+        rename: '\u041F\u0440\u0435\u0438\u043C\u0435\u043D\u0443\u0458',
+        delete: '\u041E\u0431\u0440\u0438\u0448\u0438',
+        deleteConfirm:
+          '\u041F\u043E\u0442\u0432\u0440\u0434\u0438\u0442\u0435 \u0431\u0440\u0438\u0441\u0430\u045A\u0435 \u043E\u0432\u043E\u0433 \u0440\u0430\u0437\u0433\u043E\u0432\u043E\u0440\u0430?'
       }
     }
   }
 }
-
 export default sr

@@ -601,6 +601,97 @@ const id = exports.id = {
       noData: "Tidak ada data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Pilih spesifikasi",
+      emptyText: "Tidak ada spesifikasi",
+      stock: "Stok",
+      price: "Harga",
+      selected: "Dipilih",
+      outOfStock: "Stok habis"
+    },
+    productcard: {
+      viewDetails: "Lihat detail",
+      buyNow: "Beli sekarang",
+      addToCart: "Tambah ke keranjang",
+      sold: "Terjual",
+      soldOut: "Habis",
+      vip: "VIP"
+    },
+    price: {
+      original: "Harga asli"
+    },
+    couponcard: {
+      available: "Klaim sekarang",
+      used: "Digunakan",
+      expired: "Kedaluwarsa",
+      received: "Diterima",
+      limit: "Pesanan di atas {threshold}",
+      noThreshold: "Tanpa minimum",
+      validPeriod: "Masa berlaku",
+      ruleTitle: "Aturan penggunaan"
+    },
+    luckydraw: {
+      start: "Mulai",
+      drawing: "Mengundi...",
+      end: "Pemenang!",
+      retry: "Coba lagi"
+    },
+    filterbar: {
+      all: "Semua",
+      sort: "Urutkan",
+      filter: "Filter",
+      cancel: "Batal",
+      reset: "Setel ulang",
+      confirm: "Konfirmasi",
+      noOptions: "Tidak ada opsi",
+      asc: "Naik",
+      desc: "Turun",
+      selected: "Dipilih"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} dipilih",
+      submit: "Checkout",
+      allSelect: "Pilih semua"
+    },
+    categorynav: {
+      all: "Semua",
+      noData: "Tidak ada data",
+      loading: "Memuat..."
+    },
+    smartaddress: {
+      placeholder: "Tempel alamat di sini untuk mendeteksi nama, telepon, dan lokasi secara otomatis",
+      parse: "Analisis cerdas",
+      province: "Provinsi/Kota/Kecamatan",
+      city: "Kota",
+      district: "Kecamatan/Kabupaten",
+      street: "Jalan/Kelurahan",
+      detail: "Alamat lengkap",
+      phone: "Telepon",
+      name: "Penerima",
+      parseSuccess: "Alamat berhasil dianalisis",
+      parseFailed: "Analisis gagal, silakan isi manual",
+      required: "Silakan isi alamat lengkap",
+      provinceKeywords: ["Provinsi", "Daerah"],
+      cityKeywords: ["Kota", "Kabupaten"],
+      districtKeywords: ["Kecamatan", "Kelurahan", "Desa"],
+      streetKeywords: ["Jalan", "Gang", "Lorong", "Avenue"]
+    },
+    ganttchart: {
+      taskName: "Nama tugas",
+      searchPlaceholder: "Cari tugas...",
+      zoom: "Zoom",
+      day: "Hari",
+      week: "Minggu",
+      month: "Bulan",
+      year: "Tahun",
+      milestone: "Tonggak"
+    },
+    imagemagnifier: {
+      switchToImage: "Beralih ke gambar {index}",
+      galleryItem: "Galeri {index}",
+      close: "Tutup"
+    },
     ai: {
       bubble: {
         citations: "Sitasi"
@@ -710,9 +801,32 @@ const id = exports.id = {
         pin: "Sematkan",
         unpin: "Lepas Sematan",
         newConversation: "Percakapan Baru",
+        noData: "Belum ada percakapan",
         rename: "Ubah Nama",
         delete: "Hapus",
         deleteConfirm: "Konfirmasi hapus percakapan ini?"
+      },
+      attachments: {
+        dropTip: "Lepaskan file di sini untuk mengunggah",
+        clickToUpload: "Klik atau seret file untuk mengunggah",
+        uploadSuccess: "Unggahan berhasil",
+        uploadError: "Unggahan gagal",
+        deleteConfirm: "Yakin ingin menghapus file ini?",
+        fileTooLarge: "Ukuran file tidak boleh melebihi {size}",
+        invalidFileType: "Jenis file tidak valid"
+      },
+      mermaid: {
+        image: "Gambar",
+        code: "Kode",
+        zoomIn: "Perbesar",
+        zoomOut: "Perkecil",
+        reset: "Setel ulang",
+        download: "Unduh",
+        copyCode: "Salin kode",
+        rendering: "Sedang merender...",
+        renderError: "Render gagal",
+        renderSuccess: "Render berhasil",
+        retry: "Coba lagi"
       }
     }
   }

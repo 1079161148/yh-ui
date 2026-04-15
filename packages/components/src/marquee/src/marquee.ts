@@ -100,3 +100,13 @@ export const marqueeEmits = {
 }
 
 export type MarqueeEmits = typeof marqueeEmits
+
+export interface MarqueeSlots {
+  default?: () => unknown
+}
+
+export interface MarqueeExpose {
+  calculateClones: () => Promise<void>
+  containerRef: import('vue').Ref<HTMLElement | null>
+  contentRef: import('vue').Ref<HTMLElement | null>
+}

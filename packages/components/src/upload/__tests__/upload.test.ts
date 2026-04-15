@@ -1,7 +1,9 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { YhUpload } from '../index'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 // Mock URL.createObjectURL and URL.revokeObjectURL
 global.URL.createObjectURL = vi.fn(() => 'blob:test-url')
@@ -402,5 +404,40 @@ describe('Upload', () => {
       props: { fileList: [file], fileIcon }
     })
     expect(fileIcon).toHaveBeenCalled()
+  })
+  it('should use config-provider locale text', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(YhUpload, { drag: true })
+      }
+    })
+
+    expect(wrapper.text()).toContain('Click or drag file to this area to upload')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhUpload, {
+      props: {
+        fileList: [],
+        themeOverrides: {
+          'border-color': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-upload-border-color: #123456')
+  })
+
+  it('should expose upload instance methods', () => {
+    const wrapper = mount(YhUpload, {
+      props: {
+        fileList: []
+      }
+    })
+
+    expect(typeof wrapper.vm.triggerInput).toBe('function')
+    expect(typeof wrapper.vm.handleFiles).toBe('function')
+    expect(typeof wrapper.vm.submit).toBe('function')
   })
 })

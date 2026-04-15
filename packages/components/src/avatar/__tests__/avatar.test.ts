@@ -140,4 +140,15 @@ describe('YhAvatar 组件', () => {
     const wrapper = mount(Avatar)
     expect(wrapper.find('.yh-avatar').attributes('role')).toBe('img')
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Avatar, {
+      props: {
+        themeOverrides: {
+          size: '48px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-avatar').attributes('style')).toContain('--yh-avatar-size: 48px')
+  })
 })

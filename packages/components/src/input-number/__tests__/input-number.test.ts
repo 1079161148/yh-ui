@@ -3,8 +3,11 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
 import InputNumber from '../src/input-number.vue'
 import { inputNumberSizes, controlsPositions } from '../src/input-number'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhInputNumber', () => {
   it('should render correctly', () => {
@@ -213,5 +216,35 @@ describe('YhInputNumber', () => {
     await input.setValue('')
     await input.trigger('change')
     expect(calls?.[calls.length - 1]).toEqual([undefined])
+  })
+  it('should use config-provider locale placeholder', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(InputNumber)
+      }
+    })
+
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Please input')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(InputNumber, {
+      props: {
+        themeOverrides: {
+          'border-color': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-input-number-border-color: #123456')
+  })
+
+  it('should expose number input methods', () => {
+    const wrapper = mount(InputNumber)
+
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(typeof wrapper.vm.blur).toBe('function')
+    expect(typeof wrapper.vm.clear).toBe('function')
   })
 })

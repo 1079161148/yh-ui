@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ComputedRef, ExtractPropTypes, PropType } from 'vue'
 
 export type LoadingSpinnerType = 'circle' | 'chaser' | 'gear' | 'dual-ring' | 'rect'
 
@@ -59,3 +59,19 @@ export const spinProps = {
 } as const
 
 export type SpinProps = ExtractPropTypes<typeof spinProps>
+
+export const spinEmits = {
+  show: () => true,
+  hide: () => true
+}
+
+export type SpinEmits = typeof spinEmits
+
+export interface SpinSlots {
+  default?: () => unknown
+  tip?: () => unknown
+}
+
+export interface SpinExpose {
+  visible: ComputedRef<boolean>
+}

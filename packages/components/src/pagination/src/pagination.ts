@@ -145,3 +145,7 @@ export interface PaginationExpose {
    */
   pageCount: number
 }
+
+export interface PaginationSlots {
+  default?: () => unknown
+}

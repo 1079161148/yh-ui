@@ -7,6 +7,7 @@ import {
   Transition,
   computed
 } from "vue";
+import { useLocale } from "@yh-ui/hooks";
 import { useComponentTheme } from "@yh-ui/theme";
 import { YhSpin } from "../../spin/index.mjs";
 const createLoading = (options = {}, appContext) => {
@@ -23,6 +24,7 @@ const createLoading = (options = {}, appContext) => {
   });
   const component = {
     setup() {
+      const { t } = useLocale();
       const { themeStyle } = useComponentTheme(
         "loading",
         computed(() => resolvedOptions.themeOverrides)
@@ -47,7 +49,7 @@ const createLoading = (options = {}, appContext) => {
             [
               h("div", { class: "yh-loading-spinner" }, [
                 resolvedOptions.spinner ? typeof resolvedOptions.spinner === "string" ? h("i", { class: resolvedOptions.spinner }) : isVNode(resolvedOptions.spinner) ? resolvedOptions.spinner : h(resolvedOptions.spinner) : h(YhSpin, {
-                  tip: resolvedOptions.text,
+                  tip: resolvedOptions.text ?? t("loading.text"),
                   size: resolvedOptions.fullscreen ? "large" : "default",
                   vertical: true,
                   color: resolvedOptions.color,

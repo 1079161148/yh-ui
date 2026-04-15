@@ -1,158 +1,175 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from "vue";
-import { useNamespace, useLocale } from "@yh-ui/hooks";
-import { useComponentTheme } from "@yh-ui/theme";
-import { YhSpin } from "../../spin";
-import { infiniteScrollProps, infiniteScrollEmits } from "./infinite-scroll";
+import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { YhSpin } from '../../spin'
+import { infiniteScrollProps, infiniteScrollEmits } from './infinite-scroll'
 defineOptions({
-  name: "YhInfiniteScroll"
-});
-const props = defineProps(infiniteScrollProps);
-const emit = defineEmits(infiniteScrollEmits);
-const ns = useNamespace("infinite-scroll");
-const { t } = useLocale();
-const { themeStyle } = useComponentTheme("infinite-scroll", computed(() => props.themeOverrides));
-const rootRef = ref();
-const placeholderRef = ref();
-const scrollContainer = shallowRef();
-const isLoading = computed(() => props.loading);
-let observer = null;
+  name: 'YhInfiniteScroll'
+})
+const props = defineProps(infiniteScrollProps)
+const emit = defineEmits(infiniteScrollEmits)
+const ns = useNamespace('infinite-scroll')
+const { t } = useLocale()
+const { themeStyle } = useComponentTheme(
+  'infinite-scroll',
+  computed(() => props.themeOverrides)
+)
+const rootRef = ref()
+const placeholderRef = ref()
+const scrollContainer = shallowRef()
+const isLoading = computed(() => props.loading)
+let observer = null
 const checkLoad = () => {
   if (props.disabled || isLoading.value || props.finished || props.error) {
-    return;
+    return
   }
   if (props.useObserver && observer) {
-    return;
+    return
   }
-  if (!scrollContainer.value || !placeholderRef.value) return;
-  const container = scrollContainer.value;
-  let shouldLoad = false;
-  if (props.direction === "vertical") {
+  if (!scrollContainer.value || !placeholderRef.value) return
+  const container = scrollContainer.value
+  let shouldLoad = false
+  if (props.direction === 'vertical') {
     if (container instanceof Window) {
-      const { scrollHeight, clientHeight } = document.documentElement;
-      const scrollTop = window.scrollY;
-      shouldLoad = scrollHeight - scrollTop - clientHeight <= props.threshold;
+      const { scrollHeight, clientHeight } = document.documentElement
+      const scrollTop = window.scrollY
+      shouldLoad = scrollHeight - scrollTop - clientHeight <= props.threshold
     } else {
-      shouldLoad = container.scrollHeight - container.scrollTop - container.clientHeight <= props.threshold;
+      shouldLoad =
+        container.scrollHeight - container.scrollTop - container.clientHeight <= props.threshold
     }
   } else {
     if (container instanceof Window) {
-      const { scrollWidth, clientWidth } = document.documentElement;
-      const scrollLeft = window.scrollX;
-      shouldLoad = scrollWidth - scrollLeft - clientWidth <= props.threshold;
+      const { scrollWidth, clientWidth } = document.documentElement
+      const scrollLeft = window.scrollX
+      shouldLoad = scrollWidth - scrollLeft - clientWidth <= props.threshold
     } else {
-      shouldLoad = container.scrollWidth - container.scrollLeft - container.clientWidth <= props.threshold;
+      shouldLoad =
+        container.scrollWidth - container.scrollLeft - container.clientWidth <= props.threshold
     }
   }
   if (shouldLoad) {
-    emit("load");
+    emit('load')
   }
-};
-let rafId = null;
+}
+let rafId = null
 const handleScroll = () => {
-  if (rafId !== null) return;
+  if (rafId !== null) return
   rafId = requestAnimationFrame(() => {
-    rafId = null;
-    checkLoad();
-  });
-};
+    rafId = null
+    checkLoad()
+  })
+}
 const handleRetry = () => {
-  emit("update:error", false);
-  emit("load");
-};
+  emit('update:error', false)
+  emit('load')
+}
 const setupObserver = () => {
-  if (!props.useObserver || typeof IntersectionObserver === "undefined") {
-    return;
+  if (!props.useObserver || typeof IntersectionObserver === 'undefined') {
+    return
   }
   if (observer) {
-    observer.disconnect();
-    observer = null;
+    observer.disconnect()
+    observer = null
   }
-  const root = props.target ? document.querySelector(props.target) : null;
+  const root = props.target ? document.querySelector(props.target) : null
   observer = new IntersectionObserver(
     (entries) => {
-      const entry = entries[0];
-      if (entry.isIntersecting && !props.disabled && !isLoading.value && !props.finished && !props.error) {
-        emit("load");
+      const entry = entries[0]
+      if (
+        entry.isIntersecting &&
+        !props.disabled &&
+        !isLoading.value &&
+        !props.finished &&
+        !props.error
+      ) {
+        emit('load')
       }
     },
     {
       root,
       rootMargin: props.rootMargin || `${props.threshold}px`
     }
-  );
+  )
   if (placeholderRef.value) {
-    observer.observe(placeholderRef.value);
+    observer.observe(placeholderRef.value)
   }
-};
+}
 const setupScrollListener = () => {
-  if (props.useObserver) return;
+  if (props.useObserver) return
   if (props.target) {
-    const el = document.querySelector(props.target);
-    scrollContainer.value = el || window;
+    const el = document.querySelector(props.target)
+    scrollContainer.value = el || window
   } else {
-    scrollContainer.value = window;
+    scrollContainer.value = window
   }
   if (scrollContainer.value) {
-    scrollContainer.value.addEventListener("scroll", handleScroll, { passive: true });
+    scrollContainer.value.addEventListener('scroll', handleScroll, { passive: true })
   }
-};
+}
 onMounted(() => {
   nextTick(() => {
     if (props.useObserver) {
-      setupObserver();
+      setupObserver()
     } else {
-      setupScrollListener();
+      setupScrollListener()
     }
     if (props.immediateCheck) {
-      checkLoad();
+      checkLoad()
     }
-  });
-});
+  })
+})
 onBeforeUnmount(() => {
   if (rafId !== null) {
-    cancelAnimationFrame(rafId);
+    cancelAnimationFrame(rafId)
   }
   if (observer) {
-    observer.disconnect();
-    observer = null;
+    observer.disconnect()
+    observer = null
   }
   if (scrollContainer.value && !props.useObserver) {
-    scrollContainer.value.removeEventListener("scroll", handleScroll);
+    scrollContainer.value.removeEventListener('scroll', handleScroll)
   }
-});
-watch(() => props.loading, (val, oldVal) => {
-  if (oldVal && !val && props.immediateCheck) {
-    nextTick(() => {
-      if (props.useObserver && observer && placeholderRef.value) {
-        observer.unobserve(placeholderRef.value);
-        observer.observe(placeholderRef.value);
-      } else {
-        checkLoad();
+})
+watch(
+  () => props.loading,
+  (val, oldVal) => {
+    if (oldVal && !val && props.immediateCheck) {
+      nextTick(() => {
+        if (props.useObserver && observer && placeholderRef.value) {
+          observer.unobserve(placeholderRef.value)
+          observer.observe(placeholderRef.value)
+        } else {
+          checkLoad()
+        }
+      })
+    }
+  }
+)
+watch(
+  () => props.useObserver,
+  () => {
+    if (props.useObserver) {
+      if (scrollContainer.value) {
+        scrollContainer.value.removeEventListener('scroll', handleScroll)
       }
-    });
-  }
-});
-watch(() => props.useObserver, () => {
-  if (props.useObserver) {
-    if (scrollContainer.value) {
-      scrollContainer.value.removeEventListener("scroll", handleScroll);
+      setupObserver()
+    } else {
+      if (observer) {
+        observer.disconnect()
+        observer = null
+      }
+      setupScrollListener()
     }
-    setupObserver();
-  } else {
-    if (observer) {
-      observer.disconnect();
-      observer = null;
-    }
-    setupScrollListener();
   }
-});
+)
 defineExpose({
   /** 手动检查是否需要加载 */
   check: checkLoad,
   /** 重试加载 */
   retry: handleRetry
-});
+})
 </script>
 
 <template>
@@ -168,21 +185,21 @@ defineExpose({
       <div v-if="loading" :class="ns.e('loading')">
         <slot name="loading">
           <YhSpin size="small" />
-          <span :class="ns.e('text')">{{ loadingText || t("infinitescroll.loading") }}</span>
+          <span :class="ns.e('text')">{{ loadingText || t('infinitescroll.loading') }}</span>
         </slot>
       </div>
 
       <!-- 加载完成 -->
       <div v-else-if="finished" :class="ns.e('finished')">
         <slot name="finished">
-          <span :class="ns.e('text')">{{ finishedText || t("infinitescroll.finished") }}</span>
+          <span :class="ns.e('text')">{{ finishedText || t('infinitescroll.finished') }}</span>
         </slot>
       </div>
 
       <!-- 加载失败 -->
       <div v-else-if="error" :class="ns.e('error')" @click="handleRetry">
         <slot name="error">
-          <span :class="ns.e('text')">{{ errorText || t("infinitescroll.error") }}</span>
+          <span :class="ns.e('text')">{{ errorText || t('infinitescroll.error') }}</span>
         </slot>
       </div>
     </div>
@@ -707,11 +724,15 @@ html.dark {
   flex-direction: column;
 }
 
-:root.dark .yh-infinite-scroll .yh-infinite-scroll__loading, html.dark .yh-infinite-scroll .yh-infinite-scroll__loading, body.dark .yh-infinite-scroll .yh-infinite-scroll__loading {
+:root.dark .yh-infinite-scroll .yh-infinite-scroll__loading,
+html.dark .yh-infinite-scroll .yh-infinite-scroll__loading,
+body.dark .yh-infinite-scroll .yh-infinite-scroll__loading {
   color: var(--yh-text-color-secondary, #909399);
 }
 
-:root.dark .yh-infinite-scroll .yh-infinite-scroll__finished, html.dark .yh-infinite-scroll .yh-infinite-scroll__finished, body.dark .yh-infinite-scroll .yh-infinite-scroll__finished {
+:root.dark .yh-infinite-scroll .yh-infinite-scroll__finished,
+html.dark .yh-infinite-scroll .yh-infinite-scroll__finished,
+body.dark .yh-infinite-scroll .yh-infinite-scroll__finished {
   color: var(--yh-text-color-placeholder, #6b6b6b);
 }
 </style>

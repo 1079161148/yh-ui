@@ -109,3 +109,12 @@ export const couponCardEmits = {
 }
 
 export type CouponCardEmits = typeof couponCardEmits
+
+export interface CouponCardSlots {
+  title?: () => unknown
+  description?: () => unknown
+  action?: () => unknown
+  badge?: () => unknown
+  seal?: (props: { status: CouponStatus }) => unknown
+  rules?: () => unknown
+}

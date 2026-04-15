@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.zhMo = exports.default = void 0;
+exports.zhMo = void 0;
 const zhMo = exports.zhMo = {
   name: "zh-mo",
   yh: {
@@ -749,4 +749,3 @@ const zhMo = exports.zhMo = {
     }
   }
 };
-module.exports = zhMo;

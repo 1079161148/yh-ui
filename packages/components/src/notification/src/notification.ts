@@ -1,19 +1,19 @@
 /**
  * Notification Types & Props
- * @description 通知组件类型定义
+ * @description 閫氱煡缁勪欢绫诲瀷瀹氫箟
  */
 
-import type { VNode, ComponentPublicInstance } from 'vue'
+import type { VNode, ComponentPublicInstance, Ref } from 'vue'
 
 /**
- * 通知类型
+ * 閫氱煡绫诲瀷
  */
 export const notificationTypes = ['success', 'warning', 'info', 'error'] as const
 
 export type NotificationType = (typeof notificationTypes)[number]
 
 /**
- * 通知位置
+ * 閫氱煡浣嶇疆
  */
 export const notificationPositions = [
   'top-right',
@@ -27,97 +27,97 @@ export const notificationPositions = [
 export type NotificationPosition = (typeof notificationPositions)[number]
 
 /**
- * Notification Props 定义
+ * Notification Props 瀹氫箟
  */
 export interface NotificationProps {
   /**
-   * @description 标题
+   * @description 鏍囬
    */
   title?: string
 
   /**
-   * @description 通知内容，可以是字符串、VNode 或返回 VNode 的函数
+   * @description 閫氱煡鍐呭锛屽彲浠ユ槸瀛楃涓层€乂Node 鎴栬繑鍥?VNode 鐨勫嚱鏁?
    */
   message?: string | VNode | (() => VNode)
 
   /**
-   * @description 通知类型
+   * @description 閫氱煡绫诲瀷
    */
   type?: NotificationType
 
   /**
-   * @description 自定义图标
+   * @description 鑷畾涔夊浘鏍?
    */
   icon?: string | VNode
 
   /**
-   * @description 是否显示关闭按钮
+   * @description 鏄惁鏄剧ず鍏抽棴鎸夐挳
    * @default true
    */
   showClose?: boolean
 
   /**
-   * @description 显示时间（毫秒）。设为 0 则不会自动关闭
+   * @description 鏄剧ず鏃堕棿锛堟绉掞級銆傝涓?0 鍒欎笉浼氳嚜鍔ㄥ叧闂?
    * @default 4500
    */
   duration?: number
 
   /**
-   * @description 距离窗口边缘的偏移量（px）
+   * @description 璺濈绐楀彛杈圭紭鐨勫亸绉婚噺锛坧x锛?
    * @default 16
    */
   offset?: number
 
   /**
-   * @description 弹出位置
+   * @description 寮瑰嚭浣嶇疆
    * @default 'top-right'
    */
   position?: NotificationPosition
 
   /**
-   * @description 通知的唯一标识
+   * @description 閫氱煡鐨勫敮涓€鏍囪瘑
    */
   id?: string
 
   /**
-   * @description 是否将 message 作为 HTML 片段处理
+   * @description 鏄惁灏?message 浣滀负 HTML 鐗囨澶勭悊
    * @default false
    */
   dangerouslyUseHTMLString?: boolean
 
   /**
-   * @description 关闭时的回调函数
+   * @description 鍏抽棴鏃剁殑鍥炶皟鍑芥暟
    */
   onClose?: () => void
 
   /**
-   * @description 点击通知时的回调函数
+   * @description 鐐瑰嚮閫氱煡鏃剁殑鍥炶皟鍑芥暟
    */
   onClick?: () => void
 
   /**
-   * @description z-index 层级
+   * @description z-index 灞傜骇
    */
   zIndex?: number
 
   /**
-   * @description 自定义类名
+   * @description 鑷畾涔夌被鍚?
    */
   customClass?: string
 
   /**
-   * @description 同一位置最多显示的通知数量
+   * @description 鍚屼竴浣嶇疆鏈€澶氭樉绀虹殑閫氱煡鏁伴噺
    */
   max?: number
 
   /**
-   * @description 主题覆盖变量
+   * @description 涓婚瑕嗙洊鍙橀噺
    */
   themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
- * Notification Emits 定义
+ * Notification Emits 瀹氫箟
  */
 export interface NotificationEmits {
   (e: 'destroy'): void
@@ -125,35 +125,40 @@ export interface NotificationEmits {
 }
 
 /**
- * Notification Slots 定义
+ * Notification Slots 瀹氫箟
  */
 export interface NotificationSlots {
   /**
-   * 通知内容
+   * 閫氱煡鍐呭
    */
   default?: () => void
 
   /**
-   * 自定义图标
+   * 鑷畾涔夊浘鏍?
    */
   icon?: () => void
 }
 
 /**
- * Notification 实例类型
+ * Notification 暴露实例
  */
-export type NotificationInstance = ComponentPublicInstance<{
-  visible: boolean
+export interface NotificationExpose {
+  visible: Ref<boolean>
   close: () => void
-}>
+}
 
 /**
- * Notification 配置选项
+ * Notification 瀹炰緥绫诲瀷
+ */
+export type NotificationInstance = ComponentPublicInstance<NotificationExpose>
+
+/**
+ * Notification 閰嶇疆閫夐」
  */
 export type NotificationOptions = Partial<NotificationProps>
 
 /**
- * Notification 处理函数
+ * Notification 澶勭悊鍑芥暟
  */
 export interface NotificationHandler {
   close: () => void
@@ -161,7 +166,7 @@ export interface NotificationHandler {
 }
 
 /**
- * Notification 上下文（用于实例管理）
+ * Notification 涓婁笅鏂囷紙鐢ㄤ簬瀹炰緥绠＄悊锛?
  */
 export interface NotificationContext {
   id: string
@@ -171,7 +176,7 @@ export interface NotificationContext {
 }
 
 /**
- * Notification 方法类型
+ * Notification 鏂规硶绫诲瀷
  */
 export type NotificationFn = {
   (options: NotificationOptions | string): NotificationHandler

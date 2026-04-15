@@ -60,3 +60,7 @@ export const aiActionGroupEmits = {
 }
 
 export type AiActionGroupEmits = typeof aiActionGroupEmits
+
+export interface AiActionGroupSlots {
+  default?: () => unknown
+}

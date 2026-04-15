@@ -595,6 +595,97 @@ export const tr = {
       noData: "Veri yok"
     },
     // AI Components
+    skuselector: {
+      placeholder: "\xD6zellik se\xE7in",
+      emptyText: "\xD6zellik yok",
+      stock: "Stok",
+      price: "Fiyat",
+      selected: "Se\xE7ildi",
+      outOfStock: "Stokta yok"
+    },
+    productcard: {
+      viewDetails: "Detaylar\u0131 g\xF6r\xFCnt\xFCle",
+      buyNow: "\u015Eimdi al",
+      addToCart: "Sepete ekle",
+      sold: "Sat\u0131ld\u0131",
+      soldOut: "T\xFCkendi",
+      vip: "\xDCye"
+    },
+    price: {
+      original: "Orijinal fiyat"
+    },
+    couponcard: {
+      available: "Hemen al",
+      used: "Kullan\u0131ld\u0131",
+      expired: "S\xFCresi doldu",
+      received: "Al\u0131nd\u0131",
+      limit: "Bestellingen \xFCber {threshold}",
+      noThreshold: "Alt limit yok",
+      validPeriod: "Ge\xE7erlilik",
+      ruleTitle: "Kullan\u0131m kurallar\u0131"
+    },
+    luckydraw: {
+      start: "Ba\u015Flat",
+      drawing: "\xC7ekili\u015F yap\u0131l\u0131yor...",
+      end: "Kazanan!",
+      retry: "Tekrar dene"
+    },
+    filterbar: {
+      all: "T\xFCm\xFC",
+      sort: "S\u0131rala",
+      filter: "Filtrele",
+      cancel: "\u0130ptal",
+      reset: "S\u0131f\u0131rla",
+      confirm: "Onayla",
+      noOptions: "Se\xE7enek yok",
+      asc: "Artan",
+      desc: "Azalan",
+      selected: "Se\xE7ildi"
+    },
+    submitbar: {
+      total: "Toplam: ",
+      selected: "{count} se\xE7ildi",
+      submit: "Sipari\u015Fi tamamla",
+      allSelect: "T\xFCm\xFCn\xFC se\xE7"
+    },
+    categorynav: {
+      all: "T\xFCm\xFC",
+      noData: "Veri yok",
+      loading: "Y\xFCkleniyor..."
+    },
+    smartaddress: {
+      placeholder: "Ad\u0131, telefonu ve konumu otomatik alg\u0131lamak i\xE7in adresi buraya yap\u0131\u015Ft\u0131r\u0131n",
+      parse: "Ak\u0131ll\u0131 \xE7\xF6z\xFCmle",
+      province: "\u0130l/\u015Eehir/\u0130l\xE7e",
+      city: "\u015Eehir",
+      district: "\u0130l\xE7e/B\xF6lge",
+      street: "Sokak/Kasaba",
+      detail: "Ayr\u0131nt\u0131l\u0131 adres",
+      phone: "Telefon",
+      name: "Al\u0131c\u0131",
+      parseSuccess: "Adres ba\u015Far\u0131yla \xE7\xF6z\xFCmlendi",
+      parseFailed: "\xC7\xF6z\xFCmlenemedi, l\xFCtfen elle doldurun",
+      required: "L\xFCtfen tam adres girin",
+      provinceKeywords: ["\u0130l", "Eyalet"],
+      cityKeywords: ["\u015Eehir", "Belediye"],
+      districtKeywords: ["\u0130l\xE7e", "B\xF6lge", "Mahalle"],
+      streetKeywords: ["Sokak", "Cadde", "Bulvar", "Yol"]
+    },
+    ganttchart: {
+      taskName: "G\xF6rev ad\u0131",
+      searchPlaceholder: "G\xF6rev ara...",
+      zoom: "Yak\u0131nla\u015Ft\u0131r",
+      day: "G\xFCn",
+      week: "Hafta",
+      month: "Ay",
+      year: "Y\u0131l",
+      milestone: "Kilometre ta\u015F\u0131"
+    },
+    imagemagnifier: {
+      switchToImage: "{index}. g\xF6rsele ge\xE7",
+      galleryItem: "Galeri {index}",
+      close: "Kapat"
+    },
     ai: {
       bubble: {
         citations: "Al\u0131nt\u0131lar"
@@ -704,9 +795,32 @@ export const tr = {
         pin: "Sabitle",
         unpin: "Sabitlemeyi kald\u0131r",
         newConversation: "Yeni Sohbet",
+        noData: "Hen\xFCz sohbet yok",
         rename: "Yeniden adland\u0131r",
         delete: "Sil",
         deleteConfirm: "Bu sohbeti silmeyi onayl\u0131yor musunuz?"
+      },
+      attachments: {
+        dropTip: "Y\xFCklemek i\xE7in dosyalar\u0131 buraya b\u0131rak\u0131n",
+        clickToUpload: "Y\xFCklemek i\xE7in t\u0131klay\u0131n veya dosyalar\u0131 s\xFCr\xFCkleyin",
+        uploadSuccess: "Y\xFCkleme ba\u015Far\u0131l\u0131",
+        uploadError: "Y\xFCkleme ba\u015Far\u0131s\u0131z",
+        deleteConfirm: "Bu dosyay\u0131 silmek istedi\u011Finizden emin misiniz?",
+        fileTooLarge: "Dosya boyutu {size} de\u011Ferini a\u015Famaz",
+        invalidFileType: "Ge\xE7ersiz dosya t\xFCr\xFC"
+      },
+      mermaid: {
+        image: "G\xF6rsel",
+        code: "Kod",
+        zoomIn: "Yak\u0131nla\u015Ft\u0131r",
+        zoomOut: "Uzakla\u015Ft\u0131r",
+        reset: "S\u0131f\u0131rla",
+        download: "\u0130ndir",
+        copyCode: "Kodu kopyala",
+        rendering: "Render ediliyor...",
+        renderError: "Render ba\u015Far\u0131s\u0131z",
+        renderSuccess: "Render ba\u015Far\u0131l\u0131",
+        retry: "Tekrar dene"
       }
     }
   }

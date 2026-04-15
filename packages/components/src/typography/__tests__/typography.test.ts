@@ -66,6 +66,20 @@ describe('YhTypographyTitle', () => {
     const wrapper = mount(Title, { props: { tag: 'div' }, slots: { default: '自定义' } })
     expect(wrapper.find('div').exists()).toBe(true)
   })
+  it('should apply theme overrides to title component', () => {
+    const wrapper = mount(Title, {
+      props: {
+        themeOverrides: {
+          'title-color': '#222222'
+        }
+      },
+      slots: { default: 'Title' }
+    })
+
+    expect(wrapper.find('.yh-typography__title').attributes('style')).toContain(
+      '--yh-typography-title-color: #222222'
+    )
+  })
 })
 
 describe('YhTypographyText', () => {

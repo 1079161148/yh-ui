@@ -11,7 +11,7 @@ export interface GanttTask {
   dependencies?: (string | number)[]
   parentId?: string | number
   expanded?: boolean
-  assignees?: string[] // 资源/负责人
+  assignees?: string[]
   children?: GanttTask[]
   color?: string
   textColor?: string
@@ -23,7 +23,7 @@ export interface GanttResource {
   id: string
   name: string
   avatar?: string
-  load?: number // 负荷阈值
+  load?: number
 }
 
 export interface GanttColumn {
@@ -42,9 +42,9 @@ export type GanttChartProps = {
   showDependencies?: boolean
   draggable?: boolean
   progressDraggable?: boolean
-  autoSchedule?: boolean // 自动排程
-  virtual?: boolean // 开启虚拟滚动
-  showResourceLoad?: boolean // 显示资源负荷
+  autoSchedule?: boolean
+  virtual?: boolean
+  showResourceLoad?: boolean
   rowHeight?: number
   headerHeight?: number
   bordered?: boolean
@@ -95,6 +95,7 @@ export interface GanttChartSlots {
   'table-cell'?: (props: { row: GanttTask; column: GanttColumn; index: number }) => unknown
   tooltip?: (props: { task: GanttTask }) => unknown
 }
+
 export interface FlattenedGanttTask extends GanttTask {
   _original: GanttTask
   _level: number
@@ -108,7 +109,4 @@ export interface FlattenedGanttTask extends GanttTask {
   _matchesSearch: boolean
 }
 
-export type GanttChartInstance = {
-  visible: boolean
-  toggle: (val: boolean) => void
-}
+export type GanttChartInstance = InstanceType<typeof import('./gantt-chart.vue').default>

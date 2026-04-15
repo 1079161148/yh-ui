@@ -3,6 +3,9 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 // Mock highlight.js
 vi.mock('highlight.js', () => ({
@@ -136,5 +139,38 @@ describe('YhAiArtifacts', () => {
     // Check for code icon name (using internal knowledge of YhIcon name prop)
     const icon = wrapper.findComponent({ name: 'YhIcon' })
     expect(icon.props('name')).toBe('code')
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(AiArtifacts, {
+            visible: true,
+            data: { ...mockData, type: 'chart' }
+          })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('Preview')
+    expect(wrapper.text()).toContain('Rendering chart...')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: mockData,
+        themeOverrides: {
+          'bg-color': '#ffffff'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-ai-artifacts').attributes('style')).toContain(
+      '--yh-ai-artifacts-bg-color: #ffffff'
+    )
   })
 })

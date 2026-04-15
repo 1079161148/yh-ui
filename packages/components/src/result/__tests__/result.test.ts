@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
 import Result from '../src/result.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhResult', () => {
   it('应该正确渲染基础结构', () => {
@@ -106,5 +109,29 @@ describe('YhResult', () => {
       const wrapper = mount(Result, { props: { icon } })
       expect(wrapper.find('.yh-result__title').text()).toBe(titles[icon])
     })
+  })
+  it('should use config-provider locale title', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(Result, { icon: 'success' })
+      }
+    })
+
+    expect(wrapper.find('.yh-result__title').text()).toBe('Success')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Result, {
+      props: {
+        themeOverrides: {
+          padding: '48px 32px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-result').attributes('style')).toContain(
+      '--yh-result-padding: 48px 32px'
+    )
   })
 })

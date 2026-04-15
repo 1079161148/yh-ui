@@ -108,7 +108,7 @@ export interface SelectExpose {
   /** 失去焦点 */
   blur: () => void
   /** 输入框引用 */
-  inputRef: HTMLInputElement | undefined
+  inputRef: Ref<HTMLInputElement | undefined>
 }
 
 // Select 上下文
@@ -130,6 +130,10 @@ export interface OptionProps {
   label?: string
   /** 是否禁用 */
   disabled?: boolean
+}
+
+export interface OptionSlots {
+  default?: () => unknown
 }
 
 export const SelectContextKey: InjectionKey<SelectContext> = Symbol('SelectContextKey')

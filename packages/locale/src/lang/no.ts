@@ -597,6 +597,97 @@ export const no: Language = {
       noData: 'Ingen data'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Velg spesifikasjoner',
+      emptyText: 'Ingen spesifikasjoner',
+      stock: 'Lager',
+      price: 'Pris',
+      selected: 'Valgt',
+      outOfStock: 'Utsolgt'
+    },
+    productcard: {
+      viewDetails: 'Se detaljer',
+      buyNow: 'Kjøp nå',
+      addToCart: 'Legg i handlekurv',
+      sold: 'Solgt',
+      soldOut: 'Utsolgt',
+      vip: 'Medlem'
+    },
+    price: {
+      original: 'Originalpris'
+    },
+    couponcard: {
+      available: 'Hent nå',
+      used: 'Brukt',
+      expired: 'Utløpt',
+      received: 'Mottatt',
+      limit: 'Bestillinger over {threshold}',
+      noThreshold: 'Ingen minimumsgrense',
+      validPeriod: 'Gyldighet',
+      ruleTitle: 'Bruksregler'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Trekker...',
+      end: 'Vinner!',
+      retry: 'Prøv igjen'
+    },
+    filterbar: {
+      all: 'Alle',
+      sort: 'Sorter',
+      filter: 'Filtrer',
+      cancel: 'Avbryt',
+      reset: 'Tilbakestill',
+      confirm: 'Bekreft',
+      noOptions: 'Ingen alternativer',
+      asc: 'Stigende',
+      desc: 'Synkende',
+      selected: 'Valgt'
+    },
+    submitbar: {
+      total: 'Totalt: ',
+      selected: '{count} valgt',
+      submit: 'Gå til kassen',
+      allSelect: 'Velg alle'
+    },
+    categorynav: {
+      all: 'Alle',
+      noData: 'Ingen data',
+      loading: 'Laster...'
+    },
+    smartaddress: {
+      placeholder: 'Lim inn adressen her for automatisk å oppdage navn, telefon og sted',
+      parse: 'Smart analyse',
+      province: 'Fylke/By/Distrikt',
+      city: 'By',
+      district: 'Distrikt/Kommune',
+      street: 'Gate/Sted',
+      detail: 'Detaljert adresse',
+      phone: 'Telefon',
+      name: 'Mottaker',
+      parseSuccess: 'Adressen ble analysert',
+      parseFailed: 'Analysen mislyktes, fyll inn manuelt',
+      required: 'Fyll inn full adresse',
+      provinceKeywords: ['Fylke', 'Stat'],
+      cityKeywords: ['By', 'Kommune'],
+      districtKeywords: ['Distrikt', 'Kommune', 'Område'],
+      streetKeywords: ['Gate', 'Vei', 'Allé', 'Smug']
+    },
+    ganttchart: {
+      taskName: 'Oppgavenavn',
+      searchPlaceholder: 'Søk oppgaver...',
+      zoom: 'Zoom',
+      day: 'Dag',
+      week: 'Uke',
+      month: 'Måned',
+      year: 'År',
+      milestone: 'Milepæl'
+    },
+    imagemagnifier: {
+      switchToImage: 'Bytt til bilde {index}',
+      galleryItem: 'Galleri {index}',
+      close: 'Lukk'
+    },
     ai: {
       bubble: {
         citations: 'Sitater'
@@ -707,9 +798,32 @@ export const no: Language = {
         pin: 'Fest',
         unpin: 'Løsne',
         newConversation: 'Ny samtale',
+        noData: 'Ingen samtaler ennå',
         rename: 'Gi nytt navn',
         delete: 'Slett',
         deleteConfirm: 'Bekreft sletting av denne samtalen?'
+      },
+      attachments: {
+        dropTip: 'Slipp filer her for å laste opp',
+        clickToUpload: 'Klikk eller dra filer for å laste opp',
+        uploadSuccess: 'Opplastingen lyktes',
+        uploadError: 'Opplastingen mislyktes',
+        deleteConfirm: 'Er du sikker på at du vil slette denne filen?',
+        fileTooLarge: 'Filstørrelsen kan ikke overstige {size}',
+        invalidFileType: 'Ugyldig filtype'
+      },
+      mermaid: {
+        image: 'Bilde',
+        code: 'Kode',
+        zoomIn: 'Zoom inn',
+        zoomOut: 'Zoom ut',
+        reset: 'Tilbakestill',
+        download: 'Last ned',
+        copyCode: 'Kopier kode',
+        rendering: 'Renderer...',
+        renderError: 'Rendering mislyktes',
+        renderSuccess: 'Rendering lyktes',
+        retry: 'Prøv igjen'
       }
     }
   }

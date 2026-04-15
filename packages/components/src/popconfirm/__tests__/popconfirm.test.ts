@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils'
 import { nextTick, h } from 'vue'
 import { YhPopconfirm } from '../index'
 import { YhButton } from '../../button'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -62,5 +64,56 @@ describe('Popconfirm', () => {
 
     await nextTick()
     expect(onConfirm).toHaveBeenCalled()
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(
+            YhPopconfirm,
+            {
+              teleported: false
+            },
+            {
+              default: () => h('button', { id: 'trigger' }, 'click')
+            }
+          )
+      },
+      global: globalConfig
+    })
+
+    await wrapper.find('#trigger').trigger('click')
+    await nextTick()
+    await wait(50)
+
+    expect(wrapper.text()).toContain('OK')
+    expect(wrapper.text()).toContain('Cancel')
+  })
+
+  it('should apply theme overrides and expose popconfirm state', async () => {
+    const wrapper = mount(YhPopconfirm, {
+      props: {
+        themeOverrides: {
+          title: '#222222'
+        },
+        teleported: false
+      },
+      slots: {
+        default: () => h('button', { id: 'trigger2' }, 'click')
+      },
+      global: globalConfig
+    })
+
+    await wrapper.find('#trigger2').trigger('click')
+    await nextTick()
+    await wait(50)
+
+    expect(wrapper.find('.yh-popconfirm__content').attributes('style')).toContain(
+      '--yh-popconfirm-title: #222222'
+    )
+    expect(typeof wrapper.vm.toggle).toBe('function')
+    expect((wrapper.vm as any).$?.exposed?.visible).toBeTruthy()
   })
 })

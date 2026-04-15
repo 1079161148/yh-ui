@@ -1,19 +1,19 @@
 <script setup>
-import { computed, ref, watch, provide } from "vue";
-import { useNamespace, useLocale } from "@yh-ui/hooks";
-import { transferPanelContextKey } from "./transfer";
+import { computed, ref, watch, provide } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { transferPanelContextKey } from './transfer'
 defineOptions({
-  name: "YhTransferPanel"
-});
+  name: 'YhTransferPanel'
+})
 const props = defineProps({
   data: { type: Array, required: true, default: () => [] },
   checked: { type: Array, required: true, default: () => [] },
-  title: { type: String, required: false, default: "" },
+  title: { type: String, required: false, default: '' },
   filterable: { type: Boolean, required: false, default: false },
   filterPlaceholder: { type: String, required: false },
   filterMethod: { type: Function, required: false },
   disabled: { type: Boolean, required: false, default: false },
-  size: { type: null, required: false, default: "default" },
+  size: { type: null, required: false, default: 'default' },
   props: { type: Object, required: false },
   renderContent: { type: Function, required: false },
   virtual: { type: Boolean, required: false, default: false },
@@ -21,59 +21,59 @@ const props = defineProps({
   height: { type: Number, required: false, default: 280 },
   showAllCheckbox: { type: Boolean, required: false, default: true },
   emptyText: { type: String, required: false }
-});
-const emit = defineEmits(["update:checked", "checked-change"]);
-const ns = useNamespace("transfer-panel");
-const { t } = useLocale();
-const query = ref("");
-const scrollTop = ref(0);
-const virtualWrapperRef = ref();
-const keyProp = computed(() => props.props?.key || "key");
-const labelProp = computed(() => props.props?.label || "label");
-const disabledProp = computed(() => props.props?.disabled || "disabled");
+})
+const emit = defineEmits(['update:checked', 'checked-change'])
+const ns = useNamespace('transfer-panel')
+const { t } = useLocale()
+const query = ref('')
+const scrollTop = ref(0)
+const virtualWrapperRef = ref()
+const keyProp = computed(() => props.props?.key || 'key')
+const labelProp = computed(() => props.props?.label || 'label')
+const disabledProp = computed(() => props.props?.disabled || 'disabled')
 const getKey = (item) => {
-  return item[keyProp.value] ?? "";
-};
+  return item[keyProp.value] ?? ''
+}
 const getLabel = (item) => {
-  return String(item[labelProp.value] || "");
-};
+  return String(item[labelProp.value] || '')
+}
 const isItemDisabled = (item) => {
-  return Boolean(item[disabledProp.value]) || (props.disabled ?? false);
-};
+  return Boolean(item[disabledProp.value]) || (props.disabled ?? false)
+}
 const filteredData = computed(() => {
-  if (!query.value) return props.data;
-  const q = query.value.toLowerCase();
+  if (!query.value) return props.data
+  const q = query.value.toLowerCase()
   if (props.filterMethod) {
-    return props.data.filter((item) => props.filterMethod(query.value, item));
+    return props.data.filter((item) => props.filterMethod(query.value, item))
   }
   return props.data.filter((item) => {
-    const label = getLabel(item);
-    return label.toLowerCase().includes(q);
-  });
-});
+    const label = getLabel(item)
+    return label.toLowerCase().includes(q)
+  })
+})
 const checkableData = computed(() => {
-  return filteredData.value.filter((item) => !isItemDisabled(item));
-});
-const checkedKeys = computed(() => props.checked);
+  return filteredData.value.filter((item) => !isItemDisabled(item))
+})
+const checkedKeys = computed(() => props.checked)
 const isChecked = (key) => {
-  return checkedKeys.value.includes(key);
-};
+  return checkedKeys.value.includes(key)
+}
 const isAllChecked = computed(() => {
-  if (checkableData.value.length === 0) return false;
-  return checkableData.value.every((item) => isChecked(getKey(item)));
-});
+  if (checkableData.value.length === 0) return false
+  return checkableData.value.every((item) => isChecked(getKey(item)))
+})
 const isIndeterminate = computed(() => {
-  const checkedCount = checkableData.value.filter((item) => isChecked(getKey(item))).length;
-  return checkedCount > 0 && checkedCount < checkableData.value.length;
-});
+  const checkedCount = checkableData.value.filter((item) => isChecked(getKey(item))).length
+  return checkedCount > 0 && checkedCount < checkableData.value.length
+})
 const totalCheckedCount = computed(() => {
-  return props.data.filter((item) => isChecked(getKey(item))).length;
-});
+  return props.data.filter((item) => isChecked(getKey(item))).length
+})
 const virtualConfig = computed(() => {
-  const itemHeight = props.itemHeight || 40;
-  const containerHeight = props.height || 280;
-  const overscan = 3;
-  const items = filteredData.value;
+  const itemHeight = props.itemHeight || 40
+  const containerHeight = props.height || 280
+  const overscan = 3
+  const items = filteredData.value
   if (!props.virtual || items.length === 0) {
     return {
       visibleItems: items,
@@ -81,80 +81,80 @@ const virtualConfig = computed(() => {
       offsetY: 0,
       startIndex: 0,
       endIndex: items.length
-    };
+    }
   }
-  const totalHeight = items.length * itemHeight;
-  const startIndex = Math.max(0, Math.floor(scrollTop.value / itemHeight) - overscan);
-  const visibleCount = Math.ceil(containerHeight / itemHeight);
-  const endIndex = Math.min(items.length, startIndex + visibleCount + overscan * 2);
+  const totalHeight = items.length * itemHeight
+  const startIndex = Math.max(0, Math.floor(scrollTop.value / itemHeight) - overscan)
+  const visibleCount = Math.ceil(containerHeight / itemHeight)
+  const endIndex = Math.min(items.length, startIndex + visibleCount + overscan * 2)
   return {
     visibleItems: items.slice(startIndex, endIndex),
     totalHeight,
     offsetY: startIndex * itemHeight,
     startIndex,
     endIndex
-  };
-});
+  }
+})
 const displayItems = computed(() => {
-  return props.virtual ? virtualConfig.value.visibleItems : filteredData.value;
-});
+  return props.virtual ? virtualConfig.value.visibleItems : filteredData.value
+})
 const handleVirtualScroll = (event) => {
-  const target = event.target;
-  scrollTop.value = target.scrollTop;
-};
+  const target = event.target
+  scrollTop.value = target.scrollTop
+}
 const handleCheck = (key, checked) => {
-  if (props.disabled) return;
-  const newChecked = [...checkedKeys.value];
-  const index = newChecked.indexOf(key);
+  if (props.disabled) return
+  const newChecked = [...checkedKeys.value]
+  const index = newChecked.indexOf(key)
   if (checked) {
     if (index === -1) {
-      newChecked.push(key);
+      newChecked.push(key)
     }
   } else {
     if (index > -1) {
-      newChecked.splice(index, 1);
+      newChecked.splice(index, 1)
     }
   }
-  emit("update:checked", newChecked);
-  emit("checked-change", newChecked, [key]);
-};
+  emit('update:checked', newChecked)
+  emit('checked-change', newChecked, [key])
+}
 const handleItemClick = (item) => {
-  if (isItemDisabled(item)) return;
-  const key = getKey(item);
-  handleCheck(key, !isChecked(key));
-};
+  if (isItemDisabled(item)) return
+  const key = getKey(item)
+  handleCheck(key, !isChecked(key))
+}
 const handleCheckAll = () => {
-  if (props.disabled || checkableData.value.length === 0) return;
-  let newChecked;
+  if (props.disabled || checkableData.value.length === 0) return
+  let newChecked
   if (isAllChecked.value) {
-    const checkableKeys = new Set(checkableData.value.map((item) => getKey(item)));
-    newChecked = checkedKeys.value.filter((key) => !checkableKeys.has(key));
+    const checkableKeys = new Set(checkableData.value.map((item) => getKey(item)))
+    newChecked = checkedKeys.value.filter((key) => !checkableKeys.has(key))
   } else {
-    const checkableKeys = checkableData.value.map((item) => getKey(item));
-    newChecked = [.../* @__PURE__ */ new Set([...checkedKeys.value, ...checkableKeys])];
+    const checkableKeys = checkableData.value.map((item) => getKey(item))
+    newChecked = [.../* @__PURE__ */ new Set([...checkedKeys.value, ...checkableKeys])]
   }
-  emit("update:checked", newChecked);
-  emit("checked-change", newChecked);
-};
+  emit('update:checked', newChecked)
+  emit('checked-change', newChecked)
+}
 const clearChecked = () => {
-  emit("update:checked", []);
-  emit("checked-change", []);
-};
+  emit('update:checked', [])
+  emit('checked-change', [])
+}
 provide(transferPanelContextKey, {
   props,
   checked: checkedKeys.value,
   handleCheck
-});
+})
 defineExpose({
   clearChecked,
-  query: query.value
-});
+  query
+})
 watch(query, () => {
-  scrollTop.value = 0;
+  scrollTop.value = 0
   if (virtualWrapperRef.value) {
-    virtualWrapperRef.value.scrollTop = 0;
+    virtualWrapperRef.value.scrollTop = 0
   }
-});
+})
 </script>
 
 <template>
@@ -162,20 +162,37 @@ watch(query, () => {
     <!-- 头部 -->
     <div :class="ns.e('header')">
       <slot name="header">
-        <div :class="[ns.e('check-all'), {
-  'is-disabled': disabled || checkableData.length === 0
-}]"
-          @click="handleCheckAll">
-          <span :class="[ns.e('item-checkbox'), {
-  'is-checked': isAllChecked,
-  'is-indeterminate': isIndeterminate
-}]">
+        <div
+          :class="[
+            ns.e('check-all'),
+            {
+              'is-disabled': disabled || checkableData.length === 0
+            }
+          ]"
+          @click="handleCheckAll"
+        >
+          <span
+            :class="[
+              ns.e('item-checkbox'),
+              {
+                'is-checked': isAllChecked,
+                'is-indeterminate': isIndeterminate
+              }
+            ]"
+          >
             <!-- 选中图标 -->
             <svg v-if="isAllChecked" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
-              <path fill="currentColor" d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
+              <path
+                fill="currentColor"
+                d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z"
+              />
             </svg>
             <!-- 半选图标 -->
-            <svg v-if="isIndeterminate && !isAllChecked" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
+            <svg
+              v-if="isIndeterminate && !isAllChecked"
+              :class="ns.e('item-checkbox__icon')"
+              viewBox="0 0 1024 1024"
+            >
               <path fill="currentColor" d="M192 480h640v64H192z" />
             </svg>
           </span>
@@ -184,12 +201,14 @@ watch(query, () => {
           <span>{{ title }}</span>
           <span :class="ns.e('count')">
             {{
-              totalCheckedCount > 0 ? t("transfer.hasCheckedFormat", {
-  checked: totalCheckedCount,
-  total: data.length
-}) : t("transfer.noCheckedFormat", {
-  total: data.length
-})
+              totalCheckedCount > 0
+                ? t('transfer.hasCheckedFormat', {
+                    checked: totalCheckedCount,
+                    total: data.length
+                  })
+                : t('transfer.noCheckedFormat', {
+                    total: data.length
+                  })
             }}
           </span>
         </div>
@@ -198,8 +217,13 @@ watch(query, () => {
 
     <!-- 搜索框 -->
     <div v-if="filterable" :class="ns.e('filter')">
-      <input v-model="query" type="text" :class="ns.e('filter-input')"
-        :placeholder="filterPlaceholder || t('transfer.filterPlaceholder')" :disabled="disabled" />
+      <input
+        v-model="query"
+        type="text"
+        :class="ns.e('filter-input')"
+        :placeholder="filterPlaceholder || t('transfer.filterPlaceholder')"
+        :disabled="disabled"
+      />
     </div>
 
     <!-- 列表区域 -->
@@ -208,40 +232,73 @@ watch(query, () => {
       <div v-if="filteredData.length === 0" :class="ns.e('empty')">
         <slot name="empty">
           <svg :class="ns.e('empty-icon')" viewBox="0 0 1024 1024">
-            <path fill="currentColor"
-              d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
-            <path fill="currentColor"
-              d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zM464 512v176c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V512c0-8.8-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16z" />
+            <path
+              fill="currentColor"
+              d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+            />
+            <path
+              fill="currentColor"
+              d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zM464 512v176c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16V512c0-8.8-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16z"
+            />
           </svg>
-          <span :class="ns.e('empty-text')">{{ emptyText || t("transfer.noData") }}</span>
+          <span :class="ns.e('empty-text')">{{ emptyText || t('transfer.noData') }}</span>
         </slot>
       </div>
 
       <!-- 虚拟滚动列表 -->
       <template v-else-if="virtual">
-        <div ref="virtualWrapperRef" :class="ns.e('virtual-wrapper')" :style="{
-  height: height + 'px'
-}"
-          @scroll="handleVirtualScroll">
-          <div :style="{
-  height: virtualConfig.totalHeight + 'px',
-  position: 'relative'
-}">
-            <ul :class="ns.e('list')" :style="{
-  transform: `translateY(${virtualConfig.offsetY}px)`
-}">
-              <li v-for="item in displayItems" :key="getKey(item)" :class="[ns.e('item'), {
-  'is-checked': isChecked(getKey(item)),
-  'is-disabled': isItemDisabled(item)
-}]" :style="{
-  height: itemHeight + 'px'
-}" @click="handleItemClick(item)">
-                <span :class="[ns.e('item-checkbox'), {
-  'is-checked': isChecked(getKey(item))
-}]">
-                  <svg v-if="isChecked(getKey(item))" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
-                    <path fill="currentColor"
-                      d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
+        <div
+          ref="virtualWrapperRef"
+          :class="ns.e('virtual-wrapper')"
+          :style="{
+            height: height + 'px'
+          }"
+          @scroll="handleVirtualScroll"
+        >
+          <div
+            :style="{
+              height: virtualConfig.totalHeight + 'px',
+              position: 'relative'
+            }"
+          >
+            <ul
+              :class="ns.e('list')"
+              :style="{
+                transform: `translateY(${virtualConfig.offsetY}px)`
+              }"
+            >
+              <li
+                v-for="item in displayItems"
+                :key="getKey(item)"
+                :class="[
+                  ns.e('item'),
+                  {
+                    'is-checked': isChecked(getKey(item)),
+                    'is-disabled': isItemDisabled(item)
+                  }
+                ]"
+                :style="{
+                  height: itemHeight + 'px'
+                }"
+                @click="handleItemClick(item)"
+              >
+                <span
+                  :class="[
+                    ns.e('item-checkbox'),
+                    {
+                      'is-checked': isChecked(getKey(item))
+                    }
+                  ]"
+                >
+                  <svg
+                    v-if="isChecked(getKey(item))"
+                    :class="ns.e('item-checkbox__icon')"
+                    viewBox="0 0 1024 1024"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z"
+                    />
                   </svg>
                 </span>
                 <span :class="ns.e('item-label')">
@@ -255,15 +312,35 @@ watch(query, () => {
 
       <!-- 普通列表 -->
       <ul v-else :class="ns.e('list')">
-        <li v-for="item in displayItems" :key="getKey(item)" :class="[ns.e('item'), {
-  'is-checked': isChecked(getKey(item)),
-  'is-disabled': isItemDisabled(item)
-}]" @click="handleItemClick(item)">
-          <span :class="[ns.e('item-checkbox'), {
-  'is-checked': isChecked(getKey(item))
-}]">
-            <svg v-if="isChecked(getKey(item))" :class="ns.e('item-checkbox__icon')" viewBox="0 0 1024 1024">
-              <path fill="currentColor" d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z" />
+        <li
+          v-for="item in displayItems"
+          :key="getKey(item)"
+          :class="[
+            ns.e('item'),
+            {
+              'is-checked': isChecked(getKey(item)),
+              'is-disabled': isItemDisabled(item)
+            }
+          ]"
+          @click="handleItemClick(item)"
+        >
+          <span
+            :class="[
+              ns.e('item-checkbox'),
+              {
+                'is-checked': isChecked(getKey(item))
+              }
+            ]"
+          >
+            <svg
+              v-if="isChecked(getKey(item))"
+              :class="ns.e('item-checkbox__icon')"
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                fill="currentColor"
+                d="M406.4 726.4l-236.8-236.8 57.6-57.6 179.2 179.2 390.4-390.4 57.6 57.6z"
+              />
             </svg>
           </span>
           <span :class="ns.e('item-label')">

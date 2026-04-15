@@ -1,5 +1,12 @@
 import type { ExtractPropTypes, PropType, InjectionKey, Ref, StyleValue } from 'vue'
 
+export interface ScrollbarScrollPayload {
+  scrollLeft: number
+  scrollTop: number
+}
+
+export type ScrollbarScrollToArg = ScrollToOptions | number
+
 export interface ScrollbarContext {
   wrapElement: Ref<HTMLDivElement | undefined>
 }
@@ -79,8 +86,20 @@ export const scrollbarProps = {
 export type ScrollbarProps = ExtractPropTypes<typeof scrollbarProps>
 
 export const scrollbarEmits = {
-  scroll: ({ scrollLeft, scrollTop }: { scrollLeft: number; scrollTop: number }) =>
+  scroll: ({ scrollLeft, scrollTop }: ScrollbarScrollPayload) =>
     typeof scrollLeft === 'number' && typeof scrollTop === 'number'
 }
 
 export type ScrollbarEmits = typeof scrollbarEmits
+
+export interface ScrollbarSlots {
+  default?: () => unknown
+}
+
+export interface ScrollbarExpose {
+  wrap: HTMLDivElement | undefined
+  update: () => void
+  scrollTo: (arg1: ScrollbarScrollToArg, arg2?: number) => void
+  setScrollTop: (value: number) => void
+  setScrollLeft: (value: number) => void
+}

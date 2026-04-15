@@ -3,8 +3,11 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
 import InputTag from '../src/input-tag.vue'
 import { inputTagSizes } from '../src/input-tag'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhInputTag', () => {
   it('should render correctly', () => {
@@ -251,5 +254,28 @@ describe('YhInputTag', () => {
     await collapsed.trigger('mouseenter')
     expect(wrapper.find('.yh-input-tag__tooltip').exists()).toBe(true)
     await collapsed.trigger('mouseleave')
+  })
+  it('should use config-provider locale placeholder', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(InputTag, { modelValue: [] })
+      }
+    })
+
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Please input')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(InputTag, {
+      props: {
+        modelValue: [],
+        themeOverrides: {
+          'border-color': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-input-tag-border-color: #123456')
   })
 })

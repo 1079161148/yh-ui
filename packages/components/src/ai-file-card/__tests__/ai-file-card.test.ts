@@ -134,4 +134,19 @@ describe('YhAiFileCard', () => {
     const { aiFileCardEmits } = await import('../src/ai-file-card')
     expect(aiFileCardEmits.click()).toBe(true)
   })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiFileCard, {
+      props: {
+        name: 'theme.pdf',
+        themeOverrides: {
+          'bg-color': '#f5f5f5'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-ai-file-card').attributes('style')).toContain(
+      '--yh-ai-file-card-bg-color: #f5f5f5'
+    )
+  })
 })

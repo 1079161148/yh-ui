@@ -3,9 +3,11 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import Input from '../src/input.vue'
 import { inputTypes, inputSizes, inputVariants, inputStatuses } from '../src/input'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhInput', () => {
   // 基础渲染测试
@@ -145,5 +147,36 @@ describe('YhInput', () => {
 
     expect(wrapper.find('.yh-input__prepend').exists()).toBe(true)
     expect(wrapper.find('.yh-input__append').exists()).toBe(true)
+  })
+  it('should use config-provider locale placeholder', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(Input)
+      }
+    })
+
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Please input')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Input, {
+      props: {
+        themeOverrides: {
+          'border-color': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-input-border-color: #123456')
+  })
+
+  it('should expose input methods and refs', () => {
+    const wrapper = mount(Input)
+
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(typeof wrapper.vm.blur).toBe('function')
+    expect(typeof wrapper.vm.select).toBe('function')
+    expect(typeof wrapper.vm.clear).toBe('function')
   })
 })

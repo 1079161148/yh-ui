@@ -3,7 +3,7 @@
  * @description 穿梭框组件类型定义，严格类型化
  */
 
-import type { InjectionKey, VNode } from 'vue'
+import type { InjectionKey, Ref, VNode } from 'vue'
 
 /**
  * 穿梭框尺寸
@@ -129,7 +129,7 @@ export interface TransferEmits {
  */
 export interface TransferPanelExpose {
   clearChecked: () => void
-  query: string
+  query: Ref<string>
 }
 
 /**
@@ -138,8 +138,8 @@ export interface TransferPanelExpose {
 export interface TransferExpose {
   clearLeftChecked: () => void
   clearRightChecked: () => void
-  leftPanel: TransferPanelExpose | undefined
-  rightPanel: TransferPanelExpose | undefined
+  leftPanel: Ref<TransferPanelExpose | undefined>
+  rightPanel: Ref<TransferPanelExpose | undefined>
 }
 
 /**

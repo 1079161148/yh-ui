@@ -597,6 +597,97 @@ export const uk: Language = {
       noData: 'Немає даних'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Виберіть характеристики',
+      emptyText: 'Немає характеристик',
+      stock: 'Наявність',
+      price: 'Ціна',
+      selected: 'Вибрано',
+      outOfStock: 'Немає в наявності'
+    },
+    productcard: {
+      viewDetails: 'Переглянути деталі',
+      buyNow: 'Купити зараз',
+      addToCart: 'Додати в кошик',
+      sold: 'Продано',
+      soldOut: 'Розпродано',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Початкова ціна'
+    },
+    couponcard: {
+      available: 'Отримати зараз',
+      used: 'Використано',
+      expired: 'Термін дії минув',
+      received: 'Отримано',
+      limit: 'Замовлення понад {threshold}',
+      noThreshold: 'Без мінімального порогу',
+      validPeriod: 'Термін дії',
+      ruleTitle: 'Правила використання'
+    },
+    luckydraw: {
+      start: 'Почати',
+      drawing: 'Розіграш...',
+      end: 'Переможець!',
+      retry: 'Спробувати знову'
+    },
+    filterbar: {
+      all: 'Усе',
+      sort: 'Сортувати',
+      filter: 'Фільтр',
+      cancel: 'Скасувати',
+      reset: 'Скинути',
+      confirm: 'Підтвердити',
+      noOptions: 'Немає варіантів',
+      asc: 'За зростанням',
+      desc: 'За спаданням',
+      selected: 'Вибрано'
+    },
+    submitbar: {
+      total: 'Разом: ',
+      selected: 'Вибрано: {count}',
+      submit: 'Оформити замовлення',
+      allSelect: 'Вибрати все'
+    },
+    categorynav: {
+      all: 'Усе',
+      noData: 'Немає даних',
+      loading: 'Завантаження...'
+    },
+    smartaddress: {
+      placeholder: 'Вставте адресу сюди для автоматичного визначення імені, телефону та місця',
+      parse: 'Розумний аналіз',
+      province: 'Область/Місто/Район',
+      city: 'Місто',
+      district: 'Район/Округ',
+      street: 'Вулиця/Селище',
+      detail: 'Детальна адреса',
+      phone: 'Телефон',
+      name: 'Одержувач',
+      parseSuccess: 'Адресу успішно розпізнано',
+      parseFailed: 'Не вдалося розпізнати, заповніть вручну',
+      required: 'Будь ласка, заповніть повну адресу',
+      provinceKeywords: ['Область', 'Край'],
+      cityKeywords: ['Місто', 'Селище'],
+      districtKeywords: ['Район', 'Округ', 'Село'],
+      streetKeywords: ['Вулиця', 'Проспект', 'Провулок', 'Шосе']
+    },
+    ganttchart: {
+      taskName: 'Назва завдання',
+      searchPlaceholder: 'Пошук завдань...',
+      zoom: 'Масштаб',
+      day: 'День',
+      week: 'Тиждень',
+      month: 'Місяць',
+      year: 'Рік',
+      milestone: 'Віха'
+    },
+    imagemagnifier: {
+      switchToImage: 'Перейти до зображення {index}',
+      galleryItem: 'Галерея {index}',
+      close: 'Закрити'
+    },
     ai: {
       bubble: {
         citations: 'Цитати'
@@ -707,9 +798,32 @@ export const uk: Language = {
         pin: 'Закріпити',
         unpin: 'Відкріпити',
         newConversation: 'Нова розмова',
+        noData: 'Ще немає розмов',
         rename: 'Перейменувати',
         delete: 'Видалити',
         deleteConfirm: 'Підтвердити видалення цієї розмови?'
+      },
+      attachments: {
+        dropTip: 'Перетягніть файли сюди для завантаження',
+        clickToUpload: 'Натисніть або перетягніть файли для завантаження',
+        uploadSuccess: 'Завантаження успішне',
+        uploadError: 'Завантаження не вдалося',
+        deleteConfirm: 'Ви впевнені, що хочете видалити цей файл?',
+        fileTooLarge: 'Розмір файлу не може перевищувати {size}',
+        invalidFileType: 'Неприпустимий тип файлу'
+      },
+      mermaid: {
+        image: 'Зображення',
+        code: 'Код',
+        zoomIn: 'Збільшити',
+        zoomOut: 'Зменшити',
+        reset: 'Скинути',
+        download: 'Завантажити',
+        copyCode: 'Копіювати код',
+        rendering: 'Рендеринг...',
+        renderError: 'Рендеринг не вдався',
+        renderSuccess: 'Рендеринг успішний',
+        retry: 'Спробувати ще раз'
       }
     }
   }

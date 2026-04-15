@@ -3,7 +3,9 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { reactive, nextTick, defineComponent, h, ref } from 'vue'
+import { reactive, nextTick, defineComponent, h, ref, computed } from 'vue'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import Form from '../src/form.vue'
 import FormItem from '../src/form-item.vue'
 
@@ -145,5 +147,49 @@ describe('YhForm', () => {
     })
     const label = wrapper.find('.yh-form-item__label')
     expect(label.element.style.width).toBe('200px')
+  })
+
+  it('should render localized validation fallback from config provider', async () => {
+    const model = reactive({ name: '' })
+    const wrapper = mount(Form, {
+      props: {
+        model,
+        rules: {
+          name: [
+            {
+              validator: (_rule, _value, callback) => callback(new Error(''))
+            }
+          ]
+        }
+      },
+      slots: {
+        default: () => h(FormItem, { prop: 'name', label: 'Name' }, { default: () => h('input') })
+      },
+      global: {
+        provide: {
+          [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+        }
+      }
+    })
+
+    await expect(wrapper.vm.validate()).rejects.toBeTruthy()
+    await nextTick()
+    expect(wrapper.find('.yh-form-item__error').text()).toBe('Validation failed')
+  })
+
+  it('should support themeOverrides css variables', () => {
+    const wrapper = mount(Form, {
+      props: {
+        model: {},
+        themeOverrides: {
+          itemHeight: '40px',
+          labelFontSize: '16px'
+        }
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-form-item-height: 40px')
+    expect(style).toContain('--yh-form-label-font-size: 16px')
   })
 })

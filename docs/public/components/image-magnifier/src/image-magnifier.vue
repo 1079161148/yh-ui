@@ -1,161 +1,171 @@
 <script setup>
-import { ref, computed, reactive, watch, onUnmounted, nextTick } from "vue";
-import { useNamespace } from "@yh-ui/hooks";
-import { useComponentTheme } from "@yh-ui/theme";
-import { imageMagnifierProps, imageMagnifierEmits } from "./image-magnifier";
-defineOptions({ name: "YhImageMagnifier" });
-const props = defineProps(imageMagnifierProps);
-const emit = defineEmits(imageMagnifierEmits);
-const ns = useNamespace("image-magnifier");
+import { ref, computed, reactive, watch, onUnmounted, nextTick } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { imageMagnifierProps, imageMagnifierEmits } from './image-magnifier'
+defineOptions({ name: 'YhImageMagnifier' })
+const props = defineProps(imageMagnifierProps)
+const emit = defineEmits(imageMagnifierEmits)
+const ns = useNamespace('image-magnifier')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme(
-  "image-magnifier",
+  'image-magnifier',
   computed(() => props.themeOverrides)
-);
+)
 const rootStyle = computed(() => {
-  const { width, height } = props;
+  const { width, height } = props
   return {
     ...themeStyle.value,
-    width: typeof width === "number" ? `${width}px` : width,
-    height: typeof height === "number" ? `${height}px` : height
-  };
-});
-const currentIndex = ref(props.modelValue);
+    width: typeof width === 'number' ? `${width}px` : width,
+    height: typeof height === 'number' ? `${height}px` : height
+  }
+})
+const currentIndex = ref(props.modelValue)
 watch(
   () => props.modelValue,
   (val) => {
-    currentIndex.value = val;
+    currentIndex.value = val
   }
-);
+)
 const galleryImages = computed(() => {
-  if (props.images.length > 0) return props.images;
-  return [{ src: props.src, zoomSrc: props.zoomSrc, alt: props.alt }];
-});
+  if (props.images.length > 0) return props.images
+  return [{ src: props.src, zoomSrc: props.zoomSrc, alt: props.alt }]
+})
 const currentImage = computed(
   () => galleryImages.value[currentIndex.value] ?? galleryImages.value[0]
-);
-const currentSrc = computed(() => currentImage.value.src);
-const currentZoomSrc = computed(() => currentImage.value.zoomSrc || currentImage.value.src);
-const currentAlt = computed(() => currentImage.value.alt || props.alt);
+)
+const currentSrc = computed(() => currentImage.value.src)
+const currentZoomSrc = computed(() => currentImage.value.zoomSrc || currentImage.value.src)
+const currentAlt = computed(() => currentImage.value.alt || props.alt)
+const getSwitchToImageLabel = (index) => t('imagemagnifier.switchToImage', { index: index + 1 })
+const getGalleryItemAlt = (index) => t('imagemagnifier.galleryItem', { index: index + 1 })
+const fullscreenCloseLabel = computed(() => t('imagemagnifier.close'))
 const switchImage = (index) => {
-  currentIndex.value = index;
-  emit("update:modelValue", index);
-  emit("image-change", index);
-};
-const isHdLoaded = ref(false);
-const isHdLoading = ref(false);
+  currentIndex.value = index
+  emit('update:modelValue', index)
+  emit('image-change', index)
+}
+const isHdLoaded = ref(false)
+const isHdLoading = ref(false)
 const preloadHdImage = () => {
-  if (isHdLoaded.value || isHdLoading.value) return;
-  const zoomUrl = currentZoomSrc.value;
-  if (!zoomUrl) return;
-  isHdLoading.value = true;
-  const img = new Image();
+  if (isHdLoaded.value || isHdLoading.value) return
+  const zoomUrl = currentZoomSrc.value
+  if (!zoomUrl) return
+  isHdLoading.value = true
+  const img = new Image()
   img.onload = () => {
-    isHdLoaded.value = true;
-    isHdLoading.value = false;
-  };
+    isHdLoaded.value = true
+    isHdLoading.value = false
+  }
   img.onerror = () => {
-    isHdLoading.value = false;
-  };
-  img.src = zoomUrl;
-};
+    isHdLoading.value = false
+  }
+  img.src = zoomUrl
+}
 watch(currentIndex, () => {
-  isHdLoaded.value = false;
-  isHdLoading.value = false;
-});
-const visible = ref(false);
-const maskPos = reactive({ top: 0, left: 0 });
-const largePos = reactive({ top: 0, left: 0 });
-const containerRef = ref(null);
-const currentScale = ref(props.scale);
+  isHdLoaded.value = false
+  isHdLoading.value = false
+})
+const visible = ref(false)
+const maskPos = reactive({ top: 0, left: 0 })
+const largePos = reactive({ top: 0, left: 0 })
+const containerRef = ref(null)
+const currentScale = ref(props.scale)
 watch(
   () => props.scale,
   (val) => {
-    currentScale.value = val;
+    currentScale.value = val
   }
-);
-const resolvedPosition = ref("right");
+)
+const resolvedPosition = ref('right')
 const computeSmartPosition = () => {
-  if (props.position !== "auto" && props.position !== "right" && props.position !== "left" && props.position !== "inside")
-    return;
-  if (props.position !== "auto") {
-    resolvedPosition.value = props.position;
-    return;
+  if (
+    props.position !== 'auto' &&
+    props.position !== 'right' &&
+    props.position !== 'left' &&
+    props.position !== 'inside'
+  )
+    return
+  if (props.position !== 'auto') {
+    resolvedPosition.value = props.position
+    return
   }
   if (!containerRef.value) {
-    resolvedPosition.value = "right";
-    return;
+    resolvedPosition.value = 'right'
+    return
   }
-  const rect = containerRef.value.getBoundingClientRect();
-  const previewW = props.maskWidth * currentScale.value;
-  const rightSpace = window.innerWidth - rect.right;
-  const leftSpace = rect.left;
+  const rect = containerRef.value.getBoundingClientRect()
+  const previewW = props.maskWidth * currentScale.value
+  const rightSpace = window.innerWidth - rect.right
+  const leftSpace = rect.left
   if (rightSpace >= previewW + props.offset) {
-    resolvedPosition.value = "right";
+    resolvedPosition.value = 'right'
   } else if (leftSpace >= previewW + props.offset) {
-    resolvedPosition.value = "left";
+    resolvedPosition.value = 'left'
   } else {
-    resolvedPosition.value = "inside";
+    resolvedPosition.value = 'inside'
   }
-};
+}
 const handleMouseEnter = () => {
-  visible.value = true;
-  computeSmartPosition();
-  preloadHdImage();
-  emit("enter");
-  emit("zoom-start");
-};
+  visible.value = true
+  computeSmartPosition()
+  preloadHdImage()
+  emit('enter')
+  emit('zoom-start')
+}
 const handleMouseLeave = () => {
-  visible.value = false;
-  emit("leave");
-  emit("zoom-end");
-};
+  visible.value = false
+  emit('leave')
+  emit('zoom-end')
+}
 const handleMouseMove = (e) => {
-  if (!containerRef.value) return;
-  const rect = containerRef.value.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-  let left = mouseX - props.maskWidth / 2;
-  let top = mouseY - props.maskHeight / 2;
-  left = Math.max(0, Math.min(left, rect.width - props.maskWidth));
-  top = Math.max(0, Math.min(top, rect.height - props.maskHeight));
-  maskPos.left = left;
-  maskPos.top = top;
-  if (resolvedPosition.value === "inside") {
-    largePos.left = props.maskWidth / 2 - mouseX * currentScale.value;
-    largePos.top = props.maskHeight / 2 - mouseY * currentScale.value;
+  if (!containerRef.value) return
+  const rect = containerRef.value.getBoundingClientRect()
+  const mouseX = e.clientX - rect.left
+  const mouseY = e.clientY - rect.top
+  let left = mouseX - props.maskWidth / 2
+  let top = mouseY - props.maskHeight / 2
+  left = Math.max(0, Math.min(left, rect.width - props.maskWidth))
+  top = Math.max(0, Math.min(top, rect.height - props.maskHeight))
+  maskPos.left = left
+  maskPos.top = top
+  if (resolvedPosition.value === 'inside') {
+    largePos.left = props.maskWidth / 2 - mouseX * currentScale.value
+    largePos.top = props.maskHeight / 2 - mouseY * currentScale.value
   } else {
-    largePos.left = -left * currentScale.value;
-    largePos.top = -top * currentScale.value;
+    largePos.left = -left * currentScale.value
+    largePos.top = -top * currentScale.value
   }
-};
+}
 const handleWheel = (e) => {
-  if (!props.wheelZoom || !visible.value) return;
-  e.preventDefault();
-  const delta = e.deltaY > 0 ? -props.scaleStep : props.scaleStep;
-  currentScale.value = Math.round(
-    Math.min(props.maxScale, Math.max(props.minScale, currentScale.value + delta)) * 10
-  ) / 10;
-  emit("scale-change", currentScale.value);
-};
+  if (!props.wheelZoom || !visible.value) return
+  e.preventDefault()
+  const delta = e.deltaY > 0 ? -props.scaleStep : props.scaleStep
+  currentScale.value =
+    Math.round(
+      Math.min(props.maxScale, Math.max(props.minScale, currentScale.value + delta)) * 10
+    ) / 10
+  emit('scale-change', currentScale.value)
+}
 const addWheelListener = () => {
-  containerRef.value?.addEventListener("wheel", handleWheel, { passive: false });
-};
+  containerRef.value?.addEventListener('wheel', handleWheel, { passive: false })
+}
 const removeWheelListener = () => {
-  containerRef.value?.removeEventListener("wheel", handleWheel);
-};
+  containerRef.value?.removeEventListener('wheel', handleWheel)
+}
 watch(containerRef, (el) => {
   if (el) {
-    nextTick(addWheelListener);
+    nextTick(addWheelListener)
   }
-});
+})
 const previewStyle = computed(() => {
-  const isInside = resolvedPosition.value === "inside";
+  const isInside = resolvedPosition.value === 'inside'
   const base = {
-    position: "absolute",
-    overflow: "hidden",
+    position: 'absolute',
+    overflow: 'hidden',
     zIndex: 100,
-    pointerEvents: "none"
-  };
+    pointerEvents: 'none'
+  }
   if (isInside) {
     return {
       ...base,
@@ -163,86 +173,86 @@ const previewStyle = computed(() => {
       top: `${maskPos.top}px`,
       width: `${props.maskWidth}px`,
       height: `${props.maskHeight}px`,
-      borderRadius: props.maskShape === "circle" ? "50%" : "var(--yh-radius-base)",
-      boxShadow: "0 0 0 1px rgba(255,255,255,0.6), 0 4px 16px rgba(0,0,0,0.25)",
+      borderRadius: props.maskShape === 'circle' ? '50%' : 'var(--yh-radius-base)',
+      boxShadow: '0 0 0 1px rgba(255,255,255,0.6), 0 4px 16px rgba(0,0,0,0.25)',
       zIndex: 10,
-      backgroundColor: "var(--yh-bg-color-overlay)"
-    };
+      backgroundColor: 'var(--yh-bg-color-overlay)'
+    }
   }
   return {
     ...base,
-    top: "0",
+    top: '0',
     width: `${props.maskWidth * currentScale.value}px`,
     height: `${props.maskHeight * currentScale.value}px`,
-    ...resolvedPosition.value === "right" ? { left: `calc(100% + ${props.offset}px)` } : {},
-    ...resolvedPosition.value === "left" ? { right: `calc(100% + ${props.offset}px)` } : {}
-  };
-});
+    ...(resolvedPosition.value === 'right' ? { left: `calc(100% + ${props.offset}px)` } : {}),
+    ...(resolvedPosition.value === 'left' ? { right: `calc(100% + ${props.offset}px)` } : {})
+  }
+})
 const largeImageStyle = computed(() => {
-  const w = containerRef.value?.offsetWidth ?? 0;
-  const h = containerRef.value?.offsetHeight ?? 0;
+  const w = containerRef.value?.offsetWidth ?? 0
+  const h = containerRef.value?.offsetHeight ?? 0
   return {
     width: `${w * currentScale.value}px`,
     height: `${h * currentScale.value}px`,
     transform: `translate(${largePos.left}px, ${largePos.top}px)`,
-    position: "absolute",
-    top: "0",
-    left: "0",
+    position: 'absolute',
+    top: '0',
+    left: '0',
     opacity: isHdLoaded.value || !isHdLoading.value ? 1 : 0.5,
-    transition: "opacity 0.2s"
-  };
-});
+    transition: 'opacity 0.2s'
+  }
+})
 const maskStyle = computed(() => ({
   width: `${props.maskWidth}px`,
   height: `${props.maskHeight}px`,
   transform: `translate(${maskPos.left}px, ${maskPos.top}px)`,
   backgroundColor: props.maskColor,
-  position: "absolute",
-  top: "0",
-  left: "0"
-}));
+  position: 'absolute',
+  top: '0',
+  left: '0'
+}))
 const minimapIndicatorStyle = computed(() => {
-  if (!containerRef.value) return {};
-  const cW = containerRef.value.offsetWidth || 1;
-  const cH = containerRef.value.offsetHeight || 1;
-  const ratioX = maskPos.left / cW;
-  const ratioY = maskPos.top / cH;
-  const ratioW = props.maskWidth / cW;
-  const ratioH = props.maskHeight / cH;
+  if (!containerRef.value) return {}
+  const cW = containerRef.value.offsetWidth || 1
+  const cH = containerRef.value.offsetHeight || 1
+  const ratioX = maskPos.left / cW
+  const ratioY = maskPos.top / cH
+  const ratioW = props.maskWidth / cW
+  const ratioH = props.maskHeight / cH
   return {
     left: `${ratioX * 100}%`,
     top: `${ratioY * 100}%`,
     width: `${ratioW * 100}%`,
     height: `${ratioH * 100}%`
-  };
-});
-const fullscreenVisible = ref(false);
+  }
+})
+const fullscreenVisible = ref(false)
 const openFullscreen = () => {
-  if (!props.clickToFullscreen) return;
-  fullscreenVisible.value = true;
-};
+  if (!props.clickToFullscreen) return
+  fullscreenVisible.value = true
+}
 const closeFullscreen = () => {
-  fullscreenVisible.value = false;
-};
+  fullscreenVisible.value = false
+}
 const handleFullscreenKeydown = (e) => {
-  if (e.key === "Escape") closeFullscreen();
-};
+  if (e.key === 'Escape') closeFullscreen()
+}
 watch(fullscreenVisible, (val) => {
   if (val) {
-    document.addEventListener("keydown", handleFullscreenKeydown);
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleFullscreenKeydown)
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
   } else {
-    document.removeEventListener("keydown", handleFullscreenKeydown);
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+    document.removeEventListener('keydown', handleFullscreenKeydown)
+    document.documentElement.style.overflow = ''
+    document.body.style.overflow = ''
   }
-});
+})
 onUnmounted(() => {
-  removeWheelListener();
-  document.removeEventListener("keydown", handleFullscreenKeydown);
-});
-defineExpose({ visible, currentScale, currentIndex, switchImage });
+  removeWheelListener()
+  document.removeEventListener('keydown', handleFullscreenKeydown)
+})
+defineExpose({ visible, currentScale, currentIndex, switchImage })
 </script>
 
 <template>
@@ -256,7 +266,11 @@ defineExpose({ visible, currentScale, currentIndex, switchImage });
   >
     <!-- 主图区域：点击全屏绑定在 wrapper 上，避免 img pointer-events:none 吃掉事件 -->
     <div
-      :class="[ns.e('image-wrapper'), ns.is('bordered', props.border), ns.is('shadow', props.shadow)]"
+      :class="[
+        ns.e('image-wrapper'),
+        ns.is('bordered', props.border),
+        ns.is('shadow', props.shadow)
+      ]"
       :style="props.clickToFullscreen ? 'cursor:zoom-in' : ''"
       @click="openFullscreen"
     >
@@ -328,9 +342,9 @@ defineExpose({ visible, currentScale, currentIndex, switchImage });
         :class="[ns.e('gallery-item'), ns.is('active', idx === currentIndex)]"
         @click="switchImage(idx)"
         type="button"
-        :aria-label="`Switch to image ${idx + 1}`"
+        :aria-label="getSwitchToImageLabel(idx)"
       >
-        <img :src="img.src" :alt="img.alt || `Gallery ${idx + 1}`" />
+        <img :src="img.src" :alt="img.alt || getGalleryItemAlt(idx)" />
       </button>
     </div>
 
@@ -350,7 +364,7 @@ defineExpose({ visible, currentScale, currentIndex, switchImage });
             :class="ns.e('fullscreen-close')"
             @click="closeFullscreen"
             type="button"
-            aria-label="Close"
+            :aria-label="fullscreenCloseLabel"
           >
             <slot name="close-icon">✕</slot>
           </button>
@@ -367,7 +381,7 @@ defineExpose({ visible, currentScale, currentIndex, switchImage });
               @click="switchImage(idx)"
               type="button"
             >
-              <img :src="img.src" :alt="img.alt || `Gallery ${idx + 1}`" />
+              <img :src="img.src" :alt="img.alt || getGalleryItemAlt(idx)" />
             </button>
           </div>
         </div>

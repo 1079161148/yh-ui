@@ -5,82 +5,88 @@ export const th: Language = {
   yh: {
     // ทั่วไป
     common: {
-      yes: 'ใช่',
-      no: 'ไม่',
-      confirm: 'ยืนยัน',
-      cancel: 'ยกเลิก',
-      loading: 'กำลังโหลด',
-      close: 'ปิด',
-      clear: 'ล้าง',
-      reset: 'รีเซ็ต',
-      save: 'บันทึก',
-      delete: 'ลบ',
-      edit: 'แก้ไข',
-      add: 'เพิ่ม',
-      search: 'ค้นหา',
-      refresh: 'รีเฟรช',
-      expand: 'ขยาย',
-      collapse: 'ย่อ',
-      more: 'เพิ่มเติม',
-      noData: 'ไม่มีข้อมูล',
-      noMatch: 'ไม่มีข้อมูลที่ตรงกัน',
-      selectAll: 'เลือกทั้งหมด',
-      unselectAll: 'ยกเลิกการเลือกทั้งหมด'
+      yes: '\u0E43\u0E0A\u0E48',
+      no: '\u0E44\u0E21\u0E48',
+      confirm: '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14',
+      close: '\u0E1B\u0E34\u0E14',
+      clear: '\u0E25\u0E49\u0E32\u0E07',
+      reset: '\u0E23\u0E35\u0E40\u0E0B\u0E47\u0E15',
+      save: '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01',
+      delete: '\u0E25\u0E1A',
+      edit: '\u0E41\u0E01\u0E49\u0E44\u0E02',
+      add: '\u0E40\u0E1E\u0E34\u0E48\u0E21',
+      search: '\u0E04\u0E49\u0E19\u0E2B\u0E32',
+      refresh: '\u0E23\u0E35\u0E40\u0E1F\u0E23\u0E0A',
+      expand: '\u0E02\u0E22\u0E32\u0E22',
+      collapse: '\u0E22\u0E48\u0E2D',
+      more: '\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      noMatch:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E15\u0E23\u0E07\u0E01\u0E31\u0E19',
+      selectAll: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+      unselectAll:
+        '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14'
     },
     // ตัวเลือกสี
     colorpicker: {
-      confirm: 'ตกลง',
-      clear: 'ล้าง',
-      eyeDropper: 'หยดสี',
-      suggestionDark: 'ข้อความสีขาวดีที่สุด',
-      suggestionLight: 'ข้อความสีดำดีที่สุด',
-      recentColors: 'สีล่าสุด',
-      presetColors: 'สีที่กำหนดไว้ล่วงหน้า'
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      clear: '\u0E25\u0E49\u0E32\u0E07',
+      eyeDropper: '\u0E2B\u0E22\u0E14\u0E2A\u0E35',
+      suggestionDark:
+        '\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E35\u0E02\u0E32\u0E27\u0E14\u0E35\u0E17\u0E35\u0E48\u0E2A\u0E38\u0E14',
+      suggestionLight:
+        '\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E35\u0E14\u0E33\u0E14\u0E35\u0E17\u0E35\u0E48\u0E2A\u0E38\u0E14',
+      recentColors: '\u0E2A\u0E35\u0E25\u0E48\u0E32\u0E2A\u0E38\u0E14',
+      presetColors:
+        '\u0E2A\u0E35\u0E17\u0E35\u0E48\u0E01\u0E33\u0E2B\u0E19\u0E14\u0E44\u0E27\u0E49\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32'
     },
     // ตัวเลือกวันที่
     datepicker: {
-      now: 'ตอนนี้',
-      today: 'วันนี้',
-      cancel: 'ยกเลิก',
-      clear: 'ล้าง',
-      confirm: 'ตกลง',
-      selectDate: 'เลือกวันที่',
-      selectTime: 'เลือกเวลา',
-      startDate: 'วันที่เริ่มต้น',
-      startTime: 'เวลาเริ่มต้น',
-      endDate: 'วันที่สิ้นสุด',
-      endTime: 'เวลาสิ้นสุด',
+      now: '\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49',
+      today: '\u0E27\u0E31\u0E19\u0E19\u0E35\u0E49',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      clear: '\u0E25\u0E49\u0E32\u0E07',
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      selectDate: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48',
+      selectTime: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E40\u0E27\u0E25\u0E32',
+      startDate:
+        '\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19',
+      startTime: '\u0E40\u0E27\u0E25\u0E32\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19',
+      endDate: '\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E2A\u0E34\u0E49\u0E19\u0E2A\u0E38\u0E14',
+      endTime: '\u0E40\u0E27\u0E25\u0E32\u0E2A\u0E34\u0E49\u0E19\u0E2A\u0E38\u0E14',
       year: '',
       month: '',
       day: '',
-      week: 'สัปดาห์',
+      week: '\u0E2A\u0E31\u0E1B\u0E14\u0E32\u0E2B\u0E4C',
       monthBeforeYear: true,
-      prevYear: 'ปีที่แล้ว',
-      nextYear: 'ปีหน้า',
-      prevMonth: 'เดือนที่แล้ว',
-      nextMonth: 'เดือนหน้า',
+      prevYear: '\u0E1B\u0E35\u0E17\u0E35\u0E48\u0E41\u0E25\u0E49\u0E27',
+      nextYear: '\u0E1B\u0E35\u0E2B\u0E19\u0E49\u0E32',
+      prevMonth: '\u0E40\u0E14\u0E37\u0E2D\u0E19\u0E17\u0E35\u0E48\u0E41\u0E25\u0E49\u0E27',
+      nextMonth: '\u0E40\u0E14\u0E37\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
       weeks: {
-        sun: 'อา',
-        mon: 'จ',
-        tue: 'อ',
-        wed: 'พ',
-        thu: 'พฤ',
-        fri: 'ศ',
-        sat: 'ส'
+        sun: '\u0E2D\u0E32',
+        mon: '\u0E08',
+        tue: '\u0E2D',
+        wed: '\u0E1E',
+        thu: '\u0E1E\u0E24',
+        fri: '\u0E28',
+        sat: '\u0E2A'
       },
       months: {
-        jan: 'ม.ค.',
-        feb: 'ก.พ.',
-        mar: 'มี.ค.',
-        apr: 'เม.ย.',
-        may: 'พ.ค.',
-        jun: 'มิ.ย.',
-        jul: 'ก.ค.',
-        aug: 'ส.ค.',
-        sep: 'ก.ย.',
-        oct: 'ต.ค.',
-        nov: 'พ.ย.',
-        dec: 'ธ.ค.'
+        jan: '\u0E21.\u0E04.',
+        feb: '\u0E01.\u0E1E.',
+        mar: '\u0E21\u0E35.\u0E04.',
+        apr: '\u0E40\u0E21.\u0E22.',
+        may: '\u0E1E.\u0E04.',
+        jun: '\u0E21\u0E34.\u0E22.',
+        jul: '\u0E01.\u0E04.',
+        aug: '\u0E2A.\u0E04.',
+        sep: '\u0E01.\u0E22.',
+        oct: '\u0E15.\u0E04.',
+        nov: '\u0E1E.\u0E22.',
+        dec: '\u0E18.\u0E04.'
       },
       quarters: {
         q1: 'Q1',
@@ -91,445 +97,496 @@ export const th: Language = {
     },
     // ตัวเลือกเวลา
     timepicker: {
-      confirm: 'ตกลง',
-      cancel: 'ยกเลิก',
-      now: 'ตอนนี้',
-      placeholder: 'เลือกเวลา',
-      startPlaceholder: 'เวลาเริ่มต้น',
-      endPlaceholder: 'เวลาสิ้นสุด',
-      selectTime: 'เลือกเวลา'
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      now: '\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49',
+      placeholder: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E40\u0E27\u0E25\u0E32',
+      startPlaceholder: '\u0E40\u0E27\u0E25\u0E32\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19',
+      endPlaceholder: '\u0E40\u0E27\u0E25\u0E32\u0E2A\u0E34\u0E49\u0E19\u0E2A\u0E38\u0E14',
+      selectTime: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E40\u0E27\u0E25\u0E32'
     },
     // การเลือกเวลา
     timeselect: {
-      placeholder: 'เลือกเวลา'
+      placeholder: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E40\u0E27\u0E25\u0E32'
     },
     // 树
     tree: {
-      emptyText: 'ไม่มีข้อมูล',
-      loading: 'กำลังโหลด...',
-      checkAll: 'เลือกทั้งหมด',
-      uncheckAll: 'ยกเลิกการเลือกทั้งหมด',
-      expandAll: 'ขยายทั้งหมด',
-      collapseAll: 'ย่อทั้งหมด'
+      emptyText: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      checkAll: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+      uncheckAll:
+        '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+      expandAll: '\u0E02\u0E22\u0E32\u0E22\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+      collapseAll: '\u0E22\u0E48\u0E2D\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14'
     },
     // การเลือกต้นไม้
     treeselect: {
-      placeholder: 'เลือก',
-      emptyText: 'ไม่มีข้อมูล',
-      loading: 'กำลังโหลด...',
-      noMatch: 'ไม่มีข้อมูลที่ตรงกัน'
+      placeholder: '\u0E40\u0E25\u0E37\u0E2D\u0E01',
+      emptyText: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      noMatch:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E15\u0E23\u0E07\u0E01\u0E31\u0E19'
     },
     // ปฏิทิน
     calendar: {
-      prevMonth: 'เดือนที่แล้ว',
-      nextMonth: 'เดือนหน้า',
-      prevYear: 'ปีที่แล้ว',
-      nextYear: 'ปีหน้า',
-      today: 'วันนี้',
-      week: 'สัปดาห์',
-      holiday: 'วันหยุด',
-      workday: 'วันทำงาน',
+      prevMonth: '\u0E40\u0E14\u0E37\u0E2D\u0E19\u0E17\u0E35\u0E48\u0E41\u0E25\u0E49\u0E27',
+      nextMonth: '\u0E40\u0E14\u0E37\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
+      prevYear: '\u0E1B\u0E35\u0E17\u0E35\u0E48\u0E41\u0E25\u0E49\u0E27',
+      nextYear: '\u0E1B\u0E35\u0E2B\u0E19\u0E49\u0E32',
+      today: '\u0E27\u0E31\u0E19\u0E19\u0E35\u0E49',
+      week: '\u0E2A\u0E31\u0E1B\u0E14\u0E32\u0E2B\u0E4C',
+      holiday: '\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14',
+      workday: '\u0E27\u0E31\u0E19\u0E17\u0E33\u0E07\u0E32\u0E19',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'อา',
-        mon: 'จ',
-        tue: 'อ',
-        wed: 'พ',
-        thu: 'พฤ',
-        fri: 'ศ',
-        sat: 'ส'
+        sun: '\u0E2D\u0E32',
+        mon: '\u0E08',
+        tue: '\u0E2D',
+        wed: '\u0E1E',
+        thu: '\u0E1E\u0E24',
+        fri: '\u0E28',
+        sat: '\u0E2A'
       }
     },
     // การเติมอัตโนมัติ
     autocomplete: {
-      loading: 'กำลังโหลด...',
-      placeholder: 'กรุณากรอก',
-      noData: 'ไม่มีข้อมูล',
-      noMatch: 'ไม่มีข้อมูลที่ตรงกัน'
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      placeholder: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      noMatch:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E15\u0E23\u0E07\u0E01\u0E31\u0E19'
     },
     // นับถอยหลัง
     countdown: {
-      days: 'วัน',
-      hours: 'ชั่วโมง',
-      minutes: 'นาที',
-      seconds: 'วินาที',
-      milliseconds: 'มิลลิวินาที',
-      finished: 'เสร็จสิ้น'
+      days: '\u0E27\u0E31\u0E19',
+      hours: '\u0E0A\u0E31\u0E48\u0E27\u0E42\u0E21\u0E07',
+      minutes: '\u0E19\u0E32\u0E17\u0E35',
+      seconds: '\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35',
+      milliseconds: '\u0E21\u0E34\u0E25\u0E25\u0E34\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35',
+      finished: '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
     },
     // การเลือกแบบคาสเคด
     cascader: {
-      noMatch: 'ไม่มีข้อมูลที่ตรงกัน',
-      placeholder: 'เลือก',
-      loading: 'กำลังโหลด...',
-      noData: 'ไม่มีข้อมูล'
+      noMatch:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E15\u0E23\u0E07\u0E01\u0E31\u0E19',
+      placeholder: '\u0E40\u0E25\u0E37\u0E2D\u0E01',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25'
     },
     // การโอนย้าย
     transfer: {
-      noMatch: 'ไม่มีข้อมูลที่ตรงกัน',
-      noData: 'ไม่มีข้อมูล',
-      titles: ['รายการ 1', 'รายการ 2'],
-      filterPlaceholder: 'ป้อนคำสำคัญ',
-      noCheckedFormat: '{total} รายการ',
-      hasCheckedFormat: '{checked}/{total} ที่เลือก',
-      searchPlaceholder: 'ป้อนคำสำคัญ'
+      noMatch:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E15\u0E23\u0E07\u0E01\u0E31\u0E19',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      titles: ['\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23 1', '\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23 2'],
+      filterPlaceholder: '\u0E1B\u0E49\u0E2D\u0E19\u0E04\u0E33\u0E2A\u0E33\u0E04\u0E31\u0E0D',
+      noCheckedFormat: '{total} \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23',
+      hasCheckedFormat: '{checked}/{total} \u0E17\u0E35\u0E48\u0E40\u0E25\u0E37\u0E2D\u0E01',
+      searchPlaceholder: '\u0E1B\u0E49\u0E2D\u0E19\u0E04\u0E33\u0E2A\u0E33\u0E04\u0E31\u0E0D'
     },
     // ตาราง
     table: {
-      emptyText: 'ไม่มีข้อมูล',
-      confirmFilter: 'ยืนยัน',
-      resetFilter: 'รีเซ็ต',
-      clearFilter: 'ทั้งหมด',
-      sumText: 'รวม',
-      loading: 'กำลังโหลด...',
-      index: 'ดัชนี',
-      print: 'พิมพ์',
-      cancel: 'ยกเลิก',
-      preview: 'ตัวอย่างการพิมพ์',
-      printTime: 'เวลาพิมพ์',
-      total: 'รวม {total} รายการ',
-      page: 'หน้า {page}',
-      yes: 'ใช่',
-      no: 'ไม่',
+      emptyText: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      confirmFilter: '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19',
+      resetFilter: '\u0E23\u0E35\u0E40\u0E0B\u0E47\u0E15',
+      clearFilter: '\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+      sumText: '\u0E23\u0E27\u0E21',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      index: '\u0E14\u0E31\u0E0A\u0E19\u0E35',
+      print: '\u0E1E\u0E34\u0E21\u0E1E\u0E4C',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      preview:
+        '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E01\u0E32\u0E23\u0E1E\u0E34\u0E21\u0E1E\u0E4C',
+      printTime: '\u0E40\u0E27\u0E25\u0E32\u0E1E\u0E34\u0E21\u0E1E\u0E4C',
+      total: '\u0E23\u0E27\u0E21 {total} \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23',
+      page: '\u0E2B\u0E19\u0E49\u0E32 {page}',
+      yes: '\u0E43\u0E0A\u0E48',
+      no: '\u0E44\u0E21\u0E48',
       // แถบเครื่องมือ
       toolbar: {
-        refresh: 'รีเฟรช',
-        density: 'ความหนาแน่น',
-        densityDefault: 'ค่าเริ่มต้น',
-        densityLarge: 'ใหญ่',
-        densitySmall: 'เล็ก',
-        columnSetting: 'การตั้งค่าคอลัมน์',
-        fullscreen: 'เต็มหน้าจอ',
-        exitFullscreen: 'ออกจากเต็มหน้าจอ',
-        export: 'ส่งออก',
-        import: 'นำเข้า',
-        search: 'ค้นหา',
-        searchPlaceholder: 'ป้อนคำสำคัญเพื่อค้นหา'
+        refresh: '\u0E23\u0E35\u0E40\u0E1F\u0E23\u0E0A',
+        density: '\u0E04\u0E27\u0E32\u0E21\u0E2B\u0E19\u0E32\u0E41\u0E19\u0E48\u0E19',
+        densityDefault: '\u0E04\u0E48\u0E32\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19',
+        densityLarge: '\u0E43\u0E2B\u0E0D\u0E48',
+        densitySmall: '\u0E40\u0E25\u0E47\u0E01',
+        columnSetting:
+          '\u0E01\u0E32\u0E23\u0E15\u0E31\u0E49\u0E07\u0E04\u0E48\u0E32\u0E04\u0E2D\u0E25\u0E31\u0E21\u0E19\u0E4C',
+        fullscreen: '\u0E40\u0E15\u0E47\u0E21\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D',
+        exitFullscreen:
+          '\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E40\u0E15\u0E47\u0E21\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D',
+        export: '\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01',
+        import: '\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32',
+        search: '\u0E04\u0E49\u0E19\u0E2B\u0E32',
+        searchPlaceholder:
+          '\u0E1B\u0E49\u0E2D\u0E19\u0E04\u0E33\u0E2A\u0E33\u0E04\u0E31\u0E0D\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E04\u0E49\u0E19\u0E2B\u0E32'
       },
       // ตัวกรอง
       filter: {
-        selectAll: 'เลือกทั้งหมด',
-        selectInvert: 'กลับการเลือก',
-        empty: 'ว่างเปล่า',
-        notEmpty: 'ไม่ว่างเปล่า',
-        contains: 'ประกอบด้วย',
-        notContains: 'ไม่ประกอบด้วย',
-        equals: 'เท่ากับ',
-        notEquals: 'ไม่เท่ากับ',
-        startsWith: 'เริ่มต้นด้วย',
-        endsWith: 'ลงท้ายด้วย',
-        greaterThan: 'มากกว่า',
-        lessThan: 'น้อยกว่า',
-        between: 'ระหว่าง'
+        selectAll: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        selectInvert: '\u0E01\u0E25\u0E31\u0E1A\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E2D\u0E01',
+        empty: '\u0E27\u0E48\u0E32\u0E07\u0E40\u0E1B\u0E25\u0E48\u0E32',
+        notEmpty: '\u0E44\u0E21\u0E48\u0E27\u0E48\u0E32\u0E07\u0E40\u0E1B\u0E25\u0E48\u0E32',
+        contains: '\u0E1B\u0E23\u0E30\u0E01\u0E2D\u0E1A\u0E14\u0E49\u0E27\u0E22',
+        notContains:
+          '\u0E44\u0E21\u0E48\u0E1B\u0E23\u0E30\u0E01\u0E2D\u0E1A\u0E14\u0E49\u0E27\u0E22',
+        equals: '\u0E40\u0E17\u0E48\u0E32\u0E01\u0E31\u0E1A',
+        notEquals: '\u0E44\u0E21\u0E48\u0E40\u0E17\u0E48\u0E32\u0E01\u0E31\u0E1A',
+        startsWith: '\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E49\u0E19\u0E14\u0E49\u0E27\u0E22',
+        endsWith: '\u0E25\u0E07\u0E17\u0E49\u0E32\u0E22\u0E14\u0E49\u0E27\u0E22',
+        greaterThan: '\u0E21\u0E32\u0E01\u0E01\u0E27\u0E48\u0E32',
+        lessThan: '\u0E19\u0E49\u0E2D\u0E22\u0E01\u0E27\u0E48\u0E32',
+        between: '\u0E23\u0E30\u0E2B\u0E27\u0E48\u0E32\u0E07'
       },
       // การเรียงลำดับ
       sort: {
-        asc: 'จากน้อยไปมาก',
-        desc: 'จากมากไปน้อย',
-        clear: 'ล้างการเรียงลำดับ'
+        asc: '\u0E08\u0E32\u0E01\u0E19\u0E49\u0E2D\u0E22\u0E44\u0E1B\u0E21\u0E32\u0E01',
+        desc: '\u0E08\u0E32\u0E01\u0E21\u0E32\u0E01\u0E44\u0E1B\u0E19\u0E49\u0E2D\u0E22',
+        clear:
+          '\u0E25\u0E49\u0E32\u0E07\u0E01\u0E32\u0E23\u0E40\u0E23\u0E35\u0E22\u0E07\u0E25\u0E33\u0E14\u0E31\u0E1A'
       },
       // การส่งออก
       export: {
-        title: 'ส่งออกข้อมูล',
-        filename: 'ชื่อไฟล์',
-        type: 'ประเภทไฟล์',
-        scope: 'ขอบเขตการส่งออก',
-        scopeAll: 'ข้อมูลทั้งหมด',
-        scopeSelected: 'ข้อมูลที่เลือก',
-        scopeCurrentPage: 'หน้าปัจจุบัน',
-        includeHeader: 'รวมส่วนหัว',
-        exporting: 'กำลังส่งออก...',
-        success: 'ส่งออกสำเร็จ',
-        error: 'ส่งออกล้มเหลว'
+        title: '\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+        filename: '\u0E0A\u0E37\u0E48\u0E2D\u0E44\u0E1F\u0E25\u0E4C',
+        type: '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17\u0E44\u0E1F\u0E25\u0E4C',
+        scope:
+          '\u0E02\u0E2D\u0E1A\u0E40\u0E02\u0E15\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01',
+        scopeAll: '\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        scopeSelected:
+          '\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E40\u0E25\u0E37\u0E2D\u0E01',
+        scopeCurrentPage:
+          '\u0E2B\u0E19\u0E49\u0E32\u0E1B\u0E31\u0E08\u0E08\u0E38\u0E1A\u0E31\u0E19',
+        includeHeader: '\u0E23\u0E27\u0E21\u0E2A\u0E48\u0E27\u0E19\u0E2B\u0E31\u0E27',
+        exporting: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01...',
+        success: '\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08',
+        error: '\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27'
       },
       // การนำเข้า
       import: {
-        title: 'นำเข้าข้อมูล',
-        selectFile: 'เลือกไฟล์',
-        dragTip: 'คลิกหรือลากไฟล์มาที่นี่เพื่ออัปโหลด',
-        importing: 'กำลังนำเข้า...',
-        success: 'นำเข้าสำเร็จ',
-        error: 'นำเข้าล้มเหลว',
-        preview: 'ตัวอย่างข้อมูล',
-        confirm: 'ยืนยันการนำเข้า'
+        title: '\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+        selectFile: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E44\u0E1F\u0E25\u0E4C',
+        dragTip:
+          '\u0E04\u0E25\u0E34\u0E01\u0E2B\u0E23\u0E37\u0E2D\u0E25\u0E32\u0E01\u0E44\u0E1F\u0E25\u0E4C\u0E21\u0E32\u0E17\u0E35\u0E48\u0E19\u0E35\u0E48\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14',
+        importing: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32...',
+        success: '\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08',
+        error: '\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27',
+        preview:
+          '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+        confirm:
+          '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32'
       },
       // การพิมพ์
       printConfig: {
-        title: 'การตั้งค่าการพิมพ์',
-        pageTitle: 'ชื่อหน้า',
-        pageHeader: 'ส่วนหัว',
-        pageFooter: 'ส่วนท้าย',
-        printAll: 'พิมพ์ทั้งหมด',
-        printSelected: 'พิมพ์ที่เลือก',
-        printCurrentPage: 'พิมพ์หน้าปัจจุบัน',
-        landscape: 'แนวนอน',
-        portrait: 'แนวตั้ง',
-        printing: 'กำลังพิมพ์...'
+        title:
+          '\u0E01\u0E32\u0E23\u0E15\u0E31\u0E49\u0E07\u0E04\u0E48\u0E32\u0E01\u0E32\u0E23\u0E1E\u0E34\u0E21\u0E1E\u0E4C',
+        pageTitle: '\u0E0A\u0E37\u0E48\u0E2D\u0E2B\u0E19\u0E49\u0E32',
+        pageHeader: '\u0E2A\u0E48\u0E27\u0E19\u0E2B\u0E31\u0E27',
+        pageFooter: '\u0E2A\u0E48\u0E27\u0E19\u0E17\u0E49\u0E32\u0E22',
+        printAll: '\u0E1E\u0E34\u0E21\u0E1E\u0E4C\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        printSelected:
+          '\u0E1E\u0E34\u0E21\u0E1E\u0E4C\u0E17\u0E35\u0E48\u0E40\u0E25\u0E37\u0E2D\u0E01',
+        printCurrentPage:
+          '\u0E1E\u0E34\u0E21\u0E1E\u0E4C\u0E2B\u0E19\u0E49\u0E32\u0E1B\u0E31\u0E08\u0E08\u0E38\u0E1A\u0E31\u0E19',
+        landscape: '\u0E41\u0E19\u0E27\u0E19\u0E2D\u0E19',
+        portrait: '\u0E41\u0E19\u0E27\u0E15\u0E31\u0E49\u0E07',
+        printing: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1E\u0E34\u0E21\u0E1E\u0E4C...'
       },
       // การตั้งค่าคอลัมน์
       columnSetting: {
-        title: 'การตั้งค่าคอลัมน์',
-        showAll: 'แสดงทั้งหมด',
-        hideAll: 'ซ่อนทั้งหมด',
-        reset: 'รีเซ็ต',
-        fixedLeft: 'ตรึงไปทางซ้าย',
-        fixedRight: 'ตรึงไปทางขวา',
-        unfixed: 'ยกเลิกการตรึง'
+        title:
+          '\u0E01\u0E32\u0E23\u0E15\u0E31\u0E49\u0E07\u0E04\u0E48\u0E32\u0E04\u0E2D\u0E25\u0E31\u0E21\u0E19\u0E4C',
+        showAll: '\u0E41\u0E2A\u0E14\u0E07\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        hideAll: '\u0E0B\u0E48\u0E2D\u0E19\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        reset: '\u0E23\u0E35\u0E40\u0E0B\u0E47\u0E15',
+        fixedLeft: '\u0E15\u0E23\u0E36\u0E07\u0E44\u0E1B\u0E17\u0E32\u0E07\u0E0B\u0E49\u0E32\u0E22',
+        fixedRight: '\u0E15\u0E23\u0E36\u0E07\u0E44\u0E1B\u0E17\u0E32\u0E07\u0E02\u0E27\u0E32',
+        unfixed: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01\u0E01\u0E32\u0E23\u0E15\u0E23\u0E36\u0E07'
       },
       // เมนูบริบท
       contextMenu: {
-        copy: 'คัดลอก',
-        copyRow: 'คัดลอกแถว',
-        copyCell: 'คัดลอกเซลล์',
-        paste: 'วาง',
-        insertRowAbove: 'แทรกแถวด้านบน',
-        insertRowBelow: 'แทรกแถวด้านล่าง',
-        deleteRow: 'ลบแถว',
-        deleteSelectedRows: 'ลบแถวที่เลือก',
-        exportSelected: 'ส่งออกที่เลือก'
+        copy: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01',
+        copyRow: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E41\u0E16\u0E27',
+        copyCell: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E40\u0E0B\u0E25\u0E25\u0E4C',
+        paste: '\u0E27\u0E32\u0E07',
+        insertRowAbove:
+          '\u0E41\u0E17\u0E23\u0E01\u0E41\u0E16\u0E27\u0E14\u0E49\u0E32\u0E19\u0E1A\u0E19',
+        insertRowBelow:
+          '\u0E41\u0E17\u0E23\u0E01\u0E41\u0E16\u0E27\u0E14\u0E49\u0E32\u0E19\u0E25\u0E48\u0E32\u0E07',
+        deleteRow: '\u0E25\u0E1A\u0E41\u0E16\u0E27',
+        deleteSelectedRows:
+          '\u0E25\u0E1A\u0E41\u0E16\u0E27\u0E17\u0E35\u0E48\u0E40\u0E25\u0E37\u0E2D\u0E01',
+        exportSelected:
+          '\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01\u0E17\u0E35\u0E48\u0E40\u0E25\u0E37\u0E2D\u0E01'
       },
       // การเลือก
       selection: {
-        selectAll: 'เลือกทั้งหมด',
-        selectInvert: 'กลับการเลือก',
-        selectNone: 'ล้างการเลือก',
-        selected: 'เลือก {count} รายการ'
+        selectAll: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        selectInvert: '\u0E01\u0E25\u0E31\u0E1A\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E2D\u0E01',
+        selectNone: '\u0E25\u0E49\u0E32\u0E07\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E2D\u0E01',
+        selected: '\u0E40\u0E25\u0E37\u0E2D\u0E01 {count} \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23'
       },
       // ขยาย
       expand: {
-        expandAll: 'ขยายทั้งหมด',
-        collapseAll: 'ย่อทั้งหมด'
+        expandAll: '\u0E02\u0E22\u0E32\u0E22\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        collapseAll: '\u0E22\u0E48\u0E2D\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14'
       },
       // ต้นไม้
       tree: {
-        expandAll: 'ขยายทั้งหมด',
-        collapseAll: 'ย่อทั้งหมด',
-        expandLevel: 'ขยายถึงระดับ {level}'
+        expandAll: '\u0E02\u0E22\u0E32\u0E22\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        collapseAll: '\u0E22\u0E48\u0E2D\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        expandLevel:
+          '\u0E02\u0E22\u0E32\u0E22\u0E16\u0E36\u0E07\u0E23\u0E30\u0E14\u0E31\u0E1A {level}'
       },
       // ลาก
       drag: {
-        dragTip: 'ลากเพื่อจัดเรียงใหม่',
-        dropTip: 'ปล่อยเพื่อวาง'
+        dragTip:
+          '\u0E25\u0E32\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E08\u0E31\u0E14\u0E40\u0E23\u0E35\u0E22\u0E07\u0E43\u0E2B\u0E21\u0E48',
+        dropTip: '\u0E1B\u0E25\u0E48\u0E2D\u0E22\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E27\u0E32\u0E07'
       }
     },
     // กล่องข้อความ
     messagebox: {
-      title: 'ข้อความ',
-      confirm: 'ตกลง',
-      cancel: 'ยกเลิก',
-      close: 'ปิด',
-      error: 'ข้อมูลไม่ถูกต้อง',
-      alert: 'แจ้งเตือน',
-      prompt: 'พร้อมท์',
-      inputPlaceholder: 'กรุณากรอก'
+      title: '\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21',
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      close: '\u0E1B\u0E34\u0E14',
+      error:
+        '\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E44\u0E21\u0E48\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07',
+      alert: '\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19',
+      prompt: '\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E17\u0E4C',
+      inputPlaceholder: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01'
     },
     // การอัปโหลด
     upload: {
-      deleteTip: 'กด delete เพื่อลบ',
-      delete: 'ลบ',
-      preview: 'ตัวอย่าง',
-      continue: 'ดำเนินการต่อ',
-      upload: 'คลิกเพื่ออัปโหลด',
-      tip: 'คลิกหรือลากไฟล์มาที่นี่เพื่อ<em>อัปโหลด</em>',
-      dragTip: 'วางไฟล์ที่นี่หรือคลิกเพื่ออัปโหลด',
-      uploading: 'กำลังอัปโหลด...',
-      success: 'อัปโหลดสำเร็จ',
-      error: 'อัปโหลดล้มเหลว',
-      retry: 'ลองอีกครั้ง',
-      cancel: 'ยกเลิกการอัปโหลด',
-      fileTypeError: 'ประเภทไฟล์ไม่รองรับ',
-      fileSizeError: 'ขนาดไฟล์เกินขีดจำกัด',
-      fileCountError: 'จำนวนไฟล์เกินขีดจำกัด'
+      deleteTip: '\u0E01\u0E14 delete \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E25\u0E1A',
+      delete: '\u0E25\u0E1A',
+      preview: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07',
+      continue: '\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E15\u0E48\u0E2D',
+      upload:
+        '\u0E04\u0E25\u0E34\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14',
+      tip: '\u0E04\u0E25\u0E34\u0E01\u0E2B\u0E23\u0E37\u0E2D\u0E25\u0E32\u0E01\u0E44\u0E1F\u0E25\u0E4C\u0E21\u0E32\u0E17\u0E35\u0E48\u0E19\u0E35\u0E48\u0E40\u0E1E\u0E37\u0E48\u0E2D<em>\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14</em>',
+      dragTip:
+        '\u0E27\u0E32\u0E07\u0E44\u0E1F\u0E25\u0E4C\u0E17\u0E35\u0E48\u0E19\u0E35\u0E48\u0E2B\u0E23\u0E37\u0E2D\u0E04\u0E25\u0E34\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14',
+      uploading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14...',
+      success: '\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08',
+      error: '\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27',
+      retry: '\u0E25\u0E2D\u0E07\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07',
+      cancel:
+        '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01\u0E01\u0E32\u0E23\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14',
+      fileTypeError:
+        '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17\u0E44\u0E1F\u0E25\u0E4C\u0E44\u0E21\u0E48\u0E23\u0E2D\u0E07\u0E23\u0E31\u0E1A',
+      fileSizeError:
+        '\u0E02\u0E19\u0E32\u0E14\u0E44\u0E1F\u0E25\u0E4C\u0E40\u0E01\u0E34\u0E19\u0E02\u0E35\u0E14\u0E08\u0E33\u0E01\u0E31\u0E14',
+      fileCountError:
+        '\u0E08\u0E33\u0E19\u0E27\u0E19\u0E44\u0E1F\u0E25\u0E4C\u0E40\u0E01\u0E34\u0E19\u0E02\u0E35\u0E14\u0E08\u0E33\u0E01\u0E31\u0E14'
     },
     // ฟอร์ม
     form: {
-      validationFailed: 'การตรวจสอบล้มเหลว',
-      required: 'จำเป็น',
-      pleaseInput: 'กรุณากรอก',
-      pleaseSelect: 'กรุณาเลือก'
+      validationFailed:
+        '\u0E01\u0E32\u0E23\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27',
+      required: '\u0E08\u0E33\u0E40\u0E1B\u0E47\u0E19',
+      pleaseInput: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01',
+      pleaseSelect: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E40\u0E25\u0E37\u0E2D\u0E01'
     },
     // ปุ่ม
     button: {
-      loading: 'กำลังโหลด...'
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...'
     },
     // การป้อนข้อมูล
     input: {
-      placeholder: 'กรุณากรอก',
-      clear: 'ล้าง',
-      showPassword: 'แสดงรหัสผ่าน',
-      hidePassword: 'ซ่อนรหัสผ่าน',
-      copy: 'คัดลอก',
-      copied: 'คัดลอกแล้ว'
+      placeholder: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01',
+      clear: '\u0E25\u0E49\u0E32\u0E07',
+      showPassword: '\u0E41\u0E2A\u0E14\u0E07\u0E23\u0E2B\u0E31\u0E2A\u0E1C\u0E48\u0E32\u0E19',
+      hidePassword: '\u0E0B\u0E48\u0E2D\u0E19\u0E23\u0E2B\u0E31\u0E2A\u0E1C\u0E48\u0E32\u0E19',
+      copy: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01',
+      copied: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E41\u0E25\u0E49\u0E27'
     },
     // การป้อนตัวเลข
     inputnumber: {
-      placeholder: 'กรุณากรอกตัวเลข',
-      increase: 'เพิ่ม',
-      decrease: 'ลด'
+      placeholder:
+        '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01\u0E15\u0E31\u0E27\u0E40\u0E25\u0E02',
+      increase: '\u0E40\u0E1E\u0E34\u0E48\u0E21',
+      decrease: '\u0E25\u0E14'
     },
     // การป้อนแท็ก
     inputtag: {
-      placeholder: 'กรุณากรอก',
-      add: 'เพิ่ม',
-      remove: 'ลบ'
+      placeholder: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01',
+      add: '\u0E40\u0E1E\u0E34\u0E48\u0E21',
+      remove: '\u0E25\u0E1A'
     },
     // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
-      more: 'เพิ่มเติม'
+      more: '\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21'
     },
     // กลับขึ้นด้านบน
     backtop: {
-      text: 'กลับขึ้นด้านบน'
+      text: '\u0E01\u0E25\u0E31\u0E1A\u0E02\u0E36\u0E49\u0E19\u0E14\u0E49\u0E32\u0E19\u0E1A\u0E19'
     },
     // การเลือก
     select: {
-      placeholder: 'กรุณาเลือก',
-      noData: 'ไม่มีข้อมูล',
-      loading: 'กำลังโหลด...',
-      noMatch: 'ไม่มีข้อมูลที่ตรงกัน',
-      selectAll: 'เลือกทั้งหมด',
-      clearAll: 'ล้างทั้งหมด'
+      placeholder: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E40\u0E25\u0E37\u0E2D\u0E01',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      noMatch:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E17\u0E35\u0E48\u0E15\u0E23\u0E07\u0E01\u0E31\u0E19',
+      selectAll: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+      clearAll: '\u0E25\u0E49\u0E32\u0E07\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14'
     },
     // การแบ่งหน้า
     pagination: {
-      goto: 'ไปที่',
+      goto: '\u0E44\u0E1B\u0E17\u0E35\u0E48',
       page: '',
-      total: 'รวม {total}',
-      pageSize: '/หน้า',
-      prev: 'ก่อนหน้า',
-      next: 'ถัดไป',
-      first: 'แรก',
-      last: 'สุดท้าย',
+      total: '\u0E23\u0E27\u0E21 {total}',
+      pageSize: '/\u0E2B\u0E19\u0E49\u0E32',
+      prev: '\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
+      next: '\u0E16\u0E31\u0E14\u0E44\u0E1B',
+      first: '\u0E41\u0E23\u0E01',
+      last: '\u0E2A\u0E38\u0E14\u0E17\u0E49\u0E32\u0E22',
       pageClassifier: ''
     },
     // การยืนยันแบบป๊อปอัป
     popconfirm: {
-      confirm: 'ตกลง',
-      cancel: 'ยกเลิก',
-      dontAskAgain: 'ไม่ถามอีก'
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      dontAskAgain: '\u0E44\u0E21\u0E48\u0E16\u0E32\u0E21\u0E2D\u0E35\u0E01'
     },
     // กล่องโต้ตอบ
     dialog: {
-      confirm: 'ตกลง',
-      cancel: 'ยกเลิก',
-      close: 'ปิด',
-      maximize: 'ขยายใหญ่สุด',
-      restore: 'คืนค่า'
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
+      close: '\u0E1B\u0E34\u0E14',
+      maximize: '\u0E02\u0E22\u0E32\u0E22\u0E43\u0E2B\u0E0D\u0E48\u0E2A\u0E38\u0E14',
+      restore: '\u0E04\u0E37\u0E19\u0E04\u0E48\u0E32'
     },
     // ลิ้นชัก
     drawer: {
-      close: 'ปิด',
-      confirm: 'ตกลง',
-      cancel: 'ยกเลิก'
+      close: '\u0E1B\u0E34\u0E14',
+      confirm: '\u0E15\u0E01\u0E25\u0E07',
+      cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
     },
     // เมนูแบบดรอปดาวน์
     dropdown: {
-      loading: 'กำลังโหลด...'
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...'
     },
     // รูปภาพ
     image: {
-      error: 'ล้มเหลว',
-      loading: 'กำลังโหลด...',
-      preview: 'ตัวอย่าง',
-      zoomIn: 'ขยาย',
-      zoomOut: 'ย่อ',
-      rotateLeft: 'หมุนซ้าย',
-      rotateRight: 'หมุนขวา',
-      originalSize: 'ขนาดเดิม',
-      fullscreen: 'เต็มหน้าจอ'
+      error: '\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      preview: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07',
+      zoomIn: '\u0E02\u0E22\u0E32\u0E22',
+      zoomOut: '\u0E22\u0E48\u0E2D',
+      rotateLeft: '\u0E2B\u0E21\u0E38\u0E19\u0E0B\u0E49\u0E32\u0E22',
+      rotateRight: '\u0E2B\u0E21\u0E38\u0E19\u0E02\u0E27\u0E32',
+      originalSize: '\u0E02\u0E19\u0E32\u0E14\u0E40\u0E14\u0E34\u0E21',
+      fullscreen: '\u0E40\u0E15\u0E47\u0E21\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D'
     },
     // ตัวดูรูปภาพ
     imageviewer: {
-      close: 'ปิด',
-      prev: 'ก่อนหน้า',
-      next: 'ถัดไป',
-      zoomIn: 'ขยาย',
-      zoomOut: 'ย่อ',
-      rotateLeft: 'หมุนซ้าย',
-      rotateRight: 'หมุนขวา',
-      reset: 'รีเซ็ต',
-      fullscreen: 'เต็มหน้าจอ',
-      exitFullscreen: 'ออกจากเต็มหน้าจอ'
+      close: '\u0E1B\u0E34\u0E14',
+      prev: '\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
+      next: '\u0E16\u0E31\u0E14\u0E44\u0E1B',
+      zoomIn: '\u0E02\u0E22\u0E32\u0E22',
+      zoomOut: '\u0E22\u0E48\u0E2D',
+      rotateLeft: '\u0E2B\u0E21\u0E38\u0E19\u0E0B\u0E49\u0E32\u0E22',
+      rotateRight: '\u0E2B\u0E21\u0E38\u0E19\u0E02\u0E27\u0E32',
+      reset: '\u0E23\u0E35\u0E40\u0E0B\u0E47\u0E15',
+      fullscreen: '\u0E40\u0E15\u0E47\u0E21\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D',
+      exitFullscreen:
+        '\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E40\u0E15\u0E47\u0E21\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D'
     },
     // การเลื่อนไม่สิ้นสุด
     infinitescroll: {
-      loading: 'กำลังโหลด...',
-      finished: 'ไม่มีข้อมูลเพิ่มเติม',
-      error: 'โหลดล้มเหลว คลิกเพื่อลองอีกครั้ง',
-      retry: 'คลิกเพื่อลองอีกครั้ง'
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      finished:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21',
+      error:
+        '\u0E42\u0E2B\u0E25\u0E14\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27 \u0E04\u0E25\u0E34\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E25\u0E2D\u0E07\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07',
+      retry:
+        '\u0E04\u0E25\u0E34\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E25\u0E2D\u0E07\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07'
     },
     // ข้อความ
     message: {
-      close: 'ปิด'
+      close: '\u0E1B\u0E34\u0E14'
     },
     // การแจ้งเตือน
     notification: {
-      close: 'ปิด'
+      close: '\u0E1B\u0E34\u0E14'
     },
     // การโหลด
     loading: {
-      text: 'กำลังโหลด...'
+      text: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...'
     },
     // การหมุน
     spin: {
-      text: 'กำลังโหลด...'
+      text: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...'
     },
     // การให้คะแนน
     rate: {
-      texts: ['แย่มาก', 'ผิดหวัง', 'พอใช้', 'พอใจ', 'ประหลาดใจ']
+      texts: [
+        '\u0E41\u0E22\u0E48\u0E21\u0E32\u0E01',
+        '\u0E1C\u0E34\u0E14\u0E2B\u0E27\u0E31\u0E07',
+        '\u0E1E\u0E2D\u0E43\u0E0A\u0E49',
+        '\u0E1E\u0E2D\u0E43\u0E08',
+        '\u0E1B\u0E23\u0E30\u0E2B\u0E25\u0E32\u0E14\u0E43\u0E08'
+      ]
     },
     // การแจ้งเตือน
     alert: {
-      close: 'ปิด'
+      close: '\u0E1B\u0E34\u0E14'
     },
     // แท็ก
     tag: {
-      close: 'ปิด'
+      close: '\u0E1B\u0E34\u0E14'
     },
     // แท็บ
     tabs: {
-      close: 'ปิด',
-      add: 'เพิ่ม',
-      more: 'เพิ่มเติม'
+      close: '\u0E1B\u0E34\u0E14',
+      add: '\u0E40\u0E1E\u0E34\u0E48\u0E21',
+      more: '\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21'
     },
     // ขั้นตอน
     steps: {
-      finish: 'เสร็จสิ้น',
-      process: 'กำลังดำเนินการ',
-      wait: 'รอ',
-      error: 'ข้อผิดพลาด'
+      finish: '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19',
+      process:
+        '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23',
+      wait: '\u0E23\u0E2D',
+      error: '\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14'
     },
     // ความคืบหน้า
     progress: {
-      success: 'สำเร็จ',
-      exception: 'ข้อยกเว้น',
-      warning: 'คำเตือน'
+      success: '\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08',
+      exception: '\u0E02\u0E49\u0E2D\u0E22\u0E01\u0E40\u0E27\u0E49\u0E19',
+      warning: '\u0E04\u0E33\u0E40\u0E15\u0E37\u0E2D\u0E19'
     },
     // โครงกระดูก
     skeleton: {
-      loading: 'กำลังโหลด...'
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...'
     },
     // ว่างเปล่า
     empty: {
-      description: 'ไม่มีข้อมูล',
-      noData: 'ไม่มีข้อมูล',
-      noResult: 'ไม่มีผลลัพธ์',
-      networkError: 'ข้อผิดพลาดเครือข่าย',
-      serverError: 'ข้อผิดพลาดเซิร์ฟเวอร์'
+      description: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      noResult: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E1C\u0E25\u0E25\u0E31\u0E1E\u0E18\u0E4C',
+      networkError:
+        '\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E40\u0E04\u0E23\u0E37\u0E2D\u0E02\u0E48\u0E32\u0E22',
+      serverError:
+        '\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E40\u0E0B\u0E34\u0E23\u0E4C\u0E1F\u0E40\u0E27\u0E2D\u0E23\u0E4C'
     },
     // ผลลัพธ์
     result: {
-      success: 'สำเร็จ',
-      error: 'ข้อผิดพลาด',
-      warning: 'คำเตือน',
-      info: 'ข้อมูล',
-      backHome: 'กลับหน้าแรก'
+      success: '\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08',
+      error: '\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14',
+      warning: '\u0E04\u0E33\u0E40\u0E15\u0E37\u0E2D\u0E19',
+      info: '\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25',
+      backHome: '\u0E01\u0E25\u0E31\u0E1A\u0E2B\u0E19\u0E49\u0E32\u0E41\u0E23\u0E01'
     },
     // น้ำตก
     waterfall: {
-      loading: 'กำลังโหลด...',
-      noMore: 'ไม่มีข้อมูลเพิ่มเติม',
-      empty: 'ไม่มีข้อมูล'
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      noMore:
+        '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21',
+      empty: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25'
     },
     // คำอธิบาย
     descriptions: {
@@ -541,29 +598,29 @@ export const th: Language = {
     },
     // สวิตช์
     switch: {
-      on: 'เปิด',
-      off: 'ปิด'
+      on: '\u0E40\u0E1B\u0E34\u0E14',
+      off: '\u0E1B\u0E34\u0E14'
     },
     // กล่องกาเครื่องหมาย
     checkbox: {
-      selectAll: 'เลือกทั้งหมด'
+      selectAll: '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14'
     },
     // วิทยุ
     radio: {},
     // เมนู
     menu: {
-      collapse: 'ย่อเมนู',
-      expand: 'ขยายเมนู'
+      collapse: '\u0E22\u0E48\u0E2D\u0E40\u0E21\u0E19\u0E39',
+      expand: '\u0E02\u0E22\u0E32\u0E22\u0E40\u0E21\u0E19\u0E39'
     },
     // การ์ด
     card: {
-      collapse: 'ย่อ',
-      expand: 'ขยาย'
+      collapse: '\u0E22\u0E48\u0E2D',
+      expand: '\u0E02\u0E22\u0E32\u0E22'
     },
     // ย่อ
     collapse: {
-      expand: 'ขยาย',
-      collapse: 'ย่อ'
+      expand: '\u0E02\u0E22\u0E32\u0E22',
+      collapse: '\u0E22\u0E48\u0E2D'
     },
     // คำแนะนำ
     tooltip: {},
@@ -573,7 +630,7 @@ export const th: Language = {
     badge: {},
     // อวตาร
     avatar: {
-      error: 'โหลดล้มเหลว'
+      error: '\u0E42\u0E2B\u0E25\u0E14\u0E25\u0E49\u0E21\u0E40\u0E2B\u0E25\u0E27'
     },
     // ลายน้ำ
     watermark: {},
@@ -581,8 +638,8 @@ export const th: Language = {
     divider: {},
     // ภาพหมุน
     carousel: {
-      prev: 'ก่อนหน้า',
-      next: 'ถัดไป'
+      prev: '\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
+      next: '\u0E16\u0E31\u0E14\u0E44\u0E1B'
     },
     // มาร์ควี
     marquee: {},
@@ -592,127 +649,141 @@ export const th: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'กรุณากรอก',
-      loading: 'กำลังโหลด...',
-      noData: 'ไม่มีข้อมูล'
+      placeholder: '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E01\u0E23\u0E2D\u0E01',
+      loading: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14...',
+      noData: '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'การอ้างอิง'
+        citations: '\u0E01\u0E32\u0E23\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07'
       },
       mention: {
-        placeholder: '@ ระบุเอเจนต์ เอกสาร หรือตาราง...',
-        agent: 'เอเจนต์',
-        document: 'เอกสาร',
-        table: 'ตาราง',
-        knowledge: 'ความรู้'
+        placeholder:
+          '@ \u0E23\u0E30\u0E1A\u0E38\u0E40\u0E2D\u0E40\u0E08\u0E19\u0E15\u0E4C \u0E40\u0E2D\u0E01\u0E2A\u0E32\u0E23 \u0E2B\u0E23\u0E37\u0E2D\u0E15\u0E32\u0E23\u0E32\u0E07...',
+        agent: '\u0E40\u0E2D\u0E40\u0E08\u0E19\u0E15\u0E4C',
+        document: '\u0E40\u0E2D\u0E01\u0E2A\u0E32\u0E23',
+        table: '\u0E15\u0E32\u0E23\u0E32\u0E07',
+        knowledge: '\u0E04\u0E27\u0E32\u0E21\u0E23\u0E39\u0E49'
       },
       codeBlock: {
-        copyCode: 'คัดลอกโค้ด',
-        copied: 'คัดลอกแล้ว!',
-        run: 'รันโค้ด',
-        edit: 'แก้ไข',
-        save: 'บันทึก',
-        cancel: 'ยกเลิก'
+        copyCode: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E42\u0E04\u0E49\u0E14',
+        copied: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E41\u0E25\u0E49\u0E27!',
+        run: '\u0E23\u0E31\u0E19\u0E42\u0E04\u0E49\u0E14',
+        edit: '\u0E41\u0E01\u0E49\u0E44\u0E02',
+        save: '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01',
+        cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
       },
       codeRunner: {
-        run: 'รัน',
-        stop: 'หยุด',
-        clear: 'ล้าง',
-        reset: 'รีเซ็ต',
-        placeholder: 'คลิกรันเพื่อทำงานโค้ด...'
+        run: '\u0E23\u0E31\u0E19',
+        stop: '\u0E2B\u0E22\u0E38\u0E14',
+        clear: '\u0E25\u0E49\u0E32\u0E07',
+        reset: '\u0E23\u0E35\u0E40\u0E0B\u0E47\u0E15',
+        placeholder:
+          '\u0E04\u0E25\u0E34\u0E01\u0E23\u0E31\u0E19\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E17\u0E33\u0E07\u0E32\u0E19\u0E42\u0E04\u0E49\u0E14...'
       },
       sender: {
-        placeholder: 'ส่งข้อความ...',
-        dragTip: 'ปล่อยเพื่ออัปโหลดไฟล์'
+        placeholder: '\u0E2A\u0E48\u0E07\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21...',
+        dragTip:
+          '\u0E1B\u0E25\u0E48\u0E2D\u0E22\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E31\u0E1B\u0E42\u0E2B\u0E25\u0E14\u0E44\u0E1F\u0E25\u0E4C'
       },
       thoughtChain: {
-        thoughtProcess: 'กระบวนการคิด',
-        thinking: 'กำลังคิด...',
-        defaultTitle: 'ขั้นตอนใหม่',
-        addNode: 'เพิ่มขั้นตอน'
+        thoughtProcess: '\u0E01\u0E23\u0E30\u0E1A\u0E27\u0E19\u0E01\u0E32\u0E23\u0E04\u0E34\u0E14',
+        thinking: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E04\u0E34\u0E14...',
+        defaultTitle: '\u0E02\u0E31\u0E49\u0E19\u0E15\u0E2D\u0E19\u0E43\u0E2B\u0E21\u0E48',
+        addNode: '\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E02\u0E31\u0E49\u0E19\u0E15\u0E2D\u0E19'
       },
       thinking: {
-        start: 'เริ่มคิด',
-        thinking: 'กำลังคิด...',
-        complete: 'คิดเสร็จแล้ว',
-        error: 'ข้อผิดพลาดในการคิด'
+        start: '\u0E40\u0E23\u0E34\u0E48\u0E21\u0E04\u0E34\u0E14',
+        thinking: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E04\u0E34\u0E14...',
+        complete: '\u0E04\u0E34\u0E14\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E41\u0E25\u0E49\u0E27',
+        error:
+          '\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E43\u0E19\u0E01\u0E32\u0E23\u0E04\u0E34\u0E14'
       },
       welcome: {
-        title: 'สวัสดี ฉันคือ YH AI',
+        title: '\u0E2A\u0E27\u0E31\u0E2A\u0E14\u0E35 \u0E09\u0E31\u0E19\u0E04\u0E37\u0E2D YH AI',
         description:
-          'ฉันสามารถช่วยคุณเขียนโค้ด แปลเอกสาร หรือเขียนเชิงสร้างสรรค์ได้ วันนี้ฉันช่วยอะไรคุณได้บ้าง?'
+          '\u0E09\u0E31\u0E19\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E0A\u0E48\u0E27\u0E22\u0E04\u0E38\u0E13\u0E40\u0E02\u0E35\u0E22\u0E19\u0E42\u0E04\u0E49\u0E14 \u0E41\u0E1B\u0E25\u0E40\u0E2D\u0E01\u0E2A\u0E32\u0E23 \u0E2B\u0E23\u0E37\u0E2D\u0E40\u0E02\u0E35\u0E22\u0E19\u0E40\u0E0A\u0E34\u0E07\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E2A\u0E23\u0E23\u0E04\u0E4C\u0E44\u0E14\u0E49 \u0E27\u0E31\u0E19\u0E19\u0E35\u0E49\u0E09\u0E31\u0E19\u0E0A\u0E48\u0E27\u0E22\u0E2D\u0E30\u0E44\u0E23\u0E04\u0E38\u0E13\u0E44\u0E14\u0E49\u0E1A\u0E49\u0E32\u0E07?'
       },
       action: {
-        copy: 'คัดลอก',
-        regenerate: 'สร้างใหม่',
-        share: 'แชร์',
-        like: 'ถูกใจ',
-        dislike: 'ไม่ถูกใจ',
-        edit: 'แก้ไข',
-        delete: 'ลบ'
+        copy: '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01',
+        regenerate: '\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E43\u0E2B\u0E21\u0E48',
+        share: '\u0E41\u0E0A\u0E23\u0E4C',
+        like: '\u0E16\u0E39\u0E01\u0E43\u0E08',
+        dislike: '\u0E44\u0E21\u0E48\u0E16\u0E39\u0E01\u0E43\u0E08',
+        edit: '\u0E41\u0E01\u0E49\u0E44\u0E02',
+        delete: '\u0E25\u0E1A'
       },
       artifacts: {
-        preview: 'ตัวอย่าง',
-        inline: 'แบบอินไลน์',
-        code: 'ซอร์สโค้ด',
-        versions: 'เวอร์ชัน',
-        rendering: 'กำลังเรนเดอร์คอมโพเนนต์...',
-        renderingChart: 'กำลังเรนเดอร์แผนภูมิ...',
-        renderingCanvas: 'กำลังเตรียมแคนวาส...'
+        preview: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07',
+        inline: '\u0E41\u0E1A\u0E1A\u0E2D\u0E34\u0E19\u0E44\u0E25\u0E19\u0E4C',
+        code: '\u0E0B\u0E2D\u0E23\u0E4C\u0E2A\u0E42\u0E04\u0E49\u0E14',
+        versions: '\u0E40\u0E27\u0E2D\u0E23\u0E4C\u0E0A\u0E31\u0E19',
+        rendering:
+          '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E23\u0E19\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E04\u0E2D\u0E21\u0E42\u0E1E\u0E40\u0E19\u0E19\u0E15\u0E4C...',
+        renderingChart:
+          '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E23\u0E19\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E41\u0E1C\u0E19\u0E20\u0E39\u0E21\u0E34...',
+        renderingCanvas:
+          '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E15\u0E23\u0E35\u0E22\u0E21\u0E41\u0E04\u0E19\u0E27\u0E32\u0E2A...'
       },
       voice: {
-        trigger: 'คลิกเพื่อพูด',
-        listening: 'กำลังฟัง...'
+        trigger: '\u0E04\u0E25\u0E34\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E1E\u0E39\u0E14',
+        listening: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E1F\u0E31\u0E07...'
       },
       agent: {
-        uses: 'ใช้',
-        use: 'ใช้ตอนนี้',
-        favorite: 'ชื่นชอบ',
-        unfavorite: 'ยกเลิกชื่นชอบ',
-        share: 'แชร์',
-        online: 'ออนไลน์',
-        offline: 'ออฟไลน์',
-        busy: 'ไม่ว่าง',
-        verified: 'ได้รับการยืนยัน',
-        rating: 'คะแนน',
-        reviews: 'รีวิว',
-        responseTime: 'เวลาตอบกลับเฉลี่ย',
-        ms: 'มิลลิวินาที'
+        uses: '\u0E43\u0E0A\u0E49',
+        use: '\u0E43\u0E0A\u0E49\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49',
+        favorite: '\u0E0A\u0E37\u0E48\u0E19\u0E0A\u0E2D\u0E1A',
+        unfavorite:
+          '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01\u0E0A\u0E37\u0E48\u0E19\u0E0A\u0E2D\u0E1A',
+        share: '\u0E41\u0E0A\u0E23\u0E4C',
+        online: '\u0E2D\u0E2D\u0E19\u0E44\u0E25\u0E19\u0E4C',
+        offline: '\u0E2D\u0E2D\u0E1F\u0E44\u0E25\u0E19\u0E4C',
+        busy: '\u0E44\u0E21\u0E48\u0E27\u0E48\u0E32\u0E07',
+        verified:
+          '\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A\u0E01\u0E32\u0E23\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19',
+        rating: '\u0E04\u0E30\u0E41\u0E19\u0E19',
+        reviews: '\u0E23\u0E35\u0E27\u0E34\u0E27',
+        responseTime:
+          '\u0E40\u0E27\u0E25\u0E32\u0E15\u0E2D\u0E1A\u0E01\u0E25\u0E31\u0E1A\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22',
+        ms: '\u0E21\u0E34\u0E25\u0E25\u0E34\u0E27\u0E34\u0E19\u0E32\u0E17\u0E35'
       },
       sources: {
-        references: 'การอ้างอิง',
-        referencedSources: 'แหล่งที่มาที่อ้างถึง',
-        relevant: 'ความเกี่ยวข้อง',
-        viewOriginal: 'ดูต้นฉบับ',
-        showAll: 'แสดงทั้งหมด',
-        more: 'แหล่งที่มาเพิ่มเติม',
-        drawerTitle: 'การอ้างอิง',
-        expandMore: 'แสดงเพิ่มเติม',
-        collapseMore: 'ย่อ',
-        noSources: 'ไม่มีแหล่งที่มา',
-        today: 'วันนี้',
-        last7Days: '7 วันที่ผ่านมา',
-        last30Days: '30 วันที่ผ่านมา',
-        earlier: 'ก่อนหน้า',
-        pinned: 'ปักหมุด'
+        references: '\u0E01\u0E32\u0E23\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07',
+        referencedSources:
+          '\u0E41\u0E2B\u0E25\u0E48\u0E07\u0E17\u0E35\u0E48\u0E21\u0E32\u0E17\u0E35\u0E48\u0E2D\u0E49\u0E32\u0E07\u0E16\u0E36\u0E07',
+        relevant:
+          '\u0E04\u0E27\u0E32\u0E21\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E02\u0E49\u0E2D\u0E07',
+        viewOriginal: '\u0E14\u0E39\u0E15\u0E49\u0E19\u0E09\u0E1A\u0E31\u0E1A',
+        showAll: '\u0E41\u0E2A\u0E14\u0E07\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
+        more: '\u0E41\u0E2B\u0E25\u0E48\u0E07\u0E17\u0E35\u0E48\u0E21\u0E32\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21',
+        drawerTitle: '\u0E01\u0E32\u0E23\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07',
+        expandMore:
+          '\u0E41\u0E2A\u0E14\u0E07\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21',
+        collapseMore: '\u0E22\u0E48\u0E2D',
+        noSources:
+          '\u0E44\u0E21\u0E48\u0E21\u0E35\u0E41\u0E2B\u0E25\u0E48\u0E07\u0E17\u0E35\u0E48\u0E21\u0E32',
+        today: '\u0E27\u0E31\u0E19\u0E19\u0E35\u0E49',
+        last7Days: '7 \u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E1C\u0E48\u0E32\u0E19\u0E21\u0E32',
+        last30Days: '30 \u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E1C\u0E48\u0E32\u0E19\u0E21\u0E32',
+        earlier: '\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
+        pinned: '\u0E1B\u0E31\u0E01\u0E2B\u0E21\u0E38\u0E14'
       },
       conversations: {
-        today: 'วันนี้',
-        last7Days: '7 วันที่ผ่านมา',
-        last30Days: '30 วันที่ผ่านมา',
-        earlier: 'ก่อนหน้า',
-        pinned: 'ปักหมุด',
-        pin: 'ปักหมุด',
-        unpin: 'ถอนหมุด',
-        newConversation: 'การสนทนาใหม่',
-        rename: 'เปลี่ยนชื่อ',
-        delete: 'ลบ',
-        deleteConfirm: 'ยืนยันการลบการสนทนานี้?'
+        today: '\u0E27\u0E31\u0E19\u0E19\u0E35\u0E49',
+        last7Days: '7 \u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E1C\u0E48\u0E32\u0E19\u0E21\u0E32',
+        last30Days: '30 \u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E1C\u0E48\u0E32\u0E19\u0E21\u0E32',
+        earlier: '\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32',
+        pinned: '\u0E1B\u0E31\u0E01\u0E2B\u0E21\u0E38\u0E14',
+        pin: '\u0E1B\u0E31\u0E01\u0E2B\u0E21\u0E38\u0E14',
+        unpin: '\u0E16\u0E2D\u0E19\u0E2B\u0E21\u0E38\u0E14',
+        newConversation: '\u0E01\u0E32\u0E23\u0E2A\u0E19\u0E17\u0E19\u0E32\u0E43\u0E2B\u0E21\u0E48',
+        rename: '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E0A\u0E37\u0E48\u0E2D',
+        delete: '\u0E25\u0E1A',
+        deleteConfirm:
+          '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E01\u0E32\u0E23\u0E25\u0E1A\u0E01\u0E32\u0E23\u0E2A\u0E19\u0E17\u0E19\u0E32\u0E19\u0E35\u0E49?'
       }
     }
   }
 }
-
 export default th

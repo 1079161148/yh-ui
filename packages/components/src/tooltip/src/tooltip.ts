@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, StyleValue } from 'vue'
+import type { ExtractPropTypes, PropType, StyleValue, Ref } from 'vue'
 
 export const tooltipPlacements = [
   'top',
@@ -176,3 +176,15 @@ export const tooltipEmits = {
 
 export type TooltipProps = ExtractPropTypes<typeof tooltipProps>
 export type TooltipEmits = typeof tooltipEmits
+
+export interface TooltipSlots {
+  default?: () => unknown
+  content?: () => unknown
+}
+
+export interface TooltipExpose {
+  updatePosition: () => Promise<void> | void
+  visible: Ref<boolean>
+  triggerRef: Ref<HTMLElement | undefined>
+  popperRef: Ref<HTMLElement | undefined>
+}

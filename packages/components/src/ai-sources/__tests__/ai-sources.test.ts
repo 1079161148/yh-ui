@@ -1,6 +1,9 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
+import { h, nextTick } from 'vue'
 import AiSources from '../src/ai-sources.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('AiSources', () => {
   const mockSources = [
@@ -195,5 +198,31 @@ describe('AiSources', () => {
     })
     await wrapper.find('.yh-ai-sources__inline-item').trigger('click')
     expect(wrapper.emitted('click')).toBeTruthy()
+  })
+
+  it('uses config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(AiSources, { sources: mockSources, mode: 'card', maxVisible: 1 })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('Referenced Sources')
+    expect(wrapper.text()).toContain('Show All')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(AiSources, {
+      props: {
+        sources: mockSources,
+        themeOverrides: {
+          'badge-bg': '#eef2ff'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-sources-badge-bg: #eef2ff')
   })
 })

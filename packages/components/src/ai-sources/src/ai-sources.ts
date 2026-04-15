@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 
 /**
  * 知识库引用来源项
@@ -86,3 +86,9 @@ export type AiSourcesEmits = typeof aiSourcesEmits
 export interface AiSourcesExpose {
   scrollToSource: (id: string | number) => void
 }
+
+export interface AiSourcesSlots {
+  default?: () => unknown
+}
+
+export type AiSourcesSlotTypes = SlotsType<AiSourcesSlots>

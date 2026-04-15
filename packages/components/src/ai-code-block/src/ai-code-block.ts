@@ -95,3 +95,8 @@ export const aiCodeBlockEmits = {
 }
 
 export type AiCodeBlockEmits = typeof aiCodeBlockEmits
+
+export interface AiCodeBlockSlots {
+  actions?: () => unknown
+  default?: () => unknown
+}

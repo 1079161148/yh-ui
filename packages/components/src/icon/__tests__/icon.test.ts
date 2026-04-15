@@ -142,4 +142,16 @@ describe('Icon', () => {
     expect(wrapper.find('.custom-slot').exists()).toBe(true)
     expect(wrapper.text()).toBe('custom')
   })
+
+  it('should keep themeOverrides prop', () => {
+    const wrapper = mount(YhIcon, {
+      props: {
+        themeOverrides: {
+          color: '#409eff'
+        }
+      }
+    })
+
+    expect(wrapper.props('themeOverrides')).toEqual({ color: '#409eff' })
+  })
 })

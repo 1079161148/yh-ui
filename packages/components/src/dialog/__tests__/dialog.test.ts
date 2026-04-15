@@ -144,6 +144,35 @@ describe('Dialog', () => {
     expect(document.querySelector('.custom-header')).toBeTruthy()
   })
 
+  it('should apply themeOverrides as css variables', async () => {
+    mount(YhDialog, {
+      props: {
+        modelValue: true,
+        themeOverrides: {
+          marginTop: '24vh'
+        }
+      }
+    })
+    await nextTick()
+
+    const dialog = document.querySelector('.yh-dialog') as HTMLElement
+    expect(dialog.style.getPropertyValue('--yh-dialog-margin-top')).toBe('24vh')
+  })
+
+  it('should expose dialog instance methods and refs', async () => {
+    const wrapper = mount(YhDialog, {
+      props: { modelValue: true, title: 'Expose dialog' }
+    })
+    await nextTick()
+
+    const exposed = (wrapper.vm as any).$?.exposed
+    expect(exposed?.visible?.value).toBe(true)
+    expect(exposed?.dialogRef?.value).toBeInstanceOf(HTMLElement)
+    expect(typeof exposed?.handleClose).toBe('function')
+    expect(typeof exposed?.handleCancel).toBe('function')
+    expect(typeof exposed?.handleConfirm).toBe('function')
+  })
+
   describe('Complex Interactions', () => {
     it('should support draggable logic', async () => {
       const onDragStart = vi.fn()

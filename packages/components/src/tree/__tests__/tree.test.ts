@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, h } from 'vue'
+import { computed, nextTick, h } from 'vue'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import { YhTree } from '../index'
 
 const treeData = [
@@ -406,5 +408,34 @@ describe('Tree', () => {
 
     vm.scrollToNode('3') // key '3' is a node
     expect(vm.innerScrollRef.scrollTo).toHaveBeenCalled()
+  })
+
+  it('renders localized empty copy from config provider', () => {
+    const wrapper = mount(YhTree, {
+      props: { data: [] },
+      global: {
+        provide: {
+          [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-tree__empty').text()).toBe('No Data')
+  })
+
+  it('supports themeOverrides css variables', () => {
+    const wrapper = mount(YhTree, {
+      props: {
+        data: treeData,
+        themeOverrides: {
+          nodeHeight: '36px',
+          textColor: '#123456'
+        }
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-tree-node-height: 36px')
+    expect(style).toContain('--yh-tree-text-color: #123456')
   })
 })

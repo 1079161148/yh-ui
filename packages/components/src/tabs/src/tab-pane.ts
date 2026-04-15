@@ -39,3 +39,7 @@ export const tabPaneProps = {
 } as const
 
 export type TabPaneProps = ExtractPropTypes<typeof tabPaneProps>
+
+export interface TabPaneSlots {
+  default?: () => unknown
+}

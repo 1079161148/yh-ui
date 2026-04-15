@@ -6,3 +6,8 @@ export default YhRate
 export * from './src/rate'
 
 export type RateInstance = InstanceType<typeof Rate>
+export type YhRateSize = import('./src/rate').RateSize
+export type YhRateProps = import('./src/rate').RateProps
+export type YhRateEmits = import('./src/rate').RateEmits
+export type YhRateSlots = import('./src/rate').RateSlots
+export type YhRateInstance = RateInstance

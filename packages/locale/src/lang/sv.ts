@@ -597,6 +597,97 @@ export const sv: Language = {
       noData: 'Ingen data'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Välj specifikationer',
+      emptyText: 'Inga specifikationer',
+      stock: 'Lager',
+      price: 'Pris',
+      selected: 'Vald',
+      outOfStock: 'Slut i lager'
+    },
+    productcard: {
+      viewDetails: 'Visa detaljer',
+      buyNow: 'Köp nu',
+      addToCart: 'Lägg i kundvagn',
+      sold: 'Såld',
+      soldOut: 'Slutsåld',
+      vip: 'Medlem'
+    },
+    price: {
+      original: 'Ordinarie pris'
+    },
+    couponcard: {
+      available: 'Hämta nu',
+      used: 'Använd',
+      expired: 'Utgången',
+      received: 'Mottagen',
+      limit: 'Beställningar över {threshold}',
+      noThreshold: 'Ingen miniminivå',
+      validPeriod: 'Giltighetstid',
+      ruleTitle: 'Användningsregler'
+    },
+    luckydraw: {
+      start: 'Starta',
+      drawing: 'Drar...',
+      end: 'Vinnare!',
+      retry: 'Försök igen'
+    },
+    filterbar: {
+      all: 'Alla',
+      sort: 'Sortera',
+      filter: 'Filtrera',
+      cancel: 'Avbryt',
+      reset: 'Återställ',
+      confirm: 'Bekräfta',
+      noOptions: 'Inga alternativ',
+      asc: 'Stigande',
+      desc: 'Fallande',
+      selected: 'Vald'
+    },
+    submitbar: {
+      total: 'Totalt: ',
+      selected: '{count} valda',
+      submit: 'Till kassan',
+      allSelect: 'Välj alla'
+    },
+    categorynav: {
+      all: 'Alla',
+      noData: 'Ingen data',
+      loading: 'Laddar...'
+    },
+    smartaddress: {
+      placeholder: 'Klistra in adressen här för att automatiskt upptäcka namn, telefon och plats',
+      parse: 'Smart analys',
+      province: 'Län/Stad/Distrikt',
+      city: 'Stad',
+      district: 'Distrikt/Kommun',
+      street: 'Gata/Ort',
+      detail: 'Detaljerad adress',
+      phone: 'Telefon',
+      name: 'Mottagare',
+      parseSuccess: 'Adressen analyserades korrekt',
+      parseFailed: 'Analysen misslyckades, fyll i manuellt',
+      required: 'Fyll i fullständig adress',
+      provinceKeywords: ['Län', 'Region'],
+      cityKeywords: ['Stad', 'Kommun'],
+      districtKeywords: ['Distrikt', 'Kommun', 'Område'],
+      streetKeywords: ['Gata', 'Väg', 'Allé', 'Gränd']
+    },
+    ganttchart: {
+      taskName: 'Aktivitetsnamn',
+      searchPlaceholder: 'Sök uppgifter...',
+      zoom: 'Zoom',
+      day: 'Dag',
+      week: 'Vecka',
+      month: 'Månad',
+      year: 'År',
+      milestone: 'Milstolpe'
+    },
+    imagemagnifier: {
+      switchToImage: 'Byt till bild {index}',
+      galleryItem: 'Galleri {index}',
+      close: 'Stäng'
+    },
     ai: {
       bubble: {
         citations: 'Citat'
@@ -707,9 +798,32 @@ export const sv: Language = {
         pin: 'Nåla',
         unpin: 'Ta bort nål',
         newConversation: 'Ny konversation',
+        noData: 'Inga konversationer ännu',
         rename: 'Döpa om',
         delete: 'Radera',
         deleteConfirm: 'Bekräfta radering av denna konversation?'
+      },
+      attachments: {
+        dropTip: 'Släpp filer här för att ladda upp',
+        clickToUpload: 'Klicka eller dra filer för att ladda upp',
+        uploadSuccess: 'Uppladdningen lyckades',
+        uploadError: 'Uppladdningen misslyckades',
+        deleteConfirm: 'Är du säker på att du vill ta bort den här filen?',
+        fileTooLarge: 'Filstorleken får inte överstiga {size}',
+        invalidFileType: 'Ogiltig filtyp'
+      },
+      mermaid: {
+        image: 'Bild',
+        code: 'Kod',
+        zoomIn: 'Zooma in',
+        zoomOut: 'Zooma ut',
+        reset: 'Återställ',
+        download: 'Ladda ner',
+        copyCode: 'Kopiera kod',
+        rendering: 'Renderar...',
+        renderError: 'Renderingen misslyckades',
+        renderSuccess: 'Renderingen lyckades',
+        retry: 'Försök igen'
       }
     }
   }

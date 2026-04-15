@@ -44,7 +44,10 @@ const { t } = useLocale()
 const { globalSize } = useConfig()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('transfer', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'transfer',
+  computed(() => props.themeOverrides)
+)
 
 // 面板引用
 const leftPanelRef = ref<TransferPanelExpose>()
@@ -67,24 +70,26 @@ const targetKeys = computed(() => new Set(props.modelValue))
 
 // 左侧数据（未选中的值）
 const leftData = computed<TransferData[]>(() => {
-  return props.data.filter(item => !targetKeys.value.has(getKey(item)))
+  return props.data.filter((item) => !targetKeys.value.has(getKey(item)))
 })
 
 // 右侧数据
 const rightData = computed<TransferData[]>(() => {
   if (props.targetOrder === 'original') {
-    return props.data.filter(item => targetKeys.value.has(getKey(item)))
+    return props.data.filter((item) => targetKeys.value.has(getKey(item)))
   }
-  const dataMap = new Map(props.data.map(item => [getKey(item), item]))
+  const dataMap = new Map(props.data.map((item) => [getKey(item), item]))
   return (props.modelValue ?? [])
-    .map(key => dataMap.get(key))
+    .map((key) => dataMap.get(key))
     .filter((item): item is TransferData => item !== undefined)
 })
 
 const leftTitle = computed(() => props.leftTitle || props.titles?.[0] || t('transfer.titles.0'))
 const rightTitle = computed(() => props.rightTitle || props.titles?.[1] || t('transfer.titles.1'))
 const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || t('transfer.noData'))
-const rightEmptyText = computed(() => props.rightEmptyText || props.emptyText || t('transfer.noData'))
+const rightEmptyText = computed(
+  () => props.rightEmptyText || props.emptyText || t('transfer.noData')
+)
 
 const filterPlaceholder = computed(() => props.filterPlaceholder || t('transfer.filterPlaceholder'))
 
@@ -112,9 +117,7 @@ const moveToRight = () => {
 
   if (props.targetOrder === 'original') {
     const keySet = new Set(newValue)
-    newValue = props.data
-      .filter(item => keySet.has(getKey(item)))
-      .map(item => getKey(item))
+    newValue = props.data.filter((item) => keySet.has(getKey(item))).map((item) => getKey(item))
   }
 
   emit('update:modelValue', newValue)
@@ -128,7 +131,7 @@ const moveToLeft = () => {
 
   const movedKeys = [...rightChecked.value]
   const movedKeysSet = new Set(movedKeys)
-  const newValue = (props.modelValue ?? []).filter(key => !movedKeysSet.has(key))
+  const newValue = (props.modelValue ?? []).filter((key) => !movedKeysSet.has(key))
 
   emit('update:modelValue', newValue)
   emit('change', newValue, 'left', movedKeys)
@@ -145,18 +148,22 @@ const handleRightCheckedChange = (value: TransferKey[], movedKeys?: TransferKey[
   emit('right-check-change', value, movedKeys)
 }
 
-const clearLeftChecked = () => { leftChecked.value = [] }
-const clearRightChecked = () => { rightChecked.value = [] }
+const clearLeftChecked = () => {
+  leftChecked.value = []
+}
+const clearRightChecked = () => {
+  rightChecked.value = []
+}
 
 // 监听 modelValue 变化
 watch(
   () => props.modelValue,
   () => {
-    const leftDataKeys = new Set(leftData.value.map(item => getKey(item)))
-    leftChecked.value = leftChecked.value.filter(key => leftDataKeys.has(key))
+    const leftDataKeys = new Set(leftData.value.map((item) => getKey(item)))
+    leftChecked.value = leftChecked.value.filter((key) => leftDataKeys.has(key))
 
-    const rightDataKeys = new Set(rightData.value.map(item => getKey(item)))
-    rightChecked.value = rightChecked.value.filter(key => rightDataKeys.has(key))
+    const rightDataKeys = new Set(rightData.value.map((item) => getKey(item)))
+    rightChecked.value = rightChecked.value.filter((key) => rightDataKeys.has(key))
   },
   { deep: true }
 )
@@ -164,18 +171,33 @@ watch(
 defineExpose<TransferExpose>({
   clearLeftChecked,
   clearRightChecked,
-  leftPanel: leftPanelRef.value,
-  rightPanel: rightPanelRef.value
+  leftPanel: leftPanelRef,
+  rightPanel: rightPanelRef
 })
 </script>
 
 <template>
   <div :class="containerClasses" :style="themeStyle">
-    <TransferPanel ref="leftPanelRef" :data="leftData" :checked="leftChecked" :title="leftTitle"
-      :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
-      :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"
-      :item-height="itemHeight" :height="height" :show-all-checkbox="showAllCheckbox" :empty-text="leftEmptyText"
-      @update:checked="handleLeftCheckedChange" @checked-change="handleLeftCheckedChange">
+    <TransferPanel
+      ref="leftPanelRef"
+      :data="leftData"
+      :checked="leftChecked"
+      :title="leftTitle"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
+      :filter-method="filterMethod"
+      :disabled="disabled"
+      :size="size"
+      :props="props.props"
+      :render-content="renderContent"
+      :virtual="virtual"
+      :item-height="itemHeight"
+      :height="height"
+      :show-all-checkbox="showAllCheckbox"
+      :empty-text="leftEmptyText"
+      @update:checked="handleLeftCheckedChange"
+      @checked-change="handleLeftCheckedChange"
+    >
       <template v-if="$slots['left-header']" #header>
         <slot name="left-header" />
       </template>
@@ -191,33 +213,69 @@ defineExpose<TransferExpose>({
     </TransferPanel>
 
     <div :class="ns.e('buttons')">
-      <slot name="buttons" :move-to-left="moveToLeft" :move-to-right="moveToRight" :left-checked="leftChecked"
-        :right-checked="rightChecked">
-        <button type="button" :class="[ns.e('button'), { 'is-disabled': !canMoveToRight || disabled }]"
-          :disabled="!canMoveToRight || disabled" @click="moveToRight">
+      <slot
+        name="buttons"
+        :move-to-left="moveToLeft"
+        :move-to-right="moveToRight"
+        :left-checked="leftChecked"
+        :right-checked="rightChecked"
+      >
+        <button
+          type="button"
+          :class="[ns.e('button'), { 'is-disabled': !canMoveToRight || disabled }]"
+          :disabled="!canMoveToRight || disabled"
+          @click="moveToRight"
+        >
           <svg :class="ns.e('button__icon')" viewBox="0 0 1024 1024">
-            <path fill="currentColor"
-              d="M340.864 149.312a30.592 30.592 0 000 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0042.752 43.458l355.136-362.88a30.592 30.592 0 000-43.52L383.616 106.56a30.592 30.592 0 00-42.752 42.752z" />
+            <path
+              fill="currentColor"
+              d="M340.864 149.312a30.592 30.592 0 000 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0042.752 43.458l355.136-362.88a30.592 30.592 0 000-43.52L383.616 106.56a30.592 30.592 0 00-42.752 42.752z"
+            />
           </svg>
-          <span v-if="buttonTexts && buttonTexts[0]" :class="ns.e('button__text')">{{ buttonTexts[0] }}</span>
+          <span v-if="buttonTexts && buttonTexts[0]" :class="ns.e('button__text')">{{
+            buttonTexts[0]
+          }}</span>
         </button>
 
-        <button type="button" :class="[ns.e('button'), { 'is-disabled': !canMoveToLeft || disabled }]"
-          :disabled="!canMoveToLeft || disabled" @click="moveToLeft">
+        <button
+          type="button"
+          :class="[ns.e('button'), { 'is-disabled': !canMoveToLeft || disabled }]"
+          :disabled="!canMoveToLeft || disabled"
+          @click="moveToLeft"
+        >
           <svg :class="ns.e('button__icon')" viewBox="0 0 1024 1024">
-            <path fill="currentColor"
-              d="M685.248 104.256a30.592 30.592 0 010 42.752L373.376 512l311.872 364.992a30.592 30.592 0 11-42.752 43.458L287.38 555.52a30.592 30.592 0 010-43.52l355.136-364.93a30.592 30.592 0 0142.752 0z" />
+            <path
+              fill="currentColor"
+              d="M685.248 104.256a30.592 30.592 0 010 42.752L373.376 512l311.872 364.992a30.592 30.592 0 11-42.752 43.458L287.38 555.52a30.592 30.592 0 010-43.52l355.136-364.93a30.592 30.592 0 0142.752 0z"
+            />
           </svg>
-          <span v-if="buttonTexts && buttonTexts[1]" :class="ns.e('button__text')">{{ buttonTexts[1] }}</span>
+          <span v-if="buttonTexts && buttonTexts[1]" :class="ns.e('button__text')">{{
+            buttonTexts[1]
+          }}</span>
         </button>
       </slot>
     </div>
 
-    <TransferPanel ref="rightPanelRef" :data="rightData" :checked="rightChecked" :title="rightTitle"
-      :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
-      :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"
-      :item-height="itemHeight" :height="height" :show-all-checkbox="showAllCheckbox" :empty-text="rightEmptyText"
-      @update:checked="handleRightCheckedChange" @checked-change="handleRightCheckedChange">
+    <TransferPanel
+      ref="rightPanelRef"
+      :data="rightData"
+      :checked="rightChecked"
+      :title="rightTitle"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
+      :filter-method="filterMethod"
+      :disabled="disabled"
+      :size="size"
+      :props="props.props"
+      :render-content="renderContent"
+      :virtual="virtual"
+      :item-height="itemHeight"
+      :height="height"
+      :show-all-checkbox="showAllCheckbox"
+      :empty-text="rightEmptyText"
+      @update:checked="handleRightCheckedChange"
+      @checked-change="handleRightCheckedChange"
+    >
       <template v-if="$slots['right-header']" #header>
         <slot name="right-header" />
       </template>

@@ -597,6 +597,97 @@ export const hu: Language = {
       noData: 'Nincs adat'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Válasszon specifikációt',
+      emptyText: 'Nincs specifikáció',
+      stock: 'Készlet',
+      price: 'Ár',
+      selected: 'Kiválasztva',
+      outOfStock: 'Nincs készleten'
+    },
+    productcard: {
+      viewDetails: 'Részletek megtekintése',
+      buyNow: 'Vásárlás most',
+      addToCart: 'Kosárba',
+      sold: 'Eladva',
+      soldOut: 'Elfogyott',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Eredeti ár'
+    },
+    couponcard: {
+      available: 'Igényeld most',
+      used: 'Felhasználva',
+      expired: 'Lejárt',
+      received: 'Megkapva',
+      limit: '{threshold} feletti rendelések',
+      noThreshold: 'Minimum nélkül',
+      validPeriod: 'Érvényesség',
+      ruleTitle: 'Felhasználási szabályok'
+    },
+    luckydraw: {
+      start: 'Indítás',
+      drawing: 'Sorsolás...',
+      end: 'Nyertes!',
+      retry: 'Próbáld újra'
+    },
+    filterbar: {
+      all: 'Összes',
+      sort: 'Rendezés',
+      filter: 'Szűrés',
+      cancel: 'Mégse',
+      reset: 'Visszaállítás',
+      confirm: 'Megerősítés',
+      noOptions: 'Nincs lehetőség',
+      asc: 'Növekvő',
+      desc: 'Csökkenő',
+      selected: 'Kiválasztva'
+    },
+    submitbar: {
+      total: 'Összesen: ',
+      selected: '{count} kiválasztva',
+      submit: 'Pénztár',
+      allSelect: 'Összes kijelölése'
+    },
+    categorynav: {
+      all: 'Összes',
+      noData: 'Nincs adat',
+      loading: 'Betöltés...'
+    },
+    smartaddress: {
+      placeholder: 'Illessze be ide a címet a név, telefon és hely automatikus felismeréséhez',
+      parse: 'Intelligens elemzés',
+      province: 'Megye/Város/Kerület',
+      city: 'Város',
+      district: 'Kerület/Járás',
+      street: 'Utca/Városrész',
+      detail: 'Részletes cím',
+      phone: 'Telefon',
+      name: 'Címzett',
+      parseSuccess: 'A cím sikeresen felismerve',
+      parseFailed: 'Az elemzés sikertelen, töltse ki kézzel',
+      required: 'Kérjük, adja meg a teljes címet',
+      provinceKeywords: ['Megye', 'Állam'],
+      cityKeywords: ['Város', 'Község'],
+      districtKeywords: ['Kerület', 'Járás', 'Település'],
+      streetKeywords: ['Utca', 'Út', 'Sugárút', 'Tér']
+    },
+    ganttchart: {
+      taskName: 'Feladat neve',
+      searchPlaceholder: 'Feladatok keresése...',
+      zoom: 'Nagyítás',
+      day: 'Nap',
+      week: 'Hét',
+      month: 'Hónap',
+      year: 'Év',
+      milestone: 'Mérföldkő'
+    },
+    imagemagnifier: {
+      switchToImage: 'Váltás a(z) {index}. képre',
+      galleryItem: 'Galéria {index}',
+      close: 'Bezárás'
+    },
     ai: {
       bubble: {
         citations: 'Hivatkozások'
@@ -707,9 +798,32 @@ export const hu: Language = {
         pin: 'Rögzítés',
         unpin: 'Rögzítés feloldása',
         newConversation: 'Új beszélgetés',
+        noData: 'Még nincsenek beszélgetések',
         rename: 'Átnevezés',
         delete: 'Törlés',
         deleteConfirm: 'Megerősíti a beszélgetés törlését?'
+      },
+      attachments: {
+        dropTip: 'Húzza ide a fájlokat a feltöltéshez',
+        clickToUpload: 'Kattintson vagy húzza ide a fájlokat a feltöltéshez',
+        uploadSuccess: 'A feltöltés sikeres',
+        uploadError: 'A feltöltés sikertelen',
+        deleteConfirm: 'Biztosan törölni szeretné ezt a fájlt?',
+        fileTooLarge: 'A fájl mérete nem haladhatja meg ezt: {size}',
+        invalidFileType: 'Érvénytelen fájltípus'
+      },
+      mermaid: {
+        image: 'Kép',
+        code: 'Kód',
+        zoomIn: 'Nagyítás',
+        zoomOut: 'Kicsinyítés',
+        reset: 'Visszaállítás',
+        download: 'Letöltés',
+        copyCode: 'Kód másolása',
+        rendering: 'Renderelés...',
+        renderError: 'A renderelés sikertelen',
+        renderSuccess: 'A renderelés sikeres',
+        retry: 'Próbálja újra'
       }
     }
   }

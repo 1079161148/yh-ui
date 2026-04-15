@@ -89,3 +89,7 @@ export interface GridItemProps {
 export interface GridSlots {
   default?: () => void
 }
+
+export interface GridItemSlots {
+  default?: () => void
+}

@@ -600,6 +600,97 @@ const uzUz = exports.uzUz = {
       loading: "Yuklanmoqda...",
       noData: "Ma'lumot yo'q"
     },
+    skuselector: {
+      placeholder: "Xususiyatlarni tanlang",
+      emptyText: "Xususiyatlar yo\u02BBq",
+      stock: "Zaxira",
+      price: "Narx",
+      selected: "Tanlangan",
+      outOfStock: "Omborda yo\u02BBq"
+    },
+    productcard: {
+      viewDetails: "Batafsil ko\u2018rish",
+      buyNow: "Hozir sotib olish",
+      addToCart: "Savatchaga qo\u2018shish",
+      sold: "Sotilgan",
+      soldOut: "Tugagan",
+      vip: "VIP"
+    },
+    price: {
+      original: "Asl"
+    },
+    couponcard: {
+      available: "Hozir olish",
+      used: "Ishlatilgan",
+      expired: "Muddati tugagan",
+      received: "Olindi",
+      limit: "{threshold} dan yuqori buyurtmalar uchun",
+      noThreshold: "Minimal miqdorsiz",
+      validPeriod: "Amal qilish muddati",
+      ruleTitle: "Foydalanish qoidalari"
+    },
+    luckydraw: {
+      start: "Boshlash",
+      drawing: "Qura tashlanmoqda...",
+      end: "G\u02BBolib!",
+      retry: "Qayta urinib ko\u2018ring"
+    },
+    filterbar: {
+      all: "Barchasi",
+      sort: "Saralash",
+      filter: "Filtr",
+      cancel: "Bekor qilish",
+      reset: "Qayta tiklash",
+      confirm: "Tasdiqlash",
+      noOptions: "Variantlar yo\u02BBq",
+      asc: "O\u02BBsish tartibida",
+      desc: "Kamayish tartibida",
+      selected: "Tanlangan"
+    },
+    submitbar: {
+      total: "Jami: ",
+      selected: "{count} tanlandi",
+      submit: "To\u02BBlovga o\u02BBtish",
+      allSelect: "Barchasini tanlash"
+    },
+    categorynav: {
+      all: "Barchasi",
+      noData: "Ma'lumot yo'q",
+      loading: "Yuklanmoqda..."
+    },
+    smartaddress: {
+      placeholder: "Manzilni shu yerga qo\u02BBying, ism, telefon va joylashuv avtomatik aniqlanadi",
+      parse: "Aqlli tahlil",
+      province: "Viloyat/Shahar/Tuman",
+      city: "Shahar",
+      district: "Tuman/Okrug",
+      street: "Ko\u2018cha/Shaharcha",
+      detail: "Batafsil manzil",
+      phone: "Telefon",
+      name: "Qabul qiluvchi",
+      parseSuccess: "Manzil muvaffaqiyatli aniqlandi",
+      parseFailed: "Aniqlash amalga oshmadi, qo\u2018lda to\u2018ldiring",
+      required: "To\u2018liq manzilni kiriting",
+      provinceKeywords: ["Viloyat", "Hudud"],
+      cityKeywords: ["Shahar", "Markaz"],
+      districtKeywords: ["Tuman", "Okrug", "Qishloq"],
+      streetKeywords: ["Ko\u2018cha", "Yo\u2018l", "Shoh ko\u2018cha", "Tor ko\u2018cha"]
+    },
+    ganttchart: {
+      taskName: "Vazifa nomi",
+      searchPlaceholder: "Vazifalarni qidiring...",
+      zoom: "Kattalashtirish",
+      day: "Kun",
+      week: "Hafta",
+      month: "Oy",
+      year: "Yil",
+      milestone: "Muhim bosqich"
+    },
+    imagemagnifier: {
+      switchToImage: "{index}-rasmga o\u2018tish",
+      galleryItem: "Galereya {index}",
+      close: "Yopish"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -710,9 +801,32 @@ const uzUz = exports.uzUz = {
         pin: "Qadash",
         unpin: "Qadashni bekor qilish",
         newConversation: "Yangi suhbat",
+        noData: "Hali suhbatlar yo\u02BBq",
         rename: "Nomini o'zgartirish",
         delete: "O'chirish",
         deleteConfirm: "Bu suhbatni o'chirishni tasdiqlaysizmi?"
+      },
+      attachments: {
+        dropTip: "Yuklash uchun fayllarni shu yerga tashlang",
+        clickToUpload: "Yuklash uchun bosing yoki fayllarni sudrang",
+        uploadSuccess: "Yuklash muvaffaqiyatli tugadi",
+        uploadError: "Yuklash amalga oshmadi",
+        deleteConfirm: "Bu faylni o\u2018chirmoqchi ekaningizga ishonchingiz komilmi?",
+        fileTooLarge: "Fayl hajmi {size} dan oshmasligi kerak",
+        invalidFileType: "Noto\u2018g\u2018ri fayl turi"
+      },
+      mermaid: {
+        image: "Rasm",
+        code: "Kod",
+        zoomIn: "Kattalashtirish",
+        zoomOut: "Kichraytirish",
+        reset: "Tiklash",
+        download: "Yuklab olish",
+        copyCode: "Kodni nusxalash",
+        rendering: "Chizilmoqda...",
+        renderError: "Chizish amalga oshmadi",
+        renderSuccess: "Chizish muvaffaqiyatli yakunlandi",
+        retry: "Qayta urinib ko\u2018ring"
       }
     }
   }

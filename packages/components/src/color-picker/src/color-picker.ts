@@ -51,3 +51,12 @@ export const colorPickerEmits = {
 }
 
 export type ColorPickerEmits = typeof colorPickerEmits
+
+export interface ColorPickerSlots {}
+
+export interface ColorPickerExpose {
+  visible: import('vue').Ref<boolean>
+  togglePopper: () => void
+  handleClear: () => void
+  handleConfirm: () => void
+}

@@ -150,4 +150,31 @@ describe('YhTooltip', () => {
     await nextTick()
     expect(document.querySelector('.yh-tooltip__popper')).toBeFalsy()
   })
+
+  it('should apply theme overrides and expose tooltip refs', async () => {
+    const wrapper = mount(YhTooltip, {
+      props: {
+        content: 'theme',
+        themeOverrides: {
+          bg: '#111111'
+        },
+        visible: true,
+        teleported: false
+      },
+      slots: {
+        default: '<button id="trigger">trigger</button>'
+      }
+    })
+
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.find('.yh-tooltip__popper').attributes('style')).toContain(
+      '--yh-tooltip-bg: #111111'
+    )
+    expect(typeof wrapper.vm.updatePosition).toBe('function')
+    expect((wrapper.vm as any).$?.exposed?.visible).toBeTruthy()
+    expect((wrapper.vm as any).$?.exposed?.triggerRef).toBeTruthy()
+    expect((wrapper.vm as any).$?.exposed?.popperRef).toBeTruthy()
+  })
 })

@@ -6,7 +6,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { affixProps, affixEmits } from './affix'
+import { affixProps, affixEmits, type AffixExpose } from './affix'
 import type { CSSProperties } from 'vue'
 
 defineOptions({
@@ -193,7 +193,7 @@ const affixStyle = computed<CSSProperties>(() => {
   return style
 })
 
-defineExpose({
+defineExpose<AffixExpose>({
   update,
   fixed,
   scrollTop: _scrollTop

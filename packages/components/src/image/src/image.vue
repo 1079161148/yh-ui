@@ -225,7 +225,7 @@ const handleSwitch = (index: number) => {
 <template>
   <div ref="container" :class="ns.b()" :style="themeStyle">
     <slot v-if="isLoading" name="placeholder">
-      <div :class="ns.e('placeholder')">{{ t('button.loading') }}</div>
+      <div :class="ns.e('placeholder')">{{ t('image.loading') }}</div>
     </slot>
     <slot v-else-if="error" name="error">
       <div :class="ns.e('error')">{{ t('image.error') }}</div>

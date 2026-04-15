@@ -10,3 +10,6 @@ export type SubmitBarInstance = InstanceType<typeof SubmitBar>
 export type YhSubmitBarInstance = SubmitBarInstance
 
 export type YhSubmitBarProps = import('./src/submit-bar').SubmitBarProps
+export type YhSubmitBarEmits = import('./src/submit-bar').SubmitBarEmits
+export type YhSubmitBarSlots = import('./src/submit-bar').SubmitBarSlots
+export type YhSubmitBarButtonType = import('./src/submit-bar').SubmitBarButtonType

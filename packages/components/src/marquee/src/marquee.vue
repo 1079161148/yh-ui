@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onUnmounted, watch, nextTick, type CSSProperties } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { marqueeProps, marqueeEmits } from './marquee'
+import { marqueeProps, marqueeEmits, type MarqueeExpose } from './marquee'
 
 /**
  * YhMarquee - 跑马灯组件
@@ -17,7 +17,10 @@ const emit = defineEmits(marqueeEmits)
 const ns = useNamespace('marquee')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('marquee', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'marquee',
+  computed(() => props.themeOverrides)
+)
 
 const containerRef = ref<HTMLElement | null>(null)
 const contentRef = ref<HTMLElement | null>(null)
@@ -29,9 +32,10 @@ const isLoopPaused = ref(false)
 // 计算距离和持续时间
 const computedDuration = computed(() => {
   if (props.speed > 0 && contentRef.value) {
-    const size = props.direction === 'horizontal'
-      ? contentRef.value.scrollWidth
-      : contentRef.value.scrollHeight
+    const size =
+      props.direction === 'horizontal'
+        ? contentRef.value.scrollWidth
+        : contentRef.value.scrollHeight
     return size / props.speed
   }
   return props.duration
@@ -47,7 +51,8 @@ const marqueeStyle = computed((): CSSProperties => {
     '--yh-marquee-duration': durationValue,
     '--yh-marquee-iteration-count': iterationCount,
     '--yh-marquee-direction': props.reverse ? 'reverse' : 'normal',
-    '--yh-marquee-play-state': (props.play && !isHidden.value && !isLoopPaused.value) ? 'running' : 'paused',
+    '--yh-marquee-play-state':
+      props.play && !isHidden.value && !isLoopPaused.value ? 'running' : 'paused',
     '--yh-marquee-clone-count': cloneCount.value,
     'animation-delay': `${props.delay}s`
   } as CSSProperties
@@ -55,7 +60,8 @@ const marqueeStyle = computed((): CSSProperties => {
 
 const overlayStyle = computed((): CSSProperties => {
   const color = props.gradientColor
-  const width = typeof props.gradientWidth === 'number' ? `${props.gradientWidth}px` : props.gradientWidth
+  const width =
+    typeof props.gradientWidth === 'number' ? `${props.gradientWidth}px` : props.gradientWidth
 
   return {
     '--yh-marquee-gradient-color': color,
@@ -67,13 +73,13 @@ const calculateClones = async () => {
   if (!containerRef.value || !contentRef.value) return
 
   await nextTick()
-  const containerSize = props.direction === 'horizontal'
-    ? containerRef.value.offsetWidth
-    : containerRef.value.offsetHeight
+  const containerSize =
+    props.direction === 'horizontal'
+      ? containerRef.value.offsetWidth
+      : containerRef.value.offsetHeight
 
-  const contentSize = props.direction === 'horizontal'
-    ? contentRef.value.scrollWidth
-    : contentRef.value.scrollHeight
+  const contentSize =
+    props.direction === 'horizontal' ? contentRef.value.scrollWidth : contentRef.value.scrollHeight
 
   if (contentSize === 0) return
 
@@ -107,15 +113,18 @@ onMounted(() => {
 
   // 启动视口观察
   if (props.pauseOnHidden && typeof IntersectionObserver !== 'undefined' && containerRef.value) {
-    const observer = new IntersectionObserver((entries) => {
-      isHidden.value = !entries[0].isIntersecting
-    }, { threshold: 0 })
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isHidden.value = !entries[0].isIntersecting
+      },
+      { threshold: 0 }
+    )
     observer.observe(containerRef.value)
     onUnmounted(() => observer.disconnect())
   }
 })
 
-defineExpose({
+defineExpose<MarqueeExpose>({
   /** 手动重新计算克隆数量（通常在动态改变内容高度/宽度时调用） */
   calculateClones,
   /** 容器 DOM 引用 */
@@ -126,15 +135,19 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="containerRef" :class="[
-    ns.b(),
-    ns.m(direction),
-    {
-      [ns.m('pause-on-hover')]: pauseOnHover,
-      [ns.m('pause-on-click')]: pauseOnClick,
-      [ns.m('gradient')]: gradient
-    }
-  ]" :style="[themeStyle, marqueeStyle, overlayStyle]">
+  <div
+    ref="containerRef"
+    :class="[
+      ns.b(),
+      ns.m(direction),
+      {
+        [ns.m('pause-on-hover')]: pauseOnHover,
+        [ns.m('pause-on-click')]: pauseOnClick,
+        [ns.m('gradient')]: gradient
+      }
+    ]"
+    :style="[themeStyle, marqueeStyle, overlayStyle]"
+  >
     <div :class="ns.e('content')" @animationiteration="handleAnimationIteration">
       <div ref="contentRef" :class="ns.e('item')">
         <slot />

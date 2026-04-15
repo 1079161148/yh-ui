@@ -597,6 +597,97 @@ export const da: Language = {
       noData: 'Ingen data'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Vælg specifikationer',
+      emptyText: 'Ingen specifikationer',
+      stock: 'Lager',
+      price: 'Pris',
+      selected: 'Valgt',
+      outOfStock: 'Udsolgt'
+    },
+    productcard: {
+      viewDetails: 'Se detaljer',
+      buyNow: 'Køb nu',
+      addToCart: 'Læg i kurv',
+      sold: 'Solgt',
+      soldOut: 'Udsolgt',
+      vip: 'Medlem'
+    },
+    price: {
+      original: 'Oprindelig pris'
+    },
+    couponcard: {
+      available: 'Hent nu',
+      used: 'Brugt',
+      expired: 'Udløbet',
+      received: 'Modtaget',
+      limit: 'Ordrer over {threshold}',
+      noThreshold: 'Ingen minimumsgrænse',
+      validPeriod: 'Gyldighed',
+      ruleTitle: 'Brugsregler'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Trækker...',
+      end: 'Vinder!',
+      retry: 'Prøv igen'
+    },
+    filterbar: {
+      all: 'Alle',
+      sort: 'Sorter',
+      filter: 'Filtrer',
+      cancel: 'Annuller',
+      reset: 'Nulstil',
+      confirm: 'Bekræft',
+      noOptions: 'Ingen muligheder',
+      asc: 'Stigende',
+      desc: 'Faldende',
+      selected: 'Valgt'
+    },
+    submitbar: {
+      total: 'I alt: ',
+      selected: '{count} valgt',
+      submit: 'Gå til kassen',
+      allSelect: 'Vælg alle'
+    },
+    categorynav: {
+      all: 'Alle',
+      noData: 'Ingen data',
+      loading: 'Indlæser...'
+    },
+    smartaddress: {
+      placeholder: 'Indsæt adresse her for automatisk at finde navn, telefon og placering',
+      parse: 'Smart analyse',
+      province: 'Region/By/Distrikt',
+      city: 'By',
+      district: 'Distrikt/Kommune',
+      street: 'Gade/Bydel',
+      detail: 'Detaljeret adresse',
+      phone: 'Telefon',
+      name: 'Modtager',
+      parseSuccess: 'Adresse analyseret korrekt',
+      parseFailed: 'Analyse mislykkedes, udfyld manuelt',
+      required: 'Udfyld venligst den fulde adresse',
+      provinceKeywords: ['Region', 'Stat'],
+      cityKeywords: ['By', 'Kommune'],
+      districtKeywords: ['Distrikt', 'Kommune', 'Område'],
+      streetKeywords: ['Gade', 'Vej', 'Allé', 'Stræde']
+    },
+    ganttchart: {
+      taskName: 'Opgavenavn',
+      searchPlaceholder: 'Søg opgaver...',
+      zoom: 'Zoom',
+      day: 'Dag',
+      week: 'Uge',
+      month: 'Måned',
+      year: 'År',
+      milestone: 'Milepæl'
+    },
+    imagemagnifier: {
+      switchToImage: 'Skift til billede {index}',
+      galleryItem: 'Galleri {index}',
+      close: 'Luk'
+    },
     ai: {
       bubble: {
         citations: 'Citatationer'
@@ -707,9 +798,32 @@ export const da: Language = {
         pin: 'Fastgør',
         unpin: 'Frigør',
         newConversation: 'Ny samtale',
+        noData: 'Ingen samtaler endnu',
         rename: 'Omdøb',
         delete: 'Slet',
         deleteConfirm: 'Bekræft sletning af denne samtale?'
+      },
+      attachments: {
+        dropTip: 'Slip filer her for at uploade',
+        clickToUpload: 'Klik eller træk filer for at uploade',
+        uploadSuccess: 'Upload lykkedes',
+        uploadError: 'Upload mislykkedes',
+        deleteConfirm: 'Er du sikker på, at du vil slette denne fil?',
+        fileTooLarge: 'Filstørrelsen må ikke overstige {size}',
+        invalidFileType: 'Ugyldig filtype'
+      },
+      mermaid: {
+        image: 'Billede',
+        code: 'Kode',
+        zoomIn: 'Zoom ind',
+        zoomOut: 'Zoom ud',
+        reset: 'Nulstil',
+        download: 'Download',
+        copyCode: 'Kopiér kode',
+        rendering: 'Renderer...',
+        renderError: 'Rendering mislykkedes',
+        renderSuccess: 'Rendering lykkedes',
+        retry: 'Prøv igen'
       }
     }
   }

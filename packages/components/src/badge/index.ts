@@ -7,3 +7,7 @@ export default YhBadge
 export * from './src/badge'
 
 export type BadgeInstance = InstanceType<typeof Badge>
+export type YhBadgeInstance = BadgeInstance
+export type YhBadgeProps = import('./src/badge').BadgeProps
+export type YhBadgeSlots = import('./src/badge').BadgeSlots
+export type YhBadgeType = import('./src/badge').BadgeType

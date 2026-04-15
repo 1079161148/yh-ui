@@ -5,7 +5,9 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { computed, nextTick } from 'vue'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import Transfer from '../src/transfer.vue'
 import TransferPanel from '../src/transfer-panel.vue'
 import type { TransferData, TransferKey } from '../src/transfer'
@@ -437,6 +439,46 @@ describe('Transfer', () => {
       const buttonTexts = wrapper.findAll('.yh-transfer__button__text')
       expect(buttonTexts[0].text()).toBe('移到右边')
       expect(buttonTexts[1].text()).toBe('移到左边')
+    })
+  })
+
+  describe('国际化与主题', () => {
+    it('renders localized transfer copy from config provider', () => {
+      const wrapper = mount(Transfer, {
+        props: {
+          data: [],
+          modelValue: [],
+          filterable: true
+        },
+        global: {
+          provide: {
+            [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+          }
+        }
+      })
+
+      expect(wrapper.findAll('.yh-transfer-panel__title')[0].text()).toContain('List 1')
+      expect(wrapper.find('.yh-transfer-panel__filter-input').attributes('placeholder')).toBe(
+        'Enter keyword'
+      )
+      expect(wrapper.find('.yh-transfer-panel__empty-text').text()).toBe('No data')
+    })
+
+    it('supports themeOverrides css variables', () => {
+      const wrapper = mount(Transfer, {
+        props: {
+          data: generateData(3),
+          modelValue: [],
+          themeOverrides: {
+            borderColor: '#123456',
+            fillColorLight: '#f7f8f9'
+          }
+        }
+      })
+
+      const style = wrapper.attributes('style')
+      expect(style).toContain('--yh-transfer-border-color: #123456')
+      expect(style).toContain('--yh-transfer-fill-color-light: #f7f8f9')
     })
   })
 

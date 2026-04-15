@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import AiConversations from '../src/ai-conversations.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('AiConversations', () => {
   const data = [
@@ -58,5 +61,40 @@ describe('AiConversations', () => {
 
     expect(wrapper.emitted('edit')).toBeTruthy()
     expect(wrapper.emitted('edit')![0]).toEqual([data[0], 'New Title'])
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(AiConversations)
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('New Conversation')
+    expect(wrapper.text()).toContain('No conversations yet')
+  })
+
+  it('should expose scroll helpers', () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    expect(typeof wrapper.vm.scrollToItem).toBe('function')
+    expect(typeof wrapper.vm.scrollToIndex).toBe('function')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiConversations, {
+      props: {
+        data,
+        themeOverrides: {
+          'active-bg-color': '#111111'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-conversations-active-bg-color: #111111')
   })
 })

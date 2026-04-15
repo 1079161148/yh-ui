@@ -110,3 +110,7 @@ export const progressProps = {
 } as const
 
 export type ProgressProps = ExtractPropTypes<typeof progressProps>
+
+export interface ProgressSlots {
+  default?: (props: { percentage: number }) => unknown
+}

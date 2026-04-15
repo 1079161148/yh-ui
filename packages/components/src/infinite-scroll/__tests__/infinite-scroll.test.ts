@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils'
 import { nextTick, h, ref, defineComponent } from 'vue'
 import { YhInfiniteScroll } from '../index'
 import { vInfiniteScroll } from '../src/directive'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 // Mock IntersectionObserver
 class MockIntersectionObserver {
@@ -159,6 +161,35 @@ describe('InfiniteScroll Component', () => {
     await nextTick() // evaluating checkLoad from nextTick inside watcher handler
 
     expect(wrapper.emitted('load')).toBeTruthy()
+  })
+
+  it('should use config-provider locale text and expose retry api', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(YhInfiniteScroll, {
+            loading: true
+          })
+      }
+    })
+
+    expect(wrapper.text()).toContain('Loading...')
+    const component = wrapper.findComponent(YhInfiniteScroll)
+    const exposed = (component.vm as any).$?.exposed
+    expect(typeof exposed?.retry).toBe('function')
+  })
+
+  it('should keep themeOverrides prop', () => {
+    const wrapper = mount(YhInfiniteScroll, {
+      props: {
+        themeOverrides: {
+          colorTextSecondary: '#909399'
+        }
+      }
+    })
+
+    expect(wrapper.props('themeOverrides')).toEqual({ colorTextSecondary: '#909399' })
   })
 })
 

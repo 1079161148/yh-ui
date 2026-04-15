@@ -39,7 +39,12 @@ async function syncPackage(packageDir, publicDir) {
   }
 
   await ensureDir(dirname(targetDir))
-  await rm(targetDir, { recursive: true, force: true })
+  await rm(targetDir, {
+    recursive: true,
+    force: true,
+    maxRetries: 5,
+    retryDelay: 200
+  })
   await cp(sourceDir, targetDir, { recursive: true, force: true })
   console.log(`[docs-public] synced packages/${packageDir}/dist -> docs/public/${publicDir}`)
 }

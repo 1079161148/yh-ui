@@ -6,3 +6,5 @@ export default YhDivider
 export * from './src/divider'
 
 export type DividerInstance = InstanceType<typeof Divider>
+export type YhDividerInstance = DividerInstance
+export type YhDividerProps = import('./src/divider').DividerProps

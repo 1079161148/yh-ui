@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils'
 import { nextTick, h } from 'vue'
 import { YhDropdown, YhDropdownItem, YhDropdownMenu } from '../index'
 import { YhButton } from '../../button'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -314,5 +316,50 @@ describe('Dropdown', () => {
     // Click left button
     await btns[0].trigger('click')
     expect(wrapper.emitted('click')).toBeTruthy()
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(
+            YhDropdown,
+            {
+              loading: true,
+              teleported: false
+            },
+            {
+              default: () => 'Dropdown'
+            }
+          )
+      },
+      global: globalConfig
+    })
+
+    await wrapper.find('.yh-dropdown__trigger').trigger('mouseenter')
+    await nextTick()
+    await wait(50)
+
+    expect(wrapper.text()).toContain('Loading...')
+  })
+
+  it('should apply theme overrides and expose dropdown state', () => {
+    const wrapper = mount(YhDropdown, {
+      props: {
+        themeOverrides: {
+          radius: '12px'
+        }
+      },
+      slots: {
+        default: () => 'Dropdown'
+      },
+      global: globalConfig
+    })
+
+    expect(wrapper.find('.yh-dropdown').attributes('style')).toContain('--yh-dropdown-radius: 12px')
+    expect(typeof wrapper.vm.show).toBe('function')
+    expect(typeof wrapper.vm.hide).toBe('function')
+    expect((wrapper.vm as any).$?.exposed?.visible).toBeTruthy()
   })
 })

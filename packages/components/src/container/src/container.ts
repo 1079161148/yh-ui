@@ -71,3 +71,19 @@ export interface FooterProps {
 export interface ContainerSlots {
   default?: () => void
 }
+
+export interface HeaderSlots {
+  default?: () => void
+}
+
+export interface AsideSlots {
+  default?: () => void
+}
+
+export interface MainSlots {
+  default?: () => void
+}
+
+export interface FooterSlots {
+  default?: () => void
+}

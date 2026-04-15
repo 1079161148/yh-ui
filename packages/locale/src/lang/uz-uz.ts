@@ -596,6 +596,97 @@ export const uzUz: Language = {
       loading: 'Yuklanmoqda...',
       noData: "Ma'lumot yo'q"
     },
+    skuselector: {
+      placeholder: 'Xususiyatlarni tanlang',
+      emptyText: 'Xususiyatlar yoʻq',
+      stock: 'Zaxira',
+      price: 'Narx',
+      selected: 'Tanlangan',
+      outOfStock: 'Omborda yoʻq'
+    },
+    productcard: {
+      viewDetails: 'Batafsil ko‘rish',
+      buyNow: 'Hozir sotib olish',
+      addToCart: 'Savatchaga qo‘shish',
+      sold: 'Sotilgan',
+      soldOut: 'Tugagan',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Asl'
+    },
+    couponcard: {
+      available: 'Hozir olish',
+      used: 'Ishlatilgan',
+      expired: 'Muddati tugagan',
+      received: 'Olindi',
+      limit: '{threshold} dan yuqori buyurtmalar uchun',
+      noThreshold: 'Minimal miqdorsiz',
+      validPeriod: 'Amal qilish muddati',
+      ruleTitle: 'Foydalanish qoidalari'
+    },
+    luckydraw: {
+      start: 'Boshlash',
+      drawing: 'Qura tashlanmoqda...',
+      end: 'Gʻolib!',
+      retry: 'Qayta urinib ko‘ring'
+    },
+    filterbar: {
+      all: 'Barchasi',
+      sort: 'Saralash',
+      filter: 'Filtr',
+      cancel: 'Bekor qilish',
+      reset: 'Qayta tiklash',
+      confirm: 'Tasdiqlash',
+      noOptions: 'Variantlar yoʻq',
+      asc: 'Oʻsish tartibida',
+      desc: 'Kamayish tartibida',
+      selected: 'Tanlangan'
+    },
+    submitbar: {
+      total: 'Jami: ',
+      selected: '{count} tanlandi',
+      submit: 'Toʻlovga oʻtish',
+      allSelect: 'Barchasini tanlash'
+    },
+    categorynav: {
+      all: 'Barchasi',
+      noData: "Ma'lumot yo'q",
+      loading: 'Yuklanmoqda...'
+    },
+    smartaddress: {
+      placeholder: 'Manzilni shu yerga qoʻying, ism, telefon va joylashuv avtomatik aniqlanadi',
+      parse: 'Aqlli tahlil',
+      province: 'Viloyat/Shahar/Tuman',
+      city: 'Shahar',
+      district: 'Tuman/Okrug',
+      street: 'Ko‘cha/Shaharcha',
+      detail: 'Batafsil manzil',
+      phone: 'Telefon',
+      name: 'Qabul qiluvchi',
+      parseSuccess: 'Manzil muvaffaqiyatli aniqlandi',
+      parseFailed: 'Aniqlash amalga oshmadi, qo‘lda to‘ldiring',
+      required: 'To‘liq manzilni kiriting',
+      provinceKeywords: ['Viloyat', 'Hudud'],
+      cityKeywords: ['Shahar', 'Markaz'],
+      districtKeywords: ['Tuman', 'Okrug', 'Qishloq'],
+      streetKeywords: ['Ko‘cha', 'Yo‘l', 'Shoh ko‘cha', 'Tor ko‘cha']
+    },
+    ganttchart: {
+      taskName: 'Vazifa nomi',
+      searchPlaceholder: 'Vazifalarni qidiring...',
+      zoom: 'Kattalashtirish',
+      day: 'Kun',
+      week: 'Hafta',
+      month: 'Oy',
+      year: 'Yil',
+      milestone: 'Muhim bosqich'
+    },
+    imagemagnifier: {
+      switchToImage: '{index}-rasmga o‘tish',
+      galleryItem: 'Galereya {index}',
+      close: 'Yopish'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -707,9 +798,32 @@ export const uzUz: Language = {
         pin: 'Qadash',
         unpin: 'Qadashni bekor qilish',
         newConversation: 'Yangi suhbat',
+        noData: 'Hali suhbatlar yoʻq',
         rename: "Nomini o'zgartirish",
         delete: "O'chirish",
         deleteConfirm: "Bu suhbatni o'chirishni tasdiqlaysizmi?"
+      },
+      attachments: {
+        dropTip: 'Yuklash uchun fayllarni shu yerga tashlang',
+        clickToUpload: 'Yuklash uchun bosing yoki fayllarni sudrang',
+        uploadSuccess: 'Yuklash muvaffaqiyatli tugadi',
+        uploadError: 'Yuklash amalga oshmadi',
+        deleteConfirm: 'Bu faylni o‘chirmoqchi ekaningizga ishonchingiz komilmi?',
+        fileTooLarge: 'Fayl hajmi {size} dan oshmasligi kerak',
+        invalidFileType: 'Noto‘g‘ri fayl turi'
+      },
+      mermaid: {
+        image: 'Rasm',
+        code: 'Kod',
+        zoomIn: 'Kattalashtirish',
+        zoomOut: 'Kichraytirish',
+        reset: 'Tiklash',
+        download: 'Yuklab olish',
+        copyCode: 'Kodni nusxalash',
+        rendering: 'Chizilmoqda...',
+        renderError: 'Chizish amalga oshmadi',
+        renderSuccess: 'Chizish muvaffaqiyatli yakunlandi',
+        retry: 'Qayta urinib ko‘ring'
       }
     }
   }

@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import CategoryNav from '../src/category-nav.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('CategoryNav', () => {
   const props = {
@@ -34,5 +37,30 @@ describe('CategoryNav', () => {
     await subItems[0].trigger('click')
     expect(wrapper.emitted('update:subValue')![0]).toEqual(['1-1'])
     expect(wrapper.emitted('subCategoryClick')![0][0].id).toBe('1-1')
+  })
+
+  it('uses config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(CategoryNav, { categories: props.categories, modelValue: '1' })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('All')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(CategoryNav, {
+      props: {
+        ...props,
+        themeOverrides: {
+          'side-active-color': '#13c2c2'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-category-nav-side-active-color: #13c2c2')
   })
 })

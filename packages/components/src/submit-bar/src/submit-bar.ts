@@ -96,3 +96,11 @@ export const submitBarEmits = {
 }
 
 export type SubmitBarEmits = typeof submitBarEmits
+
+export interface SubmitBarSlots {
+  tip?: () => unknown
+  left?: () => unknown
+  price?: () => unknown
+  right?: () => unknown
+  button?: () => unknown
+}

@@ -601,6 +601,97 @@ const pl = exports.pl = {
       noData: "Brak danych"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Wybierz specyfikacj\u0119",
+      emptyText: "Brak specyfikacji",
+      stock: "Stan",
+      price: "Cena",
+      selected: "Wybrano",
+      outOfStock: "Brak w magazynie"
+    },
+    productcard: {
+      viewDetails: "Zobacz szczeg\xF3\u0142y",
+      buyNow: "Kup teraz",
+      addToCart: "Dodaj do koszyka",
+      sold: "Sprzedano",
+      soldOut: "Wyprzedane",
+      vip: "VIP"
+    },
+    price: {
+      original: "Cena pierwotna"
+    },
+    couponcard: {
+      available: "Odbierz teraz",
+      used: "U\u017Cyto",
+      expired: "Wygas\u0142o",
+      received: "Otrzymano",
+      limit: "Zam\xF3wienia powy\u017Cej {threshold}",
+      noThreshold: "Bez progu",
+      validPeriod: "Okres wa\u017Cno\u015Bci",
+      ruleTitle: "Zasady u\u017Cycia"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Losowanie...",
+      end: "Zwyci\u0119zca!",
+      retry: "Spr\xF3buj ponownie"
+    },
+    filterbar: {
+      all: "Wszystko",
+      sort: "Sortuj",
+      filter: "Filtruj",
+      cancel: "Anuluj",
+      reset: "Resetuj",
+      confirm: "Potwierd\u017A",
+      noOptions: "Brak opcji",
+      asc: "Rosn\u0105co",
+      desc: "Malej\u0105co",
+      selected: "Wybrano"
+    },
+    submitbar: {
+      total: "Razem: ",
+      selected: "Wybrano {count}",
+      submit: "Do kasy",
+      allSelect: "Zaznacz wszystko"
+    },
+    categorynav: {
+      all: "Wszystko",
+      noData: "Brak danych",
+      loading: "\u0141adowanie..."
+    },
+    smartaddress: {
+      placeholder: "Wklej tutaj adres, aby automatycznie wykry\u0107 nazw\u0119, telefon i lokalizacj\u0119",
+      parse: "Inteligentna analiza",
+      province: "Wojew\xF3dztwo/Miasto/Dzielnica",
+      city: "Miasto",
+      district: "Dzielnica/Powiat",
+      street: "Ulica/Miejscowo\u015B\u0107",
+      detail: "Szczeg\xF3\u0142owy adres",
+      phone: "Telefon",
+      name: "Odbiorca",
+      parseSuccess: "Adres zosta\u0142 poprawnie rozpoznany",
+      parseFailed: "Rozpoznanie nie powiod\u0142o si\u0119, uzupe\u0142nij r\u0119cznie",
+      required: "Wprowad\u017A pe\u0142ny adres",
+      provinceKeywords: ["Wojew\xF3dztwo", "Region"],
+      cityKeywords: ["Miasto", "Gmina"],
+      districtKeywords: ["Dzielnica", "Powiat", "Osiedle"],
+      streetKeywords: ["Ulica", "Aleja", "Droga", "Plac"]
+    },
+    ganttchart: {
+      taskName: "Nazwa zadania",
+      searchPlaceholder: "Szukaj zada\u0144...",
+      zoom: "Powi\u0119kszenie",
+      day: "Dzie\u0144",
+      week: "Tydzie\u0144",
+      month: "Miesi\u0105c",
+      year: "Rok",
+      milestone: "Kamie\u0144 milowy"
+    },
+    imagemagnifier: {
+      switchToImage: "Prze\u0142\u0105cz na obraz {index}",
+      galleryItem: "Galeria {index}",
+      close: "Zamknij"
+    },
     ai: {
       bubble: {
         citations: "Cytowania"
@@ -710,9 +801,32 @@ const pl = exports.pl = {
         pin: "Przypnij",
         unpin: "Odpnij",
         newConversation: "Nowa Rozmowa",
+        noData: "Brak rozm\xF3w",
         rename: "Zmie\u0144 nazw\u0119",
         delete: "Usu\u0144",
         deleteConfirm: "Czy na pewno usun\u0105\u0107 t\u0119 rozmow\u0119?"
+      },
+      attachments: {
+        dropTip: "Upu\u015B\u0107 pliki tutaj, aby przes\u0142a\u0107",
+        clickToUpload: "Kliknij lub przeci\u0105gnij pliki, aby przes\u0142a\u0107",
+        uploadSuccess: "Przesy\u0142anie zako\u0144czone sukcesem",
+        uploadError: "Przesy\u0142anie nie powiod\u0142o si\u0119",
+        deleteConfirm: "Czy na pewno chcesz usun\u0105\u0107 ten plik?",
+        fileTooLarge: "Rozmiar pliku nie mo\u017Ce przekracza\u0107 {size}",
+        invalidFileType: "Nieprawid\u0142owy typ pliku"
+      },
+      mermaid: {
+        image: "Obraz",
+        code: "Kod",
+        zoomIn: "Powi\u0119ksz",
+        zoomOut: "Pomniejsz",
+        reset: "Resetuj",
+        download: "Pobierz",
+        copyCode: "Kopiuj kod",
+        rendering: "Renderowanie...",
+        renderError: "Renderowanie nie powiod\u0142o si\u0119",
+        renderSuccess: "Renderowanie zako\u0144czone sukcesem",
+        retry: "Spr\xF3buj ponownie"
       }
     }
   }

@@ -490,4 +490,17 @@ describe('YhAiBubble', () => {
     expect(onStreamComplete).toHaveBeenCalled()
     vi.useRealTimers()
   })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiBubble, {
+      props: {
+        content: 'theme test',
+        themeOverrides: {
+          'assistant-bg': '#f0f9ff'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-bubble-assistant-bg: #f0f9ff')
+  })
 })

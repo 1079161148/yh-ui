@@ -150,3 +150,17 @@ export const imageMagnifierEmits = {
 }
 
 export type ImageMagnifierEmits = typeof imageMagnifierEmits
+
+export interface ImageMagnifierSlots {
+  default?: () => unknown
+  title?: () => unknown
+  'close-icon'?: () => unknown
+  fullscreen?: (props: { src: string; alt: string }) => unknown
+}
+
+export interface ImageMagnifierExpose {
+  visible: boolean
+  currentScale: number
+  currentIndex: number
+  switchImage: (index: number) => void
+}

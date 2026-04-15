@@ -44,3 +44,11 @@ export const breadcrumbItemProps = {
 } as const
 
 export type BreadcrumbItemProps = ExtractPropTypes<typeof breadcrumbItemProps>
+
+export interface BreadcrumbSlots {
+  default?: () => unknown
+}
+
+export interface BreadcrumbItemSlots {
+  default?: () => unknown
+}

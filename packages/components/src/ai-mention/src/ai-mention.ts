@@ -210,6 +210,10 @@ export const aiMentionEmits = {
 
 export type AiMentionEmits = typeof aiMentionEmits
 
+export interface AiMentionSlots {
+  [name: string]: ((props?: Record<string, unknown>) => unknown) | undefined
+}
+
 export interface AiMentionExpose {
   focus: () => void
   blur: () => void

@@ -1,139 +1,158 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted, watch } from "vue";
-import { useNamespace } from "@yh-ui/hooks";
-import { imageViewerProps, imageViewerEmits } from "./image-viewer";
-import Viewer from "../../viewerjs";
-import "viewerjs/dist/viewer.css";
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { imageViewerProps, imageViewerEmits } from './image-viewer'
+import Viewer from '../../viewerjs'
+import 'viewerjs/dist/viewer.css'
 defineOptions({
-  name: "YhImageViewer"
-});
-const props = defineProps(imageViewerProps);
-const emit = defineEmits(imageViewerEmits);
-const ns = useNamespace("viewer");
-const index = ref(props.initialIndex);
-const scale = ref(1);
-const rotate = ref(0);
-let viewer = null;
-let viewerList = null;
+  name: 'YhImageViewer'
+})
+const props = defineProps(imageViewerProps)
+const emit = defineEmits(imageViewerEmits)
+const ns = useNamespace('viewer')
+const { t } = useLocale()
+const index = ref(props.initialIndex)
+const scale = ref(1)
+const rotate = ref(0)
+let viewer = null
+let viewerList = null
 const transform = computed(() => {
-  return `scale(${scale.value}) rotate(${rotate.value}deg)`;
-});
+  return `scale(${scale.value}) rotate(${rotate.value}deg)`
+})
 const handleClose = () => {
-  emit("close");
-};
+  emit('close')
+}
 const initViewerJS = () => {
-  const list = document.createElement("div");
-  list.style.display = "none";
+  const list = document.createElement('div')
+  list.style.display = 'none'
   props.urlList.forEach((src) => {
-    const img = document.createElement("img");
-    img.src = src;
-    list.appendChild(img);
-  });
-  document.body.appendChild(list);
-  viewerList = list;
+    const img = document.createElement('img')
+    img.src = src
+    list.appendChild(img)
+  })
+  document.body.appendChild(list)
+  viewerList = list
   const nextViewer = new Viewer(list, {
     ...props.viewerOptions,
     initialViewIndex: props.initialIndex,
     hidden: () => {
       if (viewerList) {
-        document.body.removeChild(viewerList);
-        viewerList = null;
+        document.body.removeChild(viewerList)
+        viewerList = null
       }
-      viewer?.destroy();
-      viewer = null;
-      emit("close");
+      viewer?.destroy()
+      viewer = null
+      emit('close')
     }
-  });
-  viewer = nextViewer;
-  nextViewer.show();
-};
+  })
+  viewer = nextViewer
+  nextViewer.show()
+}
 const handlePrev = () => {
-  const len = props.urlList.length;
-  if (len <= 1) return;
+  const len = props.urlList.length
+  if (len <= 1) return
   if (index.value > 0) {
-    index.value--;
+    index.value--
   } else if (props.infinite) {
-    index.value = len - 1;
+    index.value = len - 1
   }
-};
+}
 const handleNext = () => {
-  const len = props.urlList.length;
-  if (len <= 1) return;
+  const len = props.urlList.length
+  if (len <= 1) return
   if (index.value < len - 1) {
-    index.value++;
+    index.value++
   } else if (props.infinite) {
-    index.value = 0;
+    index.value = 0
   }
-};
+}
 const handleZoomIn = () => {
-  scale.value *= props.zoomRate;
-};
+  scale.value *= props.zoomRate
+}
 const handleZoomOut = () => {
-  scale.value /= props.zoomRate;
-};
+  scale.value /= props.zoomRate
+}
 const handleRotateLeft = () => {
-  rotate.value -= 90;
-};
+  rotate.value -= 90
+}
 const handleRotateRight = () => {
-  rotate.value += 90;
-};
+  rotate.value += 90
+}
 const reset = () => {
-  scale.value = 1;
-  rotate.value = 0;
-};
+  scale.value = 1
+  rotate.value = 0
+}
 watch(index, (val) => {
-  reset();
-  emit("switch", val);
-});
+  reset()
+  emit('switch', val)
+})
 watch(
   () => props.initialIndex,
   (val) => {
-    index.value = val;
+    index.value = val
   }
-);
+)
 const handleKeyDown = (e) => {
-  if (props.viewerMode === "viewerjs") return;
-  if (e.key === "Escape" && props.closeOnPressEscape) {
-    handleClose();
-  } else if (e.key === "ArrowLeft") {
-    handlePrev();
-  } else if (e.key === "ArrowRight") {
-    handleNext();
-  } else if (e.key === "ArrowUp") {
-    handleZoomIn();
-  } else if (e.key === "ArrowDown") {
-    handleZoomOut();
+  if (props.viewerMode === 'viewerjs') return
+  if (e.key === 'Escape' && props.closeOnPressEscape) {
+    handleClose()
+  } else if (e.key === 'ArrowLeft') {
+    handlePrev()
+  } else if (e.key === 'ArrowRight') {
+    handleNext()
+  } else if (e.key === 'ArrowUp') {
+    handleZoomIn()
+  } else if (e.key === 'ArrowDown') {
+    handleZoomOut()
   }
-};
+}
 onMounted(() => {
-  if (props.viewerMode === "viewerjs") {
-    initViewerJS();
+  if (props.viewerMode === 'viewerjs') {
+    initViewerJS()
   } else {
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown)
   }
-});
+})
 onUnmounted(() => {
-  window.removeEventListener("keydown", handleKeyDown);
+  window.removeEventListener('keydown', handleKeyDown)
   if (viewer) {
-    viewer.destroy();
-    viewer = null;
+    viewer.destroy()
+    viewer = null
   }
   if (viewerList) {
-    document.body.removeChild(viewerList);
-    viewerList = null;
+    document.body.removeChild(viewerList)
+    viewerList = null
   }
-});
+})
+defineExpose({
+  prev: handlePrev,
+  next: handleNext,
+  zoomIn: handleZoomIn,
+  zoomOut: handleZoomOut,
+  rotateLeft: handleRotateLeft,
+  rotateRight: handleRotateRight,
+  reset
+})
 </script>
 
 <template>
   <Teleport to="body" :disabled="!teleported">
-    <div v-if="viewerMode !== 'viewerjs'" :class="ns.b()" :style="{
-  zIndex
-}">
+    <div
+      v-if="viewerMode !== 'viewerjs'"
+      :class="ns.b()"
+      :style="{
+        zIndex
+      }"
+    >
       <div :class="ns.e('mask')" @click="hideOnClickModal && handleClose()"></div>
 
       <!-- Close -->
-      <span :class="[ns.e('btn'), ns.e('close')]" @click="handleClose">
+      <span
+        :class="[ns.e('btn'), ns.e('close')]"
+        :title="t('imageviewer.close')"
+        :aria-label="t('imageviewer.close')"
+        @click="handleClose"
+      >
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
           <path
             fill="currentColor"
@@ -144,7 +163,12 @@ onUnmounted(() => {
 
       <!-- Arrows -->
       <template v-if="urlList.length > 1">
-        <span :class="[ns.e('btn'), ns.e('prev')]" @click="handlePrev">
+        <span
+          :class="[ns.e('btn'), ns.e('prev')]"
+          :title="t('imageviewer.prev')"
+          :aria-label="t('imageviewer.prev')"
+          @click="handlePrev"
+        >
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -152,7 +176,12 @@ onUnmounted(() => {
             />
           </svg>
         </span>
-        <span :class="[ns.e('btn'), ns.e('next')]" @click="handleNext">
+        <span
+          :class="[ns.e('btn'), ns.e('next')]"
+          :title="t('imageviewer.next')"
+          :aria-label="t('imageviewer.next')"
+          @click="handleNext"
+        >
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -165,25 +194,42 @@ onUnmounted(() => {
       <!-- Actions -->
       <div v-if="showProgress" :class="ns.e('actions')">
         <div :class="ns.e('actions-inner')">
-          <i :class="ns.e('zoom-out')" @click="handleZoomOut"
+          <i
+            :class="ns.e('zoom-out')"
+            :title="t('imageviewer.zoomOut')"
+            :aria-label="t('imageviewer.zoomOut')"
+            @click="handleZoomOut"
             ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path fill="currentColor" d="M192 480h640v64H192z" /></svg
           ></i>
-          <i :class="ns.e('zoom-in')" @click="handleZoomIn"
+          <i
+            :class="ns.e('zoom-in')"
+            :title="t('imageviewer.zoomIn')"
+            :aria-label="t('imageviewer.zoomIn')"
+            @click="handleZoomIn"
             ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
                 d="M480 480V224h64v256h256v64H544v256h-64V544H224v-64h256z"
               /></svg
           ></i>
-          <i :class="ns.e('reset')" @click="reset"
+          <i
+            :class="ns.e('reset')"
+            :title="t('imageviewer.reset')"
+            :aria-label="t('imageviewer.reset')"
+            @click="reset"
             ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
                 d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a256 256 0 1 1 0 512 256 256 0 0 1 0-512z"
               /></svg
           ></i>
-          <i :class="ns.e('rotate-left')" @click="handleRotateLeft">
+          <i
+            :class="ns.e('rotate-left')"
+            :title="t('imageviewer.rotateLeft')"
+            :aria-label="t('imageviewer.rotateLeft')"
+            @click="handleRotateLeft"
+          >
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
@@ -191,7 +237,12 @@ onUnmounted(() => {
               />
             </svg>
           </i>
-          <i :class="ns.e('rotate-right')" @click="handleRotateRight">
+          <i
+            :class="ns.e('rotate-right')"
+            :title="t('imageviewer.rotateRight')"
+            :aria-label="t('imageviewer.rotateRight')"
+            @click="handleRotateRight"
+          >
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
@@ -204,9 +255,13 @@ onUnmounted(() => {
 
       <!-- Canvas -->
       <div :class="ns.e('canvas')">
-        <img :src="urlList[index]" :class="ns.e('img')" :style="{
-  transform
-}" />
+        <img
+          :src="urlList[index]"
+          :class="ns.e('img')"
+          :style="{
+            transform
+          }"
+        />
       </div>
     </div>
   </Teleport>

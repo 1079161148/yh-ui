@@ -3,6 +3,16 @@ import type { PropType, ExtractPropTypes, InjectionKey, ComputedRef } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 
+export type RowJustify =
+  | 'start'
+  | 'end'
+  | 'center'
+  | 'space-around'
+  | 'space-between'
+  | 'space-evenly'
+
+export type RowAlign = 'top' | 'middle' | 'bottom'
+
 export const rowProps = {
   tag: {
     type: String,
@@ -13,13 +23,11 @@ export const rowProps = {
     default: 0
   },
   justify: {
-    type: String as PropType<
-      'start' | 'end' | 'center' | 'space-around' | 'space-between' | 'space-evenly'
-    >,
+    type: String as PropType<RowJustify>,
     default: 'start'
   },
   align: {
-    type: String as PropType<'top' | 'middle' | 'bottom'>,
+    type: String as PropType<RowAlign>,
     default: 'top'
   },
   /** 主题覆盖变量 */
@@ -33,6 +41,10 @@ export type RowProps = ExtractPropTypes<typeof rowProps>
 
 export interface RowContext {
   gutter: ComputedRef<number>
+}
+
+export interface RowSlots {
+  default?: () => unknown
 }
 
 export const rowContextKey: InjectionKey<RowContext> = Symbol('rowContextKey')

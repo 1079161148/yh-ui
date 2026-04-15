@@ -597,6 +597,98 @@ export const fi: Language = {
       noData: 'Ei tietoja'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Valitse tiedot',
+      emptyText: 'Ei tietoja',
+      stock: 'Varasto',
+      price: 'Hinta',
+      selected: 'Valittu',
+      outOfStock: 'Loppu varastosta'
+    },
+    productcard: {
+      viewDetails: 'Näytä tiedot',
+      buyNow: 'Osta nyt',
+      addToCart: 'Lisää koriin',
+      sold: 'Myyty',
+      soldOut: 'Loppuunmyyty',
+      vip: 'Jäsen'
+    },
+    price: {
+      original: 'Alkuperäinen hinta'
+    },
+    couponcard: {
+      available: 'Lunasta nyt',
+      used: 'Käytetty',
+      expired: 'Vanhentunut',
+      received: 'Vastaanotettu',
+      limit: 'Tilaukset yli {threshold}',
+      noThreshold: 'Ei vähimmäisrajaa',
+      validPeriod: 'Voimassaoloaika',
+      ruleTitle: 'Käyttösäännöt'
+    },
+    luckydraw: {
+      start: 'Aloita',
+      drawing: 'Arvotaan...',
+      end: 'Voittaja!',
+      retry: 'Yritä uudelleen'
+    },
+    filterbar: {
+      all: 'Kaikki',
+      sort: 'Lajittele',
+      filter: 'Suodata',
+      cancel: 'Peruuta',
+      reset: 'Nollaa',
+      confirm: 'Vahvista',
+      noOptions: 'Ei vaihtoehtoja',
+      asc: 'Nouseva',
+      desc: 'Laskeva',
+      selected: 'Valittu'
+    },
+    submitbar: {
+      total: 'Yhteensä: ',
+      selected: '{count} valittu',
+      submit: 'Siirry kassalle',
+      allSelect: 'Valitse kaikki'
+    },
+    categorynav: {
+      all: 'Kaikki',
+      noData: 'Ei tietoja',
+      loading: 'Ladataan...'
+    },
+    smartaddress: {
+      placeholder:
+        'Liitä osoite tähän tunnistaaksesi nimen, puhelimen ja sijainnin automaattisesti',
+      parse: 'Älykäs analyysi',
+      province: 'Maakunta/Kaupunki/Alue',
+      city: 'Kaupunki',
+      district: 'Alue/Kunta',
+      street: 'Katu/Paikkakunta',
+      detail: 'Tarkka osoite',
+      phone: 'Puhelin',
+      name: 'Vastaanottaja',
+      parseSuccess: 'Osoite analysoitiin onnistuneesti',
+      parseFailed: 'Analyysi epäonnistui, täytä käsin',
+      required: 'Täytä täydellinen osoite',
+      provinceKeywords: ['Maakunta', 'Alue'],
+      cityKeywords: ['Kaupunki', 'Kunta'],
+      districtKeywords: ['Alue', 'Kunta', 'Kylä'],
+      streetKeywords: ['Katu', 'Tie', 'Kuja', 'Polku']
+    },
+    ganttchart: {
+      taskName: 'Tehtävän nimi',
+      searchPlaceholder: 'Hae tehtäviä...',
+      zoom: 'Zoom',
+      day: 'Päivä',
+      week: 'Viikko',
+      month: 'Kuukausi',
+      year: 'Vuosi',
+      milestone: 'Virstanpylväs'
+    },
+    imagemagnifier: {
+      switchToImage: 'Vaihda kuvaan {index}',
+      galleryItem: 'Galleria {index}',
+      close: 'Sulje'
+    },
     ai: {
       bubble: {
         citations: 'Lainaukset'
@@ -707,9 +799,32 @@ export const fi: Language = {
         pin: 'Kiinnitä',
         unpin: 'Poista kiinnitys',
         newConversation: 'Uusi keskustelu',
+        noData: 'Ei vielä keskusteluja',
         rename: 'Nimeä uudelleen',
         delete: 'Poista',
         deleteConfirm: 'Vahvista tämän keskustelun poistaminen?'
+      },
+      attachments: {
+        dropTip: 'Pudota tiedostot tähän ladataksesi ne',
+        clickToUpload: 'Napsauta tai vedä tiedostot ladattavaksi',
+        uploadSuccess: 'Lataus onnistui',
+        uploadError: 'Lataus epäonnistui',
+        deleteConfirm: 'Haluatko varmasti poistaa tämän tiedoston?',
+        fileTooLarge: 'Tiedoston koko ei saa ylittää arvoa {size}',
+        invalidFileType: 'Virheellinen tiedostotyyppi'
+      },
+      mermaid: {
+        image: 'Kuva',
+        code: 'Koodi',
+        zoomIn: 'Lähennä',
+        zoomOut: 'Loitonna',
+        reset: 'Palauta',
+        download: 'Lataa',
+        copyCode: 'Kopioi koodi',
+        rendering: 'Piirretään...',
+        renderError: 'Piirtäminen epäonnistui',
+        renderSuccess: 'Piirtäminen onnistui',
+        retry: 'Yritä uudelleen'
       }
     }
   }

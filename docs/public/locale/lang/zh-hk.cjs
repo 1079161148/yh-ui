@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.zhHk = exports.default = void 0;
+exports.zhHk = void 0;
 const zhHk = exports.zhHk = {
   name: "zh-hk",
   yh: {
@@ -749,4 +749,3 @@ const zhHk = exports.zhHk = {
     }
   }
 };
-module.exports = zhHk;

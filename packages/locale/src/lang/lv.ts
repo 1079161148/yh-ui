@@ -596,6 +596,98 @@ export const lv: Language = {
       loading: 'Ielādē...',
       noData: 'Nav datu'
     },
+    skuselector: {
+      placeholder: 'Izvēlieties specifikācijas',
+      emptyText: 'Nav specifikāciju',
+      stock: 'Krājums',
+      price: 'Cena',
+      selected: 'Izvēlēts',
+      outOfStock: 'Nav noliktavā'
+    },
+    productcard: {
+      viewDetails: 'Skatīt informāciju',
+      buyNow: 'Pirkt tagad',
+      addToCart: 'Pievienot grozam',
+      sold: 'Pārdots',
+      soldOut: 'Izpārdots',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Sākotnējā'
+    },
+    couponcard: {
+      available: 'Saņemt tagad',
+      used: 'Izmantots',
+      expired: 'Beidzies termiņš',
+      received: 'Saņemts',
+      limit: 'Pasūtījumiem virs {threshold}',
+      noThreshold: 'Bez minimālās summas',
+      validPeriod: 'Derīguma periods',
+      ruleTitle: 'Lietošanas noteikumi'
+    },
+    luckydraw: {
+      start: 'Sākt',
+      drawing: 'Notiek izloze...',
+      end: 'Uzvarētājs!',
+      retry: 'Mēģināt vēlreiz'
+    },
+    filterbar: {
+      all: 'Visi',
+      sort: 'Kārtot',
+      filter: 'Filtrs',
+      cancel: 'Atcelt',
+      reset: 'Atiestatīt',
+      confirm: 'Apstiprināt',
+      noOptions: 'Nav iespēju',
+      asc: 'Augošā secībā',
+      desc: 'Dilstošā secībā',
+      selected: 'Izvēlēts'
+    },
+    submitbar: {
+      total: 'Kopā: ',
+      selected: '{count} izvēlēti',
+      submit: 'Uz apmaksu',
+      allSelect: 'Izvēlēties visu'
+    },
+    categorynav: {
+      all: 'Visi',
+      noData: 'Nav datu',
+      loading: 'Ielādē...'
+    },
+    smartaddress: {
+      placeholder:
+        'Ielīmējiet adresi šeit, vārds, tālrunis un atrašanās vieta tiks noteikti automātiski',
+      parse: 'Viedā analīze',
+      province: 'Province/Pilsēta/Rajons',
+      city: 'Pilsēta',
+      district: 'Rajons/Novads',
+      street: 'Iela/Ciems',
+      detail: 'Detalizēta adrese',
+      phone: 'Tālrunis',
+      name: 'Saņēmējs',
+      parseSuccess: 'Adrese veiksmīgi atpazīta',
+      parseFailed: 'Atpazīšana neizdevās, lūdzu aizpildiet manuāli',
+      required: 'Lūdzu, ievadiet pilnu adresi',
+      provinceKeywords: ['Province', 'Reģions'],
+      cityKeywords: ['Pilsēta', 'Novads'],
+      districtKeywords: ['Rajons', 'Novads', 'Pagasts'],
+      streetKeywords: ['Iela', 'Ceļš', 'Prospekts', 'Šķērsiela']
+    },
+    ganttchart: {
+      taskName: 'Uzdevuma nosaukums',
+      searchPlaceholder: 'Meklēt uzdevumus...',
+      zoom: 'Tālummaiņa',
+      day: 'Diena',
+      week: 'Nedēļa',
+      month: 'Mēnesis',
+      year: 'Gads',
+      milestone: 'Atskaites punkts'
+    },
+    imagemagnifier: {
+      switchToImage: 'Pārslēgt uz attēlu {index}',
+      galleryItem: 'Galerija {index}',
+      close: 'Aizvērt'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -707,9 +799,32 @@ export const lv: Language = {
         pin: 'Piestiprināt',
         unpin: 'Noņemt',
         newConversation: 'Jauna saruna',
+        noData: 'Sarunu vēl nav',
         rename: 'Pārdēvēt',
         delete: 'Dzēst',
         deleteConfirm: 'Vai tiešām vēlaties dzēst šo sarunu?'
+      },
+      attachments: {
+        dropTip: 'Nometiet failus šeit, lai augšupielādētu',
+        clickToUpload: 'Noklikšķiniet vai velciet failus augšupielādei',
+        uploadSuccess: 'Augšupielāde veiksmīga',
+        uploadError: 'Augšupielāde neizdevās',
+        deleteConfirm: 'Vai tiešām vēlaties dzēst šo failu?',
+        fileTooLarge: 'Faila izmērs nedrīkst pārsniegt {size}',
+        invalidFileType: 'Nederīgs faila tips'
+      },
+      mermaid: {
+        image: 'Attēls',
+        code: 'Kods',
+        zoomIn: 'Pietuvināt',
+        zoomOut: 'Attālināt',
+        reset: 'Atiestatīt',
+        download: 'Lejupielādēt',
+        copyCode: 'Kopēt kodu',
+        rendering: 'Renderē...',
+        renderError: 'Renderēšana neizdevās',
+        renderSuccess: 'Renderēšana izdevās',
+        retry: 'Mēģināt vēlreiz'
       }
     }
   }

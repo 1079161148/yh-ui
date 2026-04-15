@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 
 /** 预设图标类型 */
 export type PresetFileIcons =
@@ -200,3 +200,9 @@ export const aiFileCardEmits = {
 }
 
 export type AiFileCardEmits = typeof aiFileCardEmits
+
+export interface AiFileCardSlots {
+  default?: () => unknown
+}
+
+export type AiFileCardSlotTypes = SlotsType<AiFileCardSlots>

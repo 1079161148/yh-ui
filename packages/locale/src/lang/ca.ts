@@ -1,14 +1,14 @@
-import type { Language } from '../index'
+﻿import type { Language } from '../index'
 
 export const ca: Language = {
   name: 'ca',
   yh: {
-    // Comú
+    // Com煤
     common: {
-      yes: 'Sí',
+      yes: 'S铆',
       no: 'No',
       confirm: 'Confirmar',
-      cancel: 'Cancel·lar',
+      cancel: 'Cancel路lar',
       loading: 'Carregant',
       close: 'Tancar',
       clear: 'Netejar',
@@ -21,9 +21,9 @@ export const ca: Language = {
       refresh: 'Actualitzar',
       expand: 'Expandir',
       collapse: 'Contraure',
-      more: 'Més',
+      more: 'M茅s',
       noData: 'Sense dades',
-      noMatch: 'Sense coincidències',
+      noMatch: 'Sense coincid猫ncies',
       selectAll: 'Seleccionar tot',
       unselectAll: 'Desseleccionar tot'
     },
@@ -32,8 +32,8 @@ export const ca: Language = {
       confirm: "D'acord",
       clear: 'Netejar',
       eyeDropper: 'Comptagotes',
-      suggestionDark: 'El text blanc és millor',
-      suggestionLight: 'El text negre és millor',
+      suggestionDark: 'El text blanc 茅s millor',
+      suggestionLight: 'El text negre 茅s millor',
       recentColors: 'Colors recents',
       presetColors: 'Colors predefinits'
     },
@@ -41,7 +41,7 @@ export const ca: Language = {
     datepicker: {
       now: 'Ara',
       today: 'Avui',
-      cancel: 'Cancel·lar',
+      cancel: 'Cancel路lar',
       clear: 'Netejar',
       confirm: "D'acord",
       selectDate: 'Seleccionar data',
@@ -56,9 +56,9 @@ export const ca: Language = {
       week: 'Setmana',
       monthBeforeYear: true,
       prevYear: 'Any anterior',
-      nextYear: 'Any següent',
+      nextYear: 'Any seg眉ent',
       prevMonth: 'Mes anterior',
-      nextMonth: 'Mes següent',
+      nextMonth: 'Mes seg眉ent',
       weeks: {
         sun: 'Dg',
         mon: 'Dl',
@@ -92,14 +92,14 @@ export const ca: Language = {
     // Selector d'hora
     timepicker: {
       confirm: "D'acord",
-      cancel: 'Cancel·lar',
+      cancel: 'Cancel路lar',
       now: 'Ara',
       placeholder: 'Seleccionar hora',
       startPlaceholder: "Hora d'inici",
       endPlaceholder: 'Hora de fi',
       selectTime: 'Seleccionar hora'
     },
-    // Selecció d'hora
+    // Selecci贸 d'hora
     timeselect: {
       placeholder: 'Seleccionar hora'
     },
@@ -117,14 +117,14 @@ export const ca: Language = {
       placeholder: 'Seleccionar',
       emptyText: 'Sense dades',
       loading: 'Carregant...',
-      noMatch: 'Sense coincidències'
+      noMatch: 'Sense coincid猫ncies'
     },
     // Calendari
     calendar: {
       prevMonth: 'Mes anterior',
-      nextMonth: 'Mes següent',
+      nextMonth: 'Mes seg眉ent',
       prevYear: 'Any anterior',
-      nextYear: 'Any següent',
+      nextYear: 'Any seg眉ent',
       today: 'Avui',
       week: 'Setmana',
       holiday: 'Festiu',
@@ -143,9 +143,9 @@ export const ca: Language = {
     // Autocompletat
     autocomplete: {
       loading: 'Carregant...',
-      placeholder: 'Si us plau, introduïu',
+      placeholder: 'Si us plau, introdu茂u',
       noData: 'Sense dades',
-      noMatch: 'Sense coincidències'
+      noMatch: 'Sense coincid猫ncies'
     },
     // Compte enrere
     countdown: {
@@ -153,19 +153,19 @@ export const ca: Language = {
       hours: 'hores',
       minutes: 'minuts',
       seconds: 'segons',
-      milliseconds: 'mil·lisegons',
+      milliseconds: 'mil路lisegons',
       finished: 'Acabat'
     },
     // Cascada
     cascader: {
-      noMatch: 'Sense coincidències',
+      noMatch: 'Sense coincid猫ncies',
       placeholder: 'Seleccionar',
       loading: 'Carregant...',
       noData: 'Sense dades'
     },
-    // Transferència
+    // Transfer猫ncia
     transfer: {
-      noMatch: 'Sense coincidències',
+      noMatch: 'Sense coincid猫ncies',
       noData: 'Sense dades',
       titles: ['Llista 1', 'Llista 2'],
       filterPlaceholder: 'Introduir paraula clau',
@@ -181,14 +181,14 @@ export const ca: Language = {
       clearFilter: 'Tot',
       sumText: 'Suma',
       loading: 'Carregant...',
-      index: 'Índex',
+      index: '脥ndex',
       print: 'Imprimir',
-      cancel: 'Cancel·lar',
-      preview: "Vista prèvia d'impressió",
-      printTime: "Hora d'impressió",
+      cancel: 'Cancel路lar',
+      preview: "Vista pr猫via d'impressi贸",
+      printTime: "Hora d'impressi贸",
       total: 'Total {total} elements',
-      page: 'Pàgina {page}',
-      yes: 'Sí',
+      page: 'P脿gina {page}',
+      yes: 'S铆',
       no: 'No',
       // Barra d'eines
       toolbar: {
@@ -197,7 +197,7 @@ export const ca: Language = {
         densityDefault: 'Per defecte',
         densityLarge: 'Gran',
         densitySmall: 'Petit',
-        columnSetting: 'Configuració de columnes',
+        columnSetting: 'Configuraci贸 de columnes',
         fullscreen: 'Pantalla completa',
         exitFullscreen: 'Sortir de pantalla completa',
         export: 'Exportar',
@@ -208,66 +208,66 @@ export const ca: Language = {
       // Filtre
       filter: {
         selectAll: 'Seleccionar tot',
-        selectInvert: 'Invertir selecció',
-        empty: 'Està buit',
-        notEmpty: 'No està buit',
-        contains: 'Conté',
-        notContains: 'No conté',
+        selectInvert: 'Invertir selecci贸',
+        empty: 'Est脿 buit',
+        notEmpty: 'No est脿 buit',
+        contains: 'Cont茅',
+        notContains: 'No cont茅',
         equals: 'Igual',
         notEquals: 'No igual',
-        startsWith: 'Comença amb',
+        startsWith: 'Comen莽a amb',
         endsWith: 'Acaba amb',
         greaterThan: 'Major que',
         lessThan: 'Menor que',
         between: 'Entre'
       },
-      // Ordenació
+      // Ordenaci贸
       sort: {
         asc: 'Ascendent',
         desc: 'Descendent',
-        clear: 'Netejar ordenació'
+        clear: 'Netejar ordenaci贸'
       },
-      // Exportació
+      // Exportaci贸
       export: {
         title: 'Exportar dades',
         filename: 'Nom del fitxer',
         type: 'Tipus de fitxer',
-        scope: "Abast d'exportació",
+        scope: "Abast d'exportaci贸",
         scopeAll: 'Totes les dades',
         scopeSelected: 'Dades seleccionades',
-        scopeCurrentPage: 'Pàgina actual',
-        includeHeader: 'Incloure capçalera',
+        scopeCurrentPage: 'P脿gina actual',
+        includeHeader: 'Incloure cap莽alera',
         exporting: 'Exportant...',
-        success: 'Exportació exitosa',
-        error: "Error en l'exportació"
+        success: 'Exportaci贸 exitosa',
+        error: "Error en l'exportaci贸"
       },
-      // Importació
+      // Importaci贸
       import: {
         title: 'Importar dades',
         selectFile: 'Seleccionar fitxer',
-        dragTip: 'Feu clic o arrossegueu el fitxer aquí per pujar-lo',
+        dragTip: 'Feu clic o arrossegueu el fitxer aqu铆 per pujar-lo',
         importing: 'Important...',
-        success: 'Importació exitosa',
-        error: "Error en l'importació",
-        preview: 'Vista prèvia de dades',
-        confirm: 'Confirmar importació'
+        success: 'Importaci贸 exitosa',
+        error: "Error en l'importaci贸",
+        preview: 'Vista pr猫via de dades',
+        confirm: 'Confirmar importaci贸'
       },
-      // Impressió
+      // Impressi贸
       printConfig: {
-        title: "Configuració d'impressió",
-        pageTitle: 'Títol de la pàgina',
-        pageHeader: 'Capçalera',
-        pageFooter: 'Peu de pàgina',
+        title: "Configuraci贸 d'impressi贸",
+        pageTitle: 'T铆tol de la p脿gina',
+        pageHeader: 'Cap莽alera',
+        pageFooter: 'Peu de p脿gina',
         printAll: 'Imprimir tot',
         printSelected: 'Imprimir seleccionat',
-        printCurrentPage: 'Imprimir pàgina actual',
+        printCurrentPage: 'Imprimir p脿gina actual',
         landscape: 'Horitzontal',
         portrait: 'Vertical',
         printing: 'Imprimint...'
       },
-      // Configuració de columnes
+      // Configuraci贸 de columnes
       columnSetting: {
-        title: 'Configuració de columnes',
+        title: 'Configuraci贸 de columnes',
         showAll: 'Mostrar tot',
         hideAll: 'Ocultar tot',
         reset: 'Restablir',
@@ -275,11 +275,11 @@ export const ca: Language = {
         fixedRight: 'Fixar a la dreta',
         unfixed: 'Desfixar'
       },
-      // Menú contextual
+      // Men煤 contextual
       contextMenu: {
         copy: 'Copiar',
         copyRow: 'Copiar fila',
-        copyCell: 'Copiar cel·la',
+        copyCell: 'Copiar cel路la',
         paste: 'Enganxar',
         insertRowAbove: 'Inserir fila a dalt',
         insertRowBelow: 'Inserir fila a baix',
@@ -287,11 +287,11 @@ export const ca: Language = {
         deleteSelectedRows: 'Eliminar files seleccionades',
         exportSelected: 'Exportar seleccionat'
       },
-      // Selecció
+      // Selecci贸
       selection: {
         selectAll: 'Seleccionar tot',
-        selectInvert: 'Invertir selecció',
-        selectNone: 'Netejar selecció',
+        selectInvert: 'Invertir selecci贸',
+        selectNone: 'Netejar selecci贸',
         selected: '{count} elements seleccionats'
       },
       // Expandir
@@ -308,110 +308,110 @@ export const ca: Language = {
       // Arrossegar
       drag: {
         dragTip: 'Arrossegar per reordenar',
-        dropTip: 'Deixar anar per col·locar'
+        dropTip: 'Deixar anar per col路locar'
       }
     },
     // Quadre de missatge
     messagebox: {
       title: 'Missatge',
       confirm: "D'acord",
-      cancel: 'Cancel·lar',
+      cancel: 'Cancel路lar',
       close: 'Tancar',
-      error: 'Entrada no vàlida',
+      error: 'Entrada no v脿lida',
       alert: 'Alerta',
-      prompt: 'Sol·licitud',
-      inputPlaceholder: 'Si us plau, introduïu'
+      prompt: 'Sol路licitud',
+      inputPlaceholder: 'Si us plau, introdu茂u'
     },
     // Pujada
     upload: {
       deleteTip: 'premeu delete per eliminar',
       delete: 'Eliminar',
-      preview: 'Vista prèvia',
+      preview: 'Vista pr猫via',
       continue: 'Continuar',
       upload: 'Feu clic per pujar',
-      tip: 'Feu clic o arrossegueu el fitxer a aquesta àrea per <em>pujar-lo</em>',
-      dragTip: 'Deixeu anar el fitxer aquí o feu clic per pujar-lo',
+      tip: 'Feu clic o arrossegueu el fitxer a aquesta 脿rea per <em>pujar-lo</em>',
+      dragTip: 'Deixeu anar el fitxer aqu铆 o feu clic per pujar-lo',
       uploading: 'Pujant...',
       success: 'Pujada exitosa',
       error: 'Error en la pujada',
       retry: 'Tornar a intentar',
-      cancel: 'Cancel·lar pujada',
-      fileTypeError: 'El tipus de fitxer no està suportat',
-      fileSizeError: 'La mida del fitxer supera el límit',
-      fileCountError: 'El nombre de fitxers supera el límit'
+      cancel: 'Cancel路lar pujada',
+      fileTypeError: 'El tipus de fitxer no est脿 suportat',
+      fileSizeError: 'La mida del fitxer supera el l铆mit',
+      fileCountError: 'El nombre de fitxers supera el l铆mit'
     },
     // Formulari
     form: {
-      validationFailed: 'La validació ha fallat',
+      validationFailed: 'La validaci贸 ha fallat',
       required: 'Obligatori',
-      pleaseInput: 'Si us plau, introduïu',
+      pleaseInput: 'Si us plau, introdu茂u',
       pleaseSelect: 'Si us plau, seleccioneu'
     },
-    // Botó
+    // Bot贸
     button: {
       loading: 'Carregant...'
     },
     // Entrada
     input: {
-      placeholder: 'Si us plau, introduïu',
+      placeholder: 'Si us plau, introdu茂u',
       clear: 'Netejar',
       showPassword: 'Mostrar contrasenya',
       hidePassword: 'Ocultar contrasenya',
       copy: 'Copiar',
       copied: 'Copiat'
     },
-    // Entrada numèrica
+    // Entrada num猫rica
     inputnumber: {
-      placeholder: 'Si us plau, introduïu un nombre',
+      placeholder: 'Si us plau, introdu茂u un nombre',
       increase: 'Augmentar',
       decrease: 'Disminuir'
     },
     // Etiqueta d\'entrada
     inputtag: {
-      placeholder: 'Si us plau, introduïu',
+      placeholder: 'Si us plau, introdu茂u',
       add: 'Afegir',
       remove: 'Eliminar'
     },
-    // Ruta de navegació
+    // Ruta de navegaci贸
     breadcrumb: {
-      label: 'Ruta de navegació',
-      more: 'Més'
+      label: 'Ruta de navegaci贸',
+      more: 'M茅s'
     },
     // Tornar a dalt
     backtop: {
       text: 'Tornar a dalt'
     },
-    // Selecció
+    // Selecci贸
     select: {
       placeholder: 'Si us plau, seleccioneu',
       noData: 'Sense dades',
       loading: 'Carregant...',
-      noMatch: 'Sense coincidències',
+      noMatch: 'Sense coincid猫ncies',
       selectAll: 'Seleccionar tot',
       clearAll: 'Netejar tot'
     },
-    // Paginació
+    // Paginaci贸
     pagination: {
       goto: 'Anar a',
       page: '',
       total: 'Total {total}',
-      pageSize: '/pàgina',
+      pageSize: '/p脿gina',
       prev: 'Anterior',
-      next: 'Següent',
+      next: 'Seg眉ent',
       first: 'Primera',
-      last: 'Última',
+      last: '脷ltima',
       pageClassifier: ''
     },
-    // Confirmació emergent
+    // Confirmaci贸 emergent
     popconfirm: {
       confirm: "D'acord",
-      cancel: 'Cancel·lar',
+      cancel: 'Cancel路lar',
       dontAskAgain: 'No tornar a preguntar'
     },
-    // Diàleg
+    // Di脿leg
     dialog: {
       confirm: "D'acord",
-      cancel: 'Cancel·lar',
+      cancel: 'Cancel路lar',
       close: 'Tancar',
       maximize: 'Maximitzar',
       restore: 'Restaurar'
@@ -420,9 +420,9 @@ export const ca: Language = {
     drawer: {
       close: 'Tancar',
       confirm: "D'acord",
-      cancel: 'Cancel·lar'
+      cancel: 'Cancel路lar'
     },
-    // Menú desplegable
+    // Men煤 desplegable
     dropdown: {
       loading: 'Carregant...'
     },
@@ -430,7 +430,7 @@ export const ca: Language = {
     image: {
       error: 'ERROR',
       loading: 'Carregant...',
-      preview: 'Vista prèvia',
+      preview: 'Vista pr猫via',
       zoomIn: 'Ampliar',
       zoomOut: 'Reduir',
       rotateLeft: "Girar cap a l'esquerra",
@@ -442,7 +442,7 @@ export const ca: Language = {
     imageviewer: {
       close: 'Tancar',
       prev: 'Anterior',
-      next: 'Següent',
+      next: 'Seg眉ent',
       zoomIn: 'Ampliar',
       zoomOut: 'Reduir',
       rotateLeft: "Girar cap a l'esquerra",
@@ -451,22 +451,22 @@ export const ca: Language = {
       fullscreen: 'Pantalla completa',
       exitFullscreen: 'Sortir de pantalla completa'
     },
-    // Desplaçament infinit
+    // Despla莽ament infinit
     infinitescroll: {
       loading: 'Carregant...',
-      finished: 'No hi ha més dades',
-      error: 'Error en la càrrega, feu clic per tornar a intentar',
+      finished: 'No hi ha m茅s dades',
+      error: 'Error en la c脿rrega, feu clic per tornar a intentar',
       retry: 'Feu clic per tornar a intentar'
     },
     // Missatge
     message: {
       close: 'Tancar'
     },
-    // Notificació
+    // Notificaci贸
     notification: {
       close: 'Tancar'
     },
-    // Càrrega
+    // C脿rrega
     loading: {
       text: 'Carregant...'
     },
@@ -474,7 +474,7 @@ export const ca: Language = {
     spin: {
       text: 'Carregant...'
     },
-    // Valoració
+    // Valoraci贸
     rate: {
       texts: ['Extremadament dolent', 'Decebut', 'Just', 'Satisfet', 'Sorprenent']
     },
@@ -490,7 +490,7 @@ export const ca: Language = {
     tabs: {
       close: 'Tancar',
       add: 'Afegir',
-      more: 'Més'
+      more: 'M茅s'
     },
     // Passos
     steps: {
@@ -499,11 +499,11 @@ export const ca: Language = {
       wait: 'Esperant',
       error: 'Error'
     },
-    // Progrés
+    // Progr茅s
     progress: {
-      success: 'Èxit',
-      exception: 'Excepció',
-      warning: 'Advertència'
+      success: '脠xit',
+      exception: 'Excepci贸',
+      warning: 'Advert猫ncia'
     },
     // Esquelet
     skeleton: {
@@ -519,16 +519,16 @@ export const ca: Language = {
     },
     // Resultat
     result: {
-      success: 'Èxit',
+      success: '脠xit',
       error: 'Error',
-      warning: 'Advertència',
-      info: 'Informació',
+      warning: 'Advert猫ncia',
+      info: 'Informaci贸',
       backHome: "Tornar a l'inici"
     },
     // Cascada
     waterfall: {
       loading: 'Carregant...',
-      noMore: 'No hi ha més dades',
+      noMore: 'No hi ha m茅s dades',
       empty: 'Sense dades'
     },
     // Descripcions
@@ -544,16 +544,16 @@ export const ca: Language = {
       on: 'ON',
       off: 'OFF'
     },
-    // Casella de verificació
+    // Casella de verificaci贸
     checkbox: {
       selectAll: 'Seleccionar tot'
     },
-    // Ràdio
+    // R脿dio
     radio: {},
-    // Menú
+    // Men煤
     menu: {
-      collapse: 'Contraure menú',
-      expand: 'Expandir menú'
+      collapse: 'Contraure men煤',
+      expand: 'Expandir men煤'
     },
     // Targeta
     card: {
@@ -565,15 +565,15 @@ export const ca: Language = {
       expand: 'Expandir',
       collapse: 'Contraure'
     },
-    // Informació sobre eines
+    // Informaci贸 sobre eines
     tooltip: {},
     // Emergent
     popover: {},
-    // Insígnia
+    // Ins铆gnia
     badge: {},
     // Avatar
     avatar: {
-      error: 'Error en la càrrega'
+      error: 'Error en la c脿rrega'
     },
     // Marca d\'aigua
     watermark: {},
@@ -582,21 +582,113 @@ export const ca: Language = {
     // Carrusel
     carousel: {
       prev: 'Anterior',
-      next: 'Següent'
+      next: 'Seg眉ent'
     },
-    // Marquès
+    // Marqu猫s
     marquee: {},
-    // Fixació
+    // Fixaci贸
     affix: {},
-    // Àncora
+    // 脌ncora
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Si us plau, introduïu',
+      placeholder: 'Si us plau, introdu茂u',
       loading: 'Carregant...',
       noData: 'Sense dades'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Seleccioneu les especificacions',
+      emptyText: 'No hi ha especificacions',
+      stock: 'Estoc',
+      price: 'Preu',
+      selected: 'Seleccionat',
+      outOfStock: 'Sense estoc'
+    },
+    productcard: {
+      viewDetails: 'Veure detalls',
+      buyNow: 'Compra ara',
+      addToCart: 'Afegeix a la cistella',
+      sold: 'Venut',
+      soldOut: 'Esgotat',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Preu original'
+    },
+    couponcard: {
+      available: "Obt茅'l ara",
+      used: 'Utilitzat',
+      expired: 'Caducat',
+      received: 'Rebut',
+      limit: 'Comandes superiors a {threshold}',
+      noThreshold: 'Sense m铆nim',
+      validPeriod: 'Per铆ode de validesa',
+      ruleTitle: 'Normes d鈥櫭簊'
+    },
+    luckydraw: {
+      start: 'Comen莽a',
+      drawing: 'Sortejant...',
+      end: 'Guanyador!',
+      retry: 'Torna-ho a provar'
+    },
+    filterbar: {
+      all: 'Tot',
+      sort: 'Ordena',
+      filter: 'Filtra',
+      cancel: 'Cancel路la',
+      reset: 'Reinicia',
+      confirm: 'Confirma',
+      noOptions: 'No hi ha opcions',
+      asc: 'Ascendent',
+      desc: 'Descendent',
+      selected: 'Seleccionat'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} seleccionat(s)',
+      submit: 'Finalitza la compra',
+      allSelect: 'Selecciona-ho tot'
+    },
+    categorynav: {
+      all: 'Tot',
+      noData: 'No hi ha dades',
+      loading: 'S鈥檈st脿 carregant...'
+    },
+    smartaddress: {
+      placeholder:
+        'Enganxeu aqu铆 l鈥檃dre莽a per detectar autom脿ticament nom, tel猫fon i ubicaci贸',
+      parse: 'An脿lisi intel路ligent',
+      province: 'Prov铆ncia/Ciutat/Districte',
+      city: 'Ciutat',
+      district: 'Districte/Comarca',
+      street: 'Carrer/Poble',
+      detail: 'Adre莽a detallada',
+      phone: 'Tel猫fon',
+      name: 'Destinatari',
+      parseSuccess: 'L鈥檃dre莽a s鈥檋a analitzat correctament',
+      parseFailed: 'L鈥檃n脿lisi ha fallat, empleneu-ho manualment',
+      required: 'Empleneu l鈥檃dre莽a completa',
+      provinceKeywords: ['Prov铆ncia', 'Estat'],
+      cityKeywords: ['Ciutat', 'Municipi'],
+      districtKeywords: ['Districte', 'Comarca', 'Barri'],
+      streetKeywords: ['Carrer', 'Avinguda', 'Cam铆', 'Passatge']
+    },
+    ganttchart: {
+      taskName: 'Nom de la tasca',
+      searchPlaceholder: 'Cerca tasques...',
+      zoom: 'Zoom',
+      day: 'Dia',
+      week: 'Setmana',
+      month: 'Mes',
+      year: 'Any',
+      milestone: 'Fita'
+    },
+    imagemagnifier: {
+      switchToImage: 'Canvia a la imatge {index}',
+      galleryItem: 'Galeria {index}',
+      close: 'Tanca'
+    },
     ai: {
       bubble: {
         citations: 'Citacions'
@@ -614,7 +706,7 @@ export const ca: Language = {
         run: 'Executar codi',
         edit: 'Editar',
         save: 'Guardar',
-        cancel: 'Cancel·lar'
+        cancel: 'Cancel路lar'
       },
       codeRunner: {
         run: 'Executar',
@@ -628,21 +720,21 @@ export const ca: Language = {
         dragTip: 'Allibereu per pujar fitxers'
       },
       thoughtChain: {
-        thoughtProcess: 'Procés de pensament',
+        thoughtProcess: 'Proc茅s de pensament',
         thinking: 'Pensant...',
         defaultTitle: 'Nou pas',
         addNode: 'Afegir pas'
       },
       thinking: {
-        start: 'Començar a pensar',
+        start: 'Comen莽ar a pensar',
         thinking: 'Pensant...',
         complete: 'Pensament completat',
         error: 'Error de pensament'
       },
       welcome: {
-        title: 'Hola, sóc YH AI',
+        title: 'Hola, s贸c YH AI',
         description:
-          'Us puc ajudar amb programació, traducció de documents o escriptura creativa. Què puc fer per vosaltres avui?'
+          'Us puc ajudar amb programaci贸, traducci贸 de documents o escriptura creativa. Qu猫 puc fer per vosaltres avui?'
       },
       action: {
         copy: 'Copiar',
@@ -654,62 +746,85 @@ export const ca: Language = {
         delete: 'Eliminar'
       },
       artifacts: {
-        preview: 'Vista prèvia',
-        inline: 'En línia',
+        preview: 'Vista pr猫via',
+        inline: 'En l铆nia',
         code: 'Codi font',
         versions: 'Versions',
         rendering: 'Renderitzant component...',
-        renderingChart: 'Renderitzant gràfic...',
-        renderingCanvas: 'Preparant llenç...'
+        renderingChart: 'Renderitzant gr脿fic...',
+        renderingCanvas: 'Preparant llen莽...'
       },
       voice: {
         trigger: 'Feu clic per parlar',
         listening: 'Escoltant...'
       },
       agent: {
-        uses: 'úsos',
+        uses: '煤sos',
         use: 'Usar ara',
         favorite: 'Favorit',
         unfavorite: 'Treure de favorits',
         share: 'Compartir',
-        online: 'En línia',
-        offline: 'Fora de línia',
+        online: 'En l铆nia',
+        offline: 'Fora de l铆nia',
         busy: 'Ocupat',
         verified: 'Verificat',
-        rating: 'Valoració',
+        rating: 'Valoraci贸',
         reviews: 'resenyes',
-        responseTime: 'Temps de resposta mitjà',
+        responseTime: 'Temps de resposta mitj脿',
         ms: 'ms'
       },
       sources: {
-        references: 'Referències',
+        references: 'Refer猫ncies',
         referencedSources: 'Fonts referenciades',
-        relevant: 'Rellevància',
+        relevant: 'Rellev脿ncia',
         viewOriginal: 'Veure original',
         showAll: 'Mostrar tot',
-        more: 'més fonts',
-        drawerTitle: 'Referències',
-        expandMore: 'Mostrar més',
+        more: 'm茅s fonts',
+        drawerTitle: 'Refer猫ncies',
+        expandMore: 'Mostrar m茅s',
         collapseMore: 'Reduir',
         noSources: 'Sense fonts',
         today: 'Avui',
-        last7Days: 'Últims 7 dies',
-        last30Days: 'Últims 30 dies',
+        last7Days: '脷ltims 7 dies',
+        last30Days: '脷ltims 30 dies',
         earlier: 'Anterior',
         pinned: 'Fixat'
       },
       conversations: {
         today: 'Avui',
-        last7Days: 'Últims 7 dies',
-        last30Days: 'Últims 30 dies',
+        last7Days: '脷ltims 7 dies',
+        last30Days: '脷ltims 30 dies',
         earlier: 'Anterior',
         pinned: 'Fixat',
         pin: 'Fixar',
         unpin: 'Desfixar',
         newConversation: 'Nova conversa',
+        noData: 'Encara no hi ha converses',
         rename: 'Renombrar',
         delete: 'Eliminar',
         deleteConfirm: 'Confirmeu eliminar aquesta conversa?'
+      },
+      attachments: {
+        dropTip: 'Deixa anar els fitxers aqu铆 per pujar-los',
+        clickToUpload: 'Fes clic o arrossega fitxers per pujar-los',
+        uploadSuccess: 'C脿rrega correcta',
+        uploadError: 'La c脿rrega ha fallat',
+        deleteConfirm: 'Segur que vols eliminar aquest fitxer?',
+        fileTooLarge: 'La mida del fitxer no pot superar {size}',
+        invalidFileType: 'Tipus de fitxer no v脿lid'
+      },
+      mermaid: {
+        image: 'Imatge',
+        code: 'Codi',
+        zoomIn: 'Apropa',
+        zoomOut: 'Allunya',
+        reset: 'Restableix',
+        download: 'Descarrega',
+        copyCode: 'Copiar codi',
+        rendering: 'S鈥檈st脿 renderitzant...',
+        renderError: 'La renderitzaci贸 ha fallat',
+        renderSuccess: 'Renderitzaci贸 correcta',
+        retry: 'Torna-ho a provar'
       }
     }
   }

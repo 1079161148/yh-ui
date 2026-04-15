@@ -5,82 +5,90 @@ export const my: Language = {
   yh: {
     // အထွေထွေ
     common: {
-      yes: 'ဟုတ်ကဲ့',
-      no: 'မဟုတ်ပါ',
-      confirm: 'အတည်ပြုပါ',
-      cancel: 'ပယ်ဖျက်ပါ',
-      loading: 'ဖွင့်နေသည်',
-      close: 'ပိတ်ပါ',
-      clear: 'ရှင်းလင်းပါ',
-      reset: 'ပြန်လည်သတ်မှတ်ပါ',
-      save: 'သိမ်းဆည်းပါ',
-      delete: 'ဖျက်ပါ',
-      edit: 'တည်းဖြတ်ပါ',
-      add: 'ထည့်ပါ',
-      search: 'ရှာဖွေပါ',
-      refresh: 'ပြန်လည်စတင်ပါ',
-      expand: 'ချဲ့ထွင်ပါ',
-      collapse: 'ခေါက်သိမ်းပါ',
-      more: 'ပိုမို',
-      noData: 'ဒေတာမရှိပါ',
-      noMatch: 'ကိုက်ညီသောဒေတာမရှိပါ',
-      selectAll: 'အားလုံးရွေးပါ',
-      unselectAll: 'အားလုံးရွေးချယ်မှုကိုဖျက်ပါ'
+      yes: '\u101F\u102F\u1010\u103A\u1000\u1032\u1037',
+      no: '\u1019\u101F\u102F\u1010\u103A\u1015\u102B',
+      confirm: '\u1021\u1010\u100A\u103A\u1015\u103C\u102F\u1015\u102B',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A',
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B',
+      clear: '\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B',
+      reset:
+        '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1015\u102B',
+      save: '\u101E\u102D\u1019\u103A\u1038\u1006\u100A\u103A\u1038\u1015\u102B',
+      delete: '\u1016\u103B\u1000\u103A\u1015\u102B',
+      edit: '\u1010\u100A\u103A\u1038\u1016\u103C\u1010\u103A\u1015\u102B',
+      add: '\u1011\u100A\u1037\u103A\u1015\u102B',
+      search: '\u101B\u103E\u102C\u1016\u103D\u1031\u1015\u102B',
+      refresh: '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1005\u1010\u1004\u103A\u1015\u102B',
+      expand: '\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B',
+      collapse: '\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B',
+      more: '\u1015\u102D\u102F\u1019\u102D\u102F',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      noMatch:
+        '\u1000\u102D\u102F\u1000\u103A\u100A\u102E\u101E\u1031\u102C\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      selectAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103D\u1031\u1038\u1015\u102B',
+      unselectAll:
+        '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103D\u1031\u1038\u1001\u103B\u101A\u103A\u1019\u103E\u102F\u1000\u102D\u102F\u1016\u103B\u1000\u103A\u1015\u102B'
     },
     // အရောင်ရွေးချယ်ရေး
     colorpicker: {
-      confirm: 'အိုကေ',
-      clear: 'ရှင်းလင်းပါ',
-      eyeDropper: 'မျက်စိကောက်ကောက်',
-      suggestionDark: 'အဖြူရောင်စာသားက အကောင်းဆုံးဖြစ်သည်',
-      suggestionLight: 'အနက်ရောင်စာသားက အကောင်းဆုံးဖြစ်သည်',
-      recentColors: 'လတ်တလောအရောင်များ',
-      presetColors: 'ကြိုတင်သတ်မှတ်ထားသောအရောင်များ'
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      clear: '\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B',
+      eyeDropper:
+        '\u1019\u103B\u1000\u103A\u1005\u102D\u1000\u1031\u102C\u1000\u103A\u1000\u1031\u102C\u1000\u103A',
+      suggestionDark:
+        '\u1021\u1016\u103C\u1030\u101B\u1031\u102C\u1004\u103A\u1005\u102C\u101E\u102C\u1038\u1000 \u1021\u1000\u1031\u102C\u1004\u103A\u1038\u1006\u102F\u1036\u1038\u1016\u103C\u1005\u103A\u101E\u100A\u103A',
+      suggestionLight:
+        '\u1021\u1014\u1000\u103A\u101B\u1031\u102C\u1004\u103A\u1005\u102C\u101E\u102C\u1038\u1000 \u1021\u1000\u1031\u102C\u1004\u103A\u1038\u1006\u102F\u1036\u1038\u1016\u103C\u1005\u103A\u101E\u100A\u103A',
+      recentColors:
+        '\u101C\u1010\u103A\u1010\u101C\u1031\u102C\u1021\u101B\u1031\u102C\u1004\u103A\u1019\u103B\u102C\u1038',
+      presetColors:
+        '\u1000\u103C\u102D\u102F\u1010\u1004\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1011\u102C\u1038\u101E\u1031\u102C\u1021\u101B\u1031\u102C\u1004\u103A\u1019\u103B\u102C\u1038'
     },
     // ရက်စွဲရွေးချယ်ရေး
     datepicker: {
-      now: 'ယခု',
-      today: 'ယနေ့',
-      cancel: 'ပယ်ဖျက်ပါ',
-      clear: 'ရှင်းလင်းပါ',
-      confirm: 'အိုကေ',
-      selectDate: 'ရက်စွဲရွေးပါ',
-      selectTime: 'အချိန်ရွေးပါ',
-      startDate: 'စတင်ရက်စွဲ',
-      startTime: 'စတင်အချိန်',
-      endDate: 'အဆုံးရက်စွဲ',
-      endTime: 'အဆုံးအချိန်',
+      now: '\u101A\u1001\u102F',
+      today: '\u101A\u1014\u1031\u1037',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      clear: '\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B',
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      selectDate: '\u101B\u1000\u103A\u1005\u103D\u1032\u101B\u103D\u1031\u1038\u1015\u102B',
+      selectTime: '\u1021\u1001\u103B\u102D\u1014\u103A\u101B\u103D\u1031\u1038\u1015\u102B',
+      startDate: '\u1005\u1010\u1004\u103A\u101B\u1000\u103A\u1005\u103D\u1032',
+      startTime: '\u1005\u1010\u1004\u103A\u1021\u1001\u103B\u102D\u1014\u103A',
+      endDate: '\u1021\u1006\u102F\u1036\u1038\u101B\u1000\u103A\u1005\u103D\u1032',
+      endTime: '\u1021\u1006\u102F\u1036\u1038\u1021\u1001\u103B\u102D\u1014\u103A',
       year: '',
       month: '',
       day: '',
-      week: 'အပတ်',
+      week: '\u1021\u1015\u1010\u103A',
       monthBeforeYear: true,
-      prevYear: 'ယခင်နှစ်',
-      nextYear: 'နောက်နှစ်',
-      prevMonth: 'ယခင်လ',
-      nextMonth: 'နောက်လ',
+      prevYear: '\u101A\u1001\u1004\u103A\u1014\u103E\u1005\u103A',
+      nextYear: '\u1014\u1031\u102C\u1000\u103A\u1014\u103E\u1005\u103A',
+      prevMonth: '\u101A\u1001\u1004\u103A\u101C',
+      nextMonth: '\u1014\u1031\u102C\u1000\u103A\u101C',
       weeks: {
-        sun: 'တနင်္ဂနွေ',
-        mon: 'တနင်္လာ',
-        tue: 'အင်္ဂါ',
-        wed: 'ဗုဒ္ဓဟူး',
-        thu: 'ကြာသပတေး',
-        fri: 'သောကြာ',
-        sat: 'စနေ'
+        sun: '\u1010\u1014\u1004\u103A\u1039\u1002\u1014\u103D\u1031',
+        mon: '\u1010\u1014\u1004\u103A\u1039\u101C\u102C',
+        tue: '\u1021\u1004\u103A\u1039\u1002\u102B',
+        wed: '\u1017\u102F\u1012\u1039\u1013\u101F\u1030\u1038',
+        thu: '\u1000\u103C\u102C\u101E\u1015\u1010\u1031\u1038',
+        fri: '\u101E\u1031\u102C\u1000\u103C\u102C',
+        sat: '\u1005\u1014\u1031'
       },
       months: {
-        jan: 'ဇန်နဝါရီ',
-        feb: 'ဖေဖော်ဝါရီ',
-        mar: 'မတ်',
-        apr: 'ဧပြီ',
-        may: 'မေ',
-        jun: 'ဇွန်',
-        jul: 'ဇူလိုင်',
-        aug: 'ဩဂုတ်',
-        sep: 'စက်တင်ဘာ',
-        oct: 'အောက်တိုဘာ',
-        nov: 'နိုဝင်ဘာ',
-        dec: 'ဒီဇင်ဘာ'
+        jan: '\u1007\u1014\u103A\u1014\u101D\u102B\u101B\u102E',
+        feb: '\u1016\u1031\u1016\u1031\u102C\u103A\u101D\u102B\u101B\u102E',
+        mar: '\u1019\u1010\u103A',
+        apr: '\u1027\u1015\u103C\u102E',
+        may: '\u1019\u1031',
+        jun: '\u1007\u103D\u1014\u103A',
+        jul: '\u1007\u1030\u101C\u102D\u102F\u1004\u103A',
+        aug: '\u1029\u1002\u102F\u1010\u103A',
+        sep: '\u1005\u1000\u103A\u1010\u1004\u103A\u1018\u102C',
+        oct: '\u1021\u1031\u102C\u1000\u103A\u1010\u102D\u102F\u1018\u102C',
+        nov: '\u1014\u102D\u102F\u101D\u1004\u103A\u1018\u102C',
+        dec: '\u1012\u102E\u1007\u1004\u103A\u1018\u102C'
       },
       quarters: {
         q1: 'Q1',
@@ -91,445 +99,552 @@ export const my: Language = {
     },
     // အချိန်ရွေးချယ်ရေး
     timepicker: {
-      confirm: 'အိုကေ',
-      cancel: 'ပယ်ဖျက်ပါ',
-      now: 'ယခု',
-      placeholder: 'အချိန်ရွေးပါ',
-      startPlaceholder: 'စတင်အချိန်',
-      endPlaceholder: 'အဆုံးအချိန်',
-      selectTime: 'အချိန်ရွေးပါ'
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      now: '\u101A\u1001\u102F',
+      placeholder: '\u1021\u1001\u103B\u102D\u1014\u103A\u101B\u103D\u1031\u1038\u1015\u102B',
+      startPlaceholder: '\u1005\u1010\u1004\u103A\u1021\u1001\u103B\u102D\u1014\u103A',
+      endPlaceholder: '\u1021\u1006\u102F\u1036\u1038\u1021\u1001\u103B\u102D\u1014\u103A',
+      selectTime: '\u1021\u1001\u103B\u102D\u1014\u103A\u101B\u103D\u1031\u1038\u1015\u102B'
     },
     // အချိန်ရွေးချယ်မှု
     timeselect: {
-      placeholder: 'အချိန်ရွေးပါ'
+      placeholder: '\u1021\u1001\u103B\u102D\u1014\u103A\u101B\u103D\u1031\u1038\u1015\u102B'
     },
     // သစ်ပင်
     tree: {
-      emptyText: 'ဒေတာမရှိပါ',
-      loading: 'ဖွင့်နေသည်...',
-      checkAll: 'အားလုံးစစ်ဆေးပါ',
-      uncheckAll: 'အားလုံးစစ်ဆေးမှုကိုဖျက်ပါ',
-      expandAll: 'အားလုံးချဲ့ထွင်ပါ',
-      collapseAll: 'အားလုံးခေါက်သိမ်းပါ'
+      emptyText: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      checkAll:
+        '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1005\u1005\u103A\u1006\u1031\u1038\u1015\u102B',
+      uncheckAll:
+        '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1005\u1005\u103A\u1006\u1031\u1038\u1019\u103E\u102F\u1000\u102D\u102F\u1016\u103B\u1000\u103A\u1015\u102B',
+      expandAll:
+        '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B',
+      collapseAll:
+        '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B'
     },
     // သစ်ပင်ရွေးချယ်ရေး
     treeselect: {
-      placeholder: 'ရွေးပါ',
-      emptyText: 'ဒေတာမရှိပါ',
-      loading: 'ဖွင့်နေသည်...',
-      noMatch: 'ကိုက်ညီသောဒေတာမရှိပါ'
+      placeholder: '\u101B\u103D\u1031\u1038\u1015\u102B',
+      emptyText: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      noMatch:
+        '\u1000\u102D\u102F\u1000\u103A\u100A\u102E\u101E\u1031\u102C\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B'
     },
     // ပြက္ခဒိန်
     calendar: {
-      prevMonth: 'ယခင်လ',
-      nextMonth: 'နောက်လ',
-      prevYear: 'ယခင်နှစ်',
-      nextYear: 'နောက်နှစ်',
-      today: 'ယနေ့',
-      week: 'အပတ်',
-      holiday: 'အားလပ်ရက်',
-      workday: 'အလုပ်',
+      prevMonth: '\u101A\u1001\u1004\u103A\u101C',
+      nextMonth: '\u1014\u1031\u102C\u1000\u103A\u101C',
+      prevYear: '\u101A\u1001\u1004\u103A\u1014\u103E\u1005\u103A',
+      nextYear: '\u1014\u1031\u102C\u1000\u103A\u1014\u103E\u1005\u103A',
+      today: '\u101A\u1014\u1031\u1037',
+      week: '\u1021\u1015\u1010\u103A',
+      holiday: '\u1021\u102C\u1038\u101C\u1015\u103A\u101B\u1000\u103A',
+      workday: '\u1021\u101C\u102F\u1015\u103A',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'တနင်္ဂနွေ',
-        mon: 'တနင်္လာ',
-        tue: 'အင်္ဂါ',
-        wed: 'ဗုဒ္ဓဟူး',
-        thu: 'ကြာသပတေး',
-        fri: 'သောကြာ',
-        sat: 'စနေ'
+        sun: '\u1010\u1014\u1004\u103A\u1039\u1002\u1014\u103D\u1031',
+        mon: '\u1010\u1014\u1004\u103A\u1039\u101C\u102C',
+        tue: '\u1021\u1004\u103A\u1039\u1002\u102B',
+        wed: '\u1017\u102F\u1012\u1039\u1013\u101F\u1030\u1038',
+        thu: '\u1000\u103C\u102C\u101E\u1015\u1010\u1031\u1038',
+        fri: '\u101E\u1031\u102C\u1000\u103C\u102C',
+        sat: '\u1005\u1014\u1031'
       }
     },
     // အလိုအလျောက်ပြီးမြောက်စေရေး
     autocomplete: {
-      loading: 'ဖွင့်နေသည်...',
-      placeholder: 'ကျေးဇူးပြု၍ ထည့်သွင်းပါ',
-      noData: 'ဒေတာမရှိပါ',
-      noMatch: 'ကိုက်ညီသောဒေတာမရှိပါ'
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      placeholder:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      noMatch:
+        '\u1000\u102D\u102F\u1000\u103A\u100A\u102E\u101E\u1031\u102C\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B'
     },
     // နောက်ပြန်ရေတွက်ခြင်း
     countdown: {
-      days: 'ရက်',
-      hours: 'နာရီ',
-      minutes: 'မိနစ်',
-      seconds: 'စက္ကန့်',
-      milliseconds: 'မီလီစက္ကန့်',
-      finished: 'ပြီးဆုံးသည်'
+      days: '\u101B\u1000\u103A',
+      hours: '\u1014\u102C\u101B\u102E',
+      minutes: '\u1019\u102D\u1014\u1005\u103A',
+      seconds: '\u1005\u1000\u1039\u1000\u1014\u1037\u103A',
+      milliseconds: '\u1019\u102E\u101C\u102E\u1005\u1000\u1039\u1000\u1014\u1037\u103A',
+      finished: '\u1015\u103C\u102E\u1038\u1006\u102F\u1036\u1038\u101E\u100A\u103A'
     },
     // ဆင့်ကဲရွေးချယ်ရေး
     cascader: {
-      noMatch: 'ကိုက်ညီသောဒေတာမရှိပါ',
-      placeholder: 'ရွေးပါ',
-      loading: 'ဖွင့်နေသည်...',
-      noData: 'ဒေတာမရှိပါ'
+      noMatch:
+        '\u1000\u102D\u102F\u1000\u103A\u100A\u102E\u101E\u1031\u102C\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      placeholder: '\u101B\u103D\u1031\u1038\u1015\u102B',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B'
     },
     // လွှဲပြောင်းရေး
     transfer: {
-      noMatch: 'ကိုက်ညီသောဒေတာမရှိပါ',
-      noData: 'ဒေတာမရှိပါ',
-      titles: ['စာရင်း ၁', 'စာရင်း ၂'],
-      filterPlaceholder: 'သော့ချက်စကားလုံးထည့်ပါ',
-      noCheckedFormat: '{total} ခု',
-      hasCheckedFormat: '{checked}/{total} ရွေးထားသည်',
-      searchPlaceholder: 'သော့ချက်စကားလုံးထည့်ပါ'
+      noMatch:
+        '\u1000\u102D\u102F\u1000\u103A\u100A\u102E\u101E\u1031\u102C\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      titles: [
+        '\u1005\u102C\u101B\u1004\u103A\u1038 \u1041',
+        '\u1005\u102C\u101B\u1004\u103A\u1038 \u1042'
+      ],
+      filterPlaceholder:
+        '\u101E\u1031\u102C\u1037\u1001\u103B\u1000\u103A\u1005\u1000\u102C\u1038\u101C\u102F\u1036\u1038\u1011\u100A\u1037\u103A\u1015\u102B',
+      noCheckedFormat: '{total} \u1001\u102F',
+      hasCheckedFormat:
+        '{checked}/{total} \u101B\u103D\u1031\u1038\u1011\u102C\u1038\u101E\u100A\u103A',
+      searchPlaceholder:
+        '\u101E\u1031\u102C\u1037\u1001\u103B\u1000\u103A\u1005\u1000\u102C\u1038\u101C\u102F\u1036\u1038\u1011\u100A\u1037\u103A\u1015\u102B'
     },
     // ဇယား
     table: {
-      emptyText: 'ဒေတာမရှိပါ',
-      confirmFilter: 'အတည်ပြုပါ',
-      resetFilter: 'ပြန်လည်သတ်မှတ်ပါ',
-      clearFilter: 'အားလုံး',
-      sumText: 'ပေါင်းလဒ်',
-      loading: 'ဖွင့်နေသည်...',
-      index: 'အညွှန်း',
-      print: 'ပုံနှိပ်ပါ',
-      cancel: 'ပယ်ဖျက်ပါ',
-      preview: 'ပုံနှိပ်ရှုမြင်ခြင်း',
-      printTime: 'ပုံနှိပ်အချိန်',
-      total: 'စုစုပေါင်း {total} ခု',
-      page: 'စာမျက်နှာ {page}',
-      yes: 'ဟုတ်ကဲ့',
-      no: 'မဟုတ်ပါ',
+      emptyText: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      confirmFilter: '\u1021\u1010\u100A\u103A\u1015\u103C\u102F\u1015\u102B',
+      resetFilter:
+        '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1015\u102B',
+      clearFilter: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038',
+      sumText: '\u1015\u1031\u102B\u1004\u103A\u1038\u101C\u1012\u103A',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      index: '\u1021\u100A\u103D\u103E\u1014\u103A\u1038',
+      print: '\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      preview:
+        '\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u101B\u103E\u102F\u1019\u103C\u1004\u103A\u1001\u103C\u1004\u103A\u1038',
+      printTime:
+        '\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1021\u1001\u103B\u102D\u1014\u103A',
+      total: '\u1005\u102F\u1005\u102F\u1015\u1031\u102B\u1004\u103A\u1038 {total} \u1001\u102F',
+      page: '\u1005\u102C\u1019\u103B\u1000\u103A\u1014\u103E\u102C {page}',
+      yes: '\u101F\u102F\u1010\u103A\u1000\u1032\u1037',
+      no: '\u1019\u101F\u102F\u1010\u103A\u1015\u102B',
       // ကိရိယာဘားတန်း
       toolbar: {
-        refresh: 'ပြန်လည်စတင်ပါ',
-        density: 'သိပ်သည်းမှု',
-        densityDefault: 'မူလ',
-        densityLarge: 'ကြီး',
-        densitySmall: 'ငယ်',
-        columnSetting: 'ကော်လံဆက်တင်များ',
-        fullscreen: 'ဖန်သားပြင်အပြည့်',
-        exitFullscreen: 'ဖန်သားပြင်အပြည့်မှထွက်ပါ',
-        export: 'တင်ပို့ပါ',
-        import: 'တင်သွင်းပါ',
-        search: 'ရှာဖွေပါ',
-        searchPlaceholder: 'ရှာဖွေရန်သော့ချက်စကားလုံးများထည့်ပါ'
+        refresh: '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1005\u1010\u1004\u103A\u1015\u102B',
+        density: '\u101E\u102D\u1015\u103A\u101E\u100A\u103A\u1038\u1019\u103E\u102F',
+        densityDefault: '\u1019\u1030\u101C',
+        densityLarge: '\u1000\u103C\u102E\u1038',
+        densitySmall: '\u1004\u101A\u103A',
+        columnSetting:
+          '\u1000\u1031\u102C\u103A\u101C\u1036\u1006\u1000\u103A\u1010\u1004\u103A\u1019\u103B\u102C\u1038',
+        fullscreen:
+          '\u1016\u1014\u103A\u101E\u102C\u1038\u1015\u103C\u1004\u103A\u1021\u1015\u103C\u100A\u1037\u103A',
+        exitFullscreen:
+          '\u1016\u1014\u103A\u101E\u102C\u1038\u1015\u103C\u1004\u103A\u1021\u1015\u103C\u100A\u1037\u103A\u1019\u103E\u1011\u103D\u1000\u103A\u1015\u102B',
+        export: '\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1015\u102B',
+        import: '\u1010\u1004\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+        search: '\u101B\u103E\u102C\u1016\u103D\u1031\u1015\u102B',
+        searchPlaceholder:
+          '\u101B\u103E\u102C\u1016\u103D\u1031\u101B\u1014\u103A\u101E\u1031\u102C\u1037\u1001\u103B\u1000\u103A\u1005\u1000\u102C\u1038\u101C\u102F\u1036\u1038\u1019\u103B\u102C\u1038\u1011\u100A\u1037\u103A\u1015\u102B'
       },
       // စစ်ထုတ်ရေး
       filter: {
-        selectAll: 'အားလုံးရွေးပါ',
-        selectInvert: 'ရွေးချယ်မှုကိုပြောင်းပြန်လုပ်ပါ',
-        empty: 'ဗလာဖြစ်သည်',
-        notEmpty: 'ဗလာမဟုတ်ပါ',
-        contains: 'ပါဝင်သည်',
-        notContains: 'မပါဝင်ပါ',
-        equals: 'ညီမျှသည်',
-        notEquals: 'မညီမျှပါ',
-        startsWith: 'ဖြင့်စတင်သည်',
-        endsWith: 'ဖြင့်အဆုံးသတ်သည်',
-        greaterThan: 'ထက်ကြီးသည်',
-        lessThan: 'ထက်ငယ်သည်',
-        between: 'ကြား'
+        selectAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103D\u1031\u1038\u1015\u102B',
+        selectInvert:
+          '\u101B\u103D\u1031\u1038\u1001\u103B\u101A\u103A\u1019\u103E\u102F\u1000\u102D\u102F\u1015\u103C\u1031\u102C\u1004\u103A\u1038\u1015\u103C\u1014\u103A\u101C\u102F\u1015\u103A\u1015\u102B',
+        empty: '\u1017\u101C\u102C\u1016\u103C\u1005\u103A\u101E\u100A\u103A',
+        notEmpty: '\u1017\u101C\u102C\u1019\u101F\u102F\u1010\u103A\u1015\u102B',
+        contains: '\u1015\u102B\u101D\u1004\u103A\u101E\u100A\u103A',
+        notContains: '\u1019\u1015\u102B\u101D\u1004\u103A\u1015\u102B',
+        equals: '\u100A\u102E\u1019\u103B\u103E\u101E\u100A\u103A',
+        notEquals: '\u1019\u100A\u102E\u1019\u103B\u103E\u1015\u102B',
+        startsWith: '\u1016\u103C\u1004\u1037\u103A\u1005\u1010\u1004\u103A\u101E\u100A\u103A',
+        endsWith:
+          '\u1016\u103C\u1004\u1037\u103A\u1021\u1006\u102F\u1036\u1038\u101E\u1010\u103A\u101E\u100A\u103A',
+        greaterThan: '\u1011\u1000\u103A\u1000\u103C\u102E\u1038\u101E\u100A\u103A',
+        lessThan: '\u1011\u1000\u103A\u1004\u101A\u103A\u101E\u100A\u103A',
+        between: '\u1000\u103C\u102C\u1038'
       },
       // စီရေး
       sort: {
-        asc: 'တိုးတက်သော',
-        desc: 'လျော့ကျသော',
-        clear: 'စီရမှုကိုရှင်းလင်းပါ'
+        asc: '\u1010\u102D\u102F\u1038\u1010\u1000\u103A\u101E\u1031\u102C',
+        desc: '\u101C\u103B\u1031\u102C\u1037\u1000\u103B\u101E\u1031\u102C',
+        clear:
+          '\u1005\u102E\u101B\u1019\u103E\u102F\u1000\u102D\u102F\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B'
       },
       // တင်ပို့ရေး
       export: {
-        title: 'ဒေတာတင်ပို့ပါ',
-        filename: 'ဖိုင်အမည်',
-        type: 'ဖိုင်အမျိုးအစား',
-        scope: 'တင်ပို့အကွာအဝေး',
-        scopeAll: 'ဒေတာအားလုံး',
-        scopeSelected: 'ရွေးထားသောဒေတာ',
-        scopeCurrentPage: 'လက်ရှိစာမျက်နှာ',
-        includeHeader: 'ခေါင်းစဉ်ပါဝင်ပါ',
-        exporting: 'တင်ပို့နေသည်...',
-        success: 'တင်ပို့မှုအောင်မြင်သည်',
-        error: 'တင်ပို့မှုမအောင်မြင်ပါ'
+        title: '\u1012\u1031\u1010\u102C\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1015\u102B',
+        filename: '\u1016\u102D\u102F\u1004\u103A\u1021\u1019\u100A\u103A',
+        type: '\u1016\u102D\u102F\u1004\u103A\u1021\u1019\u103B\u102D\u102F\u1038\u1021\u1005\u102C\u1038',
+        scope:
+          '\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1021\u1000\u103D\u102C\u1021\u101D\u1031\u1038',
+        scopeAll: '\u1012\u1031\u1010\u102C\u1021\u102C\u1038\u101C\u102F\u1036\u1038',
+        scopeSelected:
+          '\u101B\u103D\u1031\u1038\u1011\u102C\u1038\u101E\u1031\u102C\u1012\u1031\u1010\u102C',
+        scopeCurrentPage:
+          '\u101C\u1000\u103A\u101B\u103E\u102D\u1005\u102C\u1019\u103B\u1000\u103A\u1014\u103E\u102C',
+        includeHeader:
+          '\u1001\u1031\u102B\u1004\u103A\u1038\u1005\u1009\u103A\u1015\u102B\u101D\u1004\u103A\u1015\u102B',
+        exporting: '\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1014\u1031\u101E\u100A\u103A...',
+        success:
+          '\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1019\u103E\u102F\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u101E\u100A\u103A',
+        error:
+          '\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1019\u103E\u102F\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B'
       },
       // တင်သွင်းရေး
       import: {
-        title: 'ဒေတာတင်သွင်းပါ',
-        selectFile: 'ဖိုင်ရွေးပါ',
-        dragTip: 'တင်ရန်ဖိုင်ကို ဤနေရာတွင်နှိပ်ပါ သို့မဟုတ် ဆွဲထည့်ပါ',
-        importing: 'တင်သွင်းနေသည်...',
-        success: 'တင်သွင်းမှုအောင်မြင်သည်',
-        error: 'တင်သွင်းမှုမအောင်မြင်ပါ',
-        preview: 'ဒေတာရှုမြင်ခြင်း',
-        confirm: 'တင်သွင်းမှုကိုအတည်ပြုပါ'
+        title:
+          '\u1012\u1031\u1010\u102C\u1010\u1004\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+        selectFile: '\u1016\u102D\u102F\u1004\u103A\u101B\u103D\u1031\u1038\u1015\u102B',
+        dragTip:
+          '\u1010\u1004\u103A\u101B\u1014\u103A\u1016\u102D\u102F\u1004\u103A\u1000\u102D\u102F \u1024\u1014\u1031\u101B\u102C\u1010\u103D\u1004\u103A\u1014\u103E\u102D\u1015\u103A\u1015\u102B \u101E\u102D\u102F\u1037\u1019\u101F\u102F\u1010\u103A \u1006\u103D\u1032\u1011\u100A\u1037\u103A\u1015\u102B',
+        importing:
+          '\u1010\u1004\u103A\u101E\u103D\u1004\u103A\u1038\u1014\u1031\u101E\u100A\u103A...',
+        success:
+          '\u1010\u1004\u103A\u101E\u103D\u1004\u103A\u1038\u1019\u103E\u102F\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u101E\u100A\u103A',
+        error:
+          '\u1010\u1004\u103A\u101E\u103D\u1004\u103A\u1038\u1019\u103E\u102F\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B',
+        preview:
+          '\u1012\u1031\u1010\u102C\u101B\u103E\u102F\u1019\u103C\u1004\u103A\u1001\u103C\u1004\u103A\u1038',
+        confirm:
+          '\u1010\u1004\u103A\u101E\u103D\u1004\u103A\u1038\u1019\u103E\u102F\u1000\u102D\u102F\u1021\u1010\u100A\u103A\u1015\u103C\u102F\u1015\u102B'
       },
       // ပုံနှိပ်ရေး
       printConfig: {
-        title: 'ပုံနှိပ်ဆက်တင်များ',
-        pageTitle: 'စာမျက်နှာခေါင်းစဉ်',
-        pageHeader: 'ခေါင်းစဉ်',
-        pageFooter: 'အောက်ခြေ',
-        printAll: 'အားလုံးပုံနှိပ်ပါ',
-        printSelected: 'ရွေးထားသောကိုပုံနှိပ်ပါ',
-        printCurrentPage: 'လက်ရှိစာမျက်နှာကိုပုံနှိပ်ပါ',
-        landscape: 'အလျားလိုက်',
-        portrait: 'ဒေါင်လိုက်',
-        printing: 'ပုံနှိပ်နေသည်...'
+        title:
+          '\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1006\u1000\u103A\u1010\u1004\u103A\u1019\u103B\u102C\u1038',
+        pageTitle:
+          '\u1005\u102C\u1019\u103B\u1000\u103A\u1014\u103E\u102C\u1001\u1031\u102B\u1004\u103A\u1038\u1005\u1009\u103A',
+        pageHeader: '\u1001\u1031\u102B\u1004\u103A\u1038\u1005\u1009\u103A',
+        pageFooter: '\u1021\u1031\u102C\u1000\u103A\u1001\u103C\u1031',
+        printAll:
+          '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+        printSelected:
+          '\u101B\u103D\u1031\u1038\u1011\u102C\u1038\u101E\u1031\u102C\u1000\u102D\u102F\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+        printCurrentPage:
+          '\u101C\u1000\u103A\u101B\u103E\u102D\u1005\u102C\u1019\u103B\u1000\u103A\u1014\u103E\u102C\u1000\u102D\u102F\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+        landscape: '\u1021\u101C\u103B\u102C\u1038\u101C\u102D\u102F\u1000\u103A',
+        portrait: '\u1012\u1031\u102B\u1004\u103A\u101C\u102D\u102F\u1000\u103A',
+        printing:
+          '\u1015\u102F\u1036\u1014\u103E\u102D\u1015\u103A\u1014\u1031\u101E\u100A\u103A...'
       },
       // ကော်လံဆက်တင်များ
       columnSetting: {
-        title: 'ကော်လံဆက်တင်များ',
-        showAll: 'အားလုံးပြပါ',
-        hideAll: 'အားလုံးကိုဖျောက်ပါ',
-        reset: 'ပြန်လည်သတ်မှတ်ပါ',
-        fixedLeft: 'ဘယ်ဘက်တွင် ပင်တိုင်ထားပါ',
-        fixedRight: 'ညာဘက်တွင် ပင်တိုင်ထားပါ',
-        unfixed: 'ပင်တိုင်မှုကိုဖျက်ပါ'
+        title:
+          '\u1000\u1031\u102C\u103A\u101C\u1036\u1006\u1000\u103A\u1010\u1004\u103A\u1019\u103B\u102C\u1038',
+        showAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1015\u103C\u1015\u102B',
+        hideAll:
+          '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1000\u102D\u102F\u1016\u103B\u1031\u102C\u1000\u103A\u1015\u102B',
+        reset:
+          '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1015\u102B',
+        fixedLeft:
+          '\u1018\u101A\u103A\u1018\u1000\u103A\u1010\u103D\u1004\u103A \u1015\u1004\u103A\u1010\u102D\u102F\u1004\u103A\u1011\u102C\u1038\u1015\u102B',
+        fixedRight:
+          '\u100A\u102C\u1018\u1000\u103A\u1010\u103D\u1004\u103A \u1015\u1004\u103A\u1010\u102D\u102F\u1004\u103A\u1011\u102C\u1038\u1015\u102B',
+        unfixed:
+          '\u1015\u1004\u103A\u1010\u102D\u102F\u1004\u103A\u1019\u103E\u102F\u1000\u102D\u102F\u1016\u103B\u1000\u103A\u1015\u102B'
       },
       // အကြောင်းအရာမီနူး
       contextMenu: {
-        copy: 'ကူးယူပါ',
-        copyRow: 'အတန်းကူးယူပါ',
-        copyCell: 'ဆဲလ်ကူးယူပါ',
-        paste: 'ကပ်ပါ',
-        insertRowAbove: 'အပေါ်တွင်အတန်းထည့်ပါ',
-        insertRowBelow: 'အောက်တွင်အတန်းထည့်ပါ',
-        deleteRow: 'အတန်းဖျက်ပါ',
-        deleteSelectedRows: 'ရွေးထားသောအတန်းများကိုဖျက်ပါ',
-        exportSelected: 'ရွေးထားသောကိုတင်ပို့ပါ'
+        copy: '\u1000\u1030\u1038\u101A\u1030\u1015\u102B',
+        copyRow: '\u1021\u1010\u1014\u103A\u1038\u1000\u1030\u1038\u101A\u1030\u1015\u102B',
+        copyCell: '\u1006\u1032\u101C\u103A\u1000\u1030\u1038\u101A\u1030\u1015\u102B',
+        paste: '\u1000\u1015\u103A\u1015\u102B',
+        insertRowAbove:
+          '\u1021\u1015\u1031\u102B\u103A\u1010\u103D\u1004\u103A\u1021\u1010\u1014\u103A\u1038\u1011\u100A\u1037\u103A\u1015\u102B',
+        insertRowBelow:
+          '\u1021\u1031\u102C\u1000\u103A\u1010\u103D\u1004\u103A\u1021\u1010\u1014\u103A\u1038\u1011\u100A\u1037\u103A\u1015\u102B',
+        deleteRow: '\u1021\u1010\u1014\u103A\u1038\u1016\u103B\u1000\u103A\u1015\u102B',
+        deleteSelectedRows:
+          '\u101B\u103D\u1031\u1038\u1011\u102C\u1038\u101E\u1031\u102C\u1021\u1010\u1014\u103A\u1038\u1019\u103B\u102C\u1038\u1000\u102D\u102F\u1016\u103B\u1000\u103A\u1015\u102B',
+        exportSelected:
+          '\u101B\u103D\u1031\u1038\u1011\u102C\u1038\u101E\u1031\u102C\u1000\u102D\u102F\u1010\u1004\u103A\u1015\u102D\u102F\u1037\u1015\u102B'
       },
       // ရွေးချယ်မှု
       selection: {
-        selectAll: 'အားလုံးရွေးပါ',
-        selectInvert: 'ရွေးချယ်မှုကိုပြောင်းပြန်လုပ်ပါ',
-        selectNone: 'ရွေးချယ်မှုကိုရှင်းလင်းပါ',
-        selected: '{count} ခုရွေးထားသည်'
+        selectAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103D\u1031\u1038\u1015\u102B',
+        selectInvert:
+          '\u101B\u103D\u1031\u1038\u1001\u103B\u101A\u103A\u1019\u103E\u102F\u1000\u102D\u102F\u1015\u103C\u1031\u102C\u1004\u103A\u1038\u1015\u103C\u1014\u103A\u101C\u102F\u1015\u103A\u1015\u102B',
+        selectNone:
+          '\u101B\u103D\u1031\u1038\u1001\u103B\u101A\u103A\u1019\u103E\u102F\u1000\u102D\u102F\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B',
+        selected: '{count} \u1001\u102F\u101B\u103D\u1031\u1038\u1011\u102C\u1038\u101E\u100A\u103A'
       },
       // ချဲ့ထွင်ရေး
       expand: {
-        expandAll: 'အားလုံးချဲ့ထွင်ပါ',
-        collapseAll: 'အားလုံးခေါက်သိမ်းပါ'
+        expandAll:
+          '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B',
+        collapseAll:
+          '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B'
       },
       // သစ်ပင်
       tree: {
-        expandAll: 'အားလုံးချဲ့ထွင်ပါ',
-        collapseAll: 'အားလုံးခေါက်သိမ်းပါ',
-        expandLevel: 'အဆင့် {level} အထိချဲ့ထွင်ပါ'
+        expandAll:
+          '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B',
+        collapseAll:
+          '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B',
+        expandLevel:
+          '\u1021\u1006\u1004\u1037\u103A {level} \u1021\u1011\u102D\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B'
       },
       // ဆွဲယူရေး
       drag: {
-        dragTip: 'ပြန်လည်စီရန်ဆွဲပါ',
-        dropTip: 'ထားရန်ချပါ'
+        dragTip:
+          '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1005\u102E\u101B\u1014\u103A\u1006\u103D\u1032\u1015\u102B',
+        dropTip: '\u1011\u102C\u1038\u101B\u1014\u103A\u1001\u103B\u1015\u102B'
       }
     },
     // မက်ဆေ့ခ်ျဘောက်
     messagebox: {
-      title: 'မက်ဆေ့ခ်ျ',
-      confirm: 'အိုကေ',
-      cancel: 'ပယ်ဖျက်ပါ',
-      close: 'ပိတ်ပါ',
-      error: 'မမှန်ကန်သောထည့်သွင်းမှု',
-      alert: 'သတိပေးချက်',
-      prompt: 'အကြံပြုချက်',
-      inputPlaceholder: 'ကျေးဇူးပြု၍ ထည့်သွင်းပါ'
+      title: '\u1019\u1000\u103A\u1006\u1031\u1037\u1001\u103A\u103B',
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B',
+      error:
+        '\u1019\u1019\u103E\u1014\u103A\u1000\u1014\u103A\u101E\u1031\u102C\u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1019\u103E\u102F',
+      alert: '\u101E\u1010\u102D\u1015\u1031\u1038\u1001\u103B\u1000\u103A',
+      prompt: '\u1021\u1000\u103C\u1036\u1015\u103C\u102F\u1001\u103B\u1000\u103A',
+      inputPlaceholder:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B'
     },
     // တင်ရေး
     upload: {
-      deleteTip: 'ဖျက်ရန် delete ကိုနှိပ်ပါ',
-      delete: 'ဖျက်ပါ',
-      preview: 'ရှုမြင်ခြင်း',
-      continue: 'ဆက်လုပ်ပါ',
-      upload: 'တင်ရန်နှိပ်ပါ',
-      tip: 'တင်ရန် ဖိုင်ကို ဤနေရာသို့ <em>ဆွဲထည့်ပါ</em> သို့မဟုတ် နှိပ်ပါ',
-      dragTip: 'ဖိုင်ကို ဤနေရာတွင်ချပါ သို့မဟုတ် တင်ရန်နှိပ်ပါ',
-      uploading: 'တင်နေသည်...',
-      success: 'တင်မှုအောင်မြင်သည်',
-      error: 'တင်မှုမအောင်မြင်ပါ',
-      retry: 'ပြန်လည်ကြိုးစားပါ',
-      cancel: 'တင်မှုကိုပယ်ဖျက်ပါ',
-      fileTypeError: 'ဖိုင်အမျိုးအစားကို မထောက်ပံ့ပါ',
-      fileSizeError: 'ဖိုင်အရွယ်အစားသည် ကန့်သတ်ချက်ကိုကျော်လွန်နေသည်',
-      fileCountError: 'ဖိုင်အရေအတွက်သည် ကန့်သတ်ချက်ကိုကျော်လွန်နေသည်'
+      deleteTip:
+        '\u1016\u103B\u1000\u103A\u101B\u1014\u103A delete \u1000\u102D\u102F\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+      delete: '\u1016\u103B\u1000\u103A\u1015\u102B',
+      preview: '\u101B\u103E\u102F\u1019\u103C\u1004\u103A\u1001\u103C\u1004\u103A\u1038',
+      continue: '\u1006\u1000\u103A\u101C\u102F\u1015\u103A\u1015\u102B',
+      upload: '\u1010\u1004\u103A\u101B\u1014\u103A\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+      tip: '\u1010\u1004\u103A\u101B\u1014\u103A \u1016\u102D\u102F\u1004\u103A\u1000\u102D\u102F \u1024\u1014\u1031\u101B\u102C\u101E\u102D\u102F\u1037 <em>\u1006\u103D\u1032\u1011\u100A\u1037\u103A\u1015\u102B</em> \u101E\u102D\u102F\u1037\u1019\u101F\u102F\u1010\u103A \u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+      dragTip:
+        '\u1016\u102D\u102F\u1004\u103A\u1000\u102D\u102F \u1024\u1014\u1031\u101B\u102C\u1010\u103D\u1004\u103A\u1001\u103B\u1015\u102B \u101E\u102D\u102F\u1037\u1019\u101F\u102F\u1010\u103A \u1010\u1004\u103A\u101B\u1014\u103A\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+      uploading: '\u1010\u1004\u103A\u1014\u1031\u101E\u100A\u103A...',
+      success:
+        '\u1010\u1004\u103A\u1019\u103E\u102F\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u101E\u100A\u103A',
+      error:
+        '\u1010\u1004\u103A\u1019\u103E\u102F\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B',
+      retry:
+        '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1000\u103C\u102D\u102F\u1038\u1005\u102C\u1038\u1015\u102B',
+      cancel:
+        '\u1010\u1004\u103A\u1019\u103E\u102F\u1000\u102D\u102F\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      fileTypeError:
+        '\u1016\u102D\u102F\u1004\u103A\u1021\u1019\u103B\u102D\u102F\u1038\u1021\u1005\u102C\u1038\u1000\u102D\u102F \u1019\u1011\u1031\u102C\u1000\u103A\u1015\u1036\u1037\u1015\u102B',
+      fileSizeError:
+        '\u1016\u102D\u102F\u1004\u103A\u1021\u101B\u103D\u101A\u103A\u1021\u1005\u102C\u1038\u101E\u100A\u103A \u1000\u1014\u1037\u103A\u101E\u1010\u103A\u1001\u103B\u1000\u103A\u1000\u102D\u102F\u1000\u103B\u1031\u102C\u103A\u101C\u103D\u1014\u103A\u1014\u1031\u101E\u100A\u103A',
+      fileCountError:
+        '\u1016\u102D\u102F\u1004\u103A\u1021\u101B\u1031\u1021\u1010\u103D\u1000\u103A\u101E\u100A\u103A \u1000\u1014\u1037\u103A\u101E\u1010\u103A\u1001\u103B\u1000\u103A\u1000\u102D\u102F\u1000\u103B\u1031\u102C\u103A\u101C\u103D\u1014\u103A\u1014\u1031\u101E\u100A\u103A'
     },
     // ပုံစံ
     form: {
-      validationFailed: 'အတည်ပြုမှုမအောင်မြင်ပါ',
-      required: 'လိုအပ်သည်',
-      pleaseInput: 'ကျေးဇူးပြု၍ ထည့်သွင်းပါ',
-      pleaseSelect: 'ကျေးဇူးပြု၍ ရွေးပါ'
+      validationFailed:
+        '\u1021\u1010\u100A\u103A\u1015\u103C\u102F\u1019\u103E\u102F\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B',
+      required: '\u101C\u102D\u102F\u1021\u1015\u103A\u101E\u100A\u103A',
+      pleaseInput:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+      pleaseSelect:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u101B\u103D\u1031\u1038\u1015\u102B'
     },
     // ခလုတ်
     button: {
-      loading: 'ဖွင့်နေသည်...'
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...'
     },
     // ထည့်သွင်းရေး
     input: {
-      placeholder: 'ကျေးဇူးပြု၍ ထည့်သွင်းပါ',
-      clear: 'ရှင်းလင်းပါ',
-      showPassword: 'စကားဝှက်ကိုပြပါ',
-      hidePassword: 'စကားဝှက်ကိုဖျောက်ပါ',
-      copy: 'ကူးယူပါ',
-      copied: 'ကူးယူထားသည်'
+      placeholder:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+      clear: '\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B',
+      showPassword:
+        '\u1005\u1000\u102C\u1038\u101D\u103E\u1000\u103A\u1000\u102D\u102F\u1015\u103C\u1015\u102B',
+      hidePassword:
+        '\u1005\u1000\u102C\u1038\u101D\u103E\u1000\u103A\u1000\u102D\u102F\u1016\u103B\u1031\u102C\u1000\u103A\u1015\u102B',
+      copy: '\u1000\u1030\u1038\u101A\u1030\u1015\u102B',
+      copied: '\u1000\u1030\u1038\u101A\u1030\u1011\u102C\u1038\u101E\u100A\u103A'
     },
     // နံပါတ်ထည့်သွင်းရေး
     inputnumber: {
-      placeholder: 'ကျေးဇူးပြု၍ နံပါတ်ထည့်သွင်းပါ',
-      increase: 'တိုးမြှင့်ပါ',
-      decrease: 'လျော့ချပါ'
+      placeholder:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u1014\u1036\u1015\u102B\u1010\u103A\u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+      increase: '\u1010\u102D\u102F\u1038\u1019\u103C\u103E\u1004\u1037\u103A\u1015\u102B',
+      decrease: '\u101C\u103B\u1031\u102C\u1037\u1001\u103B\u1015\u102B'
     },
     // တဂ်ထည့်သွင်းရေး
     inputtag: {
-      placeholder: 'ကျေးဇူးပြု၍ ထည့်သွင်းပါ',
-      add: 'ထည့်ပါ',
-      remove: 'ဖယ်ရှားပါ'
+      placeholder:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u1011\u100A\u1037\u103A\u101E\u103D\u1004\u103A\u1038\u1015\u102B',
+      add: '\u1011\u100A\u1037\u103A\u1015\u102B',
+      remove: '\u1016\u101A\u103A\u101B\u103E\u102C\u1038\u1015\u102B'
     },
     // ပေါင်မုန့်ကြွင်းကြွင်း
     breadcrumb: {
-      label: 'ပေါင်မုန့်ကြွင်းကြွင်း',
-      more: 'ပိုမို'
+      label:
+        '\u1015\u1031\u102B\u1004\u103A\u1019\u102F\u1014\u1037\u103A\u1000\u103C\u103D\u1004\u103A\u1038\u1000\u103C\u103D\u1004\u103A\u1038',
+      more: '\u1015\u102D\u102F\u1019\u102D\u102F'
     },
     // အပေါ်သို့ပြန်သွားရန်
     backtop: {
-      text: 'အပေါ်သို့ပြန်သွားရန်'
+      text: '\u1021\u1015\u1031\u102B\u103A\u101E\u102D\u102F\u1037\u1015\u103C\u1014\u103A\u101E\u103D\u102C\u1038\u101B\u1014\u103A'
     },
     // ရွေးချယ်ရေး
     select: {
-      placeholder: 'ကျေးဇူးပြု၍ ရွေးပါ',
-      noData: 'ဒေတာမရှိပါ',
-      loading: 'ဖွင့်နေသည်...',
-      noMatch: 'ကိုက်ညီသောဒေတာမရှိပါ',
-      selectAll: 'အားလုံးရွေးပါ',
-      clearAll: 'အားလုံးရှင်းလင်းပါ'
+      placeholder:
+        '\u1000\u103B\u1031\u1038\u1007\u1030\u1038\u1015\u103C\u102F\u104D \u101B\u103D\u1031\u1038\u1015\u102B',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      noMatch:
+        '\u1000\u102D\u102F\u1000\u103A\u100A\u102E\u101E\u1031\u102C\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      selectAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103D\u1031\u1038\u1015\u102B',
+      clearAll:
+        '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B'
     },
     // စာမျက်နှာခွဲရေး
     pagination: {
-      goto: 'သွားပါ',
+      goto: '\u101E\u103D\u102C\u1038\u1015\u102B',
       page: '',
-      total: 'စုစုပေါင်း {total}',
-      pageSize: '/စာမျက်နှာ',
-      prev: 'ယခင်က',
-      next: 'နောက်',
-      first: 'ပထမ',
-      last: 'နောက်ဆုံး',
+      total: '\u1005\u102F\u1005\u102F\u1015\u1031\u102B\u1004\u103A\u1038 {total}',
+      pageSize: '/\u1005\u102C\u1019\u103B\u1000\u103A\u1014\u103E\u102C',
+      prev: '\u101A\u1001\u1004\u103A\u1000',
+      next: '\u1014\u1031\u102C\u1000\u103A',
+      first: '\u1015\u1011\u1019',
+      last: '\u1014\u1031\u102C\u1000\u103A\u1006\u102F\u1036\u1038',
       pageClassifier: ''
     },
     // ပေါ့ပ်-အတည်ပြုခြင်း
     popconfirm: {
-      confirm: 'အိုကေ',
-      cancel: 'ပယ်ဖျက်ပါ',
-      dontAskAgain: 'နောက်တစ်ကြိမ်မမေးပါနှင့်'
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      dontAskAgain:
+        '\u1014\u1031\u102C\u1000\u103A\u1010\u1005\u103A\u1000\u103C\u102D\u1019\u103A\u1019\u1019\u1031\u1038\u1015\u102B\u1014\u103E\u1004\u1037\u103A'
     },
     // ဒိုင်ယာလော့ဂ်
     dialog: {
-      confirm: 'အိုကေ',
-      cancel: 'ပယ်ဖျက်ပါ',
-      close: 'ပိတ်ပါ',
-      maximize: 'အများဆုံးလုပ်ပါ',
-      restore: 'ပြန်လည်ထားပါ'
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B',
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B',
+      maximize:
+        '\u1021\u1019\u103B\u102C\u1038\u1006\u102F\u1036\u1038\u101C\u102F\u1015\u103A\u1015\u102B',
+      restore: '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1011\u102C\u1038\u1015\u102B'
     },
     // ထုတ်ယူရေး
     drawer: {
-      close: 'ပိတ်ပါ',
-      confirm: 'အိုကေ',
-      cancel: 'ပယ်ဖျက်ပါ'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B',
+      confirm: '\u1021\u102D\u102F\u1000\u1031',
+      cancel: '\u1015\u101A\u103A\u1016\u103B\u1000\u103A\u1015\u102B'
     },
     // ဆင်းသက်ရေး
     dropdown: {
-      loading: 'ဖွင့်နေသည်...'
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...'
     },
     // ပုံ
     image: {
-      error: 'မအောင်မြင်ပါ',
-      loading: 'ဖွင့်နေသည်...',
-      preview: 'ရှုမြင်ခြင်း',
-      zoomIn: 'ချဲ့ကြည့်ပါ',
-      zoomOut: 'ကျုံ့ကြည့်ပါ',
-      rotateLeft: 'ဘယ်ဘက်သို့လှည့်ပါ',
-      rotateRight: 'ညာဘက်သို့လှည့်ပါ',
-      originalSize: 'မူလအရွယ်အစား',
-      fullscreen: 'ဖန်သားပြင်အပြည့်'
+      error: '\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B',
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      preview: '\u101B\u103E\u102F\u1019\u103C\u1004\u103A\u1001\u103C\u1004\u103A\u1038',
+      zoomIn: '\u1001\u103B\u1032\u1037\u1000\u103C\u100A\u1037\u103A\u1015\u102B',
+      zoomOut: '\u1000\u103B\u102F\u1036\u1037\u1000\u103C\u100A\u1037\u103A\u1015\u102B',
+      rotateLeft:
+        '\u1018\u101A\u103A\u1018\u1000\u103A\u101E\u102D\u102F\u1037\u101C\u103E\u100A\u1037\u103A\u1015\u102B',
+      rotateRight:
+        '\u100A\u102C\u1018\u1000\u103A\u101E\u102D\u102F\u1037\u101C\u103E\u100A\u1037\u103A\u1015\u102B',
+      originalSize: '\u1019\u1030\u101C\u1021\u101B\u103D\u101A\u103A\u1021\u1005\u102C\u1038',
+      fullscreen:
+        '\u1016\u1014\u103A\u101E\u102C\u1038\u1015\u103C\u1004\u103A\u1021\u1015\u103C\u100A\u1037\u103A'
     },
     // ပုံရှုမြင်ရေး
     imageviewer: {
-      close: 'ပိတ်ပါ',
-      prev: 'ယခင်က',
-      next: 'နောက်',
-      zoomIn: 'ချဲ့ကြည့်ပါ',
-      zoomOut: 'ကျုံ့ကြည့်ပါ',
-      rotateLeft: 'ဘယ်ဘက်သို့လှည့်ပါ',
-      rotateRight: 'ညာဘက်သို့လှည့်ပါ',
-      reset: 'ပြန်လည်သတ်မှတ်ပါ',
-      fullscreen: 'ဖန်သားပြင်အပြည့်',
-      exitFullscreen: 'ဖန်သားပြင်အပြည့်မှထွက်ပါ'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B',
+      prev: '\u101A\u1001\u1004\u103A\u1000',
+      next: '\u1014\u1031\u102C\u1000\u103A',
+      zoomIn: '\u1001\u103B\u1032\u1037\u1000\u103C\u100A\u1037\u103A\u1015\u102B',
+      zoomOut: '\u1000\u103B\u102F\u1036\u1037\u1000\u103C\u100A\u1037\u103A\u1015\u102B',
+      rotateLeft:
+        '\u1018\u101A\u103A\u1018\u1000\u103A\u101E\u102D\u102F\u1037\u101C\u103E\u100A\u1037\u103A\u1015\u102B',
+      rotateRight:
+        '\u100A\u102C\u1018\u1000\u103A\u101E\u102D\u102F\u1037\u101C\u103E\u100A\u1037\u103A\u1015\u102B',
+      reset:
+        '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1015\u102B',
+      fullscreen:
+        '\u1016\u1014\u103A\u101E\u102C\u1038\u1015\u103C\u1004\u103A\u1021\u1015\u103C\u100A\u1037\u103A',
+      exitFullscreen:
+        '\u1016\u1014\u103A\u101E\u102C\u1038\u1015\u103C\u1004\u103A\u1021\u1015\u103C\u100A\u1037\u103A\u1019\u103E\u1011\u103D\u1000\u103A\u1015\u102B'
     },
     // အဆုံးမရှိသောလှိမ့်ရေး
     infinitescroll: {
-      loading: 'ဖွင့်နေသည်...',
-      finished: 'ဒေတာမရှိတော့ပါ',
-      error: 'ဖွင့်မှုမအောင်မြင်ပါ၊ ပြန်လည်ကြိုးစားရန်နှိပ်ပါ',
-      retry: 'ပြန်လည်ကြိုးစားရန်နှိပ်ပါ'
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      finished:
+        '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1010\u1031\u102C\u1037\u1015\u102B',
+      error:
+        '\u1016\u103D\u1004\u1037\u103A\u1019\u103E\u102F\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B\u104A \u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1000\u103C\u102D\u102F\u1038\u1005\u102C\u1038\u101B\u1014\u103A\u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+      retry:
+        '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1000\u103C\u102D\u102F\u1038\u1005\u102C\u1038\u101B\u1014\u103A\u1014\u103E\u102D\u1015\u103A\u1015\u102B'
     },
     // မက်ဆေ့ခ်ျ
     message: {
-      close: 'ပိတ်ပါ'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B'
     },
     // အကြောင်းကြားချက်
     notification: {
-      close: 'ပိတ်ပါ'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B'
     },
     // ဖွင့်နေသည်
     loading: {
-      text: 'ဖွင့်နေသည်...'
+      text: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...'
     },
     // လည်နေသည်
     spin: {
-      text: 'ဖွင့်နေသည်...'
+      text: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...'
     },
     // အဆင့်သတ်မှတ်ခြင်း
     rate: {
-      texts: ['အလွန်ဆိုးရွားသည်', 'စိတ်ပျက်သည်', 'သာမန်', 'ကျေနပ်သည်', 'အံ့သြသည်']
+      texts: [
+        '\u1021\u101C\u103D\u1014\u103A\u1006\u102D\u102F\u1038\u101B\u103D\u102C\u1038\u101E\u100A\u103A',
+        '\u1005\u102D\u1010\u103A\u1015\u103B\u1000\u103A\u101E\u100A\u103A',
+        '\u101E\u102C\u1019\u1014\u103A',
+        '\u1000\u103B\u1031\u1014\u1015\u103A\u101E\u100A\u103A',
+        '\u1021\u1036\u1037\u101E\u103C\u101E\u100A\u103A'
+      ]
     },
     // သတိပေးချက်
     alert: {
-      close: 'ပိတ်ပါ'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B'
     },
     // တဂ်
     tag: {
-      close: 'ပိတ်ပါ'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B'
     },
     // တဘ်များ
     tabs: {
-      close: 'ပိတ်ပါ',
-      add: 'ထည့်ပါ',
-      more: 'ပိုမို'
+      close: '\u1015\u102D\u1010\u103A\u1015\u102B',
+      add: '\u1011\u100A\u1037\u103A\u1015\u102B',
+      more: '\u1015\u102D\u102F\u1019\u102D\u102F'
     },
     // အဆင့်များ
     steps: {
-      finish: 'ပြီးဆုံးသည်',
-      process: 'လုပ်ဆောင်နေသည်',
-      wait: 'စောင့်နေသည်',
-      error: 'အမှား'
+      finish: '\u1015\u103C\u102E\u1038\u1006\u102F\u1036\u1038\u101E\u100A\u103A',
+      process:
+        '\u101C\u102F\u1015\u103A\u1006\u1031\u102C\u1004\u103A\u1014\u1031\u101E\u100A\u103A',
+      wait: '\u1005\u1031\u102C\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A',
+      error: '\u1021\u1019\u103E\u102C\u1038'
     },
     // တိုးတက်မှု
     progress: {
-      success: 'အောင်မြင်သည်',
-      exception: 'ခြွင်းချက်',
-      warning: 'သတိပေးချက်'
+      success: '\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u101E\u100A\u103A',
+      exception: '\u1001\u103C\u103D\u1004\u103A\u1038\u1001\u103B\u1000\u103A',
+      warning: '\u101E\u1010\u102D\u1015\u1031\u1038\u1001\u103B\u1000\u103A'
     },
     // အရိုးစု
     skeleton: {
-      loading: 'ဖွင့်နေသည်...'
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...'
     },
     // ဗလာ
     empty: {
-      description: 'ဒေတာမရှိပါ',
-      noData: 'ဒေတာမရှိပါ',
-      noResult: 'ရလဒ်မရှိပါ',
-      networkError: 'ကွန်ရက်အမှား',
-      serverError: 'ဆာဗာအမှား'
+      description: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B',
+      noResult: '\u101B\u101C\u1012\u103A\u1019\u101B\u103E\u102D\u1015\u102B',
+      networkError: '\u1000\u103D\u1014\u103A\u101B\u1000\u103A\u1021\u1019\u103E\u102C\u1038',
+      serverError: '\u1006\u102C\u1017\u102C\u1021\u1019\u103E\u102C\u1038'
     },
     // ရလဒ်
     result: {
-      success: 'အောင်မြင်သည်',
-      error: 'အမှား',
-      warning: 'သတိပေးချက်',
-      info: 'အချက်အလက်',
-      backHome: 'ပင်မသို့ပြန်သွားရန်'
+      success: '\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u101E\u100A\u103A',
+      error: '\u1021\u1019\u103E\u102C\u1038',
+      warning: '\u101E\u1010\u102D\u1015\u1031\u1038\u1001\u103B\u1000\u103A',
+      info: '\u1021\u1001\u103B\u1000\u103A\u1021\u101C\u1000\u103A',
+      backHome:
+        '\u1015\u1004\u103A\u1019\u101E\u102D\u102F\u1037\u1015\u103C\u1014\u103A\u101E\u103D\u102C\u1038\u101B\u1014\u103A'
     },
     // ရေတံခွန်
     waterfall: {
-      loading: 'ဖွင့်နေသည်...',
-      noMore: 'ဒေတာမရှိတော့ပါ',
-      empty: 'ဒေတာမရှိပါ'
+      loading: '\u1016\u103D\u1004\u1037\u103A\u1014\u1031\u101E\u100A\u103A...',
+      noMore:
+        '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1010\u1031\u102C\u1037\u1015\u102B',
+      empty: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B'
     },
     // ဖော်ပြချက်များ
     descriptions: {
@@ -541,29 +656,31 @@ export const my: Language = {
     },
     // ပြောင်းလဲရေး
     switch: {
-      on: 'ဖွင့်',
-      off: 'ပိတ်'
+      on: '\u1016\u103D\u1004\u1037\u103A',
+      off: '\u1015\u102D\u1010\u103A'
     },
     // စစ်ဆေးရေးဘောက်စ်
     checkbox: {
-      selectAll: 'အားလုံးရွေးပါ'
+      selectAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u101B\u103D\u1031\u1038\u1015\u102B'
     },
     // ရေဒီယို
     radio: {},
     // မီနူး
     menu: {
-      collapse: 'မီနူးကိုခေါက်သိမ်းပါ',
-      expand: 'မီနူးကိုချဲ့ထွင်ပါ'
+      collapse:
+        '\u1019\u102E\u1014\u1030\u1038\u1000\u102D\u102F\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B',
+      expand:
+        '\u1019\u102E\u1014\u1030\u1038\u1000\u102D\u102F\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B'
     },
     // ကတ်
     card: {
-      collapse: 'ခေါက်သိမ်းပါ',
-      expand: 'ချဲ့ထွင်ပါ'
+      collapse: '\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B',
+      expand: '\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B'
     },
     // ခေါက်သိမ်းရေး
     collapse: {
-      expand: 'ချဲ့ထွင်ပါ',
-      collapse: 'ခေါက်သိမ်းပါ'
+      expand: '\u1001\u103B\u1032\u1037\u1011\u103D\u1004\u103A\u1015\u102B',
+      collapse: '\u1001\u1031\u102B\u1000\u103A\u101E\u102D\u1019\u103A\u1038\u1015\u102B'
     },
     // ကိရိယာအကြံပြုချက်
     tooltip: {},
@@ -573,7 +690,8 @@ export const my: Language = {
     badge: {},
     // အသွင်အပြင်
     avatar: {
-      error: 'ဖွင့်မှုမအောင်မြင်ပါ'
+      error:
+        '\u1016\u103D\u1004\u1037\u103A\u1019\u103E\u102F\u1019\u1021\u1031\u102C\u1004\u103A\u1019\u103C\u1004\u103A\u1015\u102B'
     },
     // ရေမှတ်
     watermark: {},
@@ -581,8 +699,8 @@ export const my: Language = {
     divider: {},
     // ကာရိုဆယ်
     carousel: {
-      prev: 'ယခင်က',
-      next: 'နောက်'
+      prev: '\u101A\u1001\u1004\u103A\u1000',
+      next: '\u1014\u1031\u102C\u1000\u103A'
     },
     // မာကီ
     marquee: {},
@@ -592,127 +710,165 @@ export const my: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'ဝင်စားပါနော်',
-      loading: 'ဖွင့်လှိုင်းဆွဲနေပါတယ်...',
-      noData: 'ဒေတာမရှိပါ'
+      placeholder: '\u101D\u1004\u103A\u1005\u102C\u1038\u1015\u102B\u1014\u1031\u102C\u103A',
+      loading:
+        '\u1016\u103D\u1004\u1037\u103A\u101C\u103E\u102D\u102F\u1004\u103A\u1038\u1006\u103D\u1032\u1014\u1031\u1015\u102B\u1010\u101A\u103A...',
+      noData: '\u1012\u1031\u1010\u102C\u1019\u101B\u103E\u102D\u1015\u102B'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'ကိုးကားချက်များ'
+        citations:
+          '\u1000\u102D\u102F\u1038\u1000\u102C\u1038\u1001\u103B\u1000\u103A\u1019\u103B\u102C\u1038'
       },
       mention: {
-        placeholder: '@ Agent၊ စာရွက်စာတမ်း သို့မဟုတ် ဇယားကို ရည်ညွှန်းပါနော်...',
-        agent: 'အေးဂျင့်',
-        document: 'စာရွက်စာတမ်း',
-        table: 'ဇယား',
-        knowledge: 'အသိပညာ'
+        placeholder:
+          '@ Agent\u104A \u1005\u102C\u101B\u103D\u1000\u103A\u1005\u102C\u1010\u1019\u103A\u1038 \u101E\u102D\u102F\u1037\u1019\u101F\u102F\u1010\u103A \u1007\u101A\u102C\u1038\u1000\u102D\u102F \u101B\u100A\u103A\u100A\u103D\u103E\u1014\u103A\u1038\u1015\u102B\u1014\u1031\u102C\u103A...',
+        agent: '\u1021\u1031\u1038\u1002\u103B\u1004\u1037\u103A',
+        document: '\u1005\u102C\u101B\u103D\u1000\u103A\u1005\u102C\u1010\u1019\u103A\u1038',
+        table: '\u1007\u101A\u102C\u1038',
+        knowledge: '\u1021\u101E\u102D\u1015\u100A\u102C'
       },
       codeBlock: {
-        copyCode: 'ကုဒ်ကူးယူပါ',
-        copied: 'ကူးယူပါပါတယ်!',
-        run: 'ကုဒ်ဖွင့်ပါ',
-        edit: 'ပြင်ဆင်ပါ',
-        save: 'သိမ်းဆည်းပါ',
-        cancel: 'ဖျက်လိုက်ပါ'
+        copyCode: '\u1000\u102F\u1012\u103A\u1000\u1030\u1038\u101A\u1030\u1015\u102B',
+        copied: '\u1000\u1030\u1038\u101A\u1030\u1015\u102B\u1015\u102B\u1010\u101A\u103A!',
+        run: '\u1000\u102F\u1012\u103A\u1016\u103D\u1004\u1037\u103A\u1015\u102B',
+        edit: '\u1015\u103C\u1004\u103A\u1006\u1004\u103A\u1015\u102B',
+        save: '\u101E\u102D\u1019\u103A\u1038\u1006\u100A\u103A\u1038\u1015\u102B',
+        cancel: '\u1016\u103B\u1000\u103A\u101C\u102D\u102F\u1000\u103A\u1015\u102B'
       },
       codeRunner: {
-        run: 'ဖွင့်ပါ',
-        stop: 'ရပ်ပါ',
-        clear: 'ရှင်းလင်းပါ',
-        reset: 'ပြန်လည်သတ်မှတ်ပါ',
-        placeholder: 'ကုဒ်ဖွင့်ရန် ဖွင့်ပါ ခလုတ်ကို နှိပ်ပါ...'
+        run: '\u1016\u103D\u1004\u1037\u103A\u1015\u102B',
+        stop: '\u101B\u1015\u103A\u1015\u102B',
+        clear: '\u101B\u103E\u1004\u103A\u1038\u101C\u1004\u103A\u1038\u1015\u102B',
+        reset:
+          '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1015\u102B',
+        placeholder:
+          '\u1000\u102F\u1012\u103A\u1016\u103D\u1004\u1037\u103A\u101B\u1014\u103A \u1016\u103D\u1004\u1037\u103A\u1015\u102B \u1001\u101C\u102F\u1010\u103A\u1000\u102D\u102F \u1014\u103E\u102D\u1015\u103A\u1015\u102B...'
       },
       sender: {
-        placeholder: 'မေးခွန်းပို့လိုက်ပါ...',
-        dragTip: 'ဖိုင်များအား အပ်လုဒ်လုပ်ရန် လွှတ်လိုက်ပါ'
+        placeholder:
+          '\u1019\u1031\u1038\u1001\u103D\u1014\u103A\u1038\u1015\u102D\u102F\u1037\u101C\u102D\u102F\u1000\u103A\u1015\u102B...',
+        dragTip:
+          '\u1016\u102D\u102F\u1004\u103A\u1019\u103B\u102C\u1038\u1021\u102C\u1038 \u1021\u1015\u103A\u101C\u102F\u1012\u103A\u101C\u102F\u1015\u103A\u101B\u1014\u103A \u101C\u103D\u103E\u1010\u103A\u101C\u102D\u102F\u1000\u103A\u1015\u102B'
       },
       thoughtChain: {
-        thoughtProcess: 'အတွေးအခြောက်လုပ်ငန်းစဉ်',
-        thinking: 'အတွေးတွေးနေပါတယ်...',
-        defaultTitle: 'အဆင့်အသစ်',
-        addNode: 'အဆင့်ထည့်ပါ'
+        thoughtProcess:
+          '\u1021\u1010\u103D\u1031\u1038\u1021\u1001\u103C\u1031\u102C\u1000\u103A\u101C\u102F\u1015\u103A\u1004\u1014\u103A\u1038\u1005\u1009\u103A',
+        thinking:
+          '\u1021\u1010\u103D\u1031\u1038\u1010\u103D\u1031\u1038\u1014\u1031\u1015\u102B\u1010\u101A\u103A...',
+        defaultTitle: '\u1021\u1006\u1004\u1037\u103A\u1021\u101E\u1005\u103A',
+        addNode: '\u1021\u1006\u1004\u1037\u103A\u1011\u100A\u1037\u103A\u1015\u102B'
       },
       thinking: {
-        start: 'အတွေးအားလုပ်ပါ',
-        thinking: 'အတွေးတွေးနေပါတယ်...',
-        complete: 'အတွေးအားလုပ်ပြီးပါ',
-        error: 'အတွေးအားလုပ်ချက်ပါ'
+        start:
+          '\u1021\u1010\u103D\u1031\u1038\u1021\u102C\u1038\u101C\u102F\u1015\u103A\u1015\u102B',
+        thinking:
+          '\u1021\u1010\u103D\u1031\u1038\u1010\u103D\u1031\u1038\u1014\u1031\u1015\u102B\u1010\u101A\u103A...',
+        complete:
+          '\u1021\u1010\u103D\u1031\u1038\u1021\u102C\u1038\u101C\u102F\u1015\u103A\u1015\u103C\u102E\u1038\u1015\u102B',
+        error:
+          '\u1021\u1010\u103D\u1031\u1038\u1021\u102C\u1038\u101C\u102F\u1015\u103A\u1001\u103B\u1000\u103A\u1015\u102B'
       },
       welcome: {
-        title: 'မင်္ဂလာပါ၊ ကျွန်မ/ကျွန်တော်မှာ YH AI ဖြစ်ပါတယ်',
+        title:
+          '\u1019\u1004\u103A\u1039\u1002\u101C\u102C\u1015\u102B\u104A \u1000\u103B\u103D\u1014\u103A\u1019/\u1000\u103B\u103D\u1014\u103A\u1010\u1031\u102C\u103A\u1019\u103E\u102C YH AI \u1016\u103C\u1005\u103A\u1015\u102B\u1010\u101A\u103A',
         description:
-          'ကျွန်မ/ကျွန်တော်သည် ကုဒ်ရေးသားခြင်း၊ စာရွက်စာတမ်းများကို ဘာသာပြန်ခြင်း၊ သို့မဟုတ် ဖန်တီးကြံစည်မှု ရေးသားခြင်းတို့တွင် သင်္ဂာယုတ်ပါတယ်။ ယနေ့သင်္ဂာယုတ်လုပ်ပါလိမ့်မည်။'
+          '\u1000\u103B\u103D\u1014\u103A\u1019/\u1000\u103B\u103D\u1014\u103A\u1010\u1031\u102C\u103A\u101E\u100A\u103A \u1000\u102F\u1012\u103A\u101B\u1031\u1038\u101E\u102C\u1038\u1001\u103C\u1004\u103A\u1038\u104A \u1005\u102C\u101B\u103D\u1000\u103A\u1005\u102C\u1010\u1019\u103A\u1038\u1019\u103B\u102C\u1038\u1000\u102D\u102F \u1018\u102C\u101E\u102C\u1015\u103C\u1014\u103A\u1001\u103C\u1004\u103A\u1038\u104A \u101E\u102D\u102F\u1037\u1019\u101F\u102F\u1010\u103A \u1016\u1014\u103A\u1010\u102E\u1038\u1000\u103C\u1036\u1005\u100A\u103A\u1019\u103E\u102F \u101B\u1031\u1038\u101E\u102C\u1038\u1001\u103C\u1004\u103A\u1038\u1010\u102D\u102F\u1037\u1010\u103D\u1004\u103A \u101E\u1004\u103A\u1039\u1002\u102C\u101A\u102F\u1010\u103A\u1015\u102B\u1010\u101A\u103A\u104B \u101A\u1014\u1031\u1037\u101E\u1004\u103A\u1039\u1002\u102C\u101A\u102F\u1010\u103A\u101C\u102F\u1015\u103A\u1015\u102B\u101C\u102D\u1019\u1037\u103A\u1019\u100A\u103A\u104B'
       },
       action: {
-        copy: 'ကူးယူပါ',
-        regenerate: 'ပြန်လည်ဖန်တီးပါ',
-        share: 'မျှဝေပါ',
-        like: 'ကြိုက်ပါ',
-        dislike: 'မကြိုက်ပါ',
-        edit: 'ပြင်ဆင်ပါ',
-        delete: 'ဖျက်လိုက်ပါ'
+        copy: '\u1000\u1030\u1038\u101A\u1030\u1015\u102B',
+        regenerate:
+          '\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1016\u1014\u103A\u1010\u102E\u1038\u1015\u102B',
+        share: '\u1019\u103B\u103E\u101D\u1031\u1015\u102B',
+        like: '\u1000\u103C\u102D\u102F\u1000\u103A\u1015\u102B',
+        dislike: '\u1019\u1000\u103C\u102D\u102F\u1000\u103A\u1015\u102B',
+        edit: '\u1015\u103C\u1004\u103A\u1006\u1004\u103A\u1015\u102B',
+        delete: '\u1016\u103B\u1000\u103A\u101C\u102D\u102F\u1000\u103A\u1015\u102B'
       },
       artifacts: {
-        preview: 'ကြိုတင်ကြည့်ရှုပါ',
-        inline: 'အောက်ခြေ',
-        code: 'သင်္ကေတကုဒ်',
-        versions: 'ဗားရှင်းများ',
-        rendering: 'အစိတ်ပိုင်းပါ ပြန်လည်တည်ဆောက်နေပါတယ်...',
-        renderingChart: 'ဂရပ်ဖါပါ ပြန်လည်တည်ဆောက်နေပါတယ်...',
-        renderingCanvas: 'ကန်ဗားပါ ပြန်လည်တည်ဆောက်နေပါတယ်...'
+        preview:
+          '\u1000\u103C\u102D\u102F\u1010\u1004\u103A\u1000\u103C\u100A\u1037\u103A\u101B\u103E\u102F\u1015\u102B',
+        inline: '\u1021\u1031\u102C\u1000\u103A\u1001\u103C\u1031',
+        code: '\u101E\u1004\u103A\u1039\u1000\u1031\u1010\u1000\u102F\u1012\u103A',
+        versions: '\u1017\u102C\u1038\u101B\u103E\u1004\u103A\u1038\u1019\u103B\u102C\u1038',
+        rendering:
+          '\u1021\u1005\u102D\u1010\u103A\u1015\u102D\u102F\u1004\u103A\u1038\u1015\u102B \u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1010\u100A\u103A\u1006\u1031\u102C\u1000\u103A\u1014\u1031\u1015\u102B\u1010\u101A\u103A...',
+        renderingChart:
+          '\u1002\u101B\u1015\u103A\u1016\u102B\u1015\u102B \u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1010\u100A\u103A\u1006\u1031\u102C\u1000\u103A\u1014\u1031\u1015\u102B\u1010\u101A\u103A...',
+        renderingCanvas:
+          '\u1000\u1014\u103A\u1017\u102C\u1038\u1015\u102B \u1015\u103C\u1014\u103A\u101C\u100A\u103A\u1010\u100A\u103A\u1006\u1031\u102C\u1000\u103A\u1014\u1031\u1015\u102B\u1010\u101A\u103A...'
       },
       voice: {
-        trigger: 'ပါးစပ်ဖွင့်ရန် နှိပ်ပါ',
-        listening: 'နားထောင်နေပါတယ်...'
+        trigger:
+          '\u1015\u102B\u1038\u1005\u1015\u103A\u1016\u103D\u1004\u1037\u103A\u101B\u1014\u103A \u1014\u103E\u102D\u1015\u103A\u1015\u102B',
+        listening:
+          '\u1014\u102C\u1038\u1011\u1031\u102C\u1004\u103A\u1014\u1031\u1015\u102B\u1010\u101A\u103A...'
       },
       agent: {
-        uses: 'အသုံးပါဝါများ',
-        use: 'အသုံးပါဦးပါ',
-        favorite: 'အသိုက်',
-        unfavorite: 'အသိုက်မှဖယ်ရှားပါ',
-        share: 'မျှဝေပါ',
-        online: 'အွန်လိုင်း',
-        offline: 'အွန်လိုင်းမဟုတ်ပါ',
-        busy: 'အလုပ်များ',
-        verified: 'အတည်ပါ',
-        rating: 'အဆင့်သတ်မှတ်ချက်',
-        reviews: 'သုံးသပ်ချက်များ',
-        responseTime: 'ပါးစပ်ပါ အလယ်အလတ်အချိန်',
-        ms: 'မီလီစက္ကန့်'
+        uses: '\u1021\u101E\u102F\u1036\u1038\u1015\u102B\u101D\u102B\u1019\u103B\u102C\u1038',
+        use: '\u1021\u101E\u102F\u1036\u1038\u1015\u102B\u1026\u1038\u1015\u102B',
+        favorite: '\u1021\u101E\u102D\u102F\u1000\u103A',
+        unfavorite:
+          '\u1021\u101E\u102D\u102F\u1000\u103A\u1019\u103E\u1016\u101A\u103A\u101B\u103E\u102C\u1038\u1015\u102B',
+        share: '\u1019\u103B\u103E\u101D\u1031\u1015\u102B',
+        online: '\u1021\u103D\u1014\u103A\u101C\u102D\u102F\u1004\u103A\u1038',
+        offline:
+          '\u1021\u103D\u1014\u103A\u101C\u102D\u102F\u1004\u103A\u1038\u1019\u101F\u102F\u1010\u103A\u1015\u102B',
+        busy: '\u1021\u101C\u102F\u1015\u103A\u1019\u103B\u102C\u1038',
+        verified: '\u1021\u1010\u100A\u103A\u1015\u102B',
+        rating:
+          '\u1021\u1006\u1004\u1037\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1001\u103B\u1000\u103A',
+        reviews:
+          '\u101E\u102F\u1036\u1038\u101E\u1015\u103A\u1001\u103B\u1000\u103A\u1019\u103B\u102C\u1038',
+        responseTime:
+          '\u1015\u102B\u1038\u1005\u1015\u103A\u1015\u102B \u1021\u101C\u101A\u103A\u1021\u101C\u1010\u103A\u1021\u1001\u103B\u102D\u1014\u103A',
+        ms: '\u1019\u102E\u101C\u102E\u1005\u1000\u1039\u1000\u1014\u1037\u103A'
       },
       sources: {
-        references: 'ကိုးကားချက်များ',
-        referencedSources: 'ကိုးကားပါသော ရင်းမြစ်များ',
-        relevant: 'သက်ဆိုင်ရာ',
-        viewOriginal: 'မူလအားကြည့်ပါ',
-        showAll: 'အားလုံးပြပါ',
-        more: 'ရင်းမြစ်များစွာ',
-        drawerTitle: 'ကိုးကားချက်များ',
-        expandMore: 'ပိုမိုပါသော ပြပါ',
-        collapseMore: 'ရှို့ပါ',
-        noSources: 'ရင်းမြစ်မရှိပါ',
-        today: 'ယနေ့',
-        last7Days: 'ပါတ်၇ရက်အတွင်း',
-        last30Days: 'ပါတ်၃၀ရက်အတွင်း',
-        earlier: 'ယခင်က',
-        pinned: 'ချိတ်ပါ'
+        references:
+          '\u1000\u102D\u102F\u1038\u1000\u102C\u1038\u1001\u103B\u1000\u103A\u1019\u103B\u102C\u1038',
+        referencedSources:
+          '\u1000\u102D\u102F\u1038\u1000\u102C\u1038\u1015\u102B\u101E\u1031\u102C \u101B\u1004\u103A\u1038\u1019\u103C\u1005\u103A\u1019\u103B\u102C\u1038',
+        relevant: '\u101E\u1000\u103A\u1006\u102D\u102F\u1004\u103A\u101B\u102C',
+        viewOriginal:
+          '\u1019\u1030\u101C\u1021\u102C\u1038\u1000\u103C\u100A\u1037\u103A\u1015\u102B',
+        showAll: '\u1021\u102C\u1038\u101C\u102F\u1036\u1038\u1015\u103C\u1015\u102B',
+        more: '\u101B\u1004\u103A\u1038\u1019\u103C\u1005\u103A\u1019\u103B\u102C\u1038\u1005\u103D\u102C',
+        drawerTitle:
+          '\u1000\u102D\u102F\u1038\u1000\u102C\u1038\u1001\u103B\u1000\u103A\u1019\u103B\u102C\u1038',
+        expandMore:
+          '\u1015\u102D\u102F\u1019\u102D\u102F\u1015\u102B\u101E\u1031\u102C \u1015\u103C\u1015\u102B',
+        collapseMore: '\u101B\u103E\u102D\u102F\u1037\u1015\u102B',
+        noSources:
+          '\u101B\u1004\u103A\u1038\u1019\u103C\u1005\u103A\u1019\u101B\u103E\u102D\u1015\u102B',
+        today: '\u101A\u1014\u1031\u1037',
+        last7Days:
+          '\u1015\u102B\u1010\u103A\u1047\u101B\u1000\u103A\u1021\u1010\u103D\u1004\u103A\u1038',
+        last30Days:
+          '\u1015\u102B\u1010\u103A\u1043\u1040\u101B\u1000\u103A\u1021\u1010\u103D\u1004\u103A\u1038',
+        earlier: '\u101A\u1001\u1004\u103A\u1000',
+        pinned: '\u1001\u103B\u102D\u1010\u103A\u1015\u102B'
       },
       conversations: {
-        today: 'ယနေ့',
-        last7Days: 'ပါတ်၇ရက်အတွင်း',
-        last30Days: 'ပါတ်၃၀ရက်အတွင်း',
-        earlier: 'ယခင်က',
-        pinned: 'ချိတ်ပါ',
-        pin: 'ချိတ်ပါ',
-        unpin: 'ချိတ်ဖြုတ်ပါ',
-        newConversation: 'စကားဝိုင်းအသစ်',
-        rename: 'နာမည်ပြန်လည်သတ်မှတ်ပါ',
-        delete: 'ဖျက်လိုက်ပါ',
-        deleteConfirm: 'ဤစကားဝိုင်းကို ဖျက်လိုက်ကြောင်း အတည်ပါလိမ့်မည်။'
+        today: '\u101A\u1014\u1031\u1037',
+        last7Days:
+          '\u1015\u102B\u1010\u103A\u1047\u101B\u1000\u103A\u1021\u1010\u103D\u1004\u103A\u1038',
+        last30Days:
+          '\u1015\u102B\u1010\u103A\u1043\u1040\u101B\u1000\u103A\u1021\u1010\u103D\u1004\u103A\u1038',
+        earlier: '\u101A\u1001\u1004\u103A\u1000',
+        pinned: '\u1001\u103B\u102D\u1010\u103A\u1015\u102B',
+        pin: '\u1001\u103B\u102D\u1010\u103A\u1015\u102B',
+        unpin: '\u1001\u103B\u102D\u1010\u103A\u1016\u103C\u102F\u1010\u103A\u1015\u102B',
+        newConversation:
+          '\u1005\u1000\u102C\u1038\u101D\u102D\u102F\u1004\u103A\u1038\u1021\u101E\u1005\u103A',
+        rename:
+          '\u1014\u102C\u1019\u100A\u103A\u1015\u103C\u1014\u103A\u101C\u100A\u103A\u101E\u1010\u103A\u1019\u103E\u1010\u103A\u1015\u102B',
+        delete: '\u1016\u103B\u1000\u103A\u101C\u102D\u102F\u1000\u103A\u1015\u102B',
+        deleteConfirm:
+          '\u1024\u1005\u1000\u102C\u1038\u101D\u102D\u102F\u1004\u103A\u1038\u1000\u102D\u102F \u1016\u103B\u1000\u103A\u101C\u102D\u102F\u1000\u103A\u1000\u103C\u1031\u102C\u1004\u103A\u1038 \u1021\u1010\u100A\u103A\u1015\u102B\u101C\u102D\u1019\u1037\u103A\u1019\u100A\u103A\u104B'
       }
     }
   }
 }
-
 export default my

@@ -5,82 +5,90 @@ export const te: Language = {
   yh: {
     // సాధారణం
     common: {
-      yes: 'అవును',
-      no: 'కాదు',
-      confirm: 'నిర్ధారించండి',
-      cancel: 'రద్దు చేయండి',
-      loading: 'లోడ్ అవుతోంది',
-      close: 'మూసివేయండి',
-      clear: 'తొలగించండి',
-      reset: 'రీసెట్ చేయండి',
-      save: 'సేవ్ చేయండి',
-      delete: 'తొలగించండి',
-      edit: 'సవరించండి',
-      add: 'జోడించండి',
-      search: 'శోధించండి',
-      refresh: 'రిఫ్రెష్ చేయండి',
-      expand: 'విస్తరించండి',
-      collapse: 'కుదించండి',
-      more: 'మరిన్ని',
-      noData: 'డేటా లేదు',
-      noMatch: 'సరిపోలే డేటా లేదు',
-      selectAll: 'అన్నీ ఎంచుకోండి',
-      unselectAll: 'అన్నీ ఎంపికలను తొలగించండి'
+      yes: '\u0C05\u0C35\u0C41\u0C28\u0C41',
+      no: '\u0C15\u0C3E\u0C26\u0C41',
+      confirm: '\u0C28\u0C3F\u0C30\u0C4D\u0C27\u0C3E\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F',
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      clear: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      reset: '\u0C30\u0C40\u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      save: '\u0C38\u0C47\u0C35\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      delete: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      edit: '\u0C38\u0C35\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      add: '\u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      search: '\u0C36\u0C4B\u0C27\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      refresh:
+        '\u0C30\u0C3F\u0C2B\u0C4D\u0C30\u0C46\u0C37\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      expand: '\u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      collapse: '\u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      more: '\u0C2E\u0C30\u0C3F\u0C28\u0C4D\u0C28\u0C3F',
+      noData: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      noMatch:
+        '\u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      selectAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      unselectAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C0E\u0C02\u0C2A\u0C3F\u0C15\u0C32\u0C28\u0C41 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // రంగు ఎంచుకోండి
     colorpicker: {
-      confirm: 'సరే',
-      clear: 'తొలగించండి',
-      eyeDropper: 'కన్ను డ్రాపర్',
-      suggestionDark: 'తెల్లని టెక్స్ట్ మంచిది',
-      suggestionLight: 'నల్లని టెక్స్ట్ మంచిది',
-      recentColors: 'ఇటీవలి రంగులు',
-      presetColors: 'ముందుగా నిర్ణయించిన రంగులు'
+      confirm: '\u0C38\u0C30\u0C47',
+      clear: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      eyeDropper: '\u0C15\u0C28\u0C4D\u0C28\u0C41 \u0C21\u0C4D\u0C30\u0C3E\u0C2A\u0C30\u0C4D',
+      suggestionDark:
+        '\u0C24\u0C46\u0C32\u0C4D\u0C32\u0C28\u0C3F \u0C1F\u0C46\u0C15\u0C4D\u0C38\u0C4D\u0C1F\u0C4D \u0C2E\u0C02\u0C1A\u0C3F\u0C26\u0C3F',
+      suggestionLight:
+        '\u0C28\u0C32\u0C4D\u0C32\u0C28\u0C3F \u0C1F\u0C46\u0C15\u0C4D\u0C38\u0C4D\u0C1F\u0C4D \u0C2E\u0C02\u0C1A\u0C3F\u0C26\u0C3F',
+      recentColors: '\u0C07\u0C1F\u0C40\u0C35\u0C32\u0C3F \u0C30\u0C02\u0C17\u0C41\u0C32\u0C41',
+      presetColors:
+        '\u0C2E\u0C41\u0C02\u0C26\u0C41\u0C17\u0C3E \u0C28\u0C3F\u0C30\u0C4D\u0C23\u0C2F\u0C3F\u0C02\u0C1A\u0C3F\u0C28 \u0C30\u0C02\u0C17\u0C41\u0C32\u0C41'
     },
     // తేదీ ఎంచుకోండి
     datepicker: {
-      now: 'ఇప్పుడు',
-      today: 'ఈరోజు',
-      cancel: 'రద్దు చేయండి',
-      clear: 'తొలగించండి',
-      confirm: 'సరే',
-      selectDate: 'తేదీ ఎంచుకోండి',
-      selectTime: 'సమయం ఎంచుకోండి',
-      startDate: 'ప్రారంభ తేదీ',
-      startTime: 'ప్రారంభ సమయం',
-      endDate: 'ముగింపు తేదీ',
-      endTime: 'ముగింపు సమయం',
+      now: '\u0C07\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41',
+      today: '\u0C08\u0C30\u0C4B\u0C1C\u0C41',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      clear: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      confirm: '\u0C38\u0C30\u0C47',
+      selectDate: '\u0C24\u0C47\u0C26\u0C40 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      selectTime: '\u0C38\u0C2E\u0C2F\u0C02 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      startDate: '\u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D \u0C24\u0C47\u0C26\u0C40',
+      startTime: '\u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D \u0C38\u0C2E\u0C2F\u0C02',
+      endDate: '\u0C2E\u0C41\u0C17\u0C3F\u0C02\u0C2A\u0C41 \u0C24\u0C47\u0C26\u0C40',
+      endTime: '\u0C2E\u0C41\u0C17\u0C3F\u0C02\u0C2A\u0C41 \u0C38\u0C2E\u0C2F\u0C02',
       year: '',
       month: '',
       day: '',
-      week: 'వారం',
+      week: '\u0C35\u0C3E\u0C30\u0C02',
       monthBeforeYear: true,
-      prevYear: 'గత సంవత్సరం',
-      nextYear: 'తర్వాతి సంవత్సరం',
-      prevMonth: 'గత నెల',
-      nextMonth: 'తర్వాతి నెల',
+      prevYear: '\u0C17\u0C24 \u0C38\u0C02\u0C35\u0C24\u0C4D\u0C38\u0C30\u0C02',
+      nextYear:
+        '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F \u0C38\u0C02\u0C35\u0C24\u0C4D\u0C38\u0C30\u0C02',
+      prevMonth: '\u0C17\u0C24 \u0C28\u0C46\u0C32',
+      nextMonth: '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F \u0C28\u0C46\u0C32',
       weeks: {
-        sun: 'ఆది',
-        mon: 'సోమ',
-        tue: 'మంగళ',
-        wed: 'బుధ',
-        thu: 'గురు',
-        fri: 'శుక్ర',
-        sat: 'శని'
+        sun: '\u0C06\u0C26\u0C3F',
+        mon: '\u0C38\u0C4B\u0C2E',
+        tue: '\u0C2E\u0C02\u0C17\u0C33',
+        wed: '\u0C2C\u0C41\u0C27',
+        thu: '\u0C17\u0C41\u0C30\u0C41',
+        fri: '\u0C36\u0C41\u0C15\u0C4D\u0C30',
+        sat: '\u0C36\u0C28\u0C3F'
       },
       months: {
-        jan: 'జన',
-        feb: 'ఫిబ్ర',
-        mar: 'మార్చి',
-        apr: 'ఏప్రి',
-        may: 'మే',
-        jun: 'జూన్',
-        jul: 'జులై',
-        aug: 'ఆగ',
-        sep: 'సెప్టెం',
-        oct: 'అక్టో',
-        nov: 'నవం',
-        dec: 'డిసెం'
+        jan: '\u0C1C\u0C28',
+        feb: '\u0C2B\u0C3F\u0C2C\u0C4D\u0C30',
+        mar: '\u0C2E\u0C3E\u0C30\u0C4D\u0C1A\u0C3F',
+        apr: '\u0C0F\u0C2A\u0C4D\u0C30\u0C3F',
+        may: '\u0C2E\u0C47',
+        jun: '\u0C1C\u0C42\u0C28\u0C4D',
+        jul: '\u0C1C\u0C41\u0C32\u0C48',
+        aug: '\u0C06\u0C17',
+        sep: '\u0C38\u0C46\u0C2A\u0C4D\u0C1F\u0C46\u0C02',
+        oct: '\u0C05\u0C15\u0C4D\u0C1F\u0C4B',
+        nov: '\u0C28\u0C35\u0C02',
+        dec: '\u0C21\u0C3F\u0C38\u0C46\u0C02'
       },
       quarters: {
         q1: 'Q1',
@@ -91,445 +99,558 @@ export const te: Language = {
     },
     // సమయం ఎంచుకోండి
     timepicker: {
-      confirm: 'సరే',
-      cancel: 'రద్దు చేయండి',
-      now: 'ఇప్పుడు',
-      placeholder: 'సమయం ఎంచుకోండి',
-      startPlaceholder: 'ప్రారంభ సమయం',
-      endPlaceholder: 'ముగింపు సమయం',
-      selectTime: 'సమయం ఎంచుకోండి'
+      confirm: '\u0C38\u0C30\u0C47',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      now: '\u0C07\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41',
+      placeholder:
+        '\u0C38\u0C2E\u0C2F\u0C02 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      startPlaceholder: '\u0C2A\u0C4D\u0C30\u0C3E\u0C30\u0C02\u0C2D \u0C38\u0C2E\u0C2F\u0C02',
+      endPlaceholder: '\u0C2E\u0C41\u0C17\u0C3F\u0C02\u0C2A\u0C41 \u0C38\u0C2E\u0C2F\u0C02',
+      selectTime: '\u0C38\u0C2E\u0C2F\u0C02 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F'
     },
     // సమయం ఎంపిక
     timeselect: {
-      placeholder: 'సమయం ఎంచుకోండి'
+      placeholder: '\u0C38\u0C2E\u0C2F\u0C02 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F'
     },
     // చెట్టు
     tree: {
-      emptyText: 'డేటా లేదు',
-      loading: 'లోడ్ అవుతోంది...',
-      checkAll: 'అన్నీ తనిఖీ చేయండి',
-      uncheckAll: 'అన్నీ తనిఖీలను తొలగించండి',
-      expandAll: 'అన్నీ విస్తరించండి',
-      collapseAll: 'అన్నీ కుదించండి'
+      emptyText: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      checkAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C24\u0C28\u0C3F\u0C16\u0C40 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      uncheckAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C24\u0C28\u0C3F\u0C16\u0C40\u0C32\u0C28\u0C41 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      expandAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      collapseAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // చెట్టు ఎంపిక
     treeselect: {
-      placeholder: 'ఎంచుకోండి',
-      emptyText: 'డేటా లేదు',
-      loading: 'లోడ్ అవుతోంది...',
-      noMatch: 'సరిపోలే డేటా లేదు'
+      placeholder: '\u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      emptyText: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      noMatch:
+        '\u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41'
     },
     // క్యాలెండర్
     calendar: {
-      prevMonth: 'గత నెల',
-      nextMonth: 'తర్వాతి నెల',
-      prevYear: 'గత సంవత్సరం',
-      nextYear: 'తర్వాతి సంవత్సరం',
-      today: 'ఈరోజు',
-      week: 'వారం',
-      holiday: 'సెలవు',
-      workday: 'పని',
+      prevMonth: '\u0C17\u0C24 \u0C28\u0C46\u0C32',
+      nextMonth: '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F \u0C28\u0C46\u0C32',
+      prevYear: '\u0C17\u0C24 \u0C38\u0C02\u0C35\u0C24\u0C4D\u0C38\u0C30\u0C02',
+      nextYear:
+        '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F \u0C38\u0C02\u0C35\u0C24\u0C4D\u0C38\u0C30\u0C02',
+      today: '\u0C08\u0C30\u0C4B\u0C1C\u0C41',
+      week: '\u0C35\u0C3E\u0C30\u0C02',
+      holiday: '\u0C38\u0C46\u0C32\u0C35\u0C41',
+      workday: '\u0C2A\u0C28\u0C3F',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'ఆది',
-        mon: 'సోమ',
-        tue: 'మంగళ',
-        wed: 'బుధ',
-        thu: 'గురు',
-        fri: 'శుక్ర',
-        sat: 'శని'
+        sun: '\u0C06\u0C26\u0C3F',
+        mon: '\u0C38\u0C4B\u0C2E',
+        tue: '\u0C2E\u0C02\u0C17\u0C33',
+        wed: '\u0C2C\u0C41\u0C27',
+        thu: '\u0C17\u0C41\u0C30\u0C41',
+        fri: '\u0C36\u0C41\u0C15\u0C4D\u0C30',
+        sat: '\u0C36\u0C28\u0C3F'
       }
     },
     // ఆటో-పూర్తి
     autocomplete: {
-      loading: 'లోడ్ అవుతోంది...',
-      placeholder: 'దయచేసి నమోదు చేయండి',
-      noData: 'డేటా లేదు',
-      noMatch: 'సరిపోలే డేటా లేదు'
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      placeholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      noData: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      noMatch:
+        '\u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41'
     },
     // కౌంట్డౌన్
     countdown: {
-      days: 'రోజులు',
-      hours: 'గంటలు',
-      minutes: 'నిమిషాలు',
-      seconds: 'సెకన్లు',
-      milliseconds: 'మిల్లీసెకన్లు',
-      finished: 'పూర్తయింది'
+      days: '\u0C30\u0C4B\u0C1C\u0C41\u0C32\u0C41',
+      hours: '\u0C17\u0C02\u0C1F\u0C32\u0C41',
+      minutes: '\u0C28\u0C3F\u0C2E\u0C3F\u0C37\u0C3E\u0C32\u0C41',
+      seconds: '\u0C38\u0C46\u0C15\u0C28\u0C4D\u0C32\u0C41',
+      milliseconds:
+        '\u0C2E\u0C3F\u0C32\u0C4D\u0C32\u0C40\u0C38\u0C46\u0C15\u0C28\u0C4D\u0C32\u0C41',
+      finished: '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C2F\u0C3F\u0C02\u0C26\u0C3F'
     },
     // కాస్కేడర్
     cascader: {
-      noMatch: 'సరిపోలే డేటా లేదు',
-      placeholder: 'ఎంచుకోండి',
-      loading: 'లోడ్ అవుతోంది...',
-      noData: 'డేటా లేదు'
+      noMatch:
+        '\u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      placeholder: '\u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      noData: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41'
     },
     // బదిలీ
     transfer: {
-      noMatch: 'సరిపోలే డేటా లేదు',
-      noData: 'డేటా లేదు',
-      titles: ['జాబితా 1', 'జాబితా 2'],
-      filterPlaceholder: 'కీవర్డ్ నమోదు చేయండి',
-      noCheckedFormat: '{total} అంశాలు',
-      hasCheckedFormat: '{checked}/{total} ఎంచుకున్నవి',
-      searchPlaceholder: 'కీవర్డ్ నమోదు చేయండి'
+      noMatch:
+        '\u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      noData: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      titles: ['\u0C1C\u0C3E\u0C2C\u0C3F\u0C24\u0C3E 1', '\u0C1C\u0C3E\u0C2C\u0C3F\u0C24\u0C3E 2'],
+      filterPlaceholder:
+        '\u0C15\u0C40\u0C35\u0C30\u0C4D\u0C21\u0C4D \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      noCheckedFormat: '{total} \u0C05\u0C02\u0C36\u0C3E\u0C32\u0C41',
+      hasCheckedFormat:
+        '{checked}/{total} \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28\u0C35\u0C3F',
+      searchPlaceholder:
+        '\u0C15\u0C40\u0C35\u0C30\u0C4D\u0C21\u0C4D \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // పట్టిక
     table: {
-      emptyText: 'డేటా లేదు',
-      confirmFilter: 'నిర్ధారించండి',
-      resetFilter: 'రీసెట్ చేయండి',
-      clearFilter: 'అన్నీ',
-      sumText: 'మొత్తం',
-      loading: 'లోడ్ అవుతోంది...',
-      index: 'సూచిక',
-      print: 'ప్రింట్ చేయండి',
-      cancel: 'రద్దు చేయండి',
-      preview: 'ప్రింట్ ప్రివ్యూ',
-      printTime: 'ప్రింట్ సమయం',
-      total: 'మొత్తం {total} అంశాలు',
-      page: 'పేజీ {page}',
-      yes: 'అవును',
-      no: 'కాదు',
+      emptyText: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      confirmFilter:
+        '\u0C28\u0C3F\u0C30\u0C4D\u0C27\u0C3E\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      resetFilter: '\u0C30\u0C40\u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      clearFilter: '\u0C05\u0C28\u0C4D\u0C28\u0C40',
+      sumText: '\u0C2E\u0C4A\u0C24\u0C4D\u0C24\u0C02',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      index: '\u0C38\u0C42\u0C1A\u0C3F\u0C15',
+      print: '\u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      preview:
+        '\u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C2A\u0C4D\u0C30\u0C3F\u0C35\u0C4D\u0C2F\u0C42',
+      printTime: '\u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C38\u0C2E\u0C2F\u0C02',
+      total: '\u0C2E\u0C4A\u0C24\u0C4D\u0C24\u0C02 {total} \u0C05\u0C02\u0C36\u0C3E\u0C32\u0C41',
+      page: '\u0C2A\u0C47\u0C1C\u0C40 {page}',
+      yes: '\u0C05\u0C35\u0C41\u0C28\u0C41',
+      no: '\u0C15\u0C3E\u0C26\u0C41',
       // టూల్బార్
       toolbar: {
-        refresh: 'రిఫ్రెష్ చేయండి',
-        density: 'సాంద్రత',
-        densityDefault: 'డిఫాల్ట్',
-        densityLarge: 'పెద్ద',
-        densitySmall: 'చిన్న',
-        columnSetting: 'కాలమ్ సెట్టింగ్‌లు',
-        fullscreen: 'పూర్తి స్క్రీన్',
-        exitFullscreen: 'పూర్తి స్క్రీన్ నుండి నిష్క్రమించండి',
-        export: 'ఎగుమతి చేయండి',
-        import: 'దిగుమతి చేయండి',
-        search: 'శోధించండి',
-        searchPlaceholder: 'శోధించడానికి కీవర్డ్‌లను నమోదు చేయండి'
+        refresh:
+          '\u0C30\u0C3F\u0C2B\u0C4D\u0C30\u0C46\u0C37\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        density: '\u0C38\u0C3E\u0C02\u0C26\u0C4D\u0C30\u0C24',
+        densityDefault: '\u0C21\u0C3F\u0C2B\u0C3E\u0C32\u0C4D\u0C1F\u0C4D',
+        densityLarge: '\u0C2A\u0C46\u0C26\u0C4D\u0C26',
+        densitySmall: '\u0C1A\u0C3F\u0C28\u0C4D\u0C28',
+        columnSetting:
+          '\u0C15\u0C3E\u0C32\u0C2E\u0C4D \u0C38\u0C46\u0C1F\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D\u200C\u0C32\u0C41',
+        fullscreen:
+          '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C3F \u0C38\u0C4D\u0C15\u0C4D\u0C30\u0C40\u0C28\u0C4D',
+        exitFullscreen:
+          '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C3F \u0C38\u0C4D\u0C15\u0C4D\u0C30\u0C40\u0C28\u0C4D \u0C28\u0C41\u0C02\u0C21\u0C3F \u0C28\u0C3F\u0C37\u0C4D\u0C15\u0C4D\u0C30\u0C2E\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        export: '\u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        import: '\u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        search: '\u0C36\u0C4B\u0C27\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        searchPlaceholder:
+          '\u0C36\u0C4B\u0C27\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C15\u0C40\u0C35\u0C30\u0C4D\u0C21\u0C4D\u200C\u0C32\u0C28\u0C41 \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F'
       },
       // ఫిల్టర్
       filter: {
-        selectAll: 'అన్నీ ఎంచుకోండి',
-        selectInvert: 'ఎంపికను విలోమం చేయండి',
-        empty: 'ఖాళీ',
-        notEmpty: 'ఖాళీ కాదు',
-        contains: 'కలిగి ఉంది',
-        notContains: 'కలిగి లేదు',
-        equals: 'సమానం',
-        notEquals: 'సమానం కాదు',
-        startsWith: 'తో మొదలవుతుంది',
-        endsWith: 'తో ముగుస్తుంది',
-        greaterThan: 'కంటే ఎక్కువ',
-        lessThan: 'కంటే తక్కువ',
-        between: 'మధ్య'
+        selectAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+        selectInvert:
+          '\u0C0E\u0C02\u0C2A\u0C3F\u0C15\u0C28\u0C41 \u0C35\u0C3F\u0C32\u0C4B\u0C2E\u0C02 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        empty: '\u0C16\u0C3E\u0C33\u0C40',
+        notEmpty: '\u0C16\u0C3E\u0C33\u0C40 \u0C15\u0C3E\u0C26\u0C41',
+        contains: '\u0C15\u0C32\u0C3F\u0C17\u0C3F \u0C09\u0C02\u0C26\u0C3F',
+        notContains: '\u0C15\u0C32\u0C3F\u0C17\u0C3F \u0C32\u0C47\u0C26\u0C41',
+        equals: '\u0C38\u0C2E\u0C3E\u0C28\u0C02',
+        notEquals: '\u0C38\u0C2E\u0C3E\u0C28\u0C02 \u0C15\u0C3E\u0C26\u0C41',
+        startsWith:
+          '\u0C24\u0C4B \u0C2E\u0C4A\u0C26\u0C32\u0C35\u0C41\u0C24\u0C41\u0C02\u0C26\u0C3F',
+        endsWith: '\u0C24\u0C4B \u0C2E\u0C41\u0C17\u0C41\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F',
+        greaterThan: '\u0C15\u0C02\u0C1F\u0C47 \u0C0E\u0C15\u0C4D\u0C15\u0C41\u0C35',
+        lessThan: '\u0C15\u0C02\u0C1F\u0C47 \u0C24\u0C15\u0C4D\u0C15\u0C41\u0C35',
+        between: '\u0C2E\u0C27\u0C4D\u0C2F'
       },
       // క్రమబద్ధీకరణ
       sort: {
-        asc: 'ఆరోహణ',
-        desc: 'అవరోహణ',
-        clear: 'క్రమబద్ధీకరణను తొలగించండి'
+        asc: '\u0C06\u0C30\u0C4B\u0C39\u0C23',
+        desc: '\u0C05\u0C35\u0C30\u0C4B\u0C39\u0C23',
+        clear:
+          '\u0C15\u0C4D\u0C30\u0C2E\u0C2C\u0C26\u0C4D\u0C27\u0C40\u0C15\u0C30\u0C23\u0C28\u0C41 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
       },
       // ఎగుమతి
       export: {
-        title: 'డేటాను ఎగుమతి చేయండి',
-        filename: 'ఫైల్ పేరు',
-        type: 'ఫైల్ రకం',
-        scope: 'ఎగుమతి పరిధి',
-        scopeAll: 'అన్ని డేటా',
-        scopeSelected: 'ఎంచుకున్న డేటా',
-        scopeCurrentPage: 'ప్రస్తుత పేజీ',
-        includeHeader: 'హెడర్‌ను చేర్చండి',
-        exporting: 'ఎగుమతి అవుతోంది...',
-        success: 'ఎగుమతి విజయవంతమైంది',
-        error: 'ఎగుమతి విఫలమైంది'
+        title:
+          '\u0C21\u0C47\u0C1F\u0C3E\u0C28\u0C41 \u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        filename: '\u0C2B\u0C48\u0C32\u0C4D \u0C2A\u0C47\u0C30\u0C41',
+        type: '\u0C2B\u0C48\u0C32\u0C4D \u0C30\u0C15\u0C02',
+        scope: '\u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C2A\u0C30\u0C3F\u0C27\u0C3F',
+        scopeAll: '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C21\u0C47\u0C1F\u0C3E',
+        scopeSelected:
+          '\u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28 \u0C21\u0C47\u0C1F\u0C3E',
+        scopeCurrentPage:
+          '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24 \u0C2A\u0C47\u0C1C\u0C40',
+        includeHeader:
+          '\u0C39\u0C46\u0C21\u0C30\u0C4D\u200C\u0C28\u0C41 \u0C1A\u0C47\u0C30\u0C4D\u0C1A\u0C02\u0C21\u0C3F',
+        exporting:
+          '\u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+        success:
+          '\u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C35\u0C3F\u0C1C\u0C2F\u0C35\u0C02\u0C24\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+        error:
+          '\u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F'
       },
       // దిగుమతి
       import: {
-        title: 'డేటాను దిగుమతి చేయండి',
-        selectFile: 'ఫైల్ ఎంచుకోండి',
-        dragTip: 'అప్‌లోడ్ చేయడానికి ఫైల్‌ను ఇక్కడ క్లిక్ చేయండి లేదా లాగండి',
-        importing: 'దిగుమతి అవుతోంది...',
-        success: 'దిగుమతి విజయవంతమైంది',
-        error: 'దిగుమతి విఫలమైంది',
-        preview: 'డేటా ప్రివ్యూ',
-        confirm: 'దిగుమతిని నిర్ధారించండి'
+        title:
+          '\u0C21\u0C47\u0C1F\u0C3E\u0C28\u0C41 \u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        selectFile:
+          '\u0C2B\u0C48\u0C32\u0C4D \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+        dragTip:
+          '\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C2B\u0C48\u0C32\u0C4D\u200C\u0C28\u0C41 \u0C07\u0C15\u0C4D\u0C15\u0C21 \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F \u0C32\u0C47\u0C26\u0C3E \u0C32\u0C3E\u0C17\u0C02\u0C21\u0C3F',
+        importing:
+          '\u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+        success:
+          '\u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C35\u0C3F\u0C1C\u0C2F\u0C35\u0C02\u0C24\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+        error:
+          '\u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+        preview: '\u0C21\u0C47\u0C1F\u0C3E \u0C2A\u0C4D\u0C30\u0C3F\u0C35\u0C4D\u0C2F\u0C42',
+        confirm:
+          '\u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F\u0C28\u0C3F \u0C28\u0C3F\u0C30\u0C4D\u0C27\u0C3E\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
       },
       // ప్రింట్
       printConfig: {
-        title: 'ప్రింట్ సెట్టింగ్‌లు',
-        pageTitle: 'పేజీ శీర్షిక',
-        pageHeader: 'హెడర్',
-        pageFooter: 'ఫుటర్',
-        printAll: 'అన్నీ ప్రింట్ చేయండి',
-        printSelected: 'ఎంచుకున్నవి ప్రింట్ చేయండి',
-        printCurrentPage: 'ప్రస్తుత పేజీని ప్రింట్ చేయండి',
-        landscape: 'ల్యాండ్‌స్కేప్',
-        portrait: 'పోర్ట్రెయిట్',
-        printing: 'ప్రింట్ అవుతోంది...'
+        title:
+          '\u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C38\u0C46\u0C1F\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D\u200C\u0C32\u0C41',
+        pageTitle: '\u0C2A\u0C47\u0C1C\u0C40 \u0C36\u0C40\u0C30\u0C4D\u0C37\u0C3F\u0C15',
+        pageHeader: '\u0C39\u0C46\u0C21\u0C30\u0C4D',
+        pageFooter: '\u0C2B\u0C41\u0C1F\u0C30\u0C4D',
+        printAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        printSelected:
+          '\u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28\u0C35\u0C3F \u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        printCurrentPage:
+          '\u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24 \u0C2A\u0C47\u0C1C\u0C40\u0C28\u0C3F \u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        landscape:
+          '\u0C32\u0C4D\u0C2F\u0C3E\u0C02\u0C21\u0C4D\u200C\u0C38\u0C4D\u0C15\u0C47\u0C2A\u0C4D',
+        portrait: '\u0C2A\u0C4B\u0C30\u0C4D\u0C1F\u0C4D\u0C30\u0C46\u0C2F\u0C3F\u0C1F\u0C4D',
+        printing:
+          '\u0C2A\u0C4D\u0C30\u0C3F\u0C02\u0C1F\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...'
       },
       // కాలమ్ సెట్టింగ్‌లు
       columnSetting: {
-        title: 'కాలమ్ సెట్టింగ్‌లు',
-        showAll: 'అన్నీ చూపించండి',
-        hideAll: 'అన్నీ దాచండి',
-        reset: 'రీసెట్ చేయండి',
-        fixedLeft: 'ఎడమకు స్థిరపరచండి',
-        fixedRight: 'కుడికి స్థిరపరచండి',
-        unfixed: 'స్థిరపరచడాన్ని తొలగించండి'
+        title:
+          '\u0C15\u0C3E\u0C32\u0C2E\u0C4D \u0C38\u0C46\u0C1F\u0C4D\u0C1F\u0C3F\u0C02\u0C17\u0C4D\u200C\u0C32\u0C41',
+        showAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C1A\u0C42\u0C2A\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        hideAll: '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C26\u0C3E\u0C1A\u0C02\u0C21\u0C3F',
+        reset: '\u0C30\u0C40\u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        fixedLeft:
+          '\u0C0E\u0C21\u0C2E\u0C15\u0C41 \u0C38\u0C4D\u0C25\u0C3F\u0C30\u0C2A\u0C30\u0C1A\u0C02\u0C21\u0C3F',
+        fixedRight:
+          '\u0C15\u0C41\u0C21\u0C3F\u0C15\u0C3F \u0C38\u0C4D\u0C25\u0C3F\u0C30\u0C2A\u0C30\u0C1A\u0C02\u0C21\u0C3F',
+        unfixed:
+          '\u0C38\u0C4D\u0C25\u0C3F\u0C30\u0C2A\u0C30\u0C1A\u0C21\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
       },
       // కాంటెక్స్ట్ మెనూ
       contextMenu: {
-        copy: 'కాపీ చేయండి',
-        copyRow: 'వరుసను కాపీ చేయండి',
-        copyCell: 'సెల్‌ను కాపీ చేయండి',
-        paste: 'అతికించండి',
-        insertRowAbove: 'పైన వరుసను చేర్చండి',
-        insertRowBelow: 'క్రింద వరుసను చేర్చండి',
-        deleteRow: 'వరుసను తొలగించండి',
-        deleteSelectedRows: 'ఎంచుకున్న వరుసలను తొలగించండి',
-        exportSelected: 'ఎంచుకున్నవి ఎగుమతి చేయండి'
+        copy: '\u0C15\u0C3E\u0C2A\u0C40 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        copyRow:
+          '\u0C35\u0C30\u0C41\u0C38\u0C28\u0C41 \u0C15\u0C3E\u0C2A\u0C40 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        copyCell:
+          '\u0C38\u0C46\u0C32\u0C4D\u200C\u0C28\u0C41 \u0C15\u0C3E\u0C2A\u0C40 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        paste: '\u0C05\u0C24\u0C3F\u0C15\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        insertRowAbove:
+          '\u0C2A\u0C48\u0C28 \u0C35\u0C30\u0C41\u0C38\u0C28\u0C41 \u0C1A\u0C47\u0C30\u0C4D\u0C1A\u0C02\u0C21\u0C3F',
+        insertRowBelow:
+          '\u0C15\u0C4D\u0C30\u0C3F\u0C02\u0C26 \u0C35\u0C30\u0C41\u0C38\u0C28\u0C41 \u0C1A\u0C47\u0C30\u0C4D\u0C1A\u0C02\u0C21\u0C3F',
+        deleteRow:
+          '\u0C35\u0C30\u0C41\u0C38\u0C28\u0C41 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        deleteSelectedRows:
+          '\u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28 \u0C35\u0C30\u0C41\u0C38\u0C32\u0C28\u0C41 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        exportSelected:
+          '\u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28\u0C35\u0C3F \u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F'
       },
       // ఎంపిక
       selection: {
-        selectAll: 'అన్నీ ఎంచుకోండి',
-        selectInvert: 'ఎంపికను విలోమం చేయండి',
-        selectNone: 'ఎంపికను తొలగించండి',
-        selected: '{count} అంశాలు ఎంచుకున్నవి'
+        selectAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+        selectInvert:
+          '\u0C0E\u0C02\u0C2A\u0C3F\u0C15\u0C28\u0C41 \u0C35\u0C3F\u0C32\u0C4B\u0C2E\u0C02 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+        selectNone:
+          '\u0C0E\u0C02\u0C2A\u0C3F\u0C15\u0C28\u0C41 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        selected:
+          '{count} \u0C05\u0C02\u0C36\u0C3E\u0C32\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C41\u0C28\u0C4D\u0C28\u0C35\u0C3F'
       },
       // విస్తరణ
       expand: {
-        expandAll: 'అన్నీ విస్తరించండి',
-        collapseAll: 'అన్నీ కుదించండి'
+        expandAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        collapseAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
       },
       // చెట్టు
       tree: {
-        expandAll: 'అన్నీ విస్తరించండి',
-        collapseAll: 'అన్నీ కుదించండి',
-        expandLevel: 'స్థాయి {level} వరకు విస్తరించండి'
+        expandAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        collapseAll:
+          '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+        expandLevel:
+          '\u0C38\u0C4D\u0C25\u0C3E\u0C2F\u0C3F {level} \u0C35\u0C30\u0C15\u0C41 \u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
       },
       // లాగండి
       drag: {
-        dragTip: 'మళ్లీ క్రమబద్ధీకరించడానికి లాగండి',
-        dropTip: 'ఉంచడానికి వదలండి'
+        dragTip:
+          '\u0C2E\u0C33\u0C4D\u0C32\u0C40 \u0C15\u0C4D\u0C30\u0C2E\u0C2C\u0C26\u0C4D\u0C27\u0C40\u0C15\u0C30\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C32\u0C3E\u0C17\u0C02\u0C21\u0C3F',
+        dropTip:
+          '\u0C09\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C35\u0C26\u0C32\u0C02\u0C21\u0C3F'
       }
     },
     // సందేశ పెట్టె
     messagebox: {
-      title: 'సందేశం',
-      confirm: 'సరే',
-      cancel: 'రద్దు చేయండి',
-      close: 'మూసివేయండి',
-      error: 'చట్టవిరుద్ధమైన ఇన్‌పుట్',
-      alert: 'హెచ్చరిక',
-      prompt: 'ప్రాంప్ట్',
-      inputPlaceholder: 'దయచేసి నమోదు చేయండి'
+      title: '\u0C38\u0C02\u0C26\u0C47\u0C36\u0C02',
+      confirm: '\u0C38\u0C30\u0C47',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      error:
+        '\u0C1A\u0C1F\u0C4D\u0C1F\u0C35\u0C3F\u0C30\u0C41\u0C26\u0C4D\u0C27\u0C2E\u0C48\u0C28 \u0C07\u0C28\u0C4D\u200C\u0C2A\u0C41\u0C1F\u0C4D',
+      alert: '\u0C39\u0C46\u0C1A\u0C4D\u0C1A\u0C30\u0C3F\u0C15',
+      prompt: '\u0C2A\u0C4D\u0C30\u0C3E\u0C02\u0C2A\u0C4D\u0C1F\u0C4D',
+      inputPlaceholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // అప్‌లోడ్
     upload: {
-      deleteTip: 'తొలగించడానికి delete నొక్కండి',
-      delete: 'తొలగించండి',
-      preview: 'ప్రివ్యూ',
-      continue: 'కొనసాగించండి',
-      upload: 'అప్‌లోడ్ చేయడానికి క్లిక్ చేయండి',
-      tip: '<em>అప్‌లోడ్</em> చేయడానికి ఫైల్‌ను ఈ ప్రాంతానికి క్లిక్ చేయండి లేదా లాగండి',
-      dragTip: 'ఫైల్‌ను ఇక్కడ వదలండి లేదా అప్‌లోడ్ చేయడానికి క్లిక్ చేయండి',
-      uploading: 'అప్‌లోడ్ అవుతోంది...',
-      success: 'అప్‌లోడ్ విజయవంతమైంది',
-      error: 'అప్‌లోడ్ విఫలమైంది',
-      retry: 'మళ్లీ ప్రయత్నించండి',
-      cancel: 'అప్‌లోడ్‌ను రద్దు చేయండి',
-      fileTypeError: 'ఫైల్ రకం మద్దతు లేదు',
-      fileSizeError: 'ఫైల్ పరిమాణం పరిమితిని మించింది',
-      fileCountError: 'ఫైల్ సంఖ్య పరిమితిని మించింది'
+      deleteTip:
+        '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F delete \u0C28\u0C4A\u0C15\u0C4D\u0C15\u0C02\u0C21\u0C3F',
+      delete: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      preview: '\u0C2A\u0C4D\u0C30\u0C3F\u0C35\u0C4D\u0C2F\u0C42',
+      continue: '\u0C15\u0C4A\u0C28\u0C38\u0C3E\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      upload:
+        '\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      tip: '<em>\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D</em> \u0C1A\u0C47\u0C2F\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C2B\u0C48\u0C32\u0C4D\u200C\u0C28\u0C41 \u0C08 \u0C2A\u0C4D\u0C30\u0C3E\u0C02\u0C24\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F \u0C32\u0C47\u0C26\u0C3E \u0C32\u0C3E\u0C17\u0C02\u0C21\u0C3F',
+      dragTip:
+        '\u0C2B\u0C48\u0C32\u0C4D\u200C\u0C28\u0C41 \u0C07\u0C15\u0C4D\u0C15\u0C21 \u0C35\u0C26\u0C32\u0C02\u0C21\u0C3F \u0C32\u0C47\u0C26\u0C3E \u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D \u0C1A\u0C47\u0C2F\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      uploading:
+        '\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      success:
+        '\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D \u0C35\u0C3F\u0C1C\u0C2F\u0C35\u0C02\u0C24\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+      error:
+        '\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D \u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+      retry:
+        '\u0C2E\u0C33\u0C4D\u0C32\u0C40 \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      cancel:
+        '\u0C05\u0C2A\u0C4D\u200C\u0C32\u0C4B\u0C21\u0C4D\u200C\u0C28\u0C41 \u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      fileTypeError:
+        '\u0C2B\u0C48\u0C32\u0C4D \u0C30\u0C15\u0C02 \u0C2E\u0C26\u0C4D\u0C26\u0C24\u0C41 \u0C32\u0C47\u0C26\u0C41',
+      fileSizeError:
+        '\u0C2B\u0C48\u0C32\u0C4D \u0C2A\u0C30\u0C3F\u0C2E\u0C3E\u0C23\u0C02 \u0C2A\u0C30\u0C3F\u0C2E\u0C3F\u0C24\u0C3F\u0C28\u0C3F \u0C2E\u0C3F\u0C02\u0C1A\u0C3F\u0C02\u0C26\u0C3F',
+      fileCountError:
+        '\u0C2B\u0C48\u0C32\u0C4D \u0C38\u0C02\u0C16\u0C4D\u0C2F \u0C2A\u0C30\u0C3F\u0C2E\u0C3F\u0C24\u0C3F\u0C28\u0C3F \u0C2E\u0C3F\u0C02\u0C1A\u0C3F\u0C02\u0C26\u0C3F'
     },
     // ఫారమ్
     form: {
-      validationFailed: 'ధృవీకరణ విఫలమైంది',
-      required: 'అవసరం',
-      pleaseInput: 'దయచేసి నమోదు చేయండి',
-      pleaseSelect: 'దయచేసి ఎంచుకోండి'
+      validationFailed:
+        '\u0C27\u0C43\u0C35\u0C40\u0C15\u0C30\u0C23 \u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+      required: '\u0C05\u0C35\u0C38\u0C30\u0C02',
+      pleaseInput:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      pleaseSelect:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F'
     },
     // బటన్
     button: {
-      loading: 'లోడ్ అవుతోంది...'
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...'
     },
     // ఇన్‌పుట్
     input: {
-      placeholder: 'దయచేసి నమోదు చేయండి',
-      clear: 'తొలగించండి',
-      showPassword: 'పాస్‌వర్డ్ చూపించండి',
-      hidePassword: 'పాస్‌వర్డ్ దాచండి',
-      copy: 'కాపీ చేయండి',
-      copied: 'కాపీ చేయబడింది'
+      placeholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      clear: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      showPassword:
+        '\u0C2A\u0C3E\u0C38\u0C4D\u200C\u0C35\u0C30\u0C4D\u0C21\u0C4D \u0C1A\u0C42\u0C2A\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      hidePassword:
+        '\u0C2A\u0C3E\u0C38\u0C4D\u200C\u0C35\u0C30\u0C4D\u0C21\u0C4D \u0C26\u0C3E\u0C1A\u0C02\u0C21\u0C3F',
+      copy: '\u0C15\u0C3E\u0C2A\u0C40 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      copied: '\u0C15\u0C3E\u0C2A\u0C40 \u0C1A\u0C47\u0C2F\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F'
     },
     // సంఖ్య ఇన్‌పుట్
     inputnumber: {
-      placeholder: 'దయచేసి సంఖ్యను నమోదు చేయండి',
-      increase: 'పెంచండి',
-      decrease: 'తగ్గించండి'
+      placeholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C38\u0C02\u0C16\u0C4D\u0C2F\u0C28\u0C41 \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      increase: '\u0C2A\u0C46\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      decrease: '\u0C24\u0C17\u0C4D\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // ట్యాగ్ ఇన్‌పుట్
     inputtag: {
-      placeholder: 'దయచేసి నమోదు చేయండి',
-      add: 'జోడించండి',
-      remove: 'తొలగించండి'
+      placeholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C28\u0C2E\u0C4B\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      add: '\u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      remove: '\u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // బ్రెడ్‌క్రంబ్
     breadcrumb: {
-      label: 'బ్రెడ్‌క్రంబ్',
-      more: 'మరిన్ని'
+      label: '\u0C2C\u0C4D\u0C30\u0C46\u0C21\u0C4D\u200C\u0C15\u0C4D\u0C30\u0C02\u0C2C\u0C4D',
+      more: '\u0C2E\u0C30\u0C3F\u0C28\u0C4D\u0C28\u0C3F'
     },
     // పైకి తిరిగి వెళ్ళండి
     backtop: {
-      text: 'పైకి తిరిగి వెళ్ళండి'
+      text: '\u0C2A\u0C48\u0C15\u0C3F \u0C24\u0C3F\u0C30\u0C3F\u0C17\u0C3F \u0C35\u0C46\u0C33\u0C4D\u0C33\u0C02\u0C21\u0C3F'
     },
     // ఎంచుకోండి
     select: {
-      placeholder: 'దయచేసి ఎంచుకోండి',
-      noData: 'డేటా లేదు',
-      loading: 'లోడ్ అవుతోంది...',
-      noMatch: 'సరిపోలే డేటా లేదు',
-      selectAll: 'అన్నీ ఎంచుకోండి',
-      clearAll: 'అన్నీ తొలగించండి'
+      placeholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      noData: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      noMatch:
+        '\u0C38\u0C30\u0C3F\u0C2A\u0C4B\u0C32\u0C47 \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      selectAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+      clearAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C24\u0C4A\u0C32\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // పేజినేషన్
     pagination: {
-      goto: 'వెళ్ళండి',
+      goto: '\u0C35\u0C46\u0C33\u0C4D\u0C33\u0C02\u0C21\u0C3F',
       page: '',
-      total: 'మొత్తం {total}',
-      pageSize: '/పేజీ',
-      prev: 'మునుపటి',
-      next: 'తర్వాతి',
-      first: 'మొదటి',
-      last: 'చివరి',
+      total: '\u0C2E\u0C4A\u0C24\u0C4D\u0C24\u0C02 {total}',
+      pageSize: '/\u0C2A\u0C47\u0C1C\u0C40',
+      prev: '\u0C2E\u0C41\u0C28\u0C41\u0C2A\u0C1F\u0C3F',
+      next: '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F',
+      first: '\u0C2E\u0C4A\u0C26\u0C1F\u0C3F',
+      last: '\u0C1A\u0C3F\u0C35\u0C30\u0C3F',
       pageClassifier: ''
     },
     // పాప్‌కన్‌ఫర్మ్
     popconfirm: {
-      confirm: 'సరే',
-      cancel: 'రద్దు చేయండి',
-      dontAskAgain: 'మళ్లీ అడగవద్దు'
+      confirm: '\u0C38\u0C30\u0C47',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      dontAskAgain:
+        '\u0C2E\u0C33\u0C4D\u0C32\u0C40 \u0C05\u0C21\u0C17\u0C35\u0C26\u0C4D\u0C26\u0C41'
     },
     // డైలాగ్
     dialog: {
-      confirm: 'సరే',
-      cancel: 'రద్దు చేయండి',
-      close: 'మూసివేయండి',
-      maximize: 'గరిష్ఠం చేయండి',
-      restore: 'పునరుద్ధరించండి'
+      confirm: '\u0C38\u0C30\u0C47',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      maximize: '\u0C17\u0C30\u0C3F\u0C37\u0C4D\u0C20\u0C02 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      restore:
+        '\u0C2A\u0C41\u0C28\u0C30\u0C41\u0C26\u0C4D\u0C27\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // డ్రాయర్
     drawer: {
-      close: 'మూసివేయండి',
-      confirm: 'సరే',
-      cancel: 'రద్దు చేయండి'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      confirm: '\u0C38\u0C30\u0C47',
+      cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // డ్రాప్‌డౌన్
     dropdown: {
-      loading: 'లోడ్ అవుతోంది...'
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...'
     },
     // చిత్రం
     image: {
-      error: 'విఫలమైంది',
-      loading: 'లోడ్ అవుతోంది...',
-      preview: 'ప్రివ్యూ',
-      zoomIn: 'జూమ్ ఇన్',
-      zoomOut: 'జూమ్ అవుట్',
-      rotateLeft: 'ఎడమకు తిప్పండి',
-      rotateRight: 'కుడికి తిప్పండి',
-      originalSize: 'అసలు పరిమాణం',
-      fullscreen: 'పూర్తి స్క్రీన్'
+      error: '\u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F',
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      preview: '\u0C2A\u0C4D\u0C30\u0C3F\u0C35\u0C4D\u0C2F\u0C42',
+      zoomIn: '\u0C1C\u0C42\u0C2E\u0C4D \u0C07\u0C28\u0C4D',
+      zoomOut: '\u0C1C\u0C42\u0C2E\u0C4D \u0C05\u0C35\u0C41\u0C1F\u0C4D',
+      rotateLeft: '\u0C0E\u0C21\u0C2E\u0C15\u0C41 \u0C24\u0C3F\u0C2A\u0C4D\u0C2A\u0C02\u0C21\u0C3F',
+      rotateRight:
+        '\u0C15\u0C41\u0C21\u0C3F\u0C15\u0C3F \u0C24\u0C3F\u0C2A\u0C4D\u0C2A\u0C02\u0C21\u0C3F',
+      originalSize: '\u0C05\u0C38\u0C32\u0C41 \u0C2A\u0C30\u0C3F\u0C2E\u0C3E\u0C23\u0C02',
+      fullscreen:
+        '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C3F \u0C38\u0C4D\u0C15\u0C4D\u0C30\u0C40\u0C28\u0C4D'
     },
     // చిత్ర వీక్షకుడు
     imageviewer: {
-      close: 'మూసివేయండి',
-      prev: 'మునుపటి',
-      next: 'తర్వాతి',
-      zoomIn: 'జూమ్ ఇన్',
-      zoomOut: 'జూమ్ అవుట్',
-      rotateLeft: 'ఎడమకు తిప్పండి',
-      rotateRight: 'కుడికి తిప్పండి',
-      reset: 'రీసెట్ చేయండి',
-      fullscreen: 'పూర్తి స్క్రీన్',
-      exitFullscreen: 'పూర్తి స్క్రీన్ నుండి నిష్క్రమించండి'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      prev: '\u0C2E\u0C41\u0C28\u0C41\u0C2A\u0C1F\u0C3F',
+      next: '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F',
+      zoomIn: '\u0C1C\u0C42\u0C2E\u0C4D \u0C07\u0C28\u0C4D',
+      zoomOut: '\u0C1C\u0C42\u0C2E\u0C4D \u0C05\u0C35\u0C41\u0C1F\u0C4D',
+      rotateLeft: '\u0C0E\u0C21\u0C2E\u0C15\u0C41 \u0C24\u0C3F\u0C2A\u0C4D\u0C2A\u0C02\u0C21\u0C3F',
+      rotateRight:
+        '\u0C15\u0C41\u0C21\u0C3F\u0C15\u0C3F \u0C24\u0C3F\u0C2A\u0C4D\u0C2A\u0C02\u0C21\u0C3F',
+      reset: '\u0C30\u0C40\u0C38\u0C46\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      fullscreen:
+        '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C3F \u0C38\u0C4D\u0C15\u0C4D\u0C30\u0C40\u0C28\u0C4D',
+      exitFullscreen:
+        '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C3F \u0C38\u0C4D\u0C15\u0C4D\u0C30\u0C40\u0C28\u0C4D \u0C28\u0C41\u0C02\u0C21\u0C3F \u0C28\u0C3F\u0C37\u0C4D\u0C15\u0C4D\u0C30\u0C2E\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // అనంత స్క్రోల్
     infinitescroll: {
-      loading: 'లోడ్ అవుతోంది...',
-      finished: 'మరిన్ని డేటా లేదు',
-      error: 'లోడ్ విఫలమైంది, మళ్లీ ప్రయత్నించడానికి క్లిక్ చేయండి',
-      retry: 'మళ్లీ ప్రయత్నించడానికి క్లిక్ చేయండి'
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      finished:
+        '\u0C2E\u0C30\u0C3F\u0C28\u0C4D\u0C28\u0C3F \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      error:
+        '\u0C32\u0C4B\u0C21\u0C4D \u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F, \u0C2E\u0C33\u0C4D\u0C32\u0C40 \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      retry:
+        '\u0C2E\u0C33\u0C4D\u0C32\u0C40 \u0C2A\u0C4D\u0C30\u0C2F\u0C24\u0C4D\u0C28\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // సందేశం
     message: {
-      close: 'మూసివేయండి'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // నోటిఫికేషన్
     notification: {
-      close: 'మూసివేయండి'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // లోడింగ్
     loading: {
-      text: 'లోడ్ అవుతోంది...'
+      text: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...'
     },
     // స్పిన్
     spin: {
-      text: 'లోడ్ అవుతోంది...'
+      text: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...'
     },
     // రేట్
     rate: {
-      texts: ['చాలా చెడ్డది', 'నిరాశ', 'సరసమైనది', 'సంతృప్తి', 'ఆశ్చర్యం']
+      texts: [
+        '\u0C1A\u0C3E\u0C32\u0C3E \u0C1A\u0C46\u0C21\u0C4D\u0C21\u0C26\u0C3F',
+        '\u0C28\u0C3F\u0C30\u0C3E\u0C36',
+        '\u0C38\u0C30\u0C38\u0C2E\u0C48\u0C28\u0C26\u0C3F',
+        '\u0C38\u0C02\u0C24\u0C43\u0C2A\u0C4D\u0C24\u0C3F',
+        '\u0C06\u0C36\u0C4D\u0C1A\u0C30\u0C4D\u0C2F\u0C02'
+      ]
     },
     // హెచ్చరిక
     alert: {
-      close: 'మూసివేయండి'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // ట్యాగ్
     tag: {
-      close: 'మూసివేయండి'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F'
     },
     // ట్యాబ్‌లు
     tabs: {
-      close: 'మూసివేయండి',
-      add: 'జోడించండి',
-      more: 'మరిన్ని'
+      close: '\u0C2E\u0C42\u0C38\u0C3F\u0C35\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      add: '\u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      more: '\u0C2E\u0C30\u0C3F\u0C28\u0C4D\u0C28\u0C3F'
     },
     // దశలు
     steps: {
-      finish: 'పూర్తయింది',
-      process: 'ప్రగతిలో ఉంది',
-      wait: 'వేచి ఉంది',
-      error: 'దోషం'
+      finish: '\u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C2F\u0C3F\u0C02\u0C26\u0C3F',
+      process: '\u0C2A\u0C4D\u0C30\u0C17\u0C24\u0C3F\u0C32\u0C4B \u0C09\u0C02\u0C26\u0C3F',
+      wait: '\u0C35\u0C47\u0C1A\u0C3F \u0C09\u0C02\u0C26\u0C3F',
+      error: '\u0C26\u0C4B\u0C37\u0C02'
     },
     // ప్రగతి
     progress: {
-      success: 'విజయం',
-      exception: 'అసాధారణం',
-      warning: 'హెచ్చరిక'
+      success: '\u0C35\u0C3F\u0C1C\u0C2F\u0C02',
+      exception: '\u0C05\u0C38\u0C3E\u0C27\u0C3E\u0C30\u0C23\u0C02',
+      warning: '\u0C39\u0C46\u0C1A\u0C4D\u0C1A\u0C30\u0C3F\u0C15'
     },
     // స్కెలిటన్
     skeleton: {
-      loading: 'లోడ్ అవుతోంది...'
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...'
     },
     // ఖాళీ
     empty: {
-      description: 'డేటా లేదు',
-      noData: 'డేటా లేదు',
-      noResult: 'ఫలితాలు లేవు',
-      networkError: 'నెట్‌వర్క్ దోషం',
-      serverError: 'సర్వర్ దోషం'
+      description: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      noData: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      noResult: '\u0C2B\u0C32\u0C3F\u0C24\u0C3E\u0C32\u0C41 \u0C32\u0C47\u0C35\u0C41',
+      networkError:
+        '\u0C28\u0C46\u0C1F\u0C4D\u200C\u0C35\u0C30\u0C4D\u0C15\u0C4D \u0C26\u0C4B\u0C37\u0C02',
+      serverError: '\u0C38\u0C30\u0C4D\u0C35\u0C30\u0C4D \u0C26\u0C4B\u0C37\u0C02'
     },
     // ఫలితం
     result: {
-      success: 'విజయం',
-      error: 'దోషం',
-      warning: 'హెచ్చరిక',
-      info: 'సమాచారం',
-      backHome: 'హోమ్‌కు తిరిగి వెళ్ళండి'
+      success: '\u0C35\u0C3F\u0C1C\u0C2F\u0C02',
+      error: '\u0C26\u0C4B\u0C37\u0C02',
+      warning: '\u0C39\u0C46\u0C1A\u0C4D\u0C1A\u0C30\u0C3F\u0C15',
+      info: '\u0C38\u0C2E\u0C3E\u0C1A\u0C3E\u0C30\u0C02',
+      backHome:
+        '\u0C39\u0C4B\u0C2E\u0C4D\u200C\u0C15\u0C41 \u0C24\u0C3F\u0C30\u0C3F\u0C17\u0C3F \u0C35\u0C46\u0C33\u0C4D\u0C33\u0C02\u0C21\u0C3F'
     },
     // వాటర్‌ఫాల్
     waterfall: {
-      loading: 'లోడ్ అవుతోంది...',
-      noMore: 'మరిన్ని డేటా లేదు',
-      empty: 'డేటా లేదు'
+      loading: '\u0C32\u0C4B\u0C21\u0C4D \u0C05\u0C35\u0C41\u0C24\u0C4B\u0C02\u0C26\u0C3F...',
+      noMore:
+        '\u0C2E\u0C30\u0C3F\u0C28\u0C4D\u0C28\u0C3F \u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41',
+      empty: '\u0C21\u0C47\u0C1F\u0C3E \u0C32\u0C47\u0C26\u0C41'
     },
     // వివరణలు
     descriptions: {
@@ -541,29 +662,32 @@ export const te: Language = {
     },
     // స్విచ్
     switch: {
-      on: 'ఆన్',
-      off: 'ఆఫ్'
+      on: '\u0C06\u0C28\u0C4D',
+      off: '\u0C06\u0C2B\u0C4D'
     },
     // చెక్‌బాక్స్
     checkbox: {
-      selectAll: 'అన్నీ ఎంచుకోండి'
+      selectAll:
+        '\u0C05\u0C28\u0C4D\u0C28\u0C40 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F'
     },
     // రేడియో
     radio: {},
     // మెనూ
     menu: {
-      collapse: 'మెనూను కుదించండి',
-      expand: 'మెనూను విస్తరించండి'
+      collapse:
+        '\u0C2E\u0C46\u0C28\u0C42\u0C28\u0C41 \u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      expand:
+        '\u0C2E\u0C46\u0C28\u0C42\u0C28\u0C41 \u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // కార్డ్
     card: {
-      collapse: 'కుదించండి',
-      expand: 'విస్తరించండి'
+      collapse: '\u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      expand: '\u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // కుదించడం
     collapse: {
-      expand: 'విస్తరించండి',
-      collapse: 'కుదించండి'
+      expand: '\u0C35\u0C3F\u0C38\u0C4D\u0C24\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+      collapse: '\u0C15\u0C41\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
     },
     // టూల్‌టిప్
     tooltip: {},
@@ -573,7 +697,7 @@ export const te: Language = {
     badge: {},
     // అవతార్
     avatar: {
-      error: 'లోడ్ విఫలమైంది'
+      error: '\u0C32\u0C4B\u0C21\u0C4D \u0C35\u0C3F\u0C2B\u0C32\u0C2E\u0C48\u0C02\u0C26\u0C3F'
     },
     // వాటర్‌మార్క్
     watermark: {},
@@ -581,8 +705,8 @@ export const te: Language = {
     divider: {},
     // కారసెల్
     carousel: {
-      prev: 'మునుపటి',
-      next: 'తర్వాతి'
+      prev: '\u0C2E\u0C41\u0C28\u0C41\u0C2A\u0C1F\u0C3F',
+      next: '\u0C24\u0C30\u0C4D\u0C35\u0C3E\u0C24\u0C3F'
     },
     // మార్కీ
     marquee: {},
@@ -592,127 +716,141 @@ export const te: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'దయచేసి ఇన్‌పుట్ చేయండి',
-      loading: 'లోड हो रहा है...',
-      noData: 'डेटा लागत नाही'
+      placeholder:
+        '\u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C07\u0C28\u0C4D\u200C\u0C2A\u0C41\u0C1F\u0C4D \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
+      loading: '\u0C32\u0C4B\u0921 \u0939\u094B \u0930\u0939\u093E \u0939\u0948...',
+      noData: '\u0921\u0947\u091F\u093E \u0932\u093E\u0917\u0924 \u0928\u093E\u0939\u0940'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'उद्धरणे'
+        citations: '\u0909\u0926\u094D\u0927\u0930\u0923\u0947'
       },
       mention: {
-        placeholder: '@ एजंट, दस्तऐवज किंवा सारणीचा संदर्भ द्या...',
-        agent: 'एजंट',
-        document: 'दस्तऐवज',
-        table: 'सारणी',
-        knowledge: 'ज्ञान'
+        placeholder:
+          '@ \u090F\u091C\u0902\u091F, \u0926\u0938\u094D\u0924\u0910\u0935\u091C \u0915\u093F\u0902\u0935\u093E \u0938\u093E\u0930\u0923\u0940\u091A\u093E \u0938\u0902\u0926\u0930\u094D\u092D \u0926\u094D\u092F\u093E...',
+        agent: '\u090F\u091C\u0902\u091F',
+        document: '\u0926\u0938\u094D\u0924\u0910\u0935\u091C',
+        table: '\u0938\u093E\u0930\u0923\u0940',
+        knowledge: '\u091C\u094D\u091E\u093E\u0928'
       },
       codeBlock: {
-        copyCode: 'कोड कॉपी करा',
-        copied: 'कॉपी झाले!',
-        run: 'कोड चालवा',
-        edit: 'संपादित करा',
-        save: 'साठवा',
-        cancel: 'रद्द करा'
+        copyCode: '\u0915\u094B\u0921 \u0915\u0949\u092A\u0940 \u0915\u0930\u093E',
+        copied: '\u0915\u0949\u092A\u0940 \u091D\u093E\u0932\u0947!',
+        run: '\u0915\u094B\u0921 \u091A\u093E\u0932\u0935\u093E',
+        edit: '\u0938\u0902\u092A\u093E\u0926\u093F\u0924 \u0915\u0930\u093E',
+        save: '\u0938\u093E\u0920\u0935\u093E',
+        cancel: '\u0930\u0926\u094D\u0926 \u0915\u0930\u093E'
       },
       codeRunner: {
-        run: 'चालवा',
-        stop: 'थांबवा',
-        clear: 'साफ करा',
-        reset: 'रीसेट करा',
-        placeholder: 'कोड चालवण्यासाठी चालवा बटणावर क्लिक करा...'
+        run: '\u091A\u093E\u0932\u0935\u093E',
+        stop: '\u0925\u093E\u0902\u092C\u0935\u093E',
+        clear: '\u0938\u093E\u092B \u0915\u0930\u093E',
+        reset: '\u0930\u0940\u0938\u0947\u091F \u0915\u0930\u093E',
+        placeholder:
+          '\u0915\u094B\u0921 \u091A\u093E\u0932\u0935\u0923\u094D\u092F\u093E\u0938\u093E\u0920\u0940 \u091A\u093E\u0932\u0935\u093E \u092C\u091F\u0923\u093E\u0935\u0930 \u0915\u094D\u0932\u093F\u0915 \u0915\u0930\u093E...'
       },
       sender: {
-        placeholder: 'संदेश पाठवा...',
-        dragTip: 'फाइल्स अपलोड करण्यासाठी सोडा'
+        placeholder: '\u0938\u0902\u0926\u0947\u0936 \u092A\u093E\u0920\u0935\u093E...',
+        dragTip:
+          '\u092B\u093E\u0907\u0932\u094D\u0938 \u0905\u092A\u0932\u094B\u0921 \u0915\u0930\u0923\u094D\u092F\u093E\u0938\u093E\u0920\u0940 \u0938\u094B\u0921\u093E'
       },
       thoughtChain: {
-        thoughtProcess: 'विचार प्रक्रिया',
-        thinking: 'विचार करत आहे...',
-        defaultTitle: 'नवीन पाऊल',
-        addNode: 'पाऊल जोडा'
+        thoughtProcess:
+          '\u0935\u093F\u091A\u093E\u0930 \u092A\u094D\u0930\u0915\u094D\u0930\u093F\u092F\u093E',
+        thinking: '\u0935\u093F\u091A\u093E\u0930 \u0915\u0930\u0924 \u0906\u0939\u0947...',
+        defaultTitle: '\u0928\u0935\u0940\u0928 \u092A\u093E\u090A\u0932',
+        addNode: '\u092A\u093E\u090A\u0932 \u091C\u094B\u0921\u093E'
       },
       thinking: {
-        start: 'विचार करणे सुरू करा',
-        thinking: 'विचार करत आहे...',
-        complete: 'विचार पूर्ण झाला',
-        error: 'विचार त्रुटी'
+        start:
+          '\u0935\u093F\u091A\u093E\u0930 \u0915\u0930\u0923\u0947 \u0938\u0941\u0930\u0942 \u0915\u0930\u093E',
+        thinking: '\u0935\u093F\u091A\u093E\u0930 \u0915\u0930\u0924 \u0906\u0939\u0947...',
+        complete:
+          '\u0935\u093F\u091A\u093E\u0930 \u092A\u0942\u0930\u094D\u0923 \u091D\u093E\u0932\u093E',
+        error: '\u0935\u093F\u091A\u093E\u0930 \u0924\u094D\u0930\u0941\u091F\u0940'
       },
       welcome: {
-        title: 'नमस्कार, मी YH AI आहे',
+        title: '\u0928\u092E\u0938\u094D\u0915\u093E\u0930, \u092E\u0940 YH AI \u0906\u0939\u0947',
         description:
-          'मी तुम्हाला कोडिंग, दस्तऐवजांचे भाषांतर किंवा सृजनात्मक लेखनात मदत करू शकतो. आज मी तुमच्यासाठी काय करू शकतो?'
+          '\u092E\u0940 \u0924\u0941\u092E\u094D\u0939\u093E\u0932\u093E \u0915\u094B\u0921\u093F\u0902\u0917, \u0926\u0938\u094D\u0924\u0910\u0935\u091C\u093E\u0902\u091A\u0947 \u092D\u093E\u0937\u093E\u0902\u0924\u0930 \u0915\u093F\u0902\u0935\u093E \u0938\u0943\u091C\u0928\u093E\u0924\u094D\u092E\u0915 \u0932\u0947\u0916\u0928\u093E\u0924 \u092E\u0926\u0924 \u0915\u0930\u0942 \u0936\u0915\u0924\u094B. \u0906\u091C \u092E\u0940 \u0924\u0941\u092E\u091A\u094D\u092F\u093E\u0938\u093E\u0920\u0940 \u0915\u093E\u092F \u0915\u0930\u0942 \u0936\u0915\u0924\u094B?'
       },
       action: {
-        copy: 'कॉपी',
-        regenerate: 'पुनर्जन्म',
-        share: 'शेअर करा',
-        like: 'आवडते',
-        dislike: 'आवडत नाही',
-        edit: 'संपादित करा',
-        delete: 'हटवा'
+        copy: '\u0915\u0949\u092A\u0940',
+        regenerate: '\u092A\u0941\u0928\u0930\u094D\u091C\u0928\u094D\u092E',
+        share: '\u0936\u0947\u0905\u0930 \u0915\u0930\u093E',
+        like: '\u0906\u0935\u0921\u0924\u0947',
+        dislike: '\u0906\u0935\u0921\u0924 \u0928\u093E\u0939\u0940',
+        edit: '\u0938\u0902\u092A\u093E\u0926\u093F\u0924 \u0915\u0930\u093E',
+        delete: '\u0939\u091F\u0935\u093E'
       },
       artifacts: {
-        preview: 'पूर्वावलोकन',
-        inline: 'इनलाइन',
-        code: 'स्रोत कोड',
-        versions: 'आवृत्त्या',
-        rendering: 'घटक रेंडर होत आहे...',
-        renderingChart: 'चार्ट रेंडर होत आहे...',
-        renderingCanvas: 'कॅनव्हास तयार होत आहे...'
+        preview: '\u092A\u0942\u0930\u094D\u0935\u093E\u0935\u0932\u094B\u0915\u0928',
+        inline: '\u0907\u0928\u0932\u093E\u0907\u0928',
+        code: '\u0938\u094D\u0930\u094B\u0924 \u0915\u094B\u0921',
+        versions: '\u0906\u0935\u0943\u0924\u094D\u0924\u094D\u092F\u093E',
+        rendering:
+          '\u0918\u091F\u0915 \u0930\u0947\u0902\u0921\u0930 \u0939\u094B\u0924 \u0906\u0939\u0947...',
+        renderingChart:
+          '\u091A\u093E\u0930\u094D\u091F \u0930\u0947\u0902\u0921\u0930 \u0939\u094B\u0924 \u0906\u0939\u0947...',
+        renderingCanvas:
+          '\u0915\u0945\u0928\u0935\u094D\u0939\u093E\u0938 \u0924\u092F\u093E\u0930 \u0939\u094B\u0924 \u0906\u0939\u0947...'
       },
       voice: {
-        trigger: 'बोलण्यासाठी क्लिक करा',
-        listening: 'ऐकत आहे...'
+        trigger:
+          '\u092C\u094B\u0932\u0923\u094D\u092F\u093E\u0938\u093E\u0920\u0940 \u0915\u094D\u0932\u093F\u0915 \u0915\u0930\u093E',
+        listening: '\u0910\u0915\u0924 \u0906\u0939\u0947...'
       },
       agent: {
-        uses: 'वापर',
-        use: 'आता वापरा',
-        favorite: 'आवडते',
-        unfavorite: 'आवडत्यातून काढा',
-        share: 'शेअर करा',
-        online: 'ऑनलाइन',
-        offline: 'ऑफलाइन',
-        busy: 'व्यस्त',
-        verified: 'सत्यापित',
-        rating: 'रेटिंग',
-        reviews: 'पुनरावलोकने',
-        responseTime: 'सरासरी प्रतिसाद वेळ',
-        ms: 'मि.से.'
+        uses: '\u0935\u093E\u092A\u0930',
+        use: '\u0906\u0924\u093E \u0935\u093E\u092A\u0930\u093E',
+        favorite: '\u0906\u0935\u0921\u0924\u0947',
+        unfavorite:
+          '\u0906\u0935\u0921\u0924\u094D\u092F\u093E\u0924\u0942\u0928 \u0915\u093E\u0922\u093E',
+        share: '\u0936\u0947\u0905\u0930 \u0915\u0930\u093E',
+        online: '\u0911\u0928\u0932\u093E\u0907\u0928',
+        offline: '\u0911\u092B\u0932\u093E\u0907\u0928',
+        busy: '\u0935\u094D\u092F\u0938\u094D\u0924',
+        verified: '\u0938\u0924\u094D\u092F\u093E\u092A\u093F\u0924',
+        rating: '\u0930\u0947\u091F\u093F\u0902\u0917',
+        reviews: '\u092A\u0941\u0928\u0930\u093E\u0935\u0932\u094B\u0915\u0928\u0947',
+        responseTime:
+          '\u0938\u0930\u093E\u0938\u0930\u0940 \u092A\u094D\u0930\u0924\u093F\u0938\u093E\u0926 \u0935\u0947\u0933',
+        ms: '\u092E\u093F.\u0938\u0947.'
       },
       sources: {
-        references: 'संदर्भ',
-        referencedSources: 'संदर्भित स्रोत',
-        relevant: 'प्रासंगिकता',
-        viewOriginal: 'मूळ पहा',
-        showAll: 'सर्व दाखवा',
-        more: 'अधिक स्रोत',
-        drawerTitle: 'संदर्भ',
-        expandMore: 'अधिक दाखवा',
-        collapseMore: 'कोलॅप्स करा',
-        noSources: 'स्रोत नाहीत',
-        today: 'आज',
-        last7Days: 'शेवटचे 7 दिवस',
-        last30Days: 'शेवटचे 30 दिवस',
-        earlier: 'अगोदर',
-        pinned: 'पिन केले'
+        references: '\u0938\u0902\u0926\u0930\u094D\u092D',
+        referencedSources:
+          '\u0938\u0902\u0926\u0930\u094D\u092D\u093F\u0924 \u0938\u094D\u0930\u094B\u0924',
+        relevant: '\u092A\u094D\u0930\u093E\u0938\u0902\u0917\u093F\u0915\u0924\u093E',
+        viewOriginal: '\u092E\u0942\u0933 \u092A\u0939\u093E',
+        showAll: '\u0938\u0930\u094D\u0935 \u0926\u093E\u0916\u0935\u093E',
+        more: '\u0905\u0927\u093F\u0915 \u0938\u094D\u0930\u094B\u0924',
+        drawerTitle: '\u0938\u0902\u0926\u0930\u094D\u092D',
+        expandMore: '\u0905\u0927\u093F\u0915 \u0926\u093E\u0916\u0935\u093E',
+        collapseMore: '\u0915\u094B\u0932\u0945\u092A\u094D\u0938 \u0915\u0930\u093E',
+        noSources: '\u0938\u094D\u0930\u094B\u0924 \u0928\u093E\u0939\u0940\u0924',
+        today: '\u0906\u091C',
+        last7Days: '\u0936\u0947\u0935\u091F\u091A\u0947 7 \u0926\u093F\u0935\u0938',
+        last30Days: '\u0936\u0947\u0935\u091F\u091A\u0947 30 \u0926\u093F\u0935\u0938',
+        earlier: '\u0905\u0917\u094B\u0926\u0930',
+        pinned: '\u092A\u093F\u0928 \u0915\u0947\u0932\u0947'
       },
       conversations: {
-        today: 'आज',
-        last7Days: 'शेवटचे 7 दिवस',
-        last30Days: 'शेवटचे 30 दिवस',
-        earlier: 'अगोदर',
-        pinned: 'पिन केले',
-        pin: 'पिन करा',
-        unpin: 'अनपिन करा',
-        newConversation: 'नवीन संवाद',
-        rename: 'नाव बदला',
-        delete: 'हटवा',
-        deleteConfirm: 'हा संवाद हटवण्याची खात्री करा?'
+        today: '\u0906\u091C',
+        last7Days: '\u0936\u0947\u0935\u091F\u091A\u0947 7 \u0926\u093F\u0935\u0938',
+        last30Days: '\u0936\u0947\u0935\u091F\u091A\u0947 30 \u0926\u093F\u0935\u0938',
+        earlier: '\u0905\u0917\u094B\u0926\u0930',
+        pinned: '\u092A\u093F\u0928 \u0915\u0947\u0932\u0947',
+        pin: '\u092A\u093F\u0928 \u0915\u0930\u093E',
+        unpin: '\u0905\u0928\u092A\u093F\u0928 \u0915\u0930\u093E',
+        newConversation: '\u0928\u0935\u0940\u0928 \u0938\u0902\u0935\u093E\u0926',
+        rename: '\u0928\u093E\u0935 \u092C\u0926\u0932\u093E',
+        delete: '\u0939\u091F\u0935\u093E',
+        deleteConfirm:
+          '\u0939\u093E \u0938\u0902\u0935\u093E\u0926 \u0939\u091F\u0935\u0923\u094D\u092F\u093E\u091A\u0940 \u0916\u093E\u0924\u094D\u0930\u0940 \u0915\u0930\u093E?'
       }
     }
   }
 }
-
 export default te

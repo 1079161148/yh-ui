@@ -480,7 +480,7 @@ defineExpose<TimePickerExpose>({
   blur,
   open: openPanel,
   close: closePanel,
-  inputRef: inputRef.value
+  inputRef
 })
 </script>
 

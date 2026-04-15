@@ -49,7 +49,10 @@ const { t } = useLocale()
 const inputId = useId()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('cascader', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'cascader',
+  computed(() => props.themeOverrides)
+)
 
 // 表单集成
 const { form, formItem, validate: triggerValidate } = useFormItem()
@@ -57,7 +60,9 @@ const { form, formItem, validate: triggerValidate } = useFormItem()
 // 全局配置
 const { globalSize } = useConfig()
 
-const cascaderSize = computed(() => props.size || formItem?.size || form?.size || globalSize.value || 'default')
+const cascaderSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
 
 // 合并配置 - 直接属性优先于 props 配置
 const config = computed(() => ({
@@ -145,7 +150,7 @@ const getPathLabels = (path: (string | number)[]): string[] => {
     const labelKey = config.value.label
     const childrenKey = config.value.children
 
-    const option = currentOptions.find(o => o[valKey] === value)
+    const option = currentOptions.find((o) => o[valKey] === value)
     if (option) {
       labels.push(String(option[labelKey] || ''))
       currentOptions = (option[childrenKey] as CascaderOption[]) || []
@@ -156,7 +161,10 @@ const getPathLabels = (path: (string | number)[]): string[] => {
 }
 
 // 根据值查找完整路径
-const findPathByValue = (targetValue: string | number, options: CascaderOption[]): (string | number)[] | null => {
+const findPathByValue = (
+  targetValue: string | number,
+  options: CascaderOption[]
+): (string | number)[] | null => {
   const valKey = config.value.value
   const childrenKey = config.value.children
 
@@ -200,7 +208,7 @@ const presentTags = computed(() => {
   const values = props.modelValue
   if (!Array.isArray(values) || values.length === 0) return []
 
-  return (values as (string | number | (string | number)[])[]).map(v => {
+  return (values as (string | number | (string | number)[])[]).map((v) => {
     let path: (string | number)[] = []
     if (Array.isArray(v)) {
       path = v as (string | number)[]
@@ -236,8 +244,11 @@ const showClear = computed(() => {
   if (isMultiple.value) {
     return Array.isArray(props.modelValue) && props.modelValue.length > 0
   } else {
-    return props.modelValue !== undefined && props.modelValue !== null &&
+    return (
+      props.modelValue !== undefined &&
+      props.modelValue !== null &&
       (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true)
+    )
   }
 })
 
@@ -246,8 +257,11 @@ const hasValue = computed(() => {
   if (isMultiple.value) {
     return Array.isArray(props.modelValue) && props.modelValue.length > 0
   }
-  return props.modelValue !== undefined && props.modelValue !== null &&
+  return (
+    props.modelValue !== undefined &&
+    props.modelValue !== null &&
     (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true)
+  )
 })
 
 // 过滤后的选项
@@ -312,9 +326,9 @@ const handleCheck = (option: CascaderOption, path: (string | number)[]) => {
   if (option[disabledKey]) return
 
   if (isMultiple.value) {
-    const values = (props.modelValue as (string | number)[][] || []).slice()
+    const values = ((props.modelValue as (string | number)[][]) || []).slice()
     const pathStr = path.join(',')
-    const index = values.findIndex(v => v.join(',') === pathStr)
+    const index = values.findIndex((v) => v.join(',') === pathStr)
 
     if (index > -1) {
       values.splice(index, 1)
@@ -344,7 +358,7 @@ const isChecked = (path: (string | number)[]) => {
     const values = props.modelValue as (string | number)[][] | undefined
     if (!values || !Array.isArray(values)) return false
     const pathStr = path.join(',')
-    return values.some(v => Array.isArray(v) && v.join(',') === pathStr)
+    return values.some((v) => Array.isArray(v) && v.join(',') === pathStr)
   }
 
   const value = props.modelValue
@@ -364,9 +378,9 @@ const handleRemoveTag = (path: (string | number)[], event: Event) => {
   event.stopPropagation()
   if (props.disabled) return
 
-  const values = (props.modelValue as (string | number)[][] || []).slice()
+  const values = ((props.modelValue as (string | number)[][]) || []).slice()
   const pathStr = path.join(',')
-  const index = values.findIndex(v => v.join(',') === pathStr)
+  const index = values.findIndex((v) => v.join(',') === pathStr)
 
   if (index > -1) {
     values.splice(index, 1)
@@ -381,7 +395,7 @@ const handleRemoveTag = (path: (string | number)[], event: Event) => {
 // 清空
 const handleClear = (event: Event) => {
   event.stopPropagation()
-  const value = (isMultiple.value || config.value.emitPath) ? [] : undefined
+  const value = isMultiple.value || config.value.emitPath ? [] : undefined
   emit('update:modelValue', value)
   emit('change', value)
   emit('clear')
@@ -409,9 +423,9 @@ const toggleDropdown = () => {
 // 选择过滤建议
 const handleSelectSuggestion = (suggestion: { path: (string | number)[]; labels: string[] }) => {
   if (isMultiple.value) {
-    const values = (props.modelValue as (string | number)[][] || []).slice()
+    const values = ((props.modelValue as (string | number)[][]) || []).slice()
     const pathStr = suggestion.path.join(',')
-    const index = values.findIndex(v => v.join(',') === pathStr)
+    const index = values.findIndex((v) => v.join(',') === pathStr)
 
     if (index === -1) {
       values.push(suggestion.path)
@@ -419,7 +433,9 @@ const handleSelectSuggestion = (suggestion: { path: (string | number)[]; labels:
       emit('change', values)
     }
   } else {
-    const value = config.value.emitPath ? suggestion.path : suggestion.path[suggestion.path.length - 1]
+    const value = config.value.emitPath
+      ? suggestion.path
+      : suggestion.path[suggestion.path.length - 1]
     emit('update:modelValue', value as CascaderValue)
     emit('change', value as CascaderValue)
     visible.value = false
@@ -488,12 +504,16 @@ const handleMouseLeave = () => {
 const getCheckedNodes = (leafOnly = false): CascaderOption[] => {
   const nodes: CascaderOption[] = []
 
-  const findNode = (options: CascaderOption[], path: (string | number)[], index: number): CascaderOption | null => {
+  const findNode = (
+    options: CascaderOption[],
+    path: (string | number)[],
+    index: number
+  ): CascaderOption | null => {
     if (index >= path.length) return null
     const valKey = config.value.value
     const childrenKey = config.value.children
 
-    const option = options.find(o => o[valKey] === path[index])
+    const option = options.find((o) => o[valKey] === path[index])
     if (!option) return null
     if (index === path.length - 1) return option
     return findNode((option[childrenKey] as CascaderOption[]) || [], path, index + 1)
@@ -512,7 +532,9 @@ const getCheckedNodes = (leafOnly = false): CascaderOption[] => {
   } else {
     const value = props.modelValue
     if (value) {
-      const path = Array.isArray(value) ? value : findPathByValue(value as string | number, props.options || [])
+      const path = Array.isArray(value)
+        ? value
+        : findPathByValue(value as string | number, props.options || [])
       if (path) {
         const node = findNode(props.options || [], path as (string | number)[], 0)
         if (node && (!leafOnly || !(node[config.value.children] as CascaderOption[])?.length)) {
@@ -549,37 +571,57 @@ defineExpose<CascaderExpose>({
   focus,
   blur,
   getCheckedNodes,
-  inputRef: inputRef.value
+  inputRef
 })
 </script>
 
 <template>
-  <div ref="wrapperRef" :class="wrapperClasses" :style="themeStyle" @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave" @click="toggleDropdown">
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+    @click="toggleDropdown"
+  >
     <!-- 输入区域 -->
     <div :class="ns.e('wrapper')">
       <!-- 多选标签 -->
       <template v-if="isMultiple">
-        <span v-for="tag in displayTags" :key="tag.path.join(',')"
-          :class="[ns.e('tag'), tagType ? `yh-tag--${tagType}` : '']">
+        <span
+          v-for="tag in displayTags"
+          :key="tag.path.join(',')"
+          :class="[ns.e('tag'), tagType ? `yh-tag--${tagType}` : '']"
+        >
           <span :class="ns.e('tag-text')">{{ tag.text }}</span>
           <span :class="ns.e('tag-close')" @click="handleRemoveTag(tag.path, $event)">
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-              <path fill="currentColor"
-                d="M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z" />
+              <path
+                fill="currentColor"
+                d="M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
+              />
             </svg>
           </span>
         </span>
-        <span v-if="collapsedCount > 0" :class="ns.e('tag')">
-          +{{ collapsedCount }}
-        </span>
+        <span v-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
       </template>
 
       <!-- 输入框 -->
-      <input ref="inputRef" :id="inputId" :class="ns.e('inner')" :value="filterable ? query : ''"
-        :placeholder="hasValue ? '' : (placeholder || t('cascader.placeholder'))" :disabled="disabled"
-        :readonly="!filterable" autocomplete="off" role="combobox" :aria-expanded="visible" @input="handleInput"
-        @focus="handleFocus" @blur="handleBlur" />
+      <input
+        ref="inputRef"
+        :id="inputId"
+        :class="ns.e('inner')"
+        :value="filterable ? query : ''"
+        :placeholder="hasValue ? '' : placeholder || t('cascader.placeholder')"
+        :disabled="disabled"
+        :readonly="!filterable"
+        autocomplete="off"
+        role="combobox"
+        :aria-expanded="visible"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
 
       <!-- 单选显示值 -->
       <span v-if="!isMultiple && hasValue && !query" :class="ns.e('selected-value')">
@@ -591,16 +633,20 @@ defineExpose<CascaderExpose>({
         <!-- 清空按钮 -->
         <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @click.stop="handleClear">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z" />
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+            />
           </svg>
         </span>
 
         <!-- 箭头图标 -->
         <span :class="[ns.e('icon'), ns.e('arrow'), { 'is-reverse': visible }]">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z" />
+            <path
+              fill="currentColor"
+              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+            />
           </svg>
         </span>
       </span>
@@ -609,27 +655,50 @@ defineExpose<CascaderExpose>({
     <!-- 下拉框 -->
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('dropdown')">
-        <div v-show="visible" ref="dropdownRef" :class="[ns.e('dropdown'), popperClass]"
-          :style="teleported ? dropdownStyle : {}" @mousedown="handleDropdownMousedown"
-          @mouseup="handleDropdownMouseup">
+        <div
+          v-show="visible"
+          ref="dropdownRef"
+          :class="[ns.e('dropdown'), popperClass]"
+          :style="teleported ? dropdownStyle : {}"
+          @mousedown="handleDropdownMousedown"
+          @mouseup="handleDropdownMouseup"
+        >
           <!-- 过滤建议 -->
-          <div v-if="filterable && query && filteredSuggestions.length > 0" :class="ns.e('suggestions')">
-            <div v-for="suggestion in filteredSuggestions" :key="suggestion.path.join(',')"
+          <div
+            v-if="filterable && query && filteredSuggestions.length > 0"
+            :class="ns.e('suggestions')"
+          >
+            <div
+              v-for="suggestion in filteredSuggestions"
+              :key="suggestion.path.join(',')"
               :class="[ns.e('suggestion'), ns.is('checked', isChecked(suggestion.path))]"
-              @click.stop="handleSelectSuggestion(suggestion)">
+              @click.stop="handleSelectSuggestion(suggestion)"
+            >
               {{ suggestion.labels.join(separator) }}
             </div>
           </div>
 
           <!-- 无匹配数据 -->
-          <div v-else-if="filterable && query && filteredSuggestions.length === 0" :class="ns.e('empty')">
+          <div
+            v-else-if="filterable && query && filteredSuggestions.length === 0"
+            :class="ns.e('empty')"
+          >
             <slot name="empty">{{ t('cascader.noMatch') }}</slot>
           </div>
 
           <!-- 级联面板 -->
-          <CascaderPanel v-else :options="options" :expanded-path="expandedPath" :config="config"
-            :is-multiple="isMultiple" :virtual="virtual" :item-height="virtualItemHeight" @expand="handleExpand"
-            @check="handleCheck" :is-checked="isChecked">
+          <CascaderPanel
+            v-else
+            :options="options"
+            :expanded-path="expandedPath"
+            :config="config"
+            :is-multiple="isMultiple"
+            :virtual="virtual"
+            :item-height="virtualItemHeight"
+            @expand="handleExpand"
+            @check="handleCheck"
+            :is-checked="isChecked"
+          >
             <template #default="{ node, data }">
               <slot :node="node" :data="data"></slot>
             </template>

@@ -3,8 +3,10 @@
  */
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import YhAlert from '../src/alert.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhAlert', () => {
   beforeEach(() => {
@@ -143,5 +145,27 @@ describe('YhAlert', () => {
     expect(wrapper.find('.custom-title').exists()).toBe(true)
     expect(wrapper.find('.custom-desc').exists()).toBe(true)
     expect(wrapper.find('.custom-action').exists()).toBe(true)
+  })
+  it('should use config-provider locale text', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(YhAlert, { closable: true })
+      }
+    })
+
+    expect(wrapper.find('.yh-alert__close').attributes('aria-label')).toBe('Close')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        themeOverrides: {
+          padding: '20px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-alert').attributes('style')).toContain('--yh-alert-padding: 20px')
   })
 })

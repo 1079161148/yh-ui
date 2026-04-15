@@ -600,6 +600,97 @@ const lv = exports.lv = {
       loading: "Iel\u0101d\u0113...",
       noData: "Nav datu"
     },
+    skuselector: {
+      placeholder: "Izv\u0113lieties specifik\u0101cijas",
+      emptyText: "Nav specifik\u0101ciju",
+      stock: "Kr\u0101jums",
+      price: "Cena",
+      selected: "Izv\u0113l\u0113ts",
+      outOfStock: "Nav noliktav\u0101"
+    },
+    productcard: {
+      viewDetails: "Skat\u012Bt inform\u0101ciju",
+      buyNow: "Pirkt tagad",
+      addToCart: "Pievienot grozam",
+      sold: "P\u0101rdots",
+      soldOut: "Izp\u0101rdots",
+      vip: "VIP"
+    },
+    price: {
+      original: "S\u0101kotn\u0113j\u0101"
+    },
+    couponcard: {
+      available: "Sa\u0146emt tagad",
+      used: "Izmantots",
+      expired: "Beidzies termi\u0146\u0161",
+      received: "Sa\u0146emts",
+      limit: "Pas\u016Bt\u012Bjumiem virs {threshold}",
+      noThreshold: "Bez minim\u0101l\u0101s summas",
+      validPeriod: "Der\u012Bguma periods",
+      ruleTitle: "Lieto\u0161anas noteikumi"
+    },
+    luckydraw: {
+      start: "S\u0101kt",
+      drawing: "Notiek izloze...",
+      end: "Uzvar\u0113t\u0101js!",
+      retry: "M\u0113\u0123in\u0101t v\u0113lreiz"
+    },
+    filterbar: {
+      all: "Visi",
+      sort: "K\u0101rtot",
+      filter: "Filtrs",
+      cancel: "Atcelt",
+      reset: "Atiestat\u012Bt",
+      confirm: "Apstiprin\u0101t",
+      noOptions: "Nav iesp\u0113ju",
+      asc: "Augo\u0161\u0101 sec\u012Bb\u0101",
+      desc: "Dilsto\u0161\u0101 sec\u012Bb\u0101",
+      selected: "Izv\u0113l\u0113ts"
+    },
+    submitbar: {
+      total: "Kop\u0101: ",
+      selected: "{count} izv\u0113l\u0113ti",
+      submit: "Uz apmaksu",
+      allSelect: "Izv\u0113l\u0113ties visu"
+    },
+    categorynav: {
+      all: "Visi",
+      noData: "Nav datu",
+      loading: "Iel\u0101d\u0113..."
+    },
+    smartaddress: {
+      placeholder: "Iel\u012Bm\u0113jiet adresi \u0161eit, v\u0101rds, t\u0101lrunis un atra\u0161an\u0101s vieta tiks noteikti autom\u0101tiski",
+      parse: "Vied\u0101 anal\u012Bze",
+      province: "Province/Pils\u0113ta/Rajons",
+      city: "Pils\u0113ta",
+      district: "Rajons/Novads",
+      street: "Iela/Ciems",
+      detail: "Detaliz\u0113ta adrese",
+      phone: "T\u0101lrunis",
+      name: "Sa\u0146\u0113m\u0113js",
+      parseSuccess: "Adrese veiksm\u012Bgi atpaz\u012Bta",
+      parseFailed: "Atpaz\u012B\u0161ana neizdev\u0101s, l\u016Bdzu aizpildiet manu\u0101li",
+      required: "L\u016Bdzu, ievadiet pilnu adresi",
+      provinceKeywords: ["Province", "Re\u0123ions"],
+      cityKeywords: ["Pils\u0113ta", "Novads"],
+      districtKeywords: ["Rajons", "Novads", "Pagasts"],
+      streetKeywords: ["Iela", "Ce\u013C\u0161", "Prospekts", "\u0160\u0137\u0113rsiela"]
+    },
+    ganttchart: {
+      taskName: "Uzdevuma nosaukums",
+      searchPlaceholder: "Mekl\u0113t uzdevumus...",
+      zoom: "T\u0101lummai\u0146a",
+      day: "Diena",
+      week: "Ned\u0113\u013Ca",
+      month: "M\u0113nesis",
+      year: "Gads",
+      milestone: "Atskaites punkts"
+    },
+    imagemagnifier: {
+      switchToImage: "P\u0101rsl\u0113gt uz att\u0113lu {index}",
+      galleryItem: "Galerija {index}",
+      close: "Aizv\u0113rt"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -710,9 +801,32 @@ const lv = exports.lv = {
         pin: "Piestiprin\u0101t",
         unpin: "No\u0146emt",
         newConversation: "Jauna saruna",
+        noData: "Sarunu v\u0113l nav",
         rename: "P\u0101rd\u0113v\u0113t",
         delete: "Dz\u0113st",
         deleteConfirm: "Vai tie\u0161\u0101m v\u0113laties dz\u0113st \u0161o sarunu?"
+      },
+      attachments: {
+        dropTip: "Nometiet failus \u0161eit, lai aug\u0161upiel\u0101d\u0113tu",
+        clickToUpload: "Noklik\u0161\u0137iniet vai velciet failus aug\u0161upiel\u0101dei",
+        uploadSuccess: "Aug\u0161upiel\u0101de veiksm\u012Bga",
+        uploadError: "Aug\u0161upiel\u0101de neizdev\u0101s",
+        deleteConfirm: "Vai tie\u0161\u0101m v\u0113laties dz\u0113st \u0161o failu?",
+        fileTooLarge: "Faila izm\u0113rs nedr\u012Bkst p\u0101rsniegt {size}",
+        invalidFileType: "Neder\u012Bgs faila tips"
+      },
+      mermaid: {
+        image: "Att\u0113ls",
+        code: "Kods",
+        zoomIn: "Pietuvin\u0101t",
+        zoomOut: "Att\u0101lin\u0101t",
+        reset: "Atiestat\u012Bt",
+        download: "Lejupiel\u0101d\u0113t",
+        copyCode: "Kop\u0113t kodu",
+        rendering: "Render\u0113...",
+        renderError: "Render\u0113\u0161ana neizdev\u0101s",
+        renderSuccess: "Render\u0113\u0161ana izdev\u0101s",
+        retry: "M\u0113\u0123in\u0101t v\u0113lreiz"
       }
     }
   }

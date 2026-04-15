@@ -521,6 +521,98 @@ export const fr: Language = {
       loading: 'Chargement...',
       noData: 'Aucune donnée'
     },
+    skuselector: {
+      placeholder: 'Sélectionner des spécifications',
+      emptyText: 'Aucune spécification',
+      stock: 'Stock',
+      price: 'Prix',
+      selected: 'Sélectionné',
+      outOfStock: 'Rupture de stock'
+    },
+    productcard: {
+      viewDetails: 'Voir les détails',
+      buyNow: 'Acheter maintenant',
+      addToCart: 'Ajouter au panier',
+      sold: 'Vendu',
+      soldOut: 'Épuisé',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Prix d’origine'
+    },
+    couponcard: {
+      available: 'Obtenir maintenant',
+      used: 'Utilisé',
+      expired: 'Expiré',
+      received: 'Reçu',
+      limit: 'Commandes de plus de {threshold}',
+      noThreshold: 'Sans minimum',
+      validPeriod: 'Validité',
+      ruleTitle: 'Règles d’utilisation'
+    },
+    luckydraw: {
+      start: 'Démarrer',
+      drawing: 'Tirage...',
+      end: 'Gagnant !',
+      retry: 'Réessayer'
+    },
+    filterbar: {
+      all: 'Tous',
+      sort: 'Trier',
+      filter: 'Filtrer',
+      cancel: 'Annuler',
+      reset: 'Réinitialiser',
+      confirm: 'Confirmer',
+      noOptions: 'Aucune option',
+      asc: 'Croissant',
+      desc: 'Décroissant',
+      selected: 'Sélectionné'
+    },
+    submitbar: {
+      total: 'Total : ',
+      selected: '{count} sélectionné(s)',
+      submit: 'Commander',
+      allSelect: 'Tout sélectionner'
+    },
+    categorynav: {
+      all: 'Tous',
+      noData: 'Aucune donnée',
+      loading: 'Chargement...'
+    },
+    smartaddress: {
+      placeholder:
+        'Collez l’adresse ici pour détecter automatiquement le nom, le téléphone et le lieu',
+      parse: 'Analyse intelligente',
+      province: 'Région/Ville/District',
+      city: 'Ville',
+      district: 'District/Département',
+      street: 'Rue/Commune',
+      detail: 'Adresse détaillée',
+      phone: 'Téléphone',
+      name: 'Destinataire',
+      parseSuccess: 'Adresse analysée avec succès',
+      parseFailed: 'Échec de l’analyse, veuillez remplir manuellement',
+      required: 'Veuillez renseigner l’adresse complète',
+      provinceKeywords: ['Région', 'Province'],
+      cityKeywords: ['Ville', 'Commune'],
+      districtKeywords: ['District', 'Département', 'Arrondissement'],
+      streetKeywords: ['Rue', 'Route', 'Avenue', 'Allée']
+    },
+    ganttchart: {
+      taskName: 'Nom de la tâche',
+      searchPlaceholder: 'Rechercher des tâches...',
+      zoom: 'Zoom',
+      day: 'Jour',
+      week: 'Semaine',
+      month: 'Mois',
+      year: 'Année',
+      milestone: 'Jalon'
+    },
+    imagemagnifier: {
+      switchToImage: 'Passer à l’image {index}',
+      galleryItem: 'Galerie {index}',
+      close: 'Fermer'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -632,9 +724,32 @@ export const fr: Language = {
         pin: 'Épingler',
         unpin: 'Désépingler',
         newConversation: 'Nouvelle conversation',
+        noData: 'Aucune conversation pour le moment',
         rename: 'Renommer',
         delete: 'Supprimer',
         deleteConfirm: 'Confirmer la suppression de cette conversation ?'
+      },
+      attachments: {
+        dropTip: 'Déposez les fichiers ici pour les téléverser',
+        clickToUpload: 'Cliquez ou glissez les fichiers pour les téléverser',
+        uploadSuccess: 'Téléversement réussi',
+        uploadError: 'Échec du téléversement',
+        deleteConfirm: 'Supprimer ce fichier ?',
+        fileTooLarge: 'La taille du fichier ne peut pas dépasser {size}',
+        invalidFileType: 'Type de fichier invalide'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Agrandir',
+        zoomOut: 'Réduire',
+        reset: 'Réinitialiser',
+        download: 'Télécharger',
+        copyCode: 'Copier le code',
+        rendering: 'Rendu en cours...',
+        renderError: 'Échec du rendu',
+        renderSuccess: 'Rendu réussi',
+        retry: 'Réessayer'
       }
     }
   }

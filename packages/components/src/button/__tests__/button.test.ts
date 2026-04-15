@@ -176,4 +176,31 @@ describe('YhButton', () => {
     })
     expect(wrapper.element.tagName.toLowerCase()).toBe('a')
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Button, {
+      props: {
+        themeOverrides: {
+          'border-color': '#123456'
+        }
+      },
+      slots: { default: 'Theme' }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-button-border-color: #123456')
+  })
+
+  it('should expose button metadata', () => {
+    const wrapper = mount(Button, {
+      props: {
+        type: 'primary',
+        size: 'large',
+        disabled: true
+      },
+      slots: { default: 'Expose' }
+    })
+
+    expect(wrapper.vm.type).toBe('primary')
+    expect(wrapper.vm.size).toBe('large')
+    expect(wrapper.vm.disabled).toBe(true)
+  })
 })

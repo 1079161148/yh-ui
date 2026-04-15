@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 import type { ComponentThemeVars } from '@yh-ui/theme'
 
 export type ArtifactType =
@@ -207,3 +207,10 @@ export const aiArtifactsEmits = {
 }
 
 export type AiArtifactsEmits = typeof aiArtifactsEmits
+
+export interface AiArtifactsSlots {
+  chart?: (props: { data: ArtifactVersion | null; title: string }) => unknown
+  canvas?: (props: { data: ArtifactVersion | null }) => unknown
+}
+
+export type AiArtifactsSlotTypes = SlotsType<AiArtifactsSlots>

@@ -43,4 +43,17 @@ describe('Price', () => {
     })
     expect(wrapper.classes()).toContain('yh-price--large')
   })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(Price, {
+      props: {
+        value: 10,
+        themeOverrides: {
+          '--yh-price-color': '#ff4d4f'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-price-color: #ff4d4f')
+  })
 })

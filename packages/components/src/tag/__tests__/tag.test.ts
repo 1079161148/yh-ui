@@ -214,4 +214,15 @@ describe('YhTag', () => {
     expect(tagSizes).toBeTruthy()
     expect(tagEffects).toBeTruthy()
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Tag, {
+      props: {
+        themeOverrides: {
+          'font-size': '14px'
+        }
+      }
+    })
+
+    expect(wrapper.get('span').attributes('style')).toContain('--yh-tag-font-size: 14px')
+  })
 })

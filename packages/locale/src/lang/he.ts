@@ -1,86 +1,86 @@
-import type { Language } from '../index'
+﻿import type { Language } from '../index'
 
 export const he: Language = {
   name: 'he',
   yh: {
-    // נפוץ
+    // 谞驻讜抓
     common: {
-      yes: 'כן',
-      no: 'לא',
-      confirm: 'אישור',
-      cancel: 'ביטול',
-      loading: 'טוען',
-      close: 'סגור',
-      clear: 'נקה',
-      reset: 'איפוס',
-      save: 'שמור',
-      delete: 'מחק',
-      edit: 'ערוך',
-      add: 'הוסף',
-      search: 'חיפוש',
-      refresh: 'רענון',
-      expand: 'הרחב',
-      collapse: 'כווץ',
-      more: 'עוד',
-      noData: 'אין נתונים',
-      noMatch: 'אין נתונים תואמים',
-      selectAll: 'בחר הכל',
-      unselectAll: 'בטל בחירה'
+      yes: '讻谉',
+      no: '诇讗',
+      confirm: '讗讬砖讜专',
+      cancel: '讘讬讟讜诇',
+      loading: '讟讜注谉',
+      close: '住讙讜专',
+      clear: '谞拽讛',
+      reset: '讗讬驻讜住',
+      save: '砖诪讜专',
+      delete: '诪讞拽',
+      edit: '注专讜讱',
+      add: '讛讜住祝',
+      search: '讞讬驻讜砖',
+      refresh: '专注谞讜谉',
+      expand: '讛专讞讘',
+      collapse: '讻讜讜抓',
+      more: '注讜讚',
+      noData: '讗讬谉 谞转讜谞讬诐',
+      noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐',
+      selectAll: '讘讞专 讛讻诇',
+      unselectAll: '讘讟诇 讘讞讬专讛'
     },
-    // בוחר צבעים
+    // 讘讜讞专 爪讘注讬诐
     colorpicker: {
-      confirm: 'אישור',
-      clear: 'נקה',
-      eyeDropper: 'פיפטה',
-      suggestionDark: 'טקסט לבן הוא הטוב ביותר',
-      suggestionLight: 'טקסט שחור הוא הטוב ביותר',
-      recentColors: 'צבעים אחרונים',
-      presetColors: 'צבעים מוגדרים מראש'
+      confirm: '讗讬砖讜专',
+      clear: '谞拽讛',
+      eyeDropper: '驻讬驻讟讛',
+      suggestionDark: '讟拽住讟 诇讘谉 讛讜讗 讛讟讜讘 讘讬讜转专',
+      suggestionLight: '讟拽住讟 砖讞讜专 讛讜讗 讛讟讜讘 讘讬讜转专',
+      recentColors: '爪讘注讬诐 讗讞专讜谞讬诐',
+      presetColors: '爪讘注讬诐 诪讜讙讚专讬诐 诪专讗砖'
     },
-    // בוחר תאריך
+    // 讘讜讞专 转讗专讬讱
     datepicker: {
-      now: 'עכשיו',
-      today: 'היום',
-      cancel: 'ביטול',
-      clear: 'נקה',
-      confirm: 'אישור',
-      selectDate: 'בחר תאריך',
-      selectTime: 'בחר שעה',
-      startDate: 'תאריך התחלה',
-      startTime: 'שעת התחלה',
-      endDate: 'תאריך סיום',
-      endTime: 'שעת סיום',
+      now: '注讻砖讬讜',
+      today: '讛讬讜诐',
+      cancel: '讘讬讟讜诇',
+      clear: '谞拽讛',
+      confirm: '讗讬砖讜专',
+      selectDate: '讘讞专 转讗专讬讱',
+      selectTime: '讘讞专 砖注讛',
+      startDate: '转讗专讬讱 讛转讞诇讛',
+      startTime: '砖注转 讛转讞诇讛',
+      endDate: '转讗专讬讱 住讬讜诐',
+      endTime: '砖注转 住讬讜诐',
       year: '',
       month: '',
       day: '',
-      week: 'שבוע',
+      week: '砖讘讜注',
       monthBeforeYear: true,
-      prevYear: 'שנה קודמת',
-      nextYear: 'שנה הבאה',
-      prevMonth: 'חודש קודם',
-      nextMonth: 'חודש הבא',
+      prevYear: '砖谞讛 拽讜讚诪转',
+      nextYear: '砖谞讛 讛讘讗讛',
+      prevMonth: '讞讜讚砖 拽讜讚诐',
+      nextMonth: '讞讜讚砖 讛讘讗',
       weeks: {
-        sun: 'א',
-        mon: 'ב',
-        tue: 'ג',
-        wed: 'ד',
-        thu: 'ה',
-        fri: 'ו',
-        sat: 'ש'
+        sun: '讗',
+        mon: '讘',
+        tue: '讙',
+        wed: '讚',
+        thu: '讛',
+        fri: '讜',
+        sat: '砖'
       },
       months: {
-        jan: 'ינו',
-        feb: 'פבר',
-        mar: 'מרץ',
-        apr: 'אפר',
-        may: 'מאי',
-        jun: 'יונ',
-        jul: 'יול',
-        aug: 'אוג',
-        sep: 'ספט',
-        oct: 'אוק',
-        nov: 'נוב',
-        dec: 'דצמ'
+        jan: '讬谞讜',
+        feb: '驻讘专',
+        mar: '诪专抓',
+        apr: '讗驻专',
+        may: '诪讗讬',
+        jun: '讬讜谞',
+        jul: '讬讜诇',
+        aug: '讗讜讙',
+        sep: '住驻讟',
+        oct: '讗讜拽',
+        nov: '谞讜讘',
+        dec: '讚爪诪'
       },
       quarters: {
         q1: 'Q1',
@@ -89,627 +89,742 @@ export const he: Language = {
         q4: 'Q4'
       }
     },
-    // בוחר שעה
+    // 讘讜讞专 砖注讛
     timepicker: {
-      confirm: 'אישור',
-      cancel: 'ביטול',
-      now: 'עכשיו',
-      placeholder: 'בחר שעה',
-      startPlaceholder: 'שעת התחלה',
-      endPlaceholder: 'שעת סיום',
-      selectTime: 'בחר שעה'
+      confirm: '讗讬砖讜专',
+      cancel: '讘讬讟讜诇',
+      now: '注讻砖讬讜',
+      placeholder: '讘讞专 砖注讛',
+      startPlaceholder: '砖注转 讛转讞诇讛',
+      endPlaceholder: '砖注转 住讬讜诐',
+      selectTime: '讘讞专 砖注讛'
     },
-    // בחירת שעה
+    // 讘讞讬专转 砖注讛
     timeselect: {
-      placeholder: 'בחר שעה'
+      placeholder: '讘讞专 砖注讛'
     },
-    // עץ
+    // 注抓
     tree: {
-      emptyText: 'אין נתונים',
-      loading: 'טוען...',
-      checkAll: 'סמן הכל',
-      uncheckAll: 'בטל סימון',
-      expandAll: 'הרחב הכל',
-      collapseAll: 'כווץ הכל'
+      emptyText: '讗讬谉 谞转讜谞讬诐',
+      loading: '讟讜注谉...',
+      checkAll: '住诪谉 讛讻诇',
+      uncheckAll: '讘讟诇 住讬诪讜谉',
+      expandAll: '讛专讞讘 讛讻诇',
+      collapseAll: '讻讜讜抓 讛讻诇'
     },
-    // בחירת עץ
+    // 讘讞讬专转 注抓
     treeselect: {
-      placeholder: 'בחר',
-      emptyText: 'אין נתונים',
-      loading: 'טוען...',
-      noMatch: 'אין נתונים תואמים'
+      placeholder: '讘讞专',
+      emptyText: '讗讬谉 谞转讜谞讬诐',
+      loading: '讟讜注谉...',
+      noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐'
     },
-    // לוח שנה
+    // 诇讜讞 砖谞讛
     calendar: {
-      prevMonth: 'חודש קודם',
-      nextMonth: 'חודש הבא',
-      prevYear: 'שנה קודמת',
-      nextYear: 'שנה הבאה',
-      today: 'היום',
-      week: 'שבוע',
-      holiday: 'חג',
-      workday: 'עבודה',
+      prevMonth: '讞讜讚砖 拽讜讚诐',
+      nextMonth: '讞讜讚砖 讛讘讗',
+      prevYear: '砖谞讛 拽讜讚诪转',
+      nextYear: '砖谞讛 讛讘讗讛',
+      today: '讛讬讜诐',
+      week: '砖讘讜注',
+      holiday: '讞讙',
+      workday: '注讘讜讚讛',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'א',
-        mon: 'ב',
-        tue: 'ג',
-        wed: 'ד',
-        thu: 'ה',
-        fri: 'ו',
-        sat: 'ש'
+        sun: '讗',
+        mon: '讘',
+        tue: '讙',
+        wed: '讚',
+        thu: '讛',
+        fri: '讜',
+        sat: '砖'
       }
     },
-    // השלמה אוטומטית
+    // 讛砖诇诪讛 讗讜讟讜诪讟讬转
     autocomplete: {
-      loading: 'טוען...',
-      placeholder: 'אנא הזן',
-      noData: 'אין נתונים',
-      noMatch: 'אין נתונים תואמים'
+      loading: '讟讜注谉...',
+      placeholder: '讗谞讗 讛讝谉',
+      noData: '讗讬谉 谞转讜谞讬诐',
+      noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐'
     },
-    // ספירה לאחור
+    // 住驻讬专讛 诇讗讞讜专
     countdown: {
-      days: 'ימים',
-      hours: 'שעות',
-      minutes: 'דקות',
-      seconds: 'שניות',
-      milliseconds: 'מילישניות',
-      finished: 'הסתיים'
+      days: '讬诪讬诐',
+      hours: '砖注讜转',
+      minutes: '讚拽讜转',
+      seconds: '砖谞讬讜转',
+      milliseconds: '诪讬诇讬砖谞讬讜转',
+      finished: '讛住转讬讬诐'
     },
-    // קסקייד
+    // 拽住拽讬讬讚
     cascader: {
-      noMatch: 'אין נתונים תואמים',
-      placeholder: 'בחר',
-      loading: 'טוען...',
-      noData: 'אין נתונים'
+      noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐',
+      placeholder: '讘讞专',
+      loading: '讟讜注谉...',
+      noData: '讗讬谉 谞转讜谞讬诐'
     },
-    // העברה
+    // 讛注讘专讛
     transfer: {
-      noMatch: 'אין נתונים תואמים',
-      noData: 'אין נתונים',
-      titles: ['רשימה 1', 'רשימה 2'],
-      filterPlaceholder: 'הזן מילת מפתח',
-      noCheckedFormat: '{total} פריטים',
-      hasCheckedFormat: '{checked}/{total} נבחרו',
-      searchPlaceholder: 'הזן מילת מפתח'
+      noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐',
+      noData: '讗讬谉 谞转讜谞讬诐',
+      titles: ['专砖讬诪讛 1', '专砖讬诪讛 2'],
+      filterPlaceholder: '讛讝谉 诪讬诇转 诪驻转讞',
+      noCheckedFormat: '{total} 驻专讬讟讬诐',
+      hasCheckedFormat: '{checked}/{total} 谞讘讞专讜',
+      searchPlaceholder: '讛讝谉 诪讬诇转 诪驻转讞'
     },
-    // טבלה
+    // 讟讘诇讛
     table: {
-      emptyText: 'אין נתונים',
-      confirmFilter: 'אישור',
-      resetFilter: 'איפוס',
-      clearFilter: 'הכל',
-      sumText: 'סכום',
-      loading: 'טוען...',
-      index: 'אינדקס',
-      print: 'הדפס',
-      cancel: 'ביטול',
-      preview: 'תצוגה מקדימה',
-      printTime: 'זמן הדפסה',
-      total: 'סה"כ {total} פריטים',
-      page: 'עמוד {page}',
-      yes: 'כן',
-      no: 'לא',
-      // סרגל כלים
+      emptyText: '讗讬谉 谞转讜谞讬诐',
+      confirmFilter: '讗讬砖讜专',
+      resetFilter: '讗讬驻讜住',
+      clearFilter: '讛讻诇',
+      sumText: '住讻讜诐',
+      loading: '讟讜注谉...',
+      index: '讗讬谞讚拽住',
+      print: '讛讚驻住',
+      cancel: '讘讬讟讜诇',
+      preview: '转爪讜讙讛 诪拽讚讬诪讛',
+      printTime: '讝诪谉 讛讚驻住讛',
+      total: '住讛"讻 {total} 驻专讬讟讬诐',
+      page: '注诪讜讚 {page}',
+      yes: '讻谉',
+      no: '诇讗',
+      // 住专讙诇 讻诇讬诐
       toolbar: {
-        refresh: 'רענון',
-        density: 'צפיפות',
-        densityDefault: 'ברירת מחדל',
-        densityLarge: 'גדול',
-        densitySmall: 'קטן',
-        columnSetting: 'הגדרות עמודות',
-        fullscreen: 'מסך מלא',
-        exitFullscreen: 'צא ממסך מלא',
-        export: 'ייצוא',
-        import: 'ייבוא',
-        search: 'חיפוש',
-        searchPlaceholder: 'הזן מילות מפתח לחיפוש'
+        refresh: '专注谞讜谉',
+        density: '爪驻讬驻讜转',
+        densityDefault: '讘专讬专转 诪讞讚诇',
+        densityLarge: '讙讚讜诇',
+        densitySmall: '拽讟谉',
+        columnSetting: '讛讙讚专讜转 注诪讜讚讜转',
+        fullscreen: '诪住讱 诪诇讗',
+        exitFullscreen: '爪讗 诪诪住讱 诪诇讗',
+        export: '讬讬爪讜讗',
+        import: '讬讬讘讜讗',
+        search: '讞讬驻讜砖',
+        searchPlaceholder: '讛讝谉 诪讬诇讜转 诪驻转讞 诇讞讬驻讜砖'
       },
-      // מסנן
+      // 诪住谞谉
       filter: {
-        selectAll: 'בחר הכל',
-        selectInvert: 'הפוך בחירה',
-        empty: 'ריק',
-        notEmpty: 'לא ריק',
-        contains: 'מכיל',
-        notContains: 'לא מכיל',
-        equals: 'שווה',
-        notEquals: 'לא שווה',
-        startsWith: 'מתחיל ב',
-        endsWith: 'מסתיים ב',
-        greaterThan: 'גדול מ',
-        lessThan: 'קטן מ',
-        between: 'בין'
+        selectAll: '讘讞专 讛讻诇',
+        selectInvert: '讛驻讜讱 讘讞讬专讛',
+        empty: '专讬拽',
+        notEmpty: '诇讗 专讬拽',
+        contains: '诪讻讬诇',
+        notContains: '诇讗 诪讻讬诇',
+        equals: '砖讜讜讛',
+        notEquals: '诇讗 砖讜讜讛',
+        startsWith: '诪转讞讬诇 讘',
+        endsWith: '诪住转讬讬诐 讘',
+        greaterThan: '讙讚讜诇 诪',
+        lessThan: '拽讟谉 诪',
+        between: '讘讬谉'
       },
-      // מיון
+      // 诪讬讜谉
       sort: {
-        asc: 'עולה',
-        desc: 'יורד',
-        clear: 'נקה מיון'
+        asc: '注讜诇讛',
+        desc: '讬讜专讚',
+        clear: '谞拽讛 诪讬讜谉'
       },
-      // ייצוא
+      // 讬讬爪讜讗
       export: {
-        title: 'ייצוא נתונים',
-        filename: 'שם קובץ',
-        type: 'סוג קובץ',
-        scope: 'היקף ייצוא',
-        scopeAll: 'כל הנתונים',
-        scopeSelected: 'נתונים נבחרים',
-        scopeCurrentPage: 'עמוד נוכחי',
-        includeHeader: 'כלול כותרת',
-        exporting: 'מייצא...',
-        success: 'ייצוא הצליח',
-        error: 'ייצוא נכשל'
+        title: '讬讬爪讜讗 谞转讜谞讬诐',
+        filename: '砖诐 拽讜讘抓',
+        type: '住讜讙 拽讜讘抓',
+        scope: '讛讬拽祝 讬讬爪讜讗',
+        scopeAll: '讻诇 讛谞转讜谞讬诐',
+        scopeSelected: '谞转讜谞讬诐 谞讘讞专讬诐',
+        scopeCurrentPage: '注诪讜讚 谞讜讻讞讬',
+        includeHeader: '讻诇讜诇 讻讜转专转',
+        exporting: '诪讬讬爪讗...',
+        success: '讬讬爪讜讗 讛爪诇讬讞',
+        error: '讬讬爪讜讗 谞讻砖诇'
       },
-      // ייבוא
+      // 讬讬讘讜讗
       import: {
-        title: 'ייבוא נתונים',
-        selectFile: 'בחר קובץ',
-        dragTip: 'לחץ או גרור קובץ לכאן להעלאה',
-        importing: 'מייבא...',
-        success: 'ייבוא הצליח',
-        error: 'ייבוא נכשל',
-        preview: 'תצוגה מקדימה של נתונים',
-        confirm: 'אשר ייבוא'
+        title: '讬讬讘讜讗 谞转讜谞讬诐',
+        selectFile: '讘讞专 拽讜讘抓',
+        dragTip: '诇讞抓 讗讜 讙专讜专 拽讜讘抓 诇讻讗谉 诇讛注诇讗讛',
+        importing: '诪讬讬讘讗...',
+        success: '讬讬讘讜讗 讛爪诇讬讞',
+        error: '讬讬讘讜讗 谞讻砖诇',
+        preview: '转爪讜讙讛 诪拽讚讬诪讛 砖诇 谞转讜谞讬诐',
+        confirm: '讗砖专 讬讬讘讜讗'
       },
-      // הדפסה
+      // 讛讚驻住讛
       printConfig: {
-        title: 'הגדרות הדפסה',
-        pageTitle: 'כותרת עמוד',
-        pageHeader: 'כותרת עליונה',
-        pageFooter: 'כותרת תחתונה',
-        printAll: 'הדפס הכל',
-        printSelected: 'הדפס נבחר',
-        printCurrentPage: 'הדפס עמוד נוכחי',
-        landscape: 'אופקי',
-        portrait: 'אנכי',
-        printing: 'מדפיס...'
+        title: '讛讙讚专讜转 讛讚驻住讛',
+        pageTitle: '讻讜转专转 注诪讜讚',
+        pageHeader: '讻讜转专转 注诇讬讜谞讛',
+        pageFooter: '讻讜转专转 转讞转讜谞讛',
+        printAll: '讛讚驻住 讛讻诇',
+        printSelected: '讛讚驻住 谞讘讞专',
+        printCurrentPage: '讛讚驻住 注诪讜讚 谞讜讻讞讬',
+        landscape: '讗讜驻拽讬',
+        portrait: '讗谞讻讬',
+        printing: '诪讚驻讬住...'
       },
-      // הגדרות עמודות
+      // 讛讙讚专讜转 注诪讜讚讜转
       columnSetting: {
-        title: 'הגדרות עמודות',
-        showAll: 'הצג הכל',
-        hideAll: 'הסתר הכל',
-        reset: 'איפוס',
-        fixedLeft: 'קבע לשמאל',
-        fixedRight: 'קבע לימין',
-        unfixed: 'שחרר'
+        title: '讛讙讚专讜转 注诪讜讚讜转',
+        showAll: '讛爪讙 讛讻诇',
+        hideAll: '讛住转专 讛讻诇',
+        reset: '讗讬驻讜住',
+        fixedLeft: '拽讘注 诇砖诪讗诇',
+        fixedRight: '拽讘注 诇讬诪讬谉',
+        unfixed: '砖讞专专'
       },
-      // תפריט הקשר
+      // 转驻专讬讟 讛拽砖专
       contextMenu: {
-        copy: 'העתק',
-        copyRow: 'העתק שורה',
-        copyCell: 'העתק תא',
-        paste: 'הדבק',
-        insertRowAbove: 'הוסף שורה למעלה',
-        insertRowBelow: 'הוסף שורה למטה',
-        deleteRow: 'מחק שורה',
-        deleteSelectedRows: 'מחק שורות נבחרות',
-        exportSelected: 'ייצא נבחר'
+        copy: '讛注转拽',
+        copyRow: '讛注转拽 砖讜专讛',
+        copyCell: '讛注转拽 转讗',
+        paste: '讛讚讘拽',
+        insertRowAbove: '讛讜住祝 砖讜专讛 诇诪注诇讛',
+        insertRowBelow: '讛讜住祝 砖讜专讛 诇诪讟讛',
+        deleteRow: '诪讞拽 砖讜专讛',
+        deleteSelectedRows: '诪讞拽 砖讜专讜转 谞讘讞专讜转',
+        exportSelected: '讬讬爪讗 谞讘讞专'
       },
-      // בחירה
+      // 讘讞讬专讛
       selection: {
-        selectAll: 'בחר הכל',
-        selectInvert: 'הפוך בחירה',
-        selectNone: 'נקה בחירה',
-        selected: '{count} פריטים נבחרו'
+        selectAll: '讘讞专 讛讻诇',
+        selectInvert: '讛驻讜讱 讘讞讬专讛',
+        selectNone: '谞拽讛 讘讞讬专讛',
+        selected: '{count} 驻专讬讟讬诐 谞讘讞专讜'
       },
-      // הרחבה
+      // 讛专讞讘讛
       expand: {
-        expandAll: 'הרחב הכל',
-        collapseAll: 'כווץ הכל'
+        expandAll: '讛专讞讘 讛讻诇',
+        collapseAll: '讻讜讜抓 讛讻诇'
       },
-      // עץ
+      // 注抓
       tree: {
-        expandAll: 'הרחב הכל',
-        collapseAll: 'כווץ הכל',
-        expandLevel: 'הרחב לרמה {level}'
+        expandAll: '讛专讞讘 讛讻诇',
+        collapseAll: '讻讜讜抓 讛讻诇',
+        expandLevel: '讛专讞讘 诇专诪讛 {level}'
       },
-      // גרירה
+      // 讙专讬专讛
       drag: {
-        dragTip: 'גרור לסידור מחדש',
-        dropTip: 'שחרר למיקום'
+        dragTip: '讙专讜专 诇住讬讚讜专 诪讞讚砖',
+        dropTip: '砖讞专专 诇诪讬拽讜诐'
       }
     },
-    // תיבת הודעה
+    // 转讬讘转 讛讜讚注讛
     messagebox: {
-      title: 'הודעה',
-      confirm: 'אישור',
-      cancel: 'ביטול',
-      close: 'סגור',
-      error: 'קלט לא חוקי',
-      alert: 'התראה',
-      prompt: 'בקשה',
-      inputPlaceholder: 'אנא הזן'
+      title: '讛讜讚注讛',
+      confirm: '讗讬砖讜专',
+      cancel: '讘讬讟讜诇',
+      close: '住讙讜专',
+      error: '拽诇讟 诇讗 讞讜拽讬',
+      alert: '讛转专讗讛',
+      prompt: '讘拽砖讛',
+      inputPlaceholder: '讗谞讗 讛讝谉'
     },
-    // העלאה
+    // 讛注诇讗讛
     upload: {
-      deleteTip: 'לחץ delete להסרה',
-      delete: 'מחק',
-      preview: 'תצוגה מקדימה',
-      continue: 'המשך',
-      upload: 'לחץ להעלאה',
-      tip: 'לחץ או גרור קובץ לאזור זה כדי <em>להעלות</em>',
-      dragTip: 'שחרר קובץ כאן או לחץ להעלאה',
-      uploading: 'מעלה...',
-      success: 'העלאה הצליחה',
-      error: 'העלאה נכשלה',
-      retry: 'נסה שוב',
-      cancel: 'בטל העלאה',
-      fileTypeError: 'סוג קובץ לא נתמך',
-      fileSizeError: 'גודל קובץ חורג מהגבול',
-      fileCountError: 'מספר קבצים חורג מהגבול'
+      deleteTip: '诇讞抓 delete 诇讛住专讛',
+      delete: '诪讞拽',
+      preview: '转爪讜讙讛 诪拽讚讬诪讛',
+      continue: '讛诪砖讱',
+      upload: '诇讞抓 诇讛注诇讗讛',
+      tip: '诇讞抓 讗讜 讙专讜专 拽讜讘抓 诇讗讝讜专 讝讛 讻讚讬 <em>诇讛注诇讜转</em>',
+      dragTip: '砖讞专专 拽讜讘抓 讻讗谉 讗讜 诇讞抓 诇讛注诇讗讛',
+      uploading: '诪注诇讛...',
+      success: '讛注诇讗讛 讛爪诇讬讞讛',
+      error: '讛注诇讗讛 谞讻砖诇讛',
+      retry: '谞住讛 砖讜讘',
+      cancel: '讘讟诇 讛注诇讗讛',
+      fileTypeError: '住讜讙 拽讜讘抓 诇讗 谞转诪讱',
+      fileSizeError: '讙讜讚诇 拽讜讘抓 讞讜专讙 诪讛讙讘讜诇',
+      fileCountError: '诪住驻专 拽讘爪讬诐 讞讜专讙 诪讛讙讘讜诇'
     },
-    // טופס
+    // 讟讜驻住
     form: {
-      validationFailed: 'אימות נכשל',
-      required: 'נדרש',
-      pleaseInput: 'אנא הזן',
-      pleaseSelect: 'אנא בחר'
+      validationFailed: '讗讬诪讜转 谞讻砖诇',
+      required: '谞讚专砖',
+      pleaseInput: '讗谞讗 讛讝谉',
+      pleaseSelect: '讗谞讗 讘讞专'
     },
-    // כפתור
+    // 讻驻转讜专
     button: {
-      loading: 'טוען...'
+      loading: '讟讜注谉...'
     },
-    // קלט
+    // 拽诇讟
     input: {
-      placeholder: 'אנא הזן',
-      clear: 'נקה',
-      showPassword: 'הצג סיסמה',
-      hidePassword: 'הסתר סיסמה',
-      copy: 'העתק',
-      copied: 'הועתק'
+      placeholder: '讗谞讗 讛讝谉',
+      clear: '谞拽讛',
+      showPassword: '讛爪讙 住讬住诪讛',
+      hidePassword: '讛住转专 住讬住诪讛',
+      copy: '讛注转拽',
+      copied: '讛讜注转拽'
     },
-    // קלט מספר
+    // 拽诇讟 诪住驻专
     inputnumber: {
-      placeholder: 'אנא הזן מספר',
-      increase: 'הגדל',
-      decrease: 'הקטן'
+      placeholder: '讗谞讗 讛讝谉 诪住驻专',
+      increase: '讛讙讚诇',
+      decrease: '讛拽讟谉'
     },
-    // קלט תג
+    // 拽诇讟 转讙
     inputtag: {
-      placeholder: 'אנא הזן',
-      add: 'הוסף',
-      remove: 'הסר'
+      placeholder: '讗谞讗 讛讝谉',
+      add: '讛讜住祝',
+      remove: '讛住专'
     },
-    // פירורי לחם
+    // 驻讬专讜专讬 诇讞诐
     breadcrumb: {
-      label: 'פירורי לחם',
-      more: 'עוד'
+      label: '驻讬专讜专讬 诇讞诐',
+      more: '注讜讚'
     },
-    // חזרה למעלה
+    // 讞讝专讛 诇诪注诇讛
     backtop: {
-      text: 'חזרה למעלה'
+      text: '讞讝专讛 诇诪注诇讛'
     },
-    // בחירה
+    // 讘讞讬专讛
     select: {
-      placeholder: 'אנא בחר',
-      noData: 'אין נתונים',
-      loading: 'טוען...',
-      noMatch: 'אין נתונים תואמים',
-      selectAll: 'בחר הכל',
-      clearAll: 'נקה הכל'
+      placeholder: '讗谞讗 讘讞专',
+      noData: '讗讬谉 谞转讜谞讬诐',
+      loading: '讟讜注谉...',
+      noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐',
+      selectAll: '讘讞专 讛讻诇',
+      clearAll: '谞拽讛 讛讻诇'
     },
-    // עימוד
+    // 注讬诪讜讚
     pagination: {
-      goto: 'עבור ל',
+      goto: '注讘讜专 诇',
       page: '',
-      total: 'סה"כ {total}',
-      pageSize: '/עמוד',
-      prev: 'הקודם',
-      next: 'הבא',
-      first: 'ראשון',
-      last: 'אחרון',
+      total: '住讛"讻 {total}',
+      pageSize: '/注诪讜讚',
+      prev: '讛拽讜讚诐',
+      next: '讛讘讗',
+      first: '专讗砖讜谉',
+      last: '讗讞专讜谉',
       pageClassifier: ''
     },
-    // אישור קופץ
+    // 讗讬砖讜专 拽讜驻抓
     popconfirm: {
-      confirm: 'אישור',
-      cancel: 'ביטול',
-      dontAskAgain: 'אל תשאל שוב'
+      confirm: '讗讬砖讜专',
+      cancel: '讘讬讟讜诇',
+      dontAskAgain: '讗诇 转砖讗诇 砖讜讘'
     },
-    // דיאלוג
+    // 讚讬讗诇讜讙
     dialog: {
-      confirm: 'אישור',
-      cancel: 'ביטול',
-      close: 'סגור',
-      maximize: 'הגדל למקסימום',
-      restore: 'שחזר'
+      confirm: '讗讬砖讜专',
+      cancel: '讘讬讟讜诇',
+      close: '住讙讜专',
+      maximize: '讛讙讚诇 诇诪拽住讬诪讜诐',
+      restore: '砖讞讝专'
     },
-    // מגירה
+    // 诪讙讬专讛
     drawer: {
-      close: 'סגור',
-      confirm: 'אישור',
-      cancel: 'ביטול'
+      close: '住讙讜专',
+      confirm: '讗讬砖讜专',
+      cancel: '讘讬讟讜诇'
     },
-    // תפריט נפתח
+    // 转驻专讬讟 谞驻转讞
     dropdown: {
-      loading: 'טוען...'
+      loading: '讟讜注谉...'
     },
-    // תמונה
+    // 转诪讜谞讛
     image: {
-      error: 'נכשל',
-      loading: 'טוען...',
-      preview: 'תצוגה מקדימה',
-      zoomIn: 'הגדל',
-      zoomOut: 'הקטן',
-      rotateLeft: 'סובב שמאלה',
-      rotateRight: 'סובב ימינה',
-      originalSize: 'גודל מקורי',
-      fullscreen: 'מסך מלא'
+      error: '谞讻砖诇',
+      loading: '讟讜注谉...',
+      preview: '转爪讜讙讛 诪拽讚讬诪讛',
+      zoomIn: '讛讙讚诇',
+      zoomOut: '讛拽讟谉',
+      rotateLeft: '住讜讘讘 砖诪讗诇讛',
+      rotateRight: '住讜讘讘 讬诪讬谞讛',
+      originalSize: '讙讜讚诇 诪拽讜专讬',
+      fullscreen: '诪住讱 诪诇讗'
     },
-    // מציג תמונות
+    // 诪爪讬讙 转诪讜谞讜转
     imageviewer: {
-      close: 'סגור',
-      prev: 'הקודם',
-      next: 'הבא',
-      zoomIn: 'הגדל',
-      zoomOut: 'הקטן',
-      rotateLeft: 'סובב שמאלה',
-      rotateRight: 'סובב ימינה',
-      reset: 'איפוס',
-      fullscreen: 'מסך מלא',
-      exitFullscreen: 'צא ממסך מלא'
+      close: '住讙讜专',
+      prev: '讛拽讜讚诐',
+      next: '讛讘讗',
+      zoomIn: '讛讙讚诇',
+      zoomOut: '讛拽讟谉',
+      rotateLeft: '住讜讘讘 砖诪讗诇讛',
+      rotateRight: '住讜讘讘 讬诪讬谞讛',
+      reset: '讗讬驻讜住',
+      fullscreen: '诪住讱 诪诇讗',
+      exitFullscreen: '爪讗 诪诪住讱 诪诇讗'
     },
-    // גלילה אינסופית
+    // 讙诇讬诇讛 讗讬谞住讜驻讬转
     infinitescroll: {
-      loading: 'טוען...',
-      finished: 'אין עוד נתונים',
-      error: 'טעינה נכשלה, לחץ לניסיון חוזר',
-      retry: 'לחץ לניסיון חוזר'
+      loading: '讟讜注谉...',
+      finished: '讗讬谉 注讜讚 谞转讜谞讬诐',
+      error: '讟注讬谞讛 谞讻砖诇讛, 诇讞抓 诇谞讬住讬讜谉 讞讜讝专',
+      retry: '诇讞抓 诇谞讬住讬讜谉 讞讜讝专'
     },
-    // הודעה
+    // 讛讜讚注讛
     message: {
-      close: 'סגור'
+      close: '住讙讜专'
     },
-    // התראה
+    // 讛转专讗讛
     notification: {
-      close: 'סגור'
+      close: '住讙讜专'
     },
-    // טעינה
+    // 讟注讬谞讛
     loading: {
-      text: 'טוען...'
+      text: '讟讜注谉...'
     },
-    // סיבוב
+    // 住讬讘讜讘
     spin: {
-      text: 'טוען...'
+      text: '讟讜注谉...'
     },
-    // דירוג
+    // 讚讬专讜讙
     rate: {
-      texts: ['גרוע מאוד', 'מאוכזב', 'הוגן', 'מרוצה', 'מופתע']
+      texts: ['讙专讜注 诪讗讜讚', '诪讗讜讻讝讘', '讛讜讙谉', '诪专讜爪讛', '诪讜驻转注']
     },
-    // התראה
+    // 讛转专讗讛
     alert: {
-      close: 'סגור'
+      close: '住讙讜专'
     },
-    // תג
+    // 转讙
     tag: {
-      close: 'סגור'
+      close: '住讙讜专'
     },
-    // כרטיסיות
+    // 讻专讟讬住讬讜转
     tabs: {
-      close: 'סגור',
-      add: 'הוסף',
-      more: 'עוד'
+      close: '住讙讜专',
+      add: '讛讜住祝',
+      more: '注讜讚'
     },
-    // שלבים
+    // 砖诇讘讬诐
     steps: {
-      finish: 'הושלם',
-      process: 'בתהליך',
-      wait: 'ממתין',
-      error: 'שגיאה'
+      finish: '讛讜砖诇诐',
+      process: '讘转讛诇讬讱',
+      wait: '诪诪转讬谉',
+      error: '砖讙讬讗讛'
     },
-    // התקדמות
+    // 讛转拽讚诪讜转
     progress: {
-      success: 'הצלחה',
-      exception: 'יוצא דופן',
-      warning: 'אזהרה'
+      success: '讛爪诇讞讛',
+      exception: '讬讜爪讗 讚讜驻谉',
+      warning: '讗讝讛专讛'
     },
-    // שלד
+    // 砖诇讚
     skeleton: {
-      loading: 'טוען...'
+      loading: '讟讜注谉...'
     },
-    // ריק
+    // 专讬拽
     empty: {
-      description: 'אין נתונים',
-      noData: 'אין נתונים',
-      noResult: 'אין תוצאות',
-      networkError: 'שגיאת רשת',
-      serverError: 'שגיאת שרת'
+      description: '讗讬谉 谞转讜谞讬诐',
+      noData: '讗讬谉 谞转讜谞讬诐',
+      noResult: '讗讬谉 转讜爪讗讜转',
+      networkError: '砖讙讬讗转 专砖转',
+      serverError: '砖讙讬讗转 砖专转'
     },
-    // תוצאה
+    // 转讜爪讗讛
     result: {
-      success: 'הצלחה',
-      error: 'שגיאה',
-      warning: 'אזהרה',
-      info: 'מידע',
-      backHome: 'חזרה לדף הבית'
+      success: '讛爪诇讞讛',
+      error: '砖讙讬讗讛',
+      warning: '讗讝讛专讛',
+      info: '诪讬讚注',
+      backHome: '讞讝专讛 诇讚祝 讛讘讬转'
     },
-    // מפל
+    // 诪驻诇
     waterfall: {
-      loading: 'טוען...',
-      noMore: 'אין עוד נתונים',
-      empty: 'אין נתונים'
+      loading: '讟讜注谉...',
+      noMore: '讗讬谉 注讜讚 谞转讜谞讬诐',
+      empty: '讗讬谉 谞转讜谞讬诐'
     },
-    // תיאורים
+    // 转讬讗讜专讬诐
     descriptions: {
       colon: ':'
     },
-    // מחוון
+    // 诪讞讜讜谉
     slider: {
       tipFormatter: '{value}'
     },
-    // מתג
+    // 诪转讙
     switch: {
-      on: 'פועל',
-      off: 'כבוי'
+      on: '驻讜注诇',
+      off: '讻讘讜讬'
     },
-    // תיבת סימון
+    // 转讬讘转 住讬诪讜谉
     checkbox: {
-      selectAll: 'בחר הכל'
+      selectAll: '讘讞专 讛讻诇'
     },
-    // רדיו
+    // 专讚讬讜
     radio: {},
-    // תפריט
+    // 转驻专讬讟
     menu: {
-      collapse: 'כווץ תפריט',
-      expand: 'הרחב תפריט'
+      collapse: '讻讜讜抓 转驻专讬讟',
+      expand: '讛专讞讘 转驻专讬讟'
     },
-    // כרטיס
+    // 讻专讟讬住
     card: {
-      collapse: 'כווץ',
-      expand: 'הרחב'
+      collapse: '讻讜讜抓',
+      expand: '讛专讞讘'
     },
-    // כיווץ
+    // 讻讬讜讜抓
     collapse: {
-      expand: 'הרחב',
-      collapse: 'כווץ'
+      expand: '讛专讞讘',
+      collapse: '讻讜讜抓'
     },
-    // רמז
+    // 专诪讝
     tooltip: {},
-    // חלון קופץ
+    // 讞诇讜谉 拽讜驻抓
     popover: {},
-    // תג
+    // 转讙
     badge: {},
-    // אווטר
+    // 讗讜讜讟专
     avatar: {
-      error: 'טעינה נכשלה'
+      error: '讟注讬谞讛 谞讻砖诇讛'
     },
-    // סימן מים
+    // 住讬诪谉 诪讬诐
     watermark: {},
-    // מפריד
+    // 诪驻专讬讚
     divider: {},
-    // קרוסלה
+    // 拽专讜住诇讛
     carousel: {
-      prev: 'הקודם',
-      next: 'הבא'
+      prev: '讛拽讜讚诐',
+      next: '讛讘讗'
     },
-    // מרקיז
+    // 诪专拽讬讝
     marquee: {},
-    // היצמדות
+    // 讛讬爪诪讚讜转
     affix: {},
-    // עוגן
+    // 注讜讙谉
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'אנא הזן',
-      loading: 'טוען...',
-      noData: 'אין נתונים'
+      placeholder: '讗谞讗 讛讝谉',
+      loading: '讟讜注谉...',
+      noData: '讗讬谉 谞转讜谞讬诐'
+    },
+    skuselector: {
+      placeholder: '讘讞专 诪驻专讟',
+      emptyText: '讗讬谉 诪驻专讟讬诐',
+      stock: '诪诇讗讬',
+      price: '诪讞讬专',
+      selected: '谞讘讞专',
+      outOfStock: '讗讝诇 诪讛诪诇讗讬'
+    },
+    productcard: {
+      viewDetails: '讛爪讙 驻专讟讬诐',
+      buyNow: '拽谞讛 注讻砖讬讜',
+      addToCart: '讛讜住祝 诇注讙诇讛',
+      sold: '谞诪讻专讜',
+      soldOut: '讗讝诇 讛诪诇讗讬',
+      vip: 'VIP'
+    },
+    price: {
+      original: '诪拽讜专讬'
+    },
+    couponcard: {
+      available: '拽讘诇 注讻砖讬讜',
+      used: '砖讜诪砖',
+      expired: '驻讙 转讜拽祝',
+      received: '讛转拽讘诇',
+      limit: '诇讛讝诪谞讜转 诪注诇 {threshold}',
+      noThreshold: '诇诇讗 住讻讜诐 诪讬谞讬诪讜诐',
+      validPeriod: '转拽讜驻转 转讜拽祝',
+      ruleTitle: '讻诇诇讬 砖讬诪讜砖'
+    },
+    luckydraw: {
+      start: '讛转讞诇',
+      drawing: '诪讙专讬诇...',
+      end: '讬砖 讝讜讻讛!',
+      retry: '谞住讛 砖讜讘'
+    },
+    filterbar: {
+      all: '讛讻讜诇',
+      sort: '诪讬讜谉',
+      filter: '住讬谞讜谉',
+      cancel: '讘讬讟讜诇',
+      reset: '讗讬驻讜住',
+      confirm: '讗讬砖讜专',
+      noOptions: '讗讬谉 讗驻砖专讜讬讜转',
+      asc: '注讜诇讛',
+      desc: '讬讜专讚',
+      selected: '谞讘讞专'
+    },
+    submitbar: {
+      total: '住讛状讻: ',
+      selected: '{count} 谞讘讞专讜',
+      submit: '诇转砖诇讜诐',
+      allSelect: '讘讞专 讛讻讜诇'
+    },
+    categorynav: {
+      all: '讛讻讜诇',
+      noData: '讗讬谉 谞转讜谞讬诐',
+      loading: '讟讜注谉...'
+    },
+    smartaddress: {
+      placeholder:
+        '讛讚讘拽 讻讗谉 讻转讜讘转, 讝讬讛讜讬 讗讜讟讜诪讟讬 砖诇 砖诐, 讟诇驻讜谉 讜诪讬拽讜诐',
+      parse: '驻注谞讜讞 讞讻诐',
+      province: '诪讞讜讝/注讬专/讗讝讜专',
+      city: '注讬专',
+      district: '讗讝讜专/谞驻讛',
+      street: '专讞讜讘/讬讬砖讜讘',
+      detail: '讻转讜讘转 诪驻讜专讟转',
+      phone: '讟诇驻讜谉',
+      name: '谞诪注谉',
+      parseSuccess: '讛讻转讜讘转 讝讜讛转讛 讘讛爪诇讞讛',
+      parseFailed: '讛讝讬讛讜讬 谞讻砖诇, 谞讗 诇诪诇讗 讬讚谞讬转',
+      required: '谞讗 诇诪诇讗 讻转讜讘转 诪诇讗讛',
+      provinceKeywords: ['诪讞讜讝', '诪讚讬谞讛'],
+      cityKeywords: ['注讬专', '讗讝讜专'],
+      districtKeywords: ['讗讝讜专', '谞驻讛', '讬讬砖讜讘'],
+      streetKeywords: ['专讞讜讘', '讚专讱', '砖讚专讛', '住诪讟讛']
+    },
+    ganttchart: {
+      taskName: '砖诐 讛诪砖讬诪讛',
+      searchPlaceholder: '讞驻砖 诪砖讬诪讜转...',
+      zoom: '讝讜诐',
+      day: '讬讜诐',
+      week: '砖讘讜注',
+      month: '讞讜讚砖',
+      year: '砖谞讛',
+      milestone: '讗讘谉 讚专讱'
+    },
+    imagemagnifier: {
+      switchToImage: '注讘讜专 诇转诪讜谞讛 {index}',
+      galleryItem: '讙诇专讬讛 {index}',
+      close: '住讙讜专'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'ציטוטים'
+        citations: '爪讬讟讜讟讬诐'
       },
       mention: {
-        placeholder: '@ הזכר סוכן, מסמך או טבלה...',
-        agent: 'סוכן',
-        document: 'מסמך',
-        table: 'טבלה',
-        knowledge: 'ידע'
+        placeholder: '@ 讛讝讻专 住讜讻谉, 诪住诪讱 讗讜 讟讘诇讛...',
+        agent: '住讜讻谉',
+        document: '诪住诪讱',
+        table: '讟讘诇讛',
+        knowledge: '讬讚注'
       },
       codeBlock: {
-        copyCode: 'העתק קוד',
-        copied: 'הועתק!',
-        run: 'הרץ קוד',
-        edit: 'ערוך',
-        save: 'שמור',
-        cancel: 'בטל'
+        copyCode: '讛注转拽 拽讜讚',
+        copied: '讛讜注转拽!',
+        run: '讛专抓 拽讜讚',
+        edit: '注专讜讱',
+        save: '砖诪讜专',
+        cancel: '讘讟诇'
       },
       codeRunner: {
-        run: 'הרץ',
-        stop: 'עצור',
-        clear: 'נקה',
-        reset: 'אפס',
-        placeholder: 'לחץ על הרץ להפעלת הקוד...'
+        run: '讛专抓',
+        stop: '注爪讜专',
+        clear: '谞拽讛',
+        reset: '讗驻住',
+        placeholder: '诇讞抓 注诇 讛专抓 诇讛驻注诇转 讛拽讜讚...'
       },
       sender: {
-        placeholder: 'שלח הודעה...',
-        dragTip: 'שחרר להעלאת קבצים'
+        placeholder: '砖诇讞 讛讜讚注讛...',
+        dragTip: '砖讞专专 诇讛注诇讗转 拽讘爪讬诐'
       },
       thoughtChain: {
-        thoughtProcess: 'תהליך חשיבה',
-        thinking: 'חושב...',
-        defaultTitle: 'שלב חדש',
-        addNode: 'הוסף שלב'
+        thoughtProcess: '转讛诇讬讱 讞砖讬讘讛',
+        thinking: '讞讜砖讘...',
+        defaultTitle: '砖诇讘 讞讚砖',
+        addNode: '讛讜住祝 砖诇讘'
       },
       thinking: {
-        start: 'התחל לחשוב',
-        thinking: 'חושב...',
-        complete: 'החשיבה הושלמה',
-        error: 'שגיאת חשיבה'
+        start: '讛转讞诇 诇讞砖讜讘',
+        thinking: '讞讜砖讘...',
+        complete: '讛讞砖讬讘讛 讛讜砖诇诪讛',
+        error: '砖讙讬讗转 讞砖讬讘讛'
       },
       welcome: {
-        title: 'שלום, אני YH AI',
+        title: '砖诇讜诐, 讗谞讬 YH AI',
         description:
-          'אני יכול לעזור לך בתכנות, תרגום מסמכים או כתיבה יצירתית. מה אני יכול לעשות בשבילך היום?'
+          '讗谞讬 讬讻讜诇 诇注讝讜专 诇讱 讘转讻谞讜转, 转专讙讜诐 诪住诪讻讬诐 讗讜 讻转讬讘讛 讬爪讬专转讬转. 诪讛 讗谞讬 讬讻讜诇 诇注砖讜转 讘砖讘讬诇讱 讛讬讜诐?'
       },
       action: {
-        copy: 'העתק',
-        regenerate: 'צור מחדש',
-        share: 'שתף',
-        like: 'אהבתי',
-        dislike: 'לא אהבתי',
-        edit: 'ערוך',
-        delete: 'מחק'
+        copy: '讛注转拽',
+        regenerate: '爪讜专 诪讞讚砖',
+        share: '砖转祝',
+        like: '讗讛讘转讬',
+        dislike: '诇讗 讗讛讘转讬',
+        edit: '注专讜讱',
+        delete: '诪讞拽'
       },
       artifacts: {
-        preview: 'תצוגה מקדימה',
-        inline: 'מוטבע',
-        code: 'מקור',
-        versions: 'גרסאות',
-        rendering: 'מעבד רכיב...',
-        renderingChart: 'מעבד גרף...',
-        renderingCanvas: 'מכין בד...'
+        preview: '转爪讜讙讛 诪拽讚讬诪讛',
+        inline: '诪讜讟讘注',
+        code: '诪拽讜专',
+        versions: '讙专住讗讜转',
+        rendering: '诪注讘讚 专讻讬讘...',
+        renderingChart: '诪注讘讚 讙专祝...',
+        renderingCanvas: '诪讻讬谉 讘讚...'
       },
       voice: {
-        trigger: 'לחץ לדיבור',
-        listening: 'מקשיב...'
+        trigger: '诇讞抓 诇讚讬讘讜专',
+        listening: '诪拽砖讬讘...'
       },
       agent: {
-        uses: 'משתמש',
-        use: 'השתמש עכשיו',
-        favorite: 'מועדף',
-        unfavorite: 'הסר ממועדפים',
-        share: 'שתף',
-        online: 'מחובר',
-        offline: 'לא מחובר',
-        busy: 'עסוק',
-        verified: 'מאומת',
-        rating: 'דירוג',
-        reviews: 'ביקורות',
-        responseTime: 'זמן תגובה ממוצע',
-        ms: 'מ"ש'
+        uses: '诪砖转诪砖',
+        use: '讛砖转诪砖 注讻砖讬讜',
+        favorite: '诪讜注讚祝',
+        unfavorite: '讛住专 诪诪讜注讚驻讬诐',
+        share: '砖转祝',
+        online: '诪讞讜讘专',
+        offline: '诇讗 诪讞讜讘专',
+        busy: '注住讜拽',
+        verified: '诪讗讜诪转',
+        rating: '讚讬专讜讙',
+        reviews: '讘讬拽讜专讜转',
+        responseTime: '讝诪谉 转讙讜讘讛 诪诪讜爪注',
+        ms: '诪"砖'
       },
       sources: {
-        references: 'מקורות',
-        referencedSources: 'מקורות מאוזכרים',
-        relevant: 'רלוונטיות',
-        viewOriginal: 'צפה במקור',
-        showAll: 'הצג הכל',
-        more: 'מקורות נוספים',
-        drawerTitle: 'מקורות',
-        expandMore: 'הצג עוד',
-        collapseMore: 'כווץ',
-        noSources: 'אין מקורות',
-        today: 'היום',
-        last7Days: '7 ימים אחרונים',
-        last30Days: '30 ימים אחרונים',
-        earlier: 'קודם',
-        pinned: 'מוצמד'
+        references: '诪拽讜专讜转',
+        referencedSources: '诪拽讜专讜转 诪讗讜讝讻专讬诐',
+        relevant: '专诇讜讜谞讟讬讜转',
+        viewOriginal: '爪驻讛 讘诪拽讜专',
+        showAll: '讛爪讙 讛讻诇',
+        more: '诪拽讜专讜转 谞讜住驻讬诐',
+        drawerTitle: '诪拽讜专讜转',
+        expandMore: '讛爪讙 注讜讚',
+        collapseMore: '讻讜讜抓',
+        noSources: '讗讬谉 诪拽讜专讜转',
+        today: '讛讬讜诐',
+        last7Days: '7 讬诪讬诐 讗讞专讜谞讬诐',
+        last30Days: '30 讬诪讬诐 讗讞专讜谞讬诐',
+        earlier: '拽讜讚诐',
+        pinned: '诪讜爪诪讚'
       },
       conversations: {
-        today: 'היום',
-        last7Days: '7 ימים אחרונים',
-        last30Days: '30 ימים אחרונים',
-        earlier: 'קודם',
-        pinned: 'מוצמד',
-        pin: 'הצמד',
-        unpin: 'בטל הצמדה',
-        newConversation: 'שיחה חדשה',
-        rename: 'שנה שם',
-        delete: 'מחק',
-        deleteConfirm: 'אשר מחיקת שיחה זו?'
+        today: '讛讬讜诐',
+        last7Days: '7 讛讬诪讬诐 讛讗讞专讜谞讬诐',
+        last30Days: '30 讛讬诪讬诐 讛讗讞专讜谞讬诐',
+        earlier: '诪讜拽讚诐 讬讜转专',
+        pinned: '诪讜爪诪讚',
+        pin: '讛爪诪讚',
+        unpin: '讘讟诇 讛爪诪讚讛',
+        newConversation: '砖讬讞讛 讞讚砖讛',
+        noData: '讗讬谉 注讚讬讬谉 砖讬讞讜转',
+        rename: '砖谞讛 砖诐',
+        delete: '诪讞拽',
+        deleteConfirm: '诇讗砖专 诪讞讬拽讛 砖诇 讛砖讬讞讛 讛讝讜?'
+      },
+      attachments: {
+        dropTip: '砖讞专专 讻讗谉 拽讘爪讬诐 讻讚讬 诇讛注诇讜转',
+        clickToUpload: '诇讞抓 讗讜 讙专讜专 拽讘爪讬诐 讻讚讬 诇讛注诇讜转',
+        uploadSuccess: '讛讛注诇讗讛 讛爪诇讬讞讛',
+        uploadError: '讛讛注诇讗讛 谞讻砖诇讛',
+        deleteConfirm: '讛讗诐 讗转讛 讘讟讜讞 砖讘专爪讜谞讱 诇诪讞讜拽 讗转 讛拽讜讘抓 讛讝讛?',
+        fileTooLarge: '讙讜讚诇 讛拽讜讘抓 诇讗 讬讻讜诇 诇注诇讜转 注诇 {size}',
+        invalidFileType: '住讜讙 拽讜讘抓 诇讗 讞讜拽讬'
+      },
+      mermaid: {
+        image: '转诪讜谞讛',
+        code: '拽讜讚',
+        zoomIn: '讛讙讚诇',
+        zoomOut: '讛拽讟谉',
+        reset: '讗驻住',
+        download: '讛讜专讚',
+        copyCode: '讛注转拽 拽讜讚',
+        rendering: '诪转讘爪注 专讬谞讚讜专...',
+        renderError: '讛专讬谞讚讜专 谞讻砖诇',
+        renderSuccess: '讛专讬谞讚讜专 讛爪诇讬讞',
+        retry: '谞住讛 砖讜讘'
       }
     }
   }

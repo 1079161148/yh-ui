@@ -223,6 +223,14 @@ export interface DatePickerEmits {
   (e: 'visible-change', visible: boolean): void
 }
 
+export interface DatePickerSlots {
+  'prefix-icon'?: () => unknown
+  'clear-icon'?: () => unknown
+  extra?: () => unknown
+  'date-cell'?: (props: { cell: Date }) => unknown
+  footer?: () => unknown
+}
+
 /**
  * 内部状态中的面板视图类型
  */

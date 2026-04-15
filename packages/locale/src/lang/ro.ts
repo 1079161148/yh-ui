@@ -597,6 +597,97 @@ export const ro: Language = {
       noData: 'Nu există date'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Selectați specificațiile',
+      emptyText: 'Nu există specificații',
+      stock: 'Stoc',
+      price: 'Preț',
+      selected: 'Selectat',
+      outOfStock: 'Stoc epuizat'
+    },
+    productcard: {
+      viewDetails: 'Vezi detalii',
+      buyNow: 'Cumpără acum',
+      addToCart: 'Adaugă în coș',
+      sold: 'Vândut',
+      soldOut: 'Epuizat',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Preț inițial'
+    },
+    couponcard: {
+      available: 'Obține acum',
+      used: 'Folosit',
+      expired: 'Expirat',
+      received: 'Primit',
+      limit: 'Comenzi peste {threshold}',
+      noThreshold: 'Fără prag minim',
+      validPeriod: 'Perioadă de valabilitate',
+      ruleTitle: 'Reguli de utilizare'
+    },
+    luckydraw: {
+      start: 'Pornește',
+      drawing: 'Se extrage...',
+      end: 'Câștigător!',
+      retry: 'Încearcă din nou'
+    },
+    filterbar: {
+      all: 'Toate',
+      sort: 'Sortare',
+      filter: 'Filtrare',
+      cancel: 'Anulează',
+      reset: 'Resetează',
+      confirm: 'Confirmă',
+      noOptions: 'Fără opțiuni',
+      asc: 'Crescător',
+      desc: 'Descrescător',
+      selected: 'Selectat'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selectate',
+      submit: 'Finalizează comanda',
+      allSelect: 'Selectează tot'
+    },
+    categorynav: {
+      all: 'Toate',
+      noData: 'Nu există date',
+      loading: 'Se încarcă...'
+    },
+    smartaddress: {
+      placeholder: 'Lipiți aici adresa pentru a detecta automat numele, telefonul și locația',
+      parse: 'Analiză inteligentă',
+      province: 'Județ/Oraș/District',
+      city: 'Oraș',
+      district: 'District/Comitat',
+      street: 'Stradă/Localitate',
+      detail: 'Adresă detaliată',
+      phone: 'Telefon',
+      name: 'Destinatar',
+      parseSuccess: 'Adresa a fost analizată cu succes',
+      parseFailed: 'Analiza a eșuat, completați manual',
+      required: 'Vă rugăm să completați adresa completă',
+      provinceKeywords: ['Județ', 'Stat'],
+      cityKeywords: ['Oraș', 'Municipiu'],
+      districtKeywords: ['District', 'Comitat', 'Cartier'],
+      streetKeywords: ['Stradă', 'Șosea', 'Bulevard', 'Alee']
+    },
+    ganttchart: {
+      taskName: 'Numele sarcinii',
+      searchPlaceholder: 'Căutați sarcini...',
+      zoom: 'Zoom',
+      day: 'Zi',
+      week: 'Săptămână',
+      month: 'Lună',
+      year: 'An',
+      milestone: 'Etapă'
+    },
+    imagemagnifier: {
+      switchToImage: 'Comută la imaginea {index}',
+      galleryItem: 'Galerie {index}',
+      close: 'Închide'
+    },
     ai: {
       bubble: {
         citations: 'Citări'
@@ -707,9 +798,32 @@ export const ro: Language = {
         pin: 'Fixează',
         unpin: 'Eliberează',
         newConversation: 'Conversație Nouă',
+        noData: 'Încă nu există conversații',
         rename: 'Redenumește',
         delete: 'Șterge',
         deleteConfirm: 'Confirmați ștergerea acestei conversații?'
+      },
+      attachments: {
+        dropTip: 'Plasați fișierele aici pentru încărcare',
+        clickToUpload: 'Faceți clic sau trageți fișiere pentru încărcare',
+        uploadSuccess: 'Încărcarea a reușit',
+        uploadError: 'Încărcarea a eșuat',
+        deleteConfirm: 'Sigur doriți să ștergeți acest fișier?',
+        fileTooLarge: 'Dimensiunea fișierului nu poate depăși {size}',
+        invalidFileType: 'Tip de fișier nevalid'
+      },
+      mermaid: {
+        image: 'Imagine',
+        code: 'Cod',
+        zoomIn: 'Mărește',
+        zoomOut: 'Micșorează',
+        reset: 'Resetează',
+        download: 'Descarcă',
+        copyCode: 'Copiază codul',
+        rendering: 'Se redă...',
+        renderError: 'Redarea a eșuat',
+        renderSuccess: 'Redarea a reușit',
+        retry: 'Încearcă din nou'
       }
     }
   }

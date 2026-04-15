@@ -76,6 +76,24 @@ describe('YhCheckbox', () => {
     })
     expect(wrapper.find('.yh-checkbox__label').text()).toBe('Custom Label')
   })
+
+  it('applies theme overrides and keeps expose api available', async () => {
+    const wrapper = mount(YhCheckbox, {
+      props: {
+        themeOverrides: {
+          textColor: 'rgb(1, 2, 3)'
+        }
+      }
+    })
+    await nextTick()
+
+    const root = wrapper.find('.yh-checkbox').element as HTMLElement
+    const vm = wrapper.vm as any
+
+    expect(root.style.getPropertyValue('--yh-checkbox-text-color')).toBe('rgb(1, 2, 3)')
+    expect(typeof vm.focus).toBe('function')
+    expect(typeof vm.blur).toBe('function')
+  })
 })
 
 describe('YhCheckboxGroup', () => {

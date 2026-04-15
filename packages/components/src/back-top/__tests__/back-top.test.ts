@@ -3,8 +3,10 @@
  */
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import YhBackTop from '../src/back-top.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhBackTop', () => {
   let container: HTMLElement
@@ -95,5 +97,28 @@ describe('YhBackTop', () => {
 
     expect(scrollToSpy).toHaveBeenCalled()
     expect(wrapper.emitted('click')).toBeTruthy()
+  })
+
+  it('should use locale aria-label and keep themeOverrides prop', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(YhBackTop, {
+            target: '#scroll-container',
+            visibilityHeight: 0,
+            themeOverrides: { bgColor: '#101010' }
+          })
+      }
+    })
+
+    container.scrollTop = 150
+    const backTop = wrapper.findComponent(YhBackTop)
+    ;(backTop.vm as any).handleScroll()
+    vi.advanceTimersByTime(16)
+    await nextTick()
+
+    expect(wrapper.get('.yh-back-top').attributes('aria-label')).toBe('Back to Top')
+    expect(backTop.props('themeOverrides')).toEqual({ bgColor: '#101010' })
   })
 })

@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 
 export interface AiCommand {
   /**
@@ -155,3 +155,11 @@ export const aiSenderEmits = {
 }
 
 export type AiSenderEmits = typeof aiSenderEmits
+
+export interface AiSenderSlots {
+  prefix?: () => unknown
+  actions?: () => unknown
+  submit?: (props: { disabled: boolean; loading: boolean; submit: () => void }) => unknown
+}
+
+export type AiSenderSlotTypes = SlotsType<AiSenderSlots>

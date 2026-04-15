@@ -597,6 +597,97 @@ export const az: Language = {
       noData: 'Məlumat yoxdur'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Xüsusiyyətləri seçin',
+      emptyText: 'Xüsusiyyət yoxdur',
+      stock: 'Stok',
+      price: 'Qiymət',
+      selected: 'Seçilib',
+      outOfStock: 'Stokda yoxdur'
+    },
+    productcard: {
+      viewDetails: 'Detallara bax',
+      buyNow: 'İndi al',
+      addToCart: 'Səbətə əlavə et',
+      sold: 'Satılıb',
+      soldOut: 'Tükənib',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'İlkin qiymət'
+    },
+    couponcard: {
+      available: 'İndi əldə et',
+      used: 'İstifadə olunub',
+      expired: 'Müddəti bitib',
+      received: 'Alınıb',
+      limit: '{threshold} üzəri sifarişlər',
+      noThreshold: 'Minimum hədd yoxdur',
+      validPeriod: 'Etibarlılıq müddəti',
+      ruleTitle: 'İstifadə qaydaları'
+    },
+    luckydraw: {
+      start: 'Başlat',
+      drawing: 'Püşkatma gedir...',
+      end: 'Qalib!',
+      retry: 'Yenidən cəhd et'
+    },
+    filterbar: {
+      all: 'Hamısı',
+      sort: 'Sırala',
+      filter: 'Filtr',
+      cancel: 'Ləğv et',
+      reset: 'Sıfırla',
+      confirm: 'Təsdiqlə',
+      noOptions: 'Seçim yoxdur',
+      asc: 'Artan',
+      desc: 'Azalan',
+      selected: 'Seçilib'
+    },
+    submitbar: {
+      total: 'Cəmi: ',
+      selected: '{count} seçilib',
+      submit: 'Ödənişə keç',
+      allSelect: 'Hamısını seç'
+    },
+    categorynav: {
+      all: 'Hamısı',
+      noData: 'Məlumat yoxdur',
+      loading: 'Yüklənir...'
+    },
+    smartaddress: {
+      placeholder: 'Adı, telefonu və məkanı avtomatik aşkar etmək üçün ünvanı bura yapışdırın',
+      parse: 'Ağıllı analiz',
+      province: 'Region/Şəhər/Rayon',
+      city: 'Şəhər',
+      district: 'Rayon/Qəza',
+      street: 'Küçə/Qəsəbə',
+      detail: 'Ətraflı ünvan',
+      phone: 'Telefon',
+      name: 'Alıcı',
+      parseSuccess: 'Ünvan uğurla analiz edildi',
+      parseFailed: 'Analiz uğursuz oldu, əl ilə doldurun',
+      required: 'Zəhmət olmasa tam ünvanı daxil edin',
+      provinceKeywords: ['Region', 'Vilayət'],
+      cityKeywords: ['Şəhər', 'Bələdiyyə'],
+      districtKeywords: ['Rayon', 'Qəsəbə', 'Kənd'],
+      streetKeywords: ['Küçə', 'Prospekt', 'Yol', 'Dalana']
+    },
+    ganttchart: {
+      taskName: 'Tapşırıq adı',
+      searchPlaceholder: 'Tapşırıqları axtar...',
+      zoom: 'Böyütmə',
+      day: 'Gün',
+      week: 'Həftə',
+      month: 'Ay',
+      year: 'İl',
+      milestone: 'Mərhələ'
+    },
+    imagemagnifier: {
+      switchToImage: '{index} nömrəli şəkilə keç',
+      galleryItem: 'Qalereya {index}',
+      close: 'Bağla'
+    },
     ai: {
       bubble: {
         citations: 'İstinadlar'
@@ -707,9 +798,32 @@ export const az: Language = {
         pin: 'Sabitlə',
         unpin: 'Sabitləməni götür',
         newConversation: 'Yeni söhbət',
+        noData: 'Hələ söhbət yoxdur',
         rename: 'Adını dəyiş',
         delete: 'Sil',
         deleteConfirm: 'Bu söhbəti silməyi təsdiqləyin?'
+      },
+      attachments: {
+        dropTip: 'Yükləmək üçün faylları bura buraxın',
+        clickToUpload: 'Yükləmək üçün klikləyin və ya faylları sürüşdürün',
+        uploadSuccess: 'Yükləmə uğurludur',
+        uploadError: 'Yükləmə baş tutmadı',
+        deleteConfirm: 'Bu faylı silmək istədiyinizə əminsiniz?',
+        fileTooLarge: 'Fayl ölçüsü {size} dəyərini aşa bilməz',
+        invalidFileType: 'Yanlış fayl növü'
+      },
+      mermaid: {
+        image: 'Şəkil',
+        code: 'Kod',
+        zoomIn: 'Böyüt',
+        zoomOut: 'Kiçilt',
+        reset: 'Sıfırla',
+        download: 'Yüklə',
+        copyCode: 'Kodu kopyala',
+        rendering: 'Render edilir...',
+        renderError: 'Render baş tutmadı',
+        renderSuccess: 'Render uğurludur',
+        retry: 'Yenidən cəhd et'
       }
     }
   }

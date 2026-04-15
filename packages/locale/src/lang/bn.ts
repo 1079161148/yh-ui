@@ -5,82 +5,89 @@ export const bn: Language = {
   yh: {
     // সাধারণ
     common: {
-      yes: 'হ্যাঁ',
-      no: 'না',
-      confirm: 'নিশ্চিত করুন',
-      cancel: 'বাতিল',
-      loading: 'লোড হচ্ছে',
-      close: 'বন্ধ',
-      clear: 'পরিষ্কার',
-      reset: 'রিসেট',
-      save: 'সংরক্ষণ',
-      delete: 'মুছুন',
-      edit: 'সম্পাদনা',
-      add: 'যোগ করুন',
-      search: 'অনুসন্ধান',
-      refresh: 'রিফ্রেশ',
-      expand: 'প্রসারিত করুন',
-      collapse: 'সংকুচিত করুন',
-      more: 'আরও',
-      noData: 'কোন ডেটা নেই',
-      noMatch: 'কোন মিল নেই',
-      selectAll: 'সব নির্বাচন করুন',
-      unselectAll: 'সব নির্বাচন বাতিল করুন'
+      yes: '\u09B9\u09CD\u09AF\u09BE\u0981',
+      no: '\u09A8\u09BE',
+      confirm: '\u09A8\u09BF\u09B6\u09CD\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7',
+      close: '\u09AC\u09A8\u09CD\u09A7',
+      clear: '\u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0',
+      reset: '\u09B0\u09BF\u09B8\u09C7\u099F',
+      save: '\u09B8\u0982\u09B0\u0995\u09CD\u09B7\u09A3',
+      delete: '\u09AE\u09C1\u099B\u09C1\u09A8',
+      edit: '\u09B8\u09AE\u09CD\u09AA\u09BE\u09A6\u09A8\u09BE',
+      add: '\u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8',
+      search: '\u0985\u09A8\u09C1\u09B8\u09A8\u09CD\u09A7\u09BE\u09A8',
+      refresh: '\u09B0\u09BF\u09AB\u09CD\u09B0\u09C7\u09B6',
+      expand: '\u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      collapse: '\u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      more: '\u0986\u09B0\u0993',
+      noData: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      noMatch: '\u0995\u09CB\u09A8 \u09AE\u09BF\u09B2 \u09A8\u09C7\u0987',
+      selectAll:
+        '\u09B8\u09AC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      unselectAll:
+        '\u09B8\u09AC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u09AC\u09BE\u09A4\u09BF\u09B2 \u0995\u09B0\u09C1\u09A8'
     },
     // রঙ নির্বাচক
     colorpicker: {
-      confirm: 'ঠিক আছে',
-      clear: 'পরিষ্কার',
-      eyeDropper: 'আই ড্রপার',
-      suggestionDark: 'সাদা টেক্সট ভাল',
-      suggestionLight: 'কালো টেক্সট ভাল',
-      recentColors: 'সাম্প্রতিক রঙ',
-      presetColors: 'পূর্বনির্ধারিত রঙ'
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      clear: '\u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0',
+      eyeDropper: '\u0986\u0987 \u09A1\u09CD\u09B0\u09AA\u09BE\u09B0',
+      suggestionDark:
+        '\u09B8\u09BE\u09A6\u09BE \u099F\u09C7\u0995\u09CD\u09B8\u099F \u09AD\u09BE\u09B2',
+      suggestionLight:
+        '\u0995\u09BE\u09B2\u09CB \u099F\u09C7\u0995\u09CD\u09B8\u099F \u09AD\u09BE\u09B2',
+      recentColors: '\u09B8\u09BE\u09AE\u09CD\u09AA\u09CD\u09B0\u09A4\u09BF\u0995 \u09B0\u0999',
+      presetColors:
+        '\u09AA\u09C2\u09B0\u09CD\u09AC\u09A8\u09BF\u09B0\u09CD\u09A7\u09BE\u09B0\u09BF\u09A4 \u09B0\u0999'
     },
     // তারিখ নির্বাচক
     datepicker: {
-      now: 'এখন',
-      today: 'আজ',
-      cancel: 'বাতিল',
-      clear: 'পরিষ্কার',
-      confirm: 'ঠিক আছে',
-      selectDate: 'তারিখ নির্বাচন করুন',
-      selectTime: 'সময় নির্বাচন করুন',
-      startDate: 'শুরুর তারিখ',
-      startTime: 'শুরুর সময়',
-      endDate: 'শেষ তারিখ',
-      endTime: 'শেষ সময়',
+      now: '\u098F\u0996\u09A8',
+      today: '\u0986\u099C',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      clear: '\u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0',
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      selectDate:
+        '\u09A4\u09BE\u09B0\u09BF\u0996 \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      selectTime:
+        '\u09B8\u09AE\u09AF\u09BC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      startDate: '\u09B6\u09C1\u09B0\u09C1\u09B0 \u09A4\u09BE\u09B0\u09BF\u0996',
+      startTime: '\u09B6\u09C1\u09B0\u09C1\u09B0 \u09B8\u09AE\u09AF\u09BC',
+      endDate: '\u09B6\u09C7\u09B7 \u09A4\u09BE\u09B0\u09BF\u0996',
+      endTime: '\u09B6\u09C7\u09B7 \u09B8\u09AE\u09AF\u09BC',
       year: '',
       month: '',
       day: '',
-      week: 'সপ্তাহ',
+      week: '\u09B8\u09AA\u09CD\u09A4\u09BE\u09B9',
       monthBeforeYear: true,
-      prevYear: 'পূর্ববর্তী বছর',
-      nextYear: 'পরবর্তী বছর',
-      prevMonth: 'পূর্ববর্তী মাস',
-      nextMonth: 'পরবর্তী মাস',
+      prevYear: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AC\u099B\u09B0',
+      nextYear: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AC\u099B\u09B0',
+      prevMonth: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AE\u09BE\u09B8',
+      nextMonth: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AE\u09BE\u09B8',
       weeks: {
-        sun: 'রবি',
-        mon: 'সোম',
-        tue: 'মঙ্গল',
-        wed: 'বুধ',
-        thu: 'বৃহস্পতি',
-        fri: 'শুক্র',
-        sat: 'শনি'
+        sun: '\u09B0\u09AC\u09BF',
+        mon: '\u09B8\u09CB\u09AE',
+        tue: '\u09AE\u0999\u09CD\u0997\u09B2',
+        wed: '\u09AC\u09C1\u09A7',
+        thu: '\u09AC\u09C3\u09B9\u09B8\u09CD\u09AA\u09A4\u09BF',
+        fri: '\u09B6\u09C1\u0995\u09CD\u09B0',
+        sat: '\u09B6\u09A8\u09BF'
       },
       months: {
-        jan: 'জানু',
-        feb: 'ফেব্রু',
-        mar: 'মার্চ',
-        apr: 'এপ্রিল',
-        may: 'মে',
-        jun: 'জুন',
-        jul: 'জুলাই',
-        aug: 'আগস্ট',
-        sep: 'সেপ্টেম্বর',
-        oct: 'অক্টোবর',
-        nov: 'নভেম্বর',
-        dec: 'ডিসেম্বর'
+        jan: '\u099C\u09BE\u09A8\u09C1',
+        feb: '\u09AB\u09C7\u09AC\u09CD\u09B0\u09C1',
+        mar: '\u09AE\u09BE\u09B0\u09CD\u099A',
+        apr: '\u098F\u09AA\u09CD\u09B0\u09BF\u09B2',
+        may: '\u09AE\u09C7',
+        jun: '\u099C\u09C1\u09A8',
+        jul: '\u099C\u09C1\u09B2\u09BE\u0987',
+        aug: '\u0986\u0997\u09B8\u09CD\u099F',
+        sep: '\u09B8\u09C7\u09AA\u09CD\u099F\u09C7\u09AE\u09CD\u09AC\u09B0',
+        oct: '\u0985\u0995\u09CD\u099F\u09CB\u09AC\u09B0',
+        nov: '\u09A8\u09AD\u09C7\u09AE\u09CD\u09AC\u09B0',
+        dec: '\u09A1\u09BF\u09B8\u09C7\u09AE\u09CD\u09AC\u09B0'
       },
       quarters: {
         q1: 'Q1',
@@ -91,445 +98,527 @@ export const bn: Language = {
     },
     // সময় নির্বাচক
     timepicker: {
-      confirm: 'ঠিক আছে',
-      cancel: 'বাতিল',
-      now: 'এখন',
-      placeholder: 'সময় নির্বাচন করুন',
-      startPlaceholder: 'শুরুর সময়',
-      endPlaceholder: 'শেষ সময়',
-      selectTime: 'সময় নির্বাচন করুন'
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      now: '\u098F\u0996\u09A8',
+      placeholder:
+        '\u09B8\u09AE\u09AF\u09BC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      startPlaceholder: '\u09B6\u09C1\u09B0\u09C1\u09B0 \u09B8\u09AE\u09AF\u09BC',
+      endPlaceholder: '\u09B6\u09C7\u09B7 \u09B8\u09AE\u09AF\u09BC',
+      selectTime:
+        '\u09B8\u09AE\u09AF\u09BC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8'
     },
     // সময় নির্বাচন
     timeselect: {
-      placeholder: 'সময় নির্বাচন করুন'
+      placeholder:
+        '\u09B8\u09AE\u09AF\u09BC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8'
     },
     // গাছ
     tree: {
-      emptyText: 'কোন ডেটা নেই',
-      loading: 'লোড হচ্ছে...',
-      checkAll: 'সব চেক করুন',
-      uncheckAll: 'সব চেক বাতিল করুন',
-      expandAll: 'সব প্রসারিত করুন',
-      collapseAll: 'সব সংকুচিত করুন'
+      emptyText: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      checkAll: '\u09B8\u09AC \u099A\u09C7\u0995 \u0995\u09B0\u09C1\u09A8',
+      uncheckAll:
+        '\u09B8\u09AC \u099A\u09C7\u0995 \u09AC\u09BE\u09A4\u09BF\u09B2 \u0995\u09B0\u09C1\u09A8',
+      expandAll:
+        '\u09B8\u09AC \u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      collapseAll:
+        '\u09B8\u09AC \u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
     },
     // গাছ নির্বাচক
     treeselect: {
-      placeholder: 'নির্বাচন করুন',
-      emptyText: 'কোন ডেটা নেই',
-      loading: 'লোড হচ্ছে...',
-      noMatch: 'কোন মিল নেই'
+      placeholder: '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      emptyText: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      noMatch: '\u0995\u09CB\u09A8 \u09AE\u09BF\u09B2 \u09A8\u09C7\u0987'
     },
     // ক্যালেন্ডার
     calendar: {
-      prevMonth: 'পূর্ববর্তী মাস',
-      nextMonth: 'পরবর্তী মাস',
-      prevYear: 'পূর্ববর্তী বছর',
-      nextYear: 'পরবর্তী বছর',
-      today: 'আজ',
-      week: 'সপ্তাহ',
-      holiday: 'ছুটি',
-      workday: 'কাজ',
+      prevMonth: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AE\u09BE\u09B8',
+      nextMonth: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AE\u09BE\u09B8',
+      prevYear: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AC\u099B\u09B0',
+      nextYear: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0 \u09AC\u099B\u09B0',
+      today: '\u0986\u099C',
+      week: '\u09B8\u09AA\u09CD\u09A4\u09BE\u09B9',
+      holiday: '\u099B\u09C1\u099F\u09BF',
+      workday: '\u0995\u09BE\u099C',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: 'রবি',
-        mon: 'সোম',
-        tue: 'মঙ্গল',
-        wed: 'বুধ',
-        thu: 'বৃহস্পতি',
-        fri: 'শুক্র',
-        sat: 'শনি'
+        sun: '\u09B0\u09AC\u09BF',
+        mon: '\u09B8\u09CB\u09AE',
+        tue: '\u09AE\u0999\u09CD\u0997\u09B2',
+        wed: '\u09AC\u09C1\u09A7',
+        thu: '\u09AC\u09C3\u09B9\u09B8\u09CD\u09AA\u09A4\u09BF',
+        fri: '\u09B6\u09C1\u0995\u09CD\u09B0',
+        sat: '\u09B6\u09A8\u09BF'
       }
     },
     // অটো-সম্পূর্ণ
     autocomplete: {
-      loading: 'লোড হচ্ছে...',
-      placeholder: 'অনুগ্রহ করে ইনপুট করুন',
-      noData: 'কোন ডেটা নেই',
-      noMatch: 'কোন মিল নেই'
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      placeholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u0987\u09A8\u09AA\u09C1\u099F \u0995\u09B0\u09C1\u09A8',
+      noData: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      noMatch: '\u0995\u09CB\u09A8 \u09AE\u09BF\u09B2 \u09A8\u09C7\u0987'
     },
     // কাউন্টডাউন
     countdown: {
-      days: 'দিন',
-      hours: 'ঘণ্টা',
-      minutes: 'মিনিট',
-      seconds: 'সেকেন্ড',
-      milliseconds: 'মিলিসেকেন্ড',
-      finished: 'সমাপ্ত'
+      days: '\u09A6\u09BF\u09A8',
+      hours: '\u0998\u09A3\u09CD\u099F\u09BE',
+      minutes: '\u09AE\u09BF\u09A8\u09BF\u099F',
+      seconds: '\u09B8\u09C7\u0995\u09C7\u09A8\u09CD\u09A1',
+      milliseconds: '\u09AE\u09BF\u09B2\u09BF\u09B8\u09C7\u0995\u09C7\u09A8\u09CD\u09A1',
+      finished: '\u09B8\u09AE\u09BE\u09AA\u09CD\u09A4'
     },
     // ক্যাসকেডার
     cascader: {
-      noMatch: 'কোন মিল নেই',
-      placeholder: 'নির্বাচন করুন',
-      loading: 'লোড হচ্ছে...',
-      noData: 'কোন ডেটা নেই'
+      noMatch: '\u0995\u09CB\u09A8 \u09AE\u09BF\u09B2 \u09A8\u09C7\u0987',
+      placeholder: '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      noData: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987'
     },
     // স্থানান্তর
     transfer: {
-      noMatch: 'কোন মিল নেই',
-      noData: 'কোন ডেটা নেই',
-      titles: ['তালিকা ১', 'তালিকা ২'],
-      filterPlaceholder: 'কীওয়ার্ড লিখুন',
-      noCheckedFormat: '{total} আইটেম',
-      hasCheckedFormat: '{checked}/{total} নির্বাচিত',
-      searchPlaceholder: 'কীওয়ার্ড লিখুন'
+      noMatch: '\u0995\u09CB\u09A8 \u09AE\u09BF\u09B2 \u09A8\u09C7\u0987',
+      noData: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      titles: [
+        '\u09A4\u09BE\u09B2\u09BF\u0995\u09BE \u09E7',
+        '\u09A4\u09BE\u09B2\u09BF\u0995\u09BE \u09E8'
+      ],
+      filterPlaceholder:
+        '\u0995\u09C0\u0993\u09AF\u09BC\u09BE\u09B0\u09CD\u09A1 \u09B2\u09BF\u0996\u09C1\u09A8',
+      noCheckedFormat: '{total} \u0986\u0987\u099F\u09C7\u09AE',
+      hasCheckedFormat: '{checked}/{total} \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09BF\u09A4',
+      searchPlaceholder:
+        '\u0995\u09C0\u0993\u09AF\u09BC\u09BE\u09B0\u09CD\u09A1 \u09B2\u09BF\u0996\u09C1\u09A8'
     },
     // টেবিল
     table: {
-      emptyText: 'কোন ডেটা নেই',
-      confirmFilter: 'নিশ্চিত করুন',
-      resetFilter: 'রিসেট',
-      clearFilter: 'সব',
-      sumText: 'যোগফল',
-      loading: 'লোড হচ্ছে...',
-      index: 'সূচক',
-      print: 'প্রিন্ট',
-      cancel: 'বাতিল',
-      preview: 'প্রিন্ট প্রিভিউ',
-      printTime: 'প্রিন্ট সময়',
-      total: 'মোট {total} আইটেম',
-      page: 'পৃষ্ঠা {page}',
-      yes: 'হ্যাঁ',
-      no: 'না',
+      emptyText: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      confirmFilter: '\u09A8\u09BF\u09B6\u09CD\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      resetFilter: '\u09B0\u09BF\u09B8\u09C7\u099F',
+      clearFilter: '\u09B8\u09AC',
+      sumText: '\u09AF\u09CB\u0997\u09AB\u09B2',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      index: '\u09B8\u09C2\u099A\u0995',
+      print: '\u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      preview:
+        '\u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u09AA\u09CD\u09B0\u09BF\u09AD\u09BF\u0989',
+      printTime: '\u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u09B8\u09AE\u09AF\u09BC',
+      total: '\u09AE\u09CB\u099F {total} \u0986\u0987\u099F\u09C7\u09AE',
+      page: '\u09AA\u09C3\u09B7\u09CD\u09A0\u09BE {page}',
+      yes: '\u09B9\u09CD\u09AF\u09BE\u0981',
+      no: '\u09A8\u09BE',
       // টুলবার
       toolbar: {
-        refresh: 'রিফ্রেশ',
-        density: 'ঘনত্ব',
-        densityDefault: 'ডিফল্ট',
-        densityLarge: 'বড়',
-        densitySmall: 'ছোট',
-        columnSetting: 'কলাম সেটিংস',
-        fullscreen: 'পূর্ণস্ক্রীন',
-        exitFullscreen: 'পূর্ণস্ক্রীন থেকে বের হন',
-        export: 'এক্সপোর্ট',
-        import: 'ইমপোর্ট',
-        search: 'অনুসন্ধান',
-        searchPlaceholder: 'অনুসন্ধানের জন্য কীওয়ার্ড লিখুন'
+        refresh: '\u09B0\u09BF\u09AB\u09CD\u09B0\u09C7\u09B6',
+        density: '\u0998\u09A8\u09A4\u09CD\u09AC',
+        densityDefault: '\u09A1\u09BF\u09AB\u09B2\u09CD\u099F',
+        densityLarge: '\u09AC\u09A1\u09BC',
+        densitySmall: '\u099B\u09CB\u099F',
+        columnSetting: '\u0995\u09B2\u09BE\u09AE \u09B8\u09C7\u099F\u09BF\u0982\u09B8',
+        fullscreen: '\u09AA\u09C2\u09B0\u09CD\u09A3\u09B8\u09CD\u0995\u09CD\u09B0\u09C0\u09A8',
+        exitFullscreen:
+          '\u09AA\u09C2\u09B0\u09CD\u09A3\u09B8\u09CD\u0995\u09CD\u09B0\u09C0\u09A8 \u09A5\u09C7\u0995\u09C7 \u09AC\u09C7\u09B0 \u09B9\u09A8',
+        export: '\u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F',
+        import: '\u0987\u09AE\u09AA\u09CB\u09B0\u09CD\u099F',
+        search: '\u0985\u09A8\u09C1\u09B8\u09A8\u09CD\u09A7\u09BE\u09A8',
+        searchPlaceholder:
+          '\u0985\u09A8\u09C1\u09B8\u09A8\u09CD\u09A7\u09BE\u09A8\u09C7\u09B0 \u099C\u09A8\u09CD\u09AF \u0995\u09C0\u0993\u09AF\u09BC\u09BE\u09B0\u09CD\u09A1 \u09B2\u09BF\u0996\u09C1\u09A8'
       },
       // ফিল্টার
       filter: {
-        selectAll: 'সব নির্বাচন করুন',
-        selectInvert: 'নির্বাচন উল্টান',
-        empty: 'খালি',
-        notEmpty: 'খালি নয়',
-        contains: 'ধারণ করে',
-        notContains: 'ধারণ করে না',
-        equals: 'সমান',
-        notEquals: 'সমান নয়',
-        startsWith: 'দিয়ে শুরু হয়',
-        endsWith: 'দিয়ে শেষ হয়',
-        greaterThan: 'এর চেয়ে বড়',
-        lessThan: 'এর চেয়ে ছোট',
-        between: 'এর মধ্যে'
+        selectAll:
+          '\u09B8\u09AC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+        selectInvert:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0989\u09B2\u09CD\u099F\u09BE\u09A8',
+        empty: '\u0996\u09BE\u09B2\u09BF',
+        notEmpty: '\u0996\u09BE\u09B2\u09BF \u09A8\u09AF\u09BC',
+        contains: '\u09A7\u09BE\u09B0\u09A3 \u0995\u09B0\u09C7',
+        notContains: '\u09A7\u09BE\u09B0\u09A3 \u0995\u09B0\u09C7 \u09A8\u09BE',
+        equals: '\u09B8\u09AE\u09BE\u09A8',
+        notEquals: '\u09B8\u09AE\u09BE\u09A8 \u09A8\u09AF\u09BC',
+        startsWith: '\u09A6\u09BF\u09AF\u09BC\u09C7 \u09B6\u09C1\u09B0\u09C1 \u09B9\u09AF\u09BC',
+        endsWith: '\u09A6\u09BF\u09AF\u09BC\u09C7 \u09B6\u09C7\u09B7 \u09B9\u09AF\u09BC',
+        greaterThan: '\u098F\u09B0 \u099A\u09C7\u09AF\u09BC\u09C7 \u09AC\u09A1\u09BC',
+        lessThan: '\u098F\u09B0 \u099A\u09C7\u09AF\u09BC\u09C7 \u099B\u09CB\u099F',
+        between: '\u098F\u09B0 \u09AE\u09A7\u09CD\u09AF\u09C7'
       },
       // সাজান
       sort: {
-        asc: 'আরোহী',
-        desc: 'অবরোহী',
-        clear: 'সাজানো পরিষ্কার করুন'
+        asc: '\u0986\u09B0\u09CB\u09B9\u09C0',
+        desc: '\u0985\u09AC\u09B0\u09CB\u09B9\u09C0',
+        clear:
+          '\u09B8\u09BE\u099C\u09BE\u09A8\u09CB \u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8'
       },
       // এক্সপোর্ট
       export: {
-        title: 'ডেটা এক্সপোর্ট করুন',
-        filename: 'ফাইলের নাম',
-        type: 'ফাইলের ধরন',
-        scope: 'এক্সপোর্ট স্কোপ',
-        scopeAll: 'সব ডেটা',
-        scopeSelected: 'নির্বাচিত ডেটা',
-        scopeCurrentPage: 'বর্তমান পৃষ্ঠা',
-        includeHeader: 'হেডার অন্তর্ভুক্ত করুন',
-        exporting: 'এক্সপোর্ট হচ্ছে...',
-        success: 'এক্সপোর্ট সফল',
-        error: 'এক্সপোর্ট ব্যর্থ'
+        title:
+          '\u09A1\u09C7\u099F\u09BE \u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F \u0995\u09B0\u09C1\u09A8',
+        filename: '\u09AB\u09BE\u0987\u09B2\u09C7\u09B0 \u09A8\u09BE\u09AE',
+        type: '\u09AB\u09BE\u0987\u09B2\u09C7\u09B0 \u09A7\u09B0\u09A8',
+        scope:
+          '\u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F \u09B8\u09CD\u0995\u09CB\u09AA',
+        scopeAll: '\u09B8\u09AC \u09A1\u09C7\u099F\u09BE',
+        scopeSelected:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09BF\u09A4 \u09A1\u09C7\u099F\u09BE',
+        scopeCurrentPage:
+          '\u09AC\u09B0\u09CD\u09A4\u09AE\u09BE\u09A8 \u09AA\u09C3\u09B7\u09CD\u09A0\u09BE',
+        includeHeader:
+          '\u09B9\u09C7\u09A1\u09BE\u09B0 \u0985\u09A8\u09CD\u09A4\u09B0\u09CD\u09AD\u09C1\u0995\u09CD\u09A4 \u0995\u09B0\u09C1\u09A8',
+        exporting:
+          '\u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F \u09B9\u099A\u09CD\u099B\u09C7...',
+        success: '\u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F \u09B8\u09AB\u09B2',
+        error:
+          '\u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F \u09AC\u09CD\u09AF\u09B0\u09CD\u09A5'
       },
       // ইমপোর্ট
       import: {
-        title: 'ডেটা ইমপোর্ট করুন',
-        selectFile: 'ফাইল নির্বাচন করুন',
-        dragTip: 'আপলোড করতে ফাইল এখানে ক্লিক করুন বা টেনে আনুন',
-        importing: 'ইমপোর্ট হচ্ছে...',
-        success: 'ইমপোর্ট সফল',
-        error: 'ইমপোর্ট ব্যর্থ',
-        preview: 'ডেটা প্রিভিউ',
-        confirm: 'ইমপোর্ট নিশ্চিত করুন'
+        title:
+          '\u09A1\u09C7\u099F\u09BE \u0987\u09AE\u09AA\u09CB\u09B0\u09CD\u099F \u0995\u09B0\u09C1\u09A8',
+        selectFile:
+          '\u09AB\u09BE\u0987\u09B2 \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+        dragTip:
+          '\u0986\u09AA\u09B2\u09CB\u09A1 \u0995\u09B0\u09A4\u09C7 \u09AB\u09BE\u0987\u09B2 \u098F\u0996\u09BE\u09A8\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8 \u09AC\u09BE \u099F\u09C7\u09A8\u09C7 \u0986\u09A8\u09C1\u09A8',
+        importing: '\u0987\u09AE\u09AA\u09CB\u09B0\u09CD\u099F \u09B9\u099A\u09CD\u099B\u09C7...',
+        success: '\u0987\u09AE\u09AA\u09CB\u09B0\u09CD\u099F \u09B8\u09AB\u09B2',
+        error: '\u0987\u09AE\u09AA\u09CB\u09B0\u09CD\u099F \u09AC\u09CD\u09AF\u09B0\u09CD\u09A5',
+        preview: '\u09A1\u09C7\u099F\u09BE \u09AA\u09CD\u09B0\u09BF\u09AD\u09BF\u0989',
+        confirm:
+          '\u0987\u09AE\u09AA\u09CB\u09B0\u09CD\u099F \u09A8\u09BF\u09B6\u09CD\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
       },
       // প্রিন্ট
       printConfig: {
-        title: 'প্রিন্ট সেটিংস',
-        pageTitle: 'পৃষ্ঠার শিরোনাম',
-        pageHeader: 'হেডার',
-        pageFooter: 'ফুটার',
-        printAll: 'সব প্রিন্ট করুন',
-        printSelected: 'নির্বাচিত প্রিন্ট করুন',
-        printCurrentPage: 'বর্তমান পৃষ্ঠা প্রিন্ট করুন',
-        landscape: 'ল্যান্ডস্কেপ',
-        portrait: 'পোর্ট্রেট',
-        printing: 'প্রিন্ট হচ্ছে...'
+        title: '\u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u09B8\u09C7\u099F\u09BF\u0982\u09B8',
+        pageTitle:
+          '\u09AA\u09C3\u09B7\u09CD\u09A0\u09BE\u09B0 \u09B6\u09BF\u09B0\u09CB\u09A8\u09BE\u09AE',
+        pageHeader: '\u09B9\u09C7\u09A1\u09BE\u09B0',
+        pageFooter: '\u09AB\u09C1\u099F\u09BE\u09B0',
+        printAll:
+          '\u09B8\u09AC \u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u0995\u09B0\u09C1\u09A8',
+        printSelected:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09BF\u09A4 \u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u0995\u09B0\u09C1\u09A8',
+        printCurrentPage:
+          '\u09AC\u09B0\u09CD\u09A4\u09AE\u09BE\u09A8 \u09AA\u09C3\u09B7\u09CD\u09A0\u09BE \u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u0995\u09B0\u09C1\u09A8',
+        landscape: '\u09B2\u09CD\u09AF\u09BE\u09A8\u09CD\u09A1\u09B8\u09CD\u0995\u09C7\u09AA',
+        portrait: '\u09AA\u09CB\u09B0\u09CD\u099F\u09CD\u09B0\u09C7\u099F',
+        printing: '\u09AA\u09CD\u09B0\u09BF\u09A8\u09CD\u099F \u09B9\u099A\u09CD\u099B\u09C7...'
       },
       // কলাম সেটিংস
       columnSetting: {
-        title: 'কলাম সেটিংস',
-        showAll: 'সব দেখান',
-        hideAll: 'সব লুকান',
-        reset: 'রিসেট',
-        fixedLeft: 'বামে ফিক্স করুন',
-        fixedRight: 'ডানে ফিক্স করুন',
-        unfixed: 'ফিক্স বাতিল করুন'
+        title: '\u0995\u09B2\u09BE\u09AE \u09B8\u09C7\u099F\u09BF\u0982\u09B8',
+        showAll: '\u09B8\u09AC \u09A6\u09C7\u0996\u09BE\u09A8',
+        hideAll: '\u09B8\u09AC \u09B2\u09C1\u0995\u09BE\u09A8',
+        reset: '\u09B0\u09BF\u09B8\u09C7\u099F',
+        fixedLeft:
+          '\u09AC\u09BE\u09AE\u09C7 \u09AB\u09BF\u0995\u09CD\u09B8 \u0995\u09B0\u09C1\u09A8',
+        fixedRight:
+          '\u09A1\u09BE\u09A8\u09C7 \u09AB\u09BF\u0995\u09CD\u09B8 \u0995\u09B0\u09C1\u09A8',
+        unfixed:
+          '\u09AB\u09BF\u0995\u09CD\u09B8 \u09AC\u09BE\u09A4\u09BF\u09B2 \u0995\u09B0\u09C1\u09A8'
       },
       // কনটেক্সট মেনু
       contextMenu: {
-        copy: 'কপি',
-        copyRow: 'সারি কপি',
-        copyCell: 'সেল কপি',
-        paste: 'পেস্ট',
-        insertRowAbove: 'উপরে সারি ঢোকান',
-        insertRowBelow: 'নিচে সারি ঢোকান',
-        deleteRow: 'সারি মুছুন',
-        deleteSelectedRows: 'নির্বাচিত সারি মুছুন',
-        exportSelected: 'নির্বাচিত এক্সপোর্ট করুন'
+        copy: '\u0995\u09AA\u09BF',
+        copyRow: '\u09B8\u09BE\u09B0\u09BF \u0995\u09AA\u09BF',
+        copyCell: '\u09B8\u09C7\u09B2 \u0995\u09AA\u09BF',
+        paste: '\u09AA\u09C7\u09B8\u09CD\u099F',
+        insertRowAbove:
+          '\u0989\u09AA\u09B0\u09C7 \u09B8\u09BE\u09B0\u09BF \u09A2\u09CB\u0995\u09BE\u09A8',
+        insertRowBelow:
+          '\u09A8\u09BF\u099A\u09C7 \u09B8\u09BE\u09B0\u09BF \u09A2\u09CB\u0995\u09BE\u09A8',
+        deleteRow: '\u09B8\u09BE\u09B0\u09BF \u09AE\u09C1\u099B\u09C1\u09A8',
+        deleteSelectedRows:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09BF\u09A4 \u09B8\u09BE\u09B0\u09BF \u09AE\u09C1\u099B\u09C1\u09A8',
+        exportSelected:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09BF\u09A4 \u098F\u0995\u09CD\u09B8\u09AA\u09CB\u09B0\u09CD\u099F \u0995\u09B0\u09C1\u09A8'
       },
       // নির্বাচন
       selection: {
-        selectAll: 'সব নির্বাচন করুন',
-        selectInvert: 'নির্বাচন উল্টান',
-        selectNone: 'নির্বাচন পরিষ্কার করুন',
-        selected: '{count} আইটেম নির্বাচিত'
+        selectAll:
+          '\u09B8\u09AC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+        selectInvert:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0989\u09B2\u09CD\u099F\u09BE\u09A8',
+        selectNone:
+          '\u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8',
+        selected:
+          '{count} \u0986\u0987\u099F\u09C7\u09AE \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09BF\u09A4'
       },
       // প্রসারিত
       expand: {
-        expandAll: 'সব প্রসারিত করুন',
-        collapseAll: 'সব সংকুচিত করুন'
+        expandAll:
+          '\u09B8\u09AC \u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+        collapseAll:
+          '\u09B8\u09AC \u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
       },
       // গাছ
       tree: {
-        expandAll: 'সব প্রসারিত করুন',
-        collapseAll: 'সব সংকুচিত করুন',
-        expandLevel: 'লেভেল {level} পর্যন্ত প্রসারিত করুন'
+        expandAll:
+          '\u09B8\u09AC \u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+        collapseAll:
+          '\u09B8\u09AC \u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+        expandLevel:
+          '\u09B2\u09C7\u09AD\u09C7\u09B2 {level} \u09AA\u09B0\u09CD\u09AF\u09A8\u09CD\u09A4 \u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
       },
       // টেনে নিয়ে যান
       drag: {
-        dragTip: 'পুনরায় সাজাতে টেনে নিয়ে যান',
-        dropTip: 'স্থাপন করতে ছেড়ে দিন'
+        dragTip:
+          '\u09AA\u09C1\u09A8\u09B0\u09BE\u09AF\u09BC \u09B8\u09BE\u099C\u09BE\u09A4\u09C7 \u099F\u09C7\u09A8\u09C7 \u09A8\u09BF\u09AF\u09BC\u09C7 \u09AF\u09BE\u09A8',
+        dropTip:
+          '\u09B8\u09CD\u09A5\u09BE\u09AA\u09A8 \u0995\u09B0\u09A4\u09C7 \u099B\u09C7\u09A1\u09BC\u09C7 \u09A6\u09BF\u09A8'
       }
     },
     // মেসেজ বক্স
     messagebox: {
-      title: 'বার্তা',
-      confirm: 'ঠিক আছে',
-      cancel: 'বাতিল',
-      close: 'বন্ধ',
-      error: 'অবৈধ ইনপুট',
-      alert: 'সতর্কতা',
-      prompt: 'প্রম্পট',
-      inputPlaceholder: 'অনুগ্রহ করে ইনপুট করুন'
+      title: '\u09AC\u09BE\u09B0\u09CD\u09A4\u09BE',
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      close: '\u09AC\u09A8\u09CD\u09A7',
+      error: '\u0985\u09AC\u09C8\u09A7 \u0987\u09A8\u09AA\u09C1\u099F',
+      alert: '\u09B8\u09A4\u09B0\u09CD\u0995\u09A4\u09BE',
+      prompt: '\u09AA\u09CD\u09B0\u09AE\u09CD\u09AA\u099F',
+      inputPlaceholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u0987\u09A8\u09AA\u09C1\u099F \u0995\u09B0\u09C1\u09A8'
     },
     // আপলোড
     upload: {
-      deleteTip: 'মুছতে delete চাপুন',
-      delete: 'মুছুন',
-      preview: 'প্রিভিউ',
-      continue: 'চালিয়ে যান',
-      upload: 'আপলোড করতে ক্লিক করুন',
-      tip: 'আপলোড করতে ফাইল এই এলাকায় <em>টেনে আনুন</em> বা ক্লিক করুন',
-      dragTip: 'ফাইল এখানে টেনে আনুন বা আপলোড করতে ক্লিক করুন',
-      uploading: 'আপলোড হচ্ছে...',
-      success: 'আপলোড সফল',
-      error: 'আপলোড ব্যর্থ',
-      retry: 'পুনরায় চেষ্টা করুন',
-      cancel: 'আপলোড বাতিল করুন',
-      fileTypeError: 'ফাইলের ধরন সমর্থিত নয়',
-      fileSizeError: 'ফাইলের আকার সীমা অতিক্রম করেছে',
-      fileCountError: 'ফাইলের সংখ্যা সীমা অতিক্রম করেছে'
+      deleteTip: '\u09AE\u09C1\u099B\u09A4\u09C7 delete \u099A\u09BE\u09AA\u09C1\u09A8',
+      delete: '\u09AE\u09C1\u099B\u09C1\u09A8',
+      preview: '\u09AA\u09CD\u09B0\u09BF\u09AD\u09BF\u0989',
+      continue: '\u099A\u09BE\u09B2\u09BF\u09AF\u09BC\u09C7 \u09AF\u09BE\u09A8',
+      upload:
+        '\u0986\u09AA\u09B2\u09CB\u09A1 \u0995\u09B0\u09A4\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8',
+      tip: '\u0986\u09AA\u09B2\u09CB\u09A1 \u0995\u09B0\u09A4\u09C7 \u09AB\u09BE\u0987\u09B2 \u098F\u0987 \u098F\u09B2\u09BE\u0995\u09BE\u09AF\u09BC <em>\u099F\u09C7\u09A8\u09C7 \u0986\u09A8\u09C1\u09A8</em> \u09AC\u09BE \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8',
+      dragTip:
+        '\u09AB\u09BE\u0987\u09B2 \u098F\u0996\u09BE\u09A8\u09C7 \u099F\u09C7\u09A8\u09C7 \u0986\u09A8\u09C1\u09A8 \u09AC\u09BE \u0986\u09AA\u09B2\u09CB\u09A1 \u0995\u09B0\u09A4\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8',
+      uploading: '\u0986\u09AA\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      success: '\u0986\u09AA\u09B2\u09CB\u09A1 \u09B8\u09AB\u09B2',
+      error: '\u0986\u09AA\u09B2\u09CB\u09A1 \u09AC\u09CD\u09AF\u09B0\u09CD\u09A5',
+      retry:
+        '\u09AA\u09C1\u09A8\u09B0\u09BE\u09AF\u09BC \u099A\u09C7\u09B7\u09CD\u099F\u09BE \u0995\u09B0\u09C1\u09A8',
+      cancel:
+        '\u0986\u09AA\u09B2\u09CB\u09A1 \u09AC\u09BE\u09A4\u09BF\u09B2 \u0995\u09B0\u09C1\u09A8',
+      fileTypeError:
+        '\u09AB\u09BE\u0987\u09B2\u09C7\u09B0 \u09A7\u09B0\u09A8 \u09B8\u09AE\u09B0\u09CD\u09A5\u09BF\u09A4 \u09A8\u09AF\u09BC',
+      fileSizeError:
+        '\u09AB\u09BE\u0987\u09B2\u09C7\u09B0 \u0986\u0995\u09BE\u09B0 \u09B8\u09C0\u09AE\u09BE \u0985\u09A4\u09BF\u0995\u09CD\u09B0\u09AE \u0995\u09B0\u09C7\u099B\u09C7',
+      fileCountError:
+        '\u09AB\u09BE\u0987\u09B2\u09C7\u09B0 \u09B8\u0982\u0996\u09CD\u09AF\u09BE \u09B8\u09C0\u09AE\u09BE \u0985\u09A4\u09BF\u0995\u09CD\u09B0\u09AE \u0995\u09B0\u09C7\u099B\u09C7'
     },
     // ফর্ম
     form: {
-      validationFailed: 'যাচাইকরণ ব্যর্থ',
-      required: 'আবশ্যক',
-      pleaseInput: 'অনুগ্রহ করে ইনপুট করুন',
-      pleaseSelect: 'অনুগ্রহ করে নির্বাচন করুন'
+      validationFailed:
+        '\u09AF\u09BE\u099A\u09BE\u0987\u0995\u09B0\u09A3 \u09AC\u09CD\u09AF\u09B0\u09CD\u09A5',
+      required: '\u0986\u09AC\u09B6\u09CD\u09AF\u0995',
+      pleaseInput:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u0987\u09A8\u09AA\u09C1\u099F \u0995\u09B0\u09C1\u09A8',
+      pleaseSelect:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8'
     },
     // বাটন
     button: {
-      loading: 'লোড হচ্ছে...'
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...'
     },
     // ইনপুট
     input: {
-      placeholder: 'অনুগ্রহ করে ইনপুট করুন',
-      clear: 'পরিষ্কার',
-      showPassword: 'পাসওয়ার্ড দেখান',
-      hidePassword: 'পাসওয়ার্ড লুকান',
-      copy: 'কপি',
-      copied: 'কপি করা হয়েছে'
+      placeholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u0987\u09A8\u09AA\u09C1\u099F \u0995\u09B0\u09C1\u09A8',
+      clear: '\u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0',
+      showPassword:
+        '\u09AA\u09BE\u09B8\u0993\u09AF\u09BC\u09BE\u09B0\u09CD\u09A1 \u09A6\u09C7\u0996\u09BE\u09A8',
+      hidePassword:
+        '\u09AA\u09BE\u09B8\u0993\u09AF\u09BC\u09BE\u09B0\u09CD\u09A1 \u09B2\u09C1\u0995\u09BE\u09A8',
+      copy: '\u0995\u09AA\u09BF',
+      copied: '\u0995\u09AA\u09BF \u0995\u09B0\u09BE \u09B9\u09AF\u09BC\u09C7\u099B\u09C7'
     },
     // সংখ্যা ইনপুট
     inputnumber: {
-      placeholder: 'অনুগ্রহ করে সংখ্যা ইনপুট করুন',
-      increase: 'বাড়ান',
-      decrease: 'কমান'
+      placeholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u09B8\u0982\u0996\u09CD\u09AF\u09BE \u0987\u09A8\u09AA\u09C1\u099F \u0995\u09B0\u09C1\u09A8',
+      increase: '\u09AC\u09BE\u09A1\u09BC\u09BE\u09A8',
+      decrease: '\u0995\u09AE\u09BE\u09A8'
     },
     // ট্যাগ ইনপুট
     inputtag: {
-      placeholder: 'অনুগ্রহ করে ইনপুট করুন',
-      add: 'যোগ করুন',
-      remove: 'সরান'
+      placeholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u0987\u09A8\u09AA\u09C1\u099F \u0995\u09B0\u09C1\u09A8',
+      add: '\u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8',
+      remove: '\u09B8\u09B0\u09BE\u09A8'
     },
     // ব্রেডক্রাম্ব
     breadcrumb: {
-      label: 'ব্রেডক্রাম্ব',
-      more: 'আরও'
+      label: '\u09AC\u09CD\u09B0\u09C7\u09A1\u0995\u09CD\u09B0\u09BE\u09AE\u09CD\u09AC',
+      more: '\u0986\u09B0\u0993'
     },
     // শীর্ষে ফিরে যান
     backtop: {
-      text: 'শীর্ষে ফিরে যান'
+      text: '\u09B6\u09C0\u09B0\u09CD\u09B7\u09C7 \u09AB\u09BF\u09B0\u09C7 \u09AF\u09BE\u09A8'
     },
     // নির্বাচন
     select: {
-      placeholder: 'অনুগ্রহ করে নির্বাচন করুন',
-      noData: 'কোন ডেটা নেই',
-      loading: 'লোড হচ্ছে...',
-      noMatch: 'কোন মিল নেই',
-      selectAll: 'সব নির্বাচন করুন',
-      clearAll: 'সব পরিষ্কার করুন'
+      placeholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      noData: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      noMatch: '\u0995\u09CB\u09A8 \u09AE\u09BF\u09B2 \u09A8\u09C7\u0987',
+      selectAll:
+        '\u09B8\u09AC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8',
+      clearAll:
+        '\u09B8\u09AC \u09AA\u09B0\u09BF\u09B7\u09CD\u0995\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8'
     },
     // পেজিনেশন
     pagination: {
-      goto: 'যান',
+      goto: '\u09AF\u09BE\u09A8',
       page: '',
-      total: 'মোট {total}',
-      pageSize: '/পৃষ্ঠা',
-      prev: 'পূর্ববর্তী',
-      next: 'পরবর্তী',
-      first: 'প্রথম',
-      last: 'শেষ',
+      total: '\u09AE\u09CB\u099F {total}',
+      pageSize: '/\u09AA\u09C3\u09B7\u09CD\u09A0\u09BE',
+      prev: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0',
+      next: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0',
+      first: '\u09AA\u09CD\u09B0\u09A5\u09AE',
+      last: '\u09B6\u09C7\u09B7',
       pageClassifier: ''
     },
     // পপ কনফার্ম
     popconfirm: {
-      confirm: 'ঠিক আছে',
-      cancel: 'বাতিল',
-      dontAskAgain: 'আর জিজ্ঞাসা করবেন না'
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      dontAskAgain:
+        '\u0986\u09B0 \u099C\u09BF\u099C\u09CD\u099E\u09BE\u09B8\u09BE \u0995\u09B0\u09AC\u09C7\u09A8 \u09A8\u09BE'
     },
     // ডায়ালগ
     dialog: {
-      confirm: 'ঠিক আছে',
-      cancel: 'বাতিল',
-      close: 'বন্ধ',
-      maximize: 'সর্বোচ্চ করুন',
-      restore: 'পুনরুদ্ধার করুন'
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2',
+      close: '\u09AC\u09A8\u09CD\u09A7',
+      maximize: '\u09B8\u09B0\u09CD\u09AC\u09CB\u099A\u09CD\u099A \u0995\u09B0\u09C1\u09A8',
+      restore:
+        '\u09AA\u09C1\u09A8\u09B0\u09C1\u09A6\u09CD\u09A7\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8'
     },
     // ড্রয়ার
     drawer: {
-      close: 'বন্ধ',
-      confirm: 'ঠিক আছে',
-      cancel: 'বাতিল'
+      close: '\u09AC\u09A8\u09CD\u09A7',
+      confirm: '\u09A0\u09BF\u0995 \u0986\u099B\u09C7',
+      cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2'
     },
     // ড্রপডাউন
     dropdown: {
-      loading: 'লোড হচ্ছে...'
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...'
     },
     // ছবি
     image: {
-      error: 'ব্যর্থ',
-      loading: 'লোড হচ্ছে...',
-      preview: 'প্রিভিউ',
-      zoomIn: 'জুম ইন',
-      zoomOut: 'জুম আউট',
-      rotateLeft: 'বামে ঘুরান',
-      rotateRight: 'ডানে ঘুরান',
-      originalSize: 'মূল আকার',
-      fullscreen: 'পূর্ণস্ক্রীন'
+      error: '\u09AC\u09CD\u09AF\u09B0\u09CD\u09A5',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      preview: '\u09AA\u09CD\u09B0\u09BF\u09AD\u09BF\u0989',
+      zoomIn: '\u099C\u09C1\u09AE \u0987\u09A8',
+      zoomOut: '\u099C\u09C1\u09AE \u0986\u0989\u099F',
+      rotateLeft: '\u09AC\u09BE\u09AE\u09C7 \u0998\u09C1\u09B0\u09BE\u09A8',
+      rotateRight: '\u09A1\u09BE\u09A8\u09C7 \u0998\u09C1\u09B0\u09BE\u09A8',
+      originalSize: '\u09AE\u09C2\u09B2 \u0986\u0995\u09BE\u09B0',
+      fullscreen: '\u09AA\u09C2\u09B0\u09CD\u09A3\u09B8\u09CD\u0995\u09CD\u09B0\u09C0\u09A8'
     },
     // ছবি ভিউয়ার
     imageviewer: {
-      close: 'বন্ধ',
-      prev: 'পূর্ববর্তী',
-      next: 'পরবর্তী',
-      zoomIn: 'জুম ইন',
-      zoomOut: 'জুম আউট',
-      rotateLeft: 'বামে ঘুরান',
-      rotateRight: 'ডানে ঘুরান',
-      reset: 'রিসেট',
-      fullscreen: 'পূর্ণস্ক্রীন',
-      exitFullscreen: 'পূর্ণস্ক্রীন থেকে বের হন'
+      close: '\u09AC\u09A8\u09CD\u09A7',
+      prev: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0',
+      next: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0',
+      zoomIn: '\u099C\u09C1\u09AE \u0987\u09A8',
+      zoomOut: '\u099C\u09C1\u09AE \u0986\u0989\u099F',
+      rotateLeft: '\u09AC\u09BE\u09AE\u09C7 \u0998\u09C1\u09B0\u09BE\u09A8',
+      rotateRight: '\u09A1\u09BE\u09A8\u09C7 \u0998\u09C1\u09B0\u09BE\u09A8',
+      reset: '\u09B0\u09BF\u09B8\u09C7\u099F',
+      fullscreen: '\u09AA\u09C2\u09B0\u09CD\u09A3\u09B8\u09CD\u0995\u09CD\u09B0\u09C0\u09A8',
+      exitFullscreen:
+        '\u09AA\u09C2\u09B0\u09CD\u09A3\u09B8\u09CD\u0995\u09CD\u09B0\u09C0\u09A8 \u09A5\u09C7\u0995\u09C7 \u09AC\u09C7\u09B0 \u09B9\u09A8'
     },
     // অসীম স্ক্রল
     infinitescroll: {
-      loading: 'লোড হচ্ছে...',
-      finished: 'আর ডেটা নেই',
-      error: 'লোড ব্যর্থ, পুনরায় চেষ্টা করতে ক্লিক করুন',
-      retry: 'পুনরায় চেষ্টা করতে ক্লিক করুন'
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      finished: '\u0986\u09B0 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      error:
+        '\u09B2\u09CB\u09A1 \u09AC\u09CD\u09AF\u09B0\u09CD\u09A5, \u09AA\u09C1\u09A8\u09B0\u09BE\u09AF\u09BC \u099A\u09C7\u09B7\u09CD\u099F\u09BE \u0995\u09B0\u09A4\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8',
+      retry:
+        '\u09AA\u09C1\u09A8\u09B0\u09BE\u09AF\u09BC \u099A\u09C7\u09B7\u09CD\u099F\u09BE \u0995\u09B0\u09A4\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8'
     },
     // বার্তা
     message: {
-      close: 'বন্ধ'
+      close: '\u09AC\u09A8\u09CD\u09A7'
     },
     // বিজ্ঞপ্তি
     notification: {
-      close: 'বন্ধ'
+      close: '\u09AC\u09A8\u09CD\u09A7'
     },
     // লোডিং
     loading: {
-      text: 'লোড হচ্ছে...'
+      text: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...'
     },
     // স্পিন
     spin: {
-      text: 'লোড হচ্ছে...'
+      text: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...'
     },
     // রেটিং
     rate: {
-      texts: ['অত্যন্ত খারাপ', 'হতাশ', 'সঠিক', 'সন্তুষ্ট', 'আশ্চর্য']
+      texts: [
+        '\u0985\u09A4\u09CD\u09AF\u09A8\u09CD\u09A4 \u0996\u09BE\u09B0\u09BE\u09AA',
+        '\u09B9\u09A4\u09BE\u09B6',
+        '\u09B8\u09A0\u09BF\u0995',
+        '\u09B8\u09A8\u09CD\u09A4\u09C1\u09B7\u09CD\u099F',
+        '\u0986\u09B6\u09CD\u099A\u09B0\u09CD\u09AF'
+      ]
     },
     // সতর্কতা
     alert: {
-      close: 'বন্ধ'
+      close: '\u09AC\u09A8\u09CD\u09A7'
     },
     // ট্যাগ
     tag: {
-      close: 'বন্ধ'
+      close: '\u09AC\u09A8\u09CD\u09A7'
     },
     // ট্যাবস
     tabs: {
-      close: 'বন্ধ',
-      add: 'যোগ করুন',
-      more: 'আরও'
+      close: '\u09AC\u09A8\u09CD\u09A7',
+      add: '\u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8',
+      more: '\u0986\u09B0\u0993'
     },
     // ধাপ
     steps: {
-      finish: 'সমাপ্ত',
-      process: 'প্রক্রিয়াধীন',
-      wait: 'অপেক্ষা',
-      error: 'ত্রুটি'
+      finish: '\u09B8\u09AE\u09BE\u09AA\u09CD\u09A4',
+      process: '\u09AA\u09CD\u09B0\u0995\u09CD\u09B0\u09BF\u09AF\u09BC\u09BE\u09A7\u09C0\u09A8',
+      wait: '\u0985\u09AA\u09C7\u0995\u09CD\u09B7\u09BE',
+      error: '\u09A4\u09CD\u09B0\u09C1\u099F\u09BF'
     },
     // অগ্রগতি
     progress: {
-      success: 'সফল',
-      exception: 'ব্যতিক্রম',
-      warning: 'সতর্কতা'
+      success: '\u09B8\u09AB\u09B2',
+      exception: '\u09AC\u09CD\u09AF\u09A4\u09BF\u0995\u09CD\u09B0\u09AE',
+      warning: '\u09B8\u09A4\u09B0\u09CD\u0995\u09A4\u09BE'
     },
     // কঙ্কাল
     skeleton: {
-      loading: 'লোড হচ্ছে...'
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...'
     },
     // খালি
     empty: {
-      description: 'কোন ডেটা নেই',
-      noData: 'কোন ডেটা নেই',
-      noResult: 'কোন ফলাফল নেই',
-      networkError: 'নেটওয়ার্ক ত্রুটি',
-      serverError: 'সার্ভার ত্রুটি'
+      description: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      noData: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      noResult: '\u0995\u09CB\u09A8 \u09AB\u09B2\u09BE\u09AB\u09B2 \u09A8\u09C7\u0987',
+      networkError:
+        '\u09A8\u09C7\u099F\u0993\u09AF\u09BC\u09BE\u09B0\u09CD\u0995 \u09A4\u09CD\u09B0\u09C1\u099F\u09BF',
+      serverError: '\u09B8\u09BE\u09B0\u09CD\u09AD\u09BE\u09B0 \u09A4\u09CD\u09B0\u09C1\u099F\u09BF'
     },
     // ফলাফল
     result: {
-      success: 'সফল',
-      error: 'ত্রুটি',
-      warning: 'সতর্কতা',
-      info: 'তথ্য',
-      backHome: 'হোমে ফিরে যান'
+      success: '\u09B8\u09AB\u09B2',
+      error: '\u09A4\u09CD\u09B0\u09C1\u099F\u09BF',
+      warning: '\u09B8\u09A4\u09B0\u09CD\u0995\u09A4\u09BE',
+      info: '\u09A4\u09A5\u09CD\u09AF',
+      backHome: '\u09B9\u09CB\u09AE\u09C7 \u09AB\u09BF\u09B0\u09C7 \u09AF\u09BE\u09A8'
     },
     // জলপ্রপাত
     waterfall: {
-      loading: 'লোড হচ্ছে...',
-      noMore: 'আর ডেটা নেই',
-      empty: 'কোন ডেটা নেই'
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      noMore: '\u0986\u09B0 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987',
+      empty: '\u0995\u09CB\u09A8 \u09A1\u09C7\u099F\u09BE \u09A8\u09C7\u0987'
     },
     // বিবরণ
     descriptions: {
@@ -541,29 +630,32 @@ export const bn: Language = {
     },
     // সুইচ
     switch: {
-      on: 'চালু',
-      off: 'বন্ধ'
+      on: '\u099A\u09BE\u09B2\u09C1',
+      off: '\u09AC\u09A8\u09CD\u09A7'
     },
     // চেকবক্স
     checkbox: {
-      selectAll: 'সব নির্বাচন করুন'
+      selectAll:
+        '\u09B8\u09AC \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u09A8 \u0995\u09B0\u09C1\u09A8'
     },
     // রেডিও
     radio: {},
     // মেনু
     menu: {
-      collapse: 'মেনু সংকুচিত করুন',
-      expand: 'মেনু প্রসারিত করুন'
+      collapse:
+        '\u09AE\u09C7\u09A8\u09C1 \u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      expand:
+        '\u09AE\u09C7\u09A8\u09C1 \u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
     },
     // কার্ড
     card: {
-      collapse: 'সংকুচিত করুন',
-      expand: 'প্রসারিত করুন'
+      collapse: '\u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      expand: '\u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
     },
     // কোলাপ্স
     collapse: {
-      expand: 'প্রসারিত করুন',
-      collapse: 'সংকুচিত করুন'
+      expand: '\u09AA\u09CD\u09B0\u09B8\u09BE\u09B0\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+      collapse: '\u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8'
     },
     // টুলটিপ
     tooltip: {},
@@ -573,7 +665,7 @@ export const bn: Language = {
     badge: {},
     // অ্যাভাটার
     avatar: {
-      error: 'লোড ব্যর্থ'
+      error: '\u09B2\u09CB\u09A1 \u09AC\u09CD\u09AF\u09B0\u09CD\u09A5'
     },
     // ওয়াটারমার্ক
     watermark: {},
@@ -581,8 +673,8 @@ export const bn: Language = {
     divider: {},
     // ক্যারousel
     carousel: {
-      prev: 'পূর্ববর্তী',
-      next: 'পরবর্তী'
+      prev: '\u09AA\u09C2\u09B0\u09CD\u09AC\u09AC\u09B0\u09CD\u09A4\u09C0',
+      next: '\u09AA\u09B0\u09AC\u09B0\u09CD\u09A4\u09C0'
     },
     // মার্কি
     marquee: {},
@@ -592,127 +684,140 @@ export const bn: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'অনুগ্রহ করে লিখুন',
-      loading: 'লোড হচ্ছে...',
-      noData: 'কোনো তথ্য নেই'
+      placeholder:
+        '\u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u09B2\u09BF\u0996\u09C1\u09A8',
+      loading: '\u09B2\u09CB\u09A1 \u09B9\u099A\u09CD\u099B\u09C7...',
+      noData: '\u0995\u09CB\u09A8\u09CB \u09A4\u09A5\u09CD\u09AF \u09A8\u09C7\u0987'
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'উদ্ধৃতি'
+        citations: '\u0989\u09A6\u09CD\u09A7\u09C3\u09A4\u09BF'
       },
       mention: {
-        placeholder: '@ এজেন্ট, ডকুমেন্ট বা টেবিল উল্লেখ করুন...',
-        agent: 'এজেন্ট',
-        document: 'ডকুমেন্ট',
-        table: 'টেবিল',
-        knowledge: 'জ্ঞান'
+        placeholder:
+          '@ \u098F\u099C\u09C7\u09A8\u09CD\u099F, \u09A1\u0995\u09C1\u09AE\u09C7\u09A8\u09CD\u099F \u09AC\u09BE \u099F\u09C7\u09AC\u09BF\u09B2 \u0989\u09B2\u09CD\u09B2\u09C7\u0996 \u0995\u09B0\u09C1\u09A8...',
+        agent: '\u098F\u099C\u09C7\u09A8\u09CD\u099F',
+        document: '\u09A1\u0995\u09C1\u09AE\u09C7\u09A8\u09CD\u099F',
+        table: '\u099F\u09C7\u09AC\u09BF\u09B2',
+        knowledge: '\u099C\u09CD\u099E\u09BE\u09A8'
       },
       codeBlock: {
-        copyCode: 'কোড কপি করুন',
-        copied: 'কপি হয়েছে!',
-        run: 'কোড চালান',
-        edit: 'সম্পাদনা',
-        save: 'সংরক্ষণ',
-        cancel: 'বাতিল'
+        copyCode: '\u0995\u09CB\u09A1 \u0995\u09AA\u09BF \u0995\u09B0\u09C1\u09A8',
+        copied: '\u0995\u09AA\u09BF \u09B9\u09AF\u09BC\u09C7\u099B\u09C7!',
+        run: '\u0995\u09CB\u09A1 \u099A\u09BE\u09B2\u09BE\u09A8',
+        edit: '\u09B8\u09AE\u09CD\u09AA\u09BE\u09A6\u09A8\u09BE',
+        save: '\u09B8\u0982\u09B0\u0995\u09CD\u09B7\u09A3',
+        cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2'
       },
       codeRunner: {
-        run: 'চালান',
-        stop: 'বন্ধ',
-        clear: 'মুছুন',
-        reset: 'পুনরায় সেট',
-        placeholder: 'কোড চালাতে রান বাটনে ক্লিক করুন...'
+        run: '\u099A\u09BE\u09B2\u09BE\u09A8',
+        stop: '\u09AC\u09A8\u09CD\u09A7',
+        clear: '\u09AE\u09C1\u099B\u09C1\u09A8',
+        reset: '\u09AA\u09C1\u09A8\u09B0\u09BE\u09AF\u09BC \u09B8\u09C7\u099F',
+        placeholder:
+          '\u0995\u09CB\u09A1 \u099A\u09BE\u09B2\u09BE\u09A4\u09C7 \u09B0\u09BE\u09A8 \u09AC\u09BE\u099F\u09A8\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8...'
       },
       sender: {
-        placeholder: 'মেসেজ পাঠান...',
-        dragTip: 'ফাইল আপলোড করতে ছেড়ে দিন'
+        placeholder: '\u09AE\u09C7\u09B8\u09C7\u099C \u09AA\u09BE\u09A0\u09BE\u09A8...',
+        dragTip:
+          '\u09AB\u09BE\u0987\u09B2 \u0986\u09AA\u09B2\u09CB\u09A1 \u0995\u09B0\u09A4\u09C7 \u099B\u09C7\u09A1\u09BC\u09C7 \u09A6\u09BF\u09A8'
       },
       thoughtChain: {
-        thoughtProcess: 'চিন্তা প্রক্রিয়া',
-        thinking: 'চিন্তা করছি...',
-        defaultTitle: 'নতুন ধাপ',
-        addNode: 'ধাপ যোগ করুন'
+        thoughtProcess:
+          '\u099A\u09BF\u09A8\u09CD\u09A4\u09BE \u09AA\u09CD\u09B0\u0995\u09CD\u09B0\u09BF\u09AF\u09BC\u09BE',
+        thinking: '\u099A\u09BF\u09A8\u09CD\u09A4\u09BE \u0995\u09B0\u099B\u09BF...',
+        defaultTitle: '\u09A8\u09A4\u09C1\u09A8 \u09A7\u09BE\u09AA',
+        addNode: '\u09A7\u09BE\u09AA \u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8'
       },
       thinking: {
-        start: 'চিন্তা শুরু করুন',
-        thinking: 'চিন্তা করছি...',
-        complete: 'চিন্তা সম্পন্ন',
-        error: 'চিন্তায় ত্রুটি'
+        start:
+          '\u099A\u09BF\u09A8\u09CD\u09A4\u09BE \u09B6\u09C1\u09B0\u09C1 \u0995\u09B0\u09C1\u09A8',
+        thinking: '\u099A\u09BF\u09A8\u09CD\u09A4\u09BE \u0995\u09B0\u099B\u09BF...',
+        complete: '\u099A\u09BF\u09A8\u09CD\u09A4\u09BE \u09B8\u09AE\u09CD\u09AA\u09A8\u09CD\u09A8',
+        error:
+          '\u099A\u09BF\u09A8\u09CD\u09A4\u09BE\u09AF\u09BC \u09A4\u09CD\u09B0\u09C1\u099F\u09BF'
       },
       welcome: {
-        title: 'হ্যালো, আমি YH AI',
+        title: '\u09B9\u09CD\u09AF\u09BE\u09B2\u09CB, \u0986\u09AE\u09BF YH AI',
         description:
-          'আমি কোডিং, ডকুমেন্ট অনুবাদ বা সৃজনমূলক লেখায় আপনাকে সাহায্য করতে পারি। আজ আমি আপনার জন্য কী করতে পারি?'
+          '\u0986\u09AE\u09BF \u0995\u09CB\u09A1\u09BF\u0982, \u09A1\u0995\u09C1\u09AE\u09C7\u09A8\u09CD\u099F \u0985\u09A8\u09C1\u09AC\u09BE\u09A6 \u09AC\u09BE \u09B8\u09C3\u099C\u09A8\u09AE\u09C2\u09B2\u0995 \u09B2\u09C7\u0996\u09BE\u09AF\u09BC \u0986\u09AA\u09A8\u09BE\u0995\u09C7 \u09B8\u09BE\u09B9\u09BE\u09AF\u09CD\u09AF \u0995\u09B0\u09A4\u09C7 \u09AA\u09BE\u09B0\u09BF\u0964 \u0986\u099C \u0986\u09AE\u09BF \u0986\u09AA\u09A8\u09BE\u09B0 \u099C\u09A8\u09CD\u09AF \u0995\u09C0 \u0995\u09B0\u09A4\u09C7 \u09AA\u09BE\u09B0\u09BF?'
       },
       action: {
-        copy: 'কপি',
-        regenerate: 'পুনরায় তৈরি',
-        share: 'শেয়ার',
-        like: 'পছন্দ',
-        dislike: 'পছন্দ নয়',
-        edit: 'সম্পাদনা',
-        delete: 'মুছুন'
+        copy: '\u0995\u09AA\u09BF',
+        regenerate: '\u09AA\u09C1\u09A8\u09B0\u09BE\u09AF\u09BC \u09A4\u09C8\u09B0\u09BF',
+        share: '\u09B6\u09C7\u09AF\u09BC\u09BE\u09B0',
+        like: '\u09AA\u099B\u09A8\u09CD\u09A6',
+        dislike: '\u09AA\u099B\u09A8\u09CD\u09A6 \u09A8\u09AF\u09BC',
+        edit: '\u09B8\u09AE\u09CD\u09AA\u09BE\u09A6\u09A8\u09BE',
+        delete: '\u09AE\u09C1\u099B\u09C1\u09A8'
       },
       artifacts: {
-        preview: 'প্রিভিউ',
-        inline: 'ইনলাইন',
-        code: 'সোর্স কোড',
-        versions: 'সংস্করণ',
-        rendering: 'কম্পোনেন্ট রেন্ডার হচ্ছে...',
-        renderingChart: 'চার্ট রেন্ডার হচ্ছে...',
-        renderingCanvas: 'ক্যানভাস প্রস্তুত হচ্ছে...'
+        preview: '\u09AA\u09CD\u09B0\u09BF\u09AD\u09BF\u0989',
+        inline: '\u0987\u09A8\u09B2\u09BE\u0987\u09A8',
+        code: '\u09B8\u09CB\u09B0\u09CD\u09B8 \u0995\u09CB\u09A1',
+        versions: '\u09B8\u0982\u09B8\u09CD\u0995\u09B0\u09A3',
+        rendering:
+          '\u0995\u09AE\u09CD\u09AA\u09CB\u09A8\u09C7\u09A8\u09CD\u099F \u09B0\u09C7\u09A8\u09CD\u09A1\u09BE\u09B0 \u09B9\u099A\u09CD\u099B\u09C7...',
+        renderingChart:
+          '\u099A\u09BE\u09B0\u09CD\u099F \u09B0\u09C7\u09A8\u09CD\u09A1\u09BE\u09B0 \u09B9\u099A\u09CD\u099B\u09C7...',
+        renderingCanvas:
+          '\u0995\u09CD\u09AF\u09BE\u09A8\u09AD\u09BE\u09B8 \u09AA\u09CD\u09B0\u09B8\u09CD\u09A4\u09C1\u09A4 \u09B9\u099A\u09CD\u099B\u09C7...'
       },
       voice: {
-        trigger: 'কথা বলতে ক্লিক করুন',
-        listening: 'শুনছি...'
+        trigger:
+          '\u0995\u09A5\u09BE \u09AC\u09B2\u09A4\u09C7 \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09C1\u09A8',
+        listening: '\u09B6\u09C1\u09A8\u099B\u09BF...'
       },
       agent: {
-        uses: 'ব্যবহার',
-        use: 'এখন ব্যবহার করুন',
-        favorite: 'প্রিয়',
-        unfavorite: 'প্রিয় থেকে সরান',
-        share: 'শেয়ার',
-        online: 'অনলাইন',
-        offline: 'অফলাইন',
-        busy: 'ব্যস্ত',
-        verified: 'যাচাইকৃত',
-        rating: 'রেটিং',
-        reviews: 'টি পর্যালোচনা',
-        responseTime: 'গড় প্রতিক্রিয়া সময়',
-        ms: 'মি.সে.'
+        uses: '\u09AC\u09CD\u09AF\u09AC\u09B9\u09BE\u09B0',
+        use: '\u098F\u0996\u09A8 \u09AC\u09CD\u09AF\u09AC\u09B9\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8',
+        favorite: '\u09AA\u09CD\u09B0\u09BF\u09AF\u09BC',
+        unfavorite:
+          '\u09AA\u09CD\u09B0\u09BF\u09AF\u09BC \u09A5\u09C7\u0995\u09C7 \u09B8\u09B0\u09BE\u09A8',
+        share: '\u09B6\u09C7\u09AF\u09BC\u09BE\u09B0',
+        online: '\u0985\u09A8\u09B2\u09BE\u0987\u09A8',
+        offline: '\u0985\u09AB\u09B2\u09BE\u0987\u09A8',
+        busy: '\u09AC\u09CD\u09AF\u09B8\u09CD\u09A4',
+        verified: '\u09AF\u09BE\u099A\u09BE\u0987\u0995\u09C3\u09A4',
+        rating: '\u09B0\u09C7\u099F\u09BF\u0982',
+        reviews: '\u099F\u09BF \u09AA\u09B0\u09CD\u09AF\u09BE\u09B2\u09CB\u099A\u09A8\u09BE',
+        responseTime:
+          '\u0997\u09A1\u09BC \u09AA\u09CD\u09B0\u09A4\u09BF\u0995\u09CD\u09B0\u09BF\u09AF\u09BC\u09BE \u09B8\u09AE\u09AF\u09BC',
+        ms: '\u09AE\u09BF.\u09B8\u09C7.'
       },
       sources: {
-        references: 'তথ্যসূত্র',
-        referencedSources: 'উদ্ধৃত উৎস',
-        relevant: 'প্রাসঙ্গিকতা',
-        viewOriginal: 'মূল দেখুন',
-        showAll: 'সব দেখান',
-        more: 'আরো উৎস',
-        drawerTitle: 'তথ্যসূত্র',
-        expandMore: 'আরো দেখান',
-        collapseMore: 'সংকুচিত করুন',
-        noSources: 'কোনো উৎস নেই',
-        today: 'আজ',
-        last7Days: 'শেষ ৭ দিন',
-        last30Days: 'শেষ ৩০ দিন',
-        earlier: 'আগে',
-        pinned: 'পিন করা'
+        references: '\u09A4\u09A5\u09CD\u09AF\u09B8\u09C2\u09A4\u09CD\u09B0',
+        referencedSources: '\u0989\u09A6\u09CD\u09A7\u09C3\u09A4 \u0989\u09CE\u09B8',
+        relevant: '\u09AA\u09CD\u09B0\u09BE\u09B8\u0999\u09CD\u0997\u09BF\u0995\u09A4\u09BE',
+        viewOriginal: '\u09AE\u09C2\u09B2 \u09A6\u09C7\u0996\u09C1\u09A8',
+        showAll: '\u09B8\u09AC \u09A6\u09C7\u0996\u09BE\u09A8',
+        more: '\u0986\u09B0\u09CB \u0989\u09CE\u09B8',
+        drawerTitle: '\u09A4\u09A5\u09CD\u09AF\u09B8\u09C2\u09A4\u09CD\u09B0',
+        expandMore: '\u0986\u09B0\u09CB \u09A6\u09C7\u0996\u09BE\u09A8',
+        collapseMore: '\u09B8\u0982\u0995\u09C1\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8',
+        noSources: '\u0995\u09CB\u09A8\u09CB \u0989\u09CE\u09B8 \u09A8\u09C7\u0987',
+        today: '\u0986\u099C',
+        last7Days: '\u09B6\u09C7\u09B7 \u09ED \u09A6\u09BF\u09A8',
+        last30Days: '\u09B6\u09C7\u09B7 \u09E9\u09E6 \u09A6\u09BF\u09A8',
+        earlier: '\u0986\u0997\u09C7',
+        pinned: '\u09AA\u09BF\u09A8 \u0995\u09B0\u09BE'
       },
       conversations: {
-        today: 'আজ',
-        last7Days: 'শেষ ৭ দিন',
-        last30Days: 'শেষ ৩০ দিন',
-        earlier: 'আগে',
-        pinned: 'পিন করা',
-        pin: 'পিন করুন',
-        unpin: 'পিন সরান',
-        newConversation: 'নতুন কথোপকথন',
-        rename: 'নাম পরিবর্তন',
-        delete: 'মুছুন',
-        deleteConfirm: 'এই কথোপকথন মুছে ফেলতে নিশ্চিত করুন?'
+        today: '\u0986\u099C',
+        last7Days: '\u09B6\u09C7\u09B7 \u09ED \u09A6\u09BF\u09A8',
+        last30Days: '\u09B6\u09C7\u09B7 \u09E9\u09E6 \u09A6\u09BF\u09A8',
+        earlier: '\u0986\u0997\u09C7',
+        pinned: '\u09AA\u09BF\u09A8 \u0995\u09B0\u09BE',
+        pin: '\u09AA\u09BF\u09A8 \u0995\u09B0\u09C1\u09A8',
+        unpin: '\u09AA\u09BF\u09A8 \u09B8\u09B0\u09BE\u09A8',
+        newConversation: '\u09A8\u09A4\u09C1\u09A8 \u0995\u09A5\u09CB\u09AA\u0995\u09A5\u09A8',
+        rename: '\u09A8\u09BE\u09AE \u09AA\u09B0\u09BF\u09AC\u09B0\u09CD\u09A4\u09A8',
+        delete: '\u09AE\u09C1\u099B\u09C1\u09A8',
+        deleteConfirm:
+          '\u098F\u0987 \u0995\u09A5\u09CB\u09AA\u0995\u09A5\u09A8 \u09AE\u09C1\u099B\u09C7 \u09AB\u09C7\u09B2\u09A4\u09C7 \u09A8\u09BF\u09B6\u09CD\u099A\u09BF\u09A4 \u0995\u09B0\u09C1\u09A8?'
       }
     }
   }
 }
-
 export default bn

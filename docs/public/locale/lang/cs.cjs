@@ -601,6 +601,97 @@ const cs = exports.cs = {
       noData: "\u017D\xE1dn\xE1 data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Vyberte specifikace",
+      emptyText: "\u017D\xE1dn\xE9 specifikace",
+      stock: "Sklad",
+      price: "Cena",
+      selected: "Vybr\xE1no",
+      outOfStock: "Nen\xED skladem"
+    },
+    productcard: {
+      viewDetails: "Zobrazit detaily",
+      buyNow: "Koupit nyn\xED",
+      addToCart: "P\u0159idat do ko\u0161\xEDku",
+      sold: "Prod\xE1no",
+      soldOut: "Vyprod\xE1no",
+      vip: "VIP"
+    },
+    price: {
+      original: "P\u016Fvodn\xED cena"
+    },
+    couponcard: {
+      available: "Z\xEDskat nyn\xED",
+      used: "Pou\u017Eito",
+      expired: "Vypr\u0161elo",
+      received: "P\u0159ijato",
+      limit: "Objedn\xE1vky nad {threshold}",
+      noThreshold: "Bez minim\xE1ln\xED hodnoty",
+      validPeriod: "Platnost",
+      ruleTitle: "Pravidla pou\u017Eit\xED"
+    },
+    luckydraw: {
+      start: "Spustit",
+      drawing: "Losov\xE1n\xED...",
+      end: "V\xFDherce!",
+      retry: "Zkusit znovu"
+    },
+    filterbar: {
+      all: "V\u0161e",
+      sort: "\u0158adit",
+      filter: "Filtrovat",
+      cancel: "Zru\u0161it",
+      reset: "Obnovit",
+      confirm: "Potvrdit",
+      noOptions: "\u017D\xE1dn\xE9 mo\u017Enosti",
+      asc: "Vzestupn\u011B",
+      desc: "Sestupn\u011B",
+      selected: "Vybr\xE1no"
+    },
+    submitbar: {
+      total: "Celkem: ",
+      selected: "{count} vybr\xE1no",
+      submit: "Pokra\u010Dovat k pokladn\u011B",
+      allSelect: "Vybrat v\u0161e"
+    },
+    categorynav: {
+      all: "V\u0161e",
+      noData: "\u017D\xE1dn\xE1 data",
+      loading: "Na\u010D\xEDt\xE1n\xED..."
+    },
+    smartaddress: {
+      placeholder: "Vlo\u017Ete sem adresu pro automatick\xE9 rozpozn\xE1n\xED jm\xE9na, telefonu a m\xEDsta",
+      parse: "Chytr\xE1 anal\xFDza",
+      province: "Kraj/M\u011Bsto/Okres",
+      city: "M\u011Bsto",
+      district: "Okres/Obec",
+      street: "Ulice/M\u011Bsto",
+      detail: "Podrobn\xE1 adresa",
+      phone: "Telefon",
+      name: "P\u0159\xEDjemce",
+      parseSuccess: "Adresa byla \xFAsp\u011B\u0161n\u011B analyzov\xE1na",
+      parseFailed: "Anal\xFDza selhala, vypl\u0148te ru\u010Dn\u011B",
+      required: "Vypl\u0148te pros\xEDm \xFAplnou adresu",
+      provinceKeywords: ["Kraj", "St\xE1t"],
+      cityKeywords: ["M\u011Bsto", "Obec"],
+      districtKeywords: ["Okres", "Obec", "\u010C\xE1st"],
+      streetKeywords: ["Ulice", "T\u0159\xEDda", "Cesta", "N\xE1m\u011Bst\xED"]
+    },
+    ganttchart: {
+      taskName: "N\xE1zev \xFAkolu",
+      searchPlaceholder: "Hledat \xFAkoly...",
+      zoom: "P\u0159ibl\xED\u017Een\xED",
+      day: "Den",
+      week: "T\xFDden",
+      month: "M\u011Bs\xEDc",
+      year: "Rok",
+      milestone: "Miln\xEDk"
+    },
+    imagemagnifier: {
+      switchToImage: "P\u0159epnout na obr\xE1zek {index}",
+      galleryItem: "Galerie {index}",
+      close: "Zav\u0159\xEDt"
+    },
     ai: {
       bubble: {
         citations: "Citace"
@@ -710,9 +801,32 @@ const cs = exports.cs = {
         pin: "P\u0159ipnout",
         unpin: "Odepnout",
         newConversation: "Nov\xE1 konverzace",
+        noData: "Zat\xEDm \u017E\xE1dn\xE9 konverzace",
         rename: "P\u0159ejmenovat",
         delete: "Smazat",
         deleteConfirm: "Potvrdit smaz\xE1n\xED t\xE9to konverzace?"
+      },
+      attachments: {
+        dropTip: "P\u0159et\xE1hn\u011Bte sem soubory k nahr\xE1n\xED",
+        clickToUpload: "Klikn\u011Bte nebo p\u0159et\xE1hn\u011Bte soubory k nahr\xE1n\xED",
+        uploadSuccess: "Nahr\xE1n\xED bylo \xFAsp\u011B\u0161n\xE9",
+        uploadError: "Nahr\xE1n\xED se nezda\u0159ilo",
+        deleteConfirm: "Opravdu chcete tento soubor smazat?",
+        fileTooLarge: "Velikost souboru nesm\xED p\u0159ekro\u010Dit {size}",
+        invalidFileType: "Neplatn\xFD typ souboru"
+      },
+      mermaid: {
+        image: "Obr\xE1zek",
+        code: "K\xF3d",
+        zoomIn: "P\u0159ibl\xED\u017Eit",
+        zoomOut: "Odd\xE1lit",
+        reset: "Obnovit",
+        download: "St\xE1hnout",
+        copyCode: "Kop\xEDrovat k\xF3d",
+        rendering: "Vykreslov\xE1n\xED...",
+        renderError: "Vykreslen\xED se nezda\u0159ilo",
+        renderSuccess: "Vykreslen\xED bylo \xFAsp\u011B\u0161n\xE9",
+        retry: "Zkusit znovu"
       }
     }
   }

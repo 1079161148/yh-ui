@@ -617,7 +617,9 @@ export const zhCn: Language = {
       viewDetails: '查看详情',
       buyNow: '立即购买',
       addToCart: '加入购物车',
-      sold: '已售'
+      sold: '已售',
+      soldOut: '售罄',
+      vip: '会员'
     },
     // 价格
     price: {
@@ -646,6 +648,7 @@ export const zhCn: Language = {
       all: '全部',
       sort: '排序',
       filter: '筛选',
+      cancel: '取消',
       reset: '重置',
       confirm: '确定',
       noOptions: '暂无筛选项',

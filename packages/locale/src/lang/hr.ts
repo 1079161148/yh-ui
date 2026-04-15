@@ -596,6 +596,97 @@ export const hr: Language = {
       loading: 'Učitavanje...',
       noData: 'Nema podataka'
     },
+    skuselector: {
+      placeholder: 'Odaberite specifikacije',
+      emptyText: 'Nema specifikacija',
+      stock: 'Zaliha',
+      price: 'Cijena',
+      selected: 'Odabrano',
+      outOfStock: 'Nema na zalihi'
+    },
+    productcard: {
+      viewDetails: 'Pogledaj detalje',
+      buyNow: 'Kupi odmah',
+      addToCart: 'Dodaj u košaricu',
+      sold: 'Prodano',
+      soldOut: 'Rasprodano',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Izvorna'
+    },
+    couponcard: {
+      available: 'Preuzmi odmah',
+      used: 'Iskorišteno',
+      expired: 'Isteklo',
+      received: 'Preuzeto',
+      limit: 'Narudžbe iznad {threshold}',
+      noThreshold: 'Bez minimalnog iznosa',
+      validPeriod: 'Razdoblje valjanosti',
+      ruleTitle: 'Pravila korištenja'
+    },
+    luckydraw: {
+      start: 'Pokreni',
+      drawing: 'Izvlačenje...',
+      end: 'Pobjednik!',
+      retry: 'Pokušaj ponovno'
+    },
+    filterbar: {
+      all: 'Sve',
+      sort: 'Sortiraj',
+      filter: 'Filtriraj',
+      cancel: 'Odustani',
+      reset: 'Resetiraj',
+      confirm: 'Potvrdi',
+      noOptions: 'Nema opcija',
+      asc: 'Uzlazno',
+      desc: 'Silazno',
+      selected: 'Odabrano'
+    },
+    submitbar: {
+      total: 'Ukupno: ',
+      selected: '{count} odabrano',
+      submit: 'Na plaćanje',
+      allSelect: 'Odaberi sve'
+    },
+    categorynav: {
+      all: 'Sve',
+      noData: 'Nema podataka',
+      loading: 'Učitavanje...'
+    },
+    smartaddress: {
+      placeholder: 'Ovdje zalijepite adresu, automatski prepoznaj ime, telefon i lokaciju',
+      parse: 'Pametno prepoznavanje',
+      province: 'Pokrajina/Grad/Okrug',
+      city: 'Grad',
+      district: 'Okrug/Županija',
+      street: 'Ulica/Naselje',
+      detail: 'Detaljna adresa',
+      phone: 'Telefon',
+      name: 'Primatelj',
+      parseSuccess: 'Adresa je uspješno prepoznata',
+      parseFailed: 'Prepoznavanje nije uspjelo, ispunite ručno',
+      required: 'Unesite potpunu adresu',
+      provinceKeywords: ['Pokrajina', 'Država'],
+      cityKeywords: ['Grad', 'Regija'],
+      districtKeywords: ['Okrug', 'Županija', 'Općina'],
+      streetKeywords: ['Ulica', 'Cesta', 'Avenija', 'Prolaz']
+    },
+    ganttchart: {
+      taskName: 'Naziv zadatka',
+      searchPlaceholder: 'Pretraži zadatke...',
+      zoom: 'Zum',
+      day: 'Dan',
+      week: 'Tjedan',
+      month: 'Mjesec',
+      year: 'Godina',
+      milestone: 'Prekretnica'
+    },
+    imagemagnifier: {
+      switchToImage: 'Prebaci na sliku {index}',
+      galleryItem: 'Galerija {index}',
+      close: 'Zatvori'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -707,9 +798,32 @@ export const hr: Language = {
         pin: 'Prikači',
         unpin: 'Odprikači',
         newConversation: 'Novi razgovor',
+        noData: 'Još nema razgovora',
         rename: 'Preimenuj',
         delete: 'Izbriši',
         deleteConfirm: 'Potvrdite brisanje ovog razgovora?'
+      },
+      attachments: {
+        dropTip: 'Ispustite datoteke ovdje za prijenos',
+        clickToUpload: 'Kliknite ili povucite datoteke za prijenos',
+        uploadSuccess: 'Prijenos je uspio',
+        uploadError: 'Prijenos nije uspio',
+        deleteConfirm: 'Jeste li sigurni da želite izbrisati ovu datoteku?',
+        fileTooLarge: 'Veličina datoteke ne smije biti veća od {size}',
+        invalidFileType: 'Nevažeća vrsta datoteke'
+      },
+      mermaid: {
+        image: 'Slika',
+        code: 'Kod',
+        zoomIn: 'Povećaj',
+        zoomOut: 'Smanji',
+        reset: 'Poništi',
+        download: 'Preuzmi',
+        copyCode: 'Kopiraj kod',
+        rendering: 'Renderiranje...',
+        renderError: 'Renderiranje nije uspjelo',
+        renderSuccess: 'Renderiranje je uspjelo',
+        retry: 'Pokušaj ponovno'
       }
     }
   }

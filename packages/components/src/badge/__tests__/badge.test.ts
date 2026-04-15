@@ -120,4 +120,18 @@ describe('Badge 组件', () => {
     })
     expect(wrapper.find('.yh-badge__content').classes()).toContain('is-no-border')
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Badge, {
+      props: {
+        value: 12,
+        themeOverrides: {
+          'bg-color': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-badge__content').attributes('style')).toContain(
+      '--yh-badge-bg-color: #123456'
+    )
+  })
 })

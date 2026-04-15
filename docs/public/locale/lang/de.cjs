@@ -525,6 +525,97 @@ const de = exports.de = {
       loading: "Laden...",
       noData: "Keine Daten"
     },
+    skuselector: {
+      placeholder: "Spezifikationen ausw\xE4hlen",
+      emptyText: "Keine Spezifikationen",
+      stock: "Bestand",
+      price: "Preis",
+      selected: "Ausgew\xE4hlt",
+      outOfStock: "Nicht auf Lager"
+    },
+    productcard: {
+      viewDetails: "Details anzeigen",
+      buyNow: "Jetzt kaufen",
+      addToCart: "In den Warenkorb",
+      sold: "Verkauft",
+      soldOut: "Ausverkauft",
+      vip: "VIP"
+    },
+    price: {
+      original: "Originalpreis"
+    },
+    couponcard: {
+      available: "Jetzt einl\xF6sen",
+      used: "Verwendet",
+      expired: "Abgelaufen",
+      received: "Erhalten",
+      limit: "Bestellungen \xFCber {threshold}",
+      noThreshold: "Kein Mindestbetrag",
+      validPeriod: "G\xFCltigkeit",
+      ruleTitle: "Nutzungsregeln"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Ziehung...",
+      end: "Gewonnen!",
+      retry: "Erneut versuchen"
+    },
+    filterbar: {
+      all: "Alle",
+      sort: "Sortieren",
+      filter: "Filtern",
+      cancel: "Abbrechen",
+      reset: "Zur\xFCcksetzen",
+      confirm: "Best\xE4tigen",
+      noOptions: "Keine Optionen",
+      asc: "Aufsteigend",
+      desc: "Absteigend",
+      selected: "Ausgew\xE4hlt"
+    },
+    submitbar: {
+      total: "Summe: ",
+      selected: "{count} ausgew\xE4hlt",
+      submit: "Zur Kasse",
+      allSelect: "Alle ausw\xE4hlen"
+    },
+    categorynav: {
+      all: "Alle",
+      noData: "Keine Daten",
+      loading: "Laden..."
+    },
+    smartaddress: {
+      placeholder: "Adresse hier einf\xFCgen, Name, Telefon und Ort automatisch erkennen",
+      parse: "Intelligent erkennen",
+      province: "Bundesland/Stadt/Bezirk",
+      city: "Stadt",
+      district: "Bezirk/Landkreis",
+      street: "Stra\xDFe/Ort",
+      detail: "Detailadresse",
+      phone: "Telefon",
+      name: "Empf\xE4nger",
+      parseSuccess: "Adresse erfolgreich erkannt",
+      parseFailed: "Erkennung fehlgeschlagen, bitte manuell ausf\xFCllen",
+      required: "Bitte vollst\xE4ndige Adresse eingeben",
+      provinceKeywords: ["Bundesland", "Staat"],
+      cityKeywords: ["Stadt", "Region"],
+      districtKeywords: ["Bezirk", "Landkreis", "Gemeinde"],
+      streetKeywords: ["Stra\xDFe", "Weg", "Allee", "Gasse"]
+    },
+    ganttchart: {
+      taskName: "Aufgabenname",
+      searchPlaceholder: "Aufgaben suchen...",
+      zoom: "Zoom",
+      day: "Tag",
+      week: "Woche",
+      month: "Monat",
+      year: "Jahr",
+      milestone: "Meilenstein"
+    },
+    imagemagnifier: {
+      switchToImage: "Zu Bild {index} wechseln",
+      galleryItem: "Galeriebild {index}",
+      close: "Schlie\xDFen"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -635,9 +726,32 @@ const de = exports.de = {
         pin: "Anheften",
         unpin: "L\xF6sen",
         newConversation: "Neue Konversation",
+        noData: "Noch keine Unterhaltungen",
         rename: "Umbenennen",
         delete: "L\xF6schen",
         deleteConfirm: "Diese Konversation l\xF6schen?"
+      },
+      attachments: {
+        dropTip: "Dateien zum Hochladen hier ablegen",
+        clickToUpload: "Klicken oder Dateien zum Hochladen ziehen",
+        uploadSuccess: "Upload erfolgreich",
+        uploadError: "Upload fehlgeschlagen",
+        deleteConfirm: "Diese Datei wirklich l\xF6schen?",
+        fileTooLarge: "Dateigr\xF6\xDFe darf {size} nicht \xFCberschreiten",
+        invalidFileType: "Ung\xFCltiger Dateityp"
+      },
+      mermaid: {
+        image: "Bild",
+        code: "Code",
+        zoomIn: "Vergr\xF6\xDFern",
+        zoomOut: "Verkleinern",
+        reset: "Zur\xFCcksetzen",
+        download: "Herunterladen",
+        copyCode: "Code kopieren",
+        rendering: "Wird gerendert...",
+        renderError: "Rendern fehlgeschlagen",
+        renderSuccess: "Rendern erfolgreich",
+        retry: "Erneut versuchen"
       }
     }
   }

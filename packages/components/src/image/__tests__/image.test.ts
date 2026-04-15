@@ -195,4 +195,25 @@ describe('YhImage', () => {
     await img.trigger('click')
     expect(wrapper.find('.yh-viewer').exists()).toBe(false) // Component's internal viewer should not show
   })
+
+  it('should use image locale key for placeholder text', () => {
+    const wrapper = mount(YhImage, {
+      props: { src }
+    })
+
+    expect(wrapper.text()).toContain('image.loading')
+  })
+
+  it('should apply theme overrides on image root', () => {
+    const wrapper = mount(YhImage, {
+      props: {
+        src,
+        themeOverrides: {
+          'border-radius': '18px'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-image-border-radius: 18px')
+  })
 })

@@ -20,5 +20,14 @@ export type YhCarouselItemInstance = CarouselItemInstance
 
 export type { CarouselProps } from './src/carousel'
 export type YhCarouselProps = import('./src/carousel').CarouselProps
+export type YhCarouselEmits = import('./src/carousel').CarouselEmits
+export type YhCarouselSlots = import('./src/carousel').CarouselSlots
+export type YhCarouselExpose = import('./src/carousel').CarouselExpose
+export type YhCarouselEffect = import('./src/carousel').CarouselEffect
+export type YhCarouselDirection = import('./src/carousel').CarouselDirection
+export type YhCarouselArrow = import('./src/carousel').CarouselArrow
+export type YhCarouselTrigger = import('./src/carousel').CarouselTrigger
+export type YhCarouselDotPlacement = import('./src/carousel').CarouselDotPlacement
 export type { CarouselItemProps } from './src/carousel-item'
 export type YhCarouselItemProps = import('./src/carousel-item').CarouselItemProps
+export type YhCarouselItemSlots = import('./src/carousel-item').CarouselItemSlots

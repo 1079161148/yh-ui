@@ -519,6 +519,97 @@ export const fr = {
       loading: "Chargement...",
       noData: "Aucune donn\xE9e"
     },
+    skuselector: {
+      placeholder: "S\xE9lectionner des sp\xE9cifications",
+      emptyText: "Aucune sp\xE9cification",
+      stock: "Stock",
+      price: "Prix",
+      selected: "S\xE9lectionn\xE9",
+      outOfStock: "Rupture de stock"
+    },
+    productcard: {
+      viewDetails: "Voir les d\xE9tails",
+      buyNow: "Acheter maintenant",
+      addToCart: "Ajouter au panier",
+      sold: "Vendu",
+      soldOut: "\xC9puis\xE9",
+      vip: "VIP"
+    },
+    price: {
+      original: "Prix d\u2019origine"
+    },
+    couponcard: {
+      available: "Obtenir maintenant",
+      used: "Utilis\xE9",
+      expired: "Expir\xE9",
+      received: "Re\xE7u",
+      limit: "Commandes de plus de {threshold}",
+      noThreshold: "Sans minimum",
+      validPeriod: "Validit\xE9",
+      ruleTitle: "R\xE8gles d\u2019utilisation"
+    },
+    luckydraw: {
+      start: "D\xE9marrer",
+      drawing: "Tirage...",
+      end: "Gagnant !",
+      retry: "R\xE9essayer"
+    },
+    filterbar: {
+      all: "Tous",
+      sort: "Trier",
+      filter: "Filtrer",
+      cancel: "Annuler",
+      reset: "R\xE9initialiser",
+      confirm: "Confirmer",
+      noOptions: "Aucune option",
+      asc: "Croissant",
+      desc: "D\xE9croissant",
+      selected: "S\xE9lectionn\xE9"
+    },
+    submitbar: {
+      total: "Total : ",
+      selected: "{count} s\xE9lectionn\xE9(s)",
+      submit: "Commander",
+      allSelect: "Tout s\xE9lectionner"
+    },
+    categorynav: {
+      all: "Tous",
+      noData: "Aucune donn\xE9e",
+      loading: "Chargement..."
+    },
+    smartaddress: {
+      placeholder: "Collez l\u2019adresse ici pour d\xE9tecter automatiquement le nom, le t\xE9l\xE9phone et le lieu",
+      parse: "Analyse intelligente",
+      province: "R\xE9gion/Ville/District",
+      city: "Ville",
+      district: "District/D\xE9partement",
+      street: "Rue/Commune",
+      detail: "Adresse d\xE9taill\xE9e",
+      phone: "T\xE9l\xE9phone",
+      name: "Destinataire",
+      parseSuccess: "Adresse analys\xE9e avec succ\xE8s",
+      parseFailed: "\xC9chec de l\u2019analyse, veuillez remplir manuellement",
+      required: "Veuillez renseigner l\u2019adresse compl\xE8te",
+      provinceKeywords: ["R\xE9gion", "Province"],
+      cityKeywords: ["Ville", "Commune"],
+      districtKeywords: ["District", "D\xE9partement", "Arrondissement"],
+      streetKeywords: ["Rue", "Route", "Avenue", "All\xE9e"]
+    },
+    ganttchart: {
+      taskName: "Nom de la t\xE2che",
+      searchPlaceholder: "Rechercher des t\xE2ches...",
+      zoom: "Zoom",
+      day: "Jour",
+      week: "Semaine",
+      month: "Mois",
+      year: "Ann\xE9e",
+      milestone: "Jalon"
+    },
+    imagemagnifier: {
+      switchToImage: "Passer \xE0 l\u2019image {index}",
+      galleryItem: "Galerie {index}",
+      close: "Fermer"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -629,9 +720,32 @@ export const fr = {
         pin: "\xC9pingler",
         unpin: "D\xE9s\xE9pingler",
         newConversation: "Nouvelle conversation",
+        noData: "Aucune conversation pour le moment",
         rename: "Renommer",
         delete: "Supprimer",
         deleteConfirm: "Confirmer la suppression de cette conversation ?"
+      },
+      attachments: {
+        dropTip: "D\xE9posez les fichiers ici pour les t\xE9l\xE9verser",
+        clickToUpload: "Cliquez ou glissez les fichiers pour les t\xE9l\xE9verser",
+        uploadSuccess: "T\xE9l\xE9versement r\xE9ussi",
+        uploadError: "\xC9chec du t\xE9l\xE9versement",
+        deleteConfirm: "Supprimer ce fichier ?",
+        fileTooLarge: "La taille du fichier ne peut pas d\xE9passer {size}",
+        invalidFileType: "Type de fichier invalide"
+      },
+      mermaid: {
+        image: "Image",
+        code: "Code",
+        zoomIn: "Agrandir",
+        zoomOut: "R\xE9duire",
+        reset: "R\xE9initialiser",
+        download: "T\xE9l\xE9charger",
+        copyCode: "Copier le code",
+        rendering: "Rendu en cours...",
+        renderError: "\xC9chec du rendu",
+        renderSuccess: "Rendu r\xE9ussi",
+        retry: "R\xE9essayer"
       }
     }
   }

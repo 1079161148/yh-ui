@@ -9,7 +9,7 @@ const spinProps = {
   /** 尺寸: small, default, large 或自定义数字 px */
   size: {
     type: [String, Number],
-    default: "default"
+    default: 'default'
   },
   /** 是否垂直排列 */
   vertical: {
@@ -41,7 +41,7 @@ const spinProps = {
    */
   type: {
     type: String,
-    default: "circle"
+    default: 'circle'
   },
   /** 自定义颜色 (支持十六进制、RGB、CSS 渐变字符串或渐变配置对象) */
   color: {
@@ -52,7 +52,9 @@ const spinProps = {
     type: Object,
     default: void 0
   }
-};
-export {
-  spinProps
-};
+}
+const spinEmits = {
+  show: () => true,
+  hide: () => true
+}
+export { spinEmits, spinProps }

@@ -5,531 +5,535 @@ export const ja: Language = {
   yh: {
     // Common
     common: {
-      yes: '継続',
-      no: '終了',
+      yes: '\u7D99\u7D9A',
+      no: '\u7D42\u4E86',
       confirm: 'OK',
-      cancel: 'キャンセル',
-      loading: 'ロード中',
-      close: '閉じる',
-      clear: 'クリア',
-      reset: 'リセット',
-      save: '保存',
-      delete: '削除',
-      edit: '編集',
-      add: '追加',
-      search: '検索',
-      refresh: '更新',
-      expand: '展開',
-      collapse: '折りたたみ',
-      more: 'もっと見る',
-      noData: 'データなし',
-      noMatch: 'データなし',
-      selectAll: '全て選択',
-      unselectAll: '選択解除'
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      loading: '\u30ED\u30FC\u30C9\u4E2D',
+      close: '\u9589\u3058\u308B',
+      clear: '\u30AF\u30EA\u30A2',
+      reset: '\u30EA\u30BB\u30C3\u30C8',
+      save: '\u4FDD\u5B58',
+      delete: '\u524A\u9664',
+      edit: '\u7DE8\u96C6',
+      add: '\u8FFD\u52A0',
+      search: '\u691C\u7D22',
+      refresh: '\u66F4\u65B0',
+      expand: '\u5C55\u958B',
+      collapse: '\u6298\u308A\u305F\u305F\u307F',
+      more: '\u3082\u3063\u3068\u898B\u308B',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057',
+      noMatch: '\u30C7\u30FC\u30BF\u306A\u3057',
+      selectAll: '\u5168\u3066\u9078\u629E',
+      unselectAll: '\u9078\u629E\u89E3\u9664'
     },
     // Color Picker
     colorpicker: {
       confirm: 'OK',
-      clear: 'クリア',
-      eyeDropper: 'スポイト',
-      suggestionDark: '白いテキストを推奨',
-      suggestionLight: '黒いテキストを推奨',
-      recentColors: '最近使った色',
-      presetColors: '既定の色'
+      clear: '\u30AF\u30EA\u30A2',
+      eyeDropper: '\u30B9\u30DD\u30A4\u30C8',
+      suggestionDark: '\u767D\u3044\u30C6\u30AD\u30B9\u30C8\u3092\u63A8\u5968',
+      suggestionLight: '\u9ED2\u3044\u30C6\u30AD\u30B9\u30C8\u3092\u63A8\u5968',
+      recentColors: '\u6700\u8FD1\u4F7F\u3063\u305F\u8272',
+      presetColors: '\u65E2\u5B9A\u306E\u8272'
     },
     // Date Picker
     datepicker: {
-      now: '現在',
-      today: '今日',
-      cancel: 'キャンセル',
-      clear: 'クリア',
+      now: '\u73FE\u5728',
+      today: '\u4ECA\u65E5',
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      clear: '\u30AF\u30EA\u30A2',
       confirm: 'OK',
-      selectDate: '日付を選択',
-      selectTime: '時間を選択',
-      startDate: '開始日',
-      startTime: '開始時間',
-      endDate: '終了日',
-      endTime: '終了時間',
-      year: '年',
-      month: '月',
-      day: '日',
-      week: '週',
+      selectDate: '\u65E5\u4ED8\u3092\u9078\u629E',
+      selectTime: '\u6642\u9593\u3092\u9078\u629E',
+      startDate: '\u958B\u59CB\u65E5',
+      startTime: '\u958B\u59CB\u6642\u9593',
+      endDate: '\u7D42\u4E86\u65E5',
+      endTime: '\u7D42\u4E86\u6642\u9593',
+      year: '\u5E74',
+      month: '\u6708',
+      day: '\u65E5',
+      week: '\u9031',
       monthBeforeYear: false,
-      prevYear: '前年',
-      nextYear: '翌年',
-      prevMonth: '前月',
-      nextMonth: '翌月',
+      prevYear: '\u524D\u5E74',
+      nextYear: '\u7FCC\u5E74',
+      prevMonth: '\u524D\u6708',
+      nextMonth: '\u7FCC\u6708',
       weeks: {
-        sun: '日',
-        mon: '月',
-        tue: '火',
-        wed: '水',
-        thu: '木',
-        fri: '金',
-        sat: '土'
+        sun: '\u65E5',
+        mon: '\u6708',
+        tue: '\u706B',
+        wed: '\u6C34',
+        thu: '\u6728',
+        fri: '\u91D1',
+        sat: '\u571F'
       },
       months: {
-        jan: '1月',
-        feb: '2月',
-        mar: '3月',
-        apr: '4月',
-        may: '5月',
-        jun: '6月',
-        jul: '7月',
-        aug: '8月',
-        sep: '9月',
-        oct: '10月',
-        nov: '11月',
-        dec: '12月'
+        jan: '1\u6708',
+        feb: '2\u6708',
+        mar: '3\u6708',
+        apr: '4\u6708',
+        may: '5\u6708',
+        jun: '6\u6708',
+        jul: '7\u6708',
+        aug: '8\u6708',
+        sep: '9\u6708',
+        oct: '10\u6708',
+        nov: '11\u6708',
+        dec: '12\u6708'
       },
       quarters: {
-        q1: '第1四半期',
-        q2: '第2四半期',
-        q3: '第3四半期',
-        q4: '第4四半期'
+        q1: '\u7B2C1\u56DB\u534A\u671F',
+        q2: '\u7B2C2\u56DB\u534A\u671F',
+        q3: '\u7B2C3\u56DB\u534A\u671F',
+        q4: '\u7B2C4\u56DB\u534A\u671F'
       }
     },
     // Time Picker
     timepicker: {
       confirm: 'OK',
-      cancel: 'キャンセル',
-      now: '現在',
-      placeholder: '時間を選択',
-      startPlaceholder: '開始時間',
-      endPlaceholder: '終了時間',
-      selectTime: '時間を選択'
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      now: '\u73FE\u5728',
+      placeholder: '\u6642\u9593\u3092\u9078\u629E',
+      startPlaceholder: '\u958B\u59CB\u6642\u9593',
+      endPlaceholder: '\u7D42\u4E86\u6642\u9593',
+      selectTime: '\u6642\u9593\u3092\u9078\u629E'
     },
     // Time Select
     timeselect: {
-      placeholder: '時間を選択'
+      placeholder: '\u6642\u9593\u3092\u9078\u629E'
     },
     // Tree
     tree: {
-      emptyText: 'データなし',
-      loading: 'ロード中...',
-      checkAll: '全て選択',
-      uncheckAll: '選択解除',
-      expandAll: '全て展開',
-      collapseAll: '全て閉じる'
+      emptyText: '\u30C7\u30FC\u30BF\u306A\u3057',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      checkAll: '\u5168\u3066\u9078\u629E',
+      uncheckAll: '\u9078\u629E\u89E3\u9664',
+      expandAll: '\u5168\u3066\u5C55\u958B',
+      collapseAll: '\u5168\u3066\u9589\u3058\u308B'
     },
     // Tree Select
     treeselect: {
-      placeholder: '選択してください',
-      emptyText: 'データなし',
-      loading: 'ロード中...',
-      noMatch: 'データなし'
+      placeholder: '\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044',
+      emptyText: '\u30C7\u30FC\u30BF\u306A\u3057',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      noMatch: '\u30C7\u30FC\u30BF\u306A\u3057'
     },
     // Calendar
     calendar: {
-      prevMonth: '前月',
-      nextMonth: '翌月',
-      prevYear: '前年',
-      nextYear: '翌年',
-      today: '今日',
-      week: '週',
-      holiday: '祝日',
-      workday: '平日',
-      monthHeaderFormat: 'YYYY年M月',
+      prevMonth: '\u524D\u6708',
+      nextMonth: '\u7FCC\u6708',
+      prevYear: '\u524D\u5E74',
+      nextYear: '\u7FCC\u5E74',
+      today: '\u4ECA\u65E5',
+      week: '\u9031',
+      holiday: '\u795D\u65E5',
+      workday: '\u5E73\u65E5',
+      monthHeaderFormat: 'YYYY\u5E74M\u6708',
       weeks: {
-        sun: '日',
-        mon: '月',
-        tue: '火',
-        wed: '水',
-        thu: '木',
-        fri: '金',
-        sat: '土'
+        sun: '\u65E5',
+        mon: '\u6708',
+        tue: '\u706B',
+        wed: '\u6C34',
+        thu: '\u6728',
+        fri: '\u91D1',
+        sat: '\u571F'
       }
     },
     // Autocomplete
     autocomplete: {
-      loading: 'ロード中...',
-      placeholder: '入力してください',
-      noData: 'データなし',
-      noMatch: 'データなし'
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      placeholder: '\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057',
+      noMatch: '\u30C7\u30FC\u30BF\u306A\u3057'
     },
     // Countdown
     countdown: {
-      days: '日',
-      hours: '時',
-      minutes: '分',
-      seconds: '秒',
-      milliseconds: 'ミリ秒',
-      finished: '終了'
+      days: '\u65E5',
+      hours: '\u6642',
+      minutes: '\u5206',
+      seconds: '\u79D2',
+      milliseconds: '\u30DF\u30EA\u79D2',
+      finished: '\u7D42\u4E86'
     },
     // Cascader
     cascader: {
-      noMatch: 'データなし',
-      placeholder: '選択してください',
-      loading: 'ロード中...',
-      noData: 'データなし'
+      noMatch: '\u30C7\u30FC\u30BF\u306A\u3057',
+      placeholder: '\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057'
     },
     // Transfer
     transfer: {
-      noMatch: 'データなし',
-      noData: 'データなし',
-      titles: ['リスト 1', 'リスト 2'],
-      filterPlaceholder: 'キーワードを入力',
-      noCheckedFormat: '総計 {total} 件',
-      hasCheckedFormat: '{checked}/{total} 選択中',
-      searchPlaceholder: 'キーワードを入力'
+      noMatch: '\u30C7\u30FC\u30BF\u306A\u3057',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057',
+      titles: ['\u30EA\u30B9\u30C8 1', '\u30EA\u30B9\u30C8 2'],
+      filterPlaceholder: '\u30AD\u30FC\u30EF\u30FC\u30C9\u3092\u5165\u529B',
+      noCheckedFormat: '\u7DCF\u8A08 {total} \u4EF6',
+      hasCheckedFormat: '{checked}/{total} \u9078\u629E\u4E2D',
+      searchPlaceholder: '\u30AD\u30FC\u30EF\u30FC\u30C9\u3092\u5165\u529B'
     },
     // Table
     table: {
-      emptyText: 'データなし',
-      confirmFilter: 'フィルター',
-      resetFilter: 'リセット',
-      clearFilter: '全て',
-      sumText: '合計',
-      loading: 'ロード中...',
-      index: '番号',
-      print: '印刷',
-      cancel: 'キャンセル',
-      preview: '印刷プレビュー',
-      printTime: '印刷時間',
-      total: '総計 {total} 件',
-      page: '{page} ページ',
-      yes: 'はい',
-      no: 'いいえ',
+      emptyText: '\u30C7\u30FC\u30BF\u306A\u3057',
+      confirmFilter: '\u30D5\u30A3\u30EB\u30BF\u30FC',
+      resetFilter: '\u30EA\u30BB\u30C3\u30C8',
+      clearFilter: '\u5168\u3066',
+      sumText: '\u5408\u8A08',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      index: '\u756A\u53F7',
+      print: '\u5370\u5237',
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      preview: '\u5370\u5237\u30D7\u30EC\u30D3\u30E5\u30FC',
+      printTime: '\u5370\u5237\u6642\u9593',
+      total: '\u7DCF\u8A08 {total} \u4EF6',
+      page: '{page} \u30DA\u30FC\u30B8',
+      yes: '\u306F\u3044',
+      no: '\u3044\u3044\u3048',
       // Toolbar
       toolbar: {
-        refresh: '更新',
-        density: '表示密度',
-        densityDefault: '既定',
-        densityLarge: '広い',
-        densitySmall: '狭い',
-        columnSetting: '列設定',
-        fullscreen: 'フルスクリーン',
-        exitFullscreen: 'フルスクリーン解除',
-        export: 'エクスポート',
-        import: 'インポート',
-        search: '検索',
-        searchPlaceholder: '検索キーワードを入力'
+        refresh: '\u66F4\u65B0',
+        density: '\u8868\u793A\u5BC6\u5EA6',
+        densityDefault: '\u65E2\u5B9A',
+        densityLarge: '\u5E83\u3044',
+        densitySmall: '\u72ED\u3044',
+        columnSetting: '\u5217\u8A2D\u5B9A',
+        fullscreen: '\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3',
+        exitFullscreen: '\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3\u89E3\u9664',
+        export: '\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8',
+        import: '\u30A4\u30F3\u30DD\u30FC\u30C8',
+        search: '\u691C\u7D22',
+        searchPlaceholder: '\u691C\u7D22\u30AD\u30FC\u30EF\u30FC\u30C9\u3092\u5165\u529B'
       },
       // Filter
       filter: {
-        selectAll: '全て選択',
-        selectInvert: '選択反転',
-        empty: '空',
-        notEmpty: '空ではない',
-        contains: '含む',
-        notContains: '含まない',
-        equals: '等しい',
-        notEquals: '等しくない',
-        startsWith: 'で始まる',
-        endsWith: 'で終わる',
-        greaterThan: 'より大きい',
-        lessThan: 'より小さい',
-        between: 'の間'
+        selectAll: '\u5168\u3066\u9078\u629E',
+        selectInvert: '\u9078\u629E\u53CD\u8EE2',
+        empty: '\u7A7A',
+        notEmpty: '\u7A7A\u3067\u306F\u306A\u3044',
+        contains: '\u542B\u3080',
+        notContains: '\u542B\u307E\u306A\u3044',
+        equals: '\u7B49\u3057\u3044',
+        notEquals: '\u7B49\u3057\u304F\u306A\u3044',
+        startsWith: '\u3067\u59CB\u307E\u308B',
+        endsWith: '\u3067\u7D42\u308F\u308B',
+        greaterThan: '\u3088\u308A\u5927\u304D\u3044',
+        lessThan: '\u3088\u308A\u5C0F\u3055\u3044',
+        between: '\u306E\u9593'
       },
       // Sort
       sort: {
-        asc: '昇順',
-        desc: '降順',
-        clear: 'ソート解除'
+        asc: '\u6607\u9806',
+        desc: '\u964D\u9806',
+        clear: '\u30BD\u30FC\u30C8\u89E3\u9664'
       },
       // Export
       export: {
-        title: 'データエクスポート',
-        filename: 'ファイル名',
-        type: 'ファイル形式',
-        scope: 'エクスポート範囲',
-        scopeAll: '全てのデータ',
-        scopeSelected: '選択したデータ',
-        scopeCurrentPage: '現在のページ',
-        includeHeader: 'ヘッダーを含める',
-        exporting: 'エクスポート中...',
-        success: 'エクスポート成功',
-        error: 'エクスポート失敗'
+        title: '\u30C7\u30FC\u30BF\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8',
+        filename: '\u30D5\u30A1\u30A4\u30EB\u540D',
+        type: '\u30D5\u30A1\u30A4\u30EB\u5F62\u5F0F',
+        scope: '\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u7BC4\u56F2',
+        scopeAll: '\u5168\u3066\u306E\u30C7\u30FC\u30BF',
+        scopeSelected: '\u9078\u629E\u3057\u305F\u30C7\u30FC\u30BF',
+        scopeCurrentPage: '\u73FE\u5728\u306E\u30DA\u30FC\u30B8',
+        includeHeader: '\u30D8\u30C3\u30C0\u30FC\u3092\u542B\u3081\u308B',
+        exporting: '\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u4E2D...',
+        success: '\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u6210\u529F',
+        error: '\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u5931\u6557'
       },
       // Import
       import: {
-        title: 'データインポート',
-        selectFile: 'ファイルを選択',
-        dragTip: 'ファイルをドラッグまたはクリックしてアップロード',
-        importing: 'インポート中...',
-        success: 'インポート成功',
-        error: 'インポート失敗',
-        preview: 'データプレビュー',
-        confirm: 'インポート確定'
+        title: '\u30C7\u30FC\u30BF\u30A4\u30F3\u30DD\u30FC\u30C8',
+        selectFile: '\u30D5\u30A1\u30A4\u30EB\u3092\u9078\u629E',
+        dragTip:
+          '\u30D5\u30A1\u30A4\u30EB\u3092\u30C9\u30E9\u30C3\u30B0\u307E\u305F\u306F\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9',
+        importing: '\u30A4\u30F3\u30DD\u30FC\u30C8\u4E2D...',
+        success: '\u30A4\u30F3\u30DD\u30FC\u30C8\u6210\u529F',
+        error: '\u30A4\u30F3\u30DD\u30FC\u30C8\u5931\u6557',
+        preview: '\u30C7\u30FC\u30BF\u30D7\u30EC\u30D3\u30E5\u30FC',
+        confirm: '\u30A4\u30F3\u30DD\u30FC\u30C8\u78BA\u5B9A'
       },
       // Print
       printConfig: {
-        title: '印刷設定',
-        pageTitle: 'ページタイトル',
-        pageHeader: 'ヘッダー',
-        pageFooter: 'フッター',
-        printAll: '全て表示',
-        printSelected: '選択範囲を表示',
-        printCurrentPage: '現在のページを表示',
-        landscape: '横向き',
-        portrait: '縦向き',
-        printing: '印刷中...'
+        title: '\u5370\u5237\u8A2D\u5B9A',
+        pageTitle: '\u30DA\u30FC\u30B8\u30BF\u30A4\u30C8\u30EB',
+        pageHeader: '\u30D8\u30C3\u30C0\u30FC',
+        pageFooter: '\u30D5\u30C3\u30BF\u30FC',
+        printAll: '\u5168\u3066\u8868\u793A',
+        printSelected: '\u9078\u629E\u7BC4\u56F2\u3092\u8868\u793A',
+        printCurrentPage: '\u73FE\u5728\u306E\u30DA\u30FC\u30B8\u3092\u8868\u793A',
+        landscape: '\u6A2A\u5411\u304D',
+        portrait: '\u7E26\u5411\u304D',
+        printing: '\u5370\u5237\u4E2D...'
       },
       // Column Setting
       columnSetting: {
-        title: '列設定',
-        showAll: '全て表示',
-        hideAll: '全て非表示',
-        reset: 'リセット',
-        fixedLeft: '左に固定',
-        fixedRight: '右に固定',
-        unfixed: '固定解除'
+        title: '\u5217\u8A2D\u5B9A',
+        showAll: '\u5168\u3066\u8868\u793A',
+        hideAll: '\u5168\u3066\u975E\u8868\u793A',
+        reset: '\u30EA\u30BB\u30C3\u30C8',
+        fixedLeft: '\u5DE6\u306B\u56FA\u5B9A',
+        fixedRight: '\u53F3\u306B\u56FA\u5B9A',
+        unfixed: '\u56FA\u5B9A\u89E3\u9664'
       },
       // Context Menu
       contextMenu: {
-        copy: 'コピー',
-        copyRow: '行をコピー',
-        copyCell: 'セルをコピー',
-        paste: '貼り付け',
-        insertRowAbove: '上に空行を挿入',
-        insertRowBelow: '下に空行を挿入',
-        deleteRow: '行を削除',
-        deleteSelectedRows: '選択した行を削除',
-        exportSelected: '選択範囲をエクスポート'
+        copy: '\u30B3\u30D4\u30FC',
+        copyRow: '\u884C\u3092\u30B3\u30D4\u30FC',
+        copyCell: '\u30BB\u30EB\u3092\u30B3\u30D4\u30FC',
+        paste: '\u8CBC\u308A\u4ED8\u3051',
+        insertRowAbove: '\u4E0A\u306B\u7A7A\u884C\u3092\u633F\u5165',
+        insertRowBelow: '\u4E0B\u306B\u7A7A\u884C\u3092\u633F\u5165',
+        deleteRow: '\u884C\u3092\u524A\u9664',
+        deleteSelectedRows: '\u9078\u629E\u3057\u305F\u884C\u3092\u524A\u9664',
+        exportSelected: '\u9078\u629E\u7BC4\u56F2\u3092\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8'
       },
       // Selection
       selection: {
-        selectAll: '全て選択',
-        selectInvert: '選択反転',
-        selectNone: '選択解除',
-        selected: '{count} 件選択中'
+        selectAll: '\u5168\u3066\u9078\u629E',
+        selectInvert: '\u9078\u629E\u53CD\u8EE2',
+        selectNone: '\u9078\u629E\u89E3\u9664',
+        selected: '{count} \u4EF6\u9078\u629E\u4E2D'
       },
       // Expand
       expand: {
-        expandAll: '全て展開',
-        collapseAll: '全て閉じる'
+        expandAll: '\u5168\u3066\u5C55\u958B',
+        collapseAll: '\u5168\u3066\u9589\u3058\u308B'
       },
       // Tree
       tree: {
-        expandAll: '全て展開',
-        collapseAll: '全て閉じる',
-        expandLevel: 'レベル {level} まで展開'
+        expandAll: '\u5168\u3066\u5C55\u958B',
+        collapseAll: '\u5168\u3066\u9589\u3058\u308B',
+        expandLevel: '\u30EC\u30D9\u30EB {level} \u307E\u3067\u5C55\u958B'
       },
       // Drag
       drag: {
-        dragTip: 'ドラッグして順序を調整',
-        dropTip: 'ドロップして配置'
+        dragTip: '\u30C9\u30E9\u30C3\u30B0\u3057\u3066\u9806\u5E8F\u3092\u8ABF\u6574',
+        dropTip: '\u30C9\u30ED\u30C3\u30D7\u3057\u3066\u914D\u7F6E'
       }
     },
     // Message Box
     messagebox: {
-      title: 'メッセージ',
+      title: '\u30E1\u30C3\u30BB\u30FC\u30B8',
       confirm: 'OK',
-      cancel: 'キャンセル',
-      close: '閉じる',
-      error: '入力された値が不正です',
-      alert: '警告',
-      prompt: 'プロンプト',
-      inputPlaceholder: '入力してください'
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      close: '\u9589\u3058\u308B',
+      error: '\u5165\u529B\u3055\u308C\u305F\u5024\u304C\u4E0D\u6B63\u3067\u3059',
+      alert: '\u8B66\u544A',
+      prompt: '\u30D7\u30ED\u30F3\u30D7\u30C8',
+      inputPlaceholder: '\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044'
     },
     // Upload
     upload: {
-      deleteTip: 'Deleteキーで削除',
-      delete: '削除',
-      preview: 'プレビュー',
-      continue: '続行',
-      upload: 'クリックしてアップロード',
-      tip: 'ファイルをここにドラッグまたは<em>クリックしてアップロード</em>',
-      dragTip: 'ファイルをドラッグしてアップロード',
-      uploading: 'アップロード中...',
-      success: 'アップロード成功',
-      error: 'アップロード失敗',
-      retry: 'リトライ',
-      cancel: 'アップロードキャンセル',
-      fileTypeError: 'サポートされていないファイル形式',
-      fileSizeError: 'ファイルサイズ超限',
-      fileCountError: 'ファイル数超限'
+      deleteTip: 'Delete\u30AD\u30FC\u3067\u524A\u9664',
+      delete: '\u524A\u9664',
+      preview: '\u30D7\u30EC\u30D3\u30E5\u30FC',
+      continue: '\u7D9A\u884C',
+      upload: '\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9',
+      tip: '\u30D5\u30A1\u30A4\u30EB\u3092\u3053\u3053\u306B\u30C9\u30E9\u30C3\u30B0\u307E\u305F\u306F<em>\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9</em>',
+      dragTip:
+        '\u30D5\u30A1\u30A4\u30EB\u3092\u30C9\u30E9\u30C3\u30B0\u3057\u3066\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9',
+      uploading: '\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u4E2D...',
+      success: '\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u6210\u529F',
+      error: '\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u5931\u6557',
+      retry: '\u30EA\u30C8\u30E9\u30A4',
+      cancel: '\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u30AD\u30E3\u30F3\u30BB\u30EB',
+      fileTypeError:
+        '\u30B5\u30DD\u30FC\u30C8\u3055\u308C\u3066\u3044\u306A\u3044\u30D5\u30A1\u30A4\u30EB\u5F62\u5F0F',
+      fileSizeError: '\u30D5\u30A1\u30A4\u30EB\u30B5\u30A4\u30BA\u8D85\u9650',
+      fileCountError: '\u30D5\u30A1\u30A4\u30EB\u6570\u8D85\u9650'
     },
     // Form
     form: {
-      validationFailed: 'バリデーション失敗',
-      required: '必須項目',
-      pleaseInput: '入力してください',
-      pleaseSelect: '選択してください'
+      validationFailed: '\u30D0\u30EA\u30C7\u30FC\u30B7\u30E7\u30F3\u5931\u6557',
+      required: '\u5FC5\u9808\u9805\u76EE',
+      pleaseInput: '\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044',
+      pleaseSelect: '\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044'
     },
     // Button
     button: {
-      loading: 'ロード中...'
+      loading: '\u30ED\u30FC\u30C9\u4E2D...'
     },
     // Input
     input: {
-      placeholder: '入力してください',
-      clear: 'クリア',
-      showPassword: 'パスワードを表示',
-      hidePassword: 'パスワードを非表示',
-      copy: 'コピー',
-      copied: 'コピーされました'
+      placeholder: '\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044',
+      clear: '\u30AF\u30EA\u30A2',
+      showPassword: '\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u8868\u793A',
+      hidePassword: '\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u975E\u8868\u793A',
+      copy: '\u30B3\u30D4\u30FC',
+      copied: '\u30B3\u30D4\u30FC\u3055\u308C\u307E\u3057\u305F'
     },
     // Input Number
     inputnumber: {
-      placeholder: '数値を入力',
-      increase: '増やす',
-      decrease: '減らす'
+      placeholder: '\u6570\u5024\u3092\u5165\u529B',
+      increase: '\u5897\u3084\u3059',
+      decrease: '\u6E1B\u3089\u3059'
     },
     // Input Tag
     inputtag: {
-      placeholder: '入力してください',
-      add: '追加',
-      remove: '削除'
+      placeholder: '\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044',
+      add: '\u8FFD\u52A0',
+      remove: '\u524A\u9664'
     },
     // Breadcrumb
     breadcrumb: {
-      label: 'パンくずリスト',
-      more: 'もっと見る'
+      label: '\u30D1\u30F3\u304F\u305A\u30EA\u30B9\u30C8',
+      more: '\u3082\u3063\u3068\u898B\u308B'
     },
     // Backtop
     backtop: {
-      text: 'トップへ戻る'
+      text: '\u30C8\u30C3\u30D7\u3078\u623B\u308B'
     },
     // Select
     select: {
-      placeholder: '選択してください',
-      noData: 'データなし',
-      loading: 'ロード中...',
-      noMatch: 'データなし',
-      selectAll: '全て選択',
-      clearAll: '全てクリア'
+      placeholder: '\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      noMatch: '\u30C7\u30FC\u30BF\u306A\u3057',
+      selectAll: '\u5168\u3066\u9078\u629E',
+      clearAll: '\u5168\u3066\u30AF\u30EA\u30A2'
     },
     // Pagination
     pagination: {
-      goto: '移動',
+      goto: '\u79FB\u52D5',
       page: '',
-      total: '総計 {total} 件',
-      pageSize: '件/ページ',
-      prev: '前へ',
-      next: '次へ',
-      first: '最初',
-      last: '最後',
+      total: '\u7DCF\u8A08 {total} \u4EF6',
+      pageSize: '\u4EF6/\u30DA\u30FC\u30B8',
+      prev: '\u524D\u3078',
+      next: '\u6B21\u3078',
+      first: '\u6700\u521D',
+      last: '\u6700\u5F8C',
       pageClassifier: ''
     },
     // Popconfirm
     popconfirm: {
       confirm: 'OK',
-      cancel: 'キャンセル',
-      dontAskAgain: '次回から表示しない'
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      dontAskAgain: '\u6B21\u56DE\u304B\u3089\u8868\u793A\u3057\u306A\u3044'
     },
     // Dialog
     dialog: {
       confirm: 'OK',
-      cancel: 'キャンセル',
-      close: '閉じる',
-      maximize: '最大化',
-      restore: '元に戻す'
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
+      close: '\u9589\u3058\u308B',
+      maximize: '\u6700\u5927\u5316',
+      restore: '\u5143\u306B\u623B\u3059'
     },
     // Drawer
     drawer: {
-      close: '閉じる',
+      close: '\u9589\u3058\u308B',
       confirm: 'OK',
-      cancel: 'キャンセル'
+      cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB'
     },
     // Dropdown
     dropdown: {
-      loading: 'ロード中...'
+      loading: '\u30ED\u30FC\u30C9\u4E2D...'
     },
     // Image
     image: {
-      error: 'ロード失敗',
-      loading: 'ロード中...',
-      preview: 'プレビュー',
-      zoomIn: '拡大',
-      zoomOut: '縮小',
-      rotateLeft: '左回転',
-      rotateRight: '右回転',
-      originalSize: 'オリジナルサイズ',
-      fullscreen: 'フルスクリーン'
+      error: '\u30ED\u30FC\u30C9\u5931\u6557',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      preview: '\u30D7\u30EC\u30D3\u30E5\u30FC',
+      zoomIn: '\u62E1\u5927',
+      zoomOut: '\u7E2E\u5C0F',
+      rotateLeft: '\u5DE6\u56DE\u8EE2',
+      rotateRight: '\u53F3\u56DE\u8EE2',
+      originalSize: '\u30AA\u30EA\u30B8\u30CA\u30EB\u30B5\u30A4\u30BA',
+      fullscreen: '\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3'
     },
     // Image Viewer
     imageviewer: {
-      close: '閉じる',
-      prev: '前へ',
-      next: '次へ',
-      zoomIn: '拡大',
-      zoomOut: '縮小',
-      rotateLeft: '左回転',
-      rotateRight: '右回転',
-      reset: 'リセット',
-      fullscreen: 'フルスクリーン',
-      exitFullscreen: 'フルスクリーン解除'
+      close: '\u9589\u3058\u308B',
+      prev: '\u524D\u3078',
+      next: '\u6B21\u3078',
+      zoomIn: '\u62E1\u5927',
+      zoomOut: '\u7E2E\u5C0F',
+      rotateLeft: '\u5DE6\u56DE\u8EE2',
+      rotateRight: '\u53F3\u56DE\u8EE2',
+      reset: '\u30EA\u30BB\u30C3\u30C8',
+      fullscreen: '\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3',
+      exitFullscreen: '\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3\u89E3\u9664'
     },
     // Infinite Scroll
     infinitescroll: {
-      loading: 'ロード中...',
-      finished: 'これ以上データはありません',
-      error: 'ロード失敗。クリックしてリトライ',
-      retry: 'クリックしてリトライ'
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      finished: '\u3053\u308C\u4EE5\u4E0A\u30C7\u30FC\u30BF\u306F\u3042\u308A\u307E\u305B\u3093',
+      error:
+        '\u30ED\u30FC\u30C9\u5931\u6557\u3002\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30EA\u30C8\u30E9\u30A4',
+      retry: '\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30EA\u30C8\u30E9\u30A4'
     },
     // Message
     message: {
-      close: '閉じる'
+      close: '\u9589\u3058\u308B'
     },
     // Notification
     notification: {
-      close: '閉じる'
+      close: '\u9589\u3058\u308B'
     },
     // Loading
     loading: {
-      text: 'ロード中...'
+      text: '\u30ED\u30FC\u30C9\u4E2D...'
     },
     // Spin
     spin: {
-      text: 'ロード中...'
+      text: '\u30ED\u30FC\u30C9\u4E2D...'
     },
     // Rate
     rate: {
-      texts: ['最悪', '悪い', '普通', '良い', '最高']
+      texts: ['\u6700\u60AA', '\u60AA\u3044', '\u666E\u901A', '\u826F\u3044', '\u6700\u9AD8']
     },
     // Alert
     alert: {
-      close: '閉じる'
+      close: '\u9589\u3058\u308B'
     },
     // Tag
     tag: {
-      close: '閉じる'
+      close: '\u9589\u3058\u308B'
     },
     // Tabs
     tabs: {
-      close: '閉じる',
-      add: '追加',
-      more: 'もっと見る'
+      close: '\u9589\u3058\u308B',
+      add: '\u8FFD\u52A0',
+      more: '\u3082\u3063\u3068\u898B\u308B'
     },
     // Steps
     steps: {
-      finish: '完了',
-      process: '進行中',
-      wait: '待機中',
-      error: 'エラー'
+      finish: '\u5B8C\u4E86',
+      process: '\u9032\u884C\u4E2D',
+      wait: '\u5F85\u6A5F\u4E2D',
+      error: '\u30A8\u30E9\u30FC'
     },
     // Progress
     progress: {
-      success: '成功',
-      exception: '例外',
-      warning: '警告'
+      success: '\u6210\u529F',
+      exception: '\u4F8B\u5916',
+      warning: '\u8B66\u544A'
     },
     // Skeleton
     skeleton: {
-      loading: 'ロード中...'
+      loading: '\u30ED\u30FC\u30C9\u4E2D...'
     },
     // Empty
     empty: {
-      description: 'データなし',
-      noData: 'データなし',
-      noResult: '該当なし',
-      networkError: 'ネットワークエラー',
-      serverError: 'サーバーエラー'
+      description: '\u30C7\u30FC\u30BF\u306A\u3057',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057',
+      noResult: '\u8A72\u5F53\u306A\u3057',
+      networkError: '\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u30A8\u30E9\u30FC',
+      serverError: '\u30B5\u30FC\u30D0\u30FC\u30A8\u30E9\u30FC'
     },
     // Result
     result: {
-      success: '成功',
-      error: 'エラー',
-      warning: '警告',
-      info: '情報',
-      backHome: 'ホームへ戻る'
+      success: '\u6210\u529F',
+      error: '\u30A8\u30E9\u30FC',
+      warning: '\u8B66\u544A',
+      info: '\u60C5\u5831',
+      backHome: '\u30DB\u30FC\u30E0\u3078\u623B\u308B'
     },
     // Waterfall
     waterfall: {
-      loading: 'ロード中...',
-      noMore: 'これ以上データはありません',
-      empty: 'データなし'
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      noMore: '\u3053\u308C\u4EE5\u4E0A\u30C7\u30FC\u30BF\u306F\u3042\u308A\u307E\u305B\u3093',
+      empty: '\u30C7\u30FC\u30BF\u306A\u3057'
     },
     // Descriptions
     descriptions: {
@@ -541,29 +545,29 @@ export const ja: Language = {
     },
     // Switch
     switch: {
-      on: 'オン',
-      off: 'オフ'
+      on: '\u30AA\u30F3',
+      off: '\u30AA\u30D5'
     },
     // Checkbox
     checkbox: {
-      selectAll: '全て選択'
+      selectAll: '\u5168\u3066\u9078\u629E'
     },
     // Radio
     radio: {},
     // Menu
     menu: {
-      collapse: 'メニューを閉じる',
-      expand: 'メニューを開く'
+      collapse: '\u30E1\u30CB\u30E5\u30FC\u3092\u9589\u3058\u308B',
+      expand: '\u30E1\u30CB\u30E5\u30FC\u3092\u958B\u304F'
     },
     // Card
     card: {
-      collapse: '折りたたむ',
-      expand: '展開'
+      collapse: '\u6298\u308A\u305F\u305F\u3080',
+      expand: '\u5C55\u958B'
     },
     // Collapse
     collapse: {
-      expand: '展開',
-      collapse: '折りたたむ'
+      expand: '\u5C55\u958B',
+      collapse: '\u6298\u308A\u305F\u305F\u3080'
     },
     // Tooltip
     tooltip: {},
@@ -573,7 +577,7 @@ export const ja: Language = {
     badge: {},
     // Avatar
     avatar: {
-      error: 'ロード失敗'
+      error: '\u30ED\u30FC\u30C9\u5931\u6557'
     },
     // Watermark
     watermark: {},
@@ -581,8 +585,8 @@ export const ja: Language = {
     divider: {},
     // Carousel
     carousel: {
-      prev: '前へ',
-      next: '次へ'
+      prev: '\u524D\u3078',
+      next: '\u6B21\u3078'
     },
     // Marquee
     marquee: {},
@@ -592,150 +596,158 @@ export const ja: Language = {
     anchor: {},
     // 提及
     mention: {
-      placeholder: '入力してください',
-      loading: 'ロード中...',
-      noData: 'データなし'
+      placeholder: '\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044',
+      loading: '\u30ED\u30FC\u30C9\u4E2D...',
+      noData: '\u30C7\u30FC\u30BF\u306A\u3057'
     },
     // AI コンポーネント
     ai: {
       bubble: {
-        citations: '引用'
+        citations: '\u5F15\u7528'
       },
       mention: {
-        placeholder: '@ Agent、ドキュメント、表をメンション...',
-        agent: 'エージェント',
-        document: 'ドキュメント',
-        table: 'テーブル',
-        knowledge: 'ナレッジ'
+        placeholder:
+          '@ Agent\u3001\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\u3001\u8868\u3092\u30E1\u30F3\u30B7\u30E7\u30F3...',
+        agent: '\u30A8\u30FC\u30B8\u30A7\u30F3\u30C8',
+        document: '\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8',
+        table: '\u30C6\u30FC\u30D6\u30EB',
+        knowledge: '\u30CA\u30EC\u30C3\u30B8'
       },
       codeBlock: {
-        copyCode: 'コードをコピー',
-        copied: 'コピーしました！',
-        run: 'コードを実行',
-        edit: '編集',
-        save: '保存',
-        cancel: 'キャンセル'
+        copyCode: '\u30B3\u30FC\u30C9\u3092\u30B3\u30D4\u30FC',
+        copied: '\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F\uFF01',
+        run: '\u30B3\u30FC\u30C9\u3092\u5B9F\u884C',
+        edit: '\u7DE8\u96C6',
+        save: '\u4FDD\u5B58',
+        cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB'
       },
       codeRunner: {
-        run: '実行',
-        stop: '停止',
-        clear: 'クリア',
-        reset: 'リセット',
-        placeholder: '実行ボタンをクリックしてコードを実行...'
+        run: '\u5B9F\u884C',
+        stop: '\u505C\u6B62',
+        clear: '\u30AF\u30EA\u30A2',
+        reset: '\u30EA\u30BB\u30C3\u30C8',
+        placeholder:
+          '\u5B9F\u884C\u30DC\u30BF\u30F3\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30B3\u30FC\u30C9\u3092\u5B9F\u884C...'
       },
       sender: {
-        placeholder: 'メッセージを送信...',
-        dragTip: 'ファイルをアップロードするにはリリース'
+        placeholder: '\u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u9001\u4FE1...',
+        dragTip:
+          '\u30D5\u30A1\u30A4\u30EB\u3092\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u3059\u308B\u306B\u306F\u30EA\u30EA\u30FC\u30B9'
       },
       thoughtChain: {
-        thoughtProcess: '思考プロセス',
-        thinking: '思考中...',
-        defaultTitle: '新しいステップ',
-        addNode: 'ステップを追加'
+        thoughtProcess: '\u601D\u8003\u30D7\u30ED\u30BB\u30B9',
+        thinking: '\u601D\u8003\u4E2D...',
+        defaultTitle: '\u65B0\u3057\u3044\u30B9\u30C6\u30C3\u30D7',
+        addNode: '\u30B9\u30C6\u30C3\u30D7\u3092\u8FFD\u52A0'
       },
       thinking: {
-        start: '思考を開始',
-        thinking: '思考中...',
-        complete: '思考完了',
-        error: '思考エラー'
+        start: '\u601D\u8003\u3092\u958B\u59CB',
+        thinking: '\u601D\u8003\u4E2D...',
+        complete: '\u601D\u8003\u5B8C\u4E86',
+        error: '\u601D\u8003\u30A8\u30E9\u30FC'
       },
       welcome: {
-        title: 'こんにちは、YH AIです',
+        title: '\u3053\u3093\u306B\u3061\u306F\u3001YH AI\u3067\u3059',
         description:
-          'コーディング、ドキュメント翻訳、クリエイティブライティングをお手伝いできます。今日は何をしますか？'
+          '\u30B3\u30FC\u30C7\u30A3\u30F3\u30B0\u3001\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\u7FFB\u8A33\u3001\u30AF\u30EA\u30A8\u30A4\u30C6\u30A3\u30D6\u30E9\u30A4\u30C6\u30A3\u30F3\u30B0\u3092\u304A\u624B\u4F1D\u3044\u3067\u304D\u307E\u3059\u3002\u4ECA\u65E5\u306F\u4F55\u3092\u3057\u307E\u3059\u304B\uFF1F'
       },
       action: {
-        copy: 'コピー',
-        regenerate: '再生成',
-        share: '共有',
-        like: 'いいね',
-        dislike: 'よくないね',
-        edit: '編集',
-        delete: '削除'
+        copy: '\u30B3\u30D4\u30FC',
+        regenerate: '\u518D\u751F\u6210',
+        share: '\u5171\u6709',
+        like: '\u3044\u3044\u306D',
+        dislike: '\u3088\u304F\u306A\u3044\u306D',
+        edit: '\u7DE8\u96C6',
+        delete: '\u524A\u9664'
       },
       artifacts: {
-        preview: 'プレビュー',
-        inline: 'インライン',
-        code: 'ソース',
-        versions: 'バージョン',
-        rendering: 'コンポーネントをレンダリング中...',
-        renderingChart: 'チャートをレンダリング中...',
-        renderingCanvas: 'キャンバスを準備中...'
+        preview: '\u30D7\u30EC\u30D3\u30E5\u30FC',
+        inline: '\u30A4\u30F3\u30E9\u30A4\u30F3',
+        code: '\u30BD\u30FC\u30B9',
+        versions: '\u30D0\u30FC\u30B8\u30E7\u30F3',
+        rendering:
+          '\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u30EC\u30F3\u30C0\u30EA\u30F3\u30B0\u4E2D...',
+        renderingChart:
+          '\u30C1\u30E3\u30FC\u30C8\u3092\u30EC\u30F3\u30C0\u30EA\u30F3\u30B0\u4E2D...',
+        renderingCanvas: '\u30AD\u30E3\u30F3\u30D0\u30B9\u3092\u6E96\u5099\u4E2D...'
       },
       voice: {
-        trigger: 'クリックして話す',
-        listening: 'リスニング中...'
+        trigger: '\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u8A71\u3059',
+        listening: '\u30EA\u30B9\u30CB\u30F3\u30B0\u4E2D...'
       },
       agent: {
-        uses: '回使用',
-        use: '今すぐ使用',
-        favorite: 'お気に入り',
-        unfavorite: 'お気に入り解除',
-        share: '共有',
-        online: 'オンライン',
-        offline: 'オフライン',
-        busy: '取り込み中',
-        verified: '認証済み',
-        rating: '評価',
-        reviews: 'レビュー',
-        responseTime: '平均応答時間',
-        ms: 'ミリ秒'
+        uses: '\u56DE\u4F7F\u7528',
+        use: '\u4ECA\u3059\u3050\u4F7F\u7528',
+        favorite: '\u304A\u6C17\u306B\u5165\u308A',
+        unfavorite: '\u304A\u6C17\u306B\u5165\u308A\u89E3\u9664',
+        share: '\u5171\u6709',
+        online: '\u30AA\u30F3\u30E9\u30A4\u30F3',
+        offline: '\u30AA\u30D5\u30E9\u30A4\u30F3',
+        busy: '\u53D6\u308A\u8FBC\u307F\u4E2D',
+        verified: '\u8A8D\u8A3C\u6E08\u307F',
+        rating: '\u8A55\u4FA1',
+        reviews: '\u30EC\u30D3\u30E5\u30FC',
+        responseTime: '\u5E73\u5747\u5FDC\u7B54\u6642\u9593',
+        ms: '\u30DF\u30EA\u79D2'
       },
       sources: {
-        references: '参考文献',
-        referencedSources: '参照元',
-        relevant: '関連性',
-        viewOriginal: '原文を表示',
-        showAll: 'すべて表示',
-        more: '詳細',
-        drawerTitle: '参考文献',
-        expandMore: 'もっと見る',
-        collapseMore: '閉じる',
-        noSources: 'ソースなし',
-        today: '今日',
-        last7Days: '過去7日間',
-        last30Days: '過去30日間',
-        earlier: 'それ以前',
-        pinned: 'ピン留め'
+        references: '\u53C2\u8003\u6587\u732E',
+        referencedSources: '\u53C2\u7167\u5143',
+        relevant: '\u95A2\u9023\u6027',
+        viewOriginal: '\u539F\u6587\u3092\u8868\u793A',
+        showAll: '\u3059\u3079\u3066\u8868\u793A',
+        more: '\u8A73\u7D30',
+        drawerTitle: '\u53C2\u8003\u6587\u732E',
+        expandMore: '\u3082\u3063\u3068\u898B\u308B',
+        collapseMore: '\u9589\u3058\u308B',
+        noSources: '\u30BD\u30FC\u30B9\u306A\u3057',
+        today: '\u4ECA\u65E5',
+        last7Days: '\u904E\u53BB7\u65E5\u9593',
+        last30Days: '\u904E\u53BB30\u65E5\u9593',
+        earlier: '\u305D\u308C\u4EE5\u524D',
+        pinned: '\u30D4\u30F3\u7559\u3081'
       },
       conversations: {
-        today: '今日',
-        last7Days: '過去7日間',
-        last30Days: '過去30日間',
-        earlier: 'それ以前',
-        pinned: 'ピン留め',
-        pin: 'ピン留め',
-        unpin: 'ピン解除',
-        newConversation: '新規会話',
-        rename: '名前を変更',
-        delete: '削除',
-        deleteConfirm: 'この会話を削除しますか？'
+        today: '\u4ECA\u65E5',
+        last7Days: '\u904E\u53BB7\u65E5\u9593',
+        last30Days: '\u904E\u53BB30\u65E5\u9593',
+        earlier: '\u305D\u308C\u4EE5\u524D',
+        pinned: '\u30D4\u30F3\u7559\u3081',
+        pin: '\u30D4\u30F3\u7559\u3081',
+        unpin: '\u30D4\u30F3\u89E3\u9664',
+        newConversation: '\u65B0\u898F\u4F1A\u8A71',
+        rename: '\u540D\u524D\u3092\u5909\u66F4',
+        delete: '\u524A\u9664',
+        deleteConfirm: '\u3053\u306E\u4F1A\u8A71\u3092\u524A\u9664\u3057\u307E\u3059\u304B\uFF1F'
       },
       // AiAttachments
       attachments: {
-        dropTip: 'ファイルをアップロードするにはリリース',
-        clickToUpload: 'クリックまたはドラッグしてアップロード',
-        uploadSuccess: 'アップロード成功',
-        uploadError: 'アップロード失敗',
-        deleteConfirm: 'このファイルを削除しますか？',
-        fileTooLarge: 'ファイルサイズは {size} を超えることはできません',
-        invalidFileType: '無効なファイル形式'
+        dropTip:
+          '\u30D5\u30A1\u30A4\u30EB\u3092\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u3059\u308B\u306B\u306F\u30EA\u30EA\u30FC\u30B9',
+        clickToUpload:
+          '\u30AF\u30EA\u30C3\u30AF\u307E\u305F\u306F\u30C9\u30E9\u30C3\u30B0\u3057\u3066\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9',
+        uploadSuccess: '\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u6210\u529F',
+        uploadError: '\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u5931\u6557',
+        deleteConfirm:
+          '\u3053\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u524A\u9664\u3057\u307E\u3059\u304B\uFF1F',
+        fileTooLarge:
+          '\u30D5\u30A1\u30A4\u30EB\u30B5\u30A4\u30BA\u306F {size} \u3092\u8D85\u3048\u308B\u3053\u3068\u306F\u3067\u304D\u307E\u305B\u3093',
+        invalidFileType: '\u7121\u52B9\u306A\u30D5\u30A1\u30A4\u30EB\u5F62\u5F0F'
       },
       // AiMermaid
       mermaid: {
-        image: '画像',
-        code: 'コード',
-        zoomIn: '拡大',
-        zoomOut: '縮小',
-        reset: 'リセット',
-        download: 'ダウンロード',
-        copyCode: 'コードをコピー',
-        rendering: 'レンダリング中...',
-        renderError: 'レンダリング失敗',
-        renderSuccess: 'レンダリング成功'
+        image: '\u753B\u50CF',
+        code: '\u30B3\u30FC\u30C9',
+        zoomIn: '\u62E1\u5927',
+        zoomOut: '\u7E2E\u5C0F',
+        reset: '\u30EA\u30BB\u30C3\u30C8',
+        download: '\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9',
+        copyCode: '\u30B3\u30FC\u30C9\u3092\u30B3\u30D4\u30FC',
+        rendering: '\u30EC\u30F3\u30C0\u30EA\u30F3\u30B0\u4E2D...',
+        renderError: '\u30EC\u30F3\u30C0\u30EA\u30F3\u30B0\u5931\u6557',
+        renderSuccess: '\u30EC\u30F3\u30C0\u30EA\u30F3\u30B0\u6210\u529F'
       }
     }
   }
 }
-
 export default ja

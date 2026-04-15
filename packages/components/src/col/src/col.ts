@@ -1,5 +1,12 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 
+export interface ColResponsiveValue {
+  span?: number
+  offset?: number
+  push?: number
+  pull?: number
+}
+
 export const colProps = {
   tag: {
     type: String,
@@ -22,33 +29,23 @@ export const colProps = {
     default: 0
   },
   xs: {
-    type: [Number, Object] as PropType<
-      number | { span?: number; offset?: number; push?: number; pull?: number }
-    >,
+    type: [Number, Object] as PropType<number | ColResponsiveValue>,
     default: () => ({})
   },
   sm: {
-    type: [Number, Object] as PropType<
-      number | { span?: number; offset?: number; push?: number; pull?: number }
-    >,
+    type: [Number, Object] as PropType<number | ColResponsiveValue>,
     default: () => ({})
   },
   md: {
-    type: [Number, Object] as PropType<
-      number | { span?: number; offset?: number; push?: number; pull?: number }
-    >,
+    type: [Number, Object] as PropType<number | ColResponsiveValue>,
     default: () => ({})
   },
   lg: {
-    type: [Number, Object] as PropType<
-      number | { span?: number; offset?: number; push?: number; pull?: number }
-    >,
+    type: [Number, Object] as PropType<number | ColResponsiveValue>,
     default: () => ({})
   },
   xl: {
-    type: [Number, Object] as PropType<
-      number | { span?: number; offset?: number; push?: number; pull?: number }
-    >,
+    type: [Number, Object] as PropType<number | ColResponsiveValue>,
     default: () => ({})
   },
   /** 主题覆盖变量 */
@@ -59,5 +56,9 @@ export const colProps = {
 } as const
 
 export type ColProps = ExtractPropTypes<typeof colProps>
+
+export interface ColSlots {
+  default?: () => unknown
+}
 
 // We will reuse this logic in the vue file

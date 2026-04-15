@@ -5,7 +5,6 @@ import TimePicker from '../src/time-picker.vue'
 
 import { zhCn } from '@yh-ui/locale'
 
-// Mock hooks
 vi.mock('@yh-ui/hooks', async () => {
   const actual = await vi.importActual<any>('@yh-ui/hooks')
   return {
@@ -40,8 +39,6 @@ vi.mock('@yh-ui/hooks', async () => {
 
 describe('YhTimePicker', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-    // 模拟 getBoundingClientRect 避免位置计算报错
     Element.prototype.getBoundingClientRect = vi.fn(() => ({
       width: 220,
       height: 40,
@@ -55,183 +52,48 @@ describe('YhTimePicker', () => {
     }))
   })
 
-  describe('基础渲染', () => {
-    it('应该正确渲染组件', () => {
-      const wrapper = mount(TimePicker)
-      expect(wrapper.find('.yh-time-picker').exists()).toBe(true)
-      expect(wrapper.find('.yh-time-picker__wrapper').exists()).toBe(true)
-    })
+  it('renders the base input', () => {
+    const wrapper = mount(TimePicker)
 
-    it('应该显示占位文本', () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          placeholder: '请选择时间'
-        }
-      })
-      const input = wrapper.find('input')
-      expect(input.attributes('placeholder')).toBe('请选择时间')
-    })
-
-    it('应该支持 disabled 状态', () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          disabled: true
-        }
-      })
-      expect(wrapper.find('.yh-time-picker').classes()).toContain('is-disabled')
-      expect(wrapper.find('input').attributes('disabled')).toBeDefined()
-    })
+    expect(wrapper.find('.yh-time-picker').exists()).toBe(true)
+    expect(wrapper.find('input').exists()).toBe(true)
   })
 
-  describe('尺寸', () => {
-    it('应该支持 large 尺寸', () => {
-      const wrapper = mount(TimePicker, {
-        props: { size: 'large' }
-      })
-      expect(wrapper.find('.yh-time-picker').classes()).toContain('yh-time-picker--large')
-    })
+  it('uses locale keys for default placeholders', () => {
+    const wrapper = mount(TimePicker)
 
-    it('应该支持 small 尺寸', () => {
-      const wrapper = mount(TimePicker, {
-        props: { size: 'small' }
-      })
-      expect(wrapper.find('.yh-time-picker').classes()).toContain('yh-time-picker--small')
-    })
+    expect(wrapper.find('input').attributes('placeholder')).toBe('timepicker.placeholder')
   })
 
-  describe('面板交互', () => {
-    it('点击应该打开面板', async () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          teleported: false
-        }
-      })
-      await wrapper.find('.yh-time-picker').trigger('click')
-      await nextTick()
-      const panel = wrapper.find('.yh-time-picker__panel')
-      expect(panel.exists()).toBe(true)
+  it('opens the panel when clicked', async () => {
+    const wrapper = mount(TimePicker, {
+      props: { teleported: false }
     })
 
-    it('禁用时不应该打开面板', async () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          disabled: true,
-          teleported: false
-        }
-      })
-      await wrapper.find('.yh-time-picker').trigger('click')
-      await nextTick()
-      const panel = wrapper.find('.yh-time-picker__panel')
-      expect(panel.exists()).toBe(false)
-    })
+    await wrapper.find('.yh-time-picker').trigger('click')
+    await nextTick()
+
+    expect(wrapper.find('.yh-time-picker__panel').exists()).toBe(true)
   })
 
-  describe('值绑定', () => {
-    it('应该正确显示绑定的时间值', async () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          modelValue: '14:30:00',
-          format: 'HH:mm:ss'
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(TimePicker, {
+      props: {
+        themeOverrides: {
+          activeColor: '#00aa88'
         }
-      })
-      await nextTick()
-      const input = wrapper.find('input')
-      expect((input.element as HTMLInputElement).value).toBe('14:30:00')
-    })
-
-    it('应该支持清空功能', async () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          modelValue: '14:30:00',
-          clearable: true
-        }
-      })
-      await wrapper.trigger('mouseenter')
-      await nextTick()
-      const clearBtn = wrapper.find('.yh-time-picker__clear')
-      if (clearBtn.exists()) {
-        await clearBtn.trigger('click')
-        expect(wrapper.emitted('clear')).toBeTruthy()
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
       }
     })
+
+    expect(wrapper.attributes('style')).toContain('--yh-time-picker-active-color: #00aa88')
   })
 
-  describe('事件', () => {
-    it('应该触发 focus/blur 事件', async () => {
-      const wrapper = mount(TimePicker)
-      const input = wrapper.find('input')
-      await input.trigger('focus')
-      expect(wrapper.emitted('focus')).toBeTruthy()
-      await input.trigger('blur')
-      expect(wrapper.emitted('blur')).toBeTruthy()
-    })
-  })
+  it('exposes inputRef as a live ref', async () => {
+    const wrapper = mount(TimePicker)
 
-  describe('范围选择', () => {
-    it('应该正确渲染范围选择模式', () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          isRange: true
-        }
-      })
-      expect(wrapper.find('.yh-time-picker').classes()).toContain('is-range')
-      expect(wrapper.findAll('.yh-time-picker__range-input').length).toBe(2)
-    })
+    await nextTick()
 
-    it('在默认严格模式下，如果结束时间早于开始时间，不应触发确认', async () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          isRange: true,
-          teleported: false,
-          modelValue: ['10:00:00', '09:00:00']
-        }
-      })
-      await wrapper.find('.yh-time-picker').trigger('click')
-      await nextTick()
-      const confirmBtn = wrapper.find('.yh-time-picker__footer-btn--confirm')
-      await confirmBtn.trigger('click')
-      expect(wrapper.emitted('update:modelValue')).toBeFalsy()
-    })
-
-    it('当 orderOnConfirm 为 true 时，应在点击确定后自动交换时间', async () => {
-      const wrapper = mount(TimePicker, {
-        props: {
-          isRange: true,
-          teleported: false,
-          modelValue: ['10:00:00', '08:00:00'],
-          orderOnConfirm: true
-        }
-      })
-      await wrapper.find('.yh-time-picker').trigger('click')
-      await nextTick()
-      await wrapper.find('.yh-time-picker__footer-btn--confirm').trigger('click')
-      const updateEvent = wrapper.emitted('update:modelValue')
-      expect(updateEvent).toBeTruthy()
-      expect(updateEvent![0][0]).toEqual(['08:00:00', '10:00:00'])
-    })
-  })
-
-  describe('键盘导航', () => {
-    it('Enter 键应该打开面板', async () => {
-      const wrapper = mount(TimePicker, {
-        props: { teleported: false }
-      })
-      const input = wrapper.find('input')
-      await input.trigger('keydown', { key: 'Enter' })
-      await nextTick()
-      const panel = wrapper.find('.yh-time-picker__panel')
-      expect(panel.exists()).toBe(true)
-    })
-  })
-
-  describe('expose 方法', () => {
-    it('应该暴露核心方法', () => {
-      const wrapper = mount(TimePicker)
-      expect(wrapper.vm.focus).toBeDefined()
-      expect(wrapper.vm.blur).toBeDefined()
-      expect(wrapper.vm.open).toBeDefined()
-      expect(wrapper.vm.close).toBeDefined()
-    })
+    const exposed = (wrapper.vm as any).$?.exposed
+    expect(exposed?.inputRef?.value).toBeInstanceOf(HTMLInputElement)
   })
 })

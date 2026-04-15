@@ -90,3 +90,12 @@ export const categoryNavEmits = {
 }
 
 export type CategoryNavEmits = typeof categoryNavEmits
+
+export interface CategoryNavSlots {
+  'all-icon'?: () => unknown
+  header?: () => unknown
+  'section-header'?: (props: { category: CategoryItem }) => unknown
+  'sub-item'?: (props: { sub: CategorySubItem; parent: CategoryItem }) => unknown
+  'section-footer'?: (props: { category: CategoryItem }) => unknown
+  footer?: () => unknown
+}

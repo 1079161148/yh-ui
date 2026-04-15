@@ -10,3 +10,7 @@ export type ProductCardInstance = InstanceType<typeof ProductCard>
 export type YhProductCardInstance = ProductCardInstance
 
 export type YhProductCardProps = import('./src/product-card').ProductCardProps
+export type YhProductCardEmits = import('./src/product-card').ProductCardEmits
+export type YhProductCardSlots = import('./src/product-card').ProductCardSlots
+export type YhProductCardLayout = import('./src/product-card').ProductCardLayout
+export type YhProductBadge = import('./src/product-card').ProductBadge

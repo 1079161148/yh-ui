@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, StyleValue } from 'vue'
+import type { ExtractPropTypes, PropType, StyleValue, Ref } from 'vue'
 import type { TooltipPlacement } from '../../tooltip/src/tooltip'
 
 export const popconfirmProps = {
@@ -134,3 +134,15 @@ export const popconfirmEmits = {
 
 export type PopconfirmProps = ExtractPropTypes<typeof popconfirmProps>
 export type PopconfirmEmits = typeof popconfirmEmits
+
+export interface PopconfirmSlots {
+  default?: () => unknown
+  icon?: () => unknown
+  title?: () => unknown
+  description?: () => unknown
+}
+
+export interface PopconfirmExpose {
+  visible: Ref<boolean>
+  toggle: (val: boolean) => boolean
+}

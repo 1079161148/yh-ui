@@ -597,6 +597,97 @@ export const arEg: Language = {
       noData: 'لا توجد بيانات'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'اختر المواصفات',
+      emptyText: 'لا توجد مواصفات',
+      stock: 'المخزون',
+      price: 'السعر',
+      selected: 'تم التحديد',
+      outOfStock: 'نفد المخزون'
+    },
+    productcard: {
+      viewDetails: 'عرض التفاصيل',
+      buyNow: 'اشتر الآن',
+      addToCart: 'أضف إلى السلة',
+      sold: 'تم البيع',
+      soldOut: 'نفد',
+      vip: 'عضوية'
+    },
+    price: {
+      original: 'السعر الأصلي'
+    },
+    couponcard: {
+      available: 'احصل عليه الآن',
+      used: 'مستخدم',
+      expired: 'منتهي',
+      received: 'تم الاستلام',
+      limit: 'طلبات فوق {threshold}',
+      noThreshold: 'بدون حد أدنى',
+      validPeriod: 'مدة الصلاحية',
+      ruleTitle: 'قواعد الاستخدام'
+    },
+    luckydraw: {
+      start: 'ابدأ',
+      drawing: 'جارٍ السحب...',
+      end: 'فائز!',
+      retry: 'حاول مرة أخرى'
+    },
+    filterbar: {
+      all: 'الكل',
+      sort: 'ترتيب',
+      filter: 'تصفية',
+      cancel: 'إلغاء',
+      reset: 'إعادة تعيين',
+      confirm: 'تأكيد',
+      noOptions: 'لا توجد خيارات',
+      asc: 'تصاعدي',
+      desc: 'تنازلي',
+      selected: 'محدد'
+    },
+    submitbar: {
+      total: 'الإجمالي: ',
+      selected: 'تم تحديد {count}',
+      submit: 'إتمام الشراء',
+      allSelect: 'تحديد الكل'
+    },
+    categorynav: {
+      all: 'الكل',
+      noData: 'لا توجد بيانات',
+      loading: 'جارٍ التحميل...'
+    },
+    smartaddress: {
+      placeholder: 'الصق العنوان هنا لاكتشاف الاسم والهاتف والموقع تلقائيًا',
+      parse: 'تحليل ذكي',
+      province: 'المحافظة/المدينة/المنطقة',
+      city: 'المدينة',
+      district: 'المنطقة/المقاطعة',
+      street: 'الشارع/البلدة',
+      detail: 'العنوان التفصيلي',
+      phone: 'الهاتف',
+      name: 'المستلم',
+      parseSuccess: 'تم تحليل العنوان بنجاح',
+      parseFailed: 'فشل التحليل، يرجى الإدخال يدويًا',
+      required: 'يرجى إدخال العنوان كاملًا',
+      provinceKeywords: ['محافظة', 'ولاية'],
+      cityKeywords: ['مدينة', 'بلدة'],
+      districtKeywords: ['منطقة', 'مقاطعة', 'حي'],
+      streetKeywords: ['شارع', 'طريق', 'جادة', 'حارة']
+    },
+    ganttchart: {
+      taskName: 'اسم المهمة',
+      searchPlaceholder: 'ابحث عن المهام...',
+      zoom: 'تكبير',
+      day: 'يوم',
+      week: 'أسبوع',
+      month: 'شهر',
+      year: 'سنة',
+      milestone: 'مرحلة مهمة'
+    },
+    imagemagnifier: {
+      switchToImage: 'التبديل إلى الصورة {index}',
+      galleryItem: 'المعرض {index}',
+      close: 'إغلاق'
+    },
     ai: {
       bubble: {
         citations: 'الاقتباسات'
@@ -707,9 +798,32 @@ export const arEg: Language = {
         pin: 'تثبيت',
         unpin: 'إلغاء التثبيت',
         newConversation: 'محادثة جديدة',
+        noData: 'لا توجد محادثات بعد',
         rename: 'إعادة تسمية',
         delete: 'حذف',
         deleteConfirm: 'تأكيد حذف هذه المحادثة؟'
+      },
+      attachments: {
+        dropTip: 'أفلت الملفات هنا للرفع',
+        clickToUpload: 'انقر أو اسحب الملفات للرفع',
+        uploadSuccess: 'تم الرفع بنجاح',
+        uploadError: 'فشل الرفع',
+        deleteConfirm: 'هل أنت متأكد من حذف هذا الملف؟',
+        fileTooLarge: 'لا يمكن أن يتجاوز حجم الملف {size}',
+        invalidFileType: 'نوع ملف غير صالح'
+      },
+      mermaid: {
+        image: 'صورة',
+        code: 'كود',
+        zoomIn: 'تكبير',
+        zoomOut: 'تصغير',
+        reset: 'إعادة تعيين',
+        download: 'تنزيل',
+        copyCode: 'نسخ الكود',
+        rendering: 'جارٍ العرض...',
+        renderError: 'فشل العرض',
+        renderSuccess: 'تم العرض بنجاح',
+        retry: 'إعادة المحاولة'
       }
     }
   }

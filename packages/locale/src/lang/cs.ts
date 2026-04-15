@@ -597,6 +597,97 @@ export const cs: Language = {
       noData: 'Žádná data'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Vyberte specifikace',
+      emptyText: 'Žádné specifikace',
+      stock: 'Sklad',
+      price: 'Cena',
+      selected: 'Vybráno',
+      outOfStock: 'Není skladem'
+    },
+    productcard: {
+      viewDetails: 'Zobrazit detaily',
+      buyNow: 'Koupit nyní',
+      addToCart: 'Přidat do košíku',
+      sold: 'Prodáno',
+      soldOut: 'Vyprodáno',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Původní cena'
+    },
+    couponcard: {
+      available: 'Získat nyní',
+      used: 'Použito',
+      expired: 'Vypršelo',
+      received: 'Přijato',
+      limit: 'Objednávky nad {threshold}',
+      noThreshold: 'Bez minimální hodnoty',
+      validPeriod: 'Platnost',
+      ruleTitle: 'Pravidla použití'
+    },
+    luckydraw: {
+      start: 'Spustit',
+      drawing: 'Losování...',
+      end: 'Výherce!',
+      retry: 'Zkusit znovu'
+    },
+    filterbar: {
+      all: 'Vše',
+      sort: 'Řadit',
+      filter: 'Filtrovat',
+      cancel: 'Zrušit',
+      reset: 'Obnovit',
+      confirm: 'Potvrdit',
+      noOptions: 'Žádné možnosti',
+      asc: 'Vzestupně',
+      desc: 'Sestupně',
+      selected: 'Vybráno'
+    },
+    submitbar: {
+      total: 'Celkem: ',
+      selected: '{count} vybráno',
+      submit: 'Pokračovat k pokladně',
+      allSelect: 'Vybrat vše'
+    },
+    categorynav: {
+      all: 'Vše',
+      noData: 'Žádná data',
+      loading: 'Načítání...'
+    },
+    smartaddress: {
+      placeholder: 'Vložte sem adresu pro automatické rozpoznání jména, telefonu a místa',
+      parse: 'Chytrá analýza',
+      province: 'Kraj/Město/Okres',
+      city: 'Město',
+      district: 'Okres/Obec',
+      street: 'Ulice/Město',
+      detail: 'Podrobná adresa',
+      phone: 'Telefon',
+      name: 'Příjemce',
+      parseSuccess: 'Adresa byla úspěšně analyzována',
+      parseFailed: 'Analýza selhala, vyplňte ručně',
+      required: 'Vyplňte prosím úplnou adresu',
+      provinceKeywords: ['Kraj', 'Stát'],
+      cityKeywords: ['Město', 'Obec'],
+      districtKeywords: ['Okres', 'Obec', 'Část'],
+      streetKeywords: ['Ulice', 'Třída', 'Cesta', 'Náměstí']
+    },
+    ganttchart: {
+      taskName: 'Název úkolu',
+      searchPlaceholder: 'Hledat úkoly...',
+      zoom: 'Přiblížení',
+      day: 'Den',
+      week: 'Týden',
+      month: 'Měsíc',
+      year: 'Rok',
+      milestone: 'Milník'
+    },
+    imagemagnifier: {
+      switchToImage: 'Přepnout na obrázek {index}',
+      galleryItem: 'Galerie {index}',
+      close: 'Zavřít'
+    },
     ai: {
       bubble: {
         citations: 'Citace'
@@ -707,9 +798,32 @@ export const cs: Language = {
         pin: 'Připnout',
         unpin: 'Odepnout',
         newConversation: 'Nová konverzace',
+        noData: 'Zatím žádné konverzace',
         rename: 'Přejmenovat',
         delete: 'Smazat',
         deleteConfirm: 'Potvrdit smazání této konverzace?'
+      },
+      attachments: {
+        dropTip: 'Přetáhněte sem soubory k nahrání',
+        clickToUpload: 'Klikněte nebo přetáhněte soubory k nahrání',
+        uploadSuccess: 'Nahrání bylo úspěšné',
+        uploadError: 'Nahrání se nezdařilo',
+        deleteConfirm: 'Opravdu chcete tento soubor smazat?',
+        fileTooLarge: 'Velikost souboru nesmí překročit {size}',
+        invalidFileType: 'Neplatný typ souboru'
+      },
+      mermaid: {
+        image: 'Obrázek',
+        code: 'Kód',
+        zoomIn: 'Přiblížit',
+        zoomOut: 'Oddálit',
+        reset: 'Obnovit',
+        download: 'Stáhnout',
+        copyCode: 'Kopírovat kód',
+        rendering: 'Vykreslování...',
+        renderError: 'Vykreslení se nezdařilo',
+        renderSuccess: 'Vykreslení bylo úspěšné',
+        retry: 'Zkusit znovu'
       }
     }
   }

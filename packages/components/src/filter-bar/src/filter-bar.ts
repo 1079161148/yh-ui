@@ -136,3 +136,14 @@ export const filterBarEmits = {
 }
 
 export type FilterBarEmits = typeof filterBarEmits
+
+export interface FilterBarSlots {
+  'filter-icon'?: () => unknown
+  'view-icon'?: (props: { viewType: 'list' | 'grid' }) => unknown
+  extra?: () => unknown
+  filter?: (props: {
+    filter: FilterItem
+    value: FilterValue[string]
+    updateValue: (value: FilterValue[string]) => void
+  }) => unknown
+}

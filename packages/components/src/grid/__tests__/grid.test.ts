@@ -67,6 +67,14 @@ describe('YhGrid', () => {
   })
 })
 
+it('should keep themeOverrides props on grid and grid-item', () => {
+  const grid = mount(Grid, { props: { themeOverrides: { gap: '24px' } } })
+  const item = mount(GridItem, { props: { themeOverrides: { padding: '12px' } } })
+
+  expect(grid.props('themeOverrides')).toEqual({ gap: '24px' })
+  expect(item.props('themeOverrides')).toEqual({ padding: '12px' })
+})
+
 describe('YhGridItem', () => {
   it('应该渲染基础结构', () => {
     const wrapper = mount(GridItem)

@@ -202,4 +202,17 @@ describe('Affix', () => {
     expect(wrapper.emitted('change')).toBeTruthy()
     expect(wrapper.emitted('scroll')).toBeTruthy()
   })
+
+  it('should keep themeOverrides prop and expose update api', () => {
+    const wrapper = mount(YhAffix, {
+      props: {
+        themeOverrides: {
+          zIndex: '2400'
+        }
+      }
+    })
+
+    expect(wrapper.props('themeOverrides')).toEqual({ zIndex: '2400' })
+    expect(typeof (wrapper.vm as any).update).toBe('function')
+  })
 })

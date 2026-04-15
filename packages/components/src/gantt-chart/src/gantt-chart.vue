@@ -5,7 +5,7 @@ import type { PluginFunc } from '../../dayjs'
 import isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
 import isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
 import quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type {
   GanttChartProps,
@@ -27,7 +27,7 @@ defineOptions({ name: 'YhGanttChart' })
 
 const props = withDefaults(defineProps<GanttChartProps>(), {
   data: () => [],
-  columns: () => [{ prop: 'name', label: '任务名称', width: 200 }],
+  columns: () => [],
   viewMode: 'day',
   showDependencies: true,
   draggable: false,
@@ -44,10 +44,24 @@ const props = withDefaults(defineProps<GanttChartProps>(), {
 const emit = defineEmits<GanttChartEmits>()
 
 const ns = useNamespace('gantt-chart')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme(
-  'gantt-chart',
+  'gantt',
   computed(() => props.themeOverrides)
 )
+const resolvedColumns = computed(() => {
+  const isDefaultNameColumn =
+    props.columns.length === 1 &&
+    props.columns[0]?.prop === 'name' &&
+    props.columns[0]?.width === 200
+
+  return isDefaultNameColumn
+    ? [{ ...props.columns[0], label: t('ganttchart.taskName') }]
+    : props.columns
+})
+const ganttSearchPlaceholder = computed(() => t('ganttchart.searchPlaceholder'))
+const ganttZoomText = computed(() => t('ganttchart.zoom'))
+const ganttMilestoneText = computed(() => t('ganttchart.milestone'))
 
 const ganttRef = ref<HTMLElement | null>(null)
 const timelineBodyRef = ref<HTMLElement | null>(null)
@@ -528,14 +542,16 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
         <YhInput
           id="gantt-search-input"
           v-model="searchKeyword"
-          placeholder="搜索任务..."
+          :placeholder="ganttSearchPlaceholder"
           prefix-icon="search"
           size="small"
           style="width: 200px"
         />
       </div>
       <div :class="ns.e('toolbar-right')">
-        <span style="font-size: 12px; color: var(--yh-text-color-secondary)">缩放</span>
+        <span style="font-size: 12px; color: var(--yh-text-color-secondary)">{{
+          ganttZoomText
+        }}</span>
         <input
           type="range"
           v-model.number="PIXELS_PER_DAY"
@@ -550,10 +566,10 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
           type="button"
           name="gantt-view-switcher"
         >
-          <YhRadioButton value="day">天</YhRadioButton>
-          <YhRadioButton value="week">周</YhRadioButton>
-          <YhRadioButton value="month">月</YhRadioButton>
-          <YhRadioButton value="year">年</YhRadioButton>
+          <YhRadioButton value="day">{{ t('ganttchart.day') }}</YhRadioButton>
+          <YhRadioButton value="week">{{ t('ganttchart.week') }}</YhRadioButton>
+          <YhRadioButton value="month">{{ t('ganttchart.month') }}</YhRadioButton>
+          <YhRadioButton value="year">{{ t('ganttchart.year') }}</YhRadioButton>
         </YhRadioGroup>
       </div>
     </div>
@@ -567,7 +583,7 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
         >
           <div :class="ns.e('sidebar-header')">
             <div
-              v-for="col in columns"
+              v-for="col in resolvedColumns"
               :key="col.prop"
               :class="ns.e('sidebar-header-cell')"
               :style="{ width: typeof col.width === 'number' ? `${col.width}px` : col.width }"
@@ -585,13 +601,13 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
             :style="{ height: `${rowHeight}px` }"
           >
             <div
-              v-for="col in columns"
+              v-for="col in resolvedColumns"
               :key="col.prop"
               :class="ns.e('cell')"
               :style="{ width: typeof col.width === 'number' ? `${col.width}px` : col.width }"
             >
               <slot name="table-cell" :row="task" :column="col" :index="index">
-                <template v-if="col.prop === columns[0].prop">
+                <template v-if="col.prop === resolvedColumns[0].prop">
                   <span :class="ns.e('tree-node')">
                     <span
                       v-for="(hasNext, i) in task._ancestorHasNext"
@@ -708,7 +724,7 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
             <YhTooltip
               v-for="ts in taskStyles"
               :key="ts.task.id"
-              :content="ts.isMilestone ? `${ts.task.name} (Milestone)` : ts.task.name"
+              :content="ts.isMilestone ? `${ts.task.name} (${ganttMilestoneText})` : ts.task.name"
               placement="top"
               :class="[
                 ns.e('task-wrapper'),

@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
 import Empty from '../src/empty.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhEmpty 组件', () => {
   it('应该正确渲染基础结构', () => {
@@ -112,5 +115,27 @@ describe('YhEmpty 组件', () => {
     // 默认 zh-cn
     const wrapper = mount(Empty)
     expect(wrapper.find('.yh-empty__description').text()).toBe('暂无数据')
+  })
+  it('should use config-provider locale description', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(Empty)
+      }
+    })
+
+    expect(wrapper.find('.yh-empty__description').text()).toContain('No Data')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Empty, {
+      props: {
+        themeOverrides: {
+          padding: '24px 0'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-empty').attributes('style')).toContain('--yh-empty-padding: 24px 0')
   })
 })

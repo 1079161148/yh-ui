@@ -595,6 +595,97 @@ export const da = {
       noData: "Ingen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "V\xE6lg specifikationer",
+      emptyText: "Ingen specifikationer",
+      stock: "Lager",
+      price: "Pris",
+      selected: "Valgt",
+      outOfStock: "Udsolgt"
+    },
+    productcard: {
+      viewDetails: "Se detaljer",
+      buyNow: "K\xF8b nu",
+      addToCart: "L\xE6g i kurv",
+      sold: "Solgt",
+      soldOut: "Udsolgt",
+      vip: "Medlem"
+    },
+    price: {
+      original: "Oprindelig pris"
+    },
+    couponcard: {
+      available: "Hent nu",
+      used: "Brugt",
+      expired: "Udl\xF8bet",
+      received: "Modtaget",
+      limit: "Ordrer over {threshold}",
+      noThreshold: "Ingen minimumsgr\xE6nse",
+      validPeriod: "Gyldighed",
+      ruleTitle: "Brugsregler"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Tr\xE6kker...",
+      end: "Vinder!",
+      retry: "Pr\xF8v igen"
+    },
+    filterbar: {
+      all: "Alle",
+      sort: "Sorter",
+      filter: "Filtrer",
+      cancel: "Annuller",
+      reset: "Nulstil",
+      confirm: "Bekr\xE6ft",
+      noOptions: "Ingen muligheder",
+      asc: "Stigende",
+      desc: "Faldende",
+      selected: "Valgt"
+    },
+    submitbar: {
+      total: "I alt: ",
+      selected: "{count} valgt",
+      submit: "G\xE5 til kassen",
+      allSelect: "V\xE6lg alle"
+    },
+    categorynav: {
+      all: "Alle",
+      noData: "Ingen data",
+      loading: "Indl\xE6ser..."
+    },
+    smartaddress: {
+      placeholder: "Inds\xE6t adresse her for automatisk at finde navn, telefon og placering",
+      parse: "Smart analyse",
+      province: "Region/By/Distrikt",
+      city: "By",
+      district: "Distrikt/Kommune",
+      street: "Gade/Bydel",
+      detail: "Detaljeret adresse",
+      phone: "Telefon",
+      name: "Modtager",
+      parseSuccess: "Adresse analyseret korrekt",
+      parseFailed: "Analyse mislykkedes, udfyld manuelt",
+      required: "Udfyld venligst den fulde adresse",
+      provinceKeywords: ["Region", "Stat"],
+      cityKeywords: ["By", "Kommune"],
+      districtKeywords: ["Distrikt", "Kommune", "Omr\xE5de"],
+      streetKeywords: ["Gade", "Vej", "All\xE9", "Str\xE6de"]
+    },
+    ganttchart: {
+      taskName: "Opgavenavn",
+      searchPlaceholder: "S\xF8g opgaver...",
+      zoom: "Zoom",
+      day: "Dag",
+      week: "Uge",
+      month: "M\xE5ned",
+      year: "\xC5r",
+      milestone: "Milep\xE6l"
+    },
+    imagemagnifier: {
+      switchToImage: "Skift til billede {index}",
+      galleryItem: "Galleri {index}",
+      close: "Luk"
+    },
     ai: {
       bubble: {
         citations: "Citatationer"
@@ -704,9 +795,32 @@ export const da = {
         pin: "Fastg\xF8r",
         unpin: "Frig\xF8r",
         newConversation: "Ny samtale",
+        noData: "Ingen samtaler endnu",
         rename: "Omd\xF8b",
         delete: "Slet",
         deleteConfirm: "Bekr\xE6ft sletning af denne samtale?"
+      },
+      attachments: {
+        dropTip: "Slip filer her for at uploade",
+        clickToUpload: "Klik eller tr\xE6k filer for at uploade",
+        uploadSuccess: "Upload lykkedes",
+        uploadError: "Upload mislykkedes",
+        deleteConfirm: "Er du sikker p\xE5, at du vil slette denne fil?",
+        fileTooLarge: "Filst\xF8rrelsen m\xE5 ikke overstige {size}",
+        invalidFileType: "Ugyldig filtype"
+      },
+      mermaid: {
+        image: "Billede",
+        code: "Kode",
+        zoomIn: "Zoom ind",
+        zoomOut: "Zoom ud",
+        reset: "Nulstil",
+        download: "Download",
+        copyCode: "Kopi\xE9r kode",
+        rendering: "Renderer...",
+        renderError: "Rendering mislykkedes",
+        renderSuccess: "Rendering lykkedes",
+        retry: "Pr\xF8v igen"
       }
     }
   }

@@ -4,7 +4,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { YhWaterfall } from '../index'
-import { nextTick } from 'vue'
+import { nextTick, h } from 'vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 // Mock ResizeObserver
 class ResizeObserverMock {
@@ -109,5 +111,39 @@ describe('Waterfall', () => {
     })
     // when items > 0 and loading is true, isRefreshing is true
     expect(wrapper.find('.yh-waterfall__refresh-overlay').exists()).toBe(true)
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhWaterfall, {
+      props: {
+        items,
+        themeOverrides: {
+          itemBorderRadius: '24px'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-waterfall-item-border-radius: 24px')
+  })
+
+  it('should use config-provider locale empty text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(YhWaterfall, { items: [], loading: false })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('No Data')
+  })
+
+  it('should expose layout method', () => {
+    const wrapper = mount(YhWaterfall, {
+      props: { items }
+    })
+
+    const exposed = (wrapper.vm as any).$?.exposed
+    expect(typeof exposed?.layout).toBe('function')
   })
 })

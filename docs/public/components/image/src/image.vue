@@ -1,192 +1,192 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted, watch } from "vue";
-import { useNamespace, useLocale } from "@yh-ui/hooks";
-import { useComponentTheme } from "@yh-ui/theme";
-import { isClient, getScrollContainer } from "@yh-ui/utils";
-import { imageProps } from "./image";
-import YhImageViewer from "./image-viewer.vue";
-import Viewer from "../../viewerjs";
-import "viewerjs/dist/viewer.css";
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { isClient, getScrollContainer } from '@yh-ui/utils'
+import { imageProps } from './image'
+import YhImageViewer from './image-viewer.vue'
+import Viewer from '../../viewerjs'
+import 'viewerjs/dist/viewer.css'
 defineOptions({
-  name: "YhImage"
-});
-const props = defineProps(imageProps);
-const emit = defineEmits(["load", "error", "switch", "close", "show"]);
-const ns = useNamespace("image");
-const { t } = useLocale();
+  name: 'YhImage'
+})
+const props = defineProps(imageProps)
+const emit = defineEmits(['load', 'error', 'switch', 'close', 'show'])
+const ns = useNamespace('image')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme(
-  "image",
+  'image',
   computed(() => props.themeOverrides)
-);
-const isLoading = ref(true);
-const error = ref(false);
-const showViewer = ref(false);
-const container = ref();
-const isLazy = ref(false);
-let viewer = null;
-let viewerList = null;
-const isSupportNativeLazy = isClient && "loading" in HTMLImageElement.prototype;
+)
+const isLoading = ref(true)
+const error = ref(false)
+const showViewer = ref(false)
+const container = ref()
+const isLazy = ref(false)
+let viewer = null
+let viewerList = null
+const isSupportNativeLazy = isClient && 'loading' in HTMLImageElement.prototype
 const imageStyle = computed(() => {
-  const { fit } = props;
+  const { fit } = props
   if (fit) {
-    return { "object-fit": fit };
+    return { 'object-fit': fit }
   }
-  return {};
-});
+  return {}
+})
 const preview = computed(() => {
-  const { previewSrcList } = props;
-  return Array.isArray(previewSrcList) && previewSrcList.length > 0;
-});
+  const { previewSrcList } = props
+  return Array.isArray(previewSrcList) && previewSrcList.length > 0
+})
 const loadImage = () => {
-  if (!isClient) return;
-  isLoading.value = true;
-  error.value = false;
-  const img = new Image();
-  img.src = props.src;
-  if (props.crossorigin) img.crossOrigin = props.crossorigin;
+  if (!isClient) return
+  isLoading.value = true
+  error.value = false
+  const img = new Image()
+  img.src = props.src
+  if (props.crossorigin) img.crossOrigin = props.crossorigin
   img.onload = (e) => {
-    isLoading.value = false;
-    emit("load", e);
-  };
+    isLoading.value = false
+    emit('load', e)
+  }
   img.onerror = (e) => {
-    isLoading.value = false;
-    error.value = true;
-    emit("error", e);
-  };
-};
-let observer = null;
+    isLoading.value = false
+    error.value = true
+    emit('error', e)
+  }
+}
+let observer = null
 const handleLazyLoad = () => {
-  if (!isClient) return;
+  if (!isClient) return
   if (props.lazy) {
-    if (isSupportNativeLazy && props.loading === "lazy") {
-      loadImage();
+    if (isSupportNativeLazy && props.loading === 'lazy') {
+      loadImage()
     } else {
-      isLazy.value = true;
-      initLazyLoad();
+      isLazy.value = true
+      initLazyLoad()
     }
   } else {
-    loadImage();
+    loadImage()
   }
-};
+}
 const initLazyLoad = () => {
-  if (!isClient || !container.value) return;
-  if (!isLoading.value && !error.value) return;
+  if (!isClient || !container.value) return
+  if (!isLoading.value && !error.value) return
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          loadImage();
-          stopLazyLoad();
+          loadImage()
+          stopLazyLoad()
         }
-      });
+      })
     },
     {
       root: getRoot(),
-      rootMargin: "200px"
+      rootMargin: '200px'
       // 提前 200px 开始加载
     }
-  );
-  observer.observe(container.value);
-};
+  )
+  observer.observe(container.value)
+}
 const getRoot = () => {
-  if (!isClient || !container.value) return null;
-  if (typeof props.scrollContainer === "string") {
-    return document.querySelector(props.scrollContainer);
+  if (!isClient || !container.value) return null
+  if (typeof props.scrollContainer === 'string') {
+    return document.querySelector(props.scrollContainer)
   } else if (props.scrollContainer instanceof HTMLElement) {
-    return props.scrollContainer;
+    return props.scrollContainer
   }
-  const scrollContainer = getScrollContainer(container.value);
-  return scrollContainer instanceof HTMLElement ? scrollContainer : null;
-};
+  const scrollContainer = getScrollContainer(container.value)
+  return scrollContainer instanceof HTMLElement ? scrollContainer : null
+}
 const stopLazyLoad = () => {
   if (observer) {
-    observer.disconnect();
-    observer = null;
+    observer.disconnect()
+    observer = null
   }
-};
+}
 const initViewerJS = () => {
-  if (!isClient || !container.value) return;
-  const imgElement = container.value.querySelector("img");
-  if (!imgElement) return;
+  if (!isClient || !container.value) return
+  const imgElement = container.value.querySelector('img')
+  if (!imgElement) return
   if (props.previewSrcList && props.previewSrcList.length > 0) {
-    const list = document.createElement("div");
-    list.style.display = "none";
+    const list = document.createElement('div')
+    list.style.display = 'none'
     props.previewSrcList.forEach((src) => {
-      const img = document.createElement("img");
-      img.src = src;
-      list.appendChild(img);
-    });
-    document.body.appendChild(list);
-    viewerList = list;
+      const img = document.createElement('img')
+      img.src = src
+      list.appendChild(img)
+    })
+    document.body.appendChild(list)
+    viewerList = list
     const nextViewer = new Viewer(list, {
       ...props.viewerOptions,
       hidden: () => {
         if (viewerList) {
-          document.body.removeChild(viewerList);
-          viewerList = null;
+          document.body.removeChild(viewerList)
+          viewerList = null
         }
-        viewer?.destroy();
-        viewer = null;
+        viewer?.destroy()
+        viewer = null
       }
-    });
-    viewer = nextViewer;
-    nextViewer.view(props.initialIndex);
+    })
+    viewer = nextViewer
+    nextViewer.view(props.initialIndex)
   } else {
-    const nextViewer = new Viewer(imgElement, props.viewerOptions);
-    viewer = nextViewer;
-    nextViewer.show();
+    const nextViewer = new Viewer(imgElement, props.viewerOptions)
+    viewer = nextViewer
+    nextViewer.show()
   }
-};
+}
 watch(
   () => props.src,
   () => {
     if (isLazy.value) {
-      stopLazyLoad();
-      initLazyLoad();
+      stopLazyLoad()
+      initLazyLoad()
     } else {
-      loadImage();
+      loadImage()
     }
   }
-);
+)
 onMounted(() => {
-  handleLazyLoad();
-});
+  handleLazyLoad()
+})
 onUnmounted(() => {
-  stopLazyLoad();
+  stopLazyLoad()
   if (viewer) {
-    viewer.destroy();
-    viewer = null;
+    viewer.destroy()
+    viewer = null
   }
   if (viewerList) {
-    document.body.removeChild(viewerList);
-    viewerList = null;
+    document.body.removeChild(viewerList)
+    viewerList = null
   }
-});
+})
 const clickHandler = () => {
-  if (!preview.value) return;
-  if (props.viewerMode === "viewerjs") {
-    initViewerJS();
+  if (!preview.value) return
+  if (props.viewerMode === 'viewerjs') {
+    initViewerJS()
   } else {
-    showViewer.value = true;
+    showViewer.value = true
   }
-  emit("show");
-};
+  emit('show')
+}
 const closeViewer = () => {
-  showViewer.value = false;
-  emit("close");
-};
+  showViewer.value = false
+  emit('close')
+}
 const handleSwitch = (index) => {
-  emit("switch", index);
-};
+  emit('switch', index)
+}
 </script>
 
 <template>
   <div ref="container" :class="ns.b()" :style="themeStyle">
     <slot v-if="isLoading" name="placeholder">
-      <div :class="ns.e('placeholder')">{{ t('button.loading') }}</div>
+      <div :class="ns.e('placeholder')">{{ t('image.loading') }}</div>
     </slot>
     <slot v-else-if="error" name="error">
-      <div :class="ns.e('error')">{{ t("image.error") }}</div>
+      <div :class="ns.e('error')">{{ t('image.error') }}</div>
     </slot>
     <img
       v-else

@@ -519,6 +519,97 @@ export const es = {
       loading: "Cargando...",
       noData: "Sin datos"
     },
+    skuselector: {
+      placeholder: "Seleccionar especificaciones",
+      emptyText: "Sin especificaciones",
+      stock: "Stock",
+      price: "Precio",
+      selected: "Seleccionado",
+      outOfStock: "Sin stock"
+    },
+    productcard: {
+      viewDetails: "Ver detalles",
+      buyNow: "Comprar ahora",
+      addToCart: "A\xF1adir al carrito",
+      sold: "Vendido",
+      soldOut: "Agotado",
+      vip: "VIP"
+    },
+    price: {
+      original: "Precio original"
+    },
+    couponcard: {
+      available: "Canjear ahora",
+      used: "Usado",
+      expired: "Expirado",
+      received: "Recibido",
+      limit: "Pedidos superiores a {threshold}",
+      noThreshold: "Sin m\xEDnimo",
+      validPeriod: "Validez",
+      ruleTitle: "Reglas de uso"
+    },
+    luckydraw: {
+      start: "Iniciar",
+      drawing: "Sorteando...",
+      end: "\xA1Ganador!",
+      retry: "Intentar de nuevo"
+    },
+    filterbar: {
+      all: "Todo",
+      sort: "Ordenar",
+      filter: "Filtrar",
+      cancel: "Cancelar",
+      reset: "Restablecer",
+      confirm: "Confirmar",
+      noOptions: "Sin opciones",
+      asc: "Ascendente",
+      desc: "Descendente",
+      selected: "Seleccionado"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} seleccionado(s)",
+      submit: "Pagar",
+      allSelect: "Seleccionar todo"
+    },
+    categorynav: {
+      all: "Todo",
+      noData: "Sin datos",
+      loading: "Cargando..."
+    },
+    smartaddress: {
+      placeholder: "Pegue la direcci\xF3n aqu\xED para detectar autom\xE1ticamente nombre, tel\xE9fono y ubicaci\xF3n",
+      parse: "An\xE1lisis inteligente",
+      province: "Provincia/Ciudad/Distrito",
+      city: "Ciudad",
+      district: "Distrito/Condado",
+      street: "Calle/Pueblo",
+      detail: "Direcci\xF3n detallada",
+      phone: "Tel\xE9fono",
+      name: "Destinatario",
+      parseSuccess: "Direcci\xF3n analizada correctamente",
+      parseFailed: "Error al analizar, compl\xE9tela manualmente",
+      required: "Complete la direcci\xF3n",
+      provinceKeywords: ["Provincia", "Estado"],
+      cityKeywords: ["Ciudad", "Municipio"],
+      districtKeywords: ["Distrito", "Condado", "Barrio"],
+      streetKeywords: ["Calle", "Avenida", "Camino", "Pasaje"]
+    },
+    ganttchart: {
+      taskName: "Nombre de tarea",
+      searchPlaceholder: "Buscar tareas...",
+      zoom: "Zoom",
+      day: "D\xEDa",
+      week: "Semana",
+      month: "Mes",
+      year: "A\xF1o",
+      milestone: "Hito"
+    },
+    imagemagnifier: {
+      switchToImage: "Cambiar a la imagen {index}",
+      galleryItem: "Galer\xEDa {index}",
+      close: "Cerrar"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -629,9 +720,32 @@ export const es = {
         pin: "Fijar",
         unpin: "Desfijar",
         newConversation: "Nueva conversaci\xF3n",
+        noData: "A\xFAn no hay conversaciones",
         rename: "Renombrar",
         delete: "Eliminar",
         deleteConfirm: "\xBFConfirmar eliminar esta conversaci\xF3n?"
+      },
+      attachments: {
+        dropTip: "Suelta archivos aqu\xED para subirlos",
+        clickToUpload: "Haz clic o arrastra archivos para subirlos",
+        uploadSuccess: "Carga correcta",
+        uploadError: "Error al subir",
+        deleteConfirm: "\xBFSeguro que deseas eliminar este archivo?",
+        fileTooLarge: "El archivo no puede superar {size}",
+        invalidFileType: "Tipo de archivo no v\xE1lido"
+      },
+      mermaid: {
+        image: "Imagen",
+        code: "C\xF3digo",
+        zoomIn: "Acercar",
+        zoomOut: "Alejar",
+        reset: "Restablecer",
+        download: "Descargar",
+        copyCode: "Copiar c\xF3digo",
+        rendering: "Renderizando...",
+        renderError: "Error de renderizado",
+        renderSuccess: "Renderizado correcto",
+        retry: "Reintentar"
       }
     }
   }

@@ -3,7 +3,7 @@
  * @description 级联选择器组件类型定义，严格类型化
  */
 
-import type { InjectionKey, ComputedRef } from 'vue'
+import type { InjectionKey, ComputedRef, Ref } from 'vue'
 
 export type CascaderSize = 'large' | 'default' | 'small'
 export type CascaderExpandTrigger = 'click' | 'hover'
@@ -121,7 +121,7 @@ export interface CascaderExpose {
   /** 获取选中节点 */
   getCheckedNodes: (leafOnly?: boolean) => CascaderOption[]
   /** 输入框引用 */
-  inputRef: HTMLInputElement | undefined
+  inputRef: Ref<HTMLInputElement | undefined>
 }
 
 // Cascader 上下文

@@ -90,4 +90,16 @@ describe('Progress', () => {
     })
     expect(wrapper.find('.yh-progress__text').text()).toBe('Value is 50')
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhProgress, {
+      props: {
+        percentage: 50,
+        themeOverrides: {
+          'bar-bg': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-progress-bar-bg: #123456')
+  })
 })

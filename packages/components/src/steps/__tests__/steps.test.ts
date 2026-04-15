@@ -136,4 +136,18 @@ describe('Steps', () => {
     await nextTick()
     expect(wrapper.find('.yh-steps.is-dot').exists()).toBe(true)
   })
+  it('should apply theme overrides as inline css vars', async () => {
+    const wrapper = mount({
+      components: { YhSteps, YhStep },
+      template: `
+        <yh-steps :theme-overrides="{ 'icon-size': '32px' }">
+          <yh-step title="Step 1" />
+          <yh-step title="Step 2" />
+        </yh-steps>
+      `
+    })
+
+    await nextTick()
+    expect(wrapper.find('.yh-steps').attributes('style')).toContain('--yh-steps-icon-size: 32px')
+  })
 })

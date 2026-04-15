@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 import type { ComponentThemeVars } from '@yh-ui/theme'
 import type { FileCardListItem } from '../../ai-file-card'
 
@@ -131,3 +131,11 @@ export const aiAttachmentsEmits = {
 }
 
 export type AiAttachmentsEmits = typeof aiAttachmentsEmits
+
+export interface AiAttachmentsSlots {
+  'file-item'?: (props: { item: AttachmentItem; index: number }) => unknown
+  'upload-button'?: (props: { canUpload: boolean }) => unknown
+  'drop-area'?: () => unknown
+}
+
+export type AiAttachmentsSlotTypes = SlotsType<AiAttachmentsSlots>

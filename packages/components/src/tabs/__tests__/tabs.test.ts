@@ -146,4 +146,31 @@ describe('Tabs', () => {
     const panes = wrapper.findAll('.yh-tab-pane')
     expect(panes.length).toBe(1)
   })
+
+  it('should apply theme overrides as inline css vars', async () => {
+    const wrapper = mount({
+      components: { YhTabs, YhTabPane },
+      template: `
+        <yh-tabs :theme-overrides="{ activeColor: '#409eff' }">
+          <yh-tab-pane name="1" label="Tab 1">Content 1</yh-tab-pane>
+        </yh-tabs>
+      `
+    })
+
+    await nextTick()
+    expect(wrapper.find('.yh-tabs').attributes('style')).toContain(
+      '--yh-tabs-active-color: #409eff'
+    )
+  })
+
+  it('should expose tab controls', async () => {
+    const wrapper = mount(YhTabs, {
+      props: { modelValue: '1' }
+    })
+
+    await nextTick()
+    const exposed = (wrapper.vm as any).$?.exposed
+    expect(typeof exposed?.addTab).toBe('function')
+    expect(typeof exposed?.setActiveTab).toBe('function')
+  })
 })

@@ -597,6 +597,98 @@ export const bg: Language = {
       noData: 'Няма данни'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Изберете спецификации',
+      emptyText: 'Няма спецификации',
+      stock: 'Наличност',
+      price: 'Цена',
+      selected: 'Избрано',
+      outOfStock: 'Няма в наличност'
+    },
+    productcard: {
+      viewDetails: 'Виж детайли',
+      buyNow: 'Купи сега',
+      addToCart: 'Добави в количката',
+      sold: 'Продадено',
+      soldOut: 'Изчерпано',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Оригинална цена'
+    },
+    couponcard: {
+      available: 'Вземи сега',
+      used: 'Използвано',
+      expired: 'Изтекло',
+      received: 'Получено',
+      limit: 'Поръчки над {threshold}',
+      noThreshold: 'Без минимален праг',
+      validPeriod: 'Период на валидност',
+      ruleTitle: 'Правила за използване'
+    },
+    luckydraw: {
+      start: 'Старт',
+      drawing: 'Теглене...',
+      end: 'Победител!',
+      retry: 'Опитай отново'
+    },
+    filterbar: {
+      all: 'Всички',
+      sort: 'Сортиране',
+      filter: 'Филтър',
+      cancel: 'Отказ',
+      reset: 'Нулирай',
+      confirm: 'Потвърди',
+      noOptions: 'Няма опции',
+      asc: 'Възходящо',
+      desc: 'Низходящо',
+      selected: 'Избрано'
+    },
+    submitbar: {
+      total: 'Общо: ',
+      selected: 'Избрани: {count}',
+      submit: 'Към плащане',
+      allSelect: 'Избери всички'
+    },
+    categorynav: {
+      all: 'Всички',
+      noData: 'Няма данни',
+      loading: 'Зареждане...'
+    },
+    smartaddress: {
+      placeholder:
+        'Поставете адреса тук, за да разпознаете автоматично име, телефон и местоположение',
+      parse: 'Умен анализ',
+      province: 'Област/Град/Район',
+      city: 'Град',
+      district: 'Район/Окръг',
+      street: 'Улица/Населено място',
+      detail: 'Подробен адрес',
+      phone: 'Телефон',
+      name: 'Получател',
+      parseSuccess: 'Адресът е анализиран успешно',
+      parseFailed: 'Анализът е неуспешен, попълнете ръчно',
+      required: 'Моля, въведете пълен адрес',
+      provinceKeywords: ['Област', 'Щат'],
+      cityKeywords: ['Град', 'Община'],
+      districtKeywords: ['Район', 'Окръг', 'Квартал'],
+      streetKeywords: ['Улица', 'Булевард', 'Път', 'Алея']
+    },
+    ganttchart: {
+      taskName: 'Име на задача',
+      searchPlaceholder: 'Търсене на задачи...',
+      zoom: 'Мащаб',
+      day: 'Ден',
+      week: 'Седмица',
+      month: 'Месец',
+      year: 'Година',
+      milestone: 'Етап'
+    },
+    imagemagnifier: {
+      switchToImage: 'Превключи към изображение {index}',
+      galleryItem: 'Галерия {index}',
+      close: 'Затвори'
+    },
     ai: {
       bubble: {
         citations: 'Цитати'
@@ -707,9 +799,32 @@ export const bg: Language = {
         pin: 'Закачи',
         unpin: 'Разкачи',
         newConversation: 'Нов разговор',
+        noData: 'Все още няма разговори',
         rename: 'Преименувай',
         delete: 'Изтрий',
         deleteConfirm: 'Потвърдете изтриването на този разговор?'
+      },
+      attachments: {
+        dropTip: 'Пуснете файловете тук за качване',
+        clickToUpload: 'Щракнете или плъзнете файлове за качване',
+        uploadSuccess: 'Качването е успешно',
+        uploadError: 'Качването е неуспешно',
+        deleteConfirm: 'Сигурни ли сте, че искате да изтриете този файл?',
+        fileTooLarge: 'Размерът на файла не може да надвишава {size}',
+        invalidFileType: 'Невалиден тип файл'
+      },
+      mermaid: {
+        image: 'Изображение',
+        code: 'Код',
+        zoomIn: 'Увеличи',
+        zoomOut: 'Намали',
+        reset: 'Нулирай',
+        download: 'Изтегли',
+        copyCode: 'Копирай кода',
+        rendering: 'Визуализиране...',
+        renderError: 'Визуализацията е неуспешна',
+        renderSuccess: 'Визуализацията е успешна',
+        retry: 'Опитай отново'
       }
     }
   }

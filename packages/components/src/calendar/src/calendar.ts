@@ -177,6 +177,20 @@ export const calendarEmits = {
 export type CalendarProps = ExtractPropTypes<typeof calendarProps>
 export type CalendarEmits = typeof calendarEmits
 
+export interface CalendarSlots {
+  header?: (props: { date: string }) => unknown
+  'date-cell'?: (props: { data: CalendarDateCell }) => unknown
+  footer?: () => unknown
+}
+
+export interface CalendarExpose {
+  displayDate: Ref<Dayjs>
+  selectedDate: Ref<Dayjs | undefined>
+  moveMonth: (delta: number) => void
+  goToday: () => void
+  selectDate: (cell: CalendarDateCell) => void
+}
+
 // 定义内部注入上下文
 export interface CalendarContext {
   selectedDay: Ref<Dayjs | undefined>

@@ -525,6 +525,97 @@ const pt = exports.pt = {
       loading: "Carregando...",
       noData: "Sem dados"
     },
+    skuselector: {
+      placeholder: "Selecionar especifica\xE7\xF5es",
+      emptyText: "Sem especifica\xE7\xF5es",
+      stock: "Estoque",
+      price: "Pre\xE7o",
+      selected: "Selecionado",
+      outOfStock: "Sem estoque"
+    },
+    productcard: {
+      viewDetails: "Ver detalhes",
+      buyNow: "Comprar agora",
+      addToCart: "Adicionar ao carrinho",
+      sold: "Vendido",
+      soldOut: "Esgotado",
+      vip: "VIP"
+    },
+    price: {
+      original: "Pre\xE7o original"
+    },
+    couponcard: {
+      available: "Obter agora",
+      used: "Usado",
+      expired: "Expirado",
+      received: "Recebido",
+      limit: "Pedidos acima de {threshold}",
+      noThreshold: "Sem valor m\xEDnimo",
+      validPeriod: "Validade",
+      ruleTitle: "Regras de uso"
+    },
+    luckydraw: {
+      start: "Iniciar",
+      drawing: "Sorteando...",
+      end: "Vencedor!",
+      retry: "Tentar novamente"
+    },
+    filterbar: {
+      all: "Todos",
+      sort: "Ordenar",
+      filter: "Filtrar",
+      cancel: "Cancelar",
+      reset: "Redefinir",
+      confirm: "Confirmar",
+      noOptions: "Sem op\xE7\xF5es",
+      asc: "Crescente",
+      desc: "Decrescente",
+      selected: "Selecionado"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} selecionado(s)",
+      submit: "Finalizar compra",
+      allSelect: "Selecionar tudo"
+    },
+    categorynav: {
+      all: "Todos",
+      noData: "Sem dados",
+      loading: "Carregando..."
+    },
+    smartaddress: {
+      placeholder: "Cole o endere\xE7o aqui para detectar automaticamente nome, telefone e local",
+      parse: "An\xE1lise inteligente",
+      province: "Prov\xEDncia/Cidade/Distrito",
+      city: "Cidade",
+      district: "Distrito/Concelho",
+      street: "Rua/Freguesia",
+      detail: "Endere\xE7o detalhado",
+      phone: "Telefone",
+      name: "Destinat\xE1rio",
+      parseSuccess: "Endere\xE7o analisado com sucesso",
+      parseFailed: "Falha na an\xE1lise, preencha manualmente",
+      required: "Preencha o endere\xE7o completo",
+      provinceKeywords: ["Prov\xEDncia", "Estado"],
+      cityKeywords: ["Cidade", "Munic\xEDpio"],
+      districtKeywords: ["Distrito", "Concelho", "Freguesia"],
+      streetKeywords: ["Rua", "Estrada", "Avenida", "Travessa"]
+    },
+    ganttchart: {
+      taskName: "Nome da tarefa",
+      searchPlaceholder: "Pesquisar tarefas...",
+      zoom: "Zoom",
+      day: "Dia",
+      week: "Semana",
+      month: "M\xEAs",
+      year: "Ano",
+      milestone: "Marco"
+    },
+    imagemagnifier: {
+      switchToImage: "Alternar para a imagem {index}",
+      galleryItem: "Galeria {index}",
+      close: "Fechar"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -635,9 +726,32 @@ const pt = exports.pt = {
         pin: "Fixar",
         unpin: "Desfixar",
         newConversation: "Nova Conversa",
+        noData: "Ainda n\xE3o h\xE1 conversas",
         rename: "Renomear",
         delete: "Excluir",
         deleteConfirm: "Confirmar exclus\xE3o desta conversa?"
+      },
+      attachments: {
+        dropTip: "Solte os arquivos aqui para enviar",
+        clickToUpload: "Clique ou arraste arquivos para enviar",
+        uploadSuccess: "Envio conclu\xEDdo",
+        uploadError: "Falha no envio",
+        deleteConfirm: "Tem certeza de que deseja excluir este arquivo?",
+        fileTooLarge: "O tamanho do arquivo n\xE3o pode exceder {size}",
+        invalidFileType: "Tipo de arquivo inv\xE1lido"
+      },
+      mermaid: {
+        image: "Imagem",
+        code: "C\xF3digo",
+        zoomIn: "Ampliar",
+        zoomOut: "Reduzir",
+        reset: "Redefinir",
+        download: "Baixar",
+        copyCode: "Copiar c\xF3digo",
+        rendering: "Renderizando...",
+        renderError: "Falha na renderiza\xE7\xE3o",
+        renderSuccess: "Renderiza\xE7\xE3o conclu\xEDda",
+        retry: "Tentar novamente"
       }
     }
   }

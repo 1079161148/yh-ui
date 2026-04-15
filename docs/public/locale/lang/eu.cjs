@@ -600,6 +600,97 @@ const eu = exports.eu = {
       loading: "Kargatzen...",
       noData: "Daturik ez"
     },
+    skuselector: {
+      placeholder: "Hautatu zehaztapenak",
+      emptyText: "Ez dago zehaztapenik",
+      stock: "Stocka",
+      price: "Prezioa",
+      selected: "Hautatua",
+      outOfStock: "Agortuta"
+    },
+    productcard: {
+      viewDetails: "Ikusi xehetasunak",
+      buyNow: "Erosi orain",
+      addToCart: "Gehitu saskira",
+      sold: "Salduta",
+      soldOut: "Agortuta",
+      vip: "VIP"
+    },
+    price: {
+      original: "Jatorrizkoa"
+    },
+    couponcard: {
+      available: "Eskuratu orain",
+      used: "Erabilia",
+      expired: "Iraungita",
+      received: "Jasota",
+      limit: "{threshold} baino gehiagoko eskariak",
+      noThreshold: "Gutxienekorik gabe",
+      validPeriod: "Balioaldia",
+      ruleTitle: "Erabilera arauak"
+    },
+    luckydraw: {
+      start: "Hasi",
+      drawing: "Zozketatzen...",
+      end: "Irabazlea!",
+      retry: "Saiatu berriro"
+    },
+    filterbar: {
+      all: "Guztiak",
+      sort: "Ordenatu",
+      filter: "Iragazi",
+      cancel: "Utzi",
+      reset: "Berrezarri",
+      confirm: "Berretsi",
+      noOptions: "Ez dago aukerarik",
+      asc: "Gorantz",
+      desc: "Beherantz",
+      selected: "Hautatua"
+    },
+    submitbar: {
+      total: "Guztira: ",
+      selected: "{count} hautatuta",
+      submit: "Ordaindu",
+      allSelect: "Hautatu guztiak"
+    },
+    categorynav: {
+      all: "Guztiak",
+      noData: "Daturik ez",
+      loading: "Kargatzen..."
+    },
+    smartaddress: {
+      placeholder: "Itsatsi helbidea hemen, izena, telefonoa eta kokapena automatikoki antzemateko",
+      parse: "Analisi adimenduna",
+      province: "Probintzia/Hiria/Barrutia",
+      city: "Hiria",
+      district: "Barrutia/Eskualdea",
+      street: "Kalea/Herria",
+      detail: "Helbide xehea",
+      phone: "Telefonoa",
+      name: "Hartzailea",
+      parseSuccess: "Helbidea ondo aztertu da",
+      parseFailed: "Azterketak huts egin du, bete eskuz mesedez",
+      required: "Mesedez bete helbide osoa",
+      provinceKeywords: ["Probintzia", "Estatua"],
+      cityKeywords: ["Hiria", "Eskualdea"],
+      districtKeywords: ["Barrutia", "Eskualdea", "Herria"],
+      streetKeywords: ["Kalea", "Bidea", "Etorbidea", "Pasabidea"]
+    },
+    ganttchart: {
+      taskName: "Atazaren izena",
+      searchPlaceholder: "Bilatu atazak...",
+      zoom: "Zooma",
+      day: "Eguna",
+      week: "Astea",
+      month: "Hilabetea",
+      year: "Urtea",
+      milestone: "Mugarri"
+    },
+    imagemagnifier: {
+      switchToImage: "Aldatu {index}. irudira",
+      galleryItem: "{index}. galeria",
+      close: "Itxi"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -710,9 +801,32 @@ const eu = exports.eu = {
         pin: "Finkatu",
         unpin: "Desfinkatu",
         newConversation: "Elkarrizketa berria",
+        noData: "Oraindik ez dago elkarrizketarik",
         rename: "Berrizendatu",
         delete: "Ezabatu",
         deleteConfirm: "Ziur zaude elkarrizketa hau ezabatu nahi duzula?"
+      },
+      attachments: {
+        dropTip: "Utzi fitxategiak hemen igotzeko",
+        clickToUpload: "Egin klik edo arrastatu fitxategiak igotzeko",
+        uploadSuccess: "Igoera ondo egin da",
+        uploadError: "Igoerak huts egin du",
+        deleteConfirm: "Ziur zaude fitxategi hau ezabatu nahi duzula?",
+        fileTooLarge: "Fitxategiaren tamainak ezin du {size} gainditu",
+        invalidFileType: "Baliogabeko fitxategi mota"
+      },
+      mermaid: {
+        image: "Irudia",
+        code: "Kodea",
+        zoomIn: "Handitu",
+        zoomOut: "Txikitu",
+        reset: "Berrezarri",
+        download: "Deskargatu",
+        copyCode: "Kopiatu kodea",
+        rendering: "Errendatzen...",
+        renderError: "Errendatzeak huts egin du",
+        renderSuccess: "Errendatzea ondo egin da",
+        retry: "Saiatu berriro"
       }
     }
   }

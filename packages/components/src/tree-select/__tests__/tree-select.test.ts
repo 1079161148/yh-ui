@@ -1,6 +1,8 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { computed, nextTick } from 'vue'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import YhTreeSelect from '../src/tree-select.vue'
 
 describe('YhTreeSelect', () => {
@@ -221,5 +223,42 @@ describe('YhTreeSelect', () => {
     expect(load).toHaveBeenCalled()
     const allNodes = wrapper.findAll('.yh-tree-select__node')
     expect(allNodes.some((n) => n.text().includes('Lazy child'))).toBe(true)
+  })
+
+  it('renders localized placeholder and empty text from config provider', async () => {
+    const wrapper = mount(YhTreeSelect as any, {
+      props: {
+        data: [],
+        teleported: false,
+        filterable: true
+      },
+      global: {
+        provide: {
+          [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+        }
+      }
+    })
+
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Select')
+    await wrapper.find('.yh-tree-select__trigger').trigger('click')
+    expect(wrapper.find('.yh-tree-select__empty').text()).toBe('No Data')
+  })
+
+  it('supports themeOverrides css variables', () => {
+    const wrapper = mount(YhTreeSelect as any, {
+      props: {
+        data: data as any,
+        props: propsAlias,
+        nodeKey: 'id',
+        themeOverrides: {
+          nodeHoverBg: '#f0f1f2',
+          activeColor: '#123456'
+        }
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-tree-select-node-hover-bg: #f0f1f2')
+    expect(style).toContain('--yh-tree-select-active-color: #123456')
   })
 })

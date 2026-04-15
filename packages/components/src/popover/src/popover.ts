@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, StyleValue } from 'vue'
+import type { ExtractPropTypes, PropType, StyleValue, Ref } from 'vue'
 import type { Placement } from '@floating-ui/dom'
 
 export const popoverTriggers = ['hover', 'click', 'focus', 'contextmenu'] as const
@@ -130,3 +130,13 @@ export const popoverEmits = {
 
 export type PopoverProps = ExtractPropTypes<typeof popoverProps>
 export type PopoverEmits = typeof popoverEmits
+
+export interface PopoverSlots {
+  default?: () => unknown
+  reference?: () => unknown
+}
+
+export interface PopoverExpose {
+  toggle: (val: boolean) => boolean
+  visible: Ref<boolean>
+}

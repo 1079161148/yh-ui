@@ -150,4 +150,19 @@ describe('Watermark', () => {
     const secondNode = wrapper.element.querySelector('div[class^="yh-wm-"]')
     expect(secondNode).not.toBe(firstNode)
   })
+
+  it('should apply theme overrides and expose renderWatermark', async () => {
+    const wrapper = mount(YhWatermark, {
+      props: {
+        content: 'Theme watermark',
+        themeOverrides: {
+          opacity: '0.35'
+        }
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.attributes('style')).toContain('--yh-watermark-opacity: 0.35')
+    expect(typeof wrapper.vm.renderWatermark).toBe('function')
+  })
 })

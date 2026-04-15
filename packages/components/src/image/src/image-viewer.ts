@@ -93,3 +93,15 @@ export const imageViewerEmits = {
 }
 
 export type ImageViewerEmits = typeof imageViewerEmits
+
+export interface ImageViewerSlots {}
+
+export interface ImageViewerExpose {
+  prev: () => void
+  next: () => void
+  zoomIn: () => void
+  zoomOut: () => void
+  rotateLeft: () => void
+  rotateRight: () => void
+  reset: () => void
+}

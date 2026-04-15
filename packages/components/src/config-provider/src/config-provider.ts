@@ -37,6 +37,10 @@ export const configProviderProps = {
 
 export type ConfigProviderProps = ExtractPropTypes<typeof configProviderProps>
 
+export interface ConfigProviderSlots {
+  default?: () => unknown
+}
+
 export default defineComponent({
   name: 'YhConfigProvider',
   props: configProviderProps,

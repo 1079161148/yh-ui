@@ -45,17 +45,25 @@ const useLocale = localeOverrides => {
   }, {
     immediate: true
   });
-  const t = (path, options) => {
+  const resolveLocaleValue = path => {
     const keys = path.split(".");
-    let result = locale.value.yh;
-    for (const key of keys) {
-      if (result && typeof result === "object") {
-        result = result[key];
-      } else {
-        result = void 0;
+    const sources = [locale.value.yh, _locale.zhCn.yh, _locale.en.yh];
+    for (const source of sources) {
+      let result = source;
+      for (const key of keys) {
+        if (result && typeof result === "object") {
+          result = result[key];
+        } else {
+          result = void 0;
+          break;
+        }
       }
-      if (result === void 0) return path;
+      if (result !== void 0) return result;
     }
+    return void 0;
+  };
+  const t = (path, options) => {
+    const result = resolveLocaleValue(path);
     if (typeof result !== "string") return path;
     if (options) {
       return result.replace(/\{(\w+)\}/g, (_match, key) => {
@@ -66,16 +74,8 @@ const useLocale = localeOverrides => {
     return result;
   };
   const tRaw = path => {
-    const keys = path.split(".");
-    let result = locale.value.yh;
-    for (const key of keys) {
-      if (result && typeof result === "object") {
-        result = result[key];
-      } else {
-        result = void 0;
-      }
-      if (result === void 0) return path;
-    }
+    const result = resolveLocaleValue(path);
+    if (result === void 0) return path;
     return result;
   };
   return {

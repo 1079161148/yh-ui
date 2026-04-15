@@ -71,3 +71,9 @@ export const aiVoiceTriggerEmits = {
   stop: () => true,
   cancel: () => true
 }
+
+export type AiVoiceTriggerEmitMap = typeof aiVoiceTriggerEmits
+
+export interface AiVoiceTriggerSlots {
+  default?: () => unknown
+}

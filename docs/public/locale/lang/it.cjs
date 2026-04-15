@@ -600,6 +600,97 @@ const it = exports.it = {
       loading: "Caricamento...",
       noData: "Nessun dato"
     },
+    skuselector: {
+      placeholder: "Seleziona specifiche",
+      emptyText: "Nessuna specifica",
+      stock: "Disponibilit\xE0",
+      price: "Prezzo",
+      selected: "Selezionato",
+      outOfStock: "Esaurito"
+    },
+    productcard: {
+      viewDetails: "Vedi dettagli",
+      buyNow: "Acquista ora",
+      addToCart: "Aggiungi al carrello",
+      sold: "Venduto",
+      soldOut: "Esaurito",
+      vip: "VIP"
+    },
+    price: {
+      original: "Prezzo originale"
+    },
+    couponcard: {
+      available: "Ottieni ora",
+      used: "Usato",
+      expired: "Scaduto",
+      received: "Ricevuto",
+      limit: "Ordini superiori a {threshold}",
+      noThreshold: "Nessuna soglia",
+      validPeriod: "Validit\xE0",
+      ruleTitle: "Regole di utilizzo"
+    },
+    luckydraw: {
+      start: "Avvia",
+      drawing: "Estrazione...",
+      end: "Vincitore!",
+      retry: "Riprova"
+    },
+    filterbar: {
+      all: "Tutti",
+      sort: "Ordina",
+      filter: "Filtra",
+      cancel: "Annulla",
+      reset: "Reimposta",
+      confirm: "Conferma",
+      noOptions: "Nessuna opzione",
+      asc: "Crescente",
+      desc: "Decrescente",
+      selected: "Selezionato"
+    },
+    submitbar: {
+      total: "Totale: ",
+      selected: "{count} selezionato/i",
+      submit: "Vai al pagamento",
+      allSelect: "Seleziona tutto"
+    },
+    categorynav: {
+      all: "Tutti",
+      noData: "Nessun dato",
+      loading: "Caricamento..."
+    },
+    smartaddress: {
+      placeholder: "Incolla qui l\u2019indirizzo per rilevare automaticamente nome, telefono e localit\xE0",
+      parse: "Analisi intelligente",
+      province: "Provincia/Citt\xE0/Distretto",
+      city: "Citt\xE0",
+      district: "Distretto/Provincia",
+      street: "Via/Localit\xE0",
+      detail: "Indirizzo dettagliato",
+      phone: "Telefono",
+      name: "Destinatario",
+      parseSuccess: "Indirizzo analizzato correttamente",
+      parseFailed: "Analisi non riuscita, compila manualmente",
+      required: "Compila l\u2019indirizzo completo",
+      provinceKeywords: ["Provincia", "Regione"],
+      cityKeywords: ["Citt\xE0", "Comune"],
+      districtKeywords: ["Distretto", "Provincia", "Quartiere"],
+      streetKeywords: ["Via", "Strada", "Viale", "Piazza"]
+    },
+    ganttchart: {
+      taskName: "Nome attivit\xE0",
+      searchPlaceholder: "Cerca attivit\xE0...",
+      zoom: "Zoom",
+      day: "Giorno",
+      week: "Settimana",
+      month: "Mese",
+      year: "Anno",
+      milestone: "Milestone"
+    },
+    imagemagnifier: {
+      switchToImage: "Passa all\u2019immagine {index}",
+      galleryItem: "Galleria {index}",
+      close: "Chiudi"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -710,9 +801,32 @@ const it = exports.it = {
         pin: "Fissa",
         unpin: "Sblocca",
         newConversation: "Nuova Conversazione",
+        noData: "Nessuna conversazione ancora",
         rename: "Rinomina",
         delete: "Elimina",
         deleteConfirm: "Confermi eliminazione di questa conversazione?"
+      },
+      attachments: {
+        dropTip: "Rilascia qui i file per caricarli",
+        clickToUpload: "Clicca o trascina i file per caricarli",
+        uploadSuccess: "Caricamento riuscito",
+        uploadError: "Caricamento non riuscito",
+        deleteConfirm: "Eliminare questo file?",
+        fileTooLarge: "La dimensione del file non pu\xF2 superare {size}",
+        invalidFileType: "Tipo di file non valido"
+      },
+      mermaid: {
+        image: "Immagine",
+        code: "Codice",
+        zoomIn: "Ingrandisci",
+        zoomOut: "Riduci",
+        reset: "Reimposta",
+        download: "Scarica",
+        copyCode: "Copia codice",
+        rendering: "Rendering in corso...",
+        renderError: "Rendering non riuscito",
+        renderSuccess: "Rendering completato",
+        retry: "Riprova"
       }
     }
   }

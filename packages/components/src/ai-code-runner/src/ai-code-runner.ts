@@ -52,6 +52,8 @@ export const aiCodeRunnerEmits = {
 
 export type AiCodeRunnerEmits = typeof aiCodeRunnerEmits
 
+export interface AiCodeRunnerSlots {}
+
 export interface AiCodeRunnerExpose {
   run: () => Promise<void>
   stop: () => void

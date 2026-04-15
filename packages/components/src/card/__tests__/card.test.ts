@@ -135,4 +135,15 @@ describe('Card 组件', () => {
     expect(cardShadows).toBeTruthy()
     expect(cardShadows.length).toBe(3)
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Card, {
+      props: {
+        themeOverrides: {
+          padding: '24px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-card').attributes('style')).toContain('--yh-card-padding: 24px')
+  })
 })

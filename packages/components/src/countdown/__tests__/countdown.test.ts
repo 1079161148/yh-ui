@@ -1,7 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { YhCountdown } from '../index'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 import {
   parseTimeUnits,
   createFormatContext,
@@ -838,5 +840,44 @@ describe('Countdown.vue', () => {
       await nextTick()
       expect(wrapper.emitted('warning')!.length).toBe(1)
     })
+  })
+  it('should use config-provider locale text', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(YhCountdown, {
+            value: 24 * 60 * 60 * 1000,
+            autoStart: false,
+            flipAnimation: true,
+            showDays: true,
+            showHours: false,
+            showMinutes: false,
+            showSeconds: false
+          })
+      }
+    })
+
+    const labels = wrapper.findAll('.yh-countdown__label')
+    expect(labels).toHaveLength(1)
+    expect(labels[0].text()).toBe('days')
+  })
+
+  it('should apply theme overrides and expose countdown controls', () => {
+    const wrapper = mount(YhCountdown, {
+      props: {
+        value: 5000,
+        themeOverrides: {
+          'font-size': '28px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-countdown').attributes('style')).toContain(
+      '--yh-countdown-font-size: 28px'
+    )
+    expect(typeof wrapper.vm.start).toBe('function')
+    expect(typeof wrapper.vm.pause).toBe('function')
+    expect(typeof wrapper.vm.reset).toBe('function')
   })
 })

@@ -194,3 +194,16 @@ export const aiEditorSenderEmits = {
 }
 
 export type AiEditorSenderEmits = typeof aiEditorSenderEmits
+
+export interface AiEditorSenderSlots {
+  header?: () => unknown
+  toolbar?: () => unknown
+  actions?: () => unknown
+  submit?: (props: { submit: () => void; disabled: boolean; loading: boolean }) => unknown
+}
+
+export interface AiEditorSenderExpose {
+  focus: () => void
+  blur: () => void
+  clear: () => void
+}

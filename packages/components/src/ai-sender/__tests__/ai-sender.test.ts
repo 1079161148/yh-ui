@@ -3,8 +3,10 @@
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import AiSender from '../src/ai-sender.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhAiSender', () => {
   beforeEach(() => {
@@ -416,5 +418,29 @@ describe('YhAiSender', () => {
       ).toBe(true)
       expect(aiSenderEmits.upload([new File([''], 'test.png')])).toBe(true)
     })
+  })
+
+  it('should use config-provider locale placeholder', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(AiSender)
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.find('textarea').attributes('placeholder')).toBe('Send a message...')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiSender, {
+      props: {
+        themeOverrides: {
+          bg: '#fafafa'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-sender-bg: #fafafa')
   })
 })

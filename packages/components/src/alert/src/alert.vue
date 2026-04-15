@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
       <div
         v-if="closable"
         :class="ns.e('close')"
-        :aria-label="t('dialog.close')"
+        :aria-label="t('alert.close')"
         @click="handleClose"
       >
         <slot name="close">

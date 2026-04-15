@@ -132,4 +132,17 @@ describe('YhAiBubbleList', () => {
     // Note: in actual DOM scrollTop would be updated, in test we just verify the call or logic
     // Since we are mocking the ref, we can't easily check the real side effect without more complex mocks
   })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiBubbleList, {
+      props: {
+        items: mockItems,
+        themeOverrides: {
+          'item-gap': '20px'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-bubble-list-item-gap: 20px')
+  })
 })

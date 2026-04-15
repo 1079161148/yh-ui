@@ -114,3 +114,11 @@ export const priceProps = {
 }
 
 export type PriceProps = ExtractPropTypes<typeof priceProps>
+
+export interface PriceSlots {
+  tag?: () => unknown
+  prefix?: () => unknown
+  symbol?: () => unknown
+  unit?: () => unknown
+  suffix?: () => unknown
+}

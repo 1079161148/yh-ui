@@ -621,7 +621,9 @@ const zhCn = exports.zhCn = {
       viewDetails: "\u67E5\u770B\u8BE6\u60C5",
       buyNow: "\u7ACB\u5373\u8D2D\u4E70",
       addToCart: "\u52A0\u5165\u8D2D\u7269\u8F66",
-      sold: "\u5DF2\u552E"
+      sold: "\u5DF2\u552E",
+      soldOut: "\u552E\u7F44",
+      vip: "\u4F1A\u5458"
     },
     // 价格
     price: {
@@ -650,6 +652,7 @@ const zhCn = exports.zhCn = {
       all: "\u5168\u90E8",
       sort: "\u6392\u5E8F",
       filter: "\u7B5B\u9009",
+      cancel: "\u53D6\u6D88",
       reset: "\u91CD\u7F6E",
       confirm: "\u786E\u5B9A",
       noOptions: "\u6682\u65E0\u7B5B\u9009\u9879",

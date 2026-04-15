@@ -141,3 +141,16 @@ export const drawerEmits = {
 
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>
 export type DrawerEmits = typeof drawerEmits
+
+export interface DrawerSlots {
+  default?: () => unknown
+  header?: () => unknown
+  title?: () => unknown
+  footer?: () => unknown
+  'close-icon'?: () => unknown
+}
+
+export interface DrawerExpose {
+  drawerRef: import('vue').Ref<HTMLElement | null>
+  handleClose: (isClickModal?: boolean) => void
+}

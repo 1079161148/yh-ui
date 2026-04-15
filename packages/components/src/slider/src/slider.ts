@@ -1,5 +1,6 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from 'vue'
 import type { InputNumberSize } from '../../input-number'
+import type { Ref } from 'vue'
 
 export type { InputNumberSize }
 export type SliderValueType = number | [number, number]
@@ -159,3 +160,15 @@ export const sliderEmits = {
 }
 
 export type SliderEmits = typeof sliderEmits
+
+export interface SliderSlots {
+  thumb?: (scope: { value: number }) => unknown
+  mark?: (scope: { mark: string }) => unknown
+  default?: () => unknown
+}
+
+export interface SliderExpose {
+  sliderRef: Ref<HTMLElement | undefined>
+  firstValue: Ref<number>
+  secondValue: Ref<number>
+}

@@ -145,4 +145,24 @@ describe('YhSlider', () => {
     await nextTick()
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()
   })
+
+  it('should apply theme overrides and expose slider refs', async () => {
+    const wrapper = mount(YhSlider, {
+      props: {
+        modelValue: 40,
+        themeOverrides: {
+          mainColor: 'rgb(9, 8, 7)'
+        }
+      }
+    })
+    await nextTick()
+
+    const root = wrapper.find('.yh-slider').element as HTMLElement
+    const exposed = (wrapper.vm as any).$?.exposed
+
+    expect(root.style.getPropertyValue('--yh-slider-main-color')).toBe('rgb(9, 8, 7)')
+    expect(exposed?.sliderRef?.value).toBeInstanceOf(HTMLElement)
+    expect(exposed?.firstValue?.value).toBe(40)
+    expect(exposed?.secondValue?.value).toBe(0)
+  })
 })

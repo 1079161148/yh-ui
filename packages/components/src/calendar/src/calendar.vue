@@ -10,6 +10,7 @@ import {
   calendarEmits,
   DEFAULT_CHINA_HOLIDAYS_2026,
   type CalendarDateCell,
+  type CalendarExpose,
   type HolidayMap
 } from './calendar'
 import { YhButton } from '../../button'
@@ -374,7 +375,7 @@ const rootClass = computed(() => [
 ])
 
 // --- 暴露方法与属性 ---
-defineExpose({
+defineExpose<CalendarExpose>({
   /** 当前显示的日期对象 (Dayjs) */
   displayDate,
   /** 当前选中的日期对象 (Dayjs - 单选模式) */

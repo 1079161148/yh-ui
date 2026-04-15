@@ -215,4 +215,31 @@ describe('Menu', () => {
     // It might not be rendered yet if not opened, but let's check the recursive item components exist
     expect(wrapper.findAllComponents({ name: 'YhMenuRecursiveItem' }).length).toBeGreaterThan(0)
   })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhMenu, {
+      props: {
+        themeOverrides: {
+          'item-height': '44px'
+        }
+      },
+      global: globalConfig
+    })
+
+    expect(wrapper.find('.yh-menu').attributes('style')).toContain('--yh-menu-item-height: 44px')
+  })
+
+  it('should expose menu methods and refs', () => {
+    const wrapper = mount(YhMenu, {
+      global: globalConfig,
+      props: {
+        defaultActive: '/home',
+        defaultOpeneds: ['sub1']
+      }
+    })
+
+    expect(typeof wrapper.vm.open).toBe('function')
+    expect(typeof wrapper.vm.close).toBe('function')
+    expect(wrapper.vm.activeIndex).toBeTruthy()
+    expect(wrapper.vm.openedMenus).toBeTruthy()
+  })
 })

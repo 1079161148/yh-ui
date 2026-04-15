@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, reactive, watch, onUnmounted, nextTick } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { ImageMagnifierPosition } from './image-magnifier'
 import { imageMagnifierProps, imageMagnifierEmits } from './image-magnifier'
@@ -11,6 +11,7 @@ const props = defineProps(imageMagnifierProps)
 const emit = defineEmits(imageMagnifierEmits)
 
 const ns = useNamespace('image-magnifier')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme(
   'image-magnifier',
   computed(() => props.themeOverrides)
@@ -47,6 +48,10 @@ const currentImage = computed(
 const currentSrc = computed(() => currentImage.value.src)
 const currentZoomSrc = computed(() => currentImage.value.zoomSrc || currentImage.value.src)
 const currentAlt = computed(() => currentImage.value.alt || props.alt)
+const getSwitchToImageLabel = (index: number) =>
+  t('imagemagnifier.switchToImage', { index: index + 1 })
+const getGalleryItemAlt = (index: number) => t('imagemagnifier.galleryItem', { index: index + 1 })
+const fullscreenCloseLabel = computed(() => t('imagemagnifier.close'))
 
 const switchImage = (index: number) => {
   currentIndex.value = index
@@ -394,9 +399,9 @@ defineExpose({ visible, currentScale, currentIndex, switchImage })
         :class="[ns.e('gallery-item'), ns.is('active', idx === currentIndex)]"
         @click="switchImage(idx)"
         type="button"
-        :aria-label="`Switch to image ${idx + 1}`"
+        :aria-label="getSwitchToImageLabel(idx)"
       >
-        <img :src="img.src" :alt="img.alt || `Gallery ${idx + 1}`" />
+        <img :src="img.src" :alt="img.alt || getGalleryItemAlt(idx)" />
       </button>
     </div>
 
@@ -416,7 +421,7 @@ defineExpose({ visible, currentScale, currentIndex, switchImage })
             :class="ns.e('fullscreen-close')"
             @click="closeFullscreen"
             type="button"
-            aria-label="Close"
+            :aria-label="fullscreenCloseLabel"
           >
             <slot name="close-icon">✕</slot>
           </button>
@@ -433,7 +438,7 @@ defineExpose({ visible, currentScale, currentIndex, switchImage })
               @click="switchImage(idx)"
               type="button"
             >
-              <img :src="img.src" :alt="img.alt || `Gallery ${idx + 1}`" />
+              <img :src="img.src" :alt="img.alt || getGalleryItemAlt(idx)" />
             </button>
           </div>
         </div>

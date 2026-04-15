@@ -6,7 +6,7 @@
 import { computed, onMounted, ref, watch, isVNode, type VNode } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { NotificationProps, NotificationEmits } from './notification'
+import type { NotificationProps, NotificationEmits, NotificationExpose } from './notification'
 
 defineOptions({
   name: 'YhNotification'
@@ -164,7 +164,7 @@ onMounted(() => {
 })
 
 // 暴露方法
-defineExpose({
+defineExpose<NotificationExpose>({
   visible,
   close
 })

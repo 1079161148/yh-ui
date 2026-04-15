@@ -596,6 +596,97 @@ export const mg: Language = {
       loading: 'Miantso...',
       noData: 'Tsy misy data'
     },
+    skuselector: {
+      placeholder: 'Safidio ny toetra',
+      emptyText: 'Tsy misy toetra',
+      stock: 'Tahiry',
+      price: 'Vidiny',
+      selected: 'Voafidy',
+      outOfStock: 'Lany tahiry'
+    },
+    productcard: {
+      viewDetails: 'Hijery antsipiriany',
+      buyNow: 'Vidio izao',
+      addToCart: 'Ampidiro anaty sarety',
+      sold: 'Lafo',
+      soldOut: 'Lany',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Tany am-boalohany'
+    },
+    couponcard: {
+      available: 'Raiso izao',
+      used: 'Efa nampiasaina',
+      expired: 'Lany daty',
+      received: 'Voaray',
+      limit: 'Ho an’ny kaomandy mihoatra ny {threshold}',
+      noThreshold: 'Tsy misy fetra farany ambany',
+      validPeriod: 'Fe-potoana manankery',
+      ruleTitle: 'Fitsipika fampiasana'
+    },
+    luckydraw: {
+      start: 'Atomboka',
+      drawing: 'Manao antsapaka...',
+      end: 'Mpandresy!',
+      retry: 'Andramo indray'
+    },
+    filterbar: {
+      all: 'Rehetra',
+      sort: 'Alahatra',
+      filter: 'Sivana',
+      cancel: 'Hanafoana',
+      reset: 'Avereno',
+      confirm: 'Hamafiso',
+      noOptions: 'Tsy misy safidy',
+      asc: 'Miakatra',
+      desc: 'Midina',
+      selected: 'Voafidy'
+    },
+    submitbar: {
+      total: 'Fitambarany: ',
+      selected: '{count} voafidy',
+      submit: 'Handoa',
+      allSelect: 'Safidio rehetra'
+    },
+    categorynav: {
+      all: 'Rehetra',
+      noData: 'Tsy misy angona',
+      loading: 'Mampiditra...'
+    },
+    smartaddress: {
+      placeholder: 'Apetaho eto ny adiresy, ho fantarina ho azy ny anarana, finday ary toerana',
+      parse: 'Famantarana marani-tsaina',
+      province: 'Faritany/Tanàna/Distrika',
+      city: 'Tanàna',
+      district: 'Distrika/Faritra',
+      street: 'Lalana/Tanàna kely',
+      detail: 'Adiresy feno',
+      phone: 'Finday',
+      name: 'Mpandray',
+      parseSuccess: 'Voamarina soa aman-tsara ny adiresy',
+      parseFailed: 'Tsy voamarina, fenoy amin’ny tanana azafady',
+      required: 'Fenoy azafady ny adiresy feno',
+      provinceKeywords: ['Faritany', 'Fanjakana'],
+      cityKeywords: ['Tanàna', 'Faritra'],
+      districtKeywords: ['Distrika', 'Faritra', 'Kaominina'],
+      streetKeywords: ['Lalana', 'Arabe', 'Boulevard', 'Lalantsara']
+    },
+    ganttchart: {
+      taskName: 'Anaran’asa',
+      searchPlaceholder: 'Hitady asa...',
+      zoom: 'Akaro',
+      day: 'Andro',
+      week: 'Herinandro',
+      month: 'Volana',
+      year: 'Taona',
+      milestone: 'Dingana lehibe'
+    },
+    imagemagnifier: {
+      switchToImage: 'Hifindra amin’ny sary {index}',
+      galleryItem: 'Galeria {index}',
+      close: 'Akatona'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -707,9 +798,32 @@ export const mg: Language = {
         pin: 'Fatotra',
         unpin: 'Avela',
         newConversation: 'Resaka vaovao',
+        noData: 'Mbola tsy misy resaka',
         rename: 'Aloaso anarana',
         delete: 'Fao',
         deleteConfirm: "Moa ve inona no hofafan'i resaka io?"
+      },
+      attachments: {
+        dropTip: 'Apetraho eto ny rakitra raha hampiakatra',
+        clickToUpload: 'Tsindrio na tariho ny rakitra raha hampiakatra',
+        uploadSuccess: 'Nahomby ny fampiakarana',
+        uploadError: 'Tsy nahomby ny fampiakarana',
+        deleteConfirm: 'Azonao antoka ve fa hamafa ity rakitra ity ianao?',
+        fileTooLarge: 'Tsy afaka mihoatra ny {size} ny haben’ny rakitra',
+        invalidFileType: 'Karazana rakitra tsy mety'
+      },
+      mermaid: {
+        image: 'Sary',
+        code: 'Kaody',
+        zoomIn: 'Ampitomboy',
+        zoomOut: 'Ahena',
+        reset: 'Avereno',
+        download: 'Sintomy',
+        copyCode: 'Adikao ny kaody',
+        rendering: 'Aseho...',
+        renderError: 'Tsy nahomby ny fampisehoana',
+        renderSuccess: 'Nahomby ny fampisehoana',
+        retry: 'Andramo indray'
       }
     }
   }

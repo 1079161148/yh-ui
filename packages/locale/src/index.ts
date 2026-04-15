@@ -634,6 +634,8 @@ export interface Language {
       buyNow: string
       addToCart: string
       sold: string
+      soldOut: string
+      vip: string
     }
     // 价格
     price?: {
@@ -662,6 +664,7 @@ export interface Language {
       all: string
       sort: string
       filter: string
+      cancel: string
       reset: string
       confirm: string
       noOptions: string
@@ -701,6 +704,21 @@ export interface Language {
       cityKeywords: string[]
       districtKeywords: string[]
       streetKeywords: string[]
+    }
+    ganttchart?: {
+      taskName: string
+      searchPlaceholder: string
+      zoom: string
+      day: string
+      week: string
+      month: string
+      year: string
+      milestone: string
+    }
+    imagemagnifier?: {
+      switchToImage: string
+      galleryItem: string
+      close: string
     }
     // AI Components
     ai: {

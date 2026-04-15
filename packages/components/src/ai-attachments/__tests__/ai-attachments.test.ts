@@ -3,7 +3,10 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import AiAttachments from '../src/ai-attachments.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhAiAttachments', () => {
   // ─── Rendering ───────────────────────────────────────────
@@ -104,5 +107,33 @@ describe('YhAiAttachments', () => {
     const { aiAttachmentsEmits } = await import('../src/ai-attachments')
     expect(aiAttachmentsEmits['update:items']([])).toBe(true)
     expect(aiAttachmentsEmits['delete-card']({ name: 'test' }, 0)).toBe(true)
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(AiAttachments, {
+            placeholder: () => ({})
+          })
+      }
+    })
+
+    await wrapper.find('.yh-ai-attachments').trigger('dragenter')
+    await nextTick()
+    expect(wrapper.text()).toContain('Drop files here to upload')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiAttachments, {
+      props: {
+        themeOverrides: {
+          'upload-bg': '#101010'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-attachments-upload-bg: #101010')
   })
 })

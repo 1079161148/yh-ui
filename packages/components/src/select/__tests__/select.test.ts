@@ -5,6 +5,8 @@ import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { nextTick, h } from 'vue'
 import Select from '../src/select.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhSelect', () => {
   const options = [
@@ -390,10 +392,10 @@ describe('YhSelect', () => {
     const wrapper = mount(Select, {
       props: { options }
     })
-    const vm = wrapper.vm as any
+    const exposed = (wrapper.vm as any).$?.exposed
 
-    expect(typeof vm.focus).toBe('function')
-    expect(typeof vm.blur).toBe('function')
+    expect(typeof exposed?.focus).toBe('function')
+    expect(typeof exposed?.blur).toBe('function')
   })
 
   // 多选限制测试
@@ -446,5 +448,32 @@ describe('YhSelect', () => {
     // Test Option.vue logic indirectly via Select behavior
     // 卸载组件触发 onBeforeUnmount
     wrapper.unmount()
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(Select, { options: [], teleported: false })
+      }
+    })
+
+    await wrapper.find('.yh-select').trigger('click')
+    await nextTick()
+
+    expect(wrapper.text()).toContain('No Data')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Select, {
+      props: {
+        options,
+        themeOverrides: {
+          borderColor: '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-select-border-color: #123456')
   })
 })

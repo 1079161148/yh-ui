@@ -9,7 +9,7 @@ import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
 import { YhSpin } from '../../spin'
 import { YhButton } from '../../button'
-import { dialogProps, dialogEmits } from './dialog'
+import { dialogProps, dialogEmits, type DialogExpose } from './dialog'
 
 let lastClickPos: { x: number; y: number } | null = null
 if (typeof window !== 'undefined') {
@@ -348,7 +348,7 @@ useEventListener(
   }
 )
 
-defineExpose({
+defineExpose<DialogExpose>({
   visible,
   dialogRef,
   handleClose,

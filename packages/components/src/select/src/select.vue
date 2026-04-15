@@ -522,7 +522,7 @@ provide<SelectContext>(SelectContextKey, {
 defineExpose<SelectExpose>({
   focus,
   blur,
-  inputRef: inputRef.value
+  inputRef
 })
 </script>
 

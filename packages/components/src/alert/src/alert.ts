@@ -98,3 +98,9 @@ export const alertEmits = {
 }
 
 export type AlertEmits = typeof alertEmits
+
+export interface AlertSlots {
+  title?: () => unknown
+  default?: () => unknown
+  action?: () => unknown
+}

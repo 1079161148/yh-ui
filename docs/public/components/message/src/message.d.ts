@@ -1,146 +1,161 @@
 /**
  * Message Types & Props
- * @description 消息提示组件类型定义
+ * @description 娑堟伅鎻愮ず缁勪欢绫诲瀷瀹氫箟
  */
-import type { VNode, ComponentPublicInstance } from 'vue';
+import type { VNode, ComponentPublicInstance, Ref } from 'vue'
 /**
- * 消息类型
+ * 娑堟伅绫诲瀷
  */
-export declare const messageTypes: readonly ["success", "warning", "info", "error"];
-export type MessageType = (typeof messageTypes)[number];
+export declare const messageTypes: readonly ['success', 'warning', 'info', 'error']
+export type MessageType = (typeof messageTypes)[number]
 /**
- * 消息位置
+ * 娑堟伅浣嶇疆
  */
-export declare const messagePlacements: readonly ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"];
-export type MessagePlacement = (typeof messagePlacements)[number];
+export declare const messagePlacements: readonly [
+  'top',
+  'top-left',
+  'top-right',
+  'bottom',
+  'bottom-left',
+  'bottom-right'
+]
+export type MessagePlacement = (typeof messagePlacements)[number]
 /**
- * Message Props 定义
+ * Message Props 瀹氫箟
  */
 export interface MessageProps {
-    /**
-     * @description 消息内容
-     */
-    message?: string | VNode;
-    /**
-     * @description 消息类型
-     * @default 'info'
-     */
-    type?: MessageType;
-    /**
-     * @description 自定义图标
-     */
-    icon?: string | VNode;
-    /**
-     * @description 是否显示关闭按钮
-     * @default false
-     */
-    showClose?: boolean;
-    /**
-     * @description 显示时间（毫秒）。设为 0 则不会自动关闭
-     * @default 3000
-     */
-    duration?: number;
-    /**
-     * @description 距离顶部的偏移量（px）
-     * @default 20
-     */
-    offset?: number;
-    /**
-     * @description 消息的唯一标识
-     */
-    id?: string;
-    /**
-     * @description 是否将 message 作为 HTML 片段处理
-     * @default false
-     */
-    dangerouslyUseHTMLString?: boolean;
-    /**
-     * @description 是否居中显示
-     * @default false
-     */
-    center?: boolean;
-    /**
-     * @description 关闭时的回调函数
-     */
-    onClose?: () => void;
-    /**
-     * @description z-index 层级
-     */
-    zIndex?: number;
-    /**
-     * @description 自定义类名
-     */
-    customClass?: string;
-    /**
-     * @description 是否支持分组合并（相同内容的消息只显示一次）
-     * @default false
-     */
-    grouping?: boolean;
-    /**
-     * @description 重复次数
-     */
-    repeatNum?: number;
-    /**
-     * @description 消息展示位置
-     * @default 'top'
-     */
-    placement?: MessagePlacement;
-    /**
-     * @description 主题覆盖变量
-     */
-    themeOverrides?: import('@yh-ui/theme').ComponentThemeVars;
+  /**
+   * @description 娑堟伅鍐呭
+   */
+  message?: string | VNode
+  /**
+   * @description 娑堟伅绫诲瀷
+   * @default 'info'
+   */
+  type?: MessageType
+  /**
+   * @description 鑷畾涔夊浘鏍?
+   */
+  icon?: string | VNode
+  /**
+   * @description 鏄惁鏄剧ず鍏抽棴鎸夐挳
+   * @default false
+   */
+  showClose?: boolean
+  /**
+   * @description 鏄剧ず鏃堕棿锛堟绉掞級銆傝涓?0 鍒欎笉浼氳嚜鍔ㄥ叧闂?
+   * @default 3000
+   */
+  duration?: number
+  /**
+   * @description 璺濈椤堕儴鐨勫亸绉婚噺锛坧x锛?
+   * @default 20
+   */
+  offset?: number
+  /**
+   * @description 娑堟伅鐨勫敮涓€鏍囪瘑
+   */
+  id?: string
+  /**
+   * @description 鏄惁灏?message 浣滀负 HTML 鐗囨澶勭悊
+   * @default false
+   */
+  dangerouslyUseHTMLString?: boolean
+  /**
+   * @description 鏄惁灞呬腑鏄剧ず
+   * @default false
+   */
+  center?: boolean
+  /**
+   * @description 鍏抽棴鏃剁殑鍥炶皟鍑芥暟
+   */
+  onClose?: () => void
+  /**
+   * @description z-index 灞傜骇
+   */
+  zIndex?: number
+  /**
+   * @description 鑷畾涔夌被鍚?
+   */
+  customClass?: string
+  /**
+   * @description 鏄惁鏀寔鍒嗙粍鍚堝苟锛堢浉鍚屽唴瀹圭殑娑堟伅鍙樉绀轰竴娆★級
+   * @default false
+   */
+  grouping?: boolean
+  /**
+   * @description 閲嶅娆℃暟
+   */
+  repeatNum?: number
+  /**
+   * @description 娑堟伅灞曠ず浣嶇疆
+   * @default 'top'
+   */
+  placement?: MessagePlacement
+  /**
+   * @description 涓婚瑕嗙洊鍙橀噺
+   */
+  themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 /**
- * Message Emits 定义
+ * Message Emits 瀹氫箟
  */
 export interface MessageEmits {
-    (e: 'destroy'): void;
+  (e: 'destroy'): void
 }
 /**
- * Message Slots 定义
+ * Message Slots 瀹氫箟
  */
 export interface MessageSlots {
-    /**
-     * 消息内容
-     */
-    default?: () => void;
+  /**
+   * 娑堟伅鍐呭
+   */
+  default?: () => void
+  /**
+   * 鑷畾涔夊浘鏍?
+   */
+  icon?: () => void
 }
 /**
- * Message 实例类型
+ * Message 暴露实例
  */
-export type MessageInstance = ComponentPublicInstance<{
-    visible: boolean;
-    close: () => void;
-}>;
+export interface MessageExpose {
+  visible: Ref<boolean>
+  close: () => void
+}
 /**
- * Message 配置选项
+ * Message 瀹炰緥绫诲瀷
  */
-export type MessageOptions = Partial<MessageProps>;
+export type MessageInstance = ComponentPublicInstance<MessageExpose>
 /**
- * Message 处理函数
+ * Message 閰嶇疆閫夐」
+ */
+export type MessageOptions = Partial<MessageProps>
+/**
+ * Message 澶勭悊鍑芥暟
  */
 export interface MessageHandler {
-    close: () => void;
-    el?: HTMLElement;
-    closed?: boolean;
+  close: () => void
+  el?: HTMLElement
+  closed?: boolean
 }
 /**
- * Message 上下文（用于实例管理）
+ * Message 涓婁笅鏂囷紙鐢ㄤ簬瀹炰緥绠＄悊锛?
  */
 export interface MessageContext {
-    id: string;
-    props: MessageOptions;
-    handler: MessageHandler;
-    vnode: import('vue').VNode;
+  id: string
+  props: MessageOptions
+  handler: MessageHandler
+  vnode: import('vue').VNode
 }
 /**
- * Message 方法类型
+ * Message 鏂规硶绫诲瀷
  */
 export type MessageFn = {
-    (options: MessageOptions | string): MessageHandler;
-    success: (message: string | MessageOptions) => MessageHandler;
-    warning: (message: string | MessageOptions) => MessageHandler;
-    info: (message: string | MessageOptions) => MessageHandler;
-    error: (message: string | MessageOptions) => MessageHandler;
-    closeAll: () => void;
-};
+  (options: MessageOptions | string): MessageHandler
+  success: (message: string | MessageOptions) => MessageHandler
+  warning: (message: string | MessageOptions) => MessageHandler
+  info: (message: string | MessageOptions) => MessageHandler
+  error: (message: string | MessageOptions) => MessageHandler
+  closeAll: () => void
+}

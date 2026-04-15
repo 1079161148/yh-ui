@@ -1,8 +1,3 @@
-/**
- * @yh-ui/transfer
- * @description Transfer 穿梭框组件
- */
-
 import type { App, Plugin } from 'vue'
 import Transfer from './src/transfer.vue'
 import TransferPanel from './src/transfer-panel.vue'
@@ -14,7 +9,6 @@ const registerComponent = (app: App, component: { name?: string }) => {
   }
 }
 
-// 定义 install 方法
 Transfer.install = (app: App): void => {
   registerComponent(app, Transfer)
   registerComponent(app, TransferPanel)
@@ -24,15 +18,18 @@ TransferPanel.install = (app: App): void => {
   registerComponent(app, TransferPanel)
 }
 
-// 命名导出
 export const YhTransfer = Transfer as typeof Transfer & Plugin
 export const YhTransferPanel = TransferPanel as typeof TransferPanel & Plugin
 
-// 类型导出
 export * from './src/transfer'
 
-// 默认导出
 export default YhTransfer
 
 export type TransferInstance = InstanceType<typeof Transfer>
 export type TransferPanelInstance = InstanceType<typeof TransferPanel>
+export type YhTransferInstance = TransferInstance
+export type YhTransferPanelInstance = TransferPanelInstance
+export type YhTransferProps = import('./src/transfer').TransferProps
+export type YhTransferEmits = import('./src/transfer').TransferEmits
+export type YhTransferExpose = import('./src/transfer').TransferExpose
+export type YhTransferPanelExpose = import('./src/transfer').TransferPanelExpose

@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import CouponCard from '../src/coupon-card.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('CouponCard', () => {
   const props = {
@@ -67,5 +70,34 @@ describe('CouponCard', () => {
       await checkbox.setValue(true)
       expect(wrapper.emitted('update:selected')).toBeTruthy()
     }
+  })
+
+  it('uses config-provider locale fallback texts', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(CouponCard, {
+            amount: '100',
+            title: 'New User Coupon'
+          })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('No threshold')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(CouponCard, {
+      props: {
+        ...props,
+        themeOverrides: {
+          'amount-color': '#ff4d4f'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-coupon-card-amount-color: #ff4d4f')
   })
 })

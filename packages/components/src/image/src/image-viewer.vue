@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
-import { imageViewerProps, imageViewerEmits } from './image-viewer'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { imageViewerProps, imageViewerEmits, type ImageViewerExpose } from './image-viewer'
 import Viewer from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
@@ -13,6 +13,7 @@ const props = defineProps(imageViewerProps)
 const emit = defineEmits(imageViewerEmits)
 
 const ns = useNamespace('viewer')
+const { t } = useLocale()
 
 const index = ref(props.initialIndex)
 const scale = ref(1)
@@ -147,6 +148,16 @@ onUnmounted(() => {
     viewerList = null
   }
 })
+
+defineExpose<ImageViewerExpose>({
+  prev: handlePrev,
+  next: handleNext,
+  zoomIn: handleZoomIn,
+  zoomOut: handleZoomOut,
+  rotateLeft: handleRotateLeft,
+  rotateRight: handleRotateRight,
+  reset
+})
 </script>
 
 <template>
@@ -155,7 +166,12 @@ onUnmounted(() => {
       <div :class="ns.e('mask')" @click="hideOnClickModal && handleClose()"></div>
 
       <!-- Close -->
-      <span :class="[ns.e('btn'), ns.e('close')]" @click="handleClose">
+      <span
+        :class="[ns.e('btn'), ns.e('close')]"
+        :title="t('imageviewer.close')"
+        :aria-label="t('imageviewer.close')"
+        @click="handleClose"
+      >
         <svg viewBox="0 0 1024 1024" width="1em" height="1em">
           <path
             fill="currentColor"
@@ -166,7 +182,12 @@ onUnmounted(() => {
 
       <!-- Arrows -->
       <template v-if="urlList.length > 1">
-        <span :class="[ns.e('btn'), ns.e('prev')]" @click="handlePrev">
+        <span
+          :class="[ns.e('btn'), ns.e('prev')]"
+          :title="t('imageviewer.prev')"
+          :aria-label="t('imageviewer.prev')"
+          @click="handlePrev"
+        >
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -174,7 +195,12 @@ onUnmounted(() => {
             />
           </svg>
         </span>
-        <span :class="[ns.e('btn'), ns.e('next')]" @click="handleNext">
+        <span
+          :class="[ns.e('btn'), ns.e('next')]"
+          :title="t('imageviewer.next')"
+          :aria-label="t('imageviewer.next')"
+          @click="handleNext"
+        >
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -187,25 +213,42 @@ onUnmounted(() => {
       <!-- Actions -->
       <div v-if="showProgress" :class="ns.e('actions')">
         <div :class="ns.e('actions-inner')">
-          <i :class="ns.e('zoom-out')" @click="handleZoomOut"
+          <i
+            :class="ns.e('zoom-out')"
+            :title="t('imageviewer.zoomOut')"
+            :aria-label="t('imageviewer.zoomOut')"
+            @click="handleZoomOut"
             ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path fill="currentColor" d="M192 480h640v64H192z" /></svg
           ></i>
-          <i :class="ns.e('zoom-in')" @click="handleZoomIn"
+          <i
+            :class="ns.e('zoom-in')"
+            :title="t('imageviewer.zoomIn')"
+            :aria-label="t('imageviewer.zoomIn')"
+            @click="handleZoomIn"
             ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
                 d="M480 480V224h64v256h256v64H544v256h-64V544H224v-64h256z"
               /></svg
           ></i>
-          <i :class="ns.e('reset')" @click="reset"
+          <i
+            :class="ns.e('reset')"
+            :title="t('imageviewer.reset')"
+            :aria-label="t('imageviewer.reset')"
+            @click="reset"
             ><svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
                 d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a256 256 0 1 1 0 512 256 256 0 0 1 0-512z"
               /></svg
           ></i>
-          <i :class="ns.e('rotate-left')" @click="handleRotateLeft">
+          <i
+            :class="ns.e('rotate-left')"
+            :title="t('imageviewer.rotateLeft')"
+            :aria-label="t('imageviewer.rotateLeft')"
+            @click="handleRotateLeft"
+          >
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"
@@ -213,7 +256,12 @@ onUnmounted(() => {
               />
             </svg>
           </i>
-          <i :class="ns.e('rotate-right')" @click="handleRotateRight">
+          <i
+            :class="ns.e('rotate-right')"
+            :title="t('imageviewer.rotateRight')"
+            :aria-label="t('imageviewer.rotateRight')"
+            @click="handleRotateRight"
+          >
             <svg viewBox="0 0 1024 1024" width="1em" height="1em">
               <path
                 fill="currentColor"

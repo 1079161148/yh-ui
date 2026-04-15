@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType, Ref } from 'vue'
 import type { AiBubbleProps } from '../../ai-bubble'
 
 export interface AiBubbleListItem extends Partial<AiBubbleProps> {
@@ -59,3 +59,16 @@ export const aiBubbleListProps = {
 }
 
 export type AiBubbleListProps = ExtractPropTypes<typeof aiBubbleListProps>
+
+export interface AiBubbleListSlots {
+  bubble?: (props: { item: AiBubbleListItem; index: number }) => unknown
+  loading?: () => unknown
+}
+
+export type AiBubbleListSlotTypes = SlotsType<AiBubbleListSlots>
+
+export interface AiBubbleListExpose {
+  scrollToBottom: () => void
+  scrollToIndex: (index: number) => void
+  scrollRef: Ref<HTMLElement | null>
+}

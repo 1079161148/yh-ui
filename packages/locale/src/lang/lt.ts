@@ -596,6 +596,97 @@ export const lt: Language = {
       loading: 'Kraunama...',
       noData: 'Nėra duomenų'
     },
+    skuselector: {
+      placeholder: 'Pasirinkite specifikacijas',
+      emptyText: 'Specifikacijų nėra',
+      stock: 'Likutis',
+      price: 'Kaina',
+      selected: 'Pasirinkta',
+      outOfStock: 'Nebėra sandėlyje'
+    },
+    productcard: {
+      viewDetails: 'Peržiūrėti detales',
+      buyNow: 'Pirkti dabar',
+      addToCart: 'Įdėti į krepšelį',
+      sold: 'Parduota',
+      soldOut: 'Išparduota',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Pradinė'
+    },
+    couponcard: {
+      available: 'Atsiimti dabar',
+      used: 'Panaudota',
+      expired: 'Baigėsi galiojimas',
+      received: 'Gauta',
+      limit: 'Užsakymams virš {threshold}',
+      noThreshold: 'Be minimalios sumos',
+      validPeriod: 'Galiojimo laikotarpis',
+      ruleTitle: 'Naudojimo taisyklės'
+    },
+    luckydraw: {
+      start: 'Pradėti',
+      drawing: 'Traukiama...',
+      end: 'Laimėtojas!',
+      retry: 'Bandyti dar kartą'
+    },
+    filterbar: {
+      all: 'Visi',
+      sort: 'Rūšiuoti',
+      filter: 'Filtras',
+      cancel: 'Atšaukti',
+      reset: 'Atkurti',
+      confirm: 'Patvirtinti',
+      noOptions: 'Nėra parinkčių',
+      asc: 'Didėjančiai',
+      desc: 'Mažėjančiai',
+      selected: 'Pasirinkta'
+    },
+    submitbar: {
+      total: 'Iš viso: ',
+      selected: 'Pasirinkta: {count}',
+      submit: 'Apmokėti',
+      allSelect: 'Pasirinkti viską'
+    },
+    categorynav: {
+      all: 'Visi',
+      noData: 'Nėra duomenų',
+      loading: 'Kraunama...'
+    },
+    smartaddress: {
+      placeholder: 'Įklijuokite adresą čia, vardas, telefonas ir vieta bus atpažinti automatiškai',
+      parse: 'Išmanus atpažinimas',
+      province: 'Provincija/Miestas/Rajonas',
+      city: 'Miestas',
+      district: 'Rajonas/Apskritis',
+      street: 'Gatvė/Miestelis',
+      detail: 'Išsamus adresas',
+      phone: 'Telefonas',
+      name: 'Gavėjas',
+      parseSuccess: 'Adresas sėkmingai atpažintas',
+      parseFailed: 'Atpažinti nepavyko, įveskite rankiniu būdu',
+      required: 'Įveskite pilną adresą',
+      provinceKeywords: ['Provincija', 'Regionas'],
+      cityKeywords: ['Miestas', 'Savivaldybė'],
+      districtKeywords: ['Rajonas', 'Apskritis', 'Seniūnija'],
+      streetKeywords: ['Gatvė', 'Kelias', 'Prospektas', 'Skersgatvis']
+    },
+    ganttchart: {
+      taskName: 'Užduoties pavadinimas',
+      searchPlaceholder: 'Ieškoti užduočių...',
+      zoom: 'Mastelis',
+      day: 'Diena',
+      week: 'Savaitė',
+      month: 'Mėnuo',
+      year: 'Metai',
+      milestone: 'Etapas'
+    },
+    imagemagnifier: {
+      switchToImage: 'Perjungti į vaizdą {index}',
+      galleryItem: 'Galerija {index}',
+      close: 'Uždaryti'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -707,9 +798,32 @@ export const lt: Language = {
         pin: 'Pritvirtinti',
         unpin: 'Atitraukti',
         newConversation: 'Naujas pokalbis',
+        noData: 'Pokalbių dar nėra',
         rename: 'Pervadinti',
         delete: 'Ištrinti',
         deleteConfirm: 'Ar tikrai norite ištrinti šį pokalbį?'
+      },
+      attachments: {
+        dropTip: 'Numeskite failus čia, kad įkeltumėte',
+        clickToUpload: 'Spustelėkite arba vilkite failus įkėlimui',
+        uploadSuccess: 'Įkėlimas sėkmingas',
+        uploadError: 'Įkėlimas nepavyko',
+        deleteConfirm: 'Ar tikrai norite ištrinti šį failą?',
+        fileTooLarge: 'Failo dydis negali viršyti {size}',
+        invalidFileType: 'Netinkamas failo tipas'
+      },
+      mermaid: {
+        image: 'Vaizdas',
+        code: 'Kodas',
+        zoomIn: 'Pritraukti',
+        zoomOut: 'Atitolinti',
+        reset: 'Atstatyti',
+        download: 'Atsisiųsti',
+        copyCode: 'Kopijuoti kodą',
+        rendering: 'Atvaizduojama...',
+        renderError: 'Atvaizdavimas nepavyko',
+        renderSuccess: 'Atvaizdavimas sėkmingas',
+        retry: 'Bandyti dar kartą'
       }
     }
   }

@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import LuckyDraw from '../src/lucky-draw.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('LuckyDraw', () => {
   const prizes = [
@@ -49,5 +52,30 @@ describe('LuckyDraw', () => {
       }
     })
     expect(wrapper.find('.yh-lucky-draw__pointer').exists()).toBe(false)
+  })
+
+  it('uses config-provider locale action text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(LuckyDraw, { prizes })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('Start')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(LuckyDraw, {
+      props: {
+        prizes,
+        themeOverrides: {
+          'pointer-bg': '#722ed1'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-lucky-draw-pointer-bg: #722ed1')
   })
 })

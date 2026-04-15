@@ -81,3 +81,10 @@ export const aiChatEmits = {
 }
 
 export type AiChatEmits = typeof aiChatEmits
+
+export interface AiChatSlots {
+  header?: () => unknown
+  message?: (props: { message: AiChatMessage; index: number }) => unknown
+  loading?: () => unknown
+  sender?: () => unknown
+}

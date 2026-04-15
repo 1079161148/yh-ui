@@ -3,12 +3,14 @@
  */
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import YhColorPicker from '../src/color-picker.vue'
 import SVPanel from '../src/sv-panel.vue'
 import HueSlider from '../src/hue-slider.vue'
 import AlphaSlider from '../src/alpha-slider.vue'
 import { parseColor, hsvToRgb, rgbToHsv } from '../src/utils'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('ColorPicker Utils', () => {
   it('should parse hex colors', () => {
@@ -206,5 +208,40 @@ describe('AlphaSlider', () => {
     slider.element.dispatchEvent(event)
 
     expect(wrapper.emitted('update')?.[0]).toEqual([0.8])
+  })
+})
+
+describe('ColorPicker governance', () => {
+  it('should use config-provider locale text and expose controls', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(YhColorPicker, {
+            modelValue: '#409eff'
+          })
+      }
+    })
+
+    const component = wrapper.findComponent(YhColorPicker)
+    const exposed = (component.vm as any).$?.exposed
+    exposed.togglePopper()
+    await nextTick()
+
+    expect(document.body.textContent).toContain('OK')
+    expect(typeof exposed?.handleClear).toBe('function')
+    expect(typeof exposed?.handleConfirm).toBe('function')
+  })
+
+  it('should keep themeOverrides prop', () => {
+    const wrapper = mount(YhColorPicker, {
+      props: {
+        themeOverrides: {
+          borderColor: '#dcdfe6'
+        }
+      }
+    })
+
+    expect(wrapper.props('themeOverrides')).toEqual({ borderColor: '#dcdfe6' })
   })
 })

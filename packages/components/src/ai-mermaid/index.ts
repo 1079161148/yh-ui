@@ -10,3 +10,8 @@ export type AiMermaidInstance = InstanceType<typeof AiMermaid>
 export type YhAiMermaidInstance = AiMermaidInstance
 
 export type YhAiMermaidProps = import('./src/ai-mermaid').AiMermaidProps
+export type YhAiMermaidEmits = import('./src/ai-mermaid').AiMermaidEmits
+export type YhAiMermaidSlots = import('./src/ai-mermaid').AiMermaidSlots
+export type YhMermaidConfig = import('./src/ai-mermaid').MermaidConfig
+export type YhMermaidActions = import('./src/ai-mermaid').MermaidActions
+export type YhRenderType = import('./src/ai-mermaid').RenderType

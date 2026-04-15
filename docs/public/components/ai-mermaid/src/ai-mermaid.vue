@@ -1,169 +1,174 @@
 <script setup>
-import { ref, computed, watch, shallowRef } from "vue";
-import { useNamespace, useLocale } from "@yh-ui/hooks";
-import { useComponentTheme } from "@yh-ui/theme";
-import { aiMermaidProps, aiMermaidEmits } from "./ai-mermaid";
-import { YhIcon } from "../../icon";
-import { YhSpin } from "../../spin";
+import { ref, computed, watch, shallowRef } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { aiMermaidProps, aiMermaidEmits } from './ai-mermaid'
+import { YhIcon } from '../../icon'
+import { YhSpin } from '../../spin'
 defineOptions({
-  name: "YhAiMermaid"
-});
-const props = defineProps(aiMermaidProps);
-const emit = defineEmits(aiMermaidEmits);
-const ns = useNamespace("ai-mermaid");
-const { t } = useLocale();
+  name: 'YhAiMermaid'
+})
+const props = defineProps(aiMermaidProps)
+const emit = defineEmits(aiMermaidEmits)
+const ns = useNamespace('ai-mermaid')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme(
-  "ai-mermaid",
+  'ai-mermaid',
   computed(() => props.themeOverrides)
-);
-const mermaidModule = shallowRef(null);
-const svgContent = ref("");
-const errorMessage = ref(null);
-const isLoading = ref(false);
-const renderType = ref("image");
-const zoomLevel = ref(1);
-const graphContainerRef = ref(null);
-const canUseDom = typeof window !== "undefined" && typeof document !== "undefined";
+)
+const mermaidModule = shallowRef(null)
+const svgContent = ref('')
+const errorMessage = ref(null)
+const isLoading = ref(false)
+const renderType = ref('image')
+const zoomLevel = ref(1)
+const graphContainerRef = ref(null)
+const canUseDom = typeof window !== 'undefined' && typeof document !== 'undefined'
 const loadMermaid = async () => {
-  if (mermaidModule.value) return mermaidModule.value;
+  if (mermaidModule.value) return mermaidModule.value
   try {
-    const module = await import("mermaid");
-    const mermaid = module.default || module;
-    mermaidModule.value = mermaid;
-    return mermaidModule.value;
+    const module = await import('mermaid')
+    const mermaid = module.default || module
+    mermaidModule.value = mermaid
+    return mermaidModule.value
   } catch (error) {
-    console.error("Failed to load mermaid:", error);
-    errorMessage.value = "Failed to load mermaid library";
-    return null;
+    console.error('Failed to load mermaid:', error)
+    errorMessage.value = 'Failed to load mermaid library'
+    return null
   }
-};
+}
 const renderGraph = async () => {
   if (!props.code) {
-    svgContent.value = "";
-    return;
+    svgContent.value = ''
+    return
   }
   if (!canUseDom) {
-    svgContent.value = "";
-    errorMessage.value = null;
-    return;
+    svgContent.value = ''
+    errorMessage.value = null
+    return
   }
-  isLoading.value = true;
-  errorMessage.value = null;
+  isLoading.value = true
+  errorMessage.value = null
   try {
-    const module = await loadMermaid();
+    const module = await loadMermaid()
     if (!module) {
-      isLoading.value = false;
-      return;
+      isLoading.value = false
+      return
     }
     module.initialize({
       startOnLoad: false,
-      securityLevel: "loose"
-    });
-    let processedCode = props.code;
+      securityLevel: 'loose'
+    })
+    let processedCode = props.code
     if (props.config && Object.keys(props.config).length > 0) {
-      const configStr = JSON.stringify(props.config);
+      const configStr = JSON.stringify(props.config)
       processedCode = `%%{init: ${configStr}}%%
-${processedCode}`;
+${processedCode}`
     }
-    const id = `mermaid-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const { svg } = await module.render(id, processedCode);
-    svgContent.value = svg;
-    emit("ready");
+    const id = `mermaid-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+    const { svg } = await module.render(id, processedCode)
+    svgContent.value = svg
+    emit('ready')
   } catch (error) {
-    console.error("Failed to render mermaid:", error);
-    errorMessage.value = error instanceof Error ? error.message : "Failed to render diagram";
-    emit("error", error instanceof Error ? error : new Error(String(error)));
+    console.error('Failed to render mermaid:', error)
+    errorMessage.value = error instanceof Error ? error.message : 'Failed to render diagram'
+    emit('error', error instanceof Error ? error : new Error(String(error)))
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
-};
+}
 watch(
   [() => props.code, () => props.config],
   () => {
-    if (canUseDom && renderType.value === "image") {
-      renderGraph();
+    if (canUseDom && renderType.value === 'image') {
+      renderGraph()
     }
   },
   { immediate: true, deep: true }
-);
+)
 const handleRenderTypeChange = (type) => {
-  renderType.value = type;
-  emit("render-type-change", type);
+  renderType.value = type
+  emit('render-type-change', type)
   if (props.onRenderTypeChange) {
-    props.onRenderTypeChange(type);
+    props.onRenderTypeChange(type)
   }
-  if (canUseDom && type === "image") {
-    renderGraph();
+  if (canUseDom && type === 'image') {
+    renderGraph()
   }
-};
+}
 const handleZoomIn = () => {
   if (zoomLevel.value < 3) {
-    zoomLevel.value = Number((zoomLevel.value + 0.1).toFixed(1));
+    zoomLevel.value = Number((zoomLevel.value + 0.1).toFixed(1))
   }
-};
+}
 const handleZoomOut = () => {
   if (zoomLevel.value > 0.5) {
-    zoomLevel.value = Number((zoomLevel.value - 0.1).toFixed(1));
+    zoomLevel.value = Number((zoomLevel.value - 0.1).toFixed(1))
   }
-};
+}
 const handleReset = () => {
-  zoomLevel.value = 1;
-};
+  zoomLevel.value = 1
+}
 const handleCopy = async () => {
   try {
-    await navigator.clipboard.writeText(props.code);
+    await navigator.clipboard.writeText(props.code)
   } catch (error) {
-    console.error("Failed to copy code:", error);
+    console.error('Failed to copy code:', error)
   }
-};
+}
 const handleDownload = () => {
-  const el = graphContainerRef.value?.querySelector("svg");
-  if (!el) return;
+  const el = graphContainerRef.value?.querySelector('svg')
+  if (!el) return
   try {
-    const svgData = new XMLSerializer().serializeToString(el);
-    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(svgBlob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `mermaid-chart-${Date.now()}.svg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const svgData = new XMLSerializer().serializeToString(el)
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
+    const url = URL.createObjectURL(svgBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `mermaid-chart-${Date.now()}.svg`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   } catch (error) {
-    console.error("Failed to download SVG:", error);
+    console.error('Failed to download SVG:', error)
   }
-};
+}
 const transformStyle = computed(() => ({
   transform: `scale(${zoomLevel.value})`,
-  transformOrigin: "top left"
-}));
+  transformOrigin: 'top left'
+}))
 const actionButtons = computed(() => {
-  const { enableZoom, enableDownload, enableCopy, customActions } = props.actions;
-  const buttons = [];
+  const { enableZoom, enableDownload, enableCopy, customActions } = props.actions
+  const buttons = []
   if (enableZoom) {
     buttons.push(
-      { key: "zoom-in", label: t("ai.mermaid.zoomIn"), icon: "zoom-in", onClick: handleZoomIn },
-      { key: "zoom-out", label: t("ai.mermaid.zoomOut"), icon: "zoom-out", onClick: handleZoomOut },
-      { key: "reset", label: t("ai.mermaid.reset"), icon: "refresh", onClick: handleReset }
-    );
+      { key: 'zoom-in', label: t('ai.mermaid.zoomIn'), icon: 'zoom-in', onClick: handleZoomIn },
+      { key: 'zoom-out', label: t('ai.mermaid.zoomOut'), icon: 'zoom-out', onClick: handleZoomOut },
+      { key: 'reset', label: t('ai.mermaid.reset'), icon: 'refresh', onClick: handleReset }
+    )
   }
   if (enableDownload) {
     buttons.push({
-      key: "download",
-      label: t("ai.mermaid.download"),
-      icon: "download",
+      key: 'download',
+      label: t('ai.mermaid.download'),
+      icon: 'download',
       onClick: handleDownload
-    });
+    })
   }
   if (enableCopy) {
-    buttons.push({ key: "copy", label: t("ai.mermaid.copy"), icon: "copy", onClick: handleCopy });
+    buttons.push({
+      key: 'copy',
+      label: t('ai.mermaid.copyCode'),
+      icon: 'copy',
+      onClick: handleCopy
+    })
   }
   if (customActions) {
-    buttons.push(...customActions);
+    buttons.push(...customActions)
   }
-  return buttons;
-});
+  return buttons
+})
 </script>
 
 <template>
@@ -186,14 +191,14 @@ const actionButtons = computed(() => {
           @click="handleRenderTypeChange('image')"
         >
           <YhIcon name="image" />
-          <span>{{ t("ai.mermaid.image") }}</span>
+          <span>{{ t('ai.mermaid.image') }}</span>
         </button>
         <button
           :class="[ns.e('render-tab'), renderType === 'code' && ns.is('active')]"
           @click="handleRenderTypeChange('code')"
         >
           <YhIcon name="code" />
-          <span>{{ t("ai.mermaid.code") }}</span>
+          <span>{{ t('ai.mermaid.code') }}</span>
         </button>
       </div>
       <div v-if="actionButtons.length > 0" :class="ns.e('action-buttons')">
@@ -220,7 +225,7 @@ const actionButtons = computed(() => {
       <div v-else-if="errorMessage" :class="ns.e('error')">
         <YhIcon name="warning" />
         <span>{{ errorMessage }}</span>
-        <button @click="renderGraph">{{ t("ai.mermaid.retry") }}</button>
+        <button @click="renderGraph">{{ t('ai.mermaid.retry') }}</button>
       </div>
 
       <!-- 代码模式 -->
@@ -807,7 +812,7 @@ html.dark {
   background: #282c34;
   border-radius: 4px;
   overflow-x: auto;
-  font-family: "Fira Code", "Consolas", monospace;
+  font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 13px;
   line-height: 1.5;
   color: #abb2bf;

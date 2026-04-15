@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.spinProps = void 0;
+exports.spinProps = exports.spinEmits = void 0;
 const spinProps = exports.spinProps = {
   /** 是否开启加载状态 */
   show: {
@@ -58,4 +58,8 @@ const spinProps = exports.spinProps = {
     type: Object,
     default: void 0
   }
+};
+const spinEmits = exports.spinEmits = {
+  show: () => true,
+  hide: () => true
 };

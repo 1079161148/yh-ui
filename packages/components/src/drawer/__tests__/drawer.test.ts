@@ -138,4 +138,35 @@ describe('Drawer', () => {
     await wrapper.setProps({ modelValue: false })
     await nextTick()
   })
+
+  it('should apply locale close label and themeOverrides', async () => {
+    mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        showClose: true,
+        themeOverrides: {
+          bgColor: 'rgb(250, 250, 250)'
+        }
+      }
+    })
+
+    await nextTick()
+    const drawer = document.querySelector('.yh-drawer') as HTMLElement
+    const closeBtn = document.querySelector('.yh-drawer__close') as HTMLElement
+
+    expect(closeBtn.getAttribute('aria-label')).toBeTruthy()
+    expect(drawer.style.getPropertyValue('--yh-drawer-bg-color')).toBe('rgb(250, 250, 250)')
+  })
+
+  it('should expose drawer instance methods and refs', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: { modelValue: true, title: 'Expose drawer' }
+    })
+
+    await nextTick()
+    const exposed = (wrapper.vm as any).$?.exposed
+
+    expect(exposed?.drawerRef?.value).toBeInstanceOf(HTMLElement)
+    expect(typeof exposed?.handleClose).toBe('function')
+  })
 })

@@ -595,6 +595,97 @@ export const af = {
       noData: "Geen data"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Kies spesifikasies",
+      emptyText: "Geen spesifikasies nie",
+      stock: "Voorraad",
+      price: "Prys",
+      selected: "Gekies",
+      outOfStock: "Nie in voorraad nie"
+    },
+    productcard: {
+      viewDetails: "Bekyk besonderhede",
+      buyNow: "Koop nou",
+      addToCart: "Voeg by mandjie",
+      sold: "Verkoop",
+      soldOut: "Uitverkoop",
+      vip: "Lid"
+    },
+    price: {
+      original: "Oorspronklike prys"
+    },
+    couponcard: {
+      available: "Kry nou",
+      used: "Gebruik",
+      expired: "Verval",
+      received: "Ontvang",
+      limit: "Bestellings bo {threshold}",
+      noThreshold: "Geen drempel nie",
+      validPeriod: "Geldigheidsperiode",
+      ruleTitle: "Gebruiksre\xEBls"
+    },
+    luckydraw: {
+      start: "Begin",
+      drawing: "Trek...",
+      end: "Wenner!",
+      retry: "Probeer weer"
+    },
+    filterbar: {
+      all: "Alles",
+      sort: "Sorteer",
+      filter: "Filter",
+      cancel: "Kanselleer",
+      reset: "Herstel",
+      confirm: "Bevestig",
+      noOptions: "Geen opsies nie",
+      asc: "Stygend",
+      desc: "Dalend",
+      selected: "Gekies"
+    },
+    submitbar: {
+      total: "Totaal: ",
+      selected: "{count} gekies",
+      submit: "Betaal nou",
+      allSelect: "Kies alles"
+    },
+    categorynav: {
+      all: "Alles",
+      noData: "Geen data nie",
+      loading: "Laai..."
+    },
+    smartaddress: {
+      placeholder: "Plak adres hier om naam, foon en ligging outomaties te herken",
+      parse: "Slim ontleding",
+      province: "Provinsie/Stad/Distrik",
+      city: "Stad",
+      district: "Distrik/Area",
+      street: "Straat/Dorp",
+      detail: "Volledige adres",
+      phone: "Foon",
+      name: "Ontvanger",
+      parseSuccess: "Adres suksesvol ontleed",
+      parseFailed: "Ontleding het misluk, vul asseblief handmatig in",
+      required: "Vul asseblief die volledige adres in",
+      provinceKeywords: ["Provinsie", "Staat"],
+      cityKeywords: ["Stad", "Munisipaliteit"],
+      districtKeywords: ["Distrik", "Area", "Wyk"],
+      streetKeywords: ["Straat", "Pad", "Laan", "Stegie"]
+    },
+    ganttchart: {
+      taskName: "Taaknaam",
+      searchPlaceholder: "Soek take...",
+      zoom: "Zoem",
+      day: "Dag",
+      week: "Week",
+      month: "Maand",
+      year: "Jaar",
+      milestone: "Mylpaal"
+    },
+    imagemagnifier: {
+      switchToImage: "Skakel na beeld {index}",
+      galleryItem: "Galery {index}",
+      close: "Sluit"
+    },
     ai: {
       bubble: {
         citations: "Verwysings"
@@ -704,9 +795,32 @@ export const af = {
         pin: "Speld vas",
         unpin: "Maak los",
         newConversation: "Nuwe gesprek",
+        noData: "Nog geen gesprekke nie",
         rename: "Hernoem",
         delete: "Skrap",
         deleteConfirm: "Bevestig dat hierdie gesprek geskrap moet word?"
+      },
+      attachments: {
+        dropTip: "Laat l\xEA l\xEAers hier om op te laai",
+        clickToUpload: "Klik of sleep l\xEAers om op te laai",
+        uploadSuccess: "Oplaai suksesvol",
+        uploadError: "Oplaai het misluk",
+        deleteConfirm: "Is jy seker jy wil hierdie l\xEAer skrap?",
+        fileTooLarge: "L\xEAergrootte mag nie {size} oorskry nie",
+        invalidFileType: "Ongeldige l\xEAertipe"
+      },
+      mermaid: {
+        image: "Beeld",
+        code: "Kode",
+        zoomIn: "Zoem in",
+        zoomOut: "Zoem uit",
+        reset: "Herstel",
+        download: "Laai af",
+        copyCode: "Kopieer kode",
+        rendering: "Besig om te render...",
+        renderError: "Render het misluk",
+        renderSuccess: "Render suksesvol",
+        retry: "Probeer weer"
       }
     }
   }

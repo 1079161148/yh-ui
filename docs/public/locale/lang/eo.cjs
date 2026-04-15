@@ -601,6 +601,97 @@ const eo = exports.eo = {
       noData: "Neniuj datumoj"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Elektu specifojn",
+      emptyText: "Neniuj specifoj",
+      stock: "Stoko",
+      price: "Prezo",
+      selected: "Elektita",
+      outOfStock: "El\u0109erpita"
+    },
+    productcard: {
+      viewDetails: "Vidi detalojn",
+      buyNow: "A\u0109etu nun",
+      addToCart: "Aldoni al \u0109aro",
+      sold: "Vendita",
+      soldOut: "El\u0109erpita",
+      vip: "VIP"
+    },
+    price: {
+      original: "Origina prezo"
+    },
+    couponcard: {
+      available: "Akiru nun",
+      used: "Uzita",
+      expired: "Eksvalidi\u011Dis",
+      received: "Ricevita",
+      limit: "Mendoj super {threshold}",
+      noThreshold: "Sen minimuma limo",
+      validPeriod: "Valideca periodo",
+      ruleTitle: "Uzreguloj"
+    },
+    luckydraw: {
+      start: "Komenci",
+      drawing: "Tirado...",
+      end: "Gajninto!",
+      retry: "Provu denove"
+    },
+    filterbar: {
+      all: "\u0108io",
+      sort: "Ordigi",
+      filter: "Filtri",
+      cancel: "Nuligi",
+      reset: "Restarigi",
+      confirm: "Konfirmi",
+      noOptions: "Neniuj opcioj",
+      asc: "Kreskante",
+      desc: "Malkreskante",
+      selected: "Elektita"
+    },
+    submitbar: {
+      total: "Sumo: ",
+      selected: "{count} elektitaj",
+      submit: "Elpagi",
+      allSelect: "Elekti \u0109ion"
+    },
+    categorynav: {
+      all: "\u0108io",
+      noData: "Neniuj datumoj",
+      loading: "\u015Cargado..."
+    },
+    smartaddress: {
+      placeholder: "Algluu adreson \u0109i tie por a\u016Dtomate rekoni nomon, telefonon kaj lokon",
+      parse: "Inteligenta analizo",
+      province: "Provinco/Urbo/Distrikto",
+      city: "Urbo",
+      district: "Distrikto/Regiono",
+      street: "Strato/Urbeto",
+      detail: "Detala adreso",
+      phone: "Telefono",
+      name: "Ricevanto",
+      parseSuccess: "Adreso sukcese analizita",
+      parseFailed: "Analizo malsukcesis, bonvolu plenigi permane",
+      required: "Bonvolu enigi kompletan adreson",
+      provinceKeywords: ["Provinco", "\u015Ctato"],
+      cityKeywords: ["Urbo", "Municipo"],
+      districtKeywords: ["Distrikto", "Regiono", "Kvartalo"],
+      streetKeywords: ["Strato", "Vojo", "Aleo", "Pasejo"]
+    },
+    ganttchart: {
+      taskName: "Nomo de tasko",
+      searchPlaceholder: "Ser\u0109i taskojn...",
+      zoom: "Zomo",
+      day: "Tago",
+      week: "Semajno",
+      month: "Monato",
+      year: "Jaro",
+      milestone: "Mejlo\u015Dtono"
+    },
+    imagemagnifier: {
+      switchToImage: "\u015Can\u011Di al bildo {index}",
+      galleryItem: "Galerio {index}",
+      close: "Fermi"
+    },
     ai: {
       bubble: {
         citations: "Cita\u0135oj"
@@ -710,9 +801,32 @@ const eo = exports.eo = {
         pin: "Alpingi",
         unpin: "Malalpingi",
         newConversation: "Nova konversacio",
+        noData: "Ankora\u016D neniuj konversacioj",
         rename: "Alinomi",
         delete: "Forigi",
         deleteConfirm: "\u0108u vi certas, ke vi volas forigi tiun \u0109i konversacion?"
+      },
+      attachments: {
+        dropTip: "Faligu dosierojn \u0109i tie por al\u015Duti",
+        clickToUpload: "Klaku a\u016D trenu dosierojn por al\u015Duti",
+        uploadSuccess: "Al\u015Duto sukcesis",
+        uploadError: "Al\u015Duto malsukcesis",
+        deleteConfirm: "\u0108u vi certas, ke vi volas forigi \u0109i tiun dosieron?",
+        fileTooLarge: "La dosiergrandeco ne povas superi {size}",
+        invalidFileType: "Nevalida dosiertipo"
+      },
+      mermaid: {
+        image: "Bildo",
+        code: "Kodo",
+        zoomIn: "Pligrandigi",
+        zoomOut: "Malpligrandigi",
+        reset: "Restarigi",
+        download: "El\u015Duti",
+        copyCode: "Kopii kodon",
+        rendering: "Bildigado...",
+        renderError: "Bildigo malsukcesis",
+        renderSuccess: "Bildigo sukcesis",
+        retry: "Provu denove"
       }
     }
   }

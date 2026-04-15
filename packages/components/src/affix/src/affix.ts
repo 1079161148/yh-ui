@@ -60,3 +60,13 @@ export const affixEmits = {
 
 export type AffixProps = ExtractPropTypes<typeof affixProps>
 export type AffixEmits = typeof affixEmits
+
+export interface AffixSlots {
+  default?: (props: { fixed: boolean }) => unknown
+}
+
+export interface AffixExpose {
+  update: () => void
+  fixed: import('vue').Ref<boolean>
+  scrollTop: import('vue').Ref<number>
+}

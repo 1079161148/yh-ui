@@ -19,3 +19,6 @@ export default YhLoading
 export * from './src/service'
 export * from './src/directive'
 import './src/loading.scss'
+
+export type YhLoadingOptions = import('./src/service').LoadingOptions
+export type YhLoadingInstance = import('./src/service').LoadingInstance

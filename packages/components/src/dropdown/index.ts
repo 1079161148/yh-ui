@@ -14,3 +14,14 @@ export * from './src/dropdown'
 export type DropdownInstance = InstanceType<typeof Dropdown>
 export type DropdownItemInstance = InstanceType<typeof DropdownItem>
 export type DropdownMenuInstance = InstanceType<typeof DropdownMenu>
+export type YhDropdownInstance = DropdownInstance
+export type YhDropdownItemInstance = DropdownItemInstance
+export type YhDropdownMenuInstance = DropdownMenuInstance
+export type YhDropdownProps = import('./src/dropdown').DropdownProps
+export type YhDropdownEmits = import('./src/dropdown').DropdownEmits
+export type YhDropdownSlots = import('./src/dropdown').DropdownSlots
+export type YhDropdownExpose = import('./src/dropdown').DropdownExpose
+export type YhDropdownTrigger = import('./src/dropdown').DropdownTrigger
+export type YhDropdownItemData = import('./src/dropdown').DropdownItemData
+export type YhDropdownItemProps = import('./src/dropdown').DropdownItemProps
+export type YhDropdownMenuProps = import('./src/dropdown').DropdownMenuProps

@@ -154,3 +154,20 @@ export const uploadEmits = {
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>
 export type UploadEmits = typeof uploadEmits
+
+export interface UploadSlots {
+  default?: () => unknown
+  trigger?: () => unknown
+  tip?: () => unknown
+  file?: (props: { file: UploadFile }) => unknown
+  'file-icon'?: (props: { file: UploadFile }) => unknown
+}
+
+export interface UploadExpose {
+  triggerInput: () => void
+  handleRemove: (file: UploadFile) => void | Promise<void>
+  handlePreview: (file: UploadFile) => void
+  handleDownload: (file: UploadFile) => void
+  handleFiles: (files: File[] | FileList) => Promise<void>
+  submit: () => void
+}

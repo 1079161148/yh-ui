@@ -597,6 +597,97 @@ export const eo: Language = {
       noData: 'Neniuj datumoj'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Elektu specifojn',
+      emptyText: 'Neniuj specifoj',
+      stock: 'Stoko',
+      price: 'Prezo',
+      selected: 'Elektita',
+      outOfStock: 'Elĉerpita'
+    },
+    productcard: {
+      viewDetails: 'Vidi detalojn',
+      buyNow: 'Aĉetu nun',
+      addToCart: 'Aldoni al ĉaro',
+      sold: 'Vendita',
+      soldOut: 'Elĉerpita',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Origina prezo'
+    },
+    couponcard: {
+      available: 'Akiru nun',
+      used: 'Uzita',
+      expired: 'Eksvalidiĝis',
+      received: 'Ricevita',
+      limit: 'Mendoj super {threshold}',
+      noThreshold: 'Sen minimuma limo',
+      validPeriod: 'Valideca periodo',
+      ruleTitle: 'Uzreguloj'
+    },
+    luckydraw: {
+      start: 'Komenci',
+      drawing: 'Tirado...',
+      end: 'Gajninto!',
+      retry: 'Provu denove'
+    },
+    filterbar: {
+      all: 'Ĉio',
+      sort: 'Ordigi',
+      filter: 'Filtri',
+      cancel: 'Nuligi',
+      reset: 'Restarigi',
+      confirm: 'Konfirmi',
+      noOptions: 'Neniuj opcioj',
+      asc: 'Kreskante',
+      desc: 'Malkreskante',
+      selected: 'Elektita'
+    },
+    submitbar: {
+      total: 'Sumo: ',
+      selected: '{count} elektitaj',
+      submit: 'Elpagi',
+      allSelect: 'Elekti ĉion'
+    },
+    categorynav: {
+      all: 'Ĉio',
+      noData: 'Neniuj datumoj',
+      loading: 'Ŝargado...'
+    },
+    smartaddress: {
+      placeholder: 'Algluu adreson ĉi tie por aŭtomate rekoni nomon, telefonon kaj lokon',
+      parse: 'Inteligenta analizo',
+      province: 'Provinco/Urbo/Distrikto',
+      city: 'Urbo',
+      district: 'Distrikto/Regiono',
+      street: 'Strato/Urbeto',
+      detail: 'Detala adreso',
+      phone: 'Telefono',
+      name: 'Ricevanto',
+      parseSuccess: 'Adreso sukcese analizita',
+      parseFailed: 'Analizo malsukcesis, bonvolu plenigi permane',
+      required: 'Bonvolu enigi kompletan adreson',
+      provinceKeywords: ['Provinco', 'Ŝtato'],
+      cityKeywords: ['Urbo', 'Municipo'],
+      districtKeywords: ['Distrikto', 'Regiono', 'Kvartalo'],
+      streetKeywords: ['Strato', 'Vojo', 'Aleo', 'Pasejo']
+    },
+    ganttchart: {
+      taskName: 'Nomo de tasko',
+      searchPlaceholder: 'Serĉi taskojn...',
+      zoom: 'Zomo',
+      day: 'Tago',
+      week: 'Semajno',
+      month: 'Monato',
+      year: 'Jaro',
+      milestone: 'Mejloŝtono'
+    },
+    imagemagnifier: {
+      switchToImage: 'Ŝanĝi al bildo {index}',
+      galleryItem: 'Galerio {index}',
+      close: 'Fermi'
+    },
     ai: {
       bubble: {
         citations: 'Citaĵoj'
@@ -707,9 +798,32 @@ export const eo: Language = {
         pin: 'Alpingi',
         unpin: 'Malalpingi',
         newConversation: 'Nova konversacio',
+        noData: 'Ankoraŭ neniuj konversacioj',
         rename: 'Alinomi',
         delete: 'Forigi',
         deleteConfirm: 'Ĉu vi certas, ke vi volas forigi tiun ĉi konversacion?'
+      },
+      attachments: {
+        dropTip: 'Faligu dosierojn ĉi tie por alŝuti',
+        clickToUpload: 'Klaku aŭ trenu dosierojn por alŝuti',
+        uploadSuccess: 'Alŝuto sukcesis',
+        uploadError: 'Alŝuto malsukcesis',
+        deleteConfirm: 'Ĉu vi certas, ke vi volas forigi ĉi tiun dosieron?',
+        fileTooLarge: 'La dosiergrandeco ne povas superi {size}',
+        invalidFileType: 'Nevalida dosiertipo'
+      },
+      mermaid: {
+        image: 'Bildo',
+        code: 'Kodo',
+        zoomIn: 'Pligrandigi',
+        zoomOut: 'Malpligrandigi',
+        reset: 'Restarigi',
+        download: 'Elŝuti',
+        copyCode: 'Kopii kodon',
+        rendering: 'Bildigado...',
+        renderError: 'Bildigo malsukcesis',
+        renderSuccess: 'Bildigo sukcesis',
+        retry: 'Provu denove'
       }
     }
   }

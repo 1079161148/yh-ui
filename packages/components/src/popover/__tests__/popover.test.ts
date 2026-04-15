@@ -104,4 +104,46 @@ describe('Popover', () => {
     expect(styles).toContain('max-height: 150px')
     expect(styles).toContain('overflow-y: auto')
   })
+  it('should apply theme overrides and expose popover state', () => {
+    const wrapper = mount(YhPopover, {
+      props: {
+        themeOverrides: {
+          radius: '20px'
+        }
+      },
+      slots: {
+        default: () => h('button', { id: 'trigger' }, 'Trigger')
+      },
+      global: globalConfig
+    })
+
+    wrapper.vm.toggle(true)
+    expect(typeof wrapper.vm.toggle).toBe('function')
+    expect((wrapper.vm as any).$?.exposed?.visible).toBeTruthy()
+  })
+
+  it('should apply theme overrides to popover content', async () => {
+    const wrapper = mount(YhPopover, {
+      props: {
+        themeOverrides: {
+          radius: '20px'
+        },
+        teleported: false
+      },
+      slots: {
+        default: () => h('button', { id: 'trigger' }, 'Trigger')
+      },
+      global: globalConfig
+    })
+
+    await wrapper.find('#trigger').trigger('click')
+    await nextTick()
+    await wait(50)
+
+    expect(wrapper.find('.yh-popover__content').attributes('style')).toContain(
+      '--yh-popover-radius: 20px'
+    )
+    expect(typeof wrapper.vm.toggle).toBe('function')
+    expect((wrapper.vm as any).$?.exposed?.visible).toBeTruthy()
+  })
 })

@@ -127,3 +127,9 @@ export const aiAgentCardEmits = {
 }
 
 export type AiAgentCardEmits = typeof aiAgentCardEmits
+
+export interface AiAgentCardSlots {
+  avatar?: () => unknown
+  actions?: (props: { data: AgentData; use: () => void }) => unknown
+  default?: (props: { data: AgentData }) => unknown
+}

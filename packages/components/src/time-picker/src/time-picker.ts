@@ -4,7 +4,7 @@
  * 设计参考: 市面组件库, Naive UI, Ant Design Vue
  */
 
-import type { Component } from 'vue'
+import type { Component, Ref } from 'vue'
 
 export type TimePickerSize = 'large' | 'default' | 'small'
 
@@ -157,7 +157,7 @@ export interface TimePickerExpose {
   /** 关闭面板 */
   close: () => void
   /** 输入框引用 */
-  inputRef: HTMLInputElement | undefined
+  inputRef: Ref<HTMLInputElement | undefined>
 }
 
 /**

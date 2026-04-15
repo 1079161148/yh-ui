@@ -7,7 +7,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type { MessageProps, MessageEmits } from './message'
+import type { MessageProps, MessageEmits, MessageExpose } from './message'
 
 defineOptions({
   name: 'YhMessage'
@@ -136,7 +136,7 @@ onMounted(() => {
 })
 
 // 暴露方法
-defineExpose({
+defineExpose<MessageExpose>({
   visible,
   close
 })

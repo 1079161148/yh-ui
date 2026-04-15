@@ -219,3 +219,18 @@ export const dialogEmits = {
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>
 export type DialogEmits = typeof dialogEmits
+
+export interface DialogSlots {
+  default?: () => unknown
+  header?: () => unknown
+  title?: () => unknown
+  footer?: () => unknown
+}
+
+export interface DialogExpose {
+  visible: import('vue').Ref<boolean>
+  dialogRef: import('vue').Ref<HTMLElement | null>
+  handleClose: () => void
+  handleCancel: () => void
+  handleConfirm: () => void
+}

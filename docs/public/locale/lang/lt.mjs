@@ -594,6 +594,97 @@ export const lt = {
       loading: "Kraunama...",
       noData: "N\u0117ra duomen\u0173"
     },
+    skuselector: {
+      placeholder: "Pasirinkite specifikacijas",
+      emptyText: "Specifikacij\u0173 n\u0117ra",
+      stock: "Likutis",
+      price: "Kaina",
+      selected: "Pasirinkta",
+      outOfStock: "Neb\u0117ra sand\u0117lyje"
+    },
+    productcard: {
+      viewDetails: "Per\u017Ei\u016Br\u0117ti detales",
+      buyNow: "Pirkti dabar",
+      addToCart: "\u012Ed\u0117ti \u012F krep\u0161el\u012F",
+      sold: "Parduota",
+      soldOut: "I\u0161parduota",
+      vip: "VIP"
+    },
+    price: {
+      original: "Pradin\u0117"
+    },
+    couponcard: {
+      available: "Atsiimti dabar",
+      used: "Panaudota",
+      expired: "Baig\u0117si galiojimas",
+      received: "Gauta",
+      limit: "U\u017Esakymams vir\u0161 {threshold}",
+      noThreshold: "Be minimalios sumos",
+      validPeriod: "Galiojimo laikotarpis",
+      ruleTitle: "Naudojimo taisykl\u0117s"
+    },
+    luckydraw: {
+      start: "Prad\u0117ti",
+      drawing: "Traukiama...",
+      end: "Laim\u0117tojas!",
+      retry: "Bandyti dar kart\u0105"
+    },
+    filterbar: {
+      all: "Visi",
+      sort: "R\u016B\u0161iuoti",
+      filter: "Filtras",
+      cancel: "At\u0161aukti",
+      reset: "Atkurti",
+      confirm: "Patvirtinti",
+      noOptions: "N\u0117ra parink\u010Di\u0173",
+      asc: "Did\u0117jan\u010Diai",
+      desc: "Ma\u017E\u0117jan\u010Diai",
+      selected: "Pasirinkta"
+    },
+    submitbar: {
+      total: "I\u0161 viso: ",
+      selected: "Pasirinkta: {count}",
+      submit: "Apmok\u0117ti",
+      allSelect: "Pasirinkti visk\u0105"
+    },
+    categorynav: {
+      all: "Visi",
+      noData: "N\u0117ra duomen\u0173",
+      loading: "Kraunama..."
+    },
+    smartaddress: {
+      placeholder: "\u012Eklijuokite adres\u0105 \u010Dia, vardas, telefonas ir vieta bus atpa\u017Einti automati\u0161kai",
+      parse: "I\u0161manus atpa\u017Einimas",
+      province: "Provincija/Miestas/Rajonas",
+      city: "Miestas",
+      district: "Rajonas/Apskritis",
+      street: "Gatv\u0117/Miestelis",
+      detail: "I\u0161samus adresas",
+      phone: "Telefonas",
+      name: "Gav\u0117jas",
+      parseSuccess: "Adresas s\u0117kmingai atpa\u017Eintas",
+      parseFailed: "Atpa\u017Einti nepavyko, \u012Fveskite rankiniu b\u016Bdu",
+      required: "\u012Eveskite piln\u0105 adres\u0105",
+      provinceKeywords: ["Provincija", "Regionas"],
+      cityKeywords: ["Miestas", "Savivaldyb\u0117"],
+      districtKeywords: ["Rajonas", "Apskritis", "Seni\u016Bnija"],
+      streetKeywords: ["Gatv\u0117", "Kelias", "Prospektas", "Skersgatvis"]
+    },
+    ganttchart: {
+      taskName: "U\u017Eduoties pavadinimas",
+      searchPlaceholder: "Ie\u0161koti u\u017Eduo\u010Di\u0173...",
+      zoom: "Mastelis",
+      day: "Diena",
+      week: "Savait\u0117",
+      month: "M\u0117nuo",
+      year: "Metai",
+      milestone: "Etapas"
+    },
+    imagemagnifier: {
+      switchToImage: "Perjungti \u012F vaizd\u0105 {index}",
+      galleryItem: "Galerija {index}",
+      close: "U\u017Edaryti"
+    },
     // AI Components
     ai: {
       bubble: {
@@ -704,9 +795,32 @@ export const lt = {
         pin: "Pritvirtinti",
         unpin: "Atitraukti",
         newConversation: "Naujas pokalbis",
+        noData: "Pokalbi\u0173 dar n\u0117ra",
         rename: "Pervadinti",
         delete: "I\u0161trinti",
         deleteConfirm: "Ar tikrai norite i\u0161trinti \u0161\u012F pokalb\u012F?"
+      },
+      attachments: {
+        dropTip: "Numeskite failus \u010Dia, kad \u012Fkeltum\u0117te",
+        clickToUpload: "Spustel\u0117kite arba vilkite failus \u012Fk\u0117limui",
+        uploadSuccess: "\u012Ek\u0117limas s\u0117kmingas",
+        uploadError: "\u012Ek\u0117limas nepavyko",
+        deleteConfirm: "Ar tikrai norite i\u0161trinti \u0161\u012F fail\u0105?",
+        fileTooLarge: "Failo dydis negali vir\u0161yti {size}",
+        invalidFileType: "Netinkamas failo tipas"
+      },
+      mermaid: {
+        image: "Vaizdas",
+        code: "Kodas",
+        zoomIn: "Pritraukti",
+        zoomOut: "Atitolinti",
+        reset: "Atstatyti",
+        download: "Atsisi\u0173sti",
+        copyCode: "Kopijuoti kod\u0105",
+        rendering: "Atvaizduojama...",
+        renderError: "Atvaizdavimas nepavyko",
+        renderSuccess: "Atvaizdavimas s\u0117kmingas",
+        retry: "Bandyti dar kart\u0105"
       }
     }
   }

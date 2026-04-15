@@ -513,13 +513,13 @@ export const ko = {
     marquee: {},
     affix: {},
     anchor: {},
-    // 提及
+    // 鎻愬強
     mention: {
       placeholder: "\uC785\uB825\uD558\uC138\uC694",
       loading: "\uB85C\uB529 \uC911...",
       noData: "\uB370\uC774\uD130 \uC5C6\uC74C"
     },
-    // AI 컴포넌트
+    // AI 旎错彫雱岉姼
     ai: {
       bubble: {
         citations: "\uC778\uC6A9"

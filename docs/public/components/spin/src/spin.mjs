@@ -53,3 +53,7 @@ export const spinProps = {
     default: void 0
   }
 };
+export const spinEmits = {
+  show: () => true,
+  hide: () => true
+};

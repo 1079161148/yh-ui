@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type CSSProperties } from 'vue'
-import { drawerProps, drawerEmits } from './drawer'
+import { drawerProps, drawerEmits, type DrawerExpose } from './drawer'
 import { YhIcon } from '../../icon'
 import { useNamespace, useZIndex, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -224,7 +224,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeyDown)
 })
 
-defineExpose({
+defineExpose<DrawerExpose>({
   drawerRef,
   handleClose
 })

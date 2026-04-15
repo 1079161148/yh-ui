@@ -24,6 +24,16 @@ describe('YhContainer', () => {
   })
 })
 
+it('should keep themeOverrides props on layout pieces', () => {
+  const container = mount(Container, { props: { themeOverrides: { bgColor: '#fff' } } })
+  const header = mount(Header, { props: { themeOverrides: { height: '72px' } } })
+  const aside = mount(Aside, { props: { themeOverrides: { width: '240px' } } })
+
+  expect(container.props('themeOverrides')).toEqual({ bgColor: '#fff' })
+  expect(header.props('themeOverrides')).toEqual({ height: '72px' })
+  expect(aside.props('themeOverrides')).toEqual({ width: '240px' })
+})
+
 describe('YhHeader', () => {
   it('应该渲染 header 标签', () => {
     const wrapper = mount(Header)

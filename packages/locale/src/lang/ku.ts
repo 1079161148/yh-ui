@@ -5,7 +5,7 @@ export const ku: Language = {
   yh: {
     // Giştî
     common: {
-      yes: 'Erê',
+      yes: 'Er\xEA',
       no: 'Na',
       confirm: 'Pejirandin',
       cancel: 'Betal kirin',
@@ -14,68 +14,68 @@ export const ku: Language = {
       clear: 'Paqij kirin',
       reset: 'Reset kirin',
       save: 'Tomar kirin',
-      delete: 'Jêbirin',
+      delete: 'J\xEAbirin',
       edit: 'Guhertin',
-      add: 'Zêde kirin',
-      search: 'Lêgerîn',
-      refresh: 'Nû kirin',
+      add: 'Z\xEAde kirin',
+      search: 'L\xEAger\xEEn',
+      refresh: 'N\xFB kirin',
       expand: 'Fireh kirin',
-      collapse: 'Kêm kirin',
-      more: 'Bêtir',
-      noData: 'Daneyên tune',
-      noMatch: 'Daneyên lihevhatî tune',
-      selectAll: 'Hemû hilbijêre',
-      unselectAll: 'Hemû hilbijartinê betal bike'
+      collapse: 'K\xEAm kirin',
+      more: 'B\xEAtir',
+      noData: 'Daney\xEAn tune',
+      noMatch: 'Daney\xEAn lihevhat\xEE tune',
+      selectAll: 'Hem\xFB hilbij\xEAre',
+      unselectAll: 'Hem\xFB hilbijartin\xEA betal bike'
     },
     // Hilbijartina rengê
     colorpicker: {
-      confirm: 'Baş e',
+      confirm: 'Ba\u015F e',
       clear: 'Paqij kirin',
-      eyeDropper: 'Çavik',
-      suggestionDark: 'Nivîsa spî çêtir e',
-      suggestionLight: 'Nivîsa reş çêtir e',
-      recentColors: 'Rengên dawî',
-      presetColors: 'Rengên pêş-vekirî'
+      eyeDropper: '\xC7avik',
+      suggestionDark: 'Niv\xEEsa sp\xEE \xE7\xEAtir e',
+      suggestionLight: 'Niv\xEEsa re\u015F \xE7\xEAtir e',
+      recentColors: 'Reng\xEAn daw\xEE',
+      presetColors: 'Reng\xEAn p\xEA\u015F-vekir\xEE'
     },
     // Hilbijartina rojê
     datepicker: {
       now: 'Niha',
-      today: 'Îro',
+      today: '\xCEro',
       cancel: 'Betal kirin',
       clear: 'Paqij kirin',
-      confirm: 'Baş e',
-      selectDate: 'Rojê hilbijêre',
-      selectTime: 'Demê hilbijêre',
-      startDate: 'Rojê destpêkê',
-      startTime: 'Dema destpêkê',
-      endDate: 'Rojê dawî',
-      endTime: 'Dema dawî',
+      confirm: 'Ba\u015F e',
+      selectDate: 'Roj\xEA hilbij\xEAre',
+      selectTime: 'Dem\xEA hilbij\xEAre',
+      startDate: 'Roj\xEA destp\xEAk\xEA',
+      startTime: 'Dema destp\xEAk\xEA',
+      endDate: 'Roj\xEA daw\xEE',
+      endTime: 'Dema daw\xEE',
       year: '',
       month: '',
       day: '',
       week: 'Hefte',
       monthBeforeYear: true,
-      prevYear: 'Salê berê',
-      nextYear: 'Salê paş',
-      prevMonth: 'Meha berê',
-      nextMonth: 'Meha paş',
+      prevYear: 'Sal\xEA ber\xEA',
+      nextYear: 'Sal\xEA pa\u015F',
+      prevMonth: 'Meha ber\xEA',
+      nextMonth: 'Meha pa\u015F',
       weeks: {
         sun: 'Yek',
         mon: 'Du',
-        tue: 'Sê',
-        wed: 'Çar',
-        thu: 'Pênc',
-        fri: 'Şeş',
+        tue: 'S\xEA',
+        wed: '\xC7ar',
+        thu: 'P\xEAnc',
+        fri: '\u015Ee\u015F',
         sat: 'Heft'
       },
       months: {
-        jan: 'Rêb',
-        feb: 'Reş',
+        jan: 'R\xEAb',
+        feb: 'Re\u015F',
         mar: 'Ada',
-        apr: 'Nîs',
+        apr: 'N\xEEs',
         may: 'Gul',
-        jun: 'Pûş',
-        jul: 'Tîr',
+        jun: 'P\xFB\u015F',
+        jul: 'T\xEEr',
         aug: 'Gel',
         sep: 'Rez',
         oct: 'Kew',
@@ -91,261 +91,261 @@ export const ku: Language = {
     },
     // Hilbijartina demê
     timepicker: {
-      confirm: 'Baş e',
+      confirm: 'Ba\u015F e',
       cancel: 'Betal kirin',
       now: 'Niha',
-      placeholder: 'Demê hilbijêre',
-      startPlaceholder: 'Dema destpêkê',
-      endPlaceholder: 'Dema dawî',
-      selectTime: 'Demê hilbijêre'
+      placeholder: 'Dem\xEA hilbij\xEAre',
+      startPlaceholder: 'Dema destp\xEAk\xEA',
+      endPlaceholder: 'Dema daw\xEE',
+      selectTime: 'Dem\xEA hilbij\xEAre'
     },
     // Hilbijartina demê
     timeselect: {
-      placeholder: 'Demê hilbijêre'
+      placeholder: 'Dem\xEA hilbij\xEAre'
     },
     // Dar
     tree: {
-      emptyText: 'Daneyên tune',
+      emptyText: 'Daney\xEAn tune',
       loading: 'Bardibe...',
-      checkAll: 'Hemû kontrol bike',
-      uncheckAll: 'Hemû kontrolê betal bike',
-      expandAll: 'Hemû fireh bike',
-      collapseAll: 'Hemû kêm bike'
+      checkAll: 'Hem\xFB kontrol bike',
+      uncheckAll: 'Hem\xFB kontrol\xEA betal bike',
+      expandAll: 'Hem\xFB fireh bike',
+      collapseAll: 'Hem\xFB k\xEAm bike'
     },
     // Hilbijartina darê
     treeselect: {
-      placeholder: 'Hilbijêre',
-      emptyText: 'Daneyên tune',
+      placeholder: 'Hilbij\xEAre',
+      emptyText: 'Daney\xEAn tune',
       loading: 'Bardibe...',
-      noMatch: 'Daneyên lihevhatî tune'
+      noMatch: 'Daney\xEAn lihevhat\xEE tune'
     },
     // Salname
     calendar: {
-      prevMonth: 'Meha berê',
-      nextMonth: 'Meha paş',
-      prevYear: 'Salê berê',
-      nextYear: 'Salê paş',
-      today: 'Îro',
+      prevMonth: 'Meha ber\xEA',
+      nextMonth: 'Meha pa\u015F',
+      prevYear: 'Sal\xEA ber\xEA',
+      nextYear: 'Sal\xEA pa\u015F',
+      today: '\xCEro',
       week: 'Hefte',
-      holiday: 'Roja betlaneyê',
+      holiday: 'Roja betlaney\xEA',
       workday: 'Kar',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
         sun: 'Yek',
         mon: 'Du',
-        tue: 'Sê',
-        wed: 'Çar',
-        thu: 'Pênc',
-        fri: 'Şeş',
+        tue: 'S\xEA',
+        wed: '\xC7ar',
+        thu: 'P\xEAnc',
+        fri: '\u015Ee\u015F',
         sat: 'Heft'
       }
     },
     // Xweber dagirtin
     autocomplete: {
       loading: 'Bardibe...',
-      placeholder: 'Ji kerema xwe binivîse',
-      noData: 'Daneyên tune',
-      noMatch: 'Daneyên lihevhatî tune'
+      placeholder: 'Ji kerema xwe biniv\xEEse',
+      noData: 'Daney\xEAn tune',
+      noMatch: 'Daney\xEAn lihevhat\xEE tune'
     },
     // Berjêr hejmartin
     countdown: {
       days: 'roj',
       hours: 'saet',
-      minutes: 'deqîqe',
-      seconds: 'çirke',
-      milliseconds: 'mîlîçirke',
+      minutes: 'deq\xEEqe',
+      seconds: '\xE7irke',
+      milliseconds: 'm\xEEl\xEE\xE7irke',
       finished: 'Qediya'
     },
     // Kaskad
     cascader: {
-      noMatch: 'Daneyên lihevhatî tune',
-      placeholder: 'Hilbijêre',
+      noMatch: 'Daney\xEAn lihevhat\xEE tune',
+      placeholder: 'Hilbij\xEAre',
       loading: 'Bardibe...',
-      noData: 'Daneyên tune'
+      noData: 'Daney\xEAn tune'
     },
     // Guhertin
     transfer: {
-      noMatch: 'Daneyên lihevhatî tune',
-      noData: 'Daneyên tune',
-      titles: ['Lîsteya 1', 'Lîsteya 2'],
-      filterPlaceholder: 'Bêjeya sereke binivîse',
-      noCheckedFormat: '{total} hêman',
-      hasCheckedFormat: '{checked}/{total} hilbijartî',
-      searchPlaceholder: 'Bêjeya sereke binivîse'
+      noMatch: 'Daney\xEAn lihevhat\xEE tune',
+      noData: 'Daney\xEAn tune',
+      titles: ['L\xEEsteya 1', 'L\xEEsteya 2'],
+      filterPlaceholder: 'B\xEAjeya sereke biniv\xEEse',
+      noCheckedFormat: '{total} h\xEAman',
+      hasCheckedFormat: '{checked}/{total} hilbijart\xEE',
+      searchPlaceholder: 'B\xEAjeya sereke biniv\xEEse'
     },
     // Tablo
     table: {
-      emptyText: 'Daneyên tune',
+      emptyText: 'Daney\xEAn tune',
       confirmFilter: 'Pejirandin',
       resetFilter: 'Reset kirin',
-      clearFilter: 'Hemû',
+      clearFilter: 'Hem\xFB',
       sumText: 'Kom',
       loading: 'Bardibe...',
-      index: 'Îndeks',
-      print: 'Çap kirin',
+      index: '\xCEndeks',
+      print: '\xC7ap kirin',
       cancel: 'Betal kirin',
-      preview: 'Pêşdîtina çapê',
-      printTime: 'Dema çapê',
-      total: 'Bi tevahî {total} hêman',
-      page: 'Rûpel {page}',
-      yes: 'Erê',
+      preview: 'P\xEA\u015Fd\xEEtina \xE7ap\xEA',
+      printTime: 'Dema \xE7ap\xEA',
+      total: 'Bi tevah\xEE {total} h\xEAman',
+      page: 'R\xFBpel {page}',
+      yes: 'Er\xEA',
       no: 'Na',
       // Amûrbar
       toolbar: {
-        refresh: 'Nû kirin',
-        density: 'Tîrbûn',
-        densityDefault: 'Destpêk',
+        refresh: 'N\xFB kirin',
+        density: 'T\xEErb\xFBn',
+        densityDefault: 'Destp\xEAk',
         densityLarge: 'Mezin',
-        densitySmall: 'Biçûk',
-        columnSetting: 'Mîhengên stûnê',
-        fullscreen: 'Ekrana tevahî',
-        exitFullscreen: 'Ji ekrana tevahî derkeve',
+        densitySmall: 'Bi\xE7\xFBk',
+        columnSetting: 'M\xEEheng\xEAn st\xFBn\xEA',
+        fullscreen: 'Ekrana tevah\xEE',
+        exitFullscreen: 'Ji ekrana tevah\xEE derkeve',
         export: 'Derxistin',
-        import: 'Anîn',
-        search: 'Lêgerîn',
-        searchPlaceholder: 'Ji bo lêgerînê bêjeyên sereke binivîse'
+        import: 'An\xEEn',
+        search: 'L\xEAger\xEEn',
+        searchPlaceholder: 'Ji bo l\xEAger\xEEn\xEA b\xEAjey\xEAn sereke biniv\xEEse'
       },
       // Fîlter
       filter: {
-        selectAll: 'Hemû hilbijêre',
-        selectInvert: 'Hilbijartinê berevajî bike',
+        selectAll: 'Hem\xFB hilbij\xEAre',
+        selectInvert: 'Hilbijartin\xEA berevaj\xEE bike',
         empty: 'Vala ye',
-        notEmpty: 'Vala nîne',
-        contains: 'Tê de heye',
-        notContains: 'Tê de nîne',
+        notEmpty: 'Vala n\xEEne',
+        contains: 'T\xEA de heye',
+        notContains: 'T\xEA de n\xEEne',
         equals: 'Wekhev e',
-        notEquals: 'Wekhev nîne',
-        startsWith: 'Bi dest pê dike',
-        endsWith: 'Bi dawî dibe',
+        notEquals: 'Wekhev n\xEEne',
+        startsWith: 'Bi dest p\xEA dike',
+        endsWith: 'Bi daw\xEE dibe',
         greaterThan: 'Mezintir e',
-        lessThan: 'Biçûktir e',
+        lessThan: 'Bi\xE7\xFBktir e',
         between: 'Di navbera'
       },
       // Rêzkirin
       sort: {
-        asc: 'Zêde dibe',
-        desc: 'Kêm dibe',
-        clear: 'Rêzkirinê paqij bike'
+        asc: 'Z\xEAde dibe',
+        desc: 'K\xEAm dibe',
+        clear: 'R\xEAzkirin\xEA paqij bike'
       },
       // Derxistin
       export: {
         title: 'Daneyan derxistin',
-        filename: 'Navê dosyayê',
-        type: 'Cureyê dosyayê',
-        scope: 'Qada derxistinê',
-        scopeAll: 'Hemû daneyên',
-        scopeSelected: 'Daneyên hilbijartî',
-        scopeCurrentPage: 'Rûpela niha',
-        includeHeader: 'Sernavê tevlî bike',
+        filename: 'Nav\xEA dosyay\xEA',
+        type: 'Curey\xEA dosyay\xEA',
+        scope: 'Qada derxistin\xEA',
+        scopeAll: 'Hem\xFB daney\xEAn',
+        scopeSelected: 'Daney\xEAn hilbijart\xEE',
+        scopeCurrentPage: 'R\xFBpela niha',
+        includeHeader: 'Sernav\xEA tevl\xEE bike',
         exporting: 'Derxistin...',
-        success: 'Derxistin serkeftî',
-        error: 'Derxistin têk çû'
+        success: 'Derxistin serkeft\xEE',
+        error: 'Derxistin t\xEAk \xE7\xFB'
       },
       // Anîn
       import: {
-        title: 'Daneyan anîn',
-        selectFile: 'Dosyayê hilbijêre',
-        dragTip: 'Ji bo barkirinê dosyayê li vir bitikîne an jî bikişîne',
-        importing: 'Anîn...',
-        success: 'Anîn serkeftî',
-        error: 'Anîn têk çû',
-        preview: 'Pêşdîtina daneyan',
-        confirm: 'Anînê pejirandin'
+        title: 'Daneyan an\xEEn',
+        selectFile: 'Dosyay\xEA hilbij\xEAre',
+        dragTip: 'Ji bo barkirin\xEA dosyay\xEA li vir bitik\xEEne an j\xEE biki\u015F\xEEne',
+        importing: 'An\xEEn...',
+        success: 'An\xEEn serkeft\xEE',
+        error: 'An\xEEn t\xEAk \xE7\xFB',
+        preview: 'P\xEA\u015Fd\xEEtina daneyan',
+        confirm: 'An\xEEn\xEA pejirandin'
       },
       // Çap kirin
       printConfig: {
-        title: 'Mîhengên çapê',
-        pageTitle: 'Sernavê rûpelê',
+        title: 'M\xEEheng\xEAn \xE7ap\xEA',
+        pageTitle: 'Sernav\xEA r\xFBpel\xEA',
         pageHeader: 'Sernav',
-        pageFooter: 'Binê rûpelê',
-        printAll: 'Hemû çap bike',
-        printSelected: 'Hilbijartî çap bike',
-        printCurrentPage: 'Rûpela niha çap bike',
+        pageFooter: 'Bin\xEA r\xFBpel\xEA',
+        printAll: 'Hem\xFB \xE7ap bike',
+        printSelected: 'Hilbijart\xEE \xE7ap bike',
+        printCurrentPage: 'R\xFBpela niha \xE7ap bike',
         landscape: 'Berfireh',
         portrait: 'Rast',
-        printing: 'Çap dibe...'
+        printing: '\xC7ap dibe...'
       },
       // Mîhengên stûnê
       columnSetting: {
-        title: 'Mîhengên stûnê',
-        showAll: 'Hemû nîşan bide',
-        hideAll: 'Hemû veşêre',
+        title: 'M\xEEheng\xEAn st\xFBn\xEA',
+        showAll: 'Hem\xFB n\xEE\u015Fan bide',
+        hideAll: 'Hem\xFB ve\u015F\xEAre',
         reset: 'Reset kirin',
-        fixedLeft: 'Çepê sabit bike',
-        fixedRight: 'Rastê sabit bike',
-        unfixed: 'Bê sabit bike'
+        fixedLeft: '\xC7ep\xEA sabit bike',
+        fixedRight: 'Rast\xEA sabit bike',
+        unfixed: 'B\xEA sabit bike'
       },
       // Menuyê kontekstê
       contextMenu: {
-        copy: 'Kopî kirin',
-        copyRow: 'Rêzê kopî bike',
-        copyCell: 'Xaneyê kopî bike',
+        copy: 'Kop\xEE kirin',
+        copyRow: 'R\xEAz\xEA kop\xEE bike',
+        copyCell: 'Xaney\xEA kop\xEE bike',
         paste: 'Paste kirin',
-        insertRowAbove: 'Rêzê jorê zêde bike',
-        insertRowBelow: 'Rêzê jêrê zêde bike',
-        deleteRow: 'Rêzê jê bibe',
-        deleteSelectedRows: 'Rêzên hilbijartî jê bibe',
-        exportSelected: 'Hilbijartî derxistin'
+        insertRowAbove: 'R\xEAz\xEA jor\xEA z\xEAde bike',
+        insertRowBelow: 'R\xEAz\xEA j\xEAr\xEA z\xEAde bike',
+        deleteRow: 'R\xEAz\xEA j\xEA bibe',
+        deleteSelectedRows: 'R\xEAz\xEAn hilbijart\xEE j\xEA bibe',
+        exportSelected: 'Hilbijart\xEE derxistin'
       },
       // Hilbijartin
       selection: {
-        selectAll: 'Hemû hilbijêre',
-        selectInvert: 'Hilbijartinê berevajî bike',
-        selectNone: 'Hilbijartinê paqij bike',
-        selected: '{count} hêman hilbijartî'
+        selectAll: 'Hem\xFB hilbij\xEAre',
+        selectInvert: 'Hilbijartin\xEA berevaj\xEE bike',
+        selectNone: 'Hilbijartin\xEA paqij bike',
+        selected: '{count} h\xEAman hilbijart\xEE'
       },
       // Fireh kirin
       expand: {
-        expandAll: 'Hemû fireh bike',
-        collapseAll: 'Hemû kêm bike'
+        expandAll: 'Hem\xFB fireh bike',
+        collapseAll: 'Hem\xFB k\xEAm bike'
       },
       // Dar
       tree: {
-        expandAll: 'Hemû fireh bike',
-        collapseAll: 'Hemû kêm bike',
+        expandAll: 'Hem\xFB fireh bike',
+        collapseAll: 'Hem\xFB k\xEAm bike',
         expandLevel: 'Heft {level} fireh bike'
       },
       // Kişandin
       drag: {
-        dragTip: 'Ji bo rêzkirina nû kişîne',
-        dropTip: 'Ji bo danînê berde'
+        dragTip: 'Ji bo r\xEAzkirina n\xFB ki\u015F\xEEne',
+        dropTip: 'Ji bo dan\xEEn\xEA berde'
       }
     },
     // Qutiya peyamê
     messagebox: {
       title: 'Peyam',
-      confirm: 'Baş e',
+      confirm: 'Ba\u015F e',
       cancel: 'Betal kirin',
       close: 'Girtin',
-      error: 'Têketina neqanûnî',
-      alert: 'Hişyarî',
+      error: 'T\xEAketina neqan\xFBn\xEE',
+      alert: 'Hi\u015Fyar\xEE',
       prompt: 'Pirs',
-      inputPlaceholder: 'Ji kerema xwe binivîse'
+      inputPlaceholder: 'Ji kerema xwe biniv\xEEse'
     },
     // Barkirin
     upload: {
-      deleteTip: 'ji bo jêbirinê delete bitikîne',
-      delete: 'Jêbirin',
-      preview: 'Pêşdîtin',
+      deleteTip: 'ji bo j\xEAbirin\xEA delete bitik\xEEne',
+      delete: 'J\xEAbirin',
+      preview: 'P\xEA\u015Fd\xEEtin',
       continue: 'Berdewam',
-      upload: 'Ji bo barkirinê bitikîne',
-      tip: 'Ji bo <em>barkirinê</em> dosyayê li vê deverê bitikîne an jî bikişîne',
-      dragTip: 'Dosyayê li vir berde an jî ji bo barkirinê bitikîne',
+      upload: 'Ji bo barkirin\xEA bitik\xEEne',
+      tip: 'Ji bo <em>barkirin\xEA</em> dosyay\xEA li v\xEA dever\xEA bitik\xEEne an j\xEE biki\u015F\xEEne',
+      dragTip: 'Dosyay\xEA li vir berde an j\xEE ji bo barkirin\xEA bitik\xEEne',
       uploading: 'Bardibe...',
-      success: 'Barkirin serkeftî',
-      error: 'Barkirin têk çû',
-      retry: 'Dîsa biceribîne',
-      cancel: 'Barkirinê betal bike',
-      fileTypeError: 'Cureyê dosyayê nayê piştgirî kirin',
-      fileSizeError: 'Mezinahiya dosyayê ji sînorê derbas dibe',
-      fileCountError: 'Hejmara dosyayê ji sînorê derbas dibe'
+      success: 'Barkirin serkeft\xEE',
+      error: 'Barkirin t\xEAk \xE7\xFB',
+      retry: 'D\xEEsa bicerib\xEEne',
+      cancel: 'Barkirin\xEA betal bike',
+      fileTypeError: 'Curey\xEA dosyay\xEA nay\xEA pi\u015Ftgir\xEE kirin',
+      fileSizeError: 'Mezinahiya dosyay\xEA ji s\xEEnor\xEA derbas dibe',
+      fileCountError: 'Hejmara dosyay\xEA ji s\xEEnor\xEA derbas dibe'
     },
     // Form
     form: {
-      validationFailed: 'Piştrastkirin têk çû',
-      required: 'Pêdivî ye',
-      pleaseInput: 'Ji kerema xwe binivîse',
-      pleaseSelect: 'Ji kerema xwe hilbijêre'
+      validationFailed: 'Pi\u015Ftrastkirin t\xEAk \xE7\xFB',
+      required: 'P\xEAdiv\xEE ye',
+      pleaseInput: 'Ji kerema xwe biniv\xEEse',
+      pleaseSelect: 'Ji kerema xwe hilbij\xEAre'
     },
     // Bişkok
     button: {
@@ -353,29 +353,29 @@ export const ku: Language = {
     },
     // Têketin
     input: {
-      placeholder: 'Ji kerema xwe binivîse',
+      placeholder: 'Ji kerema xwe biniv\xEEse',
       clear: 'Paqij kirin',
-      showPassword: 'Şîfreya nîşan bide',
-      hidePassword: 'Şîfreya veşêre',
-      copy: 'Kopî kirin',
-      copied: 'Kopî kirî'
+      showPassword: '\u015E\xEEfreya n\xEE\u015Fan bide',
+      hidePassword: '\u015E\xEEfreya ve\u015F\xEAre',
+      copy: 'Kop\xEE kirin',
+      copied: 'Kop\xEE kir\xEE'
     },
     // Hejmara têketinê
     inputnumber: {
-      placeholder: 'Ji kerema xwe hejmarê binivîse',
-      increase: 'Zêde bike',
-      decrease: 'Kêm bike'
+      placeholder: 'Ji kerema xwe hejmar\xEA biniv\xEEse',
+      increase: 'Z\xEAde bike',
+      decrease: 'K\xEAm bike'
     },
     // Etîketa têketinê
     inputtag: {
-      placeholder: 'Ji kerema xwe binivîse',
-      add: 'Zêde kirin',
-      remove: 'Jêbirin'
+      placeholder: 'Ji kerema xwe biniv\xEEse',
+      add: 'Z\xEAde kirin',
+      remove: 'J\xEAbirin'
     },
     // Rêya navîgasyonê
     breadcrumb: {
-      label: 'Rêya navîgasyonê',
-      more: 'Bêtir'
+      label: 'R\xEAya nav\xEEgasyon\xEA',
+      more: 'B\xEAtir'
     },
     // Vegere jor
     backtop: {
@@ -383,43 +383,43 @@ export const ku: Language = {
     },
     // Hilbijartin
     select: {
-      placeholder: 'Ji kerema xwe hilbijêre',
-      noData: 'Daneyên tune',
+      placeholder: 'Ji kerema xwe hilbij\xEAre',
+      noData: 'Daney\xEAn tune',
       loading: 'Bardibe...',
-      noMatch: 'Daneyên lihevhatî tune',
-      selectAll: 'Hemû hilbijêre',
-      clearAll: 'Hemû paqij bike'
+      noMatch: 'Daney\xEAn lihevhat\xEE tune',
+      selectAll: 'Hem\xFB hilbij\xEAre',
+      clearAll: 'Hem\xFB paqij bike'
     },
     // Rûpelkirin
     pagination: {
-      goto: 'Biçe',
+      goto: 'Bi\xE7e',
       page: '',
-      total: 'Bi tevahî {total}',
-      pageSize: '/rûpel',
-      prev: 'Berê',
-      next: 'Paş',
+      total: 'Bi tevah\xEE {total}',
+      pageSize: '/r\xFBpel',
+      prev: 'Ber\xEA',
+      next: 'Pa\u015F',
       first: 'Yekem',
-      last: 'Dawî',
+      last: 'Daw\xEE',
       pageClassifier: ''
     },
     // Popup pejirandinê
     popconfirm: {
-      confirm: 'Baş e',
+      confirm: 'Ba\u015F e',
       cancel: 'Betal kirin',
-      dontAskAgain: 'Dîsa ne pirsîne'
+      dontAskAgain: 'D\xEEsa ne pirs\xEEne'
     },
     // Dîalog
     dialog: {
-      confirm: 'Baş e',
+      confirm: 'Ba\u015F e',
       cancel: 'Betal kirin',
       close: 'Girtin',
       maximize: 'Mezin bike',
-      restore: 'Vegerîne'
+      restore: 'Veger\xEEne'
     },
     // Drawer
     drawer: {
       close: 'Girtin',
-      confirm: 'Baş e',
+      confirm: 'Ba\u015F e',
       cancel: 'Betal kirin'
     },
     // Menuyê daketî
@@ -428,35 +428,35 @@ export const ku: Language = {
     },
     // Wêne
     image: {
-      error: 'TÊK ÇÛ',
+      error: 'T\xCAK \xC7\xDB',
       loading: 'Bardibe...',
-      preview: 'Pêşdîtin',
+      preview: 'P\xEA\u015Fd\xEEtin',
       zoomIn: 'Mezin bike',
-      zoomOut: 'Biçûk bike',
-      rotateLeft: 'Çepê bizivirîne',
-      rotateRight: 'Rastê bizivirîne',
-      originalSize: 'Mezinahiya orîjînal',
-      fullscreen: 'Ekrana tevahî'
+      zoomOut: 'Bi\xE7\xFBk bike',
+      rotateLeft: '\xC7ep\xEA bizivir\xEEne',
+      rotateRight: 'Rast\xEA bizivir\xEEne',
+      originalSize: 'Mezinahiya or\xEEj\xEEnal',
+      fullscreen: 'Ekrana tevah\xEE'
     },
     // Dîtina wêneyê
     imageviewer: {
       close: 'Girtin',
-      prev: 'Berê',
-      next: 'Paş',
+      prev: 'Ber\xEA',
+      next: 'Pa\u015F',
       zoomIn: 'Mezin bike',
-      zoomOut: 'Biçûk bike',
-      rotateLeft: 'Çepê bizivirîne',
-      rotateRight: 'Rastê bizivirîne',
+      zoomOut: 'Bi\xE7\xFBk bike',
+      rotateLeft: '\xC7ep\xEA bizivir\xEEne',
+      rotateRight: 'Rast\xEA bizivir\xEEne',
       reset: 'Reset kirin',
-      fullscreen: 'Ekrana tevahî',
-      exitFullscreen: 'Ji ekrana tevahî derkeve'
+      fullscreen: 'Ekrana tevah\xEE',
+      exitFullscreen: 'Ji ekrana tevah\xEE derkeve'
     },
     // Rêzika bêdawî
     infinitescroll: {
       loading: 'Bardibe...',
-      finished: 'Daneyên din tune',
-      error: 'Barkirin têk çû, ji bo dîsa ceribandinê bitikîne',
-      retry: 'Ji bo dîsa ceribandinê bitikîne'
+      finished: 'Daney\xEAn din tune',
+      error: 'Barkirin t\xEAk \xE7\xFB, ji bo d\xEEsa ceribandin\xEA bitik\xEEne',
+      retry: 'Ji bo d\xEEsa ceribandin\xEA bitik\xEEne'
     },
     // Peyam
     message: {
@@ -476,7 +476,7 @@ export const ku: Language = {
     },
     // Nîşandan
     rate: {
-      texts: ['Pir xirab', 'Bêhêvî', 'Navîn', 'Razî', 'Şaşmayî']
+      texts: ['Pir xirab', 'B\xEAh\xEAv\xEE', 'Nav\xEEn', 'Raz\xEE', '\u015Ea\u015Fmay\xEE']
     },
     // Hişyarî
     alert: {
@@ -489,21 +489,21 @@ export const ku: Language = {
     // Tab
     tabs: {
       close: 'Girtin',
-      add: 'Zêde kirin',
-      more: 'Bêtir'
+      add: 'Z\xEAde kirin',
+      more: 'B\xEAtir'
     },
     // Gavan
     steps: {
       finish: 'Qediya',
-      process: 'Di pêvajoyê de',
-      wait: 'Li bendê',
-      error: 'Çewtî'
+      process: 'Di p\xEAvajoy\xEA de',
+      wait: 'Li bend\xEA',
+      error: '\xC7ewt\xEE'
     },
     // Pêşveçûn
     progress: {
-      success: 'Serkeftî',
-      exception: 'Îstîsna',
-      warning: 'Hişyarî'
+      success: 'Serkeft\xEE',
+      exception: '\xCEst\xEEsna',
+      warning: 'Hi\u015Fyar\xEE'
     },
     // Skelet
     skeleton: {
@@ -511,25 +511,25 @@ export const ku: Language = {
     },
     // Vala
     empty: {
-      description: 'Daneyên tune',
-      noData: 'Daneyên tune',
-      noResult: 'Encamên tune',
-      networkError: 'Çewtiya torê',
-      serverError: 'Çewtiya serverê'
+      description: 'Daney\xEAn tune',
+      noData: 'Daney\xEAn tune',
+      noResult: 'Encam\xEAn tune',
+      networkError: '\xC7ewtiya tor\xEA',
+      serverError: '\xC7ewtiya server\xEA'
     },
     // Encam
     result: {
-      success: 'Serkeftî',
-      error: 'Çewtî',
-      warning: 'Hişyarî',
-      info: 'Agahî',
-      backHome: 'Vegere malê'
+      success: 'Serkeft\xEE',
+      error: '\xC7ewt\xEE',
+      warning: 'Hi\u015Fyar\xEE',
+      info: 'Agah\xEE',
+      backHome: 'Vegere mal\xEA'
     },
     // Şelale
     waterfall: {
       loading: 'Bardibe...',
-      noMore: 'Daneyên din tune',
-      empty: 'Daneyên tune'
+      noMore: 'Daney\xEAn din tune',
+      empty: 'Daney\xEAn tune'
     },
     // Dîroknivîs
     descriptions: {
@@ -541,29 +541,29 @@ export const ku: Language = {
     },
     // Guhêrbar
     switch: {
-      on: 'VEKIRÎ',
-      off: 'GIRTÎ'
+      on: 'VEKIR\xCE',
+      off: 'GIRT\xCE'
     },
     // Qutiya kontrolê
     checkbox: {
-      selectAll: 'Hemû hilbijêre'
+      selectAll: 'Hem\xFB hilbij\xEAre'
     },
     // Radio
     radio: {},
     // Menû
     menu: {
-      collapse: 'Menuyê kêm bike',
-      expand: 'Menuyê fireh bike'
+      collapse: 'Menuy\xEA k\xEAm bike',
+      expand: 'Menuy\xEA fireh bike'
     },
     // Kart
     card: {
-      collapse: 'Kêm kirin',
+      collapse: 'K\xEAm kirin',
       expand: 'Fireh kirin'
     },
     // Kêm kirin
     collapse: {
       expand: 'Fireh kirin',
-      collapse: 'Kêm kirin'
+      collapse: 'K\xEAm kirin'
     },
     // Rêbername
     tooltip: {},
@@ -573,7 +573,7 @@ export const ku: Language = {
     badge: {},
     // Avatar
     avatar: {
-      error: 'Barkirin têk çû'
+      error: 'Barkirin t\xEAk \xE7\xFB'
     },
     // Nîşana avê
     watermark: {},
@@ -581,8 +581,8 @@ export const ku: Language = {
     divider: {},
     // Karusel
     carousel: {
-      prev: 'Berê',
-      next: 'Paş'
+      prev: 'Ber\xEA',
+      next: 'Pa\u015F'
     },
     // Marquee
     marquee: {},
@@ -592,9 +592,9 @@ export const ku: Language = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Ji kerema xwe binivîse',
-      loading: 'Tê barkirin...',
-      noData: 'Agahî tune'
+      placeholder: 'Ji kerema xwe biniv\xEEse',
+      loading: 'T\xEA barkirin...',
+      noData: 'Agah\xEE tune'
     },
     // AI Components
     ai: {
@@ -602,65 +602,65 @@ export const ku: Language = {
         citations: 'Gotar'
       },
       mention: {
-        placeholder: '@ Agente, Dokument an Tablo bibêjin...',
+        placeholder: '@ Agente, Dokument an Tablo bib\xEAjin...',
         agent: 'Ajent',
         document: 'Dokument',
         table: 'Tablo',
-        knowledge: 'Zanîn'
+        knowledge: 'Zan\xEEn'
       },
       codeBlock: {
-        copyCode: 'Koda kopî bike',
-        copied: 'Hat kopîkirin!',
-        run: 'Kodê bimeşînin',
-        edit: 'Biguherîne',
+        copyCode: 'Koda kop\xEE bike',
+        copied: 'Hat kop\xEEkirin!',
+        run: 'Kod\xEA bime\u015F\xEEnin',
+        edit: 'Biguher\xEEne',
         save: 'Tomar bike',
         cancel: 'Betal bike'
       },
       codeRunner: {
-        run: 'Bimeşîne',
-        stop: 'Rawestîne',
+        run: 'Bime\u015F\xEEne',
+        stop: 'Rawest\xEEne',
         clear: 'Paqij bike',
         reset: 'Sifir bike',
-        placeholder: 'Klikê li ser Bimeşîne bike da ku kodê bimeşîne...'
+        placeholder: 'Klik\xEA li ser Bime\u015F\xEEne bike da ku kod\xEA bime\u015F\xEEne...'
       },
       sender: {
-        placeholder: 'Mesaj bişîne...',
+        placeholder: 'Mesaj bi\u015F\xEEne...',
         dragTip: 'Ji bo barkirina pelan berhem bike'
       },
       thoughtChain: {
-        thoughtProcess: 'Proseya ramînê',
-        thinking: 'Tê ramîn...',
-        defaultTitle: 'Gav nû',
-        addNode: 'Gavê zêde bike'
+        thoughtProcess: 'Proseya ram\xEEn\xEA',
+        thinking: 'T\xEA ram\xEEn...',
+        defaultTitle: 'Gav n\xFB',
+        addNode: 'Gav\xEA z\xEAde bike'
       },
       thinking: {
-        start: 'Ramînê destpê bike',
-        thinking: 'Tê ramîn...',
-        complete: 'Ramîn qediya',
-        error: 'Çewtî ramînê'
+        start: 'Ram\xEEn\xEA destp\xEA bike',
+        thinking: 'T\xEA ram\xEEn...',
+        complete: 'Ram\xEEn qediya',
+        error: '\xC7ewt\xEE ram\xEEn\xEA'
       },
       welcome: {
         title: 'Silav, ez YH AI im',
         description:
-          'Ez dikarim alî te bikim bi kodkirin, wergerandina belgeyan an nivîsandinê çêkirin. Ez çi dikarim ji te re îro bikim?'
+          'Ez dikarim al\xEE te bikim bi kodkirin, wergerandina belgeyan an niv\xEEsandin\xEA \xE7\xEAkirin. Ez \xE7i dikarim ji te re \xEEro bikim?'
       },
       action: {
-        copy: 'Kopî',
-        regenerate: 'Nûve bike',
+        copy: 'Kop\xEE',
+        regenerate: 'N\xFBve bike',
         share: 'Parve bike',
-        like: 'Pêşniyar kirin',
-        dislike: 'Pêşniyar nekirin',
-        edit: 'Biguherîne',
-        delete: 'Jê bibe'
+        like: 'P\xEA\u015Fniyar kirin',
+        dislike: 'P\xEA\u015Fniyar nekirin',
+        edit: 'Biguher\xEEne',
+        delete: 'J\xEA bibe'
       },
       artifacts: {
-        preview: 'Pêşbibartin',
-        inline: 'Nivîsî',
-        code: 'Koda çavkaniyê',
+        preview: 'P\xEA\u015Fbibartin',
+        inline: 'Niv\xEEs\xEE',
+        code: 'Koda \xE7avkaniy\xEA',
         versions: 'Guherto',
-        rendering: 'Komponent tê çêkirin...',
-        renderingChart: 'şirove tê çêkirin...',
-        renderingCanvas: 'Perde tê amade kirin...'
+        rendering: 'Komponent t\xEA \xE7\xEAkirin...',
+        renderingChart: '\u015Firove t\xEA \xE7\xEAkirin...',
+        renderingCanvas: 'Perde t\xEA amade kirin...'
       },
       voice: {
         trigger: 'Klik ji bo axaftin',
@@ -668,51 +668,50 @@ export const ku: Language = {
       },
       agent: {
         uses: 'karaninan',
-        use: 'Niha bi kar bîne',
-        favorite: 'Herbû',
-        unfavorite: 'Ji herbûan derxe',
+        use: 'Niha bi kar b\xEEne',
+        favorite: 'Herb\xFB',
+        unfavorite: 'Ji herb\xFBan derxe',
         share: 'Parve bike',
         online: 'Online',
         offline: 'Offline',
-        busy: 'Meşgul',
-        verified: 'Rasthatî',
+        busy: 'Me\u015Fgul',
+        verified: 'Rasthat\xEE',
         rating: 'Nirxandin',
-        reviews: 'pirtûk',
+        reviews: 'pirt\xFBk',
         responseTime: 'Nihaverage bersiv dan',
         ms: 'ms'
       },
       sources: {
         references: 'Referansan',
-        referencedSources: 'Çavkaniyên hatiye referans kirin',
+        referencedSources: '\xC7avkaniy\xEAn hatiye referans kirin',
         relevant: 'Gele',
-        viewOriginal: 'Orjînalê bibîne',
-        showAll: 'Hemûyan nîşan bide',
-        more: 'çavkaniyên zêdetir',
+        viewOriginal: 'Orj\xEEnal\xEA bib\xEEne',
+        showAll: 'Hem\xFByan n\xEE\u015Fan bide',
+        more: '\xE7avkaniy\xEAn z\xEAdetir',
         drawerTitle: 'Referansan',
-        expandMore: 'Zêdetir nîşan bide',
+        expandMore: 'Z\xEAdetir n\xEE\u015Fan bide',
         collapseMore: 'Qelandin',
-        noSources: 'Çavkanî tune',
-        today: 'Îro',
-        last7Days: 'Rojên dawî 7',
-        last30Days: 'Rojên dawî 30',
-        earlier: 'Pêş',
-        pinned: 'Pênc'
+        noSources: '\xC7avkan\xEE tune',
+        today: '\xCEro',
+        last7Days: 'Roj\xEAn daw\xEE 7',
+        last30Days: 'Roj\xEAn daw\xEE 30',
+        earlier: 'P\xEA\u015F',
+        pinned: 'P\xEAnc'
       },
       conversations: {
-        today: 'Îro',
-        last7Days: 'Rojên dawî 7',
-        last30Days: 'Rojên dawî 30',
-        earlier: 'Pêş',
-        pinned: 'Pênc',
-        pin: 'Pênc bike',
-        unpin: 'Pêncê rake',
-        newConversation: 'Gotara nû',
-        rename: 'Nav biguherîne',
-        delete: 'Jê bibe',
-        deleteConfirm: 'Te gelo vî gotarî jê bibin?'
+        today: '\xCEro',
+        last7Days: 'Roj\xEAn daw\xEE 7',
+        last30Days: 'Roj\xEAn daw\xEE 30',
+        earlier: 'P\xEA\u015F',
+        pinned: 'P\xEAnc',
+        pin: 'P\xEAnc bike',
+        unpin: 'P\xEAnc\xEA rake',
+        newConversation: 'Gotara n\xFB',
+        rename: 'Nav biguher\xEEne',
+        delete: 'J\xEA bibe',
+        deleteConfirm: 'Te gelo v\xEE gotar\xEE j\xEA bibin?'
       }
     }
   }
 }
-
 export default ku

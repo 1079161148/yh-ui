@@ -36,6 +36,18 @@ describe('Loading Service', () => {
     expect(mask?.classList.contains('is-glass')).toBe(true)
     loading.close()
   })
+
+  it('should apply theme overrides on service mask', () => {
+    const loading = YhLoading.service({
+      themeOverrides: {
+        zIndex: '3200'
+      }
+    })
+
+    const mask = document.querySelector('.yh-loading-mask')
+    expect(mask?.getAttribute('style')).toContain('--yh-loading-z-index: 3200')
+    loading.close()
+  })
 })
 
 describe('v-yh-loading Directive', () => {
@@ -85,5 +97,9 @@ describe('v-yh-loading Directive', () => {
     vi.advanceTimersByTime(500)
     expect(document.querySelector('.yh-loading-mask')).toBeFalsy()
     wrapper.unmount()
+  })
+
+  it('should expose directive alias on plugin export', () => {
+    expect(YhLoading.directive).toBe(vYhLoading)
   })
 })

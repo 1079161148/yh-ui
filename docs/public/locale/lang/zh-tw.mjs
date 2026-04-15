@@ -744,4 +744,3 @@ export const zhTw = {
     }
   }
 };
-export default zhTw;

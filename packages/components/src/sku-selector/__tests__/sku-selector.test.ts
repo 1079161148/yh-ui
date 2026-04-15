@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import SkuSelector from '../src/sku-selector.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('SkuSelector', () => {
   const specs = [
@@ -53,5 +56,36 @@ describe('SkuSelector', () => {
     })
     const items = wrapper.findAll('.yh-sku-selector__value')
     expect(items[1].classes()).toContain('is-disabled')
+  })
+
+  it('uses config-provider locale summary placeholder', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(SkuSelector, {
+            specs,
+            skus,
+            showSelectedSummary: true
+          })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('Select specifications')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs,
+        skus,
+        themeOverrides: {
+          'value-active-border': '#409eff'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-sku-selector-value-active-border: #409eff')
   })
 })

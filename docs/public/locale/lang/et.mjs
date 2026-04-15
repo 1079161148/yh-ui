@@ -595,6 +595,97 @@ export const et = {
       noData: "Andmed puuduvad"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Vali spetsifikatsioonid",
+      emptyText: "Spetsifikatsioonid puuduvad",
+      stock: "Laoseis",
+      price: "Hind",
+      selected: "Valitud",
+      outOfStock: "Laost otsas"
+    },
+    productcard: {
+      viewDetails: "Vaata \xFCksikasju",
+      buyNow: "Osta kohe",
+      addToCart: "Lisa ostukorvi",
+      sold: "M\xFC\xFCdud",
+      soldOut: "V\xE4lja m\xFC\xFCdud",
+      vip: "VIP"
+    },
+    price: {
+      original: "Algne hind"
+    },
+    couponcard: {
+      available: "V\xF5ta kohe",
+      used: "Kasutatud",
+      expired: "Aegunud",
+      received: "Saadud",
+      limit: "Tellimused \xFCle {threshold}",
+      noThreshold: "Miinimum puudub",
+      validPeriod: "Kehtivusaeg",
+      ruleTitle: "Kasutusreeglid"
+    },
+    luckydraw: {
+      start: "Alusta",
+      drawing: "Loositakse...",
+      end: "V\xF5itja!",
+      retry: "Proovi uuesti"
+    },
+    filterbar: {
+      all: "K\xF5ik",
+      sort: "Sordi",
+      filter: "Filtreeri",
+      cancel: "T\xFChista",
+      reset: "L\xE4htesta",
+      confirm: "Kinnita",
+      noOptions: "Valikuid pole",
+      asc: "Kasvav",
+      desc: "Kahanev",
+      selected: "Valitud"
+    },
+    submitbar: {
+      total: "Kokku: ",
+      selected: "{count} valitud",
+      submit: "Maksma",
+      allSelect: "Vali k\xF5ik"
+    },
+    categorynav: {
+      all: "K\xF5ik",
+      noData: "Andmed puuduvad",
+      loading: "Laadimine..."
+    },
+    smartaddress: {
+      placeholder: "Kleebi siia aadress, et nimi, telefon ja asukoht automaatselt tuvastada",
+      parse: "Nutikas anal\xFC\xFCs",
+      province: "Maakond/Linn/Rajoon",
+      city: "Linn",
+      district: "Rajoon/Vald",
+      street: "T\xE4nav/Alev",
+      detail: "T\xE4pne aadress",
+      phone: "Telefon",
+      name: "Saaja",
+      parseSuccess: "Aadress anal\xFC\xFCsiti edukalt",
+      parseFailed: "Anal\xFC\xFCs eba\xF5nnestus, t\xE4itke k\xE4sitsi",
+      required: "Sisestage t\xE4ielik aadress",
+      provinceKeywords: ["Maakond", "Osariik"],
+      cityKeywords: ["Linn", "Vald"],
+      districtKeywords: ["Rajoon", "Vald", "Piirkond"],
+      streetKeywords: ["T\xE4nav", "Tee", "Puiestee", "P\xF5ik"]
+    },
+    ganttchart: {
+      taskName: "\xDClesande nimi",
+      searchPlaceholder: "Otsi \xFClesandeid...",
+      zoom: "Suum",
+      day: "P\xE4ev",
+      week: "N\xE4dal",
+      month: "Kuu",
+      year: "Aasta",
+      milestone: "T\xE4his"
+    },
+    imagemagnifier: {
+      switchToImage: "L\xFClitu pildile {index}",
+      galleryItem: "Galerii {index}",
+      close: "Sulge"
+    },
     ai: {
       bubble: {
         citations: "Viited"
@@ -704,9 +795,32 @@ export const et = {
         pin: "Kinnita",
         unpin: "Vabasta",
         newConversation: "Uus vestlus",
+        noData: "Vestlusi pole veel",
         rename: "Nimeta \xFCmber",
         delete: "Kustuta",
         deleteConfirm: "Kas kustutame selle vestluse?"
+      },
+      attachments: {
+        dropTip: "Lohista failid siia \xFCleslaadimiseks",
+        clickToUpload: "Kl\xF5psa v\xF5i lohista failid \xFCleslaadimiseks",
+        uploadSuccess: "\xDCleslaadimine \xF5nnestus",
+        uploadError: "\xDCleslaadimine eba\xF5nnestus",
+        deleteConfirm: "Kas soovid kindlasti selle faili kustutada?",
+        fileTooLarge: "Faili suurus ei tohi \xFCletada {size}",
+        invalidFileType: "Sobimatu failit\xFC\xFCp"
+      },
+      mermaid: {
+        image: "Pilt",
+        code: "Kood",
+        zoomIn: "Suurenda",
+        zoomOut: "V\xE4henda",
+        reset: "L\xE4htesta",
+        download: "Laadi alla",
+        copyCode: "Kopeeri kood",
+        rendering: "Renderdamine...",
+        renderError: "Renderdamine eba\xF5nnestus",
+        renderSuccess: "Renderdamine \xF5nnestus",
+        retry: "Proovi uuesti"
       }
     }
   }

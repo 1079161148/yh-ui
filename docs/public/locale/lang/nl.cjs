@@ -601,6 +601,97 @@ const nl = exports.nl = {
       noData: "Geen gegevens"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Specificaties selecteren",
+      emptyText: "Geen specificaties",
+      stock: "Voorraad",
+      price: "Prijs",
+      selected: "Geselecteerd",
+      outOfStock: "Niet op voorraad"
+    },
+    productcard: {
+      viewDetails: "Details bekijken",
+      buyNow: "Nu kopen",
+      addToCart: "Toevoegen aan winkelwagen",
+      sold: "Verkocht",
+      soldOut: "Uitverkocht",
+      vip: "Lid"
+    },
+    price: {
+      original: "Originele prijs"
+    },
+    couponcard: {
+      available: "Nu claimen",
+      used: "Gebruikt",
+      expired: "Verlopen",
+      received: "Ontvangen",
+      limit: "Bestellingen boven {threshold}",
+      noThreshold: "Geen minimum",
+      validPeriod: "Geldigheid",
+      ruleTitle: "Gebruiksregels"
+    },
+    luckydraw: {
+      start: "Start",
+      drawing: "Loting bezig...",
+      end: "Winnaar!",
+      retry: "Opnieuw proberen"
+    },
+    filterbar: {
+      all: "Alles",
+      sort: "Sorteren",
+      filter: "Filteren",
+      cancel: "Annuleren",
+      reset: "Resetten",
+      confirm: "Bevestigen",
+      noOptions: "Geen opties",
+      asc: "Oplopend",
+      desc: "Aflopend",
+      selected: "Geselecteerd"
+    },
+    submitbar: {
+      total: "Totaal: ",
+      selected: "{count} geselecteerd",
+      submit: "Afrekenen",
+      allSelect: "Alles selecteren"
+    },
+    categorynav: {
+      all: "Alles",
+      noData: "Geen gegevens",
+      loading: "Laden..."
+    },
+    smartaddress: {
+      placeholder: "Plak hier het adres om naam, telefoon en locatie automatisch te herkennen",
+      parse: "Slim analyseren",
+      province: "Provincie/Stad/District",
+      city: "Stad",
+      district: "District/Gemeente",
+      street: "Straat/Plaats",
+      detail: "Gedetailleerd adres",
+      phone: "Telefoon",
+      name: "Ontvanger",
+      parseSuccess: "Adres succesvol geanalyseerd",
+      parseFailed: "Analyseren mislukt, vul handmatig in",
+      required: "Vul het volledige adres in",
+      provinceKeywords: ["Provincie", "Staat"],
+      cityKeywords: ["Stad", "Gemeente"],
+      districtKeywords: ["District", "Gemeente", "Wijk"],
+      streetKeywords: ["Straat", "Weg", "Laan", "Steeg"]
+    },
+    ganttchart: {
+      taskName: "Taaknaam",
+      searchPlaceholder: "Taken zoeken...",
+      zoom: "Zoomen",
+      day: "Dag",
+      week: "Week",
+      month: "Maand",
+      year: "Jaar",
+      milestone: "Mijlpaal"
+    },
+    imagemagnifier: {
+      switchToImage: "Schakel naar afbeelding {index}",
+      galleryItem: "Galerij {index}",
+      close: "Sluiten"
+    },
     ai: {
       bubble: {
         citations: "Citaties"
@@ -710,9 +801,32 @@ const nl = exports.nl = {
         pin: "Vastzetten",
         unpin: "Losmaken",
         newConversation: "Nieuw Gesprek",
+        noData: "Nog geen gesprekken",
         rename: "Hernoemen",
         delete: "Verwijderen",
         deleteConfirm: "Bevestig verwijderen van dit gesprek?"
+      },
+      attachments: {
+        dropTip: "Laat bestanden hier los om te uploaden",
+        clickToUpload: "Klik of sleep bestanden om te uploaden",
+        uploadSuccess: "Upload geslaagd",
+        uploadError: "Upload mislukt",
+        deleteConfirm: "Weet je zeker dat je dit bestand wilt verwijderen?",
+        fileTooLarge: "Bestandsgrootte mag niet groter zijn dan {size}",
+        invalidFileType: "Ongeldig bestandstype"
+      },
+      mermaid: {
+        image: "Afbeelding",
+        code: "Code",
+        zoomIn: "Inzoomen",
+        zoomOut: "Uitzoomen",
+        reset: "Resetten",
+        download: "Downloaden",
+        copyCode: "Code kopi\xEBren",
+        rendering: "Bezig met renderen...",
+        renderError: "Renderen mislukt",
+        renderSuccess: "Renderen geslaagd",
+        retry: "Opnieuw proberen"
       }
     }
   }

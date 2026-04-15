@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h, nextTick } from 'vue'
+import { computed, h, nextTick } from 'vue'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import { YhTable } from '../index'
 
 // 测试数据
@@ -340,6 +342,39 @@ describe('Table', () => {
     })
 
     expect(wrapper.find('.yh-table__loading').exists()).toBe(true)
+  })
+
+  it('should render localized empty copy from config provider', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [],
+        columns: mockColumns
+      },
+      global: {
+        provide: {
+          [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-table__empty-text').text()).toBe('No Data')
+  })
+
+  it('should support themeOverrides css variables', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: mockColumns,
+        themeOverrides: {
+          headerBg: '#f7f8f9',
+          rowHoverBg: '#f0f1f2'
+        }
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-table-header-bg: #f7f8f9')
+    expect(style).toContain('--yh-table-row-hover-bg: #f0f1f2')
   })
 
   it('should format cell content with formatter', () => {

@@ -134,4 +134,16 @@ describe('YhCol', () => {
     expect(classes).toContain('yh-col-md-8')
     expect(classes).toContain('yh-col-md-pull-1')
   })
+
+  it('should expose theme override variables on root element', () => {
+    const wrapper = mount(Col, {
+      props: {
+        themeOverrides: {
+          paddingInline: '12px'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-col-padding-inline: 12px')
+  })
 })

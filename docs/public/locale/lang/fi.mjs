@@ -595,6 +595,97 @@ export const fi = {
       noData: "Ei tietoja"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Valitse tiedot",
+      emptyText: "Ei tietoja",
+      stock: "Varasto",
+      price: "Hinta",
+      selected: "Valittu",
+      outOfStock: "Loppu varastosta"
+    },
+    productcard: {
+      viewDetails: "N\xE4yt\xE4 tiedot",
+      buyNow: "Osta nyt",
+      addToCart: "Lis\xE4\xE4 koriin",
+      sold: "Myyty",
+      soldOut: "Loppuunmyyty",
+      vip: "J\xE4sen"
+    },
+    price: {
+      original: "Alkuper\xE4inen hinta"
+    },
+    couponcard: {
+      available: "Lunasta nyt",
+      used: "K\xE4ytetty",
+      expired: "Vanhentunut",
+      received: "Vastaanotettu",
+      limit: "Tilaukset yli {threshold}",
+      noThreshold: "Ei v\xE4himm\xE4israjaa",
+      validPeriod: "Voimassaoloaika",
+      ruleTitle: "K\xE4ytt\xF6s\xE4\xE4nn\xF6t"
+    },
+    luckydraw: {
+      start: "Aloita",
+      drawing: "Arvotaan...",
+      end: "Voittaja!",
+      retry: "Yrit\xE4 uudelleen"
+    },
+    filterbar: {
+      all: "Kaikki",
+      sort: "Lajittele",
+      filter: "Suodata",
+      cancel: "Peruuta",
+      reset: "Nollaa",
+      confirm: "Vahvista",
+      noOptions: "Ei vaihtoehtoja",
+      asc: "Nouseva",
+      desc: "Laskeva",
+      selected: "Valittu"
+    },
+    submitbar: {
+      total: "Yhteens\xE4: ",
+      selected: "{count} valittu",
+      submit: "Siirry kassalle",
+      allSelect: "Valitse kaikki"
+    },
+    categorynav: {
+      all: "Kaikki",
+      noData: "Ei tietoja",
+      loading: "Ladataan..."
+    },
+    smartaddress: {
+      placeholder: "Liit\xE4 osoite t\xE4h\xE4n tunnistaaksesi nimen, puhelimen ja sijainnin automaattisesti",
+      parse: "\xC4lyk\xE4s analyysi",
+      province: "Maakunta/Kaupunki/Alue",
+      city: "Kaupunki",
+      district: "Alue/Kunta",
+      street: "Katu/Paikkakunta",
+      detail: "Tarkka osoite",
+      phone: "Puhelin",
+      name: "Vastaanottaja",
+      parseSuccess: "Osoite analysoitiin onnistuneesti",
+      parseFailed: "Analyysi ep\xE4onnistui, t\xE4yt\xE4 k\xE4sin",
+      required: "T\xE4yt\xE4 t\xE4ydellinen osoite",
+      provinceKeywords: ["Maakunta", "Alue"],
+      cityKeywords: ["Kaupunki", "Kunta"],
+      districtKeywords: ["Alue", "Kunta", "Kyl\xE4"],
+      streetKeywords: ["Katu", "Tie", "Kuja", "Polku"]
+    },
+    ganttchart: {
+      taskName: "Teht\xE4v\xE4n nimi",
+      searchPlaceholder: "Hae teht\xE4vi\xE4...",
+      zoom: "Zoom",
+      day: "P\xE4iv\xE4",
+      week: "Viikko",
+      month: "Kuukausi",
+      year: "Vuosi",
+      milestone: "Virstanpylv\xE4s"
+    },
+    imagemagnifier: {
+      switchToImage: "Vaihda kuvaan {index}",
+      galleryItem: "Galleria {index}",
+      close: "Sulje"
+    },
     ai: {
       bubble: {
         citations: "Lainaukset"
@@ -704,9 +795,32 @@ export const fi = {
         pin: "Kiinnit\xE4",
         unpin: "Poista kiinnitys",
         newConversation: "Uusi keskustelu",
+        noData: "Ei viel\xE4 keskusteluja",
         rename: "Nime\xE4 uudelleen",
         delete: "Poista",
         deleteConfirm: "Vahvista t\xE4m\xE4n keskustelun poistaminen?"
+      },
+      attachments: {
+        dropTip: "Pudota tiedostot t\xE4h\xE4n ladataksesi ne",
+        clickToUpload: "Napsauta tai ved\xE4 tiedostot ladattavaksi",
+        uploadSuccess: "Lataus onnistui",
+        uploadError: "Lataus ep\xE4onnistui",
+        deleteConfirm: "Haluatko varmasti poistaa t\xE4m\xE4n tiedoston?",
+        fileTooLarge: "Tiedoston koko ei saa ylitt\xE4\xE4 arvoa {size}",
+        invalidFileType: "Virheellinen tiedostotyyppi"
+      },
+      mermaid: {
+        image: "Kuva",
+        code: "Koodi",
+        zoomIn: "L\xE4henn\xE4",
+        zoomOut: "Loitonna",
+        reset: "Palauta",
+        download: "Lataa",
+        copyCode: "Kopioi koodi",
+        rendering: "Piirret\xE4\xE4n...",
+        renderError: "Piirt\xE4minen ep\xE4onnistui",
+        renderSuccess: "Piirt\xE4minen onnistui",
+        retry: "Yrit\xE4 uudelleen"
       }
     }
   }

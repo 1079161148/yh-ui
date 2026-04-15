@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import FilterBar from '../src/filter-bar.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('FilterBar', () => {
   const props = {
@@ -31,5 +34,30 @@ describe('FilterBar', () => {
     const panel = wrapper.find('.yh-filter-bar__panel-title')
     expect(panel.exists()).toBe(true)
     expect(panel.text()).toBe('Brand')
+  })
+
+  it('uses config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(FilterBar, { ...props, showAll: true })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('All')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(FilterBar, {
+      props: {
+        ...props,
+        themeOverrides: {
+          'tab-active-color': '#1677ff'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-filter-bar-tab-active-color: #1677ff')
   })
 })

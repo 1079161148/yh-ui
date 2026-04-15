@@ -50,3 +50,7 @@ export const backTopEmits = {
 }
 
 export type BackTopEmits = typeof backTopEmits
+
+export interface BackTopSlots {
+  default?: () => unknown
+}

@@ -51,3 +51,10 @@ export const stepProps = {
 } as const
 
 export type StepProps = ExtractPropTypes<typeof stepProps>
+
+export interface StepSlots {
+  icon?: () => unknown
+  title?: () => unknown
+  description?: () => unknown
+  default?: () => unknown
+}

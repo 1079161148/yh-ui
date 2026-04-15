@@ -154,3 +154,7 @@ export const aiThoughtChainEmits = {
 }
 
 export type AiThoughtChainEmits = typeof aiThoughtChainEmits
+
+export interface AiThoughtChainSlots {
+  default?: () => unknown
+}

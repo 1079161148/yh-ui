@@ -20,3 +20,6 @@ export { configProviderContextKey } from '@yh-ui/hooks'
 export type { ConfigProviderContext } from '@yh-ui/hooks'
 
 export type ConfigProviderInstance = InstanceType<typeof ConfigProvider>
+export type YhConfigProviderProps = import('./src/config-provider').ConfigProviderProps
+export type YhConfigProviderSlots = import('./src/config-provider').ConfigProviderSlots
+export type YhConfigProviderInstance = ConfigProviderInstance

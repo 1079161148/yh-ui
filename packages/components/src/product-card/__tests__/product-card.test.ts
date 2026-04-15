@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import ProductCard from '../src/product-card.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('ProductCard', () => {
   const props = {
@@ -55,5 +58,35 @@ describe('ProductCard', () => {
     })
     expect(wrapper.find('.yh-product-card__stock-area').exists()).toBe(true)
     expect(wrapper.text()).toContain('Only 5 left')
+  })
+
+  it('uses config-provider locale action text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(ProductCard, {
+            title: 'Product Title',
+            image: 'https://test.com/image.jpg',
+            price: 99
+          })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('Buy Now')
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(ProductCard, {
+      props: {
+        ...props,
+        themeOverrides: {
+          'price-color': '#fa541c'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-product-card-price-color: #fa541c')
   })
 })

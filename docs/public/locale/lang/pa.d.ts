@@ -1,3 +1,2 @@
-import type { Language } from '../index';
-export declare const pa: Language;
-export default pa;
+import type { Language } from '../index'
+export declare const pa: Language

@@ -615,7 +615,9 @@ export const en = {
       viewDetails: "View Details",
       buyNow: "Buy Now",
       addToCart: "Add to Cart",
-      sold: "Sold"
+      sold: "Sold",
+      soldOut: "Sold Out",
+      vip: "VIP"
     },
     // Price
     price: {
@@ -644,6 +646,7 @@ export const en = {
       all: "All",
       sort: "Sort",
       filter: "Filter",
+      cancel: "Cancel",
       reset: "Reset",
       confirm: "Confirm",
       noOptions: "No options",
@@ -682,6 +685,21 @@ export const en = {
       cityKeywords: ["City", "Prefecture"],
       districtKeywords: ["District", "County", "Township"],
       streetKeywords: ["Street", "Road", "Ave", "Lane"]
+    },
+    ganttchart: {
+      taskName: "Task Name",
+      searchPlaceholder: "Search tasks...",
+      zoom: "Zoom",
+      day: "Day",
+      week: "Week",
+      month: "Month",
+      year: "Year",
+      milestone: "Milestone"
+    },
+    imagemagnifier: {
+      switchToImage: "Switch to image {index}",
+      galleryItem: "Gallery {index}",
+      close: "Close"
     },
     // AI Components
     ai: {

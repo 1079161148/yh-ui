@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
 import { YhPagination } from '../index'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('Pagination', () => {
   const globalOptions = {
@@ -139,5 +142,47 @@ describe('Pagination', () => {
       }
     })
     expect(wrapper.find('.yh-pagination').exists()).toBe(false)
+  })
+  it('should use config-provider locale text', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(YhPagination, { total: 100, layout: 'total, prev, next' })
+      },
+      global: globalOptions
+    })
+
+    expect(wrapper.text()).toContain('Total 100')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhPagination, {
+      global: globalOptions,
+      props: {
+        total: 100,
+        themeOverrides: {
+          'font-size': '16px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-pagination').attributes('style')).toContain(
+      '--yh-pagination-font-size: 16px'
+    )
+  })
+
+  it('should expose pagination state', () => {
+    const wrapper = mount(YhPagination, {
+      global: globalOptions,
+      props: {
+        total: 100,
+        currentPage: 2,
+        pageSize: 20
+      }
+    })
+
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.pageSize).toBe(20)
+    expect(wrapper.vm.pageCount).toBe(5)
   })
 })

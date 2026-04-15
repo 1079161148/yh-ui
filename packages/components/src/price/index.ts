@@ -10,3 +10,4 @@ export type PriceInstance = InstanceType<typeof Price>
 export type YhPriceInstance = PriceInstance
 
 export type YhPriceProps = import('./src/price').PriceProps
+export type YhPriceSlots = import('./src/price').PriceSlots

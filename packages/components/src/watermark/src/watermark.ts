@@ -1,5 +1,15 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 
+export interface WatermarkFont {
+  color?: string
+  fontSize?: number | string
+  fontWeight?: string | number
+  fontFamily?: string
+  fontStyle?: 'normal' | 'italic' | 'oblique'
+  textAlign?: 'start' | 'end' | 'left' | 'right' | 'center'
+  lineHeight?: number
+}
+
 export const watermarkProps = {
   /** 宽度 */
   width: {
@@ -30,15 +40,7 @@ export const watermarkProps = {
   },
   /** 字体设置 */
   font: {
-    type: Object as PropType<{
-      color?: string
-      fontSize?: number | string
-      fontWeight?: string | number
-      fontFamily?: string
-      fontStyle?: 'normal' | 'italic' | 'oblique'
-      textAlign?: 'start' | 'end' | 'left' | 'right' | 'center'
-      lineHeight?: number
-    }>,
+    type: Object as PropType<WatermarkFont>,
     default: () => ({
       color: 'rgba(0,0,0,0.15)',
       fontSize: 16,
@@ -82,3 +84,11 @@ export const watermarkProps = {
 } as const
 
 export type WatermarkProps = ExtractPropTypes<typeof watermarkProps>
+
+export interface WatermarkSlots {
+  default?: () => unknown
+}
+
+export interface WatermarkExpose {
+  renderWatermark: () => void
+}

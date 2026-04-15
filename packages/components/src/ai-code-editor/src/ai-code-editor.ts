@@ -101,6 +101,8 @@ export const aiCodeEditorEmits = {
 
 export type AiCodeEditorEmits = typeof aiCodeEditorEmits
 
+export interface AiCodeEditorSlots {}
+
 export interface AiCodeEditorExpose {
   getEditor: () => import('monaco-editor').editor.IStandaloneCodeEditor | null
   focus: () => void

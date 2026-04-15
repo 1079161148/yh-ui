@@ -1,12 +1,16 @@
 <template>
-  <div ref="containerRef" :class="[ns.b(), { [ns.m('fullscreen')]: fullScreen }]" :style="containerStyle">
+  <div
+    ref="containerRef"
+    :class="[ns.b(), { [ns.m('fullscreen')]: fullScreen }]"
+    :style="containerStyle"
+  >
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick, type CSSProperties } from 'vue'
-import { watermarkProps } from './watermark'
+import { watermarkProps, type WatermarkExpose } from './watermark'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 
@@ -18,7 +22,10 @@ const props = defineProps(watermarkProps)
 const ns = useNamespace('watermark')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('watermark', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'watermark',
+  computed(() => props.themeOverrides)
+)
 
 const containerRef = ref<HTMLElement | null>(null)
 let watermarkRef: HTMLElement | null = null
@@ -96,7 +103,9 @@ const renderWatermark = () => {
 
     const contents = Array.isArray(props.content)
       ? props.content
-      : (typeof props.content === 'string' ? props.content.split('\n') : [props.content])
+      : typeof props.content === 'string'
+        ? props.content.split('\n')
+        : [props.content]
     const lH = lineHeight || 22
 
     contents.forEach((text, index) => {
@@ -150,8 +159,7 @@ const initGuard = () => {
         if (removed.includes(watermarkRef!)) {
           createOrUpdateWatermark()
         }
-      }
-      else if (mutation.type === 'attributes' && mutation.target === watermarkRef) {
+      } else if (mutation.type === 'attributes' && mutation.target === watermarkRef) {
         createOrUpdateWatermark()
       }
     }
@@ -172,9 +180,24 @@ const initGuard = () => {
   }, 3000)
 }
 
-watch(() => [props.content, props.image, props.width, props.height, props.gap, props.rotate, props.globalRotate, props.zIndex, props.fullScreen, props.font], () => {
-  renderWatermark()
-}, { deep: true })
+watch(
+  () => [
+    props.content,
+    props.image,
+    props.width,
+    props.height,
+    props.gap,
+    props.rotate,
+    props.globalRotate,
+    props.zIndex,
+    props.fullScreen,
+    props.font
+  ],
+  () => {
+    renderWatermark()
+  },
+  { deep: true }
+)
 
 onMounted(() => {
   renderWatermark()
@@ -191,7 +214,7 @@ onBeforeUnmount(() => {
   }
 })
 
-defineExpose({
+defineExpose<WatermarkExpose>({
   renderWatermark
 })
 </script>

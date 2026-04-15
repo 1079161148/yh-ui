@@ -16,3 +16,9 @@ export * from './src/use-dialog'
 export type { DialogMethod } from './src/method'
 
 export type DialogInstance = InstanceType<typeof Dialog>
+export type YhDialogInstance = DialogInstance
+export type YhDialogProps = import('./src/dialog').DialogProps
+export type YhDialogEmits = import('./src/dialog').DialogEmits
+export type YhDialogSlots = import('./src/dialog').DialogSlots
+export type YhDialogExpose = import('./src/dialog').DialogExpose
+export type YhDialogMethod = import('./src/method').DialogMethod

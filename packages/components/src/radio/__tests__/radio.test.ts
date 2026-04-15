@@ -159,4 +159,24 @@ describe('YhRadioGroup', () => {
     expect(wrapper.emitted('change')).toBeTruthy()
     expect(wrapper.emitted('change')![0]).toEqual(['2'])
   })
+
+  it('applies theme overrides and exposes focus helpers', async () => {
+    const wrapper = mount(YhRadio, {
+      props: {
+        value: '1',
+        label: 'Option 1',
+        themeOverrides: {
+          textColor: 'rgb(4, 5, 6)'
+        }
+      }
+    })
+    await Promise.resolve()
+
+    const root = wrapper.find('.yh-radio').element as HTMLElement
+    const vm = wrapper.vm as any
+
+    expect(root.style.getPropertyValue('--yh-radio-text-color')).toBe('rgb(4, 5, 6)')
+    expect(typeof vm.focus).toBe('function')
+    expect(typeof vm.blur).toBe('function')
+  })
 })

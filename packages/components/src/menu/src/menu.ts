@@ -242,6 +242,10 @@ export const menuEmits = {
 export type MenuProps = ExtractPropTypes<typeof menuProps>
 export type MenuEmits = typeof menuEmits
 
+export interface MenuSlots {
+  default?: () => unknown
+}
+
 // MenuItem Props
 export const menuItemProps = {
   /** 唯一标识 */
@@ -319,6 +323,13 @@ export const subMenuProps = {
 } as const
 
 export type SubMenuProps = ExtractPropTypes<typeof subMenuProps>
+
+export interface MenuExpose {
+  open: (index: string) => void
+  close: (index: string) => void
+  activeIndex: Ref<string>
+  openedMenus: Ref<string[]>
+}
 
 // Menu Context
 export interface MenuContext {

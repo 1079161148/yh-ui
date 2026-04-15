@@ -1,8 +1,3 @@
-/**
- * Cascader Component
- * @description 级联选择器组件导出
- */
-
 import { withInstall } from '@yh-ui/utils'
 import Cascader from './src/cascader.vue'
 import CascaderPanel from './src/cascader-panel.vue'
@@ -16,3 +11,9 @@ export * from './src/cascader'
 
 export type CascaderInstance = InstanceType<typeof Cascader>
 export type CascaderPanelInstance = InstanceType<typeof CascaderPanel>
+export type YhCascaderInstance = CascaderInstance
+export type YhCascaderPanelInstance = CascaderPanelInstance
+export type YhCascaderProps = import('./src/cascader').CascaderProps
+export type YhCascaderEmits = import('./src/cascader').CascaderEmits
+export type YhCascaderExpose = import('./src/cascader').CascaderExpose
+export type YhCascaderOption = import('./src/cascader').CascaderOption

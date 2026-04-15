@@ -597,6 +597,97 @@ export const sk: Language = {
       noData: 'Žiadne dáta'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Vyberte špecifikácie',
+      emptyText: 'Žiadne špecifikácie',
+      stock: 'Sklad',
+      price: 'Cena',
+      selected: 'Vybrané',
+      outOfStock: 'Nie je na sklade'
+    },
+    productcard: {
+      viewDetails: 'Zobraziť podrobnosti',
+      buyNow: 'Kúpiť teraz',
+      addToCart: 'Pridať do košíka',
+      sold: 'Predané',
+      soldOut: 'Vypredané',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Pôvodná cena'
+    },
+    couponcard: {
+      available: 'Získať teraz',
+      used: 'Použité',
+      expired: 'Vypršané',
+      received: 'Prijaté',
+      limit: 'Objednávky nad {threshold}',
+      noThreshold: 'Bez minimálnej hodnoty',
+      validPeriod: 'Platnosť',
+      ruleTitle: 'Pravidlá používania'
+    },
+    luckydraw: {
+      start: 'Spustiť',
+      drawing: 'Žrebovanie...',
+      end: 'Víťaz!',
+      retry: 'Skúsiť znova'
+    },
+    filterbar: {
+      all: 'Všetko',
+      sort: 'Triediť',
+      filter: 'Filtrovať',
+      cancel: 'Zrušiť',
+      reset: 'Obnoviť',
+      confirm: 'Potvrdiť',
+      noOptions: 'Žiadne možnosti',
+      asc: 'Vzostupne',
+      desc: 'Zostupne',
+      selected: 'Vybrané'
+    },
+    submitbar: {
+      total: 'Spolu: ',
+      selected: '{count} vybrané',
+      submit: 'Pokračovať k pokladni',
+      allSelect: 'Vybrať všetko'
+    },
+    categorynav: {
+      all: 'Všetko',
+      noData: 'Žiadne údaje',
+      loading: 'Načítava sa...'
+    },
+    smartaddress: {
+      placeholder: 'Vložte sem adresu na automatické rozpoznanie mena, telefónu a miesta',
+      parse: 'Inteligentná analýza',
+      province: 'Kraj/Mesto/Okres',
+      city: 'Mesto',
+      district: 'Okres/Obec',
+      street: 'Ulica/Mesto',
+      detail: 'Podrobná adresa',
+      phone: 'Telefón',
+      name: 'Príjemca',
+      parseSuccess: 'Adresa bola úspešne analyzovaná',
+      parseFailed: 'Analýza zlyhala, vyplňte ručne',
+      required: 'Vyplňte prosím úplnú adresu',
+      provinceKeywords: ['Kraj', 'Štát'],
+      cityKeywords: ['Mesto', 'Obec'],
+      districtKeywords: ['Okres', 'Obec', 'Časť'],
+      streetKeywords: ['Ulica', 'Trieda', 'Cesta', 'Námestie']
+    },
+    ganttchart: {
+      taskName: 'Názov úlohy',
+      searchPlaceholder: 'Hľadať úlohy...',
+      zoom: 'Priblíženie',
+      day: 'Deň',
+      week: 'Týždeň',
+      month: 'Mesiac',
+      year: 'Rok',
+      milestone: 'Míľnik'
+    },
+    imagemagnifier: {
+      switchToImage: 'Prepnúť na obrázok {index}',
+      galleryItem: 'Galéria {index}',
+      close: 'Zavrieť'
+    },
     ai: {
       bubble: {
         citations: 'Citácie'
@@ -707,9 +798,32 @@ export const sk: Language = {
         pin: 'Pripnúť',
         unpin: 'Odpnúť',
         newConversation: 'Nová konverzácia',
+        noData: 'Zatiaľ žiadne konverzácie',
         rename: 'Premenovať',
         delete: 'Vymazať',
         deleteConfirm: 'Potvrďte vymazanie tejto konverzácie?'
+      },
+      attachments: {
+        dropTip: 'Presuňte sem súbory na nahranie',
+        clickToUpload: 'Kliknite alebo pretiahnite súbory na nahranie',
+        uploadSuccess: 'Nahranie bolo úspešné',
+        uploadError: 'Nahranie zlyhalo',
+        deleteConfirm: 'Naozaj chcete odstrániť tento súbor?',
+        fileTooLarge: 'Veľkosť súboru nemôže presiahnuť {size}',
+        invalidFileType: 'Neplatný typ súboru'
+      },
+      mermaid: {
+        image: 'Obrázok',
+        code: 'Kód',
+        zoomIn: 'Priblížiť',
+        zoomOut: 'Oddialiť',
+        reset: 'Obnoviť',
+        download: 'Stiahnuť',
+        copyCode: 'Kopírovať kód',
+        rendering: 'Vykresľovanie...',
+        renderError: 'Vykreslenie zlyhalo',
+        renderSuccess: 'Vykreslenie bolo úspešné',
+        retry: 'Skúsiť znova'
       }
     }
   }

@@ -249,12 +249,12 @@ describe('YhAutocomplete', () => {
   // expose 方法测试
   it('should expose focus and blur methods', () => {
     const wrapper = mount(Autocomplete)
-    const vm = wrapper.vm as any
+    const exposed = (wrapper.vm as any).$?.exposed
 
-    expect(typeof vm.focus).toBe('function')
-    expect(typeof vm.blur).toBe('function')
-    expect(typeof vm.close).toBe('function')
-    expect(typeof vm.highlight).toBe('function')
+    expect(typeof exposed?.focus).toBe('function')
+    expect(typeof exposed?.blur).toBe('function')
+    expect(typeof exposed?.close).toBe('function')
+    expect(typeof exposed?.highlight).toBe('function')
   })
 
   it('should highlight first item when highlightFirstItem is true', async () => {
@@ -346,5 +346,19 @@ describe('YhAutocomplete', () => {
     await wrapperEmpty.find('input').setValue('a')
     await nextTick()
     expect(wrapperEmpty.find('.custom-empty').exists()).toBe(true)
+  })
+
+  it('should apply component theme overrides to root element', () => {
+    const wrapper = mount(Autocomplete, {
+      props: {
+        themeOverrides: {
+          borderColor: '#123456',
+          focusBorderColor: '#654321'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-autocomplete-border-color: #123456')
+    expect(wrapper.attributes('style')).toContain('--yh-autocomplete-focus-border-color: #654321')
   })
 })

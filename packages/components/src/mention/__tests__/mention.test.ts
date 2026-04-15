@@ -3,8 +3,10 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import Mention from '../src/mention.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 // ─── 辅助数据 ─────────────────────────────────────────────────────────────────
 
@@ -23,6 +25,44 @@ describe('Mention Constants Coverage', () => {
     expect(mentionPlacements).toContain('top')
     expect(mentionSizes).toContain('default')
     expect(mentionSplits).toContain('@')
+  })
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(Mention, {
+            modelValue: '',
+            options: [],
+            filterOption: false,
+            debounce: 0,
+            teleported: false
+          })
+      },
+      attachTo: document.body
+    })
+
+    const input = wrapper.find('input')
+    expect(input.attributes('placeholder')).toBe('Please input')
+
+    await input.setValue('@')
+    await input.trigger('input')
+    await new Promise((resolve) => setTimeout(resolve, 50))
+    await nextTick()
+
+    expect(wrapper.text()).toContain('No Data')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(Mention, {
+      props: {
+        themeOverrides: {
+          'border-color': '#123456'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-mention-border-color: #123456')
   })
 })
 

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, inject } from 'vue'
 import { YhConfigProvider, configProviderContextKey } from '../index'
+import { en } from '@yh-ui/locale'
 
 const ChildComponent = defineComponent({
   setup() {
@@ -9,6 +10,14 @@ const ChildComponent = defineComponent({
     return { config }
   },
   template: '<div>{{ config?.size }}</div>'
+})
+
+const LocaleChildComponent = defineComponent({
+  setup() {
+    const config = inject(configProviderContextKey)
+    return { config }
+  },
+  template: '<div class="locale-name">{{ config?.locale?.name }}</div>'
 })
 
 describe('ConfigProvider', () => {
@@ -40,6 +49,33 @@ describe('ConfigProvider', () => {
     const primaryColor = root.style.getPropertyValue('--yh-color-primary')
     expect(primaryColor).toBeTruthy()
     expect(primaryColor.length).toBeGreaterThan(0)
+  })
+
+  it('should scope theme styles when global is false', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: {
+        theme: '#ff6600',
+        global: false
+      },
+      slots: {
+        default: '<div class="test"></div>'
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-color-primary: #ff6600')
+  })
+
+  it('should provide locale through injection', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: {
+        locale: en
+      },
+      slots: {
+        default: LocaleChildComponent
+      }
+    })
+
+    expect(wrapper.find('.locale-name').text()).toBe('en')
   })
 
   it('多层嵌套时应遵循最近原则 (Vue Provide/Inject 原生支持)', () => {

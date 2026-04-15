@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { productCardProps, productCardEmits } from './product-card'
 
@@ -10,12 +10,12 @@ const props = defineProps(productCardProps)
 const emit = defineEmits(productCardEmits)
 
 const ns = useNamespace('product-card')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme(
   'product-card',
   computed(() => props.themeOverrides)
 )
 
-// ─── Exposure Analytic (Feature 5) ─────────────────────────────────────────
 const cardRef = ref<HTMLElement | null>(null)
 let observer: IntersectionObserver | null = null
 const hasExposed = ref(false)
@@ -40,7 +40,6 @@ const setupObserver = () => {
 onMounted(setupObserver)
 onUnmounted(() => observer?.disconnect())
 
-// ─── Media State (Feature 3) ────────────────────────────────────────────────
 const currentImage = ref(props.image)
 const isHovering = ref(false)
 const videoActive = ref(false)
@@ -64,7 +63,6 @@ const handleMouseLeave = () => {
   if (props.videoSrc) videoActive.value = false
 }
 
-// ─── Price & Logic (Feature 2) ───────────────────────────────────────────────
 const displayPrice = computed(() => {
   const p = Number(props.price)
   return isNaN(p) ? props.price : p.toFixed(2)
@@ -80,12 +78,15 @@ const displayVipPrice = computed(() => {
   return isNaN(p) ? props.vipPrice : p.toFixed(2)
 })
 
+const vipLabelText = computed(() => props.vipLabel || t('productcard.vip'))
+const soldOutText = computed(() => t('productcard.soldOut'))
+const actionText = computed(() => props.actionText || t('productcard.buyNow'))
+
 const stockStyle = computed(() => ({
   width: `${Math.min(100, Math.max(0, props.stockProgress))}%`,
   background: props.stockColor || 'var(--yh-color-primary)'
 }))
 
-// ─── Actions (Feature 4) ────────────────────────────────────────────────────
 const handleAction = (e: MouseEvent) => {
   if (props.soldOut || props.actionLoading) return
   emit('action', e)
@@ -95,7 +96,6 @@ const handleClick = (e: MouseEvent) => {
   emit('click', e)
 }
 
-// ─── Badge Logic (Fix: Missing Image Handling) ──────────────────────────────
 const badgeImageErrors = ref<Record<number, boolean>>({})
 const handleBadgeImageError = (idx: number) => {
   badgeImageErrors.value[idx] = true
@@ -123,7 +123,6 @@ const handleBadgeImageError = (idx: number) => {
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <!-- 1. Ribbon System (Feature 1) -->
     <div
       v-if="props.ribbon"
       :class="ns.e('ribbon')"
@@ -132,7 +131,6 @@ const handleBadgeImageError = (idx: number) => {
       {{ props.ribbon }}
     </div>
 
-    <!-- Media Area (Feature 3) -->
     <div :class="ns.e('image-wrapper')">
       <img
         :src="currentImage"
@@ -141,22 +139,18 @@ const handleBadgeImageError = (idx: number) => {
         :loading="props.lazy ? 'lazy' : 'eager'"
       />
 
-      <!-- Video Preview Overlay -->
       <Transition name="yh-fade">
         <div v-if="videoActive && props.videoSrc" :class="ns.e('video-overlay')">
           <video :src="props.videoSrc" autoplay muted loop playsinline :class="ns.e('video')" />
         </div>
       </Transition>
 
-      <!-- Sold Out Mask (Feature 4) -->
       <div v-if="props.soldOut" :class="ns.e('sold-out-mask')">
-        <span :class="ns.e('sold-out-text')">售罄</span>
+        <span :class="ns.e('sold-out-text')">{{ soldOutText }}</span>
       </div>
     </div>
 
-    <!-- Content Area -->
     <div :class="ns.e('content')">
-      <!-- 1. Badges System (Row Style: Above Title) -->
       <div
         v-if="(props.tag || props.badges.length) && props.badgePosition === 'top'"
         :class="ns.e('badges')"
@@ -183,7 +177,6 @@ const handleBadgeImageError = (idx: number) => {
       </div>
 
       <h3 :class="ns.e('title')" :title="props.title">
-        <!-- 2. Badges System (Inline Style: Prefix) -->
         <span
           v-if="(props.tag || props.badges.length) && props.badgePosition === 'inline'"
           :class="[ns.e('badges'), ns.is('inline')]"
@@ -219,7 +212,6 @@ const handleBadgeImageError = (idx: number) => {
         <slot name="description">{{ props.description }}</slot>
       </div>
 
-      <!-- Price Area (Feature 2) -->
       <div :class="ns.e('price-row')">
         <div :class="ns.e('main-price')">
           <span :class="ns.e('currency')">{{ props.currency }}</span>
@@ -228,7 +220,7 @@ const handleBadgeImageError = (idx: number) => {
         </div>
 
         <div v-if="props.vipPrice" :class="ns.e('vip-row')">
-          <span :class="ns.e('vip-label')">{{ props.vipLabel }}</span>
+          <span :class="ns.e('vip-label')">{{ vipLabelText }}</span>
           <span :class="ns.e('currency')">{{ props.currency }}</span>
           <span :class="ns.e('vip-price')">{{ displayVipPrice }}</span>
         </div>
@@ -238,7 +230,6 @@ const handleBadgeImageError = (idx: number) => {
         </div>
       </div>
 
-      <!-- Stock Progress (Feature 2 & 侧边栏需求) -->
       <div v-if="props.stockProgress" :class="ns.e('stock-area')">
         <div :class="ns.e('stock-bar-bg')">
           <div :class="ns.e('stock-bar-inner')" :style="stockStyle" />
@@ -246,7 +237,6 @@ const handleBadgeImageError = (idx: number) => {
         <span v-if="props.stockText" :class="ns.e('stock-text')">{{ props.stockText }}</span>
       </div>
 
-      <!-- Footer Actions (Feature 4) -->
       <div v-if="!props.readonly" :class="ns.e('footer')">
         <slot name="footer">
           <button
@@ -258,7 +248,7 @@ const handleBadgeImageError = (idx: number) => {
             @click.stop="handleAction"
           >
             <span v-if="props.actionLoading" :class="ns.e('loading-spinner')" />
-            {{ props.actionText || '立即购买' }}
+            {{ actionText }}
           </button>
         </slot>
       </div>

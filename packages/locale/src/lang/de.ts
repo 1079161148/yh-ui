@@ -521,6 +521,97 @@ export const de: Language = {
       loading: 'Laden...',
       noData: 'Keine Daten'
     },
+    skuselector: {
+      placeholder: 'Spezifikationen auswählen',
+      emptyText: 'Keine Spezifikationen',
+      stock: 'Bestand',
+      price: 'Preis',
+      selected: 'Ausgewählt',
+      outOfStock: 'Nicht auf Lager'
+    },
+    productcard: {
+      viewDetails: 'Details anzeigen',
+      buyNow: 'Jetzt kaufen',
+      addToCart: 'In den Warenkorb',
+      sold: 'Verkauft',
+      soldOut: 'Ausverkauft',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Originalpreis'
+    },
+    couponcard: {
+      available: 'Jetzt einlösen',
+      used: 'Verwendet',
+      expired: 'Abgelaufen',
+      received: 'Erhalten',
+      limit: 'Bestellungen über {threshold}',
+      noThreshold: 'Kein Mindestbetrag',
+      validPeriod: 'Gültigkeit',
+      ruleTitle: 'Nutzungsregeln'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Ziehung...',
+      end: 'Gewonnen!',
+      retry: 'Erneut versuchen'
+    },
+    filterbar: {
+      all: 'Alle',
+      sort: 'Sortieren',
+      filter: 'Filtern',
+      cancel: 'Abbrechen',
+      reset: 'Zurücksetzen',
+      confirm: 'Bestätigen',
+      noOptions: 'Keine Optionen',
+      asc: 'Aufsteigend',
+      desc: 'Absteigend',
+      selected: 'Ausgewählt'
+    },
+    submitbar: {
+      total: 'Summe: ',
+      selected: '{count} ausgewählt',
+      submit: 'Zur Kasse',
+      allSelect: 'Alle auswählen'
+    },
+    categorynav: {
+      all: 'Alle',
+      noData: 'Keine Daten',
+      loading: 'Laden...'
+    },
+    smartaddress: {
+      placeholder: 'Adresse hier einfügen, Name, Telefon und Ort automatisch erkennen',
+      parse: 'Intelligent erkennen',
+      province: 'Bundesland/Stadt/Bezirk',
+      city: 'Stadt',
+      district: 'Bezirk/Landkreis',
+      street: 'Straße/Ort',
+      detail: 'Detailadresse',
+      phone: 'Telefon',
+      name: 'Empfänger',
+      parseSuccess: 'Adresse erfolgreich erkannt',
+      parseFailed: 'Erkennung fehlgeschlagen, bitte manuell ausfüllen',
+      required: 'Bitte vollständige Adresse eingeben',
+      provinceKeywords: ['Bundesland', 'Staat'],
+      cityKeywords: ['Stadt', 'Region'],
+      districtKeywords: ['Bezirk', 'Landkreis', 'Gemeinde'],
+      streetKeywords: ['Straße', 'Weg', 'Allee', 'Gasse']
+    },
+    ganttchart: {
+      taskName: 'Aufgabenname',
+      searchPlaceholder: 'Aufgaben suchen...',
+      zoom: 'Zoom',
+      day: 'Tag',
+      week: 'Woche',
+      month: 'Monat',
+      year: 'Jahr',
+      milestone: 'Meilenstein'
+    },
+    imagemagnifier: {
+      switchToImage: 'Zu Bild {index} wechseln',
+      galleryItem: 'Galeriebild {index}',
+      close: 'Schließen'
+    },
     // AI Components
     ai: {
       bubble: {
@@ -632,9 +723,32 @@ export const de: Language = {
         pin: 'Anheften',
         unpin: 'Lösen',
         newConversation: 'Neue Konversation',
+        noData: 'Noch keine Unterhaltungen',
         rename: 'Umbenennen',
         delete: 'Löschen',
         deleteConfirm: 'Diese Konversation löschen?'
+      },
+      attachments: {
+        dropTip: 'Dateien zum Hochladen hier ablegen',
+        clickToUpload: 'Klicken oder Dateien zum Hochladen ziehen',
+        uploadSuccess: 'Upload erfolgreich',
+        uploadError: 'Upload fehlgeschlagen',
+        deleteConfirm: 'Diese Datei wirklich löschen?',
+        fileTooLarge: 'Dateigröße darf {size} nicht überschreiten',
+        invalidFileType: 'Ungültiger Dateityp'
+      },
+      mermaid: {
+        image: 'Bild',
+        code: 'Code',
+        zoomIn: 'Vergrößern',
+        zoomOut: 'Verkleinern',
+        reset: 'Zurücksetzen',
+        download: 'Herunterladen',
+        copyCode: 'Code kopieren',
+        rendering: 'Wird gerendert...',
+        renderError: 'Rendern fehlgeschlagen',
+        renderSuccess: 'Rendern erfolgreich',
+        retry: 'Erneut versuchen'
       }
     }
   }

@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 
 export interface AiCitation {
   /**
@@ -519,3 +519,12 @@ export const aiBubbleProps = {
 }
 
 export type AiBubbleProps = ExtractPropTypes<typeof aiBubbleProps>
+
+export interface AiBubbleSlots {
+  avatar?: () => unknown
+  header?: () => unknown
+  default?: () => unknown
+  footer?: () => unknown
+}
+
+export type AiBubbleSlotTypes = SlotsType<AiBubbleSlots>

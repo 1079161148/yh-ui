@@ -595,6 +595,97 @@ export const ro = {
       noData: "Nu exist\u0103 date"
     },
     // AI Components
+    skuselector: {
+      placeholder: "Selecta\u021Bi specifica\u021Biile",
+      emptyText: "Nu exist\u0103 specifica\u021Bii",
+      stock: "Stoc",
+      price: "Pre\u021B",
+      selected: "Selectat",
+      outOfStock: "Stoc epuizat"
+    },
+    productcard: {
+      viewDetails: "Vezi detalii",
+      buyNow: "Cump\u0103r\u0103 acum",
+      addToCart: "Adaug\u0103 \xEEn co\u0219",
+      sold: "V\xE2ndut",
+      soldOut: "Epuizat",
+      vip: "VIP"
+    },
+    price: {
+      original: "Pre\u021B ini\u021Bial"
+    },
+    couponcard: {
+      available: "Ob\u021Bine acum",
+      used: "Folosit",
+      expired: "Expirat",
+      received: "Primit",
+      limit: "Comenzi peste {threshold}",
+      noThreshold: "F\u0103r\u0103 prag minim",
+      validPeriod: "Perioad\u0103 de valabilitate",
+      ruleTitle: "Reguli de utilizare"
+    },
+    luckydraw: {
+      start: "Porne\u0219te",
+      drawing: "Se extrage...",
+      end: "C\xE2\u0219tig\u0103tor!",
+      retry: "\xCEncearc\u0103 din nou"
+    },
+    filterbar: {
+      all: "Toate",
+      sort: "Sortare",
+      filter: "Filtrare",
+      cancel: "Anuleaz\u0103",
+      reset: "Reseteaz\u0103",
+      confirm: "Confirm\u0103",
+      noOptions: "F\u0103r\u0103 op\u021Biuni",
+      asc: "Cresc\u0103tor",
+      desc: "Descresc\u0103tor",
+      selected: "Selectat"
+    },
+    submitbar: {
+      total: "Total: ",
+      selected: "{count} selectate",
+      submit: "Finalizeaz\u0103 comanda",
+      allSelect: "Selecteaz\u0103 tot"
+    },
+    categorynav: {
+      all: "Toate",
+      noData: "Nu exist\u0103 date",
+      loading: "Se \xEEncarc\u0103..."
+    },
+    smartaddress: {
+      placeholder: "Lipi\u021Bi aici adresa pentru a detecta automat numele, telefonul \u0219i loca\u021Bia",
+      parse: "Analiz\u0103 inteligent\u0103",
+      province: "Jude\u021B/Ora\u0219/District",
+      city: "Ora\u0219",
+      district: "District/Comitat",
+      street: "Strad\u0103/Localitate",
+      detail: "Adres\u0103 detaliat\u0103",
+      phone: "Telefon",
+      name: "Destinatar",
+      parseSuccess: "Adresa a fost analizat\u0103 cu succes",
+      parseFailed: "Analiza a e\u0219uat, completa\u021Bi manual",
+      required: "V\u0103 rug\u0103m s\u0103 completa\u021Bi adresa complet\u0103",
+      provinceKeywords: ["Jude\u021B", "Stat"],
+      cityKeywords: ["Ora\u0219", "Municipiu"],
+      districtKeywords: ["District", "Comitat", "Cartier"],
+      streetKeywords: ["Strad\u0103", "\u0218osea", "Bulevard", "Alee"]
+    },
+    ganttchart: {
+      taskName: "Numele sarcinii",
+      searchPlaceholder: "C\u0103uta\u021Bi sarcini...",
+      zoom: "Zoom",
+      day: "Zi",
+      week: "S\u0103pt\u0103m\xE2n\u0103",
+      month: "Lun\u0103",
+      year: "An",
+      milestone: "Etap\u0103"
+    },
+    imagemagnifier: {
+      switchToImage: "Comut\u0103 la imaginea {index}",
+      galleryItem: "Galerie {index}",
+      close: "\xCEnchide"
+    },
     ai: {
       bubble: {
         citations: "Cit\u0103ri"
@@ -704,9 +795,32 @@ export const ro = {
         pin: "Fixeaz\u0103",
         unpin: "Elibereaz\u0103",
         newConversation: "Conversa\u021Bie Nou\u0103",
+        noData: "\xCEnc\u0103 nu exist\u0103 conversa\u021Bii",
         rename: "Redenume\u0219te",
         delete: "\u0218terge",
         deleteConfirm: "Confirma\u021Bi \u0219tergerea acestei conversa\u021Bii?"
+      },
+      attachments: {
+        dropTip: "Plasa\u021Bi fi\u0219ierele aici pentru \xEEnc\u0103rcare",
+        clickToUpload: "Face\u021Bi clic sau trage\u021Bi fi\u0219iere pentru \xEEnc\u0103rcare",
+        uploadSuccess: "\xCEnc\u0103rcarea a reu\u0219it",
+        uploadError: "\xCEnc\u0103rcarea a e\u0219uat",
+        deleteConfirm: "Sigur dori\u021Bi s\u0103 \u0219terge\u021Bi acest fi\u0219ier?",
+        fileTooLarge: "Dimensiunea fi\u0219ierului nu poate dep\u0103\u0219i {size}",
+        invalidFileType: "Tip de fi\u0219ier nevalid"
+      },
+      mermaid: {
+        image: "Imagine",
+        code: "Cod",
+        zoomIn: "M\u0103re\u0219te",
+        zoomOut: "Mic\u0219oreaz\u0103",
+        reset: "Reseteaz\u0103",
+        download: "Descarc\u0103",
+        copyCode: "Copiaz\u0103 codul",
+        rendering: "Se red\u0103...",
+        renderError: "Redarea a e\u0219uat",
+        renderSuccess: "Redarea a reu\u0219it",
+        retry: "\xCEncearc\u0103 din nou"
       }
     }
   }

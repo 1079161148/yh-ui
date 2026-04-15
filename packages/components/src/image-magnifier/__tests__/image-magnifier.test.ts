@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import ImageMagnifier from '../src/image-magnifier.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 const BASE_PROPS = {
   src: 'https://test.com/small.jpg',
@@ -208,9 +211,42 @@ describe('ImageMagnifier', () => {
       mount(ImageMagnifier, {
         props: {
           ...BASE_PROPS,
-          themeOverrides: { '--yh-magnifier-preview-shadow': '0 0 20px red' }
+          themeOverrides: { 'preview-shadow': '0 0 20px red' }
         }
       })
     ).not.toThrow()
+  })
+
+  it('uses config-provider locale gallery labels', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () =>
+          h(ImageMagnifier, {
+            src: 'https://test.com/img0.jpg',
+            images: [{ src: 'https://test.com/img0.jpg' }, { src: 'https://test.com/img1.jpg' }]
+          })
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.findAll('.yh-image-magnifier__gallery-item img')[1].attributes('alt')).toBe(
+      'Gallery 2'
+    )
+  })
+
+  it('applies theme overrides as inline css vars', () => {
+    const wrapper = mount(ImageMagnifier, {
+      props: {
+        ...BASE_PROPS,
+        themeOverrides: {
+          'preview-shadow': '0 0 20px red'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain(
+      '--yh-image-magnifier-preview-shadow: 0 0 20px red'
+    )
   })
 })

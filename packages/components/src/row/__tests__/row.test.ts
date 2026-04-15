@@ -102,4 +102,16 @@ describe('YhRow', () => {
     expect(wrapper.attributes('style')).toContain('margin-left: -15px')
     expect(wrapper.text()).toBe('Combined')
   })
+
+  it('should expose theme override variables on root element', () => {
+    const wrapper = mount(Row, {
+      props: {
+        themeOverrides: {
+          gap: '24px'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-row-gap: 24px')
+  })
 })

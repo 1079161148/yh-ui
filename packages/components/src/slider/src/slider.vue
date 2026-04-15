@@ -5,7 +5,7 @@ import { useNamespace, useFormItem } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
 import { sliderProps, sliderEmits } from './slider'
-import type { SliderValueType, InputNumberSize } from './slider'
+import type { SliderValueType, InputNumberSize, SliderExpose } from './slider'
 import SliderButton from './slider-button.vue'
 import YhInputNumber from '../../input-number/src/input-number.vue'
 
@@ -236,6 +236,12 @@ const handleInputChange = (val: number | undefined) => {
 
 onMounted(() => {
   initValues()
+})
+
+defineExpose<SliderExpose>({
+  sliderRef,
+  firstValue,
+  secondValue
 })
 </script>
 

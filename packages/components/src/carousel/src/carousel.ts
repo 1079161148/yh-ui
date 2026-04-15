@@ -159,6 +159,27 @@ export const carouselEmits = {
 
 export type CarouselEmits = typeof carouselEmits
 
+export interface CarouselSlots {
+  default?: () => unknown
+  dots?: (props: {
+    currentIndex: number
+    itemCount: number
+    goTo: (index: number) => void
+  }) => unknown
+  arrow?: (props: { prev: () => void; next: () => void; currentIndex: number }) => unknown
+  'prev-arrow'?: () => unknown
+  'next-arrow'?: () => unknown
+}
+
+export interface CarouselExpose {
+  prev: () => void
+  next: () => void
+  jump: (index: number) => void
+  to: (index: number) => void
+  getCurrentIndex: () => number
+  currentIndex: number
+}
+
 // 注入上下文定义
 export interface CarouselContext {
   props: CarouselProps

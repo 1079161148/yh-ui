@@ -73,3 +73,7 @@ export const aiThinkingEmits = {
 }
 
 export type AiThinkingEmits = typeof aiThinkingEmits
+
+export interface AiThinkingSlots {
+  default?: () => unknown
+}

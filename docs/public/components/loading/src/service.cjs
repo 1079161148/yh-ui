@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Loading = void 0;
 var _vue = require("vue");
+var _hooks = require("@yh-ui/hooks");
 var _theme = require("@yh-ui/theme");
 var _spin = require("../../spin/index.cjs");
 const createLoading = (options = {}, appContext) => {
@@ -21,6 +22,9 @@ const createLoading = (options = {}, appContext) => {
   });
   const component = {
     setup() {
+      const {
+        t
+      } = (0, _hooks.useLocale)();
       const {
         themeStyle
       } = (0, _theme.useComponentTheme)("loading", (0, _vue.computed)(() => resolvedOptions.themeOverrides));
@@ -41,7 +45,7 @@ const createLoading = (options = {}, appContext) => {
         }, [resolvedOptions.spinner ? typeof resolvedOptions.spinner === "string" ? (0, _vue.h)("i", {
           class: resolvedOptions.spinner
         }) : (0, _vue.isVNode)(resolvedOptions.spinner) ? resolvedOptions.spinner : (0, _vue.h)(resolvedOptions.spinner) : (0, _vue.h)(_spin.YhSpin, {
-          tip: resolvedOptions.text,
+          tip: resolvedOptions.text ?? t("loading.text"),
           size: resolvedOptions.fullscreen ? "large" : "default",
           vertical: true,
           color: resolvedOptions.color,

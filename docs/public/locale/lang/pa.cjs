@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.pa = exports.default = void 0;
+exports.pa = void 0;
 const pa = exports.pa = {
   name: "pa",
   yh: {
@@ -717,4 +717,3 @@ const pa = exports.pa = {
     }
   }
 };
-module.exports = pa;

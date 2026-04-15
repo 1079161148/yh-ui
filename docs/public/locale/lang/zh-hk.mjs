@@ -743,4 +743,3 @@ export const zhHk = {
     }
   }
 };
-export default zhHk;

@@ -10,3 +10,6 @@ export type CouponCardInstance = InstanceType<typeof CouponCard>
 export type YhCouponCardInstance = CouponCardInstance
 
 export type YhCouponCardProps = import('./src/coupon-card').CouponCardProps
+export type YhCouponCardEmits = import('./src/coupon-card').CouponCardEmits
+export type YhCouponCardSlots = import('./src/coupon-card').CouponCardSlots
+export type YhCouponStatus = import('./src/coupon-card').CouponStatus

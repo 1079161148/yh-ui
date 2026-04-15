@@ -73,3 +73,8 @@ export const luckyDrawEmits = {
 }
 
 export type LuckyDrawEmits = typeof luckyDrawEmits
+
+export interface LuckyDrawSlots {
+  prize?: (props: { prize: LuckyPrize }) => unknown
+  action?: () => unknown
+}

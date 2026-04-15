@@ -1,19 +1,19 @@
 <script setup>
-import { computed, ref, watch } from "vue";
-import { useNamespace, useLocale } from "@yh-ui/hooks";
-import { useComponentTheme } from "@yh-ui/theme";
-import { useConfig } from "@yh-ui/hooks";
-import TransferPanel from "./transfer-panel.vue";
+import { computed, ref, watch } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { useConfig } from '@yh-ui/hooks'
+import TransferPanel from './transfer-panel.vue'
 defineOptions({
-  name: "YhTransfer"
-});
+  name: 'YhTransfer'
+})
 const props = defineProps({
   modelValue: { type: Array, required: false, default: () => [] },
   data: { type: Array, required: false, default: () => [] },
   filterable: { type: Boolean, required: false, default: false },
   filterMethod: { type: Function, required: false },
   filterPlaceholder: { type: String, required: false },
-  targetOrder: { type: String, required: false, default: "original" },
+  targetOrder: { type: String, required: false, default: 'original' },
   titles: { type: Array, required: false },
   buttonTexts: { type: Array, required: false, default: () => [] },
   renderContent: { type: Function, required: false },
@@ -21,7 +21,7 @@ const props = defineProps({
   rightDefaultChecked: { type: Array, required: false, default: () => [] },
   props: { type: Object, required: false },
   disabled: { type: Boolean, required: false, default: false },
-  size: { type: null, required: false, default: "default" },
+  size: { type: null, required: false, default: 'default' },
   validateEvent: { type: Boolean, required: false, default: true },
   virtual: { type: Boolean, required: false, default: false },
   itemHeight: { type: Number, required: false, default: 40 },
@@ -33,108 +33,128 @@ const props = defineProps({
   leftEmptyText: { type: String, required: false },
   rightEmptyText: { type: String, required: false },
   themeOverrides: { type: null, required: false }
-});
-const emit = defineEmits(["update:modelValue", "change", "left-check-change", "right-check-change"]);
-const ns = useNamespace("transfer");
-const { t } = useLocale();
-const { globalSize } = useConfig();
-const { themeStyle } = useComponentTheme("transfer", computed(() => props.themeOverrides));
-const leftPanelRef = ref();
-const rightPanelRef = ref();
-const leftChecked = ref([...props.leftDefaultChecked]);
-const rightChecked = ref([...props.rightDefaultChecked]);
-const keyProp = computed(() => props.props?.key || "key");
+})
+const emit = defineEmits(['update:modelValue', 'change', 'left-check-change', 'right-check-change'])
+const ns = useNamespace('transfer')
+const { t } = useLocale()
+const { globalSize } = useConfig()
+const { themeStyle } = useComponentTheme(
+  'transfer',
+  computed(() => props.themeOverrides)
+)
+const leftPanelRef = ref()
+const rightPanelRef = ref()
+const leftChecked = ref([...props.leftDefaultChecked])
+const rightChecked = ref([...props.rightDefaultChecked])
+const keyProp = computed(() => props.props?.key || 'key')
 const getKey = (item) => {
-  return item[keyProp.value] ?? "";
-};
-const targetKeys = computed(() => new Set(props.modelValue));
+  return item[keyProp.value] ?? ''
+}
+const targetKeys = computed(() => new Set(props.modelValue))
 const leftData = computed(() => {
-  return props.data.filter((item) => !targetKeys.value.has(getKey(item)));
-});
+  return props.data.filter((item) => !targetKeys.value.has(getKey(item)))
+})
 const rightData = computed(() => {
-  if (props.targetOrder === "original") {
-    return props.data.filter((item) => targetKeys.value.has(getKey(item)));
+  if (props.targetOrder === 'original') {
+    return props.data.filter((item) => targetKeys.value.has(getKey(item)))
   }
-  const dataMap = new Map(props.data.map((item) => [getKey(item), item]));
-  return (props.modelValue ?? []).map((key) => dataMap.get(key)).filter((item) => item !== void 0);
-});
-const leftTitle = computed(() => props.leftTitle || props.titles?.[0] || t("transfer.titles.0"));
-const rightTitle = computed(() => props.rightTitle || props.titles?.[1] || t("transfer.titles.1"));
-const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || t("transfer.noData"));
-const rightEmptyText = computed(() => props.rightEmptyText || props.emptyText || t("transfer.noData"));
-const filterPlaceholder = computed(() => props.filterPlaceholder || t("transfer.filterPlaceholder"));
-const canMoveToRight = computed(() => leftChecked.value.length > 0);
-const canMoveToLeft = computed(() => rightChecked.value.length > 0);
+  const dataMap = new Map(props.data.map((item) => [getKey(item), item]))
+  return (props.modelValue ?? []).map((key) => dataMap.get(key)).filter((item) => item !== void 0)
+})
+const leftTitle = computed(() => props.leftTitle || props.titles?.[0] || t('transfer.titles.0'))
+const rightTitle = computed(() => props.rightTitle || props.titles?.[1] || t('transfer.titles.1'))
+const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || t('transfer.noData'))
+const rightEmptyText = computed(
+  () => props.rightEmptyText || props.emptyText || t('transfer.noData')
+)
+const filterPlaceholder = computed(() => props.filterPlaceholder || t('transfer.filterPlaceholder'))
+const canMoveToRight = computed(() => leftChecked.value.length > 0)
+const canMoveToLeft = computed(() => rightChecked.value.length > 0)
 const containerClasses = computed(() => [
   ns.b(),
-  ns.m(props.size || globalSize.value || "default"),
-  ns.is("disabled", props.disabled)
-]);
+  ns.m(props.size || globalSize.value || 'default'),
+  ns.is('disabled', props.disabled)
+])
 const moveToRight = () => {
-  if (!canMoveToRight.value || props.disabled) return;
-  const movedKeys = [...leftChecked.value];
-  let newValue;
-  if (props.targetOrder === "unshift") {
-    newValue = [...movedKeys, ...props.modelValue ?? []];
+  if (!canMoveToRight.value || props.disabled) return
+  const movedKeys = [...leftChecked.value]
+  let newValue
+  if (props.targetOrder === 'unshift') {
+    newValue = [...movedKeys, ...(props.modelValue ?? [])]
   } else {
-    newValue = [...props.modelValue ?? [], ...movedKeys];
+    newValue = [...(props.modelValue ?? []), ...movedKeys]
   }
-  if (props.targetOrder === "original") {
-    const keySet = new Set(newValue);
-    newValue = props.data.filter((item) => keySet.has(getKey(item))).map((item) => getKey(item));
+  if (props.targetOrder === 'original') {
+    const keySet = new Set(newValue)
+    newValue = props.data.filter((item) => keySet.has(getKey(item))).map((item) => getKey(item))
   }
-  emit("update:modelValue", newValue);
-  emit("change", newValue, "right", movedKeys);
-  leftChecked.value = [];
-};
+  emit('update:modelValue', newValue)
+  emit('change', newValue, 'right', movedKeys)
+  leftChecked.value = []
+}
 const moveToLeft = () => {
-  if (!canMoveToLeft.value || props.disabled) return;
-  const movedKeys = [...rightChecked.value];
-  const movedKeysSet = new Set(movedKeys);
-  const newValue = (props.modelValue ?? []).filter((key) => !movedKeysSet.has(key));
-  emit("update:modelValue", newValue);
-  emit("change", newValue, "left", movedKeys);
-  rightChecked.value = [];
-};
+  if (!canMoveToLeft.value || props.disabled) return
+  const movedKeys = [...rightChecked.value]
+  const movedKeysSet = new Set(movedKeys)
+  const newValue = (props.modelValue ?? []).filter((key) => !movedKeysSet.has(key))
+  emit('update:modelValue', newValue)
+  emit('change', newValue, 'left', movedKeys)
+  rightChecked.value = []
+}
 const handleLeftCheckedChange = (value, movedKeys) => {
-  leftChecked.value = value;
-  emit("left-check-change", value, movedKeys);
-};
+  leftChecked.value = value
+  emit('left-check-change', value, movedKeys)
+}
 const handleRightCheckedChange = (value, movedKeys) => {
-  rightChecked.value = value;
-  emit("right-check-change", value, movedKeys);
-};
+  rightChecked.value = value
+  emit('right-check-change', value, movedKeys)
+}
 const clearLeftChecked = () => {
-  leftChecked.value = [];
-};
+  leftChecked.value = []
+}
 const clearRightChecked = () => {
-  rightChecked.value = [];
-};
+  rightChecked.value = []
+}
 watch(
   () => props.modelValue,
   () => {
-    const leftDataKeys = new Set(leftData.value.map((item) => getKey(item)));
-    leftChecked.value = leftChecked.value.filter((key) => leftDataKeys.has(key));
-    const rightDataKeys = new Set(rightData.value.map((item) => getKey(item)));
-    rightChecked.value = rightChecked.value.filter((key) => rightDataKeys.has(key));
+    const leftDataKeys = new Set(leftData.value.map((item) => getKey(item)))
+    leftChecked.value = leftChecked.value.filter((key) => leftDataKeys.has(key))
+    const rightDataKeys = new Set(rightData.value.map((item) => getKey(item)))
+    rightChecked.value = rightChecked.value.filter((key) => rightDataKeys.has(key))
   },
   { deep: true }
-);
+)
 defineExpose({
   clearLeftChecked,
   clearRightChecked,
-  leftPanel: leftPanelRef.value,
-  rightPanel: rightPanelRef.value
-});
+  leftPanel: leftPanelRef,
+  rightPanel: rightPanelRef
+})
 </script>
 
 <template>
   <div :class="containerClasses" :style="themeStyle">
-    <TransferPanel ref="leftPanelRef" :data="leftData" :checked="leftChecked" :title="leftTitle"
-      :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
-      :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"
-      :item-height="itemHeight" :height="height" :show-all-checkbox="showAllCheckbox" :empty-text="leftEmptyText"
-      @update:checked="handleLeftCheckedChange" @checked-change="handleLeftCheckedChange">
+    <TransferPanel
+      ref="leftPanelRef"
+      :data="leftData"
+      :checked="leftChecked"
+      :title="leftTitle"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
+      :filter-method="filterMethod"
+      :disabled="disabled"
+      :size="size"
+      :props="props.props"
+      :render-content="renderContent"
+      :virtual="virtual"
+      :item-height="itemHeight"
+      :height="height"
+      :show-all-checkbox="showAllCheckbox"
+      :empty-text="leftEmptyText"
+      @update:checked="handleLeftCheckedChange"
+      @checked-change="handleLeftCheckedChange"
+    >
       <template v-if="$slots['left-header']" #header>
         <slot name="left-header" />
       </template>
@@ -150,37 +170,79 @@ defineExpose({
     </TransferPanel>
 
     <div :class="ns.e('buttons')">
-      <slot name="buttons" :move-to-left="moveToLeft" :move-to-right="moveToRight" :left-checked="leftChecked"
-        :right-checked="rightChecked">
-        <button type="button" :class="[ns.e('button'), {
-  'is-disabled': !canMoveToRight || disabled
-}]"
-          :disabled="!canMoveToRight || disabled" @click="moveToRight">
+      <slot
+        name="buttons"
+        :move-to-left="moveToLeft"
+        :move-to-right="moveToRight"
+        :left-checked="leftChecked"
+        :right-checked="rightChecked"
+      >
+        <button
+          type="button"
+          :class="[
+            ns.e('button'),
+            {
+              'is-disabled': !canMoveToRight || disabled
+            }
+          ]"
+          :disabled="!canMoveToRight || disabled"
+          @click="moveToRight"
+        >
           <svg :class="ns.e('button__icon')" viewBox="0 0 1024 1024">
-            <path fill="currentColor"
-              d="M340.864 149.312a30.592 30.592 0 000 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0042.752 43.458l355.136-362.88a30.592 30.592 0 000-43.52L383.616 106.56a30.592 30.592 0 00-42.752 42.752z" />
+            <path
+              fill="currentColor"
+              d="M340.864 149.312a30.592 30.592 0 000 42.752L652.736 512 340.864 831.872a30.592 30.592 0 0042.752 43.458l355.136-362.88a30.592 30.592 0 000-43.52L383.616 106.56a30.592 30.592 0 00-42.752 42.752z"
+            />
           </svg>
-          <span v-if="buttonTexts && buttonTexts[0]" :class="ns.e('button__text')">{{ buttonTexts[0] }}</span>
+          <span v-if="buttonTexts && buttonTexts[0]" :class="ns.e('button__text')">{{
+            buttonTexts[0]
+          }}</span>
         </button>
 
-        <button type="button" :class="[ns.e('button'), {
-  'is-disabled': !canMoveToLeft || disabled
-}]"
-          :disabled="!canMoveToLeft || disabled" @click="moveToLeft">
+        <button
+          type="button"
+          :class="[
+            ns.e('button'),
+            {
+              'is-disabled': !canMoveToLeft || disabled
+            }
+          ]"
+          :disabled="!canMoveToLeft || disabled"
+          @click="moveToLeft"
+        >
           <svg :class="ns.e('button__icon')" viewBox="0 0 1024 1024">
-            <path fill="currentColor"
-              d="M685.248 104.256a30.592 30.592 0 010 42.752L373.376 512l311.872 364.992a30.592 30.592 0 11-42.752 43.458L287.38 555.52a30.592 30.592 0 010-43.52l355.136-364.93a30.592 30.592 0 0142.752 0z" />
+            <path
+              fill="currentColor"
+              d="M685.248 104.256a30.592 30.592 0 010 42.752L373.376 512l311.872 364.992a30.592 30.592 0 11-42.752 43.458L287.38 555.52a30.592 30.592 0 010-43.52l355.136-364.93a30.592 30.592 0 0142.752 0z"
+            />
           </svg>
-          <span v-if="buttonTexts && buttonTexts[1]" :class="ns.e('button__text')">{{ buttonTexts[1] }}</span>
+          <span v-if="buttonTexts && buttonTexts[1]" :class="ns.e('button__text')">{{
+            buttonTexts[1]
+          }}</span>
         </button>
       </slot>
     </div>
 
-    <TransferPanel ref="rightPanelRef" :data="rightData" :checked="rightChecked" :title="rightTitle"
-      :filterable="filterable" :filter-placeholder="filterPlaceholder" :filter-method="filterMethod"
-      :disabled="disabled" :size="size" :props="props.props" :render-content="renderContent" :virtual="virtual"
-      :item-height="itemHeight" :height="height" :show-all-checkbox="showAllCheckbox" :empty-text="rightEmptyText"
-      @update:checked="handleRightCheckedChange" @checked-change="handleRightCheckedChange">
+    <TransferPanel
+      ref="rightPanelRef"
+      :data="rightData"
+      :checked="rightChecked"
+      :title="rightTitle"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
+      :filter-method="filterMethod"
+      :disabled="disabled"
+      :size="size"
+      :props="props.props"
+      :render-content="renderContent"
+      :virtual="virtual"
+      :item-height="itemHeight"
+      :height="height"
+      :show-all-checkbox="showAllCheckbox"
+      :empty-text="rightEmptyText"
+      @update:checked="handleRightCheckedChange"
+      @checked-change="handleRightCheckedChange"
+    >
       <template v-if="$slots['right-header']" #header>
         <slot name="right-header" />
       </template>

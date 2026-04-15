@@ -1,5 +1,7 @@
 import type { ExtractPropTypes, PropType, Component } from 'vue'
 
+export type RateSize = 'large' | 'default' | 'small'
+
 export const rateProps = {
   modelValue: {
     type: Number,
@@ -68,7 +70,7 @@ export const rateProps = {
     default: '{value}'
   },
   size: {
-    type: String as PropType<'large' | 'default' | 'small'>,
+    type: String as PropType<RateSize>,
     default: 'default'
   },
   // 清除评分
@@ -89,3 +91,12 @@ export const rateEmits = {
   change: (value: number) => typeof value === 'number'
 }
 export type RateEmits = typeof rateEmits
+
+export interface RateSlots {
+  icon?: (props: {
+    index: number
+    width: string
+    activeColor: string
+    voidColor: string
+  }) => unknown
+}

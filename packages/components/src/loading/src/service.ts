@@ -10,6 +10,7 @@ import {
   type Component,
   computed
 } from 'vue'
+import { useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhSpin, type LoadingSpinnerType } from '../../spin'
 
@@ -51,6 +52,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
 
   const component = {
     setup() {
+      const { t } = useLocale()
       const { themeStyle } = useComponentTheme(
         'loading',
         computed(() => resolvedOptions.themeOverrides)
@@ -85,7 +87,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
                               ? resolvedOptions.spinner
                               : h(resolvedOptions.spinner as Component)
                           : h(YhSpin, {
-                              tip: resolvedOptions.text,
+                              tip: resolvedOptions.text ?? t('loading.text'),
                               size: resolvedOptions.fullscreen ? 'large' : 'default',
                               vertical: true,
                               color: resolvedOptions.color,

@@ -3,7 +3,7 @@
  * @description 时间选择器组件类型定义
  */
 
-import type { Component } from 'vue'
+import type { Component, Ref } from 'vue'
 
 export type TimeSelectSize = 'large' | 'default' | 'small'
 
@@ -108,7 +108,7 @@ export interface TimeSelectExpose {
   /** 失去焦点 */
   blur: () => void
   /** 输入框引用 */
-  inputRef: HTMLInputElement | undefined
+  inputRef: Ref<HTMLInputElement | undefined>
 }
 
 /**

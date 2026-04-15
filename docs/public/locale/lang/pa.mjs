@@ -711,4 +711,3 @@ export const pa = {
     }
   }
 };
-export default pa;

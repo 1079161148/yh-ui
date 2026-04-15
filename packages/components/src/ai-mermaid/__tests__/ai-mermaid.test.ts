@@ -3,7 +3,10 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import AiMermaid from '../src/ai-mermaid.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 describe('YhAiMermaid', () => {
   // ─── Rendering ───────────────────────────────────────────
@@ -112,5 +115,30 @@ describe('YhAiMermaid', () => {
       props: { actions: { customActions } }
     })
     expect(wrapper.find('.yh-ai-mermaid__action-btn').exists()).toBe(true)
+  })
+
+  it('should use config-provider locale text', async () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(AiMermaid)
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('Image')
+    expect(wrapper.text()).toContain('Code')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(AiMermaid, {
+      props: {
+        themeOverrides: {
+          'header-bg': '#f5f5f5'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('--yh-ai-mermaid-header-bg: #f5f5f5')
   })
 })

@@ -72,4 +72,17 @@ describe('Spin', () => {
     expect(wrapper.find('.custom-tip').exists()).toBe(true)
     expect(wrapper.find('.custom-tip').text()).toBe('Custom Tip')
   })
+
+  it('should keep themeOverrides prop and expose visible state', () => {
+    const wrapper = mount(YhSpin, {
+      props: {
+        themeOverrides: {
+          color: '#ff4d4f'
+        }
+      }
+    })
+
+    expect(wrapper.props('themeOverrides')).toEqual({ color: '#ff4d4f' })
+    expect(wrapper.vm.visible).toBe(true)
+  })
 })

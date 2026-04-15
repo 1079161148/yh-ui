@@ -86,3 +86,15 @@ export const infiniteScrollEmits = {
 
 export type InfiniteScrollProps = ExtractPropTypes<typeof infiniteScrollProps>
 export type InfiniteScrollEmits = typeof infiniteScrollEmits
+
+export interface InfiniteScrollSlots {
+  default?: () => unknown
+  loading?: () => unknown
+  finished?: () => unknown
+  error?: () => unknown
+}
+
+export interface InfiniteScrollExpose {
+  check: () => void
+  retry: () => void
+}

@@ -224,7 +224,12 @@ const actionButtons = computed(() => {
   }
 
   if (enableCopy) {
-    buttons.push({ key: 'copy', label: t('ai.mermaid.copy'), icon: 'copy', onClick: handleCopy })
+    buttons.push({
+      key: 'copy',
+      label: t('ai.mermaid.copyCode'),
+      icon: 'copy',
+      onClick: handleCopy
+    })
   }
 
   if (customActions) {

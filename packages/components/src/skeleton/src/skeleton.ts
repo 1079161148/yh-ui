@@ -100,3 +100,8 @@ export const skeletonProps = {
 } as const
 
 export type SkeletonProps = ExtractPropTypes<typeof skeletonProps>
+
+export interface SkeletonSlots {
+  template?: () => unknown
+  default?: () => unknown
+}

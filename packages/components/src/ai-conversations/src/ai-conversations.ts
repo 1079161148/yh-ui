@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 import type { AiConversation } from '@yh-ui/hooks'
 
 export const aiConversationsProps = {
@@ -101,3 +101,19 @@ export const aiConversationsEmits = {
 }
 
 export type AiConversationsEmits = typeof aiConversationsEmits
+
+export interface AiConversationsSlots {
+  'add-icon'?: () => unknown
+  'add-text'?: () => unknown
+  'group-label'?: (props: { label: string }) => unknown
+  'edit-icon'?: () => unknown
+  'delete-icon'?: () => unknown
+  empty?: () => unknown
+}
+
+export type AiConversationsSlotTypes = SlotsType<AiConversationsSlots>
+
+export interface AiConversationsExpose {
+  scrollToItem: (id: string) => void
+  scrollToIndex: (index: number) => void
+}

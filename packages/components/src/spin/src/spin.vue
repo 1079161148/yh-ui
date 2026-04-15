@@ -6,7 +6,7 @@
 import { ref, watch, computed, useSlots, useId } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { spinProps } from './spin'
+import { spinProps, spinEmits, type SpinExpose } from './spin'
 
 defineOptions({
   name: 'YhSpin',
@@ -24,7 +24,7 @@ const { themeStyle } = useComponentTheme(
   computed(() => props.themeOverrides)
 )
 
-const emit = defineEmits(['show', 'hide'])
+const emit = defineEmits(spinEmits)
 
 const internalVisible = ref(false)
 const visible = computed(() => (props.delay === 0 ? props.show : internalVisible.value))
@@ -140,7 +140,7 @@ const spinClasses = computed(() => [
   ns.is('gradient', isGradient.value)
 ])
 
-defineExpose({
+defineExpose<SpinExpose>({
   /** 是否可见 */
   visible
 })

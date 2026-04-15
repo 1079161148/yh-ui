@@ -11,3 +11,10 @@ export interface WaterfallInstance {
   /** 触发重新布局 */
   layout: () => void
 }
+
+export type YhWaterfallInstance = WaterfallInstance
+export type YhWaterfallCols = import('./src/waterfall').WaterfallCols
+export type YhWaterfallItemBase = import('./src/waterfall').WaterfallItemBase
+export type YhWaterfallProps = import('./src/waterfall').WaterfallProps
+export type YhWaterfallSlots = import('./src/waterfall').WaterfallSlots
+export type YhWaterfallExpose = import('./src/waterfall').WaterfallExpose

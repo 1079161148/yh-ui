@@ -143,3 +143,8 @@ export interface ImageEmits {
   (e: 'close'): void
   (e: 'show'): void
 }
+
+export interface ImageSlots {
+  placeholder?: () => unknown
+  error?: () => unknown
+}

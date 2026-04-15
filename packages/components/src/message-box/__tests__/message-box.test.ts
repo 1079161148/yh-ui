@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import MessageBox from '../src/method'
+import MessageBoxComponent from '../src/message-box.vue'
 
 describe('MessageBox (Most Complete Version)', () => {
   beforeEach(() => {
@@ -110,5 +112,28 @@ describe('MessageBox (Most Complete Version)', () => {
     await Promise.resolve()
 
     vi.useRealTimers()
+  })
+
+  it('should render locale-backed close label and theme overrides in component mode', () => {
+    const wrapper = mount(MessageBoxComponent, {
+      props: {
+        title: 'title',
+        message: 'message',
+        showClose: true,
+        themeOverrides: {
+          bgColor: '#111111',
+          titleColor: '#eeeeee'
+        }
+      }
+    })
+
+    const closeButton = wrapper.get('button[aria-label]')
+    expect(closeButton.attributes('aria-label')).toBeTruthy()
+    expect(wrapper.get('.yh-message-box').attributes('style')).toContain(
+      '--yh-message-box-bg-color: #111111'
+    )
+    expect(wrapper.get('.yh-message-box').attributes('style')).toContain(
+      '--yh-message-box-title-color: #eeeeee'
+    )
   })
 })

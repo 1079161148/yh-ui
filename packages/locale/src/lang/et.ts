@@ -597,6 +597,97 @@ export const et: Language = {
       noData: 'Andmed puuduvad'
     },
     // AI Components
+    skuselector: {
+      placeholder: 'Vali spetsifikatsioonid',
+      emptyText: 'Spetsifikatsioonid puuduvad',
+      stock: 'Laoseis',
+      price: 'Hind',
+      selected: 'Valitud',
+      outOfStock: 'Laost otsas'
+    },
+    productcard: {
+      viewDetails: 'Vaata üksikasju',
+      buyNow: 'Osta kohe',
+      addToCart: 'Lisa ostukorvi',
+      sold: 'Müüdud',
+      soldOut: 'Välja müüdud',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Algne hind'
+    },
+    couponcard: {
+      available: 'Võta kohe',
+      used: 'Kasutatud',
+      expired: 'Aegunud',
+      received: 'Saadud',
+      limit: 'Tellimused üle {threshold}',
+      noThreshold: 'Miinimum puudub',
+      validPeriod: 'Kehtivusaeg',
+      ruleTitle: 'Kasutusreeglid'
+    },
+    luckydraw: {
+      start: 'Alusta',
+      drawing: 'Loositakse...',
+      end: 'Võitja!',
+      retry: 'Proovi uuesti'
+    },
+    filterbar: {
+      all: 'Kõik',
+      sort: 'Sordi',
+      filter: 'Filtreeri',
+      cancel: 'Tühista',
+      reset: 'Lähtesta',
+      confirm: 'Kinnita',
+      noOptions: 'Valikuid pole',
+      asc: 'Kasvav',
+      desc: 'Kahanev',
+      selected: 'Valitud'
+    },
+    submitbar: {
+      total: 'Kokku: ',
+      selected: '{count} valitud',
+      submit: 'Maksma',
+      allSelect: 'Vali kõik'
+    },
+    categorynav: {
+      all: 'Kõik',
+      noData: 'Andmed puuduvad',
+      loading: 'Laadimine...'
+    },
+    smartaddress: {
+      placeholder: 'Kleebi siia aadress, et nimi, telefon ja asukoht automaatselt tuvastada',
+      parse: 'Nutikas analüüs',
+      province: 'Maakond/Linn/Rajoon',
+      city: 'Linn',
+      district: 'Rajoon/Vald',
+      street: 'Tänav/Alev',
+      detail: 'Täpne aadress',
+      phone: 'Telefon',
+      name: 'Saaja',
+      parseSuccess: 'Aadress analüüsiti edukalt',
+      parseFailed: 'Analüüs ebaõnnestus, täitke käsitsi',
+      required: 'Sisestage täielik aadress',
+      provinceKeywords: ['Maakond', 'Osariik'],
+      cityKeywords: ['Linn', 'Vald'],
+      districtKeywords: ['Rajoon', 'Vald', 'Piirkond'],
+      streetKeywords: ['Tänav', 'Tee', 'Puiestee', 'Põik']
+    },
+    ganttchart: {
+      taskName: 'Ülesande nimi',
+      searchPlaceholder: 'Otsi ülesandeid...',
+      zoom: 'Suum',
+      day: 'Päev',
+      week: 'Nädal',
+      month: 'Kuu',
+      year: 'Aasta',
+      milestone: 'Tähis'
+    },
+    imagemagnifier: {
+      switchToImage: 'Lülitu pildile {index}',
+      galleryItem: 'Galerii {index}',
+      close: 'Sulge'
+    },
     ai: {
       bubble: {
         citations: 'Viited'
@@ -707,9 +798,32 @@ export const et: Language = {
         pin: 'Kinnita',
         unpin: 'Vabasta',
         newConversation: 'Uus vestlus',
+        noData: 'Vestlusi pole veel',
         rename: 'Nimeta ümber',
         delete: 'Kustuta',
         deleteConfirm: 'Kas kustutame selle vestluse?'
+      },
+      attachments: {
+        dropTip: 'Lohista failid siia üleslaadimiseks',
+        clickToUpload: 'Klõpsa või lohista failid üleslaadimiseks',
+        uploadSuccess: 'Üleslaadimine õnnestus',
+        uploadError: 'Üleslaadimine ebaõnnestus',
+        deleteConfirm: 'Kas soovid kindlasti selle faili kustutada?',
+        fileTooLarge: 'Faili suurus ei tohi ületada {size}',
+        invalidFileType: 'Sobimatu failitüüp'
+      },
+      mermaid: {
+        image: 'Pilt',
+        code: 'Kood',
+        zoomIn: 'Suurenda',
+        zoomOut: 'Vähenda',
+        reset: 'Lähtesta',
+        download: 'Laadi alla',
+        copyCode: 'Kopeeri kood',
+        rendering: 'Renderdamine...',
+        renderError: 'Renderdamine ebaõnnestus',
+        renderSuccess: 'Renderdamine õnnestus',
+        retry: 'Proovi uuesti'
       }
     }
   }

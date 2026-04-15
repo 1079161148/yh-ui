@@ -11,3 +11,9 @@ export * from './src/grid'
 
 export type GridInstance = InstanceType<typeof Grid>
 export type GridItemInstance = InstanceType<typeof GridItem>
+export type YhGridInstance = GridInstance
+export type YhGridItemInstance = GridItemInstance
+export type YhGridProps = import('./src/grid').GridProps
+export type YhGridItemProps = import('./src/grid').GridItemProps
+export type YhGridSlots = import('./src/grid').GridSlots
+export type YhGridItemSlots = import('./src/grid').GridItemSlots

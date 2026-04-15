@@ -5,7 +5,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import { colorPickerProps, colorPickerEmits } from './color-picker'
+import { colorPickerProps, colorPickerEmits, type ColorPickerExpose } from './color-picker'
 import SVPanel from './sv-panel.vue'
 import HueSlider from './hue-slider.vue'
 import AlphaSlider from './alpha-slider.vue'
@@ -171,6 +171,13 @@ watch(visible, (val: boolean) => {
       '--yh-color-primary-rgb': primaryRgb
     }
   }
+})
+
+defineExpose<ColorPickerExpose>({
+  visible,
+  togglePopper,
+  handleClear,
+  handleConfirm
 })
 </script>
 

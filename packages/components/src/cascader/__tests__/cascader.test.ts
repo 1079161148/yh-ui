@@ -3,7 +3,9 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { computed, nextTick } from 'vue'
+import { en } from '@yh-ui/locale'
+import { configProviderContextKey } from '@yh-ui/hooks'
 import Cascader from '../src/cascader.vue'
 
 describe('YhCascader', () => {
@@ -394,5 +396,44 @@ describe('YhCascader', () => {
       await firstOption.trigger('mouseenter')
       expect(wrapper.emitted('expand-change')).toBeTruthy()
     }
+  })
+
+  it('should render localized copy from config provider', async () => {
+    const wrapper = mount(Cascader, {
+      props: {
+        options,
+        filterable: true,
+        teleported: false
+      },
+      global: {
+        provide: {
+          [configProviderContextKey as symbol]: computed(() => ({ locale: en }))
+        }
+      }
+    })
+
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Select')
+
+    await wrapper.trigger('click')
+    await wrapper.find('input').setValue('not-found')
+    await nextTick()
+
+    expect(wrapper.find('.yh-cascader__empty').text()).toBe('No matching data')
+  })
+
+  it('should support themeOverrides css variables', () => {
+    const wrapper = mount(Cascader, {
+      props: {
+        options,
+        themeOverrides: {
+          height: '40px',
+          borderColor: '#123456'
+        }
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-cascader-height: 40px')
+    expect(style).toContain('--yh-cascader-border-color: #123456')
   })
 })

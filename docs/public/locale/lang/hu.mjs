@@ -595,6 +595,97 @@ export const hu = {
       noData: "Nincs adat"
     },
     // AI Components
+    skuselector: {
+      placeholder: "V\xE1lasszon specifik\xE1ci\xF3t",
+      emptyText: "Nincs specifik\xE1ci\xF3",
+      stock: "K\xE9szlet",
+      price: "\xC1r",
+      selected: "Kiv\xE1lasztva",
+      outOfStock: "Nincs k\xE9szleten"
+    },
+    productcard: {
+      viewDetails: "R\xE9szletek megtekint\xE9se",
+      buyNow: "V\xE1s\xE1rl\xE1s most",
+      addToCart: "Kos\xE1rba",
+      sold: "Eladva",
+      soldOut: "Elfogyott",
+      vip: "VIP"
+    },
+    price: {
+      original: "Eredeti \xE1r"
+    },
+    couponcard: {
+      available: "Ig\xE9nyeld most",
+      used: "Felhaszn\xE1lva",
+      expired: "Lej\xE1rt",
+      received: "Megkapva",
+      limit: "{threshold} feletti rendel\xE9sek",
+      noThreshold: "Minimum n\xE9lk\xFCl",
+      validPeriod: "\xC9rv\xE9nyess\xE9g",
+      ruleTitle: "Felhaszn\xE1l\xE1si szab\xE1lyok"
+    },
+    luckydraw: {
+      start: "Ind\xEDt\xE1s",
+      drawing: "Sorsol\xE1s...",
+      end: "Nyertes!",
+      retry: "Pr\xF3b\xE1ld \xFAjra"
+    },
+    filterbar: {
+      all: "\xD6sszes",
+      sort: "Rendez\xE9s",
+      filter: "Sz\u0171r\xE9s",
+      cancel: "M\xE9gse",
+      reset: "Vissza\xE1ll\xEDt\xE1s",
+      confirm: "Meger\u0151s\xEDt\xE9s",
+      noOptions: "Nincs lehet\u0151s\xE9g",
+      asc: "N\xF6vekv\u0151",
+      desc: "Cs\xF6kken\u0151",
+      selected: "Kiv\xE1lasztva"
+    },
+    submitbar: {
+      total: "\xD6sszesen: ",
+      selected: "{count} kiv\xE1lasztva",
+      submit: "P\xE9nzt\xE1r",
+      allSelect: "\xD6sszes kijel\xF6l\xE9se"
+    },
+    categorynav: {
+      all: "\xD6sszes",
+      noData: "Nincs adat",
+      loading: "Bet\xF6lt\xE9s..."
+    },
+    smartaddress: {
+      placeholder: "Illessze be ide a c\xEDmet a n\xE9v, telefon \xE9s hely automatikus felismer\xE9s\xE9hez",
+      parse: "Intelligens elemz\xE9s",
+      province: "Megye/V\xE1ros/Ker\xFClet",
+      city: "V\xE1ros",
+      district: "Ker\xFClet/J\xE1r\xE1s",
+      street: "Utca/V\xE1rosr\xE9sz",
+      detail: "R\xE9szletes c\xEDm",
+      phone: "Telefon",
+      name: "C\xEDmzett",
+      parseSuccess: "A c\xEDm sikeresen felismerve",
+      parseFailed: "Az elemz\xE9s sikertelen, t\xF6ltse ki k\xE9zzel",
+      required: "K\xE9rj\xFCk, adja meg a teljes c\xEDmet",
+      provinceKeywords: ["Megye", "\xC1llam"],
+      cityKeywords: ["V\xE1ros", "K\xF6zs\xE9g"],
+      districtKeywords: ["Ker\xFClet", "J\xE1r\xE1s", "Telep\xFCl\xE9s"],
+      streetKeywords: ["Utca", "\xDAt", "Sug\xE1r\xFAt", "T\xE9r"]
+    },
+    ganttchart: {
+      taskName: "Feladat neve",
+      searchPlaceholder: "Feladatok keres\xE9se...",
+      zoom: "Nagy\xEDt\xE1s",
+      day: "Nap",
+      week: "H\xE9t",
+      month: "H\xF3nap",
+      year: "\xC9v",
+      milestone: "M\xE9rf\xF6ldk\u0151"
+    },
+    imagemagnifier: {
+      switchToImage: "V\xE1lt\xE1s a(z) {index}. k\xE9pre",
+      galleryItem: "Gal\xE9ria {index}",
+      close: "Bez\xE1r\xE1s"
+    },
     ai: {
       bubble: {
         citations: "Hivatkoz\xE1sok"
@@ -704,9 +795,32 @@ export const hu = {
         pin: "R\xF6gz\xEDt\xE9s",
         unpin: "R\xF6gz\xEDt\xE9s felold\xE1sa",
         newConversation: "\xDAj besz\xE9lget\xE9s",
+        noData: "M\xE9g nincsenek besz\xE9lget\xE9sek",
         rename: "\xC1tnevez\xE9s",
         delete: "T\xF6rl\xE9s",
         deleteConfirm: "Meger\u0151s\xEDti a besz\xE9lget\xE9s t\xF6rl\xE9s\xE9t?"
+      },
+      attachments: {
+        dropTip: "H\xFAzza ide a f\xE1jlokat a felt\xF6lt\xE9shez",
+        clickToUpload: "Kattintson vagy h\xFAzza ide a f\xE1jlokat a felt\xF6lt\xE9shez",
+        uploadSuccess: "A felt\xF6lt\xE9s sikeres",
+        uploadError: "A felt\xF6lt\xE9s sikertelen",
+        deleteConfirm: "Biztosan t\xF6r\xF6lni szeretn\xE9 ezt a f\xE1jlt?",
+        fileTooLarge: "A f\xE1jl m\xE9rete nem haladhatja meg ezt: {size}",
+        invalidFileType: "\xC9rv\xE9nytelen f\xE1jlt\xEDpus"
+      },
+      mermaid: {
+        image: "K\xE9p",
+        code: "K\xF3d",
+        zoomIn: "Nagy\xEDt\xE1s",
+        zoomOut: "Kicsiny\xEDt\xE9s",
+        reset: "Vissza\xE1ll\xEDt\xE1s",
+        download: "Let\xF6lt\xE9s",
+        copyCode: "K\xF3d m\xE1sol\xE1sa",
+        rendering: "Renderel\xE9s...",
+        renderError: "A renderel\xE9s sikertelen",
+        renderSuccess: "A renderel\xE9s sikeres",
+        retry: "Pr\xF3b\xE1lja \xFAjra"
       }
     }
   }

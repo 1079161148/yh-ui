@@ -94,6 +94,17 @@ export const descriptionsItemProps = {
 
 export type DescriptionsItemProps = ExtractPropTypes<typeof descriptionsItemProps>
 
+export interface DescriptionsSlots {
+  default?: () => unknown
+  title?: () => unknown
+  extra?: () => unknown
+}
+
+export interface DescriptionsItemSlots {
+  default?: () => unknown
+  label?: () => unknown
+}
+
 export interface DescriptionsContext {
   props: DescriptionsProps
 }

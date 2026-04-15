@@ -1,5 +1,18 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 
+export interface WaterfallCols {
+  xs?: number
+  sm?: number
+  md?: number
+  lg?: number
+  xl?: number
+}
+
+export interface WaterfallItemBase {
+  id?: string | number
+  [key: string]: unknown
+}
+
 export const waterfallProps = {
   /** 数据源 */
   items: {
@@ -8,9 +21,7 @@ export const waterfallProps = {
   },
   /** 列数，支持响应式对象 { xs, sm, md, lg, xl } */
   cols: {
-    type: [Number, Object] as PropType<
-      number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number }
-    >,
+    type: [Number, Object] as PropType<number | WaterfallCols>,
     default: 2
   },
   /** 间距 (px) */
@@ -61,3 +72,14 @@ export const waterfallProps = {
 } as const
 
 export type WaterfallProps = ExtractPropTypes<typeof waterfallProps>
+
+export interface WaterfallSlots<T = Record<string, unknown>> {
+  default?: (props: { item: T; index: number; column: number }) => unknown
+  loading?: () => unknown
+  empty?: () => unknown
+  'loading-overlay'?: () => unknown
+}
+
+export interface WaterfallExpose {
+  layout: () => void
+}
