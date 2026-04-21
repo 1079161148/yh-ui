@@ -8,6 +8,8 @@ Before you begin, please ensure that your development environment meets the foll
 - **Node.js**: >= 18.12.0 (Latest LTS version recommended)
 - **Package Manager**: Recommended: [pnpm](https://pnpm.io/)
 
+For the full support contract, including browser support, SSR expectations, and Nuxt compatibility boundaries, see [Compatibility and Support Boundaries](/en/guide/compatibility).
+
 ## Using a Package Manager
 
 We recommend using a package manager to install YH-UI to benefit from full type support and build optimizations.

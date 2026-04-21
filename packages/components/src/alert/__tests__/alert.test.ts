@@ -3,7 +3,7 @@
  */
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { h, nextTick } from 'vue'
+import { h, markRaw, nextTick } from 'vue'
 import YhAlert from '../src/alert.vue'
 import { YhConfigProvider } from '../../config-provider'
 import { en } from '@yh-ui/locale'
@@ -167,5 +167,47 @@ describe('YhAlert', () => {
     })
 
     expect(wrapper.find('.yh-alert').attributes('style')).toContain('--yh-alert-padding: 20px')
+  })
+
+  it('should render custom close text and custom close icon', () => {
+    const CloseIcon = markRaw({
+      template: '<i class="custom-close-icon" />'
+    })
+
+    const textWrapper = mount(YhAlert, {
+      props: {
+        closable: true,
+        closeText: 'Dismiss'
+      }
+    })
+    expect(textWrapper.find('.yh-alert__close').text()).toContain('Dismiss')
+
+    const iconWrapper = mount(YhAlert, {
+      props: {
+        closable: true,
+        closeIcon: CloseIcon
+      }
+    })
+    expect(iconWrapper.find('.custom-close-icon').exists()).toBe(true)
+  })
+
+  it('should keep counting down when pauseOnHover is disabled', async () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        duration: 1200,
+        showProgress: true,
+        pauseOnHover: false
+      }
+    })
+
+    vi.advanceTimersByTime(100)
+    await nextTick()
+    const progressBeforeHover = (wrapper.vm as any).progress
+
+    await wrapper.find('.yh-alert').trigger('mouseenter')
+    vi.advanceTimersByTime(300)
+    await nextTick()
+
+    expect((wrapper.vm as any).progress).toBeLessThan(progressBeforeHover)
   })
 })

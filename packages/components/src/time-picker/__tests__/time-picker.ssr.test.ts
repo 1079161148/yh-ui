@@ -6,16 +6,16 @@ import { renderSSR, expectSSRHasClass } from '../../__tests__/utils/ssr'
 import TimePicker from '../src/time-picker.vue'
 
 describe('YhTimePicker SSR', () => {
-  it('应该能正确进行服务端渲染', async () => {
+  it('renders the basic input on server', async () => {
     const html = await renderSSR(TimePicker, {
-      placeholder: '选择时间'
+      placeholder: 'Select time'
     })
 
     expect(html).toContain('yh-time-picker')
-    expect(html).toContain('选择时间')
+    expect(html).toContain('Select time')
   })
 
-  it('SSR 渲染时应该包含正确的类名', async () => {
+  it('renders size and disabled classes on server', async () => {
     const html = await renderSSR(TimePicker, {
       size: 'large',
       disabled: true
@@ -25,19 +25,19 @@ describe('YhTimePicker SSR', () => {
     expectSSRHasClass(html, 'is-disabled')
   })
 
-  it('SSR 渲染时应该正确处理范围选择模式', async () => {
+  it('renders range placeholders on server', async () => {
     const html = await renderSSR(TimePicker, {
       isRange: true,
-      startPlaceholder: '开始时间',
-      endPlaceholder: '结束时间'
+      startPlaceholder: 'Start time',
+      endPlaceholder: 'End time'
     })
 
     expectSSRHasClass(html, 'is-range')
-    expect(html).toContain('开始时间')
-    expect(html).toContain('结束时间')
+    expect(html).toContain('Start time')
+    expect(html).toContain('End time')
   })
 
-  it('SSR 渲染时应该正确显示已选值', async () => {
+  it('renders selected values on server', async () => {
     const html = await renderSSR(TimePicker, {
       modelValue: '14:30:00',
       format: 'HH:mm:ss'
@@ -46,12 +46,11 @@ describe('YhTimePicker SSR', () => {
     expect(html).toContain('14:30:00')
   })
 
-  it('SSR 渲染时不应该包含面板内容（默认隐藏）', async () => {
+  it('does not render the panel markup by default on server', async () => {
     const html = await renderSSR(TimePicker, {
       teleported: false
     })
 
-    // 面板不应该渲染（因为 visible 为 false，且使用了 v-if）
     expect(html).not.toContain('yh-time-picker__panel')
   })
 })

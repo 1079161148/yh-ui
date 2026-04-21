@@ -1,106 +1,97 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { productCardProps, productCardEmits } from './product-card'
-defineOptions({ name: 'YhProductCard' })
-const props = defineProps(productCardProps)
-const emit = defineEmits(productCardEmits)
-const ns = useNamespace('product-card')
-const { t } = useLocale()
+import { ref, computed, onMounted, onUnmounted, watch } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { productCardProps, productCardEmits } from "./product-card";
+defineOptions({ name: "YhProductCard" });
+const props = defineProps(productCardProps);
+const emit = defineEmits(productCardEmits);
+const ns = useNamespace("product-card");
+const { t } = useLocale();
 const { themeStyle } = useComponentTheme(
-  'product-card',
+  "product-card",
   computed(() => props.themeOverrides)
-)
-const cardRef = ref(null)
-let observer = null
-const hasExposed = ref(false)
+);
+const cardRef = ref(null);
+let observer = null;
+const hasExposed = ref(false);
 const setupObserver = () => {
-  if (!props.exposure || hasExposed.value) return
+  if (!props.exposure || hasExposed.value) return;
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio >= props.exposureThreshold) {
-          emit('expose')
-          hasExposed.value = true
-          if (props.exposureOnce) observer?.disconnect()
+          emit("expose");
+          hasExposed.value = true;
+          if (props.exposureOnce) observer?.disconnect();
         }
-      })
+      });
     },
     { threshold: [props.exposureThreshold] }
-  )
-  if (cardRef.value) observer.observe(cardRef.value)
-}
-onMounted(setupObserver)
-onUnmounted(() => observer?.disconnect())
-const currentImage = ref(props.image)
-const isHovering = ref(false)
-const videoActive = ref(false)
+  );
+  if (cardRef.value) observer.observe(cardRef.value);
+};
+onMounted(setupObserver);
+onUnmounted(() => observer?.disconnect());
+const currentImage = ref(props.image);
+const isHovering = ref(false);
+const videoActive = ref(false);
 watch(
   () => props.image,
   (val) => {
-    currentImage.value = val
+    currentImage.value = val;
   }
-)
+);
 const handleMouseEnter = () => {
-  isHovering.value = true
-  if (props.hoverImage) currentImage.value = props.hoverImage
-  if (props.videoSrc) videoActive.value = true
-}
+  isHovering.value = true;
+  if (props.hoverImage) currentImage.value = props.hoverImage;
+  if (props.videoSrc) videoActive.value = true;
+};
 const handleMouseLeave = () => {
-  isHovering.value = false
-  currentImage.value = props.image
-  if (props.videoSrc) videoActive.value = false
-}
+  isHovering.value = false;
+  currentImage.value = props.image;
+  if (props.videoSrc) videoActive.value = false;
+};
 const displayPrice = computed(() => {
-  const p = Number(props.price)
-  return isNaN(p) ? props.price : p.toFixed(2)
-})
+  const p = Number(props.price);
+  return isNaN(p) ? props.price : p.toFixed(2);
+});
 const displayMarketPrice = computed(() => {
-  const p = Number(props.marketPrice)
-  return isNaN(p) ? props.marketPrice : p.toFixed(2)
-})
+  const p = Number(props.marketPrice);
+  return isNaN(p) ? props.marketPrice : p.toFixed(2);
+});
 const displayVipPrice = computed(() => {
-  const p = Number(props.vipPrice)
-  return isNaN(p) ? props.vipPrice : p.toFixed(2)
-})
-const vipLabelText = computed(() => props.vipLabel || t('productcard.vip'))
-const soldOutText = computed(() => t('productcard.soldOut'))
-const actionText = computed(() => props.actionText || t('productcard.buyNow'))
+  const p = Number(props.vipPrice);
+  return isNaN(p) ? props.vipPrice : p.toFixed(2);
+});
+const vipLabelText = computed(() => props.vipLabel || t("productcard.vip"));
+const soldOutText = computed(() => t("productcard.soldOut"));
+const actionText = computed(() => props.actionText || t("productcard.buyNow"));
 const stockStyle = computed(() => ({
   width: `${Math.min(100, Math.max(0, props.stockProgress))}%`,
-  background: props.stockColor || 'var(--yh-color-primary)'
-}))
+  background: props.stockColor || "var(--yh-color-primary)"
+}));
 const handleAction = (e) => {
-  if (props.soldOut || props.actionLoading) return
-  emit('action', e)
-}
+  if (props.soldOut || props.actionLoading) return;
+  emit("action", e);
+};
 const handleClick = (e) => {
-  emit('click', e)
-}
-const badgeImageErrors = ref({})
+  emit("click", e);
+};
+const badgeImageErrors = ref({});
 const handleBadgeImageError = (idx) => {
-  badgeImageErrors.value[idx] = true
-}
+  badgeImageErrors.value[idx] = true;
+};
 </script>
 
 <template>
   <div
     ref="cardRef"
-    :class="[
-      ns.b(),
-      ns.m(props.layout),
-      ns.is('border', props.border),
-      ns.is('shadow', props.shadow),
-      ns.is('sold-out', props.soldOut)
-    ]"
-    :style="[
-      themeStyle,
-      {
-        '--yh-product-card-title-lines': props.titleLines,
-        '--yh-product-card-desc-lines': props.descriptionLines
-      }
-    ]"
+    :class="[ns.b(), ns.m(props.layout), ns.is('border', props.border), ns.is('shadow', props.shadow), ns.is('sold-out', props.soldOut)]"
+    :style="[themeStyle, {
+  '--yh-product-card-title-lines': props.titleLines,
+  '--yh-product-card-desc-lines': props.descriptionLines
+}]"
     @click="handleClick"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
@@ -109,8 +100,8 @@ const handleBadgeImageError = (idx) => {
       v-if="props.ribbon"
       :class="ns.e('ribbon')"
       :style="{
-        backgroundColor: props.ribbonColor
-      }"
+  backgroundColor: props.ribbonColor
+}"
     >
       {{ props.ribbon }}
     </div>
@@ -155,8 +146,8 @@ const handleBadgeImageError = (idx) => {
             v-if="badge.text"
             :class="[ns.e('badge-tag'), ns.is(badge.type || 'primary')]"
             :style="{
-              backgroundColor: badge.color
-            }"
+  backgroundColor: badge.color
+}"
             >{{ badge.text }}</span
           >
         </template>
@@ -183,8 +174,8 @@ const handleBadgeImageError = (idx) => {
               v-if="badge.text"
               :class="[ns.e('badge-tag'), ns.is(badge.type || 'primary')]"
               :style="{
-                backgroundColor: badge.color
-              }"
+  backgroundColor: badge.color
+}"
               >{{ badge.text }}</span
             >
           </template>
@@ -228,11 +219,7 @@ const handleBadgeImageError = (idx) => {
       <div v-if="!props.readonly" :class="ns.e('footer')">
         <slot name="footer">
           <button
-            :class="[
-              ns.e('action-btn'),
-              ns.is('loading', props.actionLoading),
-              ns.is('disabled', props.soldOut)
-            ]"
+            :class="[ns.e('action-btn'), ns.is('loading', props.actionLoading), ns.is('disabled', props.soldOut)]"
             @click.stop="handleAction"
           >
             <span v-if="props.actionLoading" :class="ns.e('loading-spinner')" />
@@ -925,7 +912,7 @@ html.dark {
 .yh-product-card__price-val {
   font-size: 20px;
   font-weight: bold;
-  font-family: 'Din', sans-serif;
+  font-family: "Din", sans-serif;
 }
 
 .yh-product-card__unit {
@@ -951,7 +938,7 @@ html.dark {
 
 .yh-product-card__vip-price {
   font-weight: bold;
-  font-family: 'Din';
+  font-family: "Din";
 }
 
 .yh-product-card__market-price {

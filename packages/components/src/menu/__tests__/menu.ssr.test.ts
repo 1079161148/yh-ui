@@ -19,8 +19,8 @@ describe('YhMenu SSR', () => {
         },
         {
           default: () => [
-            h(YhMenuItem, { index: '1' }, () => '菜单项1'),
-            h(YhMenuItem, { index: '2' }, () => '菜单项2')
+            h(YhMenuItem, { index: '1' }, () => 'Menu 1'),
+            h(YhMenuItem, { index: '2' }, () => 'Menu 2')
           ]
         }
       )
@@ -28,8 +28,8 @@ describe('YhMenu SSR', () => {
 
     expect(html).toContain('yh-menu')
     expect(html).toContain('yh-menu--vertical')
-    expect(html).toContain('菜单项1')
-    expect(html).toContain('菜单项2')
+    expect(html).toContain('Menu 1')
+    expect(html).toContain('Menu 2')
   })
 
   it('should render horizontal menu on server', async () => {
@@ -41,16 +41,16 @@ describe('YhMenu SSR', () => {
         },
         {
           default: () => [
-            h(YhMenuItem, { index: '1' }, () => '首页'),
-            h(YhMenuItem, { index: '2' }, () => '关于')
+            h(YhMenuItem, { index: '1' }, () => 'Home'),
+            h(YhMenuItem, { index: '2' }, () => 'About')
           ]
         }
       )
     )
 
     expect(html).toContain('yh-menu--horizontal')
-    expect(html).toContain('首页')
-    expect(html).toContain('关于')
+    expect(html).toContain('Home')
+    expect(html).toContain('About')
   })
 
   it('should render active menu item on server', async () => {
@@ -62,8 +62,8 @@ describe('YhMenu SSR', () => {
         },
         {
           default: () => [
-            h(YhMenuItem, { index: '1' }, () => '菜单项1'),
-            h(YhMenuItem, { index: '2' }, () => '菜单项2')
+            h(YhMenuItem, { index: '1' }, () => 'Menu 1'),
+            h(YhMenuItem, { index: '2' }, () => 'Menu 2')
           ]
         }
       )
@@ -82,9 +82,9 @@ describe('YhMenu SSR', () => {
           default: () => [
             h(
               YhMenuItemGroup,
-              { title: '分组1' },
+              { title: 'Group 1' },
               {
-                default: () => h(YhMenuItem, { index: '1' }, () => '菜单项1')
+                default: () => h(YhMenuItem, { index: '1' }, () => 'Menu 1')
               }
             )
           ]
@@ -93,7 +93,7 @@ describe('YhMenu SSR', () => {
     )
 
     expect(html).toContain('yh-menu-item-group')
-    expect(html).toContain('分组1')
+    expect(html).toContain('Group 1')
   })
 
   it('should render collapsed menu on server', async () => {
@@ -105,7 +105,7 @@ describe('YhMenu SSR', () => {
           collapse: true
         },
         {
-          default: () => [h(YhMenuItem, { index: '1' }, () => '菜单项1')]
+          default: () => [h(YhMenuItem, { index: '1' }, () => 'Menu 1')]
         }
       )
     )
@@ -124,8 +124,8 @@ describe('YhMenu SSR', () => {
               YhSubMenu,
               { index: 'sub1' },
               {
-                title: () => '子菜单',
-                default: () => h(YhMenuItem, { index: '1' }, () => '子项1')
+                title: () => 'Docs',
+                default: () => h(YhMenuItem, { index: '1' }, () => 'Guide')
               }
             )
           ]
@@ -134,6 +134,23 @@ describe('YhMenu SSR', () => {
     )
 
     expect(html).toContain('yh-sub-menu')
-    expect(html).toContain('子菜单')
+    expect(html).toContain('Docs')
+  })
+
+  it('should render options-driven menu on server', async () => {
+    const html = await renderToString(
+      h(YhMenu, {
+        options: [
+          {
+            index: 'docs',
+            label: 'Docs',
+            children: [{ index: 'guide', label: 'Guide' }]
+          }
+        ]
+      })
+    )
+
+    expect(html).toContain('yh-menu')
+    expect(html).toContain('Docs')
   })
 })

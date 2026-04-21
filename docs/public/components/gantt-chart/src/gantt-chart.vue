@@ -1,24 +1,24 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
-import dayjs from '../../dayjs'
-import isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
-import isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
-import quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { YhTooltip } from '../../tooltip'
-import { YhInput } from '../../input'
-import { YhRadioGroup, YhRadioButton } from '../../radio'
-dayjs.extend(isBetweenPluginModule)
-dayjs.extend(isoWeekPluginModule)
-dayjs.extend(quarterOfYearPluginModule)
-defineOptions({ name: 'YhGanttChart' })
+import { ref, computed, watch } from "vue";
+import dayjs from "../../dayjs";
+import isBetweenPluginModule from "dayjs/plugin/isBetween.js";
+import isoWeekPluginModule from "dayjs/plugin/isoWeek.js";
+import quarterOfYearPluginModule from "dayjs/plugin/quarterOfYear.js";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { YhTooltip } from "../../tooltip";
+import { YhInput } from "../../input";
+import { YhRadioGroup, YhRadioButton } from "../../radio";
+dayjs.extend(isBetweenPluginModule);
+dayjs.extend(isoWeekPluginModule);
+dayjs.extend(quarterOfYearPluginModule);
+defineOptions({ name: "YhGanttChart" });
 const props = defineProps({
   data: { type: Array, required: true, default: () => [] },
   columns: { type: Array, required: false, default: () => [] },
   startDate: { type: [String, Number, Date], required: false },
   endDate: { type: [String, Number, Date], required: false },
-  viewMode: { type: String, required: false, default: 'day' },
+  viewMode: { type: String, required: false, default: "day" },
   showDependencies: { type: Boolean, required: false, default: true },
   draggable: { type: Boolean, required: false, default: false },
   progressDraggable: { type: Boolean, required: false, default: false },
@@ -31,126 +31,110 @@ const props = defineProps({
   loading: { type: Boolean, required: false, default: false },
   teleported: { type: Boolean, required: false },
   themeOverrides: { type: Object, required: false }
-})
-const emit = defineEmits([
-  'update:data',
-  'update:viewMode',
-  'task-click',
-  'task-dblclick',
-  'task-drag-end',
-  'progress-drag-end',
-  'dependency-click'
-])
-const ns = useNamespace('gantt-chart')
-const { t } = useLocale()
+});
+const emit = defineEmits(["update:data", "update:viewMode", "task-click", "task-dblclick", "task-drag-end", "progress-drag-end", "dependency-click"]);
+const ns = useNamespace("gantt-chart");
+const { t } = useLocale();
 const { themeStyle } = useComponentTheme(
-  'gantt',
+  "gantt",
   computed(() => props.themeOverrides)
-)
+);
 const resolvedColumns = computed(() => {
-  const isDefaultNameColumn =
-    props.columns.length === 1 &&
-    props.columns[0]?.prop === 'name' &&
-    props.columns[0]?.width === 200
-  return isDefaultNameColumn
-    ? [{ ...props.columns[0], label: t('ganttchart.taskName') }]
-    : props.columns
-})
-const ganttSearchPlaceholder = computed(() => t('ganttchart.searchPlaceholder'))
-const ganttZoomText = computed(() => t('ganttchart.zoom'))
-const ganttMilestoneText = computed(() => t('ganttchart.milestone'))
-const ganttRef = ref(null)
-const timelineBodyRef = ref(null)
-const sidebarBodyRef = ref(null)
-const sidebarHeaderRef = ref(null)
-const PIXELS_PER_DAY = ref(40)
-const internalViewModeState = ref(props.viewMode || 'day')
+  const isDefaultNameColumn = props.columns.length === 1 && props.columns[0]?.prop === "name" && props.columns[0]?.width === 200;
+  return isDefaultNameColumn ? [{ ...props.columns[0], label: t("ganttchart.taskName") }] : props.columns;
+});
+const ganttSearchPlaceholder = computed(() => t("ganttchart.searchPlaceholder"));
+const ganttZoomText = computed(() => t("ganttchart.zoom"));
+const ganttMilestoneText = computed(() => t("ganttchart.milestone"));
+const ganttRef = ref(null);
+const timelineBodyRef = ref(null);
+const sidebarBodyRef = ref(null);
+const sidebarHeaderRef = ref(null);
+const PIXELS_PER_DAY = ref(40);
+const internalViewModeState = ref(props.viewMode || "day");
 const internalViewMode = computed({
   get: () => internalViewModeState.value,
   set: (val) => {
-    internalViewModeState.value = val
-    emit('update:viewMode', val)
+    internalViewModeState.value = val;
+    emit("update:viewMode", val);
   }
-})
+});
 watch(
   () => props.viewMode,
   (val) => {
-    if (val) internalViewModeState.value = val
+    if (val) internalViewModeState.value = val;
   }
-)
+);
 const minPixelsPerDay = computed(() => {
-  if (internalViewMode.value === 'day') return 20
-  if (internalViewMode.value === 'week') return 6
-  if (internalViewMode.value === 'month') return 2
-  return 0.5
-})
+  if (internalViewMode.value === "day") return 20;
+  if (internalViewMode.value === "week") return 6;
+  if (internalViewMode.value === "month") return 2;
+  return 0.5;
+});
 watch(
   internalViewMode,
   (val) => {
-    if (val === 'day') PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 40)
-    else if (val === 'week') PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 10)
-    else if (val === 'month') PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 4)
-    else if (val === 'year') PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 1)
+    if (val === "day") PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 40);
+    else if (val === "week") PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 10);
+    else if (val === "month") PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 4);
+    else if (val === "year") PIXELS_PER_DAY.value = Math.max(PIXELS_PER_DAY.value, 1);
   },
   { immediate: true }
-)
+);
 const minMaxDates = computed(() => {
-  let minDate = dayjs('2099-12-31')
-  let maxDate = dayjs('1970-01-01')
+  let minDate = dayjs("2099-12-31");
+  let maxDate = dayjs("1970-01-01");
   if (props.data.length === 0) {
-    minDate = dayjs().subtract(7, 'day')
-    maxDate = dayjs().add(23, 'day')
+    minDate = dayjs().subtract(7, "day");
+    maxDate = dayjs().add(23, "day");
   } else {
     const checkTasks = (tasks) => {
       tasks.forEach((task) => {
-        const start = dayjs(task.startDate)
-        const end = dayjs(task.endDate)
-        if (start.isBefore(minDate)) minDate = start
-        if (end.isAfter(maxDate)) maxDate = end
-        if (task.children) checkTasks(task.children)
-      })
-    }
-    checkTasks(props.data)
-    minDate = minDate.subtract(7, 'day')
-    maxDate = maxDate.add(7, 'day')
+        const start = dayjs(task.startDate);
+        const end = dayjs(task.endDate);
+        if (start.isBefore(minDate)) minDate = start;
+        if (end.isAfter(maxDate)) maxDate = end;
+        if (task.children) checkTasks(task.children);
+      });
+    };
+    checkTasks(props.data);
+    minDate = minDate.subtract(7, "day");
+    maxDate = maxDate.add(7, "day");
   }
   return {
     start: props.startDate ? dayjs(props.startDate) : minDate,
     end: props.endDate ? dayjs(props.endDate) : maxDate
-  }
-})
-const timelineStart = computed(() =>
-  minMaxDates.value.start.startOf(internalViewMode.value === 'day' ? 'day' : internalViewMode.value)
-)
-const timelineEnd = computed(() =>
-  minMaxDates.value.end.endOf(internalViewMode.value === 'day' ? 'day' : internalViewMode.value)
-)
-const expandedTasks = ref(/* @__PURE__ */ new Set())
-const searchKeyword = ref('')
+  };
+});
+const timelineStart = computed(
+  () => minMaxDates.value.start.startOf(internalViewMode.value === "day" ? "day" : internalViewMode.value)
+);
+const timelineEnd = computed(
+  () => minMaxDates.value.end.endOf(internalViewMode.value === "day" ? "day" : internalViewMode.value)
+);
+const expandedTasks = ref(/* @__PURE__ */ new Set());
+const searchKeyword = ref("");
 const toggleExpand = (task) => {
   if (expandedTasks.value.has(task.id)) {
-    expandedTasks.value.delete(task.id)
+    expandedTasks.value.delete(task.id);
   } else {
-    expandedTasks.value.add(task.id)
+    expandedTasks.value.add(task.id);
   }
-}
+};
 const getFlattenedTasks = (tasks, parentId = null, level = 0, ancestorHasNext = []) => {
-  let result = []
+  let result = [];
   tasks.forEach((task, index) => {
-    const matchesSearch =
-      !searchKeyword.value || task.name.toLowerCase().includes(searchKeyword.value.toLowerCase())
-    let start = dayjs(task.startDate),
-      end = dayjs(task.endDate)
-    const isMilestone = start.isSame(end, 'day')
+    const matchesSearch = !searchKeyword.value || task.name.toLowerCase().includes(searchKeyword.value.toLowerCase());
+    let start = dayjs(task.startDate), end = dayjs(task.endDate);
+    const isMilestone = start.isSame(end, "day");
     if (task.children?.length) {
       task.children.forEach((c) => {
-        const cs = dayjs(c.startDate),
-          ce = dayjs(c.endDate)
-        if (cs.isBefore(start)) start = cs
-        if (ce.isAfter(end)) end = ce
-      })
+        const cs = dayjs(c.startDate), ce = dayjs(c.endDate);
+        if (cs.isBefore(start)) start = cs;
+        if (ce.isAfter(end)) end = ce;
+      });
     }
-    const isLast = index === tasks.length - 1
+    const isLast = index === tasks.length - 1;
     const flatTask = {
       ...task,
       _original: task,
@@ -160,144 +144,139 @@ const getFlattenedTasks = (tasks, parentId = null, level = 0, ancestorHasNext = 
       _isLast: isLast,
       _ancestorHasNext: [...ancestorHasNext],
       _hasChildren: !!task.children?.length,
-      _startDate: start.format('YYYY-MM-DD HH:mm:ss'),
-      _endDate: end.format('YYYY-MM-DD HH:mm:ss'),
+      _startDate: start.format("YYYY-MM-DD HH:mm:ss"),
+      _endDate: end.format("YYYY-MM-DD HH:mm:ss"),
       _isMilestone: isMilestone,
       _matchesSearch: matchesSearch
-    }
-    result.push(flatTask)
+    };
+    result.push(flatTask);
     if (task.children?.length && (expandedTasks.value.has(task.id) || searchKeyword.value)) {
       result = result.concat(
         getFlattenedTasks(task.children, task.id, level + 1, [...ancestorHasNext, !isLast])
-      )
+      );
     }
-  })
-  return result
-}
+  });
+  return result;
+};
 const visibleAllTasks = computed(() => {
-  let list = getFlattenedTasks(props.data)
+  let list = getFlattenedTasks(props.data);
   if (searchKeyword.value) {
-    return list.filter((t2) => t2._matchesSearch)
+    return list.filter((t2) => t2._matchesSearch);
   }
-  return list
-})
-const scrollTop = ref(0)
-const viewportHeight = ref(600)
+  return list;
+});
+const scrollTop = ref(0);
+const viewportHeight = ref(600);
 const virtualState = computed(() => {
-  if (!props.virtual) return { start: 0, end: visibleAllTasks.value.length, offsetTop: 0 }
-  const start = Math.floor(scrollTop.value / props.rowHeight)
+  if (!props.virtual) return { start: 0, end: visibleAllTasks.value.length, offsetTop: 0 };
+  const start = Math.floor(scrollTop.value / props.rowHeight);
   const end = Math.min(
     start + Math.ceil(viewportHeight.value / props.rowHeight) + 2,
     visibleAllTasks.value.length
-  )
-  return { start, end, offsetTop: start * props.rowHeight }
-})
-const renderTasks = computed(() =>
-  visibleAllTasks.value.slice(virtualState.value.start, virtualState.value.end)
-)
-const totalHeight = computed(() => visibleAllTasks.value.length * props.rowHeight)
+  );
+  return { start, end, offsetTop: start * props.rowHeight };
+});
+const renderTasks = computed(
+  () => visibleAllTasks.value.slice(virtualState.value.start, virtualState.value.end)
+);
+const totalHeight = computed(() => visibleAllTasks.value.length * props.rowHeight);
 const resourceLoadMap = computed(() => {
-  const loadMap = {}
+  const loadMap = {};
   visibleAllTasks.value.forEach((t2) => {
-    if (!t2.assignees) return
-    let current = dayjs(t2._startDate || t2.startDate)
-    const end = dayjs(t2._endDate || t2.endDate)
-    while (current.isBefore(end) || current.isSame(end, 'day')) {
-      const dateStr = current.format('YYYY-MM-DD')
+    if (!t2.assignees) return;
+    let current = dayjs(t2._startDate || t2.startDate);
+    const end = dayjs(t2._endDate || t2.endDate);
+    while (current.isBefore(end) || current.isSame(end, "day")) {
+      const dateStr = current.format("YYYY-MM-DD");
       t2.assignees.forEach((resId) => {
-        if (!loadMap[resId]) loadMap[resId] = {}
-        loadMap[resId][dateStr] = (loadMap[resId][dateStr] || 0) + 1
-      })
-      current = current.add(1, 'day')
+        if (!loadMap[resId]) loadMap[resId] = {};
+        loadMap[resId][dateStr] = (loadMap[resId][dateStr] || 0) + 1;
+      });
+      current = current.add(1, "day");
     }
-  })
-  return loadMap
-})
-const totalDays = computed(() =>
-  Math.max(1, timelineEnd.value.diff(timelineStart.value, 'day') + 1)
-)
-const timelineWidth = computed(() => totalDays.value * PIXELS_PER_DAY.value)
+  });
+  return loadMap;
+});
+const totalDays = computed(
+  () => Math.max(1, timelineEnd.value.diff(timelineStart.value, "day") + 1)
+);
+const timelineWidth = computed(() => totalDays.value * PIXELS_PER_DAY.value);
 const topHeaders = computed(() => {
-  const headers = []
-  let current = timelineStart.value.clone()
-  while (current.isBefore(timelineEnd.value) || current.isSame(timelineEnd.value, 'day')) {
-    const nextCurrent =
-      internalViewMode.value === 'day' || internalViewMode.value === 'week'
-        ? current.add(1, 'month').startOf('month')
-        : current.add(1, 'year').startOf('year')
-    const actualEnd = nextCurrent.isAfter(timelineEnd.value) ? timelineEnd.value : nextCurrent
-    const days = actualEnd.diff(current, 'day')
+  const headers = [];
+  let current = timelineStart.value.clone();
+  while (current.isBefore(timelineEnd.value) || current.isSame(timelineEnd.value, "day")) {
+    const nextCurrent = internalViewMode.value === "day" || internalViewMode.value === "week" ? current.add(1, "month").startOf("month") : current.add(1, "year").startOf("year");
+    const actualEnd = nextCurrent.isAfter(timelineEnd.value) ? timelineEnd.value : nextCurrent;
+    const days = actualEnd.diff(current, "day");
     if (days > 0) {
       headers.push({
-        label:
-          internalViewMode.value === 'year' ? current.format('YYYY') : current.format('YYYY-MM'),
+        label: internalViewMode.value === "year" ? current.format("YYYY") : current.format("YYYY-MM"),
         width: days * PIXELS_PER_DAY.value
-      })
+      });
     }
-    current = nextCurrent
+    current = nextCurrent;
   }
-  return headers
-})
+  return headers;
+});
 const bottomHeaders = computed(() => {
-  const headers = []
-  let current = timelineStart.value.clone()
-  while (current.isBefore(timelineEnd.value) || current.isSame(timelineEnd.value, 'day')) {
-    let label = '',
-      days = 1
-    if (internalViewMode.value === 'day') {
-      label = current.format('DD')
-      days = 1
-      current = current.add(1, 'day')
-    } else if (internalViewMode.value === 'week') {
-      label = `W${current.isoWeek()}`
-      days = 7
-      current = current.add(1, 'week')
-    } else if (internalViewMode.value === 'month') {
-      label = current.format('MMM')
-      days = current.daysInMonth()
-      current = current.add(1, 'month')
-    } else if (internalViewMode.value === 'year') {
-      label = `Q${current.quarter()}`
-      days = current.add(1, 'quarter').diff(current, 'day')
-      current = current.add(1, 'quarter')
+  const headers = [];
+  let current = timelineStart.value.clone();
+  while (current.isBefore(timelineEnd.value) || current.isSame(timelineEnd.value, "day")) {
+    let label = "", days = 1;
+    if (internalViewMode.value === "day") {
+      label = current.format("DD");
+      days = 1;
+      current = current.add(1, "day");
+    } else if (internalViewMode.value === "week") {
+      label = `W${current.isoWeek()}`;
+      days = 7;
+      current = current.add(1, "week");
+    } else if (internalViewMode.value === "month") {
+      label = current.format("MMM");
+      days = current.daysInMonth();
+      current = current.add(1, "month");
+    } else if (internalViewMode.value === "year") {
+      label = `Q${current.quarter()}`;
+      days = current.add(1, "quarter").diff(current, "day");
+      current = current.add(1, "quarter");
     }
     headers.push({
       label,
       width: days * PIXELS_PER_DAY.value,
-      isToday: current.subtract(1, 'day').isSame(dayjs(), 'day')
-    })
+      isToday: current.subtract(1, "day").isSame(dayjs(), "day")
+    });
   }
-  return headers
-})
+  return headers;
+});
 const getTaskPosition = (task, index) => {
-  const start = dayjs(task.startDate)
-  const end = dayjs(task.endDate)
-  const isMilestone = task._isMilestone || start.isSame(end, 'day')
-  const daysFromStart = start.diff(timelineStart.value, 'day', true)
-  let duration = Math.max(0.1, end.diff(start, 'day') + 1)
-  let width = duration * PIXELS_PER_DAY.value
-  let left = daysFromStart * PIXELS_PER_DAY.value
-  if (isMilestone) width = 0
-  return { left, width, top: index * props.rowHeight, isMilestone }
-}
+  const start = dayjs(task.startDate);
+  const end = dayjs(task.endDate);
+  const isMilestone = task._isMilestone || start.isSame(end, "day");
+  const daysFromStart = start.diff(timelineStart.value, "day", true);
+  let duration = Math.max(0.1, end.diff(start, "day") + 1);
+  let width = duration * PIXELS_PER_DAY.value;
+  let left = daysFromStart * PIXELS_PER_DAY.value;
+  if (isMilestone) width = 0;
+  return { left, width, top: index * props.rowHeight, isMilestone };
+};
 const taskStyles = computed(() => {
   return renderTasks.value.map((task, index) => {
-    const realIndex = virtualState.value.start + index
-    const pos = getTaskPosition(task, realIndex)
-    let hasConflict = false
+    const realIndex = virtualState.value.start + index;
+    const pos = getTaskPosition(task, realIndex);
+    let hasConflict = false;
     if (props.showResourceLoad && task.assignees) {
-      let current = dayjs(task.startDate)
-      const end = dayjs(task.endDate)
-      while (current.isBefore(end) || current.isSame(end, 'day')) {
-        const ds = current.format('YYYY-MM-DD')
+      let current = dayjs(task.startDate);
+      const end = dayjs(task.endDate);
+      while (current.isBefore(end) || current.isSame(end, "day")) {
+        const ds = current.format("YYYY-MM-DD");
         if (task.assignees.some((rid) => (resourceLoadMap.value[rid]?.[ds] || 0) > 1)) {
-          hasConflict = true
-          break
+          hasConflict = true;
+          break;
         }
-        current = current.add(1, 'day')
+        current = current.add(1, "day");
       }
     }
-    const isSummary = task._hasChildren
+    const isSummary = task._hasChildren;
     return {
       ...pos,
       task,
@@ -309,171 +288,161 @@ const taskStyles = computed(() => {
         width: `${pos.isMilestone ? 16 : pos.width}px`,
         top: `${pos.top + (isSummary ? 12 : 4)}px`,
         height: `${pos.isMilestone ? 16 : isSummary ? 8 : props.rowHeight - 8}px`,
-        backgroundColor:
-          pos.isMilestone || isSummary
-            ? 'transparent'
-            : hasConflict
-              ? 'var(--yh-color-danger)'
-              : task.color,
+        backgroundColor: pos.isMilestone || isSummary ? "transparent" : hasConflict ? "var(--yh-color-danger)" : task.color,
         color: task.textColor,
-        margin: pos.isMilestone ? '4px 0' : '0'
+        margin: pos.isMilestone ? "4px 0" : "0"
       }
-    }
-  })
-})
+    };
+  });
+});
 const dependenciesLinks = computed(() => {
-  if (!props.showDependencies) return []
-  const links = []
-  const idToPos = /* @__PURE__ */ new Map()
-  taskStyles.value.forEach((t2) => idToPos.set(t2.task.id, t2))
+  if (!props.showDependencies) return [];
+  const links = [];
+  const idToPos = /* @__PURE__ */ new Map();
+  taskStyles.value.forEach((t2) => idToPos.set(t2.task.id, t2));
   taskStyles.value.forEach((t2) => {
-    if (!t2.task.dependencies) return
+    if (!t2.task.dependencies) return;
     t2.task.dependencies.forEach((depId) => {
-      const from = idToPos.get(depId)
+      const from = idToPos.get(depId);
       if (from) {
-        const x1 = from.left + from.width,
-          y1 = from.top + props.rowHeight / 2
-        const x2 = t2.left,
-          y2 = t2.top + props.rowHeight / 2
+        const x1 = from.left + from.width, y1 = from.top + props.rowHeight / 2;
+        const x2 = t2.left, y2 = t2.top + props.rowHeight / 2;
         links.push({
           id: `${depId}-${t2.task.id}`,
           from: from.task,
           to: t2.task,
           path: `M ${x1} ${y1} L ${x2} ${y2}`
-        })
+        });
       }
-    })
-  })
-  return links
-})
+    });
+  });
+  return links;
+});
 const handleBodyScroll = (e) => {
-  const target = e.target
-  scrollTop.value = target.scrollTop
+  const target = e.target;
+  scrollTop.value = target.scrollTop;
   if (sidebarBodyRef.value && target === timelineBodyRef.value) {
-    sidebarBodyRef.value.scrollTop = target.scrollTop
+    sidebarBodyRef.value.scrollTop = target.scrollTop;
   } else if (timelineBodyRef.value && target === sidebarBodyRef.value) {
-    timelineBodyRef.value.scrollTop = target.scrollTop
+    timelineBodyRef.value.scrollTop = target.scrollTop;
   }
   if (sidebarHeaderRef.value && target === sidebarBodyRef.value) {
-    sidebarHeaderRef.value.scrollLeft = target.scrollLeft
+    sidebarHeaderRef.value.scrollLeft = target.scrollLeft;
   }
-}
+};
 const updateSuccessors = (taskId) => {
   const findTask = (id, list) => {
     for (const t2 of list) {
-      if (t2.id === id) return t2
+      if (t2.id === id) return t2;
       if (t2.children) {
-        const found = findTask(id, t2.children)
-        if (found) return found
+        const found = findTask(id, t2.children);
+        if (found) return found;
       }
     }
-  }
+  };
   const findAffected = (predId, list) => {
-    let affected2 = []
+    let affected2 = [];
     list.forEach((t2) => {
-      if (t2.dependencies?.includes(predId)) affected2.push(t2)
-      if (t2.children) affected2 = affected2.concat(findAffected(predId, t2.children))
-    })
-    return affected2
-  }
-  const pred = findTask(taskId, props.data)
-  if (!pred) return
-  const affected = findAffected(taskId, props.data)
+      if (t2.dependencies?.includes(predId)) affected2.push(t2);
+      if (t2.children) affected2 = affected2.concat(findAffected(predId, t2.children));
+    });
+    return affected2;
+  };
+  const pred = findTask(taskId, props.data);
+  if (!pred) return;
+  const affected = findAffected(taskId, props.data);
   affected.forEach((task) => {
-    const start = dayjs(task.startDate),
-      end = dayjs(pred.endDate)
+    const start = dayjs(task.startDate), end = dayjs(pred.endDate);
     if (start.isBefore(end)) {
-      const dur = dayjs(task.endDate).diff(dayjs(task.startDate), 'day')
-      const ns2 = end.add(1, 'day')
-      task.startDate = ns2.format('YYYY-MM-DD HH:mm:ss')
-      task.endDate = ns2.add(dur, 'day').format('YYYY-MM-DD HH:mm:ss')
-      updateSuccessors(task.id)
+      const dur = dayjs(task.endDate).diff(dayjs(task.startDate), "day");
+      const ns2 = end.add(1, "day");
+      task.startDate = ns2.format("YYYY-MM-DD HH:mm:ss");
+      task.endDate = ns2.add(dur, "day").format("YYYY-MM-DD HH:mm:ss");
+      updateSuccessors(task.id);
     }
-  })
-}
-const activeDragTask = ref(null)
-let dragType = null,
-  dragStartX = 0,
-  dragInitS = dayjs(),
-  dragInitE = dayjs(),
-  dragInitP = 0
+  });
+};
+const activeDragTask = ref(null);
+let dragType = null, dragStartX = 0, dragInitS = dayjs(), dragInitE = dayjs(), dragInitP = 0;
 const onDragStart = (e, task, type) => {
-  if (type === 'progress' && !props.progressDraggable) return
-  if (type !== 'progress' && !props.draggable) return
-  e.preventDefault()
-  e.stopPropagation()
-  activeDragTask.value = task
-  dragType = type
-  dragStartX = e.clientX
-  dragInitS = dayjs(task.startDate)
-  dragInitE = dayjs(task.endDate)
-  dragInitP = task.progress || 0
-  document.addEventListener('mousemove', onDragMove)
-  document.addEventListener('mouseup', onDragEnd)
-}
+  if (type === "progress" && !props.progressDraggable) return;
+  if (type !== "progress" && !props.draggable) return;
+  e.preventDefault();
+  e.stopPropagation();
+  activeDragTask.value = task;
+  dragType = type;
+  dragStartX = e.clientX;
+  dragInitS = dayjs(task.startDate);
+  dragInitE = dayjs(task.endDate);
+  dragInitP = task.progress || 0;
+  document.addEventListener("mousemove", onDragMove);
+  document.addEventListener("mouseup", onDragEnd);
+};
 const onDragMove = (e) => {
-  if (!activeDragTask.value) return
-  const dx = e.clientX - dragStartX
-  const msPerDay = 864e5
-  const msOffset = (dx / PIXELS_PER_DAY.value) * msPerDay
-  const currentTask = activeDragTask.value
-  const originalTask = currentTask._original || currentTask
-  if (dragType === 'move') {
-    const newStart = dragInitS.add(msOffset, 'ms').format('YYYY-MM-DD HH:mm:ss')
-    const newEnd = dragInitE.add(msOffset, 'ms').format('YYYY-MM-DD HH:mm:ss')
-    currentTask.startDate = newStart
-    currentTask.endDate = newEnd
-    originalTask.startDate = newStart
-    originalTask.endDate = newEnd
-  } else if (dragType === 'left') {
-    const ns2 = dragInitS.add(msOffset, 'ms')
+  if (!activeDragTask.value) return;
+  const dx = e.clientX - dragStartX;
+  const msPerDay = 864e5;
+  const msOffset = dx / PIXELS_PER_DAY.value * msPerDay;
+  const currentTask = activeDragTask.value;
+  const originalTask = currentTask._original || currentTask;
+  if (dragType === "move") {
+    const newStart = dragInitS.add(msOffset, "ms").format("YYYY-MM-DD HH:mm:ss");
+    const newEnd = dragInitE.add(msOffset, "ms").format("YYYY-MM-DD HH:mm:ss");
+    currentTask.startDate = newStart;
+    currentTask.endDate = newEnd;
+    originalTask.startDate = newStart;
+    originalTask.endDate = newEnd;
+  } else if (dragType === "left") {
+    const ns2 = dragInitS.add(msOffset, "ms");
     if (ns2.isBefore(dragInitE)) {
-      const newStart = ns2.format('YYYY-MM-DD HH:mm:ss')
-      currentTask.startDate = newStart
-      originalTask.startDate = newStart
+      const newStart = ns2.format("YYYY-MM-DD HH:mm:ss");
+      currentTask.startDate = newStart;
+      originalTask.startDate = newStart;
     }
-  } else if (dragType === 'right') {
-    const ne = dragInitE.add(msOffset, 'ms')
+  } else if (dragType === "right") {
+    const ne = dragInitE.add(msOffset, "ms");
     if (ne.isAfter(dragInitS)) {
-      const newEnd = ne.format('YYYY-MM-DD HH:mm:ss')
-      currentTask.endDate = newEnd
-      originalTask.endDate = newEnd
+      const newEnd = ne.format("YYYY-MM-DD HH:mm:ss");
+      currentTask.endDate = newEnd;
+      originalTask.endDate = newEnd;
     }
-  } else if (dragType === 'progress') {
-    const pos = getTaskPosition(currentTask, 0)
-    const newProgress = Math.round(Math.max(0, Math.min(100, dragInitP + (dx / pos.width) * 100)))
-    currentTask.progress = newProgress
-    originalTask.progress = newProgress
+  } else if (dragType === "progress") {
+    const pos = getTaskPosition(currentTask, 0);
+    const newProgress = Math.round(Math.max(0, Math.min(100, dragInitP + dx / pos.width * 100)));
+    currentTask.progress = newProgress;
+    originalTask.progress = newProgress;
   }
-}
+};
 const onDragEnd = () => {
-  const draggedTask = activeDragTask.value
-  if (draggedTask && props.autoSchedule) updateSuccessors(draggedTask.id)
+  const draggedTask = activeDragTask.value;
+  if (draggedTask && props.autoSchedule) updateSuccessors(draggedTask.id);
   if (draggedTask) {
-    if (dragType === 'progress') {
-      emit('progress-drag-end', draggedTask)
+    if (dragType === "progress") {
+      emit("progress-drag-end", draggedTask);
     } else {
-      emit('task-drag-end', draggedTask)
+      emit("task-drag-end", draggedTask);
     }
   }
-  emit('update:data', [...props.data])
-  activeDragTask.value = null
-  dragType = null
-  document.removeEventListener('mousemove', onDragMove)
-  document.removeEventListener('mouseup', onDragEnd)
-}
+  emit("update:data", [...props.data]);
+  activeDragTask.value = null;
+  dragType = null;
+  document.removeEventListener("mousemove", onDragMove);
+  document.removeEventListener("mouseup", onDragEnd);
+};
 const handleTaskClick = (e, task) => {
-  if (dragType) return
-  emit('task-click', task, e)
-}
+  if (dragType) return;
+  emit("task-click", task, e);
+};
 const handleTaskDblClick = (e, task) => {
-  emit('task-dblclick', task, e)
-}
-const truncatedTasks = ref({})
+  emit("task-dblclick", task, e);
+};
+const truncatedTasks = ref({});
 const handleMouseEnter = (e, task) => {
-  const label = e.currentTarget.querySelector(`.${ns.e('task-label')}`)
-  if (label) truncatedTasks.value[task.id] = label.scrollWidth > label.clientWidth
-}
+  const label = e.currentTarget.querySelector(
+    `.${ns.e("task-label")}`
+  );
+  if (label) truncatedTasks.value[task.id] = label.scrollWidth > label.clientWidth;
+};
 </script>
 
 <template>
@@ -511,10 +480,10 @@ const handleMouseEnter = (e, task) => {
           type="button"
           name="gantt-view-switcher"
         >
-          <YhRadioButton value="day">{{ t('ganttchart.day') }}</YhRadioButton>
-          <YhRadioButton value="week">{{ t('ganttchart.week') }}</YhRadioButton>
-          <YhRadioButton value="month">{{ t('ganttchart.month') }}</YhRadioButton>
-          <YhRadioButton value="year">{{ t('ganttchart.year') }}</YhRadioButton>
+          <YhRadioButton value="day">{{ t("ganttchart.day") }}</YhRadioButton>
+          <YhRadioButton value="week">{{ t("ganttchart.week") }}</YhRadioButton>
+          <YhRadioButton value="month">{{ t("ganttchart.month") }}</YhRadioButton>
+          <YhRadioButton value="year">{{ t("ganttchart.year") }}</YhRadioButton>
         </YhRadioGroup>
       </div>
     </div>
@@ -525,8 +494,8 @@ const handleMouseEnter = (e, task) => {
           ref="sidebarHeaderRef"
           :class="ns.e('sidebar-header-wrapper')"
           :style="{
-            height: `${headerHeight}px`
-          }"
+  height: `${headerHeight}px`
+}"
         >
           <div :class="ns.e('sidebar-header')">
             <div
@@ -534,35 +503,32 @@ const handleMouseEnter = (e, task) => {
               :key="col.prop"
               :class="ns.e('sidebar-header-cell')"
               :style="{
-                width: typeof col.width === 'number' ? `${col.width}px` : col.width
-              }"
+  width: typeof col.width === 'number' ? `${col.width}px` : col.width
+}"
             >
               {{ col.label }}
             </div>
           </div>
         </div>
         <div ref="sidebarBodyRef" :class="ns.e('sidebar-body')" @scroll="handleBodyScroll">
-          <div
-            v-if="virtual"
-            :style="{
-              height: `${virtualState.offsetTop}px`
-            }"
-          ></div>
+          <div v-if="virtual" :style="{
+  height: `${virtualState.offsetTop}px`
+}"></div>
           <div
             v-for="(task, index) in renderTasks"
             :key="task.id"
             :class="ns.e('row')"
             :style="{
-              height: `${rowHeight}px`
-            }"
+  height: `${rowHeight}px`
+}"
           >
             <div
               v-for="col in resolvedColumns"
               :key="col.prop"
               :class="ns.e('cell')"
               :style="{
-                width: typeof col.width === 'number' ? `${col.width}px` : col.width
-              }"
+  width: typeof col.width === 'number' ? `${col.width}px` : col.width
+}"
             >
               <slot name="table-cell" :row="task" :column="col" :index="index">
                 <template v-if="col.prop === resolvedColumns[0].prop">
@@ -600,34 +566,31 @@ const handleMouseEnter = (e, task) => {
           <div
             v-if="virtual"
             :style="{
-              height: `${totalHeight - (virtualState.offsetTop + renderTasks.length * rowHeight)}px`
-            }"
+  height: `${totalHeight - (virtualState.offsetTop + renderTasks.length * rowHeight)}px`
+}"
           >
           </div>
         </div>
       </div>
 
       <div :class="ns.e('timeline')">
-        <div
-          :class="ns.e('timeline-header')"
-          :style="{
-            height: `${headerHeight}px`
-          }"
-        >
+        <div :class="ns.e('timeline-header')" :style="{
+  height: `${headerHeight}px`
+}">
           <div
             :class="ns.e('timeline-header-top')"
             :style="{
-              height: `${headerHeight / 2}px`,
-              width: `${timelineWidth}px`
-            }"
+  height: `${headerHeight / 2}px`,
+  width: `${timelineWidth}px`
+}"
           >
             <div
               v-for="(th, i) in topHeaders"
               :key="i"
               :class="ns.e('timeline-unit')"
               :style="{
-                width: `${th.width}px`
-              }"
+  width: `${th.width}px`
+}"
             >
               {{ th.label }}
             </div>
@@ -635,17 +598,17 @@ const handleMouseEnter = (e, task) => {
           <div
             :class="ns.e('timeline-header-bottom')"
             :style="{
-              height: `${headerHeight / 2}px`,
-              width: `${timelineWidth}px`
-            }"
+  height: `${headerHeight / 2}px`,
+  width: `${timelineWidth}px`
+}"
           >
             <div
               v-for="(th, i) in bottomHeaders"
               :key="i"
               :class="[ns.e('timeline-unit'), th.isToday ? ns.em('timeline-unit', 'today') : '']"
               :style="{
-                width: `${th.width}px`
-              }"
+  width: `${th.width}px`
+}"
             >
               <span
                 v-if="th.width > 20"
@@ -658,31 +621,28 @@ const handleMouseEnter = (e, task) => {
         <div ref="timelineBodyRef" :class="ns.e('timeline-body')" @scroll="handleBodyScroll">
           <div
             :style="{
-              width: `${timelineWidth}px`,
-              height: `${totalHeight}px`,
-              position: 'relative'
-            }"
+  width: `${timelineWidth}px`,
+  height: `${totalHeight}px`,
+  position: 'relative'
+}"
           >
-            <div
-              v-if="virtual"
-              :style="{
-                height: `${virtualState.offsetTop}px`
-              }"
-            ></div>
+            <div v-if="virtual" :style="{
+  height: `${virtualState.offsetTop}px`
+}"></div>
             <div
               :class="ns.e('grid')"
               :style="{
-                width: `${timelineWidth}px`,
-                height: `${totalHeight}px`
-              }"
+  width: `${timelineWidth}px`,
+  height: `${totalHeight}px`
+}"
             >
               <div
                 v-for="(th, i) in bottomHeaders"
                 :key="i"
                 :class="ns.e('grid-column')"
                 :style="{
-                  width: `${th.width}px`
-                }"
+  width: `${th.width}px`
+}"
               >
               </div>
             </div>
@@ -691,17 +651,17 @@ const handleMouseEnter = (e, task) => {
               :key="index"
               :class="ns.e('timeline-row')"
               :style="{
-                height: `${rowHeight}px`,
-                width: `${timelineWidth}px`
-              }"
+  height: `${rowHeight}px`,
+  width: `${timelineWidth}px`
+}"
             />
             <svg
               v-if="showDependencies"
               :class="ns.e('dependency-svg')"
               :style="{
-                width: `${timelineWidth}px`,
-                height: `${totalHeight}px`
-              }"
+  width: `${timelineWidth}px`,
+  height: `${totalHeight}px`
+}"
             >
               <path
                 v-for="link in dependenciesLinks"
@@ -715,12 +675,7 @@ const handleMouseEnter = (e, task) => {
               :key="ts.task.id"
               :content="ts.isMilestone ? `${ts.task.name} (${ganttMilestoneText})` : ts.task.name"
               placement="top"
-              :class="[
-                ns.e('task-wrapper'),
-                ns.is('milestone', ts.isMilestone),
-                ns.is('summary', ts.isSummary),
-                ts.task.status ? ns.e(`task-${ts.task.status}`) : ''
-              ]"
+              :class="[ns.e('task-wrapper'), ns.is('milestone', ts.isMilestone), ns.is('summary', ts.isSummary), ts.task.status ? ns.e(`task-${ts.task.status}`) : '']"
               :style="ts.style"
               @mouseenter="handleMouseEnter($event, ts.task)"
             >
@@ -739,16 +694,16 @@ const handleMouseEnter = (e, task) => {
                   v-else-if="ts.isMilestone"
                   :class="ns.e('milestone-diamond')"
                   :style="{
-                    backgroundColor: ts.task.color || 'var(--yh-color-primary)'
-                  }"
+  backgroundColor: ts.task.color || 'var(--yh-color-primary)'
+}"
                 />
                 <template v-else>
                   <div
                     v-if="ts.task.progress"
                     :class="ns.e('task-progress')"
                     :style="{
-                      width: `${ts.task.progress}%`
-                    }"
+  width: `${ts.task.progress}%`
+}"
                   />
                   <slot name="task-content" :task="ts.task">
                     <span :class="ns.e('task-label')">{{ ts.task.name }}</span>
@@ -1380,7 +1335,7 @@ html.dark {
   flex-shrink: 0;
 }
 .yh-gantt-chart__tree-indent::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 8px;
   top: 0;
@@ -1543,9 +1498,8 @@ html.dark {
   border-radius: 2px;
   pointer-events: none;
 }
-.yh-gantt-chart__summary-bar::before,
-.yh-gantt-chart__summary-bar::after {
-  content: '';
+.yh-gantt-chart__summary-bar::before, .yh-gantt-chart__summary-bar::after {
+  content: "";
   position: absolute;
   top: 0;
   width: 0;

@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "@yh-ui/utils",
-  "version": "0.1.56",
+  "version": "1.0.0",
   "description": "YH-UI utility functions",
   "type": "module",
   "sideEffects": false,
@@ -53,3 +53,4 @@
   "author": "YH-UI Team",
   "license": "MIT"
 }
+

@@ -39,6 +39,19 @@ describe('YhTransfer SSR', () => {
     expect(html).toContain('Search here')
   })
 
+  it('should render disabled and empty copy in SSR', async () => {
+    const html = await renderSSR(Transfer, {
+      data: [],
+      disabled: true,
+      leftEmptyText: 'No source items',
+      rightEmptyText: 'No target items'
+    })
+
+    expectSSRHasClass(html, 'is-disabled')
+    expect(html).toContain('No source items')
+    expect(html).toContain('No target items')
+  })
+
   it('should hydrate without mismatch', async () => {
     const data = generateData()
     const result = await testHydration(Transfer, {

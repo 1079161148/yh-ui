@@ -476,4 +476,33 @@ describe('YhSelect', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-select-border-color: #123456')
   })
+
+  it('should fallback to raw values when the selected option is not in the option list', () => {
+    const wrapper = mount(Select, {
+      props: {
+        options,
+        modelValue: 'raw-only'
+      }
+    })
+
+    expect(wrapper.find('.yh-select__selected-value').text()).toBe('raw-only')
+  })
+
+  it('should ignore remote mode when remoteMethod is absent', async () => {
+    const filterMethod = vi.fn()
+    const wrapper = mount(Select, {
+      props: {
+        options,
+        filterable: true,
+        remote: true,
+        filterMethod
+      }
+    })
+
+    await wrapper.trigger('click')
+    await wrapper.find('input').setValue('option')
+    await nextTick()
+
+    expect(filterMethod).toHaveBeenCalledWith('option')
+  })
 })

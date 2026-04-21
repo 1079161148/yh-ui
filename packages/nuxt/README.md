@@ -65,7 +65,7 @@ export default defineNuxtConfig({
 })
 ```
 
-开启 `importStyle` 时，Nuxt 模块内部实际注入的是公开 CSS 入口 `@yh-ui/components/style`，不会依赖应用侧的 Sass 环境。
+开启 `importStyle` 时，Nuxt 模块会直接把显式 CSS 子路径 `@yh-ui/components/style.css` 注入到 `nuxt.options.css`，不会依赖应用侧的 Sass 环境，也能避免 Nuxt SSR 样式提取告警。
 
 ### 第 2 步：直接使用组件
 
@@ -95,7 +95,8 @@ const columns = [{ prop: 'name', label: '名称' }]
 <script setup lang="ts">
 // 以下 composable 均无需 import，直接使用
 const ns = useNamespace('my-component') // BEM 类名
-const id = useId() // 稳定唯一 ID
+const id = useId() // Vue/Nuxt 原生稳定唯一 ID
+const yhId = useYhId() // YH-UI hooks 别名导入
 const { nextZIndex } = useZIndex() // z-index 管理
 const { t } = useLocale() // i18n 翻译
 </script>
@@ -139,7 +140,7 @@ export default defineNuxtConfig({
 | `importStyle` | `boolean` | `true`    | 是否自动注入 YH-UI CSS 样式 |
 | `locale`      | `string`  | `'zh-CN'` | 默认语言代码（67 种可选）   |
 
-`importStyle` 为 `true` 时，实际注入路径为 `@yh-ui/components/style`。
+`importStyle` 为 `true` 时，模块会直接向 `nuxt.options.css` 注入 `@yh-ui/components/style.css`。
 
 ---
 
@@ -181,7 +182,7 @@ YhAiBubble        YhAiSender        YhAiProvider      ... 共 77+ 个
 ## 🪝 自动导入的 Composable
 
 ```
-useNamespace    useId         useZIndex     useLocale
+useNamespace    useYhId       useZIndex     useLocale
 useFormItem     useConfig     useCache      useClickOutside
 useEventListener useScrollLock useCountdown useSKU
 useVirtualScroll useAI

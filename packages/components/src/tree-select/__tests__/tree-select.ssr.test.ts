@@ -53,6 +53,16 @@ describe('YhTreeSelect SSR', () => {
     expectSSRHasClass(html, 'is-disabled')
   })
 
+  it('should render empty-data trigger state in SSR', async () => {
+    const html = await renderSSR(TreeSelect, {
+      data: [],
+      placeholder: 'No selection'
+    })
+
+    expectSSRHasClass(html, 'yh-tree-select')
+    expect(html).toContain('No selection')
+  })
+
   it('should hydrate without mismatch', async () => {
     const result = await testHydration(TreeSelect, {
       data,

@@ -1,129 +1,129 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { imageViewerProps, imageViewerEmits } from './image-viewer'
-import Viewer from '../../viewerjs'
-import 'viewerjs/dist/viewer.css'
+import { computed, ref, onMounted, onUnmounted, watch } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { imageViewerProps, imageViewerEmits } from "./image-viewer";
+import Viewer from "../../viewerjs";
+import "viewerjs/dist/viewer.css";
 defineOptions({
-  name: 'YhImageViewer'
-})
-const props = defineProps(imageViewerProps)
-const emit = defineEmits(imageViewerEmits)
-const ns = useNamespace('viewer')
-const { t } = useLocale()
-const index = ref(props.initialIndex)
-const scale = ref(1)
-const rotate = ref(0)
-let viewer = null
-let viewerList = null
+  name: "YhImageViewer"
+});
+const props = defineProps(imageViewerProps);
+const emit = defineEmits(imageViewerEmits);
+const ns = useNamespace("viewer");
+const { t } = useLocale();
+const index = ref(props.initialIndex);
+const scale = ref(1);
+const rotate = ref(0);
+let viewer = null;
+let viewerList = null;
 const transform = computed(() => {
-  return `scale(${scale.value}) rotate(${rotate.value}deg)`
-})
+  return `scale(${scale.value}) rotate(${rotate.value}deg)`;
+});
 const handleClose = () => {
-  emit('close')
-}
+  emit("close");
+};
 const initViewerJS = () => {
-  const list = document.createElement('div')
-  list.style.display = 'none'
+  const list = document.createElement("div");
+  list.style.display = "none";
   props.urlList.forEach((src) => {
-    const img = document.createElement('img')
-    img.src = src
-    list.appendChild(img)
-  })
-  document.body.appendChild(list)
-  viewerList = list
+    const img = document.createElement("img");
+    img.src = src;
+    list.appendChild(img);
+  });
+  document.body.appendChild(list);
+  viewerList = list;
   const nextViewer = new Viewer(list, {
     ...props.viewerOptions,
     initialViewIndex: props.initialIndex,
     hidden: () => {
       if (viewerList) {
-        document.body.removeChild(viewerList)
-        viewerList = null
+        document.body.removeChild(viewerList);
+        viewerList = null;
       }
-      viewer?.destroy()
-      viewer = null
-      emit('close')
+      viewer?.destroy();
+      viewer = null;
+      emit("close");
     }
-  })
-  viewer = nextViewer
-  nextViewer.show()
-}
+  });
+  viewer = nextViewer;
+  nextViewer.show();
+};
 const handlePrev = () => {
-  const len = props.urlList.length
-  if (len <= 1) return
+  const len = props.urlList.length;
+  if (len <= 1) return;
   if (index.value > 0) {
-    index.value--
+    index.value--;
   } else if (props.infinite) {
-    index.value = len - 1
+    index.value = len - 1;
   }
-}
+};
 const handleNext = () => {
-  const len = props.urlList.length
-  if (len <= 1) return
+  const len = props.urlList.length;
+  if (len <= 1) return;
   if (index.value < len - 1) {
-    index.value++
+    index.value++;
   } else if (props.infinite) {
-    index.value = 0
+    index.value = 0;
   }
-}
+};
 const handleZoomIn = () => {
-  scale.value *= props.zoomRate
-}
+  scale.value *= props.zoomRate;
+};
 const handleZoomOut = () => {
-  scale.value /= props.zoomRate
-}
+  scale.value /= props.zoomRate;
+};
 const handleRotateLeft = () => {
-  rotate.value -= 90
-}
+  rotate.value -= 90;
+};
 const handleRotateRight = () => {
-  rotate.value += 90
-}
+  rotate.value += 90;
+};
 const reset = () => {
-  scale.value = 1
-  rotate.value = 0
-}
+  scale.value = 1;
+  rotate.value = 0;
+};
 watch(index, (val) => {
-  reset()
-  emit('switch', val)
-})
+  reset();
+  emit("switch", val);
+});
 watch(
   () => props.initialIndex,
   (val) => {
-    index.value = val
+    index.value = val;
   }
-)
+);
 const handleKeyDown = (e) => {
-  if (props.viewerMode === 'viewerjs') return
-  if (e.key === 'Escape' && props.closeOnPressEscape) {
-    handleClose()
-  } else if (e.key === 'ArrowLeft') {
-    handlePrev()
-  } else if (e.key === 'ArrowRight') {
-    handleNext()
-  } else if (e.key === 'ArrowUp') {
-    handleZoomIn()
-  } else if (e.key === 'ArrowDown') {
-    handleZoomOut()
+  if (props.viewerMode === "viewerjs") return;
+  if (e.key === "Escape" && props.closeOnPressEscape) {
+    handleClose();
+  } else if (e.key === "ArrowLeft") {
+    handlePrev();
+  } else if (e.key === "ArrowRight") {
+    handleNext();
+  } else if (e.key === "ArrowUp") {
+    handleZoomIn();
+  } else if (e.key === "ArrowDown") {
+    handleZoomOut();
   }
-}
+};
 onMounted(() => {
-  if (props.viewerMode === 'viewerjs') {
-    initViewerJS()
+  if (props.viewerMode === "viewerjs") {
+    initViewerJS();
   } else {
-    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener("keydown", handleKeyDown);
   }
-})
+});
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown)
+  window.removeEventListener("keydown", handleKeyDown);
   if (viewer) {
-    viewer.destroy()
-    viewer = null
+    viewer.destroy();
+    viewer = null;
   }
   if (viewerList) {
-    document.body.removeChild(viewerList)
-    viewerList = null
+    document.body.removeChild(viewerList);
+    viewerList = null;
   }
-})
+});
 defineExpose({
   prev: handlePrev,
   next: handleNext,
@@ -132,18 +132,14 @@ defineExpose({
   rotateLeft: handleRotateLeft,
   rotateRight: handleRotateRight,
   reset
-})
+});
 </script>
 
 <template>
   <Teleport to="body" :disabled="!teleported">
-    <div
-      v-if="viewerMode !== 'viewerjs'"
-      :class="ns.b()"
-      :style="{
-        zIndex
-      }"
-    >
+    <div v-if="viewerMode !== 'viewerjs'" :class="ns.b()" :style="{
+  zIndex
+}">
       <div :class="ns.e('mask')" @click="hideOnClickModal && handleClose()"></div>
 
       <!-- Close -->
@@ -255,13 +251,9 @@ defineExpose({
 
       <!-- Canvas -->
       <div :class="ns.e('canvas')">
-        <img
-          :src="urlList[index]"
-          :class="ns.e('img')"
-          :style="{
-            transform
-          }"
-        />
+        <img :src="urlList[index]" :class="ns.e('img')" :style="{
+  transform
+}" />
       </div>
     </div>
   </Teleport>

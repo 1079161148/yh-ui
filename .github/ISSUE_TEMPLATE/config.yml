@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issue
+    url: https://github.com/1079161148/yh-ui/blob/main/SECURITY.md
+    about: Please report security issues through the process described in SECURITY.md.
+  - name: Documentation site
+    url: https://1079161148.github.io/yh-ui/
+    about: Check the documentation before opening an issue.

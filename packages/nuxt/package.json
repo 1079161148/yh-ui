@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "@yh-ui/nuxt",
-  "version": "0.1.56",
+  "version": "1.0.0",
   "description": "Nuxt module for YH-UI",
   "type": "module",
   "main": "./dist/module.cjs",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.11.0 || ^4.0.0",
     "@yh-ui/components": "workspace:*",
+    "@yh-ui/hooks": "workspace:*",
     "@yh-ui/theme": "workspace:*"
   },
   "devDependencies": {
@@ -58,3 +59,4 @@
     "pnpm": ">=9.0.0"
   }
 }
+

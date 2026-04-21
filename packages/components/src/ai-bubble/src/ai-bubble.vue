@@ -926,14 +926,17 @@ const getMarkdownInstance = () => {
   })
 
   // Mermaid block: ```mermaid
-  md.block.ruler.before('code', 'mermaid', (state: StateBlock, silent: boolean) => {
-    const start = state.bMarks[state.line]
-    const max = state.eMarks[state.line]
+  md.block.ruler.before(
+    'code',
+    'mermaid',
+    (state: StateBlock, startLine: number, _endLine: number, silent: boolean) => {
+    const start = state.bMarks[startLine]
+    const max = state.eMarks[startLine]
     const line = state.src.slice(start, max)
     if (!line.trim().startsWith('```mermaid')) return false
 
     if (!silent) {
-      state.line++
+      state.line = startLine + 1
       const lines: string[] = []
       while (state.line < state.lineMax) {
         const lineContent = state.src.slice(state.bMarks[state.line], state.eMarks[state.line])
@@ -951,7 +954,8 @@ const getMarkdownInstance = () => {
       token = state.push('mermaid_close', 'div', -1)
     }
     return true
-  })
+    }
+  )
 
   // Custom renderer for mermaid
   // Custom renderer for mermaid - 必须同步

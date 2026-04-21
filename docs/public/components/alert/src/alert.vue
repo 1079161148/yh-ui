@@ -1,99 +1,99 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, useSlots } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { alertProps, alertEmits } from './alert'
+import { ref, computed, onMounted, onBeforeUnmount, useSlots } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { alertProps, alertEmits } from "./alert";
 defineOptions({
-  name: 'YhAlert'
-})
-const props = defineProps(alertProps)
-const emit = defineEmits(alertEmits)
-const ns = useNamespace('alert')
-const { t } = useLocale()
+  name: "YhAlert"
+});
+const props = defineProps(alertProps);
+const emit = defineEmits(alertEmits);
+const ns = useNamespace("alert");
+const { t } = useLocale();
 const { themeStyle } = useComponentTheme(
-  'alert',
+  "alert",
   computed(() => props.themeOverrides)
-)
-const slots = useSlots()
-const visible = ref(true)
-const progress = ref(100)
-const remainingTime = ref(props.duration)
-const lastUpdate = ref(0)
-const isPaused = ref(false)
-let timer = null
-let rafId = null
+);
+const slots = useSlots();
+const visible = ref(true);
+const progress = ref(100);
+const remainingTime = ref(props.duration);
+const lastUpdate = ref(0);
+const isPaused = ref(false);
+let timer = null;
+let rafId = null;
 const updateProgress = () => {
-  if (isPaused.value || !visible.value) return
-  const now = Date.now()
-  const elapsed = now - lastUpdate.value
-  lastUpdate.value = now
-  remainingTime.value = Math.max(0, remainingTime.value - elapsed)
-  progress.value = (remainingTime.value / props.duration) * 100
+  if (isPaused.value || !visible.value) return;
+  const now = Date.now();
+  const elapsed = now - lastUpdate.value;
+  lastUpdate.value = now;
+  remainingTime.value = Math.max(0, remainingTime.value - elapsed);
+  progress.value = remainingTime.value / props.duration * 100;
   if (remainingTime.value > 0) {
-    rafId = requestAnimationFrame(updateProgress)
+    rafId = requestAnimationFrame(updateProgress);
   } else {
-    visible.value = false
+    visible.value = false;
   }
-}
+};
 const alertClass = computed(() => [
   ns.b(),
   ns.m(props.type),
   ns.m(props.effect),
-  ns.is('center', props.center),
-  ns.is('scrollable', props.scrollable),
-  ns.is('pause-on-hover', props.pauseOnHover),
-  ns.is('with-description', !!props.description || !!slots.default)
-])
+  ns.is("center", props.center),
+  ns.is("scrollable", props.scrollable),
+  ns.is("pause-on-hover", props.pauseOnHover),
+  ns.is("with-description", !!props.description || !!slots.default)
+]);
 const alertStyle = computed(() => ({
   ...themeStyle.value,
-  '--yh-alert-scroll-speed': `${props.scrollSpeed}s`
-}))
+  "--yh-alert-scroll-speed": `${props.scrollSpeed}s`
+}));
 const progressStyle = computed(() => ({
   width: `${progress.value}%`,
-  transition: 'none'
-}))
+  transition: "none"
+}));
 const handleClose = (evt) => {
-  visible.value = false
-  emit('close', evt)
-  clearAutoClose()
-}
+  visible.value = false;
+  emit("close", evt);
+  clearAutoClose();
+};
 const clearAutoClose = () => {
-  if (timer) clearTimeout(timer)
-  if (rafId) cancelAnimationFrame(rafId)
-}
+  if (timer) clearTimeout(timer);
+  if (rafId) cancelAnimationFrame(rafId);
+};
 const handleMouseEnter = () => {
   if (props.pauseOnHover && props.duration > 0) {
-    isPaused.value = true
-    if (timer) clearTimeout(timer)
+    isPaused.value = true;
+    if (timer) clearTimeout(timer);
   }
-}
+};
 const handleMouseLeave = () => {
   if (props.pauseOnHover && props.duration > 0 && visible.value) {
-    isPaused.value = false
-    lastUpdate.value = Date.now()
+    isPaused.value = false;
+    lastUpdate.value = Date.now();
     if (props.showProgress) {
-      rafId = requestAnimationFrame(updateProgress)
+      rafId = requestAnimationFrame(updateProgress);
     }
     timer = setTimeout(() => {
-      visible.value = false
-    }, remainingTime.value)
+      visible.value = false;
+    }, remainingTime.value);
   }
-}
+};
 onMounted(() => {
   if (props.duration > 0) {
-    remainingTime.value = props.duration
-    lastUpdate.value = Date.now()
+    remainingTime.value = props.duration;
+    lastUpdate.value = Date.now();
     if (props.showProgress) {
-      rafId = requestAnimationFrame(updateProgress)
+      rafId = requestAnimationFrame(updateProgress);
     }
     timer = setTimeout(() => {
-      visible.value = false
-    }, props.duration)
+      visible.value = false;
+    }, props.duration);
   }
-})
+});
 onBeforeUnmount(() => {
-  clearAutoClose()
-})
+  clearAutoClose();
+});
 </script>
 
 <template>
@@ -648,9 +648,7 @@ html.dark {
   overflow: hidden;
   box-sizing: border-box;
   margin-bottom: 20px;
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 .yh-alert.is-center {
   justify-content: center;
@@ -875,9 +873,8 @@ html.dark {
   overflow: hidden;
   position: relative;
 }
-.yh-alert__description-wrapper::before,
-.yh-alert__description-wrapper::after {
-  content: '';
+.yh-alert__description-wrapper::before, .yh-alert__description-wrapper::after {
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;

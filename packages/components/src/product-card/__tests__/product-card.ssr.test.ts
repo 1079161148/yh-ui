@@ -20,4 +20,40 @@ describe('ProductCard SSR', () => {
     expect(html).toContain('99')
     expect(html).toContain('.90')
   })
+
+  it('renders advanced server branches without client-only state', async () => {
+    const html = await renderToString(
+      h(ProductCard, {
+        title: 'SSR Product',
+        image: 'https://test.com/ssr.jpg',
+        price: 88,
+        vipPrice: 66,
+        marketPrice: 128,
+        stockProgress: 120,
+        stockText: 'Only 3 left',
+        soldOut: true,
+        tag: 'NEW',
+        badgePosition: 'inline',
+        badges: [
+          { text: 'VIP', color: '#fa8c16' },
+          { text: 'FAST', type: 'success' }
+        ],
+        ribbon: 'Limited',
+        ribbonColor: '#722ed1',
+        themeOverrides: {
+          'price-color': '#ff4d4f'
+        }
+      })
+    )
+
+    expect(html).toContain('yh-product-card')
+    expect(html).toContain('is-sold-out')
+    expect(html).toContain('SSR Product')
+    expect(html).toContain('Only 3 left')
+    expect(html).toContain('Limited')
+    expect(html).toContain('NEW')
+    expect(html).toContain('VIP')
+    expect(html).toContain('FAST')
+    expect(html).toContain('--yh-product-card-price-color:#ff4d4f')
+  })
 })

@@ -61,4 +61,25 @@ describe('YhSelect SSR', () => {
     })
     expectSSRHasClass(html, 'yh-select')
   })
+
+  it('should render collapsed multiple tags and theme overrides in SSR', async () => {
+    const html = await renderSSR(Select, {
+      options: [
+        { value: '1', label: 'One' },
+        { value: '2', label: 'Two' },
+        { value: '3', label: 'Three' }
+      ],
+      modelValue: ['1', '2', '3'],
+      multiple: true,
+      collapseTags: true,
+      maxCollapseTags: 1,
+      themeOverrides: {
+        borderColor: '#123456'
+      }
+    })
+
+    expectSSRHasClass(html, 'yh-select')
+    expect(html).toContain('+2')
+    expect(html).toContain('--yh-select-border-color:#123456')
+  })
 })

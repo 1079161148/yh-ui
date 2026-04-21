@@ -236,7 +236,10 @@ var __sfc__ = /* @__PURE__ */ Object.assign({
   setup(__props, { expose: __expose }) {
     const props = __props;
     const ns = useNamespace("watermark");
-    const { themeStyle } = useComponentTheme("watermark", computed2(() => props.themeOverrides));
+    const { themeStyle } = useComponentTheme(
+      "watermark",
+      computed2(() => props.themeOverrides)
+    );
     const containerRef = ref2(null);
     let watermarkRef = null;
     const watermarkUrl = ref2("");
@@ -352,9 +355,24 @@ var __sfc__ = /* @__PURE__ */ Object.assign({
         }
       }, 3e3);
     };
-    watch(() => [props.content, props.image, props.width, props.height, props.gap, props.rotate, props.globalRotate, props.zIndex, props.fullScreen, props.font], () => {
-      renderWatermark();
-    }, { deep: true });
+    watch(
+      () => [
+        props.content,
+        props.image,
+        props.width,
+        props.height,
+        props.gap,
+        props.rotate,
+        props.globalRotate,
+        props.zIndex,
+        props.fullScreen,
+        props.font
+      ],
+      () => {
+        renderWatermark();
+      },
+      { deep: true }
+    );
     onMounted(() => {
       renderWatermark();
       nextTick(() => {

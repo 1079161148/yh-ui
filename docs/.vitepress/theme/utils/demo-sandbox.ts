@@ -753,16 +753,6 @@ function usesIconSandboxRuntime(code: string, context?: SandboxContext): boolean
   )
 }
 
-function usesAiSandboxRuntime(code: string, context?: SandboxContext): boolean {
-  const preparedCode = prepareSandboxCode(code, context)
-  return (
-    preparedCode.includes('@yh-ui/ai-sdk') ||
-    preparedCode.includes('@yh-ui/ai') ||
-    /<\s*yh-ai-[a-z0-9-]+\b/i.test(preparedCode) ||
-    Boolean(context?.docPath?.includes('/ai/'))
-  )
-}
-
 function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
   const dependencies = { ...BASE_DEPENDENCIES }

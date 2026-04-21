@@ -1,164 +1,164 @@
 const uzUz = {
-  name: 'uz-uz',
+  name: "uz-uz",
   yh: {
     // Umumiy
     common: {
-      yes: 'Ha',
+      yes: "Ha",
       no: "Yo'q",
-      confirm: 'Tasdiqlash',
-      cancel: 'Bekor qilish',
-      loading: 'Yuklanmoqda',
-      close: 'Yopish',
-      clear: 'Tozalash',
+      confirm: "Tasdiqlash",
+      cancel: "Bekor qilish",
+      loading: "Yuklanmoqda",
+      close: "Yopish",
+      clear: "Tozalash",
       reset: "Qayta o'rnatish",
-      save: 'Saqlash',
+      save: "Saqlash",
       delete: "O'chirish",
-      edit: 'Tahrirlash',
+      edit: "Tahrirlash",
       add: "Qo'shish",
-      search: 'Qidirish',
-      refresh: 'Yangilash',
-      expand: 'Kengaytirish',
+      search: "Qidirish",
+      refresh: "Yangilash",
+      expand: "Kengaytirish",
       collapse: "Yig'ish",
       more: "Ko'proq",
       noData: "Ma'lumot yo'q",
       noMatch: "Mos ma'lumot yo'q",
-      selectAll: 'Barchasini tanlash',
-      unselectAll: 'Barcha tanlovni bekor qilish'
+      selectAll: "Barchasini tanlash",
+      unselectAll: "Barcha tanlovni bekor qilish"
     },
     // Rang tanlovchi
     colorpicker: {
-      confirm: 'OK',
-      clear: 'Tozalash',
+      confirm: "OK",
+      clear: "Tozalash",
       eyeDropper: "Ko'z tomchisi",
-      suggestionDark: 'Oq matn yaxshiroq',
-      suggestionLight: 'Qora matn yaxshiroq',
+      suggestionDark: "Oq matn yaxshiroq",
+      suggestionLight: "Qora matn yaxshiroq",
       recentColors: "So'nggi ranglar",
-      presetColors: 'Oldindan belgilangan ranglar'
+      presetColors: "Oldindan belgilangan ranglar"
     },
     // Sana tanlovchi
     datepicker: {
-      now: 'Hozir',
-      today: 'Bugun',
-      cancel: 'Bekor qilish',
-      clear: 'Tozalash',
-      confirm: 'OK',
-      selectDate: 'Sanani tanlang',
-      selectTime: 'Vaqtni tanlang',
-      startDate: 'Boshlanish sanasi',
-      startTime: 'Boshlanish vaqti',
-      endDate: 'Tugash sanasi',
-      endTime: 'Tugash vaqti',
-      year: '',
-      month: '',
-      day: '',
-      week: 'Hafta',
+      now: "Hozir",
+      today: "Bugun",
+      cancel: "Bekor qilish",
+      clear: "Tozalash",
+      confirm: "OK",
+      selectDate: "Sanani tanlang",
+      selectTime: "Vaqtni tanlang",
+      startDate: "Boshlanish sanasi",
+      startTime: "Boshlanish vaqti",
+      endDate: "Tugash sanasi",
+      endTime: "Tugash vaqti",
+      year: "",
+      month: "",
+      day: "",
+      week: "Hafta",
       monthBeforeYear: true,
       prevYear: "O'tgan yil",
-      nextYear: 'Keyingi yil',
+      nextYear: "Keyingi yil",
       prevMonth: "O'tgan oy",
-      nextMonth: 'Keyingi oy',
+      nextMonth: "Keyingi oy",
       weeks: {
-        sun: 'Yak',
-        mon: 'Dush',
-        tue: 'Sesh',
-        wed: 'Chor',
-        thu: 'Pay',
-        fri: 'Jum',
-        sat: 'Shan'
+        sun: "Yak",
+        mon: "Dush",
+        tue: "Sesh",
+        wed: "Chor",
+        thu: "Pay",
+        fri: "Jum",
+        sat: "Shan"
       },
       months: {
-        jan: 'Yan',
-        feb: 'Fev',
-        mar: 'Mar',
-        apr: 'Apr',
-        may: 'May',
-        jun: 'Iyun',
-        jul: 'Iyul',
-        aug: 'Avg',
-        sep: 'Sen',
-        oct: 'Okt',
-        nov: 'Noy',
-        dec: 'Dek'
+        jan: "Yan",
+        feb: "Fev",
+        mar: "Mar",
+        apr: "Apr",
+        may: "May",
+        jun: "Iyun",
+        jul: "Iyul",
+        aug: "Avg",
+        sep: "Sen",
+        oct: "Okt",
+        nov: "Noy",
+        dec: "Dek"
       },
       quarters: {
-        q1: 'Q1',
-        q2: 'Q2',
-        q3: 'Q3',
-        q4: 'Q4'
+        q1: "Q1",
+        q2: "Q2",
+        q3: "Q3",
+        q4: "Q4"
       }
     },
     // Vaqt tanlovchi
     timepicker: {
-      confirm: 'OK',
-      cancel: 'Bekor qilish',
-      now: 'Hozir',
-      placeholder: 'Vaqtni tanlang',
-      startPlaceholder: 'Boshlanish vaqti',
-      endPlaceholder: 'Tugash vaqti',
-      selectTime: 'Vaqtni tanlang'
+      confirm: "OK",
+      cancel: "Bekor qilish",
+      now: "Hozir",
+      placeholder: "Vaqtni tanlang",
+      startPlaceholder: "Boshlanish vaqti",
+      endPlaceholder: "Tugash vaqti",
+      selectTime: "Vaqtni tanlang"
     },
     // Vaqt tanlash
     timeselect: {
-      placeholder: 'Vaqtni tanlang'
+      placeholder: "Vaqtni tanlang"
     },
     // Daraxt
     tree: {
       emptyText: "Ma'lumot yo'q",
-      loading: 'Yuklanmoqda...',
-      checkAll: 'Barchasini tekshirish',
-      uncheckAll: 'Barcha tekshiruvni bekor qilish',
-      expandAll: 'Barchasini kengaytirish',
+      loading: "Yuklanmoqda...",
+      checkAll: "Barchasini tekshirish",
+      uncheckAll: "Barcha tekshiruvni bekor qilish",
+      expandAll: "Barchasini kengaytirish",
       collapseAll: "Barchasini yig'ish"
     },
     // Daraxt tanlash
     treeselect: {
-      placeholder: 'Tanlang',
+      placeholder: "Tanlang",
       emptyText: "Ma'lumot yo'q",
-      loading: 'Yuklanmoqda...',
+      loading: "Yuklanmoqda...",
       noMatch: "Mos ma'lumot yo'q"
     },
     // Taqvim
     calendar: {
       prevMonth: "O'tgan oy",
-      nextMonth: 'Keyingi oy',
+      nextMonth: "Keyingi oy",
       prevYear: "O'tgan yil",
-      nextYear: 'Keyingi yil',
-      today: 'Bugun',
-      week: 'Hafta',
-      holiday: 'Bayram',
-      workday: 'Ish',
-      monthHeaderFormat: 'MMMM YYYY',
+      nextYear: "Keyingi yil",
+      today: "Bugun",
+      week: "Hafta",
+      holiday: "Bayram",
+      workday: "Ish",
+      monthHeaderFormat: "MMMM YYYY",
       weeks: {
-        sun: 'Yak',
-        mon: 'Dush',
-        tue: 'Sesh',
-        wed: 'Chor',
-        thu: 'Pay',
-        fri: 'Jum',
-        sat: 'Shan'
+        sun: "Yak",
+        mon: "Dush",
+        tue: "Sesh",
+        wed: "Chor",
+        thu: "Pay",
+        fri: "Jum",
+        sat: "Shan"
       }
     },
     // Avtomatik to\'ldirish
     autocomplete: {
-      loading: 'Yuklanmoqda...',
-      placeholder: 'Iltimos, kiriting',
+      loading: "Yuklanmoqda...",
+      placeholder: "Iltimos, kiriting",
       noData: "Ma'lumot yo'q",
       noMatch: "Mos ma'lumot yo'q"
     },
     // Teskari hisoblash
     countdown: {
-      days: 'kun',
-      hours: 'soat',
-      minutes: 'daqiqa',
-      seconds: 'soniya',
-      milliseconds: 'millisekund',
-      finished: 'Tugadi'
+      days: "kun",
+      hours: "soat",
+      minutes: "daqiqa",
+      seconds: "soniya",
+      milliseconds: "millisekund",
+      finished: "Tugadi"
     },
     // Kaskad tanlovchi
     cascader: {
       noMatch: "Mos ma'lumot yo'q",
-      placeholder: 'Tanlang',
-      loading: 'Yuklanmoqda...',
+      placeholder: "Tanlang",
+      loading: "Yuklanmoqda...",
       noData: "Ma'lumot yo'q"
     },
     // O\'tkazish
@@ -167,141 +167,141 @@ const uzUz = {
       noData: "Ma'lumot yo'q",
       titles: ["Ro'yxat 1", "Ro'yxat 2"],
       filterPlaceholder: "Kalit so'zni kiriting",
-      noCheckedFormat: '{total} element',
-      hasCheckedFormat: '{checked}/{total} tanlangan',
+      noCheckedFormat: "{total} element",
+      hasCheckedFormat: "{checked}/{total} tanlangan",
       searchPlaceholder: "Kalit so'zni kiriting"
     },
     // Jadval
     table: {
       emptyText: "Ma'lumot yo'q",
-      confirmFilter: 'Tasdiqlash',
+      confirmFilter: "Tasdiqlash",
       resetFilter: "Qayta o'rnatish",
-      clearFilter: 'Barchasi',
+      clearFilter: "Barchasi",
       sumText: "Yig'indi",
-      loading: 'Yuklanmoqda...',
-      index: 'Indeks',
-      print: 'Chop etish',
-      cancel: 'Bekor qilish',
+      loading: "Yuklanmoqda...",
+      index: "Indeks",
+      print: "Chop etish",
+      cancel: "Bekor qilish",
       preview: "Chop etish ko'rinishi",
-      printTime: 'Chop etish vaqti',
-      total: 'Jami {total} element',
-      page: 'Sahifa {page}',
-      yes: 'Ha',
+      printTime: "Chop etish vaqti",
+      total: "Jami {total} element",
+      page: "Sahifa {page}",
+      yes: "Ha",
       no: "Yo'q",
       // Asboblar paneli
       toolbar: {
-        refresh: 'Yangilash',
-        density: 'Zichlik',
-        densityDefault: 'Standart',
-        densityLarge: 'Katta',
-        densitySmall: 'Kichik',
-        columnSetting: 'Ustun sozlamalari',
+        refresh: "Yangilash",
+        density: "Zichlik",
+        densityDefault: "Standart",
+        densityLarge: "Katta",
+        densitySmall: "Kichik",
+        columnSetting: "Ustun sozlamalari",
         fullscreen: "To'liq ekran",
         exitFullscreen: "To'liq ekrandan chiqish",
-        export: 'Eksport qilish',
-        import: 'Import qilish',
-        search: 'Qidirish',
+        export: "Eksport qilish",
+        import: "Import qilish",
+        search: "Qidirish",
         searchPlaceholder: "Qidirish uchun kalit so'zlarni kiriting"
       },
       // Filtr
       filter: {
-        selectAll: 'Barchasini tanlash',
-        selectInvert: 'Tanlovni teskari aylantirish',
+        selectAll: "Barchasini tanlash",
+        selectInvert: "Tanlovni teskari aylantirish",
         empty: "Bo'sh",
         notEmpty: "Bo'sh emas",
         contains: "O'z ichiga oladi",
         notContains: "O'z ichiga olmaydi",
-        equals: 'Teng',
-        notEquals: 'Teng emas',
-        startsWith: 'Bilan boshlanadi',
-        endsWith: 'Bilan tugaydi',
-        greaterThan: 'Dan katta',
-        lessThan: 'Dan kichik',
+        equals: "Teng",
+        notEquals: "Teng emas",
+        startsWith: "Bilan boshlanadi",
+        endsWith: "Bilan tugaydi",
+        greaterThan: "Dan katta",
+        lessThan: "Dan kichik",
         between: "Oralig'ida"
       },
       // Tartiblash
       sort: {
         asc: "O'sish",
-        desc: 'Kamayish',
-        clear: 'Tartibni tozalash'
+        desc: "Kamayish",
+        clear: "Tartibni tozalash"
       },
       // Eksport
       export: {
         title: "Ma'lumotlarni eksport qilish",
-        filename: 'Fayl nomi',
-        type: 'Fayl turi',
-        scope: 'Eksport doirasi',
+        filename: "Fayl nomi",
+        type: "Fayl turi",
+        scope: "Eksport doirasi",
         scopeAll: "Barcha ma'lumotlar",
         scopeSelected: "Tanlangan ma'lumotlar",
-        scopeCurrentPage: 'Joriy sahifa',
+        scopeCurrentPage: "Joriy sahifa",
         includeHeader: "Sarlavhani qo'shish",
-        exporting: 'Eksport qilinmoqda...',
-        success: 'Eksport muvaffaqiyatli',
-        error: 'Eksport muvaffaqiyatsiz'
+        exporting: "Eksport qilinmoqda...",
+        success: "Eksport muvaffaqiyatli",
+        error: "Eksport muvaffaqiyatsiz"
       },
       // Import
       import: {
         title: "Ma'lumotlarni import qilish",
-        selectFile: 'Faylni tanlang',
-        dragTip: 'Yuklash uchun faylni bu yerga bosing yoki sudrab keling',
-        importing: 'Import qilinmoqda...',
-        success: 'Import muvaffaqiyatli',
-        error: 'Import muvaffaqiyatsiz',
+        selectFile: "Faylni tanlang",
+        dragTip: "Yuklash uchun faylni bu yerga bosing yoki sudrab keling",
+        importing: "Import qilinmoqda...",
+        success: "Import muvaffaqiyatli",
+        error: "Import muvaffaqiyatsiz",
         preview: "Ma'lumotlar ko'rinishi",
-        confirm: 'Importni tasdiqlash'
+        confirm: "Importni tasdiqlash"
       },
       // Chop etish
       printConfig: {
-        title: 'Chop etish sozlamalari',
-        pageTitle: 'Sahifa sarlavhasi',
-        pageHeader: 'Sarlavha',
-        pageFooter: 'Alt yozuv',
-        printAll: 'Barchasini chop etish',
-        printSelected: 'Tanlanganlarni chop etish',
-        printCurrentPage: 'Joriy sahifani chop etish',
-        landscape: 'Landshaft',
-        portrait: 'Portret',
-        printing: 'Chop etilmoqda...'
+        title: "Chop etish sozlamalari",
+        pageTitle: "Sahifa sarlavhasi",
+        pageHeader: "Sarlavha",
+        pageFooter: "Alt yozuv",
+        printAll: "Barchasini chop etish",
+        printSelected: "Tanlanganlarni chop etish",
+        printCurrentPage: "Joriy sahifani chop etish",
+        landscape: "Landshaft",
+        portrait: "Portret",
+        printing: "Chop etilmoqda..."
       },
       // Ustun sozlamalari
       columnSetting: {
-        title: 'Ustun sozlamalari',
+        title: "Ustun sozlamalari",
         showAll: "Barchasini ko'rsatish",
-        hideAll: 'Barchasini yashirish',
+        hideAll: "Barchasini yashirish",
         reset: "Qayta o'rnatish",
-        fixedLeft: 'Chapga mahkamlang',
+        fixedLeft: "Chapga mahkamlang",
         fixedRight: "O'ngga mahkamlang",
-        unfixed: 'Mahkamlamani olib tashlash'
+        unfixed: "Mahkamlamani olib tashlash"
       },
       // Kontekst menyusi
       contextMenu: {
-        copy: 'Nusxalash',
-        copyRow: 'Qatorni nusxalash',
-        copyCell: 'Katakchani nusxalash',
-        paste: 'Yopishtirish',
+        copy: "Nusxalash",
+        copyRow: "Qatorni nusxalash",
+        copyCell: "Katakchani nusxalash",
+        paste: "Yopishtirish",
         insertRowAbove: "Yuqoriga qator qo'shish",
         insertRowBelow: "Pastga qator qo'shish",
         deleteRow: "Qatorni o'chirish",
         deleteSelectedRows: "Tanlangan qatorlarni o'chirish",
-        exportSelected: 'Tanlanganlarni eksport qilish'
+        exportSelected: "Tanlanganlarni eksport qilish"
       },
       // Tanlash
       selection: {
-        selectAll: 'Barchasini tanlash',
-        selectInvert: 'Tanlovni teskari aylantirish',
-        selectNone: 'Tanlovni tozalash',
-        selected: '{count} element tanlangan'
+        selectAll: "Barchasini tanlash",
+        selectInvert: "Tanlovni teskari aylantirish",
+        selectNone: "Tanlovni tozalash",
+        selected: "{count} element tanlangan"
       },
       // Kengaytirish
       expand: {
-        expandAll: 'Barchasini kengaytirish',
+        expandAll: "Barchasini kengaytirish",
         collapseAll: "Barchasini yig'ish"
       },
       // Daraxt
       tree: {
-        expandAll: 'Barchasini kengaytirish',
+        expandAll: "Barchasini kengaytirish",
         collapseAll: "Barchasini yig'ish",
-        expandLevel: 'Daraja {level} gacha kengaytirish'
+        expandLevel: "Daraja {level} gacha kengaytirish"
       },
       // Sudrab o\'tkazish
       drag: {
@@ -311,139 +311,139 @@ const uzUz = {
     },
     // Xabar qutisi
     messagebox: {
-      title: 'Xabar',
-      confirm: 'OK',
-      cancel: 'Bekor qilish',
-      close: 'Yopish',
+      title: "Xabar",
+      confirm: "OK",
+      cancel: "Bekor qilish",
+      close: "Yopish",
       error: "Noto'g'ri kirish",
-      alert: 'Ogohlantirish',
+      alert: "Ogohlantirish",
       prompt: "So'rov",
-      inputPlaceholder: 'Iltimos, kiriting'
+      inputPlaceholder: "Iltimos, kiriting"
     },
     // Yuklash
     upload: {
       deleteTip: "o'chirish uchun delete ni bosing",
       delete: "O'chirish",
       preview: "Ko'rinish",
-      continue: 'Davom etish',
-      upload: 'Yuklash uchun bosing',
-      tip: '<em>Yuklash</em> uchun faylni bu maydonga bosing yoki sudrab keling',
+      continue: "Davom etish",
+      upload: "Yuklash uchun bosing",
+      tip: "<em>Yuklash</em> uchun faylni bu maydonga bosing yoki sudrab keling",
       dragTip: "Faylni bu yerga qo'ying yoki yuklash uchun bosing",
-      uploading: 'Yuklanmoqda...',
-      success: 'Yuklash muvaffaqiyatli',
-      error: 'Yuklash muvaffaqiyatsiz',
+      uploading: "Yuklanmoqda...",
+      success: "Yuklash muvaffaqiyatli",
+      error: "Yuklash muvaffaqiyatsiz",
       retry: "Qayta urinib ko'ring",
-      cancel: 'Yuklashni bekor qilish',
+      cancel: "Yuklashni bekor qilish",
       fileTypeError: "Fayl turi qo'llab-quvvatlanmaydi",
-      fileSizeError: 'Fayl hajmi chegaradan oshib ketdi',
-      fileCountError: 'Fayl soni chegaradan oshib ketdi'
+      fileSizeError: "Fayl hajmi chegaradan oshib ketdi",
+      fileCountError: "Fayl soni chegaradan oshib ketdi"
     },
     // Forma
     form: {
-      validationFailed: 'Tekshirish muvaffaqiyatsiz',
-      required: 'Majburiy',
-      pleaseInput: 'Iltimos, kiriting',
-      pleaseSelect: 'Iltimos, tanlang'
+      validationFailed: "Tekshirish muvaffaqiyatsiz",
+      required: "Majburiy",
+      pleaseInput: "Iltimos, kiriting",
+      pleaseSelect: "Iltimos, tanlang"
     },
     // Tugma
     button: {
-      loading: 'Yuklanmoqda...'
+      loading: "Yuklanmoqda..."
     },
     // Kirish
     input: {
-      placeholder: 'Iltimos, kiriting',
-      clear: 'Tozalash',
+      placeholder: "Iltimos, kiriting",
+      clear: "Tozalash",
       showPassword: "Parolni ko'rsatish",
-      hidePassword: 'Parolni yashirish',
-      copy: 'Nusxalash',
-      copied: 'Nusxalandi'
+      hidePassword: "Parolni yashirish",
+      copy: "Nusxalash",
+      copied: "Nusxalandi"
     },
     // Raqam kirish
     inputnumber: {
-      placeholder: 'Iltimos, raqam kiriting',
-      increase: 'Oshirish',
-      decrease: 'Kamaytirish'
+      placeholder: "Iltimos, raqam kiriting",
+      increase: "Oshirish",
+      decrease: "Kamaytirish"
     },
     // Teg kirish
     inputtag: {
-      placeholder: 'Iltimos, kiriting',
+      placeholder: "Iltimos, kiriting",
       add: "Qo'shish",
-      remove: 'Olib tashlash'
+      remove: "Olib tashlash"
     },
     // Breadcrumb
     breadcrumb: {
-      label: 'Navigatsiya',
+      label: "Navigatsiya",
       more: "Ko'proq"
     },
     // Yuqoriga qaytish
     backtop: {
-      text: 'Yuqoriga qaytish'
+      text: "Yuqoriga qaytish"
     },
     // Tanlash
     select: {
-      placeholder: 'Iltimos, tanlang',
+      placeholder: "Iltimos, tanlang",
       noData: "Ma'lumot yo'q",
-      loading: 'Yuklanmoqda...',
+      loading: "Yuklanmoqda...",
       noMatch: "Mos ma'lumot yo'q",
-      selectAll: 'Barchasini tanlash',
-      clearAll: 'Barchasini tozalash'
+      selectAll: "Barchasini tanlash",
+      clearAll: "Barchasini tozalash"
     },
     // Sahifalash
     pagination: {
       goto: "O'tish",
-      page: '',
-      total: 'Jami {total}',
-      pageSize: '/sahifa',
-      prev: 'Oldingi',
-      next: 'Keyingi',
-      first: 'Birinchi',
-      last: 'Oxirgi',
-      pageClassifier: ''
+      page: "",
+      total: "Jami {total}",
+      pageSize: "/sahifa",
+      prev: "Oldingi",
+      next: "Keyingi",
+      first: "Birinchi",
+      last: "Oxirgi",
+      pageClassifier: ""
     },
     // Popconfirm
     popconfirm: {
-      confirm: 'OK',
-      cancel: 'Bekor qilish',
+      confirm: "OK",
+      cancel: "Bekor qilish",
       dontAskAgain: "Yana so'ramang"
     },
     // Dialog
     dialog: {
-      confirm: 'OK',
-      cancel: 'Bekor qilish',
-      close: 'Yopish',
-      maximize: 'Kattalashtirish',
-      restore: 'Tiklash'
+      confirm: "OK",
+      cancel: "Bekor qilish",
+      close: "Yopish",
+      maximize: "Kattalashtirish",
+      restore: "Tiklash"
     },
     // Drawer
     drawer: {
-      close: 'Yopish',
-      confirm: 'OK',
-      cancel: 'Bekor qilish'
+      close: "Yopish",
+      confirm: "OK",
+      cancel: "Bekor qilish"
     },
     // Dropdown
     dropdown: {
-      loading: 'Yuklanmoqda...'
+      loading: "Yuklanmoqda..."
     },
     // Rasm
     image: {
-      error: 'MUVAFFAQIYATSIZ',
-      loading: 'Yuklanmoqda...',
+      error: "MUVAFFAQIYATSIZ",
+      loading: "Yuklanmoqda...",
       preview: "Ko'rinish",
-      zoomIn: 'Kattalashtirish',
-      zoomOut: 'Kichiklashtirish',
-      rotateLeft: 'Chapga aylantirish',
+      zoomIn: "Kattalashtirish",
+      zoomOut: "Kichiklashtirish",
+      rotateLeft: "Chapga aylantirish",
       rotateRight: "O'ngga aylantirish",
       originalSize: "Asl o'lcham",
       fullscreen: "To'liq ekran"
     },
     // Rasm ko\'ruvchi
     imageviewer: {
-      close: 'Yopish',
-      prev: 'Oldingi',
-      next: 'Keyingi',
-      zoomIn: 'Kattalashtirish',
-      zoomOut: 'Kichiklashtirish',
-      rotateLeft: 'Chapga aylantirish',
+      close: "Yopish",
+      prev: "Oldingi",
+      next: "Keyingi",
+      zoomIn: "Kattalashtirish",
+      zoomOut: "Kichiklashtirish",
+      rotateLeft: "Chapga aylantirish",
       rotateRight: "O'ngga aylantirish",
       reset: "Qayta o'rnatish",
       fullscreen: "To'liq ekran",
@@ -451,116 +451,116 @@ const uzUz = {
     },
     // Cheksiz aylantirish
     infinitescroll: {
-      loading: 'Yuklanmoqda...',
+      loading: "Yuklanmoqda...",
       finished: "Ko'proq ma'lumot yo'q",
       error: "Yuklash muvaffaqiyatsiz, qayta urinib ko'rish uchun bosing",
       retry: "Qayta urinib ko'rish uchun bosing"
     },
     // Xabar
     message: {
-      close: 'Yopish'
+      close: "Yopish"
     },
     // Bildirishnoma
     notification: {
-      close: 'Yopish'
+      close: "Yopish"
     },
     // Yuklash
     loading: {
-      text: 'Yuklanmoqda...'
+      text: "Yuklanmoqda..."
     },
     // Spin
     spin: {
-      text: 'Yuklanmoqda...'
+      text: "Yuklanmoqda..."
     },
     // Baholash
     rate: {
-      texts: ['Juda yomon', 'Xafa', "O'rtacha", 'Qoniqarli', 'Ajablanarli']
+      texts: ["Juda yomon", "Xafa", "O'rtacha", "Qoniqarli", "Ajablanarli"]
     },
     // Ogohlantirish
     alert: {
-      close: 'Yopish'
+      close: "Yopish"
     },
     // Teg
     tag: {
-      close: 'Yopish'
+      close: "Yopish"
     },
     // Tablar
     tabs: {
-      close: 'Yopish',
+      close: "Yopish",
       add: "Qo'shish",
       more: "Ko'proq"
     },
     // Qadamlar
     steps: {
-      finish: 'Tugadi',
-      process: 'Jarayonda',
-      wait: 'Kutmoqda',
-      error: 'Xato'
+      finish: "Tugadi",
+      process: "Jarayonda",
+      wait: "Kutmoqda",
+      error: "Xato"
     },
     // Taraqqiyot
     progress: {
-      success: 'Muvaffaqiyat',
-      exception: 'Istisno',
-      warning: 'Ogohlantirish'
+      success: "Muvaffaqiyat",
+      exception: "Istisno",
+      warning: "Ogohlantirish"
     },
     // Skeleton
     skeleton: {
-      loading: 'Yuklanmoqda...'
+      loading: "Yuklanmoqda..."
     },
     // Bo\'sh
     empty: {
       description: "Ma'lumot yo'q",
       noData: "Ma'lumot yo'q",
       noResult: "Natija yo'q",
-      networkError: 'Tarmoq xatosi',
-      serverError: 'Server xatosi'
+      networkError: "Tarmoq xatosi",
+      serverError: "Server xatosi"
     },
     // Natija
     result: {
-      success: 'Muvaffaqiyat',
-      error: 'Xato',
-      warning: 'Ogohlantirish',
+      success: "Muvaffaqiyat",
+      error: "Xato",
+      warning: "Ogohlantirish",
       info: "Ma'lumot",
-      backHome: 'Bosh sahifaga qaytish'
+      backHome: "Bosh sahifaga qaytish"
     },
     // Waterfall
     waterfall: {
-      loading: 'Yuklanmoqda...',
+      loading: "Yuklanmoqda...",
       noMore: "Ko'proq ma'lumot yo'q",
       empty: "Ma'lumot yo'q"
     },
     // Tavsiflar
     descriptions: {
-      colon: ':'
+      colon: ":"
     },
     // Slider
     slider: {
-      tipFormatter: '{value}'
+      tipFormatter: "{value}"
     },
     // Switch
     switch: {
-      on: 'YOQILGAN',
+      on: "YOQILGAN",
       off: "O'CHIRILGAN"
     },
     // Checkbox
     checkbox: {
-      selectAll: 'Barchasini tanlash'
+      selectAll: "Barchasini tanlash"
     },
     // Radio
     radio: {},
     // Menyu
     menu: {
       collapse: "Menyni yig'ish",
-      expand: 'Menyni kengaytirish'
+      expand: "Menyni kengaytirish"
     },
     // Karta
     card: {
       collapse: "Yig'ish",
-      expand: 'Kengaytirish'
+      expand: "Kengaytirish"
     },
     // Yig\'ish
     collapse: {
-      expand: 'Kengaytirish',
+      expand: "Kengaytirish",
       collapse: "Yig'ish"
     },
     // Tooltip
@@ -571,7 +571,7 @@ const uzUz = {
     badge: {},
     // Avatar
     avatar: {
-      error: 'Yuklash muvaffaqiyatsiz'
+      error: "Yuklash muvaffaqiyatsiz"
     },
     // Watermark
     watermark: {},
@@ -579,8 +579,8 @@ const uzUz = {
     divider: {},
     // Carousel
     carousel: {
-      prev: 'Oldingi',
-      next: 'Keyingi'
+      prev: "Oldingi",
+      next: "Keyingi"
     },
     // Marquee
     marquee: {},
@@ -590,242 +590,243 @@ const uzUz = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Iltimos, kiriting',
-      loading: 'Yuklanmoqda...',
+      placeholder: "Iltimos, kiriting",
+      loading: "Yuklanmoqda...",
       noData: "Ma'lumot yo'q"
     },
     skuselector: {
-      placeholder: 'Xususiyatlarni tanlang',
-      emptyText: 'Xususiyatlar yo\u02BBq',
-      stock: 'Zaxira',
-      price: 'Narx',
-      selected: 'Tanlangan',
-      outOfStock: 'Omborda yo\u02BBq'
+      placeholder: "Xususiyatlarni tanlang",
+      emptyText: "Xususiyatlar yo\u02BBq",
+      stock: "Zaxira",
+      price: "Narx",
+      selected: "Tanlangan",
+      outOfStock: "Omborda yo\u02BBq"
     },
     productcard: {
-      viewDetails: 'Batafsil ko\u2018rish',
-      buyNow: 'Hozir sotib olish',
-      addToCart: 'Savatchaga qo\u2018shish',
-      sold: 'Sotilgan',
-      soldOut: 'Tugagan',
-      vip: 'VIP'
+      viewDetails: "Batafsil ko\u2018rish",
+      buyNow: "Hozir sotib olish",
+      addToCart: "Savatchaga qo\u2018shish",
+      sold: "Sotilgan",
+      soldOut: "Tugagan",
+      vip: "VIP"
     },
     price: {
-      original: 'Asl'
+      original: "Asl"
     },
     couponcard: {
-      available: 'Hozir olish',
-      used: 'Ishlatilgan',
-      expired: 'Muddati tugagan',
-      received: 'Olindi',
-      limit: '{threshold} dan yuqori buyurtmalar uchun',
-      noThreshold: 'Minimal miqdorsiz',
-      validPeriod: 'Amal qilish muddati',
-      ruleTitle: 'Foydalanish qoidalari'
+      available: "Hozir olish",
+      used: "Ishlatilgan",
+      expired: "Muddati tugagan",
+      received: "Olindi",
+      limit: "{threshold} dan yuqori buyurtmalar uchun",
+      noThreshold: "Minimal miqdorsiz",
+      validPeriod: "Amal qilish muddati",
+      ruleTitle: "Foydalanish qoidalari"
     },
     luckydraw: {
-      start: 'Boshlash',
-      drawing: 'Qura tashlanmoqda...',
-      end: 'G\u02BBolib!',
-      retry: 'Qayta urinib ko\u2018ring'
+      start: "Boshlash",
+      drawing: "Qura tashlanmoqda...",
+      end: "G\u02BBolib!",
+      retry: "Qayta urinib ko\u2018ring"
     },
     filterbar: {
-      all: 'Barchasi',
-      sort: 'Saralash',
-      filter: 'Filtr',
-      cancel: 'Bekor qilish',
-      reset: 'Qayta tiklash',
-      confirm: 'Tasdiqlash',
-      noOptions: 'Variantlar yo\u02BBq',
-      asc: 'O\u02BBsish tartibida',
-      desc: 'Kamayish tartibida',
-      selected: 'Tanlangan'
+      all: "Barchasi",
+      sort: "Saralash",
+      filter: "Filtr",
+      cancel: "Bekor qilish",
+      reset: "Qayta tiklash",
+      confirm: "Tasdiqlash",
+      noOptions: "Variantlar yo\u02BBq",
+      asc: "O\u02BBsish tartibida",
+      desc: "Kamayish tartibida",
+      selected: "Tanlangan"
     },
     submitbar: {
-      total: 'Jami: ',
-      selected: '{count} tanlandi',
-      submit: 'To\u02BBlovga o\u02BBtish',
-      allSelect: 'Barchasini tanlash'
+      total: "Jami: ",
+      selected: "{count} tanlandi",
+      submit: "To\u02BBlovga o\u02BBtish",
+      allSelect: "Barchasini tanlash"
     },
     categorynav: {
-      all: 'Barchasi',
+      all: "Barchasi",
       noData: "Ma'lumot yo'q",
-      loading: 'Yuklanmoqda...'
+      loading: "Yuklanmoqda..."
     },
     smartaddress: {
-      placeholder:
-        'Manzilni shu yerga qo\u02BBying, ism, telefon va joylashuv avtomatik aniqlanadi',
-      parse: 'Aqlli tahlil',
-      province: 'Viloyat/Shahar/Tuman',
-      city: 'Shahar',
-      district: 'Tuman/Okrug',
-      street: 'Ko\u2018cha/Shaharcha',
-      detail: 'Batafsil manzil',
-      phone: 'Telefon',
-      name: 'Qabul qiluvchi',
-      parseSuccess: 'Manzil muvaffaqiyatli aniqlandi',
-      parseFailed: 'Aniqlash amalga oshmadi, qo\u2018lda to\u2018ldiring',
-      required: 'To\u2018liq manzilni kiriting',
-      provinceKeywords: ['Viloyat', 'Hudud'],
-      cityKeywords: ['Shahar', 'Markaz'],
-      districtKeywords: ['Tuman', 'Okrug', 'Qishloq'],
-      streetKeywords: ['Ko\u2018cha', 'Yo\u2018l', 'Shoh ko\u2018cha', 'Tor ko\u2018cha']
+      placeholder: "Manzilni shu yerga qo\u02BBying, ism, telefon va joylashuv avtomatik aniqlanadi",
+      parse: "Aqlli tahlil",
+      province: "Viloyat/Shahar/Tuman",
+      city: "Shahar",
+      district: "Tuman/Okrug",
+      street: "Ko\u2018cha/Shaharcha",
+      detail: "Batafsil manzil",
+      phone: "Telefon",
+      name: "Qabul qiluvchi",
+      parseSuccess: "Manzil muvaffaqiyatli aniqlandi",
+      parseFailed: "Aniqlash amalga oshmadi, qo\u2018lda to\u2018ldiring",
+      required: "To\u2018liq manzilni kiriting",
+      provinceKeywords: ["Viloyat", "Hudud"],
+      cityKeywords: ["Shahar", "Markaz"],
+      districtKeywords: ["Tuman", "Okrug", "Qishloq"],
+      streetKeywords: ["Ko\u2018cha", "Yo\u2018l", "Shoh ko\u2018cha", "Tor ko\u2018cha"]
     },
     ganttchart: {
-      taskName: 'Vazifa nomi',
-      searchPlaceholder: 'Vazifalarni qidiring...',
-      zoom: 'Kattalashtirish',
-      day: 'Kun',
-      week: 'Hafta',
-      month: 'Oy',
-      year: 'Yil',
-      milestone: 'Muhim bosqich'
+      taskName: "Vazifa nomi",
+      searchPlaceholder: "Vazifalarni qidiring...",
+      zoom: "Kattalashtirish",
+      day: "Kun",
+      week: "Hafta",
+      month: "Oy",
+      year: "Yil",
+      milestone: "Muhim bosqich"
     },
     imagemagnifier: {
-      switchToImage: '{index}-rasmga o\u2018tish',
-      galleryItem: 'Galereya {index}',
-      close: 'Yopish'
+      switchToImage: "{index}-rasmga o\u2018tish",
+      galleryItem: "Galereya {index}",
+      close: "Yopish"
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Iqtiboslar'
+        citations: "Iqtiboslar"
       },
       mention: {
         placeholder: "@ Agent, Hujjat yoki Jadvalni ko'rsating...",
-        agent: 'Agent',
-        document: 'Hujjat',
-        table: 'Jadval',
-        knowledge: 'Bilim'
+        agent: "Agent",
+        document: "Hujjat",
+        table: "Jadval",
+        knowledge: "Bilim"
       },
       codeBlock: {
-        copyCode: 'Kodni nusxalash',
-        copied: 'Nusxalandi!',
-        run: 'Kodni ishga tushirish',
-        edit: 'Tahrirlash',
-        save: 'Saqlash',
-        cancel: 'Bekor qilish'
+        copyCode: "Kodni nusxalash",
+        copied: "Nusxalandi!",
+        run: "Kodni ishga tushirish",
+        edit: "Tahrirlash",
+        save: "Saqlash",
+        cancel: "Bekor qilish"
       },
       codeRunner: {
-        run: 'Ishga tushirish',
+        run: "Ishga tushirish",
         stop: "To'xtatish",
-        clear: 'Tozalash',
+        clear: "Tozalash",
         reset: "Qayta o'rnatish",
-        placeholder: 'Kodni ishga tushirish uchun Ishga tushirish tugmasini bosing...'
+        placeholder: "Kodni ishga tushirish uchun Ishga tushirish tugmasini bosing..."
       },
       sender: {
-        placeholder: 'Xabar yuborish...',
+        placeholder: "Xabar yuborish...",
         dragTip: "Fayllarni yuklash uchun qo'yib yuboring"
       },
       thoughtChain: {
-        thoughtProcess: 'Fikrlash jarayoni',
-        thinking: 'Fikrlayapti...',
-        defaultTitle: 'Yangi qadam',
+        thoughtProcess: "Fikrlash jarayoni",
+        thinking: "Fikrlayapti...",
+        defaultTitle: "Yangi qadam",
         addNode: "Qadam qo'shish"
       },
       thinking: {
-        start: 'Fikrlashni boshlash',
-        thinking: 'Fikrlayapti...',
-        complete: 'Fikrlash tugadi',
-        error: 'Fikrlash xatosi'
+        start: "Fikrlashni boshlash",
+        thinking: "Fikrlayapti...",
+        complete: "Fikrlash tugadi",
+        error: "Fikrlash xatosi"
       },
       welcome: {
-        title: 'Salom, men YH AI',
-        description:
-          'Men sizga dasturlash, hujjatlarni tarjima qilish yoki ijodiy yozishda yordam berishim mumkin. Bugun siz uchun nima qila olaman?'
+        title: "Salom, men YH AI",
+        description: "Men sizga dasturlash, hujjatlarni tarjima qilish yoki ijodiy yozishda yordam berishim mumkin. Bugun siz uchun nima qila olaman?"
       },
       action: {
-        copy: 'Nusxalash',
-        regenerate: 'Qayta yaratish',
-        share: 'Ulashish',
-        like: 'Yoqadi',
-        dislike: 'Yoqmaydi',
-        edit: 'Tahrirlash',
+        copy: "Nusxalash",
+        regenerate: "Qayta yaratish",
+        share: "Ulashish",
+        like: "Yoqadi",
+        dislike: "Yoqmaydi",
+        edit: "Tahrirlash",
         delete: "O'chirish"
       },
       artifacts: {
         preview: "Oldindan ko'rish",
-        inline: 'Inline',
-        code: 'Manba kodi',
-        versions: 'Versiyalar',
-        rendering: 'Komponentni render qilish...',
-        renderingChart: 'Grafikni render qilish...',
-        renderingCanvas: 'Kanvasni tayyorlash...'
+        inline: "Inline",
+        code: "Manba kodi",
+        versions: "Versiyalar",
+        rendering: "Komponentni render qilish...",
+        renderingChart: "Grafikni render qilish...",
+        renderingCanvas: "Kanvasni tayyorlash..."
       },
       voice: {
-        trigger: 'Gapirish uchun bosing',
-        listening: 'Eshitmoqda...'
+        trigger: "Gapirish uchun bosing",
+        listening: "Eshitmoqda..."
       },
       agent: {
-        uses: 'foydalanishlar',
-        use: 'Hozir foydalanish',
-        favorite: 'Sevimli',
-        unfavorite: 'Sevimlilardan olib tashlash',
-        share: 'Ulashish',
-        online: 'Onlayn',
-        offline: 'Oflayn',
-        busy: 'Band',
-        verified: 'Tasdiqlangan',
-        rating: 'Reyting',
-        reviews: 'sharhlar',
+        uses: "foydalanishlar",
+        use: "Hozir foydalanish",
+        favorite: "Sevimli",
+        unfavorite: "Sevimlilardan olib tashlash",
+        share: "Ulashish",
+        online: "Onlayn",
+        offline: "Oflayn",
+        busy: "Band",
+        verified: "Tasdiqlangan",
+        rating: "Reyting",
+        reviews: "sharhlar",
         responseTime: "O'rtacha javob vaqti",
-        ms: 'ms'
+        ms: "ms"
       },
       sources: {
-        references: 'Havolalar',
-        referencedSources: 'Havola qilingan manbalar',
-        relevant: 'Moslik',
+        references: "Havolalar",
+        referencedSources: "Havola qilingan manbalar",
+        relevant: "Moslik",
         viewOriginal: "Aslni ko'rish",
         showAll: "Hammasini ko'rsatish",
         more: "ko'proq manbalar",
-        drawerTitle: 'Havolalar',
+        drawerTitle: "Havolalar",
         expandMore: "Ko'proq ko'rsatish",
         collapseMore: "Yig'ish",
         noSources: "Manbalar yo'q",
-        today: 'Bugun',
-        last7Days: 'Oxirgi 7 kun',
-        last30Days: 'Oxirgi 30 kun',
-        earlier: 'Oldinroq',
-        pinned: 'Qadalgangan'
+        today: "Bugun",
+        last7Days: "Oxirgi 7 kun",
+        last30Days: "Oxirgi 30 kun",
+        earlier: "Oldinroq",
+        pinned: "Qadalgangan"
       },
       conversations: {
-        today: 'Bugun',
-        last7Days: 'Oxirgi 7 kun',
-        last30Days: 'Oxirgi 30 kun',
-        earlier: 'Oldinroq',
-        pinned: 'Qadalgangan',
-        pin: 'Qadash',
-        unpin: 'Qadashni bekor qilish',
-        newConversation: 'Yangi suhbat',
-        noData: 'Hali suhbatlar yo\u02BBq',
+        today: "Bugun",
+        last7Days: "Oxirgi 7 kun",
+        last30Days: "Oxirgi 30 kun",
+        earlier: "Oldinroq",
+        pinned: "Qadalgangan",
+        pin: "Qadash",
+        unpin: "Qadashni bekor qilish",
+        newConversation: "Yangi suhbat",
+        noData: "Hali suhbatlar yo\u02BBq",
         rename: "Nomini o'zgartirish",
         delete: "O'chirish",
         deleteConfirm: "Bu suhbatni o'chirishni tasdiqlaysizmi?"
       },
       attachments: {
-        dropTip: 'Yuklash uchun fayllarni shu yerga tashlang',
-        clickToUpload: 'Yuklash uchun bosing yoki fayllarni sudrang',
-        uploadSuccess: 'Yuklash muvaffaqiyatli tugadi',
-        uploadError: 'Yuklash amalga oshmadi',
-        deleteConfirm: 'Bu faylni o\u2018chirmoqchi ekaningizga ishonchingiz komilmi?',
-        fileTooLarge: 'Fayl hajmi {size} dan oshmasligi kerak',
-        invalidFileType: 'Noto\u2018g\u2018ri fayl turi'
+        dropTip: "Yuklash uchun fayllarni shu yerga tashlang",
+        clickToUpload: "Yuklash uchun bosing yoki fayllarni sudrang",
+        uploadSuccess: "Yuklash muvaffaqiyatli tugadi",
+        uploadError: "Yuklash amalga oshmadi",
+        deleteConfirm: "Bu faylni o\u2018chirmoqchi ekaningizga ishonchingiz komilmi?",
+        fileTooLarge: "Fayl hajmi {size} dan oshmasligi kerak",
+        invalidFileType: "Noto\u2018g\u2018ri fayl turi"
       },
       mermaid: {
-        image: 'Rasm',
-        code: 'Kod',
-        zoomIn: 'Kattalashtirish',
-        zoomOut: 'Kichraytirish',
-        reset: 'Tiklash',
-        download: 'Yuklab olish',
-        copyCode: 'Kodni nusxalash',
-        rendering: 'Chizilmoqda...',
-        renderError: 'Chizish amalga oshmadi',
-        renderSuccess: 'Chizish muvaffaqiyatli yakunlandi',
-        retry: 'Qayta urinib ko\u2018ring'
+        image: "Rasm",
+        code: "Kod",
+        zoomIn: "Kattalashtirish",
+        zoomOut: "Kichraytirish",
+        reset: "Tiklash",
+        download: "Yuklab olish",
+        copyCode: "Kodni nusxalash",
+        rendering: "Chizilmoqda...",
+        renderError: "Chizish amalga oshmadi",
+        renderSuccess: "Chizish muvaffaqiyatli yakunlandi",
+        retry: "Qayta urinib ko\u2018ring"
       }
     }
   }
-}
-var stdin_default = uzUz
-export { stdin_default as default, uzUz }
+};
+var stdin_default = uzUz;
+export {
+  stdin_default as default,
+  uzUz
+};

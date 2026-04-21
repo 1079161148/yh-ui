@@ -9,7 +9,10 @@ defineOptions({
 const props = defineProps(marqueeProps);
 const emit = defineEmits(marqueeEmits);
 const ns = useNamespace("marquee");
-const { themeStyle } = useComponentTheme("marquee", computed(() => props.themeOverrides));
+const { themeStyle } = useComponentTheme(
+  "marquee",
+  computed(() => props.themeOverrides)
+);
 const containerRef = ref(null);
 const contentRef = ref(null);
 const cloneCount = ref(1);
@@ -72,9 +75,12 @@ onMounted(() => {
   calculateClones();
   isReady.value = true;
   if (props.pauseOnHidden && typeof IntersectionObserver !== "undefined" && containerRef.value) {
-    const observer = new IntersectionObserver((entries) => {
-      isHidden.value = !entries[0].isIntersecting;
-    }, { threshold: 0 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isHidden.value = !entries[0].isIntersecting;
+      },
+      { threshold: 0 }
+    );
     observer.observe(containerRef.value);
     onUnmounted(() => observer.disconnect());
   }
@@ -90,11 +96,15 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="containerRef" :class="[ns.b(), ns.m(direction), {
+  <div
+    ref="containerRef"
+    :class="[ns.b(), ns.m(direction), {
   [ns.m('pause-on-hover')]: pauseOnHover,
   [ns.m('pause-on-click')]: pauseOnClick,
   [ns.m('gradient')]: gradient
-}]" :style="[themeStyle, marqueeStyle, overlayStyle]">
+}]"
+    :style="[themeStyle, marqueeStyle, overlayStyle]"
+  >
     <div :class="ns.e('content')" @animationiteration="handleAnimationIteration">
       <div ref="contentRef" :class="ns.e('item')">
         <slot />

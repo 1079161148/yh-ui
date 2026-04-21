@@ -474,7 +474,13 @@ export const tk = {
     },
     // Bahalandyrmak
     rate: {
-      texts: ["\xD6r\xE4n \xFDaman", "Gynan\xE7ly", "Orta\xE7a", "Razyla\u015Fdyrylan", "Ha\xFDran galdyrylan"]
+      texts: [
+        "\xD6r\xE4n \xFDaman",
+        "Gynan\xE7ly",
+        "Orta\xE7a",
+        "Razyla\u015Fdyrylan",
+        "Ha\xFDran galdyrylan"
+      ]
     },
     // Duýduryş
     alert: {

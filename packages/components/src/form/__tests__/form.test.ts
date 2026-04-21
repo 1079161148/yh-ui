@@ -89,7 +89,6 @@ describe('YhForm', () => {
 
   it('should scrollToField', async () => {
     const model = reactive({ name: '' })
-    const spy = vi.spyOn(Element.prototype, 'scrollIntoView')
     const wrapper = mount(Form, {
       props: { model },
       slots: {
@@ -98,8 +97,12 @@ describe('YhForm', () => {
       attachTo: document.body
     })
 
+    await nextTick()
+    const fieldEl = wrapper.get('[data-prop="name"]').element as HTMLElement
+    const spy = vi.spyOn(fieldEl, 'scrollIntoView')
+
     wrapper.vm.scrollToField('name')
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledWith({ behavior: 'smooth', block: 'center' })
     wrapper.unmount()
   })
 

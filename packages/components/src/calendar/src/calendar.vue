@@ -15,6 +15,10 @@ import {
 } from './calendar'
 import { YhButton } from '../../button'
 
+type IsoWeekDayjs = Dayjs & {
+  isoWeek: () => number
+}
+
 // 扩展 dayjs 支持 ISO 周数
 dayjs.extend(isoWeekPluginModule as PluginFunc)
 
@@ -170,7 +174,7 @@ const rows = computed(() => {
 
   const matrix: { weekNumber: number; cells: CalendarDateCell[] }[] = []
   for (let i = 0; i < 6; i++) {
-    const weekNumber = (current as any).isoWeek()
+    const weekNumber = (current as IsoWeekDayjs).isoWeek()
     const row: CalendarDateCell[] = []
     for (let j = 0; j < 7; j++) {
       const dateStr = current.format('YYYY-MM-DD')

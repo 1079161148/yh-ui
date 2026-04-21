@@ -1,13 +1,13 @@
 <script setup>
-import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '@yh-ui/hooks'
-import { CascaderContextKey, defaultCascaderConfig } from './cascader'
-import CascaderPanel from './cascader-panel.vue'
+import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from "vue";
+import { useNamespace, useFormItem, useId, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { useConfig } from "@yh-ui/hooks";
+import { CascaderContextKey, defaultCascaderConfig } from "./cascader";
+import CascaderPanel from "./cascader-panel.vue";
 defineOptions({
-  name: 'YhCascader'
-})
+  name: "YhCascader"
+});
 const props = defineProps({
   modelValue: { type: [String, Number, Array], required: false },
   options: { type: Array, required: false },
@@ -17,7 +17,7 @@ const props = defineProps({
   size: { type: String, required: false, default: void 0 },
   filterable: { type: Boolean, required: false, default: false },
   filterMethod: { type: Function, required: false },
-  separator: { type: String, required: false, default: ' / ' },
+  separator: { type: String, required: false, default: " / " },
   showAllLevels: { type: Boolean, required: false, default: true },
   collapseTags: { type: Boolean, required: false, default: false },
   collapseTagsTooltip: { type: Boolean, required: false, default: false },
@@ -31,403 +31,383 @@ const props = defineProps({
   props: { type: Object, required: false },
   popperClass: { type: String, required: false },
   teleported: { type: Boolean, required: false, default: true },
-  tagType: { type: String, required: false, default: '' },
+  tagType: { type: String, required: false, default: "" },
   validateEvent: { type: Boolean, required: false, default: true },
   themeOverrides: { type: null, required: false }
-})
-const emit = defineEmits([
-  'update:modelValue',
-  'change',
-  'focus',
-  'blur',
-  'clear',
-  'expand-change',
-  'visible-change'
-])
-const ns = useNamespace('cascader')
-const { t } = useLocale()
-const inputId = useId()
+});
+const emit = defineEmits(["update:modelValue", "change", "focus", "blur", "clear", "expand-change", "visible-change"]);
+const ns = useNamespace("cascader");
+const { t } = useLocale();
+const inputId = useId();
 const { themeStyle } = useComponentTheme(
-  'cascader',
+  "cascader",
   computed(() => props.themeOverrides)
-)
-const { form, formItem, validate: triggerValidate } = useFormItem()
-const { globalSize } = useConfig()
+);
+const { form, formItem, validate: triggerValidate } = useFormItem();
+const { globalSize } = useConfig();
 const cascaderSize = computed(
-  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
-)
+  () => props.size || formItem?.size || form?.size || globalSize.value || "default"
+);
 const config = computed(() => ({
   ...defaultCascaderConfig,
   ...props.props,
   // 直接属性覆盖
   multiple: props.multiple || props.props?.multiple || false,
   checkStrictly: props.checkStrictly || props.props?.checkStrictly || false,
-  expandTrigger: props.expandTrigger || props.props?.expandTrigger || 'click',
+  expandTrigger: props.expandTrigger || props.props?.expandTrigger || "click",
   emitPath: props.emitPath ?? props.props?.emitPath ?? true
-}))
-const wrapperRef = ref()
-const inputRef = ref()
-const dropdownRef = ref()
-const visible = ref(false)
-const focused = ref(false)
-const hovering = ref(false)
-const query = ref('')
-const expandedPath = ref([])
-const isClickingDropdown = ref(false)
-const dropdownStyle = ref({})
+}));
+const wrapperRef = ref();
+const inputRef = ref();
+const dropdownRef = ref();
+const visible = ref(false);
+const focused = ref(false);
+const hovering = ref(false);
+const query = ref("");
+const expandedPath = ref([]);
+const isClickingDropdown = ref(false);
+const dropdownStyle = ref({});
 const updateDropdownPosition = () => {
-  if (!wrapperRef.value || !props.teleported) return
-  const rect = wrapperRef.value.getBoundingClientRect()
-  const styles = window.getComputedStyle(wrapperRef.value)
-  const primary = styles.getPropertyValue('--yh-color-primary').trim()
-  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
-  const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
+  if (!wrapperRef.value || !props.teleported) return;
+  const rect = wrapperRef.value.getBoundingClientRect();
+  const styles = window.getComputedStyle(wrapperRef.value);
+  const primary = styles.getPropertyValue("--yh-color-primary").trim();
+  const primaryRgb = styles.getPropertyValue("--yh-color-primary-rgb").trim();
+  const primaryLight9 = styles.getPropertyValue("--yh-color-primary-light-9").trim();
   dropdownStyle.value = {
-    position: 'fixed',
+    position: "fixed",
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
     minWidth: `${rect.width}px`,
-    zIndex: '2000',
-    '--yh-color-primary': primary,
-    '--yh-color-primary-rgb': primaryRgb,
-    '--yh-color-primary-light-9': primaryLight9
-  }
-}
+    zIndex: "2000",
+    "--yh-color-primary": primary,
+    "--yh-color-primary-rgb": primaryRgb,
+    "--yh-color-primary-light-9": primaryLight9
+  };
+};
 watch(visible, (val) => {
   if (val && props.teleported) {
-    nextTick(updateDropdownPosition)
+    nextTick(updateDropdownPosition);
   }
-})
+});
 onMounted(() => {
   if (props.teleported) {
-    window.addEventListener('scroll', updateDropdownPosition, true)
-    window.addEventListener('resize', updateDropdownPosition)
+    window.addEventListener("scroll", updateDropdownPosition, true);
+    window.addEventListener("resize", updateDropdownPosition);
   }
-})
+});
 onBeforeUnmount(() => {
   if (props.teleported) {
-    window.removeEventListener('scroll', updateDropdownPosition, true)
-    window.removeEventListener('resize', updateDropdownPosition)
+    window.removeEventListener("scroll", updateDropdownPosition, true);
+    window.removeEventListener("resize", updateDropdownPosition);
   }
-})
-const isMultiple = computed(() => config.value.multiple)
+});
+const isMultiple = computed(() => config.value.multiple);
 const getPathLabels = (path) => {
-  const labels = []
-  let currentOptions = props.options || []
+  const labels = [];
+  let currentOptions = props.options || [];
   for (const value of path) {
-    const valKey = config.value.value
-    const labelKey = config.value.label
-    const childrenKey = config.value.children
-    const option = currentOptions.find((o) => o[valKey] === value)
+    const valKey = config.value.value;
+    const labelKey = config.value.label;
+    const childrenKey = config.value.children;
+    const option = currentOptions.find((o) => o[valKey] === value);
     if (option) {
-      labels.push(String(option[labelKey] || ''))
-      currentOptions = option[childrenKey] || []
+      labels.push(String(option[labelKey] || ""));
+      currentOptions = option[childrenKey] || [];
     }
   }
-  return labels
-}
+  return labels;
+};
 const findPathByValue = (targetValue, options) => {
-  const valKey = config.value.value
-  const childrenKey = config.value.children
+  const valKey = config.value.value;
+  const childrenKey = config.value.children;
   for (const option of options) {
-    const val = option[valKey]
-    const children = option[childrenKey]
-    if (val === targetValue) return [val]
+    const val = option[valKey];
+    const children = option[childrenKey];
+    if (val === targetValue) return [val];
     if (children && children.length > 0) {
-      const path = findPathByValue(targetValue, children)
-      if (path) return [val, ...path]
+      const path = findPathByValue(targetValue, children);
+      if (path) return [val, ...path];
     }
   }
-  return null
-}
+  return null;
+};
 const presentText = computed(() => {
-  if (isMultiple.value) return ''
-  const value = props.modelValue
-  if (value === void 0 || value === null) return ''
-  let path = []
+  if (isMultiple.value) return "";
+  const value = props.modelValue;
+  if (value === void 0 || value === null) return "";
+  let path = [];
   if (Array.isArray(value)) {
-    path = value
+    path = value;
   } else {
-    path = findPathByValue(value, props.options || []) || []
+    path = findPathByValue(value, props.options || []) || [];
   }
-  if (path.length === 0) return ''
-  const labels = getPathLabels(path)
-  return props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1]
-})
+  if (path.length === 0) return "";
+  const labels = getPathLabels(path);
+  return props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1];
+});
 const presentTags = computed(() => {
-  if (!isMultiple.value) return []
-  const values = props.modelValue
-  if (!Array.isArray(values) || values.length === 0) return []
+  if (!isMultiple.value) return [];
+  const values = props.modelValue;
+  if (!Array.isArray(values) || values.length === 0) return [];
   return values.map((v) => {
-    let path = []
+    let path = [];
     if (Array.isArray(v)) {
-      path = v
+      path = v;
     } else {
-      path = findPathByValue(v, props.options || []) || []
+      path = findPathByValue(v, props.options || []) || [];
     }
-    const labels = getPathLabels(path)
+    const labels = getPathLabels(path);
     return {
       path,
       text: props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1]
-    }
-  })
-})
+    };
+  });
+});
 const displayTags = computed(() => {
   if (props.collapseTags) {
-    return presentTags.value.slice(0, props.maxCollapseTags)
+    return presentTags.value.slice(0, props.maxCollapseTags);
   }
-  return presentTags.value
-})
+  return presentTags.value;
+});
 const collapsedCount = computed(() => {
-  if (!isMultiple.value || !props.collapseTags) return 0
-  return Math.max(0, presentTags.value.length - props.maxCollapseTags)
-})
+  if (!isMultiple.value || !props.collapseTags) return 0;
+  return Math.max(0, presentTags.value.length - props.maxCollapseTags);
+});
 const showClear = computed(() => {
-  if (!props.clearable || props.disabled || !hovering.value) return false
+  if (!props.clearable || props.disabled || !hovering.value) return false;
   if (isMultiple.value) {
-    return Array.isArray(props.modelValue) && props.modelValue.length > 0
+    return Array.isArray(props.modelValue) && props.modelValue.length > 0;
   } else {
-    return (
-      props.modelValue !== void 0 &&
-      props.modelValue !== null &&
-      (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true)
-    )
+    return props.modelValue !== void 0 && props.modelValue !== null && (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true);
   }
-})
+});
 const hasValue = computed(() => {
   if (isMultiple.value) {
-    return Array.isArray(props.modelValue) && props.modelValue.length > 0
+    return Array.isArray(props.modelValue) && props.modelValue.length > 0;
   }
-  return (
-    props.modelValue !== void 0 &&
-    props.modelValue !== null &&
-    (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true)
-  )
-})
+  return props.modelValue !== void 0 && props.modelValue !== null && (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true);
+});
 const filteredSuggestions = computed(() => {
-  if (!props.filterable || !query.value) return []
-  const results = []
-  const keyword = query.value.toLowerCase()
+  if (!props.filterable || !query.value) return [];
+  const results = [];
+  const keyword = query.value.toLowerCase();
   const traverse = (options, path, labels) => {
-    const valKey = config.value.value
-    const labelKey = config.value.label
-    const childrenKey = config.value.children
+    const valKey = config.value.value;
+    const labelKey = config.value.label;
+    const childrenKey = config.value.children;
     for (const option of options) {
-      const value = option[valKey]
-      const label = String(option[labelKey] || '')
-      const children = option[childrenKey]
-      const currentPath = [...path, value]
-      const currentLabels = [...labels, label]
-      const fullPathLabel = currentLabels.join(props.separator || ' / ').toLowerCase()
-      const matches = props.filterMethod
-        ? props.filterMethod(option, query.value)
-        : fullPathLabel.includes(keyword)
-      const isLeafNode = !children || children.length === 0
+      const value = option[valKey];
+      const label = String(option[labelKey] || "");
+      const children = option[childrenKey];
+      const currentPath = [...path, value];
+      const currentLabels = [...labels, label];
+      const fullPathLabel = currentLabels.join(props.separator || " / ").toLowerCase();
+      const matches = props.filterMethod ? props.filterMethod(option, query.value) : fullPathLabel.includes(keyword);
+      const isLeafNode = !children || children.length === 0;
       if (matches && (isLeafNode || config.value.checkStrictly)) {
-        results.push({ path: currentPath, labels: currentLabels })
+        results.push({ path: currentPath, labels: currentLabels });
       }
       if (children && children.length > 0) {
-        traverse(children, currentPath, currentLabels)
+        traverse(children, currentPath, currentLabels);
       }
     }
-  }
-  traverse(props.options || [], [], [])
-  return results
-})
+  };
+  traverse(props.options || [], [], []);
+  return results;
+});
 const wrapperClasses = computed(() => [
   ns.b(),
   ns.m(cascaderSize.value),
-  ns.is('disabled', props.disabled),
-  ns.is('focused', focused.value || visible.value)
-])
+  ns.is("disabled", props.disabled),
+  ns.is("focused", focused.value || visible.value)
+]);
 const handleExpand = (option, level) => {
-  const value = option[config.value.value]
-  expandedPath.value = [...expandedPath.value.slice(0, level), value]
-  emit('expand-change', expandedPath.value)
-}
+  const value = option[config.value.value];
+  expandedPath.value = [...expandedPath.value.slice(0, level), value];
+  emit("expand-change", expandedPath.value);
+};
 const handleCheck = (option, path) => {
-  const disabledKey = config.value.disabled
-  if (option[disabledKey]) return
+  const disabledKey = config.value.disabled;
+  if (option[disabledKey]) return;
   if (isMultiple.value) {
-    const values = (props.modelValue || []).slice()
-    const pathStr = path.join(',')
-    const index = values.findIndex((v) => v.join(',') === pathStr)
+    const values = (props.modelValue || []).slice();
+    const pathStr = path.join(",");
+    const index = values.findIndex((v) => v.join(",") === pathStr);
     if (index > -1) {
-      values.splice(index, 1)
+      values.splice(index, 1);
     } else {
-      values.push(path)
+      values.push(path);
     }
-    emit('update:modelValue', values)
-    emit('change', values)
+    emit("update:modelValue", values);
+    emit("change", values);
   } else {
-    const value = config.value.emitPath ? path : path[path.length - 1]
-    emit('update:modelValue', value)
-    emit('change', value)
-    visible.value = false
+    const value = config.value.emitPath ? path : path[path.length - 1];
+    emit("update:modelValue", value);
+    emit("change", value);
+    visible.value = false;
   }
   if (props.validateEvent) {
-    triggerValidate('change')
+    triggerValidate("change");
   }
-  query.value = ''
-}
+  query.value = "";
+};
 const isChecked = (path) => {
   if (isMultiple.value) {
-    const values = props.modelValue
-    if (!values || !Array.isArray(values)) return false
-    const pathStr = path.join(',')
-    return values.some((v) => Array.isArray(v) && v.join(',') === pathStr)
+    const values = props.modelValue;
+    if (!values || !Array.isArray(values)) return false;
+    const pathStr = path.join(",");
+    return values.some((v) => Array.isArray(v) && v.join(",") === pathStr);
   }
-  const value = props.modelValue
-  if (value === void 0 || value === null) return false
+  const value = props.modelValue;
+  if (value === void 0 || value === null) return false;
   if (config.value.emitPath) {
-    if (!Array.isArray(value)) return false
-    return value.join(',') === path.join(',')
+    if (!Array.isArray(value)) return false;
+    return value.join(",") === path.join(",");
   } else {
-    return value === path[path.length - 1]
+    return value === path[path.length - 1];
   }
-}
+};
 const handleRemoveTag = (path, event) => {
-  event.stopPropagation()
-  if (props.disabled) return
-  const values = (props.modelValue || []).slice()
-  const pathStr = path.join(',')
-  const index = values.findIndex((v) => v.join(',') === pathStr)
+  event.stopPropagation();
+  if (props.disabled) return;
+  const values = (props.modelValue || []).slice();
+  const pathStr = path.join(",");
+  const index = values.findIndex((v) => v.join(",") === pathStr);
   if (index > -1) {
-    values.splice(index, 1)
-    emit('update:modelValue', values)
-    emit('change', values)
+    values.splice(index, 1);
+    emit("update:modelValue", values);
+    emit("change", values);
     if (props.validateEvent) {
-      triggerValidate('change')
+      triggerValidate("change");
     }
   }
-}
+};
 const handleClear = (event) => {
-  event.stopPropagation()
-  const value = isMultiple.value || config.value.emitPath ? [] : void 0
-  emit('update:modelValue', value)
-  emit('change', value)
-  emit('clear')
-  query.value = ''
-  expandedPath.value = []
+  event.stopPropagation();
+  const value = isMultiple.value || config.value.emitPath ? [] : void 0;
+  emit("update:modelValue", value);
+  emit("change", value);
+  emit("clear");
+  query.value = "";
+  expandedPath.value = [];
   if (props.validateEvent) {
-    triggerValidate('change')
+    triggerValidate("change");
   }
-}
+};
 const toggleDropdown = () => {
-  if (props.disabled) return
-  visible.value = !visible.value
-  emit('visible-change', visible.value)
+  if (props.disabled) return;
+  visible.value = !visible.value;
+  emit("visible-change", visible.value);
   if (visible.value) {
     nextTick(() => {
       if (props.filterable) {
-        inputRef.value?.focus()
+        inputRef.value?.focus();
       }
-    })
+    });
   }
-}
+};
 const handleSelectSuggestion = (suggestion) => {
   if (isMultiple.value) {
-    const values = (props.modelValue || []).slice()
-    const pathStr = suggestion.path.join(',')
-    const index = values.findIndex((v) => v.join(',') === pathStr)
+    const values = (props.modelValue || []).slice();
+    const pathStr = suggestion.path.join(",");
+    const index = values.findIndex((v) => v.join(",") === pathStr);
     if (index === -1) {
-      values.push(suggestion.path)
-      emit('update:modelValue', values)
-      emit('change', values)
+      values.push(suggestion.path);
+      emit("update:modelValue", values);
+      emit("change", values);
     }
   } else {
-    const value = config.value.emitPath
-      ? suggestion.path
-      : suggestion.path[suggestion.path.length - 1]
-    emit('update:modelValue', value)
-    emit('change', value)
-    visible.value = false
+    const value = config.value.emitPath ? suggestion.path : suggestion.path[suggestion.path.length - 1];
+    emit("update:modelValue", value);
+    emit("change", value);
+    visible.value = false;
   }
-  query.value = ''
+  query.value = "";
   if (props.validateEvent) {
-    triggerValidate('change')
+    triggerValidate("change");
   }
-}
+};
 const handleInput = (event) => {
-  const target = event.target
-  query.value = target.value
+  const target = event.target;
+  query.value = target.value;
   if (!visible.value && query.value) {
-    visible.value = true
-    emit('visible-change', true)
+    visible.value = true;
+    emit("visible-change", true);
   }
-}
+};
 const handleFocus = (event) => {
-  focused.value = true
-  emit('focus', event)
-}
+  focused.value = true;
+  emit("focus", event);
+};
 const handleBlur = (event) => {
   if (isClickingDropdown.value) {
-    return
+    return;
   }
-  focused.value = false
-  visible.value = false
-  emit('blur', event)
-  emit('visible-change', false)
+  focused.value = false;
+  visible.value = false;
+  emit("blur", event);
+  emit("visible-change", false);
   if (props.validateEvent) {
-    triggerValidate('blur')
+    triggerValidate("blur");
   }
-}
+};
 const handleDropdownMousedown = (event) => {
-  event.preventDefault()
-  isClickingDropdown.value = true
-}
+  event.preventDefault();
+  isClickingDropdown.value = true;
+};
 const handleDropdownMouseup = () => {
   setTimeout(() => {
-    isClickingDropdown.value = false
-  }, 0)
-}
+    isClickingDropdown.value = false;
+  }, 0);
+};
 const handleMouseEnter = () => {
-  hovering.value = true
-}
+  hovering.value = true;
+};
 const handleMouseLeave = () => {
-  hovering.value = false
-}
+  hovering.value = false;
+};
 const getCheckedNodes = (leafOnly = false) => {
-  const nodes = []
+  const nodes = [];
   const findNode = (options, path, index) => {
-    if (index >= path.length) return null
-    const valKey = config.value.value
-    const childrenKey = config.value.children
-    const option = options.find((o) => o[valKey] === path[index])
-    if (!option) return null
-    if (index === path.length - 1) return option
-    return findNode(option[childrenKey] || [], path, index + 1)
-  }
+    if (index >= path.length) return null;
+    const valKey = config.value.value;
+    const childrenKey = config.value.children;
+    const option = options.find((o) => o[valKey] === path[index]);
+    if (!option) return null;
+    if (index === path.length - 1) return option;
+    return findNode(option[childrenKey] || [], path, index + 1);
+  };
   if (isMultiple.value) {
-    const values = props.modelValue
+    const values = props.modelValue;
     if (values && Array.isArray(values)) {
       for (const path of values) {
-        const node = findNode(props.options || [], path, 0)
+        const node = findNode(props.options || [], path, 0);
         if (node && (!leafOnly || !node[config.value.children]?.length)) {
-          nodes.push(node)
+          nodes.push(node);
         }
       }
     }
   } else {
-    const value = props.modelValue
+    const value = props.modelValue;
     if (value) {
-      const path = Array.isArray(value) ? value : findPathByValue(value, props.options || [])
+      const path = Array.isArray(value) ? value : findPathByValue(value, props.options || []);
       if (path) {
-        const node = findNode(props.options || [], path, 0)
+        const node = findNode(props.options || [], path, 0);
         if (node && (!leafOnly || !node[config.value.children]?.length)) {
-          nodes.push(node)
+          nodes.push(node);
         }
       }
     }
   }
-  return nodes
-}
+  return nodes;
+};
 const focus = () => {
-  inputRef.value?.focus()
-}
+  inputRef.value?.focus();
+};
 const blur = () => {
-  inputRef.value?.blur()
-}
+  inputRef.value?.blur();
+};
 provide(CascaderContextKey, {
   props,
   config: computed(() => config.value),
@@ -436,13 +416,13 @@ provide(CascaderContextKey, {
   handleExpand,
   handleCheck,
   isChecked
-})
+});
 defineExpose({
   focus,
   blur,
   getCheckedNodes,
   inputRef
-})
+});
 </script>
 
 <template>
@@ -511,15 +491,9 @@ defineExpose({
         </span>
 
         <!-- 箭头图标 -->
-        <span
-          :class="[
-            ns.e('icon'),
-            ns.e('arrow'),
-            {
-              'is-reverse': visible
-            }
-          ]"
-        >
+        <span :class="[ns.e('icon'), ns.e('arrow'), {
+  'is-reverse': visible
+}]">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -561,7 +535,7 @@ defineExpose({
             v-else-if="filterable && query && filteredSuggestions.length === 0"
             :class="ns.e('empty')"
           >
-            <slot name="empty">{{ t('cascader.noMatch') }}</slot>
+            <slot name="empty">{{ t("cascader.noMatch") }}</slot>
           </div>
 
           <!-- 级联面板 -->
@@ -1388,9 +1362,7 @@ html.dark {
 
 .yh-cascader-dropdown-enter-active,
 .yh-cascader-dropdown-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .yh-cascader-dropdown-enter-from,

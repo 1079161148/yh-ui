@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import plugin from '../../src/runtime/plugin'
+import plugin from '../../src/runtime/plugin.mjs'
 
 vi.mock('nuxt/app', () => ({
   defineNuxtPlugin: (fn: any) => fn

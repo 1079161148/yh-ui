@@ -61,4 +61,21 @@ describe('YhCascader SSR', () => {
     })
     expect(result.isMatch).toBe(true)
   })
+
+  it('should render theme overrides and collapsed multiple tags in SSR', async () => {
+    const html = await renderSSR(Cascader, {
+      options: mockOptions,
+      multiple: true,
+      modelValue: [['guide', 'disciplines'], ['resource', 'axure']],
+      collapseTags: true,
+      maxCollapseTags: 1,
+      themeOverrides: {
+        height: '40px'
+      }
+    })
+
+    expectSSRHasClass(html, 'yh-cascader')
+    expect(html).toContain('+1')
+    expect(html).toContain('--yh-cascader-height:40px')
+  })
 })

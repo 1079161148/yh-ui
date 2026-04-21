@@ -2,13 +2,13 @@ const smartAddressProps = {
   modelValue: {
     type: Object,
     default: () => ({
-      name: '',
-      phone: '',
-      province: '',
-      city: '',
-      district: '',
-      street: '',
-      detail: ''
+      name: "",
+      phone: "",
+      province: "",
+      city: "",
+      district: "",
+      street: "",
+      detail: ""
     })
   },
   showName: {
@@ -25,7 +25,7 @@ const smartAddressProps = {
   },
   parsePlaceholder: {
     type: String,
-    default: ''
+    default: ""
   },
   required: {
     type: Boolean,
@@ -37,7 +37,7 @@ const smartAddressProps = {
   },
   parseButtonText: {
     type: String,
-    default: ''
+    default: ""
   },
   showParser: {
     type: Boolean,
@@ -45,7 +45,7 @@ const smartAddressProps = {
   },
   regionType: {
     type: String,
-    default: 'input'
+    default: "input"
   },
   regionOptions: {
     type: Array,
@@ -53,19 +53,19 @@ const smartAddressProps = {
   },
   labelField: {
     type: String,
-    default: 'label'
+    default: "label"
   },
   valueField: {
     type: String,
-    default: 'value'
+    default: "value"
   },
   childrenField: {
     type: String,
-    default: 'children'
+    default: "children"
   },
   labelPlacement: {
     type: String,
-    default: 'left'
+    default: "left"
   },
   parser: {
     type: Function,
@@ -75,10 +75,13 @@ const smartAddressProps = {
     type: Object,
     default: () => ({})
   }
-}
+};
 const smartAddressEmits = {
-  'update:modelValue': (val) => val !== void 0,
+  "update:modelValue": (val) => val !== void 0,
   parsed: (val) => val !== void 0,
   change: (val) => val !== void 0
-}
-export { smartAddressEmits, smartAddressProps }
+};
+export {
+  smartAddressEmits,
+  smartAddressProps
+};

@@ -96,4 +96,14 @@ describe('YhDatePicker', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-date-picker-primary: #1677ff')
   })
+
+  it('falls back to an empty display string for invalid values', () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        modelValue: 'not-a-date'
+      }
+    })
+
+    expect(wrapper.find('input').element.getAttribute('value') ?? '').toBe('')
+  })
 })

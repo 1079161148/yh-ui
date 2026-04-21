@@ -331,6 +331,21 @@ describe('Transfer', () => {
       expect(rightData?.[1]?.key).toBe(1)
       expect(rightData?.[2]?.key).toBe(3)
     })
+
+    it('ignores missing modelValue keys when building the target panel', () => {
+      const wrapper = mount(Transfer, {
+        props: {
+          data: generateData(5),
+          modelValue: [999, 2, 4],
+          targetOrder: 'push'
+        }
+      })
+
+      const rightPanel = wrapper.findAllComponents(TransferPanel)[1]
+      const rightData = rightPanel.props('data') as TransferData[] | undefined
+
+      expect(rightData?.map((item) => item.key)).toEqual([2, 4])
+    })
   })
 
   // 空状态

@@ -436,4 +436,15 @@ describe('YhCascader', () => {
     expect(style).toContain('--yh-cascader-height: 40px')
     expect(style).toContain('--yh-cascader-border-color: #123456')
   })
+
+  it('should fallback to empty display text when the model path is missing', () => {
+    const wrapper = mount(Cascader, {
+      props: {
+        options,
+        modelValue: ['missing', 'path']
+      }
+    })
+
+    expect(wrapper.find('.yh-cascader__selected-value').text()).toBe('')
+  })
 })

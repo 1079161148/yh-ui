@@ -1,19 +1,19 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '@yh-ui/hooks'
-import TransferPanel from './transfer-panel.vue'
+import { computed, ref, watch } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { useConfig } from "@yh-ui/hooks";
+import TransferPanel from "./transfer-panel.vue";
 defineOptions({
-  name: 'YhTransfer'
-})
+  name: "YhTransfer"
+});
 const props = defineProps({
   modelValue: { type: Array, required: false, default: () => [] },
   data: { type: Array, required: false, default: () => [] },
   filterable: { type: Boolean, required: false, default: false },
   filterMethod: { type: Function, required: false },
   filterPlaceholder: { type: String, required: false },
-  targetOrder: { type: String, required: false, default: 'original' },
+  targetOrder: { type: String, required: false, default: "original" },
   titles: { type: Array, required: false },
   buttonTexts: { type: Array, required: false, default: () => [] },
   renderContent: { type: Function, required: false },
@@ -21,7 +21,7 @@ const props = defineProps({
   rightDefaultChecked: { type: Array, required: false, default: () => [] },
   props: { type: Object, required: false },
   disabled: { type: Boolean, required: false, default: false },
-  size: { type: null, required: false, default: 'default' },
+  size: { type: null, required: false, default: "default" },
   validateEvent: { type: Boolean, required: false, default: true },
   virtual: { type: Boolean, required: false, default: false },
   itemHeight: { type: Number, required: false, default: 40 },
@@ -33,104 +33,104 @@ const props = defineProps({
   leftEmptyText: { type: String, required: false },
   rightEmptyText: { type: String, required: false },
   themeOverrides: { type: null, required: false }
-})
-const emit = defineEmits(['update:modelValue', 'change', 'left-check-change', 'right-check-change'])
-const ns = useNamespace('transfer')
-const { t } = useLocale()
-const { globalSize } = useConfig()
+});
+const emit = defineEmits(["update:modelValue", "change", "left-check-change", "right-check-change"]);
+const ns = useNamespace("transfer");
+const { t } = useLocale();
+const { globalSize } = useConfig();
 const { themeStyle } = useComponentTheme(
-  'transfer',
+  "transfer",
   computed(() => props.themeOverrides)
-)
-const leftPanelRef = ref()
-const rightPanelRef = ref()
-const leftChecked = ref([...props.leftDefaultChecked])
-const rightChecked = ref([...props.rightDefaultChecked])
-const keyProp = computed(() => props.props?.key || 'key')
+);
+const leftPanelRef = ref();
+const rightPanelRef = ref();
+const leftChecked = ref([...props.leftDefaultChecked]);
+const rightChecked = ref([...props.rightDefaultChecked]);
+const keyProp = computed(() => props.props?.key || "key");
 const getKey = (item) => {
-  return item[keyProp.value] ?? ''
-}
-const targetKeys = computed(() => new Set(props.modelValue))
+  return item[keyProp.value] ?? "";
+};
+const targetKeys = computed(() => new Set(props.modelValue));
 const leftData = computed(() => {
-  return props.data.filter((item) => !targetKeys.value.has(getKey(item)))
-})
+  return props.data.filter((item) => !targetKeys.value.has(getKey(item)));
+});
 const rightData = computed(() => {
-  if (props.targetOrder === 'original') {
-    return props.data.filter((item) => targetKeys.value.has(getKey(item)))
+  if (props.targetOrder === "original") {
+    return props.data.filter((item) => targetKeys.value.has(getKey(item)));
   }
-  const dataMap = new Map(props.data.map((item) => [getKey(item), item]))
-  return (props.modelValue ?? []).map((key) => dataMap.get(key)).filter((item) => item !== void 0)
-})
-const leftTitle = computed(() => props.leftTitle || props.titles?.[0] || t('transfer.titles.0'))
-const rightTitle = computed(() => props.rightTitle || props.titles?.[1] || t('transfer.titles.1'))
-const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || t('transfer.noData'))
+  const dataMap = new Map(props.data.map((item) => [getKey(item), item]));
+  return (props.modelValue ?? []).map((key) => dataMap.get(key)).filter((item) => item !== void 0);
+});
+const leftTitle = computed(() => props.leftTitle || props.titles?.[0] || t("transfer.titles.0"));
+const rightTitle = computed(() => props.rightTitle || props.titles?.[1] || t("transfer.titles.1"));
+const leftEmptyText = computed(() => props.leftEmptyText || props.emptyText || t("transfer.noData"));
 const rightEmptyText = computed(
-  () => props.rightEmptyText || props.emptyText || t('transfer.noData')
-)
-const filterPlaceholder = computed(() => props.filterPlaceholder || t('transfer.filterPlaceholder'))
-const canMoveToRight = computed(() => leftChecked.value.length > 0)
-const canMoveToLeft = computed(() => rightChecked.value.length > 0)
+  () => props.rightEmptyText || props.emptyText || t("transfer.noData")
+);
+const filterPlaceholder = computed(() => props.filterPlaceholder || t("transfer.filterPlaceholder"));
+const canMoveToRight = computed(() => leftChecked.value.length > 0);
+const canMoveToLeft = computed(() => rightChecked.value.length > 0);
 const containerClasses = computed(() => [
   ns.b(),
-  ns.m(props.size || globalSize.value || 'default'),
-  ns.is('disabled', props.disabled)
-])
+  ns.m(props.size || globalSize.value || "default"),
+  ns.is("disabled", props.disabled)
+]);
 const moveToRight = () => {
-  if (!canMoveToRight.value || props.disabled) return
-  const movedKeys = [...leftChecked.value]
-  let newValue
-  if (props.targetOrder === 'unshift') {
-    newValue = [...movedKeys, ...(props.modelValue ?? [])]
+  if (!canMoveToRight.value || props.disabled) return;
+  const movedKeys = [...leftChecked.value];
+  let newValue;
+  if (props.targetOrder === "unshift") {
+    newValue = [...movedKeys, ...props.modelValue ?? []];
   } else {
-    newValue = [...(props.modelValue ?? []), ...movedKeys]
+    newValue = [...props.modelValue ?? [], ...movedKeys];
   }
-  if (props.targetOrder === 'original') {
-    const keySet = new Set(newValue)
-    newValue = props.data.filter((item) => keySet.has(getKey(item))).map((item) => getKey(item))
+  if (props.targetOrder === "original") {
+    const keySet = new Set(newValue);
+    newValue = props.data.filter((item) => keySet.has(getKey(item))).map((item) => getKey(item));
   }
-  emit('update:modelValue', newValue)
-  emit('change', newValue, 'right', movedKeys)
-  leftChecked.value = []
-}
+  emit("update:modelValue", newValue);
+  emit("change", newValue, "right", movedKeys);
+  leftChecked.value = [];
+};
 const moveToLeft = () => {
-  if (!canMoveToLeft.value || props.disabled) return
-  const movedKeys = [...rightChecked.value]
-  const movedKeysSet = new Set(movedKeys)
-  const newValue = (props.modelValue ?? []).filter((key) => !movedKeysSet.has(key))
-  emit('update:modelValue', newValue)
-  emit('change', newValue, 'left', movedKeys)
-  rightChecked.value = []
-}
+  if (!canMoveToLeft.value || props.disabled) return;
+  const movedKeys = [...rightChecked.value];
+  const movedKeysSet = new Set(movedKeys);
+  const newValue = (props.modelValue ?? []).filter((key) => !movedKeysSet.has(key));
+  emit("update:modelValue", newValue);
+  emit("change", newValue, "left", movedKeys);
+  rightChecked.value = [];
+};
 const handleLeftCheckedChange = (value, movedKeys) => {
-  leftChecked.value = value
-  emit('left-check-change', value, movedKeys)
-}
+  leftChecked.value = value;
+  emit("left-check-change", value, movedKeys);
+};
 const handleRightCheckedChange = (value, movedKeys) => {
-  rightChecked.value = value
-  emit('right-check-change', value, movedKeys)
-}
+  rightChecked.value = value;
+  emit("right-check-change", value, movedKeys);
+};
 const clearLeftChecked = () => {
-  leftChecked.value = []
-}
+  leftChecked.value = [];
+};
 const clearRightChecked = () => {
-  rightChecked.value = []
-}
+  rightChecked.value = [];
+};
 watch(
   () => props.modelValue,
   () => {
-    const leftDataKeys = new Set(leftData.value.map((item) => getKey(item)))
-    leftChecked.value = leftChecked.value.filter((key) => leftDataKeys.has(key))
-    const rightDataKeys = new Set(rightData.value.map((item) => getKey(item)))
-    rightChecked.value = rightChecked.value.filter((key) => rightDataKeys.has(key))
+    const leftDataKeys = new Set(leftData.value.map((item) => getKey(item)));
+    leftChecked.value = leftChecked.value.filter((key) => leftDataKeys.has(key));
+    const rightDataKeys = new Set(rightData.value.map((item) => getKey(item)));
+    rightChecked.value = rightChecked.value.filter((key) => rightDataKeys.has(key));
   },
   { deep: true }
-)
+);
 defineExpose({
   clearLeftChecked,
   clearRightChecked,
   leftPanel: leftPanelRef,
   rightPanel: rightPanelRef
-})
+});
 </script>
 
 <template>
@@ -179,12 +179,9 @@ defineExpose({
       >
         <button
           type="button"
-          :class="[
-            ns.e('button'),
-            {
-              'is-disabled': !canMoveToRight || disabled
-            }
-          ]"
+          :class="[ns.e('button'), {
+  'is-disabled': !canMoveToRight || disabled
+}]"
           :disabled="!canMoveToRight || disabled"
           @click="moveToRight"
         >
@@ -201,12 +198,9 @@ defineExpose({
 
         <button
           type="button"
-          :class="[
-            ns.e('button'),
-            {
-              'is-disabled': !canMoveToLeft || disabled
-            }
-          ]"
+          :class="[ns.e('button'), {
+  'is-disabled': !canMoveToLeft || disabled
+}]"
           :disabled="!canMoveToLeft || disabled"
           @click="moveToLeft"
         >

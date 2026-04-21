@@ -1,567 +1,567 @@
 const en = {
-  name: 'en',
+  name: "en",
   yh: {
     // Common
     common: {
-      yes: 'Yes',
-      no: 'No',
-      confirm: 'Confirm',
-      cancel: 'Cancel',
-      loading: 'Loading',
-      close: 'Close',
-      clear: 'Clear',
-      reset: 'Reset',
-      save: 'Save',
-      delete: 'Delete',
-      edit: 'Edit',
-      add: 'Add',
-      search: 'Search',
-      refresh: 'Refresh',
-      expand: 'Expand',
-      collapse: 'Collapse',
-      more: 'More',
-      noData: 'No Data',
-      noMatch: 'No matching data',
-      selectAll: 'Select All',
-      unselectAll: 'Unselect All'
+      yes: "Yes",
+      no: "No",
+      confirm: "Confirm",
+      cancel: "Cancel",
+      loading: "Loading",
+      close: "Close",
+      clear: "Clear",
+      reset: "Reset",
+      save: "Save",
+      delete: "Delete",
+      edit: "Edit",
+      add: "Add",
+      search: "Search",
+      refresh: "Refresh",
+      expand: "Expand",
+      collapse: "Collapse",
+      more: "More",
+      noData: "No Data",
+      noMatch: "No matching data",
+      selectAll: "Select All",
+      unselectAll: "Unselect All"
     },
     // Color Picker
     colorpicker: {
-      confirm: 'OK',
-      clear: 'Clear',
-      eyeDropper: 'Eye Dropper',
-      suggestionDark: 'White text is best',
-      suggestionLight: 'Black text is best',
-      recentColors: 'Recent Colors',
-      presetColors: 'Preset Colors'
+      confirm: "OK",
+      clear: "Clear",
+      eyeDropper: "Eye Dropper",
+      suggestionDark: "White text is best",
+      suggestionLight: "Black text is best",
+      recentColors: "Recent Colors",
+      presetColors: "Preset Colors"
     },
     // Date Picker
     datepicker: {
-      now: 'Now',
-      today: 'Today',
-      cancel: 'Cancel',
-      clear: 'Clear',
-      confirm: 'OK',
-      selectDate: 'Select date',
-      selectTime: 'Select time',
-      startDate: 'Start Date',
-      startTime: 'Start Time',
-      endDate: 'End Date',
-      endTime: 'End Time',
-      year: '',
-      month: '',
-      day: '',
-      week: 'Week',
+      now: "Now",
+      today: "Today",
+      cancel: "Cancel",
+      clear: "Clear",
+      confirm: "OK",
+      selectDate: "Select date",
+      selectTime: "Select time",
+      startDate: "Start Date",
+      startTime: "Start Time",
+      endDate: "End Date",
+      endTime: "End Time",
+      year: "",
+      month: "",
+      day: "",
+      week: "Week",
       monthBeforeYear: true,
-      prevYear: 'Previous Year',
-      nextYear: 'Next Year',
-      prevMonth: 'Previous Month',
-      nextMonth: 'Next Month',
+      prevYear: "Previous Year",
+      nextYear: "Next Year",
+      prevMonth: "Previous Month",
+      nextMonth: "Next Month",
       weeks: {
-        sun: 'Sun',
-        mon: 'Mon',
-        tue: 'Tue',
-        wed: 'Wed',
-        thu: 'Thu',
-        fri: 'Fri',
-        sat: 'Sat'
+        sun: "Sun",
+        mon: "Mon",
+        tue: "Tue",
+        wed: "Wed",
+        thu: "Thu",
+        fri: "Fri",
+        sat: "Sat"
       },
       months: {
-        jan: 'Jan',
-        feb: 'Feb',
-        mar: 'Mar',
-        apr: 'Apr',
-        may: 'May',
-        jun: 'Jun',
-        jul: 'Jul',
-        aug: 'Aug',
-        sep: 'Sep',
-        oct: 'Oct',
-        nov: 'Nov',
-        dec: 'Dec'
+        jan: "Jan",
+        feb: "Feb",
+        mar: "Mar",
+        apr: "Apr",
+        may: "May",
+        jun: "Jun",
+        jul: "Jul",
+        aug: "Aug",
+        sep: "Sep",
+        oct: "Oct",
+        nov: "Nov",
+        dec: "Dec"
       },
       quarters: {
-        q1: 'Q1',
-        q2: 'Q2',
-        q3: 'Q3',
-        q4: 'Q4'
+        q1: "Q1",
+        q2: "Q2",
+        q3: "Q3",
+        q4: "Q4"
       }
     },
     // Time Picker
     timepicker: {
-      confirm: 'OK',
-      cancel: 'Cancel',
-      now: 'Now',
-      placeholder: 'Select time',
-      startPlaceholder: 'Start time',
-      endPlaceholder: 'End time',
-      selectTime: 'Select time'
+      confirm: "OK",
+      cancel: "Cancel",
+      now: "Now",
+      placeholder: "Select time",
+      startPlaceholder: "Start time",
+      endPlaceholder: "End time",
+      selectTime: "Select time"
     },
     // Time Select
     timeselect: {
-      placeholder: 'Select time'
+      placeholder: "Select time"
     },
     // Tree
     tree: {
-      emptyText: 'No Data',
-      loading: 'Loading...',
-      checkAll: 'Check All',
-      uncheckAll: 'Uncheck All',
-      expandAll: 'Expand All',
-      collapseAll: 'Collapse All'
+      emptyText: "No Data",
+      loading: "Loading...",
+      checkAll: "Check All",
+      uncheckAll: "Uncheck All",
+      expandAll: "Expand All",
+      collapseAll: "Collapse All"
     },
     // Tree Select
     treeselect: {
-      placeholder: 'Select',
-      emptyText: 'No Data',
-      loading: 'Loading...',
-      noMatch: 'No matching data'
+      placeholder: "Select",
+      emptyText: "No Data",
+      loading: "Loading...",
+      noMatch: "No matching data"
     },
     // Calendar
     calendar: {
-      prevMonth: 'Previous Month',
-      nextMonth: 'Next Month',
-      prevYear: 'Previous Year',
-      nextYear: 'Next Year',
-      today: 'Today',
-      week: 'Week',
-      holiday: 'Holiday',
-      workday: 'Work',
-      monthHeaderFormat: 'MMMM YYYY',
+      prevMonth: "Previous Month",
+      nextMonth: "Next Month",
+      prevYear: "Previous Year",
+      nextYear: "Next Year",
+      today: "Today",
+      week: "Week",
+      holiday: "Holiday",
+      workday: "Work",
+      monthHeaderFormat: "MMMM YYYY",
       weeks: {
-        sun: 'Sun',
-        mon: 'Mon',
-        tue: 'Tue',
-        wed: 'Wed',
-        thu: 'Thu',
-        fri: 'Fri',
-        sat: 'Sat'
+        sun: "Sun",
+        mon: "Mon",
+        tue: "Tue",
+        wed: "Wed",
+        thu: "Thu",
+        fri: "Fri",
+        sat: "Sat"
       }
     },
     // Autocomplete
     autocomplete: {
-      loading: 'Loading...',
-      placeholder: 'Please input',
-      noData: 'No Data',
-      noMatch: 'No matching data'
+      loading: "Loading...",
+      placeholder: "Please input",
+      noData: "No Data",
+      noMatch: "No matching data"
     },
     // Countdown
     countdown: {
-      days: 'days',
-      hours: 'hours',
-      minutes: 'minutes',
-      seconds: 'seconds',
-      milliseconds: 'milliseconds',
-      finished: 'Finished'
+      days: "days",
+      hours: "hours",
+      minutes: "minutes",
+      seconds: "seconds",
+      milliseconds: "milliseconds",
+      finished: "Finished"
     },
     // Cascader
     cascader: {
-      noMatch: 'No matching data',
-      placeholder: 'Select',
-      loading: 'Loading...',
-      noData: 'No Data'
+      noMatch: "No matching data",
+      placeholder: "Select",
+      loading: "Loading...",
+      noData: "No Data"
     },
     // Transfer
     transfer: {
-      noMatch: 'No matching data',
-      noData: 'No data',
-      titles: ['List 1', 'List 2'],
-      filterPlaceholder: 'Enter keyword',
-      noCheckedFormat: '{total} items',
-      hasCheckedFormat: '{checked}/{total} checked',
-      searchPlaceholder: 'Enter keyword'
+      noMatch: "No matching data",
+      noData: "No data",
+      titles: ["List 1", "List 2"],
+      filterPlaceholder: "Enter keyword",
+      noCheckedFormat: "{total} items",
+      hasCheckedFormat: "{checked}/{total} checked",
+      searchPlaceholder: "Enter keyword"
     },
     // Table
     table: {
-      emptyText: 'No Data',
-      confirmFilter: 'Confirm',
-      resetFilter: 'Reset',
-      clearFilter: 'All',
-      sumText: 'Sum',
-      loading: 'Loading...',
-      index: 'Index',
-      print: 'Print',
-      cancel: 'Cancel',
-      preview: 'Print Preview',
-      printTime: 'Print Time',
-      total: 'Total {total} items',
-      page: 'Page {page}',
-      yes: 'Yes',
-      no: 'No',
+      emptyText: "No Data",
+      confirmFilter: "Confirm",
+      resetFilter: "Reset",
+      clearFilter: "All",
+      sumText: "Sum",
+      loading: "Loading...",
+      index: "Index",
+      print: "Print",
+      cancel: "Cancel",
+      preview: "Print Preview",
+      printTime: "Print Time",
+      total: "Total {total} items",
+      page: "Page {page}",
+      yes: "Yes",
+      no: "No",
       // Toolbar
       toolbar: {
-        refresh: 'Refresh',
-        density: 'Density',
-        densityDefault: 'Default',
-        densityLarge: 'Large',
-        densitySmall: 'Small',
-        columnSetting: 'Column Settings',
-        fullscreen: 'Fullscreen',
-        exitFullscreen: 'Exit Fullscreen',
-        export: 'Export',
-        import: 'Import',
-        search: 'Search',
-        searchPlaceholder: 'Enter keywords to search'
+        refresh: "Refresh",
+        density: "Density",
+        densityDefault: "Default",
+        densityLarge: "Large",
+        densitySmall: "Small",
+        columnSetting: "Column Settings",
+        fullscreen: "Fullscreen",
+        exitFullscreen: "Exit Fullscreen",
+        export: "Export",
+        import: "Import",
+        search: "Search",
+        searchPlaceholder: "Enter keywords to search"
       },
       // Filter
       filter: {
-        selectAll: 'Select All',
-        selectInvert: 'Invert Selection',
-        empty: 'Is Empty',
-        notEmpty: 'Is Not Empty',
-        contains: 'Contains',
-        notContains: 'Does Not Contain',
-        equals: 'Equals',
-        notEquals: 'Does Not Equal',
-        startsWith: 'Starts With',
-        endsWith: 'Ends With',
-        greaterThan: 'Greater Than',
-        lessThan: 'Less Than',
-        between: 'Between'
+        selectAll: "Select All",
+        selectInvert: "Invert Selection",
+        empty: "Is Empty",
+        notEmpty: "Is Not Empty",
+        contains: "Contains",
+        notContains: "Does Not Contain",
+        equals: "Equals",
+        notEquals: "Does Not Equal",
+        startsWith: "Starts With",
+        endsWith: "Ends With",
+        greaterThan: "Greater Than",
+        lessThan: "Less Than",
+        between: "Between"
       },
       // Sort
       sort: {
-        asc: 'Ascending',
-        desc: 'Descending',
-        clear: 'Clear Sort'
+        asc: "Ascending",
+        desc: "Descending",
+        clear: "Clear Sort"
       },
       // Export
       export: {
-        title: 'Export Data',
-        filename: 'Filename',
-        type: 'File Type',
-        scope: 'Export Scope',
-        scopeAll: 'All Data',
-        scopeSelected: 'Selected Data',
-        scopeCurrentPage: 'Current Page',
-        includeHeader: 'Include Header',
-        exporting: 'Exporting...',
-        success: 'Export Successful',
-        error: 'Export Failed'
+        title: "Export Data",
+        filename: "Filename",
+        type: "File Type",
+        scope: "Export Scope",
+        scopeAll: "All Data",
+        scopeSelected: "Selected Data",
+        scopeCurrentPage: "Current Page",
+        includeHeader: "Include Header",
+        exporting: "Exporting...",
+        success: "Export Successful",
+        error: "Export Failed"
       },
       // Import
       import: {
-        title: 'Import Data',
-        selectFile: 'Select File',
-        dragTip: 'Click or drag file here to upload',
-        importing: 'Importing...',
-        success: 'Import Successful',
-        error: 'Import Failed',
-        preview: 'Data Preview',
-        confirm: 'Confirm Import'
+        title: "Import Data",
+        selectFile: "Select File",
+        dragTip: "Click or drag file here to upload",
+        importing: "Importing...",
+        success: "Import Successful",
+        error: "Import Failed",
+        preview: "Data Preview",
+        confirm: "Confirm Import"
       },
       // Print
       printConfig: {
-        title: 'Print Settings',
-        pageTitle: 'Page Title',
-        pageHeader: 'Header',
-        pageFooter: 'Footer',
-        printAll: 'Print All',
-        printSelected: 'Print Selected',
-        printCurrentPage: 'Print Current Page',
-        landscape: 'Landscape',
-        portrait: 'Portrait',
-        printing: 'Printing...'
+        title: "Print Settings",
+        pageTitle: "Page Title",
+        pageHeader: "Header",
+        pageFooter: "Footer",
+        printAll: "Print All",
+        printSelected: "Print Selected",
+        printCurrentPage: "Print Current Page",
+        landscape: "Landscape",
+        portrait: "Portrait",
+        printing: "Printing..."
       },
       // Column Settings
       columnSetting: {
-        title: 'Column Settings',
-        showAll: 'Show All',
-        hideAll: 'Hide All',
-        reset: 'Reset',
-        fixedLeft: 'Fix to Left',
-        fixedRight: 'Fix to Right',
-        unfixed: 'Unfix'
+        title: "Column Settings",
+        showAll: "Show All",
+        hideAll: "Hide All",
+        reset: "Reset",
+        fixedLeft: "Fix to Left",
+        fixedRight: "Fix to Right",
+        unfixed: "Unfix"
       },
       // Context Menu
       contextMenu: {
-        copy: 'Copy',
-        copyRow: 'Copy Row',
-        copyCell: 'Copy Cell',
-        paste: 'Paste',
-        insertRowAbove: 'Insert Row Above',
-        insertRowBelow: 'Insert Row Below',
-        deleteRow: 'Delete Row',
-        deleteSelectedRows: 'Delete Selected Rows',
-        exportSelected: 'Export Selected'
+        copy: "Copy",
+        copyRow: "Copy Row",
+        copyCell: "Copy Cell",
+        paste: "Paste",
+        insertRowAbove: "Insert Row Above",
+        insertRowBelow: "Insert Row Below",
+        deleteRow: "Delete Row",
+        deleteSelectedRows: "Delete Selected Rows",
+        exportSelected: "Export Selected"
       },
       // Selection
       selection: {
-        selectAll: 'Select All',
-        selectInvert: 'Invert Selection',
-        selectNone: 'Clear Selection',
-        selected: '{count} items selected'
+        selectAll: "Select All",
+        selectInvert: "Invert Selection",
+        selectNone: "Clear Selection",
+        selected: "{count} items selected"
       },
       // Expand
       expand: {
-        expandAll: 'Expand All',
-        collapseAll: 'Collapse All'
+        expandAll: "Expand All",
+        collapseAll: "Collapse All"
       },
       // Tree
       tree: {
-        expandAll: 'Expand All',
-        collapseAll: 'Collapse All',
-        expandLevel: 'Expand to Level {level}'
+        expandAll: "Expand All",
+        collapseAll: "Collapse All",
+        expandLevel: "Expand to Level {level}"
       },
       // Drag
       drag: {
-        dragTip: 'Drag to reorder',
-        dropTip: 'Drop to place'
+        dragTip: "Drag to reorder",
+        dropTip: "Drop to place"
       }
     },
     // Message Box
     messagebox: {
-      title: 'Message',
-      confirm: 'OK',
-      cancel: 'Cancel',
-      close: 'Close',
-      error: 'Illegal input',
-      alert: 'Alert',
-      prompt: 'Prompt',
-      inputPlaceholder: 'Please input'
+      title: "Message",
+      confirm: "OK",
+      cancel: "Cancel",
+      close: "Close",
+      error: "Illegal input",
+      alert: "Alert",
+      prompt: "Prompt",
+      inputPlaceholder: "Please input"
     },
     // Upload
     upload: {
-      deleteTip: 'press delete to remove',
-      delete: 'Delete',
-      preview: 'Preview',
-      continue: 'Continue',
-      upload: 'Click to upload',
-      tip: 'Click or drag file to this area to <em>upload</em>',
-      dragTip: 'Drop file here or click to upload',
-      uploading: 'Uploading...',
-      success: 'Upload successful',
-      error: 'Upload failed',
-      retry: 'Retry',
-      cancel: 'Cancel upload',
-      fileTypeError: 'File type not supported',
-      fileSizeError: 'File size exceeds limit',
-      fileCountError: 'File count exceeds limit'
+      deleteTip: "press delete to remove",
+      delete: "Delete",
+      preview: "Preview",
+      continue: "Continue",
+      upload: "Click to upload",
+      tip: "Click or drag file to this area to <em>upload</em>",
+      dragTip: "Drop file here or click to upload",
+      uploading: "Uploading...",
+      success: "Upload successful",
+      error: "Upload failed",
+      retry: "Retry",
+      cancel: "Cancel upload",
+      fileTypeError: "File type not supported",
+      fileSizeError: "File size exceeds limit",
+      fileCountError: "File count exceeds limit"
     },
     // Form
     form: {
-      validationFailed: 'Validation failed',
-      required: 'Required',
-      pleaseInput: 'Please input',
-      pleaseSelect: 'Please select'
+      validationFailed: "Validation failed",
+      required: "Required",
+      pleaseInput: "Please input",
+      pleaseSelect: "Please select"
     },
     // Button
     button: {
-      loading: 'Loading...'
+      loading: "Loading..."
     },
     // Input
     input: {
-      placeholder: 'Please input',
-      clear: 'Clear',
-      showPassword: 'Show password',
-      hidePassword: 'Hide password',
-      copy: 'Copy',
-      copied: 'Copied'
+      placeholder: "Please input",
+      clear: "Clear",
+      showPassword: "Show password",
+      hidePassword: "Hide password",
+      copy: "Copy",
+      copied: "Copied"
     },
     // Input Number
     inputnumber: {
-      placeholder: 'Please input number',
-      increase: 'Increase',
-      decrease: 'Decrease'
+      placeholder: "Please input number",
+      increase: "Increase",
+      decrease: "Decrease"
     },
     // Input Tag
     inputtag: {
-      placeholder: 'Please input',
-      add: 'Add',
-      remove: 'Remove'
+      placeholder: "Please input",
+      add: "Add",
+      remove: "Remove"
     },
     // Breadcrumb
     breadcrumb: {
-      label: 'Breadcrumb',
-      more: 'More'
+      label: "Breadcrumb",
+      more: "More"
     },
     // Back Top
     backtop: {
-      text: 'Back to Top'
+      text: "Back to Top"
     },
     // Select
     select: {
-      placeholder: 'Please select',
-      noData: 'No Data',
-      loading: 'Loading...',
-      noMatch: 'No matching data',
-      selectAll: 'Select All',
-      clearAll: 'Clear All'
+      placeholder: "Please select",
+      noData: "No Data",
+      loading: "Loading...",
+      noMatch: "No matching data",
+      selectAll: "Select All",
+      clearAll: "Clear All"
     },
     // Pagination
     pagination: {
-      goto: 'Go to',
-      page: '',
-      total: 'Total {total}',
-      pageSize: '/page',
-      prev: 'Previous',
-      next: 'Next',
-      first: 'First',
-      last: 'Last',
-      pageClassifier: ''
+      goto: "Go to",
+      page: "",
+      total: "Total {total}",
+      pageSize: "/page",
+      prev: "Previous",
+      next: "Next",
+      first: "First",
+      last: "Last",
+      pageClassifier: ""
     },
     // Popconfirm
     popconfirm: {
-      confirm: 'OK',
-      cancel: 'Cancel',
+      confirm: "OK",
+      cancel: "Cancel",
       dontAskAgain: "Don't ask again"
     },
     // Dialog
     dialog: {
-      confirm: 'OK',
-      cancel: 'Cancel',
-      close: 'Close',
-      maximize: 'Maximize',
-      restore: 'Restore'
+      confirm: "OK",
+      cancel: "Cancel",
+      close: "Close",
+      maximize: "Maximize",
+      restore: "Restore"
     },
     // Drawer
     drawer: {
-      close: 'Close',
-      confirm: 'OK',
-      cancel: 'Cancel'
+      close: "Close",
+      confirm: "OK",
+      cancel: "Cancel"
     },
     // Dropdown
     dropdown: {
-      loading: 'Loading...'
+      loading: "Loading..."
     },
     // Image
     image: {
-      error: 'FAILED',
-      loading: 'Loading...',
-      preview: 'Preview',
-      zoomIn: 'Zoom In',
-      zoomOut: 'Zoom Out',
-      rotateLeft: 'Rotate Left',
-      rotateRight: 'Rotate Right',
-      originalSize: 'Original Size',
-      fullscreen: 'Fullscreen'
+      error: "FAILED",
+      loading: "Loading...",
+      preview: "Preview",
+      zoomIn: "Zoom In",
+      zoomOut: "Zoom Out",
+      rotateLeft: "Rotate Left",
+      rotateRight: "Rotate Right",
+      originalSize: "Original Size",
+      fullscreen: "Fullscreen"
     },
     // Image Viewer
     imageviewer: {
-      close: 'Close',
-      prev: 'Previous',
-      next: 'Next',
-      zoomIn: 'Zoom In',
-      zoomOut: 'Zoom Out',
-      rotateLeft: 'Rotate Left',
-      rotateRight: 'Rotate Right',
-      reset: 'Reset',
-      fullscreen: 'Fullscreen',
-      exitFullscreen: 'Exit Fullscreen'
+      close: "Close",
+      prev: "Previous",
+      next: "Next",
+      zoomIn: "Zoom In",
+      zoomOut: "Zoom Out",
+      rotateLeft: "Rotate Left",
+      rotateRight: "Rotate Right",
+      reset: "Reset",
+      fullscreen: "Fullscreen",
+      exitFullscreen: "Exit Fullscreen"
     },
     // Infinite Scroll
     infinitescroll: {
-      loading: 'Loading...',
-      finished: 'No more data',
-      error: 'Load failed, click to retry',
-      retry: 'Click to retry'
+      loading: "Loading...",
+      finished: "No more data",
+      error: "Load failed, click to retry",
+      retry: "Click to retry"
     },
     // Message
     message: {
-      close: 'Close'
+      close: "Close"
     },
     // Notification
     notification: {
-      close: 'Close'
+      close: "Close"
     },
     // Loading
     loading: {
-      text: 'Loading...'
+      text: "Loading..."
     },
     // Spin
     spin: {
-      text: 'Loading...'
+      text: "Loading..."
     },
     // Rate
     rate: {
-      texts: ['Extremely poor', 'Disappointed', 'Fair', 'Satisfied', 'Surprised']
+      texts: ["Extremely poor", "Disappointed", "Fair", "Satisfied", "Surprised"]
     },
     // Alert
     alert: {
-      close: 'Close'
+      close: "Close"
     },
     // Tag
     tag: {
-      close: 'Close'
+      close: "Close"
     },
     // Tabs
     tabs: {
-      close: 'Close',
-      add: 'Add',
-      more: 'More'
+      close: "Close",
+      add: "Add",
+      more: "More"
     },
     // Steps
     steps: {
-      finish: 'Finished',
-      process: 'In Progress',
-      wait: 'Waiting',
-      error: 'Error'
+      finish: "Finished",
+      process: "In Progress",
+      wait: "Waiting",
+      error: "Error"
     },
     // Progress
     progress: {
-      success: 'Success',
-      exception: 'Exception',
-      warning: 'Warning'
+      success: "Success",
+      exception: "Exception",
+      warning: "Warning"
     },
     // Skeleton
     skeleton: {
-      loading: 'Loading...'
+      loading: "Loading..."
     },
     // Empty
     empty: {
-      description: 'No Data',
-      noData: 'No Data',
-      noResult: 'No Results',
-      networkError: 'Network Error',
-      serverError: 'Server Error'
+      description: "No Data",
+      noData: "No Data",
+      noResult: "No Results",
+      networkError: "Network Error",
+      serverError: "Server Error"
     },
     // Result
     result: {
-      success: 'Success',
-      error: 'Error',
-      warning: 'Warning',
-      info: 'Info',
-      backHome: 'Back to Home'
+      success: "Success",
+      error: "Error",
+      warning: "Warning",
+      info: "Info",
+      backHome: "Back to Home"
     },
     // Waterfall
     waterfall: {
-      loading: 'Loading...',
-      noMore: 'No more data',
-      empty: 'No Data'
+      loading: "Loading...",
+      noMore: "No more data",
+      empty: "No Data"
     },
     // Descriptions
     descriptions: {
-      colon: ':'
+      colon: ":"
     },
     // Slider
     slider: {
-      tipFormatter: '{value}'
+      tipFormatter: "{value}"
     },
     // Switch
     switch: {
-      on: 'ON',
-      off: 'OFF'
+      on: "ON",
+      off: "OFF"
     },
     // Checkbox
     checkbox: {
-      selectAll: 'Select All'
+      selectAll: "Select All"
     },
     // Radio
     radio: {},
     // Menu
     menu: {
-      collapse: 'Collapse Menu',
-      expand: 'Expand Menu'
+      collapse: "Collapse Menu",
+      expand: "Expand Menu"
     },
     // Card
     card: {
-      collapse: 'Collapse',
-      expand: 'Expand'
+      collapse: "Collapse",
+      expand: "Expand"
     },
     // Collapse
     collapse: {
-      expand: 'Expand',
-      collapse: 'Collapse'
+      expand: "Expand",
+      collapse: "Collapse"
     },
     // Tooltip
     tooltip: {},
@@ -571,7 +571,7 @@ const en = {
     badge: {},
     // Avatar
     avatar: {
-      error: 'Load failed'
+      error: "Load failed"
     },
     // Watermark
     watermark: {},
@@ -579,8 +579,8 @@ const en = {
     divider: {},
     // Carousel
     carousel: {
-      prev: 'Previous',
-      next: 'Next'
+      prev: "Previous",
+      next: "Next"
     },
     // Marquee
     marquee: {},
@@ -588,264 +588,266 @@ const en = {
     affix: {},
     // Flow
     flow: {
-      zoomIn: 'Zoom In',
-      zoomOut: 'Zoom Out',
-      fitView: 'Fit View',
-      lock: 'Toggle Interactivity'
+      zoomIn: "Zoom In",
+      zoomOut: "Zoom Out",
+      fitView: "Fit View",
+      lock: "Toggle Interactivity"
     },
     // Anchor
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Please input',
-      loading: 'Loading...',
-      noData: 'No Data'
+      placeholder: "Please input",
+      loading: "Loading...",
+      noData: "No Data"
     },
     // SKU Selector
     skuselector: {
-      placeholder: 'Select specifications',
-      emptyText: 'No specifications',
-      stock: 'Stock',
-      price: 'Price',
-      selected: 'Selected',
-      outOfStock: 'Out of Stock'
+      placeholder: "Select specifications",
+      emptyText: "No specifications",
+      stock: "Stock",
+      price: "Price",
+      selected: "Selected",
+      outOfStock: "Out of Stock"
     },
     // Product Card
     productcard: {
-      viewDetails: 'View Details',
-      buyNow: 'Buy Now',
-      addToCart: 'Add to Cart',
-      sold: 'Sold',
-      soldOut: 'Sold Out',
-      vip: 'VIP'
+      viewDetails: "View Details",
+      buyNow: "Buy Now",
+      addToCart: "Add to Cart",
+      sold: "Sold",
+      soldOut: "Sold Out",
+      vip: "VIP"
     },
     // Price
     price: {
-      original: 'Original'
+      original: "Original"
     },
     // Coupon Card
     couponcard: {
-      available: 'Claim Now',
-      used: 'Used',
-      expired: 'Expired',
-      received: 'Received',
-      limit: 'Orders over {threshold}',
-      noThreshold: 'No threshold',
-      validPeriod: 'Validity',
-      ruleTitle: 'Usage Rules'
+      available: "Claim Now",
+      used: "Used",
+      expired: "Expired",
+      received: "Received",
+      limit: "Orders over {threshold}",
+      noThreshold: "No threshold",
+      validPeriod: "Validity",
+      ruleTitle: "Usage Rules"
     },
     // Lucky Draw
     luckydraw: {
-      start: 'Start',
-      drawing: 'Drawing...',
-      end: 'Winner!',
-      retry: 'Retry'
+      start: "Start",
+      drawing: "Drawing...",
+      end: "Winner!",
+      retry: "Retry"
     },
     // Filter Bar
     filterbar: {
-      all: 'All',
-      sort: 'Sort',
-      filter: 'Filter',
-      cancel: 'Cancel',
-      reset: 'Reset',
-      confirm: 'Confirm',
-      noOptions: 'No options',
-      asc: 'Ascending',
-      desc: 'Descending',
-      selected: 'Selected'
+      all: "All",
+      sort: "Sort",
+      filter: "Filter",
+      cancel: "Cancel",
+      reset: "Reset",
+      confirm: "Confirm",
+      noOptions: "No options",
+      asc: "Ascending",
+      desc: "Descending",
+      selected: "Selected"
     },
     // Submit Bar
     submitbar: {
-      total: 'Total: ',
-      selected: '{count} selected',
-      submit: 'Checkout',
-      allSelect: 'Select All'
+      total: "Total: ",
+      selected: "{count} selected",
+      submit: "Checkout",
+      allSelect: "Select All"
     },
     // Category Nav
     categorynav: {
-      all: 'All',
-      noData: 'No Data',
-      loading: 'Loading...'
+      all: "All",
+      noData: "No Data",
+      loading: "Loading..."
     },
     // Smart Address
     smartaddress: {
-      placeholder: 'Paste address here, auto-detect name, phone, location',
-      parse: 'Smart Parse',
-      province: 'Province/City/District',
-      city: 'City',
-      district: 'District/County',
-      street: 'Street/Town',
-      detail: 'Detailed Address',
-      phone: 'Phone',
-      name: 'Recipient',
-      parseSuccess: 'Address parsed successfully',
-      parseFailed: 'Parse failed, please fill manually',
-      required: 'Please fill complete address',
-      provinceKeywords: ['Province', 'State'],
-      cityKeywords: ['City', 'Prefecture'],
-      districtKeywords: ['District', 'County', 'Township'],
-      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+      placeholder: "Paste address here, auto-detect name, phone, location",
+      parse: "Smart Parse",
+      province: "Province/City/District",
+      city: "City",
+      district: "District/County",
+      street: "Street/Town",
+      detail: "Detailed Address",
+      phone: "Phone",
+      name: "Recipient",
+      parseSuccess: "Address parsed successfully",
+      parseFailed: "Parse failed, please fill manually",
+      required: "Please fill complete address",
+      provinceKeywords: ["Province", "State"],
+      cityKeywords: ["City", "Prefecture"],
+      districtKeywords: ["District", "County", "Township"],
+      streetKeywords: ["Street", "Road", "Ave", "Lane"]
     },
     ganttchart: {
-      taskName: 'Task Name',
-      searchPlaceholder: 'Search tasks...',
-      zoom: 'Zoom',
-      day: 'Day',
-      week: 'Week',
-      month: 'Month',
-      year: 'Year',
-      milestone: 'Milestone'
+      taskName: "Task Name",
+      searchPlaceholder: "Search tasks...",
+      zoom: "Zoom",
+      day: "Day",
+      week: "Week",
+      month: "Month",
+      year: "Year",
+      milestone: "Milestone"
     },
     imagemagnifier: {
-      switchToImage: 'Switch to image {index}',
-      galleryItem: 'Gallery {index}',
-      close: 'Close'
+      switchToImage: "Switch to image {index}",
+      galleryItem: "Gallery {index}",
+      close: "Close"
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Citations'
+        citations: "Citations"
       },
       mention: {
-        placeholder: '@ Mention Agent, Doc or Table...',
-        agent: 'Agent',
-        document: 'Document',
-        table: 'Table',
-        knowledge: 'Knowledge'
+        placeholder: "@ Mention Agent, Doc or Table...",
+        agent: "Agent",
+        document: "Document",
+        table: "Table",
+        knowledge: "Knowledge"
       },
       codeBlock: {
-        copyCode: 'Copy code',
-        copied: 'Copied!',
-        run: 'Run Code',
-        edit: 'Edit',
-        save: 'Save',
-        cancel: 'Cancel'
+        copyCode: "Copy code",
+        copied: "Copied!",
+        run: "Run Code",
+        edit: "Edit",
+        save: "Save",
+        cancel: "Cancel"
       },
       codeRunner: {
-        run: 'Run',
-        stop: 'Stop',
-        clear: 'Clear',
-        reset: 'Reset',
-        placeholder: 'Click Run to execute the code...'
+        run: "Run",
+        stop: "Stop",
+        clear: "Clear",
+        reset: "Reset",
+        placeholder: "Click Run to execute the code..."
       },
       sender: {
-        placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        placeholder: "Send a message...",
+        dragTip: "Release to upload files"
       },
       thoughtChain: {
-        thoughtProcess: 'Thought Process',
-        thinking: 'Thinking...',
-        defaultTitle: 'New Step',
-        addNode: 'Add Step'
+        thoughtProcess: "Thought Process",
+        thinking: "Thinking...",
+        defaultTitle: "New Step",
+        addNode: "Add Step"
       },
       thinking: {
-        start: 'Start thinking',
-        thinking: 'Thinking...',
-        complete: 'Thinking complete',
-        error: 'Thinking error'
+        start: "Start thinking",
+        thinking: "Thinking...",
+        complete: "Thinking complete",
+        error: "Thinking error"
       },
       welcome: {
-        title: 'Hello, I am YH AI',
-        description:
-          'I can help you with coding, translating documents, or creative writing. What can I do for you today?'
+        title: "Hello, I am YH AI",
+        description: "I can help you with coding, translating documents, or creative writing. What can I do for you today?"
       },
       action: {
-        copy: 'Copy',
-        regenerate: 'Regenerate',
-        share: 'Share',
-        like: 'Like',
-        dislike: 'Dislike',
-        edit: 'Edit',
-        delete: 'Delete'
+        copy: "Copy",
+        regenerate: "Regenerate",
+        share: "Share",
+        like: "Like",
+        dislike: "Dislike",
+        edit: "Edit",
+        delete: "Delete"
       },
       artifacts: {
-        preview: 'Preview',
-        inline: 'Inline',
-        code: 'Source',
-        versions: 'Versions',
-        rendering: 'Rendering component...',
-        renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        preview: "Preview",
+        inline: "Inline",
+        code: "Source",
+        versions: "Versions",
+        rendering: "Rendering component...",
+        renderingChart: "Rendering chart...",
+        renderingCanvas: "Preparing canvas..."
       },
       voice: {
-        trigger: 'Click to Speak',
-        listening: 'Listening...'
+        trigger: "Click to Speak",
+        listening: "Listening..."
       },
       // AiAgentCard
       agent: {
-        uses: 'uses',
-        use: 'Use Now',
-        favorite: 'Favorite',
-        unfavorite: 'Unfavorite',
-        share: 'Share',
-        online: 'Online',
-        offline: 'Offline',
-        busy: 'Busy',
-        verified: 'Verified',
-        rating: 'Rating',
-        reviews: 'reviews',
-        responseTime: 'Avg. Response',
-        ms: 'ms'
+        uses: "uses",
+        use: "Use Now",
+        favorite: "Favorite",
+        unfavorite: "Unfavorite",
+        share: "Share",
+        online: "Online",
+        offline: "Offline",
+        busy: "Busy",
+        verified: "Verified",
+        rating: "Rating",
+        reviews: "reviews",
+        responseTime: "Avg. Response",
+        ms: "ms"
       },
       // AiSources
       sources: {
-        references: 'References',
-        referencedSources: 'Referenced Sources',
-        relevant: 'Relevance',
-        viewOriginal: 'View Original',
-        showAll: 'Show All',
-        more: 'more sources',
-        drawerTitle: 'References',
-        expandMore: 'Show More',
-        collapseMore: 'Collapse',
-        noSources: 'No sources',
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned'
+        references: "References",
+        referencedSources: "Referenced Sources",
+        relevant: "Relevance",
+        viewOriginal: "View Original",
+        showAll: "Show All",
+        more: "more sources",
+        drawerTitle: "References",
+        expandMore: "Show More",
+        collapseMore: "Collapse",
+        noSources: "No sources",
+        today: "Today",
+        last7Days: "Last 7 Days",
+        last30Days: "Last 30 Days",
+        earlier: "Earlier",
+        pinned: "Pinned"
       },
       // AiConversations groups
       conversations: {
-        today: 'Today',
-        last7Days: 'Last 7 Days',
-        last30Days: 'Last 30 Days',
-        earlier: 'Earlier',
-        pinned: 'Pinned',
-        pin: 'Pin',
-        unpin: 'Unpin',
-        newConversation: 'New Conversation',
-        noData: 'No conversations yet',
-        rename: 'Rename',
-        delete: 'Delete',
-        deleteConfirm: 'Confirm delete this conversation?'
+        today: "Today",
+        last7Days: "Last 7 Days",
+        last30Days: "Last 30 Days",
+        earlier: "Earlier",
+        pinned: "Pinned",
+        pin: "Pin",
+        unpin: "Unpin",
+        newConversation: "New Conversation",
+        noData: "No conversations yet",
+        rename: "Rename",
+        delete: "Delete",
+        deleteConfirm: "Confirm delete this conversation?"
       },
       // AiAttachments
       attachments: {
-        dropTip: 'Drop files here to upload',
-        clickToUpload: 'Click or drag files to upload',
-        uploadSuccess: 'Upload success',
-        uploadError: 'Upload failed',
-        deleteConfirm: 'Are you sure to delete this file?',
-        fileTooLarge: 'File size cannot exceed {size}',
-        invalidFileType: 'Invalid file type'
+        dropTip: "Drop files here to upload",
+        clickToUpload: "Click or drag files to upload",
+        uploadSuccess: "Upload success",
+        uploadError: "Upload failed",
+        deleteConfirm: "Are you sure to delete this file?",
+        fileTooLarge: "File size cannot exceed {size}",
+        invalidFileType: "Invalid file type"
       },
       // AiMermaid
       mermaid: {
-        image: 'Image',
-        code: 'Code',
-        zoomIn: 'Zoom In',
-        zoomOut: 'Zoom Out',
-        reset: 'Reset',
-        download: 'Download',
-        copyCode: 'Copy Code',
-        rendering: 'Rendering...',
-        renderError: 'Render failed',
-        renderSuccess: 'Render success',
-        retry: 'Retry'
+        image: "Image",
+        code: "Code",
+        zoomIn: "Zoom In",
+        zoomOut: "Zoom Out",
+        reset: "Reset",
+        download: "Download",
+        copyCode: "Copy Code",
+        rendering: "Rendering...",
+        renderError: "Render failed",
+        renderSuccess: "Render success",
+        retry: "Retry"
       }
     }
   }
-}
-var stdin_default = en
-export { stdin_default as default, en }
+};
+var stdin_default = en;
+export {
+  stdin_default as default,
+  en
+};

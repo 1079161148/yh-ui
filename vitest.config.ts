@@ -1,16 +1,12 @@
-/*
- * @Author: 1079161148@qq.com AI 1079161148@qq.com@ai.com
- * @Date: 2026-01-11 22:51:44
- * @LastEditors: Antigravity AI antigravity@ai.com
- * @LastEditTime: 2026-03-11 14:10:11
- * @FilePath: \YH-UI\vitest.config.ts
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
-import { defineConfig } from 'vitest/config'
+import { defineConfig, coverageConfigDefaults } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'node:path'
 import crypto from 'node:crypto'
+
+const isCI = Boolean(process.env.CI)
+const defaultWorkers = isCI ? 1 : '50%'
+const enforceCoverageThresholds = Boolean(process.env.CI || process.env.COVERAGE_THRESHOLDS === 'true')
 
 // Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
 if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
@@ -46,19 +42,9 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'happy-dom',
-    // pool: 'threads' 更节省内存，适合 CI 环境
-    pool: 'threads',
-    // maxWorkers: 1 在 CI (7GB RAM) 下最安全，避免 OOM
-    maxWorkers: 1,
-    // isolate: true 防止测试间全局状态污染
     isolate: true,
-    // 包含普通测试和 SSR 测试
-    include: [
-      'packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}',
-      'packages/ai-sdk/__tests__/**/*.test.ts'
-    ],
-    // 排除 Nuxt 集成测试
+    pool: 'forks',
+    passWithNoTests: false,
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
@@ -68,19 +54,182 @@ export default defineConfig({
     ],
     coverage: {
       provider: 'v8',
-      // 同时生成 summary 供 CI action 使用
-      reporter: ['text', 'json', 'html', 'clover', 'lcov', 'json-summary'],
+      reporter: ['text', 'html', 'lcov', 'json', 'json-summary'],
       reportsDirectory: './coverage',
-      include: ['packages/*/src/**/*.{ts,vue}'],
-      exclude: ['**/*.d.ts', '**/index.ts', '**/__tests__/**', '**/dist/**'],
+      include: ['packages/*/src/**/*.{ts,tsx,vue}'],
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        '**/*.d.ts',
+        '**/__tests__/**',
+        '**/dist/**',
+        'packages/nuxt/**'
+      ],
+      excludeAfterRemap: true,
       clean: true,
-      reportOnFailure: true
+      reportOnFailure: true,
+      ...(enforceCoverageThresholds
+        ? {
+            thresholds: {
+              lines: 24,
+              functions: 28,
+              statements: 24,
+              branches: 20,
+              'packages/components/src/**/*.{ts,vue}': {
+                lines: 34,
+                functions: 36,
+                statements: 34,
+                branches: 28
+              },
+              'packages/hooks/src/**/*.ts': {
+                lines: 42,
+                functions: 44,
+                statements: 42,
+                branches: 34
+              },
+              'packages/utils/src/**/*.ts': {
+                lines: 50,
+                functions: 52,
+                statements: 50,
+                branches: 42
+              },
+              'packages/request/src/**/*.ts': {
+                lines: 36,
+                functions: 38,
+                statements: 36,
+                branches: 28
+              },
+              'packages/theme/src/**/*.ts': {
+                lines: 34,
+                functions: 36,
+                statements: 34,
+                branches: 26
+              },
+              'packages/locale/src/**/*.ts': {
+                lines: 65,
+                functions: 65,
+                statements: 65,
+                branches: 60
+              },
+              'packages/ai-sdk/src/**/*.ts': {
+                lines: 42,
+                functions: 44,
+                statements: 42,
+                branches: 34
+              },
+              'packages/flow/src/**/*.{ts,vue}': {
+                lines: 30,
+                functions: 32,
+                statements: 30,
+                branches: 24
+              }
+            }
+          }
+        : {})
     },
-    // SSR 相关配置
     server: {
       deps: {
         inline: ['vue', '@vue']
       }
-    }
+    },
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'components-dom',
+          environment: 'happy-dom',
+          environmentOptions: {
+            happyDOM: {
+              url: 'http://localhost:3000'
+            }
+          },
+          setupFiles: ['./test/setup/vitest.dom.ts'],
+          include: ['packages/components/src/**/__tests__/**/*.test.{ts,tsx}'],
+          exclude: ['**/*.ssr.test.{ts,tsx}', '**/*.perf.test.{ts,tsx}'],
+          maxWorkers: defaultWorkers
+        }
+      },
+      {
+        extends: true,
+        test: {
+          name: 'packages-node',
+          environment: 'node',
+          setupFiles: ['./test/setup/vitest.node.ts'],
+          include: [
+            'packages/ai-sdk/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/icons/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/locale/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/theme/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/nuxt/__tests__/module.test.ts',
+            'packages/nuxt/__tests__/runtime/**/*.test.ts'
+          ],
+          exclude: [
+            '**/*.ssr.test.{ts,tsx}',
+            '**/*.perf.test.{ts,tsx}',
+            'packages/ai-sdk/__tests__/cache-adapter.test.ts',
+            'packages/icons/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/theme/**/__tests__/**/*.test.{ts,tsx}'
+          ],
+          maxWorkers: defaultWorkers
+        }
+      },
+      {
+        extends: true,
+        test: {
+          name: 'packages-dom',
+          environment: 'happy-dom',
+          environmentOptions: {
+            happyDOM: {
+              url: 'http://localhost:3000'
+            }
+          },
+          setupFiles: ['./test/setup/vitest.dom.ts'],
+          // These package tests mount Vue components or touch document/window directly.
+          include: [
+            'packages/flow/src/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/hooks/src/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/request/src/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/ai-sdk/__tests__/cache-adapter.test.ts',
+            'packages/icons/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/theme/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/utils/**/__tests__/**/*.test.{ts,tsx}'
+          ],
+          exclude: ['**/*.ssr.test.{ts,tsx}', '**/*.perf.test.{ts,tsx}'],
+          maxWorkers: defaultWorkers
+        }
+      },
+      {
+        extends: true,
+        test: {
+          name: 'ssr',
+          environment: 'happy-dom',
+          environmentOptions: {
+            happyDOM: {
+              url: 'http://localhost:3000'
+            }
+          },
+          setupFiles: ['./test/setup/vitest.dom.ts'],
+          include: ['packages/**/__tests__/**/*.ssr.test.{ts,tsx}'],
+          maxWorkers: defaultWorkers
+        }
+      },
+      {
+        extends: true,
+        test: {
+          name: 'perf',
+          environment: 'happy-dom',
+          environmentOptions: {
+            happyDOM: {
+              url: 'http://localhost:3000'
+            }
+          },
+          setupFiles: ['./test/setup/vitest.dom.ts'],
+          include: ['packages/**/__tests__/**/*.perf.test.{ts,tsx}'],
+          fileParallelism: false,
+          maxWorkers: 1,
+          testTimeout: 30000,
+          hookTimeout: 30000
+        }
+      }
+    ]
   }
 })

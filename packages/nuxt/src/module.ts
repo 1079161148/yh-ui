@@ -30,7 +30,7 @@ if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
 export interface ModuleOptions {
   /**
    * Whether to automatically inject published CSS styles.
-   * If true, it will import `@yh-ui/components/style`.
+   * If true, it will import the published CSS entry.
    * @default true
    */
   importStyle?: boolean
@@ -56,6 +56,8 @@ export interface ModuleOptions {
   }
 }
 
+const PUBLISHED_CSS_ENTRY = '@yh-ui/components/style.css'
+
 const yhNuxtModule = defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@yh-ui/nuxt',
@@ -76,12 +78,12 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
     const { resolve } = createResolver(import.meta.url)
 
     // 0. Register runtime plugin (SSR isolation)
-    addPlugin(resolve('./runtime/plugin'))
+    addPlugin(resolve('./runtime/plugin.mjs'))
 
     // 1. Inject published CSS styles
     if (options.importStyle) {
-      if (!nuxt.options.css.includes('@yh-ui/components/style')) {
-        nuxt.options.css.push('@yh-ui/components/style')
+      if (!nuxt.options.css.includes(PUBLISHED_CSS_ENTRY)) {
+        nuxt.options.css.push(PUBLISHED_CSS_ENTRY)
       }
     }
 
@@ -254,7 +256,6 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'useFormItem',
       'createZIndexCounter',
       'useGlobalNamespace',
-      'useId',
       'useVirtualScroll',
       'useCache',
       'useEventListener',
@@ -297,6 +298,13 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
         as: name,
         from: '@yh-ui/hooks'
       })
+    })
+
+    // `useId` is already auto-imported by Nuxt/Vue and overriding it causes real consumer conflicts.
+    addImports({
+      name: 'useId',
+      as: 'useYhId',
+      from: '@yh-ui/hooks'
     })
 
     // 4. Auto-register global methods and utilities

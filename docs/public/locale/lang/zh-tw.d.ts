@@ -1,2 +1,2 @@
-import type { Language } from '../index'
-export declare const zhTw: Language
+import type { Language } from '../index';
+export declare const zhTw: Language;

@@ -19,6 +19,12 @@ import { YhTooltip } from '../../tooltip'
 import { YhInput } from '../../input'
 import { YhRadioGroup, YhRadioButton } from '../../radio'
 
+type ExtendedDayjs = ReturnType<typeof dayjs> & {
+  isoWeek: () => number
+  quarter: () => number
+  add: (value: number, unit: 'quarter') => ReturnType<typeof dayjs>
+}
+
 dayjs.extend(isBetweenPluginModule as PluginFunc)
 dayjs.extend(isoWeekPluginModule as PluginFunc)
 dayjs.extend(quarterOfYearPluginModule as PluginFunc)
@@ -287,7 +293,7 @@ const bottomHeaders = computed(() => {
       days = 1
       current = current.add(1, 'day')
     } else if (internalViewMode.value === 'week') {
-      label = `W${(current as any).isoWeek()}`
+      label = `W${(current as ExtendedDayjs).isoWeek()}`
       days = 7
       current = current.add(1, 'week')
     } else if (internalViewMode.value === 'month') {
@@ -295,9 +301,9 @@ const bottomHeaders = computed(() => {
       days = current.daysInMonth()
       current = current.add(1, 'month')
     } else if (internalViewMode.value === 'year') {
-      label = `Q${(current as any).quarter()}`
-      days = (current as any).add(1, 'quarter').diff(current, 'day')
-      current = (current as any).add(1, 'quarter')
+      label = `Q${(current as ExtendedDayjs).quarter()}`
+      days = (current as ExtendedDayjs).add(1, 'quarter').diff(current, 'day')
+      current = (current as ExtendedDayjs).add(1, 'quarter')
     }
     headers.push({
       label,

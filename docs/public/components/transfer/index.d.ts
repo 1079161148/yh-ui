@@ -1,15 +1,15 @@
-import type { Plugin } from 'vue'
-import Transfer from './src/transfer.vue'
-import TransferPanel from './src/transfer-panel.vue'
-export declare const YhTransfer: typeof Transfer & Plugin
-export declare const YhTransferPanel: typeof TransferPanel & Plugin
-export * from './src/transfer'
-export default YhTransfer
-export type TransferInstance = InstanceType<typeof Transfer>
-export type TransferPanelInstance = InstanceType<typeof TransferPanel>
-export type YhTransferInstance = TransferInstance
-export type YhTransferPanelInstance = TransferPanelInstance
-export type YhTransferProps = import('./src/transfer').TransferProps
-export type YhTransferEmits = import('./src/transfer').TransferEmits
-export type YhTransferExpose = import('./src/transfer').TransferExpose
-export type YhTransferPanelExpose = import('./src/transfer').TransferPanelExpose
+import type { Plugin } from 'vue';
+import Transfer from './src/transfer.vue';
+import TransferPanel from './src/transfer-panel.vue';
+export declare const YhTransfer: typeof Transfer & Plugin;
+export declare const YhTransferPanel: typeof TransferPanel & Plugin;
+export * from './src/transfer';
+export default YhTransfer;
+export type TransferInstance = InstanceType<typeof Transfer>;
+export type TransferPanelInstance = InstanceType<typeof TransferPanel>;
+export type YhTransferInstance = TransferInstance;
+export type YhTransferPanelInstance = TransferPanelInstance;
+export type YhTransferProps = import('./src/transfer').TransferProps;
+export type YhTransferEmits = import('./src/transfer').TransferEmits;
+export type YhTransferExpose = import('./src/transfer').TransferExpose;
+export type YhTransferPanelExpose = import('./src/transfer').TransferPanelExpose;

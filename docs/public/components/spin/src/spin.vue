@@ -1,124 +1,121 @@
 <script setup>
-import { ref, watch, computed, useSlots, useId } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { spinProps, spinEmits } from './spin'
+import { ref, watch, computed, useSlots, useId } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { spinProps, spinEmits } from "./spin";
 defineOptions({
-  name: 'YhSpin',
+  name: "YhSpin",
   inheritAttrs: false
-})
-const props = defineProps(spinProps)
-const ns = useNamespace('spin')
-const { t } = useLocale()
-const gradientId = useId()
+});
+const props = defineProps(spinProps);
+const ns = useNamespace("spin");
+const { t } = useLocale();
+const gradientId = useId();
 const { themeStyle } = useComponentTheme(
-  'spin',
+  "spin",
   computed(() => props.themeOverrides)
-)
-const emit = defineEmits(spinEmits)
-const internalVisible = ref(false)
-const visible = computed(() => (props.delay === 0 ? props.show : internalVisible.value))
-let timer = null
+);
+const emit = defineEmits(spinEmits);
+const internalVisible = ref(false);
+const visible = computed(() => props.delay === 0 ? props.show : internalVisible.value);
+let timer = null;
 const handleShow = () => {
   if (props.delay > 0) {
-    if (timer) clearTimeout(timer)
+    if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      internalVisible.value = true
-      emit('show')
-    }, props.delay)
+      internalVisible.value = true;
+      emit("show");
+    }, props.delay);
   } else {
-    internalVisible.value = true
-    emit('show')
+    internalVisible.value = true;
+    emit("show");
   }
-}
+};
 const handleHide = () => {
   if (timer) {
-    clearTimeout(timer)
-    timer = null
+    clearTimeout(timer);
+    timer = null;
   }
-  internalVisible.value = false
-  emit('hide')
-}
+  internalVisible.value = false;
+  emit("hide");
+};
 const sizePx = computed(() => {
-  if (typeof props.size === 'number') return props.size
-  const map = { small: 20, default: 32, large: 48 }
-  return map[props.size] || 32
-})
+  if (typeof props.size === "number") return props.size;
+  const map = { small: 20, default: 32, large: 48 };
+  return map[props.size] || 32;
+});
 const isGradient = computed(() => {
-  if (typeof props.color === 'string') {
-    return props.color.includes('gradient')
+  if (typeof props.color === "string") {
+    return props.color.includes("gradient");
   }
-  return (typeof props.color === 'object' && props.color !== null) || Array.isArray(props.color)
-})
+  return typeof props.color === "object" && props.color !== null || Array.isArray(props.color);
+});
 const gradientStops = computed(() => {
-  const { color } = props
-  if (!isGradient.value || !color) return []
-  if (typeof color === 'string') {
-    const colorRegex =
-      /(?:#[a-fA-F0-9]{3,8}|rgba?\s*\([^)]+\)|hsla?\s*\([^)]+\)|(?:\b[a-z]{3,}\b))/gi
-    const matchedColors = color
-      .match(colorRegex)
-      ?.filter((c) => !/gradient|deg|to|top|bottom|left|right/i.test(c))
+  const { color } = props;
+  if (!isGradient.value || !color) return [];
+  if (typeof color === "string") {
+    const colorRegex = /(?:#[a-fA-F0-9]{3,8}|rgba?\s*\([^)]+\)|hsla?\s*\([^)]+\)|(?:\b[a-z]{3,}\b))/gi;
+    const matchedColors = color.match(colorRegex)?.filter((c) => !/gradient|deg|to|top|bottom|left|right/i.test(c));
     if (matchedColors && matchedColors.length > 0) {
-      const len = matchedColors.length
+      const len = matchedColors.length;
       return matchedColors.map((c, i) => ({
         color: c.trim(),
-        offset: `${(i / (len - 1 || 1)) * 100}%`
-      }))
+        offset: `${i / (len - 1 || 1) * 100}%`
+      }));
     }
-    return []
+    return [];
   }
   if (Array.isArray(color)) {
-    const len = color.length
+    const len = color.length;
     return color.map((c, i) => ({
       color: c,
-      offset: `${(i / (len - 1 || 1)) * 100}%`
-    }))
+      offset: `${i / (len - 1 || 1) * 100}%`
+    }));
   }
   return Object.entries(color).map(([offset, c]) => ({
     offset,
     color: c
-  }))
-})
+  }));
+});
 const spinStyle = computed(() => {
-  const style = {}
-  if (!props.color) return style
+  const style = {};
+  if (!props.color) return style;
   if (isGradient.value) {
-    style['--yh-spin-color-is-gradient'] = 'true'
-    if (typeof props.color === 'string') {
-      style['--yh-spin-gradient'] = props.color
+    style["--yh-spin-color-is-gradient"] = "true";
+    if (typeof props.color === "string") {
+      style["--yh-spin-gradient"] = props.color;
     } else {
-      const stops = gradientStops.value.map((s) => `${s.color} ${s.offset}`).join(', ')
-      style['--yh-spin-gradient'] = `linear-gradient(135deg, ${stops})`
+      const stops = gradientStops.value.map((s) => `${s.color} ${s.offset}`).join(", ");
+      style["--yh-spin-gradient"] = `linear-gradient(135deg, ${stops})`;
     }
   } else {
-    style.color = props.color
+    style.color = props.color;
   }
   return {
     ...themeStyle.value,
     ...style
-  }
-})
+  };
+});
 watch(
   () => props.show,
   (val) => {
-    if (val) handleShow()
-    else handleHide()
+    if (val) handleShow();
+    else handleHide();
   },
   { immediate: true }
-)
+);
 const spinClasses = computed(() => [
   ns.b(),
-  ns.m(typeof props.size === 'string' ? props.size : 'custom'),
-  ns.is('vertical', props.vertical),
-  ns.is('glass', props.glass || !!useSlots().default),
-  ns.is('dot', props.dot),
-  ns.is('gradient', isGradient.value)
-])
+  ns.m(typeof props.size === "string" ? props.size : "custom"),
+  ns.is("vertical", props.vertical),
+  ns.is("glass", props.glass || !!useSlots().default),
+  ns.is("dot", props.dot),
+  ns.is("gradient", isGradient.value)
+]);
 defineExpose({
   /** 是否可见 */
   visible
-})
+});
 </script>
 
 <template>
@@ -154,9 +151,9 @@ defineExpose({
             v-else-if="type === 'chaser'"
             :class="ns.e('chaser')"
             :style="{
-              width: sizePx + 'px',
-              height: sizePx + 'px'
-            }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
           >
             <i v-for="i in 8" :key="i" />
           </div>
@@ -166,9 +163,9 @@ defineExpose({
             v-else-if="type === 'gear'"
             :class="ns.e('gear')"
             :style="{
-              width: sizePx + 'px',
-              height: sizePx + 'px'
-            }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
           >
             <i v-for="i in 12" :key="i" />
           </div>
@@ -178,9 +175,9 @@ defineExpose({
             v-else-if="type === 'dual-ring'"
             :class="ns.e('dual-ring')"
             :style="{
-              width: sizePx + 'px',
-              height: sizePx + 'px'
-            }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
           />
 
           <!-- Rect 模式 (矩阵块) -->
@@ -188,9 +185,9 @@ defineExpose({
             v-else-if="type === 'rect'"
             :class="ns.e('rect')"
             :style="{
-              width: sizePx + 'px',
-              height: sizePx + 'px'
-            }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
           >
             <i v-for="i in 9" :key="i" />
           </div>
@@ -201,9 +198,9 @@ defineExpose({
             :class="ns.e('svg')"
             viewBox="0 0 50 50"
             :style="{
-              width: sizePx + 'px',
-              height: sizePx + 'px'
-            }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
           >
             <circle
               :class="ns.e('circle')"
@@ -213,13 +210,13 @@ defineExpose({
               fill="none"
               stroke-width="5"
               :style="{
-                stroke: isGradient ? `url(#${gradientId})` : 'currentColor'
-              }"
+  stroke: isGradient ? `url(#${gradientId})` : 'currentColor'
+}"
             ></circle>
           </svg>
 
           <div v-if="tip || $slots.tip" :class="ns.e('tip')">
-            <slot name="tip">{{ tip || t('spin.text') }}</slot>
+            <slot name="tip">{{ tip || t("spin.text") }}</slot>
           </div>
         </div>
       </div>
@@ -240,9 +237,9 @@ defineExpose({
           v-else-if="type === 'chaser'"
           :class="ns.e('chaser')"
           :style="{
-            width: sizePx + 'px',
-            height: sizePx + 'px'
-          }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
         >
           <i v-for="i in 8" :key="i" />
         </div>
@@ -252,9 +249,9 @@ defineExpose({
           v-else-if="type === 'gear'"
           :class="ns.e('gear')"
           :style="{
-            width: sizePx + 'px',
-            height: sizePx + 'px'
-          }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
         >
           <i v-for="i in 12" :key="i" />
         </div>
@@ -264,9 +261,9 @@ defineExpose({
           v-else-if="type === 'dual-ring'"
           :class="ns.e('dual-ring')"
           :style="{
-            width: sizePx + 'px',
-            height: sizePx + 'px'
-          }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
         />
 
         <!-- Rect 模式 -->
@@ -274,9 +271,9 @@ defineExpose({
           v-else-if="type === 'rect'"
           :class="ns.e('rect')"
           :style="{
-            width: sizePx + 'px',
-            height: sizePx + 'px'
-          }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
         >
           <i v-for="i in 9" :key="i" />
         </div>
@@ -287,9 +284,9 @@ defineExpose({
           :class="ns.e('svg')"
           viewBox="0 0 50 50"
           :style="{
-            width: sizePx + 'px',
-            height: sizePx + 'px'
-          }"
+  width: sizePx + 'px',
+  height: sizePx + 'px'
+}"
         >
           <circle
             :class="ns.e('circle')"
@@ -299,14 +296,14 @@ defineExpose({
             fill="none"
             stroke-width="5"
             :style="{
-              stroke: isGradient ? `url(#${gradientId})` : 'currentColor'
-            }"
+  stroke: isGradient ? `url(#${gradientId})` : 'currentColor'
+}"
           ></circle>
         </svg>
 
         <div v-if="tip || $slots.default || $slots.tip" :class="ns.e('tip')">
           <slot name="tip">
-            <slot>{{ tip || t('spin.text') }}</slot>
+            <slot>{{ tip || t("spin.text") }}</slot>
           </slot>
         </div>
       </div>
@@ -830,7 +827,7 @@ html.dark {
   pointer-events: none;
 }
 .yh-spin__mask::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   opacity: 0.04;
@@ -939,7 +936,7 @@ html.dark {
   top: 0;
 }
 .yh-spin__chaser i::after {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 18%;
@@ -1011,7 +1008,7 @@ html.dark {
   top: 0;
 }
 .yh-spin__gear i::after {
-  content: '';
+  content: "";
   display: block;
   margin: 0 auto;
   width: 8%;
@@ -1100,7 +1097,7 @@ html.dark {
   display: inline-block;
 }
 .yh-spin__dual-ring::after {
-  content: ' ';
+  content: " ";
   display: block;
   width: 100%;
   height: 100%;
@@ -1157,8 +1154,7 @@ html.dark {
 .yh-spin {
   /* 渐变支持增强 - 修复: 仅应用到可见元素，不应用到定位容器 i 上 */
 }
-.yh-spin.is-gradient .yh-spin__chaser i::after,
-.yh-spin.is-gradient .yh-spin__gear i::after {
+.yh-spin.is-gradient .yh-spin__chaser i::after, .yh-spin.is-gradient .yh-spin__gear i::after {
   background: var(--yh-spin-gradient);
 }
 
@@ -1173,9 +1169,7 @@ html.dark {
 }
 
 @keyframes yh-spin-chaser {
-  0%,
-  80%,
-  100% {
+  0%, 80%, 100% {
     transform: scale(0);
     opacity: 0.1;
   }
@@ -1185,9 +1179,7 @@ html.dark {
   }
 }
 @keyframes yh-spin-rect {
-  0%,
-  70%,
-  100% {
+  0%, 70%, 100% {
     transform: scale3D(1, 1, 1);
     opacity: 1;
   }
@@ -1197,9 +1189,7 @@ html.dark {
   }
 }
 @keyframes yh-spin-fade {
-  0%,
-  39%,
-  100% {
+  0%, 39%, 100% {
     opacity: 0.2;
     transform: scale(0.8);
   }

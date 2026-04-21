@@ -5,6 +5,67 @@ All notable changes to YH-UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-04-21
+
+### Added
+
+- Added a release-candidate gate document and stable-release blocker checklist so `1.0.0` publication is backed by an explicit in-repo sign-off flow.
+- Added open-source community health files and issue templates covering contribution guidance, security reporting, code of conduct expectations, and structured bug/feature intake.
+- Added compatibility and support-boundary documentation in both Chinese and English, including runtime/browser expectations and SSR support boundaries.
+
+### Changed
+
+- Promoted the repository from the prior `0.1.x` preparation line to the first stable `1.0.0` release line after a full local RC gate pass.
+- Split validation into explicit layers for lint, typecheck, unit tests, coverage, perf, package build, docs build, consumer smoke, sandbox validation, and remote CodeSandbox verification.
+- Expanded interactive-component coverage using the four-dimensional template established during the stabilization cycle: correctness, SSR/hydration, perf sensitivity, and exception tolerance.
+
+### Fixed
+
+- Fixed release-blocking instability in theme history coverage, menu perf baselines, `AiBubble` declaration generation, docs compatibility dead links, Nuxt style integration, and consumer smoke validation.
+- Fixed package-level DOM tests being misclassified under Node-only runtime coverage, reducing false confidence and making the CI signal more trustworthy for a stable release.
+- Fixed multiple docs/demo/runtime pipeline issues so generated public assets, sandbox demos, and release validation behave consistently on the current mainline.
+
+### Notes
+
+- `1.0.0` is the first stable release line and supersedes the `0.1.56` release-candidate preparation snapshot below.
+- This release was locally validated on April 21, 2026 by passing: `pnpm typecheck`, `pnpm lint`, `pnpm test:ci`, `pnpm test:coverage`, `pnpm test:perf`, `pnpm build`, `pnpm docs:build`, `pnpm verify:consumer-smoke`, `pnpm verify:release`, and `pnpm verify:codesandbox-remote`.
+
+## [0.1.56] - 2026-04-21
+
+### Added
+
+- Added a dedicated `packages-dom` Vitest project so DOM-dependent package tests are no longer mixed into the `packages-node` runtime.
+- Added layered coverage and perf validation to the release gate, including a dedicated `pnpm test:perf` path and consumer smoke verification for clean Vite and Nuxt apps.
+- Added public project health files for open-source collaboration:
+  - `CONTRIBUTING.md`
+  - `SECURITY.md`
+  - `CODE_OF_CONDUCT.md`
+- Added a stable-release blocker checklist and maintainer release validation flow so repository hardening work is tracked in-repo instead of by ad hoc notes.
+
+### Changed
+
+- Updated the release/CI pipeline to treat lint, unit tests, coverage, perf, docs build, and consumer smoke as separate gates instead of one undifferentiated test step.
+- Expanded component test coverage with the four-dimensional template used in recent work:
+  - interaction correctness
+  - SSR / hydration
+  - performance-sensitive rendering
+  - exception tolerance / edge behavior
+- Improved sandbox, docs playground, and release verification flows so published demos and example integrations are validated more consistently before and after release.
+- Documented the Nuxt module's style-injection behavior around the explicit published CSS entry to match the actual runtime contract.
+
+### Fixed
+
+- Fixed the main test-layering risk by moving package-level DOM tests out of the Node-only Vitest project.
+- Fixed multiple CI and release-pipeline instability issues across docs builds, sandbox publishing, release redeploys, and publish verification.
+- Fixed clean-consumer validation so both Vite + Vue and Nuxt SSR example apps build and render against the packaged library successfully.
+- Fixed the Nuxt consumer style integration path by exporting and injecting an explicit CSS subpath, removing the prior SSR style-extraction warning in local smoke verification.
+- Fixed repository lint debt down to `pnpm lint` = 0 warnings / 0 errors on the current mainline state validated on 2026-04-21.
+
+### Notes
+
+- This entry aggregates the release train from `0.1.20` through `0.1.56`, which focused primarily on release engineering, docs/demo stability, test layering, consumer confidence, and stable-public-release preparation.
+- Earlier detailed component-level history remains below; this top entry closes the gap between the published package line and the documented changelog.
+
 ## [0.1.19] - 2026-03-26
 
 ### 🛠️ Build & Registry Stabilization (Industrial Grade)
@@ -274,6 +335,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 [0.1.18]: https://github.com/1079161148/yh-ui/compare/v0.1.12...v0.1.18
+[0.1.56]: https://github.com/1079161148/yh-ui/compare/v0.1.19...v0.1.56
 [0.1.17]: https://github.com/1079161148/yh-ui/compare/v0.1.16...v0.1.17
 [0.1.16]: https://github.com/1079161148/yh-ui/compare/v0.1.15...v0.1.16
 [0.1.15]: https://github.com/1079161148/yh-ui/compare/v0.1.14...v0.1.15

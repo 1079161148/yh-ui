@@ -25,7 +25,7 @@ const skuSelectorProps = {
   },
   size: {
     type: String,
-    default: 'default'
+    default: "default"
   },
   imageSize: {
     type: Number,
@@ -37,16 +37,19 @@ const skuSelectorProps = {
   },
   summaryPrefix: {
     type: String,
-    default: ''
+    default: ""
   },
   themeOverrides: {
     type: Object,
     default: () => ({})
   }
-}
+};
 const skuSelectorEmits = {
-  'update:modelValue': (value) => Array.isArray(value),
+  "update:modelValue": (value) => Array.isArray(value),
   change: (_sku, _selectedValues) => true,
   select: (_spec, _value) => true
-}
-export { skuSelectorEmits, skuSelectorProps }
+};
+export {
+  skuSelectorEmits,
+  skuSelectorProps
+};

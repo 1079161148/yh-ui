@@ -1,0 +1,74 @@
+name: Bug report
+description: Report a reproducible problem in YH-UI.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve YH-UI.
+
+        Please provide a minimal reproduction whenever possible. For SSR or hydration issues, include whether the problem happens in Vite, Nuxt, or both.
+  - type: input
+    id: package_version
+    attributes:
+      label: YH-UI version
+      description: Which package and version are you using?
+      placeholder: "@yh-ui/yh-ui 0.1.56"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Include framework/runtime versions.
+      placeholder: "Vue 3.5.x, Vite 6.x, Nuxt 3.11.x, Node 20.x, pnpm 9.x"
+    validations:
+      required: true
+  - type: dropdown
+    id: scenario
+    attributes:
+      label: Scenario
+      options:
+        - Component usage
+        - SSR / hydration
+        - Build / bundler integration
+        - Nuxt module
+        - Docs / playground
+        - Types / DX
+        - Performance
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide reproduction steps, repo URL, or a minimal code sample.
+      placeholder: |
+        1. Install ...
+        2. Render ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or screenshots
+      description: Paste stack traces, hydration warnings, or screenshots if available.
+      render: shell
+    validations:
+      required: false

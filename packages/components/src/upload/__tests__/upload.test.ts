@@ -379,6 +379,59 @@ describe('Upload', () => {
     expect(spy).toHaveBeenCalledWith('a')
   })
 
+  it('falls back to opening a remote file when fetch download fails', async () => {
+    const file = {
+      name: 'remote.pdf',
+      uid: 2,
+      status: 'success',
+      url: 'https://test.com/remote.pdf'
+    } as any
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('cors blocked')))
+
+    const wrapper = mount(YhUpload, {
+      props: { fileList: [file], showDownload: true }
+    })
+
+    const createdLink = {
+      click: vi.fn(),
+      style: {},
+      set href(value: string) {
+        ;(this as any)._href = value
+      },
+      get href() {
+        return (this as any)._href
+      },
+      set target(value: string) {
+        ;(this as any)._target = value
+      },
+      get target() {
+        return (this as any)._target
+      },
+      set download(value: string) {
+        ;(this as any)._download = value
+      },
+      get download() {
+        return (this as any)._download
+      }
+    }
+    const createElementSpy = vi.spyOn(document, 'createElement').mockReturnValue(createdLink as any)
+
+    await wrapper.vm.handleDownload(file)
+
+    expect(fetch).toHaveBeenCalledWith('https://test.com/remote.pdf', {
+      method: 'GET',
+      mode: 'cors'
+    })
+    expect(createdLink.target).toBe('_blank')
+    expect(createdLink.download).toBe('remote.pdf')
+    expect(createdLink.click).toHaveBeenCalled()
+    expect(warnSpy).toHaveBeenCalled()
+
+    createElementSpy.mockRestore()
+    warnSpy.mockRestore()
+  })
+
   it('support thumbnailRequest', async () => {
     const file = new File([''], 'test.png', { type: 'image/png' })
     const thumbnailRequest = vi.fn().mockResolvedValue('custom-thumb')

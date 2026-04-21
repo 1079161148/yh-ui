@@ -1,5 +1,9 @@
 <template>
-  <div ref="containerRef" :class="[ns.b(), { [ns.m('fullscreen')]: fullScreen }]" :style="containerStyle">
+  <div
+    ref="containerRef"
+    :class="[ns.b(), { [ns.m('fullscreen')]: fullScreen }]"
+    :style="containerStyle"
+  >
     <slot />
   </div>
 </template>
@@ -14,7 +18,10 @@ defineOptions({
 });
 const props = defineProps(watermarkProps);
 const ns = useNamespace("watermark");
-const { themeStyle } = useComponentTheme("watermark", computed(() => props.themeOverrides));
+const { themeStyle } = useComponentTheme(
+  "watermark",
+  computed(() => props.themeOverrides)
+);
 const containerRef = ref(null);
 let watermarkRef = null;
 const watermarkUrl = ref("");
@@ -131,9 +138,24 @@ const initGuard = () => {
     }
   }, 3e3);
 };
-watch(() => [props.content, props.image, props.width, props.height, props.gap, props.rotate, props.globalRotate, props.zIndex, props.fullScreen, props.font], () => {
-  renderWatermark();
-}, { deep: true });
+watch(
+  () => [
+    props.content,
+    props.image,
+    props.width,
+    props.height,
+    props.gap,
+    props.rotate,
+    props.globalRotate,
+    props.zIndex,
+    props.fullScreen,
+    props.font
+  ],
+  () => {
+    renderWatermark();
+  },
+  { deep: true }
+);
 onMounted(() => {
   renderWatermark();
   nextTick(() => {

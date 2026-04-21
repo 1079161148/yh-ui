@@ -41,9 +41,11 @@
       <div class="demo-block">
         <h3>Image 图片</h3>
         <YhImage
-          src="https://picsum.photos/200/200"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='24' fill='%23eff6ff'/%3E%3Cpath d='M40 138l32-38 24 28 20-22 44 52H40z' fill='%2360a5fa'/%3E%3Ccircle cx='132' cy='68' r='18' fill='%23f59e0b'/%3E%3Ctext x='100' y='178' text-anchor='middle' font-size='18' fill='%231e3a8a' font-family='Arial'%3EYH-UI%3C/text%3E%3C/svg%3E"
           style="width: 100px; height: 100px; border-radius: 8px"
-          :preview-src-list="['https://picsum.photos/800/800']"
+          :preview-src-list="[
+            'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 800 800%27%3E%3Crect width=%27800%27 height=%27800%27 rx=%2796%27 fill=%27%23eff6ff%27/%3E%3Cpath d=%27M140 560l140-170 110 126 92-104 178 218H140z%27 fill=%27%2360a5fa%27/%3E%3Ccircle cx=%27528%27 cy=%27256%27 r=%2772%27 fill=%27%23f59e0b%27/%3E%3Ctext x=%27400%27 y=%27690%27 text-anchor=%27middle%27 font-size=%2784%27 fill=%27%231e3a8a%27 font-family=%27Arial%27%3EYH-UI Preview%3C/text%3E%3C/svg%3E'
+          ]"
         />
       </div>
 

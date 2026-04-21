@@ -242,4 +242,27 @@ describe('Menu', () => {
     expect(wrapper.vm.activeIndex).toBeTruthy()
     expect(wrapper.vm.openedMenus).toBeTruthy()
   })
+
+  it('clears the active state when a controlled value becomes null', async () => {
+    const wrapper = mount(YhMenu, {
+      props: {
+        value: '1'
+      },
+      slots: {
+        default: () => [
+          h(YhMenuItem, { index: '1' }, () => 'One'),
+          h(YhMenuItem, { index: '2' }, () => 'Two')
+        ]
+      },
+      global: globalConfig
+    })
+
+    expect(wrapper.findAll('.yh-menu-item.is-active')).toHaveLength(1)
+
+    await wrapper.setProps({ value: null })
+    await nextTick()
+
+    expect(wrapper.findAll('.yh-menu-item.is-active')).toHaveLength(0)
+    expect(wrapper.vm.activeIndex).toBe('')
+  })
 })

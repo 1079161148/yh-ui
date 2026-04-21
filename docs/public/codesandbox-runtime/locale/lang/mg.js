@@ -1,567 +1,567 @@
 const mg = {
-  name: 'mg',
+  name: "mg",
   yh: {
     // Fitsipika
     common: {
-      yes: 'Eny',
-      no: 'Tsia',
-      confirm: 'Manamarina',
-      cancel: 'Atsahatra',
-      loading: 'Ampidirina',
-      close: 'Akatona',
-      clear: 'Fafana',
-      reset: 'Averina',
-      save: 'Tehirizina',
-      delete: 'Fafana',
-      edit: 'Ovaina',
-      add: 'Ampidirina',
-      search: 'Karohina',
-      refresh: 'Averina',
-      expand: 'Ampitomboina',
-      collapse: 'Ahena',
-      more: 'Bebe kokoa',
-      noData: 'Tsy misy angona',
-      noMatch: 'Tsy misy angona mifanaraka',
-      selectAll: 'Misafidy ny rehetra',
-      unselectAll: 'Manafoana ny safidy rehetra'
+      yes: "Eny",
+      no: "Tsia",
+      confirm: "Manamarina",
+      cancel: "Atsahatra",
+      loading: "Ampidirina",
+      close: "Akatona",
+      clear: "Fafana",
+      reset: "Averina",
+      save: "Tehirizina",
+      delete: "Fafana",
+      edit: "Ovaina",
+      add: "Ampidirina",
+      search: "Karohina",
+      refresh: "Averina",
+      expand: "Ampitomboina",
+      collapse: "Ahena",
+      more: "Bebe kokoa",
+      noData: "Tsy misy angona",
+      noMatch: "Tsy misy angona mifanaraka",
+      selectAll: "Misafidy ny rehetra",
+      unselectAll: "Manafoana ny safidy rehetra"
     },
     // Mpanoratra loko
     colorpicker: {
-      confirm: 'OK',
-      clear: 'Fafana',
-      eyeDropper: 'Mpanoratra loko',
-      suggestionDark: 'Ny soratra fotsy no tsara indrindra',
-      suggestionLight: 'Ny soratra mainty no tsara indrindra',
-      recentColors: 'Loko vao haingana',
-      presetColors: 'Loko voafaritra mialoha'
+      confirm: "OK",
+      clear: "Fafana",
+      eyeDropper: "Mpanoratra loko",
+      suggestionDark: "Ny soratra fotsy no tsara indrindra",
+      suggestionLight: "Ny soratra mainty no tsara indrindra",
+      recentColors: "Loko vao haingana",
+      presetColors: "Loko voafaritra mialoha"
     },
     // Mpanoratra daty
     datepicker: {
       now: "Amin'izao fotoana izao",
-      today: 'Androany',
-      cancel: 'Atsahatra',
-      clear: 'Fafana',
-      confirm: 'OK',
-      selectDate: 'Misafidy daty',
-      selectTime: 'Misafidy fotoana',
-      startDate: 'Daty fanombohana',
-      startTime: 'Fotoana fanombohana',
-      endDate: 'Daty fiafarana',
-      endTime: 'Fotoana fiafarana',
-      year: '',
-      month: '',
-      day: '',
-      week: 'Herinandro',
+      today: "Androany",
+      cancel: "Atsahatra",
+      clear: "Fafana",
+      confirm: "OK",
+      selectDate: "Misafidy daty",
+      selectTime: "Misafidy fotoana",
+      startDate: "Daty fanombohana",
+      startTime: "Fotoana fanombohana",
+      endDate: "Daty fiafarana",
+      endTime: "Fotoana fiafarana",
+      year: "",
+      month: "",
+      day: "",
+      week: "Herinandro",
       monthBeforeYear: true,
-      prevYear: 'Taona teo aloha',
-      nextYear: 'Taona manaraka',
-      prevMonth: 'Volana teo aloha',
-      nextMonth: 'Volana manaraka',
+      prevYear: "Taona teo aloha",
+      nextYear: "Taona manaraka",
+      prevMonth: "Volana teo aloha",
+      nextMonth: "Volana manaraka",
       weeks: {
-        sun: 'Alahady',
-        mon: 'Alatsinainy',
-        tue: 'Talata',
-        wed: 'Alarobia',
-        thu: 'Alakamisy',
-        fri: 'Zoma',
-        sat: 'Sabotsy'
+        sun: "Alahady",
+        mon: "Alatsinainy",
+        tue: "Talata",
+        wed: "Alarobia",
+        thu: "Alakamisy",
+        fri: "Zoma",
+        sat: "Sabotsy"
       },
       months: {
-        jan: 'Janoary',
-        feb: 'Febroary',
-        mar: 'Martsa',
-        apr: 'Aprily',
-        may: 'Mey',
-        jun: 'Jona',
-        jul: 'Jolay',
-        aug: 'Aogositra',
-        sep: 'Septambra',
-        oct: 'Oktobra',
-        nov: 'Novambra',
-        dec: 'Desambra'
+        jan: "Janoary",
+        feb: "Febroary",
+        mar: "Martsa",
+        apr: "Aprily",
+        may: "Mey",
+        jun: "Jona",
+        jul: "Jolay",
+        aug: "Aogositra",
+        sep: "Septambra",
+        oct: "Oktobra",
+        nov: "Novambra",
+        dec: "Desambra"
       },
       quarters: {
-        q1: 'Q1',
-        q2: 'Q2',
-        q3: 'Q3',
-        q4: 'Q4'
+        q1: "Q1",
+        q2: "Q2",
+        q3: "Q3",
+        q4: "Q4"
       }
     },
     // Mpanoratra fotoana
     timepicker: {
-      confirm: 'OK',
-      cancel: 'Atsahatra',
+      confirm: "OK",
+      cancel: "Atsahatra",
       now: "Amin'izao fotoana izao",
-      placeholder: 'Misafidy fotoana',
-      startPlaceholder: 'Fotoana fanombohana',
-      endPlaceholder: 'Fotoana fiafarana',
-      selectTime: 'Misafidy fotoana'
+      placeholder: "Misafidy fotoana",
+      startPlaceholder: "Fotoana fanombohana",
+      endPlaceholder: "Fotoana fiafarana",
+      selectTime: "Misafidy fotoana"
     },
     // Fidirana fotoana
     timeselect: {
-      placeholder: 'Misafidy fotoana'
+      placeholder: "Misafidy fotoana"
     },
     // Hazo
     tree: {
-      emptyText: 'Tsy misy angona',
-      loading: 'Ampidirina...',
-      checkAll: 'Mamantatra ny rehetra',
-      uncheckAll: 'Manafoana ny famantarana rehetra',
-      expandAll: 'Ampitomboina ny rehetra',
-      collapseAll: 'Ahena ny rehetra'
+      emptyText: "Tsy misy angona",
+      loading: "Ampidirina...",
+      checkAll: "Mamantatra ny rehetra",
+      uncheckAll: "Manafoana ny famantarana rehetra",
+      expandAll: "Ampitomboina ny rehetra",
+      collapseAll: "Ahena ny rehetra"
     },
     // Fidirana hazo
     treeselect: {
-      placeholder: 'Misafidy',
-      emptyText: 'Tsy misy angona',
-      loading: 'Ampidirina...',
-      noMatch: 'Tsy misy angona mifanaraka'
+      placeholder: "Misafidy",
+      emptyText: "Tsy misy angona",
+      loading: "Ampidirina...",
+      noMatch: "Tsy misy angona mifanaraka"
     },
     // Kalandrie
     calendar: {
-      prevMonth: 'Volana teo aloha',
-      nextMonth: 'Volana manaraka',
-      prevYear: 'Taona teo aloha',
-      nextYear: 'Taona manaraka',
-      today: 'Androany',
-      week: 'Herinandro',
-      holiday: 'Fety',
-      workday: 'Asa',
-      monthHeaderFormat: 'MMMM YYYY',
+      prevMonth: "Volana teo aloha",
+      nextMonth: "Volana manaraka",
+      prevYear: "Taona teo aloha",
+      nextYear: "Taona manaraka",
+      today: "Androany",
+      week: "Herinandro",
+      holiday: "Fety",
+      workday: "Asa",
+      monthHeaderFormat: "MMMM YYYY",
       weeks: {
-        sun: 'Alahady',
-        mon: 'Alatsinainy',
-        tue: 'Talata',
-        wed: 'Alarobia',
-        thu: 'Alakamisy',
-        fri: 'Zoma',
-        sat: 'Sabotsy'
+        sun: "Alahady",
+        mon: "Alatsinainy",
+        tue: "Talata",
+        wed: "Alarobia",
+        thu: "Alakamisy",
+        fri: "Zoma",
+        sat: "Sabotsy"
       }
     },
     // Fenoana ho azy
     autocomplete: {
-      loading: 'Ampidirina...',
-      placeholder: 'Ampidiro azafady',
-      noData: 'Tsy misy angona',
-      noMatch: 'Tsy misy angona mifanaraka'
+      loading: "Ampidirina...",
+      placeholder: "Ampidiro azafady",
+      noData: "Tsy misy angona",
+      noMatch: "Tsy misy angona mifanaraka"
     },
     // Fampidirana miverina
     countdown: {
-      days: 'andro',
-      hours: 'ora',
-      minutes: 'minitra',
-      seconds: 'segondra',
-      milliseconds: 'milisegondra',
-      finished: 'Vita'
+      days: "andro",
+      hours: "ora",
+      minutes: "minitra",
+      seconds: "segondra",
+      milliseconds: "milisegondra",
+      finished: "Vita"
     },
     // Mpanoratra cascade
     cascader: {
-      noMatch: 'Tsy misy angona mifanaraka',
-      placeholder: 'Misafidy',
-      loading: 'Ampidirina...',
-      noData: 'Tsy misy angona'
+      noMatch: "Tsy misy angona mifanaraka",
+      placeholder: "Misafidy",
+      loading: "Ampidirina...",
+      noData: "Tsy misy angona"
     },
     // Fampitana
     transfer: {
-      noMatch: 'Tsy misy angona mifanaraka',
-      noData: 'Tsy misy angona',
-      titles: ['Lisitra 1', 'Lisitra 2'],
-      filterPlaceholder: 'Ampidiro teny fanalahidy',
-      noCheckedFormat: '{total} zavatra',
-      hasCheckedFormat: '{checked}/{total} voafantina',
-      searchPlaceholder: 'Ampidiro teny fanalahidy'
+      noMatch: "Tsy misy angona mifanaraka",
+      noData: "Tsy misy angona",
+      titles: ["Lisitra 1", "Lisitra 2"],
+      filterPlaceholder: "Ampidiro teny fanalahidy",
+      noCheckedFormat: "{total} zavatra",
+      hasCheckedFormat: "{checked}/{total} voafantina",
+      searchPlaceholder: "Ampidiro teny fanalahidy"
     },
     // Tabilao
     table: {
-      emptyText: 'Tsy misy angona',
-      confirmFilter: 'Manamarina',
-      resetFilter: 'Averina',
-      clearFilter: 'Rehetra',
+      emptyText: "Tsy misy angona",
+      confirmFilter: "Manamarina",
+      resetFilter: "Averina",
+      clearFilter: "Rehetra",
       sumText: "Fitambaran'ny",
-      loading: 'Ampidirina...',
-      index: 'Fampidirana',
-      print: 'Fampirinty',
-      cancel: 'Atsahatra',
-      preview: 'Fijerena mialoha ny fampirinty',
-      printTime: 'Fotoana fampirinty',
+      loading: "Ampidirina...",
+      index: "Fampidirana",
+      print: "Fampirinty",
+      cancel: "Atsahatra",
+      preview: "Fijerena mialoha ny fampirinty",
+      printTime: "Fotoana fampirinty",
       total: "Fitambaran'ny {total} zavatra",
-      page: 'Pejy {page}',
-      yes: 'Eny',
-      no: 'Tsia',
+      page: "Pejy {page}",
+      yes: "Eny",
+      no: "Tsia",
       // Toolbar
       toolbar: {
-        refresh: 'Averina',
-        density: 'Habe',
-        densityDefault: 'Voalohany',
-        densityLarge: 'Lehibe',
-        densitySmall: 'Kely',
-        columnSetting: 'Fikiraketana tsanganana',
-        fullscreen: 'Efijery feno',
+        refresh: "Averina",
+        density: "Habe",
+        densityDefault: "Voalohany",
+        densityLarge: "Lehibe",
+        densitySmall: "Kely",
+        columnSetting: "Fikiraketana tsanganana",
+        fullscreen: "Efijery feno",
         exitFullscreen: "Mivoaka amin'ny efijery feno",
-        export: 'Famoahana',
-        import: 'Fampidirana',
-        search: 'Karohina',
-        searchPlaceholder: 'Ampidiro teny fanalahidy karohina'
+        export: "Famoahana",
+        import: "Fampidirana",
+        search: "Karohina",
+        searchPlaceholder: "Ampidiro teny fanalahidy karohina"
       },
       // Filter
       filter: {
-        selectAll: 'Misafidy ny rehetra',
-        selectInvert: 'Averina ny safidy',
-        empty: 'Foana',
-        notEmpty: 'Tsy foana',
-        contains: 'Misy',
-        notContains: 'Tsy misy',
-        equals: 'Mitovy',
-        notEquals: 'Tsy mitovy',
+        selectAll: "Misafidy ny rehetra",
+        selectInvert: "Averina ny safidy",
+        empty: "Foana",
+        notEmpty: "Tsy foana",
+        contains: "Misy",
+        notContains: "Tsy misy",
+        equals: "Mitovy",
+        notEquals: "Tsy mitovy",
         startsWith: "Manomboka amin'ny",
         endsWith: "Miafara amin'ny",
-        greaterThan: 'Lehibe kokoa noho',
-        lessThan: 'Kely kokoa noho',
+        greaterThan: "Lehibe kokoa noho",
+        lessThan: "Kely kokoa noho",
         between: "Eo anelanelan'ny"
       },
       // Sort
       sort: {
-        asc: 'Miakatra',
-        desc: 'Midina',
-        clear: 'Fafana ny sort'
+        asc: "Miakatra",
+        desc: "Midina",
+        clear: "Fafana ny sort"
       },
       // Export
       export: {
-        title: 'Export angona',
+        title: "Export angona",
         filename: "Anaran'ny rakitra",
-        type: 'Karazana rakitra',
-        scope: 'Fampidirana export',
-        scopeAll: 'Angona rehetra',
-        scopeSelected: 'Angona voafantina',
-        scopeCurrentPage: 'Pejy ankehitriny',
-        includeHeader: 'Ampidiro lohateny',
-        exporting: 'Export...',
-        success: 'Export nahomby',
-        error: 'Export tsy nahomby'
+        type: "Karazana rakitra",
+        scope: "Fampidirana export",
+        scopeAll: "Angona rehetra",
+        scopeSelected: "Angona voafantina",
+        scopeCurrentPage: "Pejy ankehitriny",
+        includeHeader: "Ampidiro lohateny",
+        exporting: "Export...",
+        success: "Export nahomby",
+        error: "Export tsy nahomby"
       },
       // Import
       import: {
-        title: 'Import angona',
-        selectFile: 'Misafidy rakitra',
-        dragTip: 'Tsindrio na sinty rakitra eto ho ampitondraina',
-        importing: 'Import...',
-        success: 'Import nahomby',
-        error: 'Import tsy nahomby',
-        preview: 'Fijerena mialoha ny angona',
-        confirm: 'Manamarina ny import'
+        title: "Import angona",
+        selectFile: "Misafidy rakitra",
+        dragTip: "Tsindrio na sinty rakitra eto ho ampitondraina",
+        importing: "Import...",
+        success: "Import nahomby",
+        error: "Import tsy nahomby",
+        preview: "Fijerena mialoha ny angona",
+        confirm: "Manamarina ny import"
       },
       // Print
       printConfig: {
-        title: 'Fikiraketana fampirinty',
+        title: "Fikiraketana fampirinty",
         pageTitle: "Lohatenin'ny pejy",
-        pageHeader: 'Lohateny',
-        pageFooter: 'Tongotra',
-        printAll: 'Fampirinty ny rehetra',
-        printSelected: 'Fampirinty voafantina',
-        printCurrentPage: 'Fampirinty ny pejy ankehitriny',
-        landscape: 'Ampahany',
-        portrait: 'Mitsangana',
-        printing: 'Fampirinty...'
+        pageHeader: "Lohateny",
+        pageFooter: "Tongotra",
+        printAll: "Fampirinty ny rehetra",
+        printSelected: "Fampirinty voafantina",
+        printCurrentPage: "Fampirinty ny pejy ankehitriny",
+        landscape: "Ampahany",
+        portrait: "Mitsangana",
+        printing: "Fampirinty..."
       },
       // Column Settings
       columnSetting: {
-        title: 'Fikiraketana tsanganana',
-        showAll: 'Asehoy ny rehetra',
-        hideAll: 'Afeno ny rehetra',
-        reset: 'Averina',
+        title: "Fikiraketana tsanganana",
+        showAll: "Asehoy ny rehetra",
+        hideAll: "Afeno ny rehetra",
+        reset: "Averina",
         fixedLeft: "Mametraka amin'ny ankavia",
         fixedRight: "Mametraka amin'ny ankavanana",
-        unfixed: 'Manafoana ny fametrahana'
+        unfixed: "Manafoana ny fametrahana"
       },
       // Context Menu
       contextMenu: {
-        copy: 'Nakopy',
-        copyRow: 'Nakopy ny tsanganana',
-        copyCell: 'Nakopy ny sela',
-        paste: 'Nampiditra',
-        insertRowAbove: 'Mampiditra tsanganana eo ambony',
-        insertRowBelow: 'Mampiditra tsanganana eo ambany',
-        deleteRow: 'Fafana ny tsanganana',
-        deleteSelectedRows: 'Fafana ny tsanganana voafantina',
-        exportSelected: 'Export voafantina'
+        copy: "Nakopy",
+        copyRow: "Nakopy ny tsanganana",
+        copyCell: "Nakopy ny sela",
+        paste: "Nampiditra",
+        insertRowAbove: "Mampiditra tsanganana eo ambony",
+        insertRowBelow: "Mampiditra tsanganana eo ambany",
+        deleteRow: "Fafana ny tsanganana",
+        deleteSelectedRows: "Fafana ny tsanganana voafantina",
+        exportSelected: "Export voafantina"
       },
       // Selection
       selection: {
-        selectAll: 'Misafidy ny rehetra',
-        selectInvert: 'Averina ny safidy',
-        selectNone: 'Fafana ny safidy',
-        selected: '{count} zavatra voafantina'
+        selectAll: "Misafidy ny rehetra",
+        selectInvert: "Averina ny safidy",
+        selectNone: "Fafana ny safidy",
+        selected: "{count} zavatra voafantina"
       },
       // Expand
       expand: {
-        expandAll: 'Ampitomboina ny rehetra',
-        collapseAll: 'Ahena ny rehetra'
+        expandAll: "Ampitomboina ny rehetra",
+        collapseAll: "Ahena ny rehetra"
       },
       // Tree
       tree: {
-        expandAll: 'Ampitomboina ny rehetra',
-        collapseAll: 'Ahena ny rehetra',
+        expandAll: "Ampitomboina ny rehetra",
+        collapseAll: "Ahena ny rehetra",
         expandLevel: "Ampitomboina amin'ny ambaratonga {level}"
       },
       // Drag
       drag: {
-        dragTip: 'Sinty mba hanova ny filaharana',
-        dropTip: 'Avelao mba hametraka'
+        dragTip: "Sinty mba hanova ny filaharana",
+        dropTip: "Avelao mba hametraka"
       }
     },
     // Message Box
     messagebox: {
-      title: 'Hafatra',
-      confirm: 'OK',
-      cancel: 'Atsahatra',
-      close: 'Akatona',
-      error: 'Fidirana tsy ara-dal\xE0na',
-      alert: 'Fampitandremana',
-      prompt: 'Fampitandremana',
-      inputPlaceholder: 'Ampidiro azafady'
+      title: "Hafatra",
+      confirm: "OK",
+      cancel: "Atsahatra",
+      close: "Akatona",
+      error: "Fidirana tsy ara-dal\xE0na",
+      alert: "Fampitandremana",
+      prompt: "Fampitandremana",
+      inputPlaceholder: "Ampidiro azafady"
     },
     // Upload
     upload: {
-      deleteTip: 'tsindrio delete mba hanafoana',
-      delete: 'Fafana',
-      preview: 'Fijerena mialoha',
-      continue: 'Manohy',
-      upload: 'Tsindrio mba hampitondraina',
+      deleteTip: "tsindrio delete mba hanafoana",
+      delete: "Fafana",
+      preview: "Fijerena mialoha",
+      continue: "Manohy",
+      upload: "Tsindrio mba hampitondraina",
       tip: "Tsindrio na sinty rakitra amin'ity faritra ity mba <em>hampitondraina</em>",
-      dragTip: 'Avelao rakitra eto na tsindrio mba hampitondraina',
-      uploading: 'Ampitondraina...',
-      success: 'Fampitondraina nahomby',
-      error: 'Fampitondraina tsy nahomby',
-      retry: 'Andramana indray',
-      cancel: 'Atsahatra ny fampitondraina',
-      fileTypeError: 'Karazana rakitra tsy voarohirohy',
-      fileSizeError: 'Habe rakitra mihoatra ny fetra',
+      dragTip: "Avelao rakitra eto na tsindrio mba hampitondraina",
+      uploading: "Ampitondraina...",
+      success: "Fampitondraina nahomby",
+      error: "Fampitondraina tsy nahomby",
+      retry: "Andramana indray",
+      cancel: "Atsahatra ny fampitondraina",
+      fileTypeError: "Karazana rakitra tsy voarohirohy",
+      fileSizeError: "Habe rakitra mihoatra ny fetra",
       fileCountError: "Isan'ny rakitra mihoatra ny fetra"
     },
     // Form
     form: {
-      validationFailed: 'Fanamarinana tsy nahomby',
-      required: 'Ilaina',
-      pleaseInput: 'Ampidiro azafady',
-      pleaseSelect: 'Safidio azafady'
+      validationFailed: "Fanamarinana tsy nahomby",
+      required: "Ilaina",
+      pleaseInput: "Ampidiro azafady",
+      pleaseSelect: "Safidio azafady"
     },
     // Button
     button: {
-      loading: 'Ampidirina...'
+      loading: "Ampidirina..."
     },
     // Input
     input: {
-      placeholder: 'Ampidiro azafady',
-      clear: 'Fafana',
-      showPassword: 'Asehoy ny tenimiafina',
-      hidePassword: 'Afeno ny tenimiafina',
-      copy: 'Nakopy',
-      copied: 'Nakopy'
+      placeholder: "Ampidiro azafady",
+      clear: "Fafana",
+      showPassword: "Asehoy ny tenimiafina",
+      hidePassword: "Afeno ny tenimiafina",
+      copy: "Nakopy",
+      copied: "Nakopy"
     },
     // Input Number
     inputnumber: {
-      placeholder: 'Ampidiro isa azafady',
-      increase: 'Ampitomboina',
-      decrease: 'Ahena'
+      placeholder: "Ampidiro isa azafady",
+      increase: "Ampitomboina",
+      decrease: "Ahena"
     },
     // Input Tag
     inputtag: {
-      placeholder: 'Ampidiro azafady',
-      add: 'Ampidirina',
-      remove: 'Esorina'
+      placeholder: "Ampidiro azafady",
+      add: "Ampidirina",
+      remove: "Esorina"
     },
     // Breadcrumb
     breadcrumb: {
-      label: 'Lalana',
-      more: 'Bebe kokoa'
+      label: "Lalana",
+      more: "Bebe kokoa"
     },
     // Back Top
     backtop: {
-      text: 'Miverina any ambony'
+      text: "Miverina any ambony"
     },
     // Select
     select: {
-      placeholder: 'Safidio azafady',
-      noData: 'Tsy misy angona',
-      loading: 'Ampidirina...',
-      noMatch: 'Tsy misy angona mifanaraka',
-      selectAll: 'Misafidy ny rehetra',
-      clearAll: 'Fafana ny rehetra'
+      placeholder: "Safidio azafady",
+      noData: "Tsy misy angona",
+      loading: "Ampidirina...",
+      noMatch: "Tsy misy angona mifanaraka",
+      selectAll: "Misafidy ny rehetra",
+      clearAll: "Fafana ny rehetra"
     },
     // Pagination
     pagination: {
-      goto: 'Mandeha',
-      page: '',
+      goto: "Mandeha",
+      page: "",
       total: "Fitambaran'ny {total}",
-      pageSize: '/pejy',
-      prev: 'Teo aloha',
-      next: 'Manaraka',
-      first: 'Voalohany',
-      last: 'Farany',
-      pageClassifier: ''
+      pageSize: "/pejy",
+      prev: "Teo aloha",
+      next: "Manaraka",
+      first: "Voalohany",
+      last: "Farany",
+      pageClassifier: ""
     },
     // Popconfirm
     popconfirm: {
-      confirm: 'OK',
-      cancel: 'Atsahatra',
-      dontAskAgain: 'Aza manontany indray'
+      confirm: "OK",
+      cancel: "Atsahatra",
+      dontAskAgain: "Aza manontany indray"
     },
     // Dialog
     dialog: {
-      confirm: 'OK',
-      cancel: 'Atsahatra',
-      close: 'Akatona',
-      maximize: 'Ampitomboina',
-      restore: 'Averina'
+      confirm: "OK",
+      cancel: "Atsahatra",
+      close: "Akatona",
+      maximize: "Ampitomboina",
+      restore: "Averina"
     },
     // Drawer
     drawer: {
-      close: 'Akatona',
-      confirm: 'OK',
-      cancel: 'Atsahatra'
+      close: "Akatona",
+      confirm: "OK",
+      cancel: "Atsahatra"
     },
     // Dropdown
     dropdown: {
-      loading: 'Ampidirina...'
+      loading: "Ampidirina..."
     },
     // Image
     image: {
-      error: 'TSY NAHOMBY',
-      loading: 'Ampidirina...',
-      preview: 'Fijerena mialoha',
-      zoomIn: 'Ampitomboina',
-      zoomOut: 'Ahena',
-      rotateLeft: 'Averina miankavia',
-      rotateRight: 'Averina miankavanana',
-      originalSize: 'Habe tany am-boalohany',
-      fullscreen: 'Efijery feno'
+      error: "TSY NAHOMBY",
+      loading: "Ampidirina...",
+      preview: "Fijerena mialoha",
+      zoomIn: "Ampitomboina",
+      zoomOut: "Ahena",
+      rotateLeft: "Averina miankavia",
+      rotateRight: "Averina miankavanana",
+      originalSize: "Habe tany am-boalohany",
+      fullscreen: "Efijery feno"
     },
     // Image Viewer
     imageviewer: {
-      close: 'Akatona',
-      prev: 'Teo aloha',
-      next: 'Manaraka',
-      zoomIn: 'Ampitomboina',
-      zoomOut: 'Ahena',
-      rotateLeft: 'Averina miankavia',
-      rotateRight: 'Averina miankavanana',
-      reset: 'Averina',
-      fullscreen: 'Efijery feno',
+      close: "Akatona",
+      prev: "Teo aloha",
+      next: "Manaraka",
+      zoomIn: "Ampitomboina",
+      zoomOut: "Ahena",
+      rotateLeft: "Averina miankavia",
+      rotateRight: "Averina miankavanana",
+      reset: "Averina",
+      fullscreen: "Efijery feno",
       exitFullscreen: "Mivoaka amin'ny efijery feno"
     },
     // Infinite Scroll
     infinitescroll: {
-      loading: 'Ampidirina...',
-      finished: 'Tsy misy angona intsony',
-      error: 'Fampidirana tsy nahomby, tsindrio mba handramana indray',
-      retry: 'Tsindrio mba handramana indray'
+      loading: "Ampidirina...",
+      finished: "Tsy misy angona intsony",
+      error: "Fampidirana tsy nahomby, tsindrio mba handramana indray",
+      retry: "Tsindrio mba handramana indray"
     },
     // Message
     message: {
-      close: 'Akatona'
+      close: "Akatona"
     },
     // Notification
     notification: {
-      close: 'Akatona'
+      close: "Akatona"
     },
     // Loading
     loading: {
-      text: 'Ampidirina...'
+      text: "Ampidirina..."
     },
     // Spin
     spin: {
-      text: 'Ampidirina...'
+      text: "Ampidirina..."
     },
     // Rate
     rate: {
-      texts: ['Ratsy be', 'Diso fanantenana', 'Mahitsy', 'Afaka', 'Gaga']
+      texts: ["Ratsy be", "Diso fanantenana", "Mahitsy", "Afaka", "Gaga"]
     },
     // Alert
     alert: {
-      close: 'Akatona'
+      close: "Akatona"
     },
     // Tag
     tag: {
-      close: 'Akatona'
+      close: "Akatona"
     },
     // Tabs
     tabs: {
-      close: 'Akatona',
-      add: 'Ampidirina',
-      more: 'Bebe kokoa'
+      close: "Akatona",
+      add: "Ampidirina",
+      more: "Bebe kokoa"
     },
     // Steps
     steps: {
-      finish: 'Vita',
-      process: 'Mandeha',
-      wait: 'Miandry',
-      error: 'Fahadisoana'
+      finish: "Vita",
+      process: "Mandeha",
+      wait: "Miandry",
+      error: "Fahadisoana"
     },
     // Progress
     progress: {
-      success: 'Nahomby',
-      exception: 'Tsy ara-dal\xE0na',
-      warning: 'Fampitandremana'
+      success: "Nahomby",
+      exception: "Tsy ara-dal\xE0na",
+      warning: "Fampitandremana"
     },
     // Skeleton
     skeleton: {
-      loading: 'Ampidirina...'
+      loading: "Ampidirina..."
     },
     // Empty
     empty: {
-      description: 'Tsy misy angona',
-      noData: 'Tsy misy angona',
-      noResult: 'Tsy misy vokatra',
-      networkError: 'Fahadisoana tambajotra',
-      serverError: 'Fahadisoana server'
+      description: "Tsy misy angona",
+      noData: "Tsy misy angona",
+      noResult: "Tsy misy vokatra",
+      networkError: "Fahadisoana tambajotra",
+      serverError: "Fahadisoana server"
     },
     // Result
     result: {
-      success: 'Nahomby',
-      error: 'Fahadisoana',
-      warning: 'Fampitandremana',
-      info: 'Fampahalalana',
-      backHome: 'Miverina any an-tranony'
+      success: "Nahomby",
+      error: "Fahadisoana",
+      warning: "Fampitandremana",
+      info: "Fampahalalana",
+      backHome: "Miverina any an-tranony"
     },
     // Waterfall
     waterfall: {
-      loading: 'Ampidirina...',
-      noMore: 'Tsy misy angona intsony',
-      empty: 'Tsy misy angona'
+      loading: "Ampidirina...",
+      noMore: "Tsy misy angona intsony",
+      empty: "Tsy misy angona"
     },
     // Descriptions
     descriptions: {
-      colon: ':'
+      colon: ":"
     },
     // Slider
     slider: {
-      tipFormatter: '{value}'
+      tipFormatter: "{value}"
     },
     // Switch
     switch: {
-      on: 'ON',
-      off: 'OFF'
+      on: "ON",
+      off: "OFF"
     },
     // Checkbox
     checkbox: {
-      selectAll: 'Misafidy ny rehetra'
+      selectAll: "Misafidy ny rehetra"
     },
     // Radio
     radio: {},
     // Menu
     menu: {
-      collapse: 'Ahena ny menu',
-      expand: 'Ampitomboina ny menu'
+      collapse: "Ahena ny menu",
+      expand: "Ampitomboina ny menu"
     },
     // Card
     card: {
-      collapse: 'Ahena',
-      expand: 'Ampitomboina'
+      collapse: "Ahena",
+      expand: "Ampitomboina"
     },
     // Collapse
     collapse: {
-      expand: 'Ampitomboina',
-      collapse: 'Ahena'
+      expand: "Ampitomboina",
+      collapse: "Ahena"
     },
     // Tooltip
     tooltip: {},
@@ -571,7 +571,7 @@ const mg = {
     badge: {},
     // Avatar
     avatar: {
-      error: 'Fampidirana tsy nahomby'
+      error: "Fampidirana tsy nahomby"
     },
     // Watermark
     watermark: {},
@@ -579,8 +579,8 @@ const mg = {
     divider: {},
     // Carousel
     carousel: {
-      prev: 'Teo aloha',
-      next: 'Manaraka'
+      prev: "Teo aloha",
+      next: "Manaraka"
     },
     // Marquee
     marquee: {},
@@ -590,241 +590,243 @@ const mg = {
     anchor: {},
     // Mention
     mention: {
-      placeholder: 'Azafady ampidiro',
-      loading: 'Miantso...',
-      noData: 'Tsy misy data'
+      placeholder: "Azafady ampidiro",
+      loading: "Miantso...",
+      noData: "Tsy misy data"
     },
     skuselector: {
-      placeholder: 'Safidio ny toetra',
-      emptyText: 'Tsy misy toetra',
-      stock: 'Tahiry',
-      price: 'Vidiny',
-      selected: 'Voafidy',
-      outOfStock: 'Lany tahiry'
+      placeholder: "Safidio ny toetra",
+      emptyText: "Tsy misy toetra",
+      stock: "Tahiry",
+      price: "Vidiny",
+      selected: "Voafidy",
+      outOfStock: "Lany tahiry"
     },
     productcard: {
-      viewDetails: 'Hijery antsipiriany',
-      buyNow: 'Vidio izao',
-      addToCart: 'Ampidiro anaty sarety',
-      sold: 'Lafo',
-      soldOut: 'Lany',
-      vip: 'VIP'
+      viewDetails: "Hijery antsipiriany",
+      buyNow: "Vidio izao",
+      addToCart: "Ampidiro anaty sarety",
+      sold: "Lafo",
+      soldOut: "Lany",
+      vip: "VIP"
     },
     price: {
-      original: 'Tany am-boalohany'
+      original: "Tany am-boalohany"
     },
     couponcard: {
-      available: 'Raiso izao',
-      used: 'Efa nampiasaina',
-      expired: 'Lany daty',
-      received: 'Voaray',
-      limit: 'Ho an\u2019ny kaomandy mihoatra ny {threshold}',
-      noThreshold: 'Tsy misy fetra farany ambany',
-      validPeriod: 'Fe-potoana manankery',
-      ruleTitle: 'Fitsipika fampiasana'
+      available: "Raiso izao",
+      used: "Efa nampiasaina",
+      expired: "Lany daty",
+      received: "Voaray",
+      limit: "Ho an\u2019ny kaomandy mihoatra ny {threshold}",
+      noThreshold: "Tsy misy fetra farany ambany",
+      validPeriod: "Fe-potoana manankery",
+      ruleTitle: "Fitsipika fampiasana"
     },
     luckydraw: {
-      start: 'Atomboka',
-      drawing: 'Manao antsapaka...',
-      end: 'Mpandresy!',
-      retry: 'Andramo indray'
+      start: "Atomboka",
+      drawing: "Manao antsapaka...",
+      end: "Mpandresy!",
+      retry: "Andramo indray"
     },
     filterbar: {
-      all: 'Rehetra',
-      sort: 'Alahatra',
-      filter: 'Sivana',
-      cancel: 'Hanafoana',
-      reset: 'Avereno',
-      confirm: 'Hamafiso',
-      noOptions: 'Tsy misy safidy',
-      asc: 'Miakatra',
-      desc: 'Midina',
-      selected: 'Voafidy'
+      all: "Rehetra",
+      sort: "Alahatra",
+      filter: "Sivana",
+      cancel: "Hanafoana",
+      reset: "Avereno",
+      confirm: "Hamafiso",
+      noOptions: "Tsy misy safidy",
+      asc: "Miakatra",
+      desc: "Midina",
+      selected: "Voafidy"
     },
     submitbar: {
-      total: 'Fitambarany: ',
-      selected: '{count} voafidy',
-      submit: 'Handoa',
-      allSelect: 'Safidio rehetra'
+      total: "Fitambarany: ",
+      selected: "{count} voafidy",
+      submit: "Handoa",
+      allSelect: "Safidio rehetra"
     },
     categorynav: {
-      all: 'Rehetra',
-      noData: 'Tsy misy angona',
-      loading: 'Mampiditra...'
+      all: "Rehetra",
+      noData: "Tsy misy angona",
+      loading: "Mampiditra..."
     },
     smartaddress: {
-      placeholder: 'Apetaho eto ny adiresy, ho fantarina ho azy ny anarana, finday ary toerana',
-      parse: 'Famantarana marani-tsaina',
-      province: 'Faritany/Tan\xE0na/Distrika',
-      city: 'Tan\xE0na',
-      district: 'Distrika/Faritra',
-      street: 'Lalana/Tan\xE0na kely',
-      detail: 'Adiresy feno',
-      phone: 'Finday',
-      name: 'Mpandray',
-      parseSuccess: 'Voamarina soa aman-tsara ny adiresy',
-      parseFailed: 'Tsy voamarina, fenoy amin\u2019ny tanana azafady',
-      required: 'Fenoy azafady ny adiresy feno',
-      provinceKeywords: ['Faritany', 'Fanjakana'],
-      cityKeywords: ['Tan\xE0na', 'Faritra'],
-      districtKeywords: ['Distrika', 'Faritra', 'Kaominina'],
-      streetKeywords: ['Lalana', 'Arabe', 'Boulevard', 'Lalantsara']
+      placeholder: "Apetaho eto ny adiresy, ho fantarina ho azy ny anarana, finday ary toerana",
+      parse: "Famantarana marani-tsaina",
+      province: "Faritany/Tan\xE0na/Distrika",
+      city: "Tan\xE0na",
+      district: "Distrika/Faritra",
+      street: "Lalana/Tan\xE0na kely",
+      detail: "Adiresy feno",
+      phone: "Finday",
+      name: "Mpandray",
+      parseSuccess: "Voamarina soa aman-tsara ny adiresy",
+      parseFailed: "Tsy voamarina, fenoy amin\u2019ny tanana azafady",
+      required: "Fenoy azafady ny adiresy feno",
+      provinceKeywords: ["Faritany", "Fanjakana"],
+      cityKeywords: ["Tan\xE0na", "Faritra"],
+      districtKeywords: ["Distrika", "Faritra", "Kaominina"],
+      streetKeywords: ["Lalana", "Arabe", "Boulevard", "Lalantsara"]
     },
     ganttchart: {
-      taskName: 'Anaran\u2019asa',
-      searchPlaceholder: 'Hitady asa...',
-      zoom: 'Akaro',
-      day: 'Andro',
-      week: 'Herinandro',
-      month: 'Volana',
-      year: 'Taona',
-      milestone: 'Dingana lehibe'
+      taskName: "Anaran\u2019asa",
+      searchPlaceholder: "Hitady asa...",
+      zoom: "Akaro",
+      day: "Andro",
+      week: "Herinandro",
+      month: "Volana",
+      year: "Taona",
+      milestone: "Dingana lehibe"
     },
     imagemagnifier: {
-      switchToImage: 'Hifindra amin\u2019ny sary {index}',
-      galleryItem: 'Galeria {index}',
-      close: 'Akatona'
+      switchToImage: "Hifindra amin\u2019ny sary {index}",
+      galleryItem: "Galeria {index}",
+      close: "Akatona"
     },
     // AI Components
     ai: {
       bubble: {
-        citations: 'Loharano'
+        citations: "Loharano"
       },
       mention: {
-        placeholder: '@ Manondro Agent, Tahirin-kevitra na Latabatra...',
-        agent: 'Agent',
-        document: 'Tahirin-kevitra',
-        table: 'Latabatra',
-        knowledge: 'Fahalalana'
+        placeholder: "@ Manondro Agent, Tahirin-kevitra na Latabatra...",
+        agent: "Agent",
+        document: "Tahirin-kevitra",
+        table: "Latabatra",
+        knowledge: "Fahalalana"
       },
       codeBlock: {
-        copyCode: 'Adikao ny kaody',
-        copied: 'Adika!',
-        run: 'Tanisao ny kaody',
-        edit: 'Ovaho',
-        save: 'Tehirizo',
-        cancel: 'Avelano'
+        copyCode: "Adikao ny kaody",
+        copied: "Adika!",
+        run: "Tanisao ny kaody",
+        edit: "Ovaho",
+        save: "Tehirizo",
+        cancel: "Avelano"
       },
       codeRunner: {
-        run: 'Tanisao',
-        stop: 'Atsaharo',
-        clear: 'Fafao',
-        reset: 'Avereno',
-        placeholder: 'Kitiho ny Tanisao hanatanterahana ny kaody...'
+        run: "Tanisao",
+        stop: "Atsaharo",
+        clear: "Fafao",
+        reset: "Avereno",
+        placeholder: "Kitiho ny Tanisao hanatanterahana ny kaody..."
       },
       sender: {
-        placeholder: 'Alefaso hafatra...',
-        dragTip: 'Avelano hampiditra rakitra'
+        placeholder: "Alefaso hafatra...",
+        dragTip: "Avelano hampiditra rakitra"
       },
       thoughtChain: {
-        thoughtProcess: 'Rafitravin-tanteraka',
-        thinking: 'Mieritreritra...',
-        defaultTitle: 'Dingana vaovao',
-        addNode: 'Manampy dingana'
+        thoughtProcess: "Rafitravin-tanteraka",
+        thinking: "Mieritreritra...",
+        defaultTitle: "Dingana vaovao",
+        addNode: "Manampy dingana"
       },
       thinking: {
-        start: 'Hameritreritra',
-        thinking: 'Mieritreritra...',
-        complete: 'Vita ny fieritreretana',
-        error: 'Hadisoan-tanteraka'
+        start: "Hameritreritra",
+        thinking: "Mieritreritra...",
+        complete: "Vita ny fieritreretana",
+        error: "Hadisoan-tanteraka"
       },
       welcome: {
-        title: 'Salama, YH AI ahy',
-        description:
-          "Afaka manampy anao aho amin'ny coding, fandikan-teny na fanoratana ara-dalana. Inona no azoko atao anio ho anao?"
+        title: "Salama, YH AI ahy",
+        description: "Afaka manampy anao aho amin'ny coding, fandikan-teny na fanoratana ara-dalana. Inona no azoko atao anio ho anao?"
       },
       action: {
-        copy: 'Adika',
-        regenerate: 'Avereno',
-        share: 'Zarao',
-        like: 'Tia',
-        dislike: 'Tsy tia',
-        edit: 'Ovaho',
-        delete: 'Fao'
+        copy: "Adika",
+        regenerate: "Avereno",
+        share: "Zarao",
+        like: "Tia",
+        dislike: "Tsy tia",
+        edit: "Ovaho",
+        delete: "Fao"
       },
       artifacts: {
-        preview: 'Fijery mialoha',
-        inline: 'Anaty andalana',
-        code: 'Kaody loharano',
-        versions: 'Dikan-teny',
-        rendering: 'Manome endrika singa...',
-        renderingChart: 'Manome endrika sary...',
-        renderingCanvas: 'Manome endrika canvas...'
+        preview: "Fijery mialoha",
+        inline: "Anaty andalana",
+        code: "Kaody loharano",
+        versions: "Dikan-teny",
+        rendering: "Manome endrika singa...",
+        renderingChart: "Manome endrika sary...",
+        renderingCanvas: "Manome endrika canvas..."
       },
       voice: {
-        trigger: 'Kitiho hilaza',
-        listening: 'Mihaino...'
+        trigger: "Kitiho hilaza",
+        listening: "Mihaino..."
       },
       agent: {
-        uses: 'fampiasana',
-        use: 'Ampiasao izao',
-        favorite: 'Tia',
-        unfavorite: 'Avela',
-        share: 'Zarao',
-        online: 'An-tserasera',
-        offline: 'Tsy an-tserasera',
-        busy: 'Mandraikitra',
-        verified: 'Nalarinao',
-        rating: 'Valiny',
-        reviews: 'fanehoan-kevitra',
+        uses: "fampiasana",
+        use: "Ampiasao izao",
+        favorite: "Tia",
+        unfavorite: "Avela",
+        share: "Zarao",
+        online: "An-tserasera",
+        offline: "Tsy an-tserasera",
+        busy: "Mandraikitra",
+        verified: "Nalarinao",
+        rating: "Valiny",
+        reviews: "fanehoan-kevitra",
         responseTime: "Salan'isantatra antonony",
-        ms: 'ms'
+        ms: "ms"
       },
       sources: {
-        references: 'Loharano',
-        referencedSources: 'Loharano voalaza',
-        relevant: 'Mifanaraka',
-        viewOriginal: 'Jereo ny laharana',
-        showAll: 'Aseho an-tsirambina',
-        more: 'loharano maro kokoa',
-        drawerTitle: 'Loharano',
-        expandMore: 'Aseho maro kokoa',
-        collapseMore: 'Avoaka',
-        noSources: 'Tsy misy loharano',
-        today: 'Anio',
-        last7Days: '7 andro lasa',
-        last30Days: '30 andro lasa',
-        earlier: 'Taloha',
-        pinned: 'Nofatotra'
+        references: "Loharano",
+        referencedSources: "Loharano voalaza",
+        relevant: "Mifanaraka",
+        viewOriginal: "Jereo ny laharana",
+        showAll: "Aseho an-tsirambina",
+        more: "loharano maro kokoa",
+        drawerTitle: "Loharano",
+        expandMore: "Aseho maro kokoa",
+        collapseMore: "Avoaka",
+        noSources: "Tsy misy loharano",
+        today: "Anio",
+        last7Days: "7 andro lasa",
+        last30Days: "30 andro lasa",
+        earlier: "Taloha",
+        pinned: "Nofatotra"
       },
       conversations: {
-        today: 'Anio',
-        last7Days: '7 andro lasa',
-        last30Days: '30 andro lasa',
-        earlier: 'Taloha',
-        pinned: 'Nofatotra',
-        pin: 'Fatotra',
-        unpin: 'Avela',
-        newConversation: 'Resaka vaovao',
-        noData: 'Mbola tsy misy resaka',
-        rename: 'Aloaso anarana',
-        delete: 'Fao',
+        today: "Anio",
+        last7Days: "7 andro lasa",
+        last30Days: "30 andro lasa",
+        earlier: "Taloha",
+        pinned: "Nofatotra",
+        pin: "Fatotra",
+        unpin: "Avela",
+        newConversation: "Resaka vaovao",
+        noData: "Mbola tsy misy resaka",
+        rename: "Aloaso anarana",
+        delete: "Fao",
         deleteConfirm: "Moa ve inona no hofafan'i resaka io?"
       },
       attachments: {
-        dropTip: 'Apetraho eto ny rakitra raha hampiakatra',
-        clickToUpload: 'Tsindrio na tariho ny rakitra raha hampiakatra',
-        uploadSuccess: 'Nahomby ny fampiakarana',
-        uploadError: 'Tsy nahomby ny fampiakarana',
-        deleteConfirm: 'Azonao antoka ve fa hamafa ity rakitra ity ianao?',
-        fileTooLarge: 'Tsy afaka mihoatra ny {size} ny haben\u2019ny rakitra',
-        invalidFileType: 'Karazana rakitra tsy mety'
+        dropTip: "Apetraho eto ny rakitra raha hampiakatra",
+        clickToUpload: "Tsindrio na tariho ny rakitra raha hampiakatra",
+        uploadSuccess: "Nahomby ny fampiakarana",
+        uploadError: "Tsy nahomby ny fampiakarana",
+        deleteConfirm: "Azonao antoka ve fa hamafa ity rakitra ity ianao?",
+        fileTooLarge: "Tsy afaka mihoatra ny {size} ny haben\u2019ny rakitra",
+        invalidFileType: "Karazana rakitra tsy mety"
       },
       mermaid: {
-        image: 'Sary',
-        code: 'Kaody',
-        zoomIn: 'Ampitomboy',
-        zoomOut: 'Ahena',
-        reset: 'Avereno',
-        download: 'Sintomy',
-        copyCode: 'Adikao ny kaody',
-        rendering: 'Aseho...',
-        renderError: 'Tsy nahomby ny fampisehoana',
-        renderSuccess: 'Nahomby ny fampisehoana',
-        retry: 'Andramo indray'
+        image: "Sary",
+        code: "Kaody",
+        zoomIn: "Ampitomboy",
+        zoomOut: "Ahena",
+        reset: "Avereno",
+        download: "Sintomy",
+        copyCode: "Adikao ny kaody",
+        rendering: "Aseho...",
+        renderError: "Tsy nahomby ny fampisehoana",
+        renderSuccess: "Nahomby ny fampisehoana",
+        retry: "Andramo indray"
       }
     }
   }
-}
-var stdin_default = mg
-export { stdin_default as default, mg }
+};
+var stdin_default = mg;
+export {
+  stdin_default as default,
+  mg
+};

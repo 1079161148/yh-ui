@@ -299,7 +299,10 @@ var __sfc__ = /* @__PURE__ */ Object.assign({
     const props = __props;
     const emit = __emit;
     const ns = useNamespace("marquee");
-    const { themeStyle } = useComponentTheme("marquee", computed2(() => props.themeOverrides));
+    const { themeStyle } = useComponentTheme(
+      "marquee",
+      computed2(() => props.themeOverrides)
+    );
     const containerRef = ref2(null);
     const contentRef = ref2(null);
     const cloneCount = ref2(1);
@@ -362,9 +365,12 @@ var __sfc__ = /* @__PURE__ */ Object.assign({
       calculateClones();
       isReady.value = true;
       if (props.pauseOnHidden && typeof IntersectionObserver !== "undefined" && containerRef.value) {
-        const observer = new IntersectionObserver((entries) => {
-          isHidden.value = !entries[0].isIntersecting;
-        }, { threshold: 0 });
+        const observer = new IntersectionObserver(
+          (entries) => {
+            isHidden.value = !entries[0].isIntersecting;
+          },
+          { threshold: 0 }
+        );
         observer.observe(containerRef.value);
         onUnmounted(() => observer.disconnect());
       }

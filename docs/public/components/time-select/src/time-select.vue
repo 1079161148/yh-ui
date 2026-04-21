@@ -1,30 +1,30 @@
 <script setup>
-import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { useConfig } from '@yh-ui/hooks'
-import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from './time-select'
+import { computed, ref, nextTick, watch, onMounted, onBeforeUnmount } from "vue";
+import { useNamespace, useFormItem, useId, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { useConfig } from "@yh-ui/hooks";
+import { generateTimeOptions, parseTimeToMinutes, isTimeInRange } from "./time-select";
 defineOptions({
-  name: 'YhTimeSelect'
-})
+  name: "YhTimeSelect"
+});
 const props = defineProps({
   modelValue: { type: String, required: false },
   disabled: { type: Boolean, required: false, default: false },
   editable: { type: Boolean, required: false, default: true },
   clearable: { type: Boolean, required: false, default: true },
   size: { type: String, required: false, default: void 0 },
-  placeholder: { type: String, required: false, default: '' },
+  placeholder: { type: String, required: false, default: "" },
   name: { type: String, required: false },
-  effect: { type: String, required: false, default: 'light' },
+  effect: { type: String, required: false, default: "light" },
   prefixIcon: { type: null, required: false },
   clearIcon: { type: null, required: false },
-  start: { type: String, required: false, default: '09:00' },
-  end: { type: String, required: false, default: '18:00' },
-  step: { type: String, required: false, default: '00:30' },
+  start: { type: String, required: false, default: "09:00" },
+  end: { type: String, required: false, default: "18:00" },
+  step: { type: String, required: false, default: "00:30" },
   minTime: { type: String, required: false },
   maxTime: { type: String, required: false },
   valueOnClear: { type: String, required: false },
-  format: { type: String, required: false, default: 'HH:mm' },
+  format: { type: String, required: false, default: "HH:mm" },
   popperClass: { type: String, required: false },
   popperStyle: { type: [String, Object], required: false },
   teleported: { type: Boolean, required: false, default: true },
@@ -33,284 +33,269 @@ const props = defineProps({
   options: { type: Array, required: false },
   disabledHours: { type: Array, required: false },
   themeOverrides: { type: null, required: false }
-})
-const emit = defineEmits([
-  'update:modelValue',
-  'change',
-  'focus',
-  'blur',
-  'clear',
-  'visible-change'
-])
-const ns = useNamespace('time-select')
-const { t } = useLocale()
-const inputId = useId()
+});
+const emit = defineEmits(["update:modelValue", "change", "focus", "blur", "clear", "visible-change"]);
+const ns = useNamespace("time-select");
+const { t } = useLocale();
+const inputId = useId();
 const { themeStyle } = useComponentTheme(
-  'time-select',
+  "time-select",
   computed(() => props.themeOverrides)
-)
-const { form, formItem, validate: triggerValidate } = useFormItem()
-const { globalSize } = useConfig()
+);
+const { form, formItem, validate: triggerValidate } = useFormItem();
+const { globalSize } = useConfig();
 const selectSize = computed(
-  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
-)
-const wrapperRef = ref()
-const inputRef = ref()
-const optionsRef = ref()
-const visible = ref(false)
-const focused = ref(false)
-const hovering = ref(false)
-const query = ref('')
-const hoveredIndex = ref(-1)
-const isClickingDropdown = ref(false)
-const dropdownStyle = ref({})
+  () => props.size || formItem?.size || form?.size || globalSize.value || "default"
+);
+const wrapperRef = ref();
+const inputRef = ref();
+const optionsRef = ref();
+const visible = ref(false);
+const focused = ref(false);
+const hovering = ref(false);
+const query = ref("");
+const hoveredIndex = ref(-1);
+const isClickingDropdown = ref(false);
+const dropdownStyle = ref({});
 const timeOptions = computed(() => {
   if (props.options && props.options.length > 0) {
-    return props.options
+    return props.options;
   }
-  return generateTimeOptions(props.start, props.end, props.step, props.format, props.includeEndTime)
-})
+  return generateTimeOptions(props.start, props.end, props.step, props.format, props.includeEndTime);
+});
 const filteredOptions = computed(() => {
-  let options = timeOptions.value
+  let options = timeOptions.value;
   if (props.disabledHours && props.disabledHours.length > 0) {
     options = options.map((opt) => {
       const isDisabled = props.disabledHours.some((range) => {
         if (range.length >= 2) {
-          return isTimeInRange(opt.value, range[0], range[1])
+          return isTimeInRange(opt.value, range[0], range[1]);
         }
-        return false
-      })
-      return { ...opt, disabled: opt.disabled || isDisabled }
-    })
+        return false;
+      });
+      return { ...opt, disabled: opt.disabled || isDisabled };
+    });
   }
   if (props.minTime) {
-    const minMinutes = parseTimeToMinutes(props.minTime)
+    const minMinutes = parseTimeToMinutes(props.minTime);
     options = options.map((opt) => ({
       ...opt,
       disabled: opt.disabled || parseTimeToMinutes(opt.value) < minMinutes
-    }))
+    }));
   }
   if (props.maxTime) {
-    const maxMinutes = parseTimeToMinutes(props.maxTime)
+    const maxMinutes = parseTimeToMinutes(props.maxTime);
     options = options.map((opt) => ({
       ...opt,
       disabled: opt.disabled || parseTimeToMinutes(opt.value) > maxMinutes
-    }))
+    }));
   }
   if (query.value && props.editable) {
-    const q = query.value.toLowerCase()
+    const q = query.value.toLowerCase();
     return options.filter(
       (opt) => opt.label.toLowerCase().includes(q) || opt.value.toLowerCase().includes(q)
-    )
+    );
   }
-  return options
-})
+  return options;
+});
 const displayLabel = computed(() => {
-  if (!props.modelValue) return ''
-  const opt = timeOptions.value.find((o) => o.value === props.modelValue)
-  return opt ? opt.label : props.modelValue
-})
+  if (!props.modelValue) return "";
+  const opt = timeOptions.value.find((o) => o.value === props.modelValue);
+  return opt ? opt.label : props.modelValue;
+});
 const showClear = computed(
-  () =>
-    props.clearable &&
-    !props.disabled &&
-    props.modelValue !== void 0 &&
-    props.modelValue !== '' &&
-    (focused.value || hovering.value)
-)
-const hasValue = computed(() => props.modelValue !== void 0 && props.modelValue !== '')
+  () => props.clearable && !props.disabled && props.modelValue !== void 0 && props.modelValue !== "" && (focused.value || hovering.value)
+);
+const hasValue = computed(() => props.modelValue !== void 0 && props.modelValue !== "");
 const wrapperClasses = computed(() => [
   ns.b(),
   ns.m(selectSize.value),
-  ns.is('disabled', props.disabled),
-  ns.is('focused', focused.value || visible.value)
-])
+  ns.is("disabled", props.disabled),
+  ns.is("focused", focused.value || visible.value)
+]);
 const updateDropdownPosition = () => {
-  if (!wrapperRef.value || !props.teleported) return
-  const rect = wrapperRef.value.getBoundingClientRect()
-  const spaceBelow = window.innerHeight - rect.bottom
-  const spaceAbove = rect.top
-  const dropdownHeight = 274
-  const showAbove = spaceBelow < dropdownHeight && spaceAbove > spaceBelow
-  const styles = window.getComputedStyle(wrapperRef.value)
-  const primary = styles.getPropertyValue('--yh-color-primary').trim()
-  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+  if (!wrapperRef.value || !props.teleported) return;
+  const rect = wrapperRef.value.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+  const dropdownHeight = 274;
+  const showAbove = spaceBelow < dropdownHeight && spaceAbove > spaceBelow;
+  const styles = window.getComputedStyle(wrapperRef.value);
+  const primary = styles.getPropertyValue("--yh-color-primary").trim();
+  const primaryRgb = styles.getPropertyValue("--yh-color-primary-rgb").trim();
   dropdownStyle.value = {
-    position: 'fixed',
+    position: "fixed",
     left: `${rect.left}px`,
     width: `${rect.width}px`,
-    zIndex: '2000',
-    '--yh-color-primary': primary,
-    '--yh-color-primary-rgb': primaryRgb,
-    ...(showAbove
-      ? { bottom: `${window.innerHeight - rect.top + 4}px` }
-      : { top: `${rect.bottom + 4}px` })
-  }
-}
+    zIndex: "2000",
+    "--yh-color-primary": primary,
+    "--yh-color-primary-rgb": primaryRgb,
+    ...showAbove ? { bottom: `${window.innerHeight - rect.top + 4}px` } : { top: `${rect.bottom + 4}px` }
+  };
+};
 const scrollToSelected = () => {
-  if (!optionsRef.value || !props.modelValue) return
+  if (!optionsRef.value || !props.modelValue) return;
   nextTick(() => {
-    const selectedEl = optionsRef.value?.querySelector(`.${ns.is('selected', true).slice(1)}`)
+    const selectedEl = optionsRef.value?.querySelector(
+      `.${ns.is("selected", true).slice(1)}`
+    );
     if (selectedEl && optionsRef.value) {
-      const containerHeight = optionsRef.value.clientHeight
-      const scrollTop = selectedEl.offsetTop - containerHeight / 2 + selectedEl.offsetHeight / 2
-      optionsRef.value.scrollTop = Math.max(0, scrollTop)
+      const containerHeight = optionsRef.value.clientHeight;
+      const scrollTop = selectedEl.offsetTop - containerHeight / 2 + selectedEl.offsetHeight / 2;
+      optionsRef.value.scrollTop = Math.max(0, scrollTop);
     }
-  })
-}
+  });
+};
 watch(visible, (val) => {
   if (val) {
     if (props.teleported) {
-      nextTick(updateDropdownPosition)
+      nextTick(updateDropdownPosition);
     }
-    scrollToSelected()
-    query.value = ''
+    scrollToSelected();
+    query.value = "";
   }
-  emit('visible-change', val)
-})
+  emit("visible-change", val);
+});
 onMounted(() => {
   if (props.teleported) {
-    window.addEventListener('scroll', updateDropdownPosition, true)
-    window.addEventListener('resize', updateDropdownPosition)
+    window.addEventListener("scroll", updateDropdownPosition, true);
+    window.addEventListener("resize", updateDropdownPosition);
   }
-})
+});
 onBeforeUnmount(() => {
   if (props.teleported) {
-    window.removeEventListener('scroll', updateDropdownPosition, true)
-    window.removeEventListener('resize', updateDropdownPosition)
+    window.removeEventListener("scroll", updateDropdownPosition, true);
+    window.removeEventListener("resize", updateDropdownPosition);
   }
-})
+});
 const handleOptionSelect = (option, event) => {
-  if (option.disabled) return
+  if (option.disabled) return;
   if (event) {
-    event.stopPropagation()
+    event.stopPropagation();
   }
-  emit('update:modelValue', option.value)
-  emit('change', option.value)
-  visible.value = false
-  query.value = ''
+  emit("update:modelValue", option.value);
+  emit("change", option.value);
+  visible.value = false;
+  query.value = "";
   if (props.validateEvent) {
-    triggerValidate('change')
+    triggerValidate("change");
   }
-}
+};
 const handleClear = (event) => {
-  event.stopPropagation()
-  const value = props.valueOnClear ?? void 0
-  emit('update:modelValue', value)
-  emit('change', value)
-  emit('clear')
-  query.value = ''
+  event.stopPropagation();
+  const value = props.valueOnClear ?? void 0;
+  emit("update:modelValue", value);
+  emit("change", value);
+  emit("clear");
+  query.value = "";
   if (props.validateEvent) {
-    triggerValidate('change')
+    triggerValidate("change");
   }
-}
+};
 const toggleDropdown = () => {
-  if (props.disabled) return
-  visible.value = !visible.value
+  if (props.disabled) return;
+  visible.value = !visible.value;
   if (visible.value) {
     nextTick(() => {
-      inputRef.value?.focus()
-    })
+      inputRef.value?.focus();
+    });
   }
-}
+};
 const handleInput = (event) => {
-  if (!props.editable) return
-  const target = event.target
-  query.value = target.value
-}
+  if (!props.editable) return;
+  const target = event.target;
+  query.value = target.value;
+};
 const handleKeydown = (event) => {
   switch (event.key) {
-    case 'ArrowDown':
-      event.preventDefault()
+    case "ArrowDown":
+      event.preventDefault();
       if (!visible.value) {
-        visible.value = true
+        visible.value = true;
       } else {
-        let nextIndex = hoveredIndex.value + 1
-        while (
-          nextIndex < filteredOptions.value.length &&
-          filteredOptions.value[nextIndex]?.disabled
-        ) {
-          nextIndex++
+        let nextIndex = hoveredIndex.value + 1;
+        while (nextIndex < filteredOptions.value.length && filteredOptions.value[nextIndex]?.disabled) {
+          nextIndex++;
         }
         if (nextIndex < filteredOptions.value.length) {
-          hoveredIndex.value = nextIndex
+          hoveredIndex.value = nextIndex;
         }
       }
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      let prevIndex = hoveredIndex.value - 1
+      break;
+    case "ArrowUp":
+      event.preventDefault();
+      let prevIndex = hoveredIndex.value - 1;
       while (prevIndex >= 0 && filteredOptions.value[prevIndex]?.disabled) {
-        prevIndex--
+        prevIndex--;
       }
       if (prevIndex >= 0) {
-        hoveredIndex.value = prevIndex
+        hoveredIndex.value = prevIndex;
       }
-      break
-    case 'Enter':
-      event.preventDefault()
+      break;
+    case "Enter":
+      event.preventDefault();
       if (visible.value && hoveredIndex.value >= 0 && filteredOptions.value[hoveredIndex.value]) {
-        handleOptionSelect(filteredOptions.value[hoveredIndex.value])
+        handleOptionSelect(filteredOptions.value[hoveredIndex.value]);
       } else if (!visible.value) {
-        visible.value = true
+        visible.value = true;
       }
-      break
-    case 'Escape':
-      visible.value = false
-      break
-    case 'Tab':
-      visible.value = false
-      break
+      break;
+    case "Escape":
+      visible.value = false;
+      break;
+    case "Tab":
+      visible.value = false;
+      break;
   }
-}
+};
 const handleFocus = (event) => {
-  focused.value = true
-  emit('focus', event)
-}
+  focused.value = true;
+  emit("focus", event);
+};
 const handleBlur = (event) => {
   if (isClickingDropdown.value) {
-    return
+    return;
   }
-  focused.value = false
-  visible.value = false
-  emit('blur', event)
+  focused.value = false;
+  visible.value = false;
+  emit("blur", event);
   if (props.validateEvent) {
-    triggerValidate('blur')
+    triggerValidate("blur");
   }
-}
+};
 const handleDropdownMousedown = (event) => {
-  event.preventDefault()
-  isClickingDropdown.value = true
-}
+  event.preventDefault();
+  isClickingDropdown.value = true;
+};
 const handleDropdownMouseup = () => {
   setTimeout(() => {
-    isClickingDropdown.value = false
-  }, 0)
-}
+    isClickingDropdown.value = false;
+  }, 0);
+};
 const handleOptionClick = (option, event) => {
-  event.stopPropagation()
-  handleOptionSelect(option, event)
+  event.stopPropagation();
+  handleOptionSelect(option, event);
   nextTick(() => {
-    inputRef.value?.focus()
-  })
-}
+    inputRef.value?.focus();
+  });
+};
 const handleMouseEnter = () => {
-  hovering.value = true
-}
+  hovering.value = true;
+};
 const handleMouseLeave = () => {
-  hovering.value = false
-}
+  hovering.value = false;
+};
 const focus = () => {
-  inputRef.value?.focus()
-}
+  inputRef.value?.focus();
+};
 const blur = () => {
-  inputRef.value?.blur()
-}
+  inputRef.value?.blur();
+};
 defineExpose({
   focus,
   blur,
   inputRef
-})
+});
 </script>
 
 <template>
@@ -374,15 +359,9 @@ defineExpose({
         </span>
 
         <!-- 箭头图标 -->
-        <span
-          :class="[
-            ns.e('icon'),
-            ns.e('arrow'),
-            {
-              'is-reverse': visible
-            }
-          ]"
-        >
+        <span :class="[ns.e('icon'), ns.e('arrow'), {
+  'is-reverse': visible
+}]">
           <svg viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
@@ -406,7 +385,7 @@ defineExpose({
           <!-- 无数据 -->
           <div v-if="filteredOptions.length === 0" :class="ns.e('empty')">
             <slot name="empty">
-              {{ t('select.noData') }}
+              {{ t("select.noData") }}
             </slot>
           </div>
 
@@ -421,12 +400,7 @@ defineExpose({
             <div
               v-for="(option, index) in filteredOptions"
               :key="option.value"
-              :class="[
-                ns.e('option'),
-                ns.is('selected', modelValue === option.value),
-                ns.is('disabled', option.disabled),
-                ns.is('hovering', hoveredIndex === index)
-              ]"
+              :class="[ns.e('option'), ns.is('selected', modelValue === option.value), ns.is('disabled', option.disabled), ns.is('hovering', hoveredIndex === index)]"
               role="option"
               :aria-selected="modelValue === option.value"
               @mousedown.prevent
@@ -1037,8 +1011,7 @@ html.dark {
   cursor: pointer;
   transition: background-color var(--yh-duration-fast) ease;
 }
-.yh-time-select__option:hover,
-.yh-time-select__option.is-hovering {
+.yh-time-select__option:hover, .yh-time-select__option.is-hovering {
   background-color: var(--yh-fill-color-light, #f5f7fa);
 }
 .yh-time-select__option.is-selected {

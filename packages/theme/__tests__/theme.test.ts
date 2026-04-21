@@ -227,11 +227,10 @@ describe('Theme System Comprehensive', () => {
 
   it('Theme History (Undo/Redo)', () => {
     theme.clearHistory()
-    theme.applyFullConfig({ preset: 'dark', transition: true, colorBlindMode: 'tritanopia' })
+    theme.applyFullConfig({ preset: 'dark', colorBlindMode: 'tritanopia' })
     theme.applyFullConfig({
       preset: 'purple',
-      colors: { primary: '#666' },
-      components: { tag: { bg: 'red' } }
+      colors: { primary: '#666' }
     })
 
     const hist = theme.getHistory()
@@ -241,9 +240,10 @@ describe('Theme System Comprehensive', () => {
     expect(theme.theme).toBe('dark') // Reverted to previous
 
     // cover max length
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i <= 10; i++) {
       theme.applyFullConfig({ preset: 'default' })
     }
+    expect(theme.getHistory()).toHaveLength(10)
 
     theme.clearHistory()
     expect(theme.undo()).toBe(false)

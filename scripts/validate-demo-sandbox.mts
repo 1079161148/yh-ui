@@ -142,6 +142,12 @@ interface WorkspaceManifest {
   version: string
 }
 
+interface SandboxPackageJson extends Record<string, unknown> {
+  pnpm?: {
+    overrides?: Record<string, string>
+  }
+}
+
 async function readWorkspaceManifest(packageDirName: string): Promise<WorkspaceManifest> {
   const manifestPath = path.join(packagesRoot, packageDirName, 'package.json')
   return JSON.parse(await readFile(manifestPath, 'utf8')) as WorkspaceManifest
@@ -192,7 +198,7 @@ function applyWorkspaceOverrides(
   caseDir: string,
   tarballMap: Map<string, string>
 ): Record<string, string> {
-  const packageJson = JSON.parse(files['package.json']) as Record<string, any>
+  const packageJson = JSON.parse(files['package.json']) as SandboxPackageJson
   const overrides = Object.fromEntries(
     [...tarballMap.entries()].map(([packageName, tarballPath]) => [
       packageName,

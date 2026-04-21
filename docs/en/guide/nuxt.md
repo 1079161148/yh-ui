@@ -72,7 +72,7 @@ export default defineNuxtConfig({
 ```
 
 In the default setup, `@yh-ui/nuxt` automatically injects YH-UI's CSS styles, so pure CSS projects work without any Sass setup.
-The module actually injects the public CSS entry `@yh-ui/components/style`, rather than any Sass file from the source directory.
+The module injects the explicit CSS subpath `@yh-ui/components/style.css` into `nuxt.options.css`, avoiding any dependency on source Sass files and preventing Nuxt SSR style extraction warnings.
 
 ### Available Options
 
@@ -82,7 +82,7 @@ The module actually injects the public CSS entry `@yh-ui/components/style`, rath
 | `prefix`         | `string`  | `'Yh'`  | Component prefix; for example, if set to `My`, component names will be `MyButton`        |
 | `buildTranspile` | `boolean` | `true`  | Whether to automatically transpile related dependencies                                  |
 
-When `importStyle` is `true`, the Nuxt module actually appends `@yh-ui/components/style` to `nuxt.options.css`.
+When `importStyle` is `true`, the Nuxt module appends `@yh-ui/components/style.css` to `nuxt.options.css`.
 
 ## Auto-import
 
@@ -119,6 +119,7 @@ Commonly used hooks are also automatically imported:
 // Use directly, no import needed
 const ns = useNamespace('my-component')
 const id = useId()
+const yhId = useYhId()
 const { nextZIndex } = useZIndex()
 
 // Generate BEM class names
@@ -130,7 +131,8 @@ const blockClass = computed(() => ns.b('header')) // 'yh-my-component-header'
 **Available Composables**:
 
 - `useNamespace` - BEM class name generation
-- `useId` - Unique ID generation
+- `useId` - Vue/Nuxt native unique ID generation
+- `useYhId` - YH-UI hooks unique ID alias import
 - `useZIndex` - z-index management
 - `useLocale` - Internationalization
 - `useFormItem` - Form item integration

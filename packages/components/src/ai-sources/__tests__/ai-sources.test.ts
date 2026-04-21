@@ -146,14 +146,15 @@ describe('AiSources', () => {
       props: { sources: mockSources, mode: 'card' }
     })
 
-    // Mock scrollIntoView
-    Element.prototype.scrollIntoView = vi.fn()
+    await nextTick()
+    const sourceCard = wrapper.findAll('.yh-ai-sources__source-card')[0]
+    const scrollSpy = vi.spyOn(sourceCard.element as HTMLElement, 'scrollIntoView')
 
     wrapper.vm.scrollToSource(1)
     await wrapper.vm.$nextTick()
 
-    expect(Element.prototype.scrollIntoView).toHaveBeenCalled()
-    expect(wrapper.find('.is-highlighted').exists()).toBe(true)
+    expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth', block: 'center' })
+    expect(sourceCard.classes()).toContain('is-highlighted')
   })
 
   it('handles expansion in inline mode', async () => {

@@ -1,0 +1,47 @@
+name: Feature request
+description: Suggest an improvement or new capability for YH-UI.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the user problem first, then the API or UX shape you would like to see.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What is hard, missing, or inconsistent today?
+      placeholder: "I want to..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the API, behavior, or user experience you expect.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing workarounds or competing-library behavior.
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Core components
+        - AI components
+        - Nuxt integration
+        - Theming
+        - Documentation
+        - Tooling / build
+        - Testing / quality
+        - Other
+    validations:
+      required: true

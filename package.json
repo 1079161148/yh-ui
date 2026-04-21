@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "yh-ui-monorepo",
-  "version": "0.1.56",
+  "version": "1.0.0",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
@@ -26,11 +26,13 @@
     "verify:sandboxes": "pnpm verify:stackblitz-local",
     "verify:release-versions": "node scripts/verify-release-versions.mjs",
     "verify:docs-playground": "vite-node scripts/verify-docs-playground.mts",
+    "verify:consumer-smoke": "node scripts/verify-consumer-smoke.mjs",
     "verify:codesandbox-remote": "vite-node scripts/verify-codesandbox-remote.mts",
     "verify:published-release": "node scripts/verify-published-release.mjs",
-    "test": "vitest",
-    "test:run": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run",
-    "test:coverage": "vitest run --coverage",
+    "test": "vitest --project components-dom --project packages-dom --project packages-node --project ssr",
+    "test:coverage": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run --coverage --project components-dom --project packages-dom --project packages-node --project ssr",
+    "test:perf": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run --project perf",
+    "test:ci": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run --project components-dom --project packages-dom --project packages-node --project ssr",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -42,23 +44,19 @@
     "version:patch": "bumpp package.json packages/*/package.json --no-push --no-tag --no-commit",
     "version:minor": "bumpp package.json packages/*/package.json --minor --no-push --no-tag --no-commit",
     "version:major": "bumpp package.json packages/*/package.json --major --no-push --no-tag --no-commit",
-    "verify:release": "pnpm build && pnpm sync:docs-public && pnpm verify:release-versions && pnpm docs:build && pnpm verify:stackblitz-local && pnpm verify:docs-playground",
+    "verify:release": "pnpm build && pnpm sync:docs-public && pnpm verify:release-versions && pnpm verify:consumer-smoke && pnpm docs:build && pnpm verify:stackblitz-local && pnpm verify:docs-playground",
     "release": "bumpp package.json packages/*/package.json --commit \"chore(release): v%s\" --push --tag",
     "publish:all": "node scripts/publish-unpublished-packages.mjs",
-    "wait:published-packages": "node scripts/wait-for-published-packages.mjs",
-    "perf:components": "pnpm -C packages/components build",
-    "perf:nuxt": "pnpm -C playground-nuxt build"
+    "wait:published-packages": "node scripts/wait-for-published-packages.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "@types/dagre": "^0.7.54",
     "@types/node": "^22.10.5",
-    "@types/viewerjs": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitejs/plugin-vue-jsx": "^5.0.0",
-    "@vitest/browser": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
     "@vue/server-renderer": "^3.5.27",
     "@vue/test-utils": "^2.4.6",
@@ -70,14 +68,12 @@
     "happy-dom": "^16.6.0",
     "html-to-image": "^1.11.13",
     "husky": "^9.1.7",
-    "jsdom": "^27.4.0",
     "lint-staged": "^15.3.0",
     "pinia": "^3.0.4",
     "playwright": "^1.58.2",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "rollup": "^4.56.0",
-    "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.83.1",
     "typescript": "^5.7.3",
     "unbuild": "^3.6.1",
@@ -139,3 +135,4 @@
     }
   }
 }
+

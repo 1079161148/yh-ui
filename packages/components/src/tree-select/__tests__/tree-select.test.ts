@@ -171,6 +171,22 @@ describe('YhTreeSelect', () => {
     expect(wrapper.find('.yh-tree-select__selected-label').text()).toBe('分公司')
   })
 
+  it('falls back to the raw modelValue label when the node is missing', async () => {
+    const wrapper = mount(YhTreeSelect as any, {
+      props: {
+        data: data as any,
+        props: propsAlias,
+        modelValue: 'missing-node',
+        teleported: false,
+        nodeKey: 'id'
+      }
+    })
+
+    await nextTick()
+
+    expect(wrapper.find('.yh-tree-select__selected-label').text()).toBe('missing-node')
+  })
+
   it('supports collapse-tags', async () => {
     const wrapper = mount(YhTreeSelect as any, {
       props: {

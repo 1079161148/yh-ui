@@ -1,23 +1,23 @@
 const productCardProps = {
   image: {
     type: String,
-    default: ''
+    default: ""
   },
   hoverImage: {
     type: String,
-    default: ''
+    default: ""
   },
   videoSrc: {
     type: String,
-    default: ''
+    default: ""
   },
   title: {
     type: String,
-    default: ''
+    default: ""
   },
   description: {
     type: String,
-    default: ''
+    default: ""
   },
   price: {
     type: [Number, String],
@@ -25,39 +25,39 @@ const productCardProps = {
   },
   vipPrice: {
     type: [Number, String],
-    default: ''
+    default: ""
   },
   vipLabel: {
     type: String,
-    default: ''
+    default: ""
   },
   marketPrice: {
     type: [Number, String],
-    default: ''
+    default: ""
   },
   currency: {
     type: String,
-    default: '\xA5'
+    default: "\xA5"
   },
   unit: {
     type: String,
-    default: ''
+    default: ""
   },
   ribbon: {
     type: String,
-    default: ''
+    default: ""
   },
   ribbonColor: {
     type: String,
-    default: ''
+    default: ""
   },
   tag: {
     type: String,
-    default: ''
+    default: ""
   },
   tagType: {
     type: String,
-    default: 'danger'
+    default: "danger"
   },
   badges: {
     type: Array,
@@ -65,7 +65,7 @@ const productCardProps = {
   },
   layout: {
     type: String,
-    default: 'vertical'
+    default: "vertical"
   },
   lazy: {
     type: Boolean,
@@ -77,11 +77,11 @@ const productCardProps = {
   },
   stockColor: {
     type: String,
-    default: ''
+    default: ""
   },
   stockText: {
     type: String,
-    default: ''
+    default: ""
   },
   border: {
     type: Boolean,
@@ -97,7 +97,7 @@ const productCardProps = {
   },
   actionText: {
     type: String,
-    default: ''
+    default: ""
   },
   actionLoading: {
     type: Boolean,
@@ -129,16 +129,19 @@ const productCardProps = {
   },
   badgePosition: {
     type: String,
-    default: 'top'
+    default: "top"
   },
   themeOverrides: {
     type: Object,
     default: () => ({})
   }
-}
+};
 const productCardEmits = {
   click: (e) => e instanceof MouseEvent,
   action: (e) => e instanceof MouseEvent,
   expose: () => true
-}
-export { productCardEmits, productCardProps }
+};
+export {
+  productCardEmits,
+  productCardProps
+};

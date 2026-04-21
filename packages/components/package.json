@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "@yh-ui/components",
-  "version": "0.1.56",
+  "version": "1.0.0",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
@@ -23,6 +23,7 @@
       "require": "./dist/resolver.cjs"
     },
     "./style": "./dist/style.css",
+    "./style.css": "./dist/style.css",
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
@@ -98,3 +99,4 @@
     "pnpm": ">=9.0.0"
   }
 }
+

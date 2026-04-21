@@ -728,28 +728,32 @@ const getMarkdownInstance = () => {
       return wrapperStart + `<pre class="hljs ${lang || ""}"><code>${result}</code></pre>` + wrapperEnd;
     }
   });
-  md.block.ruler.before("code", "mermaid", (state, silent) => {
-    const start = state.bMarks[state.line];
-    const max = state.eMarks[state.line];
-    const line = state.src.slice(start, max);
-    if (!line.trim().startsWith("```mermaid")) return false;
-    if (!silent) {
-      state.line++;
-      const lines = [];
-      while (state.line < state.lineMax) {
-        const lineContent = state.src.slice(state.bMarks[state.line], state.eMarks[state.line]);
-        if (lineContent.trim().startsWith("```")) break;
-        lines.push(lineContent);
-        state.line++;
+  md.block.ruler.before(
+    "code",
+    "mermaid",
+    (state, startLine, _endLine, silent) => {
+      const start = state.bMarks[startLine];
+      const max = state.eMarks[startLine];
+      const line = state.src.slice(start, max);
+      if (!line.trim().startsWith("```mermaid")) return false;
+      if (!silent) {
+        state.line = startLine + 1;
+        const lines = [];
+        while (state.line < state.lineMax) {
+          const lineContent = state.src.slice(state.bMarks[state.line], state.eMarks[state.line]);
+          if (lineContent.trim().startsWith("```")) break;
+          lines.push(lineContent);
+          state.line++;
+        }
+        let token = state.push("mermaid_open", "div", 1);
+        token.attrSet("class", "mermaid-block");
+        token = state.push("mermaid_code", "", 0);
+        token.content = lines.join("\n");
+        token = state.push("mermaid_close", "div", -1);
       }
-      let token = state.push("mermaid_open", "div", 1);
-      token.attrSet("class", "mermaid-block");
-      token = state.push("mermaid_code", "", 0);
-      token.content = lines.join("\n");
-      token = state.push("mermaid_close", "div", -1);
+      return true;
     }
-    return true;
-  });
+  );
   md.renderer.rules.mermaid_open = () => '<div class="mermaid-block">';
   md.renderer.rules.mermaid_code = (tokens, idx) => {
     const code = tokens[idx].content;

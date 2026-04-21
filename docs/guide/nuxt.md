@@ -70,7 +70,7 @@ export default defineNuxtConfig({
 ```
 
 默认情况下无需额外配置，`@yh-ui/nuxt` 会自动注入 YH-UI 的 CSS 样式，对纯 CSS 项目同样开箱即用。
-模块内部实际注入的是公开 CSS 入口 `@yh-ui/components/style`，而不是源码目录下的 Sass 文件。
+模块会直接把显式 CSS 子路径 `@yh-ui/components/style.css` 注入到 `nuxt.options.css`，而不是依赖源码目录下的 Sass 文件，也能避免 Nuxt SSR 样式提取告警。
 
 ### 可用配置
 
@@ -80,7 +80,7 @@ export default defineNuxtConfig({
 | `prefix`         | `string`  | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton`      |
 | `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖                                 |
 
-当 `importStyle` 为 `true` 时，Nuxt 模块实际追加到 `nuxt.options.css` 的入口是 `@yh-ui/components/style`。
+当 `importStyle` 为 `true` 时，Nuxt 模块会把 `@yh-ui/components/style.css` 追加到 `nuxt.options.css`。
 
 ## 自动导入
 
@@ -117,6 +117,7 @@ const selected = ref('')
 // 直接使用，无需导入
 const ns = useNamespace('my-component')
 const id = useId()
+const yhId = useYhId()
 const { nextZIndex } = useZIndex()
 
 // 生成 BEM 类名
@@ -128,7 +129,8 @@ const blockClass = computed(() => ns.b('header')) // 'yh-my-component-header'
 **可用的 Composables**:
 
 - `useNamespace` - BEM 类名生成
-- `useId` - 唯一 ID 生成
+- `useId` - Vue/Nuxt 原生唯一 ID 生成
+- `useYhId` - YH-UI hooks 唯一 ID 别名导入
 - `useZIndex` - z-index 管理
 - `useLocale` - 国际化
 - `useFormItem` - 表单项集成

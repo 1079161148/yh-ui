@@ -1,136 +1,131 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { useComponentTheme } from '@yh-ui/theme'
-import { colorPickerProps, colorPickerEmits } from './color-picker'
-import SVPanel from './sv-panel.vue'
-import HueSlider from './hue-slider.vue'
-import AlphaSlider from './alpha-slider.vue'
-import { parseColor, formatColor, hsvToRgb, getLuminance } from './utils'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from "vue";
+import { useNamespace, useLocale } from "@yh-ui/hooks";
+import { useComponentTheme } from "@yh-ui/theme";
+import { colorPickerProps, colorPickerEmits } from "./color-picker";
+import SVPanel from "./sv-panel.vue";
+import HueSlider from "./hue-slider.vue";
+import AlphaSlider from "./alpha-slider.vue";
+import { parseColor, formatColor, hsvToRgb, getLuminance } from "./utils";
 defineOptions({
-  name: 'YhColorPicker'
-})
-const props = defineProps(colorPickerProps)
-const emit = defineEmits(colorPickerEmits)
-const ns = useNamespace('color-picker')
-const { t } = useLocale()
+  name: "YhColorPicker"
+});
+const props = defineProps(colorPickerProps);
+const emit = defineEmits(colorPickerEmits);
+const ns = useNamespace("color-picker");
+const { t } = useLocale();
 const { themeStyle } = useComponentTheme(
-  'color-picker',
+  "color-picker",
   computed(() => props.themeOverrides)
-)
-const visible = ref(false)
-const color = ref(parseColor(props.modelValue))
-const inputValue = ref(props.modelValue || '')
-const triggerRef = ref()
-const popperRef = ref()
-const rgb = computed(() => hsvToRgb(color.value.h, color.value.s, color.value.v))
-const baseColor = computed(() => `hsl(${color.value.h}, 100%, 50%)`)
-const currentColor = computed(() => formatColor(color.value, props.showAlpha ? 'rgb' : 'hex'))
+);
+const visible = ref(false);
+const color = ref(parseColor(props.modelValue));
+const inputValue = ref(props.modelValue || "");
+const triggerRef = ref();
+const popperRef = ref();
+const rgb = computed(() => hsvToRgb(color.value.h, color.value.s, color.value.v));
+const baseColor = computed(() => `hsl(${color.value.h}, 100%, 50%)`);
+const currentColor = computed(() => formatColor(color.value, props.showAlpha ? "rgb" : "hex"));
 const contrastInfo = computed(() => {
-  const l = getLuminance(rgb.value.r, rgb.value.g, rgb.value.b)
+  const l = getLuminance(rgb.value.r, rgb.value.g, rgb.value.b);
   return {
     isDark: l < 0.5,
-    suggestion: l < 0.5 ? t('colorpicker.suggestionDark') : t('colorpicker.suggestionLight')
-  }
-})
+    suggestion: l < 0.5 ? t("colorpicker.suggestionDark") : t("colorpicker.suggestionLight")
+  };
+});
 watch(
   () => props.modelValue,
   (val) => {
-    const parsed = parseColor(val)
+    const parsed = parseColor(val);
     if (JSON.stringify(parsed) !== JSON.stringify(color.value)) {
-      color.value = parsed
+      color.value = parsed;
     }
-    inputValue.value = val || ''
+    inputValue.value = val || "";
   }
-)
+);
 watch(currentColor, (val) => {
-  inputValue.value = val
-})
+  inputValue.value = val;
+});
 const updateColor = () => {
-  const val = currentColor.value
-  emit('update:modelValue', val)
-  emit('activeChange', val)
-}
+  const val = currentColor.value;
+  emit("update:modelValue", val);
+  emit("activeChange", val);
+};
 const handleInputChange = (event) => {
-  const target = event.target
-  const text = target.value
-  const parsed = parseColor(text)
-  color.value = parsed
-  updateColor()
-}
+  const target = event.target;
+  const text = target.value;
+  const parsed = parseColor(text);
+  color.value = parsed;
+  updateColor();
+};
 const handleConfirm = () => {
-  emit('change', currentColor.value)
-  visible.value = false
-}
+  emit("change", currentColor.value);
+  visible.value = false;
+};
 const handleClear = () => {
-  inputValue.value = ''
-  color.value = { h: 0, s: 0, v: 100, a: 1 }
-  emit('update:modelValue', '')
-  emit('change', '')
-  visible.value = false
-}
-const isEyeDropperSupported = ref(false)
+  inputValue.value = "";
+  color.value = { h: 0, s: 0, v: 100, a: 1 };
+  emit("update:modelValue", "");
+  emit("change", "");
+  visible.value = false;
+};
+const isEyeDropperSupported = ref(false);
 onMounted(() => {
-  isEyeDropperSupported.value = typeof window.EyeDropper !== 'undefined'
-})
+  isEyeDropperSupported.value = typeof window.EyeDropper !== "undefined";
+});
 const handleEyeDropper = async () => {
-  if (!isEyeDropperSupported.value) return
-  const eyeDropper = new window.EyeDropper()
+  if (!isEyeDropperSupported.value) return;
+  const eyeDropper = new window.EyeDropper();
   try {
-    const result = await eyeDropper.open()
-    color.value = parseColor(result.sRGBHex)
-    updateColor()
-  } catch {}
-}
-const togglePopper = () => {
-  if (props.disabled) return
-  visible.value = !visible.value
-}
-const handleClickOutside = (e) => {
-  if (
-    visible.value &&
-    triggerRef.value &&
-    !triggerRef.value.contains(e.target) &&
-    popperRef.value &&
-    !popperRef.value.contains(e.target)
-  ) {
-    visible.value = false
+    const result = await eyeDropper.open();
+    color.value = parseColor(result.sRGBHex);
+    updateColor();
+  } catch {
   }
-}
+};
+const togglePopper = () => {
+  if (props.disabled) return;
+  visible.value = !visible.value;
+};
+const handleClickOutside = (e) => {
+  if (visible.value && triggerRef.value && !triggerRef.value.contains(e.target) && popperRef.value && !popperRef.value.contains(e.target)) {
+    visible.value = false;
+  }
+};
 const handlePredefineClick = (c) => {
-  color.value = parseColor(c)
-  updateColor()
-}
+  color.value = parseColor(c);
+  updateColor();
+};
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
+  document.addEventListener("click", handleClickOutside);
+});
 onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
-const popperStyle = ref({})
+  document.removeEventListener("click", handleClickOutside);
+});
+const popperStyle = ref({});
 watch(visible, (val) => {
   if (val && triggerRef.value) {
-    const rect = triggerRef.value.getBoundingClientRect()
-    const styles = window.getComputedStyle(triggerRef.value)
-    const primary = styles.getPropertyValue('--yh-color-primary').trim()
-    const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+    const rect = triggerRef.value.getBoundingClientRect();
+    const styles = window.getComputedStyle(triggerRef.value);
+    const primary = styles.getPropertyValue("--yh-color-primary").trim();
+    const primaryRgb = styles.getPropertyValue("--yh-color-primary-rgb").trim();
     popperStyle.value = {
       ...themeStyle.value,
       top: `${rect.bottom + window.scrollY + 8}px`,
       left: `${rect.left + window.scrollX}px`,
-      position: 'absolute',
+      position: "absolute",
       zIndex: 3e3,
-      '--yh-color-primary': primary,
-      '--yh-color-primary-rgb': primaryRgb
-    }
+      "--yh-color-primary": primary,
+      "--yh-color-primary-rgb": primaryRgb
+    };
   }
-})
+});
 defineExpose({
   visible,
   togglePopper,
   handleClear,
   handleConfirm
-})
+});
 </script>
 
 <template>
@@ -141,12 +136,9 @@ defineExpose({
     @click="togglePopper"
   >
     <div :class="ns.e('trigger')">
-      <div
-        :class="ns.e('color')"
-        :style="{
-          backgroundColor: modelValue || 'transparent'
-        }"
-      >
+      <div :class="ns.e('color')" :style="{
+  backgroundColor: modelValue || 'transparent'
+}">
         <svg
           v-if="!modelValue"
           viewBox="0 0 1024 1024"
@@ -184,43 +176,37 @@ defineExpose({
               :h="color.h"
               :s="color.s"
               :v="color.v"
-              @update="
-                (s, v) => {
-                  color.s = s
-                  color.v = v
-                  updateColor()
-                }
-              "
+              @update="(s, v) => {
+  color.s = s;
+  color.v = v;
+  updateColor();
+}"
             />
             <div :class="ns.e('contrast-advisor')" :title="t('colorpicker.suggestionDark')">
               <span
                 :class="ns.e('contrast-dot')"
                 :style="{
-                  backgroundColor: contrastInfo.isDark ? '#fff' : '#000'
-                }"
+  backgroundColor: contrastInfo.isDark ? '#fff' : '#000'
+}"
               ></span>
               {{ contrastInfo.suggestion }}
             </div>
             <div :class="ns.e('sliders')">
               <HueSlider
                 :h="color.h"
-                @update="
-                  (h) => {
-                    color.h = h
-                    updateColor()
-                  }
-                "
+                @update="h => {
+  color.h = h;
+  updateColor();
+}"
               />
               <AlphaSlider
                 v-if="showAlpha"
                 :a="color.a"
                 :color="baseColor"
-                @update="
-                  (a) => {
-                    color.a = a
-                    updateColor()
-                  }
-                "
+                @update="a => {
+  color.a = a;
+  updateColor();
+}"
               />
             </div>
           </div>
@@ -231,8 +217,8 @@ defineExpose({
               :key="c"
               :class="ns.e('predefine-item')"
               :style="{
-                backgroundColor: c
-              }"
+  backgroundColor: c
+}"
               @click="handlePredefineClick(c)"
             ></div>
           </div>
@@ -261,10 +247,10 @@ defineExpose({
             </div>
             <div :class="ns.e('btns')">
               <button :class="ns.e('btn-clear')" @click="handleClear">
-                {{ t('colorpicker.clear') }}
+                {{ t("colorpicker.clear") }}
               </button>
               <button :class="ns.e('btn-confirm')" @click="handleConfirm">
-                {{ t('colorpicker.confirm') }}
+                {{ t("colorpicker.confirm") }}
               </button>
             </div>
           </div>
@@ -796,9 +782,7 @@ html.dark {
   padding: 16px;
   background: #fff;
   border-radius: 12px;
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--yh-border-color-light);
   user-select: none;
   z-index: 3000;
@@ -886,9 +870,7 @@ html.dark {
   width: 28px;
   height: 28px;
   border-radius: 4px;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 .yh-color-picker__eye-dropper:hover {
   background: var(--yh-fill-color-light);
@@ -952,9 +934,7 @@ html.dark {
 
 .yh-fade-enter-active,
 .yh-fade-leave-active {
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .yh-fade-enter-from,

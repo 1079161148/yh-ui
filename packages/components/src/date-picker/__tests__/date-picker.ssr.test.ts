@@ -7,21 +7,19 @@ import { renderToString } from '@vue/server-renderer'
 import DatePicker from '../src/date-picker.vue'
 
 describe('YhDatePicker SSR', () => {
-  it('服务端渲染不应报错且生成正确结构', async () => {
+  it('renders the base structure without the panel by default', async () => {
     const app = createSSRApp({
       render: () => h(DatePicker)
     })
 
     const html = await renderToString(app)
 
-    // 基本结构检查
     expect(html).toContain('yh-date-picker')
     expect(html).toContain('input')
-    // 默认不渲染面板（因为 visible 为 false）
     expect(html).not.toContain('yh-date-picker__panel')
   })
 
-  it('SSR 初始值渲染', async () => {
+  it('renders a formatted initial value on server', async () => {
     const app = createSSRApp(DatePicker, {
       modelValue: '2024-01-01',
       format: 'YYYY-MM-DD'
@@ -29,5 +27,21 @@ describe('YhDatePicker SSR', () => {
 
     const html = await renderToString(app)
     expect(html).toContain('value="2024-01-01"')
+  })
+
+  it('renders range placeholders and theme overrides on server', async () => {
+    const app = createSSRApp(DatePicker, {
+      type: 'daterange',
+      startPlaceholder: 'Start date',
+      endPlaceholder: 'End date',
+      themeOverrides: {
+        primary: '#1677ff'
+      }
+    })
+
+    const html = await renderToString(app)
+    expect(html).toContain('Start date')
+    expect(html).toContain('End date')
+    expect(html).toContain('--yh-date-picker-primary:#1677ff')
   })
 })
