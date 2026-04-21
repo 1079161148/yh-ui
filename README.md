@@ -260,4 +260,4 @@ pnpm publish:all
 - Browsers: modern Chrome / Edge / Firefox / Safari only, no Internet Explorer support
 - SSR: supported for mainstream component usage and Nuxt integration; browser-API-heavy capabilities should still be evaluated as dedicated integrations
 
-See the detailed support matrix in [docs/guide/compatibility.md](C:\Users\1\.codex\worktrees\f2c3\YH-UI\docs\guide\compatibility.md) and the current size guardrail in [PACKAGE_SIZE_BASELINE.md](C:\Users\1\.codex\worktrees\f2c3\YH-UI\PACKAGE_SIZE_BASELINE.md).
+See the detailed support matrix in [docs/guide/compatibility.md](C:\Users\1.codex\worktrees\f2c3\YH-UI\docs\guide\compatibility.md) and the current size guardrail in [PACKAGE_SIZE_BASELINE.md](C:\Users\1.codex\worktrees\f2c3\YH-UI\PACKAGE_SIZE_BASELINE.md).

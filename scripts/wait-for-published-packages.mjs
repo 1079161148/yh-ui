@@ -120,7 +120,9 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))
   }
 
-  throw new Error(`Timed out waiting for published workspace packages to appear on npm within ${timeoutMs}ms`)
+  throw new Error(
+    `Timed out waiting for published workspace packages to appear on npm within ${timeoutMs}ms`
+  )
 }
 
 await main()

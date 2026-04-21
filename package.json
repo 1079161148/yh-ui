@@ -45,6 +45,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .github/workflows/ci.yml .github/workflows/pr-check.yml package.json vitest.config.ts scripts/generate-branch-coverage-exclude.mjs scripts/generate-component-system-coverage-exclude.mjs scripts/prepare-package-manifest.mjs scripts/publish-unpublished-packages.mjs scripts/report-component-system-coverage.mjs scripts/run-component-system-coverage.mjs scripts/run-vitest-coverage.mjs scripts/validate-demo-sandbox.mts scripts/verify-codesandbox-remote.mts scripts/verify-consumer-smoke.mjs scripts/verify-docs-playground.mts scripts/wait-for-published-packages.mjs test/setup/vitest.dom.ts README.md RELEASE_VALIDATION.md STABLE_RELEASE_BLOCKERS.md playground/index.html",
     "typecheck": "vue-tsc --noEmit",
     "clean": "rimraf node_modules **/node_modules **/dist",
     "postinstall": "node scripts/postinstall.mjs",

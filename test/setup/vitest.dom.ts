@@ -45,7 +45,9 @@ beforeAll(() => {
   }
 
   if (typeof globalThis.requestAnimationFrame === 'undefined') {
-    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => setTimeout(() => cb(Date.now()), 16))
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) =>
+      setTimeout(() => cb(Date.now()), 16)
+    )
   }
 
   if (typeof globalThis.cancelAnimationFrame === 'undefined') {

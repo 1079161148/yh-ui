@@ -72,7 +72,7 @@ This checklist tracks the shortest path from "publicly usable" to a release that
 
 - [x] Move DOM-dependent package tests out of the `packages-node` Vitest project into a dedicated `packages-dom` project.
 - [x] Restore a fully green `pnpm test:ci`.
-  Verified on 2026-04-21 after the Vitest project split and scroll-related test stabilization.
+      Verified on 2026-04-21 after the Vitest project split and scroll-related test stabilization.
 - [x] Add a dedicated perf job instead of folding perf checks into ordinary test runs.
 - [x] Run consumer smoke tests in clean example apps:
   - Vite + Vue

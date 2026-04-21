@@ -37,8 +37,8 @@ async function runVitest(args) {
   }
 }
 
-await rm(blobReportsDir, { recursive: true, force: true })
-await rm(coverageDir, { recursive: true, force: true })
+await rm(blobReportsDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 })
+await rm(coverageDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 })
 await mkdir(blobReportsDir, { recursive: true })
 
 for (const project of projects) {
@@ -56,10 +56,4 @@ for (const project of projects) {
   ])
 }
 
-await runVitest([
-  '--merge-reports',
-  '.vitest-reports',
-  '--coverage',
-  '--reporter',
-  'default'
-])
+await runVitest(['--merge-reports', '.vitest-reports', '--coverage', '--reporter', 'default'])

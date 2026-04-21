@@ -75,7 +75,7 @@ pnpm verify:published-release
 
 Use this as the shortest release playbook until a dedicated release handbook is added.
 
-For the final `1.0.0-rc.x` / `1.0.0` go-no-go gate, use [RELEASE_CANDIDATE_GATE.md](C:\Users\1\.codex\worktrees\f2c3\YH-UI\RELEASE_CANDIDATE_GATE.md).
+For the final `1.0.0-rc.x` / `1.0.0` go-no-go gate, use [RELEASE_CANDIDATE_GATE.md](C:\Users\1.codex\worktrees\f2c3\YH-UI\RELEASE_CANDIDATE_GATE.md).
 
 ### Pre-release
 

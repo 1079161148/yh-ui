@@ -22,9 +22,11 @@ const testCases = [
 </template>`
     },
     selector: '.yh-button--primary',
-    evaluate: async (frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-      ? Awaited<T>['mainFrame']
-      : never) => {
+    evaluate: async (
+      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+        ? Awaited<T>['mainFrame']
+        : never
+    ) => {
       const count = await frame.locator('.yh-button').count()
       if (count < 2) {
         throw new Error(`Expected at least 2 buttons, received ${count}`)
@@ -42,9 +44,11 @@ const testCases = [
 </template>`
     },
     selector: '.yh-input__wrapper',
-    evaluate: async (frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-      ? Awaited<T>['mainFrame']
-      : never) => {
+    evaluate: async (
+      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+        ? Awaited<T>['mainFrame']
+        : never
+    ) => {
       const styles = await frame.locator('.yh-input__wrapper').evaluate((el) => {
         const style = getComputedStyle(el)
         return {
@@ -82,17 +86,22 @@ const testCases = [
       }
     },
     selector: '.grid-demo-item',
-    evaluate: async (frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-      ? Awaited<T>['mainFrame']
-      : never) => {
-      const styles = await frame.locator('.grid-demo-item').first().evaluate((el) => {
-        const style = getComputedStyle(el)
-        return {
-          backgroundColor: style.backgroundColor,
-          paddingTop: style.paddingTop,
-          borderTopLeftRadius: style.borderTopLeftRadius
-        }
-      })
+    evaluate: async (
+      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+        ? Awaited<T>['mainFrame']
+        : never
+    ) => {
+      const styles = await frame
+        .locator('.grid-demo-item')
+        .first()
+        .evaluate((el) => {
+          const style = getComputedStyle(el)
+          return {
+            backgroundColor: style.backgroundColor,
+            paddingTop: style.paddingTop,
+            borderTopLeftRadius: style.borderTopLeftRadius
+          }
+        })
       if (styles.backgroundColor === 'rgba(0, 0, 0, 0)') {
         throw new Error('Expected grid demo shared styles to be applied in docs Playground')
       }
@@ -117,9 +126,11 @@ import { Icon, YhIcon } from '@yh-ui/icons'
 </script>`
     },
     selector: 'svg',
-    evaluate: async (frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-      ? Awaited<T>['mainFrame']
-      : never) => {
+    evaluate: async (
+      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+        ? Awaited<T>['mainFrame']
+        : never
+    ) => {
       const count = await frame.locator('svg').count()
       if (count < 2) {
         throw new Error(`Expected at least 2 rendered icons, received ${count}`)
@@ -203,7 +214,9 @@ async function stopProcessTree(pid: number) {
       await new Promise((resolve, reject) => {
         const child = spawn('taskkill', ['/pid', `${pid}`, '/T', '/F'], { windowsHide: true })
         child.on('error', reject)
-        child.on('close', (code) => (code === 0 ? resolve(undefined) : reject(new Error(`taskkill exited with ${code}`))))
+        child.on('close', (code) =>
+          code === 0 ? resolve(undefined) : reject(new Error(`taskkill exited with ${code}`))
+        )
       })
       return
     } catch {
@@ -221,12 +234,16 @@ async function stopProcessTree(pid: number) {
 async function startDocsPreview() {
   const port = await getAvailablePort()
   const serverUrl = `http://127.0.0.1:${port}`
-  const child = spawn(process.execPath, [vitepressCli, 'preview', '--host', '127.0.0.1', '--port', `${port}`], {
-    cwd: path.resolve(rootDir, 'docs'),
-    env: process.env,
-    windowsHide: true,
-    stdio: ['ignore', 'pipe', 'pipe']
-  })
+  const child = spawn(
+    process.execPath,
+    [vitepressCli, 'preview', '--host', '127.0.0.1', '--port', `${port}`],
+    {
+      cwd: path.resolve(rootDir, 'docs'),
+      env: process.env,
+      windowsHide: true,
+      stdio: ['ignore', 'pipe', 'pipe']
+    }
+  )
 
   let stdout = ''
   let stderr = ''
@@ -276,10 +293,7 @@ async function verifyCase(serverUrl: string, testCase: (typeof testCases)[number
     const url = `${serverUrl}/yh-ui/playground/?demo=${demo}`
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 120000 })
 
-    await page.waitForFunction(
-      () => window.frames.length > 0,
-      { timeout: 120000 }
-    )
+    await page.waitForFunction(() => window.frames.length > 0, { timeout: 120000 })
     await page.waitForTimeout(5000)
 
     const previewFrame = page.frames().find((frame) => frame.url() === 'about:srcdoc')

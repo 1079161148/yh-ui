@@ -8,7 +8,9 @@ const repoRoot = path.resolve(__dirname, '..')
 const mode = process.argv[2]
 
 if (!['prepare', 'restore'].includes(mode)) {
-  console.error('[prepare-package-manifest] Usage: node scripts/prepare-package-manifest.mjs <prepare|restore>')
+  console.error(
+    '[prepare-package-manifest] Usage: node scripts/prepare-package-manifest.mjs <prepare|restore>'
+  )
   process.exit(1)
 }
 
@@ -84,7 +86,9 @@ async function loadVersionMaps() {
           return
         }
 
-        const workspacePackage = JSON.parse(stripBom(await fs.readFile(workspacePackagePath, 'utf8')))
+        const workspacePackage = JSON.parse(
+          stripBom(await fs.readFile(workspacePackagePath, 'utf8'))
+        )
         if (workspacePackage.name && workspacePackage.version) {
           workspaceVersions[workspacePackage.name] = workspacePackage.version
         }
@@ -128,7 +132,9 @@ function replaceProtocols(deps, versions, sourceLabel) {
 
 async function prepareManifest() {
   if (await fileExists(backupPath)) {
-    console.log(`[prepare-package-manifest] Backup already exists for ${packageRoot}, skipping prepare.`)
+    console.log(
+      `[prepare-package-manifest] Backup already exists for ${packageRoot}, skipping prepare.`
+    )
     return
   }
 
@@ -138,7 +144,12 @@ async function prepareManifest() {
 
   await fs.writeFile(backupPath, originalRaw, 'utf8')
 
-  for (const field of ['dependencies', 'peerDependencies', 'optionalDependencies', 'devDependencies']) {
+  for (const field of [
+    'dependencies',
+    'peerDependencies',
+    'optionalDependencies',
+    'devDependencies'
+  ]) {
     manifest[field] = replaceProtocols(manifest[field], versions, `${manifest.name}:${field}`)
   }
 

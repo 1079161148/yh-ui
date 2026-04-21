@@ -13,7 +13,9 @@ const summaryPath = path.join(root, 'coverage', 'coverage-summary.json')
 const outPath = path.join(root, 'branch-coverage-exclude.json')
 
 if (!fs.existsSync(summaryPath)) {
-  console.error('[branch-exclude] Run pnpm test:coverage first to create coverage/coverage-summary.json')
+  console.error(
+    '[branch-exclude] Run pnpm test:coverage first to create coverage/coverage-summary.json'
+  )
   process.exit(1)
 }
 

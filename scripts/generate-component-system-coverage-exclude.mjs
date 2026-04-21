@@ -140,4 +140,3 @@ fs.writeFileSync(outPath, JSON.stringify(result, null, 2) + '\n', 'utf8')
 console.log(
   `[component-system-exclude] Wrote ${picked.length} patterns → component-system-coverage-exclude.json (${stage})`
 )
-

@@ -50,14 +50,17 @@ const testCases = [
         throw new Error(`Expected .yh-grid display:grid, received "${display}"`)
       }
 
-      const itemStyles = await page.locator('.grid-demo-item').first().evaluate((el) => {
-        const style = getComputedStyle(el)
-        return {
-          backgroundColor: style.backgroundColor,
-          paddingTop: style.paddingTop,
-          borderTopLeftRadius: style.borderTopLeftRadius
-        }
-      })
+      const itemStyles = await page
+        .locator('.grid-demo-item')
+        .first()
+        .evaluate((el) => {
+          const style = getComputedStyle(el)
+          return {
+            backgroundColor: style.backgroundColor,
+            paddingTop: style.paddingTop,
+            borderTopLeftRadius: style.borderTopLeftRadius
+          }
+        })
       if (itemStyles.backgroundColor === 'rgba(0, 0, 0, 0)') {
         throw new Error('Expected shared grid demo styles to be applied in CodeSandbox')
       }
@@ -207,9 +210,8 @@ const edges = ref([{ id: 'e1-2', source: '1', target: '2' }])
   }
 ]
 
-type BrowserPage = Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-  ? Awaited<T>
-  : never
+type BrowserPage =
+  Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T } ? Awaited<T> : never
 
 interface TestCase {
   name: string
@@ -246,11 +248,7 @@ function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
   )
 }
 
-async function createRemoteSandbox(
-  title: string,
-  code: string,
-  context?: TestCase['context']
-) {
+async function createRemoteSandbox(title: string, code: string, context?: TestCase['context']) {
   const manifest = JSON.parse(await readFile(join(runtimeDir, 'manifest.json'), 'utf8')) as {
     version: number
     supportFiles: string[]

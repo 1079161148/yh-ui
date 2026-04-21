@@ -159,15 +159,21 @@ async function startPreview(cwd, args, readyUrl, envOverrides = {}) {
 async function createViteFixture() {
   const cwd = await mkdtemp(path.join(rootDir, '.vite-consumer-smoke-'))
 
-  const vueEntry = JSON.stringify(path.resolve(rootDir, 'node_modules/vue/dist/vue.runtime.esm-bundler.js'))
-  const componentsEntry = JSON.stringify(path.resolve(rootDir, 'packages/components/dist/index.mjs'))
+  const vueEntry = JSON.stringify(
+    path.resolve(rootDir, 'node_modules/vue/dist/vue.runtime.esm-bundler.js')
+  )
+  const componentsEntry = JSON.stringify(
+    path.resolve(rootDir, 'packages/components/dist/index.mjs')
+  )
   const hooksEntry = JSON.stringify(path.resolve(rootDir, 'packages/hooks/dist/index.mjs'))
   const utilsEntry = JSON.stringify(path.resolve(rootDir, 'packages/utils/dist/index.mjs'))
   const themeEntry = JSON.stringify(path.resolve(rootDir, 'packages/theme/dist/index.mjs'))
   const localeEntry = JSON.stringify(path.resolve(rootDir, 'packages/locale/dist/index.mjs'))
   const yhUiEntry = JSON.stringify(path.resolve(rootDir, 'packages/yh-ui/dist/index.mjs'))
   const yhUiCssEntry = JSON.stringify(path.resolve(rootDir, 'packages/yh-ui/dist/style.css'))
-  const pluginVueEntry = JSON.stringify(path.resolve(rootDir, 'node_modules/@vitejs/plugin-vue/dist/index.mjs'))
+  const pluginVueEntry = JSON.stringify(
+    path.resolve(rootDir, 'node_modules/@vitejs/plugin-vue/dist/index.mjs')
+  )
 
   await mkdir(path.join(cwd, 'src'), { recursive: true })
   await writeFile(
@@ -239,7 +245,16 @@ async function verifyViteConsumer() {
 
     const preview = await startPreview(
       cwd,
-      [viteCli, 'preview', '--config', 'vite.config.mjs', '--host', '127.0.0.1', '--port', `${port}`],
+      [
+        viteCli,
+        'preview',
+        '--config',
+        'vite.config.mjs',
+        '--host',
+        '127.0.0.1',
+        '--port',
+        `${port}`
+      ],
       `http://127.0.0.1:${port}/`
     )
 
@@ -311,7 +326,9 @@ async function verifyNuxtConsumer() {
 
     const buttonCount = await page.locator('.yh-button').count()
     if (buttonCount < 3) {
-      throw new Error(`Expected Nuxt consumer to render multiple YH-UI buttons, received ${buttonCount}`)
+      throw new Error(
+        `Expected Nuxt consumer to render multiple YH-UI buttons, received ${buttonCount}`
+      )
     }
   } finally {
     await browser.close()

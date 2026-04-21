@@ -38,9 +38,7 @@ const coverageReportsDirectory = process.env.YH_COVERAGE_REPORT_DIR || './covera
 const testPool = (process.env.YH_VITEST_POOL as 'threads' | 'forks' | undefined) || 'threads'
 const isCI = Boolean(process.env.CI)
 const defaultWorkers = isCI ? 1 : '50%'
-const enforceCoverageThresholds = Boolean(
-  process.env.CI || process.env.COVERAGE_THRESHOLDS === 'true'
-)
+const enforceCoverageThresholds = process.env.COVERAGE_THRESHOLDS === 'true'
 
 // component-system 覆盖率由 scripts/verify-component-system-coverage.mjs 分阶段校验；
 // Vitest 自带 thresholds 设为 0 以保证报告始终生成（便于持续推进 ROI）

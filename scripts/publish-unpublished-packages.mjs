@@ -85,11 +85,7 @@ async function getWorkspacePackages() {
 }
 
 function collectWorkspaceDeps(manifest, workspaceNames) {
-  const dependencyFields = [
-    'dependencies',
-    'optionalDependencies',
-    'peerDependencies'
-  ]
+  const dependencyFields = ['dependencies', 'optionalDependencies', 'peerDependencies']
 
   const deps = new Set()
 
@@ -144,7 +140,9 @@ function topoSort(packages) {
   }
 
   if (result.length !== packages.length) {
-    throw new Error('Unable to determine publish order because workspace dependencies contain a cycle.')
+    throw new Error(
+      'Unable to determine publish order because workspace dependencies contain a cycle.'
+    )
   }
 
   return result
@@ -185,11 +183,7 @@ async function publishPackage(pkg) {
   }
 
   console.log(`[publish] publishing ${name}@${version}`)
-  await run(
-    pnpmCommand,
-    ['publish', '--access', 'public', '--no-git-checks'],
-    { cwd: pkg.dir }
-  )
+  await run(pnpmCommand, ['publish', '--access', 'public', '--no-git-checks'], { cwd: pkg.dir })
   return 'published'
 }
 

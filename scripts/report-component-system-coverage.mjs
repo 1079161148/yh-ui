@@ -81,17 +81,18 @@ for (const [filePath, metrics] of Object.entries(coverageFinal)) {
   if (!componentMatch) continue
 
   const componentName = componentMatch[1]
-  const bucket =
-    componentBuckets.get(componentName) || {
-      component: componentName,
-      statements: { covered: 0, total: 0 },
-      functions: { covered: 0, total: 0 },
-      branches: { covered: 0, total: 0 },
-      lines: { covered: 0, total: 0 },
-      files: []
-    }
+  const bucket = componentBuckets.get(componentName) || {
+    component: componentName,
+    statements: { covered: 0, total: 0 },
+    functions: { covered: 0, total: 0 },
+    branches: { covered: 0, total: 0 },
+    lines: { covered: 0, total: 0 },
+    files: []
+  }
 
-  for (const metric of Object.keys(bucket).filter((key) => key !== 'component' && key !== 'files')) {
+  for (const metric of Object.keys(bucket).filter(
+    (key) => key !== 'component' && key !== 'files'
+  )) {
     bucket[metric].covered += fileCounters[metric].covered
     bucket[metric].total += fileCounters[metric].total
   }
