@@ -4,8 +4,7 @@ import {
   flowThemeDark,
   createCustomTheme,
   applyFlowTheme,
-  flowThemePresets,
-  type FlowTheme
+  flowThemePresets
 } from '../utils/theme'
 
 describe('flow/utils/theme', () => {
@@ -199,8 +198,12 @@ describe('flow/utils/theme', () => {
     })
 
     it('should inherit base theme values in presets', () => {
-      expect(flowThemePresets.blue['flow-node-label-color']).toBe(flowTheme['flow-node-label-color'])
-      expect(flowThemePresets.green['flow-node-label-color']).toBe(flowTheme['flow-node-label-color'])
+      expect(flowThemePresets.blue['flow-node-label-color']).toBe(
+        flowTheme['flow-node-label-color']
+      )
+      expect(flowThemePresets.green['flow-node-label-color']).toBe(
+        flowTheme['flow-node-label-color']
+      )
     })
   })
 

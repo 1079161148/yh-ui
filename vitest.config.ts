@@ -58,16 +58,6 @@ const componentSystemCoverageInclude = [
   'packages/hooks/src/**/*.{ts,vue}'
 ]
 
-const defaultTestInclude = [
-  'packages/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}',
-  'packages/ai-sdk/__tests__/**/*.test.ts'
-]
-const componentSystemTestInclude = [
-  'packages/components/src/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}',
-  'packages/theme/__tests__/**/*.{test,ssr.test}.{ts,tsx}',
-  'packages/hooks/src/**/__tests__/**/*.{test,ssr.test}.{ts,tsx}'
-]
-
 const defaultCoverageExclude = [
   '**/*.d.ts',
   '**/index.ts',

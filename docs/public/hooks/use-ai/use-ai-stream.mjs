@@ -160,7 +160,7 @@ export function useAiStream(options) {
         for await (const chunk of response) {
           if (abortController.signal.aborted) break;
           const parsed = parser(chunk);
-          if (parsed) pushText(parsed);
+          if (parsed !== null) pushText(parsed);
         }
       } else if (response instanceof Response && response.body) {
         const reader = response.body.getReader();
@@ -174,7 +174,7 @@ export function useAiStream(options) {
           if (done) break;
           const chunkStr = decoder.decode(value, { stream: true });
           const parsed = parser(chunkStr);
-          if (parsed) pushText(parsed);
+          if (parsed !== null) pushText(parsed);
         }
       }
       if (!abortController.signal.aborted) {
@@ -208,3 +208,6 @@ export function useAiStream(options) {
     }
   };
 }
+export const __test__ = {
+  TypewriterThrottle
+};

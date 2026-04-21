@@ -180,3 +180,6 @@ export function useAiChat(options = {}) {
     clear
   };
 }
+export const __test__ = {
+  createTypewriter
+};

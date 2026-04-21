@@ -72,7 +72,9 @@ describe('flow/utils/collaboration', () => {
     it('should register event listener', () => {
       const handler = vi.fn()
       engine.on('test-event', handler)
-      const handlers = (engine as unknown as { eventListeners: Map<string, Function[]> }).eventListeners.get('test-event')
+      const handlers = (
+        engine as unknown as { eventListeners: Map<string, Array<(event: unknown) => void>> }
+      ).eventListeners.get('test-event')
       expect(handlers).toBeDefined()
       expect(handlers!.length).toBe(1)
     })
@@ -81,16 +83,21 @@ describe('flow/utils/collaboration', () => {
       const handler = vi.fn()
       engine.on('test-event', handler)
       engine.off('test-event', handler)
-      const handlers = (engine as unknown as { eventListeners: Map<string, Function[]> }).eventListeners.get('test-event')
+      const handlers = (
+        engine as unknown as { eventListeners: Map<string, Array<(event: unknown) => void>> }
+      ).eventListeners.get('test-event')
       expect(handlers!.length).toBe(0)
     })
 
     it('should trigger wildcard listeners', () => {
       const handler = vi.fn()
       engine.on('*', handler)
-      ;(engine as unknown as { emitEvent: (type: string, event: unknown) => void }).emitEvent('any', {
-        type: 'any'
-      } as never)
+      ;(engine as unknown as { emitEvent: (type: string, event: unknown) => void }).emitEvent(
+        'any',
+        {
+          type: 'any'
+        } as never
+      )
       expect(handler).toHaveBeenCalled()
     })
   })
@@ -104,36 +111,48 @@ describe('flow/utils/collaboration', () => {
         payload: {},
         timestamp: Date.now()
       }
-      const result = (engine as unknown as { isValidWSMessage: (m: unknown) => boolean }).isValidWSMessage(msg)
+      const result = (
+        engine as unknown as { isValidWSMessage: (m: unknown) => boolean }
+      ).isValidWSMessage(msg)
       expect(result).toBe(true)
     })
 
     it('should reject message without type', () => {
       const msg = { roomId: 'room1', userId: 'user1', payload: {} }
-      const result = (engine as unknown as { isValidWSMessage: (m: unknown) => boolean }).isValidWSMessage(msg)
+      const result = (
+        engine as unknown as { isValidWSMessage: (m: unknown) => boolean }
+      ).isValidWSMessage(msg)
       expect(result).toBe(false)
     })
 
     it('should reject message without roomId', () => {
       const msg = { type: 'join', userId: 'user1', payload: {} }
-      const result = (engine as unknown as { isValidWSMessage: (m: unknown) => boolean }).isValidWSMessage(msg)
+      const result = (
+        engine as unknown as { isValidWSMessage: (m: unknown) => boolean }
+      ).isValidWSMessage(msg)
       expect(result).toBe(false)
     })
 
     it('should reject message without userId', () => {
       const msg = { type: 'join', roomId: 'room1', payload: {} }
-      const result = (engine as unknown as { isValidWSMessage: (m: unknown) => boolean }).isValidWSMessage(msg)
+      const result = (
+        engine as unknown as { isValidWSMessage: (m: unknown) => boolean }
+      ).isValidWSMessage(msg)
       expect(result).toBe(false)
     })
 
     it('should reject message without payload', () => {
       const msg = { type: 'join', roomId: 'room1', userId: 'user1' }
-      const result = (engine as unknown as { isValidWSMessage: (m: unknown) => boolean }).isValidWSMessage(msg)
+      const result = (
+        engine as unknown as { isValidWSMessage: (m: unknown) => boolean }
+      ).isValidWSMessage(msg)
       expect(result).toBe(false)
     })
 
     it('should reject non-object messages', () => {
-      const result = (engine as unknown as { isValidWSMessage: (m: unknown) => boolean }).isValidWSMessage(null)
+      const result = (
+        engine as unknown as { isValidWSMessage: (m: unknown) => boolean }
+      ).isValidWSMessage(null)
       expect(result).toBe(false)
     })
   })
@@ -150,7 +169,9 @@ describe('flow/utils/collaboration', () => {
       const node = createMockNode('n1')
       const initialVersion = (engine as unknown as { state: { version: number } }).state.version
       engine.addNode(node)
-      expect((engine as unknown as { state: { version: number } }).state.version).toBeGreaterThan(initialVersion)
+      expect((engine as unknown as { state: { version: number } }).state.version).toBeGreaterThan(
+        initialVersion
+      )
     })
   })
 
@@ -264,7 +285,6 @@ describe('flow/utils/collaboration', () => {
       const state = engine.getState()
       const node = createMockNode('n1')
       ;(engine as unknown as { state: { nodes: Map<string, Node> } }).state.nodes.set('n1', node)
-
       ;(engine as unknown as { applyOperation: (op: unknown) => void }).applyOperation({
         id: 'op1',
         type: 'node_add' as const,
@@ -281,24 +301,36 @@ describe('flow/utils/collaboration', () => {
 
   describe('generateUserColor', () => {
     it('should generate consistent color for same user id', () => {
-      const color1 = (engine as unknown as { generateUserColor: (id: string) => string }).generateUserColor('user1')
-      const color2 = (engine as unknown as { generateUserColor: (id: string) => string }).generateUserColor('user1')
+      const color1 = (
+        engine as unknown as { generateUserColor: (id: string) => string }
+      ).generateUserColor('user1')
+      const color2 = (
+        engine as unknown as { generateUserColor: (id: string) => string }
+      ).generateUserColor('user1')
       expect(color1).toBe(color2)
     })
 
     it('should generate different colors for different user ids', () => {
-      const color1 = (engine as unknown as { generateUserColor: (id: string) => string }).generateUserColor('user1')
-      const color2 = (engine as unknown as { generateUserColor: (id: string) => string }).generateUserColor('user2')
+      const color1 = (
+        engine as unknown as { generateUserColor: (id: string) => string }
+      ).generateUserColor('user1')
+      const color2 = (
+        engine as unknown as { generateUserColor: (id: string) => string }
+      ).generateUserColor('user2')
       expect(color1).not.toBe(color2)
     })
 
     it('should generate valid hex color', () => {
-      const color = (engine as unknown as { generateUserColor: (id: string) => string }).generateUserColor('test')
+      const color = (
+        engine as unknown as { generateUserColor: (id: string) => string }
+      ).generateUserColor('test')
       expect(color).toMatch(/^#[0-9a-f]{6}$/)
     })
 
     it('should generate color for empty string', () => {
-      const color = (engine as unknown as { generateUserColor: (id: string) => string }).generateUserColor('')
+      const color = (
+        engine as unknown as { generateUserColor: (id: string) => string }
+      ).generateUserColor('')
       expect(color).toMatch(/^#[0-9a-f]{6}$/)
     })
   })
@@ -373,10 +405,9 @@ describe('flow/utils/collaboration', () => {
 
   describe('handleCursorUpdate', () => {
     it('should update cursor in cursors map', () => {
-      ;(engine as unknown as { handleCursorUpdate: (userId: string, payload: unknown) => void }).handleCursorUpdate(
-        'user2',
-        { x: 100, y: 200, name: 'User 2', color: '#ff0000' }
-      )
+      ;(
+        engine as unknown as { handleCursorUpdate: (userId: string, payload: unknown) => void }
+      ).handleCursorUpdate('user2', { x: 100, y: 200, name: 'User 2', color: '#ff0000' })
       const cursors = engine.getCursors()
       expect(cursors.get('user2')).toEqual({
         x: 100,
@@ -389,10 +420,9 @@ describe('flow/utils/collaboration', () => {
     it('should emit cursor_update event', () => {
       const handler = vi.fn()
       engine.on('cursor_update', handler)
-      ;(engine as unknown as { handleCursorUpdate: (userId: string, payload: unknown) => void }).handleCursorUpdate(
-        'user2',
-        { x: 100, y: 200, name: 'User 2', color: '#ff0000' }
-      )
+      ;(
+        engine as unknown as { handleCursorUpdate: (userId: string, payload: unknown) => void }
+      ).handleCursorUpdate('user2', { x: 100, y: 200, name: 'User 2', color: '#ff0000' })
       expect(handler).toHaveBeenCalled()
     })
   })
@@ -401,7 +431,9 @@ describe('flow/utils/collaboration', () => {
     it('should emit user_joined event', () => {
       const handler = vi.fn()
       engine.on('user_joined', handler)
-      ;(engine as unknown as { handleUserJoin: (userId: string, payload: unknown) => void }).handleUserJoin('user2', {
+      ;(
+        engine as unknown as { handleUserJoin: (userId: string, payload: unknown) => void }
+      ).handleUserJoin('user2', {
         userName: 'User 2',
         userColor: '#ff0000'
       })
@@ -411,10 +443,9 @@ describe('flow/utils/collaboration', () => {
 
   describe('handleUserLeave', () => {
     it('should remove cursor from cursors map', () => {
-      ;(engine as unknown as { handleCursorUpdate: (userId: string, payload: unknown) => void }).handleCursorUpdate(
-        'user2',
-        { x: 100, y: 200, name: 'User 2', color: '#ff0000' }
-      )
+      ;(
+        engine as unknown as { handleCursorUpdate: (userId: string, payload: unknown) => void }
+      ).handleCursorUpdate('user2', { x: 100, y: 200, name: 'User 2', color: '#ff0000' })
       ;(engine as unknown as { handleUserLeave: (userId: string) => void }).handleUserLeave('user2')
       const cursors = engine.getCursors()
       expect(cursors.get('user2')).toBeUndefined()
@@ -452,15 +483,20 @@ describe('flow/utils/collaboration', () => {
     it('should emit connection state event', () => {
       const handler = vi.fn()
       engine.on('connected', handler)
-      ;(engine as unknown as { setConnectionState: (state: string) => void }).setConnectionState('connected')
+      ;(engine as unknown as { setConnectionState: (state: string) => void }).setConnectionState(
+        'connected'
+      )
       expect(handler).toHaveBeenCalled()
     })
   })
 
   describe('broadcastOperation', () => {
     it('should add operation to pending operations', () => {
-      const pending = (engine as unknown as { pendingOperations: Map<string, unknown> }).pendingOperations
-      ;(engine as unknown as { broadcastOperation: (op: unknown, unreliable?: boolean) => void }).broadcastOperation(
+      const pending = (engine as unknown as { pendingOperations: Map<string, unknown> })
+        .pendingOperations
+      ;(
+        engine as unknown as { broadcastOperation: (op: unknown, unreliable?: boolean) => void }
+      ).broadcastOperation(
         {
           id: 'op1',
           type: 'node_add' as const,

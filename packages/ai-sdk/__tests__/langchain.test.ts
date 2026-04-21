@@ -6,7 +6,6 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { ref } from 'vue'
 import {
   langChainRuntime,
   useLangChainChat,
@@ -165,11 +164,7 @@ describe('langChainRuntime', () => {
         bind: vi.fn().mockReturnThis()
       }
 
-      const result = await langChainRuntime.streamWithTools(
-        mockStream as any,
-        'Hello',
-        []
-      )
+      const result = await langChainRuntime.streamWithTools(mockStream as any, 'Hello', [])
 
       expect(result.toolCalls).toBeUndefined()
     })

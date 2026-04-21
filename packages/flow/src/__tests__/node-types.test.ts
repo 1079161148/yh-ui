@@ -8,8 +8,6 @@ import {
   type NodeDimension,
   type NodeHandle,
   type NodePosition,
-  type HandleType,
-  type Position,
   type NodeStyle,
   type NodeHandleBounds
 } from '../types/node'

@@ -7,7 +7,6 @@ import {
   createProgressInterceptor,
   XHRProgressHandler,
   FetchProgressHandler,
-  type ProgressInterceptorOptions,
   type ProgressEvent
 } from '../interceptors/progress'
 import type { InternalRequestOptions, RequestResponse } from '../types'

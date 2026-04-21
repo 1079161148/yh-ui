@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.__test__ = void 0;
 exports.useAiChat = useAiChat;
 var _vue = require("vue");
 var _useAiStream = require("./use-ai-stream.cjs");
@@ -191,3 +192,6 @@ function useAiChat(options = {}) {
     clear
   };
 }
+const __test__ = exports.__test__ = {
+  createTypewriter
+};

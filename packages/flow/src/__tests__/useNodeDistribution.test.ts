@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { ref } from 'vue'
 import type { Node, Edge, ViewportTransform } from '../types'
 import type { FlowInstance } from '../types'
@@ -49,8 +49,12 @@ function createMockFlowInstance(): FlowInstance {
 describe('flow/core/useNodeDistribution', () => {
   it('should return all distribution functions', () => {
     const flow = createMockFlowInstance()
-    const { distributeHorizontally, distributeVertically, alignNodesHorizontal, alignNodesVertical } =
-      useNodeDistribution({ nodes: flow.nodes })
+    const {
+      distributeHorizontally,
+      distributeVertically,
+      alignNodesHorizontal,
+      alignNodesVertical
+    } = useNodeDistribution({ nodes: flow.nodes })
 
     expect(typeof distributeHorizontally).toBe('function')
     expect(typeof distributeVertically).toBe('function')
@@ -111,9 +115,33 @@ describe('flow/core/useNodeDistribution', () => {
     it('should use selected nodes when no nodeIds provided', () => {
       const flow = createMockFlowInstance()
       flow.nodes.value = [
-        { id: '1', type: 'default', position: { x: 0, y: 0 }, data: {}, width: 50, height: 50, selected: true },
-        { id: '2', type: 'default', position: { x: 50, y: 0 }, data: {}, width: 50, height: 50, selected: true },
-        { id: '3', type: 'default', position: { x: 100, y: 0 }, data: {}, width: 50, height: 50, selected: true }
+        {
+          id: '1',
+          type: 'default',
+          position: { x: 0, y: 0 },
+          data: {},
+          width: 50,
+          height: 50,
+          selected: true
+        },
+        {
+          id: '2',
+          type: 'default',
+          position: { x: 50, y: 0 },
+          data: {},
+          width: 50,
+          height: 50,
+          selected: true
+        },
+        {
+          id: '3',
+          type: 'default',
+          position: { x: 100, y: 0 },
+          data: {},
+          width: 50,
+          height: 50,
+          selected: true
+        }
       ]
       const { distributeHorizontally } = useNodeDistribution({ nodes: flow.nodes })
 
@@ -241,8 +269,24 @@ describe('flow/core/useNodeDistribution', () => {
     it('should use selected nodes when no nodeIds provided', () => {
       const flow = createMockFlowInstance()
       flow.nodes.value = [
-        { id: '1', type: 'default', position: { x: 0, y: 0 }, data: {}, width: 100, height: 50, selected: true },
-        { id: '2', type: 'default', position: { x: 50, y: 0 }, data: {}, width: 100, height: 50, selected: true }
+        {
+          id: '1',
+          type: 'default',
+          position: { x: 0, y: 0 },
+          data: {},
+          width: 100,
+          height: 50,
+          selected: true
+        },
+        {
+          id: '2',
+          type: 'default',
+          position: { x: 50, y: 0 },
+          data: {},
+          width: 100,
+          height: 50,
+          selected: true
+        }
       ]
       const { alignNodesHorizontal } = useNodeDistribution({ nodes: flow.nodes })
 

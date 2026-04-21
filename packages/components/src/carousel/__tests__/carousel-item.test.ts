@@ -2,7 +2,7 @@
  * YhCarouselItem 组件测试
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import CarouselItem from '../src/carousel-item.vue'
@@ -207,22 +207,29 @@ describe('CarouselItem 组件', () => {
       }
     )
 
-    it.each(['cube', 'flip', 'cylinder', 'stack', 'parallax', 'popout', 'rotate3d', 'cards', 'fold'])(
-      '3D 效果 %s 应生成 transform 样式',
-      async (effect) => {
-        const context = createMockContext({
-          effect: ref(effect as any),
-          currentIndex: ref(0),
-          prevIndex: ref(1),
-          itemCount: ref(5)
-        })
-        wrapper = mountWithContext(context)
-        await nextTick()
-        await nextTick()
-        const style = wrapper.find('.yh-carousel-item').attributes('style')
-        expect(style).toContain('transform')
-      }
-    )
+    it.each([
+      'cube',
+      'flip',
+      'cylinder',
+      'stack',
+      'parallax',
+      'popout',
+      'rotate3d',
+      'cards',
+      'fold'
+    ])('3D 效果 %s 应生成 transform 样式', async (effect) => {
+      const context = createMockContext({
+        effect: ref(effect as any),
+        currentIndex: ref(0),
+        prevIndex: ref(1),
+        itemCount: ref(5)
+      })
+      wrapper = mountWithContext(context)
+      await nextTick()
+      await nextTick()
+      const style = wrapper.find('.yh-carousel-item').attributes('style')
+      expect(style).toContain('transform')
+    })
 
     it('loop 偏移修正分支应命中（offset > total/2）', async () => {
       const context = createMockContext({

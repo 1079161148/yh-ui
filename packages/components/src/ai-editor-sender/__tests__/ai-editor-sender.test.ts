@@ -1,9 +1,9 @@
 /**
  * @vitest-environment happy-dom
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, h, defineComponent } from 'vue'
+import { nextTick, h } from 'vue'
 import AiEditorSender from '../src/ai-editor-sender.vue'
 import type { AiCommandItem, AiEditorAttachmentItem } from '../src/ai-editor-sender'
 
@@ -303,7 +303,9 @@ describe('YhAiEditorSender', () => {
       const wrapper = createWrapper({ props: { modelValue: 'initial' } })
       await wrapper.setProps({ modelValue: 'external update' })
       await nextTick()
-      expect((wrapper.find('textarea').element as HTMLTextAreaElement).value).toBe('external update')
+      expect((wrapper.find('textarea').element as HTMLTextAreaElement).value).toBe(
+        'external update'
+      )
     })
 
     it('should sync with v-model two-way binding', async () => {

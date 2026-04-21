@@ -7,9 +7,7 @@ import {
   createCSRFInterceptor,
   createTokenRefreshInterceptor,
   createSecurityInterceptor,
-  type CSRFConfig,
-  type TokenRefreshConfig,
-  type SecurityInterceptorOptions
+  type CSRFConfig
 } from '../interceptors/security'
 import type { InternalRequestOptions, RequestError } from '../types'
 

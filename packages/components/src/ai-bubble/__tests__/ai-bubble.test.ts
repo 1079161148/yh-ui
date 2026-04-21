@@ -605,14 +605,17 @@ describe('YhAiBubble', () => {
   })
 
   it('should reset playing state when audio playback ends', async () => {
-    let latestAudio: { onended: null | (() => void); play: () => Promise<void>; pause: () => void } | null =
-      null
+    let latestAudio: {
+      onended: null | (() => void)
+      play: () => Promise<void>
+      pause: () => void
+    } | null = null
     class MockAudio {
       onended: null | (() => void) = null
       play = vi.fn().mockResolvedValue(undefined)
       pause = vi.fn()
       constructor(_url: string) {
-        latestAudio = this
+        latestAudio = { onended: this.onended, play: this.play, pause: this.pause }
       }
     }
     vi.stubGlobal('Audio', MockAudio as any)
@@ -783,7 +786,9 @@ describe('YhAiBubble', () => {
 
     expect(loadPyodide).toHaveBeenCalled()
     expect((wrapper.vm as any).codeOutput['cb-py'].join('\n')).toContain('py-out')
-    expect((wrapper.vm as any).codeOutput['cb-py'].join('\n')).toContain('Python execution complete')
+    expect((wrapper.vm as any).codeOutput['cb-py'].join('\n')).toContain(
+      'Python execution complete'
+    )
     delete (window as any).loadPyodide
   })
 
@@ -1045,7 +1050,6 @@ describe('YhAiBubble', () => {
     })
 
     expect(wrapper.find('.yh-ai-bubble__citation-index').text()).toBe('1')
-
     ;(wrapper.vm as any).hoveredCitation = { title: 'Untitled ref' }
     await wrapper.vm.$nextTick()
 
@@ -1217,7 +1221,6 @@ describe('YhAiBubble', () => {
     ;(wrapper.vm as any).streamRender('abcdef', 'word', 2, 20)
     vi.advanceTimersByTime(20)
     expect((wrapper.vm as any).parsedContent).toBe('ab')
-
     ;(wrapper.vm as any).streamRender('XYZ', 'word', 1, 20)
     vi.advanceTimersByTime(80)
 

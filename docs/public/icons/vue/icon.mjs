@@ -1,7 +1,7 @@
-import { defineComponent as f, onMounted as d, computed as r, h as c } from "vue";
-import { Icon as y } from "@iconify/vue";
-import { COMMON_ICONS as l } from "../presets.mjs";
-const u = "yh-icon-spin-style", m = `
+import { defineComponent as d, onMounted as y, computed as r, h as c } from "vue";
+import { Icon as m } from "@iconify/vue";
+import { COMMON_ICONS as s } from "../presets.mjs";
+const a = "yh-icon-spin-style", v = `
 @keyframes yh-icon-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -10,15 +10,15 @@ const u = "yh-icon-spin-style", m = `
   animation: yh-icon-spin 1s linear infinite;
 }
 `;
-function s() {
-  if (typeof document > "u" || document.getElementById(u)) return;
+function l() {
+  if (typeof document > "u" || document.getElementById(a)) return;
   const e = document.createElement("style");
-  e.id = u, e.textContent = m, document.head.appendChild(e);
+  e.id = a, e.textContent = v, document.head.appendChild(e);
 }
-function a(e) {
-  return e ? e.includes(":") || e.includes("/") ? e.replace("/", ":") : e in l ? l[e] : `mdi:${e}` : "";
+function u(e) {
+  return e ? e.includes(":") || e.includes("/") ? e.replace("/", ":") : e in s ? s[e] : `mdi:${e}` : "";
 }
-function v(e) {
+function f(e) {
   const t = {};
   if (e.size) {
     const n = typeof e.size == "number" ? `${e.size}px` : e.size;
@@ -26,7 +26,7 @@ function v(e) {
   }
   return e.color && (t.color = e.color), e.rotate && !e.spin && (t.transform = `rotate(${e.rotate}deg)`), Object.keys(t).length > 0 ? t : void 0;
 }
-const h = f({
+const h = d({
   name: "YhIconIconify",
   inheritAttrs: !1,
   props: {
@@ -91,18 +91,18 @@ const h = f({
     }
   },
   setup(e, { attrs: t }) {
-    d(() => {
-      e.spin && s();
+    y(() => {
+      e.spin && l();
     });
-    const n = r(() => e.icon ? a(e.icon) : e.name ? a(e.name) : ""), i = r(
-      () => v({
+    const n = r(() => e.icon ? u(e.icon) : e.name ? u(e.name) : ""), i = r(
+      () => f({
         size: e.size,
         color: e.color,
         rotate: e.rotate,
         spin: e.spin
       })
     ), o = r(() => e.spin ? "yh-icons--spin" : "");
-    return () => (e.spin && s(), e.component ? c(e.component, {
+    return () => (e.spin && l(), e.component ? c(e.component, {
       class: o.value,
       style: i.value,
       ...t
@@ -114,7 +114,7 @@ const h = f({
       "aria-hidden": "true",
       innerHTML: e.svg,
       ...t
-    }) : n.value ? c(y, {
+    }) : n.value ? c(m, {
       icon: n.value,
       class: o.value,
       style: i.value,
@@ -125,8 +125,13 @@ const h = f({
       ...t
     }));
   }
-}), z = h;
+}), z = h, C = {
+  ensureSpinStyle: l,
+  resolveIconName: u,
+  createIconStyle: f
+};
 export {
   z as Icon,
-  h as YhIcon
+  h as YhIcon,
+  C as __test__
 };

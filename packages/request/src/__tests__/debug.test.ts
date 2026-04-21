@@ -7,7 +7,6 @@ import {
   createDebugInterceptor,
   DebugLogger,
   debugLogger,
-  type DebugInterceptorOptions,
   type DebugInfo
 } from '../interceptors/debug'
 import type { InternalRequestOptions, RequestResponse, RequestError } from '../types'

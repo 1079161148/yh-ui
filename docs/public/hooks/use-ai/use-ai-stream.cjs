@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.qwenParser = exports.plainTextParser = exports.openaiParser = exports.geminiParser = exports.ernieParser = exports.claudeParser = void 0;
+exports.qwenParser = exports.plainTextParser = exports.openaiParser = exports.geminiParser = exports.ernieParser = exports.claudeParser = exports.__test__ = void 0;
 exports.useAiStream = useAiStream;
 var _vue = require("vue");
 const openaiParser = raw => {
@@ -168,7 +168,7 @@ function useAiStream(options) {
         for await (const chunk of response) {
           if (abortController.signal.aborted) break;
           const parsed = parser(chunk);
-          if (parsed) pushText(parsed);
+          if (parsed !== null) pushText(parsed);
         }
       } else if (response instanceof Response && response.body) {
         const reader = response.body.getReader();
@@ -187,7 +187,7 @@ function useAiStream(options) {
             stream: true
           });
           const parsed = parser(chunkStr);
-          if (parsed) pushText(parsed);
+          if (parsed !== null) pushText(parsed);
         }
       }
       if (!abortController.signal.aborted) {
@@ -221,3 +221,6 @@ function useAiStream(options) {
     }
   };
 }
+const __test__ = exports.__test__ = {
+  TypewriterThrottle
+};

@@ -101,6 +101,15 @@ module.exports = (0, _vue.defineComponent)({
     }));
     const themeStyles = (0, _vue.computed)(() => {
       const manager = getThemeManager();
+      const themeState = manager.state;
+      void themeState.theme;
+      void themeState.dark;
+      void themeState.density;
+      void themeState.colorBlindMode;
+      void themeState.algorithm;
+      void themeState.componentThemeVersion;
+      void themeState.breakpoint;
+      void JSON.stringify(themeState.colors);
       const colors = {};
       if (!isValidPreset(props.theme) && props.theme.startsWith("#")) {
         colors.primary = props.theme;

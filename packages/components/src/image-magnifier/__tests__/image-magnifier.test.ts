@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import ImageMagnifier from '../src/image-magnifier.vue'
@@ -122,26 +122,51 @@ describe('ImageMagnifier', () => {
 
     const el = wrapper.element as HTMLElement
     // @ts-expect-error test stub
-    el.getBoundingClientRect = () => ({ left: 200, right: 300, width: 100, height: 100, top: 0, bottom: 0 })
+    el.getBoundingClientRect = () => ({
+      left: 200,
+      right: 300,
+      width: 100,
+      height: 100,
+      top: 0,
+      bottom: 0
+    })
 
     // right space enough -> right
     Object.defineProperty(window, 'innerWidth', { value: 1000, configurable: true })
     await wrapper.trigger('mouseenter')
-    expect(wrapper.find('.yh-image-magnifier__preview').attributes('style') || '').toContain('left: calc(100%')
+    expect(wrapper.find('.yh-image-magnifier__preview').attributes('style') || '').toContain(
+      'left: calc(100%'
+    )
 
     // force left
     await wrapper.trigger('mouseleave')
     Object.defineProperty(window, 'innerWidth', { value: 320, configurable: true })
     // leftSpace = 220 >= previewW+offset => left
     // @ts-expect-error test stub
-    el.getBoundingClientRect = () => ({ left: 220, right: 320, width: 100, height: 100, top: 0, bottom: 0 })
+    el.getBoundingClientRect = () => ({
+      left: 220,
+      right: 320,
+      width: 100,
+      height: 100,
+      top: 0,
+      bottom: 0
+    })
     await wrapper.trigger('mouseenter')
-    expect(wrapper.find('.yh-image-magnifier__preview').attributes('style') || '').toContain('right: calc(100%')
+    expect(wrapper.find('.yh-image-magnifier__preview').attributes('style') || '').toContain(
+      'right: calc(100%'
+    )
 
     // force inside (no space on both sides)
     await wrapper.trigger('mouseleave')
     // @ts-expect-error test stub
-    el.getBoundingClientRect = () => ({ left: 5, right: 315, width: 310, height: 100, top: 0, bottom: 0 })
+    el.getBoundingClientRect = () => ({
+      left: 5,
+      right: 315,
+      width: 310,
+      height: 100,
+      top: 0,
+      bottom: 0
+    })
     Object.defineProperty(window, 'innerWidth', { value: 320, configurable: true })
     await wrapper.trigger('mouseenter')
     // inside renders preview inside wrapper
@@ -216,7 +241,14 @@ describe('ImageMagnifier', () => {
 
   it('supports wheel zoom clamping and emits scale-change', async () => {
     const wrapper = mount(ImageMagnifier, {
-      props: { ...BASE_PROPS, wheelZoom: true, minScale: 1.2, maxScale: 2, scaleStep: 0.3, scale: 1.5 }
+      props: {
+        ...BASE_PROPS,
+        wheelZoom: true,
+        minScale: 1.2,
+        maxScale: 2,
+        scaleStep: 0.3,
+        scale: 1.5
+      }
     })
 
     await wrapper.trigger('mouseenter')
@@ -263,7 +295,10 @@ describe('ImageMagnifier', () => {
 
     // change image index to reset hd state and hit error path
     await wrapper.setProps({
-      images: [{ src: 'a', zoomSrc: 'z1' }, { src: 'b', zoomSrc: 'z2' }],
+      images: [
+        { src: 'a', zoomSrc: 'z1' },
+        { src: 'b', zoomSrc: 'z2' }
+      ],
       modelValue: 0
     })
     await nextTick()
@@ -295,7 +330,9 @@ describe('ImageMagnifier', () => {
     // reopen and close by clicking overlay self
     await wrapper.find('.yh-image-magnifier__image-wrapper').trigger('click')
     await nextTick()
-    const overlay = document.body.querySelector('.yh-image-magnifier__fullscreen-overlay') as HTMLElement
+    const overlay = document.body.querySelector(
+      '.yh-image-magnifier__fullscreen-overlay'
+    ) as HTMLElement
     overlay?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
     await nextTick()
     expect(document.body.querySelector('.yh-image-magnifier__fullscreen-overlay')).toBeFalsy()

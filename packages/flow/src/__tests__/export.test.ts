@@ -1,9 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import type { Node, Edge, ViewportTransform } from '../types'
 import type { FlowInstance } from '../types'
 import { createExportPlugin } from '../plugins/plugins/export'
-import type { ScreenshotResult } from '../types'
 
 function createMockFlowInstance(): FlowInstance {
   const nodes = ref<Node[]>([])

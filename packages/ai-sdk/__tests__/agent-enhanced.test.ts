@@ -2,15 +2,13 @@
  * YH-UI AI SDK - Agent 增强测试
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import {
   createChain,
   createParallelChain,
   createEnhancedAgent,
   createReflexionAgent,
-  createReWOOAgent,
-  type Chain,
-  type ChainStep
+  createReWOOAgent
 } from '../src/agent-enhanced'
 
 describe('LCEL Chains', () => {
@@ -196,10 +194,7 @@ describe('Enhanced Agents', () => {
         returnReasoning: false
       })
 
-      const result = await agent.run(
-        'Test',
-        async () => 'No tool call here'
-      )
+      const result = await agent.run('Test', async () => 'No tool call here')
 
       expect(result.finished).toBe(true)
       expect(result.toolCalls).toBeLessThanOrEqual(1)
@@ -213,12 +208,9 @@ describe('Enhanced Agents', () => {
         onError
       })
 
-      const result = await agent.run(
-        'Test',
-        async () => {
-          throw new Error('Execution error')
-        }
-      )
+      const result = await agent.run('Test', async () => {
+        throw new Error('Execution error')
+      })
 
       expect(result.error).toBeDefined()
       expect(onError).toHaveBeenCalled()
@@ -231,10 +223,7 @@ describe('Enhanced Agents', () => {
         stopConditions: [{ type: 'contains', value: 'final answer' as any }]
       })
 
-      const result = await agent.run(
-        'Test',
-        async () => 'final answer found here'
-      )
+      const result = await agent.run('Test', async () => 'final answer found here')
 
       expect(result).toBeDefined()
     })
@@ -251,10 +240,7 @@ describe('Enhanced Agents', () => {
         ]
       })
 
-      const result = await agent.run(
-        'Test',
-        async () => 'Please stop here'
-      )
+      const result = await agent.run('Test', async () => 'Please stop here')
 
       expect(result).toBeDefined()
     })
@@ -281,10 +267,7 @@ describe('Enhanced Agents', () => {
         memoryWindow: 2
       })
 
-      await agent.run(
-        'Test',
-        async () => 'Action: test\nAction Input: {}'
-      )
+      await agent.run('Test', async () => 'Action: test\nAction Input: {}')
 
       expect(agent.reflections.value.length).toBeLessThanOrEqual(2)
     })
@@ -391,12 +374,9 @@ describe('Enhanced Agents', () => {
         onError
       })
 
-      const result = await agent.run(
-        'Task',
-        async () => {
-          throw new Error('Execution failed')
-        }
-      )
+      const result = await agent.run('Task', async () => {
+        throw new Error('Execution failed')
+      })
 
       expect(result.error).toBeDefined()
     })

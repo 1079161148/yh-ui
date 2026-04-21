@@ -563,7 +563,9 @@ class ThemeManager {
     colors: {},
     breakpoint: "md",
     density: "comfortable",
-    colorBlindMode: "none"
+    colorBlindMode: "none",
+    algorithm: "default",
+    componentThemeVersion: 0
   });
   constructor(options) {
     this.initTheme(options);
@@ -648,6 +650,7 @@ class ThemeManager {
   /** 设置颜色算法 */
   setAlgorithm(algorithm) {
     this.algorithm = algorithm;
+    this.state.algorithm = algorithm;
     const currentColors = {
       ...presetThemes[this.currentTheme],
       ...this.customColors
@@ -750,9 +753,12 @@ class ThemeManager {
   /** 获取当前主题的 CSS 变量对象 */
   getThemeStyles(colors = {}) {
     const styles = {};
-    const themeColors = {
+    const themeColors = this.colorBlindMode === "none" ? {
       ...presetThemes[this.currentTheme],
       ...this.customColors,
+      ...colors
+    } : {
+      ...colorBlindPalettes[this.colorBlindMode],
       ...colors
     };
     const colorTypes = [{
@@ -898,6 +904,7 @@ class ThemeManager {
       this.state.dark = this.isDark;
       this.state.colors = this.customColors;
       this.state.density = this.currentDensity;
+      this.state.algorithm = this.algorithm;
       return true;
     } catch (e) {
       console.warn("[YH-UI Theme] Failed to restore theme:", e);
@@ -970,6 +977,8 @@ class ThemeManager {
     this.state.colors = {};
     this.state.density = "comfortable";
     this.state.colorBlindMode = "none";
+    this.state.algorithm = "default";
+    this.state.componentThemeVersion += 1;
     document.documentElement.classList.remove("dark");
     const el = this.targetEl || document.documentElement;
     const colorTypes = ["primary", "success", "warning", "danger", "info"];
@@ -1036,6 +1045,7 @@ class ThemeManager {
       ...this.componentOverrides[componentName],
       ...overrides
     };
+    this.state.componentThemeVersion += 1;
     const el = this.targetEl || (typeof document !== "undefined" ? document.documentElement : null);
     if (!el) return;
     Object.entries(overrides).forEach(([name, value]) => {
@@ -1056,6 +1066,7 @@ class ThemeManager {
       removeCssVar(`--yh-${componentName}-${name}`, el);
     });
     delete this.componentOverrides[componentName];
+    this.state.componentThemeVersion += 1;
   }
   // ==================== 主题切换动画 ====================
   /** 启用主题切换动画 */

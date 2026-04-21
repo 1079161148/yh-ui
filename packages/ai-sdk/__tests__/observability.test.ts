@@ -7,10 +7,9 @@ import {
   createOTelConsoleExporter,
   createLangSmithExporter,
   toOTelSpan,
-  createObservabilityManager,
-  type TraceExporter
+  createObservabilityManager
 } from '../src/observability'
-import type { TraceSpan, TraceEvent } from '../src/future'
+import type { TraceSpan } from '../src/future'
 
 describe('Observability Exporters', () => {
   describe('createOTelConsoleExporter', () => {
@@ -364,8 +363,18 @@ describe('Observability Exporters', () => {
         startTime: new Date(),
         endTime: new Date(),
         events: [
-          { id: 'e1', type: 'start', timestamp: new Date('2024-01-01T00:00:00Z'), data: { action: 'begin' } },
-          { id: 'e2', type: 'end', timestamp: new Date('2024-01-01T00:00:01Z'), data: { result: 'success' } }
+          {
+            id: 'e1',
+            type: 'start',
+            timestamp: new Date('2024-01-01T00:00:00Z'),
+            data: { action: 'begin' }
+          },
+          {
+            id: 'e2',
+            type: 'end',
+            timestamp: new Date('2024-01-01T00:00:01Z'),
+            data: { result: 'success' }
+          }
         ],
         attributes: {},
         children: []
@@ -469,7 +478,9 @@ describe('Observability Exporters', () => {
       const flushFn = vi.fn()
       const exporter1 = { exportSpans: vi.fn(), flush: flushFn }
       const exporter2 = { exportSpans: vi.fn() }
-      const manager = createObservabilityManager({ exporters: [exporter1 as any, exporter2 as any] })
+      const manager = createObservabilityManager({
+        exporters: [exporter1 as any, exporter2 as any]
+      })
 
       await manager.flush()
 
