@@ -38,7 +38,9 @@ const coverageReportsDirectory = process.env.YH_COVERAGE_REPORT_DIR || './covera
 const testPool = (process.env.YH_VITEST_POOL as 'threads' | 'forks' | undefined) || 'threads'
 const isCI = Boolean(process.env.CI)
 const defaultWorkers = isCI ? 1 : '50%'
-const enforceCoverageThresholds = Boolean(process.env.CI || process.env.COVERAGE_THRESHOLDS === 'true')
+const enforceCoverageThresholds = Boolean(
+  process.env.CI || process.env.COVERAGE_THRESHOLDS === 'true'
+)
 
 // component-system 覆盖率由 scripts/verify-component-system-coverage.mjs 分阶段校验；
 // Vitest 自带 thresholds 设为 0 以保证报告始终生成（便于持续推进 ROI）
@@ -171,7 +173,9 @@ export default defineConfig({
         'packages/nuxt/**'
       ],
       excludeAfterRemap: true,
-      clean: true,
+      // Coverage cleanup is handled once in the launcher script to avoid
+      // multi-project runs racing on the shared coverage temp directory.
+      clean: false,
       reportOnFailure: true,
       thresholds: isComponentSystemCoverage
         ? componentSystemVitestThresholds

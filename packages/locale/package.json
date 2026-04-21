@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "@yh-ui/locale",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YH-UI internationalization locale files",
   "type": "module",
   "sideEffects": false,
@@ -47,4 +47,3 @@
   "author": "YH-UI Team",
   "license": "MIT"
 }
-

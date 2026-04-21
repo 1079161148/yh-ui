@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "@yh-ui/hooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YH-UI composition hooks",
   "type": "module",
   "sideEffects": false,
@@ -59,4 +59,3 @@
   "author": "YH-UI Team",
   "license": "MIT"
 }
-

@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "@yh-ui/components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
@@ -99,4 +99,3 @@
     "pnpm": ">=9.0.0"
   }
 }
-

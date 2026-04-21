@@ -38,7 +38,24 @@ global.ResizeObserver = class {
   disconnect = vi.fn()
 } as any
 
-const waitForEditor = () => new Promise((resolve) => setTimeout(resolve, 50))
+async function waitForCondition(
+  predicate: () => boolean,
+  timeout = 5000,
+  interval = 10
+): Promise<void> {
+  const start = Date.now()
+
+  while (!predicate()) {
+    if (Date.now() - start >= timeout) {
+      throw new Error('Timed out waiting for condition')
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, interval))
+  }
+}
+
+const waitForEditor = () =>
+  waitForCondition(() => vi.mocked(monaco.editor.create).mock.calls.length > 0)
 
 describe('YhAiCodeEditor', () => {
   beforeEach(() => {
@@ -74,10 +91,9 @@ describe('YhAiCodeEditor', () => {
       }
     })
 
-    // Wait for nextTick and requestAnimationFrame
     await waitForEditor()
 
-    expect(monaco.editor.create).toHaveBeenCalled()
+    expect(vi.mocked(monaco.editor.create).mock.calls.length).toBeGreaterThan(0)
   })
 
   it('should update value on prop change', async () => {
@@ -331,7 +347,10 @@ describe('YhAiCodeEditor', () => {
   })
 
   it('should use measured container size when available', async () => {
-    const originalClientWidth = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'clientWidth')
+    const originalClientWidth = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      'clientWidth'
+    )
     const originalClientHeight = Object.getOwnPropertyDescriptor(
       HTMLElement.prototype,
       'clientHeight'
@@ -387,7 +406,6 @@ describe('YhAiCodeEditor', () => {
     expect(() => workerFactory('1', 'html')).not.toThrow()
     expect(() => workerFactory('1', 'typescript')).not.toThrow()
     expect(() => workerFactory('1', 'other')).not.toThrow()
-
     ;(globalThis as any).Worker = originalWorker
   })
 
