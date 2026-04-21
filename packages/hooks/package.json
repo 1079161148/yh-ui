@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/hooks",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "YH-UI composition hooks",
   "type": "module",
   "sideEffects": false,

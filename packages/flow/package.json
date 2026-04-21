@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/flow",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "YH-UI High-performance Flow Chart Component",
   "type": "module",
   "sideEffects": false,
