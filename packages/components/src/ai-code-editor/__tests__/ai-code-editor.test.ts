@@ -37,6 +37,22 @@ global.ResizeObserver = class {
   disconnect = vi.fn()
 } as any
 
+async function waitForCondition(
+  predicate: () => boolean,
+  timeout = 5000,
+  interval = 10
+): Promise<void> {
+  const start = Date.now()
+
+  while (!predicate()) {
+    if (Date.now() - start >= timeout) {
+      throw new Error('Timed out waiting for condition')
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, interval))
+  }
+}
+
 describe('YhAiCodeEditor', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -59,10 +75,9 @@ describe('YhAiCodeEditor', () => {
       }
     })
 
-    // Wait for nextTick and requestAnimationFrame
-    await new Promise((resolve) => setTimeout(resolve, 50))
+    await waitForCondition(() => vi.mocked(monaco.editor.create).mock.calls.length > 0)
 
-    expect(monaco.editor.create).toHaveBeenCalled()
+    expect(vi.mocked(monaco.editor.create).mock.calls.length).toBeGreaterThan(0)
   })
 
   it('should update value on prop change', async () => {

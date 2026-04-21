@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "yh-ui-monorepo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
@@ -30,7 +30,7 @@
     "verify:codesandbox-remote": "vite-node scripts/verify-codesandbox-remote.mts",
     "verify:published-release": "node scripts/verify-published-release.mjs",
     "test": "vitest --project components-dom --project packages-dom --project packages-node --project ssr",
-    "test:coverage": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run --coverage --project components-dom --project packages-dom --project packages-node --project ssr",
+    "test:coverage": "node scripts/run-vitest-coverage.mjs",
     "test:perf": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run --project perf",
     "test:ci": "node --max-old-space-size=4096 ./node_modules/vitest/vitest.mjs run --project components-dom --project packages-dom --project packages-node --project ssr",
     "lint": "eslint .",
@@ -135,4 +135,3 @@
     }
   }
 }
-

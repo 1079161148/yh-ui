@@ -6,7 +6,9 @@ import crypto from 'node:crypto'
 
 const isCI = Boolean(process.env.CI)
 const defaultWorkers = isCI ? 1 : '50%'
-const enforceCoverageThresholds = Boolean(process.env.CI || process.env.COVERAGE_THRESHOLDS === 'true')
+const enforceCoverageThresholds = Boolean(
+  process.env.CI || process.env.COVERAGE_THRESHOLDS === 'true'
+)
 
 // Polyfill crypto.hash for Node.js < 18.20 / 20.12 / 21.7
 if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
@@ -65,7 +67,9 @@ export default defineConfig({
         'packages/nuxt/**'
       ],
       excludeAfterRemap: true,
-      clean: true,
+      // Coverage cleanup is handled once in the launcher script to avoid
+      // multi-project runs racing on the shared coverage temp directory.
+      clean: false,
       reportOnFailure: true,
       ...(enforceCoverageThresholds
         ? {
