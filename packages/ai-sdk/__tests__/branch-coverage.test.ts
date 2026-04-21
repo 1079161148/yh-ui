@@ -23,6 +23,7 @@ import { createInMemoryVectorStore } from '../src/vector-store'
 import type { IVectorStore, VectorSearchResult } from '../src/vector-store'
 import { MCPServer, useMCPServer } from '../src/mcp-server'
 import { createLocalStorageCache, createSessionStorageCache } from '../src/cache-adapter'
+import { createMockStorage } from './mocks'
 
 describe('branch coverage — ReAct / Plan / RAG', () => {
   it('useReActAgent: stopConditions contains + custom, concurrent run, LLM throw', async () => {
@@ -40,8 +41,7 @@ describe('branch coverage — ReAct / Plan / RAG', () => {
       stopConditions: [{ type: 'contains', value: 'HALT' }]
     })
 
-    const mockLLM = async () =>
-      'Thought: before HALT marker\nAction: noop\nAction Input: {}'
+    const mockLLM = async () => 'Thought: before HALT marker\nAction: noop\nAction Input: {}'
     const r1 = await run('t', mockLLM)
     expect(r1.finished).toBe(false)
 
@@ -51,8 +51,7 @@ describe('branch coverage — ReAct / Plan / RAG', () => {
       tools: [noop],
       stopConditions: [{ type: 'custom', value: (out: string) => out.includes('DONE') }]
     })
-    const mockLLM2 = async () =>
-      'Thought: has DONE marker here\nAction: noop\nAction Input: {}'
+    const mockLLM2 = async () => 'Thought: has DONE marker here\nAction: noop\nAction Input: {}'
     const r2 = await run2('t2', mockLLM2)
     expect(r2.output).toContain('DONE')
 
@@ -131,7 +130,10 @@ describe('branch coverage — compressor / cost / tracer / safety', () => {
   it('createContextCompressor: array input + summary with llm', async () => {
     const c = createContextCompressor({ strategy: 'summary', targetTokens: 5 })
     const long = 'word '.repeat(200)
-    const r1 = await c.compress([{ role: 'user', content: long }, { role: 'assistant', content: 'ok' }])
+    const r1 = await c.compress([
+      { role: 'user', content: long },
+      { role: 'assistant', content: 'ok' }
+    ])
     expect(r1.compressionRatio).toBeLessThan(1)
 
     const r2 = await c.compress(long, async () => 'short')
@@ -242,6 +244,7 @@ describe('branch coverage — loaders / rag-production / vector-store', () => {
 
 describe('branch coverage — cache + MCP server', () => {
   it('localStorage cache: corrupt json + expiry path', () => {
+    vi.stubGlobal('localStorage', createMockStorage() as unknown as Storage)
     localStorage.setItem('yh-ai-cache-bad', 'not-json{')
     const c = createLocalStorageCache()
     expect(c.get('bad')).toBeNull()
@@ -257,6 +260,7 @@ describe('branch coverage — cache + MCP server', () => {
   })
 
   it('sessionStorage cache: expired entry', () => {
+    vi.stubGlobal('sessionStorage', createMockStorage() as unknown as Storage)
     vi.useFakeTimers()
     const c = createSessionStorageCache('sttl-')
     c.set('e', 'v', 1)

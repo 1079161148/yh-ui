@@ -212,6 +212,9 @@ export interface AiStreamOptions {
   onError?: (err: Error) => void
 }
 
+// Backward-compatible alias for earlier public API naming.
+export type UseAiStreamOptions = AiStreamOptions
+
 /**
  * useAiStream - 多厂商兼容流式请求引擎
  *

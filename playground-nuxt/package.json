@@ -10,6 +10,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
+    "@yh-ui/hooks": "workspace:*",
     "@yh-ui/nuxt": "workspace:*",
     "nuxt": "^3.15.4"
   },

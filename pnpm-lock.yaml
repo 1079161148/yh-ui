@@ -474,6 +474,9 @@ importers:
 
   playground-nuxt:
     dependencies:
+      '@yh-ui/hooks':
+        specifier: workspace:*
+        version: link:../packages/hooks
       '@yh-ui/nuxt':
         specifier: workspace:*
         version: link:../packages/nuxt

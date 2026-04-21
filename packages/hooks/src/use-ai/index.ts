@@ -9,6 +9,7 @@ export {
   geminiParser,
   plainTextParser,
   type StreamChunkParser,
+  type AiStreamOptions,
   type UseAiStreamOptions
 } from './use-ai-stream'
 export { __test__ as aiStreamTestUtils } from './use-ai-stream'

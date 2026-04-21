@@ -605,17 +605,13 @@ describe('YhAiBubble', () => {
   })
 
   it('should reset playing state when audio playback ends', async () => {
-    let latestAudio: {
-      onended: null | (() => void)
-      play: () => Promise<void>
-      pause: () => void
-    } | null = null
     class MockAudio {
+      static latest: MockAudio | null = null
       onended: null | (() => void) = null
       play = vi.fn().mockResolvedValue(undefined)
       pause = vi.fn()
       constructor(_url: string) {
-        latestAudio = { onended: this.onended, play: this.play, pause: this.pause }
+        MockAudio.latest = this
       }
     }
     vi.stubGlobal('Audio', MockAudio as any)
@@ -625,7 +621,7 @@ describe('YhAiBubble', () => {
     })
 
     await wrapper.find('.yh-ai-bubble__audio-player button').trigger('click')
-    latestAudio?.onended?.()
+    MockAudio.latest?.onended?.()
 
     expect((wrapper.vm as any).playingAsset).toBeNull()
   })
