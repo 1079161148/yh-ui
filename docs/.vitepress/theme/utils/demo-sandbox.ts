@@ -463,7 +463,10 @@ function _getPlaygroundStaticPackageEntries(base: string): Record<string, Static
       entry: resolveSiteAssetUrl(base, 'components/index.mjs'),
       dir: 'components/'
     },
-    '@yh-ui/hooks': { entry: resolveSiteAssetUrl(base, 'hooks/index.mjs'), dir: 'hooks/' },
+    '@yh-ui/hooks': {
+      entry: resolveSiteAssetUrl(base, 'playground/yh-hooks-runtime.js'),
+      dir: 'hooks/'
+    },
     '@yh-ui/icons': { entry: resolveSiteAssetUrl(base, 'icons/index.mjs'), dir: 'icons/' },
     '@yh-ui/utils': { entry: resolveSiteAssetUrl(base, 'utils/index.mjs'), dir: 'utils/' },
     '@yh-ui/theme': { entry: resolveSiteAssetUrl(base, 'theme/index.mjs'), dir: 'theme/' },
@@ -700,6 +703,21 @@ function resolveImportUrl(source: string, dependencies: Record<string, string>):
   return `${ESM_CDN}/${pkg}@${version}${suffix}?external=vue`
 }
 
+function applyRuntimeImportMapShims(
+  importMap: ImportMap,
+  dependencies: Record<string, string>
+): void {
+  const dayjsVersion = normalizeDependencyVersion(
+    dependencies.dayjs || KNOWN_DEPENDENCIES.dayjs || 'latest'
+  )
+
+  // Runtime bundles may import the dayjs entry and deep locale/plugin modules even
+  // when the demo source itself does not mention them.
+  importMap.imports.dayjs = `${ESM_CDN}/dayjs@${dayjsVersion}?external=vue&target=esnext`
+  importMap.imports['dayjs/plugin/'] = `${ESM_CDN}/dayjs@${dayjsVersion}/plugin/`
+  importMap.imports['dayjs/locale/'] = `${ESM_CDN}/dayjs@${dayjsVersion}/locale/`
+}
+
 // ============================================================
 // 公开 API
 // ============================================================
@@ -833,6 +851,8 @@ export function createPlaygroundProject(
       importMap.imports[source] = resolvedUrl
     }
   }
+
+  applyRuntimeImportMapShims(importMap, dependencies)
 
   const cssUrl = resolveSiteAssetUrl(base, 'yh-ui/style.css')
   const staticPackages = _getPlaygroundStaticPackageEntries(base)

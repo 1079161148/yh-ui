@@ -95,5 +95,7 @@ export type AlertEmits = typeof alertEmits;
 export interface AlertSlots {
     title?: () => unknown;
     default?: () => unknown;
+    icon?: () => unknown;
+    close?: () => unknown;
     action?: () => unknown;
 }

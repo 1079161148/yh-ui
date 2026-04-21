@@ -1,6 +1,4 @@
 import dayjs from "../dayjs.js";
-import "dayjs/locale/en";
-const dayjsLocales = {};
 const loadedLocales = /* @__PURE__ */ new Set(["en"]);
 const localeMapping = {
   "zh-cn": "zh-cn",
@@ -72,17 +70,8 @@ const localeMapping = {
   te: "te"
 };
 const loadDayjsLocale = async (dayjsLocale) => {
-  const path = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`;
-  const loader = dayjsLocales[path];
-  if (loader) {
-    await loader();
-    return true;
-  }
   try {
-    await import(
-      /* @vite-ignore */
-      `dayjs/locale/${dayjsLocale}.js`
-    );
+    await import(`../../dayjs-locale/${dayjsLocale}.js`);
     return true;
   } catch (e) {
     return false;

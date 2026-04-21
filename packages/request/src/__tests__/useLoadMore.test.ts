@@ -103,4 +103,44 @@ describe('useLoadMore', () => {
     expect(onError).toHaveBeenCalledWith(err, [])
     expect(onFinally).toHaveBeenCalledWith([])
   })
+
+  it('extracts total from totalCount', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: { totalCount: 5, items: [] } })
+    const { reload, total } = useLoadMore(mockService as any, { manual: true })
+    await reload()
+    expect(total.value).toBe(5)
+  })
+
+  it('extracts total from totalElements', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: { totalElements: 8, items: [] } })
+    const { reload, total } = useLoadMore(mockService as any, { manual: true })
+    await reload()
+    expect(total.value).toBe(8)
+  })
+
+  it('uses loadMoreService for fetch when provided', async () => {
+    const main = vi.fn().mockResolvedValue({ data: [] })
+    const more = vi.fn().mockResolvedValue({ data: { total: 10, items: [1, 2] } })
+    const { reload } = useLoadMore(main as any, {
+      manual: true,
+      loadMoreService: more as any
+    })
+    await reload()
+    expect(main).not.toHaveBeenCalled()
+    expect(more).toHaveBeenCalled()
+  })
+
+  it('pagination helpers invoke service', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: { total: 100, items: [1] } })
+    const { pagination, pageSize } = useLoadMore(mockService as any, { manual: true })
+
+    pagination.setPageSize(5)
+    expect(pageSize.value).toBe(5)
+
+    await pagination.loadPage(2)
+    await pagination.firstPage()
+    await pagination.lastPage()
+    await pagination.prevPage()
+    expect(mockService.mock.calls.length).toBeGreaterThan(3)
+  })
 })

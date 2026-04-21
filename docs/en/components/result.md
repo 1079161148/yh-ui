@@ -1,5 +1,7 @@
 # Result
 
+Used to provide feedback on the results of a series of operations or tasks.
+
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
@@ -29,7 +31,7 @@ const jsTypes = tsTypes
 const tsCustom = `<template>
   <yh-result title="404" sub-title="Sorry, the page you visited does not exist">
     <template #icon>
-      <span style="font-size: 72px;">🔍</span>
+      <span style="font-size: 72px;">📄</span>
     </template>
     <template #extra>
       <p style="color: var(--yh-text-color-secondary);">
@@ -43,10 +45,8 @@ const tsCustom = `<template>
 
 const jsCustom = tsCustom
 
-// Nuxt usage example (Demonstrating state switching for error.vue)
 const tsNuxt = `<template>
   <div>
-    <!-- Control buttons to mock different error states (For demo only) -->
     <div style="display: flex; gap: 8px; margin-bottom: 24px; justify-content: center;">
       <yh-button :type="code === 404 ? 'primary' : 'default'" @click="code = 404">Mock 404</yh-button>
       <yh-button :type="code === 403 ? 'primary' : 'default'" @click="code = 403">Mock 403</yh-button>
@@ -67,7 +67,6 @@ const tsNuxt = `<template>
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-// This 'code' mocks error.value?.statusCode in a real error.vue
 const code = ref(404)
 
 const resultIcon = computed(() => {
@@ -82,15 +81,12 @@ const resultSubTitle = computed(() => {
   return 'An unknown error occurred, please try again later'
 })
 
-// clearError clears the error state and performs navigation
 const handleClear = () => clearError({ redirect: '/' })
 const handleBack = () => clearError({ redirect: -1 })
 <\/script>`
 
-const jsNuxt = tsNuxt
-  .replace('lang="ts"', '')
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
-// Mock error state for in-doc preview
 const resultErrorCode = ref(404)
 const previewIcon = computed(() => {
   if (resultErrorCode.value === 404) return 'warning'
@@ -105,11 +101,9 @@ const previewSubTitle = computed(() => {
 })
 </script>
 
-Used to provide feedback on the results of a series of operations or tasks.
-
 ## Basic Usage
 
-The simplest way to use it, by setting the `icon`, `title`, and `sub-title` props.
+Use `icon`, `title`, and `sub-title` to render a standard result state.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <yh-result
@@ -123,7 +117,7 @@ The simplest way to use it, by setting the `icon`, `title`, and `sub-title` prop
 
 ## Different Statuses
 
-Set different status icons via the `icon` prop: `success`, `warning`, `error`, `info`.
+Switch between `success`, `warning`, `error`, and `info` via the `icon` prop.
 
 <DemoBlock title="Different Statuses" :ts-code="tsTypes" :js-code="jsTypes">
   <yh-space direction="vertical" :size="40" fill>
@@ -136,12 +130,12 @@ Set different status icons via the `icon` prop: `success`, `warning`, `error`, `
 
 ## Custom Content
 
-Customize the icon and extra content areas via `#icon` and `#extra` slots. The default slot is used for action buttons.
+Use slots such as `icon` and `extra` to customize the result page. The default slot is typically used for action buttons.
 
 <DemoBlock title="Custom Content" :ts-code="tsCustom" :js-code="jsCustom">
   <yh-result title="404" sub-title="Sorry, the page you visited does not exist">
     <template #icon>
-      <span style="font-size: 72px;">🔍</span>
+      <span style="font-size: 72px;">📄</span>
     </template>
     <template #extra>
       <p style="color: var(--yh-text-color-secondary);">
@@ -155,9 +149,9 @@ Customize the icon and extra content areas via `#icon` and `#extra` slots. The d
 
 ## Use in Nuxt
 
-Result component fully supports Nuxt 3/4 SSR rendering. The following example demonstrates using Result as the **`error.vue` global error page** in Nuxt, combined with Nuxt-exclusive APIs like `useError` and `clearError` to dynamically respond to different HTTP error codes.
+`YhResult` works well in Nuxt 3/4 as a regular feedback component and also fits global error pages such as `error.vue`.
 
-<DemoBlock title="Nuxt Usage (Mock error.vue)" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="Use in Nuxt (Mock error.vue)" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div>
     <div style="display: flex; gap: 8px; margin-bottom: 24px; justify-content: center;">
       <yh-button
@@ -184,44 +178,38 @@ Result component fully supports Nuxt 3/4 SSR rendering. The following example de
   </div>
 </DemoBlock>
 
-**SSR Notes**:
-
-- ✅ All Props and styles fully supported
-- ✅ SVG icons render correctly
-- ✅ Slot content (icon, title, sub-title, extra, default) fully rendered
-- ✅ Can be used as Nuxt's `error.vue` error page
-- ✅ Dynamic status (icon type switching) works normally
-
-::: tip SSR Safety
-Result component has passed complete SSR tests, ensuring that server-side and client-side rendering are completely consistent with no Hydration errors.
-:::
-
 ## API
 
 ### Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| title | Title | `string` | — |
-| subTitle | Sub-title | `string` | — |
-| icon | Icon type | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| `title` | Title | `string` | `undefined` |
+| `sub-title` | Sub-title | `string` | `undefined` |
+| `icon` | Result icon type | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'` |
+| `theme-overrides` | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+This component does not expose component events.
 
 ### Slots
 
 | Slot | Description |
 | --- | --- |
-| default | Actions area (usually buttons) |
-| icon | Custom icon content |
-| title | Custom title content |
-| sub-title | Custom sub-title content |
-| extra | Extra content area (between sub-title and actions) |
+| `default` | Actions area |
+| `icon` | Custom icon content |
+| `title` | Custom title content |
+| `sub-title` | Custom sub-title content |
+| `extra` | Extra content area between sub-title and actions |
+
+### Expose
+
+This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
-Result supports customizing local styles by overriding the following CSS variables:
-
-| Variable Name | Description | Default |
+| Variable | Description | Default |
 | --- | --- | --- |
 | `--yh-result-padding` | Container padding | `40px 30px` |
 | `--yh-result-icon-size` | Icon size | `72px` |
@@ -230,3 +218,12 @@ Result supports customizing local styles by overriding the following CSS variabl
 | `--yh-result-title-color` | Title color | `var(--yh-text-color-primary, #303133)` |
 | `--yh-result-subtitle-size` | Sub-title font size | `14px` |
 | `--yh-result-subtitle-color` | Sub-title color | `var(--yh-text-color-secondary, #909399)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhResultProps` | Component props type |
+| `YhResultSlots` | Component slots type |
+| `YhResultIconType` | Result icon union type |
+| `YhResultInstance` | Component instance type |

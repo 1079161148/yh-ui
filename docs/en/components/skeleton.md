@@ -1,6 +1,6 @@
 # Skeleton
 
-Provide placeholder graphics at locations where content is loading. Combines convenient layouts, advanced animations, and high flexibility from mainstream UI frameworks.
+Provide placeholder graphics at locations where content is loading.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -27,7 +27,6 @@ const tsItem = `<${_T}>
 </${_T}>`
 
 const tsCreative = `<${_T}>
-  <!-- Scenario: Card Skeleton -->
   <div class="skeleton-card">
     <yh-skeleton-item variant="rect" style="width: 100%; height: 200px; border-radius: 12px 12px 0 0;" />
     <div style="padding: 16px">
@@ -43,7 +42,6 @@ const tsCreative = `<${_T}>
 
 const tsThrottle = `<${_T}>
   <yh-button @click="reloadData">Trigger Fast Loading</yh-button>
-  <!-- throttle=500 will only show skeleton after loading persists for 500ms, avoiding flickering -->
   <yh-skeleton :loading="loading" :throttle="500">
     <div class="real-content">
       Real data has loaded. Since loading was extremely fast (<500ms), the skeleton never appeared, ensuring visual continuity.
@@ -52,7 +50,6 @@ const tsThrottle = `<${_T}>
 </${_T}>`
 
 const tsNuxt = `<${_T}>
-  <!-- Automatically detects in Nuxt environment, SSR safe -->
   <yh-skeleton avatar title />
 </${_T}>`
 
@@ -116,19 +113,19 @@ Easily implement complex card flow skeletons using `variant="rect"` and `repeat`
 
 ### 1. Smart Throttling (Throttle)
 
-Set display delay with `throttle` prop. If async data loads within the set time, the skeleton will **never appear**. This effectively eliminates the "anxiety" caused by skeleton flickering when network conditions are good.
+Set display delay with `throttle` prop. If async data loads within the set time, the skeleton will never appear.
 
 ### 2. Viewport Detection (Lazy Animation)
 
-When `lazy` is enabled, the skeleton animation only starts when the element enters the viewport. This significantly reduces GPU usage for invisible elements in long list pages - the ultimate **performance optimization** practice.
+When `lazy` is enabled, the skeleton animation only starts when the element enters the viewport.
 
-### 3. Polymorphic Rendering (Polymorphic)
+### 3. Polymorphic Rendering
 
-`SkeletonItem`'s `variant` covers all atomic elements in mainstream interaction design, ensuring high fidelity from design to code.
+`YhSkeletonItem` covers common atomic placeholder variants for custom composition.
 
 ## Use in Nuxt
 
-`YhSkeleton` is fully optimized for Nuxt/SSR environments, automatically falling back to safe rendering mode.
+`YhSkeleton` and `YhSkeletonItem` can be rendered directly in Nuxt after registering the YH-UI module. Skeleton placeholders render as normal markup during SSR, and animation continues on the client after hydration.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-skeleton avatar title />
@@ -136,36 +133,71 @@ When `lazy` is enabled, the skeleton animation only starts when the element ente
 
 ## API
 
-### Skeleton Props
+### Props
 
-| Name     | Description                                             | Type      | Default |
-| -------- | ------------------------------------------------------- | --------- | ------- |
-| loading  | Whether to show loading render                          | `boolean` | `true`  |
-| animated | Whether to enable shimmer animation                     | `boolean` | `true`  |
-| rows     | Number of rows for default layout                       | `number`  | `3`     |
-| title    | Whether to render title placeholder                     | `boolean` | `false` |
-| avatar   | Whether to render avatar placeholder                    | `boolean` | `false` |
-| throttle | Delay in milliseconds to prevent flickering             | `number`  | `0`     |
-| lazy     | Only start animation when in viewport (Custom Advanced) | `boolean` | `false` |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| loading | Whether to show loading render | `boolean` | `true` |
+| animated | Whether to enable shimmer animation | `boolean` | `true` |
+| rows | Number of rows for the default layout | `number` | `3` |
+| title | Whether to render a title placeholder | `boolean` | `false` |
+| avatar | Whether to render an avatar placeholder | `boolean` | `false` |
+| throttle | Delay in milliseconds to prevent flickering | `number` | `0` |
+| lazy | Only start animation when in viewport | `boolean` | `false` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
-### SkeletonItem Props
+### Events
 
-| Name     | Description                                                            | Type               | Default  |
-| -------- | ---------------------------------------------------------------------- | ------------------ | -------- |
-| variant  | Variant type (`circle`, `rect`, `h1`, `h3`, `text`, `button`, `image`) | `string`           | `'text'` |
-| width    | Width                                                                  | `string \| number` | —        |
-| height   | Height                                                                 | `string \| number` | —        |
-| animated | Whether to enable shimmer animation                                    | `boolean`          | `true`   |
-| round    | Whether to have rounded corners                                        | `boolean`          | `false`  |
-| sharp    | When true, explicitly sets to sharp corners                            | `boolean`          | `false`  |
-| repeat   | Number of times to repeat (Custom Practical)                           | `number`           | `1`      |
+This component does not expose component events.
+
+### Slots
+
+| Name | Parameters | Description |
+| --- | --- | --- |
+| template | `-` | Skeleton placeholder content shown while `loading` is `true`. |
+| default | `-` | Content rendered after loading completes. |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Skeleton Item Props
+
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| variant | Variant type (`circle`, `rect`, `h1`, `h3`, `text`, `caption`, `button`, `image`) | `YhSkeletonItemVariant` | `'text'` |
+| width | Width | `string \| number` | `undefined` |
+| height | Height | `string \| number` | `undefined` |
+| animated | Whether to enable shimmer animation | `boolean` | `true` |
+| round | Whether to use rounded corners | `boolean` | `false` |
+| sharp | Whether to force sharp corners | `boolean` | `false` |
+| repeat | Number of times to repeat | `number` | `1` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+
+### Skeleton Item Slots
+
+| Name | Parameters | Description |
+| --- | --- | --- |
+| image | `-` | Custom placeholder content used when `variant="image"`. |
+
+### Skeleton Item Expose
+
+This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
-| Variable                      | Description                    | Default                      |
-| ----------------------------- | ------------------------------ | ---------------------------- |
-| `--yh-skeleton-bg-color`      | Skeleton base background color | `var(--yh-fill-color-dark)`  |
-| `--yh-skeleton-shimmer-color` | Animation shimmer color        | `var(--yh-fill-color-light)` |
+`YhSkeleton` and `YhSkeletonItem` support `themeOverrides`, but they do not define dedicated component-level CSS variables. Their styles mainly consume shared global tokens such as `--yh-fill-color-dark`, `--yh-fill-color-light`, `--yh-radius-base`, and `--yh-text-color-placeholder`.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSkeletonProps` | Skeleton props type |
+| `YhSkeletonSlots` | Skeleton slots type |
+| `YhSkeletonInstance` | Skeleton instance type |
+| `YhSkeletonItemProps` | SkeletonItem props type |
+| `YhSkeletonItemVariant` | SkeletonItem variant union type |
+| `YhSkeletonItemInstance` | SkeletonItem instance type |
 
 <style scoped>
 .skeleton-card {

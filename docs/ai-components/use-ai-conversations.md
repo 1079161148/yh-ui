@@ -122,6 +122,18 @@ const activeConv = computed(() =>
   conversations.value.find(c => c.id === activeId.value)
 )
 
+const groupLabelMap: Record<string, string> = {
+  pinned: '置顶',
+  today: '今天',
+  last7Days: '最近 7 天',
+  last30Days: '最近 30 天',
+  earlier: '更早'
+}
+
+function formatGroupLabel(label: string) {
+  return groupLabelMap[label] ?? label
+}
+
 // ─── IndexedDB 演示数据 ──────────────────────────────────────────────────────
 
 const idbConversations = ref<AiConversation[]>([])
@@ -167,7 +179,7 @@ const tsBasic = `\<${_T}>
       <div style="overflow-y: auto; max-height: 280px;">
         <template v-for="group in groupedConversations" :key="group.label">
           <div style="padding: 4px 12px 2px; font-size: 11px; color: var(--yh-text-color-secondary); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
-            {{ group.label }}
+            {{ formatGroupLabel(group.label) }}
           </div>
           <div
             v-for="conv in group.items" :key="conv.id"
@@ -201,7 +213,7 @@ const tsBasic = `\<${_T}>
           {{ activeConv.excerpt || '暂无内容预览' }}
         </div>
         <div style="margin-top: 16px; font-size: 12px; color: var(--yh-text-color-disabled);">
-          分组：{{ groupedConversations.map(g => g.label + '(' + g.items.length + ')').join(' · ') }}
+          分组：{{ groupedConversations.map(g => formatGroupLabel(g.label) + '(' + g.items.length + ')').join(' · ') }}
         </div>
       </div>
       <div v-else style="color: var(--yh-text-color-secondary); font-size: 13px;">请选择一个会话</div>
@@ -222,7 +234,8 @@ const {
   groupedConversations,
   createConversation: _create,
   removeConversation,
-  pinConversation: togglePin
+  pinConversation,
+  ready
 } = useAiConversations({
   storage: 'localStorage',
   storageKey: 'demo-basic-convs',
@@ -243,20 +256,41 @@ function createConversation() {
   counter++
 }
 
+function togglePin(id: string) {
+  const conversation = conversations.value.find(c => c.id === id)
+  pinConversation(id, !conversation?.pinned)
+}
+
+ready.then(() => {
+  activeId.value = conversations.value[0]?.id ?? ''
+})
+
 const activeConv = computed(() =>
   conversations.value.find(c => c.id === activeId.value)
 )
+
+const groupLabelMap: Record<string, string> = {
+  pinned: '置顶',
+  today: '今天',
+  last7Days: '最近 7 天',
+  last30Days: '最近 30 天',
+  earlier: '更早'
+}
+
+function formatGroupLabel(label: string) {
+  return groupLabelMap[label] ?? label
+}
 \</${_S}>`
 
 const tsIndexedDB = `\<${_T}>
   <div style="max-width: 500px; border: 1px solid var(--yh-border-color); border-radius: 8px; overflow: hidden;">
     <div style="padding: 12px 16px; border-bottom: 1px solid var(--yh-border-color-light); display: flex; justify-content: space-between; align-items: center;">
       <span style="font-size: 14px; font-weight: 600;">📦 IndexedDB 会话列表</span>
-      <span style="font-size: 12px; color: var(--yh-text-color-secondary);">已加载 {{ conversations.length }} / {{ total }} 条</span>
+      <span style="font-size: 12px; color: var(--yh-text-color-secondary);">已加载 {{ pagedConversations.length }} / {{ total }} 条</span>
     </div>
     <div style="max-height: 300px; overflow-y: auto;">
       <div
-        v-for="conv in conversations" :key="conv.id"
+        v-for="conv in pagedConversations" :key="conv.id"
         style="padding: 10px 16px; border-bottom: 1px solid var(--yh-border-color-lighter); font-size: 13px;"
       >
         <div style="font-weight: 500;">{{ conv.title }}</div>
@@ -267,7 +301,7 @@ const tsIndexedDB = `\<${_T}>
     </div>
     <div style="padding: 12px 16px; text-align: center;">
       <yh-button v-if="hasMore" @click="loadMore" :loading="isLoadingMore" type="primary" plain>
-        加载更多（剩余 {{ total - conversations.length }} 条）
+        加载更多（剩余 {{ total - pagedConversations.length }} 条）
       </yh-button>
       <span v-else style="font-size: 12px; color: var(--yh-text-color-secondary);">✅ 已全部加载</span>
     </div>
@@ -275,11 +309,12 @@ const tsIndexedDB = `\<${_T}>
 \</${_T}>
 
 \<${_S} setup lang="ts">
-import { useAiConversations, IndexedDBAdapter } from '@yh-ui/hooks'
+import { useAiConversations } from '@yh-ui/hooks'
 
 const total = 50
-const { conversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
-  storage: new IndexedDBAdapter('demo-idb-app'),
+const { pagedConversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
+  storage: 'indexedDB',
+  storageKey: 'demo-idb-app',
   pageSize: 10,
   initialConversations: Array.from({ length: total }, (_, i) => ({
     id: \`idb-\${i + 1}\`,
@@ -305,7 +340,7 @@ const { conversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
       <div style="overflow-y: auto; max-height: 280px;">
         <template v-for="group in groupedConversations" :key="group.label">
           <div style="padding: 4px 12px 2px; font-size: 11px; color: var(--yh-text-color-secondary); font-weight: 600; letter-spacing: 0.5px;">
-            {{ group.label }}
+            {{ formatGroupLabel(group.label) }}
           </div>
           <div
             v-for="conv in group.items" :key="conv.id"
@@ -340,7 +375,7 @@ const { conversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
           {{ activeConv.excerpt || '暂无内容预览' }}
         </div>
         <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--yh-border-color-lighter); font-size: 12px; color: var(--yh-text-color-disabled);">
-          分组情况：{{ groupedConversations.map(g => g.label + '(' + g.items.length + ')').join(' · ') }}
+          分组情况：{{ groupedConversations.map(g => formatGroupLabel(g.label) + '(' + g.items.length + ')').join(' · ') }}
         </div>
       </div>
       <div v-else style="color: var(--yh-text-color-secondary); font-size: 13px; padding-top: 40px; text-align: center;">
@@ -352,7 +387,7 @@ const { conversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
 
 ## IndexedDB 模式（大量数据 + 分页懒加载）
 
-使用 `IndexedDBAdapter` 适配器，支持超大量历史记录，分页懒加载按需获取。
+使用 `storage: 'indexedDB'` 配合 `pagedConversations`，支持大体量历史记录按页懒加载。
 
 <DemoBlock :ts-code="tsIndexedDB" :js-code="toJs(tsIndexedDB)">
   <div style="max-width: 500px; border: 1px solid var(--yh-border-color); border-radius: 8px; overflow: hidden;">

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { parseIconName, iconExists, getIconData, createIconifyComponent } from '../src/iconify'
-import { YhIcon } from '../src/vue/icon'
+import { YhIcon, __test__ as iconInternal } from '../src/vue/icon'
 import { getPreset, PRESETS, PREFIX_ALIAS, COMMON_ICONS } from '../src/presets'
 import { getCollectionPrefixes } from '../src/config'
 import { ICON_COLLECTIONS, getCollection, getAllPrefixes } from '../src/collections'
@@ -59,8 +59,26 @@ describe('Icons Package', () => {
       expect(wrapper2.find('svg').attributes('style')).toContain('width: 2em')
     })
 
+    it('createIconifyComponent should render without style when no visual props', () => {
+      const Icon = createIconifyComponent()
+      const wrapper = mount(Icon as any, {
+        props: { icon: 'mdi:home' }
+      })
+      expect(wrapper.find('svg').exists()).toBe(true)
+      expect(wrapper.find('svg').attributes('style')).toBeUndefined()
+    })
+
     it('iconExists should return boolean', async () => {
       expect(await iconExists('mdi:home')).toBe(true)
+    })
+
+    it('iconExists should return false when parse throws', async () => {
+      const badName = {
+        includes() {
+          throw new Error('boom')
+        }
+      } as unknown as string
+      expect(await iconExists(badName)).toBe(false)
     })
 
     it('getIconData should return icon data or throw', async () => {
@@ -142,6 +160,13 @@ describe('Icons Package', () => {
       expect(wrapper.html()).toContain('mdi:home')
     })
 
+    it('should resolve common icon aliases', () => {
+      const wrapper = mount(YhIcon, {
+        props: { name: 'arrow-up' }
+      })
+      expect(wrapper.html()).toContain('mdi:arrow-up')
+    })
+
     it('should handle rotate and color', () => {
       const wrapper = mount(YhIcon, {
         props: { icon: 'ep:search', rotate: 180, color: 'blue' }
@@ -149,6 +174,52 @@ describe('Icons Package', () => {
       const style = wrapper.attributes('style')
       expect(style).toContain('transform: rotate(180deg)')
       expect(style).toContain('color: blue')
+    })
+
+    it('should apply numeric size styles', () => {
+      const wrapper = mount(YhIcon, {
+        props: { icon: 'mdi:home', size: 20 }
+      })
+      const style = wrapper.attributes('style')
+      expect(style).toContain('width: 20px')
+      expect(style).toContain('height: 20px')
+      expect(style).toContain('font-size: 20px')
+    })
+
+    it('should inject spin style only once', () => {
+      const id = 'yh-icon-spin-style'
+      document.getElementById(id)?.remove()
+      mount(YhIcon, { props: { name: 'home', spin: true } })
+      mount(YhIcon, { props: { name: 'home', spin: true } })
+      expect(document.querySelectorAll(`#${id}`).length).toBe(1)
+    })
+
+    it('setup should be safe when document is unavailable', () => {
+      const prevDocument = (globalThis as any).document
+      ;(globalThis as any).document = undefined
+      const setup = (YhIcon as any).setup
+      const render = setup({ name: 'home', spin: true }, { attrs: {} })
+      expect(typeof render).toBe('function')
+      expect(() => render()).not.toThrow()
+      ;(globalThis as any).document = prevDocument
+    })
+
+    it('internal resolveIconName handles empty string', () => {
+      expect(iconInternal.resolveIconName('')).toBe('')
+    })
+
+    it('internal createIconStyle handles numeric size conversion', () => {
+      const style = iconInternal.createIconStyle({ size: 18 })
+      expect(style?.width).toBe('18px')
+      expect(style?.height).toBe('18px')
+      expect(style?.fontSize).toBe('18px')
+    })
+
+    it('internal createIconStyle handles string size without px conversion', () => {
+      const style = iconInternal.createIconStyle({ size: '2em' })
+      expect(style?.width).toBe('2em')
+      expect(style?.height).toBe('2em')
+      expect(style?.fontSize).toBe('2em')
     })
 
     it('should render placeholder span if nothing provided', () => {

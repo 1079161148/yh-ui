@@ -367,55 +367,75 @@ export default defineNuxtConfig({ modules: ['@yh-ui/nuxt'] })
 
 ### Props
 
-| 属性                | 说明                        | 类型               | 默认值     |
-| ------------------- | --------------------------- | ------------------ | ---------- |
-| title               | 标题                        | string             | -          |
-| description         | 描述内容                    | string             | -          |
-| confirm-button-text | 确认按钮文字                | string             | `确定`     |
-| cancel-button-text  | 取消按钮文字                | string             | `取消`     |
-| confirm-button-type | 确认按钮类型                | string             | `primary`  |
-| cancel-button-type  | 取消按钮类型                | string             | `default`  |
-| icon                | 图标名称                    | string             | `warning`  |
-| icon-color          | 图标颜色                    | string             | `#faad14`  |
-| hide-icon           | 是否隐藏图标                | boolean            | `false`    |
-| hide-cancel         | 是否隐藏取消按钮            | boolean            | `false`    |
-| width               | 宽度                        | string / number    | `180`      |
-| placement           | 出现位置                    | `TooltipPlacement` | `'top'`    |
-| visible             | 手动控制可见性              | `boolean \| null`  | `null`     |
-| offset              | 偏移量 [skidding, distance] | array              | `[0, 12]`  |
-| disabled            | 是否禁用                    | boolean            | `false`    |
-| show-arrow          | 是否显示小三角              | boolean            | `true`     |
-| teleported          | 是否挂载至 body             | boolean            | `true`     |
-| z-index             | 层级                        | number             | `2000`     |
-| popper-class        | 自定义弹出层类名            | string             | -          |
-| popper-style        | 自定义弹出层样式            | object             | `{}`       |
-| before-confirm      | 确认前的生命周期钩子        | function           | -          |
-| swap-buttons        | 是否交换按钮位置            | boolean            | `false`    |
-| show-dont-ask-again | 是否显示不再提示勾选框      | boolean            | `false`    |
-| dont-ask-again-text | “不再提示”的文本内容        | string             | `不再提示` |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `title` | 标题文案 | `string` | `''` |
+| `description` | 描述文案 | `string` | `''` |
+| `confirm-button-text` | 确认按钮文字 | `string` | `''` |
+| `cancel-button-text` | 取消按钮文字 | `string` | `''` |
+| `confirm-button-type` | 确认按钮类型 | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'primary'` |
+| `cancel-button-type` | 取消按钮类型 | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
+| `icon` | 图标名称 | `string` | `'warning'` |
+| `icon-color` | 图标颜色 | `string` | `'#faad14'` |
+| `hide-icon` | 是否隐藏图标 | `boolean` | `false` |
+| `hide-cancel` | 是否隐藏取消按钮 | `boolean` | `false` |
+| `offset` | 浮层偏移量 `[skidding, distance]` | `[number, number]` | `[0, 12]` |
+| `placement` | 浮层位置 | `TooltipPlacement` | `'top'` |
+| `visible` | 受控显隐状态 | `boolean \| null` | `null` |
+| `width` | 弹层宽度 | `string \| number` | `180` |
+| `disabled` | 是否禁用触发器 | `boolean` | `false` |
+| `z-index` | 浮层层级 | `number` | `2000` |
+| `show-arrow` | 是否显示箭头 | `boolean` | `true` |
+| `popper-class` | 自定义浮层类名 | `string` | `''` |
+| `popper-style` | 自定义浮层样式 | `StyleValue` | `{}` |
+| `teleported` | 是否挂载到 `body` | `boolean` | `true` |
+| `show-dont-ask-again` | 是否显示“不再提示”勾选框 | `boolean` | `false` |
+| `dont-ask-again-text` | “不再提示”文案 | `string` | `''` |
+| `swap-buttons` | 是否交换确认与取消按钮位置 | `boolean` | `false` |
+| `before-confirm` | 确认前钩子，返回 `false` 或 `Promise<false>` 时阻止关闭 | `() => boolean \| Promise<boolean>` | `null` |
+| `theme-overrides` | 组件级主题变量覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### Slots
 
-| 插槽名      | 说明                 |
-| ----------- | -------------------- |
-| default     | 触发弹出层的目标元素 |
-| icon        | 自定义图标           |
-| title       | 自定义标题           |
-| description | 自定义描述内容       |
+| 插槽名 | 说明 |
+| --- | --- |
+| `default` | 触发元素 |
+| `icon` | 自定义图标内容 |
+| `title` | 自定义标题内容 |
+| `description` | 自定义描述内容 |
 
 ### Events
 
-| 事件名称       | 说明                 | 回调参数             |
-| -------------- | -------------------- | -------------------- |
-| confirm        | 点击确认按钮触发     | `(isSet: boolean)`   |
-| cancel         | 点击取消按钮触发     | -                    |
-| update:visible | 可见性状态改变时触发 | `(visible: boolean)` |
+| 事件名称 | 说明 | 回调参数 |
+| --- | --- | --- |
+| `confirm` | 点击确认按钮时触发 | `(dontAskAgain?: boolean) => void` |
+| `cancel` | 点击取消按钮时触发 | `() => void` |
+| `update:visible` | 显隐状态变化时触发 | `(visible: boolean) => void` |
+
+### Expose
+
+| 名称 | 说明 | 类型 |
+| --- | --- | --- |
+| `visible` | 当前浮层可见状态 | `Ref<boolean>` |
+| `toggle` | 手动切换显隐状态 | `(val: boolean) => boolean` |
 
 ### 主题变量 (CSS Variables)
 
-| 变量名                      | 默认值                      | 描述         |
-| --------------------------- | --------------------------- | ------------ |
-| `--yh-popconfirm-title`     | `#1d1d1f`                   | 标题文字颜色 |
-| `--yh-popconfirm-desc`      | `#424245`                   | 描述文字颜色 |
-| `--yh-tooltip-bg-color`     | `rgba(255, 255, 255, 0.88)` | 气泡背景色   |
-| `--yh-tooltip-border-color` | `rgba(0, 0, 0, 0.08)`       | 气泡边框颜色 |
+`YhPopconfirm` 支持 `themeOverrides`，同时会消费底层浮层的共享主题变量。
+
+| 变量名 | 默认值 | 描述 |
+| --- | --- | --- |
+| `--yh-popconfirm-title` | `#1d1d1f` | 标题文字颜色 |
+| `--yh-popconfirm-desc` | `#424245` | 描述文字颜色 |
+| `--yh-tooltip-bg-color` | `rgba(255, 255, 255, 0.88)` | 气泡背景色 |
+| `--yh-tooltip-border-color` | `rgba(0, 0, 0, 0.08)` | 气泡边框颜色 |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhPopconfirmProps` | 组件 Props 类型 |
+| `YhPopconfirmEmits` | 组件事件类型 |
+| `YhPopconfirmSlots` | 组件插槽类型 |
+| `YhPopconfirmExpose` | 组件 expose 类型 |
+| `YhPopconfirmInstance` | 组件实例类型 |

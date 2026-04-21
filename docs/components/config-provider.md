@@ -199,7 +199,11 @@ const jsFull = toJs(tsFull)
 </div>
 </DemoBlock>
 
-## API 参考
+## 在 Nuxt 中使用
+
+接入 `@yh-ui/nuxt` 后，可直接在页面或局部作用域中使用 `YhConfigProvider`。主题样式会通过 CSS 变量注入当前作用域或 `:root`，语言、尺寸、消息配置则通过上下文向下传递。
+
+## API
 
 ### Props
 
@@ -209,6 +213,33 @@ const jsFull = toJs(tsFull)
 | locale | 国际化语言包 | `Language` | — | `zhCn` |
 | size | 全局组件尺寸 | `'large' \| 'default' \| 'small'` | — | `'default'` |
 | global | 是否注入到 `:root` | `boolean` | — | `true` |
+
+### Events
+
+当前组件未暴露组件事件。
+
+### Slots
+
+| 插槽名 | 说明 | 插槽参数 |
+| --- | --- | --- |
+| `default` | Provider 作用域内的内容。 | 无 |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+### 主题变量
+
+当前组件不提供组件级 `themeOverrides`。主题、语言、尺寸和消息等能力通过上下文配置向子组件传递。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhConfigProviderProps` | `YhConfigProvider` props 类型 |
+| `YhConfigProviderSlots` | `YhConfigProvider` slots 类型 |
+| `YhConfigProviderInstance` | `YhConfigProvider` 实例类型 |
+| `ConfigProviderContext` | Provider 上下文类型 |
 
 <style scoped>
 .demo-items-inline {

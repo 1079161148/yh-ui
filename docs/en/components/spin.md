@@ -385,7 +385,7 @@ The `tip` slot allows complete customization of the description text area conten
 </DemoBlock>
 
 ::: tip SSR Rendering
-Spin component does not render Spinner animation during SSR until client-side hydration is complete, ensuring it does not affect first-screen parsing performance.
+Spin is SSR-safe because it renders regular markup from props and slots. The loading animation itself starts naturally on the client after hydration.
 :::
 
 ## API
@@ -402,7 +402,8 @@ Spin component does not render Spinner animation during SSR until client-side hy
 | glass | Whether to enable fullscreen glass mask mode | `boolean` | `false` |
 | dot | Whether to use dot animation | `boolean` | `false` |
 | type | Loading animation style type. Options: `circle`, `chaser`, `gear`, `dual-ring`, `rect` | `LoadingSpinnerType` | `'circle'` |
-| color | Custom color (supports hex, RGB, CSS gradient string or gradient config object) | `string \| string[] \| Record<string, string>` | - |
+| color | Custom color (supports hex, RGB, CSS gradient string or gradient config object) | `string \| string[] \| Record<string, string>` | `undefined` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -424,7 +425,7 @@ Spin component does not render Spinner animation during SSR until client-side hy
 | --- | --- | --- |
 | visible | Whether the animation is currently visible | `ComputedRef<boolean>` |
 
-### Theme Variables (CSS Variables)
+### Theme Variables
 
 The component supports customization via the following variables:
 
@@ -434,5 +435,16 @@ The component supports customization via the following variables:
 | `--yh-spin-blur-radius` | Blur radius in container mode | `8px` |
 | `--yh-spin-mask-bg` | Mask background in container mode | `rgba(255, 255, 255, 0.4)` |
 | `--yh-spin-mask-bg-dark` | Mask background in dark mode | `rgba(0, 0, 0, 0.3)` |
-| `--yh-spin-gradient` | CSS background value in gradient mode | - |
+| `--yh-spin-gradient` | CSS background value in gradient mode | `undefined` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSpinProps` | Component props type |
+| `YhSpinEmits` | Component emits type |
+| `YhSpinSlots` | Component slots type |
+| `YhSpinExpose` | Component expose type |
+| `YhLoadingSpinnerType` | Built-in loading animation union type |
+| `YhSpinInstance` | Component instance type |
 

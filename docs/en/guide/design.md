@@ -86,12 +86,13 @@ Users should be able to control the interface:
 
 | Variable | Size | Purpose |
 | --- | --- | --- |
-| `--yh-font-size-extra-large` | 20px | Large headings |
-| `--yh-font-size-large` | 18px | Headings |
-| `--yh-font-size-medium` | 16px | Subheadings |
+| `--yh-font-size-xs` | 12px | Labels, descriptions |
+| `--yh-font-size-sm` | 13px | Supporting text |
 | `--yh-font-size-base` | 14px | Body (Default) |
-| `--yh-font-size-small` | 13px | Supporting text |
-| `--yh-font-size-extra-small` | 12px | Labels, descriptions |
+| `--yh-font-size-md` | 16px | Subheadings |
+| `--yh-font-size-lg` | 18px | Headings |
+| `--yh-font-size-xl` | 20px | Large headings |
+| `--yh-font-size-xxl` | 24px | Display text |
 
 ### Line Heights
 
@@ -146,7 +147,7 @@ Based on a 4px spacing system:
 
 | Variable | Value | Purpose |
 | --- | --- | --- |
-| `--yh-duration-fast` | 100ms | Rapid feedback |
+| `--yh-duration-fast` | 150ms | Rapid feedback |
 | `--yh-duration-base` | 200ms | Default animations |
 | `--yh-duration-slow` | 300ms | Complex animations |
 
@@ -203,6 +204,6 @@ YH-UI adheres to WCAG 2.1 AA standards:
 
 ## More Resources
 
-- [Theme System](/guide/theme) - Learn how to customize themes.
-- [Theme System Examples](/guide/theme-examples) - View interactive examples.
-- [Theme Customization](/guide/theming) - Detailed customization documentation.
+- [Theme System](/en/guide/theme) - Learn how to customize themes.
+- [Theme System Examples](/en/guide/theme-examples) - View interactive examples.
+- [Theme Customization](/en/guide/theming) - Detailed customization documentation.

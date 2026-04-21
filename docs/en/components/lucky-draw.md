@@ -1,6 +1,6 @@
 # Lucky Draw
 
-Interactive marketing component for e-commerce. Features adaptive wheel topologies and flawlessly symmetrical grid items.
+Interactive marketing component for e-commerce campaigns. It supports `wheel` and `grid` modes, custom prize rendering, and theme variable overrides.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -13,14 +13,14 @@ interface Prize {
 }
 
 const prizesIcons: Prize[] = [
-  { id: '1', name: 'MacBook', image: '💻' },
-  { id: '2', name: 'iPhone 15', image: '📱' },
-  { id: '3', name: 'Gift Card', image: '🎁' },
-  { id: '4', name: 'No Prize', image: '😢' }, 
-  { id: '5', name: '10 Points', image: '💰' },    
-  { id: '6', name: 'Earphones', image: '🎧' },   
-  { id: '7', name: 'JD Card', image: '🎫' }, 
-  { id: '8', name: 'Powerbank', image: '🔋' } 
+  { id: '1', name: 'MacBook', image: 'MB' },
+  { id: '2', name: 'iPhone 15', image: 'IP' },
+  { id: '3', name: 'Gift Card', image: 'GC' },
+  { id: '4', name: 'No Prize', image: 'NP' }, 
+  { id: '5', name: '10 Points', image: '10P' },    
+  { id: '6', name: 'Earphones', image: 'EP' },   
+  { id: '7', name: 'JD Card', image: 'JD' }, 
+  { id: '8', name: 'Powerbank', image: 'PB' } 
 ]
 
 const prizesText: Prize[] = [
@@ -99,14 +99,14 @@ interface Prize {
 }
 
 const prizes: Prize[] = [
-  { id: '1', name: 'MacBook', image: '💻' },
-  { id: '2', name: 'iPhone 15', image: '📱' },
-  { id: '3', name: 'Gift Card', image: '🎁' },
-  { id: '4', name: 'No Prize', image: '😢' }, 
-  { id: '5', name: '10 Points', image: '💰' },    
-  { id: '6', name: 'Earphones', image: '🎧' },   
-  { id: '7', name: 'JD Card', image: '🎫' }, 
-  { id: '8', name: 'Powerbank', image: '🔋' } 
+  { id: '1', name: 'MacBook', image: 'MB' },
+  { id: '2', name: 'iPhone 15', image: 'IP' },
+  { id: '3', name: 'Gift Card', image: 'GC' },
+  { id: '4', name: 'No Prize', image: 'NP' }, 
+  { id: '5', name: '10 Points', image: '10P' },    
+  { id: '6', name: 'Earphones', image: 'EP' },   
+  { id: '7', name: 'JD Card', image: 'JD' }, 
+  { id: '8', name: 'Powerbank', image: 'PB' } 
 ]
 
 const targetId = ref<string>('')
@@ -189,14 +189,14 @@ interface Prize {
 }
 
 const prizes: Prize[] = [
-  { id: '1', name: 'MacBook', image: '💻' },
-  { id: '2', name: 'iPhone 15', image: '📱' },
-  { id: '3', name: 'Gift Card', image: '🎁' },
-  { id: '4', name: 'No Prize', image: '😢' }, 
-  { id: '5', name: '10 Points', image: '💰' },    
-  { id: '6', name: 'Earphones', image: '🎧' },   
-  { id: '7', name: 'JD Card', image: '🎫' }, 
-  { id: '8', name: 'Powerbank', image: '🔋' } 
+  { id: '1', name: 'MacBook', image: 'MB' },
+  { id: '2', name: 'iPhone 15', image: 'IP' },
+  { id: '3', name: 'Gift Card', image: 'GC' },
+  { id: '4', name: 'No Prize', image: 'NP' }, 
+  { id: '5', name: '10 Points', image: '10P' },    
+  { id: '6', name: 'Earphones', image: 'EP' },   
+  { id: '7', name: 'JD Card', image: 'JD' }, 
+  { id: '8', name: 'Powerbank', image: 'PB' } 
 ]
 
 const targetId = ref<string>('')
@@ -234,14 +234,14 @@ interface Prize {
 }
 
 const prizes: Prize[] = [
-  { id: '1', name: 'MacBook', image: '💻' },
-  { id: '2', name: 'iPhone 15', image: '📱' },
-  { id: '3', name: 'Gift Card', image: '🎁' },
-  { id: '4', name: 'No Prize', image: '😢' }, 
-  { id: '5', name: '10 Points', image: '💰' },    
-  { id: '6', name: 'Earphones', image: '🎧' },   
-  { id: '7', name: 'JD Card', image: '🎫' }, 
-  { id: '8', name: 'Powerbank', image: '🔋' } 
+  { id: '1', name: 'MacBook', image: 'MB' },
+  { id: '2', name: 'iPhone 15', image: 'IP' },
+  { id: '3', name: 'Gift Card', image: 'GC' },
+  { id: '4', name: 'No Prize', image: 'NP' }, 
+  { id: '5', name: '10 Points', image: '10P' },    
+  { id: '6', name: 'Earphones', image: 'EP' },   
+  { id: '7', name: 'JD Card', image: 'JD' }, 
+  { id: '8', name: 'Powerbank', image: 'PB' } 
 ]
 
 const targetNuxtId = ref<string>('')
@@ -263,7 +263,7 @@ const jsNuxt = toJs(tsNuxt)
 
 ## Wheel Mode
 
-Premium wheel experience with jewel-like center button gradients. Intelligently pivots between Tangential layout for Text+Icon combinations and Radial layout for Pure Text strings for optimally balanced typography.
+Use `type="wheel"` to render a spinning prize wheel. When all prizes are pure text, the component automatically switches to its pure-text layout.
 
 <DemoBlock title="Icons + Text" :ts-code="tsWheelIcon" :js-code="toJs(tsWheelIcon)">
   <div style="width: 320px; margin: 0 auto;">
@@ -291,7 +291,7 @@ Premium wheel experience with jewel-like center button gradients. Intelligently 
 
 ## Grid Mode
 
-Soft icy-blue container layout mathematically bounding its icons to a distinct vertical flex constraint, ensuring textual word wraps never disalign horizontal icon trajectories among grid peers. Items illuminate with a luscious crimson background on draw completion.
+Use `type="grid"` to render a 3x3 lottery grid. The center area is the start button, and surrounding cells highlight in sequence until the target prize is reached.
 
 <DemoBlock title="Grid Example" :ts-code="tsGrid" :js-code="toJs(tsGrid)">
   <div style="width: 360px; margin: 0 auto;">
@@ -307,7 +307,7 @@ Soft icy-blue container layout mathematically bounding its icons to a distinct v
 
 ## Usage in Nuxt
 
-The `YhLuckyDraw` component safely and efficiently mounts inside Nuxt 3/4 Server-Side Rendering (SSR) environments. All physical spinning coordinates and matrix-calculations are automatically relegated to client environments at hydration time. There is no need for `<ClientOnly>` wrappers.
+`YhLuckyDraw` can be used directly in Nuxt 3/4 projects. Static structure renders on the server, while the draw animation starts after the target prize id is provided on the client.
 
 <DemoBlock title="Nuxt SSR Safety" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="width: 320px; margin: 0 auto;">
@@ -321,11 +321,11 @@ The `YhLuckyDraw` component safely and efficiently mounts inside Nuxt 3/4 Server
   </div>
 </DemoBlock>
 
-**SSR Checklist**:
+**SSR Notes**:
 
-- ✅ **Pre-Rendered** HTML and texts correctly output to crawlers.
-- ✅ **Secure Event Bubbling**: Safe mounting of high-velocity recursive animation frames logic.
-- ✅ **No Mismatches**: CSS matrices and inline dynamic degree bindings reliably transfer DOM representations perfectly.
+- The component's static layout can be rendered during SSR.
+- The actual draw animation starts only after `target-id` receives a valid value.
+- In normal usage, no extra `<ClientOnly>` wrapper is required.
 
 ## API
 
@@ -342,7 +342,7 @@ The `YhLuckyDraw` component safely and efficiently mounts inside Nuxt 3/4 Server
 | size            | Container bounds mapping                                 | `number` \| `string`  | `300`     |
 | action-text     | Action button text override                              | `string`              | `''`      |
 | hide-btn        | Hide built-in button                                     | `boolean`             | `false`   |
-| theme-overrides | Theme variables object dictionary                        | `object`              | —         |
+| theme-overrides | Theme variables object dictionary                        | `Record<string, string>` | `{}`     |
 
 ### Events
 
@@ -352,12 +352,34 @@ The `YhLuckyDraw` component safely and efficiently mounts inside Nuxt 3/4 Server
 | start      | Triggered precisely at absolute rotation begin                                      | `()`                  |
 | finish     | Fired when spinning concludes over resolved reward target                           | `(prize: LuckyPrize)` |
 
+### Slots
+
+| Slot   | Description              | Parameters |
+| ------ | ------------------------ | ---------- |
+| prize  | Custom prize cell        | `{ prize: LuckyPrize }` |
+| action | Custom start button area | `-`          |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
 ## Theme Variables
 
-The structural presentation of the component leverages cascading variables (CSS hooks), allowing fluid redesigning without modifying standard logic classes:
+Use the following theme variables to override the component's core visual styles:
 
-| Variable Name          | Description                                                       | Default Standard                                    |
-| ---------------------- | ----------------------------------------------------------------- | --------------------------------------------------- |
-| `--yh-lucky-primary`   | Main focus hue used for action indicator borders and hover states | `#ff4757`                                           |
-| `--yh-lucky-border-bg` | Circular wheel housing bounding gradient mapping block colors     | `linear-gradient(180deg, #ff8a65 0%, #ff5252 100%)` |
-| `--yh-lucky-shadow`    | Broad scale box-shadowing establishing outer depth of fields      | `0 10px 25px rgba(255, 82, 82, 0.3)`                |
+| Variable Name          | Description                | Default Standard                                    |
+| ---------------------- | -------------------------- | --------------------------------------------------- |
+| `--yh-lucky-primary`   | Primary accent color       | `#ff4757`                                           |
+| `--yh-lucky-border-bg` | Outer container background | `linear-gradient(180deg, #ff8a65 0%, #ff5252 100%)` |
+| `--yh-lucky-shadow`    | Outer shadow               | `0 10px 25px rgba(255, 82, 82, 0.3)`                |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhLuckyDrawProps` | Component props type |
+| `YhLuckyDrawEmits` | Component emits type |
+| `YhLuckyDrawSlots` | Component slots type |
+| `YhLuckyPrize` | Prize data type |
+| `YhLuckyDrawType` | Draw mode union |
+| `YhLuckyDrawInstance` | Component instance type |

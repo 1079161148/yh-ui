@@ -82,6 +82,13 @@ describe('utils/common', () => {
       vi.advanceTimersByTime(100)
       expect(fn).toHaveBeenCalledWith('a', 'b')
     })
+
+    it('cancel should be safe when no timer exists', () => {
+      const fn = vi.fn()
+      const debounced = debounce(fn, 100)
+      expect(() => debounced.cancel()).not.toThrow()
+      expect(fn).not.toHaveBeenCalled()
+    })
   })
 
   // ======================== throttle ========================
@@ -221,6 +228,23 @@ describe('utils/common', () => {
       const result = deepMerge(a, { b: 2 }, { c: 3 })
       expect(result).toEqual({ a: 1, b: 2, c: 3 })
     })
+
+    it('should handle explicit undefined source in sources list', () => {
+      const target: Record<string, unknown> = { a: 1 }
+      const result = deepMerge(target, undefined as unknown as Partial<Record<string, unknown>>)
+      expect(result).toBe(target)
+      expect(result).toEqual({ a: 1 })
+    })
+
+    it('should ignore inherited enumerable keys from prototype', () => {
+      const proto = { inherited: 1 }
+      const source = Object.create(proto) as Record<string, unknown>
+      source.own = 2
+      const target: Record<string, unknown> = {}
+      const result = deepMerge(target, source)
+      expect(result).toEqual({ own: 2 })
+      expect((result as Record<string, unknown>).inherited).toBeUndefined()
+    })
   })
 
   // ======================== toArray ========================
@@ -331,6 +355,12 @@ describe('utils/common', () => {
       const obj: Record<string, unknown> = { a: 1 }
       const result = set(obj, 'b', 2)
       expect(result).toBe(obj)
+    })
+
+    it('should return input directly for non-object values', () => {
+      const primitive = 1 as unknown as Record<string, unknown>
+      const result = set(primitive, 'a.b', 2)
+      expect(result).toBe(primitive)
     })
   })
 

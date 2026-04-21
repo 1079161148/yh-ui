@@ -54,6 +54,43 @@ describe('YhRate', () => {
     expect(fourthContent.attributes('style')).toContain('width: 50%')
   })
 
+  it('should update hover value on mousemove (allowHalf=false) and restore on mouseleave', async () => {
+    const wrapper = mount(Rate, {
+      props: {
+        max: 5,
+        modelValue: 2
+      }
+    })
+
+    const items = wrapper.findAll<HTMLElement>('.yh-rate__item')
+    await items[4].trigger('mousemove')
+    expect(items[4].find('.yh-rate__star-content').attributes('style')).toContain('width: 100%')
+
+    await wrapper.get('.yh-rate').trigger('mouseleave')
+    expect(items[4].find('.yh-rate__star-content').attributes('style')).toContain('width: 0%')
+  })
+
+  it('should update hover value on mousemove (allowHalf=true) for both halves', async () => {
+    const wrapper = mount(Rate, {
+      props: {
+        max: 5,
+        modelValue: 0,
+        allowHalf: true
+      }
+    })
+
+    const items = wrapper.findAll<HTMLElement>('.yh-rate__item')
+    const target = items[2].element
+    // Happy-DOM bounding rect is 0 by default; stub to cover the left/right-half branches.
+    target.getBoundingClientRect = () => ({ left: 0, width: 10 } as any)
+
+    await items[2].trigger('mousemove', { clientX: 1 })
+    expect(items[2].find('.yh-rate__star-content').attributes('style')).toContain('width: 50%')
+
+    await items[2].trigger('mousemove', { clientX: 9 })
+    expect(items[2].find('.yh-rate__star-content').attributes('style')).toContain('width: 100%')
+  })
+
   it('should show text/score correctly', () => {
     const wrapper = mount(Rate, {
       props: {
@@ -72,6 +109,26 @@ describe('YhRate', () => {
       }
     })
     expect(wrapperScore.find('.yh-rate__text').text()).toBe('3.5 points')
+  })
+
+  it('should resolve activeColor from colors array and fallback for record object', async () => {
+    const wrapper = mount(Rate, {
+      props: {
+        modelValue: 1,
+        colors: ['#111111', '#222222', '#333333']
+      }
+    })
+    // activeColor is applied to star-content via inline style
+    expect(wrapper.find('.yh-rate__star-content').attributes('style')).toContain('color:')
+
+    const wrapperObj = mount(Rate, {
+      props: {
+        modelValue: 1,
+        colors: { 2: '#ff0000' } as any
+      }
+    })
+    // record branch falls back to default '#F7BA2A' (not to throw)
+    expect(wrapperObj.get('.yh-rate').exists()).toBe(true)
   })
 
   it('should respect disabled prop', async () => {

@@ -1,4 +1,3 @@
-import 'dayjs/locale/en';
 /**
  * 获取 dayjs locale code
  */

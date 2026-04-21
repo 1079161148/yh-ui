@@ -133,10 +133,10 @@ Icon component integration in Nuxt 3/4 is very simple. Since the Icon is based o
 
 **SSR Notes**:
 
-- ✅ Built-in icons are rendered directly on the server as concise SVG paths, no network requests on first screen.
-- ✅ Size and color are correctly positioned on the server via inline styles.
-- ✅ Spin animation is kept in motion (or ready on first screen) on the server via CSS animation.
-- ✅ Auto-import support enhances development efficiency.
+- Built-in icons are rendered as inline SVG during SSR, with no extra network requests on first paint.
+- Size, color, and rotation styles are preserved between server render and client hydration.
+- Spin animation is controlled by CSS and becomes active immediately after hydration.
+- The component remains auto-import friendly in Nuxt projects.
 
 ::: tip Vector Benefits
 Compared to icon fonts, YH-UI's SVG Icon solution is more in line with modern web standards and avoids common font loading flicker (FOIT/FOUT) issues in SSR.
@@ -148,15 +148,39 @@ Compared to icon fonts, YH-UI's SVG Icon solution is more in line with modern we
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| name | Icon name (built-in set) | `string` | — |
-| svg | Custom SVG content (excluding `<svg>` tag) | `string` | — |
-| size | Icon size | `number \| string` | — |
-| color | Icon color | `string` | `currentColor` |
+| name | Icon name (built-in set) | `string` | `''` |
+| svg | Custom SVG content (excluding `<svg>` tag) | `string` | `''` |
+| icon | Custom Vue icon component | `Component` | `undefined` |
+| size | Icon size | `number \| string` | `undefined` |
+| color | Icon color | `string` | `undefined` |
 | spin | Whether to spin in a loop | `boolean` | `false` |
 | rotate | Rotation angle | `number` | `0` |
+| theme-overrides | Theme variable overrides | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+This component does not expose component events.
 
 ### Slots
 
-| Slot Name | Description |
+| Slot Name | Description | Parameters |
+| --- | --- | --- |
+| default | Custom SVG content | `-` |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Theme Variables
+
+`YhIcon` supports `themeOverrides` and primarily consumes global theme tokens. This component does not provide additional dedicated component-level CSS variables.
+
+### Type Exports
+
+| Name | Description |
 | --- | --- |
-| default | Custom SVG content |
+| `YhIconProps` | Props type for `YhIcon` |
+| `YhIconSlots` | Slots type for `YhIcon` |
+| `YhIconData` | Icon data structure type |
+| `YhIconSet` | Built-in icon set type |
+| `YhIconInstance` | Public instance type for `YhIcon` |

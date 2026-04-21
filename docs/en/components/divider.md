@@ -126,6 +126,14 @@ Since the Divider component has a minimalist structure, it generates almost no e
 | --- | --- |
 | default | Content text of the divider |
 
+### Events
+
+This component does not expose component events.
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
 ### Theme Variables
 
 | Variable | Description | Default |
@@ -136,6 +144,13 @@ Since the Divider component has a minimalist structure, it generates almost no e
 | `--yh-divider-margin-horizontal` | Horizontal margin | `24px 0` |
 | `--yh-divider-margin-vertical` | Vertical margin | `0 8px` |
 | `--yh-divider-text-color` | Content text color | `var(--yh-text-color-primary)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhDividerProps` | Component props type |
+| `YhDividerInstance` | Component instance type |
 
 <script setup lang="ts">
 const tsBasic = `

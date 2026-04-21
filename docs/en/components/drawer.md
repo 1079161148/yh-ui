@@ -405,6 +405,8 @@ The background mask layer can be enabled or disabled via the `modal` attribute.
 
 ## Use in Nuxt
 
+After installing `@yh-ui/nuxt`, `YhDrawer` can be used directly in pages and components. The drawer shell, title, default content, and footer all participate in SSR, while the mask, focus management, and teleported panel interactions continue on the client after hydration.
+
 <DemoBlock :tsCode="tsNuxt" :jsCode="jsNuxt">
   <yh-button @click="visibleNuxt = true">Nuxt Compatibility</yh-button>
   <yh-drawer v-model="visibleNuxt" title="SSR Support">
@@ -475,7 +477,7 @@ The background mask layer can be enabled or disabled via the `modal` attribute.
 | drawerRef | DOM element reference of drawer container | `HTMLElement \| null` |
 | handleClose | Manually triggers the close process (supports beforeClose hook) | `(isClickModal?: boolean) => void` |
 
-## Theme Variables
+### Theme Variables
 
 The component is deeply integrated with the YH-UI design system, and all color variables are interfaced with the global theme system, automatically supporting dark mode:
 
@@ -490,3 +492,13 @@ The component is deeply integrated with the YH-UI design system, and all color v
 | `--yh-drawer-padding` | Content area padding | `20px` |
 | `--yh-drawer-radius` | Corner radius size | `var(--yh-radius-xl)` |
 | `--yh-drawer-transition` | Animation duration | `var(--yh-transition-duration)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhDrawerProps` | Props type for `YhDrawer` |
+| `YhDrawerEmits` | Emits type for `YhDrawer` |
+| `YhDrawerSlots` | Slots type for `YhDrawer` |
+| `YhDrawerExpose` | Expose type for `YhDrawer` |
+| `YhDrawerInstance` | Public instance type for `YhDrawer` |

@@ -104,4 +104,50 @@ describe('useAIStream', () => {
     expect(text.value).toBe('')
     expect(thinking.value).toBe('')
   })
+
+  it('appendMode false replaces text on structured chunk', async () => {
+    const chunks = ['event: chunk\ndata: {"content":"first"}\n\n', 'event: chunk\ndata: {"content":"second"}\n\n']
+    ;(global.fetch as any).mockResolvedValue(createMockResponse(chunks))
+
+    const { text, start } = useAIStream({ appendMode: false })
+
+    start({ url: '/api/ai' })
+
+    await new Promise((resolve) => setTimeout(resolve, 120))
+    await nextTick()
+
+    expect(text.value).toBe('second')
+  })
+
+  it('handles error event and thinking object', async () => {
+    const chunks = [
+      'event: thinking\ndata: {"thinking":"plan"}\n\n',
+      'event: error\ndata: {}\n\n'
+    ]
+    ;(global.fetch as any).mockResolvedValue(createMockResponse(chunks))
+
+    const { thinking, done, start } = useAIStream()
+
+    start({ url: '/api/ai' })
+
+    await new Promise((resolve) => setTimeout(resolve, 120))
+    await nextTick()
+
+    expect(thinking.value).toBe('plan')
+    expect(done.value).toBe(true)
+  })
+
+  it('parseAIMessage false skips AI parsing', async () => {
+    const chunks = ['data: {"content":"ignored"}\n\n']
+    ;(global.fetch as any).mockResolvedValue(createMockResponse(chunks))
+
+    const { text, start } = useAIStream({ parseAIMessage: false })
+
+    start({ url: '/api/ai' })
+
+    await new Promise((resolve) => setTimeout(resolve, 80))
+    await nextTick()
+
+    expect(text.value).toBe('')
+  })
 })

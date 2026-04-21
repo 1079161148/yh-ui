@@ -1,4 +1,4 @@
-# Tag 标签
+﻿# Tag 标签
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -469,12 +469,13 @@ Tag 组件的 CSS 经过高度原子化优化，生成在 SSR 页面中的额外
 | round | 是否为圆形 | `boolean` | `false` |
 | color | 自定义背景颜色 | `string` | — |
 | hit | 是否有边框描边 | `boolean` | `false` |
-| disable-transitions | 是否禁用渐变动画 | `boolean` | `false` |
+| disable-transitions | 兼容性保留属性。当前模板和样式未消费该配置 | `boolean` | `false` |
 | checkable | 是否可选中 | `boolean` | `false` |
 | checked / v-model:checked | 是否选中 | `boolean` | `false` |
 | editable | 是否可编辑（双击编辑） | `boolean` | `false` |
-| icon | 左侧图标 | `Component` | — |
-| suffix-icon | 右侧图标 | `Component` | — |
+| icon | 左侧图标。传入组件可直接渲染；`string` 类型当前未在模板中消费 | `string \| Component` | `undefined` |
+| suffix-icon | 右侧图标。传入组件可直接渲染；`string` 类型当前未在模板中消费 | `string \| Component` | `undefined` |
+| theme-overrides | 组件级主题覆盖变量 | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -492,15 +493,34 @@ Tag 组件的 CSS 经过高度原子化优化，生成在 SSR 页面中的额外
 | --- | --- |
 | default | 标签内容 |
 | icon | 自定义左侧图标 |
-| suffix-icon | 自定义右侧图标 |
-| close-icon | 自定义关闭图标 |
+| suffixIcon | 自定义右侧图标 |
+| closeIcon | 自定义关闭图标 |
 
 ## 主题变量
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
-| `--yh-tag-font-size` | 字体大小 | `var(--yh-font-size-xs)` |
-| `--yh-tag-border-radius` | 圆角大小 | `var(--yh-radius-sm)` |
 | `--yh-tag-bg-color` | 背景颜色 | (根据类型变化) |
 | `--yh-tag-border-color` | 边框颜色 | (根据类型变化) |
 | `--yh-tag-text-color` | 文字颜色 | (根据类型变化) |
+| `--yh-tag-hover-color` | 交互态强调色 | `var(--yh-color-primary)` |
+
+其余尺寸、圆角和字号由全局主题令牌提供，例如 `--yh-font-size-xs`、`--yh-radius-sm`、`--yh-radius-round`。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhTagProps` | 组件 Props 类型 |
+| `YhTagEmits` | 组件事件类型 |
+| `YhTagSlots` | 组件插槽类型 |
+| `YhTagType` | 标签类型联合类型 |
+| `YhTagSize` | 标签尺寸联合类型 |
+| `YhTagEffect` | 标签主题效果联合类型 |
+| `YhTagInstance` | 组件实例类型 |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+

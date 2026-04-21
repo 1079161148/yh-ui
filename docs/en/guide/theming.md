@@ -21,7 +21,7 @@ Override CSS variables in your style files:
   --yh-color-primary-dark-2: #4f46e5;
 
   /* Modify border radius */
-  --yh-radius-base: 8px;
+  --yh-border-radius-base: 8px;
 
   /* Modify typography */
   --yh-font-family: 'Inter', sans-serif;
@@ -35,7 +35,7 @@ Variable overrides can be applied within a specific scope:
 ```css
 .my-custom-theme {
   --yh-color-primary: #8b5cf6;
-  --yh-radius-base: 12px;
+  --yh-border-radius-base: 12px;
 }
 ```
 
@@ -49,23 +49,16 @@ Variable overrides can be applied within a specific scope:
 
 ## Dark Mode
 
-YH-UI has built-in dark mode support. Simply add the `dark` class to the `html` element:
+YH-UI provides dark mode APIs through `@yh-ui/theme`. If you are using the theme package, prefer switching dark mode through the theme manager:
 
 ```ts
-// Toggle dark mode
-const toggleDark = () => {
-  document.documentElement.classList.toggle('dark')
-}
+import { useTheme } from '@yh-ui/theme'
+
+const theme = useTheme()
+theme.toggleDarkMode()
 ```
 
-Alternatively, use `useDark` from [VueUse](https://vueuse.org/):
-
-```ts
-import { useDark, useToggle } from '@vueuse/core'
-
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
-```
+If your project manages dark mode separately, you can still override the related `--yh-*` variables in a scoped selector.
 
 ### Customizing Dark Mode Variables
 
@@ -77,47 +70,22 @@ html.dark {
 }
 ```
 
-## SCSS Variables
+## SCSS Usage
 
-If you use SCSS, you can customize variables using `@forward` and `with`:
+The current theme package is centered on published CSS variables. For app-level customization, the reliable approach is to override the exposed `--yh-*` variables directly:
 
 ```scss
-// styles/yh-ui-custom.scss
-
-// Custom variables
-@forward '@yh-ui/theme/styles/variables.scss' with (
-  $colors: (
-    'primary': #6366f1,
-    'success': #22c55e,
-    'warning': #f59e0b,
-    'danger': #ef4444,
-    'info': #6b7280,
-  ),
-  $border-radius: (
-    'base': 8px,
-    'sm': 4px,
-    'md': 12px,
-    'lg': 16px,
-  )
-);
-
-// Import component styles
-@use '@yh-ui/theme';
+:root {
+  --yh-color-primary: #6366f1;
+  --yh-border-radius-base: 8px;
+  --yh-font-family: 'Inter', sans-serif;
+}
 ```
 
-Configure in Vite:
+Then import the package styles as usual in your app entry:
 
 ```ts
-// vite.config.ts
-export default defineConfig({
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/styles/yh-ui-custom.scss" as *;`
-      }
-    }
-  }
-})
+import '@yh-ui/yh-ui/css'
 ```
 
 ## Available CSS Variables
@@ -155,7 +123,7 @@ export default defineConfig({
 | Variable Name | Description | Default |
 | --- | --- | --- |
 | `--yh-radius-sm` | Small radius | `2px` |
-| `--yh-radius-base` | Base radius | `4px` |
+| `--yh-border-radius-base` | Base radius | `4px` |
 | `--yh-radius-md` | Medium radius | `8px` |
 | `--yh-radius-lg` | Large radius | `12px` |
 | `--yh-radius-round` | Round | `20px` |
@@ -187,7 +155,6 @@ export default defineConfig({
 | --- | --- | --- |
 | `--yh-font-family` | Default font | System font stack |
 | `--yh-font-family-monospace` | Monospace font | `SFMono-Regular, Consolas...` |
-| `--yh-font-family-serif` | Serif font | `Georgia, Cambria...` |
 
 ### Accessibility/Focus
 
@@ -219,10 +186,9 @@ export default defineConfig({
 
 ### Reduced Motion Preference
 
-YH-UI automatically detects the user's `prefers-reduced-motion` preference. When "reduce motion" is enabled, all animations and transitions are automatically disabled:
+YH-UI automatically detects the user's `prefers-reduced-motion` preference. When "reduce motion" is enabled, animations and transitions can be reduced through the exported theme variables:
 
 ```css
-/* Automatically applied - no manual configuration required */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --yh-duration-fast: 0ms;
@@ -237,7 +203,6 @@ YH-UI automatically detects the user's `prefers-reduced-motion` preference. When
 YH-UI supports Windows High Contrast Mode and the `prefers-contrast: high` media query:
 
 ```css
-/* Automatically applies stronger contrast */
 @media (prefers-contrast: high) {
   :root {
     --yh-border-color: #000000;
@@ -264,7 +229,7 @@ For Windows High Contrast themes, YH-UI uses system color keywords to ensure acc
 
 ## Advanced Theme Features
 
-YH-UI provides industry-leading theme management features, surpassing major UI libraries like Naive UI and Ant Design.
+YH-UI provides a set of runtime theme management APIs in `@yh-ui/theme`.
 
 ### Theme Manager
 
@@ -276,7 +241,7 @@ const theme = initTheme({
   preset: 'blue',
   dark: false,
   persist: true,
-  followSystem: true // Follow system dark mode
+  followSystem: true
 })
 
 // Or use the Composition API
@@ -292,10 +257,9 @@ import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Set density
-theme.setDensity('comfortable') // Comfortable mode (Default)
-theme.setDensity('compact')     // Compact mode
-theme.setDensity('dense')       // Dense mode
+theme.setDensity('comfortable')
+theme.setDensity('compact')
+theme.setDensity('dense')
 ```
 
 | Mode | Component Size | Suitable Scenarios |
@@ -306,64 +270,44 @@ theme.setDensity('dense')       // Dense mode
 
 ### Colorblind Friendly Mode
 
-YH-UI features various built-in colorblind friendly palettes:
-
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Set colorblind mode
-theme.setColorBlindMode('none')          // Normal
-theme.setColorBlindMode('protanopia')    // Protanopia (Redblind)
-theme.setColorBlindMode('deuteranopia')  // Deuteranopia (Greenblind)
-theme.setColorBlindMode('tritanopia')    // Tritanopia (Blueblind)
-theme.setColorBlindMode('achromatopsia') // Achromatopsia (Total colorblind)
+theme.setColorBlindMode('none')
+theme.setColorBlindMode('protanopia')
+theme.setColorBlindMode('deuteranopia')
+theme.setColorBlindMode('tritanopia')
+theme.setColorBlindMode('achromatopsia')
 ```
 
 ### Theme Switcher Animations
 
-Enable smooth animation effects during theme switching:
-
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Enable animations
 theme.enableTransition({
-  duration: 300, // milliseconds
+  duration: 300,
   timing: 'cubic-bezier(0.4, 0, 0.2, 1)'
 })
 
-// Subsequent theme switches will have smooth transitions
 theme.toggleDarkMode()
-
-// Disable animations
 theme.disableTransition()
 ```
 
 ### Intelligent Color Generation
 
-Automatically generate a full color palette from a single primary color:
-
 ```ts
-import { useTheme, generatePaletteFromPrimary } from '@yh-ui/theme'
+import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
-
-// Generate a full palette from a primary color
 theme.applyFromPrimary('#8b5cf6')
-
-// Or retrieve the palette manually
-const palette = generatePaletteFromPrimary('#8b5cf6')
-console.log(palette)
-// { primary: '#8b5cf6', success: '...', warning: '...', danger: '...', info: '...' }
 ```
 
 ### Color Harmony Tools
-
-Retrieve complementary, analogous, or triadic colors:
 
 ```ts
 import { useTheme } from '@yh-ui/theme'
@@ -371,135 +315,84 @@ import { useTheme } from '@yh-ui/theme'
 const theme = useTheme()
 const primary = '#409eff'
 
-// Get complementary color
 const complementary = theme.getComplementary(primary)
-
-// Get analogous colors
 const [analogous1, analogous2] = theme.getAnalogous(primary)
-
-// Get triadic colors
 const [triadic1, triadic2] = theme.getTriadic(primary)
 ```
 
 ### Component-Level Theme Overriding
-
-Customize styles for specific components without making global modifications:
 
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Override Button component variables
 theme.setComponentTheme('button', {
   'border-radius': '20px',
   'font-weight': '600',
   'padding': '0 24px'
 })
 
-// Override Input component variables
-theme.setComponentTheme('input', {
-  'border-radius': '8px',
-  'bg-color': '#f5f5f5'
-})
-
-// Clear component-level overrides
 theme.clearComponentTheme('button')
 ```
 
 ### Theme Inheritance and Extension
 
-Create new themes based on existing ones:
-
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Create an inherited theme
 const customTheme = theme.createTheme({
   name: 'My Brand Theme',
   author: 'Your Name',
-  extends: 'blue', // Inherits from the blue preset
+  extends: 'blue',
   colors: {
-    primary: '#8b5cf6' // Only override the primary color
+    primary: '#8b5cf6'
   },
   density: 'compact'
 })
 
-// Apply full configuration
-theme.applyFullConfig({
-  name: 'My App Theme',
-  extends: 'purple',
-  colors: { primary: '#ec4899' },
-  density: 'compact',
-  colorBlindMode: 'none',
-  transition: true, // Enable switch animations
-  components: {
-    button: { 'border-radius': '20px' },
-    card: { 'border-radius': '16px' }
-  }
-})
+theme.applyFullConfig(customTheme)
 ```
 
 ### Theme Importing/Exporting
-
-Share theme configurations via JSON format:
 
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
-
-// Export theme
 const themeJson = theme.exportTheme({
   name: 'My Theme',
   author: 'Your Name'
 })
 
-// Save to file or share with others
-console.log(themeJson)
-
-// Import theme
 theme.importTheme(themeJson)
-
-// Export as pure CSS
 const css = theme.exportAsCss()
 ```
 
 ### Theme History and Undo
 
-Support for undoing theme changes:
-
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Change theme...
 theme.setPreset('purple')
 theme.setDarkMode(true)
-
-// Undo to the previous state
 theme.undo()
 
-// Retrieve theme history
 const history = theme.getHistory()
-
-// Clear history
 theme.clearHistory()
 ```
 
 ### Responsive Theme Variables
 
-Automatically switch variable values based on breakpoints:
-
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Set responsive variables
 theme.setResponsiveVar('--yh-font-size-base', {
   xs: '12px',
   sm: '13px',
@@ -507,34 +400,18 @@ theme.setResponsiveVar('--yh-font-size-base', {
   lg: '15px',
   xl: '16px'
 })
-
-// Set responsive spacing
-theme.setResponsiveVar('--yh-spacing-unit', {
-  xs: '4px',
-  md: '8px',
-  xl: '12px'
-})
 ```
 
 ### Color Algorithms
-
-Different color generation algorithms to suit various styles:
 
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
 
-// Default algorithm
 theme.setAlgorithm('default')
-
-// Vibrant mode - Higher saturation
 theme.setAlgorithm('vibrant')
-
-// Muted mode - Lower saturation
 theme.setAlgorithm('muted')
-
-// Pastel mode - Light and soft
 theme.setAlgorithm('pastel')
 ```
 
@@ -559,41 +436,6 @@ app.use(ThemePlugin, {
 app.mount('#app')
 ```
 
-```vue
-<!-- Usage in components -->
-<script setup>
-import { inject } from 'vue'
-
-const theme = inject('theme')
-
-const toggleDark = () => theme.toggleDarkMode()
-</script>
-```
-
 ---
 
-## Comparison with Other UI Libraries
-
-| Feature | YH-UI | Naive UI | Ant Design | Element Plus |
-| --- | :---: | :---: | :---: | :---: |
-| CSS Variables | ✅ | ✅ | ✅ | ✅ |
-| Dark Mode | ✅ | ✅ | ✅ | ✅ |
-| Preset Themes | ✅ 12+ | ✅ | ⚠️ Limited | ⚠️ Limited |
-| Density/Compactness | ✅ 3 Levels | ❌ | ✅ | ❌ |
-| Colorblind Modes | ✅ 5 Types | ❌ | ❌ | ❌ |
-| Switcher Animations | ✅ | ❌ | ❌ | ❌ |
-| Intelligent Color Generation | ✅ | ⚠️ Limited | ✅ | ❌ |
-| Component-Level Overrides | ✅ | ✅ | ✅ | ⚠️ Limited |
-| Theme Inheritance | ✅ | ✅ | ⚠️ | ❌ |
-| Importing/Exporting | ✅ | ❌ | ❌ | ❌ |
-| History/Undo | ✅ | ❌ | ❌ | ❌ |
-| Responsive Variables | ✅ | ❌ | ❌ | ❌ |
-| Color Algorithms | ✅ 4 Types | ❌ | ✅ | ❌ |
-| WCAG Contrast Detection | ✅ | ❌ | ❌ | ❌ |
-| Follow System Theme | ✅ | ⚠️ Manual | ⚠️ Manual | ⚠️ Manual |
-| High Contrast Mode | ✅ | ❌ | ❌ | ❌ |
-| reduced-motion | ✅ | ❌ | ❌ | ❌ |
-
----
-
-For more variables, please refer to [Design Specification](/guide/design) or view the [Source Code](https://github.com/1079161148/yh-ui/blob/main/packages/theme/src/styles/variables.scss).
+For more variables, please refer to [Design Specification](/en/guide/design) or view the [Source Code](https://github.com/1079161148/yh-ui/blob/main/packages/theme/src/styles/variables.scss).

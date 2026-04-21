@@ -206,6 +206,12 @@ The Scrollbar component fully supports Nuxt 3/4 SSR rendering. When used in a Nu
 | ---------- | ------------ | --------------------------- |
 | scroll     | Scroll event | `{ scrollLeft, scrollTop }` |
 
+### Slots
+
+| Slot | Description | Slot Props |
+| --- | --- | --- |
+| `default` | Scrollable content. | None |
+
 ### Methods
 
 | Method Name   | Description                     | Parameters                                         |
@@ -214,6 +220,16 @@ The Scrollbar component fully supports Nuxt 3/4 SSR rendering. When used in a Nu
 | setScrollTop  | Set vertical scroll distance    | `(value: number)`                                  |
 | setScrollLeft | Set horizontal scroll distance  | `(value: number)`                                  |
 | update        | Manually update scrollbar state | —                                                  |
+
+### Expose
+
+| Name | Description | Type |
+| --- | --- | --- |
+| `wrap` | Reference to the actual scroll container element. | `HTMLDivElement \| undefined` |
+| `update` | Manually refresh scrollbar state. | `() => void` |
+| `scrollTo` | Scroll to a specific position. | `(arg1: ScrollbarScrollToArg, arg2?: number) => void` |
+| `setScrollTop` | Set the vertical scroll offset. | `(value: number) => void` |
+| `setScrollLeft` | Set the horizontal scroll offset. | `(value: number) => void` |
 
 ## Theme Variables
 
@@ -226,3 +242,15 @@ Scrollbar component supports customizing local styles by overriding the followin
 | `--yh-scrollbar-thumb-hover-color` | Thumb hover color | `#909399`     |
 | `--yh-scrollbar-track-color`       | Track color       | `transparent` |
 | `--yh-scrollbar-thumb-radius`      | Thumb radius      | `3px`         |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhScrollbarProps` | Component props type |
+| `YhScrollbarEmits` | Component emits type |
+| `YhScrollbarSlots` | Component slots type |
+| `YhScrollbarExpose` | Component expose type |
+| `YhScrollbarScrollPayload` | Scroll event payload type |
+| `YhScrollbarScrollToArg` | `scrollTo` argument type |
+| `YhScrollbarInstance` | Component instance type |

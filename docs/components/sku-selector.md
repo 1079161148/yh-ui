@@ -377,7 +377,7 @@ export default defineNuxtConfig({
 | size                  | 规格按钮大小                        | `'small' \| 'default' \| 'large'` | `'default'` |
 | image-size            | 图片模式下图片区域尺寸（px）        | `number`                          | `80`        |
 | show-selected-summary | 是否显示顶部已选规格汇总            | `boolean`                         | `false`     |
-| summary-prefix        | 已选汇总文字前缀                    | `string`                          | `'已选'`    |
+| summary-prefix        | 已选汇总文字前缀                    | `string`                          | `''`        |
 | theme-overrides       | CSS 主题变量覆盖                    | `Record<string, string>`          | `{}`        |
 
 ### Events
@@ -395,6 +395,10 @@ export default defineNuxtConfig({
 | label   | 自定义规格标题         | `{ spec: SkuSpec }`                                                          |
 | value   | 完全自定义规格值格子   | `{ value: SkuSpecValue, spec: SkuSpec, active: boolean, disabled: boolean }` |
 | summary | 自定义已选规格汇总区域 | `{ summary: string, sku: SkuItem \| null }`                                  |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
 
 ### SkuSpec 类型
 
@@ -459,3 +463,15 @@ interface SkuItem {
 | `--yh-sku-img-size`             | 图片规格的图片尺寸  | `80px`                             |
 | `--yh-sku-color-swatch-size`    | 色块规格的色块尺寸  | `24px`                             |
 | `--yh-sku-gap`                  | 规格行间距          | `var(--yh-spacing-md)`             |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhSkuSelectorProps` | 组件 Props 类型 |
+| `YhSkuSelectorEmits` | 组件事件类型 |
+| `YhSkuSelectorSlots` | 组件插槽类型 |
+| `YhSkuSpec` | 规格组类型 |
+| `YhSkuSpecValue` | 规格值类型 |
+| `YhSkuItem` | SKU 数据类型 |
+| `YhSkuSelectorInstance` | 组件实例类型 |

@@ -492,32 +492,40 @@ import { YhMessage } from '@yh-ui/yh-ui'
 | YhMessage.warning  | 显示警告消息 | `options \| string` |
 | YhMessage.info     | 显示信息消息 | `options \| string` |
 | YhMessage.error    | 显示错误消息 | `options \| string` |
-| YhMessage.closeAll | 关闭所有消息 | —                   |
+| YhMessage.closeAll | 关闭所有消息 | -                   |
 
 ### Props
 
 | 属性名                      | 说明                                | 类型                                                                                | 默认值   |
 | --------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------- | -------- |
-| message                     | 消息内容                            | `string \| VNode`                                                                   | —        |
+| message                     | 消息内容。当前模板只会把 props 里的内容按纯文本或 HTML 处理，虽然类型里声明了 `VNode`，但当前实现不会把该 props 作为 vnode 渲染。 | `string \| VNode` | `undefined` |
 | type                        | 消息类型                            | `'success' \| 'warning' \| 'info' \| 'error'`                                       | `'info'` |
-| icon                        | 自定义图标                          | `string \| VNode`                                                                   | —        |
+| icon                        | 自定义图标 props。类型已声明，但当前实现并不会消费它；如需自定义图标请使用 `icon` 插槽。 | `string \| VNode` | `undefined` |
 | show-close                  | 是否显示关闭按钮                    | `boolean`                                                                           | `false`  |
 | duration                    | 显示时间（毫秒），设为 0 不自动关闭 | `number`                                                                            | `3000`   |
-| offset                      | 距离顶部的偏移量（px）              | `number`                                                                            | `64`     |
+| offset                      | 组件实例使用的偏移量。通过服务式 API 调用时，未传入时顶部系列位置从 `64` 开始，底部系列位置从 `20` 开始。 | `number` | `20` |
 | dangerously-use-html-string | 是否将 message 作为 HTML 片段处理   | `boolean`                                                                           | `false`  |
 | center                      | 是否居中显示                        | `boolean`                                                                           | `false`  |
-| on-close                    | 关闭时的回调函数                    | `() => void`                                                                        | —        |
+| on-close                    | 关闭时触发的回调。 | `() => void` | `undefined` |
 | z-index                     | z-index 层级                        | `number`                                                                            | —        |
 | custom-class                | 自定义类名                          | `string`                                                                            | —        |
 | grouping                    | 是否支持分组合并                    | `boolean`                                                                           | `false`  |
+| repeat-num                  | 分组消息的重复计数，主要由服务实现维护。 | `number` | `undefined` |
 | placement                   | 消息展示位置                        | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'`  |
+| theme-overrides             | 组件级主题覆盖变量。 | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `destroy` | 离场过渡结束后触发。 | `() => void` |
 
 ### Slots
 
 | 插槽名  | 说明                                        |
 | ------- | ------------------------------------------- |
-| default | 消息内容（当 message 属性不满足需求时使用） |
-| icon    | 自定义图标内容                              |
+| default | 自定义消息内容。 |
+| icon    | 自定义图标内容。 |
 
 ### Expose
 
@@ -526,7 +534,7 @@ import { YhMessage } from '@yh-ui/yh-ui'
 | 方法名  | 说明             | 类型           |
 | ------- | ---------------- | -------------- |
 | close   | 关闭当前 Message | `() => void`   |
-| visible | 当前消息是否可见 | `Ref<boolean>` |
+| visible | 当前可见状态 | `Ref<boolean>` |
 
 ### 主题变量
 
@@ -534,7 +542,23 @@ import { YhMessage } from '@yh-ui/yh-ui'
 | -------------------------------- | ---------------- | ---------------------------------- |
 | `--yh-message-bg-color`          | 背景颜色         | `var(--yh-bg-color-overlay)`       |
 | `--yh-message-border-color`      | 边框颜色         | `var(--yh-border-color-lighter)`   |
-| `--yh-message-shadow`            | 消息框阴影       | `var(--yh-box-shadow-light)`       |
+| `--yh-message-shadow`            | 阴影             | `var(--yh-shadow-lg)`              |
 | `--yh-message-text-color`        | 文字颜色         | `var(--yh-text-color-primary)`     |
-| `--yh-message-close-color`       | 关闭按钮颜色     | `var(--yh-text-color-placeholder)` |
-| `--yh-message-close-hover-color` | 关闭按钮悬停颜色 | `var(--yh-text-color-regular)`     |
+| `--yh-message-close-color`       | 关闭按钮颜色     | `var(--yh-text-color-secondary)`   |
+| `--yh-message-close-hover-color` | 关闭按钮悬停颜色 | `var(--yh-text-color-primary)`     |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhMessageProps` | 内部 Message 组件 Props 类型 |
+| `YhMessageEmits` | 内部 Message 组件事件类型 |
+| `YhMessageSlots` | 内部 Message 组件插槽类型 |
+| `YhMessageExpose` | 内部 Message 组件 Expose 类型 |
+| `YhMessageInstance` | 单条消息的公开实例类型 |
+| `YhMessageOptions` | `YhMessage(...)` 服务配置类型 |
+| `YhMessageHandler` | 返回的处理器类型 |
+| `YhMessageContext` | 内部运行时上下文类型 |
+| `YhMessageFn` | 消息函数签名类型 |
+| `YhMessageType` | 消息类型联合类型 |
+| `YhMessagePlacement` | 消息展示位置联合类型 |

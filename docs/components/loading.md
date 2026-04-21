@@ -438,6 +438,17 @@ const jsContext = toJs(tsContext)
   </p>
 </DemoBlock>
 
+## 在 Nuxt 中使用
+
+接入 `@yh-ui/nuxt` 后，`YhLoading` 可在 Nuxt 3/4 中直接使用。指令 `v-yh-loading` 可直接写在模板中参与 SSR 首屏结构输出；服务调用 `YhLoading.service(...)` 建议放在点击事件、请求回调或 `onMounted` 等客户端时机中执行。
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@yh-ui/nuxt']
+})
+```
+
 ## 旗舰级 Loading 样式
 
 借鉴 [loading.io](https://loading.io/#editor) 的动感设计。
@@ -488,66 +499,80 @@ YH-UI 允许跳过内置样式，通过 `spinner` 属性注入 any Vue 组件 or
 
 ## API
 
-### LoadingOptions (Service 配置)
+### Props
 
-| 属性名      | 说明                                                                | 类型                 | 默认值       |
-| ----------- | ------------------------------------------------------------------- | -------------------- | ------------ | --------------- | --- |
-| target      | 挂载目标。支持 DOM 或 CSS 选择器                                    | `string              | HTMLElement` | `document.body` |
-| body        | 是否将遮罩插入至 body 元素（同 target: body）                       | `boolean`            | `false`      |
-| fullscreen  | 是否全屏 (`position: fixed`)                                        | `boolean`            | `true`       |
-| lock        | 是否锁定宿主元素的滚动                                              | `boolean`            | `false`      |
-| text        | 加载文案                                                            | `string`             | -            |
-| glass       | 是否开启旗舰模式（亚克力玻璃效果）                                  | `boolean`            | `false`      |
-| background  | 遮罩层背景颜色                                                      | `string`             | -            |
-| customClass | 自定义遮罩层类名                                                    | `string`             | -            |
-| spinner     | 自定义图标/组件 (高于 `spinnerType`)                                | `string              | Component    | VNode`          | -   |
-| spinnerType | 加载动画类型。可选：`circle`, `chaser`, `gear`, `dual-ring`, `rect` | `LoadingSpinnerType` | `circle`     |
-| color       | 加载图标颜色，支持渐变色数组或 CSS 变量                             | `string              | string[]     | object`         | -   |
-| dot         | 是否使用点状加载样式（Antd 风格）                                   | `boolean`            | `false`      |
+当前条目不通过组件 Props 暴露配置项。请通过 `YhLoading.service(...)` 或 `v-yh-loading` 使用加载遮罩。
+
+### Events
+
+当前条目未暴露组件事件。
+
+### Slots
+
+当前条目不是常规模板组件入口，不单独暴露组件插槽。
+
+### Expose
+
+当前条目未暴露组件实例 `defineExpose` 成员；服务能力通过 `YhLoading.service(...)` 返回的 `LoadingInstance` 提供。
+
+### LoadingOptions (Service 配置)
+ 
+| 属性名 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `target` | 挂载目标元素或选择器。全屏模式下始终挂载到 `document.body` | `string \| HTMLElement` | `document.body` |
+| `body` | 是否追加到 `body` 容器 | `boolean` | `false` |
+| `fullscreen` | 是否以全屏固定遮罩形式渲染 | `boolean` | `true` |
+| `lock` | 是否锁定目标元素滚动 | `boolean` | `false` |
+| `text` | 加载提示文案；未传时回退到 locale 中的 `loading.text` | `string` | `undefined` |
+| `spinner` | 自定义图标、组件或 VNode；优先级高于 `spinnerType` | `string \| Component \| VNode` | `undefined` |
+| `background` | 自定义遮罩背景色 | `string` | `undefined` |
+| `customClass` | 追加到遮罩层上的自定义类名 | `string` | `undefined` |
+| `glass` | 是否启用玻璃态遮罩效果 | `boolean` | `false` |
+| `color` | 加载图标颜色，支持单色、渐变数组或颜色映射对象 | `string \| string[] \| Record<string, string>` | `undefined` |
+| `dot` | 是否启用点状加载样式 | `boolean` | `false` |
+| `spinnerType` | 内置加载动画类型 | `LoadingSpinnerType` | `'circle'` |
+| `themeOverrides` | 组件级主题变量覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### 指令 Attributes (v-yh-loading)
 
-| 名称                      | 说明                             | 类型                 |
-| ------------------------- | -------------------------------- | -------------------- |
-| `yh-loading-text`         | 加载文案                         | `string`             |
-| `yh-loading-background`   | 遮罩背景色                       | `string`             |
-| `yh-loading-custom-class` | 自定义类名                       | `string`             |
-| `yh-loading-glass`        | 是否开启亚克力效果               | `boolean`            |
-| `yh-loading-dot`          | 是否使用点状模式                 | `boolean`            |
-| `yh-loading-color`        | 图标颜色                         | `string`             |
-| `yh-loading-type`         | 动画类型 (`circle`, `chaser` 等) | `LoadingSpinnerType` |
+| 名称 | 说明 | 类型 |
+| --- | --- | --- |
+| `yh-loading-text` | 加载提示文案 | `string` |
+| `yh-loading-background` | 遮罩背景色 | `string` |
+| `yh-loading-custom-class` | 追加到遮罩层上的自定义类名 | `string` |
+| `yh-loading-glass` | 是否启用玻璃态效果 | `boolean` |
+| `yh-loading-dot` | 是否启用点状样式 | `boolean` |
+| `yh-loading-color` | 图标颜色 | `string` |
+| `yh-loading-type` | 内置动画类型 | `LoadingSpinnerType` |
 
 ### 指令 Modifiers (修饰符)
 
-| 名称          | 说明                      |
-| ------------- | ------------------------- |
+| 名称 | 说明 |
+| --- | --- |
 | `.fullscreen` | 等同于 `fullscreen: true` |
-| `.lock`       | 等同于 `lock: true`       |
-| `.glass`      | 等同于 `glass: true`      |
+| `.lock` | 等同于 `lock: true` |
+| `.glass` | 等同于 `glass: true` |
 
 ### LoadingInstance (服务实例方法)
 
-| 属性名    | 说明                              | 类型                                                                    |
-| --------- | --------------------------------- | ----------------------------------------------------------------------- |
-| `service` | 创建并显示加载遮罩                | `(options: LoadingOptions, appContext?: AppContext) => LoadingInstance` |
-| `close`   | 关闭并销毁遮罩实例                | `() => void`                                                            |
-| `visible` | (Readonly) 获取当前遮罩的显示状态 | `boolean`                                                               |
-
-### Slots (通过 spinner 属性注入时可用)
-
-在使用 `<yh-spin>` 或单独引用组件时，支持以下插槽：
-
-- `default`: 遮罩宿主内容
-- `tip`: 自定义文字内容
-- `icon`: 替代内置 Loading 图标
+| 属性名 | 说明 | 类型 |
+| --- | --- | --- |
+| `close` | 关闭并销毁当前遮罩实例 | `() => void` |
+| `visible` | 当前显示状态（只读） | `boolean` |
 
 ## 主题变量 (CSS Variables)
 
-| 变量名                  | 说明             | 默认值                     |
-| ----------------------- | ---------------- | -------------------------- |
-| `--yh-bg-color-overlay` | 基础遮罩背景颜色 | `rgba(255, 255, 255, 0.7)` |
-| `--yh-spin-blur-radius` | 亚克力模糊半径   | `20px`                     |
-| `--yh-loading-z-index`  | 遮罩层级         | `2000`                     |
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-loading-z-index` | 加载遮罩层级 | `2000` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhLoadingOptions` | `YhLoading.service(...)` 的配置类型 |
+| `YhLoadingInstance` | Loading 服务返回的实例类型 |
+| `vYhLoading` | `v-yh-loading` 指令的具名导出 |
 
 <style>
 .custom-logo-loading {

@@ -189,6 +189,10 @@ const getPrice = ref(888.88)
 | gradient        | 是否开启并设置渐变色         | `boolean \| string[]`                                       | `false`     |
 | theme-overrides | 主题变量覆盖                 | `object`                                                    | —           |
 
+### Events
+
+当前组件未暴露组件事件。
+
 ### Slots
 
 | 插槽名 | 说明             | 参数 |
@@ -204,7 +208,20 @@ const getPrice = ref(888.88)
 | 变量名                     | 说明                 | 默认值                   |
 | -------------------------- | -------------------- | ------------------------ |
 | `--yh-price-color`         | 价格主色             | `var(--yh-color-danger)` |
+| `--yh-price-font-family`   | 价格字体族           | `var(--yh-font-family)`  |
 | `--yh-price-integer-size`  | 整数部分基础字号     | `1.25em`                 |
 | `--yh-price-symbol-size`   | 符号部分基础字号     | `0.75em`                 |
 | `--yh-price-decimal-scale` | 小数部分字号缩放比例 | `0.8`                    |
 | `--yh-price-tag-bg`        | 标签背景颜色         | `var(--yh-color-danger)` |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhPriceProps` | 组件 Props 类型 |
+| `YhPriceSlots` | 组件插槽类型 |
+| `YhPriceInstance` | 组件实例类型 |

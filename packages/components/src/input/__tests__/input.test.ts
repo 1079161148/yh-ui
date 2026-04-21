@@ -179,4 +179,156 @@ describe('YhInput', () => {
     expect(typeof wrapper.vm.select).toBe('function')
     expect(typeof wrapper.vm.clear).toBe('function')
   })
+
+  it('should apply formatter for display value', () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 1234,
+        formatter: (value) => `#${value}`
+      }
+    })
+
+    expect(wrapper.find('input').element.value).toBe('#1234')
+  })
+
+  it('should apply parser and trim modifier on input', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: '',
+        parser: (value) => value.replace(/\$/g, ''),
+        modelModifiers: { trim: true }
+      }
+    })
+
+    await wrapper.find('input').setValue('  $42  ')
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual(['42'])
+    expect(wrapper.emitted('input')?.at(-1)).toEqual(['42'])
+  })
+
+  it('should apply number modifier when input can be parsed', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: '',
+        modelModifiers: { number: true }
+      }
+    })
+
+    await wrapper.find('input').setValue('12.5')
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([12.5])
+    expect(wrapper.emitted('input')?.at(-1)).toEqual([12.5])
+  })
+
+  it('should keep string value when number modifier receives invalid input', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: '',
+        modelModifiers: { number: true }
+      }
+    })
+
+    await wrapper.find('input').setValue('abc')
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual(['abc'])
+  })
+
+  it('should clear on escape when enabled', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 'escape-me',
+        clearOnEscape: true
+      }
+    })
+
+    await wrapper.find('input').trigger('keydown', { key: 'Escape' })
+    expect(wrapper.emitted('clear')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([''])
+  })
+
+  it('should emit keydown and keyup events', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+
+    await input.trigger('keydown', { key: 'A' })
+    await input.trigger('keyup', { key: 'A' })
+
+    expect(wrapper.emitted('keydown')).toBeTruthy()
+    expect(wrapper.emitted('keyup')).toBeTruthy()
+  })
+
+  it('should select text on focus when selectOnFocus is enabled', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 'selected',
+        selectOnFocus: true
+      }
+    })
+
+    const selectSpy = vi.spyOn(HTMLInputElement.prototype, 'select').mockImplementation(() => {})
+
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+
+    expect(selectSpy).toHaveBeenCalled()
+    selectSpy.mockRestore()
+  })
+
+  it('should render loading indicator inside suffix area', () => {
+    const wrapper = mount(Input, {
+      props: {
+        loading: true
+      }
+    })
+
+    expect(wrapper.classes()).toContain('is-loading')
+    expect(wrapper.find('.yh-input__loading').exists()).toBe(true)
+  })
+
+  it('should render prefix and suffix string props', () => {
+    const wrapper = mount(Input, {
+      props: {
+        prefix: '$',
+        suffix: 'USD'
+      }
+    })
+
+    expect(wrapper.find('.yh-input__prefix-text').text()).toBe('$')
+    expect(wrapper.find('.yh-input__suffix-text').text()).toBe('USD')
+  })
+
+  it('should trigger composition events and defer input until compositionend', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: ''
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.trigger('compositionstart')
+    await input.setValue('中')
+    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+
+    await input.trigger('compositionupdate')
+    await input.trigger('compositionend')
+
+    expect(wrapper.emitted('compositionstart')).toBeTruthy()
+    expect(wrapper.emitted('compositionupdate')).toBeTruthy()
+    expect(wrapper.emitted('compositionend')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual(['中'])
+  })
+
+  it('should expose textarea count and autosize style', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        type: 'textarea',
+        modelValue: 'line1\nline2',
+        autosize: { minRows: 2, maxRows: 4 },
+        showWordLimit: true,
+        maxlength: 20
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.find('textarea').exists()).toBe(true)
+    expect(wrapper.find('.yh-input__count--textarea').exists()).toBe(true)
+    expect(wrapper.vm.textLength).toBe(11)
+  })
 })

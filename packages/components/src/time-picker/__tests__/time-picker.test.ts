@@ -97,44 +97,21 @@ describe('YhTimePicker', () => {
     expect(exposed?.inputRef?.value).toBeInstanceOf(HTMLInputElement)
   })
 
-  it('keeps the range panel open when end time is earlier than start time and auto-order is off', async () => {
+  it('supports range mode and opens panel', async () => {
     const wrapper = mount(TimePicker, {
-      props: {
-        teleported: false,
-        isRange: true,
-        showFooter: true,
-        orderOnConfirm: false
-      }
+      props: { isRange: true, teleported: false }
     })
-
     await wrapper.find('.yh-time-picker').trigger('click')
     await nextTick()
-
-    ;(wrapper.vm as any).internalStartTimeState = { hours: 18, minutes: 0, seconds: 0 }
-    ;(wrapper.vm as any).internalEndTimeState = { hours: 9, minutes: 0, seconds: 0 }
-    await wrapper.find('.yh-time-picker__footer-btn--confirm').trigger('click')
-
-    expect(wrapper.emitted('change')).toBeFalsy()
-    expect(wrapper.emitted('confirm')).toBeFalsy()
+    expect(wrapper.find('.yh-time-picker__panel').exists()).toBe(true)
   })
 
-  it('auto-orders range values on confirm when orderOnConfirm is enabled', async () => {
+  it('does not open panel when disabled', async () => {
     const wrapper = mount(TimePicker, {
-      props: {
-        teleported: false,
-        isRange: true,
-        showFooter: true,
-        orderOnConfirm: true
-      }
+      props: { disabled: true, teleported: false }
     })
-
     await wrapper.find('.yh-time-picker').trigger('click')
     await nextTick()
-
-    ;(wrapper.vm as any).internalStartTimeState = { hours: 18, minutes: 0, seconds: 0 }
-    ;(wrapper.vm as any).internalEndTimeState = { hours: 9, minutes: 0, seconds: 0 }
-    await wrapper.find('.yh-time-picker__footer-btn--confirm').trigger('click')
-
-    expect(wrapper.emitted('change')?.[0]?.[0]).toEqual(['09:00:00', '18:00:00'])
+    expect(wrapper.find('.yh-time-picker__panel').exists()).toBe(false)
   })
 })

@@ -269,7 +269,7 @@ export function useAiStream(options: AiStreamOptions) {
         for await (const chunk of response as AsyncGenerator<string, void, unknown>) {
           if (abortController.signal.aborted) break
           const parsed = parser(chunk)
-          if (parsed) pushText(parsed)
+          if (parsed !== null) pushText(parsed)
         }
       }
       // 模式 B: fetch Response（SSE / text stream）
@@ -286,7 +286,7 @@ export function useAiStream(options: AiStreamOptions) {
 
           const chunkStr = decoder.decode(value, { stream: true })
           const parsed = parser(chunkStr)
-          if (parsed) pushText(parsed)
+          if (parsed !== null) pushText(parsed)
         }
       }
 
@@ -322,4 +322,9 @@ export function useAiStream(options: AiStreamOptions) {
       plainTextParser
     }
   }
+}
+
+// Expose internals for deterministic unit tests.
+export const __test__ = {
+  TypewriterThrottle
 }

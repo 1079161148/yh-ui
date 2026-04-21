@@ -340,6 +340,7 @@ InputTag 组件在服务端渲染时，会根据 `modelValue` 的长度动态生
 | suffix | 后缀文本 | `string` | — |
 | prefix-icon | 前缀图标 | `Component` | — |
 | suffix-icon | 后缀图标 | `Component` | — |
+| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -372,7 +373,9 @@ InputTag 组件在服务端渲染时，会根据 `modelValue` 的长度动态生
 | blur | 使输入框失去焦点 | `() => void` |
 | clear | 清空所有标签 | `() => void` |
 
-## 主题变量
+### 主题变量
+
+`YhInputTag` 支持 `themeOverrides`。组件本身消费以下标签输入框相关 CSS 变量：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -382,3 +385,15 @@ InputTag 组件在服务端渲染时，会根据 `modelValue` 的长度动态生
 | `--yh-input-tag-border-color` | 边框颜色 | `var(--yh-border-color)` |
 | `--yh-input-tag-tag-height` | 标签高度 | `22px` |
 | `--yh-input-tag-gap` | 标签间距 | `4px` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhInputTagProps` | `YhInputTag` 的 props 类型 |
+| `YhInputTagEmits` | `YhInputTag` 的 emits 类型 |
+| `YhInputTagSlots` | `YhInputTag` 的 slots 类型 |
+| `YhInputTagExpose` | `YhInputTag` 的 expose 类型 |
+| `YhInputTagSize` | 标签输入框尺寸联合类型 |
+| `YhInputTagType` | 标签类型联合类型 |
+| `YhInputTagInstance` | `YhInputTag` 的实例类型 |

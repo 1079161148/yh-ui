@@ -36,6 +36,21 @@ describe('Progress', () => {
     expect((inner.element as HTMLElement).style.backgroundImage).toContain('linear-gradient')
   })
 
+  it('should map array colors to circle rings instead of gradient mode', () => {
+    const wrapper = mount(YhProgress, {
+      props: {
+        type: 'circle',
+        percentage: [20, 40],
+        color: ['#111111', '#222222']
+      }
+    })
+
+    expect(wrapper.find('defs').exists()).toBe(false)
+    const paths = wrapper.findAll('.yh-progress__circle-path')
+    expect(paths[0].attributes('stroke')).toBe('#111111')
+    expect(paths[1].attributes('stroke')).toBe('#222222')
+  })
+
   it('should support multi-ring progress', () => {
     const wrapper = mount(YhProgress, {
       props: {
@@ -56,6 +71,14 @@ describe('Progress', () => {
 
     const exception = mount(YhProgress, { props: { percentage: 50, status: 'exception' } })
     expect(exception.classes()).toContain('is-exception')
+  })
+
+  it('should render warning and info status icons', () => {
+    const warning = mount(YhProgress, { props: { percentage: 50, status: 'warning' } })
+    const info = mount(YhProgress, { props: { percentage: 50, status: 'info' } })
+
+    expect(warning.find('svg').exists()).toBe(true)
+    expect(info.find('svg').exists()).toBe(true)
   })
 
   it('should support secondary percentage', () => {
@@ -81,6 +104,16 @@ describe('Progress', () => {
     expect(wrapper.find('.yh-progress__innerText').exists()).toBe(true)
   })
 
+  it('should hide text for indeterminate mode and omit width style', () => {
+    const wrapper = mount(YhProgress, {
+      props: { percentage: 50, indeterminate: true }
+    })
+
+    expect(wrapper.classes()).toContain('is-without-text')
+    expect(wrapper.find('.yh-progress__text').exists()).toBe(false)
+    expect((wrapper.find('.yh-progress__inner').element as HTMLElement).style.width).toBe('')
+  })
+
   it('should handle custom format', () => {
     const wrapper = mount(YhProgress, {
       props: {
@@ -89,6 +122,49 @@ describe('Progress', () => {
       }
     })
     expect(wrapper.find('.yh-progress__text').text()).toBe('Value is 50')
+  })
+
+  it('should support custom icon, function colors and default slot rendering', () => {
+    const wrapper = mount(YhProgress, {
+      props: {
+        percentage: 66,
+        icon: 'custom-icon',
+        color: (percentage: number) => (percentage > 50 ? 'purple' : 'gray')
+      },
+      slots: {
+        default: ({ percentage }: { percentage: number }) => `slot:${percentage}`
+      }
+    })
+
+    expect(wrapper.find('.yh-progress__text').text()).toBe('slot:66')
+
+    const iconWrapper = mount(YhProgress, {
+      props: {
+        percentage: 66,
+        icon: 'custom-icon',
+        color: (percentage: number) => (percentage > 50 ? 'purple' : 'gray')
+      }
+    })
+
+    const icon = iconWrapper.find('.custom-icon')
+    expect(icon.exists()).toBe(true)
+    expect((icon.element as HTMLElement).style.color).toBe('purple')
+  })
+
+  it('should support dashboard track rendering and empty string colors', () => {
+    const wrapper = mount(YhProgress, {
+      props: {
+        type: 'dashboard',
+        percentage: 0,
+        color: '',
+        defineBackgroundColor: '#abcabc'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('yh-progress--dashboard')
+    expect(wrapper.find('.yh-progress__circle-track').attributes('stroke')).toBe('#abcabc')
+    expect(wrapper.find('.yh-progress__circle-path').attributes('stroke')).toBe('')
+    expect(wrapper.find('.yh-progress__circle-path').attributes('stroke-width')).toBe('0')
   })
   it('should apply theme overrides as inline css vars', () => {
     const wrapper = mount(YhProgress, {

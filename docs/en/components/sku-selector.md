@@ -353,7 +353,7 @@ export default defineNuxtConfig({
 | size                  | Spec button size                       | `'small' \| 'default' \| 'large'` | `'default'`          |
 | image-size            | Image size in px (image mode)          | `number`                          | `80`                 |
 | show-selected-summary | Display selected spec summary at top   | `boolean`                         | `false`              |
-| summary-prefix        | Prefix text for summary label          | `string`                          | `'Already selected'` |
+| summary-prefix        | Prefix text for summary label          | `string`                          | `''`                 |
 | theme-overrides       | CSS variable overrides                 | `Record<string, string>`          | `{}`                 |
 
 ### Events
@@ -371,6 +371,10 @@ export default defineNuxtConfig({
 | label   | Custom spec title            | `{ spec: SkuSpec }`                                                          |
 | value   | Fully custom spec value cell | `{ value: SkuSpecValue, spec: SkuSpec, active: boolean, disabled: boolean }` |
 | summary | Custom selected summary area | `{ summary: string, sku: SkuItem \| null }`                                  |
+
+### Expose
+
+This component does not expose public instance methods or properties.
 
 ### SkuSpec Interface
 
@@ -435,3 +439,15 @@ Override the following CSS variables using `theme-overrides`:
 | `--yh-sku-img-size`             | Image swatch size              | `80px`                             |
 | `--yh-sku-color-swatch-size`    | Color swatch size              | `24px`                             |
 | `--yh-sku-gap`                  | Row spacing                    | `var(--yh-spacing-md)`             |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSkuSelectorProps` | Component props type |
+| `YhSkuSelectorEmits` | Component emits type |
+| `YhSkuSelectorSlots` | Component slots type |
+| `YhSkuSpec` | Spec group type |
+| `YhSkuSpecValue` | Spec value type |
+| `YhSkuItem` | SKU data type |
+| `YhSkuSelectorInstance` | Component instance type |

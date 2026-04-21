@@ -322,13 +322,12 @@ Descriptions component fully supports SSR rendering in Nuxt 3/4. It's automatica
 
 **SSR Notes**:
 
-- ✅ Fully supports all Props and styles
-- ✅ Renders slot content correctly
-- ✅ Dynamic size switching works as expected
-- ✅ Custom styles are SSR-safe
+- Fully supports SSR-safe rendering for props, slots, and border layout
+- Slot content and custom styles render consistently across server and client
+- Size switching and vertical layout are driven by props only, so hydration stays stable
 
 ::: tip SSR Safety
-The Descriptions component has undergone comprehensive SSR testing to ensure server and client rendering are perfectly consistent.
+The Descriptions component is table-like presentational UI driven entirely by props and slots, which makes it a naturally stable SSR component in Nuxt pages.
 :::
 
 ## API
@@ -337,68 +336,79 @@ The Descriptions component has undergone comprehensive SSR testing to ensure ser
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| title | Title of the list | `string` | — |
-| extra | Extra operation area text, can also be passed via `extra` slot | `string` | — |
+| title | Title of the list | `string` | `undefined` |
+| extra | Extra operation area text. Can also be provided through the `extra` slot | `string` | `undefined` |
 | border | Whether to show border | `boolean` | `false` |
 | column | Number of columns per row | `number` | `3` |
 | direction | Arrangement direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
 | size | List size | `'large' \| 'default' \| 'small'` | `'default'` |
-| colon | Whether to show colon (works when no border) | `boolean` | `true` |
-| label-style | Custom label style | `CSSProperties` | — |
-| content-style | Custom content style | `CSSProperties` | — |
-| label-class-name | Custom label class name | `string` | — |
-| content-class-name | Custom content class name | `string` | — |
+| colon | Whether to show colon when `border` is disabled | `boolean` | `true` |
+| label-style | Custom label style | `CSSProperties` | `undefined` |
+| content-style | Custom content style | `CSSProperties` | `undefined` |
+| label-class-name | Custom label class name | `string` | `''` |
+| content-class-name | Custom content class name | `string` | `''` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
-### Item Props
+### Types
+
+#### Descriptions Item Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| label | Label text | `string` | — |
+| label | Label text | `string` | `''` |
 | span | Number of columns occupied | `number` | `1` |
-| width | Column width | `string \| number` | — |
-| min-width | Minimum column width | `string \| number` | — |
+| width | Column width | `string \| number` | `''` |
+| min-width | Minimum column width | `string \| number` | `''` |
 | align | Content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
 | label-align | Label alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| class-name | Custom content class name | `string` | — |
-| label-class-name | Custom label class name | `string` | — |
-| label-style | Custom label style | `CSSProperties` | — |
-| content-style | Custom content style | `CSSProperties` | — |
+| class-name | Custom content class name | `string` | `''` |
+| label-class-name | Custom label class name | `string` | `''` |
+| label-style | Custom label style | `CSSProperties` | `undefined` |
+| content-style | Custom content style | `CSSProperties` | `undefined` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Content of descriptions, usually `YhDescriptionsItem` |
-| title | Custom title, overrides `title` prop |
-| extra | Custom extra area, overrides `extra` prop |
+| Component | Slot Name | Description |
+| --- | --- | --- |
+| `YhDescriptions` | `default` | Content of descriptions, usually `YhDescriptionsItem` |
+| `YhDescriptions` | `title` | Custom title, overrides `title` prop |
+| `YhDescriptions` | `extra` | Custom extra area, overrides `extra` prop |
+| `YhDescriptionsItem` | `default` | Item content |
+| `YhDescriptionsItem` | `label` | Custom label content, overrides `label` prop |
 
-### Item Slots
+### Events
 
-| Slot Name | Description |
-| --- | --- |
-| default | Item content |
-| label | Custom label content, overrides `label` prop |
+This component does not expose component events.
 
 ### Expose
 
-| Prop | Description | Type |
-| --- | --- | --- |
-| — | No exposed attributes | — |
+This component does not expose public instance methods or properties.
 
-## Theme Variables
+### Theme Variables
 
 The Descriptions component uses the following CSS variables for customization:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `--yh-descriptions-header-margin-bottom` | Margin bottom of header | `20px` |
+| `--yh-descriptions-header-margin-bottom` | Header bottom spacing | `20px` |
 | `--yh-descriptions-title-font-size` | Title font size | `16px` |
 | `--yh-descriptions-extra-font-size` | Extra area font size | `14px` |
 | `--yh-descriptions-border-color` | Border color | `var(--yh-border-color-lighter)` |
-| `--yh-descriptions-item-font-size` | Cell font size | — |
-| `--yh-descriptions-cell-padding-v` | Cell vertical padding | — |
-| `--yh-descriptions-cell-padding-h` | Cell horizontal padding | — |
+| `--yh-descriptions-item-font-size` | Cell font size | Uses the current size preset |
+| `--yh-descriptions-cell-padding-v` | Cell vertical padding | Uses the current size preset |
+| `--yh-descriptions-cell-padding-h` | Cell horizontal padding | Uses the current size preset |
 
 ::: tip Size System Variables
-The `size` attribute automatically toggles `--yh-descriptions-item-font-size` and padding variables. These variables are associated with the global YH-UI size system (e.g., `--yh-component-size-default-padding`) to ensure consistent sizing across the library.
+The `size` prop automatically switches the item font size and padding variables so the component stays aligned with the shared YH-UI size system.
 :::
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhDescriptionsProps` | Props type for `YhDescriptions` |
+| `YhDescriptionsSlots` | Slots type for `YhDescriptions` |
+| `YhDescriptionsItemProps` | Props type for `YhDescriptionsItem` |
+| `YhDescriptionsItemSlots` | Slots type for `YhDescriptionsItem` |
+| `YhDescriptionsInstance` | Public instance type for `YhDescriptions` |
+| `YhDescriptionsItemInstance` | Public instance type for `YhDescriptionsItem` |

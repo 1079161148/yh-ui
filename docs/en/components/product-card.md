@@ -357,6 +357,10 @@ Built-in `IntersectionObserver`. When enabled (`exposure`), the component emits 
 
 ---
 
+## Use in Nuxt
+
+`YhProductCard` supports Nuxt 3/4 SSR rendering. When `@yh-ui/nuxt` is installed, the component can be auto-imported. For hover video previews, exposure analytics, or other client-only behavior, prefer `<ClientOnly>` or verify those interactions in client-side lifecycle hooks.
+
 ## API
 
 ### Props (100% aligned with source)
@@ -373,7 +377,7 @@ Built-in `IntersectionObserver`. When enabled (`exposure`), the component emits 
 | price              | Current selling price               | `number \| string`                                          | `0`          |
 | market-price       | Reference/Market price              | `number \| string`                                          | `''`         |
 | vip-price          | Exclusive member price              | `number \| string`                                          | `''`         |
-| vip-label          | Member price tag text               | `string`                                                    | `'VIP'`      |
+| vip-label          | Member price tag text               | `string`                                                    | `''`         |
 | currency           | Currency symbol                     | `string`                                                    | `'¥'`        |
 | unit               | Price measurement suffix            | `string`                                                    | `''`         |
 | ribbon             | Marketing ribbon text               | `string`                                                    | `''`         |
@@ -381,7 +385,7 @@ Built-in `IntersectionObserver`. When enabled (`exposure`), the component emits 
 | tag                | Legacy: Single tag text             | `string`                                                    | `''`         |
 | tag-type           | Legacy: Tag color type              | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`   |
 | badges             | Multi-badge array (text/image)      | `ProductBadge[]`                                            | `[]`         |
-| layout             | Layout mode                         | `'vertical' \| 'horizontal' \| 'compact'`                   | `'vertical'` |
+| layout             | Layout mode                         | `'vertical' \| 'horizontal' \| 'compact' \| 'grid'`         | `'vertical'` |
 | lazy               | Image lazy loading                  | `boolean`                                                   | `true`       |
 | border             | Enable card border                  | `boolean`                                                   | `true`       |
 | shadow             | Enable hover elevation shadow       | `boolean`                                                   | `true`       |
@@ -389,7 +393,7 @@ Built-in `IntersectionObserver`. When enabled (`exposure`), the component emits 
 | stock-progress     | Flash sale stock progress (0-100)   | `number`                                                    | `0`          |
 | stock-color        | Progress bar color/gradient         | `string`                                                    | `''`         |
 | stock-text         | Stock progress label                | `string`                                                    | `''`         |
-| action-text        | Primary button text                 | `string`                                                    | `'Buy Now'`  |
+| action-text        | Primary button text                 | `string`                                                    | `''`         |
 | action-loading     | Primary button loading state        | `boolean`                                                   | `false`      |
 | sold-out           | Mark as sold out (mask + grayscale) | `boolean`                                                   | `false`      |
 | exposure           | Enable automatic exposure analytics | `boolean`                                                   | `false`      |
@@ -402,7 +406,7 @@ Built-in `IntersectionObserver`. When enabled (`exposure`), the component emits 
 | ------ | ---------------------------------- | ----------------- |
 | click  | Fired when clicking the card       | `(e: MouseEvent)` |
 | action | Fired when clicking primary button | `(e: MouseEvent)` |
-| expose | Fired on exposure threshold hit    | —                 |
+| expose | Fired on exposure threshold hit    | `() => void`      |
 
 ### Slots
 
@@ -411,6 +415,14 @@ Built-in `IntersectionObserver`. When enabled (`exposure`), the component emits 
 | title       | Custom title template       |
 | description | Custom description template |
 | footer      | Custom bottom action area   |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+## Theme Variables
+
+This component supports `theme-overrides` for visual customization such as borders, prices, badges, and action areas. When a dedicated CSS variable table is not listed separately, prefer `theme-overrides` together with global theme tokens as the source of truth.
 
 ### ProductBadge Interface
 
@@ -422,3 +434,14 @@ interface ProductBadge {
   color?: string
 }
 ```
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhProductCardProps` | Component props type |
+| `YhProductCardEmits` | Component emits type |
+| `YhProductCardSlots` | Component slots type |
+| `YhProductCardLayout` | Layout mode union |
+| `YhProductBadge` | Product badge type |
+| `YhProductCardInstance` | Component instance type |

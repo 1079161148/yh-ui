@@ -320,63 +320,77 @@ Row and Col components perform exceptionally well in Nuxt 3/4 environments. The 
 
 **SSR Notes**:
 
-- ✅ The 24-column grid ratios generate corresponding CSS class names on the server.
-- ✅ Gutter spacing is perfectly realized via server-side negative margins and padding, ensuring no alignment jitter on the first screen.
-- ✅ Responsive configurations (xs, sm, md, lg, xl) generate corresponding media query classes on the server.
-- ✅ Alignment (justify) and vertical alignment (align) take effect on the server.
+- The 24-column grid class structure is stable in SSR output
+- Gutter spacing is derived from row negative margins and column padding, so first paint stays aligned
+- Responsive configurations (`xs`, `sm`, `md`, `lg`, `xl`) render deterministically from props
+- Alignment props such as `justify` and `align` are SSR-safe because they only affect class names
 
 ::: tip Layout Consistency
-Since the Layout components are based entirely on CSS (Flexbox) styling, they inherently possess 100% SSR consistency. You rarely need to worry about hydration mismatches when using Row/Col in Nuxt pages.
+Since the Layout components are based entirely on CSS Flexbox styling, they naturally provide SSR-stable output. In Nuxt pages, Row and Col rarely need any client-only handling.
 :::
 
 ## API
 
-### Row Props
+### Props
 
-| Prop    | Description          | Type                                                                                  | Default   |
-| ------- | -------------------- | ------------------------------------------------------------------------------------- | --------- |
-| gutter  | Grid spacing         | `number`                                                                              | `0`       |
-| tag     | Custom element tag   | `string`                                                                              | `'div'`   |
+#### Row Props
+
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| tag | Custom element tag | `string` | `'div'` |
+| gutter | Grid spacing | `number` | `0` |
 | justify | Horizontal alignment | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| align   | Vertical alignment   | `'top' \| 'middle' \| 'bottom'`                                                       | `'top'`   |
+| align | Vertical alignment | `'top' \| 'middle' \| 'bottom'` | `'top'` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
-### Col Props
+#### Col Props
 
-| Prop   | Description                                             | Type               | Default |
-| ------ | ------------------------------------------------------- | ------------------ | ------- |
-| span   | Number of grid columns occupied                         | `number`           | `24`    |
-| offset | Number of grid columns to offset from the left          | `number`           | `0`     |
-| push   | Number of grid columns to move right                    | `number`           | `0`     |
-| pull   | Number of grid columns to move left                     | `number`           | `0`     |
-| xs     | Responsive grid columns or attribute object for <768px  | `number \| object` | —       |
-| sm     | Responsive grid columns or attribute object for ≥768px  | `number \| object` | —       |
-| md     | Responsive grid columns or attribute object for ≥992px  | `number \| object` | —       |
-| lg     | Responsive grid columns or attribute object for ≥1200px | `number \| object` | —       |
-| xl     | Responsive grid columns or attribute object for ≥1920px | `number \| object` | —       |
-| tag    | Custom element tag                                      | `string`           | `'div'` |
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| tag | Custom element tag | `string` | `'div'` |
+| span | Number of grid columns occupied | `number` | `24` |
+| offset | Number of grid columns to offset from the left | `number` | `0` |
+| push | Number of grid columns to move right | `number` | `0` |
+| pull | Number of grid columns to move left | `number` | `0` |
+| xs | Responsive columns or responsive config for `<768px` | `number \| YhColResponsiveValue` | `{}` |
+| sm | Responsive columns or responsive config for `>=768px` | `number \| YhColResponsiveValue` | `{}` |
+| md | Responsive columns or responsive config for `>=992px` | `number \| YhColResponsiveValue` | `{}` |
+| lg | Responsive columns or responsive config for `>=1200px` | `number \| YhColResponsiveValue` | `{}` |
+| xl | Responsive columns or responsive config for `>=1920px` | `number \| YhColResponsiveValue` | `{}` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Event Name | Description                                   | Callback Parameters |
-| ---------- | --------------------------------------------- | ------------------- |
-| —          | This component currently has no custom events | —                   |
+Both `YhRow` and `YhCol` currently do not expose component events.
 
 ### Slots
 
-| Slot Name | Description    |
-| --------- | -------------- |
-| default   | Custom content |
+| Component | Slot Name | Description |
+| --- | --- | --- |
+| `YhRow` | `default` | Row content |
+| `YhCol` | `default` | Column content |
 
 ### Expose
 
-| Name | Description                                        | Type |
-| ---- | -------------------------------------------------- | ---- |
-| —    | This component currently has no exposed properties | —    |
+`YhRow` and `YhCol` currently do not expose public instance methods or properties.
 
-## Theme Variables
+### Theme Variables
 
-Row/Col components are primarily based on Flex layout and currently have no specific component-level global CSS variables.
+Row and Col are primarily layout primitives based on Flexbox and currently do not define dedicated component-level CSS variables. They still accept `themeOverrides` for consistency with the library theme system, but no exclusive variable table is consumed in source.
 
-| Variable | Description | Default |
-| -------- | ----------- | ------- |
-| —        | None        | —       |
+### Type Exports
+
+This page documents the grid primitives `YhRow` and `YhCol`. Container-family exports such as `YhContainer`, `YhHeader`, `YhAside`, `YhMain`, and `YhFooter` are exported from the `container` module and documented on the Container page.
+
+| Name | Description |
+| --- | --- |
+| `YhRowProps` | Props type for `YhRow` |
+| `YhRowSlots` | Slots type for `YhRow` |
+| `YhRowJustify` | Row justify union |
+| `YhRowAlign` | Row align union |
+| `YhRowContext` | Injected row context type |
+| `YhRowInstance` | Public instance type for `YhRow` |
+| `YhColProps` | Props type for `YhCol` |
+| `YhColSlots` | Slots type for `YhCol` |
+| `YhColResponsiveValue` | Responsive column config type |
+| `YhColInstance` | Public instance type for `YhCol` |

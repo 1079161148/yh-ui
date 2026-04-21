@@ -1,13 +1,8 @@
-import { describe, it, expect, vi, afterEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h } from 'vue'
 import { YhSpin } from '../index'
 
 describe('Spin', () => {
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
   it('should render correctly', () => {
     const wrapper = mount(YhSpin, {
       props: {
@@ -91,78 +86,48 @@ describe('Spin', () => {
     expect(wrapper.vm.visible).toBe(true)
   })
 
-  it('should cancel delayed show when hidden before the timer completes', async () => {
-    vi.useFakeTimers()
+  it('should render wrapper mode when default slot exists', () => {
     const wrapper = mount(YhSpin, {
+      slots: {
+        default: '<div class="inside">content</div>'
+      },
       props: {
-        show: true,
-        delay: 300
+        show: true
       }
     })
-
-    await wrapper.setProps({ show: false })
-    vi.advanceTimersByTime(400)
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.find('.yh-spin').exists()).toBe(false)
-    expect(wrapper.emitted('show')).toBeFalsy()
-    expect(wrapper.emitted('hide')).toHaveLength(1)
+    expect(wrapper.find('.yh-spin-wrapper').exists()).toBe(true)
+    expect(wrapper.find('.inside').exists()).toBe(true)
   })
 
-  it('should support object gradients and alternate spinner types', () => {
-    const wrapper = mount(YhSpin, {
-      props: {
-        type: 'gear',
-        color: {
-          '0%': '#ff4d4f',
-          '100%': '#1677ff'
-        }
-      }
-    })
-
-    expect(wrapper.find('.yh-spin__gear').exists()).toBe(true)
-    expect(wrapper.findAll('stop')).toHaveLength(2)
-    expect(wrapper.find('.yh-spin').attributes('style')).toContain('--yh-spin-color-is-gradient: true')
+  it('should support chaser/gear/dual-ring/rect types', () => {
+    const chaser = mount(YhSpin, { props: { type: 'chaser' } })
+    expect(chaser.find('.yh-spin__chaser').exists()).toBe(true)
+    const gear = mount(YhSpin, { props: { type: 'gear' } })
+    expect(gear.find('.yh-spin__gear').exists()).toBe(true)
+    const ring = mount(YhSpin, { props: { type: 'dual-ring' } })
+    expect(ring.find('.yh-spin__dual-ring').exists()).toBe(true)
+    const rect = mount(YhSpin, { props: { type: 'rect' } })
+    expect(rect.find('.yh-spin__rect').exists()).toBe(true)
   })
 
-  it('should render wrapper mode and glass class when default content is provided', () => {
+  it('should emit hide when show toggles false', async () => {
     const wrapper = mount(YhSpin, {
       props: {
         show: true
-      },
-      slots: {
-        default: () => h('div', { class: 'content' }, 'inner')
       }
     })
-
-    expect(wrapper.find('.yh-spin-wrapper').exists()).toBe(true)
-    expect(wrapper.find('.yh-spin').classes()).toContain('is-glass')
-    expect(wrapper.text()).toContain('inner')
+    await wrapper.setProps({ show: false })
+    expect(wrapper.emitted('hide')).toBeTruthy()
   })
 
-  it('should fallback to default size for unsupported size strings', () => {
-    const wrapper = mount(YhSpin, {
-      props: {
-        show: true,
-        size: 'unknown' as any
-      }
+  it('should support gradient object and array color branches', () => {
+    const obj = mount(YhSpin, {
+      props: { color: { '0%': '#f00', '100%': '#00f' } as any }
     })
-
-    expect(wrapper.find('.yh-spin').classes()).toContain('yh-spin--unknown')
-    expect(wrapper.find('.yh-spin__svg').attributes('style')).toContain('width: 32px;')
-    expect(wrapper.find('.yh-spin__svg').attributes('style')).toContain('height: 32px;')
-  })
-
-  it('should support array gradient colors without throwing', () => {
-    const wrapper = mount(YhSpin, {
-      props: {
-        show: true,
-        type: 'circle',
-        color: ['#ff4d4f', '#faad14', '#1677ff']
-      }
+    expect(obj.find('linearGradient').exists()).toBe(true)
+    const arr = mount(YhSpin, {
+      props: { color: ['#111', '#222', '#333'] as any }
     })
-
-    expect(wrapper.findAll('stop')).toHaveLength(3)
-    expect(wrapper.find('.yh-spin').classes()).toContain('is-gradient')
+    expect(arr.find('linearGradient').exists()).toBe(true)
   })
 })

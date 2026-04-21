@@ -319,3 +319,14 @@ Pagination 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用
 | `--yh-pagination-btn-hover-color` | `var(--yh-color-primary)` |
 | `--yh-pagination-item-active-bg-color` | `var(--yh-color-primary)` |
 | `--yh-pagination-item-active-color` | `#ffffff` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhPaginationProps` | `YhPagination` 的 Props 类型 |
+| `YhPaginationEmits` | `YhPagination` 的事件类型 |
+| `YhPaginationSlots` | `YhPagination` 的插槽类型 |
+| `YhPaginationExpose` | `YhPagination` 的 Expose 类型 |
+| `YhPaginationLayout` | 分页布局 token 联合类型 |
+| `YhPaginationInstance` | `YhPagination` 的组件实例类型 |

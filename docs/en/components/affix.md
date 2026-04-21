@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { ref } from 'vue'
 import { _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
@@ -68,15 +68,15 @@ const jsDisabled = tsDisabled.replace('lang="ts"', '').replace('const disabled =
 const jsNuxt = tsNuxt
 </script>
 
-# Affix (Next-Gen)
+# Affix
 
-A high-performance affix component based on physics engine algorithms and native browser observers. Surpasses industry standards in both functionality and performance.
+A high-performance affix component that fixes content to the top or bottom of the viewport or a target container while preserving layout space.
 
-## Performance Architecture (Surpassing Engine)
+## Performance Architecture
 
 YhAffix employs a dual-layer observation system:
-- **IntersectionObserver**: The engine automatically monitors the distance between the element and the trigger zone. When the element is more than 500px away from the viewport trigger point, all high-frequency calculations are automatically cut off, achieving extreme power efficiency.
-- **ResizeObserver**: Deeply observes size changes across three parties — the placeholder, the content, and the target container — ensuring zero jitter during async content loading.
+- **IntersectionObserver**: Monitors distance from the trigger zone. When the element is far away from the viewport, high-frequency recalculation is skipped to reduce overhead.
+- **ResizeObserver**: Observes the placeholder, content, and target container so size changes can update the fixed position without visible jitter.
 
 ---
 
@@ -177,7 +177,7 @@ Use the `disabled` prop to toggle the state, suitable for permission control or 
 | --- | --- | --- | --- |
 | offset | Offset distance to trigger fixing | `number` | `0` |
 | position | Affix position | `'top' \| 'bottom'` | `'top'` |
-| target | Target container selector. Affixing stops outside this container | `string` | — |
+| target | Target container selector. Affixing stops outside this container | `string` | `''` |
 | z-index | Z-index when fixed | `number` | `100` |
 | teleported | Whether to teleport to a specified node for rendering, solving parent transform positioning issues | `boolean` | `false` |
 | append-to | Target container node for teleport, used with `teleported` | `string \| HTMLElement` | `'body'` |
@@ -205,14 +205,23 @@ Use the `disabled` prop to toggle the state, suitable for permission control or 
 | fixed | Whether currently in the fixed state | `Ref<boolean>` |
 | scrollTop | Current vertical scroll distance of the scroll container | `Ref<number>` |
 
-### Theme Variables (CSS Variables)
+### Theme Variables
 
-All color variables are integrated with the global theme system, automatically supporting dark mode:
+`YhAffix` supports `themeOverrides`. The component stylesheet directly consumes the following affix-specific CSS variables:
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `--yh-affix-z-index` | `100` | Default z-index in fixed state |
-| `--yh-affix-bg-color` | `var(--yh-bg-color-overlay)` | Affix content background color |
-| `--yh-affix-shadow` | `var(--yh-shadow-md)` | Shadow effect in fixed state |
-| `--yh-affix-transition-duration` | `var(--yh-transition-duration)` | Animation duration when entering fixed state |
-| `--yh-affix-transition-timing` | `var(--yh-transition-timing)` | Animation easing curve |
+| `--yh-affix-z-index` | `var(--yh-z-index-fixed)` | Z-index token used in the fixed state |
+| `--yh-affix-shadow` | `var(--yh-shadow-md)` | Shadow applied while affixed |
+| `--yh-affix-transition-duration` | `var(--yh-duration-base)` | Transition duration for fixed-state updates |
+| `--yh-affix-transition-timing` | `cubic-bezier(0.4, 0, 0.2, 1)` | Transition timing function |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhAffixProps` | Props type for `YhAffix` |
+| `YhAffixEmits` | Emits type for `YhAffix` |
+| `YhAffixSlots` | Slots type for `YhAffix` |
+| `YhAffixExpose` | Expose type for `YhAffix` |
+| `YhAffixInstance` | Public instance type for `YhAffix` |

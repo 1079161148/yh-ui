@@ -421,7 +421,7 @@ Checkbox 组件已通过完整的 SSR 测试，确保服务端渲染结果与客
 | --- | --- |
 | default | 自定义默认内容 |
 
-## 主题变量
+### 主题变量
 
 Checkbox 组件使用以下 CSS 变量，你可以通过覆盖这些变量来自定义样式：
 
@@ -437,3 +437,18 @@ Checkbox 组件使用以下 CSS 变量，你可以通过覆盖这些变量来自
 | `--yh-checkbox-checked-icon-color` | 选中图标色 | `var(--yh-fill-color-blank)` |
 | `--yh-checkbox-disabled-bg-color` | 禁用背景色 | `var(--yh-fill-color-light)` |
 | `--yh-checkbox-disabled-text-color` | 禁用文字色 | `var(--yh-text-color-placeholder)` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhCheckboxProps` | `YhCheckbox` props 类型 |
+| `YhCheckboxEmits` | `YhCheckbox` emits 类型 |
+| `YhCheckboxSlots` | `YhCheckbox` slots 类型 |
+| `YhCheckboxExpose` | `YhCheckbox` expose 类型 |
+| `YhCheckboxGroupProps` | `YhCheckboxGroup` props 类型 |
+| `YhCheckboxGroupEmits` | `YhCheckboxGroup` emits 类型 |
+| `YhCheckboxGroupOption` | 组选项类型 |
+| `YhCheckboxValueType` | 复选框值类型 |
+| `YhCheckboxInstance` | `YhCheckbox` 实例类型 |
+| `YhCheckboxGroupInstance` | `YhCheckboxGroup` 实例类型 |

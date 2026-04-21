@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, h } from 'vue'
-import { YhDropdown, YhDropdownItem, YhDropdownMenu } from '../index'
+import { nextTick, h, ref } from 'vue'
+import { YhDropdown, YhDropdownItem, YhDropdownMenu, DROPDOWN_INJECTION_KEY } from '../index'
 import { YhButton } from '../../button'
 import { YhConfigProvider } from '../../config-provider'
 import { en } from '@yh-ui/locale'
@@ -361,5 +361,60 @@ describe('Dropdown', () => {
     expect(typeof wrapper.vm.show).toBe('function')
     expect(typeof wrapper.vm.hide).toBe('function')
     expect((wrapper.vm as any).$?.exposed?.visible).toBeTruthy()
+  })
+
+  describe('YhDropdownItem injection branches', () => {
+    const makeDropdownProvide = (opts: { checkable?: boolean } = {}) => {
+      const handleItemClick = vi.fn()
+      return {
+        handleItemClick,
+        provide: {
+          [DROPDOWN_INJECTION_KEY]: {
+            hideOnClick: ref(true),
+            checkable: ref(opts.checkable ?? false),
+            handleItemClick
+          }
+        }
+      }
+    }
+
+    it('invokes handleItemClick with command when clicked', async () => {
+      const { handleItemClick, provide } = makeDropdownProvide()
+      const wrapper = mount(YhDropdownItem, {
+        props: { command: 'my-cmd' },
+        global: { provide }
+      })
+      await wrapper.get('.yh-dropdown__item').trigger('click')
+      expect(handleItemClick).toHaveBeenCalledWith('my-cmd')
+    })
+
+    it('does not invoke handleItemClick when disabled', async () => {
+      const { handleItemClick, provide } = makeDropdownProvide()
+      const wrapper = mount(YhDropdownItem, {
+        props: { command: 'x', disabled: true },
+        global: { provide }
+      })
+      await wrapper.get('.yh-dropdown__item').trigger('click')
+      expect(handleItemClick).not.toHaveBeenCalled()
+    })
+
+    it('shows divider element when divided', () => {
+      const { provide } = makeDropdownProvide()
+      const wrapper = mount(YhDropdownItem, {
+        props: { command: 'd', divided: true },
+        global: { provide }
+      })
+      expect(wrapper.find('.yh-dropdown__divider').exists()).toBe(true)
+    })
+
+    it('shows check icon when checkable and applies checked class', () => {
+      const { provide } = makeDropdownProvide({ checkable: true })
+      const wrapper = mount(YhDropdownItem, {
+        props: { command: 'c', checked: true },
+        global: { provide }
+      })
+      expect(wrapper.find('.yh-dropdown__check-icon').exists()).toBe(true)
+      expect(wrapper.get('.yh-dropdown__item').classes()).toContain('is-checked')
+    })
   })
 })

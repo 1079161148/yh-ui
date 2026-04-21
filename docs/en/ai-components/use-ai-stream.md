@@ -241,10 +241,9 @@ import { useAiStream } from '@yh-ui/hooks'
 
 const { isStreaming, currentContent, fetchStream, stop } = useAiStream({
   // Replace with your API Key and Endpoint
-  request: async (query: string, signal: AbortSignal) =>
+  request: async (query: string) =>
     fetch('https://api.siliconflow.cn/v1/chat/completions', {
       method: 'POST',
-      signal,
       headers: {
         'Authorization': 'Bearer YOUR_API_KEY',
         'Content-Type': 'application/json'
@@ -320,7 +319,7 @@ Replace the `request` adapter with a real API call. Pass your key to enable prod
 
 | Param           | Type                                                              | Default           | Description                            |
 | --------------- | ----------------------------------------------------------------- | ----------------- | -------------------------------------- |
-| `request`       | `(query, signal, ...args) => AsyncGenerator \| Promise<Response>` | Required          | Request adapter, supports AbortSignal  |
+| `request`       | `(query, ...args) => AsyncGenerator \| Promise<Response \| AsyncGenerator>` | Required          | Request adapter |
 | `parser`        | `StreamChunkParser`                                               | `plainTextParser` | Stream chunk parser (multi-vendor)     |
 | `typewriter`    | `boolean`                                                         | `true`            | Enable typewriter effect               |
 | `charsPerFrame` | `number`                                                          | `3`               | Chars output per frame (speed control) |
@@ -335,7 +334,8 @@ Replace the `request` adapter with a real API call. Pass your key to enable prod
 | `isStreaming`    | `Ref<boolean>`                      | If streaming is in progress  |
 | `currentContent` | `Ref<string>`                       | Full content received so far |
 | `fetchStream`    | `(query, ...args) => Promise<void>` | Trigger request              |
-| `stop`           | `() => void`                        | Abort request                |
+| `stop`           | `() => void`                        | Stop the current stream output |
+| `parsers`        | `{ openaiParser, ernieParser, qwenParser, claudeParser, geminiParser, plainTextParser }` | Built-in parser collection |
 
 ### Built-in Parsers
 
@@ -344,6 +344,8 @@ Replace the `request` adapter with a real API call. Pass your key to enable prod
 | `openaiParser`    | OpenAI, DeepSeek, SiliconFlow, iFlytek | Compatible with OpenAI SSE format |
 | `ernieParser`     | Baidu Wenxin                           | Compatible with Wenxin SSE format |
 | `qwenParser`      | Alibaba Tongyi (Direct)                | Compatible with Tongyi SSE format |
+| `claudeParser`    | Anthropic Claude                       | Compatible with Claude SSE format |
+| `geminiParser`    | Google Gemini                          | Compatible with Gemini format |
 | `plainTextParser` | Raw AsyncGenerator                     | Yield strings appended directly   |
 
 ## Connecting Other AI Platforms
@@ -354,10 +356,9 @@ import { useAiStream, openaiParser } from '@yh-ui/hooks'
 // ── SiliconFlow ──
 const { fetchStream } = useAiStream({
   parser: openaiParser,
-  request: async (query, signal) =>
+  request: async (query) =>
     fetch('https://api.siliconflow.cn/v1/chat/completions', {
       method: 'POST',
-      signal,
       headers: {
         Authorization: 'Bearer YOUR_SF_KEY',
         'Content-Type': 'application/json'
@@ -373,10 +374,9 @@ const { fetchStream } = useAiStream({
 // ── DeepSeek ──
 const { fetchStream: deepseekStream } = useAiStream({
   parser: openaiParser,
-  request: async (query, signal) =>
+  request: async (query) =>
     fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
-      signal,
       headers: {
         Authorization: 'Bearer YOUR_DEEPSEEK_KEY',
         'Content-Type': 'application/json'

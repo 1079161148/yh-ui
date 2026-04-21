@@ -6,7 +6,6 @@ Displays the current page path and allows quick navigation back to any previous 
 import { ref } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
-// --- Showcase state ---
 const maxItems = ref(4)
 
 const tsOverflow = `<${_T}>
@@ -69,7 +68,6 @@ const tsNuxt = `<${_T}>
 <${_S} setup lang="ts">
 // In Nuxt, it will automatically downgrade to NuxtLink for seamless navigation
 </${_S}>`
-
 </script>
 
 ## Showcase
@@ -99,7 +97,7 @@ The breadcrumb component supports dynamic level management and smart path collap
 
 ## Basic Usage
 
-The most basic usage. Use the `to` prop to set the navigation path.
+Use the `to` prop on `YhBreadcrumbItem` to define clickable navigation nodes.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
   <yh-breadcrumb>
@@ -128,17 +126,19 @@ Customize the separator string with the `separator` prop.
   </div>
 </DemoBlock>
 
-## 🚀 Advanced Features
+## Advanced Features
 
-### 1. Smart Overflow Collapse
-When navigation levels are too deep, setting `max-items` will automatically collapse intermediate items into `...`. This greatly protects UI layout in narrow containers or deeply nested business logic.
+### Smart Overflow Collapse
 
-### 2. Seamless Router Adaptation (NuxtLink Compatible)
-The component's underlying layer automatically detects the `Nuxt` environment. When used in Nuxt 3/4, route navigation is automatically handled by `NuxtLink`, supporting Prefetch.
+When the navigation hierarchy becomes deep, setting `max-items` collapses intermediate nodes into an ellipsis entry so the layout stays readable.
+
+### Router Adaptation
+
+The component detects the Nuxt environment and can render route navigation through Nuxt-compatible links when `to` is provided.
 
 ## Use in Nuxt
 
-`YhBreadcrumb` fully supports Nuxt auto-import.
+`YhBreadcrumb` works in Nuxt 3/4 after registering `@yh-ui/nuxt`.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="toJs(tsNuxt)">
   <yh-breadcrumb>
@@ -149,28 +149,61 @@ The component's underlying layer automatically detects the `Nuxt` environment. W
 
 ## API
 
-### Breadcrumb Props
+### Props
+
+#### Breadcrumb
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | separator | Separator string | `string` | `/` |
-| separator-icon | Separator icon component | `string \| Component` | — |
-| max-items | Maximum number of displayed items, collapses when exceeded | `number` | `0` (no collapse) |
+| separator-icon | Separator icon component | `string \| Component` | `''` |
+| max-items | Maximum number of displayed items before collapsing middle nodes | `number` | `0` |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### BreadcrumbItem Props
+#### Breadcrumb Item
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| to | Route navigation target | `string \| object` | — |
+| to | Route navigation target | `string \| Record<string, unknown>` | `''` |
 | replace | Whether to replace the current route | `boolean` | `false` |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-## Theme Variables
+### Events
 
-| Variable | Description | Default |
+`YhBreadcrumb` and `YhBreadcrumbItem` do not expose component events.
+
+### Slots
+
+#### Breadcrumb
+
+| Slot | Description | Slot Props |
 | --- | --- | --- |
-| `--yh-breadcrumb-font-size` | Font size | `14px` |
-| `--yh-breadcrumb-item-color` | Default text color | `var(--yh-text-color-regular)` |
-| `--yh-breadcrumb-last-color` | Last item text color | `var(--yh-text-color-primary)` |
+| `default` | Breadcrumb content. | - |
+
+#### Breadcrumb Item
+
+| Slot | Description | Slot Props |
+| --- | --- | --- |
+| `default` | Breadcrumb item content. | - |
+
+### Expose
+
+`YhBreadcrumb` and `YhBreadcrumbItem` do not expose public instance methods or properties.
+
+### Theme Variables
+
+This component does not provide dedicated component-scoped theme variables. If you pass `themeOverrides`, the rendered styles still mainly consume shared global theme tokens such as text color and primary color.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhBreadcrumbProps` | Props type for `YhBreadcrumb` |
+| `YhBreadcrumbSlots` | Slots type for `YhBreadcrumb` |
+| `YhBreadcrumbItemProps` | Props type for `YhBreadcrumbItem` |
+| `YhBreadcrumbItemSlots` | Slots type for `YhBreadcrumbItem` |
+| `YhBreadcrumbInstance` | Public instance type for `YhBreadcrumb` |
+| `YhBreadcrumbItemInstance` | Public instance type for `YhBreadcrumbItem` |
 
 <style scoped>
 .demo-showcase {

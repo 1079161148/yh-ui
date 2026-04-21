@@ -1,16 +1,13 @@
 # TreeSelect 树形选择
 
-支持极致的虚拟滚动检索。
+`YhTreeSelect` 在紧凑的下拉面板中提供树形数据选择能力，支持单选、多选、复选框联动、过滤、懒加载和海量数据虚拟滚动。
+
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// --- 辅助工具：将 TS 代码转为 JS 代码 ---
 const toJs = (ts: string) => ts.replace(' lang="ts"', '').replace(' setup lang="ts"', ' setup')
 
-// ==============================
-// 共享演示数据 (仅用于文档内部渲染变量)
-// ==============================
 const orgData = [
   {
     id: '1',
@@ -44,7 +41,11 @@ const fileData = [
     label: 'src',
     key: 'src',
     children: [
-      { label: 'components', key: 'src/components', children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }] },
+      {
+        label: 'components',
+        key: 'src/components',
+        children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }]
+      },
       { label: 'utils', key: 'src/utils', children: [{ label: 'index.ts', key: 'src/utils/index.ts' }] }
     ]
   },
@@ -56,40 +57,32 @@ const fileData = [
   { label: 'package.json', key: 'package.json' }
 ]
 
-// 演示变量
 const v1 = ref('')
 const v2 = ref('')
 const v3 = ref('1-1-1')
 const v4 = ref([])
-const v5 = ref([])
 const v6 = ref('1-1')
 const v7 = ref('')
 const v8 = ref('')
 const v9 = ref([])
-const v10 = ref([]) 
+const v10 = ref([])
 const v11 = ref('')
 const v12 = ref('')
 const v13 = ref([])
 
-// 懒加载初始数据
-const lazyData = ref([
-  { name: '深圳总部', id: 'sz', items: [] }
-])
+const lazyData = ref([{ name: '深圳总部', id: 'sz', items: [] }])
 
-// 懒加载函数
-const loadNode = (node: TreeNode, resolve: (data: TreeOption[]) => void) => {
-  // 模拟网络延迟
+const loadNode = (node, resolve) => {
   setTimeout(() => {
     const nodes = Array.from({ length: 15 }).map((_, i) => ({
       name: `异步节点 ${node.id}-${i + 1}`,
       id: `${node.id}-${i + 1}`,
-      isLeaf: Math.random() > 0.7 ? false : true // 随机生成一些子节点
+      isLeaf: Math.random() <= 0.7
     }))
     resolve(nodes)
   }, 1000)
 }
 
-// 大数据生成函数
 const generateData = (count: number) => {
   const data = []
   for (let i = 0; i < count; i++) {
@@ -103,7 +96,6 @@ const generateData = (count: number) => {
 }
 const virtualData = generateData(100)
 
-// Nuxt 使用示例
 const nuxtTree = ref('')
 const nuxtData = [
   { label: 'Nuxt 3', value: 'nuxt3', children: [{ label: 'App.vue', value: 'app' }] },
@@ -112,7 +104,6 @@ const nuxtData = [
 
 const tsNuxt = `<template>
   <div style="max-width: 320px;">
-    <!-- 组件自动导入 -->
     <yh-tree-select
       v-model="value"
       :data="data"
@@ -124,7 +115,6 @@ const tsNuxt = `<template>
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// 无需手动导入 YhTreeSelect
 const value = ref('')
 const data = [
   { label: 'Nuxt 3', value: 'nuxt3', children: [{ label: 'App.vue', value: 'app' }] },
@@ -133,10 +123,6 @@ const data = [
 <\/script>`.replace(/\\/g, '')
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
-
-// ==============================
-// 示例代码字符串 (100% 完整，无省略)
-// ==============================
 
 const commonDataCode = `const data = [
   {
@@ -196,7 +182,7 @@ const tsDisabled = `<template>
       v-model="value2"
       :data="data"
       :props="{ label: 'name', value: 'id', children: 'items' }"
-      placeholder="节点禁用 (测试组被禁用)"
+      placeholder="节点禁用（测试组）"
       style="width: 240px"
     />
   </div>
@@ -235,7 +221,7 @@ const tsMultiple = `<template>
     :props="{ label: 'name', value: 'id', children: 'items' }"
     multiple
     collapse-tags
-    placeholder="多选部门"
+    placeholder="选择多个部门"
     style="width: 300px"
   />
 </template>
@@ -253,7 +239,7 @@ const tsStrictly = `<template>
     :data="data"
     :props="{ label: 'name', value: 'id', children: 'items' }"
     check-strictly
-    placeholder="选择任意级部门"
+    placeholder="允许选择任意层级"
     style="width: 240px"
   />
 </template>
@@ -290,7 +276,7 @@ const tsSearch = `<template>
     :data="data"
     :props="{ label: 'name', value: 'id', children: 'items' }"
     filterable
-    placeholder="输入搜索：如“研发”"
+    placeholder="输入关键字搜索，例如：研发"
     style="width: 240px"
   />
 </template>
@@ -309,7 +295,7 @@ const tsLazy = `<template>
     :props="{ label: 'name', value: 'id', children: 'items' }"
     lazy
     :load="loadNode"
-    placeholder="懒加载子节点"
+    placeholder="展开异步加载子节点"
     style="width: 240px"
   />
 </template>
@@ -325,7 +311,7 @@ const loadNode = (node, resolve) => {
     const nodes = Array.from({ length: 15 }).map((_, i) => ({
       name: \`异步节点 \${node.id}-\${i + 1}\`,
       id: \`\${node.id}-\${i + 1}\`,
-      isLeaf: Math.random() > 0.7 ? false : true
+      isLeaf: Math.random() <= 0.7
     }))
     resolve(nodes)
   }, 1000)
@@ -333,11 +319,11 @@ const loadNode = (node, resolve) => {
 <\/script>`
 
 const tsSlot = `<template>
-  <yh-tree-select v-model="value" :data="data" node-key="key" placeholder="文件浏览风格" style="width: 240px">
+  <yh-tree-select v-model="value" :data="data" node-key="key" placeholder="文件浏览器风格" style="width: 240px">
     <template #default="{ node, data }">
       <span style="display: flex; align-items: center;">
         <span :style="{ color: node.isLeaf ? '#666' : '#E6A23C', marginRight: '4px' }">
-          {{ node.isLeaf ? '📄' : '📁' }}
+          {{ node.isLeaf ? '文件' : '文件夹' }}
         </span>
         <span>{{ data.label }}</span>
       </span>
@@ -354,16 +340,13 @@ const data = [
     label: 'src',
     key: 'src',
     children: [
-      { label: 'components', key: 'src/components', children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }] },
-      { label: 'utils', key: 'src/utils', children: [{ label: 'index.ts', key: 'src/utils/index.ts' }] }
+      {
+        label: 'components',
+        key: 'src/components',
+        children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }]
+      }
     ]
-  },
-  {
-    label: 'public',
-    key: 'public',
-    children: [{ label: 'favicon.ico', key: 'public/favicon.ico' }]
-  },
-  { label: 'package.json', key: 'package.json' }
+  }
 ]
 <\/script>`.replace(/\\/g, '')
 
@@ -374,9 +357,9 @@ const tsVirtual = `<template>
     :props="{ label: 'name', value: 'id', children: 'items' }"
     multiple
     filterable
-    collapse-tags
     virtual
-    placeholder="1万条数据极速检索"
+    collapse-tags
+    placeholder="搜索 1 万条数据"
     style="width: 320px"
   />
 </template>
@@ -385,8 +368,6 @@ const tsVirtual = `<template>
 import { ref } from 'vue'
 
 const value = ref([])
-
-// 大数据生成函数
 const generateData = (count: number) => {
   const data = []
   for (let i = 0; i < count; i++) {
@@ -419,8 +400,6 @@ const tsVirtualCheckbox = `<template>
 import { ref } from 'vue'
 
 const value = ref([])
-
-// 大数据生成函数
 const generateData = (count: number) => {
   const data = []
   for (let i = 0; i < count; i++) {
@@ -428,22 +407,19 @@ const generateData = (count: number) => {
     for (let j = 0; j < 100; j++) {
       children.push({ name: \`测试节点 \${i}-\${j}\`, id: \`test-\${i}-\${j}\` })
     }
-    data.push({ name: \`海量组 \${i}\`, id: \`group-\${i}\`, items: children })
+    data.push({ name: \`分组 \${i}\`, id: \`group-\${i}\`, items: children })
   }
   return data
 }
 const data = generateData(100)
 <\/script>`.replace(/\\/g, '')
-
 </script>
-
-当数据量巨大或呈现清晰的树形层级结构时，使用 `TreeSelect` 可以在紧凑的空间内提供高效的选择方案。
 
 ## 基础用法
 
-基础单选模式。默认仅允许选中叶子节点，点击父节点会自动展开或收起。
+标准单选模式。默认更适合选择叶子节点，父节点主要用于展开和收起树结构。
 
-<DemoBlock title="基础单选" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
+<DemoBlock title="基础选择" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
   <div style="max-width: 320px;">
     <yh-tree-select
       v-model="v1"
@@ -457,7 +433,7 @@ const data = generateData(100)
 
 ## 禁用状态
 
-可以禁用整个组件，或在数据中通过 `disabled` 字段禁用特定节点（如测试组）。
+既可以禁用整个组件，也可以在数据源中禁用指定节点。
 
 <DemoBlock title="禁用状态" :ts-code="tsDisabled" :js-code="toJs(tsDisabled)">
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 320px;">
@@ -466,14 +442,14 @@ const data = generateData(100)
       v-model="v12"
       :data="orgData"
       :props="{ label: 'name', value: 'id', children: 'items' }"
-      placeholder="节点禁用 (测试组被禁用)"
+      placeholder="节点禁用（测试组）"
     />
   </div>
 </DemoBlock>
 
 ## 可清空
 
-设置 `clearable` 属性后，鼠标悬停时会显示清空按钮。
+设置 `clearable` 后，在已有值时显示清空按钮。
 
 <DemoBlock title="可清空" :ts-code="tsClearable" :js-code="toJs(tsClearable)">
   <div style="max-width: 320px;">
@@ -488,9 +464,9 @@ const data = generateData(100)
   </div>
 </DemoBlock>
 
-## 多选与折叠
+## 多选与标签折叠
 
-设置 `multiple` 开启多选模式。多选模式下建议配合 `collapse-tags` 使用以节省空间。
+通过 `multiple` 开启多选，配合 `collapse-tags` 可以保持触发区紧凑。
 
 <DemoBlock title="多选模式" :ts-code="tsMultiple" :js-code="toJs(tsMultiple)">
   <div style="max-width: 400px;">
@@ -500,32 +476,32 @@ const data = generateData(100)
       :props="{ label: 'name', value: 'id', children: 'items' }"
       multiple
       collapse-tags
-      placeholder="多选部门"
+      placeholder="选择多个部门"
     />
     <p class="demo-res">Value: <code>{{ v4 }}</code></p>
   </div>
 </DemoBlock>
 
-## 选择任意级别
+## 选择任意层级
 
-启用 `check-strictly` 属性后，用户可以选中分级中的任何一级节点。
+开启 `check-strictly` 后，父子节点的选中关系不再联动。
 
-<DemoBlock title="任意级选择" :ts-code="tsStrictly" :js-code="toJs(tsStrictly)">
+<DemoBlock title="任意层级选择" :ts-code="tsStrictly" :js-code="toJs(tsStrictly)">
   <div style="max-width: 320px;">
     <yh-tree-select
       v-model="v6"
       :data="orgData"
       :props="{ label: 'name', value: 'id', children: 'items' }"
       check-strictly
-      placeholder="允许选中父级"
+      placeholder="允许选择父节点"
     />
     <p class="demo-res">Value: <code>{{ v6 }}</code></p>
   </div>
 </DemoBlock>
 
-## 复选框
+## 复选框模式
 
-使用 `show-checkbox` 属性来启用复选框，这在多选场景下能提供更清晰的视觉勾选状态。
+在需要显式勾选状态时，可以配合 `show-checkbox` 使用。
 
 <DemoBlock title="复选框模式" :ts-code="tsCheckbox" :js-code="toJs(tsCheckbox)">
   <div style="max-width: 400px;">
@@ -541,9 +517,9 @@ const data = generateData(100)
   </div>
 </DemoBlock>
 
-## 可筛选
+## 可过滤
 
-设置 `filterable` 后，用户可以直接在输入框中输入关键字进行节点过滤。
+开启 `filterable` 后，可以直接输入关键字过滤节点。
 
 <DemoBlock title="搜索过滤" :ts-code="tsSearch" :js-code="toJs(tsSearch)">
   <div style="max-width: 320px;">
@@ -552,14 +528,14 @@ const data = generateData(100)
       :data="orgData"
       :props="{ label: 'name', value: 'id', children: 'items' }"
       filterable
-      placeholder="输入搜索：如“研发”"
+      placeholder="输入关键字搜索，例如：研发"
     />
   </div>
 </DemoBlock>
 
 ## 懒加载
 
-设置 `lazy` 和 `load` 函数来实现异步加载子节点数据。这对于大型组织架构非常实用。
+设置 `lazy` 并提供 `load` 回调后，可按需异步加载子节点。
 
 <DemoBlock title="懒加载" :ts-code="tsLazy" :js-code="toJs(tsLazy)">
   <div style="max-width: 320px;">
@@ -569,22 +545,22 @@ const data = generateData(100)
       :props="{ label: 'name', value: 'id', children: 'items' }"
       lazy
       :load="loadNode"
-      placeholder="点击展开异步加载"
+      placeholder="展开异步加载子节点"
     />
   </div>
 </DemoBlock>
 
-## 自定义内容
+## 自定义节点内容
 
-使用 `#default` 插槽可以完全自定义树节点在菜单中的渲染方式。
+使用默认插槽可以重写下拉树节点的显示内容。
 
 <DemoBlock title="自定义插槽" :ts-code="tsSlot" :js-code="toJs(tsSlot)">
   <div style="max-width: 320px;">
-    <yh-tree-select v-model="v11" :data="fileData" node-key="key" placeholder="文件浏览风格">
+    <yh-tree-select v-model="v11" :data="fileData" node-key="key" placeholder="文件浏览器风格">
       <template #default="{ node, data }">
         <span style="display: flex; align-items: center;">
           <span :style="{ color: node.isLeaf ? '#666' : '#E6A23C', marginRight: '4px' }">
-            {{ node.isLeaf ? '📄' : '📁' }}
+            {{ node.isLeaf ? '文件' : '文件夹' }}
           </span>
           <span>{{ data.label }}</span>
         </span>
@@ -593,11 +569,9 @@ const data = generateData(100)
   </div>
 </DemoBlock>
 
-## 虚拟滚动 (10,000+ 节点)
+## 虚拟滚动
 
-本组件内置自研虚拟滚动方案。为了性能最优化，虚拟滚动**默认不开启**。当数据量较大（建议 500 条以上）时，请设置 `virtual` 属性为 `true`。
-
-### 基础搜索演示
+对于超大树数据，可将 `virtual` 设为 `true`。
 
 <DemoBlock title="海量数据搜索" :ts-code="tsVirtual" :js-code="toJs(tsVirtual)">
   <div style="max-width: 360px;">
@@ -609,15 +583,11 @@ const data = generateData(100)
       filterable
       virtual
       collapse-tags
-      placeholder="一万条数据搜索"
+      placeholder="搜索 1 万条数据"
     />
     <p class="demo-res">Value Count: <code>{{ v9.length }}</code></p>
   </div>
 </DemoBlock>
-
-### 复选框模式
-
-即便在海量数据下，复选框的级联勾选同样流畅。
 
 <DemoBlock title="海量数据勾选" :ts-code="tsVirtualCheckbox" :js-code="toJs(tsVirtualCheckbox)">
   <div style="max-width: 360px;">
@@ -637,9 +607,9 @@ const data = generateData(100)
 
 ## 在 Nuxt 中使用
 
-TreeSelect 组件完全兼容 Nuxt 3/4。在 Nuxt 环境下，得益于组件自动导入（Auto Import）功能，你可以直接在模板中使用而无需手动注册。
+在 Nuxt 中接入 YH-UI 模块后可直接使用 `YhTreeSelect`。初始树结构和已选内容可以参与 SSR 渲染，过滤、弹层定位和懒加载会在客户端激活后继续工作。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="在 Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 320px;">
     <yh-tree-select
       v-model="nuxtTree"
@@ -649,91 +619,91 @@ TreeSelect 组件完全兼容 Nuxt 3/4。在 Nuxt 环境下，得益于组件自
   </div>
 </DemoBlock>
 
-**SSR 注意事项**：
-
-- ✅ 树形结构的首屏渲染（包含展开/收起状态）完全支持
-- ✅ 选中的 Token 标签在服务端正确展示
-- ✅ 虚拟滚动（virtual）支持 SSR 首屏基础节点渲染
-- ✅ 懒加载（lazy）初始数据支持 SSR
-- 💡 搜索过滤和异步加载通过客户端激活（Hydration）后生效
-
-::: tip SSR 安全性
-TreeSelect 使用了 Vue 3.5 的原生 `useId` 机制，确保了在复杂的递归树结构中，服务端和客户端生成的节点 ID、ARIA 属性保持绝对一致，消除了深层嵌套结构中常见的水合一致性报错。
-:::
-
 ## API
 
-### TreeSelect Attributes
+### Props
 
-| 属性名                | 说明                                                 | 类型                                                           | 默认值       |
-| --------------------- | ---------------------------------------------------- | -------------------------------------------------------------- | ------------ |
-| model-value / v-model | 绑定值                                               | `string \| number \| (string \| number)[]`                     | —            |
-| data                  | 展示数据                                             | `TreeOption[]`                                                 | `[]`         |
-| props                 | 配置选项，详见下表                                   | `object`                                                       | —            |
-| node-key              | 每个树节点用来作为唯一标识的属性，整棵树应该是唯一的 | `string`                                                       | `'value'`    |
-| multiple              | 是否多选                                             | `boolean`                                                      | `false`      |
-| clearable             | 是否可以清空选项                                     | `boolean`                                                      | `false`      |
-| disabled              | 是否禁用                                             | `boolean`                                                      | `false`      |
-| size                  | 输入框尺寸                                           | `'large' \| 'default' \| 'small'`                              | `'default'`  |
-| placeholder           | 输入框占位文本                                       | `string`                                                       | `'请选择'`   |
-| empty-text            | 无数据时显示的文本                                   | `string`                                                       | `'暂无数据'` |
-| filterable            | 是否可搜索                                           | `boolean`                                                      | `false`      |
-| filter-node-method    | 自定义过滤方法                                       | `(value: string, data: TreeOption, node: TreeNode) => boolean` | —            |
-| collapse-tags         | 多选时是否折叠标签                                   | `boolean`                                                      | `false`      |
-| collapse-tags-tooltip | 是否在折叠标签时显示 tooltip (仅展示数量)            | `boolean`                                                      | `false`      |
-| max-collapse-tags     | 标签折叠前的最大展示数量                             | `number`                                                       | `1`          |
-| check-strictly        | 是否遵循父子不互相关的原则                           | `boolean`                                                      | `false`      |
-| show-checkbox         | 节点前是否显示复选框                                 | `boolean`                                                      | `false`      |
-| default-expand-all    | 是否默认展开所有节点                                 | `boolean`                                                      | `false`      |
-| default-expanded-keys | 默认展开的节点的 key 的数组                          | `TreeKey[]`                                                    | `[]`         |
-| accordion             | 是否每次只打开一个同级树节点展开                     | `boolean`                                                      | `false`      |
-| indent                | 相邻级节点间的水平缩进                               | `number`                                                       | `16`         |
-| check-on-click-node   | 是否在点击节点时选中复选框                           | `boolean`                                                      | `false`      |
-| expand-on-click-node  | 是否在点击节点时展开/收起                            | `boolean`                                                      | `true`       |
-| lazy                  | 是否懒加载子节点                                     | `boolean`                                                      | `false`      |
-| load                  | 加载子树数据的方法                                   | `Function`                                                     | —            |
-| virtual               | 是否开启虚拟滚动渲染                                 | `boolean`                                                      | `false`      |
-| height                | 下拉菜单的最大高度                                   | `string \| number`                                             | `274`        |
-| item-size             | 虚拟滚动时每一项的高度                               | `number`                                                       | `34`         |
-| teleported            | 是否直接将下拉层挂载至 body                          | `boolean`                                                      | `true`       |
-| popper-class          | 下拉菜单的自定义类名                                 | `string`                                                       | —            |
-| status                | 设置输入框的校验状态                                 | `'success' \| 'warning' \| 'error' \| ''`                      | —            |
+| 名称 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| model-value / v-model | 绑定值 | `YhTreeKey \| YhTreeKey[]` | `undefined` |
+| data | 树数据源 | `YhTreeOption[]` | `[]` |
+| props | 字段别名配置 | `YhTreePropsAlias` | `{ label: 'label', value: 'value', children: 'children', disabled: 'disabled', isLeaf: 'isLeaf' }` |
+| placeholder | 占位文本 | `string` | `undefined` |
+| multiple | 是否开启多选 | `boolean` | `false` |
+| clearable | 是否允许清空 | `boolean` | `false` |
+| disabled | 是否禁用组件 | `boolean` | `false` |
+| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
+| filterable | 是否开启节点过滤 | `boolean` | `false` |
+| filter-node-method | 自定义过滤方法 | `(value: string, data: YhTreeOption, node: YhTreeSelectNode) => boolean` | `undefined` |
+| collapse-tags | 多选时是否折叠标签 | `boolean` | `false` |
+| collapse-tags-tooltip | 已声明的折叠标签 Tooltip 属性，当前模板未消费该配置 | `boolean` | `false` |
+| max-collapse-tags | 折叠前最多展示的标签数量 | `number` | `1` |
+| teleported | 是否将面板传送到 `body` | `boolean` | `true` |
+| popper-class | 下拉面板自定义类名 | `string` | `''` |
+| status | 已声明的校验状态属性。当前模板和样式未消费该配置 | `'' \| 'success' \| 'warning' \| 'error'` | `undefined` |
+| node-key | 唯一节点标识字段名。未传入时，运行时会回退到 `props.value` 映射字段 | `string` | `undefined` |
+| show-checkbox | 是否显示复选框 | `boolean` | `false` |
+| check-strictly | 父子节点选中关系是否相互独立 | `boolean` | `false` |
+| check-on-click-node | 点击节点时是否切换复选框状态 | `boolean` | `false` |
+| expand-on-click-node | 点击节点时是否展开或收起 | `boolean` | `true` |
+| default-expand-all | 是否默认展开全部节点 | `boolean` | `false` |
+| default-expanded-keys | 默认展开的节点键值 | `YhTreeKey[]` | `[]` |
+| default-checked-keys | 已声明的默认勾选节点键值。当前树状态初始化未消费该 prop | `YhTreeKey[]` | `[]` |
+| accordion | 同级是否仅允许展开一个节点 | `boolean` | `false` |
+| indent | 每级树节点缩进 | `number` | `16` |
+| lazy | 是否开启懒加载 | `boolean` | `false` |
+| load | 懒加载子节点回调 | `(node: YhTreeOption, resolve: (data: YhTreeOption[]) => void) => void` | `undefined` |
+| virtual | 是否开启虚拟滚动 | `boolean` | `false` |
+| height | 下拉面板最大高度 | `string \| number` | `274` |
+| item-size | 虚拟滚动估算节点高度 | `number` | `34` |
+| empty-text | 空状态自定义文本 | `string` | `undefined` |
+| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
 
-### TreeSelect Props (配置选项)
+### Events
 
-| 属性名   | 说明                                  | 类型     |
-| -------- | ------------------------------------- | -------- |
-| label    | 指定节点标签为节点对象的某个属性值    | `string` |
-| value    | 指定节点选择值为节点对象的某个属性值  | `string` |
-| children | 指定子树为节点对象的某个属性值        | `string` |
-| disabled | 指定节点选择框是否禁用的属性值        | `string` |
-| isLeaf   | 指定节点是否为叶子节点 (仅懒加载有效) | `string` |
+| 名称 | 说明 | 回调参数 |
+| --- | --- | --- |
+| update:modelValue | 绑定值更新时触发 | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
+| change | 选中值变化时触发 | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
+| visible-change | 下拉面板显示状态变化时触发 | `(visible: boolean) => void` |
+| clear | 点击清空按钮时触发 | `() => void` |
+| node-click | 点击节点行时触发 | `(data: YhTreeOption, node: YhTreeSelectNode, e: MouseEvent) => void` |
+| check-change | 复选框状态变化时触发 | `(data: YhTreeOption, checked: boolean, indeterminate: boolean) => void` |
+| check | 勾选或取消勾选时触发 | `(data: YhTreeOption, info: YhTreeCheckedInfo) => void` |
 
-### TreeSelect Events
+### Slots
 
-| 事件名         | 说明                       | 回调参数                                                               |
-| -------------- | -------------------------- | ---------------------------------------------------------------------- | ------ | ------- | --------- | ------------------- |
-| change         | 选中值发生变化时触发       | `(value: string                                                        | number | (string | number)[] | undefined) => void` |
-| visible-change | 下拉框出现/隐藏时触发      | `(visible: boolean) => void`                                           |
-| clear          | 点击清空按钮时触发         | —                                                                      |
-| node-click     | 节点被点击时的回调         | `(data: TreeOption, node: TreeNode, e: MouseEvent) => void`            |
-| check-change   | 节点复选框状态改变时的回调 | `(data: TreeOption, checked: boolean, indeterminate: boolean) => void` |
-| check          | 点击复选框时的回调         | `(data: TreeOption, info: TreeCheckedInfo) => void`                    |
+| 名称 | 说明 | 参数 |
+| --- | --- | --- |
+| default | 自定义树节点内容 | `{ node: YhTreeSelectNode, data: YhTreeOption }` |
 
-### TreeSelect Slots
+### Expose
 
-| 插槽名  | 说明                   | 参数                                   |
-| ------- | ---------------------- | -------------------------------------- |
-| default | 自定义树节点的内容     | `{ node: TreeNode, data: TreeOption }` |
-| prefix  | 自定义输入框前缀内容   | —                                      |
-| empty   | 无匹配数据时的显示内容 | —                                      |
+当前组件未暴露公开实例方法或属性。
 
-## 主题变量
+### 类型导出
 
-| 变量名                                 | 说明                 | 默认值                       |
-| -------------------------------------- | -------------------- | ---------------------------- |
-| `--yh-tree-select-node-hover-bg`       | 节点悬停时的背景颜色 | `var(--yh-fill-color-light)` |
-| `--yh-tree-select-node-selected-color` | 选中节点时的文字颜色 | `var(--yh-color-primary)`    |
+| 名称 | 说明 |
+| --- | --- |
+| `YhTreeSelectProps` | TreeSelect props 类型 |
+| `YhTreeSelectEmits` | TreeSelect emits 类型 |
+| `YhTreeSelectNode` | 回调中使用的树节点视图模型类型 |
+| `YhTreeOption` | 树选项数据类型 |
+| `YhTreeKey` | 节点 key 类型 |
+| `YhTreeCheckedInfo` | 勾选信息类型 |
+| `YhTreePropsAlias` | 字段别名配置类型 |
+| `YhTreeSelectInstance` | 组件实例类型 |
+
+### 主题变量
+
+`YhTreeSelect` 支持 `themeOverrides`。当前样式文件直接消费以下组件级 CSS 变量：
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-tree-select-node-hover-bg` | 节点悬停背景色 | `var(--yh-fill-color-light, #f5f7fa)` |
+| `--yh-tree-select-node-active-bg` | 选中节点背景色 | `var(--yh-color-primary-light-9, #ecf5ff)` |
+| `--yh-tree-select-active-color` | 选中节点文字色 | `var(--yh-color-primary, #409eff)` |
+
 
 <style>
 .demo-res {

@@ -505,14 +505,14 @@ The `Dropdown` component fully supports SSR rendering for Nuxt 3/4.
 
 **SSR Notes**:
 
-- ✅ Perfect support for Server-Side Rendering (SSR), no hydration errors
-- ✅ Supports keyboard navigation
-- ✅ Overlay automatically Teleports to body
-- ✅ Glassmorphism (acrylic) effect adapts automatically
+- Fully supports Server-Side Rendering (SSR) in Nuxt 3/4 projects
+- Keyboard interaction is built in for trigger handling and visibility control
+- The overlay is teleported to `body` by default and can be disabled with `teleported`
+- Empty and loading states both participate in the locale pipeline at runtime
 
 ## API
 
-### Dropdown Props
+### Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
@@ -524,9 +524,9 @@ The `Dropdown` component fully supports SSR rendering for Nuxt 3/4.
 | hide-after | Delay hide time (ms) | `number` | `150` |
 | z-index | Overlay z-index | `number` | `2000` |
 | hide-on-click | Whether to hide after clicking a menu item | `boolean` | `true` |
-| items | Menu item data (Quick Config Mode) | `DropdownItemData[]` | `[]` |
+| items | Menu item data (Quick Config Mode) | `YhDropdownItemData[]` | `[]` |
 | loading | Whether in loading state | `boolean` | `false` |
-| empty-text | Empty state text | `string` | `'No data'` |
+| empty-text | Empty state text | `string` | `undefined` |
 | checkable | Whether items are checkable | `boolean` | `false` |
 | max-height | Maximum height of the menu | `string \| number` | `''` |
 | teleported | Whether to mount to body | `boolean` | `true` |
@@ -541,8 +541,11 @@ The `Dropdown` component fully supports SSR rendering for Nuxt 3/4.
 | offset | Offset | `[number, number]` | `[0, 8]` |
 | loop | Tab key cycle navigation | `boolean` | `true` |
 | tabindex | Tab index | `number \| string` | `0` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
-### DropdownItem Props
+### Types
+
+#### Dropdown Item Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
@@ -552,6 +555,13 @@ The `Dropdown` component fully supports SSR rendering for Nuxt 3/4.
 | icon | Icon name | `string` | `''` |
 | danger | Whether it's a danger item | `boolean` | `false` |
 | checked | Whether checked (requires checkable) | `boolean` | `false` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+
+#### Dropdown Menu Props
+
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -579,38 +589,59 @@ The `Dropdown` component fully supports SSR rendering for Nuxt 3/4.
 | hide | Manually hide dropdown menu | `() => void` |
 | visible | Current visibility state | `Ref<boolean>` |
 
-### DropdownItemData Type
+#### Dropdown Item Data
 
 ```typescript
-interface DropdownItemData {
+interface YhDropdownItemData {
   key: string | number
   label: string
   icon?: string
   disabled?: boolean
   divided?: boolean
   class?: string
-  children?: DropdownItemData[]
-  danger?: boolean    // Red danger style
-  checked?: boolean   // Checkable mode
+  children?: YhDropdownItemData[]
+  danger?: boolean
+  checked?: boolean
 }
 ```
 
-### Theme Variables (CSS Variables)
+### Theme Variables
 
-All color variables are interfaced with the global theme system, automatically supporting dark mode:
+`Dropdown`, `YhDropdownItem`, and `YhDropdownMenu` all accept `themeOverrides`. The component consumes shared theme tokens directly in source, so the runtime styling is mainly controlled through the following tokens:
 
-| Variable | Default Value | Description |
-| --- | --- | --- |
-| `--yh-dropdown-text-color` | `var(--yh-text-color-primary)` | Menu text color |
-| `--yh-dropdown-bg-color` | `var(--yh-bg-color-overlay)` | Popper background color |
-| `--yh-dropdown-border-color` | `var(--yh-border-color-light)` | Border/divider color |
-| `--yh-dropdown-hover-bg` | `var(--yh-color-primary-light-9)` | Menu item hover background |
-| `--yh-dropdown-active-bg` | `var(--yh-color-primary-light-8)` | Menu item active background |
-| `--yh-dropdown-disabled-color` | `var(--yh-text-color-placeholder)` | Disabled item text color |
-| `--yh-dropdown-danger-color` | `var(--yh-color-danger)` | Danger item text color |
-| `--yh-dropdown-danger-hover-bg` | `var(--yh-color-danger-light-9)` | Danger item hover background |
-| `--yh-dropdown-shadow` | `var(--yh-shadow-lg)` | Popper shadow |
-| `--yh-dropdown-radius` | `var(--yh-radius-md)` | Popper corner radius |
+| Variable | Description |
+| --- | --- |
+| `--yh-text-color-primary` | Primary text color for menu items |
+| `--yh-text-color-secondary` | Loading text color |
+| `--yh-text-color-placeholder` | Disabled and empty state text color |
+| `--yh-bg-color-overlay` | Dropdown popup background |
+| `--yh-border-color-light` | Divider color |
+| `--yh-color-primary` | Active/checkable item color |
+| `--yh-color-primary-light-9` | Hover background |
+| `--yh-color-primary-light-8` | Active background |
+| `--yh-color-danger` | Danger item color |
+| `--yh-color-danger-light-9` | Danger hover background |
+| `--yh-color-danger-light-8` | Danger active background |
+| `--yh-radius-md` | Item corner radius |
+| `--yh-radius-lg` | Popup corner radius |
+| `--yh-shadow-lg` | Popup shadow |
+| `--yh-font-size-base` | Trigger and menu text size |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhDropdownProps` | Props type for `YhDropdown` |
+| `YhDropdownEmits` | Emits type for `YhDropdown` |
+| `YhDropdownSlots` | Slots type for `YhDropdown` |
+| `YhDropdownExpose` | Expose type for `YhDropdown` |
+| `YhDropdownTrigger` | Trigger union type |
+| `YhDropdownItemData` | Dropdown item data type |
+| `YhDropdownItemProps` | Props type for `YhDropdownItem` |
+| `YhDropdownMenuProps` | Props type for `YhDropdownMenu` |
+| `YhDropdownInstance` | Public instance type for `YhDropdown` |
+| `YhDropdownItemInstance` | Public instance type for `YhDropdownItem` |
+| `YhDropdownMenuInstance` | Public instance type for `YhDropdownMenu` |
 
 ---
 

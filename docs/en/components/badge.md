@@ -318,6 +318,7 @@ In the Nuxt ecosystem, it is recommended to store badge values in `useState` or 
 | color | Custom badge color | `string` | — |
 | offset | Badge offset `[x, y]` | `[number, number]` | — |
 | show-zero | Whether to show when value is 0 | `boolean` | `false` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Slots
 
@@ -326,10 +327,27 @@ In the Nuxt ecosystem, it is recommended to store badge values in `useState` or 
 | default | Element wrapped by the badge |
 | content | Custom badge content |
 
-## Theme Variables
+### Theme Variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
 | `--yh-badge-bg-color` | Background color | `var(--yh-color-danger)` |
 | `--yh-badge-text-color` | Text color | `#ffffff` |
-| `--yh-badge-font-size` | Font size | `var(--yh-font-size-xs)` |
+| `--yh-badge-border-color` | Border color | `var(--yh-bg-color-overlay, #fff)` |
+
+### Events
+
+This component does not expose component events.
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhBadgeProps` | Props type for `YhBadge` |
+| `YhBadgeSlots` | Slots type for `YhBadge` |
+| `YhBadgeType` | Badge type union |
+| `YhBadgeInstance` | Public instance type for `YhBadge` |

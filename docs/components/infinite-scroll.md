@@ -611,6 +611,16 @@ const jsBusiness = tsBusiness.replace('lang="ts"', '')
 
 | 变量名                        | 默认值    | 描述             |
 | ----------------------------- | --------- | ---------------- |
-| `--yh-color-text-secondary`   | `#86868b` | 加载中文字颜色   |
-| `--yh-color-text-placeholder` | `#c0c4cc` | 加载完成文字颜色 |
+| `--yh-text-color-secondary`   | `#86868b` | 加载中文字颜色   |
+| `--yh-text-color-placeholder` | `#c0c4cc` | 加载完成文字颜色 |
 | `--yh-color-danger`           | `#f56c6c` | 错误状态文字颜色 |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhInfiniteScrollProps` | 组件 Props 类型 |
+| `YhInfiniteScrollEmits` | 组件事件类型 |
+| `YhInfiniteScrollSlots` | 组件插槽类型 |
+| `YhInfiniteScrollExpose` | 组件 Expose 类型 |
+| `YhInfiniteScrollInstance` | 组件实例类型 |

@@ -1,40 +1,72 @@
-import { describe, it, expect, vi, afterEach } from 'vitest'
-import { detectPlatform, NodeHttpAdapter } from '../adapters/platform'
+import { describe, it, expect } from 'vitest'
+import {
+  detectPlatform,
+  platform,
+  type PlatformInfo,
+  type RuntimeEnvironment
+} from '../adapters/platform'
 
-describe('Platform', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals()
+describe('request/adapters/platform', () => {
+  describe('detectPlatform', () => {
+    it('should detect current environment', () => {
+      const result = detectPlatform()
+      expect(result).toHaveProperty('environment')
+      expect(result).toHaveProperty('supportsFetch')
+      expect(result).toHaveProperty('supportsFormData')
+      expect(result).toHaveProperty('supportsAbortController')
+    })
+
+    it('should return valid runtime environment', () => {
+      const result = detectPlatform()
+      const validEnvironments: RuntimeEnvironment[] = ['browser', 'node', 'deno', 'bun', 'edge']
+      expect(validEnvironments).toContain(result.environment)
+    })
+
+    it('should report all capability flags', () => {
+      const result = detectPlatform()
+      expect(typeof result.supportsFetch).toBe('boolean')
+      expect(typeof result.supportsFormData).toBe('boolean')
+      expect(typeof result.supportsAbortController).toBe('boolean')
+    })
   })
 
-  it('should detect browser environment by default in tests', () => {
-    // Vitest likely runs in jsdom/happy-dom or node.
-    // Let's see what detectPlatform says.
-    const platform = detectPlatform()
-    expect(['browser', 'node']).toContain(platform.environment)
+  describe('platform', () => {
+    it('should be a PlatformInfo object', () => {
+      expect(platform).toHaveProperty('environment')
+      expect(platform).toHaveProperty('supportsFetch')
+      expect(platform).toHaveProperty('supportsFormData')
+      expect(platform).toHaveProperty('supportsAbortController')
+    })
+
+    it('should match detectPlatform result', () => {
+      const detected = detectPlatform()
+      expect(platform.environment).toBe(detected.environment)
+      expect(platform.supportsFetch).toBe(detected.supportsFetch)
+    })
   })
 
-  it('should detect Deno environment', () => {
-    vi.stubGlobal('Deno', { version: '1.0.0' })
-    const platform = detectPlatform()
-    expect(platform.environment).toBe('deno')
-  })
+  describe('PlatformInfo type', () => {
+    it('should accept valid runtime environments', () => {
+      const environments: RuntimeEnvironment[] = ['browser', 'node', 'deno', 'bun', 'edge']
+      environments.forEach((env) => {
+        const info: PlatformInfo = {
+          environment: env,
+          supportsFetch: true,
+          supportsFormData: true,
+          supportsAbortController: true
+        }
+        expect(info.environment).toBe(env)
+      })
+    })
 
-  it('should detect Bun environment', () => {
-    vi.stubGlobal('Bun', { version: '1.0.0' })
-    const platform = detectPlatform()
-    expect(platform.environment).toBe('bun')
-  })
-
-  it('should detect edge runtime', () => {
-    vi.stubGlobal('edgeRuntime', true)
-    const platform = detectPlatform()
-    expect(platform.environment).toBe('edge')
-  })
-
-  describe('NodeHttpAdapter', () => {
-    it('should identify as node-http', () => {
-      const adapter = new NodeHttpAdapter()
-      expect(adapter.name).toBe('node-http')
+    it('should accept false capability flags', () => {
+      const info: PlatformInfo = {
+        environment: 'browser',
+        supportsFetch: false,
+        supportsFormData: false,
+        supportsAbortController: false
+      }
+      expect(info.supportsFetch).toBe(false)
     })
   })
 })

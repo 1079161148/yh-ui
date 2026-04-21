@@ -359,12 +359,34 @@ const jsNuxt = toJs(tsNuxt)
 | start  | 组件正式开始渲染初速度动效前抛出                       | `()`                  |
 | finish | 物理碰撞检测停转，获得开奖奖品实体对象时回调           | `(prize: LuckyPrize)` |
 
+### Slots
+
+| 插槽名 | 说明             | 参数 |
+| ------ | ---------------- | ---- |
+| prize  | 自定义奖品单元格 | `{ prize: LuckyPrize }` |
+| action | 自定义开始按钮   | —    |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
 ## 主题变量
 
-Lucky Draw 的视觉内核通过先进的 CSS 主题变量构建。您可以毫无阻碍地覆盖以下变量，瞬间打造出贴合您自家产品设计的顶级电商抽奖面板色局：
+通过 `theme-overrides` 可覆盖以下核心 CSS 变量，用于自定义转盘与九宫格模式的主视觉：
 
 | 变量名                 | 说明                                                                  | 首发行业标准默认值                                  |
 | ---------------------- | --------------------------------------------------------------------- | --------------------------------------------------- |
 | `--yh-lucky-primary`   | 指针前端、点击按钮外圈边框与激活高光红的主色                          | `#ff4757`                                           |
 | `--yh-lucky-border-bg` | 转盘整体防切边大底盘背景色（支持线性格段渲染 `linear-gradient` 色系） | `linear-gradient(180deg, #ff8a65 0%, #ff5252 100%)` |
 | `--yh-lucky-shadow`    | 大转盘自身及九宫格外部光晕景深阴影色值                                | `0 10px 25px rgba(255, 82, 82, 0.3)`                |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhLuckyDrawProps` | 组件 Props 类型 |
+| `YhLuckyDrawEmits` | 组件事件类型 |
+| `YhLuckyDrawSlots` | 组件插槽类型 |
+| `YhLuckyPrize` | 奖品数据类型 |
+| `YhLuckyDrawType` | 抽奖模式联合类型 |
+| `YhLuckyDrawInstance` | 组件实例类型 |

@@ -571,9 +571,9 @@ const tsBasic = `
 <${_T}>
   <div style="margin-bottom: 20px;">
     <yh-radio-group v-model="size">
-      <yh-radio-button label="large">Large</yh-radio-button>
-      <yh-radio-button label="default">Default</yh-radio-button>
-      <yh-radio-button label="small">Small</yh-radio-button>
+      <yh-radio-button value="large">Large</yh-radio-button>
+      <yh-radio-button value="default">Default</yh-radio-button>
+      <yh-radio-button value="small">Small</yh-radio-button>
     </yh-radio-group>
   </div>
   <yh-form 
@@ -1266,7 +1266,7 @@ Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高
 | optionProp    | 接收异步选项数据的 prop 名                                                           | `string`                                     | `'options'` |
 | emptyValue    | `type: 'text'` 时值为空时的占位文本                                                  | `string`                                     | `'-'`       |
 | listSchema    | `type: 'list'` 时的子字段 schema 配置                                                | `FormSchemaItem[]`                           | —           |
-| listProps     | `type: 'list'` 时的操作控制，含 max/min/addButtonText/allowAdd/allowDelete           | `object`                                     | —           |
+| listProps     | `type: 'list'` 时的操作控制，含 max/min/addButtonText/allowAdd/allowDelete           | `object`                                     | `undefined` |
 
 ### FormSchemaGroup (分组配置)
 
@@ -1277,3 +1277,30 @@ Form 组件生成的内部 ID 和 ARIA 属性均基于 `useId`，确保了在高
 | props       | 透传给 fieldset 的属性 | `object`           | —       |
 | collapsible | 是否开启折叠功能       | `boolean`          | `false` |
 | collapsed   | 默认折叠状态           | `boolean`          | `false` |
+
+### 主题变量
+
+`YhForm` 和 `YhFormItem` 支持 `themeOverrides`。运行时样式主要消费以下组件变量：
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-form-item-height` | 表单项与对齐控件的基础高度 | `32px` |
+| `--yh-form-item-margin-bottom` | 表单项底部间距 | `22px` |
+| `--yh-form-label-font-size` | 表单标签字体大小 | `14px` |
+
+`YhFormSchema` 主要复用表单和全局主题令牌，不额外定义独立组件变量。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhFormProps` | `YhForm` props 类型 |
+| `YhFormItemProps` | `YhFormItem` props 类型 |
+| `YhFormSchemaProps` | `YhFormSchema` props 类型 |
+| `YhFormSchemaItem` | Schema 表单项类型 |
+| `YhFormSchemaGroup` | Schema 表单分组类型 |
+| `YhFormRule` | 单条校验规则类型 |
+| `YhFormRules` | 表单规则集合类型 |
+| `YhFormInstance` | `YhForm` 实例类型 |
+| `YhFormItemInstance` | `YhFormItem` 实例类型 |
+| `YhFormSchemaInstance` | `YhFormSchema` 实例类型 |

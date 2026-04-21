@@ -485,7 +485,7 @@ const openViewerManual = (m: string) => {
 
 ## 在 Nuxt 中使用
 
-`Image` 组件完全支持 Nuxt 3 的 SSR 模式。由于其内置了懒加载和预览功能，我们在实现中充分考虑了服务端与客户端的兼容性。
+`YhImage` 与 `YhImageViewer` 可直接在 Nuxt 项目中使用。SSR 阶段会先输出稳定的图片结构，懒加载监听与预览挂载会在客户端激活后继续接管。
 
 <DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
@@ -502,16 +502,16 @@ const openViewerManual = (m: string) => {
         </div>
       </template>
     </yh-image>
-    <p style="font-size: 14px; color: var(--yh-text-color-secondary);">支持自动导入与 SSR 占位渲染</p>
+    <p style="font-size: 14px; color: var(--yh-text-color-secondary);">支持自动导入与 SSR 占位内容渲染</p>
   </div>
 </DemoBlock>
 
 **SSR 注意事项**：
 
-- ✅ 支持服务端占位渲染（Placeholder Slot）
-- ✅ 懒加载在客户端激活后自动开始监听
-- ✅ 预览器组件采用 Teleport，在客户端挂载到 body
-- ✅ 完美兼容 Nuxt 的自动导入机制
+- 支持在服务端渲染占位插槽内容。
+- `lazy` 会在客户端激活后开始侦测可视区域。
+- 预览器打开时会在客户端挂载到 `body`。
+- 注册 YH-UI Nuxt 模块后可直接使用自动导入。
 
 ## API
 
@@ -519,82 +519,115 @@ const openViewerManual = (m: string) => {
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| src | 图片源地址 | `string` | — |
-| fit | 确定图片如何适应容器框，同原生 object-fit | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | — |
-| lazy | 是否开启懒加载 | `boolean` | `false` |
-| preview-src-list | 开启预览列表 | `string[]` | `[]` |
-| z-index | 设置预览的 z-index | `number` | `2000` |
-| initial-index | 预览显示的起始索引 | `number` | `0` |
-| close-on-press-escape | 是否可以通过按下 ESC 关闭预览 | `boolean` | `true` |
-| hide-on-click-modal | 是否可以通过点击遮罩层关闭预览 | `boolean` | `false` |
-| infinite | 是否循环预览 | `boolean` | `true` |
-| zoom-rate | 预览缩放比例 | `number` | `1.2` |
-| show-progress | 预览模式下是否展示操作栏 | `boolean` | `true` |
-| preview-teleported | 预览容器是否追加到 body 上 | `boolean` | `true` |
-| scroll-container | 开启懒加载后，指定滚动的容器 | `string \| HTMLElement` | — |
-| viewer-mode | 预览模式，'default' 为内置预览器，'viewerjs' 为外部 viewerjs | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | 传递给 `viewerjs` 的配置项 | `object` | `{}` |
-| alt | 原生 alt 属性 | `string` | — |
-| crossorigin | 原生 crossorigin 属性 | `string` | — |
+| src | 图片源地址 | `string` | `''` |
+| fit | 图片适应容器的方式，对应原生 `object-fit` | `'' \| 'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `''` |
+| lazy | 是否启用懒加载 | `boolean` | `false` |
+| preview-src-list | 内置预览器使用的图片列表 | `string[]` | `[]` |
+| z-index | 预览层级 | `number` | `undefined` |
+| initial-index | 打开预览时的起始索引 | `number` | `0` |
+| close-on-press-escape | 按下 `Esc` 是否关闭预览 | `boolean` | `true` |
+| hide-on-click-modal | 点击遮罩层是否关闭预览 | `boolean` | `false` |
+| infinite | 预览时是否循环切换 | `boolean` | `true` |
+| zoom-rate | 预览缩放步进倍率 | `number` | `1.2` |
+| show-progress | 是否显示预览控制区 | `boolean` | `true` |
+| preview-teleported | 预览容器是否传送到 `body` | `boolean` | `true` |
+| scroll-container | 懒加载监听的滚动容器 | `string \| HTMLElement \| undefined` | `undefined` |
+| viewer-mode | 预览模式，`viewerjs` 需要宿主自行提供对应依赖 | `'default' \| 'viewerjs'` | `'default'` |
+| viewer-options | 传递给 Viewer.js 的配置项 | `Record<string, unknown>` | `{}` |
+| alt | 原生 `img` 的 `alt` 属性 | `string` | `undefined` |
+| crossorigin | 原生 `img` 的 `crossorigin` 属性 | `'' \| 'anonymous' \| 'use-credentials'` | `undefined` |
+| loading | 原生 `img` 的 `loading` 属性 | `'eager' \| 'lazy'` | `undefined` |
+| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | load | 图片加载成功触发 | `(event: Event) => void` |
-| error | 图片加载失败触发 | `(event: Event) => void` |
+| error | 图片加载失败时触发 | `(event: Event \| string) => void` |
 | switch | 预览图片轮播切换时触发 | `(index: number) => void` |
-| show | 预览展示时触发 | — |
-| close | 预览关闭时触发 | — |
+| show | 预览显示时触发 | `() => void` |
+| close | 预览关闭时触发 | `() => void` |
 
 ### Slots
 
 | 插槽名 | 说明 |
 | --- | --- |
-| placeholder | 图片未加载完成时的占位内容 |
-| error | 加载失败的内容 |
+| placeholder | 图片未完成加载时的占位内容 |
+| error | 图片加载失败时的内容 |
 
----
+### Expose
+
+当前组件未暴露公开实例方法或属性。
 
 ## ImageViewer API
 
-如果您需要独立使用预览器组件，可以使用 `yh-image-viewer`。
+需要独立使用预览器时，可直接使用 `yh-image-viewer`。
 
-### ImageViewer Props
+### Props
 
 | 属性名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| url-list | 预览图片源列表 | `string[]` | `[]` |
-| z-index | 设置预览的 z-index | `number` | `2000` |
-| index | 预览图片的起始索引 | `number` | `0` |
-| infinite | 是否循环预览 | `boolean` | `true` |
-| hide-on-click-modal | 是否可以通过点击遮罩层关闭预览 | `boolean` | `false` |
-| close-on-press-escape | 是否可以通过按下 ESC 关闭预览 | `boolean` | `true` |
-| zoom-rate | 预览缩放比例 | `number` | `1.2` |
-| show-progress | 是否显示操作栏 | `boolean` | `true` |
-| teleported | 是否追加到 body 上 | `boolean` | `true` |
+| url-list | 预览图片列表 | `string[]` | `[]` |
+| z-index | 预览层级 | `number` | `2000` |
+| initial-index | 打开预览时的起始索引 | `number` | `0` |
+| infinite | 是否循环切换 | `boolean` | `true` |
+| hide-on-click-modal | 点击遮罩层是否关闭预览 | `boolean` | `false` |
+| close-on-press-escape | 按下 `Esc` 是否关闭预览 | `boolean` | `true` |
+| zoom-rate | 缩放步进倍率 | `number` | `1.2` |
+| show-progress | 是否显示预览控制区 | `boolean` | `true` |
+| teleported | 预览容器是否传送到 `body` | `boolean` | `true` |
 | viewer-mode | 预览模式 | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | Viewer.js 配置项 | `object` | `{}` |
+| viewer-options | 传递给 Viewer.js 的配置项 | `Record<string, unknown>` | `{}` |
 
-### ImageViewer Events
+### Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| switch | 切换图片时触发 | `(index: number) => void` |
-| close | 关闭预览时触发 | — |
+| switch | 图片切换时触发 | `(index: number) => void` |
+| close | 预览关闭时触发 | `() => void` |
 
-## 主题变量
+### Slots
 
-`Image` 组件支持通过覆盖以下 CSS 变量来自定义局部样式。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+当前组件未暴露组件插槽。
+
+### Expose
+
+| 名称 | 说明 | 类型 |
+| --- | --- | --- |
+| prev | 切换到上一张图片 | `() => void` |
+| next | 切换到下一张图片 | `() => void` |
+| zoomIn | 放大图片 | `() => void` |
+| zoomOut | 缩小图片 | `() => void` |
+| rotateLeft | 逆时针旋转 | `() => void` |
+| rotateRight | 顺时针旋转 | `() => void` |
+| reset | 重置缩放与旋转状态 | `() => void` |
+
+### 主题变量
+
+`YhImage` 支持 `themeOverrides`，同时提供以下组件级 CSS 变量：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--yh-image-placeholder-bg-color` | 占位区域背景颜色 | `var(--yh-fill-color-light)` |
 | `--yh-image-placeholder-text-color` | 占位区域文字颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-image-error-bg-color` | 错误区域背景颜色 | `var(--yh-fill-color-extra-light)` |
+| `--yh-image-error-bg-color` | 错误状态背景色 | `var(--yh-fill-color-extra-light)` |
 | `--yh-image-error-text-color` | 错误区域文字颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-image-border-radius` | 图片圆角 | `var(--yh-radius-md)` |
 | `--yh-image-viewer-mask-bg-color` | 预览遮罩背景颜色 | `var(--yh-mask-color)` |
 | `--yh-image-viewer-btn-bg-color` | 预览控制器按钮背景颜色 | `var(--yh-text-color-regular)` |
 | `--yh-image-viewer-btn-color` | 预览控制器按钮图标颜色 | `var(--yh-color-white)` |
 | `--yh-image-viewer-btn-hover-bg-color` | 预览控制器按钮悬停颜色 | `var(--yh-color-primary)` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhImageProps` | `YhImage` 的 props 类型 |
+| `YhImageEmits` | `YhImage` 的 emits 类型 |
+| `YhImageSlots` | `YhImage` 的 slots 类型 |
+| `YhImageInstance` | `YhImage` 的实例类型 |
+| `YhImageViewerProps` | `YhImageViewer` 的 props 类型 |
+| `YhImageViewerEmits` | `YhImageViewer` 的 emits 类型 |
+| `YhImageViewerSlots` | `YhImageViewer` 的 slots 类型 |
+| `YhImageViewerExpose` | `YhImageViewer` 的 expose 类型 |
+| `YhImageViewerInstance` | `YhImageViewer` 的实例类型 |

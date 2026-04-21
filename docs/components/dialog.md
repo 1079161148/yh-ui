@@ -878,7 +878,7 @@ import { YhDialog } from '@yh-ui/components'
 | handleCancel | 执行取消逻辑（触发 cancel 事件并关闭） | `() => void` |
 | handleConfirm | 执行确定逻辑（触发 confirm 事件并关闭） | `() => void` |
 
-### 主题变量 (CSS Variables)
+### 主题变量
 
 你通过重写以下 CSS 变量来定制 Dialog 的全局视觉。
 
@@ -895,3 +895,14 @@ import { YhDialog } from '@yh-ui/components'
 | `--yh-text-color-secondary` | `#909399` | 关闭按钮颜色 |
 | `--yh-text-color-regular` | `#4a4a4a` | 正文内容颜色 |
 | `--yh-border-color-light` | `rgba(0,0,0,0.05)` | 关闭按钮悬浮背景 |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhDialogProps` | `YhDialog` props 类型 |
+| `YhDialogEmits` | `YhDialog` emits 类型 |
+| `YhDialogSlots` | `YhDialog` slots 类型 |
+| `YhDialogExpose` | `YhDialog` expose 类型 |
+| `YhDialogMethod` | 函数式调用类型 |
+| `YhDialogInstance` | `YhDialog` 实例类型 |

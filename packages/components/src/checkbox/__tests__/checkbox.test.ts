@@ -192,4 +192,40 @@ describe('YhCheckboxGroup', () => {
     expect(checkbox.classes()).toContain('yh-checkbox--large')
     expect(checkbox.classes()).toContain('is-disabled')
   })
+
+  it('should not validate when validateEvent is false', async () => {
+    const wrapper = mount(YhCheckboxGroup, {
+      props: {
+        modelValue: [],
+        validateEvent: false
+      },
+      slots: {
+        default: () => [h(YhCheckbox, { value: 'a', label: 'A' })]
+      },
+      global: { components: { YhCheckbox } }
+    })
+
+    await (wrapper.findComponent(YhCheckbox).find('input') as any).setChecked(true)
+    expect(wrapper.emitted('change')?.[0]).toEqual([['a']])
+  })
+
+  it('should render options fallback and custom tag', async () => {
+    const wrapper = mount(YhCheckboxGroup, {
+      props: {
+        tag: 'section',
+        options: [
+          { value: 'a', label: 'Alpha' },
+          { value: 'b', label: 'Beta', disabled: true }
+        ]
+      },
+      global: { components: { YhCheckbox } }
+    })
+
+    await nextTick()
+
+    expect(wrapper.element.tagName).toBe('SECTION')
+    expect(wrapper.findAllComponents(YhCheckbox)).toHaveLength(2)
+    expect(wrapper.text()).toContain('Alpha')
+    expect(wrapper.findAllComponents(YhCheckbox)[1].classes()).toContain('is-disabled')
+  })
 })

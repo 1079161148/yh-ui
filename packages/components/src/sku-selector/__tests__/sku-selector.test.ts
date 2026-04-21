@@ -88,4 +88,90 @@ describe('SkuSelector', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-sku-selector-value-active-border: #409eff')
   })
+
+  it('supports allowUnselect=false branch (active value cannot be toggled off)', async () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs,
+        skus,
+        modelValue: ['101'],
+        allowUnselect: false
+      }
+    })
+    const first = wrapper.findAll('.yh-sku-selector__value')[0]
+    await first.trigger('click')
+
+    const updates = wrapper.emitted('update:modelValue') || []
+    expect(updates.length).toBe(0)
+    expect(wrapper.emitted('select')).toBeTruthy()
+  })
+
+  it('disabled=true should prevent value change', async () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs,
+        skus,
+        disabled: true
+      }
+    })
+    const first = wrapper.findAll('.yh-sku-selector__value')[0]
+    await first.trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+  })
+
+  it('renders summary text with custom prefix when selected', () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs,
+        skus,
+        modelValue: ['101'],
+        showSelectedSummary: true,
+        summaryPrefix: '已选'
+      }
+    })
+    expect(wrapper.text()).toContain('已选: S')
+  })
+
+  it('renders color and image mode branches', () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs: [
+          {
+            id: '1',
+            name: 'Color',
+            mode: 'color',
+            values: [{ id: 'c1', name: 'Red', color: '#f00' }]
+          },
+          {
+            id: '2',
+            name: 'Image',
+            mode: 'image',
+            values: [{ id: 'i1', name: 'Pic', image: 'https://a.com/1.png', tag: 'HOT' }]
+          }
+        ],
+        skus: [{ id: 's1', specValueIds: ['c1', 'i1'], price: 10, stock: 5 }]
+      }
+    })
+    expect(wrapper.find('.yh-sku-selector__color-swatch').exists()).toBe(true)
+    expect(wrapper.find('.yh-sku-selector__item-img').exists()).toBe(true)
+    expect(wrapper.text()).toContain('HOT')
+  })
+
+  it('supports summary/label/value slots', () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs,
+        skus,
+        showSelectedSummary: true
+      },
+      slots: {
+        summary: '<div class="custom-summary">SLOT_SUMMARY</div>',
+        label: '<span class="custom-label">SLOT_LABEL</span>',
+        value: '<span class="custom-value">SLOT_VALUE</span>'
+      }
+    })
+    expect(wrapper.find('.custom-summary').exists()).toBe(true)
+    expect(wrapper.find('.custom-label').exists()).toBe(true)
+    expect(wrapper.find('.custom-value').exists()).toBe(true)
+  })
 })

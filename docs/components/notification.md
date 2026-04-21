@@ -575,16 +575,16 @@ import { YhNotification } from '@yh-ui/yh-ui'
 | `YhNotification.warning`  | 显示警告通知 | `(title, message \| options)` |
 | `YhNotification.info`     | 显示信息通知 | `(title, message \| options)` |
 | `YhNotification.error`    | 显示错误通知 | `(title, message \| options)` |
-| `YhNotification.closeAll` | 关闭所有通知 | —                             |
+| `YhNotification.closeAll` | 关闭所有通知 | -                             |
 
 ### Props
 
 | 属性名                     | 说明                                | 类型                                                                                              | 默认值        |
 | -------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
-| `title`                    | 标题                                | `string`                                                                                          | —             |
+| `title`                    | 标题文本。 | `string` | `undefined` |
 | `message`                  | 通知内容                            | `string \| VNode \| (() => VNode)`                                                                | —             |
 | `type`                     | 通知类型                            | `'success' \| 'warning' \| 'info' \| 'error'`                                                     | —             |
-| `icon`                     | 自定义图标                          | `string \| VNode`                                                                                 | —             |
+| `icon`                     | 自定义图标 props。类型已声明，但当前模板不会直接渲染该 props 的值；如需自定义图标请使用 `icon` 插槽。 | `string \| VNode` | `undefined` |
 | `showClose`                | 是否显示关闭按钮                    | `boolean`                                                                                         | `true`        |
 | `duration`                 | 显示时间（毫秒），设为 0 不自动关闭 | `number`                                                                                          | `4500`        |
 | `offset`                   | 距离窗口边缘的偏移量（px）          | `number`                                                                                          | `16`          |
@@ -594,7 +594,15 @@ import { YhNotification } from '@yh-ui/yh-ui'
 | `onClick`                  | 点击通知时的回调函数                | `() => void`                                                                                      | —             |
 | `zIndex`                   | z-index 层级                        | `number`                                                                                          | —             |
 | `customClass`              | 自定义类名                          | `string`                                                                                          | —             |
-| `max`                      | 同一位置最多显示的通知数量          | `number`                                                                                          | —             |
+| `max`                      | 同一位置允许存在的最大通知数。超出时会先关闭该位置最早创建的通知。 | `number` | `undefined` |
+| `theme-overrides`          | 组件级主题覆盖变量。 | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| `destroy` | 离场过渡结束后触发。 | `() => void` |
+| `click` | 点击通知根节点时触发。 | `() => void` |
 
 ### 返回值
 
@@ -627,18 +635,28 @@ handler.close()
 
 ### 主题变量
 
-Notification 组件使用以下 CSS 变量，可以通过覆盖这些变量来自定义样式：
+Notification 组件当前实际消费的专属 CSS 变量如下：
 
 | 变量名                                | 说明             | 默认值                           |
 | ------------------------------------- | ---------------- | -------------------------------- |
-| `--yh-notification-bg-color`          | 背景颜色         | `var(--yh-color-bg-elevated)`    |
-| `--yh-notification-border-color`      | 边框颜色         | `var(--yh-border-color-light)`   |
-| `--yh-notification-shadow`            | 阴影             | `var(--yh-box-shadow-small)`     |
-| `--yh-notification-title-color`       | 标题颜色         | `var(--yh-color-text-primary)`   |
-| `--yh-notification-text-color`        | 内容文字颜色     | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-color`       | 关闭按钮颜色     | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-hover-color` | 关闭按钮悬浮颜色 | `var(--yh-color-text-primary)`   |
-| `--yh-notification-icon-size`         | 图标大小         | `24px`                           |
-| `--yh-notification-width`             | 通知宽度         | `330px`                          |
-| `--yh-notification-padding`           | 内边距           | `20px`                           |
-| `--yh-notification-radius`            | 圆角大小         | `var(--yh-border-radius-base)`   |
+| `--yh-notification-bg-color`          | 背景颜色         | `var(--yh-bg-color-overlay)`     |
+| `--yh-notification-border-color`      | 边框颜色         | `var(--yh-border-color-lighter)` |
+| `--yh-notification-shadow`            | 阴影             | `var(--yh-shadow-lg)`            |
+| `--yh-notification-title-color`       | 标题颜色         | `var(--yh-text-color-primary)`   |
+| `--yh-notification-content-color`     | 内容颜色         | `var(--yh-text-color-regular)`   |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhNotificationProps` | 内部 Notification 组件 Props 类型 |
+| `YhNotificationEmits` | 内部 Notification 组件事件类型 |
+| `YhNotificationSlots` | 内部 Notification 组件插槽类型 |
+| `YhNotificationExpose` | 内部 Notification 组件 Expose 类型 |
+| `YhNotificationInstance` | 单条通知的公开实例类型 |
+| `YhNotificationOptions` | `YhNotification(...)` 服务配置类型 |
+| `YhNotificationHandler` | 返回的处理器类型 |
+| `YhNotificationContext` | 内部运行时上下文类型 |
+| `YhNotificationFn` | 通知函数签名类型 |
+| `YhNotificationType` | 通知类型联合类型 |
+| `YhNotificationPosition` | 通知位置联合类型 |

@@ -3,7 +3,9 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 import Button from '../src/button.vue'
+import { YhConfigProvider } from '../../config-provider'
 
 describe('YhButton', () => {
   // 基础渲染测试
@@ -202,5 +204,143 @@ describe('YhButton', () => {
     expect(wrapper.vm.type).toBe('primary')
     expect(wrapper.vm.size).toBe('large')
     expect(wrapper.vm.disabled).toBe(true)
+  })
+
+  it('should inherit size from config provider when local size is unset', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: {
+        size: 'small'
+      },
+      slots: {
+        default: () => h(Button, null, { default: () => 'Inherited size' })
+      }
+    })
+
+    expect(wrapper.find('.yh-button').classes()).toContain('yh-button--small')
+  })
+
+  it('should render prefix icon via icon slot on the right and suffix icon slot together', () => {
+    const wrapper = mount(Button, {
+      props: {
+        iconPosition: 'right'
+      },
+      slots: {
+        default: 'With icons',
+        icon: '<span class="custom-icon">I</span>',
+        suffixIcon: '<span class="custom-suffix">S</span>'
+      }
+    })
+
+    expect(wrapper.find('.custom-icon').exists()).toBe(true)
+    expect(wrapper.find('.custom-suffix').exists()).toBe(true)
+    expect(wrapper.find('.yh-button__suffix-icon').exists()).toBe(true)
+  })
+
+  it('should apply vertical layout class for top and bottom icon positions', () => {
+    ;(['top', 'bottom'] as const).forEach((iconPosition) => {
+      const wrapper = mount(Button, {
+        props: { iconPosition },
+        slots: {
+          default: 'Vertical',
+          icon: '<span class="custom-icon">I</span>'
+        }
+      })
+
+      expect(wrapper.classes()).toContain('is-vertical')
+    })
+  })
+
+  it('should keep plain custom color text transparent background mapping', () => {
+    const wrapper = mount(Button, {
+      props: {
+        plain: true,
+        color: '#0ea5e9'
+      },
+      slots: {
+        default: 'Plain custom'
+      }
+    })
+
+    const style = wrapper.attributes('style')
+    expect(style).toContain('--yh-button-bg-color: transparent')
+    expect(style).toContain('--yh-button-text-color: #0ea5e9')
+    expect(style).toContain('--yh-button-border-color: #0ea5e9')
+  })
+
+  it('should render custom loading slot while suppressing icon slots', () => {
+    const wrapper = mount(Button, {
+      props: {
+        loading: true
+      },
+      slots: {
+        default: 'Loading',
+        loading: '<span class="custom-loading">Loading slot</span>',
+        icon: '<span class="custom-icon">I</span>'
+      }
+    })
+
+    expect(wrapper.find('.custom-loading').exists()).toBe(true)
+    expect(wrapper.find('.custom-icon').exists()).toBe(false)
+  })
+
+  it('should omit native type when rendered as a non-button tag', () => {
+    const wrapper = mount(Button, {
+      props: {
+        tag: 'div',
+        nativeType: 'submit'
+      },
+      slots: {
+        default: 'Div button'
+      }
+    })
+
+    expect(wrapper.element.tagName.toLowerCase()).toBe('div')
+    expect(wrapper.attributes('type')).toBeUndefined()
+  })
+
+  it('should render component icon and suffixIcon props', () => {
+    const IconComp = defineComponent({
+      template: '<span class="prop-icon">I</span>'
+    })
+    const SuffixComp = defineComponent({
+      template: '<span class="prop-suffix">S</span>'
+    })
+
+    const wrapper = mount(Button, {
+      props: {
+        icon: IconComp,
+        suffixIcon: SuffixComp
+      },
+      slots: {
+        default: 'Component icons'
+      }
+    })
+
+    expect(wrapper.find('.prop-icon').exists()).toBe(true)
+    expect(wrapper.find('.prop-suffix').exists()).toBe(true)
+  })
+
+  it('should keep text wrapper absent when default slot is missing', () => {
+    const wrapper = mount(Button, {
+      props: {
+        icon: 'OnlyIcon'
+      }
+    })
+
+    expect(wrapper.find('.yh-button__text').exists()).toBe(false)
+    expect(wrapper.find('.yh-button__icon').exists()).toBe(true)
+  })
+
+  it('should pass autofocus through to native button', () => {
+    const wrapper = mount(Button, {
+      props: {
+        autofocus: true
+      },
+      slots: {
+        default: 'Focus'
+      }
+    })
+
+    expect(wrapper.attributes('autofocus')).toBeDefined()
   })
 })

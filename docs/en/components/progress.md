@@ -1,24 +1,29 @@
 # Progress
 
-Used to display the progress status of the current operation. It combines the strengths of various UIs and pioneers dual-state progress, multi-ring nesting, and high-performance circular animation effects.
+`YhProgress` displays operation progress in line, circle, and dashboard modes. It also supports multi-ring percentages, buffered tracks, striped animation, indeterminate loading, and slot-based custom content.
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 const percentage = ref(20)
 const secondary = ref(45)
 const multiPercentages = ref([85, 70, 55, 40])
 
+let timer: ReturnType<typeof setInterval> | undefined
+
 onMounted(() => {
-  const timer = setInterval(() => {
+  timer = setInterval(() => {
     percentage.value = (percentage.value % 100) + 1
-    secondary.value = Math.min(100, (percentage.value + 25))
-    multiPercentages.value = multiPercentages.value.map(p => (p + 1) % 100)
+    secondary.value = Math.min(100, percentage.value + 25)
+    multiPercentages.value = multiPercentages.value.map((p) => (p + 1) % 100)
   }, 300)
 })
 
-// Basic Usage
+onBeforeUnmount(() => {
+  if (timer) clearInterval(timer)
+})
+
 const tsBasic = `<${_T}>
   <div class="demo-progress">
     <yh-progress :percentage="50" />
@@ -28,9 +33,41 @@ const tsBasic = `<${_T}>
   </div>
 </${_T}>`
 
-const jsBasic = toJs(tsBasic)
+const tsTextInside = `<${_T}>
+  <div class="demo-progress">
+    <yh-progress :stroke-width="26" :percentage="70" text-inside />
+    <yh-progress :stroke-width="24" :percentage="100" status="success" text-inside />
+    <yh-progress :stroke-width="22" :percentage="80" status="warning" text-inside />
+    <yh-progress :stroke-width="20" :percentage="50" status="exception" text-inside />
+  </div>
+</${_T}>`
 
-// Circle and Dashboard
+const tsCustomContent = `<${_T}>
+  <div class="demo-progress">
+    <yh-progress :percentage="50">
+      <span style="margin-left: 10px; color: #909399; font-size: 13px">Content</span>
+    </yh-progress>
+    <yh-progress :stroke-width="20" :percentage="70" text-inside>
+      <span style="font-size: 12px">Content</span>
+    </yh-progress>
+    <div class="demo-progress-row">
+      <yh-progress type="circle" :percentage="100" status="success">
+        <svg viewBox="0 0 1024 1024" width="28" height="28">
+          <path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.8 560.3L342.3 510.4a32 32 0 1 0-45.2 45.2l136 136a32 32 0 0 0 45.2 0l311.4-311.4a32 32 0 1 0-45.2-45.2L456.2 624.3z" />
+        </svg>
+      </yh-progress>
+      <yh-progress type="dashboard" :percentage="80">
+        <template #default="{ percentage }">
+          <div style="text-align: center">
+            <div style="font-size: 20px; color: #303133">{{ percentage }}%</div>
+            <div style="font-size: 12px; color: #909399">Progressing</div>
+          </div>
+        </template>
+      </yh-progress>
+    </div>
+  </div>
+</${_T}>`
+
 const tsCircle = `<${_T}>
   <div class="demo-progress-row">
     <yh-progress type="circle" :percentage="25" />
@@ -39,42 +76,20 @@ const tsCircle = `<${_T}>
   </div>
 </${_T}>`
 
-const jsCircle = toJs(tsCircle)
-
-// Visual Enhancement (Gradient)
 const tsGradient = `<${_T}>
   <div class="demo-progress-row">
-    <!-- SVG Gradient -->
-    <yh-progress 
-      type="circle" 
-      :percentage="80" 
-      :color="{ '0%': '#3f5efb', '100%': '#fc466b' }" 
-    />
-    <!-- Circular rotation animation -->
-    <yh-progress 
-      type="circle" 
-      :percentage="70" 
-      status="success" 
-      animated 
-    />
-    <!-- Gradient array -->
-    <yh-progress 
-      type="dashboard" 
-      :percentage="50" 
-      :color="['#409eff', '#67c23a']" 
-    />
+    <yh-progress type="circle" :percentage="80" :color="{ '0%': '#3f5efb', '100%': '#fc466b' }" />
+    <yh-progress type="circle" :percentage="70" status="success" animated />
+    <yh-progress type="dashboard" :percentage="50" :color="['#409eff', '#67c23a']" />
   </div>
 </${_T}>`
 
-const jsGradient = toJs(tsGradient)
-
-// Multi-ring Nesting
 const tsMulti = `<${_T}>
   <div class="demo-progress-row">
-    <yh-progress 
-      type="circle" 
-      :percentage="multiPercentages" 
-      :color="['#409eff', '#67c23a', '#e6a23c', '#f56c6c']" 
+    <yh-progress
+      type="circle"
+      :percentage="multiPercentages"
+      :color="['#409eff', '#67c23a', '#e6a23c', '#f56c6c']"
       :stroke-width="12"
       :width="200"
     >
@@ -88,12 +103,10 @@ const tsMulti = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+
 const multiPercentages = ref([85, 70, 55, 40])
 </${_S}>`
 
-const jsMulti = toJs(tsMulti)
-
-// Striped and Flow
 const tsStriped = `<${_T}>
   <div class="demo-progress">
     <yh-progress :percentage="60" striped />
@@ -101,89 +114,38 @@ const tsStriped = `<${_T}>
   </div>
 </${_T}>`
 
-const jsStriped = toJs(tsStriped)
-
-// Secondary Percentage
 const tsSecondary = `<${_T}>
   <yh-progress :percentage="percentage" :secondary-percentage="secondary" />
 </${_T}>`
 
-const jsSecondary = toJs(tsSecondary)
-
-// Percentage Inside
-const tsTextInside = `<${_T}>
-  <div class="demo-progress">
-    <yh-progress :stroke-width="26" :percentage="70" text-inside />
-    <yh-progress :stroke-width="24" :percentage="100" status="success" text-inside />
-    <yh-progress :stroke-width="22" :percentage="80" status="warning" text-inside />
-    <yh-progress :stroke-width="20" :percentage="50" status="exception" text-inside />
-  </div>
-</${_T}>`
-
-const jsTextInside = toJs(tsTextInside)
-
-// Custom Content
-const tsCustomContent = `<${_T}>
-  <div class="demo-progress">
-    <!-- External custom content -->
-    <yh-progress :percentage="50">
-      <span style="margin-left: 10px; color: #909399; font-size: 13px">Content</span>
-    </yh-progress>
-    
-    <!-- Internal custom content -->
-    <yh-progress :stroke-width="20" :percentage="70" text-inside>
-      <span style="font-size: 12px">Content</span>
-    </yh-progress>
-    
-    <div class="demo-progress-row">
-      <!-- Circular custom content (overrides default icon) -->
-      <yh-progress type="circle" :percentage="100" status="success">
-        <svg viewBox="0 0 1024 1024" width="28" height="28">
-           <path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.8 560.3L342.3 510.4a32 32 0 1 0-45.2 45.2l136 136a32 32 0 0 0 45.2 0l311.4-311.4a32 32 0 1 0-45.2-45.2L456.2 624.3z" />
-        </svg>
-      </yh-progress>
-      
-      <!-- Dashboard layered content -->
-      <yh-progress type="dashboard" :percentage="80">
-        <template #default="{ percentage }">
-          <div style="text-align: center">
-            <div style="font-size: 20px; color: #303133">{{ percentage }}%</div>
-            <div style="font-size: 12px; color: #909399">Progressing</div>
-          </div>
-        </template>
-      </yh-progress>
-    </div>
-  </div>
-</${_T}>`
-
-const jsCustomContent = toJs(tsCustomContent)
-
-// Stepped Progress
 const tsSteps = `<${_T}>
   <yh-progress :percentage="60" :steps="5" :stroke-width="15" />
 </${_T}>`
 
-const jsSteps = toJs(tsSteps)
-
-// Indeterminate State
 const tsIndeterminate = `<${_T}>
   <yh-progress indeterminate :duration="2" />
 </${_T}>`
 
-const jsIndeterminate = toJs(tsIndeterminate)
-
-// Nuxt Usage
 const tsNuxt = `<${_T}>
-  <!-- Direct use, supports auto-import -->
   <yh-progress :percentage="50" striped striped-flow />
 </${_T}>`
 
+const jsBasic = toJs(tsBasic)
+const jsTextInside = toJs(tsTextInside)
+const jsCustomContent = toJs(tsCustomContent)
+const jsCircle = toJs(tsCircle)
+const jsGradient = toJs(tsGradient)
+const jsMulti = toJs(tsMulti)
+const jsStriped = toJs(tsStriped)
+const jsSecondary = toJs(tsSecondary)
+const jsSteps = toJs(tsSteps)
+const jsIndeterminate = toJs(tsIndeterminate)
 const jsNuxt = toJs(tsNuxt)
 </script>
 
 ## Basic Usage
 
-Linear progress bar, supporting multiple built-in semantic colors and automatic status icons.
+The default line mode supports semantic status styles and built-in status icons.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="demo-progress">
@@ -196,9 +158,9 @@ Linear progress bar, supporting multiple built-in semantic colors and automatic 
 
 ## Percentage Inside
 
-Percentage does not occupy extra space, suitable for file uploads and other scenarios. You can change the height of the progress bar with `stroke-width` and use the `text-inside` attribute to place percentages inside the bar.
+Use `text-inside` to move the progress text into the bar.
 
-<DemoBlock title="Inner Percentage" :ts-code="tsTextInside" :js-code="jsTextInside">
+<DemoBlock title="Percentage Inside" :ts-code="tsTextInside" :js-code="jsTextInside">
   <div class="demo-progress">
     <yh-progress :stroke-width="26" :percentage="70" text-inside />
     <yh-progress :stroke-width="24" :percentage="100" status="success" text-inside />
@@ -209,9 +171,9 @@ Percentage does not occupy extra space, suitable for file uploads and other scen
 
 ## Custom Content
 
-Add custom content via the default slot. For circular progress, scoped slots are also supported to retrieve real-time progress.
+The default slot can replace the built-in label area. In all modes the slot receives the current `percentage`.
 
-<DemoBlock title="Custom Content Demo" :ts-code="tsCustomContent" :js-code="jsCustomContent">
+<DemoBlock title="Custom Content" :ts-code="tsCustomContent" :js-code="jsCustomContent">
   <div class="demo-progress">
     <yh-progress :percentage="50">
       <span style="margin-left: 10px; color: #909399; font-size: 13px">Content</span>
@@ -222,7 +184,7 @@ Add custom content via the default slot. For circular progress, scoped slots are
     <div class="demo-progress-row">
       <yh-progress type="circle" :percentage="100" status="success">
         <svg viewBox="0 0 1024 1024" width="28" height="28">
-           <path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.8 560.3L342.3 510.4a32 32 0 1 0-45.2 45.2l136 136a32 32 0 0 0 45.2 0l311.4-311.4a32 32 0 1 0-45.2-45.2L456.2 624.3z" />
+          <path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.8 560.3L342.3 510.4a32 32 0 1 0-45.2 45.2l136 136a32 32 0 0 0 45.2 0l311.4-311.4a32 32 0 1 0-45.2-45.2L456.2 624.3z" />
         </svg>
       </yh-progress>
       <yh-progress type="dashboard" :percentage="80">
@@ -239,9 +201,17 @@ Add custom content via the default slot. For circular progress, scoped slots are
 
 ## Circle and Dashboard
 
-Enable via `type="circle"` or `dashboard`. Supports **rotation animation** and custom **SVG gradients**.
+Switch `type` to `circle` or `dashboard` to render radial progress.
 
-<DemoBlock title="Visual Enhancement" :ts-code="tsGradient" :js-code="jsGradient">
+<DemoBlock title="Circle and Dashboard" :ts-code="tsCircle" :js-code="jsCircle">
+  <div class="demo-progress-row">
+    <yh-progress type="circle" :percentage="25" />
+    <yh-progress type="circle" :percentage="100" status="success" />
+    <yh-progress type="dashboard" :percentage="75" status="warning" />
+  </div>
+</DemoBlock>
+
+<DemoBlock title="Gradient and Animation" :ts-code="tsGradient" :js-code="jsGradient">
   <div class="demo-progress-row">
     <yh-progress type="circle" :percentage="80" :color="{ '0%': '#3f5efb', '100%': '#fc466b' }" />
     <yh-progress type="circle" :percentage="70" status="success" animated />
@@ -249,16 +219,16 @@ Enable via `type="circle"` or `dashboard`. Supports **rotation animation** and c
   </div>
 </DemoBlock>
 
-## Multi-ring Nesting (Premium)
+## Multi-ring Nesting
 
-By passing an array to `percentage`, you can achieve a multi-ring nesting effect similar to the Apple Watch.
+When `percentage` is an array, the component renders multiple concentric rings in order.
 
-<DemoBlock title="Multi-ring Race" :ts-code="tsMulti" :js-code="jsMulti">
+<DemoBlock title="Multi-ring Nesting" :ts-code="tsMulti" :js-code="jsMulti">
   <div class="demo-progress-row">
-    <yh-progress 
-      type="circle" 
-      :percentage="multiPercentages" 
-      :color="['#409eff', '#67c23a', '#e6a23c', '#f56c6c']" 
+    <yh-progress
+      type="circle"
+      :percentage="multiPercentages"
+      :color="['#409eff', '#67c23a', '#e6a23c', '#f56c6c']"
       :stroke-width="12"
       :width="200"
     >
@@ -272,9 +242,9 @@ By passing an array to `percentage`, you can achieve a multi-ring nesting effect
 
 ## Striped and Flow
 
-Enable `striped` to add a design sense, and `striped-flow` to make the progress bar "move".
+`striped` adds texture to line mode, and `striped-flow` animates that texture with the configured `duration`.
 
-<DemoBlock title="Dynamic Striped" :ts-code="tsStriped" :js-code="jsStriped">
+<DemoBlock title="Striped and Flow" :ts-code="tsStriped" :js-code="jsStriped">
   <div class="demo-progress">
     <yh-progress :percentage="60" striped />
     <yh-progress :percentage="80" striped striped-flow :duration="1" />
@@ -283,35 +253,35 @@ Enable `striped` to add a design sense, and `striped-flow` to make the progress 
 
 ## Advanced Features
 
-### 1. Secondary Percentage
+### Secondary Percentage
 
-Supports the `secondary-percentage` attribute. Perfect for video playback buffering.
+Use `secondary-percentage` to show a buffered track behind the main value.
 
-<DemoBlock title="Secondary State Demo" :ts-code="tsSecondary" :js-code="jsSecondary">
+<DemoBlock title="Secondary Percentage" :ts-code="tsSecondary" :js-code="jsSecondary">
   <yh-progress :percentage="percentage" :secondary-percentage="secondary" />
 </DemoBlock>
 
-### 2. Stepped Progress (Steps)
+### Steps
 
-The `steps` property allows the progress bar to be split by physical scales.
+Use `steps` to divide the line progress bar into fixed segments.
 
-<DemoBlock title="Scale Segments" :ts-code="tsSteps" :js-code="jsSteps">
+<DemoBlock title="Steps" :ts-code="tsSteps" :js-code="jsSteps">
   <yh-progress :percentage="60" :steps="5" :stroke-width="15" />
 </DemoBlock>
 
-### 3. Indeterminate State
+### Indeterminate
 
-When exact values cannot be predicted (e.g., scanning, connecting).
+Use `indeterminate` when the exact progress cannot be determined yet.
 
-<DemoBlock title="Loading Status" :ts-code="tsIndeterminate" :js-code="jsIndeterminate">
+<DemoBlock title="Indeterminate" :ts-code="tsIndeterminate" :js-code="jsIndeterminate">
   <yh-progress indeterminate :duration="2" />
 </DemoBlock>
 
 ## Use in Nuxt
 
-The component is perfectly adapted for Nuxt 3, supporting auto-import and unique SSR gradient IDs.
+After installing `@yh-ui/nuxt`, `YhProgress` can be used directly in Nuxt 3/4 pages and components.
 
-<DemoBlock title="Nuxt Adaptation" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-progress :percentage="50" striped striped-flow />
 </DemoBlock>
 
@@ -319,42 +289,75 @@ The component is perfectly adapted for Nuxt 3, supporting auto-import and unique
 
 ### Props
 
-| Prop                    | Description                                                      | Type                                                       | Default   |
-| ----------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- | --------- |
-| type                    | Progress type                                                    | `'line' \| 'circle' \| 'dashboard'`                        | `'line'`  |
-| percentage              | percentage                                                       | `number \| number[]`                                       | `0`       |
-| secondary-percentage    | Secondary percentage (for buffering effect)                      | `number`                                                   | `0`       |
-| status                  | Built-in status, automatically matches color and icon            | `'success' \| 'exception' \| 'warning' \| 'info'`          | —         |
-| stroke-width            | Progress bar width                                               | `number`                                                   | `6`       |
-| text-inside             | Whether to show text inside (line type only)                     | `boolean`                                                  | `false`   |
-| width                   | Circular canvas width                                            | `number`                                                   | `126`     |
-| show-text               | Whether to show progress text/icon                               | `boolean`                                                  | `true`    |
-| color                   | Progress color, supports function/array gradient/object gradient | `string \| function \| string[] \| Record<string, string>` | —         |
-| define-background-color | Background track color                                           | `string`                                                   | —         |
-| icon                    | Custom status icon                                               | `string`                                                   | —         |
-| animated                | Enables circular rotation animation                              | `boolean`                                                  | `false`   |
-| steps                   | Number of segments                                               | `number`                                                   | `0`       |
-| stroke-linecap          | Progress bar end shape                                           | `'butt' \| 'round' \| 'square'`                            | `'round'` |
-| format                  | Custom text formatting function                                  | `function(percentage)`                                     | —         |
-| striped                 | Enables striped style                                            | `boolean`                                                  | `false`   |
-| striped-flow            | Enables striped flow animation                                   | `boolean`                                                  | `false`   |
-| indeterminate           | Enables indeterminate slide mode                                 | `boolean`                                                  | `false`   |
-| duration                | Animation cycle duration (s)                                     | `number`                                                   | `3`       |
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| `type` | Progress mode | `'line' \| 'circle' \| 'dashboard'` | `'line'` |
+| `percentage` | Current progress value, or an array in multi-ring mode | `number \| number[]` | `0` |
+| `secondary-percentage` | Secondary buffered progress | `number` | `0` |
+| `status` | Semantic status style | `'success' \| 'exception' \| 'warning' \| 'info'` | `undefined` |
+| `stroke-width` | Stroke thickness | `number` | `6` |
+| `text-inside` | Render text inside the line bar | `boolean` | `false` |
+| `width` | Width of circle and dashboard modes | `number` | `126` |
+| `show-text` | Show text or status icon | `boolean` | `true` |
+| `color` | Custom color, color function, array, or gradient map | `string \| ((percentage: number) => string) \| string[] \| Record<string, string>` | `''` |
+| `icon` | Custom icon class name | `string` | `''` |
+| `animated` | Rotate the active circular path | `boolean` | `false` |
+| `define-background-color` | Custom track color | `string` | `''` |
+| `format` | Custom formatter for the default text content | `(percentage: number) => string` | `undefined` |
+| `stroke-linecap` | Stroke line cap style | `'butt' \| 'round' \| 'square'` | `'round'` |
+| `striped` | Enable striped line styling | `boolean` | `false` |
+| `striped-flow` | Animate striped line styling | `boolean` | `false` |
+| `indeterminate` | Enable indeterminate line animation | `boolean` | `false` |
+| `duration` | Animation duration in seconds | `number` | `3` |
+| `steps` | Number of visible steps in line mode | `number` | `0` |
+| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+This component does not expose component events.
 
 ### Slots
 
-| Slot Name | Description                                                     | Parameters               |
-| --------- | --------------------------------------------------------------- | ------------------------ |
-| default   | Custom content for the center or right side of the progress bar | `{ percentage: number }` |
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| `default` | Replaces the built-in label area | `{ percentage: number }` |
 
-## Theme Variables
+### Expose
 
-| Variable                 | Description             | Default                       |
-| ------------------------ | ----------------------- | ----------------------------- |
-| `--yh-progress-bar-bg`   | Track background        | `var(--yh-fill-color-darker)` |
-| `--yh-progress-duration` | Default animation cycle | `3s`                          |
+This component does not expose public instance methods or properties.
+
+### Type Exports
+
+| Type | Description |
+| --- | --- |
+| `YhProgressProps` | Component props type |
+| `YhProgressSlots` | Component slots type |
+| `YhProgressType` | Progress type union |
+| `YhProgressStatus` | Progress status union |
+| `YhProgressInstance` | Component instance type |
+
+### Theme Variables
+
+`YhProgress` supports `themeOverrides`. In component styles, the only dedicated component CSS variable currently consumed is the animation duration token below; colors and backgrounds mainly come from global theme tokens.
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--yh-progress-duration` | Duration used by striped, indeterminate, and circle animations | `3s` |
 
 <style scoped>
-.demo-progress { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-.demo-progress-row { display: flex; gap: 24px; align-items: center; justify-content: center; padding: 20px; flex-wrap: wrap; }
+.demo-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.demo-progress-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  flex-wrap: wrap;
+}
 </style>

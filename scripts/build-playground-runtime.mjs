@@ -12,6 +12,7 @@ async function cleanOutput() {
   await Promise.all([
     rm(resolve(playgroundOutDir, 'yh-flow-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-flow-runtime.css'), { force: true }),
+    rm(resolve(playgroundOutDir, 'yh-hooks-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-bundle.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-bundle.css'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-monorepo.css'), { force: true })
@@ -105,9 +106,44 @@ async function buildYhUiRuntime() {
   })
 }
 
+async function buildHooksRuntime() {
+  await build({
+    ...createSharedConfig(),
+    resolve: {
+      alias: [
+        { find: '@yh-ui/hooks', replacement: resolve(rootDir, 'packages/hooks/src/index.ts') },
+        { find: '@yh-ui/utils', replacement: resolve(rootDir, 'packages/utils/src/index.ts') },
+        { find: '@yh-ui/locale', replacement: resolve(rootDir, 'packages/locale/src/index.ts') },
+        {
+          find: /^@yh-ui\/theme\/(.*)$/,
+          replacement: `${resolve(rootDir, 'packages/theme/src')}/$1`
+        },
+        { find: '@yh-ui/theme', replacement: resolve(rootDir, 'packages/theme/src/index.ts') }
+      ]
+    },
+    build: {
+      ...createSharedConfig().build,
+      lib: {
+        entry: resolve(rootDir, 'packages/hooks/src/index.ts'),
+        formats: ['es'],
+        fileName: () => 'yh-hooks-runtime.js'
+      },
+      rollupOptions: {
+        external: ['vue'],
+        output: {
+          inlineDynamicImports: true,
+          manualChunks: undefined,
+          exports: 'named'
+        }
+      }
+    }
+  })
+}
+
 async function main() {
   await cleanOutput()
   await buildFlowRuntime()
+  await buildHooksRuntime()
   await buildYhUiRuntime()
   console.log('Playground runtime assets built in docs/public/playground')
 }

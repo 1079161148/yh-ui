@@ -8,9 +8,10 @@
  * - Back to top button
  * - Micro-animations
  */
-import { App, Component } from 'vue'
+import { App, Component, watch } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
+import { useTheme } from '@yh-ui/theme'
 
 // 导入组件库主题变量
 import '@yh-ui/theme/styles/index.scss'
@@ -184,11 +185,49 @@ import DemoBlock from './components/DemoBlock.vue'
 import IconDemo from './components/IconDemo.vue'
 import CustomLayout from './components/CustomLayout.vue'
 
+function syncVitePressThemeVars() {
+  if (typeof document === 'undefined') return
+
+  const root = document.documentElement
+  const styles = getComputedStyle(root)
+  const readVar = (name: string, fallback = '') => styles.getPropertyValue(name).trim() || fallback
+  const primary = readVar('--yh-color-primary', '#409eff')
+  const primaryDark = readVar('--yh-color-primary-dark-2', primary)
+  const primaryLight = readVar('--yh-color-primary-light-3', primary)
+  const primaryRgb = readVar('--yh-color-primary-rgb', '64, 158, 255')
+
+  root.style.setProperty('--vp-c-brand-1', primary)
+  root.style.setProperty('--vp-c-brand-2', primaryLight)
+  root.style.setProperty('--vp-c-brand-3', primaryDark)
+  root.style.setProperty('--vp-c-brand-soft', `rgba(${primaryRgb}, 0.14)`)
+
+  root.style.setProperty('--vp-button-brand-border', primary)
+  root.style.setProperty('--vp-button-brand-text', '#ffffff')
+  root.style.setProperty('--vp-button-brand-bg', primary)
+  root.style.setProperty('--vp-button-brand-hover-border', primaryLight)
+  root.style.setProperty('--vp-button-brand-hover-bg', primaryLight)
+  root.style.setProperty('--vp-button-brand-active-border', primaryDark)
+  root.style.setProperty('--vp-button-brand-active-bg', primaryDark)
+
+  root.style.setProperty('--vp-home-hero-name-color', primary)
+  root.style.setProperty('--vp-home-hero-image-background-image', `linear-gradient(135deg, ${primaryLight} 0%, ${primary} 100%)`)
+}
+
 export default {
   extends: DefaultTheme,
   // 使用自定义布局
   Layout: CustomLayout,
   enhanceApp({ app }: { app: App }) {
+    if (typeof window !== 'undefined') {
+      const theme = useTheme()
+      watch(
+        () => theme.state,
+        () => {
+          requestAnimationFrame(() => syncVitePressThemeVars())
+        },
+        { deep: true, immediate: true, flush: 'post' }
+      )
+    }
     // 注册全局组件用于文档演示
     app.component('YhButton', YhButton)
     app.component('YhInput', YhInput)

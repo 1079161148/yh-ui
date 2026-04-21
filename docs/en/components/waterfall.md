@@ -449,6 +449,7 @@ The Waterfall component fully supports SSR in Nuxt 3/4. When used in a Nuxt proj
 | `delay`           | Base delay for step-up animations (ms)                                                         | `number`                  | `100`      |
 | `row-key`         | Field name for unique identifier                                                               | `string`                  | `'id'`     |
 | `responsive`      | Whether to automatically listen for container width changes                                    | `boolean`                 | `true`     |
+| `theme-overrides` | Component-level theme overrides                                                                | `ComponentThemeVars`      | `undefined` |
 
 #### WaterfallCols Definition
 
@@ -461,6 +462,10 @@ interface WaterfallCols {
   xl?: number // >= 1200px
 }
 ```
+
+### Events
+
+This component does not expose component events.
 
 ### Slots
 
@@ -479,14 +484,18 @@ interface WaterfallCols {
 
 ## Theme Variables
 
-Customize local styles by overriding these CSS variables:
+`YhWaterfall` supports `themeOverrides`, but the current stylesheet does not declare component-scoped CSS variables. Loading placeholders, empty text, and refresh overlays consume shared global theme tokens directly.
 
-| Variable Name                | Description                                 | Default                           |
-| ---------------------------- | ------------------------------------------- | --------------------------------- |
-| `--yh-bg-color-page`         | Background for skeleton nodes               | `var(--yh-bg-color-page)`         |
-| `--yh-color-text-secondary`  | Empty state text color                      | `var(--yh-text-color-secondary)`  |
-| `--yh-color-primary`         | Loader rotation color for refresh overlay   | `var(--yh-color-primary)`         |
-| `--yh-color-primary-light-8` | Loader orbit background for refresh overlay | `var(--yh-color-primary-light-8)` |
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhWaterfallCols` | Responsive column config type |
+| `YhWaterfallItemBase` | Base item type |
+| `YhWaterfallProps` | Component props type |
+| `YhWaterfallSlots` | Component slots type |
+| `YhWaterfallExpose` | Component expose type |
+| `YhWaterfallInstance` | Component instance type |
 
 <style scoped>
 .shop-card {

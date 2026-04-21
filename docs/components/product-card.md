@@ -312,6 +312,10 @@ const jsClamp = toJs(tsClamp)
 
 ---
 
+## 在 Nuxt 中使用
+
+`YhProductCard` 支持 Nuxt 3/4 的 SSR 渲染。使用 `@yh-ui/nuxt` 模块时可自动导入；涉及 hover 视频预览、曝光埋点等仅客户端能力时，建议在 `<ClientOnly>` 或客户端生命周期中验证交互行为。
+
 ## API
 
 ### Props (100% 对齐源码)
@@ -328,7 +332,7 @@ const jsClamp = toJs(tsClamp)
 | price              | 当前销售价格             | `number \| string`                                          | `0`          |
 | market-price       | 划线/参考价格            | `number \| string`                                          | `''`         |
 | vip-price          | 会员专属价格             | `number \| string`                                          | `''`         |
-| vip-label          | 会员价格标签文本         | `string`                                                    | `'会员'`     |
+| vip-label          | 会员价格标签文本         | `string`                                                    | `''`         |
 | currency           | 货币符号                 | `string`                                                    | `'¥'`        |
 | unit               | 价格计量单位后缀         | `string`                                                    | `''`         |
 | ribbon             | 营销角标丝带文本         | `string`                                                    | `''`         |
@@ -336,7 +340,7 @@ const jsClamp = toJs(tsClamp)
 | tag                | 兼容性：单标签文本       | `string`                                                    | `''`         |
 | tag-type           | 兼容性：标签类型         | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`   |
 | badges             | 标签组 (支持图文)        | `ProductBadge[]`                                            | `[]`         |
-| layout             | 布局模式                 | `'vertical' \| 'horizontal' \| 'compact'`                   | `'vertical'` |
+| layout             | 布局模式                 | `'vertical' \| 'horizontal' \| 'compact' \| 'grid'`         | `'vertical'` |
 | lazy               | 图片懒加载               | `boolean`                                                   | `true`       |
 | border             | 是否显示边框             | `boolean`                                                   | `true`       |
 | shadow             | 是否显开启悬浮阴影       | `boolean`                                                   | `true`       |
@@ -344,7 +348,7 @@ const jsClamp = toJs(tsClamp)
 | stock-progress     | 库存抢购进度 (0-100)     | `number`                                                    | `0`          |
 | stock-color        | 进度条颜色               | `string`                                                    | `''`         |
 | stock-text         | 进度条右侧文本           | `string`                                                    | `''`         |
-| action-text        | 操作按钮文本             | `string`                                                    | `'立即购买'` |
+| action-text        | 操作按钮文本             | `string`                                                    | `''`         |
 | action-loading     | 按钮是否加载中           | `boolean`                                                   | `false`      |
 | sold-out           | 是否售罄                 | `boolean`                                                   | `false`      |
 | exposure           | 开启自动曝光监听         | `boolean`                                                   | `false`      |
@@ -357,7 +361,7 @@ const jsClamp = toJs(tsClamp)
 | ------ | ---------------------- | ----------------- |
 | click  | 点击整个卡片触发       | `(e: MouseEvent)` |
 | action | 点击操作按钮触发       | `(e: MouseEvent)` |
-| expose | 命中曝光阈值时上报埋点 | —                 |
+| expose | 命中曝光阈值时上报埋点 | `() => void`      |
 
 ### Slots
 
@@ -366,7 +370,14 @@ const jsClamp = toJs(tsClamp)
 | title       | 自定义标题区域              | —    |
 | description | 自定义描述区域              | —    |
 | footer      | 自定义底部操作区域          | —    |
-| fullscreen  | 自定义全屏预览内容 (若扩展) | —    |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+## 主题变量
+
+当前组件支持 `theme-overrides`。如页面未单独列出完整 CSS 变量表，请优先以 `theme-overrides` 与全局主题令牌作为视觉定制入口。
 
 ### ProductBadge 对象定义
 
@@ -378,3 +389,14 @@ interface ProductBadge {
   color?: string // 自定义背景色
 }
 ```
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhProductCardProps` | 组件 Props 类型 |
+| `YhProductCardEmits` | 组件事件类型 |
+| `YhProductCardSlots` | 组件插槽类型 |
+| `YhProductCardLayout` | 布局模式联合类型 |
+| `YhProductBadge` | 商品角标类型 |
+| `YhProductCardInstance` | 组件实例类型 |

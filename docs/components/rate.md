@@ -5,7 +5,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Demo 状态
 const val1 = ref(3)
 const val2 = ref(4)
 const val3 = ref(3)
@@ -15,17 +14,11 @@ const val5 = ref(3.7)
 const val6 = ref(3)
 const val7 = ref(3.7)
 const val8 = ref(3.5)
-
-// Nuxt 使用示例
 const nuxtRate = ref(4)
 
-// Nuxt 使用示例
 const tsNuxt = `<template>
   <div style="display: flex; flex-direction: column; gap: 12px;">
-    <!-- 评分组件，自动导入 -->
     <yh-rate v-model="nuxtRate" />
-    
-    <!-- 结合 Nuxt 的数据展示 -->
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="font-size: 14px; color: var(--yh-text-color-regular);">平均得分:</span>
       <yh-rate :model-value="4.5" disabled show-score />
@@ -34,13 +27,12 @@ const tsNuxt = `<template>
 </template>
 
 <script setup lang="ts">
-// 无需导入 Rate 组件
+import { ref } from 'vue'
 const nuxtRate = ref(4)
 <\/script>`
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
-// TypeScript 代码示例
 const tsBasic = `<template>
   <div class="demo-rate-block">
     <span>默认:</span>
@@ -176,7 +168,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 基础用法
 
-评分默认被分为三个等级，可以利用颜色数组对分数及情感倾向进行分级。
+组件默认使用五分制，`colors` 可用于自定义激活图标颜色。
 
 <DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -193,7 +185,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 不同尺寸
 
-使用 `size` 属性来设置评分组件的尺寸。
+使用 `size` 在 `large`、`default`、`small` 三种尺寸间切换。
 
 <DemoBlock title="不同尺寸" :ts-code="tsSize" :js-code="jsSize">
   <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -205,7 +197,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 允许半选
 
-设置 `allow-half` 属性允许选择半星。
+设置 `allow-half` 以启用半星评分。
 
 <DemoBlock title="允许半选" :ts-code="tsHalf" :js-code="jsHalf">
   <yh-rate v-model="valHalf" allow-half />
@@ -213,7 +205,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 辅助文字
 
-设置 `show-text` 属性显示辅助文字，或者 `show-score` 显示分数。
+`show-text` 用于显示辅助文案，`show-score` 用于显示当前分值。
 
 <DemoBlock title="辅助文字" :ts-code="tsText" :js-code="jsText">
   <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -224,7 +216,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 可清空
 
-使用 `clearable` 属性，当再次点击相同的值时，可以将值重置为 0。
+设置 `clearable` 后，再次点击当前值可以将评分重置为 `0`。
 
 <DemoBlock title="可清空" :ts-code="tsClearable" :js-code="jsClearable">
   <yh-rate v-model="val6" clearable />
@@ -232,7 +224,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 只读
 
-设置 `disabled` 属性开启只读模式，常用于展示分数。
+设置 `disabled` 可进入只读展示模式。
 
 <DemoBlock title="只读" :ts-code="tsDisabled" :js-code="jsDisabled">
   <yh-rate v-model="val7" disabled show-score text-color="#ff9900" />
@@ -240,7 +232,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 自定义图标
 
-通过 `icon` 插槽可以自定义图标。
+通过 `icon` 插槽替换内置评分图标。
 
 <DemoBlock title="自定义图标" :ts-code="tsCustom" :js-code="jsCustom">
   <yh-rate v-model="val8" colors="#f56c6c" allow-half>
@@ -282,9 +274,9 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 在 Nuxt 中使用
 
-Rate 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+`YhRate` 在注册 `@yh-ui/nuxt` 后可直接用于 Nuxt 3/4。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="在 Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; flex-direction: column; gap: 12px;">
     <yh-rate v-model="nuxtRate" />
     <div style="display: flex; align-items: center; gap: 8px;">
@@ -294,57 +286,65 @@ Rate 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，
   </div>
 </DemoBlock>
 
-**SSR 注意事项**：
-
-- ✅ 星级显示、半星（allow-half）完全支持
-- ✅ 自定义文本及分数显示在 SSR 中渲染准确
-- ✅ 颜色配置（colors 数组）支持服务器端计算
-- ✅ 样式在不同尺寸下保持一致
-
-::: tip SSR 安全性
-Rate 组件在服务端渲染时会静态生成对应的星星位图/SVG 路径，确保用户在 JS 加载前就能看到完整的评分状态。
-:::
-
 ## API
 
-### Rate Props
+### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
+| 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| v-model / model-value | 绑定值 | `number` | `0` |
-| max | 最大分值 | `number` | `5` |
-| disabled | 是否为只读 | `boolean` | `false` |
-| allow-half | 是否允许半选 | `boolean` | `false` |
-| clearable | 是否可以通过点击当前值来重置 | `boolean` | `false` |
-| show-text | 是否显示辅助文字，会覆盖 score | `boolean` | `false` |
-| show-score | 是否显示当前分数，show-text 为 false 时有效 | `boolean` | `false` |
-| text-color | 辅助文字颜色 | `string` | `'#1f2d3d'` |
-| texts | 辅助文字数组 | `string[]` | `['极差', '失望', '一般', '满意', '惊喜']` |
-| colors | 评分激活颜色，支持字符串或颜色数组（分别对应 2分及以下，4分及以下，5分） | `string \| string[]` | `'#F7BA2A'` |
-| void-color | 未选中状态颜色 | `string` | `'#C6D1DE'` |
-| disabled-void-color | 禁用状态下未选中颜色 | `string` | `'#EFF2F7'` |
-| size | 评分图标的大小 | `'large' \| 'default' \| 'small'` | `'default'` |
-| score-template | 分数显示模板 | `string` | `'{value}'` |
+| `model-value` / `v-model` | 绑定值 | `number` | `0` |
+| `max` | 最大分值 | `number` | `5` |
+| `disabled` | 是否只读 | `boolean` | `false` |
+| `allow-half` | 是否允许半选 | `boolean` | `false` |
+| `icon` | 自定义选中图标 | `string \| Component` | `''` |
+| `void-icon` | 自定义未选中图标 | `string \| Component` | `''` |
+| `disabled-void-icon` | 禁用状态下的未选中图标 | `string \| Component` | `''` |
+| `colors` | 激活颜色，支持字符串、数组或阈值映射对象 | `string \| string[] \| Record<number, string>` | `'#F7BA2A'` |
+| `void-color` | 未选中颜色 | `string` | `'#C6D1DE'` |
+| `disabled-void-color` | 禁用状态下的未选中颜色 | `string` | `'#EFF2F7'` |
+| `show-score` | 是否显示当前分数 | `boolean` | `false` |
+| `show-text` | 是否显示辅助文案 | `boolean` | `false` |
+| `text-color` | 辅助文案颜色 | `string` | `'#1f2d3d'` |
+| `texts` | 辅助文案数组 | `string[]` | `[]` |
+| `score-template` | 分数显示模板 | `string` | `'{value}'` |
+| `size` | 图标尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
+| `clearable` | 再次点击当前值时是否清空 | `boolean` | `false` |
+| `theme-overrides` | 组件级主题变量覆盖 | `ComponentThemeVars` | `undefined` |
 
-### Rate Events
+### Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| change | 分值改变时触发 | `(value: number) => void` |
+| `update:modelValue` | 绑定值变化时触发 | `(value: number) => void` |
+| `change` | 评分值变化时触发 | `(value: number) => void` |
 
-### Rate Slots
+### Slots
 
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
-| icon | 自定义图标 | `{ index: number, width: string, activeColor: string, voidColor: string }` |
+| `icon` | 自定义评分图标 | `{ index: number, width: string, activeColor: string, voidColor: string }` |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
 
 ## 主题变量
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
-| `--yh-rate-void-color` | 未选中状态颜色 | `#c6d1de` |
-| `--yh-rate-fill-color` | 选中状态颜色 | `#f7ba2a` |
-| `--yh-rate-disabled-void-color` | 禁用状态下未选中颜色 | `#eff2f7` |
-| `--yh-rate-text-color` | 辅助文字颜色 | `#1f2d3d` |
-| `--yh-rate-font-size` | 辅助文字大小 | `14px` |
+| `--yh-rate-void-color` | 未选中颜色 | `#c6d1de` |
+| `--yh-rate-fill-color` | 选中颜色 | `#f7ba2a` |
+| `--yh-rate-disabled-void-color` | 禁用状态下的未选中颜色 | `#eff2f7` |
+| `--yh-rate-text-color` | 辅助文案颜色 | `#1f2d3d` |
+| `--yh-rate-font-size` | 辅助文案字号 | `14px` |
 | `--yh-rate-icon-margin` | 图标间距 | `6px` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhRateProps` | 组件 Props 类型 |
+| `YhRateEmits` | 组件事件类型 |
+| `YhRateSlots` | 组件插槽类型 |
+| `YhRateSize` | 尺寸联合类型 |
+| `YhRateInstance` | 组件实例类型 |

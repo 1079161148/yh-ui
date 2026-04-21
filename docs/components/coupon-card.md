@@ -223,7 +223,7 @@ const jsAdvanced = toJs(tsAdvanced)
 | --------------- | ----------------------- | ------------------------------------------------- | ------------------ |
 | title           | 优惠券标题              | `string`                                          | `''`               |
 | description     | 描述文本                | `string`                                          | `''`               |
-| amount          | 优惠金额/数值           | `string \| number`                                | `0`                |
+| amount          | 优惠金额/数值           | `string \| number`                                | `''`               |
 | symbol          | 货币符号                | `string`                                          | `'¥'`              |
 | threshold       | 使用门槛描述            | `string \| number`                                | `''`               |
 | valid-period    | 有效期描述              | `string`                                          | `''`               |
@@ -237,7 +237,8 @@ const jsAdvanced = toJs(tsAdvanced)
 | percent         | 疯抢进度百分比 (0-100)  | `number`                                          | —                  |
 | percent-text    | 进度条旁边的提示文本    | `string`                                          | `''`               |
 | rules           | 底部展开的使用规则文本  | `string`                                          | `''`               |
-| rule-title      | 使用规则展示的标题文本  | `string`                                          | `'使用说明及规则'` |
+| rule-title      | 使用规则展示的标题文本  | `string`                                          | `''`               |
+| disabled        | 是否禁用过期样式展示    | `boolean`                                         | `false`            |
 | theme-overrides | 主题变量覆盖            | `object`                                          | —                  |
 
 ### Events
@@ -248,6 +249,21 @@ const jsAdvanced = toJs(tsAdvanced)
 | action          | 点击右侧操作按钮触发 | `(event: MouseEvent) => void` |
 | update:selected | 选中状态改变时触发   | `(val: boolean) => void`      |
 
+### Slots
+
+| 插槽名      | 说明               | 参数 |
+| ----------- | ------------------ | ---- |
+| title       | 自定义优惠券标题   | —    |
+| description | 自定义描述内容     | —    |
+| action      | 自定义右侧操作区域 | —    |
+| badge       | 自定义角标内容     | —    |
+| seal        | 自定义状态印章     | `{ status: CouponStatus }` |
+| rules       | 自定义规则说明区域 | —    |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
 ## 主题变量
 
 | 变量名                      | 说明               | 默认值                       |
@@ -255,3 +271,13 @@ const jsAdvanced = toJs(tsAdvanced)
 | `--yh-coupon-bg`            | 卡片背景色         | `var(--yh-bg-color-overlay)` |
 | `--yh-coupon-primary-color` | 强调色 (金额/按钮) | `var(--yh-color-primary)`    |
 | `--yh-coupon-amount-size`   | 金额字号           | `28px`                       |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhCouponCardProps` | 组件 Props 类型 |
+| `YhCouponCardEmits` | 组件事件类型 |
+| `YhCouponCardSlots` | 组件插槽类型 |
+| `YhCouponStatus` | 优惠券状态联合类型 |
+| `YhCouponCardInstance` | 组件实例类型 |

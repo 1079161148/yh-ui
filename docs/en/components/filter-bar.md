@@ -386,9 +386,9 @@ In standard major e-commerce websites, it is commonly expected to feature a **Li
   </div>
 </DemoBlock>
 
-## Nuxt Usage
+## Use in Nuxt
 
-This component fully supports Nuxt 3/4 SSR.
+`YhFilterBar` can be used directly in Nuxt 3/4 after registering `@yh-ui/nuxt`. Its sorting, filtering, and slot rendering logic work in SSR and client hydration flows.
 
 <DemoBlock title="Nuxt Usage" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="background: #fff; padding: 0; border-radius: 8px; height: 320px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
@@ -423,55 +423,82 @@ export default defineNuxtConfig({
 })
 ```
 
-## FilterBar API
+## API
 
 ### Props
 
-| Parameter          | Description                           | Type                     | Default                      |
-| ------------------ | ------------------------------------- | ------------------------ | ---------------------------- |
-| sorts              | List of sort configurations           | `FilterSortItem[]`       | `[]`                         |
-| filters            | List of filter configurations         | `FilterItem[]`           | `[]`                         |
-| sort               | Current sort state                    | `FilterSort`             | `{ key: null, order: null }` |
-| filter-value       | Current filter value                  | `FilterValue`            | `{}`                         |
-| view-type          | Layout view mode (`v-model:viewType`) | `'list' \| 'grid'`       | `'list'`                     |
-| show-all           | Whether to show the "All" tab         | `boolean`                | `true`                       |
-| sticky             | Whether to enable sticky positioning  | `boolean`                | `false`                      |
-| filter-in-panel    | Whether to display filters in a panel | `boolean`                | `true`                       |
-| show-global-filter | Show global filter funnel button      | `boolean`                | `true`                       |
-| show-view-toggle   | Show list/grid layout toggle button   | `boolean`                | `false`                      |
-| sticky-offset      | Vertical offset when sticky (px)      | `number`                 | `0`                          |
-| theme-overrides    | Custom theme tokens coverage          | `Record<string, string>` | `{}`                         |
+| Parameter          | Description                                            | Type                 | Default                      |
+| ------------------ | ------------------------------------------------------ | -------------------- | ---------------------------- |
+| sorts              | Sort option list                                       | `YhFilterSortItem[]` | `[]`                         |
+| filters            | Filter definition list                                 | `YhFilterItem[]`     | `[]`                         |
+| sort               | Current sort state (`v-model:sort`)                    | `YhFilterSort`       | `{ key: null, order: null }` |
+| filter-value       | Current filter state (`v-model:filterValue`)           | `YhFilterValue`      | `{}`                         |
+| show-all           | Whether to render the built-in "All" tab               | `boolean`            | `true`                       |
+| sticky             | Whether to enable sticky positioning                   | `boolean`            | `false`                      |
+| sticky-offset      | Sticky top offset in pixels                            | `number`             | `0`                          |
+| filter-in-panel    | Whether to render filters in the built-in popup panel  | `boolean`            | `true`                       |
+| theme-overrides    | Component-level theme variable overrides               | `Record<string, string>` | `{}`                     |
+| show-global-filter | Whether to show the global filter button               | `boolean`            | `true`                       |
+| show-view-toggle   | Whether to show the list/grid view toggle button       | `boolean`            | `false`                      |
+| view-type          | Current layout mode (`v-model:viewType`)               | `'list' \| 'grid'`   | `'list'`                     |
 
 ### Events
 
-| Event Name    | Description                                   | Callback Parameters                      |
-| ------------- | --------------------------------------------- | ---------------------------------------- |
-| sort-change   | Triggered when sort changes                   | `(sort: FilterSort)`                     |
-| filter-change | Triggered when filter value changes           | `(val: FilterValue)`                     |
-| view-change   | Triggered when grid/list layout changes       | `(val: 'list' \| 'grid')`                |
-| reset         | Triggered when global reset button is clicked | `-`                                      |
-| reset-panel   | Triggered on internal panel reset             | `(filter: FilterItem, val: FilterValue)` |
-| confirm       | Triggered when confirm button is clicked      | `(val: FilterValue)`                     |
-| open-filter   | Triggered by the global funnel icon click     | `-`                                      |
+| Event Name    | Description                                                | Callback Parameters                         |
+| ------------- | ---------------------------------------------------------- | ------------------------------------------- |
+| sort-change   | Triggered after the current sort state changes             | `(sort: YhFilterSort)`                      |
+| filter-change | Triggered after the current filter value changes           | `(value: YhFilterValue)`                    |
+| view-change   | Triggered after the list/grid view mode changes            | `(viewType: 'list' \| 'grid')`              |
+| reset         | Triggered when the built-in global reset action is used    | `-`                                         |
+| confirm       | Triggered when the built-in panel confirm action is used   | `(value: YhFilterValue)`                    |
+| reset-panel   | Triggered when resetting a single built-in filter panel    | `(filter: YhFilterItem, value: YhFilterValue)` |
+| open-filter   | Triggered when the built-in global filter button is clicked | `-`                                        |
 
 ### Slots
 
-| Slot Name     | Description                                                      | Parameters                  |
-| ------------- | ---------------------------------------------------------------- | --------------------------- |
-| panel-content | Completely override the inner content of a specific filter panel | `{ filter, value, toggle }` |
-| view-icon     | Custom icon for layout toggle button                             | `{ viewType }`              |
-| filter-icon   | Custom icon for the global funnel                                | `-`                         |
-| extra         | Custom content for the right extension zone                      | `-`                         |
+| Slot Name     | Description                                  | Parameters                                                |
+| ------------- | -------------------------------------------- | --------------------------------------------------------- |
+| filter-icon   | Custom content for the built-in global filter icon | `-`                                                   |
+| view-icon     | Custom content for the view toggle icon      | `{ viewType: 'list' \| 'grid' }`                          |
+| extra         | Custom content rendered in the trailing area | `-`                                                       |
+| panel-content | Custom content for the active popup filter panel | `{ filter: YhFilterItem, value: YhFilterValue, toggle: (filter: YhFilterItem, option: YhFilterOption) => void }` |
 
-### Theme Variables (CSS Variables)
+### Expose
 
-| Variable Name                         | Default Value                     | Description                    |
-| ------------------------------------- | --------------------------------- | ------------------------------ |
-| `--yh-filter-bar-bg`                  | `var(--yh-bg-color)`              | Component background           |
-| `--yh-filter-bar-height`              | `44px`                            | Component overall height       |
-| `--yh-filter-bar-border`              | `var(--yh-border-color-lighter)`  | Bottom border color            |
-| `--yh-filter-bar-tab-color`           | `var(--yh-text-color-regular)`    | Inactive tab text              |
-| `--yh-filter-bar-tab-active-color`    | `var(--yh-color-primary)`         | Active tab text                |
-| `--yh-filter-bar-panel-bg`            | `var(--yh-bg-color)`              | Dropdown panel body background |
-| `--yh-filter-bar-panel-opt-bg`        | `var(--yh-fill-color-light)`      | Inactive pill background       |
-| `--yh-filter-bar-panel-opt-active-bg` | `var(--yh-color-primary-light-9)` | Active pill background         |
+This component does not expose public instance methods or properties.
+
+### Theme Variables
+
+| Variable Name                            | Default Value                     | Description                            |
+| ---------------------------------------- | --------------------------------- | -------------------------------------- |
+| `--yh-filter-bar-bg`                     | `var(--yh-bg-color)`              | Root background                        |
+| `--yh-filter-bar-border`                 | `var(--yh-border-color-lighter)`  | Root border color                      |
+| `--yh-filter-bar-height`                 | `44px`                            | Toolbar height                         |
+| `--yh-filter-bar-tab-color`              | `var(--yh-text-color-regular)`    | Inactive tab text color                |
+| `--yh-filter-bar-tab-active-color`       | `var(--yh-color-primary)`         | Active tab text color                  |
+| `--yh-filter-bar-tab-active-bg`          | `var(--yh-color-primary-light-9)` | Active tab background token            |
+| `--yh-filter-bar-tab-radius`             | `var(--yh-radius-base)`           | Tab radius token                       |
+| `--yh-filter-bar-badge-bg`               | `var(--yh-color-danger)`          | Badge background                       |
+| `--yh-filter-bar-panel-bg`               | `var(--yh-bg-color)`              | Panel background                       |
+| `--yh-filter-bar-panel-shadow`           | `0 4px 20px var(--yh-shadow-color)` | Panel shadow                         |
+| `--yh-filter-bar-panel-opt-bg`           | `var(--yh-fill-color-light)`      | Panel option background                |
+| `--yh-filter-bar-panel-opt-active-bg`    | `var(--yh-color-primary-light-9)` | Active panel option background         |
+| `--yh-filter-bar-panel-opt-active-color` | `var(--yh-color-primary)`         | Active panel option text color         |
+| `--yh-filter-bar-panel-opt-active-border` | `var(--yh-color-primary)`        | Active panel option border token       |
+| `--yh-filter-bar-z-index`                | `100`                             | Root stacking context                  |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhFilterBarProps` | Component props type |
+| `YhFilterBarEmits` | Component emits type |
+| `YhFilterBarSlots` | Component slots type |
+| `YhFilterSortOrder` | Sort order union type |
+| `YhFilterSortItem` | Sort item type |
+| `YhFilterType` | Filter type union |
+| `YhFilterOption` | Filter option type |
+| `YhFilterItem` | Filter item type |
+| `YhFilterValue` | Filter value shape |
+| `YhFilterSort` | Sort state type |
+| `YhFilterBarInstance` | Component instance type |

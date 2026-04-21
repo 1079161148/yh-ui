@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { YhMessage } from '../../../packages/components/src/message'
 
-// --- Fully aligned code example strings (ensuring users can copy and use directly) ---
 const tsBasic = `<template>
   <yh-popconfirm title="Are you sure you want to perform this action?" @confirm="onConfirm">
     <yh-button type="danger">Basic Usage</yh-button>
@@ -129,7 +127,7 @@ const tsSlots = `<template>
         <p style="margin-bottom: 8px; font-size: 13px;">Version v2.2.0 detected. It is recommended to upgrade immediately for better acrylic background experience.</p>
         <div style="display: flex; gap: 8px;">
           <yh-tag size="small" type="info">v2.1</yh-tag>
-          <span>→</span>
+          <span>-&gt;</span>
           <yh-tag size="small" type="success">v2.2.0</yh-tag>
         </div>
       </div>
@@ -180,7 +178,6 @@ const jsArrow = tsArrow
 const jsTheme = tsTheme
 const jsNuxt = tsNuxt
 
-// --- Actual environment logic (syncing names and text content) ---
 const onConfirm = (isSet: boolean) => {
   if (isSet === true) {
     YhMessage.success('Recorded: Will not ask again')
@@ -263,7 +260,7 @@ Freely customize button text, type, or hide specific elements.
 
 ## Advanced Features
 
-YH-UI's unique "button position swap" and "don't ask again" state feedback.
+Includes button position swapping and the optional "don't ask again" state.
 
 <DemoBlock title="Advanced Features" :ts-code="tsAdvanced" :js-code="jsAdvanced">
   <div style="padding: 10px 0; display: flex; gap: 16px;"><yh-popconfirm title="Button Reversed" swap-buttons confirm-button-text="Next"><yh-button>Reversed Button Layout</yh-button></yh-popconfirm><yh-popconfirm title="Don't Ask Again" show-dont-ask-again @confirm="onConfirm"><yh-button type="warning">Don't Ask Again Feature</yh-button></yh-popconfirm></div>
@@ -271,7 +268,7 @@ YH-UI's unique "button position swap" and "don't ask again" state feedback.
 
 ## Async Close
 
-Easily implement API interception logic by combining with the `before-confirm` prop.
+Use `before-confirm` to run async confirmation logic before closing the popup.
 
 <DemoBlock title="Async Interception" :ts-code="tsAsync" :js-code="jsAsync">
   <div style="padding: 10px 0;">
@@ -300,7 +297,7 @@ Use `title` and `description` slots to customize complex rich text content.
           <p style="margin-bottom: 8px; font-size: 13px;">Version v2.2.0 detected. It is recommended to upgrade immediately for better acrylic background experience.</p>
           <div style="display: flex; gap: 8px;">
             <yh-tag size="small" type="info">v2.1</yh-tag>
-            <span>→</span>
+            <span>-&gt;</span>
             <yh-tag size="small" type="success">v2.2.0</yh-tag>
           </div>
         </div>
@@ -326,7 +323,7 @@ Control whether the popover displays the indicator arrow via the `show-arrow` pr
 
 ## Theme Appearance
 
-Easily customize component styling by modifying CSS variables. For example, use `popper-style` to override local theme variables.
+Customize popup appearance with CSS variables passed through `popper-style`.
 
 <DemoBlock title="Theme Customization" :ts-code="tsTheme" :js-code="jsTheme">
   <div style="padding: 10px 0;">
@@ -347,7 +344,7 @@ Easily customize component styling by modifying CSS variables. For example, use 
 
 ## Use in Nuxt
 
-`YhPopconfirm` fully supports Nuxt 3. Thanks to the Tooltip-based ultra-fast positioning engine, it maintains excellent performance in SSR environments.
+`YhPopconfirm` can be used directly in Nuxt after registering the YH-UI module. The trigger and popup content render as normal component markup, while positioning and interaction run on the client after hydration.
 
 <DemoBlock title="Nuxt Demo" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="padding: 10px 0;">
@@ -357,7 +354,7 @@ Easily customize component styling by modifying CSS variables. For example, use 
   </div>
 </DemoBlock>
 
-Simply add the module configuration in `nuxt.config.ts`:
+Add the module in `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({ modules: ['@yh-ui/nuxt'] })
@@ -367,55 +364,75 @@ export default defineNuxtConfig({ modules: ['@yh-ui/nuxt'] })
 
 ### Props
 
-| Prop                | Description                                | Type               | Default           |
-| ------------------- | ------------------------------------------ | ------------------ | ----------------- |
-| title               | Title                                      | string             | -                 |
-| description         | Description content                        | string             | -                 |
-| confirm-button-text | Confirm button text                        | string             | `Confirm`         |
-| cancel-button-text  | Cancel button text                         | string             | `Cancel`          |
-| confirm-button-type | Confirm button type                        | string             | `primary`         |
-| cancel-button-type  | Cancel button type                         | string             | `default`         |
-| icon                | Icon name                                  | string             | `warning`         |
-| icon-color          | Icon color                                 | string             | `#faad14`         |
-| hide-icon           | Whether to hide icon                       | boolean            | `false`           |
-| hide-cancel         | Whether to hide cancel button              | boolean            | `false`           |
-| width               | Width                                      | string / number    | `180`             |
-| placement           | Popup position                             | `TooltipPlacement` | `'top'`           |
-| visible             | Manual control visibility                  | `boolean \| null`  | `null`            |
-| offset              | Offset [skidding, distance]                | array              | `[0, 12]`         |
-| disabled            | Whether to disable                         | boolean            | `false`           |
-| show-arrow          | Whether to show arrow                      | boolean            | `true`            |
-| teleported          | Whether to mount to body                   | boolean            | `true`            |
-| z-index             | Z-index                                    | number             | `2000`            |
-| popper-class        | Custom popover class                       | string             | -                 |
-| popper-style        | Custom popover style                       | object             | `{}`              |
-| before-confirm      | Lifecycle hook before confirm              | function           | -                 |
-| swap-buttons        | Whether to swap button positions           | boolean            | `false`           |
-| show-dont-ask-again | Whether to show "don't ask again" checkbox | boolean            | `false`           |
-| dont-ask-again-text | Text for "don't ask again"                 | string             | `Don't ask again` |
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Title text. | `string` | `''` |
+| description | Description text. | `string` | `''` |
+| confirm-button-text | Confirm button text. | `string` | `''` |
+| cancel-button-text | Cancel button text. | `string` | `''` |
+| confirm-button-type | Confirm button type. | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'primary'` |
+| cancel-button-type | Cancel button type. | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
+| icon | Icon name. | `string` | `'warning'` |
+| icon-color | Icon color. | `string` | `'#faad14'` |
+| hide-icon | Whether to hide the icon. | `boolean` | `false` |
+| hide-cancel | Whether to hide the cancel button. | `boolean` | `false` |
+| offset | Popper offset `[skidding, distance]`. | `[number, number]` | `[0, 12]` |
+| placement | Popper placement. | `TooltipPlacement` | `'top'` |
+| visible | Controlled visibility state. | `boolean \| null` | `null` |
+| width | Popover width. | `string \| number` | `180` |
+| disabled | Whether the trigger is disabled. | `boolean` | `false` |
+| z-index | Popper z-index. | `number` | `2000` |
+| show-arrow | Whether to show the popper arrow. | `boolean` | `true` |
+| popper-class | Custom popper class name. | `string` | `''` |
+| popper-style | Custom popper style. | `StyleValue` | `{}` |
+| teleported | Whether to teleport the popup to `body`. | `boolean` | `true` |
+| show-dont-ask-again | Whether to show the "don't ask again" checkbox. | `boolean` | `false` |
+| dont-ask-again-text | Custom text for the "don't ask again" checkbox. | `string` | `''` |
+| swap-buttons | Whether to swap confirm and cancel button positions. | `boolean` | `false` |
+| before-confirm | Hook executed before confirm. Return `false` or resolve `false` to block closing. | `() => boolean \| Promise<boolean>` | `null` |
+| theme-overrides | Component-level theme overrides. | `ComponentThemeVars` | `undefined` |
 
 ### Slots
 
-| Slot Name   | Description                 |
-| ----------- | --------------------------- |
-| default     | Trigger element for popover |
-| icon        | Custom icon                 |
-| title       | Custom title                |
-| description | Custom description content  |
+| Slot Name | Description |
+| --- | --- |
+| default | Trigger element. |
+| icon | Custom icon content. |
+| title | Custom title content. |
+| description | Custom description content. |
 
 ### Events
 
-| Event Name     | Description                              | Parameters           |
-| -------------- | ---------------------------------------- | -------------------- |
-| confirm        | Triggered when confirm button is clicked | `(isSet: boolean)`   |
-| cancel         | Triggered when cancel button is clicked  | -                    |
-| update:visible | Triggered when visibility changes        | `(visible: boolean)` |
+| Event Name | Description | Parameters |
+| --- | --- | --- |
+| confirm | Triggered when the confirm button is clicked. | `(dontAskAgain?: boolean) => void` |
+| cancel | Triggered when the cancel button is clicked. | `() => void` |
+| update:visible | Triggered when visibility changes. | `(visible: boolean) => void` |
 
-### Theme Variables (CSS Variables)
+### Expose
 
-| Variable                    | Default                     | Description              |
-| --------------------------- | --------------------------- | ------------------------ |
-| `--yh-popconfirm-title`     | `#1d1d1f`                   | Title text color         |
-| `--yh-popconfirm-desc`      | `#424245`                   | Description text color   |
-| `--yh-tooltip-bg-color`     | `rgba(255, 255, 255, 0.88)` | Popover background color |
-| `--yh-tooltip-border-color` | `rgba(0, 0, 0, 0.08)`       | Popover border color     |
+| Name | Description | Type |
+| --- | --- | --- |
+| visible | Current popup visibility state. | `Ref<boolean>` |
+| toggle | Manually update the popup visibility state. | `(val: boolean) => boolean` |
+
+### Theme Variables
+
+`YhPopconfirm` supports `themeOverrides`. It also consumes tooltip-related variables through the popup layer.
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--yh-popconfirm-title` | `#1d1d1f` | Title text color |
+| `--yh-popconfirm-desc` | `#424245` | Description text color |
+| `--yh-tooltip-bg-color` | `rgba(255, 255, 255, 0.88)` | Popover background color |
+| `--yh-tooltip-border-color` | `rgba(0, 0, 0, 0.08)` | Popover border color |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhPopconfirmProps` | Component props type |
+| `YhPopconfirmEmits` | Component emits type |
+| `YhPopconfirmSlots` | Component slots type |
+| `YhPopconfirmExpose` | Component expose type |
+| `YhPopconfirmInstance` | Component instance type |

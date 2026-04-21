@@ -400,3 +400,16 @@ Override the following CSS custom properties via `theme-overrides` to customize 
 | `--yh-magnifier-minimap-size`          | Minimap widget size             | `80px`                           |
 | `--yh-magnifier-fullscreen-bg`         | Fullscreen overlay background   | `rgba(0,0,0,0.88)`               |
 | `--yh-magnifier-title-bg`              | Title overlay background        | `rgba(0,0,0,0.5)`                |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhImageMagnifierProps` | Component props type |
+| `YhImageMagnifierEmits` | Component emits type |
+| `YhImageMagnifierSlots` | Component slots type |
+| `YhImageMagnifierExpose` | Component expose type |
+| `YhImageMagnifierImage` | Image data type |
+| `YhImageMagnifierPosition` | Preview position union |
+| `YhImageMagnifierMaskShape` | Lens shape union |
+| `YhImageMagnifierInstance` | Component instance type |

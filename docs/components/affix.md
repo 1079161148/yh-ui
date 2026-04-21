@@ -214,3 +214,13 @@ YhAffix 采用了双层观察系统：
 | `--yh-affix-shadow` | `var(--yh-shadow-md)` | 固定状态下的阴影效果 |
 | `--yh-affix-transition-duration` | `var(--yh-transition-duration)` | 进入固定状态时的动画持续时间 |
 | `--yh-affix-transition-timing` | `var(--yh-transition-timing)` | 动画过渡曲线 |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhAffixProps` | `YhAffix` props 类型 |
+| `YhAffixEmits` | `YhAffix` emits 类型 |
+| `YhAffixSlots` | `YhAffix` slots 类型 |
+| `YhAffixExpose` | `YhAffix` expose 类型 |
+| `YhAffixInstance` | `YhAffix` 实例类型 |

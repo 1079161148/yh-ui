@@ -133,7 +133,10 @@ export type PopoverEmits = typeof popoverEmits
 
 export interface PopoverSlots {
   default?: () => unknown
-  reference?: () => unknown
+  header?: () => unknown
+  content?: () => unknown
+  icon?: () => unknown
+  footer?: () => unknown
 }
 
 export interface PopoverExpose {

@@ -1,6 +1,6 @@
 # Coupon Card
 
-Standard component for displaying coupon information with various border shapes, status management, and selection modes.
+Standard component for displaying coupon information. It supports cutout variants, status display, optional selection mode, and e-commerce style badge, progress, and rules sections.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -202,7 +202,7 @@ Enhanced features for modern e-commerce scenarios: badges, progress bars, and ru
 
 ## Usage in Nuxt
 
-`YhCouponCard` is SSR-ready for Nuxt 3.
+`YhCouponCard` works directly in Nuxt 3/4 projects. When `yh-ui/nuxt` is enabled, the component can be used without manual registration.
 
 <DemoBlock title="Nuxt Integration" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="width: 340px;">
@@ -221,7 +221,7 @@ Enhanced features for modern e-commerce scenarios: badges, progress bars, and ru
 | --------------- | ------------------------------ | ------------------------------------------------- | --------------- |
 | title           | Coupon title                   | `string`                                          | `''`            |
 | description     | Description text               | `string`                                          | `''`            |
-| amount          | Amount value                   | `string \| number`                                | `0`             |
+| amount          | Amount value                   | `string \| number`                                | `''`            |
 | symbol          | Currency symbol                | `string`                                          | `'¥'`           |
 | threshold       | Minimum spend                  | `string \| number`                                | `''`            |
 | valid-period    | Validity period                | `string`                                          | `''`            |
@@ -232,11 +232,12 @@ Enhanced features for modern e-commerce scenarios: badges, progress bars, and ru
 | action-text     | Action button text             | `string`                                          | `''`            |
 | badge           | Badge text                     | `string`                                          | `''`            |
 | badge-type      | Badge color type               | `'danger' \| 'warning' \| 'primary' \| 'success'` | `'danger'`      |
-| percent         | Progress percentage (0-100)    | `number`                                          | —               |
+| percent         | Progress percentage (0-100)    | `number`                                          | `undefined`     |
 | percent-text    | Tip text near progress bar     | `string`                                          | `''`            |
 | rules           | Usage rules text at bottom     | `string`                                          | `''`            |
-| rule-title      | Custom title for rules section | `string`                                          | `'Usage Rules'` |
-| theme-overrides | Theme variables                | `object`                                          | —               |
+| rule-title      | Custom title for rules section | `string`                                          | `''`            |
+| disabled        | Whether disabled styling is applied | `boolean`                                    | `false`         |
+| theme-overrides | Theme variable overrides       | `Record<string, string>`                          | `{}`            |
 
 ### Events
 
@@ -245,3 +246,36 @@ Enhanced features for modern e-commerce scenarios: badges, progress bars, and ru
 | click           | Fired when card is clicked   | `(e: MouseEvent) => void` |
 | action          | Fired when button is clicked | `(e: MouseEvent) => void` |
 | update:selected | Selected state change event  | `(val: boolean) => void`  |
+
+### Slots
+
+| Slot        | Description             | Parameters |
+| ----------- | ----------------------- | ---------- |
+| title       | Custom coupon title     | `-`        |
+| description | Custom description area | `-`        |
+| action      | Custom action area      | `-`        |
+| badge       | Custom badge content    | `-`        |
+| seal        | Custom status seal      | `{ status: CouponStatus }` |
+| rules       | Custom rules section    | `-`        |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+## Theme Variables
+
+| Variable                    | Description                  | Default                      |
+| --------------------------- | ---------------------------- | ---------------------------- |
+| `--yh-coupon-bg`            | Card background color        | `var(--yh-bg-color-overlay)` |
+| `--yh-coupon-primary-color` | Accent color (amount/button) | `var(--yh-color-primary)`    |
+| `--yh-coupon-amount-size`   | Amount font size             | `28px`                       |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhCouponCardProps` | Component props type |
+| `YhCouponCardEmits` | Component emits type |
+| `YhCouponCardSlots` | Component slots type |
+| `YhCouponStatus` | Coupon status union type |
+| `YhCouponCardInstance` | Component instance type |

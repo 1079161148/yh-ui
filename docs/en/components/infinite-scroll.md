@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Basic Usage
 const loading = ref(false)
 const finished = ref(false)
 const list = ref<number[]>([1, 2, 3, 4, 5])
@@ -18,7 +17,6 @@ const onLoad = () => {
   }, 1000)
 }
 
-// Custom Text
 const textLoading = ref(false)
 const textFinished = ref(false)
 const textList = ref<number[]>([1, 2, 3])
@@ -35,7 +33,6 @@ const onTextLoad = () => {
   }, 1000)
 }
 
-// Error State
 const errorLoading = ref(false)
 const errorState = ref(false)
 const errorList = ref<number[]>([1, 2, 3])
@@ -47,7 +44,6 @@ const onErrorLoad = () => {
   }, 1000)
 }
 
-// Custom Slot
 const slotLoading = ref(false)
 const slotFinished = ref(false)
 const slotList = ref<number[]>([1, 2])
@@ -71,7 +67,6 @@ interface Post {
   body: string
 }
 
-// Nuxt SSR Mock
 const nuxtItems = ref<Post[]>([])
 const nuxtLoading = ref(false)
 const nuxtFinished = ref(false)
@@ -97,13 +92,12 @@ const onNuxtLoad = async () => {
 
 interface Product {
   id: number
-  title: string
+  name: string
   price: string
   desc: string
   tag: string
 }
 
-// Real-world scenario: E-commerce Product List
 const shopItems = ref<Product[]>([])
 const shopLoading = ref(false)
 const shopFinished = ref(false)
@@ -118,23 +112,23 @@ const onShopLoad = async () => {
     await new Promise(resolve => setTimeout(resolve, 800))
     const res = await fetch('https://jsonplaceholder.typicode.com/posts?_page=' + shopPage.value + '&_limit=6')
     const data = await res.json()
-    
+
     if (data.length > 0) {
       const products = data.map((item: Record<string, unknown>) => ({
-        id: item.id,
+        id: item.id as number,
         name: 'Premium Product #' + item.id,
         price: (Math.random() * 1000 + 100).toFixed(2),
-        desc: item.title.slice(0, 30) + '...',
-        tag: item.id % 2 === 0 ? 'New' : 'Hot'
+        desc: String(item.title).slice(0, 30) + '...',
+        tag: Number(item.id) % 2 === 0 ? 'New' : 'Hot'
       }))
       shopItems.value.push(...products)
       shopPage.value++
     }
-    
+
     if (shopItems.value.length >= 24) {
       shopFinished.value = true
     }
-  } catch (e) {
+  } catch {
     shopError.value = true
   } finally {
     shopLoading.value = false
@@ -247,7 +241,7 @@ const tsCustomSlot = `<template>
       <div class="custom-status">Moving data in progress...</div>
     </template>
     <template #finished>
-      <div class="custom-status finished">🌟 Congratulations, you've unlocked all treasures</div>
+      <div class="custom-status finished">Congratulations, you've unlocked all items.</div>
     </template>
   </yh-infinite-scroll>
 </template>
@@ -328,7 +322,7 @@ const tsBusiness = `<template>
             <h4 class="shop-title">{{ item.name }}</h4>
             <p class="shop-desc">{{ item.desc }}</p>
             <div class="shop-footer">
-              <span class="shop-price">￥{{ item.price }}</span>
+              <span class="shop-price">$ {{ item.price }}</span>
               <yh-button type="primary" size="small" round>Buy</yh-button>
             </div>
           </div>
@@ -370,7 +364,7 @@ const onShopLoad = async () => {
     if (shopItems.value.length >= 24) {
       shopFinished.value = true
     }
-  } catch (e) {
+  } catch {
     shopError.value = true
   } finally {
     shopLoading.value = false
@@ -388,11 +382,11 @@ const jsBusiness = tsBusiness.replace('lang="ts"', '')
 
 # Infinite Scroll
 
-Automatically loads more data when scrolling to the bottom, supporting SSR, custom slots, and complex scroll container scenarios.
+Automatically loads more data when scrolling near the end of the container. It supports SSR-friendly usage, custom status slots, and manual retry handling.
 
 ## Basic Usage
 
-The simplest asynchronous paginated load. Synchronize loading status via `v-model:loading` and lock loading with `finished`.
+Use `v-model:loading` to drive the loading state and `finished` to stop further loads.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
 <div class="demo-container">
@@ -406,13 +400,13 @@ The simplest asynchronous paginated load. Synchronize loading status via `v-mode
 
 ## Custom Tip Text
 
-Quickly customize intuitive text interaction via attributes to improve user experience.
+If you want to override the locale text for a single instance, pass `loading-text`, `finished-text`, or `error-text`.
 
 <DemoBlock title="Custom Tip Text" :ts-code="tsCustomText" :js-code="jsCustomText">
 <div class="demo-container">
-  <yh-infinite-scroll 
-    v-model:loading="textLoading" 
-    :finished="textFinished" 
+  <yh-infinite-scroll
+    v-model:loading="textLoading"
+    :finished="textFinished"
     loading-text="Loading hard..."
     finished-text="Reached the bottom~"
     @load="onTextLoad"
@@ -426,7 +420,7 @@ Quickly customize intuitive text interaction via attributes to improve user expe
 
 ## Error State
 
-When the interface response is abnormal, display an error tip and allow users to click to retry.
+When a request fails, bind `v-model:error` and let the built-in retry area or your custom error slot trigger another load.
 
 <DemoBlock title="Error State" :ts-code="tsError" :js-code="jsError">
 <div class="demo-container">
@@ -440,7 +434,7 @@ When the interface response is abnormal, display an error tip and allow users to
 
 ## Custom Slots
 
-With slot mode, you have complete control over the visual presentation during different lifecycle states (loading, finished, error).
+Use the `loading`, `finished`, and `error` slots to fully control status rendering while preserving the component's load logic.
 
 <DemoBlock title="Custom Slots" :ts-code="tsCustomSlot" :js-code="jsCustomSlot">
 <div class="demo-container">
@@ -452,15 +446,15 @@ With slot mode, you have complete control over the visual presentation during di
       <div class="custom-status">Moving data in progress...</div>
     </template>
     <template #finished>
-      <div class="custom-status finished">🌟 Congratulations, you've unlocked all treasures</div>
+      <div class="custom-status finished">Congratulations, you've unlocked all items.</div>
     </template>
   </yh-infinite-scroll>
 </div>
 </DemoBlock>
 
-## Use in Nuxt (SSR)
+## Use in Nuxt
 
-The `InfiniteScroll` component is deeply adapted for Nuxt 3/4. In SSR mode, the component intelligently handles hydration logic and automatically starts `IntersectionObserver` on the client.
+`YhInfiniteScroll` can be used directly in Nuxt. In SSR it renders stable markup first, then starts `IntersectionObserver` or scroll listeners on the client after mount.
 
 <DemoBlock title="Nuxt SSR Support" :ts-code="tsNuxt" :js-code="jsNuxt">
 <div class="demo-container">
@@ -475,7 +469,7 @@ The `InfiniteScroll` component is deeply adapted for Nuxt 3/4. In SSR mode, the 
 
 ## Real-world Scenario: E-commerce Product List
 
-In real e-commerce scenarios, lists often contain complex card layouts. Combining with `fetch` or `useFetch`, you can easily implement a high-performance product waterfall flow.
+The component also works well with card grids and longer async chains, as long as the container keeps a clear scroll boundary.
 
 <DemoBlock title="E-commerce Product List Scenario" :ts-code="tsBusiness" :js-code="jsBusiness">
 <div class="demo-container business-container">
@@ -492,7 +486,7 @@ In real e-commerce scenarios, lists often contain complex card layouts. Combinin
           <h4 class="shop-title">{{ item.name }}</h4>
           <p class="shop-desc">{{ item.desc }}</p>
           <div class="shop-footer">
-            <span class="shop-price">￥{{ item.price }}</span>
+            <span class="shop-price">$ {{ item.price }}</span>
             <yh-button type="primary" size="small" round>Buy</yh-button>
           </div>
         </div>
@@ -502,11 +496,76 @@ In real e-commerce scenarios, lists often contain complex card layouts. Combinin
 </div>
 </DemoBlock>
 
+## API
+
+### Props
+
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| loading | Current loading state. Supports `v-model:loading`. | `boolean` | `false` |
+| finished | Whether all data has been loaded | `boolean` | `false` |
+| error | Whether the current load has failed. Supports `v-model:error`. | `boolean` | `false` |
+| threshold | Distance threshold in pixels before the end is reached | `number` | `100` |
+| direction | Scroll direction | `'vertical' \| 'horizontal'` | `'vertical'` |
+| loading-text | Per-instance loading text. Falls back to locale text when empty. | `string` | `''` |
+| finished-text | Per-instance finished text. Falls back to locale text when empty. | `string` | `''` |
+| error-text | Per-instance error text. Falls back to locale text when empty. | `string` | `''` |
+| immediate-check | Whether to run an initial load check after mount | `boolean` | `true` |
+| disabled | Disables automatic loading | `boolean` | `false` |
+| target | Selector of the external scroll container | `string` | `''` |
+| use-observer | Whether to use `IntersectionObserver` | `boolean` | `true` |
+| root-margin | `IntersectionObserver` root margin | `string` | `'0px'` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+| Event | Description | Parameters |
+| --- | --- | --- |
+| load | Triggered when the component needs the next page of data | `()` |
+| update:loading | Emits the new loading state | `(value: boolean)` |
+| update:error | Emits the new error state | `(value: boolean)` |
+
+### Slots
+
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Main scroll content | `-` |
+| loading | Custom content shown while loading | `-` |
+| finished | Custom content shown after all data is loaded | `-` |
+| error | Custom content shown when loading fails | `-` |
+
+### Expose
+
+| Name | Description | Type |
+| --- | --- | --- |
+| check | Manually checks whether another load should be triggered | `() => void` |
+| retry | Clears the error state and triggers another load | `() => void` |
+
+## Theme Variables
+
+`YhInfiniteScroll` supports `themeOverrides`, while its default appearance mainly consumes shared global tokens instead of a large component-specific CSS variable table.
+
+| Token | Description | Default |
+| --- | --- | --- |
+| `--yh-text-color-secondary` | Loading text color | `#86868b` |
+| `--yh-text-color-placeholder` | Finished text color | `#c0c4cc` |
+| `--yh-color-danger` | Error text color | `#f56c6c` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhInfiniteScrollProps` | Component props type |
+| `YhInfiniteScrollEmits` | Component emits type |
+| `YhInfiniteScrollSlots` | Component slots type |
+| `YhInfiniteScrollExpose` | Component expose type |
+| `YhInfiniteScrollInstance` | Component instance type |
+
 <style>
 .demo-container {
-  height: 320px; 
-  overflow-y: auto; 
-  border: 1px solid var(--yh-border-color); 
+  height: 320px;
+  overflow-y: auto;
+  border: 1px solid var(--yh-border-color);
   border-radius: 8px;
   background: var(--yh-bg-color-page);
 }
@@ -541,9 +600,8 @@ In real e-commerce scenarios, lists often contain complex card layouts. Combinin
 .shop-desc { font-size: 12px; color: var(--yh-color-text-secondary); margin-bottom: 10px; line-height: 1.4; }
 .shop-footer { display: flex; justify-content: space-between; align-items: center; }
 .shop-price { color: #f56c6c; font-weight: bold; font-size: 15px; }
-
 .demo-item {
-  padding: 14px 18px; 
+  padding: 14px 18px;
   border-bottom: 1px solid var(--yh-border-color-light);
   line-height: 1.5;
   background: var(--yh-bg-color);
@@ -563,55 +621,3 @@ In real e-commerce scenarios, lists often contain complex card layouts. Combinin
   color: var(--yh-color-success);
 }
 </style>
-
-## API
-
-### Props
-
-| Prop            | Description                                            | Type                         | Default                         |
-| --------------- | ------------------------------------------------------ | ---------------------------- | ------------------------------- |
-| loading         | Whether it is loading (supports `v-model`)             | `boolean`                    | `false`                         |
-| finished        | Whether all data has been loaded                       | `boolean`                    | `false`                         |
-| error           | Whether loading failed (supports `v-model`)            | `boolean`                    | `false`                         |
-| threshold       | Distance threshold (px) to trigger loading             | `number`                     | `100`                           |
-| direction       | Scroll direction                                       | `'vertical' \| 'horizontal'` | `'vertical'`                    |
-| loading-text    | Loading tip text                                       | `string`                     | `'Loading...'`                  |
-| finished-text   | Finished tip text                                      | `string`                     | `'No more items'`               |
-| error-text      | Error tip text                                         | `string`                     | `'Load failed, click to retry'` |
-| immediate-check | Whether to check loading immediately on initialization | `boolean`                    | `true`                          |
-| disabled        | Whether to disable scroll loading                      | `boolean`                    | `false`                         |
-| target          | Specifies the scroll container selector                | `string`                     | `''`                            |
-| use-observer    | Whether to use IntersectionObserver (recommended)      | `boolean`                    | `true`                          |
-| root-margin     | IntersectionObserver rootMargin config                 | `string`                     | `'0px'`                         |
-
-### Events
-
-| Event Name     | Description                            | Callback Parameters |
-| -------------- | -------------------------------------- | ------------------- |
-| load           | Called when more data should be loaded | `()`                |
-| update:loading | Updates loading status                 | `(val: boolean)`    |
-| update:error   | Updates error status                   | `(val: boolean)`    |
-
-### Slots
-
-| Slot Name | Description                                      |
-| --------- | ------------------------------------------------ |
-| default   | Main list content                                |
-| loading   | Custom content for loading status                |
-| finished  | Custom content for finished status               |
-| error     | Custom content for error status (click to retry) |
-
-### Expose
-
-| Name  | Description                                          | Type         |
-| ----- | ---------------------------------------------------- | ------------ |
-| check | Manually check if loading is needed                  | `() => void` |
-| retry | Retry loading (clears error state and triggers load) | `() => void` |
-
-### Theme Variables (CSS Variables)
-
-| Variable                      | Default   | Description            |
-| ----------------------------- | --------- | ---------------------- |
-| `--yh-color-text-secondary`   | `#86868b` | Loading text color     |
-| `--yh-color-text-placeholder` | `#c0c4cc` | Finished text color    |
-| `--yh-color-danger`           | `#f56c6c` | Error state text color |

@@ -264,3 +264,13 @@ export const Icon = YhIcon
  * YhIcon Props 类型
  */
 export type YhIconProps = InstanceType<typeof YhIcon>['$props']
+
+/**
+ * Internal helpers for unit tests only.
+ * Keep runtime behavior unchanged while allowing precise branch tests.
+ */
+export const __test__ = {
+  ensureSpinStyle,
+  resolveIconName,
+  createIconStyle
+}

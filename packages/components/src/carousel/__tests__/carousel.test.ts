@@ -172,4 +172,144 @@ describe('Carousel 组件', () => {
     expect(typeof exposed?.next).toBe('function')
     expect(typeof exposed?.jump).toBe('function')
   })
+
+  it('supports hover trigger dots and keyboard navigation', async () => {
+    const wrapper = mount(Carousel, {
+      props: {
+        dotTrigger: 'hover',
+        keyboard: true
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+          <y-carousel-item>3</y-carousel-item>
+        `
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+
+    await nextTick()
+    const dots = wrapper.findAll('.yh-carousel__dots-item')
+    await dots[2].trigger('mouseenter')
+    expect(wrapper.vm.currentIndex).toBe(2)
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }))
+    vi.runAllTimers()
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+  })
+
+  it('supports mousewheel and non-loop boundary', async () => {
+    const oldRaf = globalThis.requestAnimationFrame
+    globalThis.requestAnimationFrame = ((cb: FrameRequestCallback) => {
+      cb(0)
+      return 1
+    }) as typeof requestAnimationFrame
+
+    const wrapper = mount(Carousel, {
+      props: {
+        mousewheel: true,
+        loop: false
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+        `
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+
+    await nextTick()
+    const root = wrapper.find('.yh-carousel')
+    await root.trigger('wheel', { deltaY: 100 })
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+
+    await root.trigger('wheel', { deltaY: 100 })
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+    globalThis.requestAnimationFrame = oldRaf
+  })
+
+  it('toggles autoplay from false to true via watch branch', async () => {
+    const wrapper = mount(Carousel, {
+      props: {
+        autoplay: false,
+        interval: 200
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+        `
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(0)
+    await wrapper.setProps({ autoplay: true })
+    vi.advanceTimersByTime(250)
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+  })
+
+  it('pauses autoplay while hovering when pauseOnHover is true', async () => {
+    const wrapper = mount(Carousel, {
+      props: {
+        autoplay: true,
+        interval: 200,
+        pauseOnHover: true
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+        `
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+
+    await nextTick()
+    const root = wrapper.find('.yh-carousel')
+    await root.trigger('mouseenter')
+    vi.advanceTimersByTime(260)
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(0)
+
+    await root.trigger('mouseleave')
+    vi.advanceTimersByTime(260)
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+  })
+
+  it('hides arrows when showArrow is never', async () => {
+    const wrapper = mount(Carousel, {
+      props: {
+        showArrow: 'never'
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+        `
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+    await nextTick()
+    expect(wrapper.find('.yh-carousel__arrow--prev').exists()).toBe(false)
+    expect(wrapper.find('.yh-carousel__arrow--next').exists()).toBe(false)
+  })
 })

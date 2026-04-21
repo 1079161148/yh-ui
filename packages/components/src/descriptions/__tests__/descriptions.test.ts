@@ -140,6 +140,87 @@ describe('Descriptions', () => {
     expect(wrapper.find('.custom-label-item').exists()).toBe(true)
     expect(wrapper.find('.custom-content-item').exists()).toBe(true)
   })
+
+  it('should flatten fragment children and ignore non-item nodes', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { column: 2 },
+      slots: {
+        default: () => [
+          h('div', 'ignored'),
+          [
+            h(YhDescriptionsItem, { label: 'Nested 1' }, () => 'Content 1'),
+            h(YhDescriptionsItem, { label: 'Nested 2' }, () => 'Content 2')
+          ]
+        ]
+      }
+    })
+
+    expect(wrapper.findAll('.yh-descriptions__label')).toHaveLength(2)
+    expect(wrapper.text()).not.toContain('ignored')
+  })
+
+  it('should support slots, width and minWidth mappings', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        title: 'Fallback title',
+        extra: 'Fallback extra',
+        contentStyle: { backgroundColor: 'rgb(1, 2, 3)' }
+      },
+      slots: {
+        title: () => 'Slot title',
+        extra: () => 'Slot extra',
+        default: [
+          h(
+            YhDescriptionsItem,
+            {
+              width: 120,
+              minWidth: '88px',
+              contentStyle: { color: 'blue' }
+            },
+            {
+              label: () => 'Slot label',
+              default: () => 'Slot content'
+            }
+          )
+        ]
+      }
+    })
+
+    const label = wrapper.find('.yh-descriptions__label')
+    const content = wrapper.find('.yh-descriptions__content')
+
+    expect(wrapper.find('.yh-descriptions__title').text()).toBe('Slot title')
+    expect(wrapper.find('.yh-descriptions__extra').text()).toBe('Slot extra')
+    expect(label.text()).toContain('Slot label')
+    expect(content.text()).toBe('Slot content')
+    expect((label.element as HTMLElement).style.width).toBe('120px')
+    expect((label.element as HTMLElement).style.minWidth).toBe('88px')
+    expect((content.element as HTMLElement).style.backgroundColor).toBe('rgb(1, 2, 3)')
+    expect((content.element as HTMLElement).style.color).toBe('blue')
+  })
+
+  it('should hide colon when bordered and render vertical colspans', () => {
+    const bordered = mount(YhDescriptions, {
+      props: { border: true, colon: true },
+      slots: {
+        default: [h(YhDescriptionsItem, { label: 'No colon' }, () => 'Value')]
+      }
+    })
+    expect(bordered.find('.yh-descriptions__label').text()).not.toContain(':')
+
+    const vertical = mount(YhDescriptions, {
+      props: { direction: 'vertical', column: 3 },
+      slots: {
+        default: [h(YhDescriptionsItem, { label: 'Vertical', span: 2 }, () => 'Value')]
+      }
+    })
+
+    const verticalLabel = vertical.find('.yh-descriptions__label')
+    const verticalContent = vertical.find('.yh-descriptions__content')
+    expect(vertical.findAll('tr')).toHaveLength(2)
+    expect(verticalLabel.attributes('colspan')).toBe('3')
+    expect(verticalContent.attributes('colspan')).toBe('3')
+  })
   it('should apply theme overrides as inline css vars', () => {
     const wrapper = mount(YhDescriptions, {
       props: {

@@ -5,9 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateDayjsMonths = exports.setDayjsLocaleSync = exports.setDayjsLocale = exports.getDayjsLocale = void 0;
 var _dayjs = _interopRequireDefault(require("../dayjs.cjs"));
-require("dayjs/locale/en");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-const dayjsLocales = import.meta.glob(["../../../../node_modules/dayjs/locale/*.js", "!../../../../node_modules/dayjs/locale/en.js"], {
+const dayjsLocales = import.meta.glob(["../../../../node_modules/dayjs/locale/*.js"], {
   eager: false
 });
 const loadedLocales = /* @__PURE__ */new Set(["en"]);

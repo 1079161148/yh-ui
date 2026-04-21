@@ -337,4 +337,21 @@ describe('Theme System Comprehensive', () => {
 
     vi.stubGlobal('document', orig)
   })
+
+  it('initTheme 同时应用 responsive 与 followSystem', () => {
+    const matchMediaMock = vi.fn().mockImplementation(() => ({
+      matches: true,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn()
+    }))
+    window.matchMedia = matchMediaMock as typeof window.matchMedia
+
+    const t = initTheme({
+      persist: false,
+      responsive: { xs: { preset: 'purple' } },
+      followSystem: true
+    })
+    expect(t.dark).toBe(true)
+    t.destroy()
+  })
 })

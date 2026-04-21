@@ -1,6 +1,6 @@
-# 表单设计优势
+# 表单设计最佳实践
 
-YH-UI 的表单组件（尤其是 `FormSchema`）并非简单的 UI 包装，而是一个面向复杂业务场景设计的“高效渲染引擎”。
+YH-UI 的表单组件，尤其是 `FormSchema`，适合用于需要统一字段定义、校验规则和渲染逻辑的 schema 驱动表单场景。
 
 ## 为什么选择 YH-UI 表单？
 
@@ -9,19 +9,19 @@ YH-UI 的表单组件（尤其是 `FormSchema`）并非简单的 UI 包装，而
 在传统开发模式中，表单的布局、数据联动、校验逻辑往往分散在 `template`、`script` 和冗长的 `watch` 中。YH-UI 通过 `FormSchema` 将这些逻辑统一收敛到一份 JSON 配置中：
 
 - **声明式联动**：通过 `props`、`hidden` 函数直接根据当前模型状态计算 UI 表现。
-- **内聚布局**：内置 24 栅格系统，无需手动嵌套 `Row`/`Col`，代码行数减少约 60%。
+- **内聚布局**：Schema 支持基于列的布局配置，便于将相关表单结构集中维护。
 
 ### 2. 极致的类型安全 (DX)
 
-我们为表单提供了工业级的 TypeScript 支持：
+表单相关包同时暴露了实例类型，便于在业务中直接使用：
 
 - **精确推断**：导出的 `FormSchemaInstance` 提供了完整的 API 补全。
-- **零 any 约定**：所有校验函数、渲染函数均有明确的参数类型，杜绝运行时错误。
+- **公开实例类型**：可以从公开导出中引入 `FormSchemaInstance` 和 `FormInstance`。
 
 ### 3. 表单实力的安全性
 
-- **Ref 降级保护**：内置 `footerFormRef` 代理，解决了在组件挂载前访问实例可能导致的页面崩溃问题。
-- **自动类型校正**：支持布尔值（Switch）的自动类型识别，解决了常见的校验提示冲突。
+- **校验 API**：schema/form 实例都暴露了 `validate`、`resetFields`、`clearValidate`、`scrollToField`。
+- **模型访问**：`FormSchemaInstance` 还暴露了 `getModel`、`setFieldValue` 和 `formRef`。
 
 ## 高级应用示例
 
@@ -49,7 +49,7 @@ YH-UI 的表单组件（尤其是 `FormSchema`）并非简单的 UI 包装，而
 <script setup lang="ts">
 import { ref, reactive, h } from 'vue'
 import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
-import type { FormSchemaInstance } from '@yh-ui/components'
+import type { FormSchemaInstance } from '@yh-ui/yh-ui'
 
 // 数据模型
 const model = ref<Record<string, unknown>>({
@@ -198,7 +198,7 @@ const tsStep = `
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { FormSchemaInstance } from '@yh-ui/components'
+import type { FormSchemaInstance } from '@yh-ui/yh-ui'
 
 // 数据模型
 const model = ref<Record<string, unknown>>({

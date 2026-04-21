@@ -30,11 +30,11 @@ export default defineNuxtConfig({
 
 Why choose YH-UI for use with Nuxt?
 
-1.  **🚀 Zero-Configuration SSR Support**: All components undergo deep SSR optimization to ensure HTML is generated on the server, enhancing SEO and first-screen loading speeds without tedious configuration.
-2.  **🧩 Semantic Auto-import**: The module automatically registers all `Yh` components, Composables, and global methods. You just write the code; the IDE provides perfect hints, and no `import` is needed.
-3.  **⚡ Extreme Performance Optimization**: Supports Tree Shaking. Combined with Nuxt's code-splitting mechanism, only the components you truly use are bundled, keeping the package size to a minimum.
-4.  **🔒 Status Isolation and Safety**: Addressing global state pollution risks in SSR environments, we provide request-level isolation for `useZIndex` and `useId` to ensure the safety of concurrent multi-user access.
-5.  **🎨 CSS-First Style Loading**: YH-UI injects its packaged CSS styles by default and integrates smoothly with the Nuxt theme system without requiring Sass in app projects.
+1. **Nuxt 3/4 Module Integration**: The module is built for Nuxt `^3.11.0 || ^4.0.0-rc.1`.
+2. **Auto-imports**: The module auto-imports `Yh` components, directives, common hooks, and several global methods.
+3. **SSR-aware Utilities**: The runtime plugin creates a per-request z-index counter to avoid shared SSR state.
+4. **CSS Entry Injection**: With `importStyle: true`, the module injects `@yh-ui/components/style`.
+5. **Build Integration**: With `buildTranspile: true`, related YH-UI packages are added to Nuxt transpilation.
 
 ## Precautions
 
@@ -44,11 +44,11 @@ During use, please be sure to follow these points to avoid common SSR pitfalls:
 
 Since code executes on both the server and client simultaneously, direct access to `window`, `document`, or `localStorage` will cause server errors.
 
-- **Recommended Practice**: Use the `onMounted` hook or the environment check provided by Nuxt via `import { isClient } from '@yh-ui/utils'`.
+- **Recommended Practice**: Use the `onMounted` hook or the environment check provided by `@yh-ui/utils`.
 
 ### 2. Hydration Mismatch
 
-Vue errors will occur if the server-generated HTML differs from the initial client-rendered HTML (for example, generating random numbers or rendering the current time directly within `setup`).
+Vue errors will occur if the server-generated HTML differs from the initial client-rendered HTML.
 
 - **Recommended Practice**: Ensure consistency in rendered data or wrap dynamic content with the `<ClientOnly>` component.
 
@@ -65,7 +65,6 @@ export default defineNuxtConfig({
   modules: ['@yh-ui/nuxt'],
 
   yhUI: {
-    // CSS styles are injected by default; only set this when you want to disable them
     importStyle: true
   }
 })
@@ -76,11 +75,12 @@ The module injects the explicit CSS subpath `@yh-ui/components/style.css` into `
 
 ### Available Options
 
-| Option           | Type      | Default | Description                                                                              |
-| ---------------- | --------- | ------- | ---------------------------------------------------------------------------------------- |
-| `importStyle`    | `boolean` | `true`  | Whether to automatically inject YH-UI CSS styles; keep the default for pure CSS projects |
-| `prefix`         | `string`  | `'Yh'`  | Component prefix; for example, if set to `My`, component names will be `MyButton`        |
-| `buildTranspile` | `boolean` | `true`  | Whether to automatically transpile related dependencies                                  |
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `importStyle` | `boolean` | `true` | Whether to automatically inject YH-UI CSS styles |
+| `prefix` | `string` | `'Yh'` | Component prefix; for example, if set to `My`, component names will be `MyButton` |
+| `buildTranspile` | `boolean` | `true` | Whether to automatically transpile related dependencies |
+| `ssrOptimization.componentCache` | `boolean` | `true` | Whether to enable the module's component cache optimization option |
 
 When `importStyle` is `true`, the Nuxt module appends `@yh-ui/components/style.css` to `nuxt.options.css`.
 
@@ -93,7 +93,6 @@ All components starting with `Yh` are automatically imported, no manual registra
 ```vue
 <template>
   <div>
-    <!-- Use directly, no import needed -->
     <YhButton type="primary">Click me</YhButton>
     <YhInput v-model="value" placeholder="Input content" />
     <YhSelect v-model="selected">
@@ -104,7 +103,6 @@ All components starting with `Yh` are automatically imported, no manual registra
 </template>
 
 <script setup>
-// No need to import components
 const value = ref('')
 const selected = ref('')
 </script>
@@ -116,36 +114,22 @@ Commonly used hooks are also automatically imported:
 
 ```vue
 <script setup>
-// Use directly, no import needed
 const ns = useNamespace('my-component')
 const id = useId()
 const yhId = useYhId()
 const { nextZIndex } = useZIndex()
-
-// Generate BEM class names
-const className = computed(() => ns.b()) // 'yh-my-component'
-const blockClass = computed(() => ns.b('header')) // 'yh-my-component-header'
 </script>
 ```
 
-**Available Composables**:
-
-- `useNamespace` - BEM class name generation
-- `useId` - Vue/Nuxt native unique ID generation
-- `useYhId` - YH-UI hooks unique ID alias import
-- `useZIndex` - z-index management
-- `useLocale` - Internationalization
-- `useFormItem` - Form item integration
-- `useGlobalNamespace` - Global namespace
+Available composables include `useNamespace`, `useId`, `useYhId`, `useZIndex`, `useLocale`, `useFormItem`, and `useGlobalNamespace`.
 
 ### Global Method Auto-import
 
-Message and Notification methods are also automatically imported:
+Message utilities are also automatically imported:
 
 ```vue
 <script setup>
 const showSuccess = () => {
-  // Use directly, no import needed
   YhMessage.success('Operation successful!')
 }
 
@@ -156,41 +140,41 @@ const showNotification = () => {
     type: 'success'
   })
 }
+
+const openDialog = async () => {
+  await YhMessageBox.alert('Dialog content')
+}
 </script>
 ```
 
+The module also auto-imports `YhDialogMethod`, `YhLoading`, and `useAddressParser`.
+
 ## SSR Support
 
-YH-UI fully supports Server-Side Rendering (SSR), and all components have passed SSR compatibility tests.
+YH-UI can be used in SSR-based Nuxt projects, and the module includes SSR-oriented runtime handling for IDs and z-index state.
 
 ### SSR Safety
 
-#### ✅ Features Safe for SSR
+#### Features Safe for SSR
 
-- Rendering of all base components
+- Rendering of component markup
 - Props and event binding
 - Style application
 - BEM class name generation
-- ID generation (using Vue 3.5 native `useId`)
-- z-index management (application-level isolation)
+- ID generation through Vue 3.5 `useId`
+- z-index management with per-request state
 
-#### 🔒 Features Restricted to Client
+#### Features Restricted to Client
 
 The following features only take effect in client environments and are safely ignored during the SSR phase:
 
-- DOM operations (such as `focus()`, `blur()`)
-- Browser event listeners (such as `resize`, `scroll`)
+- DOM operations such as `focus()` and `blur()`
+- Browser event listeners such as `resize` and `scroll`
 - Accessing `window` or `document`
 
 ### Hydration Consistency
 
-YH-UI ensures the HTML structures rendered on the server and client are perfectly consistent, avoiding Hydration Mismatch errors.
-
-#### Internal Mechanisms
-
-1. **ID Generation**: Uses Vue 3.5+ native `useId()` API
-2. **Z-Index Management**: Each SSR request has an independent counter
-3. **DOM Access Protection**: All DOM operations are wrapped within `onMounted`
+The module keeps SSR IDs and z-index state isolated per request to reduce common hydration mismatches caused by shared runtime state.
 
 ### Best Practices
 
@@ -198,10 +182,9 @@ YH-UI ensures the HTML structures rendered on the server and client are perfectl
 
 ```vue
 <script setup>
-// ❌ Error: window does not exist during SSR
-const width = window.innerWidth
+// Error: window does not exist during SSR
+// const width = window.innerWidth
 
-// ✅ Correct: Access within onMounted
 const width = ref(0)
 onMounted(() => {
   width.value = window.innerWidth
@@ -209,15 +192,13 @@ onMounted(() => {
 </script>
 ```
 
-#### 2. Use isClient / isServer Checks
+#### 2. Use isClient Checks
 
 ```vue
 <script setup>
 import { isClient } from '@yh-ui/utils'
 
-// ✅ Correct: Conditional execution
 if (isClient) {
-  // Client-only logic
   console.log('Running in browser')
 }
 </script>
@@ -227,7 +208,6 @@ if (isClient) {
 
 ```vue
 <script setup>
-// ✅ Recommended: Use Nuxt data fetching methods
 const { data } = await useFetch('/api/data')
 </script>
 ```
@@ -242,7 +222,6 @@ const { data } = await useFetch('/api/data')
   <div class="container">
     <h1>YH-UI + Nuxt Example</h1>
 
-    <!-- Form -->
     <YhForm :model="form" label-width="100px">
       <YhFormItem label="Username">
         <YhInput v-model="form.username" placeholder="Please input username" />
@@ -266,16 +245,14 @@ const { data } = await useFetch('/api/data')
       </YhFormItem>
 
       <YhFormItem>
-        <YhButton type="primary" @click="handleSubmit"> Submit </YhButton>
-        <YhButton @click="handleReset"> Reset </YhButton>
+        <YhButton type="primary" @click="handleSubmit">Submit</YhButton>
+        <YhButton @click="handleReset">Reset</YhButton>
       </YhFormItem>
     </YhForm>
   </div>
 </template>
 
 <script setup lang="ts">
-// Components and methods are auto-imported
-
 const form = reactive({
   username: '',
   password: '',
@@ -292,45 +269,13 @@ const handleReset = () => {
   form.type = ''
 }
 </script>
-
-<style scoped>
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-</style>
 ```
 
 ### Page with Data Fetching
 
 ```vue
 <!-- pages/users.vue -->
-<template>
-  <div class="user-list">
-    <YhCard v-for="user in users" :key="user.id" class="user-card">
-      <template #header>
-        <div class="card-header">
-          <span>{{ user.name }}</span>
-          <YhTag :type="user.status">{{ user.status }}</YhTag>
-        </div>
-      </template>
-
-      <div class="user-info">
-        <p>Email: {{ user.email }}</p>
-        <p>Phone: {{ user.phone }}</p>
-      </div>
-
-      <template #footer>
-        <YhButton type="primary" size="small" @click="editUser(user)"> Edit </YhButton>
-        <YhButton type="danger" size="small" @click="deleteUser(user.id)"> Delete </YhButton>
-      </template>
-    </YhCard>
-  </div>
-</template>
-
 <script setup lang="ts">
-// Use Nuxt data fetching (SSR friendly)
 const { data: users } = await useFetch('/api/users')
 
 const editUser = (user) => {
@@ -341,41 +286,22 @@ const editUser = (user) => {
   })
 }
 
-const deleteUser = async (userid) => {
+const deleteUser = async (userId) => {
   try {
-    await $fetch(`/api/users/${id}`, { method: 'DELETE' })
+    await $fetch(`/api/users/${userId}`, { method: 'DELETE' })
     YhMessage.success('Deleted successfully')
   } catch (error) {
     YhMessage.error('Deletion failed')
   }
 }
 </script>
-
-<style scoped>
-.user-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.user-card {
-  height: 100%;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-</style>
 ```
 
 ## Theme Customization
 
 ### Global Configuration
 
-Use the `ConfigProvider` component for global configuration:
+Use the `YhConfigProvider` component for global configuration:
 
 ```vue
 <!-- app.vue -->
@@ -388,12 +314,10 @@ Use the `ConfigProvider` component for global configuration:
 </template>
 
 <script setup lang="ts">
-const theme = ref({
-  primaryColor: '#6366f1',
-  borderRadius: '8px'
-})
+import { en } from '@yh-ui/locale'
 
-const locale = ref('en-US')
+const theme = ref('default')
+const locale = ref(en)
 </script>
 ```
 
@@ -404,103 +328,26 @@ Override CSS variables in your global styles:
 ```css
 /* assets/css/main.css */
 :root {
-  /* Primary color */
   --yh-color-primary: #6366f1;
   --yh-color-success: #10b981;
   --yh-color-warning: #f59e0b;
   --yh-color-danger: #ef4444;
-
-  /* Border radius */
   --yh-border-radius-base: 8px;
-
-  /* Font */
   --yh-font-family: 'Inter', sans-serif;
 }
 ```
 
-## Performance Optimization
-
-### Tree Shaking
-
-YH-UI supports Tree Shaking—unused components are not bundled:
-
-```vue
-<template>
-  <!-- Only Button is used; other components will not be bundled -->
-  <YhButton>Click Me</YhButton>
-</template>
-```
-
-### On-demand Loading
-
-For large components (such as Table or Transfer), consider dynamic importing when needed:
-
-```vue
-<script setup>
-// Dynamic import (though components are auto-imported, this can be used for code-splitting)
-const showTree = ref(false)
-
-const loadTreeSelect = async () => {
-  showTree.value = true
-}
-</script>
-
-<template>
-  <div>
-    <YhButton @click="loadTreeSelect">Load TreeSelect</YhButton>
-    <YhTreeSelect v-if="showTree" v-model="value" :data="treeData" />
-  </div>
-</template>
-```
-
 ## Type Support
 
-YH-UI provides complete TypeScript type definitions, enabling type safety and autocomplete:
+YH-UI provides TypeScript type definitions through the public package exports:
 
 ```vue
 <script setup lang="ts">
-import type { FormInstance } from '@yh-ui/components'
+import type { FormInstance } from '@yh-ui/yh-ui'
 
 const formRef = ref<FormInstance>()
-
-const validate = async () => {
-  try {
-    await formRef.value?.validate()
-    // Validation passed
-  } catch (error) {
-    // Validation failed
-  }
-}
-</script>
-
-<template>
-  <YhForm ref="formRef" :model="form">
-    <!-- ... -->
-  </YhForm>
-</template>
-```
-
-## AI Components with Nuxt
-
-YH-UI's AI component series (such as `AiChat`, `AiBubble`, `AiBubbleList`, etc.) are deeply optimized for Nuxt:
-
-### Auto-import AI Components
-
-No configuration needed, use them directly in your pages:
-
-```vue
-<template>
-  <YhAiBubbleList :items="messages" :virtual-scroll="true" />
-</template>
-
-<script setup>
-const messages = ref([{ role: 'assistant', content: 'Hello! I am a Nuxt-powered AI assistant.' }])
 </script>
 ```
-
-### SSR Compatibility
-
-Features within AI components that involve browser APIs (such as `Pyodide` runtime, voice recording, Markdown animations, etc.) automatically detect the environment and safely downgrade during rendering, ensuring that the initial HTML is generated correctly without errors.
 
 ## Frequently Asked Questions
 
@@ -509,9 +356,8 @@ Features within AI components that involve browser APIs (such as `Pyodide` runti
 Ensure you have correctly installed and registered the `@yh-ui/nuxt` module:
 
 ```typescript
-// nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@yh-ui/nuxt'] // Ensure this line exists
+  modules: ['@yh-ui/nuxt']
 })
 ```
 
@@ -522,47 +368,33 @@ Check whether automatic style injection was explicitly disabled:
 ```typescript
 export default defineNuxtConfig({
   yhUI: {
-    importStyle: true // This is already the default; only restore it if you turned it off
+    importStyle: true
   }
 })
 ```
 
 ### 3. Hydration Mismatch error?
 
-This is usually caused by accessing `window` or `document` directly within `setup`. Please use `onMounted`:
-
-```vue
-<script setup>
-// ❌ Error
-const width = ref(window.innerWidth)
-
-// ✅ Correct
-const width = ref(0)
-onMounted(() => {
-  width.value = window.innerWidth
-})
-</script>
-```
+This is usually caused by accessing `window` or `document` directly within `setup`. Please use `onMounted`.
 
 ### 4. How to disable auto-import for a specific component?
 
-Currently, all components are automatically imported. If you need fine-grained control, you can import them manually:
+If you need fine-grained control, you can import the component manually from the public package:
 
 ```vue
 <script setup>
-import { YhButton } from '@yh-ui/components'
-// Explicit imports will override automatic ones
+import { YhButton } from '@yh-ui/yh-ui'
 </script>
 ```
 
 ## Getting Help
 
 - [GitHub Issues](https://github.com/1079161148/yh-ui/issues)
-- [Documentation](https://yh-ui.example.com)
+- [Documentation](https://1079161148.github.io/yh-ui/)
 - [Changelog](https://github.com/1079161148/yh-ui/blob/main/CHANGELOG.md)
 
 ## Related Links
 
-- [Nuxt Official Documentation](https://nuxtjs.org)
+- [Nuxt Official Documentation](https://nuxt.com)
 - [Vue 3 Documentation](https://vuejs.org)
-- [YH-UI Component Documentation](/)
+- [YH-UI Component Documentation](/en/)

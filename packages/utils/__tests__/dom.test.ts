@@ -12,7 +12,8 @@ import {
   removeClass,
   toggleClass,
   getScrollContainer,
-  isInViewport
+  isInViewport,
+  getScrollbarWidth
 } from '../src/dom'
 
 describe('utils/dom', () => {
@@ -46,12 +47,34 @@ describe('utils/dom', () => {
 
     it('should catch error in getStyle and return inline style', () => {
       const el = document.createElement('div')
-      el.style.color = 'pink'
-      const getComputedStyleSpy = vi.spyOn(window, 'getComputedStyle').mockImplementation(() => {
-        throw new Error('mock error')
-      })
-      expect(getStyle(el, 'color')).toBe('pink')
+      // do not set inline value for this key, forcing computedStyle path and catch branch
+      const getComputedStyleSpy = vi
+        .spyOn(document.defaultView as Window, 'getComputedStyle')
+        .mockImplementation(() => {
+          throw new Error('mock error')
+        })
+      expect(getStyle(el, 'color')).toBe('')
       getComputedStyleSpy.mockRestore()
+    })
+
+    it('should read computed style when inline style is empty', () => {
+      const el = document.createElement('div')
+      const fakeComputed = { color: 'rgb(1, 2, 3)' } as unknown as CSSStyleDeclaration
+      const getComputedStyleSpy = vi
+        .spyOn(document.defaultView as Window, 'getComputedStyle')
+        .mockReturnValue(fakeComputed)
+      expect(getStyle(el, 'color')).toBe('rgb(1, 2, 3)')
+      getComputedStyleSpy.mockRestore()
+    })
+
+    it('should return empty string when computed style object is unavailable', () => {
+      const el = document.createElement('div')
+      const originalDefaultView = Object.getOwnPropertyDescriptor(document, 'defaultView')
+      Object.defineProperty(document, 'defaultView', { value: undefined, configurable: true })
+      expect(getStyle(el, 'color')).toBe('')
+      if (originalDefaultView) {
+        Object.defineProperty(document, 'defaultView', originalDefaultView)
+      }
     })
   })
 
@@ -241,6 +264,11 @@ describe('utils/dom', () => {
       expect(container).toBe(parent)
       document.body.removeChild(parent)
     })
+
+    it('should return undefined when parent chain ends without document/body hit', () => {
+      const detached = document.createElement('div')
+      expect(getScrollContainer(detached)).toBeUndefined()
+    })
   })
 
   // ======================== isInViewport ========================
@@ -283,6 +311,58 @@ describe('utils/dom', () => {
       document.body.appendChild(el)
       expect(isInViewport(el)).toBe(false)
       document.body.removeChild(el)
+    })
+
+    it('should use documentElement width fallback when window.innerWidth is 0', () => {
+      const el = document.createElement('div')
+      el.getBoundingClientRect = () => ({
+        top: 10,
+        left: 10,
+        bottom: 100,
+        right: 100,
+        width: 90,
+        height: 90,
+        x: 10,
+        y: 10,
+        toJSON: () => {}
+      })
+
+      const widthDesc = Object.getOwnPropertyDescriptor(window, 'innerWidth')
+      Object.defineProperty(window, 'innerWidth', { value: 0, configurable: true })
+      document.documentElement.style.width = '200px'
+      Object.defineProperty(document.documentElement, 'clientWidth', { value: 200, configurable: true })
+
+      expect(isInViewport(el)).toBe(true)
+
+      if (widthDesc) Object.defineProperty(window, 'innerWidth', widthDesc)
+    })
+  })
+
+  describe('getScrollbarWidth', () => {
+    it('returns a non-negative width and caches result', () => {
+      const a = getScrollbarWidth()
+      const b = getScrollbarWidth()
+      expect(typeof a).toBe('number')
+      expect(a).toBeGreaterThanOrEqual(0)
+      expect(b).toBe(a)
+    })
+  })
+
+  describe('server-like branches', () => {
+    it('covers !isClient guards by importing module without window', async () => {
+      vi.resetModules()
+      const prevWindow = (globalThis as any).window
+      const prevDocument = (globalThis as any).document
+      vi.stubGlobal('window', undefined as unknown as Window)
+      vi.stubGlobal('document', undefined as unknown as Document)
+
+      const domMod = await import('../src/dom')
+      expect(domMod.getScrollContainer(null as unknown as HTMLElement)).toBeUndefined()
+      expect(domMod.getScrollbarWidth()).toBe(0)
+
+      vi.stubGlobal('window', prevWindow)
+      vi.stubGlobal('document', prevDocument)
+      vi.resetModules()
     })
   })
 })

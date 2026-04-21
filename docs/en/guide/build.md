@@ -74,7 +74,7 @@ We have configured the modern `exports` field in `package.json` to support multi
 Suitable for modern tools like Vite, Nuxt 3, and Webpack 5:
 
 ```javascript
-import { YhButton } from '@yh-ui/components'
+import { YhButton } from '@yh-ui/yh-ui'
 ```
 
 #### CommonJS
@@ -82,7 +82,7 @@ import { YhButton } from '@yh-ui/components'
 Suitable for Node.js or older Webpack environments:
 
 ```javascript
-const { YhButton } = require('@yh-ui/components')
+const { YhButton } = require('@yh-ui/yh-ui')
 ```
 
 #### Local Import (Tree Shaking)
@@ -90,7 +90,7 @@ const { YhButton } = require('@yh-ui/components')
 Thanks to the `mkdist` structure, you can point directly to specific files for ultimate optimization:
 
 ```javascript
-import YhButton from '@yh-ui/components/dist/button/index.mjs'
+import { YhButton } from '@yh-ui/yh-ui'
 ```
 
 ## Important Notes

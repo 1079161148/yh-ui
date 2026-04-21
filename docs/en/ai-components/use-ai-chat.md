@@ -206,7 +206,7 @@ It safely halts all subsequent fetches entirely by invoking the native browser `
 ## Conversation Sidebar Navigation (useAiConversations)
 
 A complete ChatGPT-like client requires managing side menus.
-The `useAiConversations` quickly sets up immutable data lists for chats that securely handles state changes.
+The `useAiConversations` hook quickly sets up a managed conversation list for sidebar state.
 
 <DemoBlock title="Conversation Management Hook" :ts-code="tsConv" :js-code="toJs(tsConv)">
   <div style="display: flex; gap: 16px;">
@@ -232,22 +232,29 @@ The `useAiConversations` quickly sets up immutable data lists for chats that sec
 
 ### useAiChat Options
 
-| Property          | Description                                                                                                         | Type              |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `initialMessages` | Array of default chat records                                                                                       | `AiChatMessage[]` |
-| `request`         | Core response adapter: handles REST or streaming requests (AsyncGenerator) containing history and abort controller. | `Function`        |
-| `idGenerator`     | Replaces random ID strings or UUID.                                                                                 | `() => string`    |
-| `onError`         | Hook triggered when catching unpredictable errors                                                                   | `(err) => void`   |
+| Property          | Description                                                                                                         | Type                |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `initialMessages` | Array of default chat records                                                                                       | `AiChatMessage[]`   |
+| `request`         | Request adapter with signature `(message, history, abortSignal) => AsyncGenerator \| Promise<string \| Response>`  | `Function`          |
+| `idGenerator`     | Replaces the default random ID generator                                                                            | `() => string`      |
+| `parser`          | SSE / stream chunk parser for different vendor formats                                                              | `StreamChunkParser` |
+| `typewriter`      | Enable or disable the built-in typewriter effect                                                                    | `boolean`           |
+| `charsPerFrame`   | Number of characters rendered per frame in typewriter mode                                                          | `number`            |
+| `systemPrompt`    | System prompt automatically prepended to request history                                                            | `string`            |
+| `onError`         | Error callback                                                                                                      | `(err) => void`     |
+| `onFinish`        | Callback fired when the assistant message finishes                                                                  | `(message) => void` |
 
 ### useAiChat Returns
 
 The state hook unpacks all data and methods automatically:
 
-| Property        | Description                                                   | Type                                 |
-| --------------- | ------------------------------------------------------------- | ------------------------------------ |
-| `messages`      | Returns state representation bound directly to conversations. | `Ref<AiChatMessage[]>`               |
-| `isGenerating`  | Checking networking actions.                                  | `Ref<boolean>`                       |
-| `sendMessage`   | Main trigger appending custom queries to AI                   | `(content: string) => Promise<void>` |
-| `stop`          | Stop streaming and invoke local network suspension.           | `() => void`                         |
-| `clear`         | Clears local history tracking window                          | `() => void`                         |
-| `removeMessage` | Single deletion handler                                       | `(id: string) => void`               |
+| Property        | Description                                                   | Type                                                  |
+| --------------- | ------------------------------------------------------------- | ----------------------------------------------------- |
+| `messages`      | Returns state representation bound directly to conversations. | `Ref<AiChatMessage[]>`                                |
+| `isGenerating`  | Whether the assistant is currently generating.                | `Ref<boolean>`                                        |
+| `isSending`     | Semantic alias of `isGenerating`.                             | `ComputedRef<boolean>`                                |
+| `sendMessage`   | Main trigger appending custom queries to AI                   | `(content: string) => Promise<void>`                  |
+| `stop`          | Stop the current generation and settle message state.         | `() => void`                                          |
+| `clear`         | Clears local history tracking window                          | `() => void`                                          |
+| `removeMessage` | Single deletion handler                                       | `(id: string) => void`                                |
+| `updateMessage` | Update a specific message in place                            | `(id: string, patch: Partial<AiChatMessage>) => void` |

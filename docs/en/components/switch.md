@@ -489,3 +489,13 @@ The Switch component is deeply optimized for SSR, ensuring that handle positions
 | `--yh-switch-height` | Total switch height | `20px` |
 | `--yh-switch-button-size` | Sliding handle size | `16px` |
 | `--yh-switch-font-size` | Font size | `var(--yh-font-size-base)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSwitchProps` | Component props type |
+| `YhSwitchEmits` | Component emits type |
+| `YhSwitchSlots` | Component slots type |
+| `YhSwitchExpose` | Component expose type |
+| `YhSwitchInstance` | Component instance type |

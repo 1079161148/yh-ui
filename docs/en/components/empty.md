@@ -188,7 +188,15 @@ After installing the `@yh-ui/nuxt` module, the `YhEmpty` component is auto-regis
 | image       | Custom image area                           |
 | description | Custom description text                     |
 
-## Theme Variables
+### Events
+
+This component does not expose component events.
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Theme Variables
 
 | Variable                           | Description                               | Default                                   |
 | ---------------------------------- | ----------------------------------------- | ----------------------------------------- |
@@ -200,3 +208,11 @@ After installing the `@yh-ui/nuxt` module, the `YhEmpty` component is auto-regis
 | `--yh-empty-image-fill2`           | Default illustration secondary fill color | `#f5f5f7`                                 |
 | `--yh-empty-plane-bg`              | Default illustration plane background     | `#f5f5f7`                                 |
 | `--yh-empty-comment-fill`          | Default illustration comment fill color   | `#dce0e6`                                 |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhEmptyProps` | Props type for `YhEmpty` |
+| `YhEmptySlots` | Slots type for `YhEmpty` |
+| `YhEmptyInstance` | Public instance type for `YhEmpty` |

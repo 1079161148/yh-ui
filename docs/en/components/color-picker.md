@@ -207,6 +207,7 @@ The value display area at the bottom has been upgraded to a **responsive input f
 | size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
 | disabled | Whether disabled | `boolean` | `false` |
 | popper-class | Panel custom class | `string` | — |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -215,13 +216,36 @@ The value display area at the bottom has been upgraded to a **responsive input f
 | change | Triggered when a color is confirmed | `(val: string)` |
 | active-change | Triggered when color changes in real-time within the panel | `(val: string)` |
 
-## Theme Variables
+### Slots
+
+This component does not expose component slots.
+
+### Expose
+
+| Name | Description | Type |
+| --- | --- | --- |
+| `visible` | Current panel visibility state. | `Ref<boolean>` |
+| `togglePopper` | Toggle the panel open state. | `() => void` |
+| `handleClear` | Clear the current color value. | `() => void` |
+| `handleConfirm` | Confirm the current color value. | `() => void` |
+
+### Theme Variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
 | `--yh-color-picker-width` | Component base width | `60px` |
 | `--yh-color-picker-panel-width` | Expanded panel width | `280px` |
 | `--yh-color-picker-border-radius` | Border radius | `12px` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhColorPickerProps` | Props type for `YhColorPicker` |
+| `YhColorPickerEmits` | Emits type for `YhColorPicker` |
+| `YhColorPickerSlots` | Slots type for `YhColorPicker` |
+| `YhColorPickerExpose` | Expose type for `YhColorPicker` |
+| `YhColorPickerInstance` | Public instance type for `YhColorPicker` |
 
 <style scoped>
 .demo-showcase {

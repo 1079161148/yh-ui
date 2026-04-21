@@ -24,7 +24,7 @@ app.mount('#app')
 
 ## 2. Manual On-demand Import
 
-Leveraging Vue 3's **Composition API**, you can import component packages only on the pages that need them, enjoying extreme Tree Shaking optimization.
+Leveraging Vue 3's **Composition API**, you can import component packages only on the pages that need them, enjoying tree-shaking optimization.
 
 ```vue
 <!-- App.vue -->
@@ -41,7 +41,7 @@ For full installation, prefer importing styles via `@yh-ui/yh-ui/css`, which is 
 
 ## 3. Global Configuration
 
-YH-UI provides a global configuration method `createYhUI` that allows you to customize the library's behavior (such as default component sizes, Z-Index, etc.).
+YH-UI provides `createYhUI` for plugin installation. Runtime global settings such as `theme`, `locale`, `size`, and `zIndex` are still read from `YhConfigProvider`.
 
 ```ts
 // main.ts
@@ -51,29 +51,22 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-const yhUI = createYhUI({
-  // Globally define the default size of components: 'small' | 'default' | 'large'
-  size: 'default',
-  // Base z-index for pop-up components
-  zIndex: 3000,
-  // Style class name prefix (default "yh")
-  namespace: 'yh'
-})
+const yhUI = createYhUI()
 
 app.use(yhUI)
 app.mount('#app')
 ```
 
-## 4. Use in Nuxt 3 (Recommended)
+## 4. Use in Nuxt 3/4 (Recommended)
 
-If you are using the Nuxt 3 framework, we provide exclusive module support. You can enjoy automatic on-demand loading and SSR optimization with a single step.
+If you are using Nuxt 3/4, install and register `@yh-ui/nuxt` to get module integration, auto-imports, and the package CSS entry.
 
-👉 [View Nuxt Integration Guide](/guide/nuxt)
+👉 [View Nuxt Integration Guide](/en/guide/nuxt)
 
-## 🏁 Next Steps
+## Next Steps
 
 Congratulations! You have successfully run YH-UI. Next:
 
-- 🛠️ [Browse Component Library](/components/button) - Explore all available components.
-- 🎨 [Customize Themes](/guide/theming) - Create your unique design style.
-- ⚡ [Performance Optimization](/guide/design) - Learn how to further optimize your application.
+- [Browse Component Library](/en/components/button) - Explore all available components.
+- [Customize Themes](/en/guide/theming) - Create your unique design style.
+- [Design Specification](/en/guide/design) - Review the theme variables and design tokens used by the library.

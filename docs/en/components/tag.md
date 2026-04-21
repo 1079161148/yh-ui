@@ -1,4 +1,4 @@
-# Tag
+﻿# Tag
 
 Used for marking and selection.
 
@@ -469,12 +469,13 @@ The CSS for the Tag component is highly optimized/atomic, adding minimal style o
 | round | Whether the tag has rounded corners | `boolean` | `false` |
 | color | Custom background color | `string` | — |
 | hit | Whether the tag has a border stroke | `boolean` | `false` |
-| disable-transitions | Whether to disable fade animations | `boolean` | `false` |
+| disable-transitions | Compatibility prop. The current template and stylesheet do not consume this option | `boolean` | `false` |
 | checkable | Whether the tag is selectable | `boolean` | `false` |
 | checked / v-model:checked | Whether the tag is currently selected | `boolean` | `false` |
 | editable | Whether the tag is editable (double-click to edit) | `boolean` | `false` |
-| icon | Left icon component | `Component` | — |
-| suffix-icon | Right icon component | `Component` | — |
+| icon | Left icon. Component values render directly; `string` values are currently declared but not rendered by the template | `string \| Component` | `undefined` |
+| suffix-icon | Right icon. Component values render directly; `string` values are currently declared but not rendered by the template | `string \| Component` | `undefined` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -492,15 +493,33 @@ The CSS for the Tag component is highly optimized/atomic, adding minimal style o
 | --- | --- |
 | default | Tag content |
 | icon | Custom left icon |
-| suffix-icon | Custom right icon |
-| close-icon | Custom close icon |
+| suffixIcon | Custom right icon |
+| closeIcon | Custom close icon |
 
 ## Theme Variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `--yh-tag-font-size` | Font size | `var(--yh-font-size-xs)` |
-| `--yh-tag-border-radius` | Border radius | `var(--yh-radius-sm)` |
 | `--yh-tag-bg-color` | Background color | (varies by type) |
 | `--yh-tag-border-color` | Border color | (varies by type) |
 | `--yh-tag-text-color` | Text color | (varies by type) |
+| `--yh-tag-hover-color` | Accent color used by interaction states | `var(--yh-color-primary)` |
+
+Other size, radius, and typography values still come from shared theme tokens such as `--yh-font-size-xs`, `--yh-radius-sm`, and `--yh-radius-round`.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhTagProps` | Component props type |
+| `YhTagEmits` | Component emits type |
+| `YhTagSlots` | Component slots type |
+| `YhTagType` | Tag type union |
+| `YhTagSize` | Tag size union |
+| `YhTagEffect` | Tag effect union |
+| `YhTagInstance` | Component instance type |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+

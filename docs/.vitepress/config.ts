@@ -33,14 +33,14 @@ sidebar['/en/guide/'] = [
     { text: 'Use in Nuxt', link: '/en/guide/nuxt' },
     { text: 'Changelog', link: '/en/guide/changelog' },
     { text: 'Build Guide', link: '/en/guide/build' },
-    { text: 'Form Design Advantages', link: '/en/guide/form-best-practices' },
-    { text: 'Internationalization', link: '/en/guide/i18n' }
+    { text: 'Form Design Best Practices', link: '/en/guide/form-best-practices' },
+    { text: 'Internationalization (i18n)', link: '/en/guide/i18n' }
   ]),
   group('Advanced', [
     { text: 'Theme System', link: '/en/guide/theme' },
-    { text: 'Theme Examples', link: '/en/guide/theme-examples' },
-    { text: 'Theming', link: '/en/guide/theming' },
-    { text: 'Design Guidelines', link: '/en/guide/design' }
+    { text: 'Theme System Examples', link: '/en/guide/theme-examples' },
+    { text: 'Theme Customization', link: '/en/guide/theming' },
+    { text: 'Design Specification', link: '/en/guide/design' }
   ])
 ]
 
@@ -694,7 +694,10 @@ export default defineConfig({
     }
   },
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png?v=2' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg?v=2' }],
+    ['link', { rel: 'shortcut icon', href: '/favicon.ico?v=2' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png?v=2' }],
     ['meta', { name: 'theme-color', content: '#409eff' }]
   ],
   themeConfig: {

@@ -298,6 +298,7 @@ InputNumber handles numeric precision and boundary constraints during the SSR ph
 | validator | Custom validation function | `(value: number \| undefined) => boolean \| string` | — |
 | placeholder | Input placeholder | `string` | — |
 | value-on-clear | Value when cleared | `number \| null \| 'min' \| 'max'` | `null` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -326,7 +327,9 @@ InputNumber handles numeric precision and boundary constraints during the SSR ph
 | blur | Blur the input | `() => void` |
 | clear | Clear the value | `() => void` |
 
-## Theme Variables
+### Theme Variables
+
+`YhInputNumber` supports `themeOverrides`. The component itself consumes the following numeric-input CSS variables:
 
 | Variable | Description | Default |
 | --- | --- | --- |
@@ -336,3 +339,15 @@ InputNumber handles numeric precision and boundary constraints during the SSR ph
 | `--yh-input-number-bg-color` | Background color | `var(--yh-fill-color-blank)` |
 | `--yh-input-number-border-color` | Border color | `var(--yh-border-color)` |
 | `--yh-input-number-btn-color` | Button color | `var(--yh-text-color-secondary)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhInputNumberProps` | Props type for `YhInputNumber` |
+| `YhInputNumberEmits` | Emits type for `YhInputNumber` |
+| `YhInputNumberSlots` | Slots type for `YhInputNumber` |
+| `YhInputNumberExpose` | Expose type for `YhInputNumber` |
+| `YhInputNumberSize` | Input-number size union |
+| `YhInputNumberControlsPosition` | Controls-position union |
+| `YhInputNumberInstance` | Public instance type for `YhInputNumber` |

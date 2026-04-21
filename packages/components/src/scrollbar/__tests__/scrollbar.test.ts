@@ -63,4 +63,94 @@ describe('YhScrollbar', () => {
     expect(typeof exposed?.setScrollTop).toBe('function')
     expect(typeof exposed?.setScrollLeft).toBe('function')
   })
+
+  it('shows custom thumb and handles drag on thumb', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: { height: '80px', native: false },
+      slots: {
+        default: '<div style="height: 800px">Tall</div>'
+      }
+    })
+
+    await wrapper.vm.$nextTick()
+    exposedUpdate(wrapper)
+
+    const thumb = wrapper.find('.yh-scrollbar__thumb')
+    expect(thumb.exists()).toBe(true)
+
+    await thumb.trigger('mousedown', { button: 0, clientX: 10, clientY: 10 })
+    document.dispatchEvent(
+      new MouseEvent('mousemove', { bubbles: true, clientX: 10, clientY: 40 })
+    )
+    document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }))
+  })
+
+  it('handles track click for scroll position', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: { height: '80px', native: false },
+      slots: {
+        default: '<div style="height: 800px">Tall</div>'
+      }
+    })
+
+    await wrapper.vm.$nextTick()
+    exposedUpdate(wrapper)
+
+    const bar = wrapper.find('.yh-scrollbar__bar')
+    if (bar.exists()) {
+      await bar.trigger('mousedown', {
+        button: 0,
+        clientX: 50,
+        clientY: 5
+      })
+    }
+  })
+
+  it('emits scroll payload and supports scroll setters', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: { height: '80px' },
+      slots: { default: '<div style="height: 800px; width: 800px">Tall</div>' }
+    })
+    await wrapper.vm.$nextTick()
+    const exposed = (wrapper.vm as any).$?.exposed
+    exposed?.setScrollTop(30)
+    exposed?.setScrollLeft(20)
+
+    const wrap = wrapper.find('.yh-scrollbar__wrap')
+    await wrap.trigger('scroll')
+    expect(wrapper.emitted('scroll')).toBeTruthy()
+    expect(wrapper.emitted('scroll')?.[0]?.[0]).toEqual(
+      expect.objectContaining({ scrollTop: 30, scrollLeft: 20 })
+    )
+  })
+
+  it('supports scrollTo object and number overloads', async () => {
+    const wrapper = mount(Scrollbar, {
+      slots: { default: '<div style="height: 1200px; width: 1200px">Tall</div>' }
+    })
+    await wrapper.vm.$nextTick()
+    const exposed = (wrapper.vm as any).$?.exposed
+
+    exposed?.scrollTo({ top: 40, left: 10 })
+    exposed?.scrollTo(12, 22)
+    exposed?.update()
+    expect(typeof exposed?.scrollTo).toBe('function')
+  })
+
+  it('handles noresize switch branch without throwing', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: {
+        noresize: true
+      },
+      slots: { default: '<div>xx</div>' }
+    })
+    await wrapper.setProps({ noresize: false })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('.yh-scrollbar').exists()).toBe(true)
+  })
 })
+
+function exposedUpdate(wrapper: ReturnType<typeof mount>) {
+  const exposed = (wrapper.vm as any).$?.exposed
+  exposed?.update?.()
+}

@@ -12,6 +12,31 @@ const BPMN_NS = 'http://www.omg.org/spec/BPMN/20100524/MODEL'
 const BPMN_DI_NS = 'http://www.omg.org/spec/BPMN/20100524/DI'
 const BPMN_DC_NS = 'http://www.omg.org/spec/BPMN/20100524/DC'
 
+/**
+ * 按命名空间 + localName 查找首个元素。
+ * happy-dom 下对 Document 调用 getElementsByTagNameNS 可能返回空集合，故增加属性遍历兜底。
+ */
+function firstByLocalNS(doc: Document | Element, ns: string, localName: string): Element | null {
+  const all = allByLocalNS(doc, ns, localName)
+  return all.length > 0 ? all[0]! : null
+}
+
+/** 同 firstByLocalNS，返回全部匹配元素 */
+function allByLocalNS(root: Document | Element, ns: string, localName: string): Element[] {
+  const fromNs = root.getElementsByTagNameNS(ns, localName)
+  if (fromNs.length > 0) return Array.from(fromNs)
+
+  const out: Element[] = []
+  const all = root.getElementsByTagName('*')
+  for (let i = 0; i < all.length; i++) {
+    const el = all[i]
+    if (el.localName === localName && el.namespaceURI === ns) {
+      out.push(el)
+    }
+  }
+  return out
+}
+
 // BPMN 节点类型映射
 const NODE_TYPE_TO_BPMN: Record<string, string> = {
   'bpmn-start': 'startEvent',
@@ -247,16 +272,16 @@ export function bpmnXmlToFlow(
   }
 
   // 获取流程信息
-  const process = doc.querySelector('bpmn\\:process, process')
+  const process = firstByLocalNS(doc, BPMN_NS, 'process')
   const processId = process?.getAttribute('id') || ''
   const processName = process?.getAttribute('name') || ''
 
   // 解析节点位置信息
   const diShapes = new Map<string, { x: number; y: number; width: number; height: number }>()
-  const bpmnShapes = Array.from(doc.querySelectorAll('bpmndi\\:BPMNShape, BPMNShape'))
+  const bpmnShapes = allByLocalNS(doc, BPMN_DI_NS, 'BPMNShape')
   for (const shape of bpmnShapes) {
     const bpmnElement = shape.getAttribute('bpmnElement')
-    const bounds = shape.querySelector('dc\\:Bounds, Bounds')
+    const bounds = firstByLocalNS(shape, BPMN_DC_NS, 'Bounds')
     if (bpmnElement && bounds) {
       diShapes.set(bpmnElement, {
         x: parseFloat(bounds.getAttribute('x') || '0'),
@@ -280,18 +305,9 @@ export function bpmnXmlToFlow(
       'inclusiveGateway'
     ]
     const elements: Element[] = []
-    tags.forEach((tag) => {
-      // 兼容带前缀和不带前缀的情况
-      const perTagElements: Element[] = []
-      perTagElements.push(...Array.from(root.getElementsByTagNameNS(BPMN_NS, tag)))
-      perTagElements.push(...Array.from(root.getElementsByTagName(tag)).filter((el) => !el.prefix))
-
-      // 兜底查询（针对某些非标准命名空间或解析问题）
-      if (perTagElements.length === 0) {
-        perTagElements.push(...Array.from(root.querySelectorAll(`[localName="${tag}"]`)))
-      }
-      elements.push(...perTagElements)
-    })
+    for (const tag of tags) {
+      elements.push(...allByLocalNS(root, BPMN_NS, tag))
+    }
     return elements
   }
 
@@ -359,10 +375,7 @@ export function bpmnXmlToFlow(
   }
 
   // 解析顺序流（连线）
-  const sequenceFlows = [
-    ...Array.from(doc.getElementsByTagNameNS(BPMN_NS, 'sequenceFlow')),
-    ...Array.from(doc.getElementsByTagName('sequenceFlow')).filter((el) => !el.prefix)
-  ]
+  const sequenceFlows = allByLocalNS(doc, BPMN_NS, 'sequenceFlow')
 
   for (const flow of sequenceFlows) {
     const id = flow.getAttribute('id')
@@ -372,7 +385,7 @@ export function bpmnXmlToFlow(
     if (!id || !sourceRef || !targetRef) continue
 
     // 收集条件表达式
-    const conditionExpr = flow.querySelector('bpmn\\:conditionExpression, conditionExpression')
+    const conditionExpr = firstByLocalNS(flow, BPMN_NS, 'conditionExpression')
     const conditionText = conditionExpr?.textContent?.trim()
 
     // 更新源节点的 outgoing
@@ -499,12 +512,12 @@ export function validateBpmnXml(xml: string): { valid: boolean; error?: string }
       return { valid: false, error: 'XML 格式错误' }
     }
 
-    const definitions = doc.querySelector('bpmn\\:definitions, definitions')
+    const definitions = firstByLocalNS(doc, BPMN_NS, 'definitions')
     if (!definitions) {
       return { valid: false, error: '缺少 BPMN definitions 根元素' }
     }
 
-    const process = doc.querySelector('bpmn\\:process, process')
+    const process = firstByLocalNS(doc, BPMN_NS, 'process')
     if (!process) {
       return { valid: false, error: '缺少 BPMN process 元素' }
     }

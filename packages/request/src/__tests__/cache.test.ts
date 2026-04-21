@@ -31,6 +31,35 @@ describe('Cache', () => {
       cache.clear()
       expect(cache.size()).toBe(0)
     })
+
+    it('has returns false for missing or expired keys', () => {
+      expect(cache.has('missing')).toBe(false)
+      cache.set('e', 'v', { staleTime: 100 })
+      vi.advanceTimersByTime(200)
+      expect(cache.has('e')).toBe(false)
+    })
+
+    it('deleteByTags is a no-op for memory cache', () => {
+      cache.set('t', 1)
+      cache.deleteByTags(['x'])
+      expect(cache.get('t')).toBe(1)
+    })
+
+    it('startCleanup removes expired entries on interval', () => {
+      const c = new MemoryCache()
+      c.set('a', 1, { staleTime: 50, cacheTime: 10_000 })
+      c.startCleanup(10)
+      vi.advanceTimersByTime(100)
+      expect(c.get('a')).toBeUndefined()
+      c.stopCleanup()
+    })
+
+    it('startCleanup ignores second call', () => {
+      const c = new MemoryCache()
+      c.startCleanup(1000)
+      c.startCleanup(1000)
+      c.stopCleanup()
+    })
   })
 
   describe('LocalStorageCache', () => {
@@ -38,6 +67,7 @@ describe('Cache', () => {
     const mockStorage: Record<string, string> = {}
 
     beforeEach(() => {
+      Object.keys(mockStorage).forEach((k) => delete mockStorage[k])
       vi.stubGlobal('localStorage', {
         getItem: vi.fn((key) => mockStorage[key] || null),
         setItem: vi.fn((key, val) => {
@@ -68,6 +98,39 @@ describe('Cache', () => {
       cache.set('foo', 'bar', { staleTime: 1000 })
       vi.advanceTimersByTime(2000)
       expect(cache.get('foo')).toBeUndefined()
+    })
+
+    it('get returns undefined when stored JSON is invalid', () => {
+      mockStorage['test_bad'] = 'not-json{'
+      const c = new LocalStorageCache({ prefix: 'test_' })
+      expect(c.get('bad')).toBeUndefined()
+    })
+
+    it('keys lists prefixed entries', () => {
+      cache.set('a', 1)
+      cache.set('b', 2)
+      expect(cache.keys().sort()).toEqual(['a', 'b'])
+    })
+
+    it('clear removes all prefixed keys', () => {
+      cache.set('x', 1)
+      cache.clear()
+      expect(cache.get('x')).toBeUndefined()
+    })
+
+    it('delete returns false when removeItem throws', () => {
+      vi.mocked(localStorage.removeItem).mockImplementationOnce(() => {
+        throw new Error('fail')
+      })
+      expect(cache.delete('any')).toBe(false)
+    })
+
+    it('set triggers cleanup when over maxSize', () => {
+      const tiny = new LocalStorageCache({ prefix: 'tiny_', maxSize: 80 })
+      tiny.set('old', { x: 1 }, { staleTime: 1 })
+      vi.advanceTimersByTime(10)
+      tiny.set('new', { y: 2 }, { staleTime: 60_000 })
+      expect(tiny.get('new')).toEqual({ y: 2 })
     })
   })
 })

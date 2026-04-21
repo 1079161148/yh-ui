@@ -1,43 +1,28 @@
 # Transfer
 
-Move items from one list to another. Commonly used in scenarios like permission assignment, role binding, etc.
+`YhTransfer` moves items between two lists and is suitable for permission assignment, role binding, and dual-list selection workflows.
 
 <script setup lang="ts">
-import { ref, h } from 'vue'
+import { ref } from 'vue'
+import type { TransferData } from '@yh-ui/components'
 
-// --- Helper macro: convert TS code to JS code ---
-const toJs = (ts: string) => ts.replace(' lang="ts"', '').replace(' setup lang="ts"', ' setup')
+const scriptClose = '</' + 'script>'
 
-// ==============================
-// Demo Data Definitions
-// ==============================
-
-const basicValue = ref([1, 4])
-const basicData = [
+const basicValue = ref([2, 4])
+const basicData: TransferData[] = [
   { key: 1, label: 'California' },
   { key: 2, label: 'Illinois' },
   { key: 3, label: 'Maryland', disabled: true },
   { key: 4, label: 'Texas' },
   { key: 5, label: 'Florida' },
-  { key: 6, label: 'Colorado' },
-  { key: 7, label: 'Connecticut' }
+  { key: 6, label: 'Colorado' }
 ]
 
-const filterValue = ref([])
-const filterData = [...basicData]
-const filterMethod = (query: string, item: TransferOption) => {
-  return item.label.toLowerCase().includes(query.toLowerCase())
-}
-
-const customValue = ref([])
-const customData = [
-  { key: 1, label: 'Option 1' },
-  { key: 2, label: 'Option 2' },
-  { key: 3, label: 'Option 3' }
-]
+const filterValue = ref<number[]>([])
+const filterMethod = (query: string, item: TransferData) =>
+  item.label.toLowerCase().includes(query.toLowerCase())
 
 const aliasValue = ref([102])
-const aliasProps = { key: 'id', label: 'name', disabled: 'unavailable' }
 const aliasData = [
   { id: 101, name: 'R&D Dept' },
   { id: 102, name: 'Marketing Dept' },
@@ -45,476 +30,306 @@ const aliasData = [
   { id: 104, name: 'Finance Dept' }
 ]
 
-const slotValue = ref([])
-const slotValue2 = ref([])
-const renderContent = (h: typeof import('vue').h, option: TransferOption) => {
-  return h('span', null, option.key + ' - ' + option.label)
-}
+const slotValue = ref<number[]>([])
 
-const virtualValue = ref([])
-const virtualData = Array.from({ length: 2000 }).map((_, i) => ({
-  key: i,
-  label: 'Option ' + i,
-  disabled: i % 4 === 0
+const virtualValue = ref<number[]>([])
+const virtualData: TransferData[] = Array.from({ length: 300 }).map((_, index) => ({
+  key: index + 1,
+  label: `Option ${index + 1}`,
+  disabled: index % 6 === 0
 }))
 
-const btnValue = ref([])
-const btnData = [
-  { key: 1, label: 'Item A' },
-  { key: 2, label: 'Item B' },
-  { key: 3, label: 'Item C' }
-]
+const tsBasic = [
+  `<template>`,
+  `  <yh-transfer v-model="value" :data="data" />`,
+  `</template>`,
+  ``,
+  `<script setup lang="ts">`,
+  `import { ref } from 'vue'`,
+  `import type { TransferData } from '@yh-ui/components'`,
+  ``,
+  `const value = ref([2, 4])`,
+  `const data: TransferData[] = [`,
+  `  { key: 1, label: 'California' },`,
+  `  { key: 2, label: 'Illinois' },`,
+  `  { key: 3, label: 'Maryland', disabled: true },`,
+  `  { key: 4, label: 'Texas' }`,
+  `]`,
+  scriptClose
+].join('\n')
 
-// Nuxt Usage
-const nuxtValue = ref([2])
-const nuxtData = [
-  { key: 1, label: 'Nuxt 2' },
-  { key: 2, label: 'Nuxt 3' },
-  { key: 3, label: 'Nuxt 4' }
-]
+const tsFilter = [
+  `<template>`,
+  `  <yh-transfer`,
+  `    v-model="value"`,
+  `    :data="data"`,
+  `    filterable`,
+  `    filter-placeholder="Search options"`,
+  `    :filter-method="filterMethod"`,
+  `  />`,
+  `</template>`,
+  ``,
+  `<script setup lang="ts">`,
+  `import { ref } from 'vue'`,
+  `import type { TransferData } from '@yh-ui/components'`,
+  ``,
+  `const value = ref([])`,
+  `const data: TransferData[] = [`,
+  `  { key: 1, label: 'California' },`,
+  `  { key: 2, label: 'Illinois' },`,
+  `  { key: 3, label: 'Maryland' }`,
+  `]`,
+  ``,
+  `const filterMethod = (query: string, item: TransferData) =>`,
+  `  item.label.toLowerCase().includes(query.toLowerCase())`,
+  scriptClose
+].join('\n')
 
-const tsNuxt = `<template>
-  <div style="max-width: 600px;">
-    <!-- Components are auto-imported in Nuxt -->
-    <yh-transfer v-model="nuxtValue" :data="nuxtData" />
-  </div>
-<\/template>
+const tsAlias = [
+  `<template>`,
+  `  <yh-transfer`,
+  `    v-model="value"`,
+  `    :data="data"`,
+  `    :props="{ key: 'id', label: 'name', disabled: 'unavailable' }"`,
+  `  />`,
+  `</template>`,
+  ``,
+  `<script setup lang="ts">`,
+  `import { ref } from 'vue'`,
+  ``,
+  `const value = ref([102])`,
+  `const data = [`,
+  `  { id: 101, name: 'R&D Dept' },`,
+  `  { id: 102, name: 'Marketing Dept' },`,
+  `  { id: 103, name: 'HR Dept', unavailable: true },`,
+  `  { id: 104, name: 'Finance Dept' }`,
+  `]`,
+  scriptClose
+].join('\n')
 
-<script setup lang="ts">
-// No need to manually import YhTransfer
-const nuxtValue = ref([2])
-const nuxtData = [
-  { key: 1, label: 'Nuxt 2' },
-  { key: 2, label: 'Nuxt 3' },
-  { key: 3, label: 'Nuxt 4' }
-]
-<\/script>`
+const tsSlots = [
+  `<template>`,
+  `  <yh-transfer v-model="value" :data="data">`,
+  `    <template #default="{ option }">`,
+  `      <span>{{ option.key }} - {{ option.label }}</span>`,
+  `    </template>`,
+  `    <template #left-footer>`,
+  `      <div style="padding: 8px; text-align: center;">Source footer</div>`,
+  `    </template>`,
+  `    <template #right-footer>`,
+  `      <div style="padding: 8px; text-align: center;">Target footer</div>`,
+  `    </template>`,
+  `  </yh-transfer>`,
+  `</template>`,
+  ``,
+  `<script setup lang="ts">`,
+  `import { ref } from 'vue'`,
+  `import type { TransferData } from '@yh-ui/components'`,
+  ``,
+  `const value = ref([])`,
+  `const data: TransferData[] = [`,
+  `  { key: 1, label: 'Option 1' },`,
+  `  { key: 2, label: 'Option 2' }`,
+  `]`,
+  scriptClose
+].join('\n')
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '')
+const tsVirtual = [
+  `<template>`,
+  `  <yh-transfer`,
+  `    v-model="value"`,
+  `    :data="data"`,
+  `    virtual`,
+  `    :height="320"`,
+  `    :item-height="40"`,
+  `  />`,
+  `</template>`,
+  ``,
+  `<script setup lang="ts">`,
+  `import { ref } from 'vue'`,
+  `import type { TransferData } from '@yh-ui/components'`,
+  ``,
+  `const value = ref([])`,
+  `const data: TransferData[] = Array.from({ length: 300 }).map((_, index) => ({`,
+  `  key: index + 1,`,
+  `  label: 'Option ' + (index + 1),`,
+  `  disabled: index % 6 === 0`,
+  `}))`,
+  scriptClose
+].join('\n')
 
-// ==============================
-// Demo Code Sample Definitions
-// ==============================
-
-const tsBasic = `<template>
-  <yh-transfer v-model="value" :data="data" />
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref([1, 4])
-const data = [
-  { key: 1, label: 'California' },
-  { key: 2, label: 'Illinois' },
-  { key: 3, label: 'Maryland', disabled: true },
-  { key: 4, label: 'Texas' },
-  { key: 5, label: 'Florida' },
-  { key: 6, label: 'Colorado' },
-  { key: 7, label: 'Connecticut' }
-]
-<\/script>`
-
-const tsFilter = `<template>
-  <yh-transfer
-    v-model="value"
-    filterable
-    :filter-method="filterMethod"
-    filter-placeholder="State Abbreviations"
-    :data="data"
-  />
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref([])
-const data = [
-  { key: 1, label: 'California' },
-  { key: 2, label: 'Illinois' },
-  { key: 3, label: 'Maryland', disabled: true },
-  { key: 4, label: 'Texas' },
-  { key: 5, label: 'Florida' },
-  { key: 6, label: 'Colorado' },
-  { key: 7, label: 'Connecticut' }
-]
-
-const filterMethod = (query: string, item: TransferOption) => {
-  return item.label.toLowerCase().includes(query.toLowerCase())
-}
-<\/script>`
-
-const tsCustom = `<template>
-  <yh-transfer
-    v-model="value"
-    :data="data"
-    :titles="['Source', 'Target']"
-    :button-texts="['To Left', 'To Right']"
-  >
-    <template #left-footer>
-      <div class="transfer-footer">Source Footer</div>
-    <\/template>
-    <template #right-footer>
-      <div class="transfer-footer">Target Footer</div>
-    <\/template>
-  </yh-transfer>
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref([])
-const data = [
-  { key: 1, label: 'Option 1' },
-  { key: 2, label: 'Option 2' },
-  { key: 3, label: 'Option 3' }
-]
-<\/script>
-
-<style>
-.transfer-footer {
-  text-align: center;
-  padding: 5px;
-  font-size: 12px;
-  color: #909399;
-}
-<\/style>`
-
-const tsAlias = `<template>
-  <yh-transfer
-    v-model="value"
-    :props="{
-      key: 'id',
-      label: 'name',
-      disabled: 'unavailable'
-    }"
-    :data="data"
-  />
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref([102])
-const data = [
-  { id: 101, name: 'R&D Dept' },
-  { id: 102, name: 'Marketing Dept' },
-  { id: 103, name: 'HR Dept', unavailable: true },
-  { id: 104, name: 'Finance Dept' }
-]
-<\/script>`
-
-const tsSlot = `<template>
-  <div style="display: flex; flex-direction: column; gap: 20px;">
-    <!-- Default Slot -->
-    <yh-transfer v-model="value" :data="data">
-      <template #default="{ option }">
-        <span style="color: #409eff; font-weight: bold;">{{ option.key }}</span>
-        <span> - {{ option.label }}</span>
-      <\/template>
-    </yh-transfer>
-
-    <!-- Render Content -->
-    <yh-transfer v-model="value2" :data="data" :render-content="renderContent" />
-  </div>
-<\/template>
-
-<script setup lang="ts">
-import { ref, h } from 'vue'
-
-const value = ref([])
-const value2 = ref([])
-const data = [
-  { key: 1, label: 'California' },
-  { key: 2, label: 'Illinois' },
-  { key: 3, label: 'Maryland', disabled: true },
-  { key: 4, label: 'Texas' },
-  { key: 5, label: 'Florida' },
-  { key: 6, label: 'Colorado' },
-  { key: 7, label: 'Connecticut' }
-]
-
-const renderContent = (h, option) => {
-  return h('span', null, \`\${option.key} - \${option.label}\`)
-}
-<\/script>`
-
-const tsVirtual = `<template>
-  <yh-transfer
-    v-model="value"
-    virtual
-    :data="data"
-    :height="300"
-    :item-height="32"
-  />
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref([])
-const generateData = () => {
-  const data = []
-  for (let i = 1; i <= 2000; i++) {
-    data.push({
-      key: i,
-      label: 'Option ' + i,
-      disabled: i % 4 === 0
-    })
-  }
-  return data
-}
-const data = generateData()
-<\/script>`
-
-const tsBtn = `<template>
-  <yh-transfer v-model="value" :data="data">
-    <template #buttons="{ moveToLeft, moveToRight, leftChecked, rightChecked }">
-      <div class="custom-buttons">
-        <yh-button 
-          type="primary" 
-          size="small" 
-          :disabled="leftChecked.length === 0" 
-          @click="moveToRight"
-        >
-          Add <yh-icon name="arrow-right" />
-        </yh-button>
-        <yh-button 
-          type="primary" 
-          size="small" 
-          :disabled="rightChecked.length === 0" 
-          @click="moveToLeft"
-        >
-          <yh-icon name="arrow-left" /> Remove
-        </yh-button>
-      </div>
-    <\/template>
-  </yh-transfer>
-<\/template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref([])
-const data = [
-  { key: 1, label: 'Item A' },
-  { key: 2, label: 'Item B' },
-  { key: 3, label: 'Item C' }
-]
-<\/script>
-
-<style>
-.custom-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 10px;
-}
-<\/style>`
-
+const tsNuxt = [
+  `<template>`,
+  `  <yh-transfer v-model="value" :data="data" />`,
+  `</template>`,
+  ``,
+  `<script setup lang="ts">`,
+  `import { ref } from 'vue'`,
+  `import type { TransferData } from '@yh-ui/components'`,
+  ``,
+  `const value = ref([2])`,
+  `const data: TransferData[] = [`,
+  `  { key: 1, label: 'Nuxt 2' },`,
+  `  { key: 2, label: 'Nuxt 3' },`,
+  `  { key: 3, label: 'Nuxt 4' }`,
+  `]`,
+  scriptClose
+].join('\n')
 </script>
 
 ## Basic Usage
 
-<DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
+<DemoBlock title="Basic Usage" :ts-code="tsBasic">
   <yh-transfer v-model="basicValue" :data="basicData" />
 </DemoBlock>
 
-## Searchable
+## Filtering
 
-<DemoBlock title="Searchable" :ts-code="tsFilter" :js-code="toJs(tsFilter)">
+Enable `filterable` to show a search box in each panel header, and use `filter-method` when you need custom matching logic.
+
+<DemoBlock title="Filtering" :ts-code="tsFilter">
   <yh-transfer
     v-model="filterValue"
+    :data="basicData"
     filterable
+    filter-placeholder="Search options"
     :filter-method="filterMethod"
-    filter-placeholder="State Abbreviations"
-    :data="filterData"
   />
 </DemoBlock>
 
-## Custom Labels and Footers
+## Field Mapping
 
-<DemoBlock title="Custom Labels" :ts-code="tsCustom" :js-code="toJs(tsCustom)">
+When your business data does not use the default `key`, `label`, or `disabled` fields, configure aliases through `props`.
+
+<DemoBlock title="Field Mapping" :ts-code="tsAlias">
   <yh-transfer
-    v-model="customValue"
-    :data="customData"
-    :titles="['Source', 'Target']"
-    :button-texts="['To Left', 'To Right']"
-  >
+    v-model="aliasValue"
+    :data="aliasData"
+    :props="{ key: 'id', label: 'name', disabled: 'unavailable' }"
+  />
+</DemoBlock>
+
+## Custom Content and Footer Slots
+
+Use the default item slot and the header / empty / footer slots on both panels for richer business-side layouts and actions. The declared `render-content` prop is not currently consumed by the runtime template.
+
+<DemoBlock title="Custom Content and Footer Slots" :ts-code="tsSlots">
+  <yh-transfer v-model="slotValue" :data="basicData">
+    <template #default="{ option }">
+      <span>{{ option.key }} - {{ option.label }}</span>
+    </template>
     <template #left-footer>
-      <div class="transfer-footer">Source Footer</div>
+      <div style="padding: 8px; text-align: center;">Source footer</div>
     </template>
     <template #right-footer>
-      <div class="transfer-footer">Target Footer</div>
+      <div style="padding: 8px; text-align: center;">Target footer</div>
     </template>
   </yh-transfer>
-</DemoBlock>
-
-## Field Mapping Alias
-
-<DemoBlock title="Field Mapping" :ts-code="tsAlias" :js-code="toJs(tsAlias)">
-  <yh-transfer 
-    v-model="aliasValue" 
-    :props="aliasProps" 
-    :data="aliasData" 
-  />
-</DemoBlock>
-
-## Customizing Content
-
-<DemoBlock title="Content Customization" :ts-code="tsSlot" :js-code="toJs(tsSlot)">
-  <div style="display: flex; flex-direction: column; gap: 20px;">
-    <yh-transfer v-model="slotValue" :data="basicData">
-      <template #default="{ option }">
-        <span style="color: #409eff; font-weight: bold;">{{ option.key }}</span>
-        <span> - {{ option.label }}</span>
-      </template>
-    </yh-transfer>
-    <yh-transfer v-model="slotValue2" :data="basicData" :render-content="renderContent" />
-  </div>
 </DemoBlock>
 
 ## Virtual Scrolling
 
-<DemoBlock title="Virtual Scrolling" :ts-code="tsVirtual" :js-code="toJs(tsVirtual)">
+For large datasets, enable `virtual` and tune the panel window with `height` and `item-height`.
+
+<DemoBlock title="Virtual Scrolling" :ts-code="tsVirtual">
   <yh-transfer
     v-model="virtualValue"
-    virtual
     :data="virtualData"
-    :height="300"
-    :item-height="32"
+    virtual
+    :height="320"
+    :item-height="40"
   />
 </DemoBlock>
 
-## Customizing Action Buttons
+## Use in Nuxt
 
-<DemoBlock title="Custom Buttons" :ts-code="tsBtn" :js-code="toJs(tsBtn)">
-  <yh-transfer v-model="btnValue" :data="btnData">
-    <template #buttons="{ moveToLeft, moveToRight, leftChecked, rightChecked }">
-      <div class="custom-buttons">
-        <yh-button 
-          type="primary" 
-          size="small" 
-          :disabled="leftChecked.length === 0" 
-          @click="moveToRight"
-        >
-          Add <yh-icon name="arrow-right" />
-        </yh-button>
-        <yh-button 
-          type="primary" 
-          size="small" 
-          :disabled="rightChecked.length === 0" 
-          @click="moveToLeft"
-        >
-          <yh-icon name="arrow-left" /> Remove
-        </yh-button>
-      </div>
-    </template>
-  </yh-transfer>
+After enabling the YH-UI Nuxt module, `YhTransfer` can be used directly in pages and components. List data, default selected keys, and custom titles can render during SSR, while checkbox selection, filtering, and move actions continue after client hydration.
+
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt">
+  <yh-transfer v-model="basicValue" :data="basicData" />
 </DemoBlock>
-
-## Usage in Nuxt
-
-The Transfer component fully supports Nuxt 3/4 environments. During Server-Side Rendering (SSR), both panels are pre-rendered with basic HTML to ensure visibility upon first load without hydration flickering.
-
-<DemoBlock title="Nuxt Usage" :ts-code="tsNuxt" :js-code="jsNuxt">
-  <div style="max-width: 600px;">
-    <yh-transfer v-model="nuxtValue" :data="nuxtData" />
-  </div>
-</DemoBlock>
-
-**SSR Considerations**:
-
-- ✅ Initial checked states (`modelValue`) render correctly into the right panel on the server.
-- ✅ Item labels and disabled statuses support SSR.
-- ✅ Virtual scrolling displays initial nodes on the first load.
-- ⚠️ Button interactions, listing searches, and selection toggles activate after client-side hydration.
-- 💡 Tooltips or dropdowns are handled via Teleport and don't affect the main HTML structure.
-
-::: tip Performance
-For huge datasets, the Transfer component uses optimized templates. Even without `virtual` enabled, the generated HTML structure is kept lean for optimal SSR performance.
-:::
 
 ## API
 
 ### Props
 
-| Name                  | Description                               | Type                                | Default                  |
-| --------------------- | ----------------------------------------- | ----------------------------------- | ------------------------ |
-| model-value / v-model | Binding value                             | `TransferKey[]`                     | `[]`                     |
-| data                  | Data source                               | `TransferData[]`                    | `[]`                     |
-| filterable            | Whether list is searchable                | `boolean`                           | `false`                  |
-| filter-placeholder    | Search input placeholder                  | `string`                            | `'Please enter keyword'` |
-| filter-method         | Custom search method                      | `(query, item) => boolean`          | —                        |
-| target-order          | Order strategy for the right panel        | `'original' \| 'push' \| 'unshift'` | `'original'`             |
-| titles                | Panel titles                              | `[string, string]`                  | `['List 1', 'List 2']`   |
-| button-texts          | Button labels                             | `[string, string]`                  | `[]`                     |
-| render-content        | Custom render function for content        | `(h, option) => VNode`              | —                        |
-| props                 | Alias config for data source fields       | `TransferPropsAlias`                | —                        |
-| left-default-checked  | Default items checked on the left         | `TransferKey[]`                     | `[]`                     |
-| right-default-checked | Default items checked on the right        | `TransferKey[]`                     | `[]`                     |
-| virtual               | Enable virtual scrolling                  | `boolean`                           | `false`                  |
-| height                | List height (px)                          | `number`                            | `280`                    |
-| item-height           | Row height (for virtual scrolling)        | `number`                            | `40`                     |
-| empty-text            | Text for empty states                     | `string`                            | `'No Data'`              |
-| show-all-checkbox     | Whether to show the "select all" checkbox | `boolean`                           | `true`                   |
-| left-title            | Title for the left panel                  | `string`                            | —                        |
-| right-title           | Title for the right panel                 | `string`                            | —                        |
-| disabled              | Whether disabled                          | `boolean`                           | `false`                  |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| `model-value` / `v-model` | Keys currently placed in the target list | `TransferKey[]` | `[]` |
+| `data` | Data source | `TransferData[]` | `[]` |
+| `filterable` | Whether filtering is enabled | `boolean` | `false` |
+| `filter-method` | Custom filter function | `(query: string, item: TransferData) => boolean` | `undefined` |
+| `filter-placeholder` | Search input placeholder; falls back to locale text when omitted | `string` | `undefined` |
+| `target-order` | Ordering strategy for the target list | `'original' \| 'push' \| 'unshift'` | `'original'` |
+| `titles` | Title array for the two panels | `string[]` | `[]` |
+| `button-texts` | Text array for the middle action buttons | `string[]` | `[]` |
+| `render-content` | Declared custom item render function. It is passed down to the panel, but the current panel template does not consume it | `(h, data) => VNode \| string` | `undefined` |
+| `left-default-checked` | Initially checked keys in the left panel | `TransferKey[]` | `[]` |
+| `right-default-checked` | Initially checked keys in the right panel | `TransferKey[]` | `[]` |
+| `props` | Field alias mapping | `{ key?: string; label?: string; disabled?: string }` | `undefined` |
+| `disabled` | Whether the whole component is disabled | `boolean` | `false` |
+| `size` | Component size | `'large' \| 'default' \| 'small'` | `'default'` |
+| `validate-event` | Compatibility prop. The current transfer implementation does not consume it to emit form validation events | `boolean` | `true` |
+| `virtual` | Whether virtual scrolling is enabled | `boolean` | `false` |
+| `item-height` | Row height in virtual mode | `number` | `40` |
+| `height` | Panel height | `number` | `280` |
+| `left-title` | Left panel title | `string` | `undefined` |
+| `right-title` | Right panel title | `string` | `undefined` |
+| `show-all-checkbox` | Declared select-all visibility prop. The current panel header still renders the select-all entry regardless of this value | `boolean` | `true` |
+| `empty-text` | Shared empty-state text for both panels | `string` | `undefined` |
+| `left-empty-text` | Empty-state text for the left panel | `string` | `undefined` |
+| `right-empty-text` | Empty-state text for the right panel | `string` | `undefined` |
+| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Name               | Description                           | Parameters                      |
-| ------------------ | ------------------------------------- | ------------------------------- |
-| change             | Triggers when the right list changes  | `(value, direction, movedKeys)` |
-| left-check-change  | Triggers when left selection changes  | `(value, movedKeys)`            |
-| right-check-change | Triggers when right selection changes | `(value, movedKeys)`            |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| `update:modelValue` | Triggered when target keys change | `(value: TransferKey[])` |
+| `change` | Triggered after items move left or right | `(value: TransferKey[], direction: 'left' \| 'right', movedKeys: TransferKey[])` |
+| `left-check-change` | Triggered when checked keys change in the left panel | `(value: TransferKey[], movedKeys?: TransferKey[])` |
+| `right-check-change` | Triggered when checked keys change in the right panel | `(value: TransferKey[], movedKeys?: TransferKey[])` |
 
 ### Slots
 
-| Name         | Description                   | Parameters                                               |
-| ------------ | ----------------------------- | -------------------------------------------------------- |
-| default      | Custom content for data items | `{ option }`                                             |
-| left-header  | Left header content           | —                                                        |
-| right-header | Right header content          | —                                                        |
-| left-footer  | Left footer content           | —                                                        |
-| right-footer | Right footer content          | —                                                        |
-| left-empty   | Left empty state content      | —                                                        |
-| right-empty  | Right empty state content     | —                                                        |
-| buttons      | Custom action buttons area    | `{ moveToLeft, moveToRight, leftChecked, rightChecked }` |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| `default` | Custom list item content | `{ option: TransferData }` |
+| `buttons` | Custom middle action area | `{ moveToLeft: () => void; moveToRight: () => void; leftChecked: TransferKey[]; rightChecked: TransferKey[] }` |
+| `left-header` | Left panel header content | `-` |
+| `right-header` | Right panel header content | `-` |
+| `left-empty` | Left panel empty content | `-` |
+| `right-empty` | Right panel empty content | `-` |
+| `left-footer` | Left panel footer content | `-` |
+| `right-footer` | Right panel footer content | `-` |
 
 ### Expose
 
-| Name              | Description             | Type                  |
-| ----------------- | ----------------------- | --------------------- |
-| clearLeftChecked  | Clears left selections  | `() => void`          |
-| clearRightChecked | Clears right selections | `() => void`          |
-| leftPanel         | Left panel instance     | `TransferPanelExpose` |
-| rightPanel        | Right panel instance    | `TransferPanelExpose` |
+| Name | Description | Type |
+| --- | --- | --- |
+| `clearLeftChecked` | Clears checked state in the left panel | `() => void` |
+| `clearRightChecked` | Clears checked state in the right panel | `() => void` |
+| `leftPanel` | Left panel instance ref | `Ref<TransferPanelExpose \| undefined>` |
+| `rightPanel` | Right panel instance ref | `Ref<TransferPanelExpose \| undefined>` |
 
-## Theme Variables
+### Theme Variables
 
-| Variable Name                 | Default   | Description       |
-| ----------------------------- | --------- | ----------------- |
-| `--yh-transfer-panel-width`   | `200px`   | Panel width       |
-| `--yh-transfer-panel-height`  | `300px`   | Panel height      |
-| `--yh-transfer-header-height` | `40px`    | Header height     |
-| `--yh-transfer-header-bg`     | `#f5f7fa` | Header background |
-| `--yh-transfer-item-height`   | `32px`    | Row height        |
-| `--yh-transfer-border-color`  | `#ebeef5` | Border color      |
+`YhTransfer` supports `themeOverrides`, but it does not currently expose dedicated component-scoped CSS variables. It mainly consumes global theme tokens and text / border colors.
 
-<style>
-.transfer-footer {
-  text-align: center;
-  padding: 5px;
-  font-size: 12px;
-  color: #909399;
-  border-top: 1px solid #ebeef5;
-}
-.custom-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 10px;
-}
-</style>
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhTransferProps` | Props type for `YhTransfer` |
+| `YhTransferEmits` | Emits type for `YhTransfer` |
+| `YhTransferExpose` | Expose type for `YhTransfer` |
+| `YhTransferPanelExpose` | Expose type for the transfer panel |
+| `YhTransferInstance` | Public transfer instance type |
+| `YhTransferPanelInstance` | Public panel instance type |
+| `TransferData` | Data item type |
+| `TransferKey` | Key type for transfer items |
+| `TransferDirection` | Direction type for move operations |
+| `TransferSize` | Size type |
+| `TransferPropsAlias` | Field alias config type |
+| `TransferFilterMethod` | Filter function type |
+| `TransferRenderContent` | Custom render function type |

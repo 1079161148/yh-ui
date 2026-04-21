@@ -222,7 +222,8 @@ const {
   groupedConversations,
   createConversation: _create,
   removeConversation,
-  pinConversation: togglePin
+  pinConversation,
+  ready
 } = useAiConversations({
   storage: 'localStorage',
   storageKey: 'demo-basic-convs-en',
@@ -243,6 +244,15 @@ function createConversation() {
   counter++
 }
 
+function togglePin(id: string) {
+  const conversation = conversations.value.find(c => c.id === id)
+  pinConversation(id, !conversation?.pinned)
+}
+
+ready.then(() => {
+  activeId.value = conversations.value[0]?.id ?? ''
+})
+
 const activeConv = computed(() =>
   conversations.value.find(c => c.id === activeId.value)
 )
@@ -252,11 +262,11 @@ const tsIndexedDB = `\<${_T}>
   <div style="max-width: 500px; border: 1px solid var(--yh-border-color); border-radius: 8px; overflow: hidden;">
     <div style="padding: 12px 16px; border-bottom: 1px solid var(--yh-border-color-light); display: flex; justify-content: space-between; align-items: center;">
       <span style="font-size: 14px; font-weight: 600;">📦 IndexedDB History</span>
-      <span style="font-size: 12px; color: var(--yh-text-color-secondary);">Loaded {{ conversations.length }} / {{ total }}</span>
+      <span style="font-size: 12px; color: var(--yh-text-color-secondary);">Loaded {{ pagedConversations.length }} / {{ total }}</span>
     </div>
     <div style="max-height: 300px; overflow-y: auto;">
       <div
-        v-for="conv in conversations" :key="conv.id"
+        v-for="conv in pagedConversations" :key="conv.id"
         style="padding: 10px 16px; border-bottom: 1px solid var(--yh-border-color-lighter); font-size: 13px;"
       >
         <div style="font-weight: 500;">{{ conv.title }}</div>
@@ -267,7 +277,7 @@ const tsIndexedDB = `\<${_T}>
     </div>
     <div style="padding: 12px 16px; text-align: center;">
       <yh-button v-if="hasMore" @click="loadMore" :loading="isLoadingMore" type="primary" plain>
-        Load More ({{ total - conversations.length }} remaining)
+        Load More ({{ total - pagedConversations.length }} remaining)
       </yh-button>
       <span v-else style="font-size: 12px; color: var(--yh-text-color-secondary);">✅ All loaded</span>
     </div>
@@ -275,11 +285,12 @@ const tsIndexedDB = `\<${_T}>
 \</${_T}>
 
 \<${_S} setup lang="ts">
-import { useAiConversations, IndexedDBAdapter } from '@yh-ui/hooks'
+import { useAiConversations } from '@yh-ui/hooks'
 
 const total = 50
-const { conversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
-  storage: new IndexedDBAdapter('demo-idb-app-en'),
+const { pagedConversations, hasMore, loadMore, isLoadingMore } = useAiConversations({
+  storage: 'indexedDB',
+  storageKey: 'demo-idb-app-en',
   pageSize: 10,
   initialConversations: Array.from({ length: total }, (_, i) => ({
     id: \`idb-\${i + 1}\`,
@@ -352,7 +363,7 @@ Live demo of complete history interaction: time grouping, creating, deleting, pi
 
 ## IndexedDB Mode (High Volume + Pagination)
 
-Uses `IndexedDBAdapter` to handle extremely large records with on-demand lazy loading.
+Uses `storage: 'indexedDB'` with `pagedConversations` to handle large history lists with on-demand lazy loading.
 
 <DemoBlock :ts-code="tsIndexedDB" :js-code="toJs(tsIndexedDB)">
   <div style="max-width: 500px; border: 1px solid var(--yh-border-color); border-radius: 8px; overflow: hidden;">

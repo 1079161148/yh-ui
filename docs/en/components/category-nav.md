@@ -221,7 +221,7 @@ The `theme-overrides` property allows you to quickly override internal CSS varia
 
 ## Use in Nuxt
 
-This component fully supports Nuxt 3/4 SSR (Server-Side Rendering).
+`YhCategoryNav` can be used directly in Nuxt 3/4 projects. After enabling the YH-UI Nuxt module, the component is auto-imported and its static navigation structure can be rendered during SSR.
 
 ```ts
 // nuxt.config.ts
@@ -272,7 +272,11 @@ export default defineNuxtConfig({
 | `section-footer` | Custom rendering for each section footer    | `{ category: CategoryItem }`                     |
 | `sub-item`       | Complete custom rendering for sub-items     | `{ sub: CategorySubItem, parent: CategoryItem }` |
 
-### CSS Variables
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Theme Variables
 
 | Variable Name                           | Description                           | Default                          |
 | --------------------------------------- | ------------------------------------- | -------------------------------- |
@@ -284,3 +288,14 @@ export default defineNuxtConfig({
 | `--yh-category-nav-sub-image-size`      | Sub-category image size               | `64px`                           |
 | `--yh-category-nav-columns`             | Number of columns for flattened items | `3`                              |
 | `--yh-category-nav-section-title-color` | Section title color                   | `var(--yh-text-color-secondary)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhCategoryNavProps` | Props type for `YhCategoryNav` |
+| `YhCategoryNavEmits` | Emits type for `YhCategoryNav` |
+| `YhCategoryNavSlots` | Slots type for `YhCategoryNav` |
+| `YhCategoryItem` | Primary category item type |
+| `YhCategorySubItem` | Secondary category item type |
+| `YhCategoryNavInstance` | Public instance type for `YhCategoryNav` |

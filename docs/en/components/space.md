@@ -328,8 +328,28 @@ After installing the `@yh-ui/nuxt` module, the `YhSpace` component is auto-regis
 | default | Child elements in the space |
 | spacer | Custom spacer content |
 
+### Events
+
+This component does not expose component events.
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
 ## Theme Variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
 | `--yh-space-spacer-padding` | Spacer padding | `2px` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSpaceProps` | Component props type |
+| `YhSpaceSlots` | Component slots type |
+| `YhSpaceSize` | Spacing size union |
+| `YhSpaceDirection` | Direction union |
+| `YhSpaceAlign` | Cross-axis alignment union |
+| `YhSpaceJustify` | Main-axis alignment union |
+| `YhSpaceInstance` | Component instance type |

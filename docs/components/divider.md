@@ -126,6 +126,14 @@ Divider 组件完全支持 Nuxt 3/4 环境。作为纯表现型组件，其 HTML
 | --- | --- |
 | default | 分割线文案内容 |
 
+### Events
+
+当前组件未暴露组件事件。
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
 ### 主题变量
 
 | 变量名 | 说明 | 默认值 |
@@ -136,6 +144,13 @@ Divider 组件完全支持 Nuxt 3/4 环境。作为纯表现型组件，其 HTML
 | `--yh-divider-margin-horizontal` | 水平方向外边距 | `24px 0` |
 | `--yh-divider-margin-vertical` | 垂直方向外边距 | `0 8px` |
 | `--yh-divider-text-color` | 文案颜色 | `var(--yh-text-color-primary)` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhDividerProps` | 组件 Props 类型 |
+| `YhDividerInstance` | 组件实例类型 |
 
 <script setup lang="ts">
 const tsBasic = `

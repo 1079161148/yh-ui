@@ -55,4 +55,55 @@ describe('YhCalendar', () => {
     expect(typeof wrapper.vm.goToday).toBe('function')
     expect(wrapper.vm.displayDate).toBeTruthy()
   })
+
+  it('supports range selection and emits range-change', async () => {
+    const wrapper = mount(YhCalendar, {
+      props: {
+        selectionMode: 'range'
+      }
+    })
+    const days = wrapper.findAll('.yh-calendar__day').filter((d) => !d.classes().includes('is-hidden'))
+    await days[1].trigger('click')
+    await days[3].trigger('click')
+    expect(wrapper.emitted('range-change')).toBeTruthy()
+    expect(wrapper.emitted('update:rangeValue')).toBeTruthy()
+  })
+
+  it('supports multiple mode and toggle selected day', async () => {
+    const wrapper = mount(YhCalendar, {
+      props: {
+        selectionMode: 'multiple'
+      }
+    })
+    const day = wrapper.findAll('.yh-calendar__day').find((d) => !d.classes().includes('is-hidden'))!
+    await day.trigger('click')
+    await day.trigger('click')
+    expect(wrapper.emitted('update:multipleValue')).toBeTruthy()
+  })
+
+  it('respects readonly/disabled and hide other month behavior', async () => {
+    const wrapper = mount(YhCalendar, {
+      props: {
+        readonly: true,
+        showOtherMonths: false
+      }
+    })
+    const hidden = wrapper.find('.yh-calendar__day.is-hidden')
+    if (hidden.exists()) {
+      await hidden.trigger('click')
+    }
+    expect(wrapper.emitted('select')).toBeFalsy()
+  })
+
+  it('shows week number and custom cell class branch', () => {
+    const wrapper = mount(YhCalendar, {
+      props: {
+        showWeekNumber: true,
+        highlightWeekends: true,
+        cellClassName: () => 'my-cell'
+      }
+    })
+    expect(wrapper.find('.yh-calendar__week-number-header').exists()).toBe(true)
+    expect(wrapper.find('.my-cell').exists()).toBe(true)
+  })
 })

@@ -136,4 +136,32 @@ describe('MessageBox (Most Complete Version)', () => {
       '--yh-message-box-title-color: #eeeeee'
     )
   })
+
+  it('method entry accepts string shorthand', async () => {
+    MessageBox('string message only').catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+    expect(document.querySelector('.yh-message-box')).toBeTruthy()
+  })
+
+  it('mounts via appendTo selector', async () => {
+    const host = document.createElement('div')
+    host.id = 'msg-append-host'
+    document.body.appendChild(host)
+    MessageBox.alert('in-host', 'title', { appendTo: '#msg-append-host' }).catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+    expect(host.querySelector('.yh-message-box')).toBeTruthy()
+  })
+
+  it('confirm invokes callback with action on confirm', async () => {
+    const cb = vi.fn()
+    MessageBox.confirm('ok?', 'q', { callback: cb }).catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+    const confirmBtn = document.querySelectorAll('.yh-button--primary')[0] as HTMLElement
+    confirmBtn?.click()
+    await wait(200)
+    expect(cb).toHaveBeenCalled()
+  })
 })

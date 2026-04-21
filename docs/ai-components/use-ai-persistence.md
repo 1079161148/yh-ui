@@ -43,6 +43,14 @@ const {
 
 ## API
 
+### Options
+
+| 参数              | 说明               | 类型             | 默认值                   |
+| ----------------- | ------------------ | ---------------- | ------------------------ |
+| `storage`         | 自定义存储适配器   | `StorageAdapter` | `new IndexedDBAdapter()` |
+| `conversationKey` | 持久化存储 key     | `string`         | `'ai-conversations'`     |
+| `autoSave`        | 数据变更后自动保存 | `boolean`        | `true`                   |
+
 ### 返回值
 
 | 属性                  | 说明         | 类型                  |
@@ -62,7 +70,7 @@ const {
 | createConversation       | 创建对话     | `(title?: string) => Conversation`                                                 |
 | deleteConversation       | 删除对话     | `(id: string) => void`                                                             |
 | getCurrentConversation   | 获取当前对话 | `() => Conversation \| undefined`                                                  |
-| addMessage               | 添加消息     | `(message: Omit<ConversationMessage, 'id' \| 'timestamp'>) => ConversationMessage` |
+| addMessage               | 添加消息     | `(message: Omit<ConversationMessage, 'id' \| 'timestamp'>) => ConversationMessage \| undefined` |
 | updateMessage            | 更新消息     | `(messageId: string, updates: Partial<ConversationMessage>) => void`               |
 | clearCurrentConversation | 清空当前对话 | `() => void`                                                                       |
 | exportConversations      | 导出对话     | `() => string`                                                                     |

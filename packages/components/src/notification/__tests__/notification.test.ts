@@ -113,6 +113,29 @@ describe('Notification method', () => {
 
     expect(document.querySelectorAll('.yh-notification').length).toBe(0)
   })
+
+  it('accepts string shorthand for message-only notification', async () => {
+    const handler = Notification('plain string body')
+    await nextTick()
+    expect(document.body.textContent).toContain('plain string body')
+    handler.close()
+  })
+
+  it('merges options object in semantic helpers', async () => {
+    const h = Notification.warning('Warn title', { message: 'Merged body', duration: 0 })
+    await nextTick()
+    expect(document.querySelector('.yh-notification--warning')).toBeTruthy()
+    expect(document.body.textContent).toContain('Merged body')
+    h.close()
+  })
+
+  it('error helper accepts title and string message', async () => {
+    const h = Notification.error('Err title', 'Err detail')
+    await nextTick()
+    expect(document.querySelector('.yh-notification--error')).toBeTruthy()
+    expect(document.body.textContent).toContain('Err detail')
+    h.close()
+  })
 })
 
 describe('Notification component', () => {

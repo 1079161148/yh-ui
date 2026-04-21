@@ -326,7 +326,7 @@ const tsAdvanced = `<${_T}>
       <ul style="margin-top: 15px; color: #4a4a4a; line-height: 2;">
         <li>💎 Dynamic Blur: 24px advanced dynamic background blur.</li>
         <li>🎨 Color Fidelity: Increased 190% saturation via saturate to make background blur brighter.</li>
-        <li>🎯 Dark Adaptive: Automatically switches between frosted white and geek black texture.</li>
+        <li>🎯 Dark Adaptive: Automatically switches between frosted white and dark acrylic texture.</li>
       </ul>
     </div>
   </yh-dialog>
@@ -729,7 +729,7 @@ YH-UI is dedicated to polishing every pixel of interactive feedback. This includ
 <ul style="margin-top: 15px; color: #4a4a4a; line-height: 2;">
 <li>💎 <strong>Dynamic Blur</strong>: 24px advanced dynamic background blur.</li>
 <li>🎨 <strong>Color Fidelity</strong>: 190% saturation increase via saturate to make background blur brighter.</li>
-<li>🎯 <strong>Dark Adaptive</strong>: Automatically switches between frosted white and geek black texture.</li>
+<li>🎯 <strong>Dark Adaptive</strong>: Automatically switches between frosted white and dark acrylic texture.</li>
 </ul>
 </div>
 </YhDialog>
@@ -737,7 +737,7 @@ YH-UI is dedicated to polishing every pixel of interactive feedback. This includ
 
 ## Use in Nuxt
 
-YH-UI is perfectly adapted for Nuxt 3. You can use it directly in `app.vue` or any page.
+`Dialog` supports Nuxt 3/4 SSR usage. In Nuxt projects, the component can be used directly after normal component registration or auto import setup.
 
 ::: tip Auto-import
 If you are using `unplugin-vue-components/resolvers`, `YhDialog` will be automatically loaded on-demand with complete styles.
@@ -779,59 +779,41 @@ In some scenarios, you may want to skip `v-model` template declarations and laun
 <yh-button type="primary" plain @click="handleFunctionalSwap">Swap Button Demo</yh-button>
 </DemoBlock>
 
-## Methods of Use
-
-You can choose the most appropriate method based on business complexity.
-
-### Composition API (Recommended)
-Two-way binding via `v-model`, the most suitable way for Vue 3 design patterns.
-
-### Independent Import
-Manually import `YhDialog` in sub-components.
-
-```ts
-import { YhDialog } from '@yh-ui/components'
-```
-
 ## API
 
 ### Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| v-model | Whether to display the dialog | `boolean` | `false` |
-| title | Dialog title, supports render function | `string \| (() => VNode)` | - |
+| model-value / v-model | Whether to display the dialog | `boolean` | `false` |
+| title | Dialog title, supports string, render function, or component | `RenderContent` | - |
 | type | Dialog type | `'success' \| 'warning' \| 'error' \| 'info' \| 'default'` | `'default'` |
 | show-icon | Whether to show semantic icons | `boolean` | `true` |
 | loading | Whether to show body loading state | `boolean` | `false` |
-| content | Dialog content, supports render function | `string \| (() => VNode)` | - |
-| action | Bottom operation area content, supports render function | `(() => VNode)` | - |
+| content | Dialog content, supports string, render function, or component | `RenderContent` | - |
+| action | Footer action area rendered via custom render function or component | `(() => VNode \| Component) \| Component` | - |
+| style | Overall custom style | `string \| CSSProperties` | - |
+| title-class | Custom title class name | `string` | - |
+| title-style | Custom title style | `string \| CSSProperties` | - |
 | transform-origin | Animation origin position | `'mouse' \| 'center'` | `'mouse'` |
 | width | Dialog width | `string \| number` | `'50%'` |
 | top | Distance from top (effective in non-centered mode) | `string` | `'15vh'` |
 | fullscreen | Whether to display in fullscreen | `boolean` | `false` |
 | align-center | Whether to vertically center in the viewport | `boolean` | `false` |
-| center | **Fully Centered Mode**: Header, Body, Footer content all horizontally centered | `boolean` | `false` |
-| glass | Enable flagship-level Acrylic (Glass) texture | `boolean` | `false` |
-| draggable | Whether to enable physical drag functionality | `boolean` | `false` |
-| overflow | Whether to allow dragging beyond viewport boundaries | `boolean` | `false` |
-| modal | Whether to display background shield | `boolean` | `true` |
-| lock-scroll | Lock viewport scroll when displayed | `boolean` | `true` |
-| close-on-click-modal | Whether to close when clicking the background shield | `boolean` | `true` |
-| close-on-press-escape | Whether to close when pressing ESC key | `boolean` | `true` |
-| show-close | Whether to show close button | `boolean` | `true` |
+| center | Whether header, body, and footer are centered together | `boolean` | `false` |
+| glass | Whether to enable acrylic glass style | `boolean` | `false` |
+| draggable | Whether dragging is enabled | `boolean` | `false` |
+| overflow | Whether dragging may move the dialog outside the viewport | `boolean` | `false` |
+| modal | Whether to render the backdrop mask | `boolean` | `true` |
+| lock-scroll | Whether to lock viewport scrolling while open | `boolean` | `true` |
+| close-on-click-modal | Whether clicking the backdrop closes the dialog | `boolean` | `true` |
+| close-on-press-escape | Whether pressing `Escape` closes the dialog | `boolean` | `true` |
+| show-close | Whether to show the close button | `boolean` | `true` |
 | close-icon | Custom close icon name | `string` | `'close'` |
-| destroy-on-close | Whether to destroy Dialog content on close | `boolean` | `false` |
-| show-footer | Whether to show default footer buttons | `boolean` | `true` |
-| cancel-text | Cancel button text | `string` | `'Cancel'` |
-| confirm-text | Confirm button text | `string` | `'Confirm'` |
-| before-close | Hook before closing, parameter is `(done: () => void)` | `Function` | - |
-| teleport-to | Target DOM node to mount on | `string \| HTMLElement` | `'body'` |
-| header-align-center | Whether dialog title is horizontally centered | `boolean` | `false` |
-| footer-align-center | Whether dialog footer buttons are horizontally centered | `boolean` | `false` |
-| style | Overall custom style | `string \| CSSProperties` | - |
-| title-class | Custom title class name | `string` | - |
-| title-style | Custom title style | `string \| CSSProperties` | - |
+| destroy-on-close | Whether body slot content is destroyed after close | `boolean` | `false` |
+| show-footer | Whether to render the built-in footer buttons | `boolean` | `true` |
+| cancel-text | Custom cancel button text. Falls back to locale text when empty | `string` | `''` |
+| confirm-text | Custom confirm button text. Falls back to locale text when empty | `string` | `''` |
 | content-class | Custom body class name | `string` | - |
 | content-style | Custom body style | `string \| CSSProperties` | - |
 | action-class | Custom footer class name | `string` | - |
@@ -840,10 +822,15 @@ import { YhDialog } from '@yh-ui/components'
 | custom-class | Custom root container class name | `string` | - |
 | z-index | Base layer stack start | `number` | `2000` |
 | auto-focus | Whether to auto-focus the first focusable element | `boolean` | `true` |
-| swap-footer-buttons | Whether to swap the position of "Confirm" and "Cancel" buttons | `boolean` | `false` |
-| footer-align | Footer button alignment | `'left' \| 'center' \| 'right'` | `'right'` |
+| before-close | Hook before closing | `(done: () => void) => void` | - |
+| teleport-to | Target DOM node to mount on | `string \| HTMLElement` | `'body'` |
+| header-align-center | Legacy centered header switch | `boolean` | `false` |
 | header-align | Title alignment | `'left' \| 'center' \| 'right'` | `'left'` |
 | content-align | Content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
+| footer-align-center | Legacy centered footer switch | `boolean` | `false` |
+| footer-align | Footer button alignment | `'left' \| 'center' \| 'right'` | `'right'` |
+| swap-footer-buttons | Whether to swap the position of "Confirm" and "Cancel" buttons | `boolean` | `false` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Slots
 
@@ -851,6 +838,7 @@ import { YhDialog } from '@yh-ui/components'
 | --- | --- |
 | default | Dialog body content area |
 | header | Custom header area. If used, the `title` attribute is ignored |
+| title | Public type export includes `title`, but the runtime header entry point is the `header` slot |
 | footer | Custom bottom operational area. If used, built-in buttons are ignored |
 
 ### Events
@@ -870,17 +858,17 @@ import { YhDialog } from '@yh-ui/components'
 
 ### Expose
 
-| Method | Description | Type |
+| Name | Description | Type |
 | --- | --- | --- |
 | visible | Reactive visibility state | `Ref<boolean>` |
-| dialogRef | Dialog DOM reference | `Ref<HTMLElement>` |
+| dialogRef | Dialog DOM reference | `Ref<HTMLElement \| null>` |
 | handleClose | Executes close logic (triggers before-close) | `() => void` |
 | handleCancel | Executes cancel logic (triggers cancel event and closes) | `() => void` |
 | handleConfirm | Executes confirm logic (triggers confirm event and closes) | `() => void` |
 
-### Theme Variables (CSS Variables)
+### Theme Variables
 
-Customize the global vision of Dialog by overriding the following CSS variables.
+`Dialog` accepts `themeOverrides` and mainly consumes shared theme tokens plus a small set of dialog-specific layout tokens from source styles.
 
 | Variable | Default Value | Description |
 | --- | --- | --- |
@@ -895,3 +883,14 @@ Customize the global vision of Dialog by overriding the following CSS variables.
 | `--yh-text-color-secondary` | `#909399` | Close button color |
 | `--yh-text-color-regular` | `#4a4a4a` | Body text color |
 | `--yh-border-color-light` | `rgba(0,0,0,0.05)` | Close button hover background |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhDialogProps` | Props type for `YhDialog` |
+| `YhDialogEmits` | Emits type for `YhDialog` |
+| `YhDialogSlots` | Slots type for `YhDialog` |
+| `YhDialogExpose` | Expose type for `YhDialog` |
+| `YhDialogMethod` | Functional dialog method type |
+| `YhDialogInstance` | Public instance type for `YhDialog` |

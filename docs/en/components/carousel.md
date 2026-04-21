@@ -1,4 +1,4 @@
-# Carousel
+﻿# Carousel
 
 Carousel component for displaying images, cards, or any content. Equipped with premium built-in 3D visual effects rivaling top-tier carousel libraries like Splide Premium.
 
@@ -370,7 +370,7 @@ Standard gallery scroll, featuring default `slide` transition.
   </yh-carousel>
 </DemoBlock>
 
-## 🚀 Performance Optimization
+## Performance Optimization
 
 The component has been deeply optimized for smooth performance with large image sets.
 
@@ -391,7 +391,7 @@ The component has been deeply optimized for smooth performance with large image 
 
 **Performance Features:**
 
-- **Lazy Rendering**: Only renders currently visible items ± 2, dramatically reducing DOM nodes
+- **Lazy Rendering**: Only renders the currently visible items plus a small buffer, dramatically reducing DOM nodes
 - **GPU Acceleration**: Uses `translate3d` + `willChange` to trigger GPU compositing layers
 - **RAF Animation**: Uses `requestAnimationFrame` for smooth 60fps animations
 - **Shallow Reactivity**: Uses `shallowRef` to reduce reactivity tracking overhead
@@ -495,7 +495,7 @@ Set `effect="fade"` to enable seamless fade-in and fade-out transition.
   </yh-carousel>
 </DemoBlock>
 
-## 🚀 Splide Premium Array Showcase
+## Splide Premium Array Showcase
 
 Implements all top-tier visual arrays without WebGL(Three.js) weight by employing a highly optimized pure CSS 3D translation engine.
 
@@ -558,7 +558,7 @@ Set `effect="perspective"` to produce a spatial step-down gallery layout.
   </yh-carousel>
 </DemoBlock>
 
-## 🎭 Splide Premium Shader Masks
+## Advanced Mask Effects
 
 Incredible dynamic masks utilizing highly optimized CSS algorithms rather than bulky WebGL libraries, ensuring performance is smooth 60fps across all devices.
 
@@ -704,7 +704,7 @@ Set `effect="rotate3d"` for full XYZ rotation and maximum 3D depth.
   </yh-carousel>
 </DemoBlock>
 
-Set `effect="cards"` for a [Swiper effect-cards](https://www.swiper.com.cn/demo/index.html#effect-cards)–style layout: center slide prominent, neighbors visible and scaled/rotated for an irregular 3D stack.
+Set `effect="cards"` for a [Swiper effect-cards](https://www.swiper.com.cn/demo/index.html#effect-cards)-style layout: the center slide stays prominent while neighboring slides remain visible with layered 3D stacking.
 
 <DemoBlock title="3D fold / stereoscopic focus" :ts-code="tsFold" :js-code="toJs(tsFold)">
   <yh-carousel effect="fold" :autoplay="false" style="height: 300px; border-radius: 12px; overflow: hidden;">
@@ -714,13 +714,13 @@ Set `effect="cards"` for a [Swiper effect-cards](https://www.swiper.com.cn/demo/
   </yh-carousel>
 </DemoBlock>
 
-Set `effect="fold"` for a [3D fold stereoscopic focus](https://www.jq22.com/yanshi6049)–style effect with strong perspective and page-fold transitions.
+Set `effect="fold"` for a [3D fold stereoscopic focus](https://www.jq22.com/yanshi6049)-style effect with strong perspective and page-fold transitions.
 
-## Usage in Nuxt
+## Use in Nuxt
 
-Carousel works with Nuxt 3/4 SSR. With the YH-UI Nuxt module, components are auto-imported. Below is a runnable demo.
+`YhCarousel` and `YhCarouselItem` work in Nuxt 3/4 after registering `@yh-ui/nuxt`. The initial slide structure can be rendered on the server, and interactive effects continue after hydration.
 
-<DemoBlock title="Usage in Nuxt" :ts-code="tsNuxt" :js-code="toJs(tsNuxt)">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="toJs(tsNuxt)">
   <yh-carousel :autoplay="true" :interval="3000" style="height: 320px; border-radius: 12px; overflow: hidden;">
     <yh-carousel-item v-for="i in 4" :key="i">
       <img :src="`https://picsum.photos/seed/${i}/800/320`" style="width: 100%; height: 100%; object-fit: cover;" />
@@ -728,11 +728,11 @@ Carousel works with Nuxt 3/4 SSR. With the YH-UI Nuxt module, components are aut
   </yh-carousel>
 </DemoBlock>
 
-**SSR notes**: Props, slots, and events match on server and client; 3D effects render initial DOM on the server and animate after hydration; disable `autoplay` on first view if needed for SEO.
+**SSR notes**: Props, slots, and events stay aligned across SSR and hydration. If you want a static first paint for SEO-sensitive pages, disable `autoplay` for the initial render.
 
 ## API
 
-### Carousel Props
+### Props
 
 | Name            | Description                                        | Type                                                                                                                                                                                                                                                    | Default        |
 | --------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
@@ -756,28 +756,28 @@ Carousel works with Nuxt 3/4 SSR. With the YH-UI Nuxt module, components are aut
 | card-gutter     | Gap between adjacent cards (card-like effects, px) | `number`                                                                                                                                                                                                                                                | `20`           |
 | slides-pre-view | Number of items shown per view                     | `number \| 'auto'`                                                                                                                                                                                                                                      | `1`            |
 | duration        | Transition duration (ms)                           | `number`                                                                                                                                                                                                                                                | `500`          |
-| theme-overrides | Theme variable overrides                           | `ComponentThemeVars`                                                                                                                                                                                                                                    | —              |
+| theme-overrides | Component-level theme variable overrides           | `ComponentThemeVars`                                                                                                                                                                                                                                    | `undefined`    |
 
-### Carousel Slots
-
-| Name       | Parameters                                | Description                               |
-| ---------- | ----------------------------------------- | ----------------------------------------- |
-| default    | —                                         | Carousel items; use with `YhCarouselItem` |
-| arrow      | `{ total, currentIndex, to, prev, next }` | Custom left/right or top/bottom arrows    |
-| dots       | `{ total, currentIndex, to }`             | Custom indicator dots                     |
-| prev-arrow | —                                         | Custom previous arrow icon                |
-| next-arrow | —                                         | Custom next arrow icon                    |
-
-### Carousel Events
+### Events
 
 | Event               | Payload                              | Description                                         |
 | ------------------- | ------------------------------------ | --------------------------------------------------- |
-| update:currentIndex | `(index: number)`                    | Emitted when current index changes (v-model)        |
-| change              | `(index: number, prevIndex: number)` | Emitted on slide change; current and previous index |
+| update:currentIndex | `(index: number)`                    | Emitted when the current slide index changes        |
+| change              | `(index: number, prevIndex: number)` | Emitted when the active slide changes               |
 
-### Carousel Methods
+### Slots
 
-Called via ref:
+| Name       | Parameters                                 | Description                               |
+| ---------- | ------------------------------------------ | ----------------------------------------- |
+| default    | `-`                                        | Carousel items; use with `YhCarouselItem` |
+| arrow      | `{ total, currentIndex, to, prev, next }` | Custom previous and next controls         |
+| dots       | `{ total, currentIndex, to }`             | Custom indicator content                  |
+| prev-arrow | `-`                                        | Custom previous arrow icon                |
+| next-arrow | `-`                                        | Custom next arrow icon                    |
+
+### Expose
+
+Use the component ref to access the following instance members:
 
 | Name              | Type                      | Description                    |
 | ----------------- | ------------------------- | ------------------------------ |
@@ -785,26 +785,43 @@ Called via ref:
 | `prev`            | `() => void`              | Previous slide                 |
 | `next`            | `() => void`              | Next slide                     |
 | `getCurrentIndex` | `() => number`            | Get current slide index        |
+| `currentIndex`    | `number`                  | Current active index           |
 
-### CarouselItem Props
-
-| Name | Description               | Type     | Default |
-| ---- | ------------------------- | -------- | ------- |
-| name | Name, for jumping by name | `string` | —       |
-
-## Theme variables
-
-Carousel supports customizing styles via these CSS variables (dots, arrows, transition):
+### Theme Variables
 
 | Variable                          | Description                  | Default                        |
 | --------------------------------- | ---------------------------- | ------------------------------ |
 | `--yh-carousel-dot-color`         | Dot default color            | `rgba(255, 255, 255, 0.4)`     |
 | `--yh-carousel-dot-active-color`  | Dot active color             | `#ffffff`                      |
-| `--yh-carousel-dot-size`          | Dot size (diameter)          | `8px`                          |
-| `--yh-carousel-dot-active-width`  | Active dot width (line type) | `24px`                         |
+| `--yh-carousel-dot-size`          | Dot size                     | `8px`                          |
+| `--yh-carousel-dot-active-width`  | Active line-dot width        | `24px`                         |
 | `--yh-carousel-arrow-bg`          | Arrow background             | `rgba(255, 255, 255, 0.2)`     |
 | `--yh-carousel-arrow-hover-bg`    | Arrow hover background       | `rgba(255, 255, 255, 0.35)`    |
 | `--yh-carousel-arrow-color`       | Arrow icon color             | `#ffffff`                      |
 | `--yh-carousel-arrow-size`        | Arrow button size            | `36px`                         |
 | `--yh-carousel-arrow-icon-size`   | Arrow icon size              | `20px`                         |
 | `--yh-carousel-transition-timing` | Transition timing function   | `cubic-bezier(0.4, 0, 0.2, 1)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhCarouselProps` | Props type for `YhCarousel` |
+| `YhCarouselEmits` | Emits type for `YhCarousel` |
+| `YhCarouselSlots` | Slots type for `YhCarousel` |
+| `YhCarouselExpose` | Expose type for `YhCarousel` |
+| `YhCarouselEffect` | Carousel effect union |
+| `YhCarouselDirection` | Direction union |
+| `YhCarouselArrow` | Arrow display strategy union |
+| `YhCarouselTrigger` | Dot trigger union |
+| `YhCarouselDotPlacement` | Dot placement union |
+| `YhCarouselItemProps` | Props type for `YhCarouselItem` |
+| `YhCarouselItemSlots` | Slots type for `YhCarouselItem` |
+| `YhCarouselInstance` | Public instance type for `YhCarousel` |
+| `YhCarouselItemInstance` | Public instance type for `YhCarouselItem` |
+
+### Carousel Item Props
+
+| Name | Description               | Type     | Default     |
+| ---- | ------------------------- | -------- | ----------- |
+| name | Name, for jumping by name | `string` | `undefined` |

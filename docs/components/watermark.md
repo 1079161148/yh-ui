@@ -300,7 +300,7 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 
 ## 在 Nuxt 中使用
 
-由于水印组件依赖于 DOM 操作和 Canvas 渲染，在 Nuxt 3 等 SSR 环境中，请务必使用 `<ClientOnly>` 标签包裹组件。
+`YhWatermark` 可以安全用于 Nuxt。容器标记可在 SSR 阶段输出，真正的水印绘制会在挂载后于客户端执行。若希望浏览器专属区域在激活前完全不渲染水印容器，可再额外包裹 `<ClientOnly>`。
 
 ```vue
 <template>
@@ -325,11 +325,12 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 | zIndex       | 水印层级                                      | `number`             | `9`          |
 | image        | 图片源，设置后 content 将失效                 | `string`             | -            |
 | content      | 水印文字内容，支持多行                        | `string \| string[]` | `'YH-UI'`    |
-| font         | 字体样式设置对象                              | `Font`               | 见下文       |
+| font         | 字体样式设置对象                              | `YhWatermarkFont`    | 见下文       |
 | gap          | 水印之间的间距 [x, y]                         | `[number, number]`   | `[100, 100]` |
-| offset       | 水印距离容器起始点的偏移 [x, y]               | `[number, number]`   | `[0, 0]`     |
-| fullScreen   | 是否将水印挂载到 body 下全屏展示              | `boolean`            | `false`      |
+| offset       | 已声明的偏移属性。当前实现未在水印层定位时消费该配置 | `[number, number]`   | `[0, 0]`     |
+| fullScreen   | 是否使用固定定位容器覆盖整个视口。当前实现不会 Teleport 到 `body` | `boolean`            | `false`      |
 | antiTamper   | 是否开启防篡改模式（监控 DOM 变更并强制恢复） | `boolean`            | `true`       |
+| themeOverrides | 组件级主题覆盖变量。当前仅在非全屏模式下会合并到容器内联样式 | `ComponentThemeVars` | `undefined` |
 
 #### Font 对象说明
 
@@ -369,3 +370,13 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 | `--yh-watermark-width`              | 组件宽度             | `100%`     |
 | `--yh-watermark-height`             | 组件高度             | `100%`     |
 | `--yh-watermark-fullscreen-z-index` | 全屏模式下的强制层级 | `9999`     |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhWatermarkProps` | 组件 Props 类型 |
+| `YhWatermarkFont` | 水印字体配置类型 |
+| `YhWatermarkSlots` | 组件插槽类型 |
+| `YhWatermarkExpose` | 组件 Expose 类型 |
+| `YhWatermarkInstance` | 组件实例类型 |

@@ -733,7 +733,9 @@ export class ThemeManager {
     colors: {} as ThemeColors,
     breakpoint: 'md' as Breakpoint,
     density: 'comfortable' as ThemeDensity,
-    colorBlindMode: 'none' as ColorBlindMode
+    colorBlindMode: 'none' as ColorBlindMode,
+    algorithm: 'default' as ColorAlgorithm,
+    componentThemeVersion: 0
   })
 
   constructor(options?: ThemeOptions) {
@@ -829,6 +831,7 @@ export class ThemeManager {
   /** 设置颜色算法 */
   setAlgorithm(algorithm: ColorAlgorithm): void {
     this.algorithm = algorithm
+    this.state.algorithm = algorithm
     const currentColors = {
       ...presetThemes[this.currentTheme],
       ...this.customColors
@@ -957,11 +960,17 @@ export class ThemeManager {
   /** 获取当前主题的 CSS 变量对象 */
   public getThemeStyles(colors: ThemeColors = {}): Record<string, string> {
     const styles: Record<string, string> = {}
-    const themeColors = {
-      ...presetThemes[this.currentTheme],
-      ...this.customColors,
-      ...colors
-    }
+    const themeColors =
+      this.colorBlindMode === 'none'
+        ? {
+            ...presetThemes[this.currentTheme],
+            ...this.customColors,
+            ...colors
+          }
+        : {
+            ...colorBlindPalettes[this.colorBlindMode],
+            ...colors
+          }
 
     const colorTypes = [
       { key: 'primary', cssVar: 'primary' },
@@ -1131,6 +1140,7 @@ export class ThemeManager {
       this.state.dark = this.isDark
       this.state.colors = this.customColors
       this.state.density = this.currentDensity
+      this.state.algorithm = this.algorithm
 
       return true
     } catch (e) {
@@ -1212,6 +1222,8 @@ export class ThemeManager {
     this.state.colors = {}
     this.state.density = 'comfortable'
     this.state.colorBlindMode = 'none'
+    this.state.algorithm = 'default'
+    this.state.componentThemeVersion += 1
 
     document.documentElement.classList.remove('dark')
 
@@ -1318,6 +1330,7 @@ export class ThemeManager {
       ...this.componentOverrides[componentName],
       ...overrides
     }
+    this.state.componentThemeVersion += 1
 
     const el = this.targetEl || (typeof document !== 'undefined' ? document.documentElement : null)
     if (!el) return
@@ -1345,6 +1358,7 @@ export class ThemeManager {
     })
 
     delete this.componentOverrides[componentName]
+    this.state.componentThemeVersion += 1
   }
 
   // ==================== 主题切换动画 ====================

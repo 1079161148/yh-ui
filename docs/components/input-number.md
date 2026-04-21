@@ -300,6 +300,7 @@ InputNumber 组件在 SSR 阶段会自动处理数值的精度和边界值约束
 | validator | 自定义验证函数 | `(value: number \| undefined) => boolean \| string` | — |
 | placeholder | 输入框占位符 | `string` | — |
 | value-on-clear | 清空时的值 | `number \| null \| 'min' \| 'max'` | `null` |
+| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -328,7 +329,9 @@ InputNumber 组件在 SSR 阶段会自动处理数值的精度和边界值约束
 | blur | 使输入框失去焦点 | `() => void` |
 | clear | 清空值 | `() => void` |
 
-## 主题变量
+### 主题变量
+
+`YhInputNumber` 支持 `themeOverrides`。组件本身消费以下数字输入框相关 CSS 变量：
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
@@ -338,3 +341,15 @@ InputNumber 组件在 SSR 阶段会自动处理数值的精度和边界值约束
 | `--yh-input-number-bg-color` | 背景颜色 | `var(--yh-fill-color-blank)` |
 | `--yh-input-number-border-color` | 边框颜色 | `var(--yh-border-color)` |
 | `--yh-input-number-btn-color` | 按钮颜色 | `var(--yh-text-color-secondary)` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhInputNumberProps` | `YhInputNumber` 的 props 类型 |
+| `YhInputNumberEmits` | `YhInputNumber` 的 emits 类型 |
+| `YhInputNumberSlots` | `YhInputNumber` 的 slots 类型 |
+| `YhInputNumberExpose` | `YhInputNumber` 的 expose 类型 |
+| `YhInputNumberSize` | 数字输入框尺寸联合类型 |
+| `YhInputNumberControlsPosition` | 控制按钮位置联合类型 |
+| `YhInputNumberInstance` | `YhInputNumber` 的实例类型 |

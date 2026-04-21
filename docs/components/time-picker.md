@@ -1,67 +1,38 @@
-# TimePicker 时间选择器
+﻿# TimePicker 时间选择器
+
+用于选择或输入任意时间点，支持滚轮面板、时间范围、12 小时制、禁用时间和底部操作栏。
+
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// 基础用法
 const timeBasic = ref('')
-
-// 禁用状态
 const timeDisabled = ref('14:30:00')
-
-// 可清空
 const timeClearable = ref('09:15:30')
-
-// 不同尺寸
 const timeLarge = ref('')
 const timeDefault = ref('')
 const timeSmall = ref('')
-
-// 12 小时制
 const time12Hours = ref('')
-
-// 隐藏秒
 const timeNoSeconds = ref('')
-
-// 箭头控制
 const timeArrow = ref('')
-
-// 步长设置
 const timeStep = ref('')
-
-// 禁用时间
 const timeDisabledTime = ref('')
-
-// 时间范围
-const timeRangeStart = ref('')
-const timeRangeEnd = ref('')
-
-// 范围选择
 const timeRange = ref<[string, string] | null>(null)
 const timeRangeOrder = ref<[string, string] | null>(['10:00:00', '08:00:00'])
-
-// 完整功能
 const timeFull = ref('')
-
-// Nuxt 示例
 const nuxtTime = ref('')
 
-// 禁用时间配置
 const disabledTimeConfig = {
   disabledHours: () => [0, 1, 2, 3, 4, 5, 22, 23],
-  disabledMinutes: (hour: number) => hour === 12 ? [0, 15, 30, 45] : [],
+  disabledMinutes: (hour: number) => (hour === 12 ? [0, 15, 30, 45] : []),
   disabledSeconds: () => []
 }
 
-// 代码示例
 const tsBasic = `<template>
   <div style="max-width: 220px;">
-    <yh-time-picker
-      v-model="time"
-      placeholder="选择时间"
-    />
+    <yh-time-picker v-model="time" placeholder="选择时间" />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ time || '未选择' }}
+      当前值：{{ time || '未选择' }}
     </p>
   </div>
 </template>
@@ -92,7 +63,7 @@ const tsClearable = `<template>
   <div style="max-width: 220px;">
     <yh-time-picker v-model="time" clearable placeholder="可清空" />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ time || '未选择' }}
+      当前值：{{ time || '未选择' }}
     </p>
   </div>
 </template>
@@ -132,7 +103,7 @@ const ts12Hours = `<template>
       placeholder="12 小时制"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ time || '未选择' }}
+      当前值：{{ time || '未选择' }}
     </p>
   </div>
 </template>
@@ -154,7 +125,7 @@ const tsNoSeconds = `<template>
       placeholder="时:分"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ time || '未选择' }}
+      当前值：{{ time || '未选择' }}
     </p>
   </div>
 </template>
@@ -169,11 +140,7 @@ const jsNoSeconds = tsNoSeconds.replace('lang="ts"', '')
 
 const tsArrow = `<template>
   <div style="max-width: 200px;">
-    <yh-time-picker
-      v-model="time"
-      arrow-control
-      placeholder="箭头控制"
-    />
+    <yh-time-picker v-model="time" arrow-control placeholder="箭头控制" />
   </div>
 </template>
 
@@ -195,7 +162,7 @@ const tsStep = `<template>
       placeholder="自定义步长"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      小时步长: 2, 分钟步长: 15, 秒步长: 30
+      小时步长：2，分钟步长：15，秒步长：30
     </p>
   </div>
 </template>
@@ -216,7 +183,7 @@ const tsDisabledTime = `<template>
       placeholder="限制可选时间"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      禁用: 0-5点, 22-23点, 12点的0/15/30/45分
+      禁用 00:00-05:59、22:00-23:59，以及 12 点的部分分钟
     </p>
   </div>
 </template>
@@ -228,7 +195,7 @@ const time = ref('')
 
 const disabledTimeConfig = {
   disabledHours: () => [0, 1, 2, 3, 4, 5, 22, 23],
-  disabledMinutes: (hour: number) => hour === 12 ? [0, 15, 30, 45] : [],
+  disabledMinutes: (hour: number) => (hour === 12 ? [0, 15, 30, 45] : []),
   disabledSeconds: () => []
 }
 <\/script>`
@@ -245,7 +212,7 @@ const tsRange = `<template>
       range-separator="至"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeRange ? timeRange.join(' - ') : '未选择' }}
+      当前值：{{ timeRange ? timeRange.join(' - ') : '未选择' }}
     </p>
   </div>
 </template>
@@ -269,7 +236,7 @@ const tsRangeOrder = `<template>
       range-separator="至"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeRange ? timeRange.join(' - ') : '未选择' }}
+      当前值：{{ timeRange ? timeRange.join(' - ') : '未选择' }}
     </p>
   </div>
 </template>
@@ -291,7 +258,7 @@ const tsFull = `<template>
       :show-footer="true"
       :show-now="true"
       now-text="现在"
-      confirm-text="确认"
+      confirm-text="确定"
       cancel-text="取消"
       placeholder="完整功能演示"
       @change="handleChange"
@@ -306,11 +273,11 @@ import { ref } from 'vue'
 const time = ref('')
 
 const handleChange = (value: string) => {
-  console.log('时间变更:', value)
+  console.log('时间变化：', value)
 }
 
 const handleConfirm = (value: string) => {
-  console.log('确认时间:', value)
+  console.log('确认时间：', value)
 }
 <\/script>`
 
@@ -318,50 +285,38 @@ const jsFull = tsFull.replace('lang="ts"', '').replace(': string', '')
 
 const tsNuxt = `<template>
   <div style="max-width: 220px;">
-    <!-- 时间选择器，Nuxt 自动导入 -->
-    <yh-time-picker
-      v-model="time"
-      placeholder="Nuxt 自动导入"
-    />
+    <yh-time-picker v-model="time" placeholder="Nuxt 自动导入" />
   </div>
 </template>
 
 <script setup lang="ts">
-// 无需手动导入 YhTimePicker，Nuxt 模块自动注册
 const time = ref('')
 <\/script>`
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
-用于选择或输入任意时间点的时间选择器，支持时/分/秒滚轮选择、12/24 小时制、禁用时间等高级功能。
-
-::: tip TimePicker vs TimeSelect
-- **TimePicker**: 通过滚轮面板自由选择任意时间点（本组件）
-- **TimeSelect**: 从预设的固定时间列表中选择，适用于预约场景
-
-根据业务需求选择合适的组件。
+::: tip TimePicker 与 TimeSelect
+- **TimePicker**：通过滚轮面板选择任意时间点。
+- **TimeSelect**：从预设的固定时间列表中选择。
 :::
 
 ## 基础用法
 
-点击输入框打开时间选择面板，通过滚动或点击选择时/分/秒。
+点击输入框打开面板，选择时、分、秒。
 
 <DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="max-width: 220px;">
-    <yh-time-picker
-      v-model="timeBasic"
-      placeholder="选择时间"
-    />
+    <yh-time-picker v-model="timeBasic" placeholder="选择时间" />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeBasic || '未选择' }}
+      当前值：{{ timeBasic || '未选择' }}
     </p>
   </div>
 </DemoBlock>
 
 ## 禁用状态
 
-使用 `disabled` 属性禁用整个时间选择器。
+设置 `disabled` 后不可交互。
 
 <DemoBlock title="禁用状态" :ts-code="tsDisabled" :js-code="jsDisabled">
   <div style="max-width: 220px;">
@@ -371,20 +326,20 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 ## 可清空
 
-设置 `clearable` 属性可以清空已选时间。
+设置 `clearable` 后，在有值且悬停或聚焦时显示清空按钮。
 
 <DemoBlock title="可清空" :ts-code="tsClearable" :js-code="jsClearable">
   <div style="max-width: 220px;">
     <yh-time-picker v-model="timeClearable" clearable placeholder="可清空" />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeClearable || '未选择' }}
+      当前值：{{ timeClearable || '未选择' }}
     </p>
   </div>
 </DemoBlock>
 
 ## 不同尺寸
 
-使用 `size` 属性改变时间选择器大小，可选值为 `large`、`default`、`small`。
+通过 `size` 切换 `large`、默认和 `small` 三种尺寸。
 
 <DemoBlock title="不同尺寸" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="max-width: 220px; display: flex; flex-direction: column; gap: 16px;">
@@ -396,7 +351,7 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 ## 12 小时制
 
-设置 `use12-hours` 属性启用 12 小时制（AM/PM）。
+设置 `use12-hours` 后，显示值会按 AM/PM 格式渲染。
 
 <DemoBlock title="12 小时制" :ts-code="ts12Hours" :js-code="js12Hours">
   <div style="max-width: 220px;">
@@ -407,16 +362,16 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       placeholder="12 小时制"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ time12Hours || '未选择' }}
+      当前值：{{ time12Hours || '未选择' }}
     </p>
   </div>
 </DemoBlock>
 
-## 隐藏秒选择器
+## 隐藏秒选择
 
-设置 `show-seconds` 为 `false` 可以隐藏秒选择列。
+将 `show-seconds` 设为 `false` 可只保留时分列。
 
-<DemoBlock title="隐藏秒选择器" :ts-code="tsNoSeconds" :js-code="jsNoSeconds">
+<DemoBlock title="隐藏秒选择" :ts-code="tsNoSeconds" :js-code="jsNoSeconds">
   <div style="max-width: 180px;">
     <yh-time-picker
       v-model="timeNoSeconds"
@@ -425,28 +380,24 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       placeholder="时:分"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeNoSeconds || '未选择' }}
+      当前值：{{ timeNoSeconds || '未选择' }}
     </p>
   </div>
 </DemoBlock>
 
 ## 箭头控制模式
 
-设置 `arrow-control` 属性使用上下箭头控制时间，而非滚动列表。
+设置 `arrow-control` 后，时间列使用上下切换按钮。
 
 <DemoBlock title="箭头控制模式" :ts-code="tsArrow" :js-code="jsArrow">
   <div style="max-width: 200px;">
-    <yh-time-picker
-      v-model="timeArrow"
-      arrow-control
-      placeholder="箭头控制"
-    />
+    <yh-time-picker v-model="timeArrow" arrow-control placeholder="箭头控制" />
   </div>
 </DemoBlock>
 
 ## 步长设置
 
-通过 `hour-step`、`minute-step`、`second-step` 属性设置时/分/秒的选择步长。
+使用 `hour-step`、`minute-step`、`second-step` 控制可选增量。
 
 <DemoBlock title="步长设置" :ts-code="tsStep" :js-code="jsStep">
   <div style="max-width: 220px;">
@@ -458,14 +409,14 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       placeholder="自定义步长"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      小时步长: 2, 分钟步长: 15, 秒步长: 30
+      小时步长：2，分钟步长：15，秒步长：30
     </p>
   </div>
 </DemoBlock>
 
 ## 禁用时间
 
-通过 `disabled-time` 属性配置禁用的时间，支持分别禁用小时、分钟、秒。
+通过 `disabled-time` 禁用特定的小时、分钟或秒。
 
 <DemoBlock title="禁用时间" :ts-code="tsDisabledTime" :js-code="jsDisabledTime">
   <div style="max-width: 220px;">
@@ -475,14 +426,14 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       placeholder="限制可选时间"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      禁用: 0-5点, 22-23点, 12点的0/15/30/45分
+      禁用 00:00-05:59、22:00-23:59，以及 12 点的部分分钟
     </p>
   </div>
 </DemoBlock>
 
 ## 时间范围选择
 
-设置 `is-range` 属性启用时间范围选择模式。
+设置 `is-range` 后，可在同一个组件中选择开始和结束时间。
 
 <DemoBlock title="时间范围选择" :ts-code="tsRange" :js-code="jsRange">
   <div style="max-width: 380px;">
@@ -494,16 +445,16 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       range-separator="至"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeRange ? timeRange.join(' - ') : '未选择' }}
+      当前值：{{ timeRange ? timeRange.join(' - ') : '未选择' }}
     </p>
   </div>
 </DemoBlock>
 
-## 时间范围自动排序
+## 范围自动排序
 
-通过设置 `order-on-confirm` 属性为 `true`，系统将不再启用严格的禁用约束（即可以选择任意时间），而是在点击“确定”时如果发现时间顺序不对，自动进行交换处理。
+设置 `order-on-confirm` 后，确认时若结束时间早于开始时间，会自动交换顺序。
 
-<DemoBlock title="时间范围自动排序" :ts-code="tsRangeOrder" :js-code="jsRangeOrder">
+<DemoBlock title="范围自动排序" :ts-code="tsRangeOrder" :js-code="jsRangeOrder">
   <div style="max-width: 380px;">
     <yh-time-picker
       v-model="timeRangeOrder"
@@ -514,14 +465,14 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       range-separator="至"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      当前值: {{ timeRangeOrder ? timeRangeOrder.join(' - ') : '未选择' }}
+      当前值：{{ timeRangeOrder ? timeRangeOrder.join(' - ') : '未选择' }}
     </p>
   </div>
 </DemoBlock>
 
 ## 完整功能演示
 
-展示时间选择器的所有常用功能：可清空、底部操作栏、"此刻"按钮等。
+该示例组合了清空、底部操作区和自定义按钮文案。
 
 <DemoBlock title="完整功能演示" :ts-code="tsFull" :js-code="jsFull">
   <div style="max-width: 220px;">
@@ -532,7 +483,7 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
       :show-footer="true"
       :show-now="true"
       now-text="现在"
-      confirm-text="确认"
+      confirm-text="确定"
       cancel-text="取消"
       placeholder="完整功能演示"
     />
@@ -541,117 +492,119 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 ## 在 Nuxt 中使用
 
-TimePicker 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用时，组件会自动导入。
+在 Nuxt 中接入 YH-UI 模块后可直接使用 `YhTimePicker`。输入框、初始值和占位符可以参与 SSR 渲染，弹层定位、滚动同步和 `focus` / `open` 等实例方法会在客户端激活后生效。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="在 Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 220px;">
-    <yh-time-picker
-      v-model="nuxtTime"
-      placeholder="Nuxt 自动导入"
-    />
+    <yh-time-picker v-model="nuxtTime" placeholder="Nuxt 自动导入" />
   </div>
 </DemoBlock>
-
-**SSR 注意事项**：
-
-- ✅ 组件结构和样式完全支持 SSR
-- ✅ 初始值在服务端正确渲染
-- ✅ 面板通过 Teleport 渲染，兼容 SSR 首屏
-- ⚠️ 滚轮滚动定位在客户端激活后生效
-- ⚠️ DOM 操作（如 focus）仅在客户端执行
-
-::: tip SSR 最佳实践
-TimePicker 的核心逻辑已针对 SSR 进行优化，所有可能导致 Hydration Mismatch 的操作（如时间戳生成、DOM 操作）都被安全地延迟到客户端执行。
-:::
 
 ## API
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
+| 名称 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `string \| Date \| number \| [string, string]` | — |
+| model-value / v-model | 绑定值 | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
 | disabled | 是否禁用 | `boolean` | `false` |
-| editable | 是否可编辑 | `boolean` | `true` |
-| clearable | 是否可清空 | `boolean` | `true` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| placeholder | 占位文本 | `string` | `'选择时间'` |
-| start-placeholder | 范围选择时开始的占位文本 | `string` | `'开始时间'` |
-| end-placeholder | 范围选择时结束的占位文本 | `string` | `'结束时间'` |
-| is-range | 是否为范围选择 | `boolean` | `false` |
-| format | 时间格式 | `string` | `'HH:mm:ss'` |
-| value-format | 绑定值的格式 | `string` | `'HH:mm:ss'` |
-| use12-hours | 是否使用 12 小时制 | `boolean` | `false` |
-| show-seconds | 是否显示秒选择器 | `boolean` | `true` |
+| editable | 输入框是否可编辑 | `boolean` | `true` |
+| clearable | 是否允许清空 | `boolean` | `true` |
+| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
+| placeholder | 单选模式占位文本 | `string` | `''` |
+| start-placeholder | 范围模式开始输入框占位文本 | `string` | `''` |
+| end-placeholder | 范围模式结束输入框占位文本 | `string` | `''` |
+| name | 原生 `input` 的 `name` | `string` | `undefined` |
+| is-range | 是否启用范围选择 | `boolean` | `false` |
+| format | 显示格式 | `string` | `'HH:mm:ss'` |
+| value-format | 输出字符串值时使用的格式，未传时回退到 `format` | `string` | `undefined` |
+| prefix-icon | 已声明的前缀图标属性。当前模板仍固定渲染默认时钟图标，未消费该 prop | `string \| Component` | `undefined` |
+| clear-icon | 已声明的清空图标属性。当前模板仍固定渲染默认清空图标，未消费该 prop | `string \| Component` | `undefined` |
+| use12-hours | 是否启用 12 小时制 | `boolean` | `false` |
+| show-seconds | 是否显示秒列 | `boolean` | `true` |
 | hour-step | 小时步长 | `number` | `1` |
 | minute-step | 分钟步长 | `number` | `1` |
 | second-step | 秒步长 | `number` | `1` |
-| disabled-time | 禁用的时间配置 | `DisabledTimeConfig` | — |
-| popper-class | 下拉框类名 | `string` | — |
-| teleported | 是否将下拉框插入到 body | `boolean` | `true` |
-| range-separator | 范围分隔符 | `string` | `'-'` |
-| arrow-control | 是否使用箭头控制 | `boolean` | `false` |
-| order-on-confirm | 范围选择时，如果结束时间早于开始时间，是否自动交换 | `boolean` | `false` |
-| show-footer | 是否显示底部操作栏 | `boolean` | `true` |
-| show-now | 是否显示"此刻"按钮 | `boolean` | `true` |
-| confirm-text | 确认按钮文本 | `string` | `'确定'` |
-| cancel-text | 取消按钮文本 | `string` | `'取消'` |
-| now-text | 此刻按钮文本 | `string` | `'此刻'` |
-| validate-event | 是否触发表单验证 | `boolean` | `true` |
-
-### DisabledTimeConfig
-
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| disabledHours | 禁用的小时 | `() => number[]` |
-| disabledMinutes | 禁用的分钟（基于选中的小时） | `(hour: number) => number[]` |
-| disabledSeconds | 禁用的秒（基于选中的小时和分钟） | `(hour: number, minute: number) => number[]` |
+| disabled-time | 禁用时间配置 | `YhTimePickerDisabledTimeConfig` | `undefined` |
+| popper-class | 弹层自定义类名 | `string` | `undefined` |
+| popper-style | 已声明的弹层样式属性。当前实现未将该 prop 合并到面板样式中 | `string \| Record<string, string>` | `undefined` |
+| teleported | 是否将弹层传送到 `body` | `boolean` | `true` |
+| validate-event | 值变化和失焦时是否触发表单校验 | `boolean` | `true` |
+| popper-offset | 输入框与弹层之间的偏移量 | `number` | `4` |
+| range-separator | 范围分隔文案 | `string` | `'-'` |
+| default-value | 当前没有值时，面板打开后使用的初始时间 | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
+| hour-options | 自定义小时选项 | `number[]` | `undefined` |
+| minute-options | 自定义分钟选项 | `number[]` | `undefined` |
+| second-options | 自定义秒选项 | `number[]` | `undefined` |
+| hide-on-blur | 失焦时是否关闭面板 | `boolean` | `true` |
+| confirm-text | 确认按钮文案，为空时回退到语言包 | `string` | `''` |
+| cancel-text | 取消按钮文案，为空时回退到语言包 | `string` | `''` |
+| now-text | 当前时间按钮文案，为空时回退到语言包 | `string` | `''` |
+| show-footer | 是否显示底部操作区 | `boolean` | `true` |
+| show-now | 是否显示“现在”按钮 | `boolean` | `true` |
+| arrow-control | 是否启用箭头控制模式 | `boolean` | `false` |
+| tabindex | 原生 `tabindex` | `number \| string` | `0` |
+| id | 单选模式下原生 `input` 的 `id`。范围模式下两个输入框不会消费该 prop | `string` | `undefined` |
+| order-on-confirm | 范围模式下确认时是否自动排序 | `boolean` | `false` |
+| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
+| 名称 | 说明 | 回调参数 |
 | --- | --- | --- |
-| change | 时间变化时触发 | `(value: TimeValue \| TimeRangeValue) => void` |
-| focus | 获取焦点时触发 | `(event: FocusEvent) => void` |
-| blur | 失去焦点时触发 | `(event: FocusEvent) => void` |
-| clear | 清空时触发 | `() => void` |
-| visible-change | 面板显示/隐藏时触发 | `(visible: boolean) => void` |
-| confirm | 点击确认按钮时触发 | `(value: TimeValue \| TimeRangeValue) => void` |
+| update:modelValue | 绑定值更新时触发 | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| change | 值确认变更时触发 | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| focus | 输入框获得焦点时触发 | `(event: FocusEvent) => void` |
+| blur | 输入框失去焦点时触发 | `(event: FocusEvent) => void` |
+| clear | 点击清空按钮时触发 | `() => void` |
+| visible-change | 面板显示状态变化时触发 | `(visible: boolean) => void` |
+| confirm | 点击确认按钮时触发 | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
 | cancel | 点击取消按钮时触发 | `() => void` |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| prefix | 自定义前缀图标 |
-| suffix | 自定义后缀图标 |
-| range-separator | 自定义范围分隔符 |
+| 名称 | 说明 | 参数 |
+| --- | --- | --- |
+| prefix | 输入框前缀内容 | - |
+| suffix | 类型中已声明的后缀插槽，当前模板未渲染该插槽 | - |
+| rangeSeparator | 自定义范围分隔内容 | - |
 
 ### Expose
 
 | 名称 | 说明 | 类型 |
 | --- | --- | --- |
-| focus | 使选择器获取焦点 | `() => void` |
-| blur | 使选择器失去焦点 | `() => void` |
-| open | 打开选择面板 | `() => void` |
-| close | 关闭选择面板 | `() => void` |
+| focus | 让输入框获得焦点 | `() => void` |
+| blur | 让输入框失去焦点 | `() => void` |
+| open | 打开面板 | `() => void` |
+| close | 关闭面板 | `() => void` |
+| inputRef | 单选模式输入框引用。范围模式下该引用不会指向起止输入框 | `Ref<HTMLInputElement \| undefined>` |
 
-## 主题变量
+### 类型导出
 
-所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
+| 名称 | 说明 |
+| --- | --- |
+| `YhTimePickerProps` | TimePicker props 类型 |
+| `YhTimePickerEmits` | TimePicker emits 类型 |
+| `YhTimePickerSlots` | TimePicker slots 类型 |
+| `YhTimePickerExpose` | TimePicker expose 类型 |
+| `YhTimePickerSize` | 尺寸联合类型 |
+| `YhTimePickerValue` | 单值时间类型 |
+| `YhTimePickerRangeValue` | 时间范围类型 |
+| `YhTimePickerDisabledTimeConfig` | 禁用时间配置类型 |
+| `YhTimePickerState` | 面板内部时间状态类型 |
+| `YhTimePickerInstance` | 组件实例类型 |
+
+### 主题变量
+
+`YhTimePicker` 支持 `themeOverrides`。当前样式文件直接消费以下组件级 CSS 变量，其余边框、阴影、文字颜色等由全局主题令牌提供。
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
-| `--yh-time-picker-width` | 选择器宽度 | `220px` |
-| `--yh-time-picker-range-width` | 范围选择器宽度 | `360px` |
-| `--yh-time-picker-active-color` | 高亮文字颜色 | `var(--yh-color-primary)` |
-| `--yh-time-picker-active-bg` | 高亮背景颜色 | `var(--yh-color-primary-light-9)` |
-| `--yh-time-picker-hover-bg` | 悬停背景颜色 | `var(--yh-fill-color-light)` |
-| `--yh-time-picker-panel-bg` | 面板背景色 | `var(--yh-bg-color-overlay)` |
-| `--yh-time-picker-panel-shadow` | 面板阴影 | `var(--yh-shadow-lg)` |
-| `--yh-time-picker-text-color` | 文字颜色 | `var(--yh-text-color-primary)` |
-| `--yh-time-picker-text-secondary` | 次要文字颜色 | `var(--yh-text-color-secondary)` |
-| `--yh-time-picker-border` | 边框颜色 | `var(--yh-border-color-light)` |
-| `--yh-time-picker-item-height` | 选项高度 | `32px` |
-| `--yh-time-picker-spinner-height` | 滚轮高度 | `192px` |
-| `--yh-time-picker-border-radius` | 圆角大小 | `var(--yh-border-radius-base)` |
+| `--yh-time-picker-width` | 单选模式宽度 | `220px` |
+| `--yh-time-picker-range-width` | 范围模式宽度 | `360px` |
+| `--yh-time-picker-active-color` | 激活项文字颜色 | `var(--yh-color-primary)` |
+| `--yh-time-picker-active-bg` | 激活项背景色 | `var(--yh-color-primary-light-9)` |
+| `--yh-time-picker-hover-bg` | 选项悬停背景色 | `var(--yh-fill-color-light)` |
+| `--yh-time-picker-panel-bg` | 弹层背景色 | `var(--yh-bg-color)` |
+| `--yh-time-picker-border-radius` | 弹层圆角 | `var(--yh-radius-md)` |
+

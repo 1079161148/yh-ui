@@ -83,4 +83,42 @@ describe('utils/vue', () => {
     expect(app.component).toHaveBeenCalledWith('Comp2', comp2)
     expect(app.directive).toHaveBeenCalledWith('my-dir', dir)
   })
+
+  it('withInstall without extra only registers main', () => {
+    const comp: Component = { name: 'Solo', template: '<div></div>' }
+    const installed = withInstall(comp)
+    const app: App = {
+      component: vi.fn(),
+      directive: vi.fn(),
+      config: { globalProperties: {} }
+    } as unknown as App
+    installed.install!(app)
+    expect(app.component).toHaveBeenCalledTimes(1)
+    expect(app.component).toHaveBeenCalledWith('Solo', comp)
+  })
+
+  it('withInstall skips components without name or __name', () => {
+    const bare = { template: '<span></span>' } as Component
+    const installed = withInstall(bare)
+    const app: App = {
+      component: vi.fn(),
+      directive: vi.fn(),
+      config: { globalProperties: {} }
+    } as unknown as App
+    installed.install!(app)
+    expect(app.component).not.toHaveBeenCalled()
+  })
+
+  it('withInstallAll skips unnamed components and works without directives', () => {
+    const named = { name: 'N' } as Component
+    const unnamed = { template: 'x' } as Component
+    const plugin = withInstallAll([named, unnamed])
+    const app: App = {
+      component: vi.fn(),
+      directive: vi.fn()
+    } as unknown as App
+    plugin.install!(app)
+    expect(app.component).toHaveBeenCalledTimes(1)
+    expect(app.directive).not.toHaveBeenCalled()
+  })
 })

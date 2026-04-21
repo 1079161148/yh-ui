@@ -244,7 +244,7 @@ export default defineNuxtConfig({
 })
 ```
 
-## SubmitBar API
+## API
 
 ### Props
 
@@ -286,7 +286,11 @@ export default defineNuxtConfig({
 | price     | Completely override the middle price display area | -          |
 | button    | Override the submit button style and structure    | -          |
 
-### Theme Variables (CSS Variables)
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Theme Variables
 
 Easily customize visually by passing `theme-overrides` prop.
 
@@ -304,3 +308,13 @@ Easily customize visually by passing `theme-overrides` prop.
 | `--yh-submit-bar-tip-color`     | Tip banner text color                | `var(--yh-color-warning)`            |
 | `--yh-submit-bar-shadow`        | Bottom fixed shadow                  | `0 -2px 12px var(--yh-shadow-color)` |
 | `--yh-submit-bar-z-index`       | Submitting z-index fixing layer      | `200`                                |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSubmitBarProps` | Component props type |
+| `YhSubmitBarEmits` | Component emits type |
+| `YhSubmitBarSlots` | Component slots type |
+| `YhSubmitBarButtonType` | Button type union |
+| `YhSubmitBarInstance` | Component instance type |

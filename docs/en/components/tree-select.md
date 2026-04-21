@@ -1,14 +1,12 @@
 # TreeSelect
 
-Supports extreme virtual scrolling retrieval.
+Select tree-structured data in a compact dropdown. `YhTreeSelect` supports single selection, multiple selection, checkbox linkage, filtering, lazy loading, and virtual scrolling for large datasets.
+
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
-// ==============================
-// Shared Demo Data (internal document rendering variables)
-// ==============================
 const orgData = [
   {
     id: '1',
@@ -42,7 +40,11 @@ const fileData = [
     label: 'src',
     key: 'src',
     children: [
-      { label: 'components', key: 'src/components', children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }] },
+      {
+        label: 'components',
+        key: 'src/components',
+        children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }]
+      },
       { label: 'utils', key: 'src/utils', children: [{ label: 'index.ts', key: 'src/utils/index.ts' }] }
     ]
   },
@@ -54,40 +56,32 @@ const fileData = [
   { label: 'package.json', key: 'package.json' }
 ]
 
-// Demo Variables
 const v1 = ref('')
 const v2 = ref('')
 const v3 = ref('1-1-1')
 const v4 = ref([])
-const v5 = ref([])
 const v6 = ref('1-1')
 const v7 = ref('')
 const v8 = ref('')
 const v9 = ref([])
-const v10 = ref([]) 
+const v10 = ref([])
 const v11 = ref('')
 const v12 = ref('')
 const v13 = ref([])
 
-// Lazy load initial data
-const lazyData = ref([
-  { name: 'Shenzhen HQ', id: 'sz', items: [] }
-])
+const lazyData = ref([{ name: 'Shenzhen HQ', id: 'sz', items: [] }])
 
-// Lazy load function
-const loadNode = (node: TreeNode, resolve: (data: TreeOption[]) => void) => {
-  // Simulate network delay
+const loadNode = (node: any, resolve: (data: any[]) => void) => {
   setTimeout(() => {
     const nodes = Array.from({ length: 15 }).map((_, i) => ({
       name: `Async Node ${node.id}-${i + 1}`,
       id: `${node.id}-${i + 1}`,
-      isLeaf: Math.random() > 0.7 ? false : true // Randomly generate some children
+      isLeaf: Math.random() <= 0.7
     }))
     resolve(nodes)
   }, 1000)
 }
 
-// Massive data generation
 const generateData = (count: number) => {
   const data = []
   for (let i = 0; i < count; i++) {
@@ -101,7 +95,6 @@ const generateData = (count: number) => {
 }
 const virtualData = generateData(100)
 
-// Nuxt Usage
 const nuxtTree = ref('')
 const nuxtData = [
   { label: 'Nuxt 3', value: 'nuxt3', children: [{ label: 'App.vue', value: 'app' }] },
@@ -110,7 +103,6 @@ const nuxtData = [
 
 const tsNuxt = `<${_T}>
   <div style="max-width: 320px;">
-    <!-- Component is auto-imported -->
     <yh-tree-select
       v-model="value"
       :data="data"
@@ -122,7 +114,6 @@ const tsNuxt = `<${_T}>
 <${_S} setup lang="ts">
 import { ref } from 'vue'
 
-// No manual import of YhTreeSelect needed
 const value = ref('')
 const data = [
   { label: 'Nuxt 3', value: 'nuxt3', children: [{ label: 'App.vue', value: 'app' }] },
@@ -131,10 +122,6 @@ const data = [
 </${_S}>`
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
-
-// ==============================
-// Demo Sample Code (Full)
-// ==============================
 
 const commonDataCode = `const data = [
   {
@@ -233,7 +220,7 @@ const tsMultiple = `<${_T}>
     :props="{ label: 'name', value: 'id', children: 'items' }"
     multiple
     collapse-tags
-    placeholder="Select Multi Departments"
+    placeholder="Select Multiple Departments"
     style="width: 300px"
   />
 </${_T}>
@@ -323,7 +310,7 @@ const loadNode = (node, resolve) => {
     const nodes = Array.from({ length: 15 }).map((_, i) => ({
       name: \`Async Node \${node.id}-\${i + 1}\`,
       id: \`\${node.id}-\${i + 1}\`,
-      isLeaf: Math.random() > 0.7 ? false : true
+      isLeaf: Math.random() <= 0.7
     }))
     resolve(nodes)
   }, 1000)
@@ -335,7 +322,7 @@ const tsSlot = `<${_T}>
     <template #default="{ node, data }">
       <span style="display: flex; align-items: center;">
         <span :style="{ color: node.isLeaf ? '#666' : '#E6A23C', marginRight: '4px' }">
-          {{ node.isLeaf ? '📄' : '📁' }}
+          {{ node.isLeaf ? 'file' : 'folder' }}
         </span>
         <span>{{ data.label }}</span>
       </span>
@@ -352,16 +339,13 @@ const data = [
     label: 'src',
     key: 'src',
     children: [
-      { label: 'components', key: 'src/components', children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }] },
-      { label: 'utils', key: 'src/utils', children: [{ label: 'index.ts', key: 'src/utils/index.ts' }] }
+      {
+        label: 'components',
+        key: 'src/components',
+        children: [{ label: 'TreeSelect.vue', key: 'src/components/TreeSelect.vue' }]
+      }
     ]
-  },
-  {
-    label: 'public',
-    key: 'public',
-    children: [{ label: 'favicon.ico', key: 'public/favicon.ico' }]
-  },
-  { label: 'package.json', key: 'package.json' }
+  }
 ]
 </${_S}>`
 
@@ -372,9 +356,9 @@ const tsVirtual = `<${_T}>
     :props="{ label: 'name', value: 'id', children: 'items' }"
     multiple
     filterable
-    collapse-tags
     virtual
-    placeholder="Fast Search 10k Nodes"
+    collapse-tags
+    placeholder="Search 10k Items"
     style="width: 320px"
   />
 </${_T}>
@@ -383,8 +367,6 @@ const tsVirtual = `<${_T}>
 import { ref } from 'vue'
 
 const value = ref([])
-
-// Generate massive data
 const generateData = (count: number) => {
   const data = []
   for (let i = 0; i < count; i++) {
@@ -417,8 +399,6 @@ const tsVirtualCheckbox = `<${_T}>
 import { ref } from 'vue'
 
 const value = ref([])
-
-// Generate massive data
 const generateData = (count: number) => {
   const data = []
   for (let i = 0; i < count; i++) {
@@ -432,14 +412,11 @@ const generateData = (count: number) => {
 }
 const data = generateData(100)
 </${_S}>`
-
 </script>
-
-When data is massive or follows a clear hierarchical structure, `TreeSelect` provides an efficient selection solution within a compact space.
 
 ## Basic Usage
 
-Standard single-selection mode. By default, only leaf nodes can be selected; clicking parent nodes automatically expands or collapses them.
+Standard single-selection mode. By default, leaf nodes are the practical selection target, while parent nodes mainly expand or collapse the tree.
 
 <DemoBlock title="Basic Selection" :ts-code="tsBasic" :js-code="toJs(tsBasic)">
   <div style="max-width: 320px;">
@@ -455,7 +432,7 @@ Standard single-selection mode. By default, only leaf nodes can be selected; cli
 
 ## Disabled State
 
-You can disable the entire component or specific nodes (like "QA Team" in this demo) via the `disabled` field in your data.
+You can disable the entire component or disable specific nodes through the data source.
 
 <DemoBlock title="Disabled State" :ts-code="tsDisabled" :js-code="toJs(tsDisabled)">
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 320px;">
@@ -471,7 +448,7 @@ You can disable the entire component or specific nodes (like "QA Team" in this d
 
 ## Clearable
 
-Setting the `clearable` property displays a clear button on hover.
+Set `clearable` to display a clear button when a value exists.
 
 <DemoBlock title="Clearable" :ts-code="tsClearable" :js-code="toJs(tsClearable)">
   <div style="max-width: 320px;">
@@ -480,7 +457,7 @@ Setting the `clearable` property displays a clear button on hover.
       :data="orgData"
       :props="{ label: 'name', value: 'id', children: 'items' }"
       clearable
-      placeholder="Supports Clearing"
+      placeholder="Clearable"
     />
     <p class="demo-res">Value: <code>{{ v3 }}</code></p>
   </div>
@@ -488,9 +465,9 @@ Setting the `clearable` property displays a clear button on hover.
 
 ## Multiple Selection and Tag Folding
 
-Use `multiple` to enable multi-selection. Using `collapse-tags` is recommended for saving space.
+Use `multiple` to enable multi-selection. `collapse-tags` helps keep the trigger compact.
 
-<DemoBlock title="Multi-Selection" :ts-code="tsMultiple" :js-code="toJs(tsMultiple)">
+<DemoBlock title="Multi Selection" :ts-code="tsMultiple" :js-code="toJs(tsMultiple)">
   <div style="max-width: 400px;">
     <yh-tree-select
       v-model="v4"
@@ -498,7 +475,7 @@ Use `multiple` to enable multi-selection. Using `collapse-tags` is recommended f
       :props="{ label: 'name', value: 'id', children: 'items' }"
       multiple
       collapse-tags
-      placeholder="Select Multi Depts"
+      placeholder="Select Multiple Departments"
     />
     <p class="demo-res">Value: <code>{{ v4 }}</code></p>
   </div>
@@ -506,9 +483,9 @@ Use `multiple` to enable multi-selection. Using `collapse-tags` is recommended f
 
 ## Select Any Level
 
-Enabling `check-strictly` allows users to select any node regardless of whether it is a leaf.
+Enable `check-strictly` to allow selecting parent and child nodes independently.
 
-<DemoBlock title="Any Level Selection" :ts-code="tsStrictly" :js-code="toJs(tsStrictly)">
+<DemoBlock title="Select Any Level" :ts-code="tsStrictly" :js-code="toJs(tsStrictly)">
   <div style="max-width: 320px;">
     <yh-tree-select
       v-model="v6"
@@ -523,7 +500,7 @@ Enabling `check-strictly` allows users to select any node regardless of whether 
 
 ## Checkbox Mode
 
-Use `show-checkbox` to provide a clearer visual selection state in multi-selection scenarios.
+Use `show-checkbox` when you want explicit checked states in tree selection.
 
 <DemoBlock title="Checkbox Mode" :ts-code="tsCheckbox" :js-code="toJs(tsCheckbox)">
   <div style="max-width: 400px;">
@@ -533,7 +510,7 @@ Use `show-checkbox` to provide a clearer visual selection state in multi-selecti
       :props="{ label: 'name', value: 'id', children: 'items' }"
       multiple
       show-checkbox
-      placeholder="Multi with Checkbox"
+      placeholder="Multiple with Checkbox"
     />
     <p class="demo-res">Value: <code>{{ v10 }}</code></p>
   </div>
@@ -541,7 +518,7 @@ Use `show-checkbox` to provide a clearer visual selection state in multi-selecti
 
 ## Filterable
 
-With `filterable` enabled, users can type keywords directly into the input to filter nodes.
+With `filterable` enabled, users can type keywords directly into the trigger input.
 
 <DemoBlock title="Search Filter" :ts-code="tsSearch" :js-code="toJs(tsSearch)">
   <div style="max-width: 320px;">
@@ -557,7 +534,7 @@ With `filterable` enabled, users can type keywords directly into the input to fi
 
 ## Lazy Loading
 
-Set `lazy` and provide a `load` function to asynchronously load child nodes, which is very useful for large organization charts.
+Set `lazy` and provide `load` to fetch child nodes on demand.
 
 <DemoBlock title="Lazy Loading" :ts-code="tsLazy" :js-code="toJs(tsLazy)">
   <div style="max-width: 320px;">
@@ -567,14 +544,14 @@ Set `lazy` and provide a `load` function to asynchronously load child nodes, whi
       :props="{ label: 'name', value: 'id', children: 'items' }"
       lazy
       :load="loadNode"
-      placeholder="Expand to load asynchronously"
+      placeholder="Expand to Load Asynchronously"
     />
   </div>
 </DemoBlock>
 
-## Custom Content
+## Custom Node Content
 
-Use the `#default` slot to fully customize how tree nodes appear in the menu.
+Use the default slot to customize how nodes render inside the dropdown.
 
 <DemoBlock title="Custom Slot" :ts-code="tsSlot" :js-code="toJs(tsSlot)">
   <div style="max-width: 320px;">
@@ -582,7 +559,7 @@ Use the `#default` slot to fully customize how tree nodes appear in the menu.
       <template #default="{ node, data }">
         <span style="display: flex; align-items: center;">
           <span :style="{ color: node.isLeaf ? '#666' : '#E6A23C', marginRight: '4px' }">
-            {{ node.isLeaf ? '📄' : '📁' }}
+            {{ node.isLeaf ? 'file' : 'folder' }}
           </span>
           <span>{{ data.label }}</span>
         </span>
@@ -591,11 +568,9 @@ Use the `#default` slot to fully customize how tree nodes appear in the menu.
   </div>
 </DemoBlock>
 
-## Virtual Scrolling (10,000+ Nodes)
+## Virtual Scrolling
 
-Built-in proprietary virtual scrolling. To optimize performance, virtual scrolling is **disabled by default**. For large datasets (recommended for 500+ items), set `virtual` to `true`.
-
-### Basic Search Demo
+Set `virtual` to `true` for very large trees.
 
 <DemoBlock title="Massive Data Search" :ts-code="tsVirtual" :js-code="toJs(tsVirtual)">
   <div style="max-width: 360px;">
@@ -607,15 +582,11 @@ Built-in proprietary virtual scrolling. To optimize performance, virtual scrolli
       filterable
       virtual
       collapse-tags
-      placeholder="Search 10k items"
+      placeholder="Search 10k Items"
     />
     <p class="demo-res">Value Count: <code>{{ v9.length }}</code></p>
   </div>
 </DemoBlock>
-
-### Checkbox Mode
-
-Even with massive data, cascaded checkbox selections remain smooth.
 
 <DemoBlock title="Massive Data Checklist" :ts-code="tsVirtualCheckbox" :js-code="toJs(tsVirtualCheckbox)">
   <div style="max-width: 360px;">
@@ -627,17 +598,17 @@ Even with massive data, cascaded checkbox selections remain smooth.
       show-checkbox
       virtual
       collapse-tags
-      placeholder="Massive Selection"
+      placeholder="Massive Data Selection"
     />
     <p class="demo-res">Checked Count: <code>{{ v13.length }}</code></p>
   </div>
 </DemoBlock>
 
-## Usage in Nuxt
+## Use in Nuxt
 
-TreeSelect is fully compatible with Nuxt 3/4. Thanks to the Auto Import feature, you can use it directly in templates.
+`YhTreeSelect` works in Nuxt after registering the YH-UI module. The initial tree structure and selected content render during SSR, while filtering, popup positioning, and lazy loading continue on the client after hydration.
 
-<DemoBlock title="Nuxt Usage" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 320px;">
     <yh-tree-select
       v-model="nuxtTree"
@@ -647,91 +618,91 @@ TreeSelect is fully compatible with Nuxt 3/4. Thanks to the Auto Import feature,
   </div>
 </DemoBlock>
 
-**SSR Considerations**:
-
-- ✅ Initial tree structure rendering (including expand/collapse state) is supported.
-- ✅ Selected Tokens render correctly on the server.
-- ✅ Virtual scrolling displays initial nodes on first load.
-- ✅ Lazy load initial data supports SSR.
-- 💡 Filter functionality and async loading activate after client-side hydration.
-
-::: tip SSR Safety
-TreeSelect utilizes Vue 3.5's native `useId` mechanism, ensuring node IDs and ARIA attributes stay identical between server and client even in complex recursive structures, avoiding common hydration errors.
-:::
-
 ## API
 
-### TreeSelect Attributes
+### Props
 
-| Name                  | Description                                                                 | Type                                                           | Default           |
-| --------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------- | ----------------- |
-| model-value / v-model | Binding value                                                               | `string \| number \| (string \| number)[]`                     | —                 |
-| data                  | Display data                                                                | `TreeOption[]`                                                 | `[]`              |
-| props                 | Configuration options                                                       | `object`                                                       | —                 |
-| node-key              | Unique identifier attribute for each node; should be unique across the tree | `string`                                                       | `'value'`         |
-| multiple              | Whether multiple selection is allowed                                       | `boolean`                                                      | `false`           |
-| clearable             | Whether to allow clearing of the selection                                  | `boolean`                                                      | `false`           |
-| disabled              | Whether disabled                                                            | `boolean`                                                      | `false`           |
-| size                  | Input size                                                                  | `'large' \| 'default' \| 'small'`                              | `'default'`       |
-| placeholder           | Placeholder text                                                            | `string`                                                       | `'Please select'` |
-| empty-text            | Text shown when there is no data                                            | `string`                                                       | `'No Data'`       |
-| filterable            | Whether list is searchable                                                  | `boolean`                                                      | `false`           |
-| filter-node-method    | Custom filter method                                                        | `(value: string, data: TreeOption, node: TreeNode) => boolean` | —                 |
-| collapse-tags         | Whether to fold tags in multi-select                                        | `boolean`                                                      | `false`           |
-| collapse-tags-tooltip | Whether to show a tooltip for folded tags (displaying count)                | `boolean`                                                      | `false`           |
-| max-collapse-tags     | Max tags displayed before folding                                           | `number`                                                       | `1`               |
-| check-strictly        | Whether to decouple parent and child checkbox statuses                      | `boolean`                                                      | `false`           |
-| show-checkbox         | Whether to show checkboxes before nodes                                     | `boolean`                                                      | `false`           |
-| default-expand-all    | Whether to expand all nodes by default                                      | `boolean`                                                      | `false`           |
-| default-expanded-keys | Initial keys for expanded nodes                                             | `TreeKey[]`                                                    | `[]`              |
-| accordion             | Whether to expand only one peer node at a time                              | `boolean`                                                      | `false`           |
-| indent                | Horizontal indent between levels                                            | `number`                                                       | `16`              |
-| check-on-click-node   | Whether to check checkbox on node click                                     | `boolean`                                                      | `false`           |
-| expand-on-click-node  | Whether to expand/collapse on node click                                    | `boolean`                                                      | `true`            |
-| lazy                  | Whether to enable lazy loading                                              | `boolean`                                                      | `false`           |
-| load                  | Function for loading subtree data                                           | `Function`                                                     | —                 |
-| virtual               | Whether to enable virtual scrolling                                         | `boolean`                                                      | `false`           |
-| height                | Max height of the dropdown menu                                             | `string \| number`                                             | `274`             |
-| item-size             | Height of each item for virtual scrolling                                   | `number`                                                       | `34`              |
-| teleported            | Whether to mount the dropdown to body                                       | `boolean`                                                      | `true`            |
-| popper-class          | Custom class for popper                                                     | `string`                                                       | —                 |
-| status                | Validation status for the input                                             | `'success' \| 'warning' \| 'error' \| ''`                      | —                 |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| model-value / v-model | Bound value | `YhTreeKey \| YhTreeKey[]` | `undefined` |
+| data | Tree data source | `YhTreeOption[]` | `[]` |
+| props | Field alias configuration | `YhTreePropsAlias` | `{ label: 'label', value: 'value', children: 'children', disabled: 'disabled', isLeaf: 'isLeaf' }` |
+| placeholder | Placeholder text | `string` | `undefined` |
+| multiple | Whether multiple selection is enabled | `boolean` | `false` |
+| clearable | Whether the current value can be cleared | `boolean` | `false` |
+| disabled | Whether the component is disabled | `boolean` | `false` |
+| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
+| filterable | Whether node filtering is enabled | `boolean` | `false` |
+| filter-node-method | Custom filter function | `(value: string, data: YhTreeOption, node: YhTreeSelectNode) => boolean` | `undefined` |
+| collapse-tags | Whether selected tags are collapsed in multiple mode | `boolean` | `false` |
+| collapse-tags-tooltip | Declared collapsed-tag tooltip prop. The current template does not consume it | `boolean` | `false` |
+| max-collapse-tags | Maximum number of visible tags before collapsing | `number` | `1` |
+| teleported | Whether the dropdown is teleported to `body` | `boolean` | `true` |
+| popper-class | Custom class applied to the dropdown popper | `string` | `''` |
+| status | Declared validation status prop. The current template and stylesheet do not consume it | `'' \| 'success' \| 'warning' \| 'error'` | `undefined` |
+| node-key | Unique node identifier field. When omitted, the runtime falls back to the field mapped by `props.value` | `string` | `undefined` |
+| show-checkbox | Whether checkboxes are shown before nodes | `boolean` | `false` |
+| check-strictly | Whether parent and child checked states are independent | `boolean` | `false` |
+| check-on-click-node | Whether clicking a node toggles its checkbox | `boolean` | `false` |
+| expand-on-click-node | Whether clicking a node expands or collapses it | `boolean` | `true` |
+| default-expand-all | Whether all nodes are expanded by default | `boolean` | `false` |
+| default-expanded-keys | Initial expanded node keys | `YhTreeKey[]` | `[]` |
+| default-checked-keys | Declared initial checked node keys. The current tree-state initialization does not consume this prop | `YhTreeKey[]` | `[]` |
+| accordion | Whether only one sibling node can stay expanded at a time | `boolean` | `false` |
+| indent | Horizontal indentation per tree level | `number` | `16` |
+| lazy | Whether lazy loading is enabled | `boolean` | `false` |
+| load | Lazy-load callback for child nodes | `(node: YhTreeOption, resolve: (data: YhTreeOption[]) => void) => void` | `undefined` |
+| virtual | Whether virtual scrolling is enabled | `boolean` | `false` |
+| height | Maximum dropdown height | `string \| number` | `274` |
+| item-size | Estimated item height used by virtual scrolling | `number` | `34` |
+| empty-text | Custom empty-state text | `string` | `undefined` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
-### TreeSelect Props (Config Options)
+### Events
 
-| Name     | Description                                        | Type     |
-| -------- | -------------------------------------------------- | -------- |
-| label    | Specifies the node label property                  | `string` |
-| value    | Specifies the selection value property             | `string` |
-| children | Specifies the child nodes property                 | `string` |
-| disabled | Specifies the node disabled status property        | `string` |
-| isLeaf   | Specifies if a node is a leaf (only for lazy load) | `string` |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| update:modelValue | Triggered when the bound value changes | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
+| change | Triggered when the selection changes | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
+| visible-change | Triggered when dropdown visibility changes | `(visible: boolean) => void` |
+| clear | Triggered when the clear button is clicked | `() => void` |
+| node-click | Triggered when a node row is clicked | `(data: YhTreeOption, node: YhTreeSelectNode, e: MouseEvent) => void` |
+| check-change | Triggered when checkbox state changes | `(data: YhTreeOption, checked: boolean, indeterminate: boolean) => void` |
+| check | Triggered when a checkbox is checked or unchecked | `(data: YhTreeOption, info: YhTreeCheckedInfo) => void` |
 
-### TreeSelect Events
+### Slots
 
-| Name           | Description                                   | Parameters                                                             |
-| -------------- | --------------------------------------------- | ---------------------------------------------------------------------- | ------ | ------- | --------- | ------------------- |
-| change         | Triggers when the selection changes           | `(value: string                                                        | number | (string | number)[] | undefined) => void` |
-| visible-change | Triggers when the dropdown visibility changes | `(visible: boolean) => void`                                           |
-| clear          | Triggers when the clear button is clicked     | —                                                                      |
-| node-click     | Triggers on node click                        | `(data: TreeOption, node: TreeNode, e: MouseEvent) => void`            |
-| check-change   | Triggers when a checkbox state changes        | `(data: TreeOption, checked: boolean, indeterminate: boolean) => void` |
-| check          | Triggers on checkbox click                    | `(data: TreeOption, info: TreeCheckedInfo) => void`                    |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| default | Custom content for tree nodes | `{ node: YhTreeSelectNode, data: YhTreeOption }` |
 
-### TreeSelect Slots
+### Expose
 
-| Name    | Description                               | Parameters                             |
-| ------- | ----------------------------------------- | -------------------------------------- |
-| default | Custom content for tree nodes             | `{ node: TreeNode, data: TreeOption }` |
-| prefix  | Custom input prefix content               | —                                      |
-| empty   | Content for empty/no-matching-data states | —                                      |
+This component does not expose public instance methods or properties.
 
-## Theme Variables
+### Type Exports
 
-| Variable Name                          | Description                    | Default                      |
-| -------------------------------------- | ------------------------------ | ---------------------------- |
-| `--yh-tree-select-node-hover-bg`       | Node background color on hover | `var(--yh-fill-color-light)` |
-| `--yh-tree-select-node-selected-color` | Text color for selected nodes  | `var(--yh-color-primary)`    |
+| Name | Description |
+| --- | --- |
+| `YhTreeSelectProps` | Props type for `YhTreeSelect` |
+| `YhTreeSelectEmits` | Emits type for `YhTreeSelect` |
+| `YhTreeSelectNode` | Internal rendered tree node type exposed for callbacks |
+| `YhTreeOption` | Tree option data type |
+| `YhTreeKey` | Tree node key type |
+| `YhTreeCheckedInfo` | Checked-state payload type |
+| `YhTreePropsAlias` | Field alias configuration type |
+| `YhTreeSelectInstance` | Component instance type |
+
+### Theme Variables
+
+`YhTreeSelect` supports `themeOverrides`. The stylesheet directly consumes the following component-scoped CSS variables:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--yh-tree-select-node-hover-bg` | Node background color on hover | `var(--yh-fill-color-light, #f5f7fa)` |
+| `--yh-tree-select-node-active-bg` | Background color for the selected node | `var(--yh-color-primary-light-9, #ecf5ff)` |
+| `--yh-tree-select-active-color` | Text color for selected nodes | `var(--yh-color-primary, #409eff)` |
+
 
 <style>
 .demo-res {

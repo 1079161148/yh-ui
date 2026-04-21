@@ -1,36 +1,40 @@
 # Avatar 头像
 
-<script setup lang="ts">
-import { ref } from 'vue'
+`YhAvatar` 用于通过图片、图标或文本占位内容展示用户或对象头像。
 
+<script setup lang="ts">
 const tsBasic = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar icon="user" />
     <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
     <yh-avatar>USER</yh-avatar>
+    <yh-avatar>
+      <svg viewBox="0 0 1024 1024" width="1em" height="1em">
+        <path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/>
+      </svg>
+    </yh-avatar>
   </div>
-<\/template>`
+</template>`
 
 const jsBasic = tsBasic
 
 const tsSizes = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar :size="30" icon="user" />
-    <yh-avatar size="small" icon="user" />
-    <yh-avatar size="default" icon="user" />
-    <yh-avatar size="large" icon="user" />
-    <yh-avatar :size="80" icon="user" />
+    <yh-avatar :size="30">A</yh-avatar>
+    <yh-avatar size="small">B</yh-avatar>
+    <yh-avatar size="default">C</yh-avatar>
+    <yh-avatar size="large">D</yh-avatar>
+    <yh-avatar :size="80">YH</yh-avatar>
   </div>
-<\/template>`
+</template>`
 
 const jsSizes = tsSizes
 
 const tsShapes = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar shape="circle" icon="user" />
-    <yh-avatar shape="square" icon="user" />
+    <yh-avatar shape="circle">C</yh-avatar>
+    <yh-avatar shape="square">S</yh-avatar>
   </div>
-<\/template>`
+</template>`
 
 const jsShapes = tsShapes
 
@@ -42,128 +46,105 @@ const tsFit = `<template>
     <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="none" />
     <yh-avatar :size="80" src="https://picsum.photos/seed/avatar1/200" fit="scale-down" />
   </div>
-<\/template>`
+</template>`
 
 const jsFit = tsFit
 
 const tsColor = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar background-color="#67C23A" icon="user" />
-    <yh-avatar background-color="#E6A23C" icon="user" />
+    <yh-avatar background-color="#67C23A">A</yh-avatar>
+    <yh-avatar background-color="#E6A23C">B</yh-avatar>
     <yh-avatar background-color="#F56C6C">YH</yh-avatar>
   </div>
-<\/template>`
+</template>`
 
 const jsColor = tsColor
 
 const tsError = `<template>
-  <yh-avatar src="https://picsum.photos/seed/error/200" @error="handleError">
-    <img src="https://picsum.photos/seed/avatar2/200" />
+  <yh-avatar src="https://example.com/not-found.png" @error="handleError">
+    失效
   </yh-avatar>
 </template>
 
-<script setup lang="ts">
-const handleError = () => {
-  console.log('Avatar load error')
+<` + `script setup lang="ts">
+const handleError = (event: Event) => {
+  console.log('Avatar load error', event)
 }
-<\/script>`
+<` + `/script>`
 
 const jsError = `<template>
-  <yh-avatar src="https://picsum.photos/seed/error/200" @error="handleError">
-    <img src="https://picsum.photos/seed/avatar2/200" />
+  <yh-avatar src="https://example.com/not-found.png" @error="handleError">
+    失效
   </yh-avatar>
 </template>
 
-<script setup>
-const handleError = () => {
-  console.log('Avatar load error')
+<` + `script setup>
+const handleError = event => {
+  console.log('Avatar load error', event)
 }
-<\/script>`
+<` + `/script>`
 
-// Nuxt 使用示例
 const tsNuxt = `<template>
   <div style="display: flex; gap: 20px; align-items: center;">
-    <!-- 基础头像，自动导入 -->
     <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
-
-    <!-- 结合 Nuxt 用户状态 -->
-    <yh-avatar :size="48" :src="userAvatar">
-      {{ userInitial }}
-    </yh-avatar>
+    <yh-avatar :size="48">{{ userInitial }}</yh-avatar>
   </div>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue'
+<` + `script setup lang="ts">
+import { computed, ref } from 'vue'
 
-// 无需手动导入 YhAvatar
 const userName = ref('张三')
-const userAvatar = ref('')
-
 const userInitial = computed(() => userName.value.charAt(0))
-<\/script>`.replace(/\\\//g, '/')
+<` + `/script>`
 
-const jsNuxt = tsNuxt.replace('lang="ts"', '').replace(/import { computed } from 'vue'/, "import { computed } from 'vue'")
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
-
-用图标、图片或字符的形式展示用户或事物。
 
 ## 基础用法
 
-通过 `icon`, `src` 或默认插槽展示头像。
+通过 `src`、`icon` 或默认插槽展示头像内容。
 
 <DemoBlock title="基础用法" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar>
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
     <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
     <yh-avatar>USER</yh-avatar>
+    <yh-avatar>
+      <svg viewBox="0 0 1024 1024" width="1em" height="1em">
+        <path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/>
+      </svg>
+    </yh-avatar>
   </div>
 </DemoBlock>
 
 ## 不同尺寸
 
-通过 `size` 属性设置头像大小，支持预设值 `small` (28px)、`default` (40px)、`large` (56px) 或自定义像素数值。
+`size` 支持 `small`、默认、`large`，也支持直接传入数字像素值。
 
 <DemoBlock title="不同尺寸" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar :size="30">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
-    <yh-avatar size="small">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
-    <yh-avatar size="default">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
-    <yh-avatar size="large">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
-    <yh-avatar :size="80">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
+    <yh-avatar :size="30">A</yh-avatar>
+    <yh-avatar size="small">B</yh-avatar>
+    <yh-avatar size="default">C</yh-avatar>
+    <yh-avatar size="large">D</yh-avatar>
+    <yh-avatar :size="80">YH</yh-avatar>
   </div>
 </DemoBlock>
 
 ## 头像形状
 
-支持 `circle` 和 `square` 两种形状。
+通过 `shape` 在圆形和方形头像之间切换。
 
 <DemoBlock title="头像形状" :ts-code="tsShapes" :js-code="jsShapes">
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar shape="circle">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
-    <yh-avatar shape="square">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
+    <yh-avatar shape="circle">C</yh-avatar>
+    <yh-avatar shape="square">S</yh-avatar>
   </div>
 </DemoBlock>
 
 ## 图片适配
 
-通过 `fit` 属性设置图片在头像中的适配方式，与 CSS `object-fit` 一致。
+`fit` 与原生 `object-fit` 语义一致，用于控制头像中的图片裁剪方式。
 
 <DemoBlock title="图片适配" :ts-code="tsFit" :js-code="jsFit">
   <div style="display: flex; gap: 20px; align-items: center;">
@@ -175,87 +156,90 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '').replace(/import { computed } from
   </div>
 </DemoBlock>
 
-## 自定义颜色
+## 自定义背景色
 
-通过 `background-color` 属性自定义头像背景色。
+可以通过 `background-color`，或兼容字段 `color`，自定义头像背景色。
 
-<DemoBlock title="自定义颜色" :ts-code="tsColor" :js-code="jsColor">
+<DemoBlock title="自定义背景色" :ts-code="tsColor" :js-code="jsColor">
   <div style="display: flex; gap: 20px; align-items: center;">
-    <yh-avatar background-color="#67C23A">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
-    <yh-avatar background-color="#E6A23C">
-      <svg viewBox="0 0 1024 1024" width="1em" height="1em"><path fill="currentColor" d="M512 512c141.4 0 256-114.6 256-256S653.4 0 512 0 256 114.6 256 256s114.6 256 256 256zm0 128c-235.8 0-426.7 190.9-426.7 426.7 0 14.7 12 26.7 26.7 26.7h800c14.7 0 26.7-12 26.7-26.7 0-235.8-190.9-426.7-426.7-426.7z"/></svg>
-    </yh-avatar>
+    <yh-avatar background-color="#67C23A">A</yh-avatar>
+    <yh-avatar background-color="#E6A23C">B</yh-avatar>
     <yh-avatar background-color="#F56C6C">YH</yh-avatar>
   </div>
 </DemoBlock>
 
-## 加载失败
+## 加载失败处理
 
-当图片加载失败时，可以通过 `error` 事件进行处理，默认插槽可作为降级展示。
+当图片加载失败时，组件会触发 `error` 事件，并回退到默认插槽内容。
 
-<DemoBlock title="加载失败" :ts-code="tsError" :js-code="jsError">
-  <yh-avatar src="https://picsum.photos/seed/error/200">
-    <img src="https://picsum.photos/seed/avatar2/200" />
+<DemoBlock title="加载失败处理" :ts-code="tsError" :js-code="jsError">
+  <yh-avatar src="https://example.com/not-found.png">
+    失效
   </yh-avatar>
 </DemoBlock>
 
 ## 在 Nuxt 中使用
 
-Avatar 组件完全支持 Nuxt 3/4 的 SSR 渲染。头像的尺寸、形状和图片在服务端渲染时即可正确展示，确保首屏即呈现完整的用户头像信息。
+接入 `@yh-ui/nuxt` 后，可直接使用 `YhAvatar`。头像尺寸、形状、图片地址和文本占位内容都可以参与 SSR 渲染，图片加载与失败回退逻辑会在客户端继续执行。
 
-<DemoBlock title="Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="在 Nuxt 中使用" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; gap: 20px; align-items: center;">
     <yh-avatar src="https://picsum.photos/seed/avatar1/200" />
     <yh-avatar :size="48">张</yh-avatar>
   </div>
 </DemoBlock>
 
-**SSR 注意事项**：
-
-- ✅ 头像尺寸 (size)、形状 (shape)、图片适配 (fit) 首屏正确渲染
-- ✅ 自定义背景色 (background-color) 和文字内容支持 SSR
-- ✅ 图片 src / srcset 在服务端即包含在 HTML 中
-- 💡 图片加载失败的降级处理在客户端激活后自动完成
-
-::: tip Nuxt 自动导入
-在安装 `@yh-ui/nuxt` 模块后，`YhAvatar` 组件会被自动注册，无需手动导入。
-:::
-
 ## API
 
 ### Props
 
-| 属性名           | 说明                           | 类型                                                       | 默认值      |
-| ---------------- | ------------------------------ | ---------------------------------------------------------- | ----------- |
-| shape            | 头像形状                       | `'circle' \| 'square'`                                     | `'circle'`  |
-| size             | 头像大小，支持预设值或像素数值 | `number \| 'large' \| 'default' \| 'small'`                | `'default'` |
-| src              | 图片地址                       | `string`                                                   | —           |
-| src-set          | 图片懒加载地址列表（srcset）   | `string`                                                   | —           |
-| alt              | 图片 alt 描述文字              | `string`                                                   | —           |
-| fit              | 图片适配方式                   | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'`   |
-| icon             | 图标组件，当无图片时显示       | `string \| Component`                                      | —           |
-| color            | 背景色（兼容旧 API）           | `string`                                                   | —           |
-| background-color | 背景颜色                       | `string`                                                   | —           |
-| theme-overrides  | 主题覆盖变量                   | `ComponentThemeVars`                                       | —           |
+| 名称 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `shape` | 头像形状 | `'circle' \| 'square'` | `'circle'` |
+| `size` | 头像尺寸 | `number \| 'large' \| 'default' \| 'small'` | `'default'` |
+| `src` | 图片地址 | `string` | `undefined` |
+| `src-set` | 图片 `srcset` | `string` | `undefined` |
+| `alt` | 图片替代文本 | `string` | `undefined` |
+| `fit` | 图片适配方式 | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
+| `icon` | 无图片时显示的图标组件或图标名 | `string \| Component` | `undefined` |
+| `color` | 兼容字段，设置头像背景色 | `string` | `undefined` |
+| `background-color` | 头像背景色 | `string` | `undefined` |
+| `style` | 内联自定义样式 | `CSSProperties` | `undefined` |
+| `crossorigin` | 原生图片 `crossorigin` 属性 | `'' \| 'anonymous' \| 'use-credentials'` | `'anonymous'` |
+| `theme-overrides` | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| 事件名 | 说明               | 回调参数                 |
-| ------ | ------------------ | ------------------------ |
-| error  | 图片加载失败时触发 | `(event: Event) => void` |
+| 名称 | 说明 | 参数 |
+| --- | --- | --- |
+| `error` | 图片加载失败时触发 | `(event: Event) => void` |
 
 ### Slots
 
-| 插槽名  | 说明                     |
-| ------- | ------------------------ |
-| default | 自定义内容（文字或图标） |
+| 名称 | 说明 |
+| --- | --- |
+| `default` | 自定义头像内容，可放文本或图标 |
 
-## 主题变量
+### Expose
 
-| 变量名                   | 说明         | 默认值                                     |
-| ------------------------ | ------------ | ------------------------------------------ |
-| `--yh-avatar-bg-color`   | 背景颜色     | `var(--yh-color-primary-light-8, #d9ecff)` |
-| `--yh-avatar-text-color` | 文字颜色     | `var(--yh-color-primary, #409eff)`         |
-| `--yh-avatar-radius`     | 方形头像圆角 | `var(--yh-border-radius-base, 4px)`        |
+当前组件未暴露公开实例方法或属性。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhAvatarProps` | `YhAvatar` 的 props 类型 |
+| `YhAvatarEmits` | `YhAvatar` 的 emits 类型 |
+| `YhAvatarSlots` | `YhAvatar` 的 slots 类型 |
+| `YhAvatarShape` | 头像形状联合类型 |
+| `YhAvatarSize` | 头像尺寸联合类型 |
+| `YhAvatarFit` | 图片适配联合类型 |
+| `YhAvatarInstance` | 组件实例类型 |
+
+### 主题变量
+
+| 变量名 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--yh-avatar-bg-color` | 头像背景色 | `var(--yh-color-primary-light-8, #d9ecff)` |
+| `--yh-avatar-text-color` | 头像文字颜色 | `var(--yh-color-primary, #409eff)` |
+| `--yh-avatar-radius` | 方形头像圆角 | `var(--yh-border-radius-base, 4px)` |

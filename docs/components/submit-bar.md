@@ -244,7 +244,7 @@ export default defineNuxtConfig({
 })
 ```
 
-## SubmitBar API
+## API
 
 ### Props
 
@@ -286,6 +286,10 @@ export default defineNuxtConfig({
 | price   | 完全复写整个中间金额区域展示      | -    |
 | button  | 复写提交按钮里的所有样式/文案结构 | -    |
 
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
 ### 主题变量 (CSS Variables)
 
 通过传入 `theme-overrides` prop 或全局定制，可轻松定制组件主题。
@@ -304,3 +308,13 @@ export default defineNuxtConfig({
 | `--yh-submit-bar-tip-color`     | 顶部提示横幅的文字主色 | `var(--yh-color-warning)`            |
 | `--yh-submit-bar-shadow`        | 吸底时的阴影           | `0 -2px 12px var(--yh-shadow-color)` |
 | `--yh-submit-bar-z-index`       | 组件吸底时的固定层级   | `200`                                |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhSubmitBarProps` | 组件 Props 类型 |
+| `YhSubmitBarEmits` | 组件事件类型 |
+| `YhSubmitBarSlots` | 组件插槽类型 |
+| `YhSubmitBarButtonType` | 按钮类型联合类型 |
+| `YhSubmitBarInstance` | 组件实例类型 |

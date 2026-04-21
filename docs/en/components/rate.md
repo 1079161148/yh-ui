@@ -5,7 +5,6 @@ Used for rating things.
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Demo states
 const val1 = ref(3)
 const val2 = ref(4)
 const val3 = ref(3)
@@ -15,17 +14,11 @@ const val5 = ref(3.7)
 const val6 = ref(3)
 const val7 = ref(3.7)
 const val8 = ref(3.5)
-
-// Nuxt example
 const nuxtRate = ref(4)
 
-// Nuxt demo code
 const tsNuxt = `<template>
   <div style="display: flex; flex-direction: column; gap: 12px;">
-    <!-- Rate component, auto-imported -->
     <yh-rate v-model="nuxtRate" />
-    
-    <!-- Combined with Nuxt data display -->
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="font-size: 14px; color: var(--yh-text-color-regular);">Average Score:</span>
       <yh-rate :model-value="4.5" disabled show-score />
@@ -34,13 +27,12 @@ const tsNuxt = `<template>
 </template>
 
 <script setup lang="ts">
-// No need to manually import Rate component
+import { ref } from 'vue'
 const nuxtRate = ref(4)
 <\/script>`
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
-// TypeScript examples
 const tsBasic = `<template>
   <div class="demo-rate-block">
     <span>Default:</span>
@@ -176,7 +168,7 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## Basic Usage
 
-The rating starts with three levels by default, and color arrays can be used to differentiate scores and emotional tendencies.
+The component uses a five-point rating scale by default, and `colors` can be used to customize the active icon color.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -193,7 +185,7 @@ The rating starts with three levels by default, and color arrays can be used to 
 
 ## Different Sizes
 
-Use the `size` property to set the size of the rating component.
+Use the `size` prop to switch between `large`, `default`, and `small`.
 
 <DemoBlock title="Different Sizes" :ts-code="tsSize" :js-code="jsSize">
   <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -205,7 +197,7 @@ Use the `size` property to set the size of the rating component.
 
 ## Allow Half Selection
 
-Set the `allow-half` property to allow half-star selection.
+Set `allow-half` to enable half-step ratings.
 
 <DemoBlock title="Allow Half Selection" :ts-code="tsHalf" :js-code="jsHalf">
   <yh-rate v-model="valHalf" allow-half />
@@ -213,7 +205,7 @@ Set the `allow-half` property to allow half-star selection.
 
 ## Auxiliary Text
 
-Set the `show-text` property to display auxiliary text, or `show-score` to display the score.
+Use `show-text` to display helper text or `show-score` to render the numeric value.
 
 <DemoBlock title="Auxiliary Text" :ts-code="tsText" :js-code="jsText">
   <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -224,7 +216,7 @@ Set the `show-text` property to display auxiliary text, or `show-score` to displ
 
 ## Clearable
 
-Use the `clearable` property to reset the value to 0 when re-clicking the same value.
+Use `clearable` to reset the value to `0` when clicking the current score again.
 
 <DemoBlock title="Clearable" :ts-code="tsClearable" :js-code="jsClearable">
   <yh-rate v-model="val6" clearable />
@@ -232,7 +224,7 @@ Use the `clearable` property to reset the value to 0 when re-clicking the same v
 
 ## Read-only
 
-Set the `disabled` property to enable read-only mode, commonly used for displaying scores.
+Set `disabled` to enable read-only display mode.
 
 <DemoBlock title="Read-only" :ts-code="tsDisabled" :js-code="jsDisabled">
   <yh-rate v-model="val7" disabled show-score text-color="#ff9900" />
@@ -240,7 +232,7 @@ Set the `disabled` property to enable read-only mode, commonly used for displayi
 
 ## Custom Icon
 
-Customize the icon via the `icon` slot.
+Use the `icon` slot to replace the built-in rating icon.
 
 <DemoBlock title="Custom Icon" :ts-code="tsCustom" :js-code="jsCustom">
   <yh-rate v-model="val8" colors="#f56c6c" allow-half>
@@ -282,7 +274,7 @@ Customize the icon via the `icon` slot.
 
 ## Use in Nuxt
 
-The Rate component fully supports Nuxt 3/4 SSR rendering. When used in a Nuxt project, the component is automatically imported.
+`YhRate` works in Nuxt 3/4 after registering `@yh-ui/nuxt`.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -294,49 +286,47 @@ The Rate component fully supports Nuxt 3/4 SSR rendering. When used in a Nuxt pr
   </div>
 </DemoBlock>
 
-**SSR Notes**:
-
-- ✅ Star display and half-selection (`allow-half`) are fully supported.
-- ✅ Custom text and score display render accurately in SSR.
-- ✅ Color configurations (`colors` array) support server-side calculation.
-- ✅ Styles remain consistent across different sizes.
-
-::: tip SSR Safety
-During server-side rendering, the Rate component generates static star bit maps or SVG paths, ensuring that users can see the full rating status before JavaScript loads.
-:::
-
 ## API
 
-### Rate Props
+### Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| v-model / model-value | Binding value | `number` | `0` |
-| max | Maximum value | `number` | `5` |
-| disabled | Whether it is read-only | `boolean` | `false` |
-| allow-half | Whether half-selection is allowed | `boolean` | `false` |
-| clearable | Whether to allow resetting by clicking the current value | `boolean` | `false` |
-| show-text | Whether to display auxiliary text, overrides score | `boolean` | `false` |
-| show-score | Whether to display current score; active only when `show-text` is false | `boolean` | `false` |
-| text-color | Auxiliary text color | `string` | `'#1f2d3d'` |
-| texts | Array of auxiliary texts | `string[]` | `['Disappointing', 'Poor', 'Fair', 'Good', 'Excellent']` |
-| colors | Active rating colors; supports string or array (for <=2, <=4, and 5) | `string \| string[]` | `'#F7BA2A'` |
-| void-color | Color for unselected status | `string` | `'#C6D1DE'` |
-| disabled-void-color | Unselected color when disabled | `string` | `'#EFF2F7'` |
-| size | Size of rating icons | `'large' \| 'default' \| 'small'` | `'default'` |
-| score-template | Display template for scores | `string` | `'{value}'` |
+| `model-value` / `v-model` | Binding value | `number` | `0` |
+| `max` | Maximum value | `number` | `5` |
+| `disabled` | Whether it is read-only | `boolean` | `false` |
+| `allow-half` | Whether half-selection is allowed | `boolean` | `false` |
+| `icon` | Custom selected icon | `string \| Component` | `''` |
+| `void-icon` | Custom unselected icon | `string \| Component` | `''` |
+| `disabled-void-icon` | Custom unselected icon when disabled | `string \| Component` | `''` |
+| `colors` | Active rating colors | `string \| string[] \| Record<number, string>` | `'#F7BA2A'` |
+| `void-color` | Color for unselected status | `string` | `'#C6D1DE'` |
+| `disabled-void-color` | Unselected color when disabled | `string` | `'#EFF2F7'` |
+| `show-score` | Whether to display the current score | `boolean` | `false` |
+| `show-text` | Whether to display auxiliary text | `boolean` | `false` |
+| `text-color` | Auxiliary text color | `string` | `'#1f2d3d'` |
+| `texts` | Array of auxiliary texts | `string[]` | `[]` |
+| `score-template` | Display template for scores | `string` | `'{value}'` |
+| `size` | Size of rating icons | `'large' \| 'default' \| 'small'` | `'default'` |
+| `clearable` | Whether clicking the current value resets the rating | `boolean` | `false` |
+| `theme-overrides` | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Rate Events
+### Events
 
 | Event Name | Description | Callback Parameters |
 | --- | --- | --- |
-| change | Triggered when the value changes | `(value: number) => void` |
+| `update:modelValue` | Triggered when the bound value changes | `(value: number) => void` |
+| `change` | Triggered when the value changes | `(value: number) => void` |
 
-### Rate Slots
+### Slots
 
 | Slot Name | Description | Parameters |
 | --- | --- | --- |
-| icon | Custom icon | `{ index: number, width: string, activeColor: string, voidColor: string }` |
+| `icon` | Custom icon | `{ index: number, width: string, activeColor: string, voidColor: string }` |
+
+### Expose
+
+This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
@@ -348,3 +338,13 @@ During server-side rendering, the Rate component generates static star bit maps 
 | `--yh-rate-text-color` | Auxiliary text color | `#1f2d3d` |
 | `--yh-rate-font-size` | Auxiliary text size | `14px` |
 | `--yh-rate-icon-margin` | Icon spacing | `6px` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhRateProps` | Component props type |
+| `YhRateEmits` | Component emits type |
+| `YhRateSlots` | Component slots type |
+| `YhRateSize` | Size union type |
+| `YhRateInstance` | Component instance type |

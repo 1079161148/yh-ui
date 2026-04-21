@@ -1,67 +1,36 @@
-# TimePicker
+﻿# TimePicker
 
-A time picker for selecting or entering arbitrary points in time. It supports hour/minute/second spinner selection, 12/24-hour formats, time disabling, and other advanced features.
+Use `YhTimePicker` to select or enter arbitrary points in time. It supports spinner panels, range selection, 12-hour formatting, disabled time rules, and footer actions.
+
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Basic Usage
 const timeBasic = ref('')
-
-// Disabled State
 const timeDisabled = ref('14:30:00')
-
-// Clearable
 const timeClearable = ref('09:15:30')
-
-// Different Sizes
 const timeLarge = ref('')
 const timeDefault = ref('')
 const timeSmall = ref('')
-
-// 12-Hour Format
 const time12Hours = ref('')
-
-// Hide Seconds
 const timeNoSeconds = ref('')
-
-// Arrow Control
 const timeArrow = ref('')
-
-// Step Setting
 const timeStep = ref('')
-
-// Disabled Time
 const timeDisabledTime = ref('')
-
-// Time Range
-const timeRangeStart = ref('')
-const timeRangeEnd = ref('')
-
-// Range Selection
 const timeRange = ref<[string, string] | null>(null)
 const timeRangeOrder = ref<[string, string] | null>(['10:00:00', '08:00:00'])
-
-// Full Functionality
 const timeFull = ref('')
-
-// Nuxt Example
 const nuxtTime = ref('')
 
-// Disabled time config
 const disabledTimeConfig = {
   disabledHours: () => [0, 1, 2, 3, 4, 5, 22, 23],
-  disabledMinutes: (hour: number) => hour === 12 ? [0, 15, 30, 45] : [],
+  disabledMinutes: (hour: number) => (hour === 12 ? [0, 15, 30, 45] : []),
   disabledSeconds: () => []
 }
 
-// Code samples
 const tsBasic = `<template>
   <div style="max-width: 220px;">
-    <yh-time-picker
-      v-model="time"
-      placeholder="Select time"
-    />
+    <yh-time-picker v-model="time" placeholder="Select time" />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
       Current value: {{ time || 'Not selected' }}
     </p>
@@ -171,11 +140,7 @@ const jsNoSeconds = tsNoSeconds.replace('lang="ts"', '')
 
 const tsArrow = `<template>
   <div style="max-width: 200px;">
-    <yh-time-picker
-      v-model="time"
-      arrow-control
-      placeholder="Arrow control"
-    />
+    <yh-time-picker v-model="time" arrow-control placeholder="Arrow control" />
   </div>
 </template>
 
@@ -218,7 +183,7 @@ const tsDisabledTime = `<template>
       placeholder="Restricted time"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      Disabled: 0-5h, 22-23h, and specific minutes at 12h
+      Disabled: 00:00-05:59, 22:00-23:59, and specific minutes at 12:00
     </p>
   </div>
 </template>
@@ -230,7 +195,7 @@ const time = ref('')
 
 const disabledTimeConfig = {
   disabledHours: () => [0, 1, 2, 3, 4, 5, 22, 23],
-  disabledMinutes: (hour: number) => hour === 12 ? [0, 15, 30, 45] : [],
+  disabledMinutes: (hour: number) => (hour === 12 ? [0, 15, 30, 45] : []),
   disabledSeconds: () => []
 }
 <\/script>`
@@ -320,16 +285,11 @@ const jsFull = tsFull.replace('lang="ts"', '').replace(': string', '')
 
 const tsNuxt = `<template>
   <div style="max-width: 220px;">
-    <!-- TimePicker, auto-imported in Nuxt -->
-    <yh-time-picker
-      v-model="time"
-      placeholder="Nuxt auto-import"
-    />
+    <yh-time-picker v-model="time" placeholder="Nuxt auto-import" />
   </div>
 </template>
 
 <script setup lang="ts">
-// No manual import needed for YhTimePicker
 const time = ref('')
 <\/script>`
 
@@ -337,22 +297,17 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 ::: tip TimePicker vs TimeSelect
-- **TimePicker**: Free selection of any time point via spinner panels (this component).
-- **TimeSelect**: Selection from a predefined list of fixed time slots, ideal for appointment scenarios.
-
-Choose the component that best fits your business needs.
+- **TimePicker**: Select any time through spinner panels.
+- **TimeSelect**: Pick from a predefined list of fixed time slots.
 :::
 
 ## Basic Usage
 
-Click the input area to open the time selection panel. Scroll or click to select hours, minutes, and seconds.
+Click the input to open the panel and choose hours, minutes, and seconds.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="max-width: 220px;">
-    <yh-time-picker
-      v-model="timeBasic"
-      placeholder="Select time"
-    />
+    <yh-time-picker v-model="timeBasic" placeholder="Select time" />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
       Current value: {{ timeBasic || 'Not selected' }}
     </p>
@@ -361,7 +316,7 @@ Click the input area to open the time selection panel. Scroll or click to select
 
 ## Disabled State
 
-Use the `disabled` property to disable the entire time picker.
+Use `disabled` to prevent interaction.
 
 <DemoBlock title="Disabled State" :ts-code="tsDisabled" :js-code="jsDisabled">
   <div style="max-width: 220px;">
@@ -371,7 +326,7 @@ Use the `disabled` property to disable the entire time picker.
 
 ## Clearable
 
-Set the `clearable` property to allow clearing the selected time.
+Set `clearable` to show the clear icon when a value exists.
 
 <DemoBlock title="Clearable" :ts-code="tsClearable" :js-code="jsClearable">
   <div style="max-width: 220px;">
@@ -384,7 +339,7 @@ Set the `clearable` property to allow clearing the selected time.
 
 ## Different Sizes
 
-Use the `size` property to change the picker's dimensions. Options: `large`, `default`, `small`.
+Use `size` to switch between `large`, default, and `small`.
 
 <DemoBlock title="Different Sizes" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="max-width: 220px; display: flex; flex-direction: column; gap: 16px;">
@@ -396,7 +351,7 @@ Use the `size` property to change the picker's dimensions. Options: `large`, `de
 
 ## 12-Hour Format
 
-Set the `use12-hours` property to enable the 12-hour format (AM/PM).
+Set `use12-hours` to render the displayed value with AM/PM formatting.
 
 <DemoBlock title="12-Hour Format" :ts-code="ts12Hours" :js-code="js12Hours">
   <div style="max-width: 220px;">
@@ -414,7 +369,7 @@ Set the `use12-hours` property to enable the 12-hour format (AM/PM).
 
 ## Hide Seconds
 
-Set `show-seconds` to `false` to hide the seconds selection column.
+Set `show-seconds` to `false` to keep only the hour and minute columns.
 
 <DemoBlock title="Hide Seconds" :ts-code="tsNoSeconds" :js-code="jsNoSeconds">
   <div style="max-width: 180px;">
@@ -432,21 +387,17 @@ Set `show-seconds` to `false` to hide the seconds selection column.
 
 ## Arrow Control Mode
 
-Set the `arrow-control` property to use up/down arrows for time adjustment instead of scrolling lists.
+Set `arrow-control` to switch the panel to up/down controls.
 
 <DemoBlock title="Arrow Control Mode" :ts-code="tsArrow" :js-code="jsArrow">
   <div style="max-width: 200px;">
-    <yh-time-picker
-      v-model="timeArrow"
-      arrow-control
-      placeholder="Arrow control"
-    />
+    <yh-time-picker v-model="timeArrow" arrow-control placeholder="Arrow control" />
   </div>
 </DemoBlock>
 
 ## Step Settings
 
-Use `hour-step`, `minute-step`, and `second-step` properties to set the intervals for time selection.
+Use `hour-step`, `minute-step`, and `second-step` to control the available increments.
 
 <DemoBlock title="Step Settings" :ts-code="tsStep" :js-code="jsStep">
   <div style="max-width: 220px;">
@@ -465,7 +416,7 @@ Use `hour-step`, `minute-step`, and `second-step` properties to set the interval
 
 ## Disabled Time
 
-Use the `disabled-time` property to restrict selectable times. You can independently disable specific hours, minutes, and seconds.
+Use `disabled-time` to disable specific hours, minutes, or seconds.
 
 <DemoBlock title="Disabled Time" :ts-code="tsDisabledTime" :js-code="jsDisabledTime">
   <div style="max-width: 220px;">
@@ -475,14 +426,14 @@ Use the `disabled-time` property to restrict selectable times. You can independe
       placeholder="Restricted time"
     />
     <p style="margin-top: 8px; color: #909399; font-size: 12px;">
-      Disabled: 0-5h, 22-23h, and specific minutes at 12h
+      Disabled: 00:00-05:59, 22:00-23:59, and specific minutes at 12:00
     </p>
   </div>
 </DemoBlock>
 
 ## Time Range Selection
 
-Set the `is-range` property to enable time range selection mode.
+Set `is-range` to select start and end times in the same control.
 
 <DemoBlock title="Time Range Selection" :ts-code="tsRange" :js-code="jsRange">
   <div style="max-width: 380px;">
@@ -501,7 +452,7 @@ Set the `is-range` property to enable time range selection mode.
 
 ## Automatic Range Sorting
 
-By setting `order-on-confirm` to `true`, the system will no longer enforce strict disabling constraints (you can pick any time), but will automatically swap the values if the end time is earlier than the start time upon clicking "OK".
+Set `order-on-confirm` to swap the range values automatically when the end time is earlier than the start time.
 
 <DemoBlock title="Automatic Range Sorting" :ts-code="tsRangeOrder" :js-code="jsRangeOrder">
   <div style="max-width: 380px;">
@@ -521,7 +472,7 @@ By setting `order-on-confirm` to `true`, the system will no longer enforce stric
 
 ## Full Feature Demo
 
-A demonstration of common TimePicker features: clearable, footer actions, "Now" button, etc.
+This example combines clearable behavior, footer actions, and custom action labels.
 
 <DemoBlock title="Full Feature Demo" :ts-code="tsFull" :js-code="jsFull">
   <div style="max-width: 220px;">
@@ -539,30 +490,15 @@ A demonstration of common TimePicker features: clearable, footer actions, "Now" 
   </div>
 </DemoBlock>
 
-## Usage in Nuxt
+## Use in Nuxt
 
-The TimePicker component fully supports SSR in Nuxt 3/4. When used in a Nuxt project, it is auto-imported.
+After installing the YH-UI Nuxt module, `YhTimePicker` can be used directly. Inputs, initial values, and placeholders render during SSR, while popup positioning, panel scrolling, and imperative methods such as `focus` and `open` continue on the client after hydration.
 
-<DemoBlock title="Usage in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 220px;">
-    <yh-time-picker
-      v-model="nuxtTime"
-      placeholder="Nuxt auto-import"
-    />
+    <yh-time-picker v-model="nuxtTime" placeholder="Nuxt auto-import" />
   </div>
 </DemoBlock>
-
-**SSR Considerations**:
-
-- ✅ Component structure and styles fully support SSR.
-- ✅ Initial values render correctly on the server.
-- ✅ Panel uses Teleport but is SSR-compatible for the initial load.
-- ⚠️ Spinner scroll positioning becomes active after client-side hydration.
-- ⚠️ DOM-direct operations (like `focus`) only execute on the client.
-
-::: tip SSR Best Practices
-TimePicker's core logic is optimized for SSR. All operations that could cause hydration mismatches (like timestamp generation or direct DOM access) are safely deferred to the client side.
-:::
 
 ## API
 
@@ -570,88 +506,105 @@ TimePicker's core logic is optimized for SSR. All operations that could cause hy
 
 | Name | Description | Type | Default |
 | --- | --- | --- | --- |
-| model-value / v-model | Binding value | `string \| Date \| number \| [string, string]` | — |
-| disabled | Whether to disable the picker | `boolean` | `false` |
+| model-value / v-model | Bound value | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
+| disabled | Whether the picker is disabled | `boolean` | `false` |
 | editable | Whether the input is editable | `boolean` | `true` |
-| clearable | Whether the selected value can be cleared | `boolean` | `true` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
-| placeholder | Placeholder text | `string` | `'Select time'` |
-| start-placeholder | Placeholder for the start time in range mode | `string` | `'Start time'` |
-| end-placeholder | Placeholder for the end time in range mode | `string` | `'End time'` |
-| is-range | Whether to enable range selection | `boolean` | `false` |
-| format | Time display format | `string` | `'HH:mm:ss'` |
-| value-format | Format for the bound value | `string` | `'HH:mm:ss'` |
+| clearable | Whether the value can be cleared | `boolean` | `true` |
+| size | Input size | `'large' \| 'default' \| 'small'` | `undefined` |
+| placeholder | Placeholder text in single mode | `string` | `''` |
+| start-placeholder | Placeholder text for the start input in range mode | `string` | `''` |
+| end-placeholder | Placeholder text for the end input in range mode | `string` | `''` |
+| name | Native `input` name | `string` | `undefined` |
+| is-range | Whether range mode is enabled | `boolean` | `false` |
+| format | Display format | `string` | `'HH:mm:ss'` |
+| value-format | Format used when emitting string values. Falls back to `format` when omitted | `string` | `undefined` |
+| prefix-icon | Declared prefix icon prop. The current template still renders the built-in clock icon and does not consume this prop | `string \| Component` | `undefined` |
+| clear-icon | Declared clear icon prop. The current template still renders the built-in clear icon and does not consume this prop | `string \| Component` | `undefined` |
 | use12-hours | Whether to use 12-hour format | `boolean` | `false` |
-| show-seconds | Whether to show the seconds column | `boolean` | `true` |
-| hour-step | Interval between selectable hours | `number` | `1` |
-| minute-step | Interval between selectable minutes | `number` | `1` |
-| second-step | Interval between selectable seconds | `number` | `1` |
-| disabled-time | Config for disabled times | `DisabledTimeConfig` | — |
-| popper-class | Class name for the dropdown | `string` | — |
-| teleported | Whether to insert the dropdown into body | `boolean` | `true` |
-| range-separator | Separator for range display | `string` | `'-'` |
-| arrow-control | Whether to use arrows for control | `boolean` | `false` |
-| order-on-confirm | Whether to auto-swap range values if end < start | `boolean` | `false` |
-| show-footer | Whether to show the bottom footer | `boolean` | `true` |
-| show-now | Whether to show the "Now" button | `boolean` | `true` |
-| confirm-text | Text for the OK button | `string` | `'OK'` |
-| cancel-text | Text for the Cancel button | `string` | `'Cancel'` |
-| now-text | Text for the Now button | `string` | `'Now'` |
-| validate-event | Whether to trigger form validation | `boolean` | `true` |
-
-### DisabledTimeConfig
-
-| Name | Description | Type |
-| --- | --- | --- |
-| disabledHours | Disabled hours | `() => number[]` |
-| disabledMinutes | Disabled minutes (based on selected hour) | `(hour: number) => number[]` |
-| disabledSeconds | Disabled seconds (based on selected hour and minute) | `(hour: number, minute: number) => number[]` |
+| show-seconds | Whether the seconds column is shown | `boolean` | `true` |
+| hour-step | Hour step size | `number` | `1` |
+| minute-step | Minute step size | `number` | `1` |
+| second-step | Second step size | `number` | `1` |
+| disabled-time | Disabled time configuration | `YhTimePickerDisabledTimeConfig` | `undefined` |
+| popper-class | Custom panel class name | `string` | `undefined` |
+| popper-style | Declared panel style prop. The current implementation does not merge this prop into the popup styles | `string \| Record<string, string>` | `undefined` |
+| teleported | Whether the panel is teleported to `body` | `boolean` | `true` |
+| validate-event | Whether form validation runs on change and blur | `boolean` | `true` |
+| popper-offset | Offset between the input and popup panel | `number` | `4` |
+| range-separator | Range separator text | `string` | `'-'` |
+| default-value | Initial panel value used when the bound value is empty | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
+| hour-options | Custom hour options | `number[]` | `undefined` |
+| minute-options | Custom minute options | `number[]` | `undefined` |
+| second-options | Custom second options | `number[]` | `undefined` |
+| hide-on-blur | Whether the panel closes on blur | `boolean` | `true` |
+| confirm-text | Confirm button label. Falls back to locale text when empty | `string` | `''` |
+| cancel-text | Cancel button label. Falls back to locale text when empty | `string` | `''` |
+| now-text | Now button label. Falls back to locale text when empty | `string` | `''` |
+| show-footer | Whether the footer action area is shown | `boolean` | `true` |
+| show-now | Whether the now button is shown in the footer | `boolean` | `true` |
+| arrow-control | Whether arrow control mode is enabled | `boolean` | `false` |
+| tabindex | Native `tabindex` value | `number \| string` | `0` |
+| id | Native `input` id in single mode. Range mode does not apply this prop to the start/end inputs | `string` | `undefined` |
+| order-on-confirm | Whether range values are auto-sorted on confirm | `boolean` | `false` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
 | Name | Description | Parameters |
 | --- | --- | --- |
-| change | Triggers when time changes | `(value: TimeValue \| TimeRangeValue) => void` |
-| focus | Triggers on focus | `(event: FocusEvent) => void` |
-| blur | Triggers on blur | `(event: FocusEvent) => void` |
-| clear | Triggers when cleared | `() => void` |
-| visible-change | Triggers when the panel shows/hides | `(visible: boolean) => void` |
-| confirm | Triggers when the OK button is clicked | `(value: TimeValue \| TimeRangeValue) => void` |
-| cancel | Triggers when the Cancel button is clicked | `() => void` |
+| update:modelValue | Triggered when the bound value updates | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| change | Triggered when the confirmed value changes | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| focus | Triggered when the input gains focus | `(event: FocusEvent) => void` |
+| blur | Triggered when the input loses focus | `(event: FocusEvent) => void` |
+| clear | Triggered when the clear icon is clicked | `() => void` |
+| visible-change | Triggered when panel visibility changes | `(visible: boolean) => void` |
+| confirm | Triggered when the confirm button is clicked | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| cancel | Triggered when the cancel button is clicked | `() => void` |
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
-| prefix | Custom prefix icon |
-| suffix | Custom suffix icon |
-| range-separator | Custom range separator content |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| prefix | Content rendered before the input | - |
+| suffix | Declared in the slot type, but the current template does not render this slot | - |
+| rangeSeparator | Custom range separator content | - |
 
 ### Expose
 
 | Name | Description | Type |
 | --- | --- | --- |
-| focus | Focus the picker | `() => void` |
-| blur | Blur the picker | `() => void` |
-| open | Open the selection panel | `() => void` |
-| close | Close the selection panel | `() => void` |
+| focus | Focuses the input | `() => void` |
+| blur | Blurs the input | `() => void` |
+| open | Opens the panel | `() => void` |
+| close | Closes the panel | `() => void` |
+| inputRef | Ref to the single-mode input. In range mode it does not point to the start/end inputs | `Ref<HTMLInputElement \| undefined>` |
 
-## Theme Variables
+### Type Exports
 
-All colors support dark mode via the global theme system:
+| Name | Description |
+| --- | --- |
+| `YhTimePickerProps` | Props type for `YhTimePicker` |
+| `YhTimePickerEmits` | Emits type for `YhTimePicker` |
+| `YhTimePickerSlots` | Slots type for `YhTimePicker` |
+| `YhTimePickerExpose` | Public expose type for `YhTimePicker` |
+| `YhTimePickerSize` | Size union type |
+| `YhTimePickerValue` | Single time value type |
+| `YhTimePickerRangeValue` | Time range value type |
+| `YhTimePickerDisabledTimeConfig` | Disabled time configuration type |
+| `YhTimePickerState` | Internal panel time state type |
+| `YhTimePickerInstance` | Component instance type |
+
+### Theme Variables
+
+`YhTimePicker` supports `themeOverrides`. The stylesheet directly consumes the following component-scoped CSS variables, while borders, shadows, and text colors continue to inherit shared theme tokens.
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `--yh-time-picker-width` | Picker width | `220px` |
-| `--yh-time-picker-range-width` | Range picker width | `360px` |
-| `--yh-time-picker-active-color` | Highlighted text color | `var(--yh-color-primary)` |
-| `--yh-time-picker-active-bg` | Highlighted background color | `var(--yh-color-primary-light-9)` |
-| `--yh-time-picker-hover-bg` | Hover background color | `var(--yh-fill-color-light)` |
-| `--yh-time-picker-panel-bg` | Panel background color | `var(--yh-bg-color-overlay)` |
-| `--yh-time-picker-panel-shadow` | Panel shadow | `var(--yh-shadow-lg)` |
-| `--yh-time-picker-text-color` | Text color | `var(--yh-text-color-primary)` |
-| `--yh-time-picker-text-secondary` | Secondary text color | `var(--yh-text-color-secondary)` |
-| `--yh-time-picker-border` | Border color | `var(--yh-border-color-light)` |
-| `--yh-time-picker-item-height` | Option item height | `32px` |
-| `--yh-time-picker-spinner-height` | Spinner height | `192px` |
-| `--yh-time-picker-border-radius` | Border radius | `var(--yh-border-radius-base)` |
+| `--yh-time-picker-width` | Width in single mode | `220px` |
+| `--yh-time-picker-range-width` | Width in range mode | `360px` |
+| `--yh-time-picker-active-color` | Active item text color | `var(--yh-color-primary)` |
+| `--yh-time-picker-active-bg` | Active item background color | `var(--yh-color-primary-light-9)` |
+| `--yh-time-picker-hover-bg` | Hover background color for spinner items | `var(--yh-fill-color-light)` |
+| `--yh-time-picker-panel-bg` | Popup panel background color | `var(--yh-bg-color)` |
+| `--yh-time-picker-border-radius` | Popup border radius | `var(--yh-radius-md)` |
+

@@ -870,9 +870,9 @@ By listening to the `preview` event, you can implement preview logic when clicki
 </DemoBlock>
 
 
-## Nuxt.js Usage Instructions
+## Use in Nuxt
 
-Since the `YhUpload` component internally uses browser-specific APIs such as `Viewer.js` and `FileReader`, please ensure it is placed within the `<ClientOnly>` component when using it in a Nuxt 3 (SSR) environment, or ensure that relevant interactions are only triggered during the client-side lifecycle (e.g., `onMounted`).
+`YhUpload` can be rendered in Nuxt pages, but preview, thumbnail generation, drag-and-drop, and file reading rely on browser APIs. In SSR scenarios, keep those interactive parts inside `<ClientOnly>` or trigger them only after the client has mounted.
 
 ```vue
 <template>
@@ -891,20 +891,20 @@ Since the `YhUpload` component internally uses browser-specific APIs such as `Vi
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | v-model:file-list | Uploaded file list | `UploadFile[]` | `[]` |
-| action | Upload target URL | `string` | - |
+| action | Upload target URL | `string` | `''` |
 | method | Upload HTTP method | `string` | `'POST'` |
 | headers | Set upload request headers | `Record<string, string>` | `{}` |
 | data | Additional parameters with upload | `Record<string, unknown>` | `{}` |
 | name | Upload file field name | `string` | `'file'` |
 | multiple | Whether to support multi-selection | `boolean` | `false` |
 | drag | Whether to enable drag-and-drop upload | `boolean` | `false` |
-| accept | Accepted [file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | `string` | - |
+| accept | Accepted [file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | `string` | `''` |
 | showFileList | Whether to show the uploaded file list | `boolean` | `true` |
 | limit | Maximum number of files allowed | `number` | - |
 | autoUpload | Whether to upload immediately after selection | `boolean` | `true` |
 | listType | File list display style | `'text' \| 'picture' \| 'picture-card'` | `'text'` |
 | withCredentials | Support sending cookie credentials | `boolean` | `false` |
-| httpRequest | Override default upload behavior | `(options: UploadRequestOptions) => void` | - |
+| httpRequest | Override default upload behavior | `(options: UploadRequestOptions) => Promise<unknown> \| void` | - |
 | beforeUpload | Hook before file is uploaded | `(file: UploadRawFile) => boolean \| Promise<boolean \| Blob>` | - |
 | beforeRemove | Hook before file is removed | `(file: UploadFile, fileList: UploadFile[]) => boolean \| Promise<boolean>` | - |
 | disabled | Whether to disable upload | `boolean` | `false` |
@@ -915,6 +915,7 @@ Since the `YhUpload` component internally uses browser-specific APIs such as `Vi
 | triggerPosition | Trigger position relative to the list | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
 | fileIcon | Custom file icon or icon generation function | `string \| ((file: UploadFile) => string)` | - |
 | crossorigin | Native attribute [crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) | `'anonymous' \| 'use-credentials' \| ''` | - |
+| themeOverrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -949,23 +950,35 @@ Since the `YhUpload` component internally uses browser-specific APIs such as `Vi
 | handleRemove | Manually remove a specific file | `(file: UploadFile)` |
 | handlePreview | Manually trigger file preview | `(file: UploadFile)` |
 | handleDownload | Manually trigger file download | `(file: UploadFile)` |
-| handleFiles | Manually add and process file list | `(files: File[])` |
+| handleFiles | Manually add and process file list | `(files: File[] \| FileList)` |
 
-### Theme Variables (CSS Variables)
+## Theme Variables
 
-All color variables are connected to the global theme system and support dark mode automatically:
+`YhUpload` supports `themeOverrides`. The stylesheet directly consumes the following upload-specific CSS variables, while related colors still inherit from the shared theme token system:
 
 | Variable | Description | Default |
 | --- | --- | --- |
 | `--yh-upload-dragger-bg` | Drag area background color | `var(--yh-bg-color)` |
 | `--yh-upload-dragger-border` | Drag area border color | `var(--yh-border-color-light)` |
-| `--yh-upload-dragger-hover-border` | Drag area hover border color | `var(--yh-color-primary)` |
-| `--yh-upload-item-bg` | List item background color | `var(--yh-fill-color-blank)` |
-| `--yh-upload-item-hover-bg` | List item hover background color | `var(--yh-fill-color-light)` |
-| `--yh-upload-text-color` | Text color | `var(--yh-text-color-regular)` |
-| `--yh-upload-text-secondary` | Secondary text color | `var(--yh-text-color-secondary)` |
-| `--yh-upload-progress-bg` | Progress bar background color | `var(--yh-color-primary)` |
-| `--yh-upload-card-radius` | Photo wall card border radius | `var(--yh-radius-md)` |
+| `--yh-upload-item-bg` | File list item background color | `var(--yh-fill-color-blank)` |
+| `--yh-upload-progress-bg` | Progress bar color | `var(--yh-color-primary)` |
+| `--yh-upload-error-bg` | Error item background color | `var(--yh-color-danger-light-9)` |
+| `--yh-upload-error-hover-bg` | Error item hover background color | `var(--yh-color-danger-light-7)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhUploadProps` | Component props type |
+| `YhUploadEmits` | Component emits type |
+| `YhUploadSlots` | Component slots type |
+| `YhUploadExpose` | Component expose type |
+| `YhUploadFile` | Uploaded file type |
+| `YhUploadRawFile` | Raw file type |
+| `YhUploadProgressEvent` | Upload progress event type |
+| `YhUploadRequestOptions` | Upload request options type |
+| `YhUploadStatus` | Upload status union |
+| `YhUploadInstance` | Component instance type |
 
 
 <style scoped>

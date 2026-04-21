@@ -573,26 +573,35 @@ import { YhNotification } from '@yh-ui/yh-ui'
 | `YhNotification.warning`  | Show warning notification | `(title, message \| options)` |
 | `YhNotification.info`     | Show info notification    | `(title, message \| options)` |
 | `YhNotification.error`    | Show error notification   | `(title, message \| options)` |
-| `YhNotification.closeAll` | Close all notifications   | —                             |
+| `YhNotification.closeAll` | Close all notifications   | -                             |
 
 ### Props
 
-| Prop                       | Description                                                  | Type                                                                                              | Default       |
-| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | ------------- |
-| `title`                    | Title                                                        | `string`                                                                                          | —             |
-| `message`                  | Notification content                                         | `string \| VNode \| (() => VNode)`                                                                | —             |
-| `type`                     | Notification type                                            | `'success' \| 'warning' \| 'info' \| 'error'`                                                     | —             |
-| `icon`                     | Custom icon                                                  | `string \| VNode`                                                                                 | —             |
-| `showClose`                | Whether to show close button                                 | `boolean`                                                                                         | `true`        |
-| `duration`                 | Display duration (ms), set to 0 to prevent auto-close        | `number`                                                                                          | `4500`        |
-| `offset`                   | Offset from the window edge (px)                             | `number`                                                                                          | `16`          |
-| `position`                 | Popup position                                               | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'top-right'` |
-| `dangerouslyUseHTMLString` | Whether to treat message as an HTML snippet                  | `boolean`                                                                                         | `false`       |
-| `onClose`                  | Callback function when closing                               | `() => void`                                                                                      | —             |
-| `onClick`                  | Callback function when clicking the notification             | `() => void`                                                                                      | —             |
-| `zIndex`                   | z-index level                                                | `number`                                                                                          | —             |
-| `customClass`              | Custom class name                                            | `string`                                                                                          | —             |
-| `max`                      | Limit the number of notifications shown at the same position | `number`                                                                                          | —             |
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| `title` | Title. | `string` | `undefined` |
+| `message` | Notification content. Supports strings, `VNode`, and functions returning a `VNode`. | `string \| VNode \| (() => VNode)` | `undefined` |
+| `type` | Notification type. | `'success' \| 'warning' \| 'info' \| 'error'` | `undefined` |
+| `icon` | Custom icon prop. Declared in the type, but the current template does not render the prop value itself. Use the `icon` slot for custom icons. | `string \| VNode` | `undefined` |
+| `showClose` | Whether to show close button. | `boolean` | `true` |
+| `duration` | Display duration in milliseconds. Set to `0` to keep the notification open. | `number` | `4500` |
+| `offset` | Offset from the viewport edge. | `number` | `16` |
+| `position` | Popup position. | `'top-right' \| 'top-left' \| 'top-center' \| 'bottom-right' \| 'bottom-left' \| 'bottom-center'` | `'top-right'` |
+| `id` | Internal id used by the service runtime. | `string` | `undefined` |
+| `dangerouslyUseHTMLString` | Whether to treat `message` as an HTML snippet. | `boolean` | `false` |
+| `onClose` | Callback when closing. | `() => void` | `undefined` |
+| `onClick` | Callback when clicking the notification root. | `() => void` | `undefined` |
+| `zIndex` | z-index level. | `number` | `undefined` |
+| `customClass` | Custom class name. | `string` | `undefined` |
+| `max` | Maximum count allowed at the same position. When exceeded, the oldest notifications at that position are closed first. | `number` | `undefined` |
+| `themeOverrides` | Component-level theme overrides. | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+| Event | Description | Parameters |
+| --- | --- | --- |
+| `destroy` | Triggered after the leave transition finishes. | `() => void` |
+| `click` | Triggered when the notification root is clicked. | `() => void` |
 
 ### Return Value
 
@@ -625,18 +634,28 @@ handler.close()
 
 ### Theme Variables
 
-The Notification component use following CSS variables, which can be overridden to customize the style:
+The Notification component currently consumes the following dedicated CSS variables:
 
 | Variable                              | Description              | Default                          |
 | ------------------------------------- | ------------------------ | -------------------------------- |
-| `--yh-notification-bg-color`          | Background color         | `var(--yh-color-bg-elevated)`    |
-| `--yh-notification-border-color`      | Border color             | `var(--yh-border-color-light)`   |
-| `--yh-notification-shadow`            | Shadow                   | `var(--yh-box-shadow-small)`     |
-| `--yh-notification-title-color`       | Title color              | `var(--yh-color-text-primary)`   |
-| `--yh-notification-text-color`        | Content text color       | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-color`       | Close button color       | `var(--yh-color-text-secondary)` |
-| `--yh-notification-close-hover-color` | Close button hover color | `var(--yh-color-text-primary)`   |
-| `--yh-notification-icon-size`         | Icon size                | `24px`                           |
-| `--yh-notification-width`             | Notification width       | `330px`                          |
-| `--yh-notification-padding`           | Padding                  | `20px`                           |
-| `--yh-notification-radius`            | Border radius            | `var(--yh-border-radius-base)`   |
+| `--yh-notification-bg-color` | Background color | `var(--yh-bg-color-overlay)` |
+| `--yh-notification-border-color` | Border color | `var(--yh-border-color-lighter)` |
+| `--yh-notification-shadow` | Shadow | `var(--yh-shadow-lg)` |
+| `--yh-notification-title-color` | Title color | `var(--yh-text-color-primary)` |
+| `--yh-notification-content-color` | Content text color | `var(--yh-text-color-regular)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhNotificationProps` | Props type for the internal notification component |
+| `YhNotificationEmits` | Emits type for the internal notification component |
+| `YhNotificationSlots` | Slots type for the internal notification component |
+| `YhNotificationExpose` | Expose type for the internal notification component |
+| `YhNotificationInstance` | Public instance type for a single notification |
+| `YhNotificationOptions` | Service options type for `YhNotification(...)` |
+| `YhNotificationHandler` | Returned handler type |
+| `YhNotificationContext` | Internal runtime context type |
+| `YhNotificationFn` | Notification function signature type |
+| `YhNotificationType` | Notification type union |
+| `YhNotificationPosition` | Notification position union |

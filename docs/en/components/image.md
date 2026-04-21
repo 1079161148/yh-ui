@@ -347,7 +347,7 @@ When the built-in previewer isn't enough, switch to the more powerful `viewerjs`
 
 ## Use in Nuxt
 
-The `Image` component fully supports Nuxt 3 SSR mode. We have fully considered server-client compatibility in its implementation of lazy loading and previewing.
+`YhImage` and `YhImageViewer` can be used directly in Nuxt applications. During SSR, render the component normally and let lazy loading and preview behavior start on the client after hydration.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
@@ -370,10 +370,10 @@ The `Image` component fully supports Nuxt 3 SSR mode. We have fully considered s
 
 **SSR Notes**:
 
-- ✅ Supports server-side placeholder rendering (Placeholder Slot).
-- ✅ Lazy loading starts listening automatically after client-side activation.
-- ✅ Previewer component uses Teleport to mount to body on the client.
-- ✅ Perfectly compatible with Nuxt auto-import mechanism.
+- Supports placeholder rendering during SSR.
+- Lazy loading starts observing on the client after hydration.
+- Preview mode mounts the viewer on the client when it is opened.
+- Works with Nuxt auto-import after registering the YH-UI module.
 
 ## API
 
@@ -381,33 +381,35 @@ The `Image` component fully supports Nuxt 3 SSR mode. We have fully considered s
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| src | Image source address | `string` | — |
-| fit | How image fits container, same as native object-fit | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | — |
+| src | Image source URL | `string` | `''` |
+| fit | How the image fits its container, equivalent to native `object-fit` | `'' \| 'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `''` |
 | lazy | Whether to enable lazy loading | `boolean` | `false` |
-| preview-src-list | Preview list | `string[]` | `[]` |
-| z-index | Preview z-index | `number` | `2000` |
+| preview-src-list | Source list used by the built-in preview viewer | `string[]` | `[]` |
+| z-index | Preview z-index | `number` | `undefined` |
 | initial-index | Start index of preview | `number` | `0` |
-| close-on-press-escape | Close preview via ESC | `boolean` | `true` |
-| hide-on-click-modal | Close preview via clicking mask | `boolean` | `false` |
-| infinite | Whether to loop preview | `boolean` | `true` |
-| zoom-rate | Preview zoom rate | `number` | `1.2` |
-| show-progress | Show toolbar in preview mode | `boolean` | `true` |
-| preview-teleported | Teleport preview container to body | `boolean` | `true` |
-| scroll-container | Scroll container for lazy loading | `string \| HTMLElement` | — |
-| viewer-mode | Preview mode: 'default' (built-in), 'viewerjs' (external) | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | Options passed to `viewerjs` | `object` | `{}` |
-| alt | Native alt attribute | `string` | — |
-| crossorigin | Native crossorigin attribute | `string` | — |
+| close-on-press-escape | Whether pressing `Esc` closes preview | `boolean` | `true` |
+| hide-on-click-modal | Whether clicking the overlay closes preview | `boolean` | `false` |
+| infinite | Whether preview loops infinitely | `boolean` | `true` |
+| zoom-rate | Zoom step used by the preview viewer | `number` | `1.2` |
+| show-progress | Whether to show preview progress controls | `boolean` | `true` |
+| preview-teleported | Whether to teleport the preview container to `body` | `boolean` | `true` |
+| scroll-container | Scroll container used for lazy loading | `string \| HTMLElement \| undefined` | `undefined` |
+| viewer-mode | Preview mode. Use `'viewerjs'` when integrating Viewer.js behavior | `'default' \| 'viewerjs'` | `'default'` |
+| viewer-options | Options forwarded to Viewer.js when `viewer-mode="viewerjs"` | `Record<string, unknown>` | `{}` |
+| alt | Native `img` alt attribute | `string` | `undefined` |
+| crossorigin | Native `img` crossorigin attribute | `'' \| 'anonymous' \| 'use-credentials'` | `undefined` |
+| loading | Native `img` loading attribute | `'eager' \| 'lazy'` | `undefined` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
 | Event Name | Description | Callback Parameters |
 | --- | --- | --- |
 | load | Triggered on image load success | `(event: Event) => void` |
-| error | Triggered on image load failure | `(event: Event) => void` |
+| error | Triggered on image load failure | `(event: Event \| string) => void` |
 | switch | Triggered on preview image switch | `(index: number) => void` |
-| show | Triggered when preview is shown | — |
-| close | Triggered when preview is closed | — |
+| show | Triggered when preview is shown | `() => void` |
+| close | Triggered when preview is closed | `() => void` |
 
 ### Slots
 
@@ -416,38 +418,56 @@ The `Image` component fully supports Nuxt 3 SSR mode. We have fully considered s
 | placeholder | Placeholder when image is not loaded |
 | error | Content for load failure |
 
----
+### Expose
+
+This component does not expose public instance methods or properties.
 
 ## ImageViewer API
 
 If you need to use the previewer independently, use `yh-image-viewer`.
 
-### ImageViewer Props
+### Image Viewer Props
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | url-list | Preview image source list | `string[]` | `[]` |
 | z-index | Preview z-index | `number` | `2000` |
-| index | Start index of preview | `number` | `0` |
-| infinite | Whether to loop preview | `boolean` | `true` |
-| hide-on-click-modal | Close preview via clicking mask | `boolean` | `false` |
-| close-on-press-escape | Close preview via ESC | `boolean` | `true` |
-| zoom-rate | Preview zoom rate | `number` | `1.2` |
-| show-progress | Whether to show toolbar | `boolean` | `true` |
-| teleported | Whether to teleport to body | `boolean` | `true` |
+| initial-index | Start index of preview | `number` | `0` |
+| infinite | Whether preview loops infinitely | `boolean` | `true` |
+| hide-on-click-modal | Whether clicking the overlay closes preview | `boolean` | `false` |
+| close-on-press-escape | Whether pressing `Esc` closes preview | `boolean` | `true` |
+| zoom-rate | Zoom step used by the preview viewer | `number` | `1.2` |
+| show-progress | Whether to show preview progress controls | `boolean` | `true` |
+| teleported | Whether to teleport the preview container to `body` | `boolean` | `true` |
 | viewer-mode | Preview mode | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | Viewer.js options | `object` | `{}` |
+| viewer-options | Viewer.js options | `Record<string, unknown>` | `{}` |
 
-### ImageViewer Events
+### Events
 
 | Event Name | Description | Callback Parameters |
 | --- | --- | --- |
 | switch | Triggered on image switch | `(index: number) => void` |
-| close | Triggered when preview closed | — |
+| close | Triggered when preview closes | `() => void` |
 
-## Theme Variables
+### Slots
 
-Customizes local styles via CSS variables. All colors are interfaced with the global theme and support dark mode:
+This component does not expose component slots.
+
+### Image Viewer Expose
+
+| Name | Description | Type |
+| --- | --- | --- |
+| prev | Switch to the previous image | `() => void` |
+| next | Switch to the next image | `() => void` |
+| zoomIn | Zoom in | `() => void` |
+| zoomOut | Zoom out | `() => void` |
+| rotateLeft | Rotate counterclockwise | `() => void` |
+| rotateRight | Rotate clockwise | `() => void` |
+| reset | Reset zoom and rotation state | `() => void` |
+
+### Theme Variables
+
+`YhImage` supports `themeOverrides`. The component also provides the following dedicated CSS variables:
 
 | Variable | Description | Default |
 | --- | --- | --- |
@@ -455,8 +475,21 @@ Customizes local styles via CSS variables. All colors are interfaced with the gl
 | `--yh-image-placeholder-text-color` | Placeholder text color | `var(--yh-text-color-placeholder)` |
 | `--yh-image-error-bg-color` | Error area background color | `var(--yh-fill-color-extra-light)` |
 | `--yh-image-error-text-color` | Error area text color | `var(--yh-text-color-placeholder)` |
-| `--yh-image-border-radius` | Image border radius | `var(--yh-radius-md)` |
 | `--yh-image-viewer-mask-bg-color` | Preview mask background color | `var(--yh-mask-color)` |
 | `--yh-image-viewer-btn-bg-color` | Preview controller button background | `var(--yh-text-color-regular)` |
 | `--yh-image-viewer-btn-color` | Preview controller button icon color | `var(--yh-color-white)` |
 | `--yh-image-viewer-btn-hover-bg-color` | Preview controller button hover | `var(--yh-color-primary)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhImageProps` | Props type for `YhImage` |
+| `YhImageEmits` | Emits type for `YhImage` |
+| `YhImageSlots` | Slots type for `YhImage` |
+| `YhImageInstance` | Public instance type for `YhImage` |
+| `YhImageViewerProps` | Props type for `YhImageViewer` |
+| `YhImageViewerEmits` | Emits type for `YhImageViewer` |
+| `YhImageViewerSlots` | Slots type for `YhImageViewer` |
+| `YhImageViewerExpose` | Expose type for `YhImageViewer` |
+| `YhImageViewerInstance` | Public instance type for `YhImageViewer` |

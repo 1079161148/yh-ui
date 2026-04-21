@@ -1,7 +1,6 @@
 import dayjs from "../dayjs.mjs";
-import "dayjs/locale/en";
 const dayjsLocales = import.meta.glob(
-  ["../../../../node_modules/dayjs/locale/*.js", "!../../../../node_modules/dayjs/locale/en.js"],
+  ["../../../../node_modules/dayjs/locale/*.js"],
   { eager: false }
 );
 const loadedLocales = /* @__PURE__ */ new Set(["en"]);

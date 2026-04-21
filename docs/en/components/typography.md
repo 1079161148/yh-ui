@@ -1,5 +1,7 @@
 # Typography
 
+Used to display titles, paragraphs, text, links, and other typographic content.
+
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -90,7 +92,6 @@ const tsEllipsis = `<template>
 
 const jsEllipsis = tsEllipsis
 
-// Nuxt usage example
 const tsNuxt = `<template>
   <div>
     <div style="margin-bottom: 16px;">
@@ -105,7 +106,6 @@ const tsNuxt = `<template>
       A modern Vue 3 component library with full Nuxt SSR support.
     </yh-typography-paragraph>
 
-    <!-- Combine with Nuxt async loading state demonstration -->
     <yh-typography-text v-if="pending" type="info">Loading...</yh-typography-text>
     <yh-typography-paragraph v-else>
       YH-UI provides rich components to help quickly build modern web applications.
@@ -117,25 +117,16 @@ const tsNuxt = `<template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
-// In a real Nuxt app, pending usually comes from useAsyncData or useFetch
-// const { pending } = useFetch(...)
 const pending = ref(false)
 <\/script>`
 
-const jsNuxt = tsNuxt
-  .replace('lang="ts"', '')
-  .replace('<{ content: string }>', '')
-
-// Demo pending state toggle
+const jsNuxt = tsNuxt.replace('lang="ts"', '')
 const pending = ref(false)
 </script>
 
-Used to display titles, paragraphs, text, links, and other typographic content.
-
 ## Heading Levels
 
-Use the `level` prop to define the heading level, supporting h1 - h6.
+Use the `level` prop to define the heading level, supporting `h1` to `h6`.
 
 <DemoBlock title="Heading Levels" :ts-code="tsBasicTitle" :js-code="jsBasicTitle">
   <yh-typography-title :level="1">Heading h1</yh-typography-title>
@@ -164,7 +155,7 @@ Use the `type` prop to define the semantic color of the text.
 
 ## Text Decorations
 
-Control text styles through props like `bold`, `italic`, `underline`, `delete`, `mark`, `code`, and `keyboard`.
+Control text styles through props such as `bold`, `italic`, `underline`, `delete`, `mark`, `code`, and `keyboard`.
 
 <DemoBlock title="Text Decorations" :ts-code="tsTextDecoration" :js-code="jsTextDecoration">
   <div style="display: flex; flex-wrap: wrap; gap: 16px;">
@@ -180,7 +171,7 @@ Control text styles through props like `bold`, `italic`, `underline`, `delete`, 
 
 ## Text Sizes
 
-Use the `size` prop to set the font size.
+Use the `size` prop to set the font size for `YhTypographyText`.
 
 <DemoBlock title="Text Sizes" :ts-code="tsTextSize" :js-code="jsTextSize">
   <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline;">
@@ -192,7 +183,7 @@ Use the `size` prop to set the font size.
 
 ## Paragraph
 
-The Paragraph component supports `type` semantic colors and `align` alignment.
+`YhTypographyParagraph` supports semantic color and alignment options.
 
 <DemoBlock title="Paragraph" :ts-code="tsParagraph" :js-code="jsParagraph">
   <yh-typography-paragraph>
@@ -206,7 +197,7 @@ The Paragraph component supports `type` semantic colors and `align` alignment.
 
 ## Link
 
-The Link component supports props like `href`, `target`, `type`, `underline`, and `disabled`.
+`YhTypographyLink` supports `href`, `target`, `type`, `underline`, and `disabled`.
 
 <DemoBlock title="Link" :ts-code="tsLink" :js-code="jsLink">
   <div style="display: flex; flex-wrap: wrap; gap: 16px;">
@@ -221,7 +212,7 @@ The Link component supports props like `href`, `target`, `type`, `underline`, an
 
 ## Ellipsis
 
-Titles and paragraphs support the `ellipsis` prop. Set to boolean for Titles (single-line) and numbers for Paragraphs (multi-line).
+Titles and paragraphs support the `ellipsis` prop. Use a boolean for titles and a line count for paragraphs.
 
 <DemoBlock title="Ellipsis" :ts-code="tsEllipsis" :js-code="jsEllipsis">
   <yh-typography-title :level="5" ellipsis style="max-width: 400px;">
@@ -236,7 +227,7 @@ Titles and paragraphs support the `ellipsis` prop. Set to boolean for Titles (si
 
 ## Use in Nuxt
 
-Typography fully supports Nuxt 3/4 SSR rendering. Components are auto-imported in Nuxt projects, no manual registration needed. The following example demonstrates async loading state with `useAsyncData`.
+Typography components work in Nuxt 3/4 after registering `@yh-ui/nuxt`. The example below shows a simple client-side loading-state switch.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div>
@@ -259,24 +250,20 @@ Typography fully supports Nuxt 3/4 SSR rendering. Components are auto-imported i
 
 **SSR Notes**:
 
-- ✅ All Props and styles fully supported
-- ✅ Semantic tags (h1-h6, p, span, a) render perfectly
-- ✅ Slot content fully rendered
-- ✅ Ellipsis styles correctly output
-- ✅ Text decoration, type colors, and other states work normally
-
-::: tip SSR Safety
-All Typography sub-components have passed complete SSR tests, ensuring that server-side and client-side rendering are completely consistent with no Hydration errors.
-:::
+- Semantic tags such as headings, paragraphs, spans, and links render consistently during SSR.
+- Decoration, color, and ellipsis styles remain stable after hydration.
+- Slot content is rendered without client/server mismatch.
 
 ## API
 
-### Typography.Title Props
+### Props
+
+#### Typography Title
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | level | Heading level | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | `1` |
-| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | — |
+| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | `undefined` |
 | bold | Bold | `boolean` | `true` |
 | delete | Strikethrough | `boolean` | `false` |
 | underline | Underline | `boolean` | `false` |
@@ -284,15 +271,15 @@ All Typography sub-components have passed complete SSR tests, ensuring that serv
 | mark | Highlight mark | `boolean` | `false` |
 | code | Code style | `boolean` | `false` |
 | ellipsis | Ellipsis | `boolean` | `false` |
-| tag | Custom tag name | `string` | — |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| tag | Custom tag name | `string` | `undefined` |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Typography.Text Props
+#### Typography Text
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | — |
-| size | Font size | `'small' \| 'default' \| 'large'` | — |
+| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | `undefined` |
+| size | Font size | `'small' \| 'default' \| 'large'` | `undefined` |
 | bold | Bold | `boolean` | `false` |
 | delete | Strikethrough | `boolean` | `false` |
 | underline | Underline | `boolean` | `false` |
@@ -302,40 +289,48 @@ All Typography sub-components have passed complete SSR tests, ensuring that serv
 | keyboard | Keyboard style | `boolean` | `false` |
 | ellipsis | Ellipsis | `boolean` | `false` |
 | tag | Custom tag name | `string` | `'span'` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Typography.Paragraph Props
+#### Typography Paragraph
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | — |
-| align | Alignment | `'left' \| 'center' \| 'right' \| 'justify'` | — |
-| spacing | Paragraph spacing | `'compact' \| 'default' \| 'loose'` | `'default'` |
+| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | `undefined` |
 | bold | Bold | `boolean` | `false` |
 | delete | Strikethrough | `boolean` | `false` |
 | italic | Italic | `boolean` | `false` |
 | mark | Mark | `boolean` | `false` |
-| ellipsis | Ellipsis (boolean=single, number=multi) | `boolean \| number` | `false` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| align | Alignment | `'left' \| 'center' \| 'right' \| 'justify'` | `undefined` |
+| ellipsis | Ellipsis | `boolean \| number` | `false` |
+| spacing | Paragraph spacing | `'compact' \| 'default' \| 'loose'` | `'default'` |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Typography.Link Props
+#### Typography Link
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| href | Link URL | `string` | — |
+| href | Link URL | `string` | `undefined` |
 | target | Target | `'_blank' \| '_self' \| '_parent' \| '_top'` | `'_self'` |
-| type | Link type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | — |
+| type | Link type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'secondary'` | `undefined` |
 | underline | Underline | `boolean` | `false` |
 | disabled | Disabled | `boolean` | `false` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+| Name | Description | Parameters |
+| --- | --- | --- |
+| `click` | Emitted by `Typography.Link` when the link is clicked while not disabled | `(event: MouseEvent)` |
 
 ### Slots
 
-All Typography sub-components support the `default` slot.
+All typography sub-components support the `default` slot.
+
+### Expose
+
+This component does not expose public instance methods or properties.
 
 ## Theme Variables
-
-Typography supports customizing local styles by overriding the following CSS variables:
 
 | Variable Name | Description | Default |
 | --- | --- | --- |
@@ -354,4 +349,21 @@ Typography supports customizing local styles by overriding the following CSS var
 | `--yh-typography-link-color` | Link color | `var(--yh-color-primary, #409eff)` |
 | `--yh-typography-link-hover-color` | Link hover color | `var(--yh-color-primary-light-3, #79bbff)` |
 | `--yh-typography-mark-bg` | Mark background color | `#ffe58f` |
-| `--yh-font-family-monospace` | Monospace font | `'SFMono-Regular', Consolas, monospace` |
+
+Code and keyboard styles additionally consume the global monospace token `--yh-font-family-monospace`.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhTypographyTitleProps` | Typography.Title props type |
+| `YhTypographyTextProps` | Typography.Text props type |
+| `YhTypographyParagraphProps` | Typography.Paragraph props type |
+| `YhTypographyLinkProps` | Typography.Link props type |
+| `YhTypographySlots` | Shared typography slots type |
+| `YhTypographyTitleLevel` | Title level union |
+| `YhTypographyType` | Typography type union |
+| `YhTypographyTitleInstance` | Typography.Title instance type |
+| `YhTypographyTextInstance` | Typography.Text instance type |
+| `YhTypographyParagraphInstance` | Typography.Paragraph instance type |
+| `YhTypographyLinkInstance` | Typography.Link instance type |

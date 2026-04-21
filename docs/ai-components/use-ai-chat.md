@@ -206,7 +206,7 @@ const handleCreate = () => {
 ## 会话侧边状态漫游 (useAiConversations)
 
 如果你要写一整个类似 ChatGPT 的宏大知识库界面。除了单聊天窗外的左侧抽屉记录一定跑不掉。
-请使用 `useAiConversations` 快速获取一套开箱即用的带有不可变数据（Immutable）属性的安全集合。
+请使用 `useAiConversations` 快速获取一套开箱即用的会话列表管理能力。
 
 <DemoBlock title="历史会话无头管理" :ts-code="tsConv" :js-code="toJs(tsConv)">
   <div style="display: flex; gap: 16px;">
@@ -232,22 +232,29 @@ const handleCreate = () => {
 
 ### useAiChat Options
 
-| 参数名            | 说明                                                                                                        | 类型              |
-| ----------------- | ----------------------------------------------------------------------------------------------------------- | ----------------- |
-| `initialMessages` | 默认的消息记录数组                                                                                          | `AiChatMessage[]` |
-| `request`         | 核心底层拦截器：在此实现请求响应（并支持返回 `AsyncGenerator` 实现流出），支持参数带 `history` 和取消控制符 | `Function`        |
-| `idGenerator`     | 如果你需要替换生成随机字符串 UUID 的库，可以传进来                                                          | `() => string`    |
-| `onError`         | 发送流期间遇到错误时的钩子                                                                                  | `(err) => void`   |
+| 参数              | 说明                                                                                                       | 类型                |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- | ------------------- |
+| `initialMessages` | 默认消息列表                                                                                               | `AiChatMessage[]`   |
+| `request`         | 请求适配器，签名为 `(message, history, abortSignal) => AsyncGenerator \| Promise<string \| Response>`     | `Function`          |
+| `idGenerator`     | 自定义消息 ID 生成器                                                                                       | `() => string`      |
+| `parser`          | SSE / 流式块解析器，用于适配不同厂商的返回格式                                                             | `StreamChunkParser` |
+| `typewriter`      | 是否启用内置打字机输出效果                                                                                 | `boolean`           |
+| `charsPerFrame`   | 打字机每帧输出字符数                                                                                       | `number`            |
+| `systemPrompt`    | 自动插入到历史最前面的系统 Prompt                                                                          | `string`            |
+| `onError`         | 错误回调                                                                                                   | `(err) => void`     |
+| `onFinish`        | assistant 消息完成时的回调                                                                                 | `(message) => void` |
 
 ### useAiChat Returns
 
-你可以从中解构这套会话的全部内容。
+你可以从中解构整套会话状态与操作方法。
 
-| 返回值          | 说明                           | 类型                                 |
-| --------------- | ------------------------------ | ------------------------------------ |
-| `messages`      | 双向绑定的会话历史列表。       | `Ref<AiChatMessage[]>`               |
-| `isGenerating`  | 是否正在网络活动中             | `Ref<boolean>`                       |
-| `sendMessage`   | 将文本压入会话并触发 `request` | `(content: string) => Promise<void>` |
-| `stop`          | 立即中断当前请求并结算状态     | `() => void`                         |
-| `clear`         | 清空屏幕                       | `() => void`                         |
-| `removeMessage` | 删除指定一条消息               | `(id: string) => void`               |
+| 返回值          | 说明                         | 类型                                                   |
+| --------------- | ---------------------------- | ------------------------------------------------------ |
+| `messages`      | 双向绑定的会话历史列表       | `Ref<AiChatMessage[]>`                                 |
+| `isGenerating`  | 是否正在生成                 | `Ref<boolean>`                                         |
+| `isSending`     | `isGenerating` 的语义别名    | `ComputedRef<boolean>`                                 |
+| `sendMessage`   | 发送消息并触发 `request`     | `(content: string) => Promise<void>`                   |
+| `stop`          | 中断当前生成并更新消息状态   | `() => void`                                           |
+| `clear`         | 清空全部会话消息             | `() => void`                                           |
+| `removeMessage` | 删除指定消息                 | `(id: string) => void`                                 |
+| `updateMessage` | 更新指定消息的内容或状态     | `(id: string, patch: Partial<AiChatMessage>) => void`  |

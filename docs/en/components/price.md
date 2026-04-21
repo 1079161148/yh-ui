@@ -1,10 +1,10 @@
 # Price
 
-Core component for e-commerce to display product prices in a standardized way. Supports amount splitting (large integer, small decimal), thousandth separators, and increment animations.
+Core component for e-commerce to display product prices in a standardized way. Supports amount splitting, range display, thousand separators, and animated number updates.
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 const tsBasic = `<${_T}>
   <div style="display: flex; flex-direction: column; gap: 16px;">
@@ -80,12 +80,11 @@ onMounted(() => {
 const jsNuxt = toJs(tsNuxt)
 
 const getPrice = ref(888.88)
-
 </script>
 
 ## Basic Usage
 
-Standard price display with 2 decimal places and currency symbol. Supports `approx` symbol (~).
+Standard price display with two decimal places and the default currency symbol. You can also move the symbol behind the number or enable the approximate mark.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="display: flex; flex-direction: column; gap: 16px;">
@@ -98,7 +97,7 @@ Standard price display with 2 decimal places and currency symbol. Supports `appr
 
 ## Price Range
 
-Use `max-value` for displaying price intervals common in SKU listings.
+Use `max-value` to render a price range, which is common in SKU listings and product collections.
 
 <DemoBlock title="Price Range" :ts-code="tsRange" :js-code="jsRange">
   <div style="display: flex; flex-direction: column; gap: 16px;">
@@ -109,7 +108,7 @@ Use `max-value` for displaying price intervals common in SKU listings.
 
 ## E-commerce Expansion
 
-Integrated membership tags, stock units, original price comparisons, and trendy gradient text.
+Combine tags, original-price display, unit labels, and gradient text to match richer retail card layouts.
 
 <DemoBlock title="E-commerce Scene" :ts-code="tsEcommerce" :js-code="jsEcommerce">
   <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -124,7 +123,7 @@ Integrated membership tags, stock units, original price comparisons, and trendy 
 
 ## Sizes
 
-Built-in presets for `small`, `default`, and `large`. Full control via CSS or theme variables.
+Built-in presets are available for `small`, `default`, and `large`. You can still customize the final size with CSS or theme variables.
 
 <DemoBlock title="Size Comparison" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="display: flex; align-items: baseline; gap: 20px;">
@@ -137,7 +136,7 @@ Built-in presets for `small`, `default`, and `large`. Full control via CSS or th
 
 ## More Features
 
-Standard strikethrough prices and thousandth separators.
+Standard struck-through prices and thousand separators are built in, so common retail price patterns can be composed without extra markup.
 
 <DemoBlock title="Features" :ts-code="tsFeatures" :js-code="jsFeatures">
   <div style="display: flex; flex-direction: column; gap: 16px;">
@@ -152,9 +151,9 @@ Standard strikethrough prices and thousandth separators.
   </div>
 </DemoBlock>
 
-## Nuxt Support
+## Use in Nuxt
 
-`YhPrice` supports high-performance numerical animations in Nuxt 3 environments.
+`YhPrice` can be used directly in Nuxt 3/4 after registering `@yh-ui/nuxt`. If you enable `animated`, update the bound value on the client when you want the animation to start after hydration.
 
 <DemoBlock title="Nuxt Integration" :ts-code="tsNuxt" :js-code="jsNuxt">
   <yh-price :value="getPrice" animated />
@@ -164,47 +163,64 @@ Standard strikethrough prices and thousandth separators.
 
 ### Props
 
-| Property        | Description                      | Type                                                        | Default     |
-| --------------- | -------------------------------- | ----------------------------------------------------------- | ----------- |
-| value           | Price value                      | `number \| string`                                          | `0`         |
-| max-value       | Max price for range mode         | `number \| string`                                          | `undefined` |
-| symbol          | Currency symbol                  | `string`                                                    | `'¥'`       |
-| symbol-position | Symbol position                  | `'before' \| 'after'`                                       | `'before'`  |
-| precision       | Decimal precision                | `number`                                                    | `2`         |
-| line-through    | Enable strikethrough             | `boolean`                                                   | `false`     |
-| size            | Size preset                      | `'small' \| 'default' \| 'large' \| string`                 | `'default'` |
-| split           | Split integer and decimal digits | `boolean`                                                   | `true`      |
-| decimal-scale   | Decimal size scale (0-1)         | `number`                                                    | `0.8`       |
-| thousandth      | Enable thousandth separator      | `boolean`                                                   | `true`      |
-| bold            | Bold font weight                 | `boolean`                                                   | `false`     |
-| approx          | Enable approx symbol (~)         | `boolean`                                                   | `false`     |
-| prefix          | Prefix text                      | `string`                                                    | `''`        |
-| suffix          | Suffix text                      | `string`                                                    | `''`        |
-| unit            | Price unit (e.g., /kg)           | `string`                                                    | `''`        |
-| delete-value    | Original price value             | `number \| string`                                          | `undefined` |
-| delete-label    | Label for original price         | `string`                                                    | `''`        |
-| tag             | Badge label (e.g., Member)       | `string`                                                    | `''`        |
-| tag-type        | Badge theme                      | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`  |
-| animated        | Enable increment animation       | `boolean`                                                   | `false`     |
-| gradient        | Enable gradient text effect      | `boolean \| string[]`                                       | `false`     |
-| theme-overrides | Style overrides                  | `object`                                                    | —           |
+| Property        | Description                                      | Type                                                        | Default     |
+| --------------- | ------------------------------------------------ | ----------------------------------------------------------- | ----------- |
+| value           | Current price value                              | `number \| string`                                          | `0`         |
+| max-value       | Maximum price used for range display             | `number \| string`                                          | `undefined` |
+| symbol          | Currency symbol                                  | `string`                                                    | `'¥'`       |
+| symbol-position | Currency symbol position                         | `'before' \| 'after'`                                       | `'before'`  |
+| precision       | Decimal precision                                | `number`                                                    | `2`         |
+| line-through    | Whether to render the main price as struck through | `boolean`                                                 | `false`     |
+| size            | Built-in size preset                             | `'small' \| 'default' \| 'large' \| string`                 | `'default'` |
+| split           | Whether to split integer and decimal font sizes  | `boolean`                                                   | `true`      |
+| decimal-scale   | Decimal font-size ratio                          | `number`                                                    | `0.8`       |
+| thousandth      | Whether to insert thousand separators            | `boolean`                                                   | `true`      |
+| bold            | Whether to apply bold weight                     | `boolean`                                                   | `false`     |
+| prefix          | Prefix text                                      | `string`                                                    | `''`        |
+| suffix          | Suffix text                                      | `string`                                                    | `''`        |
+| unit            | Unit label, such as `/kg`                        | `string`                                                    | `''`        |
+| delete-value    | Secondary original price value                   | `number \| string`                                          | `undefined` |
+| delete-label    | Label shown before the deleted price             | `string`                                                    | `''`        |
+| tag             | Tag text shown before the price                  | `string`                                                    | `''`        |
+| tag-type        | Tag visual type                                  | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`  |
+| approx          | Whether to prepend an approximate mark           | `boolean`                                                   | `false`     |
+| animated        | Whether to animate value changes                 | `boolean`                                                   | `false`     |
+| gradient        | Gradient text mode                               | `boolean \| string[]`                                       | `false`     |
+| theme-overrides | Component-level theme variable overrides         | `Record<string, string>`                                    | `{}`        |
+
+### Events
+
+This component does not expose component events.
 
 ### Slots
 
-| Slot   | Description          | Parameters |
-| ------ | -------------------- | ---------- |
-| prefix | Prefix slot          | —          |
-| suffix | Suffix slot          | —          |
-| symbol | Currency symbol slot | —          |
-| tag    | Badge area slot      | —          |
-| unit   | Unit area slot       | —          |
+| Slot   | Description                    | Parameters |
+| ------ | ------------------------------ | ---------- |
+| tag    | Custom tag content             | `-`      |
+| prefix | Custom prefix content          | `-`      |
+| symbol | Custom currency symbol content | `-`      |
+| unit   | Custom unit content            | `-`      |
+| suffix | Custom suffix content          | `-`      |
+
+### Expose
+
+This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
 | Variable                   | Description            | Default                  |
 | -------------------------- | ---------------------- | ------------------------ |
 | `--yh-price-color`         | Primary price color    | `var(--yh-color-danger)` |
+| `--yh-price-font-family`   | Price font family      | `var(--yh-font-family)`  |
 | `--yh-price-integer-size`  | Base integer font size | `1.25em`                 |
 | `--yh-price-symbol-size`   | Base symbol font size  | `0.75em`                 |
 | `--yh-price-decimal-scale` | Decimal part scale     | `0.8`                    |
 | `--yh-price-tag-bg`        | Badge background color | `var(--yh-color-danger)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhPriceProps` | Component props type |
+| `YhPriceSlots` | Component slots type |
+| `YhPriceInstance` | Component instance type |

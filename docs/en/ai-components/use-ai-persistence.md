@@ -43,6 +43,14 @@ const {
 
 ## API
 
+### Options
+
+| Property          | Description                  | Type             | Default                  |
+| ----------------- | ---------------------------- | ---------------- | ------------------------ |
+| `storage`         | Custom storage adapter       | `StorageAdapter` | `new IndexedDBAdapter()` |
+| `conversationKey` | Persistent storage key       | `string`         | `'ai-conversations'`     |
+| `autoSave`        | Save automatically on change | `boolean`        | `true`                   |
+
 ### Return Value
 
 | Property              | Description               | Type                  |
@@ -62,7 +70,7 @@ const {
 | createConversation       | Create new conversation    | `(title?: string) => Conversation`                                                 |
 | deleteConversation       | Delete conversation        | `(id: string) => void`                                                             |
 | getCurrentConversation   | Get current conversation   | `() => Conversation \| undefined`                                                  |
-| addMessage               | Add message                | `(message: Omit<ConversationMessage, 'id' \| 'timestamp'>) => ConversationMessage` |
+| addMessage               | Add message                | `(message: Omit<ConversationMessage, 'id' \| 'timestamp'>) => ConversationMessage \| undefined` |
 | updateMessage            | Update message             | `(messageId: string, updates: Partial<ConversationMessage>) => void`               |
 | clearCurrentConversation | Clear current conversation | `() => void`                                                                       |
 | exportConversations      | Export conversations       | `() => string`                                                                     |

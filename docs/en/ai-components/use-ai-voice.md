@@ -290,17 +290,26 @@ Integrate the voice trigger into `AiSender` for an input experience similar to m
 | continuous     | Continuous recognition          | `boolean` | `false`   |
 | vad            | Enable Smart Silence Detection  | `boolean` | `true`    |
 | vadThreshold   | Time threshold for silence (ms) | `number`  | `2000`    |
+| volumeThreshold | Volume sensitivity threshold (0-1) | `number` | `0.05` |
 | waveCount      | Number of amplitude bars        | `number`  | `20`      |
+| useSTT         | Enable browser speech recognition | `boolean` | `true` |
+| onStart        | Callback when recording starts    | `() => void` | - |
+| onStop         | Callback with transcript and audio blob | `(transcript: string, blob: Blob \| null) => void` | - |
+| onResult       | Callback for finalized transcript | `(transcript: string) => void` | - |
+| onPartialResult | Callback for interim transcript  | `(transcript: string) => void` | - |
+| onError        | Error callback                    | `(error: unknown) => void` | - |
 
 ### Return Value
 
-| Export            | Description                                | Type            |
-| ----------------- | ------------------------------------------ | --------------- |
-| isRecording       | Reactive recording state                   | `Ref<boolean>`  |
-| transcript        | Confirmed final text                       | `Ref<string>`   |
-| interimTranscript | Real-time partial text                     | `Ref<string>`   |
-| audioBlob         | Generated audio file                       | `Ref<Blob>`     |
-| amplitudes        | Real-time waveform data for AiVoiceTrigger | `Ref<number[]>` |
-| start             | Start recognition                          | `() => void`    |
-| stop              | Stop and get results                       | `() => void`    |
-| sttSupported      | Browser support check                      | `boolean`       |
+| Export            | Description                                | Type                 |
+| ----------------- | ------------------------------------------ | -------------------- |
+| isRecording       | Reactive recording state                   | `Ref<boolean>`       |
+| transcript        | Confirmed final text                       | `Ref<string>`        |
+| interimTranscript | Real-time partial text                     | `Ref<string>`        |
+| amplitudes        | Real-time waveform data for AiVoiceTrigger | `Ref<number[]>`      |
+| volume            | Real-time volume (0-100)                   | `Ref<number>`        |
+| audioBlob         | Generated audio file                       | `Ref<Blob \| null>`  |
+| start             | Start recording and recognition            | `() => Promise<void>` |
+| stop              | Stop and get results                       | `() => void`         |
+| cancel            | Cancel recording and discard current result | `() => void`        |
+| sttSupported      | Browser support check                      | `boolean`            |

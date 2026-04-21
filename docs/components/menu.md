@@ -789,6 +789,25 @@ const menuOptions = [
 | `--yh-menu-indicator-width`   | `3px`                              | 指示条宽度       |
 | `--yh-menu-indicator-color`   | `var(--yh-menu-active-text-color)` | 指示条颜色       |
 
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhMenuProps` | Menu 组件 Props 类型 |
+| `YhMenuEmits` | Menu 组件事件类型 |
+| `YhMenuSlots` | Menu 组件插槽类型 |
+| `YhMenuExpose` | Menu 组件 Expose 类型 |
+| `YhMenuMode` | 菜单模式联合类型 |
+| `YhMenuTrigger` | 子菜单触发方式联合类型 |
+| `YhMenuItemData` | 菜单数据类型 |
+| `YhMenuItemProps` | MenuItem 组件 Props 类型 |
+| `YhMenuItemGroupProps` | MenuItemGroup 组件 Props 类型 |
+| `YhSubMenuProps` | SubMenu 组件 Props 类型 |
+| `YhMenuInstance` | Menu 组件实例类型 |
+| `YhMenuItemInstance` | MenuItem 组件实例类型 |
+| `YhMenuItemGroupInstance` | MenuItemGroup 组件实例类型 |
+| `YhSubMenuInstance` | SubMenu 组件实例类型 |
+
 ::: tip Inverted 模式
 开启 `inverted` 属性后，菜单会自动切换为深色主题，使用以下覆盖变量：
 

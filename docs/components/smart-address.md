@@ -471,12 +471,15 @@ export default defineNuxtConfig({
 
 ### Slots
 
-| 插槽名       | 说明                       |
-| ------------ | -------------------------- |
-| `default`    | 默认插槽，用于包裹整体内容 |
-| `parse-icon` | 智能解析按钮左侧的图标插槽 |
-| `region`     | 省市区输入区域的自定义插槽 |
-| `extra`      | 组件底部的额外扩展区域插槽 |
+| 插槽名       | 说明                       | 参数 |
+| ------------ | -------------------------- | ---- |
+| `parse-icon` | 智能解析按钮左侧的图标插槽 | —    |
+| `region`     | 省市区输入区域的自定义插槽 | `{ value, update }` |
+| `extra`      | 组件底部的额外扩展区域插槽 | `{ value, update }` |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
 
 ### Types
 
@@ -529,3 +532,15 @@ interface ParsedAddress {
 | `--yh-smart-address-tip-success`  | 识别成功提示颜色 | `var(--yh-color-success)`         |
 | `--yh-smart-address-tip-error`    | 识别失败提示颜色 | `var(--yh-color-danger)`          |
 | `--yh-smart-address-label-width`  | 表单标签宽度     | `72px`                            |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhSmartAddressProps` | 组件 Props 类型 |
+| `YhSmartAddressEmits` | 组件事件类型 |
+| `YhSmartAddressSlots` | 组件插槽类型 |
+| `YhAddressValue` | 地址值类型 |
+| `YhRegionOption` | 地区选项类型 |
+| `YhParsedAddress` | 智能解析结果类型 |
+| `YhSmartAddressInstance` | 组件实例类型 |

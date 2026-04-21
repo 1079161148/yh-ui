@@ -422,7 +422,7 @@ export default defineNuxtConfig({
 })
 ```
 
-## FilterBar API
+## API
 
 ### Props
 
@@ -462,15 +462,42 @@ export default defineNuxtConfig({
 | filter-icon   | 自定义最右侧筛选漏斗图标 | `-`                         |
 | extra         | 自定义右侧扩展区域内容   | `-`                         |
 
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
 ### 主题变量 (CSS Variables)
 
-| 变量名                                | 默认值                            | 说明              |
-| ------------------------------------- | --------------------------------- | ----------------- |
-| `--yh-filter-bar-bg`                  | `var(--yh-bg-color)`              | 组件背景色        |
-| `--yh-filter-bar-height`              | `44px`                            | 组件高度          |
-| `--yh-filter-bar-border`              | `var(--yh-border-color-lighter)`  | 底边框颜色        |
-| `--yh-filter-bar-tab-color`           | `var(--yh-text-color-regular)`    | 未激活Tab文字颜色 |
-| `--yh-filter-bar-tab-active-color`    | `var(--yh-color-primary)`         | 激活态Tab文字颜色 |
-| `--yh-filter-bar-panel-bg`            | `var(--yh-bg-color)`              | 下拉面板背景色    |
-| `--yh-filter-bar-panel-opt-bg`        | `var(--yh-fill-color-light)`      | 未选中胶囊背景色  |
-| `--yh-filter-bar-panel-opt-active-bg` | `var(--yh-color-primary-light-9)` | 选中胶囊背景色    |
+| 变量名                                   | 默认值                              | 说明                 |
+| ---------------------------------------- | ----------------------------------- | -------------------- |
+| `--yh-filter-bar-bg`                     | `var(--yh-bg-color)`                | 根节点背景色         |
+| `--yh-filter-bar-border`                 | `var(--yh-border-color-lighter)`    | 根节点边框颜色       |
+| `--yh-filter-bar-height`                 | `44px`                              | 工具栏高度           |
+| `--yh-filter-bar-tab-color`              | `var(--yh-text-color-regular)`      | 未激活标签文字颜色   |
+| `--yh-filter-bar-tab-active-color`       | `var(--yh-color-primary)`           | 激活标签文字颜色     |
+| `--yh-filter-bar-tab-active-bg`          | `var(--yh-color-primary-light-9)`   | 激活标签背景         |
+| `--yh-filter-bar-tab-radius`             | `var(--yh-radius-base)`             | 标签圆角             |
+| `--yh-filter-bar-badge-bg`               | `var(--yh-color-danger)`            | 角标背景色           |
+| `--yh-filter-bar-panel-bg`               | `var(--yh-bg-color)`                | 面板背景色           |
+| `--yh-filter-bar-panel-shadow`           | `0 4px 20px var(--yh-shadow-color)` | 面板阴影             |
+| `--yh-filter-bar-panel-opt-bg`           | `var(--yh-fill-color-light)`        | 面板选项默认背景     |
+| `--yh-filter-bar-panel-opt-active-bg`    | `var(--yh-color-primary-light-9)`   | 面板选项激活背景     |
+| `--yh-filter-bar-panel-opt-active-color` | `var(--yh-color-primary)`           | 面板选项激活文字颜色 |
+| `--yh-filter-bar-panel-opt-active-border` | `var(--yh-color-primary)`          | 面板选项激活边框颜色 |
+| `--yh-filter-bar-z-index`                | `100`                               | 根节点层级           |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhFilterBarProps` | 组件 Props 类型 |
+| `YhFilterBarEmits` | 组件事件类型 |
+| `YhFilterBarSlots` | 组件插槽类型 |
+| `YhFilterSortOrder` | 排序方向联合类型 |
+| `YhFilterSortItem` | 排序项类型 |
+| `YhFilterType` | 筛选类型联合类型 |
+| `YhFilterOption` | 筛选选项类型 |
+| `YhFilterItem` | 筛选项类型 |
+| `YhFilterValue` | 筛选值类型 |
+| `YhFilterSort` | 排序状态类型 |
+| `YhFilterBarInstance` | 组件实例类型 |

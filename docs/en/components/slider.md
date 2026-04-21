@@ -1,58 +1,42 @@
-# Slider
+﻿# Slider
 
-Allows selecting a value within a fixed range by dragging a handle.
+Allows selecting a value within a fixed range by dragging one or two handles.
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Basic Usage
 const val1 = ref(0)
 const val2 = ref(50)
 const val5 = ref(42)
-
-// With Input
 const val8 = ref(15)
-
-// Vertical Mode
 const valV1 = ref(30)
 const valV2 = ref([20, 50])
-
-// Marks
 const valM = ref(37)
-const marks = ref({
-  0: '0°C',
-  37: '37°C',
-  50: { label: '50%' },
-  100: '100°C'
-})
-
-// Custom Slots
 const valS = ref(45)
-
-// Nuxt Usage Example
 const nuxtSlider1 = ref(30)
 const nuxtSlider2 = ref([20, 50])
 
-// Nuxt code sample
+const marks = ref({
+  0: '0 C',
+  37: '37 C',
+  50: { label: '50%' },
+  100: '100 C'
+})
+
 const tsNuxt = `<template>
   <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px 0;">
-    <!-- Basic Slider, auto-imported -->
     <yh-slider v-model="nuxtSlider1" />
-    
-    <!-- Range Selection -->
     <yh-slider v-model="nuxtSlider2" range />
   </div>
 </template>
 
 <script setup lang="ts">
-// No need to import Slider component manualy
 const nuxtSlider1 = ref(30)
 const nuxtSlider2 = ref([20, 50])
 <\/script>`
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
-// DemoBlock code strings
 const tsBasic = `<template>
   <div class="yh-demo-wrapper">
     <div class="yh-demo-row">
@@ -85,7 +69,6 @@ const val5 = ref(42)
 
 const jsBasic = tsBasic.replace('lang="ts"', '')
 
-
 const tsInput = `<template>
   <div class="yh-demo-wrapper">
     <div class="yh-demo-row">
@@ -104,7 +87,6 @@ const val8 = ref(15)
 <\/script>`
 
 const jsInput = tsInput.replace('lang="ts"', '')
-
 
 const tsVertical = `<template>
   <div class="yh-demo-wrapper">
@@ -127,7 +109,6 @@ const valV2 = ref([20, 50])
 
 const jsVertical = tsVertical.replace('lang="ts"', '')
 
-
 const tsMarks = `<template>
   <div class="yh-demo-wrapper">
     <div class="yh-demo-row">
@@ -144,15 +125,14 @@ const tsMarks = `<template>
 import { ref } from 'vue'
 const valM = ref(37)
 const marks = ref({
-  0: '0°C',
-  37: '37°C',
+  0: '0 C',
+  37: '37 C',
   50: { label: '50%' },
-  100: '100°C'
+  100: '100 C'
 })
 <\/script>`
 
 const jsMarks = tsMarks.replace('lang="ts"', '')
-
 
 const tsSlot = `<template>
   <div class="yh-demo-wrapper">
@@ -192,12 +172,11 @@ const valS = ref(45)
 <\/style>`
 
 const jsSlot = tsSlot.replace('lang="ts"', '')
-
 </script>
 
 ## Basic Usage
 
-The most fundamental way to use the Slider.
+The most common single-value slider usage.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="yh-demo-wrapper">
@@ -224,7 +203,7 @@ The most fundamental way to use the Slider.
 
 ## With Input
 
-Use the `show-input` property to enable precise numerical input.
+Set `show-input` to display an input box for precise numeric editing. This mode is available in non-range mode only.
 
 <DemoBlock title="With Input" :ts-code="tsInput" :js-code="jsInput">
   <div class="yh-demo-wrapper">
@@ -240,7 +219,7 @@ Use the `show-input` property to enable precise numerical input.
 
 ## Vertical Mode
 
-Set the `vertical` property to `true` to enable vertical mode. In vertical mode, the `height` property must be set.
+Set `vertical` to `true` to enable vertical mode. In vertical mode, `height` should also be provided.
 
 <DemoBlock title="Vertical Mode" :ts-code="tsVertical" :js-code="jsVertical">
   <div class="yh-demo-wrapper">
@@ -257,7 +236,7 @@ Set the `vertical` property to `true` to enable vertical mode. In vertical mode,
 
 ## Marks
 
-Use the `marks` property to label ticks on the Slider.
+Use `marks` to render labeled positions across the slider track.
 
 <DemoBlock title="Marks" :ts-code="tsMarks" :js-code="jsMarks">
   <div class="yh-demo-wrapper">
@@ -273,13 +252,12 @@ Use the `marks` property to label ticks on the Slider.
 
 ## Custom Slots
 
-Customize the slider handle via the `thumb` slot and markers via the `mark` slot. Example below:
+Use the `thumb` slot to customize the handle. The component also supports a `mark` slot for custom mark content.
 
 <DemoBlock title="Custom Slots" :ts-code="tsSlot" :js-code="jsSlot">
   <div class="yh-demo-wrapper">
     <p class="slot-desc">
-      <span style="font-size: 1.2em; margin-right: 8px;">✨</span>
-      Slots allow you to fully customize the appearance of the Slider, such as the handle (Thumb) or scale markers (Mark).
+      Slots let you customize the slider thumb and marks without changing the core interaction behavior.
     </p>
     <div class="yh-demo-row">
       <span class="yh-demo-label">Custom Handle</span>
@@ -294,93 +272,100 @@ Customize the slider handle via the `thumb` slot and markers via the `mark` slot
   </div>
 </DemoBlock>
 
-## Nuxt Usage
+## Use in Nuxt
 
-The Slider component fully supports Nuxt 3/4 SSR. When used in a Nuxt project, it is auto-imported.
+`YhSlider` supports Nuxt SSR. Initial values, marks, and layout render on the server, while dragging and tooltip interaction continue on the client after hydration.
 
-<DemoBlock title="Usage in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
+<DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px 0;">
     <yh-slider v-model="nuxtSlider1" />
     <yh-slider v-model="nuxtSlider2" range />
   </div>
 </DemoBlock>
 
-**SSR Considerations**:
-
-- ✅ Basic sliding and range selection are fully supported.
-- ✅ Step and marks render correctly on the server side.
-- ✅ Vertical layout remains consistent during SSR.
-- ✅ Slots (thumb/mark) support SSR rendering.
-- ⚠️ Drag interaction and Tooltip visibility are only active after client-side hydration.
-
-::: tip SSR Safety
-The Slider component's style system is optimized for SSR, ensuring the runway and bar have correct visuals on initial load, eliminating jumps during hydration.
-:::
-
 ## API
 
 ### Props
 
-| Name                  | Description                                            | Type                                | Default     |
-| --------------------- | ------------------------------------------------------ | ----------------------------------- | ----------- |
-| model-value / v-model | Binding value                                          | `number \| [number, number]`        | `0`         |
-| min                   | Minimum value                                          | `number`                            | `0`         |
-| max                   | Maximum value                                          | `number`                            | `100`       |
-| step                  | Step size                                              | `number`                            | `1`         |
-| size                  | Slider size                                            | `'large' \| 'default' \| 'small'`   | `'default'` |
-| show-input            | Whether to show an input box (only for non-range mode) | `boolean`                           | `false`     |
-| show-input-controls   | Whether to show control buttons in the input box       | `boolean`                           | `true`      |
-| input-size            | Size of the input box                                  | `'large' \| 'default' \| 'small'`   | `'default'` |
-| show-stops            | Whether to show discrete points                        | `boolean`                           | `false`     |
-| show-tooltip          | Whether to show a tooltip                              | `boolean`                           | `true`      |
-| format-tooltip        | Formatter for the tooltip text                         | `(val: number) => string \| number` | —           |
-| disabled              | Whether to disable the slider                          | `boolean`                           | `false`     |
-| range                 | Whether to enable range selection                      | `boolean`                           | `false`     |
-| vertical              | Whether to enable vertical mode                        | `boolean`                           | `false`     |
-| height                | Height in vertical mode                                | `string`                            | —           |
-| label                 | Screen reader label                                    | `string`                            | —           |
-| debounce              | Debounce delay for input (ms)                          | `number`                            | `300`       |
-| tooltip-class         | Custom class name for the tooltip                      | `string`                            | —           |
-| placement             | Tooltip placement                                      | `string`                            | `'top'`     |
-| marks                 | Marks; keys must be numbers within range [min, max]    | `object`                            | —           |
-| validate-event        | Whether to trigger form validation when value changes  | `boolean`                           | `true`      |
-| range-start-label     | Custom aria-label for the start of the range           | `string`                            | —           |
-| range-end-label       | Custom aria-label for the end of the range             | `string`                            | —           |
-| button-class          | Custom class for the slider button                     | `string`                            | —           |
-| color                 | Custom theme color                                     | `string`                            | —           |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| model-value / v-model | Bound value | `number \| [number, number]` | `0` |
+| min | Minimum value | `number` | `0` |
+| max | Maximum value | `number` | `100` |
+| step | Step size | `number` | `1` |
+| show-input | Whether to show an input box in non-range mode | `boolean` | `false` |
+| show-input-controls | Whether the input box shows control buttons | `boolean` | `true` |
+| size | Slider size | `'' \| 'large' \| 'default' \| 'small'` | `''` |
+| input-size | Input box size | `'' \| 'large' \| 'default' \| 'small'` | `''` |
+| show-stops | Whether discrete stops are shown | `boolean` | `false` |
+| show-tooltip | Whether the tooltip is shown while interacting | `boolean` | `true` |
+| format-tooltip | Tooltip formatter | `(val: number) => string \| number` | `undefined` |
+| disabled | Whether the slider is disabled | `boolean` | `false` |
+| range | Whether range selection is enabled | `boolean` | `false` |
+| vertical | Whether vertical mode is enabled | `boolean` | `false` |
+| height | Height used in vertical mode | `string` | `''` |
+| label | Screen reader label | `string` | `undefined` |
+| debounce | Debounce delay for input changes in milliseconds | `number` | `300` |
+| tooltip-class | Custom tooltip class name | `string` | `undefined` |
+| placement | Tooltip placement | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'` |
+| marks | Mark definitions keyed by numeric values within `[min, max]` | `Record<number, string \| { style?: CSSProperties; label: string }>` | `undefined` |
+| validate-event | Whether form validation is triggered when the value changes | `boolean` | `true` |
+| range-start-label | Custom aria-label for the start handle in range mode | `string` | `undefined` |
+| range-end-label | Custom aria-label for the end handle in range mode | `string` | `undefined` |
+| button-class | Custom class name applied to slider buttons | `string` | `undefined` |
+| color | Custom main color for the active track and handles | `string` | `undefined` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Name              | Description                                                   | Parameters                                  |
-| ----------------- | ------------------------------------------------------------- | ------------------------------------------- |
-| update:modelValue | Triggers when the bound value changes                         | `(val: number \| [number, number]) => void` |
-| change            | Triggers when value changes (on mouse release or track click) | `(val: number \| [number, number]) => void` |
-| input             | Triggers in real-time as data changes                         | `(val: number \| [number, number]) => void` |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| update:modelValue | Triggered when the bound value changes | `(val: number \| [number, number]) => void` |
+| change | Triggered when the final value is committed | `(val: number \| [number, number]) => void` |
+| input | Triggered continuously while the value changes | `(val: number \| [number, number]) => void` |
 
 ### Slots
 
-| Name    | Description          | Parameters          |
-| ------- | -------------------- | ------------------- | ------------------------------------------- |
-| thumb   | Custom slider handle | `{ value: number }` |
-| mark    | Custom tick text     | `{ mark: string     | { style?: CSSProperties; label: string } }` |
-| default | Bottom reserved slot | —                   |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| thumb | Custom slider thumb | `{ value: number }` |
+| mark | Custom mark content | `{ mark: string }` |
+| default | Reserved bottom slot content | `-` |
 
-### Theme Variables
+### Expose
 
-Color variables are integrated with the global theme system and support dark mode:
+| Name | Description | Type |
+| --- | --- | --- |
+| sliderRef | Root slider element ref | `Ref<HTMLElement \| undefined>` |
+| firstValue | Current primary handle value | `Ref<number>` |
+| secondValue | Current secondary handle value in range mode | `Ref<number>` |
 
-| Variable                      | Description                             | Default                             |
-| ----------------------------- | --------------------------------------- | ----------------------------------- |
-| `--yh-slider-main-color`      | Main color (bar filling, handle border) | `var(--yh-color-primary)`           |
-| `--yh-slider-bg-color`        | Slider runway background color          | `var(--yh-border-color-light)`      |
-| `--yh-slider-hover-bg-color`  | Runway background color on hover        | `var(--yh-border-color-dark)`       |
-| `--yh-slider-button-size`     | Handle button size                      | `16px`                              |
-| `--yh-slider-button-border`   | Handle button border width              | `2px`                               |
-| `--yh-slider-runway-height`   | Runway height (width if vertical)       | `6px`                               |
-| `--yh-slider-height`          | Overall component height (container)    | `32px`                              |
-| `--yh-slider-tooltip-bg`      | Tooltip background color                | `var(--yh-bg-color-overlay-dark)`   |
-| `--yh-slider-tooltip-text`    | Tooltip text color                      | `var(--yh-text-color-primary-dark)` |
-| `--yh-slider-mark-text-color` | Mark text color                         | `var(--yh-text-color-secondary)`    |
+## Theme Variables
+
+`YhSlider` supports `themeOverrides`. The component stylesheet directly consumes the following slider-specific CSS variables, and the `color` prop also writes the main active color variables at runtime.
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--yh-slider-main-color` | Main active color | `var(--yh-color-primary)` |
+| `--yh-slider-main-color-rgb` | RGB value of the main active color | `64, 158, 255` |
+| `--yh-slider-secondary-color` | Secondary active color for gradients and range bars | `var(--yh-color-primary)` |
+| `--yh-slider-bg-color` | Runway background color | `var(--yh-border-color-light)` |
+| `--yh-slider-hover-bg-color` | Runway hover background color | `var(--yh-border-color-dark)` |
+| `--yh-slider-button-size` | Thumb size | `16px` |
+| `--yh-slider-button-border` | Thumb border width | `2px` |
+| `--yh-slider-runway-height` | Runway thickness | `6px` |
+| `--yh-slider-transition` | Transition token | `var(--yh-transition-base)` |
+| `--yh-slider-height` | Component height | `32px` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSliderProps` | Component props type |
+| `YhSliderEmits` | Component emits type |
+| `YhSliderSlots` | Component slots type |
+| `YhSliderExpose` | Component expose type |
+| `YhSliderInstance` | Component instance type |
 
 <style scoped>
 .yh-demo-wrapper {

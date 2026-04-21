@@ -480,6 +480,7 @@ The Button component has passed comprehensive SSR testing, ensuring consistent r
 | icon-position | Icon position | `'left' \| 'right' \| 'top' \| 'bottom'` | `'left'` |
 | color | Custom button color | `string` | — |
 | tag | Custom element tag | `string \| Component` | `'button'` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -505,7 +506,7 @@ The Button component has passed comprehensive SSR testing, ensuring consistent r
 | type | Button type | `ButtonType` |
 | disabled | Whether disabled | `boolean` |
 
-## Theme Variables
+### Theme Variables
 
 The Button component supports customizing local styles by overriding the following CSS variables:
 
@@ -520,3 +521,17 @@ The Button component supports customizing local styles by overriding the followi
 | `--yh-button-active-bg-color` | Active/click background color | `var(--yh-color-primary-light-8)` |
 | `--yh-button-active-border-color` | Active/click border color | `var(--yh-color-primary)` |
 | `--yh-button-active-text-color` | Active/click text color | — |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhButtonProps` | Props type for `YhButton` |
+| `YhButtonEmits` | Emits type for `YhButton` |
+| `YhButtonSlots` | Slots type for `YhButton` |
+| `YhButtonExpose` | Expose type for `YhButton` |
+| `YhButtonType` | Button type union |
+| `YhButtonSize` | Button size union |
+| `YhButtonNativeType` | Native button type union |
+| `YhButtonIconPosition` | Icon position union |
+| `YhButtonInstance` | Public instance type for `YhButton` |

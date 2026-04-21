@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { h, ref } from 'vue'
+import { h } from 'vue'
 import { YhMessageBox } from '@yh-ui/components'
-
-// --- Demo Logic ---
 
 const openAlert = () => {
   YhMessageBox.alert('This is a basic message alert content.', 'System Tip')
@@ -123,7 +121,6 @@ const openLoading = () => {
     beforeClose: (action, instance, done) => {
       if (action === 'confirm') {
         instance.confirmLoading = true
-        // Simulate API request
         setTimeout(() => {
           done()
           instance.confirmLoading = false
@@ -142,13 +139,11 @@ const openSetDefaults = () => {
     confirmButtonText: 'Got it',
   })
   YhMessageBox.alert(
-    'As the global configuration has changed, this popup automatically applies the <span style="color: #00d2ff; font-weight: bold;">acrylic effect</span> and text <span style="color: #00ff9d; font-weight: bold;">center alignment</span>.', 
+    'As the global configuration has changed, this popup automatically applies the <span style="color: #00d2ff; font-weight: bold;">acrylic effect</span> and text <span style="color: #00ff9d; font-weight: bold;">center alignment</span>.',
     'Global Config Effective',
     { dangerouslyUseHTMLString: true }
   )
 }
-
-// --- Snippets ---
 
 const tsAlert = `<template>
   <yh-button type="primary" @click="open">Message Alert</yh-button>
@@ -300,7 +295,6 @@ const tsNuxt = `<template>
 </template>
 
 <script setup lang="ts">
-// In Nuxt projects, YhMessageBox is automatically imported
 const open = () => {
   YhMessageBox.alert('Nuxt 3 auto-import successful!', 'SSR Compatibility')
 }
@@ -374,16 +368,14 @@ const tsSetDefaults = `<template>
 import { YhMessageBox } from '@yh-ui/yh-ui'
 
 const open = () => {
-  // Set global defaults
   YhMessageBox.setDefaults({
     glass: true,
     center: true,
     confirmButtonText: 'Got it',
   })
   
-  // Subsequent calls will auto-apply the above config
   YhMessageBox.alert(
-    'As the global configuration has changed, this popup automatically applies the <span style="color: #00d2ff; font-weight: bold;">acrylic effect</span> and text <span style="color: #00ff9d; font-weight: bold;">center alignment</span>.', 
+    'As the global configuration has changed, this popup automatically applies the <span style="color: #00d2ff; font-weight: bold;">acrylic effect</span> and text <span style="color: #00ff9d; font-weight: bold;">center alignment</span>.',
     'Global Config Effective',
     { dangerouslyUseHTMLString: true }
   )
@@ -403,13 +395,9 @@ const open = () => {
     cancelButtonText: 'Cancel',
     beforeClose: (action, instance, done) => {
       if (action === 'confirm') {
-        // Enable confirm button loading
         instance.confirmLoading = true
-        
-        // Simulate API request
         setTimeout(() => {
           done()
-          // Stop loading after logic completes (or handle inside done)
           instance.confirmLoading = false
         }, 3000)
       } else {
@@ -425,7 +413,7 @@ const toJs = (code: string) => code.replace('setup lang="ts"', 'setup').replace(
 
 # MessageBox
 
-A message dialog mimicking the native system experience, integrated with YH-UI's signature acrylic visual language, GPU-accelerated drag interactions, and rigorous business lifecycle control.
+Displays message dialogs through the `YhMessageBox` function API, including alert, confirm, and prompt modes.
 
 ## Basic Usage
 
@@ -445,7 +433,7 @@ Provides three common interaction modes: `alert`, `confirm`, and `prompt`.
 
 ## Different States
 
-Used to display operational feedback such as "Success, Warning, Info, Error".
+Use `iconType` to display success, warning, info, or error feedback.
 
 <DemoBlock title="Success State" :ts-code="tsSuccess" :js-code="toJs(tsSuccess)">
   <yh-button type="success" @click="openSuccess">Success State</yh-button>
@@ -465,7 +453,7 @@ Used to display operational feedback such as "Success, Warning, Info, Error".
 
 ## Custom Content
 
-The `message` property supports passing HTML strings or VNodes.
+The `message` option supports plain text, VNodes, and HTML strings.
 
 <DemoBlock title="VNode Rendering" :ts-code="tsVNode" :js-code="toJs(tsVNode)">
   <yh-button type="primary" @click="openVNode">VNode Rendering</yh-button>
@@ -476,12 +464,12 @@ The `message` property supports passing HTML strings or VNodes.
 </DemoBlock>
 
 ::: warning Warning
-While `dangerouslyUseHTMLString` is convenient, it can easily lead to XSS attacks. Ensure the content of message is trusted. **Never** assign user-submitted content to the message property.
+While `dangerouslyUseHTMLString` is convenient, it can lead to XSS attacks. Only pass trusted content.
 :::
 
 ## Vision and Layout
 
-YH-UI flagship features, providing frosted glass texture, drag positioning, and full axis alignment.
+Use layout-related options such as `glass`, `center`, and `draggable` to adjust appearance and interaction behavior.
 
 <DemoBlock title="Center Layout" :ts-code="tsCenter" :js-code="toJs(tsCenter)">
   <yh-button type="primary" @click="openCenter">Center Layout</yh-button>
@@ -493,7 +481,7 @@ YH-UI flagship features, providing frosted glass texture, drag positioning, and 
 
 ## Asynchronous Close Interception
 
-The `beforeClose` hook can precisely intercept exit actions. It is commonly used for handling async API logic, with the component automatically maintaining the confirm button's loading state.
+Use `beforeClose` to intercept confirm, cancel, or close actions before the dialog is dismissed.
 
 <DemoBlock title="Async Interception" :ts-code="tsBeforeClose" :js-code="toJs(tsBeforeClose)">
   <yh-button type="primary" @click="openBeforeClose">Async Interception</yh-button>
@@ -501,7 +489,7 @@ The `beforeClose` hook can precisely intercept exit actions. It is commonly used
 
 ## Loading State
 
-By using the `confirmButtonLoading` property or manually setting `instance.confirmLoading = true` in the `beforeClose` hook, you can display a loading animation directly on the confirm button. The component automatically handles button disabling.
+Use `confirmButtonLoading`, `cancelButtonLoading`, or update the exposed instance state inside `beforeClose` to control button loading behavior.
 
 <DemoBlock title="Async Loading Demo" :ts-code="tsLoading" :js-code="toJs(tsLoading)">
   <yh-button type="primary" @click="openLoading">Loading State</yh-button>
@@ -509,7 +497,7 @@ By using the `confirmButtonLoading` property or manually setting `instance.confi
 
 ## Global Default Configuration
 
-If most popups in your application share consistent visual preferences (e.g., globally enabling the acrylic effect), you can use `setDefaults` for one-click global configuration to avoid repetitive parameter passing.
+Use `setDefaults` to update the global default options used by subsequent `YhMessageBox` calls.
 
 <DemoBlock title="Global Configuration Demo" :ts-code="tsSetDefaults" :js-code="toJs(tsSetDefaults)">
   <yh-button type="primary" @click="openSetDefaults">Apply Global Acrylic Config</yh-button>
@@ -517,7 +505,7 @@ If most popups in your application share consistent visual preferences (e.g., gl
 
 ## Use in Nuxt
 
-`YhMessageBox` fully supports Nuxt 3/4. As a directive-called component, it automatically detects the environment during SSR (Server-Side Rendering) to ensure popup logic only executes on the client.
+`YhMessageBox` can be called in Nuxt client-side interaction flows after the YH-UI module is registered. Because the function API rejects on the server, it should be triggered from browser-side logic such as click handlers or client-only lifecycle code.
 
 <DemoBlock title="Nuxt Usage Demo" :ts-code="tsNuxt" :js-code="toJs(tsNuxt)">
   <yh-button type="primary" @click="openNuxt">Nuxt Auto Import</yh-button>
@@ -525,17 +513,13 @@ If most popups in your application share consistent visual preferences (e.g., gl
 
 **Notes**:
 
-- ✅ **Full Auto Import**: In Nuxt projects, `YhMessageBox` and its alias functions are automatically mapped without explicit `import`.
-- ✅ **SSR Safe**: `process.client` detection is encapsulated inside the functions, so you can safely call them in lifecycles or methods.
-- 💡 **Style Sync**: Component styles are automatically injected via Nuxt plugins, ensuring visual continuity after the first screen is hydrated.
-
-::: tip Production Practice
-In the Nuxt ecosystem, it is recommended to use `YhMessageBox` in `defineNuxtComponent` or `setup` logic for business interception, achieving an excellent global error alert experience when combined with `useFetch` interceptors.
-:::
+- Register `@yh-ui/nuxt` to use the library in Nuxt with auto-import support.
+- The runtime rejects calls on the server, so open dialogs from browser-side code.
+- Component styles are injected through the normal YH-UI style pipeline after hydration.
 
 ## Global Methods
 
-If you have fully imported YH-UI, it adds the following global methods to `app.config.globalProperties`: `$msgbox`, `$alert`, `$confirm`, and `$prompt`. Thus, you can call `MessageBox` using the methods shown on this page in a Vue instance.
+When the full library is installed, the following methods are also attached to `app.config.globalProperties`:
 
 - `$msgbox(options)`
 - `$alert(message, title, options)` or `$alert(message, options)`
@@ -544,17 +528,15 @@ If you have fully imported YH-UI, it adds the following global methods to `app.c
 
 ## Application Context Inheritance
 
-Now `MessageBox` accepts the constructor's `context` as the second parameter (if you are using MessageBox variables). This parameter allows you to inject the current application context into the message, inheriting all application properties.
+`YhMessageBox` accepts an app context so dialogs can inherit the current Vue application configuration.
 
 ```ts
 import { getCurrentInstance } from 'vue'
 import { YhMessageBox } from '@yh-ui/yh-ui'
 
-// In your setup method
 const { appContext } = getCurrentInstance()!
-// Pass parameters like this:
+
 YhMessageBox({}, appContext)
-// Or use different calling methods:
 YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 ```
 
@@ -562,65 +544,94 @@ YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 
 ### Methods
 
-| Method        | Description                                 | Parameter Type                             | Return Value                 |
-| ------------- | ------------------------------------------- | ------------------------------------------ | ---------------------------- |
-| `alert`       | Pops up an alert message box                | `(message, title?, options?, appContext?)` | `Promise<void>`              |
-| `confirm`     | Pops up an operation confirmation box       | `(message, title?, options?, appContext?)` | `Promise<MessageBoxAction>`  |
-| `prompt`      | Pops up a content input box                 | `(message, title?, options?, appContext?)` | `Promise<{ value, action }>` |
-| `setDefaults` | Modifies global default configuration items | `(defaults: MessageBoxOptions)`            | —                            |
+| Method | Description | Parameter Type | Return Value |
+| --- | --- | --- | --- |
+| `YhMessageBox` | Opens a message box with the provided options or message content. | `(options: YhMessageBoxOptions \| string \| VNode, appContext?: AppContext \| null)` | `Promise<{ value?: string; action: YhMessageBoxAction }>` |
+| `alert` | Opens an alert dialog. | `(message, title?, options?, appContext?)` | `Promise<void>` |
+| `confirm` | Opens a confirmation dialog. | `(message, title?, options?, appContext?)` | `Promise<YhMessageBoxAction>` |
+| `prompt` | Opens an input dialog. | `(message, title?, options?, appContext?)` | `Promise<{ value: string; action: 'confirm' }>` |
+| `setDefaults` | Updates the global default options used by later calls. | `(defaults: YhMessageBoxOptions)` | `void` |
 
-### MessageBoxOptions
+### Message Box Options
 
-| Prop                     | Description                                    | Type                                          | Default         |
-| ------------------------ | ---------------------------------------------- | --------------------------------------------- | --------------- |
-| title                    | Title                                          | `string`                                      | `Tip`           |
-| message                  | Content                                        | `string \| VNode \| (() => VNode)`            | —               |
-| type                     | Popup type                                     | `'alert' \| 'confirm' \| 'prompt'`            | —               |
-| iconType                 | State icon type                                | `'success' \| 'warning' \| 'info' \| 'error'` | —               |
-| icon                     | Custom icon                                    | `string \| Component \| VNode`                | —               |
-| width                    | Popup width                                    | `string \| number`                            | `420`           |
-| dangerouslyUseHTMLString | Whether to render message as HTML              | `boolean`                                     | `false`         |
-| showClose                | Whether to show close button at top-right      | `boolean`                                     | `true`          |
-| showConfirmButton        | Whether to show confirm button                 | `boolean`                                     | `true`          |
-| showCancelButton         | Whether to show cancel button                  | `boolean`                                     | `true`          |
-| confirmButtonText        | Confirm button text                            | `string`                                      | `OK`            |
-| cancelButtonText         | Cancel button text                             | `string`                                      | `Cancel`        |
-| closeOnClickModal        | Whether to close when clicking the overlay     | `boolean`                                     | `true`          |
-| closeOnPressEscape       | Whether to close when pressing ESC             | `boolean`                                     | `true`          |
-| lockScroll               | Whether to lock scrollbar                      | `boolean`                                     | `true`          |
-| glass                    | Whether to enable acrylic glass mode           | `boolean`                                     | `false`         |
-| center                   | Whether to center content layout               | `boolean`                                     | `false`         |
-| roundButton              | Whether to use rounded buttons                 | `boolean`                                     | `false`         |
-| draggable                | Whether popup is draggable                     | `boolean`                                     | `false`         |
-| draggableBoundary        | Whether to prevent dragging out of viewport    | `boolean`                                     | `true`          |
-| customClass              | Custom class name                              | `string`                                      | —               |
-| inputPlaceholder         | Input placeholder (prompt only)                | `string`                                      | —               |
-| inputValue               | Initial input value (prompt only)              | `string`                                      | —               |
-| inputPattern             | Input validation regex (prompt only)           | `RegExp`                                      | —               |
-| inputValidator           | Custom input validation function (prompt only) | `(value: string) => boolean \| string`        | —               |
-| inputErrorMessage        | Validation error message (prompt only)         | `string`                                      | —               |
-| beforeClose              | Hook before closing                            | `(action, instance, done) => void`            | —               |
-| callback                 | Callback after closing                         | `(action, instance) => void`                  | —               |
-| appContext               | Application context (Vue Context)              | `AppContext`                                  | —               |
-| autofocus                | Whether to autofocus on opening                | `boolean`                                     | `true`          |
-| appendTo                 | Sets the root element for the component        | `string \| HTMLElement`                       | `document.body` |
-| confirmButtonLoading     | Whether confirm button shows loading status    | `boolean`                                     | `false`         |
-| cancelButtonLoading      | Whether cancel button shows loading status     | `boolean`                                     | `false`         |
-| loadingIcon              | Custom loading icon                            | `string \| Component \| VNode`                | —               |
+| Prop | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Title text. | `string` | `'Tip'` |
+| message | Dialog content. | `string \| VNode \| (() => VNode)` | `undefined` |
+| type | Dialog type. | `YhMessageBoxType` | `undefined` |
+| dangerouslyUseHTMLString | Whether to render `message` as HTML. | `boolean` | `false` |
+| iconType | State icon type. | `YhMessageBoxState` | `undefined` |
+| icon | Custom icon. | `string \| Component \| VNode` | `undefined` |
+| confirmButtonText | Confirm button text. | `string` | `'确定'` |
+| cancelButtonText | Cancel button text. | `string` | `'取消'` |
+| showCancelButton | Whether to show the cancel button. | `boolean` | `true` |
+| showConfirmButton | Whether to show the confirm button. | `boolean` | `true` |
+| showClose | Whether to show the top-right close button. | `boolean` | `true` |
+| closeOnClickModal | Whether clicking the overlay closes the dialog. | `boolean` | `true` |
+| closeOnPressEscape | Whether pressing `Esc` closes the dialog. | `boolean` | `true` |
+| lockScroll | Whether to lock body scroll. | `boolean` | `true` |
+| glass | Whether to enable glass mode. | `boolean` | `false` |
+| center | Whether to center content layout. | `boolean` | `false` |
+| roundButton | Whether to use rounded buttons. | `boolean` | `false` |
+| draggable | Whether the dialog is draggable. | `boolean` | `false` |
+| draggableBoundary | Whether dragging is kept inside the viewport. | `boolean` | `true` |
+| width | Dialog width. | `string \| number` | `420` |
+| customClass | Custom class name. | `string` | `undefined` |
+| inputPlaceholder | Input placeholder in `prompt` mode. | `string` | `undefined` |
+| inputValue | Initial input value in `prompt` mode. | `string` | `undefined` |
+| inputPattern | Input validation regex in `prompt` mode. | `RegExp` | `undefined` |
+| inputValidator | Custom validation function in `prompt` mode. | `(value: string) => boolean \| string` | `undefined` |
+| inputErrorMessage | Validation error message in `prompt` mode. | `string` | `undefined` |
+| beforeClose | Hook called before the dialog closes. | `(action: YhMessageBoxAction, instance: YhMessageBoxInstance, done: () => void) => void` | `undefined` |
+| callback | Callback invoked by the function API after the dialog closes. | `(action: YhMessageBoxAction, instance: YhMessageBoxInstance) => void` | `undefined` |
+| appContext | Vue app context used by the function API for inheritance. | `AppContext \| null` | `undefined` |
+| autofocus | Whether to autofocus when opening. | `boolean` | `true` |
+| appendTo | Mount container used by the function API. If the selector cannot be found, it falls back to `document.body`. | `string \| HTMLElement` | `document.body` |
+| confirmButtonLoading | Whether the confirm button shows loading. | `boolean` | `false` |
+| cancelButtonLoading | Whether the cancel button shows loading. | `boolean` | `false` |
+| loadingIcon | Custom loading icon. Declared in the type, but the current implementation does not consume it. | `string \| Component \| VNode` | `undefined` |
+| themeOverrides | Component-level theme overrides. | `ComponentThemeVars` | `undefined` |
 
-### MessageBoxInstance (instance in beforeClose)
+### Events
 
-| Prop/Method      | Description                         | Type                                   |
-| ---------------- | ----------------------------------- | -------------------------------------- |
-| `confirmLoading` | Loading state of the confirm button | `boolean`                              |
-| `cancelLoading`  | Loading state of the cancel button  | `boolean`                              |
-| `open`           | Opens the popup                     | `(options: MessageBoxOptions) => void` |
-| `close`          | Closes the popup                    | `() => void`                           |
+This function entry does not expose component events.
+
+### Slots
+
+This function entry does not expose component slots.
+
+### Expose
+
+This function entry does not expose a template component instance. Runtime control is available through the `YhMessageBoxInstance` passed to `beforeClose`.
+
+### Message Box Instance
+
+| Prop/Method | Description | Type |
+| --- | --- | --- |
+| `confirmLoading` | Loading state of the confirm button. | `boolean` |
+| `cancelLoading` | Loading state of the cancel button. | `boolean` |
+| `open` | Opens the popup. | `(options: YhMessageBoxOptions) => void` |
+| `close` | Closes the popup. | `() => void` |
+| `setCallback` | Registers the close callback used by the function API. | `(cb: (res: { action: YhMessageBoxAction; value?: string }) => void) => void` |
 
 ### Theme Variables
 
-| Variable                  | Description                                           | Default                        |
-| ------------------------- | ----------------------------------------------------- | ------------------------------ |
-| `--yh-scrollbar-width`    | Scrollbar width of the current system (auto-injected) | —                              |
-| `--yh-bg-color-overlay`   | Popup background color                                | `var(--yh-bg-color-overlay)`   |
-| `--yh-text-color-primary` | Title color                                           | `var(--yh-text-color-primary)` |
+`YhMessageBox` supports `themeOverrides`. The stylesheet mainly consumes global tokens, while runtime overrides generate variables such as the following:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--yh-scrollbar-width` | Scrollbar width compensation injected at runtime. | Runtime injected |
+| `--yh-message-box-bg-color` | Variable generated from `themeOverrides.bgColor`. | No built-in stylesheet fallback |
+| `--yh-message-box-title-color` | Variable generated from `themeOverrides.titleColor`. | No built-in stylesheet fallback |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhMessageBoxType` | Message-box type union |
+| `YhMessageBoxData` | Prompt result payload type |
+| `YhMessageBoxAction` | Action union returned by confirm / prompt flows |
+| `YhMessageBoxState` | Built-in state icon union |
+| `YhMessageBoxInstance` | Runtime instance type passed to hooks |
+| `YhMessageBoxOptions` | Options type for `YhMessageBox(...)` |
+| `YhMessageBoxHandler` | Promise / handler return abstraction |

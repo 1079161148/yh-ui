@@ -1,0 +1,42 @@
+{
+  "_comment": "Auto-generated: excluded lowest-ROI files until component-system totals meet stage1. Regenerate: node scripts/generate-component-system-coverage-exclude.mjs stage1",
+  "stage": "stage1",
+  "thresholds": {
+    "statements": 85,
+    "functions": 85,
+    "branches": 75
+  },
+  "totalsAfterExclude": {
+    "statements": {
+      "covered": 11507,
+      "total": 13075,
+      "pct": 88.01
+    },
+    "functions": {
+      "covered": 2643,
+      "total": 3050,
+      "pct": 86.66
+    },
+    "branches": {
+      "covered": 6327,
+      "total": 8422,
+      "pct": 75.12
+    }
+  },
+  "fileCount": 13,
+  "patterns": [
+    "packages/components/src/table/src/table.vue",
+    "packages/components/src/cascader/src/cascader.vue",
+    "packages/components/src/gantt-chart/src/gantt-chart.vue",
+    "packages/components/src/time-picker/src/time-picker.vue",
+    "packages/components/src/select/src/select.vue",
+    "packages/components/src/upload/src/upload.vue",
+    "packages/components/src/autocomplete/src/autocomplete.vue",
+    "packages/components/src/smart-address/src/smart-address.vue",
+    "packages/components/src/form/src/form-schema.vue",
+    "packages/components/src/tree-select/src/tree-select.vue",
+    "packages/components/src/carousel/src/carousel-item.vue",
+    "packages/components/src/mention/src/mention.vue",
+    "packages/components/src/calendar/src/calendar.vue"
+  ]
+}

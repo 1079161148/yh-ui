@@ -949,3 +949,24 @@ const handleDisabledChange = (index: number) => {
 | `--yh-steps-error-color` | 错误状态颜色 | `var(--yh-color-danger)` |
 | `--yh-steps-success-color` | 成功状态颜色 | `var(--yh-color-success)` |
 
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhStepsProps` | Steps 组件 Props 类型 |
+| `YhStepsEmits` | Steps 组件事件类型 |
+| `YhStepsSlots` | Steps 组件插槽类型 |
+| `YhStepsDirection` | 方向联合类型 |
+| `YhStepsStatus` | 状态联合类型 |
+| `YhStepsProgressDot` | 点状模式类型 |
+| `YhStepsSize` | 尺寸联合类型 |
+| `YhStepsLabelPlacement` | 标签位置联合类型 |
+| `YhStepConfig` | Step 配置类型 |
+| `YhStepProps` | Step 组件 Props 类型 |
+| `YhStepSlots` | Step 组件插槽类型 |
+| `YhStepsInstance` | Steps 组件实例类型 |
+| `YhStepInstance` | Step 组件实例类型 |

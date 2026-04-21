@@ -1,12 +1,14 @@
 # Autocomplete
 
+`YhAutocomplete` provides suggestion candidates based on the current input value. It is suitable for search boxes, address completion, quick command search, and similar flows.
+
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
 import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 
-// --- Basic Usage (Demo 1) ---
 const value1 = ref('')
-const suggestions1 = [
+const suggestions1: YhAutocompleteSuggestion[] = [
   { value: 'Vue.js' },
   { value: 'React' },
   { value: 'Angular' },
@@ -15,68 +17,72 @@ const suggestions1 = [
   { value: 'Next.js' },
   { value: 'Nuxt.js' }
 ]
-const querySearch1 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const querySearch1 = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   const results = queryString
-    ? suggestions1.filter(item =>
-        item.value.toLowerCase().includes(queryString.toLowerCase())
-      )
+    ? suggestions1.filter((item) => item.value.toLowerCase().includes(queryString.toLowerCase()))
     : suggestions1
   cb(results)
 }
 
-// --- Custom Template (Demo 2) ---
 const value2 = ref('')
-const restaurants2 = [
+const restaurants2: YhAutocompleteSuggestion[] = [
   { value: 'Fresh Foods', address: '144 Xinyu Road, Changning District' },
   { value: 'Haidilao Hotpot', address: '988 Zhenbei Road, Putuo District' },
   { value: 'KFC', address: '1 Hongqiao Road, Xuhui District' },
-  { value: 'McDonald\'s', address: '1000 Lujiazui Ring Road, Pudong District' }
+  { value: "McDonald's", address: '1000 Lujiazui Ring Road, Pudong District' }
 ]
-const querySearch2 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const querySearch2 = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   const results = queryString
-    ? restaurants2.filter(item =>
-        item.value.toLowerCase().includes(queryString.toLowerCase())
-      )
+    ? restaurants2.filter((item) => item.value.toLowerCase().includes(queryString.toLowerCase()))
     : restaurants2
   cb(results)
 }
-const handleSelect2 = (item: AutocompleteSuggestion) => {
+const handleSelect2 = (item: YhAutocompleteSuggestion) => {
   console.log('Selected:', item)
 }
 
-// --- Remote Search (Demo 3) ---
 const value3 = ref('')
-const remoteSearch3 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const remoteSearch3 = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   if (!queryString) {
     cb([])
     return
   }
   setTimeout(() => {
-    const results = suggestions1.filter(item =>
+    const results = suggestions1.filter((item) =>
       item.value.toLowerCase().includes(queryString.toLowerCase())
     )
     cb(results)
   }, 500)
 }
 
-// --- Disabled State (Demo 4) ---
 const value4 = ref('')
-
-// --- Clearable (Demo 5) ---
 const value5 = ref('YH-UI')
-
-// --- Different Sizes (Demo 6) ---
 const large6 = ref('Vue.js')
 const default6 = ref('Svelte')
 const small6 = ref('Solid')
 
-// --- Custom Slots (Demo 7) ---
 const value7 = ref('')
-const querySearch7 = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const querySearch7 = (
+  _queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   setTimeout(() => cb([]), 1000)
 }
 
-// --- Code example strings ---
+const nuxtValue = ref('')
+const nuxtSuggestions = (_q: string, cb: (suggestions: YhAutocompleteSuggestion[]) => void) => {
+  cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
+}
+
 const tsBasic = `<${_T}>
   <yh-autocomplete
     v-model="value"
@@ -87,9 +93,10 @@ const tsBasic = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
 
 const value = ref('')
-const suggestions = [
+const suggestions: YhAutocompleteSuggestion[] = [
   { value: 'Vue.js' },
   { value: 'React' },
   { value: 'Angular' },
@@ -99,17 +106,16 @@ const suggestions = [
   { value: 'Nuxt.js' }
 ]
 
-const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const querySearch = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   const results = queryString
-    ? suggestions.filter(item =>
-        item.value.toLowerCase().includes(queryString.toLowerCase())
-      )
+    ? suggestions.filter((item) => item.value.toLowerCase().includes(queryString.toLowerCase()))
     : suggestions
   cb(results)
 }
 </${_S}>`
-
-const jsBasic = toJs(tsBasic)
 
 const tsCustom = `<${_T}>
   <yh-autocomplete
@@ -129,25 +135,27 @@ const tsCustom = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
 
 const value = ref('')
-const restaurants = [
+const restaurants: YhAutocompleteSuggestion[] = [
   { value: 'Fresh Foods', address: '144 Xinyu Road, Changning District' },
   { value: 'Haidilao Hotpot', address: '988 Zhenbei Road, Putuo District' },
   { value: 'KFC', address: '1 Hongqiao Road, Xuhui District' },
-  { value: 'McDonald\\'s', address: '1000 Lujiazui Ring Road, Pudong District' }
+  { value: "McDonald's", address: '1000 Lujiazui Ring Road, Pudong District' }
 ]
 
-const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const querySearch = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   const results = queryString
-    ? restaurants.filter(item =>
-        item.value.toLowerCase().includes(queryString.toLowerCase())
-      )
+    ? restaurants.filter((item) => item.value.toLowerCase().includes(queryString.toLowerCase()))
     : restaurants
   cb(results)
 }
 
-const handleSelect = (item: AutocompleteSuggestion) => {
+const handleSelect = (item: YhAutocompleteSuggestion) => {
   console.log('Selected:', item)
 }
 </${_S}>
@@ -167,36 +175,37 @@ const handleSelect = (item: AutocompleteSuggestion) => {
 }
 </${_St}>`
 
-const jsCustom = toJs(tsCustom)
-
 const tsRemote = `<${_T}>
   <yh-autocomplete
     v-model="value"
     :fetch-suggestions="remoteSearch"
-    placeholder="Enter content (Remote Search)"
+    placeholder="Remote search"
   />
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
 
 const value = ref('')
 
-const remoteSearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+const remoteSearch = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   if (!queryString) {
     cb([])
     return
   }
-  // Simulate remote search
   setTimeout(() => {
-    const suggestions = [
+    const suggestions: YhAutocompleteSuggestion[] = [
       { value: 'Vue.js' },
       { value: 'React' },
       { value: 'Angular' },
       { value: 'Svelte' },
       { value: 'Solid' }
     ]
-    const results = suggestions.filter(item => 
+    const results = suggestions.filter((item) =>
       item.value.toLowerCase().includes(queryString.toLowerCase())
     )
     cb(results)
@@ -204,18 +213,15 @@ const remoteSearch = (queryString: string, cb: (suggestions: AutocompleteSuggest
 }
 </${_S}>`
 
-const jsRemote = toJs(tsRemote)
-
 const tsDisabled = `<${_T}>
   <yh-autocomplete v-model="value" disabled placeholder="Disabled" />
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+
 const value = ref('')
 </${_S}>`
-
-const jsDisabled = toJs(tsDisabled)
 
 const tsClearable = `<${_T}>
   <yh-autocomplete v-model="value" clearable placeholder="Clearable" />
@@ -223,42 +229,45 @@ const tsClearable = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+
 const value = ref('YH-UI')
 </${_S}>`
 
-const jsClearable = toJs(tsClearable)
-
 const tsSizes = `<${_T}>
   <div class="flex-column gap-4">
-    <yh-autocomplete 
-      v-model="large" 
+    <yh-autocomplete
+      v-model="large"
       :fetch-suggestions="querySearch"
-      size="large" 
-      placeholder="Large (40px)" 
+      size="large"
+      placeholder="Large"
     />
-    <yh-autocomplete 
-      v-model="defaultValue" 
+    <yh-autocomplete
+      v-model="defaultValue"
       :fetch-suggestions="querySearch"
-      placeholder="Default (32px)" 
+      placeholder="Default"
     />
-    <yh-autocomplete 
-      v-model="small" 
+    <yh-autocomplete
+      v-model="small"
       :fetch-suggestions="querySearch"
-      size="small" 
-      placeholder="Small (24px)" 
+      size="small"
+      placeholder="Small"
     />
   </div>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
 
 const large = ref('Vue.js')
 const defaultValue = ref('Svelte')
 const small = ref('Solid')
 
-const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
-  const suggestions = [
+const querySearch = (
+  queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
+  const suggestions: YhAutocompleteSuggestion[] = [
     { value: 'Vue.js' },
     { value: 'React' },
     { value: 'Angular' },
@@ -266,37 +275,36 @@ const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggesti
     { value: 'Solid' }
   ]
   const results = queryString
-    ? suggestions.filter(item => 
-        item.value.toLowerCase().includes(queryString.toLowerCase())
-      )
+    ? suggestions.filter((item) => item.value.toLowerCase().includes(queryString.toLowerCase()))
     : suggestions
   cb(results)
 }
 </${_S}>`
 
-const jsSizes = toJs(tsSizes)
-
 const tsSlots = `<${_T}>
   <yh-autocomplete
     v-model="value"
     :fetch-suggestions="querySearch"
-    placeholder="Try searching for no matches"
+    placeholder="Try a missing keyword"
   >
     <${_T} #loading>
       <div class="custom-loading">Loading...</div>
     </${_T}>
     <${_T} #empty>
-      <div class="custom-empty">Oops, nothing found</div>
+      <div class="custom-empty">No matching result</div>
     </${_T}>
   </yh-autocomplete>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
 
 const value = ref('')
-const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
-  // Simulate delayed empty data
+const querySearch = (
+  _queryString: string,
+  cb: (suggestions: YhAutocompleteSuggestion[]) => void
+) => {
   setTimeout(() => cb([]), 1000)
 }
 </${_S}>
@@ -310,41 +318,39 @@ const querySearch = (queryString: string, cb: (suggestions: AutocompleteSuggesti
 .custom-empty { color: var(--yh-color-danger); }
 </${_St}>`
 
-const jsSlots = toJs(tsSlots)
-
-// Nuxt usage example
-const nuxtValue = ref('')
-const nuxtSuggestions = (q: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
-  cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
-}
-
 const tsNuxt = `<${_T}>
   <div style="max-width: 300px;">
-    <!-- Auto-registered, use directly -->
     <yh-autocomplete
-      v-model="nuxtValue"
-      :fetch-suggestions="nuxtSuggestions"
-      placeholder="Nuxt Auto-import Demo"
+      v-model="value"
+      :fetch-suggestions="suggestions"
+      placeholder="Nuxt auto-import demo"
     />
   </div>
 </${_T}>
 
 <${_S} setup lang="ts">
-// No need to manually import YhAutocomplete
-const nuxtValue = ref('')
-const nuxtSuggestions = (q: string, cb: (suggestions: AutocompleteSuggestion[]) => void) => {
+import { ref } from 'vue'
+import type { YhAutocompleteSuggestion } from '@yh-ui/components'
+
+const value = ref('')
+const suggestions = (_q: string, cb: (suggestions: YhAutocompleteSuggestion[]) => void) => {
   cb([{ value: 'Nuxt 3' }, { value: 'Nuxt 4' }])
 }
 </${_S}>`
 
+const jsBasic = toJs(tsBasic)
+const jsCustom = toJs(tsCustom)
+const jsRemote = toJs(tsRemote)
+const jsDisabled = toJs(tsDisabled)
+const jsClearable = toJs(tsClearable)
+const jsSizes = toJs(tsSizes)
+const jsSlots = toJs(tsSlots)
 const jsNuxt = toJs(tsNuxt)
 </script>
 
-Provides input suggestions based on input content.
-
 ## Basic Usage
 
-Use the `fetch-suggestions` prop to set the method for retrieving the suggestion list.
+Provide a suggestion fetcher through `fetch-suggestions`.
 
 <DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
   <div style="max-width: 300px;">
@@ -355,15 +361,15 @@ Use the `fetch-suggestions` prop to set the method for retrieving the suggestion
     />
   </div>
   <template #description>
-    Bound variable: <code>{{ value1 }}</code>
+    Bound value: <code>{{ value1 }}</code>
   </template>
 </DemoBlock>
 
-## Custom Template
+## Custom Suggestion Template
 
-Use the `default` slot to customize the display content of suggestion items.
+Use the default slot to customize each suggestion row.
 
-<DemoBlock title="Custom Template" :ts-code="tsCustom" :js-code="jsCustom">
+<DemoBlock title="Custom Suggestion Template" :ts-code="tsCustom" :js-code="jsCustom">
   <div style="max-width: 300px;">
     <yh-autocomplete
       v-model="value2"
@@ -383,23 +389,23 @@ Use the `default` slot to customize the display content of suggestion items.
 
 ## Remote Search
 
-Simulate fetching suggestion data from a server with delay.
+Asynchronous requests can be handled inside `fetch-suggestions`, and the dropdown updates after the callback resolves.
 
 <DemoBlock title="Remote Search" :ts-code="tsRemote" :js-code="jsRemote">
   <div style="max-width: 300px;">
     <yh-autocomplete
       v-model="value3"
       :fetch-suggestions="remoteSearch3"
-      placeholder="Enter content (Remote Search)"
+      placeholder="Remote search"
     />
   </div>
 </DemoBlock>
 
 ## Disabled State
 
-Use the `disabled` prop to disable the input.
+Set `disabled` to block input and panel interaction.
 
-<DemoBlock title="Disabled" :ts-code="tsDisabled" :js-code="jsDisabled">
+<DemoBlock title="Disabled State" :ts-code="tsDisabled" :js-code="jsDisabled">
   <div style="max-width: 300px;">
     <yh-autocomplete v-model="value4" disabled placeholder="Disabled" />
   </div>
@@ -407,7 +413,7 @@ Use the `disabled` prop to disable the input.
 
 ## Clearable
 
-Use the `clearable` prop to quickly clear the content.
+When `clearable` is enabled, the clear icon appears while the field has a value and is hovered or focused.
 
 <DemoBlock title="Clearable" :ts-code="tsClearable" :js-code="jsClearable">
   <div style="max-width: 300px;">
@@ -417,32 +423,50 @@ Use the `clearable` prop to quickly clear the content.
 
 ## Different Sizes
 
-Supports `large`, `default`, and `small` sizes.
+Supports `large`, `default`, and `small`.
 
 <DemoBlock title="Different Sizes" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="max-width: 300px; display: flex; flex-direction: column; gap: 16px;">
-    <yh-autocomplete v-model="large6" :fetch-suggestions="querySearch1" size="large" placeholder="Large (40px)" />
-    <yh-autocomplete v-model="default6" :fetch-suggestions="querySearch1" placeholder="Default (32px)" />
-    <yh-autocomplete v-model="small6" :fetch-suggestions="querySearch1" size="small" placeholder="Small (24px)" />
+    <yh-autocomplete
+      v-model="large6"
+      :fetch-suggestions="querySearch1"
+      size="large"
+      placeholder="Large"
+    />
+    <yh-autocomplete
+      v-model="default6"
+      :fetch-suggestions="querySearch1"
+      placeholder="Default"
+    />
+    <yh-autocomplete
+      v-model="small6"
+      :fetch-suggestions="querySearch1"
+      size="small"
+      placeholder="Small"
+    />
   </div>
 </DemoBlock>
 
-## Custom Slots
+## Loading and Empty Slots
 
-Use `loading` and `empty` slots to customize the content during loading and when there is no data.
+Use `loading` and `empty` to customize the non-data states of the dropdown panel.
 
-<DemoBlock title="Custom Slots" :ts-code="tsSlots" :js-code="jsSlots">
+<DemoBlock title="Loading and Empty Slots" :ts-code="tsSlots" :js-code="jsSlots">
   <div style="max-width: 300px;">
     <yh-autocomplete
       v-model="value7"
       :fetch-suggestions="querySearch7"
-      placeholder="Try searching for no matches"
+      placeholder="Try a missing keyword"
     >
       <template #loading>
-        <div style="padding: 10px; color: var(--yh-color-primary); text-align: center;">Loading...</div>
+        <div style="padding: 10px; color: var(--yh-color-primary); text-align: center;">
+          Loading...
+        </div>
       </template>
       <template #empty>
-        <div style="padding: 10px; color: var(--yh-color-danger); text-align: center;">Oops, nothing found</div>
+        <div style="padding: 10px; color: var(--yh-color-danger); text-align: center;">
+          No matching result
+        </div>
       </template>
     </yh-autocomplete>
   </div>
@@ -450,94 +474,93 @@ Use `loading` and `empty` slots to customize the content during loading and when
 
 ## Use in Nuxt
 
-The Autocomplete component works well in Nuxt 3/4 environments. With auto-import support, you can simply use the component name directly.
+After installing `@yh-ui/nuxt`, `YhAutocomplete` can be used directly. The input element itself participates in SSR, while the dropdown panel mounts on the client during interaction. When `teleported` is enabled, the panel is moved into `body`.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 300px;">
     <yh-autocomplete
       v-model="nuxtValue"
       :fetch-suggestions="nuxtSuggestions"
-      placeholder="Nuxt Auto-import Demo"
+      placeholder="Nuxt auto-import demo"
     />
   </div>
 </DemoBlock>
-
-**SSR Notes**:
-
-- ✅ Initial state of the input (including `v-model` value) renders correctly on the server
-- ✅ Size and placeholder support SSR
-- ✅ Prefix and suffix slots generate HTML during the SSR phase
-- ⚠️ The suggestion dropdown only appears during client-side interaction (input or focus), without affecting the initial HTML structure
-- 💡 Debounce and dropdown positioning take effect after client-side activation (Hydration)
-
-::: tip SSR Safety
-The Autocomplete component internally wraps `YhInput` and the `Popper` system. It uses `useId` to ensure stability of the Input-to-dropdown association IDs during initial rendering, perfectly avoiding common ID conflict warnings under SSR.
-:::
 
 ## API
 
 ### Props
 
-| Prop                  | Description                                     | Type                                                                                 | Default          |
-| --------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
-| model-value / v-model | Binding value                                   | `string`                                                                             | —                |
-| placeholder           | Placeholder text                                | `string`                                                                             | —                |
-| disabled              | Whether disabled                                | `boolean`                                                                            | `false`          |
-| clearable             | Whether clearable                               | `boolean`                                                                            | `false`          |
-| size                  | Input size                                      | `'large' \| 'default' \| 'small'`                                                    | `'default'`      |
-| fetch-suggestions     | Method to fetch suggestions                     | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | —                |
-| trigger-on-focus      | Whether to trigger suggestions on focus         | `boolean`                                                                            | `true`           |
-| debounce              | Debounce delay (ms)                             | `number`                                                                             | `300`            |
-| placement             | Dropdown position                               | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'`    | `'bottom-start'` |
-| value-key             | Key name used for display in suggestion objects | `string`                                                                             | `'value'`        |
-| highlight-first-item  | Whether to highlight the first item by default  | `boolean`                                                                            | `false`          |
-| teleported            | Whether to append the dropdown to body          | `boolean`                                                                            | `true`           |
-| fit-input-width       | Whether the dropdown width matches the input    | `boolean`                                                                            | `true`           |
-| prefix-icon           | Prefix icon                                     | `string \| Component`                                                                | —                |
-| suffix-icon           | Suffix icon                                     | `string \| Component`                                                                | —                |
-| name                  | Native name attribute                           | `string`                                                                             | —                |
-| autofocus             | Auto focus                                      | `boolean`                                                                            | `false`          |
-| autocomplete          | Native autocomplete attribute                   | `string`                                                                             | `'off'`          |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| `model-value / v-model` | Bound input value | `string` | `undefined` |
+| `placeholder` | Placeholder text | `string` | `undefined` |
+| `disabled` | Whether the component is disabled | `boolean` | `false` |
+| `clearable` | Whether the value can be cleared | `boolean` | `false` |
+| `size` | Input size | `'large' \| 'default' \| 'small'` | `undefined` |
+| `fetch-suggestions` | Suggestion fetcher | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | `undefined` |
+| `trigger-on-focus` | Whether suggestions should be fetched on focus | `boolean` | `true` |
+| `debounce` | Suggestion fetch debounce in milliseconds | `number` | `300` |
+| `placement` | Dropdown placement | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'` | `'bottom-start'` |
+| `value-key` | Field used as the display value inside a suggestion object | `string` | `'value'` |
+| `popper-class` | Custom class name for the dropdown panel | `string` | `undefined` |
+| `teleported` | Whether the dropdown is teleported to `body` | `boolean` | `true` |
+| `fit-input-width` | Whether the dropdown width follows the input width | `boolean` | `true` |
+| `highlight-first-item` | Whether the first suggestion is highlighted by default | `boolean` | `false` |
+| `prefix-icon` | Prefix icon component or icon name | `string \| Component` | `undefined` |
+| `suffix-icon` | Suffix icon component or icon name | `string \| Component` | `undefined` |
+| `validate-event` | Whether form validation is triggered | `boolean` | `true` |
+| `autofocus` | Whether the input autofocuses | `boolean` | `false` |
+| `name` | Native `name` attribute | `string` | `undefined` |
+| `autocomplete` | Native `autocomplete` attribute | `string` | `'off'` |
+| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Event Name | Description                                  | Parameters                               |
-| ---------- | -------------------------------------------- | ---------------------------------------- |
-| input      | Triggered when input value changes           | `(value: string) => void`                |
-| change     | Triggered when value changes                 | `(value: string) => void`                |
-| focus      | Triggered on focus                           | `(event: FocusEvent) => void`            |
-| blur       | Triggered on blur                            | `(event: FocusEvent) => void`            |
-| clear      | Triggered when clear button is clicked       | `() => void`                             |
-| select     | Triggered when a suggestion item is selected | `(item: AutocompleteSuggestion) => void` |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| `update:modelValue` | Triggered when the bound value changes | `(value: string) => void` |
+| `input` | Triggered while typing | `(value: string) => void` |
+| `change` | Triggered after the input change is committed | `(value: string) => void` |
+| `focus` | Triggered when the input gains focus | `(event: FocusEvent) => void` |
+| `blur` | Triggered when the input loses focus | `(event: FocusEvent) => void` |
+| `clear` | Triggered when the clear icon is clicked | `() => void` |
+| `select` | Triggered when a suggestion item is selected | `(item: AutocompleteSuggestion) => void` |
 
 ### Slots
 
-| Slot Name | Description                    | Scope                              |
-| --------- | ------------------------------ | ---------------------------------- |
-| default   | Custom suggestion item content | `{ item: AutocompleteSuggestion }` |
-| prefix    | Input prefix content           | —                                  |
-| suffix    | Input suffix content           | —                                  |
-| prepend   | Input prepend content          | —                                  |
-| append    | Input append content           | —                                  |
-| loading   | Content while loading          | —                                  |
-| empty     | Content when no data matches   | —                                  |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| `default` | Custom suggestion item content | `{ item: AutocompleteSuggestion }` |
+| `prefix` | Input prefix content | `-` |
+| `suffix` | Input suffix content | `-` |
+| `prepend` | Content before the input wrapper | `-` |
+| `append` | Content after the input wrapper | `-` |
+| `loading` | Custom loading content | `-` |
+| `empty` | Custom empty-state content | `-` |
 
 ### Expose
 
-| Name      | Description                | Type                      |
-| --------- | -------------------------- | ------------------------- |
-| focus     | Focus the input            | `() => void`              |
-| blur      | Blur the input             | `() => void`              |
-| close     | Close the suggestion list  | `() => void`              |
-| highlight | Highlight a specified item | `(index: number) => void` |
+| Name | Description | Type |
+| --- | --- | --- |
+| `focus` | Focuses the input | `() => void` |
+| `blur` | Blurs the input | `() => void` |
+| `close` | Closes the dropdown panel | `() => void` |
+| `highlight` | Highlights a suggestion item by index | `(index: number) => void` |
+| `inputRef` | Native input element reference | `HTMLInputElement \| undefined` |
 
-## Theme Variables
+### Type Exports
 
-The Autocomplete component uses the following CSS variables. You can customize styles by overriding these variables:
+| Name | Description |
+| --- | --- |
+| `YhAutocompleteSize` | Size union type |
+| `YhAutocompletePlacement` | Dropdown placement union type |
+| `YhAutocompleteSuggestion` | Suggestion item type |
+| `YhAutocompleteProps` | Props type for `YhAutocomplete` |
+| `YhAutocompleteEmits` | Emits type for `YhAutocomplete` |
+| `YhAutocompleteSlots` | Slots type for `YhAutocomplete` |
+| `YhAutocompleteExpose` | Public expose type |
+| `YhAutocompleteInstance` | Component instance type |
 
-| Variable                               | Description               | Default                        |
-| -------------------------------------- | ------------------------- | ------------------------------ |
-| `--yh-autocomplete-border-color`       | Border color              | `var(--yh-border-color)`       |
-| `--yh-autocomplete-hover-border-color` | Hover border color        | `var(--yh-border-color-hover)` |
-| `--yh-autocomplete-focus-border-color` | Focus border color        | `var(--yh-color-primary)`      |
-| `--yh-autocomplete-disabled-bg-color`  | Disabled background color | `var(--yh-fill-color-light)`   |
+### Theme Variables
+
+`YhAutocomplete` does not currently expose dedicated component-scoped CSS variables. It mainly consumes shared input, border, fill, and text tokens, and can still be adjusted through `themeOverrides` together with global theme variables.

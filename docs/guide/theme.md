@@ -1,28 +1,19 @@
 # Theme 主题系统
 
-YH-UI 拥有业内最强大的主题系统，基于 **CSS 变量** 和 **Design Tokens** 架构，提供完整的运行时主题定制能力。
+YH-UI 提供基于 **CSS 变量** 与 **Design Tokens** 的主题系统，运行时主题定制能力由 `@yh-ui/theme` 提供。
 
-## 业内对比
+## 功能概览
 
-| 功能 | YH-UI | Naive UI | Ant Design | Element Plus | Vuetify |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| 主题系统评分 | **10/10** ⭐ | 9.5/10 | 9/10 | 8/10 | 8.5/10 |
-| CSS 变量 | ✅ | ✅ | ✅ | ✅ | ✅ |
-| 暗色模式 | ✅ | ✅ | ✅ | ✅ | ✅ |
-| 预设主题 | ✅ **12+** | ✅ | ⚠️ | ⚠️ | ✅ |
-| 密度/紧凑度 | ✅ **3级** | ❌ | ✅ | ❌ | ✅ |
-| 色盲友好模式 | ✅ **5种** | ❌ | ❌ | ❌ | ❌ |
-| 主题切换动画 | ✅ | ❌ | ❌ | ❌ | ⚠️ |
-| 智能色彩生成 | ✅ | ⚠️ | ✅ | ❌ | ❌ |
-| 组件级覆盖 | ✅ | ✅ | ✅ | ⚠️ | ✅ |
-| 主题继承 | ✅ | ✅ | ⚠️ | ❌ | ⚠️ |
-| 主题导入/导出 | ✅ | ❌ | ❌ | ❌ | ❌ |
-| 主题历史/撤销 | ✅ | ❌ | ❌ | ❌ | ❌ |
-| 响应式变量 | ✅ | ❌ | ❌ | ❌ | ⚠️ |
-| 色彩算法 | ✅ **4种** | ❌ | ✅ | ❌ | ❌ |
-| WCAG 对比度检测 | ✅ | ❌ | ❌ | ❌ | ❌ |
-| 高对比度模式 | ✅ | ❌ | ❌ | ❌ | ❌ |
-| reduced-motion | ✅ | ❌ | ❌ | ❌ | ❌ |
+当前主题包包含：
+
+- 预设主题
+- 暗色模式 API
+- 密度控制
+- 色彩算法切换
+- 色盲模式辅助
+- 组件级主题覆盖
+- 主题导入导出与历史能力
+- 响应式变量能力
 
 ---
 
@@ -51,15 +42,13 @@ pnpm add @yh-ui/theme
 ```typescript
 import { initTheme, useTheme } from '@yh-ui/theme'
 
-// 初始化主题
 const theme = initTheme({
   preset: 'blue',
   dark: false,
   persist: true
 })
 
-// 或使用 Composition API
-const theme = useTheme()
+const themeManager = useTheme()
 ```
 
 ### Vue 插件方式
@@ -88,10 +77,11 @@ app.mount('#app')
 
 ### 预设主题
 
-YH-UI 内置 12+ 预设主题：
+YH-UI 内置 12 个预设主题：
 
 - `default` - 默认蓝色
-- `blue` - Ant Design 蓝
+- `dark` - 暗色预设
+- `blue` - 蓝色主题
 - `green` - 绿色主题
 - `purple` - 紫色主题
 - `orange` - 橙色主题
@@ -115,9 +105,9 @@ YH-UI 内置 12+ 预设主题：
 | 算法 | 说明 |
 | --- | --- |
 | `default` | 默认算法 |
-| `vibrant` | 鲜艳模式 - 更高饱和度 |
-| `muted` | 柔和模式 - 降低饱和度 |
-| `pastel` | 粉彩模式 - 浅色柔和 |
+| `vibrant` | 鲜艳模式，饱和度更高 |
+| `muted` | 柔和模式，饱和度更低 |
+| `pastel` | 粉彩模式，整体更浅 |
 
 ### 色盲友好模式
 
@@ -138,6 +128,7 @@ YH-UI 内置 12+ 预设主题：
 | 方法名 | 说明 | 参数 |
 | --- | --- | --- |
 | `setPreset` | 设置预设主题 | `preset: PresetTheme` |
+| `setThemePreset` | 设置预设主题别名方法 | `preset: PresetTheme` |
 | `setColors` | 设置自定义颜色 | `colors: ThemeColors` |
 | `setPrimaryColor` | 设置主色 | `color: string` |
 | `setDarkMode` | 设置暗色模式 | `dark: boolean` |
@@ -146,11 +137,19 @@ YH-UI 内置 12+ 预设主题：
 | `setAlgorithm` | 设置色彩算法 | `algorithm: ColorAlgorithm` |
 | `setColorBlindMode` | 设置色盲模式 | `mode: ColorBlindMode` |
 | `setComponentTheme` | 设置组件级覆盖 | `name, overrides` |
+| `clearComponentTheme` | 清除组件级覆盖 | `name` |
 | `enableTransition` | 启用切换动画 | `config?` |
+| `disableTransition` | 禁用切换动画 | — |
 | `applyFromPrimary` | 从主色生成调色板 | `color: string` |
-| `exportTheme` | 导出主题 | `options?` |
-| `importTheme` | 导入主题 | `json: string` |
-| `undo` | 撤销主题更改 | — |
+| `exportTheme` | 导出当前主题 | `options?` |
+| `importTheme` | 导入主题配置 | `json: string` |
+| `exportAsCss` | 导出当前主题为 CSS | — |
+| `createTheme` | 创建主题配置对象 | `config` |
+| `applyFullConfig` | 应用完整主题配置 | `config` |
+| `undo` | 撤销主题变更 | — |
+| `getHistory` | 获取主题历史 | — |
+| `clearHistory` | 清空主题历史 | — |
+| `setResponsiveVar` | 设置响应式 CSS 变量 | `name, values` |
 | `reset` | 重置为默认主题 | — |
 
 ### 快捷函数
@@ -162,33 +161,32 @@ YH-UI 内置 12+ 预设主题：
 | `setThemeColor` | 设置主色 |
 | `toggleDarkMode` | 切换暗色模式 |
 | `setThemePreset` | 设置预设主题 |
-| `checkContrast` | 检查对比度 |
-| `getTextColorForBackground` | 获取合适文字颜色 |
+| `useThemeVars` | 读取当前主题变量 |
+| `provideComponentThemes` | 提供组件级主题覆盖 |
+| `useComponentTheme` | 读取组件级主题覆盖 |
 
 ### 类型定义
 
 ```typescript
-type PresetTheme = 
-  | 'default' | 'dark' | 'blue' | 'green' | 'purple' 
-  | 'orange' | 'rose' | 'amber' | 'teal' | 'indigo' 
-  | 'slate' | 'zinc'
+type PresetTheme =
+  | 'default'
+  | 'dark'
+  | 'blue'
+  | 'green'
+  | 'purple'
+  | 'orange'
+  | 'rose'
+  | 'amber'
+  | 'teal'
+  | 'indigo'
+  | 'slate'
+  | 'zinc'
 
 type ThemeDensity = 'comfortable' | 'compact' | 'dense'
 
 type ColorAlgorithm = 'default' | 'vibrant' | 'muted' | 'pastel'
 
-type ColorBlindMode = 
-  | 'none' | 'protanopia' | 'deuteranopia' 
-  | 'tritanopia' | 'achromatopsia'
-
-interface ThemeOptions {
-  preset?: PresetTheme
-  colors?: ThemeColors
-  dark?: boolean
-  persist?: boolean
-  followSystem?: boolean
-  algorithm?: ColorAlgorithm
-}
+type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia'
 ```
 
 ---
@@ -204,7 +202,7 @@ interface ThemeOptions {
 | `--yh-color-warning` | 警告色 | `#e6a23c` |
 | `--yh-color-danger` | 危险色 | `#f56c6c` |
 | `--yh-color-info` | 信息色 | `#909399` |
-| `--yh-radius-base` | 基础圆角 | `4px` |
+| `--yh-border-radius-base` | 基础圆角 | `4px` |
 | `--yh-font-size-base` | 基础字号 | `14px` |
 | `--yh-bg-color` | 全站背景色 | `#ffffff` |
 
@@ -220,10 +218,12 @@ interface ThemeOptions {
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
+| `--yh-breakpoint-xs` | 超小屏幕 | `0` |
 | `--yh-breakpoint-sm` | 小屏幕 | `576px` |
 | `--yh-breakpoint-md` | 中等屏幕 | `768px` |
 | `--yh-breakpoint-lg` | 大屏幕 | `992px` |
 | `--yh-breakpoint-xl` | 超大屏幕 | `1200px` |
+| `--yh-breakpoint-xxl` | 巨大屏幕 | `1400px` |
 
 ### 无障碍变量
 
@@ -242,7 +242,7 @@ YH-UI 内置完整的无障碍支持：
 - **减少动画偏好**：自动检测 `prefers-reduced-motion`
 - **高对比度模式**：支持 `prefers-contrast: high`
 - **强制颜色模式**：使用系统颜色关键字
-- **WCAG 对比度检测**：内置对比度检查函数
+- **主题无障碍辅助**：提供对比度与相关主题能力
 
 ---
 

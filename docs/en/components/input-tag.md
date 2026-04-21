@@ -319,6 +319,8 @@ When rendered on the server, the InputTag component dynamically generates optimi
 | prefix-icon | Prefix icon | `Component` | — |
 | suffix-icon | Suffix icon | `Component` | — |
 
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+
 ### Events
 
 | Event Name | Description | Callback Parameters |
@@ -350,7 +352,9 @@ When rendered on the server, the InputTag component dynamically generates optimi
 | blur | Blur the input field | `() => void` |
 | clear | Clear all tags | `() => void` |
 
-## Theme Variables
+### Theme Variables
+
+`YhInputTag` supports `themeOverrides`. The component itself consumes the following tag-input CSS variables:
 
 | Variable | Description | Default |
 | --- | --- | --- |
@@ -360,3 +364,15 @@ When rendered on the server, the InputTag component dynamically generates optimi
 | `--yh-input-tag-border-color` | Border color | `var(--yh-border-color)` |
 | `--yh-input-tag-tag-height` | Tag height | `22px` |
 | `--yh-input-tag-gap` | Tag gap | `4px` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhInputTagProps` | Props type for `YhInputTag` |
+| `YhInputTagEmits` | Emits type for `YhInputTag` |
+| `YhInputTagSlots` | Slots type for `YhInputTag` |
+| `YhInputTagExpose` | Expose type for `YhInputTag` |
+| `YhInputTagSize` | Input-tag size union |
+| `YhInputTagType` | Input-tag type union |
+| `YhInputTagInstance` | Public instance type for `YhInputTag` |

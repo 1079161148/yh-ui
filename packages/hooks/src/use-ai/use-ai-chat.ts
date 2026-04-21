@@ -309,3 +309,8 @@ export function useAiChat(options: UseAiChatOptions = {}) {
     clear
   }
 }
+
+// Expose internals for deterministic unit tests.
+export const __test__ = {
+  createTypewriter
+}

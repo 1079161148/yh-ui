@@ -566,3 +566,14 @@ All color variables are integrated with the global theme system and support dark
 | `--yh-marquee-gradient-color` | `var(--yh-bg-color)` | Edge gradient color (follows theme background) |
 | `--yh-marquee-gradient-width` | `40px` | Edge gradient width |
 | `--yh-marquee-clone-count` | `1` | Internally calculated clone multiplier (readonly) |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhMarqueeProps` | Component props type |
+| `YhMarqueeEmits` | Component emits type |
+| `YhMarqueeSlots` | Component slots type |
+| `YhMarqueeExpose` | Component expose type |
+| `YhMarqueeDirection` | Direction union type |
+| `YhMarqueeInstance` | Component instance type |

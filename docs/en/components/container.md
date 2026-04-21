@@ -1,5 +1,7 @@
 # Container Layout
 
+Container components used for layout, making it easy to quickly build the basic structure of a page. It is based on Flexbox and includes `YhContainer`, `YhHeader`, `YhAside`, `YhMain`, and `YhFooter`.
+
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -34,9 +36,7 @@ const tsFull = `<template>
 
 const jsFull = tsFull
 
-// Nuxt usage example
 const tsNuxt = `<template>
-  <!-- Typical Nuxt admin layout, file: layouts/default.vue -->
   <yh-container style="height: 100vh;">
     <yh-header height="64px">
       <div style="display: flex; align-items: center; height: 100%;">
@@ -55,7 +55,6 @@ const tsNuxt = `<template>
         </nav>
       </yh-aside>
       <yh-main>
-        <!-- Renders current route page content -->
         <NuxtPage />
       </yh-main>
     </yh-container>
@@ -68,7 +67,6 @@ const tsNuxt = `<template>
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Components are auto-imported in Nuxt, no manual registration needed
 const collapsed = ref(false)
 const toggleAside = () => {
   collapsed.value = !collapsed.value
@@ -83,7 +81,6 @@ const navItems = [
 
 const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
-// Demo state
 const collapsed = ref(false)
 const toggleAside = () => {
   collapsed.value = !collapsed.value
@@ -124,8 +121,6 @@ const footerStyle = {
 }
 </script>
 
-Container components used for layout, making it easy to quickly build the basic structure of a page. Uses Flexbox layout and includes five sub-components: Container, Header, Aside, Main, and Footer.
-
 ## Common Page Layouts
 
 ### Header + Main
@@ -152,7 +147,7 @@ Container components used for layout, making it easy to quickly build the basic 
 
 ### Full Layout
 
-Classic admin layout with Header + Aside + Main + Footer. The Container component automatically detects if children include Header or Footer and switches to a vertical layout if so.
+Classic admin layout with Header + Aside + Main + Footer. `YhContainer` automatically switches to a vertical layout when it detects `YhHeader` or `YhFooter` children.
 
 <DemoBlock title="Full Layout" :ts-code="tsFull" :js-code="jsFull">
   <div :style="demoStyle">
@@ -169,7 +164,7 @@ Classic admin layout with Header + Aside + Main + Footer. The Container componen
 
 ## Use in Nuxt
 
-Container component fully supports Nuxt 3/4 SSR rendering. The following example demonstrates building an admin layout with a collapsible sidebar in Nuxt's `layouts/default.vue`, where the content area uses `<NuxtPage />` to render the current route.
+These layout components work in Nuxt 3/4 after registering `@yh-ui/nuxt`. A common pattern is to place them in `layouts/default.vue` and render route content through `NuxtPage`.
 
 <DemoBlock title="Nuxt Usage (layouts/default.vue)" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div :style="demoStyle">
@@ -195,60 +190,93 @@ Container component fully supports Nuxt 3/4 SSR rendering. The following example
 
 **SSR Notes**:
 
-- ✅ All Props and styles fully supported
-- ✅ Flex layout direction auto-detection works normally
-- ✅ Slot content fully rendered
-- ✅ Used in combination with `NuxtPage` container
-- ✅ `NuxtLink` routing links fully supported
-- ✅ Responsive sidebar collapse support
+- All props and inline styles are rendered consistently during SSR.
+- Automatic layout direction detection remains stable after hydration.
+- Slot content and nested layouts stay aligned across server and client rendering.
 
 ::: tip SSR Safety
-All Container sub-components have passed complete SSR tests, ensuring that server-side and client-side rendering are completely consistent with no Hydration errors.
+All container sub-components have passed SSR validation, so server-rendered and hydrated output stay consistent.
 :::
 
 ## API
 
-### Container Props
+### Props
+
+#### Container
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| direction | Arrangement direction | `'horizontal' \| 'vertical'` | Auto-detect (vertical when Header/Footer present) |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| direction | Arrangement direction | `'horizontal' \| 'vertical'` | Auto-detect |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Header Props
+#### Header
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | height | Header height | `string` | `'60px'` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Aside Props
+#### Aside
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | width | Sidebar width | `string` | `'200px'` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Main Props
+#### Main
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### Footer Props
+#### Footer
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | height | Footer height | `string` | `'60px'` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+`YhContainer`, `YhHeader`, `YhAside`, `YhMain`, and `YhFooter` do not expose component events.
 
 ### Slots
 
-All sub-components support the `default` slot.
+#### Container
 
-## Theme Variables
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Container content. | - |
 
-Container component supports customizing local styles by overriding the following CSS variables:
+#### Header
+
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Header content. | - |
+
+#### Aside
+
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Aside content. | - |
+
+#### Main
+
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Main content. | - |
+
+#### Footer
+
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Footer content. | - |
+
+### Expose
+
+These layout components do not expose public instance methods or properties.
+
+### Theme Variables
 
 | Variable Name | Description | Default |
 | --- | --- | --- |
@@ -262,3 +290,23 @@ Container component supports customizing local styles by overriding the followin
 | `--yh-footer-padding` | Footer padding | `0 20px` |
 | `--yh-footer-bg-color` | Footer background color | `transparent` |
 | `--yh-footer-border-top` | Footer top border | `none` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhContainerProps` | Props type for `YhContainer` |
+| `YhHeaderProps` | Props type for `YhHeader` |
+| `YhAsideProps` | Props type for `YhAside` |
+| `YhMainProps` | Props type for `YhMain` |
+| `YhFooterProps` | Props type for `YhFooter` |
+| `YhContainerSlots` | Slots type for `YhContainer` |
+| `YhHeaderSlots` | Slots type for `YhHeader` |
+| `YhAsideSlots` | Slots type for `YhAside` |
+| `YhMainSlots` | Slots type for `YhMain` |
+| `YhFooterSlots` | Slots type for `YhFooter` |
+| `YhContainerInstance` | Public instance type for `YhContainer` |
+| `YhHeaderInstance` | Public instance type for `YhHeader` |
+| `YhAsideInstance` | Public instance type for `YhAside` |
+| `YhMainInstance` | Public instance type for `YhMain` |
+| `YhFooterInstance` | Public instance type for `YhFooter` |

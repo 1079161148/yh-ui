@@ -135,6 +135,19 @@ export default defineComponent({
     // 为 SSR 提供主题样式
     const themeStyles = computed(() => {
       const manager = getThemeManager()
+
+      // 显式依赖主题管理器状态，确保全局主题切换时包裹层内联变量也会同步刷新，
+      // 避免容器上的旧变量覆盖掉 :root 上已经更新的主题色。
+      const themeState = manager.state
+      void themeState.theme
+      void themeState.dark
+      void themeState.density
+      void themeState.colorBlindMode
+      void themeState.algorithm
+      void themeState.componentThemeVersion
+      void themeState.breakpoint
+      void JSON.stringify(themeState.colors)
+
       const colors: ThemeColors = {}
       if (!isValidPreset(props.theme) && props.theme.startsWith('#')) {
         colors.primary = props.theme

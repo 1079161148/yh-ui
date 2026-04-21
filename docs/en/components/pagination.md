@@ -279,6 +279,8 @@ When using pagination with `useFetch` or `useAsyncData` in the Nuxt ecosystem, e
 | `prev-text` | Text string for the "previous page" button (overrides icon) | `string` | — |
 | `next-text` | Text string for the "next page" button (overrides icon) | `string` | — |
 
+| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+
 ### Events
 
 | Event Name | Description | Callback Parameters |
@@ -318,3 +320,14 @@ Customize localized styles by overriding these CSS variables:
 | `--yh-pagination-btn-hover-color` | `var(--yh-color-primary)` |
 | `--yh-pagination-item-active-bg-color` | `var(--yh-color-primary)` |
 | `--yh-pagination-item-active-color` | `#ffffff` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhPaginationProps` | Props type for `YhPagination` |
+| `YhPaginationEmits` | Emits type for `YhPagination` |
+| `YhPaginationSlots` | Slots type for `YhPagination` |
+| `YhPaginationExpose` | Expose type for `YhPagination` |
+| `YhPaginationLayout` | Pagination layout token union |
+| `YhPaginationInstance` | Public instance type for `YhPagination` |

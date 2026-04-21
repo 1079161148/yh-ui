@@ -7,6 +7,8 @@ import { build, transform } from 'esbuild'
 const rootDir = resolve(fileURLToPath(new URL('.', import.meta.url)), '..')
 const docsPublicDir = resolve(rootDir, 'docs/public')
 const runtimeOutDir = resolve(docsPublicDir, 'codesandbox-runtime')
+const localePackageDistDir = resolve(rootDir, 'packages/locale/dist')
+const dayjsEsmLocaleDir = resolve(rootDir, 'node_modules/dayjs/esm/locale')
 
 const SUPPORT_PACKAGES = ['hooks', 'locale', 'theme', 'utils']
 const COMPONENTS_DIR = resolve(docsPublicDir, 'components')
@@ -74,10 +76,23 @@ function patchSourceForCodeSandbox(sourceFile, source) {
   const normalizedSourceFile = sourceFile.replace(/\\/g, '/')
 
   if (normalizedSourceFile.endsWith('hooks/use-locale/dayjs-locale.mjs')) {
-    return source.replace(
-      /const dayjsLocales = import\.meta\.glob\([\s\S]*?\);\s*/,
-      'const dayjsLocales = {};\n'
-    )
+    return source
+      .replace(/import\s+["']dayjs\/locale\/en["'];?\s*/, 'import "../../dayjs-locale/en.js";\n')
+      .replace(
+        /const dayjsLocales = import\.meta\.glob\([\s\S]*?\);\s*/,
+        ''
+      )
+      .replace(
+        /const loadDayjsLocale = async \(dayjsLocale\) => \{[\s\S]*?\n\};/,
+        `const loadDayjsLocale = async (dayjsLocale) => {
+  try {
+    await import(\`../../dayjs-locale/\${dayjsLocale}.js\`);
+    return true;
+  } catch {
+    return false;
+  }
+};`
+      )
   }
 
   return source
@@ -353,6 +368,42 @@ async function buildSupportPackages() {
     }
   }
 
+  const localeIndexFile = await processSourceFile(
+    localePackageDistDir,
+    join(localePackageDistDir, 'index.mjs'),
+    join(runtimeOutDir, 'locale', 'index.js'),
+    new Set(),
+    localePackageDistDir,
+    join(runtimeOutDir, 'locale')
+  )
+
+  if (localeIndexFile) {
+    files.add(relative(runtimeOutDir, localeIndexFile).replace(/\\/g, '/'))
+  }
+
+  return [...files].sort()
+}
+
+async function buildDayjsLocaleRuntime() {
+  const files = new Set()
+  const localeFiles = await readdir(dayjsEsmLocaleDir, { withFileTypes: true })
+
+  for (const entry of localeFiles) {
+    if (!entry.isFile() || !entry.name.endsWith('.js')) continue
+
+    const sourceFile = join(dayjsEsmLocaleDir, entry.name)
+    const outFile = join(runtimeOutDir, 'dayjs-locale', entry.name)
+    const source = await readFile(sourceFile, 'utf8')
+    const code = source.replace(
+      /import dayjs from ['"]\.\.\/index['"];?/,
+      'import dayjs from "../components/dayjs.js";'
+    )
+
+    await ensureDir(dirname(outFile))
+    await writeFile(outFile, code, 'utf8')
+    files.add(relative(runtimeOutDir, outFile).replace(/\\/g, '/'))
+  }
+
   return [...files].sort()
 }
 
@@ -467,7 +518,8 @@ async function main() {
 
   const supportFiles = [
     ...(await buildSupportPackages()),
-    ...(await buildComponentRootRuntimeFiles())
+    ...(await buildComponentRootRuntimeFiles()),
+    ...(await buildDayjsLocaleRuntime())
   ].sort()
   const components = await buildComponents()
 

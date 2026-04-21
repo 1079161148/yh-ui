@@ -78,4 +78,49 @@ describe('LuckyDraw', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-lucky-draw-pointer-bg: #722ed1')
   })
+
+  it('uses drawing text when loading', () => {
+    const wrapper = mount(LuckyDraw, {
+      props: {
+        prizes,
+        loading: true
+      }
+    })
+    expect(wrapper.text()).toContain('抽奖中')
+  })
+
+  it('emits click event from action trigger', async () => {
+    const wrapper = mount(LuckyDraw, {
+      props: { prizes }
+    })
+    const btn = wrapper.find('.yh-lucky-draw__pointer')
+    await btn.trigger('click')
+    expect(wrapper.emitted('click')).toBeTruthy()
+  })
+
+  it('renders grid active state after target id', async () => {
+    const wrapper = mount(LuckyDraw, {
+      props: {
+        type: 'grid',
+        duration: 10,
+        rounds: 1,
+        prizes
+      }
+    })
+    await wrapper.setProps({ targetId: '2' })
+    await new Promise((r) => setTimeout(r, 30))
+    expect(wrapper.find('.yh-lucky-draw__grid-item.is-active').exists()).toBe(true)
+  })
+
+  it('renders pure-text wheel class branch', () => {
+    const wrapper = mount(LuckyDraw, {
+      props: {
+        prizes: [
+          { id: '1', name: 'A' },
+          { id: '2', name: 'B' }
+        ]
+      }
+    })
+    expect(wrapper.find('.yh-lucky-draw__wheel-container.is-pure-text').exists()).toBe(true)
+  })
 })

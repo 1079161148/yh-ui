@@ -272,7 +272,11 @@ export default defineNuxtConfig({
 | `section-footer` | 每个大类分区的辅助自定义渲染 | `{ category: CategoryItem }`                     |
 | `sub-item`       | 二级子类的完全自定义逻辑渲染 | `{ sub: CategorySubItem, parent: CategoryItem }` |
 
-### CSS Variables (主题变量)
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+### 主题变量
 
 | 变量名                                  | 说明                   | 默认值                           |
 | --------------------------------------- | ---------------------- | -------------------------------- |
@@ -284,3 +288,14 @@ export default defineNuxtConfig({
 | `--yh-category-nav-sub-image-size`      | 二级分类图尺寸         | `64px`                           |
 | `--yh-category-nav-columns`             | 二级分类平铺列数       | `3`                              |
 | `--yh-category-nav-section-title-color` | 区块标题颜色           | `var(--yh-text-color-secondary)` |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhCategoryNavProps` | `YhCategoryNav` props 类型 |
+| `YhCategoryNavEmits` | `YhCategoryNav` emits 类型 |
+| `YhCategoryNavSlots` | `YhCategoryNav` slots 类型 |
+| `YhCategoryItem` | 一级分类项类型 |
+| `YhCategorySubItem` | 二级分类项类型 |
+| `YhCategoryNavInstance` | `YhCategoryNav` 实例类型 |

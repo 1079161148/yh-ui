@@ -43,6 +43,17 @@ describe('AiConversations', () => {
     expect(wrapper.emitted('delete')![0]).toEqual([data[0]]) // it's first child's last action btn or something
   })
 
+  it('should emit pin event when pin action is clicked', async () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    await wrapper.find('.yh-ai-conversations__action-btn').trigger('click')
+
+    expect(wrapper.emitted('pin')).toBeTruthy()
+    expect(wrapper.emitted('pin')?.[0]).toEqual([data[0], true])
+  })
+
   it('should enter edit mode and emit edit event', async () => {
     const wrapper = mount(AiConversations, {
       props: { data }
@@ -61,6 +72,73 @@ describe('AiConversations', () => {
 
     expect(wrapper.emitted('edit')).toBeTruthy()
     expect(wrapper.emitted('edit')![0]).toEqual([data[0], 'New Title'])
+  })
+
+  it('should cancel edit mode on escape without emitting edit', async () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    await wrapper.find('.yh-ai-conversations__action-btn:nth-child(2)').trigger('click')
+    const inputEl = wrapper.find('input')
+    await inputEl.setValue('Draft Title')
+    await inputEl.trigger('keydown.esc')
+
+    expect(wrapper.find('input').exists()).toBe(false)
+    expect(wrapper.emitted('edit')).toBeFalsy()
+  })
+
+  it('should ignore item click while the same conversation is being edited', async () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    await wrapper.find('.yh-ai-conversations__action-btn:nth-child(2)').trigger('click')
+    await wrapper.find('.yh-ai-conversations__item').trigger('click')
+
+    expect(wrapper.emitted('click')).toBeFalsy()
+    expect(wrapper.emitted('update:activeId')).toBeFalsy()
+  })
+
+  it('should not emit edit when trimmed title is empty or unchanged', async () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    await wrapper.find('.yh-ai-conversations__action-btn:nth-child(2)').trigger('click')
+    const inputEl = wrapper.find('input')
+    await inputEl.setValue('   ')
+    await inputEl.trigger('keydown.enter')
+
+    expect(wrapper.emitted('edit')).toBeFalsy()
+
+    await wrapper.find('.yh-ai-conversations__action-btn:nth-child(2)').trigger('click')
+    const secondInput = wrapper.find('input')
+    await secondInput.setValue(data[0].title)
+    await secondInput.trigger('keydown.enter')
+
+    expect(wrapper.emitted('edit')).toBeFalsy()
+  })
+
+  it('should confirm edit on blur', async () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    await wrapper.find('.yh-ai-conversations__action-btn:nth-child(2)').trigger('click')
+    const inputEl = wrapper.find('input')
+    await inputEl.setValue('Blur Title')
+    await inputEl.trigger('blur')
+
+    expect(wrapper.emitted('edit')?.[0]).toEqual([data[0], 'Blur Title'])
+  })
+
+  it('should expose scrollToItem without throwing for missing id', () => {
+    const wrapper = mount(AiConversations, {
+      props: { data }
+    })
+
+    expect(() => wrapper.vm.scrollToItem('missing')).not.toThrow()
   })
 
   it('should use config-provider locale text', async () => {
@@ -83,6 +161,45 @@ describe('AiConversations', () => {
 
     expect(typeof wrapper.vm.scrollToItem).toBe('function')
     expect(typeof wrapper.vm.scrollToIndex).toBe('function')
+  })
+
+  it('should render grouped labels for pinned and recent conversations', () => {
+    const now = Date.now()
+    const wrapper = mount(AiConversations, {
+      props: {
+        data: [
+          { id: '1', title: 'Pinned', updatedAt: now, pinned: true },
+          { id: '2', title: 'Today', updatedAt: now - 1000 },
+          { id: '3', title: 'Earlier', updatedAt: now - 35 * 86400000 }
+        ]
+      }
+    })
+
+    const labels = wrapper.findAll('.yh-ai-conversations__group-label').map((node) => node.text())
+    expect(labels).toEqual(['置顶', '今天', '更早'])
+  })
+
+  it('should render virtual list mode when virtualScroll is enabled', async () => {
+    const wrapper = mount(AiConversations, {
+      props: {
+        grouped: false,
+        virtualScroll: true,
+        virtualScrollHeight: 120,
+        virtualScrollItemHeight: 40,
+        data: Array.from({ length: 5 }, (_, index) => ({
+          id: String(index),
+          title: `Conversation ${index}`,
+          updatedAt: Date.now() - index * 1000
+        }))
+      }
+    })
+
+    const list = wrapper.find('.yh-ai-conversations__list')
+    expect(list.classes()).toContain('is-virtual')
+    expect(list.attributes('style')).toContain('height: 120px')
+
+    await list.trigger('scroll')
+    expect(wrapper.findAll('.yh-ai-conversations__item').length).toBeGreaterThan(0)
   })
 
   it('should apply theme overrides as inline css vars', () => {

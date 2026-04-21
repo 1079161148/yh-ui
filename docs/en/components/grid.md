@@ -271,11 +271,9 @@ Grid fully supports Nuxt 3/4 SSR rendering. The example below demonstrates a pro
 
 **SSR Notes**:
 
-- ✅ All Props and styles fully supported
-- ✅ CSS Grid layout renders correctly
-- ✅ Slot content renders completely
-- ✅ String `cols` template mode outputs correctly
-- ✅ `span`, `offset`, `suffix` positioning props work perfectly
+- Grid props and inline styles render consistently during SSR.
+- CSS Grid layout is emitted directly on the server and preserved after hydration.
+- Slot content and positioning props such as span, offset, and suffix remain stable in SSR output.
 
 ::: tip SSR Safety
 Grid component has passed complete SSR tests, ensuring consistent rendering between server and client with no Hydration errors.
@@ -283,7 +281,9 @@ Grid component has passed complete SSR tests, ensuring consistent rendering betw
 
 ## API
 
-### Grid Props
+### Props
+
+#### Grid
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
@@ -293,37 +293,58 @@ Grid component has passed complete SSR tests, ensuring consistent rendering betw
 | rowGap | Row gap (overrides gap) | `number \| string` | `0` |
 | collapsed | Collapsed | `boolean` | `false` |
 | collapsedRows | Collapsed visible rows | `number` | `1` |
-| justifyItems | Horizontal alignment | `'start' \| 'end' \| 'center' \| 'stretch'` | — |
-| alignItems | Vertical alignment | `'start' \| 'end' \| 'center' \| 'stretch'` | — |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| justifyItems | Horizontal alignment | `'start' \| 'end' \| 'center' \| 'stretch'` | `undefined` |
+| alignItems | Vertical alignment | `'start' \| 'end' \| 'center' \| 'stretch'` | `undefined` |
+| responsive | Responsive breakpoint mode | `'self' \| 'screen'` | `undefined` |
+| themeOverrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
-### GridItem Props
+#### Grid Item
 
 | Prop | Description | Type | Default |
 | --- | --- | --- | --- |
 | span | Column span | `number` | `1` |
 | offset | Column offset | `number` | `0` |
 | suffix | Suffix element (pinned to row end) | `boolean` | `false` |
-| themeOverrides | Theme overrides | `ComponentThemeVars` | — |
+| themeOverrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+
+### Events
+
+This component does not expose component events.
 
 ### Slots
 
-Both Grid and GridItem support the `default` slot.
+#### Grid
 
-## Theme Variables
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Grid content | `-` |
 
-Grid component supports the following CSS variables for theme customization:
+#### Grid Item
 
-### Grid Variables
+| Slot | Description | Parameters |
+| --- | --- | --- |
+| default | Grid item content | `-` |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Theme Variables
 
 | Variable Name | Description | Default |
 | --- | --- | --- |
 | `--yh-grid-gap` | Grid gap | `0` |
 | `--yh-grid-col-gap` | Grid column gap | `var(--yh-grid-gap, 0)` |
 | `--yh-grid-row-gap` | Grid row gap | `var(--yh-grid-gap, 0)` |
-
-### GridItem Variables
-
-| Variable Name | Description | Default |
-| --- | --- | --- |
 | `--yh-grid-item-padding` | Item padding | `0` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhGridProps` | Props type for `YhGrid` |
+| `YhGridItemProps` | Props type for `YhGridItem` |
+| `YhGridSlots` | Slots type for `YhGrid` |
+| `YhGridItemSlots` | Slots type for `YhGridItem` |
+| `YhGridInstance` | Public instance type for `YhGrid` |
+| `YhGridItemInstance` | Public instance type for `YhGridItem` |

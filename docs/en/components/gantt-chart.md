@@ -103,15 +103,15 @@ const eventData = ref([
 
 const eventLog = ref<string[]>([])
 const handleTaskClick = (task: any) => {
-  eventLog.value.unshift(`✅ Task Clicked: ${task.name}`)
+  eventLog.value.unshift(`Task clicked: ${task.name}`)
   if (eventLog.value.length > 5) eventLog.value.pop()
 }
 const handleTaskDblClick = (task: any) => {
-  eventLog.value.unshift(`🔔 Task Double-Clicked: ${task.name}`)
+  eventLog.value.unshift(`Task double-clicked: ${task.name}`)
   if (eventLog.value.length > 5) eventLog.value.pop()
 }
 const handleDragEnd = (task: any) => {
-  eventLog.value.unshift(`🚀 Drag Ended: ${task.name} (${task.startDate} ~ ${task.endDate})`)
+  eventLog.value.unshift(`Drag ended: ${task.name} (${task.startDate} ~ ${task.endDate})`)
   if (eventLog.value.length > 5) eventLog.value.pop()
 }
 
@@ -322,7 +322,7 @@ const tsCustomRender = `<${_T}>
     >
       <template #task-content="{ task }">
         <div style="display: flex; align-items: center; gap: 4px; padding: 0 8px; height: 100%;">
-          <span style="font-size: 16px;">📋</span>
+          <span style="font-size: 16px;">Task</span>
           <span style="font-weight: 500;">{{ task.name }}</span>
           <span style="margin-left: auto; font-size: 12px; opacity: 0.8;">{{ task.progress }}%</span>
         </div>
@@ -391,7 +391,7 @@ const customColumns = [
 const tsEventHandling = `<${_T}>
   <div style="height: 400px; width: 100%;">
     <div style="margin-bottom: 12px; padding: 12px; background: #f5f5f5; border-radius: 4px;">
-      <div style="font-weight: 600; margin-bottom: 8px;">📝 Event Log:</div>
+      <div style="font-weight: 600; margin-bottom: 8px;">Event Log:</div>
       <div v-for="(log, index) in eventLog" :key="index" style="font-size: 13px; color: #666; line-height: 1.6;">
         {{ log }}
       </div>
@@ -574,7 +574,7 @@ The `task-content` slot allows full customization of the task block content, add
     >
       <template #task-content="{ task }">
         <div style="display: flex; align-items: center; gap: 4px; padding: 0 8px; height: 100%;">
-          <span style="font-size: 16px;">📋</span>
+          <span style="font-size: 16px;">Task</span>
           <span style="font-weight: 500;">{{ task.name }}</span>
           <span style="margin-left: auto; font-size: 12px; opacity: 0.8;">{{ task.progress }}%</span>
         </div>
@@ -619,7 +619,7 @@ Listen to various interaction events to implement custom logic. Supports click, 
 <DemoBlock title="Event Handling Example" :ts-code="tsEventHandling" :js-code="jsEventHandling">
   <div style="height: 400px; width: 100%;">
     <div style="margin-bottom: 12px; padding: 12px; background: #f5f5f5; border-radius: 4px;">
-      <div style="font-weight: 600; margin-bottom: 8px;">📝 Event Log:</div>
+      <div style="font-weight: 600; margin-bottom: 8px;">Event Log:</div>
       <div v-for="(log, index) in eventLog" :key="index" style="font-size: 13px; color: #666; line-height: 1.6;">
         {{ log }}
       </div>
@@ -772,7 +772,7 @@ const task = {
 
 ## Use in Nuxt
 
-GanttChart components fully support Nuxt 3/4 SSR (Server-Side Rendering). Components will be automatically imported when using YH-UI in a Nuxt project.
+`YhGanttChart` can be used directly in Nuxt 3/4 projects. After registering YH-UI, the component supports SSR for the static structure, and interactive behaviors continue to work normally after hydration.
 
 <DemoBlock title="Usage in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="height: 300px; border: 1px solid var(--yh-border-color-light); border-radius: 4px; overflow: hidden;">
@@ -817,7 +817,8 @@ For large projects with thousands of tasks, it is recommended to enable the `vir
 | header-height      | Header height (px)                       | `number`                               | `60`                                                 |
 | bordered           | Whether to show borders                  | `boolean`                              | `true`                                               |
 | loading            | Whether to show loading status           | `boolean`                              | `false`                                              |
-| theme-overrides    | Theme variable overrides                 | `ComponentThemeVars`                   | —                                                    |
+| teleported         | Whether internal tooltips are teleported to `body` | `boolean`                    | `true`                                               |
+| theme-overrides    | Theme variable overrides                 | `ComponentThemeVars`                   | `undefined`                                          |
 
 ### Events
 
@@ -839,30 +840,34 @@ For large projects with thousands of tasks, it is recommended to enable the `vir
 | table-cell   | Custom sidebar table cell        | `{ row: GanttTask, column: GanttColumn, index: number }` |
 | tooltip      | Custom hover tooltip content     | `{ task: GanttTask }`                                    |
 
+### Expose
+
+This component does not expose public instance methods or properties.
+
 ### GanttTask Type
 
 | Name         | Description                | Type                                                        | Required |
 | ------------ | -------------------------- | ----------------------------------------------------------- | -------- |
-| id           | Unique ID                  | `string \| number`                                          | ✅       |
-| name         | Task Name                  | `string`                                                    | ✅       |
-| startDate    | Start Date                 | `string \| number \| Date`                                  | ✅       |
-| endDate      | End Date                   | `string \| number \| Date`                                  | ✅       |
-| progress     | Progress (0-100)           | `number`                                                    | ❌       |
-| dependencies | List of dependent task IDs | `(string \| number)[]`                                      | ❌       |
-| children     | List of child tasks        | `GanttTask[]`                                               | ❌       |
-| assignees    | List of resource IDs       | `string[]`                                                  | ❌       |
-| status       | Preset status (color)      | `'success' \| 'warning' \| 'danger' \| 'info' \| 'default'` | ❌       |
-| color        | Custom background color    | `string`                                                    | ❌       |
-| textColor    | Custom text color          | `string`                                                    | ❌       |
-| parentId     | Parent task ID             | `string \| number`                                          | ❌       |
-| expanded     | Expanded state             | `boolean`                                                   | ❌       |
+| id           | Unique ID                  | `string \| number`                                          | Yes      |
+| name         | Task name                  | `string`                                                    | Yes      |
+| startDate    | Start date                 | `string \| number \| Date`                                  | Yes      |
+| endDate      | End date                   | `string \| number \| Date`                                  | Yes      |
+| progress     | Progress (0-100)           | `number`                                                    | No       |
+| dependencies | List of dependent task IDs | `(string \| number)[]`                                      | No       |
+| children     | List of child tasks        | `GanttTask[]`                                               | No       |
+| assignees    | List of resource IDs       | `string[]`                                                  | No       |
+| status       | Preset status token        | `'success' \| 'warning' \| 'danger' \| 'info' \| 'default'` | No       |
+| color        | Custom background color    | `string`                                                    | No       |
+| textColor    | Custom text color          | `string`                                                    | No       |
+| parentId     | Parent task ID             | `string \| number`                                          | No       |
+| expanded     | Expanded state             | `boolean`                                                   | No       |
 
 ### GanttColumn Type
 
 | Name  | Description   | Type                            | Default  |
 | ----- | ------------- | ------------------------------- | -------- |
-| prop  | Field name    | `string`                        | —        |
-| label | Column header | `string`                        | —        |
+| prop  | Field name    | `string`                        | Required |
+| label | Column header | `string`                        | Required |
 | width | Column width  | `string \| number`              | `auto`   |
 | align | Alignment     | `'left' \| 'center' \| 'right'` | `'left'` |
 
@@ -875,3 +880,14 @@ For large projects with thousands of tasks, it is recommended to enable the `vir
 | `--yh-gantt-header-bg-color` | Header background color  | `var(--yh-fill-color-light)`     |
 | `--yh-gantt-task-color`      | Task block primary color | `var(--yh-color-primary)`        |
 | `--yh-gantt-line-color`      | Grid line color          | `var(--yh-border-color-lighter)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhGanttChartProps` | Component props type |
+| `YhGanttChartEmits` | Component emits type |
+| `YhGanttTask` | Task data type |
+| `YhGanttColumn` | Column config type |
+| `YhGanttChartSlots` | Component slots type |
+| `YhGanttChartInstance` | Component instance type |

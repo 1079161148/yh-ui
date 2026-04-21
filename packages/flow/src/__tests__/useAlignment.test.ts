@@ -54,6 +54,32 @@ describe('flow/core/useAlignment', () => {
     expect(Object.keys(out)).toHaveLength(2)
   })
 
+  it('should not snap when nodes are far apart vertically', () => {
+    const nodes = ref<Node[]>([node('1', 0, 0), node('2', 0, 500)])
+    const a = useAlignment({ nodes, snapThreshold: 10 })
+
+    const pos = { x: 0, y: 100 }
+    const result = a.getAlignmentSnap('1', pos)
+    expect(result.snappedY).toBe(false)
+  })
+
+  it('should not snap when nodes are far apart horizontally', () => {
+    const nodes = ref<Node[]>([node('1', 0, 0), node('2', 500, 0)])
+    const a = useAlignment({ nodes, snapThreshold: 10 })
+
+    const pos = { x: 100, y: 0 }
+    const result = a.getAlignmentSnap('1', pos)
+    expect(result.snappedX).toBe(false)
+  })
+
+  it('should use default snap threshold of 10', () => {
+    const nodes = ref<Node[]>([node('1', 0, 0), node('2', 210, 0)])
+    const a = useAlignment({ nodes })
+    // Node 1 right edge (0+200)=200, node 2 left=210, gap=10, no snap since gap == threshold
+    const result = a.getAlignmentSnap('1', { x: 0, y: 0 })
+    expect(result.snappedX).toBe(false)
+  })
+
   it('should return position when nodeId not found', () => {
     const nodes = ref<Node[]>([node('1', 0, 0)])
     const a = useAlignment({ nodes })

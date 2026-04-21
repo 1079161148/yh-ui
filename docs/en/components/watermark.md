@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
 
-// 1. Text constant for UI
 const TXT = {
   content: 'Content',
   size: 'Font Size',
@@ -50,7 +49,6 @@ const fontConfig = computed(() => ({
   lineHeight: config.lineHeight
 }))
 
-// Preview Area HTML
 const labPreviewHtml = `
             <div style="padding: 40px;">
               <h3 style="margin: 0 0 20px; font-size: 20px; color: #1f1f1f;">Build modern, fast, and flagship-level Vue 3 component libraries</h3>
@@ -61,7 +59,7 @@ const labPreviewHtml = `
                   <p style="margin: 0; font-size: 12px; color: #666; font-weight: bold;">Core Asset Protection</p>
                 </div>
                 <div style="flex: 1; color: #606266; font-size: 14px; line-height: 1.6;">
-                  <p>Here you can customize the watermark deeply. When z-index < 5, the watermark text will hide behind the blue card, achieving differentiated protection for page elements.</p>
+                  <p>Here you can customize the watermark deeply. When z-index &lt; 5, the watermark text will hide behind the blue card, achieving differentiated protection for page elements.</p>
                 </div>
               </div>
               <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" style="width: 100%; border-radius: 12px; border: 1px solid #eee;" />
@@ -70,12 +68,12 @@ const labPreviewHtml = `
 const getFullLabCode = (isTs: boolean) => {
   const fontObj = JSON.stringify(fontConfig.value, null, 2).replace(/"([^"]+)":/g, '$1:').replace(/\n/g, '\n    ')
   const contentVal = config.content.replace(/\n/g, '\\n')
-  
+
   return `<template>
   <div class="watermark-lab">
     <div class="lab-main">
       <div class="lab-preview-pane">
-        <yh-watermark 
+        <yh-watermark
           :content="config.content"
           :rotate="config.rotate"
           :global-rotate="config.globalRotate"
@@ -167,14 +165,14 @@ const tsBasicCode = `<template>
 const tsFormCode = `<template>
   <yh-watermark content="Confidential Do Not Share" :font="{ color: 'rgba(255, 0, 0, 0.15)' }">
     <div style="padding: 24px; border: 1px solid #ebeef5; border-radius: 8px; background: #fff;">
-      <h4 style="margin: 0 16px; color: #303133;">Employee Sensitive Data Preview</h4>
+      <h4 style="margin: 0 0 16px; color: #303133;">Employee Sensitive Data Preview</h4>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; color: #606266; font-size: 14px;">
         <div><strong>Account:</strong> user_admin_01</div>
         <div><strong>Name:</strong> Wang Xiaoming</div>
         <div><strong>Phone:</strong> 138****8888</div>
         <div><strong>Level:</strong> P7 - Senior Engineer</div>
-        <div><strong>Salary:</strong> ¥**,000 (A)</div>
-        <div><strong>Dept:</strong> Frontend Intelligent Dept</div>
+        <div><strong>Salary:</strong> 32,000 CNY / month</div>
+        <div><strong>Dept:</strong> Frontend Intelligence Dept</div>
       </div>
     </div>
   </yh-watermark>
@@ -190,12 +188,11 @@ const tsFSCode = `<template>
 import { ref } from 'vue'
 const show = ref(false)
 <\/script>`
-
 </script>
 
 # Watermark
 
-Add a watermark to specific areas of a page. Features strong anti-removal and anti-tamper capabilities.
+Add a watermark to a specific area of the page. It supports text or image watermarks, fullscreen overlays, and anti-tamper regeneration.
 
 ## Basic Usage
 
@@ -207,7 +204,7 @@ Add a watermark to specific areas of a page. Features strong anti-removal and an
 
 ## Business Scenario: Form Data Protection
 
-When handling forms with confidential information like names and salaries, watermarks serve as a critical security layer.
+For pages that display sensitive content, `YhWatermark` can be added directly around the protected area without changing the internal layout.
 
 <DemoBlock :tsCode="tsFormCode" :jsCode="tsFormCode">
 <yh-watermark content="Confidential Do Not Share" :font="{ color: 'rgba(255, 0, 0, 0.15)' }">
@@ -218,14 +215,16 @@ When handling forms with confidential information like names and salaries, water
 <div><strong>Name:</strong> Wang Xiaoming</div>
 <div><strong>Phone:</strong> 138****8888</div>
 <div><strong>Level:</strong> P7 - Senior Engineer</div>
-<div><strong>Salary:</strong> ¥**,000 (A)</div>
-<div><strong>Dept:</strong> Frontend Intelligent Dept</div>
+<div><strong>Salary:</strong> 32,000 CNY / month</div>
+<div><strong>Dept:</strong> Frontend Intelligence Dept</div>
 </div>
 </div>
 </yh-watermark>
 </DemoBlock>
 
 ## Fullscreen Watermark
+
+Use `full-screen` when the watermark should cover the whole viewport instead of a local container.
 
 <DemoBlock :tsCode="tsFSCode" :jsCode="tsFSCode">
 <yh-button type="primary" @click="fsShow = !fsShow">{{ fsShow ? 'Hide' : 'Enable' }} Fullscreen Watermark</yh-button>
@@ -234,13 +233,13 @@ When handling forms with confidential information like names and salaries, water
 
 ## Interactive Configuration
 
-Explore advanced configurations in real-time using the lab below.
+The following lab keeps the existing preview layout and lets you inspect the effect of `font`, `gap`, rotation, and z-index changes in real time.
 
 <DemoBlock :tsCode="generatedTsCode" :jsCode="generatedJsCode">
 <div class="watermark-lab-wrapper">
 <div class="lab-main">
 <div class="lab-preview-pane">
-<yh-watermark v-bind="config" :gap="[config.gapX, config.gapY]" :offset="[config.offsetX, config.offsetY]" :font="fontConfig">
+<yh-watermark v-bind="config" :gap="[config.gapX, config.gapY]" :font="fontConfig">
 <div class="preview-scroll-area">
 <div class="preview-content-box" v-html="labPreviewHtml"></div>
 </div>
@@ -278,6 +277,89 @@ Explore advanced configurations in real-time using the lab below.
 </div>
 </DemoBlock>
 
+## Use in Nuxt
+
+`YhWatermark` is safe to import in Nuxt. The container markup can be rendered during SSR, while the actual watermark drawing runs on the client after mount. If you want to avoid rendering the watermark container before hydration in a browser-only area, you can wrap it with `<ClientOnly>`.
+
+```vue
+<template>
+  <ClientOnly>
+    <yh-watermark content="YH-UI Nuxt Powered">
+      <div style="height: 300px;">Content Area</div>
+    </yh-watermark>
+  </ClientOnly>
+</template>
+```
+
+## API
+
+### Props
+
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| width | Width of each watermark tile | `number` | `120` |
+| height | Height of each watermark tile | `number` | `64` |
+| rotate | Rotation angle of each watermark tile | `number` | `-22` |
+| z-index | z-index applied to the watermark overlay | `number` | `9` |
+| image | Image source used instead of text content | `string` | `undefined` |
+| content | Watermark text content. Strings can include line breaks and arrays map to multiple lines. | `string \| string[]` | `'YH-UI'` |
+| font | Watermark font configuration | `YhWatermarkFont` | `see below` |
+| global-rotate | Global rotation angle of the repeated watermark layer | `number` | `0` |
+| gap | Horizontal and vertical gap between watermark tiles | `[number, number]` | `[100, 100]` |
+| offset | Declared offset prop. The current implementation does not consume it when positioning the watermark layer | `[number, number]` | `[0, 0]` |
+| full-screen | Uses a fixed-position wrapper to cover the viewport. The component is not teleported to `body` | `boolean` | `false` |
+| anti-tamper | Rebuilds the watermark when the overlay is removed or modified | `boolean` | `true` |
+| theme-overrides | Component-level theme overrides. In the current implementation they are merged only in non-fullscreen mode | `ComponentThemeVars` | `undefined` |
+
+### Font
+
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| color | Text color | `string` | `'rgba(0,0,0,0.15)'` |
+| fontSize | Font size | `number \| string` | `16` |
+| fontWeight | Font weight | `string \| number` | `'normal'` |
+| fontFamily | Font family | `string` | `'sans-serif'` |
+| fontStyle | Font style | `'normal' \| 'italic' \| 'oblique'` | `'normal'` |
+| textAlign | Text alignment inside the watermark tile | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'` |
+| lineHeight | Line height for multi-line text | `number` | `22` |
+
+### Events
+
+This component does not expose component events.
+
+### Slots
+
+| Name | Description | Parameters |
+| --- | --- | --- |
+| default | Content covered by the watermark overlay | `-` |
+
+### Expose
+
+| Name | Description | Type |
+| --- | --- | --- |
+| renderWatermark | Forces the watermark to be regenerated | `() => void` |
+
+## Theme Variables
+
+`YhWatermark` supports `themeOverrides` and also exposes a small wrapper-level CSS variable surface.
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--yh-watermark-container-position` | Position mode of the watermark wrapper | `relative` |
+| `--yh-watermark-width` | Wrapper width | `100%` |
+| `--yh-watermark-height` | Wrapper height | `100%` |
+| `--yh-watermark-fullscreen-z-index` | Fullscreen wrapper z-index | `9999` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhWatermarkProps` | Component props type |
+| `YhWatermarkFont` | Watermark font config type |
+| `YhWatermarkSlots` | Component slots type |
+| `YhWatermarkExpose` | Component expose type |
+| `YhWatermarkInstance` | Component instance type |
+
 <style scoped>
 .watermark-lab-wrapper { margin: -24px -24px 0 -24px; }
 .lab-main { display: flex; height: 680px; border: 1px solid var(--yh-border-color-light, #ebeef5); border-radius: 12px; overflow: hidden; }
@@ -294,75 +376,3 @@ Explore advanced configurations in real-time using the lab below.
 .control-field { flex: 1; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
 label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: uppercase; letter-spacing: 0.5px; }
 </style>
-
-## Usage in Nuxt
-
-Since the Watermark component relies on DOM operations and Canvas rendering, ensure you wrap it with a `<ClientOnly>` tag in SSR environments like Nuxt 3.
-
-```vue
-<template>
-  <ClientOnly>
-    <yh-watermark content="YH-UI Nuxt Powered">
-      <div style="height: 300px;">Content Area</div>
-    </yh-watermark>
-  </ClientOnly>
-</template>
-```
-
-## API
-
-### Props
-
-| Name         | Description                                               | Type                 | Default      |
-| ------------ | --------------------------------------------------------- | -------------------- | ------------ |
-| width        | Width of each watermark unit                              | `number`             | `120`        |
-| height       | Height of each watermark unit                             | `number`             | `64`         |
-| rotate       | Rotation angle of the unit cell                           | `number`             | `-22`        |
-| globalRotate | Overall rotation angle                                    | `number`             | `0`          |
-| zIndex       | Watermark z-index                                         | `number`             | `9`          |
-| image        | Image source; if set, `content` will be ignored           | `string`             | -            |
-| content      | Watermark text; supports multi-line                       | `string \| string[]` | `'YH-UI'`    |
-| font         | Font style configuration object                           | `Font`               | See below    |
-| gap          | Gap between watermarks [x, y]                             | `[number, number]`   | `[100, 100]` |
-| offset       | Offset from the container's start point [x, y]            | `[number, number]`   | `[0, 0]`     |
-| fullScreen   | Whether to mount the watermark under body for fullscreen  | `boolean`            | `false`      |
-| antiTamper   | Whether to enable anti-tamper mode (monitors DOM changes) | `boolean`            | `true`       |
-
-#### Font Object Description
-
-| Name       | Description    | Type                                                | Default             |
-| ---------- | -------------- | --------------------------------------------------- | ------------------- |
-| color      | Text color     | `string`                                            | `'rgba(0,0,0,0.15)' |
-| fontSize   | Font size      | `number \| string`                                  | `16`                |
-| fontWeight | Font weight    | `string \| number`                                  | `'normal'`          |
-| fontFamily | Font family    | `string`                                            | `'sans-serif'`      |
-| fontStyle  | Font style     | `'normal' \| 'italic' \| 'oblique'`                 | `'normal'`          |
-| textAlign  | Text alignment | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'`          |
-| lineHeight | Line height    | `number`                                            | `22`                |
-
-### Events
-
-This Watermark component does not currently expose any events.
-
-### Slots
-
-| Name    | Description                           |
-| ------- | ------------------------------------- |
-| default | Content area covered by the watermark |
-
-### Expose
-
-| Name            | Description                                                                                | Type         |
-| --------------- | ------------------------------------------------------------------------------------------ | ------------ |
-| renderWatermark | Force a re-render of the watermark (useful when container size changes but isn't detected) | `() => void` |
-
-## Theme Variables (CSS Variables)
-
-Define basic styles using these CSS variables; they can be overridden locally or globally.
-
-| Variable Name                       | Description                                | Default    |
-| ----------------------------------- | ------------------------------------------ | ---------- |
-| `--yh-watermark-container-position` | Positioning mode for the wrapper container | `relative` |
-| `--yh-watermark-width`              | Component width                            | `100%`     |
-| `--yh-watermark-height`             | Component height                           | `100%`     |
-| `--yh-watermark-fullscreen-z-index` | Forced z-index in fullscreen mode          | `9999`     |

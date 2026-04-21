@@ -60,4 +60,53 @@ describe('FilterBar', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-filter-bar-tab-active-color: #1677ff')
   })
+
+  it('toggles list/grid view', async () => {
+    const wrapper = mount(FilterBar, {
+      props: {
+        ...props,
+        showViewToggle: true,
+        viewType: 'list'
+      }
+    })
+    const btn = wrapper.find('.yh-filter-bar__view-btn')
+    await btn.trigger('click')
+    expect(wrapper.emitted('update:viewType')?.[0]).toEqual(['grid'])
+    expect(wrapper.emitted('viewChange')?.[0]).toEqual(['grid'])
+  })
+
+  it('emits openFilter from global filter button', async () => {
+    const wrapper = mount(FilterBar, { props })
+    const globalBtn = wrapper.find('.yh-filter-bar__filter-btn')
+    await globalBtn.trigger('click')
+    expect(wrapper.emitted('openFilter')).toBeTruthy()
+  })
+
+  it('supports inline filters when filterInPanel is false', async () => {
+    const wrapper = mount(FilterBar, {
+      props: {
+        ...props,
+        filterInPanel: false
+      }
+    })
+    const opt = wrapper.find('.yh-filter-bar__inline-opt')
+    await opt.trigger('click')
+    expect(wrapper.emitted('update:filterValue')).toBeTruthy()
+  })
+
+  it('resets sort and filters via All tab', async () => {
+    const wrapper = mount(FilterBar, {
+      props: {
+        sorts: props.sorts,
+        filters: props.filters,
+        sort: { key: 'price', order: 'asc' },
+        filterValue: { brand: 'apply' },
+        showAll: true
+      }
+    })
+    const tabs = wrapper.findAll('.yh-filter-bar__tab')
+    expect(tabs.length).toBeGreaterThan(0)
+    await tabs[0].trigger('click')
+    expect(wrapper.emitted('reset')).toBeTruthy()
+  })
 })

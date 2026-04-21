@@ -5,7 +5,7 @@
 Before you begin, please ensure that your development environment meets the following requirements:
 
 - **Vue**: >= 3.5.0
-- **Node.js**: >= 18.12.0 (Latest LTS version recommended)
+- **Node.js**: >= 18.0.0 (Latest LTS version recommended)
 - **Package Manager**: Recommended: [pnpm](https://pnpm.io/)
 
 For the full support contract, including browser support, SSR expectations, and Nuxt compatibility boundaries, see [Compatibility and Support Boundaries](/en/guide/compatibility).
@@ -30,39 +30,9 @@ yarn add @yh-ui/yh-ui
 
 :::
 
-## CDN Usage
+## Browser Usage
 
-You can use YH-UI directly in HTML via CDN. We support `unpkg` and `jsDelivr`.
-
-::: code-group
-
-```html [unpkg]
-<head>
-  <!-- Style file -->
-  <link rel="stylesheet" href="https://unpkg.com/@yh-ui/yh-ui/dist/style.css" />
-  <!-- Dependency Vue -->
-  <script src="https://unpkg.com/vue@3"></script>
-  <!-- Component Library JS -->
-  <script src="https://unpkg.com/@yh-ui/yh-ui"></script>
-</head>
-```
-
-```html [jsDelivr]
-<head>
-  <!-- Style file -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui/dist/style.css" />
-  <!-- Dependency Vue -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
-  <!-- Component Library JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@yh-ui/yh-ui"></script>
-</head>
-```
-
-:::
-
-::: tip Note
-In production environments, it is recommended to lock specific version numbers in the URL (e.g., `@yh-ui/yh-ui@1.0.0`) to avoid unintentional breaking changes.
-:::
+The current documentation is maintained around npm or pnpm installation in bundler-based projects. For browser projects, prefer integrating YH-UI through your build tool so that the package exports, styles, and types stay aligned with the published entries.
 
 ## On-demand Import
 
@@ -110,12 +80,9 @@ export default defineConfig({
 
 ## TypeScript Support
 
-If you are using TypeScript, we recommend configuring `compilerOptions.types` in `tsconfig.json` to ensure full type inference for global components:
+If you are using TypeScript, no extra `types` entry is required for the published package. Import component or helper types from the public package exports when needed:
 
-```json
-{
-  "compilerOptions": {
-    "types": ["@yh-ui/yh-ui/global"]
-  }
-}
+```ts
+import type { ButtonProps } from '@yh-ui/yh-ui'
+```
 ```

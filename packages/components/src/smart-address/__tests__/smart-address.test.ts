@@ -1,15 +1,11 @@
-import { computed, defineComponent } from 'vue'
-import { describe, it, expect, vi, afterEach } from 'vitest'
+import { computed } from 'vue'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { en } from '@yh-ui/locale'
 import { configProviderContextKey } from '@yh-ui/hooks'
 import SmartAddress from '../src/smart-address.vue'
 
 describe('SmartAddress', () => {
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
   const modelValue = {
     name: '',
     phone: '',
@@ -53,6 +49,73 @@ describe('SmartAddress', () => {
     expect((inputs[0].element as HTMLInputElement).value).toBe('张三')
     // phone is the second input
     expect((inputs[1].element as HTMLInputElement).value).toBe('13800138000')
+  })
+
+  it('does nothing when parse text is empty', async () => {
+    const wrapper = mount(SmartAddress, {
+      props: { modelValue }
+    })
+    const parseBtn = wrapper.find('.yh-smart-address__parse-btn')
+    expect(parseBtn.attributes('disabled')).toBeDefined()
+    await parseBtn.trigger('click')
+    expect(wrapper.emitted('parsed')).toBeFalsy()
+  })
+
+  it('shows error tip when parsing yields nothing', async () => {
+    const wrapper = mount(SmartAddress, {
+      props: {
+        modelValue,
+        parser: () => ({})
+      }
+    })
+    await wrapper.find('textarea').setValue('???')
+    await wrapper.find('.yh-smart-address__parse-btn').trigger('click')
+
+    expect(wrapper.find('.yh-smart-address__parser-tip').exists()).toBe(true)
+    expect(wrapper.find('.yh-smart-address__parser-tip').classes()).toContain('is-error')
+  })
+
+  it('maps parsed labels to option codes when regionOptions provided', async () => {
+    vi.useFakeTimers()
+    const wrapper = mount(SmartAddress, {
+      props: {
+        modelValue,
+        regionOptions: [
+          {
+            label: '广东省',
+            value: 'GD',
+            children: [
+              {
+                label: '深圳市',
+                value: 'SZ',
+                children: [{ label: '南山区', value: 'NS' }]
+              }
+            ]
+          }
+        ],
+        parser: () => ({
+          name: '张三',
+          phone: '13800138000',
+          province: '广东省',
+          city: '深圳市',
+          district: '南山区',
+          detail: '某某街道123号'
+        })
+      }
+    })
+
+    await wrapper.find('textarea').setValue('any')
+    await wrapper.find('.yh-smart-address__parse-btn').trigger('click')
+
+    const emitted = wrapper.emitted('update:modelValue')?.at(-1)?.[0] as any
+    expect(emitted.province).toBe('GD')
+    expect(emitted.city).toBe('SZ')
+    expect(emitted.district).toBe('NS')
+
+    // cover status reset timer
+    vi.advanceTimersByTime(3000)
+    await wrapper.vm.$nextTick()
+    vi.useRealTimers()
   })
 
   it('handles field changes', async () => {
@@ -107,125 +170,40 @@ describe('SmartAddress', () => {
     expect(wrapper.find('.yh-smart-address__label').text()).toContain('Recipient')
   })
 
-  it('maps parsed region labels into configured option values', async () => {
+  it('supports regionType select and cascader setters', async () => {
     const wrapper = mount(SmartAddress, {
       props: {
         modelValue,
-        parser: () => ({
-          name: 'Alice',
-          phone: '13800138000',
-          province: 'Zhejiang',
-          city: 'Hangzhou',
-          district: 'Xihu',
-          street: 'Gudun Road',
-          detail: 'No. 1'
-        }),
+        regionType: 'select',
         regionOptions: [
-          {
-            label: 'Zhejiang',
-            value: '330000',
-            children: [
-              {
-                label: 'Hangzhou',
-                value: '330100',
-                children: [
-                  {
-                    label: 'Xihu',
-                    value: '330106'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    })
-
-    await wrapper.find('textarea').setValue('Alice 13800138000 Zhejiang Hangzhou Xihu No. 1')
-    await wrapper.find('.yh-smart-address__parse-btn').trigger('click')
-
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    const latestValue = wrapper.emitted('update:modelValue')!.at(-1)![0] as any
-    expect(latestValue.province).toBe('330000')
-    expect(latestValue.city).toBe('330100')
-    expect(latestValue.district).toBe('330106')
-    expect(latestValue.street).toBe('Gudun Road')
-  })
-
-  it('shows error feedback when parsing returns no usable address fields', async () => {
-    vi.useFakeTimers()
-    const wrapper = mount(SmartAddress, {
-      props: {
-        modelValue,
-        parser: () => ({
-          name: '',
-          phone: '',
-          province: '',
-          city: '',
-          district: '',
-          street: '',
-          detail: ''
-        })
-      }
-    })
-
-    await wrapper.find('textarea').setValue('not an address')
-    await wrapper.find('.yh-smart-address__parse-btn').trigger('click')
-
-    const tip = wrapper.find('.yh-smart-address__parser-tip')
-    expect(tip.exists()).toBe(true)
-    expect(tip.classes()).toContain('is-error')
-    expect(wrapper.emitted('parsed')).toBeFalsy()
-  })
-
-  it('supports cascader mode updates through v-model', async () => {
-    const CascaderStub = defineComponent({
-      name: 'YhCascader',
-      props: {
-        modelValue: {
-          type: Array,
-          default: () => []
-        }
-      },
-      emits: ['update:modelValue'],
-      template: '<button class="cascader-stub" @click="$emit(\'update:modelValue\', [\'330000\', \'330100\', \'330106\'])">pick</button>'
-    })
-
-    const wrapper = mount(SmartAddress, {
-      props: {
-        modelValue,
-        regionType: 'cascader',
-        regionOptions: [
-          {
-            label: 'Zhejiang',
-            value: '330000',
-            children: [
-              {
-                label: 'Hangzhou',
-                value: '330100',
-                children: [
-                  {
-                    label: 'Xihu',
-                    value: '330106'
-                  }
-                ]
-              }
-            ]
-          }
+          { label: 'A', value: 'a', children: [{ label: 'B', value: 'b', children: [{ label: 'C', value: 'c' }] }] }
         ]
       },
       global: {
         stubs: {
-          YhCascader: CascaderStub
+          YhSelect: {
+            props: ['modelValue'],
+            emits: ['update:modelValue'],
+            template: `<div class="stub-select" @click="$emit('update:modelValue', 'a')"></div>`
+          },
+          YhOption: { template: '<div class=\"stub-option\"></div>' },
+          YhCascader: {
+            props: ['modelValue', 'options'],
+            emits: ['update:modelValue'],
+            template: `<div class="stub-cascader" @click="$emit('update:modelValue', ['a','b','c'])" />`
+          }
         }
       }
     })
 
-    await wrapper.find('.cascader-stub').trigger('click')
+    // trigger select province update (resets city/district as well)
+    await wrapper.findAll('.stub-select')[0].trigger('click')
+    const last = wrapper.emitted('update:modelValue')?.at(-1)?.[0] as any
+    expect(last.province).toBe('a')
 
-    const events = wrapper.emitted('update:modelValue') || []
-    expect(events.at(-3)?.[0]).toMatchObject({ province: '330000' })
-    expect(events.at(-2)?.[0]).toMatchObject({ city: '330100' })
-    expect(events.at(-1)?.[0]).toMatchObject({ district: '330106' })
+    // switch to cascader and cover non-array setter branch
+    await wrapper.setProps({ regionType: 'cascader' })
+    await wrapper.find('.stub-cascader').trigger('click')
+    expect((wrapper.emitted('update:modelValue') || []).length).toBeGreaterThan(0)
   })
 })

@@ -3,6 +3,7 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 
 vi.mock('markdown-it', async () => {
   class MockMd {
@@ -158,5 +159,119 @@ describe('YhAiChat', () => {
       }
     })
     expect(wrapper.find('.custom-msg').exists()).toBe(true)
+  })
+
+  it('should enable virtual scroll mode when message count is large enough', async () => {
+    const messages = Array.from({ length: 60 }, (_, index) =>
+      makeMsg(String(index), index % 2 === 0 ? 'user' : 'assistant', `message-${index}`)
+    )
+
+    const wrapper = mount(AiChat, {
+      props: {
+        messages,
+        virtualScroll: true,
+        virtualHeight: 360
+      }
+    })
+
+    await nextTick()
+
+    const content = wrapper.find('.yh-ai-chat__content')
+    expect(content.attributes('style')).toContain('height: 360px')
+    expect(content.attributes('style')).toContain('overflow: auto')
+    expect(wrapper.text()).toContain('message-0')
+  })
+
+  it('should not render standalone loading bubble when last assistant message is already loading', () => {
+    const wrapper = mount(AiChat, {
+      props: {
+        loading: true,
+        messages: [makeMsg('1', 'assistant', '...', 'loading')]
+      }
+    })
+
+    expect(wrapper.findAllComponents({ name: 'YhAiBubble' })).toHaveLength(1)
+  })
+
+  it('should render standalone loading bubble when last message is not an assistant placeholder', () => {
+    const wrapper = mount(AiChat, {
+      props: {
+        loading: true,
+        messages: [makeMsg('1', 'user', 'question')]
+      }
+    })
+
+    expect(wrapper.findAllComponents({ name: 'YhAiBubble' }).length).toBeGreaterThan(1)
+  })
+
+  it('should forward sender send events', async () => {
+    const wrapper = mount(AiChat, {
+      props: {
+        messages: []
+      }
+    })
+
+    const sender = wrapper.findComponent({ name: 'YhAiSender' })
+    sender.vm.$emit('send', 'from sender')
+    await nextTick()
+
+    expect(wrapper.emitted('send')?.at(-1)).toEqual(['from sender'])
+  })
+
+  it('should render messages without ids in normal mode', () => {
+    const wrapper = mount(AiChat, {
+      props: {
+        messages: [
+          { role: 'user', content: 'no-id-user' },
+          { role: 'assistant', content: 'no-id-assistant' }
+        ]
+      }
+    })
+
+    expect(wrapper.text()).toContain('no-id-user')
+    expect(wrapper.text()).toContain('no-id-assistant')
+  })
+
+  it('should render virtual messages without ids', async () => {
+    const messages = Array.from({ length: 60 }, (_, index) => ({
+      role: index % 2 === 0 ? 'user' : 'assistant',
+      content: `virtual-no-id-${index}`
+    }))
+
+    const wrapper = mount(AiChat, {
+      props: {
+        messages,
+        virtualScroll: true,
+        virtualHeight: 320
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.text()).toContain('virtual-no-id-0')
+  })
+
+  it('should scroll content to bottom when messages update in normal mode', async () => {
+    const wrapper = mount(AiChat, {
+      attachTo: document.body,
+      props: {
+        messages: [makeMsg('1', 'user', 'hello')]
+      }
+    })
+
+    const content = wrapper.find('.yh-ai-chat__content').element as HTMLDivElement
+    Object.defineProperty(content, 'scrollHeight', {
+      configurable: true,
+      value: 480
+    })
+    content.scrollTop = 0
+
+    await wrapper.setProps({
+      messages: [makeMsg('1', 'user', 'hello'), makeMsg('2', 'assistant', 'world')]
+    })
+    await nextTick()
+    await nextTick()
+
+    expect(content.scrollTop).toBe(480)
+    wrapper.unmount()
   })
 })

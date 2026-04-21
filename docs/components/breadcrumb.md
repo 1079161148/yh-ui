@@ -164,13 +164,38 @@ const tsNuxt = `<${_T}>
 | to | 路由跳转目标 | `string \| object` | — |
 | replace | 是否替换当前路由 | `boolean` | `false` |
 
-## 主题变量
+### 主题变量
 
 | 变量名 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--yh-breadcrumb-font-size` | 字号 | `14px` |
 | `--yh-breadcrumb-item-color` | 默认文字颜色 | `var(--yh-text-color-regular)` |
 | `--yh-breadcrumb-last-color` | 最后一项文字颜色 | `var(--yh-text-color-primary)` |
+
+### Events
+
+当前组件未暴露组件事件。
+
+### Slots
+
+| 插槽名 | 说明 | 插槽参数 |
+| --- | --- | --- |
+| `default` | 面包屑项内容。 | 无 |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhBreadcrumbProps` | `YhBreadcrumb` props 类型 |
+| `YhBreadcrumbSlots` | `YhBreadcrumb` slots 类型 |
+| `YhBreadcrumbItemProps` | `YhBreadcrumbItem` props 类型 |
+| `YhBreadcrumbItemSlots` | `YhBreadcrumbItem` slots 类型 |
+| `YhBreadcrumbInstance` | `YhBreadcrumb` 实例类型 |
+| `YhBreadcrumbItemInstance` | `YhBreadcrumbItem` 实例类型 |
 
 <style scoped>
 .demo-showcase {

@@ -1,6 +1,6 @@
 # Alert
 
-Alert component for displaying important tips or feedback information to users. Features multiple built-in state modes, innovative glassmorphism visual effects, and ultra-smooth marquee announcement functionality.
+`YhAlert` is used to display important notices and feedback. It supports semantic states, scrolling announcements, auto close, and a custom action area.
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -25,44 +25,42 @@ const tsBasic = `<template>
 const tsClosable = `<template>
   <div class="demo-list">
     <yh-alert title="Not closable by default" type="success" />
-    <yh-alert title="Manually enable close" type="info" closable />
+    <yh-alert title="Enable close button" type="info" closable />
     <yh-alert title="Custom close text" type="warning" closable close-text="Got it" />
     <yh-alert title="Show icon" type="error" show-icon closable />
   </div>
 </template>`
 
 const tsScrollable = `<template>
-  <!-- Fast mode (5s per loop) -->
-  <yh-alert 
-    type="error" 
-    scrollable 
+  <yh-alert
+    type="error"
+    scrollable
     :scroll-speed="5"
-    description="[Fast Notice] The system has detected high environmental pressure. Please optimize your code performance!"
+    description="[Fast Notice] The current environment is under heavy load. Please optimize rendering performance."
   />
-  
-  <!-- Default mode (with hover pause) -->
-  <yh-alert 
-    type="success" 
-    show-icon 
+
+  <yh-alert
+    type="success"
+    show-icon
     scrollable
     :pause-on-hover="true"
-    description="This is an auto-scrolling notification: Welcome to the YH-UI enhanced Alert component, which supports marquee effects, hover pause, and dynamic speed configuration. Try hovering your mouse over it!"
+    description="This notice scrolls automatically. It supports a marquee effect, hover pause, and configurable speed."
   />
 </template>`
 
 const tsProgress = `<template>
-  <yh-alert 
+  <yh-alert
     v-if="visible"
-    title="Auto-dismiss warning" 
-    type="warning" 
-    :duration="5000" 
+    title="Auto dismiss warning"
+    type="warning"
+    :duration="5000"
     show-icon
     show-progress
     closable
   >
-    This alert will automatically close after 5 seconds, with a countdown progress bar.
+    This alert closes automatically after 5 seconds and shows a countdown progress bar.
   </yh-alert>
-  <yh-button @click="reset">Replay Demo</yh-button>
+  <yh-button @click="reset">Replay demo</yh-button>
 </template>
 
 <` + `script setup lang="ts">
@@ -76,20 +74,20 @@ const reset = () => {
 
 const tsGlass = `<template>
   <div class="glass-container">
-    <yh-alert 
-      title="Advanced Glassmorphism Effect" 
-      type="info" 
+    <yh-alert
+      title="Glass Effect"
+      type="info"
       effect="glass"
       show-icon
       closable
     >
-      This is YH-UI's premium glassmorphism theme, perfect for showcasing on backgrounds with strong visual design.
+      Useful when the alert needs stronger visual layering with blur and translucent background.
     </yh-alert>
   </div>
 </template>`
 
 const tsNuxt = `<template>
-  <yh-alert title="Nuxt Out-of-the-Box" type="success" show-icon />
+  <yh-alert title="Works directly in Nuxt" type="success" show-icon />
 </template>`
 
 const toJs = (code: string) => code.replace('setup lang="ts"', 'setup').replace('lang="ts"', '')
@@ -101,11 +99,11 @@ const jsGlass = toJs(tsGlass)
 const jsNuxt = toJs(tsNuxt)
 </script>
 
-## Display Modes
+## Basic States
 
-Alert supports multiple semantic states and visual themes.
+Use `type` to switch between success, info, warning, and error states.
 
-<DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
+<DemoBlock title="Basic States" :ts-code="tsBasic" :js-code="jsBasic">
   <div class="demo-list">
     <yh-alert title="Success alert message" type="success" />
     <yh-alert title="Info alert message" type="info" />
@@ -114,145 +112,152 @@ Alert supports multiple semantic states and visual themes.
   </div>
 </DemoBlock>
 
-## Configurable Interactions
+## Close and Icons
 
-The component is not closable by default. You can enable it via the `closable` prop. It also supports showing status icons and their positions.
+The component is not closable by default. Enable `closable` to show the close button, and `show-icon` to display the status icon.
 
-<DemoBlock title="Buttons & Icons" :ts-code="tsClosable" :js-code="jsClosable">
+<DemoBlock title="Close and Icons" :ts-code="tsClosable" :js-code="jsClosable">
   <div class="demo-list">
     <yh-alert title="Not closable by default" type="success" />
-    <yh-alert title="Manually enable close" type="info" closable />
+    <yh-alert title="Enable close button" type="info" closable />
     <yh-alert title="Custom close text" type="warning" closable close-text="Got it" />
     <yh-alert title="Show icon" type="error" show-icon closable />
   </div>
 </DemoBlock>
 
-## Text Scrolling (Scrollable)
+## Scrolling Announcement
 
-For lengthy announcement content, enable the `scrollable` prop to achieve a marquee scrolling effect.
-We use `will-change: transform` and `translate3d` hardware acceleration to optimize scrolling smoothness to the extreme.
+Enable `scrollable` for long notice content, then adjust behavior with `scroll-speed` and `pause-on-hover`.
 
-<DemoBlock title="Scrolling Notification" :ts-code="tsScrollable" :js-code="jsScrollable">
+<DemoBlock title="Scrolling Announcement" :ts-code="tsScrollable" :js-code="jsScrollable">
   <div class="demo-list">
-    <yh-alert 
-      type="error" 
-      scrollable 
+    <yh-alert
+      type="error"
+      scrollable
       :scroll-speed="5"
-      description="[Fast Mode] The system has detected high environmental pressure. Please optimize your code performance!"
+      description="[Fast Notice] The current environment is under heavy load. Please optimize rendering performance."
     />
-    <yh-alert 
-      type="success" 
-      show-icon 
+    <yh-alert
+      type="success"
+      show-icon
       scrollable
       :scroll-speed="20"
       :pause-on-hover="true"
-      description="This is an auto-scrolling notification: Welcome to the YH-UI enhanced Alert component, which supports marquee effects, hover pause, and dynamic speed configuration. Try hovering your mouse over it!"
+      description="This notice scrolls automatically. It supports a marquee effect, hover pause, and configurable speed."
     />
   </div>
 </DemoBlock>
 
-## Auto Close & Timer (Advanced)
+## Auto Close
 
-`YhAlert` supports timed closing. When `show-progress` is enabled, a dynamic countdown progress bar appears at the bottom.
+Set `duration` to close the alert automatically. When `show-progress` is enabled, a progress bar is rendered at the bottom.
 
-<DemoBlock title="Auto Dismiss Demo" :ts-code="tsProgress" :js-code="jsProgress">
+<DemoBlock title="Auto Close" :ts-code="tsProgress" :js-code="jsProgress">
   <div class="demo-column">
-    <yh-alert 
+    <yh-alert
       v-if="showAlert"
-      title="Auto-dismiss warning" 
-      type="warning" 
-      :duration="5000" 
+      title="Auto dismiss warning"
+      type="warning"
+      :duration="5000"
       show-icon
       show-progress
       closable
     >
-      This alert will automatically close after 5 seconds, with a countdown progress bar.
+      This alert closes automatically after 5 seconds and shows a countdown progress bar.
     </yh-alert>
     <div style="margin-top: 10px">
-      <yh-button type="primary" size="small" @click="resetAlert">Replay Countdown Demo</yh-button>
+      <yh-button type="primary" size="small" @click="resetAlert">Replay countdown demo</yh-button>
     </div>
   </div>
 </DemoBlock>
 
-## Advanced Features
+## Theme Effect
 
-### 1. Smart Glassmorphism
-Enable via `effect="glass"`. The component will automatically apply backdrop blur and semi-transparent overlays, perfect for modern dashboards with strong visual backgrounds.
+`effect` supports `light`, `dark`, `outline`, and `glass`.
 
-<DemoBlock title="Glassmorphism Effect" :ts-code="tsGlass" :js-code="jsGlass">
+<DemoBlock title="Theme Effect" :ts-code="tsGlass" :js-code="jsGlass">
   <div class="glass-container">
-    <yh-alert 
-      title="Advanced Glassmorphism Effect" 
-      type="info" 
+    <yh-alert
+      title="Glass Effect"
+      type="info"
       effect="glass"
       show-icon
       closable
     >
-      This is YH-UI's premium glassmorphism theme, perfect for showcasing on backgrounds with strong visual design.
+      Useful when the alert needs stronger visual layering with blur and translucent background.
     </yh-alert>
   </div>
 </DemoBlock>
 
-### 2. Polymorphic Action Slot
-Supports the `action` slot. You can place interactive buttons like "Retry" or "View Details" inside the alert bar, transforming alerts from one-way notifications into two-way interactions.
-
 ## Use in Nuxt
 
-`YhAlert` is fully adapted for Nuxt 3/4. The component supports automatic import, and all animation strategies are optimized for SSR environments.
+After installing `@yh-ui/nuxt`, `YhAlert` can be used directly in pages. Its initial render does not rely on browser-only APIs, so static content renders correctly during SSR, while auto close and hover pause start on the client after hydration.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
-  <yh-alert title="Nuxt Out-of-the-Box" type="success" show-icon />
+  <yh-alert title="Works directly in Nuxt" type="success" show-icon />
 </DemoBlock>
 
 ## API
 
 ### Props
 
-| Prop | Description | Type | Default |
+| Name | Description | Type | Default |
 | --- | --- | --- | --- |
-| title | Title | `string` | — |
-| description | Description | `string` | — |
-| type | Type | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'` |
-| effect | Theme | `'light' \| 'dark' \| 'outline' \| 'glass'` | `'light'` |
-| closable | Whether closable | `boolean` | `false` |
-| close-text | Custom text for the close button | `string` | — |
-| close-icon | Icon for the close button | `string \| Component` | — |
-| show-icon | Whether to show the icon | `boolean` | `false` |
-| center | Whether to center the content | `boolean` | `false` |
-| scrollable | Whether to enable marquee scrolling | `boolean` | `false` |
-| scroll-speed | Seconds to complete one scroll cycle | `number` | `15` |
-| pause-on-hover | Whether to pause scrolling on hover | `boolean` | `true` |
-| duration | Auto-dismiss duration in milliseconds, 0 means never | `number` | `0` |
-| show-progress | Whether to show auto-close progress bar | `boolean` | `false` |
-
-### Slots
-
-| Slot Name | Description |
-| --- | --- |
-| default | Description content |
-| title | Title content |
-| icon | Custom icon |
-| close | Custom close trigger |
-| action | Custom action area (below description) |
+| `title` | Title text | `string` | `''` |
+| `description` | Description text | `string` | `''` |
+| `type` | Alert type | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'` |
+| `effect` | Visual style | `'light' \| 'dark' \| 'outline' \| 'glass'` | `'light'` |
+| `closable` | Whether to show the close button | `boolean` | `false` |
+| `close-text` | Custom close button text | `string` | `''` |
+| `close-icon` | Custom close icon component or icon name | `string \| Component` | `''` |
+| `show-icon` | Whether to show the status icon | `boolean` | `false` |
+| `icon` | Custom status icon component or icon name | `string \| Component` | `''` |
+| `center` | Whether the content is centered | `boolean` | `false` |
+| `scrollable` | Whether to enable scrolling announcement mode | `boolean` | `false` |
+| `scroll-speed` | Seconds required to complete one scroll cycle | `number` | `15` |
+| `pause-on-hover` | Whether hovering pauses scrolling | `boolean` | `true` |
+| `duration` | Auto close duration in milliseconds. `0` disables auto close | `number` | `0` |
+| `show-progress` | Whether to show the auto-close progress bar | `boolean` | `false` |
+| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Event Name | Description | Parameters |
+| Name | Description | Parameters |
 | --- | --- | --- |
-| close | Triggered when closed | `(evt: MouseEvent)` |
+| `close` | Triggered when the close button is clicked | `(event: MouseEvent)` |
 
-## Theme Variables
+### Slots
 
-You can deeply customize Alert's visual style through the following CSS variables.
+| Name | Description |
+| --- | --- |
+| `default` | Description content |
+| `title` | Title content |
+| `icon` | Custom status icon |
+| `close` | Custom close area |
+| `action` | Custom action area |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhAlertProps` | Props type for `YhAlert` |
+| `YhAlertEmits` | Emits type for `YhAlert` |
+| `YhAlertSlots` | Slots type for `YhAlert` |
+| `YhAlertType` | Alert type union |
+| `YhAlertEffect` | Effect style union |
+| `YhAlertInstance` | Component instance type |
+
+### Theme Variables
+
+`YhAlert` does not expose a full set of dedicated component-scoped theme variables. The stylesheet currently relies mainly on shared theme tokens. The scrolling announcement mode additionally consumes the variable below, and the component still supports `themeOverrides`.
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `--yh-alert-padding` | Padding | `12px 16px` |
-| `--yh-alert-border-radius` | Border radius | `12px` |
-| `--yh-alert-title-font-size` | Title font size | `14px` |
-| `--yh-alert-description-font-size` | Description font size | `13px` |
-| `--yh-alert-icon-size` | Icon size | `20px` |
-| `--yh-alert-scroll-speed` | Scroll speed control (S) | `15s` |
+| `--yh-alert-scroll-speed` | Animation duration for scrolling announcements | `15s` |
 
 <style scoped>
 .demo-list { display: flex; flex-direction: column; gap: 12px; }

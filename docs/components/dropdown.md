@@ -626,7 +626,7 @@ interface DropdownItemData {
 }
 ```
 
-### 主题变量 (CSS Variables)
+### 主题变量
 
 所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
@@ -642,6 +642,22 @@ interface DropdownItemData {
 | `--yh-dropdown-danger-hover-bg` | `var(--yh-color-danger-light-9)` | 危险项 hover 背景 |
 | `--yh-dropdown-shadow` | `var(--yh-shadow-lg)` | 弹出层阴影 |
 | `--yh-dropdown-radius` | `var(--yh-radius-md)` | 弹出层圆角 |
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhDropdownProps` | `YhDropdown` props 类型 |
+| `YhDropdownEmits` | `YhDropdown` emits 类型 |
+| `YhDropdownSlots` | `YhDropdown` slots 类型 |
+| `YhDropdownExpose` | `YhDropdown` expose 类型 |
+| `YhDropdownTrigger` | 触发方式联合类型 |
+| `YhDropdownItemData` | 下拉项数据类型 |
+| `YhDropdownItemProps` | `YhDropdownItem` props 类型 |
+| `YhDropdownMenuProps` | `YhDropdownMenu` props 类型 |
+| `YhDropdownInstance` | `YhDropdown` 实例类型 |
+| `YhDropdownItemInstance` | `YhDropdownItem` 实例类型 |
+| `YhDropdownMenuInstance` | `YhDropdownMenu` 实例类型 |
 
 ---
 

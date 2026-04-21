@@ -4,7 +4,6 @@
 import { ref } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
-// Basic Usage
 const selectBasic = ref('')
 const basicOptions = [
   { value: 'option1', label: 'Option 1' },
@@ -14,7 +13,6 @@ const basicOptions = [
   { value: 'option5', label: 'Option 5' }
 ]
 
-// Disabled Option
 const selectDisabledOption = ref('')
 const disabledOptions = [
   { value: 'option1', label: 'Option 1' },
@@ -24,30 +22,29 @@ const disabledOptions = [
   { value: 'option5', label: 'Option 5' }
 ]
 
-// Disabled State
 const selectDisabled = ref('option1')
-
-// Clearable
 const selectClearable = ref('option1')
-
-// Multiple
 const selectMultiple = ref([])
-
-// Collapse Tags
 const selectCollapse = ref(['option1', 'option2', 'option3'])
-
-// Filterable
 const selectFilterable = ref('')
-
-// Remote Search
 const selectRemote = ref('')
 const remoteOptions = ref([])
 const remoteLoading = ref(false)
+const selectCreate = ref([])
+const selectVirtual = ref('')
+const selectVirtualCustomValue1 = ref('')
+const selectVirtualCustomValue2 = ref('')
+const selectVirtualCustomValue3 = ref('')
+const selectLarge = ref('')
+const selectDefault = ref('')
+const selectSmall = ref('')
+const nuxtValue = ref('')
+
 const remoteMethod = (query: string) => {
   if (query) {
     remoteLoading.value = true
     setTimeout(() => {
-      remoteOptions.value = basicOptions.filter(item =>
+      remoteOptions.value = basicOptions.filter((item) =>
         item.label.toLowerCase().includes(query.toLowerCase())
       )
       remoteLoading.value = false
@@ -57,28 +54,11 @@ const remoteMethod = (query: string) => {
   }
 }
 
-// Allow Create
-const selectCreate = ref([])
-
-// Virtual Scroll
-const selectVirtual = ref('')
 const virtualOptions = Array.from({ length: 10000 }, (_, i) => ({
   value: `option${i}`,
   label: `Option ${i + 1}`
 }))
 
-// Custom Virtual Scroll Props
-const selectVirtualCustomValue1 = ref('')
-const selectVirtualCustomValue2 = ref('')
-const selectVirtualCustomValue3 = ref('')
-
-// Different Sizes
-const selectLarge = ref('')
-const selectDefault = ref('')
-const selectSmall = ref('')
-
-// Nuxt Usage Example
-const nuxtValue = ref('')
 const nuxtOptions = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },
@@ -87,7 +67,6 @@ const nuxtOptions = [
 
 const tsNuxt = `<${_T}>
   <div style="max-width: 240px;">
-    <!-- Components are auto-imported in Nuxt -->
     <yh-select v-model="nuxtValue" :options="nuxtOptions" placeholder="Nuxt Auto Import" />
   </div>
 </${_T}>
@@ -95,7 +74,6 @@ const tsNuxt = `<${_T}>
 <${_S} setup lang="ts">
 import { ref } from 'vue'
 
-// No need to manually import YhSelect
 const nuxtValue = ref('')
 const nuxtOptions = [
   { value: 'apple', label: 'Apple' },
@@ -106,7 +84,6 @@ const nuxtOptions = [
 
 const jsNuxt = toJs(tsNuxt)
 
-// Code Snippets
 const tsBasic = `<${_T}>
   <yh-select v-model="value" :options="options" placeholder="Please select" />
 </${_T}>
@@ -266,7 +243,6 @@ const value = ref('')
 const options = ref<{ value: string; label: string }[]>([])
 const loading = ref(false)
 
-// Mock remote data source
 const allOptions = [
   { value: 'option1', label: 'Option 1' },
   { value: 'option2', label: 'Option 2' },
@@ -278,9 +254,8 @@ const allOptions = [
 const remoteMethod = (query: string) => {
   if (query) {
     loading.value = true
-    // Mock network request delay
     setTimeout(() => {
-      options.value = allOptions.filter(item =>
+      options.value = allOptions.filter((item) =>
         item.label.toLowerCase().includes(query.toLowerCase())
       )
       loading.value = false
@@ -343,10 +318,8 @@ const jsVirtual = toJs(tsVirtual)
 
 const tsVirtualCustom = `<${_T}>
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 240px;">
-    <!-- Normal Mode -->
     <yh-select v-model="value1" :options="options" placeholder="Normal Mode" />
 
-    <!-- Virtual Scroll Mode -->
     <yh-select
       v-model="value2"
       :options="largeOptions"
@@ -354,7 +327,6 @@ const tsVirtualCustom = `<${_T}>
       placeholder="Virtual Scroll (10,000 options)"
     />
 
-    <!-- Custom Virtual Scroll Props -->
     <yh-select
       v-model="value3"
       :options="largeOptions"
@@ -373,14 +345,12 @@ const value1 = ref('')
 const value2 = ref('')
 const value3 = ref('')
 
-// Basic options
 const options = [
   { value: 'option1', label: 'Option 1' },
   { value: 'option2', label: 'Option 2' },
   { value: 'option3', label: 'Option 3' }
 ]
 
-// Massive data options
 const largeOptions = Array.from({ length: 10000 }, (_, i) => ({
   value: \`option\${i}\`,
   label: \`Option \${i + 1}\`
@@ -429,7 +399,7 @@ Standard single select for a wide variety of scenarios.
 
 ## Disabled Option
 
-Set the `disabled` property in an option to disable it.
+Set the `disabled` field on an option item to make that option unavailable.
 
 <DemoBlock title="Disabled Option" :ts-code="tsDisabledOption" :js-code="jsDisabledOption">
   <div style="max-width: 240px;">
@@ -439,7 +409,7 @@ Set the `disabled` property in an option to disable it.
 
 ## Disabled State
 
-Use the `disabled` property to disable the entire select component.
+Use `disabled` to disable the entire component.
 
 <DemoBlock title="Disabled State" :ts-code="tsDisabled" :js-code="jsDisabled">
   <div style="max-width: 240px;">
@@ -449,7 +419,7 @@ Use the `disabled` property to disable the entire select component.
 
 ## Clearable Single Select
 
-Set the `clearable` property to allow clearing the selected value.
+Set `clearable` to allow the current value to be cleared.
 
 <DemoBlock title="Clearable" :ts-code="tsClearable" :js-code="jsClearable">
   <div style="max-width: 240px;">
@@ -459,7 +429,7 @@ Set the `clearable` property to allow clearing the selected value.
 
 ## Multiple Select
 
-Set the `multiple` property to enable multiple selection. In this case, `v-model` will be an array of selected values.
+Set `multiple` to enable multiple selection. In this mode, `v-model` becomes an array.
 
 <DemoBlock title="Multiple Select" :ts-code="tsMultiple" :js-code="jsMultiple">
   <div style="max-width: 360px;">
@@ -469,7 +439,7 @@ Set the `multiple` property to enable multiple selection. In this case, `v-model
 
 ## Collapse Tags
 
-When in multiple selection mode, use the `collapse-tags` property to collapse tags.
+In multiple mode, use `collapse-tags` to reduce the visible tag count.
 
 <DemoBlock title="Collapse Tags" :ts-code="tsCollapse" :js-code="jsCollapse">
   <div style="max-width: 360px;">
@@ -479,7 +449,7 @@ When in multiple selection mode, use the `collapse-tags` property to collapse ta
 
 ## Filterable
 
-Set the `filterable` property to enable the search feature.
+Set `filterable` to enable keyword filtering inside the input.
 
 <DemoBlock title="Filterable" :ts-code="tsFilterable" :js-code="jsFilterable">
   <div style="max-width: 240px;">
@@ -489,7 +459,7 @@ Set the `filterable` property to enable the search feature.
 
 ## Remote Search
 
-Set the `remote` and `remote-method` properties to search for data from a server.
+Use `remote` together with `remote-method` to fetch options asynchronously.
 
 <DemoBlock title="Remote Search" :ts-code="tsRemote" :js-code="jsRemote">
   <div style="max-width: 240px;">
@@ -507,7 +477,7 @@ Set the `remote` and `remote-method` properties to search for data from a server
 
 ## Allow Create
 
-Set the `allow-create` property to allow users to create new items. Must be used with `filterable`.
+Set `allow-create` to let users create temporary options from the current input. This is intended to be used together with `filterable`.
 
 <DemoBlock title="Allow Create" :ts-code="tsCreate" :js-code="jsCreate">
   <div style="max-width: 360px;">
@@ -517,7 +487,7 @@ Set the `allow-create` property to allow users to create new items. Must be used
 
 ## Virtual Scroll
 
-When dealing with a large number of options, use virtual scrolling to optimize performance. Set the `virtual-scroll` property to enable it.
+For large option sets, set `virtual-scroll` to improve rendering performance.
 
 <DemoBlock title="Virtual Scroll" :ts-code="tsVirtual" :js-code="jsVirtual">
   <div style="max-width: 240px;">
@@ -533,11 +503,10 @@ When dealing with a large number of options, use virtual scrolling to optimize p
 
 ## Full Virtual Scroll Configuration
 
-Customize row height and container height for virtual scrolling using `item-height` and `height` properties.
+Use `item-height` and `height` to control the virtual list row height and viewport height.
 
-- `virtual-scroll`: Enable virtual scrolling.
-- `item-height`: Height for each option (default 34px).
-- `height`: Height for the dropdown container (default 274px).
+- `item-height`: height of each option row, default `34`
+- `height`: dropdown viewport height, default `274`
 
 <DemoBlock title="Full Virtual Scroll Configuration" :ts-code="tsVirtualCustom" :js-code="jsVirtualCustom">
   <div style="display: flex; flex-direction: column; gap: 16px; max-width: 240px;">
@@ -561,7 +530,7 @@ Customize row height and container height for virtual scrolling using `item-heig
 
 ## Different Sizes
 
-Use the `size` property to change the size of the select input.
+Use `size` to switch between `large`, default, and `small`.
 
 <DemoBlock title="Different Sizes" :ts-code="tsSizes" :js-code="jsSizes">
   <div style="max-width: 240px; display: flex; flex-direction: column; gap: 16px;">
@@ -573,7 +542,7 @@ Use the `size` property to change the size of the select input.
 
 ## Use in Nuxt
 
-The Select component fully supports Nuxt 3/4 SSR rendering. In Nuxt projects, the component is auto-imported.
+`YhSelect` can be used directly in Nuxt after registering the YH-UI module. The selected text and option data render normally during SSR, while popup positioning, remote callbacks, and imperative focus helpers continue on the client after hydration.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 240px;">
@@ -581,95 +550,118 @@ The Select component fully supports Nuxt 3/4 SSR rendering. In Nuxt projects, th
   </div>
 </DemoBlock>
 
-**SSR Notes**:
-
-- ✅ Basic selection functionality is fully supported.
-- ✅ Multiple selection and tag collapsing are supported.
-- ✅ Option grouping and searching are supported.
-- ✅ Remote search is supported.
-- ✅ Virtual scrolling (initializes in basic mode on the server, optimizes automatically upon client activation).
-- ⚠️ DOM methods like `focus()` and `blur()` must be called inside `onMounted`.
-
-::: tip SSR Safety
-The Select component has passed comprehensive SSR tests, ensuring that server-side and client-side rendered HTML structures are consistent, maintaining compatibility with Nuxt's hydration process.
-:::
-
 ## API
 
 ### Props
 
-| Prop                  | Description                                                 | Type                                                 | Default              |
-| --------------------- | ----------------------------------------------------------- | ---------------------------------------------------- | -------------------- |
-| model-value / v-model | Binding value                                               | `string \| number \| boolean \| array`               | —                    |
-| options               | Option data                                                 | `SelectOption[]`                                     | `[]`                 |
-| placeholder           | Placeholder text                                            | `string`                                             | —                    |
-| disabled              | Whether to disable                                          | `boolean`                                            | `false`              |
-| clearable             | Whether it is clearable                                     | `boolean`                                            | `false`              |
-| size                  | Input size                                                  | `'large' \| 'default' \| 'small'`                    | `'default'`          |
-| multiple              | Whether multiple selection is enabled                       | `boolean`                                            | `false`              |
-| multiple-limit        | Max number of labels in multiple selection, 0 for unlimited | `number`                                             | `0`                  |
-| filterable            | Whether search is enabled                                   | `boolean`                                            | `false`              |
-| filter-method         | Custom filter method                                        | `(query: string) => void`                            | —                    |
-| remote                | Whether to load options from a remote server                | `boolean`                                            | `false`              |
-| remote-method         | Remote search method                                        | `(query: string) => void`                            | —                    |
-| loading               | Whether data is loading                                     | `boolean`                                            | `false`              |
-| loading-text          | Loading text                                                | `string`                                             | `'Loading...'`       |
-| no-match-text         | Text displayed when no data matches the search              | `string`                                             | `'No matching data'` |
-| no-data-text          | Text displayed when there is no data                        | `string`                                             | `'No data'`          |
-| allow-create          | Whether to allow creating new options                       | `boolean`                                            | `false`              |
-| collapse-tags         | Whether to collapse tags in multiple selection              | `boolean`                                            | `false`              |
-| max-collapse-tags     | Max number of visible tags before collapsing                | `number`                                             | `1`                  |
-| virtual-scroll        | Whether to enable virtual scrolling                         | `boolean`                                            | `false`              |
-| item-height           | Height for each virtual scroll item                         | `number`                                             | `34`                 |
-| height                | Height for the virtual scroll container                     | `number`                                             | `274`                |
-| teleported            | Whether to insert the dropdown into body                    | `boolean`                                            | `true`               |
-| fit-input-width       | Whether the dropdown width matches the input width          | `boolean`                                            | `true`               |
-| tag-type              | Type of tags                                                | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''`                 |
-| value-key             | Key name for the value                                      | `string`                                             | `'value'`            |
-| label-key             | Key name for the label                                      | `string`                                             | `'label'`            |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| model-value / v-model | Bound value | `YhSelectValue \| YhSelectValue[]` | `undefined` |
+| options | Option data rendered by the component | `YhSelectOption[]` | `[]` |
+| placeholder | Placeholder text | `string` | `''` |
+| disabled | Whether the component is disabled | `boolean` | `false` |
+| clearable | Whether the current value can be cleared | `boolean` | `false` |
+| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
+| multiple | Whether multiple selection is enabled | `boolean` | `false` |
+| multiple-limit | Maximum selected item count in multiple mode, `0` means unlimited | `number` | `0` |
+| filterable | Whether keyword filtering is enabled | `boolean` | `false` |
+| filter-method | Custom local filter method | `(query: string) => void` | `undefined` |
+| remote | Whether remote filtering is enabled | `boolean` | `false` |
+| remote-method | Remote search callback | `(query: string) => void` | `undefined` |
+| loading | Whether the loading state is shown | `boolean` | `false` |
+| loading-text | Custom loading text. Falls back to locale text when empty | `string` | `''` |
+| no-match-text | Custom empty text shown for no matching results. Falls back to locale text when empty | `string` | `''` |
+| no-data-text | Custom empty text shown when there is no option data. Falls back to locale text when empty | `string` | `''` |
+| allow-create | Whether users can create options from the current query | `boolean` | `false` |
+| collapse-tags | Whether selected tags are collapsed in multiple mode | `boolean` | `false` |
+| collapse-tags-tooltip | Whether collapsed tags show a tooltip summary | `boolean` | `false` |
+| max-collapse-tags | Maximum visible tag count when `collapse-tags` is enabled | `number` | `1` |
+| popper-class | Custom dropdown class name | `string` | `undefined` |
+| teleported | Whether the dropdown is teleported to `body` | `boolean` | `true` |
+| fit-input-width | Whether the dropdown width follows the input width | `boolean` | `true` |
+| tag-type | Tag type used in multiple mode | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
+| virtual-scroll | Whether virtual scrolling is enabled | `boolean` | `false` |
+| item-height | Virtual list row height | `number` | `34` |
+| height | Virtual list viewport height | `number` | `274` |
+| validate-event | Whether form validation is triggered on change and blur | `boolean` | `true` |
+| value-key | Property name used as the option value key | `string` | `'value'` |
+| label-key | Property name used as the option label key | `string` | `'label'` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
-### SelectOption
+### Types
 
-| Prop     | Description                    | Type                          | Required |
-| -------- | ------------------------------ | ----------------------------- | -------- |
-| value    | Option value                   | `string \| number \| boolean` | Yes      |
-| label    | Option label                   | `string`                      | Yes      |
-| disabled | Whether the option is disabled | `boolean`                     | No       |
+#### Select Option
+
+| Name | Description | Type | Required |
+| --- | --- | --- | --- |
+| value | Option value | `string \| number \| boolean` | Yes |
+| label | Option label | `string` | Yes |
+| disabled | Whether the option is disabled | `boolean` | No |
 
 ### Events
 
-| Event Name     | Description                                           | Callback Parameters           |
-| -------------- | ----------------------------------------------------- | ----------------------------- | ------ | ----------------- | ------- | ------ | ---------- | ------------------- |
-| change         | Triggered when the selected value changes             | `(value: string               | number | boolean           | (string | number | boolean)[] | undefined) => void` |
-| focus          | Triggered on focus                                    | `(event: FocusEvent) => void` |
-| blur           | Triggered on blur                                     | `(event: FocusEvent) => void` |
-| clear          | Triggered when the clear button is clicked            | `() => void`                  |
-| visible-change | Triggered when the dropdown visibility changes        | `(visible: boolean) => void`  |
-| remove-tag     | Triggered when a tag is removed in multiple selection | `(value: string               | number | boolean) => void` |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| change | Triggered when the selected value changes | `(value: YhSelectValue \| YhSelectValue[] \| undefined) => void` |
+| focus | Triggered when the input gains focus | `(event: FocusEvent) => void` |
+| blur | Triggered when the input loses focus | `(event: FocusEvent) => void` |
+| clear | Triggered when the clear icon is clicked | `() => void` |
+| visible-change | Triggered when the dropdown visibility changes | `(visible: boolean) => void` |
+| remove-tag | Triggered when a selected tag is removed in multiple mode | `(value: YhSelectValue) => void` |
 
 ### Slots
 
-| Slot Name | Description                   | Scope                      |
-| --------- | ----------------------------- | -------------------------- |
-| default   | Custom option content         | `{ option: SelectOption }` |
-| prefix    | Content before the input      | —                          |
-| empty     | Content when there is no data | —                          |
+| Name | Description | Parameters |
+| --- | --- | --- |
+| default | Custom `YhOption` nodes rendered instead of the `options` prop | - |
+| prefix | Content rendered before the input area | - |
+| empty | Content rendered when there is no available option | - |
+| option | Custom option content when using the `options` prop | `{ option: YhSelectOption }` |
+| tag | Custom tag content in multiple mode | `{ value: YhSelectValue }` |
 
 ### Expose
 
-| Name  | Description            | Type         |
-| ----- | ---------------------- | ------------ |
-| focus | Focus the Select input | `() => void` |
-| blur  | Blur the Select input  | `() => void` |
+| Name | Description | Type |
+| --- | --- | --- |
+| focus | Focuses the input | `() => void` |
+| blur | Blurs the input | `() => void` |
+| inputRef | Ref to the internal input element | `Ref<HTMLInputElement \| undefined>` |
+
+### Option Props
+
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| value | Option value | `YhSelectValue` | Required |
+| label | Option label | `string` | `undefined` |
+| disabled | Whether the option is disabled | `boolean` | `false` |
+
+### Option Slots
+
+| Name | Description | Parameters |
+| --- | --- | --- |
+| default | Custom option content | - |
 
 ## Theme Variables
 
-The Select component uses the following CSS variables, which can be overridden for custom styling:
+`YhSelect` supports `themeOverrides`. The component test suite verifies component-scoped override output such as `themeOverrides.borderColor`, which emits `--yh-select-border-color`. The visual styles of the input, tags, and dropdown still primarily inherit shared global tokens such as `--yh-border-color`, `--yh-fill-color`, and `--yh-text-color-*`.
 
-| Variable                         | Description               | Default                        |
-| -------------------------------- | ------------------------- | ------------------------------ |
-| `--yh-select-border-color`       | Border color              | `var(--yh-border-color)`       |
-| `--yh-select-hover-border-color` | Hover border color        | `var(--yh-border-color-hover)` |
-| `--yh-select-focus-border-color` | Focus border color        | `var(--yh-color-primary)`      |
-| `--yh-select-disabled-bg-color`  | Disabled background color | `var(--yh-fill-color-light)`   |
-| `--yh-select-tag-bg-color`       | Tag background color      | `var(--yh-fill-color)`         |
+| Variable | Description | Default |
+| --- | --- | --- |
+| `--yh-select-border-color` | Border color emitted by `themeOverrides.borderColor` | `undefined` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhSelectProps` | Select component props type |
+| `YhSelectEmits` | Select component emits type |
+| `YhSelectSlots` | Select component slots type |
+| `YhSelectExpose` | Select component expose type |
+| `YhSelectOption` | Option data type |
+| `YhSelectValue` | Selected value type |
+| `YhSelectSize` | Size union type |
+| `YhSelectTagType` | Tag type union |
+| `YhOptionProps` | Option component props type |
+| `YhOptionSlots` | Option component slots type |
+| `YhSelectInstance` | Select component instance type |
+| `YhOptionInstance` | Option component instance type |

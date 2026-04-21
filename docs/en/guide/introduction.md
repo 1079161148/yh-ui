@@ -47,5 +47,5 @@ YH-UI is optimized for modern browsers only and does not support Internet Explor
 ## 🔗 Related Resources
 
 - [GitHub Repository](https://github.com/1079161148/yh-ui)
-- [Quick Start](/guide/quickstart)
-- [Custom Themes](/guide/theming)
+- [Quick Start](/en/guide/quickstart)
+- [Custom Themes](/en/guide/theming)

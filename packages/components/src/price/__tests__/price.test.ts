@@ -56,4 +56,58 @@ describe('Price', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-price-color: #ff4d4f')
   })
+
+  it('renders thousandth + range + delete value branches', () => {
+    const wrapper = mount(Price, {
+      props: {
+        value: 12345.6,
+        thousandth: true,
+        maxValue: 20000,
+        deleteValue: 30000,
+        deleteLabel: '原价',
+        unit: '/件',
+        symbolPosition: 'after'
+      }
+    })
+
+    expect(wrapper.text()).toContain('12,345.60')
+    expect(wrapper.text()).toContain('20,000.00')
+    expect(wrapper.text()).toContain('原价')
+    expect(wrapper.text()).toContain('/件')
+    expect(wrapper.findAll('.yh-price__symbol').length).toBe(1)
+    expect(wrapper.find('.yh-price__delete-symbol').exists()).toBe(true)
+  })
+
+  it('renders prefix/tag/approx/suffix and gradient style', () => {
+    const wrapper = mount(Price, {
+      props: {
+        value: 99,
+        prefix: '约',
+        suffix: '起',
+        tag: '券后',
+        approx: true,
+        split: true,
+        bold: true,
+        gradient: ['#111111', '#222222']
+      }
+    })
+
+    expect(wrapper.text()).toContain('约')
+    expect(wrapper.text()).toContain('起')
+    expect(wrapper.text()).toContain('券后')
+    expect(wrapper.text()).toContain('~')
+    expect(wrapper.classes()).toContain('is-gradient')
+    expect(wrapper.classes()).toContain('is-bold')
+    expect(wrapper.attributes('style')).toContain('linear-gradient')
+  })
+
+  it('handles invalid numeric input and zero precision', () => {
+    const wrapper = mount(Price, {
+      props: {
+        value: Number.NaN,
+        precision: 0
+      }
+    })
+    expect(wrapper.text()).toContain('0')
+  })
 })

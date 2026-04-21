@@ -4,7 +4,7 @@
 
 ## 1. 完整引入
 
-最简单的方式是在入口文件中直接全局注册所有组件。这种方式开发体验最佳，但会使得初始包体积较大。
+最简单的方式是在入口文件中直接全局注册所有组件。这种方式开发体验最好，但会使初始包体积较大。
 
 ```ts
 // main.ts
@@ -24,7 +24,7 @@ app.mount('#app')
 
 ## 2. 手动按需引入
 
-借助 Vue 3 的 **Composition API**，您可以仅在需要的页面中引入组件包，享受极致的 Tree Shaking 优化。
+借助 Vue 3 的 **Composition API**，您可以只在需要的页面中引入组件，享受 Tree Shaking 优化。
 
 ```vue
 <!-- App.vue -->
@@ -41,7 +41,7 @@ import { YhButton } from '@yh-ui/yh-ui'
 
 ## 3. 全局配置
 
-YH-UI 提供了一个全局配置方法 `createYhUI`，允许您自定义库的行为（如默认组件尺寸、Z-Index 等）。
+YH-UI 提供 `createYhUI` 用于插件安装。运行时的全局配置，例如 `theme`、`locale`、`size`、`zIndex`，仍然由 `YhConfigProvider` 读取。
 
 ```ts
 // main.ts
@@ -51,29 +51,22 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-const yhUI = createYhUI({
-  // 全局定义组件的默认尺寸：'small' | 'default' | 'large'
-  size: 'default',
-  // 弹窗类组件的基准 z-index
-  zIndex: 3000,
-  // 样式类名前缀 (默认 "yh")
-  namespace: 'yh'
-})
+const yhUI = createYhUI()
 
 app.use(yhUI)
 app.mount('#app')
 ```
 
-## 4. 在 Nuxt 3 中使用 (推荐)
+## 4. 在 Nuxt 3/4 中使用（推荐）
 
-如果您使用的是 Nuxt 3 框架，我们提供了专属的模块支持，只需单步安装即可享受自动按需加载和 SSR 优化。
+如果您使用的是 Nuxt 3/4，请安装并注册 `@yh-ui/nuxt`，即可获得模块集成、自动导入和样式入口注入。
 
 👉 [查看 Nuxt 集成指南](/guide/nuxt)
 
-## 🏁 下一步
+## 下一步
 
 恭喜！您已经成功运行了 YH-UI。接下来：
 
-- 🛠️ [浏览组件库](/components/button) - 探索所有可用组件。
-- 🎨 [定制主题](/guide/theming) - 打造您专属的设计风格。
-- ⚡ [性能优化](/guide/design) - 学习如何进一步优化应用。
+- [浏览组件库](/components/button) - 探索所有可用组件。
+- [定制主题](/guide/theming) - 打造您专属的设计风格。
+- [设计规范](/guide/design) - 查看库中实际使用的主题变量与设计令牌。

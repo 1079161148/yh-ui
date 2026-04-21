@@ -137,8 +137,9 @@ const jsNuxt = toJs(tsNuxt)
 | right             | 距离右侧的距离               | `number`  | `40`                      |
 | bottom            | 距离底部的距离               | `number`  | `40`                      |
 | show-progress     | 是否显示进度环               | `boolean` | `true`                    |
-| progress-color    | 进度环颜色                   | `string`  | `var(--yh-color-primary)` |
+| progress-color    | 进度环颜色，为空时跟随当前文本色 | `string`  | `''`                      |
 | duration          | 回滚动画持续时间 (ms)        | `number`  | `400`                     |
+| theme-overrides   | 组件级主题覆盖               | `ComponentThemeVars` | `undefined`          |
 
 ### Events
 
@@ -146,12 +147,28 @@ const jsNuxt = toJs(tsNuxt)
 | ------ | -------------- | ------------------- |
 | click  | 点击按钮时触发 | `(evt: MouseEvent)` |
 
-## 主题变量
+### Slots
 
-| 变量名                     | 说明          | 默认值                    |
-| -------------------------- | ------------- | ------------------------- |
-| `--yh-back-top-bg-color`   | 背景色        | `#ffffff`                 |
-| `--yh-back-top-text-color` | 文字/图标颜色 | `var(--yh-color-primary)` |
+| 插槽名 | 说明 | 插槽参数 |
+| --- | --- | --- |
+| `default` | 自定义返回顶部触发内容。 | 无 |
+
+### Expose
+
+当前组件未暴露公开实例方法或属性。
+
+### 主题变量
+
+`YhBackTop` 支持 `themeOverrides`，但当前未定义组件专属 CSS 变量，主要消费全局主题令牌，如背景色、主色、边框色和填充色。
+
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhBackTopProps` | `YhBackTop` props 类型 |
+| `YhBackTopEmits` | `YhBackTop` emits 类型 |
+| `YhBackTopSlots` | `YhBackTop` slots 类型 |
+| `YhBackTopInstance` | `YhBackTop` 实例类型 |
 
 <style scoped>
 .demo-info {

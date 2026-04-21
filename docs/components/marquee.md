@@ -567,3 +567,14 @@ YH-UI 完美适配 Nuxt 3。你可以直接在 `app.vue` 或 any 页面中使用
 | `--yh-marquee-gradient-width` | `40px` | 边际渐变宽度 |
 | `--yh-marquee-clone-count` | `1` | 内部计算的克隆倍数 (只读) |
 
+### 类型导出
+
+| 名称 | 说明 |
+| --- | --- |
+| `YhMarqueeProps` | 组件 Props 类型 |
+| `YhMarqueeEmits` | 组件事件类型 |
+| `YhMarqueeSlots` | 组件插槽类型 |
+| `YhMarqueeExpose` | 组件 Expose 类型 |
+| `YhMarqueeDirection` | 滚动方向联合类型 |
+| `YhMarqueeInstance` | 组件实例类型 |
+

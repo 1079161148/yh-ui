@@ -137,8 +137,9 @@ Built-in `Cubic Easing` function makes the scroll-back action more aligned with 
 | right             | Distance from the right                                  | `number`  | `40`                      |
 | bottom            | Distance from the bottom                                 | `number`  | `40`                      |
 | show-progress     | Whether to show the progress ring                        | `boolean` | `true`                    |
-| progress-color    | Progress ring color                                      | `string`  | `var(--yh-color-primary)` |
+| progress-color    | Progress ring color; falls back to current text color when empty | `string`  | `''`                |
 | duration          | Scroll-back animation duration (ms)                      | `number`  | `400`                     |
+| theme-overrides   | Component-level theme overrides                          | `ComponentThemeVars` | `undefined`    |
 
 ### Events
 
@@ -146,12 +147,28 @@ Built-in `Cubic Easing` function makes the scroll-back action more aligned with 
 | ---------- | -------------------------------- | ------------------- |
 | click      | Triggered when button is clicked | `(evt: MouseEvent)` |
 
-## Theme Variables
+### Slots
 
-| Variable                   | Description      | Default                   |
-| -------------------------- | ---------------- | ------------------------- |
-| `--yh-back-top-bg-color`   | Background color | `#ffffff`                 |
-| `--yh-back-top-text-color` | Text/icon color  | `var(--yh-color-primary)` |
+| Slot Name | Description | Slot Props |
+| --- | --- | --- |
+| `default` | Custom back-to-top trigger content. | None |
+
+### Expose
+
+This component does not expose public instance methods or properties.
+
+### Theme Variables
+
+`YhBackTop` supports `themeOverrides`, but it does not currently expose dedicated component-scoped CSS variables. Its rendered styles mainly consume shared global theme tokens such as background color, primary color, border color, and fill color.
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhBackTopProps` | Props type for `YhBackTop` |
+| `YhBackTopEmits` | Emits type for `YhBackTop` |
+| `YhBackTopSlots` | Slots type for `YhBackTop` |
+| `YhBackTopInstance` | Public instance type for `YhBackTop` |
 
 <style scoped>
 .demo-info {

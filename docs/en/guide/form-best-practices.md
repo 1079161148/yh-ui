@@ -1,6 +1,6 @@
-# Form Design Advantages
+# Form Design Best Practices
 
-YH-UI's Form component (especially `FormSchema`) is not just a simple UI wrapper, but a "high-performance rendering engine" designed for complex business scenarios.
+YH-UI's form components, especially `FormSchema`, are suitable for schema-driven forms that need unified field definitions, validation rules, and rendering logic.
 
 ## Why Choose YH-UI Form?
 
@@ -9,19 +9,19 @@ YH-UI's Form component (especially `FormSchema`) is not just a simple UI wrapper
 In traditional development, form layout, data linkage, and validation logic are often scattered across `template`, `script`, and lengthy `watch` blocks. YH-UI consolidates this logic into a single JSON configuration via `FormSchema`:
 
 - **Declarative Linkage**: Calculate UI behavior directly from the current model state using `props` and `hidden` functions.
-- **Integrated Layout**: Built-in 24-column grid system eliminates the need for manual `Row`/`Col` nesting, reducing code volume by approximately 60%.
+- **Integrated Layout**: The schema supports column-based layout configuration so related form structure can stay in one place.
 
 ### 2. Ultimate Type Safety (DX)
 
-We provide industry-grade TypeScript support for forms:
+The form package also exposes TypeScript types for schema instances and form instances:
 
 - **Precise Inference**: The exported `FormSchemaInstance` provides complete API autocompletion.
-- **Zero-any Convention**: All validation and rendering functions have explicit parameter types, preventing runtime errors.
+- **Public Instance Types**: `FormSchemaInstance` and `FormInstance` can be imported from the public package exports.
 
 ### 3. Robustness and Safety
 
-- **Ref Fallback Protection**: Built-in `footerFormRef` proxy solves potential page crashes caused by accessing the instance before the component is mounted.
-- **Auto Type Correction**: Automatic type recognition for booleans (Switch) avoids common validation message conflicts.
+- **Validation APIs**: `validate`, `resetFields`, `clearValidate`, and `scrollToField` are exposed by the schema/form instances.
+- **Model Access**: `FormSchemaInstance` also exposes `getModel`, `setFieldValue`, and `formRef`.
 
 ## Advanced Application Example
 
@@ -49,7 +49,7 @@ This example demonstrates the YH-UI form engine's ability to handle complex logi
 <script setup lang="ts">
 import { ref, reactive, h } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
-import type { FormSchemaInstance } from '@yh-ui/components'
+import type { FormSchemaInstance } from '@yh-ui/yh-ui'
 
 // Data Model
 const model = ref<Record<string, unknown>>({
@@ -198,7 +198,7 @@ const tsStep = `
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-import type { FormSchemaInstance } from '@yh-ui/components'
+import type { FormSchemaInstance } from '@yh-ui/yh-ui'
 
 // Data Model
 const model = ref<Record<string, unknown>>({

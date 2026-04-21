@@ -665,7 +665,7 @@ Use `count-config`'s `calculate` function to define custom length calculation lo
 
 ## Use in Nuxt
 
-Input fully supports Nuxt 3/4 SSR rendering. When used in a Nuxt project, the component is automatically imported.
+`YhInput` can be used directly in Nuxt 3/4. SSR renders a stable input structure first, and client-side hydration continues focus, clear, counter, and other interaction behavior.
 
 <DemoBlock title="Use in Nuxt" :ts-code="tsNuxt" :js-code="jsNuxt">
   <div style="max-width: 240px;">
@@ -729,15 +729,16 @@ The Input component is optimized for SSR, especially its ID generation mechanism
 | parser | Parse function (for updating value) | `(value: string) => string` | — |
 | rows | Textarea rows (effective for type="textarea") | `number` | `2` |
 | autosize | Autosize height (effective for type="textarea") | `boolean \| { minRows?: number; maxRows?: number }` | `false` |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 | resize | Whether to allow resizing (effective for type="textarea") | `'none' \| 'both' \| 'horizontal' \| 'vertical'` | — |
 
 ### Events
 
 | Event Name | Description | Callback Parameters |
 | --- | --- | --- |
-| update:modelValue | Triggered when binding value updates | `(value: string) => void` |
-| input | Triggered when input value changes | `(value: string) => void` |
-| change | Triggered on blur or Enter press | `(value: string) => void` |
+| update:modelValue | Triggered when binding value updates | `(value: string \| number) => void` |
+| input | Triggered when input value changes | `(value: string \| number) => void` |
+| change | Triggered on blur or Enter press | `(value: string \| number) => void` |
 | focus | Triggered on focus | `(event: FocusEvent) => void` |
 | blur | Triggered on blur | `(event: FocusEvent) => void` |
 | clear | Triggered on clicking clear button | `() => void` |
@@ -770,9 +771,9 @@ The Input component is optimized for SSR, especially its ID generation mechanism
 | clear | Clear input content | `() => void` |
 | textLength | Current display length (result from countConfig if provided) | `number` |
 
-## Theme Variables
+### Theme Variables
 
-The Input component uses the following CSS variables for customization:
+`YhInput` supports `themeOverrides`. The component itself consumes the following CSS variables:
 
 | Variable | Description | Default |
 | --- | --- | --- |
@@ -783,3 +784,18 @@ The Input component uses the following CSS variables for customization:
 | `--yh-input-hover-border-color` | Hover border color | `var(--yh-border-color-hover)` |
 | `--yh-input-focus-border-color` | Focus border color | `var(--yh-color-primary)` |
 | `--yh-input-bg-color` | Background color | `var(--yh-fill-color-blank)` |
+
+### Type Exports
+
+| Name | Description |
+| --- | --- |
+| `YhInputProps` | Props type for `YhInput` |
+| `YhInputEmits` | Emits type for `YhInput` |
+| `YhInputSlots` | Slots type for `YhInput` |
+| `YhInputExpose` | Expose type for `YhInput` |
+| `YhInputType` | Input type union |
+| `YhInputSize` | Input size union |
+| `YhInputVariant` | Visual variant union |
+| `YhInputStatus` | Status union |
+| `YhInputCountConfig` | Word count config type |
+| `YhInputInstance` | Public instance type for `YhInput` |

@@ -74,7 +74,7 @@ pnpm dev
 适配 Vite、Nuxt 3、Webpack 5 等现代工具：
 
 ```javascript
-import { YhButton } from '@yh-ui/components'
+import { YhButton } from '@yh-ui/yh-ui'
 ```
 
 #### CommonJS
@@ -82,7 +82,7 @@ import { YhButton } from '@yh-ui/components'
 适配 Node.js 或旧版 Webpack 环境：
 
 ```javascript
-const { YhButton } = require('@yh-ui/components')
+const { YhButton } = require('@yh-ui/yh-ui')
 ```
 
 #### 局部导入 (Tree Shaking)
@@ -90,7 +90,7 @@ const { YhButton } = require('@yh-ui/components')
 由于采用了 `mkdist` 结构，你可以直接指向具体文件实现极致优化：
 
 ```javascript
-import YhButton from '@yh-ui/components/dist/button/index.mjs'
+import { YhButton } from '@yh-ui/yh-ui'
 ```
 
 ## 注意事项
