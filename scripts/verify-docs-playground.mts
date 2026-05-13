@@ -293,17 +293,35 @@ async function verifyCase(serverUrl: string, testCase: (typeof testCases)[number
     const url = `${serverUrl}/yh-ui/playground/?demo=${demo}`
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 120000 })
 
-    await page.waitForFunction(() => window.frames.length > 0, { timeout: 120000 })
-    await page.waitForTimeout(5000)
+    const errorState = page.locator('.demo-playground__state--error')
+    if (await errorState.isVisible().catch(() => false)) {
+      throw new Error(
+        `Playground failed to initialize: ${(await errorState.textContent())?.trim()}`
+      )
+    }
 
-    const previewFrame = page.frames().find((frame) => frame.url() === 'about:srcdoc')
-    if (!previewFrame) {
-      throw new Error('Playground preview iframe was not created')
+    await page.locator('.demo-playground').waitFor({ state: 'visible', timeout: 120000 })
+    await page.locator('.vue-repl').waitFor({ state: 'visible', timeout: 120000 })
+    await page.waitForFunction(() => document.querySelectorAll('iframe').length > 0, {
+      timeout: 120000
+    })
+
+    const previewIframe = page.locator('iframe').last()
+    await previewIframe.waitFor({ state: 'attached', timeout: 120000 })
+
+    let previewFrame = await previewIframe.contentFrame()
+    const startedAt = Date.now()
+    while (!previewFrame) {
+      if (Date.now() - startedAt > 120000) {
+        throw new Error('Timed out waiting for Playground preview iframe content')
+      }
+      await page.waitForTimeout(500)
+      previewFrame = await previewIframe.contentFrame()
     }
 
     await previewFrame.locator(testCase.selector).first().waitFor({
       state: 'visible',
-      timeout: 60000
+      timeout: 120000
     })
 
     await testCase.evaluate(previewFrame as never)

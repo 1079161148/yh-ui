@@ -64,10 +64,16 @@ describe('YhTimePicker perf baseline', () => {
     }
 
     const max = Math.max(...times)
-    const degradation = times[rounds - 1] / times[0]
+    const steadyStateTimes = times.slice(1)
+    const sortedSteadyStateTimes = [...steadyStateTimes].sort((a, b) => a - b)
+    const steadyStateMedian =
+      sortedSteadyStateTimes[Math.floor(sortedSteadyStateTimes.length / 2)] ?? times[0]
+    const degradation = times[rounds - 1] / Math.max(steadyStateMedian, 0.1)
 
-    console.log(`[PERF] repeated time-picker mounts: ${times.map((t) => t.toFixed(2)).join(' / ')}ms`)
-    console.log(`[PERF] degradation ratio: ${degradation.toFixed(2)}x`)
+    console.log(
+      `[PERF] repeated time-picker mounts: ${times.map((t) => t.toFixed(2)).join(' / ')}ms`
+    )
+    console.log(`[PERF] degradation ratio vs steady-state median: ${degradation.toFixed(2)}x`)
 
     expect(max).toBeLessThan(1000)
     expect(degradation).toBeLessThan(3)

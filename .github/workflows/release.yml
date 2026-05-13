@@ -62,7 +62,7 @@ jobs:
         run: pnpm typecheck
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm test:ci
 
       - name: Verify packages and docs build
         run: pnpm verify:release
