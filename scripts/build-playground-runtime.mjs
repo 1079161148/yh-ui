@@ -3,9 +3,17 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { build } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { computeFingerprint, shouldSkipCachedBuild, updateBuildCache } from './build-cache.mjs'
 
 const rootDir = resolve(fileURLToPath(new URL('.', import.meta.url)), '..')
 const playgroundOutDir = resolve(rootDir, 'docs/public/playground')
+const runtimeOutputs = [
+  resolve(playgroundOutDir, 'yh-flow-runtime.js'),
+  resolve(playgroundOutDir, 'yh-flow-runtime.css'),
+  resolve(playgroundOutDir, 'yh-hooks-runtime.js'),
+  resolve(playgroundOutDir, 'yh-ui-bundle.js'),
+  resolve(playgroundOutDir, 'yh-ui-bundle.css')
+]
 
 async function cleanOutput() {
   await rm(resolve(playgroundOutDir, 'assets'), { recursive: true, force: true })
@@ -141,10 +149,27 @@ async function buildHooksRuntime() {
 }
 
 async function main() {
+  const fingerprint = await computeFingerprint([
+    fileURLToPath(import.meta.url),
+    resolve(rootDir, 'packages/components/src'),
+    resolve(rootDir, 'packages/flow/src'),
+    resolve(rootDir, 'packages/hooks/src'),
+    resolve(rootDir, 'packages/locale/src'),
+    resolve(rootDir, 'packages/theme/src'),
+    resolve(rootDir, 'packages/utils/src'),
+    resolve(rootDir, 'packages/yh-ui/src')
+  ])
+
+  if (await shouldSkipCachedBuild('build-playground-runtime', fingerprint, runtimeOutputs)) {
+    console.log('Playground runtime assets unchanged, skipping rebuild')
+    return
+  }
+
   await cleanOutput()
   await buildFlowRuntime()
   await buildHooksRuntime()
   await buildYhUiRuntime()
+  await updateBuildCache('build-playground-runtime', fingerprint, runtimeOutputs)
   console.log('Playground runtime assets built in docs/public/playground')
 }
 

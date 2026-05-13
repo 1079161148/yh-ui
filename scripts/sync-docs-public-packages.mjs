@@ -1,6 +1,7 @@
 import { cp, mkdir, rm, stat } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { computeFingerprint, shouldSkipCachedBuild, updateBuildCache } from './build-cache.mjs'
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const docsPublicDir = resolve(rootDir, 'docs/public')
@@ -52,9 +53,29 @@ async function syncPackage(packageDir, publicDir) {
 async function main() {
   await ensureDir(docsPublicDir)
 
+  const sourceDirs = []
+  const targetDirs = []
+
+  for (const [packageDir, publicDir] of packageMappings) {
+    sourceDirs.push(resolve(rootDir, 'packages', packageDir, 'dist'))
+    targetDirs.push(resolve(docsPublicDir, publicDir))
+  }
+
+  const fingerprint = await computeFingerprint([
+    fileURLToPath(import.meta.url),
+    ...sourceDirs
+  ])
+
+  if (await shouldSkipCachedBuild('sync-docs-public-packages', fingerprint, targetDirs)) {
+    console.log('[docs-public] skip sync (no package dist changes detected)')
+    return
+  }
+
   for (const [packageDir, publicDir] of packageMappings) {
     await syncPackage(packageDir, publicDir)
   }
+
+  await updateBuildCache('sync-docs-public-packages', fingerprint, targetDirs)
 }
 
 main().catch((error) => {

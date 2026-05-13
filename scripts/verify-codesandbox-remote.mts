@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import process from 'node:process'
 import { chromium } from 'playwright'
 import LZString from 'lz-string'
 import { createCodeSandboxProjectFiles } from '../docs/.vitepress/theme/utils/demo-sandbox'
@@ -225,6 +226,16 @@ interface TestCase {
   evaluate?: (page: BrowserPage) => Promise<void>
 }
 
+class ExternalServiceInterferenceError extends Error {
+  readonly status?: number
+
+  constructor(message: string, status?: number) {
+    super(message)
+    this.name = 'ExternalServiceInterferenceError'
+    this.status = status
+  }
+}
+
 function compressParameters(input: string): string {
   return LZString.compressToBase64(input)
     .replace(/\+/g, '-')
@@ -246,6 +257,29 @@ function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
     entry === `response: 400 ${previewUrl}` ||
     entry === 'console: Failed to load resource: the server responded with a status of 400 ()'
   )
+}
+
+function looksLikeCloudflareChallenge(text: string): boolean {
+  const normalized = text.toLowerCase()
+  return (
+    normalized.includes('challenges.cloudflare.com') ||
+    normalized.includes('cf-chl') ||
+    normalized.includes('just a moment') ||
+    normalized.includes('attention required') ||
+    normalized.includes('security policy')
+  )
+}
+
+function shouldSoftFailForExternalService(error: unknown): boolean {
+  if (!(error instanceof ExternalServiceInterferenceError)) {
+    return false
+  }
+
+  if (process.env.CODESANDBOX_REMOTE_STRICT === 'true') {
+    return false
+  }
+
+  return true
 }
 
 async function createRemoteSandbox(title: string, code: string, context?: TestCase['context']) {
@@ -283,6 +317,13 @@ async function createRemoteSandbox(title: string, code: string, context?: TestCa
 
   const defineText = await defineResponse.text()
   if (!defineResponse.ok) {
+    if (defineResponse.status === 403 && looksLikeCloudflareChallenge(defineText)) {
+      throw new ExternalServiceInterferenceError(
+        `CodeSandbox define blocked by Cloudflare challenge (${defineResponse.status})`,
+        defineResponse.status
+      )
+    }
+
     throw new Error(`CodeSandbox define failed (${defineResponse.status}): ${defineText}`)
   }
 
@@ -404,6 +445,17 @@ async function main() {
 }
 
 main().catch((error) => {
+  if (shouldSoftFailForExternalService(error)) {
+    console.warn(
+      `[verify:codesandbox-remote] skipped due to external service interference: ${error.message}`
+    )
+    console.warn(
+      '[verify:codesandbox-remote] Set CODESANDBOX_REMOTE_STRICT=true to fail CI on this condition.'
+    )
+    process.exitCode = 0
+    return
+  }
+
   console.error(error)
   process.exitCode = 1
 })

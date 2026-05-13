@@ -3,16 +3,23 @@ import { dirname, extname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import { build, transform } from 'esbuild'
+import { computeFingerprint, shouldSkipCachedBuild, updateBuildCache } from './build-cache.mjs'
 
 const rootDir = resolve(fileURLToPath(new URL('.', import.meta.url)), '..')
 const docsPublicDir = resolve(rootDir, 'docs/public')
 const runtimeOutDir = resolve(docsPublicDir, 'codesandbox-runtime')
 const localePackageDistDir = resolve(rootDir, 'packages/locale/dist')
 const dayjsEsmLocaleDir = resolve(rootDir, 'node_modules/dayjs/esm/locale')
+const manifestFile = resolve(runtimeOutDir, 'manifest.json')
 
 const SUPPORT_PACKAGES = ['hooks', 'locale', 'theme', 'utils']
 const COMPONENTS_DIR = resolve(docsPublicDir, 'components')
-const COMPONENT_ROOT_RUNTIME_FILES = ['dayjs.mjs', 'highlight.mjs', 'markdown-it.mjs', 'viewerjs.mjs']
+const COMPONENT_ROOT_RUNTIME_FILES = [
+  'dayjs.mjs',
+  'highlight.mjs',
+  'markdown-it.mjs',
+  'viewerjs.mjs'
+]
 const BUNDLE_EXTERNALS = [
   'vue',
   'dayjs',
@@ -78,10 +85,7 @@ function patchSourceForCodeSandbox(sourceFile, source) {
   if (normalizedSourceFile.endsWith('hooks/use-locale/dayjs-locale.mjs')) {
     return source
       .replace(/import\s+["']dayjs\/locale\/en["'];?\s*/, 'import "../../dayjs-locale/en.js";\n')
-      .replace(
-        /const dayjsLocales = import\.meta\.glob\([\s\S]*?\);\s*/,
-        ''
-      )
+      .replace(/const dayjsLocales = import\.meta\.glob\([\s\S]*?\);\s*/, '')
       .replace(
         /const loadDayjsLocale = async \(dayjsLocale\) => \{[\s\S]*?\n\};/,
         `const loadDayjsLocale = async (dayjsLocale) => {
@@ -199,7 +203,11 @@ async function rewriteImports(
   outputBaseRoot,
   collidingModuleBases = new Set()
 ) {
-  const matches = [...code.matchAll(/(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|export\s+[\w*\s{},]*?\s+from\s+["']|import\s*\(\s*["'])([^"']+)(["'])/g)]
+  const matches = [
+    ...code.matchAll(
+      /(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|export\s+[\w*\s{},]*?\s+from\s+["']|import\s*\(\s*["'])([^"']+)(["'])/g
+    )
+  ]
   let rewritten = code
 
   for (const match of matches.reverse()) {
@@ -513,6 +521,22 @@ async function bundleComponentRuntime(componentName, componentEntry) {
 }
 
 async function main() {
+  const fingerprint = await computeFingerprint([
+    fileURLToPath(import.meta.url),
+    resolve(docsPublicDir, 'components'),
+    resolve(docsPublicDir, 'hooks'),
+    resolve(docsPublicDir, 'locale'),
+    resolve(docsPublicDir, 'theme'),
+    resolve(docsPublicDir, 'utils'),
+    localePackageDistDir,
+    dayjsEsmLocaleDir
+  ])
+
+  if (await shouldSkipCachedBuild('build-codesandbox-runtime', fingerprint, [manifestFile])) {
+    console.log('CodeSandbox runtime assets unchanged, skipping rebuild')
+    return
+  }
+
   await rm(runtimeOutDir, { recursive: true, force: true })
   await ensureDir(runtimeOutDir)
 
@@ -538,6 +562,7 @@ async function main() {
     JSON.stringify(manifest, null, 2) + '\n',
     'utf8'
   )
+  await updateBuildCache('build-codesandbox-runtime', fingerprint, [manifestFile])
   console.log(`CodeSandbox runtime assets built in ${runtimeOutDir}`)
 }
 
