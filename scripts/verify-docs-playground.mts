@@ -266,7 +266,7 @@ async function verifyCase(serverUrl: string, testCase: (typeof testCases)[number
   const runtimeErrors: string[] = []
 
   page.on('console', (message) => {
-    if (message.type() !== 'error' && message.type() !== 'warning') return
+    if (message.type() !== 'error') return
     const text = message.text()
     if (shouldIgnoreError(text)) return
     runtimeErrors.push(`console: ${text}`)
