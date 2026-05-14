@@ -64,8 +64,23 @@ jobs:
       - name: Run tests
         run: pnpm test:ci
 
-      - name: Verify packages and docs build
-        run: pnpm verify:release
+      - name: Build packages
+        run: pnpm build
+
+      - name: Verify release versions
+        run: pnpm verify:release-versions
+
+      - name: Verify consumer smoke
+        run: pnpm verify:consumer-smoke
+
+      - name: Build docs
+        run: pnpm docs:build
+
+      - name: Verify StackBlitz local
+        run: pnpm verify:stackblitz-local
+
+      - name: Verify docs playground
+        run: pnpm verify:docs-playground
 
       - name: Verify remote CodeSandbox
         run: pnpm verify:codesandbox-remote
