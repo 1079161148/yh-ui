@@ -8,9 +8,11 @@ import hljs from 'highlight.js'
 // Use real markdown-it and highlight.js for better coverage
 import AiBubble from '../src/ai-bubble.vue'
 
-const { mockWebContainerBoot } = vi.hoisted(() => {
+const { mockWebContainerBoot, mockMermaidInitialize, mockMermaidRender } = vi.hoisted(() => {
   return {
-    mockWebContainerBoot: vi.fn()
+    mockWebContainerBoot: vi.fn(),
+    mockMermaidInitialize: vi.fn(),
+    mockMermaidRender: vi.fn()
   }
 })
 
@@ -20,10 +22,20 @@ vi.mock('@webcontainer/api', () => ({
   }
 }))
 
+vi.mock('mermaid', () => ({
+  default: {
+    initialize: mockMermaidInitialize,
+    render: mockMermaidRender
+  }
+}))
+
 describe('YhAiBubble', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockWebContainerBoot.mockReset()
+    mockMermaidInitialize.mockReset()
+    mockMermaidRender.mockReset()
+    mockMermaidRender.mockResolvedValue({ svg: '<svg class="mermaid-rendered"></svg>' })
   })
 
   afterEach(() => {
@@ -1158,7 +1170,11 @@ describe('YhAiBubble', () => {
       props: { content: '' }
     })
 
+    mockMermaidRender.mockRejectedValueOnce(new Error('Mermaid renderer unavailable'))
+
     const result = await (wrapper.vm as any)._renderMermaid('graph TD\nA-->B')
+    expect(mockMermaidInitialize).toHaveBeenCalled()
+    expect(mockMermaidRender).toHaveBeenCalled()
     expect(result).toContain('mermaid')
   })
 
