@@ -1,4 +1,4 @@
-import { rm } from 'node:fs/promises'
+import { copyFile, rm } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { build } from 'vite'
@@ -11,6 +11,8 @@ const runtimeOutputs = [
   resolve(playgroundOutDir, 'yh-flow-runtime.js'),
   resolve(playgroundOutDir, 'yh-flow-runtime.css'),
   resolve(playgroundOutDir, 'yh-hooks-runtime.js'),
+  resolve(playgroundOutDir, 'vue-runtime.js'),
+  resolve(playgroundOutDir, 'server-renderer.js'),
   resolve(playgroundOutDir, 'yh-ui-bundle.js'),
   resolve(playgroundOutDir, 'yh-ui-bundle.css')
 ]
@@ -21,6 +23,8 @@ async function cleanOutput() {
     rm(resolve(playgroundOutDir, 'yh-flow-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-flow-runtime.css'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-hooks-runtime.js'), { force: true }),
+    rm(resolve(playgroundOutDir, 'vue-runtime.js'), { force: true }),
+    rm(resolve(playgroundOutDir, 'server-renderer.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-bundle.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-bundle.css'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-monorepo.css'), { force: true })
@@ -148,6 +152,17 @@ async function buildHooksRuntime() {
   })
 }
 
+async function copyVueRuntimeAssets() {
+  await copyFile(
+    resolve(rootDir, 'node_modules/vue/dist/vue.runtime.esm-browser.js'),
+    resolve(playgroundOutDir, 'vue-runtime.js')
+  )
+  await copyFile(
+    resolve(rootDir, 'node_modules/@vue/server-renderer/dist/server-renderer.esm-browser.js'),
+    resolve(playgroundOutDir, 'server-renderer.js')
+  )
+}
+
 async function main() {
   const fingerprint = await computeFingerprint([
     fileURLToPath(import.meta.url),
@@ -169,6 +184,7 @@ async function main() {
   await buildFlowRuntime()
   await buildHooksRuntime()
   await buildYhUiRuntime()
+  await copyVueRuntimeAssets()
   await updateBuildCache('build-playground-runtime', fingerprint, runtimeOutputs)
   console.log('Playground runtime assets built in docs/public/playground')
 }
