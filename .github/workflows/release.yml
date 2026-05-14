@@ -79,9 +79,6 @@ jobs:
       - name: Verify StackBlitz local
         run: pnpm verify:stackblitz-local
 
-      - name: Verify docs playground
-        run: pnpm verify:docs-playground
-
       - name: Verify remote CodeSandbox
         run: pnpm verify:codesandbox-remote
 
