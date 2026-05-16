@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { computed, nextTick } from 'vue'
+import { computed, h, nextTick } from 'vue'
 import { en } from '@yh-ui/locale'
 import { configProviderContextKey } from '@yh-ui/hooks'
 import Transfer from '../src/transfer.vue'
@@ -526,6 +526,57 @@ describe('Transfer', () => {
       const rightItems = panels[1].findAll('.yh-transfer-panel__item')
       expect(rightItems[0].classes()).toContain('is-checked')
     })
+  })
+
+  it('covers unshift movement, custom slots and exposed clear methods', async () => {
+    const wrapper = mount(Transfer, {
+      props: {
+        data: generateData(6),
+        modelValue: [3],
+        targetOrder: 'unshift',
+        leftDefaultChecked: [1],
+        'onUpdate:modelValue': (val: TransferKey[]) => wrapper.setProps({ modelValue: val })
+      },
+      slots: {
+        'left-header': '<div class="left-header">Left head</div>',
+        'right-header': '<div class="right-header">Right head</div>',
+        'left-footer': '<div class="left-footer">Left foot</div>',
+        'right-footer': '<div class="right-footer">Right foot</div>',
+        default: '<span class="option-slot">{{ option.label }}</span>',
+        buttons: ({ moveToRight, moveToLeft, leftChecked, rightChecked }: any) =>
+          h('div', [
+            h(
+              'button',
+              { class: 'custom-move-right', onClick: moveToRight },
+              `right ${leftChecked.length}`
+            ),
+            h(
+              'button',
+              { class: 'custom-move-left', onClick: moveToLeft },
+              `left ${rightChecked.length}`
+            )
+          ])
+      }
+    })
+
+    expect(wrapper.find('.left-header').exists()).toBe(true)
+    expect(wrapper.find('.right-header').exists()).toBe(true)
+    expect(wrapper.find('.left-footer').exists()).toBe(true)
+    expect(wrapper.find('.right-footer').exists()).toBe(true)
+    expect(wrapper.find('.option-slot').exists()).toBe(true)
+    expect(wrapper.find('.custom-move-right').text()).toContain('1')
+
+    await wrapper.find('.custom-move-right').trigger('click')
+    expect(wrapper.emitted('change')?.[0]).toEqual([[1, 3], 'right', [1]])
+
+    const rightPanel = wrapper.findAllComponents(TransferPanel)[1]
+    await rightPanel.findAll('.yh-transfer-panel__item')[0].trigger('click')
+    await wrapper.find('.custom-move-left').trigger('click')
+    expect(wrapper.emitted('change')?.[1]).toEqual([[3], 'left', [1]])
+    ;(wrapper.vm as any).clearLeftChecked()
+    ;(wrapper.vm as any).clearRightChecked()
+    await nextTick()
+    expect(wrapper.find('.custom-move-right').text()).toContain('0')
   })
 })
 

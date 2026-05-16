@@ -1,8 +1,13 @@
-import { describe, it, expect } from 'vitest'
+import { afterEach, describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import Price from '../src/price.vue'
 
 describe('Price', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
   it('renders numeric values correctly', () => {
     const wrapper = mount(Price, {
       props: {
@@ -99,6 +104,56 @@ describe('Price', () => {
     expect(wrapper.classes()).toContain('is-gradient')
     expect(wrapper.classes()).toContain('is-bold')
     expect(wrapper.attributes('style')).toContain('linear-gradient')
+  })
+
+  it('renders symbol, tag and unit slots', () => {
+    const wrapper = mount(Price, {
+      props: {
+        value: 88,
+        tagType: 'success'
+      },
+      slots: {
+        symbol: '<span class="symbol-slot">USD</span>',
+        tag: '<span class="tag-slot">Member</span>',
+        unit: '<span class="unit-slot">month</span>'
+      }
+    })
+
+    expect(wrapper.find('.symbol-slot').text()).toBe('USD')
+    expect(wrapper.find('.tag-slot').text()).toBe('Member')
+    expect(wrapper.find('.unit-slot').text()).toBe('month')
+    expect(wrapper.find('.yh-price__tag--success').exists()).toBe(true)
+  })
+
+  it('animates value and maxValue updates', async () => {
+    const frames: FrameRequestCallback[] = []
+    const raf = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      frames.push(cb)
+      return frames.length
+    })
+    const cancel = vi.spyOn(window, 'cancelAnimationFrame').mockImplementation(() => {})
+    vi.spyOn(performance, 'now').mockReturnValue(0)
+
+    const wrapper = mount(Price, {
+      props: {
+        value: 100,
+        maxValue: 200,
+        animated: true
+      }
+    })
+
+    expect(raf).toHaveBeenCalled()
+    frames.splice(0).forEach((frame) => frame(1000))
+    await nextTick()
+    expect(wrapper.text()).toContain('100.00')
+    expect(wrapper.text()).toContain('200.00')
+
+    await wrapper.setProps({ value: 150, maxValue: 250 })
+    expect(cancel).toHaveBeenCalledWith(2)
+    frames.splice(0).forEach((frame) => frame(1000))
+    await nextTick()
+    expect(wrapper.text()).toContain('150.00')
+    expect(wrapper.text()).toContain('250.00')
   })
 
   it('handles invalid numeric input and zero precision', () => {

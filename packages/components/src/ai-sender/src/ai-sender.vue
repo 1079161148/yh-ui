@@ -351,6 +351,7 @@ const handleFocus = (e: FocusEvent) => {
           v-if="clearable && innerValue.length > 0"
           :class="ns.e('clear-btn')"
           circle
+          :aria-label="t('common.clear') || 'Clear input'"
           @click="handleClear"
           :disabled="loading"
         >
@@ -370,6 +371,7 @@ const handleFocus = (e: FocusEvent) => {
             :class="ns.e('send-btn')"
             :disabled="!innerValue?.trim() || disabled"
             :loading="loading"
+            :aria-label="t('ai.sender.placeholder') || 'Send message'"
             @click="handleSend"
             circle
           >

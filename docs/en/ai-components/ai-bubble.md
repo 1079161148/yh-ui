@@ -140,7 +140,8 @@ const tsCitations = `<${_T}>
 import type { AiCitation } from '@yh-ui/components';
 
 const citations: AiCitation[] = [
-  { id: 1, title: 'YH-UI Official Docs', url: 'https://yh-ui.com' },
+  { id: 1, title: 'YH-UI Official Docs', url: 'https://1079161148.github.io/yh-ui/
+' },
   { id: 2, title: 'Vue 3 Composition API Guide', url: 'https://vuejs.org' },
   { id: 3, title: 'Vite Developer Community', url: 'https://vitejs.dev' }
 ];
@@ -320,11 +321,11 @@ const tsConversation = `<${_T}>
 
 <${_S} setup lang="ts">
 const conversationMessages = [
-  { role: 'assistant', content: 'Hello! I\'m your AI assistant today. What can I help you with?' },
-  { role: 'user', content: 'I\'d like to learn Vue 3\'s Composition API.' },
+  { role: 'assistant', content: "Hello! I'm your AI assistant today. What can I help you with?" },
+  { role: 'user', content: "I'd like to learn Vue 3's Composition API." },
   { role: 'assistant', content: 'Composition API is a new API style introduced in Vue 3 that allows you to organize component logic better.' },
   { role: 'user', content: 'Can you give me an example?' },
-  { role: 'assistant', content: 'Of course!\\n\\n\`\`\`vue\\n<script setup>\\nimport { ref, computed } from "vue"\\n\\nconst count = ref(0)\\nconst doubled = computed(() => count.value * 2)\\n<\\/script>\\n\\n<template>\\n  <button @click="count++">Count: {{ count }}</button>\\n</template>\\n\`\`\`\\nThis is a simple Composition API example.' }
+  { role: 'assistant', content: "Of course!\\n\\n\`\`\`vue\\n<script setup>\\nimport { ref, computed } from \\"vue\\"\\n\\nconst count = ref(0)\\nconst doubled = computed(() => count.value * 2)\\n<\\\\/script>\\n\\n<template>\\n  <button @click=\\"count++\\">Count: {{ count }}</button>\\n</template>\\n\`\`\`\\nThis is a simple Composition API example." }
 ];
 </${_S}>`
 

@@ -576,6 +576,7 @@ defineExpose<SelectExpose>({
         :readonly="!filterable"
         autocomplete="off"
         role="combobox"
+        :aria-label="placeholder || t('select.placeholder')"
         :aria-expanded="visible"
         :aria-controls="`${inputId}-listbox`"
         @input="handleInput"

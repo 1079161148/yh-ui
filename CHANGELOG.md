@@ -1,347 +1,168 @@
 # Changelog
 
-All notable changes to YH-UI will be documented in this file.
+YH-UI 的重要版本变更会记录在这里。
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
-## [1.0.0] - 2026-04-21
+## [1.0.8] - 2026-05-16
+
+首个面向开发者的正式开源生产版本。
+
+这一版本把 YH-UI 收敛为可公开安装、可阅读、可验证、可贡献、可持续发布的 Vue 3.5+ 组件库工程。重点不是单个组件的补丁，而是把组件能力、文档体系、AI 友好资料、在线示例、发布门禁和开源协作流程一起整理到生产发布状态。
 
 ### Added
 
-- Added a release-candidate gate document and stable-release blocker checklist so `1.0.0` publication is backed by an explicit in-repo sign-off flow.
-- Added open-source community health files and issue templates covering contribution guidance, security reporting, code of conduct expectations, and structured bug/feature intake.
-- Added compatibility and support-boundary documentation in both Chinese and English, including runtime/browser expectations and SSR support boundaries.
+- 新增 YH-UI Agent Skill 知识包，包含组件选择规则、Vue / Nuxt / AI Chat / Request / Flow / Theme / Locale 场景模板、失败保护规则、source-truth、API cheatsheet、深度 recipes、`llms.txt` 与 `llms-full.txt`，方便 ChatGPT、Codex、Claude、Cursor 等 AI 工具按真实 API 生成代码。
+- 新增中英文开源文档章节，覆盖迁移指南、设计原则、最佳实践、Figma / Token 体系、版本策略、社区反馈闭环、无障碍、包体积分层和旗舰示例。
+- 新增 Hooks 中英文文档入口，补齐基础组件下组合式工具的使用说明。
+- 新增图标组件化入口与图标集合文档，支持像使用普通 Vue 组件一样使用 YH-UI 图标。
+- 新增组件质量矩阵与开放发布门禁脚本，覆盖组件文档、示例、类型、测试、可访问性证据和发布前验证。
 
 ### Changed
 
-- Promoted the repository from the prior `0.1.x` preparation line to the first stable `1.0.0` release line after a full local RC gate pass.
-- Split validation into explicit layers for lint, typecheck, unit tests, coverage, perf, package build, docs build, consumer smoke, sandbox validation, and remote CodeSandbox verification.
-- Expanded interactive-component coverage using the four-dimensional template established during the stabilization cycle: correctness, SSR/hydration, perf sensitivity, and exception tolerance.
+- 将公开安装入口统一为 `@yh-ui/yh-ui`，完整样式入口统一为 `@yh-ui/yh-ui/css`，避免继续传播未 scoped 的 `yh-ui` 包名。
+- 优化 GitHub Release 发布链路，发布说明从 `CHANGELOG.md` 当前版本段落自动提取，降低打 tag 时遗漏发布描述的风险。
+- 优化 CI / Release 工作流，把适合本地提前验证的格式、类型、测试、构建、包体积、consumer smoke、Playground、StackBlitz、文档构建等检查沉淀为可复用脚本。
+- 优化文档顶部最新版本展示，版本号从 package metadata 自动读取，后续发布无需手动维护文案。
+- 优化 CodeSandbox、StackBlitz、Playground 和文档运行时资源生成流程，减少在线示例样式缺失和包入口解析不一致的风险。
+- 优化 AI Thought Chain 进行中状态的视觉反馈，为思考中节点增加轻量波动动画。
+- 统一版权年份为 2026，并更新根 README 与各子包 README 的定位、安装方式和功能描述。
 
 ### Fixed
 
-- Fixed release-blocking instability in theme history coverage, menu perf baselines, `AiBubble` declaration generation, docs compatibility dead links, Nuxt style integration, and consumer smoke validation.
-- Fixed package-level DOM tests being misclassified under Node-only runtime coverage, reducing false confidence and making the CI signal more trustworthy for a stable release.
-- Fixed multiple docs/demo/runtime pipeline issues so generated public assets, sandbox demos, and release validation behave consistently on the current mainline.
+- 修复文档、示例和 README 中错误的 `pnpm add yh-ui`、`import YhUI from 'yh-ui'`、`import 'yh-ui/css'` 等旧包名描述。
+- 修复部分在线示例、Playground、CodeSandbox、StackBlitz 场景下组件样式或运行时包入口丢失的问题。
+- 修复 Nuxt playground、consumer smoke 和发布沙箱验证中本地 workspace 包入口解析不稳定的问题。
+- 修复部分 Markdown 文档乱码、过期说明、无效链接和中英文内容不同步问题。
+- 修复低覆盖组件测试不足的问题，补齐真实交互测试，避免通过扩大 exclude 硬过覆盖门禁。
 
 ### Notes
 
-- `1.0.0` is the first stable release line and supersedes the `0.1.56` release-candidate preparation snapshot below.
-- This release was locally validated on April 21, 2026 by passing: `pnpm typecheck`, `pnpm lint`, `pnpm test:ci`, `pnpm test:coverage`, `pnpm test:perf`, `pnpm build`, `pnpm docs:build`, `pnpm verify:consumer-smoke`, `pnpm verify:release`, and `pnpm verify:codesandbox-remote`.
+- 新项目应安装 `@yh-ui/yh-ui`，并通过 `import '@yh-ui/yh-ui/css'` 引入完整样式。
+- Nuxt 项目优先使用 `@yh-ui/nuxt` 模块；涉及 Flow 等依赖浏览器布局能力的重交互示例，在 SSR 页面中建议配合 `<ClientOnly>` 使用。
+- 发布前本地建议执行 `pnpm verify:open-source-release`；发布后建议执行 `pnpm wait:published-packages` 与 `pnpm verify:published-release`。
+- GitHub Release 正文可通过 `pnpm release-notes:extract` 从本段 changelog 自动生成。
 
-## [0.1.56] - 2026-04-21
+## [1.0.7] - 2026-05-16
 
-### Added
+首个标准化对外开源版本。
 
-- Added a dedicated `packages-dom` Vitest project so DOM-dependent package tests are no longer mixed into the `packages-node` runtime.
-- Added layered coverage and perf validation to the release gate, including a dedicated `pnpm test:perf` path and consumer smoke verification for clean Vite and Nuxt apps.
-- Added public project health files for open-source collaboration:
+这一版本将 YH-UI 从一个持续迭代的组件库工程整理为可公开安装、可验证、可贡献、可持续发布的 Vue 3.5+ 组件系统。它不是一次单点功能发布，而是对组件能力、包结构、文档、质量门禁和开源协作流程的完整定版。
+
+### 发布定位
+
+- 将 `@yh-ui/yh-ui` 确立为完整安装入口。
+- 将 `@yh-ui/yh-ui/css` 确立为完整样式入口。
+- 将 `@yh-ui/yh-ui/resolver` 确立为按需导入解析器入口。
+- 将 `@yh-ui/nuxt` 确立为 Nuxt 集成入口。
+- 将 `pnpm verify:open-source-release` 确立为标准公开发布门禁。
+
+### 安装入口
+
+```bash
+pnpm add @yh-ui/yh-ui
+```
+
+```ts
+import { createApp } from 'vue'
+import YhUI from '@yh-ui/yh-ui'
+import '@yh-ui/yh-ui/css'
+import App from './App.vue'
+
+createApp(App).use(YhUI).mount('#app')
+```
+
+### 包范围
+
+本次标准版本同步发布以下公开包：
+
+| Package             | Description                                               |
+| ------------------- | --------------------------------------------------------- |
+| `@yh-ui/yh-ui`      | 完整入口包，面向应用侧直接安装和使用。                    |
+| `@yh-ui/components` | 核心 Vue 组件与业务组件。                                 |
+| `@yh-ui/theme`      | 主题系统、设计 Token、暗色模式与运行时 CSS 变量能力。     |
+| `@yh-ui/hooks`      | Vue 组合式工具。                                          |
+| `@yh-ui/utils`      | 共享运行时工具。                                          |
+| `@yh-ui/icons`      | Iconify 兼容图标运行时与组件化图标入口。                  |
+| `@yh-ui/request`    | 请求客户端、请求 hooks、缓存、SSE、队列、上传和下载能力。 |
+| `@yh-ui/flow`       | 流程图与节点编辑器能力。                                  |
+| `@yh-ui/ai-sdk`     | Vercel AI SDK、LangChain 等 AI 集成能力。                 |
+| `@yh-ui/locale`     | 国际化语言包。                                            |
+| `@yh-ui/nuxt`       | Nuxt 3 / Nuxt 4 集成模块。                                |
+
+### 核心能力
+
+- 提供 103 个通过质量矩阵检查的组件，覆盖基础组件、表单、数据展示、反馈弹层、导航、布局、电商业务组件、AI 交互组件和工作流组件。
+- 提供完整 TypeScript 类型导出，覆盖 props、events、slots、expose、配置项、数据项和列配置等常见使用面。
+- 提供主题 Token、暗色模式、运行时主题变量、组件级主题能力和主题文档。
+- 提供 AI Chat、Sender、Bubble、Thought Chain、Code Block、Code Editor、Code Runner、Artifacts、Prompts、Sources、Attachments 等 AI 产品界面能力。
+- 提供 Table、Gantt Chart、Flow editor、虚拟滚动、上传、表单校验、消息通知、弹层和复杂业务组件能力。
+- 提供 Vite、Nuxt、按需导入、完整导入、文档 Playground、CodeSandbox / StackBlitz 验证路径。
+
+### 文档与开源协作
+
+- 重整 README，使安装、包说明、Nuxt 用法、质量门禁、发布流程和兼容边界对外清晰可读。
+- 补齐中英文文档结构，覆盖快速开始、安装、构建、主题、兼容性、包体积、迁移指南、Nuxt 集成和组件示例。
+- 增加并保留开源协作文件：
   - `CONTRIBUTING.md`
-  - `SECURITY.md`
   - `CODE_OF_CONDUCT.md`
-- Added a stable-release blocker checklist and maintainer release validation flow so repository hardening work is tracked in-repo instead of by ad hoc notes.
+  - `SECURITY.md`
+- 增加 issue templates，便于 bug、功能请求和文档问题进入结构化维护流程。
 
-### Changed
+### 质量标准
 
-- Updated the release/CI pipeline to treat lint, unit tests, coverage, perf, docs build, and consumer smoke as separate gates instead of one undifferentiated test step.
-- Expanded component test coverage with the four-dimensional template used in recent work:
-  - interaction correctness
-  - SSR / hydration
-  - performance-sensitive rendering
-  - exception tolerance / edge behavior
-- Improved sandbox, docs playground, and release verification flows so published demos and example integrations are validated more consistently before and after release.
-- Documented the Nuxt module's style-injection behavior around the explicit published CSS entry to match the actual runtime contract.
+这一版本以公开发布为目标，建立以下可重复验证的质量门禁：
 
-### Fixed
+- `pnpm format:check`
+- `pnpm typecheck`
+- `pnpm lint`
+- `pnpm test:ci`
+- `pnpm build`
+- `pnpm verify:package-size`
+- `pnpm verify:component-quality`
+- `pnpm verify:consumer-smoke`
+- `pnpm verify:playgrounds`
+- `pnpm verify:docs-i18n`
+- `pnpm verify:docs`
+- `pnpm verify:open-source-release`
 
-- Fixed the main test-layering risk by moving package-level DOM tests out of the Node-only Vitest project.
-- Fixed multiple CI and release-pipeline instability issues across docs builds, sandbox publishing, release redeploys, and publish verification.
-- Fixed clean-consumer validation so both Vite + Vue and Nuxt SSR example apps build and render against the packaged library successfully.
-- Fixed the Nuxt consumer style integration path by exporting and injecting an explicit CSS subpath, removing the prior SSR style-extraction warning in local smoke verification.
-- Fixed repository lint debt down to `pnpm lint` = 0 warnings / 0 errors on the current mainline state validated on 2026-04-21.
+组件质量矩阵要求每个组件具备源码入口、样式或豁免说明、中英文文档、API 文档、可运行示例、单元测试、SSR 测试、交互组件可访问性证据和公开类型证据。
+
+### 发布验证
+
+公开发布前建议执行：
+
+```bash
+pnpm verify:open-source-release
+pnpm verify:codesandbox-remote
+```
+
+发布后建议执行：
+
+```bash
+pnpm wait:published-packages
+pnpm verify:published-release
+```
+
+这些检查覆盖本地构建、包体积预算、版本一致性、组件质量、Vite / Nuxt 消费端 smoke、Playground、文档构建、StackBlitz、CodeSandbox、npm 可见性、jsDelivr 与 unpkg 资源可用性。
+
+### 兼容性
+
+- Vue: `>= 3.5.0`
+- Node.js: `>= 18.0.0`
+- pnpm: `>= 9.0.0`
+- Nuxt: `^3.11.0 || ^4.0.0-rc.1`
+- Browser: 现代 Chrome、Edge、Firefox、Safari
+- SSR: 支持主流组件用法和 Nuxt 集成；依赖浏览器 API 的重交互能力应在目标运行环境中单独验证。
+
+### 迁移说明
+
+- 新项目应使用 `@yh-ui/yh-ui`，不要使用未 scoped 的 `yh-ui` 包名。
+- 完整样式入口应使用 `@yh-ui/yh-ui/css`。
+- Nuxt 项目优先使用 `@yh-ui/nuxt` 模块。
+- 从旧版本、其他组件库或自研组件迁移时，建议先迁移基础样式和低风险展示组件，再逐步迁移表单、弹层、表格、上传、流程和 AI 组件。
 
 ### Notes
 
-- This entry aggregates the release train from `0.1.20` through `0.1.56`, which focused primarily on release engineering, docs/demo stability, test layering, consumer confidence, and stable-public-release preparation.
-- Earlier detailed component-level history remains below; this top entry closes the gap between the published package line and the documented changelog.
-
-## [0.1.19] - 2026-03-26
-
-### 🛠️ Build & Registry Stabilization (Industrial Grade)
-
-- **构建系统升级**: 彻底修复了 `@yh-ui/components` 在 Windows 环境下因 `mkdist` 与 `vue-tsc` 交互导致的构建崩溃（"Cannot read properties of undefined (reading 'errors')"）。通过引入独立的 `vue-tsc` 声明生成步骤，显著提升了构建流水线的稳定性。
-- **类型系统精修 (Strict Mode)**:
-  - **Menu**: 修复了 `YhMenuRecursiveItem` 中由于动态属性访问导致的 `unknown` 类型校验错误，并完善了递归组件的 Null 检查。
-  - **Style Prop 标准化**: 统一了 `Tooltip`, `Popover`, `Popconfirm`, `Menu` 等所有组件的样式属性（`popperStyle`, `contentStyle` 等）为 `StyleValue` 类型，确保了在 Vue 3.5+ 严格模式下的类型兼容性。
-  - **GanttChart**: 解决了 `FlattenedGanttTask` 内部接口在声明导出时“无法命名”的错误，通过提升关键类型至公用导出层，确保了 declaration 文件的正确生成。
-- **质量保障**:
-  - **100% 测试通过率**: 验证并确保了全量 3070 个单元测试/SSR 测试用例全部通过。
-  - **工业级零警告交付**: 实现了 `pnpm typecheck` 逻辑层与构建层双重 0 错误目标。
-
----
-
-## [0.1.18] - 2026-03-26
-
-### 🐛 Bug Fixes
-
-- **AiMermaid**: 修复了 SSR 环境下缺失 `YhSpin` 组件导致的渲染警告；同步了单测与 SSR 测试的选择器至最新的 BEM 命名规范；优化了 `header` 属性的类型定义以增强类型安全。
-- **AiConversations**: 修复了空状态下文案不匹配的问题，通过新增专用的 `ai.conversations.noData` 词条提升了国际化准确性。
-- **LuckyDraw**: 修复了 Vue 模板中多行 HTML 元素的换行格式问题，消除 Lint 警告。
-- **Type Safety**: 修复了 `ai-mermaid` 属性定义中的 `any` 不规范用法。
-
-### ✨ Refactor & Optimization
-
-- **i18n**: 重构了 `Language` 接口，将 AI 组件（Conversations, Attachments, Mermaid, Canvas）的 locale 配置项改为可选（Optional），确保了与现有 67 种语言包的向后兼容性，彻底解决了构建时的类型检查报错。
-- **i18n**: 同步补全了 `zh-cn`, `en`, `zh-tw` 等核心语言包中缺失的 AI 组件词条（如 `noData`, `retry`, `canvas` 等）。
-
-### 🧪 Stability
-
-- **全量测试验证**: 运行并确保全量 344 个测试文件（共 3070 个单测/SSR 用例）100% 通过。
-- **Lint & TypeCheck**: 实现了 0 警告、0 错误的工业级代码交付标准。
-
----
-
-## [0.1.17] - 2026-03-26
-
-### 🛠️ Architecture & Standardization (Industrial Grade A+)
-
-- **类型安全**: 实现了组件库 100% TypeScript 类型安全，全面杜绝 `any` 类型的使用。
-- **导出规范**: 统一了所有组件实例和属性的导出方式，强制使用 `Yh` 前缀（如 `YhButtonInstance`, `YhTableProps`），显著提升了开发者的智能提示体验。
-- **Nuxt 集成**: 完美对齐 Nuxt 自动导入规格，所有组件、Hooks 及全局工具函数均支持在 Nuxt 3 环境下开箱即用，无需手动配置。
-
----
-
-## [0.1.16] - 2026-03-25
-
-### 📄 Documentation & UX
-
-- **FilterBar**: 完成了 FilterBar 组件文档的现代化升级，中英文档 100% 对齐。
-- **交互示例**: 引入了交互式 DemoBlock，解决了多实例状态干扰及价格筛选重置的边界逻辑 Bug，为 SSR 环境提供了生产级用法参考。
-- **SEO**: 全面优化了组件库文档的 SSR 性能及 SEO 标签。
-
----
-
-## [0.1.15] - 2026-03-24
-
-### 🛒 E-commerce Suite (Premium)
-
-- **LuckyDraw**: 采用 BEM Mixins 以及全局主题变量重构了 SCSS 样式，在保持原有精美动画的同时，极大提升了样式的解耦度与 SSR 性能。
-- **CouponCard**: 修复了规则展开高度突变的问题，将内容区强制锁定在 100px 基准高度，并补全了 Rules 展开项的 i18n 支持。
-- **SKUSelector**: 优化了库存不足时的交互反馈，确保了在极端网络环境下的状态同步稳定性。
-
----
-
-## [0.1.14] - 2026-03-24
-
-### 🏗️ Industrial Gantt Chart (Stable)
-
-- **核心功能**: 正式发布工业级甘特图组件，支持任务拖拽、依赖可视化及多视图（日/周/月）切换。
-- **性能优化**: 解决了在极端缩放比例下元素失效及内存泄漏的问题。
-- **稳定性**: 通过了完整的 SSR 测试用例，确保在所有 Nuxt 场景下表现一致。
-
----
-
-## [0.1.13] - 2026-03-23
-
-### ✨ Enhancements & Refactoring
-
-- **Demo Escaping**: 全面优化了文档系统的 Demo 代码转义逻辑，通过 `demo-utils.ts` 彻底解决了 Script/Style 标签嵌套导致的渲染错误。
-- **Global Styles**: 统一了所有 AI 组件及电商组件的圆角、阴影及过渡动画，形成了 V3 风格的统一品牌视觉。
-
----
-
-## [0.1.12] - 2026-03-01
-
-### 🐛 Bug Fixes
-
-- **AiVoiceTrigger**: 修复波形动画 SCSS 样式不生效的问题，优化波形条 transform 动画表现
-- **AiBubble**: 修复气泡组件 SCSS 作用域样式隔离问题
-- **useLocale / dayjs-locale**: 修复 `Failed to load dayjs locale` 控制台警告，改用静态 import map 替代动态 import，彻底消除 Vite dev 下的 404 请求
-- **SSR**: 修复多处 `setInterval` / `setInterval` 在 SSR 环境下未被 `onMounted`/`onUnmounted` 包裹导致的进程挂起问题
-- **文档**: 修复 `ai-voice-trigger` 文档示例中 HTML 转义格式错误，补充与 `AiBubble` 组合使用的实战场景 Demo
-
-### 📦 依赖
-
-- 同步更新 `pnpm-lock.yaml` 及 `pnpm-workspace.yaml`
-
----
-
-## [0.1.11] - 2026-03-01
-
-### 🤖 新增 AI 工业级全套组件 (Alpha)
-
-- **AiProvider**: AI 全局配置中心，支持 base-url、token 注入及打字机配置。
-- **AiChat**: 开箱即用的智能对话流容器。
-- **AiBubble**: 高性能对话气泡，支持多模态及思维链展示。
-- **AiSender**: 增强型 AI 输入框，内置附件上传与指令集支持。
-- **AiArtifacts**: AI 多版本工件管理系统。
-- **AiAgentCard / AiSources / AiThoughtChain**: 完善 Agent 的深度分析。
-- **AiWelcome / AiPrompts**: 提升落地后的首次交互引导。
-
-### 📄 文档与开发者体验
-
-- **文档三位一体标准**: 开发并应用 `demo-utils.ts` 实现文档示例的 TS/JS 100% 自动对齐转换。
-- **AiProvider 文档**: 完善的中英文档，包含身份配置及动态交互 Demo。
-- **i18n**: 补全所有 AI 组件的 67 种国际化词条，强制类型校验。
-
-### 🧪 稳定性与质量
-
-- **全量测试提升**: 覆盖所有 AI 组件的单测与 SSR 测试（312 个用例全部通过）。
-- **组件注册**: 完善 `component.d.ts` 为 Volar 提供精准的全局组件映射。
-- **Lint 修正**: 全量修复 AI 组件及测试目录中的 13 个重要 Lint 警告及错误。
-
----
-
-## [0.1.10] - 2026-02-23
-
-### Fixed
-
-- 修复了若干 AI 交互场景下的 CSS 样式隔离问题。
-- 补全了部分包路径错误导致的构建失败问题。
-
----
-
-## [0.1.0] - 2026-02-21
-
-### ✨ 初始正式发布
-
-这是 YH-UI 的第一个公开版本。经过深度设计与开发，本版本包含：
-
-### 🧩 组件（61 个）
-
-#### 基础组件
-
-- **Button** - 按钮，支持 6 种类型、3 种尺寸、plain/round/circle/text/link/block 等变体
-- **Icon** - 图标，基于 SVG 的图标系统
-
-#### 表单组件
-
-- **Input** - 输入框，支持视觉变体（default/filled/borderless/underlined）、加载状态、状态反馈、聚焦自选、Esc清空、datalist、字数统计自定义
-- **InputNumber** - 数字输入框
-- **InputTag** - 标签输入框，支持动态标签创建
-- **Select** - 选择器，支持单选/多选/远程搜索/分组/虚拟化
-- **Cascader** - 级联选择器
-- **Checkbox** - 复选框 & 组
-- **Radio** - 单选框 & 组
-- **Switch** - 开关
-- **Slider** - 滑块
-- **Rate** - 评分
-- **ColorPicker** - 颜色选择器
-- **DatePicker** - 日期选择器（支持 date/daterange/month/year 等多种 type）
-- **TimePicker** - 时间选择器
-- **TimeSelect** - 时间选择（步进式）
-- **Form** + **FormItem** - 表单 & 校验，集成 async-validator
-- **Upload** - 上传，支持拖拽/多文件/自定义请求
-
-#### 数据展示
-
-- **Table** - 表格，媲美 vxe-table 的功能密度：
-  - 虚拟滚动（万行性能保障）
-  - 行/列拖拽排序（原生拖拽 API）
-  - 列宽调整
-  - 分组表头
-  - 合并单元格（spanMethod）
-  - 汇总行
-  - 右键菜单
-  - 工具栏（导出/打印/列设置/全屏）
-  - CSV、XLSX、PDF 导出
-  - 打印功能
-  - 行内编辑
-  - 树形数据（懒加载）
-  - 表单校验集成
-- **Tree** - 树形控件，支持懒加载/虚拟滚动
-- **TreeSelect** - 树形选择器
-- **Pagination** - 分页
-- **Badge** - 徽标
-- **Tag** - 标签
-- **Avatar** - （规划中）
-- **Image** - 图片，支持懒加载/预览/图片组
-- **Descriptions** - 描述列表
-- **Calendar** - 日历
-- **Progress** - 进度条
-- **Skeleton** - 骨架屏
-- **Countdown** - 倒计时
-- **InfiniteScroll** - 无限滚动指令
-- **Waterfall** - 瀑布流布局（特色组件）
-- **Watermark** - 水印
-
-#### 反馈组件
-
-- **Alert** - 警告提示
-- **Dialog** - 对话框
-- **Drawer** - 抽屉
-- **Message** - 消息提示
-- **MessageBox** - 消息弹框（Alert/Confirm/Prompt）
-- **Notification** - 通知
-- **Popconfirm** - 气泡确认框
-- **Loading** - 加载（指令和服务调用）
-- **Spin** - 加载旋转
-
-#### 导航组件
-
-- **Menu** - 导航菜单（水平/垂直/折叠）
-- **Tabs** - 标签页
-- **Breadcrumb** - 面包屑
-- **Dropdown** - 下拉菜单
-- **Steps** - 步骤条
-- **Affix** - 固钉
-- **BackTop** - 返回顶部
-
-#### 布局组件
-
-- **Row** + **Col** - 栅格布局（24列系统，响应式断点）
-- **Divider** - 分割线
-- **Marquee** - 滚动公告（特色组件）
-
-#### 配置提供
-
-- **ConfigProvider** - 全局配置提供（locale/size/zIndex/theme）
-
-### 🎨 主题系统（行业领先）
-
-- 12 种预设主题（default/dark/blue/green/purple/orange/rose/amber/teal/indigo/slate/zinc）
-- 色盲友好模式（protanopia/deuteranopia/tritanopia/achromatopsia）
-- WCAG 2.1 对比度自动校验
-- 3 种密度配置（comfortable/compact/dense）
-- 4 种颜色算法（default/vibrant/muted/pastel）
-- 主题快照与历史回滚
-- 响应式断点主题
-- 主题切换动画
-- 从主色自动推导完整调色板
-
-### 🌍 国际化（67 种语言）
-
-超越 Element Plus(43种)、Naive UI(25种)，与 Ant Design 持平。
-
-### 🔌 原生 Nuxt 3 支持
-
-提供 `@yh-ui/nuxt` 模块，零配置支持 SSR。
-
-### 🛠️ Hooks
-
-- `useNamespace` - BEM 命名工具
-- `useLocale` - 国际化
-- `useFormItem` - 表单集成
-- `useConfig` - 全局配置
-- `useZIndex` - 层级管理
-- `useId` - 唯一ID生成
-- `useScrollLock` - 滚动锁定
-- `useEventListener` - 事件监听
-- `useClickOutside` - 点击外部
-- `useVirtualScroll` - 虚拟滚动
-- `useCache` - 缓存工具
-
----
-
-[0.1.18]: https://github.com/1079161148/yh-ui/compare/v0.1.12...v0.1.18
-[0.1.56]: https://github.com/1079161148/yh-ui/compare/v0.1.19...v0.1.56
-[0.1.17]: https://github.com/1079161148/yh-ui/compare/v0.1.16...v0.1.17
-[0.1.16]: https://github.com/1079161148/yh-ui/compare/v0.1.15...v0.1.16
-[0.1.15]: https://github.com/1079161148/yh-ui/compare/v0.1.14...v0.1.15
-[0.1.14]: https://github.com/1079161148/yh-ui/compare/v0.1.13...v0.1.14
-[0.1.13]: https://github.com/1079161148/yh-ui/compare/v0.1.12...v0.1.13
-[0.1.12]: https://github.com/1079161148/yh-ui/compare/v0.1.11...v0.1.12
-[0.1.11]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.11
-[0.1.10]: https://github.com/1079161148/yh-ui/compare/v0.1.0...v0.1.10
-[0.1.0]: https://github.com/1079161148/yh-ui/releases/tag/v0.1.0
+- `1.0.7` 是 YH-UI 面向外部用户和开源协作者的第一个标准版本记录。
+- 之后的 changelog 将从该版本继续追加，按版本记录新增、变更、修复、兼容性说明和迁移提示。

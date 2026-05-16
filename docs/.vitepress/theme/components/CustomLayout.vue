@@ -6,6 +6,7 @@
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 // import LanguageSwitcher from './LanguageSwitcher.vue'
+import LatestVersionBadge from './LatestVersionBadge.vue'
 import SidebarToggle from './SidebarToggle.vue'
 import BackToTop from './BackToTop.vue'
 import { onMounted, onUnmounted, computed, watch } from 'vue'
@@ -74,9 +75,9 @@ onUnmounted(() => {
   <yh-config-provider :locale="currentLocale">
     <Layout>
       <!-- 导航栏右侧插槽 - 语言切换 (使用 VitePress 自带的，这里注释掉自定义的) -->
-      <!-- <template #nav-bar-content-after>
-        <LanguageSwitcher />
-      </template> -->
+      <template #nav-bar-content-after>
+        <LatestVersionBadge />
+      </template>
 
       <!-- 侧边栏切换按钮 -->
       <template #sidebar-nav-after>

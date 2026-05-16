@@ -250,56 +250,111 @@ const openCustom = () => {
   <yh-button @click="openCustom">Show custom VNode</yh-button>
 </${_T}>`
 
-const tsAxios = `import axios from 'axios'
-import { YhLoading } from '@yh-ui/yh-ui'
+const tsAxios = `<${_T}>
+  <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+    <yh-button :loading="running" @click="runRequests">Simulate concurrent requests</yh-button>
+    <div style="color: var(--yh-text-color-secondary); font-size: 14px;">
+      Active request count: {{ requestCount }}
+    </div>
+  </div>
+</${_T}>
 
-let loadingInstance = null
-let requestCount = 0
+<${_S} setup lang="ts">
+import axios from 'axios'
+import { ref } from 'vue'
+import { YhLoading } from '@yh-ui/yh-ui'
+import type { YhLoadingInstance } from '@yh-ui/yh-ui'
+
+const requestCount = ref(0)
+const running = ref(false)
+let loadingInstance: YhLoadingInstance | null = null
 
 const showLoading = () => {
-  if (requestCount === 0) {
+  if (requestCount.value === 0) {
     loadingInstance = YhLoading.service({
       lock: true,
       text: 'Loading data...',
       glass: true
     })
   }
-  requestCount++
+  requestCount.value += 1
 }
 
 const hideLoading = () => {
-  requestCount--
-  if (requestCount <= 0) {
+  requestCount.value = Math.max(0, requestCount.value - 1)
+  if (requestCount.value === 0) {
     loadingInstance?.close()
     loadingInstance = null
   }
 }
 
-const service = axios.create({ baseURL: '/api', timeout: 5000 })
-
-service.interceptors.request.use(config => {
-  showLoading()
-  return config
-}, error => {
-  hideLoading()
-  return Promise.reject(error)
+const service = axios.create({
+  timeout: 5000,
+  adapter: async (config) => {
+    await new Promise((resolve) => setTimeout(resolve, 700))
+    return {
+      data: { ok: true, url: config.url },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config
+    }
+  }
 })
 
-service.interceptors.response.use(response => {
-  hideLoading()
-  return response
-}, error => {
-  hideLoading()
-  return Promise.reject(error)
-})`
+service.interceptors.request.use(
+  (config) => {
+    showLoading()
+    return config
+  },
+  (error) => {
+    hideLoading()
+    return Promise.reject(error)
+  }
+)
 
-const tsContext = `<${_S} setup lang="ts">
+service.interceptors.response.use(
+  (response) => {
+    hideLoading()
+    return response
+  },
+  (error) => {
+    hideLoading()
+    return Promise.reject(error)
+  }
+)
+
+const runRequests = async () => {
+  running.value = true
+  try {
+    await Promise.all([service.get('/users'), service.get('/orders'), service.get('/stats')])
+  } finally {
+    running.value = false
+  }
+}
+</${_S}>`
+
+const tsContext = `<${_T}>
+  <yh-button @click="openWithContext">Open loading with app context</yh-button>
+</${_T}>
+
+<${_S} setup lang="ts">
 import { getCurrentInstance } from 'vue'
 import { YhLoading } from '@yh-ui/yh-ui'
 
 const { appContext } = getCurrentInstance()!
 
-YhLoading.service({}, appContext)
+const openWithContext = () => {
+  const instance = YhLoading.service(
+    {
+      text: 'Using the current app context...',
+      glass: true
+    },
+    appContext
+  )
+
+  setTimeout(() => instance.close(), 1800)
+}
 </${_S}>`
 
 const jsBasic = toJs(tsBasic)
@@ -516,33 +571,33 @@ This entry does not expose component-instance `defineExpose` members. Service ca
 
 ### Loading Options
 
-| Property        | Description                                                  | Type                                           | Default           |
-| --------------- | ------------------------------------------------------------ | ---------------------------------------------- | ----------------- |
-| target          | Mount target element or selector                             | `string \| HTMLElement`                        | `document.body`   |
-| body            | Whether to append to the body container                      | `boolean`                                      | `false`           |
-| fullscreen      | Whether to render as a fullscreen fixed mask                 | `boolean`                                      | `true`            |
-| lock            | Whether to lock scrolling on the target                      | `boolean`                                      | `false`           |
-| text            | Loading tip text                                             | `string`                                       | `undefined`       |
-| spinner         | Custom icon, component, or VNode                             | `string \| Component \| VNode`                 | `undefined`       |
-| background      | Custom mask background color                                 | `string`                                       | `undefined`       |
-| customClass     | Extra class name applied to the mask                         | `string`                                       | `undefined`       |
-| glass           | Whether to enable the glass-style mask                       | `boolean`                                      | `false`           |
-| color           | Spinner color, gradient colors, or color token map           | `string \| string[] \| Record<string, string>` | `undefined`       |
-| dot             | Whether to use the dot loading style                         | `boolean`                                      | `false`           |
-| spinnerType     | Built-in loading animation type                              | `LoadingSpinnerType`                           | `'circle'`        |
-| themeOverrides  | Component-level theme variable overrides                     | `ComponentThemeVars`                           | `undefined`       |
+| Property       | Description                                        | Type                                           | Default         |
+| -------------- | -------------------------------------------------- | ---------------------------------------------- | --------------- |
+| target         | Mount target element or selector                   | `string \| HTMLElement`                        | `document.body` |
+| body           | Whether to append to the body container            | `boolean`                                      | `false`         |
+| fullscreen     | Whether to render as a fullscreen fixed mask       | `boolean`                                      | `true`          |
+| lock           | Whether to lock scrolling on the target            | `boolean`                                      | `false`         |
+| text           | Loading tip text                                   | `string`                                       | `undefined`     |
+| spinner        | Custom icon, component, or VNode                   | `string \| Component \| VNode`                 | `undefined`     |
+| background     | Custom mask background color                       | `string`                                       | `undefined`     |
+| customClass    | Extra class name applied to the mask               | `string`                                       | `undefined`     |
+| glass          | Whether to enable the glass-style mask             | `boolean`                                      | `false`         |
+| color          | Spinner color, gradient colors, or color token map | `string \| string[] \| Record<string, string>` | `undefined`     |
+| dot            | Whether to use the dot loading style               | `boolean`                                      | `false`         |
+| spinnerType    | Built-in loading animation type                    | `LoadingSpinnerType`                           | `'circle'`      |
+| themeOverrides | Component-level theme variable overrides           | `ComponentThemeVars`                           | `undefined`     |
 
 ### Directive Attributes
 
-| Name                      | Description                        | Type                 |
-| ------------------------- | ---------------------------------- | -------------------- |
-| `yh-loading-text`         | Loading tip text                   | `string`             |
-| `yh-loading-background`   | Mask background color              | `string`             |
-| `yh-loading-custom-class` | Extra custom class name            | `string`             |
-| `yh-loading-glass`        | Whether to enable glass mode       | `boolean`            |
-| `yh-loading-dot`          | Whether to enable dot mode         | `boolean`            |
-| `yh-loading-color`        | Spinner color                      | `string`             |
-| `yh-loading-type`         | Built-in spinner type              | `LoadingSpinnerType` |
+| Name                      | Description                  | Type                 |
+| ------------------------- | ---------------------------- | -------------------- |
+| `yh-loading-text`         | Loading tip text             | `string`             |
+| `yh-loading-background`   | Mask background color        | `string`             |
+| `yh-loading-custom-class` | Extra custom class name      | `string`             |
+| `yh-loading-glass`        | Whether to enable glass mode | `boolean`            |
+| `yh-loading-dot`          | Whether to enable dot mode   | `boolean`            |
+| `yh-loading-color`        | Spinner color                | `string`             |
+| `yh-loading-type`         | Built-in spinner type        | `LoadingSpinnerType` |
 
 ### Directive Modifiers
 
@@ -554,24 +609,24 @@ This entry does not expose component-instance `defineExpose` members. Service ca
 
 ### Loading Instance
 
-| Property | Description                    | Type         |
-| -------- | ------------------------------ | ------------ |
-| close    | Close and destroy the mask     | `() => void` |
-| visible  | Current visible state (readonly) | `boolean` |
+| Property | Description                      | Type         |
+| -------- | -------------------------------- | ------------ |
+| close    | Close and destroy the mask       | `() => void` |
+| visible  | Current visible state (readonly) | `boolean`    |
 
 ### Theme Variables
 
-| Variable               | Description      | Default |
-| ---------------------- | ---------------- | ------- |
-| `--yh-loading-z-index` | Loading mask z-index | `2000` |
+| Variable               | Description          | Default |
+| ---------------------- | -------------------- | ------- |
+| `--yh-loading-z-index` | Loading mask z-index | `2000`  |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhLoadingOptions` | Service options type for `YhLoading.service(...)` |
-| `YhLoadingInstance` | Returned loading instance type |
-| `vYhLoading` | Named directive export for `v-yh-loading` |
+| Name                | Description                                       |
+| ------------------- | ------------------------------------------------- |
+| `YhLoadingOptions`  | Service options type for `YhLoading.service(...)` |
+| `YhLoadingInstance` | Returned loading instance type                    |
+| `vYhLoading`        | Named directive export for `v-yh-loading`         |
 
 <style>
 .custom-logo-loading {

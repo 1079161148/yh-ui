@@ -3,7 +3,7 @@
     <div
       v-for="node in visibleNodes"
       :key="node.id"
-      :id="`node-${node.id}`"
+      :id="getNodeDomId(node.id)"
       class="yh-flow-node"
       :class="{
         'is-selected': node.selected,
@@ -12,6 +12,7 @@
         [`type-${node.type}`]: true
       }"
       :style="getNodeStyle(node)"
+      :data-node-id="node.id"
       @mousedown="handleNodeMouseDown($event, node)"
       @click="handleNodeClick($event, node)"
       @dblclick="handleNodeDblClick($event, node)"
@@ -69,6 +70,7 @@ import DatabaseNode from '../components/nodes/DatabaseNode.vue'
 const props = withDefaults(
   defineProps<{
     nodes: Node[]
+    flowId: string
     nodeTypes?: NodeTypes
     transform: { x: number; y: number; zoom: number }
     draggable?: boolean
@@ -114,6 +116,8 @@ const getComponent = (type: string) => {
 const visibleNodes = computed(() => {
   return props.nodes.filter((n) => !n.hidden)
 })
+
+const getNodeDomId = (nodeId: string) => `${props.flowId}-node-${nodeId}`
 
 const getNodeStyle = (node: Node) => {
   const width = node.width || 150

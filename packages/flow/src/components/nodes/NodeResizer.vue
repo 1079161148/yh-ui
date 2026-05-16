@@ -17,6 +17,7 @@ import { useFlowContext } from '../../core/FlowContext'
 
 const props = defineProps<{
   nodeId: string
+  flowId?: string
   selected?: boolean
   minWidth?: number
   minHeight?: number
@@ -34,6 +35,21 @@ const emit = defineEmits<{
 const isVisible = computed(() => props.selected)
 
 const handles = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']
+
+const escapeSelectorValue = (value: string) => {
+  return CSS.escape ? CSS.escape(value) : value.replace(/["\\]/g, '\\$&')
+}
+
+const getNodeElement = () => {
+  if (props.flowId) {
+    const scoped = document.getElementById(`${props.flowId}-node-${props.nodeId}`)
+    if (scoped) return scoped
+  }
+
+  return document.querySelector<HTMLElement>(
+    `[data-node-id="${escapeSelectorValue(props.nodeId)}"]`
+  )
+}
 
 let startX = 0
 let startY = 0
@@ -53,7 +69,7 @@ const onResizeStart = (event: MouseEvent, handle: string) => {
   currentHandle = handle
 
   // Get current node element to find its dimensions
-  const nodeEl = document.getElementById(`node-${props.nodeId}`)
+  const nodeEl = getNodeElement()
   if (!nodeEl) return
 
   startWidth = nodeEl.offsetWidth

@@ -1,0 +1,38 @@
+# YH-UI Full AI Context
+
+Read `skills/yh-ui/SKILL.md` first. Then load only the references relevant to the task.
+
+## Skill Files
+
+- `skills/yh-ui/SKILL.md`
+- `skills/yh-ui/README.md`
+- `skills/yh-ui/references/source-truth.md`
+- `skills/yh-ui/references/agent-workflows.md`
+- `skills/yh-ui/references/vue-component-practices.md`
+- `skills/yh-ui/references/component-map.md`
+- `skills/yh-ui/references/usage-patterns.md`
+- `skills/yh-ui/references/api-cheatsheet.md`
+- `skills/yh-ui/references/nuxt.md`
+- `skills/yh-ui/references/ai-components.md`
+- `skills/yh-ui/references/request.md`
+- `skills/yh-ui/references/flow.md`
+- `skills/yh-ui/references/recipes-table.md`
+- `skills/yh-ui/references/recipes-form-schema.md`
+- `skills/yh-ui/references/recipes-ai.md`
+- `skills/yh-ui/references/recipes-flow.md`
+- `skills/yh-ui/references/codegen-rubric.md`
+- `skills/yh-ui/references/eval-scenarios.md`
+
+## Verification
+
+- Regenerate generated references: `pnpm generate:yh-ui-skill`
+- Verify skill consistency: `pnpm verify:yh-ui-skill`
+- Typecheck repository: `pnpm typecheck`
+
+## Anti-Hallucination Rules
+
+- Do not invent `Yh*` components. Check `source-truth.md`.
+- Do not use `createYhTheme` or `createRequestInstance`.
+- Do not import locale files from `@yh-ui/yh-ui/locale/zh-CN`.
+- Do not expose AI provider keys in frontend code.
+- In SSR/Nuxt, wrap browser-heavy Flow examples in `<ClientOnly>`.

@@ -9,18 +9,28 @@ sidebar['/guide/'] = [
     { text: '简介', link: '/guide/introduction' },
     { text: '快速开始', link: '/guide/quickstart' },
     { text: '安装', link: '/guide/installation' },
+    { text: '迁移指南', link: '/guide/migration' },
     { text: '兼容性与支持边界', link: '/guide/compatibility' },
+    { text: '无障碍发布标准', link: '/guide/accessibility' },
+    { text: '包体积分层', link: '/guide/package-size' },
     { text: '在 Nuxt 中使用', link: '/guide/nuxt' },
     { text: '更新日志', link: '/guide/changelog' },
     { text: '构建指南', link: '/guide/build' },
-    { text: '表单设计最佳实践', link: '/guide/form-best-practices' },
-    { text: '国际化 (i18n)', link: '/guide/i18n' }
+    { text: '国际化 i18n', link: '/guide/i18n' }
   ]),
-  group('进阶', [
-    { text: 'Theme 主题系统', link: '/guide/theme' },
+  group('设计与体系', [
+    { text: '设计原则', link: '/guide/design' },
+    { text: '最佳实践', link: '/guide/best-practices' },
+    { text: '表单设计最佳实践', link: '/guide/form-best-practices' },
+    { text: '主题系统', link: '/guide/theme' },
     { text: '主题系统示例', link: '/guide/theme-examples' },
     { text: '主题定制', link: '/guide/theming' },
-    { text: '设计规范', link: '/guide/design' }
+    { text: 'Figma 与 Token 体系', link: '/guide/figma-tokens' }
+  ]),
+  group('旗舰场景', [{ text: 'AI / Flow / Table 示例', link: '/guide/flagship-examples' }]),
+  group('开源治理', [
+    { text: '版本策略', link: '/guide/versioning' },
+    { text: '社区反馈闭环', link: '/guide/community-feedback' }
   ])
 ]
 
@@ -29,145 +39,125 @@ sidebar['/en/guide/'] = [
     { text: 'Introduction', link: '/en/guide/introduction' },
     { text: 'Quick Start', link: '/en/guide/quickstart' },
     { text: 'Installation', link: '/en/guide/installation' },
+    { text: 'Migration Guide', link: '/en/guide/migration' },
     { text: 'Compatibility', link: '/en/guide/compatibility' },
+    { text: 'Accessibility Standard', link: '/en/guide/accessibility' },
+    { text: 'Package Size Layering', link: '/en/guide/package-size' },
     { text: 'Use in Nuxt', link: '/en/guide/nuxt' },
     { text: 'Changelog', link: '/en/guide/changelog' },
     { text: 'Build Guide', link: '/en/guide/build' },
-    { text: 'Form Design Best Practices', link: '/en/guide/form-best-practices' },
-    { text: 'Internationalization (i18n)', link: '/en/guide/i18n' }
+    { text: 'Internationalization i18n', link: '/en/guide/i18n' }
   ]),
-  group('Advanced', [
+  group('Design System', [
+    { text: 'Design Principles', link: '/en/guide/design' },
+    { text: 'Best Practices', link: '/en/guide/best-practices' },
+    { text: 'Form Best Practices', link: '/en/guide/form-best-practices' },
     { text: 'Theme System', link: '/en/guide/theme' },
-    { text: 'Theme System Examples', link: '/en/guide/theme-examples' },
+    { text: 'Theme Examples', link: '/en/guide/theme-examples' },
     { text: 'Theme Customization', link: '/en/guide/theming' },
-    { text: 'Design Specification', link: '/en/guide/design' }
-  ])
-]
-
-sidebar['/table/'] = [
-  group('Table 表格', [
-    { text: '基础用法', link: '/table/basic' },
-    { text: '选择功能', link: '/table/selection' },
-    { text: '排序与筛选', link: '/table/sort-filter' },
-    { text: '表格分页', link: '/table/pagination' },
-    { text: '自定义模板', link: '/table/custom' },
-    { text: '树形数据与展开行', link: '/table/tree-expand' },
-    { text: '合并与汇总', link: '/table/merge-summary' },
-    { text: '高亮与样式', link: '/table/highlight-style' },
-    { text: '空数据提示', link: '/table/empty' },
-    { text: '对齐方式', link: '/table/alignment' },
-    { text: '加载状态', link: '/table/loading' },
-    { text: '虚拟滚动', link: '/table/virtual-scroll' },
-    { text: '性能基准压测', link: '/table/benchmark' },
-    { text: '行拖拽', link: '/table/row-drag' },
-    { text: '列宽调整', link: '/table/column-resize' },
-    { text: '多级表头', link: '/table/grouped-header' },
-    { text: '动态列渲染', link: '/table/dynamic-column' },
-    { text: '列拖拽', link: '/table/column-drag' },
-    { text: '导入功能', link: '/table/import' },
-    { text: '导出功能', link: '/table/export' },
-    { text: '打印功能', link: '/table/print' },
-    { text: '自定义插槽模板', link: '/table/custom-slots' },
-    { text: '列配置', link: '/table/column-config' },
-    { text: 'Nuxt 集成', link: '/table/nuxt' },
-    { text: 'API 参考', link: '/table/api' }
-  ])
-]
-
-sidebar['/en/table/'] = [
-  group('Table', [
-    { text: 'Basic Usage', link: '/en/table/basic' },
-    { text: 'Selection', link: '/en/table/selection' },
-    { text: 'Sort & Filter', link: '/en/table/sort-filter' },
-    { text: 'Pagination', link: '/en/table/pagination' },
-    { text: 'Custom Template', link: '/en/table/custom' },
-    { text: 'Tree Data & Expand', link: '/en/table/tree-expand' },
-    { text: 'Merge & Summary', link: '/en/table/merge-summary' },
-    { text: 'Highlight & Style', link: '/en/table/highlight-style' },
-    { text: 'Empty Data', link: '/en/table/empty' },
-    { text: 'Alignment', link: '/en/table/alignment' },
-    { text: 'Loading State', link: '/en/table/loading' },
-    { text: 'Virtual Scroll', link: '/en/table/virtual-scroll' },
-    { text: 'Performance Benchmark', link: '/en/table/benchmark' },
-    { text: 'Row Drag', link: '/en/table/row-drag' },
-    { text: 'Column Resize', link: '/en/table/column-resize' },
-    { text: 'Grouped Header', link: '/en/table/grouped-header' },
-    { text: 'Dynamic Column', link: '/en/table/dynamic-column' },
-    { text: 'Column Drag', link: '/en/table/column-drag' },
-    { text: 'Import', link: '/en/table/import' },
-    { text: 'Export', link: '/en/table/export' },
-    { text: 'Print', link: '/en/table/print' },
-    { text: 'Custom Slots', link: '/en/table/custom-slots' },
-    { text: 'Column Config', link: '/en/table/column-config' },
-    { text: 'Nuxt', link: '/en/table/nuxt' },
-    { text: 'API', link: '/en/table/api' }
-  ])
-]
-
-sidebar['/en/ai-components/'] = [
-  group('Global Configuration', [{ text: 'AiProvider', link: '/en/ai-components/ai-provider' }]),
-  group('Basic AI Components', [
-    { text: 'AiChat', link: '/en/ai-components/ai-chat' },
-    { text: 'AiBubble', link: '/en/ai-components/ai-bubble' },
-    { text: 'AiSender', link: '/en/ai-components/ai-sender' },
-    { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
-    { text: 'AiThoughtChain', link: '/en/ai-components/ai-thought-chain' },
-    { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' },
-    { text: 'AiCodeEditor', link: '/en/ai-components/ai-code-editor' },
-    { text: 'AiCodeRunner', link: '/en/ai-components/ai-code-runner' },
-    { text: 'AiWelcome', link: '/en/ai-components/ai-welcome' },
-    { text: 'AiActionGroup', link: '/en/ai-components/ai-action-group' },
-    { text: 'AiArtifacts', link: '/en/ai-components/ai-artifacts' },
-    { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' },
-    { text: 'AiConversations', link: '/en/ai-components/ai-conversations' },
-    { text: 'AiPrompts', link: '/en/ai-components/ai-prompts' },
-    { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' },
-    { text: 'AiAgentCard', link: '/en/ai-components/ai-agent-card' },
-    { text: 'AiSources', link: '/en/ai-components/ai-sources' },
-    { text: 'AiMention', link: '/en/ai-components/ai-mention' },
-    { text: 'AiAttachments', link: '/en/ai-components/ai-attachments' },
-    { text: 'AiFileCard', link: '/en/ai-components/ai-file-card' },
-    { text: 'AiMermaid', link: '/en/ai-components/ai-mermaid' }
+    { text: 'Figma and Tokens', link: '/en/guide/figma-tokens' }
   ]),
-  group('Tools', [
-    { text: 'useAiChat', link: '/en/ai-components/use-ai-chat' },
-    { text: 'useAiStream', link: '/en/ai-components/use-ai-stream' },
-    { text: 'useAiConversations', link: '/en/ai-components/use-ai-conversations' },
-    { text: 'useAiVoice', link: '/en/ai-components/use-ai-voice' }
+  group('Flagship Scenarios', [
+    { text: 'AI / Flow / Table Examples', link: '/en/guide/flagship-examples' }
+  ]),
+  group('Open Source Governance', [
+    { text: 'Versioning Policy', link: '/en/guide/versioning' },
+    { text: 'Community Feedback Loop', link: '/en/guide/community-feedback' }
   ])
 ]
 
-sidebar['/ai-components/'] = [
-  group('全局配置组件', [{ text: 'AiProvider 全局配置', link: '/ai-components/ai-provider' }]),
-  group('基础 AI 组件', [
-    { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
-    { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
-    { text: 'AiSender 智能输入', link: '/ai-components/ai-sender' },
-    { text: 'AiEditorSender 面板输入', link: '/ai-components/ai-editor-sender' },
-    { text: 'AiThinking 思考中', link: '/ai-components/ai-thinking' },
-    { text: 'AiThoughtChain 思维链', link: '/ai-components/ai-thought-chain' },
-    { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' },
-    { text: 'AiCodeEditor 智能代码编辑器', link: '/ai-components/ai-code-editor' },
-    { text: 'AiCodeRunner 智能代码运行器', link: '/ai-components/ai-code-runner' },
-    { text: 'AiWelcome 欢迎页', link: '/ai-components/ai-welcome' },
-    { text: 'AiArtifacts 智能工件', link: '/ai-components/ai-artifacts' },
-    { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' },
-    { text: 'AiConversations 会话记录', link: '/ai-components/ai-conversations' },
-    { text: 'AiPrompts 提示词推荐', link: '/ai-components/ai-prompts' },
-    { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' },
-    { text: 'AiAgentCard 智能体名片', link: '/ai-components/ai-agent-card' },
-    { text: 'AiSources 引用来源', link: '/ai-components/ai-sources' },
-    { text: 'AiMention AI 提及', link: '/ai-components/ai-mention' },
-    { text: 'AiAttachments 附件', link: '/ai-components/ai-attachments' },
-    { text: 'AiFileCard 文件卡片', link: '/ai-components/ai-file-card' },
-    { text: 'AiMermaid 流程图', link: '/ai-components/ai-mermaid' }
+sidebar['/components/'] = [
+  group('基础组件', [
+    { text: 'Layout 布局', link: '/components/layout' },
+    { text: 'Container 布局容器', link: '/components/container' },
+    { text: 'Grid 栅格', link: '/components/grid' },
+    { text: 'Button 按钮', link: '/components/button' },
+    { text: 'Icon 图标', link: '/components/icon' },
+    { text: 'Typography 排版', link: '/components/typography' },
+    { text: 'Space 间距', link: '/components/space' },
+    { text: 'Avatar 头像', link: '/components/avatar' },
+    { text: 'Empty 空状态', link: '/components/empty' },
+    { text: 'Divider 分割线', link: '/components/divider' },
+    { text: 'Skeleton 骨架屏', link: '/components/skeleton' }
   ]),
-  group('工具', [
-    { text: 'useAiChat 会话管理', link: '/ai-components/use-ai-chat' },
-    { text: 'useAiStream 流式引擎', link: '/ai-components/use-ai-stream' },
-    { text: 'useAiConversations 历史持久化', link: '/ai-components/use-ai-conversations' },
-    { text: 'useAiVoice 语音交互', link: '/ai-components/use-ai-voice' }
-  ])
+  group('表单组件', [
+    { text: 'Form 表单', link: '/components/form' },
+    { text: 'Input 输入框', link: '/components/input' },
+    { text: 'InputNumber 数字输入框', link: '/components/input-number' },
+    { text: 'InputTag 标签输入框', link: '/components/input-tag' },
+    { text: 'Autocomplete 自动补全', link: '/components/autocomplete' },
+    { text: 'Checkbox 复选框', link: '/components/checkbox' },
+    { text: 'Radio 单选框', link: '/components/radio' },
+    { text: 'Switch 开关', link: '/components/switch' },
+    { text: 'Rate 评分', link: '/components/rate' },
+    { text: 'Select 选择器', link: '/components/select' },
+    { text: 'Cascader 级联选择器', link: '/components/cascader' },
+    { text: 'Slider 滑块', link: '/components/slider' },
+    { text: 'TimePicker 时间选择器', link: '/components/time-picker' },
+    { text: 'TimeSelect 时间选择', link: '/components/time-select' },
+    { text: 'DatePicker 日期选择器', link: '/components/date-picker' },
+    { text: 'ColorPicker 颜色选择器', link: '/components/color-picker' },
+    { text: 'Transfer 穿梭框', link: '/components/transfer' },
+    { text: 'TreeSelect 树形选择', link: '/components/tree-select' },
+    { text: 'Upload 上传', link: '/components/upload' },
+    { text: 'Mention 提及', link: '/components/mention' }
+  ]),
+  group('数据展示', [
+    { text: 'Badge 徽标', link: '/components/badge' },
+    { text: 'Card 卡片', link: '/components/card' },
+    { text: 'Tag 标签', link: '/components/tag' },
+    { text: 'Pagination 分页', link: '/components/pagination' },
+    { text: 'Progress 进度条', link: '/components/progress' },
+    { text: 'Image 图片', link: '/components/image' },
+    { text: 'Descriptions 描述列表', link: '/components/descriptions' },
+    { text: 'Watermark 水印', link: '/components/watermark' },
+    { text: 'Marquee 跑马灯', link: '/components/marquee' },
+    { text: 'Waterfall 瀑布流', link: '/components/waterfall' },
+    { text: 'Tree 树形控件', link: '/components/tree' },
+    { text: 'Calendar 日历', link: '/components/calendar' },
+    { text: 'Countdown 倒计时', link: '/components/countdown' },
+    { text: 'Carousel 轮播', link: '/components/carousel' },
+    { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
+    { text: 'GanttChart 甘特图', link: '/components/gantt-chart' }
+  ]),
+  group('导航组件', [
+    { text: 'Menu 菜单', link: '/components/menu' },
+    { text: 'Dropdown 下拉菜单', link: '/components/dropdown' },
+    { text: 'Tabs 标签页', link: '/components/tabs' },
+    { text: 'Steps 步骤条', link: '/components/steps' },
+    { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
+    { text: 'BackTop 回到顶部', link: '/components/back-top' },
+    { text: 'Affix 固钉', link: '/components/affix' },
+    { text: 'InfiniteScroll 无限滚动', link: '/components/infinite-scroll' }
+  ]),
+  group('反馈组件', [
+    { text: 'Alert 警告提示', link: '/components/alert' },
+    { text: 'Result 结果', link: '/components/result' },
+    { text: 'Dialog 对话框', link: '/components/dialog' },
+    { text: 'Tooltip 文字提示', link: '/components/tooltip' },
+    { text: 'Popconfirm 气泡确认框', link: '/components/popconfirm' },
+    { text: 'Popover 气泡卡片', link: '/components/popover' },
+    { text: 'Spin 加载中', link: '/components/spin' },
+    { text: 'Loading 加载', link: '/components/loading' },
+    { text: 'Message 消息提示', link: '/components/message' },
+    { text: 'MessageBox 消息弹框', link: '/components/message-box' },
+    { text: 'Notification 通知', link: '/components/notification' },
+    { text: 'Drawer 抽屉', link: '/components/drawer' }
+  ]),
+  group('配置组件', [{ text: 'ConfigProvider 全局配置', link: '/components/config-provider' }]),
+  group('电商业务组件', [
+    { text: 'FilterBar 筛选栏', link: '/components/filter-bar' },
+    { text: 'SubmitBar 提交栏', link: '/components/submit-bar' },
+    { text: 'SmartAddress 智能地址', link: '/components/smart-address' },
+    { text: 'SkuSelector SKU 选择器', link: '/components/sku-selector' },
+    { text: 'ProductCard 商品卡片', link: '/components/product-card' },
+    { text: 'ImageMagnifier 图片放大镜', link: '/components/image-magnifier' },
+    { text: 'Price 价格', link: '/components/price' },
+    { text: 'CouponCard 优惠券', link: '/components/coupon-card' },
+    { text: 'LuckyDraw 抽奖', link: '/components/lucky-draw' },
+    { text: 'CategoryNav 品类导航', link: '/components/category-nav' }
+  ]),
+  group('Hooks', [{ text: 'Hooks 组合式函数', link: '/components/hooks' }])
 ]
 
 sidebar['/en/components/'] = [
@@ -260,119 +250,154 @@ sidebar['/en/components/'] = [
     { text: 'CouponCard', link: '/en/components/coupon-card' },
     { text: 'LuckyDraw', link: '/en/components/lucky-draw' },
     { text: 'CategoryNav', link: '/en/components/category-nav' }
+  ]),
+  group('Hooks', [{ text: 'Hooks', link: '/en/components/hooks' }])
+]
+
+sidebar['/table/'] = [
+  group('Table 表格', [
+    { text: '基础用法', link: '/table/basic' },
+    { text: '选择功能', link: '/table/selection' },
+    { text: '排序与筛选', link: '/table/sort-filter' },
+    { text: '表格分页', link: '/table/pagination' },
+    { text: '自定义模板', link: '/table/custom' },
+    { text: '树形数据与展开行', link: '/table/tree-expand' },
+    { text: '合并与汇总', link: '/table/merge-summary' },
+    { text: '高亮与样式', link: '/table/highlight-style' },
+    { text: '空数据提示', link: '/table/empty' },
+    { text: '对齐方式', link: '/table/alignment' },
+    { text: '加载状态', link: '/table/loading' },
+    { text: '虚拟滚动', link: '/table/virtual-scroll' },
+    { text: '性能基准压测', link: '/table/benchmark' },
+    { text: '行拖拽', link: '/table/row-drag' },
+    { text: '列宽调整', link: '/table/column-resize' },
+    { text: '多级表头', link: '/table/grouped-header' },
+    { text: '动态列渲染', link: '/table/dynamic-column' },
+    { text: '列拖拽', link: '/table/column-drag' },
+    { text: '导入功能', link: '/table/import' },
+    { text: '导出功能', link: '/table/export' },
+    { text: '打印功能', link: '/table/print' },
+    { text: '自定义插槽模板', link: '/table/custom-slots' },
+    { text: '列配置', link: '/table/column-config' },
+    { text: 'Nuxt 集成', link: '/table/nuxt' },
+    { text: 'API 参考', link: '/table/api' }
   ])
 ]
 
-sidebar['/components/'] = [
-  group('基础组件', [
-    { text: 'Layout 布局', link: '/components/layout' },
-    { text: 'Container 布局容器', link: '/components/container' },
-    { text: 'Grid 网格布局', link: '/components/grid' },
-    { text: 'Button 按钮', link: '/components/button' },
-    { text: 'Icon 图标', link: '/components/icon' },
-    { text: 'Typography 排版', link: '/components/typography' },
-    { text: 'Space 间距', link: '/components/space' },
-    { text: 'Avatar 头像', link: '/components/avatar' },
-    { text: 'Empty 空状态', link: '/components/empty' },
-    { text: 'Divider 分割线', link: '/components/divider' },
-    { text: 'Skeleton 骨架屏', link: '/components/skeleton' }
-  ]),
-  group('表单组件', [
-    { text: 'Form 表单', link: '/components/form' },
-    { text: 'Input 输入框', link: '/components/input' },
-    { text: 'InputNumber 数字输入框', link: '/components/input-number' },
-    { text: 'InputTag 标签输入框', link: '/components/input-tag' },
-    { text: 'Autocomplete 自动补全输入框', link: '/components/autocomplete' },
-    { text: 'Checkbox 复选框', link: '/components/checkbox' },
-    { text: 'Radio 单选框', link: '/components/radio' },
-    { text: 'Switch 开关', link: '/components/switch' },
-    { text: 'Rate 评分', link: '/components/rate' },
-    { text: 'Select 选择器', link: '/components/select' },
-    { text: 'Cascader 级联选择器', link: '/components/cascader' },
-    { text: 'Slider 滑块', link: '/components/slider' },
-    { text: 'TimePicker 时间选择器', link: '/components/time-picker' },
-    { text: 'TimeSelect 时间选择', link: '/components/time-select' },
-    { text: 'DatePicker 日期选择器', link: '/components/date-picker' },
-    { text: 'ColorPicker 颜色选择器', link: '/components/color-picker' },
-    { text: 'Transfer 穿梭框', link: '/components/transfer' },
-    { text: 'TreeSelect 树形选择', link: '/components/tree-select' },
-    { text: 'Upload 上传', link: '/components/upload' },
-    { text: 'Mention 提及', link: '/components/mention' }
-  ]),
-  group('数据展示', [
-    { text: 'Badge 徽标', link: '/components/badge' },
-    { text: 'Card 卡片', link: '/components/card' },
-    { text: 'Tag 标签', link: '/components/tag' },
-    { text: 'Pagination 分页', link: '/components/pagination' },
-    { text: 'Progress 进度条', link: '/components/progress' },
-    { text: 'Image 图片', link: '/components/image' },
-    { text: 'Descriptions 描述列表', link: '/components/descriptions' },
-    { text: 'Watermark 水印', link: '/components/watermark' },
-    { text: 'Marquee 跑马灯', link: '/components/marquee' },
-    { text: 'Waterfall 瀑布流', link: '/components/waterfall' },
-    { text: 'Tree 树形控件', link: '/components/tree' },
-    { text: 'Calendar 日历', link: '/components/calendar' },
-    { text: 'Countdown 倒计时', link: '/components/countdown' },
-    { text: 'Carousel 轮播', link: '/components/carousel' },
-    { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
-    { text: 'GanttChart 甘特图', link: '/components/gantt-chart' }
-  ]),
-  group('导航组件', [
-    { text: 'Menu 菜单', link: '/components/menu' },
-    { text: 'Dropdown 下拉菜单', link: '/components/dropdown' },
-    { text: 'Tabs 标签页', link: '/components/tabs' },
-    { text: 'Steps 步骤条', link: '/components/steps' },
-    { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
-    { text: 'BackTop 回到顶部', link: '/components/back-top' },
-    { text: 'Affix 固钉', link: '/components/affix' },
-    { text: 'InfiniteScroll 无限滚动', link: '/components/infinite-scroll' }
-  ]),
-  group('反馈组件', [
-    { text: 'Alert 警告提示', link: '/components/alert' },
-    { text: 'Result 结果', link: '/components/result' },
-    { text: 'Dialog 对话框', link: '/components/dialog' },
-    { text: 'Tooltip 文字提示', link: '/components/tooltip' },
-    { text: 'Popconfirm 气泡确认框', link: '/components/popconfirm' },
-    { text: 'Popover 气泡卡片', link: '/components/popover' },
-    { text: 'Spin 加载中', link: '/components/spin' },
-    { text: 'Loading 加载', link: '/components/loading' },
-    { text: 'Message 消息提示', link: '/components/message' },
-    { text: 'MessageBox 消息弹框', link: '/components/message-box' },
-    { text: 'Notification 通知', link: '/components/notification' },
-    { text: 'Drawer 抽屉', link: '/components/drawer' }
-  ]),
-  group('配置组件', [{ text: 'ConfigProvider 全局配置', link: '/components/config-provider' }]),
-  group('Ecommerce 电商组件', [
-    { text: 'FilterBar 筛选栏', link: '/components/filter-bar' },
-    { text: 'SubmitBar 提交栏', link: '/components/submit-bar' },
-    { text: 'SmartAddress 智能地址解析', link: '/components/smart-address' },
-    { text: 'SkuSelector SKU 选择器', link: '/components/sku-selector' },
-    { text: 'ProductCard 商品卡片', link: '/components/product-card' },
-    { text: 'ImageMagnifier 商品放大镜', link: '/components/image-magnifier' },
-    { text: 'Price 价格展示', link: '/components/price' },
-    { text: 'CouponCard 优惠券卡片', link: '/components/coupon-card' },
-    { text: 'LuckyDraw 幸运抽奖', link: '/components/lucky-draw' },
-    { text: 'CategoryNav 品类导航', link: '/components/category-nav' }
+sidebar['/en/table/'] = [
+  group('Table', [
+    { text: 'Basic Usage', link: '/en/table/basic' },
+    { text: 'Selection', link: '/en/table/selection' },
+    { text: 'Sort & Filter', link: '/en/table/sort-filter' },
+    { text: 'Pagination', link: '/en/table/pagination' },
+    { text: 'Custom Template', link: '/en/table/custom' },
+    { text: 'Tree Data & Expand', link: '/en/table/tree-expand' },
+    { text: 'Merge & Summary', link: '/en/table/merge-summary' },
+    { text: 'Highlight & Style', link: '/en/table/highlight-style' },
+    { text: 'Empty Data', link: '/en/table/empty' },
+    { text: 'Alignment', link: '/en/table/alignment' },
+    { text: 'Loading State', link: '/en/table/loading' },
+    { text: 'Virtual Scroll', link: '/en/table/virtual-scroll' },
+    { text: 'Performance Benchmark', link: '/en/table/benchmark' },
+    { text: 'Row Drag', link: '/en/table/row-drag' },
+    { text: 'Column Resize', link: '/en/table/column-resize' },
+    { text: 'Grouped Header', link: '/en/table/grouped-header' },
+    { text: 'Dynamic Column', link: '/en/table/dynamic-column' },
+    { text: 'Column Drag', link: '/en/table/column-drag' },
+    { text: 'Import', link: '/en/table/import' },
+    { text: 'Export', link: '/en/table/export' },
+    { text: 'Print', link: '/en/table/print' },
+    { text: 'Custom Slots', link: '/en/table/custom-slots' },
+    { text: 'Column Config', link: '/en/table/column-config' },
+    { text: 'Nuxt', link: '/en/table/nuxt' },
+    { text: 'API', link: '/en/table/api' }
   ])
 ]
 
 sidebar['/icons/'] = [
   group('图标集合', [
-    { text: '图标集合介绍', link: '/icons/' },
+    { text: '组件图标', link: '/icons/' },
     { text: '快速开始', link: '/icons/getting-started' },
     { text: '图标分类', link: '/icons/collections' },
     { text: '图标展示', link: '/icons/showcase' },
     { text: 'API 参考', link: '/icons/api' }
   ])
 ]
-
 sidebar['/en/icons/'] = [
-  group('Icon Collection', [
-    { text: 'Introduction', link: '/en/icons/' },
+  group('Icons', [
+    { text: 'Icon Components', link: '/en/icons/' },
     { text: 'Getting Started', link: '/en/icons/getting-started' },
     { text: 'Collections', link: '/en/icons/collections' },
     { text: 'Showcase', link: '/en/icons/showcase' },
     { text: 'API', link: '/en/icons/api' }
+  ])
+]
+
+sidebar['/ai-components/'] = [
+  group('全局配置组件', [{ text: 'AiProvider 全局配置', link: '/ai-components/ai-provider' }]),
+  group('基础 AI 组件', [
+    { text: 'AiChat 智能对话', link: '/ai-components/ai-chat' },
+    { text: 'AiBubble 对话气泡', link: '/ai-components/ai-bubble' },
+    { text: 'AiSender 智能输入', link: '/ai-components/ai-sender' },
+    { text: 'AiEditorSender 面板输入', link: '/ai-components/ai-editor-sender' },
+    { text: 'AiThinking 思考中', link: '/ai-components/ai-thinking' },
+    { text: 'AiThoughtChain 思维链', link: '/ai-components/ai-thought-chain' },
+    { text: 'AiCodeBlock 智能代码块', link: '/ai-components/ai-code-block' },
+    { text: 'AiCodeEditor 智能代码编辑器', link: '/ai-components/ai-code-editor' },
+    { text: 'AiCodeRunner 智能代码运行器', link: '/ai-components/ai-code-runner' },
+    { text: 'AiWelcome 欢迎页', link: '/ai-components/ai-welcome' },
+    { text: 'AiArtifacts 智能工件', link: '/ai-components/ai-artifacts' },
+    { text: 'AiActionGroup 操作组', link: '/ai-components/ai-action-group' },
+    { text: 'AiConversations 会话记录', link: '/ai-components/ai-conversations' },
+    { text: 'AiPrompts 提示词推荐', link: '/ai-components/ai-prompts' },
+    { text: 'AiVoiceTrigger 语音触发', link: '/ai-components/ai-voice-trigger' },
+    { text: 'AiAgentCard 智能体名片', link: '/ai-components/ai-agent-card' },
+    { text: 'AiSources 引用来源', link: '/ai-components/ai-sources' },
+    { text: 'AiMention AI 提及', link: '/ai-components/ai-mention' },
+    { text: 'AiAttachments 附件', link: '/ai-components/ai-attachments' },
+    { text: 'AiFileCard 文件卡片', link: '/ai-components/ai-file-card' },
+    { text: 'AiMermaid 流程图', link: '/ai-components/ai-mermaid' }
+  ]),
+  group('工具', [
+    { text: 'useAiChat 会话管理', link: '/ai-components/use-ai-chat' },
+    { text: 'useAiStream 流式引擎', link: '/ai-components/use-ai-stream' },
+    { text: 'useAiConversations 历史持久化', link: '/ai-components/use-ai-conversations' },
+    { text: 'useAiVoice 语音交互', link: '/ai-components/use-ai-voice' },
+    { text: 'useAiPersistence 持久化', link: '/ai-components/use-ai-persistence' }
+  ])
+]
+
+sidebar['/en/ai-components/'] = [
+  group('Global Configuration', [{ text: 'AiProvider', link: '/en/ai-components/ai-provider' }]),
+  group('Basic AI Components', [
+    { text: 'AiChat', link: '/en/ai-components/ai-chat' },
+    { text: 'AiBubble', link: '/en/ai-components/ai-bubble' },
+    { text: 'AiSender', link: '/en/ai-components/ai-sender' },
+    { text: 'AiEditorSender', link: '/en/ai-components/ai-editor-sender' },
+    { text: 'AiThinking', link: '/en/ai-components/ai-thinking' },
+    { text: 'AiThoughtChain', link: '/en/ai-components/ai-thought-chain' },
+    { text: 'AiCodeBlock', link: '/en/ai-components/ai-code-block' },
+    { text: 'AiCodeEditor', link: '/en/ai-components/ai-code-editor' },
+    { text: 'AiCodeRunner', link: '/en/ai-components/ai-code-runner' },
+    { text: 'AiWelcome', link: '/en/ai-components/ai-welcome' },
+    { text: 'AiArtifacts', link: '/en/ai-components/ai-artifacts' },
+    { text: 'AiActionGroup', link: '/en/ai-components/ai-action-group' },
+    { text: 'AiConversations', link: '/en/ai-components/ai-conversations' },
+    { text: 'AiPrompts', link: '/en/ai-components/ai-prompts' },
+    { text: 'AiVoiceTrigger', link: '/en/ai-components/ai-voice-trigger' },
+    { text: 'AiAgentCard', link: '/en/ai-components/ai-agent-card' },
+    { text: 'AiSources', link: '/en/ai-components/ai-sources' },
+    { text: 'AiMention', link: '/en/ai-components/ai-mention' },
+    { text: 'AiAttachments', link: '/en/ai-components/ai-attachments' },
+    { text: 'AiFileCard', link: '/en/ai-components/ai-file-card' },
+    { text: 'AiMermaid', link: '/en/ai-components/ai-mermaid' }
+  ]),
+  group('Tools', [
+    { text: 'useAiChat', link: '/en/ai-components/use-ai-chat' },
+    { text: 'useAiStream', link: '/en/ai-components/use-ai-stream' },
+    { text: 'useAiConversations', link: '/en/ai-components/use-ai-conversations' },
+    { text: 'useAiVoice', link: '/en/ai-components/use-ai-voice' },
+    { text: 'useAiPersistence', link: '/en/ai-components/use-ai-persistence' }
   ])
 ]
 
@@ -418,33 +443,6 @@ sidebar['/request/'] = [
   ])
 ]
 
-sidebar['/ai-sdk/'] = [
-  group('快速开始', [
-    { text: '简介', link: '/ai-sdk/' },
-    { text: '安装', link: '/ai-sdk/install' },
-    { text: '快速开始', link: '/ai-sdk/quickstart' }
-  ]),
-  group('核心功能', [
-    { text: 'Vercel AI SDK', link: '/ai-sdk/vercel' },
-    { text: 'LangChain 集成', link: '/ai-sdk/langchain' },
-    { text: '工具函数', link: '/ai-sdk/tools' },
-    { text: 'Vue Composables', link: '/ai-sdk/vue-composables' }
-  ]),
-  group('进阶功能', [
-    { text: 'MCP 协议', link: '/ai-sdk/mcp' },
-    { text: 'Agent 编排', link: '/ai-sdk/agent' },
-    { text: '向量存储与 RAG', link: '/ai-sdk/vector-rag' },
-    { text: '缓存系统', link: '/ai-sdk/cache' },
-    { text: '限流', link: '/ai-sdk/rate-limit' },
-    { text: '可观测性', link: '/ai-sdk/observability' }
-  ]),
-  group('其他', [
-    { text: '前瞻功能', link: '/ai-sdk/future' },
-    { text: 'API 参考', link: '/ai-sdk/api' },
-    { text: '注意事项', link: '/ai-sdk/caution' }
-  ])
-]
-
 sidebar['/en/request/'] = [
   group('Getting Started', [
     { text: 'Introduction', link: '/en/request/' },
@@ -484,6 +482,33 @@ sidebar['/en/request/'] = [
     { text: 'SSR Usage', link: '/en/request/ssr' },
     { text: 'TypeScript Guide', link: '/en/request/typescript' },
     { text: 'FAQ', link: '/en/request/faq' }
+  ])
+]
+
+sidebar['/ai-sdk/'] = [
+  group('快速开始', [
+    { text: '简介', link: '/ai-sdk/' },
+    { text: '安装', link: '/ai-sdk/install' },
+    { text: '快速开始', link: '/ai-sdk/quickstart' }
+  ]),
+  group('核心功能', [
+    { text: 'Vercel AI SDK', link: '/ai-sdk/vercel' },
+    { text: 'LangChain 集成', link: '/ai-sdk/langchain' },
+    { text: '工具函数', link: '/ai-sdk/tools' },
+    { text: 'Vue Composables', link: '/ai-sdk/vue-composables' }
+  ]),
+  group('进阶功能', [
+    { text: 'MCP 协议', link: '/ai-sdk/mcp' },
+    { text: 'Agent 编排', link: '/ai-sdk/agent' },
+    { text: '向量存储与 RAG', link: '/ai-sdk/vector-rag' },
+    { text: '缓存系统', link: '/ai-sdk/cache' },
+    { text: '限流', link: '/ai-sdk/rate-limit' },
+    { text: '可观测性', link: '/ai-sdk/observability' }
+  ]),
+  group('其他', [
+    { text: '前瞻功能', link: '/ai-sdk/future' },
+    { text: 'API 参考', link: '/ai-sdk/api' },
+    { text: '注意事项', link: '/ai-sdk/caution' }
   ])
 ]
 
@@ -533,8 +558,8 @@ sidebar['/flow/'] = [
     { text: '导出截图', link: '/flow/screenshot' },
     { text: '确认删除拦截', link: '/flow/confirm-delete' },
     { text: '视口平滑过渡', link: '/flow/viewport-transition' },
-    { text: '跨层传送 (Teleport)', link: '/flow/teleport' },
-    { text: '持久化 (Save/Restore)', link: '/flow/save-restore' },
+    { text: '跨层传送 Teleport', link: '/flow/teleport' },
+    { text: '持久化 Save/Restore', link: '/flow/save-restore' },
     { text: '数学流程示例', link: '/flow/math' }
   ]),
   group('进阶扩展', [
@@ -542,14 +567,14 @@ sidebar['/flow/'] = [
     { text: '响应式更新节点', link: '/flow/update-node' },
     { text: '碰撞与位置检测', link: '/flow/intersections' },
     { text: '嵌套与分组', link: '/flow/nested' },
-    { text: '节点缩放器 (Resizer)', link: '/flow/node-resizer' },
-    { text: '节点工具栏 (Toolbar)', link: '/flow/node-toolbar' },
+    { text: '节点缩放器 Resizer', link: '/flow/node-resizer' },
+    { text: '节点工具栏 Toolbar', link: '/flow/node-toolbar' },
     { text: '自定义连线渲染', link: '/flow/custom-edge' },
     { text: '可更新连线', link: '/flow/updatable-edge' },
     { text: '节点和连线编辑', link: '/flow/node-edge-edit' }
   ]),
   group('新增专题', [
-    { text: '行业应用场景大览', link: '/flow/use-cases' },
+    { text: '行业应用场景大观', link: '/flow/use-cases' },
     { text: 'AI 工作流节点', link: '/flow/ai-workflow' },
     { text: '自定义节点模板', link: '/flow/custom-node-templates' },
     { text: '节点嵌套布局', link: '/flow/nested-layout' },
@@ -567,7 +592,7 @@ sidebar['/flow/'] = [
     { text: '历史撤销与重做', link: '/flow/history' }
   ]),
   group('性能与架构', [
-    { text: '自动布局 (Dagre/ELK/Force)', link: '/flow/layout' },
+    { text: '自动布局 Dagre/ELK/Force', link: '/flow/layout' },
     { text: '布局动画', link: '/flow/layout-animation' },
     { text: 'Pinia 状态管理', link: '/flow/pinia' },
     { text: '多实例协作', link: '/flow/multi-flow' },
@@ -595,7 +620,7 @@ sidebar['/en/flow/'] = [
     { text: 'Confirm Deletion', link: '/en/flow/confirm-delete' },
     { text: 'Viewport Animation', link: '/en/flow/viewport-transition' },
     { text: 'Teleport UI', link: '/en/flow/teleport' },
-    { text: 'Persistence (Save)', link: '/en/flow/save-restore' },
+    { text: 'Persistence Save/Restore', link: '/en/flow/save-restore' },
     { text: 'Math Flow Project', link: '/en/flow/math' }
   ]),
   group('Advanced Extension', [
@@ -628,13 +653,17 @@ sidebar['/en/flow/'] = [
     { text: 'History Undo/Redo', link: '/en/flow/history' }
   ]),
   group('Scaling & Architecture', [
-    { text: 'Auto Layout (Dagre/ELK/Force)', link: '/en/flow/layout' },
+    { text: 'Auto Layout Dagre/ELK/Force', link: '/en/flow/layout' },
     { text: 'Layout Animation', link: '/en/flow/layout-animation' },
     { text: 'Pinia Integration', link: '/en/flow/pinia' },
     { text: 'Concurrent Flows', link: '/en/flow/multi-flow' },
     { text: 'Benchmark Performance', link: '/en/flow/benchmark' }
   ])
 ]
+
+sidebar['/skills/'] = [group('AI Skills', [{ text: '安装使用', link: '/skills/installation' }])]
+
+sidebar['/en/skills/'] = [group('AI Skills', [{ text: 'Setup', link: '/en/skills/installation' }])]
 
 export default defineConfig({
   title: 'YH-UI',
@@ -658,7 +687,8 @@ export default defineConfig({
           { text: 'Table 表格', link: '/table/basic', activeMatch: '/table/' },
           { text: 'Request 请求', link: '/request/', activeMatch: '/request/' },
           { text: 'AI SDK', link: '/ai-sdk/', activeMatch: '/ai-sdk/' },
-          { text: 'Flow 流程图', link: '/flow/basic', activeMatch: '/flow/' }
+          { text: 'Flow 流程图', link: '/flow/basic', activeMatch: '/flow/' },
+          { text: 'AI Skills', link: '/skills/installation', activeMatch: '/skills/' }
         ],
         outline: { label: '页面导航', level: [2, 3] },
         docFooter: { prev: '上一页', next: '下一页' },
@@ -685,7 +715,8 @@ export default defineConfig({
           { text: 'Table', link: '/en/table/basic', activeMatch: '/en/table/' },
           { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' },
           { text: 'AI SDK', link: '/en/ai-sdk/', activeMatch: '/en/ai-sdk/' },
-          { text: 'Flow', link: '/en/flow/basic', activeMatch: '/en/flow/' }
+          { text: 'Flow', link: '/en/flow/basic', activeMatch: '/en/flow/' },
+          { text: 'AI Skills', link: '/en/skills/installation', activeMatch: '/en/skills/' }
         ],
         outline: { label: 'On this page', level: [2, 3] },
         docFooter: { prev: 'Previous page', next: 'Next page' },
@@ -706,7 +737,7 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/1079161148/yh-ui' }],
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024-present YH-UI Team'
+      copyright: 'Copyright © 2026 YH-UI Team'
     },
     search: {
       provider: 'local',
@@ -772,8 +803,9 @@ export default defineConfig({
             warning.code === 'SOURCEMAP_ERROR' ||
             (warning.code === 'MISSING_EXPORT' && warning.message.includes('entities')) ||
             (warning.message && warning.message.includes('points to missing source files'))
-          )
+          ) {
             return
+          }
           warn(warning)
         }
       }

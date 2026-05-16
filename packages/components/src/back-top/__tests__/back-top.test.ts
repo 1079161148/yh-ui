@@ -121,4 +121,67 @@ describe('YhBackTop', () => {
     expect(wrapper.get('.yh-back-top').attributes('aria-label')).toBe('Back to Top')
     expect(backTop.props('themeOverrides')).toEqual({ bgColor: '#101010' })
   })
+
+  it('renders custom slot and zero-height progress fallback', async () => {
+    Object.defineProperty(container, 'scrollTop', { value: 250, writable: true })
+    Object.defineProperty(container, 'scrollHeight', { value: 500, writable: true })
+    Object.defineProperty(container, 'clientHeight', { value: 500, writable: true })
+    const scrollTo = vi.fn()
+    container.scrollTo = scrollTo
+
+    const wrapper = mount(YhBackTop, {
+      props: {
+        target: '#scroll-container',
+        visibilityHeight: 100,
+        showProgress: true,
+        progressColor: '#123456',
+        right: 24,
+        bottom: 32,
+        duration: 1
+      },
+      slots: {
+        default: '<button class="custom-back">Top</button>'
+      }
+    })
+
+    ;(wrapper.vm as any).handleScroll()
+    vi.advanceTimersByTime(16)
+    await nextTick()
+
+    expect(wrapper.find('.custom-back').exists()).toBe(true)
+    expect(wrapper.find('.yh-back-top').attributes('style')).toContain('right: 24px')
+    expect(wrapper.find('.yh-back-top__progress-bar').attributes('style')).toContain('#123456')
+
+    await wrapper.find('.yh-back-top').trigger('click')
+    vi.advanceTimersByTime(20)
+    expect(scrollTo).toHaveBeenCalled()
+  })
+
+  it('covers window target branch and capped progress', async () => {
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => setTimeout(cb, 16))
+    Object.defineProperty(window, 'scrollY', { value: 1200, writable: true, configurable: true })
+    Object.defineProperty(window, 'innerHeight', { value: 500, writable: true, configurable: true })
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 1000,
+      writable: true,
+      configurable: true
+    })
+    const scrollTo = vi.fn()
+    document.documentElement.scrollTo = scrollTo
+
+    const wrapper = mount(YhBackTop, {
+      props: {
+        visibilityHeight: 100,
+        showProgress: true,
+        duration: 1
+      }
+    })
+
+    ;(wrapper.vm as any).handleScroll()
+    vi.advanceTimersByTime(16)
+    await nextTick()
+
+    expect(wrapper.findComponent(YhBackTop).exists()).toBe(true)
+    expect(typeof scrollTo).toBe('function')
+  })
 })

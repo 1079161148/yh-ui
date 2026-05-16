@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Scrollbar from '../src/scrollbar.vue'
 
@@ -79,9 +79,7 @@ describe('YhScrollbar', () => {
     expect(thumb.exists()).toBe(true)
 
     await thumb.trigger('mousedown', { button: 0, clientX: 10, clientY: 10 })
-    document.dispatchEvent(
-      new MouseEvent('mousemove', { bubbles: true, clientX: 10, clientY: 40 })
-    )
+    document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: 10, clientY: 40 }))
     document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }))
   })
 
@@ -147,6 +145,112 @@ describe('YhScrollbar', () => {
     await wrapper.setProps({ noresize: false })
     await wrapper.vm.$nextTick()
     expect(wrapper.find('.yh-scrollbar').exists()).toBe(true)
+  })
+
+  it('covers numeric sizing, native scroll and zero-size update branches', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: {
+        height: 120,
+        maxHeight: 240,
+        native: true,
+        tag: 'section',
+        viewClass: 'view-extra',
+        viewStyle: { minHeight: '300px' }
+      },
+      slots: { default: '<div>Native</div>' }
+    })
+
+    const wrap = wrapper.find('.yh-scrollbar__wrap')
+    expect((wrap.element as HTMLElement).style.height).toBe('120px')
+    expect((wrap.element as HTMLElement).style.maxHeight).toBe('240px')
+    expect(wrapper.find('section.view-extra').exists()).toBe(true)
+
+    await wrap.trigger('scroll')
+    await wrapper.trigger('mouseenter')
+    exposedUpdate(wrapper)
+    expect(wrapper.emitted('scroll')).toBeTruthy()
+  })
+
+  it('calculates custom thumb sizes and calls scrollbar appearance hooks', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: { height: 100, maxHeight: 160, native: false, always: true, minSize: 20 },
+      slots: { default: '<div style="height: 1000px; width: 800px">Tall</div>' }
+    })
+    await wrapper.vm.$nextTick()
+
+    const wrap = wrapper.find('.yh-scrollbar__wrap').element as HTMLElement
+    Object.defineProperties(wrap, {
+      offsetHeight: { value: 100, configurable: true },
+      offsetWidth: { value: 120, configurable: true },
+      scrollHeight: { value: 1000, configurable: true },
+      scrollWidth: { value: 600, configurable: true }
+    })
+
+    exposedUpdate(wrapper)
+    await wrapper.vm.$nextTick()
+
+    const thumbs = wrapper.findAll('.yh-scrollbar__thumb')
+    expect(thumbs[0].attributes('style')).toContain('width: 24px')
+    expect(thumbs[1].attributes('style')).toContain('height: 20px')
+
+    wrap.scrollTop = 50
+    wrap.scrollLeft = 30
+    await wrapper.find('.yh-scrollbar__wrap').trigger('scroll')
+    await wrapper.trigger('mouseenter')
+    expect(wrapper.emitted('scroll')?.at(-1)?.[0]).toEqual(
+      expect.objectContaining({ scrollTop: 50, scrollLeft: 30 })
+    )
+  })
+
+  it('connects and disconnects ResizeObserver when noresize changes', async () => {
+    const observe = vi.fn()
+    const disconnect = vi.fn()
+    const OriginalResizeObserver = globalThis.ResizeObserver
+
+    globalThis.ResizeObserver = class {
+      observe = observe
+      disconnect = disconnect
+      unobserve = vi.fn()
+    } as unknown as typeof ResizeObserver
+
+    const wrapper = mount(Scrollbar, {
+      props: { noresize: false },
+      slots: { default: '<div>Observed</div>' }
+    })
+    await wrapper.vm.$nextTick()
+    expect(observe).toHaveBeenCalled()
+
+    await wrapper.setProps({ noresize: true })
+    expect(disconnect).toHaveBeenCalled()
+
+    await wrapper.setProps({ noresize: false })
+    expect(observe).toHaveBeenCalledTimes(2)
+
+    wrapper.unmount()
+    expect(disconnect).toHaveBeenCalledTimes(2)
+    globalThis.ResizeObserver = OriginalResizeObserver
+  })
+
+  it('handles thumb drag guard paths without changing scroll', async () => {
+    const wrapper = mount(Scrollbar, {
+      props: { height: 80, native: false, always: true },
+      slots: { default: '<div style="height: 800px">Tall</div>' }
+    })
+    await wrapper.vm.$nextTick()
+    const wrap = wrapper.find('.yh-scrollbar__wrap').element as HTMLElement
+    Object.defineProperties(wrap, {
+      offsetHeight: { value: 80, configurable: true },
+      offsetWidth: { value: 80, configurable: true },
+      scrollHeight: { value: 800, configurable: true },
+      scrollWidth: { value: 80, configurable: true }
+    })
+    exposedUpdate(wrapper)
+    await wrapper.vm.$nextTick()
+
+    const thumb = wrapper.find('.yh-scrollbar__thumb')
+    await thumb.trigger('mousedown', { button: 1, clientX: 0, clientY: 0 })
+    document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientY: 60 }))
+    expect(wrap.scrollTop).toBe(0)
   })
 })
 

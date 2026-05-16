@@ -4,16 +4,16 @@ The YH-UI Icon Collection supports over 100 icon sets. Below is a detailed intro
 
 ## Comparison of Common Icon Sets
 
-| Icon Set | Prefix | Icon Count | Style Characteristics | Recommended Scenarios |
-|--------|------|----------|----------|----------|
-| Material Design Icons | `mdi` | 7000+ | Material Design style | General applications |
-| Element Plus | `ep` | 200+ | Clean and modern | Admin management systems |
-| Lucide | `lucide` | 1500+ | Line/Outline style | Modern web applications |
-| Tabler Icons | `tabler` | 4600+ | Line/Filled styles | Dashboards/Admin panels |
-| Remix Icon | `ri` | 2500+ | Line/Outline style | Mobile apps / Lightweight |
-| Heroicons | `heroicons` | 600+ | Line/Filled styles | Tailwind CSS projects |
-| Bootstrap Icons | `bi` | 2600+ | Bootstrap style | Bootstrap projects |
-| Font Awesome 6 | `fa` | 2000+ | Multiple styles | General purpose |
+| Icon Set              | Prefix      | Icon Count | Style Characteristics | Recommended Scenarios     |
+| --------------------- | ----------- | ---------- | --------------------- | ------------------------- |
+| Material Design Icons | `mdi`       | 7000+      | Material Design style | General applications      |
+| Element Plus          | `ep`        | 200+       | Clean and modern      | Admin management systems  |
+| Lucide                | `lucide`    | 1500+      | Line/Outline style    | Modern web applications   |
+| Tabler Icons          | `tabler`    | 4600+      | Line/Filled styles    | Dashboards/Admin panels   |
+| Remix Icon            | `ri`        | 2500+      | Line/Outline style    | Mobile apps / Lightweight |
+| Heroicons             | `heroicons` | 600+       | Line/Filled styles    | Tailwind CSS projects     |
+| Bootstrap Icons       | `bi`        | 2600+      | Bootstrap style       | Bootstrap projects        |
+| Font Awesome 6        | `fa`        | 2000+      | Multiple styles       | General purpose           |
 
 ## Icon Set Details
 
@@ -32,6 +32,7 @@ The most popular open-source icon library, offering over 7,000 icons.
 </DemoBlock>
 
 **Features**:
+
 - Largest variety of icons, covering almost any use case.
 - Unified style adhering to Material Design specifications.
 - Active community with continuous updates.
@@ -51,7 +52,8 @@ The official icon set from Element Plus, clean and modern.
 </DemoBlock>
 
 **Features**:
-- Perfectly matches the styling of Element Plus components.
+
+- Fits modern component library interfaces.
 - Ideal for back-office management systems.
 - Moderate, focused selection of icons.
 
@@ -70,6 +72,7 @@ A modern, clean line-style icon library.
 </DemoBlock>
 
 **Features**:
+
 - Consistent stroke weight for clean visuals.
 - Suitable for modern minimalist projects.
 - Supports custom stroke weight adjustments.
@@ -89,6 +92,7 @@ A high-quality SVG icon library with over 4,600 icons.
 </DemoBlock>
 
 **Features**:
+
 - Diverse and experimental icon selection.
 - Provides both outline and filled styles for many icons.
 - Suitable for all types of web applications.
@@ -108,6 +112,7 @@ A set of open-source neutral style system symbols elaborately crafted.
 </DemoBlock>
 
 **Features**:
+
 - Primarily line-styled.
 - Standardized and intuitive icon naming.
 - Ideal for projects requiring refined and elegant symbols.
@@ -127,6 +132,7 @@ Official icon library from the creators of Tailwind CSS.
 </DemoBlock>
 
 **Features**:
+
 - Officially recommended for Tailwind CSS projects.
 - Available in both outline and solid styles.
 - Professional and clean aesthetic.
@@ -146,6 +152,7 @@ Official icon library from the Bootstrap team.
 </DemoBlock>
 
 **Features**:
+
 - Native icons for the Bootstrap ecosystem.
 - Consistent with the design language of Bootstrap components.
 - Large and well-known library.
@@ -165,6 +172,7 @@ The world's most popular icon set and toolkit.
 </DemoBlock>
 
 **Features**:
+
 - Long-standing history and massive ecosystem.
 - Both Free and Pro versions available.
 - Supports multiple styles including Solid, Regular, and Brands.
@@ -173,24 +181,24 @@ The world's most popular icon set and toolkit.
 
 ### By Project Type
 
-| Project Type | Recommended Icon Sets |
-|----------|------------|
-| Admin Systems | `ep` + `mdi` |
-| Modern Web Apps | `lucide` + `tabler` |
-| Mobile Apps | `ri` + `heroicons` |
-| Tailwind Projects | `heroicons` |
-| Bootstrap Projects | `bi` |
+| Project Type       | Recommended Icon Sets      |
+| ------------------ | -------------------------- |
+| Admin Systems      | `ep` + `mdi`               |
+| Modern Web Apps    | `lucide` + `tabler`        |
+| Mobile Apps        | `ri` + `heroicons`         |
+| Tailwind Projects  | `heroicons`                |
+| Bootstrap Projects | `bi`                       |
 | General / Not Sure | `mdi` (Most comprehensive) |
 
 ### By Style
 
-| Style | Recommended Icon Sets |
-|------|------------|
-| Material Design | `mdi` |
-| Clean and Modern | `ep`, `lucide` |
-| Outline/Line Style | `lucide`, `ri`, `tabler` |
+| Style              | Recommended Icon Sets        |
+| ------------------ | ---------------------------- |
+| Material Design    | `mdi`                        |
+| Clean and Modern   | `ep`, `lucide`               |
+| Outline/Line Style | `lucide`, `ri`, `tabler`     |
 | Filled/Solid Style | `mdi`, `heroicons`, `tabler` |
-| Bootstrap Style | `bi`, `fa` |
+| Bootstrap Style    | `bi`, `fa`                   |
 
 ## Icon Set Prefix Mappings
 
@@ -198,39 +206,39 @@ The world's most popular icon set and toolkit.
 // Common prefix aliases
 const PREFIX_ALIAS = {
   // Material Design Icons
-  'mdi': 'mdi',
-  
+  mdi: 'mdi',
+
   // Element Plus
-  'ep': 'ep',
+  ep: 'ep',
   'element-plus': 'ep',
-  
+
   // Lucide
-  'lucide': 'lucide',
-  
+  lucide: 'lucide',
+
   // Tabler
-  'tabler': 'tabler',
-  
+  tabler: 'tabler',
+
   // Remix Icon
-  'ri': 'ri',
-  'remix': 'ri',
-  
+  ri: 'ri',
+  remix: 'ri',
+
   // Heroicons
-  'heroicons': 'heroicons',
-  'hero': 'heroicons',
-  
+  heroicons: 'heroicons',
+  hero: 'heroicons',
+
   // Bootstrap
-  'bi': 'bi',
-  'bootstrap': 'bi',
-  
+  bi: 'bi',
+  bootstrap: 'bi',
+
   // Font Awesome
-  'fa': 'fa',
+  fa: 'fa',
   'font-awesome': 'fa',
-  
+
   // Carbon
-  'carbon': 'carbon',
-  
+  carbon: 'carbon',
+
   // Ant Design
-  'antd': 'antd',
+  antd: 'antd',
   'ant-design': 'antd'
 }
 ```

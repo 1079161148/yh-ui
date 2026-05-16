@@ -1,13 +1,13 @@
-# Loading 加载
+﻿# Loading
 
-加载数据时显示的遮罩层。具备旗舰级亚克力视觉效果，完美适配 Nuxt 3/4。
+Service and directive entry for displaying loading masks. It is built on top of `YhSpin` and is primarily used through `YhLoading.service(...)` and the `v-yh-loading` directive.
 
 <script setup lang="ts">
-import { ref, h, getCurrentInstance } from 'vue'
+import { ref, h } from 'vue'
 import { toJs, _T, _S, _St } from '../.vitepress/theme/utils/demo-utils'
 import { YhLoading } from '../../packages/components/src/loading'
+import type { LoadingSpinnerType } from '../../packages/components/src/spin'
 
-// --- 演示状态 ---
 const loadingBasic = ref(true)
 const loadingFullscreen = ref(false)
 const loadingAttr = ref(true)
@@ -15,7 +15,7 @@ const loadingAttr = ref(true)
 const openFullScreen = () => {
   const instance = YhLoading.service({
     fullscreen: true,
-    text: '正在同步全球核心数据...',
+    text: 'Synchronizing global core data...',
     lock: true
   })
   setTimeout(() => instance.close(), 2000)
@@ -25,7 +25,7 @@ const openGlassFullScreen = () => {
   const instance = YhLoading.service({
     fullscreen: true,
     glass: true,
-    text: '亚克力玻璃沉浸式加载',
+    text: 'Acrylic Glass Immersive Loading',
     background: 'rgba(255, 255, 255, 0.1)'
   })
   setTimeout(() => instance.close(), 2000)
@@ -34,7 +34,7 @@ const openGlassFullScreen = () => {
 const openCustomSpinner = () => {
   const instance = YhLoading.service({
     fullscreen: true,
-    text: '自定义颜色与渐变',
+    text: 'Custom colors and gradients',
     color: ['#00d2ff', '#3a7bd5'],
     glass: true
   })
@@ -45,7 +45,7 @@ const openPremium = (type: LoadingSpinnerType) => {
   const instance = YhLoading.service({
     fullscreen: true,
     spinnerType: type,
-    text: `正在应用 ${type} 旗舰样式...`,
+    text: `Applying ${type} premium style...`,
     glass: true,
     color: ['#00d2ff', '#3a7bd5']
   })
@@ -56,7 +56,7 @@ const openPremiumColored = (type: LoadingSpinnerType, colors: string[]) => {
   const instance = YhLoading.service({
     fullscreen: true,
     spinnerType: type,
-    text: '绚丽色彩加载中...',
+    text: 'Loading with brilliant colors...',
     glass: true,
     color: colors
   })
@@ -66,7 +66,7 @@ const openPremiumColored = (type: LoadingSpinnerType, colors: string[]) => {
 const openCustomVNodeLoading = () => {
   const instance = YhLoading.service({
     fullscreen: true,
-    text: '自定义 VNode 扩展演示',
+    text: 'Custom VNode Extension Demo',
     glass: true,
     spinner: h('div', { class: 'custom-logo-loading' }, [
       h('div', { class: 'logo-inner' }, 'YH')
@@ -82,17 +82,16 @@ const openDirectiveFullscreen = () => {
   }, 2000)
 }
 
-// --- 代码片段 ---
 const tsBasic = `<${_T}>
   <yh-button @click="loading = !loading" style="margin-bottom: 16px;">
-    切换加载状态
+    Toggle Loading State
   </yh-button>
   <div 
     v-yh-loading="loading" 
-    yh-loading-text="正在读取容器数据..."
+    yh-loading-text="Reading container data..."
     style="height: 180px; border: 1px solid var(--yh-border-color-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--yh-bg-color-page);"
   >
-    <div style="color: var(--yh-text-color-secondary)">这里是容器内容</div>
+    <div style="color: var(--yh-text-color-secondary)">This is container content</div>
   </div>
 </${_T}>
 
@@ -103,7 +102,7 @@ const loading = ref(true)
 
 const tsDirectiveFullscreen = `<${_T}>
   <yh-button @click="openLoading">
-    全屏加载 (.fullscreen.lock)
+    Full Screen Loading (.fullscreen.lock)
   </yh-button>
 
   <div v-yh-loading.fullscreen.lock="loading"></div>
@@ -122,13 +121,13 @@ const openLoading = () => {
 const tsDirectiveAttributes = `<${_T}>
   <div 
     v-yh-loading="loading"
-    yh-loading-text="正在为您极速加载..."
+    yh-loading-text="Loading fast for you..."
     yh-loading-type="chaser"
     yh-loading-color="#00d2ff"
     yh-loading-background="rgba(0, 0, 0, 0.8)"
     style="height: 200px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #1a1a1a;"
   >
-    <div style="color: #666">这里是深色容器背景</div>
+    <div style="color: #666">This is a dark container background</div>
   </div>
 </${_T}>
 
@@ -141,13 +140,13 @@ const tsDirectiveGlass = `<${_T}>
   <div 
     v-yh-loading="true"
     yh-loading-glass
-    yh-loading-text="亚克力玻璃指令遮罩"
+    yh-loading-text="Acrylic Glass Directive Mask"
     class="demo-rich-container"
     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"
   >
     <div class="demo-card">
-      <h4>系统核心看板</h4>
-      <p>正在通过亚克力玻璃滤镜渲染实时数据流...</p>
+      <h4>System Core Dashboard</h4>
+      <p>Rendering real-time data stream through acrylic glass filter...</p>
     </div>
   </div>
 </${_T}>`
@@ -156,13 +155,13 @@ const tsDirectiveDot = `<${_T}>
   <div 
     v-yh-loading="true"
     yh-loading-dot
-    yh-loading-text="正在加载容器..."
+    yh-loading-text="Loading container..."
     class="demo-rich-container"
     style="background: var(--yh-bg-color-page);"
   >
     <div class="demo-card" style="background: var(--yh-bg-color);">
-      <h4>资产管理队列</h4>
-      <p>点状加载模式适配轻量级容器反馈</p>
+      <h4>Asset Management Queue</h4>
+      <p>Dot loading mode for lightweight container feedback</p>
     </div>
   </div>
 </${_T}>`
@@ -171,13 +170,13 @@ const tsDirectiveCustomClass = `<${_T}>
   <div 
     v-yh-loading="true"
     yh-loading-custom-class="my-custom-mask"
-    yh-loading-text="自定义风格遮罩"
+    yh-loading-text="Custom Style Mask"
     class="demo-rich-container"
     style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);"
   >
     <div class="demo-card">
-      <h4>自定义深度定制</h4>
-      <p>正在应用 my-custom-mask 类名提供的特殊滤镜...</p>
+      <h4>Deep Customization</h4>
+      <p>Applying special filter via my-custom-mask class...</p>
     </div>
   </div>
 </${_T}>
@@ -200,7 +199,7 @@ import { YhLoading } from '@yh-ui/yh-ui'
 const openLoading = () => {
   const loading = YhLoading.service({
     fullscreen: true,
-    text: '自定义颜色与渐变',
+    text: 'Custom colors and gradients',
     color: ['#00d2ff', '#3a7bd5'],
     glass: true
   })
@@ -209,15 +208,15 @@ const openLoading = () => {
 </${_S}>
 
 <${_T}>
-  <yh-button @click="openLoading">点击触发全屏加载</yh-button>
+  <yh-button @click="openLoading">Click to trigger full screen loading</yh-button>
 </${_T}>`
 
 const tsPremium = `<${_T}>
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <yh-button @click="openPremium('chaser')">Chaser (追逐)</yh-button>
-    <yh-button @click="openPremium('gear')">Gear (齿轮)</yh-button>
-    <yh-button @click="openPremium('dual-ring')">Dual Ring (双环)</yh-button>
-    <yh-button @click="openPremium('rect')">Rect (矩阵)</yh-button>
+    <yh-button @click="openPremium('chaser')">Chaser</yh-button>
+    <yh-button @click="openPremium('gear')">Gear</yh-button>
+    <yh-button @click="openPremium('dual-ring')">Dual Ring</yh-button>
+    <yh-button @click="openPremium('rect')">Rect</yh-button>
   </div>
 </${_T}>
 
@@ -248,59 +247,114 @@ const openCustom = () => {
 </${_S}>
 
 <${_T}>
-  <yh-button @click="openCustom">展示自定义 VNode</yh-button>
+  <yh-button @click="openCustom">Show custom VNode</yh-button>
 </${_T}>`
 
-const tsAxios = `import axios from 'axios'
-import { YhLoading } from '@yh-ui/yh-ui'
+const tsAxios = `<${_T}>
+  <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+    <yh-button :loading="running" @click="runRequests">Simulate concurrent requests</yh-button>
+    <div style="color: var(--yh-text-color-secondary); font-size: 14px;">
+      Active request count: {{ requestCount }}
+    </div>
+  </div>
+</${_T}>
 
-let loadingInstance = null
-let requestCount = 0
+<${_S} setup lang="ts">
+import axios from 'axios'
+import { ref } from 'vue'
+import { YhLoading } from '@yh-ui/yh-ui'
+import type { YhLoadingInstance } from '@yh-ui/yh-ui'
+
+const requestCount = ref(0)
+const running = ref(false)
+let loadingInstance: YhLoadingInstance | null = null
 
 const showLoading = () => {
-  if (requestCount === 0) {
+  if (requestCount.value === 0) {
     loadingInstance = YhLoading.service({
       lock: true,
-      text: '数据加载中...',
+      text: 'Loading data...',
       glass: true
     })
   }
-  requestCount++
+  requestCount.value += 1
 }
 
 const hideLoading = () => {
-  requestCount--
-  if (requestCount <= 0) {
+  requestCount.value = Math.max(0, requestCount.value - 1)
+  if (requestCount.value === 0) {
     loadingInstance?.close()
     loadingInstance = null
   }
 }
 
-const service = axios.create({ baseURL: '/api', timeout: 5000 })
-
-service.interceptors.request.use(config => {
-  showLoading()
-  return config
-}, error => {
-  hideLoading()
-  return Promise.reject(error)
+const service = axios.create({
+  timeout: 5000,
+  adapter: async (config) => {
+    await new Promise((resolve) => setTimeout(resolve, 700))
+    return {
+      data: { ok: true, url: config.url },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config
+    }
+  }
 })
 
-service.interceptors.response.use(response => {
-  hideLoading()
-  return response
-}, error => {
-  hideLoading()
-  return Promise.reject(error)
-})`
+service.interceptors.request.use(
+  (config) => {
+    showLoading()
+    return config
+  },
+  (error) => {
+    hideLoading()
+    return Promise.reject(error)
+  }
+)
 
-const tsContext = `<${_S} setup lang="ts">
+service.interceptors.response.use(
+  (response) => {
+    hideLoading()
+    return response
+  },
+  (error) => {
+    hideLoading()
+    return Promise.reject(error)
+  }
+)
+
+const runRequests = async () => {
+  running.value = true
+  try {
+    await Promise.all([service.get('/users'), service.get('/orders'), service.get('/stats')])
+  } finally {
+    running.value = false
+  }
+}
+</${_S}>`
+
+const tsContext = `<${_T}>
+  <yh-button @click="openWithContext">Open loading with app context</yh-button>
+</${_T}>
+
+<${_S} setup lang="ts">
 import { getCurrentInstance } from 'vue'
 import { YhLoading } from '@yh-ui/yh-ui'
 
 const { appContext } = getCurrentInstance()!
 
-YhLoading.service({}, appContext)
+const openWithContext = () => {
+  const instance = YhLoading.service(
+    {
+      text: 'Using the current app context...',
+      glass: true
+    },
+    appContext
+  )
+
+  setTimeout(() => instance.close(), 1800)
+}
 </${_S}>`
 
 const jsBasic = toJs(tsBasic)
@@ -316,131 +370,121 @@ const jsAxios = toJs(tsAxios)
 const jsContext = toJs(tsContext)
 </script>
 
-## Loading 与 Spin 的关系
+## Relationship between Loading and Spin
 
-`Loading` 是 YH-UI 提供的指令与服务封装，而 `Spin` 是其核心 UI 组件。
+`Loading` is the directive and service layer built on top of `Spin`, while `Spin` is the lower-level visual loading component.
 
-- **底层核心 (`Spin`)**：负责加载动画（SVG/Dot/Chaser/Gear）的视觉呈现与文字排列。它是一个纯粹的 Vue 组件。
-- **高层封装 (`Loading`)**：基于 `Spin` 构建的增强方案，提供了**指令**与**命令式服务**，专门用于处理全屏遮罩、锁定滚动、动态挂载等交互。
+- `Spin` is responsible for rendering icons, tips, and loading animation layouts.
+- `Loading` adds service mounting, fullscreen masking, scroll locking, directive support, and temporary host management.
 
-## 使用方式
+## Usage
 
-### 区域加载 (指令版)
+### Regional Loading (Directive Version)
 
-通过 `v-yh-loading` 指令可以快速在宿主元素上覆盖一层加载遮罩。
+Use the `v-yh-loading` directive to cover a host element with a loading mask.
 
-<DemoBlock title="基础用法" inverse :ts-code="tsBasic" :js-code="jsBasic">
+<DemoBlock title="Basic Usage" inverse :ts-code="tsBasic" :js-code="jsBasic">
   <yh-button @click="loadingBasic = !loadingBasic" style="margin-bottom: 16px;">
-    切换加载状态
+    Toggle Loading State
   </yh-button>
   <div 
     v-yh-loading="loadingBasic" 
-    yh-loading-text="正在读取容器数据..."
+    yh-loading-text="Reading container data..."
     style="height: 180px; border: 1px solid var(--yh-border-color-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--yh-bg-color-page);"
   >
-    <div style="color: var(--yh-text-color-secondary)">这里是容器内容</div>
+    <div style="color: var(--yh-text-color-secondary)">This is container content</div>
   </div>
 </DemoBlock>
 
-### 指令进阶用法
+### Advanced Directive Usage
 
-通过修饰符 `.fullscreen`、`.lock`、`.glass` 以及扩展属性 `yh-loading-*`，可以实现更复杂的加载交互。
+Directive modifiers such as `.fullscreen`, `.lock`, and `.glass`, together with the `yh-loading-*` attributes, provide richer loading interactions.
 
-<DemoBlock title="指令全屏与锁定" :ts-code="tsDirectiveFullscreen" :js-code="jsDirectiveFullscreen">
-  <yh-button @click="openDirectiveFullscreen">点击演示 .fullscreen.lock</yh-button>
+<DemoBlock title="Directive Fullscreen and Locking" :ts-code="tsDirectiveFullscreen" :js-code="jsDirectiveFullscreen">
+  <yh-button @click="openDirectiveFullscreen">Click to demo .fullscreen.lock</yh-button>
   <div v-yh-loading.fullscreen.lock="loadingFullscreen"></div>
 </DemoBlock>
 
-<DemoBlock title="指令扩展属性" :ts-code="tsDirectiveAttributes" :js-code="jsDirectiveAttributes">
+<DemoBlock title="Directive Extension Attributes" :ts-code="tsDirectiveAttributes" :js-code="jsDirectiveAttributes">
   <yh-button @click="loadingAttr = !loadingAttr" style="margin-bottom: 16px;">
-    切换局部自定义指令
+    Toggle local custom directive
   </yh-button>
   <div 
     v-yh-loading="loadingAttr"
-    yh-loading-text="正在为您极速加载..."
+    yh-loading-text="Loading fast for you..."
     yh-loading-type="chaser"
     yh-loading-color="#00d2ff"
     yh-loading-background="rgba(0, 0, 0, 0.8)"
     style="height: 200px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #1a1a1a;"
   >
-    <div style="color: #666">这里是深色容器背景</div>
+    <div style="color: #666">This is a dark container background</div>
   </div>
 </DemoBlock>
 
-<DemoBlock title="指令旗舰 Glass 模式" :ts-code="tsDirectiveGlass" :js-code="jsDirectiveGlass">
+<DemoBlock title="Directive Flagship Glass Mode" :ts-code="tsDirectiveGlass" :js-code="jsDirectiveGlass">
   <div 
     v-yh-loading="true"
     yh-loading-glass
-    yh-loading-text="亚克力玻璃指令遮罩"
+    yh-loading-text="Acrylic glass directive mask"
     class="demo-rich-container"
     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"
   >
     <div class="demo-card">
-      <h4 style="margin:0">系统核心看板</h4>
-      <p style="margin:8px 0 0; font-size:14px;">正在通过亚克力玻璃滤镜渲染实时数据流...</p>
+      <h4 style="margin:0">System Core Dashboard</h4>
+      <p style="margin:8px 0 0; font-size:14px;">Rendering real-time data stream through acrylic glass filter...</p>
     </div>
   </div>
 </DemoBlock>
 
-<DemoBlock title="指令 Dot 模式" :ts-code="tsDirectiveDot" :js-code="jsDirectiveDot">
+<DemoBlock title="Directive Dot Mode" :ts-code="tsDirectiveDot" :js-code="jsDirectiveDot">
   <div 
     v-yh-loading="true"
     yh-loading-dot
-    yh-loading-text="正在加载容器..."
+    yh-loading-text="Loading container..."
     class="demo-rich-container"
     style="background: var(--yh-bg-color-page);"
   >
     <div class="demo-card" style="background: var(--yh-bg-color);">
-      <h4 style="margin:0">资产管理队列</h4>
-      <p style="margin:8px 0 0; font-size:14px;">点状加载模式适配轻量级容器反馈</p>
+      <h4 style="margin:0">Asset Management Queue</h4>
+      <p style="margin:8px 0 0; font-size:14px;">Dot loading mode for lightweight container feedback</p>
     </div>
   </div>
 </DemoBlock>
 
-<DemoBlock title="指令自定义类名" :ts-code="tsDirectiveCustomClass" :js-code="jsDirectiveCustomClass">
+<DemoBlock title="Directive Custom Class Name" :ts-code="tsDirectiveCustomClass" :js-code="jsDirectiveCustomClass">
   <div 
     v-yh-loading="true"
     yh-loading-custom-class="my-custom-mask"
-    yh-loading-text="自定义风格遮罩"
+    yh-loading-text="Custom style mask"
     class="demo-rich-container"
     style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);"
   >
     <div class="demo-card">
-      <h4 style="margin:0">自定义深度定制</h4>
-      <p style="margin:8px 0 0; font-size:14px;">正在应用 my-custom-mask 类名提供的特殊滤镜...</p>
+      <h4 style="margin:0">Deep Customization</h4>
+      <p style="margin:8px 0 0; font-size:14px;">Applying special filter via my-custom-mask class...</p>
     </div>
   </div>
 </DemoBlock>
 
-### 组合式 API (推荐)
+### Composition API (Recommended)
 
-在 `script setup` 中使用 `YhLoading.service` 是最高效的调用方式。
+Use `YhLoading.service` inside `setup` to open and close loading masks imperatively.
 
-<DemoBlock title="组合式 API 调用" :ts-code="tsComposition" :js-code="jsComposition">
-  <yh-button @click="openCustomSpinner">点击触发全屏加载</yh-button>
+<DemoBlock title="Composition API Call" :ts-code="tsComposition" :js-code="jsComposition">
+  <yh-button @click="openCustomSpinner">Click to trigger full screen loading</yh-button>
 </DemoBlock>
 
-### 选项式 API
+### Options API
 
-在非 `setup` 环境下，可以通过原型上的 `$loading` 进行调用。
+After installing the plugin, the service is also available through `$loading`.
 
-<DemoBlock title="选项式 API 调用" :ts-code="tsPremium" :js-code="jsPremium">
-  <yh-button @click="openFullScreen">点击演示全局挂载</yh-button>
+<DemoBlock title="Options API Call" :ts-code="tsPremium" :js-code="jsPremium">
+  <yh-button @click="openFullScreen">Click to demo global mounting</yh-button>
 </DemoBlock>
 
-## 在 Axios 中使用
+## Use in Nuxt
 
-在实际项目中，通过结合 Axios 拦截器与“引用计数”方案，可以完美处理多个并发请求时的 Loading 状态，确保加载效果平滑。
-
-<DemoBlock title="网络请求拦截示例" :ts-code="tsAxios" :js-code="jsAxios">
-  <p style="font-size: 14px; color: var(--yh-text-color-secondary);">
-    该计数器方案确保：只有第一个请求会开启 Loading，而直到最后一个并发请求完成后才会关闭，有效防止界面闪烁。
-  </p>
-</DemoBlock>
-
-## 在 Nuxt 中使用
-
-接入 `@yh-ui/nuxt` 后，`YhLoading` 可在 Nuxt 3/4 中直接使用。指令 `v-yh-loading` 可直接写在模板中参与 SSR 首屏结构输出；服务调用 `YhLoading.service(...)` 建议放在点击事件、请求回调或 `onMounted` 等客户端时机中执行。
+`YhLoading` works in Nuxt 3/4 after registering `@yh-ui/nuxt`. Call the service from client-side interaction handlers or lifecycle hooks, and use the directive directly in templates for container masks.
 
 ```ts
 // nuxt.config.ts
@@ -449,51 +493,61 @@ export default defineNuxtConfig({
 })
 ```
 
-## 旗舰级 Loading 样式
+## Usage in Axios
 
-借鉴 [loading.io](https://loading.io/#editor) 的动感设计。
+In real projects, combine Axios interceptors with a small reference counter so the mask only closes after the last concurrent request finishes.
 
-<DemoBlock title="旗舰动效" :ts-code="tsPremium" :js-code="jsPremium">
+<DemoBlock title="Network Request Interception Example" :ts-code="tsAxios" :js-code="jsAxios">
+  <p style="font-size: 14px; color: var(--yh-text-color-secondary);">
+    This counter strategy ensures that only the first request opens Loading, and the mask stays visible until the last concurrent request completes.
+  </p>
+</DemoBlock>
+
+## Flagship Loading Styles
+
+Inspired by the motion styles of [loading.io](https://loading.io/#editor).
+
+<DemoBlock title="Premium Animations" :ts-code="tsPremium" :js-code="jsPremium">
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <yh-button @click="openPremium('chaser')">Chaser (追逐)</yh-button>
-    <yh-button @click="openPremium('gear')">Gear (齿轮)</yh-button>
-    <yh-button @click="openPremium('dual-ring')">Dual Ring (双环)</yh-button>
-    <yh-button @click="openPremium('rect')">Rect (矩阵)</yh-button>
+    <yh-button @click="openPremium('chaser')">Chaser</yh-button>
+    <yh-button @click="openPremium('gear')">Gear</yh-button>
+    <yh-button @click="openPremium('dual-ring')">Dual Ring</yh-button>
+    <yh-button @click="openPremium('rect')">Rect</yh-button>
   </div>
 </DemoBlock>
 
-### 自定义色彩方案
+### Custom Color Schemes
 
-支持单色、渐变色数组 or CSS 变量。
+Single colors, gradient color arrays, and CSS-variable based colors are all supported.
 
-<DemoBlock title="多色动效" :ts-code="tsPremium" :js-code="jsPremium">
+<DemoBlock title="Multi-color Animations" :ts-code="tsPremium" :js-code="jsPremium">
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <yh-button @click="openPremiumColored('chaser', ['#ff4e50', '#f9d423'])">日落</yh-button>
-    <yh-button @click="openPremiumColored('gear', ['#56ab2f', '#a8e063'])">新翠</yh-button>
-    <yh-button @click="openPremiumColored('rect', ['#8e2de2', '#4a00e0'])">深邃</yh-button>
-    <yh-button @click="openPremiumColored('dual-ring', ['#f80759', '#bc4e9c'])">霓虹</yh-button>
+    <yh-button @click="openPremiumColored('chaser', ['#ff4e50', '#f9d423'])">Sunset</yh-button>
+    <yh-button @click="openPremiumColored('gear', ['#56ab2f', '#a8e063'])">New Green</yh-button>
+    <yh-button @click="openPremiumColored('rect', ['#8e2de2', '#4a00e0'])">Deep Blue</yh-button>
+    <yh-button @click="openPremiumColored('dual-ring', ['#f80759', '#bc4e9c'])">Neon</yh-button>
   </div>
 </DemoBlock>
 
-### 完全自定义扩展 (VNode/Component)
+### Fully Custom Expansion (VNode or Component)
 
-YH-UI 允许跳过内置样式，通过 `spinner` 属性注入 any Vue 组件 or VNode，实现完全自主控制 Loading 呈现内容。
+Pass a custom `spinner` to replace the built-in loading renderer with your own VNode or component.
 
-<DemoBlock title="自定义 VNode 演示" :ts-code="tsCustomSpinner" :js-code="jsCustomSpinner">
-  <yh-button @click="openCustomVNodeLoading">点击展示自定义 VNode 加载</yh-button>
+<DemoBlock title="Custom VNode Demo" :ts-code="tsCustomSpinner" :js-code="jsCustomSpinner">
+  <yh-button @click="openCustomVNodeLoading">Click to show custom VNode loading</yh-button>
 </DemoBlock>
 
-## 应用程序上下文
+## Application Context
 
-现在 Loading 接受一条 `context` 作为消息构造器的第二个参数，允许你将当前应用的上下文注入到 Loading 中，这将允许你继承应用程序的所有属性。
+`YhLoading.service` accepts the current app context as the second argument so content rendered inside the service can inherit global components and plugins.
 
 ::: tip
-如果您全局注册了 YhLoading 组件，它将自动继承应用的上下文环境。
+If `YhLoading` is installed globally, the service already runs with the application context created by the plugin.
 :::
 
-<DemoBlock title="应用上下文注入" :ts-code="tsContext" :js-code="jsContext">
+<DemoBlock title="Application Context Injection" :ts-code="tsContext" :js-code="jsContext">
   <p style="font-size: 14px; color: var(--yh-text-color-secondary);">
-    通过传递 appContext，Loading 内部挂载的组件可以访问到全局注册的插件（如 Pinia、Router）以及全局组件。
+    By passing `appContext`, components mounted inside Loading can access globally registered plugins such as Pinia or Vue Router.
   </p>
 </DemoBlock>
 
@@ -501,78 +555,78 @@ YH-UI 允许跳过内置样式，通过 `spinner` 属性注入 any Vue 组件 or
 
 ### Props
 
-当前条目不通过组件 Props 暴露配置项。请通过 `YhLoading.service(...)` 或 `v-yh-loading` 使用加载遮罩。
+This entry does not expose configuration through component props. Use `YhLoading.service(...)` or `v-yh-loading` instead.
 
 ### Events
 
-当前条目未暴露组件事件。
+This entry does not expose component events.
 
 ### Slots
 
-当前条目不是常规模板组件入口，不单独暴露组件插槽。
+This entry is not used as a regular template component and does not expose standalone component slots.
 
 ### Expose
 
-当前条目未暴露组件实例 `defineExpose` 成员；服务能力通过 `YhLoading.service(...)` 返回的 `LoadingInstance` 提供。
+This entry does not expose component-instance `defineExpose` members. Service capabilities are returned from `YhLoading.service(...)`.
 
-### LoadingOptions (Service 配置)
- 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `target` | 挂载目标元素或选择器。全屏模式下始终挂载到 `document.body` | `string \| HTMLElement` | `document.body` |
-| `body` | 是否追加到 `body` 容器 | `boolean` | `false` |
-| `fullscreen` | 是否以全屏固定遮罩形式渲染 | `boolean` | `true` |
-| `lock` | 是否锁定目标元素滚动 | `boolean` | `false` |
-| `text` | 加载提示文案；未传时回退到 locale 中的 `loading.text` | `string` | `undefined` |
-| `spinner` | 自定义图标、组件或 VNode；优先级高于 `spinnerType` | `string \| Component \| VNode` | `undefined` |
-| `background` | 自定义遮罩背景色 | `string` | `undefined` |
-| `customClass` | 追加到遮罩层上的自定义类名 | `string` | `undefined` |
-| `glass` | 是否启用玻璃态遮罩效果 | `boolean` | `false` |
-| `color` | 加载图标颜色，支持单色、渐变数组或颜色映射对象 | `string \| string[] \| Record<string, string>` | `undefined` |
-| `dot` | 是否启用点状加载样式 | `boolean` | `false` |
-| `spinnerType` | 内置加载动画类型 | `LoadingSpinnerType` | `'circle'` |
-| `themeOverrides` | 组件级主题变量覆盖 | `ComponentThemeVars` | `undefined` |
+### Loading Options
 
-### 指令 Attributes (v-yh-loading)
+| Property       | Description                                        | Type                                           | Default         |
+| -------------- | -------------------------------------------------- | ---------------------------------------------- | --------------- |
+| target         | Mount target element or selector                   | `string \| HTMLElement`                        | `document.body` |
+| body           | Whether to append to the body container            | `boolean`                                      | `false`         |
+| fullscreen     | Whether to render as a fullscreen fixed mask       | `boolean`                                      | `true`          |
+| lock           | Whether to lock scrolling on the target            | `boolean`                                      | `false`         |
+| text           | Loading tip text                                   | `string`                                       | `undefined`     |
+| spinner        | Custom icon, component, or VNode                   | `string \| Component \| VNode`                 | `undefined`     |
+| background     | Custom mask background color                       | `string`                                       | `undefined`     |
+| customClass    | Extra class name applied to the mask               | `string`                                       | `undefined`     |
+| glass          | Whether to enable the glass-style mask             | `boolean`                                      | `false`         |
+| color          | Spinner color, gradient colors, or color token map | `string \| string[] \| Record<string, string>` | `undefined`     |
+| dot            | Whether to use the dot loading style               | `boolean`                                      | `false`         |
+| spinnerType    | Built-in loading animation type                    | `LoadingSpinnerType`                           | `'circle'`      |
+| themeOverrides | Component-level theme variable overrides           | `ComponentThemeVars`                           | `undefined`     |
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| `yh-loading-text` | 加载提示文案 | `string` |
-| `yh-loading-background` | 遮罩背景色 | `string` |
-| `yh-loading-custom-class` | 追加到遮罩层上的自定义类名 | `string` |
-| `yh-loading-glass` | 是否启用玻璃态效果 | `boolean` |
-| `yh-loading-dot` | 是否启用点状样式 | `boolean` |
-| `yh-loading-color` | 图标颜色 | `string` |
-| `yh-loading-type` | 内置动画类型 | `LoadingSpinnerType` |
+### Directive Attributes
 
-### 指令 Modifiers (修饰符)
+| Name                      | Description                  | Type                 |
+| ------------------------- | ---------------------------- | -------------------- |
+| `yh-loading-text`         | Loading tip text             | `string`             |
+| `yh-loading-background`   | Mask background color        | `string`             |
+| `yh-loading-custom-class` | Extra custom class name      | `string`             |
+| `yh-loading-glass`        | Whether to enable glass mode | `boolean`            |
+| `yh-loading-dot`          | Whether to enable dot mode   | `boolean`            |
+| `yh-loading-color`        | Spinner color                | `string`             |
+| `yh-loading-type`         | Built-in spinner type        | `LoadingSpinnerType` |
 
-| 名称 | 说明 |
-| --- | --- |
-| `.fullscreen` | 等同于 `fullscreen: true` |
-| `.lock` | 等同于 `lock: true` |
-| `.glass` | 等同于 `glass: true` |
+### Directive Modifiers
 
-### LoadingInstance (服务实例方法)
+| Name          | Description                      |
+| ------------- | -------------------------------- |
+| `.fullscreen` | Equivalent to `fullscreen: true` |
+| `.lock`       | Equivalent to `lock: true`       |
+| `.glass`      | Equivalent to `glass: true`      |
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| `close` | 关闭并销毁当前遮罩实例 | `() => void` |
-| `visible` | 当前显示状态（只读） | `boolean` |
+### Loading Instance
 
-## 主题变量 (CSS Variables)
+| Property | Description                      | Type         |
+| -------- | -------------------------------- | ------------ |
+| close    | Close and destroy the mask       | `() => void` |
+| visible  | Current visible state (readonly) | `boolean`    |
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-loading-z-index` | 加载遮罩层级 | `2000` |
+### Theme Variables
 
-### 类型导出
+| Variable               | Description          | Default |
+| ---------------------- | -------------------- | ------- |
+| `--yh-loading-z-index` | Loading mask z-index | `2000`  |
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhLoadingOptions` | `YhLoading.service(...)` 的配置类型 |
-| `YhLoadingInstance` | Loading 服务返回的实例类型 |
-| `vYhLoading` | `v-yh-loading` 指令的具名导出 |
+### Type Exports
+
+| Name                | Description                                       |
+| ------------------- | ------------------------------------------------- |
+| `YhLoadingOptions`  | Service options type for `YhLoading.service(...)` |
+| `YhLoadingInstance` | Returned loading instance type                    |
+| `vYhLoading`        | Named directive export for `v-yh-loading`         |
 
 <style>
 .custom-logo-loading {

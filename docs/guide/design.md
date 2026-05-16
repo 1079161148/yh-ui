@@ -1,210 +1,127 @@
-# 设计规范
+# 设计原则
 
-YH-UI 遵循现代化的设计原则，提供一致、美观、易用的用户界面。
+YH-UI 的设计目标是服务真实业务系统：界面应当清晰、稳定、可预测，并且能够在不同团队、不同主题、不同框架环境中保持一致体验。
 
-## 设计原则
+## 核心原则
 
-### 1. 一致性 (Consistency)
+### 一致性
 
-保持视觉和交互的一致性：
+同类信息使用同类表达，同类操作使用同类反馈。
 
-- **视觉一致性**：相同功能的组件具有相同的外观
-- **交互一致性**：相同操作具有相同的反馈
-- **语言一致性**：使用统一的术语和措辞
+- 视觉一致：颜色、圆角、间距、阴影、动效来自统一 Token。
+- 交互一致：按钮、弹层、表单、反馈组件遵循相同的状态模型。
+- 语言一致：文案使用明确动词，避免同一行为出现多套叫法。
 
-### 2. 反馈 (Feedback)
+### 可预期
 
-用户的每个操作都应该有清晰的反馈：
+用户在操作前应理解会发生什么，操作后能立即确认结果。
 
-- **即时反馈**：按钮点击有 hover/active 状态
-- **过程反馈**：Loading 状态显示操作进行中
-- **结果反馈**：Message/Notification 通知操作结果
+- 破坏性操作必须清楚标识，并尽量提供二次确认或撤销路径。
+- 表单校验应在用户能修正的位置给出，不把错误只放在页面顶部。
+- 异步操作需要 Loading、禁用态或进度反馈，避免重复提交。
 
-### 3. 效率 (Efficiency)
+### 高效
 
-减少用户的操作成本：
+组件默认值应覆盖多数业务场景，让常见任务更快完成。
 
-- **减少步骤**：简化流程，减少不必要的操作
-- **提供默认值**：合理的默认配置
-- **键盘友好**：支持 Tab 导航和快捷键
+- 为表单、表格、弹层、导航提供稳定的默认布局。
+- 支持键盘访问、批量操作、数据驱动配置和插槽扩展。
+- 避免为了展示效果牺牲信息密度，后台/运营类页面优先可扫描性。
 
-### 4. 可控性 (Controllability)
+### 可组合
 
-用户应该能够控制界面：
+组件应像积木一样独立、可组合、可替换。
 
-- **可撤销**：支持撤销操作
-- **可配置**：提供自定义选项
-- **可预测**：操作结果可预期
+- 单个组件不隐式接管应用状态。
+- 复杂能力通过 `props`、事件、插槽、组合式 API 暴露。
+- 主题、国际化、尺寸、命名空间通过 `ConfigProvider` 与 CSS 变量协同。
 
----
+### 可访问
 
-## 色彩系统
+可访问性不是发布后的补丁，而是组件行为的一部分。
 
-### 品牌色
+- 交互元素必须有可见焦点。
+- 颜色不应作为唯一信息来源。
+- 弹层、下拉、消息、表单控件应保持合理的语义和键盘路径。
+- 动效需要尊重 `prefers-reduced-motion`。
 
-| 颜色 | 变量名 | 用途 |
-| --- | --- | --- |
-| <span style="background:#409eff;color:white;padding:2px 8px;border-radius:4px">#409eff</span> | `--yh-color-primary` | 主要操作、链接、选中状态 |
-| <span style="background:#67c23a;color:white;padding:2px 8px;border-radius:4px">#67c23a</span> | `--yh-color-success` | 成功、完成、正确 |
-| <span style="background:#e6a23c;color:white;padding:2px 8px;border-radius:4px">#e6a23c</span> | `--yh-color-warning` | 警告、提醒 |
-| <span style="background:#f56c6c;color:white;padding:2px 8px;border-radius:4px">#f56c6c</span> | `--yh-color-danger` | 错误、危险、删除 |
-| <span style="background:#909399;color:white;padding:2px 8px;border-radius:4px">#909399</span> | `--yh-color-info` | 信息、说明 |
+## 视觉系统
 
-### 文字色
+### 颜色
 
-| 颜色 | 变量名 | 用途 |
-| --- | --- | --- |
-| <span style="background:#303133;color:white;padding:2px 8px;border-radius:4px">#303133</span> | `--yh-text-color-primary` | 标题、主要文字 |
-| <span style="background:#606266;color:white;padding:2px 8px;border-radius:4px">#606266</span> | `--yh-text-color-regular` | 正文内容 |
-| <span style="background:#909399;color:white;padding:2px 8px;border-radius:4px">#909399</span> | `--yh-text-color-secondary` | 次要信息 |
-| <span style="background:#a8abb2;color:white;padding:2px 8px;border-radius:4px">#a8abb2</span> | `--yh-text-color-placeholder` | 占位文字 |
-| <span style="background:#c0c4cc;color:black;padding:2px 8px;border-radius:4px">#c0c4cc</span> | `--yh-text-color-disabled` | 禁用状态 |
+颜色分为品牌色、语义色、文本色、边框色、填充色和背景色。
 
-### 边框色
+| 类型   | Token 示例            | 用途                           |
+| ------ | --------------------- | ------------------------------ |
+| 品牌色 | `--yh-color-primary`  | 主按钮、链接、选中态           |
+| 成功   | `--yh-color-success`  | 成功反馈、完成状态             |
+| 警告   | `--yh-color-warning`  | 风险提示、待确认状态           |
+| 危险   | `--yh-color-danger`   | 错误、删除、不可逆操作         |
+| 信息   | `--yh-color-info`     | 中性说明、辅助信息             |
+| 文本   | `--yh-text-color-*`   | 标题、正文、次要信息、禁用文本 |
+| 边框   | `--yh-border-color-*` | 分割线、输入框、卡片边界       |
 
-| 颜色 | 变量名 | 用途 |
-| --- | --- | --- |
-| <span style="background:#dcdfe6;padding:2px 8px;border-radius:4px">#dcdfe6</span> | `--yh-border-color` | 默认边框 |
-| <span style="background:#e4e7ed;padding:2px 8px;border-radius:4px">#e4e7ed</span> | `--yh-border-color-light` | 浅色边框 |
-| <span style="background:#ebeef5;padding:2px 8px;border-radius:4px">#ebeef5</span> | `--yh-border-color-lighter` | 更浅边框 |
+### 字体
 
----
-
-## 字体系统
-
-### 字体族
+默认字体栈优先使用系统 UI 字体，保证跨平台清晰度和加载性能。
 
 ```css
---yh-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
-                  'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-
---yh-font-family-monospace: 'SFMono-Regular', Consolas, 'Liberation Mono', 
-                            Menlo, Courier, monospace;
+--yh-font-family:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+  sans-serif;
+--yh-font-family-monospace:
+  'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 ```
 
-### 字号
+### 间距
 
-| 变量 | 大小 | 用途 |
-| --- | --- | --- |
-| `--yh-font-size-xs` | 12px | 标签、说明 |
-| `--yh-font-size-sm` | 13px | 辅助文字 |
-| `--yh-font-size-base` | 14px | 正文 (默认) |
-| `--yh-font-size-md` | 16px | 副标题 |
-| `--yh-font-size-lg` | 18px | 标题 |
-| `--yh-font-size-xl` | 20px | 大标题 |
-| `--yh-font-size-xxl` | 24px | 展示标题 |
+YH-UI 使用 4px 基础栅格。常用间距为 4、8、12、16、20、24、32px。紧凑界面应减少外层留白而不是压缩文字行高。
 
-### 行高
+### 圆角与阴影
 
-| 变量 | 值 | 用途 |
-| --- | --- | --- |
-| `--yh-line-height-tight` | 1.3 | 紧凑文字 |
-| `--yh-line-height-normal` | 1.5 | 正文 |
-| `--yh-line-height-loose` | 1.7 | 多行文本 |
+圆角用于表达层级和触感，但不应削弱专业工具界面的信息密度。默认圆角保持克制，卡片和弹层可以使用更高层级阴影，但同一页面不应混用过多阴影等级。
 
----
+## 交互原则
 
-## 间距系统
+### 状态完整
 
-基于 4px 的间距系统：
+每个可交互组件都应考虑：
 
-| 变量 | 值 | 用途 |
-| --- | --- | --- |
-| `--yh-spacing-xs` | 4px | 最小间距 |
-| `--yh-spacing-sm` | 8px | 小间距 |
-| `--yh-spacing-md` | 16px | 中等间距 |
-| `--yh-spacing-lg` | 24px | 大间距 |
-| `--yh-spacing-xl` | 32px | 超大间距 |
+- 默认态
+- Hover 态
+- Active 态
+- Focus 态
+- Disabled 态
+- Loading 态
+- Error / Warning / Success 态
 
----
+### 反馈分层
 
-## 圆角
+| 场景           | 推荐组件                    |
+| -------------- | --------------------------- |
+| 表单字段错误   | `FormItem` 校验信息         |
+| 一次性轻量反馈 | `Message`                   |
+| 系统级通知     | `Notification`              |
+| 需要确认的操作 | `MessageBox` / `Popconfirm` |
+| 页面级结果     | `Result`                    |
+| 区域加载       | `Loading` / `Spin`          |
 
-| 变量 | 值 | 用途 |
-| --- | --- | --- |
-| `--yh-radius-sm` | 2px | 小元素 |
-| `--yh-radius-base` | 4px | 默认 |
-| `--yh-radius-md` | 8px | 中等 |
-| `--yh-radius-lg` | 12px | 大元素 |
-| `--yh-radius-round` | 20px | 圆角按钮 |
+### 响应式
 
----
+移动端不只是缩小桌面布局。表格、筛选、操作栏、弹层在窄屏下应调整信息优先级，避免内容重叠或按钮挤压。
 
-## 阴影
+## 设计验收清单
 
-| 变量 | 用途 |
-| --- | --- |
-| `--yh-shadow-sm` | 轻微阴影，如卡片 |
-| `--yh-shadow-base` | 默认阴影，如下拉菜单 |
-| `--yh-shadow-md` | 中等阴影，如弹窗 |
-| `--yh-shadow-lg` | 大阴影，如模态框 |
+发布或合并前建议检查：
 
----
+- 组件是否支持暗色主题和主要语义色。
+- 键盘能否访问主要交互路径。
+- 长文本、空数据、加载中、错误态是否可读。
+- 弹层是否处理滚动锁定、焦点、关闭路径和层级。
+- 文档 Demo 是否覆盖默认、边界、业务集成三类场景。
 
-## 动画
+## 相关文档
 
-### 持续时间
-
-| 变量 | 值 | 用途 |
-| --- | --- | --- |
-| `--yh-duration-fast` | 150ms | 快速反馈 |
-| `--yh-duration-base` | 200ms | 默认动画 |
-| `--yh-duration-slow` | 300ms | 复杂动画 |
-
-### 缓动函数
-
-| 变量 | 值 | 用途 |
-| --- | --- | --- |
-| `--yh-timing-ease` | ease | 默认 |
-| `--yh-timing-ease-in` | ease-in | 进入 |
-| `--yh-timing-ease-out` | ease-out | 退出 |
-| `--yh-timing-ease-in-out` | ease-in-out | 平滑 |
-
----
-
-## 层级 (z-index)
-
-| 变量 | 值 | 用途 |
-| --- | --- | --- |
-| `--yh-z-index-normal` | 1 | 普通元素 |
-| `--yh-z-index-top` | 1000 | 置顶元素 |
-| `--yh-z-index-popper` | 2000 | 弹出层 |
-| `--yh-z-index-overlay` | 2001 | 遮罩层 |
-| `--yh-z-index-modal` | 2002 | 模态框 |
-| `--yh-z-index-popover` | 2003 | 气泡 |
-| `--yh-z-index-tooltip` | 2004 | 提示 |
-| `--yh-z-index-loading` | 2005 | 加载层 |
-
----
-
-## 响应式断点
-
-| 变量 | 值 | 设备 |
-| --- | --- | --- |
-| `--yh-breakpoint-xs` | 0 | 超小屏 |
-| `--yh-breakpoint-sm` | 576px | 手机横屏 |
-| `--yh-breakpoint-md` | 768px | 平板 |
-| `--yh-breakpoint-lg` | 992px | 小桌面 |
-| `--yh-breakpoint-xl` | 1200px | 桌面 |
-| `--yh-breakpoint-xxl` | 1400px | 大桌面 |
-
----
-
-## 无障碍设计
-
-YH-UI 遵循 WCAG 2.1 AA 标准：
-
-- **颜色对比度**：文字与背景对比度 ≥ 4.5:1
-- **焦点可见**：所有交互元素都有清晰的焦点样式
-- **键盘导航**：支持完整的键盘操作
-- **语义化**：使用正确的 ARIA 属性
-- **减少动画**：支持 `prefers-reduced-motion`
-
----
-
-## 更多资源
-
-- [主题系统](/guide/theme) - 了解如何自定义主题
-- [主题系统示例](/guide/theme-examples) - 查看交互式示例
-- [主题定制](/guide/theming) - 详细的定制文档
-
+- [主题定制](/guide/theming)
+- [Figma 与 Token 体系](/guide/figma-tokens)
+- [最佳实践](/guide/best-practices)

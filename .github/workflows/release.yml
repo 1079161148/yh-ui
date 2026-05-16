@@ -58,26 +58,8 @@ jobs:
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Type check
-        run: pnpm typecheck
-
-      - name: Run tests
-        run: pnpm test:ci
-
-      - name: Build packages
-        run: pnpm build
-
-      - name: Verify release versions
-        run: pnpm verify:release-versions
-
-      - name: Verify consumer smoke
-        run: pnpm verify:consumer-smoke
-
-      - name: Build docs
-        run: pnpm docs:build
-
-      - name: Verify StackBlitz local
-        run: pnpm verify:stackblitz-local
+      - name: Run open-source release gate
+        run: pnpm verify:open-source-release
 
       - name: Verify remote CodeSandbox
         run: pnpm verify:codesandbox-remote
@@ -125,6 +107,9 @@ jobs:
             echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Generate GitHub Release notes
+        run: pnpm release-notes:extract -- --output release-notes.md
+
       - name: Publish packages to npm
         run: pnpm publish:all
         env:
@@ -140,10 +125,11 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const fs = require('node:fs')
             const tag = '${{ steps.version.outputs.VERSION }}'
             const tagName = `v${tag}`
             const targetCommitish = '${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.sha }}'
-            const body = `## YH-UI v${tag}\n\n📦 [npm package](https://www.npmjs.com/package/@yh-ui/yh-ui)\n📉 [Documentation](https://1079161148.github.io/yh-ui/)\n\nSee [CHANGELOG.md](./CHANGELOG.md) for full details.`
+            const body = fs.readFileSync('release-notes.md', 'utf8')
 
             try {
               const existing = await github.rest.repos.getReleaseByTag({

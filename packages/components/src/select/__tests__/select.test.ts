@@ -3,8 +3,10 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, h } from 'vue'
+import { defineComponent, h, nextTick, provide, ref } from 'vue'
 import Select from '../src/select.vue'
+import Option from '../src/option.vue'
+import { SelectContextKey } from '../src/select'
 import { YhConfigProvider } from '../../config-provider'
 import { en } from '@yh-ui/locale'
 
@@ -16,6 +18,42 @@ describe('YhSelect', () => {
     { value: 'option4', label: '选项四', disabled: true },
     { value: 'option5', label: '选项五' }
   ]
+
+  it('registers and unregisters option data through select context', async () => {
+    const created: any[] = []
+    const destroyed: any[] = []
+    const Host = defineComponent({
+      setup() {
+        provide(SelectContextKey, {
+          props: {},
+          selectValue: ref(undefined),
+          hoveredIndex: ref(-1),
+          handleOptionSelect: vi.fn(),
+          isSelected: vi.fn(() => false),
+          onOptionCreate: (option) => created.push(option),
+          onOptionDestroy: (value) => destroyed.push(value)
+        })
+        return () =>
+          h('div', [
+            h(Option, { value: 'with-label', label: 'Label', disabled: true }),
+            h(Option, { value: 42 }, { default: () => 'Slot label' }),
+            h(Option, { value: false })
+          ])
+      }
+    })
+
+    const wrapper = mount(Host)
+    await nextTick()
+
+    expect(created).toEqual([
+      { value: 'with-label', label: 'Label', disabled: true },
+      { value: 42, label: ' ', disabled: false },
+      { value: false, label: 'false', disabled: false }
+    ])
+
+    wrapper.unmount()
+    expect(destroyed).toEqual(['with-label', 42, false])
+  })
 
   // 基础渲染测试
   it('should render correctly', () => {

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 import MessageBox from '../src/method'
 import MessageBoxComponent from '../src/message-box.vue'
 
@@ -163,5 +163,123 @@ describe('MessageBox (Most Complete Version)', () => {
     confirmBtn?.click()
     await wait(200)
     expect(cb).toHaveBeenCalled()
+  })
+
+  it('renders html, vnode/function message and status icons in component mode', () => {
+    const html = mount(MessageBoxComponent, {
+      props: {
+        title: 'HTML',
+        message: '<strong class="html-msg">Trusted</strong>',
+        dangerouslyUseHTMLString: true,
+        iconType: 'success'
+      }
+    })
+    expect(html.find('.html-msg').text()).toBe('Trusted')
+    expect(html.find('.yh-message-box__status.is-success').exists()).toBe(true)
+
+    const rendered = mount(MessageBoxComponent, {
+      props: {
+        title: 'VNode',
+        message: () => h('span', { class: 'fn-msg' }, 'From function'),
+        iconType: 'warning'
+      }
+    })
+    expect(rendered.find('.fn-msg').text()).toBe('From function')
+    expect(rendered.find('.yh-message-box__status.is-warning').exists()).toBe(true)
+  })
+
+  it('supports custom icon names, loading buttons and hidden buttons', () => {
+    const wrapper = mount(MessageBoxComponent, {
+      props: {
+        title: 'Custom',
+        message: 'content',
+        icon: 'check',
+        customClass: 'custom-message-box',
+        width: '32rem',
+        glass: true,
+        center: true,
+        roundButton: true,
+        confirmButtonLoading: true,
+        cancelButtonLoading: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'No'
+      }
+    })
+
+    expect(wrapper.find('.custom-message-box').exists()).toBe(true)
+    expect(wrapper.find('.yh-message-box--glass').exists()).toBe(true)
+    expect(wrapper.find('.yh-message-box--center').exists()).toBe(true)
+    expect(wrapper.find('.yh-message-box').attributes('style')).toContain('width: 32rem')
+    expect(wrapper.find('.yh-message-box__status').exists()).toBe(true)
+
+    const hidden = mount(MessageBoxComponent, {
+      props: {
+        title: 'Hidden',
+        message: 'content',
+        showClose: false,
+        showCancelButton: false,
+        showConfirmButton: false
+      }
+    })
+    expect(hidden.find('.yh-message-box__close').exists()).toBe(false)
+    expect(hidden.findAllComponents({ name: 'YhButton' })).toHaveLength(0)
+  })
+
+  it('confirms prompt values and validates false validators', async () => {
+    const wrapper = mount(MessageBoxComponent, {
+      props: {
+        type: 'prompt',
+        inputValue: 'ready',
+        inputValidator: () => false,
+        inputErrorMessage: 'try again'
+      }
+    })
+    const exposed = (wrapper.vm as any).$?.exposed
+    const cb = vi.fn()
+    exposed.setCallback(cb)
+
+    await wrapper.find('input').trigger('blur')
+    expect(wrapper.find('.yh-message-box__err-msg').text()).toBe('try again')
+    expect(cb).not.toHaveBeenCalled()
+
+    await wrapper.setProps({ inputValidator: () => true })
+    await wrapper.find('input').setValue('accepted')
+    await wrapper.find('input').trigger('blur')
+    expect(wrapper.find('.yh-message-box__err-msg').text()).toBe('')
+  })
+
+  it('handles modal close, cancel and draggable movement in component mode', async () => {
+    const wrapper = mount(MessageBoxComponent, {
+      attachTo: document.body,
+      props: {
+        title: 'Drag',
+        message: 'content',
+        draggable: true,
+        closeOnClickModal: true,
+        draggableBoundary: true
+      }
+    })
+    const exposed = (wrapper.vm as any).$?.exposed
+    const cb = vi.fn()
+    exposed.setCallback(cb)
+
+    const box = wrapper.find('.yh-message-box').element as HTMLElement
+    box.getBoundingClientRect = () => ({ width: 200, height: 100 }) as DOMRect
+
+    await wrapper.find('.yh-message-box__header').trigger('mousedown', { clientX: 10, clientY: 10 })
+    document.dispatchEvent(new MouseEvent('mousemove', { clientX: 9999, clientY: 9999 }))
+    await nextTick()
+    expect(wrapper.find('.yh-message-box').classes()).toContain('is-dragging')
+    document.dispatchEvent(new MouseEvent('mouseup'))
+    await nextTick()
+    expect(wrapper.find('.yh-message-box').classes()).not.toContain('is-dragging')
+    expect(wrapper.find('.yh-message-box').attributes('style')).toContain('translate')
+
+    exposed.open({ title: 'Reopen', message: 'again', closeOnClickModal: true })
+    await nextTick()
+    const overlay = wrapper.find('.yh-message-box-wrapper')
+    await overlay.trigger('mousedown')
+    await overlay.trigger('click')
+    expect(cb).toHaveBeenLastCalledWith({ action: 'close', value: '' })
   })
 })

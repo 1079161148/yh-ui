@@ -8,12 +8,12 @@
 
 ### 1. 安装依赖
 
-确保你的项目中已安装了 `yh-ui`：
+确保你的项目中已安装了 `@yh-ui/yh-ui`：
 
 ```bash
-npm install yh-ui
+npm install @yh-ui/yh-ui
 # 或
-pnpm add yh-ui
+pnpm add @yh-ui/yh-ui
 ```
 
 ### 2. 创建插件
@@ -24,7 +24,7 @@ pnpm add yh-ui
 // plugins/yh-ui.ts
 import { defineNuxtPlugin } from '#app'
 import YhUI from '@yh-ui/yh-ui'
-import 'yh-ui/dist/index.css'
+import '@yh-ui/yh-ui/css'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(YhUI)
@@ -38,9 +38,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  css: ['yh-ui/dist/index.css'],
+  css: ['@yh-ui/yh-ui/css'],
   build: {
-    transpile: ['yh-ui']
+    transpile: ['@yh-ui/yh-ui']
   }
 })
 ```
@@ -87,7 +87,7 @@ const columns = [
 
 ### 指令冲突
 
-如果使用了 `yh-tooltip` 或类似的指令，确保 Nuxt 能够正确转译相关包。已在 `transpile` 配置中添加 `'yh-ui'` 即可解决大部分问题。
+如果使用了 `yh-tooltip` 或类似的指令，确保 Nuxt 能够正确转译相关包。已在 `transpile` 配置中添加 `'@yh-ui/yh-ui'` 即可解决大部分问题。
 
 ## 样式自定义
 
@@ -107,7 +107,7 @@ const columns = [
 
 ### 1. 自动导入不生效？
 
-请确保在 `build.transpile` 中包含 `yh-ui`，这能保证 Nuxt 能够正确解析组件库的 ESM 导出。
+请确保在 `build.transpile` 中包含 `@yh-ui/yh-ui`，这能保证 Nuxt 能够正确解析组件库的 ESM 导出。
 
 ### 2. Hydration Mismatch 警告？
 
@@ -115,4 +115,4 @@ const columns = [
 
 ### 3. 图标库丢失？
 
-`YH-UI` 的表格图标依赖内置图标库，如果图标无法正常显示，请检查 `yh-ui/dist/index.css` 是否已正确引入。
+`YH-UI` 的表格图标依赖内置图标库，如果图标无法正常显示，请检查 `@yh-ui/yh-ui/css` 是否已正确引入。

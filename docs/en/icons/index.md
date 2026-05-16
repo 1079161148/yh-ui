@@ -1,180 +1,292 @@
-# Icon Collection Introduction
+# Icons
 
-A high-performance icon library based on [Iconify](https://icon-sets.iconify.design/), supporting 100+ icon sets with on-demand loading and zero runtime overhead.
+YH-UI Icons now supports two usage styles. The existing `Icon` / `YhIcon` Iconify string API remains unchanged, and modern component library style icon components are also exported. Each icon can be imported and rendered as a regular Vue component.
 
-## Features
+## Component Usage
 
-- 🚀 **High Performance** - Uses unplugin-icons for build-time on-demand loading.
-- 📦 **Compact Size** - Maximized Tree-shaking; only the icons you use are bundled.
-- 🎨 **100+ Icon Sets** - Integrates with the Iconify ecosystem, offering over 200,000 icons.
-- 🔧 **Full Compatibility** - Maintains compatibility with the existing `YhIcon` component API.
-- 🌳 **SSR Support** - Supports Server-Side Rendering.
-
-## Basic Usage
-
-Specify an icon using the `icon` property in the format `prefix:icon-name`.
-
-<DemoBlock title="Basic Usage" :ts-code="tsBasic" :js-code="jsBasic">
-  <div style="display: flex; gap: 20px; font-size: 24px; color: var(--yh-text-color-primary);">
-    <Icon icon="mdi:home" />
-    <Icon icon="ep:search" />
-    <Icon icon="lucide:check" />
-    <Icon icon="tabler:user" />
-    <Icon icon="ri:settings" />
+<DemoBlock title="Icon Components" :ts-code="componentTsCode" :js-code="componentTsCode">
+  <div class="icon-row">
+    <Search :size="24" />
+    <Edit :size="24" />
+    <Delete :size="24" />
+    <HomeFilled :size="24" />
+    <Setting :size="24" />
   </div>
 </DemoBlock>
 
-## Different Sizes
+## Iconify Compatibility
 
-Use the `size` property to set the icon dimension, supporting both numbers and strings.
+The original API is still available. Use `Icon` with `prefix:name` when you need icons from multiple icon sets.
 
-<DemoBlock title="Different Sizes" :ts-code="tsSizes" :js-code="jsSizes">
-  <div style="display: flex; gap: 20px; align-items: center; color: var(--yh-text-color-primary);">
-    <Icon icon="mdi:home" :size="16" />
+<DemoBlock title="Iconify String Icons" :ts-code="iconifyTsCode" :js-code="iconifyTsCode">
+  <div class="icon-row">
     <Icon icon="mdi:home" :size="24" />
-    <Icon icon="mdi:home" :size="32" />
-    <Icon icon="mdi:home" size="2em" />
+    <Icon icon="ep:search" :size="24" />
+    <Icon icon="lucide:check" :size="24" />
+    <Icon icon="tabler:user" :size="24" />
+    <Icon icon="ri:settings" :size="24" />
   </div>
 </DemoBlock>
 
-## Custom Colors
+## Icon List
 
-Use the `color` property to set the icon color.
+Click an icon card to copy its import statement and template usage.
 
-<DemoBlock title="Custom Colors" :ts-code="tsColors" :js-code="jsColors">
-  <div style="display: flex; gap: 20px; font-size: 24px;">
-    <Icon icon="mdi:heart" color="#f56c6c" :size="24" />
-    <Icon icon="mdi:star" color="#e6a23c" :size="24" />
-    <Icon icon="mdi:account" color="#409eff" :size="24" />
-    <Icon icon="mdi:check-circle" color="#67c23a" :size="24" />
-  </div>
-</DemoBlock>
+<div class="icon-toolbar">
+  <input v-model="keyword" class="icon-search" placeholder="Search icons, for example Search, Delete, Arrow" />
+  <select v-model="activeCategory" class="icon-select">
+    <option value="all">All categories</option>
+    <option v-for="category in categories" :key="category" :value="category">{{ categoryLabels[category] || category }}</option>
+  </select>
+</div>
 
-## Spin Animation
+<div class="icon-count">{{ filteredIcons.length }} component icons</div>
 
-Use the `spin` property to rotate the icon, which is commonly used for loading states.
+<div class="icon-grid">
+  <button
+    v-for="item in filteredIcons"
+    :key="item.name"
+    type="button"
+    class="icon-card"
+    @click="copyIcon(item.name)"
+  >
+    <component :is="iconComponents[item.name]" :size="28" />
+    <span>{{ item.name }}</span>
+  </button>
+</div>
 
-<DemoBlock title="Spin Animation" :ts-code="tsSpin" :js-code="jsSpin">
-  <div style="display: flex; gap: 20px; font-size: 24px; color: var(--yh-text-color-primary);">
-    <Icon icon="mdi:loading" spin :size="24" />
-    <Icon icon="ep:loading" spin :size="24" />
-    <Icon icon="lucide:loader-2" spin :size="24" />
-  </div>
-</DemoBlock>
+<p v-if="copiedName" class="copy-tip">Copied usage for {{ copiedName }}</p>
 
-## Rotation Angle
-
-Use the `rotate` property to set a static rotation angle for the icon.
-
-<DemoBlock title="Rotation Angle" :ts-code="tsRotate" :js-code="jsRotate">
-  <div style="display: flex; gap: 20px; align-items: center; font-size: 24px; color: var(--yh-text-color-primary);">
-    <Icon icon="mdi:arrow-right" :size="24" />
-    <Icon icon="mdi:arrow-right" :rotate="90" :size="24" />
-    <Icon icon="mdi:arrow-right" :rotate="180" :size="24" />
-    <Icon icon="mdi:arrow-right" :rotate="270" :size="24" />
-  </div>
-</DemoBlock>
-
-## Why Iconify?
-
-### Issues with Traditional Methods
-
-| Method | Disadvantage |
-|------|------|
-| Icon Font | Requires extra font file requests, SSR-unfriendly, difficult to control colors. |
-| SVG Files | Each icon is a separate file, making management difficult. |
-| Built-in Component Icons | Limited number of icons, difficult to extend. |
-
-### Advantages of Iconify
-
-- **On-demand Loading**: Bundles only the icons you use, minimizing bundle size.
-- **Unified API**: Different icon sets use the same interface.
-- **Massive Selection**: Over 200,000 icons available.
-- **Tree-shaking**: Automatically removes unused icons.
-
-## Usage
-
-### Installation
-
-```bash
-npm install @yh-ui/icons
-```
-
-### Usage in Vue
+## On-Demand Import
 
 ```vue
 <script setup lang="ts">
-import { Icon } from '@yh-ui/icons'
+import { Search, Edit, Delete } from '@yh-ui/icons'
 </script>
 
 <template>
-  <Icon icon="mdi:home" />
-  <Icon icon="ep:search" />
-  <Icon icon="mdi:loading" spin />
+  <Search />
+  <Edit :size="20" color="var(--yh-color-primary)" />
+  <Delete />
 </template>
 ```
 
-## Recommended Icon Sets
+## Global Registration
 
-Common icon set prefixes:
+If you want to use all icons directly in templates, register them in your app entry:
 
-| Prefix | Icon Set | Icon Count |
-|------|--------|----------|
-| `mdi` | Material Design Icons | 6000+ |
-| `ep` | Element Plus | 200+ |
-| `lucide` | Lucide | 1500+ |
-| `tabler` | Tabler Icons | 3000+ |
-| `ri` | Remix Icon | 2000+ |
-| `bi` | Bootstrap Icons | 1500+ |
-| `fxemoji` | Firefox Emoji | 1000+ |
+```ts
+import { createApp } from 'vue'
+import * as Icons from '@yh-ui/icons'
+import App from './App.vue'
 
-For more icon sets, please visit the [Iconify Icon Library](https://icon-sets.iconify.design/).
+const app = createApp(App)
+
+for (const [key, component] of Object.entries(Icons.iconComponents)) {
+  app.component(key, component)
+}
+
+app.mount('#app')
+```
+
+## API
+
+All icon components support the same visual props as `YhIcon`:
+
+| Prop     | Description                    | Type               | Default     |
+| -------- | ------------------------------ | ------------------ | ----------- |
+| `size`   | Icon size                      | `number \| string` | `undefined` |
+| `color`  | Icon color                     | `string`           | `undefined` |
+| `spin`   | Whether to rotate continuously | `boolean`          | `false`     |
+| `rotate` | Static rotation angle          | `number`           | `0`         |
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
+import {
+  Delete,
+  Edit,
+  HomeFilled,
+  Icon,
+  Search,
+  Setting,
+  iconComponentMeta,
+  iconComponents
+} from '@yh-ui/icons'
+import type { IconComponentName } from '@yh-ui/icons'
+
+const componentTsCode = `<script setup lang="ts">
+import { Search, Edit, Delete, HomeFilled, Setting } from '@yh-ui/icons'
+<\/script>
+
+<template>
+  <Search :size="24" />
+  <Edit :size="24" />
+  <Delete :size="24" />
+  <HomeFilled :size="24" />
+  <Setting :size="24" />
+</template>`
+
+const iconifyTsCode = `<script setup lang="ts">
 import { Icon } from '@yh-ui/icons'
+<\/script>
 
-// Basic Usage
-const tsBasic = `<template>
-  <Icon icon="mdi:home" />
-  <Icon icon="ep:search" />
-  <Icon icon="lucide:check" />
-  <Icon icon="tabler:user" />
-  <Icon icon="ri:settings" />
-</template>`
-const jsBasic = tsBasic
-
-// Different Sizes
-const tsSizes = `<template>
-  <Icon icon="mdi:home" :size="16" />
+<template>
   <Icon icon="mdi:home" :size="24" />
-  <Icon icon="mdi:home" :size="32" />
-  <Icon icon="mdi:home" size="2em" />
+  <Icon icon="ep:search" :size="24" />
+  <Icon icon="lucide:check" :size="24" />
+  <Icon icon="tabler:user" :size="24" />
+  <Icon icon="ri:settings" :size="24" />
 </template>`
-const jsSizes = tsSizes
 
-// Custom Colors
-const tsColors = `<template>
-  <Icon icon="mdi:heart" color="#f56c6c" :size="24" />
-  <Icon icon="mdi:star" color="#e6a23c" :size="24" />
-  <Icon icon="mdi:account" color="#409eff" :size="24" />
-  <Icon icon="mdi:check-circle" color="#67c23a" :size="24" />
-</template>`
-const jsColors = tsColors
+const keyword = ref('')
+const activeCategory = ref('all')
+const copiedName = ref('')
 
-// Spin Animation
-const tsSpin = `<template>
-  <Icon icon="mdi:loading" spin :size="24" />
-  <Icon icon="ep:loading" spin :size="24" />
-  <Icon icon="lucide:loader-2" spin :size="24" />
-</template>`
-const jsSpin = tsSpin
+const categoryLabels: Record<string, string> = {
+  arrow: 'Arrow',
+  business: 'Business',
+  communication: 'Communication',
+  data: 'Data',
+  device: 'Device',
+  edit: 'Edit',
+  feedback: 'Feedback',
+  file: 'File',
+  food: 'Food',
+  map: 'Map',
+  media: 'Media',
+  object: 'Object',
+  system: 'System',
+  time: 'Time',
+  user: 'User',
+  weather: 'Weather',
+  brand: 'Brand'
+}
 
-// Rotation Angle
-const tsRotate = `<template>
-  <Icon icon="mdi:arrow-right" :size="24" />
-  <Icon icon="mdi:arrow-right" :rotate="90" :size="24" />
-  <Icon icon="mdi:arrow-right" :rotate="180" :size="24" />
-  <Icon icon="mdi:arrow-right" :rotate="270" :size="24" />
-</template>`
-const jsRotate = tsRotate
+const categories = computed(() =>
+  Array.from(new Set(iconComponentMeta.map((item) => item.category))).sort()
+)
+
+const filteredIcons = computed(() => {
+  const normalizedKeyword = keyword.value.trim().toLowerCase()
+  return iconComponentMeta.filter((item) => {
+    const matchesKeyword =
+      !normalizedKeyword ||
+      item.name.toLowerCase().includes(normalizedKeyword) ||
+      item.icon.toLowerCase().includes(normalizedKeyword)
+    const matchesCategory = activeCategory.value === 'all' || item.category === activeCategory.value
+    return matchesKeyword && matchesCategory
+  })
+})
+
+async function copyIcon(name: IconComponentName) {
+  const code = `import { ${name} } from '@yh-ui/icons'\\n\\n<${name} />`
+  copiedName.value = name
+
+  if (typeof navigator !== 'undefined' && navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(code)
+    } catch {
+      // Browser permission policies may block clipboard access in previews.
+    }
+  }
+
+  window.setTimeout(() => {
+    if (copiedName.value === name) copiedName.value = ''
+  }, 1600)
+}
 </script>
+
+<style scoped>
+.icon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  color: var(--yh-text-color-primary);
+}
+
+.icon-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.icon-search,
+.icon-select {
+  height: 36px;
+  border: 1px solid var(--yh-border-color);
+  border-radius: 6px;
+  padding: 0 12px;
+  background: var(--yh-bg-color);
+  color: var(--yh-text-color-primary);
+  font: inherit;
+}
+
+.icon-count {
+  margin: 8px 0 12px;
+  color: var(--yh-text-color-secondary);
+  font-size: 14px;
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  border-top: 1px solid var(--yh-border-color-lighter);
+  border-left: 1px solid var(--yh-border-color-lighter);
+}
+
+.icon-card {
+  min-height: 96px;
+  border: 0;
+  border-right: 1px solid var(--yh-border-color-lighter);
+  border-bottom: 1px solid var(--yh-border-color-lighter);
+  background: var(--yh-bg-color);
+  color: var(--yh-text-color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition:
+    color var(--yh-transition-duration, 0.2s),
+    background-color var(--yh-transition-duration, 0.2s);
+}
+
+.icon-card:hover {
+  color: var(--yh-color-primary);
+  background: var(--yh-fill-color-light);
+}
+
+.icon-card span {
+  max-width: 100%;
+  padding: 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.copy-tip {
+  position: sticky;
+  bottom: 16px;
+  width: fit-content;
+  margin: 16px auto 0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: var(--yh-color-primary);
+  color: #fff;
+  box-shadow: var(--yh-shadow-base);
+}
+
+@media (max-width: 640px) {
+  .icon-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .icon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  }
+}
+</style>

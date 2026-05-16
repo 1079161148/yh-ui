@@ -133,6 +133,70 @@ describe('Pagination', () => {
     expect(wrapper.emitted('current-change')?.[0]).toEqual([5])
   })
 
+  it('handles pager more buttons and clamps jumper input', async () => {
+    const wrapper = mount(YhPagination, {
+      global: globalOptions,
+      props: {
+        total: 200,
+        pageSize: 10,
+        currentPage: 10,
+        pagerCount: 7,
+        layout: 'prev, pager, next, jumper',
+        prevText: 'Prev',
+        nextText: 'Next',
+        circle: true
+      }
+    })
+
+    expect(wrapper.classes()).toContain('is-circle')
+    expect(wrapper.find('.yh-pagination__prev').text()).toBe('Prev')
+    expect(wrapper.find('.yh-pagination__next').text()).toBe('Next')
+
+    const moreItems = wrapper.findAll('.yh-pagination__more')
+    expect(moreItems.length).toBe(2)
+    await moreItems[0].trigger('click')
+    expect(wrapper.emitted('current-change')?.[0]).toEqual([5])
+
+    await wrapper.setProps({ currentPage: 19 })
+    await wrapper.find('.yh-pagination__next').trigger('click')
+    expect(wrapper.emitted('next-click')?.[0]).toEqual([20])
+
+    const input = wrapper.getComponent('yh-input-stub') as any
+    await input.vm.$emit('update:modelValue', 999)
+    await input.trigger('blur')
+    expect(wrapper.emitted('current-change')?.at(-1)).toEqual([20])
+
+    await input.vm.$emit('update:modelValue', 'abc')
+    await input.trigger('blur')
+    expect(wrapper.emitted('current-change')?.at(-1)).toEqual([20])
+  })
+
+  it('ignores boundary and duplicate current page clicks', async () => {
+    const first = mount(YhPagination, {
+      global: globalOptions,
+      props: {
+        total: 10,
+        currentPage: 1
+      }
+    })
+
+    await first.find('.yh-pagination__prev').trigger('click')
+    await first.find('.yh-pagination__item.is-active').trigger('click')
+    expect(first.emitted('current-change')).toBeUndefined()
+
+    const last = mount(YhPagination, {
+      global: globalOptions,
+      props: {
+        total: 10,
+        pageSize: 5,
+        currentPage: 2
+      }
+    })
+
+    await last.find('.yh-pagination__next').trigger('click')
+    expect(last.emitted('current-change')).toBeUndefined()
+  })
+
   it('should hide when total is 0 and hideOnSinglePage is true', () => {
     const wrapper = mount(YhPagination, {
       global: globalOptions,

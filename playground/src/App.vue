@@ -1,883 +1,1035 @@
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
-import { Flow, type Node, type Edge, type ViewportTransform } from '@yh-ui/flow'
+import { computed, reactive, ref } from 'vue'
+import { YhMessage, YhMessageBox, YhNotification } from '@yh-ui/components'
+import type { Edge, Node, ViewportTransform } from '@yh-ui/flow'
 
-// 交互配置状态
-const config = reactive({
-  // 视口交互
-  zoomEnabled: true,
-  panEnabled: true,
-  minZoom: 0.1,
-  maxZoom: 5,
-  zoomStep: 0.1,
+type SectionKey =
+  | 'overview'
+  | 'quality'
+  | 'basic'
+  | 'form'
+  | 'data'
+  | 'feedback'
+  | 'navigation'
+  | 'layout'
+  | 'flow'
 
-  // 节点交互
-  nodesDraggable: true,
-  selectable: true,
-  multipleSelection: true, // Shift多选
+const sections: Array<{ key: SectionKey; label: string; summary: string; count: number }> = [
+  { key: 'overview', label: 'Overview', summary: 'release dashboard', count: 8 },
+  { key: 'quality', label: 'Quality', summary: 'gates and state matrix', count: 16 },
+  { key: 'basic', label: 'Basic', summary: 'buttons, tags, progress', count: 12 },
+  { key: 'form', label: 'Form', summary: 'inputs and validation', count: 14 },
+  { key: 'data', label: 'Data', summary: 'tables and descriptions', count: 9 },
+  { key: 'feedback', label: 'Feedback', summary: 'messages and dialogs', count: 10 },
+  { key: 'navigation', label: 'Navigation', summary: 'tabs, steps, breadcrumb', count: 7 },
+  { key: 'layout', label: 'Layout', summary: 'container and grid', count: 8 },
+  { key: 'flow', label: 'Flow', summary: 'node editor smoke test', count: 6 }
+]
 
-  // 连线交互
-  edgesConnectable: true,
-  connectionValidator: true,
-  noCycleValidation: false,
+const activeSection = ref<SectionKey>('overview')
+const darkMode = ref(false)
+const compactMode = ref(false)
+const brandColor = ref('#409eff')
+const search = ref('')
+const activeTab = ref('usage')
+const currentStep = ref(2)
+const currentPage = ref(1)
+const rating = ref(4)
+const sliderValue = ref(62)
+const enabled = ref(true)
+const dateValue = ref('')
+const tags = ref(['Vue', 'TypeScript'])
+const selectedCities = ref(['shanghai'])
 
-  // 网格与对齐
-  snapToGrid: true,
-  snapGrid: [15, 15] as [number, number],
-  showAlignmentLines: true,
-  snapThreshold: 10,
-
-  // 辅助功能
-  background: 'dots' as 'none' | 'dots' | 'grid',
-  backgroundColor: '#f8f9fa',
-  gridSize: 15,
-  showControls: true,
-  showMinimap: true,
-
-  // 历史记录
-  history: true,
-  maxHistory: 50,
-
-  // 键盘快捷键
-  keyboardShortcuts: true,
-
-  // 只读模式
-  readonly: false
+const form = reactive({
+  name: 'YH Admin',
+  owner: 'Design Platform',
+  email: 'platform@yh-ui.dev',
+  region: 'shanghai',
+  delivery: true,
+  channel: 'stable',
+  notes: 'Use this playground as the daily acceptance surface before release.'
 })
 
-// 视口状态
-const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
+const cityOptions = [
+  { value: 'beijing', label: 'Beijing' },
+  { value: 'shanghai', label: 'Shanghai' },
+  { value: 'shenzhen', label: 'Shenzhen' },
+  { value: 'hangzhou', label: 'Hangzhou' }
+]
 
-// 初始节点数据
-const initialNodes: Node[] = [
+const tableColumns = [
+  { prop: 'name', label: 'Package', width: 180 },
+  { prop: 'status', label: 'Status', width: 120 },
+  { prop: 'coverage', label: 'Coverage', width: 120 },
+  { prop: 'owner', label: 'Owner' }
+]
+
+const tableData = ref([
+  { id: 1, name: '@yh-ui/components', status: 'stable', coverage: '86%', owner: 'Core UI' },
+  { id: 2, name: '@yh-ui/hooks', status: 'stable', coverage: '91%', owner: 'Runtime' },
+  { id: 3, name: '@yh-ui/flow', status: 'beta', coverage: '78%', owner: 'Flow' },
+  { id: 4, name: '@yh-ui/nuxt', status: 'stable', coverage: '82%', owner: 'Integrations' }
+])
+
+const auditItems = [
+  { label: 'Theme tokens', status: 'Passed', value: 'CSS variables' },
+  { label: 'Tree shaking', status: 'Passed', value: 'ESM exports' },
+  { label: 'SSR', status: 'Passed', value: 'Nuxt module' },
+  { label: 'Sandbox', status: 'Passed', value: 'Playground / StackBlitz / CodeSandbox' }
+]
+
+const qualityGates = [
+  { gate: 'Console hygiene', level: 'P0', status: 'Automated', command: 'pnpm verify:playgrounds' },
   {
-    id: '1',
+    gate: 'Desktop screenshot',
+    level: 'P0',
+    status: 'Automated',
+    command: 'test-results/playgrounds/*-desktop.png'
+  },
+  {
+    gate: 'Mobile screenshot',
+    level: 'P0',
+    status: 'Automated',
+    command: 'test-results/playgrounds/*-mobile.png'
+  },
+  {
+    gate: 'Vue consumer build',
+    level: 'P0',
+    status: 'Automated',
+    command: 'pnpm -C playground build'
+  },
+  {
+    gate: 'Nuxt consumer build',
+    level: 'P0',
+    status: 'Automated',
+    command: 'pnpm -C playground-nuxt build'
+  },
+  { gate: 'SSR hydration', level: 'P1', status: 'Tracked', command: 'Nuxt health panel' }
+]
+
+const componentMatrix = [
+  {
+    group: 'Basic',
+    components: 'Button, Tag, Badge, Progress, Alert',
+    states: 'type, size, disabled, loading'
+  },
+  {
+    group: 'Form',
+    components: 'Input, Select, Radio, Checkbox, Rate, Slider',
+    states: 'model, clearable, validation, density'
+  },
+  {
+    group: 'Data',
+    components: 'Table, Pagination, Descriptions',
+    states: 'border, empty, paging, fixed content'
+  },
+  {
+    group: 'Feedback',
+    components: 'Message, Notification, MessageBox, Result',
+    states: 'service API, z-index, close flow'
+  },
+  {
+    group: 'Navigation',
+    components: 'Breadcrumb, Tabs, Steps',
+    states: 'active, keyboard, route context'
+  },
+  {
+    group: 'Layout',
+    components: 'Container, Row, Col, Grid',
+    states: 'responsive, nested, density'
+  },
+  {
+    group: 'Flow',
+    components: 'Flow, Controls, Minimap',
+    states: 'drag, add node, fit view, readonly'
+  }
+]
+
+const flowNodes = ref<Node[]>([
+  {
+    id: 'start',
     type: 'input',
-    position: { x: 100, y: 100 },
-    data: { label: '开始节点' },
-    width: 180,
-    height: 50
+    position: { x: 80, y: 120 },
+    data: { label: 'Install package' },
+    width: 170,
+    height: 52
   },
   {
-    id: '2',
+    id: 'import',
     type: 'default',
-    position: { x: 400, y: 100 },
-    data: { label: '处理节点 A' },
-    width: 180,
-    height: 50
+    position: { x: 350, y: 80 },
+    data: { label: 'Import styles' },
+    width: 170,
+    height: 52
   },
   {
-    id: '3',
+    id: 'render',
     type: 'default',
-    position: { x: 700, y: 100 },
-    data: { label: '处理节点 B' },
-    width: 180,
-    height: 50
+    position: { x: 350, y: 220 },
+    data: { label: 'Render component' },
+    width: 170,
+    height: 52
   },
   {
-    id: '4',
-    type: 'default',
-    position: { x: 400, y: 300 },
-    data: { label: '判断节点' },
-    width: 180,
-    height: 60
-  },
-  {
-    id: '5',
+    id: 'done',
     type: 'output',
-    position: { x: 700, y: 300 },
-    data: { label: '结束节点' },
-    width: 180,
-    height: 50
+    position: { x: 630, y: 150 },
+    data: { label: 'Ship feature' },
+    width: 170,
+    height: 52
   }
-]
+])
 
-// 初始边数据
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', type: 'bezier', animated: true },
-  { id: 'e2-3', source: '2', target: '3', type: 'bezier' },
-  { id: 'e2-4', source: '2', target: '4', type: 'bezier' },
-  { id: 'e4-5', source: '4', target: '5', type: 'bezier', label: '是' }
-]
+const flowEdges = ref<Edge[]>([
+  { id: 'e-start-import', source: 'start', target: 'import', type: 'bezier', animated: true },
+  { id: 'e-start-render', source: 'start', target: 'render', type: 'bezier' },
+  { id: 'e-import-done', source: 'import', target: 'done', type: 'bezier' },
+  { id: 'e-render-done', source: 'render', target: 'done', type: 'bezier', label: 'validated' }
+])
 
-const nodes = ref<Node[]>([...initialNodes])
-const edges = ref<Edge[]>([...initialEdges])
+const flowViewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
+const flowRef = ref()
+const logs = ref<Array<{ type: string; message: string; time: string }>>([])
 
-// Flow 组件实例引用
-const flowRef = ref<InstanceType<typeof Flow> | null>(null)
+const filteredSections = computed(() => {
+  const keyword = search.value.trim().toLowerCase()
+  if (!keyword) return sections
+  return sections.filter((item) => `${item.label} ${item.summary}`.toLowerCase().includes(keyword))
+})
 
-// 事件日志
-const eventLogs = ref<Array<{ type: string; message: string; time: string }>>([])
+const visibleSections = computed(() =>
+  activeSection.value === 'overview'
+    ? sections.filter((item) => item.key !== 'overview')
+    : sections.filter((item) => item.key === activeSection.value)
+)
 
-const addLog = (type: string, message: string) => {
-  const now = new Date()
-  const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`
-  eventLogs.value.unshift({ type, message, time })
-  // 限制日志数量
-  if (eventLogs.value.length > 50) {
-    eventLogs.value.pop()
-  }
+const shellStyle = computed(() => ({
+  '--playground-primary': brandColor.value,
+  '--playground-density': compactMode.value ? '8px' : '14px'
+}))
+
+function addLog(type: string, message: string) {
+  logs.value.unshift({
+    type,
+    message,
+    time: new Date().toLocaleTimeString('en-US', { hour12: false })
+  })
+  logs.value = logs.value.slice(0, 8)
 }
 
-// 节点事件处理
-const handleNodeClick = (event: { node: Node; nativeEvent: MouseEvent }) => {
-  addLog('click', `节点 clicked: ${event.node.data?.label || event.node.id}`)
+function openMessage(type: 'success' | 'warning' | 'error' | 'info') {
+  YhMessage[type](`YH-UI ${type} message from playground`)
+  addLog('message', `Opened ${type} message`)
 }
 
-const handleNodeDblClick = (event: { node: Node; nativeEvent: MouseEvent }) => {
-  addLog('dblclick', `节点 double-clicked: ${event.node.data?.label || event.node.id}`)
+function openNotification() {
+  YhNotification({
+    title: 'Release check',
+    message: 'The notification service is mounted and callable.',
+    type: 'success'
+  })
+  addLog('notify', 'Opened notification')
 }
 
-const handleNodeDragStart = (event: { node: Node; nativeEvent: MouseEvent }) => {
-  addLog('drag', `开始拖拽节点: ${event.node.data?.label || event.node.id}`)
-}
-
-const handleNodeDrag = (event: {
-  node: Node
-  nativeEvent: MouseEvent
-  position: { x: number; y: number }
-}) => {
-  // 频繁事件，不记录日志
-  void event
-}
-
-const handleNodeDragEnd = (event: { node: Node; nativeEvent: MouseEvent }) => {
-  addLog('drag', `结束拖拽节点: ${event.node.data?.label || event.node.id}`)
-}
-
-const handleNodeContextMenu = (event: { node: Node; nativeEvent: MouseEvent }) => {
-  addLog('context', `节点 context menu: ${event.node.data?.label || event.node.id}`)
-}
-
-// 边事件处理
-const handleEdgeClick = (event: { edge: Edge; nativeEvent: MouseEvent }) => {
-  addLog('click', `边 clicked: ${event.edge.id}`)
-}
-
-const handleEdgeDblClick = (event: { edge: Edge; nativeEvent: MouseEvent }) => {
-  addLog('dblclick', `边 double-clicked: ${event.edge.id}`)
-}
-
-const handleEdgeContextMenu = (event: { edge: Edge; nativeEvent: MouseEvent }) => {
-  addLog('context', `边 context menu: ${event.edge.id}`)
-}
-
-const handleEdgeConnect = (connection: { source: string; target: string }) => {
-  addLog('connect', `连接 created: ${connection.source} -> ${connection.target}`)
-}
-
-// 选区事件
-const handleSelectionChange = (event: { selectedNodes: Node[]; selectedEdges: Edge[] }) => {
-  const nodeCount = event.selectedNodes.length
-  const edgeCount = event.selectedEdges.length
-  if (nodeCount > 0 || edgeCount > 0) {
-    addLog('selection', `选区变化: ${nodeCount} 节点, ${edgeCount} 边`)
+async function openConfirm() {
+  try {
+    await YhMessageBox.confirm('This confirms MessageBox service wiring.', 'Playground check')
+    addLog('dialog', 'Confirm accepted')
+  } catch {
+    addLog('dialog', 'Confirm closed')
   }
 }
 
-// 历史事件
-const handleHistoryChange = (event: { canUndo: boolean; canRedo: boolean }) => {
-  addLog('history', `历史状态变化: undo=${event.canUndo}, redo=${event.canRedo}`)
-}
-
-// 视口事件
-const handleViewportChange = (_transform: ViewportTransform) => {
-  // 频繁事件，不记录日志
-}
-
-// 快捷操作
-const resetGraph = () => {
-  nodes.value = JSON.parse(JSON.stringify(initialNodes))
-  edges.value = JSON.parse(JSON.stringify(initialEdges))
-  viewport.value = { x: 0, y: 0, zoom: 1 }
-  addLog('action', '重置图数据')
-}
-
-const addRandomNode = () => {
-  const id = `node-${Date.now()}`
-  const x = Math.random() * 600 + 100
-  const y = Math.random() * 400 + 100
-  nodes.value.push({
-    id,
+function addFlowNode() {
+  const index = flowNodes.value.length + 1
+  flowNodes.value.push({
+    id: `node-${index}`,
     type: 'default',
-    position: { x, y },
-    data: { label: `新节点 ${id.slice(-4)}` },
+    position: { x: 120 + index * 42, y: 310 },
+    data: { label: `Audit node ${index}` },
     width: 150,
     height: 50
   })
-  addLog('action', `添加节点: ${id}`)
+  addLog('flow', `Added node ${index}`)
 }
 
-const fitView = () => {
-  // 调用 Flow 组件的 fitView 方法
-  if (flowRef.value?.fitView) {
-    flowRef.value.fitView({ padding: 50 })
-  }
-  addLog('action', 'Fit View')
+function fitFlow() {
+  flowRef.value?.fitView?.({ padding: 48 })
+  addLog('flow', 'Fit view')
 }
-
-const zoomIn = () => {
-  if (flowRef.value?.zoomIn) {
-    flowRef.value.zoomIn(1.2)
-  }
-  addLog('action', 'Zoom In')
-}
-
-const zoomOut = () => {
-  if (flowRef.value?.zoomOut) {
-    flowRef.value.zoomOut(1.2)
-  }
-  addLog('action', 'Zoom Out')
-}
-
-const centerView = () => {
-  if (flowRef.value?.centerView) {
-    flowRef.value.centerView()
-  }
-  addLog('action', 'Center View')
-}
-
-const pan = (dx: number, dy: number) => {
-  if (flowRef.value?.pan) {
-    flowRef.value.pan(dx, dy)
-  }
-  addLog('action', `Pan: ${dx}, ${dy}`)
-}
-
-const setZoom = (zoom: number) => {
-  if (flowRef.value?.setViewport) {
-    flowRef.value.setViewport({ x: viewport.value.x, y: viewport.value.y, zoom })
-    viewport.value.zoom = zoom
-  }
-  addLog('action', `Set Zoom: ${zoom}`)
-}
-
-const clearLogs = () => {
-  eventLogs.value = []
-  addLog('action', '清除日志')
-}
-
-// 选中的节点和边数量
-const selectedInfo = computed(() => {
-  const selectedNodes = nodes.value.filter((n) => n.selected).length
-  const selectedEdges = edges.value.filter((e) => e.selected).length
-  return { selectedNodes, selectedEdges }
-})
 </script>
 
 <template>
-  <div class="interaction-demo">
-    <!-- 顶部工具栏 -->
-    <div class="toolbar">
-      <div class="toolbar-section">
-        <h3>交互控制面板</h3>
-      </div>
-      <div class="toolbar-actions">
-        <button class="btn btn-primary" @click="fitView" title="适应视图">Fit View</button>
-        <button class="btn" @click="zoomIn" title="放大">Zoom In</button>
-        <button class="btn" @click="zoomOut" title="缩小">Zoom Out</button>
-        <button class="btn" @click="centerView" title="居中视图">Center</button>
-        <button class="btn" @click="() => pan(100, 0)" title="向右平移">Pan Right</button>
-        <button class="btn" @click="addRandomNode">添加节点</button>
-        <button class="btn" @click="resetGraph">重置图</button>
-        <button class="btn btn-warning" @click="config.readonly = !config.readonly">
-          {{ config.readonly ? '编辑模式' : '只读模式' }}
-        </button>
-      </div>
-    </div>
-
-    <div class="main-content">
-      <!-- 左侧配置面板 -->
-      <div class="config-panel">
-        <div class="config-section">
-          <h4>视口交互</h4>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.zoomEnabled" />
-            <span>启用缩放 (Ctrl+滚轮)</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.panEnabled" />
-            <span>启用平移 (拖拽空白区域)</span>
-          </label>
-          <div class="config-item">
-            <span>最小缩放</span>
-            <input type="number" v-model.number="config.minZoom" step="0.1" min="0.1" max="2" />
-          </div>
-          <div class="config-item">
-            <span>最大缩放</span>
-            <input type="number" v-model.number="config.maxZoom" step="0.1" min="1" max="10" />
-          </div>
-          <div class="config-item">
-            <span>缩放步长</span>
-            <input type="number" v-model.number="config.zoomStep" step="0.05" min="0.05" max="1" />
-          </div>
-          <div class="config-item config-actions">
-            <button class="btn-tiny" @click="setZoom(0.5)">50%</button>
-            <button class="btn-tiny" @click="setZoom(1)">100%</button>
-            <button class="btn-tiny" @click="setZoom(2)">200%</button>
-          </div>
-        </div>
-
-        <div class="config-section">
-          <h4>节点交互</h4>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.nodesDraggable" />
-            <span>节点可拖拽</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.selectable" />
-            <span>节点可选中</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.multipleSelection" />
-            <span>Shift多选</span>
-          </label>
-          <label class="config-item">
-            <span>框选 (Alt+拖拽)</span>
-          </label>
-        </div>
-
-        <div class="config-section">
-          <h4>连线交互</h4>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.edgesConnectable" />
-            <span>可创建连接</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.connectionValidator" />
-            <span>连接验证</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.noCycleValidation" />
-            <span>禁用循环检测</span>
-          </label>
-        </div>
-
-        <div class="config-section">
-          <h4>网格与对齐</h4>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.snapToGrid" />
-            <span>吸附到网格</span>
-          </label>
-          <div class="config-item">
-            <span>网格大小</span>
-            <input type="number" v-model.number="config.gridSize" step="5" min="5" max="50" />
-          </div>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.showAlignmentLines" />
-            <span>显示对齐线</span>
-          </label>
-          <div class="config-item">
-            <span>吸附阈值</span>
-            <input type="number" v-model.number="config.snapThreshold" step="1" min="5" max="30" />
-          </div>
-        </div>
-
-        <div class="config-section">
-          <h4>辅助功能</h4>
-          <label class="config-item">
-            <span>背景类型</span>
-            <select v-model="config.background">
-              <option value="none">无</option>
-              <option value="dots">点阵</option>
-              <option value="grid">网格</option>
-            </select>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.showControls" />
-            <span>显示控制栏</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.showMinimap" />
-            <span>显示小地图</span>
-          </label>
-        </div>
-
-        <div class="config-section">
-          <h4>历史与快捷键</h4>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.history" />
-            <span>启用撤销/重做</span>
-          </label>
-          <label class="config-item">
-            <input type="checkbox" v-model="config.keyboardShortcuts" />
-            <span>启用键盘快捷键</span>
-          </label>
+  <div
+    class="playground-shell"
+    :class="{ 'is-dark': darkMode, 'is-compact': compactMode }"
+    :style="shellStyle"
+  >
+    <aside class="playground-sidebar">
+      <div class="brand">
+        <div class="brand-mark">YH</div>
+        <div>
+          <strong>YH-UI Lab</strong>
+          <span>Component acceptance</span>
         </div>
       </div>
 
-      <!-- 中间流程图 -->
-      <div class="flow-container">
-        <Flow
-          ref="flowRef"
-          v-model:nodes="nodes"
-          v-model:edges="edges"
-          v-model="viewport"
-          :zoom-enabled="config.zoomEnabled"
-          :pan-enabled="config.panEnabled"
-          :nodes-draggable="config.nodesDraggable"
-          :edges-connectable="config.edgesConnectable"
-          :selectable="config.selectable"
-          :background="config.background"
-          :background-color="config.backgroundColor"
-          :grid-size="config.gridSize"
-          :snap-to-grid="config.snapToGrid"
-          :snap-grid="config.snapGrid"
-          :readonly="config.readonly"
-          :show-controls="config.showControls"
-          :show-minimap="config.showMinimap"
-          :history="config.history"
-          :max-history="config.maxHistory"
-          :keyboard-shortcuts="config.keyboardShortcuts"
-          :connection-validator="config.connectionValidator ? undefined : () => true"
-          :no-cycle-validation="config.noCycleValidation"
-          :show-alignment-lines="config.showAlignmentLines"
-          :snap-threshold="config.snapThreshold"
-          :min-zoom="config.minZoom"
-          :max-zoom="config.maxZoom"
-          :zoom-step="config.zoomStep"
-          @node-click="handleNodeClick"
-          @node-dblclick="handleNodeDblClick"
-          @node-drag-start="handleNodeDragStart"
-          @node-drag="handleNodeDrag"
-          @node-drag-end="handleNodeDragEnd"
-          @node-contextmenu="handleNodeContextMenu"
-          @edge-click="handleEdgeClick"
-          @edge-dblclick="handleEdgeDblClick"
-          @edge-contextmenu="handleEdgeContextMenu"
-          @edge-connect="handleEdgeConnect"
-          @selection-change="handleSelectionChange"
-          @history-change="handleHistoryChange"
-          @viewport-change="handleViewportChange"
+      <YhInput v-model="search" class="search" placeholder="Search modules" clearable />
+
+      <nav class="nav-list">
+        <button
+          v-for="item in filteredSections"
+          :key="item.key"
+          class="nav-item"
+          :class="{ active: activeSection === item.key }"
+          :data-section="item.key"
+          type="button"
+          @click="activeSection = item.key"
         >
-          <template #node="{ node }">
-            <div class="custom-node" :class="{ 'is-selected': node.selected }">
-              <div class="node-icon">
-                {{ node.type === 'input' ? '▶' : node.type === 'output' ? '■' : '●' }}
-              </div>
-              <div class="node-content">
-                <div class="node-label">{{ node.data?.label || node.id }}</div>
-                <div class="node-type">{{ node.type }}</div>
-              </div>
+          <span>{{ item.label }}</span>
+          <small>{{ item.summary }}</small>
+          <em>{{ item.count }}</em>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="playground-main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Vue 3 playground</p>
+          <h1>YH-UI component library workbench</h1>
+        </div>
+        <div class="topbar-actions">
+          <YhSwitch v-model="darkMode" />
+          <span>Dark</span>
+          <YhSwitch v-model="compactMode" />
+          <span>Compact</span>
+          <YhColorPicker v-model="brandColor" />
+        </div>
+      </header>
+
+      <section class="metric-strip">
+        <div v-for="item in auditItems" :key="item.label" class="metric">
+          <span>{{ item.label }}</span>
+          <strong>{{ item.status }}</strong>
+          <small>{{ item.value }}</small>
+        </div>
+      </section>
+
+      <section v-if="activeSection === 'overview'" class="hero-panel">
+        <div>
+          <YhTag type="success">Full install</YhTag>
+          <h2>One page for daily UI verification</h2>
+          <p>
+            This local surface checks global registration, theme variables, form binding, overlays,
+            data display, layout primitives, and the Flow editor in one place.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <YhButton type="primary" @click="activeSection = 'form'">Open form matrix</YhButton>
+          <YhButton @click="activeSection = 'flow'">Open Flow check</YhButton>
+        </div>
+      </section>
+
+      <section class="platform-grid">
+        <div class="platform-panel">
+          <header class="section-header compact">
+            <div>
+              <p class="eyebrow">quality gates</p>
+              <h2>Release confidence</h2>
             </div>
-          </template>
-        </Flow>
-
-        <!-- 选区信息 -->
-        <div class="selection-info">
-          已选择: {{ selectedInfo.selectedNodes }} 节点, {{ selectedInfo.selectedEdges }} 边
-        </div>
-
-        <!-- 视口信息 -->
-        <div class="viewport-info">
-          缩放: {{ (viewport.zoom * 100).toFixed(0) }}% | 位置: {{ viewport.x.toFixed(0) }},
-          {{ viewport.y.toFixed(0) }}
-        </div>
-      </div>
-
-      <!-- 右侧日志面板 -->
-      <div class="log-panel">
-        <div class="log-header">
-          <h4>事件日志</h4>
-          <button class="btn-small" @click="clearLogs">清除</button>
-        </div>
-        <div class="log-list">
-          <div
-            v-for="(log, index) in eventLogs"
-            :key="index"
-            class="log-item"
-            :class="`log-${log.type}`"
-          >
-            <span class="log-time">{{ log.time }}</span>
-            <span class="log-type">[{{ log.type }}]</span>
-            <span class="log-message">{{ log.message }}</span>
+          </header>
+          <div class="gate-list">
+            <div v-for="gate in qualityGates" :key="gate.gate" class="gate-item">
+              <YhTag :type="gate.level === 'P0' ? 'danger' : 'warning'">{{ gate.level }}</YhTag>
+              <strong>{{ gate.gate }}</strong>
+              <span>{{ gate.status }}</span>
+              <code>{{ gate.command }}</code>
+            </div>
           </div>
-          <div v-if="eventLogs.length === 0" class="log-empty"> 暂无日志 </div>
         </div>
-      </div>
-    </div>
 
-    <!-- 底部快捷键提示 -->
-    <div class="shortcuts-hint">
-      <div class="shortcut"><kbd>Ctrl</kbd>+<kbd>滚轮</kbd> 缩放</div>
-      <div class="shortcut"><kbd>拖拽</kbd> 空白区域 平移</div>
-      <div class="shortcut"><kbd>Alt</kbd>+<kbd>拖拽</kbd> 框选</div>
-      <div class="shortcut"><kbd>Shift</kbd>+<kbd>点击</kbd> 多选</div>
-      <div class="shortcut"><kbd>Delete</kbd> 删除选中</div>
-      <div class="shortcut"><kbd>Ctrl</kbd>+<kbd>Z</kbd> 撤销</div>
-      <div class="shortcut"><kbd>Ctrl</kbd>+<kbd>Y</kbd> 重做</div>
-      <div class="shortcut"><kbd>Ctrl</kbd>+<kbd>A</kbd> 全选</div>
-      <div class="shortcut"><kbd>Esc</kbd> 取消选择</div>
-    </div>
+        <div class="platform-panel">
+          <header class="section-header compact">
+            <div>
+              <p class="eyebrow">taxonomy</p>
+              <h2>Component state matrix</h2>
+            </div>
+          </header>
+          <div class="matrix-list">
+            <div v-for="item in componentMatrix" :key="item.group" class="matrix-item">
+              <strong>{{ item.group }}</strong>
+              <span>{{ item.components }}</span>
+              <small>{{ item.states }}</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-grid">
+        <section v-for="section in visibleSections" :key="section.key" class="demo-section">
+          <header class="section-header">
+            <div>
+              <p class="eyebrow">{{ section.summary }}</p>
+              <h2>{{ section.label }}</h2>
+            </div>
+            <YhBadge :value="section.count">
+              <YhTag>checks</YhTag>
+            </YhBadge>
+          </header>
+
+          <div v-if="section.key === 'quality'" class="demo-stack">
+            <YhTable
+              :data="qualityGates"
+              :columns="[
+                { prop: 'gate', label: 'Gate', width: 180 },
+                { prop: 'level', label: 'Level', width: 90 },
+                { prop: 'status', label: 'Status', width: 120 },
+                { prop: 'command', label: 'Evidence' }
+              ]"
+              border
+            />
+            <YhDescriptions title="Automation contract" border>
+              <YhDescriptionsItem label="Runner">Playwright</YhDescriptionsItem>
+              <YhDescriptionsItem label="Viewports">Desktop / Mobile</YhDescriptionsItem>
+              <YhDescriptionsItem label="Output">test-results/playgrounds</YhDescriptionsItem>
+            </YhDescriptions>
+          </div>
+
+          <div v-else-if="section.key === 'basic'" class="demo-stack">
+            <div class="demo-row">
+              <YhButton>Default</YhButton>
+              <YhButton type="primary">Primary</YhButton>
+              <YhButton type="success">Success</YhButton>
+              <YhButton type="warning">Warning</YhButton>
+              <YhButton type="danger">Danger</YhButton>
+            </div>
+            <div class="demo-row">
+              <YhTag>Default</YhTag>
+              <YhTag type="success">Stable</YhTag>
+              <YhTag type="warning">Beta</YhTag>
+              <YhTag type="danger">Blocked</YhTag>
+              <YhProgress :percentage="72" />
+            </div>
+            <YhAlert title="The component plugin is installed globally." type="success" show-icon />
+          </div>
+
+          <div v-else-if="section.key === 'form'" class="form-layout">
+            <YhForm :model="form" label-width="120px">
+              <YhFormItem label="Project">
+                <YhInput v-model="form.name" placeholder="Project name" />
+              </YhFormItem>
+              <YhFormItem label="Owner">
+                <YhInput v-model="form.owner" />
+              </YhFormItem>
+              <YhFormItem label="Region">
+                <YhSelect
+                  v-model="form.region"
+                  :options="cityOptions"
+                  placeholder="Select region"
+                />
+              </YhFormItem>
+              <YhFormItem label="Delivery">
+                <YhSwitch v-model="form.delivery" />
+              </YhFormItem>
+              <YhFormItem label="Channel">
+                <YhRadioGroup v-model="form.channel">
+                  <YhRadioButton value="stable">Stable</YhRadioButton>
+                  <YhRadioButton value="next">Next</YhRadioButton>
+                </YhRadioGroup>
+              </YhFormItem>
+              <YhFormItem label="Cities">
+                <YhCheckboxGroup v-model="selectedCities">
+                  <YhCheckbox value="beijing">Beijing</YhCheckbox>
+                  <YhCheckbox value="shanghai">Shanghai</YhCheckbox>
+                  <YhCheckbox value="shenzhen">Shenzhen</YhCheckbox>
+                </YhCheckboxGroup>
+              </YhFormItem>
+              <YhFormItem label="Score">
+                <YhRate v-model="rating" />
+              </YhFormItem>
+              <YhFormItem label="Rollout">
+                <YhSlider v-model="sliderValue" />
+              </YhFormItem>
+              <YhFormItem label="Tags">
+                <YhInputTag v-model="tags" />
+              </YhFormItem>
+              <YhFormItem label="Date">
+                <YhDatePicker v-model="dateValue" placeholder="Pick date" />
+              </YhFormItem>
+            </YhForm>
+          </div>
+
+          <div v-else-if="section.key === 'data'" class="demo-stack">
+            <YhTable :data="tableData" :columns="tableColumns" border />
+            <YhPagination
+              v-model:current-page="currentPage"
+              :total="120"
+              layout="prev, pager, next"
+            />
+            <YhDescriptions title="Package detail" border>
+              <YhDescriptionsItem label="Runtime">Vue 3.5</YhDescriptionsItem>
+              <YhDescriptionsItem label="Bundler">Vite</YhDescriptionsItem>
+              <YhDescriptionsItem label="Module">ESM</YhDescriptionsItem>
+            </YhDescriptions>
+          </div>
+
+          <div v-else-if="section.key === 'feedback'" class="demo-stack">
+            <div class="demo-row">
+              <YhButton type="success" @click="openMessage('success')">Success message</YhButton>
+              <YhButton type="warning" @click="openMessage('warning')">Warning message</YhButton>
+              <YhButton type="danger" @click="openMessage('error')">Error message</YhButton>
+              <YhButton @click="openNotification">Notification</YhButton>
+              <YhButton @click="openConfirm">Confirm</YhButton>
+            </div>
+            <YhResult
+              status="success"
+              title="Feedback services ready"
+              sub-title="Message, notification, and dialog APIs are callable."
+            />
+          </div>
+
+          <div v-else-if="section.key === 'navigation'" class="demo-stack">
+            <YhBreadcrumb>
+              <YhBreadcrumbItem>Playground</YhBreadcrumbItem>
+              <YhBreadcrumbItem>Components</YhBreadcrumbItem>
+              <YhBreadcrumbItem>{{ activeTab }}</YhBreadcrumbItem>
+            </YhBreadcrumb>
+            <YhTabs v-model="activeTab">
+              <YhTabPane label="Usage" name="usage"> Usage examples stay mounted. </YhTabPane>
+              <YhTabPane label="Tokens" name="tokens"> Token switching is live. </YhTabPane>
+              <YhTabPane label="SSR" name="ssr">
+                Nuxt validates server rendering separately.
+              </YhTabPane>
+            </YhTabs>
+            <YhSteps :active="currentStep">
+              <YhStep title="Install" />
+              <YhStep title="Import" />
+              <YhStep title="Verify" />
+              <YhStep title="Release" />
+            </YhSteps>
+          </div>
+
+          <div v-else-if="section.key === 'layout'" class="demo-stack">
+            <YhContainer class="layout-preview">
+              <YhHeader>Header</YhHeader>
+              <YhContainer>
+                <YhAside width="180px">Aside</YhAside>
+                <YhMain>Main content</YhMain>
+              </YhContainer>
+            </YhContainer>
+            <YhRow :gutter="16">
+              <YhCol :span="8"><div class="grid-cell">span 8</div></YhCol>
+              <YhCol :span="8"><div class="grid-cell">span 8</div></YhCol>
+              <YhCol :span="8"><div class="grid-cell">span 8</div></YhCol>
+            </YhRow>
+          </div>
+
+          <div v-else-if="section.key === 'flow'" class="flow-workbench">
+            <div class="flow-toolbar">
+              <YhButton type="primary" @click="fitFlow">Fit view</YhButton>
+              <YhButton @click="addFlowNode">Add node</YhButton>
+              <YhSwitch v-model="enabled" />
+              <span>{{ enabled ? 'Editable' : 'Read only' }}</span>
+            </div>
+            <div class="flow-canvas">
+              <YhFlow
+                ref="flowRef"
+                v-model:nodes="flowNodes"
+                v-model:edges="flowEdges"
+                v-model="flowViewport"
+                :readonly="!enabled"
+                background="dots"
+                show-controls
+                show-minimap
+                snap-to-grid
+                @node-click="({ node }) => addLog('flow', `Clicked ${node.id}`)"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="event-drawer">
+        <strong>Event log</strong>
+        <span v-if="!logs.length">No events yet</span>
+        <ul v-else>
+          <li v-for="log in logs" :key="`${log.time}-${log.message}`">
+            <em>{{ log.time }}</em>
+            <span>{{ log.type }}</span>
+            {{ log.message }}
+          </li>
+        </ul>
+      </aside>
+    </main>
   </div>
 </template>
 
 <style lang="scss">
-.interaction-demo {
-  display: flex;
-  flex-direction: column;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+
+.playground-shell {
+  --playground-primary: #409eff;
+  --playground-density: 14px;
+  display: grid;
+  grid-template-columns: 292px minmax(0, 1fr);
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.playground-sidebar {
+  position: sticky;
+  top: 0;
   height: 100vh;
-  background: #1a1a2e;
-  color: #eee;
-  font-family: 'Segoe UI', system-ui, sans-serif;
-}
-
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  background: #16213e;
-  border-bottom: 1px solid #0f3460;
-
-  h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #00d9ff;
-  }
-}
-
-.toolbar-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.btn {
-  padding: 8px 16px;
-  border: 1px solid #0f3460;
-  border-radius: 6px;
-  background: #1a1a2e;
-  color: #eee;
-  cursor: pointer;
-  transition: all 0.2s;
-
-  &:hover {
-    background: #0f3460;
-    border-color: #00d9ff;
-  }
-
-  &.btn-primary {
-    background: #00d9ff;
-    color: #1a1a2e;
-    border-color: #00d9ff;
-
-    &:hover {
-      background: #00b8d9;
-    }
-  }
-
-  &.btn-warning {
-    background: #f39c12;
-    color: #1a1a2e;
-    border-color: #f39c12;
-
-    &:hover {
-      background: #e67e22;
-    }
-  }
-}
-
-.btn-tiny {
-  padding: 2px 8px;
-  border: 1px solid #0f3460;
-  border-radius: 4px;
-  background: #1a1a2e;
-  color: #00d9ff;
-  font-size: 11px;
-  cursor: pointer;
-  transition: all 0.2s;
-
-  &:hover {
-    background: #0f3460;
-    border-color: #00d9ff;
-  }
-}
-
-.main-content {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
-.config-panel {
-  width: 280px;
-  padding: 16px;
-  background: #16213e;
+  padding: 20px;
+  border-right: 1px solid #e5e7eb;
+  background: #fff;
   overflow-y: auto;
-  border-right: 1px solid #0f3460;
 }
 
-.config-section {
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #0f3460;
-
-  h4 {
-    margin: 0 0 12px 0;
-    font-size: 14px;
-    color: #00d9ff;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-}
-
-.config-item {
+.brand {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  font-size: 13px;
+  gap: 12px;
+  margin-bottom: 18px;
 
-  input[type='checkbox'] {
-    width: 16px;
-    height: 16px;
-    accent-color: #00d9ff;
-  }
-
-  input[type='number'],
-  select {
-    flex: 1;
-    padding: 4px 8px;
-    border: 1px solid #0f3460;
-    border-radius: 4px;
-    background: #1a1a2e;
-    color: #eee;
-    font-size: 12px;
-
-    &:focus {
-      outline: none;
-      border-color: #00d9ff;
-    }
+  strong,
+  span {
+    display: block;
   }
 
   span {
-    flex: 1;
-  }
-
-  &.config-actions {
-    display: flex;
-    gap: 4px;
-    margin-top: 4px;
-    padding-top: 4px;
-    border-top: 1px dashed #0f3460;
+    margin-top: 2px;
+    color: #6b7280;
+    font-size: 12px;
   }
 }
 
-.flow-container {
-  flex: 1;
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: var(--playground-primary);
+  color: #fff;
+  font-weight: 800;
+}
+
+.search {
+  margin-bottom: 14px;
+}
+
+.nav-list {
+  display: grid;
+  gap: 6px;
+}
+
+.nav-item {
   position: relative;
-  background: #0f0f23;
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 11px 42px 11px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #374151;
+  text-align: left;
+  cursor: pointer;
 
-  :deep(.yh-flow) {
-    background: transparent;
+  span {
+    font-weight: 700;
   }
 
-  :deep(.yh-flow-node) {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 1px solid #0f3460;
-
-    &.is-selected {
-      border-color: #00d9ff;
-      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
-    }
+  small {
+    color: #6b7280;
   }
 
-  :deep(.yh-flow-handle) {
-    background: #00d9ff;
-    border-color: #00d9ff;
+  em {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #9ca3af;
+    font-style: normal;
+    font-size: 12px;
+  }
+
+  &.active {
+    border-color: color-mix(in srgb, var(--playground-primary) 32%, #fff);
+    background: color-mix(in srgb, var(--playground-primary) 10%, #fff);
+    color: #111827;
   }
 }
 
-.custom-node {
+.playground-main {
+  min-width: 0;
+  padding: 24px;
+}
+
+.topbar,
+.metric-strip,
+.hero-panel,
+.demo-section,
+.event-drawer {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+
+  h1 {
+    margin: 4px 0 0;
+    font-size: 28px;
+    letter-spacing: 0;
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--playground-primary);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.topbar-actions,
+.demo-row,
+.flow-toolbar,
+.hero-actions {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
-  height: 100%;
-
-  .node-icon {
-    font-size: 16px;
-    color: #00d9ff;
-  }
-
-  .node-content {
-    flex: 1;
-  }
-
-  .node-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #eee;
-  }
-
-  .node-type {
-    font-size: 11px;
-    color: #888;
-    text-transform: uppercase;
-  }
-}
-
-.selection-info,
-.viewport-info {
-  position: absolute;
-  bottom: 16px;
-  padding: 8px 12px;
-  background: rgba(22, 33, 62, 0.9);
-  border: 1px solid #0f3460;
-  border-radius: 6px;
-  font-size: 12px;
-  color: #aaa;
-}
-
-.selection-info {
-  left: 16px;
-}
-
-.viewport-info {
-  right: 16px;
-}
-
-.log-panel {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  background: #16213e;
-  border-left: 1px solid #0f3460;
-}
-
-.log-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  border-bottom: 1px solid #0f3460;
-
-  h4 {
-    margin: 0;
-    font-size: 14px;
-    color: #00d9ff;
-  }
-}
-
-.btn-small {
-  padding: 4px 8px;
-  border: 1px solid #0f3460;
-  border-radius: 4px;
-  background: transparent;
-  color: #888;
-  font-size: 11px;
-  cursor: pointer;
-
-  &:hover {
-    background: #0f3460;
-    color: #eee;
-  }
-}
-
-.log-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 8px;
-}
-
-.log-item {
-  display: flex;
-  gap: 6px;
-  padding: 6px 8px;
-  margin-bottom: 4px;
-  font-size: 11px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
-
-  .log-time {
-    color: #666;
-    flex-shrink: 0;
-  }
-
-  .log-type {
-    flex-shrink: 0;
-    padding: 1px 4px;
-    border-radius: 3px;
-    font-size: 10px;
-    text-transform: uppercase;
-  }
-
-  .log-message {
-    color: #aaa;
-    word-break: break-all;
-  }
-
-  &.log-click .log-type {
-    background: #3498db;
-    color: white;
-  }
-
-  &.log-dblclick .log-type {
-    background: #9b59b6;
-    color: white;
-  }
-
-  &.log-drag .log-type {
-    background: #e67e22;
-    color: white;
-  }
-
-  &.log-context .log-type {
-    background: #e74c3c;
-    color: white;
-  }
-
-  &.log-connect .log-type {
-    background: #2ecc71;
-    color: white;
-  }
-
-  &.log-selection .log-type {
-    background: #f39c12;
-    color: white;
-  }
-
-  &.log-history .log-type {
-    background: #1abc9c;
-    color: white;
-  }
-
-  &.log-action .log-type {
-    background: #34495e;
-    color: white;
-  }
-}
-
-.log-empty {
-  padding: 20px;
-  text-align: center;
-  color: #666;
-  font-size: 13px;
-}
-
-.shortcuts-hint {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  padding: 12px;
-  background: #16213e;
-  border-top: 1px solid #0f3460;
   flex-wrap: wrap;
 }
 
-.shortcut {
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.metric {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  background: #fff;
+
+  span,
+  small {
+    color: #6b7280;
+  }
+
+  strong {
+    font-size: 22px;
+  }
+}
+
+.hero-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 16px;
+  padding: 24px;
+
+  h2 {
+    margin: 12px 0 8px;
+    font-size: 26px;
+  }
+
+  p {
+    max-width: 720px;
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.7;
+  }
+}
+
+.section-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.platform-panel {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.section-header.compact {
+  margin-bottom: 12px;
+}
+
+.gate-list,
+.matrix-list {
+  display: grid;
+  gap: 8px;
+}
+
+.gate-item,
+.matrix-item {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid #edf0f5;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.gate-item {
+  grid-template-columns: auto minmax(130px, 1fr) auto;
+  align-items: center;
+
+  code {
+    grid-column: 2 / -1;
+    color: #6b7280;
+    font-size: 12px;
+    white-space: normal;
+  }
+
+  span {
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
+
+.matrix-item {
+  strong,
+  span,
+  small {
+    display: block;
+  }
+
+  span,
+  small {
+    color: #6b7280;
+  }
+}
+
+.demo-section {
+  padding: 20px;
+}
+
+.section-header {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #888;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
 
-  kbd {
-    padding: 2px 6px;
-    background: #0f3460;
-    border-radius: 4px;
-    font-family: monospace;
-    color: #00d9ff;
+  h2 {
+    margin: 4px 0 0;
+    font-size: 22px;
+  }
+}
+
+.demo-stack {
+  display: grid;
+  gap: var(--playground-density);
+}
+
+.form-layout {
+  max-width: 780px;
+}
+
+.layout-preview {
+  overflow: hidden;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+
+  .yh-header,
+  .yh-footer {
+    display: grid;
+    place-items: center;
+    background: #b3c0d1;
+    color: #334155;
+  }
+
+  .yh-aside {
+    display: grid;
+    place-items: center;
+    min-height: 180px;
+    background: #d3dce6;
+  }
+
+  .yh-main {
+    display: grid;
+    place-items: center;
+    min-height: 180px;
+    background: #e9eef3;
+  }
+}
+
+.grid-cell {
+  display: grid;
+  place-items: center;
+  min-height: 64px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--playground-primary) 12%, #fff);
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.flow-workbench {
+  display: grid;
+  gap: 12px;
+}
+
+.flow-canvas {
+  height: 480px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.event-drawer {
+  margin-top: 16px;
+  padding: 16px;
+
+  strong {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  span {
+    color: #6b7280;
+  }
+
+  ul {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    color: #4b5563;
+  }
+
+  em,
+  li span {
+    margin-right: 8px;
+    color: #6b7280;
+    font-style: normal;
+  }
+
+  li span {
+    color: var(--playground-primary);
+    font-weight: 700;
+  }
+}
+
+.is-compact {
+  .demo-section,
+  .hero-panel,
+  .topbar,
+  .metric {
+    padding: 12px;
+  }
+}
+
+.is-dark {
+  background: #111827;
+  color: #e5e7eb;
+
+  .playground-sidebar,
+  .topbar,
+  .metric-strip,
+  .hero-panel,
+  .demo-section,
+  .platform-panel,
+  .event-drawer,
+  .metric {
+    border-color: #273244;
+    background: #162033;
+  }
+
+  .nav-item {
+    color: #d1d5db;
+
+    &.active {
+      background: color-mix(in srgb, var(--playground-primary) 20%, #162033);
+    }
+  }
+
+  .hero-panel p,
+  .metric span,
+  .metric small,
+  .brand span,
+  .nav-item small,
+  .gate-item code,
+  .matrix-item span,
+  .matrix-item small,
+  .event-drawer li {
+    color: #9ca3af;
+  }
+
+  .gate-item,
+  .matrix-item {
+    border-color: #273244;
+    background: #111827;
+  }
+}
+
+@media (max-width: 980px) {
+  .playground-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .playground-sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .metric-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel,
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 </style>

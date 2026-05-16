@@ -1,4 +1,4 @@
-# Screenshot
+﻿# Screenshot
 
 Often, after designing an elaborate workflow, you may need to export the canvas as a high-fidelity image for documentation, reporting, or peer review. By leveraging external libraries like [html-to-image](https://github.com/bubkoo/html-to-image), you can capture the current state of the `Flow` viewport as a professional-grade PNG without any UI artifacts.
 
@@ -19,7 +19,7 @@ const tsCode = `<template>
   <div class="ss-container">
     <div class="ss-toolbar">
       <button class="ss-btn" @click="downloadImage" :disabled="isDownloading">
-        {{ isDownloading ? 'Capturing...' : 'Download High-Res PNG ➔' }}
+        {{ isDownloading ? 'Capturing...' : 'Download High-Res PNG ->' }}
       </button>
     </div>
     
@@ -75,7 +75,7 @@ const downloadImage = async () => {
     
     const link = document.createElement('a')
     link.href = dataUrl
-    link.download = \flow-export-\{Date.now()}.png\
+    link.download = 'flow-export-' + Date.now() + '.png'
     link.click()
   } catch (error) {
     console.error('Capture failed:', error)
@@ -164,7 +164,7 @@ const downloadImage = async () => {
   <div style="display: flex; flex-direction: column; height: 450px; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
     <div style="padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; z-index: 2;">
       <button @click="downloadImage" :disabled="isDownloading" style="padding: 8px 16px; background: #3b82f6; color: white; border-radius: 4px; border: none; font-weight: bold; cursor: pointer;">
-        {{ isDownloading ? 'Capturing...' : 'Download PNG ➔' }}
+        {{ isDownloading ? 'Capturing...' : 'Download PNG ->' }}
       </button>
     </div>
     <div style="flex: 1; height: 100%;" ref="wrapperRef">

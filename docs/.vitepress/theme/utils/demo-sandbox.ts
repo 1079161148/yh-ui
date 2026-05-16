@@ -82,6 +82,22 @@ const KNOWN_DEPENDENCIES: Record<string, string> = {
   xlsx: '^0.18.5',
   zod: '^3.25.76'
 }
+
+const PLAYGROUND_RUNTIME_EXTERNAL_PACKAGES = [
+  '@floating-ui/dom',
+  'async-validator',
+  'axios',
+  'dayjs',
+  'echarts',
+  'highlight.js',
+  'html-to-image',
+  'mermaid',
+  'pinia',
+  'viewerjs',
+  'vue-router',
+  'xlsx',
+  'zod'
+] as const
 const CODE_SANDBOX_RUNTIME_BASE = 'codesandbox-runtime/'
 
 const NODE_BUILTINS = new Set([
@@ -288,9 +304,84 @@ function normalizeDependencyVersion(version: string): string {
   return version.replace(/^[~^]/, '')
 }
 
-function extractUsedYhComponentNames(code: string): string[] {
+export function extractUsedYhComponentNames(code: string): string[] {
   const matches = [...code.matchAll(/<\s*yh-([a-z0-9-]+)\b/gi)]
   return [...new Set(matches.map((match) => match[1]).filter(Boolean))].sort()
+}
+
+export const RUNTIME_COMPONENT_NAME_ALIASES: Record<string, string> = {
+  aside: 'container',
+  'breadcrumb-item': 'breadcrumb',
+  'carousel-item': 'carousel',
+  'checkbox-group': 'checkbox',
+  'descriptions-item': 'descriptions',
+  'dropdown-item': 'dropdown',
+  'dropdown-menu': 'dropdown',
+  footer: 'container',
+  'form-item': 'form',
+  'form-schema': 'form',
+  'grid-item': 'grid',
+  header: 'container',
+  'image-viewer': 'image',
+  main: 'container',
+  'menu-item': 'menu',
+  'menu-item-group': 'menu',
+  option: 'select',
+  'radio-button': 'radio',
+  'radio-group': 'radio',
+  'skeleton-item': 'skeleton',
+  step: 'steps',
+  'sub-menu': 'menu',
+  'tab-pane': 'tabs',
+  'table-column': 'table',
+  'typography-link': 'typography',
+  'typography-paragraph': 'typography',
+  'typography-text': 'typography',
+  'typography-title': 'typography'
+}
+
+export function resolveRuntimeComponentNames(
+  componentNames: string[],
+  manifest: CodeSandboxRuntimeManifest
+): string[] {
+  const resolvedNames = new Set<string>()
+
+  for (const componentName of componentNames) {
+    if (manifest.components[componentName]) {
+      resolvedNames.add(componentName)
+      continue
+    }
+
+    const aliasName = RUNTIME_COMPONENT_NAME_ALIASES[componentName]
+    if (aliasName && manifest.components[aliasName]) {
+      resolvedNames.add(aliasName)
+    }
+  }
+
+  return [...resolvedNames].sort()
+}
+
+const FLOW_RUNTIME_COMPONENT_NAMES = new Set(['flow', 'node-resizer', 'node-toolbar'])
+
+export function getUnresolvedRuntimeComponentNames(
+  componentNames: string[],
+  manifest: CodeSandboxRuntimeManifest,
+  context?: SandboxContext
+): string[] {
+  const resolvedNames = new Set(resolveRuntimeComponentNames(componentNames, manifest))
+  const unresolvedNames = componentNames.filter((componentName) => {
+    const aliasName = RUNTIME_COMPONENT_NAME_ALIASES[componentName]
+    if (resolvedNames.has(componentName) || (aliasName && resolvedNames.has(aliasName))) {
+      return false
+    }
+
+    return !(
+      FLOW_RUNTIME_COMPONENT_NAMES.has(componentName) &&
+      usesFlowSandboxRuntime(`<yh-${componentName} />`, context)
+    )
+  })
+
+  return [...new Set(unresolvedNames)].sort()
 }
 
 function kebabToPascalCase(value: string): string {
@@ -707,6 +798,13 @@ function applyRuntimeImportMapShims(
   importMap: ImportMap,
   dependencies: Record<string, string>
 ): void {
+  for (const pkg of PLAYGROUND_RUNTIME_EXTERNAL_PACKAGES) {
+    const resolvedUrl = resolveImportUrl(pkg, dependencies)
+    if (resolvedUrl) {
+      importMap.imports[pkg] = resolvedUrl
+    }
+  }
+
   const dayjsVersion = normalizeDependencyVersion(
     dependencies.dayjs || KNOWN_DEPENDENCIES.dayjs || 'latest'
   )
@@ -754,10 +852,12 @@ export function getSandboxSupport(code: string, context?: SandboxContext): Sandb
 
 function usesFlowSandboxRuntime(code: string, context?: SandboxContext): boolean {
   const preparedCode = prepareSandboxCode(code, context)
+  const normalizedDocPath = normalizeDocPath(context?.docPath)
   return (
     preparedCode.includes('@yh-ui/flow') ||
     /<\s*yh-flow\b/i.test(preparedCode) ||
-    Boolean(context?.docPath?.includes('/flow/'))
+    normalizedDocPath === 'flow' ||
+    Boolean(normalizedDocPath?.startsWith('flow/') || normalizedDocPath?.includes('/flow/'))
   )
 }
 
@@ -1168,7 +1268,7 @@ export async function createCodeSandboxProjectFiles(
   const loadSiteAssetText =
     options.loadSiteAssetText ??
     ((assetPath: string) => fetchTextAsset(resolveSiteAssetUrl(base, assetPath)))
-  const runtimeComponentNames = componentNames.filter((name) => manifest.components[name])
+  const runtimeComponentNames = resolveRuntimeComponentNames(componentNames, manifest)
   const supportStyleFiles = [
     'theme/styles/mixins/mixins.css',
     'theme/styles/variables.css',
@@ -1185,7 +1285,7 @@ export async function createCodeSandboxProjectFiles(
   const collectedStyleContents = new Map<string, string>()
   const packageDependencies: Record<string, string> = {
     vue: `^${VUE_VERSION}`,
-    ...buildDependencies(preparedCode, context)
+    ...buildSandboxDependencies(code, context)
   }
 
   if (usesIconSandboxRuntime(preparedCode, context)) {
@@ -1274,20 +1374,13 @@ export async function createCodeSandboxProjectFiles(
     '  <Demo />',
     '</template>',
     '',
-    '<script>',
+    '<script setup lang="ts">',
     "import Demo from './Demo.vue'",
-    '',
-    'export default {',
-    "  name: 'App',",
-    '  components: {',
-    '    Demo',
-    '  }',
-    '}',
     '</script>',
     ''
   ].join('\n')
 
-  const mainJs = [
+  const mainTs = [
     "import { createApp } from 'vue'",
     "import App from './App.vue'",
     componentImports,
@@ -1323,40 +1416,104 @@ export async function createCodeSandboxProjectFiles(
       {
         name: slugifyTitle(title) || 'yh-ui-demo',
         private: true,
-        main: 'src/main.js',
+        type: 'module',
+        scripts: {
+          dev: 'vite --host 0.0.0.0 --port 5173',
+          start: 'vite --host 0.0.0.0 --port 5173',
+          build: 'vue-tsc --noEmit && vite build',
+          preview: 'vite preview --host 0.0.0.0 --port 4173'
+        },
         dependencies: packageDependencies,
-        devDependencies: {
-          '@vue/cli-plugin-babel': '~4.5.0',
-          typescript: '~4.6.3'
+        devDependencies: DEV_DEPENDENCIES
+      },
+      null,
+      2
+    ) + '\n'
+
+  const viteConfigTs = [
+    "import vue from '@vitejs/plugin-vue'",
+    "import { defineConfig } from 'vite'",
+    '',
+    'export default defineConfig({',
+    '  plugins: [vue()],',
+    '  server: {',
+    "    host: '0.0.0.0',",
+    '    port: 5173,',
+    '    allowedHosts: true',
+    '  },',
+    "  preview: { host: '0.0.0.0', port: 4173 }",
+    '})',
+    ''
+  ].join('\n')
+
+  const tsconfigJson =
+    JSON.stringify(
+      {
+        compilerOptions: {
+          target: 'ES2020',
+          useDefineForClassFields: true,
+          module: 'ESNext',
+          moduleResolution: 'Bundler',
+          strict: true,
+          skipLibCheck: true,
+          jsx: 'preserve',
+          resolveJsonModule: true,
+          isolatedModules: true,
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          lib: ['ES2020', 'DOM', 'DOM.Iterable'],
+          types: ['vite/client']
+        },
+        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue', 'src/env.d.ts']
+      },
+      null,
+      2
+    ) + '\n'
+
+  const envDts = [
+    'declare module "*.vue" {',
+    '  import type { DefineComponent } from "vue"',
+    '  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>',
+    '  export default component',
+    '}',
+    ''
+  ].join('\n')
+
+  const files: Record<string, string> = {
+    '.npmrc': ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n'),
+    'sandbox.config.json':
+      JSON.stringify(
+        {
+          template: 'node',
+          infiniteLoopProtection: true
+        },
+        null,
+        2
+      ) + '\n',
+    'index.html': indexHtml,
+    'package.json': packageJson,
+    'tsconfig.json': tsconfigJson,
+    'vite.config.ts': viteConfigTs,
+    'src/App.vue': appVue,
+    'src/Demo.vue': normalizedCode + '\n',
+    'src/main.ts': mainTs,
+    'src/style.css': `${styleCss}\n`,
+    'src/env.d.ts': envDts,
+    '.codesandbox/tasks.json': JSON.stringify(
+      {
+        setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
+        tasks: {
+          dev: {
+            name: 'Start Dev Server',
+            command: 'npm run dev',
+            runAtStart: true,
+            preview: { port: 5173 }
+          }
         }
       },
       null,
       2
-    ) + '\n'
-
-  const codeSandboxTemplateJson =
-    JSON.stringify(
-      {
-        title: title || 'YH-UI Demo',
-        description: 'YH-UI component demo generated from the documentation.',
-        iconUrl:
-          'https://raw.githubusercontent.com/codesandbox/sandbox-templates/main/vue-vite/.codesandbox/icon.png',
-        tags: ['frontend', 'vue', 'vue3', 'codesandbox', 'yh-ui'],
-        published: true
-      },
-      null,
-      2
-    ) + '\n'
-
-  const files: Record<string, string> = {
-    '.codesandbox/template.json': codeSandboxTemplateJson,
-    '.npmrc': ['registry=https://registry.npmjs.org/', ''].join('\n'),
-    'index.html': indexHtml,
-    'package.json': packageJson,
-    'src/App.vue': appVue,
-    'src/Demo.vue': normalizedCode + '\n',
-    'src/main.js': mainJs,
-    'src/style.css': `${styleCss}\n`,
+    ),
     ...runtimeFiles
   }
 

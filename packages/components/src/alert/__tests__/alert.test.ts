@@ -210,4 +210,34 @@ describe('YhAlert', () => {
 
     expect((wrapper.vm as any).progress).toBeLessThan(progressBeforeHover)
   })
+
+  it('covers custom icon, close slot, centered class and no-duration hover branches', async () => {
+    const Icon = markRaw({ template: '<i class="alert-icon" />' })
+    const wrapper = mount(YhAlert, {
+      props: {
+        type: 'error',
+        icon: Icon,
+        showIcon: true,
+        center: true,
+        duration: 0,
+        pauseOnHover: true,
+        closable: true,
+        scrollSpeed: 12
+      },
+      slots: {
+        close: '<button class="close-slot">x</button>'
+      }
+    })
+
+    expect(wrapper.find('.yh-alert').classes()).toContain('is-center')
+    expect(wrapper.find('.alert-icon').exists()).toBe(true)
+    expect(wrapper.find('.close-slot').exists()).toBe(true)
+    expect(wrapper.find('.yh-alert').attributes('style')).toContain('--yh-alert-scroll-speed: 12s')
+
+    await wrapper.find('.yh-alert').trigger('mouseenter')
+    await wrapper.find('.yh-alert').trigger('mouseleave')
+    vi.advanceTimersByTime(1000)
+    await nextTick()
+    expect(wrapper.find('.yh-alert').exists()).toBe(true)
+  })
 })

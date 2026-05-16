@@ -134,4 +134,15 @@ describe('YhResult', () => {
       '--yh-result-padding: 48px 32px'
     )
   })
+
+  it('falls back to info color for unknown icon values', () => {
+    const wrapper = mount(Result, {
+      props: {
+        icon: 'custom' as any
+      }
+    })
+
+    expect(wrapper.find('.yh-result__icon--custom').exists()).toBe(true)
+    expect(wrapper.find('svg').attributes('fill')).toContain('var(--yh-color-info')
+  })
 })

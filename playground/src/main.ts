@@ -1,15 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-
-// 导入主题样式
+import YhUI, { YhMessage, YhNotification } from '@yh-ui/components'
+import { Flow } from '@yh-ui/flow'
 import '@yh-ui/theme/styles/index.scss'
-
-// 导入组件
-import { YhButton } from '@yh-ui/components'
 
 const app = createApp(App)
 
-// 注册组件
-app.component('YhButton', YhButton)
+app.use(YhUI)
+app.component('YhFlow', Flow)
+
+app.config.globalProperties.$message = YhMessage
+app.config.globalProperties.$notify = YhNotification
 
 app.mount('#app')

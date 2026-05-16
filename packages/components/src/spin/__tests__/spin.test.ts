@@ -130,4 +130,49 @@ describe('Spin', () => {
     })
     expect(arr.find('linearGradient').exists()).toBe(true)
   })
+
+  it('clears delayed show timer when hidden before delay finishes', async () => {
+    vi.useFakeTimers()
+    const wrapper = mount(YhSpin, {
+      props: {
+        show: true,
+        delay: 100
+      }
+    })
+
+    await wrapper.setProps({ show: false })
+    vi.advanceTimersByTime(150)
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('.yh-spin').exists()).toBe(false)
+    expect(wrapper.emitted('hide')).toBeTruthy()
+    vi.useRealTimers()
+  })
+
+  it('supports numeric size, plain color, glass wrapper and attrs', () => {
+    const wrapper = mount(YhSpin, {
+      attrs: {
+        id: 'spin-host'
+      },
+      props: {
+        size: 40,
+        color: '#123456',
+        vertical: true,
+        glass: true,
+        show: true
+      },
+      slots: {
+        default: '<div class="content">content</div>',
+        tip: '<span class="tip">Tip</span>'
+      }
+    })
+
+    expect(wrapper.find('.yh-spin-wrapper').attributes('id')).toBe('spin-host')
+    expect(wrapper.find('.yh-spin').classes()).toContain('yh-spin--custom')
+    expect(wrapper.find('.yh-spin').classes()).toContain('is-vertical')
+    expect(wrapper.find('.yh-spin').classes()).toContain('is-glass')
+    expect(wrapper.find('.yh-spin__mask').exists()).toBe(true)
+    expect(wrapper.find('.yh-spin__svg').attributes('style')).toContain('40px')
+    expect(wrapper.find('.yh-spin').attributes('style')).toContain('color: #123456')
+  })
 })

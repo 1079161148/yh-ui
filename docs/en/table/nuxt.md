@@ -8,12 +8,12 @@ The best way to use `YH-UI` table in Nuxt 3 is through the **Plugins** approach 
 
 ### 1. Install Dependencies
 
-Make sure `yh-ui` is installed in your project:
+Make sure `@yh-ui/yh-ui` is installed in your project:
 
 ```bash
-npm install yh-ui
+npm install @yh-ui/yh-ui
 # or
-pnpm add yh-ui
+pnpm add @yh-ui/yh-ui
 ```
 
 ### 2. Create Plugin
@@ -24,7 +24,7 @@ Create a `yh-ui.ts` file in the `plugins` directory:
 // plugins/yh-ui.ts
 import { defineNuxtPlugin } from '#app'
 import YhUI from '@yh-ui/yh-ui'
-import 'yh-ui/dist/index.css'
+import '@yh-ui/yh-ui/css'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(YhUI)
@@ -38,9 +38,9 @@ If you want to use auto-import functionality in Nuxt, configure it in `nuxt.conf
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  css: ['yh-ui/dist/index.css'],
+  css: ['@yh-ui/yh-ui/css'],
   build: {
-    transpile: ['yh-ui']
+    transpile: ['@yh-ui/yh-ui']
   }
 })
 ```
@@ -87,7 +87,7 @@ Some table component features involving DOM operations (such as **virtual scroll
 
 ### Directive Conflicts
 
-If you're using `yh-tooltip` or similar directives, make sure Nuxt can correctly transpile the related packages. Adding `'yh-ui'` to the `transpile` configuration resolves most issues.
+If you're using `yh-tooltip` or similar directives, make sure Nuxt can correctly transpile the related packages. Adding `'@yh-ui/yh-ui'` to the `transpile` configuration resolves most issues.
 
 ## Style Customization
 
@@ -107,7 +107,7 @@ Then import this file in `nuxt.config.ts`.
 
 ### 1. Auto-import not working?
 
-Make sure `yh-ui` is included in `build.transpile`, which ensures Nuxt can correctly parse the component library's ESM exports.
+Make sure `@yh-ui/yh-ui` is included in `build.transpile`, which ensures Nuxt can correctly parse the component library's ESM exports.
 
 ### 2. Hydration Mismatch warnings?
 
@@ -115,4 +115,4 @@ This usually happens when using randomly generated mock data. Ensure the `key` u
 
 ### 3. Icon library missing?
 
-`YH-UI` table icons depend on the built-in icon library. If icons don't display properly, check that `yh-ui/dist/index.css` has been correctly imported.
+`YH-UI` table icons depend on the built-in icon library. If icons don't display properly, check that `@yh-ui/yh-ui/css` has been correctly imported.

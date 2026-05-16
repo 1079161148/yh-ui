@@ -58,11 +58,11 @@ YH-UI 面向现代浏览器，不支持 Internet Explorer。
 - `pnpm docs:build`
 - `pnpm verify:consumer-smoke`
 
-这意味着项目已经适合公开发布 `0.x / beta / rc` 级别版本；如果要对外承诺“稳定版”，仍以仓库根目录中的 `STABLE_RELEASE_BLOCKERS.md` 作为最终发布门槛。
+这意味着项目已经适合公开发布 `0.x / beta / rc` 级别版本；如果要对外承诺“稳定版”，应在目标 commit 上运行 `pnpm verify:open-source-release`，并确认 CI 同样通过。
 
 ## 包体积基线
 
-首份包体积基线记录见 [PACKAGE_SIZE_BASELINE.md](https://github.com/1079161148/yh-ui/blob/main/PACKAGE_SIZE_BASELINE.md)。
+包体积预算由 `pnpm verify:package-size` 维护，报告输出到 `test-results/package-size-report.json`。
 
 建议在以下场景重新记录：
 

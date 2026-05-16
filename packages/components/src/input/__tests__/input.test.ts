@@ -3,7 +3,7 @@
  */
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h, nextTick } from 'vue'
+import { h, markRaw, nextTick } from 'vue'
 import Input from '../src/input.vue'
 import { inputTypes, inputSizes, inputVariants, inputStatuses } from '../src/input'
 import { YhConfigProvider } from '../../config-provider'
@@ -330,5 +330,45 @@ describe('YhInput', () => {
     expect(wrapper.find('textarea').exists()).toBe(true)
     expect(wrapper.find('.yh-input__count--textarea').exists()).toBe(true)
     expect(wrapper.vm.textLength).toBe(11)
+  })
+
+  it('should cover icon component branches, custom icon slots and exceed state', async () => {
+    const Icon = markRaw({ template: '<i class="input-icon" />' })
+    const wrapper = mount(Input, {
+      props: {
+        modelValue: 'abcdef',
+        maxlength: 3,
+        showWordLimit: true,
+        countConfig: { calculate: (value: string) => value.length + 1 },
+        variant: 'filled',
+        status: 'error',
+        prefixIcon: Icon,
+        suffixIcon: Icon,
+        clearable: true,
+        loading: true,
+        inputStyle: { color: 'red' },
+        ariaLabel: 'Amount',
+        list: 'choices',
+        inputmode: 'decimal'
+      },
+      slots: {
+        loadingIcon: '<span class="loading-slot">L</span>',
+        clearIcon: '<span class="clear-slot">C</span>'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('yh-input--variant-filled')
+    expect(wrapper.classes()).toContain('yh-input--status-error')
+    expect(wrapper.classes()).toContain('is-exceed')
+    expect(wrapper.findAll('.input-icon').length).toBeGreaterThan(0)
+    expect(wrapper.find('.loading-slot').exists()).toBe(true)
+    expect(wrapper.find('input').attributes('aria-label')).toBe('Amount')
+    expect(wrapper.find('input').attributes('list')).toBe('choices')
+    expect(wrapper.find('input').attributes('inputmode')).toBe('decimal')
+
+    await wrapper.setProps({ loading: false })
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+    expect(wrapper.find('.clear-slot').exists()).toBe(true)
   })
 })

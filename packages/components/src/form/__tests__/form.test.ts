@@ -195,4 +195,99 @@ describe('YhForm', () => {
     expect(style).toContain('--yh-form-item-height: 40px')
     expect(style).toContain('--yh-form-label-font-size: 16px')
   })
+
+  it('covers reset, clear array props and scroll offset error handling', async () => {
+    const model = reactive({ user: { name: 'initial' }, age: '' })
+    const scrollTo = vi.fn()
+    vi.stubGlobal('scrollTo', scrollTo)
+
+    const wrapper = mount(Form, {
+      props: {
+        model,
+        scrollToError: true,
+        scrollToErrorOffset: 12,
+        scrollIntoViewOptions: { behavior: 'auto' },
+        rules: {
+          'user.name': [{ required: true, message: 'Name needed' }],
+          age: [{ required: true, message: 'Age needed' }]
+        }
+      },
+      slots: {
+        default: () => [
+          h(FormItem, { prop: 'user.name', label: 'User' }, { default: () => h('input') }),
+          h(FormItem, { prop: 'age', label: 'Age' }, { default: () => h('input') })
+        ]
+      },
+      attachTo: document.body
+    })
+
+    await nextTick()
+    const firstField = wrapper.get('[data-prop="user.name"]').element as HTMLElement
+    firstField.getBoundingClientRect = () => ({ top: 40 }) as DOMRect
+
+    model.user.name = ''
+    await expect(wrapper.vm.validate(['user.name', 'age'])).rejects.toBeTruthy()
+    expect(scrollTo).toHaveBeenCalledWith({ top: 28, behavior: 'auto' })
+
+    wrapper.vm.clearValidate(['user.name', 'age'])
+    await nextTick()
+    expect(wrapper.findAll('.is-error')).toHaveLength(0)
+
+    model.user.name = 'changed'
+    wrapper.vm.resetFields('user.name')
+    expect(model.user.name).toBe('initial')
+    wrapper.unmount()
+    vi.unstubAllGlobals()
+  })
+
+  it('covers form item status props, local rules and trigger filtering', async () => {
+    const model = reactive({ email: '' })
+    const wrapper = mount(Form, {
+      props: {
+        model,
+        statusIcon: true,
+        disabled: true,
+        size: 'small',
+        showMessage: false
+      },
+      slots: {
+        default: () =>
+          h(
+            FormItem,
+            {
+              prop: 'email',
+              label: 'Email',
+              required: true,
+              validateStatus: 'error',
+              error: 'Forced',
+              labelWidth: 120,
+              rules: [
+                { required: true, message: 'Blur needed', trigger: 'blur' },
+                { required: true, message: 'Change needed', trigger: ['change'] }
+              ],
+              themeOverrides: { errorColor: '#f00' }
+            },
+            {
+              label: () => h('span', 'Mail'),
+              default: () => h('input')
+            }
+          )
+      }
+    })
+
+    const item = wrapper.getComponent(FormItem)
+    expect(wrapper.find('.yh-form-item').classes()).toContain('is-required')
+    expect(wrapper.find('.yh-form-item').classes()).toContain('is-disabled')
+    expect(wrapper.find('.yh-form-item').classes()).toContain('yh-form-item--small')
+    expect(wrapper.find('.yh-form-item__label').text()).toBe('Mail')
+    expect(wrapper.find('.yh-form-item__label').attributes('style')).toContain('120px')
+    expect(wrapper.find('.yh-form-item__status-icon').exists()).toBe(true)
+    expect(wrapper.find('.yh-form-item__error').exists()).toBe(false)
+    expect(wrapper.find('.yh-form-item').attributes('style')).toContain(
+      '--yh-form-item-error-color: #f00'
+    )
+
+    await expect((item.vm as any).validate('focus')).resolves.toBe(true)
+    await expect((item.vm as any).validate('blur')).rejects.toBeTruthy()
+  })
 })

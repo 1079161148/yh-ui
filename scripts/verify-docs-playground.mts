@@ -136,6 +136,40 @@ import { Icon, YhIcon } from '@yh-ui/icons'
         throw new Error(`Expected at least 2 rendered icons, received ${count}`)
       }
     }
+  },
+  {
+    name: 'flow-basic',
+    payload: {
+      title: 'Flow Basic',
+      code: `<template>
+  <div style="width: 100%; height: 360px">
+    <yh-flow v-model:nodes="nodes" v-model:edges="edges" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const nodes = ref([
+  { id: '1', type: 'input', position: { x: 80, y: 80 }, data: { label: 'Start' } },
+  { id: '2', type: 'default', position: { x: 280, y: 80 }, data: { label: 'Process' } },
+  { id: '3', type: 'output', position: { x: 500, y: 80 }, data: { label: 'Done' } }
+])
+
+const edges = ref([{ id: 'e1-2', source: '1', target: '2' }, { id: 'e2-3', source: '2', target: '3' }])
+</script>`
+    },
+    selector: '.yh-flow',
+    evaluate: async (
+      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+        ? Awaited<T>['mainFrame']
+        : never
+    ) => {
+      const count = await frame.locator('.yh-flow__node, .yh-flow-node').count()
+      if (count < 3) {
+        throw new Error(`Expected at least 3 flow nodes, received ${count}`)
+      }
+    }
   }
 ] as const
 

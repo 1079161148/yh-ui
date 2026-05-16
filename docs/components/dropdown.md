@@ -280,7 +280,7 @@ const handleCommand = (command: string) => {
     // 执行删除操作
   }
 }
-<\\/script>`
+<\/script>`
 
 const jsDanger = tsDanger
   .replace('lang="ts"', '')
@@ -315,7 +315,7 @@ const loadData = async () => {
   ]
   loading.value = false
 }
-<\\/script>`
+<\/script>`
 
 const jsLoading = tsLoading
   .replace('lang="ts"', '')
@@ -358,7 +358,7 @@ const handleCheck = (key: string) => {
     item.checked = !item.checked
   }
 }
-<\\/script>`
+<\/script>`
 
 const jsCheckable = tsCheckable
   .replace('lang="ts"', '')
@@ -545,70 +545,70 @@ Dropdown List
 
 ### Dropdown Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| trigger | 触发方式 | `'hover' \| 'click' \| 'contextmenu'` | `'hover'` |
-| placement | 弹出位置 | `Placement` | `'bottom'` |
-| visible | 是否显示（支持 v-model） | `boolean \| null` | `null` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| show-after | 延迟显示时间 (ms) | `number` | `0` |
-| hide-after | 延迟隐藏时间 (ms) | `number` | `150` |
-| z-index | 弹出层层级 | `number` | `2000` |
-| hide-on-click | 是否在点击菜单项后隐藏 | `boolean` | `true` |
-| items | 菜单项数据（快捷配置模式） | `DropdownItemData[]` | `[]` |
-| loading | 是否加载中 | `boolean` | `false` |
-| empty-text | 空状态文本 | `string` | `'暂无数据'` |
-| checkable | 是否可勾选 | `boolean` | `false` |
-| max-height | 菜单最大高度 | `string \| number` | `''` |
-| teleported | 是否挂载至 body | `boolean` | `true` |
-| popper-class | 弹出层自定义类名 | `string` | `''` |
-| popper-style | 弹出层自定义样式 | `CSSProperties` | `{}` |
-| split-button | 分割按钮模式 | `boolean` | `false` |
-| type | 按钮类型（splitButton 模式） | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| ''` | `''` |
-| size | 按钮尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| plain | 朴素按钮样式（splitButton 模式） | `boolean` | `false` |
-| show-arrow | 是否显示下拉箭头图标 | `boolean` | `true` |
-| popper-arrow | 是否显示弹出框小三角 | `boolean` | `true` |
-| offset | 偏移量 | `[number, number]` | `[0, 8]` |
-| loop | Tab 键循环导航 | `boolean` | `true` |
-| tabindex | Tab 索引 | `number \| string` | `0` |
+| 属性          | 说明                             | 类型                                                              | 默认值       |
+| ------------- | -------------------------------- | ----------------------------------------------------------------- | ------------ |
+| trigger       | 触发方式                         | `'hover' \| 'click' \| 'contextmenu'`                             | `'hover'`    |
+| placement     | 弹出位置                         | `Placement`                                                       | `'bottom'`   |
+| visible       | 是否显示（支持 v-model）         | `boolean \| null`                                                 | `null`       |
+| disabled      | 是否禁用                         | `boolean`                                                         | `false`      |
+| show-after    | 延迟显示时间 (ms)                | `number`                                                          | `0`          |
+| hide-after    | 延迟隐藏时间 (ms)                | `number`                                                          | `150`        |
+| z-index       | 弹出层层级                       | `number`                                                          | `2000`       |
+| hide-on-click | 是否在点击菜单项后隐藏           | `boolean`                                                         | `true`       |
+| items         | 菜单项数据（快捷配置模式）       | `DropdownItemData[]`                                              | `[]`         |
+| loading       | 是否加载中                       | `boolean`                                                         | `false`      |
+| empty-text    | 空状态文本                       | `string`                                                          | `'暂无数据'` |
+| checkable     | 是否可勾选                       | `boolean`                                                         | `false`      |
+| max-height    | 菜单最大高度                     | `string \| number`                                                | `''`         |
+| teleported    | 是否挂载至 body                  | `boolean`                                                         | `true`       |
+| popper-class  | 弹出层自定义类名                 | `string`                                                          | `''`         |
+| popper-style  | 弹出层自定义样式                 | `CSSProperties`                                                   | `{}`         |
+| split-button  | 分割按钮模式                     | `boolean`                                                         | `false`      |
+| type          | 按钮类型（splitButton 模式）     | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| ''` | `''`         |
+| size          | 按钮尺寸                         | `'large' \| 'default' \| 'small'`                                 | `'default'`  |
+| plain         | 朴素按钮样式（splitButton 模式） | `boolean`                                                         | `false`      |
+| show-arrow    | 是否显示下拉箭头图标             | `boolean`                                                         | `true`       |
+| popper-arrow  | 是否显示弹出框小三角             | `boolean`                                                         | `true`       |
+| offset        | 偏移量                           | `[number, number]`                                                | `[0, 8]`     |
+| loop          | Tab 键循环导航                   | `boolean`                                                         | `true`       |
+| tabindex      | Tab 索引                         | `number \| string`                                                | `0`          |
 
 ### DropdownItem Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| command | 指令/命令值 | `string \| number \| object` | `''` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| divided | 是否显示分割线 | `boolean` | `false` |
-| icon | 图标 | `string` | `''` |
-| danger | 是否为危险项 | `boolean` | `false` |
-| checked | 是否选中（需开启 checkable） | `boolean` | `false` |
+| 属性     | 说明                         | 类型                         | 默认值  |
+| -------- | ---------------------------- | ---------------------------- | ------- |
+| command  | 指令/命令值                  | `string \| number \| object` | `''`    |
+| disabled | 是否禁用                     | `boolean`                    | `false` |
+| divided  | 是否显示分割线               | `boolean`                    | `false` |
+| icon     | 图标                         | `string`                     | `''`    |
+| danger   | 是否为危险项                 | `boolean`                    | `false` |
+| checked  | 是否选中（需开启 checkable） | `boolean`                    | `false` |
 
 ### Events
 
-| 事件名称 | 说明 | 回调参数 |
-| --- | --- | --- |
-| command | 点击菜单项 | `(command: string \| number \| object)` |
-| update:visible | 可见性变化 | `(visible: boolean)` |
-| show | 菜单显示 | - |
-| hide | 菜单隐藏 | - |
-| click | 点击触发器（splitButton 模式） | `(event: MouseEvent)` |
+| 事件名称       | 说明                           | 回调参数                                |
+| -------------- | ------------------------------ | --------------------------------------- |
+| command        | 点击菜单项                     | `(command: string \| number \| object)` |
+| update:visible | 可见性变化                     | `(visible: boolean)`                    |
+| show           | 菜单显示                       | -                                       |
+| hide           | 菜单隐藏                       | -                                       |
+| click          | 点击触发器（splitButton 模式） | `(event: MouseEvent)`                   |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| default | 触发元素 |
+| 插槽名   | 说明                                           |
+| -------- | ---------------------------------------------- |
+| default  | 触发元素                                       |
 | dropdown | 下拉菜单内容（使用 DropdownMenu/DropdownItem） |
-| empty | 空状态内容（无菜单项时显示） |
+| empty    | 空状态内容（无菜单项时显示）                   |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| show | 手动显示下拉菜单 | `() => void` |
-| hide | 手动隐藏下拉菜单 | `() => void` |
-| visible | 当前可见状态 | `Ref<boolean>` |
+| 名称    | 说明             | 类型           |
+| ------- | ---------------- | -------------- |
+| show    | 手动显示下拉菜单 | `() => void`   |
+| hide    | 手动隐藏下拉菜单 | `() => void`   |
+| visible | 当前可见状态     | `Ref<boolean>` |
 
 ### DropdownItemData 类型
 
@@ -621,8 +621,8 @@ interface DropdownItemData {
   divided?: boolean
   class?: string
   children?: DropdownItemData[]
-  danger?: boolean    // 是否为危险项（红色样式）
-  checked?: boolean   // 是否选中（checkable 模式）
+  danger?: boolean // 是否为危险项（红色样式）
+  checked?: boolean // 是否选中（checkable 模式）
 }
 ```
 
@@ -630,34 +630,34 @@ interface DropdownItemData {
 
 所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| `--yh-dropdown-text-color` | `var(--yh-text-color-primary)` | 菜单文字颜色 |
-| `--yh-dropdown-bg-color` | `var(--yh-bg-color-overlay)` | 弹出层背景色 |
-| `--yh-dropdown-border-color` | `var(--yh-border-color-light)` | 边框/分割线颜色 |
-| `--yh-dropdown-hover-bg` | `var(--yh-color-primary-light-9)` | 菜单项 hover 背景 |
-| `--yh-dropdown-active-bg` | `var(--yh-color-primary-light-8)` | 菜单项 active 背景 |
-| `--yh-dropdown-disabled-color` | `var(--yh-text-color-placeholder)` | 禁用项文字颜色 |
-| `--yh-dropdown-danger-color` | `var(--yh-color-danger)` | 危险项文字颜色 |
-| `--yh-dropdown-danger-hover-bg` | `var(--yh-color-danger-light-9)` | 危险项 hover 背景 |
-| `--yh-dropdown-shadow` | `var(--yh-shadow-lg)` | 弹出层阴影 |
-| `--yh-dropdown-radius` | `var(--yh-radius-md)` | 弹出层圆角 |
+| 变量名                          | 默认值                             | 描述               |
+| ------------------------------- | ---------------------------------- | ------------------ |
+| `--yh-dropdown-text-color`      | `var(--yh-text-color-primary)`     | 菜单文字颜色       |
+| `--yh-dropdown-bg-color`        | `var(--yh-bg-color-overlay)`       | 弹出层背景色       |
+| `--yh-dropdown-border-color`    | `var(--yh-border-color-light)`     | 边框/分割线颜色    |
+| `--yh-dropdown-hover-bg`        | `var(--yh-color-primary-light-9)`  | 菜单项 hover 背景  |
+| `--yh-dropdown-active-bg`       | `var(--yh-color-primary-light-8)`  | 菜单项 active 背景 |
+| `--yh-dropdown-disabled-color`  | `var(--yh-text-color-placeholder)` | 禁用项文字颜色     |
+| `--yh-dropdown-danger-color`    | `var(--yh-color-danger)`           | 危险项文字颜色     |
+| `--yh-dropdown-danger-hover-bg` | `var(--yh-color-danger-light-9)`   | 危险项 hover 背景  |
+| `--yh-dropdown-shadow`          | `var(--yh-shadow-lg)`              | 弹出层阴影         |
+| `--yh-dropdown-radius`          | `var(--yh-radius-md)`              | 弹出层圆角         |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhDropdownProps` | `YhDropdown` props 类型 |
-| `YhDropdownEmits` | `YhDropdown` emits 类型 |
-| `YhDropdownSlots` | `YhDropdown` slots 类型 |
-| `YhDropdownExpose` | `YhDropdown` expose 类型 |
-| `YhDropdownTrigger` | 触发方式联合类型 |
-| `YhDropdownItemData` | 下拉项数据类型 |
-| `YhDropdownItemProps` | `YhDropdownItem` props 类型 |
-| `YhDropdownMenuProps` | `YhDropdownMenu` props 类型 |
-| `YhDropdownInstance` | `YhDropdown` 实例类型 |
-| `YhDropdownItemInstance` | `YhDropdownItem` 实例类型 |
-| `YhDropdownMenuInstance` | `YhDropdownMenu` 实例类型 |
+| 名称                     | 说明                        |
+| ------------------------ | --------------------------- |
+| `YhDropdownProps`        | `YhDropdown` props 类型     |
+| `YhDropdownEmits`        | `YhDropdown` emits 类型     |
+| `YhDropdownSlots`        | `YhDropdown` slots 类型     |
+| `YhDropdownExpose`       | `YhDropdown` expose 类型    |
+| `YhDropdownTrigger`      | 触发方式联合类型            |
+| `YhDropdownItemData`     | 下拉项数据类型              |
+| `YhDropdownItemProps`    | `YhDropdownItem` props 类型 |
+| `YhDropdownMenuProps`    | `YhDropdownMenu` props 类型 |
+| `YhDropdownInstance`     | `YhDropdown` 实例类型       |
+| `YhDropdownItemInstance` | `YhDropdownItem` 实例类型   |
+| `YhDropdownMenuInstance` | `YhDropdownMenu` 实例类型   |
 
 ---
 

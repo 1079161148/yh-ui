@@ -242,4 +242,132 @@ describe('YhTimeSelect', () => {
     expect(wrapper.emitted('blur')).toBeTruthy()
     vi.useRealTimers()
   })
+
+  it('uses custom options, option slot and ignores disabled selections', async () => {
+    wrapper = mount(YhTimeSelect, {
+      props: {
+        teleported: false,
+        options: [
+          { label: 'Morning', value: '09:00', disabled: true },
+          { label: 'Noon', value: '12:00' }
+        ],
+        modelValue: '13:00'
+      },
+      slots: {
+        prefix: '<span class="prefix-slot">P</span>',
+        option: ({ option }: any) => `custom-${option.label}`
+      }
+    })
+
+    expect(wrapper.find('.prefix-slot').exists()).toBe(true)
+    expect(wrapper.find('.yh-time-select__display-value').text()).toBe('13:00')
+
+    await wrapper.trigger('click')
+    await nextTick()
+    expect(wrapper.text()).toContain('custom-Morning')
+
+    const options = wrapper.findAll('.yh-time-select__option')
+    await options[0].trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+
+    await options[1].trigger('click')
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['12:00'])
+  })
+
+  it('supports teleported positioning above the input and cleans up listeners', async () => {
+    const addEventListener = vi.spyOn(window, 'addEventListener')
+    const removeEventListener = vi.spyOn(window, 'removeEventListener')
+    Object.defineProperty(window, 'innerHeight', { value: 300, configurable: true })
+
+    wrapper = mount(YhTimeSelect, {
+      props: {
+        teleported: true,
+        popperClass: 'time-select-popper-extra',
+        effect: 'dark',
+        options: [{ label: '09:00', value: '09:00' }]
+      },
+      attachTo: document.body
+    })
+    Element.prototype.getBoundingClientRect = vi.fn(() => ({
+      width: 160,
+      height: 32,
+      top: 260,
+      left: 40,
+      bottom: 292,
+      right: 200,
+      x: 40,
+      y: 260,
+      toJSON: () => {}
+    }))
+
+    await wrapper.trigger('click')
+    await nextTick()
+    await nextTick()
+
+    const dropdown = document.body.querySelector(
+      '.yh-time-select__dropdown.time-select-popper-extra'
+    ) as HTMLElement
+    expect(dropdown).toBeTruthy()
+    expect(dropdown.className).toContain('is-dark')
+    expect(dropdown.style.bottom).toBeTruthy()
+    expect(addEventListener).toHaveBeenCalledWith('resize', expect.any(Function))
+
+    wrapper.unmount()
+    expect(removeEventListener).toHaveBeenCalledWith('resize', expect.any(Function))
+    addEventListener.mockRestore()
+    removeEventListener.mockRestore()
+  })
+
+  it('covers keyboard tab, arrow-up and enter-open paths', async () => {
+    wrapper = mount(YhTimeSelect, {
+      props: {
+        teleported: false,
+        options: [
+          { label: '09:00', value: '09:00' },
+          { label: '09:30', value: '09:30', disabled: true },
+          { label: '10:00', value: '10:00' }
+        ]
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.trigger('keydown', { key: 'Enter' })
+    expect(wrapper.emitted('visible-change')?.[0]).toEqual([true])
+
+    await input.trigger('keydown', { key: 'ArrowDown' })
+    await input.trigger('keydown', { key: 'ArrowDown' })
+    expect(wrapper.findAll('.yh-time-select__option')[2].classes()).toContain('is-hovering')
+
+    await input.trigger('keydown', { key: 'ArrowUp' })
+    expect(wrapper.findAll('.yh-time-select__option')[0].classes()).toContain('is-hovering')
+
+    await input.trigger('keydown', { key: 'Tab' })
+    expect(wrapper.emitted('visible-change')?.at(-1)).toEqual([false])
+  })
+
+  it('does not open when disabled and skips clear validation when disabled by props', async () => {
+    wrapper = mount(YhTimeSelect, {
+      props: {
+        disabled: true,
+        teleported: false
+      }
+    })
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('visible-change')).toBeFalsy()
+    expect(wrapper.find('input').attributes('aria-expanded')).toBe('false')
+
+    wrapper.unmount()
+    wrapper = mount(YhTimeSelect, {
+      props: {
+        modelValue: '09:00',
+        teleported: false,
+        validateEvent: false
+      }
+    })
+    await wrapper.trigger('mouseenter')
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+    await wrapper.find('.yh-time-select__clear').trigger('click')
+    expect(wrapper.emitted('clear')).toBeTruthy()
+  })
 })

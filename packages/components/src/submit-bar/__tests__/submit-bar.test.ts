@@ -66,4 +66,42 @@ describe('SubmitBar', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-submit-bar-price-color: #ff4d4f')
   })
+
+  it('covers slots, selected text, safe area, decimal and loading branches', async () => {
+    const wrapper = mount(SubmitBar, {
+      props: {
+        price: 12,
+        centUnit: false,
+        decimalLength: 0,
+        selectedCount: 3,
+        label: 'Pay',
+        checked: true,
+        indeterminate: true,
+        loading: true,
+        safeAreaInsetBottom: true,
+        tip: 'Tip',
+        buttonType: 'danger'
+      },
+      slots: {
+        tip: '<div class="tip-slot">Tip slot</div>',
+        left: '<div class="left-slot">Left</div>',
+        right: '<div class="right-slot">Right</div>',
+        price: '<div class="price-slot">$12</div>',
+        button: '<span class="button-slot">Wait</span>'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('is-safe-area')
+    expect(wrapper.find('.tip-slot').exists()).toBe(true)
+    expect(wrapper.find('.left-slot').exists()).toBe(true)
+    expect(wrapper.find('.right-slot').exists()).toBe(true)
+    expect(wrapper.find('.price-slot').exists()).toBe(true)
+    expect(wrapper.find('.button-slot').exists()).toBe(true)
+    expect(wrapper.find('.yh-submit-bar__selected-count').exists()).toBe(true)
+    expect(wrapper.find('.yh-submit-bar__safe').exists()).toBe(true)
+    expect(wrapper.find('.yh-submit-bar__btn').classes()).toContain('is-disabled')
+
+    await wrapper.find('.yh-submit-bar__btn').trigger('click')
+    expect(wrapper.emitted('submit')).toBeFalsy()
+  })
 })

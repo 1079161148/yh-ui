@@ -24,3 +24,5 @@ export * from './collections'
 
 // 导出 Vue 组件
 export * from './vue/icon'
+
+export * from './components'

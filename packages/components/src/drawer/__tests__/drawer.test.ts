@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { YhDrawer } from '../index'
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
 
 describe('Drawer', () => {
   beforeEach(() => {
@@ -64,6 +64,47 @@ describe('Drawer', () => {
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
   })
 
+  it('does not close when clicking modal if disabled', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        closeOnClickModal: false
+      }
+    })
+
+    await nextTick()
+    const wrapperEl = document.querySelector('.yh-drawer__wrapper') as HTMLElement
+    wrapperEl.click()
+
+    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+  })
+
+  it('closes on escape only when enabled', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        closeOnPressEscape: true
+      }
+    })
+
+    await nextTick()
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
+    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
+
+    const disabledWrapper = mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        closeOnPressEscape: false
+      }
+    })
+    await nextTick()
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    expect(disabledWrapper.emitted('update:modelValue')).toBeFalsy()
+  })
+
   it('resizable test', async () => {
     mount(YhDrawer, {
       props: {
@@ -75,6 +116,54 @@ describe('Drawer', () => {
 
     await nextTick()
     expect(document.querySelector('.yh-drawer__handle')).toBeTruthy()
+  })
+
+  it('emits resize while dragging horizontal handles', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        resizable: true,
+        placement: 'right',
+        minSize: 100,
+        maxSize: 500
+      }
+    })
+
+    await nextTick()
+    const drawer = document.querySelector('.yh-drawer') as HTMLElement
+    drawer.getBoundingClientRect = () => ({ width: 300, height: 200 }) as DOMRect
+
+    const handle = document.querySelector('.yh-drawer__handle') as HTMLElement
+    handle.dispatchEvent(new MouseEvent('mousedown', { clientX: 300 }))
+    window.dispatchEvent(new MouseEvent('mousemove', { clientX: 250 }))
+    window.dispatchEvent(new MouseEvent('mouseup'))
+
+    expect(wrapper.emitted('resize')?.[0]).toEqual([350])
+    expect(document.body.style.cursor).toBe('')
+  })
+
+  it('supports vertical size and resize guards', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        placement: 'bottom',
+        size: '30%',
+        resizable: true,
+        minSize: 120,
+        maxSize: 360
+      }
+    })
+
+    await nextTick()
+    const drawer = document.querySelector('.yh-drawer') as HTMLElement
+    expect(drawer.style.height).toBe('30%')
+
+    drawer.getBoundingClientRect = () => null as unknown as DOMRect
+    const handle = document.querySelector('.yh-drawer__handle') as HTMLElement
+    handle.dispatchEvent(new MouseEvent('mousedown', { clientY: 300 }))
+    window.dispatchEvent(new MouseEvent('mousemove', { clientY: 100 }))
+
+    expect(wrapper.emitted('resize')).toBeFalsy()
   })
 
   it('beforeClose test', async () => {
@@ -114,6 +203,27 @@ describe('Drawer', () => {
     })
     await nextTick()
     expect(document.querySelector('.yh-drawer__close')).toBeFalsy()
+  })
+
+  it('renders component titles and named slots', async () => {
+    mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        title: h('strong', { class: 'component-title' }, 'Component Title'),
+        showFooter: true
+      },
+      slots: {
+        header: '<div class="custom-header">Header Slot</div>',
+        footer: '<button class="custom-footer">Save</button>',
+        default: '<main class="custom-body">Body</main>'
+      }
+    })
+
+    await nextTick()
+
+    expect(document.querySelector('.custom-header')?.textContent).toContain('Header Slot')
+    expect(document.querySelector('.custom-footer')?.textContent).toContain('Save')
+    expect(document.querySelector('.custom-body')?.textContent).toContain('Body')
   })
 
   it('zIndex and customClass test', async () => {

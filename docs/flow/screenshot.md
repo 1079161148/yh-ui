@@ -77,7 +77,7 @@ const downloadImage = async () => {
     
     const link = document.createElement('a')
     link.href = dataUrl
-    link.download = \`flow-export-\${Date.now()}.png\`
+    link.download = 'flow-export-' + Date.now() + '.png'
     link.click()
   } catch (error) {
     console.error('截图失败:', error)

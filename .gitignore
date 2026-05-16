@@ -38,6 +38,7 @@ Thumbs.db
 # Testing
 coverage
 *.lcov
+test-results/
 
 # Type declarations (generated)
 *.tsbuildinfo

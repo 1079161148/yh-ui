@@ -2,9 +2,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Carousel from '../src/carousel.vue'
 import CarouselItem from '../src/carousel-item.vue'
-import { nextTick, h } from 'vue'
+import { computed, nextTick, h, ref } from 'vue'
 import { YhConfigProvider } from '../../config-provider'
 import { en } from '@yh-ui/locale'
+import { CAROUSEL_INJECTION_KEY } from '../src/carousel'
 
 describe('Carousel 组件', () => {
   beforeEach(() => {
@@ -26,6 +27,7 @@ describe('Carousel 组件', () => {
       }
     })
 
+    await nextTick()
     await nextTick()
     expect(wrapper.find('.yh-carousel').exists()).toBe(true)
     expect(wrapper.findAll('.yh-carousel-item').length).toBe(2)
@@ -311,5 +313,151 @@ describe('Carousel 组件', () => {
     await nextTick()
     expect(wrapper.find('.yh-carousel__arrow--prev').exists()).toBe(false)
     expect(wrapper.find('.yh-carousel__arrow--next').exists()).toBe(false)
+  })
+
+  it('covers vertical slide, custom controls and non-loop prev boundary', async () => {
+    const wrapper = mount(Carousel, {
+      props: {
+        direction: 'vertical',
+        loop: false,
+        showArrow: 'always',
+        dotPlacement: 'inner-left',
+        dotType: 'line',
+        spaceBetween: 8
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+        `,
+        dots: ({ total, currentIndex, to }: any) =>
+          h('button', { class: 'custom-dots', onClick: () => to(total - 1) }, currentIndex),
+        arrow: ({ prev, next }: any) =>
+          h('div', [
+            h('button', { class: 'custom-prev', onClick: prev }, 'prev'),
+            h('button', { class: 'custom-next', onClick: next }, 'next')
+          ])
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+
+    await nextTick()
+    expect(wrapper.classes()).toContain('yh-carousel--vertical')
+    expect(wrapper.classes()).toContain('dots-at-left')
+    expect(wrapper.find('.yh-carousel__slides').attributes('style')).toContain('column')
+    await wrapper.find('.custom-prev').trigger('click')
+    expect(wrapper.vm.currentIndex).toBe(0)
+    await wrapper.find('.custom-dots').trigger('click')
+    expect(wrapper.vm.currentIndex).toBe(1)
+    await wrapper.find('.custom-next').trigger('click')
+    expect(wrapper.vm.currentIndex).toBe(1)
+  })
+
+  it('renders mask and 3d carousel-item effect style branches', async () => {
+    const effects = [
+      'dissolve',
+      'cloud',
+      'wave',
+      'radial',
+      'fiber',
+      'coverflow',
+      'zoom',
+      'perspective',
+      'cube',
+      'flip',
+      'cylinder',
+      'stack',
+      'parallax',
+      'popout',
+      'rotate3d',
+      'cards',
+      'fold'
+    ] as const
+
+    for (const effect of effects) {
+      const wrapper = mount(CarouselItem, {
+        slots: { default: () => effect },
+        global: {
+          provide: {
+            [CAROUSEL_INJECTION_KEY as symbol]: {
+              props: { loop: true, duration: 120 },
+              itemCount: ref(3),
+              currentIndex: ref(1),
+              prevIndex: ref(0),
+              direction: computed(() => 'horizontal'),
+              effect: computed(() => effect),
+              shouldRenderItem: () => true,
+              addItem: vi.fn(),
+              removeItem: vi.fn(),
+              getItemIndex: () => 1,
+              jump: vi.fn()
+            }
+          }
+        }
+      })
+
+      await nextTick()
+      await nextTick()
+      expect(wrapper.find('.yh-carousel-item.is-active').exists(), effect).toBe(true)
+      expect(wrapper.find('.yh-carousel-item').attributes('style') || '', effect).toContain(
+        'position: absolute'
+      )
+    }
+  })
+
+  it('covers additional keyboard and wheel input branches', async () => {
+    const originalRaf = globalThis.requestAnimationFrame
+    const originalCancel = globalThis.cancelAnimationFrame
+
+    globalThis.requestAnimationFrame = ((cb: FrameRequestCallback) => {
+      return setTimeout(() => cb(performance.now()), 0) as unknown as number
+    }) as typeof requestAnimationFrame
+    globalThis.cancelAnimationFrame = ((id: number) =>
+      clearTimeout(id)) as typeof cancelAnimationFrame
+
+    const wrapper = mount(Carousel, {
+      props: {
+        keyboard: true,
+        mousewheel: true,
+        loop: false
+      },
+      slots: {
+        default: `
+          <y-carousel-item>1</y-carousel-item>
+          <y-carousel-item>2</y-carousel-item>
+        `
+      },
+      global: {
+        components: { 'y-carousel-item': CarouselItem }
+      }
+    })
+
+    await nextTick()
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))
+    vi.runOnlyPendingTimers()
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }))
+    vi.runOnlyPendingTimers()
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(1)
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }))
+    vi.runOnlyPendingTimers()
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(0)
+
+    const root = wrapper.find('.yh-carousel')
+    await root.trigger('wheel', { deltaY: -100 })
+    vi.runOnlyPendingTimers()
+    await nextTick()
+    expect(wrapper.vm.currentIndex).toBe(0)
+
+    wrapper.unmount()
+    globalThis.requestAnimationFrame = originalRaf
+    globalThis.cancelAnimationFrame = originalCancel
   })
 })

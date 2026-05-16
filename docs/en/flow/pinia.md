@@ -37,7 +37,7 @@ import { ref } from 'vue'
 import type { Node, Edge, ViewportTransform } from '@yh-ui/flow'
 
 // 1. Define your Flow Logic Store
-export const useFlowStore = defineStore('flow-logic', () => {
+const useFlowStore = defineStore('flow-logic', () => {
   const nodes = ref<Node[]>([
     { id: 'p1', type: 'input', position: { x: 50, y: 50 }, data: { label: 'Managed by Pinia' } }
   ])
@@ -45,12 +45,12 @@ export const useFlowStore = defineStore('flow-logic', () => {
   const viewport = ref<ViewportTransform>({ x: 0, y: 0, zoom: 1 })
 
   const addNode = () => {
-    const id = \node-\{nodes.value.length + 1}\
+    const id = 'node-' + (nodes.value.length + 1)
     nodes.value.push({
       id,
       type: 'default',
       position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: { label: \New \{id}\ }
+      data: { label: 'New ' + id }
     })
   }
 

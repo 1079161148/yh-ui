@@ -1,224 +1,475 @@
 <template>
-  <div class="container">
-    <h1>YH-UI Nuxt 3/4 测试页面</h1>
-
-    <section class="section">
-      <h2>基础组件测试</h2>
-
-      <div class="demo-block">
-        <h3>Button 按钮</h3>
-        <div class="button-group">
-          <YhButton>默认按钮</YhButton>
-          <YhButton type="primary">主要按钮</YhButton>
-          <YhButton type="success">成功按钮</YhButton>
-          <YhButton type="warning">警告按钮</YhButton>
-          <YhButton type="danger">危险按钮</YhButton>
+  <div class="nuxt-lab">
+    <aside class="lab-sidebar">
+      <div class="brand">
+        <div class="brand-mark">NX</div>
+        <div>
+          <strong>YH-UI Nuxt Lab</strong>
+          <span>SSR and auto-import checks</span>
         </div>
       </div>
 
-      <div class="demo-block">
-        <h3>Input 输入框</h3>
-        <YhInput v-model="inputValue" placeholder="请输入内容" />
-        <p>当前值: {{ inputValue }}</p>
-      </div>
+      <a v-for="item in menu" :key="item.href" :href="item.href" class="menu-link">
+        <span>{{ item.label }}</span>
+        <small>{{ item.desc }}</small>
+      </a>
 
-      <div class="demo-block">
-        <h3>Select 选择器</h3>
-        <YhSelect v-model="selectValue" placeholder="请选择">
-          <YhOption label="选项1" value="1" />
-          <YhOption label="选项2" value="2" />
-          <YhOption label="选项3" value="3" />
-        </YhSelect>
-        <p>当前值: {{ selectValue }}</p>
-      </div>
+      <NuxtLink
+        v-for="route in consumerRoutes"
+        :key="route.to"
+        :to="route.to"
+        class="menu-link route-link"
+      >
+        <span>{{ route.label }}</span>
+        <small>{{ route.desc }}</small>
+      </NuxtLink>
+    </aside>
 
-      <div class="demo-block">
-        <h3>Switch 开关</h3>
-        <YhSwitch v-model="switchValue" />
-        <p>当前状态: {{ switchValue }}</p>
-      </div>
+    <main class="lab-main">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Nuxt module workbench</p>
+          <h1>Industry-style integration playground</h1>
+          <p>
+            This page validates component auto-registration, composable auto-imports, global service
+            imports, component styling, and client hydration in a Nuxt app.
+          </p>
+        </div>
+        <div class="hero-tools">
+          <YhSwitch v-model="dense" />
+          <span>Dense</span>
+          <YhColorPicker v-model="primaryColor" />
+        </div>
+      </section>
 
-      <div class="demo-block">
-        <h3>Image 图片</h3>
-        <YhImage
-          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='24' fill='%23eff6ff'/%3E%3Cpath d='M40 138l32-38 24 28 20-22 44 52H40z' fill='%2360a5fa'/%3E%3Ccircle cx='132' cy='68' r='18' fill='%23f59e0b'/%3E%3Ctext x='100' y='178' text-anchor='middle' font-size='18' fill='%231e3a8a' font-family='Arial'%3EYH-UI%3C/text%3E%3C/svg%3E"
-          style="width: 100px; height: 100px; border-radius: 8px"
-          :preview-src-list="[
-            'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 800 800%27%3E%3Crect width=%27800%27 height=%27800%27 rx=%2796%27 fill=%27%23eff6ff%27/%3E%3Cpath d=%27M140 560l140-170 110 126 92-104 178 218H140z%27 fill=%27%2360a5fa%27/%3E%3Ccircle cx=%27528%27 cy=%27256%27 r=%2772%27 fill=%27%23f59e0b%27/%3E%3Ctext x=%27400%27 y=%27690%27 text-anchor=%27middle%27 font-size=%2784%27 fill=%27%231e3a8a%27 font-family=%27Arial%27%3EYH-UI Preview%3C/text%3E%3C/svg%3E'
-          ]"
+      <section id="health" class="metric-grid">
+        <div v-for="item in health" :key="item.label" class="metric">
+          <span>{{ item.label }}</span>
+          <strong>{{ item.value }}</strong>
+          <small>{{ item.detail }}</small>
+        </div>
+      </section>
+
+      <section id="quality" class="panel" :class="{ dense }">
+        <header>
+          <p class="eyebrow">integration gates</p>
+          <h2>Nuxt consumer contract</h2>
+        </header>
+        <YhTable :data="qualityGates" :columns="qualityColumns" border />
+      </section>
+
+      <section id="basic" class="panel" :class="{ dense }">
+        <header>
+          <p class="eyebrow">basic components</p>
+          <h2>Visual primitives</h2>
+        </header>
+        <div class="row">
+          <YhButton>Default</YhButton>
+          <YhButton type="primary">Primary</YhButton>
+          <YhButton type="success">Success</YhButton>
+          <YhButton type="warning">Warning</YhButton>
+          <YhTag type="success">Auto imported</YhTag>
+        </div>
+        <YhAlert
+          title="The Nuxt module injected styles and registered components."
+          type="success"
+          show-icon
         />
-      </div>
+      </section>
 
-      <div class="demo-block">
-        <h3>Pagination 分页</h3>
-        <YhPagination v-model:current-page="currentPage" :total="100" layout="prev, pager, next" />
-      </div>
+      <section id="form" class="panel" :class="{ dense }">
+        <header>
+          <p class="eyebrow">forms</p>
+          <h2>Model binding and controls</h2>
+        </header>
+        <YhForm :model="form" label-width="110px">
+          <YhFormItem label="Project">
+            <YhInput v-model="form.project" />
+          </YhFormItem>
+          <YhFormItem label="Region">
+            <YhSelect v-model="form.region" :options="regionOptions" />
+          </YhFormItem>
+          <YhFormItem label="Channel">
+            <YhRadioGroup v-model="form.channel">
+              <YhRadioButton value="stable">Stable</YhRadioButton>
+              <YhRadioButton value="next">Next</YhRadioButton>
+            </YhRadioGroup>
+          </YhFormItem>
+          <YhFormItem label="Enabled">
+            <YhSwitch v-model="form.enabled" />
+          </YhFormItem>
+          <YhFormItem label="Score">
+            <YhRate v-model="form.score" />
+          </YhFormItem>
+          <YhFormItem label="Rollout">
+            <YhSlider v-model="form.rollout" />
+          </YhFormItem>
+        </YhForm>
+      </section>
 
-      <div class="demo-block">
-        <h3>Descriptions 描述列表</h3>
-        <YhDescriptions title="用户信息" border>
-          <YhDescriptionsItem label="用户名">YH-UI</YhDescriptionsItem>
-          <YhDescriptionsItem label="版本">0.0.1</YhDescriptionsItem>
-          <YhDescriptionsItem label="环境">Nuxt 3</YhDescriptionsItem>
+      <section id="data" class="panel" :class="{ dense }">
+        <header>
+          <p class="eyebrow">data display</p>
+          <h2>Table, descriptions, pagination</h2>
+        </header>
+        <YhTable :data="tableData" :columns="columns" border />
+        <div class="footer-row">
+          <YhPagination v-model:current-page="page" :total="90" layout="prev, pager, next" />
+        </div>
+        <YhDescriptions title="SSR state" border>
+          <YhDescriptionsItem label="Render mode">{{ renderMode }}</YhDescriptionsItem>
+          <YhDescriptionsItem label="ID">{{ componentId }}</YhDescriptionsItem>
+          <YhDescriptionsItem label="Z index">{{ currentZIndex }}</YhDescriptionsItem>
         </YhDescriptions>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <h2>表单组件测试</h2>
+      <section id="feedback" class="panel" :class="{ dense }">
+        <header>
+          <p class="eyebrow">services</p>
+          <h2>Global APIs</h2>
+        </header>
+        <div class="row">
+          <YhButton type="success" @click="notify('success')">Success</YhButton>
+          <YhButton type="warning" @click="notify('warning')">Warning</YhButton>
+          <YhButton type="danger" @click="notify('error')">Error</YhButton>
+          <YhButton @click="openNotice">Notification</YhButton>
+        </div>
+      </section>
 
-      <YhForm :model="form" label-width="100px">
-        <YhFormItem label="用户名">
-          <YhInput v-model="form.username" />
-        </YhFormItem>
-
-        <YhFormItem label="年龄">
-          <YhInputNumber v-model="form.age" :min="1" :max="120" />
-        </YhFormItem>
-
-        <YhFormItem label="爱好">
-          <YhCheckboxGroup v-model="form.hobbies">
-            <YhCheckbox label="reading">阅读</YhCheckbox>
-            <YhCheckbox label="sports">运动</YhCheckbox>
-            <YhCheckbox label="music">音乐</YhCheckbox>
-          </YhCheckboxGroup>
-        </YhFormItem>
-
-        <YhFormItem label="性别">
-          <YhRadioGroup v-model="form.gender">
-            <YhRadio label="male">男</YhRadio>
-            <YhRadio label="female">女</YhRadio>
-          </YhRadioGroup>
-        </YhFormItem>
-      </YhForm>
-    </section>
-
-    <section class="section">
-      <h2>消息提示测试</h2>
-
-      <div class="button-group">
-        <YhButton @click="showSuccess">成功消息</YhButton>
-        <YhButton @click="showWarning">警告消息</YhButton>
-        <YhButton @click="showError">错误消息</YhButton>
-        <YhButton @click="showNotification">通知</YhButton>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>SSR 测试信息</h2>
-
-      <div class="info-block">
-        <p><strong>渲染环境:</strong> {{ renderMode }}</p>
-        <p><strong>组件 ID:</strong> {{ componentId }}</p>
-        <p><strong>Z-Index:</strong> {{ currentZIndex }}</p>
-      </div>
-    </section>
+      <section id="layout" class="panel" :class="{ dense }">
+        <header>
+          <p class="eyebrow">layout</p>
+          <h2>Container and grid</h2>
+        </header>
+        <YhContainer class="layout-box">
+          <YhHeader>Header</YhHeader>
+          <YhContainer>
+            <YhAside width="180px">Aside</YhAside>
+            <YhMain>Main</YhMain>
+          </YhContainer>
+        </YhContainer>
+        <YhRow :gutter="16">
+          <YhCol :span="8"><div class="grid-cell">span 8</div></YhCol>
+          <YhCol :span="8"><div class="grid-cell">span 8</div></YhCol>
+          <YhCol :span="8"><div class="grid-cell">span 8</div></YhCol>
+        </YhRow>
+      </section>
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
-// 这些 hooks 会被自动导入
-// const ns = useNamespace('test-page')
-const componentId = useId()
+const dense = ref(false)
+const primaryColor = ref('#409eff')
+const page = ref(1)
+const componentId = useYhId()
 const { currentZIndex } = useZIndex()
+const renderMode = ref('server')
 
-// 响应式数据
-const inputValue = ref('')
-const selectValue = ref('')
-const switchValue = ref(false)
-const currentPage = ref(1)
+const menu = [
+  { href: '#health', label: 'Health', desc: 'module status' },
+  { href: '#quality', label: 'Quality', desc: 'integration gates' },
+  { href: '#basic', label: 'Basic', desc: 'visual primitives' },
+  { href: '#form', label: 'Form', desc: 'model binding' },
+  { href: '#data', label: 'Data', desc: 'tables and SSR state' },
+  { href: '#feedback', label: 'Feedback', desc: 'global services' },
+  { href: '#layout', label: 'Layout', desc: 'containers and grid' }
+]
 
-const form = ref({
-  username: '',
-  age: 18,
-  hobbies: [],
-  gender: ''
+const consumerRoutes = [
+  { to: '/color-picker', label: 'ColorPicker route', desc: 'dedicated component page' },
+  { to: '/new-components', label: 'Component route', desc: 'expanded smoke page' }
+]
+
+const health = computed(() => [
+  { label: 'Components', value: 'Auto', detail: 'Yh* auto-registered' },
+  { label: 'Hooks', value: 'Auto', detail: 'useZIndex / useYhId' },
+  { label: 'Styles', value: primaryColor.value, detail: 'component styles loaded' },
+  { label: 'Hydration', value: renderMode.value, detail: 'server to client check' }
+])
+
+const qualityColumns = [
+  { prop: 'gate', label: 'Gate', width: 190 },
+  { prop: 'status', label: 'Status', width: 120 },
+  { prop: 'evidence', label: 'Evidence' }
+]
+
+const qualityGates = [
+  {
+    gate: 'Component auto-import',
+    status: 'Automated',
+    evidence: '<YhButton /> renders without imports'
+  },
+  { gate: 'Hook auto-import', status: 'Automated', evidence: 'useYhId / useZIndex' },
+  { gate: 'Global service imports', status: 'Automated', evidence: 'YhMessage / YhNotification' },
+  { gate: 'SSR hydration', status: 'Runtime', evidence: 'server -> client hydrated metric' },
+  {
+    gate: 'Route-level coverage',
+    status: 'Manual + automated',
+    evidence: '/color-picker and /new-components'
+  },
+  { gate: 'Browser smoke', status: 'Automated', evidence: 'pnpm verify:playgrounds' }
+]
+
+const regionOptions = [
+  { value: 'shanghai', label: 'Shanghai' },
+  { value: 'beijing', label: 'Beijing' },
+  { value: 'shenzhen', label: 'Shenzhen' }
+]
+
+const form = reactive({
+  project: 'Nuxt consumer app',
+  region: 'shanghai',
+  channel: 'stable',
+  enabled: true,
+  score: 4,
+  rollout: 65
 })
 
-// SSR 检测
-const renderMode = ref('unknown')
+const columns = [
+  { prop: 'name', label: 'Package', width: 180 },
+  { prop: 'status', label: 'Status', width: 120 },
+  { prop: 'owner', label: 'Owner' }
+]
+
+const tableData = [
+  { name: '@yh-ui/nuxt', status: 'ready', owner: 'Integrations' },
+  { name: '@yh-ui/components', status: 'ready', owner: 'Core UI' },
+  { name: '@yh-ui/hooks', status: 'ready', owner: 'Runtime' }
+]
 
 onMounted(() => {
-  renderMode.value = 'Client Side Rendering'
+  renderMode.value = 'client hydrated'
 })
 
-onServerPrefetch(() => {
-  renderMode.value = 'Server Side Rendering'
-})
-
-// 消息提示方法（YhMessage 会被自动导入）
-const showSuccess = () => {
-  YhMessage.success('操作成功！')
+function notify(type: 'success' | 'warning' | 'error') {
+  YhMessage[type](`Nuxt ${type} service works`)
 }
 
-const showWarning = () => {
-  YhMessage.warning('警告提示！')
-}
-
-const showError = () => {
-  YhMessage.error('发生错误！')
-}
-
-const showNotification = () => {
+function openNotice() {
   YhNotification({
-    title: '通知标题',
-    message: '这是一条通知消息的内容',
-    type: 'info'
+    title: 'Nuxt integration',
+    message: 'Global service auto-import is working.',
+    type: 'success'
   })
 }
 </script>
 
 <style scoped>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
+.nuxt-lab {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 40px;
-  color: #333;
+.lab-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 20px;
+  border-right: 1px solid #e5e7eb;
+  background: #fff;
 }
 
-h2 {
-  font-size: 24px;
-  margin: 32px 0 20px;
-  color: #409eff;
-}
-
-h3 {
-  font-size: 18px;
-  margin-bottom: 16px;
-  color: #666;
-}
-
-.section {
-  margin-bottom: 48px;
-}
-
-.demo-block {
-  margin-bottom: 32px;
-  padding: 24px;
-  background: #fafafa;
-  border-radius: 8px;
-}
-
-.button-group {
+.brand {
   display: flex;
+  align-items: center;
   gap: 12px;
+  margin-bottom: 20px;
+}
+
+.brand strong,
+.brand span,
+.menu-link span,
+.menu-link small {
+  display: block;
+}
+
+.brand span,
+.menu-link small {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: #409eff;
+  color: #fff;
+  font-weight: 800;
+}
+
+.menu-link {
+  display: grid;
+  gap: 3px;
+  padding: 12px;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-link:hover {
+  background: #eef6ff;
+}
+
+.route-link {
+  margin-top: 4px;
+  border: 1px solid #e5e7eb;
+  background: #fafbfc;
+}
+
+.lab-main {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.hero,
+.panel,
+.metric {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+}
+
+.hero h1,
+.panel h2 {
+  margin: 4px 0 8px;
+  letter-spacing: 0;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #409eff;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero-tools,
+.row,
+.footer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
-.info-block {
-  padding: 20px;
-  background: #f0f9ff;
-  border-left: 4px solid #409eff;
-  border-radius: 4px;
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
-.info-block p {
-  margin: 8px 0;
-  font-size: 14px;
+.metric,
+.panel {
+  padding: 18px;
+}
+
+.metric {
+  display: grid;
+  gap: 4px;
+}
+
+.metric span,
+.metric small {
+  color: #6b7280;
+}
+
+.metric strong {
+  font-size: 22px;
+}
+
+.panel {
+  display: grid;
+  gap: 16px;
+}
+
+.panel.dense {
+  gap: 10px;
+  padding: 12px;
+}
+
+.layout-box {
+  overflow: hidden;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+}
+
+.layout-box :deep(.yh-header) {
+  display: grid;
+  place-items: center;
+  background: #b3c0d1;
+}
+
+.layout-box :deep(.yh-aside) {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  background: #d3dce6;
+}
+
+.layout-box :deep(.yh-main) {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  background: #e9eef3;
+}
+
+.grid-cell {
+  display: grid;
+  place-items: center;
+  min-height: 64px;
+  border-radius: 8px;
+  background: #eef6ff;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .nuxt-lab {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero {
+    flex-direction: column;
+  }
 }
 </style>

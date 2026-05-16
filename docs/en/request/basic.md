@@ -1,5 +1,16 @@
 # Basic Usage
 
+`@yh-ui/request` is a typed request layer for Vue and plain TypeScript projects. It is
+small enough for ordinary applications, but still covers cancellation, retries,
+timeouts, URL building, interceptors, cache integration, and stream-oriented scenarios.
+Use it as the shared HTTP boundary for product code rather than scattering raw `fetch`
+calls across components.
+
+The examples below use REST endpoints, but the same request instance can be configured
+for GraphQL, internal gateways, or BFF routes. Keep authentication and tenant headers in
+request interceptors, keep endpoint-specific validation near the feature, and keep UI
+components unaware of transport details.
+
 ## Quick Start
 
 ```typescript
@@ -15,6 +26,10 @@ console.log(response.data)
 ```
 
 ## RESTful Methods
+
+All method helpers return the normalized response object from the configured adapter.
+Use method helpers for common CRUD paths and reserve the lower-level request function
+for uncommon methods or dynamic runtime configuration.
 
 ```typescript
 // GET - Retrieve data
@@ -48,6 +63,11 @@ await request.options('/api/users')
 
 ## Generic Support
 
+Generics make response contracts explicit at the call site. They do not replace runtime
+validation, so pair them with schema validation for untrusted external APIs or
+mission-critical workflows. In internal services, they provide a lightweight way to keep
+feature code readable and refactorable.
+
 ```typescript
 interface User {
   id: number
@@ -68,6 +88,11 @@ const { data: newUser } = await request.post<User, CreateUserDTO>('/api/users', 
 ```
 
 ## Request Configuration
+
+Configuration can be applied globally on an instance or locally per call. Prefer global
+defaults for base URL, credentials, timeout, and standard headers. Prefer per-call
+configuration for pagination parameters, feature-specific retry behavior, cache keys,
+and cancellation signals.
 
 ```typescript
 // Full configuration
@@ -105,6 +130,10 @@ const response = await request.get('/api/users', {
 
 ## Path Parameters
 
+`buildPath` keeps dynamic route construction type-safe and avoids fragile string
+concatenation. It is especially useful when endpoint paths are shared between request
+functions, mock handlers, and integration tests.
+
 ```typescript
 import { buildPath, type PathParams } from '@yh-ui/request'
 
@@ -118,6 +147,11 @@ const url = buildPath('/api/users/:id', { id: '123' })
 ```
 
 ## Error Handling
+
+Handle expected network states explicitly in product UI. Cancellation should usually be
+silent, timeouts should provide retry affordances, and server validation errors should
+be mapped to field-level messages where possible. Unexpected errors should still flow
+to logging so teams can identify broken endpoints quickly.
 
 ```typescript
 try {
@@ -136,6 +170,10 @@ try {
 ```
 
 ## Cancel Requests
+
+Cancellation is important for search boxes, route changes, modal teardown, and
+background refresh. Use `AbortController` for local lifecycle ownership and
+`requestKey` when multiple parts of a feature need to cancel the same logical request.
 
 ```typescript
 // Create AbortController

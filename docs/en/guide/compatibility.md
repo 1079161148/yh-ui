@@ -4,24 +4,24 @@ This page defines the support contract YH-UI currently makes in public so adopte
 
 ## Runtime support matrix
 
-| Item | Supported | Notes |
-| --- | --- | --- |
-| Vue | `>= 3.5.0` | Current component and Nuxt SSR support depends on Vue 3.5 features such as `useId` |
-| Node.js | `>= 18.12.0` | Current LTS is recommended |
-| pnpm | `>= 9` | Repository development and CI are standardized on pnpm 9 |
-| Nuxt | `>= 3.11.0` or `^4.0.0-rc.1` | Supported through the `@yh-ui/nuxt` module |
-| Vite | `6.x` baseline validated | The repository consumer smoke flow covers a clean Vite + Vue app |
+| Item    | Supported                    | Notes                                                                              |
+| ------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| Vue     | `>= 3.5.0`                   | Current component and Nuxt SSR support depends on Vue 3.5 features such as `useId` |
+| Node.js | `>= 18.12.0`                 | Current LTS is recommended                                                         |
+| pnpm    | `>= 9`                       | Repository development and CI are standardized on pnpm 9                           |
+| Nuxt    | `>= 3.11.0` or `^4.0.0-rc.1` | Supported through the `@yh-ui/nuxt` module                                         |
+| Vite    | `6.x` baseline validated     | The repository consumer smoke flow covers a clean Vite + Vue app                   |
 
 ## Browser support
 
 YH-UI targets modern browsers only and does not support Internet Explorer.
 
 | Browser | Minimum version |
-| --- | --- |
-| Chrome | `>= 87` |
-| Edge | `>= 88` |
-| Firefox | `>= 78` |
-| Safari | `>= 14` |
+| ------- | --------------- |
+| Chrome  | `>= 87`         |
+| Edge    | `>= 88`         |
+| Firefox | `>= 78`         |
+| Safari  | `>= 14`         |
 
 ## SSR support expectations
 
@@ -58,15 +58,14 @@ The repository already maintains the following validation baseline:
 - `pnpm docs:build`
 - `pnpm verify:consumer-smoke`
 
-That makes the project suitable for public `0.x / beta / rc` releases today. A "stable" promise release should still be gated by the repository root checklist in `STABLE_RELEASE_BLOCKERS.md`.
+That makes the project suitable for public `0.x / beta / rc` releases today. A "stable" promise release should still be gated by `pnpm verify:open-source-release` on the target commit and a matching green CI run.
 
 ## Package-size baseline
 
-The first recorded package-size baseline lives in [PACKAGE_SIZE_BASELINE.md](https://github.com/1079161148/yh-ui/blob/main/PACKAGE_SIZE_BASELINE.md).
+Package-size budgets are enforced by `pnpm verify:package-size`, which writes a report to `test-results/package-size-report.json`.
 
 Refresh it whenever:
 
 - a large dependency is introduced
 - an entire component family is added
 - release prep shows meaningful build-size growth
-

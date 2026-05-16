@@ -37,7 +37,7 @@ import { ref } from 'vue'
 import type { Node, Edge, ViewportTransform } from '@yh-ui/flow'
 
 // 1. 定义您的流程逻辑存储
-export const useFlowStore = defineStore('flow-logic', () => {
+const useFlowStore = defineStore('flow-logic', () => {
   const nodes = ref<Node[]>([
     { id: 'p1', type: 'input', position: { x: 50, y: 50 }, data: { label: '由 Pinia 管理' } }
   ])

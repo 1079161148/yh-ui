@@ -194,6 +194,16 @@ describe('InfiniteScroll Component', () => {
 })
 
 describe('InfiniteScroll Directive', () => {
+  it('throws when directive value is not a function', () => {
+    const el = document.createElement('div')
+
+    expect(() =>
+      vInfiniteScroll.mounted?.(el, {
+        value: 'load'
+      } as any)
+    ).toThrow('v-infinite-scroll value must be a function')
+  })
+
   it('should trigger callback when intersecting', async () => {
     const onLoad = vi.fn()
     const instances: MockIntersectionObserver[] = []
@@ -256,6 +266,89 @@ describe('InfiniteScroll Directive', () => {
     instances[0].trigger({ isIntersecting: true })
     expect(onLoad).toHaveBeenCalled()
 
+    global.IntersectionObserver = Original
+  })
+
+  it('treats empty disabled attribute as disabled', () => {
+    const onLoad = vi.fn()
+    const instances: MockIntersectionObserver[] = []
+    const Original = global.IntersectionObserver
+
+    // @ts-ignore
+    global.IntersectionObserver = class extends MockIntersectionObserver {
+      constructor(cb: any) {
+        super(cb)
+        instances.push(this)
+      }
+    }
+
+    const el = document.createElement('div')
+    el.setAttribute('infinite-scroll-disabled', '')
+
+    vInfiniteScroll.mounted?.(el, { value: onLoad } as any)
+    instances[0].trigger({ isIntersecting: true })
+
+    expect(onLoad).not.toHaveBeenCalled()
+    global.IntersectionObserver = Original
+  })
+
+  it('recreates observer when distance changes and cleans sentinel on unmount', () => {
+    const onLoad = vi.fn()
+    const instances: MockIntersectionObserver[] = []
+    const Original = global.IntersectionObserver
+
+    // @ts-ignore
+    global.IntersectionObserver = class extends MockIntersectionObserver {
+      constructor(cb: any) {
+        super(cb)
+        instances.push(this)
+      }
+    }
+
+    const el = document.createElement('div')
+    el.setAttribute('infinite-scroll-distance', '10')
+    vInfiniteScroll.mounted?.(el, { value: onLoad } as any)
+
+    const firstObserver = instances[0]
+    const sentinel = el.querySelector('.yh-infinite-scroll-sentinel')
+    expect(sentinel).toBeTruthy()
+
+    el.setAttribute('infinite-scroll-distance', '20')
+    vInfiniteScroll.updated?.(el, { value: onLoad } as any)
+
+    expect(instances.length).toBe(2)
+    expect(firstObserver.elements.size).toBe(0)
+
+    instances[1].trigger({ isIntersecting: true })
+    expect(onLoad).toHaveBeenCalledOnce()
+
+    vInfiniteScroll.unmounted?.(el, {} as any)
+    expect(el.querySelector('.yh-infinite-scroll-sentinel')).toBeNull()
+    expect(instances[1].elements.size).toBe(0)
+
+    global.IntersectionObserver = Original
+  })
+
+  it('uses document root for scrollable or documentElement roots', () => {
+    const onLoad = vi.fn()
+    const roots: Array<Element | Document | null | undefined> = []
+    const Original = global.IntersectionObserver
+
+    // @ts-ignore
+    global.IntersectionObserver = class extends MockIntersectionObserver {
+      constructor(cb: any, options?: IntersectionObserverInit) {
+        super(cb)
+        roots.push(options?.root)
+      }
+    }
+
+    const scrollEl = document.createElement('div')
+    scrollEl.style.overflow = 'auto'
+    vInfiniteScroll.mounted?.(scrollEl, { value: onLoad } as any)
+
+    vInfiniteScroll.mounted?.(document.documentElement, { value: onLoad } as any)
+
+    expect(roots).toEqual([null, null])
     global.IntersectionObserver = Original
   })
 })

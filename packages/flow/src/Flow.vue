@@ -19,6 +19,7 @@
     <div class="yh-flow__content" :style="contentStyle">
       <!-- Edges -->
       <EdgeRenderer
+        :flow-id="flowDomId"
         :edges="edgesRef || []"
         :nodes="nodesRef || []"
         :edge-types="edgeTypes"
@@ -44,6 +45,7 @@
 
       <!-- Nodes -->
       <NodeRenderer
+        :flow-id="flowDomId"
         :nodes="visibleNodes || []"
         :node-types="nodeTypes"
         :transform="viewportRef"
@@ -98,6 +100,7 @@
     <!-- 普通节点使用基础编辑面板 -->
     <NodeEditPanel
       v-else
+      :flow-id="flowDomId"
       :node="editingNode"
       :visible="showNodeEditPanel"
       @update="handleNodeEditUpdate"
@@ -116,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, useId } from 'vue'
 // 添加全局版本属性用于调试
 declare global {
   interface Window {
@@ -176,6 +179,8 @@ import { provideFlowContext } from './core/FlowContext'
 import { createEventBus } from './utils/event-bus'
 import { PluginManager } from './plugins/plugin'
 import type { FlowPlugin } from './plugins/plugin'
+
+const flowDomId = `yh-flow-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`
 
 // Connection validation
 const validateConnection = (

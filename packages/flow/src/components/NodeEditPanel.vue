@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import type { Node, NodeStyle, NodeData } from '../types'
 
 const props = defineProps<{
+  flowId?: string
   node: Node | null
   visible: boolean
 }>()
@@ -26,6 +27,21 @@ const localNode = ref<NodeForm & { labelColor?: string; descriptionColor?: strin
   description: ''
 })
 
+const escapeSelectorValue = (value: string) => {
+  return CSS.escape ? CSS.escape(value) : value.replace(/["\\]/g, '\\$&')
+}
+
+const getNodeElement = (nodeId: string) => {
+  if (typeof document === 'undefined') return null
+
+  if (props.flowId) {
+    const scoped = document.getElementById(`${props.flowId}-node-${nodeId}`)
+    if (scoped) return scoped
+  }
+
+  return document.querySelector<HTMLElement>(`[data-node-id="${escapeSelectorValue(nodeId)}"]`)
+}
+
 /** 常见业务字段扩展接口，避免使用 any */
 interface CommonDataFields extends NodeData {
   title?: string
@@ -47,8 +63,8 @@ watch(
         description: data.description || data.desc || '',
         labelColor: node.labelColor || '#303133',
         descriptionColor: node.descriptionColor || '#909399',
-        width: node.width || document.getElementById(`node-${node.id}`)?.offsetWidth || 150,
-        height: node.height || document.getElementById(`node-${node.id}`)?.offsetHeight || 40,
+        width: node.width || getNodeElement(node.id)?.offsetWidth || 150,
+        height: node.height || getNodeElement(node.id)?.offsetHeight || 40,
         type: node.type
       }
     }

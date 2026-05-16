@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/theme",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "YH-UI theme and design tokens",
   "type": "module",
   "sideEffects": [
@@ -22,7 +22,8 @@
       "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
       "require": "./dist/*.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",

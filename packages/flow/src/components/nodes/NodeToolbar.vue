@@ -26,12 +26,14 @@ import type { Position } from '../../types'
 const props = withDefaults(
   defineProps<{
     nodeId: string
+    flowId?: string
     selected?: boolean
     position?: Position
     offset?: number
     teleportTo?: string
   }>(),
   {
+    flowId: undefined,
     position: 'top',
     offset: 10,
     teleportTo: 'body'
@@ -59,10 +61,25 @@ const teleportTarget = computed(() => props.teleportTo)
 
 let rafId = 0
 
+const escapeSelectorValue = (value: string) => {
+  return CSS.escape ? CSS.escape(value) : value.replace(/["\\]/g, '\\$&')
+}
+
+const getNodeElement = () => {
+  if (props.flowId) {
+    const scoped = document.getElementById(`${props.flowId}-node-${props.nodeId}`)
+    if (scoped) return scoped
+  }
+
+  return document.querySelector<HTMLElement>(
+    `[data-node-id="${escapeSelectorValue(props.nodeId)}"]`
+  )
+}
+
 const updatePosition = () => {
   if (!isVisible.value) return
 
-  const nodeEl = document.getElementById(`node-${props.nodeId}`)
+  const nodeEl = getNodeElement()
   if (!nodeEl) {
     rafId = requestAnimationFrame(updatePosition)
     return

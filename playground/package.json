@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@yh-ui/components": "workspace:*",
+    "@yh-ui/flow": "workspace:*",
     "@yh-ui/theme": "workspace:*",
     "vue": "^3.5.13"
   },

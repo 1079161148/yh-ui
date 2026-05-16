@@ -27,6 +27,20 @@
   // Single mode (legacy)
   @include when(thinking) {
     border-left-color: var(--yh-color-primary);
+
+    @include e(title) {
+      color: var(--yh-color-primary);
+      background: linear-gradient(
+        90deg,
+        var(--yh-color-primary) 0%,
+        var(--yh-color-primary-light-3) 35%,
+        var(--yh-color-primary) 70%
+      );
+      background-size: 200% 100%;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: yh-ai-thought-title-wave 1.6s ease-in-out infinite;
+    }
   }
 
   // 拖拽相关
@@ -294,6 +308,26 @@
         }
       }
 
+      @include e(item-title) {
+        transition: color 0.2s ease;
+      }
+
+      @include when(active) {
+        @include e(item-title) {
+          color: var(--yh-color-primary);
+          background: linear-gradient(
+            90deg,
+            var(--yh-color-primary) 0%,
+            var(--yh-color-primary-light-3) 35%,
+            var(--yh-color-primary) 70%
+          );
+          background-size: 200% 100%;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: yh-ai-thought-title-wave 1.6s ease-in-out infinite;
+        }
+      }
+
       @include e(item-arrow) {
         margin-left: 6px;
         font-size: 12px;
@@ -335,6 +369,22 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes yh-ai-thought-title-wave {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yh-ai-thought-chain.is-thinking .yh-ai-thought-chain__title,
+  .yh-ai-thought-chain__item.is-active .yh-ai-thought-chain__item-title {
+    animation: none;
   }
 }
 

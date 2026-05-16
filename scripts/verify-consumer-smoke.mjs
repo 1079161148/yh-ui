@@ -320,7 +320,7 @@ async function verifyNuxtConsumer() {
     await page.locator('h1').waitFor({ state: 'visible', timeout: 60000 })
 
     const heading = await page.locator('h1').textContent()
-    if (!heading?.includes('YH-UI')) {
+    if (heading?.trim() !== 'Industry-style integration playground') {
       throw new Error(`Unexpected Nuxt consumer heading: "${heading}"`)
     }
 

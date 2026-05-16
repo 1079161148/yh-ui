@@ -1,19 +1,18 @@
 /**
- * Notification Types & Props
- * @description 閫氱煡缁勪欢绫诲瀷瀹氫箟
+ * Notification types and public contracts.
  */
 
 import type { VNode, ComponentPublicInstance, Ref } from 'vue'
 
 /**
- * 閫氱煡绫诲瀷
+ * Supported notification variants.
  */
 export const notificationTypes = ['success', 'warning', 'info', 'error'] as const
 
 export type NotificationType = (typeof notificationTypes)[number]
 
 /**
- * 閫氱煡浣嶇疆
+ * Supported notification positions.
  */
 export const notificationPositions = [
   'top-right',
@@ -27,97 +26,97 @@ export const notificationPositions = [
 export type NotificationPosition = (typeof notificationPositions)[number]
 
 /**
- * Notification Props 瀹氫箟
+ * Notification component props.
  */
 export interface NotificationProps {
   /**
-   * @description 鏍囬
+   * Notification title.
    */
   title?: string
 
   /**
-   * @description 閫氱煡鍐呭锛屽彲浠ユ槸瀛楃涓层€乂Node 鎴栬繑鍥?VNode 鐨勫嚱鏁?
+   * Notification content.
    */
   message?: string | VNode | (() => VNode)
 
   /**
-   * @description 閫氱煡绫诲瀷
+   * Notification variant.
    */
   type?: NotificationType
 
   /**
-   * @description 鑷畾涔夊浘鏍?
+   * Custom icon.
    */
   icon?: string | VNode
 
   /**
-   * @description 鏄惁鏄剧ず鍏抽棴鎸夐挳
+   * Whether to show the close button.
    * @default true
    */
   showClose?: boolean
 
   /**
-   * @description 鏄剧ず鏃堕棿锛堟绉掞級銆傝涓?0 鍒欎笉浼氳嚜鍔ㄥ叧闂?
+   * Auto-close duration in milliseconds. Set to 0 to disable auto-close.
    * @default 4500
    */
   duration?: number
 
   /**
-   * @description 璺濈绐楀彛杈圭紭鐨勫亸绉婚噺锛坧x锛?
+   * Offset from the viewport edge in pixels.
    * @default 16
    */
   offset?: number
 
   /**
-   * @description 寮瑰嚭浣嶇疆
+   * Notification position.
    * @default 'top-right'
    */
   position?: NotificationPosition
 
   /**
-   * @description 閫氱煡鐨勫敮涓€鏍囪瘑
+   * Unique notification id.
    */
   id?: string
 
   /**
-   * @description 鏄惁灏?message 浣滀负 HTML 鐗囨澶勭悊
+   * Render message content as raw HTML.
    * @default false
    */
   dangerouslyUseHTMLString?: boolean
 
   /**
-   * @description 鍏抽棴鏃剁殑鍥炶皟鍑芥暟
+   * Callback fired after the notification closes.
    */
   onClose?: () => void
 
   /**
-   * @description 鐐瑰嚮閫氱煡鏃剁殑鍥炶皟鍑芥暟
+   * Callback fired when the notification is clicked.
    */
   onClick?: () => void
 
   /**
-   * @description z-index 灞傜骇
+   * z-index value.
    */
   zIndex?: number
 
   /**
-   * @description 鑷畾涔夌被鍚?
+   * Custom CSS class.
    */
   customClass?: string
 
   /**
-   * @description 鍚屼竴浣嶇疆鏈€澶氭樉绀虹殑閫氱煡鏁伴噺
+   * Maximum visible notifications per position.
    */
   max?: number
 
   /**
-   * @description 涓婚瑕嗙洊鍙橀噺
+   * Component-level theme overrides.
    */
   themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
- * Notification Emits 瀹氫箟
+ * Notification component emits.
  */
 export interface NotificationEmits {
   (e: 'destroy'): void
@@ -125,22 +124,22 @@ export interface NotificationEmits {
 }
 
 /**
- * Notification Slots 瀹氫箟
+ * Notification component slots.
  */
 export interface NotificationSlots {
   /**
-   * 閫氱煡鍐呭
+   * Notification content slot.
    */
   default?: () => void
 
   /**
-   * 鑷畾涔夊浘鏍?
+   * Icon slot.
    */
   icon?: () => void
 }
 
 /**
- * Notification 暴露实例
+ * Exposed notification instance methods.
  */
 export interface NotificationExpose {
   visible: Ref<boolean>
@@ -148,17 +147,17 @@ export interface NotificationExpose {
 }
 
 /**
- * Notification 瀹炰緥绫诲瀷
+ * Notification component instance.
  */
 export type NotificationInstance = ComponentPublicInstance<NotificationExpose>
 
 /**
- * Notification 閰嶇疆閫夐」
+ * Notification options accepted by the service API.
  */
 export type NotificationOptions = Partial<NotificationProps>
 
 /**
- * Notification 澶勭悊鍑芥暟
+ * Notification service handler.
  */
 export interface NotificationHandler {
   close: () => void
@@ -166,7 +165,7 @@ export interface NotificationHandler {
 }
 
 /**
- * Notification 涓婁笅鏂囷紙鐢ㄤ簬瀹炰緥绠＄悊锛?
+ * Internal notification instance context.
  */
 export interface NotificationContext {
   id: string
@@ -176,7 +175,7 @@ export interface NotificationContext {
 }
 
 /**
- * Notification 鏂规硶绫诲瀷
+ * Notification service API.
  */
 export type NotificationFn = {
   (options: NotificationOptions | string): NotificationHandler

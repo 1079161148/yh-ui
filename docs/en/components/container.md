@@ -6,31 +6,47 @@ Container components used for layout, making it easy to quickly build the basic 
 import { ref } from 'vue'
 
 const tsBasic = `<template>
-  <yh-container>
-    <yh-header>Header</yh-header>
-    <yh-main>Main</yh-main>
+  <yh-container style="border: 1px solid var(--yh-border-color, #dcdfe6); border-radius: 4px; overflow: hidden;">
+    <yh-header style="background: #b3c0d1; color: #333; text-align: center; line-height: 60px;">
+      Header
+    </yh-header>
+    <yh-main style="min-height: 200px; padding: 40px; display: flex; align-items: center; justify-content: center; background: #e9eef3; color: #333;">
+      Main
+    </yh-main>
   </yh-container>
 <\/template>`
 
 const jsBasic = tsBasic
 
 const tsAside = `<template>
-  <yh-container>
-    <yh-aside width="200px">Aside</yh-aside>
-    <yh-main>Main</yh-main>
+  <yh-container style="border: 1px solid var(--yh-border-color, #dcdfe6); border-radius: 4px; overflow: hidden;">
+    <yh-aside width="200px" style="background: #d3dce6; color: #333; text-align: center; line-height: 200px;">
+      Aside
+    </yh-aside>
+    <yh-main style="min-height: 200px; padding: 40px; display: flex; align-items: center; justify-content: center; background: #e9eef3; color: #333;">
+      Main
+    </yh-main>
   </yh-container>
 <\/template>`
 
 const jsAside = tsAside
 
 const tsFull = `<template>
-  <yh-container>
-    <yh-header height="60px">Header</yh-header>
+  <yh-container style="border: 1px solid var(--yh-border-color, #dcdfe6); border-radius: 4px; overflow: hidden;">
+    <yh-header height="60px" style="background: #b3c0d1; color: #333; text-align: center; line-height: 60px;">
+      Header
+    </yh-header>
     <yh-container>
-      <yh-aside width="200px">Aside</yh-aside>
-      <yh-main>Main</yh-main>
+      <yh-aside width="200px" style="background: #d3dce6; color: #333; text-align: center; line-height: 200px;">
+        Aside
+      </yh-aside>
+      <yh-main style="min-height: 200px; padding: 40px; display: flex; align-items: center; justify-content: center; background: #e9eef3; color: #333;">
+        Main
+      </yh-main>
     </yh-container>
-    <yh-footer height="60px">Footer</yh-footer>
+    <yh-footer height="60px" style="background: #b3c0d1; color: #333; text-align: center; line-height: 60px;">
+      Footer
+    </yh-footer>
   </yh-container>
 <\/template>`
 
@@ -204,36 +220,36 @@ All container sub-components have passed SSR validation, so server-rendered and 
 
 #### Container
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| direction | Arrangement direction | `'horizontal' \| 'vertical'` | Auto-detect |
-| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                              | Type                         | Default     |
+| --------------- | ---------------------------------------- | ---------------------------- | ----------- |
+| direction       | Arrangement direction                    | `'horizontal' \| 'vertical'` | Auto-detect |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars`         | `undefined` |
 
 #### Header
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| height | Header height | `string` | `'60px'` |
+| Prop            | Description                              | Type                 | Default     |
+| --------------- | ---------------------------------------- | -------------------- | ----------- |
+| height          | Header height                            | `string`             | `'60px'`    |
 | theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
 #### Aside
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| width | Sidebar width | `string` | `'200px'` |
+| Prop            | Description                              | Type                 | Default     |
+| --------------- | ---------------------------------------- | -------------------- | ----------- |
+| width           | Sidebar width                            | `string`             | `'200px'`   |
 | theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
 #### Main
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
+| Prop            | Description                              | Type                 | Default     |
+| --------------- | ---------------------------------------- | -------------------- | ----------- |
 | theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
 #### Footer
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| height | Footer height | `string` | `'60px'` |
+| Prop            | Description                              | Type                 | Default     |
+| --------------- | ---------------------------------------- | -------------------- | ----------- |
+| height          | Footer height                            | `string`             | `'60px'`    |
 | theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
@@ -244,33 +260,33 @@ All container sub-components have passed SSR validation, so server-rendered and 
 
 #### Container
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Container content. | - |
+| Slot    | Description        | Parameters |
+| ------- | ------------------ | ---------- |
+| default | Container content. | -          |
 
 #### Header
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Header content. | - |
+| Slot    | Description     | Parameters |
+| ------- | --------------- | ---------- |
+| default | Header content. | -          |
 
 #### Aside
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Aside content. | - |
+| Slot    | Description    | Parameters |
+| ------- | -------------- | ---------- |
+| default | Aside content. | -          |
 
 #### Main
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Main content. | - |
+| Slot    | Description   | Parameters |
+| ------- | ------------- | ---------- |
+| default | Main content. | -          |
 
 #### Footer
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Footer content. | - |
+| Slot    | Description     | Parameters |
+| ------- | --------------- | ---------- |
+| default | Footer content. | -          |
 
 ### Expose
 
@@ -278,35 +294,35 @@ These layout components do not expose public instance methods or properties.
 
 ### Theme Variables
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
-| `--yh-header-padding` | Header padding | `0 20px` |
-| `--yh-header-bg-color` | Header background color | `transparent` |
-| `--yh-header-border-bottom` | Header bottom border | `none` |
-| `--yh-aside-bg-color` | Sidebar background color | `transparent` |
-| `--yh-aside-border-right` | Sidebar right border | `none` |
-| `--yh-main-padding` | Main area padding | `20px` |
-| `--yh-main-bg-color` | Main area background color | `transparent` |
-| `--yh-footer-padding` | Footer padding | `0 20px` |
-| `--yh-footer-bg-color` | Footer background color | `transparent` |
-| `--yh-footer-border-top` | Footer top border | `none` |
+| Variable Name               | Description                | Default       |
+| --------------------------- | -------------------------- | ------------- |
+| `--yh-header-padding`       | Header padding             | `0 20px`      |
+| `--yh-header-bg-color`      | Header background color    | `transparent` |
+| `--yh-header-border-bottom` | Header bottom border       | `none`        |
+| `--yh-aside-bg-color`       | Sidebar background color   | `transparent` |
+| `--yh-aside-border-right`   | Sidebar right border       | `none`        |
+| `--yh-main-padding`         | Main area padding          | `20px`        |
+| `--yh-main-bg-color`        | Main area background color | `transparent` |
+| `--yh-footer-padding`       | Footer padding             | `0 20px`      |
+| `--yh-footer-bg-color`      | Footer background color    | `transparent` |
+| `--yh-footer-border-top`    | Footer top border          | `none`        |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhContainerProps` | Props type for `YhContainer` |
-| `YhHeaderProps` | Props type for `YhHeader` |
-| `YhAsideProps` | Props type for `YhAside` |
-| `YhMainProps` | Props type for `YhMain` |
-| `YhFooterProps` | Props type for `YhFooter` |
-| `YhContainerSlots` | Slots type for `YhContainer` |
-| `YhHeaderSlots` | Slots type for `YhHeader` |
-| `YhAsideSlots` | Slots type for `YhAside` |
-| `YhMainSlots` | Slots type for `YhMain` |
-| `YhFooterSlots` | Slots type for `YhFooter` |
+| Name                  | Description                            |
+| --------------------- | -------------------------------------- |
+| `YhContainerProps`    | Props type for `YhContainer`           |
+| `YhHeaderProps`       | Props type for `YhHeader`              |
+| `YhAsideProps`        | Props type for `YhAside`               |
+| `YhMainProps`         | Props type for `YhMain`                |
+| `YhFooterProps`       | Props type for `YhFooter`              |
+| `YhContainerSlots`    | Slots type for `YhContainer`           |
+| `YhHeaderSlots`       | Slots type for `YhHeader`              |
+| `YhAsideSlots`        | Slots type for `YhAside`               |
+| `YhMainSlots`         | Slots type for `YhMain`                |
+| `YhFooterSlots`       | Slots type for `YhFooter`              |
 | `YhContainerInstance` | Public instance type for `YhContainer` |
-| `YhHeaderInstance` | Public instance type for `YhHeader` |
-| `YhAsideInstance` | Public instance type for `YhAside` |
-| `YhMainInstance` | Public instance type for `YhMain` |
-| `YhFooterInstance` | Public instance type for `YhFooter` |
+| `YhHeaderInstance`    | Public instance type for `YhHeader`    |
+| `YhAsideInstance`     | Public instance type for `YhAside`     |
+| `YhMainInstance`      | Public instance type for `YhMain`      |
+| `YhFooterInstance`    | Public instance type for `YhFooter`    |

@@ -162,4 +162,53 @@ describe('Notification component', () => {
     expect(exposed?.visible?.value).toBe(true)
     expect(typeof exposed?.close).toBe('function')
   })
+
+  it('covers icon variants, centered bottom style and timer pause/resume', async () => {
+    vi.useFakeTimers()
+    const info = mount(NotificationComponent, {
+      props: {
+        title: 'Info',
+        message: () => h('span', { class: 'fn-message' }, 'From function'),
+        type: 'info',
+        position: 'bottom-center',
+        offset: 30,
+        zIndex: 3000,
+        duration: 100,
+        customClass: 'notice-custom'
+      }
+    })
+    await nextTick()
+
+    expect(info.find('.yh-notification--info').exists()).toBe(true)
+    expect(info.find('.yh-notification--bottom-center').exists()).toBe(true)
+    expect(info.find('.notice-custom').attributes('style')).toContain('bottom: 30px')
+    expect(info.find('.notice-custom').attributes('style')).toContain('translateX(-50%)')
+    expect(info.find('.fn-message').text()).toBe('From function')
+
+    await info.find('.yh-notification').trigger('mouseenter')
+    vi.advanceTimersByTime(150)
+    expect((info.vm as any).$?.exposed.visible.value).toBe(true)
+    await info.find('.yh-notification').trigger('mouseleave')
+    vi.advanceTimersByTime(150)
+    await nextTick()
+    expect((info.vm as any).$?.exposed.visible.value).toBe(false)
+
+    const error = mount(NotificationComponent, {
+      props: {
+        type: 'error',
+        icon: 'custom-icon',
+        showClose: false,
+        message: 'custom icon'
+      },
+      slots: {
+        icon: '<span class="slot-icon">!</span>'
+      }
+    })
+    await nextTick()
+
+    expect(error.find('.slot-icon').exists()).toBe(true)
+    expect(error.find('.yh-notification__close').exists()).toBe(false)
+
+    vi.useRealTimers()
+  })
 })

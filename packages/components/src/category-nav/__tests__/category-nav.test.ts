@@ -115,6 +115,7 @@ describe('CategoryNav', () => {
   })
 
   it('covers IntersectionObserver syncing branch (anchor=true)', async () => {
+    const OriginalIntersectionObserver = globalThis.IntersectionObserver
     const ioObserve = vi.fn()
     const ioDisconnect = vi.fn()
     const ioUnobserve = vi.fn()
@@ -160,6 +161,7 @@ describe('CategoryNav', () => {
     expect((wrapper.emitted('update:modelValue') || []).length).toBeGreaterThan(0)
     wrapper.unmount()
     expect(ioDisconnect).toHaveBeenCalled()
+    globalThis.IntersectionObserver = OriginalIntersectionObserver
   })
 
   it('renders loading skeleton and empty state branches', async () => {
@@ -221,5 +223,143 @@ describe('CategoryNav', () => {
     expect((wrapper.emitted('update:modelValue') || []).some((e) => e[0] === '2')).toBe(true)
 
     globalThis.requestAnimationFrame = oldRaf
+  })
+
+  it('renders badges, images, icons, counts and custom slots', () => {
+    const wrapper = mount(CategoryNav, {
+      props: {
+        modelValue: 'food',
+        subValue: 'tea',
+        anchor: true,
+        categories: [
+          {
+            id: 'food',
+            name: 'Food',
+            image: '/food.png',
+            badge: 'Hot',
+            children: [
+              { id: 'tea', name: 'Tea', image: '/tea.png', count: 12 },
+              { id: 'cake', name: 'Cake' }
+            ]
+          },
+          {
+            id: 'tools',
+            name: 'Tools',
+            icon: 'tool-icon',
+            children: [{ id: 'hammer', name: 'Hammer' }]
+          }
+        ]
+      },
+      slots: {
+        'all-icon': '<span class="all-icon-slot">all</span>',
+        header: '<div class="header-slot">Header</div>',
+        footer: '<div class="footer-slot">Footer</div>',
+        'section-header': ({ category }: any) => h('h3', { class: 'section-slot' }, category.name),
+        'section-footer': ({ category }: any) =>
+          h('small', { class: 'section-footer-slot' }, category.id),
+        'sub-item': ({ sub }: any) => h('span', { class: 'sub-slot' }, sub.name)
+      }
+    })
+
+    expect(wrapper.find('.yh-category-nav__badge').text()).toBe('Hot')
+    expect(wrapper.find('.yh-category-nav__side-img').attributes('src')).toBe('/food.png')
+    expect(wrapper.find('.tool-icon').exists()).toBe(true)
+    expect(wrapper.find('.all-icon-slot').exists()).toBe(true)
+    expect(wrapper.find('.header-slot').exists()).toBe(true)
+    expect(wrapper.find('.footer-slot').exists()).toBe(true)
+    expect(wrapper.findAll('.section-slot')).toHaveLength(2)
+    expect(wrapper.findAll('.section-footer-slot')).toHaveLength(2)
+    expect(wrapper.findAll('.sub-slot')).toHaveLength(3)
+  })
+
+  it('scrolls anchor content and side menu when selecting categories', async () => {
+    vi.useFakeTimers()
+    const wrapper = mount(CategoryNav, {
+      props: {
+        ...props,
+        anchor: true,
+        showAll: true,
+        modelValue: null
+      },
+      attachTo: document.body
+    })
+
+    await nextTick()
+    const side = wrapper.find('.yh-category-nav__side').element as HTMLElement
+    const content = wrapper.find('.yh-category-nav__content').element as HTMLElement
+    const sideScrollTo = vi.fn()
+    const contentScrollTo = vi.fn()
+    Object.defineProperty(side, 'scrollTo', { value: sideScrollTo, configurable: true })
+    Object.defineProperty(content, 'scrollTo', { value: contentScrollTo, configurable: true })
+    Object.defineProperty(side, 'getBoundingClientRect', {
+      value: () => ({ height: 120, top: 0 }),
+      configurable: true
+    })
+
+    const buttons = wrapper.findAll('.yh-category-nav__side-item')
+    Object.defineProperty(buttons[1].element, 'getBoundingClientRect', {
+      value: () => ({ height: 40, top: 80 }),
+      configurable: true
+    })
+    const target = wrapper.find('[data-id="1"]').element as HTMLElement
+    Object.defineProperty(target, 'offsetTop', { value: 180, configurable: true })
+
+    await buttons[1].trigger('click')
+    await nextTick()
+    await nextTick()
+
+    expect(contentScrollTo).toHaveBeenCalledWith({ top: 180, behavior: 'smooth' })
+    expect(sideScrollTo).toHaveBeenCalledWith(expect.objectContaining({ behavior: 'smooth' }))
+
+    vi.advanceTimersByTime(1500)
+    wrapper.unmount()
+    vi.useRealTimers()
+  })
+
+  it('ignores invalid observer entries and removes stale intersecting sections', async () => {
+    const OriginalIntersectionObserver = globalThis.IntersectionObserver
+    let ioCallback: ((entries: any[]) => void) | null = null
+    const ioDisconnect = vi.fn()
+
+    // @ts-expect-error test stub
+    globalThis.IntersectionObserver = class {
+      constructor(cb: any) {
+        ioCallback = cb
+      }
+      observe = vi.fn()
+      disconnect = ioDisconnect
+    }
+
+    const wrapper = mount(CategoryNav, {
+      props: {
+        ...props,
+        anchor: true,
+        showAll: true,
+        modelValue: '1'
+      },
+      attachTo: document.body
+    })
+
+    await nextTick()
+    await nextTick()
+    const sections = wrapper.findAll('.yh-category-nav__section')
+    const section1 = sections.find((s) => s.attributes('data-id') === '1')!
+    const section2 = sections.find((s) => s.attributes('data-id') === '2')!
+    Object.defineProperty(section1.element, 'offsetTop', { value: 30, configurable: true })
+    Object.defineProperty(section2.element, 'offsetTop', { value: 10, configurable: true })
+
+    ioCallback?.([
+      { target: document.createElement('div'), isIntersecting: true },
+      { target: section1.element, isIntersecting: true },
+      { target: section2.element, isIntersecting: true }
+    ])
+    expect((wrapper.emitted('update:modelValue') || []).some((e) => e[0] === '2')).toBe(true)
+
+    ioCallback?.([{ target: section2.element, isIntersecting: false }])
+    expect((wrapper.emitted('update:modelValue') || []).some((e) => e[0] === '1')).toBe(true)
+
+    wrapper.unmount()
+    expect(ioDisconnect).toHaveBeenCalled()
+    globalThis.IntersectionObserver = OriginalIntersectionObserver
   })
 })

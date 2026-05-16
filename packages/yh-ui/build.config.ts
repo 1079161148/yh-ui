@@ -71,7 +71,7 @@ export default defineBuildConfig([
       '@yh-ui/hooks': resolve(__dirname, '../hooks/dist/index.mjs'),
       '@yh-ui/utils': resolve(__dirname, '../utils/dist/index.mjs'),
       '@yh-ui/theme': resolve(__dirname, '../theme/dist/index.mjs'),
-      '@yh-ui/locale': resolve(__dirname, '../locale/dist/index.mjs')
+      '@yh-ui/locale': resolve(__dirname, '../locale/dist/runtime.mjs')
     }
   }
 ])

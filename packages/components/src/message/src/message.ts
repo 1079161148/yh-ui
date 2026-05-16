@@ -1,18 +1,17 @@
 /**
- * Message Types & Props
- * @description 娑堟伅鎻愮ず缁勪欢绫诲瀷瀹氫箟
+ * Message types and public contracts.
  */
 
 import type { VNode, ComponentPublicInstance, Ref } from 'vue'
 
 /**
- * 娑堟伅绫诲瀷
+ * Supported message variants.
  */
 export const messageTypes = ['success', 'warning', 'info', 'error'] as const
 export type MessageType = (typeof messageTypes)[number]
 
 /**
- * 娑堟伅浣嶇疆
+ * Supported message placements.
  */
 export const messagePlacements = [
   'top',
@@ -25,122 +24,122 @@ export const messagePlacements = [
 export type MessagePlacement = (typeof messagePlacements)[number]
 
 /**
- * Message Props 瀹氫箟
+ * Message component props.
  */
 export interface MessageProps {
   /**
-   * @description 娑堟伅鍐呭
+   * Message content.
    */
   message?: string | VNode
 
   /**
-   * @description 娑堟伅绫诲瀷
+   * Message variant.
    * @default 'info'
    */
   type?: MessageType
 
   /**
-   * @description 鑷畾涔夊浘鏍?
+   * Custom icon.
    */
   icon?: string | VNode
 
   /**
-   * @description 鏄惁鏄剧ず鍏抽棴鎸夐挳
+   * Whether to show the close button.
    * @default false
    */
   showClose?: boolean
 
   /**
-   * @description 鏄剧ず鏃堕棿锛堟绉掞級銆傝涓?0 鍒欎笉浼氳嚜鍔ㄥ叧闂?
+   * Auto-close duration in milliseconds. Set to 0 to disable auto-close.
    * @default 3000
    */
   duration?: number
 
   /**
-   * @description 璺濈椤堕儴鐨勫亸绉婚噺锛坧x锛?
+   * Offset from the viewport edge in pixels.
    * @default 20
    */
   offset?: number
 
   /**
-   * @description 娑堟伅鐨勫敮涓€鏍囪瘑
+   * Unique message id.
    */
   id?: string
 
   /**
-   * @description 鏄惁灏?message 浣滀负 HTML 鐗囨澶勭悊
+   * Render message content as raw HTML.
    * @default false
    */
   dangerouslyUseHTMLString?: boolean
 
   /**
-   * @description 鏄惁灞呬腑鏄剧ず
+   * Whether to center the content.
    * @default false
    */
   center?: boolean
 
   /**
-   * @description 鍏抽棴鏃剁殑鍥炶皟鍑芥暟
+   * Callback fired after the message closes.
    */
   onClose?: () => void
 
   /**
-   * @description z-index 灞傜骇
+   * z-index value.
    */
   zIndex?: number
 
   /**
-   * @description 鑷畾涔夌被鍚?
+   * Custom CSS class.
    */
   customClass?: string
 
   /**
-   * @description 鏄惁鏀寔鍒嗙粍鍚堝苟锛堢浉鍚屽唴瀹圭殑娑堟伅鍙樉绀轰竴娆★級
+   * Whether to merge messages with identical content.
    * @default false
    */
   grouping?: boolean
 
   /**
-   * @description 閲嶅娆℃暟
+   * Number of repeated grouped messages.
    */
   repeatNum?: number
 
   /**
-   * @description 娑堟伅灞曠ず浣嶇疆
+   * Message placement.
    * @default 'top'
    */
   placement?: MessagePlacement
 
   /**
-   * @description 涓婚瑕嗙洊鍙橀噺
+   * Component-level theme overrides.
    */
   themeOverrides?: import('@yh-ui/theme').ComponentThemeVars
 }
 
 /**
- * Message Emits 瀹氫箟
+ * Message component emits.
  */
 export interface MessageEmits {
   (e: 'destroy'): void
 }
 
 /**
- * Message Slots 瀹氫箟
+ * Message component slots.
  */
 export interface MessageSlots {
   /**
-   * 娑堟伅鍐呭
+   * Message content slot.
    */
   default?: () => void
 
   /**
-   * 鑷畾涔夊浘鏍?
+   * Icon slot.
    */
   icon?: () => void
 }
 
 /**
- * Message 暴露实例
+ * Exposed message instance methods.
  */
 export interface MessageExpose {
   visible: Ref<boolean>
@@ -148,17 +147,17 @@ export interface MessageExpose {
 }
 
 /**
- * Message 瀹炰緥绫诲瀷
+ * Message component instance.
  */
 export type MessageInstance = ComponentPublicInstance<MessageExpose>
 
 /**
- * Message 閰嶇疆閫夐」
+ * Message options accepted by the service API.
  */
 export type MessageOptions = Partial<MessageProps>
 
 /**
- * Message 澶勭悊鍑芥暟
+ * Message service handler.
  */
 export interface MessageHandler {
   close: () => void
@@ -167,7 +166,7 @@ export interface MessageHandler {
 }
 
 /**
- * Message 涓婁笅鏂囷紙鐢ㄤ簬瀹炰緥绠＄悊锛?
+ * Internal message instance context.
  */
 export interface MessageContext {
   id: string
@@ -177,7 +176,7 @@ export interface MessageContext {
 }
 
 /**
- * Message 鏂规硶绫诲瀷
+ * Message service API.
  */
 export type MessageFn = {
   (options: MessageOptions | string): MessageHandler

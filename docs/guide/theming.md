@@ -1,329 +1,112 @@
 # 主题定制
 
-YH-UI 提供灵活的主题定制能力，您可以通过多种方式自定义组件样式。
+YH-UI 的主题系统以 CSS 变量为基础，所有公开变量均以 `--yh-` 为前缀。你可以在全局、局部容器或组件级别覆盖变量，用同一套组件承载不同品牌和业务线。
 
-## CSS 变量
+## 基础用法
 
-YH-UI 使用 CSS 变量（CSS Custom Properties）定义设计令牌，所有变量都以 `--yh-` 为前缀。
-
-### 全局覆盖
-
-在样式文件中直接覆盖 CSS 变量：
-
-```css
-:root {
-  --yh-color-primary: #6366f1;
-  --yh-color-primary-light-3: #818cf8;
-  --yh-color-primary-light-5: #a5b4fc;
-  --yh-color-primary-light-7: #c7d2fe;
-  --yh-color-primary-light-9: #e0e7ff;
-  --yh-color-primary-dark-2: #4f46e5;
-
-  --yh-border-radius-base: 8px;
-  --yh-font-family: 'Inter', sans-serif;
-}
-```
-
-### 作用域覆盖
-
-也可以在特定作用域内覆盖变量：
-
-```css
-.my-custom-theme {
-  --yh-color-primary: #8b5cf6;
-  --yh-border-radius-base: 12px;
-}
-```
-
-```vue
-<template>
-  <div class="my-custom-theme">
-    <yh-button type="primary">自定义主题按钮</yh-button>
-  </div>
-</template>
-```
-
-## 暗黑模式
-
-YH-UI 通过 `@yh-ui/theme` 提供暗色模式 API。如果项目使用主题包，建议优先通过主题管理器切换暗色模式：
-
-```ts
-import { useTheme } from '@yh-ui/theme'
-
-const theme = useTheme()
-theme.toggleDarkMode()
-```
-
-如果项目自行管理暗色模式，也可以在作用域中覆盖相关 `--yh-*` 变量。
-
-### 自定义暗黑模式变量
-
-```css
-html.dark {
-  --yh-color-primary: #60a5fa;
-  --yh-bg-color: #1a1a1a;
-  --yh-bg-color-page: #0f0f0f;
-}
-```
-
-## SCSS 用法
-
-当前主题包的稳定定制方式以公开的 CSS 变量为主。应用层如果需要定制，建议直接覆盖暴露出来的 `--yh-*` 变量：
-
-```scss
-:root {
-  --yh-color-primary: #6366f1;
-  --yh-border-radius-base: 8px;
-  --yh-font-family: 'Inter', sans-serif;
-}
-```
-
-然后在应用入口正常引入样式：
+在应用入口引入样式：
 
 ```ts
 import '@yh-ui/yh-ui/css'
 ```
 
-## 可用的 CSS 变量
-
-### 颜色
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-color-primary` | 主色 | `#409eff` |
-| `--yh-color-success` | 成功色 | `#67c23a` |
-| `--yh-color-warning` | 警告色 | `#e6a23c` |
-| `--yh-color-danger` | 危险色 | `#f56c6c` |
-| `--yh-color-info` | 信息色 | `#909399` |
-
-### 文字
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-text-color-primary` | 主要文字颜色 | `#303133` |
-| `--yh-text-color-regular` | 常规文字颜色 | `#606266` |
-| `--yh-text-color-secondary` | 次要文字颜色 | `#909399` |
-| `--yh-text-color-placeholder` | 占位符颜色 | `#a8abb2` |
-| `--yh-text-color-disabled` | 禁用文字颜色 | `#c0c4cc` |
-
-### 边框
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-border-color` | 边框颜色 | `#dcdfe6` |
-| `--yh-border-color-light` | 浅色边框 | `#e4e7ed` |
-| `--yh-border-color-lighter` | 更浅边框 | `#ebeef5` |
-
-### 圆角
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-radius-sm` | 小圆角 | `2px` |
-| `--yh-border-radius-base` | 基础圆角 | `4px` |
-| `--yh-radius-md` | 中等圆角 | `8px` |
-| `--yh-radius-lg` | 大圆角 | `12px` |
-| `--yh-radius-round` | 圆形圆角 | `20px` |
-
-### 间距
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-spacing-xs` | 超小间距 | `4px` |
-| `--yh-spacing-sm` | 小间距 | `8px` |
-| `--yh-spacing-md` | 中等间距 | `16px` |
-| `--yh-spacing-lg` | 大间距 | `24px` |
-| `--yh-spacing-xl` | 超大间距 | `32px` |
-
-### 断点系统
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-breakpoint-xs` | 超小屏幕 | `0` |
-| `--yh-breakpoint-sm` | 小屏幕 | `576px` |
-| `--yh-breakpoint-md` | 中等屏幕 | `768px` |
-| `--yh-breakpoint-lg` | 大屏幕 | `992px` |
-| `--yh-breakpoint-xl` | 超大屏幕 | `1200px` |
-| `--yh-breakpoint-xxl` | 巨大屏幕 | `1400px` |
-
-### 字体族
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-font-family` | 默认字体 | 系统字体栈 |
-| `--yh-font-family-monospace` | 等宽字体 | `SFMono-Regular, Consolas...` |
-
-### 无障碍/聚焦
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-focus-ring-color` | 聚焦环颜色 | `var(--yh-color-primary)` |
-| `--yh-focus-ring-width` | 聚焦环宽度 | `2px` |
-| `--yh-focus-ring-offset` | 聚焦环偏移 | `2px` |
-| `--yh-focus-ring` | 完整聚焦环样式 | 组合值 |
-
-### 遮罩层
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-mask-color` | 遮罩颜色 | `rgba(0, 0, 0, 0.5)` |
-| `--yh-mask-color-light` | 浅色遮罩 | `rgba(0, 0, 0, 0.3)` |
-| `--yh-mask-color-extra-light` | 超浅遮罩 | `rgba(0, 0, 0, 0.1)` |
-
-### 滚动条
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| `--yh-scrollbar-width` | 滚动条宽度 | `6px` |
-| `--yh-scrollbar-thumb-color` | 滚动条滑块颜色 | `var(--yh-text-color-disabled)` |
-| `--yh-scrollbar-thumb-hover-color` | 滚动条滑块悬停颜色 | `var(--yh-text-color-secondary)` |
-| `--yh-scrollbar-track-color` | 滚动条轨道颜色 | `transparent` |
-
-## 无障碍支持
-
-### 减少动画偏好
-
-YH-UI 会根据 `prefers-reduced-motion` 减少动画。相关持续时间变量也可以在应用层覆盖：
+在全局样式中覆盖变量：
 
 ```css
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --yh-duration-fast: 0ms;
-    --yh-duration-base: 0ms;
-    --yh-duration-slow: 0ms;
-  }
+:root {
+  --yh-color-primary: #2563eb;
+  --yh-color-success: #16a34a;
+  --yh-radius-base: 6px;
+  --yh-font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 ```
 
-### 高对比度模式
+## 局部主题
 
-YH-UI 支持 Windows 高对比度模式和 `prefers-contrast: high` 媒体查询：
+当一个页面中存在多个品牌区域时，可以把变量限定在容器内：
 
 ```css
-@media (prefers-contrast: high) {
-  :root {
-    --yh-border-color: #000000;
-    --yh-focus-ring-width: 3px;
-  }
+.finance-theme {
+  --yh-color-primary: #0f766e;
+  --yh-color-warning: #ca8a04;
+}
+
+.ai-theme {
+  --yh-color-primary: #7c3aed;
+  --yh-bg-color-page: #f8fafc;
 }
 ```
 
-### 强制颜色模式
+```vue
+<template>
+  <section class="finance-theme">
+    <yh-button type="primary">提交审批</yh-button>
+  </section>
+</template>
+```
 
-对于 Windows 高对比度主题，YH-UI 使用系统颜色关键字确保可访问性：
+## 暗色模式
+
+如果项目自行管理暗色模式，建议通过根节点 class 切换：
 
 ```css
-@media (forced-colors: active) {
-  :root {
-    --yh-color-primary: LinkText;
-    --yh-bg-color: Canvas;
-    --yh-text-color-primary: CanvasText;
-  }
+html.dark {
+  --yh-bg-color: #141414;
+  --yh-bg-color-page: #0f0f0f;
+  --yh-text-color-primary: #f5f7fa;
+  --yh-text-color-regular: #d4d7de;
+  --yh-border-color: #414243;
 }
 ```
 
----
-
-## 高级主题功能
-
-YH-UI 在 `@yh-ui/theme` 中提供一组运行时主题管理 API。
-
-### 主题管理器
-
-```ts
-import { useTheme, initTheme } from '@yh-ui/theme'
-
-const theme = initTheme({
-  preset: 'blue',
-  dark: false,
-  persist: true,
-  followSystem: true
-})
-
-const themeManager = useTheme()
-```
-
-### 密度控制
+如果使用 `@yh-ui/theme`，可以通过主题 API 管理：
 
 ```ts
 import { useTheme } from '@yh-ui/theme'
 
 const theme = useTheme()
-
-theme.setDensity('comfortable')
-theme.setDensity('compact')
-theme.setDensity('dense')
-```
-
-### 色盲友好模式
-
-```ts
-import { useTheme } from '@yh-ui/theme'
-
-const theme = useTheme()
-
-theme.setColorBlindMode('none')
-theme.setColorBlindMode('protanopia')
-theme.setColorBlindMode('deuteranopia')
-theme.setColorBlindMode('tritanopia')
-theme.setColorBlindMode('achromatopsia')
-```
-
-### 主题切换动画
-
-```ts
-import { useTheme } from '@yh-ui/theme'
-
-const theme = useTheme()
-
-theme.enableTransition({
-  duration: 300,
-  timing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-})
-
 theme.toggleDarkMode()
-theme.disableTransition()
 ```
 
-### 主色生成
+## 组件级覆盖
 
-```ts
-import { useTheme } from '@yh-ui/theme'
+大多数组件支持 `themeOverrides`。组件级覆盖适合临时业务样式，设计系统级差异仍建议沉淀为全局 Token。
 
-const theme = useTheme()
-theme.applyFromPrimary('#8b5cf6')
+```vue
+<template>
+  <yh-button
+    type="primary"
+    :theme-overrides="{
+      borderRadius: '10px',
+      fontWeight: '600'
+    }"
+  >
+    品牌按钮
+  </yh-button>
+</template>
 ```
 
-### 组件级主题覆盖
+## Token 分类
 
-```ts
-import { useTheme } from '@yh-ui/theme'
+| 分类 | 示例                                            | 建议用途                     |
+| ---- | ----------------------------------------------- | ---------------------------- |
+| 颜色 | `--yh-color-primary`、`--yh-text-color-primary` | 品牌、语义、文本、边框、背景 |
+| 字体 | `--yh-font-family`、`--yh-font-size-base`       | 字体栈、字号、行高           |
+| 间距 | `--yh-spacing-md`                               | 布局、表单、列表密度         |
+| 圆角 | `--yh-radius-base`                              | 按钮、输入框、卡片、弹层     |
+| 阴影 | `--yh-shadow-base`                              | 下拉、弹层、浮层             |
+| 层级 | `--yh-z-index-modal`                            | 弹窗、通知、加载层           |
+| 动效 | `--yh-duration-base`                            | 过渡时间和缓动               |
 
-const theme = useTheme()
+## 主题治理建议
 
-theme.setComponentTheme('button', {
-  'border-radius': '20px',
-  'font-weight': '600',
-  'padding': '0 24px'
-})
+- 不要在业务 CSS 中直接覆盖组件内部 class，优先使用 Token、`themeOverrides`、插槽。
+- 不要为同一语义创建多个颜色变量，例如 `primaryBlue`、`brandBlue`、`mainBlue`。
+- 每次新增 Token 都应说明语义、默认值、适用组件和是否支持暗色模式。
+- 主题变更必须在亮色、暗色、移动端和 SSR 场景下验证。
 
-theme.clearComponentTheme('button')
-```
+## 相关文档
 
-### 主题导入导出
-
-```ts
-import { useTheme } from '@yh-ui/theme'
-
-const theme = useTheme()
-const themeJson = theme.exportTheme({
-  name: 'My Theme',
-  author: 'Your Name'
-})
-
-theme.importTheme(themeJson)
-const css = theme.exportAsCss()
-```
-
----
-
-更多变量请参考 [设计规范](/guide/design) 或查看 [源代码](https://github.com/1079161148/yh-ui/blob/main/packages/theme/src/styles/variables.scss)。
+- [设计原则](/guide/design)
+- [Figma 与 Token 体系](/guide/figma-tokens)
+- [主题系统](/guide/theme)

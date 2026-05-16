@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import ProductCard from '../src/product-card.vue'
@@ -170,5 +170,85 @@ describe('ProductCard', () => {
     expect(wrapper.find('.yh-product-card__stock-bar-inner').attributes('style')).toContain(
       'width: 100%'
     )
+  })
+
+  it('covers top badges, slots, ribbon, lazy image and blocked action', async () => {
+    const wrapper = mount(ProductCard, {
+      props: {
+        ...props,
+        lazy: true,
+        ribbon: 'SALE',
+        ribbonColor: '#f00',
+        border: true,
+        shadow: true,
+        tag: 'TOP',
+        badgePosition: 'top',
+        badges: [
+          { image: 'https://test.com/top-badge.png', text: 'Gift' },
+          { text: 'VIP', color: '#111' }
+        ],
+        description: 'Plain description',
+        unit: '/kg',
+        vipPrice: 'member',
+        marketPrice: 'market',
+        stockProgress: -10,
+        actionLoading: true
+      },
+      slots: {
+        title: '<span class="title-slot">Slot title</span>',
+        description: '<span class="desc-slot">Slot description</span>',
+        footer: '<button class="footer-slot">Footer</button>'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('is-border')
+    expect(wrapper.classes()).toContain('is-shadow')
+    expect(wrapper.find('.yh-product-card__ribbon').attributes('style')).toContain('#f00')
+    expect(wrapper.find('.yh-product-card__image').attributes('loading')).toBe('lazy')
+    expect(wrapper.find('.yh-product-card__badges').exists()).toBe(true)
+    expect(wrapper.find('.title-slot').text()).toBe('Slot title')
+    expect(wrapper.find('.desc-slot').text()).toBe('Slot description')
+    expect(wrapper.find('.footer-slot').exists()).toBe(true)
+    expect(wrapper.text()).toContain('/kg')
+    expect(wrapper.text()).toContain('member')
+    expect(wrapper.text()).toContain('market')
+    expect(wrapper.find('.yh-product-card__stock-bar-inner').attributes('style')).toContain(
+      'width: 0%'
+    )
+
+    await wrapper.find('.footer-slot').trigger('click')
+    expect(wrapper.emitted('action')).toBeFalsy()
+  })
+
+  it('emits exposure when intersection threshold is reached', async () => {
+    let callback: IntersectionObserverCallback | undefined
+    const observe = vi.fn()
+    const disconnect = vi.fn()
+    const Observer = vi.fn(function (this: IntersectionObserver, cb: IntersectionObserverCallback) {
+      callback = cb
+      return { observe, disconnect }
+    })
+    vi.stubGlobal('IntersectionObserver', Observer)
+
+    const wrapper = mount(ProductCard, {
+      props: {
+        ...props,
+        exposure: true,
+        exposureThreshold: 0.5,
+        exposureOnce: true
+      }
+    })
+
+    expect(observe).toHaveBeenCalled()
+    callback?.(
+      [{ isIntersecting: true, intersectionRatio: 0.5 } as IntersectionObserverEntry],
+      {} as IntersectionObserver
+    )
+    await nextTick()
+
+    expect(wrapper.emitted('expose')).toBeTruthy()
+    expect(disconnect).toHaveBeenCalled()
+    wrapper.unmount()
+    vi.unstubAllGlobals()
   })
 })

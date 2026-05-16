@@ -13,8 +13,28 @@ const runtimeOutputs = [
   resolve(playgroundOutDir, 'yh-hooks-runtime.js'),
   resolve(playgroundOutDir, 'vue-runtime.js'),
   resolve(playgroundOutDir, 'server-renderer.js'),
+  resolve(playgroundOutDir, 'yh-ui-runtime.js'),
   resolve(playgroundOutDir, 'yh-ui-bundle.js'),
   resolve(playgroundOutDir, 'yh-ui-bundle.css')
+]
+
+const PLAYGROUND_YH_UI_EXTERNALS = [
+  'vue',
+  '@yh-ui/flow',
+  '@yh-ui/icons',
+  '@floating-ui/dom',
+  'async-validator',
+  'axios',
+  'dayjs',
+  'echarts',
+  'highlight.js',
+  'html-to-image',
+  'mermaid',
+  'pinia',
+  'viewerjs',
+  'vue-router',
+  'xlsx',
+  'zod'
 ]
 
 async function cleanOutput() {
@@ -25,6 +45,7 @@ async function cleanOutput() {
     rm(resolve(playgroundOutDir, 'yh-hooks-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'vue-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'server-renderer.js'), { force: true }),
+    rm(resolve(playgroundOutDir, 'yh-ui-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-bundle.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-bundle.css'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-ui-monorepo.css'), { force: true })
@@ -90,7 +111,7 @@ async function buildYhUiRuntime() {
         },
         { find: '@yh-ui/hooks', replacement: resolve(rootDir, 'packages/hooks/src/index.ts') },
         { find: '@yh-ui/utils', replacement: resolve(rootDir, 'packages/utils/src/index.ts') },
-        { find: '@yh-ui/locale', replacement: resolve(rootDir, 'packages/locale/src/index.ts') },
+        { find: '@yh-ui/locale', replacement: resolve(rootDir, 'packages/locale/src/runtime.ts') },
         {
           find: /^@yh-ui\/theme\/(.*)$/,
           replacement: `${resolve(rootDir, 'packages/theme/src')}/$1`
@@ -107,7 +128,7 @@ async function buildYhUiRuntime() {
         cssFileName: 'yh-ui-bundle'
       },
       rollupOptions: {
-        external: ['vue', '@yh-ui/flow', '@yh-ui/icons'],
+        external: PLAYGROUND_YH_UI_EXTERNALS,
         output: {
           inlineDynamicImports: true,
           manualChunks: undefined,
@@ -152,6 +173,28 @@ async function buildHooksRuntime() {
   })
 }
 
+async function buildYhUiInstallerRuntime() {
+  await build({
+    ...createSharedConfig(),
+    build: {
+      ...createSharedConfig().build,
+      lib: {
+        entry: resolve(rootDir, 'docs/.vitepress/theme/playground/yh-ui-runtime.ts'),
+        formats: ['es'],
+        fileName: () => 'yh-ui-runtime.js'
+      },
+      rollupOptions: {
+        external: ['vue', '@yh-ui/yh-ui', '@yh-ui/flow', '@yh-ui/icons'],
+        output: {
+          inlineDynamicImports: true,
+          manualChunks: undefined,
+          exports: 'named'
+        }
+      }
+    }
+  })
+}
+
 async function copyVueRuntimeAssets() {
   await copyFile(
     resolve(rootDir, 'node_modules/vue/dist/vue.runtime.esm-browser.js'),
@@ -184,6 +227,7 @@ async function main() {
   await buildFlowRuntime()
   await buildHooksRuntime()
   await buildYhUiRuntime()
+  await buildYhUiInstallerRuntime()
   await copyVueRuntimeAssets()
   await updateBuildCache('build-playground-runtime', fingerprint, runtimeOutputs)
   console.log('Playground runtime assets built in docs/public/playground')

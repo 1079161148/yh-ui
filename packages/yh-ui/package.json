@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/yh-ui",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
   "main": "./dist/index.mjs",
@@ -20,7 +20,8 @@
       "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
       "require": "./dist/*.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"

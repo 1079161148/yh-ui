@@ -265,4 +265,83 @@ describe('Menu', () => {
     expect(wrapper.findAll('.yh-menu-item.is-active')).toHaveLength(0)
     expect(wrapper.vm.activeIndex).toBe('')
   })
+
+  it('covers collapsed popup sub-menu branches and disabled guard', async () => {
+    const wrapper = mount(YhMenu, {
+      props: {
+        mode: 'vertical',
+        collapse: true,
+        menuTrigger: 'click',
+        popperClass: 'menu-popper',
+        popperStyle: { color: 'red' },
+        popperOffset: 12,
+        popperEffect: 'dark',
+        teleported: false,
+        persistent: true
+      },
+      slots: {
+        default: () => [
+          h(
+            YhSubMenu,
+            { index: 'sub1', label: 'Popup label', popperClass: 'local-popper' },
+            {
+              default: () => [h(YhMenuItem, { index: 'sub1-1' }, () => 'Child')]
+            }
+          ),
+          h(YhSubMenu, { index: 'disabled', label: 'Disabled', disabled: true }, () => [])
+        ]
+      },
+      global: globalConfig
+    })
+
+    const subMenus = wrapper.findAll('.yh-sub-menu')
+    expect(subMenus[0].classes()).toContain('is-popup')
+    await subMenus[0].find('.yh-sub-menu__title').trigger('click')
+    expect(wrapper.vm.openedMenus).toContain('sub1')
+
+    await subMenus[1].find('.yh-sub-menu__title').trigger('click')
+    expect(wrapper.vm.openedMenus).not.toContain('disabled')
+  })
+
+  it('covers horizontal nested popup label rendering branches', async () => {
+    const renderLabel = vi.fn(({ label }) => h('span', { class: 'rendered-label' }, label))
+    const wrapper = mount(YhMenu, {
+      props: {
+        mode: 'horizontal',
+        menuTrigger: 'hover',
+        renderLabel,
+        defaultActive: 'sub1-sub2-item'
+      },
+      slots: {
+        default: () => [
+          h(
+            YhSubMenu,
+            { index: 'sub1', label: 'Root' },
+            {
+              default: () => [
+                h(
+                  YhSubMenu,
+                  { index: 'sub1-sub2', label: 'Nested', showTimeout: 1, hideTimeout: 1 },
+                  {
+                    default: () => [h(YhMenuItem, { index: 'sub1-sub2-item' }, () => 'Leaf')]
+                  }
+                )
+              ]
+            }
+          )
+        ]
+      },
+      global: globalConfig
+    })
+
+    const root = wrapper.find('.yh-sub-menu')
+    await root.trigger('mouseenter')
+    vi.advanceTimersByTime(5)
+    await nextTick()
+
+    expect(wrapper.find('.rendered-label').exists()).toBe(true)
+    expect(root.classes()).toContain('is-active')
+    await root.find('.yh-sub-menu__title').trigger('click')
+    expect(wrapper.vm.openedMenus).not.toContain('sub1')
+  })
 })

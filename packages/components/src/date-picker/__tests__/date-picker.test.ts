@@ -1,7 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick, ref } from 'vue'
+import { h, nextTick, ref } from 'vue'
 import DatePicker from '../src/date-picker.vue'
+import DateTable from '../src/date-table.vue'
+import MonthTable from '../src/month-table.vue'
+import YearTable from '../src/year-table.vue'
+import QuarterTable from '../src/quarter-table.vue'
 
 import { zhCn } from '@yh-ui/locale'
 
@@ -105,5 +109,136 @@ describe('YhDatePicker', () => {
     })
 
     expect(wrapper.find('input').element.getAttribute('value') ?? '').toBe('')
+  })
+
+  it('selects date values with valueFormat and clears when hovering', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        modelValue: new Date(2024, 0, 1),
+        valueFormat: 'YYYY/MM/DD',
+        clearable: true,
+        teleported: false
+      },
+      slots: {
+        'prefix-icon': () => h('span', { class: 'prefix-slot' }, 'P'),
+        'clear-icon': () => h('span', { class: 'clear-slot' }, 'C')
+      }
+    })
+
+    await wrapper.trigger('click')
+    wrapper.findComponent(DateTable).vm.$emit('select', new Date(2024, 4, 6))
+    await nextTick()
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['2024/05/06'])
+
+    await wrapper.trigger('mouseenter')
+    await nextTick()
+    expect(wrapper.find('.clear-slot').exists()).toBe(true)
+    await wrapper.find('.yh-date-picker__clear').trigger('click')
+    expect(wrapper.emitted('clear')).toBeTruthy()
+    expect(wrapper.find('.prefix-slot').exists()).toBe(true)
+  })
+
+  it('navigates year/month/quarter panel selection paths', async () => {
+    const year = mount(DatePicker, {
+      props: { type: 'year', panelOnly: true, valueFormat: 'YYYY' }
+    })
+    year.findComponent(YearTable).vm.$emit('select', 2030)
+    await nextTick()
+    expect(year.emitted('update:modelValue')?.[0]).toEqual(['2030'])
+
+    const month = mount(DatePicker, {
+      props: { type: 'month', panelOnly: true, valueFormat: 'YYYY-MM' }
+    })
+    month.findComponent(MonthTable).vm.$emit('select', 5)
+    await nextTick()
+    expect(month.emitted('update:modelValue')?.[0]?.[0]).toMatch(/-06$/)
+
+    const quarter = mount(DatePicker, {
+      props: { type: 'quarter', panelOnly: true, valueFormat: 'YYYY-MM-DD' }
+    })
+    quarter.findComponent(QuarterTable).vm.$emit('select', 2)
+    await nextTick()
+    expect(quarter.emitted('update:modelValue')?.[0]?.[0]).toContain('-04-')
+  })
+
+  it('covers range ordering, presets, extra/footer slots and confirm', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        type: 'daterange',
+        modelValue: [new Date(2024, 4, 10), null],
+        orderOnConfirm: false,
+        teleported: false,
+        presets: [{ label: 'Today', value: () => [new Date(2024, 0, 1), new Date(2024, 0, 2)] }]
+      },
+      slots: {
+        extra: '<div class="extra-slot">Extra</div>',
+        footer: '<button class="footer-slot">Footer</button>',
+        'date-cell': '<span class="date-cell-slot">D</span>'
+      }
+    })
+
+    await wrapper.trigger('click')
+    expect(wrapper.find('.extra-slot').exists()).toBe(true)
+    expect(wrapper.find('.footer-slot').exists()).toBe(true)
+    expect(wrapper.find('.yh-date-picker__preset-item').exists()).toBe(true)
+
+    wrapper.findComponent(DateTable).vm.$emit('select', new Date(2024, 4, 1))
+    await nextTick()
+    expect(wrapper.emitted('update:modelValue')?.[0]?.[0]).toEqual([new Date(2024, 4, 1), null])
+
+    await wrapper.find('.yh-date-picker__preset-item').trigger('click')
+    const changes = wrapper.emitted('change') || []
+    expect(changes[changes.length - 1]?.[0]).toEqual([new Date(2024, 0, 1), new Date(2024, 0, 2)])
+  })
+
+  it('keeps disabled, readonly and panel-only pickers from toggling', async () => {
+    const disabled = mount(DatePicker, { props: { disabled: true } })
+    await disabled.trigger('click')
+    expect(disabled.find('.yh-date-picker__panel').exists()).toBe(false)
+
+    const readonly = mount(DatePicker, { props: { readonly: true } })
+    await readonly.trigger('click')
+    expect(readonly.find('.yh-date-picker__panel').exists()).toBe(false)
+
+    const panelOnly = mount(DatePicker, { props: { panelOnly: true } })
+    expect(panelOnly.find('.yh-date-picker__panel').exists()).toBe(true)
+    expect(panelOnly.classes()).toContain('is-panel-only')
+  })
+
+  it('covers header navigation, datetime footer, outside click and teleport positioning', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        type: 'datetime',
+        modelValue: new Date(2024, 0, 1, 8, 9, 10),
+        defaultValue: new Date(2023, 6, 1),
+        teleported: true,
+        popperClass: 'custom-popper',
+        timeFormat: 'HH:mm'
+      },
+      attachTo: document.body
+    })
+
+    await wrapper.trigger('click')
+    await nextTick()
+    expect(document.body.querySelector('.custom-popper')).toBeTruthy()
+    expect(document.body.textContent).toContain('08:09')
+
+    const headerLabel = document.body.querySelector('.yh-date-picker__header-label') as HTMLElement
+    headerLabel.click()
+    await nextTick()
+    expect(document.body.querySelector('.yh-date-picker__table--month')).toBeTruthy()
+    headerLabel.click()
+    await nextTick()
+    expect(document.body.querySelector('.yh-date-picker__table--year')).toBeTruthy()
+    ;(document.body.querySelector('.yh-date-picker__footer-btn') as HTMLElement).click()
+    await nextTick()
+    expect(document.body.querySelector('.custom-popper')).toBeFalsy()
+
+    await wrapper.trigger('click')
+    await nextTick()
+    document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    await nextTick()
+    expect(document.body.querySelector('.custom-popper')).toBeFalsy()
+    wrapper.unmount()
   })
 })

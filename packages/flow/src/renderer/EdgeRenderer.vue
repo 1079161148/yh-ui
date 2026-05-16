@@ -14,11 +14,7 @@
   >
     <defs>
       <!-- Dynamic masks to create a true gap in the line behind the label -->
-      <mask
-        v-for="ed in edgeData"
-        :key="`mask-${ed.edge.id}`"
-        :id="`yh-mask-${ed.edge.id.replace(/\s/g, '')}`"
-      >
+      <mask v-for="ed in edgeData" :key="`mask-${ed.edge.id}`" :id="getMaskId(ed.edge.id)">
         <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" />
         <rect
           :x="ed.labelX - ed.labelWidth / 2 - 4"
@@ -69,7 +65,7 @@
             :stroke-width="ed.strokeWidth"
             fill="none"
             :class="{ 'yh-flow-edge-path': true, 'is-animated': ed.edge.animated }"
-            :mask="ed.edge.label ? `url(#yh-mask-${ed.edge.id.replace(/\s/g, '')})` : undefined"
+            :mask="ed.edge.label ? `url(#${getMaskId(ed.edge.id)})` : undefined"
             :style="{
               pointerEvents: 'none',
               transition: 'stroke 0.2s, stroke-width 0.2s',
@@ -113,6 +109,7 @@ import { getEdgePath, getEdgeCenter, getHandlePosition, type EdgePathParams } fr
 import { getCustomEdge } from '../utils/custom-types'
 
 const props = defineProps<{
+  flowId: string
   edges: Edge[]
   nodes: Node[]
   edgeTypes?: EdgeTypes
@@ -128,6 +125,9 @@ const getComponent = (type: string) => {
   }
   return getCustomEdge(type || 'default')?.component
 }
+
+const getMaskId = (edgeId: string) =>
+  `${props.flowId}-yh-mask-${edgeId.replace(/[^a-zA-Z0-9_-]/g, '')}`
 
 const emit = defineEmits<{
   (e: 'edge-click', event: MouseEvent, edge: Edge): void

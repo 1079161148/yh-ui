@@ -5,6 +5,7 @@ import { getPreset, PRESETS, PREFIX_ALIAS, COMMON_ICONS } from '../src/presets'
 import { getCollectionPrefixes } from '../src/config'
 import { ICON_COLLECTIONS, getCollection, getAllPrefixes } from '../src/collections'
 import { AVAILABLE_COLLECTIONS, RECOMMENDED_COLLECTIONS } from '../src/types'
+import { Search, iconComponentMeta, iconComponents, createIconComponent } from '../src/components'
 import { mount } from '@vue/test-utils'
 import { h, markRaw } from 'vue'
 
@@ -225,6 +226,36 @@ describe('Icons Package', () => {
     it('should render placeholder span if nothing provided', () => {
       const wrapper = mount(YhIcon)
       expect(wrapper.find('span').exists()).toBe(true)
+    })
+  })
+
+  describe('modern component library style icon components', () => {
+    it('exports icon metadata and named components', () => {
+      expect(iconComponentMeta.length).toBeGreaterThan(100)
+      expect(
+        iconComponentMeta.some((item) => item.name === 'Search' && item.icon === 'ep:search')
+      ).toBe(true)
+      expect(iconComponents.Search).toBe(Search)
+    })
+
+    it('renders a named icon component through YhIcon', () => {
+      const wrapper = mount(Search, {
+        props: { size: 18, color: 'red' },
+        attrs: { 'aria-label': 'search' }
+      })
+
+      expect(wrapper.html()).toContain('ep:search')
+      expect(wrapper.attributes('style')).toContain('width: 18px')
+      expect(wrapper.attributes('style')).toContain('color: red')
+      expect(wrapper.attributes('aria-label')).toBe('search')
+    })
+
+    it('createIconComponent creates reusable wrappers', () => {
+      const CustomIcon = createIconComponent('CustomIcon', 'ep:edit')
+      const wrapper = mount(CustomIcon, { props: { spin: true } })
+
+      expect(wrapper.html()).toContain('ep:edit')
+      expect(wrapper.classes()).toContain('yh-icons--spin')
     })
   })
 })
