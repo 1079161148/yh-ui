@@ -929,6 +929,33 @@ function buildSandboxDependencies(code: string, context?: SandboxContext): Recor
   return dependencies
 }
 
+function buildCodeSandboxDependencies(
+  code: string,
+  context?: SandboxContext
+): Record<string, string> {
+  const preparedCode = prepareSandboxCode(code, context)
+  const dependencies = {
+    ...buildDependencies(preparedCode, context)
+  }
+
+  if (usesIconSandboxRuntime(preparedCode, context)) {
+    dependencies['@iconify/vue'] = KNOWN_DEPENDENCIES['@iconify/vue']
+  }
+
+  for (const source of extractBareImports(preparedCode)) {
+    const pkg = getPackageName(source)
+    if (pkg === 'vue' || pkg.startsWith('node:') || NODE_BUILTINS.has(pkg)) {
+      continue
+    }
+
+    if (pkg.startsWith('@yh-ui/')) {
+      dependencies[pkg] = KNOWN_DEPENDENCIES[pkg] || YH_UI_VERSION
+    }
+  }
+
+  return dependencies
+}
+
 // ============================================================
 // Playground（@vue/repl 驱动）
 // ============================================================
@@ -1283,14 +1310,7 @@ export async function createCodeSandboxProjectFiles(
 
   const runtimeFiles: Record<string, string> = {}
   const collectedStyleContents = new Map<string, string>()
-  const packageDependencies: Record<string, string> = {
-    vue: `^${VUE_VERSION}`,
-    ...buildSandboxDependencies(code, context)
-  }
-
-  if (usesIconSandboxRuntime(preparedCode, context)) {
-    packageDependencies['@iconify/vue'] = KNOWN_DEPENDENCIES['@iconify/vue']
-  }
+  const packageDependencies: Record<string, string> = buildCodeSandboxDependencies(code, context)
 
   const loadedRuntimeFiles = new Set<string>()
 
@@ -1374,13 +1394,20 @@ export async function createCodeSandboxProjectFiles(
     '  <Demo />',
     '</template>',
     '',
-    '<script setup lang="ts">',
+    '<script>',
     "import Demo from './Demo.vue'",
+    '',
+    'export default {',
+    "  name: 'App',",
+    '  components: {',
+    '    Demo',
+    '  }',
+    '}',
     '</script>',
     ''
   ].join('\n')
 
-  const mainTs = [
+  const mainJs = [
     "import { createApp } from 'vue'",
     "import App from './App.vue'",
     componentImports,
@@ -1416,104 +1443,40 @@ export async function createCodeSandboxProjectFiles(
       {
         name: slugifyTitle(title) || 'yh-ui-demo',
         private: true,
-        type: 'module',
-        scripts: {
-          dev: 'vite --host 0.0.0.0 --port 5173',
-          start: 'vite --host 0.0.0.0 --port 5173',
-          build: 'vue-tsc --noEmit && vite build',
-          preview: 'vite preview --host 0.0.0.0 --port 4173'
-        },
+        main: 'src/main.js',
         dependencies: packageDependencies,
-        devDependencies: DEV_DEPENDENCIES
-      },
-      null,
-      2
-    ) + '\n'
-
-  const viteConfigTs = [
-    "import vue from '@vitejs/plugin-vue'",
-    "import { defineConfig } from 'vite'",
-    '',
-    'export default defineConfig({',
-    '  plugins: [vue()],',
-    '  server: {',
-    "    host: '0.0.0.0',",
-    '    port: 5173,',
-    '    allowedHosts: true',
-    '  },',
-    "  preview: { host: '0.0.0.0', port: 4173 }",
-    '})',
-    ''
-  ].join('\n')
-
-  const tsconfigJson =
-    JSON.stringify(
-      {
-        compilerOptions: {
-          target: 'ES2020',
-          useDefineForClassFields: true,
-          module: 'ESNext',
-          moduleResolution: 'Bundler',
-          strict: true,
-          skipLibCheck: true,
-          jsx: 'preserve',
-          resolveJsonModule: true,
-          isolatedModules: true,
-          esModuleInterop: true,
-          allowSyntheticDefaultImports: true,
-          lib: ['ES2020', 'DOM', 'DOM.Iterable'],
-          types: ['vite/client']
-        },
-        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue', 'src/env.d.ts']
-      },
-      null,
-      2
-    ) + '\n'
-
-  const envDts = [
-    'declare module "*.vue" {',
-    '  import type { DefineComponent } from "vue"',
-    '  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>',
-    '  export default component',
-    '}',
-    ''
-  ].join('\n')
-
-  const files: Record<string, string> = {
-    '.npmrc': ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n'),
-    'sandbox.config.json':
-      JSON.stringify(
-        {
-          template: 'node',
-          infiniteLoopProtection: true
-        },
-        null,
-        2
-      ) + '\n',
-    'index.html': indexHtml,
-    'package.json': packageJson,
-    'tsconfig.json': tsconfigJson,
-    'vite.config.ts': viteConfigTs,
-    'src/App.vue': appVue,
-    'src/Demo.vue': normalizedCode + '\n',
-    'src/main.ts': mainTs,
-    'src/style.css': `${styleCss}\n`,
-    'src/env.d.ts': envDts,
-    '.codesandbox/tasks.json': JSON.stringify(
-      {
-        setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
-        tasks: {
-          dev: {
-            name: 'Start Dev Server',
-            command: 'npm run dev',
-            runAtStart: true,
-            preview: { port: 5173 }
-          }
+        devDependencies: {
+          '@vue/cli-plugin-babel': '~4.5.0',
+          typescript: '~4.6.3'
         }
       },
       null,
       2
-    ),
+    ) + '\n'
+
+  const codeSandboxTemplateJson =
+    JSON.stringify(
+      {
+        title: title || 'YH-UI Demo',
+        description: 'YH-UI component demo generated from the documentation.',
+        iconUrl:
+          'https://raw.githubusercontent.com/codesandbox/sandbox-templates/main/vue-vite/.codesandbox/icon.png',
+        tags: ['frontend', 'vue', 'vue3', 'codesandbox', 'yh-ui'],
+        published: true
+      },
+      null,
+      2
+    ) + '\n'
+
+  const files: Record<string, string> = {
+    '.codesandbox/template.json': codeSandboxTemplateJson,
+    '.npmrc': ['registry=https://registry.npmjs.org/', ''].join('\n'),
+    'index.html': indexHtml,
+    'package.json': packageJson,
+    'src/App.vue': appVue,
+    'src/Demo.vue': normalizedCode + '\n',
+    'src/main.js': mainJs,
+    'src/style.css': `${styleCss}\n`,
     ...runtimeFiles
   }
 

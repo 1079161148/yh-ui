@@ -141,8 +141,7 @@ const tsCitations = `<${_T}>
 import type { AiCitation } from '@yh-ui/components';
 
 const citations: AiCitation[] = [
-  { id: 1, title: 'YH-UI 官方文档', url: 'https://1079161148.github.io/yh-ui/
-' },
+  { id: 1, title: 'YH-UI 官方文档', url: 'https://1079161148.github.io/yh-ui/' },
   { id: 2, title: 'Vue 3 组合式 API 指南', url: 'https://vuejs.org' },
   { id: 3, title: 'Vite 开发者社区', url: 'https://vitejs.dev' }
 ];

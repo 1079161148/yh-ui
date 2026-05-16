@@ -319,8 +319,9 @@ html.yh-popup-parent--hidden {
 }
 
 /* Sidebar links */
-.VPSidebarItem.level-1 .link,
-.VPSidebarItem.level-2 .link {
+.VPSidebarItem.level-1 > .item > .link,
+.VPSidebarItem.level-2 > .item > .link,
+.VPSidebarItem.level-3 > .item > .link {
   position: relative;
   transition: all var(--yh-anim-fast) ease;
   border-radius: 6px;
@@ -344,19 +345,30 @@ html.yh-popup-parent--hidden {
     color: var(--vp-c-brand-1) !important;
     transform: translateX(4px);
 
+    .text {
+      color: var(--vp-c-brand-1) !important;
+    }
+
     &::before {
       opacity: 0.08;
     }
   }
+}
 
-  &.active {
+.VPSidebarItem.level-1.is-active > .item > .link,
+.VPSidebarItem.level-2.is-active > .item > .link,
+.VPSidebarItem.level-3.is-active > .item > .link {
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 600;
+  background: var(--vp-c-brand-soft);
+
+  .text {
     color: var(--vp-c-brand-1) !important;
     font-weight: 600;
-    background: var(--vp-c-brand-soft);
+  }
 
-    &::before {
-      opacity: 0.12;
-    }
+  &::before {
+    opacity: 0.12;
   }
 }
 

@@ -49,18 +49,14 @@ interface CodeSandboxManifest {
 }
 
 const REQUIRED_CODE_SANDBOX_FILES = [
-  '.codesandbox/tasks.json',
+  '.codesandbox/template.json',
   '.npmrc',
   'index.html',
   'package.json',
-  'sandbox.config.json',
   'src/App.vue',
   'src/Demo.vue',
-  'src/env.d.ts',
-  'src/main.ts',
-  'src/style.css',
-  'tsconfig.json',
-  'vite.config.ts'
+  'src/main.js',
+  'src/style.css'
 ]
 
 const PLAYGROUND_REQUIRED_ASSETS = [
@@ -74,12 +70,7 @@ const PLAYGROUND_REQUIRED_ASSETS = [
   'docs/public/playground/server-renderer.js'
 ]
 
-const TARGET_CODE_SANDBOX_SOURCE_FILES = [
-  'src/App.vue',
-  'src/Demo.vue',
-  'src/main.ts',
-  'vite.config.ts'
-]
+const TARGET_CODE_SANDBOX_SOURCE_FILES = ['src/App.vue', 'src/Demo.vue', 'src/main.js']
 
 const assetTextCache = new Map<string, Promise<string>>()
 const runtimeTextCache = new Map<string, Promise<string>>()
@@ -580,17 +571,27 @@ async function validateCodeSandboxCase(
   const packageJson = JSON.parse(files['package.json']) as {
     dependencies?: Record<string, string>
     devDependencies?: Record<string, string>
+    main?: string
     scripts?: Record<string, string>
   }
-  assert(!files['src/main.js'], `CodeSandbox still generated src/main.js for ${demoCase.route}`)
   assert(
-    !('@vue/cli-plugin-babel' in (packageJson.devDependencies || {})),
-    `CodeSandbox still depends on @vue/cli-plugin-babel for ${demoCase.route}`
+    packageJson.main === 'src/main.js',
+    `CodeSandbox entry is not src/main.js for ${demoCase.route}`
   )
   assert(
-    packageJson.scripts?.dev?.includes('vite'),
-    `CodeSandbox dev script is not Vite-based for ${demoCase.route}`
+    '@vue/cli-plugin-babel' in (packageJson.devDependencies || {}),
+    `CodeSandbox compatibility scaffold missing @vue/cli-plugin-babel for ${demoCase.route}`
   )
+  assert(
+    !files['sandbox.config.json'],
+    `CodeSandbox should not emit sandbox.config.json for ${demoCase.route}`
+  )
+  assert(
+    !files['vite.config.ts'],
+    `CodeSandbox should not emit vite.config.ts for ${demoCase.route}`
+  )
+  assert(!files['tsconfig.json'], `CodeSandbox should not emit tsconfig.json for ${demoCase.route}`)
+  assert(!files['src/env.d.ts'], `CodeSandbox should not emit src/env.d.ts for ${demoCase.route}`)
 
   validateVueSfc(
     files['src/App.vue'],
@@ -601,12 +602,8 @@ async function validateCodeSandboxCase(
     `${demoCase.route}#codesandbox-demo-${demoCase.demoIndex + 1}.vue`
   )
   validateTypeScriptModule(
-    files['src/main.ts'],
-    `${demoCase.route}#codesandbox-main-${demoCase.demoIndex + 1}.ts`
-  )
-  validateTypeScriptModule(
-    files['vite.config.ts'],
-    `${demoCase.route}#codesandbox-vite-config-${demoCase.demoIndex + 1}.ts`
+    files['src/main.js'],
+    `${demoCase.route}#codesandbox-main-${demoCase.demoIndex + 1}.js`
   )
 
   const packageImports = new Set([
