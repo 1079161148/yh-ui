@@ -449,6 +449,9 @@ importers:
       '@yh-ui/components':
         specifier: workspace:*
         version: link:../packages/components
+      '@yh-ui/flow':
+        specifier: workspace:*
+        version: link:../packages/flow
       '@yh-ui/theme':
         specifier: workspace:*
         version: link:../packages/theme
