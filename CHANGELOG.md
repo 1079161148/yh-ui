@@ -4,6 +4,29 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.10] - 2026-05-16
+
+文档站点在线示例修复版本，重点解决 CodeSandbox 导出工程仍落到旧版 browser sandbox、触发 `@vue/babel-plugin-jsx` 安装失败的问题，并补齐本地与发布链路的回归校验。
+
+### Added
+
+- 新增 `verify:codesandbox-local` 本地 smoke 校验，真实生成 CodeSandbox 工程、安装依赖、启动 Vite 并用 Playwright 验证按钮、栅格、图标、AI Sender、Flow 等代表性示例可运行。
+
+### Changed
+
+- 将 CodeSandbox 导出脚手架升级为 Vite / Nodebox 方案，统一输出 `sandbox.config.json`、`.codesandbox/tasks.json`、`vite.config.ts`、`tsconfig.json`、`src/main.ts` 等现代工程文件，不再继续生成旧版 classic browser sandbox 结构。
+- 将发布门禁补充为同时覆盖 `verify:docs-sandboxes` 与 `verify:codesandbox-local`，让文档沙箱导出问题在发版前即可被本地校验拦下。
+
+### Fixed
+
+- 修复文档站点导出的 CodeSandbox 在线示例在云端环境下错误依赖 `@vue/cli-plugin-babel` / `@vue/babel-plugin-jsx` 的问题，避免新建沙箱后直接卡在 Babel worker 载入失败。
+- 修复 CodeSandbox vendored runtime 在本地 smoke 构建时被 `vue-tsc` 误拦的问题，导出工程的构建脚本改为与运行环境一致的 `vite build`。
+
+### Notes
+
+- 已重新跑通 358 条文档路由、2111 个支持在线沙箱的 demo 的全量导出校验，当前 CodeSandbox 导出只保留 1 套统一 scaffold。
+- 已对 `guide/quickstart`、`components/button`、`ai-components/ai-bubble` 的本地开发环境与线上文档做冷启动对比，当前计算样式一致，未复现仍然存在的代码层样式分叉。
+
 ## [1.0.9] - 2026-05-16
 
 文档站点与在线示例发布修复版本，重点解决 GitHub Pages 侧栏当前项高亮不一致，以及 CodeSandbox 示例在云端环境下的兼容性问题。

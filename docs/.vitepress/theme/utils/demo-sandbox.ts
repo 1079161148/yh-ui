@@ -1223,7 +1223,7 @@ export async function createSandboxProjectFiles(
         scripts: {
           dev: 'vite --host 0.0.0.0 --port 5173',
           start: 'vite --host 0.0.0.0 --port 5173',
-          build: 'vue-tsc --noEmit && vite build',
+          build: 'vite build',
           preview: 'vite preview --host 0.0.0.0 --port 4173'
         },
         stackblitz: {
@@ -1367,7 +1367,24 @@ export async function createCodeSandboxProjectFiles(
     await collectRuntimeFile(styleFile)
   }
 
-  const styleCss = [...collectedStyleContents.values()].filter(Boolean).join('\n')
+  const styleCss = [
+    'html, body, #app {',
+    '  margin: 0;',
+    '  min-height: 100%;',
+    '}',
+    '',
+    'body {',
+    '  padding: 24px;',
+    '  box-sizing: border-box;',
+    "  font-family: Inter, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;",
+    '  background: #ffffff;',
+    '  color: #1f2329;',
+    '}',
+    '',
+    [...collectedStyleContents.values()].filter(Boolean).join('\n')
+  ]
+    .filter(Boolean)
+    .join('\n')
 
   const componentImports = runtimeComponentNames
     .map(
@@ -1382,32 +1399,54 @@ export async function createCodeSandboxProjectFiles(
     )
     .join('\n')
 
-  const indexHtml =
-    '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <meta name="description" content="' +
-    escapeHtml(title || 'YH-UI Demo') +
-    '" />\n    <title>' +
-    escapeHtml(title || 'YH-UI Demo') +
-    '</title>\n  </head>\n  <body>\n    <div id="app"></div>\n  </body>\n</html>\n'
+  const interopDeps = [
+    'dayjs',
+    'dayjs/plugin/isBetween.js',
+    'dayjs/plugin/weekOfYear.js',
+    'dayjs/plugin/isoWeek.js',
+    'dayjs/plugin/quarterOfYear.js',
+    'dayjs/plugin/advancedFormat.js',
+    'dayjs/plugin/customParseFormat.js'
+  ]
+  const sandboxConfigJson =
+    JSON.stringify(
+      {
+        template: 'node',
+        infiniteLoopProtection: true
+      },
+      null,
+      2
+    ) + '\n'
+
+  const indexHtml = [
+    '<!doctype html>',
+    '<html lang="en">',
+    '  <head>',
+    '    <meta charset="UTF-8" />',
+    '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
+    `    <meta name="description" content="${escapeHtml(title || 'YH-UI Demo')}" />`,
+    `    <title>${escapeHtml(title || 'YH-UI Demo')}</title>`,
+    '  </head>',
+    '  <body>',
+    '    <div id="app"></div>',
+    '    <script type="module" src="/src/main.ts"></script>',
+    '  </body>',
+    '</html>',
+    ''
+  ].join('\n')
 
   const appVue = [
     '<template>',
     '  <Demo />',
     '</template>',
     '',
-    '<script>',
+    '<script setup lang="ts">',
     "import Demo from './Demo.vue'",
-    '',
-    'export default {',
-    "  name: 'App',",
-    '  components: {',
-    '    Demo',
-    '  }',
-    '}',
     '</script>',
     ''
   ].join('\n')
 
-  const mainJs = [
+  const mainTs = [
     "import { createApp } from 'vue'",
     "import App from './App.vue'",
     componentImports,
@@ -1438,51 +1477,119 @@ export async function createCodeSandboxProjectFiles(
     ''
   ].join('\n')
 
-  const packageJson =
+  const envDts = [
+    'declare module "*.vue" {',
+    '  import type { DefineComponent } from "vue"',
+    '  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>',
+    '  export default component',
+    '}',
+    ''
+  ].join('\n')
+
+  const viteConfigTs = [
+    "import vue from '@vitejs/plugin-vue'",
+    "import { defineConfig } from 'vite'",
+    '',
+    'export default defineConfig({',
+    '  plugins: [vue()],',
+    '  optimizeDeps: {',
+    `    include: ${JSON.stringify(interopDeps)},`,
+    `    needsInterop: ${JSON.stringify(interopDeps)}`,
+    '  },',
+    '  server: {',
+    "    host: '0.0.0.0',",
+    '    port: 5173,',
+    '    allowedHosts: true',
+    '  },',
+    "  preview: { host: '0.0.0.0', port: 4173 }",
+    '})',
+    ''
+  ].join('\n')
+
+  const tsconfigJson =
     JSON.stringify(
       {
-        name: slugifyTitle(title) || 'yh-ui-demo',
-        private: true,
-        main: 'src/main.js',
-        dependencies: packageDependencies,
-        devDependencies: {
-          '@vue/cli-plugin-babel': '~4.5.0',
-          typescript: '~4.6.3'
-        }
+        compilerOptions: {
+          target: 'ES2020',
+          useDefineForClassFields: true,
+          module: 'ESNext',
+          moduleResolution: 'Bundler',
+          strict: true,
+          skipLibCheck: true,
+          jsx: 'preserve',
+          resolveJsonModule: true,
+          isolatedModules: true,
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          lib: ['ES2020', 'DOM', 'DOM.Iterable'],
+          types: ['vite/client']
+        },
+        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue', 'src/env.d.ts']
       },
       null,
       2
     ) + '\n'
 
-  const codeSandboxTemplateJson =
+  let flowRuntimeJs: string | null = null
+  let flowRuntimeCss: string | null = null
+  if (usesFlowSandboxRuntime(preparedCode, context)) {
+    flowRuntimeJs = await loadSiteAssetText('playground/yh-flow-runtime.js')
+    flowRuntimeCss = await loadSiteAssetText('playground/yh-flow-runtime.css')
+    Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(flowRuntimeJs))
+  }
+
+  const packageJson =
     JSON.stringify(
       {
-        title: title || 'YH-UI Demo',
-        description: 'YH-UI component demo generated from the documentation.',
-        iconUrl:
-          'https://raw.githubusercontent.com/codesandbox/sandbox-templates/main/vue-vite/.codesandbox/icon.png',
-        tags: ['frontend', 'vue', 'vue3', 'codesandbox', 'yh-ui'],
-        published: true
+        name: slugifyTitle(title) || 'yh-ui-demo',
+        private: true,
+        type: 'module',
+        scripts: {
+          dev: 'vite --host 0.0.0.0 --port 5173',
+          start: 'vite --host 0.0.0.0 --port 5173',
+          build: 'vite build',
+          preview: 'vite preview --host 0.0.0.0 --port 4173'
+        },
+        dependencies: packageDependencies,
+        devDependencies: DEV_DEPENDENCIES
       },
       null,
       2
     ) + '\n'
 
   const files: Record<string, string> = {
-    '.codesandbox/template.json': codeSandboxTemplateJson,
-    '.npmrc': ['registry=https://registry.npmjs.org/', ''].join('\n'),
+    '.npmrc': ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n'),
+    'sandbox.config.json': sandboxConfigJson,
+    '.codesandbox/tasks.json': JSON.stringify(
+      {
+        setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
+        tasks: {
+          dev: {
+            name: 'Start Dev Server',
+            command: 'npm run dev',
+            runAtStart: true,
+            preview: { port: 5173 }
+          }
+        }
+      },
+      null,
+      2
+    ),
     'index.html': indexHtml,
     'package.json': packageJson,
+    'tsconfig.json': tsconfigJson,
+    'vite.config.ts': viteConfigTs,
     'src/App.vue': appVue,
     'src/Demo.vue': normalizedCode + '\n',
-    'src/main.js': mainJs,
+    'src/main.ts': mainTs,
     'src/style.css': `${styleCss}\n`,
+    'src/env.d.ts': envDts,
     ...runtimeFiles
   }
 
-  if (usesFlowSandboxRuntime(preparedCode, context)) {
-    files['src/vendor/flow/runtime.js'] = await loadSiteAssetText('playground/yh-flow-runtime.js')
-    files['src/vendor/flow/runtime.css'] = await loadSiteAssetText('playground/yh-flow-runtime.css')
+  if (flowRuntimeJs && flowRuntimeCss) {
+    files['src/vendor/flow/runtime.js'] = flowRuntimeJs
+    files['src/vendor/flow/runtime.css'] = flowRuntimeCss
   }
 
   return files

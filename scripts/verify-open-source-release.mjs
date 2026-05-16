@@ -21,6 +21,8 @@ const steps = [
   ['docs:build'],
   ['verify:docs-i18n'],
   ['verify:stackblitz-local'],
+  ['verify:docs-sandboxes'],
+  ['verify:codesandbox-local'],
   ['verify:docs-playground']
 ]
 
