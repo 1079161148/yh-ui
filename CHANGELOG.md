@@ -4,6 +4,27 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.14] - 2026-05-17
+
+Release workflow resiliency follow-up that keeps npm publishing moving when remote CodeSandbox is blocked by external service checks outside the repository.
+
+### Added
+
+- Added release summary warnings for advisory remote CodeSandbox failures so investigators can still find the job outcome and attached artifacts quickly.
+
+### Changed
+
+- Changed the remote CodeSandbox validation job to remain visible in release CI while no longer acting as a hard gate for npm publish or docs deploy.
+
+### Fixed
+
+- Fixed release publishing being blocked when GitHub Actions hit remote CodeSandbox or Cloudflare interference despite local and docs sandbox validation already passing.
+
+### Notes
+
+- `1.0.13` remained unpublished after the remote CodeSandbox job failed on GitHub Actions; `1.0.14` supersedes it as the next public release line.
+- Targeted local verification completed for `verify:codesandbox-remote`, `verify:release-versions`, changelog checks, and formatter checks before reissuing the release tag.
+
 ## [1.0.13] - 2026-05-17
 
 Release validation hardening update focused on unblocking the public npm release after local CodeSandbox verification stalled at the end of the gate.
