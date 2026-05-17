@@ -23,6 +23,11 @@ const steps = [
   { id: 'docs-i18n', args: ['verify:docs-i18n'], timeoutMinutes: 5 },
   { id: 'stackblitz-local', args: ['verify:stackblitz-local'], timeoutMinutes: 10 },
   { id: 'docs-sandboxes', args: ['verify:docs-sandboxes'], timeoutMinutes: 20 },
+  {
+    id: 'docs-sandboxes-exhaustive',
+    args: ['verify:docs-sandboxes:exhaustive'],
+    timeoutMinutes: 60
+  },
   { id: 'codesandbox-local', args: ['verify:codesandbox-local'], timeoutMinutes: 20 },
   { id: 'docs-playground', args: ['verify:docs-playground'], timeoutMinutes: 10 }
 ]

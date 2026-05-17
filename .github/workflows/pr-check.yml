@@ -186,8 +186,5 @@ jobs:
           name: dist-packages-pr-check
           path: packages
 
-      - name: Sync docs public packages
-        run: pnpm sync:docs-public
-
       - name: Build docs
         run: pnpm docs:build

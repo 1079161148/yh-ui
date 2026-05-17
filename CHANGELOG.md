@@ -4,6 +4,30 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.15] - 2026-05-17
+
+Release pipeline simplification update focused on keeping npm publication fast and predictable while moving heavyweight docs sandbox sweeps out of the blocking release path.
+
+### Added
+
+- Added a dedicated `verify:docs-sandboxes:exhaustive` entry point and an extended validation docs sandbox audit job for manual or scheduled full-library sweeps.
+
+### Changed
+
+- Changed the default `verify:docs-sandboxes` release gate to a targeted smoke pass that validates representative docs routes instead of exhaustively replaying every demo on each publish.
+- Changed docs sandbox verification to reuse built docs with VitePress preview, validate demo payloads concurrently, and fail fast when configured route filters no longer match any docs pages.
+- Changed release and docs deployment workflows to reuse uploaded docs build artifacts and to avoid repeating docs public sync or documentation builds on the same release run.
+
+### Fixed
+
+- Fixed release CI timing out in the docs sandbox stage after repeatedly scanning more than two thousand generated demo cases in the blocking publish workflow.
+- Fixed release orchestration so advisory remote CodeSandbox checks stay visible for investigation without delaying npm publish or GitHub Pages deployment.
+
+### Notes
+
+- Remote CodeSandbox behavior remains service-dependent and is not treated as a 100% deterministic publish guarantee; blocking release checks now focus on repository-controlled smoke validation.
+- Targeted local verification completed for `pnpm format:check`, `pnpm changelog:check`, `pnpm verify:release-versions`, `pnpm verify:docs-sandboxes`, and filtered `pnpm verify:docs-sandboxes:exhaustive`.
+
 ## [1.0.14] - 2026-05-17
 
 Release workflow resiliency follow-up that keeps npm publishing moving when remote CodeSandbox is blocked by external service checks outside the repository.

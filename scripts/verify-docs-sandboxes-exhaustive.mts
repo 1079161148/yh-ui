@@ -21,6 +21,7 @@ const rootDir = path.resolve(__dirname, '..')
 const docsDir = path.resolve(rootDir, 'docs')
 const vitepressCli = path.resolve(rootDir, 'node_modules/vitepress/dist/node/cli.js')
 const runtimeDir = path.resolve(rootDir, 'docs/public/codesandbox-runtime')
+const docsDistDir = path.resolve(docsDir, '.vitepress', 'dist')
 
 interface CapturedDemoCase {
   route: string
@@ -76,6 +77,7 @@ const PLAYGROUND_REQUIRED_ASSETS = [
 
 const assetTextCache = new Map<string, Promise<string>>()
 const runtimeTextCache = new Map<string, Promise<string>>()
+let verifiedPlaygroundAssetsPromise: Promise<void> | null = null
 
 ;(globalThis as typeof globalThis & { window?: Window }).window = {
   location: {
@@ -85,6 +87,38 @@ const runtimeTextCache = new Map<string, Promise<string>>()
 
 function compressPayloadId(payload: CapturedDemoCase['payload']) {
   return JSON.stringify(payload)
+}
+
+function parsePositiveInteger(value: string | undefined, fallback: number): number {
+  const parsed = Number(value)
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback
+}
+
+async function runWithConcurrency<T>(
+  items: T[],
+  concurrency: number,
+  worker: (item: T) => Promise<void>
+) {
+  if (items.length === 0) {
+    return
+  }
+
+  const workerCount = Math.max(1, Math.min(concurrency, items.length))
+  let nextIndex = 0
+
+  await Promise.all(
+    Array.from({ length: workerCount }, async () => {
+      while (true) {
+        const currentIndex = nextIndex
+        nextIndex += 1
+        if (currentIndex >= items.length) {
+          return
+        }
+
+        await worker(items[currentIndex])
+      }
+    })
+  )
 }
 
 function decodeRouteFromMarkdown(relativeMarkdownPath: string): string {
@@ -229,9 +263,10 @@ async function stopProcessTree(pid: number) {
 async function startDocsPreview() {
   const port = await getAvailablePort()
   const serverUrl = `http://127.0.0.1:${port}`
+  const previewMode = (await pathExists(docsDistDir)) ? 'preview' : 'dev'
   const child = spawn(
     process.execPath,
-    [vitepressCli, 'dev', '--host', '127.0.0.1', '--port', `${port}`],
+    [vitepressCli, previewMode, '--host', '127.0.0.1', '--port', `${port}`],
     {
       cwd: docsDir,
       env: process.env,
@@ -251,17 +286,15 @@ async function startDocsPreview() {
   })
 
   await waitForServer(`${serverUrl}/yh-ui/`)
+  if (previewMode === 'preview') {
+    await waitForServer(`${serverUrl}/yh-ui/vp-icons.css`).catch(() => undefined)
+  }
 
   return { child, serverUrl, stdoutRef: () => stdout, stderrRef: () => stderr }
 }
 
-async function captureSupportedDemos(
-  routes: string[],
-  serverUrl: string
-): Promise<CapturedDemoCase[]> {
-  const browser = await chromium.launch({ headless: true })
+async function createCapturePage(browser: Awaited<ReturnType<typeof chromium.launch>>) {
   const page = await browser.newPage()
-  const capturedCases: CapturedDemoCase[] = []
 
   await page.addInitScript(() => {
     ;(window as typeof window & { __sandboxCapture?: SandboxCapture }).__sandboxCapture = {
@@ -276,74 +309,131 @@ async function captureSupportedDemos(
     }
   })
 
-  for (const route of routes) {
-    const url = `${serverUrl}${route}`
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 120000 })
-    await page.waitForTimeout(300)
+  return page
+}
 
-    const demoBoxes = page.locator('.demo-box')
-    const demoCount = await demoBoxes.count()
-    if (demoCount === 0) {
-      continue
-    }
+async function captureRouteDemos(
+  page: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
+    ? Awaited<T>
+    : never,
+  route: string,
+  serverUrl: string
+) {
+  const settleMs = parsePositiveInteger(process.env.DOCS_SANDBOX_SETTLE_MS, 100)
+  const capturedCases: CapturedDemoCase[] = []
+  const url = `${serverUrl}${route}`
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 120000 })
+  await page.waitForTimeout(settleMs)
 
-    const pageTitle =
-      (await page
-        .locator('.vp-doc h1')
-        .first()
-        .textContent()
-        .catch(() => null)) || route
-
-    const pageCaptures = await page.evaluate(() => {
-      const boxes = Array.from(document.querySelectorAll('.demo-box'))
-      const results: Array<{ demoIndex: number; openedUrl: string }> = []
-
-      for (const [demoIndex, box] of boxes.entries()) {
-        const buttons = box.querySelectorAll<HTMLButtonElement>(
-          '.demo-box__actions-right .demo-box__action-btn'
-        )
-        const playgroundButton = buttons[0]
-        if (!playgroundButton || playgroundButton.disabled) {
-          continue
-        }
-
-        ;(window as typeof window & { __sandboxCapture: SandboxCapture }).__sandboxCapture.opens =
-          []
-        playgroundButton.click()
-        const openedUrl =
-          (
-            window as typeof window & { __sandboxCapture: SandboxCapture }
-          ).__sandboxCapture.opens.at(-1) || ''
-
-        if (openedUrl) {
-          results.push({ demoIndex, openedUrl })
-        }
-      }
-
-      return results
-    })
-
-    for (const { demoIndex, openedUrl } of pageCaptures) {
-      const demoParam = new URL(openedUrl).searchParams.get('demo') || ''
-      const payload = decodePlaygroundPayload(demoParam)
-      if (!payload) {
-        throw new Error(`Failed to decode Playground payload for ${route} demo #${demoIndex + 1}`)
-      }
-
-      capturedCases.push({
-        route,
-        pageTitle: pageTitle.trim(),
-        demoIndex,
-        payload
-      })
-    }
-
-    if (capturedCases.length > 0 && capturedCases.length % 50 === 0) {
-      console.log(`[verify:docs-sandboxes] captured ${capturedCases.length} demos so far`)
-    }
+  const demoBoxes = page.locator('.demo-box')
+  const demoCount = await demoBoxes.count()
+  if (demoCount === 0) {
+    return capturedCases
   }
 
-  await browser.close()
+  await page
+    .locator('.demo-box__actions-right .demo-box__action-btn')
+    .first()
+    .waitFor({ state: 'attached', timeout: 5000 })
+    .catch(() => undefined)
+
+  const pageTitle =
+    (await page
+      .locator('.vp-doc h1')
+      .first()
+      .textContent()
+      .catch(() => null)) || route
+
+  const pageCaptures = await page.evaluate(() => {
+    const boxes = Array.from(document.querySelectorAll('.demo-box'))
+    const results: Array<{ demoIndex: number; openedUrl: string }> = []
+
+    for (const [demoIndex, box] of boxes.entries()) {
+      const buttons = box.querySelectorAll<HTMLButtonElement>(
+        '.demo-box__actions-right .demo-box__action-btn'
+      )
+      const playgroundButton = buttons[0]
+      if (!playgroundButton || playgroundButton.disabled) {
+        continue
+      }
+
+      ;(window as typeof window & { __sandboxCapture: SandboxCapture }).__sandboxCapture.opens = []
+      playgroundButton.click()
+      const openedUrl =
+        (window as typeof window & { __sandboxCapture: SandboxCapture }).__sandboxCapture.opens.at(
+          -1
+        ) || ''
+
+      if (openedUrl) {
+        results.push({ demoIndex, openedUrl })
+      }
+    }
+
+    return results
+  })
+
+  for (const { demoIndex, openedUrl } of pageCaptures) {
+    const demoParam = new URL(openedUrl).searchParams.get('demo') || ''
+    const payload = decodePlaygroundPayload(demoParam)
+    if (!payload) {
+      throw new Error(`Failed to decode Playground payload for ${route} demo #${demoIndex + 1}`)
+    }
+
+    capturedCases.push({
+      route,
+      pageTitle: pageTitle.trim(),
+      demoIndex,
+      payload
+    })
+  }
+
+  return capturedCases
+}
+
+async function captureSupportedDemos(
+  routes: string[],
+  serverUrl: string
+): Promise<CapturedDemoCase[]> {
+  const browser = await chromium.launch({ headless: true })
+  const capturedCases: CapturedDemoCase[] = []
+  const captureConcurrency = Math.min(
+    Math.max(routes.length, 1),
+    parsePositiveInteger(
+      process.env.DOCS_SANDBOX_CAPTURE_CONCURRENCY ?? process.env.DOCS_SANDBOX_CONCURRENCY,
+      4
+    )
+  )
+  const pages = await Promise.all(
+    Array.from({ length: captureConcurrency }, () => createCapturePage(browser))
+  )
+  let nextRouteIndex = 0
+  let nextCapturedLogThreshold = 50
+
+  try {
+    await Promise.all(
+      pages.map(async (page) => {
+        while (true) {
+          const routeIndex = nextRouteIndex
+          nextRouteIndex += 1
+          if (routeIndex >= routes.length) {
+            break
+          }
+
+          const routeCases = await captureRouteDemos(page, routes[routeIndex], serverUrl)
+          capturedCases.push(...routeCases)
+
+          while (capturedCases.length >= nextCapturedLogThreshold) {
+            console.log(`[verify:docs-sandboxes] captured ${nextCapturedLogThreshold} demos so far`)
+            nextCapturedLogThreshold += 50
+          }
+        }
+      })
+    )
+  } finally {
+    await Promise.all(pages.map((page) => page.close().catch(() => undefined)))
+    await browser.close()
+  }
+
   return capturedCases
 }
 
@@ -577,6 +667,15 @@ async function fileExists(fullPath: string) {
   }
 }
 
+async function pathExists(fullPath: string) {
+  try {
+    await stat(fullPath)
+    return true
+  } catch {
+    return false
+  }
+}
+
 async function loadRuntimeAssetText(relativePath: string): Promise<string> {
   const cacheKey = normalizeFilePath(relativePath)
   if (!runtimeTextCache.has(cacheKey)) {
@@ -596,6 +695,18 @@ async function loadSiteAssetText(assetPath: string): Promise<string> {
   }
 
   return assetTextCache.get(cacheKey)!
+}
+
+async function ensurePlaygroundAssets() {
+  if (!verifiedPlaygroundAssetsPromise) {
+    verifiedPlaygroundAssetsPromise = (async () => {
+      for (const asset of PLAYGROUND_REQUIRED_ASSETS) {
+        assert(await fileExists(path.join(rootDir, asset)), `Missing Playground asset: ${asset}`)
+      }
+    })()
+  }
+
+  await verifiedPlaygroundAssetsPromise
 }
 
 async function validatePlaygroundCase(demoCase: CapturedDemoCase) {
@@ -623,10 +734,6 @@ async function validatePlaygroundCase(demoCase: CapturedDemoCase) {
     project.headHTML.includes('/yh-ui/playground/yh-ui-bundle.css'),
     `Playground headHTML missing bundle css for ${demoCase.route} demo #${demoCase.demoIndex + 1}`
   )
-
-  for (const asset of PLAYGROUND_REQUIRED_ASSETS) {
-    assert(await fileExists(path.join(rootDir, asset)), `Missing Playground asset: ${asset}`)
-  }
 }
 
 async function validateCodeSandboxCase(
@@ -778,23 +885,47 @@ async function validateCodeSandboxCase(
 }
 
 async function main() {
-  const routeFilter = process.env.DOCS_SANDBOX_ROUTE_FILTER?.trim()
+  const requestedRouteFilters = [
+    process.env.DOCS_SANDBOX_ROUTE_FILTER?.trim() || '',
+    ...(process.env.DOCS_SANDBOX_ROUTE_FILTERS || '')
+      .split(',')
+      .map((item) => item.trim())
+      .filter(Boolean)
+  ].filter(Boolean)
   const routeLimit = Number(process.env.DOCS_SANDBOX_ROUTE_LIMIT || '0')
+  const validateConcurrency = parsePositiveInteger(
+    process.env.DOCS_SANDBOX_VALIDATE_CONCURRENCY || process.env.DOCS_SANDBOX_CONCURRENCY,
+    4
+  )
   const skipPlayground = process.env.DOCS_SANDBOX_SKIP_PLAYGROUND === 'true'
   const skipCodeSandbox = process.env.DOCS_SANDBOX_SKIP_CODESANDBOX === 'true'
-  let routes = await getDemoRoutes()
-  if (routeFilter) {
-    routes = routes.filter((route) => route.includes(routeFilter))
+  const allRoutes = await getDemoRoutes()
+  let routes = allRoutes
+  if (requestedRouteFilters.length > 0) {
+    const unmatchedFilters = requestedRouteFilters.filter(
+      (filter) => !allRoutes.some((route) => route.includes(filter))
+    )
+    assert(
+      unmatchedFilters.length === 0,
+      `No docs demo routes matched filter(s): ${unmatchedFilters.join(', ')}`
+    )
+    routes = allRoutes.filter((route) =>
+      requestedRouteFilters.some((filter) => route.includes(filter))
+    )
   }
   if (routeLimit > 0) {
     routes = routes.slice(0, routeLimit)
   }
+  assert(routes.length > 0, 'No docs demo routes selected for sandbox verification')
   const manifest = JSON.parse(
     await readFile(path.join(runtimeDir, 'manifest.json'), 'utf8')
   ) as CodeSandboxManifest
   const { child, serverUrl, stdoutRef, stderrRef } = await startDocsPreview()
 
   try {
+    console.log(
+      `[verify:docs-sandboxes] selected ${routes.length} route(s); validation concurrency ${validateConcurrency}`
+    )
     const capturedCases = await captureSupportedDemos(routes, serverUrl)
     const uniqueCases = new Map<string, CapturedDemoCase>()
     for (const demoCase of capturedCases) {
@@ -804,7 +935,11 @@ async function main() {
     const scaffoldSignatures = new Set<string>()
     let validatedCases = 0
 
-    for (const demoCase of uniqueCases.values()) {
+    if (!skipPlayground) {
+      await ensurePlaygroundAssets()
+    }
+
+    await runWithConcurrency([...uniqueCases.values()], validateConcurrency, async (demoCase) => {
       try {
         if (!skipPlayground) {
           await validatePlaygroundCase(demoCase)
@@ -825,7 +960,7 @@ async function main() {
           }`
         )
       }
-    }
+    })
 
     console.log(
       JSON.stringify(

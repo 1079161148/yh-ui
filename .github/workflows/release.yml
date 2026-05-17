@@ -20,6 +20,11 @@ on:
         required: true
         type: boolean
         default: true
+      exhaustive_docs_sandboxes:
+        description: 'Run exhaustive docs sandbox validation instead of the fast release smoke'
+        required: true
+        type: boolean
+        default: false
 
 concurrency:
   group: release-${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
@@ -249,13 +254,16 @@ jobs:
           name: dist-packages-release
           path: packages
 
-      - name: Sync docs public packages
-        timeout-minutes: 10
-        run: pnpm sync:docs-public
-
       - name: Build documentation
         timeout-minutes: 20
         run: pnpm docs:build
+
+      - name: Upload docs site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site-release
+          path: docs/.vitepress/dist
+          retention-days: 3
 
       - name: Verify docs i18n
         timeout-minutes: 5
@@ -265,9 +273,15 @@ jobs:
         timeout-minutes: 10
         run: pnpm verify:stackblitz-local
 
-      - name: Verify docs sandboxes
-        timeout-minutes: 20
+      - name: Verify docs sandboxes (release smoke)
+        if: github.event_name != 'workflow_dispatch' || !inputs.exhaustive_docs_sandboxes
+        timeout-minutes: 12
         run: pnpm verify:docs-sandboxes
+
+      - name: Verify docs sandboxes (exhaustive)
+        if: github.event_name == 'workflow_dispatch' && inputs.exhaustive_docs_sandboxes
+        timeout-minutes: 60
+        run: pnpm verify:docs-sandboxes:exhaustive
 
       - name: Verify local CodeSandbox
         timeout-minutes: 20
@@ -284,14 +298,14 @@ jobs:
           name: docs-validation-artifacts
           if-no-files-found: ignore
           path: |
-            docs/.vitepress/dist
             test-results
             .codex-temp
           retention-days: 7
 
   validate-remote-codesandbox:
-    name: Release Validation / Remote CodeSandbox
+    name: Advisory / Remote CodeSandbox
     runs-on: ubuntu-latest
+    needs: [validate-docs]
     timeout-minutes: 25
     steps:
       - name: Checkout
@@ -353,7 +367,6 @@ jobs:
       - validate-build-artifacts
       - validate-browser
       - validate-docs
-      - validate-remote-codesandbox
     if: github.event_name != 'workflow_dispatch' || inputs.publish_to_npm
     permissions:
       contents: write
@@ -492,7 +505,6 @@ jobs:
       - validate-build-artifacts
       - validate-browser
       - validate-docs
-      - validate-remote-codesandbox
       - publish
     if: |
       (github.event_name != 'workflow_dispatch' || inputs.deploy_docs) &&
@@ -509,36 +521,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Download build artifacts
+      - name: Download docs site artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist-packages-release
-          path: packages
-
-      - name: Sync docs public packages
-        run: pnpm sync:docs-public
-
-      - name: Build documentation
-        run: pnpm docs:build
+          name: docs-site-release
+          path: docs-site-release
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -546,7 +533,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: docs-site-release
 
       - name: Deploy to GitHub Pages
         id: deployment
