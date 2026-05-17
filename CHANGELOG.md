@@ -4,6 +4,29 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.13] - 2026-05-17
+
+Release validation hardening update focused on unblocking the public npm release after local CodeSandbox verification stalled at the end of the gate.
+
+### Added
+
+- Added step-level progress output and selective reruns for the open-source release validation script so long release gates can be replayed and diagnosed one segment at a time.
+
+### Changed
+
+- Split the GitHub release workflow into focused quality, test, build, browser, docs, and remote sandbox jobs with explicit timeouts and shared build artifacts.
+- Updated local CodeSandbox validation logging to report per-case start and success markers instead of leaving the release gate silent during long smoke runs.
+
+### Fixed
+
+- Fixed the local CodeSandbox release check hanging after successful output by forcing preview-process cleanup on Linux runners and exiting the validator explicitly after success.
+- Fixed playground release validation cleanup so pnpm-hosted preview processes are terminated as full process groups instead of leaving child servers behind.
+
+### Notes
+
+- `1.0.12` was never published to npm; `1.0.13` supersedes it as the next public release line.
+- Targeted local verification completed for release-step listing, `verify:release-versions`, filtered `verify:codesandbox-local`, and formatter checks before republishing.
+
 ## [1.0.12] - 2026-05-17
 
 Release metadata refresh for the AI component hardening update, with the public tag and package line moved onto the corrected Git identity.

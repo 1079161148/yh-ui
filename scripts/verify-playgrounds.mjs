@@ -38,6 +38,7 @@ const targets = [
 ]
 
 const timeoutMs = 120_000
+const shutdownGraceMs = 2_000
 
 async function getFreePort() {
   return new Promise((resolvePort, rejectPort) => {
@@ -69,6 +70,7 @@ function startTarget(target) {
   const resolvedArgs = args.map((arg) => (arg === '__PORT__' ? String(target.port) : arg))
   const child = spawn(cmd, resolvedArgs, {
     cwd: target.cwd,
+    detached: process.platform !== 'win32',
     shell: process.platform === 'win32',
     stdio: ['ignore', 'pipe', 'pipe']
   })
@@ -85,7 +87,7 @@ function startTarget(target) {
   return { child, logs }
 }
 
-function stopTarget(server) {
+async function stopTarget(server) {
   if (server.child.killed) return
 
   if (process.platform === 'win32') {
@@ -93,7 +95,15 @@ function stopTarget(server) {
     return
   }
 
-  server.child.kill('SIGTERM')
+  try {
+    process.kill(-server.child.pid, 'SIGTERM')
+  } catch {}
+
+  await new Promise((resolve) => setTimeout(resolve, shutdownGraceMs))
+
+  try {
+    process.kill(-server.child.pid, 'SIGKILL')
+  } catch {}
 }
 
 function withServerLogs(error, target, server) {
@@ -220,7 +230,7 @@ async function main() {
   } finally {
     await browser.close()
     for (const { server } of servers) {
-      stopTarget(server)
+      await stopTarget(server)
     }
   }
 }

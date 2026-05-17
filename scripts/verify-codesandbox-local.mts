@@ -14,6 +14,7 @@ const runtimeDir = resolve(rootDir, 'docs/public/codesandbox-runtime')
 const tempRootDir = resolve(rootDir, '.codex-temp/codesandbox-local')
 const isWin = process.platform === 'win32'
 const pnpmCommand = isWin ? 'pnpm.cmd' : 'pnpm'
+const shutdownGraceMs = 2_000
 
 type BrowserPage =
   Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T } ? Awaited<T> : never
@@ -312,7 +313,15 @@ async function stopProcessTree(pid: number) {
   }
 
   try {
-    process.kill(pid, 'SIGKILL')
+    process.kill(-pid, 'SIGTERM')
+  } catch {
+    // ignore
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, shutdownGraceMs))
+
+  try {
+    process.kill(-pid, 'SIGKILL')
   } catch {
     // ignore
   }
@@ -407,6 +416,7 @@ async function verifyLocalSandbox(testCase: TestCase) {
       ...process.env,
       NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=6144'
     },
+    detached: !isWin,
     shell: isWin,
     stdio: 'pipe',
     windowsHide: true
@@ -499,13 +509,19 @@ async function main() {
   const selectedTestCases = selectTestCases(testCases)
 
   for (const testCase of selectedTestCases) {
+    console.log(`[verify:codesandbox-local] starting ${testCase.name}`)
     results.push(await verifyLocalSandbox(testCase))
+    console.log(`[verify:codesandbox-local] passed ${testCase.name}`)
   }
 
   console.log(JSON.stringify({ ok: true, results }, null, 2))
 }
 
-main().catch((error) => {
-  console.error(error)
-  process.exitCode = 1
-})
+main()
+  .then(() => {
+    process.exit(0)
+  })
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })

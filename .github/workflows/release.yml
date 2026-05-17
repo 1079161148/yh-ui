@@ -31,9 +31,126 @@ env:
   NODE_OPTIONS: '--max-old-space-size=6144'
 
 jobs:
-  validate:
-    name: Pre-release Validation
+  validate-quality:
+    name: Release Validation / Quality
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check code format
+        timeout-minutes: 5
+        run: pnpm format:check
+
+      - name: Type check
+        timeout-minutes: 10
+        run: pnpm typecheck
+
+      - name: Lint
+        timeout-minutes: 10
+        run: pnpm lint
+
+      - name: Verify release versions
+        timeout-minutes: 5
+        run: pnpm verify:release-versions
+
+      - name: Check changelog
+        timeout-minutes: 5
+        run: pnpm changelog:check
+
+  validate-tests:
+    name: Release Validation / Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run test suite
+        timeout-minutes: 20
+        run: pnpm test:ci
+
+  validate-build-artifacts:
+    name: Release Validation / Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        timeout-minutes: 20
+        run: pnpm build
+
+      - name: Check package size
+        timeout-minutes: 5
+        run: pnpm verify:package-size
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-packages-release
+          path: |
+            packages/*/dist
+          retention-days: 3
+
+  validate-browser:
+    name: Release Validation / Browser
+    runs-on: ubuntu-latest
+    needs: [validate-build-artifacts]
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,18 +173,174 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Chromium
+        timeout-minutes: 10
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Run open-source release gate
-        run: pnpm verify:open-source-release
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
+
+      - name: Verify component quality
+        timeout-minutes: 5
+        run: pnpm verify:component-quality
+
+      - name: Verify accessibility
+        timeout-minutes: 15
+        run: pnpm verify:a11y
+
+      - name: Run consumer smoke tests
+        timeout-minutes: 10
+        run: pnpm verify:consumer-smoke
+
+      - name: Verify playgrounds
+        timeout-minutes: 15
+        run: pnpm verify:playgrounds
+
+      - name: Run visual regression checks
+        timeout-minutes: 15
+        run: pnpm verify:visual-regression
+
+      - name: Upload browser validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-validation-artifacts
+          if-no-files-found: ignore
+          path: |
+            test-results
+            coverage/component-quality
+          retention-days: 7
+
+  validate-docs:
+    name: Release Validation / Docs & Sandboxes
+    runs-on: ubuntu-latest
+    needs: [validate-build-artifacts]
+    timeout-minutes: 50
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        timeout-minutes: 10
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
+
+      - name: Sync docs public packages
+        timeout-minutes: 10
+        run: pnpm sync:docs-public
+
+      - name: Build documentation
+        timeout-minutes: 20
+        run: pnpm docs:build
+
+      - name: Verify docs i18n
+        timeout-minutes: 5
+        run: pnpm verify:docs-i18n
+
+      - name: Verify local StackBlitz
+        timeout-minutes: 10
+        run: pnpm verify:stackblitz-local
+
+      - name: Verify docs sandboxes
+        timeout-minutes: 20
+        run: pnpm verify:docs-sandboxes
+
+      - name: Verify local CodeSandbox
+        timeout-minutes: 20
+        run: pnpm verify:codesandbox-local
+
+      - name: Verify docs playground
+        timeout-minutes: 10
+        run: pnpm verify:docs-playground
+
+      - name: Upload docs validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-validation-artifacts
+          if-no-files-found: ignore
+          path: |
+            docs/.vitepress/dist
+            test-results
+            .codex-temp
+          retention-days: 7
+
+  validate-remote-codesandbox:
+    name: Release Validation / Remote CodeSandbox
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        timeout-minutes: 10
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Verify remote CodeSandbox
+        timeout-minutes: 20
         run: pnpm verify:codesandbox-remote
+
+      - name: Upload remote sandbox artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: remote-codesandbox-artifacts
+          if-no-files-found: ignore
+          path: .codex-temp
+          retention-days: 7
 
   publish:
     name: Publish to npm
     runs-on: ubuntu-latest
-    needs: [validate]
+    needs:
+      - validate-quality
+      - validate-tests
+      - validate-build-artifacts
+      - validate-browser
+      - validate-docs
+      - validate-remote-codesandbox
     if: github.event_name != 'workflow_dispatch' || inputs.publish_to_npm
     permissions:
       contents: write
@@ -94,8 +367,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build all packages
-        run: pnpm build
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
 
       - name: Extract release version
         id: version
@@ -197,10 +473,16 @@ jobs:
   deploy-docs:
     name: Deploy Documentation
     runs-on: ubuntu-latest
-    needs: [validate, publish]
+    needs:
+      - validate-quality
+      - validate-tests
+      - validate-build-artifacts
+      - validate-browser
+      - validate-docs
+      - validate-remote-codesandbox
+      - publish
     if: |
       (github.event_name != 'workflow_dispatch' || inputs.deploy_docs) &&
-      needs.validate.result == 'success' &&
       (
         github.event_name != 'workflow_dispatch' ||
         inputs.publish_to_npm ||
@@ -233,8 +515,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build packages for docs
-        run: pnpm build
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
 
       - name: Sync docs public packages
         run: pnpm sync:docs-public
