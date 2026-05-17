@@ -9,6 +9,7 @@ import 'highlight.js/styles/atom-one-dark.css'
 import { aiCodeBlockProps, aiCodeBlockEmits } from './ai-code-block'
 import { useComponentTheme } from '@yh-ui/theme'
 import YhAiCodeEditor from '../../ai-code-editor'
+import { sanitizeHighlightedHtml } from '../../sanitize'
 
 defineOptions({
   name: 'YhAiCodeBlock'
@@ -25,6 +26,15 @@ const slots = useSlots()
 function normalizeCodeLines(code: string): string {
   if (!code) return ''
   return code.replace(/\\n/g, '\n').trim()
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 const copied = ref(false)
@@ -64,7 +74,7 @@ const lineCount = computed(() => {
 const highlightedCodeLines = computed(() => {
   if (!normalizedCode.value) return []
 
-  let html = normalizedCode.value
+  let html = escapeHtml(normalizedCode.value)
   try {
     if (props.highlight) {
       if (props.language && hljs.getLanguage(props.language)) {
@@ -82,7 +92,9 @@ const highlightedCodeLines = computed(() => {
 
   return html.split('\n').map((line: string, idx: number) => {
     const isHighlighted = props.highlightLines.includes(idx + 1)
-    return `<div class="${ns.e('line')} ${isHighlighted ? 'is-active' : ''}">${line === '' ? ' ' : line}</div>`
+    return sanitizeHighlightedHtml(
+      `<div class="${ns.e('line')} ${isHighlighted ? 'is-active' : ''}">${line === '' ? ' ' : line}</div>`
+    )
   })
 })
 

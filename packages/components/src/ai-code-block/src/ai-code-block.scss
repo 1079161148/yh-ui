@@ -18,6 +18,7 @@
   box-shadow: var(--yh-ai-code-block-shadow);
   font-family: var(--yh-font-family-mono);
   font-size: 14px;
+  @include container(ai-code-block);
 
   @include e(header) {
     display: flex;
@@ -176,6 +177,52 @@
 
     @include e(header) {
       background-color: #2d2d2d;
+    }
+  }
+
+  @include container-query('max-width: 560px', ai-code-block) {
+    @include e(header) {
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    @include e(actions) {
+      width: 100%;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      row-gap: 4px;
+    }
+
+    @include e(line-numbers) {
+      min-width: 32px;
+      padding: 12px 0;
+    }
+
+    @include e(content) {
+      padding: 12px 0;
+
+      @include e(line) {
+        padding: 0 12px;
+
+        &.is-active {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+  @include container-query('max-width: 420px', ai-code-block) {
+    @include e(header) {
+      padding: 8px 12px;
+    }
+
+    @include e(body) {
+      font-size: 13px;
+    }
+
+    @include e(editor-wrapper) {
+      padding: 8px;
     }
   }
 }

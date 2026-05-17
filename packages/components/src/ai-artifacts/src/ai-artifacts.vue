@@ -13,6 +13,7 @@ import { YhSpin } from '../../spin'
 import { useComponentTheme } from '@yh-ui/theme'
 import hljs from '../../highlight'
 import 'highlight.js/styles/atom-one-dark.css'
+import { sanitizeHighlightedHtml } from '../../sanitize'
 
 defineOptions({
   name: 'YhAiArtifacts'
@@ -32,6 +33,14 @@ const { themeStyle } = useComponentTheme(
 
 const internalMode = ref(props.mode)
 const currentVersionState = ref<string | number>(props.data?.currentVersion || '')
+
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 
 // ECharts 类型定义
 interface EChartsInstance {
@@ -141,13 +150,15 @@ const highlightedCode = computed(() => {
 
   if (lang && hljs.getLanguage(lang)) {
     try {
-      return hljs.highlight(content, { language: lang, ignoreIllegals: true }).value
+      return sanitizeHighlightedHtml(
+        hljs.highlight(content, { language: lang, ignoreIllegals: true }).value
+      )
     } catch {
-      return content
+      return sanitizeHighlightedHtml(escapeHtml(content))
     }
   }
 
-  return hljs.highlightAuto(content).value
+  return sanitizeHighlightedHtml(hljs.highlightAuto(content).value)
 })
 
 // ECharts 初始化

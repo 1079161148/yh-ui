@@ -74,13 +74,6 @@ const PLAYGROUND_REQUIRED_ASSETS = [
   'docs/public/playground/server-renderer.js'
 ]
 
-const TARGET_CODE_SANDBOX_SOURCE_FILES = [
-  'src/App.vue',
-  'src/Demo.vue',
-  'src/main.ts',
-  'vite.config.ts'
-]
-
 const assetTextCache = new Map<string, Promise<string>>()
 const runtimeTextCache = new Map<string, Promise<string>>()
 
@@ -105,6 +98,15 @@ function decodeRouteFromMarkdown(relativeMarkdownPath: string): string {
   }
 
   return `/yh-ui/${normalized.replace(/\.md$/, '.html')}`
+}
+
+function getPackageName(source: string): string {
+  if (source.startsWith('@')) {
+    const [scope, name] = source.split('/')
+    return `${scope}/${name || ''}`
+  }
+
+  return source.split('/')[0]
 }
 
 async function walkMarkdownFiles(dir: string): Promise<string[]> {
@@ -383,6 +385,39 @@ function collectScriptModuleImports(
   return imports
 }
 
+function collectScriptDynamicTemplateImports(code: string, id: string): string[] {
+  const sourceFile = ts.createSourceFile(id, code, ts.ScriptTarget.ES2020, true, ts.ScriptKind.TS)
+  const imports = new Set<string>()
+
+  const visit = (node: ts.Node) => {
+    if (
+      ts.isCallExpression(node) &&
+      node.expression.kind === ts.SyntaxKind.ImportKeyword &&
+      node.arguments.length === 1
+    ) {
+      const [argument] = node.arguments
+
+      if (ts.isTemplateExpression(argument)) {
+        const source = [
+          argument.head.text,
+          ...argument.templateSpans.flatMap((span) => ['${dynamic}', span.literal.text])
+        ].join('')
+
+        if (source.startsWith('.')) {
+          imports.add(source)
+        }
+      } else if (ts.isNoSubstitutionTemplateLiteral(argument) && argument.text.startsWith('.')) {
+        imports.add(argument.text)
+      }
+    }
+
+    ts.forEachChild(node, visit)
+  }
+
+  visit(sourceFile)
+  return [...imports]
+}
+
 function collectModuleImports(
   filePath: string,
   content: string
@@ -402,6 +437,35 @@ function collectModuleImports(
   }
 
   return collectScriptModuleImports(content, filePath)
+}
+
+function collectModuleDynamicTemplateImports(filePath: string, content: string): string[] {
+  if (filePath.endsWith('.vue')) {
+    const { descriptor } = parse(content, { filename: filePath })
+    const imports = new Set<string>()
+
+    if (descriptor.script?.content) {
+      for (const source of collectScriptDynamicTemplateImports(
+        descriptor.script.content,
+        `${filePath}?script`
+      )) {
+        imports.add(source)
+      }
+    }
+
+    if (descriptor.scriptSetup?.content) {
+      for (const source of collectScriptDynamicTemplateImports(
+        descriptor.scriptSetup.content,
+        `${filePath}?script-setup`
+      )) {
+        imports.add(source)
+      }
+    }
+
+    return [...imports]
+  }
+
+  return collectScriptDynamicTemplateImports(content, filePath)
 }
 
 function normalizeFilePath(filePath: string): string {
@@ -429,10 +493,12 @@ function resolveRelativeImport(
     `${resolvedPath}.ts`,
     `${resolvedPath}.js`,
     `${resolvedPath}.vue`,
+    `${resolvedPath}.css`,
     `${resolvedPath}.json`,
     `${resolvedPath}/index.ts`,
     `${resolvedPath}/index.js`,
-    `${resolvedPath}/index.vue`
+    `${resolvedPath}/index.vue`,
+    `${resolvedPath}/index.css`
   ].map(normalizeFilePath)
 
   for (const candidate of candidates) {
@@ -442,6 +508,28 @@ function resolveRelativeImport(
   }
 
   return null
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function resolveDynamicRelativeImportMatches(
+  fromFile: string,
+  source: string,
+  files: Set<string>
+): string[] {
+  const placeholderToken = '__YH_DYNAMIC_IMPORT__'
+  const baseDir = dirnamePosix(fromFile)
+  const templatePath = source.replace(/\$\{[^}]+\}/g, placeholderToken)
+  const resolvedPath = new URL(templatePath, `file:///${baseDir ? `${baseDir}/` : ''}`).pathname
+    .replace(/^\/([A-Za-z]:)/, '$1')
+    .replace(/^\//, '')
+  const pathPattern = new RegExp(
+    `^${escapeRegExp(normalizeFilePath(resolvedPath)).replaceAll(placeholderToken, '.+?')}$`
+  )
+
+  return [...files].filter((candidate) => pathPattern.test(candidate)).sort()
 }
 
 function validateVueSfc(code: string, id: string) {
@@ -622,7 +710,16 @@ async function validateCodeSandboxCase(
     ...Object.keys(packageJson.devDependencies || {})
   ])
 
-  for (const normalizedFilePath of TARGET_CODE_SANDBOX_SOURCE_FILES) {
+  const generatedScriptFiles = [...fileSet]
+    .filter(
+      (filePath) =>
+        (filePath === 'vite.config.ts' || filePath.startsWith('src/')) &&
+        /\.(?:vue|[cm]?[jt]sx?)$/.test(filePath) &&
+        !filePath.endsWith('.d.ts')
+    )
+    .sort()
+
+  for (const normalizedFilePath of generatedScriptFiles) {
     const content = files[normalizedFilePath]
     assert(content, `Missing expected source file ${normalizedFilePath} for ${demoCase.route}`)
 
@@ -648,8 +745,16 @@ async function validateCodeSandboxCase(
       }
 
       assert(
-        packageImports.has(source) || packageImports.has(source.split('/').slice(0, 2).join('/')),
+        packageImports.has(source) || packageImports.has(getPackageName(source)),
         `Missing dependency "${source}" in package.json for ${demoCase.route} demo #${demoCase.demoIndex + 1}`
+      )
+    }
+
+    for (const source of collectModuleDynamicTemplateImports(normalizedFilePath, content)) {
+      const matches = resolveDynamicRelativeImportMatches(normalizedFilePath, source, fileSet)
+      assert(
+        matches.length > 0,
+        `Unresolved dynamic relative import "${source}" from ${normalizedFilePath} for ${demoCase.route}`
       )
     }
   }

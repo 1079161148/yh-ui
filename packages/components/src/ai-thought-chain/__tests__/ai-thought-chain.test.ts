@@ -323,4 +323,23 @@ describe('YhAiThoughtChain', () => {
     })
     expect(wrapper.find('.yh-ai-thought-chain').exists()).toBe(true)
   })
+
+  it('should sanitize rendered markdown links in timeline content', () => {
+    const wrapper = mount(AiThoughtChain, {
+      props: {
+        items: [
+          {
+            title: 'Step 1',
+            status: 'complete',
+            content: '[safe](https://example.com) [bad](javascript:alert(1))',
+            expanded: true
+          }
+        ]
+      }
+    })
+
+    const html = wrapper.find('.yh-ai-thought-chain__item-content').html()
+    expect(html).toContain('https://example.com')
+    expect(html).not.toContain('href="javascript:')
+  })
 })

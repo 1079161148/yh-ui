@@ -143,6 +143,53 @@ const message = ref('Draft prompt')
     }
   },
   {
+    name: 'ai-code-block',
+    title: 'AI Code Block',
+    code: `<template>
+  <div style="max-width: 640px">
+    <yh-ai-code-block language="typescript" :code="code" />
+  </div>
+</template>
+
+<script setup lang="ts">
+const code = "const message = 'sandbox'\\nconsole.log(message)"
+</script>`,
+    selector: '.yh-ai-code-block',
+    text: '',
+    evaluate: async (page) => {
+      await page.locator('.yh-ai-code-block__header').waitFor({ state: 'visible', timeout: 30000 })
+      const lineCount = await page.locator('.yh-ai-code-block__line').count()
+      if (lineCount < 2) {
+        throw new Error(`Expected ai code block to render at least 2 lines, received ${lineCount}`)
+      }
+    }
+  },
+  {
+    name: 'ai-mermaid',
+    title: 'AI Mermaid',
+    code: `<template>
+  <div style="max-width: 720px">
+    <yh-ai-mermaid :code="diagram" />
+  </div>
+</template>
+
+<script setup lang="ts">
+const diagram = "graph TD\\nA[Start] --> B[Done]"
+</script>`,
+    selector: '.yh-ai-mermaid',
+    text: '',
+    evaluate: async (page) => {
+      await page
+        .locator('.yh-ai-mermaid__graph svg, .yh-ai-mermaid__graph .mermaid')
+        .first()
+        .waitFor({ state: 'visible', timeout: 30000 })
+      const tabCount = await page.locator('.yh-ai-mermaid__render-tab').count()
+      if (tabCount < 2) {
+        throw new Error(`Expected ai mermaid render tabs to appear, received ${tabCount}`)
+      }
+    }
+  },
+  {
     name: 'table-click',
     title: 'Table Click',
     code: `<template>
@@ -210,6 +257,26 @@ const edges = ref([{ id: 'e1-2', source: '1', target: '2' }])
     }
   }
 ]
+
+function selectTestCases(allCases: typeof testCases): typeof testCases {
+  const filter = process.env.CODESANDBOX_CASE_FILTER?.trim()
+  if (!filter) return allCases
+
+  const needles = filter
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean)
+
+  const selected = allCases.filter((testCase) =>
+    needles.some((needle) => testCase.name.includes(needle))
+  )
+
+  if (selected.length === 0) {
+    throw new Error(`No remote CodeSandbox cases matched CODESANDBOX_CASE_FILTER=${filter}`)
+  }
+
+  return selected
+}
 
 type BrowserPage =
   Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T } ? Awaited<T> : never
@@ -436,8 +503,9 @@ async function verifyTestCase(testCase: TestCase) {
 
 async function main() {
   const results = []
+  const selectedTestCases = selectTestCases(testCases)
 
-  for (const testCase of testCases) {
+  for (const testCase of selectedTestCases) {
     results.push(await verifyTestCase(testCase))
   }
 

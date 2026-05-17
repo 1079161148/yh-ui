@@ -28,6 +28,7 @@ import type StateBlock from 'markdown-it/lib/rules_block/state_block.mjs'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
 import hljs from '../../highlight'
 import 'highlight.js/styles/atom-one-dark.css'
+import { sanitizeHighlightedHtml, sanitizeMarkup, sanitizeSvgMarkup } from '../../sanitize'
 
 defineOptions({
   name: 'YhAiBubble'
@@ -84,6 +85,30 @@ const escapeHtml = (str: string): string => {
   return str.replace(/[&<>"']/g, (char) => htmlEntities[char])
 }
 
+const sanitizeBubbleHtml = (html: string): string => {
+  if (!props.enableSanitizer) {
+    return html
+  }
+
+  return sanitizeMarkup(html, {
+    allowedTags: [...new Set([...props.allowedTags, 'button', 'sub', 'sup'])],
+    allowedAttributes: [
+      ...new Set([
+        ...props.allowedAttributes,
+        'aria-label',
+        'data-code',
+        'data-id',
+        'data-lang',
+        'data-latex',
+        'role',
+        'tabindex'
+      ])
+    ],
+    allowedSchemes: props.allowedSchemes,
+    sanitizer: props.sanitizer
+  })
+}
+
 const getFileIcon = (url: string = '') => {
   const ext = url.split('.').pop()?.toLowerCase() || ''
   switch (ext) {
@@ -126,7 +151,7 @@ const initMermaid = async (): Promise<MermaidModule | null> => {
     mermaidModule.default.initialize({
       startOnLoad: false,
       theme: 'default',
-      securityLevel: 'loose',
+      securityLevel: 'strict',
       flowchart: { curve: 'basis', padding: 15 },
       sequence: { actorMargin: 50, boxMargin: 10 }
     })
@@ -141,7 +166,7 @@ const _renderMermaid = async (code: string): Promise<string> => {
   if (!mermaidModule) {
     await initMermaid()
   }
-  if (!mermaidModule) return `<pre class="mermaid-error">${code}</pre>`
+  if (!mermaidModule) return `<pre class="mermaid-error">${escapeHtml(code)}</pre>`
 
   mermaidLoading.value = true
   mermaidError.value = null
@@ -150,11 +175,11 @@ const _renderMermaid = async (code: string): Promise<string> => {
     const id = `mermaid-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
     const { svg } = await mermaidModule.default.render(id, code)
     mermaidLoading.value = false
-    return svg
+    return sanitizeSvgMarkup(svg)
   } catch (e: unknown) {
     mermaidLoading.value = false
     mermaidError.value = e instanceof Error ? e.message : 'Failed to render mermaid diagram'
-    return `<pre class="mermaid-error">${code}</pre>`
+    return `<pre class="mermaid-error">${escapeHtml(code)}</pre>`
   }
 }
 
@@ -547,7 +572,7 @@ const runCode = async (code: string, lang: string, id: string): Promise<void> =>
   // 对于流式输出，需要持续触发渲染
   const triggerRender = () => {
     if (props.markdown && mdi.value && props.content) {
-      parsedContent.value = mdi.value.render(props.content)
+      parsedContent.value = sanitizeBubbleHtml(mdi.value.render(props.content))
     }
   }
 
@@ -573,7 +598,7 @@ const explainCode = async (code: string, lang: string): Promise<string> => {
 
 // === 流式代码块渲染 ===
 // Markdown 渲染后的 HTML 内容（用于打字机 / 流式渲染）
-const parsedContent = ref(props.content)
+const parsedContent = ref('')
 let renderRafId: number | null = null
 let streamTimer: ReturnType<typeof setInterval> | null = null
 let streamPosition = 0
@@ -705,13 +730,15 @@ const jsonHtml = computed(() => {
     const jsonString = typeof rawData === 'string' ? rawData : JSON.stringify(rawData, null, 2)
 
     if (hljs.getLanguage('json')) {
-      return hljs.highlight(jsonString, {
-        language: 'json',
-        ignoreIllegals: true
-      }).value
+      return sanitizeHighlightedHtml(
+        hljs.highlight(jsonString, {
+          language: 'json',
+          ignoreIllegals: true
+        }).value
+      )
     }
 
-    return jsonString
+    return sanitizeHighlightedHtml(escapeHtml(jsonString))
   } catch (e) {
     console.warn('Failed to render JSON structured data:', e)
     return ''
@@ -930,30 +957,30 @@ const getMarkdownInstance = () => {
     'code',
     'mermaid',
     (state: StateBlock, startLine: number, _endLine: number, silent: boolean) => {
-    const start = state.bMarks[startLine]
-    const max = state.eMarks[startLine]
-    const line = state.src.slice(start, max)
-    if (!line.trim().startsWith('```mermaid')) return false
+      const start = state.bMarks[startLine]
+      const max = state.eMarks[startLine]
+      const line = state.src.slice(start, max)
+      if (!line.trim().startsWith('```mermaid')) return false
 
-    if (!silent) {
-      state.line = startLine + 1
-      const lines: string[] = []
-      while (state.line < state.lineMax) {
-        const lineContent = state.src.slice(state.bMarks[state.line], state.eMarks[state.line])
-        if (lineContent.trim().startsWith('```')) break
-        lines.push(lineContent)
-        state.line++
+      if (!silent) {
+        state.line = startLine + 1
+        const lines: string[] = []
+        while (state.line < state.lineMax) {
+          const lineContent = state.src.slice(state.bMarks[state.line], state.eMarks[state.line])
+          if (lineContent.trim().startsWith('```')) break
+          lines.push(lineContent)
+          state.line++
+        }
+
+        let token = state.push('mermaid_open', 'div', 1)
+        token.attrSet('class', 'mermaid-block')
+
+        token = state.push('mermaid_code', '', 0)
+        token.content = lines.join('\n')
+
+        token = state.push('mermaid_close', 'div', -1)
       }
-
-      let token = state.push('mermaid_open', 'div', 1)
-      token.attrSet('class', 'mermaid-block')
-
-      token = state.push('mermaid_code', '', 0)
-      token.content = lines.join('\n')
-
-      token = state.push('mermaid_close', 'div', -1)
-    }
-    return true
+      return true
     }
   )
 
@@ -1067,7 +1094,9 @@ const streamRender = (
 
       // 对 buffer 进行 Markdown 渲染
       parsedContent.value =
-        props.markdown && mdi.value ? mdi.value.render(streamBuffer) : streamBuffer
+        props.markdown && mdi.value
+          ? sanitizeBubbleHtml(mdi.value.render(streamBuffer))
+          : streamBuffer
     } else {
       // 流式渲染完成
       if (streamTimer) {
@@ -1076,7 +1105,9 @@ const streamRender = (
       }
       // 确保最终内容完整渲染
       parsedContent.value =
-        props.markdown && mdi.value ? mdi.value.render(fullContent) : fullContent
+        props.markdown && mdi.value
+          ? sanitizeBubbleHtml(mdi.value.render(fullContent))
+          : fullContent
       // 触发完成回调
       if (props.onStreamComplete) {
         props.onStreamComplete()
@@ -1100,7 +1131,9 @@ watch(
         renderRafId = null
       }
       parsedContent.value =
-        props.markdown && mdi.value ? mdi.value.render(newContent || '') : newContent
+        props.markdown && mdi.value
+          ? sanitizeBubbleHtml(mdi.value.render(newContent || ''))
+          : newContent
       return
     }
 
@@ -1111,13 +1144,17 @@ watch(
     }
 
     if (typeof requestAnimationFrame === 'undefined') {
-      parsedContent.value = mdi.value ? mdi.value.render(newContent || '') : newContent
+      parsedContent.value = mdi.value
+        ? sanitizeBubbleHtml(mdi.value.render(newContent || ''))
+        : newContent
       return
     }
 
     if (renderRafId) return
     renderRafId = requestAnimationFrame(() => {
-      parsedContent.value = mdi.value ? mdi.value.render(newContent || '') : newContent
+      parsedContent.value = mdi.value
+        ? sanitizeBubbleHtml(mdi.value.render(newContent || ''))
+        : newContent
       renderRafId = null
     })
   },

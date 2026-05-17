@@ -31,6 +31,7 @@ $theme-vars: (
   border-radius: 8px;
   overflow: hidden;
   box-sizing: border-box;
+  @include container(ai-mermaid);
 
   // 头部
   &__header {
@@ -181,6 +182,48 @@ $theme-vars: (
     border-radius: 4px;
     color: #f56c6c;
     font-size: 14px;
+  }
+
+  @include container-query('max-width: 640px', ai-mermaid) {
+    &__header,
+    &__actions {
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    &__actions {
+      padding: 10px 12px;
+    }
+
+    &__render-tabs,
+    &__action-buttons {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    &__content {
+      padding: 12px;
+    }
+
+    &__code {
+      padding: 12px;
+    }
+  }
+
+  @include container-query('max-width: 420px', ai-mermaid) {
+    &__render-tab {
+      flex: 1 1 0;
+      justify-content: center;
+    }
+
+    &__action-buttons {
+      justify-content: flex-end;
+    }
+
+    &__graph {
+      text-align: left;
+    }
   }
 }
 

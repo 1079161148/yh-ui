@@ -15,6 +15,8 @@ import {
   adjustSaturation,
   adjustLightness,
   hexToRgb,
+  rgbToHsl,
+  hslToRgb,
   getAnalogousColors,
   getTriadicColors,
   generatePaletteFromPrimary,
@@ -114,6 +116,17 @@ describe('Theme System Comprehensive', () => {
     expect(getRelativeLuminance(255, 255, 255)).toBeCloseTo(1)
     expect(getContrastRatio('#ffffff', '#000000')).toBeGreaterThan(10)
     expect(getContrastRatio('invalid', '#000000')).toBe(1)
+  })
+
+  it('covers additional color conversion edge branches', () => {
+    const grayscale = rgbToHsl(128, 128, 128)
+    expect(grayscale.s).toBe(0)
+
+    const magentaRed = rgbToHsl(255, 0, 128)
+    expect(magentaRed.h).toBeGreaterThan(300)
+
+    expect(hslToRgb(30, 0, 50)).toEqual({ r: 128, g: 128, b: 128 })
+    expect(getRelativeLuminance(1, 1, 1)).toBeGreaterThanOrEqual(0)
   })
 
   // 3. Algorithms & Blind mode & Density

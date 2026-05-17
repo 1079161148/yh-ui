@@ -18,6 +18,7 @@ const COMPONENT_ROOT_RUNTIME_FILES = [
   'dayjs.mjs',
   'highlight.mjs',
   'markdown-it.mjs',
+  'sanitize.mjs',
   'viewerjs.mjs'
 ]
 const BUNDLE_EXTERNALS = [
@@ -100,6 +101,15 @@ function patchSourceForCodeSandbox(sourceFile, source) {
   }
 
   return source
+}
+
+function buildDayjsLocaleLoaderMap(localeNames) {
+  const entries = localeNames
+    .sort((left, right) => left.localeCompare(right))
+    .map((localeName) => `  "${localeName}": () => import("../../dayjs-locale/${localeName}.js")`)
+    .join(',\n')
+
+  return `const dayjsLocaleLoaders = {\n${entries}\n};`
 }
 
 function collectCollidingModuleBases(sourceFiles, sourceRoot) {
@@ -345,6 +355,9 @@ async function processSourceFile(
   )
   code = rewriteSupportBarrelImports(code)
   code = await lower(code)
+  if (!code.trim()) {
+    code = 'export {};\n'
+  }
 
   await ensureDir(dirname(outFile))
   await writeFile(outFile, code, 'utf8')
@@ -395,9 +408,12 @@ async function buildSupportPackages() {
 async function buildDayjsLocaleRuntime() {
   const files = new Set()
   const localeFiles = await readdir(dayjsEsmLocaleDir, { withFileTypes: true })
+  const localeNames = []
 
   for (const entry of localeFiles) {
     if (!entry.isFile() || !entry.name.endsWith('.js')) continue
+
+    localeNames.push(entry.name.replace(/\.js$/, ''))
 
     const sourceFile = join(dayjsEsmLocaleDir, entry.name)
     const outFile = join(runtimeOutDir, 'dayjs-locale', entry.name)
@@ -411,6 +427,27 @@ async function buildDayjsLocaleRuntime() {
     await writeFile(outFile, code, 'utf8')
     files.add(relative(runtimeOutDir, outFile).replace(/\\/g, '/'))
   }
+
+  const runtimeHookFile = join(runtimeOutDir, 'hooks', 'use-locale', 'dayjs-locale.js')
+  const hookSource = await readFile(runtimeHookFile, 'utf8')
+  const patchedHookSource = hookSource.replace(
+    /const loadDayjsLocale = async \(dayjsLocale\) => \{[\s\S]*?\n\};/,
+    `${buildDayjsLocaleLoaderMap(localeNames)}
+const loadDayjsLocale = async (dayjsLocale) => {
+  const loader = dayjsLocaleLoaders[dayjsLocale];
+  if (!loader) {
+    return false;
+  }
+
+  try {
+    await loader();
+    return true;
+  } catch {
+    return false;
+  }
+};`
+  )
+  await writeFile(runtimeHookFile, patchedHookSource, 'utf8')
 
   return [...files].sort()
 }

@@ -39,6 +39,7 @@ Thumbs.db
 coverage
 *.lcov
 test-results/
+.vitest-reports/
 
 # Type declarations (generated)
 *.tsbuildinfo

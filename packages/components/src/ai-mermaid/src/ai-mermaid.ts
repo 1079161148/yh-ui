@@ -47,6 +47,15 @@ export interface MermaidActions {
 /** 渲染类型 */
 export type RenderType = 'image' | 'code'
 
+export function buildMermaidRenderSource(code: string, config?: MermaidConfig) {
+  const configStr = JSON.stringify({
+    ...(config || {}),
+    securityLevel: 'strict'
+  })
+
+  return `%%{init: ${configStr}}%%\n${code}`
+}
+
 // Props
 export const aiMermaidProps = {
   /** Mermaid 代码内容 */

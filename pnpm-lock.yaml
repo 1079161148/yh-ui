@@ -265,6 +265,9 @@ importers:
       dayjs:
         specifier: ^1.11.19
         version: 1.11.19
+      dompurify:
+        specifier: ^3.3.3
+        version: 3.3.3
       markdown-it:
         specifier: ^14.1.1
         version: 14.1.1

@@ -7,6 +7,7 @@
   padding-left: 12px;
   max-width: 100%;
   transition: all 0.3s ease;
+  @include container(ai-thought-chain);
 
   // 进度条
   @include e(progress-bar) {
@@ -351,6 +352,37 @@
       @include e(item-text) {
         white-space: pre-wrap;
       }
+    }
+  }
+
+  @include container-query('max-width: 560px', ai-thought-chain) {
+    @include e(add-node) {
+      margin-left: 0;
+    }
+
+    @include e(item-header) {
+      flex-wrap: wrap;
+      height: auto;
+      row-gap: 6px;
+    }
+
+    @include e(item-actions) {
+      opacity: 1;
+      margin-left: 0;
+    }
+
+    @include e(item-progress) {
+      margin-left: 0;
+    }
+  }
+
+  @include container-query('max-width: 420px', ai-thought-chain) {
+    @include e(content) {
+      padding: 10px;
+    }
+
+    @include e(item-content) {
+      padding: 8px;
     }
   }
 }

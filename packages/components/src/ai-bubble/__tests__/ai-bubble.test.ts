@@ -2,7 +2,7 @@
  * @vitest-environment happy-dom
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { flushPromises, mount } from '@vue/test-utils'
 import hljs from 'highlight.js'
 
 // Use real markdown-it and highlight.js for better coverage
@@ -966,7 +966,7 @@ describe('YhAiBubble', () => {
       }
     })
 
-    expect((wrapper.vm as any).jsonHtml).toContain('&quot;answer&quot;: 42')
+    expect((wrapper.vm as any).jsonHtml).toContain('"answer": 42')
     expect((wrapper.vm as any).jsonHtml).not.toContain('<span class="hljs-')
   })
 
@@ -978,7 +978,7 @@ describe('YhAiBubble', () => {
       }
     })
 
-    expect((wrapper.vm as any).jsonHtml).toContain('&quot;raw&quot;:true')
+    expect((wrapper.vm as any).jsonHtml).toContain('{"raw":true}')
   })
 
   it('should ignore citation hover when citation id is missing from props', () => {
@@ -1239,5 +1239,40 @@ describe('YhAiBubble', () => {
     expect((wrapper.vm as any).parsedContent).toBe('XYZ')
     expect(onStreamComplete).toHaveBeenCalledTimes(1)
     vi.useRealTimers()
+  })
+
+  it('should sanitize raw markdown html while preserving safe markup', async () => {
+    const wrapper = mount(AiBubble, {
+      props: {
+        content:
+          '<img src="x" onerror="alert(1)"><a href="javascript:alert(1)" target="_blank">bad</a><script>alert(1)</script>',
+        markdown: true,
+        markdownOptions: {
+          html: true
+        }
+      }
+    })
+
+    await flushPromises()
+
+    const html = wrapper.find('.yh-ai-bubble__markdown').html()
+    expect(html).not.toContain('<script')
+    expect(html).not.toContain('onerror=')
+    expect(html).not.toContain('javascript:')
+    expect(html).toContain('<img src="x">')
+    expect(html).toContain('<a>bad</a>')
+  })
+
+  it('should keep markdown code block actions after sanitizing rendered html', async () => {
+    const wrapper = mount(AiBubble, {
+      props: {
+        content: '```js\nconsole.log(1)\n```',
+        markdown: true
+      }
+    })
+
+    await flushPromises()
+
+    expect(wrapper.find('.code-action-btn.copy-btn').exists()).toBe(true)
   })
 })

@@ -1,14 +1,32 @@
 /**
  * @vitest-environment happy-dom
  */
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { flushPromises, mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import AiMermaid from '../src/ai-mermaid.vue'
 import { YhConfigProvider } from '../../config-provider'
 import { en } from '@yh-ui/locale'
 
+const { mockMermaidInitialize, mockMermaidRender } = vi.hoisted(() => ({
+  mockMermaidInitialize: vi.fn(),
+  mockMermaidRender: vi.fn()
+}))
+
+vi.mock('mermaid', () => ({
+  default: {
+    initialize: mockMermaidInitialize,
+    render: mockMermaidRender
+  }
+}))
+
 describe('YhAiMermaid', () => {
+  beforeEach(() => {
+    mockMermaidInitialize.mockReset()
+    mockMermaidRender.mockReset()
+    mockMermaidRender.mockResolvedValue({ svg: '<svg class="mermaid-rendered"></svg>' })
+  })
+
   // ─── Rendering ───────────────────────────────────────────
   it('should render with base class', () => {
     const wrapper = mount(AiMermaid)
@@ -100,6 +118,14 @@ describe('YhAiMermaid', () => {
     expect(aiMermaidProps.actions.default).toBeDefined()
   })
 
+  it('should build strict mermaid render source from config', async () => {
+    const { buildMermaidRenderSource } = await import('../src/ai-mermaid')
+    expect(buildMermaidRenderSource('graph TD\nA-->B')).toContain('"securityLevel":"strict"')
+    expect(buildMermaidRenderSource('graph TD\nA-->B', { theme: 'dark' })).toContain(
+      '"theme":"dark"'
+    )
+  })
+
   // ─── Emits Validation ────────────────────────────────────
   it('should validate emits', async () => {
     const { aiMermaidEmits } = await import('../src/ai-mermaid')
@@ -140,5 +166,28 @@ describe('YhAiMermaid', () => {
     })
 
     expect(wrapper.attributes('style')).toContain('--yh-ai-mermaid-header-bg: #f5f5f5')
+  })
+
+  it('should sanitize rendered mermaid svg and enforce strict security level', async () => {
+    mockMermaidRender.mockResolvedValueOnce({
+      svg: '<svg><script>alert(1)</script><a xlink:href="javascript:alert(1)">bad</a><g onload="evil()"><text>Safe</text></g></svg>'
+    })
+
+    const wrapper = mount(AiMermaid, {
+      props: {
+        code: 'graph TD\nA-->B',
+        config: {
+          theme: 'dark'
+        }
+      }
+    })
+
+    await flushPromises()
+    await nextTick()
+
+    const html = wrapper.find('.yh-ai-mermaid__graph').html()
+    expect(html).not.toContain('<script')
+    expect(html).not.toContain('onload=')
+    expect(html).not.toContain('javascript:')
   })
 })

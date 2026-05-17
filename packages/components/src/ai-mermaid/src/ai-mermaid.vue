@@ -2,9 +2,15 @@
 import { ref, computed, watch, shallowRef } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme, type ComponentThemeVars } from '@yh-ui/theme'
-import { aiMermaidProps, aiMermaidEmits, type RenderType } from './ai-mermaid'
+import {
+  aiMermaidProps,
+  aiMermaidEmits,
+  buildMermaidRenderSource,
+  type RenderType
+} from './ai-mermaid'
 import { YhIcon } from '../../icon'
 import { YhSpin } from '../../spin'
+import { sanitizeSvgMarkup } from '../../sanitize'
 
 defineOptions({
   name: 'YhAiMermaid'
@@ -92,23 +98,19 @@ const renderGraph = async () => {
     // 基础全局初始化（仅执行一次或保持最小化）
     module.initialize({
       startOnLoad: false,
-      securityLevel: 'loose'
+      securityLevel: 'strict'
     })
 
     // 处理配置：使用指令形式注入。这是解决多实例页面（如文档）全局配置冲突的最佳实践。
     // 将 props.config 转换为 %%{init: { ... }}%% 前缀
-    let processedCode = props.code
-    if (props.config && Object.keys(props.config).length > 0) {
-      const configStr = JSON.stringify(props.config)
-      processedCode = `%%{init: ${configStr}}%%\n${processedCode}`
-    }
+    const processedCode = buildMermaidRenderSource(props.code, props.config)
 
     // 生成唯一 ID
     const id = `mermaid-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 
     // 使用注入了配置指令的代码进行渲染
     const { svg } = await module.render(id, processedCode)
-    svgContent.value = svg
+    svgContent.value = sanitizeSvgMarkup(svg)
 
     emit('ready')
   } catch (error) {

@@ -4,6 +4,33 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.11] - 2026-05-17
+
+AI component hardening and CodeSandbox release-fix update focused on HTML/SVG sanitization, shared container-query support, and remote sandbox export reliability.
+
+### Added
+
+- Added a shared `sanitize` utility for AI components so highlighted HTML, Markdown HTML, and Mermaid SVG output can be normalized through one path.
+- Added exhaustive validation for dynamic runtime imports in generated CodeSandbox projects to catch missing vendored assets before release.
+
+### Changed
+
+- Upgraded the shared block-level theme mixin to register named `inline-size` containers, making container queries available across more component roots.
+- Expanded CodeSandbox dependency/runtime collection so exported demos automatically include `dompurify` and matching dynamic runtime files.
+- Expanded sandbox verification from a fixed file list to all generated script entrypoints plus dynamic template imports.
+
+### Fixed
+
+- Fixed unsanitized highlighted HTML and Markdown rendering paths in `AiBubble`, `AiCodeBlock`, `AiArtifacts`, and `AiThoughtChain`.
+- Fixed Mermaid rendering in `AiBubble` and `AiMermaid` to use stricter security settings and sanitized SVG output.
+- Fixed exported CodeSandbox runtimes failing on empty meta modules such as `avatar-meta.js` by emitting a valid empty export.
+- Fixed missing dynamic relative runtime assets, CSS/JSON siblings, and scoped dependency collection in docs sandbox exports.
+
+### Notes
+
+- Local release checks completed successfully: `verify:stackblitz-local`, `verify:docs-playground`, `verify:codesandbox-local`, `verify:docs-sandboxes`, `docs:build`, `typecheck`, and `build`.
+- Exhaustive sandbox validation currently covers 358 docs routes and 2112 supported demos; remote CodeSandbox validation was skipped this run because the service returned a Cloudflare challenge instead of app code errors.
+
 ## [1.0.10] - 2026-05-16
 
 文档站点在线示例修复版本，重点解决 CodeSandbox 导出工程仍落到旧版 browser sandbox、触发 `@vue/babel-plugin-jsx` 安装失败的问题，并补齐本地与发布链路的回归校验。

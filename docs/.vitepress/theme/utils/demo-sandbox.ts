@@ -66,6 +66,7 @@ const KNOWN_DEPENDENCIES: Record<string, string> = {
   '@yh-ui/theme': YH_UI_VERSION,
   '@yh-ui/utils': YH_UI_VERSION,
   axios: '^1.8.4',
+  dompurify: '^3.3.3',
   'async-validator': '^4.2.5',
   dayjs: '^1.11.19',
   'd3-force': '^3.0.0',
@@ -288,6 +289,20 @@ function extractBareImports(code: string): string[] {
   return [...imports]
 }
 
+function extractDynamicRelativeRuntimeImports(code: string): string[] {
+  const imports = new Set<string>()
+  const templateImportRe = /\bimport\s*\(\s*`([^`]*\$\{[^`]+\}[^`]*)`\s*\)/g
+
+  for (const match of code.matchAll(templateImportRe)) {
+    const source = match[1]
+    if (source?.startsWith('.')) {
+      imports.add(source)
+    }
+  }
+
+  return [...imports]
+}
+
 function getPackageName(source: string): string {
   if (source.startsWith('@')) {
     const [scope, name] = source.split('/')
@@ -442,6 +457,10 @@ function normalizeRuntimeImportSource(source: string): string {
   return `${source}.js`
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 function resolveRuntimeRelativePath(
   fromFile: string,
   importSource: string,
@@ -471,6 +490,24 @@ function resolveRuntimeRelativePath(
     candidates.find((candidate) => availableFiles.has(candidate)) ??
     normalizeRuntimeImportSource(importSource)
   )
+}
+
+function resolveRuntimeDynamicRelativePaths(
+  fromFile: string,
+  importSource: string,
+  availableFiles: Set<string>
+): string[] {
+  const placeholderToken = '__YH_DYNAMIC_IMPORT__'
+  const templatePath = importSource.replace(/\$\{[^}]+\}/g, placeholderToken)
+  const resolvedTemplatePath = new URL(
+    templatePath,
+    `https://runtime.local/${fromFile}`
+  ).pathname.replace(/^\/+/, '')
+  const pathPattern = new RegExp(
+    `^${escapeRegExp(resolvedTemplatePath).replaceAll(placeholderToken, '.+?')}$`
+  )
+
+  return [...availableFiles].filter((candidate) => pathPattern.test(candidate)).sort()
 }
 
 function toRelativeRuntimeImport(fromFile: string, targetFile: string): string {
@@ -1352,6 +1389,18 @@ export async function createCodeSandboxProjectFiles(
       await collectRuntimeFile(
         resolveRuntimeRelativePath(relativePath, source, availableRuntimeFiles)
       )
+    }
+
+    for (const source of extractDynamicRelativeRuntimeImports(assetText)) {
+      const matchedFiles = resolveRuntimeDynamicRelativePaths(
+        relativePath,
+        source,
+        availableRuntimeFiles
+      )
+
+      for (const matchedFile of matchedFiles) {
+        await collectRuntimeFile(matchedFile)
+      }
     }
   }
 

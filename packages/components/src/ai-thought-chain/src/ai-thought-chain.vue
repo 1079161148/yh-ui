@@ -4,6 +4,7 @@ import { ref, computed, watch } from 'vue'
 import type { AiThoughtStatus, AiThoughtItem } from './ai-thought-chain'
 import { YhIcon } from '../../icon'
 import MarkdownIt from '../../markdown-it'
+import { sanitizeMarkup } from '../../sanitize'
 
 import { aiThoughtChainProps, aiThoughtChainEmits } from './ai-thought-chain'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -91,7 +92,7 @@ const displayTitle = computed(() => {
 // 渲染 Markdown 内容
 const renderMarkdown = (content: string): string => {
   if (!props.markdown || !content) return content
-  return md.render(content)
+  return sanitizeMarkup(md.render(content))
 }
 
 // 状态图标映射

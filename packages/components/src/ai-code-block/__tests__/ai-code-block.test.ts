@@ -214,7 +214,9 @@ describe('YhAiCodeBlock', () => {
     expect(wrapper.classes()).not.toContain('is-editing')
 
     await wrapper.findAll('.yh-ai-code-block__actions .yh-button')[0].trigger('click')
-    expect(wrapper.findComponent({ name: 'YhAiCodeEditor' }).props('modelValue')).toBe('const a = 1')
+    expect(wrapper.findComponent({ name: 'YhAiCodeEditor' }).props('modelValue')).toBe(
+      'const a = 1'
+    )
   })
 
   it('should fall back to auto highlight when language is not recognized', () => {
@@ -406,5 +408,25 @@ describe('YhAiCodeBlock', () => {
     expect(wrapper.text()).toContain('before')
     expect(wrapper.text()).toContain('middle')
     expect(wrapper.text()).toContain('after')
+  })
+
+  it('should sanitize highlighted html fragments before rendering them', () => {
+    const highlight = vi.mocked(hljs.highlight)
+    highlight.mockImplementationOnce(() => ({
+      value:
+        '<img src=x onerror="alert(1)"><span class="hljs-keyword">const</span><script>alert(1)</script>'
+    }))
+
+    const wrapper = mount(AiCodeBlock, {
+      props: {
+        code: 'const safe = true',
+        language: 'typescript'
+      }
+    })
+
+    const html = wrapper.find('code').html()
+    expect(html).toContain('hljs-keyword')
+    expect(html).not.toContain('<script')
+    expect(html).not.toContain('onerror=')
   })
 })

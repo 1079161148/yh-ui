@@ -7,12 +7,17 @@ import { h, nextTick } from 'vue'
 import { YhConfigProvider } from '../../config-provider'
 import { en } from '@yh-ui/locale'
 
+const { highlightMock, highlightAutoMock } = vi.hoisted(() => ({
+  highlightMock: vi.fn((code: string) => ({ value: `<span>${code}</span>` })),
+  highlightAutoMock: vi.fn((code: string) => ({ value: `<span>${code}</span>` }))
+}))
+
 // Mock highlight.js
 vi.mock('highlight.js', () => ({
   default: {
     getLanguage: (lang: string) => lang === 'xml' || lang === 'typescript',
-    highlight: (code: string) => ({ value: `<span>${code}</span>` }),
-    highlightAuto: (code: string) => ({ value: `<span>${code}</span>` })
+    highlight: highlightMock,
+    highlightAuto: highlightAutoMock
   }
 }))
 vi.mock('highlight.js/styles/atom-one-dark.css', () => ({}))
@@ -24,6 +29,7 @@ if (typeof window !== 'undefined') {
 
 // Import component
 import AiArtifacts from '../src/ai-artifacts.vue'
+import hljs from '../../highlight'
 
 const mockData = {
   id: 'a1',
@@ -172,5 +178,29 @@ describe('YhAiArtifacts', () => {
     expect(wrapper.find('.yh-ai-artifacts').attributes('style')).toContain(
       '--yh-ai-artifacts-bg-color: #ffffff'
     )
+  })
+
+  it('should sanitize highlighted code output before rendering it', () => {
+    vi.spyOn(hljs, 'highlight').mockReturnValueOnce({
+      value:
+        '<img src=x onerror="alert(1)"><span class="token">safe</span><script>alert(1)</script>'
+    })
+
+    const wrapper = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        mode: 'code',
+        data: {
+          ...mockData,
+          type: 'typescript',
+          versions: [{ version: 1, content: 'const safe = true', description: 'Initial' }]
+        }
+      }
+    })
+
+    const html = wrapper.find('.yh-ai-artifacts__code-viewer code').html()
+    expect(html).toContain('token')
+    expect(html).not.toContain('<script')
+    expect(html).not.toContain('onerror=')
   })
 })

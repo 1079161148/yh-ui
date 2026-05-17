@@ -10,6 +10,26 @@
   white-space: nowrap;
 }
 
+@mixin container($name: null, $type: inline-size) {
+  container-type: $type;
+
+  @if $name != null {
+    container-name: $name;
+  }
+}
+
+@mixin container-query($condition, $name: null) {
+  @if $name == null {
+    @container #{$condition} {
+      @content;
+    }
+  } @else {
+    @container #{$name} (#{$condition}) {
+      @content;
+    }
+  }
+}
+
 // BEM
 $namespace: 'yh' !default;
 $prefix: $namespace + '-' !default;

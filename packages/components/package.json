@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/components",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "YH-UI Vue 3 Components",
   "type": "module",
   "sideEffects": [
@@ -52,6 +52,7 @@
     "@yh-ui/utils": "workspace:*",
     "async-validator": "^4.2.5",
     "dayjs": "catalog:",
+    "dompurify": "^3.3.3",
     "markdown-it": "^14.1.1",
     "monaco-editor": "^0.55.1",
     "xlsx": "^0.18.5",
