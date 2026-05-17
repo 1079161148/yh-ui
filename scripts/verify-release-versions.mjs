@@ -101,6 +101,26 @@ async function verifySandboxVersionConstant(expectedVersion) {
   }
 }
 
+async function verifyCodeSandboxEntryContract() {
+  const source = await fs.readFile(sandboxSourcePath, 'utf8')
+  const createCodeSandboxStart = source.lastIndexOf('const packageJson =')
+  if (createCodeSandboxStart === -1) {
+    throw new Error(`Could not locate CodeSandbox package.json scaffold in ${sandboxSourcePath}`)
+  }
+
+  const createCodeSandboxEnd = source.indexOf('const files: Record<string, string> = {', createCodeSandboxStart)
+  if (createCodeSandboxEnd === -1) {
+    throw new Error(`Could not isolate CodeSandbox package.json scaffold in ${sandboxSourcePath}`)
+  }
+
+  const packageJsonBlock = source.slice(createCodeSandboxStart, createCodeSandboxEnd)
+  if (!/main:\s*['"]src\/main\.ts['"]/.test(packageJsonBlock)) {
+    throw new Error(
+      'demo-sandbox.ts is missing package.json.main="src/main.ts" for the CodeSandbox scaffold'
+    )
+  }
+}
+
 async function main() {
   const rootManifest = await readJson(rootManifestPath)
   const rootVersion = rootManifest.version
@@ -116,6 +136,7 @@ async function main() {
   ]
 
   await verifySandboxVersionConstant(rootVersion)
+  await verifyCodeSandboxEntryContract()
 
   if (errors.length > 0) {
     throw new Error(`Release version checks failed:\n- ${errors.join('\n- ')}`)

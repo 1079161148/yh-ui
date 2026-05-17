@@ -1257,6 +1257,7 @@ export async function createSandboxProjectFiles(
         name: slugifyTitle(title) || 'yh-ui-demo',
         private: true,
         type: 'module',
+        main: 'src/main.ts',
         scripts: {
           dev: 'vite --host 0.0.0.0 --port 5173',
           start: 'vite --host 0.0.0.0 --port 5173',
@@ -1587,12 +1588,14 @@ export async function createCodeSandboxProjectFiles(
     Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(flowRuntimeJs))
   }
 
+  // CodeSandbox Nodebox falls back to src/index.js when package.json.main is absent.
   const packageJson =
     JSON.stringify(
       {
         name: slugifyTitle(title) || 'yh-ui-demo',
         private: true,
         type: 'module',
+        main: 'src/main.ts',
         scripts: {
           dev: 'vite --host 0.0.0.0 --port 5173',
           start: 'vite --host 0.0.0.0 --port 5173',

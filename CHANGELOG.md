@@ -4,6 +4,27 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.16] - 2026-05-17
+
+Docs sandbox release follow-up focused on making exported CodeSandbox demos boot reliably in the live Nodebox environment while keeping locally built component docs visually aligned with the current published site.
+
+### Added
+
+- Added a release-version guard that fails fast when the generated CodeSandbox scaffold no longer declares the expected `src/main.ts` entry contract.
+
+### Changed
+
+- Changed generated StackBlitz and CodeSandbox demo manifests to declare `main: "src/main.ts"` explicitly instead of relying on sandbox-default entry inference.
+
+### Fixed
+
+- Fixed live CodeSandbox demos opening to a blank preview because Nodebox fell back to `src/index.js` when no explicit package entry was present.
+
+### Notes
+
+- Verified `guide/quickstart`, `components/button`, and `ai-components/ai-chat` against the current GitHub Pages deployment; key computed styles matched between the local built preview and the published docs site.
+- Targeted local validation completed for `pnpm format:check`, `pnpm verify:release-versions`, `pnpm changelog:check`, `pnpm docs:build`, `pnpm verify:docs-sandboxes`, `pnpm verify:codesandbox-local`, `pnpm verify:stackblitz-local`, `pnpm verify:docs-playground`, `pnpm build`, and `pnpm verify:package-size`.
+
 ## [1.0.15] - 2026-05-17
 
 Release pipeline simplification update focused on keeping npm publication fast and predictable while moving heavyweight docs sandbox sweeps out of the blocking release path.
