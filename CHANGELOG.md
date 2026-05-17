@@ -4,6 +4,26 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.12] - 2026-05-17
+
+Release metadata refresh for the AI component hardening update, with the public tag and package line moved onto the corrected Git identity.
+
+### Added
+
+- Added a clean `v1.0.12` release line so the public tag and package version move forward from the unpublished `v1.0.11` draft state.
+
+### Changed
+
+- Updated all workspace package manifests from `1.0.11` to `1.0.12` for the corrected public release.
+
+### Fixed
+
+- Fixed the release handoff by replacing the old public tag path associated with the previous tag publisher identity.
+
+### Notes
+
+- `1.0.11` remained unpublished on npm; `1.0.12` is the intended public release for this code line.
+
 ## [1.0.11] - 2026-05-17
 
 AI component hardening and CodeSandbox release-fix update focused on HTML/SVG sanitization, shared container-query support, and remote sandbox export reliability.

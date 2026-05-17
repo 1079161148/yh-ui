@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/request",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "YH-UI HTTP request hooks - Enterprise-grade request management",
   "type": "module",
   "sideEffects": false,
