@@ -4,6 +4,27 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.20] - 2026-05-18
+
+Patch release focused on restoring docs demo launchers on the published site and making CodeSandbox exports responsive again for AI component examples.
+
+### Changed
+
+- Changed docs `DemoBlock` launcher URLs to resolve through the VitePress site base again so published Playground links target `/yh-ui/playground/` correctly.
+- Changed CodeSandbox runtime import rewriting to resolve support barrel imports to the exact files each exported demo actually uses instead of pulling whole support barrels.
+- Changed vendored dayjs locale loading for CodeSandbox exports to preload a bundled locale registry, removing the long dynamic-import waterfall before submission.
+
+### Fixed
+
+- Fixed published docs demo Playground buttons opening broken URLs after the `withBase` regression in the launcher component.
+- Fixed `AiBubble` and related AI demo CodeSandbox exports stalling for tens of seconds while recursively downloading hooks and locale support trees.
+- Fixed the built docs Playground flow and sandbox launcher path so local preview and published docs follow the same working route structure again.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm docs:build`, `pnpm typecheck`, `pnpm verify:docs-playground`, `pnpm verify:stackblitz-local`, and direct browser checks against the built `AiBubble` docs page for Playground, StackBlitz, and CodeSandbox launch flows.
+- On local preview, the `AiBubble` CodeSandbox submit path completed in about 1.3 seconds with a 53-file payload and no browser runtime errors before release.
+
 ## [1.0.19] - 2026-05-18
 
 Patch release focused on restoring the published docs experience for AI component pages while keeping exported live sandboxes aligned with the current component runtime.
