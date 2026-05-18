@@ -143,7 +143,11 @@ function toRelativeImportPath(fromFile, targetFile) {
 async function findExistingSourceFile(basePath) {
   const extension = extname(basePath)
   const candidates = extension
-    ? [basePath]
+    ? [
+        basePath,
+        ...(extension === '.scss' ? [basePath.replace(/\.scss$/, '.css')] : []),
+        ...(extension === '.sass' ? [basePath.replace(/\.sass$/, '.css')] : [])
+      ]
     : [
         `${basePath}.mjs`,
         `${basePath}.vue`,
@@ -327,13 +331,13 @@ async function processSourceFile(
   sourceBaseRoot = sourceRoot,
   outputBaseRoot = dirname(outFile)
 ) {
-  if (!/\.(?:mjs|vue|css)$/.test(sourceFile)) {
+  if (!/\.(?:mjs|vue|css|scss)$/.test(sourceFile)) {
     return null
   }
 
   const source = await readFile(sourceFile, 'utf8')
 
-  if (sourceFile.endsWith('.css')) {
+  if (sourceFile.endsWith('.css') || sourceFile.endsWith('.scss')) {
     await ensureDir(dirname(outFile))
     await writeFile(outFile, source, 'utf8')
     return outFile

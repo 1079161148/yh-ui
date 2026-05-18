@@ -1,30 +1,5 @@
 # useAiPersistence 对话持久化 Hook
 
-<script setup lang="ts">
-import { useAiPersistence } from '@yh-ui/hooks'
-
-const {
-  conversations,
-  currentConversationId,
-  isLoading,
-  isSaving,
-  error,
-  createConversation,
-  deleteConversation,
-  getCurrentConversation,
-  addMessage,
-  updateMessage,
-  clearCurrentConversation,
-  exportConversations,
-  importConversations,
-  setCurrentConversation
-} = useAiPersistence()
-</script>
-
-<Demos>
-
-</Demos>
-
 ## 基础用法
 
 `useAiPersistence` Hook 提供了对话历史持久化功能，基于 IndexedDB 实现。
@@ -63,19 +38,19 @@ const {
 
 ### 方法
 
-| 方法名                   | 说明         | 参数                                                                               |
-| ------------------------ | ------------ | ---------------------------------------------------------------------------------- |
-| loadConversations        | 加载对话     | `() => Promise<void>`                                                              |
-| saveConversations        | 保存对话     | `() => Promise<void>`                                                              |
-| createConversation       | 创建对话     | `(title?: string) => Conversation`                                                 |
-| deleteConversation       | 删除对话     | `(id: string) => void`                                                             |
-| getCurrentConversation   | 获取当前对话 | `() => Conversation \| undefined`                                                  |
+| 方法名                   | 说明         | 参数                                                                                            |
+| ------------------------ | ------------ | ----------------------------------------------------------------------------------------------- |
+| loadConversations        | 加载对话     | `() => Promise<void>`                                                                           |
+| saveConversations        | 保存对话     | `() => Promise<void>`                                                                           |
+| createConversation       | 创建对话     | `(title?: string) => Conversation`                                                              |
+| deleteConversation       | 删除对话     | `(id: string) => void`                                                                          |
+| getCurrentConversation   | 获取当前对话 | `() => Conversation \| undefined`                                                               |
 | addMessage               | 添加消息     | `(message: Omit<ConversationMessage, 'id' \| 'timestamp'>) => ConversationMessage \| undefined` |
-| updateMessage            | 更新消息     | `(messageId: string, updates: Partial<ConversationMessage>) => void`               |
-| clearCurrentConversation | 清空当前对话 | `() => void`                                                                       |
-| exportConversations      | 导出对话     | `() => string`                                                                     |
-| importConversations      | 导入对话     | `(json: string) => Promise<boolean>`                                               |
-| setCurrentConversation   | 设置当前对话 | `(id: string) => void`                                                             |
+| updateMessage            | 更新消息     | `(messageId: string, updates: Partial<ConversationMessage>) => void`                            |
+| clearCurrentConversation | 清空当前对话 | `() => void`                                                                                    |
+| exportConversations      | 导出对话     | `() => string`                                                                                  |
+| importConversations      | 导入对话     | `(json: string) => Promise<boolean>`                                                            |
+| setCurrentConversation   | 设置当前对话 | `(id: string) => void`                                                                          |
 
 ## 类型定义
 

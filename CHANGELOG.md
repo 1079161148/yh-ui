@@ -4,6 +4,27 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.19] - 2026-05-18
+
+Patch release focused on restoring the published docs experience for AI component pages while keeping exported live sandboxes aligned with the current component runtime.
+
+### Changed
+
+- Changed docs demo previews to render after mount so static builds do not hydrate into blank AI component showcases on the published site.
+- Changed the `useAiPersistence` docs pages to remove unused inline setup blocks and empty demo wrappers that were contributing noise without rendering any actual examples.
+- Changed CodeSandbox runtime asset discovery to accept generated `.css` fallbacks for vendored `.scss` and `.sass` imports during export packaging.
+
+### Fixed
+
+- Fixed `AiBubble` SSR hydration around `Teleport` overlays so published docs pages no longer trip client mismatches before the interactive layer mounts.
+- Fixed AI docs routes on the static site rendering as empty shells even though the markdown and demo metadata were present.
+- Fixed exported CodeSandbox demos that depend on stylesheet runtime assets resolved from source extensions instead of the emitted CSS files.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm docs:build`, `pnpm typecheck`, `pnpm verify:release-versions`, `pnpm verify:codesandbox-remote`, and browser checks against the built docs preview for `AiBubble`, `AiConversations`, `AiMermaid`, and the `useAiPersistence` docs in both locales.
+- `pnpm verify:codesandbox-remote` completed with the expected advisory skip because CodeSandbox `define` was blocked by a Cloudflare `403`, not because of a repository-controlled regression.
+
 ## [1.0.18] - 2026-05-18
 
 Docs sandbox hotfix focused on restoring working CodeSandbox exports for AI component demos after the npm-install scaffold follow-up left hosted `AiChat` and `AiMermaid` examples without the runtime files they actually need.

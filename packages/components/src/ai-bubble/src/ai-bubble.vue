@@ -38,6 +38,7 @@ const props = defineProps(aiBubbleProps)
 
 const ns = useNamespace('ai-bubble')
 const { t } = useLocale()
+const hasMounted = ref(false)
 
 // 主题覆盖
 const { themeStyle } = useComponentTheme(
@@ -1204,6 +1205,7 @@ const handleCodeBlockAction = async (e: Event) => {
 
 // Mount event listeners for code blocks
 onMounted(() => {
+  hasMounted.value = true
   document.addEventListener('click', handleCodeBlockAction)
 })
 
@@ -1398,7 +1400,7 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Floating Citation Tooltip -->
-    <Teleport to="body">
+    <Teleport v-if="hasMounted" to="body">
       <Transition name="yh-fade-in-scale-up">
         <div
           v-if="hoveredCitation"
@@ -1425,7 +1427,7 @@ onBeforeUnmount(() => {
     </Teleport>
 
     <!-- Code Edit Modal -->
-    <Teleport to="body">
+    <Teleport v-if="hasMounted" to="body">
       <Transition name="yh-fade-in">
         <div v-if="editingCodeBlock" class="code-edit-modal-overlay" @click.self="cancelEditCode">
           <div class="code-edit-modal">

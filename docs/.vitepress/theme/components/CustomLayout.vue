@@ -1,26 +1,17 @@
 <script setup lang="ts">
-/**
- * CustomLayout - 自定义布局组件
- * @description 扩展默认布局，添加侧边栏切换、语言切换等功能
- */
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-// import LanguageSwitcher from './LanguageSwitcher.vue'
+import { zhCn, en } from '@yh-ui/locale'
 import LatestVersionBadge from './LatestVersionBadge.vue'
 import SidebarToggle from './SidebarToggle.vue'
 import BackToTop from './BackToTop.vue'
-import { onMounted, onUnmounted, computed, watch } from 'vue'
-import { zhCn, en } from '@yh-ui/locale'
 
 const { Layout } = DefaultTheme
 const { lang } = useData()
 
-// 计算当前 YH-UI 语言包
-const currentLocale = computed(() => {
-  return lang.value === 'en-US' ? en : zhCn
-})
+const currentLocale = computed(() => (lang.value === 'en-US' ? en : zhCn))
 
-// 同步 lang 到 html，确保 [lang='en-US'] 等英文文档样式选择器生效
 const syncHtmlLang = (newLang: string) => {
   if (typeof document === 'undefined') return
   document.documentElement.setAttribute('lang', newLang)
@@ -36,34 +27,24 @@ if (typeof window !== 'undefined') {
   })
 }
 
-// 滚动处理相关变量
 let scrollHandler: (() => void) | null = null
 
-// 添加页面加载动画和滚动监听
 onMounted(() => {
-  // 添加页面加载完成标记
-  document.body.classList.add('page-loaded')
-
-  // 添加滚动监听，仅用于添加阴影效果（头部始终固定可见）
   const nav = document.querySelector('.VPNav')
 
   scrollHandler = () => {
-    const currentScrollY = window.scrollY
+    if (!nav) return
 
-    if (nav) {
-      // 仅添加滚动阴影效果，不隐藏导航栏
-      if (currentScrollY > 50) {
-        nav.classList.add('scrolled')
-      } else {
-        nav.classList.remove('scrolled')
-      }
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled')
+    } else {
+      nav.classList.remove('scrolled')
     }
   }
 
   window.addEventListener('scroll', scrollHandler, { passive: true })
 })
 
-// 清理滚动监听
 onUnmounted(() => {
   if (scrollHandler) {
     window.removeEventListener('scroll', scrollHandler)
@@ -74,24 +55,18 @@ onUnmounted(() => {
 <template>
   <yh-config-provider :locale="currentLocale">
     <Layout>
-      <!-- 导航栏右侧插槽 - 语言切换 (使用 VitePress 自带的，这里注释掉自定义的) -->
       <template #nav-bar-content-after>
         <LatestVersionBadge />
       </template>
 
-      <!-- 侧边栏切换按钮 -->
-      <template #sidebar-nav-after>
-        <!-- 可以在这里添加侧边栏底部内容 -->
-      </template>
+      <template #sidebar-nav-after />
 
-      <!-- 页面内容前的装饰 -->
       <template #doc-before>
         <div class="doc-decoration">
           <div class="doc-decoration__gradient" />
         </div>
       </template>
 
-      <!-- 页面底部 -->
       <template #doc-footer-before>
         <div class="doc-footer-decoration">
           <div class="doc-footer-decoration__line" />
@@ -100,25 +75,11 @@ onUnmounted(() => {
     </Layout>
   </yh-config-provider>
 
-  <!-- 侧边栏折叠按钮 -->
   <SidebarToggle />
-
-  <!-- 返回顶部按钮 -->
   <BackToTop />
 </template>
 
 <style lang="scss">
-/* 页面加载动画 */
-body {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  &.page-loaded {
-    opacity: 1;
-  }
-}
-
-/* 导航栏 - 始终固定，不隐藏 */
 .VPNav {
   position: fixed !important;
   top: 0 !important;
@@ -132,7 +93,6 @@ body {
   }
 }
 
-/* 侧边栏折叠样式 */
 .VPSidebar {
   transition:
     transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -152,7 +112,6 @@ body {
   }
 }
 
-/* 文档装饰 */
 .doc-decoration {
   position: relative;
   height: 4px;
@@ -188,7 +147,6 @@ body {
   }
 }
 
-/* 文档底部装饰 */
 .doc-footer-decoration {
   margin-top: 32px;
 

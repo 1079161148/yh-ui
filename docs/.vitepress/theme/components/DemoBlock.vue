@@ -3,7 +3,7 @@
  * DemoBlock - 代码演示组件
  * @description 用于展示组件示例，支持 TypeScript/JavaScript 切换，代码语法高亮
  */
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import {
   getSandboxSupport,
@@ -11,8 +11,6 @@ import {
   openDemoInStackBlitz,
   openDemoInCodeSandbox
 } from '../utils/demo-sandbox'
-
-import { withBase } from 'vitepress'
 
 interface Props {
   title?: string
@@ -36,10 +34,15 @@ const codeType = ref<'ts' | 'js'>('ts')
 const copied = ref(false)
 const highlightedCode = ref('')
 const onlineEditMessage = ref('')
+const previewReady = ref(false)
 let onlineEditMessageTimer: number | undefined
 
 const { lang, page } = useData()
 const isEn = computed(() => lang.value === 'en-US')
+
+onMounted(() => {
+  previewReady.value = true
+})
 
 // 当前显示的代码
 const currentCode = computed(() => {
@@ -500,7 +503,9 @@ const copyAnchor = async () => {
   <div class="demo-box">
     <!-- 演示区域 -->
     <div :key="demoKey" class="demo-box__preview">
-      <slot />
+      <template v-if="previewReady">
+        <slot />
+      </template>
     </div>
 
     <!-- 操作栏 -->
