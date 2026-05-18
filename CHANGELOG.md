@@ -4,6 +4,29 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.18] - 2026-05-18
+
+Docs sandbox hotfix focused on restoring working CodeSandbox exports for AI component demos after the npm-install scaffold follow-up left hosted `AiChat` and `AiMermaid` examples without the runtime files they actually need.
+
+### Added
+
+- Added manifest-driven runtime asset loading and relative-import rewriting for CodeSandbox exports so AI demos can vendor the exact runtime files they depend on.
+
+### Changed
+
+- Changed CodeSandbox project generation for AI-oriented demos to package runtime files from `docs/public/codesandbox-runtime` instead of relying on npm-installed `@yh-ui/yh-ui` runtime resolution.
+- Changed local and remote CodeSandbox verification to assert vendored `AiChat` and `AiMermaid` runtime assets, required hooks files, and the `mermaid` dependency contract explicitly.
+
+### Fixed
+
+- Fixed `AiChat` CodeSandbox exports opening without the runtime modules required to render in the hosted Nodebox environment.
+- Fixed `AiMermaid` CodeSandbox exports dropping their vendored runtime files after the shared scaffold transition.
+
+### Notes
+
+- Targeted local validation for this release covered `pnpm typecheck`, `pnpm verify:release-versions`, `pnpm verify:stackblitz-local`, `pnpm verify:codesandbox-local`, and built-docs payload inspection against `ai-components/ai-chat`.
+- Automated remote CodeSandbox browser checks can still hit Cloudflare security verification during `define`, so release confidence for this fix is anchored in the generated payload plus local sandbox execution.
+
 ## [1.0.17] - 2026-05-18
 
 Docs sandbox export follow-up focused on keeping generated CodeSandbox demos aligned with the npm-install scaffold that now powers live previews, especially for AI components with extra runtime dependencies.
