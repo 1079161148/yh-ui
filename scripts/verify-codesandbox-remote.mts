@@ -154,26 +154,7 @@ const handleSend = async (value: string) => {
     },
     selector: '.yh-ai-chat',
     text: '',
-    verifyFiles: (files) => {
-      const packageJson = JSON.parse(files['package.json']) as {
-        dependencies?: Record<string, string>
-      }
-      if (packageJson.dependencies?.['@yh-ui/yh-ui']) {
-        throw new Error('Expected CodeSandbox scaffold to avoid installing @yh-ui/yh-ui from npm')
-      }
-
-      const requiredVendoredFiles = [
-        'src/vendor/components/ai-chat/index.js',
-        'src/vendor/components/ai-chat/src/ai-chat.js',
-        'src/vendor/hooks/index.js'
-      ]
-      const missingVendoredFiles = requiredVendoredFiles.filter((filePath) => !files[filePath])
-      if (missingVendoredFiles.length > 0) {
-        throw new Error(
-          `Expected CodeSandbox export to vendor ai-chat runtime files, missing: ${missingVendoredFiles.join(', ')}`
-        )
-      }
-    },
+    verifyFiles: verifyAiChatVendoredFiles,
     evaluate: async (page) => {
       await page.locator('.yh-ai-chat__content').waitFor({ state: 'visible', timeout: 30000 })
       await page.locator('.yh-ai-chat__footer').waitFor({ state: 'visible', timeout: 30000 })
@@ -379,6 +360,41 @@ interface TestCase {
   text: string
   verifyFiles?: (files: Record<string, string>) => void
   evaluate?: (page: BrowserPage) => Promise<void>
+}
+
+function verifyAiChatVendoredFiles(files: Record<string, string>) {
+  const packageJson = JSON.parse(files['package.json']) as {
+    dependencies?: Record<string, string>
+  }
+  if (packageJson.dependencies?.['@yh-ui/yh-ui']) {
+    throw new Error('Expected CodeSandbox scaffold to avoid installing @yh-ui/yh-ui from npm')
+  }
+
+  const aiChatRuntimeFile = files['src/vendor/components/ai-chat/src/ai-chat.js']
+  const requiredVendoredFiles = [
+    'src/vendor/components/ai-chat/index.js',
+    'src/vendor/components/ai-chat/src/ai-chat.js'
+  ]
+  const missingVendoredFiles = requiredVendoredFiles.filter((filePath) => !files[filePath])
+  if (missingVendoredFiles.length > 0) {
+    throw new Error(
+      `Expected CodeSandbox export to vendor ai-chat runtime files, missing: ${missingVendoredFiles.join(', ')}`
+    )
+  }
+
+  const requiredHookFiles = aiChatRuntimeFile?.includes('../../../hooks/index.js')
+    ? ['src/vendor/hooks/index.js']
+    : [
+        'src/vendor/hooks/use-locale/index.js',
+        'src/vendor/hooks/use-namespace/index.js',
+        'src/vendor/hooks/use-virtual-scroll/index.js'
+      ]
+  const missingHookFiles = requiredHookFiles.filter((filePath) => !files[filePath])
+  if (missingHookFiles.length > 0) {
+    throw new Error(
+      `Expected CodeSandbox export to vendor ai-chat hook runtime files, missing: ${missingHookFiles.join(', ')}`
+    )
+  }
 }
 
 class ExternalServiceInterferenceError extends Error {
