@@ -9,6 +9,11 @@ import { createCodeSandboxProjectFiles } from '../docs/.vitepress/theme/utils/de
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
 const tempDir = resolve(rootDir, '.codex-temp')
+const codeSandboxRuntimeDir = resolve(rootDir, 'docs', 'public', 'codesandbox-runtime')
+const codeSandboxManifestPromise = readFile(
+  join(codeSandboxRuntimeDir, 'manifest.json'),
+  'utf8'
+).then((text) => JSON.parse(text))
 
 const testCases = [
   {
@@ -153,21 +158,19 @@ const handleSend = async (value: string) => {
       const packageJson = JSON.parse(files['package.json']) as {
         dependencies?: Record<string, string>
       }
-      if (!packageJson.dependencies?.['@yh-ui/yh-ui']) {
-        throw new Error('Expected CodeSandbox package scaffold to install @yh-ui/yh-ui from npm')
+      if (packageJson.dependencies?.['@yh-ui/yh-ui']) {
+        throw new Error('Expected CodeSandbox scaffold to avoid installing @yh-ui/yh-ui from npm')
       }
 
-      const invalidVendoredRuntimeFiles = Object.keys(files).filter(
-        (filePath) =>
-          filePath.startsWith('src/vendor/') &&
-          filePath !== 'src/vendor/yh-ui-bundle.css' &&
-          filePath !== 'src/vendor/flow/runtime.js' &&
-          filePath !== 'src/vendor/flow/runtime.css'
-      )
-
-      if (invalidVendoredRuntimeFiles.length > 0) {
+      const requiredVendoredFiles = [
+        'src/vendor/components/ai-chat/index.js',
+        'src/vendor/components/ai-chat/src/ai-chat.js',
+        'src/vendor/hooks/index.js'
+      ]
+      const missingVendoredFiles = requiredVendoredFiles.filter((filePath) => !files[filePath])
+      if (missingVendoredFiles.length > 0) {
         throw new Error(
-          `Expected CodeSandbox export to avoid vendored component runtime files, received: ${invalidVendoredRuntimeFiles.join(', ')}`
+          `Expected CodeSandbox export to vendor ai-chat runtime files, missing: ${missingVendoredFiles.join(', ')}`
         )
       }
     },
@@ -250,6 +253,9 @@ const diagram = "graph TD\\nA[Start] --> B[Done]"
       }
       if (!packageJson.dependencies?.mermaid) {
         throw new Error('Expected ai mermaid CodeSandbox scaffold to include mermaid dependency')
+      }
+      if (!files['src/vendor/components/ai-mermaid/index.js']) {
+        throw new Error('Expected ai mermaid CodeSandbox scaffold to vendor ai-mermaid runtime')
       }
     },
     evaluate: async (page) => {
@@ -437,6 +443,9 @@ async function createRemoteSandbox(testCase: TestCase) {
     testCase.code,
     testCase.context,
     {
+      manifest: await codeSandboxManifestPromise,
+      loadRuntimeAssetText: async (relativePath) =>
+        readFile(join(codeSandboxRuntimeDir, ...relativePath.split('/')), 'utf8'),
       loadSiteAssetText: async (assetPath) =>
         readFile(join(rootDir, 'docs', 'public', ...assetPath.split('/')), 'utf8')
     }
