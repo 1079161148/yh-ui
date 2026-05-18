@@ -11,6 +11,7 @@ const { compressToBase64, compressToEncodedURIComponent, decompressFromEncodedUR
 
 const YH_UI_VERSION = yhUiPackage.version
 const VUE_VERSION = '3.5.27'
+const VUE3_SFC_LOADER_VERSION = '0.9.5'
 
 const SANDBOX_BUNDLED_PACKAGES = new Set([
   '@yh-ui/yh-ui',
@@ -286,6 +287,24 @@ function extractBareImports(code: string): string[] {
     if (!source) continue
     imports.add(source)
   }
+  return [...imports]
+}
+
+function extractRuntimeBareImports(code: string): string[] {
+  const imports = new Set<string>()
+  const staticImportRe = /^\s*import\s+(?!type\b)(?:[\s\S]*?)\s+from\s+["']([^"']+)["']\s*;?/gm
+  const sideEffectImportRe = /^\s*import\s+["']([^"']+)["']\s*;?/gm
+  const exportFromRe = /^\s*export\s+(?!type\b)[\s\S]*?\s+from\s+["']([^"']+)["']\s*;?/gm
+  const dynamicImportRe = /\bimport\s*\(\s*["']([^"']+)["']\s*\)/g
+
+  for (const regex of [staticImportRe, sideEffectImportRe, exportFromRe, dynamicImportRe]) {
+    for (const match of code.matchAll(regex)) {
+      const source = match[1]
+      if (!source) continue
+      imports.add(source)
+    }
+  }
+
   return [...imports]
 }
 
@@ -660,6 +679,13 @@ function rewriteFlowSandboxImports(code: string): string {
 
 function stripPlaygroundOnlyImports(code: string): string {
   return code.replace(/^\s*import\s+['"]@yh-ui\/yh-ui\/css['"]\s*;?\s*\n/gm, '')
+}
+
+function stripCodeSandboxOnlyImports(code: string): string {
+  return stripPlaygroundOnlyImports(code).replace(
+    /^\s*import\s+['"]@yh-ui\/components\/style(?:\.css)?['"]\s*;?\s*\n/gm,
+    ''
+  )
 }
 
 function inlineCustomEdgeComponent(code: string): string {
@@ -1338,7 +1364,7 @@ export async function createCodeSandboxProjectFiles(
   options: CodeSandboxProjectFilesOptions = {}
 ): Promise<Record<string, string>> {
   const preparedCode = prepareSandboxCode(code, context)
-  const normalizedCode = normalizeSfc(preparedCode)
+  const normalizedCode = normalizeSfc(stripCodeSandboxOnlyImports(preparedCode))
   const componentNames = extractUsedYhComponentNames(preparedCode)
   const base = (options.base ?? import.meta.env.BASE_URL) || '/'
   const manifest = options.manifest ?? (await loadCodeSandboxRuntimeManifest(base))
@@ -1368,6 +1394,7 @@ export async function createCodeSandboxProjectFiles(
   const collectedStyleContents = new Map<string, string>()
   const packageDependencies: Record<string, string> = buildCodeSandboxDependencies(code, context)
   const loadedRuntimeFiles = new Set<string>()
+  const runtimeImportSources = new Set<string>(extractRuntimeBareImports(normalizedCode))
 
   const collectRuntimeFile = async (relativePath: string): Promise<void> => {
     if (loadedRuntimeFiles.has(relativePath)) {
@@ -1397,6 +1424,13 @@ export async function createCodeSandboxProjectFiles(
 
     if (!relativePath.endsWith('.js')) {
       return
+    }
+
+    for (const source of extractRuntimeBareImports(assetText)) {
+      if (source.startsWith('.') || source.endsWith('.css')) {
+        continue
+      }
+      runtimeImportSources.add(source)
     }
 
     for (const source of extractBareImports(assetText)) {
@@ -1504,6 +1538,37 @@ export async function createCodeSandboxProjectFiles(
     ''
   ].join('\n')
 
+  let flowRuntimeJs: string | null = null
+  let flowRuntimeCss: string | null = null
+  if (usesFlowRuntime) {
+    flowRuntimeJs = await loadSiteAssetText('playground/yh-flow-runtime.js')
+    flowRuntimeCss = await loadSiteAssetText('playground/yh-flow-runtime.css')
+    Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(flowRuntimeJs))
+    for (const source of extractRuntimeBareImports(flowRuntimeJs)) {
+      if (source.startsWith('.') || source.endsWith('.css')) {
+        continue
+      }
+      runtimeImportSources.add(source)
+    }
+  }
+
+  packageDependencies['vue3-sfc-loader'] = `^${VUE3_SFC_LOADER_VERSION}`
+
+  const runtimeModuleCacheImports = [...runtimeImportSources]
+    .filter((source) => {
+      if (source === 'vue' || source.endsWith('.css') || isUnsupportedImport(source)) {
+        return false
+      }
+
+      const pkg = getPackageName(source)
+      return !pkg.startsWith('node:') && !NODE_BUILTINS.has(pkg)
+    })
+    .sort()
+    .map(
+      (source) =>
+        `  moduleCache[${JSON.stringify(source)}] = await import(${JSON.stringify(source)})`
+    )
+
   const appVue = [
     '<template>',
     '  <Demo />',
@@ -1515,9 +1580,17 @@ export async function createCodeSandboxProjectFiles(
     ''
   ].join('\n')
 
+  const sandboxFilesTs = [
+    'export const sandboxVueFiles: Record<string, string> = {',
+    `  '/src/App.vue': ${JSON.stringify(appVue)},`,
+    `  '/src/Demo.vue': ${JSON.stringify(normalizedCode + '\n')}`,
+    '}',
+    ''
+  ].join('\n')
+
   const mainTs = [
-    "import { createApp } from 'vue'",
-    "import App from './App.vue'",
+    "import * as Vue from 'vue'",
+    "import { sandboxVueFiles } from './sandbox-files'",
     componentImports,
     "import './style.css'",
     ...(usesIconRuntime ? ["import { Icon as YhIconify } from '@iconify/vue'"] : []),
@@ -1528,19 +1601,95 @@ export async function createCodeSandboxProjectFiles(
         ]
       : []),
     '',
-    'const app = createApp(App)',
+    "const isCodeSandboxPreview = window.location.hostname.endsWith('.csb.app')",
+    'const injectedSandboxStyles = new Set<string>()',
+    '',
+    'function resolveSandboxFile(url: string): string | null {',
+    "  const pathname = url.startsWith('http')",
+    '    ? new URL(url).pathname',
+    "    : url.startsWith('/')",
+    '      ? url',
+    "      : new URL(url, 'https://sandbox.local/src/App.vue').pathname",
+    '',
+    '  if (sandboxVueFiles[pathname]) {',
+    '    return pathname',
+    '  }',
+    '',
+    "  const normalizedPath = pathname.replace(/^\\/+/, '')",
+    '  const prefixedPath = normalizedPath.startsWith("src/")',
+    '    ? `/${normalizedPath}`',
+    '    : `/src/${normalizedPath.replace(/^\\.+\\//, "")}`',
+    '',
+    '  if (sandboxVueFiles[prefixedPath]) {',
+    '    return prefixedPath',
+    '  }',
+    '',
+    "  const fileName = normalizedPath.split('/').filter(Boolean).pop()",
+    '  if (!fileName) {',
+    '    return null',
+    '  }',
+    '',
+    '  const fileNamePath = `/src/${fileName}`',
+    '  return sandboxVueFiles[fileNamePath] ? fileNamePath : null',
+    '}',
+    '',
+    'async function resolveRootComponent() {',
+    '  if (!isCodeSandboxPreview) {',
+    "    return (await import('./App.vue')).default",
+    '  }',
+    '',
+    "  const { loadModule } = await import('vue3-sfc-loader')",
+    '  const moduleCache: Record<string, unknown> = { vue: Vue }',
+    ...runtimeModuleCacheImports,
+    '',
+    "  return loadModule('/src/App.vue', {",
+    '    moduleCache,',
+    '    async getFile(url: string) {',
+    '      const resolvedPath = resolveSandboxFile(url)',
+    '      if (!resolvedPath) {',
+    '        throw new Error(`CodeSandbox preview could not resolve ${url}`)',
+    '      }',
+    '',
+    '      const content = sandboxVueFiles[resolvedPath]',
+    '      return {',
+    '        getContentData(asBinary: boolean) {',
+    '          return asBinary ? new TextEncoder().encode(content).buffer : content',
+    '        }',
+    '      }',
+    '    },',
+    '    addStyle(textContent: string) {',
+    '      if (!textContent || injectedSandboxStyles.has(textContent)) {',
+    '        return',
+    '      }',
+    '',
+    '      injectedSandboxStyles.add(textContent)',
+    "      const style = Object.assign(document.createElement('style'), { textContent })",
+    "      const ref = document.head.getElementsByTagName('style')[0] ?? null",
+    '      document.head.insertBefore(style, ref)',
+    '    }',
+    '  })',
+    '}',
+    '',
+    'async function bootstrap() {',
+    '  const rootComponent = await resolveRootComponent()',
+    '  const app = Vue.createApp(rootComponent)',
     ...(componentRegistrations ? [componentRegistrations] : []),
     ...(usesIconRuntime
-      ? ["app.component('Icon', YhIconify)", "app.component('YhIconifyIcon', YhIconify)"]
+      ? ["  app.component('Icon', YhIconify)", "  app.component('YhIconifyIcon', YhIconify)"]
       : []),
     ...(usesFlowRuntime
       ? [
-          "app.component('YhFlow', YhFlow)",
-          "app.component('YhNodeResizer', YhNodeResizer)",
-          "app.component('YhNodeToolbar', YhNodeToolbar)"
+          "  app.component('YhFlow', YhFlow)",
+          "  app.component('YhNodeResizer', YhNodeResizer)",
+          "  app.component('YhNodeToolbar', YhNodeToolbar)"
         ]
       : []),
-    "app.mount('#app')",
+    "  app.mount('#app')",
+    '}',
+    '',
+    'void bootstrap().catch((error) => {',
+    '  console.error(error)',
+    '})',
     ''
   ].join('\n')
 
@@ -1597,14 +1746,6 @@ export async function createCodeSandboxProjectFiles(
       2
     ) + '\n'
 
-  let flowRuntimeJs: string | null = null
-  let flowRuntimeCss: string | null = null
-  if (usesFlowRuntime) {
-    flowRuntimeJs = await loadSiteAssetText('playground/yh-flow-runtime.js')
-    flowRuntimeCss = await loadSiteAssetText('playground/yh-flow-runtime.css')
-    Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(flowRuntimeJs))
-  }
-
   const packageJson =
     JSON.stringify(
       {
@@ -1650,6 +1791,7 @@ export async function createCodeSandboxProjectFiles(
     'src/App.vue': appVue,
     'src/Demo.vue': normalizedCode + '\n',
     'src/main.ts': mainTs,
+    'src/sandbox-files.ts': sandboxFilesTs,
     'src/style.css': `${styleCss}\n`,
     'src/env.d.ts': envDts,
     ...runtimeFiles

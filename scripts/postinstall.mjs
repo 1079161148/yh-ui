@@ -55,8 +55,14 @@ function forceRemove(p) {
 try {
   // 1. 检查已存在且可访问 → 跳过
   if (existsSync(stylesLink) && isAccessible(stylesLink)) {
-    console.log('[postinstall] theme/styles already exists and is accessible, skipping.')
-    process.exit(0)
+    const stat = lstatSync(stylesLink)
+    if (stat.isSymbolicLink()) {
+      console.log('[postinstall] theme/styles already exists as a link and is accessible, skipping.')
+      process.exit(0)
+    }
+
+    console.log('[postinstall] theme/styles exists as a plain directory, refreshing from src/styles...')
+    forceRemove(stylesLink)
   }
 
   // 2. 存在但不可访问（损坏的 junction）→ 删除

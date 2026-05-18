@@ -4,6 +4,28 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.21] - 2026-05-18
+
+Patch release focused on restoring reliable hosted CodeSandbox previews and preventing stale Windows style mirrors from leaking old Sass output into release builds.
+
+### Changed
+
+- Changed CodeSandbox project generation to mount demo SFCs inside hosted .csb.app previews through `vue3-sfc-loader`, with an in-memory Vue file registry and preloaded runtime package cache.
+- Changed the Windows `postinstall` style bridge to refresh plain `packages/theme/styles` directories from `src/styles` before recreating the junction fallback, keeping local Sass resolution aligned with the real source tree.
+- Changed local and advisory remote CodeSandbox smoke tests to assert actual button layout containment instead of only checking DOM presence.
+
+### Fixed
+
+- Fixed exported CodeSandbox demos opening with blank or partial previews because hosted sandboxes could not resolve local .vue sources and runtime package imports consistently.
+- Fixed Windows release builds picking up stale copied theme Sass files, which could reintroduce broken button and input styles even after the source mixins were corrected.
+- Fixed release validation coverage missing the responsive button regression that originally surfaced through the CodeSandbox preview.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm format:check`, `pnpm typecheck`, `pnpm lint`, `pnpm docs:build`, `pnpm verify:stackblitz-local`, `pnpm verify:docs-playground`, `pnpm verify:docs-sandboxes:exhaustive`, and `pnpm verify:codesandbox-local`.
+- Release preparation also rebuilt `packages/components`, synced `docs/public`, and regenerated `docs/public/codesandbox-runtime` before the final sandbox verification pass.
+- `pnpm verify:codesandbox-remote` remains advisory because fresh CodeSandbox `define` requests can still be blocked by Cloudflare verification outside repository control.
+
 ## [1.0.20] - 2026-05-18
 
 Patch release focused on restoring docs demo launchers on the published site and making CodeSandbox exports responsive again for AI component examples.

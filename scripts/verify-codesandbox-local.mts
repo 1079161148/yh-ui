@@ -109,7 +109,32 @@ const testCases: TestCase[] = [
   </yh-space>
 </template>`,
     selector: '.yh-button--primary',
-    text: 'Hello Sandbox'
+    text: 'Hello Sandbox',
+    evaluate: async (page) => {
+      const metrics = await page.locator('.yh-button--primary').evaluate((el) => {
+        const textEl = el.querySelector('.yh-button__text')
+        if (!(textEl instanceof HTMLElement)) {
+          return null
+        }
+
+        const hostRect = el.getBoundingClientRect()
+        const textRect = textEl.getBoundingClientRect()
+        return {
+          hostWidth: hostRect.width,
+          textWidth: textRect.width
+        }
+      })
+
+      if (!metrics) {
+        throw new Error('Expected primary button text wrapper to render in local CodeSandbox smoke')
+      }
+
+      if (metrics.hostWidth <= metrics.textWidth + 8) {
+        throw new Error(
+          `Expected primary button width to contain its text in local CodeSandbox smoke (button=${metrics.hostWidth}, text=${metrics.textWidth})`
+        )
+      }
+    }
   },
   {
     name: 'grid',
