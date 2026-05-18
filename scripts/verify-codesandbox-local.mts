@@ -1,8 +1,8 @@
 import { spawn } from 'node:child_process'
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import http from 'node:http'
 import net from 'node:net'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import process from 'node:process'
 import { chromium } from 'playwright'
@@ -10,14 +10,40 @@ import { createCodeSandboxProjectFiles } from '../docs/.vitepress/theme/utils/de
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
-const runtimeDir = resolve(rootDir, 'docs/public/codesandbox-runtime')
 const tempRootDir = resolve(rootDir, '.codex-temp/codesandbox-local')
+const packagesRoot = resolve(rootDir, 'packages')
+const packOutputDir = resolve(tempRootDir, 'packs')
 const isWin = process.platform === 'win32'
+const npmCommand = isWin ? 'npm.cmd' : 'npm'
+const npxCommand = isWin ? 'npx.cmd' : 'npx'
 const pnpmCommand = isWin ? 'pnpm.cmd' : 'pnpm'
 const shutdownGraceMs = 2_000
 
+const SANDBOX_WORKSPACE_PACKAGES = [
+  '@yh-ui/components',
+  '@yh-ui/flow',
+  '@yh-ui/hooks',
+  '@yh-ui/icons',
+  '@yh-ui/locale',
+  '@yh-ui/theme',
+  '@yh-ui/utils',
+  '@yh-ui/yh-ui'
+] as const
+
 type BrowserPage =
   Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T } ? Awaited<T> : never
+
+interface WorkspaceManifest {
+  name: string
+  version: string
+}
+
+interface SandboxPackageJson extends Record<string, unknown> {
+  dependencies?: Record<string, string>
+  devDependencies?: Record<string, string>
+  optionalDependencies?: Record<string, string>
+  overrides?: Record<string, string>
+}
 
 interface TestCase {
   name: string
@@ -28,16 +54,8 @@ interface TestCase {
   }
   selector: string
   text?: string
+  verifyFiles?: (files: Record<string, string>) => void
   evaluate?: (page: BrowserPage) => Promise<void>
-}
-
-interface CodeSandboxManifest {
-  version: number
-  supportFiles: string[]
-  components: Record<
-    string,
-    { files: string[]; entry: string; module: string; style: string | null }
-  >
 }
 
 const testCases: TestCase[] = [
@@ -121,6 +139,72 @@ const testCases: TestCase[] = [
     }
   },
   {
+    name: 'ai-chat',
+    title: 'AI Chat',
+    code: `<template>
+  <div style="max-width: 720px; height: 520px">
+    <yh-ai-chat v-model:messages="messages" :loading="loading" @send="handleSend" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const messages = ref([
+  { id: 'assistant-1', role: 'assistant', content: 'Hello from YH-UI AI Chat.' },
+  { id: 'user-1', role: 'user', content: 'Please verify CodeSandbox.' }
+])
+
+const loading = ref(false)
+
+const handleSend = async (value: string) => {
+  messages.value.push({
+    id: 'user-' + Date.now(),
+    role: 'user',
+    content: value
+  })
+}
+</script>`,
+    context: {
+      docPath: 'ai-components/ai-chat.md'
+    },
+    selector: '.yh-ai-chat',
+    verifyFiles: (files) => {
+      const packageJson = JSON.parse(files['package.json']) as {
+        dependencies?: Record<string, string>
+      }
+      if (!packageJson.dependencies?.['@yh-ui/yh-ui']) {
+        throw new Error('Expected CodeSandbox package scaffold to install @yh-ui/yh-ui from npm')
+      }
+
+      const invalidVendoredRuntimeFiles = Object.keys(files).filter(
+        (filePath) =>
+          filePath.startsWith('src/vendor/') &&
+          filePath !== 'src/vendor/yh-ui-bundle.css' &&
+          filePath !== 'src/vendor/flow/runtime.js' &&
+          filePath !== 'src/vendor/flow/runtime.css'
+      )
+
+      if (invalidVendoredRuntimeFiles.length > 0) {
+        throw new Error(
+          `Expected CodeSandbox export to avoid vendored component runtime files, received: ${invalidVendoredRuntimeFiles.join(', ')}`
+        )
+      }
+    },
+    evaluate: async (page) => {
+      await page.locator('.yh-ai-chat__content').waitFor({ state: 'visible', timeout: 30000 })
+      await page.locator('.yh-ai-chat__footer').waitFor({ state: 'visible', timeout: 30000 })
+      const bubbleCount = await page.locator('.yh-ai-bubble').count()
+      if (bubbleCount < 2) {
+        throw new Error(`Expected ai chat to render at least 2 bubbles, received ${bubbleCount}`)
+      }
+      const sendButtonCount = await page.locator('.yh-ai-sender__send-btn').count()
+      if (sendButtonCount < 1) {
+        throw new Error('Expected ai chat sender actions to render in local CodeSandbox smoke')
+      }
+    }
+  },
+  {
     name: 'ai-sender',
     title: 'AI Sender',
     code: `<template>
@@ -177,11 +261,26 @@ const code = "const message = 'sandbox'\\nconsole.log(message)"
 const diagram = "graph TD\\nA[Start] --> B[Done]"
 </script>`,
     selector: '.yh-ai-mermaid',
+    verifyFiles: (files) => {
+      const packageJson = JSON.parse(files['package.json']) as {
+        dependencies?: Record<string, string>
+      }
+      if (!packageJson.dependencies?.mermaid) {
+        throw new Error('Expected ai mermaid CodeSandbox scaffold to include mermaid dependency')
+      }
+    },
     evaluate: async (page) => {
-      await page
-        .locator('.yh-ai-mermaid__graph svg, .yh-ai-mermaid__graph .mermaid')
-        .first()
-        .waitFor({ state: 'visible', timeout: 30000 })
+      await page.locator('.yh-ai-mermaid__graph').waitFor({ state: 'visible', timeout: 30000 })
+      const graphMarkup = await page.locator('.yh-ai-mermaid__graph').evaluate((el) => {
+        const html = el.innerHTML || ''
+        return {
+          hasSvgMarkup: html.includes('<svg'),
+          childElementCount: el.childElementCount
+        }
+      })
+      if (!graphMarkup.hasSvgMarkup && graphMarkup.childElementCount < 1) {
+        throw new Error('Expected ai mermaid graph container to render diagram markup')
+      }
       const tabCount = await page.locator('.yh-ai-mermaid__render-tab').count()
       if (tabCount < 2) {
         throw new Error(`Expected ai mermaid render tabs to appear, received ${tabCount}`)
@@ -327,9 +426,14 @@ async function stopProcessTree(pid: number) {
   }
 }
 
-async function runCommand(cwd: string, args: string[], timeoutMs = 20 * 60 * 1000): Promise<void> {
+async function runCommand(
+  command: string,
+  cwd: string,
+  args: string[],
+  timeoutMs = 20 * 60 * 1000
+): Promise<void> {
   await new Promise((resolve, reject) => {
-    const child = spawn(pnpmCommand, args, {
+    const child = spawn(command, args, {
       cwd,
       env: {
         ...process.env,
@@ -345,7 +449,7 @@ async function runCommand(cwd: string, args: string[], timeoutMs = 20 * 60 * 100
     let stderr = ''
     const timer = setTimeout(() => {
       child.kill('SIGKILL')
-      reject(new Error(`pnpm ${args.join(' ')} timed out after ${timeoutMs}ms`))
+      reject(new Error(`${command} ${args.join(' ')} timed out after ${timeoutMs}ms`))
     }, timeoutMs)
 
     child.stdout?.on('data', (chunk) => {
@@ -367,7 +471,7 @@ async function runCommand(cwd: string, args: string[], timeoutMs = 20 * 60 * 100
 
       reject(
         new Error(
-          `pnpm ${args.join(' ')} failed with exit code ${code}\n[stdout]\n${stdout}\n[stderr]\n${stderr}`
+          `${command} ${args.join(' ')} failed with exit code ${code}\n[stdout]\n${stdout}\n[stderr]\n${stderr}`
         )
       )
     })
@@ -385,32 +489,103 @@ async function writeProjectFiles(dir: string, files: Record<string, string>) {
   }
 }
 
-async function buildProjectFiles(testCase: TestCase): Promise<Record<string, string>> {
-  const manifest = JSON.parse(
-    await readFile(join(runtimeDir, 'manifest.json'), 'utf8')
-  ) as CodeSandboxManifest
+async function readWorkspaceManifest(packageDirName: string): Promise<WorkspaceManifest> {
+  const manifestPath = join(packagesRoot, packageDirName, 'package.json')
+  return JSON.parse(await readFile(manifestPath, 'utf8')) as WorkspaceManifest
+}
 
+async function createWorkspaceTarballMap() {
+  await rm(packOutputDir, { recursive: true, force: true })
+  await mkdir(packOutputDir, { recursive: true })
+
+  const tarballMap = new Map<string, string>()
+  const packageEntries = await readdir(packagesRoot, { withFileTypes: true })
+
+  for (const entry of packageEntries) {
+    if (!entry.isDirectory()) continue
+
+    const manifest = await readWorkspaceManifest(entry.name)
+    if (
+      !SANDBOX_WORKSPACE_PACKAGES.includes(
+        manifest.name as (typeof SANDBOX_WORKSPACE_PACKAGES)[number]
+      )
+    ) {
+      continue
+    }
+
+    const packageDir = join(packagesRoot, entry.name)
+    await runCommand(pnpmCommand, packageDir, ['pack', '--pack-destination', packOutputDir])
+
+    const tarballName = `${manifest.name.slice(1).replace('/', '-')}-${manifest.version}.tgz`
+    tarballMap.set(manifest.name, join(packOutputDir, tarballName))
+  }
+
+  for (const packageName of SANDBOX_WORKSPACE_PACKAGES) {
+    if (!tarballMap.has(packageName)) {
+      throw new Error(`Missing packed tarball for ${packageName}`)
+    }
+  }
+
+  return tarballMap
+}
+
+function applyWorkspacePackageOverrides(
+  caseDir: string,
+  files: Record<string, string>,
+  tarballMap: Map<string, string>
+): Record<string, string> {
+  const packageJson = JSON.parse(files['package.json']) as SandboxPackageJson
+  const overrides = Object.fromEntries(
+    [...tarballMap.entries()].map(([packageName, tarballPath]) => [
+      packageName,
+      `file:${relative(caseDir, tarballPath).replace(/\\/g, '/')}`
+    ])
+  )
+
+  for (const field of ['dependencies', 'devDependencies', 'optionalDependencies'] as const) {
+    const dependencies = packageJson[field]
+    if (!dependencies) continue
+
+    for (const packageName of Object.keys(dependencies)) {
+      const overrideValue = overrides[packageName]
+      if (overrideValue) {
+        dependencies[packageName] = overrideValue
+      }
+    }
+  }
+
+  packageJson.overrides = {
+    ...(packageJson.overrides ?? {}),
+    ...overrides
+  }
+
+  return {
+    ...files,
+    'package.json': `${JSON.stringify(packageJson, null, 2)}\n`
+  }
+}
+
+async function buildProjectFiles(testCase: TestCase): Promise<Record<string, string>> {
   return createCodeSandboxProjectFiles(testCase.title, testCase.code, testCase.context, {
-    manifest,
-    loadRuntimeAssetText: async (relativePath) =>
-      readFile(join(runtimeDir, ...relativePath.split('/')), 'utf8'),
     loadSiteAssetText: async (assetPath) =>
       readFile(join(rootDir, 'docs', 'public', ...assetPath.split('/')), 'utf8')
   })
 }
 
-async function verifyLocalSandbox(testCase: TestCase) {
+async function verifyLocalSandbox(testCase: TestCase, tarballMap: Map<string, string>) {
   const sandboxDir = join(tempRootDir, testCase.name)
   const screenshotPath = join(tempRootDir, `${testCase.name}.png`)
-  const files = await buildProjectFiles(testCase)
+  const baseFiles = await buildProjectFiles(testCase)
+  testCase.verifyFiles?.(baseFiles)
+  const files = applyWorkspacePackageOverrides(sandboxDir, baseFiles, tarballMap)
   await writeProjectFiles(sandboxDir, files)
 
-  await runCommand(sandboxDir, ['install', '--lockfile=false', '--reporter=append-only'])
-  await runCommand(sandboxDir, ['build'])
+  await runCommand(npmCommand, sandboxDir, ['install', '--no-package-lock'])
+  await runCommand(npmCommand, sandboxDir, ['run', 'build'])
 
   const port = await getAvailablePort()
   const previewUrl = `http://127.0.0.1:${port}/`
-  const server = spawn(pnpmCommand, ['exec', 'vite', '--host', '127.0.0.1', '--port', `${port}`], {
+  const server = spawn(npxCommand, ['vite', '--host', '127.0.0.1', '--port', `${port}`], {
     cwd: sandboxDir,
     env: {
       ...process.env,
@@ -507,10 +682,12 @@ async function main() {
   await mkdir(tempRootDir, { recursive: true })
   const results = []
   const selectedTestCases = selectTestCases(testCases)
+  console.log('[verify:codesandbox-local] packing local workspace tarballs')
+  const tarballMap = await createWorkspaceTarballMap()
 
   for (const testCase of selectedTestCases) {
     console.log(`[verify:codesandbox-local] starting ${testCase.name}`)
-    results.push(await verifyLocalSandbox(testCase))
+    results.push(await verifyLocalSandbox(testCase, tarballMap))
     console.log(`[verify:codesandbox-local] passed ${testCase.name}`)
   }
 

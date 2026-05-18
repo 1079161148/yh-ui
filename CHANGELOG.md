@@ -4,6 +4,30 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.17] - 2026-05-18
+
+Docs sandbox export follow-up focused on keeping generated CodeSandbox demos aligned with the npm-install scaffold that now powers live previews, especially for AI components with extra runtime dependencies.
+
+### Added
+
+- Added file-level CodeSandbox scaffold assertions for `AiChat` and `AiMermaid` so release validation fails as soon as required npm dependencies or legacy runtime artifacts drift.
+
+### Changed
+
+- Changed CodeSandbox project generation to reuse the shared StackBlitz/npm-install scaffold end-to-end instead of maintaining a separate vendored-runtime branch.
+- Changed release-version verification to validate the shared sandbox scaffold contract directly, matching the current `demo-sandbox.ts` architecture.
+
+### Fixed
+
+- Fixed exported CodeSandbox demos for `AiChat` opening with incomplete runtime files under Nodebox by removing the stale vendored export path.
+- Fixed exported `AiMermaid` demos failing to load `mermaid` in npm-installed sandboxes by declaring the package explicitly and enabling the required Vite interop dependency hints.
+- Fixed release validation incorrectly failing after the scaffold unification because the version guard still assumed a standalone CodeSandbox `package.json` template.
+
+### Notes
+
+- Full local `pnpm verify:release` passed for `1.0.17`, including builds, package-size checks, consumer smoke, docs build, StackBlitz local validation, docs sandbox validation, CodeSandbox local validation, and docs Playground validation.
+- `pnpm verify:codesandbox-remote` was re-run for this release and returned the expected advisory skip because CodeSandbox `define` was blocked by a Cloudflare `403`, not because of a repository-controlled regression.
+
 ## [1.0.16] - 2026-05-17
 
 Docs sandbox release follow-up focused on making exported CodeSandbox demos boot reliably in the live Nodebox environment while keeping locally built component docs visually aligned with the current published site.

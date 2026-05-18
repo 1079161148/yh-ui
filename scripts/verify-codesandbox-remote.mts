@@ -8,7 +8,6 @@ import { createCodeSandboxProjectFiles } from '../docs/.vitepress/theme/utils/de
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
-const runtimeDir = resolve(rootDir, 'docs/public/codesandbox-runtime')
 const tempDir = resolve(rootDir, '.codex-temp')
 
 const testCases = [
@@ -119,6 +118,73 @@ const testCases = [
     }
   },
   {
+    name: 'ai-chat',
+    title: 'AI Chat',
+    code: `<template>
+  <div style="max-width: 720px; height: 520px">
+    <yh-ai-chat v-model:messages="messages" :loading="loading" @send="handleSend" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const messages = ref([
+  { id: 'assistant-1', role: 'assistant', content: 'Hello from YH-UI AI Chat.' },
+  { id: 'user-1', role: 'user', content: 'Please verify CodeSandbox.' }
+])
+
+const loading = ref(false)
+
+const handleSend = async (value: string) => {
+  messages.value.push({
+    id: 'user-' + Date.now(),
+    role: 'user',
+    content: value
+  })
+}
+</script>`,
+    context: {
+      docPath: 'ai-components/ai-chat.md'
+    },
+    selector: '.yh-ai-chat',
+    text: '',
+    verifyFiles: (files) => {
+      const packageJson = JSON.parse(files['package.json']) as {
+        dependencies?: Record<string, string>
+      }
+      if (!packageJson.dependencies?.['@yh-ui/yh-ui']) {
+        throw new Error('Expected CodeSandbox package scaffold to install @yh-ui/yh-ui from npm')
+      }
+
+      const invalidVendoredRuntimeFiles = Object.keys(files).filter(
+        (filePath) =>
+          filePath.startsWith('src/vendor/') &&
+          filePath !== 'src/vendor/yh-ui-bundle.css' &&
+          filePath !== 'src/vendor/flow/runtime.js' &&
+          filePath !== 'src/vendor/flow/runtime.css'
+      )
+
+      if (invalidVendoredRuntimeFiles.length > 0) {
+        throw new Error(
+          `Expected CodeSandbox export to avoid vendored component runtime files, received: ${invalidVendoredRuntimeFiles.join(', ')}`
+        )
+      }
+    },
+    evaluate: async (page) => {
+      await page.locator('.yh-ai-chat__content').waitFor({ state: 'visible', timeout: 30000 })
+      await page.locator('.yh-ai-chat__footer').waitFor({ state: 'visible', timeout: 30000 })
+      const bubbleCount = await page.locator('.yh-ai-bubble').count()
+      if (bubbleCount < 2) {
+        throw new Error(`Expected ai chat to render at least 2 bubbles, received ${bubbleCount}`)
+      }
+      const sendButtonCount = await page.locator('.yh-ai-sender__send-btn').count()
+      if (sendButtonCount < 1) {
+        throw new Error('Expected ai chat sender actions to render in remote CodeSandbox smoke')
+      }
+    }
+  },
+  {
     name: 'ai-sender',
     title: 'AI Sender',
     code: `<template>
@@ -178,11 +244,26 @@ const diagram = "graph TD\\nA[Start] --> B[Done]"
 </script>`,
     selector: '.yh-ai-mermaid',
     text: '',
+    verifyFiles: (files) => {
+      const packageJson = JSON.parse(files['package.json']) as {
+        dependencies?: Record<string, string>
+      }
+      if (!packageJson.dependencies?.mermaid) {
+        throw new Error('Expected ai mermaid CodeSandbox scaffold to include mermaid dependency')
+      }
+    },
     evaluate: async (page) => {
-      await page
-        .locator('.yh-ai-mermaid__graph svg, .yh-ai-mermaid__graph .mermaid')
-        .first()
-        .waitFor({ state: 'visible', timeout: 30000 })
+      await page.locator('.yh-ai-mermaid__graph').waitFor({ state: 'visible', timeout: 30000 })
+      const graphMarkup = await page.locator('.yh-ai-mermaid__graph').evaluate((el) => {
+        const html = el.innerHTML || ''
+        return {
+          hasSvgMarkup: html.includes('<svg'),
+          childElementCount: el.childElementCount
+        }
+      })
+      if (!graphMarkup.hasSvgMarkup && graphMarkup.childElementCount < 1) {
+        throw new Error('Expected ai mermaid graph container to render diagram markup')
+      }
       const tabCount = await page.locator('.yh-ai-mermaid__render-tab').count()
       if (tabCount < 2) {
         throw new Error(`Expected ai mermaid render tabs to appear, received ${tabCount}`)
@@ -290,6 +371,7 @@ interface TestCase {
   }
   selector: string
   text: string
+  verifyFiles?: (files: Record<string, string>) => void
   evaluate?: (page: BrowserPage) => Promise<void>
 }
 
@@ -349,22 +431,17 @@ function shouldSoftFailForExternalService(error: unknown): boolean {
   return true
 }
 
-async function createRemoteSandbox(title: string, code: string, context?: TestCase['context']) {
-  const manifest = JSON.parse(await readFile(join(runtimeDir, 'manifest.json'), 'utf8')) as {
-    version: number
-    supportFiles: string[]
-    components: Record<
-      string,
-      { files: string[]; entry: string; module: string; style: string | null }
-    >
-  }
-  const files = await createCodeSandboxProjectFiles(title, code, context, {
-    manifest,
-    loadRuntimeAssetText: async (relativePath) =>
-      readFile(join(runtimeDir, ...relativePath.split('/')), 'utf8'),
-    loadSiteAssetText: async (assetPath) =>
-      readFile(join(rootDir, 'docs', 'public', ...assetPath.split('/')), 'utf8')
-  })
+async function createRemoteSandbox(testCase: TestCase) {
+  const files = await createCodeSandboxProjectFiles(
+    testCase.title,
+    testCase.code,
+    testCase.context,
+    {
+      loadSiteAssetText: async (assetPath) =>
+        readFile(join(rootDir, 'docs', 'public', ...assetPath.split('/')), 'utf8')
+    }
+  )
+  testCase.verifyFiles?.(files)
   const payload = {
     files: Object.fromEntries(
       Object.entries(files).map(([filePath, content]) => [filePath, { content }])
@@ -406,11 +483,7 @@ async function createRemoteSandbox(title: string, code: string, context?: TestCa
 }
 
 async function verifyTestCase(testCase: TestCase) {
-  const { sandboxId, previewUrl } = await createRemoteSandbox(
-    testCase.title,
-    testCase.code,
-    testCase.context
-  )
+  const { sandboxId, previewUrl } = await createRemoteSandbox(testCase)
   const browser = await chromium.launch({ headless: true })
   const page = await browser.newPage()
   const runtimeErrors: string[] = []

@@ -99,7 +99,6 @@ const PLAYGROUND_RUNTIME_EXTERNAL_PACKAGES = [
   'xlsx',
   'zod'
 ] as const
-const CODE_SANDBOX_RUNTIME_BASE = 'codesandbox-runtime/'
 
 const NODE_BUILTINS = new Set([
   'assert',
@@ -204,8 +203,6 @@ interface CodeSandboxRuntimeManifest {
 
 interface CodeSandboxProjectFilesOptions {
   base?: string
-  manifest?: CodeSandboxRuntimeManifest
-  loadRuntimeAssetText?: (relativePath: string) => Promise<string>
   loadSiteAssetText?: (assetPath: string) => Promise<string>
 }
 
@@ -286,20 +283,6 @@ function extractBareImports(code: string): string[] {
     if (!source) continue
     imports.add(source)
   }
-  return [...imports]
-}
-
-function extractDynamicRelativeRuntimeImports(code: string): string[] {
-  const imports = new Set<string>()
-  const templateImportRe = /\bimport\s*\(\s*`([^`]*\$\{[^`]+\}[^`]*)`\s*\)/g
-
-  for (const match of code.matchAll(templateImportRe)) {
-    const source = match[1]
-    if (source?.startsWith('.')) {
-      imports.add(source)
-    }
-  }
-
   return [...imports]
 }
 
@@ -399,14 +382,6 @@ export function getUnresolvedRuntimeComponentNames(
   return [...new Set(unresolvedNames)].sort()
 }
 
-function kebabToPascalCase(value: string): string {
-  return value
-    .split('-')
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('')
-}
-
 async function fetchTextAsset(url: string): Promise<string> {
   const response = await fetch(url)
   if (!response.ok) {
@@ -415,149 +390,6 @@ async function fetchTextAsset(url: string): Promise<string> {
 
   return response.text()
 }
-
-async function loadCodeSandboxRuntimeManifest(base: string): Promise<CodeSandboxRuntimeManifest> {
-  const manifestUrl = resolveSiteAssetUrl(base, `${CODE_SANDBOX_RUNTIME_BASE}manifest.json`)
-  return JSON.parse(await fetchTextAsset(manifestUrl)) as CodeSandboxRuntimeManifest
-}
-
-function collectThirdPartyDependenciesFromCode(code: string): Record<string, string> {
-  const dependencies: Record<string, string> = {}
-
-  for (const source of extractBareImports(code)) {
-    if (source.startsWith('.') || source.startsWith('/')) {
-      continue
-    }
-
-    const pkg = getPackageName(source)
-    if (
-      pkg === 'vue' ||
-      pkg.startsWith('node:') ||
-      NODE_BUILTINS.has(pkg) ||
-      pkg.startsWith('@yh-ui/')
-    ) {
-      continue
-    }
-
-    dependencies[pkg] = KNOWN_DEPENDENCIES[pkg] || 'latest'
-  }
-
-  return dependencies
-}
-
-function normalizeRuntimeImportSource(source: string): string {
-  if (!source.startsWith('.')) {
-    return source
-  }
-
-  if (/\.[a-z0-9]+(?:[?#].*)?$/i.test(source)) {
-    return source
-  }
-
-  return `${source}.js`
-}
-
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
-function resolveRuntimeRelativePath(
-  fromFile: string,
-  importSource: string,
-  availableFiles: Set<string>
-): string {
-  const resolvedPath = new URL(importSource, `https://runtime.local/${fromFile}`).pathname.replace(
-    /^\/+/,
-    ''
-  )
-  const extensionMatch = resolvedPath.match(/(\.[a-z0-9]+)$/i)
-  const hasExtension = Boolean(extensionMatch)
-  const extension = extensionMatch?.[1] ?? ''
-  const resolvedPathWithoutExtension = hasExtension
-    ? resolvedPath.slice(0, -extension.length)
-    : resolvedPath
-  const candidates = hasExtension
-    ? [resolvedPath, `${resolvedPathWithoutExtension}/index${extension}`]
-    : [
-        resolvedPath,
-        `${resolvedPath}.js`,
-        `${resolvedPath}.css`,
-        `${resolvedPath}/index.js`,
-        `${resolvedPath}/index.css`
-      ]
-
-  return (
-    candidates.find((candidate) => availableFiles.has(candidate)) ??
-    normalizeRuntimeImportSource(importSource)
-  )
-}
-
-function resolveRuntimeDynamicRelativePaths(
-  fromFile: string,
-  importSource: string,
-  availableFiles: Set<string>
-): string[] {
-  const placeholderToken = '__YH_DYNAMIC_IMPORT__'
-  const templatePath = importSource.replace(/\$\{[^}]+\}/g, placeholderToken)
-  const resolvedTemplatePath = new URL(
-    templatePath,
-    `https://runtime.local/${fromFile}`
-  ).pathname.replace(/^\/+/, '')
-  const pathPattern = new RegExp(
-    `^${escapeRegExp(resolvedTemplatePath).replaceAll(placeholderToken, '.+?')}$`
-  )
-
-  return [...availableFiles].filter((candidate) => pathPattern.test(candidate)).sort()
-}
-
-function toRelativeRuntimeImport(fromFile: string, targetFile: string): string {
-  const fromSegments = fromFile.split('/')
-  fromSegments.pop()
-
-  const targetSegments = targetFile.split('/')
-  let commonIndex = 0
-
-  while (
-    commonIndex < fromSegments.length &&
-    commonIndex < targetSegments.length &&
-    fromSegments[commonIndex] === targetSegments[commonIndex]
-  ) {
-    commonIndex += 1
-  }
-
-  const upwardSegments = new Array(fromSegments.length - commonIndex).fill('..')
-  const downwardSegments = targetSegments.slice(commonIndex)
-  const relativePath = [...upwardSegments, ...downwardSegments].join('/')
-
-  if (!relativePath) {
-    return './'
-  }
-
-  return relativePath.startsWith('.') ? relativePath : `./${relativePath}`
-}
-
-function rewriteRuntimeRelativeImports(
-  code: string,
-  fromFile: string,
-  availableFiles: Set<string>
-): string {
-  return code.replace(
-    /(\bimport\s+(?:type\s+)?(?:[\w*\s{},]*?\s+from\s+)?["']|\bexport\s+[\w*\s{},]*?\s+from\s+["']|\bimport\s*\(\s*["'])([^"']+)(["'])/g,
-    (full, prefix, source, suffix) => {
-      if (!source.startsWith('.')) {
-        return `${prefix}${source}${suffix}`
-      }
-
-      const resolvedTarget = resolveRuntimeRelativePath(fromFile, source, availableFiles)
-      const rewrittenSource = resolvedTarget.startsWith('.')
-        ? normalizeRuntimeImportSource(resolvedTarget)
-        : toRelativeRuntimeImport(fromFile, resolvedTarget)
-
-      return `${prefix}${rewrittenSource}${suffix}`
-    }
-  )
-}
-
 function compressCodeSandboxParameters(input: string): string {
   return compressToBase64(input).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
 }
@@ -908,6 +740,16 @@ function usesIconSandboxRuntime(code: string, context?: SandboxContext): boolean
   )
 }
 
+function usesMermaidSandboxRuntime(code: string, context?: SandboxContext): boolean {
+  const preparedCode = prepareSandboxCode(code, context)
+  const normalizedDocPath = normalizeDocPath(context?.docPath)
+  return (
+    preparedCode.includes('@yh-ui/ai-mermaid') ||
+    /<\s*yh-ai-mermaid\b/i.test(preparedCode) ||
+    normalizedDocPath === 'ai-components/ai-mermaid.md'
+  )
+}
+
 function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
   const dependencies = { ...BASE_DEPENDENCIES }
@@ -934,6 +776,10 @@ function buildDependencies(code: string, context?: SandboxContext): Record<strin
     dependencies['html-to-image'] = KNOWN_DEPENDENCIES['html-to-image']
   }
 
+  if (usesMermaidSandboxRuntime(preparedCode, context)) {
+    dependencies.mermaid = KNOWN_DEPENDENCIES.mermaid
+  }
+
   return dependencies
 }
 
@@ -950,33 +796,6 @@ function buildSandboxDependencies(code: string, context?: SandboxContext): Recor
 
   if (usesFlowSandboxRuntime(preparedCode, context)) {
     dependencies['@yh-ui/flow'] = YH_UI_VERSION
-  }
-
-  for (const source of extractBareImports(preparedCode)) {
-    const pkg = getPackageName(source)
-    if (pkg === 'vue' || pkg.startsWith('node:') || NODE_BUILTINS.has(pkg)) {
-      continue
-    }
-
-    if (pkg.startsWith('@yh-ui/')) {
-      dependencies[pkg] = KNOWN_DEPENDENCIES[pkg] || YH_UI_VERSION
-    }
-  }
-
-  return dependencies
-}
-
-function buildCodeSandboxDependencies(
-  code: string,
-  context?: SandboxContext
-): Record<string, string> {
-  const preparedCode = prepareSandboxCode(code, context)
-  const dependencies = {
-    ...buildDependencies(preparedCode, context)
-  }
-
-  if (usesIconSandboxRuntime(preparedCode, context)) {
-    dependencies['@iconify/vue'] = KNOWN_DEPENDENCIES['@iconify/vue']
   }
 
   for (const source of extractBareImports(preparedCode)) {
@@ -1096,6 +915,7 @@ export async function createSandboxProjectFiles(
   const dependencies = buildSandboxDependencies(code, context)
   const usesFlowRuntime = usesFlowSandboxRuntime(code, context)
   const usesIconRuntime = usesIconSandboxRuntime(code, context)
+  const usesMermaidRuntime = usesMermaidSandboxRuntime(code, context)
   const base = (options.base ?? import.meta.env.BASE_URL) || '/'
   const loadSiteAssetText =
     options.loadSiteAssetText ??
@@ -1107,7 +927,8 @@ export async function createSandboxProjectFiles(
     'dayjs/plugin/isoWeek.js',
     'dayjs/plugin/quarterOfYear.js',
     'dayjs/plugin/advancedFormat.js',
-    'dayjs/plugin/customParseFormat.js'
+    'dayjs/plugin/customParseFormat.js',
+    ...(usesMermaidRuntime ? ['mermaid', '@braintree/sanitize-url'] : [])
   ]
   const sandboxConfigJson =
     JSON.stringify(
@@ -1321,328 +1142,22 @@ export async function createCodeSandboxProjectFiles(
   context?: SandboxContext,
   options: CodeSandboxProjectFilesOptions = {}
 ): Promise<Record<string, string>> {
-  const preparedCode = prepareSandboxCode(code, context)
-  const normalizedCode = normalizeSfc(preparedCode)
-  const componentNames = extractUsedYhComponentNames(preparedCode)
-  const base = (options.base ?? import.meta.env.BASE_URL) || '/'
-  const manifest = options.manifest ?? (await loadCodeSandboxRuntimeManifest(base))
-  const loadRuntimeAssetText =
-    options.loadRuntimeAssetText ??
-    ((relativePath: string) =>
-      fetchTextAsset(resolveSiteAssetUrl(base, `${CODE_SANDBOX_RUNTIME_BASE}${relativePath}`)))
-  const loadSiteAssetText =
-    options.loadSiteAssetText ??
-    ((assetPath: string) => fetchTextAsset(resolveSiteAssetUrl(base, assetPath)))
-  const runtimeComponentNames = resolveRuntimeComponentNames(componentNames, manifest)
-  const supportStyleFiles = [
-    'theme/styles/mixins/mixins.css',
-    'theme/styles/variables.css',
-    'theme/styles/reset.css',
-    'theme/styles/index.css',
-    'theme/styles/components.css'
-  ]
-  const availableRuntimeFiles = new Set<string>([
-    ...manifest.supportFiles,
-    ...Object.values(manifest.components).flatMap((component) => component.files)
-  ])
+  // Keep CodeSandbox aligned with the StackBlitz/npm-install scaffold.
+  // The previous vendored-runtime export was much heavier for AI demos such as
+  // ai-chat and proved brittle in the hosted CodeSandbox environment.
+  const files = await createSandboxProjectFiles(title, code, context, {
+    base: options.base,
+    loadSiteAssetText: options.loadSiteAssetText
+  })
 
-  const runtimeFiles: Record<string, string> = {}
-  const collectedStyleContents = new Map<string, string>()
-  const packageDependencies: Record<string, string> = buildCodeSandboxDependencies(code, context)
+  delete files['.stackblitzrc']
 
-  const loadedRuntimeFiles = new Set<string>()
-
-  const collectRuntimeFile = async (relativePath: string): Promise<void> => {
-    if (loadedRuntimeFiles.has(relativePath)) {
-      return
-    }
-
-    loadedRuntimeFiles.add(relativePath)
-    const originalAssetText = await loadRuntimeAssetText(relativePath)
-    let assetText = relativePath.endsWith('.js')
-      ? rewriteRuntimeRelativeImports(originalAssetText, relativePath, availableRuntimeFiles)
-      : originalAssetText
-
-    if (relativePath === 'hooks/index.js') {
-      assetText = assetText.replace(
-        /^\s*export\s+\*\s+from\s+['"]\.\/use-ai\/index\.js['"]\s*;?\s*$/gm,
-        ''
-      )
-    }
-
-    runtimeFiles[`src/vendor/${relativePath}`] = assetText
-    Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(assetText))
-
-    if (relativePath.endsWith('.css')) {
-      collectedStyleContents.set(relativePath, assetText)
-      return
-    }
-
-    if (!relativePath.endsWith('.js')) {
-      return
-    }
-
-    for (const source of extractBareImports(assetText)) {
-      if (!source.startsWith('.')) {
-        continue
-      }
-
-      await collectRuntimeFile(
-        resolveRuntimeRelativePath(relativePath, source, availableRuntimeFiles)
-      )
-    }
-
-    for (const source of extractDynamicRelativeRuntimeImports(assetText)) {
-      const matchedFiles = resolveRuntimeDynamicRelativePaths(
-        relativePath,
-        source,
-        availableRuntimeFiles
-      )
-
-      for (const matchedFile of matchedFiles) {
-        await collectRuntimeFile(matchedFile)
-      }
-    }
+  const packageJson = JSON.parse(files['package.json']) as {
+    stackblitz?: unknown
+    [key: string]: unknown
   }
-
-  for (const componentName of runtimeComponentNames) {
-    const componentEntry = manifest.components[componentName]
-    await collectRuntimeFile(componentEntry.entry)
-    if (componentEntry.style) {
-      await collectRuntimeFile(componentEntry.style)
-    }
-  }
-
-  for (const styleFile of supportStyleFiles) {
-    await collectRuntimeFile(styleFile)
-  }
-
-  const styleCss = [
-    'html, body, #app {',
-    '  margin: 0;',
-    '  min-height: 100%;',
-    '}',
-    '',
-    'body {',
-    '  padding: 24px;',
-    '  box-sizing: border-box;',
-    "  font-family: Inter, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;",
-    '  background: #ffffff;',
-    '  color: #1f2329;',
-    '}',
-    '',
-    [...collectedStyleContents.values()].filter(Boolean).join('\n')
-  ]
-    .filter(Boolean)
-    .join('\n')
-
-  const componentImports = runtimeComponentNames
-    .map(
-      (name, index) =>
-        `import Component${index + 1} from './vendor/${manifest.components[name].entry}'`
-    )
-    .join('\n')
-  const componentRegistrations = runtimeComponentNames
-    .map(
-      (name, index) =>
-        `if (Component${index + 1} && typeof Component${index + 1}.install === 'function') { app.use(Component${index + 1}) } else { app.component('Yh${kebabToPascalCase(name)}', Component${index + 1}) }`
-    )
-    .join('\n')
-
-  const interopDeps = [
-    'dayjs',
-    'dayjs/plugin/isBetween.js',
-    'dayjs/plugin/weekOfYear.js',
-    'dayjs/plugin/isoWeek.js',
-    'dayjs/plugin/quarterOfYear.js',
-    'dayjs/plugin/advancedFormat.js',
-    'dayjs/plugin/customParseFormat.js'
-  ]
-  const sandboxConfigJson =
-    JSON.stringify(
-      {
-        template: 'node',
-        infiniteLoopProtection: true
-      },
-      null,
-      2
-    ) + '\n'
-
-  const indexHtml = [
-    '<!doctype html>',
-    '<html lang="en">',
-    '  <head>',
-    '    <meta charset="UTF-8" />',
-    '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
-    `    <meta name="description" content="${escapeHtml(title || 'YH-UI Demo')}" />`,
-    `    <title>${escapeHtml(title || 'YH-UI Demo')}</title>`,
-    '  </head>',
-    '  <body>',
-    '    <div id="app"></div>',
-    '    <script type="module" src="/src/main.ts"></script>',
-    '  </body>',
-    '</html>',
-    ''
-  ].join('\n')
-
-  const appVue = [
-    '<template>',
-    '  <Demo />',
-    '</template>',
-    '',
-    '<script setup lang="ts">',
-    "import Demo from './Demo.vue'",
-    '</script>',
-    ''
-  ].join('\n')
-
-  const mainTs = [
-    "import { createApp } from 'vue'",
-    "import App from './App.vue'",
-    componentImports,
-    "import './style.css'",
-    ...(usesIconSandboxRuntime(preparedCode, context)
-      ? ["import { Icon as YhIconify } from '@iconify/vue'"]
-      : []),
-    ...(usesFlowSandboxRuntime(preparedCode, context)
-      ? [
-          "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from './vendor/flow/runtime.js'",
-          "import './vendor/flow/runtime.css'"
-        ]
-      : []),
-    '',
-    'const app = createApp(App)',
-    ...(componentRegistrations ? [componentRegistrations] : []),
-    ...(usesIconSandboxRuntime(preparedCode, context)
-      ? ["app.component('Icon', YhIconify)", "app.component('YhIconifyIcon', YhIconify)"]
-      : []),
-    ...(usesFlowSandboxRuntime(preparedCode, context)
-      ? [
-          "app.component('YhFlow', YhFlow)",
-          "app.component('YhNodeResizer', YhNodeResizer)",
-          "app.component('YhNodeToolbar', YhNodeToolbar)"
-        ]
-      : []),
-    "app.mount('#app')",
-    ''
-  ].join('\n')
-
-  const envDts = [
-    'declare module "*.vue" {',
-    '  import type { DefineComponent } from "vue"',
-    '  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>',
-    '  export default component',
-    '}',
-    ''
-  ].join('\n')
-
-  const viteConfigTs = [
-    "import vue from '@vitejs/plugin-vue'",
-    "import { defineConfig } from 'vite'",
-    '',
-    'export default defineConfig({',
-    '  plugins: [vue()],',
-    '  optimizeDeps: {',
-    `    include: ${JSON.stringify(interopDeps)},`,
-    `    needsInterop: ${JSON.stringify(interopDeps)}`,
-    '  },',
-    '  server: {',
-    "    host: '0.0.0.0',",
-    '    port: 5173,',
-    '    allowedHosts: true',
-    '  },',
-    "  preview: { host: '0.0.0.0', port: 4173 }",
-    '})',
-    ''
-  ].join('\n')
-
-  const tsconfigJson =
-    JSON.stringify(
-      {
-        compilerOptions: {
-          target: 'ES2020',
-          useDefineForClassFields: true,
-          module: 'ESNext',
-          moduleResolution: 'Bundler',
-          strict: true,
-          skipLibCheck: true,
-          jsx: 'preserve',
-          resolveJsonModule: true,
-          isolatedModules: true,
-          esModuleInterop: true,
-          allowSyntheticDefaultImports: true,
-          lib: ['ES2020', 'DOM', 'DOM.Iterable'],
-          types: ['vite/client']
-        },
-        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue', 'src/env.d.ts']
-      },
-      null,
-      2
-    ) + '\n'
-
-  let flowRuntimeJs: string | null = null
-  let flowRuntimeCss: string | null = null
-  if (usesFlowSandboxRuntime(preparedCode, context)) {
-    flowRuntimeJs = await loadSiteAssetText('playground/yh-flow-runtime.js')
-    flowRuntimeCss = await loadSiteAssetText('playground/yh-flow-runtime.css')
-    Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(flowRuntimeJs))
-  }
-
-  // CodeSandbox Nodebox falls back to src/index.js when package.json.main is absent.
-  const packageJson =
-    JSON.stringify(
-      {
-        name: slugifyTitle(title) || 'yh-ui-demo',
-        private: true,
-        type: 'module',
-        main: 'src/main.ts',
-        scripts: {
-          dev: 'vite --host 0.0.0.0 --port 5173',
-          start: 'vite --host 0.0.0.0 --port 5173',
-          build: 'vite build',
-          preview: 'vite preview --host 0.0.0.0 --port 4173'
-        },
-        dependencies: packageDependencies,
-        devDependencies: DEV_DEPENDENCIES
-      },
-      null,
-      2
-    ) + '\n'
-
-  const files: Record<string, string> = {
-    '.npmrc': ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n'),
-    'sandbox.config.json': sandboxConfigJson,
-    '.codesandbox/tasks.json': JSON.stringify(
-      {
-        setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
-        tasks: {
-          dev: {
-            name: 'Start Dev Server',
-            command: 'npm run dev',
-            runAtStart: true,
-            preview: { port: 5173 }
-          }
-        }
-      },
-      null,
-      2
-    ),
-    'index.html': indexHtml,
-    'package.json': packageJson,
-    'tsconfig.json': tsconfigJson,
-    'vite.config.ts': viteConfigTs,
-    'src/App.vue': appVue,
-    'src/Demo.vue': normalizedCode + '\n',
-    'src/main.ts': mainTs,
-    'src/style.css': `${styleCss}\n`,
-    'src/env.d.ts': envDts,
-    ...runtimeFiles
-  }
-
-  if (flowRuntimeJs && flowRuntimeCss) {
-    files['src/vendor/flow/runtime.js'] = flowRuntimeJs
-    files['src/vendor/flow/runtime.css'] = flowRuntimeCss
-  }
+  delete packageJson.stackblitz
+  files['package.json'] = `${JSON.stringify(packageJson, null, 2)}\n`
 
   return files
 }

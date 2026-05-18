@@ -103,20 +103,11 @@ async function verifySandboxVersionConstant(expectedVersion) {
 
 async function verifyCodeSandboxEntryContract() {
   const source = await fs.readFile(sandboxSourcePath, 'utf8')
-  const createCodeSandboxStart = source.lastIndexOf('const packageJson =')
-  if (createCodeSandboxStart === -1) {
-    throw new Error(`Could not locate CodeSandbox package.json scaffold in ${sandboxSourcePath}`)
-  }
-
-  const createCodeSandboxEnd = source.indexOf('const files: Record<string, string> = {', createCodeSandboxStart)
-  if (createCodeSandboxEnd === -1) {
-    throw new Error(`Could not isolate CodeSandbox package.json scaffold in ${sandboxSourcePath}`)
-  }
-
-  const packageJsonBlock = source.slice(createCodeSandboxStart, createCodeSandboxEnd)
-  if (!/main:\s*['"]src\/main\.ts['"]/.test(packageJsonBlock)) {
+  const scaffoldPattern =
+    /const\s+packageJson\s*=\s*JSON\.stringify\(\s*\{[\s\S]*?\bmain:\s*['"]src\/main\.ts['"][\s\S]*?\}\s*,\s*null,\s*2\s*\)\s*\+\s*['"]\\n['"]/
+  if (!scaffoldPattern.test(source)) {
     throw new Error(
-      'demo-sandbox.ts is missing package.json.main="src/main.ts" for the CodeSandbox scaffold'
+      'demo-sandbox.ts is missing package.json.main="src/main.ts" in the shared sandbox scaffold'
     )
   }
 }
