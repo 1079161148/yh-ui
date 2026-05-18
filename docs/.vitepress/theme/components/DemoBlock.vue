@@ -4,14 +4,13 @@
  * @description 用于展示组件示例，支持 TypeScript/JavaScript 切换，代码语法高亮
  */
 import { ref, computed, watch, onMounted } from 'vue'
-import { useData } from 'vitepress'
+import { useData, withBase } from 'vitepress'
 import {
   getSandboxSupport,
   openDemoInPlayground,
   openDemoInStackBlitz,
   openDemoInCodeSandbox
 } from '../utils/demo-sandbox'
-
 interface Props {
   title?: string
   description?: string

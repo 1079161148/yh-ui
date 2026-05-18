@@ -43,6 +43,16 @@ const BUNDLE_EXTERNALS = [
   'xlsx',
   'zod'
 ]
+const SUPPORT_BARREL_SOURCE_FILES = {
+  hooks: resolve(docsPublicDir, 'hooks/index.mjs'),
+  locale: resolve(localePackageDistDir, 'index.mjs'),
+  theme: resolve(docsPublicDir, 'theme/index.mjs')
+}
+const supportBarrelImportMaps = {
+  hooks: {},
+  locale: {},
+  theme: {}
+}
 
 async function ensureDir(path) {
   await mkdir(path, { recursive: true })
@@ -85,7 +95,7 @@ function patchSourceForCodeSandbox(sourceFile, source) {
 
   if (normalizedSourceFile.endsWith('hooks/use-locale/dayjs-locale.mjs')) {
     return source
-      .replace(/import\s+["']dayjs\/locale\/en["'];?\s*/, 'import "../../dayjs-locale/en.js";\n')
+      .replace(/import\s+["']dayjs\/locale\/en["'];?\s*/, 'import "../../dayjs-locale/all.js";\n')
       .replace(/const dayjsLocales = import\.meta\.glob\([\s\S]*?\);\s*/, '')
       .replace(
         /const loadDayjsLocale = async \(dayjsLocale\) => \{[\s\S]*?\n\};/,
@@ -101,15 +111,6 @@ function patchSourceForCodeSandbox(sourceFile, source) {
   }
 
   return source
-}
-
-function buildDayjsLocaleLoaderMap(localeNames) {
-  const entries = localeNames
-    .sort((left, right) => left.localeCompare(right))
-    .map((localeName) => `  "${localeName}": () => import("../../dayjs-locale/${localeName}.js")`)
-    .join(',\n')
-
-  return `const dayjsLocaleLoaders = {\n${entries}\n};`
 }
 
 function collectCollidingModuleBases(sourceFiles, sourceRoot) {
@@ -250,39 +251,43 @@ async function rewriteImports(
 }
 
 function rewriteSupportBarrelImports(code) {
-  const supportImportMappings = {
-    hooks: {
-      useConfig: 'use-config/index.js',
-      useNamespace: 'use-namespace/index.js'
-    },
-    theme: {
-      useComponentTheme: 'component-theme.js'
-    }
-  }
-
   return code.replace(
-    /import\s*\{\s*([^}]+)\s*\}\s*from\s*["']((?:\.\.\/)+)(hooks|theme)\/index\.js["'];?/g,
+    /import\s*\{\s*([^}]+)\s*\}\s*from\s*["']((?:\.\.\/)+)(hooks|locale|theme)\/index\.js["'];?/g,
     (full, imports, relativePrefix, packageName) => {
-      const mappings = supportImportMappings[packageName]
+      const mappings = supportBarrelImportMaps[packageName]
       if (!mappings) return full
 
-      const requestedImports = imports
-        .split(',')
-        .map((part) => part.trim())
-        .filter(Boolean)
-      const directImports = []
+      const groupedImports = new Map()
       const remainingImports = []
 
-      for (const importedName of requestedImports) {
+      for (const entry of imports.split(',')) {
+        const trimmedEntry = entry.trim()
+        if (!trimmedEntry) continue
+
+        const aliasMatch = trimmedEntry.match(/^([A-Za-z_$][\w$]*)(?:\s+as\s+([A-Za-z_$][\w$]*))?$/)
+        if (!aliasMatch) {
+          remainingImports.push(trimmedEntry)
+          continue
+        }
+
+        const [, importedName, localName] = aliasMatch
         const targetPath = mappings[importedName]
         if (targetPath) {
-          directImports.push(
-            `import { ${importedName} } from "${relativePrefix}${packageName}/${targetPath}";`
-          )
+          if (!groupedImports.has(targetPath)) {
+            groupedImports.set(targetPath, [])
+          }
+          groupedImports
+            .get(targetPath)
+            .push(localName && localName !== importedName ? `${importedName} as ${localName}` : importedName)
         } else {
-          remainingImports.push(importedName)
+          remainingImports.push(trimmedEntry)
         }
       }
+
+      const directImports = [...groupedImports.entries()].map(
+        ([targetPath, specifiers]) =>
+          `import { ${specifiers.join(', ')} } from "${relativePrefix}${packageName}/${targetPath}";`
+      )
 
       if (remainingImports.length > 0) {
         directImports.unshift(
@@ -293,6 +298,54 @@ function rewriteSupportBarrelImports(code) {
       return directImports.join('\n')
     }
   )
+}
+
+async function collectNamedExports(filePath) {
+  const source = await readFile(filePath, 'utf8')
+  const exportedNames = new Set()
+
+  for (const match of source.matchAll(
+    /export\s+(?:async\s+)?(?:const|function|class|let|var)\s+([A-Za-z_$][\w$]*)/g
+  )) {
+    exportedNames.add(match[1])
+  }
+
+  for (const match of source.matchAll(/export\s*\{\s*([^}]+)\s*\}(?:\s*from\s*["'][^"']+["'])?/g)) {
+    const specifiers = match[1]
+      .split(',')
+      .map((part) => part.trim())
+      .filter(Boolean)
+
+    for (const specifier of specifiers) {
+      const [, localName, aliasName] =
+        specifier.match(/^([A-Za-z_$][\w$]*)(?:\s+as\s+([A-Za-z_$][\w$]*))?$/) ?? []
+      const exportedName = aliasName ?? localName
+      if (exportedName) {
+        exportedNames.add(exportedName)
+      } else if (specifier) {
+        exportedNames.add(specifier)
+      }
+    }
+  }
+
+  return [...exportedNames]
+}
+
+async function buildSupportBarrelImportMaps() {
+  for (const [packageName, barrelFile] of Object.entries(SUPPORT_BARREL_SOURCE_FILES)) {
+    const barrelSource = await readFile(barrelFile, 'utf8')
+
+    for (const match of barrelSource.matchAll(/export\s+\*\s+from\s+["'](.+?)["'];?/g)) {
+      const targetRelativePath = match[1]
+      const targetFile = resolve(dirname(barrelFile), targetRelativePath)
+      const outputRelativePath = targetRelativePath.replace(/\.mjs$/, '.js')
+      const exportedNames = await collectNamedExports(targetFile)
+
+      for (const exportedName of exportedNames) {
+        supportBarrelImportMaps[packageName][exportedName] = outputRelativePath
+      }
+    }
+  }
 }
 
 async function walk(dir) {
@@ -409,46 +462,58 @@ async function buildSupportPackages() {
   return [...files].sort()
 }
 
+function transformDayjsLocaleSource(source) {
+  let transformed = source.replace(/^\s*import dayjs from ['"]\.\.\/index['"];?\s*/m, '').trim()
+
+  if (/export default locale;?\s*$/m.test(transformed)) {
+    transformed = transformed.replace(/^\s*export default locale;?\s*$/m, '').trim()
+  } else if (/export default\s*\{/.test(transformed)) {
+    transformed = `${transformed.replace(/export default\s*\{/, 'var locale = {').trim()}
+dayjs.locale(locale, null, true);`
+  } else {
+    transformed = transformed.replace(/^\s*export default\s+/m, 'var locale = ').trim()
+  }
+
+  return transformed.replace(/^export\s+/gm, '').trim()
+}
+
 async function buildDayjsLocaleRuntime() {
   const files = new Set()
   const localeFiles = await readdir(dayjsEsmLocaleDir, { withFileTypes: true })
   const localeNames = []
+  const bundledLocaleChunks = ['import dayjs from "../hooks/dayjs.js";', '']
 
   for (const entry of localeFiles) {
     if (!entry.isFile() || !entry.name.endsWith('.js')) continue
 
     localeNames.push(entry.name.replace(/\.js$/, ''))
-
     const sourceFile = join(dayjsEsmLocaleDir, entry.name)
-    const outFile = join(runtimeOutDir, 'dayjs-locale', entry.name)
     const source = await readFile(sourceFile, 'utf8')
-    const code = source.replace(
-      /import dayjs from ['"]\.\.\/index['"];?/,
-      'import dayjs from "../components/dayjs.js";'
-    )
-
-    await ensureDir(dirname(outFile))
-    await writeFile(outFile, code, 'utf8')
-    files.add(relative(runtimeOutDir, outFile).replace(/\\/g, '/'))
+    bundledLocaleChunks.push(`// ${entry.name}`)
+    bundledLocaleChunks.push('{')
+    bundledLocaleChunks.push(transformDayjsLocaleSource(source))
+    bundledLocaleChunks.push('}')
+    bundledLocaleChunks.push('')
   }
+
+  const bundledLocaleFile = join(runtimeOutDir, 'dayjs-locale', 'all.js')
+  await ensureDir(dirname(bundledLocaleFile))
+  await writeFile(bundledLocaleFile, bundledLocaleChunks.join('\n'), 'utf8')
+  files.add(relative(runtimeOutDir, bundledLocaleFile).replace(/\\/g, '/'))
 
   const runtimeHookFile = join(runtimeOutDir, 'hooks', 'use-locale', 'dayjs-locale.js')
   const hookSource = await readFile(runtimeHookFile, 'utf8')
-  const patchedHookSource = hookSource.replace(
+  const hookSourceWithBundleImport = hookSource.includes('import "../../dayjs-locale/all.js";')
+    ? hookSource
+    : hookSource.replace(
+        /^import dayjs from "\.\.\/dayjs\.js";\s*/m,
+        'import dayjs from "../dayjs.js";\nimport "../../dayjs-locale/all.js";\n'
+      )
+  const patchedHookSource = hookSourceWithBundleImport.replace(
     /const loadDayjsLocale = async \(dayjsLocale\) => \{[\s\S]*?\n\};/,
-    `${buildDayjsLocaleLoaderMap(localeNames)}
+    `const availableDayjsLocales = new Set(${JSON.stringify(localeNames.sort((left, right) => left.localeCompare(right)))});
 const loadDayjsLocale = async (dayjsLocale) => {
-  const loader = dayjsLocaleLoaders[dayjsLocale];
-  if (!loader) {
-    return false;
-  }
-
-  try {
-    await loader();
-    return true;
-  } catch {
-    return false;
-  }
+  return availableDayjsLocales.has(dayjsLocale);
 };`
   )
   await writeFile(runtimeHookFile, patchedHookSource, 'utf8')
@@ -580,6 +645,7 @@ async function main() {
 
   await rm(runtimeOutDir, { recursive: true, force: true })
   await ensureDir(runtimeOutDir)
+  await buildSupportBarrelImportMaps()
 
   const supportFiles = [
     ...(await buildSupportPackages()),
