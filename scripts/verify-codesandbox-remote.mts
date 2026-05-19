@@ -4,7 +4,11 @@ import { fileURLToPath } from 'node:url'
 import process from 'node:process'
 import { chromium } from 'playwright'
 import LZString from 'lz-string'
-import { createCodeSandboxProjectFiles } from '../docs/.vitepress/theme/utils/demo-sandbox'
+import {
+  CODE_SANDBOX_EDITOR_QUERY,
+  createCodeSandboxDefinePayload,
+  createCodeSandboxProjectFiles
+} from '../docs/.vitepress/theme/utils/demo-sandbox'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
@@ -453,6 +457,7 @@ function shouldIgnoreErrorText(text: string): boolean {
 function isIgnorablePreviewNoise(entry: string, previewUrl: string): boolean {
   return (
     entry === `response: 400 ${previewUrl}` ||
+    entry === `response: 502 ${previewUrl}` ||
     entry === 'console: Failed to load resource: the server responded with a status of 400 ()'
   )
 }
@@ -480,7 +485,30 @@ function shouldSoftFailForExternalService(error: unknown): boolean {
   return true
 }
 
-async function createRemoteSandbox(testCase: TestCase) {
+function extractSandboxIdFromEditorUrl(editorUrl: string): string {
+  const url = new URL(editorUrl)
+  const slug = url.pathname.split('/').filter(Boolean).at(-1) || ''
+  const match = slug.match(/-([a-z0-9]{5,12})$/i)
+  if (!match?.[1]) {
+    throw new Error(`Unable to extract sandbox id from CodeSandbox editor URL: ${editorUrl}`)
+  }
+
+  return match[1]
+}
+
+function buildPreviewUrl(sandboxId: string): string {
+  return `https://${sandboxId}.csb.app/`
+}
+
+function isPreviewBootPending(text: string): boolean {
+  const normalized = text.toLowerCase()
+  return (
+    normalized.includes('dev server has not been started yet') ||
+    normalized.includes('start from the editor')
+  )
+}
+
+async function createRemoteSandbox(testCase: TestCase, editorPage: BrowserPage) {
   const files = await createCodeSandboxProjectFiles(
     testCase.title,
     testCase.code,
@@ -494,74 +522,179 @@ async function createRemoteSandbox(testCase: TestCase) {
     }
   )
   testCase.verifyFiles?.(files)
-  const payload = {
-    files: Object.fromEntries(
-      Object.entries(files).map(([filePath, content]) => [filePath, { content }])
-    )
-  }
+  const payload = createCodeSandboxDefinePayload(testCase.title, files)
+  const parameters = compressParameters(JSON.stringify(payload))
 
-  const defineResponse = await fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+  await editorPage.goto('about:blank')
+  await editorPage.evaluate(
+    ({ serializedParameters, query }) => {
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = 'https://codesandbox.io/api/v1/sandboxes/define'
+      form.target = '_self'
+
+      const parametersInput = document.createElement('input')
+      parametersInput.type = 'hidden'
+      parametersInput.name = 'parameters'
+      parametersInput.value = serializedParameters
+      form.appendChild(parametersInput)
+
+      const queryInput = document.createElement('input')
+      queryInput.type = 'hidden'
+      queryInput.name = 'query'
+      queryInput.value = query
+      form.appendChild(queryInput)
+
+      document.body.appendChild(form)
+      form.submit()
     },
-    body: new URLSearchParams({
-      parameters: compressParameters(JSON.stringify(payload)),
-      query: 'file=/src/Demo.vue&view=split'
-    }).toString()
-  })
+    {
+      serializedParameters: parameters,
+      query: CODE_SANDBOX_EDITOR_QUERY
+    }
+  )
 
-  const defineText = await defineResponse.text()
-  if (!defineResponse.ok) {
-    if (defineResponse.status === 403 && looksLikeCloudflareChallenge(defineText)) {
+  try {
+    await editorPage.waitForURL(
+      (url) => url.hostname === 'codesandbox.io' && url.pathname.includes('/p/sandbox/'),
+      { timeout: 180000 }
+    )
+    await editorPage.waitForLoadState('domcontentloaded', { timeout: 180000 })
+  } catch (error) {
+    const html = await editorPage.content().catch(() => '')
+    if (looksLikeCloudflareChallenge(editorPage.url()) || looksLikeCloudflareChallenge(html)) {
       throw new ExternalServiceInterferenceError(
-        `CodeSandbox define blocked by Cloudflare challenge (${defineResponse.status})`,
-        defineResponse.status
+        'CodeSandbox editor launch blocked by Cloudflare challenge'
       )
     }
 
-    throw new Error(`CodeSandbox define failed (${defineResponse.status}): ${defineText}`)
+    throw error
   }
 
-  const { sandbox_id: sandboxId } = JSON.parse(defineText) as { sandbox_id?: string }
-  if (!sandboxId) {
-    throw new Error(`CodeSandbox define response missing sandbox_id: ${defineText}`)
-  }
+  const sandboxId = extractSandboxIdFromEditorUrl(editorPage.url())
 
   return {
     sandboxId,
-    previewUrl: `https://${sandboxId}.csb.app/`
+    editorUrl: editorPage.url(),
+    previewUrl: buildPreviewUrl(sandboxId)
   }
 }
 
-async function verifyTestCase(testCase: TestCase) {
-  const { sandboxId, previewUrl } = await createRemoteSandbox(testCase)
-  const browser = await chromium.launch({ headless: true })
-  const page = await browser.newPage()
-  const runtimeErrors: string[] = []
-  const screenshotPath = resolve(tempDir, `codesandbox-remote-${testCase.name}.png`)
-  const htmlDumpPath = resolve(tempDir, `codesandbox-remote-${testCase.name}.html`)
+async function waitForPreviewReady(
+  previewPage: BrowserPage,
+  previewUrl: string,
+  selector: string
+): Promise<void> {
+  const deadline = Date.now() + 240000
+  let lastError = ''
 
-  page.on('console', (message) => {
+  while (Date.now() < deadline) {
+    const response = await previewPage
+      .goto(previewUrl, {
+        waitUntil: 'domcontentloaded',
+        timeout: 45000
+      })
+      .catch((error) => {
+        lastError = error instanceof Error ? error.message : String(error)
+        return null
+      })
+
+    const consentButton = previewPage.locator('#btn-answer-yes')
+    if (await consentButton.count()) {
+      await consentButton.click()
+      await previewPage.waitForLoadState('domcontentloaded', { timeout: 45000 })
+    }
+
+    const bodyText = await previewPage
+      .locator('body')
+      .innerText()
+      .catch(() => '')
+    const pageHtml = await previewPage.content().catch(() => '')
+    if (looksLikeCloudflareChallenge(bodyText) || looksLikeCloudflareChallenge(pageHtml)) {
+      throw new ExternalServiceInterferenceError(
+        'CodeSandbox preview blocked by Cloudflare challenge'
+      )
+    }
+
+    if (response?.status() === 502 && isPreviewBootPending(bodyText)) {
+      lastError = `Preview boot pending at ${previewUrl}`
+      await previewPage.waitForTimeout(5000)
+      continue
+    }
+
+    try {
+      await previewPage.locator(selector).first().waitFor({
+        state: 'visible',
+        timeout: 15000
+      })
+      return
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error)
+      if (isPreviewBootPending(bodyText)) {
+        await previewPage.waitForTimeout(5000)
+        continue
+      }
+
+      await previewPage.waitForTimeout(3000)
+    }
+  }
+
+  throw new Error(`Preview did not become ready: ${lastError || previewUrl}`)
+}
+
+async function verifyTestCase(testCase: TestCase) {
+  const browser = await chromium.launch({
+    channel: process.env.CODESANDBOX_REMOTE_BROWSER_CHANNEL || undefined,
+    headless: process.env.CODESANDBOX_REMOTE_HEADLESS !== 'false',
+    args: ['--disable-blink-features=AutomationControlled']
+  })
+  const context = await browser.newContext({
+    colorScheme: 'light',
+    locale: 'en-US',
+    timezoneId: 'America/New_York',
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    viewport: { width: 1440, height: 960 }
+  })
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', {
+      configurable: true,
+      get: () => undefined
+    })
+  })
+  const editorPage = await context.newPage()
+  const previewPage = await context.newPage()
+  const runtimeErrors: string[] = []
+  const screenshotPath = resolve(tempDir, `codesandbox-remote-${testCase.name}-preview.png`)
+  const editorScreenshotPath = resolve(tempDir, `codesandbox-remote-${testCase.name}-editor.png`)
+  const htmlDumpPath = resolve(tempDir, `codesandbox-remote-${testCase.name}-preview.html`)
+  const editorHtmlDumpPath = resolve(tempDir, `codesandbox-remote-${testCase.name}-editor.html`)
+
+  previewPage.on('console', (message) => {
     if (message.type() !== 'error') return
     const text = message.text()
     if (shouldIgnoreErrorText(text)) return
     runtimeErrors.push(`console: ${text}`)
   })
 
-  page.on('pageerror', (error) => {
+  previewPage.on('pageerror', (error) => {
     runtimeErrors.push(`pageerror: ${error.message}`)
   })
 
-  page.on('requestfailed', (request) => {
+  previewPage.on('requestfailed', (request) => {
     const url = request.url()
     if (shouldIgnoreErrorText(url)) return
     runtimeErrors.push(`requestfailed: ${request.failure()?.errorText ?? 'unknown'} ${url}`)
   })
 
-  page.on('response', (response) => {
+  let sandboxId = ''
+  let previewUrl = ''
+  let editorUrl = ''
+
+  previewPage.on('response', (response) => {
     const url = response.url()
-    if (!url.includes(`${sandboxId}.csb.app`)) return
+    if (!sandboxId) return
+    if (!url.includes(`${sandboxId}-`) && !url.includes(`${sandboxId}.csb.app`)) return
     const contentType = response.headers()['content-type'] || ''
     if (
       response.request().resourceType() === 'script' &&
@@ -576,24 +709,15 @@ async function verifyTestCase(testCase: TestCase) {
   })
 
   try {
-    await page.goto(previewUrl, {
-      waitUntil: 'domcontentloaded',
-      timeout: 120000
-    })
+    const sandbox = await createRemoteSandbox(testCase, editorPage)
+    sandboxId = sandbox.sandboxId
+    editorUrl = sandbox.editorUrl
+    previewUrl = sandbox.previewUrl
 
-    const consentButton = page.locator('#btn-answer-yes')
-    if (await consentButton.count()) {
-      await consentButton.click()
-      await page.waitForLoadState('domcontentloaded', { timeout: 120000 })
-    }
-
-    await page.locator(testCase.selector).first().waitFor({
-      state: 'visible',
-      timeout: 120000
-    })
+    await waitForPreviewReady(previewPage, previewUrl, testCase.selector)
 
     if (testCase.text) {
-      const text = await page.locator(testCase.selector).first().innerText()
+      const text = await previewPage.locator(testCase.selector).first().innerText()
       if (!text.includes(testCase.text)) {
         throw new Error(
           `Expected "${testCase.text}" in ${testCase.selector}, received "${text || ''}"`
@@ -602,12 +726,15 @@ async function verifyTestCase(testCase: TestCase) {
     }
 
     if (testCase.evaluate) {
-      await testCase.evaluate(page)
+      await testCase.evaluate(previewPage)
     }
 
-    await page.waitForTimeout(3000)
+    await previewPage.waitForTimeout(3000)
     await mkdir(dirname(screenshotPath), { recursive: true })
-    await page.screenshot({ path: screenshotPath, fullPage: true })
+    await previewPage.screenshot({ path: screenshotPath, fullPage: true })
+    await editorPage
+      .screenshot({ path: editorScreenshotPath, fullPage: true })
+      .catch(() => undefined)
 
     const blockingErrors = runtimeErrors.filter(
       (entry) => !isIgnorablePreviewNoise(entry, previewUrl)
@@ -620,17 +747,28 @@ async function verifyTestCase(testCase: TestCase) {
       ok: true,
       name: testCase.name,
       sandboxId,
+      editorUrl,
       previewUrl,
-      screenshotPath
+      screenshotPath,
+      editorScreenshotPath
     }
   } catch (error) {
+    if (error instanceof ExternalServiceInterferenceError) {
+      throw error
+    }
+
     await mkdir(dirname(htmlDumpPath), { recursive: true })
-    await writeFile(htmlDumpPath, await page.content(), 'utf8')
-    await page.screenshot({ path: screenshotPath, fullPage: true }).catch(() => undefined)
+    await writeFile(htmlDumpPath, await previewPage.content().catch(() => ''), 'utf8')
+    await writeFile(editorHtmlDumpPath, await editorPage.content().catch(() => ''), 'utf8')
+    await previewPage.screenshot({ path: screenshotPath, fullPage: true }).catch(() => undefined)
+    await editorPage
+      .screenshot({ path: editorScreenshotPath, fullPage: true })
+      .catch(() => undefined)
     throw new Error(
-      `[${testCase.name}] ${error instanceof Error ? error.message : String(error)}\nPreview: ${previewUrl}\nHTML: ${htmlDumpPath}\nScreenshot: ${screenshotPath}`
+      `[${testCase.name}] ${error instanceof Error ? error.message : String(error)}\nEditor: ${editorUrl || editorPage.url()}\nPreview: ${previewUrl}\nPreview HTML: ${htmlDumpPath}\nEditor HTML: ${editorHtmlDumpPath}\nPreview Screenshot: ${screenshotPath}\nEditor Screenshot: ${editorScreenshotPath}`
     )
   } finally {
+    await context.close().catch(() => undefined)
     await browser.close()
   }
 }

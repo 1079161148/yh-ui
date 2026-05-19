@@ -9,6 +9,7 @@ import { chromium } from 'playwright'
 import { compileScript, parse } from '@vue/compiler-sfc'
 import ts from 'typescript'
 import {
+  createCodeSandboxDefineFiles,
   createCodeSandboxProjectFiles,
   createPlaygroundProject,
   decodePlaygroundPayload,
@@ -51,15 +52,9 @@ interface CodeSandboxManifest {
 
 const REQUIRED_CODE_SANDBOX_FILES = [
   'index.html',
-  '.npmrc',
-  'package.json',
   'sandbox.config.json',
-  '.codesandbox/tasks.json',
-  'tsconfig.json',
-  'vite.config.ts',
   'src/App.vue',
   'src/Demo.vue',
-  'src/env.d.ts',
   'src/main.js',
   'src/style.css'
 ]
@@ -134,13 +129,8 @@ function decodeRouteFromMarkdown(relativeMarkdownPath: string): string {
   return `/yh-ui/${normalized.replace(/\.md$/, '.html')}`
 }
 
-function getPackageName(source: string): string {
-  if (source.startsWith('@')) {
-    const [scope, name] = source.split('/')
-    return `${scope}/${name || ''}`
-  }
-
-  return source.split('/')[0]
+function isHttpImportSource(source: string): boolean {
+  return /^https?:\/\//i.test(source)
 }
 
 async function walkMarkdownFiles(dir: string): Promise<string[]> {
@@ -752,7 +742,7 @@ async function validateCodeSandboxCase(
       .join(', ')}`
   )
 
-  const files = await createCodeSandboxProjectFiles(
+  const projectFiles = await createCodeSandboxProjectFiles(
     demoCase.payload.title,
     demoCase.payload.code,
     demoCase.payload.context,
@@ -763,6 +753,10 @@ async function validateCodeSandboxCase(
       loadSiteAssetText
     }
   )
+  const files = createCodeSandboxDefineFiles(demoCase.payload.title, projectFiles, {
+    base: '/yh-ui/',
+    assetOrigin: 'https://1079161148.github.io'
+  })
 
   const fileSet = new Set(Object.keys(files).map(normalizeFilePath))
   for (const requiredFile of REQUIRED_CODE_SANDBOX_FILES) {
@@ -772,54 +766,84 @@ async function validateCodeSandboxCase(
     )
   }
 
-  const packageJson = JSON.parse(files['package.json']) as {
-    dependencies?: Record<string, string>
-    devDependencies?: Record<string, string>
-    main?: string
-    type?: string
-    scripts?: Record<string, string>
-  }
   assert(
-    packageJson.type === 'module',
-    `CodeSandbox package.json type is not module for ${demoCase.route}`
+    !files['package.json'],
+    `CodeSandbox static scaffold should not emit package.json for ${demoCase.route}`
   )
   assert(
-    packageJson.main === 'src/main.js',
-    `CodeSandbox package.json main entry should be src/main.js for ${demoCase.route}`
+    !files['.npmrc'],
+    `CodeSandbox static scaffold should not emit .npmrc for ${demoCase.route}`
   )
   assert(
-    packageJson.scripts?.dev?.includes('vite'),
-    `CodeSandbox package.json is missing a Vite dev script for ${demoCase.route}`
-  )
-  assert(
-    packageJson.scripts?.start?.includes('vite'),
-    `CodeSandbox package.json is missing a Vite start script for ${demoCase.route}`
-  )
-  assert(
-    packageJson.scripts?.build?.includes('vite build'),
-    `CodeSandbox package.json is missing a Vite build script for ${demoCase.route}`
-  )
-  assert(
-    packageJson.devDependencies?.vite,
-    `CodeSandbox package.json is missing vite devDependency for ${demoCase.route}`
-  )
-  assert(
-    packageJson.devDependencies?.['@vitejs/plugin-vue'],
-    `CodeSandbox package.json is missing @vitejs/plugin-vue for ${demoCase.route}`
-  )
-  assert(files['.npmrc'], `CodeSandbox should emit .npmrc for ${demoCase.route}`)
-  assert(
-    files['sandbox.config.json'],
-    `CodeSandbox should emit sandbox.config.json for ${demoCase.route}`
-  )
-  assert(
-    files['.codesandbox/tasks.json'],
-    `CodeSandbox should emit .codesandbox/tasks.json for ${demoCase.route}`
+    !files['.codesandbox/tasks.json'],
+    `CodeSandbox static scaffold should not emit .codesandbox/tasks.json for ${demoCase.route}`
   )
   assert(
     !files['.codesandbox/template.json'],
-    `CodeSandbox should not emit the legacy .codesandbox/template.json scaffold for ${demoCase.route}`
+    `CodeSandbox static scaffold should not emit .codesandbox/template.json for ${demoCase.route}`
   )
+  assert(
+    !files['vite.config.ts'],
+    `CodeSandbox static scaffold should not emit vite.config.ts for ${demoCase.route}`
+  )
+  assert(
+    !files['tsconfig.json'],
+    `CodeSandbox static scaffold should not emit tsconfig.json for ${demoCase.route}`
+  )
+  assert(
+    !files['src/env.d.ts'],
+    `CodeSandbox static scaffold should not emit src/env.d.ts for ${demoCase.route}`
+  )
+  const sandboxConfig = JSON.parse(files['sandbox.config.json']) as {
+    template?: string
+    infiniteLoopProtection?: boolean
+  }
+  assert(
+    sandboxConfig.template === 'static',
+    `CodeSandbox static scaffold should target the static template for ${demoCase.route}`
+  )
+  assert(
+    sandboxConfig.infiniteLoopProtection === true,
+    `CodeSandbox static scaffold should keep infiniteLoopProtection enabled for ${demoCase.route}`
+  )
+  assert(
+    /<script\s+type="importmap">[\s\S]*<\/script>/i.test(files['index.html']),
+    `CodeSandbox static scaffold should emit an import map in index.html for ${demoCase.route}`
+  )
+  assert(
+    /<script\s+type="module"\s+src="\/src\/main\.js"><\/script>/i.test(files['index.html']),
+    `CodeSandbox static scaffold should load src/main.js from index.html for ${demoCase.route}`
+  )
+  assert(
+    files['src/main.js'].includes('vue3-sfc-loader'),
+    `CodeSandbox static scaffold should bootstrap vue3-sfc-loader for ${demoCase.route}`
+  )
+  assert(
+    files['src/main.js'].includes("loadModule('/src/App.vue', loaderOptions)"),
+    `CodeSandbox static scaffold should load src/App.vue through the SFC loader for ${demoCase.route}`
+  )
+  assert(
+    files['src/main.js'].includes('Object.assign(Object.create(null), { vue: Vue })'),
+    `CodeSandbox static scaffold should use a prototype-less module cache for ${demoCase.route}`
+  )
+  assert(
+    files['src/main.js'].includes('async handleModule(type, sourceOrLoader, path)'),
+    `CodeSandbox static scaffold should handle non-SFC modules explicitly for ${demoCase.route}`
+  )
+  assert(
+    files['src/main.js'].includes('return import(/* @vite-ignore */ moduleUrl)'),
+    `CodeSandbox static scaffold should load JS dependencies through native ESM for ${demoCase.route}`
+  )
+  const importMapMatch = files['index.html'].match(
+    /<script\s+type="importmap">([\s\S]*?)<\/script>/i
+  )
+  assert(importMapMatch?.[1], `Unable to extract CodeSandbox import map for ${demoCase.route}`)
+  const importMap = JSON.parse(importMapMatch?.[1] || '{}') as {
+    imports?: Record<string, string>
+  }
+  const importMapImports = importMap.imports ?? {}
+  const importMapPrefixKeys = Object.keys(importMapImports).filter((key) => key.endsWith('/'))
+  assert(importMapImports.vue, `CodeSandbox import map is missing vue for ${demoCase.route}`)
   validateVueSfc(
     files['src/App.vue'],
     `${demoCase.route}#codesandbox-app-${demoCase.demoIndex + 1}.vue`
@@ -833,18 +857,8 @@ async function validateCodeSandboxCase(
     `${demoCase.route}#codesandbox-main-${demoCase.demoIndex + 1}.js`
   )
 
-  const packageImports = new Set([
-    ...Object.keys(packageJson.dependencies || {}),
-    ...Object.keys(packageJson.devDependencies || {})
-  ])
-
   const generatedScriptFiles = [...fileSet]
-    .filter(
-      (filePath) =>
-        (filePath === 'vite.config.ts' || filePath.startsWith('src/')) &&
-        /\.(?:[cm]?[jt]sx?)$/.test(filePath) &&
-        !filePath.endsWith('.d.ts')
-    )
+    .filter((filePath) => filePath.startsWith('src/') && /\.(?:[cm]?[jt]sx?)$/.test(filePath))
     .sort()
 
   for (const normalizedFilePath of generatedScriptFiles) {
@@ -859,6 +873,13 @@ async function validateCodeSandboxCase(
     }
 
     for (const { source, typeOnly } of collectModuleImports(normalizedFilePath, content)) {
+      if (!typeOnly && /\.(?:css|scss)(?:[?#].*)?$/i.test(source)) {
+        assert(
+          false,
+          `Static CodeSandbox module "${normalizedFilePath}" should not keep CSS import "${source}" for ${demoCase.route}`
+        )
+      }
+
       if (source.startsWith('.')) {
         const resolved = resolveRelativeImport(normalizedFilePath, source, fileSet)
         assert(
@@ -868,13 +889,24 @@ async function validateCodeSandboxCase(
         continue
       }
 
+      if (source.startsWith('/')) {
+        const absoluteImport = normalizeFilePath(source.replace(/^\/+/, ''))
+        assert(
+          fileSet.has(absoluteImport),
+          `Unresolved absolute import "${source}" from ${normalizedFilePath} for ${demoCase.route}`
+        )
+        continue
+      }
+
       if (typeOnly) {
         continue
       }
 
       assert(
-        packageImports.has(source) || packageImports.has(getPackageName(source)),
-        `Missing dependency "${source}" in package.json for ${demoCase.route} demo #${demoCase.demoIndex + 1}`
+        isHttpImportSource(source) ||
+          Boolean(importMapImports[source]) ||
+          importMapPrefixKeys.some((prefix) => source.startsWith(prefix)),
+        `Missing import-map entry for "${source}" in ${demoCase.route} demo #${demoCase.demoIndex + 1}`
       )
     }
 
@@ -889,15 +921,12 @@ async function validateCodeSandboxCase(
 
   const scaffoldSignature = JSON.stringify(
     {
-      packageScripts: packageJson.scripts,
-      main: packageJson.main,
-      devDependencies: packageJson.devDependencies,
-      viteConfig: files['vite.config.ts'],
-      tsconfig: files['tsconfig.json'],
-      envDts: files['src/env.d.ts'],
+      sandboxConfig: files['sandbox.config.json'],
+      indexHtml: files['index.html'],
       appVue: files['src/App.vue'],
       demoVue: files['src/Demo.vue'],
-      legacyTemplate: files['.codesandbox/template.json']
+      mainJs: files['src/main.js'],
+      styleCss: files['src/style.css']
     },
     null,
     2

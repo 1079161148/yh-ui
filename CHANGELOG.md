@@ -4,6 +4,30 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.25] - 2026-05-19
+
+Patch release focused on finishing the CodeSandbox recovery so exported demos stay both styled and truly editable after launch.
+
+### Added
+
+- Added a live CodeSandbox file bridge in the browser sandbox loader so hosted `*.csb.app` previews can read the current sandbox file tree through the same-origin sandbox API instead of being stuck on the initial export snapshot.
+
+### Changed
+
+- Changed static CodeSandbox exports to inline the vendored CSS payload in dependency-aware order, keeping component skin styles available even when the browser sandbox serves Vue or CSS requests through HTML wrappers.
+- Changed CodeSandbox release verification to follow the new static-define plus hosted-preview contract, including the editor launch path that now relies on the split-view `Demo.vue` query again.
+
+### Fixed
+
+- Fixed exported AI demos such as `AiChat` losing nested component styles like `AiSender` and `AiBubble` inside hosted CodeSandbox previews, which left the session looking unstyled even though the components rendered.
+- Fixed hosted CodeSandbox previews ignoring edits made in `src/Demo.vue` after launch because the loader was reading the baked export snapshot instead of the live sandbox files.
+- Fixed static CodeSandbox exports missing import-map coverage for deep third-party package paths such as Monaco worker modules, which caused docs sandbox smoke validation to fail on `AiCodeBlock`.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm changelog:check`, `pnpm verify:release-versions`, `pnpm docs:build`, `pnpm verify:docs-sandboxes`, filtered `pnpm verify:docs-sandboxes:exhaustive` checks for `ai-components/ai-chat` and `ai-components/ai-code-block`, filtered `pnpm verify:codesandbox-local` for `ai-chat`, local captured-payload inspection for `ai-components/ai-chat`, and browser-based sandbox smoke checks against simulated `csb.app` behavior for both style recovery and live file loading.
+- `pnpm verify:codesandbox-remote` still remains advisory because fresh editor launches can be interrupted by external Cloudflare checks even when the generated sandbox payload is correct.
+
 ## [1.0.24] - 2026-05-19
 
 Patch release focused on restoring truly editable, working CodeSandbox demos after the precompiled browser-sandbox export path started opening hosted previews without a runnable dev server.

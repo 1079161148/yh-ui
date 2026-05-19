@@ -100,6 +100,13 @@ const PLAYGROUND_RUNTIME_EXTERNAL_PACKAGES = [
   'zod'
 ] as const
 const CODE_SANDBOX_RUNTIME_BASE = 'codesandbox-runtime/'
+export const CODE_SANDBOX_PRIMARY_PORT = 5173
+export const CODE_SANDBOX_EDITOR_QUERY = 'file=/src/Demo.vue&view=split'
+const CODE_SANDBOX_PROJECT_TEMPLATE = 'node'
+const CODE_SANDBOX_DEFINE_TEMPLATE = 'static'
+const CODE_SANDBOX_SFC_LOADER_URL =
+  'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.9.5/dist/vue3-sfc-loader.esm.js'
+const DEFAULT_SITE_ORIGIN = 'https://1079161148.github.io'
 
 const NODE_BUILTINS = new Set([
   'assert',
@@ -207,6 +214,11 @@ interface CodeSandboxProjectFilesOptions {
   manifest?: CodeSandboxRuntimeManifest
   loadRuntimeAssetText?: (relativePath: string) => Promise<string>
   loadSiteAssetText?: (assetPath: string) => Promise<string>
+}
+
+interface CodeSandboxDefineFilesOptions {
+  base?: string
+  assetOrigin?: string
 }
 
 interface SandboxProjectFilesOptions {
@@ -567,10 +579,12 @@ function normalizeBasePath(base = '/'): string {
   return normalized.endsWith('/') ? normalized : `${normalized}/`
 }
 
-function resolveSiteAssetUrl(base: string, assetPath: string): string {
+function resolveSiteAssetUrl(base: string, assetPath: string, assetOrigin?: string): string {
   const normalizedBase = normalizeBasePath(base)
   const normalizedAssetPath = assetPath.replace(/^\/+/, '')
-  return new URL(normalizedAssetPath, `${window.location.origin}${normalizedBase}`).toString()
+  const origin =
+    assetOrigin || (typeof window !== 'undefined' ? window.location.origin : DEFAULT_SITE_ORIGIN)
+  return new URL(normalizedAssetPath, `${origin}${normalizedBase}`).toString()
 }
 
 function resolvePlaygroundRuntimeEnv(base: string): PlaygroundRuntimeEnv {
@@ -584,21 +598,39 @@ function resolvePlaygroundRuntimeEnv(base: string): PlaygroundRuntimeEnv {
   }
 }
 
-function _getPlaygroundStaticPackageEntries(base: string): Record<string, StaticPackageEntry> {
+function _getPlaygroundStaticPackageEntries(
+  base: string,
+  assetOrigin?: string
+): Record<string, StaticPackageEntry> {
   return {
-    '@yh-ui/yh-ui': { entry: resolveSiteAssetUrl(base, 'yh-ui/full.mjs'), dir: 'yh-ui/' },
+    '@yh-ui/yh-ui': {
+      entry: resolveSiteAssetUrl(base, 'yh-ui/full.mjs', assetOrigin),
+      dir: 'yh-ui/'
+    },
     '@yh-ui/components': {
-      entry: resolveSiteAssetUrl(base, 'components/index.mjs'),
+      entry: resolveSiteAssetUrl(base, 'components/index.mjs', assetOrigin),
       dir: 'components/'
     },
     '@yh-ui/hooks': {
-      entry: resolveSiteAssetUrl(base, 'playground/yh-hooks-runtime.js'),
+      entry: resolveSiteAssetUrl(base, 'playground/yh-hooks-runtime.js', assetOrigin),
       dir: 'hooks/'
     },
-    '@yh-ui/icons': { entry: resolveSiteAssetUrl(base, 'icons/index.mjs'), dir: 'icons/' },
-    '@yh-ui/utils': { entry: resolveSiteAssetUrl(base, 'utils/index.mjs'), dir: 'utils/' },
-    '@yh-ui/theme': { entry: resolveSiteAssetUrl(base, 'theme/index.mjs'), dir: 'theme/' },
-    '@yh-ui/locale': { entry: resolveSiteAssetUrl(base, 'locale/index.mjs'), dir: 'locale/' }
+    '@yh-ui/icons': {
+      entry: resolveSiteAssetUrl(base, 'icons/index.mjs', assetOrigin),
+      dir: 'icons/'
+    },
+    '@yh-ui/utils': {
+      entry: resolveSiteAssetUrl(base, 'utils/index.mjs', assetOrigin),
+      dir: 'utils/'
+    },
+    '@yh-ui/theme': {
+      entry: resolveSiteAssetUrl(base, 'theme/index.mjs', assetOrigin),
+      dir: 'theme/'
+    },
+    '@yh-ui/locale': {
+      entry: resolveSiteAssetUrl(base, 'locale/index.mjs', assetOrigin),
+      dir: 'locale/'
+    }
   }
 }
 
@@ -667,6 +699,16 @@ function stripCodeSandboxOnlyImports(code: string): string {
     /^\s*import\s+['"]@yh-ui\/components\/style(?:\.css)?['"]\s*;?\s*\n/gm,
     ''
   )
+}
+
+function stripStaticCodeSandboxStyleImports(code: string): string {
+  return code
+    .replace(/^\s*import\s+['"][^'"]+\.(?:css|scss)(?:\?[^'"]*)?['"]\s*;?\s*\n/gm, '')
+    .replace(
+      /^\s*(?:await\s+)?import\(\s*['"][^'"]+\.(?:css|scss)(?:\?[^'"]*)?['"]\s*\)\s*;?\s*\n/gm,
+      ''
+    )
+    .replace(/\n{3,}/g, '\n\n')
 }
 
 function inlineCustomEdgeComponent(code: string): string {
@@ -836,6 +878,26 @@ function resolveImportUrl(source: string, dependencies: Record<string, string>):
 
   // 第三方包：使用 no-bundle 模式
   return `${ESM_CDN}/${pkg}@${version}${suffix}?external=vue`
+}
+
+function resolveImportPrefixUrl(pkg: string, dependencies: Record<string, string>): string | null {
+  const version = normalizeDependencyVersion(
+    dependencies[pkg] || KNOWN_DEPENDENCIES[pkg] || 'latest'
+  )
+
+  if (pkg === 'vue' || pkg.startsWith('node:') || NODE_BUILTINS.has(pkg)) {
+    return null
+  }
+
+  if (pkg === '@yh-ui/icons') {
+    return `https://cdn.jsdelivr.net/npm/${pkg}@${version}/`
+  }
+
+  if (ESM_SH_BROKEN.has(pkg)) {
+    return null
+  }
+
+  return `${ESM_CDN}/${pkg}@${version}/`
 }
 
 function applyRuntimeImportMapShims(
@@ -1370,6 +1432,16 @@ export async function createCodeSandboxProjectFiles(
     ...manifest.supportFiles,
     ...Object.values(manifest.components).flatMap((component) => component.files)
   ])
+  const runtimeStyleByFilePath = new Map<string, string>()
+  for (const component of Object.values(manifest.components)) {
+    if (!component.style) {
+      continue
+    }
+
+    for (const filePath of component.files) {
+      runtimeStyleByFilePath.set(filePath, component.style)
+    }
+  }
 
   const runtimeFiles: Record<string, string> = {}
   const collectedStyleContents = new Map<string, string>()
@@ -1404,6 +1476,11 @@ export async function createCodeSandboxProjectFiles(
 
     if (!relativePath.endsWith('.js')) {
       return
+    }
+
+    const linkedStyleFile = runtimeStyleByFilePath.get(relativePath)
+    if (linkedStyleFile) {
+      await collectRuntimeFile(linkedStyleFile)
     }
 
     for (const source of extractBareImports(assetText)) {
@@ -1484,16 +1561,26 @@ export async function createCodeSandboxProjectFiles(
     'dayjs/plugin/customParseFormat.js',
     ...(usesMermaidRuntime ? ['mermaid', '@braintree/sanitize-url'] : [])
   ]
+  const npmrc = ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n')
   const sandboxConfigJson =
     JSON.stringify(
       {
-        template: 'node',
+        template: CODE_SANDBOX_PROJECT_TEMPLATE,
         infiniteLoopProtection: true
       },
       null,
       2
     ) + '\n'
-  const npmrc = ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n')
+  const codeSandboxTemplateJson =
+    JSON.stringify(
+      {
+        title: title || 'YH-UI Demo',
+        description: 'YH-UI component demo generated from the documentation.',
+        tags: ['yh-ui', 'vue', 'vite', 'demo']
+      },
+      null,
+      2
+    ) + '\n'
 
   const indexHtml = [
     '<!doctype html>',
@@ -1642,21 +1729,24 @@ export async function createCodeSandboxProjectFiles(
     'src/main.js': mainJs,
     'src/style.css': `${styleCss}\n`,
     'src/env.d.ts': envDts,
-    '.codesandbox/tasks.json': JSON.stringify(
-      {
-        setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
-        tasks: {
-          dev: {
-            name: 'Start Dev Server',
-            command: 'npm run dev',
-            runAtStart: true,
-            preview: { port: 5173 }
+    '.codesandbox/template.json': codeSandboxTemplateJson,
+    '.codesandbox/tasks.json':
+      JSON.stringify(
+        {
+          $schema: 'https://codesandbox.io/schemas/tasks.json',
+          setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
+          tasks: {
+            dev: {
+              name: 'Start Dev Server',
+              command: 'npm run dev',
+              runAtStart: true,
+              preview: { port: CODE_SANDBOX_PRIMARY_PORT }
+            }
           }
-        }
-      },
-      null,
-      2
-    ),
+        },
+        null,
+        2
+      ) + '\n',
     ...runtimeFiles
   }
 
@@ -1666,6 +1756,458 @@ export async function createCodeSandboxProjectFiles(
   }
 
   return files
+}
+
+function inferCodeSandboxTitle(files: Record<string, string>): string {
+  const titleMatch = files['index.html']?.match(/<title>([^<]+)<\/title>/i)
+  if (titleMatch?.[1]?.trim()) {
+    return titleMatch[1].trim()
+  }
+
+  const packageJson = files['package.json']
+  if (!packageJson) {
+    return 'YH-UI Demo'
+  }
+
+  try {
+    const parsed = JSON.parse(packageJson) as { name?: string }
+    if (parsed.name?.trim()) {
+      return parsed.name.trim()
+    }
+  } catch {
+    // ignore malformed package.json, the caller will still get a fallback title
+  }
+
+  return 'YH-UI Demo'
+}
+
+function shouldUseHostedCodeSandboxAssets(origin: string): boolean {
+  try {
+    const { hostname, protocol } = new URL(origin)
+    if (protocol !== 'http:' && protocol !== 'https:') {
+      return true
+    }
+
+    if (
+      hostname === 'localhost' ||
+      hostname === '0.0.0.0' ||
+      hostname === '[::1]' ||
+      hostname.endsWith('.localhost')
+    ) {
+      return true
+    }
+
+    if (/^127(?:\.\d{1,3}){3}$/.test(hostname)) {
+      return true
+    }
+
+    if (/^10(?:\.\d{1,3}){3}$/.test(hostname)) {
+      return true
+    }
+
+    if (/^192\.168(?:\.\d{1,3}){2}$/.test(hostname)) {
+      return true
+    }
+
+    const match = hostname.match(/^172\.(\d{1,3})(?:\.\d{1,3}){2}$/)
+    if (match) {
+      const secondOctet = Number(match[1])
+      if (secondOctet >= 16 && secondOctet <= 31) {
+        return true
+      }
+    }
+  } catch {
+    return true
+  }
+
+  return false
+}
+
+function resolveCodeSandboxAssetOrigin(assetOrigin?: string): string | undefined {
+  if (assetOrigin) {
+    return assetOrigin
+  }
+
+  if (typeof window === 'undefined') {
+    return DEFAULT_SITE_ORIGIN
+  }
+
+  const origin = window.location.origin
+  return shouldUseHostedCodeSandboxAssets(origin) ? DEFAULT_SITE_ORIGIN : origin
+}
+
+function buildCodeSandboxVueImportUrl(dependencies: Record<string, string>): string {
+  const version = normalizeDependencyVersion(
+    dependencies.vue || KNOWN_DEPENDENCIES.vue || `^${VUE_VERSION}`
+  )
+  return `${ESM_CDN}/vue@${version}?target=esnext`
+}
+
+function buildCodeSandboxImportMap(
+  files: Record<string, string>,
+  dependencies: Record<string, string>,
+  base: string,
+  assetOrigin?: string
+): ImportMap {
+  const importMap: ImportMap = {
+    imports: {
+      vue: buildCodeSandboxVueImportUrl(dependencies)
+    }
+  }
+
+  for (const pkg of Object.keys(dependencies)) {
+    if (pkg === 'vue') continue
+
+    const resolvedUrl = resolveImportUrl(pkg, dependencies)
+    if (resolvedUrl) {
+      importMap.imports[pkg] = resolvedUrl
+    }
+
+    const resolvedPrefixUrl = resolveImportPrefixUrl(pkg, dependencies)
+    if (resolvedPrefixUrl) {
+      importMap.imports[`${pkg}/`] = resolvedPrefixUrl
+    }
+  }
+
+  applyRuntimeImportMapShims(importMap, dependencies)
+
+  const staticPackages = _getPlaygroundStaticPackageEntries(base, assetOrigin)
+  for (const [pkg, entry] of Object.entries(staticPackages)) {
+    importMap.imports[pkg] = entry.entry
+    importMap.imports[`${pkg}/`] = resolveSiteAssetUrl(base, entry.dir, assetOrigin)
+  }
+
+  importMap.imports['@yh-ui/yh-ui'] = resolveSiteAssetUrl(
+    base,
+    'playground/yh-ui-bundle.js',
+    assetOrigin
+  )
+  importMap.imports['@yh-ui/yh-ui/full'] = importMap.imports['@yh-ui/yh-ui']
+  importMap.imports['@iconify/vue'] =
+    `${ESM_CDN}/@iconify/vue@4.1.2?bundle&external=vue&target=esnext`
+
+  if (files['src/vendor/flow/runtime.js']) {
+    importMap.imports['@yh-ui/flow'] = '/src/vendor/flow/runtime.js'
+  } else {
+    importMap.imports['@yh-ui/flow'] = resolveSiteAssetUrl(
+      base,
+      'playground/yh-flow-runtime.js',
+      assetOrigin
+    )
+  }
+
+  return importMap
+}
+
+function createCodeSandboxVirtualTextFiles(files: Record<string, string>): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(files).filter(([filePath]) => /\.(?:vue|json)$/i.test(filePath))
+  )
+}
+
+function createCodeSandboxInlineStyles(files: Record<string, string>): string {
+  const styleEntries = Object.entries(files).filter(([filePath]) => /\.css$/i.test(filePath))
+  const priority = new Map<string, number>([
+    ['src/vendor/theme/styles/mixins/mixins.css', 0],
+    ['src/vendor/theme/styles/variables.css', 1],
+    ['src/vendor/theme/styles/reset.css', 2],
+    ['src/vendor/theme/styles/index.css', 3],
+    ['src/vendor/theme/styles/components.css', 4],
+    ['src/style.css', 1000]
+  ])
+
+  return styleEntries
+    .sort(([leftPath], [rightPath]) => {
+      const leftPriority = priority.get(leftPath) ?? 100
+      const rightPriority = priority.get(rightPath) ?? 100
+      if (leftPriority !== rightPriority) {
+        return leftPriority - rightPriority
+      }
+
+      return leftPath.localeCompare(rightPath)
+    })
+    .map(([filePath, content]) => `/* ${filePath} */\n${content}`)
+    .join('\n\n')
+}
+
+export function createCodeSandboxDefineFiles(
+  title: string,
+  files: Record<string, string>,
+  options: CodeSandboxDefineFilesOptions = {}
+): Record<string, string> {
+  const browserTitle = title || inferCodeSandboxTitle(files)
+  const base = options.base ?? import.meta.env.BASE_URL ?? '/'
+  const assetOrigin = resolveCodeSandboxAssetOrigin(options.assetOrigin)
+  const sourcePackageJson = JSON.parse(files['package.json']) as {
+    dependencies?: Record<string, string>
+  }
+  const dependencies = sourcePackageJson.dependencies ?? { ...BASE_DEPENDENCIES }
+  const importMap = buildCodeSandboxImportMap(files, dependencies, base, assetOrigin)
+  const virtualTextFiles = createCodeSandboxVirtualTextFiles(files)
+  const usesIconRuntime = files['src/main.js']?.includes('@iconify/vue') ?? false
+  const usesFlowRuntime = Boolean(files['src/vendor/flow/runtime.js'])
+  const componentEntryFiles = Object.keys(files)
+    .filter(
+      (filePath) => filePath.startsWith('src/vendor/components/') && filePath.endsWith('/index.js')
+    )
+    .sort()
+  const componentImports = componentEntryFiles
+    .map((filePath, index) => `import Component${index + 1} from '/${filePath}'`)
+    .join('\n')
+  const componentRegistrations = componentEntryFiles
+    .map((filePath, index) => {
+      const match = filePath.match(/src\/vendor\/components\/([^/]+)\/index\.js$/)
+      const componentName = match?.[1] || `component-${index + 1}`
+      return `if (Component${index + 1} && typeof Component${index + 1}.install === 'function') { app.use(Component${index + 1}) } else { app.component('Yh${kebabToPascalCase(componentName)}', Component${index + 1}) }`
+    })
+    .join('\n')
+  const demoImports = extractBareImports(files['src/Demo.vue'] || '')
+  const needsHostedYhUiStyles = demoImports.some(
+    (source) =>
+      source === '@yh-ui/yh-ui' ||
+      source.startsWith('@yh-ui/yh-ui/') ||
+      source === '@yh-ui/components' ||
+      source.startsWith('@yh-ui/components/')
+  )
+  const inlineStyles = createCodeSandboxInlineStyles(files)
+
+  const browserMainJs = [
+    "import * as Vue from 'vue'",
+    `import { loadModule } from '${CODE_SANDBOX_SFC_LOADER_URL}'`,
+    componentImports,
+    ...(usesIconRuntime ? ["import { Icon as YhIconify } from '@iconify/vue'"] : []),
+    ...(usesFlowRuntime
+      ? [
+          "import { Flow as YhFlow, NodeResizer as YhNodeResizer, NodeToolbar as YhNodeToolbar } from '/src/vendor/flow/runtime.js'"
+        ]
+      : []),
+    '',
+    `const sandboxImports = ${JSON.stringify(importMap.imports, null, 2)}`,
+    `const sandboxTextFiles = ${JSON.stringify(
+      Object.fromEntries(
+        Object.entries(virtualTextFiles).map(([filePath, content]) => [`/${filePath}`, content])
+      ),
+      null,
+      2
+    )}`,
+    'const sandboxImportPrefixes = Object.entries(sandboxImports)',
+    "  .filter(([key]) => key.endsWith('/'))",
+    '  .sort((left, right) => right[0].length - left[0].length)',
+    '',
+    'function resolveSandboxVirtualPath(refPath, requestPath) {',
+    "  const basePath = typeof refPath === 'string' && refPath.startsWith('/') ? refPath : '/src/Demo.vue'",
+    '  return new URL(requestPath, `https://sandbox.local${basePath}`).pathname',
+    '}',
+    '',
+    'const sandboxApiState = { files: null, fetchedAt: 0, sandboxId: null }',
+    '',
+    'function resolveCodeSandboxId() {',
+    '  if (sandboxApiState.sandboxId) return sandboxApiState.sandboxId',
+    '  const match = window.location.hostname.match(/^([^.]+)\\.csb\\.app$/)',
+    "  const querySandboxId = new URLSearchParams(window.location.search).get('sandboxId')",
+    '  sandboxApiState.sandboxId = match?.[1] ?? querySandboxId ?? null',
+    '  return sandboxApiState.sandboxId',
+    '}',
+    '',
+    'function createSandboxDirectoryPathResolver(directories) {',
+    '  const directoryMap = new Map(directories.map((directory) => [directory.shortid, directory]))',
+    '  const pathCache = new Map()',
+    '  return function resolveDirectoryPath(shortid) {',
+    "    if (!shortid) return ''",
+    '    if (pathCache.has(shortid)) return pathCache.get(shortid)',
+    '    const directory = directoryMap.get(shortid)',
+    "    if (!directory) return ''",
+    '    const parentPath = resolveDirectoryPath(directory.directory_shortid)',
+    '    const fullPath = parentPath ? `${parentPath}/${directory.title}` : directory.title',
+    '    pathCache.set(shortid, fullPath)',
+    '    return fullPath',
+    '  }',
+    '}',
+    '',
+    'async function loadCodeSandboxLiveFiles() {',
+    '  const sandboxId = resolveCodeSandboxId()',
+    '  if (!sandboxId) return null',
+    '  const now = Date.now()',
+    '  if (sandboxApiState.files && now - sandboxApiState.fetchedAt < 1000) {',
+    '    return sandboxApiState.files',
+    '  }',
+    "  const response = await fetch(`/api/v1/sandboxes/${sandboxId}`, { cache: 'no-store' })",
+    '  if (!response.ok) {',
+    '    throw new Error(`Failed to load sandbox files (${response.status})`)',
+    '  }',
+    '  const payload = await response.json()',
+    '  const sandboxData = payload?.data ?? payload',
+    '  const directories = Array.isArray(sandboxData?.directories) ? sandboxData.directories : []',
+    '  const modules = Array.isArray(sandboxData?.modules) ? sandboxData.modules : []',
+    '  const resolveDirectoryPath = createSandboxDirectoryPathResolver(directories)',
+    '  const files = Object.create(null)',
+    '  for (const module of modules) {',
+    "    if (!module || typeof module.title !== 'string' || typeof module.code !== 'string') continue",
+    '    const directoryPath = resolveDirectoryPath(module.directory_shortid)',
+    "    const fullPath = `/${directoryPath ? `${directoryPath}/` : ''}${module.title}`",
+    '    files[fullPath] = module.code',
+    '  }',
+    '  sandboxApiState.files = files',
+    '  sandboxApiState.fetchedAt = now',
+    '  return files',
+    '}',
+    '',
+    'async function getCodeSandboxLiveFile(virtualPath) {',
+    '  try {',
+    '    const liveFiles = await loadCodeSandboxLiveFiles()',
+    '    if (liveFiles && typeof liveFiles[virtualPath] === "string") {',
+    '      return liveFiles[virtualPath]',
+    '    }',
+    '  } catch (error) {',
+    "    console.warn('[yh-ui sandbox] failed to load live sandbox files:', error)",
+    '  }',
+    '  return null',
+    '}',
+    '',
+    'const loaderOptions = {',
+    '  moduleCache: Object.assign(Object.create(null), { vue: Vue }),',
+    '  pathResolve({ refPath, relPath }) {',
+    '    const requestPath = relPath.toString()',
+    "    if (requestPath === 'vue') {",
+    '      return requestPath',
+    '    }',
+    '    const directMatch = sandboxImports[requestPath]',
+    '    if (directMatch) {',
+    '      return directMatch',
+    '    }',
+    '    const prefixMatch = sandboxImportPrefixes.find(([prefix]) => requestPath.startsWith(prefix))',
+    '    if (prefixMatch) {',
+    '      return `${prefixMatch[1]}${requestPath.slice(prefixMatch[0].length)}`',
+    '    }',
+    "    if (requestPath.startsWith('http://') || requestPath.startsWith('https://')) {",
+    '      return requestPath',
+    '    }',
+    "    if (requestPath.startsWith('/')) {",
+    '      return requestPath',
+    '    }',
+    "    if (requestPath.startsWith('.')) {",
+    '      return resolveSandboxVirtualPath(refPath, requestPath)',
+    '    }',
+    '    return requestPath',
+    '  },',
+    '  async getFile(url) {',
+    "    const resolvedUrl = typeof url === 'string' ? new URL(url, window.location.href) : null",
+    "    const virtualPath = resolvedUrl ? resolvedUrl.pathname : ''",
+    "    const isSameOriginFileRequest = Boolean(resolvedUrl && resolvedUrl.origin === window.location.origin && virtualPath.startsWith('/'))",
+    '    const liveFile = virtualPath ? await getCodeSandboxLiveFile(virtualPath) : null',
+    "    if (typeof liveFile === 'string') {",
+    '      return liveFile',
+    '    }',
+    "    if (typeof url === 'string' && sandboxTextFiles[url]) {",
+    '      return sandboxTextFiles[url]',
+    '    }',
+    '    if (sandboxTextFiles[virtualPath]) {',
+    '      return sandboxTextFiles[virtualPath]',
+    '    }',
+    "    if (typeof url === 'string' && (url.startsWith('data:') || url.startsWith('blob:'))) {",
+    '      const response = await fetch(url)',
+    '      if (!response.ok) {',
+    '        throw new Error(`Failed to fetch ${url} (${response.status})`)',
+    '      }',
+    '      return await response.text()',
+    '    }',
+    "    if (typeof url === 'string' && (url.startsWith('http://') || url.startsWith('https://')) && !isSameOriginFileRequest) {",
+    '      const response = await fetch(url)',
+    '      if (!response.ok) {',
+    '        throw new Error(`Failed to fetch ${url} (${response.status})`)',
+    '      }',
+    '      return await response.text()',
+    '    }',
+    '    throw new Error(`Unsupported sandbox file request: ${String(url)}`)',
+    '  },',
+    '  async handleModule(type, sourceOrLoader, path) {',
+    '    const moduleUrl = path.toString()',
+    "    if (type === '.json') {",
+    "      const source = typeof sourceOrLoader === 'function' ? await sourceOrLoader(false) : sourceOrLoader",
+    '      return JSON.parse(source)',
+    '    }',
+    "    if (type === '.js' || type === '.mjs') {",
+    '      return import(/* @vite-ignore */ moduleUrl)',
+    '    }',
+    '    return undefined',
+    '  },',
+    '  addStyle(textContent) {',
+    "    const style = document.createElement('style')",
+    "    style.type = 'text/css'",
+    '    style.textContent = textContent',
+    '    document.head.appendChild(style)',
+    '  }',
+    '}',
+    '',
+    "const app = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/src/App.vue', loaderOptions)))",
+    ...(componentRegistrations ? [componentRegistrations] : []),
+    ...(usesIconRuntime
+      ? ["app.component('Icon', YhIconify)", "app.component('YhIconifyIcon', YhIconify)"]
+      : []),
+    ...(usesFlowRuntime
+      ? [
+          "app.component('YhFlow', YhFlow)",
+          "app.component('YhNodeResizer', YhNodeResizer)",
+          "app.component('YhNodeToolbar', YhNodeToolbar)"
+        ]
+      : []),
+    "app.mount('#app')",
+    ''
+  ].join('\n')
+
+  const browserIndexHtml = [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '  <head>',
+    '    <meta charset="UTF-8" />',
+    '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
+    `    <title>${escapeHtml(browserTitle)}</title>`,
+    `    <script type="importmap">${JSON.stringify(importMap, null, 2)}</script>`,
+    inlineStyles ? `    <style>${inlineStyles}</style>` : '',
+    ...(needsHostedYhUiStyles
+      ? [
+          `    <link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'yh-ui/style.css', assetOrigin)}" crossorigin="anonymous" />`,
+          `    <link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-ui-bundle.css', assetOrigin)}" crossorigin="anonymous" />`
+        ]
+      : []),
+    '  </head>',
+    '  <body>',
+    '    <div id="app"></div>',
+    '    <script type="module" src="/src/main.js"></script>',
+    '  </body>',
+    '</html>',
+    ''
+  ].join('\n')
+
+  const defineFiles: Record<string, string> = {
+    'sandbox.config.json':
+      JSON.stringify(
+        {
+          template: CODE_SANDBOX_DEFINE_TEMPLATE,
+          infiniteLoopProtection: true
+        },
+        null,
+        2
+      ) + '\n',
+    'index.html': browserIndexHtml,
+    'src/App.vue': files['src/App.vue'],
+    'src/Demo.vue': files['src/Demo.vue'],
+    'src/main.js': browserMainJs,
+    'src/style.css': files['src/style.css']
+  }
+
+  for (const [filePath, content] of Object.entries(files)) {
+    if (!filePath.startsWith('src/vendor/')) {
+      continue
+    }
+
+    defineFiles[filePath] =
+      /\.(?:[cm]?[jt]sx?)$/.test(filePath) && !filePath.endsWith('.d.ts')
+        ? stripStaticCodeSandboxStyleImports(content)
+        : content
+  }
+
+  return defineFiles
 }
 
 // ============================================================
@@ -1707,12 +2249,42 @@ export async function openDemoInStackBlitz(
 // CodeSandbox
 // ============================================================
 
-function buildCodeSandboxPayload(title: string, code: string, context?: SandboxContext) {
-  return createCodeSandboxProjectFiles(title, code, context).then((files) => ({
+export function createCodeSandboxDefinePayload(
+  title: string,
+  files: Record<string, string>,
+  options: CodeSandboxDefineFilesOptions = {}
+) {
+  const defineFiles = createCodeSandboxDefineFiles(title, files, options)
+  return {
     files: Object.fromEntries(
-      Object.entries(files).map(([filePath, content]) => [filePath, { content }])
+      Object.entries(defineFiles).map(([filePath, content]) => [
+        filePath,
+        {
+          content: filePath === 'sandbox.config.json' ? JSON.parse(content) : content
+        }
+      ])
     )
-  }))
+  }
+}
+
+export function createCodeSandboxProjectPayload(files: Record<string, string>) {
+  return {
+    files: Object.fromEntries(
+      Object.entries(files).map(([filePath, content]) => [
+        filePath,
+        {
+          content,
+          isBinary: false
+        }
+      ])
+    )
+  }
+}
+
+function buildCodeSandboxPayload(title: string, code: string, context?: SandboxContext) {
+  return createCodeSandboxProjectFiles(title, code, context).then((files) =>
+    createCodeSandboxDefinePayload(title, files)
+  )
 }
 
 export async function openDemoInCodeSandbox(
@@ -1725,7 +2297,6 @@ export async function openDemoInCodeSandbox(
 
   const payload = await buildCodeSandboxPayload(title, code, context)
   const parameters = compressCodeSandboxParameters(JSON.stringify(payload))
-  const fallbackQuery = 'file=/src/Demo.vue&view=split'
   const targetName = `codesandbox-preview-${Date.now()}`
   const popup = window.open('', targetName)
 
@@ -1736,61 +2307,26 @@ export async function openDemoInCodeSandbox(
     popup.document.close()
   }
 
-  const submitFallback = () => {
-    const form = document.createElement('form')
-    form.method = 'POST'
-    form.action = 'https://codesandbox.io/api/v1/sandboxes/define'
-    form.target = popup && !popup.closed ? targetName : '_blank'
-    form.style.display = 'none'
+  const form = document.createElement('form')
+  form.method = 'POST'
+  form.action = 'https://codesandbox.io/api/v1/sandboxes/define'
+  form.target = popup && !popup.closed ? targetName : '_blank'
+  form.style.display = 'none'
 
-    const paramsInput = document.createElement('input')
-    paramsInput.type = 'hidden'
-    paramsInput.name = 'parameters'
-    paramsInput.value = parameters
-    form.appendChild(paramsInput)
+  const paramsInput = document.createElement('input')
+  paramsInput.type = 'hidden'
+  paramsInput.name = 'parameters'
+  paramsInput.value = parameters
+  form.appendChild(paramsInput)
 
-    const queryInput = document.createElement('input')
-    queryInput.type = 'hidden'
-    queryInput.name = 'query'
-    queryInput.value = fallbackQuery
-    form.appendChild(queryInput)
+  const queryInput = document.createElement('input')
+  queryInput.type = 'hidden'
+  queryInput.name = 'query'
+  queryInput.value = CODE_SANDBOX_EDITOR_QUERY
+  form.appendChild(queryInput)
 
-    document.body.appendChild(form)
-    form.submit()
-    document.body.removeChild(form)
-  }
-
-  try {
-    const defineResponse = await fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        parameters,
-        query: fallbackQuery
-      }).toString()
-    })
-
-    if (!defineResponse.ok) {
-      throw new Error(`CodeSandbox define failed with status ${defineResponse.status}`)
-    }
-
-    const defineJson = (await defineResponse.json()) as { sandbox_id?: string }
-    if (!defineJson.sandbox_id) {
-      throw new Error('CodeSandbox define response missing sandbox_id')
-    }
-
-    const previewUrl = `https://${defineJson.sandbox_id}.csb.app/`
-    if (popup && !popup.closed) {
-      popup.location.replace(previewUrl)
-    } else {
-      window.open(previewUrl, '_blank')
-    }
-
-    return support
-  } catch {
-    submitFallback()
-    return support
-  }
+  document.body.appendChild(form)
+  form.submit()
+  document.body.removeChild(form)
+  return support
 }
