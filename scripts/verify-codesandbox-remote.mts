@@ -507,7 +507,7 @@ async function createRemoteSandbox(testCase: TestCase) {
     },
     body: new URLSearchParams({
       parameters: compressParameters(JSON.stringify(payload)),
-      query: 'file=/src/Demo.js'
+      query: 'file=/src/Demo.vue&view=split'
     }).toString()
   })
 
@@ -562,6 +562,15 @@ async function verifyTestCase(testCase: TestCase) {
   page.on('response', (response) => {
     const url = response.url()
     if (!url.includes(`${sandboxId}.csb.app`)) return
+    const contentType = response.headers()['content-type'] || ''
+    if (
+      response.request().resourceType() === 'script' &&
+      /\.m?[jt]sx?(?:[?#].*)?$/i.test(url) &&
+      contentType.includes('text/html')
+    ) {
+      runtimeErrors.push(`script-served-as-html: ${url} (${contentType})`)
+      return
+    }
     if (response.status() < 400 || shouldIgnoreErrorText(url)) return
     runtimeErrors.push(`response: ${response.status()} ${url}`)
   })

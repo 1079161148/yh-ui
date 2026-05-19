@@ -209,11 +209,6 @@ interface CodeSandboxProjectFilesOptions {
   loadSiteAssetText?: (assetPath: string) => Promise<string>
 }
 
-interface CodeSandboxCompiledVueModule {
-  code: string
-  css: string
-}
-
 interface SandboxProjectFilesOptions {
   base?: string
   loadSiteAssetText?: (assetPath: string) => Promise<string>
@@ -224,11 +219,6 @@ const DOC_SOURCE_MODULES = import.meta.glob('../../../../**/*.md', {
   import: 'default',
   eager: true
 }) as Record<string, string>
-
-let codeSandboxCompilerDepsPromise: Promise<{
-  sfc: typeof import('@vue/compiler-sfc')
-  typescript: typeof import('typescript')
-}> | null = null
 
 // ============================================================
 // 工具函数
@@ -243,132 +233,6 @@ function normalizeSfc(code: string): string {
     return trimmed
   }
   return '<template>\n' + trimmed + '\n</template>\n'
-}
-
-function formatCodeSandboxCompileErrors(errors: Array<string | { message?: string }>): string {
-  return errors
-    .map((error) => {
-      if (typeof error === 'string') return error
-      if (error?.message) return error.message
-      return String(error)
-    })
-    .join('\n')
-}
-
-async function loadCodeSandboxCompilerDeps() {
-  if (!codeSandboxCompilerDepsPromise) {
-    codeSandboxCompilerDepsPromise = Promise.all([
-      import('@vue/compiler-sfc'),
-      import('typescript')
-    ]).then(([sfc, typescript]) => ({ sfc, typescript }))
-  }
-
-  return codeSandboxCompilerDepsPromise
-}
-
-async function compileCodeSandboxStyle(styleContent: string, styleLang: string | undefined) {
-  const trimmed = styleContent.trim()
-  if (!trimmed) return ''
-
-  const normalizedLang = styleLang?.toLowerCase()
-  if (!normalizedLang || normalizedLang === 'css') {
-    return trimmed
-  }
-
-  throw new Error(`CodeSandbox export does not support <style lang="${normalizedLang}"> blocks.`)
-}
-
-async function compileCodeSandboxVueModule(
-  filename: string,
-  source: string
-): Promise<CodeSandboxCompiledVueModule> {
-  const { sfc, typescript } = await loadCodeSandboxCompilerDeps()
-  const { parse, compileScript, compileTemplate } = sfc
-  const { descriptor, errors } = parse(source, { filename })
-
-  if (errors.length > 0) {
-    throw new Error(
-      `CodeSandbox SFC parse failed for ${filename}:\n${formatCodeSandboxCompileErrors(errors)}`
-    )
-  }
-
-  const scriptLang =
-    descriptor.scriptSetup?.lang?.toLowerCase() || descriptor.script?.lang?.toLowerCase() || 'js'
-  let bindings: Record<string, unknown> = {}
-  let scriptContent = 'const __sfc__ = {}'
-
-  if (descriptor.script || descriptor.scriptSetup) {
-    try {
-      const compiledScript = compileScript(descriptor, { id: filename })
-      bindings = compiledScript.bindings
-      scriptContent = compiledScript.content.replace('export default', 'const __sfc__ =')
-    } catch (error) {
-      throw new Error(
-        `CodeSandbox script compile failed for ${filename}: ${error instanceof Error ? error.message : String(error)}`
-      )
-    }
-  }
-
-  const outputChunks: string[] = []
-  if (descriptor.template?.content?.trim()) {
-    const compiledTemplate = compileTemplate({
-      id: filename,
-      filename,
-      source: descriptor.template.content,
-      compilerOptions: {
-        bindingMetadata: bindings
-      }
-    })
-
-    if (compiledTemplate.errors.length > 0) {
-      throw new Error(
-        `CodeSandbox template compile failed for ${filename}:\n${formatCodeSandboxCompileErrors(compiledTemplate.errors)}`
-      )
-    }
-
-    outputChunks.push(compiledTemplate.code.replace('export function render', 'function render'))
-  }
-
-  outputChunks.push(scriptContent)
-  if (descriptor.template?.content?.trim()) {
-    outputChunks.push('__sfc__.render = render')
-  }
-  outputChunks.push('export default __sfc__')
-
-  const transpiled = typescript.transpileModule(outputChunks.join('\n\n'), {
-    compilerOptions: {
-      target: typescript.ScriptTarget.ES2020,
-      module: typescript.ModuleKind.ESNext,
-      allowJs: true,
-      jsx: typescript.JsxEmit.Preserve
-    },
-    fileName: filename.replace(
-      /\.vue$/i,
-      scriptLang === 'tsx' ? '.tsx' : scriptLang === 'ts' ? '.ts' : '.js'
-    ),
-    reportDiagnostics: true
-  })
-
-  const transpileErrors =
-    transpiled.diagnostics?.filter(
-      (diagnostic) => diagnostic.category === typescript.DiagnosticCategory.Error
-    ) ?? []
-  if (transpileErrors.length > 0) {
-    throw new Error(
-      `CodeSandbox transpile failed for ${filename}:\n${transpileErrors
-        .map((diagnostic) => typescript.flattenDiagnosticMessageText(diagnostic.messageText, '\n'))
-        .join('\n')}`
-    )
-  }
-
-  const cssBlocks = await Promise.all(
-    descriptor.styles.map((style) => compileCodeSandboxStyle(style.content, style.lang))
-  )
-
-  return {
-    code: `${transpiled.outputText.trimEnd()}\n`,
-    css: cssBlocks.filter(Boolean).join('\n\n').trim()
-  }
 }
 
 function normalizeDocPath(docPath?: string): string | null {
@@ -1608,6 +1472,28 @@ export async function createCodeSandboxProjectFiles(
         `if (Component${index + 1} && typeof Component${index + 1}.install === 'function') { app.use(Component${index + 1}) } else { app.component('Yh${kebabToPascalCase(name)}', Component${index + 1}) }`
     )
     .join('\n')
+  const usesMermaidRuntime =
+    usesMermaidSandboxRuntime(preparedCode, context) || Boolean(packageDependencies.mermaid)
+  const interopDeps = [
+    'dayjs',
+    'dayjs/plugin/isBetween.js',
+    'dayjs/plugin/weekOfYear.js',
+    'dayjs/plugin/isoWeek.js',
+    'dayjs/plugin/quarterOfYear.js',
+    'dayjs/plugin/advancedFormat.js',
+    'dayjs/plugin/customParseFormat.js',
+    ...(usesMermaidRuntime ? ['mermaid', '@braintree/sanitize-url'] : [])
+  ]
+  const sandboxConfigJson =
+    JSON.stringify(
+      {
+        template: 'node',
+        infiniteLoopProtection: true
+      },
+      null,
+      2
+    ) + '\n'
+  const npmrc = ['auto-install-peers=true', 'strict-peer-dependencies=false', ''].join('\n')
 
   const indexHtml = [
     '<!doctype html>',
@@ -1634,20 +1520,20 @@ export async function createCodeSandboxProjectFiles(
     Object.assign(packageDependencies, collectThirdPartyDependenciesFromCode(flowRuntimeJs))
   }
 
-  const appSource = [
+  const appVue = [
     '<template>',
     '  <Demo />',
     '</template>',
     '',
     '<script setup>',
-    "import Demo from './Demo.js'",
+    "import Demo from './Demo.vue'",
     '</script>',
     ''
   ].join('\n')
 
   const mainJs = [
     "import { createApp } from 'vue'",
-    "import App from './App.js'",
+    "import App from './App.vue'",
     componentImports,
     "import './style.css'",
     ...(usesIconRuntime ? ["import { Icon as YhIconify } from '@iconify/vue'"] : []),
@@ -1673,9 +1559,56 @@ export async function createCodeSandboxProjectFiles(
     "app.mount('#app')",
     ''
   ].join('\n')
-
-  const compiledApp = await compileCodeSandboxVueModule('src/App.vue', appSource)
-  const compiledDemo = await compileCodeSandboxVueModule('src/Demo.vue', `${normalizedCode}\n`)
+  const envDts = [
+    'declare module "*.vue" {',
+    '  import type { DefineComponent } from "vue"',
+    '  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>',
+    '  export default component',
+    '}',
+    ''
+  ].join('\n')
+  const viteConfigTs = [
+    "import vue from '@vitejs/plugin-vue'",
+    "import { defineConfig } from 'vite'",
+    '',
+    'export default defineConfig({',
+    '  plugins: [vue()],',
+    '  optimizeDeps: {',
+    `    include: ${JSON.stringify(interopDeps)},`,
+    `    needsInterop: ${JSON.stringify(interopDeps)}`,
+    '  },',
+    '  server: {',
+    "    host: '0.0.0.0',",
+    '    port: 5173,',
+    '    allowedHosts: true',
+    '  },',
+    "  preview: { host: '0.0.0.0', port: 4173 }",
+    '})',
+    ''
+  ].join('\n')
+  const tsconfigJson =
+    JSON.stringify(
+      {
+        compilerOptions: {
+          target: 'ES2020',
+          useDefineForClassFields: true,
+          module: 'ESNext',
+          moduleResolution: 'Bundler',
+          strict: true,
+          skipLibCheck: true,
+          jsx: 'preserve',
+          resolveJsonModule: true,
+          isolatedModules: true,
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          lib: ['ES2020', 'DOM', 'DOM.Iterable'],
+          types: ['vite/client']
+        },
+        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue', 'src/env.d.ts']
+      },
+      null,
+      2
+    ) + '\n'
 
   const packageJson =
     JSON.stringify(
@@ -1684,7 +1617,14 @@ export async function createCodeSandboxProjectFiles(
         private: true,
         type: 'module',
         main: 'src/main.js',
-        dependencies: packageDependencies
+        scripts: {
+          dev: 'vite --host 0.0.0.0 --port 5173',
+          start: 'vite --host 0.0.0.0 --port 5173',
+          build: 'vite build',
+          preview: 'vite preview --host 0.0.0.0 --port 4173'
+        },
+        dependencies: packageDependencies,
+        devDependencies: DEV_DEPENDENCIES
       },
       null,
       2
@@ -1692,11 +1632,31 @@ export async function createCodeSandboxProjectFiles(
 
   const files: Record<string, string> = {
     'index.html': indexHtml,
+    '.npmrc': npmrc,
+    'sandbox.config.json': sandboxConfigJson,
     'package.json': packageJson,
-    'src/App.js': compiledApp.code,
-    'src/Demo.js': compiledDemo.code,
+    'tsconfig.json': tsconfigJson,
+    'vite.config.ts': viteConfigTs,
+    'src/App.vue': appVue,
+    'src/Demo.vue': `${normalizedCode}\n`,
     'src/main.js': mainJs,
-    'src/style.css': `${[styleCss, compiledApp.css, compiledDemo.css].filter(Boolean).join('\n\n')}\n`,
+    'src/style.css': `${styleCss}\n`,
+    'src/env.d.ts': envDts,
+    '.codesandbox/tasks.json': JSON.stringify(
+      {
+        setupTasks: [{ name: 'Install Dependencies', command: 'npm install' }],
+        tasks: {
+          dev: {
+            name: 'Start Dev Server',
+            command: 'npm run dev',
+            runAtStart: true,
+            preview: { port: 5173 }
+          }
+        }
+      },
+      null,
+      2
+    ),
     ...runtimeFiles
   }
 
@@ -1765,7 +1725,7 @@ export async function openDemoInCodeSandbox(
 
   const payload = await buildCodeSandboxPayload(title, code, context)
   const parameters = compressCodeSandboxParameters(JSON.stringify(payload))
-  const fallbackQuery = 'file=/src/Demo.js&view=split'
+  const fallbackQuery = 'file=/src/Demo.vue&view=split'
   const targetName = `codesandbox-preview-${Date.now()}`
   const popup = window.open('', targetName)
 

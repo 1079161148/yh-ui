@@ -16,7 +16,6 @@ const packOutputDir = resolve(tempRootDir, 'packs')
 const codeSandboxRuntimeDir = resolve(rootDir, 'docs', 'public', 'codesandbox-runtime')
 const isWin = process.platform === 'win32'
 const npmCommand = isWin ? 'npm.cmd' : 'npm'
-const npxCommand = isWin ? 'npx.cmd' : 'npx'
 const pnpmCommand = isWin ? 'pnpm.cmd' : 'pnpm'
 const shutdownGraceMs = 2_000
 const codeSandboxManifestPromise = readFile(
@@ -612,23 +611,6 @@ function applyWorkspacePackageOverrides(
   }
 }
 
-function prepareLocalVerificationFiles(files: Record<string, string>): Record<string, string> {
-  const packageJson = JSON.parse(files['package.json']) as SandboxPackageJson
-  packageJson.scripts = {
-    ...(packageJson.scripts ?? {}),
-    build: 'vite build'
-  }
-  packageJson.devDependencies = {
-    ...(packageJson.devDependencies ?? {}),
-    vite: '^6.0.7'
-  }
-
-  return {
-    ...files,
-    'package.json': `${JSON.stringify(packageJson, null, 2)}\n`
-  }
-}
-
 async function buildProjectFiles(testCase: TestCase): Promise<Record<string, string>> {
   return createCodeSandboxProjectFiles(testCase.title, testCase.code, testCase.context, {
     manifest: await codeSandboxManifestPromise,
@@ -644,9 +626,7 @@ async function verifyLocalSandbox(testCase: TestCase, tarballMap: Map<string, st
   const screenshotPath = join(tempRootDir, `${testCase.name}.png`)
   const baseFiles = await buildProjectFiles(testCase)
   testCase.verifyFiles?.(baseFiles)
-  const files = prepareLocalVerificationFiles(
-    applyWorkspacePackageOverrides(sandboxDir, baseFiles, tarballMap)
-  )
+  const files = applyWorkspacePackageOverrides(sandboxDir, baseFiles, tarballMap)
   await writeProjectFiles(sandboxDir, files)
 
   await runCommand(npmCommand, sandboxDir, ['install', '--no-package-lock'])
@@ -654,17 +634,21 @@ async function verifyLocalSandbox(testCase: TestCase, tarballMap: Map<string, st
 
   const port = await getAvailablePort()
   const previewUrl = `http://127.0.0.1:${port}/`
-  const server = spawn(npxCommand, ['vite', '--host', '127.0.0.1', '--port', `${port}`], {
-    cwd: sandboxDir,
-    env: {
-      ...process.env,
-      NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=6144'
-    },
-    detached: !isWin,
-    shell: isWin,
-    stdio: 'pipe',
-    windowsHide: true
-  })
+  const server = spawn(
+    npmCommand,
+    ['run', 'dev', '--', '--host', '127.0.0.1', '--port', `${port}`],
+    {
+      cwd: sandboxDir,
+      env: {
+        ...process.env,
+        NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=6144'
+      },
+      detached: !isWin,
+      shell: isWin,
+      stdio: 'pipe',
+      windowsHide: true
+    }
+  )
 
   let serverStdout = ''
   let serverStderr = ''

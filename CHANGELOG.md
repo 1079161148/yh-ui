@@ -4,6 +4,29 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.24] - 2026-05-19
+
+Patch release focused on restoring truly editable, working CodeSandbox demos after the precompiled browser-sandbox export path started opening hosted previews without a runnable dev server.
+
+### Added
+
+- Added nodebox task scaffolding back to CodeSandbox exports through `sandbox.config.json`, `.codesandbox/tasks.json`, and the Vite dev-server scripts the hosted preview now needs.
+
+### Changed
+
+- Changed CodeSandbox project generation to emit normal `src/App.vue` and `src/Demo.vue` files again so exported demos stay editable inside the sandbox.
+- Changed CodeSandbox local and exhaustive verification to validate the real nodebox/Vite scaffold instead of a test-only injected build-tool layer.
+
+### Fixed
+
+- Fixed hosted CodeSandbox previews returning `text/html` for `/src/main.js`, which left demos stuck in the browser transpiler path and prevented components from rendering.
+- Fixed the docs CodeSandbox fallback route so the editor opens `src/Demo.vue` again after the scaffold moved back to real Vue SFC files.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm typecheck`, `pnpm docs:build`, `pnpm verify:codesandbox-local`, `pnpm verify:docs-sandboxes`, `pnpm verify:docs-sandboxes:exhaustive`, `pnpm verify:release-versions`, and `pnpm changelog:check`.
+- `pnpm verify:codesandbox-remote` remains advisory because fresh CodeSandbox `define` requests can still be blocked by a Cloudflare `403` challenge outside repository control.
+
 ## [1.0.23] - 2026-05-19
 
 Patch release focused on making docs CodeSandbox exports self-sufficient again so newly opened demos render reliably instead of depending on remote Vite setup behavior.
