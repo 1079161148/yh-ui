@@ -4,6 +4,26 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.22] - 2026-05-19
+
+Patch release focused on restoring working hosted CodeSandbox previews after the nodebox-style export path started landing on discontinued SSE preview infrastructure.
+
+### Changed
+
+- Changed CodeSandbox project generation to emit a browser-sandbox-compatible Vite scaffold again, using `src/main.js` and removing the nodebox-specific `sandbox.config.json` and `.codesandbox/tasks.json` layer.
+- Changed docs CodeSandbox launch flow to request `sandbox_id` from `define?json=1` first and open the hosted `*.csb.app` preview directly before falling back to the legacy form submit path.
+- Changed release validation to enforce the new CodeSandbox scaffold contract explicitly so future regressions fail as soon as the generated entrypoint or legacy nodebox files drift.
+
+### Fixed
+
+- Fixed exported docs demos being sent back onto the deprecated SSE preview route where hosted CodeSandbox sessions now stall or show discontinued-service errors.
+- Fixed the latest sandbox export path relying on a Vue SFC loader workaround that was no longer needed once the preview target moved back to the real hosted browser sandbox.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm verify:release-versions`, `pnpm verify:codesandbox-local`, `pnpm verify:docs-sandboxes:exhaustive`, `pnpm typecheck`, and scoped eslint checks for the updated sandbox files.
+- `pnpm verify:codesandbox-remote` still remains advisory here because fresh CodeSandbox `define` requests can be blocked by a Cloudflare `403` challenge outside repository control.
+
 ## [1.0.21] - 2026-05-18
 
 Patch release focused on restoring reliable hosted CodeSandbox previews and preventing stale Windows style mirrors from leaking old Sass output into release builds.

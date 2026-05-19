@@ -104,10 +104,10 @@ async function verifySandboxVersionConstant(expectedVersion) {
 async function verifyCodeSandboxEntryContract() {
   const source = await fs.readFile(sandboxSourcePath, 'utf8')
   const scaffoldPattern =
-    /const\s+packageJson\s*=\s*JSON\.stringify\(\s*\{[\s\S]*?\bmain:\s*['"]src\/main\.ts['"][\s\S]*?\}\s*,\s*null,\s*2\s*\)\s*\+\s*['"]\\n['"]/
+    /const\s+packageJson\s*=\s*JSON\.stringify\(\s*\{[\s\S]*?\bmain:\s*['"]src\/main\.js['"][\s\S]*?\}\s*,\s*null,\s*2\s*\)\s*\+\s*['"]\\n['"]/
   if (!scaffoldPattern.test(source)) {
     throw new Error(
-      'demo-sandbox.ts is missing package.json.main="src/main.ts" in the shared sandbox scaffold'
+      'demo-sandbox.ts is missing package.json.main="src/main.js" in the shared sandbox scaffold'
     )
   }
 }

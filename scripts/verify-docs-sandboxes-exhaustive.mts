@@ -50,17 +50,14 @@ interface CodeSandboxManifest {
 }
 
 const REQUIRED_CODE_SANDBOX_FILES = [
-  '.npmrc',
-  '.codesandbox/tasks.json',
   'index.html',
   'package.json',
-  'sandbox.config.json',
   'tsconfig.json',
   'vite.config.ts',
   'src/App.vue',
   'src/Demo.vue',
   'src/env.d.ts',
-  'src/main.ts',
+  'src/main.js',
   'src/style.css'
 ]
 
@@ -788,12 +785,21 @@ async function validateCodeSandboxCase(
     `CodeSandbox package.json is missing a Vite dev script for ${demoCase.route}`
   )
   assert(
-    files['sandbox.config.json'],
-    `CodeSandbox should emit sandbox.config.json for ${demoCase.route}`
+    packageJson.main === 'src/main.js',
+    `CodeSandbox package.json main entry should be src/main.js for ${demoCase.route}`
   )
   assert(files['vite.config.ts'], `CodeSandbox should emit vite.config.ts for ${demoCase.route}`)
   assert(files['tsconfig.json'], `CodeSandbox should emit tsconfig.json for ${demoCase.route}`)
   assert(files['src/env.d.ts'], `CodeSandbox should emit src/env.d.ts for ${demoCase.route}`)
+  assert(!files['.npmrc'], `CodeSandbox should not emit .npmrc for ${demoCase.route}`)
+  assert(
+    !files['sandbox.config.json'],
+    `CodeSandbox should not emit sandbox.config.json for ${demoCase.route}`
+  )
+  assert(
+    !files['.codesandbox/tasks.json'],
+    `CodeSandbox should not emit .codesandbox/tasks.json for ${demoCase.route}`
+  )
   assert(
     !files['.codesandbox/template.json'],
     `CodeSandbox should not emit the legacy .codesandbox/template.json scaffold for ${demoCase.route}`
@@ -808,8 +814,8 @@ async function validateCodeSandboxCase(
     `${demoCase.route}#codesandbox-demo-${demoCase.demoIndex + 1}.vue`
   )
   validateTypeScriptModule(
-    files['src/main.ts'],
-    `${demoCase.route}#codesandbox-main-${demoCase.demoIndex + 1}.ts`
+    files['src/main.js'],
+    `${demoCase.route}#codesandbox-main-${demoCase.demoIndex + 1}.js`
   )
 
   const packageImports = new Set([
@@ -868,10 +874,8 @@ async function validateCodeSandboxCase(
 
   const scaffoldSignature = JSON.stringify(
     {
-      npmrc: files['.npmrc'],
       packageScripts: packageJson.scripts,
-      sandboxConfig: files['sandbox.config.json'],
-      tasksConfig: files['.codesandbox/tasks.json'],
+      main: packageJson.main,
       viteConfig: files['vite.config.ts'],
       tsconfig: files['tsconfig.json'],
       envDts: files['src/env.d.ts'],
