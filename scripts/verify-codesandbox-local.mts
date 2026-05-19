@@ -612,6 +612,23 @@ function applyWorkspacePackageOverrides(
   }
 }
 
+function prepareLocalVerificationFiles(files: Record<string, string>): Record<string, string> {
+  const packageJson = JSON.parse(files['package.json']) as SandboxPackageJson
+  packageJson.scripts = {
+    ...(packageJson.scripts ?? {}),
+    build: 'vite build'
+  }
+  packageJson.devDependencies = {
+    ...(packageJson.devDependencies ?? {}),
+    vite: '^6.0.7'
+  }
+
+  return {
+    ...files,
+    'package.json': `${JSON.stringify(packageJson, null, 2)}\n`
+  }
+}
+
 async function buildProjectFiles(testCase: TestCase): Promise<Record<string, string>> {
   return createCodeSandboxProjectFiles(testCase.title, testCase.code, testCase.context, {
     manifest: await codeSandboxManifestPromise,
@@ -627,7 +644,9 @@ async function verifyLocalSandbox(testCase: TestCase, tarballMap: Map<string, st
   const screenshotPath = join(tempRootDir, `${testCase.name}.png`)
   const baseFiles = await buildProjectFiles(testCase)
   testCase.verifyFiles?.(baseFiles)
-  const files = applyWorkspacePackageOverrides(sandboxDir, baseFiles, tarballMap)
+  const files = prepareLocalVerificationFiles(
+    applyWorkspacePackageOverrides(sandboxDir, baseFiles, tarballMap)
+  )
   await writeProjectFiles(sandboxDir, files)
 
   await runCommand(npmCommand, sandboxDir, ['install', '--no-package-lock'])

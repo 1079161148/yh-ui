@@ -507,7 +507,7 @@ async function createRemoteSandbox(testCase: TestCase) {
     },
     body: new URLSearchParams({
       parameters: compressParameters(JSON.stringify(payload)),
-      query: 'file=/src/Demo.vue'
+      query: 'file=/src/Demo.js'
     }).toString()
   })
 

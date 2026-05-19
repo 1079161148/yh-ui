@@ -4,6 +4,27 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.23] - 2026-05-19
+
+Patch release focused on making docs CodeSandbox exports self-sufficient again so newly opened demos render reliably instead of depending on remote Vite setup behavior.
+
+### Changed
+
+- Changed CodeSandbox project generation to precompile exported Vue SFC demos into `src/App.js` and `src/Demo.js`, while flattening demo styles into `src/style.css`.
+- Changed local CodeSandbox verification to inject Vite only inside the smoke-test harness, keeping the real exported payload free of runtime build-tool dependencies.
+- Changed docs sandbox validation expectations so release checks now enforce the JS-module scaffold that published CodeSandbox launches depend on.
+
+### Fixed
+
+- Fixed newly generated CodeSandbox demos opening to blank previews because remote sessions were receiving raw `.vue` files without a guaranteed compiler/runtime install path.
+- Fixed TypeScript demo exports such as `AiSender` failing during CodeSandbox preparation by preserving `lang="ts"` transpilation through the precompile step.
+- Fixed old fallback launch parameters still pointing at `/src/Demo.vue` after the export switched to precompiled JS modules.
+
+### Notes
+
+- Targeted validation for this release covered `pnpm typecheck`, `pnpm build`, `pnpm docs:build`, `pnpm verify:playgrounds`, `pnpm verify:stackblitz-local`, `pnpm verify:docs-playground`, `pnpm verify:docs-sandboxes`, `pnpm verify:docs-sandboxes:exhaustive`, and `pnpm verify:codesandbox-local`.
+- `pnpm verify:codesandbox-remote` remains advisory because fresh CodeSandbox `define` requests can still be blocked by a Cloudflare `403` challenge outside repository control.
+
 ## [1.0.22] - 2026-05-19
 
 Patch release focused on restoring working hosted CodeSandbox previews after the nodebox-style export path started landing on discontinued SSE preview infrastructure.

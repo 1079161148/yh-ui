@@ -52,11 +52,8 @@ interface CodeSandboxManifest {
 const REQUIRED_CODE_SANDBOX_FILES = [
   'index.html',
   'package.json',
-  'tsconfig.json',
-  'vite.config.ts',
-  'src/App.vue',
-  'src/Demo.vue',
-  'src/env.d.ts',
+  'src/App.js',
+  'src/Demo.js',
   'src/main.js',
   'src/style.css'
 ]
@@ -781,16 +778,17 @@ async function validateCodeSandboxCase(
     `CodeSandbox package.json type is not module for ${demoCase.route}`
   )
   assert(
-    packageJson.scripts?.dev?.includes('vite'),
-    `CodeSandbox package.json is missing a Vite dev script for ${demoCase.route}`
-  )
-  assert(
     packageJson.main === 'src/main.js',
     `CodeSandbox package.json main entry should be src/main.js for ${demoCase.route}`
   )
-  assert(files['vite.config.ts'], `CodeSandbox should emit vite.config.ts for ${demoCase.route}`)
-  assert(files['tsconfig.json'], `CodeSandbox should emit tsconfig.json for ${demoCase.route}`)
-  assert(files['src/env.d.ts'], `CodeSandbox should emit src/env.d.ts for ${demoCase.route}`)
+  assert(
+    !packageJson.scripts || Object.keys(packageJson.scripts).length === 0,
+    `CodeSandbox package.json should not emit runtime scripts for ${demoCase.route}`
+  )
+  assert(
+    !packageJson.devDependencies || Object.keys(packageJson.devDependencies).length === 0,
+    `CodeSandbox package.json should not emit devDependencies for ${demoCase.route}`
+  )
   assert(!files['.npmrc'], `CodeSandbox should not emit .npmrc for ${demoCase.route}`)
   assert(
     !files['sandbox.config.json'],
@@ -804,15 +802,6 @@ async function validateCodeSandboxCase(
     !files['.codesandbox/template.json'],
     `CodeSandbox should not emit the legacy .codesandbox/template.json scaffold for ${demoCase.route}`
   )
-
-  validateVueSfc(
-    files['src/App.vue'],
-    `${demoCase.route}#codesandbox-app-${demoCase.demoIndex + 1}.vue`
-  )
-  validateVueSfc(
-    files['src/Demo.vue'],
-    `${demoCase.route}#codesandbox-demo-${demoCase.demoIndex + 1}.vue`
-  )
   validateTypeScriptModule(
     files['src/main.js'],
     `${demoCase.route}#codesandbox-main-${demoCase.demoIndex + 1}.js`
@@ -824,12 +813,7 @@ async function validateCodeSandboxCase(
   ])
 
   const generatedScriptFiles = [...fileSet]
-    .filter(
-      (filePath) =>
-        (filePath === 'vite.config.ts' || filePath.startsWith('src/')) &&
-        /\.(?:vue|[cm]?[jt]sx?)$/.test(filePath) &&
-        !filePath.endsWith('.d.ts')
-    )
+    .filter((filePath) => filePath.startsWith('src/') && /\.(?:[cm]?[jt]sx?)$/.test(filePath))
     .sort()
 
   for (const normalizedFilePath of generatedScriptFiles) {
@@ -876,9 +860,9 @@ async function validateCodeSandboxCase(
     {
       packageScripts: packageJson.scripts,
       main: packageJson.main,
-      viteConfig: files['vite.config.ts'],
-      tsconfig: files['tsconfig.json'],
-      envDts: files['src/env.d.ts'],
+      devDependencies: packageJson.devDependencies,
+      appModule: files['src/App.js'],
+      demoModule: files['src/Demo.js'],
       legacyTemplate: files['.codesandbox/template.json']
     },
     null,
