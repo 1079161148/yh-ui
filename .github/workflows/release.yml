@@ -405,11 +405,12 @@ jobs:
           name: dist-packages-release
           path: packages
 
-      - name: Verify npm Trusted Publishing authentication
+      - name: Verify npm publish environment
         run: |
           node --version
           npm --version
-          npm whoami --registry https://registry.npmjs.org
+          echo "Trusted Publishing uses OIDC during npm publish, so npm whoami is not a valid preflight check."
+          echo "Proceeding to package publish, where npm will exchange the GitHub Actions OIDC token."
 
       - name: Extract release version
         id: version
