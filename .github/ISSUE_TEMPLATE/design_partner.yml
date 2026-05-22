@@ -1,0 +1,67 @@
+name: Design partner intake
+description: Share a concrete product scenario that may need starter guidance, co-build help, or deeper collaboration.
+title: "[Design Partner]: "
+labels:
+  - design-partner
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for higher-value product scenarios, not ordinary bug reports.
+
+        Use it when your team is evaluating YH-UI for an AI workspace, workflow platform, or complex admin app and wants to share context that may shape the roadmap or future support offerings.
+  - type: input
+    id: team
+    attributes:
+      label: Team or company
+      placeholder: "Acme AI"
+    validations:
+      required: true
+  - type: dropdown
+    id: scenario
+    attributes:
+      label: Primary scenario
+      options:
+        - AI workspace
+        - Workflow / automation platform
+        - Complex admin / operations console
+        - Ecommerce operations
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: product
+    attributes:
+      label: Product summary
+      description: What are you building?
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Current blockers
+      description: What is hardest right now?
+    validations:
+      required: true
+  - type: textarea
+    id: modules
+    attributes:
+      label: YH-UI areas you care about
+      description: Which modules or surfaces matter most?
+      placeholder: "AI chat, flow orchestration, theming, large tables..."
+    validations:
+      required: true
+  - type: input
+    id: timeline
+    attributes:
+      label: Desired launch or evaluation window
+      placeholder: "Pilot in 6 weeks"
+    validations:
+      required: false
+  - type: checkboxes
+    id: follow_up
+    attributes:
+      label: Follow-up
+      options:
+        - label: We are open to follow-up questions in this issue.
+        - label: We are open to being considered for a future public or anonymous case study.

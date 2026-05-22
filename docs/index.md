@@ -3,38 +3,38 @@ layout: home
 
 hero:
   name: YH-UI
-  text: 现代化 Vue 3 组件库
-  tagline: 融合众家之长，打造高性能、灵活定制的企业级组件库
+  text: 面向 AI 产品与复杂后台的 Vue 3 组件库
+  tagline: 把 AI 对话、流程编排、重数据表格、主题系统与 Nuxt 集成放进同一套生产级基础设施。
   actions:
     - theme: brand
       text: 快速开始
       link: /guide/quickstart
     - theme: alt
-      text: 在 Nuxt 中使用
-      link: /guide/nuxt
+      text: Starter 计划
+      link: /guide/starter
     - theme: alt
       text: 组件文档
       link: /components/button
 
 features:
-  - icon: 🚀
-    title: 高性能
-    details: 基于 Vue 3 Composition API 构建，支持 Tree-shaking，按需加载，体积最小化
+  - icon: 🤖
+    title: AI 产品界面
+    details: 覆盖对话、气泡、输入器、思维链、代码块、附件和引用来源等高频 AI 交互。
+  - icon: 🔄
+    title: Flow 与编排
+    details: 提供流程图、节点配置、自动布局、截图导出与工作流场景能力，适合流程平台和自动化产品。
+  - icon: 📊
+    title: 重数据后台
+    details: 面向表格、筛选、导入导出、打印、虚拟滚动和复杂业务页面，而不只是展示型官网组件。
   - icon: 🎨
-    title: 灵活定制
-    details: 完善的 CSS 变量系统，支持运行时主题切换，深色模式，无侵入式样式覆盖
+    title: 主题系统
+    details: 基于 Token 与 CSS 变量构建，支持深色模式、运行时主题切换和长期维护的产品级设计体系。
   - icon: 🧩
-    title: Nuxt 官方模组
-    details: 专为 Nuxt 设计的模块，完美支持 SSR、自动导入及组件请求级隔离
-  - icon: 📦
-    title: 开箱即用
-    details: 丰富的组件库，覆盖绝大部分业务场景，API 设计简洁直观，上手成本低
-  - icon: 🔧
-    title: TS 强类型
-    details: 完整的 TypeScript 类型定义，享受完善的类型提示和类型检查
-  - icon: 🌍
-    title: 国际化
-    details: 内置国际化支持，轻松切换多语言，满足全球化业务需求
+    title: Nuxt 与工程集成
+    details: 提供 Nuxt 模块、按需导入、完整导入和统一的文档示例链路，适合真实项目落地。
+  - icon: ✅
+    title: 发布级验证
+    details: 文档构建、consumer smoke、在线示例与发布校验进入仓库流程，降低“能跑 demo 但不能发版”的风险。
 ---
 
 <style>
@@ -54,7 +54,6 @@ features:
   }
 }
 
-/* 模拟 Naive UI 的炫彩背景 */
 .VPHero::before,
 .VPHero::after {
   content: '';
@@ -113,10 +112,10 @@ features:
 .VPFeature:hover {
   transform: translateY(-8px);
   background-color: var(--vp-c-bg-mute);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .dark .VPFeature:hover {
-  box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 </style>

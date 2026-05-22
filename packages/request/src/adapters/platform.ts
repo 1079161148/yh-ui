@@ -4,6 +4,7 @@
  */
 
 import type { InternalRequestOptions, RequestResponse, HttpAdapter } from '../types'
+import { FetchAdapter } from './fetch'
 
 // ==================== 类型定义 ====================
 
@@ -519,7 +520,7 @@ export function getBestAdapter(): HttpAdapter {
     case 'browser':
     default:
       // 浏览器环境使用 FetchAdapter
-      return new (require('./fetch').FetchAdapter)()
+      return new FetchAdapter()
   }
 }
 
@@ -538,6 +539,6 @@ export function getAdapter(environment: RuntimeEnvironment): HttpAdapter {
       return new NodeHttpAdapter()
     case 'browser':
     default:
-      return new (require('./fetch').FetchAdapter)()
+      return new FetchAdapter()
   }
 }

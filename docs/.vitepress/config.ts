@@ -29,17 +29,7 @@ sidebar['/guide/'] = [
   ]),
   group('旗舰场景', [
     { text: 'AI / Flow / Table 示例', link: '/guide/flagship-examples' },
-    { text: 'Starter 计划', link: '/guide/starter' },
-    { text: '案例展示', link: '/guide/showcase' }
-  ]),
-  group('增长与社区', [
-    { text: '路线图', link: '/guide/roadmap' },
-    { text: '支持与服务', link: '/guide/support' },
-    { text: '社区反馈闭环', link: '/guide/community-feedback' }
-  ]),
-  group('开源治理', [
-    { text: '开源与商业化策略', link: '/guide/open-source-strategy' },
-    { text: '版本策略', link: '/guide/versioning' }
+    { text: 'Starter 计划', link: '/guide/starter' }
   ])
 ]
 
@@ -68,17 +58,7 @@ sidebar['/en/guide/'] = [
   ]),
   group('Flagship Scenarios', [
     { text: 'AI / Flow / Table Examples', link: '/en/guide/flagship-examples' },
-    { text: 'Starter Plan', link: '/en/guide/starter' },
-    { text: 'Showcase', link: '/en/guide/showcase' }
-  ]),
-  group('Growth and Community', [
-    { text: 'Roadmap', link: '/en/guide/roadmap' },
-    { text: 'Support and Services', link: '/en/guide/support' },
-    { text: 'Community Feedback Loop', link: '/en/guide/community-feedback' }
-  ]),
-  group('Open Source Governance', [
-    { text: 'Open-source Strategy', link: '/en/guide/open-source-strategy' },
-    { text: 'Versioning Policy', link: '/en/guide/versioning' }
+    { text: 'Starter Plan', link: '/en/guide/starter' }
   ])
 ]
 
@@ -704,16 +684,7 @@ export default defineConfig({
           { text: 'Request 请求', link: '/request/', activeMatch: '/request/' },
           { text: 'AI SDK', link: '/ai-sdk/', activeMatch: '/ai-sdk/' },
           { text: 'Flow 流程图', link: '/flow/basic', activeMatch: '/flow/' },
-          { text: 'AI Skills', link: '/skills/installation', activeMatch: '/skills/' },
-          {
-            text: '增长',
-            items: [
-              { text: '路线图', link: '/guide/roadmap' },
-              { text: 'Starter 计划', link: '/guide/starter' },
-              { text: '案例展示', link: '/guide/showcase' },
-              { text: '支持与服务', link: '/guide/support' }
-            ]
-          }
+          { text: 'AI Skills', link: '/skills/installation', activeMatch: '/skills/' }
         ],
         outline: { label: '页面导航', level: [2, 3] },
         docFooter: { prev: '上一页', next: '下一页' },
@@ -741,16 +712,7 @@ export default defineConfig({
           { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' },
           { text: 'AI SDK', link: '/en/ai-sdk/', activeMatch: '/en/ai-sdk/' },
           { text: 'Flow', link: '/en/flow/basic', activeMatch: '/en/flow/' },
-          { text: 'AI Skills', link: '/en/skills/installation', activeMatch: '/en/skills/' },
-          {
-            text: 'Growth',
-            items: [
-              { text: 'Roadmap', link: '/en/guide/roadmap' },
-              { text: 'Starter Plan', link: '/en/guide/starter' },
-              { text: 'Showcase', link: '/en/guide/showcase' },
-              { text: 'Support', link: '/en/guide/support' }
-            ]
-          }
+          { text: 'AI Skills', link: '/en/skills/installation', activeMatch: '/en/skills/' }
         ],
         outline: { label: 'On this page', level: [2, 3] },
         docFooter: { prev: 'Previous page', next: 'Next page' },

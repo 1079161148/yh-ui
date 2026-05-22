@@ -151,7 +151,8 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    word-break: break-all;
+    word-break: normal;
+    overflow-wrap: anywhere;
     line-height: var(--yh-line-height-normal);
     @include is(ellipsis) {
       overflow: hidden;

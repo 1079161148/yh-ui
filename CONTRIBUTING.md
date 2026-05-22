@@ -43,6 +43,12 @@ Typical contribution areas:
 - docs and examples
 - tests and coverage improvements
 
+For product-direction work such as starters, showcase planning, or larger scenario proposals, use the roadmap and support pages as the current source of truth:
+
+- [Roadmap](https://1079161148.github.io/yh-ui/guide/roadmap)
+- [Starter plan](https://1079161148.github.io/yh-ui/guide/starter)
+- [Support and services](https://1079161148.github.io/yh-ui/guide/support)
+
 Before starting larger work, please open an issue or draft pull request so we can align on scope and API direction.
 
 ## Pull Request Expectations

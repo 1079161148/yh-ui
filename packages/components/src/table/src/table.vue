@@ -402,6 +402,45 @@ const tableStyle = computed<CSSProperties>(() => {
   return style
 })
 
+const getFixedColumnWidth = (value?: number | string): number => {
+  if (value === undefined || value === null || value === '') return 0
+  if (typeof value === 'number') return value
+
+  const trimmed = value.trim()
+  if (!trimmed || trimmed.endsWith('%')) return 0
+
+  const numeric = Number.parseFloat(trimmed)
+  return Number.isFinite(numeric) ? numeric : 0
+}
+
+const getColumnMinWidth = (column: TableColumn): number => {
+  const width = getFixedColumnWidth(column.width as number | string | undefined)
+  if (width > 0) return width
+
+  const minWidth = getFixedColumnWidth(column.minWidth as number | string | undefined)
+  if (minWidth > 0) return minWidth
+
+  return 80
+}
+
+const tableContentMinWidth = computed(() => {
+  const specialColumnWidth =
+    (selectionConfig.value ? getFixedColumnWidth(selectionConfig.value.columnWidth || 50) : 0) +
+    (props.expandConfig ? getFixedColumnWidth(props.expandConfig.columnWidth || 50) : 0) +
+    (props.showIndex ? getFixedColumnWidth(props.indexConfig?.width || 50) : 0)
+
+  const dataColumnWidth = visibleColumns.value.reduce((total, column) => {
+    return total + getColumnMinWidth(column)
+  }, 0)
+
+  return specialColumnWidth + dataColumnWidth
+})
+
+const tableContentStyle = computed<CSSProperties>(() => ({
+  tableLayout: props.tableLayout,
+  minWidth: formatSize(tableContentMinWidth.value)
+}))
+
 const bodyStyle = computed<CSSProperties>(() => {
   const style: CSSProperties = {}
   if (props.height || props.maxHeight) {
@@ -411,6 +450,18 @@ const bodyStyle = computed<CSSProperties>(() => {
   }
   return style
 })
+
+const getColumnColStyle = (column: TableColumn): CSSProperties => {
+  const style: CSSProperties = {}
+
+  if (column.width) {
+    style.width = formatSize(column.width)
+  } else if (column.minWidth) {
+    style.width = formatSize(column.minWidth)
+  }
+
+  return style
+}
 
 // ==================== 汇总行计算 ====================
 const summaryValues = computed<Array<string | number>>(() => {
@@ -1065,7 +1116,7 @@ watch(selectedRowKeys, () => {
 
       <!-- 表头 -->
       <div v-if="showHeader" ref="headerRef" :class="ns.e('header-wrapper')">
-        <table :class="ns.e('header')" :style="{ tableLayout }">
+        <table :class="ns.e('header')" :style="tableContentStyle">
           <colgroup>
             <col
               v-if="selectionConfig"
@@ -1079,7 +1130,7 @@ watch(selectedRowKeys, () => {
             <col
               v-for="column in visibleColumns"
               :key="column.prop || column.key"
-              :style="{ width: formatSize(column.width) }"
+              :style="getColumnColStyle(column)"
             />
           </colgroup>
           <thead>
@@ -1429,7 +1480,7 @@ watch(selectedRowKeys, () => {
           v-else
           :class="[ns.e('body'), isVirtual ? ns.em('body', 'virtual') : '']"
           :style="{
-            tableLayout,
+            ...tableContentStyle,
             ...(isVirtual ? { transform: `translate3d(0, ${offsetTop}px, 0)` } : {})
           }"
         >
@@ -1446,7 +1497,7 @@ watch(selectedRowKeys, () => {
             <col
               v-for="column in visibleColumns"
               :key="column.prop || column.key"
-              :style="{ width: formatSize(column.width) }"
+              :style="getColumnColStyle(column)"
             />
           </colgroup>
           <tbody>
@@ -1642,7 +1693,7 @@ watch(selectedRowKeys, () => {
       <!-- 汇总行 -->
       <div v-if="summaryConfig" ref="footerRef" :class="ns.e('footer-wrapper')">
         <slot name="summary">
-          <table :class="ns.e('footer')" :style="{ tableLayout }">
+          <table :class="ns.e('footer')" :style="tableContentStyle">
             <colgroup>
               <col
                 v-if="selectionConfig"
@@ -1656,7 +1707,7 @@ watch(selectedRowKeys, () => {
               <col
                 v-for="column in visibleColumns"
                 :key="column.prop || column.key"
-                :style="{ width: formatSize(column.width) }"
+                :style="getColumnColStyle(column)"
               />
             </colgroup>
             <tbody>

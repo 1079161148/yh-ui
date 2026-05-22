@@ -6,7 +6,9 @@ export * from './memory'
 export * from './localStorage'
 export * from './indexedDB'
 
-import { type CacheOptions } from './memory'
+import { MemoryCache, type CacheOptions } from './memory'
+import { LocalStorageCache } from './localStorage'
+import { IndexedDBCache } from './indexedDB'
 
 /**
  * 创建缓存实例的工厂函数
@@ -26,11 +28,11 @@ export interface CacheFactoryOptions {
 export function createCache(type: CacheType = 'memory', options?: CacheOptions) {
   switch (type) {
     case 'localStorage':
-      return new (require('./localStorage').LocalStorageCache)(options)
+      return new LocalStorageCache(options)
     case 'indexedDB':
-      return new (require('./indexedDB').IndexedDBCache)(options)
+      return new IndexedDBCache(options)
     case 'memory':
     default:
-      return new (require('./memory').MemoryCache)()
+      return new MemoryCache()
   }
 }

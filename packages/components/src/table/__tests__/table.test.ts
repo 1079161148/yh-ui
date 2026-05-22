@@ -229,6 +229,22 @@ describe('Table', () => {
     expect(wrapper.attributes('style')).toContain('max-height: 400px')
   })
 
+  it('should keep a minimum content width for narrow tables', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: mockData,
+        columns: [
+          { prop: 'name', label: 'Name', width: 220 },
+          { prop: 'age', label: 'Age', width: 160 },
+          { prop: 'address', label: 'Address', width: 220 },
+          { prop: 'eta', label: 'ETA' }
+        ]
+      }
+    })
+
+    expect(wrapper.find('.yh-table__body').attributes('style')).toContain('min-width: 680px')
+  })
+
   it('should expose getSelectionRows method', () => {
     const wrapper = mount(YhTable, {
       props: {

@@ -153,6 +153,40 @@ importers:
         specifier: ^2.2.0
         version: 2.2.12(typescript@5.9.3)
 
+  apps/ai-ops-starter:
+    dependencies:
+      '@yh-ui/flow':
+        specifier: https://registry.npmjs.org/@yh-ui/flow/-/flow-1.0.25.tgz
+        version: https://registry.npmjs.org/@yh-ui/flow/-/flow-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/hooks':
+        specifier: https://registry.npmjs.org/@yh-ui/hooks/-/hooks-1.0.25.tgz
+        version: https://registry.npmjs.org/@yh-ui/hooks/-/hooks-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/request':
+        specifier: https://registry.npmjs.org/@yh-ui/request/-/request-1.0.25.tgz
+        version: https://registry.npmjs.org/@yh-ui/request/-/request-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/yh-ui':
+        specifier: https://registry.npmjs.org/@yh-ui/yh-ui/-/yh-ui-1.0.25.tgz
+        version: https://registry.npmjs.org/@yh-ui/yh-ui/-/yh-ui-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))
+      vue:
+        specifier: ^3.5.27
+        version: 3.5.30(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.6.4
+        version: 4.6.4(vue@3.5.30(typescript@5.9.3))
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.0
+        version: 6.0.4(vite@6.4.1(@types/node@22.19.15)(jiti@2.6.1)(sass@1.98.0)(terser@5.46.0)(yaml@2.8.2))(vue@3.5.30(typescript@5.9.3))
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vite:
+        specifier: ^6.0.7
+        version: 6.4.1(@types/node@22.19.15)(jiti@2.6.1)(sass@1.98.0)(terser@5.46.0)(yaml@2.8.2)
+      vue-tsc:
+        specifier: ^2.2.0
+        version: 2.2.12(typescript@5.9.3)
+
   docs:
     dependencies:
       '@yh-ui/components':
@@ -2822,6 +2856,54 @@ packages:
 
   '@webcontainer/api@1.6.1':
     resolution: {integrity: sha512-2RS2KiIw32BY1Icf6M1DvqSmcon9XICZCDgS29QJb2NmF12ZY2V5Ia+949hMKB3Wno+P/Y8W+sPP59PZeXSELg==}
+
+  '@yh-ui/components@1.0.25':
+    resolution: {integrity: sha512-tX3lQJFX3LAl9UIDbBjnZ0EvPm4isPirYepDm1VNP1eZrPQWly0qdYxigSFEgxAqtC9GvZvlc98XU1yecNPmmg==}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/flow@https://registry.npmjs.org/@yh-ui/flow/-/flow-1.0.25.tgz':
+    resolution: {tarball: https://registry.npmjs.org/@yh-ui/flow/-/flow-1.0.25.tgz}
+    version: 1.0.25
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/hooks@1.0.25':
+    resolution: {integrity: sha512-2eqTj2n3Kw14Rpw9yrv5iOUzW2sgBFV2lVpo8NzUiepUafwpBIMfo/L3jJ5ZezVTAroEzIqtseLFyTebv3cVaw==}
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/hooks@https://registry.npmjs.org/@yh-ui/hooks/-/hooks-1.0.25.tgz':
+    resolution: {tarball: https://registry.npmjs.org/@yh-ui/hooks/-/hooks-1.0.25.tgz}
+    version: 1.0.25
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/locale@1.0.25':
+    resolution: {integrity: sha512-59+QEsjid/+F9MBvsiXKE30CAe2US1nnu+KTbuA210uNBTO29vn1ZGd6TzHsE2IuxO/ctfPBqUDkLxeCvYyD+w==}
+
+  '@yh-ui/request@https://registry.npmjs.org/@yh-ui/request/-/request-1.0.25.tgz':
+    resolution: {tarball: https://registry.npmjs.org/@yh-ui/request/-/request-1.0.25.tgz}
+    version: 1.0.25
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/theme@1.0.25':
+    resolution: {integrity: sha512-UtaP2j9V3yJJCWyunYDbIh2UijcIRjuA7qebSZHXcZPdiVPtTceVyD6BM58hUFpvCnSoLcjA51X+ejjxh70BEQ==}
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/utils@1.0.25':
+    resolution: {integrity: sha512-NHnfWg56y1mpKLd376mRwtWn8MlZnHSZXoYt1AG7kYXAVHc1UTwIVYGsAR/PchqPKTBhpk0D5VroQbXR6/YiRQ==}
+    peerDependencies:
+      vue: ^3.5.27
+
+  '@yh-ui/yh-ui@https://registry.npmjs.org/@yh-ui/yh-ui/-/yh-ui-1.0.25.tgz':
+    resolution: {tarball: https://registry.npmjs.org/@yh-ui/yh-ui/-/yh-ui-1.0.25.tgz}
+    version: 1.0.25
+    peerDependencies:
+      vue: ^3.5.27
 
   abbrev@2.0.0:
     resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==}
@@ -9429,6 +9511,70 @@ snapshots:
       - typescript
 
   '@webcontainer/api@1.6.1': {}
+
+  '@yh-ui/components@1.0.25(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      '@floating-ui/dom': 1.7.6
+      '@webcontainer/api': 1.6.1
+      '@yh-ui/hooks': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/locale': 1.0.25
+      '@yh-ui/theme': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/utils': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      async-validator: 4.2.5
+      dayjs: 1.11.19
+      dompurify: 3.3.3
+      markdown-it: 14.1.1
+      monaco-editor: 0.55.1
+      viewerjs: 1.11.7
+      vue: 3.5.30(typescript@5.9.3)
+      xlsx: 0.18.5
+    optionalDependencies:
+      echarts: 6.0.0
+      highlight.js: 11.11.1
+      mermaid: 11.12.3
+
+  '@yh-ui/flow@https://registry.npmjs.org/@yh-ui/flow/-/flow-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      '@yh-ui/hooks': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/utils': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      vue: 3.5.30(typescript@5.9.3)
+
+  '@yh-ui/hooks@1.0.25(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      '@yh-ui/locale': 1.0.25
+      '@yh-ui/utils': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      dayjs: 1.11.19
+      vue: 3.5.30(typescript@5.9.3)
+
+  '@yh-ui/hooks@https://registry.npmjs.org/@yh-ui/hooks/-/hooks-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      '@yh-ui/locale': 1.0.25
+      '@yh-ui/utils': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      dayjs: 1.11.19
+      vue: 3.5.30(typescript@5.9.3)
+
+  '@yh-ui/locale@1.0.25': {}
+
+  '@yh-ui/request@https://registry.npmjs.org/@yh-ui/request/-/request-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      '@yh-ui/utils': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      vue: 3.5.30(typescript@5.9.3)
+
+  '@yh-ui/theme@1.0.25(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      vue: 3.5.30(typescript@5.9.3)
+
+  '@yh-ui/utils@1.0.25(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      vue: 3.5.30(typescript@5.9.3)
+
+  '@yh-ui/yh-ui@https://registry.npmjs.org/@yh-ui/yh-ui/-/yh-ui-1.0.25.tgz(vue@3.5.30(typescript@5.9.3))':
+    dependencies:
+      '@yh-ui/components': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/hooks': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/theme': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      '@yh-ui/utils': 1.0.25(vue@3.5.30(typescript@5.9.3))
+      vue: 3.5.30(typescript@5.9.3)
 
   abbrev@2.0.0: {}
 

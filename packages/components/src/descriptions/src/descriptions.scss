@@ -70,7 +70,8 @@
     font-size: var(--yh-descriptions-item-font-size);
     padding: var(--yh-descriptions-padding);
     vertical-align: middle;
-    word-break: break-all;
+    word-break: normal;
+    overflow-wrap: anywhere;
     border-radius: 0;
   }
 

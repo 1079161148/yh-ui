@@ -3,38 +3,38 @@ layout: home
 
 hero:
   name: YH-UI
-  text: Modern Vue 3 UI Library
-  tagline: A high-performance, flexible and customizable enterprise-grade component library
+  text: A Vue 3 component library for AI products and complex admin apps
+  tagline: Bring AI chat, workflow orchestration, heavy data tables, theming, and Nuxt integration into one production-ready foundation.
   actions:
     - theme: brand
       text: Quick Start
       link: /en/guide/quickstart
     - theme: alt
-      text: Use in Nuxt
-      link: /en/guide/nuxt
+      text: Starter Plan
+      link: /en/guide/starter
     - theme: alt
       text: Components
       link: /en/components/button
 
 features:
-  - icon: 🚀
-    title: High Performance
-    details: Built with Vue 3 Composition API, supports Tree-shaking, on-demand loading, minimal bundle size
+  - icon: 🤖
+    title: AI product surfaces
+    details: Covers chat, bubbles, sender, thought chain, code block, attachments, and sources for modern AI application flows.
+  - icon: 🔄
+    title: Flow and orchestration
+    details: Includes flow editing, node configuration, auto layout, screenshot export, and workflow-focused building blocks.
+  - icon: 📊
+    title: Data-heavy operations
+    details: Built for tables, filters, import/export, print, virtual scroll, and complex business pages instead of simple marketing demos.
   - icon: 🎨
-    title: Flexible Theming
-    details: Complete CSS variable system, supports runtime theme switching, dark mode, non-intrusive style overrides
+    title: Theme system
+    details: Based on tokens and CSS variables with dark mode, runtime theme switching, and a durable product-level design foundation.
   - icon: 🧩
-    title: Nuxt Module
-    details: Specially designed module for Nuxt, perfect SSR support, auto-imports and request-level isolation
-  - icon: 📦
-    title: Out of the Box
-    details: Rich component ecosystem, comprehensive documentation, full TypeScript support
-  - icon: 🔧
-    title: TypeScript
-    details: Complete TypeScript type definitions, enjoy full type hints and type checking
-  - icon: 🌍
-    title: Internationalization
-    details: Built-in i18n support, easy to add more languages, comprehensive locale files
+    title: Nuxt and engineering integration
+    details: Ships with a Nuxt module, on-demand imports, full imports, and a consistent docs-to-consumer integration path.
+  - icon: ✅
+    title: Release-grade validation
+    details: Docs build, consumer smoke, online demo checks, and release verification are part of the repository workflow.
 ---
 
 <style>
@@ -54,7 +54,6 @@ features:
   }
 }
 
-/* Simulate Naive UI's colorful background */
 .VPHero::before,
 .VPHero::after {
   content: '';
@@ -113,10 +112,10 @@ features:
 .VPFeature:hover {
   transform: translateY(-8px);
   background-color: var(--vp-c-bg-mute);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .dark .VPFeature:hover {
-  box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 </style>

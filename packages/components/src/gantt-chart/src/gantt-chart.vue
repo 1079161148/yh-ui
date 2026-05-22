@@ -2,9 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import dayjs from '../../dayjs'
 import type { PluginFunc } from '../../dayjs'
-import isBetweenPluginModule from 'dayjs/plugin/isBetween.js'
-import isoWeekPluginModule from 'dayjs/plugin/isoWeek.js'
-import quarterOfYearPluginModule from 'dayjs/plugin/quarterOfYear.js'
+import { isBetweenPlugin, isoWeekPlugin, quarterOfYearPlugin } from '../../dayjs-plugins'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type {
@@ -25,9 +23,9 @@ type ExtendedDayjs = ReturnType<typeof dayjs> & {
   add: (value: number, unit: 'quarter') => ReturnType<typeof dayjs>
 }
 
-dayjs.extend(isBetweenPluginModule as PluginFunc)
-dayjs.extend(isoWeekPluginModule as PluginFunc)
-dayjs.extend(quarterOfYearPluginModule as PluginFunc)
+dayjs.extend(isBetweenPlugin as PluginFunc)
+dayjs.extend(isoWeekPlugin as PluginFunc)
+dayjs.extend(quarterOfYearPlugin as PluginFunc)
 
 defineOptions({ name: 'YhGanttChart' })
 
