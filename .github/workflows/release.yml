@@ -385,13 +385,12 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js with npm registry
+      - name: Setup Node.js for npm Trusted Publishing
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NPM_PUBLISH_NODE_VERSION }}
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
 
       - name: Upgrade npm for Trusted Publishing
         run: npm install -g npm@latest
@@ -409,7 +408,8 @@ jobs:
         run: |
           node --version
           npm --version
-          echo "Trusted Publishing uses OIDC during npm publish, so npm whoami is not a valid preflight check."
+          echo "Trusted Publishing uses GitHub Actions OIDC during npm publish."
+          echo "No npm login state, NPM_TOKEN, or NODE_AUTH_TOKEN precheck is required here."
           echo "Proceeding to package publish, where npm will exchange the GitHub Actions OIDC token."
 
       - name: Extract release version
