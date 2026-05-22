@@ -1,9 +1,10 @@
 import { spawn } from 'node:child_process'
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, mkdir, writeFile } from 'node:fs/promises'
 import net from 'node:net'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
+import { rimraf } from 'rimraf'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
@@ -53,6 +54,13 @@ function runNodeCommand(args, cwd) {
 
       reject(new Error(`Command failed: node ${args.join(' ')}`))
     })
+  })
+}
+
+async function removeSmokeDir(target) {
+  await rimraf(target, {
+    maxRetries: 15,
+    retryDelay: 500
   })
 }
 
@@ -282,11 +290,14 @@ async function verifyViteConsumer() {
       if (preview.child.pid) {
         await stopProcessTree(preview.child.pid)
       }
+      if (process.platform === 'win32') {
+        await new Promise((resolve) => setTimeout(resolve, 2500))
+      }
     }
 
     return 'Vite + Vue consumer build + preview'
   } finally {
-    await rm(cwd, { recursive: true, force: true })
+    await removeSmokeDir(cwd)
   }
 }
 
