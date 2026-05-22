@@ -10,7 +10,6 @@ const packagesRoot = path.join(repoRoot, 'packages')
 const registry = process.env.NPM_REGISTRY_URL || 'https://registry.npmjs.org'
 const isDryRun = process.argv.includes('--dry-run')
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'
-const pnpmCommand = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm'
 
 function stripBom(source) {
   return source.charCodeAt(0) === 0xfeff ? source.slice(1) : source
