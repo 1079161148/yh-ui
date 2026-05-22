@@ -32,6 +32,8 @@ concurrency:
 
 env:
   NODE_VERSION: '20'
+  # npm Trusted Publishing (OIDC) requires Node.js 22.x on the publish job.
+  NPM_PUBLISH_NODE_VERSION: '22'
   PNPM_VERSION: '9'
   NODE_OPTIONS: '--max-old-space-size=6144'
 
@@ -386,7 +388,7 @@ jobs:
       - name: Setup Node.js with npm registry
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ env.NPM_PUBLISH_NODE_VERSION }}
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
@@ -398,6 +400,9 @@ jobs:
         with:
           name: dist-packages-release
           path: packages
+
+      - name: Verify npm Trusted Publishing authentication
+        run: npm whoami --registry https://registry.npmjs.org
 
       - name: Extract release version
         id: version
@@ -415,7 +420,6 @@ jobs:
       - name: Publish packages to npm
         run: pnpm publish:all
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_REGISTRY_URL: 'https://registry.npmjs.org'
 
       - name: Wait for published packages to become visible
