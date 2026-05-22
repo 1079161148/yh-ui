@@ -183,7 +183,8 @@ async function publishPackage(pkg) {
   }
 
   console.log(`[publish] publishing ${name}@${version}`)
-  await run(pnpmCommand, ['publish', '--access', 'public', '--no-git-checks'], { cwd: pkg.dir })
+  // Use npm publish so npm Trusted Publishing (OIDC) from setup-node is picked up reliably.
+  await run(npmCommand, ['publish', '--access', 'public'], { cwd: pkg.dir })
   return 'published'
 }
 

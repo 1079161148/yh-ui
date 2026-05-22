@@ -391,6 +391,10 @@ jobs:
           node-version: ${{ env.NPM_PUBLISH_NODE_VERSION }}
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      - name: Upgrade npm for Trusted Publishing
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -402,7 +406,10 @@ jobs:
           path: packages
 
       - name: Verify npm Trusted Publishing authentication
-        run: npm whoami --registry https://registry.npmjs.org
+        run: |
+          node --version
+          npm --version
+          npm whoami --registry https://registry.npmjs.org
 
       - name: Extract release version
         id: version
