@@ -4,6 +4,31 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.26] - 2026-05-22
+
+Starter and documentation release focused on promoting the new AI Ops Starter demo into a documented, versioned consumer shell for YH-UI.
+
+### Added
+
+- Added the first documented `apps/ai-ops-starter` consumer app shell, including dashboard, AI workspace, flow studio, operations, and settings routes.
+- Added a real AI Workspace screenshot to the docs so the starter guidance now shows the actual three-panel product surface instead of only describing it.
+
+### Changed
+
+- Changed the starter and flagship-scenario docs in both Chinese and English to reflect the current AI workspace implementation and validation path.
+- Changed the monorepo workspace setup so `apps/*` is a first-class workspace with root scripts for starter development, build, and preview.
+- Changed app tracking boundaries by ignoring starter build outputs, node_modules, logs, and local captures while keeping source files versioned.
+
+### Fixed
+
+- Fixed the AI Workspace starter layout so the conversation rail and chat surface no longer stretch into an oversized blank grid row when consumed as a real product page.
+- Fixed helper copy in the workspace route to render inline code tokens correctly instead of showing raw backticks.
+
+### Notes
+
+- Local validation for this release covered `pnpm -C apps/ai-ops-starter build:workspace` and `pnpm docs:build`.
+- `pnpm docs:build` completed successfully; the local command output hit the tool timeout only after VitePress had already finished client/server bundle build and page rendering.
+
 ## [1.0.25] - 2026-05-19
 
 Patch release focused on finishing the CodeSandbox recovery so exported demos stay both styled and truly editable after launch.

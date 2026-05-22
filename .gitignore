@@ -3,19 +3,24 @@ logs
 *.log
 npm-debug.log*
 pnpm-debug.log*
+apps/*/*.log
 
 # Dependencies
 node_modules
 .pnpm-store
+apps/*/node_modules
 
 # Build outputs
 dist
+dist-workspace
 *.local
 .output
 .cache
 .nuxt
 .nitro
 stats.html
+apps/*/dist
+apps/*/dist-workspace
 
 # Symlinks / Junctions (auto-created by postinstall)
 packages/theme/styles
@@ -72,6 +77,7 @@ docs/public/codesandbox-runtime
 .pack-check/
 .codex-temp/
 packages/*/*.tgz
+apps/*/*.png
 
 # Internal Tool Directories
 .agent/

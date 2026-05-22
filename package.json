@@ -1,11 +1,17 @@
 {
   "name": "yh-ui-monorepo",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
   "scripts": {
     "dev": "pnpm -C playground dev",
+    "starter:dev": "pnpm -C apps/ai-ops-starter dev",
+    "starter:dev:workspace": "pnpm -C apps/ai-ops-starter dev:workspace",
+    "starter:build": "pnpm -C apps/ai-ops-starter build",
+    "starter:build:workspace": "pnpm -C apps/ai-ops-starter build:workspace",
+    "starter:preview": "pnpm -C apps/ai-ops-starter preview",
+    "starter:preview:workspace": "pnpm -C apps/ai-ops-starter preview:workspace",
     "build": "pnpm run -r --filter=./packages/* build",
     "build:components": "pnpm -C packages/components build",
     "build:ai-sdk": "pnpm -C packages/ai-sdk build",

@@ -1,71 +1,137 @@
-# Flagship Examples
+# Flagship Scenarios
 
-YH-UI's differentiated value is not only individual components. It is the production-grade experience created by combining AI, Flow, Table, theme, request, and business components. Flagship examples should demonstrate that complete experience.
+YH-UI becomes differentiated when it helps teams ship complete product surfaces, not when it simply lists more components.
 
-## AI Workspace
+The first phase should build recognition around three flagship scenarios. Each one should feel like a real product surface, not a disconnected demo fragment.
 
-Goal: show a complete AI-native product loop.
+## 1. AI Workspace
 
-Recommended building blocks:
+### Target users
 
-- `AiChat` / `AiBubble` / `AiBubbleList`
-- `AiSender` / `AiEditorSender`
+- AI SaaS products
+- copilot-style tools
+- internal assistants
+- multi-panel analysis workspaces
+
+### Capabilities to showcase
+
+- `AiChat`, `AiBubble`, `AiConversations`
+- `AiSender`, `AiEditorSender`
 - `AiThoughtChain`
-- `AiCodeBlock` / `AiCodeEditor` / `AiCodeRunner`
-- `AiArtifacts`
-- `AiSources` / `AiAttachments`
-- SSE and queue capabilities from `@yh-ui/request`
+- `AiCodeBlock`, `AiCodeEditor`, `AiCodeRunner`
+- `AiArtifacts`, `AiAttachments`, `AiSources`
+- streaming, queueing, retry, and stateful flows from `@yh-ui/request`
 
-Acceptance focus:
+### Minimum product surface
 
-- Streaming response, cancel, retry, and error recovery.
-- Code, charts, attachments, and source citations can coexist.
-- Long conversations keep scrolling performance and keyboard usability.
+- left conversation list
+- central chat surface
+- right artifacts / sources / task panel
+- top model and workspace switchers
+- realistic error, cancel, retry, and source-expansion states
 
-## Flow Automation
+### Current repository status
 
-Goal: show visual workflow, AI node, and data-flow editing capabilities.
+This scenario has already started landing as the `Workspace` route inside `apps/ai-ops-starter`, rather than living only as a planning note.
 
-Recommended building blocks:
+The route already includes:
+
+- a left conversation rail
+- a central generative surface
+- a right reasoning and source column
+- prompt shortcuts
+- an artifact drawer
+
+That gives YH-UI a real product surface for validating AI-component fixes instead of relying only on isolated docs demos.
+
+### Acceptance focus
+
+- long conversations remain smooth
+- keyboard usage remains complete
+- code, attachments, sources, and text coexist cleanly
+- streaming and failure recovery feel explicit and trustworthy
+
+## 2. Flow Automation Console
+
+### Target users
+
+- automation platforms
+- AI agent orchestration tools
+- workflow designers
+- internal process builders
+
+### Capabilities to showcase
 
 - `@yh-ui/flow`
-- Flow nodes, edges, controls, minimap, and background
-- Auto layout, import/export, and screenshot capture
-- AI workflow node configuration panel
+- nodes, edges, controls, minimap, and background
+- auto layout, import/export, screenshots
+- AI node configuration panels
+- themed sidebars and multi-state tool surfaces
 
-Acceptance focus:
+### Minimum product surface
 
-- Dragging, zooming, connecting, selecting, and viewport controls remain stable.
-- JSON import/export can restore graph and viewport state.
-- Large canvases remain interactive.
+- central canvas
+- left node catalog
+- right properties / configuration panel
+- top run, import, export, and version controls
+- viewport controls, zoom, lasso, undo, redo
 
-## Heavy Data Table
+### Acceptance focus
 
-Goal: show top-tier productivity for management systems and operations dashboards.
+- large canvases remain fluid
+- import/export restores useful state
+- selection, connecting, zooming, and dragging remain stable
+- node configuration and canvas behavior feel like one product
 
-Recommended building blocks:
+## 3. Heavy Data Operations Console
+
+### Target users
+
+- ecommerce operations teams
+- internal admin consoles
+- review and audit systems
+- multi-form, permission-heavy products
+
+### Capabilities to showcase
 
 - `YhTable`
-- Virtual scrolling
-- Column drag, column resize, fixed columns
-- Selection, sorting, filtering, pagination
-- Import, export, print
-- `FilterBar` / `Pagination` / `Descriptions`
+- virtual scrolling, column drag, resize, fixed columns
+- filtering, sorting, pagination, bulk actions
+- import, export, print
+- `FilterBar`, `Descriptions`, and business cards
 
-Acceptance focus:
+### Minimum product surface
 
-- Scrolling remains stable with large datasets.
-- Column settings and user choices can be persisted.
-- Exported and printed output matches the visible data.
+- top filter and toolbar band
+- main table with summary information
+- drawer / dialog details
+- column settings with persisted preferences
+- export and print entry points
 
-## Publishing Standard
+### Acceptance focus
 
-Flagship examples must pass:
+- stable scrolling at large row counts
+- persistent column and filter choices
+- trustworthy print and export output
+- a clear narrow-viewport strategy, not just desktop screenshots
 
-```bash
-pnpm verify:visual-regression
-pnpm verify:a11y
-pnpm verify:consumer-smoke
-```
+## Shared standards
 
-Each example needs desktop and mobile coverage, and should demonstrate real interaction rather than static UI only.
+| Dimension     | Standard                                                                              |
+| ------------- | ------------------------------------------------------------------------------------- |
+| Product feel  | Show complete workflows before isolated widgets                                       |
+| Verifiability | Every scenario should be eligible for smoke, a11y, and visual regression checks       |
+| Reuse         | Layouts and slices from these scenarios should feed starters or blocks                |
+| Documentation | Each scenario should document target users, required modules, and acceptance criteria |
+
+## Scope for this phase
+
+The current phase focuses on:
+
+- scenario definition
+- scenario landing pages
+- information architecture
+- component-composition plans
+- acceptance standards
+
+It does not require turning all three scenarios into full standalone products immediately, but later starters and showcase entries should orbit these same product surfaces.

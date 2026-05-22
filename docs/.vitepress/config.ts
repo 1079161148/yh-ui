@@ -27,10 +27,19 @@ sidebar['/guide/'] = [
     { text: '主题定制', link: '/guide/theming' },
     { text: 'Figma 与 Token 体系', link: '/guide/figma-tokens' }
   ]),
-  group('旗舰场景', [{ text: 'AI / Flow / Table 示例', link: '/guide/flagship-examples' }]),
-  group('开源治理', [
-    { text: '版本策略', link: '/guide/versioning' },
+  group('旗舰场景', [
+    { text: 'AI / Flow / Table 示例', link: '/guide/flagship-examples' },
+    { text: 'Starter 计划', link: '/guide/starter' },
+    { text: '案例展示', link: '/guide/showcase' }
+  ]),
+  group('增长与社区', [
+    { text: '路线图', link: '/guide/roadmap' },
+    { text: '支持与服务', link: '/guide/support' },
     { text: '社区反馈闭环', link: '/guide/community-feedback' }
+  ]),
+  group('开源治理', [
+    { text: '开源与商业化策略', link: '/guide/open-source-strategy' },
+    { text: '版本策略', link: '/guide/versioning' }
   ])
 ]
 
@@ -58,11 +67,18 @@ sidebar['/en/guide/'] = [
     { text: 'Figma and Tokens', link: '/en/guide/figma-tokens' }
   ]),
   group('Flagship Scenarios', [
-    { text: 'AI / Flow / Table Examples', link: '/en/guide/flagship-examples' }
+    { text: 'AI / Flow / Table Examples', link: '/en/guide/flagship-examples' },
+    { text: 'Starter Plan', link: '/en/guide/starter' },
+    { text: 'Showcase', link: '/en/guide/showcase' }
+  ]),
+  group('Growth and Community', [
+    { text: 'Roadmap', link: '/en/guide/roadmap' },
+    { text: 'Support and Services', link: '/en/guide/support' },
+    { text: 'Community Feedback Loop', link: '/en/guide/community-feedback' }
   ]),
   group('Open Source Governance', [
-    { text: 'Versioning Policy', link: '/en/guide/versioning' },
-    { text: 'Community Feedback Loop', link: '/en/guide/community-feedback' }
+    { text: 'Open-source Strategy', link: '/en/guide/open-source-strategy' },
+    { text: 'Versioning Policy', link: '/en/guide/versioning' }
   ])
 ]
 
@@ -667,7 +683,7 @@ sidebar['/en/skills/'] = [group('AI Skills', [{ text: 'Setup', link: '/en/skills
 
 export default defineConfig({
   title: 'YH-UI',
-  description: '一个现代化的 Vue 3 组件库',
+  description: '面向 AI 产品与复杂后台的 Vue 3.5 组件系统',
   base: '/yh-ui/',
   lang: 'zh-CN',
   locales: {
@@ -675,7 +691,7 @@ export default defineConfig({
       label: '中文',
       lang: 'zh-CN',
       title: 'YH-UI',
-      description: '一个现代化的 Vue 3 组件库',
+      description: '面向 AI 产品与复杂后台的 Vue 3.5 组件系统',
       link: '/',
       themeConfig: {
         nav: [
@@ -688,7 +704,16 @@ export default defineConfig({
           { text: 'Request 请求', link: '/request/', activeMatch: '/request/' },
           { text: 'AI SDK', link: '/ai-sdk/', activeMatch: '/ai-sdk/' },
           { text: 'Flow 流程图', link: '/flow/basic', activeMatch: '/flow/' },
-          { text: 'AI Skills', link: '/skills/installation', activeMatch: '/skills/' }
+          { text: 'AI Skills', link: '/skills/installation', activeMatch: '/skills/' },
+          {
+            text: '增长',
+            items: [
+              { text: '路线图', link: '/guide/roadmap' },
+              { text: 'Starter 计划', link: '/guide/starter' },
+              { text: '案例展示', link: '/guide/showcase' },
+              { text: '支持与服务', link: '/guide/support' }
+            ]
+          }
         ],
         outline: { label: '页面导航', level: [2, 3] },
         docFooter: { prev: '上一页', next: '下一页' },
@@ -699,7 +724,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       title: 'YH-UI',
-      description: 'A modern Vue 3 UI Library',
+      description: 'A Vue 3.5 component system for AI products and complex admin apps',
       link: '/en/',
       themeConfig: {
         nav: [
@@ -716,7 +741,16 @@ export default defineConfig({
           { text: 'Request', link: '/en/request/', activeMatch: '/en/request/' },
           { text: 'AI SDK', link: '/en/ai-sdk/', activeMatch: '/en/ai-sdk/' },
           { text: 'Flow', link: '/en/flow/basic', activeMatch: '/en/flow/' },
-          { text: 'AI Skills', link: '/en/skills/installation', activeMatch: '/en/skills/' }
+          { text: 'AI Skills', link: '/en/skills/installation', activeMatch: '/en/skills/' },
+          {
+            text: 'Growth',
+            items: [
+              { text: 'Roadmap', link: '/en/guide/roadmap' },
+              { text: 'Starter Plan', link: '/en/guide/starter' },
+              { text: 'Showcase', link: '/en/guide/showcase' },
+              { text: 'Support', link: '/en/guide/support' }
+            ]
+          }
         ],
         outline: { label: 'On this page', level: [2, 3] },
         docFooter: { prev: 'Previous page', next: 'Next page' },
