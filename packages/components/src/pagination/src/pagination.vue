@@ -4,6 +4,8 @@ import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { paginationProps } from './pagination'
 import type { PaginationEmits, PaginationExpose } from './pagination'
+import { YhInput } from '../../input'
+import { YhSelect, YhOption } from '../../select'
 
 defineOptions({
   name: 'YhPagination'
@@ -16,7 +18,10 @@ const ns = useNamespace('pagination')
 const { t } = useLocale()
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('pagination', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'pagination',
+  computed(() => props.themeOverrides)
+)
 
 // 计算总页数
 const pageCount = computed(() => {
@@ -29,9 +34,12 @@ const pageCount = computed(() => {
 // 当前内部页码
 const internalCurrentPage = ref(props.currentPage)
 
-watch(() => props.currentPage, (val: number) => {
-  internalCurrentPage.value = val
-})
+watch(
+  () => props.currentPage,
+  (val: number) => {
+    internalCurrentPage.value = val
+  }
+)
 
 // 页码列表逻辑
 const pagers = computed(() => {
@@ -72,7 +80,8 @@ const pagers = computed(() => {
 })
 
 const handleCurrentChange = (val: number) => {
-  if (props.disabled || val < 1 || val > pageCount.value || val === internalCurrentPage.value) return
+  if (props.disabled || val < 1 || val > pageCount.value || val === internalCurrentPage.value)
+    return
   internalCurrentPage.value = val
   emit('update:currentPage', val)
   emit('current-change', val)
@@ -120,7 +129,7 @@ const paginationClasses = computed(() => [
 
 // 布局组件映射
 const layoutComponents = computed(() => {
-  return props.layout.split(',').map(item => item.trim())
+  return props.layout.split(',').map((item) => item.trim())
 })
 
 defineExpose<PaginationExpose>({
@@ -140,60 +149,96 @@ defineExpose<PaginationExpose>({
 
       <!-- Sizes -->
       <div v-if="item === 'sizes'" :class="ns.e('sizes')">
-        <yh-select :model-value="pageSize" :disabled="disabled" :size="small ? 'small' : 'default'"
-          @update:model-value="(val: number | unknown) => handleSizeChange(Number(val))">
-          <yh-option v-for="size in pageSizes" :key="size" :label="`${size}${t('pagination.pageSize')}`"
-            :value="size" />
-        </yh-select>
+        <YhSelect
+          :model-value="pageSize"
+          :disabled="disabled"
+          :size="small ? 'small' : 'default'"
+          @update:model-value="(val: number | unknown) => handleSizeChange(Number(val))"
+        >
+          <YhOption
+            v-for="size in pageSizes"
+            :key="size"
+            :label="`${size}${t('pagination.pageSize')}`"
+            :value="size"
+          />
+        </YhSelect>
       </div>
 
       <!-- Prev -->
-      <button v-if="item === 'prev'" :class="ns.e('prev')" :disabled="disabled || internalCurrentPage <= 1"
-        @click="handlePrev">
+      <button
+        v-if="item === 'prev'"
+        :class="ns.e('prev')"
+        :disabled="disabled || internalCurrentPage <= 1"
+        @click="handlePrev"
+      >
         <slot name="prev-icon">
           <span v-if="prevText">{{ prevText }}</span>
           <svg v-else viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M609.4 824.6L296.8 512l312.6-312.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L228.9 489.4c-12.5 12.5-12.5 32.8 0 45.3l335.2 335.2c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z" />
+            <path
+              fill="currentColor"
+              d="M609.4 824.6L296.8 512l312.6-312.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L228.9 489.4c-12.5 12.5-12.5 32.8 0 45.3l335.2 335.2c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z"
+            />
           </svg>
         </slot>
       </button>
 
       <!-- Pager -->
       <ul v-if="item === 'pager'" :class="ns.e('pager')">
-        <li :class="[ns.e('item'), ns.is('active', internalCurrentPage === 1)]" @click="handleCurrentChange(1)">
+        <li
+          :class="[ns.e('item'), ns.is('active', internalCurrentPage === 1)]"
+          @click="handleCurrentChange(1)"
+        >
           1
         </li>
 
-        <li v-if="pagers.showPrevMore" :class="[ns.e('item'), ns.e('more')]"
-          @click="handleCurrentChange(Math.max(1, internalCurrentPage - 5))">
+        <li
+          v-if="pagers.showPrevMore"
+          :class="[ns.e('item'), ns.e('more')]"
+          @click="handleCurrentChange(Math.max(1, internalCurrentPage - 5))"
+        >
           <span :class="ns.e('more-icon')">...</span>
         </li>
 
-        <li v-for="page in pagers.array" :key="page"
-          :class="[ns.e('item'), ns.is('active', internalCurrentPage === page)]" @click="handleCurrentChange(page)">
+        <li
+          v-for="page in pagers.array"
+          :key="page"
+          :class="[ns.e('item'), ns.is('active', internalCurrentPage === page)]"
+          @click="handleCurrentChange(page)"
+        >
           {{ page }}
         </li>
 
-        <li v-if="pagers.showNextMore" :class="[ns.e('item'), ns.e('more')]"
-          @click="handleCurrentChange(Math.min(pageCount, internalCurrentPage + 5))">
+        <li
+          v-if="pagers.showNextMore"
+          :class="[ns.e('item'), ns.e('more')]"
+          @click="handleCurrentChange(Math.min(pageCount, internalCurrentPage + 5))"
+        >
           <span :class="ns.e('more-icon')">...</span>
         </li>
 
-        <li v-if="pageCount > 1" :class="[ns.e('item'), ns.is('active', internalCurrentPage === pageCount)]"
-          @click="handleCurrentChange(pageCount)">
+        <li
+          v-if="pageCount > 1"
+          :class="[ns.e('item'), ns.is('active', internalCurrentPage === pageCount)]"
+          @click="handleCurrentChange(pageCount)"
+        >
           {{ pageCount }}
         </li>
       </ul>
 
       <!-- Next -->
-      <button v-if="item === 'next'" :class="ns.e('next')" :disabled="disabled || internalCurrentPage >= pageCount"
-        @click="handleNext">
+      <button
+        v-if="item === 'next'"
+        :class="ns.e('next')"
+        :disabled="disabled || internalCurrentPage >= pageCount"
+        @click="handleNext"
+      >
         <slot name="next-icon">
           <span v-if="nextText">{{ nextText }}</span>
           <svg v-else viewBox="0 0 1024 1024" width="1em" height="1em">
-            <path fill="currentColor"
-              d="M341.3 824.6l312.6-312.6L341.3 199.4c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L721.8 489.4c12.5 12.5 12.5 32.8 0 45.3L386.6 869.9c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3z" />
+            <path
+              fill="currentColor"
+              d="M341.3 824.6l312.6-312.6L341.3 199.4c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L721.8 489.4c12.5 12.5 12.5 32.8 0 45.3L386.6 869.9c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3z"
+            />
           </svg>
         </slot>
       </button>
@@ -201,8 +246,13 @@ defineExpose<PaginationExpose>({
       <!-- Jumper -->
       <div v-if="item === 'jumper'" :class="ns.e('jumper')">
         {{ t('pagination.goto') }}
-        <yh-input v-model="jumpValue" :size="small ? 'small' : 'default'" :disabled="disabled" @blur="handleJump"
-          @keyup.enter="handleJump" />
+        <YhInput
+          v-model="jumpValue"
+          :size="small ? 'small' : 'default'"
+          :disabled="disabled"
+          @blur="handleJump"
+          @keyup.enter="handleJump"
+        />
         {{ t('pagination.page') }}
       </div>
 

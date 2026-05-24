@@ -21,8 +21,8 @@ import { YhAvatar } from '../../avatar'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
 import { YhAiThoughtChain, type AiThoughtItem } from '../../ai-thought-chain'
-import MarkdownIt from '../../markdown-it'
 import type MarkdownItInstance from 'markdown-it'
+import { loadMarkdown } from '../../markdown-it'
 import type Token from 'markdown-it/lib/token.mjs'
 import type StateBlock from 'markdown-it/lib/rules_block/state_block.mjs'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
@@ -207,7 +207,10 @@ const loadMonaco = async (): Promise<MonacoModule | null> => {
     monaco.value = m
     return m
   } catch (e) {
-    console.warn('Monaco editor failed to load:', e)
+    console.error(
+      '[YhAiBubble] 无法加载 monaco-editor。如果需要使用编辑代码块功能，请在您的项目中安装 "monaco-editor" 依赖。',
+      e
+    )
     return null
   }
 }
@@ -830,10 +833,18 @@ const getMarkdownOptions = (): AiMarkdownOptions => {
   }
 }
 
-const getMarkdownInstance = () => {
+let cachedMarkdownItClass: any = null
+
+const getMarkdownInstance = (MarkdownItClass?: any) => {
+  const Cls = MarkdownItClass || cachedMarkdownItClass || mdi.value?.constructor
+  if (!Cls) {
+    throw new Error(
+      '[YhAiBubble] markdown-it 尚未加载。如果需要同步获取 markdown 实例，请等待异步加载完成，或在调用 getMarkdownInstance 时传入构造器参数。'
+    )
+  }
   const mdOptions = getMarkdownOptions()
 
-  const md = new MarkdownIt({
+  const md = new Cls({
     html: mdOptions.html ?? false,
     linkify: mdOptions.linkify ?? true,
     typographer: mdOptions.typographer ?? true,
@@ -1024,10 +1035,25 @@ const getMarkdownInstance = () => {
 }
 
 const mdi = shallowRef<MarkdownItInstance | null>(null)
+const isMdLoading = ref(false)
+
+const loadMarkdownIt = async () => {
+  if (mdi.value || isMdLoading.value) return
+  isMdLoading.value = true
+  try {
+    const MarkdownItClass = await loadMarkdown()
+    cachedMarkdownItClass = MarkdownItClass
+    mdi.value = getMarkdownInstance(MarkdownItClass)
+  } catch (err) {
+    console.error('[YhAiBubble] 无法加载 markdown-it。', err)
+  } finally {
+    isMdLoading.value = false
+  }
+}
 
 watchEffect(() => {
   if (props.markdown && !mdi.value) {
-    mdi.value = getMarkdownInstance()
+    loadMarkdownIt()
   }
 })
 
@@ -1118,8 +1144,8 @@ const streamRender = (
 }
 
 watch(
-  () => props.content,
-  (newContent: string) => {
+  [() => props.content, mdi],
+  ([newContent]) => {
     // 清理任何正在进行的流式渲染
     if (streamTimer) {
       clearInterval(streamTimer)

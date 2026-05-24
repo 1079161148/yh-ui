@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick, h } from 'vue'
 import NotificationComponent from '../src/notification.vue'
-import Notification from '../src/method'
+import Notification, { setNotificationDefaultAppContext } from '../src/method'
 import { notificationPositions, notificationTypes } from '../src/notification'
 
 describe('Notification constants', () => {
@@ -16,6 +16,7 @@ describe('Notification constants', () => {
 describe('Notification method', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
+    setNotificationDefaultAppContext(null)
   })
 
   afterEach(() => {
@@ -87,6 +88,18 @@ describe('Notification method', () => {
     })
     await nextTick()
     expect(document.body.innerHTML).toContain('<b>bold</b>')
+  })
+
+  it('mounts inside config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    const handler = Notification('provider notification')
+    await nextTick()
+
+    expect(host.querySelector('.yh-notification')).toBeTruthy()
+    handler.close()
   })
 
   it('should respect max notification count', async () => {

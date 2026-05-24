@@ -20,11 +20,18 @@ vi.mock('mermaid', () => ({
   }
 }))
 
+function getInitConfigFromRenderSource(source: string) {
+  const [initLine] = source.split('\n')
+  return JSON.parse(initLine.slice('%%{init: '.length, -3)) as Record<string, unknown>
+}
+
 describe('YhAiMermaid', () => {
   beforeEach(() => {
     mockMermaidInitialize.mockReset()
     mockMermaidRender.mockReset()
     mockMermaidRender.mockResolvedValue({ svg: '<svg class="mermaid-rendered"></svg>' })
+    document.documentElement.classList.remove('dark')
+    document.documentElement.removeAttribute('style')
   })
 
   // ─── Rendering ───────────────────────────────────────────
@@ -189,5 +196,68 @@ describe('YhAiMermaid', () => {
     expect(html).not.toContain('<script')
     expect(html).not.toContain('onload=')
     expect(html).not.toContain('javascript:')
+  })
+
+  it('should inject default theme variables into mermaid render config', async () => {
+    document.documentElement.style.setProperty('--yh-bg-color', '#f8fafc')
+    document.documentElement.style.setProperty('--yh-bg-color-overlay', '#ffffff')
+    document.documentElement.style.setProperty('--yh-bg-color-page', '#eef2f7')
+    document.documentElement.style.setProperty('--yh-color-primary', '#409eff')
+    document.documentElement.style.setProperty('--yh-text-color-primary', '#111827')
+    document.documentElement.style.setProperty('--yh-text-color-regular', '#374151')
+    document.documentElement.style.setProperty('--yh-text-color-secondary', '#6b7280')
+    document.documentElement.style.setProperty('--yh-border-color', '#d1d5db')
+    document.documentElement.style.setProperty('--yh-border-color-light', '#e5e7eb')
+    document.documentElement.style.setProperty('--yh-border-color-dark', '#9ca3af')
+
+    mount(AiMermaid, {
+      props: {
+        code: 'graph TD\nA-->B',
+        config: {
+          theme: 'base'
+        }
+      }
+    })
+
+    await flushPromises()
+    await nextTick()
+
+    expect(mockMermaidRender).toHaveBeenCalled()
+    const [, source] = mockMermaidRender.mock.calls.at(-1) as [string, string]
+    const initConfig = getInitConfigFromRenderSource(source)
+    const themeVariables = initConfig.themeVariables as Record<string, string | boolean>
+
+    expect(initConfig.theme).toBe('base')
+    expect(initConfig.htmlLabels).toBe(false)
+    expect((initConfig.flowchart as Record<string, boolean>).useHtmlLabels).toBe(false)
+    expect(themeVariables.darkMode).toBe(false)
+    expect(themeVariables.nodeBkg).toBe('#ffffff')
+    expect(themeVariables.edgeLabelBackground).toBe('#ffffff')
+    expect(themeVariables.textColor).toBe('#111827')
+  })
+
+  it('should keep user provided mermaid theme variable overrides', async () => {
+    mount(AiMermaid, {
+      props: {
+        code: 'graph TD\nA-->B',
+        config: {
+          themeVariables: {
+            textColor: '#ff4d4f',
+            nodeBkg: '#1f2937'
+          }
+        }
+      }
+    })
+
+    await flushPromises()
+    await nextTick()
+
+    expect(mockMermaidRender).toHaveBeenCalled()
+    const [, source] = mockMermaidRender.mock.calls.at(-1) as [string, string]
+    const initConfig = getInitConfigFromRenderSource(source)
+    const themeVariables = initConfig.themeVariables as Record<string, string>
+
+    expect(themeVariables.textColor).toBe('#ff4d4f')
+    expect(themeVariables.nodeBkg).toBe('#1f2937')
   })
 })

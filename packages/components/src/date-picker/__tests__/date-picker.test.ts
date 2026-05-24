@@ -241,4 +241,77 @@ describe('YhDatePicker', () => {
     expect(document.body.querySelector('.custom-popper')).toBeFalsy()
     wrapper.unmount()
   })
+
+  it('updates currentView and innerDate when type changes', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        type: 'date',
+        panelOnly: true
+      }
+    })
+    expect(wrapper.findComponent(DateTable).exists()).toBe(true)
+
+    await wrapper.setProps({ type: 'month' })
+    await nextTick()
+    expect(wrapper.findComponent(MonthTable).exists()).toBe(true)
+
+    await wrapper.setProps({ type: 'year' })
+    await nextTick()
+    expect(wrapper.findComponent(YearTable).exists()).toBe(true)
+  })
+
+  it('updates innerDate when modelValue changes', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        type: 'date',
+        panelOnly: true,
+        modelValue: new Date(2024, 0, 1)
+      }
+    })
+    await wrapper.setProps({ modelValue: new Date(2025, 4, 1) })
+    await nextTick()
+    const vm = wrapper.vm as any
+    expect(vm.innerDate.getFullYear()).toBe(2025)
+    expect(vm.innerDate.getMonth()).toBe(4)
+  })
+
+  it('emits focus, blur, and visible-change events', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        type: 'date',
+        teleported: false
+      }
+    })
+
+    const input = wrapper.find('input')
+    await input.trigger('focus')
+    expect(wrapper.emitted('focus')).toBeTruthy()
+
+    await input.trigger('blur')
+    expect(wrapper.emitted('blur')).toBeTruthy()
+
+    await wrapper.trigger('click')
+    await nextTick()
+    expect(wrapper.emitted('visible-change')?.[0]).toEqual([true])
+
+    document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    await nextTick()
+    expect(wrapper.emitted('visible-change')?.[1]).toEqual([false])
+  })
+
+  it('emits panel-change when currentView or innerDate changes', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        type: 'date',
+        panelOnly: true
+      }
+    })
+
+    const vm = wrapper.vm as any
+    vm.currentView = 'month'
+    await nextTick()
+    expect(wrapper.emitted('panel-change')).toBeTruthy()
+    const lastEmit = wrapper.emitted('panel-change')?.slice(-1)[0]
+    expect(lastEmit?.[1]).toBe('month')
+  })
 })

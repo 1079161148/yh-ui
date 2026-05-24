@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(slider) {
   --yh-slider-main-color: var(--yh-color-primary);

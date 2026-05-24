@@ -15,7 +15,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<InputTagProps>(), {
   modelValue: () => [],
-  type: 'info',
+  type: 'primary',
   size: 'default',
   disabled: false,
   readonly: false,

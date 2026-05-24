@@ -6,7 +6,8 @@ export default defineBuildConfig([
   {
     entries: ['./src/index', './src/resolver'],
     declaration: true,
-    clean: true,
+    // 由构建前脚本负责清理并预生成占位产物，避免 exports 校验阶段误报缺失文件。
+    clean: false,
     failOnWarn: false,
     rollup: {
       emitCJS: true,
@@ -17,6 +18,8 @@ export default defineBuildConfig([
       'vue',
       '@yh-ui/components',
       '@yh-ui/hooks',
+      '@yh-ui/icons',
+      '@yh-ui/icons/components',
       '@yh-ui/utils',
       '@yh-ui/theme',
       '@yh-ui/locale'
@@ -69,6 +72,8 @@ export default defineBuildConfig([
     alias: {
       '@yh-ui/components': resolve(__dirname, '../components/dist/index.mjs'),
       '@yh-ui/hooks': resolve(__dirname, '../hooks/dist/index.mjs'),
+      '@yh-ui/icons/components': resolve(__dirname, '../icons/dist/components.mjs'),
+      '@yh-ui/icons': resolve(__dirname, '../icons/dist/index.mjs'),
       '@yh-ui/utils': resolve(__dirname, '../utils/dist/index.mjs'),
       '@yh-ui/theme': resolve(__dirname, '../theme/dist/index.mjs'),
       '@yh-ui/locale': resolve(__dirname, '../locale/dist/runtime.mjs')

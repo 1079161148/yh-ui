@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(tree-select) {
   position: relative;

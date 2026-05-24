@@ -131,6 +131,8 @@ export default defineConfig({
     alias: {
       '@yh-ui/components': resolve(__dirname, 'packages/components/src'),
       '@yh-ui/hooks': resolve(__dirname, 'packages/hooks/src'),
+      '@yh-ui/icons/components': resolve(__dirname, 'packages/icons/src/components.ts'),
+      '@yh-ui/icons': resolve(__dirname, 'packages/icons/src/index.ts'),
       '@yh-ui/utils': resolve(__dirname, 'packages/utils/src'),
       '@yh-ui/theme': resolve(__dirname, 'packages/theme/src'),
       '@yh-ui/locale': resolve(__dirname, 'packages/locale/src'),
@@ -256,6 +258,8 @@ export default defineConfig({
             'packages/ai-sdk/**/__tests__/**/*.test.{ts,tsx}',
             'packages/icons/**/__tests__/**/*.test.{ts,tsx}',
             'packages/locale/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/yh-ui/**/__tests__/**/*.test.{ts,tsx}',
+            'packages/yh-ui-skill/src/**/__tests__/**/*.test.{ts,tsx}',
             'packages/theme/**/__tests__/**/*.test.{ts,tsx}',
             'packages/nuxt/__tests__/module.test.ts',
             'packages/nuxt/__tests__/runtime/**/*.test.ts'

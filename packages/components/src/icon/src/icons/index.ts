@@ -138,6 +138,13 @@ export const IconUser: IconData = {
   svg: '<path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>'
 }
 
+// Lock 锁图标
+export const IconLock: IconData = {
+  name: 'lock',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M17 10h-1V8.5a4 4 0 1 0-8 0V10H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zm-7-1.5a2 2 0 1 1 4 0V10h-4V8.5zm2 7.75a1.75 1.75 0 1 1 1-3.19V15h-2v-1.94a1.74 1.74 0 0 1 1-.31z"/>'
+}
+
 // Settings 设置图标 (复数)
 export const IconSettings: IconData = {
   name: 'settings',
@@ -411,6 +418,13 @@ export const IconTable: IconData = {
   svg: '<path fill="currentColor" d="M10 10.02h5V21h-5V10.02zM17 21h3c1.1 0 2-.9 2-2v-9h-5v11zm3-18H5c-1.1 0-2 .9-2 2v3h19V5c0-1.1-.9-2-2-2zM3 19c0 1.1.9 2 2 2h3V10H3v9zm12-11H9V3h6v5zm2 0h5V3h-5v5zM7 3H4c-1.1 0-2 .9-2 2v3h5V3z"/>'
 }
 
+// Grid 网格图标
+export const IconGrid: IconData = {
+  name: 'grid',
+  viewBox: '0 0 24 24',
+  svg: '<path fill="currentColor" d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8zm-8 2v4h4v-4H5zm10-10v4h4V5h-4zm0 10v4h4v-4h-4zM5 5v4h4V5H5z"/>'
+}
+
 // Chart Bar 统计图表
 export const IconChartBar: IconData = {
   name: 'chart-bar',
@@ -530,6 +544,7 @@ export const builtInIcons: IconData[] = [
   IconCalendar,
   IconTime,
   IconUser,
+  IconLock,
   IconSettings,
   IconSetting,
   IconHome,
@@ -568,6 +583,7 @@ export const builtInIcons: IconData[] = [
   IconVideoPause,
   IconGlobe,
   IconTable,
+  IconGrid,
   IconChartBar,
   IconLaunch,
   IconCode,

@@ -30,7 +30,7 @@ export interface InputTagProps {
 
   /**
    * @description 标签类型
-   * @default 'info'
+   * @default 'primary'
    */
   type?: InputTagType
 

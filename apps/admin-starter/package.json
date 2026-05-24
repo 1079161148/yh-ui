@@ -1,0 +1,33 @@
+{
+  "name": "yh-ui-admin-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 3021",
+    "dev:workspace": "vite --mode workspace --host 127.0.0.1 --port 3033 --force",
+    "build": "vue-tsc --noEmit && vite build",
+    "build:workspace": "vue-tsc --noEmit && vite build --mode workspace",
+    "preview": "vite preview --host 127.0.0.1 --port 4176",
+    "preview:workspace": "vite preview --mode workspace --host 127.0.0.1 --port 4177"
+  },
+  "dependencies": {
+    "@yh-ui/components": "https://registry.npmjs.org/@yh-ui/components/-/components-1.0.26.tgz",
+    "@yh-ui/hooks": "https://registry.npmjs.org/@yh-ui/hooks/-/hooks-1.0.26.tgz",
+    "@yh-ui/locale": "https://registry.npmjs.org/@yh-ui/locale/-/locale-1.0.26.tgz",
+    "@yh-ui/request": "https://registry.npmjs.org/@yh-ui/request/-/request-1.0.26.tgz",
+    "@yh-ui/theme": "https://registry.npmjs.org/@yh-ui/theme/-/theme-1.0.26.tgz",
+    "@yh-ui/utils": "https://registry.npmjs.org/@yh-ui/utils/-/utils-1.0.26.tgz",
+    "@yh-ui/yh-ui": "https://registry.npmjs.org/@yh-ui/yh-ui/-/yh-ui-1.0.26.tgz",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.27",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.2",
+    "typescript": "^5.7.3",
+    "unplugin-vue-components": "^28.5.0",
+    "vite": "^6.4.2",
+    "vue-tsc": "^2.2.0"
+  }
+}

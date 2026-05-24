@@ -3,9 +3,11 @@ import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
 /** Mermaid 配置 */
 export interface MermaidConfig {
   /** 主题 */
-  theme?: 'default' | 'dark' | 'neutral' | 'base'
+  theme?: 'default' | 'dark' | 'forest' | 'neutral' | 'base'
   /** 主题变量 */
-  themeVariables?: Record<string, string | number>
+  themeVariables?: Record<string, string | number | boolean>
+  /** 是否启用 HTML 标签渲染 */
+  htmlLabels?: boolean
   /** 字体家族 */
   fontFamily?: string
   /** 序列图配置 */
@@ -15,6 +17,7 @@ export interface MermaidConfig {
     boxTextMargin?: number
     noteMargin?: number
     messageMargin?: number
+    useHtmlLabels?: boolean
   }
   /** 流程图配置 */
   flowchart?: {
@@ -22,6 +25,7 @@ export interface MermaidConfig {
     padding?: number
     nodeSpacing?: number
     rankSpacing?: number
+    useHtmlLabels?: boolean
   }
   /** 其他 Mermaid 配置 */
   [key: string]: unknown

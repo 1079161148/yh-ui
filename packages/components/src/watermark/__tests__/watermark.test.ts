@@ -8,10 +8,12 @@ import { YhWatermark } from '../index'
 
 describe('Watermark', () => {
   let createElementSpy: any
+  let lastCanvasContext: Record<string, any> | null
   const originalCreateElement = document.createElement
 
   beforeEach(() => {
     vi.useFakeTimers()
+    lastCanvasContext = null
 
     // Mock document.createElement for canvas
     createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tagName) => {
@@ -22,8 +24,13 @@ describe('Watermark', () => {
           rotate: vi.fn(),
           fillText: vi.fn(),
           drawImage: vi.fn(),
-          measureText: vi.fn(() => ({ width: 10 }))
+          measureText: vi.fn(() => ({ width: 10 })),
+          font: '',
+          fillStyle: '',
+          textAlign: '',
+          textBaseline: ''
         }
+        lastCanvasContext = ctx
         return {
           getContext: vi.fn(() => ctx),
           toDataURL: vi.fn(() => 'data:image/png;base64,mock'),
@@ -149,6 +156,22 @@ describe('Watermark', () => {
 
     const secondNode = wrapper.element.querySelector('div[class^="yh-wm-"]')
     expect(secondNode).not.toBe(firstNode)
+  })
+
+  it('should merge partial font props with defaults when drawing text watermark', async () => {
+    mount(YhWatermark, {
+      props: {
+        content: 'Merged font',
+        font: {
+          color: 'rgba(22, 119, 255, 0.42)',
+          fontSize: 18,
+          fontWeight: 800
+        }
+      }
+    })
+
+    await nextTick()
+    expect(lastCanvasContext?.font).toBe('normal 800 18px sans-serif')
   })
 
   it('should apply theme overrides and expose renderWatermark', async () => {

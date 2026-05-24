@@ -1,4 +1,5 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(switch) {
   --yh-switch-on-color: var(--yh-color-primary);
@@ -34,6 +35,7 @@
     cursor: pointer;
     vertical-align: middle;
     color: var(--yh-text-color-primary);
+    white-space: nowrap;
 
     @include m(left) {
       margin-right: 10px;
@@ -90,7 +92,7 @@
       transition: all var(--yh-duration-base);
       width: var(--yh-switch-button-size);
       height: var(--yh-switch-button-size);
-      background-color: #ffffff;
+      background-color: var(--yh-bg-color, #ffffff);
       display: flex;
       justify-content: center;
       align-items: center;

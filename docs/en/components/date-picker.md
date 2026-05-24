@@ -110,7 +110,7 @@ const showcaseTS = `<${_T}>
       </div>
     </div>
     <div class="demo-viewport">
-      <yh-date-picker :key="type + shape" v-model="value" :type="type" :cell-shape="shape" panel-only />
+      <yh-date-picker v-model="value" :type="type" :cell-shape="shape" panel-only />
     </div>
   </div>
 </${_T}>
@@ -344,11 +344,9 @@ Set `panel-only` to render the calendar panel inline. This is useful for dashboa
         </yh-radio-group>
       </div>
     </div>
-
     <div class="demo-viewport">
-      <yh-date-picker :key="demoType + demoShape" v-model="demoValue" :type="demoType" :cell-shape="demoShape" panel-only />
+      <yh-date-picker v-model="demoValue" :type="demoType" :cell-shape="demoShape" panel-only />
     </div>
-
     <div class="demo-result">
       <span class="dot"></span>
       <span class="label">Selected:</span>
@@ -470,63 +468,67 @@ After installing `@yh-ui/nuxt`, `YhDatePicker` can be used directly in Nuxt 3/4 
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Bound value | `YhDatePickerValue \| YhDatePickerRangeValue` | `null` |
-| `type` | Picker mode | `'date' \| 'datetime' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'` |
-| `disabled` | Disable the component | `boolean` | `false` |
-| `readonly` | Keep the input read-only and prevent opening the panel | `boolean` | `false` |
-| `clearable` | Show the clear icon when a value exists | `boolean` | `true` |
-| `size` | Component size | `'large' \| 'default' \| 'small'` | `'default'` |
-| `placeholder` | Placeholder in non-range mode. When omitted, locale text is used | `string` | `undefined` |
-| `start-placeholder` | Start placeholder in range mode. When omitted, locale text is used | `string` | `undefined` |
-| `end-placeholder` | End placeholder in range mode. When omitted, locale text is used | `string` | `undefined` |
-| `format` | Display format used in the input | `string` | `''` |
-| `value-format` | Output format used for the bound value | `string` | `''` |
-| `date-format` | Panel date format | `string` | `'YYYY-MM-DD'` |
-| `time-format` | Panel and footer time format | `string` | `'HH:mm:ss'` |
-| `range-separator` | Separator between range inputs | `string` | `'-'` |
-| `first-day-of-week` | First day of the week, `1` to `7` | `number` | `7` |
-| `disabled-date` | Disable specific dates | `(date: Date) => boolean` | `undefined` |
-| `presets` | Preset actions shown in the panel | `YhDatePickerPreset[]` | `[]` |
-| `preset-position` | Reserved preset position option. The current implementation still renders presets below the panel | `'left' \| 'right' \| 'top' \| 'bottom'` | `'bottom'` |
-| `show-footer` | Control footer visibility | `boolean` | `true` |
-| `status` | Visual status style | `'success' \| 'warning' \| 'error'` | `undefined` |
-| `order-on-confirm` | Auto-order range values when the end date is earlier than the start date | `boolean` | `false` |
-| `prefix-icon` | Custom prefix icon component or string | `string \| Component` | `''` |
-| `clear-icon` | Custom clear icon component or string | `string \| Component` | `''` |
-| `default-value` | Default panel anchor date when opening | `Date \| Date[]` | `undefined` |
-| `panel-only` | Render the panel inline without the input shell | `boolean` | `false` |
-| `default-time` | Default time value for datetime workflows | `Date \| Date[]` | `undefined` |
-| `popper-class` | Extra class name for the floating panel | `string` | `''` |
-| `teleported` | Teleport the panel to `body` | `boolean` | `true` |
-| `validate-event` | Trigger form validation after value changes | `boolean` | `true` |
-| `name` | Native form field name | `string` | `''` |
-| `id` | Native form field id | `string` | `''` |
-| `cell-shape` | Date cell shape | `'round' \| 'square'` | `'round'` |
-| `cell-render` | Custom date cell text renderer | `(date: Date) => string \| { text: string; className?: string }` | `undefined` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                                                                       | Type                                                                                                                                                  | Default        |
+| ------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `model-value` / `v-model` | Bound value                                                                                       | `YhDatePickerValue \| YhDatePickerRangeValue`                                                                                                         | `null`         |
+| `type`                    | Picker mode                                                                                       | `'date' \| 'datetime' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'`       |
+| `disabled`                | Disable the component                                                                             | `boolean`                                                                                                                                             | `false`        |
+| `readonly`                | Keep the input read-only and prevent opening the panel                                            | `boolean`                                                                                                                                             | `false`        |
+| `clearable`               | Show the clear icon when a value exists                                                           | `boolean`                                                                                                                                             | `true`         |
+| `size`                    | Component size                                                                                    | `'large' \| 'default' \| 'small'`                                                                                                                     | `'default'`    |
+| `placeholder`             | Placeholder in non-range mode. When omitted, locale text is used                                  | `string`                                                                                                                                              | `undefined`    |
+| `start-placeholder`       | Start placeholder in range mode. When omitted, locale text is used                                | `string`                                                                                                                                              | `undefined`    |
+| `end-placeholder`         | End placeholder in range mode. When omitted, locale text is used                                  | `string`                                                                                                                                              | `undefined`    |
+| `format`                  | Display format used in the input                                                                  | `string`                                                                                                                                              | `''`           |
+| `value-format`            | Output format used for the bound value                                                            | `string`                                                                                                                                              | `''`           |
+| `date-format`             | Panel date format                                                                                 | `string`                                                                                                                                              | `'YYYY-MM-DD'` |
+| `time-format`             | Panel and footer time format                                                                      | `string`                                                                                                                                              | `'HH:mm:ss'`   |
+| `range-separator`         | Separator between range inputs                                                                    | `string`                                                                                                                                              | `'-'`          |
+| `first-day-of-week`       | First day of the week, `1` to `7`                                                                 | `number`                                                                                                                                              | `7`            |
+| `disabled-date`           | Disable specific dates                                                                            | `(date: Date) => boolean`                                                                                                                             | `undefined`    |
+| `presets`                 | Preset actions shown in the panel                                                                 | `YhDatePickerPreset[]`                                                                                                                                | `[]`           |
+| `preset-position`         | Reserved preset position option. The current implementation still renders presets below the panel | `'left' \| 'right' \| 'top' \| 'bottom'`                                                                                                              | `'bottom'`     |
+| `show-footer`             | Control footer visibility                                                                         | `boolean`                                                                                                                                             | `true`         |
+| `status`                  | Visual status style                                                                               | `'success' \| 'warning' \| 'error'`                                                                                                                   | `undefined`    |
+| `order-on-confirm`        | Auto-order range values when the end date is earlier than the start date                          | `boolean`                                                                                                                                             | `false`        |
+| `prefix-icon`             | Custom prefix icon component or string                                                            | `string \| Component`                                                                                                                                 | `''`           |
+| `clear-icon`              | Custom clear icon component or string                                                             | `string \| Component`                                                                                                                                 | `''`           |
+| `default-value`           | Default panel anchor date when opening                                                            | `Date \| Date[]`                                                                                                                                      | `undefined`    |
+| `panel-only`              | Render the panel inline without the input shell                                                   | `boolean`                                                                                                                                             | `false`        |
+| `default-time`            | Default time value for datetime workflows                                                         | `Date \| Date[]`                                                                                                                                      | `undefined`    |
+| `popper-class`            | Extra class name for the floating panel                                                           | `string`                                                                                                                                              | `''`           |
+| `teleported`              | Teleport the panel to `body`                                                                      | `boolean`                                                                                                                                             | `true`         |
+| `validate-event`          | Trigger form validation after value changes                                                       | `boolean`                                                                                                                                             | `true`         |
+| `name`                    | Native form field name                                                                            | `string`                                                                                                                                              | `''`           |
+| `id`                      | Native form field id                                                                              | `string`                                                                                                                                              | `''`           |
+| `cell-shape`              | Date cell shape                                                                                   | `'round' \| 'square'`                                                                                                                                 | `'round'`      |
+| `cell-render`             | Custom date cell text renderer                                                                    | `(date: Date) => string \| { text: string; className?: string }`                                                                                      | `undefined`    |
+| `theme-overrides`         | Component theme override variables                                                                | `ComponentThemeVars`                                                                                                                                  | `undefined`    |
 
 ### Events
 
 The current implementation emits the following events at runtime:
 
-| Event | Description | Parameters |
-| --- | --- | --- |
-| `update:modelValue` | Triggered when the bound value changes | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
-| `change` | Triggered after the value changes | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
-| `clear` | Triggered after the clear icon resets the value | `() => void` |
-| `confirm` | Triggered when the confirm button is clicked | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| Event               | Description                                                               | Parameters                                                     |
+| ------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `update:modelValue` | Triggered when the bound value changes                                    | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| `change`            | Triggered after the value changes                                         | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| `focus`             | Triggered when the input field gets focus                                 | `(event: FocusEvent) => void`                                  |
+| `blur`              | Triggered when the input field loses focus                                | `(event: FocusEvent) => void`                                  |
+| `clear`             | Triggered after the clear icon resets the value                           | `() => void`                                                   |
+| `confirm`           | Triggered when the confirm button is clicked                              | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| `panel-change`      | Triggered when the calendar panel views or internal date reference shifts | `(date: Date, mode: PanelView) => void`                        |
+| `visible-change`    | Triggered when the visibility of the popup panel changes                  | `(visible: boolean) => void`                                   |
 
 ### Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `prefix-icon` | Custom prefix icon content | - |
-| `clear-icon` | Custom clear icon content | - |
-| `extra` | Extra content rendered above presets and footer | - |
-| `date-cell` | Custom date cell content | `{ cell: CalendarCell }` |
-| `footer` | Custom footer content | - |
+| Slot          | Description                                     | Parameters               |
+| ------------- | ----------------------------------------------- | ------------------------ |
+| `prefix-icon` | Custom prefix icon content                      | -                        |
+| `clear-icon`  | Custom clear icon content                       | -                        |
+| `extra`       | Extra content rendered above presets and footer | -                        |
+| `date-cell`   | Custom date cell content                        | `{ cell: CalendarCell }` |
+| `footer`      | Custom footer content                           | -                        |
 
 ### Expose
 
@@ -534,38 +536,38 @@ The current implementation does not expose public instance methods or properties
 
 ### Type Exports
 
-| Type | Description |
-| --- | --- |
-| `YhDatePickerProps` | Component props type |
-| `YhDatePickerEmits` | Component emits type declaration |
-| `YhDatePickerSlots` | Component slot type declaration |
-| `YhDatePickerPreset` | Preset item type |
-| `YhDatePickerValue` | Single value type |
-| `YhDatePickerRangeValue` | Range value type |
-| `YhDatePickerPanelView` | Panel view type |
-| `YhDatePickerInstance` | Component instance type |
+| Type                     | Description                      |
+| ------------------------ | -------------------------------- |
+| `YhDatePickerProps`      | Component props type             |
+| `YhDatePickerEmits`      | Component emits type declaration |
+| `YhDatePickerSlots`      | Component slot type declaration  |
+| `YhDatePickerPreset`     | Preset item type                 |
+| `YhDatePickerValue`      | Single value type                |
+| `YhDatePickerRangeValue` | Range value type                 |
+| `YhDatePickerPanelView`  | Panel view type                  |
+| `YhDatePickerInstance`   | Component instance type          |
 
 ### Theme Variables
 
 `YhDatePicker` consumes the following component-level CSS variables and also supports `themeOverrides`.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-date-picker-width` | Default width | `220px` |
-| `--yh-date-picker-range-width` | Range width | `400px` |
-| `--yh-date-picker-primary` | Primary color | `var(--yh-color-primary)` |
-| `--yh-date-picker-primary-rgb` | Primary RGB token | `var(--yh-color-primary-rgb)` |
-| `--yh-date-picker-text-main` | Main text color | `var(--yh-text-color-primary)` |
-| `--yh-date-picker-text-secondary` | Secondary text color | `var(--yh-text-color-secondary)` |
-| `--yh-date-picker-border` | Border color | `var(--yh-border-color)` |
-| `--yh-date-picker-panel-shadow` | Panel shadow | `var(--yh-shadow-lg)` |
-| `--yh-date-picker-item-hover` | Hover background | `var(--yh-fill-color-light)` |
-| `--yh-date-picker-range-bg` | Range background | `var(--yh-color-primary-light-9)` |
-| `--yh-date-picker-panel-width` | Panel width | `380px` |
-| `--yh-date-picker-panel-bg` | Panel background | `var(--yh-bg-color-overlay)` |
-| `--yh-date-picker-hover-bg` | Hover state background | `var(--yh-date-picker-item-hover)` |
-| `--yh-date-picker-active-bg` | Active cell background | `var(--yh-date-picker-primary)` |
-| `--yh-date-picker-active-color` | Active cell text color | `var(--yh-color-white)` |
+| Variable                          | Description            | Default                            |
+| --------------------------------- | ---------------------- | ---------------------------------- |
+| `--yh-date-picker-width`          | Default width          | `220px`                            |
+| `--yh-date-picker-range-width`    | Range width            | `400px`                            |
+| `--yh-date-picker-primary`        | Primary color          | `var(--yh-color-primary)`          |
+| `--yh-date-picker-primary-rgb`    | Primary RGB token      | `var(--yh-color-primary-rgb)`      |
+| `--yh-date-picker-text-main`      | Main text color        | `var(--yh-text-color-primary)`     |
+| `--yh-date-picker-text-secondary` | Secondary text color   | `var(--yh-text-color-secondary)`   |
+| `--yh-date-picker-border`         | Border color           | `var(--yh-border-color)`           |
+| `--yh-date-picker-panel-shadow`   | Panel shadow           | `var(--yh-shadow-lg)`              |
+| `--yh-date-picker-item-hover`     | Hover background       | `var(--yh-fill-color-light)`       |
+| `--yh-date-picker-range-bg`       | Range background       | `var(--yh-color-primary-light-9)`  |
+| `--yh-date-picker-panel-width`    | Panel width            | `380px`                            |
+| `--yh-date-picker-panel-bg`       | Panel background       | `var(--yh-bg-color-overlay)`       |
+| `--yh-date-picker-hover-bg`       | Hover state background | `var(--yh-date-picker-item-hover)` |
+| `--yh-date-picker-active-bg`      | Active cell background | `var(--yh-date-picker-primary)`    |
+| `--yh-date-picker-active-color`   | Active cell text color | `var(--yh-color-white)`            |
 
 <style scoped>
 .demo-showcase {
@@ -613,7 +615,7 @@ The current implementation does not expose public instance methods or properties
   align-items: center;
   gap: 10px;
   padding: 12px 24px;
-  background: #fff;
+  background: var(--vp-c-bg);
   border-radius: 50px;
   border: 1px solid var(--yh-border-color-lighter);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);

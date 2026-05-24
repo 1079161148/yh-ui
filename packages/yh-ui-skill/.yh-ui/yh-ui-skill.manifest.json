@@ -1,0 +1,14 @@
+{
+  "packageName": "@yh-ui/yh-ui-skill",
+  "version": "1.0.26",
+  "target": "project",
+  "baseDir": "E:\\YH-UI\\packages\\yh-ui-skill\\.yh-ui",
+  "installedAt": "2026-05-23T04:10:47.115Z",
+  "files": [
+    "skills/yh-ui",
+    "skills/yh-ui/SKILL.md",
+    "llms.txt",
+    "llms-full.txt",
+    "yh-ui-skill.manifest.json"
+  ]
+}

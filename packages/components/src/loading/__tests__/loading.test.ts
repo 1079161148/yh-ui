@@ -2,11 +2,13 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, nextTick } from 'vue'
 import { YhLoading, vYhLoading } from '../index'
+import { setLoadingDefaultAppContext } from '../src/service'
 
 describe('Loading Service', () => {
   beforeEach(() => {
     vi.useFakeTimers()
     document.body.innerHTML = ''
+    setLoadingDefaultAppContext(null)
   })
 
   afterEach(() => {
@@ -47,6 +49,73 @@ describe('Loading Service', () => {
     const mask = document.querySelector('.yh-loading-mask')
     expect(mask?.getAttribute('style')).toContain('--yh-loading-z-index: 3200')
     loading.close()
+  })
+
+  it('should mount inside config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    const loading = YhLoading.service()
+    await nextTick()
+    expect(host.querySelector('.yh-loading-mask')).toBeTruthy()
+
+    loading.close()
+    vi.advanceTimersByTime(500)
+  })
+
+  it('should not force relative class when target already has computed positioning', () => {
+    const style = document.createElement('style')
+    style.textContent = '.loading-positioned { position: absolute; }'
+    document.head.appendChild(style)
+    document.body.innerHTML = '<div id="target" class="loading-positioned"></div>'
+
+    const target = document.querySelector('#target') as HTMLElement
+    const loading = YhLoading.service({
+      fullscreen: false,
+      target
+    })
+
+    expect(getComputedStyle(target).position).toBe('absolute')
+    expect(target.classList.contains('yh-loading-parent--relative')).toBe(false)
+
+    loading.close()
+    vi.advanceTimersByTime(500)
+    expect(target.classList.contains('yh-loading-parent--relative')).toBe(false)
+    style.remove()
+  })
+
+  it('should align mask to target rect when mounted on body', async () => {
+    document.body.innerHTML = '<div id="target"></div>'
+    const target = document.querySelector('#target') as HTMLElement
+    vi.spyOn(target, 'getBoundingClientRect').mockReturnValue({
+      width: 180,
+      height: 96,
+      top: 24,
+      left: 36,
+      right: 216,
+      bottom: 120,
+      x: 36,
+      y: 24,
+      toJSON: () => ({})
+    } as DOMRect)
+
+    const loading = YhLoading.service({
+      fullscreen: false,
+      body: true,
+      target
+    })
+
+    await nextTick()
+    const mask = document.querySelector('.yh-loading-mask') as HTMLElement
+    expect(mask).toBeTruthy()
+    expect(mask.style.top).toBe('24px')
+    expect(mask.style.left).toBe('36px')
+    expect(mask.style.width).toBe('180px')
+    expect(mask.style.height).toBe('96px')
+
+    loading.close()
+    vi.advanceTimersByTime(500)
   })
 })
 

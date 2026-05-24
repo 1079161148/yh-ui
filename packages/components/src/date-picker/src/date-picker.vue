@@ -3,7 +3,7 @@
  * YhDatePicker - 统一日期选择器
  * @description 融合日期、时间、范围、年、月、季度等多种模式于一体。采用业内最佳实践设计。
  */
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useNamespace, useFormItem, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
@@ -69,6 +69,7 @@ const rangeHoverDate = ref<Date | null>(null)
 
 // 元素引用
 const wrapperRef = ref<HTMLElement>()
+const panelRef = ref<HTMLElement>()
 
 // --- 计算属性 ---
 const isRange = computed(() => props.type.includes('range'))
@@ -274,10 +275,18 @@ const performFinalSelect = (date: Date) => {
 }
 
 // --- 下拉定位 ---
+const DROPDOWN_GAP = 8
+const PANEL_OFFSET = 4
+const DEFAULT_PANEL_WIDTH = 380
+
 const dropdownStyle = ref<Record<string, string>>({})
-const updatePosition = () => {
+const updatePosition = async () => {
   if (!wrapperRef.value || !props.teleported || props.panelOnly) return
+  await nextTick()
+
   const rect = wrapperRef.value.getBoundingClientRect()
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
 
   // 核心修复：从所在容器提取当前有效的主题变量
   // 确保 popper 被 teleport 到 body 后，依然能维持所在作用域的主题色（如紫色）
@@ -285,13 +294,39 @@ const updatePosition = () => {
   const primary = styles.getPropertyValue('--yh-color-primary').trim()
   const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
   const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
+  const panelWidthVar = Number.parseFloat(styles.getPropertyValue('--yh-date-picker-panel-width'))
+  const preferredPanelWidth = Number.isFinite(panelWidthVar) ? panelWidthVar : DEFAULT_PANEL_WIDTH
+  const panelWidth = Math.min(
+    panelRef.value?.offsetWidth || preferredPanelWidth,
+    Math.max(viewportWidth - DROPDOWN_GAP * 2, 240)
+  )
+  const panelHeight = panelRef.value?.offsetHeight || 0
+
+  const maxLeft = Math.max(DROPDOWN_GAP, viewportWidth - panelWidth - DROPDOWN_GAP)
+  const left = Math.min(Math.max(rect.left, DROPDOWN_GAP), maxLeft)
+
+  const preferredTop = rect.bottom + PANEL_OFFSET
+  const canPlaceAbove = rect.top - panelHeight - PANEL_OFFSET >= DROPDOWN_GAP
+  const shouldPlaceAbove =
+    panelHeight > 0 && preferredTop + panelHeight + DROPDOWN_GAP > viewportHeight && canPlaceAbove
+
+  const top = shouldPlaceAbove
+    ? Math.max(DROPDOWN_GAP, rect.top - panelHeight - PANEL_OFFSET)
+    : Math.max(
+        DROPDOWN_GAP,
+        Math.min(
+          preferredTop,
+          viewportHeight - Math.min(panelHeight, viewportHeight - DROPDOWN_GAP * 2) - DROPDOWN_GAP
+        )
+      )
 
   dropdownStyle.value = {
     ...(themeStyle.value as Record<string, string | number>),
     position: 'fixed',
-    top: `${rect.bottom + 4}px`,
-    left: `${rect.left}px`,
+    top: `${top}px`,
+    left: `${left}px`,
     zIndex: '2000',
+    '--yh-date-picker-panel-width': `${panelWidth}px`,
     '--yh-color-primary': primary,
     '--yh-color-primary-rgb': primaryRgb,
     '--yh-color-primary-light-9': primaryLight9
@@ -313,11 +348,51 @@ const syncInnerDate = () => {
 }
 
 watch(visible, (val: boolean) => {
+  if (props.panelOnly && !val) {
+    visible.value = true
+    return
+  }
+  emit('visible-change', val)
   if (val) {
     currentView.value = getInitialView(props.type)
-    updatePosition()
+    void updatePosition()
     syncInnerDate() // 每次打开时重新校准视图锚点
+    if (!props.panelOnly) {
+      window.addEventListener('click', handleOutsideClick, true)
+      if (props.teleported) {
+        window.addEventListener('scroll', updatePosition, true)
+        window.addEventListener('resize', updatePosition)
+      }
+    }
+  } else {
+    if (!props.panelOnly) {
+      window.removeEventListener('click', handleOutsideClick, true)
+      window.removeEventListener('scroll', updatePosition, true)
+      window.removeEventListener('resize', updatePosition)
+    }
   }
+})
+
+watch(
+  () => props.type,
+  (val) => {
+    currentView.value = getInitialView(val)
+    syncInnerDate()
+    if (props.panelOnly) {
+      visible.value = true
+    }
+  }
+)
+
+watch(
+  () => props.modelValue,
+  () => {
+    syncInnerDate()
+  }
+)
+
+watch([currentView, innerDate], ([view, date]) => {
+  emit('panel-change', date, view)
 })
 
 const handleClear = (e: Event) => {
@@ -333,8 +408,8 @@ const togglePanel = (e?: Event) => {
 }
 
 const handleOutsideClick = (e: MouseEvent) => {
-  if (!visible.value || props.panelOnly) return
   const target = e.target as HTMLElement
+  if (!visible.value || props.panelOnly) return
   if (wrapperRef.value?.contains(target)) return
 
   // 检查是否点击在 Teleport 的 popper 内部
@@ -353,12 +428,15 @@ const shouldShowFooter = computed(() => {
 
 const handleConfirmClick = () => {
   emit('confirm', props.modelValue as DateValue | DateRangeValue)
-  visible.value = false
+  if (!props.panelOnly) {
+    visible.value = false
+  }
 }
 
 onMounted(() => {
   syncInnerDate() // 初始同步一次日期，确保 panel-only 或初始状态正确
-  if (!props.panelOnly) {
+  if (visible.value && !props.panelOnly) {
+    void updatePosition()
     window.addEventListener('click', handleOutsideClick, true)
     if (props.teleported) {
       window.addEventListener('scroll', updatePosition, true)
@@ -368,9 +446,11 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('click', handleOutsideClick, true)
-  window.removeEventListener('scroll', updatePosition, true)
-  window.removeEventListener('resize', updatePosition)
+  if (!props.panelOnly) {
+    window.removeEventListener('click', handleOutsideClick, true)
+    window.removeEventListener('scroll', updatePosition, true)
+    window.removeEventListener('resize', updatePosition)
+  }
 })
 </script>
 
@@ -378,7 +458,7 @@ onBeforeUnmount(() => {
   <div
     ref="wrapperRef"
     :class="wrapperClasses"
-    :style="themeStyle"
+    :style="[themeStyle, $attrs.style]"
     @click="togglePanel"
     @mouseenter="hovering = true"
     @mouseleave="hovering = false"
@@ -403,6 +483,8 @@ onBeforeUnmount(() => {
           :placeholder="placeholder ?? t('datepicker.selectDate')"
           :value="displayValue"
           readonly
+          @focus="(e) => emit('focus', e)"
+          @blur="(e) => emit('blur', e)"
         />
       </template>
       <template v-else>
@@ -412,6 +494,8 @@ onBeforeUnmount(() => {
             :placeholder="startPlaceholder ?? t('datepicker.startDate')"
             :value="rangeDisplayValue[0]"
             readonly
+            @focus="(e) => emit('focus', e)"
+            @blur="(e) => emit('blur', e)"
           />
           <span :class="ns.e('range-separator')">{{ rangeSeparator }}</span>
           <input
@@ -419,6 +503,8 @@ onBeforeUnmount(() => {
             :placeholder="endPlaceholder ?? t('datepicker.endDate')"
             :value="rangeDisplayValue[1]"
             readonly
+            @focus="(e) => emit('focus', e)"
+            @blur="(e) => emit('blur', e)"
           />
         </div>
       </template>
@@ -443,12 +529,13 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- 弹窗面板 -->
-    <component :is="panelOnly ? 'div' : 'Teleport'" to="body" :disabled="!teleported || panelOnly">
+    <Teleport to="body" :disabled="!props.teleported || panelOnly">
       <Transition :name="panelOnly ? '' : ns.b('panel')">
         <div
+          ref="panelRef"
           v-if="visible"
           :class="[ns.e('panel'), popperClass, ns.is('plain', panelOnly)]"
-          :style="!panelOnly && teleported ? dropdownStyle : {}"
+          :style="!panelOnly && props.teleported ? dropdownStyle : {}"
           @click.stop
         >
           <div :class="ns.e('header')">
@@ -563,7 +650,7 @@ onBeforeUnmount(() => {
                 <button
                   v-if="isRange || type.includes('datetime')"
                   :class="ns.e('footer-btn')"
-                  @click="visible = false"
+                  @click="!panelOnly && (visible = false)"
                 >
                   {{ t('datepicker.cancel') }}
                 </button>
@@ -578,7 +665,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </Transition>
-    </component>
+    </Teleport>
   </div>
 </template>
 

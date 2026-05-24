@@ -30,6 +30,10 @@ yarn add @yh-ui/yh-ui
 
 :::
 
+::: tip 可选重型依赖提醒
+`monaco-editor`、`xlsx`、`viewerjs`、`markdown-it` 当前已作为可选 `peerDependencies` 提供。仅安装 `@yh-ui/yh-ui` 时，消费端不会被强制额外下载这些重型运行时；只有在你实际使用代码编辑、Excel 导入导出、高级图片预览、Markdown 渲染等能力时，才需要由宿主项目自行安装对应依赖。完整说明见 [包体积分层](/guide/package-size)。
+:::
+
 ## 浏览器项目接入
 
 当前文档主要围绕 npm 或 pnpm 的工程化接入方式维护。对于浏览器项目，建议通过构建工具集成 YH-UI，这样可以与当前发布包的导出、样式入口和类型声明保持一致。
@@ -85,4 +89,7 @@ export default defineConfig({
 ```ts
 import type { ButtonProps } from '@yh-ui/yh-ui'
 ```
+
+```
+
 ```

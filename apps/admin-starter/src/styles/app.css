@@ -1,0 +1,246 @@
+:root {
+  --admin-bg: #f0f2f5;
+  --admin-panel: #ffffff;
+  --admin-border: #e8e8e8;
+  --admin-text: #262626;
+  --admin-text-secondary: #8c8c8c;
+  --admin-primary: #1677ff;
+  --admin-primary-rgb: 22, 119, 255;
+  --admin-primary-light: #e6f4ff;
+  --admin-header-height: 56px;
+  --admin-sidebar-width: 240px;
+  --admin-sidebar-collapsed-width: 64px;
+  --admin-tabs-height: 40px;
+}
+
+html[data-theme='dark'] {
+  --admin-bg: #141414;
+  --admin-panel: #1f1f1f;
+  --admin-border: #303030;
+  --admin-text: #e5e5e5;
+  --admin-text-secondary: #8c8c8c;
+  --admin-primary: #1677ff;
+  --admin-primary-rgb: 22, 119, 255;
+  --admin-primary-light: #111d2c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.page-container {
+  padding: 16px 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+}
+
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.stat-card-label {
+  font-size: 14px;
+  color: var(--admin-text-secondary);
+}
+
+.stat-card-value {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.stat-card-footer {
+  font-size: 12px;
+  color: var(--admin-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.chart-card {
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+}
+
+.chart-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.chart-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: var(--admin-text-secondary);
+  font-size: 14px;
+  border: 2px dashed var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-bg);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+  flex-wrap: wrap;
+}
+
+.search-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-bar-label {
+  font-size: 14px;
+  color: var(--admin-text-secondary);
+  white-space: nowrap;
+}
+
+.table-card {
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.form-card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  border-radius: 8px;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+}
+
+.form-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.detail-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  border-radius: 8px;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.detail-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chart-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-container {
+    padding: 12px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+}

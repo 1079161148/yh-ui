@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 /* 尺寸变量映射 - 统一对接 YH-UI 全局主题变量 */
 $date-picker-sizes: (
@@ -45,9 +46,11 @@ $date-picker-sizes: (
     sans-serif
   );
   box-sizing: border-box;
+  max-width: 100%;
 
   @include is(range) {
-    width: var(--yh-date-picker-range-width, 400px);
+    width: var(--yh-date-picker-range-width, 100%);
+    max-width: 100%;
   }
 
   @include is(disabled) {
@@ -55,11 +58,19 @@ $date-picker-sizes: (
     cursor: not-allowed;
   }
 
+  @include is(panel-only) {
+    width: auto;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   @include e(wrapper) {
     position: relative;
     display: inline-flex;
     align-items: center;
     width: 100%;
+    max-width: 100%;
     padding: 0 12px;
     background: var(--yh-bg-color);
     border: 1px solid var(--yh-date-picker-border);
@@ -112,7 +123,8 @@ $date-picker-sizes: (
     align-items: center;
     flex: 1;
     height: 100%;
-    padding-right: 30px; /* 范围模式同样留出后缀空间 */
+    padding-right: 24px; /* 范围模式同样留出后缀空间，精简以减少偏心感 */
+    min-width: 0;
   }
 
   @include e(range-input) {
@@ -126,6 +138,14 @@ $date-picker-sizes: (
     padding: 0 !important;
     box-shadow: none !important;
     height: 100%;
+    min-width: 0;
+  }
+
+  @include e(range-separator) {
+    padding: 0 8px;
+    font-size: 13px;
+    color: var(--yh-date-picker-text-secondary);
+    flex-shrink: 0;
   }
 
   @include e(suffix) {
@@ -178,7 +198,7 @@ $date-picker-sizes: (
     border: 1px solid var(--yh-border-color-extra-light);
     margin-top: 12px;
     z-index: var(--yh-z-index-popper);
-    width: var(--yh-date-picker-panel-width) !important;
+    width: min(var(--yh-date-picker-panel-width), calc(100vw - 16px)) !important;
     box-sizing: border-box !important;
     display: inline-block;
     overflow: hidden;

@@ -53,28 +53,40 @@ const tsFull = `<template>
 const jsFull = tsFull
 
 const tsNuxt = `<template>
-  <yh-container style="height: 100vh;">
-    <yh-header height="64px">
-      <div style="display: flex; align-items: center; height: 100%;">
-        <yh-typography-title :level="4" style="margin: 0; flex: 1;">My App</yh-typography-title>
-        <yh-button text @click="toggleAside">
-          {{ collapsed ? 'Expand Sidebar' : 'Collapse Sidebar' }}
-        </yh-button>
-      </div>
+  <yh-container style="height: 100vh; border: 1px solid var(--yh-border-color, #dcdfe6); border-radius: 4px; overflow: hidden;">
+    <yh-header
+      height="64px"
+      style="background: #b3c0d1; color: #333; padding: 0 20px; display: flex; align-items: center;"
+    >
+      <yh-typography-title :level="4" style="margin: 0; flex: 1; color: #333;">
+        My App
+      </yh-typography-title>
+      <yh-button text @click="toggleAside">
+        {{ collapsed ? 'Expand Sidebar' : 'Collapse Sidebar' }}
+      </yh-button>
     </yh-header>
     <yh-container>
-      <yh-aside v-if="!collapsed" width="220px">
-        <nav style="padding: 16px;">
-          <p v-for="item in navItems" :key="item.path">
+      <yh-aside
+        v-if="!collapsed"
+        width="220px"
+        style="background: #d3dce6; color: #333; padding: 16px 0;"
+      >
+        <nav>
+          <p v-for="item in navItems" :key="item.path" style="margin: 0; padding: 10px 20px;">
             <NuxtLink :to="item.path">{{ item.label }}</NuxtLink>
           </p>
         </nav>
       </yh-aside>
-      <yh-main>
+      <yh-main
+        style="min-height: 200px; padding: 40px; display: flex; align-items: center; justify-content: center; background: #e9eef3; color: #333;"
+      >
         <NuxtPage />
       </yh-main>
     </yh-container>
-    <yh-footer height="48px">
+    <yh-footer
+      height="48px"
+      style="background: #b3c0d1; color: #333;"
+    >
       <p style="margin: 0; text-align: center; line-height: 48px;">&copy; 2024 YH-UI</p>
     </yh-footer>
   </yh-container>

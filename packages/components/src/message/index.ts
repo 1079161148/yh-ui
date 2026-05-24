@@ -1,6 +1,14 @@
-import Message from './src/method'
+import type { App } from 'vue'
+import { withInstallFunction } from '@yh-ui/utils'
+import Message, { setMessageDefaultAppContext } from './src/method'
 
-export const YhMessage = Message
+export const YhMessage = withInstallFunction(Message, '$message')
+
+YhMessage.install = (app: App) => {
+  setMessageDefaultAppContext(app._context)
+  app.config.globalProperties.$message = YhMessage
+}
+
 export default YhMessage
 
 export * from './src/message'

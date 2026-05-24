@@ -291,6 +291,21 @@ function appendDocSharedStyles(code: string, context?: SandboxContext): string {
   return output
 }
 
+function extractPlainCssStyleContents(code: string): string[] {
+  return [...code.matchAll(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi)]
+    .map((match) => {
+      const attrs = match[1] ?? ''
+      const content = (match[2] ?? '').trim()
+      if (!content) return null
+      if (/\blang\s*=\s*['"](?:scss|sass|less|stylus|styl)['"]/i.test(attrs)) {
+        return null
+      }
+
+      return content.replace(/:deep\(([^)]+)\)/g, '$1').trim()
+    })
+    .filter((content): content is string => Boolean(content))
+}
+
 function extractBareImports(code: string): string[] {
   const imports = new Set<string>()
   for (const match of code.matchAll(IMPORT_RE)) {
@@ -690,6 +705,39 @@ function rewriteFlowSandboxImports(code: string): string {
   return code
 }
 
+function injectScriptSetupStatements(code: string, statements: string[]): string {
+  if (!statements.length) return code
+
+  const block = `${statements.join('\n')}\n`
+  const scriptSetupRe = /<script\b[^>]*\bsetup\b[^>]*>/i
+
+  if (scriptSetupRe.test(code)) {
+    return code.replace(scriptSetupRe, (match) => `${match}\n${block}`)
+  }
+
+  if (/<template\b/i.test(code)) {
+    return `${code}\n\n<script setup>\n${block}</script>\n`
+  }
+
+  return `<script setup>\n${block}</script>\n\n${code}`
+}
+
+function applyNuxtSandboxFallbacks(code: string): string {
+  const usesNavigateTo = /\bnavigateTo\s*\(/.test(code)
+  const hasNavigateToBinding =
+    /\b(?:const|let|var|function)\s+navigateTo\b/.test(code) ||
+    /\bimport\s+(?:type\s+)?(?:\{[^}]*\bnavigateTo\b[^}]*\}|navigateTo)\b/.test(code)
+
+  if (!usesNavigateTo || hasNavigateToBinding || !/<script\b[^>]*\bsetup\b[^>]*>/i.test(code)) {
+    return code
+  }
+
+  return injectScriptSetupStatements(ensureVueImports(code, ['getCurrentInstance']), [
+    'const navigateTo = (...args) =>',
+    '  getCurrentInstance()?.appContext.config.globalProperties.navigateTo?.(...args)'
+  ])
+}
+
 function stripPlaygroundOnlyImports(code: string): string {
   return code.replace(/^\s*import\s+['"]@yh-ui\/yh-ui\/css['"]\s*;?\s*\n/gm, '')
 }
@@ -824,6 +872,7 @@ function prepareSandboxCode(code: string, context?: SandboxContext): string {
   preparedCode = inlineCustomEdgeComponent(preparedCode)
   preparedCode = inlineCustomNodeComponents(preparedCode)
   preparedCode = rewriteFlowSandboxImports(preparedCode)
+  preparedCode = applyNuxtSandboxFallbacks(preparedCode)
   preparedCode = appendDocSharedStyles(preparedCode, context)
   return preparedCode
 }
@@ -989,7 +1038,7 @@ function usesMermaidSandboxRuntime(code: string, context?: SandboxContext): bool
 
 function buildDependencies(code: string, context?: SandboxContext): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
-  const dependencies = { ...BASE_DEPENDENCIES }
+  const dependencies: Record<string, string> = { ...BASE_DEPENDENCIES }
 
   for (const source of extractBareImports(preparedCode)) {
     const pkg = getPackageName(source)
@@ -1022,7 +1071,7 @@ function buildDependencies(code: string, context?: SandboxContext): Record<strin
 
 function buildSandboxDependencies(code: string, context?: SandboxContext): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
-  const dependencies = {
+  const dependencies: Record<string, string> = {
     ...buildDependencies(preparedCode, context),
     '@yh-ui/yh-ui': YH_UI_VERSION
   }
@@ -1054,7 +1103,7 @@ function buildCodeSandboxDependencies(
   context?: SandboxContext
 ): Record<string, string> {
   const preparedCode = prepareSandboxCode(code, context)
-  const dependencies = {
+  const dependencies: Record<string, string> = {
     ...buildDependencies(preparedCode, context)
   }
 
@@ -1125,8 +1174,51 @@ export function createPlaygroundProject(
       `<link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-ui-bundle.css')}" crossorigin="anonymous">`,
       `<link rel="stylesheet" href="${resolveSiteAssetUrl(base, 'playground/yh-flow-runtime.css')}" crossorigin="anonymous">`
     ].join(''),
-    importCode: `import YhUI from '${resolveSiteAssetUrl(base, 'playground/yh-ui-runtime.js')}'`,
-    useCode: `app.use(YhUI)`
+    importCode: [
+      `import YhUI from '${resolveSiteAssetUrl(base, 'playground/yh-ui-runtime.js')}'`,
+      `import { h } from 'vue'`
+    ].join('\n'),
+    useCode: [
+      `app.use(YhUI)`,
+      `app.config.globalProperties.navigateTo = (to) => {`,
+      `  const target = typeof to === 'string' ? to : to?.path ?? to?.fullPath ?? to?.href ?? '/'`,
+      `  if (typeof window !== 'undefined' && typeof target === 'string') {`,
+      `    window.history.pushState({}, '', target)`,
+      `    window.dispatchEvent(new PopStateEvent('popstate'))`,
+      `  }`,
+      `  return Promise.resolve(target)`,
+      `}`,
+      `app.component('NuxtLink', {`,
+      `  props: ['to'],`,
+      `  setup(props, { attrs, slots }) {`,
+      `    return () => h('a', {`,
+      `      ...attrs,`,
+      `      href: typeof props.to === 'string' ? props.to : props.to?.path ?? props.to?.fullPath ?? props.to?.href ?? '#',`,
+      `      style: ['text-decoration: none; color: inherit;', attrs.style],`,
+      `    }, slots.default?.())`,
+      `  }`,
+      `})`,
+      `app.component('NuxtLayout', {`,
+      `  props: ['name'],`,
+      `  setup(props, { attrs, slots }) {`,
+      `    return () => h('div', {`,
+      `      ...attrs,`,
+      `      'data-nuxt-layout': props.name ?? 'default'`,
+      `    }, slots.default?.())`,
+      `  }`,
+      `})`,
+      `app.component('NuxtPage', {`,
+      `  setup(props, { attrs, slots }) {`,
+      `    return () => h('div', {`,
+      `      ...attrs,`,
+      `      style: [`,
+      `        'display:flex;align-items:center;justify-content:center;min-height:200px;padding:40px;color:var(--yh-text-color-secondary, #909399);text-align:center;',`,
+      `        attrs.style`,
+      `      ]`,
+      `    }, slots.default?.() ?? 'Current Route Content (NuxtPage)')`,
+      `  }`,
+      `})`
+    ].join('\n')
   }
 }
 export function encodePlaygroundPayload(
@@ -1518,6 +1610,8 @@ export async function createCodeSandboxProjectFiles(
     await collectRuntimeFile(styleFile)
   }
 
+  const demoStyleContents = extractPlainCssStyleContents(normalizedCode)
+
   const styleCss = [
     'html, body, #app {',
     '  margin: 0;',
@@ -1532,7 +1626,8 @@ export async function createCodeSandboxProjectFiles(
     '  color: #1f2329;',
     '}',
     '',
-    [...collectedStyleContents.values()].filter(Boolean).join('\n')
+    [...collectedStyleContents.values()].filter(Boolean).join('\n'),
+    demoStyleContents.join('\n\n')
   ]
     .filter(Boolean)
     .join('\n')
@@ -1952,23 +2047,29 @@ export function createCodeSandboxDefineFiles(
     )
     .sort()
   const componentImports = componentEntryFiles
-    .map((filePath, index) => `import Component${index + 1} from '/${filePath}'`)
+    .map((filePath, index) => `import * as ComponentModule${index + 1} from '/${filePath}'`)
     .join('\n')
   const componentRegistrations = componentEntryFiles
     .map((filePath, index) => {
       const match = filePath.match(/src\/vendor\/components\/([^/]+)\/index\.js$/)
       const componentName = match?.[1] || `component-${index + 1}`
-      return `if (Component${index + 1} && typeof Component${index + 1}.install === 'function') { app.use(Component${index + 1}) } else { app.component('Yh${kebabToPascalCase(componentName)}', Component${index + 1}) }`
+      return `registerSandboxComponentModule(app, ComponentModule${index + 1}, 'Yh${kebabToPascalCase(componentName)}')`
     })
     .join('\n')
   const demoImports = extractBareImports(files['src/Demo.vue'] || '')
-  const needsHostedYhUiStyles = demoImports.some(
-    (source) =>
-      source === '@yh-ui/yh-ui' ||
-      source.startsWith('@yh-ui/yh-ui/') ||
-      source === '@yh-ui/components' ||
-      source.startsWith('@yh-ui/components/')
-  )
+  const hasYhUiRuntimeAssets =
+    componentEntryFiles.length > 0 ||
+    usesFlowRuntime ||
+    Object.keys(files).some((filePath) => filePath.startsWith('src/vendor/theme/styles/'))
+  const needsHostedYhUiStyles =
+    hasYhUiRuntimeAssets ||
+    demoImports.some(
+      (source) =>
+        source === '@yh-ui/yh-ui' ||
+        source.startsWith('@yh-ui/yh-ui/') ||
+        source === '@yh-ui/components' ||
+        source.startsWith('@yh-ui/components/')
+    )
   const inlineStyles = createCodeSandboxInlineStyles(files)
 
   const browserMainJs = [
@@ -1993,6 +2094,27 @@ export function createCodeSandboxDefineFiles(
     'const sandboxImportPrefixes = Object.entries(sandboxImports)',
     "  .filter(([key]) => key.endsWith('/'))",
     '  .sort((left, right) => right[0].length - left[0].length)',
+    '',
+    'function registerSandboxComponentModule(app, componentModule, fallbackName) {',
+    '  const component = componentModule?.default ?? componentModule',
+    "  if (component && typeof component.install === 'function') {",
+    '    app.use(component)',
+    "  } else if (component && (typeof component === 'object' || typeof component === 'function')) {",
+    '    app.component(fallbackName, component)',
+    '  }',
+    '  for (const [exportName, exported] of Object.entries(componentModule ?? {})) {',
+    "    if (exportName === 'default' || !/^Yh[A-Z]/.test(exportName)) {",
+    '      continue',
+    '    }',
+    "    if (!exported || (typeof exported !== 'object' && typeof exported !== 'function')) {",
+    '      continue',
+    '    }',
+    '    const registeredName = exported.name || exported.__name || exportName',
+    '    if (registeredName) {',
+    '      app.component(registeredName, exported)',
+    '    }',
+    '  }',
+    '}',
     '',
     'function resolveSandboxVirtualPath(refPath, requestPath) {',
     "  const basePath = typeof refPath === 'string' && refPath.startsWith('/') ? refPath : '/src/Demo.vue'",

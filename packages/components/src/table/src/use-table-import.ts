@@ -4,7 +4,6 @@
  */
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
-import * as XLSX from 'xlsx'
 import { useLocale } from '@yh-ui/hooks'
 
 export type ImportType = 'csv' | 'json' | 'txt' | 'xml' | 'html' | 'xlsx'
@@ -264,9 +263,22 @@ export function useTableImport(data: Ref<Record<string, unknown>[]>, columns: Re
 
   // ================== XLSX 解析 ==================
 
-  function parseXLSX(buffer: ArrayBuffer, config: ImportConfig = {}): Record<string, unknown>[] {
+  async function parseXLSX(
+    buffer: ArrayBuffer,
+    config: ImportConfig = {}
+  ): Promise<Record<string, unknown>[]> {
     try {
       const labelMap = buildLabelMap()
+      let XLSX
+      try {
+        XLSX = await import('xlsx')
+      } catch (err) {
+        console.error(
+          '[YhTable Import] 无法加载 xlsx。如果需要使用表格 Excel 导入功能，请在您的项目中安装 "xlsx" 依赖。',
+          err
+        )
+        throw new Error('未安装 xlsx 依赖。请安装 "xlsx" 以使用导入功能。')
+      }
 
       // 读取工作簿
       const wb = XLSX.read(buffer, { type: 'array' })
@@ -367,7 +379,7 @@ export function useTableImport(data: Ref<Record<string, unknown>[]>, columns: Re
         // XLSX 需要二进制读取
         if (type === 'xlsx') {
           const buffer = ev.target?.result as ArrayBuffer
-          rows = parseXLSX(buffer, config)
+          rows = await parseXLSX(buffer, config)
         } else {
           const text = ev.target?.result as string
           rows = parseContent(text, type, config)

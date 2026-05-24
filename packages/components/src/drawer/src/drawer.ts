@@ -60,7 +60,7 @@ export const drawerProps = {
   /** 挂载节点 */
   teleportTo: {
     type: [String, Object] as PropType<string | HTMLElement>,
-    default: 'body'
+    default: ''
   },
   /** 是否显示 header */
   showHeader: {

@@ -19,6 +19,7 @@ describe('YhInputTag', () => {
     expect(wrapper.get('.yh-input-tag').classes()).toContain('yh-input-tag')
     const tags = wrapper.findAll('.yh-input-tag__tag')
     expect(tags.length).toBe(2)
+    expect(tags[0].classes()).toContain('is-primary')
     expect(tags[0].text()).toContain('Tag1')
     expect(tags[1].text()).toContain('Tag2')
   })

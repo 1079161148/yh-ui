@@ -12,7 +12,8 @@ export default defineBuildConfig({
       outDir: './dist',
       format: 'esm',
       ext: 'mjs',
-      declaration: true
+      declaration: true,
+      pattern: ['**', '!**/__tests__/**', '!**/*.test.ts']
     },
     {
       builder: 'mkdist',
@@ -20,7 +21,8 @@ export default defineBuildConfig({
       outDir: './dist',
       format: 'cjs',
       ext: 'cjs',
-      declaration: false
+      declaration: false,
+      pattern: ['**', '!**/__tests__/**', '!**/*.test.ts']
     }
   ],
   declaration: true,

@@ -30,6 +30,10 @@ yarn add @yh-ui/yh-ui
 
 :::
 
+::: tip Optional Heavy Dependency Notice
+`monaco-editor`, `xlsx`, `viewerjs`, and `markdown-it` are now published as optional `peerDependencies`. Installing only `@yh-ui/yh-ui` no longer forces consumers to download these heavyweight runtimes up front; host projects add them only when they actually use code editing, Excel import/export, advanced image preview, or Markdown rendering features. See [Package Size Layering](/en/guide/package-size) for the full policy.
+:::
+
 ## Browser Usage
 
 The current documentation is maintained around npm or pnpm installation in bundler-based projects. For browser projects, prefer integrating YH-UI through your build tool so that the package exports, styles, and types stay aligned with the published entries.
@@ -85,4 +89,7 @@ If you are using TypeScript, no extra `types` entry is required for the publishe
 ```ts
 import type { ButtonProps } from '@yh-ui/yh-ui'
 ```
+
+```
+
 ```

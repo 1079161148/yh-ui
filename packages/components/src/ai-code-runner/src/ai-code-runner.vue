@@ -142,7 +142,6 @@ const reset = async () => {
 }
 
 onMounted(() => {
-  initWebContainer()
   if (props.autorun && props.code) {
     runCode()
   }

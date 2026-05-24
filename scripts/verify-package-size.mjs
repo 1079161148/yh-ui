@@ -30,7 +30,12 @@ const heavyRuntimePatterns = [
   /cytoscape/i
 ]
 
-const allowedHeavyRuntimeFiles = [/packages\/components\/dist\/ai-mermaid\//]
+const allowedHeavyRuntimeFiles = [
+  /packages\/components\/dist\/ai-mermaid\//,
+  /packages\/components\/dist\/table\/src\/use-table-(export|import)/,
+  /packages\/components\/dist\/index\.(cjs|mjs)/,
+  /packages\/ai-sdk\/dist\/langchain\.(cjs|mjs)/
+]
 
 function getImportSpecifiers(contents) {
   const specifiers = []

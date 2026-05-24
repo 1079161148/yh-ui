@@ -1,4 +1,5 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 $form-prefix: 'yh-form';
 $form-item-prefix: 'yh-form-item';
@@ -101,6 +102,11 @@ $form-item-prefix: 'yh-form-item';
       height: auto;
       line-height: 1.5;
     }
+
+    &__content {
+      width: 100%;
+      align-self: stretch;
+    }
   }
 
   &__label {
@@ -131,7 +137,8 @@ $form-item-prefix: 'yh-form-item';
     // 确保输入框继承正确高度
     > .yh-input,
     > .yh-select,
-    > .yh-input-number {
+    > .yh-input-number,
+    > .yh-date-picker {
       width: 100%;
     }
   }

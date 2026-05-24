@@ -1,5 +1,5 @@
 import { defineComponent, h } from 'vue'
-import type { PropType } from 'vue'
+import type { PropType, DefineComponent } from 'vue'
 import { YhIcon } from './vue/icon'
 import type { IconColor, IconRotate, IconSize } from './types'
 
@@ -22,13 +22,24 @@ export const iconComponentProps = {
   }
 } as const
 
+export type IconComponent = DefineComponent<
+  typeof iconComponentProps,
+  () => any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any
+>
+
 export interface IconComponentMeta {
   name: string
   icon: string
   category: string
 }
 
-export function createIconComponent(componentName: string, icon: string) {
+export function createIconComponent(componentName: string, icon: string): IconComponent {
   return defineComponent({
     name: componentName,
     inheritAttrs: false,
@@ -44,7 +55,7 @@ export function createIconComponent(componentName: string, icon: string) {
           rotate: props.rotate
         })
     }
-  })
+  }) as unknown as IconComponent
 }
 
 export const iconComponentMeta = [

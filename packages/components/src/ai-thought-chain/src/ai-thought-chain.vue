@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import type { AiThoughtStatus, AiThoughtItem } from './ai-thought-chain'
 import { YhIcon } from '../../icon'
-import MarkdownIt from '../../markdown-it'
+import type MarkdownIt from 'markdown-it'
+import { loadMarkdown } from '../../markdown-it'
 import { sanitizeMarkup } from '../../sanitize'
 
 import { aiThoughtChainProps, aiThoughtChainEmits } from './ai-thought-chain'
@@ -22,11 +23,38 @@ const { themeStyle } = useComponentTheme('ai-thought-chain', props.themeOverride
 const isExpanded = ref(false)
 
 // Markdown instance for rendering node content
-const md = new MarkdownIt({
-  html: false,
-  linkify: true,
-  typographer: true
+const md = ref<MarkdownIt | null>(null)
+const isMdLoading = ref(false)
+
+const loadMarkdownIt = async () => {
+  if (md.value || isMdLoading.value) return
+  isMdLoading.value = true
+  try {
+    const MarkdownItClass = await loadMarkdown()
+    md.value = new MarkdownItClass({
+      html: false,
+      linkify: true,
+      typographer: true
+    })
+  } catch (err) {
+    console.error('[YhAiThoughtChain] 无法加载 markdown-it。', err)
+  } finally {
+    isMdLoading.value = false
+  }
+}
+
+onMounted(() => {
+  if (props.markdown) {
+    loadMarkdownIt()
+  }
 })
+
+watch(
+  () => props.markdown,
+  (val) => {
+    if (val) loadMarkdownIt()
+  }
+)
 
 // 跟踪每个节点的展开状态
 const itemExpandedStates = ref<boolean[]>([])
@@ -92,7 +120,8 @@ const displayTitle = computed(() => {
 // 渲染 Markdown 内容
 const renderMarkdown = (content: string): string => {
   if (!props.markdown || !content) return content
-  return sanitizeMarkup(md.render(content))
+  if (!md.value) return sanitizeMarkup(content)
+  return sanitizeMarkup(md.value.render(content))
 }
 
 // 状态图标映射

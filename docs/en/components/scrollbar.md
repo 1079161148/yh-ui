@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
 
 // --- Render Data ---
-const scrollCount = ref(3)
+const scrollCount = ref(8)
 const addScrollItem = () => scrollCount.value++
 const removeScrollItem = () => {
   if (scrollCount.value > 0) scrollCount.value--
@@ -90,7 +90,7 @@ const tsMaxHeight = `<${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue'
-const count = ref(3)
+const count = ref(8)
 const add = () => count.value++
 const remove = () => {
   if (count.value > 0) count.value--
@@ -147,7 +147,7 @@ When the content width exceeds the container width, a horizontal scrollbar will 
 
 ## Max Height
 
-Use `max-height` attribute to limit the maximum height.
+Use `max-height` attribute to limit the maximum height. The example starts with more items so the scrolling and appended-content behavior is immediately visible.
 
 <DemoBlock title="Max Height" :ts-code="tsMaxHeight" :js-code="jsMaxHeight">
   <div style="border: 1px solid var(--yh-border-color-lighter); border-radius: 4px; padding: 20px;">
@@ -208,9 +208,9 @@ The Scrollbar component fully supports Nuxt 3/4 SSR rendering. When used in a Nu
 
 ### Slots
 
-| Slot | Description | Slot Props |
-| --- | --- | --- |
-| `default` | Scrollable content. | None |
+| Slot      | Description         | Slot Props |
+| --------- | ------------------- | ---------- |
+| `default` | Scrollable content. | None       |
 
 ### Methods
 
@@ -223,13 +223,13 @@ The Scrollbar component fully supports Nuxt 3/4 SSR rendering. When used in a Nu
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `wrap` | Reference to the actual scroll container element. | `HTMLDivElement \| undefined` |
-| `update` | Manually refresh scrollbar state. | `() => void` |
-| `scrollTo` | Scroll to a specific position. | `(arg1: ScrollbarScrollToArg, arg2?: number) => void` |
-| `setScrollTop` | Set the vertical scroll offset. | `(value: number) => void` |
-| `setScrollLeft` | Set the horizontal scroll offset. | `(value: number) => void` |
+| Name            | Description                                       | Type                                                  |
+| --------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| `wrap`          | Reference to the actual scroll container element. | `HTMLDivElement \| undefined`                         |
+| `update`        | Manually refresh scrollbar state.                 | `() => void`                                          |
+| `scrollTo`      | Scroll to a specific position.                    | `(arg1: ScrollbarScrollToArg, arg2?: number) => void` |
+| `setScrollTop`  | Set the vertical scroll offset.                   | `(value: number) => void`                             |
+| `setScrollLeft` | Set the horizontal scroll offset.                 | `(value: number) => void`                             |
 
 ## Theme Variables
 
@@ -245,12 +245,12 @@ Scrollbar component supports customizing local styles by overriding the followin
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhScrollbarProps` | Component props type |
-| `YhScrollbarEmits` | Component emits type |
-| `YhScrollbarSlots` | Component slots type |
-| `YhScrollbarExpose` | Component expose type |
+| Name                       | Description               |
+| -------------------------- | ------------------------- |
+| `YhScrollbarProps`         | Component props type      |
+| `YhScrollbarEmits`         | Component emits type      |
+| `YhScrollbarSlots`         | Component slots type      |
+| `YhScrollbarExpose`        | Component expose type     |
 | `YhScrollbarScrollPayload` | Scroll event payload type |
-| `YhScrollbarScrollToArg` | `scrollTo` argument type |
-| `YhScrollbarInstance` | Component instance type |
+| `YhScrollbarScrollToArg`   | `scrollTo` argument type  |
+| `YhScrollbarInstance`      | Component instance type   |

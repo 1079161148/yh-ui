@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/flow",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "YH-UI High-performance Flow Chart Component",
   "type": "module",
   "sideEffects": false,
@@ -24,7 +24,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "unbuild && rimraf dist/__tests__",
     "dev": "unbuild --stub",
     "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
     "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",

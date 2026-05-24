@@ -4,7 +4,7 @@ YH-UI Skills 是为 AI 编程工具准备的项目知识包。它把组件导出
 
 ## 快速安装
 
-推荐通过 npm 包安装技能库，然后用交互式命令注入到当前 IDE 或 Agent 工作区。
+推荐通过 npm 包安装技能库，然后用 CLI 安装到当前项目或 AI 工具目录。
 
 ::: code-group
 
@@ -12,35 +12,50 @@ YH-UI Skills 是为 AI 编程工具准备的项目知识包。它把组件导出
 # 全局安装技能库
 npm i -g @yh-ui/yh-ui-skill
 
-# 智能注入到当前 IDE
-npx yh-ui-skill
+# 安装到当前项目
+yh-ui-skill install
+
+# 或安装到 Cursor
+yh-ui-skill install --target cursor
 ```
 
 ```bash [pnpm]
-# 全局安装技能库
-pnpm add -g @yh-ui/yh-ui-skill
-
-# 智能注入到当前 IDE
-pnpm dlx yh-ui-skill
+# 免全局安装，直接执行一次
+pnpm dlx @yh-ui/yh-ui-skill install --target cursor
 ```
 
 ```bash [yarn]
-# 全局安装技能库
-yarn global add @yh-ui/yh-ui-skill
-
-# 智能注入到当前 IDE
-yarn dlx yh-ui-skill
+# 免全局安装，直接执行一次
+yarn dlx @yh-ui/yh-ui-skill install --target claude
 ```
 
 :::
 
-交互式安装会把 YH-UI Skills 写入当前项目或当前 AI 工具约定的 skills 目录，并提示你选择目标环境，例如 Cursor、Claude、Codex、本地 Agent 或通用 Markdown 上下文。
+安装命令会把 YH-UI Skills 写入目标目录下的 `skills/yh-ui`，并同时复制 `llms.txt`、`llms-full.txt` 与安装清单文件。
+
+默认目标目录：
+
+```txt
+project  -> .yh-ui/
+cursor   -> .cursor/
+claude   -> .claude/
+codex    -> .codex/
+markdown -> yh-ui-skill/
+```
+
+常用命令：
+
+```bash
+yh-ui-skill install
+yh-ui-skill install --target cursor
+yh-ui-skill install --target codex --force
+yh-ui-skill install --out-dir ./.custom-skill
+yh-ui-skill doctor --target claude
+```
 
 ::: tip 当前仓库开发态
 如果你是在 YH-UI 仓库内开发 skill，不需要先安装 npm 包，直接使用仓库里的 `skills/yh-ui/`、`llms.txt` 和 `llms-full.txt` 即可。
 :::
-
-## 本地仓库使用
 
 ## 适用场景
 

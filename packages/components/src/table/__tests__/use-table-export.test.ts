@@ -96,10 +96,10 @@ describe('useTableExport hook', () => {
     expect(html.includes('<td>Alice</td>')).toBe(true)
   })
 
-  it('toXLSX should convert properly', () => {
+  it('toXLSX should convert properly', async () => {
     const { toXLSX } = useTableExport(mockData, mockColumns)
     // Testing column calculation and formats
-    const buffer = toXLSX({
+    const buffer = await toXLSX({
       showIndex: true,
       sheetName: 'TestSheet',
       columnWidths: { name: 20 },

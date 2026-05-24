@@ -436,7 +436,7 @@ defineExpose<CalendarExpose>({
                 { [ns.em('weekday', 'weekend')]: highlightWeekends && (idx === 0 || idx === 6) }
               ]"
             >
-              {{ day }}
+              <span>{{ day }}</span>
             </th>
           </tr>
         </thead>

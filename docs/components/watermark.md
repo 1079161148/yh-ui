@@ -53,18 +53,18 @@ const fontConfig = computed(() => ({
 // 预览区 HTML
 const labPreviewHtml = `
             <div style="padding: 40px;">
-              <h3 style="margin: 0 0 20px; font-size: 20px; color: #1f1f1f;">打造极速、现代、旗舰级的 Vue 3 组件库</h3>
+              <h3 style="margin: 0 0 20px; font-size: 20px; color: var(--yh-text-color-primary);">打造极速、现代、旗舰级的 Vue 3 组件库</h3>
               <div style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 24px;">
-                <div style="width: 140px; min-width: 140px; background: #fff; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; z-index: 5; text-align: center;">
+                <div style="width: 140px; min-width: 140px; background: var(--yh-bg-color-overlay); padding: 12px; border-radius: 12px; border: 1px solid var(--yh-border-color-light); box-shadow: var(--yh-shadow-sm); position: relative; z-index: 5; text-align: center;">
                   <div style="position: absolute; top: -8px; right: -8px; background: #409eff; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; z-index: 6;">z-index: 5</div>
                   <img src="https://avatars.githubusercontent.com/u/1079161148?v=4" style="width: 100%; border-radius: 8px; margin-bottom: 8px;" />
-                  <p style="margin: 0; font-size: 12px; color: #666; font-weight: bold;">核心资产保护</p>
+                  <p style="margin: 0; font-size: 12px; color: var(--yh-text-color-regular); font-weight: bold;">核心资产保护</p>
                 </div>
-                <div style="flex: 1; color: #606266; font-size: 14px; line-height: 1.6;">
+                <div style="flex: 1; color: var(--yh-text-color-regular); font-size: 14px; line-height: 1.6;">
                   <p>在这里，您可以深度定制水印。当调节 z-index < 5 时，水印文字会隐于蓝色卡片下方，实现页面元素的差异化保护。</p>
                 </div>
               </div>
-              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" style="width: 100%; border-radius: 12px; border: 1px solid #eee;" />
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" style="width: 100%; border-radius: 12px; border: 1px solid var(--yh-border-color-light);" />
             </div>`
 
 const getFullLabCode = (isTs: boolean) => {
@@ -204,7 +204,7 @@ const show = ref(false)
 
 <DemoBlock :tsCode="tsBasicCode" :jsCode="tsBasicCode">
 <yh-watermark content="YH-UI">
-<div style="height: 300px; background: #f5f7fa; display: flex; align-items: center; justify-content: center; color: #909399;">基础部分内容展示</div>
+<div style="height: 300px; background: var(--yh-fill-color-light); display: flex; align-items: center; justify-content: center; color: var(--yh-text-color-secondary);">基础部分内容展示</div>
 </yh-watermark>
 </DemoBlock>
 
@@ -214,7 +214,7 @@ const show = ref(false)
 
 <DemoBlock :tsCode="tsFormCode" :jsCode="tsFormCode">
 <yh-watermark content="机密信息 请勿外传" :font="{ color: 'rgba(255, 0, 0, 0.15)' }">
-<div style="padding: 24px; border: 1px solid var(--yh-border-color-lighter, #ebeef5); border-radius: 8px; background: #fff;">
+<div style="padding: 24px; border: 1px solid var(--yh-border-color-lighter, #ebeef5); border-radius: 8px; background: var(--yh-bg-color-overlay);">
 <h4 style="margin: 0 0 16px; color: var(--yh-text-color-primary, #303133);">员工敏感数据预览</h4>
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; color: var(--yh-text-color-regular, #606266); font-size: 14px;">
 <div><strong>账户:</strong> user_admin_01</div>
@@ -283,13 +283,13 @@ const show = ref(false)
 
 <style scoped>
 .watermark-lab-wrapper { margin: -24px -24px 0 -24px; }
-.lab-main { display: flex; height: 680px; border: 1px solid var(--yh-border-color-light, #ebeef5); border-radius: 12px; overflow: hidden; }
+.lab-main { display: flex; height: 680px; border: 1px solid var(--yh-border-color-light, #ebeef5); border-radius: 12px; overflow: hidden; background: var(--yh-bg-color); }
 @media (max-width: 1200px) { .lab-main { flex-direction: column; height: auto; } }
-.lab-preview-pane { flex: 1; background: #fff; position: relative; border-right: 1px solid var(--yh-border-color-extra-light, #f2f6fc); overflow: hidden; }
+.lab-preview-pane { flex: 1; background: var(--yh-bg-color); position: relative; border-right: 1px solid var(--yh-border-color-extra-light, #f2f6fc); overflow: hidden; }
 .preview-scroll-area { height: 100%; overflow-y: auto; scrollbar-width: none; }
 .preview-scroll-area::-webkit-scrollbar { display: none; }
-.lab-control-pane { width: 400px; background: #fafafa; overflow: hidden; border-left: 1px solid #ebeef5; }
-@media (max-width: 1200px) { .lab-control-pane { width: 100%; border-top: 1px solid #f2f6fc; } }
+.lab-control-pane { width: 400px; background: var(--yh-fill-color-light); overflow: hidden; border-left: 1px solid var(--yh-border-color-light, #ebeef5); }
+@media (max-width: 1200px) { .lab-control-pane { width: 100%; border-top: 1px solid var(--yh-border-color-extra-light, #f2f6fc); } }
 .control-scroll-area { height: 100%; overflow-y: auto; padding: 30px; display: flex; flex-direction: column; gap: 24px; scrollbar-width: none; }
 .control-scroll-area::-webkit-scrollbar { display: none; }
 .control-section { display: flex; flex-direction: column; gap: 10px; }
@@ -316,21 +316,21 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 
 ### Props
 
-| 属性名       | 说明                                          | 类型                 | 默认值       |
-| ------------ | --------------------------------------------- | -------------------- | ------------ |
-| width        | 水印每个单元的宽度                            | `number`             | `120`        |
-| height       | 水印每个单元的高度                            | `number`             | `64`         |
-| rotate       | 单元格旋转角度                                | `number`             | `-22`        |
-| globalRotate | 整体旋转角度                                  | `number`             | `0`          |
-| zIndex       | 水印层级                                      | `number`             | `9`          |
-| image        | 图片源，设置后 content 将失效                 | `string`             | -            |
-| content      | 水印文字内容，支持多行                        | `string \| string[]` | `'YH-UI'`    |
-| font         | 字体样式设置对象                              | `YhWatermarkFont`    | 见下文       |
-| gap          | 水印之间的间距 [x, y]                         | `[number, number]`   | `[100, 100]` |
-| offset       | 已声明的偏移属性。当前实现未在水印层定位时消费该配置 | `[number, number]`   | `[0, 0]`     |
-| fullScreen   | 是否使用固定定位容器覆盖整个视口。当前实现不会 Teleport 到 `body` | `boolean`            | `false`      |
-| antiTamper   | 是否开启防篡改模式（监控 DOM 变更并强制恢复） | `boolean`            | `true`       |
-| themeOverrides | 组件级主题覆盖变量。当前仅在非全屏模式下会合并到容器内联样式 | `ComponentThemeVars` | `undefined` |
+| 属性名         | 说明                                                              | 类型                 | 默认值       |
+| -------------- | ----------------------------------------------------------------- | -------------------- | ------------ |
+| width          | 水印每个单元的宽度                                                | `number`             | `120`        |
+| height         | 水印每个单元的高度                                                | `number`             | `64`         |
+| rotate         | 单元格旋转角度                                                    | `number`             | `-22`        |
+| globalRotate   | 整体旋转角度                                                      | `number`             | `0`          |
+| zIndex         | 水印层级                                                          | `number`             | `9`          |
+| image          | 图片源，设置后 content 将失效                                     | `string`             | -            |
+| content        | 水印文字内容，支持多行                                            | `string \| string[]` | `'YH-UI'`    |
+| font           | 字体样式设置对象                                                  | `YhWatermarkFont`    | 见下文       |
+| gap            | 水印之间的间距 [x, y]                                             | `[number, number]`   | `[100, 100]` |
+| offset         | 已声明的偏移属性。当前实现未在水印层定位时消费该配置              | `[number, number]`   | `[0, 0]`     |
+| fullScreen     | 是否使用固定定位容器覆盖整个视口。当前实现不会 Teleport 到 `body` | `boolean`            | `false`      |
+| antiTamper     | 是否开启防篡改模式（监控 DOM 变更并强制恢复）                     | `boolean`            | `true`       |
+| themeOverrides | 组件级主题覆盖变量。当前仅在非全屏模式下会合并到容器内联样式      | `ComponentThemeVars` | `undefined`  |
 
 #### Font 对象说明
 
@@ -373,10 +373,10 @@ label { font-size: 11px; font-weight: 700; color: #a0a0a0; text-transform: upper
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhWatermarkProps` | 组件 Props 类型 |
-| `YhWatermarkFont` | 水印字体配置类型 |
-| `YhWatermarkSlots` | 组件插槽类型 |
-| `YhWatermarkExpose` | 组件 Expose 类型 |
-| `YhWatermarkInstance` | 组件实例类型 |
+| 名称                  | 说明             |
+| --------------------- | ---------------- |
+| `YhWatermarkProps`    | 组件 Props 类型  |
+| `YhWatermarkFont`     | 水印字体配置类型 |
+| `YhWatermarkSlots`    | 组件插槽类型     |
+| `YhWatermarkExpose`   | 组件 Expose 类型 |
+| `YhWatermarkInstance` | 组件实例类型     |

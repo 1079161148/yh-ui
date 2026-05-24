@@ -1,10 +1,12 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { nextTick } from 'vue'
+import { createApp, defineComponent, h, inject, nextTick } from 'vue'
 import { YhDialogMethod } from '../index'
+import { setDialogDefaultAppContext } from '../src/method'
 
 describe('Dialog Functional Call', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
+    setDialogDefaultAppContext(null)
     // 清理可能残留在 body 上的 teleport 内容
     const wrappers = document.querySelectorAll('.yh-dialog__wrapper')
     wrappers.forEach((el) => el.parentElement?.remove())
@@ -57,5 +59,78 @@ describe('Dialog Functional Call', () => {
 
     const res = await promise
     expect(res.action).toBe('cancel')
+  })
+
+  it('should inherit installed app context without manual appContext', async () => {
+    const host = document.createElement('div')
+    host.id = 'dialog-host'
+    document.body.appendChild(host)
+
+    const appRoot = document.createElement('div')
+    document.body.appendChild(appRoot)
+
+    const InjectedContent = defineComponent({
+      name: 'InjectedContent',
+      setup() {
+        const injectedValue = inject('dialog-token', 'missing')
+        return () => h('div', { class: 'dialog-injected-content' }, injectedValue)
+      }
+    })
+
+    const app = createApp(
+      defineComponent({
+        name: 'DialogProviderRoot',
+        setup: () => () => h('div')
+      })
+    )
+
+    app.provide('dialog-token', 'from-app-context')
+    app.use(YhDialogMethod)
+    app.mount(appRoot)
+
+    const promise = YhDialogMethod.show({
+      title: 'Inherited Context',
+      default: InjectedContent,
+      teleportTo: '#dialog-host'
+    })
+
+    await nextTick()
+    await nextTick()
+
+    const dialogHost = document.querySelector('#dialog-host')
+    expect(dialogHost?.querySelector('.yh-dialog')).toBeTruthy()
+    expect(dialogHost?.querySelector('.dialog-injected-content')?.textContent).toBe(
+      'from-app-context'
+    )
+
+    const confirmBtn = document.querySelector('.yh-button--primary') as HTMLElement
+    confirmBtn.click()
+
+    const res = await promise
+    expect(res.action).toBe('confirm')
+
+    app.unmount()
+  })
+
+  it('should teleport into config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    const promise = YhDialogMethod.show({
+      title: 'Config Provider Dialog',
+      content: 'dialog body'
+    })
+
+    await nextTick()
+    await nextTick()
+
+    expect(host.querySelector('.yh-dialog')).toBeTruthy()
+
+    const confirmBtn = host.querySelector('.yh-button--primary') as HTMLElement
+    confirmBtn.click()
+
+    const res = await promise
+    expect(res.action).toBe('confirm')
   })
 })

@@ -110,7 +110,7 @@ const showcaseTS = `<${_T}>
       </div>
     </div>
     <div class="demo-viewport">
-      <yh-date-picker :key="type + shape" v-model="value" :type="type" :cell-shape="shape" panel-only />
+      <yh-date-picker v-model="value" :type="type" :cell-shape="shape" panel-only />
     </div>
   </div>
 </${_T}>
@@ -344,11 +344,9 @@ const nuxtJS = toJs(nuxtTS)
         </yh-radio-group>
       </div>
     </div>
-
     <div class="demo-viewport">
-      <yh-date-picker :key="demoType + demoShape" v-model="demoValue" :type="demoType" :cell-shape="demoShape" panel-only />
+      <yh-date-picker v-model="demoValue" :type="demoType" :cell-shape="demoShape" panel-only />
     </div>
-
     <div class="demo-result">
       <span class="dot"></span>
       <span class="label">已选：</span>
@@ -470,63 +468,67 @@ const nuxtJS = toJs(nuxtTS)
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 绑定值 | `YhDatePickerValue \| YhDatePickerRangeValue` | `null` |
-| `type` | 选择模式 | `'date' \| 'datetime' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `readonly` | 是否只读，开启后不会打开面板 | `boolean` | `false` |
-| `clearable` | 有值时是否显示清除按钮 | `boolean` | `true` |
-| `size` | 组件尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| `placeholder` | 非范围模式占位文本，不传时使用语言包文案 | `string` | `undefined` |
-| `start-placeholder` | 范围开始占位文本，不传时使用语言包文案 | `string` | `undefined` |
-| `end-placeholder` | 范围结束占位文本，不传时使用语言包文案 | `string` | `undefined` |
-| `format` | 输入框显示格式 | `string` | `''` |
-| `value-format` | 绑定值输出格式 | `string` | `''` |
-| `date-format` | 面板日期格式 | `string` | `'YYYY-MM-DD'` |
-| `time-format` | 面板和底部时间显示格式 | `string` | `'HH:mm:ss'` |
-| `range-separator` | 范围输入框分隔符 | `string` | `'-'` |
-| `first-day-of-week` | 一周的第一天，取值 `1` 到 `7` | `number` | `7` |
-| `disabled-date` | 禁用日期函数 | `(date: Date) => boolean` | `undefined` |
-| `presets` | 面板中的快捷预设项 | `YhDatePickerPreset[]` | `[]` |
-| `preset-position` | 预设区域位置保留配置，当前实现仍固定渲染在面板下方 | `'left' \| 'right' \| 'top' \| 'bottom'` | `'bottom'` |
-| `show-footer` | 是否显示底部区域 | `boolean` | `true` |
-| `status` | 视觉状态 | `'success' \| 'warning' \| 'error'` | `undefined` |
-| `order-on-confirm` | 范围选择时结束值早于开始值时是否自动排序 | `boolean` | `false` |
-| `prefix-icon` | 自定义前缀图标组件或字符串 | `string \| Component` | `''` |
-| `clear-icon` | 自定义清除图标组件或字符串 | `string \| Component` | `''` |
-| `default-value` | 打开面板时的默认锚点日期 | `Date \| Date[]` | `undefined` |
-| `panel-only` | 是否只渲染面板，不显示输入框壳层 | `boolean` | `false` |
-| `default-time` | 日期时间模式下的默认时间值 | `Date \| Date[]` | `undefined` |
-| `popper-class` | 浮层面板附加类名 | `string` | `''` |
-| `teleported` | 是否将面板传送到 `body` | `boolean` | `true` |
-| `validate-event` | 值变化后是否触发表单校验 | `boolean` | `true` |
-| `name` | 原生表单字段名 | `string` | `''` |
-| `id` | 原生表单字段 id | `string` | `''` |
-| `cell-shape` | 日期单元格形状 | `'round' \| 'square'` | `'round'` |
-| `cell-render` | 自定义日期单元格文本渲染函数 | `(date: Date) => string \| { text: string; className?: string }` | `undefined` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                                               | 类型                                                                                                                                                  | 默认值         |
+| ------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `model-value` / `v-model` | 绑定值                                             | `YhDatePickerValue \| YhDatePickerRangeValue`                                                                                                         | `null`         |
+| `type`                    | 选择模式                                           | `'date' \| 'datetime' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'`       |
+| `disabled`                | 是否禁用                                           | `boolean`                                                                                                                                             | `false`        |
+| `readonly`                | 是否只读，开启后不会打开面板                       | `boolean`                                                                                                                                             | `false`        |
+| `clearable`               | 有值时是否显示清除按钮                             | `boolean`                                                                                                                                             | `true`         |
+| `size`                    | 组件尺寸                                           | `'large' \| 'default' \| 'small'`                                                                                                                     | `'default'`    |
+| `placeholder`             | 非范围模式占位文本，不传时使用语言包文案           | `string`                                                                                                                                              | `undefined`    |
+| `start-placeholder`       | 范围开始占位文本，不传时使用语言包文案             | `string`                                                                                                                                              | `undefined`    |
+| `end-placeholder`         | 范围结束占位文本，不传时使用语言包文案             | `string`                                                                                                                                              | `undefined`    |
+| `format`                  | 输入框显示格式                                     | `string`                                                                                                                                              | `''`           |
+| `value-format`            | 绑定值输出格式                                     | `string`                                                                                                                                              | `''`           |
+| `date-format`             | 面板日期格式                                       | `string`                                                                                                                                              | `'YYYY-MM-DD'` |
+| `time-format`             | 面板和底部时间显示格式                             | `string`                                                                                                                                              | `'HH:mm:ss'`   |
+| `range-separator`         | 范围输入框分隔符                                   | `string`                                                                                                                                              | `'-'`          |
+| `first-day-of-week`       | 一周的第一天，取值 `1` 到 `7`                      | `number`                                                                                                                                              | `7`            |
+| `disabled-date`           | 禁用日期函数                                       | `(date: Date) => boolean`                                                                                                                             | `undefined`    |
+| `presets`                 | 面板中的快捷预设项                                 | `YhDatePickerPreset[]`                                                                                                                                | `[]`           |
+| `preset-position`         | 预设区域位置保留配置，当前实现仍固定渲染在面板下方 | `'left' \| 'right' \| 'top' \| 'bottom'`                                                                                                              | `'bottom'`     |
+| `show-footer`             | 是否显示底部区域                                   | `boolean`                                                                                                                                             | `true`         |
+| `status`                  | 视觉状态                                           | `'success' \| 'warning' \| 'error'`                                                                                                                   | `undefined`    |
+| `order-on-confirm`        | 范围选择时结束值早于开始值时是否自动排序           | `boolean`                                                                                                                                             | `false`        |
+| `prefix-icon`             | 自定义前缀图标组件或字符串                         | `string \| Component`                                                                                                                                 | `''`           |
+| `clear-icon`              | 自定义清除图标组件或字符串                         | `string \| Component`                                                                                                                                 | `''`           |
+| `default-value`           | 打开面板时的默认锚点日期                           | `Date \| Date[]`                                                                                                                                      | `undefined`    |
+| `panel-only`              | 是否只渲染面板，不显示输入框壳层                   | `boolean`                                                                                                                                             | `false`        |
+| `default-time`            | 日期时间模式下的默认时间值                         | `Date \| Date[]`                                                                                                                                      | `undefined`    |
+| `popper-class`            | 浮层面板附加类名                                   | `string`                                                                                                                                              | `''`           |
+| `teleported`              | 是否将面板传送到 `body`                            | `boolean`                                                                                                                                             | `true`         |
+| `validate-event`          | 值变化后是否触发表单校验                           | `boolean`                                                                                                                                             | `true`         |
+| `name`                    | 原生表单字段名                                     | `string`                                                                                                                                              | `''`           |
+| `id`                      | 原生表单字段 id                                    | `string`                                                                                                                                              | `''`           |
+| `cell-shape`              | 日期单元格形状                                     | `'round' \| 'square'`                                                                                                                                 | `'round'`      |
+| `cell-render`             | 自定义日期单元格文本渲染函数                       | `(date: Date) => string \| { text: string; className?: string }`                                                                                      | `undefined`    |
+| `theme-overrides`         | 组件主题覆盖变量                                   | `ComponentThemeVars`                                                                                                                                  | `undefined`    |
 
 ### Events
 
 当前实现中，运行时实际会触发以下事件：
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
-| `update:modelValue` | 绑定值变化时触发 | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
-| `change` | 值更新后触发 | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
-| `clear` | 清除按钮重置值后触发 | `() => void` |
-| `confirm` | 点击确认按钮时触发 | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| 事件                | 说明                         | 参数                                                           |
+| ------------------- | ---------------------------- | -------------------------------------------------------------- |
+| `update:modelValue` | 绑定值变化时触发             | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| `change`            | 值更新后触发                 | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| `focus`             | 输入框获得焦点时触发         | `(event: FocusEvent) => void`                                  |
+| `blur`              | 输入框失去焦点时触发         | `(event: FocusEvent) => void`                                  |
+| `clear`             | 清除按钮重置值后触发         | `() => void`                                                   |
+| `confirm`           | 点击确认按钮时触发           | `(value: YhDatePickerValue \| YhDatePickerRangeValue) => void` |
+| `panel-change`      | 面板切换或内部日期改变时触发 | `(date: Date, mode: PanelView) => void`                        |
+| `visible-change`    | 面板显示/隐藏状态改变时触发  | `(visible: boolean) => void`                                   |
 
 ### Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
-| `prefix-icon` | 自定义前缀图标内容 | - |
-| `clear-icon` | 自定义清除图标内容 | - |
-| `extra` | 面板额外内容，渲染在预设和底部区域之前 | - |
-| `date-cell` | 自定义日期单元格内容 | `{ cell: CalendarCell }` |
-| `footer` | 自定义底部区域内容 | - |
+| 插槽          | 说明                                   | 参数                     |
+| ------------- | -------------------------------------- | ------------------------ |
+| `prefix-icon` | 自定义前缀图标内容                     | -                        |
+| `clear-icon`  | 自定义清除图标内容                     | -                        |
+| `extra`       | 面板额外内容，渲染在预设和底部区域之前 | -                        |
+| `date-cell`   | 自定义日期单元格内容                   | `{ cell: CalendarCell }` |
+| `footer`      | 自定义底部区域内容                     | -                        |
 
 ### Expose
 
@@ -534,38 +536,38 @@ const nuxtJS = toJs(nuxtTS)
 
 ### 类型导出
 
-| 类型 | 说明 |
-| --- | --- |
-| `YhDatePickerProps` | 组件 Props 类型 |
-| `YhDatePickerEmits` | 组件 Emits 类型声明 |
-| `YhDatePickerSlots` | 组件 Slots 类型声明 |
-| `YhDatePickerPreset` | 预设项类型 |
-| `YhDatePickerValue` | 单值类型 |
-| `YhDatePickerRangeValue` | 范围值类型 |
-| `YhDatePickerPanelView` | 面板视图类型 |
-| `YhDatePickerInstance` | 组件实例类型 |
+| 类型                     | 说明                |
+| ------------------------ | ------------------- |
+| `YhDatePickerProps`      | 组件 Props 类型     |
+| `YhDatePickerEmits`      | 组件 Emits 类型声明 |
+| `YhDatePickerSlots`      | 组件 Slots 类型声明 |
+| `YhDatePickerPreset`     | 预设项类型          |
+| `YhDatePickerValue`      | 单值类型            |
+| `YhDatePickerRangeValue` | 范围值类型          |
+| `YhDatePickerPanelView`  | 面板视图类型        |
+| `YhDatePickerInstance`   | 组件实例类型        |
 
 ### 主题变量
 
 `YhDatePicker` 在样式中实际消费以下组件级 CSS 变量，同时支持 `themeOverrides` 覆盖。
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-date-picker-width` | 默认宽度 | `220px` |
-| `--yh-date-picker-range-width` | 范围模式宽度 | `400px` |
-| `--yh-date-picker-primary` | 主色 | `var(--yh-color-primary)` |
-| `--yh-date-picker-primary-rgb` | 主色 RGB 令牌 | `var(--yh-color-primary-rgb)` |
-| `--yh-date-picker-text-main` | 主文本颜色 | `var(--yh-text-color-primary)` |
-| `--yh-date-picker-text-secondary` | 次文本颜色 | `var(--yh-text-color-secondary)` |
-| `--yh-date-picker-border` | 边框颜色 | `var(--yh-border-color)` |
-| `--yh-date-picker-panel-shadow` | 面板阴影 | `var(--yh-shadow-lg)` |
-| `--yh-date-picker-item-hover` | 悬停背景色 | `var(--yh-fill-color-light)` |
-| `--yh-date-picker-range-bg` | 范围选中背景色 | `var(--yh-color-primary-light-9)` |
-| `--yh-date-picker-panel-width` | 面板宽度 | `380px` |
-| `--yh-date-picker-panel-bg` | 面板背景色 | `var(--yh-bg-color-overlay)` |
-| `--yh-date-picker-hover-bg` | 悬停态背景色 | `var(--yh-date-picker-item-hover)` |
-| `--yh-date-picker-active-bg` | 激活单元格背景色 | `var(--yh-date-picker-primary)` |
-| `--yh-date-picker-active-color` | 激活单元格文字颜色 | `var(--yh-color-white)` |
+| 变量                              | 说明               | 默认值                             |
+| --------------------------------- | ------------------ | ---------------------------------- |
+| `--yh-date-picker-width`          | 默认宽度           | `220px`                            |
+| `--yh-date-picker-range-width`    | 范围模式宽度       | `400px`                            |
+| `--yh-date-picker-primary`        | 主色               | `var(--yh-color-primary)`          |
+| `--yh-date-picker-primary-rgb`    | 主色 RGB 令牌      | `var(--yh-color-primary-rgb)`      |
+| `--yh-date-picker-text-main`      | 主文本颜色         | `var(--yh-text-color-primary)`     |
+| `--yh-date-picker-text-secondary` | 次文本颜色         | `var(--yh-text-color-secondary)`   |
+| `--yh-date-picker-border`         | 边框颜色           | `var(--yh-border-color)`           |
+| `--yh-date-picker-panel-shadow`   | 面板阴影           | `var(--yh-shadow-lg)`              |
+| `--yh-date-picker-item-hover`     | 悬停背景色         | `var(--yh-fill-color-light)`       |
+| `--yh-date-picker-range-bg`       | 范围选中背景色     | `var(--yh-color-primary-light-9)`  |
+| `--yh-date-picker-panel-width`    | 面板宽度           | `380px`                            |
+| `--yh-date-picker-panel-bg`       | 面板背景色         | `var(--yh-bg-color-overlay)`       |
+| `--yh-date-picker-hover-bg`       | 悬停态背景色       | `var(--yh-date-picker-item-hover)` |
+| `--yh-date-picker-active-bg`      | 激活单元格背景色   | `var(--yh-date-picker-primary)`    |
+| `--yh-date-picker-active-color`   | 激活单元格文字颜色 | `var(--yh-color-white)`            |
 
 <style scoped>
 .demo-showcase {
@@ -613,7 +615,7 @@ const nuxtJS = toJs(nuxtTS)
   align-items: center;
   gap: 10px;
   padding: 12px 24px;
-  background: #fff;
+  background: var(--vp-c-bg);
   border-radius: 50px;
   border: 1px solid var(--yh-border-color-lighter);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);

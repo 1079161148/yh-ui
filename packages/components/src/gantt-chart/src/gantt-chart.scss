@@ -1,13 +1,14 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(gantt-chart) {
-  --yh-gantt-border-color: #dcdfe6;
-  --yh-gantt-bg-color: #ffffff;
-  --yh-gantt-header-bg-color: #f5f7fa;
-  --yh-gantt-task-color: #409eff;
-  --yh-gantt-text-color: #303133;
-  --yh-gantt-row-hover-bg: #f5f7fa;
-  --yh-gantt-line-color: #e4e7ed;
+  --yh-gantt-border-color: var(--yh-border-color, #dcdfe6);
+  --yh-gantt-bg-color: var(--yh-bg-color, #ffffff);
+  --yh-gantt-header-bg-color: var(--yh-fill-color, #f5f7fa);
+  --yh-gantt-task-color: var(--yh-color-primary, #409eff);
+  --yh-gantt-text-color: var(--yh-text-color-primary, #303133);
+  --yh-gantt-row-hover-bg: var(--yh-fill-color-light, #f5f7fa);
+  --yh-gantt-line-color: var(--yh-border-color-light, #e4e7ed);
 
   position: relative;
   display: flex;
@@ -26,7 +27,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px 16px;
-    background: #fff;
+    background: var(--yh-bg-color, #fff);
     border-bottom: 1px solid var(--yh-gantt-border-color);
     gap: 12px;
     z-index: 100;
@@ -79,7 +80,7 @@
     overflow: hidden;
     flex-shrink: 0;
     box-sizing: border-box;
-    color: #606266;
+    color: var(--yh-text-color-regular, #606266);
   }
 
   @include e(sidebar-body) {
@@ -191,7 +192,7 @@
     height: 14px;
     cursor: pointer;
     transition: transform 0.2s;
-    color: #909399;
+    color: var(--yh-text-color-secondary, #909399);
     z-index: 5;
     &:hover {
       color: var(--yh-color-primary);
@@ -236,7 +237,7 @@
     justify-content: center;
     border-right: 1px solid var(--yh-gantt-line-color);
     font-size: 11px;
-    color: #909399;
+    color: var(--yh-text-color-secondary, #909399);
     flex-shrink: 0;
     box-sizing: border-box;
     overflow: hidden;
@@ -252,7 +253,7 @@
     flex: 1;
     overflow: auto;
     position: relative;
-    background: #fff;
+    background: var(--yh-bg-color, #fff);
     box-sizing: border-box;
   }
 

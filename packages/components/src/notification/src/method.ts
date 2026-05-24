@@ -3,7 +3,7 @@
  * @description 函数式调用通知
  */
 
-import { createVNode, render, shallowReactive, type VNodeProps } from 'vue'
+import { createVNode, render, shallowReactive, type VNodeProps, type AppContext } from 'vue'
 import NotificationConstructor from './notification.vue'
 import type {
   NotificationOptions,
@@ -25,6 +25,22 @@ const instances: Record<NotificationPosition, NotificationContext[]> = {
 }
 
 let seed = 1
+let defaultAppContext: AppContext | null = null
+
+export const setNotificationDefaultAppContext = (appContext?: AppContext | null) => {
+  defaultAppContext = appContext ?? null
+}
+
+const resolveMountTarget = (appendTo?: string | HTMLElement): HTMLElement => {
+  if (appendTo) {
+    if (typeof appendTo === 'string') {
+      return document.querySelector(appendTo) ?? document.body
+    }
+    return appendTo
+  }
+
+  return document.querySelector('.yh-config-provider') ?? document.body
+}
 
 /**
  * 计算偏移量
@@ -43,11 +59,17 @@ const getOffset = (position: NotificationPosition, offset: number): number => {
 /**
  * 创建通知
  */
-const createNotification = (options: NotificationOptions): NotificationHandler => {
+const createNotification = (
+  options: NotificationOptions,
+  appContext?: AppContext | null
+): NotificationHandler => {
   const id = `notification_${seed++}`
   const position = options.position || 'top-right'
   const userOnClose = options.onClose
   const max = options.max
+  const resolvedAppContext = appContext ?? options.appContext ?? defaultAppContext
+  const mountTarget = resolveMountTarget(options.appendTo)
+  const { appContext: _appContext, appendTo: _appendTo, ...restOptions } = options
 
   // 若设置了 max，先检查并关闭超出数量的通知
   if (max !== undefined && max > 0) {
@@ -65,7 +87,7 @@ const createNotification = (options: NotificationOptions): NotificationHandler =
 
   // 使用 shallowReactive 创建可变的 props 对象
   const props = shallowReactive<NotificationOptions>({
-    ...options,
+    ...restOptions,
     id,
     position,
     offset: getOffset(position, options.offset || 16),
@@ -82,8 +104,8 @@ const createNotification = (options: NotificationOptions): NotificationHandler =
   // 销毁函数
   const onDestroy = () => {
     render(null, container)
-    if (document.body.contains(container)) {
-      document.body.removeChild(container)
+    if (mountTarget.contains(container)) {
+      mountTarget.removeChild(container)
     }
   }
 
@@ -93,10 +115,13 @@ const createNotification = (options: NotificationOptions): NotificationHandler =
     onDestroy
   } as VNodeProps & { onDestroy: () => void }
   const vnode = createVNode(NotificationConstructor, vnodeProps, null)
+  if (resolvedAppContext) {
+    vnode.appContext = resolvedAppContext
+  }
 
   // 渲染
   render(vnode, container)
-  document.body.appendChild(container)
+  mountTarget.appendChild(container)
 
   // 获取组件实例
   const vm = vnode.component!
@@ -179,32 +204,48 @@ const closeAll = () => {
 }
 
 // Notification 方法
-const Notification = ((options: NotificationOptions | string) => {
+const Notification = ((options: NotificationOptions | string, appContext?: AppContext | null) => {
   if (typeof options === 'string') {
     options = { message: options }
   }
-  return createNotification(options)
+  return createNotification(options, appContext)
 }) as NotificationFn
 
 // 便捷方法
-Notification.success = (title: string, message?: string | NotificationOptions) => {
+Notification.success = (
+  title: string,
+  message?: string | NotificationOptions,
+  appContext?: AppContext | null
+) => {
   const options = typeof message === 'string' ? { title, message } : { title, ...(message || {}) }
-  return createNotification({ ...options, type: 'success' })
+  return createNotification({ ...options, type: 'success' }, appContext)
 }
 
-Notification.warning = (title: string, message?: string | NotificationOptions) => {
+Notification.warning = (
+  title: string,
+  message?: string | NotificationOptions,
+  appContext?: AppContext | null
+) => {
   const options = typeof message === 'string' ? { title, message } : { title, ...(message || {}) }
-  return createNotification({ ...options, type: 'warning' })
+  return createNotification({ ...options, type: 'warning' }, appContext)
 }
 
-Notification.info = (title: string, message?: string | NotificationOptions) => {
+Notification.info = (
+  title: string,
+  message?: string | NotificationOptions,
+  appContext?: AppContext | null
+) => {
   const options = typeof message === 'string' ? { title, message } : { title, ...(message || {}) }
-  return createNotification({ ...options, type: 'info' })
+  return createNotification({ ...options, type: 'info' }, appContext)
 }
 
-Notification.error = (title: string, message?: string | NotificationOptions) => {
+Notification.error = (
+  title: string,
+  message?: string | NotificationOptions,
+  appContext?: AppContext | null
+) => {
   const options = typeof message === 'string' ? { title, message } : { title, ...(message || {}) }
-  return createNotification({ ...options, type: 'error' })
+  return createNotification({ ...options, type: 'error' }, appContext)
 }
 
 Notification.closeAll = closeAll

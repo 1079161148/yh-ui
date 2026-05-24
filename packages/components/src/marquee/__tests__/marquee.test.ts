@@ -123,4 +123,18 @@ describe('Marquee', () => {
     expect(wrapper.props('themeOverrides')).toEqual({ gradientWidth: '64px' })
     expect(typeof (wrapper.vm as any).calculateClones).toBe('function')
   })
+
+  it('should safely skip clone calculation when refs are cleared before nextTick resolves', async () => {
+    const wrapper = mount(YhMarquee, {
+      slots: {
+        default: 'Async Content'
+      }
+    })
+
+    const calculateClones = (wrapper.vm as any).calculateClones as () => Promise<void>
+    const pending = calculateClones()
+    wrapper.unmount()
+
+    await expect(pending).resolves.toBeUndefined()
+  })
 })

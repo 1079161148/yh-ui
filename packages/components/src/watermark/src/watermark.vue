@@ -20,6 +20,15 @@ defineOptions({
 
 const props = defineProps(watermarkProps)
 const ns = useNamespace('watermark')
+const DEFAULT_FONT = {
+  color: 'rgba(0,0,0,0.15)',
+  fontSize: 16,
+  fontWeight: 'normal',
+  fontFamily: 'sans-serif',
+  fontStyle: 'normal',
+  textAlign: 'center',
+  lineHeight: 22
+} as const
 
 // 组件级 themeOverrides
 const { themeStyle } = useComponentTheme(
@@ -27,12 +36,24 @@ const { themeStyle } = useComponentTheme(
   computed(() => props.themeOverrides)
 )
 
+// 检测是否是暗黑模式
+const isDark = ref(false)
+let darkObserver: MutationObserver | null = null
+
+const mergedFont = computed(() => {
+  const defaultColor = isDark.value ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0,0,0,0.15)'
+  return {
+    ...DEFAULT_FONT,
+    color: defaultColor,
+    ...(props.font || {})
+  }
+})
+
 const containerRef = ref<HTMLElement | null>(null)
 let watermarkRef: HTMLElement | null = null
 const watermarkUrl = ref('')
 
 const containerStyle = computed(() => {
-  if (props.fullScreen) return {}
   return {
     ...themeStyle.value,
     position: 'relative' as const,
@@ -56,6 +77,7 @@ const watermarkInnerStyle = computed<CSSProperties>(() => {
     backgroundRepeat: 'repeat',
     backgroundImage: `url(${watermarkUrl.value})`,
     backgroundSize: `${props.gap[0] + props.width}px ${props.gap[1] + props.height}px`,
+    backgroundPosition: `${props.offset[0]}px ${props.offset[1]}px`,
     visibility: 'visible',
     opacity: 1,
     display: 'block',
@@ -95,7 +117,8 @@ const renderWatermark = () => {
       createOrUpdateWatermark()
     }
   } else {
-    const { color, fontSize, fontWeight, fontFamily, fontStyle, textAlign, lineHeight } = props.font
+    const { color, fontSize, fontWeight, fontFamily, fontStyle, textAlign, lineHeight } =
+      mergedFont.value
     ctx.fillStyle = color || 'rgba(0,0,0,0.15)'
     ctx.font = `${fontStyle} ${fontWeight} ${typeof fontSize === 'number' ? fontSize + 'px' : fontSize} ${fontFamily}`
     ctx.textAlign = textAlign || 'center'
@@ -200,6 +223,21 @@ watch(
 )
 
 onMounted(() => {
+  if (typeof document !== 'undefined') {
+    isDark.value = document.documentElement.classList.contains('dark')
+    darkObserver = new MutationObserver(() => {
+      const nextDark = document.documentElement.classList.contains('dark')
+      if (nextDark !== isDark.value) {
+        isDark.value = nextDark
+        renderWatermark()
+      }
+    })
+    darkObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+  }
+
   renderWatermark()
   nextTick(() => {
     initGuard()
@@ -207,6 +245,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (darkObserver) darkObserver.disconnect()
   if (observer) observer.disconnect()
   if (checkTimer) clearInterval(checkTimer)
   if (watermarkRef && watermarkRef.parentNode) {

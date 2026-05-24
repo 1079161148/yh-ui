@@ -167,7 +167,8 @@ describe('YhAiCodeRunner', () => {
 
     const wrapper = mount(AiCodeRunner, {
       props: {
-        code: ''
+        code: 'console.log("error")',
+        autorun: true
       }
     })
 
@@ -181,7 +182,8 @@ describe('YhAiCodeRunner', () => {
 
     const wrapper = mount(AiCodeRunner, {
       props: {
-        code: ''
+        code: 'console.log("error")',
+        autorun: true
       }
     })
 
@@ -319,7 +321,8 @@ describe('YhAiCodeRunner', () => {
   it('should reuse initialized container without re-emitting ready', async () => {
     const wrapper = mount(AiCodeRunner, {
       props: {
-        code: 'console.log("reuse")'
+        code: 'console.log("reuse")',
+        autorun: true
       }
     })
 

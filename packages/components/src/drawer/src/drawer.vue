@@ -1,5 +1,5 @@
 <template>
-  <teleport :to="teleportTo" :disabled="!teleportTo || inner">
+  <teleport :to="resolvedTeleportTo" :disabled="!resolvedTeleportTo || inner">
     <transition name="yh-drawer-fade" @after-leave="onAfterLeave">
       <div
         v-if="rendered"
@@ -125,6 +125,22 @@ const drawerStyles = computed<CSSProperties>(() => {
     styles.height = sizeValue
   }
   return styles
+})
+
+const resolvedTeleportTo = computed<string | HTMLElement>(() => {
+  if (typeof HTMLElement !== 'undefined' && props.teleportTo instanceof HTMLElement) {
+    return props.teleportTo
+  }
+
+  if (typeof props.teleportTo === 'string' && props.teleportTo) {
+    return props.teleportTo
+  }
+
+  if (typeof document !== 'undefined') {
+    return document.querySelector<HTMLElement>('.yh-config-provider') ?? 'body'
+  }
+
+  return 'body'
 })
 
 // Lock scroll logic

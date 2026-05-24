@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import MessageComponent from '../src/message.vue'
-import Message from '../src/method'
+import Message, { setMessageDefaultAppContext } from '../src/method'
 import { messagePlacements, messageTypes } from '../src/message'
 
 describe('Message constants', () => {
@@ -16,6 +16,7 @@ describe('Message constants', () => {
 describe('Message method', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
+    setMessageDefaultAppContext(null)
   })
 
   afterEach(() => {
@@ -84,6 +85,18 @@ describe('Message method', () => {
     handler.close()
     await nextTick()
     expect(onClose).toHaveBeenCalled()
+  })
+
+  it('mounts inside config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    const handler = Message('provider message')
+    await nextTick()
+
+    expect(host.querySelector('.yh-message')).toBeTruthy()
+    handler.close()
   })
 
   it('should close all message instances', async () => {

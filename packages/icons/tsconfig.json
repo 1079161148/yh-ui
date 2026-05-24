@@ -3,6 +3,8 @@
   "compilerOptions": {
     "composite": true,
     "jsx": "preserve",
+    "declarationMap": false,
+    "sourceMap": false,
     "baseUrl": ".",
     "paths": {
       "@yh-ui/icons": ["./src/index.ts"],

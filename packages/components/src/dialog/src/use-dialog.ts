@@ -65,21 +65,35 @@ export interface UseDialogReturn {
 export function useDialog(): UseDialogReturn {
   const instance = getCurrentInstance()
   const appContext: AppContext | null =
-    instance?.appContext || (((instance?.proxy?.$root as unknown) as { _context?: AppContext })?._context ?? null)
+    instance?.appContext ||
+    ((instance?.proxy?.$root as unknown as { _context?: AppContext })?._context ?? null)
 
   /**
    * 显示对话框
    */
   const showDialog = (options: UseDialogOptions): Promise<{ action: DialogAction }> => {
     return new Promise((resolve) => {
+      const providerHost =
+        typeof document !== 'undefined'
+          ? document.querySelector<HTMLElement>('.yh-config-provider')
+          : null
+      const resolvedTeleportTarget = options.teleportTo ?? providerHost ?? 'body'
+
       // 1. 创建挂载容器
       const container = document.createElement('div')
 
       // 2. 状态驱动渲染
       const renderDialog = (visible: boolean) => {
         // 构造属性
-        const props: UseDialogOptions & { modelValue: boolean; onClosed: () => void; onConfirm: () => void; onCancel: () => void; 'onUpdate:modelValue': (val: boolean) => void } = {
+        const props: UseDialogOptions & {
+          modelValue: boolean
+          onClosed: () => void
+          onConfirm: () => void
+          onCancel: () => void
+          'onUpdate:modelValue': (val: boolean) => void
+        } = {
           ...options,
+          teleportTo: resolvedTeleportTarget,
           modelValue: visible,
           // 核心：监听彻底销毁事件，清理 DOM
           onClosed: () => {
@@ -112,7 +126,9 @@ export function useDialog(): UseDialogReturn {
         const slots: Record<string, Slot> = {}
         if (options.header) {
           slots.header = (
-            typeof options.header === 'function' ? options.header : () => [h(options.header as string | Component)]
+            typeof options.header === 'function'
+              ? options.header
+              : () => [h(options.header as string | Component)]
           ) as Slot
         }
         if (options.default) {
@@ -124,7 +140,9 @@ export function useDialog(): UseDialogReturn {
         }
         if (options.footer) {
           slots.footer = (
-            typeof options.footer === 'function' ? options.footer : () => [h(options.footer as string | Component)]
+            typeof options.footer === 'function'
+              ? options.footer
+              : () => [h(options.footer as string | Component)]
           ) as Slot
         }
 
@@ -142,7 +160,11 @@ export function useDialog(): UseDialogReturn {
 
       // 首次执行渲染
       renderDialog(true)
-      document.body.appendChild(container)
+      const mountTarget =
+        resolvedTeleportTarget instanceof HTMLElement
+          ? resolvedTeleportTarget
+          : (providerHost ?? document.body)
+      mountTarget.appendChild(container)
     })
   }
 

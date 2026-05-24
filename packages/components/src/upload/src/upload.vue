@@ -197,7 +197,8 @@ import {
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
-import Viewer from '../../viewerjs'
+import type Viewer from 'viewerjs'
+import { loadViewer } from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
 defineOptions({
@@ -569,7 +570,7 @@ const handleRemove = async (file: UploadFile) => {
 /**
  * 处理预览
  */
-const handlePreview = (file: UploadFile) => {
+const handlePreview = async (file: UploadFile) => {
   emit('preview', file)
 
   // 仅对图片类型进行内置预览处理
@@ -592,6 +593,13 @@ const handlePreview = (file: UploadFile) => {
 
     if (images.length === 0) return
 
+    let ViewerClass
+    try {
+      ViewerClass = await loadViewer()
+    } catch (err) {
+      return
+    }
+
     const container = document.createElement('div')
     const imgList = images.map((src) => `<img src="${src}" style="display:none">`).join('')
     container.innerHTML = imgList
@@ -600,7 +608,7 @@ const handlePreview = (file: UploadFile) => {
 
     if (viewer) viewer.destroy()
 
-    const nextViewer = new Viewer(container, {
+    const nextViewer = new ViewerClass(container, {
       hidden: () => {
         viewer?.destroy()
         viewer = null
@@ -624,7 +632,7 @@ const handlePreview = (file: UploadFile) => {
       }
     })
 
-    viewer = nextViewer
+    viewer = nextViewer as any
     nextViewer.view(initialIndex !== -1 ? initialIndex : 0)
     nextViewer.show()
   }

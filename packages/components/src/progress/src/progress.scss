@@ -135,7 +135,7 @@
     top: 0;
     width: 2px;
     height: 100%;
-    background: #fff;
+    background: var(--yh-bg-color, #fff);
     transform: translateX(-50%);
     opacity: 0.3;
   }

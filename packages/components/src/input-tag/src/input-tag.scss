@@ -1,4 +1,5 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(input-tag) {
   --yh-input-tag-min-height: var(--yh-component-size-default);
@@ -231,6 +232,30 @@
     transition: var(--yh-transition-fast);
 
     @include when(light) {
+      @include when(primary) {
+        color: var(--yh-color-primary);
+        background-color: var(--yh-color-primary-light-9);
+        border: 1px solid var(--yh-color-primary-light-7);
+      }
+
+      @include when(success) {
+        color: var(--yh-color-success);
+        background-color: var(--yh-color-success-light-9);
+        border: 1px solid var(--yh-color-success-light-7);
+      }
+
+      @include when(warning) {
+        color: var(--yh-color-warning);
+        background-color: var(--yh-color-warning-light-9);
+        border: 1px solid var(--yh-color-warning-light-7);
+      }
+
+      @include when(danger) {
+        color: var(--yh-color-danger);
+        background-color: var(--yh-color-danger-light-9);
+        border: 1px solid var(--yh-color-danger-light-7);
+      }
+
       @include when(info) {
         color: var(--yh-text-color-secondary);
         background-color: var(--yh-fill-color-light);
@@ -277,6 +302,26 @@
     border-radius: var(--yh-radius-sm);
 
     @include when(light) {
+      @include when(primary) {
+        color: var(--yh-color-primary);
+        background-color: var(--yh-color-primary-light-9);
+      }
+
+      @include when(success) {
+        color: var(--yh-color-success);
+        background-color: var(--yh-color-success-light-9);
+      }
+
+      @include when(warning) {
+        color: var(--yh-color-warning);
+        background-color: var(--yh-color-warning-light-9);
+      }
+
+      @include when(danger) {
+        color: var(--yh-color-danger);
+        background-color: var(--yh-color-danger-light-9);
+      }
+
       @include when(info) {
         color: var(--yh-color-info);
         background-color: var(--yh-color-info-light-9);

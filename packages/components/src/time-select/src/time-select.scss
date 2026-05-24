@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(time-select) {
   --yh-time-select-height: var(--yh-component-size-default, 32px);
@@ -115,7 +116,7 @@
   @include e(dropdown) {
     position: absolute;
     z-index: var(--yh-z-index-popper, 2000);
-    background-color: var(--yh-fill-color-blank, #fff);
+    background-color: var(--yh-bg-color-overlay, #fff);
     border: 1px solid var(--yh-border-color-light, #e4e7ed);
     border-radius: var(--yh-radius-base, 4px);
     box-shadow: var(--yh-shadow-lg);

@@ -1,4 +1,5 @@
 import type { VNode, Component, AppContext } from 'vue'
+import type { ButtonType } from '../../button'
 
 export type MessageBoxType = 'alert' | 'confirm' | 'prompt'
 export type MessageBoxData = string | number | boolean
@@ -28,8 +29,12 @@ export interface MessageBoxOptions {
   icon?: string | Component | VNode
   /** 确认按钮文字 */
   confirmButtonText?: string
+  /** 确认按钮类型 */
+  confirmButtonType?: ButtonType
   /** 取消按钮文字 */
   cancelButtonText?: string
+  /** 取消按钮类型 */
+  cancelButtonType?: ButtonType
   /** 是否显示取消按钮 */
   showCancelButton?: boolean
   /** 是否显示确认按钮 */
@@ -74,7 +79,7 @@ export interface MessageBoxOptions {
   appContext?: AppContext | null
   /** 是否在打开时自动获取焦点 (默认: true) */
   autofocus?: boolean
-  /** 设置组件的根元素 (默认: document.body) */
+  /** 设置组件的根元素 (默认优先挂载到 .yh-config-provider，否则回退到 document.body) */
   appendTo?: string | HTMLElement
   /** 确认按钮是否显示加载中状态 */
   confirmButtonLoading?: boolean

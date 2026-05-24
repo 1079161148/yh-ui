@@ -370,6 +370,7 @@ export interface AiMermaidThemeVars extends ComponentThemeVars {
   headerTextColor?: string
   codeBlockBgColor?: string
   codeBlockTextColor?: string
+  nodeTextColor?: string
 }
 
 /** Carousel 组件主题变量 */

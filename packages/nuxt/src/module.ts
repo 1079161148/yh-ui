@@ -1,4 +1,5 @@
 import crypto from 'node:crypto'
+import { createRequire } from 'node:module'
 import {
   defineNuxtModule,
   addComponent,
@@ -29,11 +30,13 @@ if (typeof (crypto as unknown as { hash: unknown }).hash !== 'function') {
 
 export interface ModuleOptions {
   /**
-   * Whether to automatically inject published CSS styles.
-   * If true, it will import the published CSS entry.
+   * Control how styles are imported:
+   * - `true` (default): Automatically inject styles on demand.
+   * - `'all'`: Inject the entire published style.css.
+   * - `false`: Disable automatic style injection.
    * @default true
    */
-  importStyle?: boolean
+  importStyle?: boolean | 'all'
   /**
    * Whether to transpile dependencies.
    * @default true
@@ -58,6 +61,38 @@ export interface ModuleOptions {
 
 const PUBLISHED_CSS_ENTRY = '@yh-ui/components/style.css'
 
+function getStylePathForComponent(componentName: string): string | null {
+  const name = componentName.replace(/^Yh/, '')
+
+  const subComponentMap: Record<string, string> = {
+    Option: 'select',
+    BreadcrumbItem: 'breadcrumb',
+    DropdownItem: 'dropdown',
+    DropdownMenu: 'dropdown',
+    FormItem: 'form',
+    FormSchema: 'form',
+    GridItem: 'grid',
+    Step: 'steps',
+    TableColumn: 'table',
+    TabPane: 'tabs',
+    TreeNode: 'tree',
+    CarouselItem: 'carousel',
+    Header: 'container',
+    Aside: 'container',
+    Main: 'container',
+    Footer: 'container'
+  }
+
+  if (name.startsWith('Typography') && name !== 'Typography') {
+    return '@yh-ui/components/dist/typography/src/typography.css'
+  }
+
+  const targetName = subComponentMap[name] || name
+  const kebabName = targetName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
+
+  return `@yh-ui/components/dist/${kebabName}/src/${kebabName}.css`
+}
+
 const yhNuxtModule = defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@yh-ui/nuxt',
@@ -79,13 +114,6 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
 
     // 0. Register runtime plugin (SSR isolation)
     addPlugin(resolve('./runtime/plugin.mjs'))
-
-    // 1. Inject published CSS styles
-    if (options.importStyle) {
-      if (!nuxt.options.css.includes(PUBLISHED_CSS_ENTRY)) {
-        nuxt.options.css.push(PUBLISHED_CSS_ENTRY)
-      }
-    }
 
     // 1.5 Ensure dependencies are correctly transpiled
     if (options.buildTranspile) {
@@ -176,7 +204,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Countdown',
       'Table',
       'TableColumn',
-      // 新增组件
+      // 鏂板缁勪欢
       'Space',
       'Avatar',
       'Empty',
@@ -323,6 +351,93 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
         from: '@yh-ui/components'
       })
     })
+
+    // 4.5. Inject CSS styles (On-demand or All)
+    if (options.importStyle === 'all') {
+      if (!nuxt.options.css.includes(PUBLISHED_CSS_ENTRY)) {
+        nuxt.options.css.push(PUBLISHED_CSS_ENTRY)
+      }
+    } else if (options.importStyle === true) {
+      const existingStyles = new Set<string>()
+      try {
+        const _require = createRequire(import.meta.url)
+        const fs = _require('node:fs')
+        const path = _require('node:path')
+        const pkgPath = _require.resolve('@yh-ui/components/package.json', {
+          paths: [nuxt.options.rootDir]
+        })
+
+        components.forEach((name) => {
+          const cssPath = getStylePathForComponent(`Yh${name}`)
+          if (cssPath) {
+            const localPath = cssPath.replace('@yh-ui/components', path.dirname(pkgPath))
+            if (fs.existsSync(localPath)) {
+              existingStyles.add(cssPath)
+            }
+          }
+        })
+      } catch (e) {
+        // Fallback: resolution failure, let Vite dynamic imports resolve normally
+      }
+
+      extendViteConfig((config) => {
+        config.plugins = config.plugins || []
+        config.plugins.push({
+          name: 'yh-ui:style-import',
+          enforce: 'post',
+          transform(code, id) {
+            if (!id || !/\.(js|ts|vue|mjs|cjs)$/.test(id) || id.includes('node_modules')) {
+              return
+            }
+
+            const importsMatch = code.match(
+              /import\s*\{([^}]+)\}\s*from\s*['"]@yh-ui\/components['"]/g
+            )
+            if (!importsMatch) {
+              return
+            }
+
+            const componentsToInject = new Set<string>()
+            for (const matchStr of importsMatch) {
+              const innerMatch = matchStr.match(/\{([^}]+)\}/)
+              if (innerMatch) {
+                const specifiers = innerMatch[1].split(',')
+                for (const spec of specifiers) {
+                  const name = spec
+                    .trim()
+                    .split(/\s+as\s+/)[0]
+                    .trim()
+                  if (name.startsWith('Yh')) {
+                    componentsToInject.add(name)
+                  }
+                }
+              }
+            }
+
+            if (componentsToInject.size === 0) {
+              return
+            }
+
+            const styleImports: string[] = []
+            for (const comp of componentsToInject) {
+              const cssFile = getStylePathForComponent(comp)
+              if (cssFile) {
+                if (existingStyles.size === 0 || existingStyles.has(cssFile)) {
+                  styleImports.push(`import '${cssFile}';`)
+                }
+              }
+            }
+
+            if (styleImports.length > 0) {
+              return {
+                code: code + '\n' + styleImports.join('\n'),
+                map: null
+              }
+            }
+          }
+        })
+      })
+    }
 
     // 5. Add Vite config for better alias handling if needed
     extendViteConfig((config) => {

@@ -1,4 +1,4 @@
-import { Loading } from './src/service'
+import { Loading, setLoadingDefaultAppContext } from './src/service'
 import { vLoading } from './src/directive'
 import type { App } from 'vue'
 
@@ -6,6 +6,7 @@ export const YhLoading = {
   ...Loading,
   directive: vLoading,
   install(app: App) {
+    setLoadingDefaultAppContext(app._context)
     app.config.globalProperties.$loading = Loading.service
     app.directive('yh-loading', vLoading)
   }

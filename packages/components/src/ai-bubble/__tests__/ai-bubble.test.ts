@@ -8,6 +8,13 @@ import hljs from 'highlight.js'
 // Use real markdown-it and highlight.js for better coverage
 import AiBubble from '../src/ai-bubble.vue'
 
+vi.mock('../../markdown-it', async () => {
+  const MarkdownIt = await import('markdown-it')
+  return {
+    loadMarkdown: vi.fn().mockResolvedValue(MarkdownIt.default || MarkdownIt)
+  }
+})
+
 const { mockWebContainerBoot, mockMermaidInitialize, mockMermaidRender } = vi.hoisted(() => {
   return {
     mockWebContainerBoot: vi.fn(),
@@ -110,8 +117,9 @@ describe('YhAiBubble', () => {
     expect(wrapper.find('.yh-ai-bubble__markdown').exists()).toBe(false)
   })
 
-  it('should render markdown container when markdown=true', () => {
+  it('should render markdown container when markdown=true', async () => {
     const wrapper = mount(AiBubble, { props: { content: 'hello', markdown: true } })
+    await flushPromises()
     expect(wrapper.find('.yh-ai-bubble__markdown').exists()).toBe(true)
   })
 
@@ -296,6 +304,7 @@ describe('YhAiBubble', () => {
   // ─── Code Actions ────────────────────────────────────────
   it('should handle code block actions - copy', async () => {
     const wrapper = mount(AiBubble, { props: { content: '```js\nconsole.log(1)\n```' } })
+    await flushPromises()
     const copySpy = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined)
 
     // Simulate delegation event
@@ -317,6 +326,7 @@ describe('YhAiBubble', () => {
   it('should handle code block actions - run', async () => {
     const onRunCode = vi.fn().mockResolvedValue({ output: 'done' })
     const wrapper = mount(AiBubble, { props: { content: '```js\n1+1\n```', onRunCode } })
+    await flushPromises()
 
     const mockEvent = {
       target: {
@@ -738,7 +748,7 @@ describe('YhAiBubble', () => {
     expect(openSpy).not.toHaveBeenCalled()
   })
 
-  it('should merge markdown options and render editable runnable code actions', () => {
+  it('should merge markdown options and render editable runnable code actions', async () => {
     const wrapper = mount(AiBubble, {
       props: {
         content: '',
@@ -753,6 +763,7 @@ describe('YhAiBubble', () => {
       }
     })
 
+    await flushPromises()
     const md = (wrapper.vm as any).getMarkdownInstance()
     const html = md.render('```python\nprint(1)\nprint(2)\n```')
 
@@ -762,11 +773,12 @@ describe('YhAiBubble', () => {
     expect(html).toContain('collapse-btn')
   })
 
-  it('should render mermaid blocks through markdown instance', () => {
+  it('should render mermaid blocks through markdown instance', async () => {
     const wrapper = mount(AiBubble, {
       props: { content: '' }
     })
 
+    await flushPromises()
     const md = (wrapper.vm as any).getMarkdownInstance()
     const html = md.render('```mermaid\ngraph TD\nA-->B\n```')
 
@@ -875,7 +887,7 @@ describe('YhAiBubble', () => {
     expect((wrapper.vm as any).codeOutput['cb-custom-throw']).toContain('Error: runner boom')
   })
 
-  it('should render code output for copied and disabled actions branches', () => {
+  it('should render code output for copied and disabled actions branches', async () => {
     const wrapper = mount(AiBubble, {
       props: {
         content: '',
@@ -896,6 +908,7 @@ describe('YhAiBubble', () => {
     ;(wrapper.vm as any).copiedCodeBlocks.add(codeId)
     ;(wrapper.vm as any).codeOutput[codeId] = ['> prompt', 'Error: failed']
 
+    await flushPromises()
     const md = (wrapper.vm as any).getMarkdownInstance()
     const html = md.render('```ruby\nconsole.error(1)\n```')
 
@@ -908,7 +921,7 @@ describe('YhAiBubble', () => {
     expect(html).toContain('output-error')
   })
 
-  it('should render string code output fallback branch', () => {
+  it('should render string code output fallback branch', async () => {
     const wrapper = mount(AiBubble, {
       props: { content: '' }
     })
@@ -917,6 +930,7 @@ describe('YhAiBubble', () => {
     const codeId = getCodeBlockId('plain output\n', 'text')
     ;(wrapper.vm as any).codeOutput[codeId] = 'plain output' as any
 
+    await flushPromises()
     const md = (wrapper.vm as any).getMarkdownInstance()
     const html = md.render('```text\nplain output\n```')
 

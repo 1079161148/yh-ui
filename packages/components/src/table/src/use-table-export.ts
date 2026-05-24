@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { TableColumn } from './table'
-import * as XLSX from 'xlsx'
+import type * as XLSXType from 'xlsx'
 import { useLocale } from '@yh-ui/hooks'
 
 export type ExportType = 'csv' | 'json' | 'txt' | 'xml' | 'html' | 'xlsx'
@@ -251,7 +251,17 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
   /**
    * 导出为 XLSX 格式
    */
-  function toXLSX(config: ExportConfig = {}): ArrayBuffer {
+  async function toXLSX(config: ExportConfig = {}): Promise<ArrayBuffer> {
+    let XLSX
+    try {
+      XLSX = await import('xlsx')
+    } catch (err) {
+      console.error(
+        '[YhTable Export] 无法加载 xlsx。如果需要使用表格 Excel 导出功能，请在您的项目中安装 "xlsx" 依赖。',
+        err
+      )
+      throw new Error('未安装 xlsx 依赖。请安装 "xlsx" 以使用导出功能。')
+    }
     const cols = getExportColumns(config)
     const rows = config.data || data.value
     const sheetName = config.sheetName || 'Sheet1'
@@ -281,7 +291,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
     const ws = XLSX.utils.aoa_to_sheet(wsData)
 
     // 设置列宽
-    const colWidths: XLSX.ColInfo[] = []
+    const colWidths: XLSXType.ColInfo[] = []
     headers.forEach((h, i) => {
       let width = config.defaultColWidth || 12
 
@@ -373,7 +383,7 @@ export function useTableExport(data: Ref<Record<string, unknown>[]>, columns: Re
 
     // XLSX 单独处理（二进制格式）
     if (type === 'xlsx') {
-      const buffer = toXLSX(config)
+      const buffer = await toXLSX(config)
       if (config.mode === 'string') {
         // XLSX 不支持 string 模式，返回 base64
         const uint8 = new Uint8Array(buffer)

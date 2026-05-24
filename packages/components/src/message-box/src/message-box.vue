@@ -13,8 +13,7 @@ import {
   onUnmounted,
   markRaw,
   nextTick,
-  shallowReactive,
-  type ComponentPublicInstance
+  shallowReactive
 } from 'vue'
 import { useNamespace, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -23,7 +22,6 @@ import { YhInput } from '../../input'
 import { YhIcon, IconClose, IconSuccess, IconWarning, IconError, IconInfo } from '../../icon'
 import type { MessageBoxOptions, MessageBoxAction, MessageBoxInstance } from './message-box'
 import type { InputInstance } from '../../input'
-import type { ButtonInstance } from '../../button'
 
 defineOptions({
   name: 'YhMessageBox',
@@ -36,6 +34,8 @@ const { t } = useLocale()
 const DEFAULT_OPTIONS: Partial<MessageBoxOptions> = {
   confirmButtonLoading: false,
   cancelButtonLoading: false,
+  confirmButtonType: 'primary',
+  cancelButtonType: 'default',
   showClose: true,
   lockScroll: true,
   draggableBoundary: true,
@@ -59,7 +59,6 @@ const visible = ref(
 )
 const boxRef = ref<HTMLElement | null>(null)
 const inputRef = ref<InputInstance | null>(null)
-const confirmRef = ref<ButtonInstance | null>(null)
 const state = shallowReactive({
   options: Object.assign({}, DEFAULT_OPTIONS, props) as MessageBoxOptions,
   confirmLoading: false,
@@ -86,11 +85,8 @@ watch(
       if (state.options.type === 'prompt') {
         inputRef.value?.focus?.()
       } else {
-        // 尝试对组件或其内部按钮元素获取焦点
-        const el =
-          (confirmRef.value as unknown as ComponentPublicInstance)?.$el ||
-          (confirmRef.value as unknown as HTMLElement)
-        el?.focus?.()
+        // 将焦点落在弹框容器，避免按钮初始进入 :focus 视觉态。
+        boxRef.value?.focus?.({ preventScroll: true })
       }
     }
   }
@@ -252,6 +248,19 @@ const onKeydown = (e: KeyboardEvent) => {
   }
 }
 
+const handleBoxKeydown = (e: KeyboardEvent) => {
+  if (
+    e.code === 'Enter' &&
+    visible.value &&
+    state.options.type !== 'prompt' &&
+    state.options.showConfirmButton !== false &&
+    document.activeElement === boxRef.value
+  ) {
+    e.preventDefault()
+    handleAction('confirm')
+  }
+}
+
 onMounted(() => document.addEventListener('keydown', onKeydown))
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
@@ -327,6 +336,8 @@ const getStatusIcon = (type: string) => {
           { 'is-dragging': isDragging }
         ]"
         :style="[boxStyle, themeStyle]"
+        tabindex="-1"
+        @keydown="handleBoxKeydown"
       >
         <div v-if="state.options.glass" :class="ns.e('bg')" />
 
@@ -387,6 +398,7 @@ const getStatusIcon = (type: string) => {
         <div :class="ns.e('footer')">
           <YhButton
             v-if="state.options.showCancelButton !== false"
+            :type="state.options.cancelButtonType"
             size="small"
             :round="state.options.roundButton"
             :loading="state.cancelLoading || state.options.cancelButtonLoading"
@@ -397,8 +409,7 @@ const getStatusIcon = (type: string) => {
           </YhButton>
           <YhButton
             v-if="state.options.showConfirmButton !== false"
-            ref="confirmRef"
-            type="primary"
+            :type="state.options.confirmButtonType"
             size="small"
             :loading="state.confirmLoading || state.options.confirmButtonLoading"
             :disabled="state.confirmLoading || state.cancelLoading"

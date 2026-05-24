@@ -1,12 +1,18 @@
+import type { App } from 'vue'
 import { withInstall, withInstallFunction } from '@yh-ui/utils'
 import Dialog from './src/dialog.vue'
-import DialogMethod from './src/method'
+import DialogMethod, { setDialogDefaultAppContext } from './src/method'
 
 // 对外导出的核心组件
 export const YhDialog = withInstall(Dialog)
 
 // 对外导出的函数式调用方法 (例如 YhDialogMethod.show)
 export const YhDialogMethod = withInstallFunction(DialogMethod, '$dialog')
+
+YhDialogMethod.install = (app: App) => {
+  setDialogDefaultAppContext(app._context)
+  app.config.globalProperties.$dialog = YhDialogMethod
+}
 
 export default YhDialog
 

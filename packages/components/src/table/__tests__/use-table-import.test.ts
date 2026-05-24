@@ -166,15 +166,15 @@ describe('useTableImport hook', () => {
     domParserSpy.mockRestore()
   })
 
-  it('parseXLSX should handle ArrayBuffer', () => {
+  it('parseXLSX should handle ArrayBuffer', async () => {
     const { parseXLSX } = useTableImport(mockData, mockColumns)
     // To mock XLSX functionality we can test the error fallback
     // when providing a fake ArrayBuffer
-    const result = parseXLSX(new ArrayBuffer(10))
+    const result = await parseXLSX(new ArrayBuffer(10))
     expect(result).toEqual([]) // Because fake buffer fails in real XLSX.read
   })
 
-  it('parseXLSX reads workbook with header and sheet options', () => {
+  it('parseXLSX reads workbook with header and sheet options', async () => {
     const { parseXLSX } = useTableImport(mockData, mockColumns)
     const wb = XLSX.utils.book_new()
     const ws = XLSX.utils.aoa_to_sheet([
@@ -188,28 +188,27 @@ describe('useTableImport hook', () => {
     const buf = written instanceof Uint8Array ? written : new Uint8Array(written as number[])
     const arrayBuffer = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)
 
-    let rows = parseXLSX(arrayBuffer, {})
+    let rows = await parseXLSX(arrayBuffer, {})
     expect(rows.length).toBe(2)
     expect(rows[0].id).toBe(1)
 
-    rows = parseXLSX(arrayBuffer, {
+    rows = await parseXLSX(arrayBuffer, {
       sheetName: 'Data',
       maxRows: 1
     })
     expect(rows).toHaveLength(1)
 
-    rows = parseXLSX(arrayBuffer, {
+    rows = await parseXLSX(arrayBuffer, {
       sheetIndex: 1,
       headerRow: false
     })
     expect(rows.length).toBeGreaterThan(0)
 
-    const empty = parseXLSX(arrayBuffer, {
+    const empty = await parseXLSX(arrayBuffer, {
       sheetName: 'MissingSheet'
     })
     expect(empty).toEqual([])
   })
-
 
   it('parseContent falls back to CSV for unknown runtime type', () => {
     const { parseContent } = useTableImport(mockData, mockColumns)

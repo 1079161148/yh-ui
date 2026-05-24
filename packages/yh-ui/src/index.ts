@@ -1,3 +1,11 @@
+/*
+ * @File name:
+ * @Author: 1079161148@qq.com
+ * @Version: V1.0
+ * @Date: 2026-01-11 23:00:03
+ * @Description:
+ * Copyright (C) 2024-{year} Tsing Micro Technology Inc All rights reserved.
+ */
 /**
  * YH-UI - Vue 3 Component Library
  * @description 集众家之长的高性能 Vue 3 组件库
@@ -13,11 +21,62 @@ export * from '@yh-ui/components'
 // 导出所有 Hooks
 export * from '@yh-ui/hooks'
 
+// 解决组件与 Hooks 的同名类型歧义，组件侧保留原名，Hooks 侧通过别名继续暴露。
+export type { AiChatMessage, SkuItem, SkuSpec, SkuSpecValue } from '@yh-ui/components'
+export type {
+  AiChatMessage as HookAiChatMessage,
+  SkuItem as HookSkuItem,
+  SkuSpec as HookSkuSpec,
+  SkuSpecValue as HookSkuSpecValue
+} from '@yh-ui/hooks'
+
 // 导出所有工具函数
 export * from '@yh-ui/utils'
 
 // 导出设计令牌
 export * from '@yh-ui/theme'
+
+// 导出图标工具与元数据；避免直接整包透传导致与 @yh-ui/components 出现同名冲突。
+export type {
+  IconName,
+  IconSize,
+  IconColor,
+  IconRotate,
+  IconPreset,
+  IconOptions,
+  IconCollection,
+  IconSearchResult,
+  RecommendedCollection
+} from '@yh-ui/icons'
+export {
+  AVAILABLE_COLLECTIONS,
+  RECOMMENDED_COLLECTIONS,
+  PRESETS,
+  DEFAULT_ENABLED_PRESETS,
+  PREFIX_ALIAS,
+  COMMON_ICONS,
+  ICON_COLLECTIONS,
+  getPreset,
+  getCollection,
+  getAllPrefixes,
+  createIconifyComponent,
+  parseIconName,
+  iconExists,
+  getIconData
+} from '@yh-ui/icons'
+
+// 导出图标组件；保留 `import { Grid } from '@yh-ui/yh-ui'` 这类直出体验。
+export * from '@yh-ui/icons/components'
+
+// 解决图标层与组件层的公开 API 重名问题：主入口默认保留组件侧名称，图标侧改用别名继续暴露。
+export { Loading, YhIcon, createIconComponent } from '@yh-ui/components'
+export type { IconProps, YhIconProps } from '@yh-ui/components'
+export {
+  Loading as LoadingIcon,
+  createIconComponent as createPresetIconComponent
+} from '@yh-ui/icons/components'
+export { Icon as IconifyIcon, YhIcon as IconifyYhIcon } from '@yh-ui/icons'
+export type { IconProps as IconifyIconProps, YhIconProps as IconifyYhIconProps } from '@yh-ui/icons'
 
 // 导出国际化
 export * from '@yh-ui/locale'

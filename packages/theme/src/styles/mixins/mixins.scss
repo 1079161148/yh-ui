@@ -1,7 +1,7 @@
 @use 'sass:string';
 @use 'sass:list';
 @use 'sass:meta';
-@use '../variables' as *;
+// mixins 编译时不直接携带全局变量样式输出
 
 // Utilities
 @mixin ellipsis {

@@ -126,34 +126,42 @@ let resizeObserver: ResizeObserver | null = null
 
 onMounted(async () => {
   if (typeof window !== 'undefined') {
-    monaco = await import('monaco-editor')
-    await import('monaco-editor/min/vs/editor/editor.main.css')
+    try {
+      monaco = await import('monaco-editor')
+      await import('monaco-editor/min/vs/editor/editor.main.css')
 
-    if (!self.MonacoEnvironment) {
-      const [
-        { default: EditorWorker },
-        { default: JsonWorker },
-        { default: CssWorker },
-        { default: HtmlWorker },
-        { default: TsWorker }
-      ] = await Promise.all([
-        import('monaco-editor/esm/vs/editor/editor.worker?worker'),
-        import('monaco-editor/esm/vs/language/json/json.worker?worker'),
-        import('monaco-editor/esm/vs/language/css/css.worker?worker'),
-        import('monaco-editor/esm/vs/language/html/html.worker?worker'),
-        import('monaco-editor/esm/vs/language/typescript/ts.worker?worker')
-      ])
+      if (!self.MonacoEnvironment) {
+        const [
+          { default: EditorWorker },
+          { default: JsonWorker },
+          { default: CssWorker },
+          { default: HtmlWorker },
+          { default: TsWorker }
+        ] = await Promise.all([
+          import('monaco-editor/esm/vs/editor/editor.worker?worker'),
+          import('monaco-editor/esm/vs/language/json/json.worker?worker'),
+          import('monaco-editor/esm/vs/language/css/css.worker?worker'),
+          import('monaco-editor/esm/vs/language/html/html.worker?worker'),
+          import('monaco-editor/esm/vs/language/typescript/ts.worker?worker')
+        ])
 
-      self.MonacoEnvironment = {
-        getWorker(_workerId: string, label: string) {
-          if (label === 'json') return new JsonWorker()
-          if (label === 'css' || label === 'scss' || label === 'less') return new CssWorker()
-          if (label === 'html' || label === 'handlebars' || label === 'razor')
-            return new HtmlWorker()
-          if (label === 'typescript' || label === 'javascript') return new TsWorker()
-          return new EditorWorker()
+        self.MonacoEnvironment = {
+          getWorker(_workerId: string, label: string) {
+            if (label === 'json') return new JsonWorker()
+            if (label === 'css' || label === 'scss' || label === 'less') return new CssWorker()
+            if (label === 'html' || label === 'handlebars' || label === 'razor')
+              return new HtmlWorker()
+            if (label === 'typescript' || label === 'javascript') return new TsWorker()
+            return new EditorWorker()
+          }
         }
       }
+    } catch (err) {
+      console.error(
+        '[YhAiCodeEditor] 无法加载 monaco-editor。如果需要使用代码编辑器功能，请在您的项目中安装 "monaco-editor" 依赖。',
+        err
+      )
+      return
     }
   }
 

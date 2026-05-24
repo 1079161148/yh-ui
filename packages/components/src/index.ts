@@ -262,6 +262,8 @@ const components = [
   YhColorPicker,
   YhSpin,
   YhLoading,
+  YhMessage,
+  YhNotification,
   YhMessageBox,
   YhBreadcrumb,
   YhBreadcrumbItem,

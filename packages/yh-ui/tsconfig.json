@@ -11,6 +11,9 @@
     "paths": {
       "@yh-ui/hooks": ["../hooks/src"],
       "@yh-ui/components": ["../components/src"],
+      "@yh-ui/icons": ["../icons/src/index.ts"],
+      "@yh-ui/icons/components": ["../icons/src/components.ts"],
+      "@yh-ui/icons/*": ["../icons/src/*"],
       "@yh-ui/utils": ["../utils/src"],
       "@yh-ui/locale": ["../locale/src"],
       "@yh-ui/theme": ["../theme/src"]

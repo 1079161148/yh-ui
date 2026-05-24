@@ -1,6 +1,14 @@
-import Notification from './src/method'
+import type { App } from 'vue'
+import { withInstallFunction } from '@yh-ui/utils'
+import Notification, { setNotificationDefaultAppContext } from './src/method'
 
-export const YhNotification = Notification
+export const YhNotification = withInstallFunction(Notification, '$notify')
+
+YhNotification.install = (app: App) => {
+  setNotificationDefaultAppContext(app._context)
+  app.config.globalProperties.$notify = YhNotification
+}
+
 export default YhNotification
 
 export * from './src/notification'

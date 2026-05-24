@@ -9,6 +9,7 @@ import type {
 } from './message-box'
 
 const isServer = typeof window === 'undefined'
+let defaultAppContext: AppContext | null = null
 let defaults: MessageBoxOptions = {
   title: '提示',
   confirmButtonText: '确定',
@@ -20,6 +21,10 @@ let defaults: MessageBoxOptions = {
   draggableBoundary: true
 }
 
+export const setMessageBoxDefaultAppContext = (appContext?: AppContext | null) => {
+  defaultAppContext = appContext ?? null
+}
+
 const showMessage = (
   options: MessageBoxOptions,
   appContext?: AppContext | null
@@ -29,12 +34,13 @@ const showMessage = (
   return new Promise((resolve, reject) => {
     const container = document.createElement('div')
     const vnode = createVNode(MessageBoxConstructor)
+    const resolvedAppContext = appContext ?? options.appContext ?? defaultAppContext
 
     // 注入应用上下文以支持全局属性/组件继承
-    vnode.appContext = appContext || options.appContext || null
+    vnode.appContext = resolvedAppContext
 
-    // 处理挂载容器
-    let appendTo: HTMLElement | null = document.body
+    // 优先挂载到 ConfigProvider 容器，确保函数式弹层继承页面级主题变量。
+    let appendTo: HTMLElement | null = document.querySelector('.yh-config-provider')
     if (options.appendTo) {
       if (typeof options.appendTo === 'string') {
         appendTo = document.querySelector(options.appendTo)
@@ -97,7 +103,13 @@ MessageBox.alert = (message, title, options, appContext): Promise<void> => {
     options = undefined
   }
   return showMessage(
-    { ...(options as MessageBoxOptions), message, title: title as string, type: 'alert', showCancelButton: false },
+    {
+      ...(options as MessageBoxOptions),
+      message,
+      title: title as string,
+      type: 'alert',
+      showCancelButton: false
+    },
     appContext
   ) as unknown as Promise<void>
 }
@@ -109,19 +121,36 @@ MessageBox.confirm = (message, title, options, appContext): Promise<MessageBoxAc
     title = ''
   }
   return showMessage(
-    { ...(options as MessageBoxOptions), message, title: title as string, type: 'confirm', showCancelButton: true },
+    {
+      ...(options as MessageBoxOptions),
+      message,
+      title: title as string,
+      type: 'confirm',
+      showCancelButton: true
+    },
     appContext
   ) as unknown as Promise<MessageBoxAction>
 }
 
-MessageBox.prompt = (message, title, options, appContext): Promise<{ value: string; action: 'confirm' }> => {
+MessageBox.prompt = (
+  message,
+  title,
+  options,
+  appContext
+): Promise<{ value: string; action: 'confirm' }> => {
   if (typeof title === 'object') {
     appContext = options as AppContext | null
     options = title
     title = ''
   }
   return showMessage(
-    { ...(options as MessageBoxOptions), message, title: title as string, type: 'prompt', showCancelButton: true },
+    {
+      ...(options as MessageBoxOptions),
+      message,
+      title: title as string,
+      type: 'prompt',
+      showCancelButton: true
+    },
     appContext
   ) as unknown as Promise<{ value: string; action: 'confirm' }>
 }

@@ -496,4 +496,25 @@ describe('useDialog', () => {
     const closeBtn = document.querySelector('.yh-dialog__headerbtn') as HTMLElement
     if (closeBtn) closeBtn.click()
   })
+
+  it('should mount into config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    const TestComponent = defineComponent({
+      setup() {
+        const { showDialog } = useDialog()
+        const open = () => showDialog({ title: 'Provider Dialog' })
+        return { open }
+      },
+      template: '<button @click="open">Open</button>'
+    })
+
+    mount(TestComponent).vm.open()
+    await nextTick()
+    await nextTick()
+
+    expect(host.querySelector('.yh-dialog')).toBeTruthy()
+  })
 })

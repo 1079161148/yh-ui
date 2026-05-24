@@ -36,19 +36,20 @@ YH-UI focuses on product-grade breadth and depth:
 
 ## Packages
 
-| Package             | Purpose                                                                        |
-| ------------------- | ------------------------------------------------------------------------------ |
-| `@yh-ui/yh-ui`      | All-in-one entry package                                                       |
-| `@yh-ui/components` | Core UI and business components                                                |
-| `@yh-ui/theme`      | Theme engine and design tokens                                                 |
-| `@yh-ui/hooks`      | Vue composition utilities                                                      |
-| `@yh-ui/utils`      | Shared runtime utilities                                                       |
-| `@yh-ui/icons`      | Iconify-based icon runtime plus modern component-library-style icon components |
-| `@yh-ui/request`    | Request client, hooks, cache, SSE, queue, and upload/download helpers          |
-| `@yh-ui/flow`       | Flow chart and node editor package                                             |
-| `@yh-ui/ai-sdk`     | AI SDK integrations and Vue composables                                        |
-| `@yh-ui/locale`     | Internationalization locale files                                              |
-| `@yh-ui/nuxt`       | Nuxt integration module                                                        |
+| Package              | Purpose                                                                        |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `@yh-ui/yh-ui`       | All-in-one entry package                                                       |
+| `@yh-ui/components`  | Core UI and business components                                                |
+| `@yh-ui/theme`       | Theme engine and design tokens                                                 |
+| `@yh-ui/hooks`       | Vue composition utilities                                                      |
+| `@yh-ui/utils`       | Shared runtime utilities                                                       |
+| `@yh-ui/icons`       | Iconify-based icon runtime plus modern component-library-style icon components |
+| `@yh-ui/request`     | Request client, hooks, cache, SSE, queue, and upload/download helpers          |
+| `@yh-ui/flow`        | Flow chart and node editor package                                             |
+| `@yh-ui/ai-sdk`      | AI SDK integrations and Vue composables                                        |
+| `@yh-ui/locale`      | Internationalization locale files                                              |
+| `@yh-ui/nuxt`        | Nuxt integration module                                                        |
+| `@yh-ui/yh-ui-skill` | Publishable CLI that installs the YH-UI AI skill into local agent workspaces   |
 
 ## Install
 

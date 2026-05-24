@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/icons",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "YH-UI Icons - High performance icon library with Iconify integration",
   "type": "module",
   "sideEffects": false,
@@ -33,7 +33,7 @@
     "svg"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && rimraf --glob \"dist/**/*.d.ts.map\"",
     "dev": "vite build --watch",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint ."

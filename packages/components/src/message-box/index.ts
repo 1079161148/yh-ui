@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import { withInstallFunction } from '@yh-ui/utils'
-import MessageBox from './src/method'
+import MessageBox, { setMessageBoxDefaultAppContext } from './src/method'
 import './src/message-box.scss'
 
 export const YhMessageBox = withInstallFunction(MessageBox, '$msgbox')
@@ -12,6 +12,7 @@ const installExtra = (app: App) => {
 }
 
 YhMessageBox.install = (app: App) => {
+  setMessageBoxDefaultAppContext(app._context)
   app.config.globalProperties.$msgbox = YhMessageBox
   installExtra(app)
 }

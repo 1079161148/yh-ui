@@ -15,6 +15,7 @@ const manifestFile = resolve(runtimeOutDir, 'manifest.json')
 const SUPPORT_PACKAGES = ['hooks', 'locale', 'theme', 'utils']
 const COMPONENTS_DIR = resolve(docsPublicDir, 'components')
 const COMPONENT_ROOT_RUNTIME_FILES = [
+  'dayjs-plugins.mjs',
   'dayjs.mjs',
   'highlight.mjs',
   'markdown-it.mjs',

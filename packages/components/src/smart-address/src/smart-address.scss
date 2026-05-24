@@ -180,3 +180,35 @@
     }
   }
 }
+
+// ─── 暗黑模式覆盖 ─────────────────────────────────────────────────────────────
+html.dark {
+  .yh-smart-address {
+    --yh-smart-address-parser-bg: rgba(64, 158, 255, 0.05) !important;
+    --yh-smart-address-parser-border: rgba(64, 158, 255, 0.15) !important;
+    --yh-smart-address-input-bg: rgba(255, 255, 255, 0.03) !important;
+    --yh-smart-address-input-border: rgba(255, 255, 255, 0.08) !important;
+    --yh-smart-address-label-color: var(--yh-text-color-secondary) !important;
+
+    .yh-smart-address__parser-input {
+      color: var(--yh-text-color-regular) !important;
+      &::placeholder {
+        color: var(--yh-text-color-placeholder) !important;
+      }
+    }
+
+    .yh-smart-address__input {
+      color: var(--yh-text-color-primary) !important;
+      &::placeholder {
+        color: var(--yh-text-color-placeholder) !important;
+      }
+    }
+
+    .yh-smart-address__parse-btn {
+      &:disabled {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: var(--yh-text-color-disabled) !important;
+      }
+    }
+  }
+}

@@ -596,7 +596,7 @@ function enableThemeTransition(
     .${THEME_TRANSITION_CLASS} *,
     .${THEME_TRANSITION_CLASS} *::before,
     .${THEME_TRANSITION_CLASS} *::after {
-      transition: 
+      transition:
         background-color ${duration}ms ${timing},
         border-color ${duration}ms ${timing},
         color ${duration}ms ${timing},
@@ -802,6 +802,13 @@ export class ThemeManager {
     this.currentTheme = preset
     this.state.theme = preset
     this.applyColors(colors)
+
+    if (preset === 'dark') {
+      this.setDarkMode(true)
+    } else if (this.isDark) {
+      this.setDarkMode(false)
+    }
+
     this.saveToStorage()
   }
 
@@ -980,23 +987,21 @@ export class ThemeManager {
       { key: 'info', cssVar: 'info' }
     ] as const
 
+    // 品牌色阶 + 语义色 + RGB（始终写入）
     colorTypes.forEach(({ key, cssVar }) => {
       const baseColor = themeColors[key as keyof ThemeColors]
       if (baseColor) {
-        // 生成色阶
         const colorScale = generateColorScaleWithAlgorithm(baseColor, this.isDark, this.algorithm)
         Object.entries(colorScale).forEach(([suffix, value]) => {
           const varName = suffix ? `--yh-color-${cssVar}-${suffix}` : `--yh-color-${cssVar}`
           styles[varName] = value
         })
 
-        // 生成语义化状态颜色
         const semanticColors = generateSemanticColors(baseColor, this.isDark)
         Object.entries(semanticColors).forEach(([state, value]) => {
           styles[`--yh-color-${cssVar}-${state}`] = value
         })
 
-        // 生成 RGB 值（用于透明度）
         const rgb = hexToRgb(baseColor)
         if (rgb) {
           styles[`--yh-color-${cssVar}-rgb`] = `${rgb.r}, ${rgb.g}, ${rgb.b}`
@@ -1004,20 +1009,8 @@ export class ThemeManager {
       }
     })
 
-    // 添加非颜色令牌
-    Object.entries(designTokens.textColors).forEach(([key, value]) => {
-      styles[`--yh-text-color-${key}`] = value
-    })
-
-    Object.entries(designTokens.borderColors).forEach(([key, value]) => {
-      const name = key === 'DEFAULT' ? '--yh-border-color' : `--yh-border-color-${key}`
-      styles[name] = value
-    })
-
-    Object.entries(designTokens.bgColors).forEach(([key, value]) => {
-      const name = key === 'DEFAULT' ? '--yh-bg-color' : `--yh-bg-color-${key}`
-      styles[name] = value
-    })
+    // 非颜色令牌：不随亮/暗变化，始终从 designTokens 读取
+    // 语义颜色(text/border/bg/fill)完全由 variables.scss :root / html.dark 控制
 
     Object.entries(designTokens.radius).forEach(([key, value]) => {
       styles[`--yh-radius-${key}`] = value
@@ -1055,17 +1048,7 @@ export class ThemeManager {
       styles[`--yh-timing-${key}`] = value
     })
 
-    Object.entries(designTokens.scrollbar).forEach(([key, value]) => {
-      const kebabKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-      styles[`--yh-scrollbar-${kebabKey}`] = value
-    })
-
-    Object.entries(designTokens.mask).forEach(([key, value]) => {
-      const name = key === 'DEFAULT' ? '--yh-mask' : `--yh-mask-${key}`
-      styles[name] = value
-    })
-
-    // 应用组件级覆盖
+    // 组件级覆盖
     Object.entries(this.componentOverrides).forEach(([component, overrides]) => {
       Object.entries(overrides).forEach(([name, value]) => {
         styles[`--yh-${component}-${name}`] = value

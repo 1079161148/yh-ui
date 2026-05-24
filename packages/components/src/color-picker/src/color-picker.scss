@@ -73,9 +73,9 @@
 
   /* Panel styles */
   @include e(panel) {
-    width: 280px; /* 拓宽面板，解决挤压问题 */
+    width: 280px;
     padding: 16px;
-    background: #fff;
+    background: var(--yh-bg-color-overlay, #fff);
     border-radius: 12px;
     box-shadow:
       0 12px 32px rgba(0, 0, 0, 0.12),
@@ -192,7 +192,7 @@
 
     &:focus {
       border-color: var(--yh-color-primary);
-      background: #fff;
+      background: var(--yh-bg-color, #fff);
     }
   }
 

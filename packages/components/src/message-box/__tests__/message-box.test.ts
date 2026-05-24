@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h, nextTick } from 'vue'
-import MessageBox from '../src/method'
+import { createApp, defineComponent, h, inject, nextTick } from 'vue'
+import { YhMessageBox } from '../index'
+import MessageBox, { setMessageBoxDefaultAppContext } from '../src/method'
 import MessageBoxComponent from '../src/message-box.vue'
 
 describe('MessageBox (Most Complete Version)', () => {
@@ -9,6 +10,7 @@ describe('MessageBox (Most Complete Version)', () => {
     document.body.innerHTML = ''
     vi.clearAllTimers()
     vi.useRealTimers()
+    setMessageBoxDefaultAppContext(null)
   })
 
   afterEach(() => {
@@ -95,6 +97,46 @@ describe('MessageBox (Most Complete Version)', () => {
     expect(box?.classList.contains('yh-message-box--center')).toBe(true)
   })
 
+  it('should inherit installed app context without manual appContext', async () => {
+    const appRoot = document.createElement('div')
+    document.body.appendChild(appRoot)
+
+    const InjectedContent = defineComponent({
+      name: 'InjectedMessageBoxContent',
+      setup() {
+        const injectedValue = inject('message-box-token', 'missing')
+        return () => h('div', { class: 'message-box-injected-content' }, injectedValue)
+      }
+    })
+
+    const app = createApp(
+      defineComponent({
+        name: 'MessageBoxProviderRoot',
+        setup: () => () => h('div')
+      })
+    )
+
+    app.provide('message-box-token', 'from-app-context')
+    app.use(YhMessageBox)
+    app.mount(appRoot)
+
+    const promise = MessageBox.alert(() => h(InjectedContent), 'Inherited Context')
+
+    await vi.dynamicImportSettled()
+    await wait()
+
+    expect(document.querySelector('.yh-message-box')).toBeTruthy()
+    expect(document.querySelector('.message-box-injected-content')?.textContent).toBe(
+      'from-app-context'
+    )
+
+    const confirmBtn = document.querySelector('.yh-button--primary') as HTMLElement
+    confirmBtn.click()
+    await promise
+
+    app.unmount()
+  })
+
   it('should handle beforeClose with loading', async () => {
     vi.useFakeTimers()
     const res = MessageBox.confirm('wait', 'title', {
@@ -154,6 +196,18 @@ describe('MessageBox (Most Complete Version)', () => {
     expect(host.querySelector('.yh-message-box')).toBeTruthy()
   })
 
+  it('mounts inside config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    MessageBox.alert('in-provider', 'title').catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+
+    expect(host.querySelector('.yh-message-box')).toBeTruthy()
+  })
+
   it('confirm invokes callback with action on confirm', async () => {
     const cb = vi.fn()
     MessageBox.confirm('ok?', 'q', { callback: cb }).catch(() => {})
@@ -163,6 +217,44 @@ describe('MessageBox (Most Complete Version)', () => {
     confirmBtn?.click()
     await wait(200)
     expect(cb).toHaveBeenCalled()
+  })
+
+  it('keeps initial focus target consistent across alert, confirm and prompt', async () => {
+    MessageBox.alert('alert message', 'alert title').catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+
+    const alertBox = document.querySelector('.yh-message-box') as HTMLElement
+    const alertConfirmButton = document.querySelector('.yh-button--primary') as HTMLElement
+    expect(document.activeElement).toBe(alertBox)
+    expect(alertConfirmButton.matches(':focus')).toBe(false)
+
+    alertConfirmButton.click()
+    await wait(550)
+
+    MessageBox.confirm('confirm message', 'confirm title').catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+
+    const confirmBox = document.querySelector('.yh-message-box') as HTMLElement
+    const confirmButtons = document.querySelectorAll('.yh-message-box .yh-button')
+    const confirmConfirmButton = confirmButtons[confirmButtons.length - 1] as HTMLElement
+    expect(document.activeElement).toBe(confirmBox)
+    expect(confirmConfirmButton.matches(':focus')).toBe(false)
+
+    confirmConfirmButton.click()
+    await wait(550)
+
+    MessageBox.prompt('prompt message', 'prompt title').catch(() => {})
+    await vi.dynamicImportSettled()
+    await wait()
+
+    const promptInput = document.querySelector('.yh-message-box input') as HTMLInputElement
+    const promptConfirmButton = document.querySelector(
+      '.yh-message-box .yh-button--primary'
+    ) as HTMLElement
+    expect(document.activeElement).toBe(promptInput)
+    expect(promptConfirmButton.matches(':focus')).toBe(false)
   })
 
   it('renders html, vnode/function message and status icons in component mode', () => {
@@ -198,6 +290,10 @@ describe('MessageBox (Most Complete Version)', () => {
         width: '32rem',
         glass: true,
         center: true,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonType: 'danger',
+        cancelButtonType: 'info',
         roundButton: true,
         confirmButtonLoading: true,
         cancelButtonLoading: true,
@@ -211,6 +307,9 @@ describe('MessageBox (Most Complete Version)', () => {
     expect(wrapper.find('.yh-message-box--center').exists()).toBe(true)
     expect(wrapper.find('.yh-message-box').attributes('style')).toContain('width: 32rem')
     expect(wrapper.find('.yh-message-box__status').exists()).toBe(true)
+    const footerHtml = wrapper.find('.yh-message-box__footer').html()
+    expect(footerHtml).toContain('yh-button--info')
+    expect(footerHtml).toContain('yh-button--danger')
 
     const hidden = mount(MessageBoxComponent, {
       props: {

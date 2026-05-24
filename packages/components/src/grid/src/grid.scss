@@ -1,4 +1,5 @@
 @use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
 
 @include b(grid) {
   display: grid;

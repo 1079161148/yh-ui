@@ -47,6 +47,45 @@ const isLoading = computed(() => props.loading)
 // IntersectionObserver 实例
 let observer: IntersectionObserver | null = null
 
+const isScrollableElement = (element: HTMLElement | null | undefined) => {
+  if (!element || typeof window === 'undefined') return false
+  const style = window.getComputedStyle(element)
+  return /(auto|scroll|overlay)/.test(`${style.overflow}${style.overflowX}${style.overflowY}`)
+}
+
+const resolveTargetElement = () => {
+  if (!props.target || typeof document === 'undefined') return null
+  return document.querySelector(props.target) as HTMLElement | null
+}
+
+const resolveScrollContainer = (): HTMLElement | Window => {
+  const explicitTarget = resolveTargetElement()
+  if (explicitTarget) {
+    return explicitTarget
+  }
+
+  if (isScrollableElement(rootRef.value)) {
+    return rootRef.value!
+  }
+
+  let current = rootRef.value?.parentElement ?? null
+  while (current && current !== document.body) {
+    if (isScrollableElement(current)) {
+      return current
+    }
+    current = current.parentElement
+  }
+
+  return window
+}
+
+const getObserverRootMargin = () => {
+  if (props.rootMargin) return props.rootMargin
+  return props.direction === 'horizontal'
+    ? `0px ${props.threshold}px 0px 0px`
+    : `0px 0px ${props.threshold}px 0px`
+}
+
 // 检查是否应该加载更多
 const checkLoad = () => {
   if (props.disabled || isLoading.value || props.finished || props.error) {
@@ -118,7 +157,7 @@ const setupObserver = () => {
     observer = null
   }
 
-  const root = props.target ? (document.querySelector(props.target) as HTMLElement) : null
+  const rootContainer = resolveScrollContainer()
 
   observer = new IntersectionObserver(
     (entries) => {
@@ -134,8 +173,8 @@ const setupObserver = () => {
       }
     },
     {
-      root,
-      rootMargin: props.rootMargin || `${props.threshold}px`
+      root: rootContainer instanceof Window ? null : rootContainer,
+      rootMargin: getObserverRootMargin()
     }
   )
 
@@ -148,12 +187,7 @@ const setupObserver = () => {
 const setupScrollListener = () => {
   if (props.useObserver) return
 
-  if (props.target) {
-    const el = document.querySelector(props.target) as HTMLElement
-    scrollContainer.value = el || window
-  } else {
-    scrollContainer.value = window
-  }
+  scrollContainer.value = resolveScrollContainer()
 
   if (scrollContainer.value) {
     scrollContainer.value.addEventListener('scroll', handleScroll, { passive: true })

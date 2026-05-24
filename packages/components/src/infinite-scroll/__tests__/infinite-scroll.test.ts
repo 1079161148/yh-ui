@@ -134,6 +134,38 @@ describe('InfiniteScroll Component', () => {
     await wrapper.setProps({ useObserver: false })
   })
 
+  it('should auto-detect the nearest scroll container for observer mode', async () => {
+    const roots: Array<Element | Document | null | undefined> = []
+    const Original = global.IntersectionObserver
+
+    // @ts-ignore
+    global.IntersectionObserver = class extends MockIntersectionObserver {
+      constructor(cb: any, options?: IntersectionObserverInit) {
+        super(cb)
+        roots.push(options?.root)
+      }
+    }
+
+    const Host = defineComponent({
+      components: { YhInfiniteScroll },
+      template: `
+        <div class="scroll-host" style="max-height: 120px; overflow: auto;">
+          <YhInfiniteScroll>
+            <div style="height: 240px;">content</div>
+          </YhInfiniteScroll>
+        </div>
+      `
+    })
+
+    mount(Host, {
+      attachTo: document.body
+    })
+
+    await nextTick()
+    expect((roots[0] as HTMLElement | undefined)?.className).toContain('scroll-host')
+    global.IntersectionObserver = Original
+  })
+
   it('should handle loading change and re-evaluate', async () => {
     const wrapper = mount(YhInfiniteScroll, {
       attachTo: document.body,

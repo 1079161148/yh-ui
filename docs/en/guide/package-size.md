@@ -29,6 +29,31 @@ These capabilities should be explicit choices, not default costs for ordinary fo
 
 These dependencies are isolated through sub-packages, optional dependencies, or dedicated entry points. A project that only uses Button, Input, Form, and basic Table features should not pull in AI, Flow, or editor runtimes.
 
+### Optional Peer Dependency Notice
+
+Starting from the current release, `monaco-editor`, `xlsx`, `viewerjs`, and `markdown-it` are moved into `peerDependencies` and marked as optional through `peerDependenciesMeta.optional`.
+
+This means:
+
+- installing only `@yh-ui/yh-ui` or `@yh-ui/components` no longer forces these 4 heavyweight runtimes to download up front
+- ordinary business applications get a lower initial install cost instead of prepaying for editor, Excel, Viewer, or Markdown rendering features
+- host projects install these packages only when the matching capabilities are actually used
+
+Typical capability mapping:
+
+- `monaco-editor`: code editor scenarios such as `YhAiCodeEditor`
+- `xlsx`: Excel import/export in `YhTable`
+- `viewerjs`: advanced image preview in `YhImage` and `YhUpload`
+- `markdown-it`: Markdown rendering in AI content scenarios
+
+Treat this as a "zero forced initial download cost" strategy for consumers: install core components first, then add heavyweight capabilities only when needed.
+
+```bash
+pnpm add monaco-editor xlsx viewerjs markdown-it
+```
+
+If you only use one of these capabilities, install just that dependency.
+
 ## Recommended Usage
 
 ```ts

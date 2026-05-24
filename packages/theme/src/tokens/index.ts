@@ -239,6 +239,54 @@ export const scrollbarTokens = {
   thumbRadius: '3px'
 } as const
 
+// ==================== 暗黑模式令牌 ====================
+export const darkTextColorTokens = {
+  primary: '#e5eaf3',
+  regular: '#cfd3dc',
+  secondary: '#a3a6ad',
+  placeholder: '#8d9095',
+  disabled: '#6c6e72'
+} as const
+
+export const darkBorderColorTokens = {
+  DEFAULT: '#4c4d4f',
+  light: '#414243',
+  lighter: '#363637',
+  extraLight: '#2b2b2c',
+  dark: '#58585b',
+  darker: '#636466'
+} as const
+
+export const darkFillColorTokens = {
+  DEFAULT: '#303030',
+  light: '#262727',
+  lighter: '#1d1d1d',
+  extraLight: '#191919',
+  dark: '#39393a',
+  darker: '#424243',
+  blank: 'transparent'
+} as const
+
+export const darkBgColorTokens = {
+  DEFAULT: '#141414',
+  page: '#0a0a0a',
+  overlay: '#1d1e1f'
+} as const
+
+export const darkMaskTokens = {
+  DEFAULT: 'rgba(0, 0, 0, 0.7)',
+  light: 'rgba(0, 0, 0, 0.5)',
+  extraLight: 'rgba(0, 0, 0, 0.3)'
+} as const
+
+export const darkScrollbarTokens = {
+  width: '6px',
+  thumbColor: '#424243',
+  thumbHoverColor: '#8d9095',
+  trackColor: 'transparent',
+  thumbRadius: '3px'
+} as const
+
 // 组件尺寸令牌
 export const componentSizeTokens = {
   large: {
@@ -265,6 +313,12 @@ export const designTokens = {
   borderColors: borderColorTokens,
   fillColors: fillColorTokens,
   bgColors: bgColorTokens,
+  darkTextColors: darkTextColorTokens,
+  darkBorderColors: darkBorderColorTokens,
+  darkFillColors: darkFillColorTokens,
+  darkBgColors: darkBgColorTokens,
+  darkMask: darkMaskTokens,
+  darkScrollbar: darkScrollbarTokens,
   spacing: spacingTokens,
   radius: radiusTokens,
   fontSize: fontSizeTokens,
@@ -305,3 +359,10 @@ export type BreakpointTokens = typeof breakpointTokens
 export type AccessibilityTokens = typeof accessibilityTokens
 export type MaskTokens = typeof maskTokens
 export type ScrollbarTokens = typeof scrollbarTokens
+
+export type DarkTextColorTokens = typeof darkTextColorTokens
+export type DarkBorderColorTokens = typeof darkBorderColorTokens
+export type DarkFillColorTokens = typeof darkFillColorTokens
+export type DarkBgColorTokens = typeof darkBgColorTokens
+export type DarkMaskTokens = typeof darkMaskTokens
+export type DarkScrollbarTokens = typeof darkScrollbarTokens

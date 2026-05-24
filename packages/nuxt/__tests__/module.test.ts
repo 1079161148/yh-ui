@@ -36,8 +36,8 @@ describe('nuxt module', () => {
     // plugin
     expect(kit.addPlugin).toHaveBeenCalledWith('resolved-./runtime/plugin.mjs')
 
-    // css
-    expect(nuxtMock.options.css).toContain(PUBLISHED_CSS_ENTRY)
+    // css (on-demand by default, so global css array should not contain full style.css)
+    expect(nuxtMock.options.css).not.toContain(PUBLISHED_CSS_ENTRY)
 
     // build.transpile
     expect(nuxtMock.options.build.transpile).toContain('@yh-ui/components')
@@ -58,7 +58,14 @@ describe('nuxt module', () => {
 
     // extendViteConfig
     expect(kit.extendViteConfig).toHaveBeenCalled()
-    const configFn = vi.mocked(kit.extendViteConfig).mock.calls[0][0]
+    const configFn = vi
+      .mocked(kit.extendViteConfig)
+      .mock.calls.map((c) => c[0])
+      .find((fn) => {
+        const mockConf: any = {}
+        fn(mockConf)
+        return mockConf.optimizeDeps && mockConf.optimizeDeps.include
+      })!
     const viteConfigMock: any = {}
     configFn(viteConfigMock)
     expect(viteConfigMock.optimizeDeps.include).toContain('dayjs')
@@ -91,15 +98,58 @@ describe('nuxt module', () => {
     expect(nuxtMock.options.build.transpile).toBeTruthy()
   })
 
-  it('does not duplicate published CSS entry', async () => {
+  it('does not duplicate published CSS entry when importStyle is "all"', async () => {
     nuxtMock = {
-        options: {
+      options: {
         css: [PUBLISHED_CSS_ENTRY],
+        build: { transpile: [] }
+      }
+    }
+    ;(yhNuxtModule as any).setup({ importStyle: 'all' }, nuxtMock)
+
+    expect(nuxtMock.options.css).toEqual([PUBLISHED_CSS_ENTRY])
+  })
+
+  it('imports all style when importStyle is "all"', async () => {
+    nuxtMock = {
+      options: {
+        css: [],
+        build: { transpile: [] }
+      }
+    }
+    ;(yhNuxtModule as any).setup({ importStyle: 'all' }, nuxtMock)
+    expect(nuxtMock.options.css).toContain(PUBLISHED_CSS_ENTRY)
+  })
+
+  it('registers a Vite plugin to inject styles on demand when importStyle is true', async () => {
+    nuxtMock = {
+      options: {
+        css: [],
         build: { transpile: [] }
       }
     }
     ;(yhNuxtModule as any).setup({ importStyle: true }, nuxtMock)
 
-    expect(nuxtMock.options.css).toEqual([PUBLISHED_CSS_ENTRY])
+    expect(kit.extendViteConfig).toHaveBeenCalled()
+    const calls = vi.mocked(kit.extendViteConfig).mock.calls
+    const extendFn = calls.find((call) => {
+      const mockConfig: any = { plugins: [] }
+      call[0](mockConfig)
+      return (
+        mockConfig.plugins && mockConfig.plugins.some((p: any) => p.name === 'yh-ui:style-import')
+      )
+    })?.[0]
+
+    expect(extendFn).toBeDefined()
+    const mockConfig: any = { plugins: [] }
+    extendFn(mockConfig)
+    const plugin = mockConfig.plugins.find((p: any) => p.name === 'yh-ui:style-import')
+    expect(plugin).toBeDefined()
+
+    // Test transform hook
+    const code = 'import { YhButton } from "@yh-ui/components"'
+    const transformed = plugin.transform(code, 'test.vue')
+    expect(transformed).toBeDefined()
+    expect(transformed.code).toContain('@yh-ui/components/dist/button/src/button.css')
   })
 })

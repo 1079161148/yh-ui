@@ -2,7 +2,7 @@
  * Notification types and public contracts.
  */
 
-import type { VNode, ComponentPublicInstance, Ref } from 'vue'
+import type { VNode, ComponentPublicInstance, Ref, AppContext } from 'vue'
 
 /**
  * Supported notification variants.
@@ -154,7 +154,17 @@ export type NotificationInstance = ComponentPublicInstance<NotificationExpose>
 /**
  * Notification options accepted by the service API.
  */
-export type NotificationOptions = Partial<NotificationProps>
+export interface NotificationOptions extends Partial<NotificationProps> {
+  /**
+   * 应用上下文，用于继承全局配置/组件。
+   */
+  appContext?: AppContext | null
+
+  /**
+   * 设置通知挂载的根元素，默认优先挂载到 .yh-config-provider，否则回退到 document.body。
+   */
+  appendTo?: string | HTMLElement
+}
 
 /**
  * Notification service handler.
@@ -178,10 +188,26 @@ export interface NotificationContext {
  * Notification service API.
  */
 export type NotificationFn = {
-  (options: NotificationOptions | string): NotificationHandler
-  success: (title: string, message?: string | NotificationOptions) => NotificationHandler
-  warning: (title: string, message?: string | NotificationOptions) => NotificationHandler
-  info: (title: string, message?: string | NotificationOptions) => NotificationHandler
-  error: (title: string, message?: string | NotificationOptions) => NotificationHandler
+  (options: NotificationOptions | string, appContext?: AppContext | null): NotificationHandler
+  success: (
+    title: string,
+    message?: string | NotificationOptions,
+    appContext?: AppContext | null
+  ) => NotificationHandler
+  warning: (
+    title: string,
+    message?: string | NotificationOptions,
+    appContext?: AppContext | null
+  ) => NotificationHandler
+  info: (
+    title: string,
+    message?: string | NotificationOptions,
+    appContext?: AppContext | null
+  ) => NotificationHandler
+  error: (
+    title: string,
+    message?: string | NotificationOptions,
+    appContext?: AppContext | null
+  ) => NotificationHandler
   closeAll: () => void
 }

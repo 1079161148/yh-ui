@@ -118,6 +118,22 @@ describe('Drawer', () => {
     expect(document.querySelector('.yh-drawer__handle')).toBeTruthy()
   })
 
+  it('teleports into config provider by default when available', async () => {
+    const host = document.createElement('div')
+    host.className = 'yh-config-provider'
+    document.body.appendChild(host)
+
+    mount(YhDrawer, {
+      props: {
+        modelValue: true,
+        title: 'Provider Drawer'
+      }
+    })
+
+    await nextTick()
+    expect(host.querySelector('.yh-drawer')).toBeTruthy()
+  })
+
   it('emits resize while dragging horizontal handles', async () => {
     const wrapper = mount(YhDrawer, {
       props: {

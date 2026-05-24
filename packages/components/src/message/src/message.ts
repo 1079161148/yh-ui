@@ -2,7 +2,7 @@
  * Message types and public contracts.
  */
 
-import type { VNode, ComponentPublicInstance, Ref } from 'vue'
+import type { VNode, ComponentPublicInstance, Ref, AppContext } from 'vue'
 
 /**
  * Supported message variants.
@@ -154,7 +154,17 @@ export type MessageInstance = ComponentPublicInstance<MessageExpose>
 /**
  * Message options accepted by the service API.
  */
-export type MessageOptions = Partial<MessageProps>
+export interface MessageOptions extends Partial<MessageProps> {
+  /**
+   * 应用上下文，用于继承全局配置/组件。
+   */
+  appContext?: AppContext | null
+
+  /**
+   * 设置消息挂载的根元素，默认优先挂载到 .yh-config-provider，否则回退到 document.body。
+   */
+  appendTo?: string | HTMLElement
+}
 
 /**
  * Message service handler.
@@ -179,10 +189,10 @@ export interface MessageContext {
  * Message service API.
  */
 export type MessageFn = {
-  (options: MessageOptions | string): MessageHandler
-  success: (message: string | MessageOptions) => MessageHandler
-  warning: (message: string | MessageOptions) => MessageHandler
-  info: (message: string | MessageOptions) => MessageHandler
-  error: (message: string | MessageOptions) => MessageHandler
+  (options: MessageOptions | string, appContext?: AppContext | null): MessageHandler
+  success: (message: string | MessageOptions, appContext?: AppContext | null) => MessageHandler
+  warning: (message: string | MessageOptions, appContext?: AppContext | null) => MessageHandler
+  info: (message: string | MessageOptions, appContext?: AppContext | null) => MessageHandler
+  error: (message: string | MessageOptions, appContext?: AppContext | null) => MessageHandler
   closeAll: () => void
 }

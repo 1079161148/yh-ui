@@ -9,7 +9,8 @@ import { isClient, getScrollContainer } from '@yh-ui/utils'
 import { imageProps } from './image'
 import type { ImageEmits } from './image'
 import YhImageViewer from './image-viewer.vue'
-import Viewer from '../../viewerjs'
+import type Viewer from 'viewerjs'
+import { loadViewer } from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
 defineOptions({
@@ -136,11 +137,18 @@ const stopLazyLoad = () => {
   }
 }
 
-const initViewerJS = () => {
+const initViewerJS = async () => {
   if (!isClient || !container.value) return
 
   const imgElement = container.value.querySelector('img')
   if (!imgElement) return
+
+  let ViewerClass
+  try {
+    ViewerClass = await loadViewer()
+  } catch (err) {
+    return
+  }
 
   // 如果有 previewSrcList，我们需要创建一个虚拟列表给 viewerjs
   if (props.previewSrcList && props.previewSrcList.length > 0) {
@@ -153,7 +161,7 @@ const initViewerJS = () => {
     })
     document.body.appendChild(list) // Append to body to make it part of the DOM for Viewer.js
     viewerList = list
-    const nextViewer = new Viewer(list, {
+    const nextViewer = new ViewerClass(list, {
       ...props.viewerOptions,
       hidden: () => {
         if (viewerList) {
@@ -164,11 +172,11 @@ const initViewerJS = () => {
         viewer = null
       }
     })
-    viewer = nextViewer
+    viewer = nextViewer as any
     nextViewer.view(props.initialIndex)
   } else {
-    const nextViewer = new Viewer(imgElement, props.viewerOptions)
-    viewer = nextViewer
+    const nextViewer = new ViewerClass(imgElement, props.viewerOptions)
+    viewer = nextViewer as any
     nextViewer.show()
   }
 }
@@ -201,11 +209,11 @@ onUnmounted(() => {
   }
 })
 
-const clickHandler = () => {
+const clickHandler = async () => {
   if (!preview.value) return
 
   if (props.viewerMode === 'viewerjs') {
-    initViewerJS()
+    await initViewerJS()
   } else {
     showViewer.value = true
   }

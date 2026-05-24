@@ -4,7 +4,7 @@
  * @reference 市面组件库 Message 实现
  */
 
-import { createVNode, render, shallowReactive, type VNodeProps } from 'vue'
+import { createVNode, render, shallowReactive, type VNodeProps, type AppContext } from 'vue'
 import MessageConstructor from './message.vue'
 import type {
   MessageOptions,
@@ -18,6 +18,22 @@ import './message.scss'
 // 消息实例上下文列表（使用上下文对象而非组件实例）
 const instances: MessageContext[] = []
 let seed = 1
+let defaultAppContext: AppContext | null = null
+
+export const setMessageDefaultAppContext = (appContext?: AppContext | null) => {
+  defaultAppContext = appContext ?? null
+}
+
+const resolveMountTarget = (appendTo?: string | HTMLElement): HTMLElement => {
+  if (appendTo) {
+    if (typeof appendTo === 'string') {
+      return document.querySelector(appendTo) ?? document.body
+    }
+    return appendTo
+  }
+
+  return document.querySelector('.yh-config-provider') ?? document.body
+}
 
 /**
  * 计算偏移量
@@ -39,7 +55,7 @@ const getOffset = (placement: MessagePlacement, offset: number): number => {
 /**
  * 创建并显示消息
  */
-const createMessage = (options: MessageOptions): MessageHandler => {
+const createMessage = (options: MessageOptions, appContext?: AppContext | null): MessageHandler => {
   const placement = options.placement || 'top'
   const defOffset = placement.startsWith('top') ? 64 : 20
 
@@ -63,10 +79,13 @@ const createMessage = (options: MessageOptions): MessageHandler => {
   // 2. 正常显示逻辑
   const id = `message_${seed++}`
   const userOnClose = options.onClose
+  const resolvedAppContext = appContext ?? options.appContext ?? defaultAppContext
+  const mountTarget = resolveMountTarget(options.appendTo)
+  const { appContext: _appContext, appendTo: _appendTo, ...restOptions } = options
 
   // 使用 shallowReactive 创建可变的 props 对象（市面组件库 方式）
   const props = shallowReactive<MessageOptions>({
-    ...options,
+    ...restOptions,
     id,
     placement,
     offset: getOffset(placement, options.offset || defOffset),
@@ -83,8 +102,8 @@ const createMessage = (options: MessageOptions): MessageHandler => {
 
   const onDestroy = () => {
     render(null, container)
-    if (document.body.contains(container)) {
-      document.body.removeChild(container)
+    if (mountTarget.contains(container)) {
+      mountTarget.removeChild(container)
     }
   }
 
@@ -94,9 +113,12 @@ const createMessage = (options: MessageOptions): MessageHandler => {
     onDestroy
   } as VNodeProps & { onDestroy: () => void }
   const vnode = createVNode(MessageConstructor, vnodeProps, null)
+  if (resolvedAppContext) {
+    vnode.appContext = resolvedAppContext
+  }
 
   render(vnode, container)
-  document.body.appendChild(container)
+  mountTarget.appendChild(container)
 
   // 获取组件实例用于调用 close 方法
   const vm = vnode.component!
@@ -178,31 +200,31 @@ const closeAll = () => {
   })
 }
 
-const Message = ((options: MessageOptions | string) => {
+const Message = ((options: MessageOptions | string, appContext?: AppContext | null) => {
   if (typeof options === 'string') {
     options = { message: options }
   }
-  return createMessage(options)
+  return createMessage(options, appContext)
 }) as MessageFn
 
-Message.success = (message: string | MessageOptions) => {
+Message.success = (message: string | MessageOptions, appContext?: AppContext | null) => {
   const options = typeof message === 'string' ? { message } : message
-  return createMessage({ ...options, type: 'success' })
+  return createMessage({ ...options, type: 'success' }, appContext)
 }
 
-Message.warning = (message: string | MessageOptions) => {
+Message.warning = (message: string | MessageOptions, appContext?: AppContext | null) => {
   const options = typeof message === 'string' ? { message } : message
-  return createMessage({ ...options, type: 'warning' })
+  return createMessage({ ...options, type: 'warning' }, appContext)
 }
 
-Message.info = (message: string | MessageOptions) => {
+Message.info = (message: string | MessageOptions, appContext?: AppContext | null) => {
   const options = typeof message === 'string' ? { message } : message
-  return createMessage({ ...options, type: 'info' })
+  return createMessage({ ...options, type: 'info' }, appContext)
 }
 
-Message.error = (message: string | MessageOptions) => {
+Message.error = (message: string | MessageOptions, appContext?: AppContext | null) => {
   const options = typeof message === 'string' ? { message } : message
-  return createMessage({ ...options, type: 'error' })
+  return createMessage({ ...options, type: 'error' }, appContext)
 }
 
 Message.closeAll = closeAll

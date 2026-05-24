@@ -70,16 +70,16 @@ const overlayStyle = computed((): CSSProperties => {
 })
 
 const calculateClones = async () => {
-  if (!containerRef.value || !contentRef.value) return
-
   await nextTick()
-  const containerSize =
-    props.direction === 'horizontal'
-      ? containerRef.value.offsetWidth
-      : containerRef.value.offsetHeight
+  const container = containerRef.value
+  const content = contentRef.value
 
-  const contentSize =
-    props.direction === 'horizontal' ? contentRef.value.scrollWidth : contentRef.value.scrollHeight
+  if (!container || !content) return
+
+  const containerSize =
+    props.direction === 'horizontal' ? container.offsetWidth : container.offsetHeight
+
+  const contentSize = props.direction === 'horizontal' ? content.scrollWidth : content.scrollHeight
 
   if (contentSize === 0) return
 

@@ -8,7 +8,8 @@ import {
   type AppContext,
   type VNode,
   type Component,
-  computed
+  computed,
+  onBeforeUnmount
 } from 'vue'
 import { useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -36,9 +37,16 @@ export interface LoadingInstance {
   readonly visible: boolean
 }
 
+let defaultAppContext: AppContext | null = null
+
+export const setLoadingDefaultAppContext = (appContext?: AppContext | null) => {
+  defaultAppContext = appContext ?? null
+}
+
 const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): LoadingInstance => {
+  const defaultTarget = document.querySelector<HTMLElement>('.yh-config-provider') ?? document.body
   const resolvedOptions = {
-    target: document.body,
+    target: defaultTarget,
     body: false,
     fullscreen: true,
     lock: false,
@@ -50,6 +58,38 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
     visible: true
   })
 
+  let target: HTMLElement =
+    typeof resolvedOptions.target === 'string'
+      ? (document.querySelector<HTMLElement>(resolvedOptions.target) ?? document.body)
+      : resolvedOptions.target
+  if (!target) target = document.body
+
+  const parent =
+    !resolvedOptions.fullscreen && resolvedOptions.body && target !== document.body
+      ? document.body
+      : target
+  const bodyWrappedTarget =
+    !resolvedOptions.fullscreen && parent === document.body && target !== document.body
+  const maskStyle = reactive<Record<string, string>>({})
+  let resizeObserver: ResizeObserver | null = null
+
+  const syncMaskStyle = () => {
+    Object.keys(maskStyle).forEach((key) => delete maskStyle[key])
+    if (!bodyWrappedTarget) return
+
+    const rect = target.getBoundingClientRect()
+    maskStyle.top = `${window.scrollY + rect.top}px`
+    maskStyle.left = `${window.scrollX + rect.left}px`
+    maskStyle.right = 'auto'
+    maskStyle.bottom = 'auto'
+    maskStyle.width = `${rect.width}px`
+    maskStyle.height = `${rect.height}px`
+  }
+
+  const syncMaskPosition = () => {
+    syncMaskStyle()
+  }
+
   const component = {
     setup() {
       const { t } = useLocale()
@@ -57,6 +97,13 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
         'loading',
         computed(() => resolvedOptions.themeOverrides)
       )
+
+      onBeforeUnmount(() => {
+        window.removeEventListener('resize', syncMaskPosition)
+        window.removeEventListener('scroll', syncMaskPosition, true)
+        resizeObserver?.disconnect()
+        resizeObserver = null
+      })
 
       return () =>
         h(
@@ -76,7 +123,11 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
                           'is-glass': resolvedOptions.glass
                         }
                       ],
-                      style: [{ backgroundColor: resolvedOptions.background }, themeStyle.value]
+                      style: [
+                        { backgroundColor: resolvedOptions.background },
+                        themeStyle.value,
+                        maskStyle
+                      ]
                     },
                     [
                       h('div', { class: 'yh-loading-spinner' }, [
@@ -108,30 +159,31 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
   container.style.display = 'contents'
 
   const vnode = createVNode(component)
-  if (appContext) {
-    vnode.appContext = appContext
+  const resolvedAppContext = appContext ?? defaultAppContext
+  if (resolvedAppContext) {
+    vnode.appContext = resolvedAppContext
   }
   render(vnode, container)
 
-  let target: HTMLElement = document.body
-  if (resolvedOptions.fullscreen) {
-    target = document.body
-  } else if (resolvedOptions.target) {
-    target =
-      typeof resolvedOptions.target === 'string'
-        ? (document.querySelector(resolvedOptions.target) as HTMLElement)
-        : resolvedOptions.target
-  }
-  if (!target) target = document.body
-
   // 内部自动维护定位状态，防止闪烁
-  const isRelative =
-    target.style.position === 'relative' || target.classList.contains('yh-loading-parent--relative')
-  if (!resolvedOptions.fullscreen && !isRelative) {
+  const computedPosition = window.getComputedStyle(target).position
+  const needsRelativeParent =
+    !resolvedOptions.fullscreen && !bodyWrappedTarget && computedPosition === 'static'
+  if (needsRelativeParent) {
     target.classList.add('yh-loading-parent--relative')
   }
 
-  target.appendChild(container)
+  if (bodyWrappedTarget) {
+    syncMaskStyle()
+    window.addEventListener('resize', syncMaskPosition)
+    window.addEventListener('scroll', syncMaskPosition, true)
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(syncMaskPosition)
+      resizeObserver.observe(target)
+    }
+  }
+
+  parent.appendChild(container)
 
   if (resolvedOptions.lock) {
     target.style.overflow = 'hidden'
@@ -148,13 +200,18 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
         container.remove()
 
         // 只有在 DOM 彻底消失后，才允许恢复父元素的定位状态
-        if (!resolvedOptions.fullscreen) {
+        if (needsRelativeParent) {
           target.classList.remove('yh-loading-parent--relative')
         }
 
         if (resolvedOptions.lock) {
           target.style.overflow = ''
         }
+
+        window.removeEventListener('resize', syncMaskPosition)
+        window.removeEventListener('scroll', syncMaskPosition, true)
+        resizeObserver?.disconnect()
+        resizeObserver = null
       }, 400) // 略晚于 CSS 的 0.3s
     },
     get visible() {

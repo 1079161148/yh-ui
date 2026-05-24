@@ -151,7 +151,7 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: #fff;
+      background: var(--yh-bg-color, #fff);
       animation: yh-sphere-inner-pulse 1s infinite alternate;
     }
   }

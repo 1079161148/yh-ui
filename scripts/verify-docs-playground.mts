@@ -4,7 +4,7 @@ import http from 'node:http'
 import net from 'node:net'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { chromium } from 'playwright'
+import { chromium, type Frame } from 'playwright'
 import LZString from 'lz-string'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -22,11 +22,7 @@ const testCases = [
 </template>`
     },
     selector: '.yh-button--primary',
-    evaluate: async (
-      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-        ? Awaited<T>['mainFrame']
-        : never
-    ) => {
+    evaluate: async (frame: Frame) => {
       const count = await frame.locator('.yh-button').count()
       if (count < 2) {
         throw new Error(`Expected at least 2 buttons, received ${count}`)
@@ -44,11 +40,7 @@ const testCases = [
 </template>`
     },
     selector: '.yh-input__wrapper',
-    evaluate: async (
-      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-        ? Awaited<T>['mainFrame']
-        : never
-    ) => {
+    evaluate: async (frame: Frame) => {
       const styles = await frame.locator('.yh-input__wrapper').evaluate((el) => {
         const style = getComputedStyle(el)
         return {
@@ -61,6 +53,44 @@ const testCases = [
       }
       if (styles.borderTopLeftRadius === '0px') {
         throw new Error('Expected input wrapper border radius style to be applied')
+      }
+    }
+  },
+  {
+    name: 'ai-mermaid-labels',
+    payload: {
+      title: 'Ai Mermaid',
+      code: `<template>
+  <yh-ai-mermaid
+    header="基础流程图"
+    :code="diagram"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const diagram = ref(\`graph TD
+  A[开始] --> B{判断}
+  B -->|是| C[执行]
+  B -->|否| D[结束]
+  C --> D\`)
+</script>`,
+      context: {
+        docPath: 'ai-components/ai-mermaid.md'
+      }
+    },
+    selector: '.yh-ai-mermaid__graph',
+    evaluate: async (frame: Frame) => {
+      const result = await frame.locator('.yh-ai-mermaid__graph').evaluate((el) => {
+        const html = el.innerHTML
+        return {
+          html,
+          text: (el.textContent || '').trim()
+        }
+      })
+      if (!result.html.includes('开始') || !result.html.includes('判断')) {
+        throw new Error('Expected ai-mermaid playground graph to preserve Mermaid label text')
       }
     }
   },
@@ -86,11 +116,7 @@ const testCases = [
       }
     },
     selector: '.grid-demo-item',
-    evaluate: async (
-      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-        ? Awaited<T>['mainFrame']
-        : never
-    ) => {
+    evaluate: async (frame: Frame) => {
       const styles = await frame
         .locator('.grid-demo-item')
         .first()
@@ -126,11 +152,7 @@ import { Icon, YhIcon } from '@yh-ui/icons'
 </script>`
     },
     selector: 'svg',
-    evaluate: async (
-      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-        ? Awaited<T>['mainFrame']
-        : never
-    ) => {
+    evaluate: async (frame: Frame) => {
       const count = await frame.locator('svg').count()
       if (count < 2) {
         throw new Error(`Expected at least 2 rendered icons, received ${count}`)
@@ -160,11 +182,7 @@ const edges = ref([{ id: 'e1-2', source: '1', target: '2' }, { id: 'e2-3', sourc
 </script>`
     },
     selector: '.yh-flow',
-    evaluate: async (
-      frame: Awaited<ReturnType<typeof chromium.launch>> extends { newPage(): infer T }
-        ? Awaited<T>['mainFrame']
-        : never
-    ) => {
+    evaluate: async (frame: Frame) => {
       const count = await frame.locator('.yh-flow__node, .yh-flow-node').count()
       if (count < 3) {
         throw new Error(`Expected at least 3 flow nodes, received ${count}`)

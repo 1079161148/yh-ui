@@ -69,6 +69,10 @@ const DEFAULT_HTML_ATTRIBUTES = [
   'width'
 ] as const
 
+function withLowercaseAliases<T extends readonly string[]>(values: T) {
+  return [...new Set([...values, ...values.map((value) => value.toLowerCase())])]
+}
+
 const DEFAULT_SVG_TAGS = [
   'a',
   'br',
@@ -95,7 +99,7 @@ const DEFAULT_SVG_TAGS = [
   'text',
   'tspan',
   'use'
-] as const
+]
 
 const DEFAULT_SVG_ATTRIBUTES = [
   ...DEFAULT_HTML_ATTRIBUTES,
@@ -146,7 +150,10 @@ const DEFAULT_SVG_ATTRIBUTES = [
   'y',
   'y1',
   'y2'
-] as const
+]
+
+const NORMALIZED_SVG_TAGS = withLowercaseAliases(DEFAULT_SVG_TAGS)
+const NORMALIZED_SVG_ATTRIBUTES = withLowercaseAliases(DEFAULT_SVG_ATTRIBUTES)
 
 let purifier: ReturnType<typeof createDOMPurify> | null = null
 let purifierWindow: Window | null = null
@@ -249,6 +256,15 @@ function serverSideSanitize(html: string, allowedSchemes: string[]) {
   return output
 }
 
+function shouldFallbackToServerSvgSanitizer(source: string, sanitized: string) {
+  const normalizedSource = source.toLowerCase()
+  const normalizedSanitized = sanitized.toLowerCase()
+
+  return (
+    normalizedSource.includes('foreignobject') && !normalizedSanitized.includes('foreignobject')
+  )
+}
+
 export function sanitizeMarkup(html: string, options: SanitizeMarkupOptions = {}) {
   const allowedSchemes = normalizeSchemes(options.allowedSchemes)
   const source = options.sanitizer ? options.sanitizer(html) : html
@@ -258,10 +274,10 @@ export function sanitizeMarkup(html: string, options: SanitizeMarkupOptions = {}
   }
 
   const allowedTags = options.allowedTags ?? [
-    ...(options.profile === 'svg' ? DEFAULT_SVG_TAGS : DEFAULT_HTML_TAGS)
+    ...(options.profile === 'svg' ? NORMALIZED_SVG_TAGS : DEFAULT_HTML_TAGS)
   ]
   const allowedAttributes = options.allowedAttributes ?? [
-    ...(options.profile === 'svg' ? DEFAULT_SVG_ATTRIBUTES : DEFAULT_HTML_ATTRIBUTES)
+    ...(options.profile === 'svg' ? NORMALIZED_SVG_ATTRIBUTES : DEFAULT_HTML_ATTRIBUTES)
   ]
   const purifierInstance = getPurifier()
 
@@ -276,6 +292,10 @@ export function sanitizeMarkup(html: string, options: SanitizeMarkupOptions = {}
     USE_PROFILES:
       options.profile === 'svg' ? { html: true, svg: true, svgFilters: true } : { html: true }
   })
+
+  if (options.profile === 'svg' && shouldFallbackToServerSvgSanitizer(source, String(sanitized))) {
+    return postProcessSanitizedMarkup(serverSideSanitize(source, allowedSchemes), allowedSchemes)
+  }
 
   return postProcessSanitizedMarkup(String(sanitized), allowedSchemes)
 }

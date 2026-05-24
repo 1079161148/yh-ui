@@ -2,10 +2,18 @@
 @use '@yh-ui/theme/styles/variables' as *;
 
 @include b(tree) {
-  --yh-tree-node-height: 28px;
-  --yh-tree-text-color: var(--yh-text-color-primary, #1d1d1f);
-  --yh-tree-hover-bg: var(--yh-color-primary-light-9, #ecf5ff);
-  --yh-tree-current-bg: var(--yh-color-primary-light-8, #d9ecff);
+  --yh-tree-node-height: var(--yh-tree-node-height, 28px);
+  --yh-tree-text-color: var(--yh-tree-label-text-color, var(--yh-text-color-primary, #1d1d1f));
+  --yh-tree-hover-bg: var(--yh-tree-node-hover-bg-color, var(--yh-color-primary-light-9, #ecf5ff));
+  --yh-tree-current-bg: var(
+    --yh-tree-node-selected-bg-color,
+    var(--yh-color-primary-light-8, #d9ecff)
+  );
+
+  html.dark & {
+    --yh-tree-hover-bg: var(--yh-tree-node-hover-bg-color, rgba(255, 255, 255, 0.06));
+    --yh-tree-current-bg: var(--yh-tree-node-selected-bg-color, rgba(255, 255, 255, 0.12));
+  }
 
   font-size: 14px;
   color: var(--yh-tree-text-color);

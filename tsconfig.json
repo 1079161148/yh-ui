@@ -20,6 +20,9 @@
     "jsxImportSource": "vue",
     "types": ["node", "vitest/globals", "vite/client"],
     "paths": {
+      "@yh-ui/icons": ["./packages/icons/src/index.ts"],
+      "@yh-ui/icons/components": ["./packages/icons/src/components.ts"],
+      "@yh-ui/icons/vue": ["./packages/icons/src/vue/icon.ts"],
       "@yh-ui/*": ["./packages/*/src"]
     },
     "baseUrl": "."
@@ -31,6 +34,7 @@
     { "path": "./packages/hooks" },
     { "path": "./packages/components" },
     { "path": "./packages/yh-ui" },
+    { "path": "./packages/yh-ui-skill" },
     { "path": "./packages/nuxt" },
     { "path": "./packages/ai-sdk" },
     { "path": "./packages/request" },

@@ -3,6 +3,12 @@ import Dialog from './dialog.vue'
 import type { DialogProps } from './dialog'
 import type { UseDialogOptions, DialogAction } from './use-dialog'
 
+let defaultAppContext: AppContext | null = null
+
+export const setDialogDefaultAppContext = (appContext?: AppContext | null) => {
+  defaultAppContext = appContext ?? null
+}
+
 /**
  * 默认配置
  */
@@ -44,6 +50,10 @@ const createDialog = (
   if (typeof window === 'undefined') return Promise.reject('Dialog cannot be used on server side.')
 
   return new Promise((resolve) => {
+    const resolvedAppContext = appContext ?? options.appContext ?? defaultAppContext
+    const providerHost = document.querySelector<HTMLElement>('.yh-config-provider')
+    const resolvedTeleportTarget = options.teleportTo ?? providerHost ?? 'body'
+
     // 1. 创建挂载容器
     const container = document.createElement('div')
 
@@ -52,6 +62,7 @@ const createDialog = (
       const props = {
         ...defaults,
         ...(options as Record<string, unknown>),
+        teleportTo: resolvedTeleportTarget,
         modelValue: visible,
         // 动画结束清理
         onClosed: () => {
@@ -102,11 +113,11 @@ const createDialog = (
       }
 
       // 创建 VNode
-      const vnode = h(Dialog, props, slots as Slots)
+      const vnode = h(Dialog as Component, props, slots as Slots)
 
       // 注入上下文
-      if (appContext || options.appContext) {
-        vnode.appContext = options.appContext || appContext || null
+      if (resolvedAppContext) {
+        vnode.appContext = resolvedAppContext
       }
 
       // 渲染
@@ -115,7 +126,11 @@ const createDialog = (
 
     // 初始渲染
     renderDialog(true)
-    document.body.appendChild(container)
+    const mountTarget =
+      resolvedTeleportTarget instanceof HTMLElement
+        ? resolvedTeleportTarget
+        : (providerHost ?? document.body)
+    mountTarget.appendChild(container)
   })
 }
 

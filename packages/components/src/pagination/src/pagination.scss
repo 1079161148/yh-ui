@@ -12,15 +12,17 @@
   --yh-pagination-btn-hover-color: var(--yh-color-primary);
   --yh-pagination-item-active-bg-color: var(--yh-color-primary);
   --yh-pagination-item-active-color: #ffffff;
+  --yh-pagination-jumper-input-width: 50px;
 
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  flex-wrap: nowrap; // 强制不换行
+  flex-wrap: wrap;
   color: var(--yh-pagination-text-color);
   font-size: var(--yh-pagination-font-size);
   user-select: none;
   gap: 8px;
+  row-gap: 6px;
   box-sizing: border-box;
   vertical-align: middle;
   line-height: 1;
@@ -34,6 +36,7 @@
     --yh-pagination-font-size: 12px;
     --yh-pagination-btn-width: 24px;
     --yh-pagination-btn-height: 24px;
+    --yh-pagination-jumper-input-width: 42px;
     gap: 4px;
   }
 
@@ -138,7 +141,7 @@
   @include e(jumper) {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 0;
     padding: 0;
     gap: 8px;
@@ -149,12 +152,23 @@
     flex-shrink: 0;
 
     .yh-input {
-      width: 50px !important; // 强制锁定宽度
+      width: var(--yh-pagination-jumper-input-width) !important;
+      min-width: var(--yh-pagination-jumper-input-width);
+      flex: 0 0 var(--yh-pagination-jumper-input-width);
+      display: inline-flex;
+      align-items: center;
       margin: 0 4px !important;
 
-      input {
+      .yh-input__wrapper {
+        min-height: var(--yh-pagination-btn-height);
+        padding: 0 6px;
+      }
+
+      .yh-input__inner {
         padding: 0 !important; // 移除内边距，确保数字在窄框内居中
         text-align: center;
+        height: calc(var(--yh-pagination-btn-height) - 2px);
+        line-height: calc(var(--yh-pagination-btn-height) - 2px);
       }
     }
   }

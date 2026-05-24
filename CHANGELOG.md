@@ -4,6 +4,37 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.27] - 2026-05-25
+
+Patch release focused on batching a large round of consumer-facing fixes, dependency-cost reductions, component reliability improvements, and release-tooling upgrades into one publishable train.
+
+### Added
+
+- Added the first documented `apps/admin-starter` consumer shell, including login, dashboard, component lab, table, form, content, system, error, and user-center routes for real integration verification.
+- Added the publishable `@yh-ui/yh-ui-skill` package plus synced skill assets so YH-UI's AI-facing installation flow becomes a versioned workspace package instead of only a repository-side artifact.
+- Added targeted regression coverage for sanitize behavior, package main-entry exports, optional heavy dependency boundaries, and multiple component interaction fixes discovered through consumer-side validation.
+
+### Changed
+
+- Changed `monaco-editor`, `xlsx`, `viewerjs`, and `markdown-it` to optional `peerDependencies`, reducing forced initial download cost for consumers who only use core components.
+- Changed package-size guidance and installation docs in both Chinese and English to explicitly document the new optional-heavy-dependency strategy and the matching host-install contract.
+- Changed function-based dialog and message-box installation flows to capture default app context during plugin install, aligning global config inheritance with real consumer usage.
+- Changed release/build verification, consumer smoke validation, docs playground checks, and skill asset syncing so new packages, starter apps, and optional dependency boundaries participate in the release pipeline.
+- Changed theme token output, root style organization, and public entry exports to support the new starter apps and workspace package layout more cleanly.
+
+### Fixed
+
+- Fixed multiple consumer-facing package bloat issues by isolating heavyweight capabilities from the default install path while keeping Monaco editor, Excel import/export, Viewer.js preview, and Markdown rendering available when explicitly installed.
+- Fixed function APIs such as `YhDialog`, `YhMessageBox`, `YhMessage`, `YhNotification`, and `YhLoading` so context inheritance, focus behavior, container positioning, and service invocation remain correct in real applications.
+- Fixed consumer integration regressions across `YhAiMermaid`, `YhAiCodeEditor`, `YhImage`, `YhUpload`, `YhDatePicker`, `YhCalendar`, `YhDrawer`, `YhWatermark`, `YhInputTag`, `YhInfiniteScroll`, `YhMarquee`, and table import/export flows.
+- Fixed layout and styling regressions affecting descriptions, scrollbar visibility, narrow-width component demos, smart-address presentation, pagination sizing, switch/tree/time-picker edge cases, and many Sass component tokens exposed through consumer builds.
+- Fixed docs sandbox and Nuxt integration issues by improving sandbox dependency mapping, bridge injection, optional dependency handling, and module-level runtime compatibility checks.
+
+### Notes
+
+- If a host project uses code editing, Excel import/export, advanced image preview, or Markdown rendering, it now needs to install the matching optional peer dependency explicitly instead of receiving it through the default package install.
+- This release intentionally batches consumer-facing fixes, starter-app work, packaging cleanup, docs synchronization, and release engineering improvements into a single patch so downstream users can upgrade once and recover multiple integration issues together.
+
 ## [1.0.26] - 2026-05-22
 
 Starter and documentation release focused on promoting the new AI Ops Starter demo into a documented, versioned consumer shell for YH-UI.

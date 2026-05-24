@@ -2,7 +2,8 @@
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { imageViewerProps, imageViewerEmits, type ImageViewerExpose } from './image-viewer'
-import Viewer from '../../viewerjs'
+import type Viewer from 'viewerjs'
+import { loadViewer } from '../../viewerjs'
 import 'viewerjs/dist/viewer.css'
 
 defineOptions({
@@ -30,7 +31,14 @@ const handleClose = () => {
 }
 
 // ViewerJS Logic
-const initViewerJS = () => {
+const initViewerJS = async () => {
+  let ViewerClass
+  try {
+    ViewerClass = await loadViewer()
+  } catch (err) {
+    return
+  }
+
   const list = document.createElement('div')
   list.style.display = 'none'
   props.urlList.forEach((src) => {
@@ -41,7 +49,7 @@ const initViewerJS = () => {
   document.body.appendChild(list)
   viewerList = list
 
-  const nextViewer = new Viewer(list, {
+  const nextViewer = new ViewerClass(list, {
     ...props.viewerOptions,
     initialViewIndex: props.initialIndex,
     hidden: () => {
@@ -54,7 +62,7 @@ const initViewerJS = () => {
       emit('close')
     }
   })
-  viewer = nextViewer
+  viewer = nextViewer as any
   nextViewer.show()
 }
 
@@ -129,9 +137,9 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (props.viewerMode === 'viewerjs') {
-    initViewerJS()
+    await initViewerJS()
   } else {
     window.addEventListener('keydown', handleKeyDown)
   }

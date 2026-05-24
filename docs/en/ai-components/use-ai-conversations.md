@@ -175,7 +175,10 @@ const tsBasic = `\<${_T}>
             style="padding: 8px 12px; cursor: pointer; border-radius: 0; transition: background 0.15s; position: relative;"
             :style="{ background: activeId === conv.id ? 'var(--yh-color-primary-light-9)' : 'transparent' }"
           >
-            <div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 40px;">
+            <div
+              style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 40px;"
+              :style="{ color: activeId === conv.id ? 'var(--yh-color-primary)' : 'var(--yh-text-color-primary)' }"
+            >
               <span v-if="conv.pinned" style="color: var(--yh-color-warning); margin-right: 4px;">📌</span>
               {{ conv.title }}
             </div>
@@ -324,7 +327,10 @@ Live demo of complete history interaction: time grouping, creating, deleting, pi
             style="padding: 8px 12px; cursor: pointer; transition: background 0.15s; position: relative;"
             :style="{ background: activeId === conv.id ? 'var(--yh-color-primary-light-9)' : 'transparent' }"
           >
-            <div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 44px;">
+            <div
+              style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 44px;"
+              :style="{ color: activeId === conv.id ? 'var(--yh-color-primary)' : 'var(--yh-text-color-primary)' }"
+            >
               <span v-if="conv.pinned" style="color: var(--yh-color-warning); margin-right: 3px; font-size: 11px;">📌</span>
               {{ conv.title }}
             </div>
