@@ -6,6 +6,7 @@
  * @Description:
  * Copyright (C) 2024-{year} Tsing Micro Technology Inc All rights reserved.
  */
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { parseArgs } from '../args'
 import { resolveInstallPlan } from '../targets'
@@ -31,15 +32,18 @@ describe('parseArgs', () => {
 
 describe('resolveInstallPlan', () => {
   it('uses the target default directory when outDir is omitted', () => {
-    expect(resolveInstallPlan({ cwd: 'E:/demo', target: 'project' }).skillDir).toBe(
-      'E:\\demo\\.yh-ui\\skills\\yh-ui'
-    )
+    const testCwd = path.resolve('./demo')
+    const plan = resolveInstallPlan({ cwd: testCwd, target: 'project' })
+    expect(plan.skillDir).toBe(path.resolve(testCwd, '.yh-ui', 'skills', 'yh-ui'))
   })
 
   it('uses outDir as the base directory override', () => {
-    const plan = resolveInstallPlan({ cwd: 'E:/demo', target: 'cursor', outDir: './custom-skill' })
+    const testCwd = path.resolve('./demo')
+    const plan = resolveInstallPlan({ cwd: testCwd, target: 'cursor', outDir: './custom-skill' })
 
-    expect(plan.baseDir).toBe('E:\\demo\\custom-skill')
-    expect(plan.manifestPath).toBe('E:\\demo\\custom-skill\\yh-ui-skill.manifest.json')
+    expect(plan.baseDir).toBe(path.resolve(testCwd, 'custom-skill'))
+    expect(plan.manifestPath).toBe(
+      path.resolve(testCwd, 'custom-skill', 'yh-ui-skill.manifest.json')
+    )
   })
 })
