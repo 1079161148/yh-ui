@@ -24,13 +24,13 @@ export const iconComponentProps = {
 
 export type IconComponent = DefineComponent<
   typeof iconComponentProps,
-  () => any,
-  any,
-  any,
-  any,
-  any,
-  any,
-  any
+  () => unknown,
+  unknown,
+  Record<string, never>,
+  Record<string, never>,
+  import('vue').ComponentOptionsMixin,
+  import('vue').ComponentOptionsMixin,
+  Record<string, never>
 >
 
 export interface IconComponentMeta {

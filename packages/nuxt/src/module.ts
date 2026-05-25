@@ -376,7 +376,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
             }
           }
         })
-      } catch (e) {
+      } catch {
         // Fallback: resolution failure, let Vite dynamic imports resolve normally
       }
 

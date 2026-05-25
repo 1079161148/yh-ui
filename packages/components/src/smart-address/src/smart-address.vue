@@ -238,7 +238,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           :value="innerVal.name"
           :disabled="disabled"
           :placeholder="`${t('smartaddress.name')}...`"
-          @input="(e) => updateField('name', (e.target as HTMLInputElement).value)"
+          @input="(e: Event) => updateField('name', (e.target as HTMLInputElement).value)"
         />
       </div>
 
@@ -255,7 +255,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           inputmode="numeric"
           maxlength="11"
           :placeholder="`${t('smartaddress.phone')}...`"
-          @input="(e) => updateField('phone', (e.target as HTMLInputElement).value)"
+          @input="(e: Event) => updateField('phone', (e.target as HTMLInputElement).value)"
         />
       </div>
 
@@ -272,21 +272,21 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
               :value="innerVal.province"
               :disabled="disabled"
               :placeholder="t('smartaddress.province')"
-              @input="(e) => updateField('province', (e.target as HTMLInputElement).value)"
+              @input="(e: Event) => updateField('province', (e.target as HTMLInputElement).value)"
             />
             <input
               :class="ns.e('input')"
               :value="innerVal.city"
               :disabled="disabled"
               :placeholder="t('smartaddress.city')"
-              @input="(e) => updateField('city', (e.target as HTMLInputElement).value)"
+              @input="(e: Event) => updateField('city', (e.target as HTMLInputElement).value)"
             />
             <input
               :class="ns.e('input')"
               :value="innerVal.district"
               :disabled="disabled"
               :placeholder="t('smartaddress.district')"
-              @input="(e) => updateField('district', (e.target as HTMLInputElement).value)"
+              @input="(e: Event) => updateField('district', (e.target as HTMLInputElement).value)"
             />
           </div>
 
@@ -298,7 +298,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
               :placeholder="t('smartaddress.province')"
               style="flex: 1; min-width: 0"
               @update:model-value="
-                (val) => {
+                (val: unknown) => {
                   updateField('province', val as string)
                   updateField('city', '')
                   updateField('district', '')
@@ -318,7 +318,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
               :placeholder="t('smartaddress.city')"
               style="flex: 1; min-width: 0"
               @update:model-value="
-                (val) => {
+                (val: unknown) => {
                   updateField('city', val as string)
                   updateField('district', '')
                 }
@@ -336,7 +336,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
               :disabled="disabled"
               :placeholder="t('smartaddress.district')"
               style="flex: 1; min-width: 0"
-              @update:model-value="(val) => updateField('district', val as string)"
+              @update:model-value="(val: unknown) => updateField('district', val as string)"
             >
               <YhOption
                 v-for="opt in districtOptions"
@@ -370,7 +370,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           :value="innerVal.street"
           :disabled="disabled"
           :placeholder="`${t('smartaddress.street')}...`"
-          @input="(e) => updateField('street', (e.target as HTMLInputElement).value)"
+          @input="(e: Event) => updateField('street', (e.target as HTMLInputElement).value)"
         />
       </div>
 
@@ -384,7 +384,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           :value="innerVal.detail"
           :disabled="disabled"
           :placeholder="`${t('smartaddress.detail')}...`"
-          @input="(e) => updateField('detail', (e.target as HTMLInputElement).value)"
+          @input="(e: Event) => updateField('detail', (e.target as HTMLInputElement).value)"
         />
       </div>
 

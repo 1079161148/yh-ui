@@ -1,11 +1,6 @@
 import type { Directive, DirectiveBinding } from 'vue'
 import { useUserStore } from '@/stores/user'
 
-interface PermissionBinding {
-  value?: string | string[]
-  arg?: string
-}
-
 function checkPermission(el: HTMLElement, binding: DirectiveBinding<string | string[]>) {
   const userStore = useUserStore()
   const { value, arg } = binding

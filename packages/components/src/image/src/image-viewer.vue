@@ -35,7 +35,7 @@ const initViewerJS = async () => {
   let ViewerClass
   try {
     ViewerClass = await loadViewer()
-  } catch (err) {
+  } catch {
     return
   }
 
@@ -62,7 +62,7 @@ const initViewerJS = async () => {
       emit('close')
     }
   })
-  viewer = nextViewer as any
+  viewer = nextViewer as unknown as Viewer
   nextViewer.show()
 }
 

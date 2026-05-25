@@ -596,7 +596,7 @@ const handlePreview = async (file: UploadFile) => {
     let ViewerClass
     try {
       ViewerClass = await loadViewer()
-    } catch (err) {
+    } catch {
       return
     }
 
@@ -632,7 +632,7 @@ const handlePreview = async (file: UploadFile) => {
       }
     })
 
-    viewer = nextViewer as any
+    viewer = nextViewer as unknown as Viewer
     nextViewer.view(initialIndex !== -1 ? initialIndex : 0)
     nextViewer.show()
   }

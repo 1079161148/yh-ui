@@ -5,5 +5,8 @@
     "composite": false,
     "incremental": false
   },
-  "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.d.ts", "packages/*/src/**/*.vue"]
+  "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.d.ts", "packages/*/src/**/*.vue"],
+  "vueCompilerOptions": {
+    "target": 3
+  }
 }

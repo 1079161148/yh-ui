@@ -326,7 +326,7 @@ onUnmounted(() => {
         <div
           v-for="cat in categories"
           :key="cat.id"
-          :ref="(el) => setSectionRef(el as HTMLElement | null, cat.id)"
+          :ref="(el: unknown) => setSectionRef(el as HTMLElement | null, cat.id)"
           :class="ns.e('section')"
           :data-id="cat.id"
         >

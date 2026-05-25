@@ -833,10 +833,12 @@ const getMarkdownOptions = (): AiMarkdownOptions => {
   }
 }
 
-let cachedMarkdownItClass: any = null
+let cachedMarkdownItClass: typeof import('markdown-it').default | null = null
 
-const getMarkdownInstance = (MarkdownItClass?: any) => {
-  const Cls = MarkdownItClass || cachedMarkdownItClass || mdi.value?.constructor
+const getMarkdownInstance = (MarkdownItClass?: typeof import('markdown-it').default) => {
+  const Cls = (MarkdownItClass ||
+    cachedMarkdownItClass ||
+    mdi.value?.constructor) as unknown as typeof import('markdown-it').default
   if (!Cls) {
     throw new Error(
       '[YhAiBubble] markdown-it 尚未加载。如果需要同步获取 markdown 实例，请等待异步加载完成，或在调用 getMarkdownInstance 时传入构造器参数。'

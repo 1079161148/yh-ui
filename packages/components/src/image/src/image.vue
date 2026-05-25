@@ -146,7 +146,7 @@ const initViewerJS = async () => {
   let ViewerClass
   try {
     ViewerClass = await loadViewer()
-  } catch (err) {
+  } catch {
     return
   }
 
@@ -172,11 +172,11 @@ const initViewerJS = async () => {
         viewer = null
       }
     })
-    viewer = nextViewer as any
+    viewer = nextViewer as unknown as Viewer
     nextViewer.view(props.initialIndex)
   } else {
     const nextViewer = new ViewerClass(imgElement, props.viewerOptions)
-    viewer = nextViewer as any
+    viewer = nextViewer as unknown as Viewer
     nextViewer.show()
   }
 }

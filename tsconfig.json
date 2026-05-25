@@ -40,5 +40,8 @@
     { "path": "./packages/request" },
     { "path": "./packages/icons" },
     { "path": "./packages/theme" }
-  ]
+  ],
+  "vueCompilerOptions": {
+    "target": 3
+  }
 }

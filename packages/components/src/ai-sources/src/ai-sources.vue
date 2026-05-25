@@ -145,7 +145,7 @@ defineExpose<AiSourcesExpose>({
           <div
             v-for="source in sources"
             :key="source.id"
-            :ref="(el) => (sourceRefs[source.id] = el as HTMLElement)"
+            :ref="(el: unknown) => (sourceRefs[source.id] = el as HTMLElement)"
             :class="[
               ns.e('source-card'),
               ns.is('active', activeSource?.id === source.id),
@@ -198,7 +198,7 @@ defineExpose<AiSourcesExpose>({
         >
           <div
             :class="[ns.e('inline-item'), ns.is('highlighted', highlightedSourceId === source.id)]"
-            :ref="(el) => (sourceRefs[source.id] = el as HTMLElement)"
+            :ref="(el: unknown) => (sourceRefs[source.id] = el as HTMLElement)"
             @click="handleClick(source)"
           >
             <span :class="ns.e('inline-index')">{{ source.id }}</span>
@@ -270,7 +270,7 @@ defineExpose<AiSourcesExpose>({
         <div
           v-for="source in visibleSources"
           :key="source.id"
-          :ref="(el) => (sourceRefs[source.id] = el as HTMLElement)"
+          :ref="(el: unknown) => (sourceRefs[source.id] = el as HTMLElement)"
           :class="[ns.e('source-card'), ns.is('highlighted', highlightedSourceId === source.id)]"
           @click="handleClick(source)"
         >

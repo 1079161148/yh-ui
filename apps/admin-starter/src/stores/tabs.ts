@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { RouteLocationNormalized } from 'vue-router'
+import type { RouteLocationNormalized, LocationQuery } from 'vue-router'
 
 export interface TabItem {
   path: string
   name: string
   title: string
   icon?: string
-  query?: Record<string, any>
+  query?: LocationQuery
 }
 
 export const useTabsStore = defineStore('tabs', () => {
@@ -27,7 +27,7 @@ export const useTabsStore = defineStore('tabs', () => {
         name: route.name as string,
         title: (meta.title as string) || route.path,
         icon: meta.icon as string | undefined,
-        query: route.query as Record<string, any>
+        query: route.query
       })
     }
     activeTab.value = route.path

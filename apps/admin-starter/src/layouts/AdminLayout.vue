@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
 import Sidebar from '@/components/Sidebar.vue'
 import HeaderBar from '@/components/HeaderBar.vue'
 import MultiTabs from '@/components/MultiTabs.vue'
 import GlobalConfig from '@/components/GlobalConfig.vue'
 import AppFooter from '@/components/AppFooter.vue'
-import { useRouter } from 'vue-router'
 
-const userStore = useUserStore()
 const appStore = useAppStore()
-const router = useRouter()
 
 const isSideLayout = computed(() => appStore.layout === 'side')
 const isTopLayout = computed(() => appStore.layout === 'top')

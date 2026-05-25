@@ -12,7 +12,7 @@
  * 再 packages/theme/styles → src/styles）会导致内层 junction 无法穿透访问。
  * 因此使用 cpSync 直接复制替代 junction，确保可靠性。
  */
-import { existsSync, lstatSync, cpSync, rmSync, mkdirSync, readdirSync, symlinkSync } from 'fs'
+import { existsSync, lstatSync, cpSync, rmSync, mkdirSync, readdirSync, symlinkSync, writeFileSync } from 'fs'
 import { execSync } from 'child_process'
 import { resolve, join } from 'path'
 import { fileURLToPath } from 'url'
@@ -53,6 +53,20 @@ function forceRemove(p) {
 }
 
 try {
+  // 5. 自动为 node_modules/@vue/compiler-vue2 创建 build.js 以免 vue-tsc 报错 (Cannot find module '@vue/compiler-vue2/build')
+  try {
+    const compilerVue2Path = resolve(__dirname, '../node_modules/@vue/compiler-vue2')
+    if (existsSync(compilerVue2Path)) {
+      const buildJsPath = join(compilerVue2Path, 'build.js')
+      if (!existsSync(buildJsPath)) {
+        writeFileSync(buildJsPath, "module.exports = { compile: function() { return { errors: [], tips: [] }; } };\n")
+        console.log('[postinstall] Created node_modules/@vue/compiler-vue2/build.js mock for vue-tsc compatibility.')
+      }
+    }
+  } catch (err) {
+    console.warn('[postinstall] Warning: Could not setup @vue/compiler-vue2 build.js:', err.message)
+  }
+
   // 1. 检查已存在且可访问 → 跳过
   if (existsSync(stylesLink) && isAccessible(stylesLink)) {
     const stat = lstatSync(stylesLink)
@@ -96,3 +110,5 @@ try {
   // 在 CI 或权限不足时不阻塞安装
   console.warn('[postinstall] Warning: Could not setup theme/styles:', err.message)
 }
+
+

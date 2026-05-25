@@ -4,7 +4,49 @@ import * as YhUI from '@yh-ui/yh-ui'
 import { useAiVoice } from '@yh-ui/hooks'
 import { useAppStore } from '@/stores/app'
 
-const runtimeExports = YhUI as Record<string, any>
+interface YhUIModule {
+  [key: string]: unknown
+  YhMessage?: {
+    success?: (message: string) => void
+    warning?: (message: string) => void
+  }
+  YhNotification?: {
+    success?: (title: string, message: string) => void
+  }
+  YhMessageBox?: {
+    alert: (
+      message: string,
+      title: string,
+      options?: Record<string, unknown>
+    ) => Promise<{ value: string; action: string }>
+    confirm: (message: string, title: string, options?: Record<string, unknown>) => Promise<string>
+    prompt: (
+      message: string,
+      title: string,
+      options?: Record<string, unknown>
+    ) => Promise<{ value: string; action: string }>
+  }
+  YhDialogMethod?: {
+    show: (options: Record<string, unknown>) => Promise<{ action: string }>
+    success: (options: Record<string, unknown>) => Promise<{ action: string }>
+    warning: (options: Record<string, unknown>) => Promise<{ action: string }>
+    error: (options: Record<string, unknown>) => Promise<{ action: string }>
+    info: (options: Record<string, unknown>) => Promise<{ action: string }>
+  }
+  YhLoading?: {
+    service: (options?: Record<string, unknown>) => { close: () => void }
+  }
+}
+
+interface WaterfallItem {
+  id: number
+  title: string
+  description: string
+  height: number
+  tag: string
+}
+
+const runtimeExports = YhUI as unknown as YhUIModule
 const SERVICE_EXPORTS = new Set([
   'YhMessage',
   'YhNotification',
@@ -718,7 +760,7 @@ const ComponentDemoRenderer = defineComponent({
         return renderServiceCase(name)
       }
 
-      const component = runtimeExports[name]
+      const component = runtimeExports[name] as import('vue').Component
 
       switch (name) {
         case 'YhButton':
@@ -1445,7 +1487,7 @@ const ComponentDemoRenderer = defineComponent({
               gap: 12
             },
             {
-              default: ({ item }: any) =>
+              default: ({ item }: { item: WaterfallItem }) =>
                 h(
                   'div',
                   {
@@ -2018,19 +2060,19 @@ const ComponentDemoRenderer = defineComponent({
 
     <div class="component-lab-grid">
       <section
-        v-for="name in componentNames"
-        :key="name"
-        :class="['component-card', { 'component-card--wide': WIDE_DEMO_COMPONENTS.has(name) }]"
-        :data-component-name="name"
+        v-for="compName in componentNames"
+        :key="compName"
+        :class="['component-card', { 'component-card--wide': WIDE_DEMO_COMPONENTS.has(compName) }]"
+        :data-component-name="compName"
       >
         <header class="component-card-header">
-          <h2>{{ name }}</h2>
+          <h2>{{ compName }}</h2>
           <span class="component-card-type">{{
-            SERVICE_EXPORTS.has(name) ? 'service' : 'component'
+            SERVICE_EXPORTS.has(compName) ? 'service' : 'component'
           }}</span>
         </header>
         <div class="component-card-body">
-          <ComponentDemoRenderer :name="name" />
+          <ComponentDemoRenderer :name="compName" />
         </div>
       </section>
     </div>

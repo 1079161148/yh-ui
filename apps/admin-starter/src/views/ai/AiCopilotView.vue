@@ -447,9 +447,9 @@ const resetConfig = () => {
 
               <!-- 复杂的微服务流转展示 -->
               <div class="mermaid-preview-box">
-                <h4 style="margin: 0 0 12px 0; color: var(--admin-text-secondary)"
-                  >⚡ 微服务网关负载调用拓扑：</h4
-                >
+                <h4 style="margin: 0 0 12px 0; color: var(--admin-text-secondary)">
+                  ⚡ 微服务网关负载调用拓扑：
+                </h4>
                 <!-- 消费 AI Mermaid 渲染组件 -->
                 <YhAiMermaid
                   code="graph TD

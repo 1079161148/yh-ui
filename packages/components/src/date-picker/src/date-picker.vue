@@ -483,8 +483,8 @@ onBeforeUnmount(() => {
           :placeholder="placeholder ?? t('datepicker.selectDate')"
           :value="displayValue"
           readonly
-          @focus="(e) => emit('focus', e)"
-          @blur="(e) => emit('blur', e)"
+          @focus="(e: FocusEvent) => emit('focus', e)"
+          @blur="(e: FocusEvent) => emit('blur', e)"
         />
       </template>
       <template v-else>
@@ -494,8 +494,8 @@ onBeforeUnmount(() => {
             :placeholder="startPlaceholder ?? t('datepicker.startDate')"
             :value="rangeDisplayValue[0]"
             readonly
-            @focus="(e) => emit('focus', e)"
-            @blur="(e) => emit('blur', e)"
+            @focus="(e: FocusEvent) => emit('focus', e)"
+            @blur="(e: FocusEvent) => emit('blur', e)"
           />
           <span :class="ns.e('range-separator')">{{ rangeSeparator }}</span>
           <input
@@ -503,8 +503,8 @@ onBeforeUnmount(() => {
             :placeholder="endPlaceholder ?? t('datepicker.endDate')"
             :value="rangeDisplayValue[1]"
             readonly
-            @focus="(e) => emit('focus', e)"
-            @blur="(e) => emit('blur', e)"
+            @focus="(e: FocusEvent) => emit('focus', e)"
+            @blur="(e: FocusEvent) => emit('blur', e)"
           />
         </div>
       </template>
@@ -584,7 +584,7 @@ onBeforeUnmount(() => {
               :cell-shape="cellShape"
               :cell-render="cellRender"
               @select="handleSelect"
-              @hover="(val) => (rangeHoverDate = val)"
+              @hover="(val: Date | null) => (rangeHoverDate = val)"
             >
               <template #date-cell="slotProps">
                 <slot name="date-cell" v-bind="slotProps" />
@@ -598,7 +598,7 @@ onBeforeUnmount(() => {
               :disabled-date="disabledDate"
               :cell-shape="cellShape"
               @select="handleSelect"
-              @hover="(val) => (rangeHoverDate = val)"
+              @hover="(val: Date | null) => (rangeHoverDate = val)"
             />
             <YearTable
               v-else-if="currentView === 'year'"
@@ -608,7 +608,7 @@ onBeforeUnmount(() => {
               :disabled-date="disabledDate"
               :cell-shape="cellShape"
               @select="handleSelect"
-              @hover="(val) => (rangeHoverDate = val)"
+              @hover="(val: Date | null) => (rangeHoverDate = val)"
             />
             <QuarterTable
               v-else-if="currentView === 'quarter'"
@@ -618,7 +618,7 @@ onBeforeUnmount(() => {
               :disabled-date="disabledDate"
               :cell-shape="cellShape"
               @select="handleSelect"
-              @hover="(val) => (rangeHoverDate = val)"
+              @hover="(val: Date | null) => (rangeHoverDate = val)"
             />
           </div>
 

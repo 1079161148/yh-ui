@@ -12,16 +12,6 @@ const appStore = useAppStore()
 const tabsStore = useTabsStore()
 const userStore = useUserStore()
 
-const welcomeText = computed(() => {
-  const hour = new Date().getHours()
-  if (hour < 6) return '夜深了'
-  if (hour < 9) return '早上好'
-  if (hour < 12) return '上午好'
-  if (hour < 14) return '中午好'
-  if (hour < 18) return '下午好'
-  return '晚上好'
-})
-
 const displayName = computed(() => userStore.userInfo?.nickname || '用户')
 const userAvatar = computed(() => userStore.userInfo?.avatar || '')
 const avatarAlt = computed(() => `${displayName.value}头像`)

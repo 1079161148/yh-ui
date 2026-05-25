@@ -228,7 +228,7 @@ defineExpose<ColorPickerExpose>({
               :s="color.s"
               :v="color.v"
               @update="
-                (s, v) => {
+                (s: number, v: number) => {
                   color.s = s
                   color.v = v
                   updateColor()
@@ -246,7 +246,7 @@ defineExpose<ColorPickerExpose>({
               <HueSlider
                 :h="color.h"
                 @update="
-                  (h) => {
+                  (h: number) => {
                     color.h = h
                     updateColor()
                   }
@@ -257,7 +257,7 @@ defineExpose<ColorPickerExpose>({
                 :a="color.a"
                 :color="baseColor"
                 @update="
-                  (a) => {
+                  (a: number) => {
                     color.a = a
                     updateColor()
                   }

@@ -54,8 +54,8 @@ async function handleLogin() {
 
     const redirect = (route.query.redirect as string) || '/dashboard'
     router.replace(redirect)
-  } catch (e: any) {
-    errorMsg.value = e.message || '登录失败，请重试'
+  } catch (e: unknown) {
+    errorMsg.value = e instanceof Error ? e.message : '登录失败，请重试'
   } finally {
     loading.value = false
   }

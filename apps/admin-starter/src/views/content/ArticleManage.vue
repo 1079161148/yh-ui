@@ -137,9 +137,9 @@ function handleReset() {
         <template #action>
           <YhSpace>
             <YhButton type="primary" link size="small" v-permission="'article:edit'">编辑</YhButton>
-            <YhButton type="danger" link size="small" v-permission="'article:delete'"
-              >删除</YhButton
-            >
+            <YhButton type="danger" link size="small" v-permission="'article:delete'">
+              删除
+            </YhButton>
           </YhSpace>
         </template>
       </YhTable>
