@@ -2047,10 +2047,9 @@ const ComponentDemoRenderer = defineComponent({
     <div id="component-lab-page-host" class="service-host"></div>
     <div class="component-lab-header">
       <h1>YH-UI 消费端组件实验室</h1>
-      <p
-        >当前页面基于 `@yh-ui/yh-ui` 主入口动态扫描导出，用于集中验证消费端渲染与函数式 API
-        能力。</p
-      >
+      <p>
+        当前页面基于 `@yh-ui/yh-ui` 主入口动态扫描导出，用于集中验证消费端渲染与函数式 API 能力。
+      </p>
       <div class="component-lab-stats">
         <span>总导出覆盖：{{ componentNames.length }}</span>
         <span>服务入口：{{ SERVICE_EXPORTS.size }} 个</span>

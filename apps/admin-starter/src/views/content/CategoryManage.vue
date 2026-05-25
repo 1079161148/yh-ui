@@ -131,22 +131,22 @@ const flatList = computed(() => flattenTree(categoryData))
         <YhTableColumn prop="sort" label="排序" width="80" />
         <YhTableColumn prop="status" label="状态" width="100">
           <template #default="{ row }">
-            <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">{{
-              row.status
-            }}</YhTag>
+            <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">
+              {{ row.status }}
+            </YhTag>
           </template>
         </YhTableColumn>
         <YhTableColumn prop="createdAt" label="创建时间" width="160" />
         <YhTableColumn label="操作" width="200">
           <template #default>
             <YhSpace>
-              <YhButton type="primary" link size="small" v-permission="'category:edit'"
-                >编辑</YhButton
-              >
+              <YhButton type="primary" link size="small" v-permission="'category:edit'">
+                编辑
+              </YhButton>
               <YhButton type="primary" link size="small">添加子级</YhButton>
-              <YhButton type="danger" link size="small" v-permission="'category:delete'"
-                >删除</YhButton
-              >
+              <YhButton type="danger" link size="small" v-permission="'category:delete'">
+                删除
+              </YhButton>
             </YhSpace>
           </template>
         </YhTableColumn>

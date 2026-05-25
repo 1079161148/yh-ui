@@ -240,24 +240,24 @@ const flatList = computed(() => flattenTree(menuData))
         <YhTableColumn prop="sort" label="排序" width="80" />
         <YhTableColumn prop="status" label="状态" width="90">
           <template #default="{ row }">
-            <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">{{
-              row.status
-            }}</YhTag>
+            <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">
+              {{ row.status }}
+            </YhTag>
           </template>
         </YhTableColumn>
         <YhTableColumn label="操作" width="220" fixed="right">
           <template #default="{ row }">
             <YhSpace>
               <template v-if="row.type !== 'button'">
-                <YhButton type="primary" link size="small" v-permission="'menu:edit'"
-                  >编辑</YhButton
-                >
+                <YhButton type="primary" link size="small" v-permission="'menu:edit'">
+                  编辑
+                </YhButton>
                 <YhButton type="primary" link size="small">添加子级</YhButton>
               </template>
               <template v-if="row.type === 'button'">
-                <YhButton type="primary" link size="small" v-permission="'menu:edit'"
-                  >编辑</YhButton
-                >
+                <YhButton type="primary" link size="small" v-permission="'menu:edit'">
+                  编辑
+                </YhButton>
               </template>
               <YhButton type="danger" link size="small" v-permission="'menu:delete'">删除</YhButton>
             </YhSpace>

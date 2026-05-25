@@ -133,9 +133,9 @@ function handleReset() {
 
       <YhTable :data="pagedData" :columns="columns" border stripe height="auto">
         <template #status="{ row }">
-          <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">{{
-            row.status
-          }}</YhTag>
+          <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">
+            {{ row.status }}
+          </YhTag>
         </template>
         <template #action>
           <YhSpace>

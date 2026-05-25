@@ -109,9 +109,9 @@ const flatList = computed(() => flattenTree(deptTree))
         <YhTableColumn prop="sort" label="排序" width="80" />
         <YhTableColumn prop="status" label="状态" width="100">
           <template #default="{ row }">
-            <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">{{
-              row.status
-            }}</YhTag>
+            <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">
+              {{ row.status }}
+            </YhTag>
           </template>
         </YhTableColumn>
         <YhTableColumn label="操作" width="200">

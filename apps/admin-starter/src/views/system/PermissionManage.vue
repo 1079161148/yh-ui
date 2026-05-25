@@ -240,25 +240,25 @@ function handleReset() {
 
       <YhTable :data="filteredData" :columns="columns" border stripe height="auto">
         <template #status="{ row }">
-          <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">{{
-            row.status
-          }}</YhTag>
+          <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">
+            {{ row.status }}
+          </YhTag>
         </template>
         <template #assignedRoles="{ row }">
           <YhSpace wrap>
-            <YhTag v-for="role in row.assignedRoles" :key="role" size="small" type="info">{{
-              role
-            }}</YhTag>
+            <YhTag v-for="role in row.assignedRoles" :key="role" size="small" type="info">
+              {{ role }}
+            </YhTag>
           </YhSpace>
         </template>
         <template #action>
           <YhSpace>
-            <YhButton type="primary" link size="small" v-permission="'permission:edit'"
-              >编辑</YhButton
-            >
-            <YhButton type="danger" link size="small" v-permission="'permission:delete'"
-              >删除</YhButton
-            >
+            <YhButton type="primary" link size="small" v-permission="'permission:edit'">
+              编辑
+            </YhButton>
+            <YhButton type="danger" link size="small" v-permission="'permission:delete'">
+              删除
+            </YhButton>
           </YhSpace>
         </template>
       </YhTable>

@@ -135,16 +135,16 @@ function handleReset() {
 
       <YhTable :data="filteredData" :columns="columns" border stripe height="auto">
         <template #status="{ row }">
-          <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">{{
-            row.status
-          }}</YhTag>
+          <YhTag :type="row.status === '启用' ? 'success' : 'danger'" size="small">
+            {{ row.status }}
+          </YhTag>
         </template>
         <template #action>
           <YhSpace>
             <YhButton type="primary" link size="small" v-permission="'role:edit'">编辑</YhButton>
-            <YhButton type="warning" link size="small" v-permission="'role:edit'"
-              >分配权限</YhButton
-            >
+            <YhButton type="warning" link size="small" v-permission="'role:edit'">
+              分配权限
+            </YhButton>
             <YhButton type="danger" link size="small" v-permission="'role:delete'">删除</YhButton>
           </YhSpace>
         </template>
