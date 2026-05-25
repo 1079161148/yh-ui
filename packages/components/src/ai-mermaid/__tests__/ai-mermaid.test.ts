@@ -2,7 +2,7 @@
  * @vitest-environment happy-dom
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { flushPromises, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import AiMermaid from '../src/ai-mermaid.vue'
 import { YhConfigProvider } from '../../config-provider'
@@ -23,6 +23,19 @@ vi.mock('mermaid', () => ({
 function getInitConfigFromRenderSource(source: string) {
   const [initLine] = source.split('\n')
   return JSON.parse(initLine.slice('%%{init: '.length, -3)) as Record<string, unknown>
+}
+
+async function waitForRender() {
+  await new Promise<void>((resolve) => {
+    const start = Date.now()
+    const interval = setInterval(() => {
+      if (mockMermaidRender.mock.calls.length > 0 || Date.now() - start > 2000) {
+        clearInterval(interval)
+        resolve()
+      }
+    }, 10)
+  })
+  await nextTick()
 }
 
 describe('YhAiMermaid', () => {
@@ -189,8 +202,7 @@ describe('YhAiMermaid', () => {
       }
     })
 
-    await flushPromises()
-    await nextTick()
+    await waitForRender()
 
     const html = wrapper.find('.yh-ai-mermaid__graph').html()
     expect(html).not.toContain('<script')
@@ -219,8 +231,7 @@ describe('YhAiMermaid', () => {
       }
     })
 
-    await flushPromises()
-    await nextTick()
+    await waitForRender()
 
     expect(mockMermaidRender).toHaveBeenCalled()
     const [, source] = mockMermaidRender.mock.calls.at(-1) as [string, string]
@@ -249,8 +260,7 @@ describe('YhAiMermaid', () => {
       }
     })
 
-    await flushPromises()
-    await nextTick()
+    await waitForRender()
 
     expect(mockMermaidRender).toHaveBeenCalled()
     const [, source] = mockMermaidRender.mock.calls.at(-1) as [string, string]
