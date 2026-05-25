@@ -30,7 +30,7 @@ overrides:
   '@vue/test-utils': ^2.4.6
   vue-router: ^4.6.4
 
-packageExtensionsChecksum: sha256-e7lgALfjJvKjVZhvoBwydbE26eSOKvqE5Ly+HrnnGys=
+packageExtensionsChecksum: 17514b7786d56f8efc55ad269bf06892
 
 importers:
 
@@ -356,6 +356,16 @@ importers:
       dompurify:
         specifier: ^3.3.3
         version: 3.3.3
+    optionalDependencies:
+      echarts:
+        specifier: '>=5.0.0'
+        version: 6.0.0
+      highlight.js:
+        specifier: '>=11.0.0'
+        version: 11.11.1
+      mermaid:
+        specifier: '>=11.0.0'
+        version: 11.12.3
     devDependencies:
       '@types/markdown-it':
         specifier: ^14.1.2
@@ -393,16 +403,6 @@ importers:
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
-    optionalDependencies:
-      echarts:
-        specifier: '>=5.0.0'
-        version: 6.0.0
-      highlight.js:
-        specifier: '>=11.0.0'
-        version: 11.11.1
-      mermaid:
-        specifier: '>=11.0.0'
-        version: 11.12.3
 
   packages/flow:
     dependencies:
