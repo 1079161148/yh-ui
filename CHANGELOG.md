@@ -4,6 +4,14 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.29] - 2026-05-25
+
+Patch release focusing on fixing GitHub Actions CI setup and aligning lockfile checksum verification.
+
+### Fixed
+
+- Fixed dependency installation errors in CI workflows by regenerating `pnpm-lock.yaml` using `pnpm@9` matching the runner version, resolving `packageExtensionsChecksum` mismatch.
+
 ## [1.0.28] - 2026-05-25
 
 Patch release focusing on optimizing local Git verification workflow and GitHub Actions CI pipelines, accelerating the release verification path, and enforcing strict zero-warning quality gates.
