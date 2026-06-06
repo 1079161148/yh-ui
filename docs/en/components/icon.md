@@ -146,16 +146,16 @@ Compared to icon fonts, YH-UI's SVG Icon solution is more in line with modern we
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| name | Icon name (built-in set) | `string` | `''` |
-| svg | Custom SVG content (excluding `<svg>` tag) | `string` | `''` |
-| icon | Custom Vue icon component | `Component` | `undefined` |
-| size | Icon size | `number \| string` | `undefined` |
-| color | Icon color | `string` | `undefined` |
-| spin | Whether to spin in a loop | `boolean` | `false` |
-| rotate | Rotation angle | `number` | `0` |
-| theme-overrides | Theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                | Type                 | Default     |
+| --------------- | ------------------------------------------ | -------------------- | ----------- |
+| name            | Icon name (built-in set)                   | `string`             | `''`        |
+| svg             | Custom SVG content (excluding `<svg>` tag) | `string`             | `''`        |
+| icon            | Custom Vue icon component                  | `Component`          | `undefined` |
+| size            | Icon size                                  | `number \| string`   | `undefined` |
+| color           | Icon color                                 | `string`             | `undefined` |
+| spin            | Whether to spin in a loop                  | `boolean`            | `false`     |
+| rotate          | Rotation angle                             | `number`             | `0`         |
+| theme-overrides | Theme variable overrides                   | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -163,9 +163,9 @@ This component does not expose component events.
 
 ### Slots
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom SVG content | `-` |
+| Slot Name | Description        | Parameters |
+| --------- | ------------------ | ---------- |
+| default   | Custom SVG content | `-`        |
 
 ### Expose
 
@@ -177,10 +177,10 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhIconProps` | Props type for `YhIcon` |
-| `YhIconSlots` | Slots type for `YhIcon` |
-| `YhIconData` | Icon data structure type |
-| `YhIconSet` | Built-in icon set type |
+| Name             | Description                       |
+| ---------------- | --------------------------------- |
+| `YhIconProps`    | Props type for `YhIcon`           |
+| `YhIconSlots`    | Slots type for `YhIcon`           |
+| `YhIconData`     | Icon data structure type          |
+| `YhIconSet`      | Built-in icon set type            |
 | `YhIconInstance` | Public instance type for `YhIcon` |

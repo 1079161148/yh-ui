@@ -9,7 +9,10 @@ defineOptions({ name: 'YhMain' })
 const props = defineProps<MainProps>()
 
 const ns = useNamespace('main')
-const { themeStyle } = useComponentTheme('main', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'main',
+  computed(() => props.themeOverrides)
+)
 </script>
 
 <template>

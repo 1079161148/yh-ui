@@ -786,47 +786,47 @@ const jsOrderPrint = toJs(tsOrderPrint)
 
 ### print(config?) 方法
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 打印标题 | `string` | — |
-| showIndex | 是否显示序号 | `boolean` | `false` |
-| indexTitle | 序号列标题 | `string` | `'序号'` |
-| columns | 指定打印列（prop 数组） | `string[]` | 全部可见列 |
-| excludeColumns | 排除列 | `string[]` | — |
-| data | 自定义打印数据 | `Record<string, unknown>[]` | 当前数据 |
-| formatCell | 格式化单元格 | `(value, column, row) => string` | — |
-| headerHtml | 自定义页眉 HTML | `string` | — |
-| footerHtml | 自定义页脚 HTML | `string` | — |
-| margin | 页边距 | `{ top?, right?, bottom?, left? }` | `10mm` |
-| orientation | 纸张方向 | `'portrait' \| 'landscape'` | `'portrait'` |
-| showTime | 是否显示打印时间 | `boolean` | `true` |
-| showCount | 是否显示数据条数 | `boolean` | `true` |
-| columnTitles | 自定义列标题 | `Record<string, string>` | — |
-| pageSize | 每页最大行数 | `number` | — |
-| showPageNumber | 是否显示页码 | `boolean` | `false` |
-| tableStyle | 自定义表格样式 | `string` | — |
-| extraCss | 额外 CSS | `string` | — |
-| autoPrint | 自动弹出打印对话框 | `boolean` | `false` |
-| beforePrint | 打印前回调 | `() => boolean` | — |
-| afterPrint | 打印后回调 | `() => void` | — |
+| 参数           | 说明                    | 类型                               | 默认值       |
+| -------------- | ----------------------- | ---------------------------------- | ------------ |
+| title          | 打印标题                | `string`                           | —            |
+| showIndex      | 是否显示序号            | `boolean`                          | `false`      |
+| indexTitle     | 序号列标题              | `string`                           | `'序号'`     |
+| columns        | 指定打印列（prop 数组） | `string[]`                         | 全部可见列   |
+| excludeColumns | 排除列                  | `string[]`                         | —            |
+| data           | 自定义打印数据          | `Record<string, unknown>[]`        | 当前数据     |
+| formatCell     | 格式化单元格            | `(value, column, row) => string`   | —            |
+| headerHtml     | 自定义页眉 HTML         | `string`                           | —            |
+| footerHtml     | 自定义页脚 HTML         | `string`                           | —            |
+| margin         | 页边距                  | `{ top?, right?, bottom?, left? }` | `10mm`       |
+| orientation    | 纸张方向                | `'portrait' \| 'landscape'`        | `'portrait'` |
+| showTime       | 是否显示打印时间        | `boolean`                          | `true`       |
+| showCount      | 是否显示数据条数        | `boolean`                          | `true`       |
+| columnTitles   | 自定义列标题            | `Record<string, string>`           | —            |
+| pageSize       | 每页最大行数            | `number`                           | —            |
+| showPageNumber | 是否显示页码            | `boolean`                          | `false`      |
+| tableStyle     | 自定义表格样式          | `string`                           | —            |
+| extraCss       | 额外 CSS                | `string`                           | —            |
+| autoPrint      | 自动弹出打印对话框      | `boolean`                          | `false`      |
+| beforePrint    | 打印前回调              | `() => boolean`                    | —            |
+| afterPrint     | 打印后回调              | `() => void`                       | —            |
 
 ### printMultiple(tables, config?) 方法
 
 打印多张表格，每张表自动分页。
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
+| 参数   | 说明         | 类型                                         |
+| ------ | ------------ | -------------------------------------------- |
 | tables | 表格配置数组 | `Array<{ title?, data, columns?, config? }>` |
-| config | 全局配置 | 同 `print(config)` |
+| config | 全局配置     | 同 `print(config)`                           |
 
 ### printTemplate(html, config?) 方法
 
 打印完全自定义的 HTML 模板。
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| html | 自定义 HTML 内容 | `string` |
-| config | 打印配置 | 同 `print(config)` |
+| 参数   | 说明             | 类型               |
+| ------ | ---------------- | ------------------ |
+| html   | 自定义 HTML 内容 | `string`           |
+| config | 打印配置         | 同 `print(config)` |
 
 ### 注意事项
 
@@ -835,4 +835,3 @@ const jsOrderPrint = toJs(tsOrderPrint)
 - 使用 `@page` CSS 规则控制纸张方向和边距
 - 分页使用 `page-break-after: always` 实现
 - `autoPrint: true` 可以打开窗口后自动弹出打印对话框
-

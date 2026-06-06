@@ -571,43 +571,43 @@ YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 
 ### MessageBoxOptions
 
-| 参数                     | 说明                             | 类型                                          | 默认值          |
-| ------------------------ | -------------------------------- | --------------------------------------------- | --------------- |
-| title                    | 标题。 | `string` | `提示` |
-| message                  | 内容                             | `string \| VNode \| (() => VNode)`            | —               |
-| type                     | 弹窗类型                         | `'alert' \| 'confirm' \| 'prompt'`            | —               |
-| iconType                 | 状态图标类型                     | `'success' \| 'warning' \| 'info' \| 'error'` | —               |
-| icon                     | 自定义图标                       | `string \| Component \| VNode`                | —               |
-| width                    | 弹窗宽度                         | `string \| number`                            | `420`           |
-| dangerouslyUseHTMLString | 是否将 message 渲染为 HTML       | `boolean`                                     | `false`         |
-| showClose                | 是否显示右上角关闭按钮           | `boolean`                                     | `true`          |
-| showConfirmButton        | 是否显示确认按钮                 | `boolean`                                     | `true`          |
-| showCancelButton         | 是否显示取消按钮                 | `boolean`                                     | `true`          |
-| confirmButtonText        | 确认按钮文案                     | `string`                                      | `确定`          |
-| cancelButtonText         | 取消按钮文案                     | `string`                                      | `取消`          |
-| closeOnClickModal        | 点击遮罩层是否关闭               | `boolean`                                     | `true`          |
-| closeOnPressEscape       | 按下 ESC 是否关闭                | `boolean`                                     | `true`          |
-| lockScroll               | 是否锁定滚动条                   | `boolean`                                     | `true`          |
-| glass                    | 是否开启亚克力玻璃模式           | `boolean`                                     | `false`         |
-| center                   | 是否将内容居中排列               | `boolean`                                     | `false`         |
-| roundButton              | 是否采用圆角按钮                 | `boolean`                                     | `false`         |
-| draggable                | 是否支持拖拽弹窗                 | `boolean`                                     | `false`         |
-| draggableBoundary        | 是否防止拖拽超出可视区域         | `boolean`                                     | `true`          |
-| customClass              | 自定义类名                       | `string`                                      | —               |
-| inputPlaceholder         | 输入框占位符 (仅 prompt)         | `string`                                      | —               |
-| inputValue               | 输入框初始值 (仅 prompt)         | `string`                                      | —               |
-| inputPattern             | 输入框校验正则表达式 (仅 prompt) | `RegExp`                                      | —               |
-| inputValidator           | 输入框自定义校验函数 (仅 prompt) | `(value: string) => boolean \| string`        | —               |
-| inputErrorMessage        | 校验错误提示 (仅 prompt)         | `string`                                      | —               |
-| beforeClose              | 关闭前的钩子                     | `(action, instance, done) => void`            | —               |
-| callback                 | 函数式 API 在关闭后触发的回调。 | `(action, instance) => void` | — |
-| appContext               | 函数式 API 用于继承应用上下文。 | `AppContext` | — |
-| autofocus                | 是否在打开时自动获取焦点         | `boolean`                                     | `true`          |
-| appendTo                 | 函数式 API 的挂载容器；选择器找不到时会回退到 `document.body`。 | `string \| HTMLElement` | `document.body` |
-| confirmButtonLoading     | 确认按钮是否显示加载中状态       | `boolean`                                     | `false`         |
-| cancelButtonLoading      | 取消按钮是否显示加载中状态       | `boolean`                                     | `false`         |
-| loadingIcon              | 自定义加载图标。类型已声明，但当前实现未消费该配置。 | `string \| Component \| VNode` | — |
-| themeOverrides           | 组件级主题覆盖变量。 | `ComponentThemeVars` | — |
+| 参数                     | 说明                                                            | 类型                                          | 默认值          |
+| ------------------------ | --------------------------------------------------------------- | --------------------------------------------- | --------------- |
+| title                    | 标题。                                                          | `string`                                      | `提示`          |
+| message                  | 内容                                                            | `string \| VNode \| (() => VNode)`            | —               |
+| type                     | 弹窗类型                                                        | `'alert' \| 'confirm' \| 'prompt'`            | —               |
+| iconType                 | 状态图标类型                                                    | `'success' \| 'warning' \| 'info' \| 'error'` | —               |
+| icon                     | 自定义图标                                                      | `string \| Component \| VNode`                | —               |
+| width                    | 弹窗宽度                                                        | `string \| number`                            | `420`           |
+| dangerouslyUseHTMLString | 是否将 message 渲染为 HTML                                      | `boolean`                                     | `false`         |
+| showClose                | 是否显示右上角关闭按钮                                          | `boolean`                                     | `true`          |
+| showConfirmButton        | 是否显示确认按钮                                                | `boolean`                                     | `true`          |
+| showCancelButton         | 是否显示取消按钮                                                | `boolean`                                     | `true`          |
+| confirmButtonText        | 确认按钮文案                                                    | `string`                                      | `确定`          |
+| cancelButtonText         | 取消按钮文案                                                    | `string`                                      | `取消`          |
+| closeOnClickModal        | 点击遮罩层是否关闭                                              | `boolean`                                     | `true`          |
+| closeOnPressEscape       | 按下 ESC 是否关闭                                               | `boolean`                                     | `true`          |
+| lockScroll               | 是否锁定滚动条                                                  | `boolean`                                     | `true`          |
+| glass                    | 是否开启亚克力玻璃模式                                          | `boolean`                                     | `false`         |
+| center                   | 是否将内容居中排列                                              | `boolean`                                     | `false`         |
+| roundButton              | 是否采用圆角按钮                                                | `boolean`                                     | `false`         |
+| draggable                | 是否支持拖拽弹窗                                                | `boolean`                                     | `false`         |
+| draggableBoundary        | 是否防止拖拽超出可视区域                                        | `boolean`                                     | `true`          |
+| customClass              | 自定义类名                                                      | `string`                                      | —               |
+| inputPlaceholder         | 输入框占位符 (仅 prompt)                                        | `string`                                      | —               |
+| inputValue               | 输入框初始值 (仅 prompt)                                        | `string`                                      | —               |
+| inputPattern             | 输入框校验正则表达式 (仅 prompt)                                | `RegExp`                                      | —               |
+| inputValidator           | 输入框自定义校验函数 (仅 prompt)                                | `(value: string) => boolean \| string`        | —               |
+| inputErrorMessage        | 校验错误提示 (仅 prompt)                                        | `string`                                      | —               |
+| beforeClose              | 关闭前的钩子                                                    | `(action, instance, done) => void`            | —               |
+| callback                 | 函数式 API 在关闭后触发的回调。                                 | `(action, instance) => void`                  | —               |
+| appContext               | 函数式 API 用于继承应用上下文。                                 | `AppContext`                                  | —               |
+| autofocus                | 是否在打开时自动获取焦点                                        | `boolean`                                     | `true`          |
+| appendTo                 | 函数式 API 的挂载容器；选择器找不到时会回退到 `document.body`。 | `string \| HTMLElement`                       | `document.body` |
+| confirmButtonLoading     | 确认按钮是否显示加载中状态                                      | `boolean`                                     | `false`         |
+| cancelButtonLoading      | 取消按钮是否显示加载中状态                                      | `boolean`                                     | `false`         |
+| loadingIcon              | 自定义加载图标。类型已声明，但当前实现未消费该配置。            | `string \| Component \| VNode`                | —               |
+| themeOverrides           | 组件级主题覆盖变量。                                            | `ComponentThemeVars`                          | —               |
 
 ### MessageBoxInstance (instance in beforeClose)
 
@@ -620,20 +620,20 @@ YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 
 ### 主题变量 (CSS Variables)
 
-| 变量名                    | 说明                            | 默认值                         |
-| ------------------------- | ------------------------------- | ------------------------------ |
-| `--yh-scrollbar-width`    | 运行时注入的滚动条补偿宽度 | 运行时注入 |
-| `--yh-message-box-bg-color`   | `themeOverrides.bgColor` 生成的变量 | 当前样式文件无内建 fallback |
+| 变量名                         | 说明                                   | 默认值                      |
+| ------------------------------ | -------------------------------------- | --------------------------- |
+| `--yh-scrollbar-width`         | 运行时注入的滚动条补偿宽度             | 运行时注入                  |
+| `--yh-message-box-bg-color`    | `themeOverrides.bgColor` 生成的变量    | 当前样式文件无内建 fallback |
 | `--yh-message-box-title-color` | `themeOverrides.titleColor` 生成的变量 | 当前样式文件无内建 fallback |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhMessageBoxType` | MessageBox 类型联合类型 |
-| `YhMessageBoxData` | Prompt 结果数据类型 |
-| `YhMessageBoxAction` | confirm / prompt 流程返回的动作联合类型 |
-| `YhMessageBoxState` | 内置状态图标联合类型 |
-| `YhMessageBoxInstance` | 传递给钩子的运行时实例类型 |
-| `YhMessageBoxOptions` | `YhMessageBox(...)` 的配置项类型 |
-| `YhMessageBoxHandler` | Promise / handler 返回抽象类型 |
+| 名称                   | 说明                                    |
+| ---------------------- | --------------------------------------- |
+| `YhMessageBoxType`     | MessageBox 类型联合类型                 |
+| `YhMessageBoxData`     | Prompt 结果数据类型                     |
+| `YhMessageBoxAction`   | confirm / prompt 流程返回的动作联合类型 |
+| `YhMessageBoxState`    | 内置状态图标联合类型                    |
+| `YhMessageBoxInstance` | 传递给钩子的运行时实例类型              |
+| `YhMessageBoxOptions`  | `YhMessageBox(...)` 的配置项类型        |
+| `YhMessageBoxHandler`  | Promise / handler 返回抽象类型          |

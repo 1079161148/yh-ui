@@ -880,46 +880,46 @@ Set `lazy` on `YhStep` to render the default slot only after the step becomes ac
 
 #### Steps
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| active | Currently active step index. | `number` | `0` |
-| direction | Layout direction of the steps container. | `YhStepsDirection` | `'horizontal'` |
-| align-center | Whether step content is center-aligned. | `boolean` | `false` |
-| simple | Whether to use the simplified style. | `boolean` | `false` |
-| progress-dot | Dot mode configuration. | `boolean \| YhStepsProgressDot` | `false` |
-| finish-status | Status applied to completed steps. | `YhStepsStatus` | `'finish'` |
-| process-status | Status applied to the current active step. | `YhStepsStatus` | `'process'` |
-| space | Width basis for each step. | `number \| string` | `''` |
-| clickable | Whether clicking a step can trigger changes. | `boolean` | `false` |
-| size | Steps size. | `YhStepsSize` | `'default'` |
-| responsive | Whether to switch to a vertical layout below the breakpoint. | `boolean` | `false` |
-| responsive-breakpoint | Breakpoint used by responsive mode, in pixels. | `number` | `768` |
-| label-placement | Placement mode of labels. | `YhStepsLabelPlacement` | `'horizontal'` |
-| show-progress | Whether to show connector progress. | `boolean` | `false` |
-| show-timeline | Whether to render steps in timeline mode. | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides for `YhSteps`. | `ComponentThemeVars` | `undefined` |
+| Prop                  | Description                                                  | Type                            | Default        |
+| --------------------- | ------------------------------------------------------------ | ------------------------------- | -------------- |
+| active                | Currently active step index.                                 | `number`                        | `0`            |
+| direction             | Layout direction of the steps container.                     | `YhStepsDirection`              | `'horizontal'` |
+| align-center          | Whether step content is center-aligned.                      | `boolean`                       | `false`        |
+| simple                | Whether to use the simplified style.                         | `boolean`                       | `false`        |
+| progress-dot          | Dot mode configuration.                                      | `boolean \| YhStepsProgressDot` | `false`        |
+| finish-status         | Status applied to completed steps.                           | `YhStepsStatus`                 | `'finish'`     |
+| process-status        | Status applied to the current active step.                   | `YhStepsStatus`                 | `'process'`    |
+| space                 | Width basis for each step.                                   | `number \| string`              | `''`           |
+| clickable             | Whether clicking a step can trigger changes.                 | `boolean`                       | `false`        |
+| size                  | Steps size.                                                  | `YhStepsSize`                   | `'default'`    |
+| responsive            | Whether to switch to a vertical layout below the breakpoint. | `boolean`                       | `false`        |
+| responsive-breakpoint | Breakpoint used by responsive mode, in pixels.               | `number`                        | `768`          |
+| label-placement       | Placement mode of labels.                                    | `YhStepsLabelPlacement`         | `'horizontal'` |
+| show-progress         | Whether to show connector progress.                          | `boolean`                       | `false`        |
+| show-timeline         | Whether to render steps in timeline mode.                    | `boolean`                       | `false`        |
+| theme-overrides       | Component-level theme overrides for `YhSteps`.               | `ComponentThemeVars`            | `undefined`    |
 
 #### Step
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Step title. | `string` | `''` |
-| description | Step description text. | `string` | `''` |
-| icon | Icon class name rendered in the head area. | `string` | `''` |
-| status | Step status that overrides the parent-computed status. | `YhStepsStatus \| ''` | `''` |
-| disabled | Whether the step is disabled. | `boolean` | `false` |
-| time | Timeline text used in timeline mode. | `string` | `''` |
-| progress | Progress value used when `show-progress` is enabled. | `number` | `0` |
-| lazy | Whether default slot content is rendered lazily after first activation. | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides for `YhStep`. | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                                             | Type                  | Default     |
+| --------------- | ----------------------------------------------------------------------- | --------------------- | ----------- |
+| title           | Step title.                                                             | `string`              | `''`        |
+| description     | Step description text.                                                  | `string`              | `''`        |
+| icon            | Icon class name rendered in the head area.                              | `string`              | `''`        |
+| status          | Step status that overrides the parent-computed status.                  | `YhStepsStatus \| ''` | `''`        |
+| disabled        | Whether the step is disabled.                                           | `boolean`             | `false`     |
+| time            | Timeline text used in timeline mode.                                    | `string`              | `''`        |
+| progress        | Progress value used when `show-progress` is enabled.                    | `number`              | `0`         |
+| lazy            | Whether default slot content is rendered lazily after first activation. | `boolean`             | `false`     |
+| theme-overrides | Component-level theme overrides for `YhStep`.                           | `ComponentThemeVars`  | `undefined` |
 
 ### Events
 
 #### Steps
 
-| Event Name | Description | Type |
-| --- | --- | --- |
-| change | Triggered when a clickable step is selected. | `(index: number) => void` |
+| Event Name | Description                                  | Type                      |
+| ---------- | -------------------------------------------- | ------------------------- |
+| change     | Triggered when a clickable step is selected. | `(index: number) => void` |
 
 #### Step
 
@@ -929,19 +929,19 @@ Current component does not expose component events.
 
 #### Steps
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Step content. Usually contains `YhStep` nodes. | - |
+| Slot Name | Description                                    | Parameters |
+| --------- | ---------------------------------------------- | ---------- |
+| default   | Step content. Usually contains `YhStep` nodes. | -          |
 
 #### Step
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| icon | Custom icon area content. | - |
-| title | Custom title content. | - |
-| description | Custom description content. | - |
-| default | Additional custom content rendered below the description. | - |
-| time | Custom timeline time content when timeline mode is enabled. | - |
+| Slot Name   | Description                                                 | Parameters |
+| ----------- | ----------------------------------------------------------- | ---------- |
+| icon        | Custom icon area content.                                   | -          |
+| title       | Custom title content.                                       | -          |
+| description | Custom description content.                                 | -          |
+| default     | Additional custom content rendered below the description.   | -          |
+| time        | Custom timeline time content when timeline mode is enabled. | -          |
 
 ### Expose
 
@@ -951,30 +951,30 @@ Current component does not expose component events.
 
 `YhSteps` and `YhStep` support `themeOverrides`. The steps runtime consumes the following component variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-steps-icon-size` | Size of the icon circle area. | `28px` |
-| `--yh-steps-line-color` | Connector line color. | `var(--yh-border-color-light)` |
-| `--yh-steps-finish-color` | Completed step color. | `var(--yh-color-primary)` |
-| `--yh-steps-process-color` | Current active step color. | `var(--yh-color-primary)` |
-| `--yh-steps-wait-color` | Waiting step color. | `var(--yh-text-color-placeholder)` |
-| `--yh-steps-error-color` | Error step color. | `var(--yh-color-danger)` |
-| `--yh-steps-success-color` | Success step color. | `var(--yh-color-success)` |
+| Variable                   | Description                   | Default                            |
+| -------------------------- | ----------------------------- | ---------------------------------- |
+| `--yh-steps-icon-size`     | Size of the icon circle area. | `28px`                             |
+| `--yh-steps-line-color`    | Connector line color.         | `var(--yh-border-color-light)`     |
+| `--yh-steps-finish-color`  | Completed step color.         | `var(--yh-color-primary)`          |
+| `--yh-steps-process-color` | Current active step color.    | `var(--yh-color-primary)`          |
+| `--yh-steps-wait-color`    | Waiting step color.           | `var(--yh-text-color-placeholder)` |
+| `--yh-steps-error-color`   | Error step color.             | `var(--yh-color-danger)`           |
+| `--yh-steps-success-color` | Success step color.           | `var(--yh-color-success)`          |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhStepsProps` | Steps component props type |
-| `YhStepsEmits` | Steps component emits type |
-| `YhStepsSlots` | Steps component slots type |
-| `YhStepsDirection` | Direction union |
-| `YhStepsStatus` | Status union |
-| `YhStepsProgressDot` | Dot mode type |
-| `YhStepsSize` | Size union |
-| `YhStepsLabelPlacement` | Label placement union |
-| `YhStepConfig` | Step config type |
-| `YhStepProps` | Step component props type |
-| `YhStepSlots` | Step component slots type |
-| `YhStepsInstance` | Steps component instance type |
-| `YhStepInstance` | Step component instance type |
+| Name                    | Description                   |
+| ----------------------- | ----------------------------- |
+| `YhStepsProps`          | Steps component props type    |
+| `YhStepsEmits`          | Steps component emits type    |
+| `YhStepsSlots`          | Steps component slots type    |
+| `YhStepsDirection`      | Direction union               |
+| `YhStepsStatus`         | Status union                  |
+| `YhStepsProgressDot`    | Dot mode type                 |
+| `YhStepsSize`           | Size union                    |
+| `YhStepsLabelPlacement` | Label placement union         |
+| `YhStepConfig`          | Step config type              |
+| `YhStepProps`           | Step component props type     |
+| `YhStepSlots`           | Step component slots type     |
+| `YhStepsInstance`       | Steps component instance type |
+| `YhStepInstance`        | Step component instance type  |

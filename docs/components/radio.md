@@ -436,102 +436,102 @@ const jsRadioButtonSizes = tsRadioButtonSizes.replace('lang="ts"', '')
 
 ### Radio Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 独立模式下的绑定值 | `YhRadioValueType` | `undefined` |
-| `value` | 当前单选项的值。实际变更时会直接发出 `value`；如果省略它，虽然选中判断会回退到 `label`，但变更事件仍可能发出 `undefined`。 | `YhRadioValueType` | `undefined` |
-| `name` | 原生 `name` 属性 | `string` | `undefined` |
-| `label` | 未使用默认插槽时的回退文本 | `string` | `undefined` |
-| `size` | 单选框尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `border` | 是否显示边框样式 | `boolean` | `false` |
-| `id` | 原生 `id` 属性 | `string` | `undefined` |
-| `tabindex` | 原生 `tabindex` 属性 | `string \| number` | `undefined` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                                                                                                                       | 类型                              | 默认值      |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
+| `model-value` / `v-model` | 独立模式下的绑定值                                                                                                         | `YhRadioValueType`                | `undefined` |
+| `value`                   | 当前单选项的值。实际变更时会直接发出 `value`；如果省略它，虽然选中判断会回退到 `label`，但变更事件仍可能发出 `undefined`。 | `YhRadioValueType`                | `undefined` |
+| `name`                    | 原生 `name` 属性                                                                                                           | `string`                          | `undefined` |
+| `label`                   | 未使用默认插槽时的回退文本                                                                                                 | `string`                          | `undefined` |
+| `size`                    | 单选框尺寸                                                                                                                 | `'large' \| 'default' \| 'small'` | `undefined` |
+| `disabled`                | 是否禁用                                                                                                                   | `boolean`                         | `false`     |
+| `border`                  | 是否显示边框样式                                                                                                           | `boolean`                         | `false`     |
+| `id`                      | 原生 `id` 属性                                                                                                             | `string`                          | `undefined` |
+| `tabindex`                | 原生 `tabindex` 属性                                                                                                       | `string \| number`                | `undefined` |
+| `theme-overrides`         | 组件主题覆盖变量                                                                                                           | `ComponentThemeVars`              | `undefined` |
 
 ### Radio Events
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件                | 说明                       | 参数                                |
+| ------------------- | -------------------------- | ----------------------------------- |
 | `update:modelValue` | 独立模式下绑定值变化时触发 | `(value: YhRadioValueType) => void` |
-| `change` | 独立模式下绑定值变化时触发 | `(value: YhRadioValueType) => void` |
+| `change`            | 独立模式下绑定值变化时触发 | `(value: YhRadioValueType) => void` |
 
 ### Radio Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | 单选框标签内容 | - |
+| 插槽      | 说明           | 参数 |
+| --------- | -------------- | ---- |
+| `default` | 单选框标签内容 | -    |
 
 ### Radio Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| `ref` | 原生 radio 输入框引用 | `HTMLInputElement \| undefined` |
-| `focus` | 聚焦输入框 | `() => void` |
-| `blur` | 让输入框失焦 | `() => void` |
+| 名称    | 说明                  | 类型                            |
+| ------- | --------------------- | ------------------------------- |
+| `ref`   | 原生 radio 输入框引用 | `HTMLInputElement \| undefined` |
+| `focus` | 聚焦输入框            | `() => void`                    |
+| `blur`  | 让输入框失焦          | `() => void`                    |
 
 ### RadioButton Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 独立模式下的绑定值 | `YhRadioValueType` | `undefined` |
-| `value` | 当前按钮项的值；未传时选中判断和变更值都会回退到 `label`。 | `YhRadioValueType` | `undefined` |
-| `name` | 原生 `name` 属性 | `string` | `undefined` |
-| `label` | 未使用默认插槽时的回退文本 | `string` | `undefined` |
-| `size` | 按钮尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `id` | 原生 `id` 属性 | `string` | `undefined` |
-| `tabindex` | 原生 `tabindex` 属性 | `string \| number` | `undefined` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                                                       | 类型                              | 默认值      |
+| ------------------------- | ---------------------------------------------------------- | --------------------------------- | ----------- |
+| `model-value` / `v-model` | 独立模式下的绑定值                                         | `YhRadioValueType`                | `undefined` |
+| `value`                   | 当前按钮项的值；未传时选中判断和变更值都会回退到 `label`。 | `YhRadioValueType`                | `undefined` |
+| `name`                    | 原生 `name` 属性                                           | `string`                          | `undefined` |
+| `label`                   | 未使用默认插槽时的回退文本                                 | `string`                          | `undefined` |
+| `size`                    | 按钮尺寸                                                   | `'large' \| 'default' \| 'small'` | `undefined` |
+| `disabled`                | 是否禁用                                                   | `boolean`                         | `false`     |
+| `id`                      | 原生 `id` 属性                                             | `string`                          | `undefined` |
+| `tabindex`                | 原生 `tabindex` 属性                                       | `string \| number`                | `undefined` |
+| `theme-overrides`         | 组件主题覆盖变量                                           | `ComponentThemeVars`              | `undefined` |
 
 ### RadioButton Events
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件                | 说明                       | 参数                                |
+| ------------------- | -------------------------- | ----------------------------------- |
 | `update:modelValue` | 独立模式下绑定值变化时触发 | `(value: YhRadioValueType) => void` |
-| `change` | 独立模式下绑定值变化时触发 | `(value: YhRadioValueType) => void` |
+| `change`            | 独立模式下绑定值变化时触发 | `(value: YhRadioValueType) => void` |
 
 ### RadioButton Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | 按钮标签内容 | - |
+| 插槽      | 说明         | 参数 |
+| --------- | ------------ | ---- |
+| `default` | 按钮标签内容 | -    |
 
 ### RadioButton Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| `ref` | 原生 radio 输入框引用 | `HTMLInputElement \| undefined` |
-| `focus` | 聚焦输入框 | `() => void` |
-| `blur` | 让输入框失焦 | `() => void` |
+| 名称    | 说明                  | 类型                            |
+| ------- | --------------------- | ------------------------------- |
+| `ref`   | 原生 radio 输入框引用 | `HTMLInputElement \| undefined` |
+| `focus` | 聚焦输入框            | `() => void`                    |
+| `blur`  | 让输入框失焦          | `() => void`                    |
 
 ### RadioGroup Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 绑定值 | `YhRadioValueType` | `undefined` |
-| `options` | 通过配置直接渲染的选项列表 | `YhRadioGroupOption[]` | `undefined` |
-| `size` | 分组尺寸，会传递给子项 | `'large' \| 'default' \| 'small'` | `undefined` |
-| `disabled` | 是否禁用整个分组 | `boolean` | `false` |
-| `name` | 传递给子项的原生 `name` 属性 | `string` | `undefined` |
-| `validate-event` | 分组值变化时是否触发表单校验 | `boolean` | `true` |
-| `text-color` | 按钮样式下的选中文字颜色 | `string` | `undefined` |
-| `fill` | 按钮样式下的选中背景色和边框色 | `string` | `undefined` |
-| `tag` | 外层包装标签或组件 | `string \| Component` | `'div'` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                           | 类型                              | 默认值      |
+| ------------------------- | ------------------------------ | --------------------------------- | ----------- |
+| `model-value` / `v-model` | 绑定值                         | `YhRadioValueType`                | `undefined` |
+| `options`                 | 通过配置直接渲染的选项列表     | `YhRadioGroupOption[]`            | `undefined` |
+| `size`                    | 分组尺寸，会传递给子项         | `'large' \| 'default' \| 'small'` | `undefined` |
+| `disabled`                | 是否禁用整个分组               | `boolean`                         | `false`     |
+| `name`                    | 传递给子项的原生 `name` 属性   | `string`                          | `undefined` |
+| `validate-event`          | 分组值变化时是否触发表单校验   | `boolean`                         | `true`      |
+| `text-color`              | 按钮样式下的选中文字颜色       | `string`                          | `undefined` |
+| `fill`                    | 按钮样式下的选中背景色和边框色 | `string`                          | `undefined` |
+| `tag`                     | 外层包装标签或组件             | `string \| Component`             | `'div'`     |
+| `theme-overrides`         | 组件主题覆盖变量               | `ComponentThemeVars`              | `undefined` |
 
 ### RadioGroup Events
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件                | 说明             | 参数                                |
+| ------------------- | ---------------- | ----------------------------------- |
 | `update:modelValue` | 分组值变化时触发 | `(value: YhRadioValueType) => void` |
-| `change` | 分组值变化时触发 | `(value: YhRadioValueType) => void` |
+| `change`            | 分组值变化时触发 | `(value: YhRadioValueType) => void` |
 
 ### RadioGroup Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | 自定义分组内容 | - |
+| 插槽      | 说明           | 参数 |
+| --------- | -------------- | ---- |
+| `default` | 自定义分组内容 | -    |
 
 当默认插槽为空且传入了 `options` 时，组件会按 `options` 自动渲染 `YhRadio` 项。
 
@@ -541,22 +541,22 @@ const jsRadioButtonSizes = tsRadioButtonSizes.replace('lang="ts"', '')
 
 ### 类型导出
 
-| 类型 | 说明 |
-| --- | --- |
-| `YhRadioProps` | Radio Props 类型 |
-| `YhRadioEmits` | Radio Emits 类型 |
-| `YhRadioSlots` | Radio Slots 类型 |
-| `YhRadioExpose` | Radio Expose 类型 |
-| `YhRadioGroupProps` | RadioGroup Props 类型 |
-| `YhRadioGroupEmits` | RadioGroup Emits 类型 |
-| `YhRadioGroupOption` | RadioGroup 选项项类型 |
-| `YhRadioButtonProps` | RadioButton Props 类型 |
-| `YhRadioButtonEmits` | RadioButton Emits 类型 |
-| `YhRadioButtonExpose` | RadioButton Expose 类型 |
-| `YhRadioValueType` | 共享值类型 |
-| `YhRadioInstance` | Radio 实例类型 |
-| `YhRadioGroupInstance` | RadioGroup 实例类型 |
-| `YhRadioButtonInstance` | RadioButton 实例类型 |
+| 类型                    | 说明                    |
+| ----------------------- | ----------------------- |
+| `YhRadioProps`          | Radio Props 类型        |
+| `YhRadioEmits`          | Radio Emits 类型        |
+| `YhRadioSlots`          | Radio Slots 类型        |
+| `YhRadioExpose`         | Radio Expose 类型       |
+| `YhRadioGroupProps`     | RadioGroup Props 类型   |
+| `YhRadioGroupEmits`     | RadioGroup Emits 类型   |
+| `YhRadioGroupOption`    | RadioGroup 选项项类型   |
+| `YhRadioButtonProps`    | RadioButton Props 类型  |
+| `YhRadioButtonEmits`    | RadioButton Emits 类型  |
+| `YhRadioButtonExpose`   | RadioButton Expose 类型 |
+| `YhRadioValueType`      | 共享值类型              |
+| `YhRadioInstance`       | Radio 实例类型          |
+| `YhRadioGroupInstance`  | RadioGroup 实例类型     |
+| `YhRadioButtonInstance` | RadioButton 实例类型    |
 
 ### 主题变量
 
@@ -564,27 +564,27 @@ const jsRadioButtonSizes = tsRadioButtonSizes.replace('lang="ts"', '')
 
 Radio 相关专属 CSS 变量：
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-radio-size` | 单选控件尺寸 | `14px` |
-| `--yh-radio-input-border` | 单选边框颜色 | `var(--yh-border-color)` |
-| `--yh-radio-checked-bg-color` | 选中背景色 | `var(--yh-color-primary)` |
-| `--yh-radio-checked-border-color` | 选中边框色 | `var(--yh-color-primary)` |
-| `--yh-radio-checked-icon-color` | 选中图标颜色令牌 | `var(--yh-color-primary)` |
-| `--yh-radio-text-color` | 标签文本颜色 | `var(--yh-text-color-regular)` |
+| 变量                              | 说明             | 默认值                         |
+| --------------------------------- | ---------------- | ------------------------------ |
+| `--yh-radio-size`                 | 单选控件尺寸     | `14px`                         |
+| `--yh-radio-input-border`         | 单选边框颜色     | `var(--yh-border-color)`       |
+| `--yh-radio-checked-bg-color`     | 选中背景色       | `var(--yh-color-primary)`      |
+| `--yh-radio-checked-border-color` | 选中边框色       | `var(--yh-color-primary)`      |
+| `--yh-radio-checked-icon-color`   | 选中图标颜色令牌 | `var(--yh-color-primary)`      |
+| `--yh-radio-text-color`           | 标签文本颜色     | `var(--yh-text-color-regular)` |
 
 RadioButton 相关专属 CSS 变量：
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-radio-button-font-size` | 按钮字体大小 | `var(--yh-font-size-base)` |
-| `--yh-radio-button-text-color` | 按钮文本颜色 | `var(--yh-text-color-regular)` |
-| `--yh-radio-button-bg-color` | 按钮背景色 | `var(--yh-fill-color-blank)` |
-| `--yh-radio-button-border-color` | 按钮边框色 | `var(--yh-border-color)` |
-| `--yh-radio-button-hover-text-color` | 悬停文字颜色 | `var(--yh-color-primary)` |
-| `--yh-radio-button-checked-bg-color` | 选中背景色 | `var(--yh-color-primary)` |
-| `--yh-radio-button-checked-border-color` | 选中边框色 | `var(--yh-color-primary)` |
-| `--yh-radio-button-checked-text-color` | 选中文字颜色 | `#ffffff` |
-| `--yh-radio-button-disabled-bg-color` | 禁用背景色 | `var(--yh-fill-color-light)` |
-| `--yh-radio-button-disabled-border-color` | 禁用边框色 | `var(--yh-border-color-light)` |
-| `--yh-radio-button-disabled-text-color` | 禁用文字颜色 | `var(--yh-text-color-placeholder)` |
+| 变量                                      | 说明         | 默认值                             |
+| ----------------------------------------- | ------------ | ---------------------------------- |
+| `--yh-radio-button-font-size`             | 按钮字体大小 | `var(--yh-font-size-base)`         |
+| `--yh-radio-button-text-color`            | 按钮文本颜色 | `var(--yh-text-color-regular)`     |
+| `--yh-radio-button-bg-color`              | 按钮背景色   | `var(--yh-fill-color-blank)`       |
+| `--yh-radio-button-border-color`          | 按钮边框色   | `var(--yh-border-color)`           |
+| `--yh-radio-button-hover-text-color`      | 悬停文字颜色 | `var(--yh-color-primary)`          |
+| `--yh-radio-button-checked-bg-color`      | 选中背景色   | `var(--yh-color-primary)`          |
+| `--yh-radio-button-checked-border-color`  | 选中边框色   | `var(--yh-color-primary)`          |
+| `--yh-radio-button-checked-text-color`    | 选中文字颜色 | `#ffffff`                          |
+| `--yh-radio-button-disabled-bg-color`     | 禁用背景色   | `var(--yh-fill-color-light)`       |
+| `--yh-radio-button-disabled-border-color` | 禁用边框色   | `var(--yh-border-color-light)`     |
+| `--yh-radio-button-disabled-text-color`   | 禁用文字颜色 | `var(--yh-text-color-placeholder)` |

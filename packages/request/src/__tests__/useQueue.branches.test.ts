@@ -49,4 +49,3 @@ describe('useQueue extra branch coverage', () => {
     expect(q.isRunning.value).toBe(false)
   })
 })
-

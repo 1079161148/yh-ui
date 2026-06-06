@@ -471,9 +471,9 @@ export default defineNuxtConfig({
 
 ### Slots
 
-| 插槽名       | 说明                       | 参数 |
-| ------------ | -------------------------- | ---- |
-| `parse-icon` | 智能解析按钮左侧的图标插槽 | —    |
+| 插槽名       | 说明                       | 参数                |
+| ------------ | -------------------------- | ------------------- |
+| `parse-icon` | 智能解析按钮左侧的图标插槽 | —                   |
 | `region`     | 省市区输入区域的自定义插槽 | `{ value, update }` |
 | `extra`      | 组件底部的额外扩展区域插槽 | `{ value, update }` |
 
@@ -535,12 +535,12 @@ interface ParsedAddress {
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhSmartAddressProps` | 组件 Props 类型 |
-| `YhSmartAddressEmits` | 组件事件类型 |
-| `YhSmartAddressSlots` | 组件插槽类型 |
-| `YhAddressValue` | 地址值类型 |
-| `YhRegionOption` | 地区选项类型 |
-| `YhParsedAddress` | 智能解析结果类型 |
-| `YhSmartAddressInstance` | 组件实例类型 |
+| 名称                     | 说明             |
+| ------------------------ | ---------------- |
+| `YhSmartAddressProps`    | 组件 Props 类型  |
+| `YhSmartAddressEmits`    | 组件事件类型     |
+| `YhSmartAddressSlots`    | 组件插槽类型     |
+| `YhAddressValue`         | 地址值类型       |
+| `YhRegionOption`         | 地区选项类型     |
+| `YhParsedAddress`        | 智能解析结果类型 |
+| `YhSmartAddressInstance` | 组件实例类型     |

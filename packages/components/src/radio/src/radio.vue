@@ -6,12 +6,7 @@
 import { computed, ref, inject } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type {
-  RadioProps,
-  RadioEmits,
-  RadioExpose,
-  RadioValueType
-} from './radio'
+import type { RadioProps, RadioEmits, RadioExpose, RadioValueType } from './radio'
 import { radioGroupContextKey } from './radio'
 
 defineOptions({
@@ -32,7 +27,10 @@ const ns = useNamespace('radio')
 const radioGroup = inject(radioGroupContextKey, undefined)
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('radio', computed(() => props.themeOverrides || radioGroup?.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'radio',
+  computed(() => props.themeOverrides || radioGroup?.themeOverrides)
+)
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -126,15 +124,31 @@ defineExpose<RadioExpose>({
 </script>
 
 <template>
-  <label :class="radioClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
+  <label
+    :class="radioClasses"
+    :style="themeStyle"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
+  >
     <span :class="ns.e('input')">
       <span :class="innerClasses">
         <!-- 选中圆点 -->
         <span v-if="isChecked" :class="ns.e('dot')" />
       </span>
-      <input ref="inputRef" :class="ns.e('original')" type="radio" :name="radioName" :id="id" :tabindex="tabindex"
-        :disabled="isDisabled" :checked="isChecked" :value="value" @change="handleChange" @focus="handleFocus"
-        @blur="handleBlur" />
+      <input
+        ref="inputRef"
+        :class="ns.e('original')"
+        type="radio"
+        :name="radioName"
+        :id="id"
+        :tabindex="tabindex"
+        :disabled="isDisabled"
+        :checked="isChecked"
+        :value="value"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
     </span>
     <span v-if="$slots.default || label" :class="ns.e('label')">
       <slot>{{ label }}</slot>

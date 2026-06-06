@@ -253,64 +253,64 @@ After enabling the YH-UI Nuxt module, `YhTransfer` can be used directly in pages
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Keys currently placed in the target list | `TransferKey[]` | `[]` |
-| `data` | Data source | `TransferData[]` | `[]` |
-| `filterable` | Whether filtering is enabled | `boolean` | `false` |
-| `filter-method` | Custom filter function | `(query: string, item: TransferData) => boolean` | `undefined` |
-| `filter-placeholder` | Search input placeholder; falls back to locale text when omitted | `string` | `undefined` |
-| `target-order` | Ordering strategy for the target list | `'original' \| 'push' \| 'unshift'` | `'original'` |
-| `titles` | Title array for the two panels | `string[]` | `[]` |
-| `button-texts` | Text array for the middle action buttons | `string[]` | `[]` |
-| `render-content` | Declared custom item render function. It is passed down to the panel, but the current panel template does not consume it | `(h, data) => VNode \| string` | `undefined` |
-| `left-default-checked` | Initially checked keys in the left panel | `TransferKey[]` | `[]` |
-| `right-default-checked` | Initially checked keys in the right panel | `TransferKey[]` | `[]` |
-| `props` | Field alias mapping | `{ key?: string; label?: string; disabled?: string }` | `undefined` |
-| `disabled` | Whether the whole component is disabled | `boolean` | `false` |
-| `size` | Component size | `'large' \| 'default' \| 'small'` | `'default'` |
-| `validate-event` | Compatibility prop. The current transfer implementation does not consume it to emit form validation events | `boolean` | `true` |
-| `virtual` | Whether virtual scrolling is enabled | `boolean` | `false` |
-| `item-height` | Row height in virtual mode | `number` | `40` |
-| `height` | Panel height | `number` | `280` |
-| `left-title` | Left panel title | `string` | `undefined` |
-| `right-title` | Right panel title | `string` | `undefined` |
-| `show-all-checkbox` | Declared select-all visibility prop. The current panel header still renders the select-all entry regardless of this value | `boolean` | `true` |
-| `empty-text` | Shared empty-state text for both panels | `string` | `undefined` |
-| `left-empty-text` | Empty-state text for the left panel | `string` | `undefined` |
-| `right-empty-text` | Empty-state text for the right panel | `string` | `undefined` |
-| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                      | Description                                                                                                               | Type                                                  | Default      |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------ |
+| `model-value` / `v-model` | Keys currently placed in the target list                                                                                  | `TransferKey[]`                                       | `[]`         |
+| `data`                    | Data source                                                                                                               | `TransferData[]`                                      | `[]`         |
+| `filterable`              | Whether filtering is enabled                                                                                              | `boolean`                                             | `false`      |
+| `filter-method`           | Custom filter function                                                                                                    | `(query: string, item: TransferData) => boolean`      | `undefined`  |
+| `filter-placeholder`      | Search input placeholder; falls back to locale text when omitted                                                          | `string`                                              | `undefined`  |
+| `target-order`            | Ordering strategy for the target list                                                                                     | `'original' \| 'push' \| 'unshift'`                   | `'original'` |
+| `titles`                  | Title array for the two panels                                                                                            | `string[]`                                            | `[]`         |
+| `button-texts`            | Text array for the middle action buttons                                                                                  | `string[]`                                            | `[]`         |
+| `render-content`          | Declared custom item render function. It is passed down to the panel, but the current panel template does not consume it  | `(h, data) => VNode \| string`                        | `undefined`  |
+| `left-default-checked`    | Initially checked keys in the left panel                                                                                  | `TransferKey[]`                                       | `[]`         |
+| `right-default-checked`   | Initially checked keys in the right panel                                                                                 | `TransferKey[]`                                       | `[]`         |
+| `props`                   | Field alias mapping                                                                                                       | `{ key?: string; label?: string; disabled?: string }` | `undefined`  |
+| `disabled`                | Whether the whole component is disabled                                                                                   | `boolean`                                             | `false`      |
+| `size`                    | Component size                                                                                                            | `'large' \| 'default' \| 'small'`                     | `'default'`  |
+| `validate-event`          | Compatibility prop. The current transfer implementation does not consume it to emit form validation events                | `boolean`                                             | `true`       |
+| `virtual`                 | Whether virtual scrolling is enabled                                                                                      | `boolean`                                             | `false`      |
+| `item-height`             | Row height in virtual mode                                                                                                | `number`                                              | `40`         |
+| `height`                  | Panel height                                                                                                              | `number`                                              | `280`        |
+| `left-title`              | Left panel title                                                                                                          | `string`                                              | `undefined`  |
+| `right-title`             | Right panel title                                                                                                         | `string`                                              | `undefined`  |
+| `show-all-checkbox`       | Declared select-all visibility prop. The current panel header still renders the select-all entry regardless of this value | `boolean`                                             | `true`       |
+| `empty-text`              | Shared empty-state text for both panels                                                                                   | `string`                                              | `undefined`  |
+| `left-empty-text`         | Empty-state text for the left panel                                                                                       | `string`                                              | `undefined`  |
+| `right-empty-text`        | Empty-state text for the right panel                                                                                      | `string`                                              | `undefined`  |
+| `theme-overrides`         | Component-level theme overrides                                                                                           | `ComponentThemeVars`                                  | `undefined`  |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `update:modelValue` | Triggered when target keys change | `(value: TransferKey[])` |
-| `change` | Triggered after items move left or right | `(value: TransferKey[], direction: 'left' \| 'right', movedKeys: TransferKey[])` |
-| `left-check-change` | Triggered when checked keys change in the left panel | `(value: TransferKey[], movedKeys?: TransferKey[])` |
-| `right-check-change` | Triggered when checked keys change in the right panel | `(value: TransferKey[], movedKeys?: TransferKey[])` |
+| Name                 | Description                                           | Parameters                                                                       |
+| -------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `update:modelValue`  | Triggered when target keys change                     | `(value: TransferKey[])`                                                         |
+| `change`             | Triggered after items move left or right              | `(value: TransferKey[], direction: 'left' \| 'right', movedKeys: TransferKey[])` |
+| `left-check-change`  | Triggered when checked keys change in the left panel  | `(value: TransferKey[], movedKeys?: TransferKey[])`                              |
+| `right-check-change` | Triggered when checked keys change in the right panel | `(value: TransferKey[], movedKeys?: TransferKey[])`                              |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `default` | Custom list item content | `{ option: TransferData }` |
-| `buttons` | Custom middle action area | `{ moveToLeft: () => void; moveToRight: () => void; leftChecked: TransferKey[]; rightChecked: TransferKey[] }` |
-| `left-header` | Left panel header content | `-` |
-| `right-header` | Right panel header content | `-` |
-| `left-empty` | Left panel empty content | `-` |
-| `right-empty` | Right panel empty content | `-` |
-| `left-footer` | Left panel footer content | `-` |
-| `right-footer` | Right panel footer content | `-` |
+| Name           | Description                | Parameters                                                                                                     |
+| -------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `default`      | Custom list item content   | `{ option: TransferData }`                                                                                     |
+| `buttons`      | Custom middle action area  | `{ moveToLeft: () => void; moveToRight: () => void; leftChecked: TransferKey[]; rightChecked: TransferKey[] }` |
+| `left-header`  | Left panel header content  | `-`                                                                                                            |
+| `right-header` | Right panel header content | `-`                                                                                                            |
+| `left-empty`   | Left panel empty content   | `-`                                                                                                            |
+| `right-empty`  | Right panel empty content  | `-`                                                                                                            |
+| `left-footer`  | Left panel footer content  | `-`                                                                                                            |
+| `right-footer` | Right panel footer content | `-`                                                                                                            |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `clearLeftChecked` | Clears checked state in the left panel | `() => void` |
-| `clearRightChecked` | Clears checked state in the right panel | `() => void` |
-| `leftPanel` | Left panel instance ref | `Ref<TransferPanelExpose \| undefined>` |
-| `rightPanel` | Right panel instance ref | `Ref<TransferPanelExpose \| undefined>` |
+| Name                | Description                             | Type                                    |
+| ------------------- | --------------------------------------- | --------------------------------------- |
+| `clearLeftChecked`  | Clears checked state in the left panel  | `() => void`                            |
+| `clearRightChecked` | Clears checked state in the right panel | `() => void`                            |
+| `leftPanel`         | Left panel instance ref                 | `Ref<TransferPanelExpose \| undefined>` |
+| `rightPanel`        | Right panel instance ref                | `Ref<TransferPanelExpose \| undefined>` |
 
 ### Theme Variables
 
@@ -318,18 +318,18 @@ After enabling the YH-UI Nuxt module, `YhTransfer` can be used directly in pages
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTransferProps` | Props type for `YhTransfer` |
-| `YhTransferEmits` | Emits type for `YhTransfer` |
-| `YhTransferExpose` | Expose type for `YhTransfer` |
-| `YhTransferPanelExpose` | Expose type for the transfer panel |
-| `YhTransferInstance` | Public transfer instance type |
-| `YhTransferPanelInstance` | Public panel instance type |
-| `TransferData` | Data item type |
-| `TransferKey` | Key type for transfer items |
-| `TransferDirection` | Direction type for move operations |
-| `TransferSize` | Size type |
-| `TransferPropsAlias` | Field alias config type |
-| `TransferFilterMethod` | Filter function type |
-| `TransferRenderContent` | Custom render function type |
+| Name                      | Description                        |
+| ------------------------- | ---------------------------------- |
+| `YhTransferProps`         | Props type for `YhTransfer`        |
+| `YhTransferEmits`         | Emits type for `YhTransfer`        |
+| `YhTransferExpose`        | Expose type for `YhTransfer`       |
+| `YhTransferPanelExpose`   | Expose type for the transfer panel |
+| `YhTransferInstance`      | Public transfer instance type      |
+| `YhTransferPanelInstance` | Public panel instance type         |
+| `TransferData`            | Data item type                     |
+| `TransferKey`             | Key type for transfer items        |
+| `TransferDirection`       | Direction type for move operations |
+| `TransferSize`            | Size type                          |
+| `TransferPropsAlias`      | Field alias config type            |
+| `TransferFilterMethod`    | Filter function type               |
+| `TransferRenderContent`   | Custom render function type        |

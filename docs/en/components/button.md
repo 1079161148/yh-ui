@@ -461,77 +461,77 @@ The Button component has passed comprehensive SSR testing, ensuring consistent r
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| type | Button type | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
-| size | Button size | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | Whether disabled | `boolean` | `false` |
-| loading | Whether loading | `boolean` | `false` |
-| plain | Whether plain style | `boolean` | `false` |
-| round | Whether rounded | `boolean` | `false` |
-| circle | Whether circular | `boolean` | `false` |
-| text | Whether text button | `boolean` | `false` |
-| link | Whether link button | `boolean` | `false` |
-| block | Whether block-level button | `boolean` | `false` |
-| native-type | Native type attribute | `'button' \| 'submit' \| 'reset'` | `'button'` |
-| autofocus | Whether auto-focus | `boolean` | `false` |
-| icon | Left icon component | `string \| Component` | — |
-| suffix-icon | Right icon component | `string \| Component` | — |
-| icon-position | Icon position | `'left' \| 'right' \| 'top' \| 'bottom'` | `'left'` |
-| color | Custom button color | `string` | — |
-| tag | Custom element tag | `string \| Component` | `'button'` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                     | Type                                                                     | Default     |
+| --------------- | ------------------------------- | ------------------------------------------------------------------------ | ----------- |
+| type            | Button type                     | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
+| size            | Button size                     | `'large' \| 'default' \| 'small'`                                        | `'default'` |
+| disabled        | Whether disabled                | `boolean`                                                                | `false`     |
+| loading         | Whether loading                 | `boolean`                                                                | `false`     |
+| plain           | Whether plain style             | `boolean`                                                                | `false`     |
+| round           | Whether rounded                 | `boolean`                                                                | `false`     |
+| circle          | Whether circular                | `boolean`                                                                | `false`     |
+| text            | Whether text button             | `boolean`                                                                | `false`     |
+| link            | Whether link button             | `boolean`                                                                | `false`     |
+| block           | Whether block-level button      | `boolean`                                                                | `false`     |
+| native-type     | Native type attribute           | `'button' \| 'submit' \| 'reset'`                                        | `'button'`  |
+| autofocus       | Whether auto-focus              | `boolean`                                                                | `false`     |
+| icon            | Left icon component             | `string \| Component`                                                    | —           |
+| suffix-icon     | Right icon component            | `string \| Component`                                                    | —           |
+| icon-position   | Icon position                   | `'left' \| 'right' \| 'top' \| 'bottom'`                                 | `'left'`    |
+| color           | Custom button color             | `string`                                                                 | —           |
+| tag             | Custom element tag              | `string \| Component`                                                    | `'button'`  |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars`                                                     | `undefined` |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| click | Triggered when button is clicked | `(event: MouseEvent) => void` |
+| Event Name | Description                      | Parameters                    |
+| ---------- | -------------------------------- | ----------------------------- |
+| click      | Triggered when button is clicked | `(event: MouseEvent) => void` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Button content |
-| icon | Custom content (affected by icon-position) |
+| Slot Name  | Description                                  |
+| ---------- | -------------------------------------------- |
+| default    | Button content                               |
+| icon       | Custom content (affected by icon-position)   |
 | suffixIcon | Independent suffix slot (fixed on the right) |
-| loading | Custom loading icon |
+| loading    | Custom loading icon                          |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| ref | Button DOM element reference | `HTMLButtonElement \| undefined` |
-| size | Computed actual size | `ButtonSize` |
-| type | Button type | `ButtonType` |
-| disabled | Whether disabled | `boolean` |
+| Name     | Description                  | Type                             |
+| -------- | ---------------------------- | -------------------------------- |
+| ref      | Button DOM element reference | `HTMLButtonElement \| undefined` |
+| size     | Computed actual size         | `ButtonSize`                     |
+| type     | Button type                  | `ButtonType`                     |
+| disabled | Whether disabled             | `boolean`                        |
 
 ### Theme Variables
 
 The Button component supports customizing local styles by overriding the following CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-button-bg-color` | Button background color | `var(--yh-fill-color-blank)` |
-| `--yh-button-text-color` | Button text color | `var(--yh-text-color-regular)` |
-| `--yh-button-border-color` | Button border color | `var(--yh-border-color)` |
-| `--yh-button-hover-bg-color` | Hover background color | `var(--yh-color-primary-light-9)` |
-| `--yh-button-hover-text-color` | Hover text color | `var(--yh-color-primary)` |
-| `--yh-button-hover-border-color` | Hover border color | `var(--yh-color-primary-light-8)` |
-| `--yh-button-active-bg-color` | Active/click background color | `var(--yh-color-primary-light-8)` |
-| `--yh-button-active-border-color` | Active/click border color | `var(--yh-color-primary)` |
-| `--yh-button-active-text-color` | Active/click text color | — |
+| Variable                          | Description                   | Default                           |
+| --------------------------------- | ----------------------------- | --------------------------------- |
+| `--yh-button-bg-color`            | Button background color       | `var(--yh-fill-color-blank)`      |
+| `--yh-button-text-color`          | Button text color             | `var(--yh-text-color-regular)`    |
+| `--yh-button-border-color`        | Button border color           | `var(--yh-border-color)`          |
+| `--yh-button-hover-bg-color`      | Hover background color        | `var(--yh-color-primary-light-9)` |
+| `--yh-button-hover-text-color`    | Hover text color              | `var(--yh-color-primary)`         |
+| `--yh-button-hover-border-color`  | Hover border color            | `var(--yh-color-primary-light-8)` |
+| `--yh-button-active-bg-color`     | Active/click background color | `var(--yh-color-primary-light-8)` |
+| `--yh-button-active-border-color` | Active/click border color     | `var(--yh-color-primary)`         |
+| `--yh-button-active-text-color`   | Active/click text color       | —                                 |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhButtonProps` | Props type for `YhButton` |
-| `YhButtonEmits` | Emits type for `YhButton` |
-| `YhButtonSlots` | Slots type for `YhButton` |
-| `YhButtonExpose` | Expose type for `YhButton` |
-| `YhButtonType` | Button type union |
-| `YhButtonSize` | Button size union |
-| `YhButtonNativeType` | Native button type union |
-| `YhButtonIconPosition` | Icon position union |
-| `YhButtonInstance` | Public instance type for `YhButton` |
+| Name                   | Description                         |
+| ---------------------- | ----------------------------------- |
+| `YhButtonProps`        | Props type for `YhButton`           |
+| `YhButtonEmits`        | Emits type for `YhButton`           |
+| `YhButtonSlots`        | Slots type for `YhButton`           |
+| `YhButtonExpose`       | Expose type for `YhButton`          |
+| `YhButtonType`         | Button type union                   |
+| `YhButtonSize`         | Button size union                   |
+| `YhButtonNativeType`   | Native button type union            |
+| `YhButtonIconPosition` | Icon position union                 |
+| `YhButtonInstance`     | Public instance type for `YhButton` |

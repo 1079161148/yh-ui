@@ -325,23 +325,23 @@ Toggle data state dynamically with buttons to experience switching between empty
 
 ### Table Properties
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| empty-text | Text shown when data is empty | `string` | `'No Data'` |
-| empty-config | Empty state config object | `TableEmptyConfig` | — |
+| Property     | Description                   | Type               | Default     |
+| ------------ | ----------------------------- | ------------------ | ----------- |
+| empty-text   | Text shown when data is empty | `string`           | `'No Data'` |
+| empty-config | Empty state config object     | `TableEmptyConfig` | —           |
 
 ### TableEmptyConfig
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| image | Empty state image URL | `string` | — |
-| description | Empty state description (higher priority than `empty-text`) | `string` | — |
-| render | Custom render function | `() => VNode` | — |
+| Property    | Description                                                 | Type          | Default |
+| ----------- | ----------------------------------------------------------- | ------------- | ------- |
+| image       | Empty state image URL                                       | `string`      | —       |
+| description | Empty state description (higher priority than `empty-text`) | `string`      | —       |
+| render      | Custom render function                                      | `() => VNode` | —       |
 
 ### Slots
 
-| Slot | Description |
-| --- | --- |
+| Slot  | Description                                 |
+| ----- | ------------------------------------------- |
 | empty | Custom empty data content, highest priority |
 
 ### Priority

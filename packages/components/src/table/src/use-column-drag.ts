@@ -215,7 +215,10 @@ export const useColumnDrag = (options: UseColumnDragOptions): UseColumnDragRetur
 
   // ==================== 属性生成 ====================
 
-  const getHeaderDragAttrs = (column: TableColumn, columnIndex: number): Record<string, unknown> => {
+  const getHeaderDragAttrs = (
+    column: TableColumn,
+    columnIndex: number
+  ): Record<string, unknown> => {
     if (!isColumnDragEnabled.value || !isColumnDraggable(column)) return {}
 
     return {
@@ -258,4 +261,3 @@ export const useColumnDrag = (options: UseColumnDragOptions): UseColumnDragRetur
     getHeaderDragClass
   }
 }
-

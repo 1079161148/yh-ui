@@ -75,12 +75,12 @@ The module injects the explicit CSS subpath `@yh-ui/components/style.css` into `
 
 ### Available Options
 
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `importStyle` | `boolean` | `true` | Whether to automatically inject YH-UI CSS styles |
-| `prefix` | `string` | `'Yh'` | Component prefix; for example, if set to `My`, component names will be `MyButton` |
-| `buildTranspile` | `boolean` | `true` | Whether to automatically transpile related dependencies |
-| `ssrOptimization.componentCache` | `boolean` | `true` | Whether to enable the module's component cache optimization option |
+| Option                           | Type      | Default | Description                                                                       |
+| -------------------------------- | --------- | ------- | --------------------------------------------------------------------------------- |
+| `importStyle`                    | `boolean` | `true`  | Whether to automatically inject YH-UI CSS styles                                  |
+| `prefix`                         | `string`  | `'Yh'`  | Component prefix; for example, if set to `My`, component names will be `MyButton` |
+| `buildTranspile`                 | `boolean` | `true`  | Whether to automatically transpile related dependencies                           |
+| `ssrOptimization.componentCache` | `boolean` | `true`  | Whether to enable the module's component cache optimization option                |
 
 When `importStyle` is `true`, the Nuxt module appends `@yh-ui/components/style.css` to `nuxt.options.css`.
 

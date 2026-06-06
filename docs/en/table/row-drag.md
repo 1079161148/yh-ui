@@ -512,37 +512,37 @@ Row dragging can be used with tree data (`tree-config`), supporting drag-and-dro
 
 Passed through the `drag-config` property.
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| row | Whether row dragging is enabled | `boolean` | `false` |
-| column | Whether column dragging is enabled | `boolean` | `false` |
-| handle | CSS selector for the drag handle | `string` | — |
-| animation | Animation duration (ms) | `number` | `150` |
-| onDragStart | Drag start callback | `({ type, data, index }) => void` | — |
-| onDragEnd | Drag end callback | `({ type, oldIndex, newIndex, data }) => void` | — |
-| crossTable | Whether cross-table dragging is supported | `boolean` | `false` |
-| dragClass | Style class during dragging | `string` | — |
-| ghostClass | Ghost element style class | `string` | — |
+| Property    | Description                               | Type                                           | Default |
+| ----------- | ----------------------------------------- | ---------------------------------------------- | ------- |
+| row         | Whether row dragging is enabled           | `boolean`                                      | `false` |
+| column      | Whether column dragging is enabled        | `boolean`                                      | `false` |
+| handle      | CSS selector for the drag handle          | `string`                                       | —       |
+| animation   | Animation duration (ms)                   | `number`                                       | `150`   |
+| onDragStart | Drag start callback                       | `({ type, data, index }) => void`              | —       |
+| onDragEnd   | Drag end callback                         | `({ type, oldIndex, newIndex, data }) => void` | —       |
+| crossTable  | Whether cross-table dragging is supported | `boolean`                                      | `false` |
+| dragClass   | Style class during dragging               | `string`                                       | —       |
+| ghostClass  | Ghost element style class                 | `string`                                       | —       |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event    | Description                  | Parameters                                                                         |
+| -------- | ---------------------------- | ---------------------------------------------------------------------------------- |
 | drag-end | Triggered when dragging ends | `{ type: 'row' \| 'column', oldIndex: number, newIndex: number, data: unknown[] }` |
 
 ### onDragStart Parameters
 
-| Parameter | Description | Type |
-| --- | --- | --- |
-| type | Drag type | `'row' \| 'column'` |
-| data | Dragged record | `unknown` |
-| index | Dragged index | `number` |
+| Parameter | Description    | Type                |
+| --------- | -------------- | ------------------- |
+| type      | Drag type      | `'row' \| 'column'` |
+| data      | Dragged record | `unknown`           |
+| index     | Dragged index  | `number`            |
 
 ### onDragEnd Parameters
 
-| Parameter | Description | Type |
-| --- | --- | --- |
-| type | Drag type | `'row' \| 'column'` |
-| oldIndex | Original index | `number` |
-| newIndex | New index | `number` |
-| data | Data after drag (reordered array) | `unknown[]` |
+| Parameter | Description                       | Type                |
+| --------- | --------------------------------- | ------------------- |
+| type      | Drag type                         | `'row' \| 'column'` |
+| oldIndex  | Original index                    | `number`            |
+| newIndex  | New index                         | `number`            |
+| data      | Data after drag (reordered array) | `unknown[]`         |

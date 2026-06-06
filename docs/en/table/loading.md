@@ -293,25 +293,25 @@ In real-world scenarios, `loading` is typically used with async data requests. S
 
 The `loading` property supports both `boolean` and object forms.
 
-| Usage | Description | Type |
-| --- | --- | --- |
-| `:loading="true"` | Show default loading effect | `boolean` |
+| Usage                          | Description                         | Type                 |
+| ------------------------------ | ----------------------------------- | -------------------- |
+| `:loading="true"`              | Show default loading effect         | `boolean`            |
 | `:loading="{ visible, text }"` | Object form, configurable text etc. | `TableLoadingConfig` |
 
 ### TableLoadingConfig
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| visible | Whether to show loading state | `boolean` | `false` |
-| text | Loading hint text | `string` | — |
-| icon | Custom loading icon component | `Component \| string` | — |
-| background | Overlay background color | `string` | `rgba(255, 255, 255, 0.8)` |
-| render | Fully custom render function | `() => VNode` | — |
+| Property   | Description                   | Type                  | Default                    |
+| ---------- | ----------------------------- | --------------------- | -------------------------- |
+| visible    | Whether to show loading state | `boolean`             | `false`                    |
+| text       | Loading hint text             | `string`              | —                          |
+| icon       | Custom loading icon component | `Component \| string` | —                          |
+| background | Overlay background color      | `string`              | `rgba(255, 255, 255, 0.8)` |
+| render     | Fully custom render function  | `() => VNode`         | —                          |
 
 ### Slots
 
-| Slot | Description |
-| --- | --- |
+| Slot    | Description                                                                 |
+| ------- | --------------------------------------------------------------------------- |
 | loading | Custom loading display content, takes priority over `loading` object config |
 
 ### Notes

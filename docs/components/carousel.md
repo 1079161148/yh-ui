@@ -812,18 +812,18 @@ Carousel 支持通过覆盖以下 CSS 变量自定义局部样式（含指示点
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhCarouselProps` | `YhCarousel` props 类型 |
-| `YhCarouselEmits` | `YhCarousel` emits 类型 |
-| `YhCarouselSlots` | `YhCarousel` slots 类型 |
-| `YhCarouselExpose` | `YhCarousel` expose 类型 |
-| `YhCarouselEffect` | 轮播特效联合类型 |
-| `YhCarouselDirection` | 方向联合类型 |
-| `YhCarouselArrow` | 箭头显示策略联合类型 |
-| `YhCarouselTrigger` | 指示点触发方式联合类型 |
-| `YhCarouselDotPlacement` | 指示点位置联合类型 |
-| `YhCarouselItemProps` | `YhCarouselItem` props 类型 |
-| `YhCarouselItemSlots` | `YhCarouselItem` slots 类型 |
-| `YhCarouselInstance` | `YhCarousel` 实例类型 |
-| `YhCarouselItemInstance` | `YhCarouselItem` 实例类型 |
+| 名称                     | 说明                        |
+| ------------------------ | --------------------------- |
+| `YhCarouselProps`        | `YhCarousel` props 类型     |
+| `YhCarouselEmits`        | `YhCarousel` emits 类型     |
+| `YhCarouselSlots`        | `YhCarousel` slots 类型     |
+| `YhCarouselExpose`       | `YhCarousel` expose 类型    |
+| `YhCarouselEffect`       | 轮播特效联合类型            |
+| `YhCarouselDirection`    | 方向联合类型                |
+| `YhCarouselArrow`        | 箭头显示策略联合类型        |
+| `YhCarouselTrigger`      | 指示点触发方式联合类型      |
+| `YhCarouselDotPlacement` | 指示点位置联合类型          |
+| `YhCarouselItemProps`    | `YhCarouselItem` props 类型 |
+| `YhCarouselItemSlots`    | `YhCarouselItem` slots 类型 |
+| `YhCarouselInstance`     | `YhCarousel` 实例类型       |
+| `YhCarouselItemInstance` | `YhCarouselItem` 实例类型   |

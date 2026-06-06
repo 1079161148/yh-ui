@@ -208,7 +208,6 @@ Displays multiple read-only fields in groups, commonly used for displaying infor
   </yh-descriptions>
 </DemoBlock>
 
-
 ## Custom Sizes
 
 <DemoBlock title="Custom Sizes" :ts-code="tsSize" :js-code="jsSize">
@@ -218,13 +217,15 @@ Displays multiple read-only fields in groups, commonly used for displaying infor
     <yh-radio value="small">Small</yh-radio>
   </yh-radio-group>
 
-  <yh-descriptions
-    title="Vertical Layout with Border"
-    :column="3"
-    :size="size"
-    border
-    direction="vertical"
-  >
+<yh-descriptions
+title="Vertical Layout with Border"
+:column="3"
+:size="size"
+border
+direction="vertical"
+
+>
+
     <yh-descriptions-item label="App ID">YH-Admin-Edge</yh-descriptions-item>
     <yh-descriptions-item label="Version">v2.5.4-Stable</yh-descriptions-item>
     <yh-descriptions-item label="Node">Production-Cluster-01</yh-descriptions-item>
@@ -234,15 +235,18 @@ Displays multiple read-only fields in groups, commonly used for displaying infor
     <yh-descriptions-item label="Entry" :span="2">
       No.1188, Wuzhong Avenue, Wuzhong District, Production-Cluster-01, Jiangsu Province
     </yh-descriptions-item>
+
   </yh-descriptions>
 
-  <yh-descriptions
-    title="Vertical Layout without Border"
-    :column="3"
-    :size="size"
-    direction="vertical"
-    style="margin-top: 20px"
-  >
+<yh-descriptions
+title="Vertical Layout without Border"
+:column="3"
+:size="size"
+direction="vertical"
+style="margin-top: 20px"
+
+>
+
     <yh-descriptions-item label="App ID">YH-Admin-Edge</yh-descriptions-item>
     <yh-descriptions-item label="Version">v2.5.4-Stable</yh-descriptions-item>
     <yh-descriptions-item label="Node">Production-Cluster-01</yh-descriptions-item>
@@ -252,6 +256,7 @@ Displays multiple read-only fields in groups, commonly used for displaying infor
     <yh-descriptions-item label="Entry" :span="2">
       No.1188, Wuzhong Avenue, Wuzhong District, Production-Cluster-01, Jiangsu Province
     </yh-descriptions-item>
+
   </yh-descriptions>
 </DemoBlock>
 
@@ -334,47 +339,47 @@ The Descriptions component is table-like presentational UI driven entirely by pr
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Title of the list | `string` | `undefined` |
-| extra | Extra operation area text. Can also be provided through the `extra` slot | `string` | `undefined` |
-| border | Whether to show border | `boolean` | `false` |
-| column | Number of columns per row | `number` | `3` |
-| direction | Arrangement direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| size | List size | `'large' \| 'default' \| 'small'` | `'default'` |
-| colon | Whether to show colon when `border` is disabled | `boolean` | `true` |
-| label-style | Custom label style | `CSSProperties` | `undefined` |
-| content-style | Custom content style | `CSSProperties` | `undefined` |
-| label-class-name | Custom label class name | `string` | `''` |
-| content-class-name | Custom content class name | `string` | `''` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop               | Description                                                              | Type                              | Default        |
+| ------------------ | ------------------------------------------------------------------------ | --------------------------------- | -------------- |
+| title              | Title of the list                                                        | `string`                          | `undefined`    |
+| extra              | Extra operation area text. Can also be provided through the `extra` slot | `string`                          | `undefined`    |
+| border             | Whether to show border                                                   | `boolean`                         | `false`        |
+| column             | Number of columns per row                                                | `number`                          | `3`            |
+| direction          | Arrangement direction                                                    | `'horizontal' \| 'vertical'`      | `'horizontal'` |
+| size               | List size                                                                | `'large' \| 'default' \| 'small'` | `'default'`    |
+| colon              | Whether to show colon when `border` is disabled                          | `boolean`                         | `true`         |
+| label-style        | Custom label style                                                       | `CSSProperties`                   | `undefined`    |
+| content-style      | Custom content style                                                     | `CSSProperties`                   | `undefined`    |
+| label-class-name   | Custom label class name                                                  | `string`                          | `''`           |
+| content-class-name | Custom content class name                                                | `string`                          | `''`           |
+| theme-overrides    | Component-level theme overrides                                          | `ComponentThemeVars`              | `undefined`    |
 
 ### Types
 
 #### Descriptions Item Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| label | Label text | `string` | `''` |
-| span | Number of columns occupied | `number` | `1` |
-| width | Column width | `string \| number` | `''` |
-| min-width | Minimum column width | `string \| number` | `''` |
-| align | Content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| label-align | Label alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| class-name | Custom content class name | `string` | `''` |
-| label-class-name | Custom label class name | `string` | `''` |
-| label-style | Custom label style | `CSSProperties` | `undefined` |
-| content-style | Custom content style | `CSSProperties` | `undefined` |
+| Prop             | Description                | Type                            | Default     |
+| ---------------- | -------------------------- | ------------------------------- | ----------- |
+| label            | Label text                 | `string`                        | `''`        |
+| span             | Number of columns occupied | `number`                        | `1`         |
+| width            | Column width               | `string \| number`              | `''`        |
+| min-width        | Minimum column width       | `string \| number`              | `''`        |
+| align            | Content alignment          | `'left' \| 'center' \| 'right'` | `'left'`    |
+| label-align      | Label alignment            | `'left' \| 'center' \| 'right'` | `'left'`    |
+| class-name       | Custom content class name  | `string`                        | `''`        |
+| label-class-name | Custom label class name    | `string`                        | `''`        |
+| label-style      | Custom label style         | `CSSProperties`                 | `undefined` |
+| content-style    | Custom content style       | `CSSProperties`                 | `undefined` |
 
 ### Slots
 
-| Component | Slot Name | Description |
-| --- | --- | --- |
-| `YhDescriptions` | `default` | Content of descriptions, usually `YhDescriptionsItem` |
-| `YhDescriptions` | `title` | Custom title, overrides `title` prop |
-| `YhDescriptions` | `extra` | Custom extra area, overrides `extra` prop |
-| `YhDescriptionsItem` | `default` | Item content |
-| `YhDescriptionsItem` | `label` | Custom label content, overrides `label` prop |
+| Component            | Slot Name | Description                                           |
+| -------------------- | --------- | ----------------------------------------------------- |
+| `YhDescriptions`     | `default` | Content of descriptions, usually `YhDescriptionsItem` |
+| `YhDescriptions`     | `title`   | Custom title, overrides `title` prop                  |
+| `YhDescriptions`     | `extra`   | Custom extra area, overrides `extra` prop             |
+| `YhDescriptionsItem` | `default` | Item content                                          |
+| `YhDescriptionsItem` | `label`   | Custom label content, overrides `label` prop          |
 
 ### Events
 
@@ -388,15 +393,15 @@ This component does not expose public instance methods or properties.
 
 The Descriptions component uses the following CSS variables for customization:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-descriptions-header-margin-bottom` | Header bottom spacing | `20px` |
-| `--yh-descriptions-title-font-size` | Title font size | `16px` |
-| `--yh-descriptions-extra-font-size` | Extra area font size | `14px` |
-| `--yh-descriptions-border-color` | Border color | `var(--yh-border-color-lighter)` |
-| `--yh-descriptions-item-font-size` | Cell font size | Uses the current size preset |
-| `--yh-descriptions-cell-padding-v` | Cell vertical padding | Uses the current size preset |
-| `--yh-descriptions-cell-padding-h` | Cell horizontal padding | Uses the current size preset |
+| Variable                                 | Description             | Default                          |
+| ---------------------------------------- | ----------------------- | -------------------------------- |
+| `--yh-descriptions-header-margin-bottom` | Header bottom spacing   | `20px`                           |
+| `--yh-descriptions-title-font-size`      | Title font size         | `16px`                           |
+| `--yh-descriptions-extra-font-size`      | Extra area font size    | `14px`                           |
+| `--yh-descriptions-border-color`         | Border color            | `var(--yh-border-color-lighter)` |
+| `--yh-descriptions-item-font-size`       | Cell font size          | Uses the current size preset     |
+| `--yh-descriptions-cell-padding-v`       | Cell vertical padding   | Uses the current size preset     |
+| `--yh-descriptions-cell-padding-h`       | Cell horizontal padding | Uses the current size preset     |
 
 ::: tip Size System Variables
 The `size` prop automatically switches the item font size and padding variables so the component stays aligned with the shared YH-UI size system.
@@ -404,11 +409,11 @@ The `size` prop automatically switches the item font size and padding variables 
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhDescriptionsProps` | Props type for `YhDescriptions` |
-| `YhDescriptionsSlots` | Slots type for `YhDescriptions` |
-| `YhDescriptionsItemProps` | Props type for `YhDescriptionsItem` |
-| `YhDescriptionsItemSlots` | Slots type for `YhDescriptionsItem` |
-| `YhDescriptionsInstance` | Public instance type for `YhDescriptions` |
+| Name                         | Description                                   |
+| ---------------------------- | --------------------------------------------- |
+| `YhDescriptionsProps`        | Props type for `YhDescriptions`               |
+| `YhDescriptionsSlots`        | Slots type for `YhDescriptions`               |
+| `YhDescriptionsItemProps`    | Props type for `YhDescriptionsItem`           |
+| `YhDescriptionsItemSlots`    | Slots type for `YhDescriptionsItem`           |
+| `YhDescriptionsInstance`     | Public instance type for `YhDescriptions`     |
 | `YhDescriptionsItemInstance` | Public instance type for `YhDescriptionsItem` |

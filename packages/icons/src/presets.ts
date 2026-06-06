@@ -78,7 +78,7 @@ export const PRESETS: IconPreset[] = [
  * @returns 预设配置
  */
 export function getPreset(prefix: string): IconPreset | undefined {
-  return PRESETS.find(p => p.prefix === prefix)
+  return PRESETS.find((p) => p.prefix === prefix)
 }
 
 /**
@@ -93,30 +93,30 @@ export const DEFAULT_ENABLED_PRESETS = ['mdi', 'ep', 'lucide', 'tabler', 'ri']
  */
 export const PREFIX_ALIAS: Record<string, string> = {
   // Material Design Icons
-  'mdi': 'mdi',
+  mdi: 'mdi',
   // Element Plus
-  'ep': 'ep',
+  ep: 'ep',
   'element-plus': 'ep',
   // Lucide
-  'lucide': 'lucide',
+  lucide: 'lucide',
   // Tabler
-  'tabler': 'tabler',
+  tabler: 'tabler',
   // Remix Icon
-  'ri': 'ri',
-  'remix': 'ri',
+  ri: 'ri',
+  remix: 'ri',
   // Heroicons
-  'heroicons': 'heroicons',
-  'hero': 'heroicons',
+  heroicons: 'heroicons',
+  hero: 'heroicons',
   // Bootstrap
-  'bi': 'bi',
-  'bootstrap': 'bi',
+  bi: 'bi',
+  bootstrap: 'bi',
   // Font Awesome
-  'fa': 'fa',
+  fa: 'fa',
   'font-awesome': 'fa',
   // Carbon
-  'carbon': 'carbon',
+  carbon: 'carbon',
   // Ant Design
-  'antd': 'antd',
+  antd: 'antd',
   'ant-design': 'antd'
 }
 
@@ -131,29 +131,29 @@ export const COMMON_ICONS = {
   'arrow-left': 'mdi:arrow-left',
   'arrow-right': 'mdi:arrow-right',
   // 操作
-  'close': 'mdi:close',
-  'check': 'mdi:check',
-  'plus': 'mdi:plus',
-  'minus': 'mdi:minus',
-  'delete': 'mdi:delete',
-  'edit': 'mdi:pencil',
-  'search': 'mdi:magnify',
-  'upload': 'mdi:upload',
-  'download': 'mdi:download',
-  'refresh': 'mdi:refresh',
-  'settings': 'mdi:cog',
-  'menu': 'mdi:menu',
+  close: 'mdi:close',
+  check: 'mdi:check',
+  plus: 'mdi:plus',
+  minus: 'mdi:minus',
+  delete: 'mdi:delete',
+  edit: 'mdi:pencil',
+  search: 'mdi:magnify',
+  upload: 'mdi:upload',
+  download: 'mdi:download',
+  refresh: 'mdi:refresh',
+  settings: 'mdi:cog',
+  menu: 'mdi:menu',
   // 状态
-  'loading': 'mdi:loading',
-  'success': 'mdi:check-circle',
-  'warning': 'mdi:alert',
-  'error': 'mdi:alert-circle',
-  'info': 'mdi:information',
+  loading: 'mdi:loading',
+  success: 'mdi:check-circle',
+  warning: 'mdi:alert',
+  error: 'mdi:alert-circle',
+  info: 'mdi:information',
   // 用户
-  'user': 'mdi:user',
-  'users': 'mdi:account-group',
+  user: 'mdi:user',
+  users: 'mdi:account-group',
   // 文件
-  'file': 'mdi:file',
-  'folder': 'mdi:folder',
-  'image': 'mdi:image'
+  file: 'mdi:file',
+  folder: 'mdi:folder',
+  image: 'mdi:image'
 } as const

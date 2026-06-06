@@ -297,15 +297,13 @@ describe('request/adapters/platform adapters', () => {
     it('BunAdapter uses timeout abort path', async () => {
       const { BunAdapter } = await import('../adapters/platform')
       vi.stubGlobal('Bun', { version: '1' })
-      const fetchMock = vi
-        .fn()
-        .mockImplementation((_url: string, init?: RequestInit) => {
-          return new Promise((_resolve, reject) => {
-            init?.signal?.addEventListener('abort', () => {
-              reject(new DOMException('Aborted', 'AbortError'))
-            })
+      const fetchMock = vi.fn().mockImplementation((_url: string, init?: RequestInit) => {
+        return new Promise((_resolve, reject) => {
+          init?.signal?.addEventListener('abort', () => {
+            reject(new DOMException('Aborted', 'AbortError'))
           })
         })
+      })
       vi.stubGlobal('fetch', fetchMock)
 
       const adapter = new BunAdapter()

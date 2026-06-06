@@ -293,25 +293,25 @@ const jsAsyncLoading = toJs(tsAsyncLoading)
 
 `loading` 属性支持 `boolean` 或对象两种传入方式。
 
-| 用法 | 说明 | 类型 |
-| --- | --- | --- |
-| `:loading="true"` | 显示默认加载效果 | `boolean` |
+| 用法                           | 说明                   | 类型                 |
+| ------------------------------ | ---------------------- | -------------------- |
+| `:loading="true"`              | 显示默认加载效果       | `boolean`            |
 | `:loading="{ visible, text }"` | 对象形式，可配置文字等 | `TableLoadingConfig` |
 
 ### TableLoadingConfig
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| visible | 是否显示加载状态 | `boolean` | `false` |
-| text | 加载提示文字 | `string` | — |
-| icon | 自定义加载图标组件 | `Component \| string` | — |
-| background | 遮罩背景色 | `string` | `rgba(255, 255, 255, 0.8)` |
-| render | 完全自定义渲染函数 | `() => VNode` | — |
+| 属性       | 说明               | 类型                  | 默认值                     |
+| ---------- | ------------------ | --------------------- | -------------------------- |
+| visible    | 是否显示加载状态   | `boolean`             | `false`                    |
+| text       | 加载提示文字       | `string`              | —                          |
+| icon       | 自定义加载图标组件 | `Component \| string` | —                          |
+| background | 遮罩背景色         | `string`              | `rgba(255, 255, 255, 0.8)` |
+| render     | 完全自定义渲染函数 | `() => VNode`         | —                          |
 
 ### 插槽
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明                                                  |
+| ------- | ----------------------------------------------------- |
 | loading | 自定义加载中的展示内容，优先级高于 `loading` 对象配置 |
 
 ### 注意事项
@@ -320,4 +320,3 @@ const jsAsyncLoading = toJs(tsAsyncLoading)
 2. **插槽优先**：当同时使用 `#loading` 插槽和 `loading` 对象配置时，插槽的内容优先展示。
 3. **遮罩层级**：加载遮罩的 `z-index` 为 20，确保覆盖在表格内容之上。
 4. **配合请求**：建议在发起异步请求前设置 `loading = true`，在请求完成（成功或失败）后设置 `loading = false`。
-

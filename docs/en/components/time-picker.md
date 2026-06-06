@@ -2,7 +2,6 @@
 
 Use `YhTimePicker` to select or enter arbitrary points in time. It supports spinner panels, range selection, 12-hour formatting, disabled time rules, and footer actions.
 
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -297,9 +296,10 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 ::: tip TimePicker vs TimeSelect
+
 - **TimePicker**: Select any time through spinner panels.
 - **TimeSelect**: Pick from a predefined list of fixed time slots.
-:::
+  :::
 
 ## Basic Usage
 
@@ -504,107 +504,106 @@ After installing the YH-UI Nuxt module, `YhTimePicker` can be used directly. Inp
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Bound value | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
-| disabled | Whether the picker is disabled | `boolean` | `false` |
-| editable | Whether the input is editable | `boolean` | `true` |
-| clearable | Whether the value can be cleared | `boolean` | `true` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `undefined` |
-| placeholder | Placeholder text in single mode | `string` | `''` |
-| start-placeholder | Placeholder text for the start input in range mode | `string` | `''` |
-| end-placeholder | Placeholder text for the end input in range mode | `string` | `''` |
-| name | Native `input` name | `string` | `undefined` |
-| is-range | Whether range mode is enabled | `boolean` | `false` |
-| format | Display format | `string` | `'HH:mm:ss'` |
-| value-format | Format used when emitting string values. Falls back to `format` when omitted | `string` | `undefined` |
-| prefix-icon | Declared prefix icon prop. The current template still renders the built-in clock icon and does not consume this prop | `string \| Component` | `undefined` |
-| clear-icon | Declared clear icon prop. The current template still renders the built-in clear icon and does not consume this prop | `string \| Component` | `undefined` |
-| use12-hours | Whether to use 12-hour format | `boolean` | `false` |
-| show-seconds | Whether the seconds column is shown | `boolean` | `true` |
-| hour-step | Hour step size | `number` | `1` |
-| minute-step | Minute step size | `number` | `1` |
-| second-step | Second step size | `number` | `1` |
-| disabled-time | Disabled time configuration | `YhTimePickerDisabledTimeConfig` | `undefined` |
-| popper-class | Custom panel class name | `string` | `undefined` |
-| popper-style | Declared panel style prop. The current implementation does not merge this prop into the popup styles | `string \| Record<string, string>` | `undefined` |
-| teleported | Whether the panel is teleported to `body` | `boolean` | `true` |
-| validate-event | Whether form validation runs on change and blur | `boolean` | `true` |
-| popper-offset | Offset between the input and popup panel | `number` | `4` |
-| range-separator | Range separator text | `string` | `'-'` |
-| default-value | Initial panel value used when the bound value is empty | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
-| hour-options | Custom hour options | `number[]` | `undefined` |
-| minute-options | Custom minute options | `number[]` | `undefined` |
-| second-options | Custom second options | `number[]` | `undefined` |
-| hide-on-blur | Whether the panel closes on blur | `boolean` | `true` |
-| confirm-text | Confirm button label. Falls back to locale text when empty | `string` | `''` |
-| cancel-text | Cancel button label. Falls back to locale text when empty | `string` | `''` |
-| now-text | Now button label. Falls back to locale text when empty | `string` | `''` |
-| show-footer | Whether the footer action area is shown | `boolean` | `true` |
-| show-now | Whether the now button is shown in the footer | `boolean` | `true` |
-| arrow-control | Whether arrow control mode is enabled | `boolean` | `false` |
-| tabindex | Native `tabindex` value | `number \| string` | `0` |
-| id | Native `input` id in single mode. Range mode does not apply this prop to the start/end inputs | `string` | `undefined` |
-| order-on-confirm | Whether range values are auto-sorted on confirm | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                  | Description                                                                                                          | Type                                          | Default      |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------ |
+| model-value / v-model | Bound value                                                                                                          | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined`  |
+| disabled              | Whether the picker is disabled                                                                                       | `boolean`                                     | `false`      |
+| editable              | Whether the input is editable                                                                                        | `boolean`                                     | `true`       |
+| clearable             | Whether the value can be cleared                                                                                     | `boolean`                                     | `true`       |
+| size                  | Input size                                                                                                           | `'large' \| 'default' \| 'small'`             | `undefined`  |
+| placeholder           | Placeholder text in single mode                                                                                      | `string`                                      | `''`         |
+| start-placeholder     | Placeholder text for the start input in range mode                                                                   | `string`                                      | `''`         |
+| end-placeholder       | Placeholder text for the end input in range mode                                                                     | `string`                                      | `''`         |
+| name                  | Native `input` name                                                                                                  | `string`                                      | `undefined`  |
+| is-range              | Whether range mode is enabled                                                                                        | `boolean`                                     | `false`      |
+| format                | Display format                                                                                                       | `string`                                      | `'HH:mm:ss'` |
+| value-format          | Format used when emitting string values. Falls back to `format` when omitted                                         | `string`                                      | `undefined`  |
+| prefix-icon           | Declared prefix icon prop. The current template still renders the built-in clock icon and does not consume this prop | `string \| Component`                         | `undefined`  |
+| clear-icon            | Declared clear icon prop. The current template still renders the built-in clear icon and does not consume this prop  | `string \| Component`                         | `undefined`  |
+| use12-hours           | Whether to use 12-hour format                                                                                        | `boolean`                                     | `false`      |
+| show-seconds          | Whether the seconds column is shown                                                                                  | `boolean`                                     | `true`       |
+| hour-step             | Hour step size                                                                                                       | `number`                                      | `1`          |
+| minute-step           | Minute step size                                                                                                     | `number`                                      | `1`          |
+| second-step           | Second step size                                                                                                     | `number`                                      | `1`          |
+| disabled-time         | Disabled time configuration                                                                                          | `YhTimePickerDisabledTimeConfig`              | `undefined`  |
+| popper-class          | Custom panel class name                                                                                              | `string`                                      | `undefined`  |
+| popper-style          | Declared panel style prop. The current implementation does not merge this prop into the popup styles                 | `string \| Record<string, string>`            | `undefined`  |
+| teleported            | Whether the panel is teleported to `body`                                                                            | `boolean`                                     | `true`       |
+| validate-event        | Whether form validation runs on change and blur                                                                      | `boolean`                                     | `true`       |
+| popper-offset         | Offset between the input and popup panel                                                                             | `number`                                      | `4`          |
+| range-separator       | Range separator text                                                                                                 | `string`                                      | `'-'`        |
+| default-value         | Initial panel value used when the bound value is empty                                                               | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined`  |
+| hour-options          | Custom hour options                                                                                                  | `number[]`                                    | `undefined`  |
+| minute-options        | Custom minute options                                                                                                | `number[]`                                    | `undefined`  |
+| second-options        | Custom second options                                                                                                | `number[]`                                    | `undefined`  |
+| hide-on-blur          | Whether the panel closes on blur                                                                                     | `boolean`                                     | `true`       |
+| confirm-text          | Confirm button label. Falls back to locale text when empty                                                           | `string`                                      | `''`         |
+| cancel-text           | Cancel button label. Falls back to locale text when empty                                                            | `string`                                      | `''`         |
+| now-text              | Now button label. Falls back to locale text when empty                                                               | `string`                                      | `''`         |
+| show-footer           | Whether the footer action area is shown                                                                              | `boolean`                                     | `true`       |
+| show-now              | Whether the now button is shown in the footer                                                                        | `boolean`                                     | `true`       |
+| arrow-control         | Whether arrow control mode is enabled                                                                                | `boolean`                                     | `false`      |
+| tabindex              | Native `tabindex` value                                                                                              | `number \| string`                            | `0`          |
+| id                    | Native `input` id in single mode. Range mode does not apply this prop to the start/end inputs                        | `string`                                      | `undefined`  |
+| order-on-confirm      | Whether range values are auto-sorted on confirm                                                                      | `boolean`                                     | `false`      |
+| theme-overrides       | Component-level theme overrides                                                                                      | `ComponentThemeVars`                          | `undefined`  |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered when the bound value updates | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
-| change | Triggered when the confirmed value changes | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
-| focus | Triggered when the input gains focus | `(event: FocusEvent) => void` |
-| blur | Triggered when the input loses focus | `(event: FocusEvent) => void` |
-| clear | Triggered when the clear icon is clicked | `() => void` |
-| visible-change | Triggered when panel visibility changes | `(visible: boolean) => void` |
-| confirm | Triggered when the confirm button is clicked | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
-| cancel | Triggered when the cancel button is clicked | `() => void` |
+| Name              | Description                                  | Parameters                                                     |
+| ----------------- | -------------------------------------------- | -------------------------------------------------------------- |
+| update:modelValue | Triggered when the bound value updates       | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| change            | Triggered when the confirmed value changes   | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| focus             | Triggered when the input gains focus         | `(event: FocusEvent) => void`                                  |
+| blur              | Triggered when the input loses focus         | `(event: FocusEvent) => void`                                  |
+| clear             | Triggered when the clear icon is clicked     | `() => void`                                                   |
+| visible-change    | Triggered when panel visibility changes      | `(visible: boolean) => void`                                   |
+| confirm           | Triggered when the confirm button is clicked | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| cancel            | Triggered when the cancel button is clicked  | `() => void`                                                   |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| prefix | Content rendered before the input | - |
-| suffix | Declared in the slot type, but the current template does not render this slot | - |
-| rangeSeparator | Custom range separator content | - |
+| Name           | Description                                                                   | Parameters |
+| -------------- | ----------------------------------------------------------------------------- | ---------- |
+| prefix         | Content rendered before the input                                             | -          |
+| suffix         | Declared in the slot type, but the current template does not render this slot | -          |
+| rangeSeparator | Custom range separator content                                                | -          |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| focus | Focuses the input | `() => void` |
-| blur | Blurs the input | `() => void` |
-| open | Opens the panel | `() => void` |
-| close | Closes the panel | `() => void` |
+| Name     | Description                                                                           | Type                                 |
+| -------- | ------------------------------------------------------------------------------------- | ------------------------------------ |
+| focus    | Focuses the input                                                                     | `() => void`                         |
+| blur     | Blurs the input                                                                       | `() => void`                         |
+| open     | Opens the panel                                                                       | `() => void`                         |
+| close    | Closes the panel                                                                      | `() => void`                         |
 | inputRef | Ref to the single-mode input. In range mode it does not point to the start/end inputs | `Ref<HTMLInputElement \| undefined>` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTimePickerProps` | Props type for `YhTimePicker` |
-| `YhTimePickerEmits` | Emits type for `YhTimePicker` |
-| `YhTimePickerSlots` | Slots type for `YhTimePicker` |
-| `YhTimePickerExpose` | Public expose type for `YhTimePicker` |
-| `YhTimePickerSize` | Size union type |
-| `YhTimePickerValue` | Single time value type |
-| `YhTimePickerRangeValue` | Time range value type |
-| `YhTimePickerDisabledTimeConfig` | Disabled time configuration type |
-| `YhTimePickerState` | Internal panel time state type |
-| `YhTimePickerInstance` | Component instance type |
+| Name                             | Description                           |
+| -------------------------------- | ------------------------------------- |
+| `YhTimePickerProps`              | Props type for `YhTimePicker`         |
+| `YhTimePickerEmits`              | Emits type for `YhTimePicker`         |
+| `YhTimePickerSlots`              | Slots type for `YhTimePicker`         |
+| `YhTimePickerExpose`             | Public expose type for `YhTimePicker` |
+| `YhTimePickerSize`               | Size union type                       |
+| `YhTimePickerValue`              | Single time value type                |
+| `YhTimePickerRangeValue`         | Time range value type                 |
+| `YhTimePickerDisabledTimeConfig` | Disabled time configuration type      |
+| `YhTimePickerState`              | Internal panel time state type        |
+| `YhTimePickerInstance`           | Component instance type               |
 
 ### Theme Variables
 
 `YhTimePicker` supports `themeOverrides`. The stylesheet directly consumes the following component-scoped CSS variables, while borders, shadows, and text colors continue to inherit shared theme tokens.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-time-picker-width` | Width in single mode | `220px` |
-| `--yh-time-picker-range-width` | Width in range mode | `360px` |
-| `--yh-time-picker-active-color` | Active item text color | `var(--yh-color-primary)` |
-| `--yh-time-picker-active-bg` | Active item background color | `var(--yh-color-primary-light-9)` |
-| `--yh-time-picker-hover-bg` | Hover background color for spinner items | `var(--yh-fill-color-light)` |
-| `--yh-time-picker-panel-bg` | Popup panel background color | `var(--yh-bg-color)` |
-| `--yh-time-picker-border-radius` | Popup border radius | `var(--yh-radius-md)` |
-
+| Variable                         | Description                              | Default                           |
+| -------------------------------- | ---------------------------------------- | --------------------------------- |
+| `--yh-time-picker-width`         | Width in single mode                     | `220px`                           |
+| `--yh-time-picker-range-width`   | Width in range mode                      | `360px`                           |
+| `--yh-time-picker-active-color`  | Active item text color                   | `var(--yh-color-primary)`         |
+| `--yh-time-picker-active-bg`     | Active item background color             | `var(--yh-color-primary-light-9)` |
+| `--yh-time-picker-hover-bg`      | Hover background color for spinner items | `var(--yh-fill-color-light)`      |
+| `--yh-time-picker-panel-bg`      | Popup panel background color             | `var(--yh-bg-color)`              |
+| `--yh-time-picker-border-radius` | Popup border radius                      | `var(--yh-radius-md)`             |

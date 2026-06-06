@@ -16,21 +16,29 @@ const props = withDefaults(defineProps<GridItemProps>(), {
 })
 
 const ns = useNamespace('grid-item')
-const { themeStyle } = useComponentTheme('grid-item', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'grid-item',
+  computed(() => props.themeOverrides)
+)
 
-const gridContext = inject<ComputedRef<{
-  cols: number
-  collapsed: boolean
-  collapsedRows: number
-}>>('yh-grid', computed(() => ({
-  cols: 12,
-  collapsed: false,
-  collapsedRows: 1
-})))
+const gridContext = inject<
+  ComputedRef<{
+    cols: number
+    collapsed: boolean
+    collapsedRows: number
+  }>
+>(
+  'yh-grid',
+  computed(() => ({
+    cols: 12,
+    collapsed: false,
+    collapsedRows: 1
+  }))
+)
 
 const itemStyle = computed((): CSSProperties => {
   const style: CSSProperties = {
-    ...themeStyle.value as Record<string, string>
+    ...(themeStyle.value as Record<string, string>)
   }
 
   // 跨列
@@ -54,10 +62,7 @@ const itemStyle = computed((): CSSProperties => {
   return style
 })
 
-const itemClasses = computed(() => [
-  ns.b(),
-  props.suffix && ns.is('suffix')
-])
+const itemClasses = computed(() => [ns.b(), props.suffix && ns.is('suffix')])
 </script>
 
 <template>

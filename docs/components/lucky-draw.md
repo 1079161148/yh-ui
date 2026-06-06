@@ -361,10 +361,10 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Slots
 
-| 插槽名 | 说明             | 参数 |
-| ------ | ---------------- | ---- |
+| 插槽名 | 说明             | 参数                    |
+| ------ | ---------------- | ----------------------- |
 | prize  | 自定义奖品单元格 | `{ prize: LuckyPrize }` |
-| action | 自定义开始按钮   | —    |
+| action | 自定义开始按钮   | —                       |
 
 ### Expose
 
@@ -382,11 +382,11 @@ const jsNuxt = toJs(tsNuxt)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhLuckyDrawProps` | 组件 Props 类型 |
-| `YhLuckyDrawEmits` | 组件事件类型 |
-| `YhLuckyDrawSlots` | 组件插槽类型 |
-| `YhLuckyPrize` | 奖品数据类型 |
-| `YhLuckyDrawType` | 抽奖模式联合类型 |
-| `YhLuckyDrawInstance` | 组件实例类型 |
+| 名称                  | 说明             |
+| --------------------- | ---------------- |
+| `YhLuckyDrawProps`    | 组件 Props 类型  |
+| `YhLuckyDrawEmits`    | 组件事件类型     |
+| `YhLuckyDrawSlots`    | 组件插槽类型     |
+| `YhLuckyPrize`        | 奖品数据类型     |
+| `YhLuckyDrawType`     | 抽奖模式联合类型 |
+| `YhLuckyDrawInstance` | 组件实例类型     |

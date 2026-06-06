@@ -10,12 +10,7 @@ vi.mock('vue', async (importOriginal) => {
 })
 
 import { nextTick } from 'vue'
-import {
-  WebSocketClient,
-  useWebSocket,
-  createWebSocket,
-  isWebSocketSupported
-} from '../websocket'
+import { WebSocketClient, useWebSocket, createWebSocket, isWebSocketSupported } from '../websocket'
 import { useSSE } from '../useSSE'
 
 class MockWebSocket {
@@ -257,4 +252,3 @@ describe('useSSE extra branches', () => {
     expect(onError).not.toHaveBeenCalled()
   })
 })
-

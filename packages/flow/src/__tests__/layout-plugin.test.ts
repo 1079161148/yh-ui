@@ -190,10 +190,7 @@ describe('flow/plugins/plugins/layout', () => {
         createMockNode('n3'),
         createMockNode('n4')
       ]
-      flow.edges.value = [
-        createMockEdge('e1', 'n1', 'n2'),
-        createMockEdge('e2', 'n2', 'n3')
-      ]
+      flow.edges.value = [createMockEdge('e1', 'n1', 'n2'), createMockEdge('e2', 'n2', 'n3')]
 
       const plugin = createLayoutPlugin({ type: 'grid', animate: false })
       plugin.install(flow)
@@ -214,9 +211,7 @@ describe('flow/plugins/plugins/layout', () => {
       // @ts-ignore - intentionally pass invalid type
       await flow.applyLayout!({ type: 'unknown' })
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Unknown layout type')
-      )
+      expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('Unknown layout type'))
     })
 
     it('should handle layout with empty nodes', async () => {

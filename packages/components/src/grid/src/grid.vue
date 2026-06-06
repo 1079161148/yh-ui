@@ -19,7 +19,10 @@ const props = withDefaults(defineProps<GridProps>(), {
 })
 
 const ns = useNamespace('grid')
-const { themeStyle } = useComponentTheme('grid', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'grid',
+  computed(() => props.themeOverrides)
+)
 
 function resolveGap(val: number | string): string {
   return typeof val === 'number' ? `${val}px` : val
@@ -33,7 +36,7 @@ const computedCols = computed(() => {
 
 const gridStyle = computed((): CSSProperties => {
   const style: CSSProperties = {
-    ...themeStyle.value as Record<string, string>,
+    ...(themeStyle.value as Record<string, string>),
     display: 'grid',
     gridTemplateColumns: computedCols.value
   }
@@ -56,11 +59,14 @@ const gridStyle = computed((): CSSProperties => {
 })
 
 // 向 GridItem 提供折叠状态和列数
-provide('yh-grid', computed(() => ({
-  cols: typeof props.cols === 'number' ? props.cols : 12,
-  collapsed: props.collapsed,
-  collapsedRows: props.collapsedRows
-})))
+provide(
+  'yh-grid',
+  computed(() => ({
+    cols: typeof props.cols === 'number' ? props.cols : 12,
+    collapsed: props.collapsed,
+    collapsedRows: props.collapsedRows
+  }))
+)
 </script>
 
 <template>

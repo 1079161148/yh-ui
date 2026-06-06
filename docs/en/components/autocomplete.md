@@ -490,76 +490,76 @@ After installing `@yh-ui/nuxt`, `YhAutocomplete` can be used directly. The input
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value / v-model` | Bound input value | `string` | `undefined` |
-| `placeholder` | Placeholder text | `string` | `undefined` |
-| `disabled` | Whether the component is disabled | `boolean` | `false` |
-| `clearable` | Whether the value can be cleared | `boolean` | `false` |
-| `size` | Input size | `'large' \| 'default' \| 'small'` | `undefined` |
-| `fetch-suggestions` | Suggestion fetcher | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | `undefined` |
-| `trigger-on-focus` | Whether suggestions should be fetched on focus | `boolean` | `true` |
-| `debounce` | Suggestion fetch debounce in milliseconds | `number` | `300` |
-| `placement` | Dropdown placement | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'` | `'bottom-start'` |
-| `value-key` | Field used as the display value inside a suggestion object | `string` | `'value'` |
-| `popper-class` | Custom class name for the dropdown panel | `string` | `undefined` |
-| `teleported` | Whether the dropdown is teleported to `body` | `boolean` | `true` |
-| `fit-input-width` | Whether the dropdown width follows the input width | `boolean` | `true` |
-| `highlight-first-item` | Whether the first suggestion is highlighted by default | `boolean` | `false` |
-| `prefix-icon` | Prefix icon component or icon name | `string \| Component` | `undefined` |
-| `suffix-icon` | Suffix icon component or icon name | `string \| Component` | `undefined` |
-| `validate-event` | Whether form validation is triggered | `boolean` | `true` |
-| `autofocus` | Whether the input autofocuses | `boolean` | `false` |
-| `name` | Native `name` attribute | `string` | `undefined` |
-| `autocomplete` | Native `autocomplete` attribute | `string` | `'off'` |
-| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                    | Description                                                | Type                                                                                 | Default          |
+| ----------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
+| `model-value / v-model` | Bound input value                                          | `string`                                                                             | `undefined`      |
+| `placeholder`           | Placeholder text                                           | `string`                                                                             | `undefined`      |
+| `disabled`              | Whether the component is disabled                          | `boolean`                                                                            | `false`          |
+| `clearable`             | Whether the value can be cleared                           | `boolean`                                                                            | `false`          |
+| `size`                  | Input size                                                 | `'large' \| 'default' \| 'small'`                                                    | `undefined`      |
+| `fetch-suggestions`     | Suggestion fetcher                                         | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | `undefined`      |
+| `trigger-on-focus`      | Whether suggestions should be fetched on focus             | `boolean`                                                                            | `true`           |
+| `debounce`              | Suggestion fetch debounce in milliseconds                  | `number`                                                                             | `300`            |
+| `placement`             | Dropdown placement                                         | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'`    | `'bottom-start'` |
+| `value-key`             | Field used as the display value inside a suggestion object | `string`                                                                             | `'value'`        |
+| `popper-class`          | Custom class name for the dropdown panel                   | `string`                                                                             | `undefined`      |
+| `teleported`            | Whether the dropdown is teleported to `body`               | `boolean`                                                                            | `true`           |
+| `fit-input-width`       | Whether the dropdown width follows the input width         | `boolean`                                                                            | `true`           |
+| `highlight-first-item`  | Whether the first suggestion is highlighted by default     | `boolean`                                                                            | `false`          |
+| `prefix-icon`           | Prefix icon component or icon name                         | `string \| Component`                                                                | `undefined`      |
+| `suffix-icon`           | Suffix icon component or icon name                         | `string \| Component`                                                                | `undefined`      |
+| `validate-event`        | Whether form validation is triggered                       | `boolean`                                                                            | `true`           |
+| `autofocus`             | Whether the input autofocuses                              | `boolean`                                                                            | `false`          |
+| `name`                  | Native `name` attribute                                    | `string`                                                                             | `undefined`      |
+| `autocomplete`          | Native `autocomplete` attribute                            | `string`                                                                             | `'off'`          |
+| `theme-overrides`       | Component-level theme overrides                            | `ComponentThemeVars`                                                                 | `undefined`      |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `update:modelValue` | Triggered when the bound value changes | `(value: string) => void` |
-| `input` | Triggered while typing | `(value: string) => void` |
-| `change` | Triggered after the input change is committed | `(value: string) => void` |
-| `focus` | Triggered when the input gains focus | `(event: FocusEvent) => void` |
-| `blur` | Triggered when the input loses focus | `(event: FocusEvent) => void` |
-| `clear` | Triggered when the clear icon is clicked | `() => void` |
-| `select` | Triggered when a suggestion item is selected | `(item: AutocompleteSuggestion) => void` |
+| Name                | Description                                   | Parameters                               |
+| ------------------- | --------------------------------------------- | ---------------------------------------- |
+| `update:modelValue` | Triggered when the bound value changes        | `(value: string) => void`                |
+| `input`             | Triggered while typing                        | `(value: string) => void`                |
+| `change`            | Triggered after the input change is committed | `(value: string) => void`                |
+| `focus`             | Triggered when the input gains focus          | `(event: FocusEvent) => void`            |
+| `blur`              | Triggered when the input loses focus          | `(event: FocusEvent) => void`            |
+| `clear`             | Triggered when the clear icon is clicked      | `() => void`                             |
+| `select`            | Triggered when a suggestion item is selected  | `(item: AutocompleteSuggestion) => void` |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `default` | Custom suggestion item content | `{ item: AutocompleteSuggestion }` |
-| `prefix` | Input prefix content | `-` |
-| `suffix` | Input suffix content | `-` |
-| `prepend` | Content before the input wrapper | `-` |
-| `append` | Content after the input wrapper | `-` |
-| `loading` | Custom loading content | `-` |
-| `empty` | Custom empty-state content | `-` |
+| Name      | Description                      | Parameters                         |
+| --------- | -------------------------------- | ---------------------------------- |
+| `default` | Custom suggestion item content   | `{ item: AutocompleteSuggestion }` |
+| `prefix`  | Input prefix content             | `-`                                |
+| `suffix`  | Input suffix content             | `-`                                |
+| `prepend` | Content before the input wrapper | `-`                                |
+| `append`  | Content after the input wrapper  | `-`                                |
+| `loading` | Custom loading content           | `-`                                |
+| `empty`   | Custom empty-state content       | `-`                                |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `focus` | Focuses the input | `() => void` |
-| `blur` | Blurs the input | `() => void` |
-| `close` | Closes the dropdown panel | `() => void` |
-| `highlight` | Highlights a suggestion item by index | `(index: number) => void` |
-| `inputRef` | Native input element reference | `HTMLInputElement \| undefined` |
+| Name        | Description                           | Type                            |
+| ----------- | ------------------------------------- | ------------------------------- |
+| `focus`     | Focuses the input                     | `() => void`                    |
+| `blur`      | Blurs the input                       | `() => void`                    |
+| `close`     | Closes the dropdown panel             | `() => void`                    |
+| `highlight` | Highlights a suggestion item by index | `(index: number) => void`       |
+| `inputRef`  | Native input element reference        | `HTMLInputElement \| undefined` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhAutocompleteSize` | Size union type |
-| `YhAutocompletePlacement` | Dropdown placement union type |
-| `YhAutocompleteSuggestion` | Suggestion item type |
-| `YhAutocompleteProps` | Props type for `YhAutocomplete` |
-| `YhAutocompleteEmits` | Emits type for `YhAutocomplete` |
-| `YhAutocompleteSlots` | Slots type for `YhAutocomplete` |
-| `YhAutocompleteExpose` | Public expose type |
-| `YhAutocompleteInstance` | Component instance type |
+| Name                       | Description                     |
+| -------------------------- | ------------------------------- |
+| `YhAutocompleteSize`       | Size union type                 |
+| `YhAutocompletePlacement`  | Dropdown placement union type   |
+| `YhAutocompleteSuggestion` | Suggestion item type            |
+| `YhAutocompleteProps`      | Props type for `YhAutocomplete` |
+| `YhAutocompleteEmits`      | Emits type for `YhAutocomplete` |
+| `YhAutocompleteSlots`      | Slots type for `YhAutocomplete` |
+| `YhAutocompleteExpose`     | Public expose type              |
+| `YhAutocompleteInstance`   | Component instance type         |
 
 ### Theme Variables
 

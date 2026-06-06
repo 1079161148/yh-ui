@@ -293,86 +293,86 @@ When rendered on the server, the InputTag component dynamically generates optimi
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value (Tag array) | `string[]` | `[]` |
-| type | Tag type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'info'` |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | Whether to disable | `boolean` | `false` |
-| readonly | Whether to set read-only | `boolean` | `false` |
-| max | Maximum number of tags | `number` | — |
-| separator | Separator | `string \| string[]` | `[',', 'Enter']` |
-| placeholder | Placeholder | `string` | — |
-| clearable | Whether it is clearable | `boolean` | `false` |
-| add-on-blur | Whether to add input content on blur | `boolean` | `true` |
-| closable | Whether tags are closable | `boolean` | `true` |
-| validate-tag | Validation function | `(value: string) => boolean` | — |
-| trim | Whether to trim whitespace | `boolean` | `true` |
-| allow-duplicate | Whether to allow duplicate tags | `boolean` | `false` |
-| **collapse-tags** | Whether to collapse tags | `boolean` | `false` |
-| **collapse-tags-tooltip** | Whether to show tooltip when collapsed | `boolean` | `false` |
-| **max-collapse-tags** | Maximum number of tags to show before collapsing | `number` | `1` |
-| **draggable** | Whether draggable sorting is enabled | `boolean` | `false` |
-| **tag-effect** | Tag effect | `'dark' \| 'light' \| 'plain'` | `'light'` |
-| prefix | Prefix text | `string` | — |
-| suffix | Suffix text | `string` | — |
-| prefix-icon | Prefix icon | `Component` | — |
-| suffix-icon | Suffix icon | `Component` | — |
+| Prop                      | Description                                      | Type                                                        | Default          |
+| ------------------------- | ------------------------------------------------ | ----------------------------------------------------------- | ---------------- |
+| model-value / v-model     | Binding value (Tag array)                        | `string[]`                                                  | `[]`             |
+| type                      | Tag type                                         | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'info'`         |
+| size                      | Size                                             | `'large' \| 'default' \| 'small'`                           | `'default'`      |
+| disabled                  | Whether to disable                               | `boolean`                                                   | `false`          |
+| readonly                  | Whether to set read-only                         | `boolean`                                                   | `false`          |
+| max                       | Maximum number of tags                           | `number`                                                    | —                |
+| separator                 | Separator                                        | `string \| string[]`                                        | `[',', 'Enter']` |
+| placeholder               | Placeholder                                      | `string`                                                    | —                |
+| clearable                 | Whether it is clearable                          | `boolean`                                                   | `false`          |
+| add-on-blur               | Whether to add input content on blur             | `boolean`                                                   | `true`           |
+| closable                  | Whether tags are closable                        | `boolean`                                                   | `true`           |
+| validate-tag              | Validation function                              | `(value: string) => boolean`                                | —                |
+| trim                      | Whether to trim whitespace                       | `boolean`                                                   | `true`           |
+| allow-duplicate           | Whether to allow duplicate tags                  | `boolean`                                                   | `false`          |
+| **collapse-tags**         | Whether to collapse tags                         | `boolean`                                                   | `false`          |
+| **collapse-tags-tooltip** | Whether to show tooltip when collapsed           | `boolean`                                                   | `false`          |
+| **max-collapse-tags**     | Maximum number of tags to show before collapsing | `number`                                                    | `1`              |
+| **draggable**             | Whether draggable sorting is enabled             | `boolean`                                                   | `false`          |
+| **tag-effect**            | Tag effect                                       | `'dark' \| 'light' \| 'plain'`                              | `'light'`        |
+| prefix                    | Prefix text                                      | `string`                                                    | —                |
+| suffix                    | Suffix text                                      | `string`                                                    | —                |
+| prefix-icon               | Prefix icon                                      | `Component`                                                 | —                |
+| suffix-icon               | Suffix icon                                      | `Component`                                                 | —                |
 
 | theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| change | Triggered when tags change | `(value: string[]) => void` |
-| input | Triggered on input | `(value: string) => void` |
-| add | Triggered when a tag is added | `(tag: string) => void` |
-| remove | Triggered when a tag is removed | `(tag: string, index: number) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered on clear | `() => void` |
-| **drag-end** | Triggered when dragging ends | `(tags: string[]) => void` |
+| Event Name   | Description                     | Callback Parameters                    |
+| ------------ | ------------------------------- | -------------------------------------- |
+| change       | Triggered when tags change      | `(value: string[]) => void`            |
+| input        | Triggered on input              | `(value: string) => void`              |
+| add          | Triggered when a tag is added   | `(tag: string) => void`                |
+| remove       | Triggered when a tag is removed | `(tag: string, index: number) => void` |
+| focus        | Triggered on focus              | `(event: FocusEvent) => void`          |
+| blur         | Triggered on blur               | `(event: FocusEvent) => void`          |
+| clear        | Triggered on clear              | `() => void`                           |
+| **drag-end** | Triggered when dragging ends    | `(tags: string[]) => void`             |
 
 ### Slots
 
-| Slot Name | Description | Scoped Parameters |
-| --- | --- | --- |
-| prefix | Custom prefix content | — |
-| suffix | Custom suffix content | — |
-| **tag** | Custom tag content | `{ tag: string, index: number, close: () => void }` |
-| **clear-icon** | Custom clear icon | — |
-| **collapse-tag** | Custom collapsed tag content | `{ count: number, tags: string[] }` |
+| Slot Name        | Description                  | Scoped Parameters                                   |
+| ---------------- | ---------------------------- | --------------------------------------------------- |
+| prefix           | Custom prefix content        | —                                                   |
+| suffix           | Custom suffix content        | —                                                   |
+| **tag**          | Custom tag content           | `{ tag: string, index: number, close: () => void }` |
+| **clear-icon**   | Custom clear icon            | —                                                   |
+| **collapse-tag** | Custom collapsed tag content | `{ count: number, tags: string[] }`                 |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name  | Description           | Type         |
+| ----- | --------------------- | ------------ |
 | focus | Focus the input field | `() => void` |
-| blur | Blur the input field | `() => void` |
-| clear | Clear all tags | `() => void` |
+| blur  | Blur the input field  | `() => void` |
+| clear | Clear all tags        | `() => void` |
 
 ### Theme Variables
 
 `YhInputTag` supports `themeOverrides`. The component itself consumes the following tag-input CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-input-tag-min-height` | Minimum height | `var(--yh-component-size-default)` |
-| `--yh-input-tag-font-size` | Font size | `var(--yh-font-size-base)` |
-| `--yh-input-tag-bg-color` | Background color | `var(--yh-fill-color-blank)` |
-| `--yh-input-tag-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-input-tag-tag-height` | Tag height | `22px` |
-| `--yh-input-tag-gap` | Tag gap | `4px` |
+| Variable                      | Description      | Default                            |
+| ----------------------------- | ---------------- | ---------------------------------- |
+| `--yh-input-tag-min-height`   | Minimum height   | `var(--yh-component-size-default)` |
+| `--yh-input-tag-font-size`    | Font size        | `var(--yh-font-size-base)`         |
+| `--yh-input-tag-bg-color`     | Background color | `var(--yh-fill-color-blank)`       |
+| `--yh-input-tag-border-color` | Border color     | `var(--yh-border-color)`           |
+| `--yh-input-tag-tag-height`   | Tag height       | `22px`                             |
+| `--yh-input-tag-gap`          | Tag gap          | `4px`                              |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhInputTagProps` | Props type for `YhInputTag` |
-| `YhInputTagEmits` | Emits type for `YhInputTag` |
-| `YhInputTagSlots` | Slots type for `YhInputTag` |
-| `YhInputTagExpose` | Expose type for `YhInputTag` |
-| `YhInputTagSize` | Input-tag size union |
-| `YhInputTagType` | Input-tag type union |
+| Name                 | Description                           |
+| -------------------- | ------------------------------------- |
+| `YhInputTagProps`    | Props type for `YhInputTag`           |
+| `YhInputTagEmits`    | Emits type for `YhInputTag`           |
+| `YhInputTagSlots`    | Slots type for `YhInputTag`           |
+| `YhInputTagExpose`   | Expose type for `YhInputTag`          |
+| `YhInputTagSize`     | Input-tag size union                  |
+| `YhInputTagType`     | Input-tag type union                  |
 | `YhInputTagInstance` | Public instance type for `YhInputTag` |

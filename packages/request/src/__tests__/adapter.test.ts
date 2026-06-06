@@ -211,7 +211,9 @@ describe('Adapters', () => {
         requestId: 'fe4'
       } as any)
       const init = fetchMock.mock.calls[0][1] as RequestInit
-      expect((init.headers as Record<string, string>)['Content-Type']).toBe('application/vnd.api+json')
+      expect((init.headers as Record<string, string>)['Content-Type']).toBe(
+        'application/vnd.api+json'
+      )
     })
   })
 

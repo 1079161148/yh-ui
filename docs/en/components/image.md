@@ -379,44 +379,44 @@ When the built-in previewer isn't enough, switch to the more powerful `viewerjs`
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| src | Image source URL | `string` | `''` |
-| fit | How the image fits its container, equivalent to native `object-fit` | `'' \| 'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `''` |
-| lazy | Whether to enable lazy loading | `boolean` | `false` |
-| preview-src-list | Source list used by the built-in preview viewer | `string[]` | `[]` |
-| z-index | Preview z-index | `number` | `undefined` |
-| initial-index | Start index of preview | `number` | `0` |
-| close-on-press-escape | Whether pressing `Esc` closes preview | `boolean` | `true` |
-| hide-on-click-modal | Whether clicking the overlay closes preview | `boolean` | `false` |
-| infinite | Whether preview loops infinitely | `boolean` | `true` |
-| zoom-rate | Zoom step used by the preview viewer | `number` | `1.2` |
-| show-progress | Whether to show preview progress controls | `boolean` | `true` |
-| preview-teleported | Whether to teleport the preview container to `body` | `boolean` | `true` |
-| scroll-container | Scroll container used for lazy loading | `string \| HTMLElement \| undefined` | `undefined` |
-| viewer-mode | Preview mode. Use `'viewerjs'` when integrating Viewer.js behavior | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | Options forwarded to Viewer.js when `viewer-mode="viewerjs"` | `Record<string, unknown>` | `{}` |
-| alt | Native `img` alt attribute | `string` | `undefined` |
-| crossorigin | Native `img` crossorigin attribute | `'' \| 'anonymous' \| 'use-credentials'` | `undefined` |
-| loading | Native `img` loading attribute | `'eager' \| 'lazy'` | `undefined` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop                  | Description                                                         | Type                                                             | Default     |
+| --------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------- |
+| src                   | Image source URL                                                    | `string`                                                         | `''`        |
+| fit                   | How the image fits its container, equivalent to native `object-fit` | `'' \| 'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `''`        |
+| lazy                  | Whether to enable lazy loading                                      | `boolean`                                                        | `false`     |
+| preview-src-list      | Source list used by the built-in preview viewer                     | `string[]`                                                       | `[]`        |
+| z-index               | Preview z-index                                                     | `number`                                                         | `undefined` |
+| initial-index         | Start index of preview                                              | `number`                                                         | `0`         |
+| close-on-press-escape | Whether pressing `Esc` closes preview                               | `boolean`                                                        | `true`      |
+| hide-on-click-modal   | Whether clicking the overlay closes preview                         | `boolean`                                                        | `false`     |
+| infinite              | Whether preview loops infinitely                                    | `boolean`                                                        | `true`      |
+| zoom-rate             | Zoom step used by the preview viewer                                | `number`                                                         | `1.2`       |
+| show-progress         | Whether to show preview progress controls                           | `boolean`                                                        | `true`      |
+| preview-teleported    | Whether to teleport the preview container to `body`                 | `boolean`                                                        | `true`      |
+| scroll-container      | Scroll container used for lazy loading                              | `string \| HTMLElement \| undefined`                             | `undefined` |
+| viewer-mode           | Preview mode. Use `'viewerjs'` when integrating Viewer.js behavior  | `'default' \| 'viewerjs'`                                        | `'default'` |
+| viewer-options        | Options forwarded to Viewer.js when `viewer-mode="viewerjs"`        | `Record<string, unknown>`                                        | `{}`        |
+| alt                   | Native `img` alt attribute                                          | `string`                                                         | `undefined` |
+| crossorigin           | Native `img` crossorigin attribute                                  | `'' \| 'anonymous' \| 'use-credentials'`                         | `undefined` |
+| loading               | Native `img` loading attribute                                      | `'eager' \| 'lazy'`                                              | `undefined` |
+| theme-overrides       | Component-level theme overrides                                     | `ComponentThemeVars`                                             | `undefined` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| load | Triggered on image load success | `(event: Event) => void` |
-| error | Triggered on image load failure | `(event: Event \| string) => void` |
-| switch | Triggered on preview image switch | `(index: number) => void` |
-| show | Triggered when preview is shown | `() => void` |
-| close | Triggered when preview is closed | `() => void` |
+| Event Name | Description                       | Callback Parameters                |
+| ---------- | --------------------------------- | ---------------------------------- |
+| load       | Triggered on image load success   | `(event: Event) => void`           |
+| error      | Triggered on image load failure   | `(event: Event \| string) => void` |
+| switch     | Triggered on preview image switch | `(index: number) => void`          |
+| show       | Triggered when preview is shown   | `() => void`                       |
+| close      | Triggered when preview is closed  | `() => void`                       |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
+| Slot Name   | Description                          |
+| ----------- | ------------------------------------ |
 | placeholder | Placeholder when image is not loaded |
-| error | Content for load failure |
+| error       | Content for load failure             |
 
 ### Expose
 
@@ -428,26 +428,26 @@ If you need to use the previewer independently, use `yh-image-viewer`.
 
 ### Image Viewer Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| url-list | Preview image source list | `string[]` | `[]` |
-| z-index | Preview z-index | `number` | `2000` |
-| initial-index | Start index of preview | `number` | `0` |
-| infinite | Whether preview loops infinitely | `boolean` | `true` |
-| hide-on-click-modal | Whether clicking the overlay closes preview | `boolean` | `false` |
-| close-on-press-escape | Whether pressing `Esc` closes preview | `boolean` | `true` |
-| zoom-rate | Zoom step used by the preview viewer | `number` | `1.2` |
-| show-progress | Whether to show preview progress controls | `boolean` | `true` |
-| teleported | Whether to teleport the preview container to `body` | `boolean` | `true` |
-| viewer-mode | Preview mode | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | Viewer.js options | `Record<string, unknown>` | `{}` |
+| Prop                  | Description                                         | Type                      | Default     |
+| --------------------- | --------------------------------------------------- | ------------------------- | ----------- |
+| url-list              | Preview image source list                           | `string[]`                | `[]`        |
+| z-index               | Preview z-index                                     | `number`                  | `2000`      |
+| initial-index         | Start index of preview                              | `number`                  | `0`         |
+| infinite              | Whether preview loops infinitely                    | `boolean`                 | `true`      |
+| hide-on-click-modal   | Whether clicking the overlay closes preview         | `boolean`                 | `false`     |
+| close-on-press-escape | Whether pressing `Esc` closes preview               | `boolean`                 | `true`      |
+| zoom-rate             | Zoom step used by the preview viewer                | `number`                  | `1.2`       |
+| show-progress         | Whether to show preview progress controls           | `boolean`                 | `true`      |
+| teleported            | Whether to teleport the preview container to `body` | `boolean`                 | `true`      |
+| viewer-mode           | Preview mode                                        | `'default' \| 'viewerjs'` | `'default'` |
+| viewer-options        | Viewer.js options                                   | `Record<string, unknown>` | `{}`        |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| switch | Triggered on image switch | `(index: number) => void` |
-| close | Triggered when preview closes | `() => void` |
+| Event Name | Description                   | Callback Parameters       |
+| ---------- | ----------------------------- | ------------------------- |
+| switch     | Triggered on image switch     | `(index: number) => void` |
+| close      | Triggered when preview closes | `() => void`              |
 
 ### Slots
 
@@ -455,41 +455,41 @@ This component does not expose component slots.
 
 ### Image Viewer Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| prev | Switch to the previous image | `() => void` |
-| next | Switch to the next image | `() => void` |
-| zoomIn | Zoom in | `() => void` |
-| zoomOut | Zoom out | `() => void` |
-| rotateLeft | Rotate counterclockwise | `() => void` |
-| rotateRight | Rotate clockwise | `() => void` |
-| reset | Reset zoom and rotation state | `() => void` |
+| Name        | Description                   | Type         |
+| ----------- | ----------------------------- | ------------ |
+| prev        | Switch to the previous image  | `() => void` |
+| next        | Switch to the next image      | `() => void` |
+| zoomIn      | Zoom in                       | `() => void` |
+| zoomOut     | Zoom out                      | `() => void` |
+| rotateLeft  | Rotate counterclockwise       | `() => void` |
+| rotateRight | Rotate clockwise              | `() => void` |
+| reset       | Reset zoom and rotation state | `() => void` |
 
 ### Theme Variables
 
 `YhImage` supports `themeOverrides`. The component also provides the following dedicated CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-image-placeholder-bg-color` | Placeholder background color | `var(--yh-fill-color-light)` |
-| `--yh-image-placeholder-text-color` | Placeholder text color | `var(--yh-text-color-placeholder)` |
-| `--yh-image-error-bg-color` | Error area background color | `var(--yh-fill-color-extra-light)` |
-| `--yh-image-error-text-color` | Error area text color | `var(--yh-text-color-placeholder)` |
-| `--yh-image-viewer-mask-bg-color` | Preview mask background color | `var(--yh-mask-color)` |
-| `--yh-image-viewer-btn-bg-color` | Preview controller button background | `var(--yh-text-color-regular)` |
-| `--yh-image-viewer-btn-color` | Preview controller button icon color | `var(--yh-color-white)` |
-| `--yh-image-viewer-btn-hover-bg-color` | Preview controller button hover | `var(--yh-color-primary)` |
+| Variable                               | Description                          | Default                            |
+| -------------------------------------- | ------------------------------------ | ---------------------------------- |
+| `--yh-image-placeholder-bg-color`      | Placeholder background color         | `var(--yh-fill-color-light)`       |
+| `--yh-image-placeholder-text-color`    | Placeholder text color               | `var(--yh-text-color-placeholder)` |
+| `--yh-image-error-bg-color`            | Error area background color          | `var(--yh-fill-color-extra-light)` |
+| `--yh-image-error-text-color`          | Error area text color                | `var(--yh-text-color-placeholder)` |
+| `--yh-image-viewer-mask-bg-color`      | Preview mask background color        | `var(--yh-mask-color)`             |
+| `--yh-image-viewer-btn-bg-color`       | Preview controller button background | `var(--yh-text-color-regular)`     |
+| `--yh-image-viewer-btn-color`          | Preview controller button icon color | `var(--yh-color-white)`            |
+| `--yh-image-viewer-btn-hover-bg-color` | Preview controller button hover      | `var(--yh-color-primary)`          |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhImageProps` | Props type for `YhImage` |
-| `YhImageEmits` | Emits type for `YhImage` |
-| `YhImageSlots` | Slots type for `YhImage` |
-| `YhImageInstance` | Public instance type for `YhImage` |
-| `YhImageViewerProps` | Props type for `YhImageViewer` |
-| `YhImageViewerEmits` | Emits type for `YhImageViewer` |
-| `YhImageViewerSlots` | Slots type for `YhImageViewer` |
-| `YhImageViewerExpose` | Expose type for `YhImageViewer` |
+| Name                    | Description                              |
+| ----------------------- | ---------------------------------------- |
+| `YhImageProps`          | Props type for `YhImage`                 |
+| `YhImageEmits`          | Emits type for `YhImage`                 |
+| `YhImageSlots`          | Slots type for `YhImage`                 |
+| `YhImageInstance`       | Public instance type for `YhImage`       |
+| `YhImageViewerProps`    | Props type for `YhImageViewer`           |
+| `YhImageViewerEmits`    | Emits type for `YhImageViewer`           |
+| `YhImageViewerSlots`    | Slots type for `YhImageViewer`           |
+| `YhImageViewerExpose`   | Expose type for `YhImageViewer`          |
 | `YhImageViewerInstance` | Public instance type for `YhImageViewer` |

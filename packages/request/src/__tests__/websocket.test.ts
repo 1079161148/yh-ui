@@ -7,12 +7,7 @@ vi.mock('vue', async (importOriginal) => {
   }
 })
 import { nextTick } from 'vue'
-import {
-  useWebSocket,
-  WebSocketClient,
-  createWebSocket,
-  isWebSocketSupported
-} from '../websocket'
+import { useWebSocket, WebSocketClient, createWebSocket, isWebSocketSupported } from '../websocket'
 
 // 模拟 WebSocket
 class MockWebSocket {

@@ -23,7 +23,10 @@ const slots = useSlots()
 const ns = useNamespace('space')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('space', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'space',
+  computed(() => props.themeOverrides)
+)
 
 const sizeMap: Record<string, number> = {
   mini: 4,
@@ -46,17 +49,20 @@ const gapStyle = computed(() => {
   return props.direction === 'vertical' ? { rowGap: val } : { gap: val }
 })
 
-const spaceStyle = computed((): CSSProperties => ({
-  ...themeStyle.value as Record<string, string>,
-  display: 'inline-flex',
-  flexDirection: props.direction === 'vertical' ? 'column' : ('row' as CSSProperties['flexDirection']),
-  flexWrap: (props.wrap ? 'wrap' : 'nowrap') as CSSProperties['flexWrap'],
-  alignItems: props.align as CSSProperties['alignItems'],
-  justifyContent: props.justify as CSSProperties['justifyContent'],
-  width: props.fill ? '100%' : undefined,
-  ...gapStyle.value,
-  ...(typeof props.style === 'object' ? props.style : {})
-}))
+const spaceStyle = computed(
+  (): CSSProperties => ({
+    ...(themeStyle.value as Record<string, string>),
+    display: 'inline-flex',
+    flexDirection:
+      props.direction === 'vertical' ? 'column' : ('row' as CSSProperties['flexDirection']),
+    flexWrap: (props.wrap ? 'wrap' : 'nowrap') as CSSProperties['flexWrap'],
+    alignItems: props.align as CSSProperties['alignItems'],
+    justifyContent: props.justify as CSSProperties['justifyContent'],
+    width: props.fill ? '100%' : undefined,
+    ...gapStyle.value,
+    ...(typeof props.style === 'object' ? props.style : {})
+  })
+)
 
 /**
  * 展平 VNode 数组，递归处理 Fragment 和数组
@@ -66,7 +72,8 @@ function flattenVNodes(vnodes: VNode[]): VNode[] {
   const result: VNode[] = []
   for (const vnode of vnodes) {
     if (vnode.type === Comment) continue
-    if (vnode.type === Text && typeof vnode.children === 'string' && !vnode.children.trim()) continue
+    if (vnode.type === Text && typeof vnode.children === 'string' && !vnode.children.trim())
+      continue
     if (vnode.type === Fragment && Array.isArray(vnode.children)) {
       result.push(...flattenVNodes(vnode.children as VNode[]))
     } else if (Array.isArray(vnode)) {
@@ -91,13 +98,20 @@ const showSpacer = computed(() => {
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(direction), ns.is('wrap', wrap), ns.is('fill', fill)]" :style="spaceStyle">
+  <div
+    :class="[ns.b(), ns.m(direction), ns.is('wrap', wrap), ns.is('fill', fill)]"
+    :style="spaceStyle"
+  >
     <template v-for="(child, idx) in children" :key="idx">
       <div :class="ns.e('item')">
         <component :is="child" />
       </div>
       <!-- 间隔符：支持 #spacer 插槽和 spacer prop -->
-      <span v-if="showSpacer && idx < children.length - 1" :class="ns.e('spacer')" aria-hidden="true">
+      <span
+        v-if="showSpacer && idx < children.length - 1"
+        :class="ns.e('spacer')"
+        aria-hidden="true"
+      >
         <slot name="spacer">{{ spacer }}</slot>
       </span>
     </template>

@@ -512,38 +512,37 @@ const jsTreeDrag = toJs(tsTreeDrag)
 
 通过 `drag-config` 属性传入。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| row | 是否可拖拽行 | `boolean` | `false` |
-| column | 是否可拖拽列 | `boolean` | `false` |
-| handle | 拖拽手柄 CSS 选择器 | `string` | — |
-| animation | 动画时长（毫秒） | `number` | `150` |
-| onDragStart | 拖拽开始回调 | `({ type, data, index }) => void` | — |
-| onDragEnd | 拖拽结束回调 | `({ type, oldIndex, newIndex, data }) => void` | — |
-| crossTable | 是否支持跨表格拖拽 | `boolean` | `false` |
-| dragClass | 拖拽时的样式类 | `string` | — |
-| ghostClass | 幽灵元素样式类 | `string` | — |
+| 属性        | 说明                | 类型                                           | 默认值  |
+| ----------- | ------------------- | ---------------------------------------------- | ------- |
+| row         | 是否可拖拽行        | `boolean`                                      | `false` |
+| column      | 是否可拖拽列        | `boolean`                                      | `false` |
+| handle      | 拖拽手柄 CSS 选择器 | `string`                                       | —       |
+| animation   | 动画时长（毫秒）    | `number`                                       | `150`   |
+| onDragStart | 拖拽开始回调        | `({ type, data, index }) => void`              | —       |
+| onDragEnd   | 拖拽结束回调        | `({ type, oldIndex, newIndex, data }) => void` | —       |
+| crossTable  | 是否支持跨表格拖拽  | `boolean`                                      | `false` |
+| dragClass   | 拖拽时的样式类      | `string`                                       | —       |
+| ghostClass  | 幽灵元素样式类      | `string`                                       | —       |
 
 ### 事件
 
-| 事件名 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件名   | 说明           | 参数                                                                               |
+| -------- | -------------- | ---------------------------------------------------------------------------------- |
 | drag-end | 拖拽结束时触发 | `{ type: 'row' \| 'column', oldIndex: number, newIndex: number, data: unknown[] }` |
 
 ### onDragStart 回调参数
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| type | 拖拽类型 | `'row' \| 'column'` |
-| data | 被拖拽的数据 | `unknown` |
-| index | 被拖拽的索引 | `number` |
+| 参数  | 说明         | 类型                |
+| ----- | ------------ | ------------------- |
+| type  | 拖拽类型     | `'row' \| 'column'` |
+| data  | 被拖拽的数据 | `unknown`           |
+| index | 被拖拽的索引 | `number`            |
 
 ### onDragEnd 回调参数
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| type | 拖拽类型 | `'row' \| 'column'` |
-| oldIndex | 拖拽前索引 | `number` |
-| newIndex | 拖拽后索引 | `number` |
-| data | 拖拽后的数据 | `unknown[]` |
-
+| 参数     | 说明         | 类型                |
+| -------- | ------------ | ------------------- |
+| type     | 拖拽类型     | `'row' \| 'column'` |
+| oldIndex | 拖拽前索引   | `number`            |
+| newIndex | 拖拽后索引   | `number`            |
+| data     | 拖拽后的数据 | `unknown[]`         |

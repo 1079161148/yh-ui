@@ -290,39 +290,39 @@ Use the `icon` slot to replace the built-in rating icon.
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Binding value | `number` | `0` |
-| `max` | Maximum value | `number` | `5` |
-| `disabled` | Whether it is read-only | `boolean` | `false` |
-| `allow-half` | Whether half-selection is allowed | `boolean` | `false` |
-| `icon` | Custom selected icon | `string \| Component` | `''` |
-| `void-icon` | Custom unselected icon | `string \| Component` | `''` |
-| `disabled-void-icon` | Custom unselected icon when disabled | `string \| Component` | `''` |
-| `colors` | Active rating colors | `string \| string[] \| Record<number, string>` | `'#F7BA2A'` |
-| `void-color` | Color for unselected status | `string` | `'#C6D1DE'` |
-| `disabled-void-color` | Unselected color when disabled | `string` | `'#EFF2F7'` |
-| `show-score` | Whether to display the current score | `boolean` | `false` |
-| `show-text` | Whether to display auxiliary text | `boolean` | `false` |
-| `text-color` | Auxiliary text color | `string` | `'#1f2d3d'` |
-| `texts` | Array of auxiliary texts | `string[]` | `[]` |
-| `score-template` | Display template for scores | `string` | `'{value}'` |
-| `size` | Size of rating icons | `'large' \| 'default' \| 'small'` | `'default'` |
-| `clearable` | Whether clicking the current value resets the rating | `boolean` | `false` |
-| `theme-overrides` | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                          | Type                                           | Default     |
+| ------------------------- | ---------------------------------------------------- | ---------------------------------------------- | ----------- |
+| `model-value` / `v-model` | Binding value                                        | `number`                                       | `0`         |
+| `max`                     | Maximum value                                        | `number`                                       | `5`         |
+| `disabled`                | Whether it is read-only                              | `boolean`                                      | `false`     |
+| `allow-half`              | Whether half-selection is allowed                    | `boolean`                                      | `false`     |
+| `icon`                    | Custom selected icon                                 | `string \| Component`                          | `''`        |
+| `void-icon`               | Custom unselected icon                               | `string \| Component`                          | `''`        |
+| `disabled-void-icon`      | Custom unselected icon when disabled                 | `string \| Component`                          | `''`        |
+| `colors`                  | Active rating colors                                 | `string \| string[] \| Record<number, string>` | `'#F7BA2A'` |
+| `void-color`              | Color for unselected status                          | `string`                                       | `'#C6D1DE'` |
+| `disabled-void-color`     | Unselected color when disabled                       | `string`                                       | `'#EFF2F7'` |
+| `show-score`              | Whether to display the current score                 | `boolean`                                      | `false`     |
+| `show-text`               | Whether to display auxiliary text                    | `boolean`                                      | `false`     |
+| `text-color`              | Auxiliary text color                                 | `string`                                       | `'#1f2d3d'` |
+| `texts`                   | Array of auxiliary texts                             | `string[]`                                     | `[]`        |
+| `score-template`          | Display template for scores                          | `string`                                       | `'{value}'` |
+| `size`                    | Size of rating icons                                 | `'large' \| 'default' \| 'small'`              | `'default'` |
+| `clearable`               | Whether clicking the current value resets the rating | `boolean`                                      | `false`     |
+| `theme-overrides`         | Component-level theme variable overrides             | `ComponentThemeVars`                           | `undefined` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
+| Event Name          | Description                            | Callback Parameters       |
+| ------------------- | -------------------------------------- | ------------------------- |
 | `update:modelValue` | Triggered when the bound value changes | `(value: number) => void` |
-| `change` | Triggered when the value changes | `(value: number) => void` |
+| `change`            | Triggered when the value changes       | `(value: number) => void` |
 
 ### Slots
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| `icon` | Custom icon | `{ index: number, width: string, activeColor: string, voidColor: string }` |
+| Slot Name | Description | Parameters                                                                 |
+| --------- | ----------- | -------------------------------------------------------------------------- |
+| `icon`    | Custom icon | `{ index: number, width: string, activeColor: string, voidColor: string }` |
 
 ### Expose
 
@@ -330,21 +330,21 @@ This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-rate-void-color` | Unselected color | `#c6d1de` |
-| `--yh-rate-fill-color` | Selected color | `#f7ba2a` |
+| Variable                        | Description                    | Default   |
+| ------------------------------- | ------------------------------ | --------- |
+| `--yh-rate-void-color`          | Unselected color               | `#c6d1de` |
+| `--yh-rate-fill-color`          | Selected color                 | `#f7ba2a` |
 | `--yh-rate-disabled-void-color` | Unselected color when disabled | `#eff2f7` |
-| `--yh-rate-text-color` | Auxiliary text color | `#1f2d3d` |
-| `--yh-rate-font-size` | Auxiliary text size | `14px` |
-| `--yh-rate-icon-margin` | Icon spacing | `6px` |
+| `--yh-rate-text-color`          | Auxiliary text color           | `#1f2d3d` |
+| `--yh-rate-font-size`           | Auxiliary text size            | `14px`    |
+| `--yh-rate-icon-margin`         | Icon spacing                   | `6px`     |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhRateProps` | Component props type |
-| `YhRateEmits` | Component emits type |
-| `YhRateSlots` | Component slots type |
-| `YhRateSize` | Size union type |
+| Name             | Description             |
+| ---------------- | ----------------------- |
+| `YhRateProps`    | Component props type    |
+| `YhRateEmits`    | Component emits type    |
+| `YhRateSlots`    | Component slots type    |
+| `YhRateSize`     | Size union type         |
 | `YhRateInstance` | Component instance type |

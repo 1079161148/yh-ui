@@ -264,69 +264,69 @@ Pagination 组件完全支持 Nuxt 3/4 的 SSR 渲染。在 Nuxt 项目中使用
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `current-page / v-model:current-page` | 当前页码 | `number` | `1` |
-| `total` | 总条数 | `number` | `0` |
-| `page-size / v-model:page-size` | 每页条数 | `number` | `10` |
-| `page-sizes` | 每页显示个数选择器的选项设置 | `number[]` | `[10, 20, 30, 40, 50, 100]` |
-| `layout` | 组件布局，子组件名用逗号隔开 (可选值：`prev`, `pager`, `next`, `jumper`, `total`, `sizes`, `slot`) | `string` | `'prev, pager, next'` |
-| `pager-count` | 页码按钮的数量，当总页数超过该值时会折叠 | `number` | `7` |
-| `background` | 是否为背景颜色模式 | `boolean` | `false` |
-| `circle` | 是否使用圆形分页 | `boolean` | `false` |
-| `small` | 是否使用小型分页 | `boolean` | `false` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `hide-on-single-page` | 只有一页时是否隐藏 | `boolean` | `false` |
-| `prev-text` | 替代图标的文字 - 上一页 | `string` | — |
-| `next-text` | 替代图标的文字 - 下一页 | `string` | — |
+| 属性名                                | 说明                                                                                               | 类型       | 默认值                      |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------- | --------------------------- |
+| `current-page / v-model:current-page` | 当前页码                                                                                           | `number`   | `1`                         |
+| `total`                               | 总条数                                                                                             | `number`   | `0`                         |
+| `page-size / v-model:page-size`       | 每页条数                                                                                           | `number`   | `10`                        |
+| `page-sizes`                          | 每页显示个数选择器的选项设置                                                                       | `number[]` | `[10, 20, 30, 40, 50, 100]` |
+| `layout`                              | 组件布局，子组件名用逗号隔开 (可选值：`prev`, `pager`, `next`, `jumper`, `total`, `sizes`, `slot`) | `string`   | `'prev, pager, next'`       |
+| `pager-count`                         | 页码按钮的数量，当总页数超过该值时会折叠                                                           | `number`   | `7`                         |
+| `background`                          | 是否为背景颜色模式                                                                                 | `boolean`  | `false`                     |
+| `circle`                              | 是否使用圆形分页                                                                                   | `boolean`  | `false`                     |
+| `small`                               | 是否使用小型分页                                                                                   | `boolean`  | `false`                     |
+| `disabled`                            | 是否禁用                                                                                           | `boolean`  | `false`                     |
+| `hide-on-single-page`                 | 只有一页时是否隐藏                                                                                 | `boolean`  | `false`                     |
+| `prev-text`                           | 替代图标的文字 - 上一页                                                                            | `string`   | —                           |
+| `next-text`                           | 替代图标的文字 - 下一页                                                                            | `string`   | —                           |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| `size-change` | pageSize 改变时触发 | `(val: number) => void` |
-| `current-change` | currentPage 改变时触发 | `(val: number) => void` |
-| `prev-click` | 用户点击上一页按钮改变当前页后触发 | `(val: number) => void` |
-| `next-click` | 用户点击下一页按钮改变当前页后触发 | `(val: number) => void` |
+| 事件名           | 说明                               | 回调参数                |
+| ---------------- | ---------------------------------- | ----------------------- |
+| `size-change`    | pageSize 改变时触发                | `(val: number) => void` |
+| `current-change` | currentPage 改变时触发             | `(val: number) => void` |
+| `prev-click`     | 用户点击上一页按钮改变当前页后触发 | `(val: number) => void` |
+| `next-click`     | 用户点击下一页按钮改变当前页后触发 | `(val: number) => void` |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| `prev-icon` | 自定义上一页图标 |
-| `next-icon` | 自定义下一页图标 |
-| `default` | 自定义内容 (需在 layout 中包含 `slot` 项时生效) |
+| 插槽名      | 说明                                            |
+| ----------- | ----------------------------------------------- |
+| `prev-icon` | 自定义上一页图标                                |
+| `next-icon` | 自定义下一页图标                                |
+| `default`   | 自定义内容 (需在 layout 中包含 `slot` 项时生效) |
 
 ### Expose
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
+| 属性名        | 说明     | 类型     |
+| ------------- | -------- | -------- |
 | `currentPage` | 当前页码 | `number` |
-| `pageSize` | 每页条数 | `number` |
-| `pageCount` | 总页数 | `number` |
+| `pageSize`    | 每页条数 | `number` |
+| `pageCount`   | 总页数   | `number` |
 
 ### 主题变量 (CSS Variables)
 
 组件支持通过覆盖以下 CSS 变量来自定义局部样式：
 
-| 变量名 | 默认值 |
-| --- | --- |
-| `--yh-pagination-font-size` | `14px` |
-| `--yh-pagination-bg-color` | `transparent` |
-| `--yh-pagination-text-color` | `var(--yh-text-color-regular)` |
-| `--yh-pagination-btn-width` | `32px` |
-| `--yh-pagination-btn-height` | `32px` |
-| `--yh-pagination-btn-hover-color` | `var(--yh-color-primary)` |
-| `--yh-pagination-item-active-bg-color` | `var(--yh-color-primary)` |
-| `--yh-pagination-item-active-color` | `#ffffff` |
+| 变量名                                 | 默认值                         |
+| -------------------------------------- | ------------------------------ |
+| `--yh-pagination-font-size`            | `14px`                         |
+| `--yh-pagination-bg-color`             | `transparent`                  |
+| `--yh-pagination-text-color`           | `var(--yh-text-color-regular)` |
+| `--yh-pagination-btn-width`            | `32px`                         |
+| `--yh-pagination-btn-height`           | `32px`                         |
+| `--yh-pagination-btn-hover-color`      | `var(--yh-color-primary)`      |
+| `--yh-pagination-item-active-bg-color` | `var(--yh-color-primary)`      |
+| `--yh-pagination-item-active-color`    | `#ffffff`                      |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhPaginationProps` | `YhPagination` 的 Props 类型 |
-| `YhPaginationEmits` | `YhPagination` 的事件类型 |
-| `YhPaginationSlots` | `YhPagination` 的插槽类型 |
-| `YhPaginationExpose` | `YhPagination` 的 Expose 类型 |
-| `YhPaginationLayout` | 分页布局 token 联合类型 |
+| 名称                   | 说明                          |
+| ---------------------- | ----------------------------- |
+| `YhPaginationProps`    | `YhPagination` 的 Props 类型  |
+| `YhPaginationEmits`    | `YhPagination` 的事件类型     |
+| `YhPaginationSlots`    | `YhPagination` 的插槽类型     |
+| `YhPaginationExpose`   | `YhPagination` 的 Expose 类型 |
+| `YhPaginationLayout`   | 分页布局 token 联合类型       |
 | `YhPaginationInstance` | `YhPagination` 的组件实例类型 |

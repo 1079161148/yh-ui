@@ -6,12 +6,7 @@
 import { computed, ref, inject, onMounted, watch } from 'vue'
 import { useNamespace, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import type {
-  CheckboxProps,
-  CheckboxEmits,
-  CheckboxExpose,
-  CheckboxValueType
-} from './checkbox'
+import type { CheckboxProps, CheckboxEmits, CheckboxExpose, CheckboxValueType } from './checkbox'
 import { checkboxGroupContextKey } from './checkbox'
 
 defineOptions({
@@ -37,7 +32,10 @@ const ns = useNamespace('checkbox')
 const checkboxGroup = inject(checkboxGroupContextKey, undefined)
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('checkbox', computed(() => props.themeOverrides || checkboxGroup?.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'checkbox',
+  computed(() => props.themeOverrides || checkboxGroup?.themeOverrides)
+)
 
 // 输入框元素引用
 const inputRef = ref<HTMLInputElement>()
@@ -53,7 +51,9 @@ const isGroup = computed(() => !!checkboxGroup)
 
 // 获取实际的 size
 const checkboxSize = computed(() => {
-  return (props.size !== 'default' ? props.size : checkboxGroup?.size) || globalSize.value || 'default'
+  return (
+    (props.size !== 'default' ? props.size : checkboxGroup?.size) || globalSize.value || 'default'
+  )
 })
 
 // 获取实际的 disabled
@@ -68,20 +68,12 @@ const isLimitDisabled = computed(() => {
     const isChecked = modelValue.includes(props.value as CheckboxValueType)
 
     // 如果已达到最大值且当前未选中，则禁用
-    if (
-      checkboxGroup.max !== undefined &&
-      modelValue.length >= checkboxGroup.max &&
-      !isChecked
-    ) {
+    if (checkboxGroup.max !== undefined && modelValue.length >= checkboxGroup.max && !isChecked) {
       return true
     }
 
     // 如果已达到最小值且当前已选中，则禁用
-    if (
-      checkboxGroup.min !== undefined &&
-      modelValue.length <= checkboxGroup.min &&
-      isChecked
-    ) {
+    if (checkboxGroup.min !== undefined && modelValue.length <= checkboxGroup.min && isChecked) {
       return true
     }
   }
@@ -94,9 +86,7 @@ const actualDisabled = computed(() => isDisabled.value || isLimitDisabled.value)
 // 是否选中
 const isChecked = computed(() => {
   if (isGroup.value && checkboxGroup) {
-    return (checkboxGroup.modelValue || []).includes(
-      props.value as CheckboxValueType
-    )
+    return (checkboxGroup.modelValue || []).includes(props.value as CheckboxValueType)
   }
   return props.modelValue === props.trueValue
 })
@@ -112,9 +102,7 @@ const checkboxClasses = computed(() => [
   ns.is('border', props.border)
 ])
 
-const innerClasses = computed(() => [
-  ns.e('inner')
-])
+const innerClasses = computed(() => [ns.e('inner')])
 
 // 处理变化
 const handleChange = (event: Event) => {
@@ -201,17 +189,34 @@ defineExpose<CheckboxExpose>({
 </script>
 
 <template>
-  <label :class="checkboxClasses" :style="themeStyle" @mouseenter="hovering = true" @mouseleave="hovering = false">
-    <span :class="[
-      ns.e('input'),
-      ns.is('disabled', actualDisabled),
-      ns.is('checked', isChecked),
-      ns.is('indeterminate', props.indeterminate)
-    ]">
+  <label
+    :class="checkboxClasses"
+    :style="themeStyle"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
+  >
+    <span
+      :class="[
+        ns.e('input'),
+        ns.is('disabled', actualDisabled),
+        ns.is('checked', isChecked),
+        ns.is('indeterminate', props.indeterminate)
+      ]"
+    >
       <span :class="innerClasses"></span>
-      <input ref="inputRef" :class="ns.e('original')" type="checkbox" :name="name" :id="id" :tabindex="tabindex"
-        :disabled="actualDisabled" :checked="isChecked" @change="handleChange" @focus="handleFocus"
-        @blur="handleBlur" />
+      <input
+        ref="inputRef"
+        :class="ns.e('original')"
+        type="checkbox"
+        :name="name"
+        :id="id"
+        :tabindex="tabindex"
+        :disabled="actualDisabled"
+        :checked="isChecked"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
     </span>
     <span v-if="$slots.default || label" :class="ns.e('label')">
       <slot>{{ label }}</slot>

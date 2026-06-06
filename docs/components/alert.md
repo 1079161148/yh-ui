@@ -201,40 +201,40 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `title` | 标题文本 | `string` | `''` |
-| `description` | 描述文本 | `string` | `''` |
-| `type` | 提示类型 | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'` |
-| `effect` | 视觉风格 | `'light' \| 'dark' \| 'outline' \| 'glass'` | `'light'` |
-| `closable` | 是否显示关闭按钮 | `boolean` | `false` |
-| `close-text` | 自定义关闭按钮文案 | `string` | `''` |
-| `close-icon` | 自定义关闭图标组件或图标名 | `string \| Component` | `''` |
-| `show-icon` | 是否显示状态图标 | `boolean` | `false` |
-| `icon` | 自定义状态图标组件或图标名 | `string \| Component` | `''` |
-| `center` | 内容是否居中 | `boolean` | `false` |
-| `scrollable` | 是否开启滚动公告模式 | `boolean` | `false` |
-| `scroll-speed` | 完成一轮滚动所需秒数 | `number` | `15` |
-| `pause-on-hover` | 悬停时是否暂停滚动 | `boolean` | `true` |
-| `duration` | 自动关闭时长，单位毫秒，`0` 表示不自动关闭 | `number` | `0` |
-| `show-progress` | 自动关闭时是否显示进度条 | `boolean` | `false` |
-| `theme-overrides` | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称              | 说明                                       | 类型                                          | 默认值      |
+| ----------------- | ------------------------------------------ | --------------------------------------------- | ----------- |
+| `title`           | 标题文本                                   | `string`                                      | `''`        |
+| `description`     | 描述文本                                   | `string`                                      | `''`        |
+| `type`            | 提示类型                                   | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'`    |
+| `effect`          | 视觉风格                                   | `'light' \| 'dark' \| 'outline' \| 'glass'`   | `'light'`   |
+| `closable`        | 是否显示关闭按钮                           | `boolean`                                     | `false`     |
+| `close-text`      | 自定义关闭按钮文案                         | `string`                                      | `''`        |
+| `close-icon`      | 自定义关闭图标组件或图标名                 | `string \| Component`                         | `''`        |
+| `show-icon`       | 是否显示状态图标                           | `boolean`                                     | `false`     |
+| `icon`            | 自定义状态图标组件或图标名                 | `string \| Component`                         | `''`        |
+| `center`          | 内容是否居中                               | `boolean`                                     | `false`     |
+| `scrollable`      | 是否开启滚动公告模式                       | `boolean`                                     | `false`     |
+| `scroll-speed`    | 完成一轮滚动所需秒数                       | `number`                                      | `15`        |
+| `pause-on-hover`  | 悬停时是否暂停滚动                         | `boolean`                                     | `true`      |
+| `duration`        | 自动关闭时长，单位毫秒，`0` 表示不自动关闭 | `number`                                      | `0`         |
+| `show-progress`   | 自动关闭时是否显示进度条                   | `boolean`                                     | `false`     |
+| `theme-overrides` | 组件级主题覆盖                             | `ComponentThemeVars`                          | `undefined` |
 
 ### Events
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
+| 名称    | 说明               | 参数                  |
+| ------- | ------------------ | --------------------- |
 | `close` | 点击关闭按钮时触发 | `(event: MouseEvent)` |
 
 ### Slots
 
-| 名称 | 说明 |
-| --- | --- |
-| `default` | 描述内容 |
-| `title` | 标题内容 |
-| `icon` | 自定义状态图标 |
-| `close` | 自定义关闭区域 |
-| `action` | 自定义操作区 |
+| 名称      | 说明           |
+| --------- | -------------- |
+| `default` | 描述内容       |
+| `title`   | 标题内容       |
+| `icon`    | 自定义状态图标 |
+| `close`   | 自定义关闭区域 |
+| `action`  | 自定义操作区   |
 
 ### Expose
 
@@ -242,22 +242,22 @@ const jsNuxt = toJs(tsNuxt)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhAlertProps` | `YhAlert` 的 props 类型 |
-| `YhAlertEmits` | `YhAlert` 的 emits 类型 |
-| `YhAlertSlots` | `YhAlert` 的 slots 类型 |
-| `YhAlertType` | 提示类型联合类型 |
-| `YhAlertEffect` | 视觉风格联合类型 |
-| `YhAlertInstance` | 组件实例类型 |
+| 名称              | 说明                    |
+| ----------------- | ----------------------- |
+| `YhAlertProps`    | `YhAlert` 的 props 类型 |
+| `YhAlertEmits`    | `YhAlert` 的 emits 类型 |
+| `YhAlertSlots`    | `YhAlert` 的 slots 类型 |
+| `YhAlertType`     | 提示类型联合类型        |
+| `YhAlertEffect`   | 视觉风格联合类型        |
+| `YhAlertInstance` | 组件实例类型            |
 
 ### 主题变量
 
 `YhAlert` 没有完整暴露一组独立的组件级专属主题变量，当前样式主要依赖全局主题令牌。滚动公告模式额外消费下方变量，组件仍支持通过 `themeOverrides` 参与主题覆盖。
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-alert-scroll-speed` | 滚动公告动画时长 | `15s` |
+| 变量名                    | 说明             | 默认值 |
+| ------------------------- | ---------------- | ------ |
+| `--yh-alert-scroll-speed` | 滚动公告动画时长 | `15s`  |
 
 <style scoped>
 .demo-list { display: flex; flex-direction: column; gap: 12px; }

@@ -65,8 +65,15 @@ async function ensurePackageBuildOutput(packageDir) {
   }
 
   if (packageDir === 'components') {
-    await run(pnpmExec, ['-C', 'packages/components', 'exec', 'unbuild'], 'packages/components/dist')
-    await run([process.execPath, [resolve(rootDir, 'scripts/post-build-styles.mjs')]], ['components'])
+    await run(
+      pnpmExec,
+      ['-C', 'packages/components', 'exec', 'unbuild'],
+      'packages/components/dist'
+    )
+    await run(
+      [process.execPath, [resolve(rootDir, 'scripts/post-build-styles.mjs')]],
+      ['components']
+    )
     return sourceDir
   }
 
@@ -117,10 +124,7 @@ async function main() {
     targetDirs.push(resolve(docsPublicDir, publicDir))
   }
 
-  const fingerprint = await computeFingerprint([
-    fileURLToPath(import.meta.url),
-    ...sourceDirs
-  ])
+  const fingerprint = await computeFingerprint([fileURLToPath(import.meta.url), ...sourceDirs])
 
   if (await shouldSkipCachedBuild('sync-docs-public-packages', fingerprint, targetDirs)) {
     console.log('[docs-public] skip sync (no package dist changes detected)')

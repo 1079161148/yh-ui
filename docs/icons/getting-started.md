@@ -35,11 +35,11 @@ export default defineConfig({
       autoInstall: true,
       // 启用需要的图标集
       collections: {
-        mdi: collections.get('mdi'),     // Material Design Icons
-        ep: collections.get('ep'),       // Element Plus
+        mdi: collections.get('mdi'), // Material Design Icons
+        ep: collections.get('ep'), // Element Plus
         lucide: collections.get('lucide'), // Lucide
         tabler: collections.get('tabler'), // Tabler Icons
-        ri: collections.get('ri'),       // Remix Icon
+        ri: collections.get('ri') // Remix Icon
       }
     })
   ]
@@ -60,14 +60,14 @@ export default defineConfig({
 
 ### Props 属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `name` | `string` | `''` | 图标名称，支持 `前缀:图标名` 格式 |
-| `icon` | `string` | `''` | 图标名称（与 name 等效，优先级更高） |
-| `size` | `number \| string` | `undefined` | 图标尺寸，如 `24` 或 `'2em'` |
-| `color` | `string` | `undefined` | 图标颜色，如 `'#409EFF'` 或 `'red'` |
-| `spin` | `boolean` | `false` | 是否显示旋转动画 |
-| `rotate` | `number` | `0` | 旋转角度，可选 `90`、`180`、`270` |
+| 属性     | 类型               | 默认值      | 说明                                 |
+| -------- | ------------------ | ----------- | ------------------------------------ |
+| `name`   | `string`           | `''`        | 图标名称，支持 `前缀:图标名` 格式    |
+| `icon`   | `string`           | `''`        | 图标名称（与 name 等效，优先级更高） |
+| `size`   | `number \| string` | `undefined` | 图标尺寸，如 `24` 或 `'2em'`         |
+| `color`  | `string`           | `undefined` | 图标颜色，如 `'#409EFF'` 或 `'red'`  |
+| `spin`   | `boolean`          | `false`     | 是否显示旋转动画                     |
+| `rotate` | `number`           | `0`         | 旋转角度，可选 `90`、`180`、`270`    |
 
 ### 图标名称格式
 
@@ -124,10 +124,10 @@ export default defineConfig({
 
 ### 性能对比
 
-| 引入方式 | 打包体积 | 请求数量 |
-|----------|----------|----------|
-| 全量引入 (所有图标) | ~500KB+ | 0 (内置) |
-| 按需加载 (只用的图标) | ~5-20KB | 0 (编译时) |
+| 引入方式              | 打包体积 | 请求数量   |
+| --------------------- | -------- | ---------- |
+| 全量引入 (所有图标)   | ~500KB+  | 0 (内置)   |
+| 按需加载 (只用的图标) | ~5-20KB  | 0 (编译时) |
 
 ### 工作原理
 
@@ -152,6 +152,7 @@ import { Icon } from '@yh-ui/icons/vue'
 ### 1. 图标不显示？
 
 确保：
+
 1. 图标集已在 vite.config.ts 中启用
 2. 图标名称格式正确（如 `mdi:home`）
 3. 已安装 `@iconify/vue` 依赖

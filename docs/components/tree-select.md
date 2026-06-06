@@ -2,7 +2,6 @@
 
 `YhTreeSelect` 在紧凑的下拉面板中提供树形数据选择能力，支持单选、多选、复选框联动、过滤、懒加载和海量数据虚拟滚动。
 
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -623,58 +622,58 @@ const data = generateData(100)
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `YhTreeKey \| YhTreeKey[]` | `undefined` |
-| data | 树数据源 | `YhTreeOption[]` | `[]` |
-| props | 字段别名配置 | `YhTreePropsAlias` | `{ label: 'label', value: 'value', children: 'children', disabled: 'disabled', isLeaf: 'isLeaf' }` |
-| placeholder | 占位文本 | `string` | `undefined` |
-| multiple | 是否开启多选 | `boolean` | `false` |
-| clearable | 是否允许清空 | `boolean` | `false` |
-| disabled | 是否禁用组件 | `boolean` | `false` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| filterable | 是否开启节点过滤 | `boolean` | `false` |
-| filter-node-method | 自定义过滤方法 | `(value: string, data: YhTreeOption, node: YhTreeSelectNode) => boolean` | `undefined` |
-| collapse-tags | 多选时是否折叠标签 | `boolean` | `false` |
-| collapse-tags-tooltip | 已声明的折叠标签 Tooltip 属性，当前模板未消费该配置 | `boolean` | `false` |
-| max-collapse-tags | 折叠前最多展示的标签数量 | `number` | `1` |
-| teleported | 是否将面板传送到 `body` | `boolean` | `true` |
-| popper-class | 下拉面板自定义类名 | `string` | `''` |
-| status | 已声明的校验状态属性。当前模板和样式未消费该配置 | `'' \| 'success' \| 'warning' \| 'error'` | `undefined` |
-| node-key | 唯一节点标识字段名。未传入时，运行时会回退到 `props.value` 映射字段 | `string` | `undefined` |
-| show-checkbox | 是否显示复选框 | `boolean` | `false` |
-| check-strictly | 父子节点选中关系是否相互独立 | `boolean` | `false` |
-| check-on-click-node | 点击节点时是否切换复选框状态 | `boolean` | `false` |
-| expand-on-click-node | 点击节点时是否展开或收起 | `boolean` | `true` |
-| default-expand-all | 是否默认展开全部节点 | `boolean` | `false` |
-| default-expanded-keys | 默认展开的节点键值 | `YhTreeKey[]` | `[]` |
-| default-checked-keys | 已声明的默认勾选节点键值。当前树状态初始化未消费该 prop | `YhTreeKey[]` | `[]` |
-| accordion | 同级是否仅允许展开一个节点 | `boolean` | `false` |
-| indent | 每级树节点缩进 | `number` | `16` |
-| lazy | 是否开启懒加载 | `boolean` | `false` |
-| load | 懒加载子节点回调 | `(node: YhTreeOption, resolve: (data: YhTreeOption[]) => void) => void` | `undefined` |
-| virtual | 是否开启虚拟滚动 | `boolean` | `false` |
-| height | 下拉面板最大高度 | `string \| number` | `274` |
-| item-size | 虚拟滚动估算节点高度 | `number` | `34` |
-| empty-text | 空状态自定义文本 | `string` | `undefined` |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称                  | 说明                                                                | 类型                                                                     | 默认值                                                                                             |
+| --------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| model-value / v-model | 绑定值                                                              | `YhTreeKey \| YhTreeKey[]`                                               | `undefined`                                                                                        |
+| data                  | 树数据源                                                            | `YhTreeOption[]`                                                         | `[]`                                                                                               |
+| props                 | 字段别名配置                                                        | `YhTreePropsAlias`                                                       | `{ label: 'label', value: 'value', children: 'children', disabled: 'disabled', isLeaf: 'isLeaf' }` |
+| placeholder           | 占位文本                                                            | `string`                                                                 | `undefined`                                                                                        |
+| multiple              | 是否开启多选                                                        | `boolean`                                                                | `false`                                                                                            |
+| clearable             | 是否允许清空                                                        | `boolean`                                                                | `false`                                                                                            |
+| disabled              | 是否禁用组件                                                        | `boolean`                                                                | `false`                                                                                            |
+| size                  | 输入框尺寸                                                          | `'large' \| 'default' \| 'small'`                                        | `'default'`                                                                                        |
+| filterable            | 是否开启节点过滤                                                    | `boolean`                                                                | `false`                                                                                            |
+| filter-node-method    | 自定义过滤方法                                                      | `(value: string, data: YhTreeOption, node: YhTreeSelectNode) => boolean` | `undefined`                                                                                        |
+| collapse-tags         | 多选时是否折叠标签                                                  | `boolean`                                                                | `false`                                                                                            |
+| collapse-tags-tooltip | 已声明的折叠标签 Tooltip 属性，当前模板未消费该配置                 | `boolean`                                                                | `false`                                                                                            |
+| max-collapse-tags     | 折叠前最多展示的标签数量                                            | `number`                                                                 | `1`                                                                                                |
+| teleported            | 是否将面板传送到 `body`                                             | `boolean`                                                                | `true`                                                                                             |
+| popper-class          | 下拉面板自定义类名                                                  | `string`                                                                 | `''`                                                                                               |
+| status                | 已声明的校验状态属性。当前模板和样式未消费该配置                    | `'' \| 'success' \| 'warning' \| 'error'`                                | `undefined`                                                                                        |
+| node-key              | 唯一节点标识字段名。未传入时，运行时会回退到 `props.value` 映射字段 | `string`                                                                 | `undefined`                                                                                        |
+| show-checkbox         | 是否显示复选框                                                      | `boolean`                                                                | `false`                                                                                            |
+| check-strictly        | 父子节点选中关系是否相互独立                                        | `boolean`                                                                | `false`                                                                                            |
+| check-on-click-node   | 点击节点时是否切换复选框状态                                        | `boolean`                                                                | `false`                                                                                            |
+| expand-on-click-node  | 点击节点时是否展开或收起                                            | `boolean`                                                                | `true`                                                                                             |
+| default-expand-all    | 是否默认展开全部节点                                                | `boolean`                                                                | `false`                                                                                            |
+| default-expanded-keys | 默认展开的节点键值                                                  | `YhTreeKey[]`                                                            | `[]`                                                                                               |
+| default-checked-keys  | 已声明的默认勾选节点键值。当前树状态初始化未消费该 prop             | `YhTreeKey[]`                                                            | `[]`                                                                                               |
+| accordion             | 同级是否仅允许展开一个节点                                          | `boolean`                                                                | `false`                                                                                            |
+| indent                | 每级树节点缩进                                                      | `number`                                                                 | `16`                                                                                               |
+| lazy                  | 是否开启懒加载                                                      | `boolean`                                                                | `false`                                                                                            |
+| load                  | 懒加载子节点回调                                                    | `(node: YhTreeOption, resolve: (data: YhTreeOption[]) => void) => void`  | `undefined`                                                                                        |
+| virtual               | 是否开启虚拟滚动                                                    | `boolean`                                                                | `false`                                                                                            |
+| height                | 下拉面板最大高度                                                    | `string \| number`                                                       | `274`                                                                                              |
+| item-size             | 虚拟滚动估算节点高度                                                | `number`                                                                 | `34`                                                                                               |
+| empty-text            | 空状态自定义文本                                                    | `string`                                                                 | `undefined`                                                                                        |
+| theme-overrides       | 组件级主题覆盖                                                      | `ComponentThemeVars`                                                     | `undefined`                                                                                        |
 
 ### Events
 
-| 名称 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:modelValue | 绑定值更新时触发 | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
-| change | 选中值变化时触发 | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
-| visible-change | 下拉面板显示状态变化时触发 | `(visible: boolean) => void` |
-| clear | 点击清空按钮时触发 | `() => void` |
-| node-click | 点击节点行时触发 | `(data: YhTreeOption, node: YhTreeSelectNode, e: MouseEvent) => void` |
-| check-change | 复选框状态变化时触发 | `(data: YhTreeOption, checked: boolean, indeterminate: boolean) => void` |
-| check | 勾选或取消勾选时触发 | `(data: YhTreeOption, info: YhTreeCheckedInfo) => void` |
+| 名称              | 说明                       | 回调参数                                                                 |
+| ----------------- | -------------------------- | ------------------------------------------------------------------------ |
+| update:modelValue | 绑定值更新时触发           | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void`                 |
+| change            | 选中值变化时触发           | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void`                 |
+| visible-change    | 下拉面板显示状态变化时触发 | `(visible: boolean) => void`                                             |
+| clear             | 点击清空按钮时触发         | `() => void`                                                             |
+| node-click        | 点击节点行时触发           | `(data: YhTreeOption, node: YhTreeSelectNode, e: MouseEvent) => void`    |
+| check-change      | 复选框状态变化时触发       | `(data: YhTreeOption, checked: boolean, indeterminate: boolean) => void` |
+| check             | 勾选或取消勾选时触发       | `(data: YhTreeOption, info: YhTreeCheckedInfo) => void`                  |
 
 ### Slots
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
+| 名称    | 说明             | 参数                                             |
+| ------- | ---------------- | ------------------------------------------------ |
 | default | 自定义树节点内容 | `{ node: YhTreeSelectNode, data: YhTreeOption }` |
 
 ### Expose
@@ -683,27 +682,26 @@ const data = generateData(100)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhTreeSelectProps` | TreeSelect props 类型 |
-| `YhTreeSelectEmits` | TreeSelect emits 类型 |
-| `YhTreeSelectNode` | 回调中使用的树节点视图模型类型 |
-| `YhTreeOption` | 树选项数据类型 |
-| `YhTreeKey` | 节点 key 类型 |
-| `YhTreeCheckedInfo` | 勾选信息类型 |
-| `YhTreePropsAlias` | 字段别名配置类型 |
-| `YhTreeSelectInstance` | 组件实例类型 |
+| 名称                   | 说明                           |
+| ---------------------- | ------------------------------ |
+| `YhTreeSelectProps`    | TreeSelect props 类型          |
+| `YhTreeSelectEmits`    | TreeSelect emits 类型          |
+| `YhTreeSelectNode`     | 回调中使用的树节点视图模型类型 |
+| `YhTreeOption`         | 树选项数据类型                 |
+| `YhTreeKey`            | 节点 key 类型                  |
+| `YhTreeCheckedInfo`    | 勾选信息类型                   |
+| `YhTreePropsAlias`     | 字段别名配置类型               |
+| `YhTreeSelectInstance` | 组件实例类型                   |
 
 ### 主题变量
 
 `YhTreeSelect` 支持 `themeOverrides`。当前样式文件直接消费以下组件级 CSS 变量：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-tree-select-node-hover-bg` | 节点悬停背景色 | `var(--yh-fill-color-light, #f5f7fa)` |
+| 变量名                            | 说明           | 默认值                                     |
+| --------------------------------- | -------------- | ------------------------------------------ |
+| `--yh-tree-select-node-hover-bg`  | 节点悬停背景色 | `var(--yh-fill-color-light, #f5f7fa)`      |
 | `--yh-tree-select-node-active-bg` | 选中节点背景色 | `var(--yh-color-primary-light-9, #ecf5ff)` |
-| `--yh-tree-select-active-color` | 选中节点文字色 | `var(--yh-color-primary, #409eff)` |
-
+| `--yh-tree-select-active-color`   | 选中节点文字色 | `var(--yh-color-primary, #409eff)`         |
 
 <style>
 .demo-res {

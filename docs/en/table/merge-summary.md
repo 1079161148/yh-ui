@@ -624,24 +624,24 @@ Configure the summary row via `summary-config` and set `method` for custom summa
 
 Implement multi-level headers via the `children` property of column configurations.
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| label | Title text of the grouped header | `string` | — |
-| children | Child column configurations (supports nested multi-layers) | `TableColumn[]` | — |
-| headerAlign | Header alignment | `'left' \| 'center' \| 'right'` | `'center'` (Grouped columns default to center) |
-| headerClassName | Custom header class name | `string` | — |
-| headerStyle | Custom header style | `CSSProperties` | — |
+| Property        | Description                                                | Type                            | Default                                        |
+| --------------- | ---------------------------------------------------------- | ------------------------------- | ---------------------------------------------- |
+| label           | Title text of the grouped header                           | `string`                        | —                                              |
+| children        | Child column configurations (supports nested multi-layers) | `TableColumn[]`                 | —                                              |
+| headerAlign     | Header alignment                                           | `'left' \| 'center' \| 'right'` | `'center'` (Grouped columns default to center) |
+| headerClassName | Custom header class name                                   | `string`                        | —                                              |
+| headerStyle     | Custom header style                                        | `CSSProperties`                 | —                                              |
 
 > **Note**: Parent columns (those with `children`) only need a `label` and do not require a `prop`. `colspan` and `rowspan` are automatically calculated by the component.
 
 ### span-method
 
-| Parameter | Description | Type |
-| --- | --- | --- |
-| row | Current row data | `Record<string, unknown>` |
-| column | Current column configuration | `TableColumn` |
-| rowIndex | Current row index | `number` |
-| columnIndex | Current column index | `number` |
+| Parameter   | Description                  | Type                      |
+| ----------- | ---------------------------- | ------------------------- |
+| row         | Current row data             | `Record<string, unknown>` |
+| column      | Current column configuration | `TableColumn`             |
+| rowIndex    | Current row index            | `number`                  |
+| columnIndex | Current column index         | `number`                  |
 
 **Return Value**: `{ rowspan: number, colspan: number }` or `[rowspan, colspan]`
 
@@ -650,22 +650,22 @@ Implement multi-level headers via the `children` property of column configuratio
 
 ### SummaryConfig
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| text | Text of the first column in the summary row | `string` | `'Total'` |
-| position | Summary row position | `'top' \| 'bottom'` | `'bottom'` |
-| fixed | Whether to fix the summary row | `boolean` | `false` |
-| method | Summary calculation method | `({ columns, data }) => Array<string \| number \| VNode>` | — |
-| className | Summary row class name | `string \| ((params) => string)` | — |
-| style | Summary row style | `CSSProperties \| ((params) => CSSProperties)` | — |
+| Property  | Description                                 | Type                                                      | Default    |
+| --------- | ------------------------------------------- | --------------------------------------------------------- | ---------- |
+| text      | Text of the first column in the summary row | `string`                                                  | `'Total'`  |
+| position  | Summary row position                        | `'top' \| 'bottom'`                                       | `'bottom'` |
+| fixed     | Whether to fix the summary row              | `boolean`                                                 | `false`    |
+| method    | Summary calculation method                  | `({ columns, data }) => Array<string \| number \| VNode>` | —          |
+| className | Summary row class name                      | `string \| ((params) => string)`                          | —          |
+| style     | Summary row style                           | `CSSProperties \| ((params) => CSSProperties)`            | —          |
 
 ### Column render Function
 
-| Parameter | Description | Type |
-| --- | --- | --- |
-| row | Current row data | `Record<string, unknown>` |
-| column | Current column configuration | `TableColumn` |
-| rowIndex | Current row index | `number` |
-| cellValue | Current cell value | `unknown` |
+| Parameter | Description                  | Type                      |
+| --------- | ---------------------------- | ------------------------- |
+| row       | Current row data             | `Record<string, unknown>` |
+| column    | Current column configuration | `TableColumn`             |
+| rowIndex  | Current row index            | `number`                  |
+| cellValue | Current cell value           | `unknown`                 |
 
 **Return Value**: `VNode` (Create via Vue `h()` function)

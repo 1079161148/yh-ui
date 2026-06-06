@@ -177,12 +177,15 @@ The color picker becomes non-interactive when the `disabled` prop is set.
 ## Advanced Features
 
 ### 1. Intelligent Contrast Preview
+
 The panel automatically calculates relative luminance between the selected color and background according to **WCAG standards**, providing real-time accessibility suggestions in the top-right corner to ensure designs meet visual accessibility requirements.
 
 ### 2. Cross-Platform EyeDropper
+
 Based on the modern browser native `EyeDropper API`, it supports picking colors from anywhere on the screen (not limited to within the browser window), providing production-level support for professional design scenarios.
 
 ### 3. Bidirectional Input Field
+
 The value display area at the bottom has been upgraded to a **responsive input field**. You can directly paste HEX or RGB codes from designers, and the component will instantly parse and locate the color.
 
 ## Use in Nuxt
@@ -199,21 +202,21 @@ The value display area at the bottom has been upgraded to a **responsive input f
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| v-model | Binding value | `string` | — |
-| show-alpha | Whether to support alpha | `boolean` | `false` |
-| predefine | Predefined color list | `string[]` | `[]` |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | Whether disabled | `boolean` | `false` |
-| popper-class | Panel custom class | `string` | — |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                     | Type                              | Default     |
+| --------------- | ------------------------------- | --------------------------------- | ----------- |
+| v-model         | Binding value                   | `string`                          | —           |
+| show-alpha      | Whether to support alpha        | `boolean`                         | `false`     |
+| predefine       | Predefined color list           | `string[]`                        | `[]`        |
+| size            | Size                            | `'large' \| 'default' \| 'small'` | `'default'` |
+| disabled        | Whether disabled                | `boolean`                         | `false`     |
+| popper-class    | Panel custom class              | `string`                          | —           |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars`              | `undefined` |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when a color is confirmed | `(val: string)` |
+| Event Name    | Description                                                | Parameters      |
+| ------------- | ---------------------------------------------------------- | --------------- |
+| change        | Triggered when a color is confirmed                        | `(val: string)` |
 | active-change | Triggered when color changes in real-time within the panel | `(val: string)` |
 
 ### Slots
@@ -222,29 +225,29 @@ This component does not expose component slots.
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `visible` | Current panel visibility state. | `Ref<boolean>` |
-| `togglePopper` | Toggle the panel open state. | `() => void` |
-| `handleClear` | Clear the current color value. | `() => void` |
-| `handleConfirm` | Confirm the current color value. | `() => void` |
+| Name            | Description                      | Type           |
+| --------------- | -------------------------------- | -------------- |
+| `visible`       | Current panel visibility state.  | `Ref<boolean>` |
+| `togglePopper`  | Toggle the panel open state.     | `() => void`   |
+| `handleClear`   | Clear the current color value.   | `() => void`   |
+| `handleConfirm` | Confirm the current color value. | `() => void`   |
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-color-picker-width` | Component base width | `60px` |
-| `--yh-color-picker-panel-width` | Expanded panel width | `280px` |
-| `--yh-color-picker-border-radius` | Border radius | `12px` |
+| Variable                          | Description          | Default |
+| --------------------------------- | -------------------- | ------- |
+| `--yh-color-picker-width`         | Component base width | `60px`  |
+| `--yh-color-picker-panel-width`   | Expanded panel width | `280px` |
+| `--yh-color-picker-border-radius` | Border radius        | `12px`  |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhColorPickerProps` | Props type for `YhColorPicker` |
-| `YhColorPickerEmits` | Emits type for `YhColorPicker` |
-| `YhColorPickerSlots` | Slots type for `YhColorPicker` |
-| `YhColorPickerExpose` | Expose type for `YhColorPicker` |
+| Name                    | Description                              |
+| ----------------------- | ---------------------------------------- |
+| `YhColorPickerProps`    | Props type for `YhColorPicker`           |
+| `YhColorPickerEmits`    | Emits type for `YhColorPicker`           |
+| `YhColorPickerSlots`    | Slots type for `YhColorPicker`           |
+| `YhColorPickerExpose`   | Expose type for `YhColorPicker`          |
 | `YhColorPickerInstance` | Public instance type for `YhColorPicker` |
 
 <style scoped>

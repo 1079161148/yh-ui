@@ -760,20 +760,20 @@ Set `effect="fold"` for a [3D fold stereoscopic focus](https://www.jq22.com/yans
 
 ### Events
 
-| Event               | Payload                              | Description                                         |
-| ------------------- | ------------------------------------ | --------------------------------------------------- |
-| update:currentIndex | `(index: number)`                    | Emitted when the current slide index changes        |
-| change              | `(index: number, prevIndex: number)` | Emitted when the active slide changes               |
+| Event               | Payload                              | Description                                  |
+| ------------------- | ------------------------------------ | -------------------------------------------- |
+| update:currentIndex | `(index: number)`                    | Emitted when the current slide index changes |
+| change              | `(index: number, prevIndex: number)` | Emitted when the active slide changes        |
 
 ### Slots
 
-| Name       | Parameters                                 | Description                               |
-| ---------- | ------------------------------------------ | ----------------------------------------- |
-| default    | `-`                                        | Carousel items; use with `YhCarouselItem` |
+| Name       | Parameters                                | Description                               |
+| ---------- | ----------------------------------------- | ----------------------------------------- |
+| default    | `-`                                       | Carousel items; use with `YhCarouselItem` |
 | arrow      | `{ total, currentIndex, to, prev, next }` | Custom previous and next controls         |
 | dots       | `{ total, currentIndex, to }`             | Custom indicator content                  |
-| prev-arrow | `-`                                        | Custom previous arrow icon                |
-| next-arrow | `-`                                        | Custom next arrow icon                    |
+| prev-arrow | `-`                                       | Custom previous arrow icon                |
+| next-arrow | `-`                                       | Custom next arrow icon                    |
 
 ### Expose
 
@@ -789,35 +789,35 @@ Use the component ref to access the following instance members:
 
 ### Theme Variables
 
-| Variable                          | Description                  | Default                        |
-| --------------------------------- | ---------------------------- | ------------------------------ |
-| `--yh-carousel-dot-color`         | Dot default color            | `rgba(255, 255, 255, 0.4)`     |
-| `--yh-carousel-dot-active-color`  | Dot active color             | `#ffffff`                      |
-| `--yh-carousel-dot-size`          | Dot size                     | `8px`                          |
-| `--yh-carousel-dot-active-width`  | Active line-dot width        | `24px`                         |
-| `--yh-carousel-arrow-bg`          | Arrow background             | `rgba(255, 255, 255, 0.2)`     |
-| `--yh-carousel-arrow-hover-bg`    | Arrow hover background       | `rgba(255, 255, 255, 0.35)`    |
-| `--yh-carousel-arrow-color`       | Arrow icon color             | `#ffffff`                      |
-| `--yh-carousel-arrow-size`        | Arrow button size            | `36px`                         |
-| `--yh-carousel-arrow-icon-size`   | Arrow icon size              | `20px`                         |
-| `--yh-carousel-transition-timing` | Transition timing function   | `cubic-bezier(0.4, 0, 0.2, 1)` |
+| Variable                          | Description                | Default                        |
+| --------------------------------- | -------------------------- | ------------------------------ |
+| `--yh-carousel-dot-color`         | Dot default color          | `rgba(255, 255, 255, 0.4)`     |
+| `--yh-carousel-dot-active-color`  | Dot active color           | `#ffffff`                      |
+| `--yh-carousel-dot-size`          | Dot size                   | `8px`                          |
+| `--yh-carousel-dot-active-width`  | Active line-dot width      | `24px`                         |
+| `--yh-carousel-arrow-bg`          | Arrow background           | `rgba(255, 255, 255, 0.2)`     |
+| `--yh-carousel-arrow-hover-bg`    | Arrow hover background     | `rgba(255, 255, 255, 0.35)`    |
+| `--yh-carousel-arrow-color`       | Arrow icon color           | `#ffffff`                      |
+| `--yh-carousel-arrow-size`        | Arrow button size          | `36px`                         |
+| `--yh-carousel-arrow-icon-size`   | Arrow icon size            | `20px`                         |
+| `--yh-carousel-transition-timing` | Transition timing function | `cubic-bezier(0.4, 0, 0.2, 1)` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhCarouselProps` | Props type for `YhCarousel` |
-| `YhCarouselEmits` | Emits type for `YhCarousel` |
-| `YhCarouselSlots` | Slots type for `YhCarousel` |
-| `YhCarouselExpose` | Expose type for `YhCarousel` |
-| `YhCarouselEffect` | Carousel effect union |
-| `YhCarouselDirection` | Direction union |
-| `YhCarouselArrow` | Arrow display strategy union |
-| `YhCarouselTrigger` | Dot trigger union |
-| `YhCarouselDotPlacement` | Dot placement union |
-| `YhCarouselItemProps` | Props type for `YhCarouselItem` |
-| `YhCarouselItemSlots` | Slots type for `YhCarouselItem` |
-| `YhCarouselInstance` | Public instance type for `YhCarousel` |
+| Name                     | Description                               |
+| ------------------------ | ----------------------------------------- |
+| `YhCarouselProps`        | Props type for `YhCarousel`               |
+| `YhCarouselEmits`        | Emits type for `YhCarousel`               |
+| `YhCarouselSlots`        | Slots type for `YhCarousel`               |
+| `YhCarouselExpose`       | Expose type for `YhCarousel`              |
+| `YhCarouselEffect`       | Carousel effect union                     |
+| `YhCarouselDirection`    | Direction union                           |
+| `YhCarouselArrow`        | Arrow display strategy union              |
+| `YhCarouselTrigger`      | Dot trigger union                         |
+| `YhCarouselDotPlacement` | Dot placement union                       |
+| `YhCarouselItemProps`    | Props type for `YhCarouselItem`           |
+| `YhCarouselItemSlots`    | Slots type for `YhCarouselItem`           |
+| `YhCarouselInstance`     | Public instance type for `YhCarousel`     |
 | `YhCarouselItemInstance` | Public instance type for `YhCarouselItem` |
 
 ### Carousel Item Props

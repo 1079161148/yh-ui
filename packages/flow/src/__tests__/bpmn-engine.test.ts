@@ -1,8 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import {
-  BpmnProcessEngine,
-  createBpmnEngine
-} from '../utils/bpmn-engine'
+import { BpmnProcessEngine, createBpmnEngine } from '../utils/bpmn-engine'
 import type { Node, Edge } from '../types'
 
 function createMockNode(id: string, type: string, position = { x: 0, y: 0 }): Node {
@@ -202,10 +199,7 @@ describe('flow/utils/bpmn-engine', () => {
     it('should return incoming edges', () => {
       engine = new BpmnProcessEngine()
       engine.loadProcess(
-        [
-          createMockNode('n1', 'bpmn-start'),
-          createMockNode('n2', 'bpmn-task')
-        ],
+        [createMockNode('n1', 'bpmn-start'), createMockNode('n2', 'bpmn-task')],
         [createMockEdge('e1', 'n1', 'n2')]
       )
       const incoming = engine.getIncomingEdges('n2')
@@ -324,10 +318,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${approved == true}')]
       )
       const instance = engine.createInstance()
@@ -343,10 +334,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${count > 5}')]
       )
       const instance = engine.createInstance()
@@ -362,10 +350,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${count < 5}')]
       )
       const instance = engine.createInstance()
@@ -381,10 +366,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${status != "closed"}')]
       )
       const instance = engine.createInstance()
@@ -400,10 +382,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${isActive}')]
       )
       const instance = engine.createInstance()
@@ -419,10 +398,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${true}')]
       )
       const instance = engine.createInstance()
@@ -437,10 +413,7 @@ describe('flow/utils/bpmn-engine', () => {
         autoExecute: false
       })
       engine.loadProcess(
-        [
-          createMockNode('start', 'bpmn-start'),
-          createMockNode('task', 'bpmn-task')
-        ],
+        [createMockNode('start', 'bpmn-start'), createMockNode('task', 'bpmn-task')],
         [createMockEdge('e1', 'start', 'task', '${false}')]
       )
       const instance = engine.createInstance()

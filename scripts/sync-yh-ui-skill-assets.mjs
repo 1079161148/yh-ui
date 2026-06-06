@@ -10,9 +10,7 @@ const sourceSkillDir = path.resolve(repoRoot, 'skills/yh-ui')
 const sourceLlmsPath = path.resolve(repoRoot, 'llms.txt')
 const sourceLlmsFullPath = path.resolve(repoRoot, 'llms-full.txt')
 
-const packageJson = JSON.parse(
-  await readFile(path.resolve(packageRoot, 'package.json'), 'utf8')
-)
+const packageJson = JSON.parse(await readFile(path.resolve(packageRoot, 'package.json'), 'utf8'))
 
 await rm(assetsRoot, { recursive: true, force: true })
 await mkdir(path.resolve(assetsRoot, 'skills'), { recursive: true })

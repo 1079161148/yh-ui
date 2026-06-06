@@ -35,11 +35,11 @@ export default defineConfig({
       autoInstall: true,
       // Enable required icon sets
       collections: {
-        mdi: collections.get('mdi'),     // Material Design Icons
-        ep: collections.get('ep'),       // Element Plus
+        mdi: collections.get('mdi'), // Material Design Icons
+        ep: collections.get('ep'), // Element Plus
         lucide: collections.get('lucide'), // Lucide
         tabler: collections.get('tabler'), // Tabler Icons
-        ri: collections.get('ri'),       // Remix Icon
+        ri: collections.get('ri') // Remix Icon
       }
     })
   ]
@@ -60,14 +60,14 @@ export default defineConfig({
 
 ### Props
 
-| Property | Type | Default | Description |
-|------|------|--------|------|
-| `name` | `string` | `''` | Icon name, supports the `prefix:icon-name` format. |
-| `icon` | `string` | `''` | Icon name (equivalent to `name`, but with higher priority). |
-| `size` | `number \| string` | `undefined` | Icon size, e.g., `24` or `'2em'`. |
-| `color` | `string` | `undefined` | Icon color, e.g., `'#409EFF'` or `'red'`. |
-| `spin` | `boolean` | `false` | Whether to show a spin animation. |
-| `rotate` | `number` | `0` | Rotation angle; options include `90`, `180`, `270`. |
+| Property | Type               | Default     | Description                                                 |
+| -------- | ------------------ | ----------- | ----------------------------------------------------------- |
+| `name`   | `string`           | `''`        | Icon name, supports the `prefix:icon-name` format.          |
+| `icon`   | `string`           | `''`        | Icon name (equivalent to `name`, but with higher priority). |
+| `size`   | `number \| string` | `undefined` | Icon size, e.g., `24` or `'2em'`.                           |
+| `color`  | `string`           | `undefined` | Icon color, e.g., `'#409EFF'` or `'red'`.                   |
+| `spin`   | `boolean`          | `false`     | Whether to show a spin animation.                           |
+| `rotate` | `number`           | `0`         | Rotation angle; options include `90`, `180`, `270`.         |
 
 ### Icon Name Formats
 
@@ -124,10 +124,10 @@ Supports multiple icon name formats:
 
 ### Performance Comparison
 
-| Import Method | Bundle Size | Request Count |
-|----------|----------|----------|
-| Full Import (All Icons) | ~500KB+ | 0 (Built-in) |
-| On-demand Loading (Used Icons Only) | ~5-20KB | 0 (At Build-time) |
+| Import Method                       | Bundle Size | Request Count     |
+| ----------------------------------- | ----------- | ----------------- |
+| Full Import (All Icons)             | ~500KB+     | 0 (Built-in)      |
+| On-demand Loading (Used Icons Only) | ~5-20KB     | 0 (At Build-time) |
 
 ### How It Works
 
@@ -152,6 +152,7 @@ import { Icon } from '@yh-ui/icons/vue'
 ### 1. Icons Not Showing?
 
 Ensure:
+
 1. Icon sets are enabled in `vite.config.ts`.
 2. The icon name format is correct (e.g., `mdi:home`).
 3. The `@iconify/vue` dependency is installed.

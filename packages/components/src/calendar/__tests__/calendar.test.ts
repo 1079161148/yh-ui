@@ -62,7 +62,9 @@ describe('YhCalendar', () => {
         selectionMode: 'range'
       }
     })
-    const days = wrapper.findAll('.yh-calendar__day').filter((d) => !d.classes().includes('is-hidden'))
+    const days = wrapper
+      .findAll('.yh-calendar__day')
+      .filter((d) => !d.classes().includes('is-hidden'))
     await days[1].trigger('click')
     await days[3].trigger('click')
     expect(wrapper.emitted('range-change')).toBeTruthy()
@@ -75,7 +77,9 @@ describe('YhCalendar', () => {
         selectionMode: 'multiple'
       }
     })
-    const day = wrapper.findAll('.yh-calendar__day').find((d) => !d.classes().includes('is-hidden'))!
+    const day = wrapper
+      .findAll('.yh-calendar__day')
+      .find((d) => !d.classes().includes('is-hidden'))!
     await day.trigger('click')
     await day.trigger('click')
     expect(wrapper.emitted('update:multipleValue')).toBeTruthy()

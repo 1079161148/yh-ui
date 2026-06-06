@@ -40,4 +40,3 @@ describe('useRequestQueue branch coverage', () => {
     vi.doUnmock('../useQueue')
   })
 })
-

@@ -511,128 +511,128 @@ After installing `@yh-ui/nuxt`, you can use `YhCascader` directly in Nuxt 3/4. T
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Bound value | `string \| number \| (string \| number)[] \| (string \| number)[][]` | `undefined` |
-| `options` | Option tree data | `YhCascaderOption[]` | `undefined` |
-| `placeholder` | Placeholder text | `string` | `undefined` |
-| `disabled` | Disable the component | `boolean` | `false` |
-| `clearable` | Show clear button on hover when a value exists | `boolean` | `false` |
-| `size` | Component size | `'large' \| 'default' \| 'small'` | `undefined` |
-| `filterable` | Enable client-side filtering | `boolean` | `false` |
-| `filter-method` | Custom filter function | `(node: YhCascaderOption, keyword: string) => boolean` | `undefined` |
-| `separator` | Path separator text | `string` | `' / '` |
-| `show-all-levels` | Show the full label path in single-select mode and tags | `boolean` | `true` |
-| `collapse-tags` | Collapse tags in multiple mode | `boolean` | `false` |
-| `collapse-tags-tooltip` | Reserved collapse tooltip flag | `boolean` | `false` |
-| `max-collapse-tags` | Maximum visible tags before collapsing | `number` | `1` |
-| `multiple` | Enable multiple selection | `boolean` | `false` |
-| `check-strictly` | Allow parent and child nodes to be selected independently | `boolean` | `false` |
-| `expand-trigger` | Node expansion trigger | `'click' \| 'hover'` | `undefined` |
-| `emit-path` | Return full path instead of leaf value | `boolean` | `true` |
-| `virtual` | Enable virtual rendering in the panel | `boolean` | `false` |
-| `virtual-item-height` | Virtual row height | `number` | `34` |
-| `props` | Field mapping and cascader config | `Partial<CascaderConfig>` | `undefined` |
-| `popper-class` | Extra class name for the dropdown panel | `string` | `undefined` |
-| `teleported` | Teleport the dropdown to `body` | `boolean` | `true` |
-| `tag-type` | Tag style in multiple mode | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
-| `validate-event` | Trigger form validation on value changes and blur | `boolean` | `true` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                               | Type                                                                 | Default     |
+| ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- | ----------- |
+| `model-value` / `v-model` | Bound value                                               | `string \| number \| (string \| number)[] \| (string \| number)[][]` | `undefined` |
+| `options`                 | Option tree data                                          | `YhCascaderOption[]`                                                 | `undefined` |
+| `placeholder`             | Placeholder text                                          | `string`                                                             | `undefined` |
+| `disabled`                | Disable the component                                     | `boolean`                                                            | `false`     |
+| `clearable`               | Show clear button on hover when a value exists            | `boolean`                                                            | `false`     |
+| `size`                    | Component size                                            | `'large' \| 'default' \| 'small'`                                    | `undefined` |
+| `filterable`              | Enable client-side filtering                              | `boolean`                                                            | `false`     |
+| `filter-method`           | Custom filter function                                    | `(node: YhCascaderOption, keyword: string) => boolean`               | `undefined` |
+| `separator`               | Path separator text                                       | `string`                                                             | `' / '`     |
+| `show-all-levels`         | Show the full label path in single-select mode and tags   | `boolean`                                                            | `true`      |
+| `collapse-tags`           | Collapse tags in multiple mode                            | `boolean`                                                            | `false`     |
+| `collapse-tags-tooltip`   | Reserved collapse tooltip flag                            | `boolean`                                                            | `false`     |
+| `max-collapse-tags`       | Maximum visible tags before collapsing                    | `number`                                                             | `1`         |
+| `multiple`                | Enable multiple selection                                 | `boolean`                                                            | `false`     |
+| `check-strictly`          | Allow parent and child nodes to be selected independently | `boolean`                                                            | `false`     |
+| `expand-trigger`          | Node expansion trigger                                    | `'click' \| 'hover'`                                                 | `undefined` |
+| `emit-path`               | Return full path instead of leaf value                    | `boolean`                                                            | `true`      |
+| `virtual`                 | Enable virtual rendering in the panel                     | `boolean`                                                            | `false`     |
+| `virtual-item-height`     | Virtual row height                                        | `number`                                                             | `34`        |
+| `props`                   | Field mapping and cascader config                         | `Partial<CascaderConfig>`                                            | `undefined` |
+| `popper-class`            | Extra class name for the dropdown panel                   | `string`                                                             | `undefined` |
+| `teleported`              | Teleport the dropdown to `body`                           | `boolean`                                                            | `true`      |
+| `tag-type`                | Tag style in multiple mode                                | `'success' \| 'info' \| 'warning' \| 'danger' \| ''`                 | `''`        |
+| `validate-event`          | Trigger form validation on value changes and blur         | `boolean`                                                            | `true`      |
+| `theme-overrides`         | Component theme override variables                        | `ComponentThemeVars`                                                 | `undefined` |
 
 ### YhCascaderOption
 
-| Field | Description | Type |
-| --- | --- | --- |
-| `value` | Node value | `string \| number` |
-| `label` | Node label | `string` |
-| `children` | Child nodes | `YhCascaderOption[] \| undefined` |
-| `disabled` | Disable the current node | `boolean \| undefined` |
-| `leaf` | Mark the current node as a leaf | `boolean \| undefined` |
+| Field      | Description                     | Type                              |
+| ---------- | ------------------------------- | --------------------------------- |
+| `value`    | Node value                      | `string \| number`                |
+| `label`    | Node label                      | `string`                          |
+| `children` | Child nodes                     | `YhCascaderOption[] \| undefined` |
+| `disabled` | Disable the current node        | `boolean \| undefined`            |
+| `leaf`     | Mark the current node as a leaf | `boolean \| undefined`            |
 
 ### CascaderConfig
 
-| Field | Description | Type | Default |
-| --- | --- | --- | --- |
-| `expandTrigger` | Node expansion trigger | `'click' \| 'hover'` | `'click'` |
-| `multiple` | Enable multiple selection | `boolean` | `false` |
-| `checkStrictly` | Allow independent parent and child selection | `boolean` | `false` |
-| `emitPath` | Return the full path value | `boolean` | `true` |
-| `lazy` | Lazy load child options | `boolean` | `false` |
-| `lazyLoad` | Lazy load callback | `(node: YhCascaderOption, resolve: (children: YhCascaderOption[]) => void) => void` | `undefined` |
-| `value` | Value field name | `string` | `'value'` |
-| `label` | Label field name | `string` | `'label'` |
-| `children` | Children field name | `string` | `'children'` |
-| `disabled` | Disabled field name | `string` | `'disabled'` |
-| `leaf` | Leaf field name | `string` | `'leaf'` |
+| Field           | Description                                  | Type                                                                                | Default      |
+| --------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | ------------ |
+| `expandTrigger` | Node expansion trigger                       | `'click' \| 'hover'`                                                                | `'click'`    |
+| `multiple`      | Enable multiple selection                    | `boolean`                                                                           | `false`      |
+| `checkStrictly` | Allow independent parent and child selection | `boolean`                                                                           | `false`      |
+| `emitPath`      | Return the full path value                   | `boolean`                                                                           | `true`       |
+| `lazy`          | Lazy load child options                      | `boolean`                                                                           | `false`      |
+| `lazyLoad`      | Lazy load callback                           | `(node: YhCascaderOption, resolve: (children: YhCascaderOption[]) => void) => void` | `undefined`  |
+| `value`         | Value field name                             | `string`                                                                            | `'value'`    |
+| `label`         | Label field name                             | `string`                                                                            | `'label'`    |
+| `children`      | Children field name                          | `string`                                                                            | `'children'` |
+| `disabled`      | Disabled field name                          | `string`                                                                            | `'disabled'` |
+| `leaf`          | Leaf field name                              | `string`                                                                            | `'leaf'`     |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
-| `update:modelValue` | Triggered when the bound value changes | `(value: string \| number \| (string \| number)[] \| (string \| number)[][] \| undefined) => void` |
-| `change` | Triggered after the selection changes | `(value: string \| number \| (string \| number)[] \| (string \| number)[][] \| undefined) => void` |
-| `focus` | Triggered when the input receives focus | `(event: FocusEvent) => void` |
-| `blur` | Triggered when the input loses focus | `(event: FocusEvent) => void` |
-| `clear` | Triggered when the clear icon is clicked | `() => void` |
-| `expand-change` | Triggered when the expanded path changes | `(value: (string \| number)[]) => void` |
-| `visible-change` | Triggered when the dropdown opens or closes | `(visible: boolean) => void` |
+| Event               | Description                                 | Parameters                                                                                         |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `update:modelValue` | Triggered when the bound value changes      | `(value: string \| number \| (string \| number)[] \| (string \| number)[][] \| undefined) => void` |
+| `change`            | Triggered after the selection changes       | `(value: string \| number \| (string \| number)[] \| (string \| number)[][] \| undefined) => void` |
+| `focus`             | Triggered when the input receives focus     | `(event: FocusEvent) => void`                                                                      |
+| `blur`              | Triggered when the input loses focus        | `(event: FocusEvent) => void`                                                                      |
+| `clear`             | Triggered when the clear icon is clicked    | `() => void`                                                                                       |
+| `expand-change`     | Triggered when the expanded path changes    | `(value: (string \| number)[]) => void`                                                            |
+| `visible-change`    | Triggered when the dropdown opens or closes | `(visible: boolean) => void`                                                                       |
 
 ### Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `default` | Custom node content | `{ node: YhCascaderOption, data: YhCascaderOption }` |
-| `empty` | Content shown when filtering returns no matches | - |
+| Slot      | Description                                     | Parameters                                           |
+| --------- | ----------------------------------------------- | ---------------------------------------------------- |
+| `default` | Custom node content                             | `{ node: YhCascaderOption, data: YhCascaderOption }` |
+| `empty`   | Content shown when filtering returns no matches | -                                                    |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `focus` | Focus the input element | `() => void` |
-| `blur` | Blur the input element | `() => void` |
+| Name              | Description                   | Type                                         |
+| ----------------- | ----------------------------- | -------------------------------------------- |
+| `focus`           | Focus the input element       | `() => void`                                 |
+| `blur`            | Blur the input element        | `() => void`                                 |
 | `getCheckedNodes` | Get the selected option nodes | `(leafOnly?: boolean) => YhCascaderOption[]` |
-| `inputRef` | Input element ref | `Ref<HTMLInputElement \| undefined>` |
+| `inputRef`        | Input element ref             | `Ref<HTMLInputElement \| undefined>`         |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhCascaderProps` | Props type for `YhCascader` |
-| `YhCascaderEmits` | Emits type for `YhCascader` |
-| `YhCascaderExpose` | Expose type for `YhCascader` |
-| `YhCascaderOption` | Cascader option node type |
-| `YhCascaderInstance` | Public instance type for `YhCascader` |
+| Name                      | Description                                |
+| ------------------------- | ------------------------------------------ |
+| `YhCascaderProps`         | Props type for `YhCascader`                |
+| `YhCascaderEmits`         | Emits type for `YhCascader`                |
+| `YhCascaderExpose`        | Expose type for `YhCascader`               |
+| `YhCascaderOption`        | Cascader option node type                  |
+| `YhCascaderInstance`      | Public instance type for `YhCascader`      |
 | `YhCascaderPanelInstance` | Public instance type for `YhCascaderPanel` |
 
 ### Theme Variables
 
 `YhCascader` supports `themeOverrides` and consumes the following CSS variables in its component styles.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-cascader-height` | Default input height | `32px` |
-| `--yh-cascader-height-large` | Large size height | `40px` |
-| `--yh-cascader-height-small` | Small size height | `24px` |
-| `--yh-cascader-bg-color` | Input background color | `var(--yh-fill-color-blank, #fff)` |
-| `--yh-cascader-border-color` | Input border color | `var(--yh-border-color, #dcdfe6)` |
-| `--yh-cascader-border-color-hover` | Hover border color | `var(--yh-border-color-hover, #c0c4cc)` |
-| `--yh-cascader-border-color-focus` | Focus border color | `var(--yh-color-primary, #409eff)` |
-| `--yh-cascader-border-radius` | Border radius | `var(--yh-border-radius-base, 4px)` |
-| `--yh-cascader-text-color` | Input text color | `var(--yh-text-color-regular, #606266)` |
-| `--yh-cascader-placeholder-color` | Placeholder color | `var(--yh-text-color-placeholder, #a8abb2)` |
-| `--yh-cascader-disabled-bg-color` | Disabled background color | `var(--yh-fill-color-light, #f5f7fa)` |
-| `--yh-cascader-disabled-text-color` | Disabled text color | `var(--yh-text-color-placeholder, #a8abb2)` |
-| `--yh-cascader-node-height` | Panel node height | `34px` |
-| `--yh-cascader-node-bg-color-hover` | Node hover background | `var(--yh-fill-color-light, #f5f7fa)` |
-| `--yh-cascader-node-text-color-hover` | Node hover text color | `var(--yh-text-color-regular, #606266)` |
-| `--yh-cascader-node-bg-color-active` | Active node background | `var(--yh-fill-color-light, #f5f7fa)` |
-| `--yh-cascader-node-text-color-active` | Active node text color | `var(--yh-color-primary, #409eff)` |
-| `--yh-cascader-dropdown-bg-color` | Dropdown background color | `var(--yh-bg-color-overlay, #fff)` |
-| `--yh-cascader-dropdown-border-color` | Dropdown border color | `var(--yh-border-color-light, #e4e7ed)` |
-| `--yh-cascader-dropdown-shadow` | Dropdown shadow | `var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1))` |
-| `--yh-cascader-menu-min-width` | Minimum panel width | `180px` |
-| `--yh-cascader-menu-max-height` | Maximum panel height | `274px` |
-| `--yh-cascader-menu-border-color` | Panel separator color | `var(--yh-border-color-light, #e4e7ed)` |
+| Variable                               | Description               | Default                                                       |
+| -------------------------------------- | ------------------------- | ------------------------------------------------------------- |
+| `--yh-cascader-height`                 | Default input height      | `32px`                                                        |
+| `--yh-cascader-height-large`           | Large size height         | `40px`                                                        |
+| `--yh-cascader-height-small`           | Small size height         | `24px`                                                        |
+| `--yh-cascader-bg-color`               | Input background color    | `var(--yh-fill-color-blank, #fff)`                            |
+| `--yh-cascader-border-color`           | Input border color        | `var(--yh-border-color, #dcdfe6)`                             |
+| `--yh-cascader-border-color-hover`     | Hover border color        | `var(--yh-border-color-hover, #c0c4cc)`                       |
+| `--yh-cascader-border-color-focus`     | Focus border color        | `var(--yh-color-primary, #409eff)`                            |
+| `--yh-cascader-border-radius`          | Border radius             | `var(--yh-border-radius-base, 4px)`                           |
+| `--yh-cascader-text-color`             | Input text color          | `var(--yh-text-color-regular, #606266)`                       |
+| `--yh-cascader-placeholder-color`      | Placeholder color         | `var(--yh-text-color-placeholder, #a8abb2)`                   |
+| `--yh-cascader-disabled-bg-color`      | Disabled background color | `var(--yh-fill-color-light, #f5f7fa)`                         |
+| `--yh-cascader-disabled-text-color`    | Disabled text color       | `var(--yh-text-color-placeholder, #a8abb2)`                   |
+| `--yh-cascader-node-height`            | Panel node height         | `34px`                                                        |
+| `--yh-cascader-node-bg-color-hover`    | Node hover background     | `var(--yh-fill-color-light, #f5f7fa)`                         |
+| `--yh-cascader-node-text-color-hover`  | Node hover text color     | `var(--yh-text-color-regular, #606266)`                       |
+| `--yh-cascader-node-bg-color-active`   | Active node background    | `var(--yh-fill-color-light, #f5f7fa)`                         |
+| `--yh-cascader-node-text-color-active` | Active node text color    | `var(--yh-color-primary, #409eff)`                            |
+| `--yh-cascader-dropdown-bg-color`      | Dropdown background color | `var(--yh-bg-color-overlay, #fff)`                            |
+| `--yh-cascader-dropdown-border-color`  | Dropdown border color     | `var(--yh-border-color-light, #e4e7ed)`                       |
+| `--yh-cascader-dropdown-shadow`        | Dropdown shadow           | `var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1))` |
+| `--yh-cascader-menu-min-width`         | Minimum panel width       | `180px`                                                       |
+| `--yh-cascader-menu-max-height`        | Maximum panel height      | `274px`                                                       |
+| `--yh-cascader-menu-border-color`      | Panel separator color     | `var(--yh-border-color-light, #e4e7ed)`                       |
 
 <style>
 .demo-res {

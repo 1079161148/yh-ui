@@ -579,22 +579,22 @@ const jsMillionVirtual = toJs(tsMillionVirtual)
 
 通过 `virtual-config` 属性传入。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| enabled | 是否启用虚拟滚动 | `boolean` | `false` |
-| rowHeight | 行高（固定值或函数） | `number \| ((row, rowIndex) => number)` | `48` |
-| buffer | 缓冲区行数（上下各多渲染的行数） | `number` | `5` |
-| overscan | 预渲染行数 | `number` | `3` |
-| columnVirtual | 是否启用列虚拟化 | `boolean` | `false` |
-| columnBuffer | 列缓冲区数量 | `number` | `3` |
+| 属性          | 说明                             | 类型                                    | 默认值  |
+| ------------- | -------------------------------- | --------------------------------------- | ------- |
+| enabled       | 是否启用虚拟滚动                 | `boolean`                               | `false` |
+| rowHeight     | 行高（固定值或函数）             | `number \| ((row, rowIndex) => number)` | `48`    |
+| buffer        | 缓冲区行数（上下各多渲染的行数） | `number`                                | `5`     |
+| overscan      | 预渲染行数                       | `number`                                | `3`     |
+| columnVirtual | 是否启用列虚拟化                 | `boolean`                               | `false` |
+| columnBuffer  | 列缓冲区数量                     | `number`                                | `3`     |
 
 ### 方法（通过 ref 调用）
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| scrollTo | 滚动到指定位置 | `({ top?, left?, row?, rowIndex? })` |
-| refresh | 刷新虚拟滚动（数据变化后调用） | — |
-| doLayout | 重新计算表格布局 | — |
+| 方法名   | 说明                           | 参数                                 |
+| -------- | ------------------------------ | ------------------------------------ |
+| scrollTo | 滚动到指定位置                 | `({ top?, left?, row?, rowIndex? })` |
+| refresh  | 刷新虚拟滚动（数据变化后调用） | —                                    |
+| doLayout | 重新计算表格布局               | —                                    |
 
 ### 注意事项
 
@@ -603,4 +603,3 @@ const jsMillionVirtual = toJs(tsMillionVirtual)
 3. **`rowHeight` 要准确**：虚拟滚动根据行高计算滚动位置和可见范围，设置不准确可能导致滚动条跳动。
 4. **数据量阈值**：默认数据量超过 100 条才会真正启用虚拟渲染，少于 100 条时正常渲染。
 5. **兼容性**：虚拟滚动与排序、筛选、固定列、分组表头等功能完全兼容。
-

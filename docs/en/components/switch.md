@@ -434,68 +434,68 @@ The Switch component is deeply optimized for SSR, ensuring that handle positions
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value; must equal `active-value` or `inactive-value`. | `boolean \| string \| number` | `false` |
-| disabled | Whether to disable the switch | `boolean` | `false` |
-| loading | Whether to show loading state | `boolean` | `false` |
-| size | Switch size | `'large' \| 'default' \| 'small'` | `'default'` |
-| width | Switch total width | `number \| string` | — |
-| inline-prompt | Whether to show icons/text inside the handle (max 3 chars) | `boolean` | `false` |
-| active-icon | Icon displayed when status is ON (ignores `active-text`) | `string \| Component` | — |
-| inactive-icon | Icon displayed when status is OFF (ignores `inactive-text`) | `string \| Component` | — |
-| active-action-icon | Icon displayed inside the sliding handle when ON | `string \| Component` | — |
-| inactive-action-icon | Icon displayed inside the sliding handle when OFF | `string \| Component` | — |
-| active-text | Text displayed when switch is ON | `string` | — |
-| inactive-text | Text displayed when switch is OFF | `string` | — |
-| active-value | Value when status is ON | `boolean \| string \| number` | `true` |
-| inactive-value | Value when status is OFF | `boolean \| string \| number` | `false` |
-| name | Form name attribute | `string` | — |
-| validate-event | Whether to trigger form validation on change | `boolean` | `true` |
-| before-change | Hook before toggle; returning `false` or rejecting stops toggle | `() => Promise<boolean> \| boolean` | — |
-| id | Input ID | `string` | — |
-| tabindex | Input tabindex | `string \| number` | — |
-| aria-label | Native input `aria-label` equivalent | `string` | — |
+| Name                  | Description                                                     | Type                                | Default     |
+| --------------------- | --------------------------------------------------------------- | ----------------------------------- | ----------- |
+| model-value / v-model | Binding value; must equal `active-value` or `inactive-value`.   | `boolean \| string \| number`       | `false`     |
+| disabled              | Whether to disable the switch                                   | `boolean`                           | `false`     |
+| loading               | Whether to show loading state                                   | `boolean`                           | `false`     |
+| size                  | Switch size                                                     | `'large' \| 'default' \| 'small'`   | `'default'` |
+| width                 | Switch total width                                              | `number \| string`                  | —           |
+| inline-prompt         | Whether to show icons/text inside the handle (max 3 chars)      | `boolean`                           | `false`     |
+| active-icon           | Icon displayed when status is ON (ignores `active-text`)        | `string \| Component`               | —           |
+| inactive-icon         | Icon displayed when status is OFF (ignores `inactive-text`)     | `string \| Component`               | —           |
+| active-action-icon    | Icon displayed inside the sliding handle when ON                | `string \| Component`               | —           |
+| inactive-action-icon  | Icon displayed inside the sliding handle when OFF               | `string \| Component`               | —           |
+| active-text           | Text displayed when switch is ON                                | `string`                            | —           |
+| inactive-text         | Text displayed when switch is OFF                               | `string`                            | —           |
+| active-value          | Value when status is ON                                         | `boolean \| string \| number`       | `true`      |
+| inactive-value        | Value when status is OFF                                        | `boolean \| string \| number`       | `false`     |
+| name                  | Form name attribute                                             | `string`                            | —           |
+| validate-event        | Whether to trigger form validation on change                    | `boolean`                           | `true`      |
+| before-change         | Hook before toggle; returning `false` or rejecting stops toggle | `() => Promise<boolean> \| boolean` | —           |
+| id                    | Input ID                                                        | `string`                            | —           |
+| tabindex              | Input tabindex                                                  | `string \| number`                  | —           |
+| aria-label            | Native input `aria-label` equivalent                            | `string`                            | —           |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
+| Name   | Description                                 | Parameters                                     |
+| ------ | ------------------------------------------- | ---------------------------------------------- |
 | change | Callback function when switch state changes | `(value: boolean \| string \| number) => void` |
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
-| active-action | Custom content for the sliding handle (Action) when ON |
-| inactive-action | Custom content for the sliding handle (Action) when OFF |
-| active | Custom content when ON (inside handle if inline-prompt, else right side) |
-| inactive | Custom content when OFF (inside handle if inline-prompt, else left side) |
+| Name            | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| active-action   | Custom content for the sliding handle (Action) when ON                   |
+| inactive-action | Custom content for the sliding handle (Action) when OFF                  |
+| active          | Custom content when ON (inside handle if inline-prompt, else right side) |
+| inactive        | Custom content when OFF (inside handle if inline-prompt, else left side) |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| focus | Focus the Switch | `() => void` |
+| Name    | Description                            | Type                   |
+| ------- | -------------------------------------- | ---------------------- |
+| focus   | Focus the Switch                       | `() => void`           |
 | checked | Whether the Switch is currently active | `ComputedRef<boolean>` |
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-switch-on-color` | Background color when active | `var(--yh-color-primary)` |
-| `--yh-switch-off-color` | Background color when inactive | `var(--yh-border-color)` |
-| `--yh-switch-width` | Total switch width | `40px` |
-| `--yh-switch-height` | Total switch height | `20px` |
-| `--yh-switch-button-size` | Sliding handle size | `16px` |
-| `--yh-switch-font-size` | Font size | `var(--yh-font-size-base)` |
+| Variable                  | Description                    | Default                    |
+| ------------------------- | ------------------------------ | -------------------------- |
+| `--yh-switch-on-color`    | Background color when active   | `var(--yh-color-primary)`  |
+| `--yh-switch-off-color`   | Background color when inactive | `var(--yh-border-color)`   |
+| `--yh-switch-width`       | Total switch width             | `40px`                     |
+| `--yh-switch-height`      | Total switch height            | `20px`                     |
+| `--yh-switch-button-size` | Sliding handle size            | `16px`                     |
+| `--yh-switch-font-size`   | Font size                      | `var(--yh-font-size-base)` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSwitchProps` | Component props type |
-| `YhSwitchEmits` | Component emits type |
-| `YhSwitchSlots` | Component slots type |
-| `YhSwitchExpose` | Component expose type |
+| Name               | Description             |
+| ------------------ | ----------------------- |
+| `YhSwitchProps`    | Component props type    |
+| `YhSwitchEmits`    | Component emits type    |
+| `YhSwitchSlots`    | Component slots type    |
+| `YhSwitchExpose`   | Component expose type   |
 | `YhSwitchInstance` | Component instance type |

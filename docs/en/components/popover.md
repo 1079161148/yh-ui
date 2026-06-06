@@ -272,59 +272,59 @@ The Popover component uses Backdrop-filter acrylic effect, which automatically d
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Title | `string` | - |
-| description | Description text aligned with Popconfirm | `string` | - |
-| icon | Icon name aligned with Popconfirm | `string` | - |
-| icon-color | Icon color | `string` | - |
-| content | Content text | `string` | - |
-| placement | Popup position | `Placement` | `'bottom'` |
-| visible | Manual control visibility | `boolean \| null` | `null` |
-| trigger | Trigger method | `PopoverTrigger \| PopoverTrigger[]` | `'click'` |
-| effect | Theme style | `'light' \| 'dark' \| string` | `'light'` |
-| disabled | Whether to disable | `boolean` | `false` |
-| show-arrow | Whether to show arrow | `boolean` | `true` |
-| show-after | Show delay in milliseconds | `number` | `0` |
-| hide-after | Hide delay in milliseconds | `number` | `100` |
-| offset | Popup offset | `[number, number]` | `[0, 12]` |
-| width | Popup width | `string \| number` | `'auto'` |
-| max-height | Maximum popup height | `string \| number` | `'none'` |
-| scrollable | Whether content becomes scrollable when `max-height` is set | `boolean` | `false` |
-| interactive | Whether the mouse can enter the popup without immediately hiding it | `boolean` | `true` |
-| match-trigger-width | Whether the popup width should follow the trigger width | `boolean` | `false` |
-| z-index | Popup z-index | `number` | `2003` |
-| teleported | Whether to mount the popup to `body` | `boolean` | `true` |
-| popper-class | Custom popup class | `string` | - |
-| popper-style | Custom popup style | `StyleValue` | `{}` |
-| transition | Transition name | `string` | `'yh-popover-fade'` |
-| persistent | Whether the popup DOM stays mounted while hidden | `boolean` | `true` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop                | Description                                                         | Type                                 | Default             |
+| ------------------- | ------------------------------------------------------------------- | ------------------------------------ | ------------------- |
+| title               | Title                                                               | `string`                             | -                   |
+| description         | Description text aligned with Popconfirm                            | `string`                             | -                   |
+| icon                | Icon name aligned with Popconfirm                                   | `string`                             | -                   |
+| icon-color          | Icon color                                                          | `string`                             | -                   |
+| content             | Content text                                                        | `string`                             | -                   |
+| placement           | Popup position                                                      | `Placement`                          | `'bottom'`          |
+| visible             | Manual control visibility                                           | `boolean \| null`                    | `null`              |
+| trigger             | Trigger method                                                      | `PopoverTrigger \| PopoverTrigger[]` | `'click'`           |
+| effect              | Theme style                                                         | `'light' \| 'dark' \| string`        | `'light'`           |
+| disabled            | Whether to disable                                                  | `boolean`                            | `false`             |
+| show-arrow          | Whether to show arrow                                               | `boolean`                            | `true`              |
+| show-after          | Show delay in milliseconds                                          | `number`                             | `0`                 |
+| hide-after          | Hide delay in milliseconds                                          | `number`                             | `100`               |
+| offset              | Popup offset                                                        | `[number, number]`                   | `[0, 12]`           |
+| width               | Popup width                                                         | `string \| number`                   | `'auto'`            |
+| max-height          | Maximum popup height                                                | `string \| number`                   | `'none'`            |
+| scrollable          | Whether content becomes scrollable when `max-height` is set         | `boolean`                            | `false`             |
+| interactive         | Whether the mouse can enter the popup without immediately hiding it | `boolean`                            | `true`              |
+| match-trigger-width | Whether the popup width should follow the trigger width             | `boolean`                            | `false`             |
+| z-index             | Popup z-index                                                       | `number`                             | `2003`              |
+| teleported          | Whether to mount the popup to `body`                                | `boolean`                            | `true`              |
+| popper-class        | Custom popup class                                                  | `string`                             | -                   |
+| popper-style        | Custom popup style                                                  | `StyleValue`                         | `{}`                |
+| transition          | Transition name                                                     | `string`                             | `'yh-popover-fade'` |
+| persistent          | Whether the popup DOM stays mounted while hidden                    | `boolean`                            | `true`              |
+| theme-overrides     | Component-level theme overrides                                     | `ComponentThemeVars`                 | `undefined`         |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
+| Event Name     | Description                       | Parameters           |
+| -------------- | --------------------------------- | -------------------- |
 | update:visible | Triggered when visibility changes | `(visible: boolean)` |
-| show | Triggered when shown | - |
-| hide | Triggered when hidden | - |
+| show           | Triggered when shown              | -                    |
+| hide           | Triggered when hidden             | -                    |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Trigger element |
-| header | Custom header/title content |
-| content | Custom body content |
-| icon | Custom icon area |
-| footer | Custom footer action area |
+| Slot Name | Description                 |
+| --------- | --------------------------- |
+| default   | Trigger element             |
+| header    | Custom header/title content |
+| content   | Custom body content         |
+| icon      | Custom icon area            |
+| footer    | Custom footer action area   |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| toggle | Manually toggle visibility | `(val: boolean) => boolean` |
-| visible | Current visibility state | `Ref<boolean>` |
+| Name    | Description                | Type                        |
+| ------- | -------------------------- | --------------------------- |
+| toggle  | Manually toggle visibility | `(val: boolean) => boolean` |
+| visible | Current visibility state   | `Ref<boolean>`              |
 
 ### Theme Variables
 
@@ -336,11 +336,11 @@ The Popover component uses Backdrop-filter acrylic effect, which automatically d
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhPopoverProps` | Component props type |
-| `YhPopoverEmits` | Component emits type |
-| `YhPopoverSlots` | Component slots type |
-| `YhPopoverExpose` | Component expose type |
-| `YhPopoverTrigger` | Trigger union type |
+| Name                | Description             |
+| ------------------- | ----------------------- |
+| `YhPopoverProps`    | Component props type    |
+| `YhPopoverEmits`    | Component emits type    |
+| `YhPopoverSlots`    | Component slots type    |
+| `YhPopoverExpose`   | Component expose type   |
+| `YhPopoverTrigger`  | Trigger union type      |
 | `YhPopoverInstance` | Component instance type |

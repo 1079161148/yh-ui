@@ -82,7 +82,7 @@ describe('YhRate', () => {
     const items = wrapper.findAll<HTMLElement>('.yh-rate__item')
     const target = items[2].element
     // Happy-DOM bounding rect is 0 by default; stub to cover the left/right-half branches.
-    target.getBoundingClientRect = () => ({ left: 0, width: 10 } as any)
+    target.getBoundingClientRect = () => ({ left: 0, width: 10 }) as any
 
     await items[2].trigger('mousemove', { clientX: 1 })
     expect(items[2].find('.yh-rate__star-content').attributes('style')).toContain('width: 50%')

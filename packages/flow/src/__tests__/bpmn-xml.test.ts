@@ -1,10 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import {
-  flowToBpmnXml,
-  bpmnXmlToFlow,
-  validateBpmnXml,
-  generateSampleBpmnXml
-} from '../utils/bpmn'
+import { flowToBpmnXml, bpmnXmlToFlow, validateBpmnXml, generateSampleBpmnXml } from '../utils/bpmn'
 import type { Node, Edge } from '../types'
 
 function minimalFlow(): { nodes: Node[]; edges: Edge[] } {

@@ -311,10 +311,10 @@ Easily customize visually by passing `theme-overrides` prop.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSubmitBarProps` | Component props type |
-| `YhSubmitBarEmits` | Component emits type |
-| `YhSubmitBarSlots` | Component slots type |
-| `YhSubmitBarButtonType` | Button type union |
-| `YhSubmitBarInstance` | Component instance type |
+| Name                    | Description             |
+| ----------------------- | ----------------------- |
+| `YhSubmitBarProps`      | Component props type    |
+| `YhSubmitBarEmits`      | Component emits type    |
+| `YhSubmitBarSlots`      | Component slots type    |
+| `YhSubmitBarButtonType` | Button type union       |
+| `YhSubmitBarInstance`   | Component instance type |

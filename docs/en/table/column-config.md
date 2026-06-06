@@ -456,13 +456,13 @@ Combines visibility control and fixed column config, with a reset button to rest
 
 ### ColumnItem Configuration
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| prop | Column field name | `string` | — |
-| label | Column title | `string` | — |
-| width | Column width | `number` | — |
-| visible | Whether to show | `boolean` | `true` |
-| fixed | Fixed direction | `'left' \| 'right' \| false` | `false` |
+| Property | Description       | Type                         | Default |
+| -------- | ----------------- | ---------------------------- | ------- |
+| prop     | Column field name | `string`                     | —       |
+| label    | Column title      | `string`                     | —       |
+| width    | Column width      | `number`                     | —       |
+| visible  | Whether to show   | `boolean`                    | `true`  |
+| fixed    | Fixed direction   | `'left' \| 'right' \| false` | `false` |
 
 ### Implementation Details
 

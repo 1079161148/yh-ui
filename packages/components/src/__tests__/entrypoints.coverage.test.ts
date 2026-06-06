@@ -12,4 +12,3 @@ describe('components entrypoints coverage', () => {
     }
   })
 })
-

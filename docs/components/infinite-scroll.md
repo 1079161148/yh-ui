@@ -617,10 +617,10 @@ const jsBusiness = tsBusiness.replace('lang="ts"', '')
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhInfiniteScrollProps` | 组件 Props 类型 |
-| `YhInfiniteScrollEmits` | 组件事件类型 |
-| `YhInfiniteScrollSlots` | 组件插槽类型 |
-| `YhInfiniteScrollExpose` | 组件 Expose 类型 |
-| `YhInfiniteScrollInstance` | 组件实例类型 |
+| 名称                       | 说明             |
+| -------------------------- | ---------------- |
+| `YhInfiniteScrollProps`    | 组件 Props 类型  |
+| `YhInfiniteScrollEmits`    | 组件事件类型     |
+| `YhInfiniteScrollSlots`    | 组件插槽类型     |
+| `YhInfiniteScrollExpose`   | 组件 Expose 类型 |
+| `YhInfiniteScrollInstance` | 组件实例类型     |

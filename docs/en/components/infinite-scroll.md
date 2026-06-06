@@ -500,65 +500,65 @@ The component also works well with card grids and longer async chains, as long a
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| loading | Current loading state. Supports `v-model:loading`. | `boolean` | `false` |
-| finished | Whether all data has been loaded | `boolean` | `false` |
-| error | Whether the current load has failed. Supports `v-model:error`. | `boolean` | `false` |
-| threshold | Distance threshold in pixels before the end is reached | `number` | `100` |
-| direction | Scroll direction | `'vertical' \| 'horizontal'` | `'vertical'` |
-| loading-text | Per-instance loading text. Falls back to locale text when empty. | `string` | `''` |
-| finished-text | Per-instance finished text. Falls back to locale text when empty. | `string` | `''` |
-| error-text | Per-instance error text. Falls back to locale text when empty. | `string` | `''` |
-| immediate-check | Whether to run an initial load check after mount | `boolean` | `true` |
-| disabled | Disables automatic loading | `boolean` | `false` |
-| target | Selector of the external scroll container | `string` | `''` |
-| use-observer | Whether to use `IntersectionObserver` | `boolean` | `true` |
-| root-margin | `IntersectionObserver` root margin | `string` | `'0px'` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                                       | Type                         | Default      |
+| --------------- | ----------------------------------------------------------------- | ---------------------------- | ------------ |
+| loading         | Current loading state. Supports `v-model:loading`.                | `boolean`                    | `false`      |
+| finished        | Whether all data has been loaded                                  | `boolean`                    | `false`      |
+| error           | Whether the current load has failed. Supports `v-model:error`.    | `boolean`                    | `false`      |
+| threshold       | Distance threshold in pixels before the end is reached            | `number`                     | `100`        |
+| direction       | Scroll direction                                                  | `'vertical' \| 'horizontal'` | `'vertical'` |
+| loading-text    | Per-instance loading text. Falls back to locale text when empty.  | `string`                     | `''`         |
+| finished-text   | Per-instance finished text. Falls back to locale text when empty. | `string`                     | `''`         |
+| error-text      | Per-instance error text. Falls back to locale text when empty.    | `string`                     | `''`         |
+| immediate-check | Whether to run an initial load check after mount                  | `boolean`                    | `true`       |
+| disabled        | Disables automatic loading                                        | `boolean`                    | `false`      |
+| target          | Selector of the external scroll container                         | `string`                     | `''`         |
+| use-observer    | Whether to use `IntersectionObserver`                             | `boolean`                    | `true`       |
+| root-margin     | `IntersectionObserver` root margin                                | `string`                     | `'0px'`      |
+| theme-overrides | Component-level theme overrides                                   | `ComponentThemeVars`         | `undefined`  |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
-| load | Triggered when the component needs the next page of data | `()` |
-| update:loading | Emits the new loading state | `(value: boolean)` |
-| update:error | Emits the new error state | `(value: boolean)` |
+| Event          | Description                                              | Parameters         |
+| -------------- | -------------------------------------------------------- | ------------------ |
+| load           | Triggered when the component needs the next page of data | `()`               |
+| update:loading | Emits the new loading state                              | `(value: boolean)` |
+| update:error   | Emits the new error state                                | `(value: boolean)` |
 
 ### Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Main scroll content | `-` |
-| loading | Custom content shown while loading | `-` |
-| finished | Custom content shown after all data is loaded | `-` |
-| error | Custom content shown when loading fails | `-` |
+| Slot     | Description                                   | Parameters |
+| -------- | --------------------------------------------- | ---------- |
+| default  | Main scroll content                           | `-`        |
+| loading  | Custom content shown while loading            | `-`        |
+| finished | Custom content shown after all data is loaded | `-`        |
+| error    | Custom content shown when loading fails       | `-`        |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name  | Description                                              | Type         |
+| ----- | -------------------------------------------------------- | ------------ |
 | check | Manually checks whether another load should be triggered | `() => void` |
-| retry | Clears the error state and triggers another load | `() => void` |
+| retry | Clears the error state and triggers another load         | `() => void` |
 
 ## Theme Variables
 
 `YhInfiniteScroll` supports `themeOverrides`, while its default appearance mainly consumes shared global tokens instead of a large component-specific CSS variable table.
 
-| Token | Description | Default |
-| --- | --- | --- |
-| `--yh-text-color-secondary` | Loading text color | `#86868b` |
+| Token                         | Description         | Default   |
+| ----------------------------- | ------------------- | --------- |
+| `--yh-text-color-secondary`   | Loading text color  | `#86868b` |
 | `--yh-text-color-placeholder` | Finished text color | `#c0c4cc` |
-| `--yh-color-danger` | Error text color | `#f56c6c` |
+| `--yh-color-danger`           | Error text color    | `#f56c6c` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhInfiniteScrollProps` | Component props type |
-| `YhInfiniteScrollEmits` | Component emits type |
-| `YhInfiniteScrollSlots` | Component slots type |
-| `YhInfiniteScrollExpose` | Component expose type |
+| Name                       | Description             |
+| -------------------------- | ----------------------- |
+| `YhInfiniteScrollProps`    | Component props type    |
+| `YhInfiniteScrollEmits`    | Component emits type    |
+| `YhInfiniteScrollSlots`    | Component slots type    |
+| `YhInfiniteScrollExpose`   | Component expose type   |
 | `YhInfiniteScrollInstance` | Component instance type |
 
 <style>

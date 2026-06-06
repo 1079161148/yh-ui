@@ -75,6 +75,7 @@ A high-performance affix component that fixes content to the top or bottom of th
 ## Performance Architecture
 
 YhAffix employs a dual-layer observation system:
+
 - **IntersectionObserver**: Monitors distance from the trigger zone. When the element is far away from the viewport, high-frequency recalculation is skipped to reduce overhead.
 - **ResizeObserver**: Observes the placeholder, content, and target container so size changes can update the fixed position without visible jitter.
 
@@ -173,55 +174,55 @@ Use the `disabled` prop to toggle the state, suitable for permission control or 
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| offset | Offset distance to trigger fixing | `number` | `0` |
-| position | Affix position | `'top' \| 'bottom'` | `'top'` |
-| target | Target container selector. Affixing stops outside this container | `string` | `''` |
-| z-index | Z-index when fixed | `number` | `100` |
-| teleported | Whether to teleport to a specified node for rendering, solving parent transform positioning issues | `boolean` | `false` |
-| append-to | Target container node for teleport, used with `teleported` | `string \| HTMLElement` | `'body'` |
-| disabled | Whether to disable the component | `boolean` | `false` |
-| affix-style | Extra styles passed to the fixed container | `CSSProperties` | `{}` |
+| Prop        | Description                                                                                        | Type                    | Default  |
+| ----------- | -------------------------------------------------------------------------------------------------- | ----------------------- | -------- |
+| offset      | Offset distance to trigger fixing                                                                  | `number`                | `0`      |
+| position    | Affix position                                                                                     | `'top' \| 'bottom'`     | `'top'`  |
+| target      | Target container selector. Affixing stops outside this container                                   | `string`                | `''`     |
+| z-index     | Z-index when fixed                                                                                 | `number`                | `100`    |
+| teleported  | Whether to teleport to a specified node for rendering, solving parent transform positioning issues | `boolean`               | `false`  |
+| append-to   | Target container node for teleport, used with `teleported`                                         | `string \| HTMLElement` | `'body'` |
+| disabled    | Whether to disable the component                                                                   | `boolean`               | `false`  |
+| affix-style | Extra styles passed to the fixed container                                                         | `CSSProperties`         | `{}`     |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when the fixed state changes | `(fixed: boolean)` |
-| scroll | Triggered in real-time while scrolling | `(payload: { scrollTop: number, fixed: boolean })` |
+| Event Name | Description                            | Parameters                                         |
+| ---------- | -------------------------------------- | -------------------------------------------------- |
+| change     | Triggered when the fixed state changes | `(fixed: boolean)`                                 |
+| scroll     | Triggered in real-time while scrolling | `(payload: { scrollTop: number, fixed: boolean })` |
 
 ### Slots
 
-| Slot Name | Description | Scope Parameters |
-| --- | --- | --- |
-| default | Content slot to be fixed | `{ fixed: boolean }` |
+| Slot Name | Description              | Scope Parameters     |
+| --------- | ------------------------ | -------------------- |
+| default   | Content slot to be fixed | `{ fixed: boolean }` |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| update | Manually trigger position calculation and state update | `() => void` |
-| fixed | Whether currently in the fixed state | `Ref<boolean>` |
-| scrollTop | Current vertical scroll distance of the scroll container | `Ref<number>` |
+| Name      | Description                                              | Type           |
+| --------- | -------------------------------------------------------- | -------------- |
+| update    | Manually trigger position calculation and state update   | `() => void`   |
+| fixed     | Whether currently in the fixed state                     | `Ref<boolean>` |
+| scrollTop | Current vertical scroll distance of the scroll container | `Ref<number>`  |
 
 ### Theme Variables
 
 `YhAffix` supports `themeOverrides`. The component stylesheet directly consumes the following affix-specific CSS variables:
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `--yh-affix-z-index` | `var(--yh-z-index-fixed)` | Z-index token used in the fixed state |
-| `--yh-affix-shadow` | `var(--yh-shadow-md)` | Shadow applied while affixed |
-| `--yh-affix-transition-duration` | `var(--yh-duration-base)` | Transition duration for fixed-state updates |
-| `--yh-affix-transition-timing` | `cubic-bezier(0.4, 0, 0.2, 1)` | Transition timing function |
+| Variable                         | Default                        | Description                                 |
+| -------------------------------- | ------------------------------ | ------------------------------------------- |
+| `--yh-affix-z-index`             | `var(--yh-z-index-fixed)`      | Z-index token used in the fixed state       |
+| `--yh-affix-shadow`              | `var(--yh-shadow-md)`          | Shadow applied while affixed                |
+| `--yh-affix-transition-duration` | `var(--yh-duration-base)`      | Transition duration for fixed-state updates |
+| `--yh-affix-transition-timing`   | `cubic-bezier(0.4, 0, 0.2, 1)` | Transition timing function                  |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhAffixProps` | Props type for `YhAffix` |
-| `YhAffixEmits` | Emits type for `YhAffix` |
-| `YhAffixSlots` | Slots type for `YhAffix` |
-| `YhAffixExpose` | Expose type for `YhAffix` |
+| Name              | Description                        |
+| ----------------- | ---------------------------------- |
+| `YhAffixProps`    | Props type for `YhAffix`           |
+| `YhAffixEmits`    | Emits type for `YhAffix`           |
+| `YhAffixSlots`    | Slots type for `YhAffix`           |
+| `YhAffixExpose`   | Expose type for `YhAffix`          |
 | `YhAffixInstance` | Public instance type for `YhAffix` |

@@ -67,17 +67,17 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'YH-UI',
   description: 'A modern Vue 3 UI Library',
-  
+
   lang: 'en-US',
-  
+
   themeConfig: {
     // 英文导航
     nav: [
       { text: 'Home', link: '/en/' },
       { text: 'Guide', link: '/en/guide/introduction' },
-      { text: 'Components', link: '/en/components/button' },
+      { text: 'Components', link: '/en/components/button' }
     ],
-    
+
     // 英文侧边栏
     sidebar: {
       '/en/components/': [
@@ -85,7 +85,7 @@ export default defineConfig({
           text: 'Basic Components',
           items: [
             { text: 'Button', link: '/en/components/button' },
-            { text: 'Icon', link: '/en/components/icon' },
+            { text: 'Icon', link: '/en/components/icon' }
           ]
         }
       ]
@@ -104,7 +104,7 @@ export default defineConfig({
 const TERM_MAP = {
   'Button 按钮': 'Button',
   'Input 输入框': 'Input',
-  'Switch 开关': 'Switch',
+  'Switch 开关': 'Switch'
   // ...
 }
 ```
@@ -136,20 +136,20 @@ const TERM_MAP = {
 
 ## 📝 常用术语表
 
-| 中文 | 英文 |
-|------|------|
-| 基础用法 | Basic Usage |
-| 不同尺寸 | Different Sizes |
-| 禁用状态 | Disabled State |
-| 加载状态 | Loading State |
-| 自定义内容 | Custom Content |
-| API | API |
-| Props | Props |
-| Slots | Slots |
-| Events | Events |
-| 类型 | Type |
-| 默认值 | Default |
-| 说明 | Description |
+| 中文       | 英文            |
+| ---------- | --------------- |
+| 基础用法   | Basic Usage     |
+| 不同尺寸   | Different Sizes |
+| 禁用状态   | Disabled State  |
+| 加载状态   | Loading State   |
+| 自定义内容 | Custom Content  |
+| API        | API             |
+| Props      | Props           |
+| Slots      | Slots           |
+| Events     | Events          |
+| 类型       | Type            |
+| 默认值     | Default         |
+| 说明       | Description     |
 
 ## 🚢 发布时
 

@@ -601,65 +601,65 @@ Countdown uses `requestAnimationFrame` internally for timing, which only execute
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| value | Target time or duration. | `YhCountdownValue` | Required |
-| format | Format template or custom formatter. | `YhCountdownFormat` | `'HH:mm:ss'` |
-| auto-start | Whether the countdown starts immediately. | `boolean` | `true` |
-| interval | Refresh interval in milliseconds. | `number` | `1000` |
-| precision | Timing precision in milliseconds. | `1000 \| 100 \| 10` | `1000` |
-| title | Prefix text. | `string` | `''` |
-| suffix | Suffix text. | `string` | `''` |
-| use-monospace-font | Whether a monospace font is used to avoid digit jitter. | `boolean` | `true` |
-| flip-animation | Whether flip-card animation is enabled. | `boolean` | `false` |
-| value-style | Inline style applied to the value area. | `CSSProperties \| string` | `undefined` |
-| separator | Separator between time units. | `string` | `':'` |
-| show-days | Whether to show days. `'auto'` shows days only when needed. | `boolean \| 'auto'` | `'auto'` |
-| show-hours | Whether to show hours. | `boolean` | `true` |
-| show-minutes | Whether to show minutes. | `boolean` | `true` |
-| show-seconds | Whether to show seconds. | `boolean` | `true` |
-| show-milliseconds | Whether to show milliseconds. | `boolean` | `false` |
-| labels | Label mapping for time units. | `Partial<Record<keyof YhCountdownTimeUnits, string>>` | `undefined` |
-| keep-alive-on-finish | Whether the zero state stays visible after finish. | `boolean` | `true` |
-| warning-threshold | Remaining time threshold that triggers warning mode, in milliseconds. | `number` | `undefined` |
-| timezone-offset | Timezone offset used for time alignment, in minutes. | `number` | `undefined` |
-| server-time-offset | Difference between server time and local time, in milliseconds. | `number` | `0` |
-| theme-overrides | Component-level theme overrides. | `ComponentThemeVars` | `undefined` |
+| Prop                 | Description                                                           | Type                                                  | Default      |
+| -------------------- | --------------------------------------------------------------------- | ----------------------------------------------------- | ------------ |
+| value                | Target time or duration.                                              | `YhCountdownValue`                                    | Required     |
+| format               | Format template or custom formatter.                                  | `YhCountdownFormat`                                   | `'HH:mm:ss'` |
+| auto-start           | Whether the countdown starts immediately.                             | `boolean`                                             | `true`       |
+| interval             | Refresh interval in milliseconds.                                     | `number`                                              | `1000`       |
+| precision            | Timing precision in milliseconds.                                     | `1000 \| 100 \| 10`                                   | `1000`       |
+| title                | Prefix text.                                                          | `string`                                              | `''`         |
+| suffix               | Suffix text.                                                          | `string`                                              | `''`         |
+| use-monospace-font   | Whether a monospace font is used to avoid digit jitter.               | `boolean`                                             | `true`       |
+| flip-animation       | Whether flip-card animation is enabled.                               | `boolean`                                             | `false`      |
+| value-style          | Inline style applied to the value area.                               | `CSSProperties \| string`                             | `undefined`  |
+| separator            | Separator between time units.                                         | `string`                                              | `':'`        |
+| show-days            | Whether to show days. `'auto'` shows days only when needed.           | `boolean \| 'auto'`                                   | `'auto'`     |
+| show-hours           | Whether to show hours.                                                | `boolean`                                             | `true`       |
+| show-minutes         | Whether to show minutes.                                              | `boolean`                                             | `true`       |
+| show-seconds         | Whether to show seconds.                                              | `boolean`                                             | `true`       |
+| show-milliseconds    | Whether to show milliseconds.                                         | `boolean`                                             | `false`      |
+| labels               | Label mapping for time units.                                         | `Partial<Record<keyof YhCountdownTimeUnits, string>>` | `undefined`  |
+| keep-alive-on-finish | Whether the zero state stays visible after finish.                    | `boolean`                                             | `true`       |
+| warning-threshold    | Remaining time threshold that triggers warning mode, in milliseconds. | `number`                                              | `undefined`  |
+| timezone-offset      | Timezone offset used for time alignment, in minutes.                  | `number`                                              | `undefined`  |
+| server-time-offset   | Difference between server time and local time, in milliseconds.       | `number`                                              | `0`          |
+| theme-overrides      | Component-level theme overrides.                                      | `ComponentThemeVars`                                  | `undefined`  |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered on countdown update | `(ctx: YhCountdownFormatContext) => void` |
-| finish | Triggered when countdown ends | `() => void` |
-| start | Triggered when countdown starts | `() => void` |
-| pause | Triggered on pause | `() => void` |
-| resume | Triggered on resume | `() => void` |
-| reset | Triggered on reset | `() => void` |
-| warning | Triggered when entering warning range | `(ctx: YhCountdownFormatContext) => void` |
-| status-change | Triggered on status change | `(status: YhCountdownStatus) => void` |
+| Event Name    | Description                           | Parameters                                |
+| ------------- | ------------------------------------- | ----------------------------------------- |
+| change        | Triggered on countdown update         | `(ctx: YhCountdownFormatContext) => void` |
+| finish        | Triggered when countdown ends         | `() => void`                              |
+| start         | Triggered when countdown starts       | `() => void`                              |
+| pause         | Triggered on pause                    | `() => void`                              |
+| resume        | Triggered on resume                   | `() => void`                              |
+| reset         | Triggered on reset                    | `() => void`                              |
+| warning       | Triggered when entering warning range | `(ctx: YhCountdownFormatContext) => void` |
+| status-change | Triggered on status change            | `(status: YhCountdownStatus) => void`     |
 
 ### Slots
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Fully custom rendering | `{ current, remaining, formatted, status, isWarning, isFinished }` |
-| prefix | Prefix content | - |
-| suffix | Suffix content | - |
-| value | Custom digit display | `{ text: string }` |
-| separator | Custom unit separator | - |
-| [key]-cell | Custom specific cell (e.g., `seconds-cell`) | `{ value: string }` |
+| Slot Name  | Description                                 | Parameters                                                         |
+| ---------- | ------------------------------------------- | ------------------------------------------------------------------ |
+| default    | Fully custom rendering                      | `{ current, remaining, formatted, status, isWarning, isFinished }` |
+| prefix     | Prefix content                              | -                                                                  |
+| suffix     | Suffix content                              | -                                                                  |
+| value      | Custom digit display                        | `{ text: string }`                                                 |
+| separator  | Custom unit separator                       | -                                                                  |
+| [key]-cell | Custom specific cell (e.g., `seconds-cell`) | `{ value: string }`                                                |
 
 ### Expose
 
-| Method | Description | Parameters | Return |
-| --- | --- | --- | --- |
-| start | Start timing | - | `void` |
-| pause | Pause timing | - | `void` |
-| resume | Resume timing | - | `void` |
-| reset | Reset timing | - | `void` |
-| getRemain | Get current remaining milliseconds | - | `number` |
-| getStatus | Get current countdown status | - | `YhCountdownStatus` |
+| Method    | Description                        | Parameters | Return              |
+| --------- | ---------------------------------- | ---------- | ------------------- |
+| start     | Start timing                       | -          | `void`              |
+| pause     | Pause timing                       | -          | `void`              |
+| resume    | Resume timing                      | -          | `void`              |
+| reset     | Reset timing                       | -          | `void`              |
+| getRemain | Get current remaining milliseconds | -          | `number`            |
+| getStatus | Get current countdown status       | -          | `YhCountdownStatus` |
 
 ### Type Definitions
 
@@ -687,33 +687,33 @@ interface YhCountdownFormatContext {
 
 The Countdown component supports customizing styles by overriding the following CSS variables. All color variables integrate with the global theme system, automatically supporting dark mode:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-countdown-font-size` | Digit font size | `24px` |
-| `--yh-countdown-value-color` | Digit color | `var(--yh-text-color-primary)` |
-| `--yh-countdown-label-color` | Label color | `var(--yh-text-color-secondary)` |
-| `--yh-countdown-separator-color` | Separator color | `var(--yh-text-color-placeholder)` |
-| `--yh-countdown-warning-color` | Warning state color | `var(--yh-color-danger)` |
-| `--yh-countdown-finished-color` | Finished state color | `var(--yh-color-success)` |
-| `--yh-countdown-bg` | Component root background | `transparent` |
-| `--yh-countdown-block-bg` | Flip block background | `var(--yh-fill-color-light)` |
-| `--yh-countdown-block-shadow` | Flip block shadow | `var(--yh-shadow-sm)` |
-| `--yh-countdown-block-radius` | Flip block border radius | `var(--yh-radius-md)` |
-| `--yh-countdown-block-padding` | Flip block padding | `12px 16px` |
-| `--yh-countdown-gap` | Internal element gap | `8px` |
-| `--yh-countdown-font-family` | Default font family | `var(--yh-font-family)` |
-| `--yh-countdown-monospace-font` | Monospace font (anti-jitter) | `JetBrains Mono, SF Mono...` |
+| Variable                         | Description                  | Default                            |
+| -------------------------------- | ---------------------------- | ---------------------------------- |
+| `--yh-countdown-font-size`       | Digit font size              | `24px`                             |
+| `--yh-countdown-value-color`     | Digit color                  | `var(--yh-text-color-primary)`     |
+| `--yh-countdown-label-color`     | Label color                  | `var(--yh-text-color-secondary)`   |
+| `--yh-countdown-separator-color` | Separator color              | `var(--yh-text-color-placeholder)` |
+| `--yh-countdown-warning-color`   | Warning state color          | `var(--yh-color-danger)`           |
+| `--yh-countdown-finished-color`  | Finished state color         | `var(--yh-color-success)`          |
+| `--yh-countdown-bg`              | Component root background    | `transparent`                      |
+| `--yh-countdown-block-bg`        | Flip block background        | `var(--yh-fill-color-light)`       |
+| `--yh-countdown-block-shadow`    | Flip block shadow            | `var(--yh-shadow-sm)`              |
+| `--yh-countdown-block-radius`    | Flip block border radius     | `var(--yh-radius-md)`              |
+| `--yh-countdown-block-padding`   | Flip block padding           | `12px 16px`                        |
+| `--yh-countdown-gap`             | Internal element gap         | `8px`                              |
+| `--yh-countdown-font-family`     | Default font family          | `var(--yh-font-family)`            |
+| `--yh-countdown-monospace-font`  | Monospace font (anti-jitter) | `JetBrains Mono, SF Mono...`       |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhCountdownProps` | Props type for `YhCountdown` |
-| `YhCountdownEmits` | Emits type for `YhCountdown` |
-| `YhCountdownExpose` | Expose type for `YhCountdown` |
-| `YhCountdownTimeUnits` | Time units structure type |
-| `YhCountdownFormatContext` | Formatting context type |
-| `YhCountdownValue` | Countdown target value type |
-| `YhCountdownFormat` | Format config type |
-| `YhCountdownStatus` | Countdown status union |
-| `YhCountdownInstance` | Public instance type for `YhCountdown` |
+| Name                       | Description                            |
+| -------------------------- | -------------------------------------- |
+| `YhCountdownProps`         | Props type for `YhCountdown`           |
+| `YhCountdownEmits`         | Emits type for `YhCountdown`           |
+| `YhCountdownExpose`        | Expose type for `YhCountdown`          |
+| `YhCountdownTimeUnits`     | Time units structure type              |
+| `YhCountdownFormatContext` | Formatting context type                |
+| `YhCountdownValue`         | Countdown target value type            |
+| `YhCountdownFormat`        | Format config type                     |
+| `YhCountdownStatus`        | Countdown status union                 |
+| `YhCountdownInstance`      | Public instance type for `YhCountdown` |

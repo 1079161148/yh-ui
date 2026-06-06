@@ -153,20 +153,20 @@ The component detects the Nuxt environment and can render route navigation throu
 
 #### Breadcrumb
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| separator | Separator string | `string` | `/` |
-| separator-icon | Separator icon component | `string \| Component` | `''` |
-| max-items | Maximum number of displayed items before collapsing middle nodes | `number` | `0` |
-| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                                      | Type                  | Default     |
+| --------------- | ---------------------------------------------------------------- | --------------------- | ----------- |
+| separator       | Separator string                                                 | `string`              | `/`         |
+| separator-icon  | Separator icon component                                         | `string \| Component` | `''`        |
+| max-items       | Maximum number of displayed items before collapsing middle nodes | `number`              | `0`         |
+| theme-overrides | Component-level theme variable overrides                         | `ComponentThemeVars`  | `undefined` |
 
 #### Breadcrumb Item
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| to | Route navigation target | `string \| Record<string, unknown>` | `''` |
-| replace | Whether to replace the current route | `boolean` | `false` |
-| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                              | Type                                | Default     |
+| --------------- | ---------------------------------------- | ----------------------------------- | ----------- |
+| to              | Route navigation target                  | `string \| Record<string, unknown>` | `''`        |
+| replace         | Whether to replace the current route     | `boolean`                           | `false`     |
+| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars`                | `undefined` |
 
 ### Events
 
@@ -176,15 +176,15 @@ The component detects the Nuxt environment and can render route navigation throu
 
 #### Breadcrumb
 
-| Slot | Description | Slot Props |
-| --- | --- | --- |
-| `default` | Breadcrumb content. | - |
+| Slot      | Description         | Slot Props |
+| --------- | ------------------- | ---------- |
+| `default` | Breadcrumb content. | -          |
 
 #### Breadcrumb Item
 
-| Slot | Description | Slot Props |
-| --- | --- | --- |
-| `default` | Breadcrumb item content. | - |
+| Slot      | Description              | Slot Props |
+| --------- | ------------------------ | ---------- |
+| `default` | Breadcrumb item content. | -          |
 
 ### Expose
 
@@ -196,13 +196,13 @@ This component does not provide dedicated component-scoped theme variables. If y
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhBreadcrumbProps` | Props type for `YhBreadcrumb` |
-| `YhBreadcrumbSlots` | Slots type for `YhBreadcrumb` |
-| `YhBreadcrumbItemProps` | Props type for `YhBreadcrumbItem` |
-| `YhBreadcrumbItemSlots` | Slots type for `YhBreadcrumbItem` |
-| `YhBreadcrumbInstance` | Public instance type for `YhBreadcrumb` |
+| Name                       | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| `YhBreadcrumbProps`        | Props type for `YhBreadcrumb`               |
+| `YhBreadcrumbSlots`        | Slots type for `YhBreadcrumb`               |
+| `YhBreadcrumbItemProps`    | Props type for `YhBreadcrumbItem`           |
+| `YhBreadcrumbItemSlots`    | Slots type for `YhBreadcrumbItem`           |
+| `YhBreadcrumbInstance`     | Public instance type for `YhBreadcrumb`     |
 | `YhBreadcrumbItemInstance` | Public instance type for `YhBreadcrumbItem` |
 
 <style scoped>

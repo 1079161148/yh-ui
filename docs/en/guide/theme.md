@@ -96,29 +96,29 @@ YH-UI includes 12 built-in preset themes:
 
 ### Density/Compactness
 
-| Mode | Component Size | Suitable Scenarios |
-| --- | --- | --- |
-| `comfortable` | 32px | Normal forms, content pages |
-| `compact` | 28px | Data-intensive applications |
-| `dense` | 24px | Admin dashboards, tables |
+| Mode          | Component Size | Suitable Scenarios          |
+| ------------- | -------------- | --------------------------- |
+| `comfortable` | 32px           | Normal forms, content pages |
+| `compact`     | 28px           | Data-intensive applications |
+| `dense`       | 24px           | Admin dashboards, tables    |
 
 ### Color Algorithms
 
-| Algorithm | Description |
-| --- | --- |
-| `default` | Default algorithm |
+| Algorithm | Description                      |
+| --------- | -------------------------------- |
+| `default` | Default algorithm                |
 | `vibrant` | Vibrant mode - Higher saturation |
-| `muted` | Muted mode - Lower saturation |
-| `pastel` | Pastel mode - Light and soft |
+| `muted`   | Muted mode - Lower saturation    |
+| `pastel`  | Pastel mode - Light and soft     |
 
 ### Colorblind Friendly Mode
 
-| Mode | Description |
-| --- | --- |
-| `none` | Normal |
-| `protanopia` | Protanopia (Redblind) |
-| `deuteranopia` | Deuteranopia (Greenblind) |
-| `tritanopia` | Tritanopia (Blueblind) |
+| Mode            | Description                      |
+| --------------- | -------------------------------- |
+| `none`          | Normal                           |
+| `protanopia`    | Protanopia (Redblind)            |
+| `deuteranopia`  | Deuteranopia (Greenblind)        |
+| `tritanopia`    | Tritanopia (Blueblind)           |
 | `achromatopsia` | Achromatopsia (Total colorblind) |
 
 ---
@@ -127,45 +127,45 @@ YH-UI includes 12 built-in preset themes:
 
 ### ThemeManager Methods
 
-| Method | Description | Parameters |
-| --- | --- | --- |
-| `setPreset` | Set a preset theme | `preset: PresetTheme` |
-| `setThemePreset` | Alias for setting a preset theme | `preset: PresetTheme` |
-| `setColors` | Set custom colors | `colors: ThemeColors` |
-| `setPrimaryColor` | Set the primary color | `color: string` |
-| `setDarkMode` | Set dark mode | `dark: boolean` |
-| `toggleDarkMode` | Toggle dark mode | — |
-| `setDensity` | Set density | `density: ThemeDensity` |
-| `setAlgorithm` | Set color generation algorithm | `algorithm: ColorAlgorithm` |
-| `setColorBlindMode` | Set colorblind mode | `mode: ColorBlindMode` |
-| `setComponentTheme` | Set component-level overrides | `name, overrides` |
-| `clearComponentTheme` | Clear component-level overrides | `name` |
-| `enableTransition` | Enable switcher animations | `config?` |
-| `disableTransition` | Disable switcher animations | — |
-| `applyFromPrimary` | Generate a palette from a primary color | `color: string` |
-| `exportTheme` | Export the current theme | `options?` |
-| `importTheme` | Import a theme configuration | `json: string` |
-| `exportAsCss` | Export the current theme as CSS | — |
-| `createTheme` | Create a theme configuration object | `config` |
-| `applyFullConfig` | Apply a full theme configuration | `config` |
-| `undo` | Undo theme changes | — |
-| `getHistory` | Retrieve theme history | — |
-| `clearHistory` | Clear theme history | — |
-| `setResponsiveVar` | Set a responsive CSS variable | `name, values` |
-| `reset` | Reset to the default theme | — |
+| Method                | Description                             | Parameters                  |
+| --------------------- | --------------------------------------- | --------------------------- |
+| `setPreset`           | Set a preset theme                      | `preset: PresetTheme`       |
+| `setThemePreset`      | Alias for setting a preset theme        | `preset: PresetTheme`       |
+| `setColors`           | Set custom colors                       | `colors: ThemeColors`       |
+| `setPrimaryColor`     | Set the primary color                   | `color: string`             |
+| `setDarkMode`         | Set dark mode                           | `dark: boolean`             |
+| `toggleDarkMode`      | Toggle dark mode                        | —                           |
+| `setDensity`          | Set density                             | `density: ThemeDensity`     |
+| `setAlgorithm`        | Set color generation algorithm          | `algorithm: ColorAlgorithm` |
+| `setColorBlindMode`   | Set colorblind mode                     | `mode: ColorBlindMode`      |
+| `setComponentTheme`   | Set component-level overrides           | `name, overrides`           |
+| `clearComponentTheme` | Clear component-level overrides         | `name`                      |
+| `enableTransition`    | Enable switcher animations              | `config?`                   |
+| `disableTransition`   | Disable switcher animations             | —                           |
+| `applyFromPrimary`    | Generate a palette from a primary color | `color: string`             |
+| `exportTheme`         | Export the current theme                | `options?`                  |
+| `importTheme`         | Import a theme configuration            | `json: string`              |
+| `exportAsCss`         | Export the current theme as CSS         | —                           |
+| `createTheme`         | Create a theme configuration object     | `config`                    |
+| `applyFullConfig`     | Apply a full theme configuration        | `config`                    |
+| `undo`                | Undo theme changes                      | —                           |
+| `getHistory`          | Retrieve theme history                  | —                           |
+| `clearHistory`        | Clear theme history                     | —                           |
+| `setResponsiveVar`    | Set a responsive CSS variable           | `name, values`              |
+| `reset`               | Reset to the default theme              | —                           |
 
 ### Shortcut Functions
 
-| Function Name | Description |
-| --- | --- |
-| `initTheme` | Initialize theme |
-| `useTheme` | Retrieve the theme manager |
-| `setThemeColor` | Set the primary theme color |
-| `toggleDarkMode` | Toggle dark mode |
-| `setThemePreset` | Set a preset theme |
-| `useThemeVars` | Read current theme CSS variables |
-| `provideComponentThemes` | Provide component theme overrides |
-| `useComponentTheme` | Read component-level theme overrides |
+| Function Name            | Description                          |
+| ------------------------ | ------------------------------------ |
+| `initTheme`              | Initialize theme                     |
+| `useTheme`               | Retrieve the theme manager           |
+| `setThemeColor`          | Set the primary theme color          |
+| `toggleDarkMode`         | Toggle dark mode                     |
+| `setThemePreset`         | Set a preset theme                   |
+| `useThemeVars`           | Read current theme CSS variables     |
+| `provideComponentThemes` | Provide component theme overrides    |
+| `useComponentTheme`      | Read component-level theme overrides |
 
 ### Type Definitions
 
@@ -206,43 +206,43 @@ interface ThemeOptions {
 
 ### Global Variables
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
-| `--yh-color-primary` | Theme primary color | `#409eff` |
-| `--yh-color-success` | Success color | `#67c23a` |
-| `--yh-color-warning` | Warning color | `#e6a23c` |
-| `--yh-color-danger` | Danger color | `#f56c6c` |
-| `--yh-color-info` | Info color | `#909399` |
-| `--yh-border-radius-base` | Base border radius | `4px` |
-| `--yh-font-size-base` | Base font size | `14px` |
-| `--yh-bg-color` | Site-wide background color | `#ffffff` |
+| Variable Name             | Description                | Default   |
+| ------------------------- | -------------------------- | --------- |
+| `--yh-color-primary`      | Theme primary color        | `#409eff` |
+| `--yh-color-success`      | Success color              | `#67c23a` |
+| `--yh-color-warning`      | Warning color              | `#e6a23c` |
+| `--yh-color-danger`       | Danger color               | `#f56c6c` |
+| `--yh-color-info`         | Info color                 | `#909399` |
+| `--yh-border-radius-base` | Base border radius         | `4px`     |
+| `--yh-font-size-base`     | Base font size             | `14px`    |
+| `--yh-bg-color`           | Site-wide background color | `#ffffff` |
 
 ### Density Variables
 
-| Variable Name | Comfortable | Compact | Dense |
-| --- | --- | --- | --- |
-| `--yh-density-factor` | `1` | `0.85` | `0.7` |
-| `--yh-component-size-default` | `32px` | `28px` | `24px` |
-| `--yh-spacing-unit` | `8px` | `6px` | `4px` |
+| Variable Name                 | Comfortable | Compact | Dense  |
+| ----------------------------- | ----------- | ------- | ------ |
+| `--yh-density-factor`         | `1`         | `0.85`  | `0.7`  |
+| `--yh-component-size-default` | `32px`      | `28px`  | `24px` |
+| `--yh-spacing-unit`           | `8px`       | `6px`   | `4px`  |
 
 ### Breakpoints
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
-| `--yh-breakpoint-xs` | Extra small screen | `0` |
-| `--yh-breakpoint-sm` | Small screen | `576px` |
-| `--yh-breakpoint-md` | Medium screen | `768px` |
-| `--yh-breakpoint-lg` | Large screen | `992px` |
-| `--yh-breakpoint-xl` | Extra large screen | `1200px` |
+| Variable Name         | Description               | Default  |
+| --------------------- | ------------------------- | -------- |
+| `--yh-breakpoint-xs`  | Extra small screen        | `0`      |
+| `--yh-breakpoint-sm`  | Small screen              | `576px`  |
+| `--yh-breakpoint-md`  | Medium screen             | `768px`  |
+| `--yh-breakpoint-lg`  | Large screen              | `992px`  |
+| `--yh-breakpoint-xl`  | Extra large screen        | `1200px` |
 | `--yh-breakpoint-xxl` | Double extra large screen | `1400px` |
 
 ### Accessibility Variables
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
-| `--yh-focus-ring-color` | Focus ring color | `var(--yh-color-primary)` |
-| `--yh-focus-ring-width` | Focus ring width | `2px` |
-| `--yh-font-family-monospace` | Monospace font | `SFMono-Regular...` |
+| Variable Name                | Description      | Default                   |
+| ---------------------------- | ---------------- | ------------------------- |
+| `--yh-focus-ring-color`      | Focus ring color | `var(--yh-color-primary)` |
+| `--yh-focus-ring-width`      | Focus ring width | `2px`                     |
+| `--yh-font-family-monospace` | Monospace font   | `SFMono-Regular...`       |
 
 ---
 

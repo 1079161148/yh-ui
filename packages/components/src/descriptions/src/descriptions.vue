@@ -18,7 +18,10 @@ const slots = useSlots()
 const ns = useNamespace('descriptions')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('descriptions', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'descriptions',
+  computed(() => props.themeOverrides)
+)
 
 provide(descriptionsKey, { props })
 
@@ -35,7 +38,12 @@ const getFlattenChildren = (nodes: VNode[]): VNode[] => {
   nodes.forEach((node) => {
     if (node.type === Fragment && Array.isArray(node.children)) {
       result.push(...getFlattenChildren(node.children as VNode[]))
-    } else if (node.type && typeof node.type === 'object' && 'name' in node.type && (node.type as { name?: string }).name === 'YhDescriptionsItem') {
+    } else if (
+      node.type &&
+      typeof node.type === 'object' &&
+      'name' in node.type &&
+      (node.type as { name?: string }).name === 'YhDescriptionsItem'
+    ) {
       result.push(node)
     }
   })
@@ -93,9 +101,18 @@ const getStyle = (itemProps: Record<string, unknown>, type: 'label' | 'content')
   Object.assign(style, (itemStyle as CSSProperties) || {})
 
   if (type === 'label') {
-    if (itemProps.width) style.width = typeof itemProps.width === 'number' ? `${itemProps.width}px` : itemProps.width as string
-    if (itemProps.minWidth) style.minWidth = typeof itemProps.minWidth === 'number' ? `${itemProps.minWidth}px` : itemProps.minWidth as string
-    style.textAlign = (itemProps.labelAlign || itemProps.align || 'left') as 'left' | 'center' | 'right'
+    if (itemProps.width)
+      style.width =
+        typeof itemProps.width === 'number' ? `${itemProps.width}px` : (itemProps.width as string)
+    if (itemProps.minWidth)
+      style.minWidth =
+        typeof itemProps.minWidth === 'number'
+          ? `${itemProps.minWidth}px`
+          : (itemProps.minWidth as string)
+    style.textAlign = (itemProps.labelAlign || itemProps.align || 'left') as
+      | 'left'
+      | 'center'
+      | 'right'
   } else {
     style.textAlign = (itemProps.align || 'left') as 'left' | 'center' | 'right'
   }
@@ -151,15 +168,19 @@ const descriptionsClasses = computed(() => [
             <!-- 横向布局 -->
             <tr v-if="direction === 'horizontal'" :class="ns.e('row')">
               <template v-for="(item, cellIndex) in row" :key="cellIndex">
-                <th :class="[ns.e('label'), ...getClassName(item.props, 'label')]"
-                  :style="getStyle(item.props, 'label')">
+                <th
+                  :class="[ns.e('label'), ...getClassName(item.props, 'label')]"
+                  :style="getStyle(item.props, 'label')"
+                >
                   <component :is="item.slots.label" v-if="item.slots.label" />
                   <template v-else>{{ item.props.label }}</template>
                   <span v-if="colon && !border && (item.props.label || item.slots.label)">:</span>
                 </th>
-                <td :class="[ns.e('content'), ...getClassName(item.props, 'content')]"
+                <td
+                  :class="[ns.e('content'), ...getClassName(item.props, 'content')]"
                   :style="getStyle(item.props, 'content')"
-                  :colspan="item.actualSpan * 2 - 1 > 1 ? item.actualSpan * 2 - 1 : undefined">
+                  :colspan="item.actualSpan * 2 - 1 > 1 ? item.actualSpan * 2 - 1 : undefined"
+                >
                   <component :is="item.slots.default" v-if="item.slots.default" />
                 </td>
               </template>
@@ -167,17 +188,25 @@ const descriptionsClasses = computed(() => [
             <!-- 垂直布局 -->
             <template v-else>
               <tr :class="ns.e('row')">
-                <th v-for="(item, cellIndex) in row" :key="cellIndex"
-                  :class="[ns.e('label'), ...getClassName(item.props, 'label')]" :style="getStyle(item.props, 'label')"
-                  :colspan="item.actualSpan">
+                <th
+                  v-for="(item, cellIndex) in row"
+                  :key="cellIndex"
+                  :class="[ns.e('label'), ...getClassName(item.props, 'label')]"
+                  :style="getStyle(item.props, 'label')"
+                  :colspan="item.actualSpan"
+                >
                   <component :is="item.slots.label" v-if="item.slots.label" />
                   <template v-else>{{ item.props.label }}</template>
                 </th>
               </tr>
               <tr :class="ns.e('row')">
-                <td v-for="(item, cellIndex) in row" :key="cellIndex"
+                <td
+                  v-for="(item, cellIndex) in row"
+                  :key="cellIndex"
                   :class="[ns.e('content'), ...getClassName(item.props, 'content')]"
-                  :style="getStyle(item.props, 'content')" :colspan="item.actualSpan">
+                  :style="getStyle(item.props, 'content')"
+                  :colspan="item.actualSpan"
+                >
                   <component :is="item.slots.default" v-if="item.slots.default" />
                 </td>
               </tr>

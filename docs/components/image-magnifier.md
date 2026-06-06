@@ -403,13 +403,13 @@ interface ImageMagnifierImage {
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhImageMagnifierProps` | 组件 Props 类型 |
-| `YhImageMagnifierEmits` | 组件事件类型 |
-| `YhImageMagnifierSlots` | 组件插槽类型 |
-| `YhImageMagnifierExpose` | 组件 Expose 类型 |
-| `YhImageMagnifierImage` | 图片数据类型 |
-| `YhImageMagnifierPosition` | 预览位置联合类型 |
+| 名称                        | 说明             |
+| --------------------------- | ---------------- |
+| `YhImageMagnifierProps`     | 组件 Props 类型  |
+| `YhImageMagnifierEmits`     | 组件事件类型     |
+| `YhImageMagnifierSlots`     | 组件插槽类型     |
+| `YhImageMagnifierExpose`    | 组件 Expose 类型 |
+| `YhImageMagnifierImage`     | 图片数据类型     |
+| `YhImageMagnifierPosition`  | 预览位置联合类型 |
 | `YhImageMagnifierMaskShape` | 遮罩形状联合类型 |
-| `YhImageMagnifierInstance` | 组件实例类型 |
+| `YhImageMagnifierInstance`  | 组件实例类型     |

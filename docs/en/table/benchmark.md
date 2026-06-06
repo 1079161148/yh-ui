@@ -283,19 +283,21 @@ Adjust parameters and click **Run Benchmark** to measure rendering performance m
 </template>
 
 <yh-table
-  :data="benchData"
-  :columns="benchColumns"
-  :virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
-  height="460px"
-  border
-  stripe
-  row-key="id"
-  ref="tableRef"
->
-  <template #empty>
+:data="benchData"
+:columns="benchColumns"
+:virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
+height="460px"
+border
+stripe
+row-key="id"
+ref="tableRef"
+
+> <template #empty>
+
     <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
       Click "Run Benchmark" to load data
     </div>
+
   </template>
 </yh-table>
 
@@ -303,12 +305,12 @@ Adjust parameters and click **Run Benchmark** to measure rendering performance m
 
 ## Metric Reference
 
-| Metric | Description | Target |
-|--------|-------------|--------|
-| **Initial Render** | Time from data load to first paint | ≤ 200ms is Excellent |
-| **Scroll Avg** | Average time per scroll event to next frame | ≤ 10ms is Excellent |
-| **FPS** | Frames per second during benchmark | ≥ 55fps is Excellent |
-| **Visible DOM Rows** | Number of `<tr>` elements actually in DOM (proves virtual rendering) | ~viewport rows |
+| Metric               | Description                                                          | Target               |
+| -------------------- | -------------------------------------------------------------------- | -------------------- |
+| **Initial Render**   | Time from data load to first paint                                   | ≤ 200ms is Excellent |
+| **Scroll Avg**       | Average time per scroll event to next frame                          | ≤ 10ms is Excellent  |
+| **FPS**              | Frames per second during benchmark                                   | ≥ 55fps is Excellent |
+| **Visible DOM Rows** | Number of `<tr>` elements actually in DOM (proves virtual rendering) | ~viewport rows       |
 
 ## Optimization Tips
 

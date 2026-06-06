@@ -11,8 +11,8 @@ describe('types buildPath', () => {
   })
 
   it('replaces multiple segments', () => {
-    expect(
-      buildPath('/users/:userId/posts/:postId', { userId: '1', postId: '2' })
-    ).toBe('/users/1/posts/2')
+    expect(buildPath('/users/:userId/posts/:postId', { userId: '1', postId: '2' })).toBe(
+      '/users/1/posts/2'
+    )
   })
 })

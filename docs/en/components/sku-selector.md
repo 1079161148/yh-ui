@@ -342,19 +342,19 @@ export default defineNuxtConfig({
 
 ### Props
 
-| Prop                  | Description                            | Type                              | Default              |
-| --------------------- | -------------------------------------- | --------------------------------- | -------------------- |
-| model-value / v-model | Currently selected spec value IDs      | `Array<string \| number>`         | `[]`                 |
-| specs                 | Spec group list                        | `SkuSpec[]`                       | `[]`                 |
-| skus                  | SKU combination list                   | `SkuItem[]`                       | `[]`                 |
-| check-stock           | Auto-disable items with zero inventory | `boolean`                         | `true`               |
-| disabled              | Globally disable the selector          | `boolean`                         | `false`              |
-| allow-unselect        | Allow clicking active item to deselect | `boolean`                         | `true`               |
-| size                  | Spec button size                       | `'small' \| 'default' \| 'large'` | `'default'`          |
-| image-size            | Image size in px (image mode)          | `number`                          | `80`                 |
-| show-selected-summary | Display selected spec summary at top   | `boolean`                         | `false`              |
-| summary-prefix        | Prefix text for summary label          | `string`                          | `''`                 |
-| theme-overrides       | CSS variable overrides                 | `Record<string, string>`          | `{}`                 |
+| Prop                  | Description                            | Type                              | Default     |
+| --------------------- | -------------------------------------- | --------------------------------- | ----------- |
+| model-value / v-model | Currently selected spec value IDs      | `Array<string \| number>`         | `[]`        |
+| specs                 | Spec group list                        | `SkuSpec[]`                       | `[]`        |
+| skus                  | SKU combination list                   | `SkuItem[]`                       | `[]`        |
+| check-stock           | Auto-disable items with zero inventory | `boolean`                         | `true`      |
+| disabled              | Globally disable the selector          | `boolean`                         | `false`     |
+| allow-unselect        | Allow clicking active item to deselect | `boolean`                         | `true`      |
+| size                  | Spec button size                       | `'small' \| 'default' \| 'large'` | `'default'` |
+| image-size            | Image size in px (image mode)          | `number`                          | `80`        |
+| show-selected-summary | Display selected spec summary at top   | `boolean`                         | `false`     |
+| summary-prefix        | Prefix text for summary label          | `string`                          | `''`        |
+| theme-overrides       | CSS variable overrides                 | `Record<string, string>`          | `{}`        |
 
 ### Events
 
@@ -442,12 +442,12 @@ Override the following CSS variables using `theme-overrides`:
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSkuSelectorProps` | Component props type |
-| `YhSkuSelectorEmits` | Component emits type |
-| `YhSkuSelectorSlots` | Component slots type |
-| `YhSkuSpec` | Spec group type |
-| `YhSkuSpecValue` | Spec value type |
-| `YhSkuItem` | SKU data type |
+| Name                    | Description             |
+| ----------------------- | ----------------------- |
+| `YhSkuSelectorProps`    | Component props type    |
+| `YhSkuSelectorEmits`    | Component emits type    |
+| `YhSkuSelectorSlots`    | Component slots type    |
+| `YhSkuSpec`             | Spec group type         |
+| `YhSkuSpecValue`        | Spec value type         |
+| `YhSkuItem`             | SKU data type           |
 | `YhSkuSelectorInstance` | Component instance type |

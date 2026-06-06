@@ -22,7 +22,10 @@ const props = withDefaults(defineProps<TypographyTextProps>(), {
 })
 
 const ns = useNamespace('typography')
-const { themeStyle } = useComponentTheme('typography', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'typography',
+  computed(() => props.themeOverrides)
+)
 
 const textClasses = computed(() => [
   ns.e('text'),

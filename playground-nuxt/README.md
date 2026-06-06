@@ -24,7 +24,7 @@ pnpm generate
 ## 测试内容
 
 - ✅ 组件自动导入
-- ✅ Composables 自动导入  
+- ✅ Composables 自动导入
 - ✅ 样式自动注入
 - ✅ SSR 渲染
 - ✅ Hydration 一致性

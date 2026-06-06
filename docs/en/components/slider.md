@@ -287,84 +287,84 @@ Use the `thumb` slot to customize the handle. The component also supports a `mar
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Bound value | `number \| [number, number]` | `0` |
-| min | Minimum value | `number` | `0` |
-| max | Maximum value | `number` | `100` |
-| step | Step size | `number` | `1` |
-| show-input | Whether to show an input box in non-range mode | `boolean` | `false` |
-| show-input-controls | Whether the input box shows control buttons | `boolean` | `true` |
-| size | Slider size | `'' \| 'large' \| 'default' \| 'small'` | `''` |
-| input-size | Input box size | `'' \| 'large' \| 'default' \| 'small'` | `''` |
-| show-stops | Whether discrete stops are shown | `boolean` | `false` |
-| show-tooltip | Whether the tooltip is shown while interacting | `boolean` | `true` |
-| format-tooltip | Tooltip formatter | `(val: number) => string \| number` | `undefined` |
-| disabled | Whether the slider is disabled | `boolean` | `false` |
-| range | Whether range selection is enabled | `boolean` | `false` |
-| vertical | Whether vertical mode is enabled | `boolean` | `false` |
-| height | Height used in vertical mode | `string` | `''` |
-| label | Screen reader label | `string` | `undefined` |
-| debounce | Debounce delay for input changes in milliseconds | `number` | `300` |
-| tooltip-class | Custom tooltip class name | `string` | `undefined` |
-| placement | Tooltip placement | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'` |
-| marks | Mark definitions keyed by numeric values within `[min, max]` | `Record<number, string \| { style?: CSSProperties; label: string }>` | `undefined` |
-| validate-event | Whether form validation is triggered when the value changes | `boolean` | `true` |
-| range-start-label | Custom aria-label for the start handle in range mode | `string` | `undefined` |
-| range-end-label | Custom aria-label for the end handle in range mode | `string` | `undefined` |
-| button-class | Custom class name applied to slider buttons | `string` | `undefined` |
-| color | Custom main color for the active track and handles | `string` | `undefined` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                  | Description                                                  | Type                                                                                                                                                                 | Default     |
+| --------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| model-value / v-model | Bound value                                                  | `number \| [number, number]`                                                                                                                                         | `0`         |
+| min                   | Minimum value                                                | `number`                                                                                                                                                             | `0`         |
+| max                   | Maximum value                                                | `number`                                                                                                                                                             | `100`       |
+| step                  | Step size                                                    | `number`                                                                                                                                                             | `1`         |
+| show-input            | Whether to show an input box in non-range mode               | `boolean`                                                                                                                                                            | `false`     |
+| show-input-controls   | Whether the input box shows control buttons                  | `boolean`                                                                                                                                                            | `true`      |
+| size                  | Slider size                                                  | `'' \| 'large' \| 'default' \| 'small'`                                                                                                                              | `''`        |
+| input-size            | Input box size                                               | `'' \| 'large' \| 'default' \| 'small'`                                                                                                                              | `''`        |
+| show-stops            | Whether discrete stops are shown                             | `boolean`                                                                                                                                                            | `false`     |
+| show-tooltip          | Whether the tooltip is shown while interacting               | `boolean`                                                                                                                                                            | `true`      |
+| format-tooltip        | Tooltip formatter                                            | `(val: number) => string \| number`                                                                                                                                  | `undefined` |
+| disabled              | Whether the slider is disabled                               | `boolean`                                                                                                                                                            | `false`     |
+| range                 | Whether range selection is enabled                           | `boolean`                                                                                                                                                            | `false`     |
+| vertical              | Whether vertical mode is enabled                             | `boolean`                                                                                                                                                            | `false`     |
+| height                | Height used in vertical mode                                 | `string`                                                                                                                                                             | `''`        |
+| label                 | Screen reader label                                          | `string`                                                                                                                                                             | `undefined` |
+| debounce              | Debounce delay for input changes in milliseconds             | `number`                                                                                                                                                             | `300`       |
+| tooltip-class         | Custom tooltip class name                                    | `string`                                                                                                                                                             | `undefined` |
+| placement             | Tooltip placement                                            | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'`     |
+| marks                 | Mark definitions keyed by numeric values within `[min, max]` | `Record<number, string \| { style?: CSSProperties; label: string }>`                                                                                                 | `undefined` |
+| validate-event        | Whether form validation is triggered when the value changes  | `boolean`                                                                                                                                                            | `true`      |
+| range-start-label     | Custom aria-label for the start handle in range mode         | `string`                                                                                                                                                             | `undefined` |
+| range-end-label       | Custom aria-label for the end handle in range mode           | `string`                                                                                                                                                             | `undefined` |
+| button-class          | Custom class name applied to slider buttons                  | `string`                                                                                                                                                             | `undefined` |
+| color                 | Custom main color for the active track and handles           | `string`                                                                                                                                                             | `undefined` |
+| theme-overrides       | Component-level theme overrides                              | `ComponentThemeVars`                                                                                                                                                 | `undefined` |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered when the bound value changes | `(val: number \| [number, number]) => void` |
-| change | Triggered when the final value is committed | `(val: number \| [number, number]) => void` |
-| input | Triggered continuously while the value changes | `(val: number \| [number, number]) => void` |
+| Name              | Description                                    | Parameters                                  |
+| ----------------- | ---------------------------------------------- | ------------------------------------------- |
+| update:modelValue | Triggered when the bound value changes         | `(val: number \| [number, number]) => void` |
+| change            | Triggered when the final value is committed    | `(val: number \| [number, number]) => void` |
+| input             | Triggered continuously while the value changes | `(val: number \| [number, number]) => void` |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| thumb | Custom slider thumb | `{ value: number }` |
-| mark | Custom mark content | `{ mark: string }` |
-| default | Reserved bottom slot content | `-` |
+| Name    | Description                  | Parameters          |
+| ------- | ---------------------------- | ------------------- |
+| thumb   | Custom slider thumb          | `{ value: number }` |
+| mark    | Custom mark content          | `{ mark: string }`  |
+| default | Reserved bottom slot content | `-`                 |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| sliderRef | Root slider element ref | `Ref<HTMLElement \| undefined>` |
-| firstValue | Current primary handle value | `Ref<number>` |
-| secondValue | Current secondary handle value in range mode | `Ref<number>` |
+| Name        | Description                                  | Type                            |
+| ----------- | -------------------------------------------- | ------------------------------- |
+| sliderRef   | Root slider element ref                      | `Ref<HTMLElement \| undefined>` |
+| firstValue  | Current primary handle value                 | `Ref<number>`                   |
+| secondValue | Current secondary handle value in range mode | `Ref<number>`                   |
 
 ## Theme Variables
 
 `YhSlider` supports `themeOverrides`. The component stylesheet directly consumes the following slider-specific CSS variables, and the `color` prop also writes the main active color variables at runtime.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-slider-main-color` | Main active color | `var(--yh-color-primary)` |
-| `--yh-slider-main-color-rgb` | RGB value of the main active color | `64, 158, 255` |
-| `--yh-slider-secondary-color` | Secondary active color for gradients and range bars | `var(--yh-color-primary)` |
-| `--yh-slider-bg-color` | Runway background color | `var(--yh-border-color-light)` |
-| `--yh-slider-hover-bg-color` | Runway hover background color | `var(--yh-border-color-dark)` |
-| `--yh-slider-button-size` | Thumb size | `16px` |
-| `--yh-slider-button-border` | Thumb border width | `2px` |
-| `--yh-slider-runway-height` | Runway thickness | `6px` |
-| `--yh-slider-transition` | Transition token | `var(--yh-transition-base)` |
-| `--yh-slider-height` | Component height | `32px` |
+| Variable                      | Description                                         | Default                        |
+| ----------------------------- | --------------------------------------------------- | ------------------------------ |
+| `--yh-slider-main-color`      | Main active color                                   | `var(--yh-color-primary)`      |
+| `--yh-slider-main-color-rgb`  | RGB value of the main active color                  | `64, 158, 255`                 |
+| `--yh-slider-secondary-color` | Secondary active color for gradients and range bars | `var(--yh-color-primary)`      |
+| `--yh-slider-bg-color`        | Runway background color                             | `var(--yh-border-color-light)` |
+| `--yh-slider-hover-bg-color`  | Runway hover background color                       | `var(--yh-border-color-dark)`  |
+| `--yh-slider-button-size`     | Thumb size                                          | `16px`                         |
+| `--yh-slider-button-border`   | Thumb border width                                  | `2px`                          |
+| `--yh-slider-runway-height`   | Runway thickness                                    | `6px`                          |
+| `--yh-slider-transition`      | Transition token                                    | `var(--yh-transition-base)`    |
+| `--yh-slider-height`          | Component height                                    | `32px`                         |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSliderProps` | Component props type |
-| `YhSliderEmits` | Component emits type |
-| `YhSliderSlots` | Component slots type |
-| `YhSliderExpose` | Component expose type |
+| Name               | Description             |
+| ------------------ | ----------------------- |
+| `YhSliderProps`    | Component props type    |
+| `YhSliderEmits`    | Component emits type    |
+| `YhSliderSlots`    | Component slots type    |
+| `YhSliderExpose`   | Component expose type   |
 | `YhSliderInstance` | Component instance type |
 
 <style scoped>

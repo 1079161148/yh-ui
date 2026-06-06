@@ -84,7 +84,10 @@ describe('flow/plugins/plugin - withHooks', () => {
       const pm = new PluginManager()
       const flow = createMockFlowInstance()
       const install = vi.fn()
-      pm.register({ id: 'fallback', name: 'Fallback', install }, flow as unknown as Record<string, unknown>)
+      pm.register(
+        { id: 'fallback', name: 'Fallback', install },
+        flow as unknown as Record<string, unknown>
+      )
       expect(install).toHaveBeenCalledWith(flow, flow)
     })
 
@@ -250,7 +253,11 @@ describe('flow/plugins/plugin - withHooks', () => {
       )
       const flow = createMockFlowInstance()
       plugin.install(flow, { customOption: true })
-      expect(installFn).toHaveBeenCalledWith(flow, { id: 'opts-pass', name: 'OptsPass', version: '2.0.0' })
+      expect(installFn).toHaveBeenCalledWith(flow, {
+        id: 'opts-pass',
+        name: 'OptsPass',
+        version: '2.0.0'
+      })
     })
   })
 

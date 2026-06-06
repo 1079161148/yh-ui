@@ -513,67 +513,67 @@ If you use the `@yh-ui/nuxt` module, `YhMarquee` will be automatically loaded on
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| direction | Scroll direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| duration | Duration for one scrolling cycle (seconds) | `number` | `20` |
-| reverse | Whether to scroll in reverse | `boolean` | `false` |
-| pause-on-hover | Whether to pause on hover | `boolean` | `true` |
-| pause-on-click | Whether to pause on click | `boolean` | `false` |
-| gap | Gap between content items | `number \| string` | `0` |
-| gradient | Whether to enable edge gradient fade | `boolean` | `false` |
-| gradient-color | Gradient fade color | `string` | `'#ffffff'` |
-| gradient-width | Width of the gradient fade | `number \| string` | `'40px'` |
-| auto-fill | Whether to auto-fill when content is insufficient | `boolean` | `true` |
-| play | Whether to play animation | `boolean` | `true` |
-| loop | Loop count (0 for infinite) | `number` | `0` |
-| speed | Scrolling speed (px/s), will override `duration` if set | `number` | `0` |
-| delay | Delay before starting animation (seconds) | `number` | `0` |
-| loop-delay | Pause duration after each cycle ends (seconds) | `number` | `0` |
-| pause-on-hidden | Whether to auto-pause when component leaves viewport | `boolean` | `true` |
+| Prop            | Description                                             | Type                         | Default        |
+| --------------- | ------------------------------------------------------- | ---------------------------- | -------------- |
+| direction       | Scroll direction                                        | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| duration        | Duration for one scrolling cycle (seconds)              | `number`                     | `20`           |
+| reverse         | Whether to scroll in reverse                            | `boolean`                    | `false`        |
+| pause-on-hover  | Whether to pause on hover                               | `boolean`                    | `true`         |
+| pause-on-click  | Whether to pause on click                               | `boolean`                    | `false`        |
+| gap             | Gap between content items                               | `number \| string`           | `0`            |
+| gradient        | Whether to enable edge gradient fade                    | `boolean`                    | `false`        |
+| gradient-color  | Gradient fade color                                     | `string`                     | `'#ffffff'`    |
+| gradient-width  | Width of the gradient fade                              | `number \| string`           | `'40px'`       |
+| auto-fill       | Whether to auto-fill when content is insufficient       | `boolean`                    | `true`         |
+| play            | Whether to play animation                               | `boolean`                    | `true`         |
+| loop            | Loop count (0 for infinite)                             | `number`                     | `0`            |
+| speed           | Scrolling speed (px/s), will override `duration` if set | `number`                     | `0`            |
+| delay           | Delay before starting animation (seconds)               | `number`                     | `0`            |
+| loop-delay      | Pause duration after each cycle ends (seconds)          | `number`                     | `0`            |
+| pause-on-hidden | Whether to auto-pause when component leaves viewport    | `boolean`                    | `true`         |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| cycle-complete | Triggered when a cycle completes | - |
+| Event Name     | Description                      | Callback Parameters |
+| -------------- | -------------------------------- | ------------------- |
+| cycle-complete | Triggered when a cycle completes | -                   |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Content to be scrolled |
+| Slot Name | Description            |
+| --------- | ---------------------- |
+| default   | Content to be scrolled |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name            | Description                                                                    | Type                  |
+| --------------- | ------------------------------------------------------------------------------ | --------------------- |
 | calculateClones | Manually trigger clone count calculation (useful after dynamic content resize) | `() => Promise<void>` |
-| containerRef | DOM ref to the outer container | `HTMLElement \| null` |
-| contentRef | DOM ref to the content container | `HTMLElement \| null` |
+| containerRef    | DOM ref to the outer container                                                 | `HTMLElement \| null` |
+| contentRef      | DOM ref to the content container                                               | `HTMLElement \| null` |
 
 ## Theme Variables
 
 All color variables are integrated with the global theme system and support dark mode:
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `--yh-marquee-gap` | `0px` | Gap between content items |
-| `--yh-marquee-duration` | `20s` | Animation duration |
-| `--yh-marquee-iteration-count` | `infinite` | Animation iteration count |
-| `--yh-marquee-direction` | `normal` | Animation playback direction |
-| `--yh-marquee-play-state` | `running` | Animation play state |
-| `--yh-marquee-gradient-color` | `var(--yh-bg-color)` | Edge gradient color (follows theme background) |
-| `--yh-marquee-gradient-width` | `40px` | Edge gradient width |
-| `--yh-marquee-clone-count` | `1` | Internally calculated clone multiplier (readonly) |
+| Variable                       | Default              | Description                                       |
+| ------------------------------ | -------------------- | ------------------------------------------------- |
+| `--yh-marquee-gap`             | `0px`                | Gap between content items                         |
+| `--yh-marquee-duration`        | `20s`                | Animation duration                                |
+| `--yh-marquee-iteration-count` | `infinite`           | Animation iteration count                         |
+| `--yh-marquee-direction`       | `normal`             | Animation playback direction                      |
+| `--yh-marquee-play-state`      | `running`            | Animation play state                              |
+| `--yh-marquee-gradient-color`  | `var(--yh-bg-color)` | Edge gradient color (follows theme background)    |
+| `--yh-marquee-gradient-width`  | `40px`               | Edge gradient width                               |
+| `--yh-marquee-clone-count`     | `1`                  | Internally calculated clone multiplier (readonly) |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhMarqueeProps` | Component props type |
-| `YhMarqueeEmits` | Component emits type |
-| `YhMarqueeSlots` | Component slots type |
-| `YhMarqueeExpose` | Component expose type |
-| `YhMarqueeDirection` | Direction union type |
-| `YhMarqueeInstance` | Component instance type |
+| Name                 | Description             |
+| -------------------- | ----------------------- |
+| `YhMarqueeProps`     | Component props type    |
+| `YhMarqueeEmits`     | Component emits type    |
+| `YhMarqueeSlots`     | Component slots type    |
+| `YhMarqueeExpose`    | Component expose type   |
+| `YhMarqueeDirection` | Direction union type    |
+| `YhMarqueeInstance`  | Component instance type |

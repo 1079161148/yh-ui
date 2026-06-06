@@ -561,36 +561,36 @@ Set `drag-config` with `row: true` and `column: true` to enable both row and col
 
 Passed through the `drag-config` property.
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| column | Whether columns can be dragged | `boolean` | `false` |
-| row | Whether rows can be dragged (can be enabled simultaneously) | `boolean` | `false` |
-| animation | Animation duration (milliseconds) | `number` | `150` |
-| onDragStart | Drag start callback | `({ type, data, index }) => void` | — |
-| onDragEnd | Drag end callback | `({ type, oldIndex, newIndex, data }) => void` | — |
-| dragClass | Style class during drag | `string` | — |
-| ghostClass | Ghost element style class | `string` | — |
+| Property    | Description                                                 | Type                                           | Default |
+| ----------- | ----------------------------------------------------------- | ---------------------------------------------- | ------- |
+| column      | Whether columns can be dragged                              | `boolean`                                      | `false` |
+| row         | Whether rows can be dragged (can be enabled simultaneously) | `boolean`                                      | `false` |
+| animation   | Animation duration (milliseconds)                           | `number`                                       | `150`   |
+| onDragStart | Drag start callback                                         | `({ type, data, index }) => void`              | —       |
+| onDragEnd   | Drag end callback                                           | `({ type, oldIndex, newIndex, data }) => void` | —       |
+| dragClass   | Style class during drag                                     | `string`                                       | —       |
+| ghostClass  | Ghost element style class                                   | `string`                                       | —       |
 
 ### TableColumn Props (Column Drag Related)
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| draggable | Whether this column can be drag-sorted | `boolean` | — |
-| visible | Whether column is visible | `boolean` | `true` |
+| Property  | Description                            | Type      | Default |
+| --------- | -------------------------------------- | --------- | ------- |
+| draggable | Whether this column can be drag-sorted | `boolean` | —       |
+| visible   | Whether column is visible              | `boolean` | `true`  |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event    | Description              | Parameters                                                                         |
+| -------- | ------------------------ | ---------------------------------------------------------------------------------- |
 | drag-end | Triggered when drag ends | `{ type: 'row' \| 'column', oldIndex: number, newIndex: number, data: unknown[] }` |
 
 ### Methods (via ref)
 
-| Method | Description | Parameters |
-| --- | --- | --- |
-| getColumns | Get current column info | — |
-| setColumnVisible | Set column visibility | `(prop: string, visible: boolean)` |
-| resetColumns | Reset all columns to visible | — |
+| Method           | Description                  | Parameters                         |
+| ---------------- | ---------------------------- | ---------------------------------- |
+| getColumns       | Get current column info      | —                                  |
+| setColumnVisible | Set column visibility        | `(prop: string, visible: boolean)` |
+| resetColumns     | Reset all columns to visible | —                                  |
 
 ### Notes
 

@@ -511,126 +511,126 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `string \| number \| (string \| number)[] \| (string \| number)[][]` | `undefined` |
-| options | 选项数据 | `CascaderOption[]` | `undefined` |
-| placeholder | 占位文本 | `string` | `undefined` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| clearable | 是否可清空 | `boolean` | `false` |
-| size | 组件尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
-| filterable | 是否支持搜索 | `boolean` | `false` |
-| filter-method | 自定义过滤方法 | `(node: CascaderOption, keyword: string) => boolean` | `undefined` |
-| separator | 路径分隔符 | `string` | `' / '` |
-| show-all-levels | 是否展示完整路径标签 | `boolean` | `true` |
-| collapse-tags | 多选时是否折叠标签 | `boolean` | `false` |
-| collapse-tags-tooltip | 折叠标签时是否显示提示 | `boolean` | `false` |
-| max-collapse-tags | 折叠前最多显示的标签数 | `number` | `1` |
-| multiple | 是否多选 | `boolean` | `false` |
-| check-strictly | 是否允许选择任意层级 | `boolean` | `false` |
-| expand-trigger | 展开触发方式 | `'click' \| 'hover'` | `undefined` |
-| emit-path | 是否返回完整路径 | `boolean` | `true` |
-| virtual | 是否启用虚拟滚动 | `boolean` | `false` |
-| virtual-item-height | 虚拟滚动项高度 | `number` | `34` |
-| props | 自定义字段配置 | `Partial<CascaderConfig>` | `undefined` |
-| popper-class | 下拉层自定义类名 | `string` | `undefined` |
-| teleported | 是否将下拉层传送到 `body` | `boolean` | `true` |
-| tag-type | 多选标签类型 | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
-| validate-event | 是否触发表单校验 | `boolean` | `true` |
-| theme-overrides | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性名                | 说明                      | 类型                                                                 | 默认值      |
+| --------------------- | ------------------------- | -------------------------------------------------------------------- | ----------- |
+| model-value / v-model | 绑定值                    | `string \| number \| (string \| number)[] \| (string \| number)[][]` | `undefined` |
+| options               | 选项数据                  | `CascaderOption[]`                                                   | `undefined` |
+| placeholder           | 占位文本                  | `string`                                                             | `undefined` |
+| disabled              | 是否禁用                  | `boolean`                                                            | `false`     |
+| clearable             | 是否可清空                | `boolean`                                                            | `false`     |
+| size                  | 组件尺寸                  | `'large' \| 'default' \| 'small'`                                    | `undefined` |
+| filterable            | 是否支持搜索              | `boolean`                                                            | `false`     |
+| filter-method         | 自定义过滤方法            | `(node: CascaderOption, keyword: string) => boolean`                 | `undefined` |
+| separator             | 路径分隔符                | `string`                                                             | `' / '`     |
+| show-all-levels       | 是否展示完整路径标签      | `boolean`                                                            | `true`      |
+| collapse-tags         | 多选时是否折叠标签        | `boolean`                                                            | `false`     |
+| collapse-tags-tooltip | 折叠标签时是否显示提示    | `boolean`                                                            | `false`     |
+| max-collapse-tags     | 折叠前最多显示的标签数    | `number`                                                             | `1`         |
+| multiple              | 是否多选                  | `boolean`                                                            | `false`     |
+| check-strictly        | 是否允许选择任意层级      | `boolean`                                                            | `false`     |
+| expand-trigger        | 展开触发方式              | `'click' \| 'hover'`                                                 | `undefined` |
+| emit-path             | 是否返回完整路径          | `boolean`                                                            | `true`      |
+| virtual               | 是否启用虚拟滚动          | `boolean`                                                            | `false`     |
+| virtual-item-height   | 虚拟滚动项高度            | `number`                                                             | `34`        |
+| props                 | 自定义字段配置            | `Partial<CascaderConfig>`                                            | `undefined` |
+| popper-class          | 下拉层自定义类名          | `string`                                                             | `undefined` |
+| teleported            | 是否将下拉层传送到 `body` | `boolean`                                                            | `true`      |
+| tag-type              | 多选标签类型              | `'success' \| 'info' \| 'warning' \| 'danger' \| ''`                 | `''`        |
+| validate-event        | 是否触发表单校验          | `boolean`                                                            | `true`      |
+| theme-overrides       | 组件主题覆盖变量          | `ComponentThemeVars`                                                 | `undefined` |
 
 ### CascaderOption
 
-| 字段 | 说明 | 类型 |
-| --- | --- | --- |
-| value | 节点值 | `string \| number` |
-| label | 节点文本 | `string` |
-| children | 子节点数组 | `CascaderOption[] \| undefined` |
-| disabled | 是否禁用 | `boolean \| undefined` |
-| leaf | 是否叶子节点 | `boolean \| undefined` |
+| 字段     | 说明         | 类型                            |
+| -------- | ------------ | ------------------------------- |
+| value    | 节点值       | `string \| number`              |
+| label    | 节点文本     | `string`                        |
+| children | 子节点数组   | `CascaderOption[] \| undefined` |
+| disabled | 是否禁用     | `boolean \| undefined`          |
+| leaf     | 是否叶子节点 | `boolean \| undefined`          |
 
 ### CascaderConfig
 
-| 字段 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| expandTrigger | 展开触发方式 | `'click' \| 'hover'` | `'click'` |
-| multiple | 是否多选 | `boolean` | `false` |
-| checkStrictly | 是否允许任意层级选择 | `boolean` | `false` |
-| emitPath | 是否返回完整路径 | `boolean` | `true` |
-| lazy | 是否启用懒加载 | `boolean` | `false` |
-| lazyLoad | 懒加载函数 | `(node: CascaderOption, resolve: (children: CascaderOption[]) => void) => void` | `undefined` |
-| value | 值字段名 | `string` | `'value'` |
-| label | 标签字段名 | `string` | `'label'` |
-| children | 子节点字段名 | `string` | `'children'` |
-| disabled | 禁用字段名 | `string` | `'disabled'` |
-| leaf | 叶子节点字段名 | `string` | `'leaf'` |
+| 字段          | 说明                 | 类型                                                                            | 默认值       |
+| ------------- | -------------------- | ------------------------------------------------------------------------------- | ------------ |
+| expandTrigger | 展开触发方式         | `'click' \| 'hover'`                                                            | `'click'`    |
+| multiple      | 是否多选             | `boolean`                                                                       | `false`      |
+| checkStrictly | 是否允许任意层级选择 | `boolean`                                                                       | `false`      |
+| emitPath      | 是否返回完整路径     | `boolean`                                                                       | `true`       |
+| lazy          | 是否启用懒加载       | `boolean`                                                                       | `false`      |
+| lazyLoad      | 懒加载函数           | `(node: CascaderOption, resolve: (children: CascaderOption[]) => void) => void` | `undefined`  |
+| value         | 值字段名             | `string`                                                                        | `'value'`    |
+| label         | 标签字段名           | `string`                                                                        | `'label'`    |
+| children      | 子节点字段名         | `string`                                                                        | `'children'` |
+| disabled      | 禁用字段名           | `string`                                                                        | `'disabled'` |
+| leaf          | 叶子节点字段名       | `string`                                                                        | `'leaf'`     |
 
 ### Events
 
-| 事件名 | 说明 | 参数 |
-| --- | --- | --- |
-| update:modelValue | 绑定值变化时触发 | `(value: CascaderValue \| undefined) => void` |
-| change | 选中值变化时触发 | `(value: CascaderValue \| undefined) => void` |
-| focus | 输入框获取焦点时触发 | `(event: FocusEvent) => void` |
-| blur | 输入框失去焦点时触发 | `(event: FocusEvent) => void` |
-| clear | 点击清空按钮时触发 | `() => void` |
-| expand-change | 展开路径变化时触发 | `(value: (string \| number)[]) => void` |
-| visible-change | 下拉层显隐变化时触发 | `(visible: boolean) => void` |
+| 事件名            | 说明                 | 参数                                          |
+| ----------------- | -------------------- | --------------------------------------------- |
+| update:modelValue | 绑定值变化时触发     | `(value: CascaderValue \| undefined) => void` |
+| change            | 选中值变化时触发     | `(value: CascaderValue \| undefined) => void` |
+| focus             | 输入框获取焦点时触发 | `(event: FocusEvent) => void`                 |
+| blur              | 输入框失去焦点时触发 | `(event: FocusEvent) => void`                 |
+| clear             | 点击清空按钮时触发   | `() => void`                                  |
+| expand-change     | 展开路径变化时触发   | `(value: (string \| number)[]) => void`       |
+| visible-change    | 下拉层显隐变化时触发 | `(visible: boolean) => void`                  |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 自定义节点内容 | `{ node: CascaderOption, data: CascaderOption }` |
-| empty | 无匹配数据时的内容 | - |
+| 插槽名  | 说明               | 参数                                             |
+| ------- | ------------------ | ------------------------------------------------ |
+| default | 自定义节点内容     | `{ node: CascaderOption, data: CascaderOption }` |
+| empty   | 无匹配数据时的内容 | -                                                |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 让输入框获取焦点 | `() => void` |
-| blur | 让输入框失去焦点 | `() => void` |
+| 名称            | 说明                   | 类型                                       |
+| --------------- | ---------------------- | ------------------------------------------ |
+| focus           | 让输入框获取焦点       | `() => void`                               |
+| blur            | 让输入框失去焦点       | `() => void`                               |
 | getCheckedNodes | 获取当前选中的节点对象 | `(leafOnly?: boolean) => CascaderOption[]` |
-| inputRef | 原生输入框引用 | `Ref<HTMLInputElement \| undefined>` |
+| inputRef        | 原生输入框引用         | `Ref<HTMLInputElement \| undefined>`       |
 
 ### 类型导出
 
-| 类型名 | 说明 |
-| --- | --- |
-| `YhCascaderProps` | 组件 Props 类型 |
-| `YhCascaderEmits` | 组件 Emits 类型 |
+| 类型名             | 说明             |
+| ------------------ | ---------------- |
+| `YhCascaderProps`  | 组件 Props 类型  |
+| `YhCascaderEmits`  | 组件 Emits 类型  |
 | `YhCascaderExpose` | 组件 Expose 类型 |
-| `YhCascaderOption` | 选项节点类型 |
+| `YhCascaderOption` | 选项节点类型     |
 
 ### 主题变量
 
 组件支持 `themeOverrides`，并在样式中消费以下 CSS 变量：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-cascader-height` | 默认高度 | `32px` |
-| `--yh-cascader-height-large` | 大尺寸高度 | `40px` |
-| `--yh-cascader-height-small` | 小尺寸高度 | `24px` |
-| `--yh-cascader-bg-color` | 输入区背景色 | `var(--yh-fill-color-blank, #fff)` |
-| `--yh-cascader-border-color` | 边框颜色 | `var(--yh-border-color, #dcdfe6)` |
-| `--yh-cascader-border-color-hover` | 悬停边框色 | `var(--yh-border-color-hover, #c0c4cc)` |
-| `--yh-cascader-border-color-focus` | 聚焦边框色 | `var(--yh-color-primary, #409eff)` |
-| `--yh-cascader-border-radius` | 圆角 | `var(--yh-border-radius-base, 4px)` |
-| `--yh-cascader-text-color` | 文本色 | `var(--yh-text-color-regular, #606266)` |
-| `--yh-cascader-placeholder-color` | 占位文本色 | `var(--yh-text-color-placeholder, #a8abb2)` |
-| `--yh-cascader-disabled-bg-color` | 禁用背景色 | `var(--yh-fill-color-light, #f5f7fa)` |
-| `--yh-cascader-disabled-text-color` | 禁用文本色 | `var(--yh-text-color-placeholder, #a8abb2)` |
-| `--yh-cascader-node-height` | 节点高度 | `34px` |
-| `--yh-cascader-node-bg-color-hover` | 节点悬停背景色 | `var(--yh-fill-color-light, #f5f7fa)` |
-| `--yh-cascader-node-text-color-hover` | 节点悬停文本色 | `var(--yh-text-color-regular, #606266)` |
-| `--yh-cascader-node-bg-color-active` | 节点激活背景色 | `var(--yh-fill-color-light, #f5f7fa)` |
-| `--yh-cascader-node-text-color-active` | 节点激活文本色 | `var(--yh-color-primary, #409eff)` |
-| `--yh-cascader-dropdown-bg-color` | 下拉层背景色 | `var(--yh-bg-color-overlay, #fff)` |
-| `--yh-cascader-dropdown-border-color` | 下拉层边框色 | `var(--yh-border-color-light, #e4e7ed)` |
-| `--yh-cascader-dropdown-shadow` | 下拉层阴影 | `var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1))` |
-| `--yh-cascader-menu-min-width` | 菜单最小宽度 | `180px` |
-| `--yh-cascader-menu-max-height` | 菜单最大高度 | `274px` |
-| `--yh-cascader-menu-border-color` | 菜单分隔线颜色 | `var(--yh-border-color-light, #e4e7ed)` |
+| 变量名                                 | 说明           | 默认值                                                        |
+| -------------------------------------- | -------------- | ------------------------------------------------------------- |
+| `--yh-cascader-height`                 | 默认高度       | `32px`                                                        |
+| `--yh-cascader-height-large`           | 大尺寸高度     | `40px`                                                        |
+| `--yh-cascader-height-small`           | 小尺寸高度     | `24px`                                                        |
+| `--yh-cascader-bg-color`               | 输入区背景色   | `var(--yh-fill-color-blank, #fff)`                            |
+| `--yh-cascader-border-color`           | 边框颜色       | `var(--yh-border-color, #dcdfe6)`                             |
+| `--yh-cascader-border-color-hover`     | 悬停边框色     | `var(--yh-border-color-hover, #c0c4cc)`                       |
+| `--yh-cascader-border-color-focus`     | 聚焦边框色     | `var(--yh-color-primary, #409eff)`                            |
+| `--yh-cascader-border-radius`          | 圆角           | `var(--yh-border-radius-base, 4px)`                           |
+| `--yh-cascader-text-color`             | 文本色         | `var(--yh-text-color-regular, #606266)`                       |
+| `--yh-cascader-placeholder-color`      | 占位文本色     | `var(--yh-text-color-placeholder, #a8abb2)`                   |
+| `--yh-cascader-disabled-bg-color`      | 禁用背景色     | `var(--yh-fill-color-light, #f5f7fa)`                         |
+| `--yh-cascader-disabled-text-color`    | 禁用文本色     | `var(--yh-text-color-placeholder, #a8abb2)`                   |
+| `--yh-cascader-node-height`            | 节点高度       | `34px`                                                        |
+| `--yh-cascader-node-bg-color-hover`    | 节点悬停背景色 | `var(--yh-fill-color-light, #f5f7fa)`                         |
+| `--yh-cascader-node-text-color-hover`  | 节点悬停文本色 | `var(--yh-text-color-regular, #606266)`                       |
+| `--yh-cascader-node-bg-color-active`   | 节点激活背景色 | `var(--yh-fill-color-light, #f5f7fa)`                         |
+| `--yh-cascader-node-text-color-active` | 节点激活文本色 | `var(--yh-color-primary, #409eff)`                            |
+| `--yh-cascader-dropdown-bg-color`      | 下拉层背景色   | `var(--yh-bg-color-overlay, #fff)`                            |
+| `--yh-cascader-dropdown-border-color`  | 下拉层边框色   | `var(--yh-border-color-light, #e4e7ed)`                       |
+| `--yh-cascader-dropdown-shadow`        | 下拉层阴影     | `var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1))` |
+| `--yh-cascader-menu-min-width`         | 菜单最小宽度   | `180px`                                                       |
+| `--yh-cascader-menu-max-height`        | 菜单最大高度   | `274px`                                                       |
+| `--yh-cascader-menu-border-color`      | 菜单分隔线颜色 | `var(--yh-border-color-light, #e4e7ed)`                       |
 
 <style>
 .demo-res {

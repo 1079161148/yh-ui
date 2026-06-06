@@ -211,8 +211,8 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhEmptyProps` | Props type for `YhEmpty` |
-| `YhEmptySlots` | Slots type for `YhEmpty` |
+| Name              | Description                        |
+| ----------------- | ---------------------------------- |
+| `YhEmptyProps`    | Props type for `YhEmpty`           |
+| `YhEmptySlots`    | Slots type for `YhEmpty`           |
 | `YhEmptyInstance` | Public instance type for `YhEmpty` |

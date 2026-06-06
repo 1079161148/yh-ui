@@ -662,170 +662,170 @@ Use `render-label`, `render-icon`, or `render-extra` for data-driven custom rend
 
 #### Menu
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| mode | Menu layout mode. | `YhMenuMode` | `'vertical'` |
-| default-active | Initially active menu index. | `string` | `''` |
-| default-openeds | Initially opened submenu indices. | `string[]` | `[]` |
-| unique-opened | Whether only one submenu stays expanded at a time. | `boolean` | `false` |
-| menu-trigger | Trigger used to open popup submenus. | `YhMenuTrigger` | `'hover'` |
-| collapse | Whether vertical mode uses collapsed navigation. | `boolean` | `false` |
-| collapse-transition | Whether collapse transition is enabled. | `boolean` | `true` |
-| router | Whether menu selection is driven by `vue-router`. | `boolean` | `false` |
-| background-color | Background color override. | `string` | `''` |
-| text-color | Text color override. | `string` | `''` |
-| active-text-color | Active text color override. | `string` | `''` |
-| ellipsis | Whether long labels in horizontal mode collapse into an overflow menu. | `boolean` | `true` |
-| popper-z-index | Z-index used by popup submenus. | `number` | `2000` |
-| teleported | Whether popup submenus are teleported to `body`. | `boolean` | `true` |
-| gap | Gap between menu items. | `number` | `4` |
-| ellipsis-icon | Custom overflow icon used in horizontal ellipsis mode. | `string \| Component` | `''` |
-| popper-offset | Popup submenu offset. | `number` | `6` |
-| popper-effect | Popup theme style. | `'dark' \| 'light'` | `'light'` |
-| close-on-click-outside | Whether popup menus close when clicking outside. | `boolean` | `true` |
-| popper-class | Custom class applied to popup submenus. | `string` | `''` |
-| popper-style | Custom inline style applied to popup submenus. | `StyleValue` | `''` |
-| show-timeout | Delay before a submenu opens. | `number` | `300` |
-| hide-timeout | Delay before a submenu closes. | `number` | `300` |
-| persistent | Whether popup submenu DOM stays mounted while hidden. | `boolean` | `true` |
-| icon-size | Icon size when the menu is not collapsed. | `number` | `20` |
-| indent | Indentation size added per menu level. | `number` | `32` |
-| root-indent | First-level indentation. Falls back to `indent` when not provided. | `number` | `undefined` |
-| expand-all | Whether all submenus are expanded by default. | `boolean` | `false` |
-| render-extra | Render function used to inject extra node content for each option. | `(option: YhMenuItemData) => VNodeChild` | `undefined` |
-| render-icon | Render function used to customize option icons. | `(option: YhMenuItemData) => VNodeChild` | `undefined` |
-| render-label | Render function used to customize option labels. | `(option: YhMenuItemData) => VNodeChild` | `undefined` |
-| responsive | Whether horizontal mode automatically collects overflowing items. | `boolean` | `false` |
-| value | Current selected value, used with `v-model:value`. | `string \| null` | `undefined` |
-| options | Data-driven menu configuration. | `YhMenuItemData[]` | `[]` |
-| inverted | Whether to use the built-in inverted style. | `boolean` | `false` |
-| key-field | Field name used as the key in data-driven mode. | `string` | `'key'` |
-| label-field | Field name used as the label in data-driven mode. | `string` | `'label'` |
-| theme-overrides | Component-level theme overrides for `YhMenu`. | `ComponentThemeVars` | `undefined` |
+| Prop                   | Description                                                            | Type                                     | Default      |
+| ---------------------- | ---------------------------------------------------------------------- | ---------------------------------------- | ------------ |
+| mode                   | Menu layout mode.                                                      | `YhMenuMode`                             | `'vertical'` |
+| default-active         | Initially active menu index.                                           | `string`                                 | `''`         |
+| default-openeds        | Initially opened submenu indices.                                      | `string[]`                               | `[]`         |
+| unique-opened          | Whether only one submenu stays expanded at a time.                     | `boolean`                                | `false`      |
+| menu-trigger           | Trigger used to open popup submenus.                                   | `YhMenuTrigger`                          | `'hover'`    |
+| collapse               | Whether vertical mode uses collapsed navigation.                       | `boolean`                                | `false`      |
+| collapse-transition    | Whether collapse transition is enabled.                                | `boolean`                                | `true`       |
+| router                 | Whether menu selection is driven by `vue-router`.                      | `boolean`                                | `false`      |
+| background-color       | Background color override.                                             | `string`                                 | `''`         |
+| text-color             | Text color override.                                                   | `string`                                 | `''`         |
+| active-text-color      | Active text color override.                                            | `string`                                 | `''`         |
+| ellipsis               | Whether long labels in horizontal mode collapse into an overflow menu. | `boolean`                                | `true`       |
+| popper-z-index         | Z-index used by popup submenus.                                        | `number`                                 | `2000`       |
+| teleported             | Whether popup submenus are teleported to `body`.                       | `boolean`                                | `true`       |
+| gap                    | Gap between menu items.                                                | `number`                                 | `4`          |
+| ellipsis-icon          | Custom overflow icon used in horizontal ellipsis mode.                 | `string \| Component`                    | `''`         |
+| popper-offset          | Popup submenu offset.                                                  | `number`                                 | `6`          |
+| popper-effect          | Popup theme style.                                                     | `'dark' \| 'light'`                      | `'light'`    |
+| close-on-click-outside | Whether popup menus close when clicking outside.                       | `boolean`                                | `true`       |
+| popper-class           | Custom class applied to popup submenus.                                | `string`                                 | `''`         |
+| popper-style           | Custom inline style applied to popup submenus.                         | `StyleValue`                             | `''`         |
+| show-timeout           | Delay before a submenu opens.                                          | `number`                                 | `300`        |
+| hide-timeout           | Delay before a submenu closes.                                         | `number`                                 | `300`        |
+| persistent             | Whether popup submenu DOM stays mounted while hidden.                  | `boolean`                                | `true`       |
+| icon-size              | Icon size when the menu is not collapsed.                              | `number`                                 | `20`         |
+| indent                 | Indentation size added per menu level.                                 | `number`                                 | `32`         |
+| root-indent            | First-level indentation. Falls back to `indent` when not provided.     | `number`                                 | `undefined`  |
+| expand-all             | Whether all submenus are expanded by default.                          | `boolean`                                | `false`      |
+| render-extra           | Render function used to inject extra node content for each option.     | `(option: YhMenuItemData) => VNodeChild` | `undefined`  |
+| render-icon            | Render function used to customize option icons.                        | `(option: YhMenuItemData) => VNodeChild` | `undefined`  |
+| render-label           | Render function used to customize option labels.                       | `(option: YhMenuItemData) => VNodeChild` | `undefined`  |
+| responsive             | Whether horizontal mode automatically collects overflowing items.      | `boolean`                                | `false`      |
+| value                  | Current selected value, used with `v-model:value`.                     | `string \| null`                         | `undefined`  |
+| options                | Data-driven menu configuration.                                        | `YhMenuItemData[]`                       | `[]`         |
+| inverted               | Whether to use the built-in inverted style.                            | `boolean`                                | `false`      |
+| key-field              | Field name used as the key in data-driven mode.                        | `string`                                 | `'key'`      |
+| label-field            | Field name used as the label in data-driven mode.                      | `string`                                 | `'label'`    |
+| theme-overrides        | Component-level theme overrides for `YhMenu`.                          | `ComponentThemeVars`                     | `undefined`  |
 
 #### Menu Item
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| index | Unique menu item identifier. | `string` | Required |
-| route | Route record or path used in router mode. | `string \| object` | `''` |
-| disabled | Whether the item is disabled. | `boolean` | `false` |
-| label | Display text used by data-driven rendering or fallback display. | `string` | `''` |
+| Prop     | Description                                                     | Type               | Default  |
+| -------- | --------------------------------------------------------------- | ------------------ | -------- |
+| index    | Unique menu item identifier.                                    | `string`           | Required |
+| route    | Route record or path used in router mode.                       | `string \| object` | `''`     |
+| disabled | Whether the item is disabled.                                   | `boolean`          | `false`  |
+| label    | Display text used by data-driven rendering or fallback display. | `string`           | `''`     |
 
 #### Menu Item Group
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Group title text. | `string` | `''` |
+| Prop  | Description       | Type     | Default |
+| ----- | ----------------- | -------- | ------- |
+| title | Group title text. | `string` | `''`    |
 
 #### Sub Menu
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| index | Unique submenu identifier. | `string` | Required |
-| popper-class | Custom class applied to the submenu popup. | `string` | `undefined` |
-| disabled | Whether the submenu is disabled. | `boolean` | `false` |
-| show-timeout | Delay before the submenu opens. Overrides the parent value when provided. | `number` | `undefined` |
-| hide-timeout | Delay before the submenu closes. Overrides the parent value when provided. | `number` | `undefined` |
-| popper-offset | Popup offset. Overrides the parent value when provided. | `number` | `undefined` |
-| label | Display text used by data-driven rendering or fallback display. | `string` | `''` |
+| Prop          | Description                                                                | Type      | Default     |
+| ------------- | -------------------------------------------------------------------------- | --------- | ----------- |
+| index         | Unique submenu identifier.                                                 | `string`  | Required    |
+| popper-class  | Custom class applied to the submenu popup.                                 | `string`  | `undefined` |
+| disabled      | Whether the submenu is disabled.                                           | `boolean` | `false`     |
+| show-timeout  | Delay before the submenu opens. Overrides the parent value when provided.  | `number`  | `undefined` |
+| hide-timeout  | Delay before the submenu closes. Overrides the parent value when provided. | `number`  | `undefined` |
+| popper-offset | Popup offset. Overrides the parent value when provided.                    | `number`  | `undefined` |
+| label         | Display text used by data-driven rendering or fallback display.            | `string`  | `''`        |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| update:value | Triggered when the selected value changes. | `(value: string) => void` |
-| select | Triggered when a menu item is selected. | `(index: string, indexPath: string[], item: YhMenuItemData \| undefined, routeResult?: Promise<void>) => void` |
-| open | Triggered when a submenu opens. | `(index: string, indexPath: string[]) => void` |
-| close | Triggered when a submenu closes. | `(index: string, indexPath: string[]) => void` |
+| Event Name   | Description                                | Callback Parameters                                                                                            |
+| ------------ | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| update:value | Triggered when the selected value changes. | `(value: string) => void`                                                                                      |
+| select       | Triggered when a menu item is selected.    | `(index: string, indexPath: string[], item: YhMenuItemData \| undefined, routeResult?: Promise<void>) => void` |
+| open         | Triggered when a submenu opens.            | `(index: string, indexPath: string[]) => void`                                                                 |
+| close        | Triggered when a submenu closes.           | `(index: string, indexPath: string[]) => void`                                                                 |
 
 ### Slots
 
 #### Menu
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Menu content. | - |
+| Slot Name | Description   | Parameters |
+| --------- | ------------- | ---------- |
+| default   | Menu content. | -          |
 
 #### Menu Item
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Menu item content. | - |
+| Slot Name | Description        | Parameters |
+| --------- | ------------------ | ---------- |
+| default   | Menu item content. | -          |
 
 #### Menu Item Group
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| title | Group title content. | - |
-| default | Group content. | - |
+| Slot Name | Description          | Parameters |
+| --------- | -------------------- | ---------- |
+| title     | Group title content. | -          |
+| default   | Group content.       | -          |
 
 #### Sub Menu
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| title | Submenu title content. | - |
-| default | Submenu content. | - |
+| Slot Name | Description            | Parameters |
+| --------- | ---------------------- | ---------- |
+| title     | Submenu title content. | -          |
+| default   | Submenu content.       | -          |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| open | Expands the specified submenu. | `(index: string) => void` |
-| close | Collapses the specified submenu. | `(index: string) => void` |
-| activeIndex | Currently active menu index. | `Ref<string>` |
-| openedMenus | Currently opened submenu indices. | `Ref<string[]>` |
+| Name        | Description                       | Type                      |
+| ----------- | --------------------------------- | ------------------------- |
+| open        | Expands the specified submenu.    | `(index: string) => void` |
+| close       | Collapses the specified submenu.  | `(index: string) => void` |
+| activeIndex | Currently active menu index.      | `Ref<string>`             |
+| openedMenus | Currently opened submenu indices. | `Ref<string[]>`           |
 
 ### Menu Item Data
 
 Data structure used by the `options` prop:
 
-| Prop | Description | Type |
-| --- | --- | --- |
-| key | Unique identifier, usually the same as `index`. | `string` |
-| index | Alternative key field used by some data sources. | `string` |
-| label | Display text. | `string` |
-| icon | Icon name. | `string` |
-| disabled | Whether the node is disabled. | `boolean` |
-| children | Child menu options. | `YhMenuItemData[]` |
-| group | Whether the node represents a grouped block. | `boolean` |
+| Prop     | Description                                      | Type               |
+| -------- | ------------------------------------------------ | ------------------ |
+| key      | Unique identifier, usually the same as `index`.  | `string`           |
+| index    | Alternative key field used by some data sources. | `string`           |
+| label    | Display text.                                    | `string`           |
+| icon     | Icon name.                                       | `string`           |
+| disabled | Whether the node is disabled.                    | `boolean`          |
+| children | Child menu options.                              | `YhMenuItemData[]` |
+| group    | Whether the node represents a grouped block.     | `boolean`          |
 
 ## Theme Variables
 
 `YhMenu` supports `themeOverrides`. The runtime consumes the following component variables:
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `--yh-menu-bg-color` | `var(--yh-bg-color)` | Menu background color. |
-| `--yh-menu-text-color` | `var(--yh-text-color-primary)` | Menu text color. |
-| `--yh-menu-active-text-color` | `var(--yh-color-primary)` | Active item text color. |
-| `--yh-menu-hover-bg-color` | `var(--yh-color-primary-light-9)` | Hover background color. |
-| `--yh-menu-active-bg-color` | `var(--yh-color-primary-light-9)` | Active item background color. |
-| `--yh-menu-border-color` | `var(--yh-border-color-light)` | Menu border color. |
-| `--yh-menu-item-height` | `50px` | Menu item height. |
-| `--yh-menu-icon-size` | `18px` | Menu icon size. |
-| `--yh-menu-base-padding` | `20px` | Base left and right padding. |
-| `--yh-menu-indicator-width` | `3px` | Active indicator width. |
-| `--yh-menu-indicator-color` | `var(--yh-menu-active-text-color)` | Active indicator color. |
+| Variable                      | Default                            | Description                   |
+| ----------------------------- | ---------------------------------- | ----------------------------- |
+| `--yh-menu-bg-color`          | `var(--yh-bg-color)`               | Menu background color.        |
+| `--yh-menu-text-color`        | `var(--yh-text-color-primary)`     | Menu text color.              |
+| `--yh-menu-active-text-color` | `var(--yh-color-primary)`          | Active item text color.       |
+| `--yh-menu-hover-bg-color`    | `var(--yh-color-primary-light-9)`  | Hover background color.       |
+| `--yh-menu-active-bg-color`   | `var(--yh-color-primary-light-9)`  | Active item background color. |
+| `--yh-menu-border-color`      | `var(--yh-border-color-light)`     | Menu border color.            |
+| `--yh-menu-item-height`       | `50px`                             | Menu item height.             |
+| `--yh-menu-icon-size`         | `18px`                             | Menu icon size.               |
+| `--yh-menu-base-padding`      | `20px`                             | Base left and right padding.  |
+| `--yh-menu-indicator-width`   | `3px`                              | Active indicator width.       |
+| `--yh-menu-indicator-color`   | `var(--yh-menu-active-text-color)` | Active indicator color.       |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhMenuProps` | Menu component props type |
-| `YhMenuEmits` | Menu component emits type |
-| `YhMenuSlots` | Menu component slots type |
-| `YhMenuExpose` | Menu component expose type |
-| `YhMenuMode` | Menu mode union |
-| `YhMenuTrigger` | Submenu trigger union |
-| `YhMenuItemData` | Menu data type |
-| `YhMenuItemProps` | Menu item props type |
-| `YhMenuItemGroupProps` | Menu item group props type |
-| `YhSubMenuProps` | Submenu props type |
-| `YhMenuInstance` | Menu component instance type |
-| `YhMenuItemInstance` | Menu item instance type |
+| Name                      | Description                   |
+| ------------------------- | ----------------------------- |
+| `YhMenuProps`             | Menu component props type     |
+| `YhMenuEmits`             | Menu component emits type     |
+| `YhMenuSlots`             | Menu component slots type     |
+| `YhMenuExpose`            | Menu component expose type    |
+| `YhMenuMode`              | Menu mode union               |
+| `YhMenuTrigger`           | Submenu trigger union         |
+| `YhMenuItemData`          | Menu data type                |
+| `YhMenuItemProps`         | Menu item props type          |
+| `YhMenuItemGroupProps`    | Menu item group props type    |
+| `YhSubMenuProps`          | Submenu props type            |
+| `YhMenuInstance`          | Menu component instance type  |
+| `YhMenuItemInstance`      | Menu item instance type       |
 | `YhMenuItemGroupInstance` | Menu item group instance type |
-| `YhSubMenuInstance` | Submenu instance type |
+| `YhSubMenuInstance`       | Submenu instance type         |
 
 ::: tip Inverted Mode
 After enabling `inverted`, the menu switches to a darker visual scheme and reuses the same variables with different values.
@@ -833,7 +833,7 @@ After enabling `inverted`, the menu switches to a darker visual scheme and reuse
 - `--yh-menu-bg-color`: `var(--yh-bg-color-overlay-dark)`
 - `--yh-menu-text-color`: `var(--yh-text-color-secondary)`
 - `--yh-menu-hover-bg-color`: `var(--yh-fill-color-dark)`
-:::
+  :::
 
 <style>
 /* Patch for alignment in VitePress documentation environment */

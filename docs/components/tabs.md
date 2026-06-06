@@ -504,64 +504,64 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '').replace('<string>', '')
 
 ### Tabs Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 当前激活的标签名 | `string \| number` | `''` |
-| `type` | 标签风格 | `'line' \| 'card' \| 'border-card' \| 'segment'` | `'line'` |
-| `tab-position` | 导航位置 | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` |
-| `draggable` | 为拖拽排序预留的声明属性，当前实现尚未消费。 | `boolean` | `false` |
-| `closable` | 是否显示关闭按钮 | `boolean` | `false` |
-| `addable` | 是否显示内置添加按钮 | `boolean` | `false` |
-| `editable` | 等同于同时开启添加与关闭操作 | `boolean` | `false` |
-| `before-leave` | 切换前钩子 | `(newName: string \| number, oldName: string \| number) => boolean \| Promise<boolean>` | `undefined` |
-| `stretch` | 是否撑满可用宽度 | `boolean` | `false` |
-| `nav-class` | 导航容器附加类名 | `string` | `''` |
-| `content-class` | 内容区域附加类名 | `string` | `''` |
-| `indicator-width` | 自定义指示器宽度 | `string` | `''` |
-| `indicator-height` | 自定义指示器高度 | `string` | `''` |
-| `active-color` | 激活态文字与指示器颜色 | `string` | `''` |
-| `inactive-color` | 未激活态文字颜色 | `string` | `''` |
-| `trigger` | 切换触发方式 | `'click' \| 'hover'` | `'click'` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                                         | 类型                                                                                    | 默认值      |
+| ------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------- | ----------- |
+| `model-value` / `v-model` | 当前激活的标签名                             | `string \| number`                                                                      | `''`        |
+| `type`                    | 标签风格                                     | `'line' \| 'card' \| 'border-card' \| 'segment'`                                        | `'line'`    |
+| `tab-position`            | 导航位置                                     | `'top' \| 'right' \| 'bottom' \| 'left'`                                                | `'top'`     |
+| `draggable`               | 为拖拽排序预留的声明属性，当前实现尚未消费。 | `boolean`                                                                               | `false`     |
+| `closable`                | 是否显示关闭按钮                             | `boolean`                                                                               | `false`     |
+| `addable`                 | 是否显示内置添加按钮                         | `boolean`                                                                               | `false`     |
+| `editable`                | 等同于同时开启添加与关闭操作                 | `boolean`                                                                               | `false`     |
+| `before-leave`            | 切换前钩子                                   | `(newName: string \| number, oldName: string \| number) => boolean \| Promise<boolean>` | `undefined` |
+| `stretch`                 | 是否撑满可用宽度                             | `boolean`                                                                               | `false`     |
+| `nav-class`               | 导航容器附加类名                             | `string`                                                                                | `''`        |
+| `content-class`           | 内容区域附加类名                             | `string`                                                                                | `''`        |
+| `indicator-width`         | 自定义指示器宽度                             | `string`                                                                                | `''`        |
+| `indicator-height`        | 自定义指示器高度                             | `string`                                                                                | `''`        |
+| `active-color`            | 激活态文字与指示器颜色                       | `string`                                                                                | `''`        |
+| `inactive-color`          | 未激活态文字颜色                             | `string`                                                                                | `''`        |
+| `trigger`                 | 切换触发方式                                 | `'click' \| 'hover'`                                                                    | `'click'`   |
+| `theme-overrides`         | 组件主题覆盖变量                             | `ComponentThemeVars`                                                                    | `undefined` |
 
 ### Tabs Events
 
-| 事件 | 说明 | 参数 |
-| --- | --- | --- |
-| `update:modelValue` | 激活标签变化时触发 | `(name: string \| number) => void` |
-| `tab-click` | 点击标签头时触发 | `(pane: YhTabPaneConfig, ev: Event) => void` |
-| `tab-change` | 激活标签变化后触发 | `(name: string \| number) => void` |
-| `tab-remove` | 请求关闭标签时触发 | `(name: string \| number) => void` |
-| `tab-add` | 请求添加标签时触发 | `() => void` |
-| `tab-drag-end` | 为拖拽排序预留的声明事件，当前实现尚未触发。 | `(names: (string \| number)[]) => void` |
+| 事件                | 说明                                         | 参数                                         |
+| ------------------- | -------------------------------------------- | -------------------------------------------- |
+| `update:modelValue` | 激活标签变化时触发                           | `(name: string \| number) => void`           |
+| `tab-click`         | 点击标签头时触发                             | `(pane: YhTabPaneConfig, ev: Event) => void` |
+| `tab-change`        | 激活标签变化后触发                           | `(name: string \| number) => void`           |
+| `tab-remove`        | 请求关闭标签时触发                           | `(name: string \| number) => void`           |
+| `tab-add`           | 请求添加标签时触发                           | `() => void`                                 |
+| `tab-drag-end`      | 为拖拽排序预留的声明事件，当前实现尚未触发。 | `(names: (string \| number)[]) => void`      |
 
 ### Tabs Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | `YhTabs` 内部渲染的标签面板 | - |
-| `label` | 自定义标签头内容。`pane.name` 在注册后会统一为 `string`。 | `{ pane: YhTabPaneConfig }` |
-| `add-icon` | 自定义添加按钮图标 | - |
+| 插槽       | 说明                                                      | 参数                        |
+| ---------- | --------------------------------------------------------- | --------------------------- |
+| `default`  | `YhTabs` 内部渲染的标签面板                               | -                           |
+| `label`    | 自定义标签头内容。`pane.name` 在注册后会统一为 `string`。 | `{ pane: YhTabPaneConfig }` |
+| `add-icon` | 自定义添加按钮图标                                        | -                           |
 
 ### Tabs Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| `addTab` | 触发添加标签流程 | `() => void` |
-| `setActiveTab` | 按名称激活指定标签 | `(name: string \| number) => void` |
-| `activeTab` | 当前激活标签的响应式引用。 | `Ref<string \| number>` |
+| 名称           | 说明                       | 类型                               |
+| -------------- | -------------------------- | ---------------------------------- |
+| `addTab`       | 触发添加标签流程           | `() => void`                       |
+| `setActiveTab` | 按名称激活指定标签         | `(name: string \| number) => void` |
+| `activeTab`    | 当前激活标签的响应式引用。 | `Ref<string \| number>`            |
 
 ### TabPane Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `name` | 唯一标签名 | `string \| number` | 必填 |
-| `label` | 标签标题文本 | `string` | `''` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `closable` | 是否允许该面板被关闭 | `boolean` | `undefined` |
-| `lazy` | 是否首次激活后才渲染内容 | `boolean` | `false` |
-| `icon` | 标签前置图标类名 | `string` | `''` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性              | 说明                     | 类型                 | 默认值      |
+| ----------------- | ------------------------ | -------------------- | ----------- |
+| `name`            | 唯一标签名               | `string \| number`   | 必填        |
+| `label`           | 标签标题文本             | `string`             | `''`        |
+| `disabled`        | 是否禁用                 | `boolean`            | `false`     |
+| `closable`        | 是否允许该面板被关闭     | `boolean`            | `undefined` |
+| `lazy`            | 是否首次激活后才渲染内容 | `boolean`            | `false`     |
+| `icon`            | 标签前置图标类名         | `string`             | `''`        |
+| `theme-overrides` | 组件主题覆盖变量         | `ComponentThemeVars` | `undefined` |
 
 ### TabPane Events
 
@@ -569,9 +569,9 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '').replace('<string>', '')
 
 ### TabPane Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | 面板内容 | - |
+| 插槽      | 说明     | 参数 |
+| --------- | -------- | ---- |
+| `default` | 面板内容 | -    |
 
 ### TabPane Expose
 
@@ -579,19 +579,19 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '').replace('<string>', '')
 
 ### 类型导出
 
-| 类型 | 说明 |
-| --- | --- |
-| `YhTabsProps` | Tabs Props 类型 |
-| `YhTabsEmits` | Tabs Emits 类型 |
-| `YhTabsSlots` | Tabs Slots 类型 |
-| `YhTabsExpose` | Tabs Expose 类型 |
-| `YhTabsType` | 标签风格联合类型 |
-| `YhTabsPosition` | 标签位置联合类型 |
-| `YhTabPaneConfig` | 注册到 Tabs 的面板配置类型 |
-| `YhTabPaneProps` | TabPane Props 类型 |
-| `YhTabPaneSlots` | TabPane Slots 类型 |
-| `YhTabsInstance` | Tabs 实例类型 |
-| `YhTabPaneInstance` | TabPane 实例类型 |
+| 类型                | 说明                       |
+| ------------------- | -------------------------- |
+| `YhTabsProps`       | Tabs Props 类型            |
+| `YhTabsEmits`       | Tabs Emits 类型            |
+| `YhTabsSlots`       | Tabs Slots 类型            |
+| `YhTabsExpose`      | Tabs Expose 类型           |
+| `YhTabsType`        | 标签风格联合类型           |
+| `YhTabsPosition`    | 标签位置联合类型           |
+| `YhTabPaneConfig`   | 注册到 Tabs 的面板配置类型 |
+| `YhTabPaneProps`    | TabPane Props 类型         |
+| `YhTabPaneSlots`    | TabPane Slots 类型         |
+| `YhTabsInstance`    | Tabs 实例类型              |
+| `YhTabPaneInstance` | TabPane 实例类型           |
 
 ### `YhTabPaneConfig` 对象定义
 
@@ -612,12 +612,12 @@ interface YhTabPaneConfig {
 
 `YhTabs` 和 `YhTabPane` 支持 `themeOverrides`，并在样式中消费以下专属 CSS 变量。
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-tabs-header-height` | 标签导航高度 | `40px` |
-| `--yh-tabs-active-color` | 激活态文字与指示器颜色 | `var(--yh-color-primary)` |
-| `--yh-tabs-text-color` | 默认标签文字颜色 | `var(--yh-text-color-primary)` |
-| `--yh-tabs-disabled-color` | 禁用标签文字颜色 | `var(--yh-text-color-disabled)` |
-| `--yh-tabs-border-color` | 边框颜色 | `var(--yh-border-color-light)` |
-| `--yh-tabs-indicator-width` | 线形指示器默认宽度 | `40px` |
-| `--yh-tabs-indicator-height` | 垂直布局指示器默认高度 | `20px` |
+| 变量                         | 说明                   | 默认值                          |
+| ---------------------------- | ---------------------- | ------------------------------- |
+| `--yh-tabs-header-height`    | 标签导航高度           | `40px`                          |
+| `--yh-tabs-active-color`     | 激活态文字与指示器颜色 | `var(--yh-color-primary)`       |
+| `--yh-tabs-text-color`       | 默认标签文字颜色       | `var(--yh-text-color-primary)`  |
+| `--yh-tabs-disabled-color`   | 禁用标签文字颜色       | `var(--yh-text-color-disabled)` |
+| `--yh-tabs-border-color`     | 边框颜色               | `var(--yh-border-color-light)`  |
+| `--yh-tabs-indicator-width`  | 线形指示器默认宽度     | `40px`                          |
+| `--yh-tabs-indicator-height` | 垂直布局指示器默认高度 | `20px`                          |

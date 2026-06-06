@@ -6,14 +6,6 @@
       "@yh-ui/*": ["./packages/*/src"]
     }
   },
-  "include": [
-    ".vitepress/**/*.ts",
-    ".vitepress/**/*.vue",
-    "**/*.md",
-    "../typings/env.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/dist"
-  ]
+  "include": [".vitepress/**/*.ts", ".vitepress/**/*.vue", "**/*.md", "../typings/env.d.ts"],
+  "exclude": ["node_modules", "**/dist"]
 }

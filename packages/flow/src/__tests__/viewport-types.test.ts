@@ -41,7 +41,10 @@ describe('flow/types/viewport', () => {
       const options: ViewportOptions = {
         minZoom: 0.1,
         maxZoom: 5,
-        translateExtent: [[0, 0], [1000, 1000]],
+        translateExtent: [
+          [0, 0],
+          [1000, 1000]
+        ],
         zoomStep: 0.1,
         panZoomSpeed: 1,
         zoomInMultiplier: 1.2,

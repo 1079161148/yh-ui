@@ -29,19 +29,19 @@ import type { IconifyJSON } from '@iconify/vue'
 // 预定义的常用图标集前缀列表
 // 用户需要在 vite.config.ts 中配合 @iconify/json 使用
 export const POPULAR_COLLECTION_PREFIXES = [
-  'mdi',    // Material Design Icons
-  'ep',     // Element Plus
+  'mdi', // Material Design Icons
+  'ep', // Element Plus
   'lucide', // Lucide
   'tabler', // Tabler Icons
-  'ri',     // Remix Icon
-  'bi',     // Bootstrap Icons
+  'ri', // Remix Icon
+  'bi', // Bootstrap Icons
   'heroicons',
-  'fa',     // Font Awesome
+  'fa', // Font Awesome
   'carbon', // Carbon Icons
-  'antd'    // Ant Design Icons
+  'antd' // Ant Design Icons
 ] as const
 
-export type CollectionPrefix = typeof POPULAR_COLLECTION_PREFIXES[number]
+export type CollectionPrefix = (typeof POPULAR_COLLECTION_PREFIXES)[number]
 
 /**
  * 获取图标集前缀列表

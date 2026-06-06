@@ -101,7 +101,14 @@ describe('YhAiMention 交互', () => {
 
   it('自定义 fileLoader：覆盖成功与抛错分支', async () => {
     const okNodes: AiMentionFileNode[] = [
-      { key: 'f1', label: 'only.txt', isFolder: false, path: '/only.txt', size: 100, modifiedAt: Date.now() }
+      {
+        key: 'f1',
+        label: 'only.txt',
+        isFolder: false,
+        path: '/only.txt',
+        size: 100,
+        modifiedAt: Date.now()
+      }
     ]
     const loaderOk = vi.fn(async () => okNodes)
     const onFileLoad = vi.fn()

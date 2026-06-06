@@ -75,7 +75,9 @@ describe('SmartAddress perf baseline', () => {
     const max = Math.max(...times)
     const degradation = times[rounds - 1] / times[0]
 
-    console.log(`[PERF] repeated smart-address mounts: ${times.map((t) => t.toFixed(2)).join(' / ')}ms`)
+    console.log(
+      `[PERF] repeated smart-address mounts: ${times.map((t) => t.toFixed(2)).join(' / ')}ms`
+    )
     console.log(`[PERF] degradation ratio: ${degradation.toFixed(2)}x`)
 
     expect(max).toBeLessThan(1000)

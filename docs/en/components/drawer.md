@@ -418,87 +418,87 @@ After installing `@yh-ui/nuxt`, `YhDrawer` can be used directly in pages and com
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| modelValue / v-model | Whether to show the drawer | `boolean` | `false` |
-| title | Title | `string \| (() => VNode) \| Component` | - |
-| placement | Drawer position | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` |
-| size | Drawer size (width or height) | `string \| number` | `'30%'` |
-| modal | Whether to show mask layer | `boolean` | `true` |
-| closeOnClickModal | Whether to close on clicking mask | `boolean` | `true` |
-| closeOnPressEscape | Whether to close on pressing ESC | `boolean` | `true` |
-| showClose | Whether to show close button | `boolean` | `true` |
-| closeIcon | Custom close icon name | `string` | `'close'` |
-| showHeader | Whether to show header | `boolean` | `true` |
-| showFooter | Whether to show footer | `boolean` | `false` |
-| lockScroll | Whether to lock viewport scroll | `boolean` | `true` |
-| glass | Whether to enable glassmorphism (Acrylic) mode | `boolean` | `false` |
-| resizable | Whether size is adjustable | `boolean` | `false` |
-| minSize | Minimum size (px) | `number` | `150` |
-| maxSize | Maximum size (px) | `number` | `1000` |
-| destroyOnClose | Whether to destroy content on close | `boolean` | `false` |
-| zIndex | Manually set z-index level | `number` | - |
-| teleportTo | Mount node | `string \| HTMLElement` | `'body'` |
-| beforeClose | Hook before close, execute `done` to close | `(done: () => void) => void` | - |
-| round | Whether to show rounded corners (flagship aesthetic) | `boolean` | `true` |
-| inner | Whether to pop up in a specified container (enables absolute positioning) | `boolean` | `false` |
-| customClass | Additional class name for drawer container | `string` | - |
-| modalClass | Additional class name for mask layer | `string` | - |
-| titleStyle | Custom style for header title | `CSSProperties \| string` | - |
-| contentStyle | Custom style for body content | `CSSProperties \| string` | - |
-| footerStyle | Custom style for footer | `CSSProperties \| string` | - |
-| drawerStyle | Custom style for drawer panel overall | `CSSProperties \| string` | - |
+| Prop                 | Description                                                               | Type                                     | Default   |
+| -------------------- | ------------------------------------------------------------------------- | ---------------------------------------- | --------- |
+| modelValue / v-model | Whether to show the drawer                                                | `boolean`                                | `false`   |
+| title                | Title                                                                     | `string \| (() => VNode) \| Component`   | -         |
+| placement            | Drawer position                                                           | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` |
+| size                 | Drawer size (width or height)                                             | `string \| number`                       | `'30%'`   |
+| modal                | Whether to show mask layer                                                | `boolean`                                | `true`    |
+| closeOnClickModal    | Whether to close on clicking mask                                         | `boolean`                                | `true`    |
+| closeOnPressEscape   | Whether to close on pressing ESC                                          | `boolean`                                | `true`    |
+| showClose            | Whether to show close button                                              | `boolean`                                | `true`    |
+| closeIcon            | Custom close icon name                                                    | `string`                                 | `'close'` |
+| showHeader           | Whether to show header                                                    | `boolean`                                | `true`    |
+| showFooter           | Whether to show footer                                                    | `boolean`                                | `false`   |
+| lockScroll           | Whether to lock viewport scroll                                           | `boolean`                                | `true`    |
+| glass                | Whether to enable glassmorphism (Acrylic) mode                            | `boolean`                                | `false`   |
+| resizable            | Whether size is adjustable                                                | `boolean`                                | `false`   |
+| minSize              | Minimum size (px)                                                         | `number`                                 | `150`     |
+| maxSize              | Maximum size (px)                                                         | `number`                                 | `1000`    |
+| destroyOnClose       | Whether to destroy content on close                                       | `boolean`                                | `false`   |
+| zIndex               | Manually set z-index level                                                | `number`                                 | -         |
+| teleportTo           | Mount node                                                                | `string \| HTMLElement`                  | `'body'`  |
+| beforeClose          | Hook before close, execute `done` to close                                | `(done: () => void) => void`             | -         |
+| round                | Whether to show rounded corners (flagship aesthetic)                      | `boolean`                                | `true`    |
+| inner                | Whether to pop up in a specified container (enables absolute positioning) | `boolean`                                | `false`   |
+| customClass          | Additional class name for drawer container                                | `string`                                 | -         |
+| modalClass           | Additional class name for mask layer                                      | `string`                                 | -         |
+| titleStyle           | Custom style for header title                                             | `CSSProperties \| string`                | -         |
+| contentStyle         | Custom style for body content                                             | `CSSProperties \| string`                | -         |
+| footerStyle          | Custom style for footer                                                   | `CSSProperties \| string`                | -         |
+| drawerStyle          | Custom style for drawer panel overall                                     | `CSSProperties \| string`                | -         |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| open | Triggered when panel opens | - |
-| opened | Triggered when opening animation finishes | - |
-| close | Triggered when panel closes | - |
-| closed | Triggered when closing animation finishes | - |
-| resize | Triggered when size is adjusted | `(size: number)` |
-| update:modelValue | v-model update event | `(value: boolean)` |
+| Event Name        | Description                               | Callback Parameters |
+| ----------------- | ----------------------------------------- | ------------------- |
+| open              | Triggered when panel opens                | -                   |
+| opened            | Triggered when opening animation finishes | -                   |
+| close             | Triggered when panel closes               | -                   |
+| closed            | Triggered when closing animation finishes | -                   |
+| resize            | Triggered when size is adjusted           | `(size: number)`    |
+| update:modelValue | v-model update event                      | `(value: boolean)`  |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Core content area of the drawer |
-| header | Customizes the entire header area (overrides title and close button) |
-| title | Customizes only the title text portion |
-| footer | Customizes the footer content area |
-| close-icon | Customizes the icon inside the close button |
+| Slot Name  | Description                                                          |
+| ---------- | -------------------------------------------------------------------- |
+| default    | Core content area of the drawer                                      |
+| header     | Customizes the entire header area (overrides title and close button) |
+| title      | Customizes only the title text portion                               |
+| footer     | Customizes the footer content area                                   |
+| close-icon | Customizes the icon inside the close button                          |
 
 ### Expose
 
-| Prop Name | Description | Type |
-| --- | --- | --- |
-| drawerRef | DOM element reference of drawer container | `HTMLElement \| null` |
+| Prop Name   | Description                                                     | Type                               |
+| ----------- | --------------------------------------------------------------- | ---------------------------------- |
+| drawerRef   | DOM element reference of drawer container                       | `HTMLElement \| null`              |
 | handleClose | Manually triggers the close process (supports beforeClose hook) | `(isClickModal?: boolean) => void` |
 
 ### Theme Variables
 
 The component is deeply integrated with the YH-UI design system, and all color variables are interfaced with the global theme system, automatically supporting dark mode:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-drawer-bg-color` | Drawer panel background color | `var(--yh-bg-color-overlay)` |
-| `--yh-drawer-shadow` | Drawer shadow intensity | `var(--yh-shadow-lg)` |
-| `--yh-drawer-title-color` | Title text color | `var(--yh-text-color-primary)` |
-| `--yh-drawer-border-color` | Split line/border color | `var(--yh-border-color-lighter)` |
-| `--yh-drawer-header-height` | Header height | `56px` |
-| `--yh-drawer-footer-height` | Footer height | `60px` |
-| `--yh-drawer-padding` | Content area padding | `20px` |
-| `--yh-drawer-radius` | Corner radius size | `var(--yh-radius-xl)` |
-| `--yh-drawer-transition` | Animation duration | `var(--yh-transition-duration)` |
+| Variable                    | Description                   | Default                          |
+| --------------------------- | ----------------------------- | -------------------------------- |
+| `--yh-drawer-bg-color`      | Drawer panel background color | `var(--yh-bg-color-overlay)`     |
+| `--yh-drawer-shadow`        | Drawer shadow intensity       | `var(--yh-shadow-lg)`            |
+| `--yh-drawer-title-color`   | Title text color              | `var(--yh-text-color-primary)`   |
+| `--yh-drawer-border-color`  | Split line/border color       | `var(--yh-border-color-lighter)` |
+| `--yh-drawer-header-height` | Header height                 | `56px`                           |
+| `--yh-drawer-footer-height` | Footer height                 | `60px`                           |
+| `--yh-drawer-padding`       | Content area padding          | `20px`                           |
+| `--yh-drawer-radius`        | Corner radius size            | `var(--yh-radius-xl)`            |
+| `--yh-drawer-transition`    | Animation duration            | `var(--yh-transition-duration)`  |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhDrawerProps` | Props type for `YhDrawer` |
-| `YhDrawerEmits` | Emits type for `YhDrawer` |
-| `YhDrawerSlots` | Slots type for `YhDrawer` |
-| `YhDrawerExpose` | Expose type for `YhDrawer` |
+| Name               | Description                         |
+| ------------------ | ----------------------------------- |
+| `YhDrawerProps`    | Props type for `YhDrawer`           |
+| `YhDrawerEmits`    | Emits type for `YhDrawer`           |
+| `YhDrawerSlots`    | Slots type for `YhDrawer`           |
+| `YhDrawerExpose`   | Expose type for `YhDrawer`          |
 | `YhDrawerInstance` | Public instance type for `YhDrawer` |

@@ -193,31 +193,31 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `shape` | 头像形状 | `'circle' \| 'square'` | `'circle'` |
-| `size` | 头像尺寸 | `number \| 'large' \| 'default' \| 'small'` | `'default'` |
-| `src` | 图片地址 | `string` | `undefined` |
-| `src-set` | 图片 `srcset` | `string` | `undefined` |
-| `alt` | 图片替代文本 | `string` | `undefined` |
-| `fit` | 图片适配方式 | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
-| `icon` | 无图片时显示的图标组件或图标名 | `string \| Component` | `undefined` |
-| `color` | 兼容字段，设置头像背景色 | `string` | `undefined` |
-| `background-color` | 头像背景色 | `string` | `undefined` |
-| `style` | 内联自定义样式 | `CSSProperties` | `undefined` |
-| `crossorigin` | 原生图片 `crossorigin` 属性 | `'' \| 'anonymous' \| 'use-credentials'` | `'anonymous'` |
-| `theme-overrides` | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称               | 说明                           | 类型                                                       | 默认值        |
+| ------------------ | ------------------------------ | ---------------------------------------------------------- | ------------- |
+| `shape`            | 头像形状                       | `'circle' \| 'square'`                                     | `'circle'`    |
+| `size`             | 头像尺寸                       | `number \| 'large' \| 'default' \| 'small'`                | `'default'`   |
+| `src`              | 图片地址                       | `string`                                                   | `undefined`   |
+| `src-set`          | 图片 `srcset`                  | `string`                                                   | `undefined`   |
+| `alt`              | 图片替代文本                   | `string`                                                   | `undefined`   |
+| `fit`              | 图片适配方式                   | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'`     |
+| `icon`             | 无图片时显示的图标组件或图标名 | `string \| Component`                                      | `undefined`   |
+| `color`            | 兼容字段，设置头像背景色       | `string`                                                   | `undefined`   |
+| `background-color` | 头像背景色                     | `string`                                                   | `undefined`   |
+| `style`            | 内联自定义样式                 | `CSSProperties`                                            | `undefined`   |
+| `crossorigin`      | 原生图片 `crossorigin` 属性    | `'' \| 'anonymous' \| 'use-credentials'`                   | `'anonymous'` |
+| `theme-overrides`  | 组件级主题覆盖                 | `ComponentThemeVars`                                       | `undefined`   |
 
 ### Events
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
+| 名称    | 说明               | 参数                     |
+| ------- | ------------------ | ------------------------ |
 | `error` | 图片加载失败时触发 | `(event: Event) => void` |
 
 ### Slots
 
-| 名称 | 说明 |
-| --- | --- |
+| 名称      | 说明                           |
+| --------- | ------------------------------ |
 | `default` | 自定义头像内容，可放文本或图标 |
 
 ### Expose
@@ -226,20 +226,20 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhAvatarProps` | `YhAvatar` 的 props 类型 |
-| `YhAvatarEmits` | `YhAvatar` 的 emits 类型 |
-| `YhAvatarSlots` | `YhAvatar` 的 slots 类型 |
-| `YhAvatarShape` | 头像形状联合类型 |
-| `YhAvatarSize` | 头像尺寸联合类型 |
-| `YhAvatarFit` | 图片适配联合类型 |
-| `YhAvatarInstance` | 组件实例类型 |
+| 名称               | 说明                     |
+| ------------------ | ------------------------ |
+| `YhAvatarProps`    | `YhAvatar` 的 props 类型 |
+| `YhAvatarEmits`    | `YhAvatar` 的 emits 类型 |
+| `YhAvatarSlots`    | `YhAvatar` 的 slots 类型 |
+| `YhAvatarShape`    | 头像形状联合类型         |
+| `YhAvatarSize`     | 头像尺寸联合类型         |
+| `YhAvatarFit`      | 图片适配联合类型         |
+| `YhAvatarInstance` | 组件实例类型             |
 
 ### 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-avatar-bg-color` | 头像背景色 | `var(--yh-color-primary-light-8, #d9ecff)` |
-| `--yh-avatar-text-color` | 头像文字颜色 | `var(--yh-color-primary, #409eff)` |
-| `--yh-avatar-radius` | 方形头像圆角 | `var(--yh-border-radius-base, 4px)` |
+| 变量名                   | 说明         | 默认值                                     |
+| ------------------------ | ------------ | ------------------------------------------ |
+| `--yh-avatar-bg-color`   | 头像背景色   | `var(--yh-color-primary-light-8, #d9ecff)` |
+| `--yh-avatar-text-color` | 头像文字颜色 | `var(--yh-color-primary, #409eff)`         |
+| `--yh-avatar-radius`     | 方形头像圆角 | `var(--yh-border-radius-base, 4px)`        |

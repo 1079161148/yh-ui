@@ -565,6 +565,7 @@ In addition to regular top offset, we provide more flexible viewport alignment s
 </div>
 
 <YhDialog v-model="visibleAlignCenter" title="Vertically Centered Content" align-center @confirm="visibleAlignCenter = false" @cancel="visibleAlignCenter = false">
+
 <p>By using the <code>align-center</code> attribute, the dialog ignores the <code>top</code> setting and stays vertically centered.</p>
 </YhDialog>
 
@@ -651,7 +652,6 @@ YH-UI provides rich enhancement configurations, supporting semantic type mapping
 <YhDialog v-model="visibleError" type="error" title="System Error" content="Network connection interrupted. Please check your network settings." />
 <YhDialog v-model="visibleInfo" type="info" title="System Notification" content="A new version has been released. Click the button below to learn more." />
 </DemoBlock>
-
 
 <DemoBlock title="Loading State and Async Control" :ts-code="tsLoading" :js-code="jsLoading">
 <yh-button @click="handleAsyncOpen">Async Submit Demo</yh-button>
@@ -783,114 +783,114 @@ In some scenarios, you may want to skip `v-model` template declarations and laun
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Whether to display the dialog | `boolean` | `false` |
-| title | Dialog title, supports string, render function, or component | `RenderContent` | - |
-| type | Dialog type | `'success' \| 'warning' \| 'error' \| 'info' \| 'default'` | `'default'` |
-| show-icon | Whether to show semantic icons | `boolean` | `true` |
-| loading | Whether to show body loading state | `boolean` | `false` |
-| content | Dialog content, supports string, render function, or component | `RenderContent` | - |
-| action | Footer action area rendered via custom render function or component | `(() => VNode \| Component) \| Component` | - |
-| style | Overall custom style | `string \| CSSProperties` | - |
-| title-class | Custom title class name | `string` | - |
-| title-style | Custom title style | `string \| CSSProperties` | - |
-| transform-origin | Animation origin position | `'mouse' \| 'center'` | `'mouse'` |
-| width | Dialog width | `string \| number` | `'50%'` |
-| top | Distance from top (effective in non-centered mode) | `string` | `'15vh'` |
-| fullscreen | Whether to display in fullscreen | `boolean` | `false` |
-| align-center | Whether to vertically center in the viewport | `boolean` | `false` |
-| center | Whether header, body, and footer are centered together | `boolean` | `false` |
-| glass | Whether to enable acrylic glass style | `boolean` | `false` |
-| draggable | Whether dragging is enabled | `boolean` | `false` |
-| overflow | Whether dragging may move the dialog outside the viewport | `boolean` | `false` |
-| modal | Whether to render the backdrop mask | `boolean` | `true` |
-| lock-scroll | Whether to lock viewport scrolling while open | `boolean` | `true` |
-| close-on-click-modal | Whether clicking the backdrop closes the dialog | `boolean` | `true` |
-| close-on-press-escape | Whether pressing `Escape` closes the dialog | `boolean` | `true` |
-| show-close | Whether to show the close button | `boolean` | `true` |
-| close-icon | Custom close icon name | `string` | `'close'` |
-| destroy-on-close | Whether body slot content is destroyed after close | `boolean` | `false` |
-| show-footer | Whether to render the built-in footer buttons | `boolean` | `true` |
-| cancel-text | Custom cancel button text. Falls back to locale text when empty | `string` | `''` |
-| confirm-text | Custom confirm button text. Falls back to locale text when empty | `string` | `''` |
-| content-class | Custom body class name | `string` | - |
-| content-style | Custom body style | `string \| CSSProperties` | - |
-| action-class | Custom footer class name | `string` | - |
-| action-style | Custom footer style | `string \| CSSProperties` | - |
-| modal-class | Custom background shield class name | `string` | - |
-| custom-class | Custom root container class name | `string` | - |
-| z-index | Base layer stack start | `number` | `2000` |
-| auto-focus | Whether to auto-focus the first focusable element | `boolean` | `true` |
-| before-close | Hook before closing | `(done: () => void) => void` | - |
-| teleport-to | Target DOM node to mount on | `string \| HTMLElement` | `'body'` |
-| header-align-center | Legacy centered header switch | `boolean` | `false` |
-| header-align | Title alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| content-align | Content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| footer-align-center | Legacy centered footer switch | `boolean` | `false` |
-| footer-align | Footer button alignment | `'left' \| 'center' \| 'right'` | `'right'` |
-| swap-footer-buttons | Whether to swap the position of "Confirm" and "Cancel" buttons | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop                  | Description                                                         | Type                                                       | Default     |
+| --------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| model-value / v-model | Whether to display the dialog                                       | `boolean`                                                  | `false`     |
+| title                 | Dialog title, supports string, render function, or component        | `RenderContent`                                            | -           |
+| type                  | Dialog type                                                         | `'success' \| 'warning' \| 'error' \| 'info' \| 'default'` | `'default'` |
+| show-icon             | Whether to show semantic icons                                      | `boolean`                                                  | `true`      |
+| loading               | Whether to show body loading state                                  | `boolean`                                                  | `false`     |
+| content               | Dialog content, supports string, render function, or component      | `RenderContent`                                            | -           |
+| action                | Footer action area rendered via custom render function or component | `(() => VNode \| Component) \| Component`                  | -           |
+| style                 | Overall custom style                                                | `string \| CSSProperties`                                  | -           |
+| title-class           | Custom title class name                                             | `string`                                                   | -           |
+| title-style           | Custom title style                                                  | `string \| CSSProperties`                                  | -           |
+| transform-origin      | Animation origin position                                           | `'mouse' \| 'center'`                                      | `'mouse'`   |
+| width                 | Dialog width                                                        | `string \| number`                                         | `'50%'`     |
+| top                   | Distance from top (effective in non-centered mode)                  | `string`                                                   | `'15vh'`    |
+| fullscreen            | Whether to display in fullscreen                                    | `boolean`                                                  | `false`     |
+| align-center          | Whether to vertically center in the viewport                        | `boolean`                                                  | `false`     |
+| center                | Whether header, body, and footer are centered together              | `boolean`                                                  | `false`     |
+| glass                 | Whether to enable acrylic glass style                               | `boolean`                                                  | `false`     |
+| draggable             | Whether dragging is enabled                                         | `boolean`                                                  | `false`     |
+| overflow              | Whether dragging may move the dialog outside the viewport           | `boolean`                                                  | `false`     |
+| modal                 | Whether to render the backdrop mask                                 | `boolean`                                                  | `true`      |
+| lock-scroll           | Whether to lock viewport scrolling while open                       | `boolean`                                                  | `true`      |
+| close-on-click-modal  | Whether clicking the backdrop closes the dialog                     | `boolean`                                                  | `true`      |
+| close-on-press-escape | Whether pressing `Escape` closes the dialog                         | `boolean`                                                  | `true`      |
+| show-close            | Whether to show the close button                                    | `boolean`                                                  | `true`      |
+| close-icon            | Custom close icon name                                              | `string`                                                   | `'close'`   |
+| destroy-on-close      | Whether body slot content is destroyed after close                  | `boolean`                                                  | `false`     |
+| show-footer           | Whether to render the built-in footer buttons                       | `boolean`                                                  | `true`      |
+| cancel-text           | Custom cancel button text. Falls back to locale text when empty     | `string`                                                   | `''`        |
+| confirm-text          | Custom confirm button text. Falls back to locale text when empty    | `string`                                                   | `''`        |
+| content-class         | Custom body class name                                              | `string`                                                   | -           |
+| content-style         | Custom body style                                                   | `string \| CSSProperties`                                  | -           |
+| action-class          | Custom footer class name                                            | `string`                                                   | -           |
+| action-style          | Custom footer style                                                 | `string \| CSSProperties`                                  | -           |
+| modal-class           | Custom background shield class name                                 | `string`                                                   | -           |
+| custom-class          | Custom root container class name                                    | `string`                                                   | -           |
+| z-index               | Base layer stack start                                              | `number`                                                   | `2000`      |
+| auto-focus            | Whether to auto-focus the first focusable element                   | `boolean`                                                  | `true`      |
+| before-close          | Hook before closing                                                 | `(done: () => void) => void`                               | -           |
+| teleport-to           | Target DOM node to mount on                                         | `string \| HTMLElement`                                    | `'body'`    |
+| header-align-center   | Legacy centered header switch                                       | `boolean`                                                  | `false`     |
+| header-align          | Title alignment                                                     | `'left' \| 'center' \| 'right'`                            | `'left'`    |
+| content-align         | Content alignment                                                   | `'left' \| 'center' \| 'right'`                            | `'left'`    |
+| footer-align-center   | Legacy centered footer switch                                       | `boolean`                                                  | `false`     |
+| footer-align          | Footer button alignment                                             | `'left' \| 'center' \| 'right'`                            | `'right'`   |
+| swap-footer-buttons   | Whether to swap the position of "Confirm" and "Cancel" buttons      | `boolean`                                                  | `false`     |
+| theme-overrides       | Component-level theme overrides                                     | `ComponentThemeVars`                                       | `undefined` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Dialog body content area |
-| header | Custom header area. If used, the `title` attribute is ignored |
-| title | Public type export includes `title`, but the runtime header entry point is the `header` slot |
-| footer | Custom bottom operational area. If used, built-in buttons are ignored |
+| Slot Name | Description                                                                                  |
+| --------- | -------------------------------------------------------------------------------------------- |
+| default   | Dialog body content area                                                                     |
+| header    | Custom header area. If used, the `title` attribute is ignored                                |
+| title     | Public type export includes `title`, but the runtime header entry point is the `header` slot |
+| footer    | Custom bottom operational area. If used, built-in buttons are ignored                        |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered on visibility state change | `(value: boolean)` |
-| open | Triggered when visibility state becomes true | - |
-| opened | Triggered when opening animation finishes | - |
-| close | Triggered when visibility state becomes false | - |
-| closed | Triggered when closing animation finishes and content is destroyed | - |
-| confirm | Triggered when default footer "Confirm" button is clicked | - |
-| cancel | Triggered when default footer "Cancel" button is clicked | - |
-| dragStart | Triggered when clicking header to start drag | `(e: MouseEvent)` |
-| dragMove | Triggered continuously during dragging | `(e: MouseEvent)` |
-| dragEnd | Triggered when dragging ends | `(e: MouseEvent)` |
+| Event Name        | Description                                                        | Callback Parameters |
+| ----------------- | ------------------------------------------------------------------ | ------------------- |
+| update:modelValue | Triggered on visibility state change                               | `(value: boolean)`  |
+| open              | Triggered when visibility state becomes true                       | -                   |
+| opened            | Triggered when opening animation finishes                          | -                   |
+| close             | Triggered when visibility state becomes false                      | -                   |
+| closed            | Triggered when closing animation finishes and content is destroyed | -                   |
+| confirm           | Triggered when default footer "Confirm" button is clicked          | -                   |
+| cancel            | Triggered when default footer "Cancel" button is clicked           | -                   |
+| dragStart         | Triggered when clicking header to start drag                       | `(e: MouseEvent)`   |
+| dragMove          | Triggered continuously during dragging                             | `(e: MouseEvent)`   |
+| dragEnd           | Triggered when dragging ends                                       | `(e: MouseEvent)`   |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| visible | Reactive visibility state | `Ref<boolean>` |
-| dialogRef | Dialog DOM reference | `Ref<HTMLElement \| null>` |
-| handleClose | Executes close logic (triggers before-close) | `() => void` |
-| handleCancel | Executes cancel logic (triggers cancel event and closes) | `() => void` |
-| handleConfirm | Executes confirm logic (triggers confirm event and closes) | `() => void` |
+| Name          | Description                                                | Type                       |
+| ------------- | ---------------------------------------------------------- | -------------------------- |
+| visible       | Reactive visibility state                                  | `Ref<boolean>`             |
+| dialogRef     | Dialog DOM reference                                       | `Ref<HTMLElement \| null>` |
+| handleClose   | Executes close logic (triggers before-close)               | `() => void`               |
+| handleCancel  | Executes cancel logic (triggers cancel event and closes)   | `() => void`               |
+| handleConfirm | Executes confirm logic (triggers confirm event and closes) | `() => void`               |
 
 ### Theme Variables
 
 `Dialog` accepts `themeOverrides` and mainly consumes shared theme tokens plus a small set of dialog-specific layout tokens from source styles.
 
-| Variable | Default Value | Description |
-| --- | --- | --- |
-| `--yh-dialog-margin-top` | `15vh` | Dialog top margin |
-| `--yh-bg-color-overlay` | `#ffffff` | Dialog background color |
-| `--yh-radius-lg` | `16px` | Dialog corner radius |
-| `--yh-text-color-primary` | `#1a1a1a` | Title color |
-| `--yh-color-success` | `#67c23a` | Success icon/button color |
-| `--yh-color-warning` | `#e6a23c` | Warning icon/button color |
-| `--yh-color-danger` | `#f56c6c` | Error icon/button color |
-| `--yh-color-info` | `#909399` | Info icon/button color |
-| `--yh-text-color-secondary` | `#909399` | Close button color |
-| `--yh-text-color-regular` | `#4a4a4a` | Body text color |
-| `--yh-border-color-light` | `rgba(0,0,0,0.05)` | Close button hover background |
+| Variable                    | Default Value      | Description                   |
+| --------------------------- | ------------------ | ----------------------------- |
+| `--yh-dialog-margin-top`    | `15vh`             | Dialog top margin             |
+| `--yh-bg-color-overlay`     | `#ffffff`          | Dialog background color       |
+| `--yh-radius-lg`            | `16px`             | Dialog corner radius          |
+| `--yh-text-color-primary`   | `#1a1a1a`          | Title color                   |
+| `--yh-color-success`        | `#67c23a`          | Success icon/button color     |
+| `--yh-color-warning`        | `#e6a23c`          | Warning icon/button color     |
+| `--yh-color-danger`         | `#f56c6c`          | Error icon/button color       |
+| `--yh-color-info`           | `#909399`          | Info icon/button color        |
+| `--yh-text-color-secondary` | `#909399`          | Close button color            |
+| `--yh-text-color-regular`   | `#4a4a4a`          | Body text color               |
+| `--yh-border-color-light`   | `rgba(0,0,0,0.05)` | Close button hover background |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhDialogProps` | Props type for `YhDialog` |
-| `YhDialogEmits` | Emits type for `YhDialog` |
-| `YhDialogSlots` | Slots type for `YhDialog` |
-| `YhDialogExpose` | Expose type for `YhDialog` |
-| `YhDialogMethod` | Functional dialog method type |
+| Name               | Description                         |
+| ------------------ | ----------------------------------- |
+| `YhDialogProps`    | Props type for `YhDialog`           |
+| `YhDialogEmits`    | Emits type for `YhDialog`           |
+| `YhDialogSlots`    | Slots type for `YhDialog`           |
+| `YhDialogExpose`   | Expose type for `YhDialog`          |
+| `YhDialogMethod`   | Functional dialog method type       |
 | `YhDialogInstance` | Public instance type for `YhDialog` |

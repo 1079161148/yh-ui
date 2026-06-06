@@ -182,12 +182,12 @@ Use slots such as `icon` and `extra` to customize the result page. The default s
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `title` | Title | `string` | `undefined` |
-| `sub-title` | Sub-title | `string` | `undefined` |
-| `icon` | Result icon type | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'` |
-| `theme-overrides` | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop              | Description                              | Type                                          | Default     |
+| ----------------- | ---------------------------------------- | --------------------------------------------- | ----------- |
+| `title`           | Title                                    | `string`                                      | `undefined` |
+| `sub-title`       | Sub-title                                | `string`                                      | `undefined` |
+| `icon`            | Result icon type                         | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'`    |
+| `theme-overrides` | Component-level theme variable overrides | `ComponentThemeVars`                          | `undefined` |
 
 ### Events
 
@@ -195,13 +195,13 @@ This component does not expose component events.
 
 ### Slots
 
-| Slot | Description |
-| --- | --- |
-| `default` | Actions area |
-| `icon` | Custom icon content |
-| `title` | Custom title content |
-| `sub-title` | Custom sub-title content |
-| `extra` | Extra content area between sub-title and actions |
+| Slot        | Description                                      |
+| ----------- | ------------------------------------------------ |
+| `default`   | Actions area                                     |
+| `icon`      | Custom icon content                              |
+| `title`     | Custom title content                             |
+| `sub-title` | Custom sub-title content                         |
+| `extra`     | Extra content area between sub-title and actions |
 
 ### Expose
 
@@ -209,21 +209,21 @@ This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-result-padding` | Container padding | `40px 30px` |
-| `--yh-result-icon-size` | Icon size | `72px` |
-| `--yh-result-icon-margin` | Icon margin bottom | `20px` |
-| `--yh-result-title-size` | Title font size | `20px` |
-| `--yh-result-title-color` | Title color | `var(--yh-text-color-primary, #303133)` |
-| `--yh-result-subtitle-size` | Sub-title font size | `14px` |
-| `--yh-result-subtitle-color` | Sub-title color | `var(--yh-text-color-secondary, #909399)` |
+| Variable                     | Description         | Default                                   |
+| ---------------------------- | ------------------- | ----------------------------------------- |
+| `--yh-result-padding`        | Container padding   | `40px 30px`                               |
+| `--yh-result-icon-size`      | Icon size           | `72px`                                    |
+| `--yh-result-icon-margin`    | Icon margin bottom  | `20px`                                    |
+| `--yh-result-title-size`     | Title font size     | `20px`                                    |
+| `--yh-result-title-color`    | Title color         | `var(--yh-text-color-primary, #303133)`   |
+| `--yh-result-subtitle-size`  | Sub-title font size | `14px`                                    |
+| `--yh-result-subtitle-color` | Sub-title color     | `var(--yh-text-color-secondary, #909399)` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhResultProps` | Component props type |
-| `YhResultSlots` | Component slots type |
-| `YhResultIconType` | Result icon union type |
+| Name               | Description             |
+| ------------------ | ----------------------- |
+| `YhResultProps`    | Component props type    |
+| `YhResultSlots`    | Component slots type    |
+| `YhResultIconType` | Result icon union type  |
 | `YhResultInstance` | Component instance type |

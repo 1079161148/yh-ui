@@ -253,64 +253,64 @@ const tsNuxt = [
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 右侧目标列表中已选项的 key 集合 | `TransferKey[]` | `[]` |
-| `data` | 数据源 | `TransferData[]` | `[]` |
-| `filterable` | 是否开启过滤 | `boolean` | `false` |
-| `filter-method` | 自定义过滤方法 | `(query: string, item: TransferData) => boolean` | `undefined` |
-| `filter-placeholder` | 搜索框占位文案；未传入时回退到 locale | `string` | `undefined` |
-| `target-order` | 右侧列表排列策略 | `'original' \| 'push' \| 'unshift'` | `'original'` |
-| `titles` | 左右列表标题数组 | `string[]` | `[]` |
-| `button-texts` | 中间操作按钮文案数组 | `string[]` | `[]` |
-| `render-content` | 已声明的自定义列表项渲染函数。当前仅透传到面板 props，面板模板未消费该配置 | `(h, data) => VNode \| string` | `undefined` |
-| `left-default-checked` | 左侧面板初始勾选项 | `TransferKey[]` | `[]` |
-| `right-default-checked` | 右侧面板初始勾选项 | `TransferKey[]` | `[]` |
-| `props` | 数据字段别名映射 | `{ key?: string; label?: string; disabled?: string }` | `undefined` |
-| `disabled` | 是否禁用整个组件 | `boolean` | `false` |
-| `size` | 组件尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| `validate-event` | 兼容性保留属性。当前 Transfer 实现未消费该配置来触发表单校验事件 | `boolean` | `true` |
-| `virtual` | 是否开启虚拟滚动 | `boolean` | `false` |
-| `item-height` | 虚拟滚动单项高度 | `number` | `40` |
-| `height` | 面板高度 | `number` | `280` |
-| `left-title` | 左侧面板标题 | `string` | `undefined` |
-| `right-title` | 右侧面板标题 | `string` | `undefined` |
-| `show-all-checkbox` | 已声明的全选入口显示属性。当前面板头部仍会渲染全选入口，不受该值控制 | `boolean` | `true` |
-| `empty-text` | 两侧统一空状态文案 | `string` | `undefined` |
-| `left-empty-text` | 左侧面板空状态文案 | `string` | `undefined` |
-| `right-empty-text` | 右侧面板空状态文案 | `string` | `undefined` |
-| `theme-overrides` | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称                      | 说明                                                                       | 类型                                                  | 默认值       |
+| ------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------- | ------------ |
+| `model-value` / `v-model` | 右侧目标列表中已选项的 key 集合                                            | `TransferKey[]`                                       | `[]`         |
+| `data`                    | 数据源                                                                     | `TransferData[]`                                      | `[]`         |
+| `filterable`              | 是否开启过滤                                                               | `boolean`                                             | `false`      |
+| `filter-method`           | 自定义过滤方法                                                             | `(query: string, item: TransferData) => boolean`      | `undefined`  |
+| `filter-placeholder`      | 搜索框占位文案；未传入时回退到 locale                                      | `string`                                              | `undefined`  |
+| `target-order`            | 右侧列表排列策略                                                           | `'original' \| 'push' \| 'unshift'`                   | `'original'` |
+| `titles`                  | 左右列表标题数组                                                           | `string[]`                                            | `[]`         |
+| `button-texts`            | 中间操作按钮文案数组                                                       | `string[]`                                            | `[]`         |
+| `render-content`          | 已声明的自定义列表项渲染函数。当前仅透传到面板 props，面板模板未消费该配置 | `(h, data) => VNode \| string`                        | `undefined`  |
+| `left-default-checked`    | 左侧面板初始勾选项                                                         | `TransferKey[]`                                       | `[]`         |
+| `right-default-checked`   | 右侧面板初始勾选项                                                         | `TransferKey[]`                                       | `[]`         |
+| `props`                   | 数据字段别名映射                                                           | `{ key?: string; label?: string; disabled?: string }` | `undefined`  |
+| `disabled`                | 是否禁用整个组件                                                           | `boolean`                                             | `false`      |
+| `size`                    | 组件尺寸                                                                   | `'large' \| 'default' \| 'small'`                     | `'default'`  |
+| `validate-event`          | 兼容性保留属性。当前 Transfer 实现未消费该配置来触发表单校验事件           | `boolean`                                             | `true`       |
+| `virtual`                 | 是否开启虚拟滚动                                                           | `boolean`                                             | `false`      |
+| `item-height`             | 虚拟滚动单项高度                                                           | `number`                                              | `40`         |
+| `height`                  | 面板高度                                                                   | `number`                                              | `280`        |
+| `left-title`              | 左侧面板标题                                                               | `string`                                              | `undefined`  |
+| `right-title`             | 右侧面板标题                                                               | `string`                                              | `undefined`  |
+| `show-all-checkbox`       | 已声明的全选入口显示属性。当前面板头部仍会渲染全选入口，不受该值控制       | `boolean`                                             | `true`       |
+| `empty-text`              | 两侧统一空状态文案                                                         | `string`                                              | `undefined`  |
+| `left-empty-text`         | 左侧面板空状态文案                                                         | `string`                                              | `undefined`  |
+| `right-empty-text`        | 右侧面板空状态文案                                                         | `string`                                              | `undefined`  |
+| `theme-overrides`         | 组件级主题覆盖                                                             | `ComponentThemeVars`                                  | `undefined`  |
 
 ### Events
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| `update:modelValue` | 目标列表 key 集合变化时触发 | `(value: TransferKey[])` |
-| `change` | 数据从左向右或从右向左移动后触发 | `(value: TransferKey[], direction: 'left' \| 'right', movedKeys: TransferKey[])` |
-| `left-check-change` | 左侧面板勾选变化时触发 | `(value: TransferKey[], movedKeys?: TransferKey[])` |
-| `right-check-change` | 右侧面板勾选变化时触发 | `(value: TransferKey[], movedKeys?: TransferKey[])` |
+| 名称                 | 说明                             | 参数                                                                             |
+| -------------------- | -------------------------------- | -------------------------------------------------------------------------------- |
+| `update:modelValue`  | 目标列表 key 集合变化时触发      | `(value: TransferKey[])`                                                         |
+| `change`             | 数据从左向右或从右向左移动后触发 | `(value: TransferKey[], direction: 'left' \| 'right', movedKeys: TransferKey[])` |
+| `left-check-change`  | 左侧面板勾选变化时触发           | `(value: TransferKey[], movedKeys?: TransferKey[])`                              |
+| `right-check-change` | 右侧面板勾选变化时触发           | `(value: TransferKey[], movedKeys?: TransferKey[])`                              |
 
 ### Slots
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | 自定义列表项内容 | `{ option: TransferData }` |
-| `buttons` | 自定义中间操作按钮区域 | `{ moveToLeft: () => void; moveToRight: () => void; leftChecked: TransferKey[]; rightChecked: TransferKey[] }` |
-| `left-header` | 左侧面板头部内容 | `-` |
-| `right-header` | 右侧面板头部内容 | `-` |
-| `left-empty` | 左侧面板空状态内容 | `-` |
-| `right-empty` | 右侧面板空状态内容 | `-` |
-| `left-footer` | 左侧面板底部内容 | `-` |
-| `right-footer` | 右侧面板底部内容 | `-` |
+| 名称           | 说明                   | 参数                                                                                                           |
+| -------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `default`      | 自定义列表项内容       | `{ option: TransferData }`                                                                                     |
+| `buttons`      | 自定义中间操作按钮区域 | `{ moveToLeft: () => void; moveToRight: () => void; leftChecked: TransferKey[]; rightChecked: TransferKey[] }` |
+| `left-header`  | 左侧面板头部内容       | `-`                                                                                                            |
+| `right-header` | 右侧面板头部内容       | `-`                                                                                                            |
+| `left-empty`   | 左侧面板空状态内容     | `-`                                                                                                            |
+| `right-empty`  | 右侧面板空状态内容     | `-`                                                                                                            |
+| `left-footer`  | 左侧面板底部内容       | `-`                                                                                                            |
+| `right-footer` | 右侧面板底部内容       | `-`                                                                                                            |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| `clearLeftChecked` | 清空左侧面板勾选状态 | `() => void` |
-| `clearRightChecked` | 清空右侧面板勾选状态 | `() => void` |
-| `leftPanel` | 左侧面板实例引用 | `Ref<TransferPanelExpose \| undefined>` |
-| `rightPanel` | 右侧面板实例引用 | `Ref<TransferPanelExpose \| undefined>` |
+| 名称                | 说明                 | 类型                                    |
+| ------------------- | -------------------- | --------------------------------------- |
+| `clearLeftChecked`  | 清空左侧面板勾选状态 | `() => void`                            |
+| `clearRightChecked` | 清空右侧面板勾选状态 | `() => void`                            |
+| `leftPanel`         | 左侧面板实例引用     | `Ref<TransferPanelExpose \| undefined>` |
+| `rightPanel`        | 右侧面板实例引用     | `Ref<TransferPanelExpose \| undefined>` |
 
 ### 主题变量
 
@@ -318,18 +318,18 @@ const tsNuxt = [
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhTransferProps` | `YhTransfer` props 类型 |
-| `YhTransferEmits` | `YhTransfer` emits 类型 |
-| `YhTransferExpose` | `YhTransfer` expose 类型 |
-| `YhTransferPanelExpose` | 面板 expose 类型 |
-| `YhTransferInstance` | 穿梭框实例类型 |
-| `YhTransferPanelInstance` | 面板实例类型 |
-| `TransferData` | 数据项类型 |
-| `TransferKey` | 数据 key 类型 |
-| `TransferDirection` | 移动方向类型 |
-| `TransferSize` | 尺寸类型 |
-| `TransferPropsAlias` | 字段映射配置类型 |
-| `TransferFilterMethod` | 过滤方法类型 |
-| `TransferRenderContent` | 自定义渲染函数类型 |
+| 名称                      | 说明                     |
+| ------------------------- | ------------------------ |
+| `YhTransferProps`         | `YhTransfer` props 类型  |
+| `YhTransferEmits`         | `YhTransfer` emits 类型  |
+| `YhTransferExpose`        | `YhTransfer` expose 类型 |
+| `YhTransferPanelExpose`   | 面板 expose 类型         |
+| `YhTransferInstance`      | 穿梭框实例类型           |
+| `YhTransferPanelInstance` | 面板实例类型             |
+| `TransferData`            | 数据项类型               |
+| `TransferKey`             | 数据 key 类型            |
+| `TransferDirection`       | 移动方向类型             |
+| `TransferSize`            | 尺寸类型                 |
+| `TransferPropsAlias`      | 字段映射配置类型         |
+| `TransferFilterMethod`    | 过滤方法类型             |
+| `TransferRenderContent`   | 自定义渲染函数类型       |

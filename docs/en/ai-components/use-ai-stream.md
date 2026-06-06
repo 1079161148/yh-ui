@@ -317,25 +317,25 @@ Replace the `request` adapter with a real API call. Pass your key to enable prod
 
 ### Options
 
-| Param           | Type                                                              | Default           | Description                            |
-| --------------- | ----------------------------------------------------------------- | ----------------- | -------------------------------------- |
-| `request`       | `(query, ...args) => AsyncGenerator \| Promise<Response \| AsyncGenerator>` | Required          | Request adapter |
-| `parser`        | `StreamChunkParser`                                               | `plainTextParser` | Stream chunk parser (multi-vendor)     |
-| `typewriter`    | `boolean`                                                         | `true`            | Enable typewriter effect               |
-| `charsPerFrame` | `number`                                                          | `3`               | Chars output per frame (speed control) |
-| `onUpdate`      | `(chunk, fullContent) => void`                                    | -                 | Incremental update callback            |
-| `onFinish`      | `(content) => void`                                               | -                 | Final completion callback              |
-| `onError`       | `(err) => void`                                                   | -                 | Error callback                         |
+| Param           | Type                                                                        | Default           | Description                            |
+| --------------- | --------------------------------------------------------------------------- | ----------------- | -------------------------------------- |
+| `request`       | `(query, ...args) => AsyncGenerator \| Promise<Response \| AsyncGenerator>` | Required          | Request adapter                        |
+| `parser`        | `StreamChunkParser`                                                         | `plainTextParser` | Stream chunk parser (multi-vendor)     |
+| `typewriter`    | `boolean`                                                                   | `true`            | Enable typewriter effect               |
+| `charsPerFrame` | `number`                                                                    | `3`               | Chars output per frame (speed control) |
+| `onUpdate`      | `(chunk, fullContent) => void`                                              | -                 | Incremental update callback            |
+| `onFinish`      | `(content) => void`                                                         | -                 | Final completion callback              |
+| `onError`       | `(err) => void`                                                             | -                 | Error callback                         |
 
 ### Returns
 
-| Field            | Type                                | Description                  |
-| ---------------- | ----------------------------------- | ---------------------------- |
-| `isStreaming`    | `Ref<boolean>`                      | If streaming is in progress  |
-| `currentContent` | `Ref<string>`                       | Full content received so far |
-| `fetchStream`    | `(query, ...args) => Promise<void>` | Trigger request              |
-| `stop`           | `() => void`                        | Stop the current stream output |
-| `parsers`        | `{ openaiParser, ernieParser, qwenParser, claudeParser, geminiParser, plainTextParser }` | Built-in parser collection |
+| Field            | Type                                                                                     | Description                    |
+| ---------------- | ---------------------------------------------------------------------------------------- | ------------------------------ |
+| `isStreaming`    | `Ref<boolean>`                                                                           | If streaming is in progress    |
+| `currentContent` | `Ref<string>`                                                                            | Full content received so far   |
+| `fetchStream`    | `(query, ...args) => Promise<void>`                                                      | Trigger request                |
+| `stop`           | `() => void`                                                                             | Stop the current stream output |
+| `parsers`        | `{ openaiParser, ernieParser, qwenParser, claudeParser, geminiParser, plainTextParser }` | Built-in parser collection     |
 
 ### Built-in Parsers
 
@@ -345,7 +345,7 @@ Replace the `request` adapter with a real API call. Pass your key to enable prod
 | `ernieParser`     | Baidu Wenxin                           | Compatible with Wenxin SSE format |
 | `qwenParser`      | Alibaba Tongyi (Direct)                | Compatible with Tongyi SSE format |
 | `claudeParser`    | Anthropic Claude                       | Compatible with Claude SSE format |
-| `geminiParser`    | Google Gemini                          | Compatible with Gemini format |
+| `geminiParser`    | Google Gemini                          | Compatible with Gemini format     |
 | `plainTextParser` | Raw AsyncGenerator                     | Yield strings appended directly   |
 
 ## Connecting Other AI Platforms

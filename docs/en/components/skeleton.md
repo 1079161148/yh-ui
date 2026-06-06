@@ -135,16 +135,16 @@ When `lazy` is enabled, the skeleton animation only starts when the element ente
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| loading | Whether to show loading render | `boolean` | `true` |
-| animated | Whether to enable shimmer animation | `boolean` | `true` |
-| rows | Number of rows for the default layout | `number` | `3` |
-| title | Whether to render a title placeholder | `boolean` | `false` |
-| avatar | Whether to render an avatar placeholder | `boolean` | `false` |
-| throttle | Delay in milliseconds to prevent flickering | `number` | `0` |
-| lazy | Only start animation when in viewport | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name            | Description                                 | Type                 | Default     |
+| --------------- | ------------------------------------------- | -------------------- | ----------- |
+| loading         | Whether to show loading render              | `boolean`            | `true`      |
+| animated        | Whether to enable shimmer animation         | `boolean`            | `true`      |
+| rows            | Number of rows for the default layout       | `number`             | `3`         |
+| title           | Whether to render a title placeholder       | `boolean`            | `false`     |
+| avatar          | Whether to render an avatar placeholder     | `boolean`            | `false`     |
+| throttle        | Delay in milliseconds to prevent flickering | `number`             | `0`         |
+| lazy            | Only start animation when in viewport       | `boolean`            | `false`     |
+| theme-overrides | Component-level theme overrides             | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -152,10 +152,10 @@ This component does not expose component events.
 
 ### Slots
 
-| Name | Parameters | Description |
-| --- | --- | --- |
-| template | `-` | Skeleton placeholder content shown while `loading` is `true`. |
-| default | `-` | Content rendered after loading completes. |
+| Name     | Parameters | Description                                                   |
+| -------- | ---------- | ------------------------------------------------------------- |
+| template | `-`        | Skeleton placeholder content shown while `loading` is `true`. |
+| default  | `-`        | Content rendered after loading completes.                     |
 
 ### Expose
 
@@ -163,22 +163,22 @@ This component does not expose public instance methods or properties.
 
 ### Skeleton Item Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| variant | Variant type (`circle`, `rect`, `h1`, `h3`, `text`, `caption`, `button`, `image`) | `YhSkeletonItemVariant` | `'text'` |
-| width | Width | `string \| number` | `undefined` |
-| height | Height | `string \| number` | `undefined` |
-| animated | Whether to enable shimmer animation | `boolean` | `true` |
-| round | Whether to use rounded corners | `boolean` | `false` |
-| sharp | Whether to force sharp corners | `boolean` | `false` |
-| repeat | Number of times to repeat | `number` | `1` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name            | Description                                                                       | Type                    | Default     |
+| --------------- | --------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| variant         | Variant type (`circle`, `rect`, `h1`, `h3`, `text`, `caption`, `button`, `image`) | `YhSkeletonItemVariant` | `'text'`    |
+| width           | Width                                                                             | `string \| number`      | `undefined` |
+| height          | Height                                                                            | `string \| number`      | `undefined` |
+| animated        | Whether to enable shimmer animation                                               | `boolean`               | `true`      |
+| round           | Whether to use rounded corners                                                    | `boolean`               | `false`     |
+| sharp           | Whether to force sharp corners                                                    | `boolean`               | `false`     |
+| repeat          | Number of times to repeat                                                         | `number`                | `1`         |
+| theme-overrides | Component-level theme overrides                                                   | `ComponentThemeVars`    | `undefined` |
 
 ### Skeleton Item Slots
 
-| Name | Parameters | Description |
-| --- | --- | --- |
-| image | `-` | Custom placeholder content used when `variant="image"`. |
+| Name  | Parameters | Description                                             |
+| ----- | ---------- | ------------------------------------------------------- |
+| image | `-`        | Custom placeholder content used when `variant="image"`. |
 
 ### Skeleton Item Expose
 
@@ -190,14 +190,14 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSkeletonProps` | Skeleton props type |
-| `YhSkeletonSlots` | Skeleton slots type |
-| `YhSkeletonInstance` | Skeleton instance type |
-| `YhSkeletonItemProps` | SkeletonItem props type |
-| `YhSkeletonItemVariant` | SkeletonItem variant union type |
-| `YhSkeletonItemInstance` | SkeletonItem instance type |
+| Name                     | Description                     |
+| ------------------------ | ------------------------------- |
+| `YhSkeletonProps`        | Skeleton props type             |
+| `YhSkeletonSlots`        | Skeleton slots type             |
+| `YhSkeletonInstance`     | Skeleton instance type          |
+| `YhSkeletonItemProps`    | SkeletonItem props type         |
+| `YhSkeletonItemVariant`  | SkeletonItem variant union type |
+| `YhSkeletonItemInstance` | SkeletonItem instance type      |
 
 <style scoped>
 .skeleton-card {

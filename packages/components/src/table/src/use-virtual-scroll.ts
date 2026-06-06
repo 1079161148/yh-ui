@@ -78,7 +78,9 @@ export const useVirtualScroll = (options: VirtualScrollOptions): VirtualScrollRe
 
   // ==================== 是否固定行高（优化百万级数据） ====================
   const isFixedRowHeight = computed(() => typeof mergedConfig.value.rowHeight !== 'function')
-  const fixedHeight = computed(() => (isFixedRowHeight.value ? (mergedConfig.value.rowHeight as number) : 0))
+  const fixedHeight = computed(() =>
+    isFixedRowHeight.value ? (mergedConfig.value.rowHeight as number) : 0
+  )
 
   // ==================== 行高计算（仅动态行高场景使用） ====================
   const getRowHeight = (row: Record<string, unknown>, index: number): number => {

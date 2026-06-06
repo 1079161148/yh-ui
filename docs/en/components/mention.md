@@ -638,14 +638,14 @@ In SSR scenarios, Mention's initial render only includes the input itself. The d
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhMentionProps` | Component props type |
-| `YhMentionEmits` | Component emits type |
-| `YhMentionSlots` | Component slots type |
-| `YhMentionExpose` | Component expose type |
-| `YhMentionOption` | Mention option type |
-| `YhMentionTriggerPosition` | Trigger position type |
-| `YhMentionPlacement` | Dropdown placement type |
-| `YhMentionSize` | Size union type |
-| `YhMentionInstance` | Component instance type |
+| Name                       | Description             |
+| -------------------------- | ----------------------- |
+| `YhMentionProps`           | Component props type    |
+| `YhMentionEmits`           | Component emits type    |
+| `YhMentionSlots`           | Component slots type    |
+| `YhMentionExpose`          | Component expose type   |
+| `YhMentionOption`          | Mention option type     |
+| `YhMentionTriggerPosition` | Trigger position type   |
+| `YhMentionPlacement`       | Dropdown placement type |
+| `YhMentionSize`            | Size union type         |
+| `YhMentionInstance`        | Component instance type |

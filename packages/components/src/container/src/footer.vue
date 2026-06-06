@@ -11,10 +11,13 @@ const props = withDefaults(defineProps<FooterProps>(), {
 })
 
 const ns = useNamespace('footer')
-const { themeStyle } = useComponentTheme('footer', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'footer',
+  computed(() => props.themeOverrides)
+)
 
 const footerStyle = computed(() => ({
-  ...themeStyle.value as Record<string, string>,
+  ...(themeStyle.value as Record<string, string>),
   height: props.height
 }))
 </script>

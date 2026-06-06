@@ -207,12 +207,12 @@ const jsFull = toJs(tsFull)
 
 ### Props
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-| --- | --- | --- | --- | --- |
-| theme | 全局主题 | `string` | 十六进制色值 / `purple` | `default` |
-| locale | 国际化语言包 | `Language` | — | `zhCn` |
-| size | 全局组件尺寸 | `'large' \| 'default' \| 'small'` | — | `'default'` |
-| global | 是否注入到 `:root` | `boolean` | — | `true` |
+| 参数   | 说明               | 类型                              | 可选值                  | 默认值      |
+| ------ | ------------------ | --------------------------------- | ----------------------- | ----------- |
+| theme  | 全局主题           | `string`                          | 十六进制色值 / `purple` | `default`   |
+| locale | 国际化语言包       | `Language`                        | —                       | `zhCn`      |
+| size   | 全局组件尺寸       | `'large' \| 'default' \| 'small'` | —                       | `'default'` |
+| global | 是否注入到 `:root` | `boolean`                         | —                       | `true`      |
 
 ### Events
 
@@ -220,9 +220,9 @@ const jsFull = toJs(tsFull)
 
 ### Slots
 
-| 插槽名 | 说明 | 插槽参数 |
-| --- | --- | --- |
-| `default` | Provider 作用域内的内容。 | 无 |
+| 插槽名    | 说明                      | 插槽参数 |
+| --------- | ------------------------- | -------- |
+| `default` | Provider 作用域内的内容。 | 无       |
 
 ### Expose
 
@@ -234,12 +234,12 @@ const jsFull = toJs(tsFull)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhConfigProviderProps` | `YhConfigProvider` props 类型 |
-| `YhConfigProviderSlots` | `YhConfigProvider` slots 类型 |
-| `YhConfigProviderInstance` | `YhConfigProvider` 实例类型 |
-| `ConfigProviderContext` | Provider 上下文类型 |
+| 名称                       | 说明                          |
+| -------------------------- | ----------------------------- |
+| `YhConfigProviderProps`    | `YhConfigProvider` props 类型 |
+| `YhConfigProviderSlots`    | `YhConfigProvider` slots 类型 |
+| `YhConfigProviderInstance` | `YhConfigProvider` 实例类型   |
+| `ConfigProviderContext`    | Provider 上下文类型           |
 
 <style scoped>
 .demo-items-inline {

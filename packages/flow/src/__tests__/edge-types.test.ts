@@ -179,7 +179,14 @@ describe('flow/types/edge', () => {
 
   describe('EdgeChangeType', () => {
     it('should define all change types', () => {
-      const types: EdgeChangeType[] = ['select', 'remove', 'style', 'data', 'selectMulti', 'unselect']
+      const types: EdgeChangeType[] = [
+        'select',
+        'remove',
+        'style',
+        'data',
+        'selectMulti',
+        'unselect'
+      ]
       expect(types).toContain('select')
       expect(types).toContain('remove')
       expect(types).toContain('style')

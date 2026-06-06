@@ -290,38 +290,38 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | 绑定值 | `number` | `0` |
-| `max` | 最大分值 | `number` | `5` |
-| `disabled` | 是否只读 | `boolean` | `false` |
-| `allow-half` | 是否允许半选 | `boolean` | `false` |
-| `icon` | 自定义选中图标 | `string \| Component` | `''` |
-| `void-icon` | 自定义未选中图标 | `string \| Component` | `''` |
-| `disabled-void-icon` | 禁用状态下的未选中图标 | `string \| Component` | `''` |
-| `colors` | 激活颜色，支持字符串、数组或阈值映射对象 | `string \| string[] \| Record<number, string>` | `'#F7BA2A'` |
-| `void-color` | 未选中颜色 | `string` | `'#C6D1DE'` |
-| `disabled-void-color` | 禁用状态下的未选中颜色 | `string` | `'#EFF2F7'` |
-| `show-score` | 是否显示当前分数 | `boolean` | `false` |
-| `show-text` | 是否显示辅助文案 | `boolean` | `false` |
-| `text-color` | 辅助文案颜色 | `string` | `'#1f2d3d'` |
-| `texts` | 辅助文案数组 | `string[]` | `[]` |
-| `score-template` | 分数显示模板 | `string` | `'{value}'` |
-| `size` | 图标尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| `clearable` | 再次点击当前值时是否清空 | `boolean` | `false` |
-| `theme-overrides` | 组件级主题变量覆盖 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                                     | 类型                                           | 默认值      |
+| ------------------------- | ---------------------------------------- | ---------------------------------------------- | ----------- |
+| `model-value` / `v-model` | 绑定值                                   | `number`                                       | `0`         |
+| `max`                     | 最大分值                                 | `number`                                       | `5`         |
+| `disabled`                | 是否只读                                 | `boolean`                                      | `false`     |
+| `allow-half`              | 是否允许半选                             | `boolean`                                      | `false`     |
+| `icon`                    | 自定义选中图标                           | `string \| Component`                          | `''`        |
+| `void-icon`               | 自定义未选中图标                         | `string \| Component`                          | `''`        |
+| `disabled-void-icon`      | 禁用状态下的未选中图标                   | `string \| Component`                          | `''`        |
+| `colors`                  | 激活颜色，支持字符串、数组或阈值映射对象 | `string \| string[] \| Record<number, string>` | `'#F7BA2A'` |
+| `void-color`              | 未选中颜色                               | `string`                                       | `'#C6D1DE'` |
+| `disabled-void-color`     | 禁用状态下的未选中颜色                   | `string`                                       | `'#EFF2F7'` |
+| `show-score`              | 是否显示当前分数                         | `boolean`                                      | `false`     |
+| `show-text`               | 是否显示辅助文案                         | `boolean`                                      | `false`     |
+| `text-color`              | 辅助文案颜色                             | `string`                                       | `'#1f2d3d'` |
+| `texts`                   | 辅助文案数组                             | `string[]`                                     | `[]`        |
+| `score-template`          | 分数显示模板                             | `string`                                       | `'{value}'` |
+| `size`                    | 图标尺寸                                 | `'large' \| 'default' \| 'small'`              | `'default'` |
+| `clearable`               | 再次点击当前值时是否清空                 | `boolean`                                      | `false`     |
+| `theme-overrides`         | 组件级主题变量覆盖                       | `ComponentThemeVars`                           | `undefined` |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名              | 说明             | 回调参数                  |
+| ------------------- | ---------------- | ------------------------- |
 | `update:modelValue` | 绑定值变化时触发 | `(value: number) => void` |
-| `change` | 评分值变化时触发 | `(value: number) => void` |
+| `change`            | 评分值变化时触发 | `(value: number) => void` |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
+| 插槽名 | 说明           | 参数                                                                       |
+| ------ | -------------- | -------------------------------------------------------------------------- |
 | `icon` | 自定义评分图标 | `{ index: number, width: string, activeColor: string, voidColor: string }` |
 
 ### Expose
@@ -330,21 +330,21 @@ const jsCustom = tsCustom.replace('lang="ts"', '')
 
 ## 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-rate-void-color` | 未选中颜色 | `#c6d1de` |
-| `--yh-rate-fill-color` | 选中颜色 | `#f7ba2a` |
+| 变量名                          | 说明                   | 默认值    |
+| ------------------------------- | ---------------------- | --------- |
+| `--yh-rate-void-color`          | 未选中颜色             | `#c6d1de` |
+| `--yh-rate-fill-color`          | 选中颜色               | `#f7ba2a` |
 | `--yh-rate-disabled-void-color` | 禁用状态下的未选中颜色 | `#eff2f7` |
-| `--yh-rate-text-color` | 辅助文案颜色 | `#1f2d3d` |
-| `--yh-rate-font-size` | 辅助文案字号 | `14px` |
-| `--yh-rate-icon-margin` | 图标间距 | `6px` |
+| `--yh-rate-text-color`          | 辅助文案颜色           | `#1f2d3d` |
+| `--yh-rate-font-size`           | 辅助文案字号           | `14px`    |
+| `--yh-rate-icon-margin`         | 图标间距               | `6px`     |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhRateProps` | 组件 Props 类型 |
-| `YhRateEmits` | 组件事件类型 |
-| `YhRateSlots` | 组件插槽类型 |
-| `YhRateSize` | 尺寸联合类型 |
-| `YhRateInstance` | 组件实例类型 |
+| 名称             | 说明            |
+| ---------------- | --------------- |
+| `YhRateProps`    | 组件 Props 类型 |
+| `YhRateEmits`    | 组件事件类型    |
+| `YhRateSlots`    | 组件插槽类型    |
+| `YhRateSize`     | 尺寸联合类型    |
+| `YhRateInstance` | 组件实例类型    |

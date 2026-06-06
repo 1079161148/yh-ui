@@ -2,7 +2,6 @@
 
 `YhTimeSelect` 用于从预定义的时间列表中选择固定时段，适合预约、排班、营业时间等固定时间槽场景。
 
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -318,9 +317,10 @@ const jsFull = tsFull.replace('lang="ts"', '').replace(': string | undefined', '
 </script>
 
 ::: tip TimePicker 与 TimeSelect
+
 - **TimePicker**：通过滚轮面板选择任意时间点。
 - **TimeSelect**：从规则生成或自定义数据提供的固定时间选项中选择。
-:::
+  :::
 
 ## 基础用法
 
@@ -542,84 +542,84 @@ const jsFull = tsFull.replace('lang="ts"', '').replace(': string | undefined', '
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `string` | `undefined` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| editable | 输入框是否可编辑并支持过滤 | `boolean` | `true` |
-| clearable | 是否允许清空 | `boolean` | `true` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
-| placeholder | 占位文本 | `string` | `''` |
-| name | 原生输入框名称 | `string` | `undefined` |
-| effect | 下拉面板主题风格 | `'dark' \| 'light'` | `'light'` |
-| prefix-icon | 已声明的前缀图标属性。当前模板仍固定渲染默认时钟图标，未消费该 prop | `string \| Component` | `undefined` |
-| clear-icon | 已声明的清空图标属性。当前模板仍固定渲染默认清空图标，未消费该 prop | `string \| Component` | `undefined` |
-| start | 用于生成选项的开始时间 | `string` | `'09:00'` |
-| end | 用于生成选项的结束时间 | `string` | `'18:00'` |
-| step | 用于生成选项的时间间隔 | `string` | `'00:30'` |
-| min-time | 最小可选时间 | `string` | `undefined` |
-| max-time | 最大可选时间 | `string` | `undefined` |
-| value-on-clear | 清空时回传的值，未设置时回退到 `undefined` | `string` | `undefined` |
-| format | 规则生成选项的展示格式 | `string` | `'HH:mm'` |
-| popper-class | 下拉面板自定义类名 | `string` | `undefined` |
-| popper-style | 已声明的下拉面板样式属性。当前实现未将该 prop 合并到面板样式中 | `string \| Record<string, string>` | `undefined` |
-| teleported | 是否将面板传送到 `body` | `boolean` | `true` |
-| include-end-time | 兼容性保留字段。当前实现会始终包含精确的结束时间选项 | `boolean` | `false` |
-| validate-event | 值变化和失焦时是否触发表单校验 | `boolean` | `true` |
-| options | 自定义时间选项列表 | `YhTimeSelectOption[]` | `undefined` |
-| disabled-hours | 禁用时间段列表 | `string[][]` | `undefined` |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称                  | 说明                                                                | 类型                               | 默认值      |
+| --------------------- | ------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| model-value / v-model | 绑定值                                                              | `string`                           | `undefined` |
+| disabled              | 是否禁用                                                            | `boolean`                          | `false`     |
+| editable              | 输入框是否可编辑并支持过滤                                          | `boolean`                          | `true`      |
+| clearable             | 是否允许清空                                                        | `boolean`                          | `true`      |
+| size                  | 输入框尺寸                                                          | `'large' \| 'default' \| 'small'`  | `undefined` |
+| placeholder           | 占位文本                                                            | `string`                           | `''`        |
+| name                  | 原生输入框名称                                                      | `string`                           | `undefined` |
+| effect                | 下拉面板主题风格                                                    | `'dark' \| 'light'`                | `'light'`   |
+| prefix-icon           | 已声明的前缀图标属性。当前模板仍固定渲染默认时钟图标，未消费该 prop | `string \| Component`              | `undefined` |
+| clear-icon            | 已声明的清空图标属性。当前模板仍固定渲染默认清空图标，未消费该 prop | `string \| Component`              | `undefined` |
+| start                 | 用于生成选项的开始时间                                              | `string`                           | `'09:00'`   |
+| end                   | 用于生成选项的结束时间                                              | `string`                           | `'18:00'`   |
+| step                  | 用于生成选项的时间间隔                                              | `string`                           | `'00:30'`   |
+| min-time              | 最小可选时间                                                        | `string`                           | `undefined` |
+| max-time              | 最大可选时间                                                        | `string`                           | `undefined` |
+| value-on-clear        | 清空时回传的值，未设置时回退到 `undefined`                          | `string`                           | `undefined` |
+| format                | 规则生成选项的展示格式                                              | `string`                           | `'HH:mm'`   |
+| popper-class          | 下拉面板自定义类名                                                  | `string`                           | `undefined` |
+| popper-style          | 已声明的下拉面板样式属性。当前实现未将该 prop 合并到面板样式中      | `string \| Record<string, string>` | `undefined` |
+| teleported            | 是否将面板传送到 `body`                                             | `boolean`                          | `true`      |
+| include-end-time      | 兼容性保留字段。当前实现会始终包含精确的结束时间选项                | `boolean`                          | `false`     |
+| validate-event        | 值变化和失焦时是否触发表单校验                                      | `boolean`                          | `true`      |
+| options               | 自定义时间选项列表                                                  | `YhTimeSelectOption[]`             | `undefined` |
+| disabled-hours        | 禁用时间段列表                                                      | `string[][]`                       | `undefined` |
+| theme-overrides       | 组件级主题覆盖                                                      | `ComponentThemeVars`               | `undefined` |
 
 ### Events
 
-| 名称 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:modelValue | 绑定值更新时触发 | `(value: string \| undefined) => void` |
-| change | 选中值变化时触发 | `(value: string \| undefined) => void` |
-| focus | 输入框聚焦时触发 | `(event: FocusEvent) => void` |
-| blur | 输入框失焦时触发 | `(event: FocusEvent) => void` |
-| clear | 点击清空按钮时触发 | `() => void` |
-| visible-change | 面板显示状态变化时触发 | `(visible: boolean) => void` |
+| 名称              | 说明                   | 回调参数                               |
+| ----------------- | ---------------------- | -------------------------------------- |
+| update:modelValue | 绑定值更新时触发       | `(value: string \| undefined) => void` |
+| change            | 选中值变化时触发       | `(value: string \| undefined) => void` |
+| focus             | 输入框聚焦时触发       | `(event: FocusEvent) => void`          |
+| blur              | 输入框失焦时触发       | `(event: FocusEvent) => void`          |
+| clear             | 点击清空按钮时触发     | `() => void`                           |
+| visible-change    | 面板显示状态变化时触发 | `(visible: boolean) => void`           |
 
 ### Slots
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| prefix | 输入框前缀内容 | - |
-| empty | 没有可用选项时的占位内容 | - |
-| option | 自定义选项内容 | `{ option: YhTimeSelectOption }` |
+| 名称   | 说明                     | 参数                             |
+| ------ | ------------------------ | -------------------------------- |
+| prefix | 输入框前缀内容           | -                                |
+| empty  | 没有可用选项时的占位内容 | -                                |
+| option | 自定义选项内容           | `{ option: YhTimeSelectOption }` |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 让输入框获得焦点 | `() => void` |
-| blur | 让输入框失去焦点 | `() => void` |
-| inputRef | 内部输入框引用 | `Ref<HTMLInputElement \| undefined>` |
+| 名称     | 说明             | 类型                                 |
+| -------- | ---------------- | ------------------------------------ |
+| focus    | 让输入框获得焦点 | `() => void`                         |
+| blur     | 让输入框失去焦点 | `() => void`                         |
+| inputRef | 内部输入框引用   | `Ref<HTMLInputElement \| undefined>` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhTimeSelectProps` | TimeSelect props 类型 |
-| `YhTimeSelectEmits` | TimeSelect emits 类型 |
-| `YhTimeSelectSlots` | TimeSelect slots 类型 |
-| `YhTimeSelectExpose` | TimeSelect expose 类型 |
-| `YhTimeSelectSize` | 尺寸联合类型 |
-| `YhTimeSelectOption` | 时间选项项类型 |
-| `YhTimeSelectInstance` | 组件实例类型 |
+| 名称                   | 说明                   |
+| ---------------------- | ---------------------- |
+| `YhTimeSelectProps`    | TimeSelect props 类型  |
+| `YhTimeSelectEmits`    | TimeSelect emits 类型  |
+| `YhTimeSelectSlots`    | TimeSelect slots 类型  |
+| `YhTimeSelectExpose`   | TimeSelect expose 类型 |
+| `YhTimeSelectSize`     | 尺寸联合类型           |
+| `YhTimeSelectOption`   | 时间选项项类型         |
+| `YhTimeSelectInstance` | 组件实例类型           |
 
 ### 主题变量
 
 `YhTimeSelect` 支持 `themeOverrides`。当前样式文件直接消费以下组件级 CSS 变量，其余边框、背景和文字颜色继续复用全局主题令牌。
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-time-select-height` | 控件高度 | `var(--yh-component-size-default, 32px)` |
-| `--yh-time-select-font-size` | 输入框和选项字体大小 | `var(--yh-font-size-base, 14px)` |
-| `--yh-time-select-icon-size` | 前后缀图标尺寸 | `14px` |
-| `--yh-time-select-prefix-margin` | 前缀图标左侧间距 | `12px` |
-| `--yh-time-select-display-padding` | 展示文本左侧内边距 | `38px` |
+| 变量名                             | 说明                 | 默认值                                   |
+| ---------------------------------- | -------------------- | ---------------------------------------- |
+| `--yh-time-select-height`          | 控件高度             | `var(--yh-component-size-default, 32px)` |
+| `--yh-time-select-font-size`       | 输入框和选项字体大小 | `var(--yh-font-size-base, 14px)`         |
+| `--yh-time-select-icon-size`       | 前后缀图标尺寸       | `14px`                                   |
+| `--yh-time-select-prefix-margin`   | 前缀图标左侧间距     | `12px`                                   |
+| `--yh-time-select-display-padding` | 展示文本左侧内边距   | `38px`                                   |
 
 ## 使用场景
 
@@ -686,4 +686,3 @@ const jsFull = tsFull.replace('lang="ts"', '').replace(': string | undefined', '
   />
 </template>
 ```
-

@@ -12,7 +12,16 @@
  * 再 packages/theme/styles → src/styles）会导致内层 junction 无法穿透访问。
  * 因此使用 cpSync 直接复制替代 junction，确保可靠性。
  */
-import { existsSync, lstatSync, cpSync, rmSync, mkdirSync, readdirSync, symlinkSync, writeFileSync } from 'fs'
+import {
+  existsSync,
+  lstatSync,
+  cpSync,
+  rmSync,
+  mkdirSync,
+  readdirSync,
+  symlinkSync,
+  writeFileSync
+} from 'fs'
 import { execSync } from 'child_process'
 import { resolve, join } from 'path'
 import { fileURLToPath } from 'url'
@@ -59,8 +68,13 @@ try {
     if (existsSync(compilerVue2Path)) {
       const buildJsPath = join(compilerVue2Path, 'build.js')
       if (!existsSync(buildJsPath)) {
-        writeFileSync(buildJsPath, "module.exports = { compile: function() { return { errors: [], tips: [] }; } };\n")
-        console.log('[postinstall] Created node_modules/@vue/compiler-vue2/build.js mock for vue-tsc compatibility.')
+        writeFileSync(
+          buildJsPath,
+          'module.exports = { compile: function() { return { errors: [], tips: [] }; } };\n'
+        )
+        console.log(
+          '[postinstall] Created node_modules/@vue/compiler-vue2/build.js mock for vue-tsc compatibility.'
+        )
       }
     }
   } catch (err) {
@@ -71,11 +85,15 @@ try {
   if (existsSync(stylesLink) && isAccessible(stylesLink)) {
     const stat = lstatSync(stylesLink)
     if (stat.isSymbolicLink()) {
-      console.log('[postinstall] theme/styles already exists as a link and is accessible, skipping.')
+      console.log(
+        '[postinstall] theme/styles already exists as a link and is accessible, skipping.'
+      )
       process.exit(0)
     }
 
-    console.log('[postinstall] theme/styles exists as a plain directory, refreshing from src/styles...')
+    console.log(
+      '[postinstall] theme/styles exists as a plain directory, refreshing from src/styles...'
+    )
     forceRemove(stylesLink)
   }
 
@@ -110,5 +128,3 @@ try {
   // 在 CI 或权限不足时不阻塞安装
   console.warn('[postinstall] Warning: Could not setup theme/styles:', err.message)
 }
-
-

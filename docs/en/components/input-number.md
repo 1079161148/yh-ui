@@ -277,77 +277,77 @@ InputNumber handles numeric precision and boundary constraints during the SSR ph
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `number` | — |
-| min | Minimum value | `number` | `-Infinity` |
-| max | Maximum value | `number` | `Infinity` |
-| step | Step size | `number` | `1` |
-| step-strictly | Whether to restrict input to multiples of step | `boolean` | `false` |
-| precision | Numeric precision | `number` | — |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | Whether to disable | `boolean` | `false` |
-| readonly | Whether to set read-only | `boolean` | `false` |
-| controls | Whether to show control buttons | `boolean` | `true` |
-| controls-position | Position of control buttons | `'' \| 'right'` | `''` |
-| prefix | Prefix text | `string` | — |
-| suffix | Suffix text | `string` | — |
-| prefix-icon | Prefix icon | `Component` | — |
-| suffix-icon | Suffix icon | `Component` | — |
-| clearable | Whether it is clearable | `boolean` | `false` |
-| validator | Custom validation function | `(value: number \| undefined) => boolean \| string` | — |
-| placeholder | Input placeholder | `string` | — |
-| value-on-clear | Value when cleared | `number \| null \| 'min' \| 'max'` | `null` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop                  | Description                                    | Type                                                | Default     |
+| --------------------- | ---------------------------------------------- | --------------------------------------------------- | ----------- |
+| model-value / v-model | Binding value                                  | `number`                                            | —           |
+| min                   | Minimum value                                  | `number`                                            | `-Infinity` |
+| max                   | Maximum value                                  | `number`                                            | `Infinity`  |
+| step                  | Step size                                      | `number`                                            | `1`         |
+| step-strictly         | Whether to restrict input to multiples of step | `boolean`                                           | `false`     |
+| precision             | Numeric precision                              | `number`                                            | —           |
+| size                  | Size                                           | `'large' \| 'default' \| 'small'`                   | `'default'` |
+| disabled              | Whether to disable                             | `boolean`                                           | `false`     |
+| readonly              | Whether to set read-only                       | `boolean`                                           | `false`     |
+| controls              | Whether to show control buttons                | `boolean`                                           | `true`      |
+| controls-position     | Position of control buttons                    | `'' \| 'right'`                                     | `''`        |
+| prefix                | Prefix text                                    | `string`                                            | —           |
+| suffix                | Suffix text                                    | `string`                                            | —           |
+| prefix-icon           | Prefix icon                                    | `Component`                                         | —           |
+| suffix-icon           | Suffix icon                                    | `Component`                                         | —           |
+| clearable             | Whether it is clearable                        | `boolean`                                           | `false`     |
+| validator             | Custom validation function                     | `(value: number \| undefined) => boolean \| string` | —           |
+| placeholder           | Input placeholder                              | `string`                                            | —           |
+| value-on-clear        | Value when cleared                             | `number \| null \| 'min' \| 'max'`                  | `null`      |
+| theme-overrides       | Component-level theme overrides                | `ComponentThemeVars`                                | `undefined` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| change | Triggered when value changes | `(currentValue: number \| undefined, oldValue: number \| undefined) => void` |
-| input | Triggered on input | `(value: number \| undefined) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered on clear | `() => void` |
+| Event Name | Description                  | Callback Parameters                                                          |
+| ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| change     | Triggered when value changes | `(currentValue: number \| undefined, oldValue: number \| undefined) => void` |
+| input      | Triggered on input           | `(value: number \| undefined) => void`                                       |
+| focus      | Triggered on focus           | `(event: FocusEvent) => void`                                                |
+| blur       | Triggered on blur            | `(event: FocusEvent) => void`                                                |
+| clear      | Triggered on clear           | `() => void`                                                                 |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| prefix | Custom prefix content |
-| suffix | Custom suffix content |
+| Slot Name     | Description                 |
+| ------------- | --------------------------- |
+| prefix        | Custom prefix content       |
+| suffix        | Custom suffix content       |
 | decrease-icon | Custom decrease button icon |
 | increase-icon | Custom increase button icon |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name  | Description     | Type         |
+| ----- | --------------- | ------------ |
 | focus | Focus the input | `() => void` |
-| blur | Blur the input | `() => void` |
+| blur  | Blur the input  | `() => void` |
 | clear | Clear the value | `() => void` |
 
 ### Theme Variables
 
 `YhInputNumber` supports `themeOverrides`. The component itself consumes the following numeric-input CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-input-number-width` | Input width | `150px` |
-| `--yh-input-number-height` | Input height | `var(--yh-component-size-default)` |
-| `--yh-input-number-font-size` | Font size | `var(--yh-font-size-base)` |
-| `--yh-input-number-bg-color` | Background color | `var(--yh-fill-color-blank)` |
-| `--yh-input-number-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-input-number-btn-color` | Button color | `var(--yh-text-color-secondary)` |
+| Variable                         | Description      | Default                            |
+| -------------------------------- | ---------------- | ---------------------------------- |
+| `--yh-input-number-width`        | Input width      | `150px`                            |
+| `--yh-input-number-height`       | Input height     | `var(--yh-component-size-default)` |
+| `--yh-input-number-font-size`    | Font size        | `var(--yh-font-size-base)`         |
+| `--yh-input-number-bg-color`     | Background color | `var(--yh-fill-color-blank)`       |
+| `--yh-input-number-border-color` | Border color     | `var(--yh-border-color)`           |
+| `--yh-input-number-btn-color`    | Button color     | `var(--yh-text-color-secondary)`   |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhInputNumberProps` | Props type for `YhInputNumber` |
-| `YhInputNumberEmits` | Emits type for `YhInputNumber` |
-| `YhInputNumberSlots` | Slots type for `YhInputNumber` |
-| `YhInputNumberExpose` | Expose type for `YhInputNumber` |
-| `YhInputNumberSize` | Input-number size union |
-| `YhInputNumberControlsPosition` | Controls-position union |
-| `YhInputNumberInstance` | Public instance type for `YhInputNumber` |
+| Name                            | Description                              |
+| ------------------------------- | ---------------------------------------- |
+| `YhInputNumberProps`            | Props type for `YhInputNumber`           |
+| `YhInputNumberEmits`            | Emits type for `YhInputNumber`           |
+| `YhInputNumberSlots`            | Slots type for `YhInputNumber`           |
+| `YhInputNumberExpose`           | Expose type for `YhInputNumber`          |
+| `YhInputNumberSize`             | Input-number size union                  |
+| `YhInputNumberControlsPosition` | Controls-position union                  |
+| `YhInputNumberInstance`         | Public instance type for `YhInputNumber` |

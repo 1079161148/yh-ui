@@ -176,7 +176,11 @@ describe('SmartAddress', () => {
         modelValue,
         regionType: 'select',
         regionOptions: [
-          { label: 'A', value: 'a', children: [{ label: 'B', value: 'b', children: [{ label: 'C', value: 'c' }] }] }
+          {
+            label: 'A',
+            value: 'a',
+            children: [{ label: 'B', value: 'b', children: [{ label: 'C', value: 'c' }] }]
+          }
         ]
       },
       global: {

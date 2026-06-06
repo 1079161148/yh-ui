@@ -220,8 +220,8 @@ const getPrice = ref(888.88)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhPriceProps` | 组件 Props 类型 |
-| `YhPriceSlots` | 组件插槽类型 |
-| `YhPriceInstance` | 组件实例类型 |
+| 名称              | 说明            |
+| ----------------- | --------------- |
+| `YhPriceProps`    | 组件 Props 类型 |
+| `YhPriceSlots`    | 组件插槽类型    |
+| `YhPriceInstance` | 组件实例类型    |

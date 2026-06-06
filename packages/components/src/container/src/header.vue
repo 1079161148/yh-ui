@@ -11,10 +11,13 @@ const props = withDefaults(defineProps<HeaderProps>(), {
 })
 
 const ns = useNamespace('header')
-const { themeStyle } = useComponentTheme('header', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'header',
+  computed(() => props.themeOverrides)
+)
 
 const headerStyle = computed(() => ({
-  ...themeStyle.value as Record<string, string>,
+  ...(themeStyle.value as Record<string, string>),
   height: props.height
 }))
 </script>

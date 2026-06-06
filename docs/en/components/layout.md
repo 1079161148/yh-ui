@@ -335,29 +335,29 @@ Since the Layout components are based entirely on CSS Flexbox styling, they natu
 
 #### Row Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| tag | Custom element tag | `string` | `'div'` |
-| gutter | Grid spacing | `number` | `0` |
-| justify | Horizontal alignment | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| align | Vertical alignment | `'top' \| 'middle' \| 'bottom'` | `'top'` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                     | Type                                                                                  | Default     |
+| --------------- | ------------------------------- | ------------------------------------------------------------------------------------- | ----------- |
+| tag             | Custom element tag              | `string`                                                                              | `'div'`     |
+| gutter          | Grid spacing                    | `number`                                                                              | `0`         |
+| justify         | Horizontal alignment            | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'`   |
+| align           | Vertical alignment              | `'top' \| 'middle' \| 'bottom'`                                                       | `'top'`     |
+| theme-overrides | Component-level theme overrides | `ComponentThemeVars`                                                                  | `undefined` |
 
 #### Col Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| tag | Custom element tag | `string` | `'div'` |
-| span | Number of grid columns occupied | `number` | `24` |
-| offset | Number of grid columns to offset from the left | `number` | `0` |
-| push | Number of grid columns to move right | `number` | `0` |
-| pull | Number of grid columns to move left | `number` | `0` |
-| xs | Responsive columns or responsive config for `<768px` | `number \| YhColResponsiveValue` | `{}` |
-| sm | Responsive columns or responsive config for `>=768px` | `number \| YhColResponsiveValue` | `{}` |
-| md | Responsive columns or responsive config for `>=992px` | `number \| YhColResponsiveValue` | `{}` |
-| lg | Responsive columns or responsive config for `>=1200px` | `number \| YhColResponsiveValue` | `{}` |
-| xl | Responsive columns or responsive config for `>=1920px` | `number \| YhColResponsiveValue` | `{}` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                            | Type                             | Default     |
+| --------------- | ------------------------------------------------------ | -------------------------------- | ----------- |
+| tag             | Custom element tag                                     | `string`                         | `'div'`     |
+| span            | Number of grid columns occupied                        | `number`                         | `24`        |
+| offset          | Number of grid columns to offset from the left         | `number`                         | `0`         |
+| push            | Number of grid columns to move right                   | `number`                         | `0`         |
+| pull            | Number of grid columns to move left                    | `number`                         | `0`         |
+| xs              | Responsive columns or responsive config for `<768px`   | `number \| YhColResponsiveValue` | `{}`        |
+| sm              | Responsive columns or responsive config for `>=768px`  | `number \| YhColResponsiveValue` | `{}`        |
+| md              | Responsive columns or responsive config for `>=992px`  | `number \| YhColResponsiveValue` | `{}`        |
+| lg              | Responsive columns or responsive config for `>=1200px` | `number \| YhColResponsiveValue` | `{}`        |
+| xl              | Responsive columns or responsive config for `>=1920px` | `number \| YhColResponsiveValue` | `{}`        |
+| theme-overrides | Component-level theme overrides                        | `ComponentThemeVars`             | `undefined` |
 
 ### Events
 
@@ -365,10 +365,10 @@ Both `YhRow` and `YhCol` currently do not expose component events.
 
 ### Slots
 
-| Component | Slot Name | Description |
-| --- | --- | --- |
-| `YhRow` | `default` | Row content |
-| `YhCol` | `default` | Column content |
+| Component | Slot Name | Description    |
+| --------- | --------- | -------------- |
+| `YhRow`   | `default` | Row content    |
+| `YhCol`   | `default` | Column content |
 
 ### Expose
 
@@ -382,15 +382,15 @@ Row and Col are primarily layout primitives based on Flexbox and currently do no
 
 This page documents the grid primitives `YhRow` and `YhCol`. Container-family exports such as `YhContainer`, `YhHeader`, `YhAside`, `YhMain`, and `YhFooter` are exported from the `container` module and documented on the Container page.
 
-| Name | Description |
-| --- | --- |
-| `YhRowProps` | Props type for `YhRow` |
-| `YhRowSlots` | Slots type for `YhRow` |
-| `YhRowJustify` | Row justify union |
-| `YhRowAlign` | Row align union |
-| `YhRowContext` | Injected row context type |
-| `YhRowInstance` | Public instance type for `YhRow` |
-| `YhColProps` | Props type for `YhCol` |
-| `YhColSlots` | Slots type for `YhCol` |
-| `YhColResponsiveValue` | Responsive column config type |
-| `YhColInstance` | Public instance type for `YhCol` |
+| Name                   | Description                      |
+| ---------------------- | -------------------------------- |
+| `YhRowProps`           | Props type for `YhRow`           |
+| `YhRowSlots`           | Slots type for `YhRow`           |
+| `YhRowJustify`         | Row justify union                |
+| `YhRowAlign`           | Row align union                  |
+| `YhRowContext`         | Injected row context type        |
+| `YhRowInstance`        | Public instance type for `YhRow` |
+| `YhColProps`           | Props type for `YhCol`           |
+| `YhColSlots`           | Slots type for `YhCol`           |
+| `YhColResponsiveValue` | Responsive column config type    |
+| `YhColInstance`        | Public instance type for `YhCol` |

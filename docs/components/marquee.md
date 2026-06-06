@@ -513,68 +513,67 @@ YH-UI 完美适配 Nuxt 3。你可以直接在 `app.vue` 或 any 页面中使用
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| direction | 滚动方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| duration | 滚动一轮所需的时长 (秒) | `number` | `20` |
-| reverse | 是否反向滚动 | `boolean` | `false` |
-| pause-on-hover | 鼠标悬停时是否暂停 | `boolean` | `true` |
-| pause-on-click | 鼠标点击时是否暂停 | `boolean` | `false` |
-| gap | 内容项之间的间距 | `number \| string` | `0` |
-| gradient | 是否开启边缘渐变遮罩 | `boolean` | `false` |
-| gradient-color | 渐变遮罩颜色 | `string` | `'#ffffff'` |
-| gradient-width | 渐变遮罩展示宽度 | `number \| string` | `'40px'` |
-| auto-fill | 内容不足时是否自动填充 | `boolean` | `true` |
-| play | 是否播放动画 | `boolean` | `true` |
-| loop | 循环次数 (0 为无限) | `number` | `0` |
-| speed | 滚动速度 (像素/秒)，设置后将失效 `duration` | `number` | `0` |
-| delay | 首次启动动画前的延迟时间 (秒) | `number` | `0` |
-| loop-delay | 每一轮循环结束后的停顿时间 (秒) | `number` | `0` |
-| pause-on-hidden | 当组件离开视口时是否自动暂停动画 | `boolean` | `true` |
+| 属性名          | 说明                                        | 类型                         | 默认值         |
+| --------------- | ------------------------------------------- | ---------------------------- | -------------- |
+| direction       | 滚动方向                                    | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| duration        | 滚动一轮所需的时长 (秒)                     | `number`                     | `20`           |
+| reverse         | 是否反向滚动                                | `boolean`                    | `false`        |
+| pause-on-hover  | 鼠标悬停时是否暂停                          | `boolean`                    | `true`         |
+| pause-on-click  | 鼠标点击时是否暂停                          | `boolean`                    | `false`        |
+| gap             | 内容项之间的间距                            | `number \| string`           | `0`            |
+| gradient        | 是否开启边缘渐变遮罩                        | `boolean`                    | `false`        |
+| gradient-color  | 渐变遮罩颜色                                | `string`                     | `'#ffffff'`    |
+| gradient-width  | 渐变遮罩展示宽度                            | `number \| string`           | `'40px'`       |
+| auto-fill       | 内容不足时是否自动填充                      | `boolean`                    | `true`         |
+| play            | 是否播放动画                                | `boolean`                    | `true`         |
+| loop            | 循环次数 (0 为无限)                         | `number`                     | `0`            |
+| speed           | 滚动速度 (像素/秒)，设置后将失效 `duration` | `number`                     | `0`            |
+| delay           | 首次启动动画前的延迟时间 (秒)               | `number`                     | `0`            |
+| loop-delay      | 每一轮循环结束后的停顿时间 (秒)             | `number`                     | `0`            |
+| pause-on-hidden | 当组件离开视口时是否自动暂停动画            | `boolean`                    | `true`         |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| cycle-complete | 每次滚动循环完成时触发 | `-` |
+| 事件名         | 说明                   | 回调参数 |
+| -------------- | ---------------------- | -------- |
+| cycle-complete | 每次滚动循环完成时触发 | `-`      |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明             |
+| ------- | ---------------- |
 | default | 跑马灯滚动的内容 |
 
 ### Expose
 
-| 方法名 | 说明 | 类型 |
-| --- | --- | --- |
+| 方法名          | 说明                                               | 类型                  |
+| --------------- | -------------------------------------------------- | --------------------- |
 | calculateClones | 手动触发克隆数量计算（在动态修改内容尺寸时很有用） | `() => Promise<void>` |
-| containerRef | 外部容器的 DOM 引用 | `HTMLElement \| null` |
-| contentRef | 内容容器的 DOM 引用 | `HTMLElement \| null` |
+| containerRef    | 外部容器的 DOM 引用                                | `HTMLElement \| null` |
+| contentRef      | 内容容器的 DOM 引用                                | `HTMLElement \| null` |
 
 ## 主题变量 (CSS Variables)
 
 所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
-| 变量名 | 默认值 | 说明 |
-| --- | --- | --- |
-| `--yh-marquee-gap` | `0px` | 内容项之间的间距 |
-| `--yh-marquee-duration` | `20s` | 动画持续时长 |
-| `--yh-marquee-iteration-count` | `infinite` | 动画循环次数 |
-| `--yh-marquee-direction` | `normal` | 动画播放方向 |
-| `--yh-marquee-play-state` | `running` | 动画播放状态 |
-| `--yh-marquee-gradient-color` | `var(--yh-bg-color)` | 边际渐变颜色 (自动跟随主题背景色) |
-| `--yh-marquee-gradient-width` | `40px` | 边际渐变宽度 |
-| `--yh-marquee-clone-count` | `1` | 内部计算的克隆倍数 (只读) |
+| 变量名                         | 默认值               | 说明                              |
+| ------------------------------ | -------------------- | --------------------------------- |
+| `--yh-marquee-gap`             | `0px`                | 内容项之间的间距                  |
+| `--yh-marquee-duration`        | `20s`                | 动画持续时长                      |
+| `--yh-marquee-iteration-count` | `infinite`           | 动画循环次数                      |
+| `--yh-marquee-direction`       | `normal`             | 动画播放方向                      |
+| `--yh-marquee-play-state`      | `running`            | 动画播放状态                      |
+| `--yh-marquee-gradient-color`  | `var(--yh-bg-color)` | 边际渐变颜色 (自动跟随主题背景色) |
+| `--yh-marquee-gradient-width`  | `40px`               | 边际渐变宽度                      |
+| `--yh-marquee-clone-count`     | `1`                  | 内部计算的克隆倍数 (只读)         |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhMarqueeProps` | 组件 Props 类型 |
-| `YhMarqueeEmits` | 组件事件类型 |
-| `YhMarqueeSlots` | 组件插槽类型 |
-| `YhMarqueeExpose` | 组件 Expose 类型 |
+| 名称                 | 说明             |
+| -------------------- | ---------------- |
+| `YhMarqueeProps`     | 组件 Props 类型  |
+| `YhMarqueeEmits`     | 组件事件类型     |
+| `YhMarqueeSlots`     | 组件插槽类型     |
+| `YhMarqueeExpose`    | 组件 Expose 类型 |
 | `YhMarqueeDirection` | 滚动方向联合类型 |
-| `YhMarqueeInstance` | 组件实例类型 |
-
+| `YhMarqueeInstance`  | 组件实例类型     |

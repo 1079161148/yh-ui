@@ -325,24 +325,24 @@ const jsDynamicEmpty = toJs(tsDynamicEmpty)
 
 ### Table 属性
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| empty-text | 空数据时显示的文字 | `string` | `'暂无数据'` |
-| empty-config | 空状态配置对象 | `TableEmptyConfig` | — |
+| 属性         | 说明               | 类型               | 默认值       |
+| ------------ | ------------------ | ------------------ | ------------ |
+| empty-text   | 空数据时显示的文字 | `string`           | `'暂无数据'` |
+| empty-config | 空状态配置对象     | `TableEmptyConfig` | —            |
 
 ### TableEmptyConfig
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| image | 空状态图片 URL | `string` | — |
-| description | 空状态描述文字（优先级高于 `empty-text`） | `string` | — |
-| render | 自定义渲染函数 | `() => VNode` | — |
+| 属性        | 说明                                      | 类型          | 默认值 |
+| ----------- | ----------------------------------------- | ------------- | ------ |
+| image       | 空状态图片 URL                            | `string`      | —      |
+| description | 空状态描述文字（优先级高于 `empty-text`） | `string`      | —      |
+| render      | 自定义渲染函数                            | `() => VNode` | —      |
 
 ### 插槽
 
-| 插槽名 | 说明 |
-| --- | --- |
-| empty | 自定义空数据内容，优先级最高 |
+| 插槽名 | 说明                         |
+| ------ | ---------------------------- |
+| empty  | 自定义空数据内容，优先级最高 |
 
 ### 优先级
 
@@ -353,4 +353,3 @@ const jsDynamicEmpty = toJs(tsDynamicEmpty)
 3. **`emptyConfig.image` + `emptyConfig.description`** — 图片和描述
 4. **`empty-text`** — 简单文字提示
 5. **默认值** — "暂无数据"
-

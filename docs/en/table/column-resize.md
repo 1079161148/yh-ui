@@ -471,23 +471,23 @@ Listen to column width changes through the `column-resize` event to get the curr
 
 ### Table Props (Column Resize Related)
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
+| Property  | Description                             | Type      | Default |
+| --------- | --------------------------------------- | --------- | ------- |
 | resizable | Globally enable column width adjustment | `boolean` | `false` |
 
 ### TableColumn Props (Column Resize Related)
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| width | Column width (pixels or percentage) | `number \| string` | — |
-| minWidth | Minimum column width (minimum 40px during drag) | `number \| string` | — |
-| maxWidth | Maximum column width | `number \| string` | — |
-| resizable | Whether this column is resizable (higher priority than global resizable) | `boolean` | — |
+| Property  | Description                                                              | Type               | Default |
+| --------- | ------------------------------------------------------------------------ | ------------------ | ------- |
+| width     | Column width (pixels or percentage)                                      | `number \| string` | —       |
+| minWidth  | Minimum column width (minimum 40px during drag)                          | `number \| string` | —       |
+| maxWidth  | Maximum column width                                                     | `number \| string` | —       |
+| resizable | Whether this column is resizable (higher priority than global resizable) | `boolean`          | —       |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event         | Description                         | Parameters                             |
+| ------------- | ----------------------------------- | -------------------------------------- |
 | column-resize | Triggered when column width changes | `(column: TableColumn, width: number)` |
 
 ### Notes

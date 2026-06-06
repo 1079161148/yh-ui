@@ -17,7 +17,10 @@ const props = defineProps(dropdownItemProps)
 const ns = useNamespace('dropdown')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('dropdown-item', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'dropdown-item',
+  computed(() => props.themeOverrides)
+)
 
 const dropdown = inject(DROPDOWN_INJECTION_KEY, null)
 
@@ -40,7 +43,11 @@ const handleClick = () => {
 <template>
   <div v-if="divided" :class="ns.e('divider')" />
   <div :class="classes" :style="themeStyle" @click="handleClick">
-    <YhIcon v-if="dropdown?.checkable.value" :name="checked ? 'check' : ''" :class="ns.e('check-icon')" />
+    <YhIcon
+      v-if="dropdown?.checkable.value"
+      :name="checked ? 'check' : ''"
+      :class="ns.e('check-icon')"
+    />
     <YhIcon v-if="icon" :name="icon" :class="ns.e('item-icon')" />
     <slot />
   </div>

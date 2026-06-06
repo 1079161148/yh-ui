@@ -365,11 +365,11 @@ const jsClamp = toJs(tsClamp)
 
 ### Slots
 
-| 插槽名      | 说明                        | 参数 |
-| ----------- | --------------------------- | ---- |
-| title       | 自定义标题区域              | —    |
-| description | 自定义描述区域              | —    |
-| footer      | 自定义底部操作区域          | —    |
+| 插槽名      | 说明               | 参数 |
+| ----------- | ------------------ | ---- |
+| title       | 自定义标题区域     | —    |
+| description | 自定义描述区域     | —    |
+| footer      | 自定义底部操作区域 | —    |
 
 ### Expose
 
@@ -392,11 +392,11 @@ interface ProductBadge {
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhProductCardProps` | 组件 Props 类型 |
-| `YhProductCardEmits` | 组件事件类型 |
-| `YhProductCardSlots` | 组件插槽类型 |
-| `YhProductCardLayout` | 布局模式联合类型 |
-| `YhProductBadge` | 商品角标类型 |
-| `YhProductCardInstance` | 组件实例类型 |
+| 名称                    | 说明             |
+| ----------------------- | ---------------- |
+| `YhProductCardProps`    | 组件 Props 类型  |
+| `YhProductCardEmits`    | 组件事件类型     |
+| `YhProductCardSlots`    | 组件插槽类型     |
+| `YhProductCardLayout`   | 布局模式联合类型 |
+| `YhProductBadge`        | 商品角标类型     |
+| `YhProductCardInstance` | 组件实例类型     |

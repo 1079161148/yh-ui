@@ -517,44 +517,44 @@ const openViewerManual = (m: string) => {
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| src | 图片源地址 | `string` | `''` |
-| fit | 图片适应容器的方式，对应原生 `object-fit` | `'' \| 'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `''` |
-| lazy | 是否启用懒加载 | `boolean` | `false` |
-| preview-src-list | 内置预览器使用的图片列表 | `string[]` | `[]` |
-| z-index | 预览层级 | `number` | `undefined` |
-| initial-index | 打开预览时的起始索引 | `number` | `0` |
-| close-on-press-escape | 按下 `Esc` 是否关闭预览 | `boolean` | `true` |
-| hide-on-click-modal | 点击遮罩层是否关闭预览 | `boolean` | `false` |
-| infinite | 预览时是否循环切换 | `boolean` | `true` |
-| zoom-rate | 预览缩放步进倍率 | `number` | `1.2` |
-| show-progress | 是否显示预览控制区 | `boolean` | `true` |
-| preview-teleported | 预览容器是否传送到 `body` | `boolean` | `true` |
-| scroll-container | 懒加载监听的滚动容器 | `string \| HTMLElement \| undefined` | `undefined` |
-| viewer-mode | 预览模式，`viewerjs` 需要宿主自行提供对应依赖 | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | 传递给 Viewer.js 的配置项 | `Record<string, unknown>` | `{}` |
-| alt | 原生 `img` 的 `alt` 属性 | `string` | `undefined` |
-| crossorigin | 原生 `img` 的 `crossorigin` 属性 | `'' \| 'anonymous' \| 'use-credentials'` | `undefined` |
-| loading | 原生 `img` 的 `loading` 属性 | `'eager' \| 'lazy'` | `undefined` |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 属性名                | 说明                                          | 类型                                                             | 默认值      |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------- | ----------- |
+| src                   | 图片源地址                                    | `string`                                                         | `''`        |
+| fit                   | 图片适应容器的方式，对应原生 `object-fit`     | `'' \| 'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `''`        |
+| lazy                  | 是否启用懒加载                                | `boolean`                                                        | `false`     |
+| preview-src-list      | 内置预览器使用的图片列表                      | `string[]`                                                       | `[]`        |
+| z-index               | 预览层级                                      | `number`                                                         | `undefined` |
+| initial-index         | 打开预览时的起始索引                          | `number`                                                         | `0`         |
+| close-on-press-escape | 按下 `Esc` 是否关闭预览                       | `boolean`                                                        | `true`      |
+| hide-on-click-modal   | 点击遮罩层是否关闭预览                        | `boolean`                                                        | `false`     |
+| infinite              | 预览时是否循环切换                            | `boolean`                                                        | `true`      |
+| zoom-rate             | 预览缩放步进倍率                              | `number`                                                         | `1.2`       |
+| show-progress         | 是否显示预览控制区                            | `boolean`                                                        | `true`      |
+| preview-teleported    | 预览容器是否传送到 `body`                     | `boolean`                                                        | `true`      |
+| scroll-container      | 懒加载监听的滚动容器                          | `string \| HTMLElement \| undefined`                             | `undefined` |
+| viewer-mode           | 预览模式，`viewerjs` 需要宿主自行提供对应依赖 | `'default' \| 'viewerjs'`                                        | `'default'` |
+| viewer-options        | 传递给 Viewer.js 的配置项                     | `Record<string, unknown>`                                        | `{}`        |
+| alt                   | 原生 `img` 的 `alt` 属性                      | `string`                                                         | `undefined` |
+| crossorigin           | 原生 `img` 的 `crossorigin` 属性              | `'' \| 'anonymous' \| 'use-credentials'`                         | `undefined` |
+| loading               | 原生 `img` 的 `loading` 属性                  | `'eager' \| 'lazy'`                                              | `undefined` |
+| theme-overrides       | 组件级主题覆盖                                | `ComponentThemeVars`                                             | `undefined` |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| load | 图片加载成功触发 | `(event: Event) => void` |
-| error | 图片加载失败时触发 | `(event: Event \| string) => void` |
-| switch | 预览图片轮播切换时触发 | `(index: number) => void` |
-| show | 预览显示时触发 | `() => void` |
-| close | 预览关闭时触发 | `() => void` |
+| 事件名 | 说明                   | 回调参数                           |
+| ------ | ---------------------- | ---------------------------------- |
+| load   | 图片加载成功触发       | `(event: Event) => void`           |
+| error  | 图片加载失败时触发     | `(event: Event \| string) => void` |
+| switch | 预览图片轮播切换时触发 | `(index: number) => void`          |
+| show   | 预览显示时触发         | `() => void`                       |
+| close  | 预览关闭时触发         | `() => void`                       |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名      | 说明                       |
+| ----------- | -------------------------- |
 | placeholder | 图片未完成加载时的占位内容 |
-| error | 图片加载失败时的内容 |
+| error       | 图片加载失败时的内容       |
 
 ### Expose
 
@@ -566,26 +566,26 @@ const openViewerManual = (m: string) => {
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| url-list | 预览图片列表 | `string[]` | `[]` |
-| z-index | 预览层级 | `number` | `2000` |
-| initial-index | 打开预览时的起始索引 | `number` | `0` |
-| infinite | 是否循环切换 | `boolean` | `true` |
-| hide-on-click-modal | 点击遮罩层是否关闭预览 | `boolean` | `false` |
-| close-on-press-escape | 按下 `Esc` 是否关闭预览 | `boolean` | `true` |
-| zoom-rate | 缩放步进倍率 | `number` | `1.2` |
-| show-progress | 是否显示预览控制区 | `boolean` | `true` |
-| teleported | 预览容器是否传送到 `body` | `boolean` | `true` |
-| viewer-mode | 预览模式 | `'default' \| 'viewerjs'` | `'default'` |
-| viewer-options | 传递给 Viewer.js 的配置项 | `Record<string, unknown>` | `{}` |
+| 属性名                | 说明                      | 类型                      | 默认值      |
+| --------------------- | ------------------------- | ------------------------- | ----------- |
+| url-list              | 预览图片列表              | `string[]`                | `[]`        |
+| z-index               | 预览层级                  | `number`                  | `2000`      |
+| initial-index         | 打开预览时的起始索引      | `number`                  | `0`         |
+| infinite              | 是否循环切换              | `boolean`                 | `true`      |
+| hide-on-click-modal   | 点击遮罩层是否关闭预览    | `boolean`                 | `false`     |
+| close-on-press-escape | 按下 `Esc` 是否关闭预览   | `boolean`                 | `true`      |
+| zoom-rate             | 缩放步进倍率              | `number`                  | `1.2`       |
+| show-progress         | 是否显示预览控制区        | `boolean`                 | `true`      |
+| teleported            | 预览容器是否传送到 `body` | `boolean`                 | `true`      |
+| viewer-mode           | 预览模式                  | `'default' \| 'viewerjs'` | `'default'` |
+| viewer-options        | 传递给 Viewer.js 的配置项 | `Record<string, unknown>` | `{}`        |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名 | 说明           | 回调参数                  |
+| ------ | -------------- | ------------------------- |
 | switch | 图片切换时触发 | `(index: number) => void` |
-| close | 预览关闭时触发 | `() => void` |
+| close  | 预览关闭时触发 | `() => void`              |
 
 ### Slots
 
@@ -593,41 +593,41 @@ const openViewerManual = (m: string) => {
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| prev | 切换到上一张图片 | `() => void` |
-| next | 切换到下一张图片 | `() => void` |
-| zoomIn | 放大图片 | `() => void` |
-| zoomOut | 缩小图片 | `() => void` |
-| rotateLeft | 逆时针旋转 | `() => void` |
-| rotateRight | 顺时针旋转 | `() => void` |
-| reset | 重置缩放与旋转状态 | `() => void` |
+| 名称        | 说明               | 类型         |
+| ----------- | ------------------ | ------------ |
+| prev        | 切换到上一张图片   | `() => void` |
+| next        | 切换到下一张图片   | `() => void` |
+| zoomIn      | 放大图片           | `() => void` |
+| zoomOut     | 缩小图片           | `() => void` |
+| rotateLeft  | 逆时针旋转         | `() => void` |
+| rotateRight | 顺时针旋转         | `() => void` |
+| reset       | 重置缩放与旋转状态 | `() => void` |
 
 ### 主题变量
 
 `YhImage` 支持 `themeOverrides`，同时提供以下组件级 CSS 变量：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-image-placeholder-bg-color` | 占位区域背景颜色 | `var(--yh-fill-color-light)` |
-| `--yh-image-placeholder-text-color` | 占位区域文字颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-image-error-bg-color` | 错误状态背景色 | `var(--yh-fill-color-extra-light)` |
-| `--yh-image-error-text-color` | 错误区域文字颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-image-viewer-mask-bg-color` | 预览遮罩背景颜色 | `var(--yh-mask-color)` |
-| `--yh-image-viewer-btn-bg-color` | 预览控制器按钮背景颜色 | `var(--yh-text-color-regular)` |
-| `--yh-image-viewer-btn-color` | 预览控制器按钮图标颜色 | `var(--yh-color-white)` |
-| `--yh-image-viewer-btn-hover-bg-color` | 预览控制器按钮悬停颜色 | `var(--yh-color-primary)` |
+| 变量名                                 | 说明                   | 默认值                             |
+| -------------------------------------- | ---------------------- | ---------------------------------- |
+| `--yh-image-placeholder-bg-color`      | 占位区域背景颜色       | `var(--yh-fill-color-light)`       |
+| `--yh-image-placeholder-text-color`    | 占位区域文字颜色       | `var(--yh-text-color-placeholder)` |
+| `--yh-image-error-bg-color`            | 错误状态背景色         | `var(--yh-fill-color-extra-light)` |
+| `--yh-image-error-text-color`          | 错误区域文字颜色       | `var(--yh-text-color-placeholder)` |
+| `--yh-image-viewer-mask-bg-color`      | 预览遮罩背景颜色       | `var(--yh-mask-color)`             |
+| `--yh-image-viewer-btn-bg-color`       | 预览控制器按钮背景颜色 | `var(--yh-text-color-regular)`     |
+| `--yh-image-viewer-btn-color`          | 预览控制器按钮图标颜色 | `var(--yh-color-white)`            |
+| `--yh-image-viewer-btn-hover-bg-color` | 预览控制器按钮悬停颜色 | `var(--yh-color-primary)`          |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhImageProps` | `YhImage` 的 props 类型 |
-| `YhImageEmits` | `YhImage` 的 emits 类型 |
-| `YhImageSlots` | `YhImage` 的 slots 类型 |
-| `YhImageInstance` | `YhImage` 的实例类型 |
-| `YhImageViewerProps` | `YhImageViewer` 的 props 类型 |
-| `YhImageViewerEmits` | `YhImageViewer` 的 emits 类型 |
-| `YhImageViewerSlots` | `YhImageViewer` 的 slots 类型 |
-| `YhImageViewerExpose` | `YhImageViewer` 的 expose 类型 |
-| `YhImageViewerInstance` | `YhImageViewer` 的实例类型 |
+| 名称                    | 说明                           |
+| ----------------------- | ------------------------------ |
+| `YhImageProps`          | `YhImage` 的 props 类型        |
+| `YhImageEmits`          | `YhImage` 的 emits 类型        |
+| `YhImageSlots`          | `YhImage` 的 slots 类型        |
+| `YhImageInstance`       | `YhImage` 的实例类型           |
+| `YhImageViewerProps`    | `YhImageViewer` 的 props 类型  |
+| `YhImageViewerEmits`    | `YhImageViewer` 的 emits 类型  |
+| `YhImageViewerSlots`    | `YhImageViewer` 的 slots 类型  |
+| `YhImageViewerExpose`   | `YhImageViewer` 的 expose 类型 |
+| `YhImageViewerInstance` | `YhImageViewer` 的实例类型     |

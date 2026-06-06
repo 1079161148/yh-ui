@@ -315,20 +315,23 @@ const jsBenchCode = toJs(tsBenchCode)
 </template>
 
 <!-- 表格数据区 -->
+
 <yh-table
-  :data="benchData"
-  :columns="benchColumns"
-  :virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
-  height="460px"
-  border
-  stripe
-  row-key="id"
-  ref="tableRef"
->
-  <template #empty>
+:data="benchData"
+:columns="benchColumns"
+:virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
+height="460px"
+border
+stripe
+row-key="id"
+ref="tableRef"
+
+> <template #empty>
+
     <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
       点击「开始压测」加载数据
     </div>
+
   </template>
 </yh-table>
 
@@ -336,19 +339,19 @@ const jsBenchCode = toJs(tsBenchCode)
 
 ## 参数说明
 
-| 参数 | 说明 | 建议值 |
-|------|------|--------|
-| `数据量` | 总行数，滑块范围 1K ~ 100K | 10,000 |
-| `行高` | 每行像素高度，决定虚拟视口计算精度 | 48px |
-| `缓冲行数` | 可见区域外额外渲染行数，越大越平滑但内存消耗更多 | 5 |
+| 参数       | 说明                                             | 建议值 |
+| ---------- | ------------------------------------------------ | ------ |
+| `数据量`   | 总行数，滑块范围 1K ~ 100K                       | 10,000 |
+| `行高`     | 每行像素高度，决定虚拟视口计算精度               | 48px   |
+| `缓冲行数` | 可见区域外额外渲染行数，越大越平滑但内存消耗更多 | 5      |
 
 ## 性能指标解释
 
-| 指标 | 说明 | 参考标准 |
-|------|------|---------|
-| **初始渲染** | 数据加载到首屏绘制完成耗时 | ≤ 200ms 为优秀 |
-| **滚动均值** | 每次滚动触发到下一帧绘制的平均耗时 | ≤ 10ms 为优秀 |
-| **FPS** | 压测期间渲染帧率（越高越流畅） | ≥ 55fps 为极佳 |
+| 指标            | 说明                                            | 参考标准       |
+| --------------- | ----------------------------------------------- | -------------- |
+| **初始渲染**    | 数据加载到首屏绘制完成耗时                      | ≤ 200ms 为优秀 |
+| **滚动均值**    | 每次滚动触发到下一帧绘制的平均耗时              | ≤ 10ms 为优秀  |
+| **FPS**         | 压测期间渲染帧率（越高越流畅）                  | ≥ 55fps 为极佳 |
 | **可见 DOM 行** | 实际渲染在 DOM 中的表格行数（体现虚拟滚动效果） | 与视口行数相当 |
 
 ## 优化建议

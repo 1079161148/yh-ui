@@ -217,27 +217,27 @@ Enhanced features for modern e-commerce scenarios: badges, progress bars, and ru
 
 ### Props
 
-| Property        | Description                    | Type                                              | Default         |
-| --------------- | ------------------------------ | ------------------------------------------------- | --------------- |
-| title           | Coupon title                   | `string`                                          | `''`            |
-| description     | Description text               | `string`                                          | `''`            |
-| amount          | Amount value                   | `string \| number`                                | `''`            |
-| symbol          | Currency symbol                | `string`                                          | `'¥'`           |
-| threshold       | Minimum spend                  | `string \| number`                                | `''`            |
-| valid-period    | Validity period                | `string`                                          | `''`            |
-| status          | State                          | `'available' \| 'used' \| 'expired' \| 'locked'`  | `'available'`   |
-| variant         | Cutout variant                 | `'circle' \| 'indent' \| 'scallop'`               | `'circle'`      |
-| selectable      | Enable selectable mode         | `boolean`                                         | `false`         |
-| selected        | Selected state (v-model)       | `boolean`                                         | `false`         |
-| action-text     | Action button text             | `string`                                          | `''`            |
-| badge           | Badge text                     | `string`                                          | `''`            |
-| badge-type      | Badge color type               | `'danger' \| 'warning' \| 'primary' \| 'success'` | `'danger'`      |
-| percent         | Progress percentage (0-100)    | `number`                                          | `undefined`     |
-| percent-text    | Tip text near progress bar     | `string`                                          | `''`            |
-| rules           | Usage rules text at bottom     | `string`                                          | `''`            |
-| rule-title      | Custom title for rules section | `string`                                          | `''`            |
-| disabled        | Whether disabled styling is applied | `boolean`                                    | `false`         |
-| theme-overrides | Theme variable overrides       | `Record<string, string>`                          | `{}`            |
+| Property        | Description                         | Type                                              | Default       |
+| --------------- | ----------------------------------- | ------------------------------------------------- | ------------- |
+| title           | Coupon title                        | `string`                                          | `''`          |
+| description     | Description text                    | `string`                                          | `''`          |
+| amount          | Amount value                        | `string \| number`                                | `''`          |
+| symbol          | Currency symbol                     | `string`                                          | `'¥'`         |
+| threshold       | Minimum spend                       | `string \| number`                                | `''`          |
+| valid-period    | Validity period                     | `string`                                          | `''`          |
+| status          | State                               | `'available' \| 'used' \| 'expired' \| 'locked'`  | `'available'` |
+| variant         | Cutout variant                      | `'circle' \| 'indent' \| 'scallop'`               | `'circle'`    |
+| selectable      | Enable selectable mode              | `boolean`                                         | `false`       |
+| selected        | Selected state (v-model)            | `boolean`                                         | `false`       |
+| action-text     | Action button text                  | `string`                                          | `''`          |
+| badge           | Badge text                          | `string`                                          | `''`          |
+| badge-type      | Badge color type                    | `'danger' \| 'warning' \| 'primary' \| 'success'` | `'danger'`    |
+| percent         | Progress percentage (0-100)         | `number`                                          | `undefined`   |
+| percent-text    | Tip text near progress bar          | `string`                                          | `''`          |
+| rules           | Usage rules text at bottom          | `string`                                          | `''`          |
+| rule-title      | Custom title for rules section      | `string`                                          | `''`          |
+| disabled        | Whether disabled styling is applied | `boolean`                                         | `false`       |
+| theme-overrides | Theme variable overrides            | `Record<string, string>`                          | `{}`          |
 
 ### Events
 
@@ -249,14 +249,14 @@ Enhanced features for modern e-commerce scenarios: badges, progress bars, and ru
 
 ### Slots
 
-| Slot        | Description             | Parameters |
-| ----------- | ----------------------- | ---------- |
-| title       | Custom coupon title     | `-`        |
-| description | Custom description area | `-`        |
-| action      | Custom action area      | `-`        |
-| badge       | Custom badge content    | `-`        |
+| Slot        | Description             | Parameters                 |
+| ----------- | ----------------------- | -------------------------- |
+| title       | Custom coupon title     | `-`                        |
+| description | Custom description area | `-`                        |
+| action      | Custom action area      | `-`                        |
+| badge       | Custom badge content    | `-`                        |
 | seal        | Custom status seal      | `{ status: CouponStatus }` |
-| rules       | Custom rules section    | `-`        |
+| rules       | Custom rules section    | `-`                        |
 
 ### Expose
 
@@ -272,10 +272,10 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhCouponCardProps` | Component props type |
-| `YhCouponCardEmits` | Component emits type |
-| `YhCouponCardSlots` | Component slots type |
-| `YhCouponStatus` | Coupon status union type |
-| `YhCouponCardInstance` | Component instance type |
+| Name                   | Description              |
+| ---------------------- | ------------------------ |
+| `YhCouponCardProps`    | Component props type     |
+| `YhCouponCardEmits`    | Component emits type     |
+| `YhCouponCardSlots`    | Component slots type     |
+| `YhCouponStatus`       | Coupon status union type |
+| `YhCouponCardInstance` | Component instance type  |

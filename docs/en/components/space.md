@@ -310,23 +310,23 @@ After installing the `@yh-ui/nuxt` module, the `YhSpace` component is auto-regis
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| direction | Spacing direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| size | Spacing size | `'mini' \| 'small' \| 'medium' \| 'large' \| number \| [SpaceSize, SpaceSize]` | `'small'` |
-| align | Cross-axis alignment | `'start' \| 'end' \| 'center' \| 'baseline' \| 'stretch'` | `'center'` |
-| justify | Main-axis alignment | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| wrap | Whether to wrap (horizontal only) | `boolean` | `false` |
-| fill | Whether to fill parent container | `boolean` | `false` |
-| spacer | Spacer text | `string \| number` | — |
-| theme-overrides | Theme override variables | `ComponentThemeVars` | — |
+| Prop            | Description                       | Type                                                                                  | Default        |
+| --------------- | --------------------------------- | ------------------------------------------------------------------------------------- | -------------- |
+| direction       | Spacing direction                 | `'horizontal' \| 'vertical'`                                                          | `'horizontal'` |
+| size            | Spacing size                      | `'mini' \| 'small' \| 'medium' \| 'large' \| number \| [SpaceSize, SpaceSize]`        | `'small'`      |
+| align           | Cross-axis alignment              | `'start' \| 'end' \| 'center' \| 'baseline' \| 'stretch'`                             | `'center'`     |
+| justify         | Main-axis alignment               | `'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'`      |
+| wrap            | Whether to wrap (horizontal only) | `boolean`                                                                             | `false`        |
+| fill            | Whether to fill parent container  | `boolean`                                                                             | `false`        |
+| spacer          | Spacer text                       | `string \| number`                                                                    | —              |
+| theme-overrides | Theme override variables          | `ComponentThemeVars`                                                                  | —              |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Child elements in the space |
-| spacer | Custom spacer content |
+| Slot Name | Description                 |
+| --------- | --------------------------- |
+| default   | Child elements in the space |
+| spacer    | Custom spacer content       |
 
 ### Events
 
@@ -338,18 +338,18 @@ This component does not expose public instance methods or properties.
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-space-spacer-padding` | Spacer padding | `2px` |
+| Variable                    | Description    | Default |
+| --------------------------- | -------------- | ------- |
+| `--yh-space-spacer-padding` | Spacer padding | `2px`   |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSpaceProps` | Component props type |
-| `YhSpaceSlots` | Component slots type |
-| `YhSpaceSize` | Spacing size union |
-| `YhSpaceDirection` | Direction union |
-| `YhSpaceAlign` | Cross-axis alignment union |
-| `YhSpaceJustify` | Main-axis alignment union |
-| `YhSpaceInstance` | Component instance type |
+| Name               | Description                |
+| ------------------ | -------------------------- |
+| `YhSpaceProps`     | Component props type       |
+| `YhSpaceSlots`     | Component slots type       |
+| `YhSpaceSize`      | Spacing size union         |
+| `YhSpaceDirection` | Direction union            |
+| `YhSpaceAlign`     | Cross-axis alignment union |
+| `YhSpaceJustify`   | Main-axis alignment union  |
+| `YhSpaceInstance`  | Component instance type    |

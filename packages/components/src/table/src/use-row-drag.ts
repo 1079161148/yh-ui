@@ -218,9 +218,7 @@ export const useRowDrag = (options: UseRowDragOptions): UseRowDragReturn => {
     }
 
     // 在目标位置插入（如果目标在原位之后，则插入在目标之后）
-    const insertIndex = oldIndex < newIndex
-      ? newTargetInfo.index + 1
-      : newTargetInfo.index
+    const insertIndex = oldIndex < newIndex ? newTargetInfo.index + 1 : newTargetInfo.index
     newTargetInfo.parent.splice(insertIndex, 0, movedNode)
 
     // emit update:data
@@ -351,4 +349,3 @@ export const useRowDrag = (options: UseRowDragOptions): UseRowDragReturn => {
     getRowDragClass
   }
 }
-

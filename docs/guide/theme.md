@@ -94,29 +94,29 @@ YH-UI 内置 12 个预设主题：
 
 ### 密度/紧凑度
 
-| 模式 | 组件大小 | 适用场景 |
-| --- | --- | --- |
-| `comfortable` | 32px | 普通表单、内容页面 |
-| `compact` | 28px | 数据密集型应用 |
-| `dense` | 24px | 管理后台、表格 |
+| 模式          | 组件大小 | 适用场景           |
+| ------------- | -------- | ------------------ |
+| `comfortable` | 32px     | 普通表单、内容页面 |
+| `compact`     | 28px     | 数据密集型应用     |
+| `dense`       | 24px     | 管理后台、表格     |
 
 ### 色彩算法
 
-| 算法 | 说明 |
-| --- | --- |
-| `default` | 默认算法 |
+| 算法      | 说明                 |
+| --------- | -------------------- |
+| `default` | 默认算法             |
 | `vibrant` | 鲜艳模式，饱和度更高 |
-| `muted` | 柔和模式，饱和度更低 |
-| `pastel` | 粉彩模式，整体更浅 |
+| `muted`   | 柔和模式，饱和度更低 |
+| `pastel`  | 粉彩模式，整体更浅   |
 
 ### 色盲友好模式
 
-| 模式 | 说明 |
-| --- | --- |
-| `none` | 正常 |
-| `protanopia` | 红色盲 |
-| `deuteranopia` | 绿色盲 |
-| `tritanopia` | 蓝色盲 |
+| 模式            | 说明   |
+| --------------- | ------ |
+| `none`          | 正常   |
+| `protanopia`    | 红色盲 |
+| `deuteranopia`  | 绿色盲 |
+| `tritanopia`    | 蓝色盲 |
 | `achromatopsia` | 全色盲 |
 
 ---
@@ -125,45 +125,45 @@ YH-UI 内置 12 个预设主题：
 
 ### ThemeManager 方法
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| `setPreset` | 设置预设主题 | `preset: PresetTheme` |
-| `setThemePreset` | 设置预设主题别名方法 | `preset: PresetTheme` |
-| `setColors` | 设置自定义颜色 | `colors: ThemeColors` |
-| `setPrimaryColor` | 设置主色 | `color: string` |
-| `setDarkMode` | 设置暗色模式 | `dark: boolean` |
-| `toggleDarkMode` | 切换暗色模式 | — |
-| `setDensity` | 设置密度 | `density: ThemeDensity` |
-| `setAlgorithm` | 设置色彩算法 | `algorithm: ColorAlgorithm` |
-| `setColorBlindMode` | 设置色盲模式 | `mode: ColorBlindMode` |
-| `setComponentTheme` | 设置组件级覆盖 | `name, overrides` |
-| `clearComponentTheme` | 清除组件级覆盖 | `name` |
-| `enableTransition` | 启用切换动画 | `config?` |
-| `disableTransition` | 禁用切换动画 | — |
-| `applyFromPrimary` | 从主色生成调色板 | `color: string` |
-| `exportTheme` | 导出当前主题 | `options?` |
-| `importTheme` | 导入主题配置 | `json: string` |
-| `exportAsCss` | 导出当前主题为 CSS | — |
-| `createTheme` | 创建主题配置对象 | `config` |
-| `applyFullConfig` | 应用完整主题配置 | `config` |
-| `undo` | 撤销主题变更 | — |
-| `getHistory` | 获取主题历史 | — |
-| `clearHistory` | 清空主题历史 | — |
-| `setResponsiveVar` | 设置响应式 CSS 变量 | `name, values` |
-| `reset` | 重置为默认主题 | — |
+| 方法名                | 说明                 | 参数                        |
+| --------------------- | -------------------- | --------------------------- |
+| `setPreset`           | 设置预设主题         | `preset: PresetTheme`       |
+| `setThemePreset`      | 设置预设主题别名方法 | `preset: PresetTheme`       |
+| `setColors`           | 设置自定义颜色       | `colors: ThemeColors`       |
+| `setPrimaryColor`     | 设置主色             | `color: string`             |
+| `setDarkMode`         | 设置暗色模式         | `dark: boolean`             |
+| `toggleDarkMode`      | 切换暗色模式         | —                           |
+| `setDensity`          | 设置密度             | `density: ThemeDensity`     |
+| `setAlgorithm`        | 设置色彩算法         | `algorithm: ColorAlgorithm` |
+| `setColorBlindMode`   | 设置色盲模式         | `mode: ColorBlindMode`      |
+| `setComponentTheme`   | 设置组件级覆盖       | `name, overrides`           |
+| `clearComponentTheme` | 清除组件级覆盖       | `name`                      |
+| `enableTransition`    | 启用切换动画         | `config?`                   |
+| `disableTransition`   | 禁用切换动画         | —                           |
+| `applyFromPrimary`    | 从主色生成调色板     | `color: string`             |
+| `exportTheme`         | 导出当前主题         | `options?`                  |
+| `importTheme`         | 导入主题配置         | `json: string`              |
+| `exportAsCss`         | 导出当前主题为 CSS   | —                           |
+| `createTheme`         | 创建主题配置对象     | `config`                    |
+| `applyFullConfig`     | 应用完整主题配置     | `config`                    |
+| `undo`                | 撤销主题变更         | —                           |
+| `getHistory`          | 获取主题历史         | —                           |
+| `clearHistory`        | 清空主题历史         | —                           |
+| `setResponsiveVar`    | 设置响应式 CSS 变量  | `name, values`              |
+| `reset`               | 重置为默认主题       | —                           |
 
 ### 快捷函数
 
-| 函数名 | 说明 |
-| --- | --- |
-| `initTheme` | 初始化主题 |
-| `useTheme` | 获取主题管理器 |
-| `setThemeColor` | 设置主色 |
-| `toggleDarkMode` | 切换暗色模式 |
-| `setThemePreset` | 设置预设主题 |
-| `useThemeVars` | 读取当前主题变量 |
+| 函数名                   | 说明               |
+| ------------------------ | ------------------ |
+| `initTheme`              | 初始化主题         |
+| `useTheme`               | 获取主题管理器     |
+| `setThemeColor`          | 设置主色           |
+| `toggleDarkMode`         | 切换暗色模式       |
+| `setThemePreset`         | 设置预设主题       |
+| `useThemeVars`           | 读取当前主题变量   |
 | `provideComponentThemes` | 提供组件级主题覆盖 |
-| `useComponentTheme` | 读取组件级主题覆盖 |
+| `useComponentTheme`      | 读取组件级主题覆盖 |
 
 ### 类型定义
 
@@ -195,43 +195,43 @@ type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'a
 
 ### 全局变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-color-primary` | 主题主色 | `#409eff` |
-| `--yh-color-success` | 成功色 | `#67c23a` |
-| `--yh-color-warning` | 警告色 | `#e6a23c` |
-| `--yh-color-danger` | 危险色 | `#f56c6c` |
-| `--yh-color-info` | 信息色 | `#909399` |
-| `--yh-border-radius-base` | 基础圆角 | `4px` |
-| `--yh-font-size-base` | 基础字号 | `14px` |
-| `--yh-bg-color` | 全站背景色 | `#ffffff` |
+| 变量名                    | 说明       | 默认值    |
+| ------------------------- | ---------- | --------- |
+| `--yh-color-primary`      | 主题主色   | `#409eff` |
+| `--yh-color-success`      | 成功色     | `#67c23a` |
+| `--yh-color-warning`      | 警告色     | `#e6a23c` |
+| `--yh-color-danger`       | 危险色     | `#f56c6c` |
+| `--yh-color-info`         | 信息色     | `#909399` |
+| `--yh-border-radius-base` | 基础圆角   | `4px`     |
+| `--yh-font-size-base`     | 基础字号   | `14px`    |
+| `--yh-bg-color`           | 全站背景色 | `#ffffff` |
 
 ### 密度变量
 
-| 变量名 | 舒适 | 紧凑 | 密集 |
-| --- | --- | --- | --- |
-| `--yh-density-factor` | `1` | `0.85` | `0.7` |
+| 变量名                        | 舒适   | 紧凑   | 密集   |
+| ----------------------------- | ------ | ------ | ------ |
+| `--yh-density-factor`         | `1`    | `0.85` | `0.7`  |
 | `--yh-component-size-default` | `32px` | `28px` | `24px` |
-| `--yh-spacing-unit` | `8px` | `6px` | `4px` |
+| `--yh-spacing-unit`           | `8px`  | `6px`  | `4px`  |
 
 ### 断点系统
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-breakpoint-xs` | 超小屏幕 | `0` |
-| `--yh-breakpoint-sm` | 小屏幕 | `576px` |
-| `--yh-breakpoint-md` | 中等屏幕 | `768px` |
-| `--yh-breakpoint-lg` | 大屏幕 | `992px` |
-| `--yh-breakpoint-xl` | 超大屏幕 | `1200px` |
+| 变量名                | 说明     | 默认值   |
+| --------------------- | -------- | -------- |
+| `--yh-breakpoint-xs`  | 超小屏幕 | `0`      |
+| `--yh-breakpoint-sm`  | 小屏幕   | `576px`  |
+| `--yh-breakpoint-md`  | 中等屏幕 | `768px`  |
+| `--yh-breakpoint-lg`  | 大屏幕   | `992px`  |
+| `--yh-breakpoint-xl`  | 超大屏幕 | `1200px` |
 | `--yh-breakpoint-xxl` | 巨大屏幕 | `1400px` |
 
 ### 无障碍变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-focus-ring-color` | 聚焦环颜色 | `var(--yh-color-primary)` |
-| `--yh-focus-ring-width` | 聚焦环宽度 | `2px` |
-| `--yh-font-family-monospace` | 等宽字体 | `SFMono-Regular...` |
+| 变量名                       | 说明       | 默认值                    |
+| ---------------------------- | ---------- | ------------------------- |
+| `--yh-focus-ring-color`      | 聚焦环颜色 | `var(--yh-color-primary)` |
+| `--yh-focus-ring-width`      | 聚焦环宽度 | `2px`                     |
+| `--yh-font-family-monospace` | 等宽字体   | `SFMono-Regular...`       |
 
 ---
 

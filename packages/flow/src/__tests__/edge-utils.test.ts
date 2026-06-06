@@ -17,7 +17,12 @@ function createMockNode(
   width = 150,
   height = 80,
   style?: NodeStyle
-): Node & { position: { x: number; y: number }; width?: number; height?: number; style?: NodeStyle } {
+): Node & {
+  position: { x: number; y: number }
+  width?: number
+  height?: number
+  style?: NodeStyle
+} {
   return {
     id: 'test',
     type: 'default',

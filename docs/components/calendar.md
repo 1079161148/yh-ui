@@ -294,113 +294,113 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| v-model / model-value | 单选模式下的绑定值 | `Date` | `undefined` |
-| default-value | 默认选中日期 | `Date` | `undefined` |
-| mode | 日历模式 | `'month' \| 'year'` | `'month'` |
-| first-day-of-week | 每周起始日，`1` 为周一，`7` 为周日 | `number` | `7` |
-| min-date | 最小可选日期 | `Date` | `undefined` |
-| max-date | 最大可选日期 | `Date` | `undefined` |
-| readonly | 是否只读 | `boolean` | `false` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| month-header-format | 自定义标题格式 | `string` | `undefined` |
-| show-holiday | 是否显示假日与补班标记 | `boolean` | `false` |
-| holidays | 自定义假日数据 | `HolidayMap` | `{}` |
-| show-week-number | 是否显示周数 | `boolean` | `false` |
-| fullscreen | 是否占满父容器高度 | `boolean` | `false` |
-| selection-mode | 选择模式 | `'single' \| 'range' \| 'multiple'` | `'single'` |
-| range-value | 范围选择值 | `[Date \| undefined, Date \| undefined]` | `undefined` |
-| multiple-value | 多选值 | `Date[]` | `[]` |
-| disabled-date | 自定义禁用日期判断 | `(date: Date) => boolean` | `undefined` |
-| cell-class-name | 单元格自定义类名 | `(date: Date) => string \| string[] \| Record<string, boolean>` | `undefined` |
-| show-other-months | 是否显示非当月日期 | `boolean` | `true` |
-| highlight-weekends | 是否高亮周末 | `boolean` | `true` |
-| size | 日历尺寸 | `'small' \| 'default' \| 'large'` | `'default'` |
-| theme-overrides | 组件主题覆盖变量 | `CalendarThemeVars` | `undefined` |
+| 属性名                | 说明                               | 类型                                                            | 默认值      |
+| --------------------- | ---------------------------------- | --------------------------------------------------------------- | ----------- |
+| v-model / model-value | 单选模式下的绑定值                 | `Date`                                                          | `undefined` |
+| default-value         | 默认选中日期                       | `Date`                                                          | `undefined` |
+| mode                  | 日历模式                           | `'month' \| 'year'`                                             | `'month'`   |
+| first-day-of-week     | 每周起始日，`1` 为周一，`7` 为周日 | `number`                                                        | `7`         |
+| min-date              | 最小可选日期                       | `Date`                                                          | `undefined` |
+| max-date              | 最大可选日期                       | `Date`                                                          | `undefined` |
+| readonly              | 是否只读                           | `boolean`                                                       | `false`     |
+| disabled              | 是否禁用                           | `boolean`                                                       | `false`     |
+| month-header-format   | 自定义标题格式                     | `string`                                                        | `undefined` |
+| show-holiday          | 是否显示假日与补班标记             | `boolean`                                                       | `false`     |
+| holidays              | 自定义假日数据                     | `HolidayMap`                                                    | `{}`        |
+| show-week-number      | 是否显示周数                       | `boolean`                                                       | `false`     |
+| fullscreen            | 是否占满父容器高度                 | `boolean`                                                       | `false`     |
+| selection-mode        | 选择模式                           | `'single' \| 'range' \| 'multiple'`                             | `'single'`  |
+| range-value           | 范围选择值                         | `[Date \| undefined, Date \| undefined]`                        | `undefined` |
+| multiple-value        | 多选值                             | `Date[]`                                                        | `[]`        |
+| disabled-date         | 自定义禁用日期判断                 | `(date: Date) => boolean`                                       | `undefined` |
+| cell-class-name       | 单元格自定义类名                   | `(date: Date) => string \| string[] \| Record<string, boolean>` | `undefined` |
+| show-other-months     | 是否显示非当月日期                 | `boolean`                                                       | `true`      |
+| highlight-weekends    | 是否高亮周末                       | `boolean`                                                       | `true`      |
+| size                  | 日历尺寸                           | `'small' \| 'default' \| 'large'`                               | `'default'` |
+| theme-overrides       | 组件主题覆盖变量                   | `CalendarThemeVars`                                             | `undefined` |
 
 ### Events
 
-| 事件名 | 说明 | 参数 |
-| --- | --- | --- |
-| update:modelValue | 单选值变化时触发 | `(value: Date) => void` |
-| update:rangeValue | 范围选择完成时触发 | `(value: [Date \| undefined, Date \| undefined]) => void` |
-| update:multipleValue | 多选值变化时触发 | `(value: Date[]) => void` |
-| change | 单选值变化时触发 | `(value: Date) => void` |
-| panel-change | 面板月份变化时触发 | `(date: Date, mode: 'month' \| 'year') => void` |
-| select | 选择日期单元格时触发 | `(date: Date, cell: CalendarDateCell) => void` |
-| range-change | 范围选择完成时触发 | `(value: [Date \| undefined, Date \| undefined]) => void` |
+| 事件名               | 说明                 | 参数                                                      |
+| -------------------- | -------------------- | --------------------------------------------------------- |
+| update:modelValue    | 单选值变化时触发     | `(value: Date) => void`                                   |
+| update:rangeValue    | 范围选择完成时触发   | `(value: [Date \| undefined, Date \| undefined]) => void` |
+| update:multipleValue | 多选值变化时触发     | `(value: Date[]) => void`                                 |
+| change               | 单选值变化时触发     | `(value: Date) => void`                                   |
+| panel-change         | 面板月份变化时触发   | `(date: Date, mode: 'month' \| 'year') => void`           |
+| select               | 选择日期单元格时触发 | `(date: Date, cell: CalendarDateCell) => void`            |
+| range-change         | 范围选择完成时触发   | `(value: [Date \| undefined, Date \| undefined]) => void` |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| header | 自定义头部标题 | `{ date: string }` |
+| 插槽名    | 说明                 | 参数                             |
+| --------- | -------------------- | -------------------------------- |
+| header    | 自定义头部标题       | `{ date: string }`               |
 | date-cell | 自定义日期单元格内容 | `{ data: CalendarCellSlotData }` |
-| footer | 自定义底部区域 | - |
+| footer    | 自定义底部区域       | -                                |
 
 `CalendarCellSlotData` 为运行时传入的插槽结构，包含以下字段：
 
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| day | `string` | 格式化日期，如 `2026-02-14` |
-| date | `Date` | 原生日期对象 |
-| type | `'prev-month' \| 'current-month' \| 'next-month'` | 日期所属月份类型 |
-| isSelected | `boolean` | 是否被选中 |
-| isToday | `boolean` | 是否今天 |
-| isDisabled | `boolean` | 是否禁用 |
-| isWeekend | `boolean` | 是否周末 |
-| isHoliday | `boolean` | 是否法定假日 |
-| holidayName | `string \| undefined` | 假日名称 |
-| isWorkday | `boolean` | 是否补班日 |
-| isInRange | `boolean \| undefined` | 是否位于范围内部 |
-| isRangeStart | `boolean \| undefined` | 是否为范围起点 |
-| isRangeEnd | `boolean \| undefined` | 是否为范围终点 |
+| 字段         | 类型                                              | 说明                        |
+| ------------ | ------------------------------------------------- | --------------------------- |
+| day          | `string`                                          | 格式化日期，如 `2026-02-14` |
+| date         | `Date`                                            | 原生日期对象                |
+| type         | `'prev-month' \| 'current-month' \| 'next-month'` | 日期所属月份类型            |
+| isSelected   | `boolean`                                         | 是否被选中                  |
+| isToday      | `boolean`                                         | 是否今天                    |
+| isDisabled   | `boolean`                                         | 是否禁用                    |
+| isWeekend    | `boolean`                                         | 是否周末                    |
+| isHoliday    | `boolean`                                         | 是否法定假日                |
+| holidayName  | `string \| undefined`                             | 假日名称                    |
+| isWorkday    | `boolean`                                         | 是否补班日                  |
+| isInRange    | `boolean \| undefined`                            | 是否位于范围内部            |
+| isRangeStart | `boolean \| undefined`                            | 是否为范围起点              |
+| isRangeEnd   | `boolean \| undefined`                            | 是否为范围终点              |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| displayDate | 当前面板显示日期 | `Ref<Dayjs>` |
-| selectedDate | 当前单选日期 | `Ref<Dayjs \| undefined>` |
-| moveMonth | 切换月份 | `(delta: number) => void` |
-| goToday | 跳转到今天 | `() => void` |
-| selectDate | 手动选中某个日期单元格 | `(cell: CalendarDateCell) => void` |
+| 名称         | 说明                   | 类型                               |
+| ------------ | ---------------------- | ---------------------------------- |
+| displayDate  | 当前面板显示日期       | `Ref<Dayjs>`                       |
+| selectedDate | 当前单选日期           | `Ref<Dayjs \| undefined>`          |
+| moveMonth    | 切换月份               | `(delta: number) => void`          |
+| goToday      | 跳转到今天             | `() => void`                       |
+| selectDate   | 手动选中某个日期单元格 | `(cell: CalendarDateCell) => void` |
 
 ### 类型导出
 
-| 类型名 | 说明 |
-| --- | --- |
-| `YhCalendarProps` | 组件 Props 类型 |
-| `YhCalendarEmits` | 组件 Emits 类型 |
-| `YhCalendarSlots` | 组件 Slots 类型 |
-| `YhCalendarExpose` | 组件 Expose 类型 |
-| `YhCalendarDateCell` | 日期单元格类型 |
-| `YhCalendarHolidayInfo` | 假日信息类型 |
-| `YhCalendarHolidayMap` | 假日映射类型 |
-| `YhCalendarRangeValue` | 范围选择值类型 |
-| `YhCalendarMode` | 模式类型 |
+| 类型名                  | 说明             |
+| ----------------------- | ---------------- |
+| `YhCalendarProps`       | 组件 Props 类型  |
+| `YhCalendarEmits`       | 组件 Emits 类型  |
+| `YhCalendarSlots`       | 组件 Slots 类型  |
+| `YhCalendarExpose`      | 组件 Expose 类型 |
+| `YhCalendarDateCell`    | 日期单元格类型   |
+| `YhCalendarHolidayInfo` | 假日信息类型     |
+| `YhCalendarHolidayMap`  | 假日映射类型     |
+| `YhCalendarRangeValue`  | 范围选择值类型   |
+| `YhCalendarMode`        | 模式类型         |
 
 ### 主题变量
 
 组件支持 `themeOverrides`，同时样式中实际消费以下 CSS 变量：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-calendar-primary` | 主色 | `var(--yh-color-primary)` |
-| `--yh-calendar-primary-light` | 主色浅色背景 | `var(--yh-color-primary-light-9)` |
-| `--yh-calendar-primary-dark` | 主色深色态 | `var(--yh-color-primary-dark-2)` |
-| `--yh-calendar-bg` | 日历背景 | `var(--yh-bg-color)` |
-| `--yh-calendar-text` | 主文字色 | `var(--yh-text-color-primary)` |
-| `--yh-calendar-cell-height` | 日期格高度 | `100px` |
-| `--yh-calendar-cell-radius` | 日期格圆角 | `var(--yh-radius-lg)` |
-| `--yh-calendar-head-height` | 头部高度 | `80px` |
-| `--yh-calendar-title-size` | 标题字号 | `22px` |
-| `--yh-calendar-weekday-color` | 星期标题颜色 | `var(--yh-text-color-secondary)` |
-| `--yh-calendar-week-number-color` | 周数字颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-calendar-holiday-color` | 假日标记颜色 | `var(--yh-color-danger)` |
-| `--yh-calendar-disabled-bg` | 禁用态背景 | `var(--yh-fill-color-light)` |
-| `--yh-calendar-disabled-text` | 禁用态文字色 | `var(--yh-text-color-placeholder)` |
+| 变量名                            | 说明         | 默认值                             |
+| --------------------------------- | ------------ | ---------------------------------- |
+| `--yh-calendar-primary`           | 主色         | `var(--yh-color-primary)`          |
+| `--yh-calendar-primary-light`     | 主色浅色背景 | `var(--yh-color-primary-light-9)`  |
+| `--yh-calendar-primary-dark`      | 主色深色态   | `var(--yh-color-primary-dark-2)`   |
+| `--yh-calendar-bg`                | 日历背景     | `var(--yh-bg-color)`               |
+| `--yh-calendar-text`              | 主文字色     | `var(--yh-text-color-primary)`     |
+| `--yh-calendar-cell-height`       | 日期格高度   | `100px`                            |
+| `--yh-calendar-cell-radius`       | 日期格圆角   | `var(--yh-radius-lg)`              |
+| `--yh-calendar-head-height`       | 头部高度     | `80px`                             |
+| `--yh-calendar-title-size`        | 标题字号     | `22px`                             |
+| `--yh-calendar-weekday-color`     | 星期标题颜色 | `var(--yh-text-color-secondary)`   |
+| `--yh-calendar-week-number-color` | 周数字颜色   | `var(--yh-text-color-placeholder)` |
+| `--yh-calendar-holiday-color`     | 假日标记颜色 | `var(--yh-color-danger)`           |
+| `--yh-calendar-disabled-bg`       | 禁用态背景   | `var(--yh-fill-color-light)`       |
+| `--yh-calendar-disabled-text`     | 禁用态文字色 | `var(--yh-text-color-placeholder)` |
 
 `CalendarThemeVars` 对外暴露的组件级主题覆盖字段包括：
 `headerBgColor`、`headerTextColor`、`titleFontSize`、`dayFontSize`、`dayTextColor`、`dayHoverBgColor`、`daySelectedBgColor`、`daySelectedTextColor`、`todayTextColor`、`weekendTextColor`。

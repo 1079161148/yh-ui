@@ -12,7 +12,10 @@ defineOptions({ name: 'YhContainer' })
 const props = defineProps<ContainerProps>()
 const slots = useSlots()
 const ns = useNamespace('container')
-const { themeStyle } = useComponentTheme('container', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'container',
+  computed(() => props.themeOverrides)
+)
 
 /** 自动检测方向：如果包含 YhHeader 或 YhFooter，则垂直排列 */
 const isVertical = computed(() => {

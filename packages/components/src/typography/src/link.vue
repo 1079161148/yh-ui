@@ -20,7 +20,10 @@ const emit = defineEmits<{
 }>()
 
 const ns = useNamespace('typography')
-const { themeStyle } = useComponentTheme('typography', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'typography',
+  computed(() => props.themeOverrides)
+)
 
 const linkClasses = computed(() => [
   ns.e('link'),
@@ -39,8 +42,15 @@ const handleClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <a :class="linkClasses" :style="themeStyle" :href="disabled ? undefined : href" :target="target"
-    :aria-disabled="disabled" :tabindex="disabled ? -1 : 0" @click="handleClick">
+  <a
+    :class="linkClasses"
+    :style="themeStyle"
+    :href="disabled ? undefined : href"
+    :target="target"
+    :aria-disabled="disabled"
+    :tabindex="disabled ? -1 : 0"
+    @click="handleClick"
+  >
     <slot />
   </a>
 </template>

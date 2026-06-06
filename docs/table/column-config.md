@@ -456,13 +456,13 @@ const jsFullConfig = toJs(tsFullConfig);
 
 ### ColumnItem 配置
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| prop | 列字段名 | `string` | — |
-| label | 列标题 | `string` | — |
-| width | 列宽度 | `number` | — |
-| visible | 是否显示 | `boolean` | `true` |
-| fixed | 固定方向 | `'left' \| 'right' \| false` | `false` |
+| 属性    | 说明     | 类型                         | 默认值  |
+| ------- | -------- | ---------------------------- | ------- |
+| prop    | 列字段名 | `string`                     | —       |
+| label   | 列标题   | `string`                     | —       |
+| width   | 列宽度   | `number`                     | —       |
+| visible | 是否显示 | `boolean`                    | `true`  |
+| fixed   | 固定方向 | `'left' \| 'right' \| false` | `false` |
 
 ### 实现原理
 
@@ -476,4 +476,3 @@ const jsFullConfig = toJs(tsFullConfig);
 2. 建议提供"重置"功能让用户恢复默认配置
 3. 固定列配置时注意左右固定列的宽度之和不要超过表格总宽度
 4. 结合列拖拽功能可以实现更灵活的列顺序调整
-

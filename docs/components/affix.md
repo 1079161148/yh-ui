@@ -73,6 +73,7 @@ const jsNuxt = tsNuxt
 ## 性能架构设计 (Surpassing Engine)
 
 YhAffix 采用了双层观察系统：
+
 - **IntersectionObserver**: 引擎会自动监听元素与触发区的距离。当元素距离视口触发点超过 500px 时，自动切断所有高频计算，实现极致省电。
 - **ResizeObserver**: 深度观察占位符、内容物、目标容器三方的尺寸裂变，确保异步内容加载时零抖动。
 
@@ -171,56 +172,56 @@ YhAffix 采用了双层观察系统：
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| offset | 触发固定的偏移距离 | `number` | `0` |
-| position | 固钉位置 | `'top' \| 'bottom'` | `'top'` |
-| target | 目标容器选择器。在此容器外将停止固定 | `string` | — |
-| z-index | 固定时的层级 | `number` | `100` |
-| teleported | 是否传送至指定节点渲染，解决父级 transform 定位失效问题 | `boolean` | `false` |
-| append-to | 指定传送的目标容器节点，需配合 `teleported` 使用 | `string \| HTMLElement` | `'body'` |
-| disabled | 是否禁用组件 | `boolean` | `false` |
-| affix-style | 额外透传给固定容器的样式 | `CSSProperties` | `{}` |
+| 属性名      | 说明                                                    | 类型                    | 默认值   |
+| ----------- | ------------------------------------------------------- | ----------------------- | -------- |
+| offset      | 触发固定的偏移距离                                      | `number`                | `0`      |
+| position    | 固钉位置                                                | `'top' \| 'bottom'`     | `'top'`  |
+| target      | 目标容器选择器。在此容器外将停止固定                    | `string`                | —        |
+| z-index     | 固定时的层级                                            | `number`                | `100`    |
+| teleported  | 是否传送至指定节点渲染，解决父级 transform 定位失效问题 | `boolean`               | `false`  |
+| append-to   | 指定传送的目标容器节点，需配合 `teleported` 使用        | `string \| HTMLElement` | `'body'` |
+| disabled    | 是否禁用组件                                            | `boolean`               | `false`  |
+| affix-style | 额外透传给固定容器的样式                                | `CSSProperties`         | `{}`     |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| change | 固定状态改变时触发 | `(fixed: boolean)` |
-| scroll | 滚动时实时触发 | `(payload: { scrollTop: number, fixed: boolean })` |
+| 事件名 | 说明               | 回调参数                                           |
+| ------ | ------------------ | -------------------------------------------------- |
+| change | 固定状态改变时触发 | `(fixed: boolean)`                                 |
+| scroll | 滚动时实时触发     | `(payload: { scrollTop: number, fixed: boolean })` |
 
 ### Slots
 
-| 插槽名 | 说明 | 作用域参数 |
-| --- | --- | --- |
+| 插槽名  | 说明               | 作用域参数           |
+| ------- | ------------------ | -------------------- |
 | default | 需要固定的内容插槽 | `{ fixed: boolean }` |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| update | 手动触发位置计算与状态更新 | `() => void` |
-| fixed | 当前是否处于固定状态 | `Ref<boolean>` |
-| scrollTop | 当前滚动容器的垂直滚动距离 | `Ref<number>` |
+| 名称      | 说明                       | 类型           |
+| --------- | -------------------------- | -------------- |
+| update    | 手动触发位置计算与状态更新 | `() => void`   |
+| fixed     | 当前是否处于固定状态       | `Ref<boolean>` |
+| scrollTop | 当前滚动容器的垂直滚动距离 | `Ref<number>`  |
 
 ### 主题变量 (CSS Variables)
 
 所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
-| 变量名 | 默认值 | 说明 |
-| --- | --- | --- |
-| `--yh-affix-z-index` | `100` | 固定状态下的默认层级 |
-| `--yh-affix-bg-color` | `var(--yh-bg-color-overlay)` | 固钉内容背景色 |
-| `--yh-affix-shadow` | `var(--yh-shadow-md)` | 固定状态下的阴影效果 |
+| 变量名                           | 默认值                          | 说明                         |
+| -------------------------------- | ------------------------------- | ---------------------------- |
+| `--yh-affix-z-index`             | `100`                           | 固定状态下的默认层级         |
+| `--yh-affix-bg-color`            | `var(--yh-bg-color-overlay)`    | 固钉内容背景色               |
+| `--yh-affix-shadow`              | `var(--yh-shadow-md)`           | 固定状态下的阴影效果         |
 | `--yh-affix-transition-duration` | `var(--yh-transition-duration)` | 进入固定状态时的动画持续时间 |
-| `--yh-affix-transition-timing` | `var(--yh-transition-timing)` | 动画过渡曲线 |
+| `--yh-affix-transition-timing`   | `var(--yh-transition-timing)`   | 动画过渡曲线                 |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhAffixProps` | `YhAffix` props 类型 |
-| `YhAffixEmits` | `YhAffix` emits 类型 |
-| `YhAffixSlots` | `YhAffix` slots 类型 |
-| `YhAffixExpose` | `YhAffix` expose 类型 |
-| `YhAffixInstance` | `YhAffix` 实例类型 |
+| 名称              | 说明                  |
+| ----------------- | --------------------- |
+| `YhAffixProps`    | `YhAffix` props 类型  |
+| `YhAffixEmits`    | `YhAffix` emits 类型  |
+| `YhAffixSlots`    | `YhAffix` slots 类型  |
+| `YhAffixExpose`   | `YhAffix` expose 类型 |
+| `YhAffixInstance` | `YhAffix` 实例类型    |

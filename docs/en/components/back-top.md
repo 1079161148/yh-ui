@@ -130,16 +130,16 @@ Built-in `Cubic Easing` function makes the scroll-back action more aligned with 
 
 ### Props
 
-| Prop              | Description                                              | Type      | Default                   |
-| ----------------- | -------------------------------------------------------- | --------- | ------------------------- |
-| visibility-height | Only shown when scroll height reaches this value         | `number`  | `200`                     |
-| target            | Container selector, not needed for full-screen scrolling | `string`  | —                         |
-| right             | Distance from the right                                  | `number`  | `40`                      |
-| bottom            | Distance from the bottom                                 | `number`  | `40`                      |
-| show-progress     | Whether to show the progress ring                        | `boolean` | `true`                    |
-| progress-color    | Progress ring color; falls back to current text color when empty | `string`  | `''`                |
-| duration          | Scroll-back animation duration (ms)                      | `number`  | `400`                     |
-| theme-overrides   | Component-level theme overrides                          | `ComponentThemeVars` | `undefined`    |
+| Prop              | Description                                                      | Type                 | Default     |
+| ----------------- | ---------------------------------------------------------------- | -------------------- | ----------- |
+| visibility-height | Only shown when scroll height reaches this value                 | `number`             | `200`       |
+| target            | Container selector, not needed for full-screen scrolling         | `string`             | —           |
+| right             | Distance from the right                                          | `number`             | `40`        |
+| bottom            | Distance from the bottom                                         | `number`             | `40`        |
+| show-progress     | Whether to show the progress ring                                | `boolean`            | `true`      |
+| progress-color    | Progress ring color; falls back to current text color when empty | `string`             | `''`        |
+| duration          | Scroll-back animation duration (ms)                              | `number`             | `400`       |
+| theme-overrides   | Component-level theme overrides                                  | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -149,9 +149,9 @@ Built-in `Cubic Easing` function makes the scroll-back action more aligned with 
 
 ### Slots
 
-| Slot Name | Description | Slot Props |
-| --- | --- | --- |
-| `default` | Custom back-to-top trigger content. | None |
+| Slot Name | Description                         | Slot Props |
+| --------- | ----------------------------------- | ---------- |
+| `default` | Custom back-to-top trigger content. | None       |
 
 ### Expose
 
@@ -163,11 +163,11 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhBackTopProps` | Props type for `YhBackTop` |
-| `YhBackTopEmits` | Emits type for `YhBackTop` |
-| `YhBackTopSlots` | Slots type for `YhBackTop` |
+| Name                | Description                          |
+| ------------------- | ------------------------------------ |
+| `YhBackTopProps`    | Props type for `YhBackTop`           |
+| `YhBackTopEmits`    | Emits type for `YhBackTop`           |
+| `YhBackTopSlots`    | Slots type for `YhBackTop`           |
 | `YhBackTopInstance` | Public instance type for `YhBackTop` |
 
 <style scoped>

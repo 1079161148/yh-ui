@@ -23,8 +23,7 @@ describe('YhDatePicker perf baseline', () => {
               h(DatePicker, {
                 key: index,
                 type: index % 3 === 0 ? 'daterange' : 'date',
-                modelValue:
-                  index % 3 === 0 ? ['2024-01-01', '2024-01-10'] : '2024-01-01',
+                modelValue: index % 3 === 0 ? ['2024-01-01', '2024-01-10'] : '2024-01-01',
                 teleported: false
               })
             )
@@ -66,7 +65,9 @@ describe('YhDatePicker perf baseline', () => {
     const max = Math.max(...times)
     const degradation = times[rounds - 1] / times[0]
 
-    console.log(`[PERF] repeated date-picker mounts: ${times.map((t) => t.toFixed(2)).join(' / ')}ms`)
+    console.log(
+      `[PERF] repeated date-picker mounts: ${times.map((t) => t.toFixed(2)).join(' / ')}ms`
+    )
     console.log(`[PERF] degradation ratio: ${degradation.toFixed(2)}x`)
 
     expect(max).toBeLessThan(1000)

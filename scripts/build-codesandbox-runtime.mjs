@@ -279,7 +279,11 @@ function rewriteSupportBarrelImports(code) {
           }
           groupedImports
             .get(targetPath)
-            .push(localName && localName !== importedName ? `${importedName} as ${localName}` : importedName)
+            .push(
+              localName && localName !== importedName
+                ? `${importedName} as ${localName}`
+                : importedName
+            )
         } else {
           remainingImports.push(trimmedEntry)
         }

@@ -629,8 +629,20 @@ JSON format is the most precise import format, key automatically matches column'
 
 ```json
 [
-  { "name": "Wang Wu", "age": 25, "dept": "Design", "status": "Active", "address": "Guangzhou Tianhe" },
-  { "name": "Zhao Liu", "age": 35, "dept": "Operations", "status": "Active", "address": "Shenzhen Nanshan" }
+  {
+    "name": "Wang Wu",
+    "age": 25,
+    "dept": "Design",
+    "status": "Active",
+    "address": "Guangzhou Tianhe"
+  },
+  {
+    "name": "Zhao Liu",
+    "age": 35,
+    "dept": "Operations",
+    "status": "Active",
+    "address": "Shenzhen Nanshan"
+  }
 ]
 ```
 
@@ -702,26 +714,27 @@ For large files or scenarios requiring backend validation, it is recommended to 
 
 ## Import Mode Description
 
-| Mode | Value | Description |
-| --- | --- | --- |
-| Insert Top | `'insertTop'` | Insert imported data at the **top** of the table |
+| Mode          | Value            | Description                                                   |
+| ------------- | ---------------- | ------------------------------------------------------------- |
+| Insert Top    | `'insertTop'`    | Insert imported data at the **top** of the table              |
 | Insert Bottom | `'insertBottom'` | Append imported data to the **bottom** of the table (default) |
-| Covering | `'covering'` | Clear existing data and **replace** with imported data |
+| Covering      | `'covering'`     | Clear existing data and **replace** with imported data        |
 
 ## Supported Import Formats
 
-| Format | Extension | Description |
-| --- | --- | --- |
-| CSV | `.csv` | Comma-separated values, first row as header |
-| JSON | `.json` | Object array, key corresponds to column `prop` |
-| TXT | `.txt` | Tab-separated values (TSV), first row as header |
-| XML | `.xml` | Standard XML format, with `<columns>` and `<rows>` |
-| HTML | `.html` | Standard `<table>` structure, with `<thead>` and `<tbody>` |
-| XLSX | `.xlsx` | Excel format, supports `.xlsx`, `.xls`, `.xlsm` |
+| Format | Extension | Description                                                |
+| ------ | --------- | ---------------------------------------------------------- |
+| CSV    | `.csv`    | Comma-separated values, first row as header                |
+| JSON   | `.json`   | Object array, key corresponds to column `prop`             |
+| TXT    | `.txt`    | Tab-separated values (TSV), first row as header            |
+| XML    | `.xml`    | Standard XML format, with `<columns>` and `<rows>`         |
+| HTML   | `.html`   | Standard `<table>` structure, with `<thead>` and `<tbody>` |
+| XLSX   | `.xlsx`   | Excel format, supports `.xlsx`, `.xls`, `.xlsm`            |
 
 ## Data Mapping Rules
 
 Columns are matched with the following priority during import:
+
 1. Custom `fieldMapping` configuration (highest priority)
 2. File field name exactly matches column `prop`
 3. File field name exactly matches column `label`
@@ -734,21 +747,21 @@ Columns are matched with the following priority during import:
 
 Call through table instance to open file picker and import data.
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| type | Import format | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | Auto-detect |
-| mode | Import mode | `'covering' \| 'insertTop' \| 'insertBottom'` | `'insertBottom'` |
-| separator | CSV separator | `string` | `','` |
-| fieldMapping | Field mapping: file column name → prop | `Record<string, string>` | — |
-| autoMapping | Whether to auto-map label/prop | `boolean` | `true` |
-| numberFields | Numeric type field list | `string[]` | — |
-| maxRows | Max import rows | `number` | — |
-| encoding | File encoding | `string` | `'utf-8'` |
-| beforeImport | Before import validation | `(rows) => boolean \| rows[]` | — |
-| afterImport | After import callback | `(rows, mode) => void` | — |
-| sheetIndex | Sheet index to read (XLSX only) | `number` | `0` |
-| sheetName | Sheet name to read (XLSX only, takes priority over sheetIndex) | `string` | — |
-| headerRow | Whether to use first row as header (XLSX only) | `boolean` | `true` |
+| Property     | Description                                                    | Type                                                    | Default          |
+| ------------ | -------------------------------------------------------------- | ------------------------------------------------------- | ---------------- |
+| type         | Import format                                                  | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | Auto-detect      |
+| mode         | Import mode                                                    | `'covering' \| 'insertTop' \| 'insertBottom'`           | `'insertBottom'` |
+| separator    | CSV separator                                                  | `string`                                                | `','`            |
+| fieldMapping | Field mapping: file column name → prop                         | `Record<string, string>`                                | —                |
+| autoMapping  | Whether to auto-map label/prop                                 | `boolean`                                               | `true`           |
+| numberFields | Numeric type field list                                        | `string[]`                                              | —                |
+| maxRows      | Max import rows                                                | `number`                                                | —                |
+| encoding     | File encoding                                                  | `string`                                                | `'utf-8'`        |
+| beforeImport | Before import validation                                       | `(rows) => boolean \| rows[]`                           | —                |
+| afterImport  | After import callback                                          | `(rows, mode) => void`                                  | —                |
+| sheetIndex   | Sheet index to read (XLSX only)                                | `number`                                                | `0`              |
+| sheetName    | Sheet name to read (XLSX only, takes priority over sheetIndex) | `string`                                                | —                |
+| headerRow    | Whether to use first row as header (XLSX only)                 | `boolean`                                               | `true`           |
 
 ### importFile(file, config?) Method
 
@@ -757,4 +770,3 @@ Import data from a `File` object.
 ### importData(content, config?) Method
 
 Import data from text string or object array.
-

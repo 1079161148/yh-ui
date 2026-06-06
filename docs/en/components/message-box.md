@@ -544,53 +544,53 @@ YhMessageBox.alert('Hello world!', 'Title', {}, appContext)
 
 ### Methods
 
-| Method | Description | Parameter Type | Return Value |
-| --- | --- | --- | --- |
+| Method         | Description                                                       | Parameter Type                                                                       | Return Value                                              |
+| -------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------- |
 | `YhMessageBox` | Opens a message box with the provided options or message content. | `(options: YhMessageBoxOptions \| string \| VNode, appContext?: AppContext \| null)` | `Promise<{ value?: string; action: YhMessageBoxAction }>` |
-| `alert` | Opens an alert dialog. | `(message, title?, options?, appContext?)` | `Promise<void>` |
-| `confirm` | Opens a confirmation dialog. | `(message, title?, options?, appContext?)` | `Promise<YhMessageBoxAction>` |
-| `prompt` | Opens an input dialog. | `(message, title?, options?, appContext?)` | `Promise<{ value: string; action: 'confirm' }>` |
-| `setDefaults` | Updates the global default options used by later calls. | `(defaults: YhMessageBoxOptions)` | `void` |
+| `alert`        | Opens an alert dialog.                                            | `(message, title?, options?, appContext?)`                                           | `Promise<void>`                                           |
+| `confirm`      | Opens a confirmation dialog.                                      | `(message, title?, options?, appContext?)`                                           | `Promise<YhMessageBoxAction>`                             |
+| `prompt`       | Opens an input dialog.                                            | `(message, title?, options?, appContext?)`                                           | `Promise<{ value: string; action: 'confirm' }>`           |
+| `setDefaults`  | Updates the global default options used by later calls.           | `(defaults: YhMessageBoxOptions)`                                                    | `void`                                                    |
 
 ### Message Box Options
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Title text. | `string` | `'Tip'` |
-| message | Dialog content. | `string \| VNode \| (() => VNode)` | `undefined` |
-| type | Dialog type. | `YhMessageBoxType` | `undefined` |
-| dangerouslyUseHTMLString | Whether to render `message` as HTML. | `boolean` | `false` |
-| iconType | State icon type. | `YhMessageBoxState` | `undefined` |
-| icon | Custom icon. | `string \| Component \| VNode` | `undefined` |
-| confirmButtonText | Confirm button text. | `string` | `'确定'` |
-| cancelButtonText | Cancel button text. | `string` | `'取消'` |
-| showCancelButton | Whether to show the cancel button. | `boolean` | `true` |
-| showConfirmButton | Whether to show the confirm button. | `boolean` | `true` |
-| showClose | Whether to show the top-right close button. | `boolean` | `true` |
-| closeOnClickModal | Whether clicking the overlay closes the dialog. | `boolean` | `true` |
-| closeOnPressEscape | Whether pressing `Esc` closes the dialog. | `boolean` | `true` |
-| lockScroll | Whether to lock body scroll. | `boolean` | `true` |
-| glass | Whether to enable glass mode. | `boolean` | `false` |
-| center | Whether to center content layout. | `boolean` | `false` |
-| roundButton | Whether to use rounded buttons. | `boolean` | `false` |
-| draggable | Whether the dialog is draggable. | `boolean` | `false` |
-| draggableBoundary | Whether dragging is kept inside the viewport. | `boolean` | `true` |
-| width | Dialog width. | `string \| number` | `420` |
-| customClass | Custom class name. | `string` | `undefined` |
-| inputPlaceholder | Input placeholder in `prompt` mode. | `string` | `undefined` |
-| inputValue | Initial input value in `prompt` mode. | `string` | `undefined` |
-| inputPattern | Input validation regex in `prompt` mode. | `RegExp` | `undefined` |
-| inputValidator | Custom validation function in `prompt` mode. | `(value: string) => boolean \| string` | `undefined` |
-| inputErrorMessage | Validation error message in `prompt` mode. | `string` | `undefined` |
-| beforeClose | Hook called before the dialog closes. | `(action: YhMessageBoxAction, instance: YhMessageBoxInstance, done: () => void) => void` | `undefined` |
-| callback | Callback invoked by the function API after the dialog closes. | `(action: YhMessageBoxAction, instance: YhMessageBoxInstance) => void` | `undefined` |
-| appContext | Vue app context used by the function API for inheritance. | `AppContext \| null` | `undefined` |
-| autofocus | Whether to autofocus when opening. | `boolean` | `true` |
-| appendTo | Mount container used by the function API. If the selector cannot be found, it falls back to `document.body`. | `string \| HTMLElement` | `document.body` |
-| confirmButtonLoading | Whether the confirm button shows loading. | `boolean` | `false` |
-| cancelButtonLoading | Whether the cancel button shows loading. | `boolean` | `false` |
-| loadingIcon | Custom loading icon. Declared in the type, but the current implementation does not consume it. | `string \| Component \| VNode` | `undefined` |
-| themeOverrides | Component-level theme overrides. | `ComponentThemeVars` | `undefined` |
+| Prop                     | Description                                                                                                  | Type                                                                                     | Default         |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | --------------- |
+| title                    | Title text.                                                                                                  | `string`                                                                                 | `'Tip'`         |
+| message                  | Dialog content.                                                                                              | `string \| VNode \| (() => VNode)`                                                       | `undefined`     |
+| type                     | Dialog type.                                                                                                 | `YhMessageBoxType`                                                                       | `undefined`     |
+| dangerouslyUseHTMLString | Whether to render `message` as HTML.                                                                         | `boolean`                                                                                | `false`         |
+| iconType                 | State icon type.                                                                                             | `YhMessageBoxState`                                                                      | `undefined`     |
+| icon                     | Custom icon.                                                                                                 | `string \| Component \| VNode`                                                           | `undefined`     |
+| confirmButtonText        | Confirm button text.                                                                                         | `string`                                                                                 | `'确定'`        |
+| cancelButtonText         | Cancel button text.                                                                                          | `string`                                                                                 | `'取消'`        |
+| showCancelButton         | Whether to show the cancel button.                                                                           | `boolean`                                                                                | `true`          |
+| showConfirmButton        | Whether to show the confirm button.                                                                          | `boolean`                                                                                | `true`          |
+| showClose                | Whether to show the top-right close button.                                                                  | `boolean`                                                                                | `true`          |
+| closeOnClickModal        | Whether clicking the overlay closes the dialog.                                                              | `boolean`                                                                                | `true`          |
+| closeOnPressEscape       | Whether pressing `Esc` closes the dialog.                                                                    | `boolean`                                                                                | `true`          |
+| lockScroll               | Whether to lock body scroll.                                                                                 | `boolean`                                                                                | `true`          |
+| glass                    | Whether to enable glass mode.                                                                                | `boolean`                                                                                | `false`         |
+| center                   | Whether to center content layout.                                                                            | `boolean`                                                                                | `false`         |
+| roundButton              | Whether to use rounded buttons.                                                                              | `boolean`                                                                                | `false`         |
+| draggable                | Whether the dialog is draggable.                                                                             | `boolean`                                                                                | `false`         |
+| draggableBoundary        | Whether dragging is kept inside the viewport.                                                                | `boolean`                                                                                | `true`          |
+| width                    | Dialog width.                                                                                                | `string \| number`                                                                       | `420`           |
+| customClass              | Custom class name.                                                                                           | `string`                                                                                 | `undefined`     |
+| inputPlaceholder         | Input placeholder in `prompt` mode.                                                                          | `string`                                                                                 | `undefined`     |
+| inputValue               | Initial input value in `prompt` mode.                                                                        | `string`                                                                                 | `undefined`     |
+| inputPattern             | Input validation regex in `prompt` mode.                                                                     | `RegExp`                                                                                 | `undefined`     |
+| inputValidator           | Custom validation function in `prompt` mode.                                                                 | `(value: string) => boolean \| string`                                                   | `undefined`     |
+| inputErrorMessage        | Validation error message in `prompt` mode.                                                                   | `string`                                                                                 | `undefined`     |
+| beforeClose              | Hook called before the dialog closes.                                                                        | `(action: YhMessageBoxAction, instance: YhMessageBoxInstance, done: () => void) => void` | `undefined`     |
+| callback                 | Callback invoked by the function API after the dialog closes.                                                | `(action: YhMessageBoxAction, instance: YhMessageBoxInstance) => void`                   | `undefined`     |
+| appContext               | Vue app context used by the function API for inheritance.                                                    | `AppContext \| null`                                                                     | `undefined`     |
+| autofocus                | Whether to autofocus when opening.                                                                           | `boolean`                                                                                | `true`          |
+| appendTo                 | Mount container used by the function API. If the selector cannot be found, it falls back to `document.body`. | `string \| HTMLElement`                                                                  | `document.body` |
+| confirmButtonLoading     | Whether the confirm button shows loading.                                                                    | `boolean`                                                                                | `false`         |
+| cancelButtonLoading      | Whether the cancel button shows loading.                                                                     | `boolean`                                                                                | `false`         |
+| loadingIcon              | Custom loading icon. Declared in the type, but the current implementation does not consume it.               | `string \| Component \| VNode`                                                           | `undefined`     |
+| themeOverrides           | Component-level theme overrides.                                                                             | `ComponentThemeVars`                                                                     | `undefined`     |
 
 ### Events
 
@@ -606,32 +606,32 @@ This function entry does not expose a template component instance. Runtime contr
 
 ### Message Box Instance
 
-| Prop/Method | Description | Type |
-| --- | --- | --- |
-| `confirmLoading` | Loading state of the confirm button. | `boolean` |
-| `cancelLoading` | Loading state of the cancel button. | `boolean` |
-| `open` | Opens the popup. | `(options: YhMessageBoxOptions) => void` |
-| `close` | Closes the popup. | `() => void` |
-| `setCallback` | Registers the close callback used by the function API. | `(cb: (res: { action: YhMessageBoxAction; value?: string }) => void) => void` |
+| Prop/Method      | Description                                            | Type                                                                          |
+| ---------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| `confirmLoading` | Loading state of the confirm button.                   | `boolean`                                                                     |
+| `cancelLoading`  | Loading state of the cancel button.                    | `boolean`                                                                     |
+| `open`           | Opens the popup.                                       | `(options: YhMessageBoxOptions) => void`                                      |
+| `close`          | Closes the popup.                                      | `() => void`                                                                  |
+| `setCallback`    | Registers the close callback used by the function API. | `(cb: (res: { action: YhMessageBoxAction; value?: string }) => void) => void` |
 
 ### Theme Variables
 
 `YhMessageBox` supports `themeOverrides`. The stylesheet mainly consumes global tokens, while runtime overrides generate variables such as the following:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-scrollbar-width` | Scrollbar width compensation injected at runtime. | Runtime injected |
-| `--yh-message-box-bg-color` | Variable generated from `themeOverrides.bgColor`. | No built-in stylesheet fallback |
+| Variable                       | Description                                          | Default                         |
+| ------------------------------ | ---------------------------------------------------- | ------------------------------- |
+| `--yh-scrollbar-width`         | Scrollbar width compensation injected at runtime.    | Runtime injected                |
+| `--yh-message-box-bg-color`    | Variable generated from `themeOverrides.bgColor`.    | No built-in stylesheet fallback |
 | `--yh-message-box-title-color` | Variable generated from `themeOverrides.titleColor`. | No built-in stylesheet fallback |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhMessageBoxType` | Message-box type union |
-| `YhMessageBoxData` | Prompt result payload type |
-| `YhMessageBoxAction` | Action union returned by confirm / prompt flows |
-| `YhMessageBoxState` | Built-in state icon union |
-| `YhMessageBoxInstance` | Runtime instance type passed to hooks |
-| `YhMessageBoxOptions` | Options type for `YhMessageBox(...)` |
-| `YhMessageBoxHandler` | Promise / handler return abstraction |
+| Name                   | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `YhMessageBoxType`     | Message-box type union                          |
+| `YhMessageBoxData`     | Prompt result payload type                      |
+| `YhMessageBoxAction`   | Action union returned by confirm / prompt flows |
+| `YhMessageBoxState`    | Built-in state icon union                       |
+| `YhMessageBoxInstance` | Runtime instance type passed to hooks           |
+| `YhMessageBoxOptions`  | Options type for `YhMessageBox(...)`            |
+| `YhMessageBoxHandler`  | Promise / handler return abstraction            |

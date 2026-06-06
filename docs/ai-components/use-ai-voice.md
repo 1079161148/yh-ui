@@ -273,33 +273,33 @@ const jsSender = toJs(tsSender);
 
 ### UseAiVoiceOptions
 
-| 属性名         | 说明                        | 类型      | 默认值    |
-| -------------- | --------------------------- | --------- | --------- |
-| language       | 识别语言                    | `string`  | `'zh-CN'` |
-| interimResults | 是否需要临时结果            | `boolean` | `true`    |
-| continuous     | 是否开启连续识别            | `boolean` | `false`   |
-| vad            | 是否开启智能静音检测        | `boolean` | `true`    |
-| vadThreshold   | 静音自动停止的时间阈值 (ms) | `number`  | `2000`    |
-| volumeThreshold | 音量变化灵敏度 (0-1)       | `number`  | `0.05`    |
-| waveCount      | 返回的波形柱数量            | `number`  | `20`      |
-| useSTT         | 是否启用浏览器语音识别      | `boolean` | `true`    |
-| onStart        | 开始录音时回调             | `() => void` | -      |
-| onStop         | 停止后返回转写文本和 Blob   | `(transcript: string, blob: Blob \| null) => void` | - |
-| onResult       | 最终转写更新回调           | `(transcript: string) => void` | - |
-| onPartialResult | 临时转写更新回调          | `(transcript: string) => void` | - |
-| onError        | 错误回调                   | `(error: unknown) => void` | - |
+| 属性名          | 说明                        | 类型                                               | 默认值    |
+| --------------- | --------------------------- | -------------------------------------------------- | --------- |
+| language        | 识别语言                    | `string`                                           | `'zh-CN'` |
+| interimResults  | 是否需要临时结果            | `boolean`                                          | `true`    |
+| continuous      | 是否开启连续识别            | `boolean`                                          | `false`   |
+| vad             | 是否开启智能静音检测        | `boolean`                                          | `true`    |
+| vadThreshold    | 静音自动停止的时间阈值 (ms) | `number`                                           | `2000`    |
+| volumeThreshold | 音量变化灵敏度 (0-1)        | `number`                                           | `0.05`    |
+| waveCount       | 返回的波形柱数量            | `number`                                           | `20`      |
+| useSTT          | 是否启用浏览器语音识别      | `boolean`                                          | `true`    |
+| onStart         | 开始录音时回调              | `() => void`                                       | -         |
+| onStop          | 停止后返回转写文本和 Blob   | `(transcript: string, blob: Blob \| null) => void` | -         |
+| onResult        | 最终转写更新回调            | `(transcript: string) => void`                     | -         |
+| onPartialResult | 临时转写更新回调            | `(transcript: string) => void`                     | -         |
+| onError         | 错误回调                    | `(error: unknown) => void`                         | -         |
 
 ### 返回值
 
-| 导出项             | 说明                     | 类型                 |
-| ------------------ | ------------------------ | -------------------- |
-| isRecording        | 响应式录音状态           | `Ref<boolean>`       |
-| transcript         | 已确认的转写文本         | `Ref<string>`        |
-| interimTranscript  | 实时临时转写文本         | `Ref<string>`        |
-| amplitudes         | 实时波形数据             | `Ref<number[]>`      |
-| volume             | 实时音量 (0-100)         | `Ref<number>`        |
-| audioBlob          | 录音生成的音频文件       | `Ref<Blob \| null>`  |
-| start              | 开始录音                 | `() => Promise<void>` |
-| stop               | 停止录音                 | `() => void`         |
-| cancel             | 取消录音并放弃当前结果   | `() => void`         |
-| sttSupported       | 当前环境是否支持 STT     | `boolean`            |
+| 导出项            | 说明                   | 类型                  |
+| ----------------- | ---------------------- | --------------------- |
+| isRecording       | 响应式录音状态         | `Ref<boolean>`        |
+| transcript        | 已确认的转写文本       | `Ref<string>`         |
+| interimTranscript | 实时临时转写文本       | `Ref<string>`         |
+| amplitudes        | 实时波形数据           | `Ref<number[]>`       |
+| volume            | 实时音量 (0-100)       | `Ref<number>`         |
+| audioBlob         | 录音生成的音频文件     | `Ref<Blob \| null>`   |
+| start             | 开始录音               | `() => Promise<void>` |
+| stop              | 停止录音               | `() => void`          |
+| cancel            | 取消录音并放弃当前结果 | `() => void`          |
+| sttSupported      | 当前环境是否支持 STT   | `boolean`             |

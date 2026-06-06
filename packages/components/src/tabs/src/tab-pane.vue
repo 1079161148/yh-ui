@@ -13,7 +13,10 @@ const props = defineProps(tabPaneProps)
 const ns = useNamespace('tab-pane')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('tab-pane', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'tab-pane',
+  computed(() => props.themeOverrides)
+)
 
 const tabsContext = inject(TABS_INJECTION_KEY)
 const hasRendered = ref(false)
@@ -77,8 +80,13 @@ watch(
 </script>
 
 <template>
-  <div v-if="shouldRender" v-show="isActive" :class="[ns.b(), ns.is('active', isActive)]" :style="themeStyle"
-    role="tabpanel">
+  <div
+    v-if="shouldRender"
+    v-show="isActive"
+    :class="[ns.b(), ns.is('active', isActive)]"
+    :style="themeStyle"
+    role="tabpanel"
+  >
     <slot></slot>
   </div>
 </template>

@@ -761,19 +761,19 @@ Simulate editing scenario - get previously saved selection data from backend whe
     </yh-button>
   </div>
 
-  <yh-table
-    ref="echoTableRef"
-    :data="echoData"
-    :columns="echoColumns"
-    :selection-config="{
-      type: 'checkbox',
-      reserve: true,
-      selectedRowKeys: echoSelectedKeys
-    }"
-    :loading="echoLoading"
-    @selection-change="handleEchoSelectionChange"
-    border
-  />
+<yh-table
+ref="echoTableRef"
+:data="echoData"
+:columns="echoColumns"
+:selection-config="{
+type: 'checkbox',
+reserve: true,
+selectedRowKeys: echoSelectedKeys
+}"
+:loading="echoLoading"
+@selection-change="handleEchoSelectionChange"
+border
+/>
 
   <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
     <yh-pagination

@@ -361,7 +361,9 @@ describe('useQueue', () => {
     pause()
     cancel(canceledId) // make one task canceled so retryAll has work
     // pending task cancel path removes it from map; either removed or canceled is acceptable for this branch test.
-    expect(getTask(canceledId) === undefined || getTask(canceledId)?.status === 'canceled').toBe(true)
+    expect(getTask(canceledId) === undefined || getTask(canceledId)?.status === 'canceled').toBe(
+      true
+    )
     expect(isRunning.value).toBe(true)
 
     retryAll()

@@ -311,10 +311,10 @@ export default defineNuxtConfig({
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhSubmitBarProps` | 组件 Props 类型 |
-| `YhSubmitBarEmits` | 组件事件类型 |
-| `YhSubmitBarSlots` | 组件插槽类型 |
+| 名称                    | 说明             |
+| ----------------------- | ---------------- |
+| `YhSubmitBarProps`      | 组件 Props 类型  |
+| `YhSubmitBarEmits`      | 组件事件类型     |
+| `YhSubmitBarSlots`      | 组件插槽类型     |
 | `YhSubmitBarButtonType` | 按钮类型联合类型 |
-| `YhSubmitBarInstance` | 组件实例类型 |
+| `YhSubmitBarInstance`   | 组件实例类型     |

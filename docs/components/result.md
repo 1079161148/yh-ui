@@ -182,12 +182,12 @@ const previewSubTitle = computed(() => {
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `title` | 标题 | `string` | `undefined` |
-| `sub-title` | 副标题 | `string` | `undefined` |
-| `icon` | 状态图标类型 | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'` |
-| `theme-overrides` | 组件级主题变量覆盖 | `ComponentThemeVars` | `undefined` |
+| 属性              | 说明               | 类型                                          | 默认值      |
+| ----------------- | ------------------ | --------------------------------------------- | ----------- |
+| `title`           | 标题               | `string`                                      | `undefined` |
+| `sub-title`       | 副标题             | `string`                                      | `undefined` |
+| `icon`            | 状态图标类型       | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'`    |
+| `theme-overrides` | 组件级主题变量覆盖 | `ComponentThemeVars`                          | `undefined` |
 
 ### Events
 
@@ -195,13 +195,13 @@ const previewSubTitle = computed(() => {
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| `default` | 操作区内容 |
-| `icon` | 自定义图标内容 |
-| `title` | 自定义标题内容 |
-| `sub-title` | 自定义副标题内容 |
-| `extra` | 额外内容区域，位于副标题与操作区之间 |
+| 插槽名      | 说明                                 |
+| ----------- | ------------------------------------ |
+| `default`   | 操作区内容                           |
+| `icon`      | 自定义图标内容                       |
+| `title`     | 自定义标题内容                       |
+| `sub-title` | 自定义副标题内容                     |
+| `extra`     | 额外内容区域，位于副标题与操作区之间 |
 
 ### Expose
 
@@ -209,21 +209,21 @@ const previewSubTitle = computed(() => {
 
 ## 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-result-padding` | 容器内边距 | `40px 30px` |
-| `--yh-result-icon-size` | 图标尺寸 | `72px` |
-| `--yh-result-icon-margin` | 图标底部间距 | `20px` |
-| `--yh-result-title-size` | 标题字号 | `20px` |
-| `--yh-result-title-color` | 标题颜色 | `var(--yh-text-color-primary, #303133)` |
-| `--yh-result-subtitle-size` | 副标题字号 | `14px` |
-| `--yh-result-subtitle-color` | 副标题颜色 | `var(--yh-text-color-secondary, #909399)` |
+| 变量名                       | 说明         | 默认值                                    |
+| ---------------------------- | ------------ | ----------------------------------------- |
+| `--yh-result-padding`        | 容器内边距   | `40px 30px`                               |
+| `--yh-result-icon-size`      | 图标尺寸     | `72px`                                    |
+| `--yh-result-icon-margin`    | 图标底部间距 | `20px`                                    |
+| `--yh-result-title-size`     | 标题字号     | `20px`                                    |
+| `--yh-result-title-color`    | 标题颜色     | `var(--yh-text-color-primary, #303133)`   |
+| `--yh-result-subtitle-size`  | 副标题字号   | `14px`                                    |
+| `--yh-result-subtitle-color` | 副标题颜色   | `var(--yh-text-color-secondary, #909399)` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhResultProps` | 组件 Props 类型 |
-| `YhResultSlots` | 组件插槽类型 |
+| 名称               | 说明             |
+| ------------------ | ---------------- |
+| `YhResultProps`    | 组件 Props 类型  |
+| `YhResultSlots`    | 组件插槽类型     |
 | `YhResultIconType` | 结果图标联合类型 |
-| `YhResultInstance` | 组件实例类型 |
+| `YhResultInstance` | 组件实例类型     |

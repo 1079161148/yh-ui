@@ -289,28 +289,28 @@ After installing `@yh-ui/nuxt`, `YhProgress` can be used directly in Nuxt 3/4 pa
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `type` | Progress mode | `'line' \| 'circle' \| 'dashboard'` | `'line'` |
-| `percentage` | Current progress value, or an array in multi-ring mode | `number \| number[]` | `0` |
-| `secondary-percentage` | Secondary buffered progress | `number` | `0` |
-| `status` | Semantic status style | `'success' \| 'exception' \| 'warning' \| 'info'` | `undefined` |
-| `stroke-width` | Stroke thickness | `number` | `6` |
-| `text-inside` | Render text inside the line bar | `boolean` | `false` |
-| `width` | Width of circle and dashboard modes | `number` | `126` |
-| `show-text` | Show text or status icon | `boolean` | `true` |
-| `color` | Custom color, color function, array, or gradient map | `string \| ((percentage: number) => string) \| string[] \| Record<string, string>` | `''` |
-| `icon` | Custom icon class name | `string` | `''` |
-| `animated` | Rotate the active circular path | `boolean` | `false` |
-| `define-background-color` | Custom track color | `string` | `''` |
-| `format` | Custom formatter for the default text content | `(percentage: number) => string` | `undefined` |
-| `stroke-linecap` | Stroke line cap style | `'butt' \| 'round' \| 'square'` | `'round'` |
-| `striped` | Enable striped line styling | `boolean` | `false` |
-| `striped-flow` | Animate striped line styling | `boolean` | `false` |
-| `indeterminate` | Enable indeterminate line animation | `boolean` | `false` |
-| `duration` | Animation duration in seconds | `number` | `3` |
-| `steps` | Number of visible steps in line mode | `number` | `0` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                            | Type                                                                               | Default     |
+| ------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ----------- |
+| `type`                    | Progress mode                                          | `'line' \| 'circle' \| 'dashboard'`                                                | `'line'`    |
+| `percentage`              | Current progress value, or an array in multi-ring mode | `number \| number[]`                                                               | `0`         |
+| `secondary-percentage`    | Secondary buffered progress                            | `number`                                                                           | `0`         |
+| `status`                  | Semantic status style                                  | `'success' \| 'exception' \| 'warning' \| 'info'`                                  | `undefined` |
+| `stroke-width`            | Stroke thickness                                       | `number`                                                                           | `6`         |
+| `text-inside`             | Render text inside the line bar                        | `boolean`                                                                          | `false`     |
+| `width`                   | Width of circle and dashboard modes                    | `number`                                                                           | `126`       |
+| `show-text`               | Show text or status icon                               | `boolean`                                                                          | `true`      |
+| `color`                   | Custom color, color function, array, or gradient map   | `string \| ((percentage: number) => string) \| string[] \| Record<string, string>` | `''`        |
+| `icon`                    | Custom icon class name                                 | `string`                                                                           | `''`        |
+| `animated`                | Rotate the active circular path                        | `boolean`                                                                          | `false`     |
+| `define-background-color` | Custom track color                                     | `string`                                                                           | `''`        |
+| `format`                  | Custom formatter for the default text content          | `(percentage: number) => string`                                                   | `undefined` |
+| `stroke-linecap`          | Stroke line cap style                                  | `'butt' \| 'round' \| 'square'`                                                    | `'round'`   |
+| `striped`                 | Enable striped line styling                            | `boolean`                                                                          | `false`     |
+| `striped-flow`            | Animate striped line styling                           | `boolean`                                                                          | `false`     |
+| `indeterminate`           | Enable indeterminate line animation                    | `boolean`                                                                          | `false`     |
+| `duration`                | Animation duration in seconds                          | `number`                                                                           | `3`         |
+| `steps`                   | Number of visible steps in line mode                   | `number`                                                                           | `0`         |
+| `theme-overrides`         | Component theme override variables                     | `ComponentThemeVars`                                                               | `undefined` |
 
 ### Events
 
@@ -318,8 +318,8 @@ This component does not expose component events.
 
 ### Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
+| Slot      | Description                      | Parameters               |
+| --------- | -------------------------------- | ------------------------ |
 | `default` | Replaces the built-in label area | `{ percentage: number }` |
 
 ### Expose
@@ -328,21 +328,21 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Type | Description |
-| --- | --- |
-| `YhProgressProps` | Component props type |
-| `YhProgressSlots` | Component slots type |
-| `YhProgressType` | Progress type union |
-| `YhProgressStatus` | Progress status union |
+| Type                 | Description             |
+| -------------------- | ----------------------- |
+| `YhProgressProps`    | Component props type    |
+| `YhProgressSlots`    | Component slots type    |
+| `YhProgressType`     | Progress type union     |
+| `YhProgressStatus`   | Progress status union   |
 | `YhProgressInstance` | Component instance type |
 
 ### Theme Variables
 
 `YhProgress` supports `themeOverrides`. In component styles, the only dedicated component CSS variable currently consumed is the animation duration token below; colors and backgrounds mainly come from global theme tokens.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-progress-duration` | Duration used by striped, indeterminate, and circle animations | `3s` |
+| Variable                 | Description                                                    | Default |
+| ------------------------ | -------------------------------------------------------------- | ------- |
+| `--yh-progress-duration` | Duration used by striped, indeterminate, and circle animations | `3s`    |
 
 <style scoped>
 .demo-progress {

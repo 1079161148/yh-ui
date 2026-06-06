@@ -201,40 +201,40 @@ After installing `@yh-ui/nuxt`, `YhAlert` can be used directly in pages. Its ini
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| `title` | Title text | `string` | `''` |
-| `description` | Description text | `string` | `''` |
-| `type` | Alert type | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'` |
-| `effect` | Visual style | `'light' \| 'dark' \| 'outline' \| 'glass'` | `'light'` |
-| `closable` | Whether to show the close button | `boolean` | `false` |
-| `close-text` | Custom close button text | `string` | `''` |
-| `close-icon` | Custom close icon component or icon name | `string \| Component` | `''` |
-| `show-icon` | Whether to show the status icon | `boolean` | `false` |
-| `icon` | Custom status icon component or icon name | `string \| Component` | `''` |
-| `center` | Whether the content is centered | `boolean` | `false` |
-| `scrollable` | Whether to enable scrolling announcement mode | `boolean` | `false` |
-| `scroll-speed` | Seconds required to complete one scroll cycle | `number` | `15` |
-| `pause-on-hover` | Whether hovering pauses scrolling | `boolean` | `true` |
-| `duration` | Auto close duration in milliseconds. `0` disables auto close | `number` | `0` |
-| `show-progress` | Whether to show the auto-close progress bar | `boolean` | `false` |
-| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name              | Description                                                  | Type                                          | Default     |
+| ----------------- | ------------------------------------------------------------ | --------------------------------------------- | ----------- |
+| `title`           | Title text                                                   | `string`                                      | `''`        |
+| `description`     | Description text                                             | `string`                                      | `''`        |
+| `type`            | Alert type                                                   | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'`    |
+| `effect`          | Visual style                                                 | `'light' \| 'dark' \| 'outline' \| 'glass'`   | `'light'`   |
+| `closable`        | Whether to show the close button                             | `boolean`                                     | `false`     |
+| `close-text`      | Custom close button text                                     | `string`                                      | `''`        |
+| `close-icon`      | Custom close icon component or icon name                     | `string \| Component`                         | `''`        |
+| `show-icon`       | Whether to show the status icon                              | `boolean`                                     | `false`     |
+| `icon`            | Custom status icon component or icon name                    | `string \| Component`                         | `''`        |
+| `center`          | Whether the content is centered                              | `boolean`                                     | `false`     |
+| `scrollable`      | Whether to enable scrolling announcement mode                | `boolean`                                     | `false`     |
+| `scroll-speed`    | Seconds required to complete one scroll cycle                | `number`                                      | `15`        |
+| `pause-on-hover`  | Whether hovering pauses scrolling                            | `boolean`                                     | `true`      |
+| `duration`        | Auto close duration in milliseconds. `0` disables auto close | `number`                                      | `0`         |
+| `show-progress`   | Whether to show the auto-close progress bar                  | `boolean`                                     | `false`     |
+| `theme-overrides` | Component-level theme overrides                              | `ComponentThemeVars`                          | `undefined` |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
+| Name    | Description                                | Parameters            |
+| ------- | ------------------------------------------ | --------------------- |
 | `close` | Triggered when the close button is clicked | `(event: MouseEvent)` |
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
+| Name      | Description         |
+| --------- | ------------------- |
 | `default` | Description content |
-| `title` | Title content |
-| `icon` | Custom status icon |
-| `close` | Custom close area |
-| `action` | Custom action area |
+| `title`   | Title content       |
+| `icon`    | Custom status icon  |
+| `close`   | Custom close area   |
+| `action`  | Custom action area  |
 
 ### Expose
 
@@ -242,22 +242,22 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhAlertProps` | Props type for `YhAlert` |
-| `YhAlertEmits` | Emits type for `YhAlert` |
-| `YhAlertSlots` | Slots type for `YhAlert` |
-| `YhAlertType` | Alert type union |
-| `YhAlertEffect` | Effect style union |
-| `YhAlertInstance` | Component instance type |
+| Name              | Description              |
+| ----------------- | ------------------------ |
+| `YhAlertProps`    | Props type for `YhAlert` |
+| `YhAlertEmits`    | Emits type for `YhAlert` |
+| `YhAlertSlots`    | Slots type for `YhAlert` |
+| `YhAlertType`     | Alert type union         |
+| `YhAlertEffect`   | Effect style union       |
+| `YhAlertInstance` | Component instance type  |
 
 ### Theme Variables
 
 `YhAlert` does not expose a full set of dedicated component-scoped theme variables. The stylesheet currently relies mainly on shared theme tokens. The scrolling announcement mode additionally consumes the variable below, and the component still supports `themeOverrides`.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-alert-scroll-speed` | Animation duration for scrolling announcements | `15s` |
+| Variable                  | Description                                    | Default |
+| ------------------------- | ---------------------------------------------- | ------- |
+| `--yh-alert-scroll-speed` | Animation duration for scrolling announcements | `15s`   |
 
 <style scoped>
 .demo-list { display: flex; flex-direction: column; gap: 12px; }

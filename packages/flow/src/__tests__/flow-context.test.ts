@@ -10,9 +10,7 @@ describe('flow/core/FlowContext', () => {
 
   describe('useFlowContext', () => {
     it('should throw when used outside provider', () => {
-      expect(() => useFlowContext()).toThrow(
-        '[YhFlow] FlowContext is not provided'
-      )
+      expect(() => useFlowContext()).toThrow('[YhFlow] FlowContext is not provided')
     })
   })
 })

@@ -97,9 +97,7 @@ describe('flow/types/events', () => {
 
     it('should define selection change event', () => {
       const event: FlowEvents['selection:change'] = {
-        selectedNodes: [
-          { id: 'n1', type: 'default', position: { x: 0, y: 0 }, data: {} }
-        ],
+        selectedNodes: [{ id: 'n1', type: 'default', position: { x: 0, y: 0 }, data: {} }],
         selectedEdges: []
       }
       expect(event.selectedNodes.length).toBe(1)

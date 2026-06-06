@@ -460,66 +460,65 @@ The CSS for the Tag component is highly optimized/atomic, adding minimal style o
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| type | Tag type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'primary'` |
-| size | Tag size | `'large' \| 'default' \| 'small'` | `'default'` |
-| effect | Theme effect | `'dark' \| 'light' \| 'plain'` | `'light'` |
-| closable | Whether the tag is closable | `boolean` | `false` |
-| round | Whether the tag has rounded corners | `boolean` | `false` |
-| color | Custom background color | `string` | — |
-| hit | Whether the tag has a border stroke | `boolean` | `false` |
-| disable-transitions | Compatibility prop. The current template and stylesheet do not consume this option | `boolean` | `false` |
-| checkable | Whether the tag is selectable | `boolean` | `false` |
-| checked / v-model:checked | Whether the tag is currently selected | `boolean` | `false` |
-| editable | Whether the tag is editable (double-click to edit) | `boolean` | `false` |
-| icon | Left icon. Component values render directly; `string` values are currently declared but not rendered by the template | `string \| Component` | `undefined` |
-| suffix-icon | Right icon. Component values render directly; `string` values are currently declared but not rendered by the template | `string \| Component` | `undefined` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                      | Description                                                                                                           | Type                                                        | Default     |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ----------- |
+| type                      | Tag type                                                                                                              | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'primary'` |
+| size                      | Tag size                                                                                                              | `'large' \| 'default' \| 'small'`                           | `'default'` |
+| effect                    | Theme effect                                                                                                          | `'dark' \| 'light' \| 'plain'`                              | `'light'`   |
+| closable                  | Whether the tag is closable                                                                                           | `boolean`                                                   | `false`     |
+| round                     | Whether the tag has rounded corners                                                                                   | `boolean`                                                   | `false`     |
+| color                     | Custom background color                                                                                               | `string`                                                    | —           |
+| hit                       | Whether the tag has a border stroke                                                                                   | `boolean`                                                   | `false`     |
+| disable-transitions       | Compatibility prop. The current template and stylesheet do not consume this option                                    | `boolean`                                                   | `false`     |
+| checkable                 | Whether the tag is selectable                                                                                         | `boolean`                                                   | `false`     |
+| checked / v-model:checked | Whether the tag is currently selected                                                                                 | `boolean`                                                   | `false`     |
+| editable                  | Whether the tag is editable (double-click to edit)                                                                    | `boolean`                                                   | `false`     |
+| icon                      | Left icon. Component values render directly; `string` values are currently declared but not rendered by the template  | `string \| Component`                                       | `undefined` |
+| suffix-icon               | Right icon. Component values render directly; `string` values are currently declared but not rendered by the template | `string \| Component`                                       | `undefined` |
+| theme-overrides           | Component-level theme overrides                                                                                       | `ComponentThemeVars`                                        | `undefined` |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| click | Triggers when the tag is clicked | `(event: MouseEvent) => void` |
-| close | Triggers when the close button is clicked | `(event: MouseEvent) => void` |
-| update:checked | Triggers when selection status changes | `(checked: boolean) => void` |
-| change | Triggers when selection status changes | `(checked: boolean) => void` |
-| edit | Triggers when editing is completed | `(value: string) => void` |
+| Name           | Description                               | Parameters                    |
+| -------------- | ----------------------------------------- | ----------------------------- |
+| click          | Triggers when the tag is clicked          | `(event: MouseEvent) => void` |
+| close          | Triggers when the close button is clicked | `(event: MouseEvent) => void` |
+| update:checked | Triggers when selection status changes    | `(checked: boolean) => void`  |
+| change         | Triggers when selection status changes    | `(checked: boolean) => void`  |
+| edit           | Triggers when editing is completed        | `(value: string) => void`     |
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
-| default | Tag content |
-| icon | Custom left icon |
+| Name       | Description       |
+| ---------- | ----------------- |
+| default    | Tag content       |
+| icon       | Custom left icon  |
 | suffixIcon | Custom right icon |
-| closeIcon | Custom close icon |
+| closeIcon  | Custom close icon |
 
 ## Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-tag-bg-color` | Background color | (varies by type) |
-| `--yh-tag-border-color` | Border color | (varies by type) |
-| `--yh-tag-text-color` | Text color | (varies by type) |
-| `--yh-tag-hover-color` | Accent color used by interaction states | `var(--yh-color-primary)` |
+| Variable                | Description                             | Default                   |
+| ----------------------- | --------------------------------------- | ------------------------- |
+| `--yh-tag-bg-color`     | Background color                        | (varies by type)          |
+| `--yh-tag-border-color` | Border color                            | (varies by type)          |
+| `--yh-tag-text-color`   | Text color                              | (varies by type)          |
+| `--yh-tag-hover-color`  | Accent color used by interaction states | `var(--yh-color-primary)` |
 
 Other size, radius, and typography values still come from shared theme tokens such as `--yh-font-size-xs`, `--yh-radius-sm`, and `--yh-radius-round`.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTagProps` | Component props type |
-| `YhTagEmits` | Component emits type |
-| `YhTagSlots` | Component slots type |
-| `YhTagType` | Tag type union |
-| `YhTagSize` | Tag size union |
-| `YhTagEffect` | Tag effect union |
+| Name            | Description             |
+| --------------- | ----------------------- |
+| `YhTagProps`    | Component props type    |
+| `YhTagEmits`    | Component emits type    |
+| `YhTagSlots`    | Component slots type    |
+| `YhTagType`     | Tag type union          |
+| `YhTagSize`     | Tag size union          |
+| `YhTagEffect`   | Tag effect union        |
 | `YhTagInstance` | Component instance type |
 
 ### Expose
 
 This component does not expose public instance methods or properties.
-

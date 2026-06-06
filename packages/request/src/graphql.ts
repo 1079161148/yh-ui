@@ -158,9 +158,7 @@ export class GraphQLBuilder {
   /**
    * 转换为请求配置
    */
-  toRequestOptions(
-    options: GraphQLRequestOptions = {}
-  ): GraphQLRequestOptions & {
+  toRequestOptions(options: GraphQLRequestOptions = {}): GraphQLRequestOptions & {
     data: { query: string; variables?: Record<string, GraphQLVariable>; operationName?: string }
   } {
     return {

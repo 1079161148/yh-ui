@@ -260,104 +260,104 @@ After enabling the YH-UI Nuxt module, `YhTree` can be used directly in pages and
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| `data` | Tree data source | `TreeNodeData[]` | `[]` |
-| `props` | Mapping config for label, children, and disabled fields | `{ label?: string; children?: string; disabled?: string }` | `{ label: 'label', children: 'children', disabled: 'disabled' }` |
-| `node-key` | Field name used to read the node key from raw data | `string` | `'id'` |
-| `show-checkbox` | Whether checkboxes are displayed | `boolean` | `false` |
-| `checkbox-position` | Checkbox position relative to the label | `'left' \| 'right'` | `'left'` |
-| `default-expand-all` | Whether all nodes are expanded initially | `boolean` | `false` |
-| `default-expanded-keys` | Node keys expanded by default | `(string \| number)[]` | `[]` |
-| `default-checked-keys` | Node keys checked by default | `(string \| number)[]` | `[]` |
-| `current-node-key` | Current highlighted node key, usable with `v-model:current-node-key` | `string \| number \| undefined` | `undefined` |
-| `highlight-current` | Whether the current node is highlighted | `boolean` | `true` |
-| `accordion` | Whether only one sibling branch can remain expanded | `boolean` | `false` |
-| `indent` | Horizontal indentation in pixels for each level | `number` | `18` |
-| `check-strictly` | Whether parent and child checked states are decoupled | `boolean` | `false` |
-| `expand-on-click-node` | Whether clicking a node toggles expansion | `boolean` | `true` |
-| `check-on-click-node` | Whether clicking node content toggles checked state when checkboxes are enabled | `boolean` | `false` |
-| `empty-text` | Empty-state text; falls back to locale `tree.emptyText` when empty | `string` | `''` |
-| `filter-method` | Custom filter function | `(query: string, node: TreeNode) => boolean` | `undefined` |
-| `load` | Lazy load function for child nodes | `(node: TreeNode) => Promise<TreeNodeData[]>` | `undefined` |
-| `lazy` | Whether lazy loading is enabled | `boolean` | `false` |
-| `draggable` | Whether drag-and-drop is enabled | `boolean` | `false` |
-| `show-line` | Whether connector lines are shown | `boolean` | `false` |
-| `virtual` | Whether virtual scrolling is enabled | `boolean` | `false` |
-| `height` | Virtual list container height | `number` | `400` |
-| `item-height` | Height of each node row in virtual mode | `number` | `30` |
-| `theme-overrides` | Component-level theme variable overrides | `TreeThemeVars` | `undefined` |
+| Name                    | Description                                                                     | Type                                                       | Default                                                          |
+| ----------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------- |
+| `data`                  | Tree data source                                                                | `TreeNodeData[]`                                           | `[]`                                                             |
+| `props`                 | Mapping config for label, children, and disabled fields                         | `{ label?: string; children?: string; disabled?: string }` | `{ label: 'label', children: 'children', disabled: 'disabled' }` |
+| `node-key`              | Field name used to read the node key from raw data                              | `string`                                                   | `'id'`                                                           |
+| `show-checkbox`         | Whether checkboxes are displayed                                                | `boolean`                                                  | `false`                                                          |
+| `checkbox-position`     | Checkbox position relative to the label                                         | `'left' \| 'right'`                                        | `'left'`                                                         |
+| `default-expand-all`    | Whether all nodes are expanded initially                                        | `boolean`                                                  | `false`                                                          |
+| `default-expanded-keys` | Node keys expanded by default                                                   | `(string \| number)[]`                                     | `[]`                                                             |
+| `default-checked-keys`  | Node keys checked by default                                                    | `(string \| number)[]`                                     | `[]`                                                             |
+| `current-node-key`      | Current highlighted node key, usable with `v-model:current-node-key`            | `string \| number \| undefined`                            | `undefined`                                                      |
+| `highlight-current`     | Whether the current node is highlighted                                         | `boolean`                                                  | `true`                                                           |
+| `accordion`             | Whether only one sibling branch can remain expanded                             | `boolean`                                                  | `false`                                                          |
+| `indent`                | Horizontal indentation in pixels for each level                                 | `number`                                                   | `18`                                                             |
+| `check-strictly`        | Whether parent and child checked states are decoupled                           | `boolean`                                                  | `false`                                                          |
+| `expand-on-click-node`  | Whether clicking a node toggles expansion                                       | `boolean`                                                  | `true`                                                           |
+| `check-on-click-node`   | Whether clicking node content toggles checked state when checkboxes are enabled | `boolean`                                                  | `false`                                                          |
+| `empty-text`            | Empty-state text; falls back to locale `tree.emptyText` when empty              | `string`                                                   | `''`                                                             |
+| `filter-method`         | Custom filter function                                                          | `(query: string, node: TreeNode) => boolean`               | `undefined`                                                      |
+| `load`                  | Lazy load function for child nodes                                              | `(node: TreeNode) => Promise<TreeNodeData[]>`              | `undefined`                                                      |
+| `lazy`                  | Whether lazy loading is enabled                                                 | `boolean`                                                  | `false`                                                          |
+| `draggable`             | Whether drag-and-drop is enabled                                                | `boolean`                                                  | `false`                                                          |
+| `show-line`             | Whether connector lines are shown                                               | `boolean`                                                  | `false`                                                          |
+| `virtual`               | Whether virtual scrolling is enabled                                            | `boolean`                                                  | `false`                                                          |
+| `height`                | Virtual list container height                                                   | `number`                                                   | `400`                                                            |
+| `item-height`           | Height of each node row in virtual mode                                         | `number`                                                   | `30`                                                             |
+| `theme-overrides`       | Component-level theme variable overrides                                        | `TreeThemeVars`                                            | `undefined`                                                      |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `node-click` | Triggered when a node is clicked | `(node: TreeNode, event: MouseEvent)` |
-| `node-expand` | Triggered when a node expands or collapses | `(node: TreeNode, expanded: boolean)` |
-| `check` | Triggered when checked state changes | `(node: TreeNode, checked: boolean, checkedKeys: (string \| number)[])` |
-| `current-change` | Triggered when a node is clicked and becomes current. Updating `current-node-key` from the outside or via `setCurrentKey` does not emit it | `(node: TreeNode \| null)` |
-| `node-drag-start` | Triggered when dragging starts | `(node: TreeNode, event: DragEvent)` |
-| `node-drag-end` | Declared drag-end event. The current implementation resets drag state but does not emit this event | `(node: TreeNode, dropNode: TreeNode \| null, position: 'before' \| 'after' \| 'inner', event: DragEvent)` |
-| `node-drag-over` | Triggered while dragging over a node | `(node: TreeNode, event: DragEvent)` |
-| `node-drag-enter` | Triggered when a dragged node enters another node | `(node: TreeNode, event: DragEvent)` |
-| `node-drag-leave` | Triggered when a dragged node leaves another node | `(node: TreeNode, event: DragEvent)` |
-| `node-drop` | Triggered when dropping completes | `(draggingNode: TreeNode, dropNode: TreeNode, position: 'before' \| 'after' \| 'inner', event: DragEvent)` |
-| `update:currentNodeKey` | Triggered when the current node key changes | `(key: string \| number \| undefined)` |
+| Name                    | Description                                                                                                                                | Parameters                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `node-click`            | Triggered when a node is clicked                                                                                                           | `(node: TreeNode, event: MouseEvent)`                                                                      |
+| `node-expand`           | Triggered when a node expands or collapses                                                                                                 | `(node: TreeNode, expanded: boolean)`                                                                      |
+| `check`                 | Triggered when checked state changes                                                                                                       | `(node: TreeNode, checked: boolean, checkedKeys: (string \| number)[])`                                    |
+| `current-change`        | Triggered when a node is clicked and becomes current. Updating `current-node-key` from the outside or via `setCurrentKey` does not emit it | `(node: TreeNode \| null)`                                                                                 |
+| `node-drag-start`       | Triggered when dragging starts                                                                                                             | `(node: TreeNode, event: DragEvent)`                                                                       |
+| `node-drag-end`         | Declared drag-end event. The current implementation resets drag state but does not emit this event                                         | `(node: TreeNode, dropNode: TreeNode \| null, position: 'before' \| 'after' \| 'inner', event: DragEvent)` |
+| `node-drag-over`        | Triggered while dragging over a node                                                                                                       | `(node: TreeNode, event: DragEvent)`                                                                       |
+| `node-drag-enter`       | Triggered when a dragged node enters another node                                                                                          | `(node: TreeNode, event: DragEvent)`                                                                       |
+| `node-drag-leave`       | Triggered when a dragged node leaves another node                                                                                          | `(node: TreeNode, event: DragEvent)`                                                                       |
+| `node-drop`             | Triggered when dropping completes                                                                                                          | `(draggingNode: TreeNode, dropNode: TreeNode, position: 'before' \| 'after' \| 'inner', event: DragEvent)` |
+| `update:currentNodeKey` | Triggered when the current node key changes                                                                                                | `(key: string \| number \| undefined)`                                                                     |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| `default` | Custom node body content | `{ node: TreeNode; data: TreeNodeData }` |
-| `icon` | Custom expand icon content | `{ node: TreeNode; data: TreeNodeData }` |
-| `prefix` | Content rendered before the node label | `{ node: TreeNode; data: TreeNodeData }` |
-| `suffix` | Content rendered after the node label | `{ node: TreeNode; data: TreeNodeData }` |
-| `empty` | Empty-state content | `-` |
+| Name      | Description                            | Parameters                               |
+| --------- | -------------------------------------- | ---------------------------------------- |
+| `default` | Custom node body content               | `{ node: TreeNode; data: TreeNodeData }` |
+| `icon`    | Custom expand icon content             | `{ node: TreeNode; data: TreeNodeData }` |
+| `prefix`  | Content rendered before the node label | `{ node: TreeNode; data: TreeNodeData }` |
+| `suffix`  | Content rendered after the node label  | `{ node: TreeNode; data: TreeNodeData }` |
+| `empty`   | Empty-state content                    | `-`                                      |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `filter` | Filters visible nodes by query | `(query: string) => void` |
-| `getNode` | Gets a node by key | `(key: string \| number) => TreeNode \| undefined` |
-| `getCheckedNodes` | Returns checked nodes | `() => TreeNode[]` |
-| `getCheckedKeys` | Returns checked node keys | `() => (string \| number)[]` |
-| `getHalfCheckedNodes` | Returns half-checked nodes | `() => TreeNode[]` |
-| `getHalfCheckedKeys` | Returns half-checked node keys | `() => (string \| number)[]` |
-| `getCurrentKey` | Returns the current node key | `() => string \| number \| undefined` |
-| `getCurrentNode` | Returns the current node instance | `() => TreeNode \| undefined` |
-| `setChecked` | Sets the checked state for a single node | `(key: string \| number, checked: boolean, deep?: boolean) => void` |
-| `setCheckedKeys` | Sets checked node keys in batch | `(keys: (string \| number)[]) => void` |
-| `setCheckedNodes` | Sets checked state based on raw node data | `(nodes: TreeNodeData[]) => void` |
-| `setCurrentKey` | Sets the current node key only. It does not emit `current-change` | `(key: string \| number \| undefined) => void` |
-| `setExpandedKeys` | Sets expanded node keys in batch | `(keys: (string \| number)[]) => void` |
-| `setData` | Replaces the tree data source | `(data: TreeNodeData[]) => void` |
-| `expandNode` | Expands a node | `(key: string \| number) => void` |
-| `collapseNode` | Collapses a node | `(key: string \| number) => void` |
-| `scrollTo` | Scrolls to a position in virtual mode | `(options: number \| ScrollToOptions) => void` |
-| `scrollToNode` | Scrolls to a specific node in virtual mode | `(key: string \| number) => void` |
-| `expandedKeys` | Reactive expanded node set | `Ref<Set<string \| number>>` |
-| `checkedKeys` | Reactive checked node set | `Ref<Set<string \| number>>` |
+| Name                  | Description                                                       | Type                                                                |
+| --------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `filter`              | Filters visible nodes by query                                    | `(query: string) => void`                                           |
+| `getNode`             | Gets a node by key                                                | `(key: string \| number) => TreeNode \| undefined`                  |
+| `getCheckedNodes`     | Returns checked nodes                                             | `() => TreeNode[]`                                                  |
+| `getCheckedKeys`      | Returns checked node keys                                         | `() => (string \| number)[]`                                        |
+| `getHalfCheckedNodes` | Returns half-checked nodes                                        | `() => TreeNode[]`                                                  |
+| `getHalfCheckedKeys`  | Returns half-checked node keys                                    | `() => (string \| number)[]`                                        |
+| `getCurrentKey`       | Returns the current node key                                      | `() => string \| number \| undefined`                               |
+| `getCurrentNode`      | Returns the current node instance                                 | `() => TreeNode \| undefined`                                       |
+| `setChecked`          | Sets the checked state for a single node                          | `(key: string \| number, checked: boolean, deep?: boolean) => void` |
+| `setCheckedKeys`      | Sets checked node keys in batch                                   | `(keys: (string \| number)[]) => void`                              |
+| `setCheckedNodes`     | Sets checked state based on raw node data                         | `(nodes: TreeNodeData[]) => void`                                   |
+| `setCurrentKey`       | Sets the current node key only. It does not emit `current-change` | `(key: string \| number \| undefined) => void`                      |
+| `setExpandedKeys`     | Sets expanded node keys in batch                                  | `(keys: (string \| number)[]) => void`                              |
+| `setData`             | Replaces the tree data source                                     | `(data: TreeNodeData[]) => void`                                    |
+| `expandNode`          | Expands a node                                                    | `(key: string \| number) => void`                                   |
+| `collapseNode`        | Collapses a node                                                  | `(key: string \| number) => void`                                   |
+| `scrollTo`            | Scrolls to a position in virtual mode                             | `(options: number \| ScrollToOptions) => void`                      |
+| `scrollToNode`        | Scrolls to a specific node in virtual mode                        | `(key: string \| number) => void`                                   |
+| `expandedKeys`        | Reactive expanded node set                                        | `Ref<Set<string \| number>>`                                        |
+| `checkedKeys`         | Reactive checked node set                                         | `Ref<Set<string \| number>>`                                        |
 
 ### Theme Variables
 
 `YhTree` supports `themeOverrides` and consumes the following component-scoped CSS variables.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-tree-node-height` | Node row height | `28px` |
-| `--yh-tree-text-color` | Tree text color | `var(--yh-text-color-primary, #1d1d1f)` |
-| `--yh-tree-hover-bg` | Hover background for a node row | `var(--yh-color-primary-light-9, #ecf5ff)` |
-| `--yh-tree-current-bg` | Background for the current node | `var(--yh-color-primary-light-8, #d9ecff)` |
+| Variable                | Description                     | Default                                    |
+| ----------------------- | ------------------------------- | ------------------------------------------ |
+| `--yh-tree-node-height` | Node row height                 | `28px`                                     |
+| `--yh-tree-text-color`  | Tree text color                 | `var(--yh-text-color-primary, #1d1d1f)`    |
+| `--yh-tree-hover-bg`    | Hover background for a node row | `var(--yh-color-primary-light-9, #ecf5ff)` |
+| `--yh-tree-current-bg`  | Background for the current node | `var(--yh-color-primary-light-8, #d9ecff)` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTreeProps` | Props type for `YhTree` |
-| `YhTreeEmits` | Emits type for `YhTree` |
-| `YhTreeNodeData` | Raw tree node data type |
-| `YhTreeNode` | Normalized node type exposed through events and slots |
-| `YhTreeNodeSlotData` | Slot payload type for tree nodes |
-| `YhTreeInstance` | Public tree instance type |
-| `YhTreeNodeInstance` | Public tree-node instance type |
+| Name                 | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `YhTreeProps`        | Props type for `YhTree`                               |
+| `YhTreeEmits`        | Emits type for `YhTree`                               |
+| `YhTreeNodeData`     | Raw tree node data type                               |
+| `YhTreeNode`         | Normalized node type exposed through events and slots |
+| `YhTreeNodeSlotData` | Slot payload type for tree nodes                      |
+| `YhTreeInstance`     | Public tree instance type                             |
+| `YhTreeNodeInstance` | Public tree-node instance type                        |

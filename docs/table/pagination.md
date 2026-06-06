@@ -246,21 +246,21 @@ const jsBack = toJs(tsBack)
 
 分页配置项：
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| currentPage | 当前页码 | `number` | `1` |
-| pageSize | 每页条数 | `number` | `10` |
-| total | 总条数 | `number` | `0` |
-| pageSizes | 每页条数选项 | `number[]` | `[10, 20, 50, 100]` |
-| layout | 分页布局 | `string` | `'total, sizes, prev, pager, next, jumper'` |
-| remote | **是否远程分页** | `boolean` | `false` |
-| align | **对齐方式** | `'left' \| 'center' \| 'right'` | `'left'` |
-| background | 是否显示背景 | `boolean` | `false` |
-| small | 是否使用小型分页 | `boolean` | `false` |
-| hideOnSinglePage | 单页时是否隐藏 | `boolean` | `false` |
+| 属性名           | 说明             | 类型                            | 默认值                                      |
+| ---------------- | ---------------- | ------------------------------- | ------------------------------------------- |
+| currentPage      | 当前页码         | `number`                        | `1`                                         |
+| pageSize         | 每页条数         | `number`                        | `10`                                        |
+| total            | 总条数           | `number`                        | `0`                                         |
+| pageSizes        | 每页条数选项     | `number[]`                      | `[10, 20, 50, 100]`                         |
+| layout           | 分页布局         | `string`                        | `'total, sizes, prev, pager, next, jumper'` |
+| remote           | **是否远程分页** | `boolean`                       | `false`                                     |
+| align            | **对齐方式**     | `'left' \| 'center' \| 'right'` | `'left'`                                    |
+| background       | 是否显示背景     | `boolean`                       | `false`                                     |
+| small            | 是否使用小型分页 | `boolean`                       | `false`                                     |
+| hideOnSinglePage | 单页时是否隐藏   | `boolean`                       | `false`                                     |
 
 ### 事件
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名      | 说明               | 回调参数                                                      |
+| ----------- | ------------------ | ------------------------------------------------------------- |
 | page-change | 分页参数变化时触发 | `(params: { currentPage: number, pageSize: number }) => void` |

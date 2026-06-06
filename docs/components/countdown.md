@@ -602,64 +602,64 @@ Countdown 内部使用 `requestAnimationFrame` 进行计时，该逻辑仅在客
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 目标时间（Date/时间戳）或持续时间（毫秒） | `Date \| number` | — |
-| format | 格式化模板或函数 | `string \| (ctx) => string` | `'HH:mm:ss'` |
-| auto-start | 是否自动开始 | `boolean` | `true` |
-| interval | 刷新间隔（毫秒） | `number` | `1000` |
-| precision | 计时精度（毫秒） | `1000 \| 100 \| 10` | `1000` |
-| title | 标题/前缀文本 | `string` | — |
-| suffix | 后缀文本 | `string` | — |
-| use-monospace-font | 使用等宽字体防止数字跳变 | `boolean` | `true` |
-| flip-animation | 启用翻牌动画模式 | `boolean` | `false` |
-| value-style | 倒计时数字的内联样式 | `CSSProperties \| string` | — |
-| separator | 时间单位之间的分隔符 | `string` | `':'` |
-| show-days | 显示天数 (`'auto'` 表示 >= 24h 时显示) | `boolean \| 'auto'` | `'auto'` |
-| show-hours | 是否显示小时 | `boolean` | `true` |
-| show-minutes | 是否显示分钟 | `boolean` | `true` |
-| show-seconds | 是否显示秒 | `boolean` | `true` |
-| show-milliseconds | 是否显示毫秒 | `boolean` | `false` |
-| labels | 时间单位的标签模板 | `object` | — |
-| keep-alive-on-finish | 结束后是否保持在 00:00:00 | `boolean` | `true` |
-| warning-threshold | 预警阈值（毫秒） | `number` | — |
-| timezone-offset | 时区偏移（分钟），用于校准多端时差 | `number` | — |
-| server-time-offset | 服务器时间与本地时间的毫秒差 | `number` | `0` |
+| 属性名               | 说明                                      | 类型                        | 默认值       |
+| -------------------- | ----------------------------------------- | --------------------------- | ------------ |
+| value                | 目标时间（Date/时间戳）或持续时间（毫秒） | `Date \| number`            | —            |
+| format               | 格式化模板或函数                          | `string \| (ctx) => string` | `'HH:mm:ss'` |
+| auto-start           | 是否自动开始                              | `boolean`                   | `true`       |
+| interval             | 刷新间隔（毫秒）                          | `number`                    | `1000`       |
+| precision            | 计时精度（毫秒）                          | `1000 \| 100 \| 10`         | `1000`       |
+| title                | 标题/前缀文本                             | `string`                    | —            |
+| suffix               | 后缀文本                                  | `string`                    | —            |
+| use-monospace-font   | 使用等宽字体防止数字跳变                  | `boolean`                   | `true`       |
+| flip-animation       | 启用翻牌动画模式                          | `boolean`                   | `false`      |
+| value-style          | 倒计时数字的内联样式                      | `CSSProperties \| string`   | —            |
+| separator            | 时间单位之间的分隔符                      | `string`                    | `':'`        |
+| show-days            | 显示天数 (`'auto'` 表示 >= 24h 时显示)    | `boolean \| 'auto'`         | `'auto'`     |
+| show-hours           | 是否显示小时                              | `boolean`                   | `true`       |
+| show-minutes         | 是否显示分钟                              | `boolean`                   | `true`       |
+| show-seconds         | 是否显示秒                                | `boolean`                   | `true`       |
+| show-milliseconds    | 是否显示毫秒                              | `boolean`                   | `false`      |
+| labels               | 时间单位的标签模板                        | `object`                    | —            |
+| keep-alive-on-finish | 结束后是否保持在 00:00:00                 | `boolean`                   | `true`       |
+| warning-threshold    | 预警阈值（毫秒）                          | `number`                    | —            |
+| timezone-offset      | 时区偏移（分钟），用于校准多端时差        | `number`                    | —            |
+| server-time-offset   | 服务器时间与本地时间的毫秒差              | `number`                    | `0`          |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| change | 倒计时更新时触发 | `(ctx: CountdownFormatContext) => void` |
-| finish | 倒计时结束时触发 | `() => void` |
-| start | 开始倒计时时触发 | `() => void` |
-| pause | 暂停时触发 | `() => void` |
-| resume | 恢复时触发 | `() => void` |
-| reset | 重置时触发 | `() => void` |
-| warning | 进入预警范围时触发 | `(ctx: CountdownFormatContext) => void` |
-| status-change | 状态改变时触发 | `(status: CountdownStatus) => void` |
+| 事件名        | 说明               | 回调参数                                |
+| ------------- | ------------------ | --------------------------------------- |
+| change        | 倒计时更新时触发   | `(ctx: CountdownFormatContext) => void` |
+| finish        | 倒计时结束时触发   | `() => void`                            |
+| start         | 开始倒计时时触发   | `() => void`                            |
+| pause         | 暂停时触发         | `() => void`                            |
+| resume        | 恢复时触发         | `() => void`                            |
+| reset         | 重置时触发         | `() => void`                            |
+| warning       | 进入预警范围时触发 | `(ctx: CountdownFormatContext) => void` |
+| status-change | 状态改变时触发     | `(status: CountdownStatus) => void`     |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 完全自定义渲染 | `{ current, remaining, formatted, status, isWarning, isFinished }` |
-| prefix | 前缀占位符 | — |
-| suffix | 后缀占位符 | — |
-| value | 自定义数字显示部分 | `{ text: string }` |
-| separator | 自定义单位分隔符 | — |
-| [key]-cell | 自定义具体单元格 (如 `seconds-cell`) | `{ value: string }` |
+| 插槽名     | 说明                                 | 参数                                                               |
+| ---------- | ------------------------------------ | ------------------------------------------------------------------ |
+| default    | 完全自定义渲染                       | `{ current, remaining, formatted, status, isWarning, isFinished }` |
+| prefix     | 前缀占位符                           | —                                                                  |
+| suffix     | 后缀占位符                           | —                                                                  |
+| value      | 自定义数字显示部分                   | `{ text: string }`                                                 |
+| separator  | 自定义单位分隔符                     | —                                                                  |
+| [key]-cell | 自定义具体单元格 (如 `seconds-cell`) | `{ value: string }`                                                |
 
 ### Methods (通过 ref 调用)
 
-| 方法名 | 说明 | 参数 | 返回值 |
-| --- | --- | --- | --- |
-| start | 开始计时 | — | `void` |
-| pause | 暂停计时 | — | `void` |
-| resume | 恢复计时 | — | `void` |
-| reset | 重置计时 | — | `void` |
-| getRemain | 获取当前剩余毫秒 | — | `number` |
-| getStatus | 获取当前计时状态 | — | `CountdownStatus` |
+| 方法名    | 说明             | 参数 | 返回值            |
+| --------- | ---------------- | ---- | ----------------- |
+| start     | 开始计时         | —    | `void`            |
+| pause     | 暂停计时         | —    | `void`            |
+| resume    | 恢复计时         | —    | `void`            |
+| reset     | 重置计时         | —    | `void`            |
+| getRemain | 获取当前剩余毫秒 | —    | `number`          |
+| getStatus | 获取当前计时状态 | —    | `CountdownStatus` |
 
 ### 类型定义
 
@@ -687,33 +687,33 @@ interface CountdownFormatContext {
 
 Countdown 组件支持通过覆盖以下 CSS 变量来自定义局部样式。所有颜色变量已与全局主题系统对接，自动支持暗黑模式：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-countdown-font-size` | 数字字体大小 | `24px` |
-| `--yh-countdown-value-color` | 数字颜色 | `var(--yh-text-color-primary)` |
-| `--yh-countdown-label-color` | 标签颜色 | `var(--yh-text-color-secondary)` |
-| `--yh-countdown-separator-color` | 分隔符颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-countdown-warning-color` | 预警状态颜色 | `var(--yh-color-danger)` |
-| `--yh-countdown-finished-color` | 结束状态颜色 | `var(--yh-color-success)` |
-| `--yh-countdown-bg` | 组件根背景 | `transparent` |
-| `--yh-countdown-block-bg` | 翻牌块背景 | `var(--yh-fill-color-light)` |
-| `--yh-countdown-block-shadow` | 翻牌块阴影 | `var(--yh-shadow-sm)` |
-| `--yh-countdown-block-radius` | 翻牌块圆角 | `var(--yh-radius-md)` |
-| `--yh-countdown-block-padding` | 翻牌块内边距 | `12px 16px` |
-| `--yh-countdown-gap` | 组件内部元素间距 | `8px` |
-| `--yh-countdown-font-family` | 默认字体族 | `var(--yh-font-family)` |
-| `--yh-countdown-monospace-font` | 等宽字体族 (用于防止跳变) | `JetBrains Mono, SF Mono...` |
+| 变量名                           | 说明                      | 默认值                             |
+| -------------------------------- | ------------------------- | ---------------------------------- |
+| `--yh-countdown-font-size`       | 数字字体大小              | `24px`                             |
+| `--yh-countdown-value-color`     | 数字颜色                  | `var(--yh-text-color-primary)`     |
+| `--yh-countdown-label-color`     | 标签颜色                  | `var(--yh-text-color-secondary)`   |
+| `--yh-countdown-separator-color` | 分隔符颜色                | `var(--yh-text-color-placeholder)` |
+| `--yh-countdown-warning-color`   | 预警状态颜色              | `var(--yh-color-danger)`           |
+| `--yh-countdown-finished-color`  | 结束状态颜色              | `var(--yh-color-success)`          |
+| `--yh-countdown-bg`              | 组件根背景                | `transparent`                      |
+| `--yh-countdown-block-bg`        | 翻牌块背景                | `var(--yh-fill-color-light)`       |
+| `--yh-countdown-block-shadow`    | 翻牌块阴影                | `var(--yh-shadow-sm)`              |
+| `--yh-countdown-block-radius`    | 翻牌块圆角                | `var(--yh-radius-md)`              |
+| `--yh-countdown-block-padding`   | 翻牌块内边距              | `12px 16px`                        |
+| `--yh-countdown-gap`             | 组件内部元素间距          | `8px`                              |
+| `--yh-countdown-font-family`     | 默认字体族                | `var(--yh-font-family)`            |
+| `--yh-countdown-monospace-font`  | 等宽字体族 (用于防止跳变) | `JetBrains Mono, SF Mono...`       |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhCountdownProps` | `YhCountdown` props 类型 |
-| `YhCountdownEmits` | `YhCountdown` emits 类型 |
-| `YhCountdownExpose` | `YhCountdown` expose 类型 |
-| `YhCountdownTimeUnits` | 时间单元结构类型 |
-| `YhCountdownFormatContext` | 格式化上下文类型 |
-| `YhCountdownValue` | 目标时间值类型 |
-| `YhCountdownFormat` | 格式化配置类型 |
-| `YhCountdownStatus` | 倒计时状态联合类型 |
-| `YhCountdownInstance` | `YhCountdown` 实例类型 |
+| 名称                       | 说明                      |
+| -------------------------- | ------------------------- |
+| `YhCountdownProps`         | `YhCountdown` props 类型  |
+| `YhCountdownEmits`         | `YhCountdown` emits 类型  |
+| `YhCountdownExpose`        | `YhCountdown` expose 类型 |
+| `YhCountdownTimeUnits`     | 时间单元结构类型          |
+| `YhCountdownFormatContext` | 格式化上下文类型          |
+| `YhCountdownValue`         | 目标时间值类型            |
+| `YhCountdownFormat`        | 格式化配置类型            |
+| `YhCountdownStatus`        | 倒计时状态联合类型        |
+| `YhCountdownInstance`      | `YhCountdown` 实例类型    |

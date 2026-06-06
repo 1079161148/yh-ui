@@ -394,41 +394,41 @@ export default defineNuxtConfig({
 
 ### Props
 
-| Attribute | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Current address value | `AddressValue` | `{ name: '', phone: '', province: '', city: '', district: '', street: '', detail: '' }` |
-| `region-type` | Province/city/district mode | `'input' \| 'select' \| 'cascader'` | `'input'` |
-| `region-options` | Region tree data source | `RegionOption[]` | `[]` |
-| `label-field` | Field name for labels | `string` | `'label'` |
-| `value-field` | Field name for values | `string` | `'value'` |
-| `children-field` | Field name for children | `string` | `'children'` |
-| `show-name` | Whether to display the name field | `boolean` | `true` |
-| `show-phone` | Whether to display the phone field | `boolean` | `true` |
-| `show-street` | Whether to display the street field | `boolean` | `false` |
-| `show-parser` | Whether to display the smart parser | `boolean` | `true` |
-| `parse-placeholder` | Placeholder for the parser input | `string` | `''` |
-| `parse-button-text` | Text for the parse button | `string` | `''` |
-| `required` | Whether fields are required | `boolean` | `false` |
-| `disabled` | Whether to disable the component | `boolean` | `false` |
-| `label-placement` | Label placement | `'left' \| 'top'` | `'left'` |
-| `parser` | Custom parser function | `(raw: string) => ParsedAddress` | `null` |
-| `theme-overrides` | Theme variables override | `ComponentThemeVars` | `{}` |
+| Attribute                 | Description                         | Type                                | Default                                                                                 |
+| ------------------------- | ----------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------- |
+| `model-value` / `v-model` | Current address value               | `AddressValue`                      | `{ name: '', phone: '', province: '', city: '', district: '', street: '', detail: '' }` |
+| `region-type`             | Province/city/district mode         | `'input' \| 'select' \| 'cascader'` | `'input'`                                                                               |
+| `region-options`          | Region tree data source             | `RegionOption[]`                    | `[]`                                                                                    |
+| `label-field`             | Field name for labels               | `string`                            | `'label'`                                                                               |
+| `value-field`             | Field name for values               | `string`                            | `'value'`                                                                               |
+| `children-field`          | Field name for children             | `string`                            | `'children'`                                                                            |
+| `show-name`               | Whether to display the name field   | `boolean`                           | `true`                                                                                  |
+| `show-phone`              | Whether to display the phone field  | `boolean`                           | `true`                                                                                  |
+| `show-street`             | Whether to display the street field | `boolean`                           | `false`                                                                                 |
+| `show-parser`             | Whether to display the smart parser | `boolean`                           | `true`                                                                                  |
+| `parse-placeholder`       | Placeholder for the parser input    | `string`                            | `''`                                                                                    |
+| `parse-button-text`       | Text for the parse button           | `string`                            | `''`                                                                                    |
+| `required`                | Whether fields are required         | `boolean`                           | `false`                                                                                 |
+| `disabled`                | Whether to disable the component    | `boolean`                           | `false`                                                                                 |
+| `label-placement`         | Label placement                     | `'left' \| 'top'`                   | `'left'`                                                                                |
+| `parser`                  | Custom parser function              | `(raw: string) => ParsedAddress`    | `null`                                                                                  |
+| `theme-overrides`         | Theme variables override            | `ComponentThemeVars`                | `{}`                                                                                    |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| `update:modelValue` | Triggered when value changes | `(val: AddressValue) => void` |
-| `parsed` | Triggered after smart parsing | `(val: ParsedAddress) => void` |
-| `change` | Triggered when any field changes | `(val: AddressValue) => void` |
+| Event Name          | Description                      | Callback Parameters            |
+| ------------------- | -------------------------------- | ------------------------------ |
+| `update:modelValue` | Triggered when value changes     | `(val: AddressValue) => void`  |
+| `parsed`            | Triggered after smart parsing    | `(val: ParsedAddress) => void` |
+| `change`            | Triggered when any field changes | `(val: AddressValue) => void`  |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
+| Slot Name    | Description                                    |
+| ------------ | ---------------------------------------------- |
 | `parse-icon` | Icon slot on the left side of the parse button |
-| `region` | Slot for custom region input area |
-| `extra` | Slot for additional content at the bottom |
+| `region`     | Slot for custom region input area              |
+| `extra`      | Slot for additional content at the bottom      |
 
 ### Expose
 
@@ -479,23 +479,23 @@ interface ParsedAddress {
 
 `YhSmartAddress` supports `themeOverrides`. The following CSS variables are available:
 
-| Variable Name | Description | Default Value |
-| --- | --- | --- |
-| `--yh-smart-address-parser-bg` | Background of smart parse area | `var(--yh-color-primary-light-9)` |
-| `--yh-smart-address-input-bg` | Background of input fields | `var(--yh-fill-color-blank)` |
-| `--yh-smart-address-parse-btn-bg` | Background of parse button | `var(--yh-color-primary)` |
-| `--yh-smart-address-tip-success` | Color of success tip | `var(--yh-color-success)` |
-| `--yh-smart-address-tip-error` | Color of error tip | `var(--yh-color-danger)` |
-| `--yh-smart-address-label-width` | Width of form labels | `72px` |
+| Variable Name                     | Description                    | Default Value                     |
+| --------------------------------- | ------------------------------ | --------------------------------- |
+| `--yh-smart-address-parser-bg`    | Background of smart parse area | `var(--yh-color-primary-light-9)` |
+| `--yh-smart-address-input-bg`     | Background of input fields     | `var(--yh-fill-color-blank)`      |
+| `--yh-smart-address-parse-btn-bg` | Background of parse button     | `var(--yh-color-primary)`         |
+| `--yh-smart-address-tip-success`  | Color of success tip           | `var(--yh-color-success)`         |
+| `--yh-smart-address-tip-error`    | Color of error tip             | `var(--yh-color-danger)`          |
+| `--yh-smart-address-label-width`  | Width of form labels           | `72px`                            |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSmartAddressProps` | Component props type |
-| `YhSmartAddressEmits` | Component emits type |
-| `YhSmartAddressSlots` | Component slots type |
-| `YhAddressValue` | Address value type |
-| `YhRegionOption` | Region option type |
-| `YhParsedAddress` | Parsed address type |
+| Name                     | Description             |
+| ------------------------ | ----------------------- |
+| `YhSmartAddressProps`    | Component props type    |
+| `YhSmartAddressEmits`    | Component emits type    |
+| `YhSmartAddressSlots`    | Component slots type    |
+| `YhAddressValue`         | Address value type      |
+| `YhRegionOption`         | Region option type      |
+| `YhParsedAddress`        | Parsed address type     |
 | `YhSmartAddressInstance` | Component instance type |

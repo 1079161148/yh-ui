@@ -550,114 +550,114 @@ const jsSizes = toJs(tsSizes)
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `YhSelectValue \| YhSelectValue[]` | `undefined` |
-| options | 组件渲染的选项数据 | `YhSelectOption[]` | `[]` |
-| placeholder | 占位文本 | `string` | `''` |
-| disabled | 是否禁用组件 | `boolean` | `false` |
-| clearable | 是否允许清空当前值 | `boolean` | `false` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| multiple | 是否启用多选 | `boolean` | `false` |
-| multiple-limit | 多选模式最大可选数量，`0` 表示不限制 | `number` | `0` |
-| filterable | 是否启用关键字过滤 | `boolean` | `false` |
-| filter-method | 自定义本地过滤方法 | `(query: string) => void` | `undefined` |
-| remote | 是否启用远程过滤 | `boolean` | `false` |
-| remote-method | 远程搜索回调 | `(query: string) => void` | `undefined` |
-| loading | 是否显示加载状态 | `boolean` | `false` |
-| loading-text | 自定义加载文案，为空时回退到 locale 文案 | `string` | `''` |
-| no-match-text | 无匹配结果时的空状态文案，为空时回退到 locale 文案 | `string` | `''` |
-| no-data-text | 无选项数据时的空状态文案，为空时回退到 locale 文案 | `string` | `''` |
-| allow-create | 是否允许基于当前输入创建选项 | `boolean` | `false` |
-| collapse-tags | 多选模式下是否折叠标签 | `boolean` | `false` |
-| collapse-tags-tooltip | 折叠标签时是否显示汇总提示 | `boolean` | `false` |
-| max-collapse-tags | 开启 `collapse-tags` 时最多显示的标签数量 | `number` | `1` |
-| popper-class | 自定义下拉面板类名 | `string` | `undefined` |
-| teleported | 是否将下拉面板传送到 `body` | `boolean` | `true` |
-| fit-input-width | 下拉面板宽度是否跟随输入框 | `boolean` | `true` |
-| tag-type | 多选标签类型 | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
-| virtual-scroll | 是否启用虚拟滚动 | `boolean` | `false` |
-| item-height | 虚拟列表项高度 | `number` | `34` |
-| height | 虚拟列表面板可视高度 | `number` | `274` |
-| validate-event | 是否在 `change` 与 `blur` 时触发表单校验 | `boolean` | `true` |
-| value-key | 选项值字段名 | `string` | `'value'` |
-| label-key | 选项标签字段名 | `string` | `'label'` |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称                  | 说明                                               | 类型                                                 | 默认值      |
+| --------------------- | -------------------------------------------------- | ---------------------------------------------------- | ----------- |
+| model-value / v-model | 绑定值                                             | `YhSelectValue \| YhSelectValue[]`                   | `undefined` |
+| options               | 组件渲染的选项数据                                 | `YhSelectOption[]`                                   | `[]`        |
+| placeholder           | 占位文本                                           | `string`                                             | `''`        |
+| disabled              | 是否禁用组件                                       | `boolean`                                            | `false`     |
+| clearable             | 是否允许清空当前值                                 | `boolean`                                            | `false`     |
+| size                  | 输入框尺寸                                         | `'large' \| 'default' \| 'small'`                    | `'default'` |
+| multiple              | 是否启用多选                                       | `boolean`                                            | `false`     |
+| multiple-limit        | 多选模式最大可选数量，`0` 表示不限制               | `number`                                             | `0`         |
+| filterable            | 是否启用关键字过滤                                 | `boolean`                                            | `false`     |
+| filter-method         | 自定义本地过滤方法                                 | `(query: string) => void`                            | `undefined` |
+| remote                | 是否启用远程过滤                                   | `boolean`                                            | `false`     |
+| remote-method         | 远程搜索回调                                       | `(query: string) => void`                            | `undefined` |
+| loading               | 是否显示加载状态                                   | `boolean`                                            | `false`     |
+| loading-text          | 自定义加载文案，为空时回退到 locale 文案           | `string`                                             | `''`        |
+| no-match-text         | 无匹配结果时的空状态文案，为空时回退到 locale 文案 | `string`                                             | `''`        |
+| no-data-text          | 无选项数据时的空状态文案，为空时回退到 locale 文案 | `string`                                             | `''`        |
+| allow-create          | 是否允许基于当前输入创建选项                       | `boolean`                                            | `false`     |
+| collapse-tags         | 多选模式下是否折叠标签                             | `boolean`                                            | `false`     |
+| collapse-tags-tooltip | 折叠标签时是否显示汇总提示                         | `boolean`                                            | `false`     |
+| max-collapse-tags     | 开启 `collapse-tags` 时最多显示的标签数量          | `number`                                             | `1`         |
+| popper-class          | 自定义下拉面板类名                                 | `string`                                             | `undefined` |
+| teleported            | 是否将下拉面板传送到 `body`                        | `boolean`                                            | `true`      |
+| fit-input-width       | 下拉面板宽度是否跟随输入框                         | `boolean`                                            | `true`      |
+| tag-type              | 多选标签类型                                       | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''`        |
+| virtual-scroll        | 是否启用虚拟滚动                                   | `boolean`                                            | `false`     |
+| item-height           | 虚拟列表项高度                                     | `number`                                             | `34`        |
+| height                | 虚拟列表面板可视高度                               | `number`                                             | `274`       |
+| validate-event        | 是否在 `change` 与 `blur` 时触发表单校验           | `boolean`                                            | `true`      |
+| value-key             | 选项值字段名                                       | `string`                                             | `'value'`   |
+| label-key             | 选项标签字段名                                     | `string`                                             | `'label'`   |
+| theme-overrides       | 组件级主题覆盖                                     | `ComponentThemeVars`                                 | `undefined` |
 
 ### 类型
 
 #### Select Option
 
-| 名称 | 说明 | 类型 | 必填 |
-| --- | --- | --- | --- |
-| value | 选项值 | `string \| number \| boolean` | 是 |
-| label | 选项标签 | `string` | 是 |
-| disabled | 是否禁用该选项 | `boolean` | 否 |
+| 名称     | 说明           | 类型                          | 必填 |
+| -------- | -------------- | ----------------------------- | ---- |
+| value    | 选项值         | `string \| number \| boolean` | 是   |
+| label    | 选项标签       | `string`                      | 是   |
+| disabled | 是否禁用该选项 | `boolean`                     | 否   |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| change | 选中值变化时触发 | `(value: YhSelectValue \| YhSelectValue[] \| undefined) => void` |
-| focus | 输入框获得焦点时触发 | `(event: FocusEvent) => void` |
-| blur | 输入框失去焦点时触发 | `(event: FocusEvent) => void` |
-| clear | 点击清空图标时触发 | `() => void` |
-| visible-change | 下拉面板显示状态变化时触发 | `(visible: boolean) => void` |
-| remove-tag | 多选模式下移除标签时触发 | `(value: YhSelectValue) => void` |
+| 事件名         | 说明                       | 回调参数                                                         |
+| -------------- | -------------------------- | ---------------------------------------------------------------- |
+| change         | 选中值变化时触发           | `(value: YhSelectValue \| YhSelectValue[] \| undefined) => void` |
+| focus          | 输入框获得焦点时触发       | `(event: FocusEvent) => void`                                    |
+| blur           | 输入框失去焦点时触发       | `(event: FocusEvent) => void`                                    |
+| clear          | 点击清空图标时触发         | `() => void`                                                     |
+| visible-change | 下拉面板显示状态变化时触发 | `(visible: boolean) => void`                                     |
+| remove-tag     | 多选模式下移除标签时触发   | `(value: YhSelectValue) => void`                                 |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 直接传入自定义 `YhOption` 节点时使用 | `-` |
-| prefix | 输入区域前缀内容 | `-` |
-| empty | 无可用选项时的内容 | `-` |
-| option | 使用 `options` 数据源时的自定义选项内容 | `{ option: YhSelectOption }` |
-| tag | 多选模式下的自定义标签内容 | `{ value: YhSelectValue }` |
+| 插槽名  | 说明                                    | 参数                         |
+| ------- | --------------------------------------- | ---------------------------- |
+| default | 直接传入自定义 `YhOption` 节点时使用    | `-`                          |
+| prefix  | 输入区域前缀内容                        | `-`                          |
+| empty   | 无可用选项时的内容                      | `-`                          |
+| option  | 使用 `options` 数据源时的自定义选项内容 | `{ option: YhSelectOption }` |
+| tag     | 多选模式下的自定义标签内容              | `{ value: YhSelectValue }`   |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 让输入框获得焦点 | `() => void` |
-| blur | 让输入框失去焦点 | `() => void` |
+| 名称     | 说明               | 类型                                 |
+| -------- | ------------------ | ------------------------------------ |
+| focus    | 让输入框获得焦点   | `() => void`                         |
+| blur     | 让输入框失去焦点   | `() => void`                         |
 | inputRef | 内部输入框实例引用 | `Ref<HTMLInputElement \| undefined>` |
 
 ### Option Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 选项值 | `YhSelectValue` | 必填 |
-| label | 选项标签 | `string` | `undefined` |
-| disabled | 是否禁用 | `boolean` | `false` |
+| 名称     | 说明     | 类型            | 默认值      |
+| -------- | -------- | --------------- | ----------- |
+| value    | 选项值   | `YhSelectValue` | 必填        |
+| label    | 选项标签 | `string`        | `undefined` |
+| disabled | 是否禁用 | `boolean`       | `false`     |
 
 ### Option Slots
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 自定义选项内容 | `-` |
+| 名称    | 说明           | 参数 |
+| ------- | -------------- | ---- |
+| default | 自定义选项内容 | `-`  |
 
 ## 主题变量
 
 `YhSelect` 支持 `themeOverrides`。组件测试已覆盖 `themeOverrides.borderColor` 等组件级覆写输出，例如会生成 `--yh-select-border-color`。输入框、标签和下拉面板的其它视觉样式仍主要继承全局主题令牌，例如 `--yh-border-color`、`--yh-fill-color` 和 `--yh-text-color-*`。
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
+| 变量名                     | 说明                                           | 默认值      |
+| -------------------------- | ---------------------------------------------- | ----------- |
 | `--yh-select-border-color` | 由 `themeOverrides.borderColor` 输出的边框颜色 | `undefined` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhSelectProps` | Select 组件 Props 类型 |
-| `YhSelectEmits` | Select 组件事件类型 |
-| `YhSelectSlots` | Select 组件插槽类型 |
-| `YhSelectExpose` | Select 组件 Expose 类型 |
-| `YhSelectOption` | 选项数据类型 |
-| `YhSelectValue` | 选中值类型 |
-| `YhSelectSize` | 尺寸联合类型 |
-| `YhSelectTagType` | 标签类型联合类型 |
-| `YhOptionProps` | Option 组件 Props 类型 |
-| `YhOptionSlots` | Option 组件插槽类型 |
-| `YhSelectInstance` | Select 组件实例类型 |
-| `YhOptionInstance` | Option 组件实例类型 |
+| 名称               | 说明                    |
+| ------------------ | ----------------------- |
+| `YhSelectProps`    | Select 组件 Props 类型  |
+| `YhSelectEmits`    | Select 组件事件类型     |
+| `YhSelectSlots`    | Select 组件插槽类型     |
+| `YhSelectExpose`   | Select 组件 Expose 类型 |
+| `YhSelectOption`   | 选项数据类型            |
+| `YhSelectValue`    | 选中值类型              |
+| `YhSelectSize`     | 尺寸联合类型            |
+| `YhSelectTagType`  | 标签类型联合类型        |
+| `YhOptionProps`    | Option 组件 Props 类型  |
+| `YhOptionSlots`    | Option 组件插槽类型     |
+| `YhSelectInstance` | Select 组件实例类型     |
+| `YhOptionInstance` | Option 组件实例类型     |

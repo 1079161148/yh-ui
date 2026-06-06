@@ -193,31 +193,31 @@ After installing `@yh-ui/nuxt`, `YhAvatar` can be used directly. Size, shape, im
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| `shape` | Avatar shape | `'circle' \| 'square'` | `'circle'` |
-| `size` | Avatar size | `number \| 'large' \| 'default' \| 'small'` | `'default'` |
-| `src` | Image URL | `string` | `undefined` |
-| `src-set` | Image `srcset` | `string` | `undefined` |
-| `alt` | Image alt text | `string` | `undefined` |
-| `fit` | Image fit mode | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
-| `icon` | Icon component or icon name used when no image is shown | `string \| Component` | `undefined` |
-| `color` | Compatible background color field | `string` | `undefined` |
-| `background-color` | Background color | `string` | `undefined` |
-| `style` | Inline custom style | `CSSProperties` | `undefined` |
-| `crossorigin` | Native image `crossorigin` attribute | `'' \| 'anonymous' \| 'use-credentials'` | `'anonymous'` |
-| `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name               | Description                                             | Type                                                       | Default       |
+| ------------------ | ------------------------------------------------------- | ---------------------------------------------------------- | ------------- |
+| `shape`            | Avatar shape                                            | `'circle' \| 'square'`                                     | `'circle'`    |
+| `size`             | Avatar size                                             | `number \| 'large' \| 'default' \| 'small'`                | `'default'`   |
+| `src`              | Image URL                                               | `string`                                                   | `undefined`   |
+| `src-set`          | Image `srcset`                                          | `string`                                                   | `undefined`   |
+| `alt`              | Image alt text                                          | `string`                                                   | `undefined`   |
+| `fit`              | Image fit mode                                          | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'`     |
+| `icon`             | Icon component or icon name used when no image is shown | `string \| Component`                                      | `undefined`   |
+| `color`            | Compatible background color field                       | `string`                                                   | `undefined`   |
+| `background-color` | Background color                                        | `string`                                                   | `undefined`   |
+| `style`            | Inline custom style                                     | `CSSProperties`                                            | `undefined`   |
+| `crossorigin`      | Native image `crossorigin` attribute                    | `'' \| 'anonymous' \| 'use-credentials'`                   | `'anonymous'` |
+| `theme-overrides`  | Component-level theme overrides                         | `ComponentThemeVars`                                       | `undefined`   |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
+| Name    | Description                            | Parameters               |
+| ------- | -------------------------------------- | ------------------------ |
 | `error` | Triggered when the image fails to load | `(event: Event) => void` |
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
+| Name      | Description                                    |
+| --------- | ---------------------------------------------- |
 | `default` | Custom avatar content, such as text or an icon |
 
 ### Expose
@@ -226,20 +226,20 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhAvatarProps` | Props type for `YhAvatar` |
-| `YhAvatarEmits` | Emits type for `YhAvatar` |
-| `YhAvatarSlots` | Slots type for `YhAvatar` |
-| `YhAvatarShape` | Shape union type |
-| `YhAvatarSize` | Size union type |
-| `YhAvatarFit` | Image fit union type |
-| `YhAvatarInstance` | Component instance type |
+| Name               | Description               |
+| ------------------ | ------------------------- |
+| `YhAvatarProps`    | Props type for `YhAvatar` |
+| `YhAvatarEmits`    | Emits type for `YhAvatar` |
+| `YhAvatarSlots`    | Slots type for `YhAvatar` |
+| `YhAvatarShape`    | Shape union type          |
+| `YhAvatarSize`     | Size union type           |
+| `YhAvatarFit`      | Image fit union type      |
+| `YhAvatarInstance` | Component instance type   |
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-avatar-bg-color` | Avatar background color | `var(--yh-color-primary-light-8, #d9ecff)` |
-| `--yh-avatar-text-color` | Avatar text color | `var(--yh-color-primary, #409eff)` |
-| `--yh-avatar-radius` | Border radius for square avatars | `var(--yh-border-radius-base, 4px)` |
+| Variable                 | Description                      | Default                                    |
+| ------------------------ | -------------------------------- | ------------------------------------------ |
+| `--yh-avatar-bg-color`   | Avatar background color          | `var(--yh-color-primary-light-8, #d9ecff)` |
+| `--yh-avatar-text-color` | Avatar text color                | `var(--yh-color-primary, #409eff)`         |
+| `--yh-avatar-radius`     | Border radius for square avatars | `var(--yh-border-radius-base, 4px)`        |

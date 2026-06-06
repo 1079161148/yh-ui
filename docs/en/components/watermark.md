@@ -295,33 +295,33 @@ The following lab keeps the existing preview layout and lets you inspect the eff
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| width | Width of each watermark tile | `number` | `120` |
-| height | Height of each watermark tile | `number` | `64` |
-| rotate | Rotation angle of each watermark tile | `number` | `-22` |
-| z-index | z-index applied to the watermark overlay | `number` | `9` |
-| image | Image source used instead of text content | `string` | `undefined` |
-| content | Watermark text content. Strings can include line breaks and arrays map to multiple lines. | `string \| string[]` | `'YH-UI'` |
-| font | Watermark font configuration | `YhWatermarkFont` | `see below` |
-| global-rotate | Global rotation angle of the repeated watermark layer | `number` | `0` |
-| gap | Horizontal and vertical gap between watermark tiles | `[number, number]` | `[100, 100]` |
-| offset | Declared offset prop. The current implementation does not consume it when positioning the watermark layer | `[number, number]` | `[0, 0]` |
-| full-screen | Uses a fixed-position wrapper to cover the viewport. The component is not teleported to `body` | `boolean` | `false` |
-| anti-tamper | Rebuilds the watermark when the overlay is removed or modified | `boolean` | `true` |
-| theme-overrides | Component-level theme overrides. In the current implementation they are merged only in non-fullscreen mode | `ComponentThemeVars` | `undefined` |
+| Name            | Description                                                                                                | Type                 | Default      |
+| --------------- | ---------------------------------------------------------------------------------------------------------- | -------------------- | ------------ |
+| width           | Width of each watermark tile                                                                               | `number`             | `120`        |
+| height          | Height of each watermark tile                                                                              | `number`             | `64`         |
+| rotate          | Rotation angle of each watermark tile                                                                      | `number`             | `-22`        |
+| z-index         | z-index applied to the watermark overlay                                                                   | `number`             | `9`          |
+| image           | Image source used instead of text content                                                                  | `string`             | `undefined`  |
+| content         | Watermark text content. Strings can include line breaks and arrays map to multiple lines.                  | `string \| string[]` | `'YH-UI'`    |
+| font            | Watermark font configuration                                                                               | `YhWatermarkFont`    | `see below`  |
+| global-rotate   | Global rotation angle of the repeated watermark layer                                                      | `number`             | `0`          |
+| gap             | Horizontal and vertical gap between watermark tiles                                                        | `[number, number]`   | `[100, 100]` |
+| offset          | Declared offset prop. The current implementation does not consume it when positioning the watermark layer  | `[number, number]`   | `[0, 0]`     |
+| full-screen     | Uses a fixed-position wrapper to cover the viewport. The component is not teleported to `body`             | `boolean`            | `false`      |
+| anti-tamper     | Rebuilds the watermark when the overlay is removed or modified                                             | `boolean`            | `true`       |
+| theme-overrides | Component-level theme overrides. In the current implementation they are merged only in non-fullscreen mode | `ComponentThemeVars` | `undefined`  |
 
 ### Font
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| color | Text color | `string` | `'rgba(0,0,0,0.15)'` |
-| fontSize | Font size | `number \| string` | `16` |
-| fontWeight | Font weight | `string \| number` | `'normal'` |
-| fontFamily | Font family | `string` | `'sans-serif'` |
-| fontStyle | Font style | `'normal' \| 'italic' \| 'oblique'` | `'normal'` |
-| textAlign | Text alignment inside the watermark tile | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'` |
-| lineHeight | Line height for multi-line text | `number` | `22` |
+| Name       | Description                              | Type                                                | Default              |
+| ---------- | ---------------------------------------- | --------------------------------------------------- | -------------------- |
+| color      | Text color                               | `string`                                            | `'rgba(0,0,0,0.15)'` |
+| fontSize   | Font size                                | `number \| string`                                  | `16`                 |
+| fontWeight | Font weight                              | `string \| number`                                  | `'normal'`           |
+| fontFamily | Font family                              | `string`                                            | `'sans-serif'`       |
+| fontStyle  | Font style                               | `'normal' \| 'italic' \| 'oblique'`                 | `'normal'`           |
+| textAlign  | Text alignment inside the watermark tile | `'start' \| 'end' \| 'left' \| 'right' \| 'center'` | `'center'`           |
+| lineHeight | Line height for multi-line text          | `number`                                            | `22`                 |
 
 ### Events
 
@@ -329,36 +329,36 @@ This component does not expose component events.
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| default | Content covered by the watermark overlay | `-` |
+| Name    | Description                              | Parameters |
+| ------- | ---------------------------------------- | ---------- |
+| default | Content covered by the watermark overlay | `-`        |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name            | Description                            | Type         |
+| --------------- | -------------------------------------- | ------------ |
 | renderWatermark | Forces the watermark to be regenerated | `() => void` |
 
 ## Theme Variables
 
 `YhWatermark` supports `themeOverrides` and also exposes a small wrapper-level CSS variable surface.
 
-| Variable | Description | Default |
-| --- | --- | --- |
+| Variable                            | Description                            | Default    |
+| ----------------------------------- | -------------------------------------- | ---------- |
 | `--yh-watermark-container-position` | Position mode of the watermark wrapper | `relative` |
-| `--yh-watermark-width` | Wrapper width | `100%` |
-| `--yh-watermark-height` | Wrapper height | `100%` |
-| `--yh-watermark-fullscreen-z-index` | Fullscreen wrapper z-index | `9999` |
+| `--yh-watermark-width`              | Wrapper width                          | `100%`     |
+| `--yh-watermark-height`             | Wrapper height                         | `100%`     |
+| `--yh-watermark-fullscreen-z-index` | Fullscreen wrapper z-index             | `9999`     |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhWatermarkProps` | Component props type |
-| `YhWatermarkFont` | Watermark font config type |
-| `YhWatermarkSlots` | Component slots type |
-| `YhWatermarkExpose` | Component expose type |
-| `YhWatermarkInstance` | Component instance type |
+| Name                  | Description                |
+| --------------------- | -------------------------- |
+| `YhWatermarkProps`    | Component props type       |
+| `YhWatermarkFont`     | Watermark font config type |
+| `YhWatermarkSlots`    | Component slots type       |
+| `YhWatermarkExpose`   | Component expose type      |
+| `YhWatermarkInstance` | Component instance type    |
 
 <style scoped>
 .watermark-lab-wrapper { margin: -24px -24px 0 -24px; }

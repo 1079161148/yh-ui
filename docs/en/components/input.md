@@ -688,114 +688,114 @@ The Input component is optimized for SSR, especially its ID generation mechanism
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `string \| number` | — |
-| type | Type | `'text' \| 'password' \| 'textarea' \| 'number' \| 'email' \| 'url' \| 'tel' \| 'search'` | `'text'` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
-| placeholder | Placeholder text | `string` | — |
-| variant | Visual variant style | `'default' \| 'filled' \| 'borderless' \| 'underlined'` | `'default'` |
-| status | Independent status color, without relying on FormItem | `'' \| 'success' \| 'warning' \| 'error'` | `''` |
-| loading | Whether to show loading state | `boolean` | `false` |
-| disabled | Whether to disable | `boolean` | `false` |
-| readonly | Whether to set read-only | `boolean` | `false` |
-| clearable | Whether it is clearable | `boolean` | `false` |
-| clear-on-escape | Whether pressing Esc clears the input | `boolean` | `false` |
-| select-on-focus | Whether to auto-select all text on focus | `boolean` | `false` |
-| show-password | Whether to show password toggle icon | `boolean` | `false` |
-| show-word-limit | Whether to show word count | `boolean` | `false` |
-| count-config | Custom word count configuration | `{ calculate?: (value: string) => number }` | — |
-| maxlength | Maximum input length | `number \| string` | — |
-| minlength | Minimum input length | `number \| string` | — |
-| prefix-icon | Prefix icon | `string \| Component` | — |
-| suffix-icon | Suffix icon | `string \| Component` | — |
-| clear-icon | Clear icon | `string \| Component` | — |
-| prefix | Prefix text string (shortcut for #prefix slot) | `string` | — |
-| suffix | Suffix text string (shortcut for #suffix slot) | `string` | — |
-| list | Native list attribute, binds a datalist element id | `string` | — |
-| autofocus | Autofocus on mounting | `boolean` | `false` |
-| autocomplete | Native autocomplete attribute | `string` | `'off'` |
-| name | Native name attribute | `string` | — |
-| form | Native form attribute | `string` | — |
-| id | Input ID | `string` | — |
-| aria-label | Native `aria-label` attribute | `string` | — |
-| tabindex | Input tabindex | `string \| number` | — |
-| validate-event | Whether to trigger form validation on input | `boolean` | `true` |
-| input-style | Input inline style | `string \| object` | — |
-| label | (Deprecated) Native `aria-label` attribute, suggest use `aria-label` | `string` | — |
-| inputmode | Native `inputmode` attribute | `string` | — |
-| model-modifiers | v-model modifiers | `object` | — |
-| formatter | Format function (for display) | `(value: string \| number) => string` | — |
-| parser | Parse function (for updating value) | `(value: string) => string` | — |
-| rows | Textarea rows (effective for type="textarea") | `number` | `2` |
-| autosize | Autosize height (effective for type="textarea") | `boolean \| { minRows?: number; maxRows?: number }` | `false` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
-| resize | Whether to allow resizing (effective for type="textarea") | `'none' \| 'both' \| 'horizontal' \| 'vertical'` | — |
+| Prop                  | Description                                                          | Type                                                                                      | Default     |
+| --------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------- |
+| model-value / v-model | Binding value                                                        | `string \| number`                                                                        | —           |
+| type                  | Type                                                                 | `'text' \| 'password' \| 'textarea' \| 'number' \| 'email' \| 'url' \| 'tel' \| 'search'` | `'text'`    |
+| size                  | Input size                                                           | `'large' \| 'default' \| 'small'`                                                         | `'default'` |
+| placeholder           | Placeholder text                                                     | `string`                                                                                  | —           |
+| variant               | Visual variant style                                                 | `'default' \| 'filled' \| 'borderless' \| 'underlined'`                                   | `'default'` |
+| status                | Independent status color, without relying on FormItem                | `'' \| 'success' \| 'warning' \| 'error'`                                                 | `''`        |
+| loading               | Whether to show loading state                                        | `boolean`                                                                                 | `false`     |
+| disabled              | Whether to disable                                                   | `boolean`                                                                                 | `false`     |
+| readonly              | Whether to set read-only                                             | `boolean`                                                                                 | `false`     |
+| clearable             | Whether it is clearable                                              | `boolean`                                                                                 | `false`     |
+| clear-on-escape       | Whether pressing Esc clears the input                                | `boolean`                                                                                 | `false`     |
+| select-on-focus       | Whether to auto-select all text on focus                             | `boolean`                                                                                 | `false`     |
+| show-password         | Whether to show password toggle icon                                 | `boolean`                                                                                 | `false`     |
+| show-word-limit       | Whether to show word count                                           | `boolean`                                                                                 | `false`     |
+| count-config          | Custom word count configuration                                      | `{ calculate?: (value: string) => number }`                                               | —           |
+| maxlength             | Maximum input length                                                 | `number \| string`                                                                        | —           |
+| minlength             | Minimum input length                                                 | `number \| string`                                                                        | —           |
+| prefix-icon           | Prefix icon                                                          | `string \| Component`                                                                     | —           |
+| suffix-icon           | Suffix icon                                                          | `string \| Component`                                                                     | —           |
+| clear-icon            | Clear icon                                                           | `string \| Component`                                                                     | —           |
+| prefix                | Prefix text string (shortcut for #prefix slot)                       | `string`                                                                                  | —           |
+| suffix                | Suffix text string (shortcut for #suffix slot)                       | `string`                                                                                  | —           |
+| list                  | Native list attribute, binds a datalist element id                   | `string`                                                                                  | —           |
+| autofocus             | Autofocus on mounting                                                | `boolean`                                                                                 | `false`     |
+| autocomplete          | Native autocomplete attribute                                        | `string`                                                                                  | `'off'`     |
+| name                  | Native name attribute                                                | `string`                                                                                  | —           |
+| form                  | Native form attribute                                                | `string`                                                                                  | —           |
+| id                    | Input ID                                                             | `string`                                                                                  | —           |
+| aria-label            | Native `aria-label` attribute                                        | `string`                                                                                  | —           |
+| tabindex              | Input tabindex                                                       | `string \| number`                                                                        | —           |
+| validate-event        | Whether to trigger form validation on input                          | `boolean`                                                                                 | `true`      |
+| input-style           | Input inline style                                                   | `string \| object`                                                                        | —           |
+| label                 | (Deprecated) Native `aria-label` attribute, suggest use `aria-label` | `string`                                                                                  | —           |
+| inputmode             | Native `inputmode` attribute                                         | `string`                                                                                  | —           |
+| model-modifiers       | v-model modifiers                                                    | `object`                                                                                  | —           |
+| formatter             | Format function (for display)                                        | `(value: string \| number) => string`                                                     | —           |
+| parser                | Parse function (for updating value)                                  | `(value: string) => string`                                                               | —           |
+| rows                  | Textarea rows (effective for type="textarea")                        | `number`                                                                                  | `2`         |
+| autosize              | Autosize height (effective for type="textarea")                      | `boolean \| { minRows?: number; maxRows?: number }`                                       | `false`     |
+| theme-overrides       | Component-level theme overrides                                      | `ComponentThemeVars`                                                                      | `undefined` |
+| resize                | Whether to allow resizing (effective for type="textarea")            | `'none' \| 'both' \| 'horizontal' \| 'vertical'`                                          | —           |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
+| Event Name        | Description                          | Callback Parameters                 |
+| ----------------- | ------------------------------------ | ----------------------------------- |
 | update:modelValue | Triggered when binding value updates | `(value: string \| number) => void` |
-| input | Triggered when input value changes | `(value: string \| number) => void` |
-| change | Triggered on blur or Enter press | `(value: string \| number) => void` |
-| focus | Triggered on focus | `(event: FocusEvent) => void` |
-| blur | Triggered on blur | `(event: FocusEvent) => void` |
-| clear | Triggered on clicking clear button | `() => void` |
-| keydown | Triggered on key down | `(event: KeyboardEvent) => void` |
-| keyup | Triggered on key up | `(event: KeyboardEvent) => void` |
-| compositionstart | Triggered when IME starts input | `(event: CompositionEvent) => void` |
-| compositionupdate | Triggered during IME input | `(event: CompositionEvent) => void` |
-| compositionend | Triggered when IME starts finishes | `(event: CompositionEvent) => void` |
+| input             | Triggered when input value changes   | `(value: string \| number) => void` |
+| change            | Triggered on blur or Enter press     | `(value: string \| number) => void` |
+| focus             | Triggered on focus                   | `(event: FocusEvent) => void`       |
+| blur              | Triggered on blur                    | `(event: FocusEvent) => void`       |
+| clear             | Triggered on clicking clear button   | `() => void`                        |
+| keydown           | Triggered on key down                | `(event: KeyboardEvent) => void`    |
+| keyup             | Triggered on key up                  | `(event: KeyboardEvent) => void`    |
+| compositionstart  | Triggered when IME starts input      | `(event: CompositionEvent) => void` |
+| compositionupdate | Triggered during IME input           | `(event: CompositionEvent) => void` |
+| compositionend    | Triggered when IME starts finishes   | `(event: CompositionEvent) => void` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| prefix | Header content of input |
-| suffix | Footer content of input |
-| prepend | Prepend content (composite input) |
-| append | Append content (composite input) |
-| clearIcon | Custom clear icon |
-| loadingIcon | Custom loading icon |
+| Slot Name   | Description                       |
+| ----------- | --------------------------------- |
+| prefix      | Header content of input           |
+| suffix      | Footer content of input           |
+| prepend     | Prepend content (composite input) |
+| append      | Append content (composite input)  |
+| clearIcon   | Custom clear icon                 |
+| loadingIcon | Custom loading icon               |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| ref | Input DOM element | `HTMLInputElement \| HTMLTextAreaElement \| undefined` |
-| wrapperRef | Wrapper element DOM | `HTMLElement \| undefined` |
-| focus | Focus the input | `() => void` |
-| blur | Blur the input | `() => void` |
-| select | Select text in input | `() => void` |
-| clear | Clear input content | `() => void` |
-| textLength | Current display length (result from countConfig if provided) | `number` |
+| Name       | Description                                                  | Type                                                   |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| ref        | Input DOM element                                            | `HTMLInputElement \| HTMLTextAreaElement \| undefined` |
+| wrapperRef | Wrapper element DOM                                          | `HTMLElement \| undefined`                             |
+| focus      | Focus the input                                              | `() => void`                                           |
+| blur       | Blur the input                                               | `() => void`                                           |
+| select     | Select text in input                                         | `() => void`                                           |
+| clear      | Clear input content                                          | `() => void`                                           |
+| textLength | Current display length (result from countConfig if provided) | `number`                                               |
 
 ### Theme Variables
 
 `YhInput` supports `themeOverrides`. The component itself consumes the following CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-input-height` | Input height | `var(--yh-component-size-default)` |
-| `--yh-input-font-size` | Font size | `var(--yh-font-size-base)` |
-| `--yh-input-padding` | Input padding | `0 var(--yh-spacing-md)` |
-| `--yh-input-border-color` | Border color | `var(--yh-border-color)` |
-| `--yh-input-hover-border-color` | Hover border color | `var(--yh-border-color-hover)` |
-| `--yh-input-focus-border-color` | Focus border color | `var(--yh-color-primary)` |
-| `--yh-input-bg-color` | Background color | `var(--yh-fill-color-blank)` |
+| Variable                        | Description        | Default                            |
+| ------------------------------- | ------------------ | ---------------------------------- |
+| `--yh-input-height`             | Input height       | `var(--yh-component-size-default)` |
+| `--yh-input-font-size`          | Font size          | `var(--yh-font-size-base)`         |
+| `--yh-input-padding`            | Input padding      | `0 var(--yh-spacing-md)`           |
+| `--yh-input-border-color`       | Border color       | `var(--yh-border-color)`           |
+| `--yh-input-hover-border-color` | Hover border color | `var(--yh-border-color-hover)`     |
+| `--yh-input-focus-border-color` | Focus border color | `var(--yh-color-primary)`          |
+| `--yh-input-bg-color`           | Background color   | `var(--yh-fill-color-blank)`       |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhInputProps` | Props type for `YhInput` |
-| `YhInputEmits` | Emits type for `YhInput` |
-| `YhInputSlots` | Slots type for `YhInput` |
-| `YhInputExpose` | Expose type for `YhInput` |
-| `YhInputType` | Input type union |
-| `YhInputSize` | Input size union |
-| `YhInputVariant` | Visual variant union |
-| `YhInputStatus` | Status union |
-| `YhInputCountConfig` | Word count config type |
-| `YhInputInstance` | Public instance type for `YhInput` |
+| Name                 | Description                        |
+| -------------------- | ---------------------------------- |
+| `YhInputProps`       | Props type for `YhInput`           |
+| `YhInputEmits`       | Emits type for `YhInput`           |
+| `YhInputSlots`       | Slots type for `YhInput`           |
+| `YhInputExpose`      | Expose type for `YhInput`          |
+| `YhInputType`        | Input type union                   |
+| `YhInputSize`        | Input size union                   |
+| `YhInputVariant`     | Visual variant union               |
+| `YhInputStatus`      | Status union                       |
+| `YhInputCountConfig` | Word count config type             |
+| `YhInputInstance`    | Public instance type for `YhInput` |

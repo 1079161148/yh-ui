@@ -209,14 +209,14 @@ This example combines theme, locale, and size in one local provider scope.
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| theme | Global or scoped theme preset / primary color | `string \| PresetTheme` | `'default'` |
-| locale | Locale object passed to nested components | `Language` | `zhCn` |
-| size | Shared component size | `'small' \| 'default' \| 'large'` | `'default'` |
-| z-index | Base z-index value exposed through provider context | `number` | `2000` |
-| message | Global message behavior overrides | `ConfigProviderContext['message']` | `{}` |
-| global | Whether theme styles are applied globally instead of the local provider scope | `boolean` | `true` |
+| Name    | Description                                                                   | Type                               | Default     |
+| ------- | ----------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| theme   | Global or scoped theme preset / primary color                                 | `string \| PresetTheme`            | `'default'` |
+| locale  | Locale object passed to nested components                                     | `Language`                         | `zhCn`      |
+| size    | Shared component size                                                         | `'small' \| 'default' \| 'large'`  | `'default'` |
+| z-index | Base z-index value exposed through provider context                           | `number`                           | `2000`      |
+| message | Global message behavior overrides                                             | `ConfigProviderContext['message']` | `{}`        |
+| global  | Whether theme styles are applied globally instead of the local provider scope | `boolean`                          | `true`      |
 
 ### Events
 
@@ -224,9 +224,9 @@ This component does not expose component events.
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| default | Content rendered inside the provider scope | `-` |
+| Name    | Description                                | Parameters |
+| ------- | ------------------------------------------ | ---------- |
+| default | Content rendered inside the provider scope | `-`        |
 
 ### Expose
 
@@ -238,12 +238,12 @@ This component does not provide component-level `themeOverrides`. Theme, locale,
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhConfigProviderProps` | Props type for `YhConfigProvider` |
-| `YhConfigProviderSlots` | Slots type for `YhConfigProvider` |
+| Name                       | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| `YhConfigProviderProps`    | Props type for `YhConfigProvider`           |
+| `YhConfigProviderSlots`    | Slots type for `YhConfigProvider`           |
 | `YhConfigProviderInstance` | Public instance type for `YhConfigProvider` |
-| `ConfigProviderContext` | Provider context type |
+| `ConfigProviderContext`    | Provider context type                       |
 
 <style scoped>
 .demo-items-inline {

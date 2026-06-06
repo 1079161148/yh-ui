@@ -504,64 +504,64 @@ After installing `@yh-ui/nuxt`, `YhTabs` and `YhTabPane` can be used directly in
 
 ### Tabs Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Active tab name | `string \| number` | `''` |
-| `type` | Tabs style | `'line' \| 'card' \| 'border-card' \| 'segment'` | `'line'` |
-| `tab-position` | Navigation position | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` |
-| `draggable` | Declared prop for drag sorting. The current implementation does not consume it yet. | `boolean` | `false` |
-| `closable` | Show close buttons | `boolean` | `false` |
-| `addable` | Show built-in add button | `boolean` | `false` |
-| `editable` | Equivalent to enabling both add and close actions | `boolean` | `false` |
-| `before-leave` | Hook called before switching tabs | `(newName: string \| number, oldName: string \| number) => boolean \| Promise<boolean>` | `undefined` |
-| `stretch` | Stretch tabs to fill available width | `boolean` | `false` |
-| `nav-class` | Extra class for the tab navigation wrapper | `string` | `''` |
-| `content-class` | Extra class for the content wrapper | `string` | `''` |
-| `indicator-width` | Custom indicator width | `string` | `''` |
-| `indicator-height` | Custom indicator height | `string` | `''` |
-| `active-color` | Active text and indicator color override | `string` | `''` |
-| `inactive-color` | Inactive tab text color override | `string` | `''` |
-| `trigger` | Activation trigger | `'click' \| 'hover'` | `'click'` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                                                         | Type                                                                                    | Default     |
+| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ----------- |
+| `model-value` / `v-model` | Active tab name                                                                     | `string \| number`                                                                      | `''`        |
+| `type`                    | Tabs style                                                                          | `'line' \| 'card' \| 'border-card' \| 'segment'`                                        | `'line'`    |
+| `tab-position`            | Navigation position                                                                 | `'top' \| 'right' \| 'bottom' \| 'left'`                                                | `'top'`     |
+| `draggable`               | Declared prop for drag sorting. The current implementation does not consume it yet. | `boolean`                                                                               | `false`     |
+| `closable`                | Show close buttons                                                                  | `boolean`                                                                               | `false`     |
+| `addable`                 | Show built-in add button                                                            | `boolean`                                                                               | `false`     |
+| `editable`                | Equivalent to enabling both add and close actions                                   | `boolean`                                                                               | `false`     |
+| `before-leave`            | Hook called before switching tabs                                                   | `(newName: string \| number, oldName: string \| number) => boolean \| Promise<boolean>` | `undefined` |
+| `stretch`                 | Stretch tabs to fill available width                                                | `boolean`                                                                               | `false`     |
+| `nav-class`               | Extra class for the tab navigation wrapper                                          | `string`                                                                                | `''`        |
+| `content-class`           | Extra class for the content wrapper                                                 | `string`                                                                                | `''`        |
+| `indicator-width`         | Custom indicator width                                                              | `string`                                                                                | `''`        |
+| `indicator-height`        | Custom indicator height                                                             | `string`                                                                                | `''`        |
+| `active-color`            | Active text and indicator color override                                            | `string`                                                                                | `''`        |
+| `inactive-color`          | Inactive tab text color override                                                    | `string`                                                                                | `''`        |
+| `trigger`                 | Activation trigger                                                                  | `'click' \| 'hover'`                                                                    | `'click'`   |
+| `theme-overrides`         | Component theme override variables                                                  | `ComponentThemeVars`                                                                    | `undefined` |
 
 ### Tabs Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
-| `update:modelValue` | Triggered when the active tab changes | `(name: string \| number) => void` |
-| `tab-click` | Triggered when a tab header is clicked | `(pane: YhTabPaneConfig, ev: Event) => void` |
-| `tab-change` | Triggered after the active tab changes | `(name: string \| number) => void` |
-| `tab-remove` | Triggered when a tab close action is requested | `(name: string \| number) => void` |
-| `tab-add` | Triggered when an add action is requested | `() => void` |
-| `tab-drag-end` | Declared event for drag sorting. The current implementation does not emit it yet. | `(names: (string \| number)[]) => void` |
+| Event               | Description                                                                       | Parameters                                   |
+| ------------------- | --------------------------------------------------------------------------------- | -------------------------------------------- |
+| `update:modelValue` | Triggered when the active tab changes                                             | `(name: string \| number) => void`           |
+| `tab-click`         | Triggered when a tab header is clicked                                            | `(pane: YhTabPaneConfig, ev: Event) => void` |
+| `tab-change`        | Triggered after the active tab changes                                            | `(name: string \| number) => void`           |
+| `tab-remove`        | Triggered when a tab close action is requested                                    | `(name: string \| number) => void`           |
+| `tab-add`           | Triggered when an add action is requested                                         | `() => void`                                 |
+| `tab-drag-end`      | Declared event for drag sorting. The current implementation does not emit it yet. | `(names: (string \| number)[]) => void`      |
 
 ### Tabs Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `default` | Tab panes rendered inside `YhTabs` | - |
-| `label` | Custom tab label content. `pane.name` is normalized to `string` when registered. | `{ pane: YhTabPaneConfig }` |
-| `add-icon` | Custom icon for the add button | - |
+| Slot       | Description                                                                      | Parameters                  |
+| ---------- | -------------------------------------------------------------------------------- | --------------------------- |
+| `default`  | Tab panes rendered inside `YhTabs`                                               | -                           |
+| `label`    | Custom tab label content. `pane.name` is normalized to `string` when registered. | `{ pane: YhTabPaneConfig }` |
+| `add-icon` | Custom icon for the add button                                                   | -                           |
 
 ### Tabs Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `addTab` | Trigger the add-tab flow | `() => void` |
-| `setActiveTab` | Activate a tab by name | `(name: string \| number) => void` |
-| `activeTab` | Current active tab ref. | `Ref<string \| number>` |
+| Name           | Description              | Type                               |
+| -------------- | ------------------------ | ---------------------------------- |
+| `addTab`       | Trigger the add-tab flow | `() => void`                       |
+| `setActiveTab` | Activate a tab by name   | `(name: string \| number) => void` |
+| `activeTab`    | Current active tab ref.  | `Ref<string \| number>`            |
 
 ### TabPane Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `name` | Unique pane name | `string \| number` | Required |
-| `label` | Tab label text | `string` | `''` |
-| `disabled` | Disable the tab pane | `boolean` | `false` |
-| `closable` | Override whether this pane is closable | `boolean` | `undefined` |
-| `lazy` | Render content only after first activation | `boolean` | `false` |
-| `icon` | Icon class name shown before the label | `string` | `''` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop              | Description                                | Type                 | Default     |
+| ----------------- | ------------------------------------------ | -------------------- | ----------- |
+| `name`            | Unique pane name                           | `string \| number`   | Required    |
+| `label`           | Tab label text                             | `string`             | `''`        |
+| `disabled`        | Disable the tab pane                       | `boolean`            | `false`     |
+| `closable`        | Override whether this pane is closable     | `boolean`            | `undefined` |
+| `lazy`            | Render content only after first activation | `boolean`            | `false`     |
+| `icon`            | Icon class name shown before the label     | `string`             | `''`        |
+| `theme-overrides` | Component theme override variables         | `ComponentThemeVars` | `undefined` |
 
 ### TabPane Events
 
@@ -569,9 +569,9 @@ This component does not expose component events.
 
 ### TabPane Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `default` | Pane content | - |
+| Slot      | Description  | Parameters |
+| --------- | ------------ | ---------- |
+| `default` | Pane content | -          |
 
 ### TabPane Expose
 
@@ -579,19 +579,19 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Type | Description |
-| --- | --- |
-| `YhTabsProps` | Tabs props type |
-| `YhTabsEmits` | Tabs emits type |
-| `YhTabsSlots` | Tabs slots type |
-| `YhTabsExpose` | Tabs expose type |
-| `YhTabsType` | Tabs style union |
-| `YhTabsPosition` | Tabs position union |
-| `YhTabPaneConfig` | Registered tab pane config type |
-| `YhTabPaneProps` | Tab pane props type |
-| `YhTabPaneSlots` | Tab pane slots type |
-| `YhTabsInstance` | Tabs instance type |
-| `YhTabPaneInstance` | Tab pane instance type |
+| Type                | Description                     |
+| ------------------- | ------------------------------- |
+| `YhTabsProps`       | Tabs props type                 |
+| `YhTabsEmits`       | Tabs emits type                 |
+| `YhTabsSlots`       | Tabs slots type                 |
+| `YhTabsExpose`      | Tabs expose type                |
+| `YhTabsType`        | Tabs style union                |
+| `YhTabsPosition`    | Tabs position union             |
+| `YhTabPaneConfig`   | Registered tab pane config type |
+| `YhTabPaneProps`    | Tab pane props type             |
+| `YhTabPaneSlots`    | Tab pane slots type             |
+| `YhTabsInstance`    | Tabs instance type              |
+| `YhTabPaneInstance` | Tab pane instance type          |
 
 ### `YhTabPaneConfig` Object Shape
 
@@ -612,12 +612,12 @@ interface YhTabPaneConfig {
 
 `YhTabs` and `YhTabPane` support `themeOverrides` and consume the following dedicated CSS variables.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-tabs-header-height` | Navigation bar height | `40px` |
-| `--yh-tabs-active-color` | Active text and indicator color | `var(--yh-color-primary)` |
-| `--yh-tabs-text-color` | Default tab text color | `var(--yh-text-color-primary)` |
-| `--yh-tabs-disabled-color` | Disabled tab text color | `var(--yh-text-color-disabled)` |
-| `--yh-tabs-border-color` | Border color | `var(--yh-border-color-light)` |
-| `--yh-tabs-indicator-width` | Default line indicator width | `40px` |
-| `--yh-tabs-indicator-height` | Default vertical indicator height | `20px` |
+| Variable                     | Description                       | Default                         |
+| ---------------------------- | --------------------------------- | ------------------------------- |
+| `--yh-tabs-header-height`    | Navigation bar height             | `40px`                          |
+| `--yh-tabs-active-color`     | Active text and indicator color   | `var(--yh-color-primary)`       |
+| `--yh-tabs-text-color`       | Default tab text color            | `var(--yh-text-color-primary)`  |
+| `--yh-tabs-disabled-color`   | Disabled tab text color           | `var(--yh-text-color-disabled)` |
+| `--yh-tabs-border-color`     | Border color                      | `var(--yh-border-color-light)`  |
+| `--yh-tabs-indicator-width`  | Default line indicator width      | `40px`                          |
+| `--yh-tabs-indicator-height` | Default vertical indicator height | `20px`                          |

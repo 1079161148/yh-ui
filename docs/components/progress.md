@@ -289,28 +289,28 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `type` | 进度条模式 | `'line' \| 'circle' \| 'dashboard'` | `'line'` |
-| `percentage` | 当前进度值，多环模式下可传数组 | `number \| number[]` | `0` |
-| `secondary-percentage` | 次级缓冲进度 | `number` | `0` |
-| `status` | 语义化状态样式 | `'success' \| 'exception' \| 'warning' \| 'info'` | `undefined` |
-| `stroke-width` | 进度条厚度 | `number` | `6` |
-| `text-inside` | 是否将文字显示在线形进度条内部 | `boolean` | `false` |
-| `width` | 环形和仪表盘模式宽度 | `number` | `126` |
-| `show-text` | 是否显示文字或状态图标 | `boolean` | `true` |
-| `color` | 自定义颜色、颜色函数、数组或渐变映射 | `string \| ((percentage: number) => string) \| string[] \| Record<string, string>` | `''` |
-| `icon` | 自定义图标类名 | `string` | `''` |
-| `animated` | 是否旋转环形激活路径 | `boolean` | `false` |
-| `define-background-color` | 自定义轨道背景色 | `string` | `''` |
-| `format` | 默认文本格式化函数 | `(percentage: number) => string` | `undefined` |
-| `stroke-linecap` | 线帽样式 | `'butt' \| 'round' \| 'square'` | `'round'` |
-| `striped` | 是否开启线形条纹样式 | `boolean` | `false` |
-| `striped-flow` | 是否开启线形条纹流动动画 | `boolean` | `false` |
-| `indeterminate` | 是否开启未确定线形动画 | `boolean` | `false` |
-| `duration` | 动画时长，单位秒 | `number` | `3` |
-| `steps` | 线形模式下的分段数量 | `number` | `0` |
-| `theme-overrides` | 组件主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性                      | 说明                                 | 类型                                                                               | 默认值      |
+| ------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------- | ----------- |
+| `type`                    | 进度条模式                           | `'line' \| 'circle' \| 'dashboard'`                                                | `'line'`    |
+| `percentage`              | 当前进度值，多环模式下可传数组       | `number \| number[]`                                                               | `0`         |
+| `secondary-percentage`    | 次级缓冲进度                         | `number`                                                                           | `0`         |
+| `status`                  | 语义化状态样式                       | `'success' \| 'exception' \| 'warning' \| 'info'`                                  | `undefined` |
+| `stroke-width`            | 进度条厚度                           | `number`                                                                           | `6`         |
+| `text-inside`             | 是否将文字显示在线形进度条内部       | `boolean`                                                                          | `false`     |
+| `width`                   | 环形和仪表盘模式宽度                 | `number`                                                                           | `126`       |
+| `show-text`               | 是否显示文字或状态图标               | `boolean`                                                                          | `true`      |
+| `color`                   | 自定义颜色、颜色函数、数组或渐变映射 | `string \| ((percentage: number) => string) \| string[] \| Record<string, string>` | `''`        |
+| `icon`                    | 自定义图标类名                       | `string`                                                                           | `''`        |
+| `animated`                | 是否旋转环形激活路径                 | `boolean`                                                                          | `false`     |
+| `define-background-color` | 自定义轨道背景色                     | `string`                                                                           | `''`        |
+| `format`                  | 默认文本格式化函数                   | `(percentage: number) => string`                                                   | `undefined` |
+| `stroke-linecap`          | 线帽样式                             | `'butt' \| 'round' \| 'square'`                                                    | `'round'`   |
+| `striped`                 | 是否开启线形条纹样式                 | `boolean`                                                                          | `false`     |
+| `striped-flow`            | 是否开启线形条纹流动动画             | `boolean`                                                                          | `false`     |
+| `indeterminate`           | 是否开启未确定线形动画               | `boolean`                                                                          | `false`     |
+| `duration`                | 动画时长，单位秒                     | `number`                                                                           | `3`         |
+| `steps`                   | 线形模式下的分段数量                 | `number`                                                                           | `0`         |
+| `theme-overrides`         | 组件主题覆盖变量                     | `ComponentThemeVars`                                                               | `undefined` |
 
 ### Events
 
@@ -318,8 +318,8 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Slots
 
-| 插槽 | 说明 | 参数 |
-| --- | --- | --- |
+| 插槽      | 说明             | 参数                     |
+| --------- | ---------------- | ------------------------ |
 | `default` | 替换内置标签区域 | `{ percentage: number }` |
 
 ### Expose
@@ -328,21 +328,21 @@ const jsNuxt = toJs(tsNuxt)
 
 ### 类型导出
 
-| 类型 | 说明 |
-| --- | --- |
-| `YhProgressProps` | 组件 Props 类型 |
-| `YhProgressSlots` | 组件 Slots 类型 |
-| `YhProgressType` | 进度条模式联合类型 |
-| `YhProgressStatus` | 进度条状态联合类型 |
-| `YhProgressInstance` | 组件实例类型 |
+| 类型                 | 说明               |
+| -------------------- | ------------------ |
+| `YhProgressProps`    | 组件 Props 类型    |
+| `YhProgressSlots`    | 组件 Slots 类型    |
+| `YhProgressType`     | 进度条模式联合类型 |
+| `YhProgressStatus`   | 进度条状态联合类型 |
+| `YhProgressInstance` | 组件实例类型       |
 
 ### 主题变量
 
 `YhProgress` 支持 `themeOverrides`。当前组件样式中实际消费的专属 CSS 变量只有下面这一项，其余颜色与背景主要来自全局主题令牌。
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-progress-duration` | 条纹动画、未确定动画和环形旋转动画使用的时长 | `3s` |
+| 变量                     | 说明                                         | 默认值 |
+| ------------------------ | -------------------------------------------- | ------ |
+| `--yh-progress-duration` | 条纹动画、未确定动画和环形旋转动画使用的时长 | `3s`   |
 
 <style scoped>
 .demo-progress {

@@ -579,22 +579,22 @@ With virtual scroll, even million-level data volume can maintain smooth scrollin
 
 Passed through `virtual-config` property.
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| enabled | Enable virtual scroll | `boolean` | `false` |
-| rowHeight | Row height (fixed or function) | `number \| ((row, rowIndex) => number)` | `48` |
-| buffer | Buffer rows (extra rows rendered above/below) | `number` | `5` |
-| overscan | Overscan rows | `number` | `3` |
-| columnVirtual | Enable column virtualization | `boolean` | `false` |
-| columnBuffer | Column buffer count | `number` | `3` |
+| Property      | Description                                   | Type                                    | Default |
+| ------------- | --------------------------------------------- | --------------------------------------- | ------- |
+| enabled       | Enable virtual scroll                         | `boolean`                               | `false` |
+| rowHeight     | Row height (fixed or function)                | `number \| ((row, rowIndex) => number)` | `48`    |
+| buffer        | Buffer rows (extra rows rendered above/below) | `number`                                | `5`     |
+| overscan      | Overscan rows                                 | `number`                                | `3`     |
+| columnVirtual | Enable column virtualization                  | `boolean`                               | `false` |
+| columnBuffer  | Column buffer count                           | `number`                                | `3`     |
 
 ### Methods (Called via ref)
 
-| Method | Description | Parameters |
-| --- | --- | --- |
-| scrollTo | Scroll to position | `({ top?, left?, row?, rowIndex? })` |
-| refresh | Refresh virtual scroll (call after data changes) | — |
-| doLayout | Recalculate table layout | — |
+| Method   | Description                                      | Parameters                           |
+| -------- | ------------------------------------------------ | ------------------------------------ |
+| scrollTo | Scroll to position                               | `({ top?, left?, row?, rowIndex? })` |
+| refresh  | Refresh virtual scroll (call after data changes) | —                                    |
+| doLayout | Recalculate table layout                         | —                                    |
 
 ### Notes
 

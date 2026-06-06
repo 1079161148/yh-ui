@@ -66,7 +66,10 @@ describe('YhCascader SSR', () => {
     const html = await renderSSR(Cascader, {
       options: mockOptions,
       multiple: true,
-      modelValue: [['guide', 'disciplines'], ['resource', 'axure']],
+      modelValue: [
+        ['guide', 'disciplines'],
+        ['resource', 'axure']
+      ],
       collapseTags: true,
       maxCollapseTags: 1,
       themeOverrides: {

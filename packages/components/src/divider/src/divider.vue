@@ -12,7 +12,10 @@ const props = defineProps(dividerProps)
 const ns = useNamespace('divider')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('divider', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'divider',
+  computed(() => props.themeOverrides)
+)
 
 const dividerStyle = computed(() => {
   const styles: Record<string, string | number> = {
@@ -22,9 +25,8 @@ const dividerStyle = computed(() => {
     styles['--yh-divider-border-color'] = props.color
   }
   if (props.borderWidth) {
-    styles['--yh-divider-border-width'] = typeof props.borderWidth === 'number'
-      ? `${props.borderWidth}px`
-      : props.borderWidth
+    styles['--yh-divider-border-width'] =
+      typeof props.borderWidth === 'number' ? `${props.borderWidth}px` : props.borderWidth
   }
   return { ...themeStyle.value, ...styles }
 })
@@ -38,7 +40,10 @@ const classes = computed(() => [
 
 <template>
   <div :class="classes" :style="dividerStyle" role="separator">
-    <div v-if="$slots.default && direction !== 'vertical'" :class="[ns.e('text'), ns.is(contentPosition)]">
+    <div
+      v-if="$slots.default && direction !== 'vertical'"
+      :class="[ns.e('text'), ns.is(contentPosition)]"
+    >
       <slot />
     </div>
   </div>

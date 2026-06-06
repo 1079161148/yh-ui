@@ -330,7 +330,10 @@ describe('utils/dom', () => {
       const widthDesc = Object.getOwnPropertyDescriptor(window, 'innerWidth')
       Object.defineProperty(window, 'innerWidth', { value: 0, configurable: true })
       document.documentElement.style.width = '200px'
-      Object.defineProperty(document.documentElement, 'clientWidth', { value: 200, configurable: true })
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        value: 200,
+        configurable: true
+      })
 
       expect(isInViewport(el)).toBe(true)
 

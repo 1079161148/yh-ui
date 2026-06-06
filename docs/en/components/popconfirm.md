@@ -364,75 +364,75 @@ export default defineNuxtConfig({ modules: ['@yh-ui/nuxt'] })
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Title text. | `string` | `''` |
-| description | Description text. | `string` | `''` |
-| confirm-button-text | Confirm button text. | `string` | `''` |
-| cancel-button-text | Cancel button text. | `string` | `''` |
-| confirm-button-type | Confirm button type. | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'primary'` |
-| cancel-button-type | Cancel button type. | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
-| icon | Icon name. | `string` | `'warning'` |
-| icon-color | Icon color. | `string` | `'#faad14'` |
-| hide-icon | Whether to hide the icon. | `boolean` | `false` |
-| hide-cancel | Whether to hide the cancel button. | `boolean` | `false` |
-| offset | Popper offset `[skidding, distance]`. | `[number, number]` | `[0, 12]` |
-| placement | Popper placement. | `TooltipPlacement` | `'top'` |
-| visible | Controlled visibility state. | `boolean \| null` | `null` |
-| width | Popover width. | `string \| number` | `180` |
-| disabled | Whether the trigger is disabled. | `boolean` | `false` |
-| z-index | Popper z-index. | `number` | `2000` |
-| show-arrow | Whether to show the popper arrow. | `boolean` | `true` |
-| popper-class | Custom popper class name. | `string` | `''` |
-| popper-style | Custom popper style. | `StyleValue` | `{}` |
-| teleported | Whether to teleport the popup to `body`. | `boolean` | `true` |
-| show-dont-ask-again | Whether to show the "don't ask again" checkbox. | `boolean` | `false` |
-| dont-ask-again-text | Custom text for the "don't ask again" checkbox. | `string` | `''` |
-| swap-buttons | Whether to swap confirm and cancel button positions. | `boolean` | `false` |
-| before-confirm | Hook executed before confirm. Return `false` or resolve `false` to block closing. | `() => boolean \| Promise<boolean>` | `null` |
-| theme-overrides | Component-level theme overrides. | `ComponentThemeVars` | `undefined` |
+| Prop                | Description                                                                       | Type                                                                     | Default     |
+| ------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ----------- |
+| title               | Title text.                                                                       | `string`                                                                 | `''`        |
+| description         | Description text.                                                                 | `string`                                                                 | `''`        |
+| confirm-button-text | Confirm button text.                                                              | `string`                                                                 | `''`        |
+| cancel-button-text  | Cancel button text.                                                               | `string`                                                                 | `''`        |
+| confirm-button-type | Confirm button type.                                                              | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'primary'` |
+| cancel-button-type  | Cancel button type.                                                               | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
+| icon                | Icon name.                                                                        | `string`                                                                 | `'warning'` |
+| icon-color          | Icon color.                                                                       | `string`                                                                 | `'#faad14'` |
+| hide-icon           | Whether to hide the icon.                                                         | `boolean`                                                                | `false`     |
+| hide-cancel         | Whether to hide the cancel button.                                                | `boolean`                                                                | `false`     |
+| offset              | Popper offset `[skidding, distance]`.                                             | `[number, number]`                                                       | `[0, 12]`   |
+| placement           | Popper placement.                                                                 | `TooltipPlacement`                                                       | `'top'`     |
+| visible             | Controlled visibility state.                                                      | `boolean \| null`                                                        | `null`      |
+| width               | Popover width.                                                                    | `string \| number`                                                       | `180`       |
+| disabled            | Whether the trigger is disabled.                                                  | `boolean`                                                                | `false`     |
+| z-index             | Popper z-index.                                                                   | `number`                                                                 | `2000`      |
+| show-arrow          | Whether to show the popper arrow.                                                 | `boolean`                                                                | `true`      |
+| popper-class        | Custom popper class name.                                                         | `string`                                                                 | `''`        |
+| popper-style        | Custom popper style.                                                              | `StyleValue`                                                             | `{}`        |
+| teleported          | Whether to teleport the popup to `body`.                                          | `boolean`                                                                | `true`      |
+| show-dont-ask-again | Whether to show the "don't ask again" checkbox.                                   | `boolean`                                                                | `false`     |
+| dont-ask-again-text | Custom text for the "don't ask again" checkbox.                                   | `string`                                                                 | `''`        |
+| swap-buttons        | Whether to swap confirm and cancel button positions.                              | `boolean`                                                                | `false`     |
+| before-confirm      | Hook executed before confirm. Return `false` or resolve `false` to block closing. | `() => boolean \| Promise<boolean>`                                      | `null`      |
+| theme-overrides     | Component-level theme overrides.                                                  | `ComponentThemeVars`                                                     | `undefined` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Trigger element. |
-| icon | Custom icon content. |
-| title | Custom title content. |
+| Slot Name   | Description                 |
+| ----------- | --------------------------- |
+| default     | Trigger element.            |
+| icon        | Custom icon content.        |
+| title       | Custom title content.       |
 | description | Custom description content. |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| confirm | Triggered when the confirm button is clicked. | `(dontAskAgain?: boolean) => void` |
-| cancel | Triggered when the cancel button is clicked. | `() => void` |
-| update:visible | Triggered when visibility changes. | `(visible: boolean) => void` |
+| Event Name     | Description                                   | Parameters                         |
+| -------------- | --------------------------------------------- | ---------------------------------- |
+| confirm        | Triggered when the confirm button is clicked. | `(dontAskAgain?: boolean) => void` |
+| cancel         | Triggered when the cancel button is clicked.  | `() => void`                       |
+| update:visible | Triggered when visibility changes.            | `(visible: boolean) => void`       |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| visible | Current popup visibility state. | `Ref<boolean>` |
-| toggle | Manually update the popup visibility state. | `(val: boolean) => boolean` |
+| Name    | Description                                 | Type                        |
+| ------- | ------------------------------------------- | --------------------------- |
+| visible | Current popup visibility state.             | `Ref<boolean>`              |
+| toggle  | Manually update the popup visibility state. | `(val: boolean) => boolean` |
 
 ### Theme Variables
 
 `YhPopconfirm` supports `themeOverrides`. It also consumes tooltip-related variables through the popup layer.
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `--yh-popconfirm-title` | `#1d1d1f` | Title text color |
-| `--yh-popconfirm-desc` | `#424245` | Description text color |
-| `--yh-tooltip-bg-color` | `rgba(255, 255, 255, 0.88)` | Popover background color |
-| `--yh-tooltip-border-color` | `rgba(0, 0, 0, 0.08)` | Popover border color |
+| Variable                    | Default                     | Description              |
+| --------------------------- | --------------------------- | ------------------------ |
+| `--yh-popconfirm-title`     | `#1d1d1f`                   | Title text color         |
+| `--yh-popconfirm-desc`      | `#424245`                   | Description text color   |
+| `--yh-tooltip-bg-color`     | `rgba(255, 255, 255, 0.88)` | Popover background color |
+| `--yh-tooltip-border-color` | `rgba(0, 0, 0, 0.08)`       | Popover border color     |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhPopconfirmProps` | Component props type |
-| `YhPopconfirmEmits` | Component emits type |
-| `YhPopconfirmSlots` | Component slots type |
-| `YhPopconfirmExpose` | Component expose type |
+| Name                   | Description             |
+| ---------------------- | ----------------------- |
+| `YhPopconfirmProps`    | Component props type    |
+| `YhPopconfirmEmits`    | Component emits type    |
+| `YhPopconfirmSlots`    | Component slots type    |
+| `YhPopconfirmExpose`   | Component expose type   |
 | `YhPopconfirmInstance` | Component instance type |

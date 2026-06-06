@@ -11,9 +11,9 @@ describe('flow/utils/screenshot - captureElement', () => {
   beforeEach(() => {
     vi.stubGlobal(
       'fetch',
-      mockFetch = vi.fn().mockResolvedValue(
-        new Response(new Blob(['test'], { type: 'image/png' }))
-      )
+      (mockFetch = vi
+        .fn()
+        .mockResolvedValue(new Response(new Blob(['test'], { type: 'image/png' }))))
     )
   })
 
@@ -132,7 +132,10 @@ describe('flow/utils/screenshot - captureElement', () => {
 
       const el = createMockElement()
       await captureElement(el, { ...defaultOptions, backgroundColor: '#ff0000' })
-      expect(mockToPng).toHaveBeenCalledWith(el, expect.objectContaining({ backgroundColor: '#ff0000' }))
+      expect(mockToPng).toHaveBeenCalledWith(
+        el,
+        expect.objectContaining({ backgroundColor: '#ff0000' })
+      )
     })
   })
 

@@ -96,19 +96,32 @@ const renderLabelContent = computed(() => {
 </script>
 
 <template>
-  <li :class="[
-    ns.b(),
-    {
-      [ns.is('active')]: isActive,
-      [ns.is('disabled')]: disabled
-    }
-  ]" :style="itemStyle" role="menuitem" :tabindex="disabled ? -1 : 0" @click="handleClick"
-    @mouseenter="handleMouseEnter" @keydown.enter="handleClick">
-    <YhTooltip :content="props.label || ''" :disabled="menu?.collapse.value ? false : !isOverflow"
-      :placement="menu?.collapse.value ? 'right' : 'top'" effect="dark" :show-after="200" :show-arrow="true"
-      style="flex: 1; min-width: 0; overflow: hidden;">
+  <li
+    :class="[
+      ns.b(),
+      {
+        [ns.is('active')]: isActive,
+        [ns.is('disabled')]: disabled
+      }
+    ]"
+    :style="itemStyle"
+    role="menuitem"
+    :tabindex="disabled ? -1 : 0"
+    @click="handleClick"
+    @mouseenter="handleMouseEnter"
+    @keydown.enter="handleClick"
+  >
+    <YhTooltip
+      :content="props.label || ''"
+      :disabled="menu?.collapse.value ? false : !isOverflow"
+      :placement="menu?.collapse.value ? 'right' : 'top'"
+      effect="dark"
+      :show-after="200"
+      :show-arrow="true"
+      style="flex: 1; min-width: 0; overflow: hidden"
+    >
       <template #content>
-        <div style="max-width: 300px; word-break: break-all;">
+        <div style="max-width: 300px; word-break: break-all">
           <template v-if="renderLabelContent">
             <template v-if="typeof renderLabelContent === 'string'">
               {{ renderLabelContent }}

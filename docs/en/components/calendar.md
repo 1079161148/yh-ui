@@ -294,113 +294,113 @@ After installing `@yh-ui/nuxt`, you can use `YhCalendar` directly. The static ca
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| v-model / model-value | Bound value in single mode | `Date` | `undefined` |
-| default-value | Default selected date | `Date` | `undefined` |
-| mode | Calendar mode | `'month' \| 'year'` | `'month'` |
-| first-day-of-week | First day of week, `1` for Monday and `7` for Sunday | `number` | `7` |
-| min-date | Minimum selectable date | `Date` | `undefined` |
-| max-date | Maximum selectable date | `Date` | `undefined` |
-| readonly | Whether readonly | `boolean` | `false` |
-| disabled | Whether disabled | `boolean` | `false` |
-| month-header-format | Custom title format | `string` | `undefined` |
-| show-holiday | Whether to show holiday and workday markers | `boolean` | `false` |
-| holidays | Custom holiday map | `HolidayMap` | `{}` |
-| show-week-number | Whether to show week numbers | `boolean` | `false` |
-| fullscreen | Whether to fill the parent height | `boolean` | `false` |
-| selection-mode | Selection mode | `'single' \| 'range' \| 'multiple'` | `'single'` |
-| range-value | Range selection value | `[Date \| undefined, Date \| undefined]` | `undefined` |
-| multiple-value | Multiple selection value | `Date[]` | `[]` |
-| disabled-date | Custom disabled date predicate | `(date: Date) => boolean` | `undefined` |
-| cell-class-name | Custom class name generator for date cells | `(date: Date) => string \| string[] \| Record<string, boolean>` | `undefined` |
-| show-other-months | Whether to show dates outside the current month | `boolean` | `true` |
-| highlight-weekends | Whether to highlight weekends | `boolean` | `true` |
-| size | Calendar size | `'small' \| 'default' \| 'large'` | `'default'` |
-| theme-overrides | Component theme override variables | `CalendarThemeVars` | `undefined` |
+| Prop                  | Description                                          | Type                                                            | Default     |
+| --------------------- | ---------------------------------------------------- | --------------------------------------------------------------- | ----------- |
+| v-model / model-value | Bound value in single mode                           | `Date`                                                          | `undefined` |
+| default-value         | Default selected date                                | `Date`                                                          | `undefined` |
+| mode                  | Calendar mode                                        | `'month' \| 'year'`                                             | `'month'`   |
+| first-day-of-week     | First day of week, `1` for Monday and `7` for Sunday | `number`                                                        | `7`         |
+| min-date              | Minimum selectable date                              | `Date`                                                          | `undefined` |
+| max-date              | Maximum selectable date                              | `Date`                                                          | `undefined` |
+| readonly              | Whether readonly                                     | `boolean`                                                       | `false`     |
+| disabled              | Whether disabled                                     | `boolean`                                                       | `false`     |
+| month-header-format   | Custom title format                                  | `string`                                                        | `undefined` |
+| show-holiday          | Whether to show holiday and workday markers          | `boolean`                                                       | `false`     |
+| holidays              | Custom holiday map                                   | `HolidayMap`                                                    | `{}`        |
+| show-week-number      | Whether to show week numbers                         | `boolean`                                                       | `false`     |
+| fullscreen            | Whether to fill the parent height                    | `boolean`                                                       | `false`     |
+| selection-mode        | Selection mode                                       | `'single' \| 'range' \| 'multiple'`                             | `'single'`  |
+| range-value           | Range selection value                                | `[Date \| undefined, Date \| undefined]`                        | `undefined` |
+| multiple-value        | Multiple selection value                             | `Date[]`                                                        | `[]`        |
+| disabled-date         | Custom disabled date predicate                       | `(date: Date) => boolean`                                       | `undefined` |
+| cell-class-name       | Custom class name generator for date cells           | `(date: Date) => string \| string[] \| Record<string, boolean>` | `undefined` |
+| show-other-months     | Whether to show dates outside the current month      | `boolean`                                                       | `true`      |
+| highlight-weekends    | Whether to highlight weekends                        | `boolean`                                                       | `true`      |
+| size                  | Calendar size                                        | `'small' \| 'default' \| 'large'`                               | `'default'` |
+| theme-overrides       | Component theme override variables                   | `CalendarThemeVars`                                             | `undefined` |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered when the single value changes | `(value: Date) => void` |
-| update:rangeValue | Triggered when range selection completes | `(value: [Date \| undefined, Date \| undefined]) => void` |
-| update:multipleValue | Triggered when the multiple value changes | `(value: Date[]) => void` |
-| change | Triggered when the single value changes | `(value: Date) => void` |
-| panel-change | Triggered when the visible month changes | `(date: Date, mode: 'month' \| 'year') => void` |
-| select | Triggered when a date cell is selected | `(date: Date, cell: CalendarDateCell) => void` |
-| range-change | Triggered when range selection completes | `(value: [Date \| undefined, Date \| undefined]) => void` |
+| Event Name           | Description                               | Parameters                                                |
+| -------------------- | ----------------------------------------- | --------------------------------------------------------- |
+| update:modelValue    | Triggered when the single value changes   | `(value: Date) => void`                                   |
+| update:rangeValue    | Triggered when range selection completes  | `(value: [Date \| undefined, Date \| undefined]) => void` |
+| update:multipleValue | Triggered when the multiple value changes | `(value: Date[]) => void`                                 |
+| change               | Triggered when the single value changes   | `(value: Date) => void`                                   |
+| panel-change         | Triggered when the visible month changes  | `(date: Date, mode: 'month' \| 'year') => void`           |
+| select               | Triggered when a date cell is selected    | `(date: Date, cell: CalendarDateCell) => void`            |
+| range-change         | Triggered when range selection completes  | `(value: [Date \| undefined, Date \| undefined]) => void` |
 
 ### Slots
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| header | Custom header title | `{ date: string }` |
+| Slot Name | Description              | Parameters                       |
+| --------- | ------------------------ | -------------------------------- |
+| header    | Custom header title      | `{ date: string }`               |
 | date-cell | Custom date cell content | `{ data: CalendarCellSlotData }` |
-| footer | Custom footer area | - |
+| footer    | Custom footer area       | -                                |
 
 `CalendarCellSlotData` is the runtime slot payload and contains:
 
-| Field | Type | Description |
-| --- | --- | --- |
-| day | `string` | Formatted date string such as `2026-02-14` |
-| date | `Date` | Native date object |
-| type | `'prev-month' \| 'current-month' \| 'next-month'` | Month classification |
-| isSelected | `boolean` | Whether selected |
-| isToday | `boolean` | Whether today |
-| isDisabled | `boolean` | Whether disabled |
-| isWeekend | `boolean` | Whether weekend |
-| isHoliday | `boolean` | Whether a holiday |
-| holidayName | `string \| undefined` | Holiday name |
-| isWorkday | `boolean` | Whether a make-up workday |
-| isInRange | `boolean \| undefined` | Whether inside the current range |
-| isRangeStart | `boolean \| undefined` | Whether the range start |
-| isRangeEnd | `boolean \| undefined` | Whether the range end |
+| Field        | Type                                              | Description                                |
+| ------------ | ------------------------------------------------- | ------------------------------------------ |
+| day          | `string`                                          | Formatted date string such as `2026-02-14` |
+| date         | `Date`                                            | Native date object                         |
+| type         | `'prev-month' \| 'current-month' \| 'next-month'` | Month classification                       |
+| isSelected   | `boolean`                                         | Whether selected                           |
+| isToday      | `boolean`                                         | Whether today                              |
+| isDisabled   | `boolean`                                         | Whether disabled                           |
+| isWeekend    | `boolean`                                         | Whether weekend                            |
+| isHoliday    | `boolean`                                         | Whether a holiday                          |
+| holidayName  | `string \| undefined`                             | Holiday name                               |
+| isWorkday    | `boolean`                                         | Whether a make-up workday                  |
+| isInRange    | `boolean \| undefined`                            | Whether inside the current range           |
+| isRangeStart | `boolean \| undefined`                            | Whether the range start                    |
+| isRangeEnd   | `boolean \| undefined`                            | Whether the range end                      |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| displayDate | Currently displayed panel date | `Ref<Dayjs>` |
-| selectedDate | Currently selected date in single mode | `Ref<Dayjs \| undefined>` |
-| moveMonth | Change the current month | `(delta: number) => void` |
-| goToday | Jump to today | `() => void` |
-| selectDate | Select a specific date cell manually | `(cell: CalendarDateCell) => void` |
+| Name         | Description                            | Type                               |
+| ------------ | -------------------------------------- | ---------------------------------- |
+| displayDate  | Currently displayed panel date         | `Ref<Dayjs>`                       |
+| selectedDate | Currently selected date in single mode | `Ref<Dayjs \| undefined>`          |
+| moveMonth    | Change the current month               | `(delta: number) => void`          |
+| goToday      | Jump to today                          | `() => void`                       |
+| selectDate   | Select a specific date cell manually   | `(cell: CalendarDateCell) => void` |
 
 ### Type Exports
 
-| Type | Description |
-| --- | --- |
-| `YhCalendarProps` | Props type |
-| `YhCalendarEmits` | Emits type |
-| `YhCalendarSlots` | Slots type |
-| `YhCalendarExpose` | Expose type |
-| `YhCalendarDateCell` | Date cell type |
+| Type                    | Description       |
+| ----------------------- | ----------------- |
+| `YhCalendarProps`       | Props type        |
+| `YhCalendarEmits`       | Emits type        |
+| `YhCalendarSlots`       | Slots type        |
+| `YhCalendarExpose`      | Expose type       |
+| `YhCalendarDateCell`    | Date cell type    |
 | `YhCalendarHolidayInfo` | Holiday info type |
-| `YhCalendarHolidayMap` | Holiday map type |
-| `YhCalendarRangeValue` | Range value type |
-| `YhCalendarMode` | Mode type |
+| `YhCalendarHolidayMap`  | Holiday map type  |
+| `YhCalendarRangeValue`  | Range value type  |
+| `YhCalendarMode`        | Mode type         |
 
 ### Theme Variables
 
 The component supports `themeOverrides` and consumes the following CSS variables in styles:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-calendar-primary` | Primary color | `var(--yh-color-primary)` |
-| `--yh-calendar-primary-light` | Light primary background | `var(--yh-color-primary-light-9)` |
-| `--yh-calendar-primary-dark` | Dark primary state | `var(--yh-color-primary-dark-2)` |
-| `--yh-calendar-bg` | Calendar background | `var(--yh-bg-color)` |
-| `--yh-calendar-text` | Primary text color | `var(--yh-text-color-primary)` |
-| `--yh-calendar-cell-height` | Day cell height | `100px` |
-| `--yh-calendar-cell-radius` | Day cell radius | `var(--yh-radius-lg)` |
-| `--yh-calendar-head-height` | Header height | `80px` |
-| `--yh-calendar-title-size` | Title font size | `22px` |
-| `--yh-calendar-weekday-color` | Weekday title color | `var(--yh-text-color-secondary)` |
-| `--yh-calendar-week-number-color` | Week number color | `var(--yh-text-color-placeholder)` |
-| `--yh-calendar-holiday-color` | Holiday badge color | `var(--yh-color-danger)` |
-| `--yh-calendar-disabled-bg` | Disabled background | `var(--yh-fill-color-light)` |
-| `--yh-calendar-disabled-text` | Disabled text color | `var(--yh-text-color-placeholder)` |
+| Variable                          | Description              | Default                            |
+| --------------------------------- | ------------------------ | ---------------------------------- |
+| `--yh-calendar-primary`           | Primary color            | `var(--yh-color-primary)`          |
+| `--yh-calendar-primary-light`     | Light primary background | `var(--yh-color-primary-light-9)`  |
+| `--yh-calendar-primary-dark`      | Dark primary state       | `var(--yh-color-primary-dark-2)`   |
+| `--yh-calendar-bg`                | Calendar background      | `var(--yh-bg-color)`               |
+| `--yh-calendar-text`              | Primary text color       | `var(--yh-text-color-primary)`     |
+| `--yh-calendar-cell-height`       | Day cell height          | `100px`                            |
+| `--yh-calendar-cell-radius`       | Day cell radius          | `var(--yh-radius-lg)`              |
+| `--yh-calendar-head-height`       | Header height            | `80px`                             |
+| `--yh-calendar-title-size`        | Title font size          | `22px`                             |
+| `--yh-calendar-weekday-color`     | Weekday title color      | `var(--yh-text-color-secondary)`   |
+| `--yh-calendar-week-number-color` | Week number color        | `var(--yh-text-color-placeholder)` |
+| `--yh-calendar-holiday-color`     | Holiday badge color      | `var(--yh-color-danger)`           |
+| `--yh-calendar-disabled-bg`       | Disabled background      | `var(--yh-fill-color-light)`       |
+| `--yh-calendar-disabled-text`     | Disabled text color      | `var(--yh-text-color-placeholder)` |
 
 The exported `CalendarThemeVars` fields are:
 `headerBgColor`, `headerTextColor`, `titleFontSize`, `dayFontSize`, `dayTextColor`, `dayHoverBgColor`, `daySelectedBgColor`, `daySelectedTextColor`, `todayTextColor`, and `weekendTextColor`.

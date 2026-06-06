@@ -444,15 +444,15 @@ The toolbar area is divided into left and right sections, each with 3 slot posit
 
 ### Toolbar Slots
 
-| Slot | Description | Position |
-| --- | --- | --- |
-| `toolbar-left` | Left toolbar main content | Left |
-| `toolbar-left-prefix` | Left toolbar prefix (e.g., title) | Left start |
-| `toolbar-left-suffix` | Left toolbar suffix (e.g., statistics) | Left end |
-| `toolbar-right` | Right toolbar main content | Right |
-| `toolbar-right-prefix` | Right toolbar prefix (e.g., hints) | Right start |
-| `toolbar-right-suffix` | Right toolbar suffix (e.g., status) | Right end |
-| `empty` | Custom empty data state content | Inside table |
+| Slot                   | Description                            | Position     |
+| ---------------------- | -------------------------------------- | ------------ |
+| `toolbar-left`         | Left toolbar main content              | Left         |
+| `toolbar-left-prefix`  | Left toolbar prefix (e.g., title)      | Left start   |
+| `toolbar-left-suffix`  | Left toolbar suffix (e.g., statistics) | Left end     |
+| `toolbar-right`        | Right toolbar main content             | Right        |
+| `toolbar-right-prefix` | Right toolbar prefix (e.g., hints)     | Right start  |
+| `toolbar-right-suffix` | Right toolbar suffix (e.g., status)    | Right end    |
+| `empty`                | Custom empty data state content        | Inside table |
 
 ### Usage Tips
 

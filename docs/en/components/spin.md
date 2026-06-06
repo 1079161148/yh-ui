@@ -392,59 +392,58 @@ Spin is SSR-safe because it renders regular markup from props and slots. The loa
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| show | Whether to show loading state | `boolean` | `true` |
-| tip | Description text | `string` | - |
-| size | Size, supports keywords or custom px value | `'small' \| 'default' \| 'large' \| number` | `'default'` |
-| vertical | Whether to arrange icon and text vertically | `boolean` | `false` |
-| delay | Delay display time (ms), anti-flicker | `number` | `0` |
-| glass | Whether to enable fullscreen glass mask mode | `boolean` | `false` |
-| dot | Whether to use dot animation | `boolean` | `false` |
-| type | Loading animation style type. Options: `circle`, `chaser`, `gear`, `dual-ring`, `rect` | `LoadingSpinnerType` | `'circle'` |
-| color | Custom color (supports hex, RGB, CSS gradient string or gradient config object) | `string \| string[] \| Record<string, string>` | `undefined` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                                                            | Type                                           | Default     |
+| --------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------- | ----------- |
+| show            | Whether to show loading state                                                          | `boolean`                                      | `true`      |
+| tip             | Description text                                                                       | `string`                                       | -           |
+| size            | Size, supports keywords or custom px value                                             | `'small' \| 'default' \| 'large' \| number`    | `'default'` |
+| vertical        | Whether to arrange icon and text vertically                                            | `boolean`                                      | `false`     |
+| delay           | Delay display time (ms), anti-flicker                                                  | `number`                                       | `0`         |
+| glass           | Whether to enable fullscreen glass mask mode                                           | `boolean`                                      | `false`     |
+| dot             | Whether to use dot animation                                                           | `boolean`                                      | `false`     |
+| type            | Loading animation style type. Options: `circle`, `chaser`, `gear`, `dual-ring`, `rect` | `LoadingSpinnerType`                           | `'circle'`  |
+| color           | Custom color (supports hex, RGB, CSS gradient string or gradient config object)        | `string \| string[] \| Record<string, string>` | `undefined` |
+| theme-overrides | Component-level theme overrides                                                        | `ComponentThemeVars`                           | `undefined` |
 
 ### Events
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| show | Triggered when loading state shows | - |
-| hide | Triggered when loading state hides | - |
+| Event Name | Description                        | Parameters |
+| ---------- | ---------------------------------- | ---------- |
+| show       | Triggered when loading state shows | -          |
+| hide       | Triggered when loading state hides | -          |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Wrapped content. If this slot exists, Spin runs in container mode |
-| tip | Custom description text area |
+| Slot Name | Description                                                       |
+| --------- | ----------------------------------------------------------------- |
+| default   | Wrapped content. If this slot exists, Spin runs in container mode |
+| tip       | Custom description text area                                      |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name    | Description                                | Type                   |
+| ------- | ------------------------------------------ | ---------------------- |
 | visible | Whether the animation is currently visible | `ComputedRef<boolean>` |
 
 ### Theme Variables
 
 The component supports customization via the following variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-spin-color` | Base color of loading icon | `var(--yh-color-primary)` |
-| `--yh-spin-blur-radius` | Blur radius in container mode | `8px` |
-| `--yh-spin-mask-bg` | Mask background in container mode | `rgba(255, 255, 255, 0.4)` |
-| `--yh-spin-mask-bg-dark` | Mask background in dark mode | `rgba(0, 0, 0, 0.3)` |
-| `--yh-spin-gradient` | CSS background value in gradient mode | `undefined` |
+| Variable                 | Description                           | Default                    |
+| ------------------------ | ------------------------------------- | -------------------------- |
+| `--yh-spin-color`        | Base color of loading icon            | `var(--yh-color-primary)`  |
+| `--yh-spin-blur-radius`  | Blur radius in container mode         | `8px`                      |
+| `--yh-spin-mask-bg`      | Mask background in container mode     | `rgba(255, 255, 255, 0.4)` |
+| `--yh-spin-mask-bg-dark` | Mask background in dark mode          | `rgba(0, 0, 0, 0.3)`       |
+| `--yh-spin-gradient`     | CSS background value in gradient mode | `undefined`                |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSpinProps` | Component props type |
-| `YhSpinEmits` | Component emits type |
-| `YhSpinSlots` | Component slots type |
-| `YhSpinExpose` | Component expose type |
+| Name                   | Description                           |
+| ---------------------- | ------------------------------------- |
+| `YhSpinProps`          | Component props type                  |
+| `YhSpinEmits`          | Component emits type                  |
+| `YhSpinSlots`          | Component slots type                  |
+| `YhSpinExpose`         | Component expose type                 |
 | `YhLoadingSpinnerType` | Built-in loading animation union type |
-| `YhSpinInstance` | Component instance type |
-
+| `YhSpinInstance`       | Component instance type               |

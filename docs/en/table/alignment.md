@@ -267,18 +267,18 @@ In real scenarios, different columns typically need different alignment — stat
 
 ### TableColumn Alignment Properties
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| align | Column content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
+| Property    | Description                                   | Type                            | Default  |
+| ----------- | --------------------------------------------- | ------------------------------- | -------- |
+| align       | Column content alignment                      | `'left' \| 'center' \| 'right'` | `'left'` |
 | headerAlign | Header alignment (follows `align` if not set) | `'left' \| 'center' \| 'right'` | `'left'` |
 
 ### Alignment Values
 
-| Value | Description | Use Cases |
-| --- | --- | --- |
-| `left` | Left align (default) | Text content (name, address, description, etc.) |
-| `center` | Center align | Status tags, levels, action buttons, etc. |
-| `right` | Right align | Numeric content (amounts, quantities, scores, etc.) |
+| Value    | Description          | Use Cases                                           |
+| -------- | -------------------- | --------------------------------------------------- |
+| `left`   | Left align (default) | Text content (name, address, description, etc.)     |
+| `center` | Center align         | Status tags, levels, action buttons, etc.           |
+| `right`  | Right align          | Numeric content (amounts, quantities, scores, etc.) |
 
 ### Best Practices
 

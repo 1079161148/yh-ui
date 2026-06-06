@@ -2,7 +2,6 @@
 
 Use `YhTimeSelect` to choose from a predefined list of time slots. It fits appointment, scheduling, opening-hours, and other fixed-slot scenarios.
 
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -318,9 +317,10 @@ const jsFull = tsFull.replace('lang="ts"', '').replace(': string | undefined', '
 </script>
 
 ::: tip TimePicker vs TimeSelect
+
 - **TimePicker**: Select any arbitrary time through a spinner panel.
 - **TimeSelect**: Select from a predefined list of time options generated from rules or custom data.
-:::
+  :::
 
 ## Basic Usage
 
@@ -542,84 +542,84 @@ This example combines editable filtering, clearing, custom intervals, and end-ti
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Bound value | `string` | `undefined` |
-| disabled | Whether the component is disabled | `boolean` | `false` |
-| editable | Whether the input is editable and filterable | `boolean` | `true` |
-| clearable | Whether the current value can be cleared | `boolean` | `true` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `undefined` |
-| placeholder | Placeholder text | `string` | `''` |
-| name | Native input name | `string` | `undefined` |
-| effect | Dropdown visual theme | `'dark' \| 'light'` | `'light'` |
-| prefix-icon | Declared prefix icon prop. The current template still renders the built-in clock icon and does not consume this prop | `string \| Component` | `undefined` |
-| clear-icon | Declared clear icon prop. The current template still renders the built-in clear icon and does not consume this prop | `string \| Component` | `undefined` |
-| start | Start time used to generate options | `string` | `'09:00'` |
-| end | End time used to generate options | `string` | `'18:00'` |
-| step | Time interval used to generate options | `string` | `'00:30'` |
-| min-time | Minimum selectable time | `string` | `undefined` |
-| max-time | Maximum selectable time | `string` | `undefined` |
-| value-on-clear | Value emitted when cleared. Falls back to `undefined` when omitted | `string` | `undefined` |
-| format | Display format for generated options | `string` | `'HH:mm'` |
-| popper-class | Custom dropdown class name | `string` | `undefined` |
-| popper-style | Declared dropdown style prop. The current implementation does not merge this prop into the dropdown styles | `string \| Record<string, string>` | `undefined` |
-| teleported | Whether the dropdown is teleported to `body` | `boolean` | `true` |
-| include-end-time | Compatibility prop for including the end option. The current implementation already includes the exact end time in generated lists | `boolean` | `false` |
-| validate-event | Whether form validation is triggered on change and blur | `boolean` | `true` |
-| options | Custom time option list | `YhTimeSelectOption[]` | `undefined` |
-| disabled-hours | Disabled time ranges | `string[][]` | `undefined` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                  | Description                                                                                                                        | Type                               | Default     |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| model-value / v-model | Bound value                                                                                                                        | `string`                           | `undefined` |
+| disabled              | Whether the component is disabled                                                                                                  | `boolean`                          | `false`     |
+| editable              | Whether the input is editable and filterable                                                                                       | `boolean`                          | `true`      |
+| clearable             | Whether the current value can be cleared                                                                                           | `boolean`                          | `true`      |
+| size                  | Input size                                                                                                                         | `'large' \| 'default' \| 'small'`  | `undefined` |
+| placeholder           | Placeholder text                                                                                                                   | `string`                           | `''`        |
+| name                  | Native input name                                                                                                                  | `string`                           | `undefined` |
+| effect                | Dropdown visual theme                                                                                                              | `'dark' \| 'light'`                | `'light'`   |
+| prefix-icon           | Declared prefix icon prop. The current template still renders the built-in clock icon and does not consume this prop               | `string \| Component`              | `undefined` |
+| clear-icon            | Declared clear icon prop. The current template still renders the built-in clear icon and does not consume this prop                | `string \| Component`              | `undefined` |
+| start                 | Start time used to generate options                                                                                                | `string`                           | `'09:00'`   |
+| end                   | End time used to generate options                                                                                                  | `string`                           | `'18:00'`   |
+| step                  | Time interval used to generate options                                                                                             | `string`                           | `'00:30'`   |
+| min-time              | Minimum selectable time                                                                                                            | `string`                           | `undefined` |
+| max-time              | Maximum selectable time                                                                                                            | `string`                           | `undefined` |
+| value-on-clear        | Value emitted when cleared. Falls back to `undefined` when omitted                                                                 | `string`                           | `undefined` |
+| format                | Display format for generated options                                                                                               | `string`                           | `'HH:mm'`   |
+| popper-class          | Custom dropdown class name                                                                                                         | `string`                           | `undefined` |
+| popper-style          | Declared dropdown style prop. The current implementation does not merge this prop into the dropdown styles                         | `string \| Record<string, string>` | `undefined` |
+| teleported            | Whether the dropdown is teleported to `body`                                                                                       | `boolean`                          | `true`      |
+| include-end-time      | Compatibility prop for including the end option. The current implementation already includes the exact end time in generated lists | `boolean`                          | `false`     |
+| validate-event        | Whether form validation is triggered on change and blur                                                                            | `boolean`                          | `true`      |
+| options               | Custom time option list                                                                                                            | `YhTimeSelectOption[]`             | `undefined` |
+| disabled-hours        | Disabled time ranges                                                                                                               | `string[][]`                       | `undefined` |
+| theme-overrides       | Component-level theme overrides                                                                                                    | `ComponentThemeVars`               | `undefined` |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered when the bound value updates | `(value: string \| undefined) => void` |
-| change | Triggered when the selected value changes | `(value: string \| undefined) => void` |
-| focus | Triggered when the input gains focus | `(event: FocusEvent) => void` |
-| blur | Triggered when the input loses focus | `(event: FocusEvent) => void` |
-| clear | Triggered when the clear icon is clicked | `() => void` |
-| visible-change | Triggered when the dropdown visibility changes | `(visible: boolean) => void` |
+| Name              | Description                                    | Parameters                             |
+| ----------------- | ---------------------------------------------- | -------------------------------------- |
+| update:modelValue | Triggered when the bound value updates         | `(value: string \| undefined) => void` |
+| change            | Triggered when the selected value changes      | `(value: string \| undefined) => void` |
+| focus             | Triggered when the input gains focus           | `(event: FocusEvent) => void`          |
+| blur              | Triggered when the input loses focus           | `(event: FocusEvent) => void`          |
+| clear             | Triggered when the clear icon is clicked       | `() => void`                           |
+| visible-change    | Triggered when the dropdown visibility changes | `(visible: boolean) => void`           |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| prefix | Content rendered before the input | - |
-| empty | Content rendered when no option is available | - |
-| option | Custom option content | `{ option: YhTimeSelectOption }` |
+| Name   | Description                                  | Parameters                       |
+| ------ | -------------------------------------------- | -------------------------------- |
+| prefix | Content rendered before the input            | -                                |
+| empty  | Content rendered when no option is available | -                                |
+| option | Custom option content                        | `{ option: YhTimeSelectOption }` |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| focus | Focuses the input | `() => void` |
-| blur | Blurs the input | `() => void` |
+| Name     | Description                       | Type                                 |
+| -------- | --------------------------------- | ------------------------------------ |
+| focus    | Focuses the input                 | `() => void`                         |
+| blur     | Blurs the input                   | `() => void`                         |
 | inputRef | Ref to the internal input element | `Ref<HTMLInputElement \| undefined>` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTimeSelectProps` | Props type for `YhTimeSelect` |
-| `YhTimeSelectEmits` | Emits type for `YhTimeSelect` |
-| `YhTimeSelectSlots` | Slots type for `YhTimeSelect` |
-| `YhTimeSelectExpose` | Public expose type for `YhTimeSelect` |
-| `YhTimeSelectSize` | Size union type |
-| `YhTimeSelectOption` | Time option item type |
-| `YhTimeSelectInstance` | Component instance type |
+| Name                   | Description                           |
+| ---------------------- | ------------------------------------- |
+| `YhTimeSelectProps`    | Props type for `YhTimeSelect`         |
+| `YhTimeSelectEmits`    | Emits type for `YhTimeSelect`         |
+| `YhTimeSelectSlots`    | Slots type for `YhTimeSelect`         |
+| `YhTimeSelectExpose`   | Public expose type for `YhTimeSelect` |
+| `YhTimeSelectSize`     | Size union type                       |
+| `YhTimeSelectOption`   | Time option item type                 |
+| `YhTimeSelectInstance` | Component instance type               |
 
 ### Theme Variables
 
 `YhTimeSelect` supports `themeOverrides`. Its stylesheet directly consumes the following component-scoped CSS variables, while border, background, and text color tokens continue to come from the shared theme system.
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-time-select-height` | Control height | `var(--yh-component-size-default, 32px)` |
-| `--yh-time-select-font-size` | Input and option font size | `var(--yh-font-size-base, 14px)` |
-| `--yh-time-select-icon-size` | Prefix and suffix icon size | `14px` |
-| `--yh-time-select-prefix-margin` | Left spacing before the prefix icon | `12px` |
-| `--yh-time-select-display-padding` | Left padding for the display label | `38px` |
+| Variable                           | Description                         | Default                                  |
+| ---------------------------------- | ----------------------------------- | ---------------------------------------- |
+| `--yh-time-select-height`          | Control height                      | `var(--yh-component-size-default, 32px)` |
+| `--yh-time-select-font-size`       | Input and option font size          | `var(--yh-font-size-base, 14px)`         |
+| `--yh-time-select-icon-size`       | Prefix and suffix icon size         | `14px`                                   |
+| `--yh-time-select-prefix-margin`   | Left spacing before the prefix icon | `12px`                                   |
+| `--yh-time-select-display-padding` | Left padding for the display label  | `38px`                                   |
 
 ## Use Cases
 
@@ -686,4 +686,3 @@ This example combines editable filtering, clearing, custom intervals, and end-ti
   />
 </template>
 ```
-

@@ -6,21 +6,21 @@
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `name` | 图标名称，支持 `前缀:图标名` 格式 | `string` | `''` |
-| `icon` | 图标名称（与 name 等效，优先级更高） | `string` | `''` |
-| `svg` | 自定义 SVG 字符串（不含 `<svg>` 标签） | `string` | `''` |
-| `component` | Vue 组件 | `Component` | `undefined` |
-| `size` | 图标尺寸 | `number \| string` | `undefined` |
-| `color` | 图标颜色 | `string` | `undefined` |
-| `spin` | 是否显示旋转动画 | `boolean` | `false` |
-| `rotate` | 旋转角度（0, 90, 180, 270） | `number` | `0` |
+| 属性名      | 说明                                   | 类型               | 默认值      |
+| ----------- | -------------------------------------- | ------------------ | ----------- |
+| `name`      | 图标名称，支持 `前缀:图标名` 格式      | `string`           | `''`        |
+| `icon`      | 图标名称（与 name 等效，优先级更高）   | `string`           | `''`        |
+| `svg`       | 自定义 SVG 字符串（不含 `<svg>` 标签） | `string`           | `''`        |
+| `component` | Vue 组件                               | `Component`        | `undefined` |
+| `size`      | 图标尺寸                               | `number \| string` | `undefined` |
+| `color`     | 图标颜色                               | `string`           | `undefined` |
+| `spin`      | 是否显示旋转动画                       | `boolean`          | `false`     |
+| `rotate`    | 旋转角度（0, 90, 180, 270）            | `number`           | `0`         |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名    | 说明           |
+| --------- | -------------- |
 | `default` | 自定义图标内容 |
 
 ### Events
@@ -61,6 +61,7 @@ type IconName = string
 ```
 
 支持格式：
+
 - 简写名称：`'home'`
 - 带前缀：`'mdi:home'`
 - 斜杠分隔：`'mdi/home'`
@@ -74,6 +75,7 @@ type IconSize = number | string
 ```
 
 示例：
+
 - 数字：`24`
 - 像素字符串：`'24px'`
 - CSS 单位：`'2em'`
@@ -87,6 +89,7 @@ type IconColor = string
 ```
 
 示例：
+
 - 十六进制：`'#409EFF'`
 - 颜色名称：`'red'`
 - CSS 变量：`'var(--yh-color-primary)'`
@@ -154,6 +157,7 @@ function parseIconName(name: string): string
 ```
 
 **参数**：
+
 - `name`: 图标名称
 
 **返回值**：解析后的图标名称
@@ -163,9 +167,9 @@ function parseIconName(name: string): string
 ```typescript
 import { parseIconName } from '@yh-ui/icons'
 
-parseIconName('home')        // 'mdi:home'
-parseIconName('mdi:home')    // 'mdi:home'
-parseIconName('mdi/home')    // 'mdi:home'
+parseIconName('home') // 'mdi:home'
+parseIconName('mdi:home') // 'mdi:home'
+parseIconName('mdi/home') // 'mdi:home'
 ```
 
 ### iconExists
@@ -177,6 +181,7 @@ async function iconExists(name: string): Promise<boolean>
 ```
 
 **参数**：
+
 - `name`: 图标名称
 
 **返回值**：图标是否存在
@@ -199,6 +204,7 @@ async function getIconData(name: string): Promise<IconifyIcon>
 ```
 
 **参数**：
+
 - `name`: 图标名称
 
 **返回值**：图标的 SVG 数据
@@ -239,7 +245,7 @@ console.log(prefixes) // ['mdi', 'ep', 'lucide', ...]
 const AVAILABLE_COLLECTIONS = [
   { prefix: 'mdi', name: 'Material Design Icons', count: 7000 },
   { prefix: 'ep', name: 'Element Plus', count: 200 },
-  { prefix: 'lucide', name: 'Lucide', count: 1500 },
+  { prefix: 'lucide', name: 'Lucide', count: 1500 }
   // ...
 ] as const
 ```
@@ -260,9 +266,9 @@ const RECOMMENDED_COLLECTIONS = ['mdi', 'ep', 'lucide', 'tabler', 'ri'] as const
 const COMMON_ICONS = {
   'arrow-up': 'mdi:arrow-up',
   'arrow-down': 'mdi:arrow-down',
-  'close': 'mdi:close',
-  'check': 'mdi:check',
-  'search': 'mdi:magnify',
+  close: 'mdi:close',
+  check: 'mdi:check',
+  search: 'mdi:magnify'
   // ...
 } as const
 ```

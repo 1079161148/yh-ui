@@ -588,7 +588,6 @@ const jsPreview = toJs(tsPreview)
   </div>
 </DemoBlock>
 
-
 ## 照片墙模式
 
 适用于头像或商品图上传。
@@ -605,7 +604,6 @@ const jsPreview = toJs(tsPreview)
     <pre class="data-preview__content" v-text="json(fileListCard)"></pre>
   </div>
 </DemoBlock>
-
 
 ## 拖拽上传
 
@@ -628,7 +626,6 @@ const jsPreview = toJs(tsPreview)
   </div>
 </DemoBlock>
 
-
 ## 上传目录
 
 通过 `directory` 属性启用文件夹上传。开启后，只能选择文件夹；选择文件夹后，文件夹内的文件将被展开并依次上传。
@@ -646,7 +643,6 @@ const jsPreview = toJs(tsPreview)
     <pre class="data-preview__content" v-text="json(fileListDirectory)"></pre>
   </div>
 </DemoBlock>
-
 
 ## 手动上传
 
@@ -678,7 +674,6 @@ const jsPreview = toJs(tsPreview)
     <pre class="data-preview__content" v-text="json(fileListManual)"></pre>
   </div>
 </DemoBlock>
-
 
 ## 图片列表模式
 
@@ -869,7 +864,6 @@ const jsPreview = toJs(tsPreview)
   />
 </DemoBlock>
 
-
 ## 在 Nuxt 中使用
 
 由于 `YhUpload` 组件内部使用了 `Viewer.js` 和 `FileReader` 等浏览器特有 API，在 Nuxt 3 (SSR) 环境中使用时，请务必将其放置在 `<ClientOnly>` 组件内，或者确保仅在客户端生命周期（如 `onMounted`）中触发相关交互。
@@ -888,98 +882,97 @@ const jsPreview = toJs(tsPreview)
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| v-model:file-list | 已上传的文件列表 | `UploadFile[]` | `[]` |
-| action | 上传的地址 | `string` | `''` |
-| method | 上传的 HTTP 方法 | `string` | `'POST'` |
-| headers | 设置上传的请求头部 | `Record<string, string>` | `{}` |
-| data | 上传时附带的额外参数 | `Record<string, unknown>` | `{}` |
-| name | 上传文件的字段名 | `string` | `'file'` |
-| multiple | 是否支持多选文件 | `boolean` | `false` |
-| drag | 是否启用拖拽上传 | `boolean` | `false` |
-| accept | 接受上传的 [文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | `string` | `''` |
-| showFileList | 是否显示已上传文件列表 | `boolean` | `true` |
-| limit | 限制上传数量 | `number` | - |
-| autoUpload | 是否在选取文件后立即进行上传 | `boolean` | `true` |
-| listType | 文件列表类型 | `'text' \| 'picture' \| 'picture-card'` | `'text'` |
-| withCredentials | 支持发送 cookie 凭证信息 | `boolean` | `false` |
-| httpRequest | 覆盖默认的上传行为 | `(options: UploadRequestOptions) => Promise<unknown> \| void` | - |
-| beforeUpload | 上传文件之前的钩子 | `(file: UploadRawFile) => boolean \| Promise<boolean \| Blob>` | - |
-| beforeRemove | 删除文件之前的钩子 | `(file: UploadFile, fileList: UploadFile[]) => boolean \| Promise<boolean>` | - |
-| disabled | 是否禁用上传 | `boolean` | `false` |
-| thumbnailRequest | 自定义缩略图生成逻辑 | `(file: UploadRawFile) => Promise<string> \| string` | - |
-| maxSize | 文件大小限制 (KB) | `number` | - |
-| directory | 是否开启文件夹上传。启用后，只能选择文件夹；文件夹内的文件将被扁平化处理。 | `boolean` | `false` |
-| showDownload | 是否显示下载按钮 | `boolean` | `false` |
-| triggerPosition | 触发器相对于列表的位置 | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
-| fileIcon | 自定义文件图标或图标生成函数 | `string \| ((file: UploadFile) => string)` | - |
-| crossorigin | 原生属性 [crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) | `'anonymous' \| 'use-credentials' \| ''` | - |
-| themeOverrides | 组件级主题覆盖变量 | `ComponentThemeVars` | `undefined` |
+| 属性名            | 说明                                                                                               | 类型                                                                        | 默认值      |
+| ----------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------- |
+| v-model:file-list | 已上传的文件列表                                                                                   | `UploadFile[]`                                                              | `[]`        |
+| action            | 上传的地址                                                                                         | `string`                                                                    | `''`        |
+| method            | 上传的 HTTP 方法                                                                                   | `string`                                                                    | `'POST'`    |
+| headers           | 设置上传的请求头部                                                                                 | `Record<string, string>`                                                    | `{}`        |
+| data              | 上传时附带的额外参数                                                                               | `Record<string, unknown>`                                                   | `{}`        |
+| name              | 上传文件的字段名                                                                                   | `string`                                                                    | `'file'`    |
+| multiple          | 是否支持多选文件                                                                                   | `boolean`                                                                   | `false`     |
+| drag              | 是否启用拖拽上传                                                                                   | `boolean`                                                                   | `false`     |
+| accept            | 接受上传的 [文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | `string`                                                                    | `''`        |
+| showFileList      | 是否显示已上传文件列表                                                                             | `boolean`                                                                   | `true`      |
+| limit             | 限制上传数量                                                                                       | `number`                                                                    | -           |
+| autoUpload        | 是否在选取文件后立即进行上传                                                                       | `boolean`                                                                   | `true`      |
+| listType          | 文件列表类型                                                                                       | `'text' \| 'picture' \| 'picture-card'`                                     | `'text'`    |
+| withCredentials   | 支持发送 cookie 凭证信息                                                                           | `boolean`                                                                   | `false`     |
+| httpRequest       | 覆盖默认的上传行为                                                                                 | `(options: UploadRequestOptions) => Promise<unknown> \| void`               | -           |
+| beforeUpload      | 上传文件之前的钩子                                                                                 | `(file: UploadRawFile) => boolean \| Promise<boolean \| Blob>`              | -           |
+| beforeRemove      | 删除文件之前的钩子                                                                                 | `(file: UploadFile, fileList: UploadFile[]) => boolean \| Promise<boolean>` | -           |
+| disabled          | 是否禁用上传                                                                                       | `boolean`                                                                   | `false`     |
+| thumbnailRequest  | 自定义缩略图生成逻辑                                                                               | `(file: UploadRawFile) => Promise<string> \| string`                        | -           |
+| maxSize           | 文件大小限制 (KB)                                                                                  | `number`                                                                    | -           |
+| directory         | 是否开启文件夹上传。启用后，只能选择文件夹；文件夹内的文件将被扁平化处理。                         | `boolean`                                                                   | `false`     |
+| showDownload      | 是否显示下载按钮                                                                                   | `boolean`                                                                   | `false`     |
+| triggerPosition   | 触发器相对于列表的位置                                                                             | `'top' \| 'bottom' \| 'left' \| 'right'`                                    | `'top'`     |
+| fileIcon          | 自定义文件图标或图标生成函数                                                                       | `string \| ((file: UploadFile) => string)`                                  | -           |
+| crossorigin       | 原生属性 [crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)   | `'anonymous' \| 'use-credentials' \| ''`                                    | -           |
+| themeOverrides    | 组件级主题覆盖变量                                                                                 | `ComponentThemeVars`                                                        | `undefined` |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:fileList | 当文件列表更新时触发 (支持 v-model) | `(fileList: UploadFile[])` |
-| change | 文件状态改变时触发 | `(file: UploadFile, fileList: UploadFile[])` |
-| success | 文件上传成功时触发 | `(response: unknown, file: UploadFile, fileList: UploadFile[])` |
-| error | 文件上传失败时触发 | `(error: Error, file: UploadFile, fileList: UploadFile[])` |
-| progress | 文件上传进度改变时触发 | `(event: UploadProgressEvent, file: UploadFile, fileList: UploadFile[])` |
-| remove | 文件列表移除文件时触发 | `(file: UploadFile, fileList: UploadFile[])` |
-| preview | 点击文件预览时触发 | `(file: UploadFile)` |
-| download | 点击文件下载时触发 | `(file: UploadFile)` |
-| exceed | 当选取文件超出限制数量时触发 | `(files: File[], fileList: UploadFile[])` |
+| 事件名          | 说明                                | 回调参数                                                                 |
+| --------------- | ----------------------------------- | ------------------------------------------------------------------------ |
+| update:fileList | 当文件列表更新时触发 (支持 v-model) | `(fileList: UploadFile[])`                                               |
+| change          | 文件状态改变时触发                  | `(file: UploadFile, fileList: UploadFile[])`                             |
+| success         | 文件上传成功时触发                  | `(response: unknown, file: UploadFile, fileList: UploadFile[])`          |
+| error           | 文件上传失败时触发                  | `(error: Error, file: UploadFile, fileList: UploadFile[])`               |
+| progress        | 文件上传进度改变时触发              | `(event: UploadProgressEvent, file: UploadFile, fileList: UploadFile[])` |
+| remove          | 文件列表移除文件时触发              | `(file: UploadFile, fileList: UploadFile[])`                             |
+| preview         | 点击文件预览时触发                  | `(file: UploadFile)`                                                     |
+| download        | 点击文件下载时触发                  | `(file: UploadFile)`                                                     |
+| exceed          | 当选取文件超出限制数量时触发        | `(files: File[], fileList: UploadFile[])`                                |
 
 ### Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 默认插槽，用于放置触发上传的内容 | - |
-| trigger | 触发上传的元素 (仅在非拖拽模式有效) | - |
-| tip | 提示说明文字 | - |
-| file | 自定义文件列表项内容 | `{ file: UploadFile }` |
-| file-icon | 自定义文件类型图标 | `{ file: UploadFile }` |
+| 插槽名    | 说明                                | 参数                   |
+| --------- | ----------------------------------- | ---------------------- |
+| default   | 默认插槽，用于放置触发上传的内容    | -                      |
+| trigger   | 触发上传的元素 (仅在非拖拽模式有效) | -                      |
+| tip       | 提示说明文字                        | -                      |
+| file      | 自定义文件列表项内容                | `{ file: UploadFile }` |
+| file-icon | 自定义文件类型图标                  | `{ file: UploadFile }` |
 
 ### Expose
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| submit | 手动上传待上传文件列表 | - |
-| triggerInput | 手动唤起文件选择框 | - |
-| handleRemove | 手动移除指定文件 | `(file: UploadFile)` |
-| handlePreview | 手动触发文件预览 | `(file: UploadFile)` |
-| handleDownload | 手动触发文件下载 | `(file: UploadFile)` |
-| handleFiles | 手动添加并处理文件列表 | `(files: File[] \| FileList)` |
+| 方法名         | 说明                   | 参数                          |
+| -------------- | ---------------------- | ----------------------------- |
+| submit         | 手动上传待上传文件列表 | -                             |
+| triggerInput   | 手动唤起文件选择框     | -                             |
+| handleRemove   | 手动移除指定文件       | `(file: UploadFile)`          |
+| handlePreview  | 手动触发文件预览       | `(file: UploadFile)`          |
+| handleDownload | 手动触发文件下载       | `(file: UploadFile)`          |
+| handleFiles    | 手动添加并处理文件列表 | `(files: File[] \| FileList)` |
 
 ### 主题变量 (CSS Variables)
 
 `YhUpload` 支持 `themeOverrides`。当前样式文件直接消费以下 Upload 组件私有 CSS 变量，其余颜色仍复用全局主题 token：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-upload-dragger-bg` | 拖拽区域背景色 | `var(--yh-bg-color)` |
-| `--yh-upload-dragger-border` | 拖拽区域边框颜色 | `var(--yh-border-color-light)` |
-| `--yh-upload-item-bg` | 列表项背景色 | `var(--yh-fill-color-blank)` |
-| `--yh-upload-progress-bg` | 进度条背景色 | `var(--yh-color-primary)` |
-| `--yh-upload-error-bg` | 错误态列表项背景色 | `var(--yh-color-danger-light-9)` |
+| 变量名                       | 说明                   | 默认值                           |
+| ---------------------------- | ---------------------- | -------------------------------- |
+| `--yh-upload-dragger-bg`     | 拖拽区域背景色         | `var(--yh-bg-color)`             |
+| `--yh-upload-dragger-border` | 拖拽区域边框颜色       | `var(--yh-border-color-light)`   |
+| `--yh-upload-item-bg`        | 列表项背景色           | `var(--yh-fill-color-blank)`     |
+| `--yh-upload-progress-bg`    | 进度条背景色           | `var(--yh-color-primary)`        |
+| `--yh-upload-error-bg`       | 错误态列表项背景色     | `var(--yh-color-danger-light-9)` |
 | `--yh-upload-error-hover-bg` | 错误态列表项悬停背景色 | `var(--yh-color-danger-light-7)` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhUploadProps` | 组件 Props 类型 |
-| `YhUploadEmits` | 组件事件类型 |
-| `YhUploadSlots` | 组件插槽类型 |
-| `YhUploadExpose` | 组件 Expose 类型 |
-| `YhUploadFile` | 上传文件类型 |
-| `YhUploadRawFile` | 原始文件类型 |
-| `YhUploadProgressEvent` | 上传进度事件类型 |
+| 名称                     | 说明             |
+| ------------------------ | ---------------- |
+| `YhUploadProps`          | 组件 Props 类型  |
+| `YhUploadEmits`          | 组件事件类型     |
+| `YhUploadSlots`          | 组件插槽类型     |
+| `YhUploadExpose`         | 组件 Expose 类型 |
+| `YhUploadFile`           | 上传文件类型     |
+| `YhUploadRawFile`        | 原始文件类型     |
+| `YhUploadProgressEvent`  | 上传进度事件类型 |
 | `YhUploadRequestOptions` | 上传请求参数类型 |
-| `YhUploadStatus` | 上传状态联合类型 |
-| `YhUploadInstance` | 组件实例类型 |
-
+| `YhUploadStatus`         | 上传状态联合类型 |
+| `YhUploadInstance`       | 组件实例类型     |
 
 <style scoped>
 .yh-upload__dragger {

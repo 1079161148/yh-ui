@@ -1045,37 +1045,36 @@ Setting `mode: 'string'` returns the export content string without triggering do
 
 ### exportData(config?) Method
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| type | Export format | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | `'csv'` |
-| filename | Filename (without extension) | `string` | `'export'` |
-| includeHeader | Whether to include Header | `boolean` | `true` |
-| showIndex | Whether to include Index column | `boolean` | `false` |
-| indexTitle | Index column title | `string` | `'No.'` |
-| columns | Specify export columns (prop array) | `string[]` | All visible columns |
-| excludeColumns | Exclude columns (prop array) | `string[]` | — |
-| visibleOnly | Whether to export only visible columns | `boolean` | `true` |
-| data | Custom Export Data | `Record<string, unknown>[]` | Current table data |
-| columnTitles | Custom Column Titles mapping | `Record<string, string>` | — |
-| formatCell | Format cell content | `(value, column, row) => string` | — |
-| separator | CSV separator | `string` | `','` |
-| bom | Whether to add BOM header | `boolean` | `true` |
-| mode | Export mode | `'download' \| 'string'` | `'download'` |
-| beforeExport | Before export callback | `() => boolean` | — |
-| afterExport | After export callback | `(type) => void` | — |
-| sheetName | Sheet name (XLSX only) | `string` | `'Sheet1'` |
-| columnWidths | Column width config (XLSX only), e.g. `{ name: 15, address: 30 }` | `Record<string, number>` | — |
-| defaultColWidth | Default column width (XLSX only) | `number` | `12` |
-| autoWidth | Whether to auto-adjust column width (XLSX only) | `boolean` | `true` |
+| Property        | Description                                                       | Type                                                    | Default             |
+| --------------- | ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------- |
+| type            | Export format                                                     | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | `'csv'`             |
+| filename        | Filename (without extension)                                      | `string`                                                | `'export'`          |
+| includeHeader   | Whether to include Header                                         | `boolean`                                               | `true`              |
+| showIndex       | Whether to include Index column                                   | `boolean`                                               | `false`             |
+| indexTitle      | Index column title                                                | `string`                                                | `'No.'`             |
+| columns         | Specify export columns (prop array)                               | `string[]`                                              | All visible columns |
+| excludeColumns  | Exclude columns (prop array)                                      | `string[]`                                              | —                   |
+| visibleOnly     | Whether to export only visible columns                            | `boolean`                                               | `true`              |
+| data            | Custom Export Data                                                | `Record<string, unknown>[]`                             | Current table data  |
+| columnTitles    | Custom Column Titles mapping                                      | `Record<string, string>`                                | —                   |
+| formatCell      | Format cell content                                               | `(value, column, row) => string`                        | —                   |
+| separator       | CSV separator                                                     | `string`                                                | `','`               |
+| bom             | Whether to add BOM header                                         | `boolean`                                               | `true`              |
+| mode            | Export mode                                                       | `'download' \| 'string'`                                | `'download'`        |
+| beforeExport    | Before export callback                                            | `() => boolean`                                         | —                   |
+| afterExport     | After export callback                                             | `(type) => void`                                        | —                   |
+| sheetName       | Sheet name (XLSX only)                                            | `string`                                                | `'Sheet1'`          |
+| columnWidths    | Column width config (XLSX only), e.g. `{ name: 15, address: 30 }` | `Record<string, number>`                                | —                   |
+| defaultColWidth | Default column width (XLSX only)                                  | `number`                                                | `12`                |
+| autoWidth       | Whether to auto-adjust column width (XLSX only)                   | `boolean`                                               | `true`              |
 
 ### Format Descriptions
 
-| Format | Extension | MIME | Features |
-| --- | --- | --- | --- |
-| CSV | `.csv` | `text/csv` | Universal format, Excel can open directly, auto BOM |
-| JSON | `.json` | `application/json` | Preserves original data types, suitable for inter-program exchange |
-| TXT | `.txt` | `text/plain` | Tab-separated, can be pasted directly into Excel |
-| XML | `.xml` | `application/xml` | Standard XML structure, suitable for system integration |
-| HTML | `.html` | `text/html` | Styled table, viewable directly in browser |
-| XLSX | `.xlsx` | `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` | Excel format, supports auto column width, multiple sheets |
-
+| Format | Extension | MIME                                                                | Features                                                           |
+| ------ | --------- | ------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| CSV    | `.csv`    | `text/csv`                                                          | Universal format, Excel can open directly, auto BOM                |
+| JSON   | `.json`   | `application/json`                                                  | Preserves original data types, suitable for inter-program exchange |
+| TXT    | `.txt`    | `text/plain`                                                        | Tab-separated, can be pasted directly into Excel                   |
+| XML    | `.xml`    | `application/xml`                                                   | Standard XML structure, suitable for system integration            |
+| HTML   | `.html`   | `text/html`                                                         | Styled table, viewable directly in browser                         |
+| XLSX   | `.xlsx`   | `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` | Excel format, supports auto column width, multiple sheets          |

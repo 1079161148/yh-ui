@@ -131,9 +131,11 @@ const tsNuxt = `<${_T}>
 ## 🚀 自创高级特性
 
 ### 1. 智能溢出折叠 (Smart Overflow)
+
 当导航层级过深时，设置 `max-items` 可自动将中间项折叠为 `...`。这在窄屏容器或深层业务逻辑中能极大保护 UI 布局。
 
 ### 2. 路由无缝适配 (NuxtLink Compatible)
+
 组件底层会自动感应 `Nuxt` 环境。在 Nuxt 3/4 中使用时，路由跳转会自动由 `NuxtLink` 接管，支持 Prefetch 预取。
 
 ## 在 Nuxt 中使用
@@ -151,25 +153,25 @@ const tsNuxt = `<${_T}>
 
 ### Breadcrumb Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| separator | 分隔符字符串 | `string` | `/` |
-| separator-icon | 分隔符图标组件 | `string \| Component` | — |
-| max-items | 最大展示数量，超过则折叠 | `number` | `0` (不折叠) |
+| 属性名         | 说明                     | 类型                  | 默认值       |
+| -------------- | ------------------------ | --------------------- | ------------ |
+| separator      | 分隔符字符串             | `string`              | `/`          |
+| separator-icon | 分隔符图标组件           | `string \| Component` | —            |
+| max-items      | 最大展示数量，超过则折叠 | `number`              | `0` (不折叠) |
 
 ### BreadcrumbItem Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| to | 路由跳转目标 | `string \| object` | — |
-| replace | 是否替换当前路由 | `boolean` | `false` |
+| 属性名  | 说明             | 类型               | 默认值  |
+| ------- | ---------------- | ------------------ | ------- |
+| to      | 路由跳转目标     | `string \| object` | —       |
+| replace | 是否替换当前路由 | `boolean`          | `false` |
 
 ### 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-breadcrumb-font-size` | 字号 | `14px` |
-| `--yh-breadcrumb-item-color` | 默认文字颜色 | `var(--yh-text-color-regular)` |
+| 变量名                       | 说明             | 默认值                         |
+| ---------------------------- | ---------------- | ------------------------------ |
+| `--yh-breadcrumb-font-size`  | 字号             | `14px`                         |
+| `--yh-breadcrumb-item-color` | 默认文字颜色     | `var(--yh-text-color-regular)` |
 | `--yh-breadcrumb-last-color` | 最后一项文字颜色 | `var(--yh-text-color-primary)` |
 
 ### Events
@@ -178,9 +180,9 @@ const tsNuxt = `<${_T}>
 
 ### Slots
 
-| 插槽名 | 说明 | 插槽参数 |
-| --- | --- | --- |
-| `default` | 面包屑项内容。 | 无 |
+| 插槽名    | 说明           | 插槽参数 |
+| --------- | -------------- | -------- |
+| `default` | 面包屑项内容。 | 无       |
 
 ### Expose
 
@@ -188,14 +190,14 @@ const tsNuxt = `<${_T}>
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhBreadcrumbProps` | `YhBreadcrumb` props 类型 |
-| `YhBreadcrumbSlots` | `YhBreadcrumb` slots 类型 |
-| `YhBreadcrumbItemProps` | `YhBreadcrumbItem` props 类型 |
-| `YhBreadcrumbItemSlots` | `YhBreadcrumbItem` slots 类型 |
-| `YhBreadcrumbInstance` | `YhBreadcrumb` 实例类型 |
-| `YhBreadcrumbItemInstance` | `YhBreadcrumbItem` 实例类型 |
+| 名称                       | 说明                          |
+| -------------------------- | ----------------------------- |
+| `YhBreadcrumbProps`        | `YhBreadcrumb` props 类型     |
+| `YhBreadcrumbSlots`        | `YhBreadcrumb` slots 类型     |
+| `YhBreadcrumbItemProps`    | `YhBreadcrumbItem` props 类型 |
+| `YhBreadcrumbItemSlots`    | `YhBreadcrumbItem` slots 类型 |
+| `YhBreadcrumbInstance`     | `YhBreadcrumb` 实例类型       |
+| `YhBreadcrumbItemInstance` | `YhBreadcrumbItem` 实例类型   |
 
 <style scoped>
 .demo-showcase {

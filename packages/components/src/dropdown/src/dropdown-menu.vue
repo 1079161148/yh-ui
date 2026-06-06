@@ -16,7 +16,10 @@ const props = defineProps(dropdownMenuProps)
 const ns = useNamespace('dropdown')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('dropdown-menu', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'dropdown-menu',
+  computed(() => props.themeOverrides)
+)
 </script>
 
 <template>

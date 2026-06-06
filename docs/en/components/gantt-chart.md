@@ -800,25 +800,25 @@ For large projects with thousands of tasks, it is recommended to enable the `vir
 
 ### Props
 
-| Name               | Description                              | Type                                   | Default                                              |
-| ------------------ | ---------------------------------------- | -------------------------------------- | ---------------------------------------------------- |
-| data               | Task data, supports tree structure       | `GanttTask[]`                          | `[]`                                                 |
-| columns            | Left table column definitions            | `GanttColumn[]`                        | `[{ prop: 'name', label: 'Task Name', width: 200 }]` |
-| view-mode          | View mode, controls timeline granularity | `'day' \| 'week' \| 'month' \| 'year'` | `'day'`                                              |
-| start-date         | Forced Gantt chart start date            | `Date \| string`                       | Auto-calculated                                      |
-| end-date           | Forced Gantt chart end date              | `Date \| string`                       | Auto-calculated                                      |
-| draggable          | Whether to allow task timing dragging    | `boolean`                              | `false`                                              |
-| progress-draggable | Whether to allow progress dragging       | `boolean`                              | `false`                                              |
-| auto-schedule      | Whether to enable auto-scheduling        | `boolean`                              | `true`                                               |
-| virtual            | Enable virtual scrolling                 | `boolean`                              | `false`                                              |
-| show-resource-load | Show resource load detection             | `boolean`                              | `true`                                               |
-| show-dependencies  | Show task dependency lines               | `boolean`                              | `true`                                               |
-| row-height         | Row height (px)                          | `number`                               | `40`                                                 |
-| header-height      | Header height (px)                       | `number`                               | `60`                                                 |
-| bordered           | Whether to show borders                  | `boolean`                              | `true`                                               |
-| loading            | Whether to show loading status           | `boolean`                              | `false`                                              |
-| teleported         | Whether internal tooltips are teleported to `body` | `boolean`                    | `true`                                               |
-| theme-overrides    | Theme variable overrides                 | `ComponentThemeVars`                   | `undefined`                                          |
+| Name               | Description                                        | Type                                   | Default                                              |
+| ------------------ | -------------------------------------------------- | -------------------------------------- | ---------------------------------------------------- |
+| data               | Task data, supports tree structure                 | `GanttTask[]`                          | `[]`                                                 |
+| columns            | Left table column definitions                      | `GanttColumn[]`                        | `[{ prop: 'name', label: 'Task Name', width: 200 }]` |
+| view-mode          | View mode, controls timeline granularity           | `'day' \| 'week' \| 'month' \| 'year'` | `'day'`                                              |
+| start-date         | Forced Gantt chart start date                      | `Date \| string`                       | Auto-calculated                                      |
+| end-date           | Forced Gantt chart end date                        | `Date \| string`                       | Auto-calculated                                      |
+| draggable          | Whether to allow task timing dragging              | `boolean`                              | `false`                                              |
+| progress-draggable | Whether to allow progress dragging                 | `boolean`                              | `false`                                              |
+| auto-schedule      | Whether to enable auto-scheduling                  | `boolean`                              | `true`                                               |
+| virtual            | Enable virtual scrolling                           | `boolean`                              | `false`                                              |
+| show-resource-load | Show resource load detection                       | `boolean`                              | `true`                                               |
+| show-dependencies  | Show task dependency lines                         | `boolean`                              | `true`                                               |
+| row-height         | Row height (px)                                    | `number`                               | `40`                                                 |
+| header-height      | Header height (px)                                 | `number`                               | `60`                                                 |
+| bordered           | Whether to show borders                            | `boolean`                              | `true`                                               |
+| loading            | Whether to show loading status                     | `boolean`                              | `false`                                              |
+| teleported         | Whether internal tooltips are teleported to `body` | `boolean`                              | `true`                                               |
+| theme-overrides    | Theme variable overrides                           | `ComponentThemeVars`                   | `undefined`                                          |
 
 ### Events
 
@@ -883,11 +883,11 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhGanttChartProps` | Component props type |
-| `YhGanttChartEmits` | Component emits type |
-| `YhGanttTask` | Task data type |
-| `YhGanttColumn` | Column config type |
-| `YhGanttChartSlots` | Component slots type |
+| Name                   | Description             |
+| ---------------------- | ----------------------- |
+| `YhGanttChartProps`    | Component props type    |
+| `YhGanttChartEmits`    | Component emits type    |
+| `YhGanttTask`          | Task data type          |
+| `YhGanttColumn`        | Column config type      |
+| `YhGanttChartSlots`    | Component slots type    |
 | `YhGanttChartInstance` | Component instance type |

@@ -219,27 +219,27 @@ const jsAdvanced = toJs(tsAdvanced)
 
 ### Props
 
-| 属性名          | 说明                    | 类型                                              | 默认值             |
-| --------------- | ----------------------- | ------------------------------------------------- | ------------------ |
-| title           | 优惠券标题              | `string`                                          | `''`               |
-| description     | 描述文本                | `string`                                          | `''`               |
-| amount          | 优惠金额/数值           | `string \| number`                                | `''`               |
-| symbol          | 货币符号                | `string`                                          | `'¥'`              |
-| threshold       | 使用门槛描述            | `string \| number`                                | `''`               |
-| valid-period    | 有效期描述              | `string`                                          | `''`               |
-| status          | 状态                    | `'available' \| 'used' \| 'expired' \| 'locked'`  | `'available'`      |
-| variant         | 背景镂空变体            | `'circle' \| 'indent' \| 'scallop'`               | `'circle'`         |
-| selectable      | 是否开启选择模式        | `boolean`                                         | `false`            |
-| selected        | 是否选中 (支持 v-model) | `boolean`                                         | `false`            |
-| action-text     | 操作按钮文案            | `string`                                          | `''`               |
-| badge           | 角标文本                | `string`                                          | `''`               |
-| badge-type      | 角标颜色类型            | `'danger' \| 'warning' \| 'primary' \| 'success'` | `'danger'`         |
-| percent         | 疯抢进度百分比 (0-100)  | `number`                                          | —                  |
-| percent-text    | 进度条旁边的提示文本    | `string`                                          | `''`               |
-| rules           | 底部展开的使用规则文本  | `string`                                          | `''`               |
-| rule-title      | 使用规则展示的标题文本  | `string`                                          | `''`               |
-| disabled        | 是否禁用过期样式展示    | `boolean`                                         | `false`            |
-| theme-overrides | 主题变量覆盖            | `object`                                          | —                  |
+| 属性名          | 说明                    | 类型                                              | 默认值        |
+| --------------- | ----------------------- | ------------------------------------------------- | ------------- |
+| title           | 优惠券标题              | `string`                                          | `''`          |
+| description     | 描述文本                | `string`                                          | `''`          |
+| amount          | 优惠金额/数值           | `string \| number`                                | `''`          |
+| symbol          | 货币符号                | `string`                                          | `'¥'`         |
+| threshold       | 使用门槛描述            | `string \| number`                                | `''`          |
+| valid-period    | 有效期描述              | `string`                                          | `''`          |
+| status          | 状态                    | `'available' \| 'used' \| 'expired' \| 'locked'`  | `'available'` |
+| variant         | 背景镂空变体            | `'circle' \| 'indent' \| 'scallop'`               | `'circle'`    |
+| selectable      | 是否开启选择模式        | `boolean`                                         | `false`       |
+| selected        | 是否选中 (支持 v-model) | `boolean`                                         | `false`       |
+| action-text     | 操作按钮文案            | `string`                                          | `''`          |
+| badge           | 角标文本                | `string`                                          | `''`          |
+| badge-type      | 角标颜色类型            | `'danger' \| 'warning' \| 'primary' \| 'success'` | `'danger'`    |
+| percent         | 疯抢进度百分比 (0-100)  | `number`                                          | —             |
+| percent-text    | 进度条旁边的提示文本    | `string`                                          | `''`          |
+| rules           | 底部展开的使用规则文本  | `string`                                          | `''`          |
+| rule-title      | 使用规则展示的标题文本  | `string`                                          | `''`          |
+| disabled        | 是否禁用过期样式展示    | `boolean`                                         | `false`       |
+| theme-overrides | 主题变量覆盖            | `object`                                          | —             |
 
 ### Events
 
@@ -251,14 +251,14 @@ const jsAdvanced = toJs(tsAdvanced)
 
 ### Slots
 
-| 插槽名      | 说明               | 参数 |
-| ----------- | ------------------ | ---- |
-| title       | 自定义优惠券标题   | —    |
-| description | 自定义描述内容     | —    |
-| action      | 自定义右侧操作区域 | —    |
-| badge       | 自定义角标内容     | —    |
+| 插槽名      | 说明               | 参数                       |
+| ----------- | ------------------ | -------------------------- |
+| title       | 自定义优惠券标题   | —                          |
+| description | 自定义描述内容     | —                          |
+| action      | 自定义右侧操作区域 | —                          |
+| badge       | 自定义角标内容     | —                          |
 | seal        | 自定义状态印章     | `{ status: CouponStatus }` |
-| rules       | 自定义规则说明区域 | —    |
+| rules       | 自定义规则说明区域 | —                          |
 
 ### Expose
 
@@ -274,10 +274,10 @@ const jsAdvanced = toJs(tsAdvanced)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhCouponCardProps` | 组件 Props 类型 |
-| `YhCouponCardEmits` | 组件事件类型 |
-| `YhCouponCardSlots` | 组件插槽类型 |
-| `YhCouponStatus` | 优惠券状态联合类型 |
-| `YhCouponCardInstance` | 组件实例类型 |
+| 名称                   | 说明               |
+| ---------------------- | ------------------ |
+| `YhCouponCardProps`    | 组件 Props 类型    |
+| `YhCouponCardEmits`    | 组件事件类型       |
+| `YhCouponCardSlots`    | 组件插槽类型       |
+| `YhCouponStatus`       | 优惠券状态联合类型 |
+| `YhCouponCardInstance` | 组件实例类型       |

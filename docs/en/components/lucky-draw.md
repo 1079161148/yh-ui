@@ -331,18 +331,18 @@ Use `type="grid"` to render a 3x3 lottery grid. The center area is the start but
 
 ### Props
 
-| Property        | Description                                              | Type                  | Default   |
-| --------------- | -------------------------------------------------------- | --------------------- | --------- |
-| type            | Draw mode                                                | `'wheel'` \| `'grid'` | `'wheel'` |
-| prizes          | Prizes array                                             | `LuckyPrize[]`        | `[]`      |
-| loading         | Async loading operation state mapping indicator          | `boolean`             | `false`   |
-| target-id       | Outcome ID (starts animation sequentially when resolved) | `string` \| `number`  | `''`      |
-| rounds          | Minimum rotations                                        | `number`              | `8`       |
-| duration        | Animation time (ms)                                      | `number`              | `4000`    |
-| size            | Container bounds mapping                                 | `number` \| `string`  | `300`     |
-| action-text     | Action button text override                              | `string`              | `''`      |
-| hide-btn        | Hide built-in button                                     | `boolean`             | `false`   |
-| theme-overrides | Theme variables object dictionary                        | `Record<string, string>` | `{}`     |
+| Property        | Description                                              | Type                     | Default   |
+| --------------- | -------------------------------------------------------- | ------------------------ | --------- |
+| type            | Draw mode                                                | `'wheel'` \| `'grid'`    | `'wheel'` |
+| prizes          | Prizes array                                             | `LuckyPrize[]`           | `[]`      |
+| loading         | Async loading operation state mapping indicator          | `boolean`                | `false`   |
+| target-id       | Outcome ID (starts animation sequentially when resolved) | `string` \| `number`     | `''`      |
+| rounds          | Minimum rotations                                        | `number`                 | `8`       |
+| duration        | Animation time (ms)                                      | `number`                 | `4000`    |
+| size            | Container bounds mapping                                 | `number` \| `string`     | `300`     |
+| action-text     | Action button text override                              | `string`                 | `''`      |
+| hide-btn        | Hide built-in button                                     | `boolean`                | `false`   |
+| theme-overrides | Theme variables object dictionary                        | `Record<string, string>` | `{}`      |
 
 ### Events
 
@@ -354,10 +354,10 @@ Use `type="grid"` to render a 3x3 lottery grid. The center area is the start but
 
 ### Slots
 
-| Slot   | Description              | Parameters |
-| ------ | ------------------------ | ---------- |
+| Slot   | Description              | Parameters              |
+| ------ | ------------------------ | ----------------------- |
 | prize  | Custom prize cell        | `{ prize: LuckyPrize }` |
-| action | Custom start button area | `-`          |
+| action | Custom start button area | `-`                     |
 
 ### Expose
 
@@ -375,11 +375,11 @@ Use the following theme variables to override the component's core visual styles
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhLuckyDrawProps` | Component props type |
-| `YhLuckyDrawEmits` | Component emits type |
-| `YhLuckyDrawSlots` | Component slots type |
-| `YhLuckyPrize` | Prize data type |
-| `YhLuckyDrawType` | Draw mode union |
+| Name                  | Description             |
+| --------------------- | ----------------------- |
+| `YhLuckyDrawProps`    | Component props type    |
+| `YhLuckyDrawEmits`    | Component emits type    |
+| `YhLuckyDrawSlots`    | Component slots type    |
+| `YhLuckyPrize`        | Prize data type         |
+| `YhLuckyDrawType`     | Draw mode union         |
 | `YhLuckyDrawInstance` | Component instance type |

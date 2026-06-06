@@ -106,7 +106,10 @@ describe('useAIStream', () => {
   })
 
   it('appendMode false replaces text on structured chunk', async () => {
-    const chunks = ['event: chunk\ndata: {"content":"first"}\n\n', 'event: chunk\ndata: {"content":"second"}\n\n']
+    const chunks = [
+      'event: chunk\ndata: {"content":"first"}\n\n',
+      'event: chunk\ndata: {"content":"second"}\n\n'
+    ]
     ;(global.fetch as any).mockResolvedValue(createMockResponse(chunks))
 
     const { text, start } = useAIStream({ appendMode: false })
@@ -120,10 +123,7 @@ describe('useAIStream', () => {
   })
 
   it('handles error event and thinking object', async () => {
-    const chunks = [
-      'event: thinking\ndata: {"thinking":"plan"}\n\n',
-      'event: error\ndata: {}\n\n'
-    ]
+    const chunks = ['event: thinking\ndata: {"thinking":"plan"}\n\n', 'event: error\ndata: {}\n\n']
     ;(global.fetch as any).mockResolvedValue(createMockResponse(chunks))
 
     const { thinking, done, start } = useAIStream()

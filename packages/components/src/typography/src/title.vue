@@ -21,7 +21,10 @@ const props = withDefaults(defineProps<TypographyTitleProps>(), {
 })
 
 const ns = useNamespace('typography')
-const { themeStyle } = useComponentTheme('typography', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'typography',
+  computed(() => props.themeOverrides)
+)
 
 const tagName = computed(() => props.tag || `h${props.level}`)
 

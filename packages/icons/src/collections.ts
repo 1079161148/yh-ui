@@ -85,12 +85,12 @@ export const ICON_COLLECTIONS: IconCollection[] = [
  * 获取图标集配置
  */
 export function getCollection(prefix: string): IconCollection | undefined {
-  return ICON_COLLECTIONS.find(c => c.prefix === prefix)
+  return ICON_COLLECTIONS.find((c) => c.prefix === prefix)
 }
 
 /**
  * 获取所有图标集前缀
  */
 export function getAllPrefixes(): string[] {
-  return ICON_COLLECTIONS.map(c => c.prefix)
+  return ICON_COLLECTIONS.map((c) => c.prefix)
 }

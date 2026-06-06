@@ -495,70 +495,70 @@ import { YhMessage } from '@yh-ui/yh-ui'
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `message` | Message content. The current template renders prop content as plain text or HTML only, so prop-based `VNode` content is declared in the type but is not rendered as a vnode by the current implementation. | `string \| VNode` | `undefined` |
-| `type` | Message type. | `'success' \| 'warning' \| 'info' \| 'error'` | `'info'` |
-| `icon` | Custom icon prop. Declared in the type, but the current implementation does not consume it. Use the `icon` slot for custom icons. | `string \| VNode` | `undefined` |
-| `show-close` | Whether to show the close button. | `boolean` | `false` |
-| `duration` | Display duration in milliseconds. Set to `0` to keep the message open until manually closed. | `number` | `3000` |
-| `offset` | Offset used by the component instance. In the service API, omitted top placements start from `64` and bottom placements start from `20`. | `number` | `20` |
-| `id` | Internal id used by the service runtime. | `string` | `undefined` |
-| `dangerously-use-html-string` | Whether to render `message` as HTML. | `boolean` | `false` |
-| `center` | Whether to center the content text. | `boolean` | `false` |
-| `on-close` | Callback invoked when the message closes. | `() => void` | `undefined` |
-| `z-index` | Custom z-index. | `number` | `undefined` |
-| `custom-class` | Extra class name. | `string` | `undefined` |
-| `grouping` | Merge messages with the same `message` and `type`. | `boolean` | `false` |
-| `repeat-num` | Runtime repeat count used by grouped messages. This is maintained by the service implementation. | `number` | `undefined` |
-| `placement` | Message placement. | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'` |
-| `theme-overrides` | Component-level theme override variables. | `ComponentThemeVars` | `undefined` |
+| Prop                          | Description                                                                                                                                                                                                | Type                                                                                | Default     |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------- |
+| `message`                     | Message content. The current template renders prop content as plain text or HTML only, so prop-based `VNode` content is declared in the type but is not rendered as a vnode by the current implementation. | `string \| VNode`                                                                   | `undefined` |
+| `type`                        | Message type.                                                                                                                                                                                              | `'success' \| 'warning' \| 'info' \| 'error'`                                       | `'info'`    |
+| `icon`                        | Custom icon prop. Declared in the type, but the current implementation does not consume it. Use the `icon` slot for custom icons.                                                                          | `string \| VNode`                                                                   | `undefined` |
+| `show-close`                  | Whether to show the close button.                                                                                                                                                                          | `boolean`                                                                           | `false`     |
+| `duration`                    | Display duration in milliseconds. Set to `0` to keep the message open until manually closed.                                                                                                               | `number`                                                                            | `3000`      |
+| `offset`                      | Offset used by the component instance. In the service API, omitted top placements start from `64` and bottom placements start from `20`.                                                                   | `number`                                                                            | `20`        |
+| `id`                          | Internal id used by the service runtime.                                                                                                                                                                   | `string`                                                                            | `undefined` |
+| `dangerously-use-html-string` | Whether to render `message` as HTML.                                                                                                                                                                       | `boolean`                                                                           | `false`     |
+| `center`                      | Whether to center the content text.                                                                                                                                                                        | `boolean`                                                                           | `false`     |
+| `on-close`                    | Callback invoked when the message closes.                                                                                                                                                                  | `() => void`                                                                        | `undefined` |
+| `z-index`                     | Custom z-index.                                                                                                                                                                                            | `number`                                                                            | `undefined` |
+| `custom-class`                | Extra class name.                                                                                                                                                                                          | `string`                                                                            | `undefined` |
+| `grouping`                    | Merge messages with the same `message` and `type`.                                                                                                                                                         | `boolean`                                                                           | `false`     |
+| `repeat-num`                  | Runtime repeat count used by grouped messages. This is maintained by the service implementation.                                                                                                           | `number`                                                                            | `undefined` |
+| `placement`                   | Message placement.                                                                                                                                                                                         | `'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'` | `'top'`     |
+| `theme-overrides`             | Component-level theme override variables.                                                                                                                                                                  | `ComponentThemeVars`                                                                | `undefined` |
 
 ### Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event     | Description                                    | Parameters   |
+| --------- | ---------------------------------------------- | ------------ |
 | `destroy` | Triggered after the leave transition finishes. | `() => void` |
 
 ### Slots
 
-| Slot Name | Description |
-| --------- | ----------- |
+| Slot Name | Description                                 |
+| --------- | ------------------------------------------- |
 | `default` | Custom message content for component usage. |
-| `icon` | Custom icon content. |
+| `icon`    | Custom icon content.                        |
 
 ### Expose
 
 Calling `YhMessage` returns an instance of the current Message. If you need to manually close the instance, call its `close` method.
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `close` | Close current Message. | `() => void` |
+| Name      | Description               | Type           |
+| --------- | ------------------------- | -------------- |
+| `close`   | Close current Message.    | `() => void`   |
 | `visible` | Current visibility state. | `Ref<boolean>` |
 
 ### Theme Variables
 
-| Variable                         | Description              | Default                            |
-| -------------------------------- | ------------------------ | ---------------------------------- |
-| `--yh-message-bg-color`          | Background color         | `var(--yh-bg-color-overlay)`       |
-| `--yh-message-border-color`      | Border color             | `var(--yh-border-color-lighter)`   |
-| `--yh-message-shadow`            | Message box shadow       | `var(--yh-shadow-lg)`              |
-| `--yh-message-text-color`        | Text color               | `var(--yh-text-color-primary)`     |
-| `--yh-message-close-color`       | Close button color       | `var(--yh-text-color-secondary)`   |
-| `--yh-message-close-hover-color` | Close button hover color | `var(--yh-text-color-primary)`     |
+| Variable                         | Description              | Default                          |
+| -------------------------------- | ------------------------ | -------------------------------- |
+| `--yh-message-bg-color`          | Background color         | `var(--yh-bg-color-overlay)`     |
+| `--yh-message-border-color`      | Border color             | `var(--yh-border-color-lighter)` |
+| `--yh-message-shadow`            | Message box shadow       | `var(--yh-shadow-lg)`            |
+| `--yh-message-text-color`        | Text color               | `var(--yh-text-color-primary)`   |
+| `--yh-message-close-color`       | Close button color       | `var(--yh-text-color-secondary)` |
+| `--yh-message-close-hover-color` | Close button hover color | `var(--yh-text-color-primary)`   |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhMessageProps` | Props type for the internal message component |
-| `YhMessageEmits` | Emits type for the internal message component |
-| `YhMessageSlots` | Slots type for the internal message component |
-| `YhMessageExpose` | Expose type for the internal message component |
-| `YhMessageInstance` | Public instance type for a single message |
-| `YhMessageOptions` | Service options type for `YhMessage(...)` |
-| `YhMessageHandler` | Returned handler type |
-| `YhMessageContext` | Internal runtime context type |
-| `YhMessageFn` | Message function signature type |
-| `YhMessageType` | Message type union |
-| `YhMessagePlacement` | Message placement union |
+| Name                 | Description                                    |
+| -------------------- | ---------------------------------------------- |
+| `YhMessageProps`     | Props type for the internal message component  |
+| `YhMessageEmits`     | Emits type for the internal message component  |
+| `YhMessageSlots`     | Slots type for the internal message component  |
+| `YhMessageExpose`    | Expose type for the internal message component |
+| `YhMessageInstance`  | Public instance type for a single message      |
+| `YhMessageOptions`   | Service options type for `YhMessage(...)`      |
+| `YhMessageHandler`   | Returned handler type                          |
+| `YhMessageContext`   | Internal runtime context type                  |
+| `YhMessageFn`        | Message function signature type                |
+| `YhMessageType`      | Message type union                             |
+| `YhMessagePlacement` | Message placement union                        |

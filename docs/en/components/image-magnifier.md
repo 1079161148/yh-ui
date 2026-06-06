@@ -403,13 +403,13 @@ Override the following CSS custom properties via `theme-overrides` to customize 
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhImageMagnifierProps` | Component props type |
-| `YhImageMagnifierEmits` | Component emits type |
-| `YhImageMagnifierSlots` | Component slots type |
-| `YhImageMagnifierExpose` | Component expose type |
-| `YhImageMagnifierImage` | Image data type |
-| `YhImageMagnifierPosition` | Preview position union |
-| `YhImageMagnifierMaskShape` | Lens shape union |
-| `YhImageMagnifierInstance` | Component instance type |
+| Name                        | Description             |
+| --------------------------- | ----------------------- |
+| `YhImageMagnifierProps`     | Component props type    |
+| `YhImageMagnifierEmits`     | Component emits type    |
+| `YhImageMagnifierSlots`     | Component slots type    |
+| `YhImageMagnifierExpose`    | Component expose type   |
+| `YhImageMagnifierImage`     | Image data type         |
+| `YhImageMagnifierPosition`  | Preview position union  |
+| `YhImageMagnifierMaskShape` | Lens shape union        |
+| `YhImageMagnifierInstance`  | Component instance type |

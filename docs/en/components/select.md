@@ -554,114 +554,114 @@ Use `size` to switch between `large`, default, and `small`.
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Bound value | `YhSelectValue \| YhSelectValue[]` | `undefined` |
-| options | Option data rendered by the component | `YhSelectOption[]` | `[]` |
-| placeholder | Placeholder text | `string` | `''` |
-| disabled | Whether the component is disabled | `boolean` | `false` |
-| clearable | Whether the current value can be cleared | `boolean` | `false` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
-| multiple | Whether multiple selection is enabled | `boolean` | `false` |
-| multiple-limit | Maximum selected item count in multiple mode, `0` means unlimited | `number` | `0` |
-| filterable | Whether keyword filtering is enabled | `boolean` | `false` |
-| filter-method | Custom local filter method | `(query: string) => void` | `undefined` |
-| remote | Whether remote filtering is enabled | `boolean` | `false` |
-| remote-method | Remote search callback | `(query: string) => void` | `undefined` |
-| loading | Whether the loading state is shown | `boolean` | `false` |
-| loading-text | Custom loading text. Falls back to locale text when empty | `string` | `''` |
-| no-match-text | Custom empty text shown for no matching results. Falls back to locale text when empty | `string` | `''` |
-| no-data-text | Custom empty text shown when there is no option data. Falls back to locale text when empty | `string` | `''` |
-| allow-create | Whether users can create options from the current query | `boolean` | `false` |
-| collapse-tags | Whether selected tags are collapsed in multiple mode | `boolean` | `false` |
-| collapse-tags-tooltip | Whether collapsed tags show a tooltip summary | `boolean` | `false` |
-| max-collapse-tags | Maximum visible tag count when `collapse-tags` is enabled | `number` | `1` |
-| popper-class | Custom dropdown class name | `string` | `undefined` |
-| teleported | Whether the dropdown is teleported to `body` | `boolean` | `true` |
-| fit-input-width | Whether the dropdown width follows the input width | `boolean` | `true` |
-| tag-type | Tag type used in multiple mode | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''` |
-| virtual-scroll | Whether virtual scrolling is enabled | `boolean` | `false` |
-| item-height | Virtual list row height | `number` | `34` |
-| height | Virtual list viewport height | `number` | `274` |
-| validate-event | Whether form validation is triggered on change and blur | `boolean` | `true` |
-| value-key | Property name used as the option value key | `string` | `'value'` |
-| label-key | Property name used as the option label key | `string` | `'label'` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                  | Description                                                                                | Type                                                 | Default     |
+| --------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------- | ----------- |
+| model-value / v-model | Bound value                                                                                | `YhSelectValue \| YhSelectValue[]`                   | `undefined` |
+| options               | Option data rendered by the component                                                      | `YhSelectOption[]`                                   | `[]`        |
+| placeholder           | Placeholder text                                                                           | `string`                                             | `''`        |
+| disabled              | Whether the component is disabled                                                          | `boolean`                                            | `false`     |
+| clearable             | Whether the current value can be cleared                                                   | `boolean`                                            | `false`     |
+| size                  | Input size                                                                                 | `'large' \| 'default' \| 'small'`                    | `'default'` |
+| multiple              | Whether multiple selection is enabled                                                      | `boolean`                                            | `false`     |
+| multiple-limit        | Maximum selected item count in multiple mode, `0` means unlimited                          | `number`                                             | `0`         |
+| filterable            | Whether keyword filtering is enabled                                                       | `boolean`                                            | `false`     |
+| filter-method         | Custom local filter method                                                                 | `(query: string) => void`                            | `undefined` |
+| remote                | Whether remote filtering is enabled                                                        | `boolean`                                            | `false`     |
+| remote-method         | Remote search callback                                                                     | `(query: string) => void`                            | `undefined` |
+| loading               | Whether the loading state is shown                                                         | `boolean`                                            | `false`     |
+| loading-text          | Custom loading text. Falls back to locale text when empty                                  | `string`                                             | `''`        |
+| no-match-text         | Custom empty text shown for no matching results. Falls back to locale text when empty      | `string`                                             | `''`        |
+| no-data-text          | Custom empty text shown when there is no option data. Falls back to locale text when empty | `string`                                             | `''`        |
+| allow-create          | Whether users can create options from the current query                                    | `boolean`                                            | `false`     |
+| collapse-tags         | Whether selected tags are collapsed in multiple mode                                       | `boolean`                                            | `false`     |
+| collapse-tags-tooltip | Whether collapsed tags show a tooltip summary                                              | `boolean`                                            | `false`     |
+| max-collapse-tags     | Maximum visible tag count when `collapse-tags` is enabled                                  | `number`                                             | `1`         |
+| popper-class          | Custom dropdown class name                                                                 | `string`                                             | `undefined` |
+| teleported            | Whether the dropdown is teleported to `body`                                               | `boolean`                                            | `true`      |
+| fit-input-width       | Whether the dropdown width follows the input width                                         | `boolean`                                            | `true`      |
+| tag-type              | Tag type used in multiple mode                                                             | `'success' \| 'info' \| 'warning' \| 'danger' \| ''` | `''`        |
+| virtual-scroll        | Whether virtual scrolling is enabled                                                       | `boolean`                                            | `false`     |
+| item-height           | Virtual list row height                                                                    | `number`                                             | `34`        |
+| height                | Virtual list viewport height                                                               | `number`                                             | `274`       |
+| validate-event        | Whether form validation is triggered on change and blur                                    | `boolean`                                            | `true`      |
+| value-key             | Property name used as the option value key                                                 | `string`                                             | `'value'`   |
+| label-key             | Property name used as the option label key                                                 | `string`                                             | `'label'`   |
+| theme-overrides       | Component-level theme overrides                                                            | `ComponentThemeVars`                                 | `undefined` |
 
 ### Types
 
 #### Select Option
 
-| Name | Description | Type | Required |
-| --- | --- | --- | --- |
-| value | Option value | `string \| number \| boolean` | Yes |
-| label | Option label | `string` | Yes |
-| disabled | Whether the option is disabled | `boolean` | No |
+| Name     | Description                    | Type                          | Required |
+| -------- | ------------------------------ | ----------------------------- | -------- |
+| value    | Option value                   | `string \| number \| boolean` | Yes      |
+| label    | Option label                   | `string`                      | Yes      |
+| disabled | Whether the option is disabled | `boolean`                     | No       |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when the selected value changes | `(value: YhSelectValue \| YhSelectValue[] \| undefined) => void` |
-| focus | Triggered when the input gains focus | `(event: FocusEvent) => void` |
-| blur | Triggered when the input loses focus | `(event: FocusEvent) => void` |
-| clear | Triggered when the clear icon is clicked | `() => void` |
-| visible-change | Triggered when the dropdown visibility changes | `(visible: boolean) => void` |
-| remove-tag | Triggered when a selected tag is removed in multiple mode | `(value: YhSelectValue) => void` |
+| Name           | Description                                               | Parameters                                                       |
+| -------------- | --------------------------------------------------------- | ---------------------------------------------------------------- |
+| change         | Triggered when the selected value changes                 | `(value: YhSelectValue \| YhSelectValue[] \| undefined) => void` |
+| focus          | Triggered when the input gains focus                      | `(event: FocusEvent) => void`                                    |
+| blur           | Triggered when the input loses focus                      | `(event: FocusEvent) => void`                                    |
+| clear          | Triggered when the clear icon is clicked                  | `() => void`                                                     |
+| visible-change | Triggered when the dropdown visibility changes            | `(visible: boolean) => void`                                     |
+| remove-tag     | Triggered when a selected tag is removed in multiple mode | `(value: YhSelectValue) => void`                                 |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom `YhOption` nodes rendered instead of the `options` prop | - |
-| prefix | Content rendered before the input area | - |
-| empty | Content rendered when there is no available option | - |
-| option | Custom option content when using the `options` prop | `{ option: YhSelectOption }` |
-| tag | Custom tag content in multiple mode | `{ value: YhSelectValue }` |
+| Name    | Description                                                    | Parameters                   |
+| ------- | -------------------------------------------------------------- | ---------------------------- |
+| default | Custom `YhOption` nodes rendered instead of the `options` prop | -                            |
+| prefix  | Content rendered before the input area                         | -                            |
+| empty   | Content rendered when there is no available option             | -                            |
+| option  | Custom option content when using the `options` prop            | `{ option: YhSelectOption }` |
+| tag     | Custom tag content in multiple mode                            | `{ value: YhSelectValue }`   |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| focus | Focuses the input | `() => void` |
-| blur | Blurs the input | `() => void` |
+| Name     | Description                       | Type                                 |
+| -------- | --------------------------------- | ------------------------------------ |
+| focus    | Focuses the input                 | `() => void`                         |
+| blur     | Blurs the input                   | `() => void`                         |
 | inputRef | Ref to the internal input element | `Ref<HTMLInputElement \| undefined>` |
 
 ### Option Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| value | Option value | `YhSelectValue` | Required |
-| label | Option label | `string` | `undefined` |
-| disabled | Whether the option is disabled | `boolean` | `false` |
+| Name     | Description                    | Type            | Default     |
+| -------- | ------------------------------ | --------------- | ----------- |
+| value    | Option value                   | `YhSelectValue` | Required    |
+| label    | Option label                   | `string`        | `undefined` |
+| disabled | Whether the option is disabled | `boolean`       | `false`     |
 
 ### Option Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom option content | - |
+| Name    | Description           | Parameters |
+| ------- | --------------------- | ---------- |
+| default | Custom option content | -          |
 
 ## Theme Variables
 
 `YhSelect` supports `themeOverrides`. The component test suite verifies component-scoped override output such as `themeOverrides.borderColor`, which emits `--yh-select-border-color`. The visual styles of the input, tags, and dropdown still primarily inherit shared global tokens such as `--yh-border-color`, `--yh-fill-color`, and `--yh-text-color-*`.
 
-| Variable | Description | Default |
-| --- | --- | --- |
+| Variable                   | Description                                          | Default     |
+| -------------------------- | ---------------------------------------------------- | ----------- |
 | `--yh-select-border-color` | Border color emitted by `themeOverrides.borderColor` | `undefined` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhSelectProps` | Select component props type |
-| `YhSelectEmits` | Select component emits type |
-| `YhSelectSlots` | Select component slots type |
-| `YhSelectExpose` | Select component expose type |
-| `YhSelectOption` | Option data type |
-| `YhSelectValue` | Selected value type |
-| `YhSelectSize` | Size union type |
-| `YhSelectTagType` | Tag type union |
-| `YhOptionProps` | Option component props type |
-| `YhOptionSlots` | Option component slots type |
+| Name               | Description                    |
+| ------------------ | ------------------------------ |
+| `YhSelectProps`    | Select component props type    |
+| `YhSelectEmits`    | Select component emits type    |
+| `YhSelectSlots`    | Select component slots type    |
+| `YhSelectExpose`   | Select component expose type   |
+| `YhSelectOption`   | Option data type               |
+| `YhSelectValue`    | Selected value type            |
+| `YhSelectSize`     | Size union type                |
+| `YhSelectTagType`  | Tag type union                 |
+| `YhOptionProps`    | Option component props type    |
+| `YhOptionSlots`    | Option component slots type    |
 | `YhSelectInstance` | Select component instance type |
 | `YhOptionInstance` | Option component instance type |

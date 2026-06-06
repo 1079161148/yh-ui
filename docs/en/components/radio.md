@@ -436,102 +436,102 @@ After installing `@yh-ui/nuxt`, `YhRadio`, `YhRadioGroup`, and `YhRadioButton` c
 
 ### Radio Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Bound value in standalone mode | `YhRadioValueType` | `undefined` |
-| `value` | Current radio value. In practice, the change path emits `value`; omitting it can lead to `undefined` being emitted even though checked-state comparison falls back to `label`. | `YhRadioValueType` | `undefined` |
-| `name` | Native `name` attribute | `string` | `undefined` |
-| `label` | Fallback text when the default slot is not used | `string` | `undefined` |
-| `size` | Radio size | `'large' \| 'default' \| 'small'` | `undefined` |
-| `disabled` | Disable the radio | `boolean` | `false` |
-| `border` | Show bordered style | `boolean` | `false` |
-| `id` | Native `id` attribute | `string` | `undefined` |
-| `tabindex` | Native `tabindex` attribute | `string \| number` | `undefined` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                                                                                                                                                    | Type                              | Default     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- | ----------- |
+| `model-value` / `v-model` | Bound value in standalone mode                                                                                                                                                 | `YhRadioValueType`                | `undefined` |
+| `value`                   | Current radio value. In practice, the change path emits `value`; omitting it can lead to `undefined` being emitted even though checked-state comparison falls back to `label`. | `YhRadioValueType`                | `undefined` |
+| `name`                    | Native `name` attribute                                                                                                                                                        | `string`                          | `undefined` |
+| `label`                   | Fallback text when the default slot is not used                                                                                                                                | `string`                          | `undefined` |
+| `size`                    | Radio size                                                                                                                                                                     | `'large' \| 'default' \| 'small'` | `undefined` |
+| `disabled`                | Disable the radio                                                                                                                                                              | `boolean`                         | `false`     |
+| `border`                  | Show bordered style                                                                                                                                                            | `boolean`                         | `false`     |
+| `id`                      | Native `id` attribute                                                                                                                                                          | `string`                          | `undefined` |
+| `tabindex`                | Native `tabindex` attribute                                                                                                                                                    | `string \| number`                | `undefined` |
+| `theme-overrides`         | Component theme override variables                                                                                                                                             | `ComponentThemeVars`              | `undefined` |
 
 ### Radio Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event               | Description                                       | Parameters                          |
+| ------------------- | ------------------------------------------------- | ----------------------------------- |
 | `update:modelValue` | Triggered when the standalone bound value changes | `(value: YhRadioValueType) => void` |
-| `change` | Triggered when the standalone bound value changes | `(value: YhRadioValueType) => void` |
+| `change`            | Triggered when the standalone bound value changes | `(value: YhRadioValueType) => void` |
 
 ### Radio Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `default` | Radio label content | - |
+| Slot      | Description         | Parameters |
+| --------- | ------------------- | ---------- |
+| `default` | Radio label content | -          |
 
 ### Radio Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `ref` | Native radio input element reference | `HTMLInputElement \| undefined` |
-| `focus` | Focus the radio input | `() => void` |
-| `blur` | Blur the radio input | `() => void` |
+| Name    | Description                          | Type                            |
+| ------- | ------------------------------------ | ------------------------------- |
+| `ref`   | Native radio input element reference | `HTMLInputElement \| undefined` |
+| `focus` | Focus the radio input                | `() => void`                    |
+| `blur`  | Blur the radio input                 | `() => void`                    |
 
 ### RadioButton Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Bound value in standalone mode | `YhRadioValueType` | `undefined` |
-| `value` | Current radio button value. If omitted, checked-state and emitted value both fall back to `label`. | `YhRadioValueType` | `undefined` |
-| `name` | Native `name` attribute | `string` | `undefined` |
-| `label` | Fallback text when the default slot is not used | `string` | `undefined` |
-| `size` | Radio button size | `'large' \| 'default' \| 'small'` | `undefined` |
-| `disabled` | Disable the radio button | `boolean` | `false` |
-| `id` | Native `id` attribute | `string` | `undefined` |
-| `tabindex` | Native `tabindex` attribute | `string \| number` | `undefined` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                                                                        | Type                              | Default     |
+| ------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
+| `model-value` / `v-model` | Bound value in standalone mode                                                                     | `YhRadioValueType`                | `undefined` |
+| `value`                   | Current radio button value. If omitted, checked-state and emitted value both fall back to `label`. | `YhRadioValueType`                | `undefined` |
+| `name`                    | Native `name` attribute                                                                            | `string`                          | `undefined` |
+| `label`                   | Fallback text when the default slot is not used                                                    | `string`                          | `undefined` |
+| `size`                    | Radio button size                                                                                  | `'large' \| 'default' \| 'small'` | `undefined` |
+| `disabled`                | Disable the radio button                                                                           | `boolean`                         | `false`     |
+| `id`                      | Native `id` attribute                                                                              | `string`                          | `undefined` |
+| `tabindex`                | Native `tabindex` attribute                                                                        | `string \| number`                | `undefined` |
+| `theme-overrides`         | Component theme override variables                                                                 | `ComponentThemeVars`              | `undefined` |
 
 ### RadioButton Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event               | Description                                       | Parameters                          |
+| ------------------- | ------------------------------------------------- | ----------------------------------- |
 | `update:modelValue` | Triggered when the standalone bound value changes | `(value: YhRadioValueType) => void` |
-| `change` | Triggered when the standalone bound value changes | `(value: YhRadioValueType) => void` |
+| `change`            | Triggered when the standalone bound value changes | `(value: YhRadioValueType) => void` |
 
 ### RadioButton Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `default` | Radio button label content | - |
+| Slot      | Description                | Parameters |
+| --------- | -------------------------- | ---------- |
+| `default` | Radio button label content | -          |
 
 ### RadioButton Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| `ref` | Native radio input element reference | `HTMLInputElement \| undefined` |
-| `focus` | Focus the radio button input | `() => void` |
-| `blur` | Blur the radio button input | `() => void` |
+| Name    | Description                          | Type                            |
+| ------- | ------------------------------------ | ------------------------------- |
+| `ref`   | Native radio input element reference | `HTMLInputElement \| undefined` |
+| `focus` | Focus the radio button input         | `() => void`                    |
+| `blur`  | Blur the radio button input          | `() => void`                    |
 
 ### RadioGroup Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `model-value` / `v-model` | Bound value | `YhRadioValueType` | `undefined` |
-| `options` | Optional option list rendered by the group | `YhRadioGroupOption[]` | `undefined` |
-| `size` | Group size inherited by child radios | `'large' \| 'default' \| 'small'` | `undefined` |
-| `disabled` | Disable the whole group | `boolean` | `false` |
-| `name` | Native `name` attribute passed to child radios | `string` | `undefined` |
-| `validate-event` | Trigger form validation when the group value changes | `boolean` | `true` |
-| `text-color` | Checked text color in radio button mode | `string` | `undefined` |
-| `fill` | Checked background and border color in radio button mode | `string` | `undefined` |
-| `tag` | Wrapper tag or component | `string \| Component` | `'div'` |
-| `theme-overrides` | Component theme override variables | `ComponentThemeVars` | `undefined` |
+| Prop                      | Description                                              | Type                              | Default     |
+| ------------------------- | -------------------------------------------------------- | --------------------------------- | ----------- |
+| `model-value` / `v-model` | Bound value                                              | `YhRadioValueType`                | `undefined` |
+| `options`                 | Optional option list rendered by the group               | `YhRadioGroupOption[]`            | `undefined` |
+| `size`                    | Group size inherited by child radios                     | `'large' \| 'default' \| 'small'` | `undefined` |
+| `disabled`                | Disable the whole group                                  | `boolean`                         | `false`     |
+| `name`                    | Native `name` attribute passed to child radios           | `string`                          | `undefined` |
+| `validate-event`          | Trigger form validation when the group value changes     | `boolean`                         | `true`      |
+| `text-color`              | Checked text color in radio button mode                  | `string`                          | `undefined` |
+| `fill`                    | Checked background and border color in radio button mode | `string`                          | `undefined` |
+| `tag`                     | Wrapper tag or component                                 | `string \| Component`             | `'div'`     |
+| `theme-overrides`         | Component theme override variables                       | `ComponentThemeVars`              | `undefined` |
 
 ### RadioGroup Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event               | Description                            | Parameters                          |
+| ------------------- | -------------------------------------- | ----------------------------------- |
 | `update:modelValue` | Triggered when the group value changes | `(value: YhRadioValueType) => void` |
-| `change` | Triggered when the group value changes | `(value: YhRadioValueType) => void` |
+| `change`            | Triggered when the group value changes | `(value: YhRadioValueType) => void` |
 
 ### RadioGroup Slots
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| `default` | Custom group content | - |
+| Slot      | Description          | Parameters |
+| --------- | -------------------- | ---------- |
+| `default` | Custom group content | -          |
 
 When the default slot is empty and `options` is provided, the group renders `YhRadio` items from `options`.
 
@@ -541,22 +541,22 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Type | Description |
-| --- | --- |
-| `YhRadioProps` | Radio props type |
-| `YhRadioEmits` | Radio emits type |
-| `YhRadioSlots` | Radio slots type |
-| `YhRadioExpose` | Radio expose type |
-| `YhRadioGroupProps` | Radio group props type |
-| `YhRadioGroupEmits` | Radio group emits type |
-| `YhRadioGroupOption` | Radio group option item type |
-| `YhRadioButtonProps` | Radio button props type |
-| `YhRadioButtonEmits` | Radio button emits type |
-| `YhRadioButtonExpose` | Radio button expose type |
-| `YhRadioValueType` | Shared value type |
-| `YhRadioInstance` | Radio instance type |
-| `YhRadioGroupInstance` | Radio group instance type |
-| `YhRadioButtonInstance` | Radio button instance type |
+| Type                    | Description                  |
+| ----------------------- | ---------------------------- |
+| `YhRadioProps`          | Radio props type             |
+| `YhRadioEmits`          | Radio emits type             |
+| `YhRadioSlots`          | Radio slots type             |
+| `YhRadioExpose`         | Radio expose type            |
+| `YhRadioGroupProps`     | Radio group props type       |
+| `YhRadioGroupEmits`     | Radio group emits type       |
+| `YhRadioGroupOption`    | Radio group option item type |
+| `YhRadioButtonProps`    | Radio button props type      |
+| `YhRadioButtonEmits`    | Radio button emits type      |
+| `YhRadioButtonExpose`   | Radio button expose type     |
+| `YhRadioValueType`      | Shared value type            |
+| `YhRadioInstance`       | Radio instance type          |
+| `YhRadioGroupInstance`  | Radio group instance type    |
+| `YhRadioButtonInstance` | Radio button instance type   |
 
 ### Theme Variables
 
@@ -564,27 +564,27 @@ This component does not expose public instance methods or properties.
 
 Radio-related dedicated CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-radio-size` | Radio control size | `14px` |
-| `--yh-radio-input-border` | Radio border color | `var(--yh-border-color)` |
-| `--yh-radio-checked-bg-color` | Checked background color | `var(--yh-color-primary)` |
-| `--yh-radio-checked-border-color` | Checked border color | `var(--yh-color-primary)` |
-| `--yh-radio-checked-icon-color` | Checked icon color token | `var(--yh-color-primary)` |
-| `--yh-radio-text-color` | Label text color | `var(--yh-text-color-regular)` |
+| Variable                          | Description              | Default                        |
+| --------------------------------- | ------------------------ | ------------------------------ |
+| `--yh-radio-size`                 | Radio control size       | `14px`                         |
+| `--yh-radio-input-border`         | Radio border color       | `var(--yh-border-color)`       |
+| `--yh-radio-checked-bg-color`     | Checked background color | `var(--yh-color-primary)`      |
+| `--yh-radio-checked-border-color` | Checked border color     | `var(--yh-color-primary)`      |
+| `--yh-radio-checked-icon-color`   | Checked icon color token | `var(--yh-color-primary)`      |
+| `--yh-radio-text-color`           | Label text color         | `var(--yh-text-color-regular)` |
 
 Radio button dedicated CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-radio-button-font-size` | Button font size | `var(--yh-font-size-base)` |
-| `--yh-radio-button-text-color` | Button text color | `var(--yh-text-color-regular)` |
-| `--yh-radio-button-bg-color` | Button background color | `var(--yh-fill-color-blank)` |
-| `--yh-radio-button-border-color` | Button border color | `var(--yh-border-color)` |
-| `--yh-radio-button-hover-text-color` | Hover text color | `var(--yh-color-primary)` |
-| `--yh-radio-button-checked-bg-color` | Checked background color | `var(--yh-color-primary)` |
-| `--yh-radio-button-checked-border-color` | Checked border color | `var(--yh-color-primary)` |
-| `--yh-radio-button-checked-text-color` | Checked text color | `#ffffff` |
-| `--yh-radio-button-disabled-bg-color` | Disabled background color | `var(--yh-fill-color-light)` |
-| `--yh-radio-button-disabled-border-color` | Disabled border color | `var(--yh-border-color-light)` |
-| `--yh-radio-button-disabled-text-color` | Disabled text color | `var(--yh-text-color-placeholder)` |
+| Variable                                  | Description               | Default                            |
+| ----------------------------------------- | ------------------------- | ---------------------------------- |
+| `--yh-radio-button-font-size`             | Button font size          | `var(--yh-font-size-base)`         |
+| `--yh-radio-button-text-color`            | Button text color         | `var(--yh-text-color-regular)`     |
+| `--yh-radio-button-bg-color`              | Button background color   | `var(--yh-fill-color-blank)`       |
+| `--yh-radio-button-border-color`          | Button border color       | `var(--yh-border-color)`           |
+| `--yh-radio-button-hover-text-color`      | Hover text color          | `var(--yh-color-primary)`          |
+| `--yh-radio-button-checked-bg-color`      | Checked background color  | `var(--yh-color-primary)`          |
+| `--yh-radio-button-checked-border-color`  | Checked border color      | `var(--yh-color-primary)`          |
+| `--yh-radio-button-checked-text-color`    | Checked text color        | `#ffffff`                          |
+| `--yh-radio-button-disabled-bg-color`     | Disabled background color | `var(--yh-fill-color-light)`       |
+| `--yh-radio-button-disabled-border-color` | Disabled border color     | `var(--yh-border-color-light)`     |
+| `--yh-radio-button-disabled-text-color`   | Disabled text color       | `var(--yh-text-color-placeholder)` |

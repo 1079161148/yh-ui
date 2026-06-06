@@ -112,19 +112,19 @@ Since the Divider component has a minimalist structure, it generates almost no e
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| direction | Divider direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| content-position | Content position | `'left' \| 'center' \| 'right'` | `'center'` |
-| border-style | Divider border style | `'solid' \| 'dashed' \| 'dotted' \| 'double'` | `'solid'` |
-| border-width | Divider border width | `string \| number` | `1px` |
-| color | Divider color | `string` | — |
+| Prop             | Description          | Type                                          | Default        |
+| ---------------- | -------------------- | --------------------------------------------- | -------------- |
+| direction        | Divider direction    | `'horizontal' \| 'vertical'`                  | `'horizontal'` |
+| content-position | Content position     | `'left' \| 'center' \| 'right'`               | `'center'`     |
+| border-style     | Divider border style | `'solid' \| 'dashed' \| 'dotted' \| 'double'` | `'solid'`      |
+| border-width     | Divider border width | `string \| number`                            | `1px`          |
+| color            | Divider color        | `string`                                      | —              |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Content text of the divider |
+| Slot Name | Description                 |
+| --------- | --------------------------- |
+| default   | Content text of the divider |
 
 ### Events
 
@@ -136,20 +136,20 @@ This component does not expose public instance methods or properties.
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-divider-border-color` | Divider border color | `var(--yh-border-color-lighter)` |
-| `--yh-divider-border-width` | Divider border width | `1px` |
-| `--yh-divider-border-style` | Divider border style | `solid` |
-| `--yh-divider-margin-horizontal` | Horizontal margin | `24px 0` |
-| `--yh-divider-margin-vertical` | Vertical margin | `0 8px` |
-| `--yh-divider-text-color` | Content text color | `var(--yh-text-color-primary)` |
+| Variable                         | Description          | Default                          |
+| -------------------------------- | -------------------- | -------------------------------- |
+| `--yh-divider-border-color`      | Divider border color | `var(--yh-border-color-lighter)` |
+| `--yh-divider-border-width`      | Divider border width | `1px`                            |
+| `--yh-divider-border-style`      | Divider border style | `solid`                          |
+| `--yh-divider-margin-horizontal` | Horizontal margin    | `24px 0`                         |
+| `--yh-divider-margin-vertical`   | Vertical margin      | `0 8px`                          |
+| `--yh-divider-text-color`        | Content text color   | `var(--yh-text-color-primary)`   |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhDividerProps` | Component props type |
+| Name                | Description             |
+| ------------------- | ----------------------- |
+| `YhDividerProps`    | Component props type    |
 | `YhDividerInstance` | Component instance type |
 
 <script setup lang="ts">

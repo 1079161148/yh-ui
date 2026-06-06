@@ -588,7 +588,6 @@ The most common upload method, supporting multi-selection.
   </div>
 </DemoBlock>
 
-
 ## Photo Wall
 
 Suitable for avatars or product images.
@@ -605,7 +604,6 @@ Suitable for avatars or product images.
     <pre class="data-preview__content" v-text="json(fileListCard)"></pre>
   </div>
 </DemoBlock>
-
 
 ## Drag & Drop
 
@@ -628,7 +626,6 @@ Suitable for avatars or product images.
   </div>
 </DemoBlock>
 
-
 ## Directory Upload
 
 Enable folder upload via the `directory` attribute. Once enabled, only folders can be selected; files within the folder will be flattened and uploaded sequentially.
@@ -646,7 +643,6 @@ Enable folder upload via the `directory` attribute. Once enabled, only folders c
     <pre class="data-preview__content" v-text="json(fileListDirectory)"></pre>
   </div>
 </DemoBlock>
-
 
 ## Manual Upload
 
@@ -678,7 +674,6 @@ Disable automatic upload by setting the `auto-upload` attribute to `false`, then
     <pre class="data-preview__content" v-text="json(fileListManual)"></pre>
   </div>
 </DemoBlock>
-
 
 ## Image List Mode
 
@@ -869,7 +864,6 @@ By listening to the `preview` event, you can implement preview logic when clicki
   />
 </DemoBlock>
 
-
 ## Use in Nuxt
 
 `YhUpload` can be rendered in Nuxt pages, but preview, thumbnail generation, drag-and-drop, and file reading rely on browser APIs. In SSR scenarios, keep those interactive parts inside `<ClientOnly>` or trigger them only after the client has mounted.
@@ -888,98 +882,97 @@ By listening to the `preview` event, you can implement preview logic when clicki
 
 ### Props
 
-| Attribute | Description | Type | Default |
-| --- | --- | --- | --- |
-| v-model:file-list | Uploaded file list | `UploadFile[]` | `[]` |
-| action | Upload target URL | `string` | `''` |
-| method | Upload HTTP method | `string` | `'POST'` |
-| headers | Set upload request headers | `Record<string, string>` | `{}` |
-| data | Additional parameters with upload | `Record<string, unknown>` | `{}` |
-| name | Upload file field name | `string` | `'file'` |
-| multiple | Whether to support multi-selection | `boolean` | `false` |
-| drag | Whether to enable drag-and-drop upload | `boolean` | `false` |
-| accept | Accepted [file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | `string` | `''` |
-| showFileList | Whether to show the uploaded file list | `boolean` | `true` |
-| limit | Maximum number of files allowed | `number` | - |
-| autoUpload | Whether to upload immediately after selection | `boolean` | `true` |
-| listType | File list display style | `'text' \| 'picture' \| 'picture-card'` | `'text'` |
-| withCredentials | Support sending cookie credentials | `boolean` | `false` |
-| httpRequest | Override default upload behavior | `(options: UploadRequestOptions) => Promise<unknown> \| void` | - |
-| beforeUpload | Hook before file is uploaded | `(file: UploadRawFile) => boolean \| Promise<boolean \| Blob>` | - |
-| beforeRemove | Hook before file is removed | `(file: UploadFile, fileList: UploadFile[]) => boolean \| Promise<boolean>` | - |
-| disabled | Whether to disable upload | `boolean` | `false` |
-| thumbnailRequest | Custom thumbnail generation logic | `(file: UploadRawFile) => Promise<string> \| string` | - |
-| maxSize | File size limit (KB) | `number` | - |
-| directory | Whether to enable folder upload. Flattened files within folders will be processed. | `boolean` | `false` |
-| showDownload | Whether to show the download button | `boolean` | `false` |
-| triggerPosition | Trigger position relative to the list | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
-| fileIcon | Custom file icon or icon generation function | `string \| ((file: UploadFile) => string)` | - |
-| crossorigin | Native attribute [crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) | `'anonymous' \| 'use-credentials' \| ''` | - |
-| themeOverrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Attribute         | Description                                                                                              | Type                                                                        | Default     |
+| ----------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------- |
+| v-model:file-list | Uploaded file list                                                                                       | `UploadFile[]`                                                              | `[]`        |
+| action            | Upload target URL                                                                                        | `string`                                                                    | `''`        |
+| method            | Upload HTTP method                                                                                       | `string`                                                                    | `'POST'`    |
+| headers           | Set upload request headers                                                                               | `Record<string, string>`                                                    | `{}`        |
+| data              | Additional parameters with upload                                                                        | `Record<string, unknown>`                                                   | `{}`        |
+| name              | Upload file field name                                                                                   | `string`                                                                    | `'file'`    |
+| multiple          | Whether to support multi-selection                                                                       | `boolean`                                                                   | `false`     |
+| drag              | Whether to enable drag-and-drop upload                                                                   | `boolean`                                                                   | `false`     |
+| accept            | Accepted [file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)       | `string`                                                                    | `''`        |
+| showFileList      | Whether to show the uploaded file list                                                                   | `boolean`                                                                   | `true`      |
+| limit             | Maximum number of files allowed                                                                          | `number`                                                                    | -           |
+| autoUpload        | Whether to upload immediately after selection                                                            | `boolean`                                                                   | `true`      |
+| listType          | File list display style                                                                                  | `'text' \| 'picture' \| 'picture-card'`                                     | `'text'`    |
+| withCredentials   | Support sending cookie credentials                                                                       | `boolean`                                                                   | `false`     |
+| httpRequest       | Override default upload behavior                                                                         | `(options: UploadRequestOptions) => Promise<unknown> \| void`               | -           |
+| beforeUpload      | Hook before file is uploaded                                                                             | `(file: UploadRawFile) => boolean \| Promise<boolean \| Blob>`              | -           |
+| beforeRemove      | Hook before file is removed                                                                              | `(file: UploadFile, fileList: UploadFile[]) => boolean \| Promise<boolean>` | -           |
+| disabled          | Whether to disable upload                                                                                | `boolean`                                                                   | `false`     |
+| thumbnailRequest  | Custom thumbnail generation logic                                                                        | `(file: UploadRawFile) => Promise<string> \| string`                        | -           |
+| maxSize           | File size limit (KB)                                                                                     | `number`                                                                    | -           |
+| directory         | Whether to enable folder upload. Flattened files within folders will be processed.                       | `boolean`                                                                   | `false`     |
+| showDownload      | Whether to show the download button                                                                      | `boolean`                                                                   | `false`     |
+| triggerPosition   | Trigger position relative to the list                                                                    | `'top' \| 'bottom' \| 'left' \| 'right'`                                    | `'top'`     |
+| fileIcon          | Custom file icon or icon generation function                                                             | `string \| ((file: UploadFile) => string)`                                  | -           |
+| crossorigin       | Native attribute [crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) | `'anonymous' \| 'use-credentials' \| ''`                                    | -           |
+| themeOverrides    | Component-level theme overrides                                                                          | `ComponentThemeVars`                                                        | `undefined` |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| update:fileList | Triggered when the file list is updated | `(fileList: UploadFile[])` |
-| change | Triggered when file status changes | `(file: UploadFile, fileList: UploadFile[])` |
-| success | Triggered on successful upload | `(response: unknown, file: UploadFile, fileList: UploadFile[])` |
-| error | Triggered on upload failure | `(error: Error, file: UploadFile, fileList: UploadFile[])` |
-| progress | Triggered when upload progress changes | `(event: UploadProgressEvent, file: UploadFile, fileList: UploadFile[])` |
-| remove | Triggered when a file is removed | `(file: UploadFile, fileList: UploadFile[])` |
-| preview | Triggered on clicking file preview | `(file: UploadFile)` |
-| download | Triggered on clicking file download | `(file: UploadFile)` |
-| exceed | Triggered when selected files exceed limit | `(files: File[], fileList: UploadFile[])` |
+| Name            | Description                                | Parameters                                                               |
+| --------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
+| update:fileList | Triggered when the file list is updated    | `(fileList: UploadFile[])`                                               |
+| change          | Triggered when file status changes         | `(file: UploadFile, fileList: UploadFile[])`                             |
+| success         | Triggered on successful upload             | `(response: unknown, file: UploadFile, fileList: UploadFile[])`          |
+| error           | Triggered on upload failure                | `(error: Error, file: UploadFile, fileList: UploadFile[])`               |
+| progress        | Triggered when upload progress changes     | `(event: UploadProgressEvent, file: UploadFile, fileList: UploadFile[])` |
+| remove          | Triggered when a file is removed           | `(file: UploadFile, fileList: UploadFile[])`                             |
+| preview         | Triggered on clicking file preview         | `(file: UploadFile)`                                                     |
+| download        | Triggered on clicking file download        | `(file: UploadFile)`                                                     |
+| exceed          | Triggered when selected files exceed limit | `(files: File[], fileList: UploadFile[])`                                |
 
 ### Slots
 
-| Name | Description | Scope |
-| --- | --- | --- |
-| default | Content to trigger upload | - |
-| trigger | Element to trigger selection (non-drag mode) | - |
-| tip | Tip or description text | - |
-| file | Custom file list item content | `{ file: UploadFile }` |
-| file-icon | Custom file type icon | `{ file: UploadFile }` |
+| Name      | Description                                  | Scope                  |
+| --------- | -------------------------------------------- | ---------------------- |
+| default   | Content to trigger upload                    | -                      |
+| trigger   | Element to trigger selection (non-drag mode) | -                      |
+| tip       | Tip or description text                      | -                      |
+| file      | Custom file list item content                | `{ file: UploadFile }` |
+| file-icon | Custom file type icon                        | `{ file: UploadFile }` |
 
 ### Expose
 
-| Method | Description | Parameters |
-| --- | --- | --- |
-| submit | Manually upload the pending file list | - |
-| triggerInput | Manually evoke the file selection box | - |
-| handleRemove | Manually remove a specific file | `(file: UploadFile)` |
-| handlePreview | Manually trigger file preview | `(file: UploadFile)` |
-| handleDownload | Manually trigger file download | `(file: UploadFile)` |
-| handleFiles | Manually add and process file list | `(files: File[] \| FileList)` |
+| Method         | Description                           | Parameters                    |
+| -------------- | ------------------------------------- | ----------------------------- |
+| submit         | Manually upload the pending file list | -                             |
+| triggerInput   | Manually evoke the file selection box | -                             |
+| handleRemove   | Manually remove a specific file       | `(file: UploadFile)`          |
+| handlePreview  | Manually trigger file preview         | `(file: UploadFile)`          |
+| handleDownload | Manually trigger file download        | `(file: UploadFile)`          |
+| handleFiles    | Manually add and process file list    | `(files: File[] \| FileList)` |
 
 ## Theme Variables
 
 `YhUpload` supports `themeOverrides`. The stylesheet directly consumes the following upload-specific CSS variables, while related colors still inherit from the shared theme token system:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-upload-dragger-bg` | Drag area background color | `var(--yh-bg-color)` |
-| `--yh-upload-dragger-border` | Drag area border color | `var(--yh-border-color-light)` |
-| `--yh-upload-item-bg` | File list item background color | `var(--yh-fill-color-blank)` |
-| `--yh-upload-progress-bg` | Progress bar color | `var(--yh-color-primary)` |
-| `--yh-upload-error-bg` | Error item background color | `var(--yh-color-danger-light-9)` |
+| Variable                     | Description                       | Default                          |
+| ---------------------------- | --------------------------------- | -------------------------------- |
+| `--yh-upload-dragger-bg`     | Drag area background color        | `var(--yh-bg-color)`             |
+| `--yh-upload-dragger-border` | Drag area border color            | `var(--yh-border-color-light)`   |
+| `--yh-upload-item-bg`        | File list item background color   | `var(--yh-fill-color-blank)`     |
+| `--yh-upload-progress-bg`    | Progress bar color                | `var(--yh-color-primary)`        |
+| `--yh-upload-error-bg`       | Error item background color       | `var(--yh-color-danger-light-9)` |
 | `--yh-upload-error-hover-bg` | Error item hover background color | `var(--yh-color-danger-light-7)` |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhUploadProps` | Component props type |
-| `YhUploadEmits` | Component emits type |
-| `YhUploadSlots` | Component slots type |
-| `YhUploadExpose` | Component expose type |
-| `YhUploadFile` | Uploaded file type |
-| `YhUploadRawFile` | Raw file type |
-| `YhUploadProgressEvent` | Upload progress event type |
+| Name                     | Description                 |
+| ------------------------ | --------------------------- |
+| `YhUploadProps`          | Component props type        |
+| `YhUploadEmits`          | Component emits type        |
+| `YhUploadSlots`          | Component slots type        |
+| `YhUploadExpose`         | Component expose type       |
+| `YhUploadFile`           | Uploaded file type          |
+| `YhUploadRawFile`        | Raw file type               |
+| `YhUploadProgressEvent`  | Upload progress event type  |
 | `YhUploadRequestOptions` | Upload request options type |
-| `YhUploadStatus` | Upload status union |
-| `YhUploadInstance` | Component instance type |
-
+| `YhUploadStatus`         | Upload status union         |
+| `YhUploadInstance`       | Component instance type     |
 
 <style scoped>
 .yh-upload__dragger {

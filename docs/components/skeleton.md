@@ -169,14 +169,14 @@ const jsNuxt = toJs(tsNuxt)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhSkeletonProps` | Skeleton Props 类型 |
-| `YhSkeletonSlots` | Skeleton 插槽类型 |
-| `YhSkeletonInstance` | Skeleton 实例类型 |
-| `YhSkeletonItemProps` | SkeletonItem Props 类型 |
-| `YhSkeletonItemVariant` | SkeletonItem 变体联合类型 |
-| `YhSkeletonItemInstance` | SkeletonItem 实例类型 |
+| 名称                     | 说明                      |
+| ------------------------ | ------------------------- |
+| `YhSkeletonProps`        | Skeleton Props 类型       |
+| `YhSkeletonSlots`        | Skeleton 插槽类型         |
+| `YhSkeletonInstance`     | Skeleton 实例类型         |
+| `YhSkeletonItemProps`    | SkeletonItem Props 类型   |
+| `YhSkeletonItemVariant`  | SkeletonItem 变体联合类型 |
+| `YhSkeletonItemInstance` | SkeletonItem 实例类型     |
 
 <style scoped>
 .skeleton-card {

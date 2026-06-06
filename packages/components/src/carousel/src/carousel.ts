@@ -161,11 +161,7 @@ export type CarouselEmits = typeof carouselEmits
 
 export interface CarouselSlots {
   default?: () => unknown
-  dots?: (props: {
-    total: number
-    currentIndex: number
-    to: (index: number) => void
-  }) => unknown
+  dots?: (props: { total: number; currentIndex: number; to: (index: number) => void }) => unknown
   arrow?: (props: {
     total: number
     currentIndex: number

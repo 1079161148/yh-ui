@@ -471,23 +471,23 @@ const jsEventResize = toJs(tsEventResize);
 
 ### Table Props（列宽调整相关）
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
+| 属性      | 说明             | 类型      | 默认值  |
+| --------- | ---------------- | --------- | ------- |
 | resizable | 全局开启列宽调整 | `boolean` | `false` |
 
 ### TableColumn Props（列宽调整相关）
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| width | 列宽度（像素或百分比） | `number \| string` | — |
-| minWidth | 最小列宽（拖拽时最小不低于 40px） | `number \| string` | — |
-| maxWidth | 最大列宽 | `number \| string` | — |
-| resizable | 该列是否可调整宽度（优先级高于全局 resizable） | `boolean` | — |
+| 属性      | 说明                                           | 类型               | 默认值 |
+| --------- | ---------------------------------------------- | ------------------ | ------ |
+| width     | 列宽度（像素或百分比）                         | `number \| string` | —      |
+| minWidth  | 最小列宽（拖拽时最小不低于 40px）              | `number \| string` | —      |
+| maxWidth  | 最大列宽                                       | `number \| string` | —      |
+| resizable | 该列是否可调整宽度（优先级高于全局 resizable） | `boolean`          | —      |
 
 ### 事件
 
-| 事件名 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件名        | 说明           | 参数                                   |
+| ------------- | -------------- | -------------------------------------- |
 | column-resize | 列宽变化时触发 | `(column: TableColumn, width: number)` |
 
 ### 注意事项
@@ -496,4 +496,3 @@ const jsEventResize = toJs(tsEventResize);
 2. **设置初始宽度**：建议每一列都设置 `width`，以确保列宽调整的计算准确。
 3. **`minWidth` 优先**：拖拽时如果列宽小于 `minWidth`，将被限制在最小宽度。
 4. **列级别覆盖**：列配置中的 `resizable` 会覆盖全局 `resizable` 设置。
-

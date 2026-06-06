@@ -21,7 +21,7 @@ catalog:
   zod: ^3.25.76
 
 onlyBuiltDependencies:
-  - "@parcel/watcher"
+  - '@parcel/watcher'
   - esbuild
   - vue-demi
 

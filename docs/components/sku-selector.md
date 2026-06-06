@@ -466,12 +466,12 @@ interface SkuItem {
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhSkuSelectorProps` | 组件 Props 类型 |
-| `YhSkuSelectorEmits` | 组件事件类型 |
-| `YhSkuSelectorSlots` | 组件插槽类型 |
-| `YhSkuSpec` | 规格组类型 |
-| `YhSkuSpecValue` | 规格值类型 |
-| `YhSkuItem` | SKU 数据类型 |
-| `YhSkuSelectorInstance` | 组件实例类型 |
+| 名称                    | 说明            |
+| ----------------------- | --------------- |
+| `YhSkuSelectorProps`    | 组件 Props 类型 |
+| `YhSkuSelectorEmits`    | 组件事件类型    |
+| `YhSkuSelectorSlots`    | 组件插槽类型    |
+| `YhSkuSpec`             | 规格组类型      |
+| `YhSkuSpecValue`        | 规格值类型      |
+| `YhSkuItem`             | SKU 数据类型    |
+| `YhSkuSelectorInstance` | 组件实例类型    |

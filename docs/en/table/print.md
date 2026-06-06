@@ -786,47 +786,47 @@ The `printTemplate` method allows for the printing of completely custom HTML tem
 
 ### print(config?) Method
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| title | Print title | `string` | — |
-| showIndex | Whether to show the index (No.) column | `boolean` | `false` |
-| indexTitle | Index column title | `string` | `'No.'` |
-| columns | Specify columns to print (prop array) | `string[]` | All visible columns |
-| excludeColumns | Exclude columns | `string[]` | — |
-| data | Custom print data | `Record<string, unknown>[]` | Current data |
-| formatCell | Format cell content | `(value, column, row) => string` | — |
-| headerHtml | Custom header HTML | `string` | — |
-| footerHtml | Custom footer HTML | `string` | — |
-| margin | Page margins | `{ top?, right?, bottom?, left? }` | `10mm` |
-| orientation | Page orientation | `'portrait' \| 'landscape'` | `'portrait'` |
-| showTime | Whether to show print time | `boolean` | `true` |
-| showCount | Whether to show record count | `boolean` | `true` |
-| columnTitles | Custom Column Titles | `Record<string, string>` | — |
-| pageSize | Maximum rows per page | `number` | — |
-| showPageNumber | Whether to show page numbers | `boolean` | `false` |
-| tableStyle | Custom table style | `string` | — |
-| extraCss | Extra CSS | `string` | — |
-| autoPrint | Automatically pop up print dialog | `boolean` | `false` |
-| beforePrint | Callback before print | `() => boolean` | — |
-| afterPrint | Callback after print | `() => void` | — |
+| Property       | Description                            | Type                               | Default             |
+| -------------- | -------------------------------------- | ---------------------------------- | ------------------- |
+| title          | Print title                            | `string`                           | —                   |
+| showIndex      | Whether to show the index (No.) column | `boolean`                          | `false`             |
+| indexTitle     | Index column title                     | `string`                           | `'No.'`             |
+| columns        | Specify columns to print (prop array)  | `string[]`                         | All visible columns |
+| excludeColumns | Exclude columns                        | `string[]`                         | —                   |
+| data           | Custom print data                      | `Record<string, unknown>[]`        | Current data        |
+| formatCell     | Format cell content                    | `(value, column, row) => string`   | —                   |
+| headerHtml     | Custom header HTML                     | `string`                           | —                   |
+| footerHtml     | Custom footer HTML                     | `string`                           | —                   |
+| margin         | Page margins                           | `{ top?, right?, bottom?, left? }` | `10mm`              |
+| orientation    | Page orientation                       | `'portrait' \| 'landscape'`        | `'portrait'`        |
+| showTime       | Whether to show print time             | `boolean`                          | `true`              |
+| showCount      | Whether to show record count           | `boolean`                          | `true`              |
+| columnTitles   | Custom Column Titles                   | `Record<string, string>`           | —                   |
+| pageSize       | Maximum rows per page                  | `number`                           | —                   |
+| showPageNumber | Whether to show page numbers           | `boolean`                          | `false`             |
+| tableStyle     | Custom table style                     | `string`                           | —                   |
+| extraCss       | Extra CSS                              | `string`                           | —                   |
+| autoPrint      | Automatically pop up print dialog      | `boolean`                          | `false`             |
+| beforePrint    | Callback before print                  | `() => boolean`                    | —                   |
+| afterPrint     | Callback after print                   | `() => void`                       | —                   |
 
 ### printMultiple(tables, config?) Method
 
 Print multiple tables at once; each table is automatically paginated.
 
-| Parameter | Description | Type |
-| --- | --- | --- |
-| tables | Table configuration array | `Array<{ title?, data, columns?, config? }>` |
-| config | Global configuration | Same as `print(config)` |
+| Parameter | Description               | Type                                         |
+| --------- | ------------------------- | -------------------------------------------- |
+| tables    | Table configuration array | `Array<{ title?, data, columns?, config? }>` |
+| config    | Global configuration      | Same as `print(config)`                      |
 
 ### printTemplate(html, config?) Method
 
 Print a completely custom HTML template.
 
-| Parameter | Description | Type |
-| --- | --- | --- |
-| html | Custom HTML content | `string` |
-| config | Print configuration | Same as `print(config)` |
+| Parameter | Description         | Type                    |
+| --------- | ------------------- | ----------------------- |
+| html      | Custom HTML content | `string`                |
+| config    | Print configuration | Same as `print(config)` |
 
 ### Notes
 

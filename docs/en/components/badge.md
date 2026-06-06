@@ -307,33 +307,33 @@ In the Nuxt ecosystem, it is recommended to store badge values in `useState` or 
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| value | Display value | `string \| number` | — |
-| max | Maximum value, displays `{max}+` when exceeded | `number` | `99` |
-| is-dot | Whether to show a dot indicator | `boolean` | `false` |
-| hidden | Whether to hide the badge | `boolean` | `false` |
-| type | Badge type | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'` |
-| show-border | Whether to show border | `boolean` | `true` |
-| color | Custom badge color | `string` | — |
-| offset | Badge offset `[x, y]` | `[number, number]` | — |
-| show-zero | Whether to show when value is 0 | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                    | Type                                                                     | Default     |
+| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------ | ----------- |
+| value           | Display value                                  | `string \| number`                                                       | —           |
+| max             | Maximum value, displays `{max}+` when exceeded | `number`                                                                 | `99`        |
+| is-dot          | Whether to show a dot indicator                | `boolean`                                                                | `false`     |
+| hidden          | Whether to hide the badge                      | `boolean`                                                                | `false`     |
+| type            | Badge type                                     | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`  |
+| show-border     | Whether to show border                         | `boolean`                                                                | `true`      |
+| color           | Custom badge color                             | `string`                                                                 | —           |
+| offset          | Badge offset `[x, y]`                          | `[number, number]`                                                       | —           |
+| show-zero       | Whether to show when value is 0                | `boolean`                                                                | `false`     |
+| theme-overrides | Component-level theme overrides                | `ComponentThemeVars`                                                     | `undefined` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Element wrapped by the badge |
-| content | Custom badge content |
+| Slot Name | Description                  |
+| --------- | ---------------------------- |
+| default   | Element wrapped by the badge |
+| content   | Custom badge content         |
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-badge-bg-color` | Background color | `var(--yh-color-danger)` |
-| `--yh-badge-text-color` | Text color | `#ffffff` |
-| `--yh-badge-border-color` | Border color | `var(--yh-bg-color-overlay, #fff)` |
+| Variable                  | Description      | Default                            |
+| ------------------------- | ---------------- | ---------------------------------- |
+| `--yh-badge-bg-color`     | Background color | `var(--yh-color-danger)`           |
+| `--yh-badge-text-color`   | Text color       | `#ffffff`                          |
+| `--yh-badge-border-color` | Border color     | `var(--yh-bg-color-overlay, #fff)` |
 
 ### Events
 
@@ -345,9 +345,9 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhBadgeProps` | Props type for `YhBadge` |
-| `YhBadgeSlots` | Slots type for `YhBadge` |
-| `YhBadgeType` | Badge type union |
+| Name              | Description                        |
+| ----------------- | ---------------------------------- |
+| `YhBadgeProps`    | Props type for `YhBadge`           |
+| `YhBadgeSlots`    | Slots type for `YhBadge`           |
+| `YhBadgeType`     | Badge type union                   |
 | `YhBadgeInstance` | Public instance type for `YhBadge` |

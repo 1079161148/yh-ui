@@ -702,26 +702,27 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
 
 ## 导入模式说明
 
-| 模式 | 值 | 说明 |
-| --- | --- | --- |
-| 顶部追加 | `'insertTop'` | 将导入数据插入到表格最**前面** |
+| 模式     | 值               | 说明                                 |
+| -------- | ---------------- | ------------------------------------ |
+| 顶部追加 | `'insertTop'`    | 将导入数据插入到表格最**前面**       |
 | 尾部追加 | `'insertBottom'` | 将导入数据追加到表格**末尾**（默认） |
-| 覆盖 | `'covering'` | 清空原有数据，用导入数据完全**替换** |
+| 覆盖     | `'covering'`     | 清空原有数据，用导入数据完全**替换** |
 
 ## 支持的导入格式
 
-| 格式 | 扩展名 | 说明 |
-| --- | --- | --- |
-| CSV | `.csv` | 逗号分隔值，第一行为表头 |
-| JSON | `.json` | 对象数组，key 对应列 `prop` |
-| TXT | `.txt` | Tab 分隔值（TSV），第一行为表头 |
-| XML | `.xml` | 标准 XML 格式，含 `<columns>` 和 `<rows>` |
+| 格式 | 扩展名  | 说明                                           |
+| ---- | ------- | ---------------------------------------------- |
+| CSV  | `.csv`  | 逗号分隔值，第一行为表头                       |
+| JSON | `.json` | 对象数组，key 对应列 `prop`                    |
+| TXT  | `.txt`  | Tab 分隔值（TSV），第一行为表头                |
+| XML  | `.xml`  | 标准 XML 格式，含 `<columns>` 和 `<rows>`      |
 | HTML | `.html` | 标准 `<table>` 结构，含 `<thead>` 和 `<tbody>` |
-| XLSX | `.xlsx` | Excel 格式，支持 `.xlsx`、`.xls`、`.xlsm` |
+| XLSX | `.xlsx` | Excel 格式，支持 `.xlsx`、`.xls`、`.xlsm`      |
 
 ## 数据映射规则
 
 导入时按以下优先级匹配列：
+
 1. 自定义 `fieldMapping` 配置（最高优先）
 2. 文件字段名与列 `prop` 完全一致
 3. 文件字段名与列 `label` 完全一致
@@ -734,21 +735,21 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
 
 通过表格实例调用，打开文件选择器并导入数据。
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| type | 导入格式 | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | 自动推断 |
-| mode | 导入模式 | `'covering' \| 'insertTop' \| 'insertBottom'` | `'insertBottom'` |
-| separator | CSV 分隔符 | `string` | `','` |
-| fieldMapping | 字段映射：文件列名 → prop | `Record<string, string>` | — |
-| autoMapping | 是否自动映射 label/prop | `boolean` | `true` |
-| numberFields | 数值类型字段列表 | `string[]` | — |
-| maxRows | 最大导入行数 | `number` | — |
-| encoding | 文件编码 | `string` | `'utf-8'` |
-| beforeImport | 导入前校验 | `(rows) => boolean \| rows[]` | — |
-| afterImport | 导入后回调 | `(rows, mode) => void` | — |
-| sheetIndex | 读取的工作表索引（仅 XLSX） | `number` | `0` |
-| sheetName | 读取的工作表名称（仅 XLSX，优先于 sheetIndex） | `string` | — |
-| headerRow | 是否将第一行作为表头（仅 XLSX） | `boolean` | `true` |
+| 参数         | 说明                                           | 类型                                                    | 默认值           |
+| ------------ | ---------------------------------------------- | ------------------------------------------------------- | ---------------- |
+| type         | 导入格式                                       | `'csv' \| 'json' \| 'txt' \| 'xml' \| 'html' \| 'xlsx'` | 自动推断         |
+| mode         | 导入模式                                       | `'covering' \| 'insertTop' \| 'insertBottom'`           | `'insertBottom'` |
+| separator    | CSV 分隔符                                     | `string`                                                | `','`            |
+| fieldMapping | 字段映射：文件列名 → prop                      | `Record<string, string>`                                | —                |
+| autoMapping  | 是否自动映射 label/prop                        | `boolean`                                               | `true`           |
+| numberFields | 数值类型字段列表                               | `string[]`                                              | —                |
+| maxRows      | 最大导入行数                                   | `number`                                                | —                |
+| encoding     | 文件编码                                       | `string`                                                | `'utf-8'`        |
+| beforeImport | 导入前校验                                     | `(rows) => boolean \| rows[]`                           | —                |
+| afterImport  | 导入后回调                                     | `(rows, mode) => void`                                  | —                |
+| sheetIndex   | 读取的工作表索引（仅 XLSX）                    | `number`                                                | `0`              |
+| sheetName    | 读取的工作表名称（仅 XLSX，优先于 sheetIndex） | `string`                                                | —                |
+| headerRow    | 是否将第一行作为表头（仅 XLSX）                | `boolean`                                               | `true`           |
 
 ### importFile(file, config?) 方法
 
@@ -757,4 +758,3 @@ JSON 格式是最精确的导入格式，key 自动匹配列的 `prop` 或 `labe
 ### importData(content, config?) 方法
 
 从文本字符串或对象数组导入数据。
-

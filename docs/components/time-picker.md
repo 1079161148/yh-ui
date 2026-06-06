@@ -2,7 +2,6 @@
 
 用于选择或输入任意时间点，支持滚轮面板、时间范围、12 小时制、禁用时间和底部操作栏。
 
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -297,9 +296,10 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 </script>
 
 ::: tip TimePicker 与 TimeSelect
+
 - **TimePicker**：通过滚轮面板选择任意时间点。
 - **TimeSelect**：从预设的固定时间列表中选择。
-:::
+  :::
 
 ## 基础用法
 
@@ -504,107 +504,106 @@ const jsNuxt = tsNuxt.replace('lang="ts"', '')
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| editable | 输入框是否可编辑 | `boolean` | `true` |
-| clearable | 是否允许清空 | `boolean` | `true` |
-| size | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
-| placeholder | 单选模式占位文本 | `string` | `''` |
-| start-placeholder | 范围模式开始输入框占位文本 | `string` | `''` |
-| end-placeholder | 范围模式结束输入框占位文本 | `string` | `''` |
-| name | 原生 `input` 的 `name` | `string` | `undefined` |
-| is-range | 是否启用范围选择 | `boolean` | `false` |
-| format | 显示格式 | `string` | `'HH:mm:ss'` |
-| value-format | 输出字符串值时使用的格式，未传时回退到 `format` | `string` | `undefined` |
-| prefix-icon | 已声明的前缀图标属性。当前模板仍固定渲染默认时钟图标，未消费该 prop | `string \| Component` | `undefined` |
-| clear-icon | 已声明的清空图标属性。当前模板仍固定渲染默认清空图标，未消费该 prop | `string \| Component` | `undefined` |
-| use12-hours | 是否启用 12 小时制 | `boolean` | `false` |
-| show-seconds | 是否显示秒列 | `boolean` | `true` |
-| hour-step | 小时步长 | `number` | `1` |
-| minute-step | 分钟步长 | `number` | `1` |
-| second-step | 秒步长 | `number` | `1` |
-| disabled-time | 禁用时间配置 | `YhTimePickerDisabledTimeConfig` | `undefined` |
-| popper-class | 弹层自定义类名 | `string` | `undefined` |
-| popper-style | 已声明的弹层样式属性。当前实现未将该 prop 合并到面板样式中 | `string \| Record<string, string>` | `undefined` |
-| teleported | 是否将弹层传送到 `body` | `boolean` | `true` |
-| validate-event | 值变化和失焦时是否触发表单校验 | `boolean` | `true` |
-| popper-offset | 输入框与弹层之间的偏移量 | `number` | `4` |
-| range-separator | 范围分隔文案 | `string` | `'-'` |
-| default-value | 当前没有值时，面板打开后使用的初始时间 | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined` |
-| hour-options | 自定义小时选项 | `number[]` | `undefined` |
-| minute-options | 自定义分钟选项 | `number[]` | `undefined` |
-| second-options | 自定义秒选项 | `number[]` | `undefined` |
-| hide-on-blur | 失焦时是否关闭面板 | `boolean` | `true` |
-| confirm-text | 确认按钮文案，为空时回退到语言包 | `string` | `''` |
-| cancel-text | 取消按钮文案，为空时回退到语言包 | `string` | `''` |
-| now-text | 当前时间按钮文案，为空时回退到语言包 | `string` | `''` |
-| show-footer | 是否显示底部操作区 | `boolean` | `true` |
-| show-now | 是否显示“现在”按钮 | `boolean` | `true` |
-| arrow-control | 是否启用箭头控制模式 | `boolean` | `false` |
-| tabindex | 原生 `tabindex` | `number \| string` | `0` |
-| id | 单选模式下原生 `input` 的 `id`。范围模式下两个输入框不会消费该 prop | `string` | `undefined` |
-| order-on-confirm | 范围模式下确认时是否自动排序 | `boolean` | `false` |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称                  | 说明                                                                | 类型                                          | 默认值       |
+| --------------------- | ------------------------------------------------------------------- | --------------------------------------------- | ------------ |
+| model-value / v-model | 绑定值                                                              | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined`  |
+| disabled              | 是否禁用                                                            | `boolean`                                     | `false`      |
+| editable              | 输入框是否可编辑                                                    | `boolean`                                     | `true`       |
+| clearable             | 是否允许清空                                                        | `boolean`                                     | `true`       |
+| size                  | 输入框尺寸                                                          | `'large' \| 'default' \| 'small'`             | `undefined`  |
+| placeholder           | 单选模式占位文本                                                    | `string`                                      | `''`         |
+| start-placeholder     | 范围模式开始输入框占位文本                                          | `string`                                      | `''`         |
+| end-placeholder       | 范围模式结束输入框占位文本                                          | `string`                                      | `''`         |
+| name                  | 原生 `input` 的 `name`                                              | `string`                                      | `undefined`  |
+| is-range              | 是否启用范围选择                                                    | `boolean`                                     | `false`      |
+| format                | 显示格式                                                            | `string`                                      | `'HH:mm:ss'` |
+| value-format          | 输出字符串值时使用的格式，未传时回退到 `format`                     | `string`                                      | `undefined`  |
+| prefix-icon           | 已声明的前缀图标属性。当前模板仍固定渲染默认时钟图标，未消费该 prop | `string \| Component`                         | `undefined`  |
+| clear-icon            | 已声明的清空图标属性。当前模板仍固定渲染默认清空图标，未消费该 prop | `string \| Component`                         | `undefined`  |
+| use12-hours           | 是否启用 12 小时制                                                  | `boolean`                                     | `false`      |
+| show-seconds          | 是否显示秒列                                                        | `boolean`                                     | `true`       |
+| hour-step             | 小时步长                                                            | `number`                                      | `1`          |
+| minute-step           | 分钟步长                                                            | `number`                                      | `1`          |
+| second-step           | 秒步长                                                              | `number`                                      | `1`          |
+| disabled-time         | 禁用时间配置                                                        | `YhTimePickerDisabledTimeConfig`              | `undefined`  |
+| popper-class          | 弹层自定义类名                                                      | `string`                                      | `undefined`  |
+| popper-style          | 已声明的弹层样式属性。当前实现未将该 prop 合并到面板样式中          | `string \| Record<string, string>`            | `undefined`  |
+| teleported            | 是否将弹层传送到 `body`                                             | `boolean`                                     | `true`       |
+| validate-event        | 值变化和失焦时是否触发表单校验                                      | `boolean`                                     | `true`       |
+| popper-offset         | 输入框与弹层之间的偏移量                                            | `number`                                      | `4`          |
+| range-separator       | 范围分隔文案                                                        | `string`                                      | `'-'`        |
+| default-value         | 当前没有值时，面板打开后使用的初始时间                              | `YhTimePickerValue \| YhTimePickerRangeValue` | `undefined`  |
+| hour-options          | 自定义小时选项                                                      | `number[]`                                    | `undefined`  |
+| minute-options        | 自定义分钟选项                                                      | `number[]`                                    | `undefined`  |
+| second-options        | 自定义秒选项                                                        | `number[]`                                    | `undefined`  |
+| hide-on-blur          | 失焦时是否关闭面板                                                  | `boolean`                                     | `true`       |
+| confirm-text          | 确认按钮文案，为空时回退到语言包                                    | `string`                                      | `''`         |
+| cancel-text           | 取消按钮文案，为空时回退到语言包                                    | `string`                                      | `''`         |
+| now-text              | 当前时间按钮文案，为空时回退到语言包                                | `string`                                      | `''`         |
+| show-footer           | 是否显示底部操作区                                                  | `boolean`                                     | `true`       |
+| show-now              | 是否显示“现在”按钮                                                  | `boolean`                                     | `true`       |
+| arrow-control         | 是否启用箭头控制模式                                                | `boolean`                                     | `false`      |
+| tabindex              | 原生 `tabindex`                                                     | `number \| string`                            | `0`          |
+| id                    | 单选模式下原生 `input` 的 `id`。范围模式下两个输入框不会消费该 prop | `string`                                      | `undefined`  |
+| order-on-confirm      | 范围模式下确认时是否自动排序                                        | `boolean`                                     | `false`      |
+| theme-overrides       | 组件级主题覆盖                                                      | `ComponentThemeVars`                          | `undefined`  |
 
 ### Events
 
-| 名称 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:modelValue | 绑定值更新时触发 | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
-| change | 值确认变更时触发 | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
-| focus | 输入框获得焦点时触发 | `(event: FocusEvent) => void` |
-| blur | 输入框失去焦点时触发 | `(event: FocusEvent) => void` |
-| clear | 点击清空按钮时触发 | `() => void` |
-| visible-change | 面板显示状态变化时触发 | `(visible: boolean) => void` |
-| confirm | 点击确认按钮时触发 | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
-| cancel | 点击取消按钮时触发 | `() => void` |
+| 名称              | 说明                   | 回调参数                                                       |
+| ----------------- | ---------------------- | -------------------------------------------------------------- |
+| update:modelValue | 绑定值更新时触发       | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| change            | 值确认变更时触发       | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| focus             | 输入框获得焦点时触发   | `(event: FocusEvent) => void`                                  |
+| blur              | 输入框失去焦点时触发   | `(event: FocusEvent) => void`                                  |
+| clear             | 点击清空按钮时触发     | `() => void`                                                   |
+| visible-change    | 面板显示状态变化时触发 | `(visible: boolean) => void`                                   |
+| confirm           | 点击确认按钮时触发     | `(value: YhTimePickerValue \| YhTimePickerRangeValue) => void` |
+| cancel            | 点击取消按钮时触发     | `() => void`                                                   |
 
 ### Slots
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| prefix | 输入框前缀内容 | - |
-| suffix | 类型中已声明的后缀插槽，当前模板未渲染该插槽 | - |
-| rangeSeparator | 自定义范围分隔内容 | - |
+| 名称           | 说明                                         | 参数 |
+| -------------- | -------------------------------------------- | ---- |
+| prefix         | 输入框前缀内容                               | -    |
+| suffix         | 类型中已声明的后缀插槽，当前模板未渲染该插槽 | -    |
+| rangeSeparator | 自定义范围分隔内容                           | -    |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 让输入框获得焦点 | `() => void` |
-| blur | 让输入框失去焦点 | `() => void` |
-| open | 打开面板 | `() => void` |
-| close | 关闭面板 | `() => void` |
+| 名称     | 说明                                                   | 类型                                 |
+| -------- | ------------------------------------------------------ | ------------------------------------ |
+| focus    | 让输入框获得焦点                                       | `() => void`                         |
+| blur     | 让输入框失去焦点                                       | `() => void`                         |
+| open     | 打开面板                                               | `() => void`                         |
+| close    | 关闭面板                                               | `() => void`                         |
 | inputRef | 单选模式输入框引用。范围模式下该引用不会指向起止输入框 | `Ref<HTMLInputElement \| undefined>` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhTimePickerProps` | TimePicker props 类型 |
-| `YhTimePickerEmits` | TimePicker emits 类型 |
-| `YhTimePickerSlots` | TimePicker slots 类型 |
-| `YhTimePickerExpose` | TimePicker expose 类型 |
-| `YhTimePickerSize` | 尺寸联合类型 |
-| `YhTimePickerValue` | 单值时间类型 |
-| `YhTimePickerRangeValue` | 时间范围类型 |
-| `YhTimePickerDisabledTimeConfig` | 禁用时间配置类型 |
-| `YhTimePickerState` | 面板内部时间状态类型 |
-| `YhTimePickerInstance` | 组件实例类型 |
+| 名称                             | 说明                   |
+| -------------------------------- | ---------------------- |
+| `YhTimePickerProps`              | TimePicker props 类型  |
+| `YhTimePickerEmits`              | TimePicker emits 类型  |
+| `YhTimePickerSlots`              | TimePicker slots 类型  |
+| `YhTimePickerExpose`             | TimePicker expose 类型 |
+| `YhTimePickerSize`               | 尺寸联合类型           |
+| `YhTimePickerValue`              | 单值时间类型           |
+| `YhTimePickerRangeValue`         | 时间范围类型           |
+| `YhTimePickerDisabledTimeConfig` | 禁用时间配置类型       |
+| `YhTimePickerState`              | 面板内部时间状态类型   |
+| `YhTimePickerInstance`           | 组件实例类型           |
 
 ### 主题变量
 
 `YhTimePicker` 支持 `themeOverrides`。当前样式文件直接消费以下组件级 CSS 变量，其余边框、阴影、文字颜色等由全局主题令牌提供。
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-time-picker-width` | 单选模式宽度 | `220px` |
-| `--yh-time-picker-range-width` | 范围模式宽度 | `360px` |
-| `--yh-time-picker-active-color` | 激活项文字颜色 | `var(--yh-color-primary)` |
-| `--yh-time-picker-active-bg` | 激活项背景色 | `var(--yh-color-primary-light-9)` |
-| `--yh-time-picker-hover-bg` | 选项悬停背景色 | `var(--yh-fill-color-light)` |
-| `--yh-time-picker-panel-bg` | 弹层背景色 | `var(--yh-bg-color)` |
-| `--yh-time-picker-border-radius` | 弹层圆角 | `var(--yh-radius-md)` |
-
+| 变量名                           | 说明           | 默认值                            |
+| -------------------------------- | -------------- | --------------------------------- |
+| `--yh-time-picker-width`         | 单选模式宽度   | `220px`                           |
+| `--yh-time-picker-range-width`   | 范围模式宽度   | `360px`                           |
+| `--yh-time-picker-active-color`  | 激活项文字颜色 | `var(--yh-color-primary)`         |
+| `--yh-time-picker-active-bg`     | 激活项背景色   | `var(--yh-color-primary-light-9)` |
+| `--yh-time-picker-hover-bg`      | 选项悬停背景色 | `var(--yh-fill-color-light)`      |
+| `--yh-time-picker-panel-bg`      | 弹层背景色     | `var(--yh-bg-color)`              |
+| `--yh-time-picker-border-radius` | 弹层圆角       | `var(--yh-radius-md)`             |

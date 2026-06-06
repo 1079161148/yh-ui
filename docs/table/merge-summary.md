@@ -691,24 +691,24 @@ const jsPermission = toJs(tsPermission)
 
 通过列配置的 `children` 属性实现多级表头。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| label | 分组表头的标题文本 | `string` | — |
-| children | 子列配置（支持多层嵌套） | `TableColumn[]` | — |
-| headerAlign | 表头对齐方式 | `'left' \| 'center' \| 'right'` | `'center'`（分组列默认居中） |
-| headerClassName | 表头自定义类名 | `string` | — |
-| headerStyle | 表头自定义样式 | `CSSProperties` | — |
+| 属性            | 说明                     | 类型                            | 默认值                       |
+| --------------- | ------------------------ | ------------------------------- | ---------------------------- |
+| label           | 分组表头的标题文本       | `string`                        | —                            |
+| children        | 子列配置（支持多层嵌套） | `TableColumn[]`                 | —                            |
+| headerAlign     | 表头对齐方式             | `'left' \| 'center' \| 'right'` | `'center'`（分组列默认居中） |
+| headerClassName | 表头自定义类名           | `string`                        | —                            |
+| headerStyle     | 表头自定义样式           | `CSSProperties`                 | —                            |
 
 > **注意**：父列（有 `children` 的列）只需要设置 `label`，不需要设置 `prop`。`colspan` 和 `rowspan` 由组件自动计算。
 
 ### span-method 合并方法
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| row | 当前行数据 | `Record<string, unknown>` |
-| column | 当前列配置 | `TableColumn` |
-| rowIndex | 当前行索引 | `number` |
-| columnIndex | 当前列索引 | `number` |
+| 参数        | 说明       | 类型                      |
+| ----------- | ---------- | ------------------------- |
+| row         | 当前行数据 | `Record<string, unknown>` |
+| column      | 当前列配置 | `TableColumn`             |
+| rowIndex    | 当前行索引 | `number`                  |
+| columnIndex | 当前列索引 | `number`                  |
 
 **返回值**：`{ rowspan: number, colspan: number }` 或 `[rowspan, colspan]`
 
@@ -717,22 +717,22 @@ const jsPermission = toJs(tsPermission)
 
 ### SummaryConfig 汇总配置
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| text | 汇总行第一列的文本 | `string` | `'合计'` |
-| position | 汇总行位置 | `'top' \| 'bottom'` | `'bottom'` |
-| fixed | 是否固定汇总行 | `boolean` | `false` |
-| method | 汇总计算方法 | `({ columns, data }) => Array<string \| number \| VNode>` | — |
-| className | 汇总行类名 | `string \| ((params) => string)` | — |
-| style | 汇总行样式 | `CSSProperties \| ((params) => CSSProperties)` | — |
+| 属性      | 说明               | 类型                                                      | 默认值     |
+| --------- | ------------------ | --------------------------------------------------------- | ---------- |
+| text      | 汇总行第一列的文本 | `string`                                                  | `'合计'`   |
+| position  | 汇总行位置         | `'top' \| 'bottom'`                                       | `'bottom'` |
+| fixed     | 是否固定汇总行     | `boolean`                                                 | `false`    |
+| method    | 汇总计算方法       | `({ columns, data }) => Array<string \| number \| VNode>` | —          |
+| className | 汇总行类名         | `string \| ((params) => string)`                          | —          |
+| style     | 汇总行样式         | `CSSProperties \| ((params) => CSSProperties)`            | —          |
 
 ### Column render 渲染函数
 
-| 参数 | 说明 | 类型 |
-| --- | --- | --- |
-| row | 当前行数据 | `Record<string, unknown>` |
-| column | 当前列配置 | `TableColumn` |
-| rowIndex | 当前行索引 | `number` |
-| cellValue | 当前单元格的值 | `unknown` |
+| 参数      | 说明           | 类型                      |
+| --------- | -------------- | ------------------------- |
+| row       | 当前行数据     | `Record<string, unknown>` |
+| column    | 当前列配置     | `TableColumn`             |
+| rowIndex  | 当前行索引     | `number`                  |
+| cellValue | 当前单元格的值 | `unknown`                 |
 
 **返回值**：`VNode`（使用 Vue `h()` 函数创建）

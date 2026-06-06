@@ -360,117 +360,117 @@ The Checkbox component has passed comprehensive SSR testing, ensuring server-ren
 
 #### Checkbox
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Bound value. | `YhCheckboxValueType` | `undefined` |
-| value | Value used in checkbox-group mode. | `YhCheckboxValueType` | `undefined` |
-| label | Display text when no default slot is provided. | `string` | `undefined` |
-| true-value | Value when checked | `string \| number \| boolean` | `true` |
-| false-value | Value when unchecked | `string \| number \| boolean` | `false` |
-| disabled | Whether disabled | `boolean` | `false` |
-| indeterminate | Set indeterminate state (style only) | `boolean` | `false` |
-| border | Whether to show border | `boolean` | `false` |
-| size | Checkbox size | `'large' \| 'default' \| 'small'` | `'default'` |
-| validate-event | Whether form validation is triggered on value change. | `boolean` | `true` |
-| name | Native name attribute | `string` | `undefined` |
-| checked | Controlled checked state | `boolean` | `undefined` |
-| id | Native input id | `string` | `undefined` |
-| tabindex | Native tabindex value | `string \| number` | `undefined` |
-| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop                  | Description                                           | Type                              | Default     |
+| --------------------- | ----------------------------------------------------- | --------------------------------- | ----------- |
+| model-value / v-model | Bound value.                                          | `YhCheckboxValueType`             | `undefined` |
+| value                 | Value used in checkbox-group mode.                    | `YhCheckboxValueType`             | `undefined` |
+| label                 | Display text when no default slot is provided.        | `string`                          | `undefined` |
+| true-value            | Value when checked                                    | `string \| number \| boolean`     | `true`      |
+| false-value           | Value when unchecked                                  | `string \| number \| boolean`     | `false`     |
+| disabled              | Whether disabled                                      | `boolean`                         | `false`     |
+| indeterminate         | Set indeterminate state (style only)                  | `boolean`                         | `false`     |
+| border                | Whether to show border                                | `boolean`                         | `false`     |
+| size                  | Checkbox size                                         | `'large' \| 'default' \| 'small'` | `'default'` |
+| validate-event        | Whether form validation is triggered on value change. | `boolean`                         | `true`      |
+| name                  | Native name attribute                                 | `string`                          | `undefined` |
+| checked               | Controlled checked state                              | `boolean`                         | `undefined` |
+| id                    | Native input id                                       | `string`                          | `undefined` |
+| tabindex              | Native tabindex value                                 | `string \| number`                | `undefined` |
+| theme-overrides       | Component-level theme variable overrides              | `ComponentThemeVars`              | `undefined` |
 
 #### Checkbox Group
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Binding value | `Array<string \| number \| boolean>` | `[]` |
-| options | Optional group option list | `YhCheckboxGroupOption[]` | `undefined` |
-| size | Checkbox group size | `'large' \| 'default' \| 'small'` | `undefined` |
-| disabled | Whether disabled | `boolean` | `false` |
-| min | Minimum number of checked items | `number` | `undefined` |
-| max | Maximum number of checked items | `number` | `undefined` |
-| validate-event | Whether to trigger form validation on change | `boolean` | `true` |
-| text-color | Active text color for button-like usage | `string` | `undefined` |
-| fill | Active fill and border color for button-like usage | `string` | `undefined` |
-| tag | Wrapper element tag | `string \| Component` | `'div'` |
-| theme-overrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop                  | Description                                        | Type                                 | Default     |
+| --------------------- | -------------------------------------------------- | ------------------------------------ | ----------- |
+| model-value / v-model | Binding value                                      | `Array<string \| number \| boolean>` | `[]`        |
+| options               | Optional group option list                         | `YhCheckboxGroupOption[]`            | `undefined` |
+| size                  | Checkbox group size                                | `'large' \| 'default' \| 'small'`    | `undefined` |
+| disabled              | Whether disabled                                   | `boolean`                            | `false`     |
+| min                   | Minimum number of checked items                    | `number`                             | `undefined` |
+| max                   | Maximum number of checked items                    | `number`                             | `undefined` |
+| validate-event        | Whether to trigger form validation on change       | `boolean`                            | `true`      |
+| text-color            | Active text color for button-like usage            | `string`                             | `undefined` |
+| fill                  | Active fill and border color for button-like usage | `string`                             | `undefined` |
+| tag                   | Wrapper element tag                                | `string \| Component`                | `'div'`     |
+| theme-overrides       | Component-level theme variable overrides           | `ComponentThemeVars`                 | `undefined` |
 
 ### Events
 
 #### Checkbox
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when binding value changes | `(value: string \| number \| boolean) => void` |
+| Event Name        | Description                            | Parameters                                     |
+| ----------------- | -------------------------------------- | ---------------------------------------------- |
+| change            | Triggered when binding value changes   | `(value: string \| number \| boolean) => void` |
 | update:modelValue | Triggered when the bound value changes | `(value: string \| number \| boolean) => void` |
 
 #### Checkbox Group
 
-| Event Name | Description | Parameters |
-| --- | --- | --- |
-| change | Triggered when checked values change | `(value: Array<string \| number \| boolean>) => void` |
+| Event Name        | Description                            | Parameters                                            |
+| ----------------- | -------------------------------------- | ----------------------------------------------------- |
+| change            | Triggered when checked values change   | `(value: Array<string \| number \| boolean>) => void` |
 | update:modelValue | Triggered when the bound array changes | `(value: Array<string \| number \| boolean>) => void` |
 
 ### Slots
 
 #### Checkbox
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom checkbox content. | - |
+| Slot Name | Description              | Parameters |
+| --------- | ------------------------ | ---------- |
+| default   | Custom checkbox content. | -          |
 
 #### Checkbox Group
 
-| Slot Name | Description | Parameters |
-| --- | --- | --- |
-| default | Custom group content. | - |
+| Slot Name | Description           | Parameters |
+| --------- | --------------------- | ---------- |
+| default   | Custom group content. | -          |
 
 ### Expose
 
 #### Checkbox
 
-| Name | Description | Type |
-| --- | --- | --- |
-| ref | Native input element. | `HTMLInputElement \| undefined` |
-| checked | Whether checked | `boolean` |
-| focus | Focus the input | `() => void` |
-| blur | Blur the input | `() => void` |
+| Name    | Description           | Type                            |
+| ------- | --------------------- | ------------------------------- |
+| ref     | Native input element. | `HTMLInputElement \| undefined` |
+| checked | Whether checked       | `boolean`                       |
+| focus   | Focus the input       | `() => void`                    |
+| blur    | Blur the input        | `() => void`                    |
 
 `YhCheckboxGroup` does not expose public instance methods or properties.
 
 ### Theme Variables
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-checkbox-font-size` | Font size | `var(--yh-font-size-base)` |
-| `--yh-checkbox-font-weight` | Font weight | `var(--yh-font-weight-medium)` |
-| `--yh-checkbox-text-color` | Text color | `var(--yh-text-color-regular)` |
-| `--yh-checkbox-input-height` | Checkbox input height | `14px` |
-| `--yh-checkbox-input-width` | Checkbox input width | `14px` |
-| `--yh-checkbox-border-radius` | Checkbox corner radius | `var(--yh-radius-sm)` |
-| `--yh-checkbox-bg-color` | Checkbox input background color | `var(--yh-fill-color-blank)` |
-| `--yh-checkbox-input-border` | Checkbox input border | `1px solid var(--yh-border-color)` |
-| `--yh-checkbox-input-border-color-hover` | Hover border color | `var(--yh-color-primary)` |
-| `--yh-checkbox-checked-bg-color` | Checked background | `var(--yh-color-primary)` |
-| `--yh-checkbox-checked-icon-color` | Checked icon color | `var(--yh-fill-color-blank)` |
-| `--yh-checkbox-checked-text-color` | Checked text color | `var(--yh-color-primary)` |
-| `--yh-checkbox-disabled-input-fill` | Disabled input background | `var(--yh-fill-color-light)` |
-| `--yh-checkbox-disabled-border-color` | Disabled border color | `var(--yh-border-color)` |
-| `--yh-checkbox-disabled-icon-color` | Disabled icon color | `var(--yh-text-color-placeholder)` |
-| `--yh-checkbox-disabled-checked-input-fill` | Disabled checked background | `var(--yh-border-color)` |
-| `--yh-checkbox-disabled-checked-input-border-color` | Disabled checked border color | `var(--yh-border-color)` |
-| `--yh-checkbox-disabled-checked-icon-color` | Disabled checked icon color | `#fff` |
+| Variable                                            | Description                     | Default                            |
+| --------------------------------------------------- | ------------------------------- | ---------------------------------- |
+| `--yh-checkbox-font-size`                           | Font size                       | `var(--yh-font-size-base)`         |
+| `--yh-checkbox-font-weight`                         | Font weight                     | `var(--yh-font-weight-medium)`     |
+| `--yh-checkbox-text-color`                          | Text color                      | `var(--yh-text-color-regular)`     |
+| `--yh-checkbox-input-height`                        | Checkbox input height           | `14px`                             |
+| `--yh-checkbox-input-width`                         | Checkbox input width            | `14px`                             |
+| `--yh-checkbox-border-radius`                       | Checkbox corner radius          | `var(--yh-radius-sm)`              |
+| `--yh-checkbox-bg-color`                            | Checkbox input background color | `var(--yh-fill-color-blank)`       |
+| `--yh-checkbox-input-border`                        | Checkbox input border           | `1px solid var(--yh-border-color)` |
+| `--yh-checkbox-input-border-color-hover`            | Hover border color              | `var(--yh-color-primary)`          |
+| `--yh-checkbox-checked-bg-color`                    | Checked background              | `var(--yh-color-primary)`          |
+| `--yh-checkbox-checked-icon-color`                  | Checked icon color              | `var(--yh-fill-color-blank)`       |
+| `--yh-checkbox-checked-text-color`                  | Checked text color              | `var(--yh-color-primary)`          |
+| `--yh-checkbox-disabled-input-fill`                 | Disabled input background       | `var(--yh-fill-color-light)`       |
+| `--yh-checkbox-disabled-border-color`               | Disabled border color           | `var(--yh-border-color)`           |
+| `--yh-checkbox-disabled-icon-color`                 | Disabled icon color             | `var(--yh-text-color-placeholder)` |
+| `--yh-checkbox-disabled-checked-input-fill`         | Disabled checked background     | `var(--yh-border-color)`           |
+| `--yh-checkbox-disabled-checked-input-border-color` | Disabled checked border color   | `var(--yh-border-color)`           |
+| `--yh-checkbox-disabled-checked-icon-color`         | Disabled checked icon color     | `#fff`                             |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhCheckboxProps` | Props type for `YhCheckbox` |
-| `YhCheckboxEmits` | Emits type for `YhCheckbox` |
-| `YhCheckboxSlots` | Slots type for `YhCheckbox` |
-| `YhCheckboxExpose` | Expose type for `YhCheckbox` |
-| `YhCheckboxGroupProps` | Props type for `YhCheckboxGroup` |
-| `YhCheckboxGroupEmits` | Emits type for `YhCheckboxGroup` |
-| `YhCheckboxGroupOption` | Group option type |
-| `YhCheckboxValueType` | Checkbox value type |
-| `YhCheckboxInstance` | Public instance type for `YhCheckbox` |
+| Name                      | Description                                |
+| ------------------------- | ------------------------------------------ |
+| `YhCheckboxProps`         | Props type for `YhCheckbox`                |
+| `YhCheckboxEmits`         | Emits type for `YhCheckbox`                |
+| `YhCheckboxSlots`         | Slots type for `YhCheckbox`                |
+| `YhCheckboxExpose`        | Expose type for `YhCheckbox`               |
+| `YhCheckboxGroupProps`    | Props type for `YhCheckboxGroup`           |
+| `YhCheckboxGroupEmits`    | Emits type for `YhCheckboxGroup`           |
+| `YhCheckboxGroupOption`   | Group option type                          |
+| `YhCheckboxValueType`     | Checkbox value type                        |
+| `YhCheckboxInstance`      | Public instance type for `YhCheckbox`      |
 | `YhCheckboxGroupInstance` | Public instance type for `YhCheckboxGroup` |

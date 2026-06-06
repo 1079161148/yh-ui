@@ -437,11 +437,11 @@ interface ProductBadge {
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhProductCardProps` | Component props type |
-| `YhProductCardEmits` | Component emits type |
-| `YhProductCardSlots` | Component slots type |
-| `YhProductCardLayout` | Layout mode union |
-| `YhProductBadge` | Product badge type |
+| Name                    | Description             |
+| ----------------------- | ----------------------- |
+| `YhProductCardProps`    | Component props type    |
+| `YhProductCardEmits`    | Component emits type    |
+| `YhProductCardSlots`    | Component slots type    |
+| `YhProductCardLayout`   | Layout mode union       |
+| `YhProductBadge`        | Product badge type      |
 | `YhProductCardInstance` | Component instance type |

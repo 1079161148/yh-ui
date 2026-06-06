@@ -315,85 +315,85 @@ InputTag 组件在服务端渲染时，会根据 `modelValue` 的长度动态生
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值（标签数组） | `string[]` | `[]` |
-| type | 标签类型 | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'info'` |
-| size | 尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| readonly | 是否只读 | `boolean` | `false` |
-| max | 最大标签数量 | `number` | — |
-| separator | 分隔符 | `string \| string[]` | `[',', 'Enter']` |
-| placeholder | 占位符 | `string` | — |
-| clearable | 是否可清空 | `boolean` | `false` |
-| add-on-blur | 失焦时是否添加输入的内容 | `boolean` | `true` |
-| closable | 标签是否可关闭 | `boolean` | `true` |
-| validate-tag | 验证函数 | `(value: string) => boolean` | — |
-| trim | 是否去除首尾空格 | `boolean` | `true` |
-| allow-duplicate | 是否允许重复标签 | `boolean` | `false` |
-| **collapse-tags** | 是否折叠标签 | `boolean` | `false` |
-| **collapse-tags-tooltip** | 折叠时是否显示 tooltip | `boolean` | `false` |
-| **max-collapse-tags** | 最大折叠标签数量 | `number` | `1` |
-| **draggable** | 是否可拖拽排序 | `boolean` | `false` |
-| **tag-effect** | 标签效果 | `'dark' \| 'light' \| 'plain'` | `'light'` |
-| prefix | 前缀文本 | `string` | — |
-| suffix | 后缀文本 | `string` | — |
-| prefix-icon | 前缀图标 | `Component` | — |
-| suffix-icon | 后缀图标 | `Component` | — |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 属性名                    | 说明                     | 类型                                                        | 默认值           |
+| ------------------------- | ------------------------ | ----------------------------------------------------------- | ---------------- |
+| model-value / v-model     | 绑定值（标签数组）       | `string[]`                                                  | `[]`             |
+| type                      | 标签类型                 | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'info'`         |
+| size                      | 尺寸                     | `'large' \| 'default' \| 'small'`                           | `'default'`      |
+| disabled                  | 是否禁用                 | `boolean`                                                   | `false`          |
+| readonly                  | 是否只读                 | `boolean`                                                   | `false`          |
+| max                       | 最大标签数量             | `number`                                                    | —                |
+| separator                 | 分隔符                   | `string \| string[]`                                        | `[',', 'Enter']` |
+| placeholder               | 占位符                   | `string`                                                    | —                |
+| clearable                 | 是否可清空               | `boolean`                                                   | `false`          |
+| add-on-blur               | 失焦时是否添加输入的内容 | `boolean`                                                   | `true`           |
+| closable                  | 标签是否可关闭           | `boolean`                                                   | `true`           |
+| validate-tag              | 验证函数                 | `(value: string) => boolean`                                | —                |
+| trim                      | 是否去除首尾空格         | `boolean`                                                   | `true`           |
+| allow-duplicate           | 是否允许重复标签         | `boolean`                                                   | `false`          |
+| **collapse-tags**         | 是否折叠标签             | `boolean`                                                   | `false`          |
+| **collapse-tags-tooltip** | 折叠时是否显示 tooltip   | `boolean`                                                   | `false`          |
+| **max-collapse-tags**     | 最大折叠标签数量         | `number`                                                    | `1`              |
+| **draggable**             | 是否可拖拽排序           | `boolean`                                                   | `false`          |
+| **tag-effect**            | 标签效果                 | `'dark' \| 'light' \| 'plain'`                              | `'light'`        |
+| prefix                    | 前缀文本                 | `string`                                                    | —                |
+| suffix                    | 后缀文本                 | `string`                                                    | —                |
+| prefix-icon               | 前缀图标                 | `Component`                                                 | —                |
+| suffix-icon               | 后缀图标                 | `Component`                                                 | —                |
+| theme-overrides           | 组件级主题覆盖           | `ComponentThemeVars`                                        | `undefined`      |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| change | 标签变化时触发 | `(value: string[]) => void` |
-| input | 输入时触发 | `(value: string) => void` |
-| add | 添加标签时触发 | `(tag: string) => void` |
-| remove | 移除标签时触发 | `(tag: string, index: number) => void` |
-| focus | 聚焦时触发 | `(event: FocusEvent) => void` |
-| blur | 失焦时触发 | `(event: FocusEvent) => void` |
-| clear | 清空时触发 | `() => void` |
-| **drag-end** | 拖拽结束时触发 | `(tags: string[]) => void` |
+| 事件名       | 说明           | 回调参数                               |
+| ------------ | -------------- | -------------------------------------- |
+| change       | 标签变化时触发 | `(value: string[]) => void`            |
+| input        | 输入时触发     | `(value: string) => void`              |
+| add          | 添加标签时触发 | `(tag: string) => void`                |
+| remove       | 移除标签时触发 | `(tag: string, index: number) => void` |
+| focus        | 聚焦时触发     | `(event: FocusEvent) => void`          |
+| blur         | 失焦时触发     | `(event: FocusEvent) => void`          |
+| clear        | 清空时触发     | `() => void`                           |
+| **drag-end** | 拖拽结束时触发 | `(tags: string[]) => void`             |
 
 ### Slots
 
-| 插槽名 | 说明 | 作用域参数 |
-| --- | --- | --- |
-| prefix | 自定义前缀内容 | — |
-| suffix | 自定义后缀内容 | — |
-| **tag** | 自定义标签内容 | `{ tag: string, index: number, close: () => void }` |
-| **clear-icon** | 自定义清除图标 | — |
-| **collapse-tag** | 自定义折叠标签内容 | `{ count: number, tags: string[] }` |
+| 插槽名           | 说明               | 作用域参数                                          |
+| ---------------- | ------------------ | --------------------------------------------------- |
+| prefix           | 自定义前缀内容     | —                                                   |
+| suffix           | 自定义后缀内容     | —                                                   |
+| **tag**          | 自定义标签内容     | `{ tag: string, index: number, close: () => void }` |
+| **clear-icon**   | 自定义清除图标     | —                                                   |
+| **collapse-tag** | 自定义折叠标签内容 | `{ count: number, tags: string[] }`                 |
 
 ### Expose
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 使输入框获取焦点 | `() => void` |
-| blur | 使输入框失去焦点 | `() => void` |
-| clear | 清空所有标签 | `() => void` |
+| 属性名 | 说明             | 类型         |
+| ------ | ---------------- | ------------ |
+| focus  | 使输入框获取焦点 | `() => void` |
+| blur   | 使输入框失去焦点 | `() => void` |
+| clear  | 清空所有标签     | `() => void` |
 
 ### 主题变量
 
 `YhInputTag` 支持 `themeOverrides`。组件本身消费以下标签输入框相关 CSS 变量：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-input-tag-min-height` | 最小高度 | `var(--yh-component-size-default)` |
-| `--yh-input-tag-font-size` | 字体大小 | `var(--yh-font-size-base)` |
-| `--yh-input-tag-bg-color` | 背景颜色 | `var(--yh-fill-color-blank)` |
-| `--yh-input-tag-border-color` | 边框颜色 | `var(--yh-border-color)` |
-| `--yh-input-tag-tag-height` | 标签高度 | `22px` |
-| `--yh-input-tag-gap` | 标签间距 | `4px` |
+| 变量名                        | 说明     | 默认值                             |
+| ----------------------------- | -------- | ---------------------------------- |
+| `--yh-input-tag-min-height`   | 最小高度 | `var(--yh-component-size-default)` |
+| `--yh-input-tag-font-size`    | 字体大小 | `var(--yh-font-size-base)`         |
+| `--yh-input-tag-bg-color`     | 背景颜色 | `var(--yh-fill-color-blank)`       |
+| `--yh-input-tag-border-color` | 边框颜色 | `var(--yh-border-color)`           |
+| `--yh-input-tag-tag-height`   | 标签高度 | `22px`                             |
+| `--yh-input-tag-gap`          | 标签间距 | `4px`                              |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhInputTagProps` | `YhInputTag` 的 props 类型 |
-| `YhInputTagEmits` | `YhInputTag` 的 emits 类型 |
-| `YhInputTagSlots` | `YhInputTag` 的 slots 类型 |
-| `YhInputTagExpose` | `YhInputTag` 的 expose 类型 |
-| `YhInputTagSize` | 标签输入框尺寸联合类型 |
-| `YhInputTagType` | 标签类型联合类型 |
-| `YhInputTagInstance` | `YhInputTag` 的实例类型 |
+| 名称                 | 说明                        |
+| -------------------- | --------------------------- |
+| `YhInputTagProps`    | `YhInputTag` 的 props 类型  |
+| `YhInputTagEmits`    | `YhInputTag` 的 emits 类型  |
+| `YhInputTagSlots`    | `YhInputTag` 的 slots 类型  |
+| `YhInputTagExpose`   | `YhInputTag` 的 expose 类型 |
+| `YhInputTagSize`     | 标签输入框尺寸联合类型      |
+| `YhInputTagType`     | 标签类型联合类型            |
+| `YhInputTagInstance` | `YhInputTag` 的实例类型     |

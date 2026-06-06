@@ -291,11 +291,11 @@ export default defineNuxtConfig({
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhCategoryNavProps` | `YhCategoryNav` props 类型 |
-| `YhCategoryNavEmits` | `YhCategoryNav` emits 类型 |
-| `YhCategoryNavSlots` | `YhCategoryNav` slots 类型 |
-| `YhCategoryItem` | 一级分类项类型 |
-| `YhCategorySubItem` | 二级分类项类型 |
-| `YhCategoryNavInstance` | `YhCategoryNav` 实例类型 |
+| 名称                    | 说明                       |
+| ----------------------- | -------------------------- |
+| `YhCategoryNavProps`    | `YhCategoryNav` props 类型 |
+| `YhCategoryNavEmits`    | `YhCategoryNav` emits 类型 |
+| `YhCategoryNavSlots`    | `YhCategoryNav` slots 类型 |
+| `YhCategoryItem`        | 一级分类项类型             |
+| `YhCategorySubItem`     | 二级分类项类型             |
+| `YhCategoryNavInstance` | `YhCategoryNav` 实例类型   |

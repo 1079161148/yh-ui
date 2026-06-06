@@ -279,77 +279,77 @@ InputNumber 组件在 SSR 阶段会自动处理数值的精度和边界值约束
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `number` | — |
-| min | 最小值 | `number` | `-Infinity` |
-| max | 最大值 | `number` | `Infinity` |
-| step | 步长 | `number` | `1` |
-| step-strictly | 是否只能输入步长的倍数 | `boolean` | `false` |
-| precision | 数值精度 | `number` | — |
-| size | 尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| readonly | 是否只读 | `boolean` | `false` |
-| controls | 是否显示控制按钮 | `boolean` | `true` |
-| controls-position | 控制按钮位置 | `'' \| 'right'` | `''` |
-| prefix | 前缀文本 | `string` | — |
-| suffix | 后缀文本 | `string` | — |
-| prefix-icon | 前缀图标 | `Component` | — |
-| suffix-icon | 后缀图标 | `Component` | — |
-| clearable | 是否可清空 | `boolean` | `false` |
-| validator | 自定义验证函数 | `(value: number \| undefined) => boolean \| string` | — |
-| placeholder | 输入框占位符 | `string` | — |
-| value-on-clear | 清空时的值 | `number \| null \| 'min' \| 'max'` | `null` |
-| theme-overrides | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 属性名                | 说明                   | 类型                                                | 默认值      |
+| --------------------- | ---------------------- | --------------------------------------------------- | ----------- |
+| model-value / v-model | 绑定值                 | `number`                                            | —           |
+| min                   | 最小值                 | `number`                                            | `-Infinity` |
+| max                   | 最大值                 | `number`                                            | `Infinity`  |
+| step                  | 步长                   | `number`                                            | `1`         |
+| step-strictly         | 是否只能输入步长的倍数 | `boolean`                                           | `false`     |
+| precision             | 数值精度               | `number`                                            | —           |
+| size                  | 尺寸                   | `'large' \| 'default' \| 'small'`                   | `'default'` |
+| disabled              | 是否禁用               | `boolean`                                           | `false`     |
+| readonly              | 是否只读               | `boolean`                                           | `false`     |
+| controls              | 是否显示控制按钮       | `boolean`                                           | `true`      |
+| controls-position     | 控制按钮位置           | `'' \| 'right'`                                     | `''`        |
+| prefix                | 前缀文本               | `string`                                            | —           |
+| suffix                | 后缀文本               | `string`                                            | —           |
+| prefix-icon           | 前缀图标               | `Component`                                         | —           |
+| suffix-icon           | 后缀图标               | `Component`                                         | —           |
+| clearable             | 是否可清空             | `boolean`                                           | `false`     |
+| validator             | 自定义验证函数         | `(value: number \| undefined) => boolean \| string` | —           |
+| placeholder           | 输入框占位符           | `string`                                            | —           |
+| value-on-clear        | 清空时的值             | `number \| null \| 'min' \| 'max'`                  | `null`      |
+| theme-overrides       | 组件级主题覆盖         | `ComponentThemeVars`                                | `undefined` |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名 | 说明             | 回调参数                                                                     |
+| ------ | ---------------- | ---------------------------------------------------------------------------- |
 | change | 绑定值变化时触发 | `(currentValue: number \| undefined, oldValue: number \| undefined) => void` |
-| input | 输入时触发 | `(value: number \| undefined) => void` |
-| focus | 聚焦时触发 | `(event: FocusEvent) => void` |
-| blur | 失焦时触发 | `(event: FocusEvent) => void` |
-| clear | 清空时触发 | `() => void` |
+| input  | 输入时触发       | `(value: number \| undefined) => void`                                       |
+| focus  | 聚焦时触发       | `(event: FocusEvent) => void`                                                |
+| blur   | 失焦时触发       | `(event: FocusEvent) => void`                                                |
+| clear  | 清空时触发       | `() => void`                                                                 |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
-| prefix | 自定义前缀内容 |
-| suffix | 自定义后缀内容 |
+| 插槽名        | 说明               |
+| ------------- | ------------------ |
+| prefix        | 自定义前缀内容     |
+| suffix        | 自定义后缀内容     |
 | decrease-icon | 自定义减少按钮图标 |
 | increase-icon | 自定义增加按钮图标 |
 
 ### Expose
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| focus | 使输入框获取焦点 | `() => void` |
-| blur | 使输入框失去焦点 | `() => void` |
-| clear | 清空值 | `() => void` |
+| 属性名 | 说明             | 类型         |
+| ------ | ---------------- | ------------ |
+| focus  | 使输入框获取焦点 | `() => void` |
+| blur   | 使输入框失去焦点 | `() => void` |
+| clear  | 清空值           | `() => void` |
 
 ### 主题变量
 
 `YhInputNumber` 支持 `themeOverrides`。组件本身消费以下数字输入框相关 CSS 变量：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-input-number-width` | 输入框宽度 | `150px` |
-| `--yh-input-number-height` | 输入框高度 | `var(--yh-component-size-default)` |
-| `--yh-input-number-font-size` | 字体大小 | `var(--yh-font-size-base)` |
-| `--yh-input-number-bg-color` | 背景颜色 | `var(--yh-fill-color-blank)` |
-| `--yh-input-number-border-color` | 边框颜色 | `var(--yh-border-color)` |
-| `--yh-input-number-btn-color` | 按钮颜色 | `var(--yh-text-color-secondary)` |
+| 变量名                           | 说明       | 默认值                             |
+| -------------------------------- | ---------- | ---------------------------------- |
+| `--yh-input-number-width`        | 输入框宽度 | `150px`                            |
+| `--yh-input-number-height`       | 输入框高度 | `var(--yh-component-size-default)` |
+| `--yh-input-number-font-size`    | 字体大小   | `var(--yh-font-size-base)`         |
+| `--yh-input-number-bg-color`     | 背景颜色   | `var(--yh-fill-color-blank)`       |
+| `--yh-input-number-border-color` | 边框颜色   | `var(--yh-border-color)`           |
+| `--yh-input-number-btn-color`    | 按钮颜色   | `var(--yh-text-color-secondary)`   |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhInputNumberProps` | `YhInputNumber` 的 props 类型 |
-| `YhInputNumberEmits` | `YhInputNumber` 的 emits 类型 |
-| `YhInputNumberSlots` | `YhInputNumber` 的 slots 类型 |
-| `YhInputNumberExpose` | `YhInputNumber` 的 expose 类型 |
-| `YhInputNumberSize` | 数字输入框尺寸联合类型 |
-| `YhInputNumberControlsPosition` | 控制按钮位置联合类型 |
-| `YhInputNumberInstance` | `YhInputNumber` 的实例类型 |
+| 名称                            | 说明                           |
+| ------------------------------- | ------------------------------ |
+| `YhInputNumberProps`            | `YhInputNumber` 的 props 类型  |
+| `YhInputNumberEmits`            | `YhInputNumber` 的 emits 类型  |
+| `YhInputNumberSlots`            | `YhInputNumber` 的 slots 类型  |
+| `YhInputNumberExpose`           | `YhInputNumber` 的 expose 类型 |
+| `YhInputNumberSize`             | 数字输入框尺寸联合类型         |
+| `YhInputNumberControlsPosition` | 控制按钮位置联合类型           |
+| `YhInputNumberInstance`         | `YhInputNumber` 的实例类型     |

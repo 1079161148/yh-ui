@@ -884,70 +884,70 @@ const handleDisabledChange = (index: number) => {
 
 ### Steps Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| active | 当前激活步骤（从 0 开始） | `number` | `0` |
-| direction | 显示方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| align-center | 是否居中对齐 | `boolean` | `false` |
-| simple | 是否启用简洁风格 | `boolean` | `false` |
-| progress-dot | 点状/导航风格 | `boolean \| 'dot' \| 'navigation'` | `false` |
-| finish-status | 结束步骤的状态 | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'finish'` |
-| process-status | 当前步骤的状态 | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'process'` |
-| space | 每个 step 的间距（支持 px 或百分比） | `number \| string` | — |
-| clickable | 是否可点击切换步骤 | `boolean` | `false` |
-| size | 尺寸 | `'default' \| 'small'` | `'default'` |
-| responsive | 是否响应式（小屏幕自动切换为垂直） | `boolean` | `false` |
-| responsive-breakpoint | 响应式断点（px） | `number` | `768` |
-| label-placement | 标签位置 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| show-progress | 显示进度条连接线 | `boolean` | `false` |
-| show-timeline | 显示时间线 | `boolean` | `false` |
+| 属性名                | 说明                                 | 类型                                                      | 默认值         |
+| --------------------- | ------------------------------------ | --------------------------------------------------------- | -------------- |
+| active                | 当前激活步骤（从 0 开始）            | `number`                                                  | `0`            |
+| direction             | 显示方向                             | `'horizontal' \| 'vertical'`                              | `'horizontal'` |
+| align-center          | 是否居中对齐                         | `boolean`                                                 | `false`        |
+| simple                | 是否启用简洁风格                     | `boolean`                                                 | `false`        |
+| progress-dot          | 点状/导航风格                        | `boolean \| 'dot' \| 'navigation'`                        | `false`        |
+| finish-status         | 结束步骤的状态                       | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'finish'`     |
+| process-status        | 当前步骤的状态                       | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'process'`    |
+| space                 | 每个 step 的间距（支持 px 或百分比） | `number \| string`                                        | —              |
+| clickable             | 是否可点击切换步骤                   | `boolean`                                                 | `false`        |
+| size                  | 尺寸                                 | `'default' \| 'small'`                                    | `'default'`    |
+| responsive            | 是否响应式（小屏幕自动切换为垂直）   | `boolean`                                                 | `false`        |
+| responsive-breakpoint | 响应式断点（px）                     | `number`                                                  | `768`          |
+| label-placement       | 标签位置                             | `'horizontal' \| 'vertical'`                              | `'horizontal'` |
+| show-progress         | 显示进度条连接线                     | `boolean`                                                 | `false`        |
+| show-timeline         | 显示时间线                           | `boolean`                                                 | `false`        |
 
 ### Steps Events
 
-| 事件名 | 说明 | 类型 |
-| --- | --- | --- |
+| 事件名 | 说明                               | 类型                      |
+| ------ | ---------------------------------- | ------------------------- |
 | change | 点击步骤时触发（需开启 clickable） | `(index: number) => void` |
 
 ### Steps Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | Step 组件内容 | — |
+| 插槽名  | 说明          | 参数 |
+| ------- | ------------- | ---- |
+| default | Step 组件内容 | —    |
 
 ### Step Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 标题 | `string` | `''` |
-| description | 描述文字 | `string` | `''` |
-| icon | 自定义图标类名 | `string` | `''` |
-| status | 当前步骤状态（覆盖父组件设置） | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `''` |
-| disabled | 是否禁用该步骤 | `boolean` | `false` |
-| time | 时间信息（用于时间线模式） | `string` | `''` |
-| progress | 进度百分比（0-100，用于进度条模式） | `number` | `0` |
-| lazy | 是否延迟渲染内容 | `boolean` | `false` |
+| 属性名      | 说明                                | 类型                                                      | 默认值  |
+| ----------- | ----------------------------------- | --------------------------------------------------------- | ------- |
+| title       | 标题                                | `string`                                                  | `''`    |
+| description | 描述文字                            | `string`                                                  | `''`    |
+| icon        | 自定义图标类名                      | `string`                                                  | `''`    |
+| status      | 当前步骤状态（覆盖父组件设置）      | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `''`    |
+| disabled    | 是否禁用该步骤                      | `boolean`                                                 | `false` |
+| time        | 时间信息（用于时间线模式）          | `string`                                                  | `''`    |
+| progress    | 进度百分比（0-100，用于进度条模式） | `number`                                                  | `0`     |
+| lazy        | 是否延迟渲染内容                    | `boolean`                                                 | `false` |
 
 ### Step Slots
 
-| 插槽名 | 说明 | 参数 |
-| --- | --- | --- |
-| default | 自定义内容区域 | — |
-| icon | 自定义图标 | — |
-| title | 自定义标题 | — |
-| description | 自定义描述 | — |
-| time | 自定义时间内容 | — |
+| 插槽名      | 说明           | 参数 |
+| ----------- | -------------- | ---- |
+| default     | 自定义内容区域 | —    |
+| icon        | 自定义图标     | —    |
+| title       | 自定义标题     | —    |
+| description | 自定义描述     | —    |
+| time        | 自定义时间内容 | —    |
 
 ## 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-steps-icon-size` | 图标区域大小 | `28px` |
-| `--yh-steps-line-color` | 连接线颜色 | `var(--yh-border-color-light)` |
-| `--yh-steps-finish-color` | 完成状态颜色 | `var(--yh-color-primary)` |
-| `--yh-steps-process-color` | 进行中状态颜色 | `var(--yh-color-primary)` |
-| `--yh-steps-wait-color` | 等待状态颜色 | `var(--yh-text-color-placeholder)` |
-| `--yh-steps-error-color` | 错误状态颜色 | `var(--yh-color-danger)` |
-| `--yh-steps-success-color` | 成功状态颜色 | `var(--yh-color-success)` |
+| 变量名                     | 说明           | 默认值                             |
+| -------------------------- | -------------- | ---------------------------------- |
+| `--yh-steps-icon-size`     | 图标区域大小   | `28px`                             |
+| `--yh-steps-line-color`    | 连接线颜色     | `var(--yh-border-color-light)`     |
+| `--yh-steps-finish-color`  | 完成状态颜色   | `var(--yh-color-primary)`          |
+| `--yh-steps-process-color` | 进行中状态颜色 | `var(--yh-color-primary)`          |
+| `--yh-steps-wait-color`    | 等待状态颜色   | `var(--yh-text-color-placeholder)` |
+| `--yh-steps-error-color`   | 错误状态颜色   | `var(--yh-color-danger)`           |
+| `--yh-steps-success-color` | 成功状态颜色   | `var(--yh-color-success)`          |
 
 ### Expose
 
@@ -955,18 +955,18 @@ const handleDisabledChange = (index: number) => {
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhStepsProps` | Steps 组件 Props 类型 |
-| `YhStepsEmits` | Steps 组件事件类型 |
-| `YhStepsSlots` | Steps 组件插槽类型 |
-| `YhStepsDirection` | 方向联合类型 |
-| `YhStepsStatus` | 状态联合类型 |
-| `YhStepsProgressDot` | 点状模式类型 |
-| `YhStepsSize` | 尺寸联合类型 |
-| `YhStepsLabelPlacement` | 标签位置联合类型 |
-| `YhStepConfig` | Step 配置类型 |
-| `YhStepProps` | Step 组件 Props 类型 |
-| `YhStepSlots` | Step 组件插槽类型 |
-| `YhStepsInstance` | Steps 组件实例类型 |
-| `YhStepInstance` | Step 组件实例类型 |
+| 名称                    | 说明                  |
+| ----------------------- | --------------------- |
+| `YhStepsProps`          | Steps 组件 Props 类型 |
+| `YhStepsEmits`          | Steps 组件事件类型    |
+| `YhStepsSlots`          | Steps 组件插槽类型    |
+| `YhStepsDirection`      | 方向联合类型          |
+| `YhStepsStatus`         | 状态联合类型          |
+| `YhStepsProgressDot`    | 点状模式类型          |
+| `YhStepsSize`           | 尺寸联合类型          |
+| `YhStepsLabelPlacement` | 标签位置联合类型      |
+| `YhStepConfig`          | Step 配置类型         |
+| `YhStepProps`           | Step 组件 Props 类型  |
+| `YhStepSlots`           | Step 组件插槽类型     |
+| `YhStepsInstance`       | Steps 组件实例类型    |
+| `YhStepInstance`        | Step 组件实例类型     |

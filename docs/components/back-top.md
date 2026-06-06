@@ -130,16 +130,16 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Props
 
-| 属性名            | 说明                         | 类型      | 默认值                    |
-| ----------------- | ---------------------------- | --------- | ------------------------- |
-| visibility-height | 滚动高度达到此值时才显示     | `number`  | `200`                     |
-| target            | 容器选择器，全屏滚动无需设置 | `string`  | —                         |
-| right             | 距离右侧的距离               | `number`  | `40`                      |
-| bottom            | 距离底部的距离               | `number`  | `40`                      |
-| show-progress     | 是否显示进度环               | `boolean` | `true`                    |
-| progress-color    | 进度环颜色，为空时跟随当前文本色 | `string`  | `''`                      |
-| duration          | 回滚动画持续时间 (ms)        | `number`  | `400`                     |
-| theme-overrides   | 组件级主题覆盖               | `ComponentThemeVars` | `undefined`          |
+| 属性名            | 说明                             | 类型                 | 默认值      |
+| ----------------- | -------------------------------- | -------------------- | ----------- |
+| visibility-height | 滚动高度达到此值时才显示         | `number`             | `200`       |
+| target            | 容器选择器，全屏滚动无需设置     | `string`             | —           |
+| right             | 距离右侧的距离                   | `number`             | `40`        |
+| bottom            | 距离底部的距离                   | `number`             | `40`        |
+| show-progress     | 是否显示进度环                   | `boolean`            | `true`      |
+| progress-color    | 进度环颜色，为空时跟随当前文本色 | `string`             | `''`        |
+| duration          | 回滚动画持续时间 (ms)            | `number`             | `400`       |
+| theme-overrides   | 组件级主题覆盖                   | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
@@ -149,9 +149,9 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Slots
 
-| 插槽名 | 说明 | 插槽参数 |
-| --- | --- | --- |
-| `default` | 自定义返回顶部触发内容。 | 无 |
+| 插槽名    | 说明                     | 插槽参数 |
+| --------- | ------------------------ | -------- |
+| `default` | 自定义返回顶部触发内容。 | 无       |
 
 ### Expose
 
@@ -163,12 +163,12 @@ const jsNuxt = toJs(tsNuxt)
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhBackTopProps` | `YhBackTop` props 类型 |
-| `YhBackTopEmits` | `YhBackTop` emits 类型 |
-| `YhBackTopSlots` | `YhBackTop` slots 类型 |
-| `YhBackTopInstance` | `YhBackTop` 实例类型 |
+| 名称                | 说明                   |
+| ------------------- | ---------------------- |
+| `YhBackTopProps`    | `YhBackTop` props 类型 |
+| `YhBackTopEmits`    | `YhBackTop` emits 类型 |
+| `YhBackTopSlots`    | `YhBackTop` slots 类型 |
+| `YhBackTopInstance` | `YhBackTop` 实例类型   |
 
 <style scoped>
 .demo-info {

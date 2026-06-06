@@ -5,7 +5,8 @@ import { testHydration } from '../../__tests__/utils/ssr'
 const trimTextBoundaryWhitespace = (html: string) =>
   html.replace(/>\s*([^<]*?)\s*</g, (_, text: string) => `>${text.trim()}<`)
 
-const normalizeTeleportDisabled = (html: string) => html.replace('<teleport disabled to=', '<teleport to=')
+const normalizeTeleportDisabled = (html: string) =>
+  html.replace('<teleport disabled to=', '<teleport to=')
 
 describe('YhDatePicker Hydration', () => {
   it('hydrates single date markup without mismatch', async () => {

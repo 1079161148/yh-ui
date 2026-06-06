@@ -96,14 +96,20 @@ function isCurrentLang(lang: Language): boolean {
 
 <template>
   <div class="lang-switcher">
-    <button v-for="lang in languages" :key="lang.code" :class="[
-      'lang-switcher__btn',
-      { 'lang-switcher__btn--active': isCurrentLang(lang.code) }
-    ]" @click="switchLanguage(lang.code)" :title="lang.name">
+    <button
+      v-for="lang in languages"
+      :key="lang.code"
+      :class="['lang-switcher__btn', { 'lang-switcher__btn--active': isCurrentLang(lang.code) }]"
+      @click="switchLanguage(lang.code)"
+      :title="lang.name"
+    >
       <span class="lang-switcher__flag">{{ lang.flag }}</span>
       <span class="lang-switcher__text">{{ lang.name }}</span>
     </button>
-    <div class="lang-switcher__indicator" :class="{ 'lang-switcher__indicator--right': currentLang === 'en-US' }" />
+    <div
+      class="lang-switcher__indicator"
+      :class="{ 'lang-switcher__indicator--right': currentLang === 'en-US' }"
+    />
   </div>
 </template>
 

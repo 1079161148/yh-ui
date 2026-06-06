@@ -561,36 +561,36 @@ const jsBothDrag = toJs(tsBothDrag);
 
 通过 `drag-config` 属性传入。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| column | 是否可拖拽列 | `boolean` | `false` |
-| row | 是否可拖拽行（可同时开启） | `boolean` | `false` |
-| animation | 动画时长（毫秒） | `number` | `150` |
-| onDragStart | 拖拽开始回调 | `({ type, data, index }) => void` | — |
-| onDragEnd | 拖拽结束回调 | `({ type, oldIndex, newIndex, data }) => void` | — |
-| dragClass | 拖拽时的样式类 | `string` | — |
-| ghostClass | 幽灵元素样式类 | `string` | — |
+| 属性        | 说明                       | 类型                                           | 默认值  |
+| ----------- | -------------------------- | ---------------------------------------------- | ------- |
+| column      | 是否可拖拽列               | `boolean`                                      | `false` |
+| row         | 是否可拖拽行（可同时开启） | `boolean`                                      | `false` |
+| animation   | 动画时长（毫秒）           | `number`                                       | `150`   |
+| onDragStart | 拖拽开始回调               | `({ type, data, index }) => void`              | —       |
+| onDragEnd   | 拖拽结束回调               | `({ type, oldIndex, newIndex, data }) => void` | —       |
+| dragClass   | 拖拽时的样式类             | `string`                                       | —       |
+| ghostClass  | 幽灵元素样式类             | `string`                                       | —       |
 
 ### TableColumn Props（列拖拽相关）
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| draggable | 该列是否可拖拽排序 | `boolean` | — |
-| visible | 列是否可见 | `boolean` | `true` |
+| 属性      | 说明               | 类型      | 默认值 |
+| --------- | ------------------ | --------- | ------ |
+| draggable | 该列是否可拖拽排序 | `boolean` | —      |
+| visible   | 列是否可见         | `boolean` | `true` |
 
 ### 事件
 
-| 事件名 | 说明 | 参数 |
-| --- | --- | --- |
+| 事件名   | 说明           | 参数                                                                               |
+| -------- | -------------- | ---------------------------------------------------------------------------------- |
 | drag-end | 拖拽结束时触发 | `{ type: 'row' \| 'column', oldIndex: number, newIndex: number, data: unknown[] }` |
 
 ### 方法（通过 ref 调用）
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| getColumns | 获取当前列信息 | — |
-| setColumnVisible | 设置列可见性 | `(prop: string, visible: boolean)` |
-| resetColumns | 重置所有列为可见 | — |
+| 方法名           | 说明             | 参数                               |
+| ---------------- | ---------------- | ---------------------------------- |
+| getColumns       | 获取当前列信息   | —                                  |
+| setColumnVisible | 设置列可见性     | `(prop: string, visible: boolean)` |
+| resetColumns     | 重置所有列为可见 | —                                  |
 
 ### 注意事项
 
@@ -598,4 +598,3 @@ const jsBothDrag = toJs(tsBothDrag);
 2. **列级别控制**：通过列配置的 `draggable` 属性可以精确控制每一列是否可拖拽。
 3. **响应式列配置**：使用 `ref` 包裹 `columns` 配置，拖拽后列顺序会自动更新。
 4. **行列同时拖拽**：同时设置 `row: true` 和 `column: true` 即可同时支持行和列拖拽，表格会自动区分操作区域。
-

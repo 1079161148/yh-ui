@@ -14,7 +14,10 @@ const emit = defineEmits(stepsEmits)
 const ns = useNamespace('steps')
 
 // 组件级 themeOverrides
-const { themeStyle } = useComponentTheme('steps', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'steps',
+  computed(() => props.themeOverrides)
+)
 
 const steps = ref<StepConfig[]>([])
 
@@ -45,7 +48,7 @@ onUnmounted(() => {
 
 // 注册步骤
 const registerStep = (step: StepConfig) => {
-  const index = steps.value.findIndex(s => s.uid === step.uid)
+  const index = steps.value.findIndex((s) => s.uid === step.uid)
   if (index === -1) {
     steps.value.push(step)
   } else {
@@ -57,7 +60,7 @@ const registerStep = (step: StepConfig) => {
 
 // 注销步骤
 const unregisterStep = (uid: number) => {
-  const index = steps.value.findIndex(s => s.uid === uid)
+  const index = steps.value.findIndex((s) => s.uid === uid)
   if (index > -1) {
     steps.value.splice(index, 1)
   }

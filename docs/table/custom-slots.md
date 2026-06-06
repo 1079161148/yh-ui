@@ -444,15 +444,15 @@ const jsFullToolbar = toJs(tsFullToolbar)
 
 ### 工具栏插槽
 
-| 插槽名 | 说明 | 位置 |
-| --- | --- | --- |
-| `toolbar-left` | 左侧工具栏主内容 | 左侧 |
-| `toolbar-left-prefix` | 左侧工具栏前缀（如标题） | 左侧最前 |
-| `toolbar-left-suffix` | 左侧工具栏后缀（如统计） | 左侧最后 |
-| `toolbar-right` | 右侧工具栏主内容 | 右侧 |
+| 插槽名                 | 说明                     | 位置     |
+| ---------------------- | ------------------------ | -------- |
+| `toolbar-left`         | 左侧工具栏主内容         | 左侧     |
+| `toolbar-left-prefix`  | 左侧工具栏前缀（如标题） | 左侧最前 |
+| `toolbar-left-suffix`  | 左侧工具栏后缀（如统计） | 左侧最后 |
+| `toolbar-right`        | 右侧工具栏主内容         | 右侧     |
 | `toolbar-right-prefix` | 右侧工具栏前缀（如提示） | 右侧最前 |
 | `toolbar-right-suffix` | 右侧工具栏后缀（如状态） | 右侧最后 |
-| `empty` | 空数据状态自定义内容 | 表格内部 |
+| `empty`                | 空数据状态自定义内容     | 表格内部 |
 
 ### 使用建议
 
@@ -461,4 +461,3 @@ const jsFullToolbar = toJs(tsFullToolbar)
 3. **前缀** 适合放置标题、图标等静态内容
 4. **后缀** 适合放置统计信息、状态指示等辅助信息
 5. 所有插槽均可自由组合使用，未使用的插槽不会渲染额外空间
-

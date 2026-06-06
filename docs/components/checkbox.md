@@ -359,96 +359,96 @@ Checkbox 组件已通过完整的 SSR 测试，确保服务端渲染结果与客
 
 ### Checkbox Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `string \| number \| boolean` | — |
-| value | 选中时的值（在 checkbox-group 中使用） | `string \| number \| boolean` | — |
-| label | 显示的文本（如果没有 default slot） | `string` | — |
-| true-value | 选中时的值 | `string \| number \| boolean` | `true` |
-| false-value | 未选中时的值 | `string \| number \| boolean` | `false` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| indeterminate | 设置中间状态，只负责样式控制 | `boolean` | `false` |
-| border | 是否显示边框 | `boolean` | `false` |
-| size | 复选框尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| name | 原生 name 属性 | `string` | — |
-| checked | 当前是否选中 | `boolean` | — |
-| id | input id | `string` | — |
-| tabindex | input tabindex | `string \| number` | — |
+| 属性名                | 说明                                   | 类型                              | 默认值      |
+| --------------------- | -------------------------------------- | --------------------------------- | ----------- |
+| model-value / v-model | 绑定值                                 | `string \| number \| boolean`     | —           |
+| value                 | 选中时的值（在 checkbox-group 中使用） | `string \| number \| boolean`     | —           |
+| label                 | 显示的文本（如果没有 default slot）    | `string`                          | —           |
+| true-value            | 选中时的值                             | `string \| number \| boolean`     | `true`      |
+| false-value           | 未选中时的值                           | `string \| number \| boolean`     | `false`     |
+| disabled              | 是否禁用                               | `boolean`                         | `false`     |
+| indeterminate         | 设置中间状态，只负责样式控制           | `boolean`                         | `false`     |
+| border                | 是否显示边框                           | `boolean`                         | `false`     |
+| size                  | 复选框尺寸                             | `'large' \| 'default' \| 'small'` | `'default'` |
+| name                  | 原生 name 属性                         | `string`                          | —           |
+| checked               | 当前是否选中                           | `boolean`                         | —           |
+| id                    | input id                               | `string`                          | —           |
+| tabindex              | input tabindex                         | `string \| number`                | —           |
 
 ### Checkbox Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名 | 说明               | 回调参数                                       |
+| ------ | ------------------ | ---------------------------------------------- |
 | change | 当绑定值变化时触发 | `(value: string \| number \| boolean) => void` |
 
 ### Checkbox Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明           |
+| ------- | -------------- |
 | default | 自定义默认内容 |
 
 ### Checkbox Expose
 
-| 属性名 | 说明 | 类型 |
-| --- | --- | --- |
-| ref | 原生 input 元素 | `Ref<HTMLInputElement>` |
-| checked | 是否选中 | `boolean` |
-| focus | 使 input 获取焦点 | `() => void` |
-| blur | 使 input 失去焦点 | `() => void` |
+| 属性名  | 说明              | 类型                    |
+| ------- | ----------------- | ----------------------- |
+| ref     | 原生 input 元素   | `Ref<HTMLInputElement>` |
+| checked | 是否选中          | `boolean`               |
+| focus   | 使 input 获取焦点 | `() => void`            |
+| blur    | 使 input 失去焦点 | `() => void`            |
 
 ### CheckboxGroup Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| model-value / v-model | 绑定值 | `Array<string \| number \| boolean>` | `[]` |
-| size | 复选框组尺寸 | `'large' \| 'default' \| 'small'` | — |
-| disabled | 是否禁用 | `boolean` | `false` |
-| min | 可被勾选的最小数量 | `number` | — |
-| max | 可被勾选的最大数量 | `number` | — |
-| text-color | 激活时的文字颜色 | `string` | — |
-| fill | 激活时的填充色和边框色 | `string` | — |
-| tag | 自定义元素标签 | `string \| Component` | `'div'` |
+| 属性名                | 说明                   | 类型                                 | 默认值  |
+| --------------------- | ---------------------- | ------------------------------------ | ------- |
+| model-value / v-model | 绑定值                 | `Array<string \| number \| boolean>` | `[]`    |
+| size                  | 复选框组尺寸           | `'large' \| 'default' \| 'small'`    | —       |
+| disabled              | 是否禁用               | `boolean`                            | `false` |
+| min                   | 可被勾选的最小数量     | `number`                             | —       |
+| max                   | 可被勾选的最大数量     | `number`                             | —       |
+| text-color            | 激活时的文字颜色       | `string`                             | —       |
+| fill                  | 激活时的填充色和边框色 | `string`                             | —       |
+| tag                   | 自定义元素标签         | `string \| Component`                | `'div'` |
 
 ### CheckboxGroup Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名 | 说明               | 回调参数                                              |
+| ------ | ------------------ | ----------------------------------------------------- |
 | change | 当绑定值变化时触发 | `(value: Array<string \| number \| boolean>) => void` |
 
 ### CheckboxGroup Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明           |
+| ------- | -------------- |
 | default | 自定义默认内容 |
 
 ### 主题变量
 
 Checkbox 组件使用以下 CSS 变量，你可以通过覆盖这些变量来自定义样式：
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-checkbox-font-size` | 字体大小 | `var(--yh-font-size-base)` |
-| `--yh-checkbox-text-color` | 文字颜色 | `var(--yh-text-color-regular)` |
-| `--yh-checkbox-input-size` | 复选框大小 | `14px` |
-| `--yh-checkbox-input-border-color` | 边框颜色 | `var(--yh-border-color)` |
-| `--yh-checkbox-input-bg-color` | 背景颜色 | `var(--yh-fill-color-blank)` |
-| `--yh-checkbox-checked-bg-color` | 选中背景色 | `var(--yh-color-primary)` |
-| `--yh-checkbox-checked-border-color` | 选中边框色 | `var(--yh-color-primary)` |
-| `--yh-checkbox-checked-icon-color` | 选中图标色 | `var(--yh-fill-color-blank)` |
-| `--yh-checkbox-disabled-bg-color` | 禁用背景色 | `var(--yh-fill-color-light)` |
-| `--yh-checkbox-disabled-text-color` | 禁用文字色 | `var(--yh-text-color-placeholder)` |
+| 变量名                               | 说明       | 默认值                             |
+| ------------------------------------ | ---------- | ---------------------------------- |
+| `--yh-checkbox-font-size`            | 字体大小   | `var(--yh-font-size-base)`         |
+| `--yh-checkbox-text-color`           | 文字颜色   | `var(--yh-text-color-regular)`     |
+| `--yh-checkbox-input-size`           | 复选框大小 | `14px`                             |
+| `--yh-checkbox-input-border-color`   | 边框颜色   | `var(--yh-border-color)`           |
+| `--yh-checkbox-input-bg-color`       | 背景颜色   | `var(--yh-fill-color-blank)`       |
+| `--yh-checkbox-checked-bg-color`     | 选中背景色 | `var(--yh-color-primary)`          |
+| `--yh-checkbox-checked-border-color` | 选中边框色 | `var(--yh-color-primary)`          |
+| `--yh-checkbox-checked-icon-color`   | 选中图标色 | `var(--yh-fill-color-blank)`       |
+| `--yh-checkbox-disabled-bg-color`    | 禁用背景色 | `var(--yh-fill-color-light)`       |
+| `--yh-checkbox-disabled-text-color`  | 禁用文字色 | `var(--yh-text-color-placeholder)` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhCheckboxProps` | `YhCheckbox` props 类型 |
-| `YhCheckboxEmits` | `YhCheckbox` emits 类型 |
-| `YhCheckboxSlots` | `YhCheckbox` slots 类型 |
-| `YhCheckboxExpose` | `YhCheckbox` expose 类型 |
-| `YhCheckboxGroupProps` | `YhCheckboxGroup` props 类型 |
-| `YhCheckboxGroupEmits` | `YhCheckboxGroup` emits 类型 |
-| `YhCheckboxGroupOption` | 组选项类型 |
-| `YhCheckboxValueType` | 复选框值类型 |
-| `YhCheckboxInstance` | `YhCheckbox` 实例类型 |
-| `YhCheckboxGroupInstance` | `YhCheckboxGroup` 实例类型 |
+| 名称                      | 说明                         |
+| ------------------------- | ---------------------------- |
+| `YhCheckboxProps`         | `YhCheckbox` props 类型      |
+| `YhCheckboxEmits`         | `YhCheckbox` emits 类型      |
+| `YhCheckboxSlots`         | `YhCheckbox` slots 类型      |
+| `YhCheckboxExpose`        | `YhCheckbox` expose 类型     |
+| `YhCheckboxGroupProps`    | `YhCheckboxGroup` props 类型 |
+| `YhCheckboxGroupEmits`    | `YhCheckboxGroup` emits 类型 |
+| `YhCheckboxGroupOption`   | 组选项类型                   |
+| `YhCheckboxValueType`     | 复选框值类型                 |
+| `YhCheckboxInstance`      | `YhCheckbox` 实例类型        |
+| `YhCheckboxGroupInstance` | `YhCheckboxGroup` 实例类型   |

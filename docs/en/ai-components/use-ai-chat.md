@@ -232,17 +232,17 @@ The `useAiConversations` hook quickly sets up a managed conversation list for si
 
 ### useAiChat Options
 
-| Property          | Description                                                                                                         | Type                |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| `initialMessages` | Array of default chat records                                                                                       | `AiChatMessage[]`   |
-| `request`         | Request adapter with signature `(message, history, abortSignal) => AsyncGenerator \| Promise<string \| Response>`  | `Function`          |
-| `idGenerator`     | Replaces the default random ID generator                                                                            | `() => string`      |
-| `parser`          | SSE / stream chunk parser for different vendor formats                                                              | `StreamChunkParser` |
-| `typewriter`      | Enable or disable the built-in typewriter effect                                                                    | `boolean`           |
-| `charsPerFrame`   | Number of characters rendered per frame in typewriter mode                                                          | `number`            |
-| `systemPrompt`    | System prompt automatically prepended to request history                                                            | `string`            |
-| `onError`         | Error callback                                                                                                      | `(err) => void`     |
-| `onFinish`        | Callback fired when the assistant message finishes                                                                  | `(message) => void` |
+| Property          | Description                                                                                                       | Type                |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `initialMessages` | Array of default chat records                                                                                     | `AiChatMessage[]`   |
+| `request`         | Request adapter with signature `(message, history, abortSignal) => AsyncGenerator \| Promise<string \| Response>` | `Function`          |
+| `idGenerator`     | Replaces the default random ID generator                                                                          | `() => string`      |
+| `parser`          | SSE / stream chunk parser for different vendor formats                                                            | `StreamChunkParser` |
+| `typewriter`      | Enable or disable the built-in typewriter effect                                                                  | `boolean`           |
+| `charsPerFrame`   | Number of characters rendered per frame in typewriter mode                                                        | `number`            |
+| `systemPrompt`    | System prompt automatically prepended to request history                                                          | `string`            |
+| `onError`         | Error callback                                                                                                    | `(err) => void`     |
+| `onFinish`        | Callback fired when the assistant message finishes                                                                | `(message) => void` |
 
 ### useAiChat Returns
 

@@ -112,18 +112,18 @@ Divider 组件完全支持 Nuxt 3/4 环境。作为纯表现型组件，其 HTML
 
 ### Props
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| direction | 分割线方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| content-position | 文案位置 | `'left' \| 'center' \| 'right'` | `'center'` |
-| border-style | 分割线样式 | `'solid' \| 'dashed' \| 'dotted' \| 'double'` | `'solid'` |
-| border-width | 分割线宽度 | `string \| number` | `1px` |
-| color | 分割线颜色 | `string` | — |
+| 属性名           | 说明       | 类型                                          | 默认值         |
+| ---------------- | ---------- | --------------------------------------------- | -------------- |
+| direction        | 分割线方向 | `'horizontal' \| 'vertical'`                  | `'horizontal'` |
+| content-position | 文案位置   | `'left' \| 'center' \| 'right'`               | `'center'`     |
+| border-style     | 分割线样式 | `'solid' \| 'dashed' \| 'dotted' \| 'double'` | `'solid'`      |
+| border-width     | 分割线宽度 | `string \| number`                            | `1px`          |
+| color            | 分割线颜色 | `string`                                      | —              |
 
 ### Slots
 
-| 插槽名 | 说明 |
-| --- | --- |
+| 插槽名  | 说明           |
+| ------- | -------------- |
 | default | 分割线文案内容 |
 
 ### Events
@@ -136,21 +136,21 @@ Divider 组件完全支持 Nuxt 3/4 环境。作为纯表现型组件，其 HTML
 
 ### 主题变量
 
-| 变量名 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--yh-divider-border-color` | 分割线边框颜色 | `var(--yh-border-color-lighter)` |
-| `--yh-divider-border-width` | 分割线边框宽度 | `1px` |
-| `--yh-divider-border-style` | 分割线边框样式 | `solid` |
-| `--yh-divider-margin-horizontal` | 水平方向外边距 | `24px 0` |
-| `--yh-divider-margin-vertical` | 垂直方向外边距 | `0 8px` |
-| `--yh-divider-text-color` | 文案颜色 | `var(--yh-text-color-primary)` |
+| 变量名                           | 说明           | 默认值                           |
+| -------------------------------- | -------------- | -------------------------------- |
+| `--yh-divider-border-color`      | 分割线边框颜色 | `var(--yh-border-color-lighter)` |
+| `--yh-divider-border-width`      | 分割线边框宽度 | `1px`                            |
+| `--yh-divider-border-style`      | 分割线边框样式 | `solid`                          |
+| `--yh-divider-margin-horizontal` | 水平方向外边距 | `24px 0`                         |
+| `--yh-divider-margin-vertical`   | 垂直方向外边距 | `0 8px`                          |
+| `--yh-divider-text-color`        | 文案颜色       | `var(--yh-text-color-primary)`   |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhDividerProps` | 组件 Props 类型 |
-| `YhDividerInstance` | 组件实例类型 |
+| 名称                | 说明            |
+| ------------------- | --------------- |
+| `YhDividerProps`    | 组件 Props 类型 |
+| `YhDividerInstance` | 组件实例类型    |
 
 <script setup lang="ts">
 const tsBasic = `

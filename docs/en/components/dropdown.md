@@ -514,80 +514,80 @@ The `Dropdown` component fully supports SSR rendering for Nuxt 3/4.
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| trigger | Trigger mode | `'hover' \| 'click' \| 'contextmenu'` | `'hover'` |
-| placement | Popup placement | `Placement` | `'bottom'` |
-| visible | Whether visible (supports v-model) | `boolean \| null` | `null` |
-| disabled | Whether disabled | `boolean` | `false` |
-| show-after | Delay show time (ms) | `number` | `0` |
-| hide-after | Delay hide time (ms) | `number` | `150` |
-| z-index | Overlay z-index | `number` | `2000` |
-| hide-on-click | Whether to hide after clicking a menu item | `boolean` | `true` |
-| items | Menu item data (Quick Config Mode) | `YhDropdownItemData[]` | `[]` |
-| loading | Whether in loading state | `boolean` | `false` |
-| empty-text | Empty state text | `string` | `undefined` |
-| checkable | Whether items are checkable | `boolean` | `false` |
-| max-height | Maximum height of the menu | `string \| number` | `''` |
-| teleported | Whether to mount to body | `boolean` | `true` |
-| popper-class | Custom class name for popper | `string` | `''` |
-| popper-style | Custom style for popper | `CSSProperties` | `{}` |
-| split-button | Split button mode | `boolean` | `false` |
-| type | Button type (Split Button mode) | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| ''` | `''` |
-| size | Button size | `'large' \| 'default' \| 'small'` | `'default'` |
-| plain | Plain button style (Split Button mode) | `boolean` | `false` |
-| show-arrow | Whether to show dropdown arrow icon | `boolean` | `true` |
-| popper-arrow | Whether to show popper arrow | `boolean` | `true` |
-| offset | Offset | `[number, number]` | `[0, 8]` |
-| loop | Tab key cycle navigation | `boolean` | `true` |
-| tabindex | Tab index | `number \| string` | `0` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                                | Type                                                              | Default     |
+| --------------- | ------------------------------------------ | ----------------------------------------------------------------- | ----------- |
+| trigger         | Trigger mode                               | `'hover' \| 'click' \| 'contextmenu'`                             | `'hover'`   |
+| placement       | Popup placement                            | `Placement`                                                       | `'bottom'`  |
+| visible         | Whether visible (supports v-model)         | `boolean \| null`                                                 | `null`      |
+| disabled        | Whether disabled                           | `boolean`                                                         | `false`     |
+| show-after      | Delay show time (ms)                       | `number`                                                          | `0`         |
+| hide-after      | Delay hide time (ms)                       | `number`                                                          | `150`       |
+| z-index         | Overlay z-index                            | `number`                                                          | `2000`      |
+| hide-on-click   | Whether to hide after clicking a menu item | `boolean`                                                         | `true`      |
+| items           | Menu item data (Quick Config Mode)         | `YhDropdownItemData[]`                                            | `[]`        |
+| loading         | Whether in loading state                   | `boolean`                                                         | `false`     |
+| empty-text      | Empty state text                           | `string`                                                          | `undefined` |
+| checkable       | Whether items are checkable                | `boolean`                                                         | `false`     |
+| max-height      | Maximum height of the menu                 | `string \| number`                                                | `''`        |
+| teleported      | Whether to mount to body                   | `boolean`                                                         | `true`      |
+| popper-class    | Custom class name for popper               | `string`                                                          | `''`        |
+| popper-style    | Custom style for popper                    | `CSSProperties`                                                   | `{}`        |
+| split-button    | Split button mode                          | `boolean`                                                         | `false`     |
+| type            | Button type (Split Button mode)            | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| ''` | `''`        |
+| size            | Button size                                | `'large' \| 'default' \| 'small'`                                 | `'default'` |
+| plain           | Plain button style (Split Button mode)     | `boolean`                                                         | `false`     |
+| show-arrow      | Whether to show dropdown arrow icon        | `boolean`                                                         | `true`      |
+| popper-arrow    | Whether to show popper arrow               | `boolean`                                                         | `true`      |
+| offset          | Offset                                     | `[number, number]`                                                | `[0, 8]`    |
+| loop            | Tab key cycle navigation                   | `boolean`                                                         | `true`      |
+| tabindex        | Tab index                                  | `number \| string`                                                | `0`         |
+| theme-overrides | Component-level theme overrides            | `ComponentThemeVars`                                              | `undefined` |
 
 ### Types
 
 #### Dropdown Item Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| command | Command value | `string \| number \| object` | `''` |
-| disabled | Whether disabled | `boolean` | `false` |
-| divided | Whether to show divider | `boolean` | `false` |
-| icon | Icon name | `string` | `''` |
-| danger | Whether it's a danger item | `boolean` | `false` |
-| checked | Whether checked (requires checkable) | `boolean` | `false` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Prop            | Description                          | Type                         | Default     |
+| --------------- | ------------------------------------ | ---------------------------- | ----------- |
+| command         | Command value                        | `string \| number \| object` | `''`        |
+| disabled        | Whether disabled                     | `boolean`                    | `false`     |
+| divided         | Whether to show divider              | `boolean`                    | `false`     |
+| icon            | Icon name                            | `string`                     | `''`        |
+| danger          | Whether it's a danger item           | `boolean`                    | `false`     |
+| checked         | Whether checked (requires checkable) | `boolean`                    | `false`     |
+| theme-overrides | Component-level theme overrides      | `ComponentThemeVars`         | `undefined` |
 
 #### Dropdown Menu Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
+| Prop            | Description                     | Type                 | Default     |
+| --------------- | ------------------------------- | -------------------- | ----------- |
 | theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| command | Triggered when menu item is clicked | `(command: string \| number \| object)` |
-| update:visible | Visibility changed | `(visible: boolean)` |
-| show | Menu shown | - |
-| hide | Menu hidden | - |
-| click | Clicked trigger (Split Button mode) | `(event: MouseEvent)` |
+| Event Name     | Description                         | Callback Parameters                     |
+| -------------- | ----------------------------------- | --------------------------------------- |
+| command        | Triggered when menu item is clicked | `(command: string \| number \| object)` |
+| update:visible | Visibility changed                  | `(visible: boolean)`                    |
+| show           | Menu shown                          | -                                       |
+| hide           | Menu hidden                         | -                                       |
+| click          | Clicked trigger (Split Button mode) | `(event: MouseEvent)`                   |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| default | Trigger element |
-| dropdown | Dropdown menu content (using DropdownMenu/DropdownItem) |
-| empty | Empty state content (shown when no items) |
+| Slot Name | Description                                             |
+| --------- | ------------------------------------------------------- |
+| default   | Trigger element                                         |
+| dropdown  | Dropdown menu content (using DropdownMenu/DropdownItem) |
+| empty     | Empty state content (shown when no items)               |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
-| show | Manually show dropdown menu | `() => void` |
-| hide | Manually hide dropdown menu | `() => void` |
-| visible | Current visibility state | `Ref<boolean>` |
+| Name    | Description                 | Type           |
+| ------- | --------------------------- | -------------- |
+| show    | Manually show dropdown menu | `() => void`   |
+| hide    | Manually hide dropdown menu | `() => void`   |
+| visible | Current visibility state    | `Ref<boolean>` |
 
 #### Dropdown Item Data
 
@@ -609,37 +609,37 @@ interface YhDropdownItemData {
 
 `Dropdown`, `YhDropdownItem`, and `YhDropdownMenu` all accept `themeOverrides`. The component consumes shared theme tokens directly in source, so the runtime styling is mainly controlled through the following tokens:
 
-| Variable | Description |
-| --- | --- |
-| `--yh-text-color-primary` | Primary text color for menu items |
-| `--yh-text-color-secondary` | Loading text color |
+| Variable                      | Description                         |
+| ----------------------------- | ----------------------------------- |
+| `--yh-text-color-primary`     | Primary text color for menu items   |
+| `--yh-text-color-secondary`   | Loading text color                  |
 | `--yh-text-color-placeholder` | Disabled and empty state text color |
-| `--yh-bg-color-overlay` | Dropdown popup background |
-| `--yh-border-color-light` | Divider color |
-| `--yh-color-primary` | Active/checkable item color |
-| `--yh-color-primary-light-9` | Hover background |
-| `--yh-color-primary-light-8` | Active background |
-| `--yh-color-danger` | Danger item color |
-| `--yh-color-danger-light-9` | Danger hover background |
-| `--yh-color-danger-light-8` | Danger active background |
-| `--yh-radius-md` | Item corner radius |
-| `--yh-radius-lg` | Popup corner radius |
-| `--yh-shadow-lg` | Popup shadow |
-| `--yh-font-size-base` | Trigger and menu text size |
+| `--yh-bg-color-overlay`       | Dropdown popup background           |
+| `--yh-border-color-light`     | Divider color                       |
+| `--yh-color-primary`          | Active/checkable item color         |
+| `--yh-color-primary-light-9`  | Hover background                    |
+| `--yh-color-primary-light-8`  | Active background                   |
+| `--yh-color-danger`           | Danger item color                   |
+| `--yh-color-danger-light-9`   | Danger hover background             |
+| `--yh-color-danger-light-8`   | Danger active background            |
+| `--yh-radius-md`              | Item corner radius                  |
+| `--yh-radius-lg`              | Popup corner radius                 |
+| `--yh-shadow-lg`              | Popup shadow                        |
+| `--yh-font-size-base`         | Trigger and menu text size          |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhDropdownProps` | Props type for `YhDropdown` |
-| `YhDropdownEmits` | Emits type for `YhDropdown` |
-| `YhDropdownSlots` | Slots type for `YhDropdown` |
-| `YhDropdownExpose` | Expose type for `YhDropdown` |
-| `YhDropdownTrigger` | Trigger union type |
-| `YhDropdownItemData` | Dropdown item data type |
-| `YhDropdownItemProps` | Props type for `YhDropdownItem` |
-| `YhDropdownMenuProps` | Props type for `YhDropdownMenu` |
-| `YhDropdownInstance` | Public instance type for `YhDropdown` |
+| Name                     | Description                               |
+| ------------------------ | ----------------------------------------- |
+| `YhDropdownProps`        | Props type for `YhDropdown`               |
+| `YhDropdownEmits`        | Emits type for `YhDropdown`               |
+| `YhDropdownSlots`        | Slots type for `YhDropdown`               |
+| `YhDropdownExpose`       | Expose type for `YhDropdown`              |
+| `YhDropdownTrigger`      | Trigger union type                        |
+| `YhDropdownItemData`     | Dropdown item data type                   |
+| `YhDropdownItemProps`    | Props type for `YhDropdownItem`           |
+| `YhDropdownMenuProps`    | Props type for `YhDropdownMenu`           |
+| `YhDropdownInstance`     | Public instance type for `YhDropdown`     |
 | `YhDropdownItemInstance` | Public instance type for `YhDropdownItem` |
 | `YhDropdownMenuInstance` | Public instance type for `YhDropdownMenu` |
 

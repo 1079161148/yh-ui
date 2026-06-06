@@ -119,4 +119,3 @@ describe('remaining coverage wave', () => {
     expect(q.isRunning.value).toBe(false)
   })
 })
-

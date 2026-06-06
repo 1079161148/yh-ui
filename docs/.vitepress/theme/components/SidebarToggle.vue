@@ -104,11 +104,26 @@ const isEn = computed(() => lang.value === 'en-US')
 </script>
 
 <template>
-  <button class="sidebar-toggle" :class="{
-    'sidebar-toggle--collapsed': isCollapsed,
-    'sidebar-toggle--visible': isHovering || isCollapsed
-  }" :style="{ left: isCollapsed ? '0px' : `${buttonLeft}px` }" @click="toggle" @mouseenter="isHovering = true"
-    @mouseleave="isHovering = false" :title="isCollapsed ? (isEn ? 'Expand sidebar' : '展开侧边栏') : (isEn ? 'Collapse sidebar' : '收起侧边栏')">
+  <button
+    class="sidebar-toggle"
+    :class="{
+      'sidebar-toggle--collapsed': isCollapsed,
+      'sidebar-toggle--visible': isHovering || isCollapsed
+    }"
+    :style="{ left: isCollapsed ? '0px' : `${buttonLeft}px` }"
+    @click="toggle"
+    @mouseenter="isHovering = true"
+    @mouseleave="isHovering = false"
+    :title="
+      isCollapsed
+        ? isEn
+          ? 'Expand sidebar'
+          : '展开侧边栏'
+        : isEn
+          ? 'Collapse sidebar'
+          : '收起侧边栏'
+    "
+  >
     <svg class="sidebar-toggle__icon" viewBox="0 0 24 24" width="12" height="12">
       <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
     </svg>

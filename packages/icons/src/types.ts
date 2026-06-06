@@ -133,4 +133,4 @@ export const AVAILABLE_COLLECTIONS = [
  */
 export const RECOMMENDED_COLLECTIONS = ['mdi', 'ep', 'lucide', 'tabler', 'ri'] as const
 
-export type RecommendedCollection = typeof RECOMMENDED_COLLECTIONS[number]
+export type RecommendedCollection = (typeof RECOMMENDED_COLLECTIONS)[number]

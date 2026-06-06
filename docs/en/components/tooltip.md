@@ -449,62 +449,62 @@ Use \`content\` slot. Ensure \`interactive\` is enabled.
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| content | Display text | \`string\` | \`''\` |
-| placement | Positioning | \`TooltipPlacement\` | \`'top'\` |
-| trigger | Trigger mode | \`TooltipTrigger | TooltipTrigger[]\` | \`'hover'\` |
-| disabled | Whether disabled | \`boolean\` | \`false\` |
-| effect | Theme style | \`string\` | \`'dark'\` |
-| offset | Offset [h, v] | \`[number, number]\` | \`[0, 8]\` |
-| show-after | Show delay (ms) | \`number\` | \`0\` |
-| hide-after | Hide delay (ms) | \`number\` | \`200\` |
-| show-arrow | Whether to show arrow | \`boolean\` | \`true\` |
-| interactive | Allow mouse enter popper | \`boolean\` | \`true\` |
-| visible | Manual visibility control | \`boolean \| null\` | \`null\` |
-| raw-content | Whether to render \`content\` as an HTML string | \`boolean\` | \`false\` |
-| follow-cursor | Follow mouse cursor | \`boolean\` | \`false\` |
-| persistent | Whether the popper DOM stays mounted while hidden. When set to \`false\`, it renders only while visible | \`boolean\` | \`true\` |
-| width | Popper width | \`string | number\` | \`'auto'\` |
-| max-height | Max height | \`string | number\` | \`'none'\` |
-| scrollable | Scrollable content | \`boolean\` | \`false\` |
-| popper-class | Custom popper class | \`string\` | \`''\` |
-| popper-style | Custom popper style. At runtime, only object styles are merged; string and array forms are declared but not consumed | \`StyleValue\` | \`{}\` |
-| content-class | Custom content class | \`string\` | \`''\` |
-| content-style | Custom content style. At runtime, only object styles are merged | \`StyleValue\` | \`{}\` |
-| arrow-class | Declared arrow class prop. The current template does not consume it | \`string\` | \`''\` |
-| arrow-style | Declared arrow style prop. The current template does not consume it | \`StyleValue\` | \`{}\` |
-| arrow-wrapper-class | Declared arrow wrapper class prop. The current template does not consume it | \`string\` | \`''\` |
-| arrow-wrapper-style | Declared arrow wrapper style prop. The current template does not consume it | \`StyleValue\` | \`{}\` |
-| z-index | z-index | \`number\` | \`2000\` |
-| transition | Transition name | \`string\` | \`'yh-tooltip-fade'\` |
-| teleported | Teleport to body | \`boolean\` | \`true\` |
-| theme-overrides | Component-level theme overrides | \`ComponentThemeVars\` | \`undefined\` |
+| Name                | Description                                                                                                          | Type                   | Default               |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------- | ----------- |
+| content             | Display text                                                                                                         | \`string\`             | \`''\`                |
+| placement           | Positioning                                                                                                          | \`TooltipPlacement\`   | \`'top'\`             |
+| trigger             | Trigger mode                                                                                                         | \`TooltipTrigger       | TooltipTrigger[]\`    | \`'hover'\` |
+| disabled            | Whether disabled                                                                                                     | \`boolean\`            | \`false\`             |
+| effect              | Theme style                                                                                                          | \`string\`             | \`'dark'\`            |
+| offset              | Offset [h, v]                                                                                                        | \`[number, number]\`   | \`[0, 8]\`            |
+| show-after          | Show delay (ms)                                                                                                      | \`number\`             | \`0\`                 |
+| hide-after          | Hide delay (ms)                                                                                                      | \`number\`             | \`200\`               |
+| show-arrow          | Whether to show arrow                                                                                                | \`boolean\`            | \`true\`              |
+| interactive         | Allow mouse enter popper                                                                                             | \`boolean\`            | \`true\`              |
+| visible             | Manual visibility control                                                                                            | \`boolean \| null\`    | \`null\`              |
+| raw-content         | Whether to render \`content\` as an HTML string                                                                      | \`boolean\`            | \`false\`             |
+| follow-cursor       | Follow mouse cursor                                                                                                  | \`boolean\`            | \`false\`             |
+| persistent          | Whether the popper DOM stays mounted while hidden. When set to \`false\`, it renders only while visible              | \`boolean\`            | \`true\`              |
+| width               | Popper width                                                                                                         | \`string               | number\`              | \`'auto'\`  |
+| max-height          | Max height                                                                                                           | \`string               | number\`              | \`'none'\`  |
+| scrollable          | Scrollable content                                                                                                   | \`boolean\`            | \`false\`             |
+| popper-class        | Custom popper class                                                                                                  | \`string\`             | \`''\`                |
+| popper-style        | Custom popper style. At runtime, only object styles are merged; string and array forms are declared but not consumed | \`StyleValue\`         | \`{}\`                |
+| content-class       | Custom content class                                                                                                 | \`string\`             | \`''\`                |
+| content-style       | Custom content style. At runtime, only object styles are merged                                                      | \`StyleValue\`         | \`{}\`                |
+| arrow-class         | Declared arrow class prop. The current template does not consume it                                                  | \`string\`             | \`''\`                |
+| arrow-style         | Declared arrow style prop. The current template does not consume it                                                  | \`StyleValue\`         | \`{}\`                |
+| arrow-wrapper-class | Declared arrow wrapper class prop. The current template does not consume it                                          | \`string\`             | \`''\`                |
+| arrow-wrapper-style | Declared arrow wrapper style prop. The current template does not consume it                                          | \`StyleValue\`         | \`{}\`                |
+| z-index             | z-index                                                                                                              | \`number\`             | \`2000\`              |
+| transition          | Transition name                                                                                                      | \`string\`             | \`'yh-tooltip-fade'\` |
+| teleported          | Teleport to body                                                                                                     | \`boolean\`            | \`true\`              |
+| theme-overrides     | Component-level theme overrides                                                                                      | \`ComponentThemeVars\` | \`undefined\`         |
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
-| default | Trigger element |
+| Name    | Description                             |
+| ------- | --------------------------------------- |
+| default | Trigger element                         |
 | content | Custom content (overrides content prop) |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| show | Triggers when showing | \`() => void\` |
-| hide | Triggers when hiding | \`() => void\` |
-| update:visible | Visibility change | \`(visible: boolean)\` |
+| Name           | Description           | Parameters             |
+| -------------- | --------------------- | ---------------------- |
+| show           | Triggers when showing | \`() => void\`         |
+| hide           | Triggers when hiding  | \`() => void\`         |
+| update:visible | Visibility change     | \`(visible: boolean)\` |
 
 ## Theme Variables
 
 `YhTooltip` supports \`themeOverrides\`. The stylesheet directly consumes the following component-scoped CSS variables:
 
-| Name | Description | Default |
-| --- | --- | --- |
-| \`--yh-tooltip-bg\` | Background color | \`var(--yh-bg-color-overlay)\` |
-| \`--yh-tooltip-border\` | Border color | \`var(--yh-border-color-light)\` |
-| \`--yh-tooltip-text\` | Text color | \`var(--yh-text-color-primary)\` |
+| Name                    | Description      | Default                          |
+| ----------------------- | ---------------- | -------------------------------- |
+| \`--yh-tooltip-bg\`     | Background color | \`var(--yh-bg-color-overlay)\`   |
+| \`--yh-tooltip-border\` | Border color     | \`var(--yh-border-color-light)\` |
+| \`--yh-tooltip-text\`   | Text color       | \`var(--yh-text-color-primary)\` |
 
 Other z-index, font-size, radius, and shadow values still come from shared theme tokens such as \`--yh-z-index-tooltip\`, \`--yh-font-size-sm\`, \`--yh-radius-md\`, and \`--yh-shadow-lg\`.
 
@@ -514,23 +514,21 @@ Tooltip automatically switches to dark themes when \`html.dark\` is present.
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name             | Description                          | Type                          |
+| ---------------- | ------------------------------------ | ----------------------------- |
 | `updatePosition` | Manually refresh popper positioning. | `() => Promise<void> \| void` |
-| `visible` | Current visibility ref. | `Ref<boolean>` |
-| `triggerRef` | Trigger element ref. | `Ref<HTMLElement \| null>` |
-| `popperRef` | Popper element ref. | `Ref<HTMLElement \| null>` |
+| `visible`        | Current visibility ref.              | `Ref<boolean>`                |
+| `triggerRef`     | Trigger element ref.                 | `Ref<HTMLElement \| null>`    |
+| `popperRef`      | Popper element ref.                  | `Ref<HTMLElement \| null>`    |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTooltipProps` | Component props type |
-| `YhTooltipEmits` | Component emits type |
-| `YhTooltipSlots` | Component slots type |
-| `YhTooltipExpose` | Component expose type |
-| `YhTooltipPlacement` | Placement union type |
-| `YhTooltipTrigger` | Trigger union type |
-| `YhTooltipInstance` | Component instance type |
-
-
+| Name                 | Description             |
+| -------------------- | ----------------------- |
+| `YhTooltipProps`     | Component props type    |
+| `YhTooltipEmits`     | Component emits type    |
+| `YhTooltipSlots`     | Component slots type    |
+| `YhTooltipExpose`    | Component expose type   |
+| `YhTooltipPlacement` | Placement union type    |
+| `YhTooltipTrigger`   | Trigger union type      |
+| `YhTooltipInstance`  | Component instance type |

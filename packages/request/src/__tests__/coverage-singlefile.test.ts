@@ -100,7 +100,9 @@ describe('progress.ts single-file boosts', () => {
     nowSpy.mockReturnValue(0)
     const interceptor = createProgressInterceptor({})
     interceptor.onRequest({} as any)
-    expect(() => interceptor.getUploadHandler({ loaded: 100, total: 100, percent: 100 })).not.toThrow()
+    expect(() =>
+      interceptor.getUploadHandler({ loaded: 100, total: 100, percent: 100 })
+    ).not.toThrow()
 
     const onDownloadProgress = vi.fn()
     const withCb = createProgressInterceptor({ onDownloadProgress })
@@ -218,13 +220,14 @@ describe('indexedDB single-file boosts', () => {
   it('openDB rejects on indexedDB.open error path', async () => {
     const cache2 = new IndexedDBCache({ dbName: 'open-error' })
     const openReq: any = { error: new Error('open-failed') }
-    const openSpy = vi.spyOn(indexedDB, 'open').mockImplementation(() => openReq as IDBOpenDBRequest)
+    const openSpy = vi
+      .spyOn(indexedDB, 'open')
+      .mockImplementation(() => openReq as IDBOpenDBRequest)
     const p = (cache2 as any).openDB()
     openReq.onerror?.()
     await expect(p).rejects.toThrow('open-failed')
     openSpy.mockRestore()
   })
-
 })
 
 describe('useRequestQueue single-file boosts', () => {
@@ -240,6 +243,4 @@ describe('useRequestQueue single-file boosts', () => {
     expect(() => queue.cancelByKey('not-found')).not.toThrow()
     queue.cancelByKey('req-1')
   })
-
 })
-

@@ -11,10 +11,13 @@ const props = withDefaults(defineProps<AsideProps>(), {
 })
 
 const ns = useNamespace('aside')
-const { themeStyle } = useComponentTheme('aside', computed(() => props.themeOverrides))
+const { themeStyle } = useComponentTheme(
+  'aside',
+  computed(() => props.themeOverrides)
+)
 
 const asideStyle = computed(() => ({
-  ...themeStyle.value as Record<string, string>,
+  ...(themeStyle.value as Record<string, string>),
   width: props.width
 }))
 </script>

@@ -68,10 +68,13 @@ describe('use-ai coverage 100 helpers', () => {
 
   it('covers chat typewriter line 93 false branch', () => {
     let rafCb: FrameRequestCallback | null = null
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCb = cb
-      return 3
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCb = cb
+        return 3
+      })
+    )
     const tw = chatInternal.createTypewriter(() => {}, 10)
     tw.push('ab')
     if (rafCb) (rafCb as unknown as (t: number) => void)(0)
@@ -151,14 +154,16 @@ describe('use-ai coverage 100 helpers', () => {
     expect(chat2.messages.value.some((m) => m.status === 'error')).toBe(false)
   })
 
-
   it('createTypewriter covers schedule/flush/cancel branches', () => {
     let rafCb: FrameRequestCallback | null = null
     const cancelSpy = vi.fn()
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCb = cb
-      return 7
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCb = cb
+        return 7
+      })
+    )
     vi.stubGlobal('cancelAnimationFrame', cancelSpy)
 
     const chunks: string[] = []
@@ -187,10 +192,13 @@ describe('use-ai coverage 100 helpers', () => {
   it('TypewriterThrottle cancel branch is covered on stream error', async () => {
     let rafCb: FrameRequestCallback | null = null
     const cancelSpy = vi.fn()
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCb = cb
-      return 9
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCb = cb
+        return 9
+      })
+    )
     vi.stubGlobal('cancelAnimationFrame', cancelSpy)
 
     const onError = vi.fn()
@@ -213,10 +221,13 @@ describe('use-ai coverage 100 helpers', () => {
 
   it('TypewriterThrottle class handles flush and cancel directly', () => {
     let rafCb: FrameRequestCallback | null = null
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCb = cb
-      return 11
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCb = cb
+        return 11
+      })
+    )
     const cancelSpy = vi.fn()
     vi.stubGlobal('cancelAnimationFrame', cancelSpy)
 
@@ -709,10 +720,13 @@ describe('useAiStream remaining branches', () => {
 
   it('covers TypewriterThrottle empty-queue frame return branch', () => {
     let rafCb: FrameRequestCallback | null = null
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCb = cb
-      return 1
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCb = cb
+        return 1
+      })
+    )
     vi.stubGlobal('cancelAnimationFrame', vi.fn())
     let out = ''
     const Tw = streamInternal.TypewriterThrottle
@@ -799,10 +813,13 @@ describe('useAiStream remaining branches', () => {
     expect(stream.isStreaming.value).toBe(false)
 
     let rafCb: FrameRequestCallback | null = null
-    vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
-      rafCb = cb
-      return 2
-    }))
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        rafCb = cb
+        return 2
+      })
+    )
     const Tw = streamInternal.TypewriterThrottle
     const tw = new Tw(() => {}, 1)
     tw.push('a')
@@ -817,7 +834,7 @@ describe('useAiStream remaining branches', () => {
 
   it('covers stream non-iterable non-response request branch', async () => {
     const stream = useAiStream({
-      request: async () => ({ ok: true } as any),
+      request: async () => ({ ok: true }) as any,
       typewriter: false
     })
     await stream.fetchStream('noop')

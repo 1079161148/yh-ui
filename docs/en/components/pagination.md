@@ -263,71 +263,71 @@ When using pagination with `useFetch` or `useAsyncData` in the Nuxt ecosystem, e
 
 ### Props
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| `current-page / v-model:current-page` | Current page number | `number` | `1` |
-| `total` | Total item count | `number` | `0` |
-| `page-size / v-model:page-size` | Items per page | `number` | `10` |
-| `page-sizes` | Options for the page size selector | `number[]` | `[10, 20, 30, 40, 50, 100]` |
-| `layout` | Component layout, sub-components separated by commas (Options: `prev`, `pager`, `next`, `jumper`, `total`, `sizes`, `slot`) | `string` | `'prev, pager, next'` |
-| `pager-count` | Maximum number of pager buttons; will fold when total pages exceed this value | `number` | `7` |
-| `background` | Whether to enable background color mode | `boolean` | `false` |
-| `circle` | Whether to use circular pagination buttons | `boolean` | `false` |
-| `small` | Whether to use small pagination | `boolean` | `false` |
-| `disabled` | Whether to disable | `boolean` | `false` |
-| `hide-on-single-page` | Whether to hide pagination when there's only one page | `boolean` | `false` |
-| `prev-text` | Text string for the "previous page" button (overrides icon) | `string` | — |
-| `next-text` | Text string for the "next page" button (overrides icon) | `string` | — |
+| Prop                                  | Description                                                                                                                 | Type       | Default                     |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------- |
+| `current-page / v-model:current-page` | Current page number                                                                                                         | `number`   | `1`                         |
+| `total`                               | Total item count                                                                                                            | `number`   | `0`                         |
+| `page-size / v-model:page-size`       | Items per page                                                                                                              | `number`   | `10`                        |
+| `page-sizes`                          | Options for the page size selector                                                                                          | `number[]` | `[10, 20, 30, 40, 50, 100]` |
+| `layout`                              | Component layout, sub-components separated by commas (Options: `prev`, `pager`, `next`, `jumper`, `total`, `sizes`, `slot`) | `string`   | `'prev, pager, next'`       |
+| `pager-count`                         | Maximum number of pager buttons; will fold when total pages exceed this value                                               | `number`   | `7`                         |
+| `background`                          | Whether to enable background color mode                                                                                     | `boolean`  | `false`                     |
+| `circle`                              | Whether to use circular pagination buttons                                                                                  | `boolean`  | `false`                     |
+| `small`                               | Whether to use small pagination                                                                                             | `boolean`  | `false`                     |
+| `disabled`                            | Whether to disable                                                                                                          | `boolean`  | `false`                     |
+| `hide-on-single-page`                 | Whether to hide pagination when there's only one page                                                                       | `boolean`  | `false`                     |
+| `prev-text`                           | Text string for the "previous page" button (overrides icon)                                                                 | `string`   | —                           |
+| `next-text`                           | Text string for the "next page" button (overrides icon)                                                                     | `string`   | —                           |
 
 | `theme-overrides` | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
 
-| Event Name | Description | Callback Parameters |
-| --- | --- | --- |
-| `size-change` | Triggered when `pageSize` changes | `(val: number) => void` |
-| `current-change` | Triggered when `currentPage` changes | `(val: number) => void` |
-| `prev-click` | Triggered when user clicks the "previous" button | `(val: number) => void` |
-| `next-click` | Triggered when user clicks the "next" button | `(val: number) => void` |
+| Event Name       | Description                                      | Callback Parameters     |
+| ---------------- | ------------------------------------------------ | ----------------------- |
+| `size-change`    | Triggered when `pageSize` changes                | `(val: number) => void` |
+| `current-change` | Triggered when `currentPage` changes             | `(val: number) => void` |
+| `prev-click`     | Triggered when user clicks the "previous" button | `(val: number) => void` |
+| `next-click`     | Triggered when user clicks the "next" button     | `(val: number) => void` |
 
 ### Slots
 
-| Slot Name | Description |
-| --- | --- |
-| `prev-icon` | Custom previous page icon |
-| `next-icon` | Custom next page icon |
-| `default` | Custom content (requires `slot` in `layout`) |
+| Slot Name   | Description                                  |
+| ----------- | -------------------------------------------- |
+| `prev-icon` | Custom previous page icon                    |
+| `next-icon` | Custom next page icon                        |
+| `default`   | Custom content (requires `slot` in `layout`) |
 
 ### Expose
 
-| Name | Description | Type |
-| --- | --- | --- |
+| Name          | Description         | Type     |
+| ------------- | ------------------- | -------- |
 | `currentPage` | Current page number | `number` |
-| `pageSize` | Items per page | `number` |
-| `pageCount` | Total page count | `number` |
+| `pageSize`    | Items per page      | `number` |
+| `pageCount`   | Total page count    | `number` |
 
 ### Theme Variables
 
 Customize localized styles by overriding these CSS variables:
 
-| Variable | Default |
-| --- | --- |
-| `--yh-pagination-font-size` | `14px` |
-| `--yh-pagination-bg-color` | `transparent` |
-| `--yh-pagination-text-color` | `var(--yh-text-color-regular)` |
-| `--yh-pagination-btn-width` | `32px` |
-| `--yh-pagination-btn-height` | `32px` |
-| `--yh-pagination-btn-hover-color` | `var(--yh-color-primary)` |
-| `--yh-pagination-item-active-bg-color` | `var(--yh-color-primary)` |
-| `--yh-pagination-item-active-color` | `#ffffff` |
+| Variable                               | Default                        |
+| -------------------------------------- | ------------------------------ |
+| `--yh-pagination-font-size`            | `14px`                         |
+| `--yh-pagination-bg-color`             | `transparent`                  |
+| `--yh-pagination-text-color`           | `var(--yh-text-color-regular)` |
+| `--yh-pagination-btn-width`            | `32px`                         |
+| `--yh-pagination-btn-height`           | `32px`                         |
+| `--yh-pagination-btn-hover-color`      | `var(--yh-color-primary)`      |
+| `--yh-pagination-item-active-bg-color` | `var(--yh-color-primary)`      |
+| `--yh-pagination-item-active-color`    | `#ffffff`                      |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhPaginationProps` | Props type for `YhPagination` |
-| `YhPaginationEmits` | Emits type for `YhPagination` |
-| `YhPaginationSlots` | Slots type for `YhPagination` |
-| `YhPaginationExpose` | Expose type for `YhPagination` |
-| `YhPaginationLayout` | Pagination layout token union |
+| Name                   | Description                             |
+| ---------------------- | --------------------------------------- |
+| `YhPaginationProps`    | Props type for `YhPagination`           |
+| `YhPaginationEmits`    | Emits type for `YhPagination`           |
+| `YhPaginationSlots`    | Slots type for `YhPagination`           |
+| `YhPaginationExpose`   | Expose type for `YhPagination`          |
+| `YhPaginationLayout`   | Pagination layout token union           |
 | `YhPaginationInstance` | Public instance type for `YhPagination` |

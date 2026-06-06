@@ -2,7 +2,6 @@
 
 Select tree-structured data in a compact dropdown. `YhTreeSelect` supports single selection, multiple selection, checkbox linkage, filtering, lazy loading, and virtual scrolling for large datasets.
 
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
@@ -622,58 +621,58 @@ Set `virtual` to `true` for very large trees.
 
 ### Props
 
-| Name | Description | Type | Default |
-| --- | --- | --- | --- |
-| model-value / v-model | Bound value | `YhTreeKey \| YhTreeKey[]` | `undefined` |
-| data | Tree data source | `YhTreeOption[]` | `[]` |
-| props | Field alias configuration | `YhTreePropsAlias` | `{ label: 'label', value: 'value', children: 'children', disabled: 'disabled', isLeaf: 'isLeaf' }` |
-| placeholder | Placeholder text | `string` | `undefined` |
-| multiple | Whether multiple selection is enabled | `boolean` | `false` |
-| clearable | Whether the current value can be cleared | `boolean` | `false` |
-| disabled | Whether the component is disabled | `boolean` | `false` |
-| size | Input size | `'large' \| 'default' \| 'small'` | `'default'` |
-| filterable | Whether node filtering is enabled | `boolean` | `false` |
-| filter-node-method | Custom filter function | `(value: string, data: YhTreeOption, node: YhTreeSelectNode) => boolean` | `undefined` |
-| collapse-tags | Whether selected tags are collapsed in multiple mode | `boolean` | `false` |
-| collapse-tags-tooltip | Declared collapsed-tag tooltip prop. The current template does not consume it | `boolean` | `false` |
-| max-collapse-tags | Maximum number of visible tags before collapsing | `number` | `1` |
-| teleported | Whether the dropdown is teleported to `body` | `boolean` | `true` |
-| popper-class | Custom class applied to the dropdown popper | `string` | `''` |
-| status | Declared validation status prop. The current template and stylesheet do not consume it | `'' \| 'success' \| 'warning' \| 'error'` | `undefined` |
-| node-key | Unique node identifier field. When omitted, the runtime falls back to the field mapped by `props.value` | `string` | `undefined` |
-| show-checkbox | Whether checkboxes are shown before nodes | `boolean` | `false` |
-| check-strictly | Whether parent and child checked states are independent | `boolean` | `false` |
-| check-on-click-node | Whether clicking a node toggles its checkbox | `boolean` | `false` |
-| expand-on-click-node | Whether clicking a node expands or collapses it | `boolean` | `true` |
-| default-expand-all | Whether all nodes are expanded by default | `boolean` | `false` |
-| default-expanded-keys | Initial expanded node keys | `YhTreeKey[]` | `[]` |
-| default-checked-keys | Declared initial checked node keys. The current tree-state initialization does not consume this prop | `YhTreeKey[]` | `[]` |
-| accordion | Whether only one sibling node can stay expanded at a time | `boolean` | `false` |
-| indent | Horizontal indentation per tree level | `number` | `16` |
-| lazy | Whether lazy loading is enabled | `boolean` | `false` |
-| load | Lazy-load callback for child nodes | `(node: YhTreeOption, resolve: (data: YhTreeOption[]) => void) => void` | `undefined` |
-| virtual | Whether virtual scrolling is enabled | `boolean` | `false` |
-| height | Maximum dropdown height | `string \| number` | `274` |
-| item-size | Estimated item height used by virtual scrolling | `number` | `34` |
-| empty-text | Custom empty-state text | `string` | `undefined` |
-| theme-overrides | Component-level theme overrides | `ComponentThemeVars` | `undefined` |
+| Name                  | Description                                                                                             | Type                                                                     | Default                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| model-value / v-model | Bound value                                                                                             | `YhTreeKey \| YhTreeKey[]`                                               | `undefined`                                                                                        |
+| data                  | Tree data source                                                                                        | `YhTreeOption[]`                                                         | `[]`                                                                                               |
+| props                 | Field alias configuration                                                                               | `YhTreePropsAlias`                                                       | `{ label: 'label', value: 'value', children: 'children', disabled: 'disabled', isLeaf: 'isLeaf' }` |
+| placeholder           | Placeholder text                                                                                        | `string`                                                                 | `undefined`                                                                                        |
+| multiple              | Whether multiple selection is enabled                                                                   | `boolean`                                                                | `false`                                                                                            |
+| clearable             | Whether the current value can be cleared                                                                | `boolean`                                                                | `false`                                                                                            |
+| disabled              | Whether the component is disabled                                                                       | `boolean`                                                                | `false`                                                                                            |
+| size                  | Input size                                                                                              | `'large' \| 'default' \| 'small'`                                        | `'default'`                                                                                        |
+| filterable            | Whether node filtering is enabled                                                                       | `boolean`                                                                | `false`                                                                                            |
+| filter-node-method    | Custom filter function                                                                                  | `(value: string, data: YhTreeOption, node: YhTreeSelectNode) => boolean` | `undefined`                                                                                        |
+| collapse-tags         | Whether selected tags are collapsed in multiple mode                                                    | `boolean`                                                                | `false`                                                                                            |
+| collapse-tags-tooltip | Declared collapsed-tag tooltip prop. The current template does not consume it                           | `boolean`                                                                | `false`                                                                                            |
+| max-collapse-tags     | Maximum number of visible tags before collapsing                                                        | `number`                                                                 | `1`                                                                                                |
+| teleported            | Whether the dropdown is teleported to `body`                                                            | `boolean`                                                                | `true`                                                                                             |
+| popper-class          | Custom class applied to the dropdown popper                                                             | `string`                                                                 | `''`                                                                                               |
+| status                | Declared validation status prop. The current template and stylesheet do not consume it                  | `'' \| 'success' \| 'warning' \| 'error'`                                | `undefined`                                                                                        |
+| node-key              | Unique node identifier field. When omitted, the runtime falls back to the field mapped by `props.value` | `string`                                                                 | `undefined`                                                                                        |
+| show-checkbox         | Whether checkboxes are shown before nodes                                                               | `boolean`                                                                | `false`                                                                                            |
+| check-strictly        | Whether parent and child checked states are independent                                                 | `boolean`                                                                | `false`                                                                                            |
+| check-on-click-node   | Whether clicking a node toggles its checkbox                                                            | `boolean`                                                                | `false`                                                                                            |
+| expand-on-click-node  | Whether clicking a node expands or collapses it                                                         | `boolean`                                                                | `true`                                                                                             |
+| default-expand-all    | Whether all nodes are expanded by default                                                               | `boolean`                                                                | `false`                                                                                            |
+| default-expanded-keys | Initial expanded node keys                                                                              | `YhTreeKey[]`                                                            | `[]`                                                                                               |
+| default-checked-keys  | Declared initial checked node keys. The current tree-state initialization does not consume this prop    | `YhTreeKey[]`                                                            | `[]`                                                                                               |
+| accordion             | Whether only one sibling node can stay expanded at a time                                               | `boolean`                                                                | `false`                                                                                            |
+| indent                | Horizontal indentation per tree level                                                                   | `number`                                                                 | `16`                                                                                               |
+| lazy                  | Whether lazy loading is enabled                                                                         | `boolean`                                                                | `false`                                                                                            |
+| load                  | Lazy-load callback for child nodes                                                                      | `(node: YhTreeOption, resolve: (data: YhTreeOption[]) => void) => void`  | `undefined`                                                                                        |
+| virtual               | Whether virtual scrolling is enabled                                                                    | `boolean`                                                                | `false`                                                                                            |
+| height                | Maximum dropdown height                                                                                 | `string \| number`                                                       | `274`                                                                                              |
+| item-size             | Estimated item height used by virtual scrolling                                                         | `number`                                                                 | `34`                                                                                               |
+| empty-text            | Custom empty-state text                                                                                 | `string`                                                                 | `undefined`                                                                                        |
+| theme-overrides       | Component-level theme overrides                                                                         | `ComponentThemeVars`                                                     | `undefined`                                                                                        |
 
 ### Events
 
-| Name | Description | Parameters |
-| --- | --- | --- |
-| update:modelValue | Triggered when the bound value changes | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
-| change | Triggered when the selection changes | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void` |
-| visible-change | Triggered when dropdown visibility changes | `(visible: boolean) => void` |
-| clear | Triggered when the clear button is clicked | `() => void` |
-| node-click | Triggered when a node row is clicked | `(data: YhTreeOption, node: YhTreeSelectNode, e: MouseEvent) => void` |
-| check-change | Triggered when checkbox state changes | `(data: YhTreeOption, checked: boolean, indeterminate: boolean) => void` |
-| check | Triggered when a checkbox is checked or unchecked | `(data: YhTreeOption, info: YhTreeCheckedInfo) => void` |
+| Name              | Description                                       | Parameters                                                               |
+| ----------------- | ------------------------------------------------- | ------------------------------------------------------------------------ |
+| update:modelValue | Triggered when the bound value changes            | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void`                 |
+| change            | Triggered when the selection changes              | `(value: YhTreeKey \| YhTreeKey[] \| undefined) => void`                 |
+| visible-change    | Triggered when dropdown visibility changes        | `(visible: boolean) => void`                                             |
+| clear             | Triggered when the clear button is clicked        | `() => void`                                                             |
+| node-click        | Triggered when a node row is clicked              | `(data: YhTreeOption, node: YhTreeSelectNode, e: MouseEvent) => void`    |
+| check-change      | Triggered when checkbox state changes             | `(data: YhTreeOption, checked: boolean, indeterminate: boolean) => void` |
+| check             | Triggered when a checkbox is checked or unchecked | `(data: YhTreeOption, info: YhTreeCheckedInfo) => void`                  |
 
 ### Slots
 
-| Name | Description | Parameters |
-| --- | --- | --- |
+| Name    | Description                   | Parameters                                       |
+| ------- | ----------------------------- | ------------------------------------------------ |
 | default | Custom content for tree nodes | `{ node: YhTreeSelectNode, data: YhTreeOption }` |
 
 ### Expose
@@ -682,27 +681,26 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhTreeSelectProps` | Props type for `YhTreeSelect` |
-| `YhTreeSelectEmits` | Emits type for `YhTreeSelect` |
-| `YhTreeSelectNode` | Internal rendered tree node type exposed for callbacks |
-| `YhTreeOption` | Tree option data type |
-| `YhTreeKey` | Tree node key type |
-| `YhTreeCheckedInfo` | Checked-state payload type |
-| `YhTreePropsAlias` | Field alias configuration type |
-| `YhTreeSelectInstance` | Component instance type |
+| Name                   | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| `YhTreeSelectProps`    | Props type for `YhTreeSelect`                          |
+| `YhTreeSelectEmits`    | Emits type for `YhTreeSelect`                          |
+| `YhTreeSelectNode`     | Internal rendered tree node type exposed for callbacks |
+| `YhTreeOption`         | Tree option data type                                  |
+| `YhTreeKey`            | Tree node key type                                     |
+| `YhTreeCheckedInfo`    | Checked-state payload type                             |
+| `YhTreePropsAlias`     | Field alias configuration type                         |
+| `YhTreeSelectInstance` | Component instance type                                |
 
 ### Theme Variables
 
 `YhTreeSelect` supports `themeOverrides`. The stylesheet directly consumes the following component-scoped CSS variables:
 
-| Variable | Description | Default |
-| --- | --- | --- |
-| `--yh-tree-select-node-hover-bg` | Node background color on hover | `var(--yh-fill-color-light, #f5f7fa)` |
+| Variable                          | Description                            | Default                                    |
+| --------------------------------- | -------------------------------------- | ------------------------------------------ |
+| `--yh-tree-select-node-hover-bg`  | Node background color on hover         | `var(--yh-fill-color-light, #f5f7fa)`      |
 | `--yh-tree-select-node-active-bg` | Background color for the selected node | `var(--yh-color-primary-light-9, #ecf5ff)` |
-| `--yh-tree-select-active-color` | Text color for selected nodes | `var(--yh-color-primary, #409eff)` |
-
+| `--yh-tree-select-active-color`   | Text color for selected nodes          | `var(--yh-color-primary, #409eff)`         |
 
 <style>
 .demo-res {

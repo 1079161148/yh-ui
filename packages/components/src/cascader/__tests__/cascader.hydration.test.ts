@@ -34,7 +34,10 @@ describe('YhCascader Hydration', () => {
     const result = await testHydration(Cascader, {
       options,
       multiple: true,
-      modelValue: [['guide', 'design'], ['resource', 'axure']],
+      modelValue: [
+        ['guide', 'design'],
+        ['resource', 'axure']
+      ],
       collapseTags: true,
       maxCollapseTags: 1,
       teleported: false

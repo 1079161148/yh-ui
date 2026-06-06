@@ -490,76 +490,76 @@ const jsNuxt = toJs(tsNuxt)
 
 ### Props
 
-| 名称 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| `model-value / v-model` | 当前输入值 | `string` | `undefined` |
-| `placeholder` | 占位文案 | `string` | `undefined` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `clearable` | 是否允许清空 | `boolean` | `false` |
-| `size` | 输入框尺寸 | `'large' \| 'default' \| 'small'` | `undefined` |
-| `fetch-suggestions` | 候选建议获取函数 | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | `undefined` |
-| `trigger-on-focus` | 聚焦时是否立即触发建议获取 | `boolean` | `true` |
-| `debounce` | 建议请求防抖时长，单位毫秒 | `number` | `300` |
-| `placement` | 下拉面板位置 | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'` | `'bottom-start'` |
-| `value-key` | 建议对象中作为显示值的字段名 | `string` | `'value'` |
-| `popper-class` | 下拉面板自定义类名 | `string` | `undefined` |
-| `teleported` | 是否将下拉面板挂载到 `body` | `boolean` | `true` |
-| `fit-input-width` | 下拉面板宽度是否跟随输入框 | `boolean` | `true` |
-| `highlight-first-item` | 是否默认高亮第一项 | `boolean` | `false` |
-| `prefix-icon` | 前缀图标组件或图标名 | `string \| Component` | `undefined` |
-| `suffix-icon` | 后缀图标组件或图标名 | `string \| Component` | `undefined` |
-| `validate-event` | 是否触发表单校验 | `boolean` | `true` |
-| `autofocus` | 是否自动聚焦 | `boolean` | `false` |
-| `name` | 原生 `name` 属性 | `string` | `undefined` |
-| `autocomplete` | 原生 `autocomplete` 属性 | `string` | `'off'` |
-| `theme-overrides` | 组件级主题覆盖 | `ComponentThemeVars` | `undefined` |
+| 名称                    | 说明                         | 类型                                                                                 | 默认值           |
+| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
+| `model-value / v-model` | 当前输入值                   | `string`                                                                             | `undefined`      |
+| `placeholder`           | 占位文案                     | `string`                                                                             | `undefined`      |
+| `disabled`              | 是否禁用                     | `boolean`                                                                            | `false`          |
+| `clearable`             | 是否允许清空                 | `boolean`                                                                            | `false`          |
+| `size`                  | 输入框尺寸                   | `'large' \| 'default' \| 'small'`                                                    | `undefined`      |
+| `fetch-suggestions`     | 候选建议获取函数             | `(query: string, callback: (suggestions: AutocompleteSuggestion[]) => void) => void` | `undefined`      |
+| `trigger-on-focus`      | 聚焦时是否立即触发建议获取   | `boolean`                                                                            | `true`           |
+| `debounce`              | 建议请求防抖时长，单位毫秒   | `number`                                                                             | `300`            |
+| `placement`             | 下拉面板位置                 | `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'`    | `'bottom-start'` |
+| `value-key`             | 建议对象中作为显示值的字段名 | `string`                                                                             | `'value'`        |
+| `popper-class`          | 下拉面板自定义类名           | `string`                                                                             | `undefined`      |
+| `teleported`            | 是否将下拉面板挂载到 `body`  | `boolean`                                                                            | `true`           |
+| `fit-input-width`       | 下拉面板宽度是否跟随输入框   | `boolean`                                                                            | `true`           |
+| `highlight-first-item`  | 是否默认高亮第一项           | `boolean`                                                                            | `false`          |
+| `prefix-icon`           | 前缀图标组件或图标名         | `string \| Component`                                                                | `undefined`      |
+| `suffix-icon`           | 后缀图标组件或图标名         | `string \| Component`                                                                | `undefined`      |
+| `validate-event`        | 是否触发表单校验             | `boolean`                                                                            | `true`           |
+| `autofocus`             | 是否自动聚焦                 | `boolean`                                                                            | `false`          |
+| `name`                  | 原生 `name` 属性             | `string`                                                                             | `undefined`      |
+| `autocomplete`          | 原生 `autocomplete` 属性     | `string`                                                                             | `'off'`          |
+| `theme-overrides`       | 组件级主题覆盖               | `ComponentThemeVars`                                                                 | `undefined`      |
 
 ### Events
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| `update:modelValue` | 输入值变化时触发 | `(value: string) => void` |
-| `input` | 输入过程中触发 | `(value: string) => void` |
-| `change` | 输入值提交变化时触发 | `(value: string) => void` |
-| `focus` | 输入框获取焦点时触发 | `(event: FocusEvent) => void` |
-| `blur` | 输入框失去焦点时触发 | `(event: FocusEvent) => void` |
-| `clear` | 点击清空按钮时触发 | `() => void` |
-| `select` | 选中候选项时触发 | `(item: AutocompleteSuggestion) => void` |
+| 名称                | 说明                 | 参数                                     |
+| ------------------- | -------------------- | ---------------------------------------- |
+| `update:modelValue` | 输入值变化时触发     | `(value: string) => void`                |
+| `input`             | 输入过程中触发       | `(value: string) => void`                |
+| `change`            | 输入值提交变化时触发 | `(value: string) => void`                |
+| `focus`             | 输入框获取焦点时触发 | `(event: FocusEvent) => void`            |
+| `blur`              | 输入框失去焦点时触发 | `(event: FocusEvent) => void`            |
+| `clear`             | 点击清空按钮时触发   | `() => void`                             |
+| `select`            | 选中候选项时触发     | `(item: AutocompleteSuggestion) => void` |
 
 ### Slots
 
-| 名称 | 说明 | 参数 |
-| --- | --- | --- |
-| `default` | 自定义候选项内容 | `{ item: AutocompleteSuggestion }` |
-| `prefix` | 输入框前缀内容 | `-` |
-| `suffix` | 输入框后缀内容 | `-` |
-| `prepend` | 输入框包裹层前置内容 | `-` |
-| `append` | 输入框包裹层后置内容 | `-` |
-| `loading` | 自定义加载态内容 | `-` |
-| `empty` | 自定义空态内容 | `-` |
+| 名称      | 说明                 | 参数                               |
+| --------- | -------------------- | ---------------------------------- |
+| `default` | 自定义候选项内容     | `{ item: AutocompleteSuggestion }` |
+| `prefix`  | 输入框前缀内容       | `-`                                |
+| `suffix`  | 输入框后缀内容       | `-`                                |
+| `prepend` | 输入框包裹层前置内容 | `-`                                |
+| `append`  | 输入框包裹层后置内容 | `-`                                |
+| `loading` | 自定义加载态内容     | `-`                                |
+| `empty`   | 自定义空态内容       | `-`                                |
 
 ### Expose
 
-| 名称 | 说明 | 类型 |
-| --- | --- | --- |
-| `focus` | 让输入框获取焦点 | `() => void` |
-| `blur` | 让输入框失去焦点 | `() => void` |
-| `close` | 关闭候选面板 | `() => void` |
-| `highlight` | 高亮指定索引的候选项 | `(index: number) => void` |
-| `inputRef` | 原生输入框引用 | `HTMLInputElement \| undefined` |
+| 名称        | 说明                 | 类型                            |
+| ----------- | -------------------- | ------------------------------- |
+| `focus`     | 让输入框获取焦点     | `() => void`                    |
+| `blur`      | 让输入框失去焦点     | `() => void`                    |
+| `close`     | 关闭候选面板         | `() => void`                    |
+| `highlight` | 高亮指定索引的候选项 | `(index: number) => void`       |
+| `inputRef`  | 原生输入框引用       | `HTMLInputElement \| undefined` |
 
 ### 类型导出
 
-| 名称 | 说明 |
-| --- | --- |
-| `YhAutocompleteSize` | 尺寸联合类型 |
-| `YhAutocompletePlacement` | 下拉位置联合类型 |
-| `YhAutocompleteSuggestion` | 候选项数据类型 |
-| `YhAutocompleteProps` | `YhAutocomplete` 的 props 类型 |
-| `YhAutocompleteEmits` | `YhAutocomplete` 的 emits 类型 |
-| `YhAutocompleteSlots` | `YhAutocomplete` 的 slots 类型 |
-| `YhAutocompleteExpose` | 组件暴露实例类型 |
-| `YhAutocompleteInstance` | 组件实例类型 |
+| 名称                       | 说明                           |
+| -------------------------- | ------------------------------ |
+| `YhAutocompleteSize`       | 尺寸联合类型                   |
+| `YhAutocompletePlacement`  | 下拉位置联合类型               |
+| `YhAutocompleteSuggestion` | 候选项数据类型                 |
+| `YhAutocompleteProps`      | `YhAutocomplete` 的 props 类型 |
+| `YhAutocompleteEmits`      | `YhAutocomplete` 的 emits 类型 |
+| `YhAutocompleteSlots`      | `YhAutocomplete` 的 slots 类型 |
+| `YhAutocompleteExpose`     | 组件暴露实例类型               |
+| `YhAutocompleteInstance`   | 组件实例类型                   |
 
 ### 主题变量
 

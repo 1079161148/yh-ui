@@ -437,18 +437,18 @@ The Waterfall component fully supports SSR in Nuxt 3/4. When used in a Nuxt proj
 
 ### Props
 
-| Name              | Description                                                                                    | Type                      | Default    |
-| ----------------- | ---------------------------------------------------------------------------------------------- | ------------------------- | ---------- |
-| `items`           | Data source array                                                                              | `T[]`                     | `[]`       |
-| `cols`            | Column count config. Supports a number or responsive object.                                   | `number \| WaterfallCols` | `2`        |
-| `gap`             | Gap between cards (px)                                                                         | `number`                  | `16`       |
-| `loading`         | Whether in loading state                                                                       | `boolean`                 | `false`    |
-| `height-property` | Field name for height used for balanced layout. Enables shortest column algorithm if provided. | `string`                  | `'height'` |
-| `img-selector`    | Internal image selector. Triggers re-calculation after images load.                            | `string`                  | `'img'`    |
-| `animation`       | Whether entrance animations are enabled                                                        | `boolean`                 | `true`     |
-| `delay`           | Base delay for step-up animations (ms)                                                         | `number`                  | `100`      |
-| `row-key`         | Field name for unique identifier                                                               | `string`                  | `'id'`     |
-| `responsive`      | Whether to automatically listen for container width changes                                    | `boolean`                 | `true`     |
+| Name              | Description                                                                                    | Type                      | Default     |
+| ----------------- | ---------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
+| `items`           | Data source array                                                                              | `T[]`                     | `[]`        |
+| `cols`            | Column count config. Supports a number or responsive object.                                   | `number \| WaterfallCols` | `2`         |
+| `gap`             | Gap between cards (px)                                                                         | `number`                  | `16`        |
+| `loading`         | Whether in loading state                                                                       | `boolean`                 | `false`     |
+| `height-property` | Field name for height used for balanced layout. Enables shortest column algorithm if provided. | `string`                  | `'height'`  |
+| `img-selector`    | Internal image selector. Triggers re-calculation after images load.                            | `string`                  | `'img'`     |
+| `animation`       | Whether entrance animations are enabled                                                        | `boolean`                 | `true`      |
+| `delay`           | Base delay for step-up animations (ms)                                                         | `number`                  | `100`       |
+| `row-key`         | Field name for unique identifier                                                               | `string`                  | `'id'`      |
+| `responsive`      | Whether to automatically listen for container width changes                                    | `boolean`                 | `true`      |
 | `theme-overrides` | Component-level theme overrides                                                                | `ComponentThemeVars`      | `undefined` |
 
 #### WaterfallCols Definition
@@ -488,14 +488,14 @@ This component does not expose component events.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhWaterfallCols` | Responsive column config type |
-| `YhWaterfallItemBase` | Base item type |
-| `YhWaterfallProps` | Component props type |
-| `YhWaterfallSlots` | Component slots type |
-| `YhWaterfallExpose` | Component expose type |
-| `YhWaterfallInstance` | Component instance type |
+| Name                  | Description                   |
+| --------------------- | ----------------------------- |
+| `YhWaterfallCols`     | Responsive column config type |
+| `YhWaterfallItemBase` | Base item type                |
+| `YhWaterfallProps`    | Component props type          |
+| `YhWaterfallSlots`    | Component slots type          |
+| `YhWaterfallExpose`   | Component expose type         |
+| `YhWaterfallInstance` | Component instance type       |
 
 <style scoped>
 .shop-card {

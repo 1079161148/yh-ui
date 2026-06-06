@@ -93,7 +93,9 @@ describe('GraphQL', () => {
       const b = new GraphQLBuilder().operation('query').name('Q').field('x')
       await client.query(b)
       const { request } = await import('../request')
-      const call = vi.mocked(request.request).mock.calls.at(-1)?.[0] as { data?: { query?: string } }
+      const call = vi.mocked(request.request).mock.calls.at(-1)?.[0] as {
+        data?: { query?: string }
+      }
       expect(call?.data?.query).toContain('query Q')
     })
   })

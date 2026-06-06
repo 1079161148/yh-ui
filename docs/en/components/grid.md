@@ -285,26 +285,26 @@ Grid component has passed complete SSR tests, ensuring consistent rendering betw
 
 #### Grid
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| cols | Columns count or CSS template | `number \| string` | `12` |
-| gap | Gap | `number \| string \| [number \| string, number \| string]` | `0` |
-| colGap | Column gap (overrides gap) | `number \| string` | `0` |
-| rowGap | Row gap (overrides gap) | `number \| string` | `0` |
-| collapsed | Collapsed | `boolean` | `false` |
-| collapsedRows | Collapsed visible rows | `number` | `1` |
-| justifyItems | Horizontal alignment | `'start' \| 'end' \| 'center' \| 'stretch'` | `undefined` |
-| alignItems | Vertical alignment | `'start' \| 'end' \| 'center' \| 'stretch'` | `undefined` |
-| responsive | Responsive breakpoint mode | `'self' \| 'screen'` | `undefined` |
-| themeOverrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
+| Prop           | Description                              | Type                                                       | Default     |
+| -------------- | ---------------------------------------- | ---------------------------------------------------------- | ----------- |
+| cols           | Columns count or CSS template            | `number \| string`                                         | `12`        |
+| gap            | Gap                                      | `number \| string \| [number \| string, number \| string]` | `0`         |
+| colGap         | Column gap (overrides gap)               | `number \| string`                                         | `0`         |
+| rowGap         | Row gap (overrides gap)                  | `number \| string`                                         | `0`         |
+| collapsed      | Collapsed                                | `boolean`                                                  | `false`     |
+| collapsedRows  | Collapsed visible rows                   | `number`                                                   | `1`         |
+| justifyItems   | Horizontal alignment                     | `'start' \| 'end' \| 'center' \| 'stretch'`                | `undefined` |
+| alignItems     | Vertical alignment                       | `'start' \| 'end' \| 'center' \| 'stretch'`                | `undefined` |
+| responsive     | Responsive breakpoint mode               | `'self' \| 'screen'`                                       | `undefined` |
+| themeOverrides | Component-level theme variable overrides | `ComponentThemeVars`                                       | `undefined` |
 
 #### Grid Item
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| span | Column span | `number` | `1` |
-| offset | Column offset | `number` | `0` |
-| suffix | Suffix element (pinned to row end) | `boolean` | `false` |
+| Prop           | Description                              | Type                 | Default     |
+| -------------- | ---------------------------------------- | -------------------- | ----------- |
+| span           | Column span                              | `number`             | `1`         |
+| offset         | Column offset                            | `number`             | `0`         |
+| suffix         | Suffix element (pinned to row end)       | `boolean`            | `false`     |
 | themeOverrides | Component-level theme variable overrides | `ComponentThemeVars` | `undefined` |
 
 ### Events
@@ -315,15 +315,15 @@ This component does not expose component events.
 
 #### Grid
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Grid content | `-` |
+| Slot    | Description  | Parameters |
+| ------- | ------------ | ---------- |
+| default | Grid content | `-`        |
 
 #### Grid Item
 
-| Slot | Description | Parameters |
-| --- | --- | --- |
-| default | Grid item content | `-` |
+| Slot    | Description       | Parameters |
+| ------- | ----------------- | ---------- |
+| default | Grid item content | `-`        |
 
 ### Expose
 
@@ -331,20 +331,20 @@ This component does not expose public instance methods or properties.
 
 ### Theme Variables
 
-| Variable Name | Description | Default |
-| --- | --- | --- |
-| `--yh-grid-gap` | Grid gap | `0` |
-| `--yh-grid-col-gap` | Grid column gap | `var(--yh-grid-gap, 0)` |
-| `--yh-grid-row-gap` | Grid row gap | `var(--yh-grid-gap, 0)` |
-| `--yh-grid-item-padding` | Item padding | `0` |
+| Variable Name            | Description     | Default                 |
+| ------------------------ | --------------- | ----------------------- |
+| `--yh-grid-gap`          | Grid gap        | `0`                     |
+| `--yh-grid-col-gap`      | Grid column gap | `var(--yh-grid-gap, 0)` |
+| `--yh-grid-row-gap`      | Grid row gap    | `var(--yh-grid-gap, 0)` |
+| `--yh-grid-item-padding` | Item padding    | `0`                     |
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhGridProps` | Props type for `YhGrid` |
-| `YhGridItemProps` | Props type for `YhGridItem` |
-| `YhGridSlots` | Slots type for `YhGrid` |
-| `YhGridItemSlots` | Slots type for `YhGridItem` |
-| `YhGridInstance` | Public instance type for `YhGrid` |
+| Name                 | Description                           |
+| -------------------- | ------------------------------------- |
+| `YhGridProps`        | Props type for `YhGrid`               |
+| `YhGridItemProps`    | Props type for `YhGridItem`           |
+| `YhGridSlots`        | Slots type for `YhGrid`               |
+| `YhGridItemSlots`    | Slots type for `YhGridItem`           |
+| `YhGridInstance`     | Public instance type for `YhGrid`     |
 | `YhGridItemInstance` | Public instance type for `YhGridItem` |

@@ -291,11 +291,11 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhCategoryNavProps` | Props type for `YhCategoryNav` |
-| `YhCategoryNavEmits` | Emits type for `YhCategoryNav` |
-| `YhCategoryNavSlots` | Slots type for `YhCategoryNav` |
-| `YhCategoryItem` | Primary category item type |
-| `YhCategorySubItem` | Secondary category item type |
+| Name                    | Description                              |
+| ----------------------- | ---------------------------------------- |
+| `YhCategoryNavProps`    | Props type for `YhCategoryNav`           |
+| `YhCategoryNavEmits`    | Emits type for `YhCategoryNav`           |
+| `YhCategoryNavSlots`    | Slots type for `YhCategoryNav`           |
+| `YhCategoryItem`        | Primary category item type               |
+| `YhCategorySubItem`     | Secondary category item type             |
 | `YhCategoryNavInstance` | Public instance type for `YhCategoryNav` |

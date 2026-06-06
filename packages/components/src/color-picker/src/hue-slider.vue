@@ -50,7 +50,16 @@ const handleMouseDown = (event: MouseEvent) => {
   width: 100%;
   height: 12px;
   border-radius: 6px;
-  background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+  background: linear-gradient(
+    to right,
+    #f00 0%,
+    #ff0 17%,
+    #0f0 33%,
+    #0ff 50%,
+    #00f 67%,
+    #f0f 83%,
+    #f00 100%
+  );
   cursor: pointer;
 
   &__handle {

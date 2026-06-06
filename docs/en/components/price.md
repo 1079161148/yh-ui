@@ -163,30 +163,30 @@ Standard struck-through prices and thousand separators are built in, so common r
 
 ### Props
 
-| Property        | Description                                      | Type                                                        | Default     |
-| --------------- | ------------------------------------------------ | ----------------------------------------------------------- | ----------- |
-| value           | Current price value                              | `number \| string`                                          | `0`         |
-| max-value       | Maximum price used for range display             | `number \| string`                                          | `undefined` |
-| symbol          | Currency symbol                                  | `string`                                                    | `'¥'`       |
-| symbol-position | Currency symbol position                         | `'before' \| 'after'`                                       | `'before'`  |
-| precision       | Decimal precision                                | `number`                                                    | `2`         |
-| line-through    | Whether to render the main price as struck through | `boolean`                                                 | `false`     |
-| size            | Built-in size preset                             | `'small' \| 'default' \| 'large' \| string`                 | `'default'` |
-| split           | Whether to split integer and decimal font sizes  | `boolean`                                                   | `true`      |
-| decimal-scale   | Decimal font-size ratio                          | `number`                                                    | `0.8`       |
-| thousandth      | Whether to insert thousand separators            | `boolean`                                                   | `true`      |
-| bold            | Whether to apply bold weight                     | `boolean`                                                   | `false`     |
-| prefix          | Prefix text                                      | `string`                                                    | `''`        |
-| suffix          | Suffix text                                      | `string`                                                    | `''`        |
-| unit            | Unit label, such as `/kg`                        | `string`                                                    | `''`        |
-| delete-value    | Secondary original price value                   | `number \| string`                                          | `undefined` |
-| delete-label    | Label shown before the deleted price             | `string`                                                    | `''`        |
-| tag             | Tag text shown before the price                  | `string`                                                    | `''`        |
-| tag-type        | Tag visual type                                  | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`  |
-| approx          | Whether to prepend an approximate mark           | `boolean`                                                   | `false`     |
-| animated        | Whether to animate value changes                 | `boolean`                                                   | `false`     |
-| gradient        | Gradient text mode                               | `boolean \| string[]`                                       | `false`     |
-| theme-overrides | Component-level theme variable overrides         | `Record<string, string>`                                    | `{}`        |
+| Property        | Description                                        | Type                                                        | Default     |
+| --------------- | -------------------------------------------------- | ----------------------------------------------------------- | ----------- |
+| value           | Current price value                                | `number \| string`                                          | `0`         |
+| max-value       | Maximum price used for range display               | `number \| string`                                          | `undefined` |
+| symbol          | Currency symbol                                    | `string`                                                    | `'¥'`       |
+| symbol-position | Currency symbol position                           | `'before' \| 'after'`                                       | `'before'`  |
+| precision       | Decimal precision                                  | `number`                                                    | `2`         |
+| line-through    | Whether to render the main price as struck through | `boolean`                                                   | `false`     |
+| size            | Built-in size preset                               | `'small' \| 'default' \| 'large' \| string`                 | `'default'` |
+| split           | Whether to split integer and decimal font sizes    | `boolean`                                                   | `true`      |
+| decimal-scale   | Decimal font-size ratio                            | `number`                                                    | `0.8`       |
+| thousandth      | Whether to insert thousand separators              | `boolean`                                                   | `true`      |
+| bold            | Whether to apply bold weight                       | `boolean`                                                   | `false`     |
+| prefix          | Prefix text                                        | `string`                                                    | `''`        |
+| suffix          | Suffix text                                        | `string`                                                    | `''`        |
+| unit            | Unit label, such as `/kg`                          | `string`                                                    | `''`        |
+| delete-value    | Secondary original price value                     | `number \| string`                                          | `undefined` |
+| delete-label    | Label shown before the deleted price               | `string`                                                    | `''`        |
+| tag             | Tag text shown before the price                    | `string`                                                    | `''`        |
+| tag-type        | Tag visual type                                    | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'danger'`  |
+| approx          | Whether to prepend an approximate mark             | `boolean`                                                   | `false`     |
+| animated        | Whether to animate value changes                   | `boolean`                                                   | `false`     |
+| gradient        | Gradient text mode                                 | `boolean \| string[]`                                       | `false`     |
+| theme-overrides | Component-level theme variable overrides           | `Record<string, string>`                                    | `{}`        |
 
 ### Events
 
@@ -196,11 +196,11 @@ This component does not expose component events.
 
 | Slot   | Description                    | Parameters |
 | ------ | ------------------------------ | ---------- |
-| tag    | Custom tag content             | `-`      |
-| prefix | Custom prefix content          | `-`      |
-| symbol | Custom currency symbol content | `-`      |
-| unit   | Custom unit content            | `-`      |
-| suffix | Custom suffix content          | `-`      |
+| tag    | Custom tag content             | `-`        |
+| prefix | Custom prefix content          | `-`        |
+| symbol | Custom currency symbol content | `-`        |
+| unit   | Custom unit content            | `-`        |
+| suffix | Custom suffix content          | `-`        |
 
 ### Expose
 
@@ -219,8 +219,8 @@ This component does not expose public instance methods or properties.
 
 ### Type Exports
 
-| Name | Description |
-| --- | --- |
-| `YhPriceProps` | Component props type |
-| `YhPriceSlots` | Component slots type |
+| Name              | Description             |
+| ----------------- | ----------------------- |
+| `YhPriceProps`    | Component props type    |
+| `YhPriceSlots`    | Component slots type    |
 | `YhPriceInstance` | Component instance type |

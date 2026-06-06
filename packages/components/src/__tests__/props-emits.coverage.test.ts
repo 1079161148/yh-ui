@@ -91,7 +91,9 @@ describe('props and emits coverage', () => {
     expect(skuSelectorEmits['update:modelValue']([])).toBe(true)
     expect(skuSelectorEmits['update:modelValue']('x' as never)).toBe(false)
     expect(skuSelectorEmits.change(null, [])).toBe(true)
-    expect(skuSelectorEmits.select({ id: 1, name: 'S', values: [] }, { id: 1, name: 'V' })).toBe(true)
+    expect(skuSelectorEmits.select({ id: 1, name: 'S', values: [] }, { id: 1, name: 'V' })).toBe(
+      true
+    )
 
     expect(imageViewerEmits.close()).toBe(true)
     expect(imageViewerEmits.switch(1)).toBe(true)
@@ -164,7 +166,9 @@ describe('props and emits coverage', () => {
     expect(tableEmits['select-all']([row])).toBe(true)
     expect(tableEmits.select([row], row)).toBe(true)
     expect(tableEmits.scroll({ scrollTop: 1, scrollLeft: 2, isEnd: false })).toBe(true)
-    expect(tableEmits['drag-end']({ type: 'row', oldIndex: 0, newIndex: 1, data: [row] })).toBe(true)
+    expect(tableEmits['drag-end']({ type: 'row', oldIndex: 0, newIndex: 1, data: [row] })).toBe(
+      true
+    )
     expect(tableEmits['column-resize'](column, 120)).toBe(true)
     expect(tableEmits['column-visible-change']([column])).toBe(true)
     expect(tableEmits['update:data']([row])).toBe(true)
