@@ -240,21 +240,17 @@ function postProcessSanitizedMarkup(html: string, allowedSchemes: string[]) {
 
 function serverSideSanitize(html: string, allowedSchemes: string[]) {
   let output = html
-    // 移除危险标签
     .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
     .replace(/<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi, '')
     .replace(/<object[\s\S]*?>[\s\S]*?<\/object>/gi, '')
     .replace(/<embed[\s\S]*?>/gi, '')
-    // 移除事件处理程序
     .replace(/\son[a-z-]+\s*=\s*(['"]).*?\1/gi, '')
     .replace(/\son[a-z-]+\s*=\s*[^\s>]+/gi, '')
 
-  // 清理 URL 属性
   const urlAttrs = ['href', 'src', 'xlink:href', 'xlink\\:href']
   for (const attr of urlAttrs) {
     const regex = new RegExp(`\\s(${attr})\\s*=\\s*(['"])(.*?)\\2`, 'gi')
     output = output.replace(regex, (full, attrName: string, quote: string, rawValue: string) => {
-      // 特殊处理 javascript: 协议
       if (rawValue.toLowerCase().startsWith('javascript:')) {
         return ` ${attrName}=${quote}${quote}`
       }
@@ -262,7 +258,6 @@ function serverSideSanitize(html: string, allowedSchemes: string[]) {
     })
   }
 
-  // 再次确保移除所有 javascript: URL（不区分大小写）
   output = output.replace(/javascript:/gi, '')
 
   return output
@@ -292,39 +287,43 @@ export function sanitizeMarkup(html: string, options: SanitizeMarkupOptions = {}
     ...(options.profile === 'svg' ? NORMALIZED_SVG_ATTRIBUTES : DEFAULT_HTML_ATTRIBUTES)
   ]
   const purifierInstance = getPurifier()
-
-  // 始终先进行服务端清理，确保安全
   let sanitized = serverSideSanitize(source, allowedSchemes)
 
-  if (purifierInstance) {
-    try {
-      const domSanitized = purifierInstance.sanitize(sanitized, {
-        ALLOWED_TAGS: allowedTags,
-        ALLOWED_ATTR: allowedAttributes,
-        ALLOW_DATA_ATTR: options.allowDataAttributes ?? true,
-        USE_PROFILES:
-          options.profile === 'svg' ? { html: true, svg: true, svgFilters: true } : { html: true }
-      })
+  if (!purifierInstance) {
+    return sanitized
+  }
 
-      if (
-        options.profile === 'svg' &&
-        shouldFallbackToServerSvgSanitizer(source, String(domSanitized))
-      ) {
-        // 使用服务端清理结果
-      } else {
-        sanitized = String(domSanitized)
-      }
-    } catch {
-      // 如果 DOMPurify 失败，继续使用服务端清理结果
+  try {
+    const domSanitized = purifierInstance.sanitize(sanitized, {
+      ALLOWED_TAGS: allowedTags,
+      ALLOWED_ATTR: allowedAttributes,
+      ALLOW_DATA_ATTR: options.allowDataAttributes ?? true,
+      USE_PROFILES:
+        options.profile === 'svg' ? { html: true, svg: true, svgFilters: true } : { html: true }
+    })
+
+    if (
+      options.profile === 'svg' &&
+      shouldFallbackToServerSvgSanitizer(source, String(domSanitized))
+    ) {
+      return postProcessSanitizedMarkup(sanitized, allowedSchemes)
     }
+
+    sanitized = String(domSanitized)
+  } catch {
+    // Keep the server-side sanitized result if DOMPurify is unavailable or fails.
   }
 
   return postProcessSanitizedMarkup(sanitized, allowedSchemes)
 }
 
-export function sanitizeHighlightedHtml(html: string) {
-  // 专门为高亮代码的简单清理 - 只移除危险内容，保留样式类
-  return html
+export function sanitizeHighlightedHtml(
+  html: string,
+  options: Omit<SanitizeMarkupOptions, 'allowedTags' | 'allowedAttributes' | 'profile'> = {}
+) {
+  const source = options.sanitizer ? options.sanitizer(html) : html
+
+  return source
     .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
     .replace(/<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi, '')
     .replace(/<object[\s\S]*?>[\s\S]*?<\/object>/gi, '')

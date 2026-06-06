@@ -14,6 +14,7 @@ import {
   useSlots,
   type CSSProperties,
   type Ref,
+  type Slots,
   type VNodeChild
 } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
@@ -32,6 +33,7 @@ import {
   flattenColumns,
   getColumnDepth,
   buildHeaderRows,
+  type HeaderCell,
   formatSize,
   defaultSortMethod,
   multiValueFilter,
@@ -56,7 +58,7 @@ defineOptions({
 
 const props = defineProps(tableProps)
 const emit = defineEmits(tableEmits)
-const slots = useSlots()
+const slots: Slots = useSlots()
 const ns = useNamespace('table')
 const { t } = useLocale()
 
@@ -110,7 +112,7 @@ const allColumns = computed(() => {
 const flatColumns = computed(() => flattenColumns(allColumns.value))
 
 // 多级表头行 (仅嵌套列时有值)
-const headerRows = computed(() => buildHeaderRows(allColumns.value))
+const headerRows = computed<HeaderCell[][]>(() => buildHeaderRows(allColumns.value))
 const columnDepth = computed(() => getColumnDepth(allColumns.value))
 
 // 可见列
@@ -366,7 +368,7 @@ const toolbarSlotNames = [
   'toolbar-right-prefix',
   'toolbar-right-suffix'
 ]
-const showToolbar = computed(() => {
+const showToolbar = computed<boolean>(() => {
   if (props.toolbarConfig?.visible) return true
   return toolbarSlotNames.some((name) => !!slots[name])
 })

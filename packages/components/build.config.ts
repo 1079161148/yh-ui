@@ -13,7 +13,7 @@ export default defineBuildConfig({
       pattern: ['**', '!**/__tests__/**'],
       format: 'esm',
       ext: 'mjs',
-      declaration: false
+      declaration: true
     },
     {
       builder: 'mkdist',
@@ -25,7 +25,7 @@ export default defineBuildConfig({
       declaration: false
     }
   ],
-  declaration: false,
+  declaration: true,
   clean: true,
   externals: [
     'vue',
@@ -79,6 +79,11 @@ export default defineBuildConfig({
 
       options.loaders = [customSassLoader as never, vueLoader as never, 'js', 'postcss']
     }
+  },
+  rollup: {
+    emitCJS: true,
+    cjsBridge: true,
+    output: { exports: 'named' }
   },
   failOnWarn: false
 })

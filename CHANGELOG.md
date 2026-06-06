@@ -4,6 +4,14 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.32] - 2026-06-06
+
+Patch release focusing on fixing build errors and CI issues.
+
+### Fixed
+
+- Fixed build errors and CI issues to ensure smooth release process.
+
 ## [1.0.30] - 2026-05-25
 
 Patch release focusing on fixing cross-platform path resolution issues in CLI tests to resolve runner environment failures.

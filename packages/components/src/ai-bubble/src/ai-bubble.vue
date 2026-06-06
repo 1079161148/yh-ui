@@ -742,7 +742,7 @@ const jsonHtml = computed(() => {
       )
     }
 
-    return escapeHtml(jsonString)
+    return sanitizeHighlightedHtml(escapeHtml(jsonString))
   } catch (e) {
     console.warn('Failed to render JSON structured data:', e)
     return ''

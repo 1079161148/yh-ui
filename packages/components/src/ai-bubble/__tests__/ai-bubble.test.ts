@@ -1274,7 +1274,7 @@ describe('YhAiBubble', () => {
     expect(html).not.toContain('onerror=')
     expect(html).not.toContain('javascript:')
     expect(html).toContain('<img src="x">')
-    expect(html).toContain('bad</a>')
+    expect(html).toContain('<a href="" target="_blank" rel="noopener noreferrer">bad</a>')
   })
 
   it('should keep markdown code block actions after sanitizing rendered html', async () => {

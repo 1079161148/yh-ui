@@ -124,9 +124,21 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      istanbul-lib-coverage:
+        specifier: ^3.2.2
+        version: 3.2.2
+      istanbul-lib-report:
+        specifier: ^3.0.1
+        version: 3.0.1
+      istanbul-reports:
+        specifier: ^3.2.0
+        version: 3.2.0
       lint-staged:
         specifier: ^15.3.0
         version: 15.3.0
+      picomatch:
+        specifier: ^4.0.4
+        version: 4.0.4
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.7.3)(vue@3.5.35(typescript@5.7.3))
